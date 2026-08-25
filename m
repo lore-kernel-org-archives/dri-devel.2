@@ -4,42 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C01A9C61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 15:40:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA91C61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 15:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6D310EACC;
-	Tue, 25 Aug 2026 15:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34E110EAD3;
+	Tue, 25 Aug 2026 15:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="myYQ/4x5";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="D6x9q9Zk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D241910EACC
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 15:40:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 827B2401A9;
- Tue, 25 Aug 2026 15:40:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B4D1F000E9;
- Tue, 25 Aug 2026 15:40:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787672415;
- bh=Mn6br+9Co6x0r31xelXT0YWAwaefCZPu2AD602S7UAs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=myYQ/4x5+cKoZ8Gr1l4I0uB/i8wp0TyEyzCD5YYkKrUlihMle+xNCFM9ndhjFv36+
- 9CxS4t6/tlS/+B5GnMgJNhTGOCeWqB2WpCLlMfuESU+5w76hvbLaVoUnBBunu6AuNV
- /3KNJCoOat4/jd0AGlNJ+Z/ZxVN0mYIkPX1A/EKkXCgGjFnfjq5Ed6jNV0F7F3/bSx
- ip42nmFC5nKWIb38FUq8BqpADMYQxtXFmP7pTIDhoSm63XxSCNJgo+HuzS9HMk7KGk
- WyGNwTiGCv7iFsM79MDdgfQhDrzQgPFFeNghmE6n4ScUsJz/tZkRBMXB5+wX7UYj8Q
- X0+Xr3MDQWU9A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <e67a2cb0d599b75ae365882913c543e7b0c5b8a3.1787671708.git.geert@linux-m68k.org>
-References: <e67a2cb0d599b75ae365882913c543e7b0c5b8a3.1787671708.git.geert@linux-m68k.org>
-Content-Type: text/plain; charset=utf-8
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A291110EAD2
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 15:59:37 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id DB3111A17DD;
+ Tue, 25 Aug 2026 15:59:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id ACA98604C4;
+ Tue, 25 Aug 2026 15:59:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 005C711C7A67C; 
+ Tue, 25 Aug 2026 17:59:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1787673574; h=from:subject:date:message-id:to:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=3NZXFqkmkTqDCn9vPnJRnN4Vb1TE/i8iMGnvkqgygHM=;
+ b=D6x9q9ZkHOG7H7Hcdy+yhiOVusHNpegIj62Q/KDcPS40P56i4J/A5XjVLpN0EHzlf479t+
+ CVeBsYu0f6LkL0wnO/Tz4O+Rvw5aBpojWNTEh932XU5pxhOfiOE0jF5fUg0iQeL/eTMCkM
+ 5NYbLbNZ4xxEzmZTXD8nNouhsV6coffCUU9y/AihwHbyRmo8k5L43NJYH8y/gFZHKiVWRI
+ oV+2lhwZIxReXV73grHyqcyKQuiq4oWufmcJoU4/twKtSjEY79pV94ZrDG5wrwIFHoeK1Y
+ xXddQQ5JTVg7fFcP8b4gf9c3AfuD9td3YTlG9bAgofuhSp4XYC0Xtwqp/rNkxw==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 15:40:14 +0000
-Message-Id: <20260825154015.41B4D1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 25 Aug 2026 17:59:23 +0200
+Message-Id: <DKY5E1PJ172I.2LYOZZT775PE9@bootlin.com>
+Subject: Re: [PATCH v3 1/6] drm/panel: Use devm_mipi_dsi_attach in BOE panels
+To: "Osama Abdelkader" <osama.abdelkader@gmail.com>,
+ <luca.ceresoli@bootlin.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Jessica Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jerry Han"
+ <hanxu5@huaqin.corp-partner.google.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260812130429.16850-1-osama.abdelkader@gmail.com>
+In-Reply-To: <20260812130429.16850-1-osama.abdelkader@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,53 +64,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Adding `depends on DRM || COMPILE_TEST` to the `bool` symbol `GPU_B=
-UDDY` causes a Kconfig unmet direct dependencies warning when `DRM=3Dm`, an=
-d breaks manual selection of the KUnit test.
+On Wed Aug 12, 2026 at 3:04 PM CEST, Osama Abdelkader wrote:
+> Use the managed MIPI DSI attach helper in BOE panel drivers and drop the
+> corresponding manual detach calls from remove paths.
+>
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+
+Please, next time use proper tools to send your series ina single thread
+with a cover letter. This v3 is made of 6 e-mails in 6 separate threads,
+which is very annoying to handle.
+
+>
+> ---
+> v3:
+> - Move the changelog after the `---`.
+>
+> v2:
+> - break long description lines.
+> - add Signed-off-by tag
+>
+>  drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c       | 8 +-------
+>  drivers/gpu/drm/panel/panel-boe-himax8279d.c         | 8 +-------
+>  drivers/gpu/drm/panel/panel-boe-td4320.c             | 8 +-------
+>  drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c | 4 +---
+>  drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c       | 8 +-------
+>  drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c       | 7 +------
+>  6 files changed, 6 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c b/drivers/gpu=
+/drm/panel/panel-boe-bf060y8m-aj0.c
+> index 84c21c62a43e..6a74523a6614 100644
+> --- a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
+> +++ b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
+> @@ -359,7 +359,7 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_dev=
+ice *dsi)
+>
+>  	drm_panel_add(&boe->panel);
+
+Why not converting drm_panel_add() to the devm variant too? Without it...
+
+>
+> -	ret =3D mipi_dsi_attach(dsi);
+> +	ret =3D devm_mipi_dsi_attach(&dsi->dev, dsi);
+>  	if (ret < 0) {
+>  		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+>  		return ret;
+> @@ -371,12 +371,6 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_de=
+vice *dsi)
+>  static void boe_bf060y8m_aj0_remove(struct mipi_dsi_device *dsi)
+>  {
+>  	struct boe_bf060y8m_aj0 *boe =3D mipi_dsi_get_drvdata(dsi);
+> -	int ret;
+> -
+> -	ret =3D mipi_dsi_detach(dsi);
+> -	if (ret < 0)
+> -		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+> -
+>  	drm_panel_remove(&boe->panel);
+>  }
+
+...the remove sequence will be incorrect: removing the panel first (open
+coded) and detaching the DSI device afterwards (devm, done after .remove
+returns).
+
+Same for the other files.
+
+Note that patch 2 is correct in this respect.
+
+Luca
+
 --
-
---- Patch [1]: [PATCH v2] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_B=
-UDDY ---
-commit 0c0f9dc26f6481afe68d4de6c66198acb6cb9883
-Author: Geert Uytterhoeven <geert@linux-m68k.org>
-
-gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-
-This commit changes GPU_BUDDY_KUNIT_TEST to depend on GPU_BUDDY instead
-of selecting it. It also adds a dependency on DRM or COMPILE_TEST to
-GPU_BUDDY and makes it user-visible when KUNIT is enabled.
-
-> diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
-> index 3bcf08260d73a..d881ab6f7a006 100644
-> --- a/drivers/gpu/Kconfig
-> +++ b/drivers/gpu/Kconfig
-> @@ -1,14 +1,15 @@
->  # SPDX-License-Identifier: GPL-2.0
-> =20
->  config GPU_BUDDY
-> -       bool
-> +       bool "Page based buddy allocator for GPU memory" if KUNIT
-> +       depends on DRM || COMPILE_TEST
-
-[Severity: Low]
-Does adding this dependency cause a Kconfig warning when DRM is configured
-as a module?
-
-Because GPU_BUDDY is a boolean symbol, this dependency restriction evaluates
-to 'm' when CONFIG_DRM=3Dm and CONFIG_COMPILE_TEST=3Dn. This causes a confl=
-ict
-with the 'select' from DRM_BUDDY, resulting in an unmet direct dependencies
-warning.
-
-Additionally, could this prevent developers from manually enabling the KUnit
-test when DRM=3Dm without COMPILE_TEST?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/e67a2cb0d599b75ae36=
-5882913c543e7b0c5b8a3.1787671708.git.geert@linux-m68k.org?part=3D1
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
