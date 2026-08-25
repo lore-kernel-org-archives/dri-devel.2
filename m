@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441BBC5DF94
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:10:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B91C61DBC
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:10:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 910ED10E959;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1FE710E95B;
 	Tue, 25 Aug 2026 08:10:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RfuoaXfd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NE0RKJaU";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCBD710E959
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E439B10E958
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B78FA404E6
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5CA1F000E9;
- Tue, 25 Aug 2026 08:10:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CD17243237
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AAE91F00ADF;
+ Tue, 25 Aug 2026 08:10:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787645436;
- bh=LM2Skcm5xYA119hpslWGIfg+9IpTvOhhIHrK3ynfgmk=;
+ s=k20260515; t=1787645438;
+ bh=kda4egYi+HJ8ZUWi/6v+5yJ7Z+Z70ZaG3K4+NDbDqpI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RfuoaXfdJ3vjgFx4bMiY8Dx2Nu7VAQuk3nJ2Se/+pxErmcx9h4KeM/nh/OBcrCpBG
- sGi9tq7kkPBwnNq9GKqflj3BommxnqxluIUpROypu5oFTJiuhfHL6Dch7IxNPYIXVd
- xY+0OLh2TncjwZHCaabUttEHjxV8H0lo4qExGV9U49DXLNzhrqzUblyVgAuzRg24y1
- 4bLb8LFcHUkd+RGJLIecel5xu95qK+Da/BGziH3legHrHN2FzQCECbPGoKJHX+d5iR
- CxaRCxMBlc1n/u/9UafbtBU6iPue/TMSsgjUCEIKCEOfP1p7GCUn783ZHIid6CSK8Z
- zaRlzcxqJmdxg==
+ b=NE0RKJaUQ6n+tJILeoBBvzrkn/qDib07adLIu+uphLpvp8DubN+zvBZsDFggAgWRn
+ 69+bml/mi800S/mD4l3W8sGAZuetzB4E9Flu71f+/34tZyafXpzXOiIzepeQ2eahBU
+ WgmouX5aNl/5qxHMCiqhKgb3Q6SZ11lyxdFsaLVIF3fKyGLkJehqln/Q2MBuJ9mrpx
+ jEXcV0v4r9EodhWspphUyUgFpP9AGCNOg05Py2O7dHk58ih4xTN/tkE8kitHSSSxyj
+ cXOdbhfcEvf7Tj9mPhhLE3D8V3kJfOJsWUJWYwRnZZ3V2aFxTgDetWXZI2yEUhC1zL
+ z5znHz5/eN6/w==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 08/12] drm/fabric: add provisioning netlink uAPI
+Subject: Re: [RFC PATCH 11/12] drm/fabric: add mutation KUnit tests
 To: "Konstantin Sinyuk" <ksinyuk@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <2e6631d18a5a05e5a6217ce0b342fb5fedd2ca7d.1787552412.git.ksinyuk@kernel.org>
+In-Reply-To: <56ac95cbe4dfdfec86f4828bd59e4b3539b9bb39.1787552412.git.ksinyuk@kernel.org>
 References: <cover.1787552412.git.ksinyuk@kernel.org>
- <2e6631d18a5a05e5a6217ce0b342fb5fedd2ca7d.1787552412.git.ksinyuk@kernel.org>
+ <56ac95cbe4dfdfec86f4828bd59e4b3539b9bb39.1787552412.git.ksinyuk@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 08:10:36 +0000
-Message-Id: <20260825081036.7B5CA1F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 08:10:38 +0000
+Message-Id: <20260825081038.8AAE91F00ADF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,139 +57,65 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] New provisioning commands (`fabric-new`, `endpoint-set`, `port-s=
-et`, `port-peer-new`, `port-peer-del`) do not reply with a full message; mo=
-st only ACK on success.
-- [Medium] The `fabric-new-params` nested attribute introduces an unnecessa=
-ry extra wrapping nest for request parameters.
+- [Medium] Uninitialized pointer in test timeout path causes kernel panic d=
+uring cleanup
 --
 
---- Patch [8]: [RFC PATCH 08/12] drm/fabric: add provisioning netlink uAPI =
----
-commit 99dd7c47ab1a93cd9f0234f8280e8cd261d71d5a
-Author: Ilia Levi <ilia.levi@intel.com>
-Subject: drm/fabric: add provisioning netlink uAPI
+--- Patch [11]: [RFC PATCH 11/12] drm/fabric: add mutation KUnit tests ---
+commit 4053deb9cc41982c0c7a86f0e14eb969bfd85f18
+Author: Konstantin Sinyuk <ksinyuk@kernel.org>
 
-This commit extends the DRM fabric YNL specification with six privileged=20
-provisioning commands for managing fabrics, endpoints, and ports.
+drm/fabric: add mutation KUnit tests
 
-> diff --git a/Documentation/netlink/specs/drm_fabric.yaml b/Documentation/=
-netlink/specs/drm_fabric.yaml
-> --- a/Documentation/netlink/specs/drm_fabric.yaml
-> +++ b/Documentation/netlink/specs/drm_fabric.yaml
-> @@ -108,6 +125,17 @@ attribute-sets:
->            or DUMP reply carries its snapshot's generation; a notification
->            carries the generation of its change. Statistics reads do not
->            advance it.
-> +      # Provisioning request parameters
-> +      -
-> +        name: admin-state
-> +        type: u32
-> +        enum: admin-state
-> +        doc: Requested administrative state.
-> +      -
-> +        name: fabric-new-params
-> +        type: nest
-> +        nested-attributes: fabric-new-params
-> +        doc: Creation parameters for ``fabric-new`` (full nest).
+This commit adds KUnit coverage for the drm_fabric object model and
+topology-mutation paths. It tests various endpoint and port mutation scenar=
+ios,
+including concurrent mutations, orphan attach/detach, and error paths.
 
-[Severity: Medium]
-Does this introduce an extra wrapping nest for the request parameters?
-
-The generic netlink design rules for new families specify avoiding extra
-wrapping nests. Wrapping the request parameters inside the fabric-new-params
-nested attribute rather than placing them directly in the main drm-fabric
-request attributes creates unnecessary API complexity.
-
+> diff --git a/drivers/gpu/drm/fabric/drm_fabric_test.c b/drivers/gpu/drm/f=
+abric/drm_fabric_test.c
+> index 863b7cf690689..d2c88d1837375 100644
+> --- a/drivers/gpu/drm/fabric/drm_fabric_test.c
+> +++ b/drivers/gpu/drm/fabric/drm_fabric_test.c
 [ ... ]
-
-> @@ -421,6 +483,97 @@ operations:
->          reply shape (full fabric nest).
->        notify: fabric-get
-> =20
-> +    -
-> +      name: endpoint-change-ntf
-> +      doc: |
-> +        Endpoint state change notification.
-> +        Reuses the endpoint-get reply shape (full endpoint nest).
-> +      notify: endpoint-get
+> +static void drm_fabric_test_attach_register_collision(struct kunit *test)
+> +{
+[ ... ]
+> +	/* B then proceeds and must fail: X is now owned by A. */
+> +	KUNIT_EXPECT_GT(test,
+> +			wait_for_completion_timeout(&l4->reg_done, msecs_to_jiffies(5000)),
+> +			0);
+> +	if (!IS_ERR(l4->reg_ep)) {
+> +		KUNIT_ASSERT_EQ(test, 0,
+> +				kunit_add_action_or_reset(test,
+> +							  fabrictest_unregister_endpoint,
+> +							  l4->reg_ep));
+> +		KUNIT_FAIL(test, "racing registration unexpectedly succeeded");
+> +		return;
+> +	}
 > +
-> +    -
-> +      name: fabric-new
-> +      doc: Create a new empty fabric
-> +      attribute-set: drm-fabric
-> +      flags: [admin-perm]
-> +      do:
-> +        pre: drm-fabric-nl-pre-doit
-> +        post: drm-fabric-nl-post-doit
-> +        request:
-> +          attributes:
-> +            - fabric-new-params
-> +        reply:
-> +          attributes:
-> +            - fabric-id
+> +	KUNIT_EXPECT_EQ(test, PTR_ERR(l4->reg_ep), -EEXIST);
+> +}
 
 [Severity: Medium]
-Should this operation reply with a full message representing the object rat=
-her
-than just the fabric-id?
+If the registration thread stalls and wait_for_completion_timeout() times o=
+ut
+(returning 0), l4->reg_ep will remain NULL since l4 was allocated with
+kunit_kzalloc().
 
-The generic netlink design rules require that all operations, especially
-NEW/ADD, reply with a full message carrying identifying information about t=
-he
-new object. Replying only with the ID forces userspace to issue a separate
-GET command to retrieve the full state.
+Because IS_ERR(NULL) evaluates to false, wouldn't this execution path enter
+the if block and pass NULL to fabrictest_unregister_endpoint() during clean=
+up?
 
-[ ... ]
+This would lead to a NULL pointer dereference and a kernel panic when
+drm_fabric_endpoint_unregister() attempts to access the pointer.
 
-> +    -
-> +      name: endpoint-set
-> +      doc: Attach/detach an endpoint to a fabric and/or set its admin st=
-ate
-> +      attribute-set: drm-fabric
-> +      flags: [admin-perm]
-> +      do:
-> +        pre: drm-fabric-nl-endpoint-pre-doit
-> +        post: drm-fabric-nl-endpoint-post-doit
-> +        request:
-> +          attributes:
-> +            - endpoint-id
-> +            - dev-name
-> +            - bus-name
-> +            - fabric-id
-> +            - admin-state
-
-[Severity: Medium]
-Does this command intentionally omit a reply block?
-
-Without a reply block, this state-mutating operation will only ACK on succe=
-ss.
-Since once a command only ACKs, that behavior becomes unchangeable uAPI,
-should this operation be updated to return a full message reflecting the
-updated state?
-
-[ ... ]
-
-> +    -
-> +      name: port-peer-new
-> +      doc: Set a port's neighbor
-> +      attribute-set: drm-fabric
-> +      flags: [admin-perm]
-> +      do:
-> +        pre: drm-fabric-nl-port-pre-doit
-> +        post: drm-fabric-nl-port-post-doit
-> +        request:
-> +          attributes:
-> +            - endpoint-id
-> +            - port-index
-> +            - peer
-
-[Severity: Medium]
-Like the endpoint-set command above, should this ADD operation define a
-reply payload rather than defaulting to an ACK-only response?
+Should this check use IS_ERR_OR_NULL(l4->reg_ep) instead, or should l4->reg=
+_ep
+be initialized to an error pointer before the thread is spawned?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787552412.gi=
-t.ksinyuk@kernel.org?part=3D8
+t.ksinyuk@kernel.org?part=3D11
