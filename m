@@ -4,133 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F632C61DB6
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF51C61DBD
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C302F10E15C;
-	Tue, 25 Aug 2026 08:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E44BB10E164;
+	Tue, 25 Aug 2026 08:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sQCagDmq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2NLh5ZER";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="y+VpEsA0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q2Qkf/9G";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jqjEExv1";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6217D10E15C
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:00:58 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8117F10E164
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1787644891;
+ bh=3TNOGAvccl1TNM4QLXC4SAQP/XgcNL1NcuiVhIv6acY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=jqjEExv1yRgbzcqmG3c6mTwpDjpjt9+MCqI/N7wrxpN3FX2Ih7geQugjgvYaGADoG
+ /dQ9a/n8S/yf0DxzRW+gHUGvqy5ZCZr9WYSmCLEl2vxN8x8+QRNFBWVeiqcXuDExsU
+ t9W05MufbAv41WhD+frIjfao565B5sIaokWhFmd2gt3WjxgA+/kKezKnT7+l09Fxf0
+ dI4em34JYfq8dglgqmBpKZTcMJtTkNB4zAKCWug0z+YevvzcnqKHN+6xj08bB/rdbU
+ k4naWUbMyoAJdj+k8JuqeGC1u0lljSk+l2Ge/4hLGy+AW3JS8uYNI5oHkYD0I/TJQZ
+ G3xDKUnOivhAA==
+Received: from fedora-32.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EBF0E86D2E;
- Tue, 25 Aug 2026 08:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787644853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f9+UYLkhFMeqJpdRKe3KSbiCGXI7lAcmJIinawqugjk=;
- b=sQCagDmq4peuTng23qhcJG6M4r9xOAd3Cuz5f1XNti6+c0ZmrqjuwEyN5YB39Rq3mRPp8j
- 3UhnWvdms8uQaUjWxRXqI4hhU0sNybTxPdlcNo1RFYBqMT9TxpB2ertWLXeW9+vL3W4jPJ
- US2MKY2tIjcH4+TaTN5aXW2pJSG1wMg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787644853;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f9+UYLkhFMeqJpdRKe3KSbiCGXI7lAcmJIinawqugjk=;
- b=2NLh5ZERTPBVrMuypQYRhEnyIQmd8LgFJtqI+gOqO+r5MUdvWOR6+kayyfK+fQnv7ykorS
- 1DKOHjNgame+wOAA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=y+VpEsA0;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="Q2Qkf/9G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787644847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f9+UYLkhFMeqJpdRKe3KSbiCGXI7lAcmJIinawqugjk=;
- b=y+VpEsA0xHwysqE9yxmGDTRhylsKhDEAy5b1WoOHJYCbv2ZeWJEAHcBX8zjCNRjhaMBrRE
- eBEEvVpw8j9nKDNKvsyvZBwZyZbErDJzs8Dl77e7HbIPlBBDIzFsIO1ZjudBVLoliU+xyb
- Jhpji2I+csN5UaXagCCFme0olCgNB0E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787644847;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f9+UYLkhFMeqJpdRKe3KSbiCGXI7lAcmJIinawqugjk=;
- b=Q2Qkf/9G4xRnKvTmpGkTmp7pUNHTyQa9D4XZSkZ9MLX3foSfKXZJfjtM1DkjAfa/D2Lc7Y
- ZylZtGdWpMU95PCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CCA1913335;
- Tue, 25 Aug 2026 08:00:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 3U/RMK9LjWoacgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 25 Aug 2026 08:00:47 +0000
-Message-ID: <ce0912d6-fdc4-4ead-9388-a9e0e9a1954c@suse.de>
-Date: Tue, 25 Aug 2026 10:00:47 +0200
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D388617E0A44;
+ Tue, 25 Aug 2026 10:01:30 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Date: Tue, 25 Aug 2026 10:01:23 +0200
+Subject: [PATCH v7 2/9] drm/panthor: Move the register accessors before the
+ IRQ helpers
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/cirrus-qemu: Validate BAR0 size during probe
-To: sashiko-reviews@lists.linux.dev, syzbot <syzbot@kernel.org>, sst@poczta.fm
-Cc: dri-devel@lists.freedesktop.org
-References: <b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org>
- <20260825074432.0B4511F00A3A@smtp.kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260825074432.0B4511F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[lists.linux.dev,kernel.org,poczta.fm];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[poczta.fm];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[4]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[poczta.fm:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url,suse.com:url,suse.de:mid,suse.de:dkim];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: EBF0E86D2E
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-panthor-signal-from-irq-v7-2-ebb5b4c891a4@collabora.com>
+References: <20260825-panthor-signal-from-irq-v7-0-ebb5b4c891a4@collabora.com>
+In-Reply-To: <20260825-panthor-signal-from-irq-v7-0-ebb5b4c891a4@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Chia-I Wu <olvaffe@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787644889; l=5742;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=3TNOGAvccl1TNM4QLXC4SAQP/XgcNL1NcuiVhIv6acY=;
+ b=cOqPPUrWWQeam95HTNZ50Oj9j0jB/5K8eMsprxS451xd44L6/vwk2DHZEX+k8hR9FtssNZbAV
+ S82w9X0KawjDK6NrAjla7NWVSr10SPXptxfo7jVAIGHe6RIgwR6oPag
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,82 +72,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(cc: Slawomir)
+We're about to add an IRQ inline helper using gpu_read(). Move things
+around to avoid forward declarations.
 
-Hi,
+No functional changes.
 
-thanks for the fix. Please see below for changes that should go into the 
-patch.
+Reviewed-by: Steven Price <steven.price@arm.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+---
+ drivers/gpu/drm/panthor/panthor_device.h | 142 +++++++++++++++----------------
+ 1 file changed, 71 insertions(+), 71 deletions(-)
 
-Best regards
-Thomas
-
-Am 25.08.26 um 09:44 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The exact equality check for BAR0 size (`!= CIRRUS_VRAM_SIZE`) incorrectly rejects valid QEMU configurations with larger VRAM.
-> - [High] The VRAM size validation check is placed after `aperture_remove_conflicting_pci_devices()`, meaning the firmware framebuffer is permanently destroyed even if the driver ultimately fails to bind.
-> --
->
-> --- Patch [1]: [PATCH] drm/cirrus-qemu: Validate BAR0 size during probe ---
-> commit 75467ead62a494b6afbc057c666ab59f7e4b8915
-> Author: Slawomir Stepien <sst@poczta.fm>
->
-> drm/cirrus-qemu: Validate BAR0 size during probe
->
-> This commit adds a check during PCI probe to verify that the BAR0 resource
-> length equals CIRRUS_VRAM_SIZE. This is intended to prevent supervisor write
-> page faults caused by writing past the end of the mapped I/O memory when
-> smaller BARs are presented.
->
-> Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
->
->> diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
->> index 075221b431d37..70c995025f508 100644
->> --- a/drivers/gpu/drm/tiny/cirrus-qemu.c
->> +++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
->> @@ -602,6 +602,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
->>   
->>   	dev = &cirrus->dev;
->>   
->> +	if (pci_resource_len(pdev, 0) != CIRRUS_VRAM_SIZE)
->> +		return -ENODEV;
->> +
-> [Severity: High]
-> Does this strict equality check unintentionally break valid QEMU
-> configurations that have more than 4 MB of VRAM?
->
-> When a VM is booted with a configuration like -device cirrus-vga,vgamem_mb=8,
-> the BAR0 size will be 8 MB. The check in cirrus_pci_probe() evaluates
-> to true (since 8 MB is not equal to 4 MB) and rejects the device by
-> returning -ENODEV.
->
-> Would it be safer to check if pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE
-> instead of requiring an exact match?
->
-> [Severity: High]
-> Is it safe to place this validation check after the call to
-> aperture_remove_conflicting_pci_devices() earlier in cirrus_pci_probe()?
->
-> If this new size check fails (either due to a malformed device or a larger
-> valid VRAM size), cirrus_pci_probe() aborts with -ENODEV. However, because
-> aperture_remove_conflicting_pci_devices() was already executed at the start
-> of the probe function, the firmware framebuffers (like efifb or simplefb)
-> have been permanently destroyed.
->
-> Could this leave the system with a dead display output? Would it make sense
-> to move this PCI configuration check to the very beginning of the probe
-> function, before any destructive actions occur?
->
->>   	cirrus->vram = devm_ioremap(&pdev->dev, pci_resource_start(pdev, 0),
->>   				    pci_resource_len(pdev, 0));
->>   	if (cirrus->vram == NULL)
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index 4e5f7b0fb53f..b102ea77fd1a 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -495,6 +495,77 @@ panthor_exception_is_fault(u32 exception_code)
+ const char *panthor_exception_name(struct panthor_device *ptdev,
+ 				   u32 exception_code);
+ 
++static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
++{
++	writel(data, iomem + reg);
++}
++
++static inline u32 gpu_read(void __iomem *iomem, u32 reg)
++{
++	return readl(iomem + reg);
++}
++
++static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
++{
++	return readl_relaxed(iomem + reg);
++}
++
++static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
++{
++	gpu_write(iomem, reg, lower_32_bits(data));
++	gpu_write(iomem, reg + 4, upper_32_bits(data));
++}
++
++static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
++{
++	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
++}
++
++static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
++{
++	return (gpu_read_relaxed(iomem, reg) |
++		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
++}
++
++static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
++{
++	u32 lo, hi1, hi2;
++	do {
++		hi1 = gpu_read(iomem, reg + 4);
++		lo = gpu_read(iomem, reg);
++		hi2 = gpu_read(iomem, reg + 4);
++	} while (hi1 != hi2);
++	return lo | ((u64)hi2 << 32);
++}
++
++#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
++	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
++			  iomem, reg)
++
++#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
++				     timeout_us)				\
++	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
++				 false, iomem, reg)
++
++#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
++	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
++			  iomem, reg)
++
++#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
++				       timeout_us)				\
++	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
++				 false, iomem, reg)
++
++#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
++					     timeout_us)			\
++	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
++				 timeout_us, false, iomem, reg)
++
++#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
++					timeout_us)				\
++	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
++			  false, iomem, reg)
++
+ #define INT_RAWSTAT 0x0
+ #define INT_CLEAR   0x4
+ #define INT_MASK    0x8
+@@ -630,75 +701,4 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
+ 
+ extern struct workqueue_struct *panthor_cleanup_wq;
+ 
+-static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+-{
+-	writel(data, iomem + reg);
+-}
+-
+-static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+-{
+-	return readl(iomem + reg);
+-}
+-
+-static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+-{
+-	return readl_relaxed(iomem + reg);
+-}
+-
+-static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+-{
+-	gpu_write(iomem, reg, lower_32_bits(data));
+-	gpu_write(iomem, reg + 4, upper_32_bits(data));
+-}
+-
+-static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+-{
+-	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+-}
+-
+-static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+-{
+-	return (gpu_read_relaxed(iomem, reg) |
+-		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+-}
+-
+-static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+-{
+-	u32 lo, hi1, hi2;
+-	do {
+-		hi1 = gpu_read(iomem, reg + 4);
+-		lo = gpu_read(iomem, reg);
+-		hi2 = gpu_read(iomem, reg + 4);
+-	} while (hi1 != hi2);
+-	return lo | ((u64)hi2 << 32);
+-}
+-
+-#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+-	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+-			  iomem, reg)
+-
+-#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+-				     timeout_us)				\
+-	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+-				 false, iomem, reg)
+-
+-#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+-	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+-			  iomem, reg)
+-
+-#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+-				       timeout_us)				\
+-	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+-				 false, iomem, reg)
+-
+-#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+-					     timeout_us)			\
+-	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+-				 timeout_us, false, iomem, reg)
+-
+-#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+-					timeout_us)				\
+-	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+-			  false, iomem, reg)
+-
+ #endif
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.55.0
 
