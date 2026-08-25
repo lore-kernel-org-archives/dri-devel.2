@@ -4,151 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67D0C61DBC
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B499C5DF94
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:33:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0788910E5BA;
-	Tue, 25 Aug 2026 08:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9484710E5E3;
+	Tue, 25 Aug 2026 08:33:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IKvjAPf+";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gaetiZdU";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="c2VzKgTm";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C64FD10E180
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:30:31 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67P88Rpn196278
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:30:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- snUCad4MSlI6CTjQKRUKgLOV4nb44hzzXkl5AybhC/k=; b=IKvjAPf+TMmj9Iqv
- E49fkXNvWA9Jw/RHW/U+2JBXDxyS+Tz2rqEO9v0DAc+/ga33Ka1CCWE62a9VODgA
- IUsYBhJG6oEWsw0EpjCFhF3CTgLsAfvAs0oimfwm4x62TVn4uUsifS0AiX8TYZIf
- gnZfVqV+gZC/B1LQlW3AAjD6t+ebHU/Nps20mXSeG/hAz1CGnyLqK1IxFcQ7dnPP
- RiXYJEIXDCRNMQOhGAL8DffdzSAMeFescWxBaHSdxzaAFE7cUSp9ffdiXcNGuNBS
- h8ltWQ5/aytFeoFAi4MiFK80o2HXg6wQIF7A2QLc7hkFzvPyY0zKhzaOqaYS7xtv
- vaWkvw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g93pvgx66-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:30:30 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51c9d953b71so7934081cf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 01:30:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787646630; x=1788251430;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=snUCad4MSlI6CTjQKRUKgLOV4nb44hzzXkl5AybhC/k=;
- b=gaetiZdUHEiFFYt9NGsugBxM6AxB2YdplnHpm1o5LWkN9Nc3IDuQPiD1TJHNtlnyAz
- Sf+IknhHkGMhVZJ+iZ2SQbfB/pgCrjbYIwpQf2bbtOjTlCmU0J/bHZ6C2KvCKYQ8bMzk
- ov6mbbDRywtSQd92b5oTNBcT/mX2IloO5rbjxl0kritUtg6baBpwdAaLPbkatoZhvDeG
- T2eAvR3KZg5i6BP7o6Rmyx+CxqF7AyjoTFD+K0cpIvSfoSDFyOWxEVANp1Bz4GMuYHOT
- 7d6zcNttN99Gh/v5aZ7LxxupY46I+AyYxb2iAtwva9eQZlvw8iHQSc8lkBZGgDTUnvjB
- 9+ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787646630; x=1788251430;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=snUCad4MSlI6CTjQKRUKgLOV4nb44hzzXkl5AybhC/k=;
- b=nbMtwJKV56AOLPxi0huuJeXfosOwoiiJAINfKZBzqYcS5n/J9umpv0w+Og7tgwUDzm
- IdKIOY4m/+CRUqYsTYcBljNqi6vbwnjhK4ne4NeGUoRbhJ6AR+yHNmzc6+5Fo2Qtms/D
- qjryAAbCMrYByWsYfN6e21u/816SoFixBpVRkXPY6tChmV7plRENQnKruTnC2wXAn28s
- OM4LgKOKm2CecRN3AslmgkAKF7t+E7fMxr0BfSCcXyO3/J048sfPS386TjQzVZHHSmQE
- bBg/GSjZU5J3QG7JpUjlCS2B/q1ia7RkM2QGDdbBEEsvKR3NluvwSndWhWgekbpjE+sN
- VOIA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrIb5Te/YWTnuCwxFRZFb9GS6nEyfbdL+/4Q3nzkwzn4AvNFWT0vLkK9yLOo5Fvo1g0+M/m6ga2UY0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l7k9IwXE3eKh06urkvu2QIZUcfeCnP+ul7LKkn3g9NeJldGZ8B
- paM0raMSlZDyVvqNU9WM9UMGf00rFird9oONCSmojCSUJ5/45w8QxFHEpweHZsrOAoO9wRwe/Yd
- jAPUSV0Is8p+iHE1/6jqM85/taYDEJ2VKC3aBO1aRVvT3Y6grzJVnNE/VCcIGoAWpflzzT/A=
-X-Gm-Gg: AR+sD125k5BpHkI9BRWd47Neb8rroC2F9g3+9bw/pnSrg/3TXkjjOVq5ym0SnIHKhF4
- LZ+HdKjvbbed4jNn7Ykx19aXUFdfB1IT40oqyHUoukrBWxVamu/wARdX6UVD+eCLtyW8UIDahuc
- EgkK7PGzfqZYnVGORKMjgwu1uPvF6wCcr0Ump4hW/EeTkdJvi+86UVnQnX6kRlFHf2zcPDF+C+u
- wOXOVZaA9tqsR28swd905odmIDgAvIxDXTFl/kh7CUPMZjn5Bmak1WN0VNpyPclxtMGFByHTlI2
- eP+8J9j+XwtCvUtSNPmUQB5fnem5ToiB+jWGlfOV4TO+YnocQ4VOBZOpLe/yjwoMroNJUoyoX+0
- 7H/L13HrJOCtCY903YwuW3Fsd
-X-Received: by 2002:a05:622a:1102:b0:51c:10e9:ec47 with SMTP id
- d75a77b69052e-52df5a21154mr240432501cf.5.1787646629684; 
- Tue, 25 Aug 2026 01:30:29 -0700 (PDT)
-X-Received: by 2002:a05:622a:1102:b0:51c:10e9:ec47 with SMTP id
- d75a77b69052e-52df5a21154mr240431961cf.5.1787646629105; 
- Tue, 25 Aug 2026 01:30:29 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c24966f809bsm1827029066b.41.2026.08.25.01.30.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Aug 2026 01:30:28 -0700 (PDT)
-Message-ID: <b6d6b627-a38b-427a-9e62-ee883505b2ad@oss.qualcomm.com>
-Date: Tue, 25 Aug 2026 10:30:25 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: display: msm: Allow two MDSS power
- domains
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang
- <yuanjie.yang@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com>
- <20260720-msm_gdsc2-v1-1-4687866d6cb0@oss.qualcomm.com>
- <b36691d3-e996-4fc0-8955-25beeeecc385@oss.qualcomm.com>
- <ccab8aae-d980-423a-b39e-3ce2a7c82542@oss.qualcomm.com>
- <5341e732-0deb-4d00-9a7c-595e317bf1e8@oss.qualcomm.com>
- <db2a18aa-f5fb-4ee8-8747-05fcf740749f@oss.qualcomm.com>
- <f344a913-cc95-4fef-880b-f1fee200c108@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <f344a913-cc95-4fef-880b-f1fee200c108@oss.qualcomm.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010018.outbound.protection.outlook.com [52.101.61.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3BCC10E5E3;
+ Tue, 25 Aug 2026 08:33:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bWEB4oq0YybT4gVReig+o+U2OZ9xxvWH6wjjQ9sivHWtLm6GkgSX2M/U2j7Ov+jrPOP+4ty/MqzVyz6bMGHeWosXvt1eHpbdbb+yl4yhrpOtCa+iGkjx5AM6EYaxFAQNTtp1s5IYXSNuEp1k5CHW9UYiBsdjNFNx49/h7JpYK/vuMOm6/N+X6SNBjsVNo97Z2ExVwTE6zmRP2igYoeeuyo7oGhG16xDTLsMJIuGkizJ3vqCTGOmJWRHa0xtRQ+50yAdS58sbLOV8jx0ooTOuDHgkcIkA4Im7nWCCGyoNM4FVLkJKW/b4fbqIpvLbe1GCTbHDIkxJ+6yABgMYcjt0Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EkSm9O+7waSsZ7Hy+PjQLWUJLZmFbRzZY61UasaSNNM=;
+ b=w0fkir+5Yq7pYxpCk7JqKk/S6G0wvASiKhGloWUBUeV5EHS5y89tez2VWEXgDHs2PDTOvgV3YlOEYmdagHfwkcOkeIx0rBnxJ7XHExYMFIdVKMLUNtqSUqt8ssasFIWQhmno5y0fU8ApGJ559fJN5AFHkJydVN44EjoQsbvlRHv06pUKOXvR52wA6hAIhRjepCuBOf+SiSZpbbJN3VeGVlYH0ycdMXSNaAck4J5DbYjw14ZMAO6U7bnX+SPwJ1SxrFRiETZmbw5yWiNt6ttEcD4Rou7QBseilwLxO90CgwV0W8BkmXTc95sh0vR7zeKiIcr6TeRU+Uneiz1rY03zzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EkSm9O+7waSsZ7Hy+PjQLWUJLZmFbRzZY61UasaSNNM=;
+ b=c2VzKgTmQTHGGvTvxro/UNBZOidNTUmZIp0Vx1xfd4EJptRpeXyYEJmMqJiH4kX5H9+f/8sG5WxGELaOZYbcqmKHrDULdopr+JtaJcmmmXwuhDBUv+HU7i84iLdy6Pjr+MREqDOw9G62q978jfKE9aVuMUqHTIU52PiNpNhMZlTwtlmoaVhP0pM2m0zc2Tf+bMzVZZ1CqJy0Xqvrswvkbk+Ooo+ESi05cPodmAqLJzVBrmufgMG092+rgJ8vGJ6ADH7bzdykgpYzktGDWh05xQNO9W37LdWrH9k9hsVXCa/fISrwCehpokRL2nd58e5QOjFEfdab+3cFT2BmgtKN5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA1PR12MB8858.namprd12.prod.outlook.com (2603:10b6:806:385::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.12; Tue, 25 Aug 2026 08:33:45 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%6]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
+ 08:33:45 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDA3MSBTYWx0ZWRfXwBnOZ0sC8bob
- 67urk9+4pjc7RpueggwHeyO+LPpBg0QAR4coMGEGG6232DHHrZgDaKSPSjZ3j8hoGSm5W+Wp73V
- 4RIX8bGBoWqJB+5wIio6Vq1fZitCXV8=
-X-Proofpoint-GUID: rKeQFvOVuD8Xz7YdTl_K6UqAqcYoeH1T
-X-Proofpoint-ORIG-GUID: rKeQFvOVuD8Xz7YdTl_K6UqAqcYoeH1T
-X-Authority-Analysis: v=2.4 cv=Ru716imK c=1 sm=1 tr=0 ts=6a8d52a6 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=-6rRdagTYtbFvggOUc8A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDA3MSBTYWx0ZWRfX4aXvKazJq9AS
- 67+SLCwQeOboWLm2f4yWcu6i2dIUnmfMLkc5I+gN2jaAzzOiQw2+t+GHpyJAcEMzLvW/kgyezU8
- ZCKAUaAnIRF1Jt7549yN7jUKC85z5lDL5FAdoDG1pBT2cxOIAfB6LcP35/UE1C81otNc7mSWRKt
- G1qtkQNJecvXWVASePuD6Ld75WEzwh1RFaBY54G6GmngzDTXR5+XnnVmuVgOB92R/PGyJ3Tz84a
- /f4wLy086lcmYwErepZTCOi2Q2QacEpHzkRJ7JCK675ZjKHjlfULnOhrhc8FB69cMCe25rS78fj
- gedAh6qQSj2tuyQ+gMhftJlnReVmKR1q6QFkQHyGray9weljWSpWl3MlIZlE/nUFYfGyfH335KS
- eEJ7PB4OPTCysWSBhsB4bJy6pCaK8b1GcWrKU0o/IC53AZrK8Q8f5/zXZuUB8oJMAlYUaZJ3+xf
- mWDgZFcYjl5SRzILFIQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_02,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
- phishscore=0 malwarescore=0 impostorscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250071
+Date: Tue, 25 Aug 2026 17:33:41 +0900
+Message-Id: <DKXVWSQ8Q627.31HTY1KERFBR8@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v7 05/10] rust: bitmap: add contiguous area operations
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
+ <20260817-chid-v7-5-a5872e64d8f4@nvidia.com>
+ <DKUGXCFA0Q77.36Q64A1AN6FX5@nvidia.com>
+In-Reply-To: <DKUGXCFA0Q77.36Q64A1AN6FX5@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0122.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37e::10) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA1PR12MB8858:EE_
+X-MS-Office365-Filtering-Correlation-Id: e56c6e60-aecc-428a-9567-08df02839379
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|7416014|376014|23010399003|1800799024|366016|6133799003|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: fe/14BXmQYcJQgGdlvjmpFgWvII9o3VOj0KKF2BHT7NvUpB8XqxFNt8n/sxrRSTvGYsiusYGBUAtFyizqujTW86dcwaDv0Ax0kDzwDRJbPXyMtfYzY6dtTGsKH9o0sJE19UEKzNsZM4vq30WWkGHPlD4uLGsKcAVc/+kXva3Cy1/orCPBX4Fm1XL0WrJVxvdynBuIga1g/1cWboeJNjHaLwyr+gGagNX3YyOfVO3RPS+5cxvpbg8XG1ddC1ETOIyKGctJqBd+KeXibk46N6rVUWS4rAY9K4DJU9NU8lDND9VPvJEga75J82mQHD+2XnQmJCPQLiTjQ6judAm0sAHdcDju2xDEdNBtxeaJGQCTWFmyKkKhWFzHhmKfgf02etwdzKnaMdVhkvOKIsFDWl8xjqFa3ia8SzXP5h2CVZqLtVZlhr27o6yt0hG8+t5uLTMb/CpHoVVl9l3CIVEqhcFs636tFXx0SELF/0MCH04q55mHfrt+UjTjK57scqQSPQIYPhrqmfg4c4kaygWZt7LdQkE7y02BgtPxJX/0zdm3XUBOVuJ8UFzPF7Mv2QVjJlzNHFhLEqcaRVR+vvLDMNrq4HA2CEDKmgLzw12KHqWDhz+D33zR2zaEY1+GcYBiWAS9xSD0oPi4+ZaA+1hXH4EZ/NQMxVLgkGf7H98OQylGU0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(7416014)(376014)(23010399003)(1800799024)(366016)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkZJUis0QkJKTWZtK2JWbmlLRURTUFJXQ0RvYjJYNWNSVkMrVVlVQXlVKzJm?=
+ =?utf-8?B?VksvYkFzOU44TUFzeXRwb25GaG5EMnl1M2VaNm1sM0tRN2NBL0VUVU9xSXZo?=
+ =?utf-8?B?MitjdExCdTRuWC81WHMybDgxQ0Q2ZkZTUm9ZMEgvUkRFVnV2YS9uY04vTXNz?=
+ =?utf-8?B?aldHc2dDRUV6MFl4cmVLMmxtVkkrb1BOZTdEUjNWeTU4eXgxa2FwYVBiSFIv?=
+ =?utf-8?B?VklQLzdTQkxYLzAwdU1vK0s4ZlhUdERxaGhRVHRnSXUwU2cybjgxUnB0VXA4?=
+ =?utf-8?B?cExnRmplYWFML2R1NVRoeng5ZUZWYm96dTByVy9uMERaR1VuV29TYVA5aGxw?=
+ =?utf-8?B?a1l3UVdMNGVaTHJQSkF4MjZGRTl0TkxsTGJ0dXhDc1RMYTFsWkxrRFlSV2dJ?=
+ =?utf-8?B?Qk1ZdEtJWi9lOVkxd2swdHVzeE5SamkvY3E5blVjbVovek92ZkdvQzhSM05Q?=
+ =?utf-8?B?ek9Zb3R6RUp6WDV5eG4zSksxRG1MdC94UDBlQ3Vxc0VmQmZvWlE5aExzM09G?=
+ =?utf-8?B?VDUrbS9VR2V6d0IvYndoTEVrTldzNDRwRmpsdVc3S1J1S3BGdTUyMCtsMGdr?=
+ =?utf-8?B?U05HZG9sQm4xRk4vMGU1ZGt3M2gvdWVJSzkwTndzZ042NG03RlJySkR5NWdh?=
+ =?utf-8?B?RVVXNHFGTEZRQngrbWNjRjkrYlZnN0FjVHVDQlB1MnluUzJYb1RaT05IS3BN?=
+ =?utf-8?B?YVBKejh4b3htVktJV0NsZXdRekFiU1pJMEFqSURpVlg0ZUFJdlZXVkFaNjFK?=
+ =?utf-8?B?V2JLUE52VU1helVNczlhQitIeTRCeWZNSzAzMWFhbEJOT0pPcTdRMlI3b2RK?=
+ =?utf-8?B?WTFWTzhRVjV0bnArekVBTmFuSm1MWUhCMW5SOHlRV1R4QkRCZHFkTUFTbCtx?=
+ =?utf-8?B?cGh6dFhkUU1WWHMrMitlQUMwT1hpbHE5VnBocU14Q1hVZHNGM1lDNG1XNEhJ?=
+ =?utf-8?B?M0MzSkxGMEtNK0NUcVV0UXNiUlJZTVRleHdGQjk0bCtHYVdnSVA0R3RSOXFB?=
+ =?utf-8?B?Z1Y2YmdQcnJQamlNazVZSFQzTW84OG14d3RUemoxN2NRQ3F5NDZtSk5tWW1v?=
+ =?utf-8?B?QjI4YjN0OFo4ZzZLQWNHTlVtSSsrcUNvN3pWR205Ny9zbWJmL08xSlBvY1Zi?=
+ =?utf-8?B?dmNzRVlEMHA5NTEyK0trdVZzaVV5NXlRU2VEa3p5UWg4Tnovelc3bWdYSzVB?=
+ =?utf-8?B?UU9EZWt0YzBMQkd6dmtwNm1HM3Q2R1VpWDE0cHpmbTVXc0JLYzZleTVqSzM1?=
+ =?utf-8?B?TCtpR21PcVRnVzFEaFhMcFl4Qll0SUpOVHFUT0h5cnB6bU9JK1pTMTdrSVZx?=
+ =?utf-8?B?YzNqdktwNDREdzhnU2M1UGZqdGZ0Sk1TeVhXSmk5allERUVaSTZhU3pMc2ZJ?=
+ =?utf-8?B?aGhvNDdsTVgvR0M5ME02clBBSDN5eFVhcjNrUE5nZ1VQdzNyR0hja1dQQm82?=
+ =?utf-8?B?SlUrZXBaNFArSEVxVndhQmVqVWt1aHZuZkpic1E2ZjcvcDRlbjYzVDBFVnh0?=
+ =?utf-8?B?Y1licVZTV01XdUdFUDJ5YWFvSlRPYkdQajg2M2FhZ20xQUI3aCtqYmxOSUR2?=
+ =?utf-8?B?eEp2cFo3RjFjbW5GZm9RNEQ5ZGdJWVJKYUlGOGVORUJSQ0drVFpPNjV5OUtB?=
+ =?utf-8?B?WjhSWVZzOTQ2eFdTTURkdXJoMlZiZXN3WkpkN2tFeHgzK2Q2b2Q4Q1JNZWRu?=
+ =?utf-8?B?Tk9mTnhWdHkvbk8xd0xBUlkrNGxLR1VRdWwxTS9NY3R0NUZUTzgzbFJKSzFU?=
+ =?utf-8?B?bmpSWWxrZ0xRaGxLbER4REE4VFJOeUIwV2phZlQ2YityL3RSeWVNN3FHaHFn?=
+ =?utf-8?B?YzBGOGtlRkF1V256QUt3WE9KVkt0aEJvT2xjT1FhQWY1MUVqSjg1UVdsN1Bq?=
+ =?utf-8?B?Z01hNjYvZWJaYVZtQWpmRFpoMG5zRjV0MUVEZVlFbGpubUpJUmhQc0VvZ0ly?=
+ =?utf-8?B?WTJoa2I3OG9sTi9QMnJKZ0lIME1jQ0lrOUVVMFIyYWV1RFRrVGYyRVpCbExy?=
+ =?utf-8?B?QjN4UkVKbm5FOGtmS0hJaTVvaXVsWG5BTFRvcjVTdlBQYkx6SlVKWDYvQjJL?=
+ =?utf-8?B?ellUWW1QREsvN0NKYnZkb0VKMncxRU5ldnBSSjh0NUVPejZCdGhpdjlvaVhP?=
+ =?utf-8?B?ZWhGeExiTnNjZitlN1ZVMzV2ejcxZmt2TnRQckpUVzVQU2J0clA3NlJYYXh6?=
+ =?utf-8?B?VGdhTWc3NHAzdnBYODQ0MmVSRXhHK0FpdzhvWjZQRVFpbGVGTFlqVk14MEJV?=
+ =?utf-8?B?aFlLRmUwekZzNjhsMlBoQmFJMzJuSCt0di94MGJ5Si9Ja0FCdUs0UU1VbjdY?=
+ =?utf-8?B?bm5PQnNWbkpicjdBMVE5cXljRWV1eEZNNXQzMHppY0Q0RFdBR0I4MVpxQVZM?=
+ =?utf-8?Q?+IGdKiOgbEkfKgo2XYAZwpuYQ6LtccYLBwRl2smyq3kuB?=
+X-MS-Exchange-AntiSpam-MessageData-1: kHljYAbhrmgDpg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e56c6e60-aecc-428a-9567-08df02839379
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 08:33:44.9360 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5eOCSQkcv/ApNXtV5orphQVSNratiZSP0IbitXx4laSzpUdAYESfj3NjhFaDFAstJ6x3noVlkjvFFBAwlH/Q9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8858
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,36 +154,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/25/26 8:28 AM, Yongxing Mou wrote:
-> 
-> 
-> On 8/17/2026 10:14 PM, Konrad Dybcio wrote:
->> On 8/17/26 4:13 PM, Konrad Dybcio wrote:
->>> On 8/13/26 9:44 AM, Yongxing Mou wrote:
->>>>
->>>>
->>>> On 7/20/2026 4:49 PM, Konrad Dybcio wrote:
->>>>> On 7/20/26 10:43 AM, Yongxing Mou wrote:
->>>>>> Kaanapali (SM8750) and Glymur use two display power domains.
->>>>>> CORE_GDSC powers the main display hardware while INT2_GDSC
->>>>>> powers a subset of SSPP blocks.
->>>>>
->>>>> Can they operate independently? Does INT2_GDSC need to be
->>>>> powered on after CORE_GDSC?
->>>>>
->>>> On Kaanapali, my understanding is that CORE_GDSC and INT2_GDSC should generally track the same state, except that INT2_GDSC may be powered down when SSPP1 (VIG2/VIG3/DMA5) is unused.
->>>
->>> Is the MDSS any useful if *only* INT2_GDSC is enabled? Can the INT2_GDSC
->>> be enabled itself if CORE_GDSC is off?
+On Fri Aug 21, 2026 at 5:11 PM JST, Alexandre Courbot wrote:
+> On Mon Aug 17, 2026 at 4:04 PM JST, Eliot Courtney wrote:
+>> Add bindings for area operations on bitmaps. Each one is
+>> made safe by adding some extra checks compared to the underlying C code
+>> (for example, checking bounds) and with additional checks to catch
+>> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
 >>
->> (I didn't quite know how to parse the list of states you provided in your
->> reply so I asked again)
+>> Add tests demonstrating the edge cases.
 >>
->> Konrad
-> Hi, Konard. Would you recommend adding the parent clock in the clock driver, or handling 2 GDSC in the display driver? I'm preparing the next revision and would appreciate your feedback.
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  rust/kernel/bitmap.rs | 242 +++++++++++++++++++++++++++++++++++++++++++=
+++++++-
+>>  1 file changed, 240 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+>> index fdcfc0409773..a4997022ff0f 100644
+>> --- a/rust/kernel/bitmap.rs
+>> +++ b/rust/kernel/bitmap.rs
+>> @@ -10,7 +10,11 @@
+>>  use crate::bindings;
+>>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>>  use crate::pr_err;
+>> -use core::ptr::NonNull;
+>> +use crate::ptr::Alignment;
+>> +use core::{
+>> +    num::NonZero,
+>> +    ptr::NonNull, //
+>> +};
+>> =20
+>>  /// Represents a C bitmap. Wraps underlying C bitmap API.
+>>  ///
+>> @@ -523,13 +527,160 @@ pub fn next_zero_bit(&self, start: usize) -> Opti=
+on<usize> {
+>>              Some(index)
+>>          }
+>>      }
+>> +
+>> +    /// Finds a contiguous area of `nbits` zero bits at or after `start=
+`, where the area plus
+>> +    /// `align_offset` is aligned to `align`.
+>> +    ///
+>> +    /// Returns the bit index of the start of the area, or [`None`] if =
+no such area fitting in
+>> +    /// the bitmap exists.
+>> +    ///
+>> +    /// The returned index plus `align_offset` is a multiple of `align`=
+.
+>> +    ///
+>> +    /// # Panics
+>> +    ///
+>> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is=
+ out of bounds.
+>> +    #[inline]
+>> +    pub fn next_zero_area_off(
+>> +        &self,
+>> +        start: usize,
+>> +        nbits: NonZero<usize>,
+>> +        align: Alignment,
+>> +        align_offset: usize,
+>> +    ) -> Option<usize> {
+>> +        bitmap_assert!(
+>> +            start < self.len(),
+>> +            "`start` must be < {}, was {}",
+>> +            self.len(),
+>> +            start
+>> +        );
+>
+> Do we need to potentially panic here if `start >=3D self.len()`? The
+> question "is there an area of `nbits` bits after my bounds" can be
+> answered by "there is `None`" without semantically sounding weird; and
+> this test doesn't cover `start + nbits >=3D self.len()`, which should
+> logically also be considered to be consistent. It seems like the C API
+> also tolerates this, so as this is not a safety issue I guess the Rust
+> one should do the same?
+>
+> If anything I'd say we should remove these tests from
+> `next_bit`/`next_zero_bit` as well.
+>
+> Mutating methods should definitely keep that check, but for querying
+> this looks like a legitimate way to use the API.
 
-Does disabling INT2 provide us with any power benefits and will the
-display driver do the accounting for what resources need the INT2
-GDSC specifically?
+Yeah, I am following the convention of this file - e.g. `next_zero_bit`
+has this same check as you have noted, presumably because these bindings
+want to consider calling with start >=3D self.len() to be not intended
+behaviour that's worth warning on? I personally don't mind, but I think
+we should either have it on all of them or on none of them. For now, I
+have kept them in to match the file convention but we could remove them
+or convert to debug_assert! in a follow-up?
 
-Konrad
+>
+>> +
+>> +        let nr =3D u32::try_from(nbits.get()).ok()?;
+>> +        let align_mask =3D align.as_usize() - 1;
+>> +
+>> +        // The C alignment and end arithmetic must not overflow, or it =
+can read out of bounds.
+>> +        // Overflow is only possible on 32-bit.
+>> +        #[cfg(not(CONFIG_64BIT))]
+>> +        align_mask
+>> +            .checked_add(self.len())?
+>> +            .checked_add(nbits.get())?;
+>
+> Is it ok to not consider `align_offset` here? The C code adds it, and
+> the result could overflow on large values, even on 64-bit.
+
+It is ok not to consider it but the reason is very subtle. The tldr is
+that align_offset only affects the important value by at most
+`align_mask`.
+
+Here is the latest `bitmap_find_next_zero_area_off` code on
+bitmap-for-next:
+```
+unsigned long bitmap_find_next_zero_area_off(unsigned long *map,
+					     unsigned long size,
+					     unsigned long start,
+					     unsigned int nr,
+					     unsigned long align_mask,
+					     unsigned long align_offset)
+{
+	unsigned long end, i, off;
+
+	for_each_clear_bit_from(start, map, size) {
+		start =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
+		end =3D start + nr;
+		if (end > size)
+			break;
+
+		off =3D round_down(start, BITS_PER_LONG);
+		i =3D find_last_bit(map + start / BITS_PER_LONG, end - off) + off;
+		if (i >=3D end || i < start)
+			return start;
+
+		start =3D i;
+	}
+
+	return size;
+}
+```
+
+It has
+```
+start =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
+```
+
+__ALIGN_MASK does this:
+```
+(((x) + (mask)) & ~(mask))
+```
+
+So it's
+
+```
+((start + align_offset + align_mask) & ~align_mask) - align_offset
+```
+
+A & ~B where B is (2**k - 1) =3D=3D A - A % 2**k, so we have
+
+```
+start + align_offset + align_mask - (start + align_offset + align_mask)%2**=
+k - align_offset
+```
+
+So you can cancel the two align_offsets and get
+
+```
+start + align_mask - (start + align_offset + align_mask)%2**k
+```
+
+Since (start + align_offset + align_mask)%2**k <=3D align_mask, the only
+way you can overflow your expression is through align_mask, not
+align_offset. The upper bound of the expression is start' <=3D `start +
+align_mask`.
+
+We get the overflow/OOB read path if end overflows so `if (end > size)`
+becomes wrong. `for_each_clear_bit_from` guarantees that start < size in
+the body of the loop. So when we compute `end =3D start' + nr`, the upper
+bound is `start + align_mask + nr` - that's the check here. We know
+start < i32::MAX (thanks to the invariants we added) and align_mask <=3D
+isize::MAX, and nr <=3D u32::MAX. So the total upper bound is `i32::MAX +
+isize::MAX + u32::MAX`. This fits into `unsigned long` on 64 bit but not
+on 32 bit, hence the cfg to only 32-bit.
+
