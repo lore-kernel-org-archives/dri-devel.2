@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A4EBC61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56671C61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:30:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF4310EA29;
-	Tue, 25 Aug 2026 12:30:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8BB10EA2C;
+	Tue, 25 Aug 2026 12:30:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="M/plwnle";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c6OwFiUy";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E143B10EA29
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:30:02 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260825123000euoutp0292e91df20f39ead33ba1a583fd40ac8c~PDDVZCRVl1742717427euoutp02N
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:30:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260825123000euoutp0292e91df20f39ead33ba1a583fd40ac8c~PDDVZCRVl1742717427euoutp02N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1787661000;
- bh=/CFXDg3L0aD6SB3xy+cQUqcdazmfSamoOM2pD2VK9/8=;
- h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
- b=M/plwnleb557HnWW2Dgy9vnFWSWbm89jMkXmfdBPQP4QBiSMtpwH1WVf0GPG0YzkB
- gifzRvzJLk6W7MqMdMgDOgPSNREwbE762LekRDsHSM41/dqjMNjK0W8f2FmZQdds1C
- PimsNKW8gsS17sEJpl3sKl4RVUT9KVaiQ48N53po=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260825123000eucas1p248f943e21b217192142c843eb427dd76~PDDVEpmia1504115041eucas1p2S;
- Tue, 25 Aug 2026 12:30:00 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260825122959eusmtip1bd8675e1e80e324fa87b118bf74d4d66~PDDULpsjo1767517675eusmtip1d;
- Tue, 25 Aug 2026 12:29:59 +0000 (GMT)
-Message-ID: <e7605d7a-85f1-4339-99d2-85c0df884ec2@samsung.com>
-Date: Tue, 25 Aug 2026 14:29:58 +0200
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Thierry Reding
- <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jonathan
- Hunter <jonathanh@nvidia.com>, Robin Murphy <robin.murphy@arm.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260825123000eucas1p248f943e21b217192142c843eb427dd76
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0
-X-EPHeader: CA
-X-CMS-RootMailID: 20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0
-References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
- <20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
- <CGME20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0@eucas1p2.samsung.com>
- <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D80510EA2A;
+ Tue, 25 Aug 2026 12:30:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C6DA4601E9;
+ Tue, 25 Aug 2026 12:30:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435571F000E9;
+ Tue, 25 Aug 2026 12:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787661009;
+ bh=Ws4R+1haOE0UdYuSK2jWzuSxPnpsAiaQbbHW8KRpibc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=c6OwFiUywUUg7AC05ERB6tBkDNg5WHCnnpgHOlprB2te+NWj20uU/NmCWNhNiVdyT
+ ctJMxXY5cu2n5m0AQlhTpJb/tm/RPfeksvCMwePEnNwtgsXOxwI3q26AnWZ1Ew95W2
+ atR+062UQJW4QsRblegvVxbmWlh4pyAuA88Jmj62uuuGwXGSlJeLM5zY42OrFqzJYX
+ J2s+1MILWlCXMiP9UsIjK40hoA9jKOsTrR1xkHLDa+u90nMttkjDUeQyy6lYcW7FY4
+ OJtg98lsCeQft/CpDT3datuYdGOt1i3D+hjFu9ZarpyRSSj9u6rw5f0OL9BogS5HCi
+ 1XAuOQHiydpbA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/6] rust: hrtimer: Make HrTimer repr(transparent)
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260825-expires-v2-v1-6-90411c6217c7@kernel.org>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-6-90411c6217c7@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 12:30:08 +0000
+Message-Id: <20260825123009.435571F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,91 +54,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20.08.2026 20:04, David Hildenbrand (Arm) wrote:
->> /* This part must be outside protection */> diff --git a/mm/cma.c b/mm/cma.c
->> index a10ea37a261d..1e1ebae79090 100644
->> --- a/mm/cma.c
->> +++ b/mm/cma.c
->> @@ -936,6 +936,141 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
->> return __cma_alloc_frozen(cma, 1 << order, order, gfp);
->> }
->> +static int cma_range_alloc_at(struct cma *cma, struct cma_memrange *cmr,
->> + unsigned long offset, unsigned long count,
->> + struct page **pagep, gfp_t gfp)
->> +{
->> + struct page *page = NULL;
->> + unsigned long pfn;
->> + int ret = -EBUSY;
->> +
->> + spin_lock_irq(&cma->lock);
->> +
->> + /*
->> + * If the request is larger than the available number of pages, stop
->> + * right away.
->> + */
->> + if (count > cma->available_count)
->> + goto unlock;
->> +
->> + ret = bitmap_allocate(cmr->bitmap, offset, count);
->> + if (ret < 0)
->> + goto unlock;
->> +
->> + pfn = cmr->base_pfn + offset;
->> + page = pfn_to_page(pfn);
->> +
->> + /*
->> + * Do not hand out page ranges that are not contiguous, so
->> + * callers can just iterate the pages without having to worry
->> + * about these corner cases.
->> + */
->> + if (!page_range_contiguous(page, count)) {
->> + pr_warn_ratelimited("%s: %s: skipping non-contiguous area [0x%lx-0x%lx]",
->> + __func__, cma->name, pfn, pfn + count - 1);
->> + ret = -EBUSY;
->> + goto clear;
->> + }
->> +
->> + cma->available_count -= count;
->> +
->> + /*
->> + * It's safe to drop the lock here. We've marked this region for
->> + * our exclusive use. If the migration fails we will take the
->> + * lock again and unmark it.
->> + */
->> + spin_unlock_irq(&cma->lock);
->> +
->> + mutex_lock(&cma->alloc_mutex);
->> + ret = alloc_contig_frozen_range(pfn, pfn + count, ACR_FLAGS_CMA, gfp);
->> + mutex_unlock(&cma->alloc_mutex);
->> +
-> There is quite some code duplication with cma_range_alloc(). Please try harder
-> to factor common code out and reuse it.
->
->
-> > ...
-> Also here, way too much code duplication with __cma_alloc_frozen().
->
-> There must be a better way :)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Maybe the existing 'alloc' functions could call 'alloc_at' variant internally
+New issues:
+- [Medium] The patch adds an inline comment and commit message justifying a=
+ layout change based on `HrTimerCallbackContext`, a type that was completel=
+y removed earlier in the patch series, resulting in a stale and confusing s=
+oundness rationale.
 
-(with locks adjusted and moved out).
+Pre-existing issues:
+- [High] The callback implementations for `Pin<&mut T>` and `Pin<Box<T>>` c=
+reate a mutable reference (`&mut T`) while `cancel()` can concurrently acce=
+ss `T.timer` via a raw pointer, causing Undefined Behavior due to aliasing =
+violations.
+--
 
+--- Patch [6]: [PATCH 6/6] rust: hrtimer: Make HrTimer repr(transparent) ---
+commit ed14b61ad275b0efb05d77ed06f7d0d89b06560d
+Author: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-> (I really prefer this direction of the patch set)
+rust: hrtimer: Make HrTimer repr(transparent)
 
-Definitely, I also like this approach much more than previous attempt with
+This commit changes the representation of HrTimer from repr(C) to
+repr(transparent). This prevents adding multiple fields to the struct
+and helps enforce soundness regarding shared and mutable references.
 
-'dynamically' instantiated cma regions.
+Link: https://msgid.link/20260813134834.1562995-5-tomo@flapping.org
 
+> HrTimerCallbackContext acquires a &HrTimer<T> from a
+> NonNull<HrTimer<T>> while a &mut HrTimer<T> can exist at the same
+> time. This is sound only because HrTimer's sole field is
 
+[Severity: Medium]
+Is this justification accurate? The HrTimerCallbackContext type appears
+to have been removed earlier in this patch series. Should the commit
+message be updated to reflect the current design?
 
-Best regards
+> Opaque<bindings::hrtimer>, which puts every byte behind an UnsafeCell.
 
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+[Severity: High]
+This is a pre-existing issue, but does relying on Opaque and UnsafeCell
+to justify aliasing with a mutable reference risk undefined behavior?
 
+The commit message notes that a mutable reference to HrTimer can exist
+at the same time as other accesses. While UnsafeCell relaxes aliasing
+for shared references, creating an exclusive mutable reference asserts
+exclusive access to the entire memory footprint.
+
+When RawHrTimerCallback::run executes for pinned mutable references or
+boxed timers, it creates an exclusive mutable reference. Concurrently, a
+user thread might call cancel, which reads the timer memory via a raw
+pointer. This concurrent read would invalidate the uniqueness tag of the
+active mutable reference, which could cause the compiler to misoptimize.
+
+> diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
+> index 2a9abc9f5d8c8..ab7c568b88553 100644
+> --- a/rust/kernel/time/hrtimer.rs
+> +++ b/rust/kernel/time/hrtimer.rs
+> @@ -427,8 +427,12 @@
+>  /// # Invariants
+>  ///
+>  /// * `self.timer` is initialized by `bindings::hrtimer_setup_ext`.
+> +// `repr(transparent)` is not merely about layout. `HrTimerCallbackConte=
+xt` acquires a
+> +// `&HrTimer<T>` while a `&mut HrTimer<T>` may exist, which is sound onl=
+y because every byte of
+> +// this type sits inside `Opaque`. Being transparent rejects a second fi=
+eld at compile time,
+> +// but it does not enforce that the remaining field stays `Opaque`.
+
+[Severity: Medium]
+Is this comment still accurate? As mentioned regarding the commit message,
+the HrTimerCallbackContext type seems to no longer exist in the tree.
+Should this inline documentation be updated to use a current example?
+
+>  #[pin_data]
+> -#[repr(C)]
+> +#[repr(transparent)]
+>  pub struct HrTimer<T> {
+
+[ ... ]
+
+> diff --git a/rust/kernel/time/hrtimer/pin_mut.rs b/rust/kernel/time/hrtim=
+er/pin_mut.rs
+> index 04f9d8cbddcd2..2bba3c41d6e9a 100644
+> --- a/rust/kernel/time/hrtimer/pin_mut.rs
+> +++ b/rust/kernel/time/hrtimer/pin_mut.rs
+> @@ -91,7 +91,7 @@ impl<'a, T> RawHrTimerCallback for Pin<&'a mut T>
+>          expires: bindings::ktime_t,
+>          fwd: *mut bindings::hrtimer_forward_args,
+>      ) -> bindings::hrtimer_restart {
+> -        // `HrTimer` is `repr(C)`
+> +        // `HrTimer` is `repr(transparent)`
+>          let timer_ptr =3D ptr.cast::<HrTimer<T>>();
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the rest of this callba=
+ck
+function violate aliasing rules?
+
+A bit further down in RawHrTimerCallback::run for pinned mutable references
+and boxed timers, the code creates an exclusive mutable reference from the
+pointer. If a user thread concurrently calls cancel while the timer is
+running, that cancellation reads the timer base via a parent raw pointer.
+
+Because creating the mutable reference asserts exclusive access to the whole
+memory footprint, the concurrent read from cancel would invalidate that
+reference and could lead to undefined behavior.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-expires-v2=
+-v1-0-90411c6217c7@kernel.org?part=3D6
