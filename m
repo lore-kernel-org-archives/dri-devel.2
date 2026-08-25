@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E88F2C61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE6DAC61DBE
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE3410EA8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8D2E10EA94;
 	Tue, 25 Aug 2026 14:35:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=poczta.fm header.i=@poczta.fm header.b="ouInsyUQ";
-	dkim-atps=neutral
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EABA10E5E8
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:07:49 +0000 (UTC)
-Received: from localhost (unknown [80.68.231.31])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
- Tue, 25 Aug 2026 14:07:45 +0200 (CEST)
-From: Slawomir Stepien <sst@poczta.fm>
-To: syzkaller-bugs@googlegroups.com, sst@poczta.fm, airlied@gmail.com,
- airlied@redhat.com, dri-devel@lists.freedesktop.org, kraxel@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, virtualization@lists.linux.dev
-Cc: jani.nikula@intel.com, linux-kernel@vger.kernel.org,
- syzbot@lists.linux.dev,
- syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
-Subject: [PATCH v2] drm/cirrus-qemu: Validate BAR0 size during probe
-Date: Tue, 25 Aug 2026 14:07:29 +0200
-Message-ID: <20260825120729.493611-1-sst@poczta.fm>
-X-Mailer: git-send-email 2.55.0
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 447D310E5E9
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:48:27 +0000 (UTC)
+X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CHARSET
+ HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
+ HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+ HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_CHARSET
+ HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_UNTRUSTED
+ SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED, SRC_TRUSTED
+ SA_EXISTED, SN_UNTRUSTED, SN_LOWREP, SN_EXISTED, SPF_NOPASS
+ DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, CIE_UNKNOWN
+ GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8, IP:10,
+ URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:5
+X-CID-INFO: VERSION:1.3.19, REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8, IP:10,
+ UR
+ L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:5
+X-CID-META: VersionHash:7db8b62, CLOUDID:c3e46c1cf2c82a3bb5de4a970c6e606f,
+ BulkI
+ D:260825144824CR8KV65X,BulkQuantity:0,SF:19|38|66|72|78|102|127|850|865|89
+ 8,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+ l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+ 0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
+X-User: lihaojie@kylinos.cn
+Received: from localhost.localdomain [(39.144.194.152)] by mailgw.kylinos.cn
+ (envelope-from <lihaojie@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1786909968; Tue, 25 Aug 2026 14:48:20 +0800
+From: Haojie Li <lihaojie@kylinos.cn>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Haojie Li <lihaojie@kylinos.cn>
+Subject: [PATCH] dma-buf: fix coding style in dma_resv_get_singleton
+Date: Tue, 25 Aug 2026 14:48:15 +0800
+Message-Id: <20260825064815.331653-1-lihaojie@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
- t=1787659667; bh=SOCo4mafwNDw5JOKkR3x/JLutK9fHb/X8EWCgU8SQA8=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=ouInsyUQ8NjNoY97pVtVgVjXytaeyhAxNRn7Bb3wxgkaVqKVyIlSMGqa+9UPw575w
- aiRH5+RyZDYoLK385C/Z+QbNAAlQ3iOhX/SMvW39gG4OMtmb8y1T4BqpgRfTYKI/Sz
- +c0CsAx3ZDfswGIvRtAnxORYYsgR4FfdPcOy7vcU=
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,72 +74,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The `cirrus-qemu` driver relies on `CIRRUS_VRAM_SIZE` (4 MB) to validate
-framebuffer sizes. However, during PCI probe, the driver mapped BAR0
-without verifying that its size matches `CIRRUS_VRAM_SIZE`.
+The conditional "if (r)" following the dma_resv_get_fences() call was
+indented with spaces instead of a tab, violating the kernel coding
+style. Fix it to use a single tab for consistency with the rest of
+the function.
 
-If a PCI device with a BAR0 smaller than 4 MB is bound to the driver, the
-mapped VRAM will be smaller than expected. Because validation checks assume
-4 MB VRAM, framebuffers larger than the mapped memory can be created.
-
-When the display plane is updated (e.g. during release),
-`cirrus_primary_plane_helper_atomic_update()` copies the framebuffer to
-VRAM using `drm_fb_memcpy()`. Writing past the end of the mapped I/O memory
-causes a supervisor write page fault:
-
-BUG: unable to handle page fault for address: ffffc9000389c000
-...
-RIP: 0010:memcpy_toio+0x7c/0xe0 arch/x86/lib/iomem.c:110
-...
-Call Trace:
- <TASK>
- iosys_map_memcpy_to include/linux/iosys-map.h:285 [inline]
- drm_fb_memcpy+0x325/0x5d0 drivers/gpu/drm/drm_format_helper.c:442
- cirrus_primary_plane_helper_atomic_update+0x98a/0xb00
- drivers/gpu/drm/tiny/cirrus-qemu.c:358
- drm_atomic_helper_commit_planes+0x626/0xea0
- drivers/gpu/drm/drm_atomic_helper.c:3038
- drm_atomic_helper_commit_tail+0x60/0x510
- drivers/gpu/drm/drm_atomic_helper.c:1989
- commit_tail+0x2b1/0x3c0 drivers/gpu/drm/drm_atomic_helper.c:2074
- drm_atomic_helper_commit+0xa77/0xb10
- drivers/gpu/drm/drm_atomic_helper.c:2312
-
-Fix this by validating in `cirrus_pci_probe()` that the PCI BAR0 resource
-is not less than `CIRRUS_VRAM_SIZE`, returning `-ENODEV` if it is less.
-
-Fixes: ab3e023b1b4c ("drm/cirrus: rewrite and modernize driver.")
-Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2442951a6abb004df963
-Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
 ---
-v2:
-* move the check before aperture_remove_conflicting_pci_devices() as suggested by sashiko.
-* check if the pci_resource_len() for BAR0 is less than CIRRUS_VRAM_SIZE as suggested by Thomas. The
-  qemu emulates 4, (8 and 16 MB for compatibility) - never less than 4MB.
+ drivers/dma-buf/dma-resv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v1:
-* https://lore.kernel.org/all/b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org/T/
----
- drivers/gpu/drm/tiny/cirrus-qemu.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
-index 075221b431d3..3bf23fcf6574 100644
---- a/drivers/gpu/drm/tiny/cirrus-qemu.c
-+++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
-@@ -582,6 +582,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
- 	struct cirrus_device *cirrus;
- 	int ret;
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 39a92d9f2413..2365a6d8ca15 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -633,7 +633,7 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
+ 	int r;
  
-+	if (pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE)
-+		return -ENODEV;
-+
- 	ret = aperture_remove_conflicting_pci_devices(pdev, cirrus_driver.name);
- 	if (ret)
- 		return ret;
+ 	r = dma_resv_get_fences(obj, usage, &count, &fences);
+-        if (r)
++	if (r)
+ 		return r;
+ 
+ 	if (count == 0) {
 -- 
-2.55.0
+2.25.1
 
