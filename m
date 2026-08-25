@@ -4,143 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62891C61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 23:43:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9604EC61DBD
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 23:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A411110EB85;
-	Tue, 25 Aug 2026 23:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC35C10EB8F;
+	Tue, 25 Aug 2026 23:44:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="R+1M59XQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LvCZqh84";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011021.outbound.protection.outlook.com [40.107.208.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C75010EB85;
- Tue, 25 Aug 2026 23:43:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fSkBH+CrApP2Sj8/kb6B2j6XJ3BM7CGxLvkfhBRFSxy5LwbwZ9H2/55lcpmlbtzLRRKUoPueGgqaWgOquoL/Uk5WUPl5UhjsHMy/+ypnPX8pABpGM4W+/8t+Rx0xXfL50yfxElIy4DcgwMUSVTUcmEJJVqznI9VaN9ysRBDjN2f1LjYFBZ33uhna1u+s6ygLjFx4vFhhcOuPO6lxAsGMxIwKQMzaIe2oV+OGMbnW2pwa7AWKr6qUrteRlABqCIEOJj3Gxybrb2D3tVpAX2sXSlXmyvoBzsspZTHNEaAgQCgAB32EqwVqZ0z+9YN1HVAPQlCMPOk/P1TOXm1TfnN/YA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xja3VuJ16Z8QYLyXsDAZtLwpqM60gaf6oZV2iBfDBaE=;
- b=ZHEA/XzgucUu7BRpci5MoiPFNwYLw+988Qr/TF/9dHxVZoYwNnozZXsNUXvdwETvZHRnVKuE/x4qFw9KzFh4O/U2t/nMgaOHZdW7zDpyU9ogAFaw5eiP9LdXIc3HrSXzmTv0ndBnMhtOx83gQjrQ/2Q4GdHuURwANG8au/DWEjNDg8JfDc/417YZJO//Y083pVWowzYXh6y77/m7psjhlhVjZfLS4yTaWllp40NW5l0BjPdZG2kX/Ux2PvIwN7Jlm024lrUd3sE18aENYaHMV28SQi5gBeeqpNRgoI0RChud/GywprzDB8Swaf7SYi0tVwxLipM79aNCFvUVnLg4KQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xja3VuJ16Z8QYLyXsDAZtLwpqM60gaf6oZV2iBfDBaE=;
- b=R+1M59XQQEZ5pm6lusOy0go5t7LN+hkk6WVS/DMYVtIRzDMBJs3X7q6p0Dx0tLa/knIPo0i1P/fZH6G/A8I7NSyUrTnc1vbc0+oWzV3YwQl4Ie6A9xlD59qPUbgcKpL5vVRAiBLH0DsP9aSmwlg6BST2PVJwpwU5UzzZ4oHO/5OuJdzmPPaabj88YuiaIlg3AlDQKrqBvJHzxw2SjZJ5KbloToqQdYeX7SRphYjs5CHcx6YOmrxwnMox4S3zZXs4ztrIWpas0f/mq0dnFNgH/TKgLjh8E93b/36ZrH/slt7EkEj5j3bvm70MEelFcAN+j70HaD886R7LVtFIOVWn3g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- BL1PR12MB5804.namprd12.prod.outlook.com (2603:10b6:208:394::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.12; Tue, 25 Aug 2026 23:43:20 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.006; Tue, 25 Aug 2026
- 23:43:20 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 08:43:17 +0900
-Message-Id: <DKYF98H0MCX2.2H6XFF3UVYA4J@nvidia.com>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v7 06/10] rust: id_pool: take a NonZero capacity in
- with_capacity
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260817-chid-v7-0-a5872e64d8f4@nvidia.com>
- <20260817-chid-v7-6-a5872e64d8f4@nvidia.com>
- <DKUHJF1YTTY6.1XXC1L2SYXEMF@nvidia.com>
- <DKXZ7VHUCLWL.C6IPHWPTEJW4@nvidia.com> <ao2U1jNaT7waibJW@google.com>
-In-Reply-To: <ao2U1jNaT7waibJW@google.com>
-X-ClientProxiedBy: TYCP286CA0026.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:263::17) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E8FD10EB8F
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 23:44:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 619476020E;
+ Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09A8AC2BCC7;
+ Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1787701498;
+ bh=D3bIYSjqgfPZznmN5ArMF1O8eQyv1W/Tut4eY/ZuxD8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=LvCZqh843FXSlb8d28w0Kcd06hVoO+M5vtBaZmQN5aP6u20mN/ClQuHw3M16m1xKO
+ ePEtuxybWfqr4FaBJmQV6Eyyxx1QdgbcQ6JqvSnf7K32k+DNOGwWcmtl78/OBRq6Mp
+ RaHywVvoHUqD83pw2eZ3uZm2CgHhMzq6pHBmUuqqZC54cMTXgAKx+eWnynUh8n238V
+ hGKOc07BUi4b8mVanepwgFMqWyyLOdAnMrKKH3waJje/hmuLnARZKpGPHJqKnAcvxM
+ ucGPesm+jPTumCmzhpvgK1ijakYhM1zyx/RwHH3Fossx8ouySycPj2eGiVO4W47lLW
+ d1B3QIBv+mwqQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D9818C61DBD;
+ Tue, 25 Aug 2026 23:44:57 +0000 (UTC)
+From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
+Date: Wed, 26 Aug 2026 01:44:18 +0200
+Subject: [PATCH 1/4] gpu: nova-core: Extract PFSP register definitions
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL1PR12MB5804:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96e43e19-1675-4b5b-b41f-08df0302a51f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|376014|10070799003|1800799024|366016|10067099003|56012099006|5023799004|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: I41cW1AKYdASKAsT6nobRO/jjxYGN6Mr9SHTrqVkLkfNcKaSw9MYTpf7x4xAlwGMCslkyE/yjPAOpUotJsVBow8Bm8yCx70FI9lug1IQ+tr2yDzI0XDvyLXrrV2MBlUH3gKFWVwi2pgYBAdvtvJ6I9kqr3u2/J/C816JSx6VvYtoamGtR7Y74hqY4UfdVr8nmPDo9Fg1CLmIsc96VQTN11IU2VzlTNQxTsCPvHQM9vUCC1GSaTBIaPo+KwP7NQOJHvVRy7S4WKK2dlf5vZH4dbxX76OEO6BAJRf6Nzu1JUL/11JMDDaIEKNfecoHkaqLTCMWBLG6etn17kYgziZ/cLAJK8Zai3RljRPBGd1EiSX8TMZ0zTcvHlqBuzMMDARHiB0vNLFfgPWPJHACM1d4rZDFC20KCzi89+k8cWqskCS2kQ5RpSWbPAAYtfT+NMG2RtH3JN2KW4FsGvFnMxw/0MKTTgC7KFO/eSKFa5NgQneI7MfT0IkUb9ZMrxdtv35Ro19PIAgDwdhBREZSCQP+Go6TjWq/MBAC2MeJhJhjyd8RNE2GCly5RkZq6EehNOXKlBRriRKJXTCmqwczz/Fi9/C/y+W2G4sBbpgc8oqd42hu96wKzsT73CxR4RBCPrNl6kC4ABWwdSaEz5zugsRF651TdHkSjbvzY0ZvNiMp4bM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(376014)(10070799003)(1800799024)(366016)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGpRTHBmbWJFQlNoaDBmNk1XY1R5TkxKZWJjUy9oeS9CclVMMWl3ZnN4TkxL?=
- =?utf-8?B?bXpoWEJ5RVhDdksrWE01MVhjY25obTRTK2dTaXNpVkRXcmJTREtUOVRlbE5K?=
- =?utf-8?B?Q0RzY1BWQmF3SGVwczY3NHc3SE9rcXNTakZ1NzNYelVYbXFvQjQwODJuZFR2?=
- =?utf-8?B?NUNyQ3IzMndPbDlmN1E4WTlZRU1YOTJwTGR2SVYyRm1aVzdYWTFHcFFKM01O?=
- =?utf-8?B?dER1QmtadHV5dUFWTmFVbFJQYS9zMHhOaVU4d2E2a0o5MHlIUEpOR2graWJX?=
- =?utf-8?B?TGp2MHY5VStaaFdsZW1JSzNlaVZyZWxyNnozY1dUekdIekVMOUNNSStocENq?=
- =?utf-8?B?SWZpRHk4U0pIK0tESzB1dWFGVXJZMXVOVUp0YkRPMkVuNEhiQmpNYmt6cGdp?=
- =?utf-8?B?VGFkZnFKUVNSa3BOUE40SWZTcTlUVzZoZnpmcWk4eXZKdWZzV2xkRnFPYmY1?=
- =?utf-8?B?dFRTaXVSVHlzd1I5L3JjY3hrVG00Zk1VdlFCbjh6R0ttYjF4YXpOTm5RSUFh?=
- =?utf-8?B?VGFiQUNJWHZnbkdXMnBya0d6dkgybGJ6ZWdmdVRPbml3ZGpVRVdWQXNHMDVa?=
- =?utf-8?B?MSsvYlJpRElPV3A5TThxMWh1ZVVpOXFROTI2Yi9XOVJIVjV0VFF4K2ZhYTdG?=
- =?utf-8?B?bjE5aitwSGkvTjViNEkrSlFxZkdGTHNNR2NycU15dTlSVEF4L09hb29oaCsr?=
- =?utf-8?B?NXZJRU01OUp2QXZkQnJZdi94YWtLRjBrZ2ZjVEJ4eFJGZ2FVNEZDNExpbFlx?=
- =?utf-8?B?S2krQW1ydHA5SnNMT0RraDV0T0Y0S0hGNmw4bVM0ak9aRnYvYURSNE9EaVFx?=
- =?utf-8?B?Y1pNTHNoMzlCS0dDdlQxaXhIZ0lHT3pOMTFOVWNwUnN0QUxEam4vUkY3bmFk?=
- =?utf-8?B?TjdEbWdMd1plRVdENWlqZkNFOGkxbUoyS21aK25oTkIvL1N0WC8xdWFkK1JO?=
- =?utf-8?B?dXFtelR0eXV3UHppVS91VlZtM25VL2hYVUFWWmhXVkxhbHFUMnM4Zi8zL29Y?=
- =?utf-8?B?RzBjTml5a250SkhDWnlkeVdPc2w0MmpLNUltd0RweE0rYkdxYTBLbmxSdUF4?=
- =?utf-8?B?aCtjK2ovbVpNVFZIM043SmJQaU5KYXA5anlOd0U1MEVRdStCZU9IdExSWmVl?=
- =?utf-8?B?M3dZYnZ6WG41WnFDOSszMFJvbytIR3M0TWhWdVhKN0lWQ3huVlhzYnZyWHpL?=
- =?utf-8?B?ZTY2UjVVa2NtWnZvSndMcW9YUEh1RCt5TmpKbXcyZHlTcTVZcEFXQUNkZkhG?=
- =?utf-8?B?YWk1OVE0K0k4RkI0Vkh0SXJMQ0xmNU9YSSt6dFZDSXhpWm9MRFJkY3YyaTk3?=
- =?utf-8?B?QW5PdW0yL2J1OXliRVkvQ2xBejhsWUhBV2lHU2hUbzl3RmVTRkptdW1iUFho?=
- =?utf-8?B?MGtVb0V2WmRFSnlmY0M2WlNnUVJVTHd1UWFScXFxVFRVdk5aOVZXVDRML2pU?=
- =?utf-8?B?c1daTldzdUFNYkt3dWpxQmFjWHdyNFAvUm83ZzFJUW5zc3hFZmlBeU1rVVlX?=
- =?utf-8?B?eW9wZjZYdnlCeW9PNG9SbTk3N3oyd3JEZnQ4TzE0REdhSGQ4T1V5Q3ZwTSti?=
- =?utf-8?B?cmVFNFh2dU5xc0Y2NXpLNVJ4MDhDWnJFZlR5TEx3ZnZIWEdFNURTM09ZQjRZ?=
- =?utf-8?B?a0VGWDl1MFdlREFaS3BNUU9aNWtGMVlmdWxOUHovMmpnNXFEb2ZDKyt4cnpO?=
- =?utf-8?B?ZW1rL2Z4UitmQUxHSjZKSUdKeDAvSXhqbHA5VUU0ZlF2dWYrTTBzZGtRRWRx?=
- =?utf-8?B?cGsvcU54dHhwY3BhQTRZMGpOSTdWeEZueS9vakNiOVp0SGtQdW1iOFNoclhC?=
- =?utf-8?B?TTM5MVFKM28wemFGNlJRK0IzRzd6eS9ub3JjS05kQUlYZGppZ0w3MW85WVk0?=
- =?utf-8?B?L2xla1MySWYvcDFpQmxrdFJFQmphRm9aK3ZyaTNrSzNRZHNRMCtkVWs0UThB?=
- =?utf-8?B?eWYvSEx6V05DQjRLdm9mMnhaaTlwc2F2czdLemxUTFJsd2h6RXN0RU11WmpF?=
- =?utf-8?B?UU15NHRkMHlCdTBEN2ZVQTRvczI2QkNvRFlOWXhQYmpEajVTbks5OUtNZGtY?=
- =?utf-8?B?bEk2ZFYwcVYxd0tVU0w5YW9RSUNLcjFxbWZZYWkvUzYzTGdPNjYwZDJ2RnRJ?=
- =?utf-8?B?NzRPbGRNOHptWE1GelFOQXlZb05TU3hONmluUGpLdHJ1WEpvVzdwdCsxeVBQ?=
- =?utf-8?B?MndCaVcxZVJpbXZubzVMMjNOY2I5WC8wRGxIcjI2MXMvYkxGWkNMc3RNa2V1?=
- =?utf-8?B?TmhnL1ZSS1hFQ01WVUhwaGV2bkNCeENCWlZTYVYvNllsdGZmV3g5V0R1N2FP?=
- =?utf-8?B?c3VzVE0xVDdzMVJtZXFxSXdkYi9GelFzMHNobUd1YkNmSzBHK3k2aGFFc1pY?=
- =?utf-8?Q?X8i+KE8CHLriuCPEZu0ppB+nytFPT+IJQYHRiQY4WStXF?=
-X-MS-Exchange-AntiSpam-MessageData-1: eM5BuK/6UctKdg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96e43e19-1675-4b5b-b41f-08df0302a51f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 23:43:20.6908 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xg0JU1SNZ/K43M4Id93RQSHgBhMMdpj6LH2gtNRWId46jmv+k0zzetZWIrYGvzeXVc3j2E1h3jLKTOSYwtVRnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5804
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-1-38351df09084@nanonej.com>
+References: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
+In-Reply-To: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4995; i=dev@nanonej.com;
+ h=from:subject:message-id;
+ bh=wqNRbUL7XMnvvIqxJx4lZ57luQxlOACegl3jQUnJo0o=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqjij3/dpP0vSUEuzwVXkj3C1sJoZi6XZeb/ZGM
+ OCfZJkiOaGJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCao4o9wAKCRBmh/EjChUV
+ /QujEACUpjPN4T/0y6QabTddhhrPY3GIQtRQpv0+HN4RPeq16VPwC4JLyL45LFZ2Tf+mPfpVfcO
+ mpQ/fGGXe0UE+C5OtAU1hYuGyARph/n1h5xBJIRlnP91ljwV3NkvblH1ZWq3WFozKLJkkTRmg0K
+ 3NrELsRpSo3V4gLPQqSbAn8PDKm5FLwz0f6XC8ZbkhvudLuZL4o6W3RxFEUVNaDC3oez9yh5VY7
+ +xathCm9aKa4y2nOkIRkX00HqOc/V2xLTzJX5H7Vp35iSLlOna5q32IMzvHFEK0uW8KACt6BC5Y
+ LJjU9gkkqiQ3uDvqZqPbTAh8y0NzrJUSf2TxuW//0NGWrWnITkmqDweKv924Q53SkaNHI0VcbA9
+ Vo8PqGCtff23ER8NbhbywV0DBPdmEVfwxiomAoMGAqq6eox9GFjG540U5l5neTpfOCepQDM/Eih
+ AZughzwPP2XqgjUGhExIA9uxxtvxIHXuHxI44gc6b8rTocAr1LZrBuGYuXLte/3xAiEB8sl8AcW
+ 8S0+kRccxjLppHaPhzm8k7XrYCqBJ82jDmi0maMZDbFlB6HpP7vvCL1l/hJnve5WCd9HzKzEsYx
+ Ny8Lp3s9tySKp/Skfi8FIV+4tvHB0T346DV2QMiVTX5gxPh1IxflowskziXLmunxExRlIx2QpYh
+ qiQBUR0HPYKiYIQ==
+X-Developer-Key: i=dev@nanonej.com; a=openpgp;
+ fpr=83B64FB07C91212F5285227D6687F1230A1515FD
+X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
+X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,65 +80,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Aug 25, 2026 at 10:12 PM JST, Alice Ryhl wrote:
-> On Tue, Aug 25, 2026 at 08:09:13PM +0900, Eliot Courtney wrote:
->> On Fri Aug 21, 2026 at 5:39 PM JST, Alexandre Courbot wrote:
->> > On Mon Aug 17, 2026 at 4:04 PM JST, Eliot Courtney wrote:
->> >> There is no good reason to allocate an IdPool with zero capacity.
->> >> Reflect this in IdPool::with_capacity.
->> >>
->> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->> >
->> > I am not sure this one is justifiable; `KVec::with_capacity(0)` is
->> > doable, so why not here? As long as it doesn't introduce soundness
->> > issues I'd say this is the caller's business; a driver with a legitima=
-te
->> > empty IdPool use-case would now need to special-case it.
->> >
->> > Now we do have an actual soundness issue with zero-sized IdPools, whic=
-h
->> > is that `find_unused_id` would panic with `CONFIG_RUST_BITMAP_HARDENED=
-`,
->> > but as I said on patch 5 I don't think it should anyway. Another
->> > potential issue is that `grow_request` would not grow anything; but th=
-at
->> > should be fixed there by handling the `capacity =3D=3D 0` case. Actual=
-ly
->> > that would give justification for empty IdPools to exist: just like a
->> > vector can start empty and grow, so can an IdPool.
->>=20
->> I don't have a very strong opinion here but I can't really think of a
->> use case for a zero capacity IdPool. Unlike an empty vector, since
->> IdPool doesn't automatically grow (there is a notion of a fixed ID
->> space), the only thing you can do with a zero capacity IdPool is grow it
->> to non-zero. All the other operations don't do anything useful.
->
-> It may not grow automatically, but that's only because Binder (which
-> will grow its IdPool) holds it in a spinlock and needs to use the
-> PoolResizer and so on to grow it without allocating under said spinlock.
->
->> If such a use case exists, maybe it'd have to be something like you are
->> using the capacity to identify your ID space size (and the ID space size
->> is important otherwise you would just use IdPool::new() with the
->> MAX_INLINE_LEN capacity) but then the only way you can grow it is via
->> grow_request() which doesn't grow the ID space in caller controllable
->> way.
->>=20
->> Anyway, let me know if you feel strongly about this one. FWIW, previous
->> to this patch series you couldn't construct a 0 capacity IdPool either.
->
-> I feel strongly.
->
-> Using NonZero to prevent passing zero is a very strong mitigation due to
-> its big ergonomic cost. There's nothing really wrong about a
-> zero-capacity IdPool, so let's not pay the ergonomics cost when we don't
-> need to.
->
-> Alice
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Ok, sounds good. I'll also update grow_reqest() to grow properly from
-zero capacity.
+Move PFSP register definitions from the root regs.rs file into the
+falcon module that own them, in the new falcon/regs.rs file.
+
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, PBUS and PMC registers: register definitions move to
+the module that interprets their service, visibility changes to
+pub(super).
+
+Since PFALCON registers are defined in the root regs.rs but are
+also part of the falcon interface, accessed by the whole falcon
+module. They are re-exported in falcon/regs.rs so falcon code can use
+a single regs:: prefix.
+Once the PFALCON family moves out of the root module, these
+re-exports will become plain definitions.
+
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+---
+ drivers/gpu/nova-core/falcon.rs      |  4 ++--
+ drivers/gpu/nova-core/falcon/fsp.rs  |  6 +++---
+ drivers/gpu/nova-core/falcon/regs.rs | 39 ++++++++++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs        | 21 -------------------
+ 4 files changed, 44 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index 11c1008b7d1e..68658a6e666c 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -32,13 +32,13 @@
+     num::{
+         self,
+         FromSafeCast, //
+-    },
+-    regs,
++    }, //
+ };
+ 
+ pub(crate) mod fsp;
+ pub(crate) mod gsp;
+ mod hal;
++mod regs;
+ pub(crate) mod sec2;
+ 
+ /// Alignment (in bytes) of falcon memory blocks.
+diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core/falcon/fsp.rs
+index 0437180b8829..c2bc61ecc07c 100644
+--- a/drivers/gpu/nova-core/falcon/fsp.rs
++++ b/drivers/gpu/nova-core/falcon/fsp.rs
+@@ -23,13 +23,13 @@
+ 
+ use crate::{
+     falcon::{
++        regs, //
+         Falcon,
+         FalconEngine,
+         PFalcon2Base,
+-        PFalconBase, //
++        PFalconBase,
+     },
+-    num,
+-    regs, //
++    num, //
+ };
+ 
+ /// FSP message timeout in milliseconds.
+diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-core/falcon/regs.rs
+new file mode 100644
+index 000000000000..96e1f0f1df5a
+--- /dev/null
++++ b/drivers/gpu/nova-core/falcon/regs.rs
+@@ -0,0 +1,39 @@
++// SPDX-License-Identifier: GPL-2.0
++
++use kernel::io::register;
++
++// FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
++// These registers manage falcon EMEM communication queues.
++
++register! {
++    pub(super) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
++        31:0    address => u32;
++    }
++
++    pub(super) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
++        31:0    address => u32;
++    }
++
++    pub(super) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
++        31:0    val => u32;
++    }
++
++    pub(super) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
++        31:0    val => u32;
++    }
++}
++
++// PFALCON registers are defined in the root `regs.rs` but are part of the falcon
++// interface, accessed by the whole falcon module. They are re-exported here so
++// falcon code can use a single `regs::` prefix.
++// Once the PFALCON family moves out of the root module, these re-exports become
++// plain definitions.
++pub(super) use crate::regs::{
++    NV_PFALCON_FALCON_BOOTVEC, NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS,
++    NV_PFALCON_FALCON_DMACTL, NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1,
++    NV_PFALCON_FALCON_DMATRFCMD, NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS,
++    NV_PFALCON_FALCON_DMEMC, NV_PFALCON_FALCON_DMEMD, NV_PFALCON_FALCON_EMEMC,
++    NV_PFALCON_FALCON_EMEMD, NV_PFALCON_FALCON_IMEMC, NV_PFALCON_FALCON_IMEMD,
++    NV_PFALCON_FALCON_IMEMT, NV_PFALCON_FALCON_MAILBOX0, NV_PFALCON_FALCON_MAILBOX1,
++    NV_PFALCON_FALCON_OS, NV_PFALCON_FALCON_RM, NV_PFALCON_FBIF_CTL, NV_PFALCON_FBIF_TRANSCFG,
++};
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 3422b49df7a7..0404fb82aa7e 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -359,27 +359,6 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+     }
+ }
+ 
+-// FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
+-// These registers manage falcon EMEM communication queues.
+-
+-register! {
+-    pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
+-        31:0    address => u32;
+-    }
+-
+-    pub(crate) NV_PFSP_QUEUE_TAIL(u32)[8] @ 0x008f2c04 {
+-        31:0    address => u32;
+-    }
+-
+-    pub(crate) NV_PFSP_MSGQ_HEAD(u32)[8] @ 0x008f2c80 {
+-        31:0    val => u32;
+-    }
+-
+-    pub(crate) NV_PFSP_MSGQ_TAIL(u32)[8] @ 0x008f2c84 {
+-        31:0    val => u32;
+-    }
+-}
+-
+ // The modules below provide registers that are not identical on all supported chips. They should
+ // only be used in HAL modules.
+ 
+
+-- 
+2.55.0
+
 
