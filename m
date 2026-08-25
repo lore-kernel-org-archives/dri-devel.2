@@ -4,141 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54878C5DF94
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 06:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06259C61CE3
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 06:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97E3E10E5CF;
-	Tue, 25 Aug 2026 06:46:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 786BA10E19B;
+	Tue, 25 Aug 2026 06:48:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="qZZtgWZV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IiSyRJuT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CNjL6uCt";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010025.outbound.protection.outlook.com [52.101.56.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A04BB10E5CF;
- Tue, 25 Aug 2026 06:46:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GiYA/U26b51lmWEqTadRuZgf3uGyJ9VMnYJFYBoStASF0BH4utAxLAgziffWm9YVSOXWqqh7/qgUOzdj2puX/8PpQK6urv8KNqal9Imet9XWygcnFYOvAjvcVoXG+de5T+VHMYf6wyEjFr/U+PGKQLJOfi5pTrD+wRLrrFNtK6s9zzx251Effc067TPvfqKrulNAcH074ZN4w+PXgJ8w8Sj2gW9ZCoMfQoLA4zlNITuvmFVapWlbHt2qNdKw3CFAqiExtSaI7zJNnI0yelonEwWEyQtc8GaxRF4QrYxiUY1dCwCsBUCx4Cy8n9p80rTkYSFCQDYCE4IsIXWU4v4v+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mxPMaiTWVeQfjiwVsjl5tgrze8jtnhL7Ux+A3YSJ+J4=;
- b=nZcU/dApglvlyGDgmTWPEpiNLwVx4IFUli/RtaXu2V9vauxeuoT9byWZX8ug6anh+se0JonTneuu3OAVuTvZ0cX+uIqExO8OIRS/XnsLyDptvlKsp1rmwrDy3g8LCa/V6NT7afOWZKDWxVHdcA2x3XKglKh+HdY/++NAVfkuAMW4DDffbtResJpPnEJSEW4HeAmvm2a10QSJG+0PPNsqePmZ421MU3M9dO4WVkOf9OG9qMI7MQkkxDSJ+H6lS1Jn8EbTFy4+/R0vBorm3O+VRYaEnBXw1yc1dhCdrRcTmGpVJo9535geMbBsH0LZ+CFaVM/Q6zQcLME0xHCnsfSLGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mxPMaiTWVeQfjiwVsjl5tgrze8jtnhL7Ux+A3YSJ+J4=;
- b=qZZtgWZVazldrWAtSUMMrDzJya93OPmlo3GzQVX1R5LxhMWXJJcWw80jhgpmm6O+DbgjBuAxoYoQBAXJkMoIyKZE1rWAyLitrAHdajeN7+N4+V3zEzSjzWvxsiOitr57SY7hsigDgAP2gMrdpHSMSJZBolQ+qxUJ0Etbawq+Ar87W7BCwvv7DvpsuXMmou7HlhcYvlsTuHBt2xIuUbMTeV5tfxYYxRQ8h0J3V0W5M4U0zEJFLvQ+tKafl2UgGeK2SfAVEQdNVTD2CK0B1EGLcw4kjrBYJErRaiKma/tQfXzO0PHRAh3pmo7AnHo6kzbuIWQMjlaM5SNnag3DSRsgwA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- DM4PR12MB8559.namprd12.prod.outlook.com (2603:10b6:8:17d::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.6; Tue, 25 Aug 2026 06:46:38 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%6]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
- 06:46:38 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 25 Aug 2026 15:46:34 +0900
-Message-Id: <DKXTMS7HED31.3L0SB1WM5RL6Y@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH 5/6] gpu: nova-core: add NVKV typed decoding
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
- <20260817-b4-nvkv-v1-5-b84db5e84b67@nvidia.com>
- <DKT5GWU3ARFG.25B1BCY0A3RS1@kernel.org>
-In-Reply-To: <DKT5GWU3ARFG.25B1BCY0A3RS1@kernel.org>
-X-ClientProxiedBy: TYWP286CA0017.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::10) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9278210E19B
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:48:02 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67P2R3rb405004
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:48:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Gyh9XcgHUZTAH+0naOsJaq5PNQKLw6A9D5m3uUaqHmo=; b=IiSyRJuTk7oCrm/1
+ DZn3eKlQs5kB0XQVMPKFMCj16/YQ8lPXAyaop6Xqtdht4kLBo42CBGPjprsZCO3S
+ 4RuHfvSDDA8sDTNCoqAppM+6zLDbl1JAK93p6hnVw9sdf8pr4pwRFpCbothlsv1T
+ gt/WHGDZfjAOLt7ad0rx60bZsCFZAm0xaP/KphAiEGaQL0tU+Cre6Wek/yxmpGSP
+ F/9fCLtz75mTsZcT2N1MW/CwTztgpx09Osl4HenZZymCfpoeoBV7u+iCkJwk5umR
+ rzK2hLcPZ2kwGYfRu98caA9e+fFcREe9fpsvWDpaN1GFSPoK2xO67M62fXvlS3Or
+ kESoXQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8y5jhaab-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:48:01 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2d63bad3d09so53340045ad.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 23:48:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787640480; x=1788245280;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Gyh9XcgHUZTAH+0naOsJaq5PNQKLw6A9D5m3uUaqHmo=;
+ b=CNjL6uCtoBQAjJGj6+wrHV0K0UTuDxFXJ5XIQ+Euhka6qw/80I93Hj5nowK7f8oBJU
+ O6ALBoxN/mqWLQcKYhtdl/dxMgRbNz2mdd/GbYaaaNUnHY+C2LOscT0bRgtJRrG5it7j
+ UVGZVQlvu+UztxWlWT2zJz98MH3tPvLLd/Ra+ljXQXOr96tqCLacu/4U3AQEnOh2zdJ9
+ VY10vPGUHj6BWYgiOCQVSP+cJyd8MkFlSYMcEWa4Py/4SJy3RREkPQuzreBDsHF9Y587
+ wYGfNZQFo9GKiSirqAvikJlhfduSgbuELa5oVuFabZNIh4kBQ2d5z2BA5XviBRnOvHvP
+ l87A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787640480; x=1788245280;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Gyh9XcgHUZTAH+0naOsJaq5PNQKLw6A9D5m3uUaqHmo=;
+ b=NbP+3RXJSdyE4zA5wzorzC6U28dLWWvAclypdsy85yA3NcNSzmXBn7o1/QgU2sSv9/
+ EP3TZ0AzftDvHHAOZQxMx1TNVHIlWkZK4Ysb/XBQF2gmwx7iW7ic46lvtRdwVqOMMM8x
+ FdxSo0+YHvm2XlkddFut20oNR5oHxCYpFUS9bGbH8BEt1TZC9gPoiyIUoSI/gO4hLxtU
+ ATEOX+1H5BZ958PWBHh5jhhOkUsZsRAErxnWMUnI0rENc2t4rWxdnizKPXt1mbYRt1p1
+ 4Bvl4AZ376L/EUM26ZkvlSvEaiTLsbMX4IstXgoPN2kSASiajNgDe8zPfzitQ6+KiovG
+ mv5g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RooZieUSlq8QXPBk70MQZUQ+w20nKNATjmuQS1r4neZRr3r5lLHWNrSkz8dQWSWG1PhsrYs0DIsC9Q=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mq+XW3nY6yeb8tw/zh+WMIYR0bAHoqkttKs5xKro4gKLmfSkez
+ dji7L4DA8KtpJiUHJHzR51Rmx5PlIpUOEDM8JEDe2QHSh7x7stpoQf52ZynjbJ2HmNHVAvn3Iy1
+ +cqhBaSuu6h4T7VxNY5L5QO940gRQN2SeiyiQJXlVEJJugGS+2E7llQlEU+zlq5Bz5Rlf0y8=
+X-Gm-Gg: AR+sD12xaUa2AcO1FudG8ClpxNKum99ofibpmv5szC2EmpRd08esG00fZKh6XEsj99g
+ 21Kt4PamqMIVnb/QatLmrACpHwm8MQdUV5pb4HBEVKgi3E4ajNGaB9BtP17R1DhHHIan5SFwoiT
+ /r9jtKVBjGYq0D/wMe+1rbuPXFYEeSIBNFgyrLKuItzshzOEpU0gBpcmSjrO4dCylF995IHMtf2
+ YeXeyq9BEvsRxVXlBkXUpekdnyMYZ1pAt/ITRLSv04KaXiwWXhm6+2HjeAUWxY8E2iE/Hwjqa3u
+ C0xkfC0vurJR2bPy2zjO3AAljp2fmy+oVDjRRgxx7UtqVYnZshMpb6y3uaciuI67dvgG7m7OeBG
+ T4ENweOUN+g/aT/IKbpSVIOxexbUGXw==
+X-Received: by 2002:a17:903:3904:b0:2c7:ebfb:618f with SMTP id
+ d9443c01a7336-2d670d299bdmr452010185ad.14.1787640480364; 
+ Mon, 24 Aug 2026 23:48:00 -0700 (PDT)
+X-Received: by 2002:a17:903:3904:b0:2c7:ebfb:618f with SMTP id
+ d9443c01a7336-2d670d299bdmr452009385ad.14.1787640479831; 
+ Mon, 24 Aug 2026 23:47:59 -0700 (PDT)
+Received: from [10.219.56.151] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d676761bdesm25061285ad.1.2026.08.24.23.47.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Aug 2026 23:47:59 -0700 (PDT)
+Message-ID: <dcf8d925-cf9e-47d8-ad79-0b5e641529ee@oss.qualcomm.com>
+Date: Tue, 25 Aug 2026 12:17:55 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DM4PR12MB8559:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cf294d9-c64d-45f1-d9a3-08df02749d20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|7416014|376014|366016|1800799024|10067099003|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: qNseCrat8sftrd8c7Iym6o58OjDgZZCGfXoG6WGMBOOaGj+MqqVEP8MMPSPEvOBihAnyYzSikxX/fNkEZLd7GdJI1QfRtHWnco2wyvz4SKslkyz/CUPMTx87Wc873xqoyUIMhk+BCePSMr7udiWa7uKsct0I6VeDlaYqqf7yKva++A6qJhSK7uZ2AhwfHMAjf3pVJsxPo6MqtfXYio6viBMdsSHUluBAHEE/Kx5M5N5N/SQOGWpx7JCl5HoIZkEr4mtWdPntinTiyJfMNgqQ0JZdadEVt9Q08qK0esjFiajTrN1jnsqaG2V2CrYawshGpkU+q6DwN6CBLw3zs7UNlszvrWK2p1V1iq6Nr4dAjHfwxTVUyHeJ8RS2kqdQDtFquvelAQ8ha7Ej5cq/ForuWO4rv1ksTebu8z4V+Jd9PZW+19+XsIBCGj630tXxK6w1zK0aDLZQRbQyaSb6fsVUx5vzptkd39E/Kj6pITTtS+kTR8+YyOh1IeDnJEmLygNPFmaYSUM41tEG12QLCNLvXi7vrhouTyoaTeXpI8iMDrEf0DiLogJeDxObxSJQcO45b6w7KKRFt7pYDcv8aLIKeGVguAVZe0wkchx3LKoFU4Be62xJ8rldqDXlX40rmrXZ5gP2kSy1G9fuf5kzfyaQbSNMi10f5pYFeY+kYU+nm0M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(7416014)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cytTUU5yZ1lxbjJKa2NuWFJ0TUtGdzRndi9yb0wxdVRXSWRZcXZES0lZSG1G?=
- =?utf-8?B?RVNDbUFUQ2tKZ0ViTDBhYlhQRW5TRi9IZlFkQjRNMHZTYU4wbFdoS2dPT0NH?=
- =?utf-8?B?OGlTOFMwY0lkL0hDVkFQc29IOWZ3eStKeUNVVzdXWDVISTFTem9tWDB6YytR?=
- =?utf-8?B?U0hlbmlYZXpxeEw2MVhyMHo1MmY3WUdrcmVWb0tEcW5DWkZXZzJvYTVhWXdt?=
- =?utf-8?B?eTlNZ2pwM1h4VEdQblZpd1hnL04xWDNZMFJtODFsMlI4dkJqSUZyUzErWTE3?=
- =?utf-8?B?Y0NvVW41OStVQzZvcGNoa3JoLzBMcTVjRlNtNlkwMlZvRy8rK2dvQkJzVXc3?=
- =?utf-8?B?dnJZZVhyZFZqYzRLN1g0S0N2TS9rUVJNb2pwNTlJZTRnSWprMTE5UUNGUFJM?=
- =?utf-8?B?RVdzUXFyVnBSZXJoQXgyemI3YzBkc0NPbVVaUDJueExZSEh2T1g2alBUT1Vi?=
- =?utf-8?B?QjE1Sk12RVVJUkNsUlRZb0lUUjhNYkQ1ZnFoZWh3R1ZMTVFvYnZ4SmVNbDd0?=
- =?utf-8?B?c0YxYy9VWEdVK2lqM0RZVk0rOVR5K2JhOWtMUVl2dnFPQ3FISTZUem1OWm92?=
- =?utf-8?B?SXdVTGhsVXVMS2hZd1hKNXFrMmd1c09ZcHFvcmo2N1hpaHhzdnVDQ3dVMnVt?=
- =?utf-8?B?ZTN4MTZaQmszZFJuVjNEV1Jod0k2Z21NdTFVeE9BekZZL3RiNGprdFBrb1hE?=
- =?utf-8?B?dnhCRWNqRFlpVGRsTDBWd1dLZGZiOUJqWkRKSWw0NkhrWmQ5M29KbWdEMThE?=
- =?utf-8?B?ZlhRbjY0VWc4UDB1V2FJbDFoWUIyZDFZaCtWNTFwOWFqdmZvOHN2MzlxOUky?=
- =?utf-8?B?RHF6dDUyUEVobDJ2dC9BcXNpV2RjL1lBTSt0d0ZtYW9LY3VZTXovTElFSVRn?=
- =?utf-8?B?U0RQMlRsMHByOXVEVk5VcmZrdUpLNjBZUDQwNzR0blZhT2ptYkJLTTBFazc0?=
- =?utf-8?B?SFdmU2k5UGpidnFXcWNONldDWUJMMUJ4WFhZN0drOUNCaXFqQkhkVklmelZ5?=
- =?utf-8?B?YTNRV3BlWjNoTjVRTFpxcDNIanpjRjhsVE9JVzdwNHlPbitYNGtkTmxLTVRK?=
- =?utf-8?B?NzdQUlRIVGJoOFo0UEpqWmNPSXQwYXRYbUhwdWdReGxROUt1ZUxrM3VRaWJj?=
- =?utf-8?B?V3BoMXJMYjFsWUJ1c3BFeWNqNU9qcGIzMFRGbHJ2M1RoK2dXMVdzTVpuUXMr?=
- =?utf-8?B?Rk01VjU1Q0lpenRUQlgxcHRlRDdKcnNzY2p2U1BMbFFFQ2FocEE0ZUxCc05G?=
- =?utf-8?B?bVZKNUJwTDRYa0JubWNQRFUrWW5oQXpQUiswTlJkMWF5RjMwU1ZHTUIxRVNw?=
- =?utf-8?B?OUpDcTRoSi9QOVhrZ01hUytaUlB1WnpYYWlYc0puaFJZQVJwWktJTlM5Mkxv?=
- =?utf-8?B?Y05RemV4dWc3N2xhbGYvbG5KNnd3bjlRd2JCcU04cTdGeU5POXJHUWRDWUVi?=
- =?utf-8?B?d21tUlVISFpqUFlWK0sxZUNyd1hlRjFyL2VhUnp2ZHRzS21RblM5YUtXSGl3?=
- =?utf-8?B?c0RXN2JXb0FrUS8rTkVWdFBzTE9OUlpyMU1qODBsZTRKTmZCb1pSV2Exbjd5?=
- =?utf-8?B?QWdpN3liYVk1VDZ3TTNjYW1KUnpyWTQrNFBZTnRSTXB4S0lObzNHbzR6bHVB?=
- =?utf-8?B?SGpXdmIyQzJVanNQaGtIdUVWcS9rMHNNc0lLK2t4cTQra1FlY3lvRlpORHRk?=
- =?utf-8?B?ZjNhSE5xUkM2MW14UWY1a2ZOdk52RVVtZHgwdWpxTlkxT1NxbWp6d0dRQzFB?=
- =?utf-8?B?V1kvUUtZQzJaQ3Fjcm1CSWVRdFV5d0lMeGZMM1haV1YvWVBtNVE4dnRrcU8x?=
- =?utf-8?B?SG5VR1plSGZuc3FKcGtSK3NYVG9yTmptYkxKNmZBOTc1WGRBS2p4SklqUEZT?=
- =?utf-8?B?VkFlQVVISmdRK3E2M3A0MWZmZVIvSEI1bzVHdGhhZVZOMFZWVktmU1U3T3V6?=
- =?utf-8?B?L01RNXV0Q2gvd2h1N2dvTHJFM2cwd3RqakNFVk1WaW5MeU5lZ2QwWTBiWCtR?=
- =?utf-8?B?WTlOWEpsVTNjSWdOYWZjN0lFQ3ovK0I5cno0eEYwNUpRdE1YUzRpTDZqSzNF?=
- =?utf-8?B?ZmZIR01yMmlxWDl6K2EwY3lkT0pkcXlPbzQ5cGxIbTJ4dFlqNGcrZUt4cTF2?=
- =?utf-8?B?U095MklwVFk3a3FNelBsM2QycDIzaUdkby93M3VPMnhKMUlpNWlDYU1GU3lL?=
- =?utf-8?B?NE93VDRKSDU2aFJYT3hWcFQxUTVBUkhKMEhGVERuMjZOQm91R0dvS1VydkxL?=
- =?utf-8?B?dFRFdHkxTlVKVnlvaGxnMnhkYlBuR0poblhTcVNWM1N6TVQ3TDVQSWlmSjF4?=
- =?utf-8?B?V0RHcUdYejVzRUNWVTYwYlowSmZoMUNFUGpPdjlneU1oN0p5ODBhMTRxRWc0?=
- =?utf-8?Q?PsB1oQVkJs6it1/WHSQTCKvo1rpj8pL7n0Tje1XOkRic0?=
-X-MS-Exchange-AntiSpam-MessageData-1: bVs7clXDf9iWWA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cf294d9-c64d-45f1-d9a3-08df02749d20
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 06:46:38.7298 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YsTB8G7mqGs6YtKc7+cz7jbRqNrJGA4rPyS8l2gFc+fsRwskCl7BOJAfaBnK8tn6yrOxzzYWkoLQ4Ox/y7XOTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8559
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fastrpc: Reduce log level for DSP info and reserved
+ memory messages
+To: Jianping Li <jianping.li@oss.qualcomm.com>, srini@kernel.org,
+ amahesh@qti.qualcomm.com, arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260514062825.50172-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260514062825.50172-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=O5QJeh9W c=1 sm=1 tr=0 ts=6a8d3aa1 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=7I6ySQAFBpFkhykqCKYA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDA1NiBTYWx0ZWRfX3nmSoT+z2dCc
+ y/OGlgbdH1Mt9MNhy8hQpsYHvTmV9AqyiZVpzDigJkOmMI4WKzV+JBj+DcldLKv6U6dYn+FWtWS
+ VdgssLmYxBXiKT43yMC671Yq1iKhvABDPZlRsbBBwJSzrX9A1GOql+wGrihf7I/IL8a893KTXgt
+ FzY8yTA6USVHFfkw9mZE9e3R85Zpe472lo2xA5c5zR/eAh1y9DZukc4cfX7TOyVd4n8IqZF0m+4
+ GLQ/4oPDL5W+/EPVZ0M0gB9tX6TbBAn7IM8XPiVbt7gUUcB/06q5wsNs8V1Bp/+tgCT1HMNX8xr
+ IGaLu/G+5ozpi7zRZNsQON82rElYAQ081MlfQ4g4FcxGDhG3JCBjTW5jld/1KVDa63CnSgMNQSy
+ mMIIZjyzod8wL12JmkxSh/JYi3NBOtfbUNbOMvKYuZ/YIPFUx7W/Jk+AcnFVz27f+IZpoJwNz3X
+ h1BCurREOxNFZoJbXZw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDA1NiBTYWx0ZWRfX+Lm/bJgKbDOW
+ oPKbN8r9C06Nb8s7x50FmgR1oDCI4AeYmk0LKY2cZfrb24Kuplr/V7IEaYrM308EySeWfBYbH9D
+ w6pSBjNaSNmx5nJrp37NF4vGzXNlZCI=
+X-Proofpoint-GUID: I8rsWl4QqXpM3w773_ZP48P0pPOaFa9v
+X-Proofpoint-ORIG-GUID: I8rsWl4QqXpM3w773_ZP48P0pPOaFa9v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-25_01,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608250056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,41 +146,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 20, 2026 at 3:59 AM JST, Danilo Krummrich wrote:
-> On Mon Aug 17, 2026 at 2:56 PM CEST, Eliot Courtney wrote:
->> +/// A fixed capacity vector that holds at most `N` elements.
->> +#[derive(Debug, Copy, Clone, PartialEq, Eq, Zeroable)]
->> +pub(crate) struct ArrayVec<T, const N: usize> {
->> +    data: [T; N],
->
-> This should be [MaybeUninit<T>; N].
->
->> +    len: usize,
->> +}
->
-> Let's move this into the alloc module.
->
->> +impl<T: Default + Copy, const N: usize> Default for ArrayVec<T, N> {
->> +    fn default() -> Self {
->> +        Self {
->> +            data: [T::default(); N],
->> +            len: 0,
->> +        }
->> +    }
->> +}
->
-> For anything that actually constructs an ArrayVec we should probably cons=
-ider to
-> restrict its size with a const_assert!()?
->
-> For an initializer approach that'd be not an issue of course.
->
-> 	fn init_with<E>(f: impl FnOnce(&mut Self) -> Result<(), E>) -> impl Init=
-<Self, E>
+On 14-05-2026 11:58, Jianping Li wrote:
+> On some platforms (e.g. QCS615 Talos), fastrpc may temporarily fail
+> to retrieve DSP attributes during boot, resulting in repeated
+> "Error: dsp information is incorrect" messages printed on the
+> console.
+> 
+> These messages are observed continuously during boot when metadata
+> flashing is enabled as part of RC releases, causing unnecessary
+> log noise.
+> 
+> Similarly, the absence of reserved DMA memory is a valid
+> configuration and does not represent an error condition.
+> 
+> Since these scenarios are expected and do not indicate a failure,
+> downgrade the log level from dev_err/dev_info to dev_dbg to avoid
+> flooding the console.
+> 
+> No functional change intended.
+misc: fastrpc: >
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 1080f9acf70a..05ec14c07fd0 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -1802,7 +1802,7 @@ static int fastrpc_get_info_from_kernel(struct fastrpc_ioctl_capability *cap,
+>  		kfree(dsp_attributes);
+>  		return -EOPNOTSUPP;
+>  	} else if (err) {
+> -		dev_err(&cctx->rpdev->dev, "Error: dsp information is incorrect err: %d\n", err);
+> +		dev_dbg(&cctx->rpdev->dev, "Error: dsp information is incorrect err: %d\n", err);
+>  		kfree(dsp_attributes);
+>  		return err;
+>  	}
+> @@ -2361,7 +2361,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  	}
+>  
+>  	if (of_reserved_mem_device_init_by_idx(rdev, rdev->of_node, 0))
+> -		dev_info(rdev, "no reserved DMA memory for FASTRPC\n");
+> +		dev_dbg(rdev, "no reserved DMA memory for FASTRPC\n");
+>  
+>  	vmcount = of_property_read_variable_u32_array(rdev->of_node,
+>  				"qcom,vmids", &vmids[0], 0, FASTRPC_MAX_VMIDS);
+Can you also move this log[1] to debug level/rate-limit? This can cause
+dmesg flooding in case all the session are already getting used by
+processes. Some discussion around the same happened here[2].
 
-Thanks, that all sounds good to me.
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/misc/fastrpc.c#n1786
+[2] https://github.com/qualcomm/fastrpc/issues/383
 
-If we move it to the alloc module, I'm thinking to add a few methods
-that I think might be useful (e.g. push). But lmk if we should keep it
-to the bare minimum - just feels a bit odd to add something to common
-infra that you e.g. couldn't even call push() on.
