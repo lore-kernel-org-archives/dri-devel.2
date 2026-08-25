@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A33CC61DB6
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 09:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F8DC5DF94
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 09:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22AEC10E8BE;
-	Tue, 25 Aug 2026 09:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F40910E995;
+	Tue, 25 Aug 2026 09:29:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AjGBqDmY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YoLwcGy9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59A2510E8BE
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 09:25:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A98310E995
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 09:29:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0A56D43EF9;
- Tue, 25 Aug 2026 09:25:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4581F000E9;
- Tue, 25 Aug 2026 09:25:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8F06D6011F;
+ Tue, 25 Aug 2026 09:29:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A670C1F000E9;
+ Tue, 25 Aug 2026 09:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787649907;
- bh=PbN3JcQcN/L3rATe2NIMWLdEy42ZH2rNAQSCQj1aE2s=;
+ s=k20260515; t=1787650196;
+ bh=kDhALPMamfs8J9DX/MUW6kSV45nkQCQ8DCdIurOOpto=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=AjGBqDmYl95HbEszRccwf7Fh9YtlOkJEUTIRswM4CIfyKKfyZdu9m5W79hzAvoc2y
- v2yMwJIRRIaSn6pdUYxKN996TJBxPQrWDuwmfWrfrajhlhZvjqRsoAOWbd218CE8tZ
- BeAdGyvR3QMOTwf3T4jAET5ASFrzlZouVe2jNiwB2ytgB7xCG9C8aeYkP/SWfF97wn
- oCm+HFgigiMaqioxYh3Im78NZu2UNC4wfnQMheQBBpbyGbhbgb1P3x+tMqEeW0E+XH
- NUKkPd9FuAf4hujsXJQyHYPWD7W4nqh0VHITh5yJwcuKMS9eMEHi7w0dGyFFOUMkmR
- rGfa1cnqFKbmg==
-Date: Tue, 25 Aug 2026 11:25:04 +0200
+ b=YoLwcGy9xPn4EOaPipJ13rzqF+5OQHK0Ng4I2Pzmj048hObkYrSsmDtadOYin//0k
+ 9HwjRq4b15ha7NU86cMwHbio7y24oVOSBoxIwEweHTDnlXbDQ6tEJUscNOGfH/2Q8B
+ DEva+o3WM8ntPLJFKMT/hC2XAJCtPqXXqMtvrTMnU2BYM9QGIIwjgDNAirY9Edes7o
+ 3xbojB0hO3r2jgJ5u4eaYW0REwPkciJxCEfgs7cdpH7HhGXPgCFB6dac7OdN7Wbrb1
+ B6BGL4bManH+w8UDKu4Umn/vTLM0TxUISXLNYYxq1ZXs7Fnpw0SNruG9t/9fAVpbB8
+ c53su173V4iWw==
+Date: Tue, 25 Aug 2026 11:29:53 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -57,18 +57,20 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  linux-rockchip@lists.infradead.org, 
  Maud Spierings <maud_spierings@hotmail.com>,
  Diederik de Haas <diederik@cknow-tech.com>
-Subject: Re: [PATCH v10 22/69] drm/display: hdmi-state-helper: Sync SCDC
- state on hotplug
-Message-ID: <20260825-potoo-of-imaginary-unity-7b0999@penduick>
+Subject: Re: [PATCH v10 07/69] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+Message-ID: <20260825-massive-jolly-agama-a95e3d@penduick>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
- <20260731-dw-hdmi-qp-scramb-v10-22-294364b2cf15@collabora.com>
- <20260820-accomplished-curly-bandicoot-cc36ba@houat>
- <774c38bd-6569-4aff-9fbc-a4e017840a55@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-7-294364b2cf15@collabora.com>
+ <20260819-amigurumi-lorikeet-of-infinity-fd8c2d@houat>
+ <ad65a396-02fb-4816-b978-e3a0c46688b2@collabora.com>
+ <20260820-gorgeous-adder-of-reading-5a93f3@houat>
+ <28743613-22ec-4208-ad55-d018764bf846@collabora.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="wvp34r75zg2fljmn"
+ protocol="application/pgp-signature"; boundary="rknqritovu2w3mde"
 Content-Disposition: inline
-In-Reply-To: <774c38bd-6569-4aff-9fbc-a4e017840a55@collabora.com>
+In-Reply-To: <28743613-22ec-4208-ad55-d018764bf846@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,149 +87,298 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---wvp34r75zg2fljmn
+--rknqritovu2w3mde
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v10 22/69] drm/display: hdmi-state-helper: Sync SCDC
- state on hotplug
+Subject: Re: [PATCH v10 07/69] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
 MIME-Version: 1.0
 
-On Thu, Aug 20, 2026 at 05:44:08PM +0300, Cristian Ciocaltea wrote:
-> On 8/20/26 11:53 AM, Maxime Ripard wrote:
-> > On Fri, Jul 31, 2026 at 07:19:29PM +0300, Cristian Ciocaltea wrote:
-> >> drm_atomic_helper_connector_hdmi_hotplug() does not currently
-> >> synchronize SCDC status on hotplug events, leaving the scrambler state
-> >> potentially inconsistent after (re)connect.
+On Fri, Aug 21, 2026 at 10:04:14PM +0300, Cristian Ciocaltea wrote:
+> On 8/20/26 7:56 PM, Maxime Ripard wrote:
+> > On Wed, Aug 19, 2026 at 10:33:04PM +0300, Cristian Ciocaltea wrote:
+> >> On 8/19/26 1:12 PM, Maxime Ripard wrote:
+> >>> On Fri, Jul 31, 2026 at 07:19:14PM +0300, Cristian Ciocaltea wrote:
+> >>>> Add the connector-level infrastructure to support HDMI 2.0 scramblin=
+g:
+> >>>>
+> >>>> - A drm_connector_hdmi_scrambler_supported() helper to report whether
+> >>>>   the source supports the scrambling capability, based on the presen=
+ce
+> >>>>   of the newly introduced .scrambler_{enable|disable}() callbacks in
+> >>>>   drm_connector_hdmi_funcs are mandatory
+> >>>> - A scrambler_needed flag to be managed by the hdmi state helpers ba=
+sed
+> >>>>   on the negotiated TMDS character rate and the source/sink scrambli=
+ng
+> >>>>   capabilities
+> >>>> - A scrambler_enabled flag to track whether scrambling is currently
+> >>>>   active
+> >>>> - A delayed work item (scdc_work) to monitor sink-side scrambling st=
+atus
+> >>>>   and retry the setup if the sink resets it
+> >>>> - A scdc_work_initialized flag to support lazy initialization of the
+> >>>>   work item on the first scrambling enable and guard the teardown pa=
+ths
+> >>>>
+> >>>> These are intended to be used by SCDC scrambling helpers to coordina=
+te
+> >>>> scrambling setup and teardown between the source driver and the DRM
+> >>>> core.
+> >>>>
+> >>>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+> >>>> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 L=
+TS, Rock 5B
+> >>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> >>>> ---
+> >>>>  drivers/gpu/drm/drm_connector.c | 31 ++++++++++++---
+> >>>>  include/drm/drm_connector.h     | 83 ++++++++++++++++++++++++++++++=
++++++++++++
+> >>>>  2 files changed, 109 insertions(+), 5 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_c=
+onnector.c
+> >>>> index 4721cdeafc84..a18410faf040 100644
+> >>>> --- a/drivers/gpu/drm/drm_connector.c
+> >>>> +++ b/drivers/gpu/drm/drm_connector.c
+> >>>> @@ -622,12 +622,29 @@ int drmm_connector_hdmi_init(struct drm_device=
+ *dev,
+> >>>>  	 * default with the actual controller capability. A value of zero =
+keeps
+> >>>>  	 * the limit inferred from supported_hdmi_ver.
+> >>>>  	 */
+> >>>> -	if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_2_0)
+> >>>> +	if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_2_0) {
+> >>>> +		if (!hdmi_funcs->scrambler_enable || !hdmi_funcs->scrambler_disab=
+le) {
+> >>>> +			drm_err(dev, "Scrambler callbacks missing for HDMI 2.x\n");
+> >>>> +			return -EINVAL;
+> >>>> +		}
+> >>>> +
+> >>>>  		connector->hdmi.max_tmds_char_rate =3D HDMI_2_0_TMDS_CHAR_RATE_MA=
+X_HZ;
+> >>>> -	else if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_1_3)
+> >>>> -		connector->hdmi.max_tmds_char_rate =3D HDMI_1_3_TMDS_CHAR_RATE_MA=
+X_HZ;
+> >>>> -	else if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_1_0)
+> >>>> -		connector->hdmi.max_tmds_char_rate =3D HDMI_1_0_TMDS_CHAR_RATE_MA=
+X_HZ;
+> >>>> +	} else {
+> >>>> +		/*
+> >>>> +		 * Scrambler callbacks are only valid for connectors advertising
+> >>>> +		 * HDMI 2.0 capability. drm_connector_hdmi_scrambler_supported()
+> >>>> +		 * relies on their presence to report scrambling support.
+> >>>> +		 */
+> >>>> +		if (hdmi_funcs->scrambler_enable || hdmi_funcs->scrambler_disable=
+) {
+> >>>> +			drm_err(dev, "Scrambler callbacks unexpected for HDMI 1.x\n");
+> >>>> +			return -EINVAL;
+> >>>> +		}
+> >>>> +
+> >>>> +		if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_1_3)
+> >>>> +			connector->hdmi.max_tmds_char_rate =3D HDMI_1_3_TMDS_CHAR_RATE_M=
+AX_HZ;
+> >>>> +		else if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_1_0)
+> >>>> +			connector->hdmi.max_tmds_char_rate =3D HDMI_1_0_TMDS_CHAR_RATE_M=
+AX_HZ;
+> >>>> +	}
+> >>>
+> >>> I'd put it into a separate test (possibly earlier). Merging both the
+> >>> tmds rate default and the scrambler callbacks check makes it messier
+> >>> than it would be if we had two separate tests.
 > >>
-> >> Hook drm_connector_hdmi_sync_scdc() into both the connect and disconne=
-ct
-> >> paths, replacing the existing TODOs around missing scrambler handling.
+> >> Ack. How about the following?
 > >>
-> >> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-> >> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS=
-, Rock 5B
-> >> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> >> ---
-> >>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 23 ++++++++++++++--=
--------
-> >>  1 file changed, 14 insertions(+), 9 deletions(-)
+> >> 	if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_2_0)
+> >> 		connector->hdmi.max_tmds_char_rate =3D HDMI_2_0_TMDS_CHAR_RATE_MAX_H=
+Z;
+> >> 	else if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_1_3)
+> >> 		connector->hdmi.max_tmds_char_rate =3D HDMI_1_3_TMDS_CHAR_RATE_MAX_H=
+Z;
+> >> 	else if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_1_0)
+> >> 		connector->hdmi.max_tmds_char_rate =3D HDMI_1_0_TMDS_CHAR_RATE_MAX_H=
+Z;
 > >>
-> >> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers=
-/gpu/drm/display/drm_hdmi_state_helper.c
-> >> index 4a93c279c9a7..3377ea936120 100644
-> >> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> >> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> >> @@ -1205,13 +1205,16 @@ drm_atomic_helper_connector_hdmi_update(struct=
- drm_connector *connector,
-> >>  					enum drm_connector_status status)
-> >>  {
-> >>  	const struct drm_edid *drm_edid;
-> >> +	int ret =3D 0;
-> >> =20
-> >>  	if (status =3D=3D connector_status_disconnected) {
-> >> -		// TODO: also handle scramber, HDMI sink disconnected.
-> >> -		drm_connector_hdmi_audio_plugged_notify(connector, false);
-> >> -		drm_edid_connector_update(connector, NULL);
-> >> -		drm_connector_cec_phys_addr_invalidate(connector);
-> >> -		return 0;
-> >> +		ret =3D drm_connector_hdmi_sync_scdc(connector, false, ctx);
-> >> +		if (ret !=3D -EDEADLK) {
-> >> +			drm_connector_hdmi_audio_plugged_notify(connector, false);
-> >> +			drm_edid_connector_update(connector, NULL);
-> >> +			drm_connector_cec_phys_addr_invalidate(connector);
-> >> +		}
+> >> 	if (hdmi_funcs->supported_tmds_char_rate) {
+> >> 		if (hdmi_funcs->supported_tmds_char_rate > connector->hdmi.max_tmds_=
+char_rate) {
+> >> 			drm_err(dev, "Enforced max_tmds_char_rate exceeds %llu spec limit\n=
+",
+> >> 				connector->hdmi.max_tmds_char_rate);
+> >> 			return -EINVAL;
+> >> 		}
+> >>
+> >> 		connector->hdmi.max_tmds_char_rate =3D hdmi_funcs->supported_tmds_ch=
+ar_rate;
+> >> 	}
+> >>
+> >> 	if (hdmi_funcs->supported_hdmi_ver >=3D HDMI_VERSION_2_0) {
+> >> 		if (!hdmi_funcs->scrambler_enable || !hdmi_funcs->scrambler_disable)=
+ {
+> >> 			drm_err(dev, "Scrambler callbacks missing for HDMI 2.x\n");
+> >> 			return -EINVAL;
+> >> 		}
+> >> 	} else {
+> >> 		/*
+> >> 		 * Scrambler callbacks are only valid for connectors advertising
+> >> 		 * HDMI 2.0 capability. drm_connector_hdmi_scrambler_supported()
+> >> 		 * relies on their presence to report scrambling support.
+> >> 		 */
+> >> 		if (hdmi_funcs->scrambler_enable || hdmi_funcs->scrambler_disable) {
+> >> 			drm_err(dev, "Scrambler callbacks unexpected for HDMI 1.x\n");
+> >> 			return -EINVAL;
+> >> 		}
+> >> 	}
 > >=20
-> > If there's a deadlock, shouldn't we restart the whole sequence there?
+> > I don't think we need the else clause at all. It's not valid, but it's
+> > also not creating any issue.
 >=20
-> In that case we do already propagate -EDEADLK and let the callers
-> (drm_helper_probe_detect_ctx(), drm_helper_probe_single_connector_modes())
-> to ensure the sequence is restarted.
+> As discussed a while ago, we used to have a scrambler_supported flag, inf=
+erred
+> from supported_hdmi_ver, which allowed helpers to verify the capability w=
+hen
+> needed.  That flag has now been removed and replaced by
+> drm_connector_hdmi_scrambler_supported(), which relies exclusively on the
+> presence of the scrambler callbacks to report whether the capability is
+> supported.=20
 >=20
-> > Ie, we should return ret all the time anyway? And if we do that, we
-> > should return ret for drm_edid_connector_update() too.
->=20
-> Per .detect_ctx() contract, implementations shall return a drm_connector_=
-status
-> value or -EDEADLK only.  On the other hand, .force_ctx() accepts any erro=
-r code,
-> but the probe helpers just log it.  Hence returning anything else wouldn't
-> really have an impact on the functionality.
->=20
-> Returning errors from drm_edid_connector_update() would potentially overr=
-ide
-> non-deadlock ones from sync_scdc().  Since both helpers already log their=
- own
-> failures, I think it isn't worth the trouble.
->=20
-> > Either way, a comment on why we're doing it this way would be nice.
->=20
-> Indeed.  Would the following be too verbose?
->=20
-> /*
->  * The SCDC resync may reset the CRTC, which might involve aquiring
->  * modeset locks.  If that fails, -EDEADLK is reported and the callers
->  * passing a non-NULL @ctx drop the locks and restart the sequence
->  * - see drm_helper_probe_detect_ctx() and
->  * drm_helper_probe_single_connector_modes().
->  *
->  * The resync runs first, and the audio and CEC helpers only once the
->  * link state has settled: the CRTC reset is a blocking commit, so on
->  * success the pipeline is already up again, while on -EDEADLK nothing
->  * has been resynced yet and the pending retry redoes everything.  This
->  * keeps userspace from acting upon a link that is about to be reset.
->  *
->  * -EDEADLK is the only status gating the helpers below, as it is the
->  * sole one guaranteeing a new run.  The other failures are merely
->  * reported: .force_ctx() accepts any error code and the probe helpers
->  * just log it, while .detect_ctx() has to swallow it, being only
->  * allowed to return a drm_connector_status value or -EDEADLK.
->  * Propagating the status of drm_edid_connector_update() on top would
->  * therefore only make it compete with an earlier resync failure over a
->  * value that triggers no recovery, the more so as both helpers already
->  * log their own errors.
->  */
+> If we don't ensure that these callbacks are *not* set for HDMI 1.x cases,=
+ one
+> could set supported_hdmi_ver to HDMI_VERSION_1_4, for example, while still
+> providing the scrambler_{enable,disable} funcs.  This would lead to an
+> inconsistency between the maximum TMDS character rate inferred from
+> supported_hdmi_ver and the capability reported by
+> drm_connector_hdmi_scrambler_supported().
 
-You can tell your LLM to be more terse :)
+This is the problem then. scrambler is mandatory for HDMI2.0, and
+HDMI1.4 will never reach HDMI2.0 TMDS rates.
 
-Something like the following would be enough:
+scrambler supported is HDMI 2.0 and scrambler_enable and
+scrambler_disable are set. if HDMI 1.4 is used, then the scrambler must
+not be supported, ever.
 
-  /*
-   * detect_ctx can only ever return an status or EDEADLK. Handle deadlocks=
-, and report any !EDEADLK error.
-   */
-  ret =3D drm_connector_hdmi_sync_scdc(connector, false, ctx);
-  if (ret)
-     if (ret =3D=3D -EDEADLK) {
-     	return ret;
-     } else {
-       drm_warn(connector->dev, "ignored error");
-     }
+> > I'd move that second check earlier together with the infoframe callbacks
+> > checks and so on too.
+>=20
+> Ack.
+>=20
+> >>>>  	if (hdmi_funcs->supported_tmds_char_rate) {
+> >>>>  		if (hdmi_funcs->supported_tmds_char_rate > connector->hdmi.max_tm=
+ds_char_rate) {
+> >>>> @@ -635,6 +652,7 @@ int drmm_connector_hdmi_init(struct drm_device *=
+dev,
+> >>>>  				connector->hdmi.max_tmds_char_rate);
+> >>>>  			return -EINVAL;
+> >>>>  		}
+> >>>> +
+> >>>>  		connector->hdmi.max_tmds_char_rate =3D hdmi_funcs->supported_tmds=
+_char_rate;
+> >>>>  	}
+> >>
+> >> [...]
+> >>
+> >>>> +	/**
+> >>>> +	 * @scdc_work: Work item currently used to monitor sink-side scram=
+bling
+> >>>> +	 * status and retry setup if the sink resets it.
+> >>>> +	 */
+> >>>> +	struct delayed_work scdc_work;
+> >>>> +
+> >>>> +	/**
+> >>>> +	 * @scdc_work_initialized: Tracks whether @scdc_work has been set =
+up via
+> >>>> +	 * INIT_DELAYED_WORK(). The work item is initialized lazily on the=
+ first
+> >>>> +	 * scrambling enable, so this guards the teardown paths against to=
+uching
+> >>>> +	 * an uninitialized work item.
+> >>>> +	 */
+> >>>> +	bool scdc_work_initialized;
+> >>>> +
+> >>>
+> >>> Why should we track whether it's initialized or not? I'd always
+> >>> initialize it, but only ever schedule something if we're using the
+> >>> scrambler.
+> >>
+> >> Having this initialized in the connector would lead to a module depend=
+ency
+> >> cycle.
+> >>
+> >> Currently the work function lives in drm_hdmi_helper.c, which is built=
+ into
+> >> drm_display_helper module:
+> >>
+> >> static void drm_connector_hdmi_scdc_work(struct work_struct *work)
+> >> {
+> >> 	[...]
+> >> 	if (READ_ONCE(connector->hdmi.scrambler_enabled) &&
+> >> 	    !drm_scdc_get_scrambling_status(connector))
+> >> 		drm_connector_hdmi_try_scrambling_setup(connector);
+> >> 	[...]
+> >> }
+> >>
+> >> int drm_connector_hdmi_enable_scrambling(struct drm_connector *connect=
+or,
+> >> 					 const struct drm_connector_state *conn_state)
+> >> {
+> >>
+> >> 	[...]
+> >> 	if (!hdmi->scdc_work_initialized) {
+> >> 		INIT_DELAYED_WORK(&hdmi->scdc_work,
+> >> 				  drm_connector_hdmi_scdc_work);
+> >> 		hdmi->scdc_work_initialized =3D true;
+> >> 	}
+> >> 	[...]
+> >> }
+> >>
+> >> If we move INIT_DELAYED_WORK() into the connector (i.e. in drm.ko), th=
+e work
+> >> function has to be reachable from there.  The following attempts to ac=
+complish
+> >> that would fail:
+> >>
+> >> - Keep the work function in drm_hdmi_helper.c and export it from
+> >>   drm_display_helper.
+> >>
+> >> - Move the work function into drm_connector.c and export=20
+> >>   drm_connector_hdmi_try_scrambling_setup(), or a wrapper function, fr=
+om=20
+> >>   drm_display_helper.
+> >=20
+> > An alternative could be to move drm_connector_hdmi_init to
+> > drm_hdmi_helper.c, no?
+>=20
+> I haven't considered this option so far, as I believe it would also requi=
+re some
+> refactoring to get right - for example, moving HDMI-related initializatio=
+n from
+> the generic drm_connector_init_only() to drm_connector_hdmi_init(), and
+> splitting drm_connector_cleanup() into a dedicated drm_connector_hdmi_cle=
+anup()
+> utility.
+>=20
+> > But yeah, if we can't let's keep it like that
+>=20
+> Should I proceed with this refactoring, or would it be better to postpone=
+ it
+> until I send out the HDMI 2.1 patches, to avoid expanding this series even
+> further?
 
-  drm_connector_hdmi_audio_plugged_notify(connector, false);               =
-                                                                           =
-                                                                           =
-                              =20
-  ret =3D drm_edid_connector_update(connector, NULL);
-  if (ret)
-       drm_warn(connector->dev, "ignored error");
-  drm_connector_cec_phys_addr_invalidate(connector);                       =
-                                                                           =
-                                                                           =
-                              =20
+we can postpone it if you prefer, or even to a separate series
 
 Maxime
 
---wvp34r75zg2fljmn
+--rknqritovu2w3mde
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCao1fagAKCRAnX84Zoj2+
-doO/AXsHJJ+Pjgm/6U6AMxPeQmsysVDIATZzk+Au8YVBssNtT1JX5uZmay3DbuzX
-hfXttckBfApSrRSD0trH7kEFJ3aiyLrWuM06roPQ1keiAc2PKZsUeEVaE71QuTOa
-Yucxq/WxyQ==
-=RRtf
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCao1gkAAKCRAnX84Zoj2+
+djqXAX0Y6VbpTJNSZbe1MC1QKpKRbqoI0GO+AEUaoUFbEqKxoFeSG3oN8H6ze/73
+1wzjEfoBfRJxfhnKeR12YZsvSMh8ty39/yGFcQZUWib9nFFeku70iJqArqd2JD4O
+InyrPq+8tA==
+=NLfL
 -----END PGP SIGNATURE-----
 
---wvp34r75zg2fljmn--
+--rknqritovu2w3mde--
