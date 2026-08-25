@@ -4,77 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1D99C61DBD
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52697C61DBD
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 12:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F4BA10E9FE;
-	Tue, 25 Aug 2026 12:15:50 +0000 (UTC)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
- [209.85.217.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBD410E9FE
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:15:48 +0000 (UTC)
-Received: by mail-vs1-f45.google.com with SMTP id
- ada2fe7eead31-73a442f7cd3so2454014137.3
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 05:15:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787660147; x=1788264947;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=CEQlDORbsq7fZcBmgPspHpPEQcLsNmOGZMeC3aM3Zuc=;
- b=JX2XL0mRD3+KPqy2C4o2PtXsgi70vZGJSF9x7Vigu4AI7lLHbbIAiCVtftWy3Itgm9
- kddOE9Uf4pjaZfrDcBlt6XDJ7PBM8qcd7tqclqaTY8Uk1LwG79VoyV/bemCyFt+QCaYT
- kv4a63n2XcoIc0eVlGSC9R2r2ypkrIc0ODdBNkNcgSpGRbB9gwBe3SsHmfMgVEgJzAfW
- 261Jlvd+QNnKwg7bTG7/i4lT5B62rjaFWFNiMTZgIyiGQphvMC4OEvso475mlcKfbXWe
- +gS8aqReSNRwteLUX1EKJtb1/6j39GpABPPDABs0BPZaO+D4kriCwJWYp5F+p0bQnFBk
- 9a/A==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp6WNmedq5WLgs2ExzcmuL0q8vwLDTunDL51s1bBM0tOeMsASRsL1H335a0k0rcQo+dlag5C3K33pc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nsS+jIei1OakSG87mmGw0WkwfQsVU5+iOT+zDdVccIOf38yLMW
- w8FiW46iS/J7GLpyKuAuT1l7rXSMtULIr2ZU/W6VxdjnkyWX1AjsRF3fcBesK8+cHHc=
-X-Gm-Gg: AR+sD11xLsJ9NL36i+Yoonnrwpjc8eZWup6P7QE1csXdfjRN692zIa7CAn14U2VPmio
- YU3B6IjUDJ0Cv40eJNA4ebmhCBpcazyL3s7OpB+ZO5an7NFFs8FBnm5+6NJDf5AFwLvBUcRaUkU
- mCiUCjC9LTIibdWfN35/vZCYvA0Dphf9/4xk4wwv58iGh3NLMNMNs4RTK/TCfmgzSxXHSqUykCx
- 8iA413vuGCRQ+e04gHENzU/EV62vQ/x5I1f/iYC32AWVUwyCWbgpQHzfM5kqe+QLAwFuY8yGCEJ
- vWIi9al18KbfdKHtO4+fVcUn0yP7JtGMU1cf7KwGWu5NYAoaNaExzj/Fa8p9v6fdB7K1syqLUPS
- 8d35EQq6WfggCXtefHtYFd2JseidKw4XfwyIXEjTLiLcaroveCCpQw0ofrK/6lAd08twfJuf/7T
- ZAllxgTY+8Pr3XXe9+B9yrTUxiz1B/FTZPaWAD+mnIVKr6dMGSiTyPOUMJx3mKhWnqKewSM43gb
- iUg/8E+ducwS9ADbBYJkop8Gw==
-X-Received: by 2002:a05:6102:6883:b0:778:86f2:9f26 with SMTP id
- ada2fe7eead31-77fe9c1a4a7mr2377499137.9.1787660147066; 
- Tue, 25 Aug 2026 05:15:47 -0700 (PDT)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com.
- [209.85.217.52]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-77d8357ccf6sm5320638137.4.2026.08.25.05.15.46
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Aug 2026 05:15:46 -0700 (PDT)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-74a9ac9cda6so2593717137.1
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 05:15:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RpgJneIQzambMXmDDxls+0eVQkESAQN7mlMO78WiLSDhlRTm5VHkJlXC7+0VqwIiNUiKxxDRfb2XvU=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:a48:b0:77a:ce37:9884 with SMTP id
- ada2fe7eead31-77feac33b60mr2347080137.14.1787660146138; Tue, 25 Aug 2026
- 05:15:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85BDB10E68C;
+	Tue, 25 Aug 2026 12:16:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="W+ajTKJA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LvE2oQEM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="IhIA+oZS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DpA/JdYl";
+	dkim-atps=neutral
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9F5C10E68C
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 12:16:17 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 35B031F7EA;
+ Tue, 25 Aug 2026 12:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787660159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FoPRiT8GsCz3Iz2j5y0BJhZbaqn9I/93BvKkFAXazK4=;
+ b=W+ajTKJAhGQ+G0jYIB5lk2KUXL8xAcx1N6iOVW6nDFfVq6Cznw+zZqCjTPzXZ9wZPTsEWq
+ XJ0oDSbMRgRUpLMZHzsjnB5WkurdsLRhv1yidtRCxyjWZLBdWH6YtWrQCBh/gKgSceo0IO
+ 5sjjRn5A+q2c5iRzp/WxRrVVGLcWtHU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787660159;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FoPRiT8GsCz3Iz2j5y0BJhZbaqn9I/93BvKkFAXazK4=;
+ b=LvE2oQEM/sHCN0gnGqmIu4WsW/BOmse974N8VzMAMDSRL2aQBw3Ro/tieM74dUgaC4MzWy
+ 45QLerSsFg0aq/Bg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787660155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FoPRiT8GsCz3Iz2j5y0BJhZbaqn9I/93BvKkFAXazK4=;
+ b=IhIA+oZSIyjCo4ln3M3yquCOeKaQSqstlLyPUfHAlBbG5nP56EY0vsEeg3J4m+TjPRWjEu
+ YyOxT7V/6TL4bRMkLvAE9PR+U2ydiq25XER7RhIO4U59aq237UZ8JH0vFUuSFrRY4NGOZ1
+ sAvVLD9ITS4Wy3qBjhiIPTNPAYDfch8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787660155;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FoPRiT8GsCz3Iz2j5y0BJhZbaqn9I/93BvKkFAXazK4=;
+ b=DpA/JdYlwmMumvY3aO2gdwdrX3yJf8ntrRNKKcGav3K0vH4j9vZHNL59SSVI6IhLp5wFNd
+ NwjIoV33wYPI2GDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D82B113331;
+ Tue, 25 Aug 2026 12:15:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ps2ZM3qHjWqAbwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 25 Aug 2026 12:15:54 +0000
+Message-ID: <7a3b43c7-91f0-4b24-b8fe-09dfbdc5296b@suse.de>
+Date: Tue, 25 Aug 2026 14:15:54 +0200
 MIME-Version: 1.0
-References: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
- <ao1hIejAdBPKUHFW@kniemiec-mobl1>
-In-Reply-To: <ao1hIejAdBPKUHFW@kniemiec-mobl1>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Aug 2026 14:15:34 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
-X-Gm-Features: AcwNN1UDGSe-NYvdVfySLOjOIV0hwEpIGT0yDB-s9yaAhlTbK7bvzY05-aj9Td4
-Message-ID: <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
-Subject: Re: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Karas <krzysztof.karas@intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Maarten Lankhorst <dev@lankhorst.se>, 
- Andi Shyti <andi.shyti@linux.intel.com>, dri-devel@lists.freedesktop.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/cirrus-qemu: Validate BAR0 size during probe
+To: Slawomir Stepien <sst@poczta.fm>, syzkaller-bugs@googlegroups.com,
+ airlied@gmail.com, airlied@redhat.com, dri-devel@lists.freedesktop.org,
+ kraxel@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ simona@ffwll.ch, virtualization@lists.linux.dev
+Cc: jani.nikula@intel.com, linux-kernel@vger.kernel.org,
+ syzbot@lists.linux.dev, syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
+References: <20260825120729.493611-1-sst@poczta.fm>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260825120729.493611-1-sst@poczta.fm>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[poczta.fm,googlegroups.com,gmail.com,redhat.com,lists.freedesktop.org,linux.intel.com,kernel.org,ffwll.ch,lists.linux.dev];
+ TAGGED_RCPT(0.00)[2442951a6abb004df963]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWELVE(0.00)[14]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,poczta.fm];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, poczta.fm:email,
+ cirrus_driver.name:url, suse.de:mid, suse.de:email,
+ imap1.dmz-prg2.suse.org:helo, appspotmail.com:email,
+ syzkaller.appspot.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,141 +143,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Hi
 
-On Tue, 25 Aug 2026 at 13:39, Krzysztof Niemiec
-<krzysztof.niemiec@intel.com> wrote:
-> On 2026-08-24 at 17:12:30 +0200, Geert Uytterhoeven wrote:
-> > Enabling a (modular) test should not silently enable additional kernel
-> > functionality, as that may increase the attack vector for a product.
+Am 25.08.26 um 14:07 schrieb Slawomir Stepien:
+> The `cirrus-qemu` driver relies on `CIRRUS_VRAM_SIZE` (4 MB) to validate
+> framebuffer sizes. However, during PCI probe, the driver mapped BAR0
+> without verifying that its size matches `CIRRUS_VRAM_SIZE`.
 >
-> What vector? What product, exactly? As far as I know buddy allocator code is
-
-Any product that uses DRM and has CONFIG_KUNIT_ALL_TESTS=m, so
-developers can easily run any relevant test when the need arises.
-
-> currently loaded when a) loading a drm driver (which would need that code
-
-Not just "a drm driver": very few DRM drivers use it.
-Hence one can have a product with DRM that does not need the buddy
-allocator.
-
-> to function anyway) and/or b) loading the kunit test for the buddy allocator,
-> which would need that code to function anyway. And AFAIK neither are
-> built unconditionally into the kernel. So the amount of potential vuln
-> surface is not exposed beyond what is reasonably required for the system to
-> function as intended.
+> If a PCI device with a BAR0 smaller than 4 MB is bound to the driver, the
+> mapped VRAM will be smaller than expected. Because validation checks assume
+> 4 MB VRAM, framebuffers larger than the mapped memory can be created.
 >
-> If you've found a concrete bug/exploit/"attack vector" utilizing buddy code,
-> then please address that directly.
-
-So let's include all available code in the kernel image anyway, unless
-you can point at a concrete bug/exploit/"attack vector"???
-
-> > Fix this by reverting the select to a dependency.
+> When the display plane is updated (e.g. during release),
+> `cirrus_primary_plane_helper_atomic_update()` copies the framebuffer to
+> VRAM using `drm_fb_memcpy()`. Writing past the end of the mapped I/O memory
+> causes a supervisor write page fault:
 >
-> The way drm kunit tests do it is by select-ing the appropriate
-> functionality out of the available ones, with "broad" depends-ons for
-> DRM and such (say "depends on DRM\n\n select DRM_BUDDY"). DRM_BUDDY,
-> for example, is not directly selectable in .config, as it's meant to be
-> selected automatically if a module uses it.
-
-In general, test code must not select the code to be tested, but depend
-on it, to avoid that enabling CONFIG_KUNIT_ALL_TESTS pulls in lots of
-unneeded code.
-
-> This is also the case for drivers, with Xe having depends on DRM and
-> then like 40 lines of selects for specific functionality, same for i915,
-> amdgpu, so on.
-
-For drivers, it is different: if you want the driver, you obviously
-need the helper or library code.
-
-> > Make sure the GPU
-> > buddy allocator can be tested without enabling another driver that uses
-> > DRM_BUDDY by making GPU_BUDDY visible if KUNIT is enabled.
+> BUG: unable to handle page fault for address: ffffc9000389c000
+> ...
+> RIP: 0010:memcpy_toio+0x7c/0xe0 arch/x86/lib/iomem.c:110
+> ...
+> Call Trace:
+>   <TASK>
+>   iosys_map_memcpy_to include/linux/iosys-map.h:285 [inline]
+>   drm_fb_memcpy+0x325/0x5d0 drivers/gpu/drm/drm_format_helper.c:442
+>   cirrus_primary_plane_helper_atomic_update+0x98a/0xb00
+>   drivers/gpu/drm/tiny/cirrus-qemu.c:358
+>   drm_atomic_helper_commit_planes+0x626/0xea0
+>   drivers/gpu/drm/drm_atomic_helper.c:3038
+>   drm_atomic_helper_commit_tail+0x60/0x510
+>   drivers/gpu/drm/drm_atomic_helper.c:1989
+>   commit_tail+0x2b1/0x3c0 drivers/gpu/drm/drm_atomic_helper.c:2074
+>   drm_atomic_helper_commit+0xa77/0xb10
+>   drivers/gpu/drm/drm_atomic_helper.c:2312
 >
-> This was the case even without your patch, and was the entire point of
-> 8fe3fc37564920ae mentioned in Fixes. The kunit test kernel can be built with
-
-Yes, that was the intent of commit 8fe3fc37564920ae, but it used the
-wrong method.
-
-It is customary to make library code that is only selected by its
-users, and cannot be enabled explicitly, visible for testing.
-See e.g. commit bf2d44d07de726b0 ("ASoC: wm_adsp: Add kunit test for
-firmware file search")
-
-> a rather minimal .kunitconfig (included in the gpu/tests directory). So
-> it only loads whatever kunit_tool would load, plus CONFIG_KUNIT, plus
-> CONFIG_GPU_BUDDY_KUNIT_TEST, plus (implicitly, which I discussed above)
-> CONFIG_GPU_BUDDY. It doesn't load DRM_BUDDY at all (which was the bug
-> being fixed in that commit, you used to be forced to load it, now you
-> aren't)
+> Fix this by validating in `cirrus_pci_probe()` that the PCI BAR0 resource
+> is not less than `CIRRUS_VRAM_SIZE`, returning `-ENODEV` if it is less.
 >
-> > The page based buddy allocator for GPU memory is only used by DRM.
-> > Hence add a dependency on DRM to GPU_BUDDY, to prevent asking the user
-> > about this code when configuring a kernel without DRM support.
+> Fixes: ab3e023b1b4c ("drm/cirrus: rewrite and modernize driver.")
+> Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
+> Reported-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=2442951a6abb004df963
+> Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
+> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Thanks for fixing this issue.
+
+Best regards
+Thomas
+
+> ---
+> v2:
+> * move the check before aperture_remove_conflicting_pci_devices() as suggested by sashiko.
+> * check if the pci_resource_len() for BAR0 is less than CIRRUS_VRAM_SIZE as suggested by Thomas. The
+>    qemu emulates 4, (8 and 16 MB for compatibility) - never less than 4MB.
 >
-> It seems to be *technically* true, however, the entire point of moving the
-> buddy allocator outside the DRM directory is to expose it to other non-DRM
-> drivers, so the lack of dependency is kind of by design.
+> v1:
+> * https://lore.kernel.org/all/b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org/T/
+> ---
+>   drivers/gpu/drm/tiny/cirrus-qemu.c | 3 +++
+>   1 file changed, 3 insertions(+)
 >
-> The change was rather anticipatory, but it was clearly well reviewed and
-> sent by a Joel, a nova-core dev, I assume it's gonna be needed at least
-> by them at one point or another.
->
-> If, say, nova decides to use the "communal" buddy allocator (if it
-> doesn't do it already, I only briefly skimmed it looking for kernel::gpu)
-> then the DRM dependency from this patch would have to be reverted (yet
-> again). Maybe moving the buddy allocator up from DRM should have been done
-> along with the first non-DRM user and only then, but it just didn't go that
-> way.
->
-> If the issue is that this option is too annoying during make or in
-> menuconfig, then I don't think this is the way to address it.
-
-Once the symbol is visible, it needs a proper dependency, to avoid
-asking the user irrelevant questions.
-
-> > Fixes: 8fe3fc37564920ae ("gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST")
-> > Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-
-> > --- a/drivers/gpu/Kconfig
-> > +++ b/drivers/gpu/Kconfig
-> > @@ -1,14 +1,15 @@
-> >  # SPDX-License-Identifier: GPL-2.0
-> >
-> >  config GPU_BUDDY
-> > -       bool
-> > +       bool "Page based buddy allocator for GPU memory" if KUNIT
-> > +       depends on DRM || COMPILE_TEST
->
-> What's the justification for COMPILE_TEST here? It might be needed but
-> you didn't explain why or mention it in the patch description at all.
-
-It is customary to add "|| COMPILE_TEST" when adding dependencies that
-are not strictly needed for a successful build.
-
-> >         help
-> >           A page based buddy allocator for GPU memory.
-> >
-> >  config GPU_BUDDY_KUNIT_TEST
-> >         tristate "KUnit tests for GPU buddy allocator" if !KUNIT_ALL_TESTS
-> >         depends on KUNIT
-> > -       select GPU_BUDDY
-> > +       depends on GPU_BUDDY
-> >         default KUNIT_ALL_TESTS
-> >         help
-> >           KUnit tests for the GPU buddy allocator.
-
-Gr{oetje,eeting}s,
-
-                        Geert
+> diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
+> index 075221b431d3..3bf23fcf6574 100644
+> --- a/drivers/gpu/drm/tiny/cirrus-qemu.c
+> +++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
+> @@ -582,6 +582,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
+>   	struct cirrus_device *cirrus;
+>   	int ret;
+>   
+> +	if (pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE)
+> +		return -ENODEV;
+> +
+>   	ret = aperture_remove_conflicting_pci_devices(pdev, cirrus_driver.name);
+>   	if (ret)
+>   		return ret;
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
