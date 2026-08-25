@@ -4,83 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00860C61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2975DC61DB9
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 14:36:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A553E897F6;
-	Tue, 25 Aug 2026 14:35:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDBE10EA84;
+	Tue, 25 Aug 2026 14:36:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=xela.zone header.i=@xela.zone header.b="iw+VlExX";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Pqpccs6y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U6nr+Tqc";
 	dkim-atps=neutral
-Received: from fhigh-b5-smtp.messagingengine.com
- (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E75010E0FD
- for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 22:38:32 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id F327D7A0136;
- Mon, 24 Aug 2026 18:38:31 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Mon, 24 Aug 2026 18:38:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xela.zone; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to; s=fm2; t=1787611111; x=1787697511; bh=09VfrXSvxnRtX2nVWgaq5
- s0ocHWyaQDhYuZjiWctKPo=; b=iw+VlExXIYQigjUt27JHr+9jHS3sXLjT5hDwL
- 0GTmClUFFGrH6CQd/t73F+ghkXNweCUwQ6bcXIgpzcUDvhMd1eDUMeIw5v2KuyMF
- z+fM14P4I29dQ/39pU8Zn8wAB/Qxu4TdxM5pzj9AEw4Y7j6dcXng5QyEKqQB8F6Z
- y2dWzU23zPTMTiLaKplN/EK4PjR4rbkfe4mb1McUOYWdmX4FyBe5ksCNZsO2LJnt
- FkxFOo90V0MixtNF+g70QafFpH4UFqJ+1QRKWeNqkJzwsdEEO3dGAQCyAWFcguFj
- RX4KBMhiFj73lE6VNAPRZrHfZ1sC4wBWmSQ86H8Hi8rGodonw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1787611111; x=1787697511; bh=09VfrXSvxnRtX2nVWgaq5s0ocHWyaQDhYuZ
- jiWctKPo=; b=Pqpccs6yp4ciDT4GlPzM+wo3ptbAi37Gnu0ogxBMfEFhjgycnc7
- cFdwQOeqyXpOlzrkFUO2zPXVuVLDZuA0gbTHmYVlaiNMmRRJnWZfUzJbGMsgDJ47
- sR/RI8G7LG8m5sBNpjFsNmaajS82b6AIoL2zOTzIejGlK2bGmuQfUkXpWY803OBM
- epKitVAfeXn3nDPR1qPN9dyIedxTaBdN7TC36RCQ1un8VSbKXr8mlKDQiNeBGd3s
- T9xOytfSta6nCINb/OQHMLgksV6cZJ/1X3k3SjeqJwZDMSpUqF+HFyuUMDKL/sp3
- vbq71FDpKTgeT1nMOP6NSAwv51EeHTOzoRw==
-X-ME-Sender: <xms:58eMav2ruo9HjaNZpIWbwqdNehcytzGcRd5c064otJuFi2cdOPfXkA>
- <xme:58eMaug-3u1WL3Q9jPr5ClqTYMprL5OjxxYoFqw0wkEAlBcKJtL7_AglPhplT1nKV
- qYnqUE0CtLQGiTXw9WdY4Su0T9MBSarQkGf3jS0EU9ftUqC6ClYA1s>
-X-ME-Received: <xmr:58eMagk1DOubJTYeyB30zLDGGmH6CGIHP7o-RaghmSA1vuPsxR_aV48HNm6tyMePshm-rLceipfYEcdp4b0AMwim3xM>
-X-ME-Proxy-Cause: dmFkZTEzYTAVnlsXfMaTDasgaW9hr5dO1Ruh/zroW/uFMy24CyMcvhn6jOJuoo+H0OEuZ/
- u+o4saYJhsLvqKJgZCwnxHHcpfV+OxS3COpHiDxQuV1D9Sh6uDpB8xXR0TVqiOqXGdiOm4
- Hg1oc+4K9NkyQIoulyXtxnTnrlUAssJFmHpdKnMzo3FAmy8ct7rkeen+Y6037fOqYoYZuY
- nfBbrzc23NJgvIUbNtPQehZKo+LHmpZv1EFMFMf9EgzjYiJk3YpCsmuQfmLwxGQqEnlCzq
- U4IYL6TBeo6zRNcFIsG07It3TOouwmtRs9LQvyAdlKouvzLdWzjXnt3O/6zvl1MmNoj7gD
- 9Gs5cP6TSzqg+b4A9KXTeF4JdaMbcDf5fLz9KfDH7HxtQ4ysh3xDGEvMJj8QxdKpy1YkVu
- xGD4RzrdtN7VCmbTjTkceKReww/ax/v09Co6l8V28OhMG2DcjMVcLBdJDCaYl5YSkkCpn+
- Jg85KCahcr0F2RG8k/8t+TwoIdYZOX+HdSaa6c8QbeOQHhTAYYluFOJQxOD0bz/zeW22nv
- yqluVpdvqGS02RSThmLykKPOyHp8+PF3phO0Fw4zPdi4wgXTefA4dpVioTl/ExG0rfYBDX
- Bs6EPc0CBBzhb4Im6XsRiQNPOsx9uD1WmMnghNfikyTBGJtWYFFDNjHMwe7w
-X-ME-Proxy: <xmx:58eMasaR8DW0km-4bNtgqMmFXxIxcUehUrvAeAT6TxctzjCRD191Yg>
- <xmx:58eMajEulKQJjJqDNdUTrkjvihD5kD-dUMPdTNOf8K0MvCccS93Dbw>
- <xmx:58eMajayOHibtTUclswf5Q2mEcqIl1ZQhrcte6K9sUs4fxWgQIuXvQ>
- <xmx:58eMavw8JprDiARQ-LjnndpB6xu00ee-sWM5qcOVxquYWQXR1Fh8XQ>
- <xmx:58eMaruLEMalDnivSFp7lqKBRdcbTF-i7ii2CPqx-rDsjfwpntCOGqwl>
-Feedback-ID: i039e48e0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 24 Aug 2026 18:38:30 -0400 (EDT)
-From: Xela <git@xela.zone>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- Xela <git@xela.zone>
-Subject: [PATCH v2] drm/edid: Add HDR Static Metadata Type 1 quirk for LG
- 32GN600
-Date: Mon, 24 Aug 2026 14:38:27 -0800
-Message-ID: <20260824223827.259147-1-git@xela.zone>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DBDA10E905
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 06:26:37 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-c16794450aeso634855466b.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 24 Aug 2026 23:26:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787639196; x=1788243996; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=60XtkPwFk/w34T7VeFlm3nV7ZLR8jG3DQAqksR7eXfY=;
+ b=U6nr+Tqc3skIzxavUPKCIgYEgsr+B1R0fleatCfXzrwLR/kgsR2bhOb8sampIWbWhM
+ hJrMmlOjW0BQd7KEHBYdBpyRsI8oZ/IsjIZcI1dP5dTFaDMnqBL3WgAWd0u67191nHeW
+ K8RoMt+8MrYoOzcjONzjjAKaGpq6DOvTTkXJAsYjpy9Dc2YrLstou5AO8MInm6Lh6jG2
+ 17p9EIpygt0Y/PP+9G4PL6T7W/+SteC2u4VFUYuaVFAcypVzAsCbeMukeiek9hpuZ1BQ
+ +AvhE7ecxEsqmcEHCW36ykaDJtJkSImjHTcYa+Xga+yjdlcEu/8c1kdwo1AIMBfclvcv
+ xm1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787639196; x=1788243996;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=60XtkPwFk/w34T7VeFlm3nV7ZLR8jG3DQAqksR7eXfY=;
+ b=PRxPBgXcGWKkm+0QBnlsHUJrosT9Fg8jZKWzrgAApQWN6l89XlcRULyT/ACXv/kMzt
+ x7d1bDzXniovl5TMBVyRzNsGVrVp25+OAipHtzZ8oz21U+Y4guOsuv6T2fZk899Ck4Ou
+ oatDNsTwtpxcCXC7StGJacjQDQDPuXexvpDpEuS1mkXIKyb+LS3+R7OohiHKTLEg/tZz
+ XIXBVhwyWaCAoqR2Pdrmk48fzFzf6LjZLFNwZ4e8XhmqjZQtn/Uhi+I+QRe7EwHtr71c
+ 0aCjbvhGBoALe6CjcISSUMNTNFlinhkBgazrQdiT+w0QDtPd24glcURhWHh8HkSj+onn
+ PR3g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoCjWe2p62Z/j7v384yYWznKCfGf2+hKq8u/RGjQ0XKc6HW5K6IcnwrRJwdTVHFburHRnz7BiPkl8Y=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mA1/bVmGnqXXpR36oTrURwoqwfV8lulKVJcbPikCpDsWYDF1x5
+ Jj2msBNpOjtO7exEfRdy6vx8UhaX0Uoe/1QnERNs377Xe+wxCB4VWRrz
+X-Gm-Gg: AR+sD13GXjZXV062lC2397Ugc4SKnMxrW6HmcZ9UelU8jplIsUId1C0ovAiaGT4vsiB
+ 5bYov4K8hTNcxEzrc/s51x3z+am3m/YOCvq6yArj4MaMcuXgkasXrzJM2uhwq+xK3EkKW9/mV0h
+ yljh/Wyy+vN1fJZDrpIi8PlUAy6iwvwKzImyQrtLcPvhqonOgUjZnsPj+kJTMyLCymAI+gtvs41
+ Npe1m9CIrQNQj0T5Aa0E/s7BzckpzcZk+0Ju8kDytqVAzz3h0oMhw2O7nNi0SpzmZezS5UvkNYF
+ 2xMYbSzEj9ABcfN9z2DYtH0kQIF/Ezmf4TY9OBGBmgtEbGtf07FmRkZMXyaJPWS8ndMHZoRgn+0
+ 50HIFqLZJSmcsRl5oQizrOAnKSHToa02jZrzwatXLYcgCAcZneysKWzX1SchlXjFKnXGgZSRaWT
+ f27XX1W9P+knH3NBiuMuwP58BAAvk2ZMBeUx4xMBJK2Rs8PghAWbEcnxbAWWUhcjGu8u/QZH4fx
+ SvEZ2avpMyf+19seyzqmcwTLCkQBnbExtz0AXOGi8RnrOuGDXexydYDrNh1wWiWlpRluVgQZcH5
+ BrbCCJugv6D8ScH7cXGP2hToJulLfZP7wHp9djTJa70GDoxzRWNM0c8S/mbfXzJOpg==
+X-Received: by 2002:a17:906:9fd0:b0:c20:1db7:f486 with SMTP id
+ a640c23a62f3a-c246a2ef579mr3321726966b.4.1787639195439; 
+ Mon, 24 Aug 2026 23:26:35 -0700 (PDT)
+Received: from unknown748F3CBA5068
+ (dynamic-2a02-3100-af54-b201-7419-a557-62e9-4d13.310.pool.telefonica.de.
+ [2a02:3100:af54:b201:7419:a557:62e9:4d13])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c24967459aesm1547936966b.48.2026.08.24.23.26.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Aug 2026 23:26:33 -0700 (PDT)
+Date: Tue, 25 Aug 2026 08:26:31 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/vc4: hdmi: Unregister the ASoC card on unbind
+Message-ID: <ao01FpItuJm-5M2e@gmail.com>
+References: <20260822143218.68764-1-kmehltretter@gmail.com>
+ <20260824-expert-sepia-oyster-cabaea@houat>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824-expert-sepia-oyster-cabaea@houat>
 X-Mailman-Approved-At: Tue, 25 Aug 2026 14:35:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,67 +101,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The LG 32GN600 monitor (PNP ID GSM 0x7766) advertises HDR support in
-its CTA-861 Extension block with SMPTE ST 2084 (PQ) EOTF support
-(byte 0x9e = 0x05) and valid desired content luminance descriptors
-(351 cd/m^2 max CLL/FALL at bytes 0xa0-0xa2).
+On Mon, Aug 24, 2026 at 08:52:44AM +0100, Maxime Ripard wrote:
+> And that happens only because you have no user. If you had one, you
+> would have had the opposite sequence.
+> 
 
-However, due to a factory firmware bug, the HDR Static Metadata Data
-Block descriptor byte (byte 0x9f) is reported as 0x00 instead of 0x01,
-omitting the Static Metadata Type 1 capability bit (bit 0).
+Hi Maxime,
 
-Because of this omitted bit, drm_parse_hdr_metadata_block() sets
-metadata_type to 0. Consequently, drm_calculate_luminance_range()
-rejects the block, and userspace attempts to perform atomic KMS commits
-configuring HDR output metadata fail with -EINVAL (Error 22), preventing
-compositors (Plasma, Gamescope, MPV) from engaging HDR on this display.
+Thanks for the correction, and sorry that v1 described the lifetime too
+broadly.
 
-Introduce EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1 to force the Static
-Metadata Type 1 descriptor bit for displays with this defective EDID block,
-and register the LG 32GN600 (GSM 0x7766) in the EDID quirk table.
+You are right that DRM-managed memory is released when the last DRM
+reference is gone, not simply at unbind. With an open DRM fd, vc4_hdmi can
+outlive platform teardown.
 
-Signed-off-by: Xela <git@xela.zone>
----
-v2:
- - Specify LG 32GN600 model in subject, commit description, and code comment.
+v2 was triggered by syzbot comments on the ASoC retry path. A deferred card
+bind can move the devm registration outside the component devres
+group. With no DRM fd open, the final DRM release can then free vc4_hdmi
+before the HDMI platform releases the card.
 
- drivers/gpu/drm/drm_edid.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v2 link:
+https://lore.kernel.org/r/20260823173740.2983-1-kmehltretter@gmail.com/
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 07970e5b5..b467a643a 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -96,6 +96,8 @@ enum drm_edid_internal_quirk {
- 	EDID_QUIRK_NON_DESKTOP,
- 	/* Cap the DSC target bitrate to 15bpp */
- 	EDID_QUIRK_CAP_DSC_15BPP,
-+	/* Force Static Metadata Type 1 for HDR Static Metadata Data Block */
-+	EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1,
- };
- 
- #define MICROSOFT_IEEE_OUI	0xca125c
-@@ -195,6 +197,9 @@ static const struct edid_quirk {
- 	/* LG 27GN950 */
- 	EDID_QUIRK('G', 'S', 'M', 0x5b9a, BIT(EDID_QUIRK_CAP_DSC_15BPP)),
- 
-+	/* LG 32GN600 */
-+	EDID_QUIRK('G', 'S', 'M', 0x7766, BIT(EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1)),
-+
- 	/* LGD panel of HP zBook 17 G2, eDP 10 bpc, but reports unknown bpc */
- 	EDID_QUIRK('L', 'G', 'D', 764, BIT(EDID_QUIRK_FORCE_10BPC)),
- 
-@@ -5498,6 +5503,10 @@ drm_parse_hdr_metadata_block(struct drm_connector *connector, const u8 *db)
- 	hdr_metadata->eotf = eotf_supported(db);
- 	hdr_metadata->metadata_type = hdr_metadata_type(db);
- 
-+	if (drm_edid_has_internal_quirk(connector,
-+				       EDID_QUIRK_FORCE_HDR_STATIC_METADATA_TYPE1))
-+		hdr_metadata->metadata_type |= BIT(HDMI_STATIC_METADATA_TYPE1);
-+
- 	if (len >= 4)
- 		hdr_metadata->max_cll = db[4];
- 	if (len >= 5)
--- 
-2.54.0
+I will send a v3 based on your input.
 
+The implementation change was already in v2. v3 only clarifies the wording
+and keeps that same implementation. The card is registered without devm and
+unregistered from component unbind while vc4_hdmi is still alive.
+
+I also tested this on a real Pi 400 with /dev/dri/card0 open during vc4-drm
+sysfs unbind. There were no new KASAN reports.
+
+Thanks,
+Karl
