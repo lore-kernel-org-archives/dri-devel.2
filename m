@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 944B1C61DBE
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 15:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D316BC61DBC
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 16:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAB0410EACE;
-	Tue, 25 Aug 2026 15:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D98510E1F7;
+	Tue, 25 Aug 2026 16:00:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DyojAnEI";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="UxLfDG96";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8807310E15B
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 15:59:55 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCF710E1F7
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 16:00:13 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 57B311A17DD;
- Tue, 25 Aug 2026 15:59:54 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 1594B4E413AD;
+ Tue, 25 Aug 2026 16:00:12 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2C46E604C4;
- Tue, 25 Aug 2026 15:59:54 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id DC98E604C4;
+ Tue, 25 Aug 2026 16:00:11 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 2909911C7A688; 
- Tue, 25 Aug 2026 17:59:42 +0200 (CEST)
+ with ESMTPSA id F3AF511C7A5E3; 
+ Tue, 25 Aug 2026 18:00:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1787673589; h=from:subject:date:message-id:to:mime-version:content-type:
+ t=1787673606; h=from:subject:date:message-id:to:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=BMtEdXKhmr82i4nD5ph92KqaktDmTBMaqoE9IVxHuEc=;
- b=DyojAnEIVpTbzsamgWi5smsUV4YO3zNhzSP/nshWHa5mSURAo0Pf8p7TIVslkFvp7M1ptj
- QNF84tivJdthpygPdmMRpwhnzjKtXMxfE7gJJSW6XTuxB0kQvg4r9sehW5iVFxfQCOptiN
- Yd1rirBGRd8o5/4ZJEPk7ABoDfWtILTwhvCNJfQImZg3+tSOm8wTo6p8xy+6sTkgKtZlYP
- JSTV3SaA3kftgvxMx2fxp3l1hYMF/z0s5zCxmYJy7s/NWyK1dEd3W6go+i7gSyHtvBi3F7
- QBmZiKJ+ziax3TwxJN5+xVB6lKTACapJp8EkbCJbBL80ngguQXcLjGLIkrDMcg==
+ bh=JFeQ5T9/BX+B7tlzsjnMiemUB98ifmrtHOEH0mf0wPI=;
+ b=UxLfDG96sxM64DJ2M1/3yXiyZAHXX6DkQaULXVKIZ0+cM06kgHsemurX9Cjicoc9Z1/Pel
+ z5KKgIIxxdVVaOeKs6lduTgJF/qi3/oug1AZ9X19aijabHjamjKMepP/K+iKPyocKykYcG
+ TmAApzZbxzuc/udzUnm3TpRUfxGWzH9jOs6Z7jURSjlEEcSsJxX82BhuTNTs7eV7ewQ7uI
+ ZwwzFjtJ5SILkbcX0gnS8GFStnr/4UHKU6jWA3Ftr1C4FApI2/4bI34sGKxGmrTbhbm5Mc
+ 2+92qDREr7T+eQJY+1DCWq4zRol++ESq67Cz5iZKp99PgkyeNM5+xKbH/tnotw==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 25 Aug 2026 17:59:37 +0200
-Message-Id: <DKY5E87LEDED.19Y9YVD1JATJU@bootlin.com>
-Subject: Re: [PATCH v4 2/6] drm/panel: Use managed helpers in Samsung panels
+Date: Tue, 25 Aug 2026 17:59:56 +0200
+Message-Id: <DKY5EGQY76J8.QI8G5V87V6X1@bootlin.com>
 To: "Osama Abdelkader" <osama.abdelkader@gmail.com>,
- <luca.ceresoli@bootlin.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Jessica Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <luca.ceresoli@bootlin.com>, "Linus Walleij" <linusw@kernel.org>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Maarten Lankhorst"
  <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
  "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Artur Weber"
- <aweber.kernel@gmail.com>, "David Heidelberg" <david@ixit.cz>, "Dzmitry
- Sankouski" <dsankouski@gmail.com>, "Yedaya Katsman" <yedaya.ka@gmail.com>,
- "Casey Connolly" <casey.connolly@linaro.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Cristian
+ Cozzolino" <cristian_ci@protonmail.com>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Robert
+ Chiras" <robert.chiras@nxp.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v4 3/6] drm/panel: Use managed helpers in Novatek and
+ Raydium panels
 X-Mailer: aerc 0.22.0
-References: <20260812144426.62074-1-osama.abdelkader@gmail.com>
-In-Reply-To: <20260812144426.62074-1-osama.abdelkader@gmail.com>
+References: <20260812145910.69509-1-osama.abdelkader@gmail.com>
+In-Reply-To: <20260812145910.69509-1-osama.abdelkader@gmail.com>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,16 +71,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 12, 2026 at 4:44 PM CEST, Osama Abdelkader wrote:
-> Use the managed MIPI DSI attach and panel add helpers in Samsung panel
-> drivers and drop the corresponding manual detach and panel remove calls
-> from remove paths. Also, switch to devm_backlight_device_register in
-> s6e3ha2 and s6e63j0x03.
+Hello Osama,
+
+On Wed Aug 12, 2026 at 4:59 PM CEST, Osama Abdelkader wrote:
+> Use the managed MIPI DSI attach and panel add helpers in Novatek and
+> Raydium panel drivers and drop the corresponding manual detach and panel
+> remove calls from remove paths.
 >
 > Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 > Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+...
+
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+> @@ -1173,13 +1173,11 @@ static int nt35510_probe(struct mipi_dsi_device *=
+dsi)
+>  		nt->panel.backlight =3D bl;
+>  	}
+>
+> -	drm_panel_add(&nt->panel);
+> -
+> -	ret =3D mipi_dsi_attach(dsi);
+> -	if (ret < 0)
+> -		drm_panel_remove(&nt->panel);
+> +	ret =3D devm_drm_panel_add(dev, &nt->panel);
+> +	if (ret)
+> +		return ret;
+>
+> -	return 0;
+> +	return devm_mipi_dsi_attach(dev, dsi);
+>  }
+>
+>  static void nt35510_remove(struct mipi_dsi_device *dsi)
+> @@ -1187,13 +1185,10 @@ static void nt35510_remove(struct mipi_dsi_device=
+ *dsi)
+>  	struct nt35510 *nt =3D mipi_dsi_get_drvdata(dsi);
+>  	int ret;
+>
+> -	mipi_dsi_detach(dsi);
+>  	/* Power off */
+>  	ret =3D nt35510_power_off(nt);
+>  	if (ret)
+>  		dev_err(&dsi->dev, "Failed to power off\n");
+> -
+> -	drm_panel_remove(&nt->panel);
+>  }
+
+This will change the removal sequence, from
+
+  mipi_dsi_detach, nt35510_power_off, drm_panel_remove
+
+to
+
+  nt35510_power_off, mipi_dsi_detach, drm_panel_remove
+
+Can this create issues? In a doubt, we shouldn't change the sequence.
+
+Adding an explicit devm action to call nt35510_power_off in the correct
+sequence is a possible way out. But perhaps it's safer and simpler if you
+just change drm_panel_remove() to devm, not mipi_dsi_attach().
+
+The rest of the patch LGTM.
+
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -428,9 +428,7 @@ static int nt36672a_panel_add(struct nt36672a_panel *=
+pinfo)
+
+Looking at this driver, the code split between nt36672a_panel_probe() and
+nt36672a_panel_add() appears very arbitrary. Definitely unrelated to your
+patch however, just thinking out loud, no need to change your patch about
+this.
+
+Luca
 
 --
 Luca Ceresoli, Bootlin
