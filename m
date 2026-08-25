@@ -4,44 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A075CC61DB4
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF23CC61DB4
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02E3410E9C9;
-	Tue, 25 Aug 2026 10:22:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A0210E9CD;
+	Tue, 25 Aug 2026 10:26:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gSQBWlAc";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bTxbJf5f";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EC4D10E9C9
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:22:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 797DB601DE;
- Tue, 25 Aug 2026 10:22:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA6E1F000E9;
- Tue, 25 Aug 2026 10:22:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787653375;
- bh=FHldwiAotDRWrej6zv3JjN/g2r9UFHIeS6i13C/l1q0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gSQBWlAcBWNcQy9j98QjvEuB5+v5f7VTkEyoVwtN1Nd/QIS2ZHYG/9ai2YCl5s/IQ
- nSUc9fC1LZQJNoQ5u2YffQ9QDTuRpMKBa3MQ00Ul1GE+bdAbB15FZszA5ENPdJ7RPI
- OUK9KUa9oYxB50hNO+VlBtI8th7QPgBRApjtRv61o3urLxV/Atj05lAqLrFAll+9YZ
- 4WOhNSX4pDZ8T8C1Vt9Q5IagvkbeYGaSTtXZjNktaCrBSbqeCW1T5tX7XAvMPYiKV3
- kIQC7XK+H8GsjF6pP8Ev39Ht/I2wpsz9Ef9Qdz0yE4Uu+RGPHPhSAT4YJ8LrcKTfK0
- m216wDkZ1F8MA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/12] drm/bridge: ti-dlpc3433: don't depend on
- DRM_PANEL
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-3-c6c88ba7ffd2@bootlin.com>
-References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
- <20260825-drm-bridge-drm_panel-cleanup-v2-3-c6c88ba7ffd2@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 10:22:54 +0000
-Message-Id: <20260825102255.0EA6E1F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8B0610E21F
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:26:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1787653591;
+ bh=wdwDOSk5hX6BER010tdloX7TyIracwF8Sfqo/V+QHdc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=bTxbJf5fS32zFSecAaSleGRbfLnJKIjWUgmVnz7TLVMEdem/S0w4d6UBoDPhm7sUg
+ mnbrQwdKnlIrP8veP+1xkVGKCZQ/843/WX01n1joRiW7rUcazDBFpTMKVSSQa0cPu8
+ PJpjvsxkgYEB+mJNjIFPRkHY2SU44/hj+RhStHRgzT/0+NPGiPcByxBQwWC5CDdXnb
+ WZx8cpQTFBQnEgRU8Vy+1yObkV3UmLsFQEEo0xNhsEE0K+Or+DRJAggCo8mQgJ8b91
+ NMGSVeP6wkjJ0gPx2tqvWqOgtmLZGvxpg4/8ZMacCPZ1/bYYw7dfOaO/J1T2w/pYjE
+ ktV6450DXU1Pw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E097D17E084E;
+ Tue, 25 Aug 2026 12:26:30 +0200 (CEST)
+Message-ID: <0e66c987-866a-4166-a850-14e7d03ea69f@collabora.com>
+Date: Tue, 25 Aug 2026 13:26:30 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 22/69] drm/display: hdmi-state-helper: Sync SCDC state
+ on hotplug
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>,
+ kernel@collabora.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
+ Maud Spierings <maud_spierings@hotmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-22-294364b2cf15@collabora.com>
+ <20260820-accomplished-curly-bandicoot-cc36ba@houat>
+ <774c38bd-6569-4aff-9fbc-a4e017840a55@collabora.com>
+ <20260825-potoo-of-imaginary-unity-7b0999@penduick>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260825-potoo-of-imaginary-unity-7b0999@penduick>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,72 +82,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 8/25/26 12:25 PM, Maxime Ripard wrote:
+> On Thu, Aug 20, 2026 at 05:44:08PM +0300, Cristian Ciocaltea wrote:
+>> On 8/20/26 11:53 AM, Maxime Ripard wrote:
+>>> On Fri, Jul 31, 2026 at 07:19:29PM +0300, Cristian Ciocaltea wrote:
+>>>> drm_atomic_helper_connector_hdmi_hotplug() does not currently
+>>>> synchronize SCDC status on hotplug events, leaving the scrambler state
+>>>> potentially inconsistent after (re)connect.
+>>>>
+>>>> Hook drm_connector_hdmi_sync_scdc() into both the connect and disconnect
+>>>> paths, replacing the existing TODOs around missing scrambler handling.
+>>>>
+>>>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+>>>> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+>>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>>>> ---
+>>>>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 23 ++++++++++++++---------
+>>>>  1 file changed, 14 insertions(+), 9 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+>>>> index 4a93c279c9a7..3377ea936120 100644
+>>>> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+>>>> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+>>>> @@ -1205,13 +1205,16 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+>>>>  					enum drm_connector_status status)
+>>>>  {
+>>>>  	const struct drm_edid *drm_edid;
+>>>> +	int ret = 0;
+>>>>  
+>>>>  	if (status == connector_status_disconnected) {
+>>>> -		// TODO: also handle scramber, HDMI sink disconnected.
+>>>> -		drm_connector_hdmi_audio_plugged_notify(connector, false);
+>>>> -		drm_edid_connector_update(connector, NULL);
+>>>> -		drm_connector_cec_phys_addr_invalidate(connector);
+>>>> -		return 0;
+>>>> +		ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
+>>>> +		if (ret != -EDEADLK) {
+>>>> +			drm_connector_hdmi_audio_plugged_notify(connector, false);
+>>>> +			drm_edid_connector_update(connector, NULL);
+>>>> +			drm_connector_cec_phys_addr_invalidate(connector);
+>>>> +		}
+>>>
+>>> If there's a deadlock, shouldn't we restart the whole sequence there?
+>>
+>> In that case we do already propagate -EDEADLK and let the callers
+>> (drm_helper_probe_detect_ctx(), drm_helper_probe_single_connector_modes())
+>> to ensure the sequence is restarted.
+>>
+>>> Ie, we should return ret all the time anyway? And if we do that, we
+>>> should return ret for drm_edid_connector_update() too.
+>>
+>> Per .detect_ctx() contract, implementations shall return a drm_connector_status
+>> value or -EDEADLK only.  On the other hand, .force_ctx() accepts any error code,
+>> but the probe helpers just log it.  Hence returning anything else wouldn't
+>> really have an impact on the functionality.
+>>
+>> Returning errors from drm_edid_connector_update() would potentially override
+>> non-deadlock ones from sync_scdc().  Since both helpers already log their own
+>> failures, I think it isn't worth the trouble.
+>>
+>>> Either way, a comment on why we're doing it this way would be nice.
+>>
+>> Indeed.  Would the following be too verbose?
+>>
+>> /*
+>>  * The SCDC resync may reset the CRTC, which might involve aquiring
+>>  * modeset locks.  If that fails, -EDEADLK is reported and the callers
+>>  * passing a non-NULL @ctx drop the locks and restart the sequence
+>>  * - see drm_helper_probe_detect_ctx() and
+>>  * drm_helper_probe_single_connector_modes().
+>>  *
+>>  * The resync runs first, and the audio and CEC helpers only once the
+>>  * link state has settled: the CRTC reset is a blocking commit, so on
+>>  * success the pipeline is already up again, while on -EDEADLK nothing
+>>  * has been resynced yet and the pending retry redoes everything.  This
+>>  * keeps userspace from acting upon a link that is about to be reset.
+>>  *
+>>  * -EDEADLK is the only status gating the helpers below, as it is the
+>>  * sole one guaranteeing a new run.  The other failures are merely
+>>  * reported: .force_ctx() accepts any error code and the probe helpers
+>>  * just log it, while .detect_ctx() has to swallow it, being only
+>>  * allowed to return a drm_connector_status value or -EDEADLK.
+>>  * Propagating the status of drm_edid_connector_update() on top would
+>>  * therefore only make it compete with an earlier resync failure over a
+>>  * value that triggers no recovery, the more so as both helpers already
+>>  * log their own errors.
+>>  */
+> 
+> You can tell your LLM to be more terse :)
 
-Pre-existing issues:
-- [High] The DSI device registered with `mipi_dsi_device_register_full()` i=
-s never unregistered, causing a memory and device node leak that prevents d=
-river reload.
---
+That's actually the shortened form :-)
 
---- Patch [3]: [PATCH v2 03/12] drm/bridge: ti-dlpc3433: don't depend on DR=
-M_PANEL ---
-commit 1c4393105a1871917fd54292e2edbfa8634d5ce0
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> Something like the following would be enough:
+> 
+>   /*
+>    * detect_ctx can only ever return an status or EDEADLK. Handle deadlocks, and report any !EDEADLK error.
+>    */
+>   ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
+>   if (ret)
+>      if (ret == -EDEADLK) {
+>      	return ret;
+>      } else {
+>        drm_warn(connector->dev, "ignored error");
+>      }
+> 
+>   drm_connector_hdmi_audio_plugged_notify(connector, false);                                                                                                                                                                                                    
+>   ret = drm_edid_connector_update(connector, NULL);
+>   if (ret)
+>        drm_warn(connector->dev, "ignored error");
+>   drm_connector_cec_phys_addr_invalidate(connector);                                                                                                                                                                                                            
 
-drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL
+Ack.
 
-This driver does not use the drm_panel APIs at all, so no need to select
-DRM_PANEL.
-
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
-fig
-> index 958b4f687d4dd..043596801a65b 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -428,7 +428,7 @@ config DRM_TOSHIBA_TC358775
-> =20
->  config DRM_TI_DLPC3433
->  	tristate "TI DLPC3433 Display controller"
-> -	depends on DRM && DRM_PANEL
-> +	depends on DRM
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a device node leak in the
-driver itself.
-
-In dlpc_host_attach(), the DSI device is registered manually:
-
-drivers/gpu/drm/bridge/ti-dlpc3433.c:dlpc_host_attach()
-    ...
-    dlpc->dsi =3D mipi_dsi_device_register_full(host, &info);
-    ...
-
-However, the remove callback fails to unregister it:
-
-drivers/gpu/drm/bridge/ti-dlpc3433.c:dlpc3433_remove()
-static void dlpc3433_remove(struct i2c_client *client)
-{
-	struct dlpc *dlpc =3D i2c_get_clientdata(client);
-
-	drm_bridge_remove(&dlpc->bridge);
-	of_node_put(dlpc->host_node);
-}
-
-Should there be a call to mipi_dsi_device_unregister(dlpc->dsi) here to
-prevent leaking the device node unconditionally upon unbind? Alternatively,
-could this be migrated to devm_mipi_dsi_device_register_full() so it is
-managed by devres?
-
->  	depends on OF
->  	select DRM_MIPI_DSI
->  	help
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-drm-bridge=
--drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com?part=3D3
+Thanks,
+Cristian
