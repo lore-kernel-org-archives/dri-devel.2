@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 185BEC61DB9
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 18:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 160D8C61DBD
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 20:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E58410E16D;
-	Tue, 25 Aug 2026 18:55:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43A5A10E209;
+	Tue, 25 Aug 2026 20:05:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oGOTqkpv";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="KmUw93Qi";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4D9B10E16D
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 18:55:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 53FE94051C;
- Tue, 25 Aug 2026 18:55:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5569C1F000E9;
- Tue, 25 Aug 2026 18:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787684111;
- bh=KZHQGlEAZKtrNhrPxlldZOvbeSMTgtkvv9lxX4F4Qyk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=oGOTqkpvVigGlY5ChrB+WPGAwT0qktoyBN1H1NuXofbYnHZeZhKaQ2wtnX18djCDQ
- 1cKzf38vVEl1UClzNFC3XoSxHMrlsA5J3+Soe+c5ht2anxkUDZOLhjHbMomHDVn4JT
- xfavDuv/DNW8EenH1JZRF1yx+8ixrhGYQnZI2aRYvTw/ntLsfzEH1wYdHKSKrxuIii
- NvYeEcLkhAP9u/FDPQezkGDMRova5qFVX0mvZV2fDkL+AWKotqvJSR9Clfa8LkYdw9
- mcNqupo6GEemETKIsvsl3sLcWnHkunmbyKJsV8OxRLBQwvLb7ecNYUCik/aslro46S
- 7FVLfOU2oW44A==
-Date: Tue, 25 Aug 2026 20:55:07 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
- Maarten Lankhorst <dev@lankhorst.se>, 
- Andi Shyti <andi.shyti@linux.intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-Message-ID: <ao3k1kA1Yf_IKkN5@zenone.zhora.eu>
-References: <e67a2cb0d599b75ae365882913c543e7b0c5b8a3.1787671708.git.geert@linux-m68k.org>
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D8A10E209
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 20:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=iegiTVChsTubBoauxaUiIv53UrAdzumP4GLHq70u8/E=; b=KmUw93Qi4EK4PCsI+Cf9iO+Arr
+ IeuyZ8J8sGF1u8kJroNzDYpfc3+4SA83vLG5jx9NrrZ7MFbeTB9fU7dAZEEplF9u/f6eIZs3tq353
+ ZFzTjnOacR7Say4PM4LLDcgTJD88UBdGJ0ioIxt9qbzXuv8Vu1/KsJVNqWohig7I00ORmiRzJmIZR
+ e/MUJXx1VYByD07Z/gn13XMCWmWzurH4r47RCEa5dUZBvlqYZ+Zy7T2CQAO5LWorNOSBdnz1tNZMA
+ hmZxC3bLnaem4UYSJ5tf2nsLR77mS59euUlZPJwXPc2ZEuZ+HNHmXMHRv0BddBQvX66G0VXpoIf45
+ pEI42wBA==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1wyxOg-00000006MiZ-3aPa;
+ Tue, 25 Aug 2026 14:05:27 -0600
+Message-ID: <6aeec523-3088-4f37-accc-c900953393f6@deltatee.com>
+Date: Tue, 25 Aug 2026 14:05:24 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e67a2cb0d599b75ae365882913c543e7b0c5b8a3.1787671708.git.geert@linux-m68k.org>
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-pci@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
+ <20260825-document-dma-buf-v1-1-5ecfb3e1371c@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260825-document-dma-buf-v1-1-5ecfb3e1371c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, christian.koenig@amd.com, sumit.semwal@linaro.org,
+ linux-pci@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH 1/2] PCI/P2PDMA: Update DMABUF lifecycle docs after
+ move_notify() rename
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,28 +73,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert,
 
-On Tue, Aug 25, 2026 at 05:29:59PM +0200, Geert Uytterhoeven wrote:
-> Enabling a (modular) test should not silently enable additional kernel
-> functionality, as that may increase the attack vector for a product.
-> 
-> Fix this by reverting the select to a dependency.  Make sure the GPU
-> buddy allocator can be tested without enabling another driver that uses
-> DRM_BUDDY by making GPU_BUDDY visible if KUNIT is enabled.
-> 
-> The page based buddy allocator for GPU memory is only used by DRM.
-> Hence add a dependency on DRM to GPU_BUDDY, to prevent asking the user
-> about this code when configuring a kernel without DRM support.
-> 
-> Update drivers/gpu/tests/.kunitconfig accordingly.
-> 
-> Fixes: 8fe3fc37564920ae ("gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST")
-> Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-I tested sashiko's statement and I guess it got it wrong.
+On 2026-08-25 00:28, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Commit 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to
+> dma_buf_invalidate_mappings()") left the DMABUF section of the P2PDMA
+> documentation pointing at move_notify(), a symbol that no longer
+> exists. Readers grepping for it find nothing, and this is the only
+> place in Documentation/ describing the revocation requirement.
+> 
+> Name the current function and record that importers which cannot unmap
+> within bounded time have to be rejected at attach time, which is what
+> makes the synchronous unmap on remove() achievable.
+> 
+> Fixes: 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to dma_buf_invalidate_mappings()")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-
-Thanks,
-Andi
