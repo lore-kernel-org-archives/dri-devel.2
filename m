@@ -4,51 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9583C61DCD
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E50C61DD4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E42E10EF76;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C4410EF78;
 	Thu, 27 Aug 2026 09:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="GE4y075E";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=freenet.de header.i=@freenet.de header.b="UCXYE7kp";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Wed, 26 Aug 2026 07:01:54 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFADA10EC09
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 07:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Jb
- pmdGWy/go06b/bKFUmGuT6wYdXB22e+au7hEoMXwE=; b=GE4y075EiM6B+yaE6k
- 2tJ4B6UqJZe4AiEQEJ1TIllTB/OukgmL6wpwDmlrl1oIkTUU14d52SWdMVkfTgqy
- dEu9dy/Kc/7SEOt076Ir0/6ythzNMbApRxPUe1X/aLkDmVpdKPh8A9DeWQmDQO54
- JegK1y05XTKogBh5mv8FJP6G8=
-Received: from localhost.localdomain (unknown [])
- by gzsmtp5 (Coremail) with SMTP id QCgvCgB3+BeSjY5qs87iOA--.19815S2;
- Wed, 26 Aug 2026 14:54:10 +0800 (CST)
-From: Qingshuang Fu <fffsqian@163.com>
-To: Paul Kocialkowski <paulk@sys-base.io>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andy Whitcroft <apw@canonical.com>,
- Joe Perches <joe@perches.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Qingshuang Fu <fuqingshuang@kylinos.cn>, Qingshuang Fu <fffsqian@163.com>
-Subject: [PATCH] drm/logicvc: fix device_node refcount leak in
- logicvc_layers_init()
-Date: Wed, 26 Aug 2026 14:54:08 +0800
-Message-Id: <20260826065408.617148-1-fffsqian@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mout.freenet.de (mout.freenet.de [194.97.212.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2016F10E208;
+ Tue, 25 Aug 2026 18:57:22 +0000 (UTC)
+Received: from [2001:748:400:1319::5] (helo=sub7.mail.fnrz.de)
+ by mout3.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port
+ 25) (Exim 4.98.2 #2) id 1wywKa-00000006T5j-0GWR;
+ Tue, 25 Aug 2026 20:57:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de; 
+ s=mjaymdexmjqk;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=jWLurX8RVOGPG1caSR8Fkl3oQ3/zoLa88KPfYJlQTfI=; b=UCXYE7kpfeNJPzW6m6k9rtELhh
+ +Pgw0QSewj14njJOsY5vfF5mcL5wmMO0lh9wkdivDol6N3lVI2EBuMzMs7QqH6ADCnWbdTgeMppg/
+ VBaAf876jKdr28cLWqx/SrLAwQKQmmsIA9NDpU6ODgHt0px/hsAq8sCMs5hIfjCeZzirNXRNI80do
+ ASfKTloBs5X5h0qpq4jmpIpt1yvDcjqaClj6I4bXVx1TKmQ5wOilnVnfn59C7fnTiRApOIEh30yfV
+ qQ1wI5dnivCv1F9lD+65ZdJYB9eFfvaWbQ7Zb/ERd6M/4xAG9AVg50bma7K6MBTRL1dvQldu3rkyD
+ nPieXtZg==;
+Authentication-Results: freenet.de;
+ iprev=fail smtp.remote-ip=2a02:8071:a85:f020:3a1c:2bb:cc98:87a;
+ auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
+Received: from [2a02:8071:a85:f020:3a1c:2bb:cc98:87a] (port=41120
+ helo=[127.0.0.1])
+ by sub7.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de)
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim
+ 4.98.2 #2) id 1wywKZ-0000000BQrY-3iPD;
+ Tue, 25 Aug 2026 20:57:07 +0200
+Message-ID: <fed3be9d-1115-4910-8153-0c2940cbfa9d@freenet.de>
+Date: Tue, 25 Aug 2026 20:56:59 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] drm/amd/display: advertise PIXEL_NONE as blend
+ mode for DCE generations
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
+ harry.wentland@amd.com, leandro.ribeiro@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
+ kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
+References: <20260813143605.106104-1-mwen@igalia.com>
+ <20260813143605.106104-4-mwen@igalia.com>
+ <512414f0-ca55-435e-8ca3-7dbf48d0c114@freenet.de>
+ <2b6f24cb-c387-4174-9e81-0a1a7ef42581@freenet.de>
+ <6faf80d8-2972-44a9-93f7-39ffee0d1fec@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
+ <viktor_jaegerskuepper@freenet.de>
+In-Reply-To: <6faf80d8-2972-44a9-93f7-39ffee0d1fec@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: QCgvCgB3+BeSjY5qs87iOA--.19815S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWrtry5tryUAF4fZw17Ww1xXwb_yoW8Jr1fpr
- WfGas0ka12vr4ayrnYyFy5ZFy8Ww4xJrZrXr1Iyw1DXrs8A3Z8J3sYvrW5Xrn8Aa97ZFy2
- vryqgFyqvw1jkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piXyCJUUUUU=
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: 5iii21xldqqiywtou0bp/xtbC6hLFkGqOjZIO6AAA3w
+X-FN-MUUID: 17876842277E30DB55B4B1O
+X-Scan-TS: Tue, 25 Aug 2026 20:57:07 +0200
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,35 +87,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Qingshuang Fu <fuqingshuang@kylinos.cn>
+On 8/25/26 10:06, Melissa Wen wrote:
+> 
+> 
+> On 24/08/2026 23:02, Viktor Jägersküpper wrote:
+>> On 8/24/26 22:38, Viktor Jägersküpper wrote:
+>>> [ Adding Timur ]
+>>>
+>>> On 8/13/26 16:30, Melissa Wen wrote:
+>>>> DCE can support PREMULTI and COVERAGE blend mode depending on its
+>>>> generation, however current driver implementation either doesn't expose
+>>>> more than primary and cursor plane, or doesn't program registers for
+>>>> any
+>>>> blend mode other than PIXEL_NONE. To fix the missing-blend-mode-prop
+>>>> warning according to current DCE plane caps, create blend mode property
+>>>> with PIXEL_NONE only for primary planes, instead of the DRM default
+>>>> PREMULTI.
+>>>>
+>>>> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel
+>>>> format with alpha exposed")
+>>>> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>>
+>>>> ---
+>>>> v3:
+>>>> - fix indentation (Alex H)
+>>>> ---
+>>>>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 ++++++++++
+>>>> +-------
+>>>>   1 file changed, 11 insertions(+), 7 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>> index ab9bbe8ca333..3b5b6943b67d 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>> @@ -1923,14 +1923,18 @@ int amdgpu_dm_plane_init(struct
+>>>> amdgpu_display_manager *dm,
+>>>>       if (res)
+>>>>           return res;
+>>>>   -    /* TODO: Check which blend modes are supported in DCE-generation
+>>>> -     * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend
+>>>> mode
+>>>> -     * property accordingly.
+>>>> +    /* Blend mode support varies on DCE generations according to HW
+>>>> caps
+>>>> +     * and number of planes per CRTC. However, as current driver
+>>>> +     * implementation only creates one primary and one cursor plane
+>>>> per
+>>>> +     * CRTC for DCE (overlay is only created if
+>>>> +     * DC_PLANE_TYPE_DCN_UNIVERSAL), the primary plane blend mode
+>>>> ends up
+>>>> +     * being always PIXEL_NONE across DCE versions.
+>>>>        */
+>>>> -    if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+>>>> -         plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+>>>> -        plane_cap && plane_cap->per_pixel_alpha &&
+>>>> -        plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
+>>>> +    if (plane_cap && plane_cap->type != DC_PLANE_TYPE_DCN_UNIVERSAL) {
+>>>> +        drm_plane_create_blend_mode_property(plane,
+>>>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
+>>>> +    } else if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+>>>> +            plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+>>>> +           plane_cap && plane_cap->per_pixel_alpha) {
+>>>>           unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>>>>                         BIT(DRM_MODE_BLEND_PREMULTI) |
+>>>>                         BIT(DRM_MODE_BLEND_COVERAGE);
+>>> With this patch applied to the mainline kernel, my display freezes when
+>>> Kwin is started (either by SDDM or by launching a KDE Plasma session).
+>>> GDM and Gnome work fine. The journal doesn't have much information, it's
+>>> mainly this:
+> 
+> I suspect KDE is not interpreting correctly the blend mode, but I think
+> we can
+> keep it working as before by adding PREMULTI. In the end there is no
+> overlay
+> plane for DCE, and PIXEL_NONE and PREMULTI are equivalent when one
+> primary is composed on top of a black background.
+> 
+> Can you replace this commit by the patch attached?
+> It might solve the issue as long as background continues being black.
+> I didn't apply it to drm-misc, so let me know how does this new patch works
+> on your side.
+The attached patch solves the issue, I tested both KDE/SDDM and
+Gnome/GDM, the warnings are gone as expected. You can add:
 
-for_each_child_of_node() holds a reference to layer_node for the
-duration of each iteration and only releases the previous node when
-advancing to the next one.  When logicvc_layer_init() fails, the loop
-exits via the error label without ever advancing, so the reference to
-layer_node is never dropped and the device node leaks.  Add the missing
-of_node_put() on the error path.
+Tested-by: Viktor Jägersküpper <viktor_jaegerskuepper@freenet.de>
 
-Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
-Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
----
- drivers/gpu/drm/logicvc/logicvc_layer.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
-index 7f5ba000188a..e83a2aafed77 100644
---- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-@@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
- 
- 		ret = logicvc_layer_init(logicvc, layer_node, index);
- 		if (ret) {
-+			of_node_put(layer_node);
- 			of_node_put(layers_node);
- 			goto error;
- 		}
-
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
--- 
-2.25.1
-
+Thanks,
+Viktor
