@@ -4,72 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF23CC61DB4
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEBDC61DB4
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A0210E9CD;
-	Tue, 25 Aug 2026 10:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8DB10E9D0;
+	Tue, 25 Aug 2026 10:29:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bTxbJf5f";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="g/RI7u33";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8B0610E21F
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1787653591;
- bh=wdwDOSk5hX6BER010tdloX7TyIracwF8Sfqo/V+QHdc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=bTxbJf5fS32zFSecAaSleGRbfLnJKIjWUgmVnz7TLVMEdem/S0w4d6UBoDPhm7sUg
- mnbrQwdKnlIrP8veP+1xkVGKCZQ/843/WX01n1joRiW7rUcazDBFpTMKVSSQa0cPu8
- PJpjvsxkgYEB+mJNjIFPRkHY2SU44/hj+RhStHRgzT/0+NPGiPcByxBQwWC5CDdXnb
- WZx8cpQTFBQnEgRU8Vy+1yObkV3UmLsFQEEo0xNhsEE0K+Or+DRJAggCo8mQgJ8b91
- NMGSVeP6wkjJ0gPx2tqvWqOgtmLZGvxpg4/8ZMacCPZ1/bYYw7dfOaO/J1T2w/pYjE
- ktV6450DXU1Pw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E097D17E084E;
- Tue, 25 Aug 2026 12:26:30 +0200 (CEST)
-Message-ID: <0e66c987-866a-4166-a850-14e7d03ea69f@collabora.com>
-Date: Tue, 25 Aug 2026 13:26:30 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 22/69] drm/display: hdmi-state-helper: Sync SCDC state
- on hotplug
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>,
- kernel@collabora.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
- Maud Spierings <maud_spierings@hotmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>
-References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
- <20260731-dw-hdmi-qp-scramb-v10-22-294364b2cf15@collabora.com>
- <20260820-accomplished-curly-bandicoot-cc36ba@houat>
- <774c38bd-6569-4aff-9fbc-a4e017840a55@collabora.com>
- <20260825-potoo-of-imaginary-unity-7b0999@penduick>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260825-potoo-of-imaginary-unity-7b0999@penduick>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E72F10E9D0
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:29:48 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 8AE6B4E412E5;
+ Tue, 25 Aug 2026 10:29:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5652D604C4;
+ Tue, 25 Aug 2026 10:29:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 3FE7411C7A421; 
+ Tue, 25 Aug 2026 12:29:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1787653781; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=JGBFtUtJW7Q1eT+UC3LLB2zRK/feS4sxhZgOiIWSH4k=;
+ b=g/RI7u33Vl0dfzQMHPpzKeBjPRViB9uVUBsdA0YXWKZ7LSBMNi5m9gGcN9nkXUN2xi598+
+ ZPyMzNk/bmh8EvR5ITvc3xsma6Y/w/NlPb6yKcjcuF/QTatHGoCQfxJaiO8nZkLQ99/j8s
+ zNXocDYZnhJqofw404ZpT8k00G1/eT3L1Rv1tqD/t7Eo814tuqC8Ic1eUoKKccRC7rBswz
+ UWCdGwzCmh7YLGz0fGu1mJO3DN2OzFb8J0UVI3F7cRE4sCcnhciVZRmU0PnYa+qpJbjwiw
+ kmFecGaxlEUuPWQo0FxNGRCYo7eiIpHCgzOb6Ut9rA9Cc56YDrC5ZlqvIiRLfA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 25 Aug 2026 12:29:29 +0200
+Message-Id: <DKXYDGIP3KRX.3AJ5KBX7VI2M7@bootlin.com>
+Subject: Re: [PATCH v1] drm: bridge: dw_hdmi: Fix constant truncation
+ warning on phy_mask
+Cc: "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "Liu Ying" <victor.liu@nxp.com>,
+ "Jani Nikula" <jani.nikula@intel.com>, "Shengjiu Wang"
+ <shengjiu.wang@nxp.com>, "Javier Martinez Canillas" <javierm@redhat.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: "Sean Chang" <seanwascoding@gmail.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260819151216.56833-1-seanwascoding@gmail.com>
+In-Reply-To: <20260819151216.56833-1-seanwascoding@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,118 +72,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/25/26 12:25 PM, Maxime Ripard wrote:
-> On Thu, Aug 20, 2026 at 05:44:08PM +0300, Cristian Ciocaltea wrote:
->> On 8/20/26 11:53 AM, Maxime Ripard wrote:
->>> On Fri, Jul 31, 2026 at 07:19:29PM +0300, Cristian Ciocaltea wrote:
->>>> drm_atomic_helper_connector_hdmi_hotplug() does not currently
->>>> synchronize SCDC status on hotplug events, leaving the scrambler state
->>>> potentially inconsistent after (re)connect.
->>>>
->>>> Hook drm_connector_hdmi_sync_scdc() into both the connect and disconnect
->>>> paths, replacing the existing TODOs around missing scrambler handling.
->>>>
->>>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
->>>> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
->>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->>>> ---
->>>>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 23 ++++++++++++++---------
->>>>  1 file changed, 14 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->>>> index 4a93c279c9a7..3377ea936120 100644
->>>> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->>>> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->>>> @@ -1205,13 +1205,16 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
->>>>  					enum drm_connector_status status)
->>>>  {
->>>>  	const struct drm_edid *drm_edid;
->>>> +	int ret = 0;
->>>>  
->>>>  	if (status == connector_status_disconnected) {
->>>> -		// TODO: also handle scramber, HDMI sink disconnected.
->>>> -		drm_connector_hdmi_audio_plugged_notify(connector, false);
->>>> -		drm_edid_connector_update(connector, NULL);
->>>> -		drm_connector_cec_phys_addr_invalidate(connector);
->>>> -		return 0;
->>>> +		ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
->>>> +		if (ret != -EDEADLK) {
->>>> +			drm_connector_hdmi_audio_plugged_notify(connector, false);
->>>> +			drm_edid_connector_update(connector, NULL);
->>>> +			drm_connector_cec_phys_addr_invalidate(connector);
->>>> +		}
->>>
->>> If there's a deadlock, shouldn't we restart the whole sequence there?
->>
->> In that case we do already propagate -EDEADLK and let the callers
->> (drm_helper_probe_detect_ctx(), drm_helper_probe_single_connector_modes())
->> to ensure the sequence is restarted.
->>
->>> Ie, we should return ret all the time anyway? And if we do that, we
->>> should return ret for drm_edid_connector_update() too.
->>
->> Per .detect_ctx() contract, implementations shall return a drm_connector_status
->> value or -EDEADLK only.  On the other hand, .force_ctx() accepts any error code,
->> but the probe helpers just log it.  Hence returning anything else wouldn't
->> really have an impact on the functionality.
->>
->> Returning errors from drm_edid_connector_update() would potentially override
->> non-deadlock ones from sync_scdc().  Since both helpers already log their own
->> failures, I think it isn't worth the trouble.
->>
->>> Either way, a comment on why we're doing it this way would be nice.
->>
->> Indeed.  Would the following be too verbose?
->>
->> /*
->>  * The SCDC resync may reset the CRTC, which might involve aquiring
->>  * modeset locks.  If that fails, -EDEADLK is reported and the callers
->>  * passing a non-NULL @ctx drop the locks and restart the sequence
->>  * - see drm_helper_probe_detect_ctx() and
->>  * drm_helper_probe_single_connector_modes().
->>  *
->>  * The resync runs first, and the audio and CEC helpers only once the
->>  * link state has settled: the CRTC reset is a blocking commit, so on
->>  * success the pipeline is already up again, while on -EDEADLK nothing
->>  * has been resynced yet and the pending retry redoes everything.  This
->>  * keeps userspace from acting upon a link that is about to be reset.
->>  *
->>  * -EDEADLK is the only status gating the helpers below, as it is the
->>  * sole one guaranteeing a new run.  The other failures are merely
->>  * reported: .force_ctx() accepts any error code and the probe helpers
->>  * just log it, while .detect_ctx() has to swallow it, being only
->>  * allowed to return a drm_connector_status value or -EDEADLK.
->>  * Propagating the status of drm_edid_connector_update() on top would
->>  * therefore only make it compete with an earlier resync failure over a
->>  * value that triggers no recovery, the more so as both helpers already
->>  * log their own errors.
->>  */
-> 
-> You can tell your LLM to be more terse :)
+On Wed Aug 19, 2026 at 5:12 PM CEST, Sean Chang wrote:
+> In dw_hdmi_probe(), casting the bitwise complement of (HDMI_PHY_HPD |
+> HDMI_PHY_RX_SENSE) directly to u8 triggers a compiler warning
+> (-Wconstant-conversion).
+>
+> Due to C integer promotion rules, the bitwise OR and bitwise NOT are
+> evaluated as 32-bit signed integers, producing 0xFFFFFF0D before being
+> cast down to u8.
+>
+> Fix this by explicitly masking the inverted 32-bit result with 0xFF
+> to keep only the lower byte and prevent implicit upper-bit truncation.
+>
+> Signed-off-by: Sean Chang <seanwascoding@gmail.com>
 
-That's actually the shortened form :-)
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-> 
-> Something like the following would be enough:
-> 
->   /*
->    * detect_ctx can only ever return an status or EDEADLK. Handle deadlocks, and report any !EDEADLK error.
->    */
->   ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
->   if (ret)
->      if (ret == -EDEADLK) {
->      	return ret;
->      } else {
->        drm_warn(connector->dev, "ignored error");
->      }
-> 
->   drm_connector_hdmi_audio_plugged_notify(connector, false);                                                                                                                                                                                                    
->   ret = drm_edid_connector_update(connector, NULL);
->   if (ret)
->        drm_warn(connector->dev, "ignored error");
->   drm_connector_cec_phys_addr_invalidate(connector);                                                                                                                                                                                                            
-
-Ack.
-
-Thanks,
-Cristian
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
