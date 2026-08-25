@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EED3C5DF94
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CFF5C61DB6
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 08:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6598E10E957;
-	Tue, 25 Aug 2026 08:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 634CB10E958;
+	Tue, 25 Aug 2026 08:10:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z++TJrDS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ed8+zWXD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED63710E957
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8776C10E958
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A6F89404E6
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610F21F000E9;
- Tue, 25 Aug 2026 08:10:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 710FC404E6
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 08:10:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FAD1F000E9;
+ Tue, 25 Aug 2026 08:10:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787645434;
- bh=b8Q7ZJha4XLYsv2SeAcw5PygZ0sDFh40uoJUqflh0NU=;
+ s=k20260515; t=1787645437;
+ bh=TjpbPpD6U5uNFz7Inino+IbmrVu/JCur2CR/t44V+C4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z++TJrDSgfIYV40foip+sgCeeGhyn67cekYIYnD/IUFYs6qh+seWUoJH/WdCF9V8s
- 6lsIXvekTVCc8sjD9p0pfo8EFgd8bnGXS1sqbDl8w5OYLq7w3g8/hzVm5/ozU9IWYw
- Ff4Q/gxX0/Wu9U7h67mZLZ84scUJCLr3hpfuxUWXO2viL974RorTlWTremqFYwq7DB
- H+qF8iCFsbFhRIp/YX2p5q7uGoTDejN0NZ8VIC4y1Jy1KB57r5c804ZXo7w04RZbNy
- c5euESHph+ThKs4/mnjRmjes5EHZP+kQVWCivkIGIQdH6+WCzXoOKETn1cLcbrkyVn
- SXcB3zA6YkLmA==
+ b=Ed8+zWXDBayrzji07AcLgaaYKL4uzbzMJSQW0UM24MVuR3rhPEP/V2R6amen3KSot
+ Ny5PUlmms7K9XmJVFpdWqByMSRajZszHt4rVUcSV2DXu5BG7J5toUJObHoTZzKMqG8
+ UQ/xQNuqzqVFEYBUaUZ9ZtIQouSFTBMnmIKPokJrVqy/E9AATI11KcG513XpFbp0O8
+ e1Mc2Sqw/ElowtATu+IkSYWP8+UGf9fBm1ILu870mlGmzvaw3xmNgd7imm0Pzqora+
+ XZLQKDEZ89U/fdJ1FUSMtnehPjRZAMmn5NJ/0XqRvwosT8iqLDTAfRicIKef0FSH5N
+ lbZ9kVRSeCo+w==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 06/12] drm/fabric: add YNL query and policy selftests
+Subject: Re: [RFC PATCH 01/12] drm/fabric: add core object model and
+ provider API
 To: "Konstantin Sinyuk" <ksinyuk@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <19b16439fe5f81ad983082e84f88405506f73558.1787552412.git.ksinyuk@kernel.org>
+In-Reply-To: <83513555d01ea2ccc426020c97afee78d0376288.1787552412.git.ksinyuk@kernel.org>
 References: <cover.1787552412.git.ksinyuk@kernel.org>
- <19b16439fe5f81ad983082e84f88405506f73558.1787552412.git.ksinyuk@kernel.org>
+ <83513555d01ea2ccc426020c97afee78d0376288.1787552412.git.ksinyuk@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 08:10:33 +0000
-Message-Id: <20260825081034.610F21F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 08:10:36 +0000
+Message-Id: <20260825081037.27FAD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,60 +60,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] harness_reset_abi.py races with its child process when resolving=
- the Generic Netlink family, leading to test failure on a fresh system.
+- [Medium] drm_fabric_endpoint_find_by_dev_name() skips ambiguity checking =
+when busname is provided.
 --
 
---- Patch [6]: [RFC PATCH 06/12] drm/fabric: add YNL query and policy selft=
-ests ---
-commit 095db697e4004f927fd42e79eb88a4bd06030771
-Author: Konstantin Sinyuk <ksinyuk@kernel.org>
-Subject: drm/fabric: add YNL query and policy selftests
+--- Patch [1]: [RFC PATCH 01/12] drm/fabric: add core object model and prov=
+ider API ---
+commit a52787ad8ee51af45c9fca91640883affafd66ca
+Author: Ilia Levi <ilia.levi@intel.com>
 
-This commit adds eleven kselftest programs for the drm-fabric Generic Netli=
-nk
-ABI. These tests use the in-tree YNL client against fabricsim to cover paths
-like policy validation, multipart dumps, and family introspection.
+drm/fabric: add core object model and provider API
 
-> diff --git a/tools/testing/selftests/drivers/gpu/drm_fabric/harness_reset=
-_abi.py b/tools/testing/selftests/drivers/gpu/drm_fabric/harness_reset_abi.=
-py
-> new file mode 100755
-> index 0000000000000..211613185a39b
+This commit introduces a common DRM object model for interconnect fabrics,
+endpoints, ports, and peers. It provides a registry and a provider API to
+manage object identities, relationships, and lifetimes under a central lock.
+
+> diff --git a/drivers/gpu/drm/fabric/drm_fabric.c b/drivers/gpu/drm/fabric=
+/drm_fabric.c
+> new file mode 100644
+> index 0000000000000..8769d7bdcde1f
 > --- /dev/null
-> +++ b/tools/testing/selftests/drivers/gpu/drm_fabric/harness_reset_abi.py
+> +++ b/drivers/gpu/drm/fabric/drm_fabric.c
 
 [ ... ]
 
-> +def test_sigkill_topology_recovery(ksft, cfg):
-> +    """A SIGKILL-leaked switch shape must not survive the next entry res=
-et."""
-> +    # 1. Bring up the switch shape in a helper and confirm it is observa=
-ble.
-> +    child =3D subprocess.Popen([sys.executable, "-c", _CHILD])
-> +    try:
-> +        fab =3D L.DrmFabric()
+> +/*
+> + * Returns NULL if no endpoint matches, or ERR_PTR(-EINVAL) if @devname =
+is
+> + * ambiguous across buses and @busname does not disambiguate it.
+> + */
+> +struct drm_fabric_endpoint *
+> +drm_fabric_endpoint_find_by_dev_name(const char *devname, const char *bu=
+sname)
+> +{
+> +	struct drm_fabric_endpoint *match =3D NULL;
+> +	struct drm_fabric_endpoint *ep;
+> +	unsigned long idx;
+> +
+> +	lockdep_assert_held(&drm_fabric_lock);
+> +	xa_for_each(&drm_fabric_ep_xa, idx, ep) {
+> +		if (strcmp(dev_name(ep->parent), devname))
+> +			continue;
+> +
+> +		if (busname) {
+> +			if (strcmp(dev_bus_name(ep->parent), busname))
+> +				continue;
+> +			return ep;
+
 [Severity: Medium]
-Is there a race condition here on a fresh system where the drm_fabric module
-is not yet loaded?
+Does this early return bypass the ambiguity check if a single parent device
+registers multiple endpoints?=20
 
-The child process executes a script that calls insmod('drm-fabric.ko').
-However, immediately after spawning the child, the parent process calls
-L.DrmFabric().
+When a busname is provided, this path returns the very first matching endpo=
+int
+it finds. If a device matching both the devname and busname has registered
+multiple endpoints, this silently resolves to the first one instead of
+rejecting the ambiguous lookup with ERR_PTR(-EINVAL).=20
 
-Since L.DrmFabric() synchronously resolves the generic netlink family,
-wouldn't this fail with an NlError exception if the child process hasn't
-finished loading the module yet?
+The code block just below this handles the ambiguity correctly when busname
+is not provided. Should the busname path also continue checking the rest of
+the xarray to ensure only one match exists?
 
-> +        loaded =3D L.wait_until(
-> +            lambda: L.module_loaded("drm_fabric_sim") and _has_switch_pe=
-er(fab),
-> +            timeout=3D10.0)
-> +        if not loaded:
-> +            child.send_signal(signal.SIGKILL)
-> +            ksft.skip("harness-reset-sigkill-recovery",
-> +                      "helper could not establish switch shape")
+> +		}
+> +
+> +		if (match)
+> +			return ERR_PTR(-EINVAL);
+> +
+> +		match =3D ep;
+> +	}
+> +
+> +	return match;
+> +}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787552412.gi=
-t.ksinyuk@kernel.org?part=3D6
+t.ksinyuk@kernel.org?part=3D1
