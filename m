@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB7FC61CE2
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C132AC61CE2
+	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 10:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9865E10E9D7;
-	Tue, 25 Aug 2026 10:37:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28B8510E21F;
+	Tue, 25 Aug 2026 10:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="SiW984JH";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="QG1QaBZ1";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB5B10E21F
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:37:26 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D33810E21F
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 10:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=R1
- Q4eWOjIpnmVqx7q7hMkd9UCukHHEP5SaCklvg1tv8=; b=SiW984JHUk80qvzClx
- Fa250rcuSK15xDhQedgoVn1ZnHoLf0GDPPRWi5fH5Sia69pfuN0A05ls5eNE7K+d
- 32ouwb82FCtN7sEatROQ3SjBaQQgtAj1wLPjBeDMqKtbFynGikT3PDfWNF9omU5E
- rRpbJ2h3stleEo3ljwE3ctfoE=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+ Content-Type; bh=INQWhOLIhCHtGcOk61iUZgio4nHSvbrA+EjdpS+Q3u4=;
+ b=QG1QaBZ1/aJAwqzXly255zuecOKv5Cx3uViQ6WYkSiijtdFYtrKDTYJuNU8vbP
+ ASwEj8QCtF6rebGcjAjt7MTsA1CAOzHQKFglwKK83D9G68xem4PtqhE8WUDH1QG0
+ ZiG3dv5DTBj+vGcJu+FWMSM8RTDoXVYeyBQ6JMS1o7Cx4=
 Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id
- _____wCXxckicI1q7jIKQA--.63928S2; 
- Tue, 25 Aug 2026 18:36:19 +0800 (CST)
+ by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id
+ _____wC3t_9OcY1qa+IxPg--.45577S2; 
+ Tue, 25 Aug 2026 18:41:19 +0800 (CST)
 From: oushixiong1025@163.com
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH v2] drm/sched: Guard against NULL dev in drm_sched_job trace
- event
-Date: Tue, 25 Aug 2026 18:36:15 +0800
-Message-Id: <20260825103615.661200-1-oushixiong1025@163.com>
+Subject: [PATCH RESEND] drm/sysfb: Fix atomic_disable to use dst coordinates
+ instead of src
+Date: Tue, 25 Aug 2026 18:41:17 +0800
+Message-Id: <20260825104117.667943-1-oushixiong1025@163.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="Add_By_Label_Mail_Nextpart_001"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wCXxckicI1q7jIKQA--.63928S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8ZrWfJF43JFyrWFy5CFg_yoW8CF4Upr
- ZrWFW5Kry8tr47t3yUZ3WrWry5Ga1fZayxCr1DX3s3Zrn0vF15Jr17Kw4fJrW7Ar4xAr92
- g3Wq9a12q3Wjgw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPxhJUUUUU=
+X-CM-TRANSID: _____wC3t_9OcY1qa+IxPg--.45577S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8tF15tr47uw1rGr1kGrg_yoW8XFWrpF
+ ZrG34q9rsYyws0gFWDCay8try3Xa95Jw4xKryrCw4S9wnYyFy3GF1rGry7Cr4UJrZ5Kw43
+ ZwnIyrWDJ3WFka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnBMNUUUUU=
 X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4gMiMWqNcCP4GAAA3m
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-g9tfGqNcU9HWgAA3k
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,54 +63,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+--Add_By_Label_Mail_Nextpart_001
+Content-Type: text/plain;
+Content-Transfer-Encoding: 8bit
+
+
 From: Shixiong Ou <oushixiong@kylinos.cn>
 
-The drm_sched_job trace event class calls dev_name() on
-sched_job->sched->dev without checking for NULL. Since the
-dev field in drm_sched_init_args is optional (used for
-debugging), a NULL dev causes a kernel oops when the trace
-event fires.
+drm_sysfb_plane_helper_atomic_disable() constructs the clear rectangle
+from plane_state->src_* coordinates. This is inconsistent with
+drm_sysfb_plane_helper_atomic_update() which uses plane_state->dst
+— the destination rectangle already computed by the DRM core with panel
+orientation applied.
 
-The DRM scheduler KUnit tests do not set the dev field in
-drm_sched_init_args, leaving sched->dev as NULL. This causes
-a NULL pointer dereference when the drm_sched_job trace event
-fires during test execution, as dev_name(NULL) is called.
-
-  Unable to handle kernel NULL pointer dereference at virtual
-  address 0000000000000050
-  Call trace:
-   trace_event_raw_event_drm_sched_job+0x90/0x258
-   __traceiter_drm_sched_job_queue+0x4c/0x78
-   drm_sched_entity_push_job+0x188/0x380
-   drm_sched_basic_entity_cleanup+0xfc/0x240
-   kunit_try_run_case+0x74/0x170
+Use plane_state->dst directly, matching the approach in atomic_update.
 
 Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 ---
-v1->v2:
-  Change each line of the message to be within 75 characters
-	
- drivers/gpu/drm/scheduler/gpu_scheduler_trace.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-index 261713dd7d5a..319a3ec54bec 100644
---- a/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-+++ b/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
-@@ -61,7 +61,8 @@ DECLARE_EVENT_CLASS(drm_sched_job,
- 			     __string(name, sched_job->sched->name)
- 			     __field(u32, job_count)
- 			     __field(int, hw_job_count)
--			     __string(dev, dev_name(sched_job->sched->dev))
-+			     __string(dev, sched_job->sched->dev ?
-+				      dev_name(sched_job->sched->dev) : "none")
- 			     __field(u64, fence_context)
- 			     __field(u64, fence_seqno)
- 			     __field(u64, client_id)
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+index d2de29caf89e..18466de886aa 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+@@ -380,14 +380,10 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
+ 	void __iomem *dst_vmap = dst.vaddr_iomem; /* TODO: Use mapping abstraction */
+ 	unsigned int dst_pitch = sysfb->fb_pitch;
+ 	const struct drm_format_info *dst_format = sysfb->fb_format;
+-	struct drm_rect dst_clip;
++	struct drm_rect dst_clip = plane_state->dst;
+ 	unsigned long lines, linepixels, i;
+ 	int idx;
+ 
+-	drm_rect_init(&dst_clip,
+-		      plane_state->src_x >> 16, plane_state->src_y >> 16,
+-		      plane_state->src_w >> 16, plane_state->src_h >> 16);
+-
+ 	lines = drm_rect_height(&dst_clip);
+ 	linepixels = drm_rect_width(&dst_clip);
+ 
 -- 
 2.25.1
 
 
+--Add_By_Label_Mail_Nextpart_001
+
+Content-type: Text/plain
+
 No virus found
 		Checked by Hillstone Network AntiVirus
+
+--Add_By_Label_Mail_Nextpart_001--
 
