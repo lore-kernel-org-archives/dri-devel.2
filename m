@@ -4,52 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A298EC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 11:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2DCAC5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 11:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F217C10E5FB;
-	Wed, 26 Aug 2026 11:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D52010E26B;
+	Wed, 26 Aug 2026 11:50:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nkeYywBj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s5i669sK";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E86A48952F
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=mDBT0y4CQaDDC0iV3ivBJAKjXjAA2GuZiocMc8fGFFs=; b=nkeYywBjnLAG9XQvSrzvj/vM81
- AC0D3khBYW52boaKC6MbgWS6UGYVPRWDTNvmBsj+ZCaLnbGFKNIegs9H/+S0439XkznEFDT5m4Mm/
- nbcqsdxKur6T737/V6SggLaZJx56VrpLnGR9+/0w6ipP9NX8U/+ofWd/Kb31WGq19tB1+3CG+PIOr
- KrNP09qeri4Ue2XbdoFCpIURx0oB24kS5zRqP9ZOvWZ+7Iu+3a0aFqIyGHSHMpxa7pWnIL8polS4s
- 6rRbGxrDRYNBIJpyphEv0RJB1nnOROiiFhghAjNtogp9UM4GDAfkKMGUynR99/z7FPjRZa4HlKuZx
- 9jt67Fxw==;
-Received: from 179-125-75-211-dinamico.pombonet.net.br ([179.125.75.211]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wzC5y-009WKN-VD; Wed, 26 Aug 2026 13:47:07 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Wed, 26 Aug 2026 08:46:58 -0300
-Subject: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
- for out_fence_ptr
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABD7610E26B
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:50:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VAohs0oIGil4FVOvCVmBwlAhtQzNqm13l2KRiWPQ9zphPAPiQReQ0Y3xYRJ55bfzinsA4EBRGRPm302/KROZxuUmigA608Je18nTL/hyamiOGJHDloLTK2fZCIf1swue5qP80ik/MrTFrEeO3kbzu67M6q16tkZ4NXnLwiPD145trb77cShBrp+sPvcdqDn8/gYw4YI32rAUdY3gh7MB13iwYu78CzSso24zw2+Bskklr/aFwEZlfIJJffHGuVtbKlFMJ5T2I8ewa7twhLXWD3vOCtMJRQzRrqsLDGxiM7YHZoS+ELaNTw1kisfKuzDdZG5sgQ9mbPSbyzV/gaIjUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7lxrH4lY9NfwLBq4Eu0mAFP4TjZqZW+1qzOOuNZ7+es=;
+ b=EqKKUBJ80ExBoJ/6dZYeOGPtIedSHMgl4XvpR46FvEwJ7sCskFI4yb/fXBvaxQjgIYwSUSXYzQh6IehmDDCmJ7WlFXlIsWzNR7OWhKP49QUkqF9/mRED5Cfk5eFzbewRdlOzCOhY3/t0bCvpcnpkdWFWgYBnkUQWjRRimvYfa8bQ8GU5LkXvEVGVOk0k7Y1FV9pNzXYoH/ZyRSHIJovZADbnMBAjl3dBe/HofwA36za/2XHsto4PPmT++rmF7KJJPXvYQv758cAqsTeiQDgF3W7G+NSlnqpv8UStuwvdZfpTIKSvemT3hrO8dOGl0ej/BEm9Kv7Lm+6L3ywq0jXQDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7lxrH4lY9NfwLBq4Eu0mAFP4TjZqZW+1qzOOuNZ7+es=;
+ b=s5i669sK14VwIrEKhhH1WI0wHW3T0EFNf6WgN8A6QjikHjnrodSnOMOkwy0SjMKoIJZ/oQTlDWEzBtpaTqiLXoLYzNuEWk8QPtHh/wcfPJjP4f50JlXIN8zQHtplwW+gy1cLN3vvv4HDr9KD6ZgXGbVakSNdZncGZr9BV7rzavI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 11:50:08 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 26 Aug 2026
+ 11:50:08 +0000
+Message-ID: <76e18d87-6550-4ddb-b2bd-0063598688de@amd.com>
+Date: Wed, 26 Aug 2026 13:50:03 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] PCI/P2PDMA: Update DMABUF lifecycle docs after
+ move_notify() rename
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-pci@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
+ <20260825-document-dma-buf-v1-1-5ecfb3e1371c@nvidia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260825-document-dma-buf-v1-1-5ecfb3e1371c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0095.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
-X-B4-Tracking: v=1; b=H4sIADHSjmoC/43OwU7DMBAE0F+pfMbI3rhx0hP/gapoHW/TpalT2
- akFqvLvOOUAiEM5jjR6MzeRKDIlsdvcRKTMiadQgnnaiP6IYSDJvmQBCmploZE+nrsLBc9h6LI
- bMZw6yhTmbiQ8SazqnryDtnYoinGJdOD3u/+6/8rp6t6on1d0bRw5zVP8uB/Ieu39dytrqaVqD
- LSuBeV0/cIDjozP/XQW61iGn1z7iIPC4VZZg0jK+sMfrvrmGm0fcVXh7LYBB8YY69UvblmWTxy
- GiSh7AQAA
-X-Change-ID: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Melissa Wen <mwen@igalia.com>, kernel-dev@igalia.com, 
- sashiko-bot@kernel.org, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4322:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8304bba-d2ef-43e7-0b8d-08df03682d48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|23010399003|1800799024|56012099006|10067099003|5023799004|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: eTwSjUnfN4pv8983QUx9tHHo+IRq2wYNwgIGvMHKXWdKg04qjL9eZYpkFbt59avEURy3uonUoMNuH04sI7NbyrZuPvQz7bjgLGsWnxIacloEMH7+mmPrejC/U6X3XNEhH/+/9BYkncbniYR/pE88NjpvWNcOye0cf3Lb5jqHXYsmHsy38sp3IdTAbr0PJNlBhNYH5w568eyU0vlO9Qa/uCfPqt8tHXBgOgCdQz+a4XoEMoLijaSnVunuzmdlvxjFDMop7JFfb9Nb4nVDpbGNr62sJxTBhswDvYewbTlndmSGAoiYUhLWRJE5j/Ew64wEIyOtLM0GbT8CDh6KicJntbzDdZsPrN4PVvKEdD34jI9faQ+mTrrg5FqL+gSjvTBIfU6JBBP17xZpKIXHHST6BYYhjULJtE3F3ZxEQ472alvQ/+1KshKP3myhQCYshWiqmXgxHty70iS/SVROWy9PpWFAhhzOHemwTA/T1TC3cYpdL2QX1LuAEJWGhu14YQXRZJB/3Ov98NlZuAwPpWFC/tLG1kmqMQboUXV6NLIE4SKwGX/qlAK7myQpP1Qpq+z1HR+RaNQ3Lff1ORXSCsc+VVxBcHKc8PF5IK/zXoSffp7ZYw0FgXjhngvwpqwbTXqsVeaq3wgmMbHJZKXOrLFJFM7fxYvwQaNU7I4G1KZucDk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFZtS1Y2WUtjNGNXbFdWbWhXOFZyNm5QQm9MY0pIcHdxcnBiV2ZaTkNrRTJV?=
+ =?utf-8?B?K3NoT0l3dmZZZ0taM0dZaHYxdUxuUC9ESTF3NnZOaXNxek9aV2NuVnA2Unlz?=
+ =?utf-8?B?ZWxwNGR1SmdyNTFuSU9uZEVtUlorT3ppNjZyRkYrOU02Z1I1M2wzclZlUEFs?=
+ =?utf-8?B?NTlIS3I3bHBxbERNdWFYdHY3QVd0Vk5kdXVoSHdDeFNONlNJMU9CT2JyK09W?=
+ =?utf-8?B?d0xPbzBqMGJMZSthdUdwWjlSa0srMDRqTTFOM0FFUWRKa2UraGZiNDRzQ2lI?=
+ =?utf-8?B?YTRWcUNkaE9kV1lMYUNGRk1oOUFmMkJWTU43K2dpODdKVWpRcXJsbCtIS2xU?=
+ =?utf-8?B?VkUvQnpLZ0RjZXAwSHlFTmY5aG55ZmRZcjZxQ3ZyRHlndUFBRGc4TjA1bTZW?=
+ =?utf-8?B?T2R0ZHdkS1pJdE5DUngzc2xvWTNCdmRBajA4V3JzbnhmTUJBTnFBdXoxeVdC?=
+ =?utf-8?B?WmZ4T0p3S2w0QmczRGE2VkV0YnpqNjExRTF0dWFBem1ncGY3RlBPNzg2ZUYx?=
+ =?utf-8?B?NHh5cHZmeUVybFRFZ2txQmtJcWhVMHdHSjd4MVdQVTFrQW9qaXU1dFdxYVdG?=
+ =?utf-8?B?MEQvRkVybGoyRmNTZm9VUFFHakNzdFl2OUtDazhCSnM1U1V4QkZXV05JTHRv?=
+ =?utf-8?B?ckhLaXpaWXpZWGhHQmZ4czMrSmN4eTJiTExqMFlsemFwM2Q2Q2tNWkgvNG1H?=
+ =?utf-8?B?SGh2MmJWVi9HK04xYlB2WTBFR0Q2bU1sbTkzS1A2b0tYajUxZy9jNWcvQlRq?=
+ =?utf-8?B?L3EwQWdKbEhDZEs3bWtPUGFpeFlMS1h6N3ArWkVVQ2lGSS9OU3ovb1pQQmsr?=
+ =?utf-8?B?c1BOMTBDbFplaUtkSS9zYUxCNEFvRzRzeTNuTitDK3F3b3FFWThubGtiSFcr?=
+ =?utf-8?B?YjlYdWFVcEFzWElKRWdPWUx4UXF0NU1EbjdDeWJKa2wydEF0TkJjQnVySUxB?=
+ =?utf-8?B?MFZsNEdTZlJRZkxnVTNvS2pHM29zeHJVWEhmRWtSWjhPbDYvd21KV0hnQzBr?=
+ =?utf-8?B?WEFoc0dtT214bDFQYjBkOWdIVFlYWWcxU2tmaUwzTkszbW93TSswRDRKblBG?=
+ =?utf-8?B?MTVxczh0QjVzNGxGaTUzQktUR1pEQUZmYkxCdHJZbktPd3lwbkFVbTdRb00x?=
+ =?utf-8?B?MEJ0QmhqcFAvRWx5bzBOL0ZZRzBrbUUrNnduZ29LcTU0L1BKVWIwaTlMWWRV?=
+ =?utf-8?B?d1l6RExLNHJzN0ZPU2F4R3VDeitWMDNRU3B6UFZoSFdCNGFtd0pXZWxjYUxZ?=
+ =?utf-8?B?ZXNVY0tHZXN0QWFpRzdoVU0renRVUlRUc3B1WkVSRzgybU1ML3IxcUd5endQ?=
+ =?utf-8?B?MDVpZXRTQXU0OVl0S3lCT2V4MU5URW1PWlhvVU85R3EvaERRdk5UZ2ZJY2Jx?=
+ =?utf-8?B?ZjNDUEpmV1ZwaFZEVkVHR01zR052K3lJRWVwSUVWdlVVdGdqZm1pV2crM3cz?=
+ =?utf-8?B?N0NCbjgwRWdCZmFkVVhBRGRQd1Q1cXlkOFgyNFkwVlZiUE9XTmxsRG9WTiti?=
+ =?utf-8?B?NDA3ZlliUUVlL0cyYm9TWE1nU292YVZpeWxnWWNuY3lOak5iYmlkTWlMUytS?=
+ =?utf-8?B?UlRhQTNBaUV6UlBFUUxZbTlQZ1pKekhhS0pWanlUZ29UemR2WkFia3V3Z08v?=
+ =?utf-8?B?SXZNcVpING1HSDVZN0Z5VDlCSnJGYVVpMzFnTTJLVzFaNVNVR3lWZ1Q3eEVP?=
+ =?utf-8?B?NlFTTjE2VExsYUdyajNtckw0VEQzTGhPRjFWQjR0eHZ6dUJYWnZJN3FYeVh0?=
+ =?utf-8?B?dVZXekE1T0ZMakVLRCttNXhWUG1MMzhMTHF5Q0VUZDkrdU04VE83SjNHOHli?=
+ =?utf-8?B?ODFQWUhhQllIZlllWThyNUJoK1M1Uyt2SVlzREZmTC9abzlTTEJFdFhCT3pP?=
+ =?utf-8?B?UjFac2ZnaTNISWpYSkpIZnBaeEZMa0xtRkZlZzBPN1IvcTQ2VTd4Qkhkc0Qr?=
+ =?utf-8?B?SHA5RDlKNjllOXFjQkpPVXNzZHJJOXhaMTI2eE1CR2J1VWZ5RzFCazJldGQz?=
+ =?utf-8?B?M0FOeTJINUVSb0cwNjZMWlNWUGpHeTQzYUZ3cmtTTnZSKzQxdEtEQVhwUW8x?=
+ =?utf-8?B?VCtpekdST0NkVVJXbGZVbEg3MlhrRUIwTWVKeExvVEJPb1NER1I4RWdiVnNj?=
+ =?utf-8?B?dDNScFBZMm1kcG11bnl2UnV1REljR1BKcXlGdzFmTkF5bmthaU5xczBOMVJX?=
+ =?utf-8?B?Q1RSWjA4bzB4engxek5qaXJWaHJmaWFzNU1HN1FjZzR4Y0h4QlI4UjhzbEE5?=
+ =?utf-8?B?ekhLdFpIZEtMdnpab1ZGSkEyYkRUOVh2VUw2TVNlWXpNNVE2Y20rekZQbVFq?=
+ =?utf-8?Q?HydqEI3K0ySS35oC5c?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8304bba-d2ef-43e7-0b8d-08df03682d48
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 11:50:08.2816 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JZ7mbgklgDihSXUYKDMIb+rDseMj33IS+7FdvVLt4OaNtR0DO+S9Mp7tdOnUiHWU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4322
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,91 +141,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
-set, a drm_pending_vblank_event will be allocated. If later, there is an
-allocation failure or another failure at setup_out_fence(), that event
-will not have base.fence set and it will not be released at
-complete_signaling().
+On 8/25/26 08:28, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Commit 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to
+> dma_buf_invalidate_mappings()") left the DMABUF section of the P2PDMA
+> documentation pointing at move_notify(), a symbol that no longer
+> exists. Readers grepping for it find nothing, and this is the only
+> place in Documentation/ describing the revocation requirement.
+> 
+> Name the current function and record that importers which cannot unmap
+> within bounded time have to be rejected at attach time, which is what
+> makes the synchronous unmap on remove() achievable.
+> 
+> Fixes: 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to dma_buf_invalidate_mappings()")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-Release the event and set crtc_state->event to NULL just like in the
-DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
-drm_event_reserve_init(). That is, prepare_signaling() releases the
-event and there is nothing to be done at complete_signaling(). Use
-drm_event_cancel_free() as that will also undo drm_event_reserve_init()
-in case it has been called.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
-Fixes: 92c715fca907 ("drm/atomic: Fix double free in drm_atomic_state_default_clear")
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
-Changes in v4:
-- Rename label to err_free_event.
-- Use crtc_state->event instead of a local variable e.
-- Link to v3: https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
-
-Changes in v3:
-- Use a label for the common exit pattern.
-- Link to v2: https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
-
-Changes in v2:
-- Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
-- Link to v1: https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
----
- drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index ae7667d1072d..8c0eea2fed4a 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1458,10 +1458,12 @@ static int prepare_signaling(struct drm_device *dev,
- 			struct dma_fence *fence;
- 			struct drm_out_fence_state *f;
- 
-+			ret = -ENOMEM;
-+
- 			f = krealloc(*fence_state, sizeof(**fence_state) *
- 				     (*num_fences + 1), GFP_KERNEL);
- 			if (!f)
--				return -ENOMEM;
-+				goto err_free_event;
- 
- 			memset(&f[*num_fences], 0, sizeof(*f));
- 
-@@ -1470,12 +1472,12 @@ static int prepare_signaling(struct drm_device *dev,
- 
- 			fence = drm_crtc_create_fence(crtc);
- 			if (!fence)
--				return -ENOMEM;
-+				goto err_free_event;
- 
- 			ret = setup_out_fence(&f[(*num_fences)++], fence);
- 			if (ret) {
- 				dma_fence_put(fence);
--				return ret;
-+				goto err_free_event;
- 			}
- 
- 			crtc_state->event->base.fence = fence;
-@@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device *dev,
- 	}
- 
- 	return 0;
-+
-+err_free_event:
-+	drm_event_cancel_free(dev, &crtc_state->event->base);
-+	crtc_state->event = NULL;
-+	return ret;
- }
- 
- static void complete_signaling(struct drm_device *dev,
-
----
-base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
-change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
-
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+>  Documentation/driver-api/pci/p2pdma.rst | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
+> index d3f406cca694..63cff9e4d2c9 100644
+> --- a/Documentation/driver-api/pci/p2pdma.rst
+> +++ b/Documentation/driver-api/pci/p2pdma.rst
+> @@ -167,9 +167,11 @@ In this case the initiator and target pci_devices are known and the P2P subsyste
+>  is used to determine the mapping type. The phys_addr_t-based DMA API is used to
+>  establish the dma_addr_t.
+>  
+> -Lifecycle is controlled by DMABUF move_notify(). When the exporting driver wants
+> +Lifecycle is controlled by DMABUF revocation. When the exporting driver wants
+>  to remove() it must deliver an invalidation shutdown to all DMABUF importing
+> -drivers through move_notify() and synchronously DMA unmap all the MMIO.
+> +drivers through dma_buf_invalidate_mappings() and synchronously DMA unmap all
+> +the MMIO. Importers unable to complete that unmap within bounded time have to
+> +be rejected when they attach, which dma_buf_attach_revocable() checks for.
+>  
+>  No importing driver can continue to have a DMA map to the MMIO after the
+>  exporting driver has destroyed its p2p_provider.
+> 
 
