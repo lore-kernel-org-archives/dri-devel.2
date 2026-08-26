@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64BAC61DD6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16448C61DD3
 	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2EBF10EF72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B90B10EF6C;
 	Thu, 27 Aug 2026 09:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="tD8HLVET";
+	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="lqhyfavv";
 	dkim-atps=neutral
 Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E75E10E10E
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 20:45:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A7010EDC7
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:36:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787777106;
+ s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787772969;
  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
  bh=bQkE0sp1250wEmpHG0fFU1uyDKyKi32y1d4HaaoYnpE=;
- b=tD8HLVET4ZuqyWfqkhTP7joZUg5k6z5THi86/hEvhE4KKxCuk5QSjKwNQ0Cp0+TTevfl8W
- upAF2Lrq6k4vIGpD5uwGaWD2FSHzzXJoMtQIXK5UZykRy85pg2zDb8olBBtSOvwf72Fa1W
- tdmQbxpCLgcjrWURr4AjzjuHHZJ2ZujWPDf0lzTh5bcAS8eyHi+ZQoNZmX3oHp+S1WpwmA
- BF1UDXwjmbh7U5pRNztex61cT4vGZbSGD/IxnzjOMz1DPqQKMPPDgD07IPBwpo3IUHW1dL
- 3fpncCP70fgMPXwAQyoF+mqmqHLq2h3ZLx5aBwDJnMPCCiZyWlkhB/6NR4gQUQ==
-Content-Transfer-Encoding: 7bit
+ b=lqhyfavvaBPI7vbcnIzgEEDZSgqgpZBmjkIyBabfLb+8LvDMhE/qefT09BiKP5tksxr/tZ
+ qkJSYXkJ9BiWgo4THnAi0cjIaV6O36/+eQDTTK3C9jBldpzlSYnU8rJn3A16ANaE9ndzN3
+ CMXQha4QUofZDj+03xynyJwcuw0xOgMOIsvKbMi1fO6D85mcHdmG+Ffs7d7uXRgnz5IUoV
+ mermnrA291hMP06dyGjxrfXLH31Np9QxP9b6H1ZQBvA5B6rJzcvSWM8GAZ3AfSwCViCwo2
+ at2tCD2SuM4IqIhS0I7+rcedJFzP01sBkiO1KnvTYeHa9bhoE2MBwh5IITMOaA==
 Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
- smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 20:45:05 +0000
-In-Reply-To: <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
-Message-Id: <20260826204457.4666-2-neptune@imm0nv1nhtv.is-a.dev>
-X-Lms-Return-Path: <lba+26a8f5052+3907d6+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
+ smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 19:36:09 +0000
+In-Reply-To: <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
+Content-Type: text/plain; charset=UTF-8
 To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
  "Alex Deucher" <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Date: Thu, 27 Aug 2026 03:44:57 +0700
-Mime-Version: 1.0
+Date: Thu, 27 Aug 2026 02:36:02 +0700
+Message-Id: <20260826193602.6441-2-neptune@imm0nv1nhtv.is-a.dev>
 References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
- <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
-Content-Type: text/plain; charset=UTF-8
+ <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
+Content-Transfer-Encoding: 7bit
+Subject: [PATCH 2/2] drm/amd/display: close DDC on I2C engine setup failure
+X-Lms-Return-Path: <lba+26a8f4029+f4ceba+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
+X-Mailer: git-send-email 2.47.3
 Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
  "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
  <linux-kernel@vger.kernel.org>, 
  "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Subject: [PATCH v2 2/2] drm/amd/display: close DDC on I2C engine setup failure
+Mime-Version: 1.0
 X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-X-Mailer: git-send-email 2.47.3
+From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
