@@ -4,139 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95727C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 09:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D49D3C5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 09:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 914FA10EB60;
-	Wed, 26 Aug 2026 09:17:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20DB610E274;
+	Wed, 26 Aug 2026 09:20:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JOp2Nck4";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gRrq0ZjW";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="HqRB+HZ0";
+	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="X9K5eoPf";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D21D10EB60
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:17:22 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67Q9CZ5E1062591
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:17:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qx8Hit1v4ESGkplelGk4y1PT1ozgsKOulMxfjB8JQNw=; b=JOp2Nck4iQLAaAAk
- LJpEG1l+Ec9KDRsv2HEJZM3EkFgfk80VDBvhdSQ2/cQMLGIInI7MEEnb7mrYnpYm
- Ka8oXe7WyRLucnA/fErWICatTTfvTePvzksCSd094h47SD0VSoEG2DzfI1GIC1K1
- gJIgVmM8HM/ZHC0s2wi4WCUQ6kDryHtApNLn6LcHLTOt6Pri+Awuiq8WQjrnQhUC
- /D0o3BJ9UqWruVeAc5Yvqkzu3TTGzELTt2Cj8tz0nhAXbzVrrRKHOs6aDKUl7rPu
- cUa1g4Dw/HBPmrJypb8uYbIXHlL+BVxt1gIphCWi5+ve7u1vaqrEpMo33dSsWLv6
- XJJ4BA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9fgxk55t-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:17:21 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-38dc085b0a7so1624263a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 02:17:21 -0700 (PDT)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3475810E274
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:20:12 +0000 (UTC)
+X-UUID: 53b3b840a12f11f1b1788b6acf885367-20260826
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=lASib4aUiEGbzu+WwhrG7x5+sV9+rsSMpTH18+rJKac=; 
+ b=HqRB+HZ0dw8qiOR3mlBj53ZudSM5boQg0y0gaU7IRzVxknHHdsuOFv5O8ze+3M3iOscKdDrpvxO1PvTM0u5nbdq9ch52iMr//aRTXnFkK4i6BUHrZAqcGskrgxMp0zIUL1IHaAqkKgktnxc7060QgD/tgxQ/RCJEa3uaU9fwPUE=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:d124219e-d0d9-46c4-ab97-d67ea33567e1, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:7db8b62, CLOUDID:1eb6e2e2-71f1-405e-92eb-6802d6af74fd,
+ B
+ ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
+ Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
+ 1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 53b3b840a12f11f1b1788b6acf885367-20260826
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by
+ mailgw01.mediatek.com (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1065327168; Wed, 26 Aug 2026 17:20:06 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 26 Aug 2026 17:20:05 +0800
+Received: from SG2PR04CU009.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 26 Aug 2026 17:20:05 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eowvkUYfTxtKqcq6LiKoTUeBAPHPbrLGbOd8m2tQCjfJac3TY7vSXFTPM2tHLdBcwZxpe0vhXqJ55Hu6F17FqbjlWK6M/uiVDBJWJgRJYOZfRQGFq9780yfUvBR51Q1X1rkUbPfVHV2z3T9OhTQhiWwf6NVhUWf0aRNB8w15wMdQpzDLhiK64dqOIFf1koDwVC2UTAtZPD1jDG7vYdBQuFe5o1lYhkXTaRMGmv4ciYUM4WCxF4fvhbfujUzqT4GmigdTRoRMti2XFZOSfKRwaqFwzhwz8tYZcd/cPb5jJ6IRuz5pfcxJXshc7LSl7sIJr3dIzJkQUrL4uKX4OUqsoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lASib4aUiEGbzu+WwhrG7x5+sV9+rsSMpTH18+rJKac=;
+ b=MsLJ7Lf8IrSETSm46Ow5093kuTuvZGD0qyoV+eXRlotT6PBtxu26y7mwS2BMRRF02SE5b4Jo5BfjLwHZboFcIqkKflDFEcD/ekYizOY1ARIeKmKtrFRPah+Yi15t+J5NYEvvmTYLR+QHqwu0SaGjoykI0btPGroTpMIvNjXOXAKiRZiKFuBDf1QmnKFsCgbSJc3XAEUML/d8U6BTnUFU1P5Oaro9uSQBxDYZl1otS8050RMcTipgBnK47NOPdl17j6ScR0cOmMXQ7cyh9aQ+pr7i/dls3jJ5Jyg3njm5p4yIBHpk890YczUuETJl//74KvuuJk/fKceTZTHtY4gv/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1787735841; x=1788340641;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=qx8Hit1v4ESGkplelGk4y1PT1ozgsKOulMxfjB8JQNw=;
- b=gRrq0ZjW9zDqy+SXYCa5aqW4tWOZ6xxayff2jLDeZwTO6JzdAiIH4/7B+aVlIMUQcW
- e0br+1C8zBdFMlwlDJxf0BSCqXsdEKyHF8tivq9QkP8dADPxJqs+wrn6s6sY9rGMARxX
- MkNb9Vcw1P4C0CGJwcZ6njnDVCRatFKfr5irrmcGgstDyjZrpdMFvWeoVIqVJbDiz0mm
- PAShsPs+7JgnLcxdMYCQklpakcW7gowywTPPMlqm0kLP8DvOo9ZDSXyupijfVhoQrhHU
- 0hY5lyax/nJMkaplma131nKDESM3g0qaNtHup3PhS8FUbUVnFrmSUMoXJbcOvLDRyGL0
- paxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787735841; x=1788340641;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qx8Hit1v4ESGkplelGk4y1PT1ozgsKOulMxfjB8JQNw=;
- b=CIi49ZnAzmKmj+isNNz9LQaGm9ew7dN8slz8mWPcnP78P/AWHB3OOSRu0h8jQWC5pr
- 8uz9yjY20CrU2wn1/h84RhW1Hrw3UsvjZ9hQ7V+d9uNEIRcd6lIodXbD/xcHrRC0RIOX
- K+zw98FqhUcYQLG/0hnSx0eb/dycW7HHCNZAG6XkCgfRzLnLmt90t55NYLomX/x/Ai5t
- L6J0gS5JZqUc4A8MgdvDJggnQ0ikyzc3IMk5RV/jaHE3ZFktDgiRO7Fr9ZckQSZ/p2uh
- vHSbJMtrAlqWWLt/tDd5quFyysfhGdIDGnAENyqwTgzmciR56h3CEC3bAk6kXbRISj0M
- IVOA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp+zLaZLXo/664tHvuDTjARJvKdDD3E3mIz/+poX9r9p7VR8QIOmlRg3DXGhfusJq2vIh/uMM6E70Q=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kHZC1xHhBuQ5b2qra1MdO7m4HBrNWnnPAXVQ7aRtdy6WeJU9ze
- JrZZEkfjPLhHH4blNsMpqGeUX/kp7ugzPXZE0MBIABfrah11ft12r3hQadmbr7JT+b4Sh8z7C4W
- SxV/GtqF1twshjWpr/pjYJZPYU7gHvce5luVmTOuML6/VL00XAVB1fnBD2FufAEBc+Tlv6PA=
-X-Gm-Gg: AR+sD12LugAqtNs3mq5HXfYAARfZoNNZaBBuQ3pmP98TCCWBP2Ra/xl34EgDWGgFN89
- 14oKdsZWpPbs3nuyGYT6S5kKAiYzAkfT0A1GUKHvUewZi5V7BTxRuqwnbskyrTIO4LcvH2JCnvg
- DvsN2j075xufBsau/lJImvNAAqviUcR8+7yPXG4gXllru/SILN/eyS0E6zL+FBiEJo0KTB7gb8g
- RQoI+ncQQdcbrbfVAZtZF6CuO1NrchPjOgNBONQ5uRCH/pXU9z1Qz5QedoCQD00rDKAFQQXnXkv
- gLakLyKfwVDrpxpa0sfnSclqGvG4+1Rem8P1FtW7glMAYTVTyz3TKNQ4vT3MDKQd++/X2Zbhn+I
- oSqA3SprX4o1uYdHgWqN+5eMP4kmoZ78zP6qonjvNA+c8NIub94pz9B+vVBpJVCEleurP7lwC
-X-Received: by 2002:a17:90b:2e4d:b0:396:4d8c:6c4 with SMTP id
- 98e67ed59e1d1-3966d88242emr11912785a91.14.1787735840986; 
- Wed, 26 Aug 2026 02:17:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:2e4d:b0:396:4d8c:6c4 with SMTP id
- 98e67ed59e1d1-3966d88242emr11912551a91.14.1787735839741; 
- Wed, 26 Aug 2026 02:17:19 -0700 (PDT)
-Received: from [10.133.33.101] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39645d31e8csm7084981a91.9.2026.08.26.02.17.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Aug 2026 02:17:19 -0700 (PDT)
-Message-ID: <13ea4f40-5b99-4a8c-b287-b0117ffc4bf1@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 17:17:14 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v5 00/25] drm/msm/dp: Add MST support for MSM
- chipsets
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20260629-msm-dp-mst-v5-0-2ed6aee1867a@oss.qualcomm.com>
- <vd7njp6lg3yzydwtqmaepjt5kik2akqfcpe26faowvu65pfkow@bieyxaivjcqz>
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lASib4aUiEGbzu+WwhrG7x5+sV9+rsSMpTH18+rJKac=;
+ b=X9K5eoPfdTWAPHDKgPcPP8U6b64M4QemmcnFWThBqkZCDv+aSv2/pgugQOyhp9Oo8kffOrrjsNuxXMSVisIxavTH3mzRjWNoSVurxIGIV/yJyfCe1X3kYsLRGhRX5fcDxKdq+LPN4OkKVsAmISkmfssyZ3uf7fMHgJwQa4Z6hKk=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by TY8PR03MB10404.apcprd03.prod.outlook.com (2603:1096:405:3b0::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 09:20:01 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
+ 09:20:01 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
+ <robh@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+ <mripard@kernel.org>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+ <jitao.shi@mediatek.com>, "linux-mediatek@lists.infradead.org"
+ <linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
+ <p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
+ <matthias.bgg@gmail.com>, =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?=
+ <Justin.Yeh@mediatek.com>, =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?=
+ <Jason-JH.Lin@mediatek.com>
+Subject: Re: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+Thread-Topic: [PATCH v6 05/11] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+Thread-Index: AQHdFGH/ORmzQDBN/EiPA2urdIHYOrawT2CA
+Date: Wed, 26 Aug 2026 09:20:01 +0000
+Message-ID: <c79685322b8157cce027e1691c34ca7f73d51c04.camel@mediatek.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260715135703.46540-6-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <vd7njp6lg3yzydwtqmaepjt5kik2akqfcpe26faowvu65pfkow@bieyxaivjcqz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=MqZiLWae c=1 sm=1 tr=0 ts=6a8eaf21 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
- a=VUz1-vWGrAybXlrDoZAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: bkdwfyAJL2ur14t3S8tioJ22qutn9vDR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA3NiBTYWx0ZWRfXzVgZSqz2/6g2
- HJ66YjgceMHZkSwLD0vHDDfuvYWGxBqOfesd4cpNTroLAK75slPaJCVi55kt8sGwVuMt/+bWe8b
- Nscx6BOxa7ST9Pha5jm52g0z5bfVyaGDNgAa8PCXBt9/xjKnUCFHnO2qr/93hU1mSm2+a+y6RnJ
- yPmz1JOFKGmwm5BV/zd19W5P+rdSxPKn7ATbi8VqcCI/QMCiA/JUCsTz/vWWKIAm2p4LCpWLHVj
- Xrlqr5rHPZTi9xFrc8u3+RfStEbc7SMnliGG+MHVdmEVxZ+By7mVhqSLIVvyJ8BsJHegIa8HOmO
- mHBBaBAcWAwLRucIbAM7e4AE/vnMk7NsfTYYnQwoqMqniBy3ukJQIepE680Bl7QIY5LkTWNpa0I
- +mu6liTo/awbfv6fmHCGujgxfjzlIJt0BekcJZ4Wu0xgBTq82O94mV6ICu4cHdMyXPbpUcpo3Hb
- KLa/A3tUqZC9GSdmw1w==
-X-Proofpoint-GUID: bkdwfyAJL2ur14t3S8tioJ22qutn9vDR
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA3NiBTYWx0ZWRfXwjEjtOtwCxJs
- Jfrl6KbWfG49z8XwEfjGAgPp+eZa6UWaaLO9u53qalwtfnI35e8nojn+6p5iRle0Bk+YMROzhaB
- ZK7FBtaek6+NnDAkAksKziKE+Squ2i8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_02,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- adultscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260076
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TY8PR03MB10404:EE_
+x-ms-office365-filtering-correlation-id: a2f3ba28-5dbf-450e-1967-08df035334fa
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|42112799006|7416014|376014|23010399003|1800799024|366016|38070700021|6133799003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info: a9oCKyzFPr+q55xVnvWn0HEl+0Rn5GC5VQt/43sqhfLMc9zmKlDJO/K5SONICEapfZYTCnOuMlFTl6CW0Ig3agbrKFk2+eZTNly/1U0yhU0y05U3C+QIkZCnnrNYJqLMyIYUtecErwzdyjsqb3El2D6Kkn2oRNzhx7q6joNMdlWSg4kf57PzVYKnYk6n0f2Wp7FP/i56v6Sq1vvcYhpa95W4F8Das/AQLyRALxjJo3Cr0vatccz9RCVvvu0bh7N61W1JIEz19b+VraRAGjvsg2k9aCHsXu/d8VEJdjfW/DZZ0D4TaPbpGll5K7txKVdFKEPl97bvB6UKhC2MwnSzZ7Ps0h6zrWqQYpKP8wTsvcP7gL9tkwmDhPVCooQH0hVH/NBm+PNMF+zc4DCLji5Aq6W7S4qMA2KlLQwbT5qcelyq5fySSRa5nnvabDAUXn0ylBEChkert6cKFbEfs/rKB5BLIR1sEIYJkfR8Mpnkwh2YLzrDoPoMZ4zdXZFrdmsGsKEZ0OHQ0qYdYRWhmYzntPYvef2Dy7TryUzujpkGNQWwLAg9gdR3alJIW9clOzeLobqlIZ0rbdFJnWQjioBSTTqRl8JqF+feepcACTJoNI964zYUTfnzTtRcF/2DZ1ESa7MiJL3fPJ2pmrAnW2sbhVcUKA916b3VWjcaKJ8fbZqwTQonsH1bkeiMM9aV4ffKoFE5IEZMvuLU6cZDes3bGvDsCLo5Eo60mUCVQuj7lyU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(42112799006)(7416014)(376014)(23010399003)(1800799024)(366016)(38070700021)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cWFka3poYUxsL21yTTRJeGhHQnZIRFp1S2M5eC8yVkRZdzdZYlBldzJkUits?=
+ =?utf-8?B?ei9tbDRtUGxISnhlUXVTVTJ0ZTBMWnlHK2FPanBSc2NUNXZiRXVWVmpwdGN2?=
+ =?utf-8?B?b1IvS1RHdkpnWkJrK3B0UzFCTmJoUlllN0NMTVN0QnJlakNsRGMxeTgzZzQ3?=
+ =?utf-8?B?a1E3bC9YbWxQQ3M3UlZxd0FhaTQ3VFc4N2RxM082a0pscGV3QmR2VTBqcTcr?=
+ =?utf-8?B?cjhWWmsrdUE4MEVMaUZQRWpUMDA3Ti82NUhyVTRBVmdKMG5DK0hhRUl4VVd0?=
+ =?utf-8?B?eFI0NGgraEFHUHU0M1dNcHZRcW8rZFJSMUhiWDQ0QWkvSWxtZXkrTjNxb095?=
+ =?utf-8?B?b2MzMUxHMXBCakFqQVpuU0VqcDVaYkJ1ZU9UeTBqNGUvOWhPT3YrYnlhaEFT?=
+ =?utf-8?B?SVEyODVPbnQydlljenc3RFlLQ2huWkF6NGpVMGxIcnJNV0JZbWIzRWYzS1Rh?=
+ =?utf-8?B?dFArSWIvT256MWRBTjdkbXBLSzlZelgzcGp5clQwQjhycVpucytCbzZmQlA1?=
+ =?utf-8?B?TW5IaCtNYTcxczFvNmVxdjJYdTlXbDNMSlBabW5FR2RhajlIUkdJWCtqWVcx?=
+ =?utf-8?B?Uzc5TEwrSE96Y2NhSWlDdjZpN0lNVzE5LzVpQlpMZjhOUVZtclN5NTNvVUtv?=
+ =?utf-8?B?MVc5ZHZYMjZPM1dmc2sxYmFRT2dUT2NsbG9BWjY5OFd6K0lCODdiK2ZhSXFI?=
+ =?utf-8?B?SWdvQ3JQNkY2bHBadmpHVk0zVzR3RzRnVzZsSlRiY1A3aVlHRHdiRlpuSFh3?=
+ =?utf-8?B?ZTNiWGlaUmhJZkEyLzNCSGxTWWxsYXBCRExNRVhZQTdTWldtRnl1UUpjTVJK?=
+ =?utf-8?B?TnBoaHJQVCtzVjhZQzRJV1VnVkdmenJGQ0MrZGllQXJQY0lCMm4rMkNkMVo0?=
+ =?utf-8?B?aWNCNGNyVWlkMnJicE5Jd21VY0QyRXRLd01wQzlwYjZWYnY1QThWeEZKSUIv?=
+ =?utf-8?B?UWRZS2tqN3RUUkxMM2puSWdMbW52SCt5cmpnSVFEMjNYYXRJbFo4UVpCdktC?=
+ =?utf-8?B?YS9YcmRMQmJ1V2E3SzlMZUJFQVZ4Ykl4MWRCd3dmUmMxVzREN3RwOUcrUXFP?=
+ =?utf-8?B?V3UzZXBJcG5pd0VSK05kelVURjg3N0hZRkdpd2M1NG9SYkYxY3c0dm50VUF6?=
+ =?utf-8?B?eXF4M2o3a1Z5VUJKdHliU0p5OHp1b3ZKSXRHc3hqRFhwVU53QXBkeklOVHFv?=
+ =?utf-8?B?S3VHQ1RRV256ejBEL1Rrb2Nob2ZnYXBSMkVJQlJtZFFrSkwyeS81c1IvNHZk?=
+ =?utf-8?B?MVdvR2YxTzlvWlFwSmJoUkxWc3daVjA2R1pMTHRJYzE1OTFXUjRkb05EbGV2?=
+ =?utf-8?B?WFFyYlVtaVhFNW1XcDVVUlA5b0FxTWxrdlNRYTNTYUNyQ2Y0K2JjWnJNdDZN?=
+ =?utf-8?B?aTJFK0pwU0JRR2lLR1lYRFQ2V0IvaWJ1V2RPSWZRYXltajdCVUNUZDZadmt4?=
+ =?utf-8?B?Mnl6bUFlVUhRN0tRclB5ajE4aWVFaHRLQk0zTkp6WEVTNnJxalNSaWxPLytu?=
+ =?utf-8?B?dmtZZVNPb0FXN3h0bE02ajRxQlRFNlFkM2hkOTZXNisrakRRZDlyYmZET21k?=
+ =?utf-8?B?NDQvOE5QVXlNSlZYMXRmZUMyTTByYXo4NWVhWVBnczNqOFZLZ1dsYmNjT1Nw?=
+ =?utf-8?B?eHVLZ2FIQnhpV2ZTRUwzYllnaHBCb3R4WE95UkphV0JEUkhCL3lhMlBTN25a?=
+ =?utf-8?B?UWxEMSszSWJMeHMrSGFuRjZrZGxycEVpOVI0ZTBEMTA3RTJHQXVPdDVFRDdJ?=
+ =?utf-8?B?a3VYOEFEa0JndFFIOXovd0hEU1NIaE9zY1oyVGJtbUh4WndlbWFiYUhvY0lT?=
+ =?utf-8?B?MkF4ODJOcGs5K1hFbFlkTlMrTVFjRHNRamZEb3l3VFBFa0pJYkZiS3IyMGpi?=
+ =?utf-8?B?V2hyNGhuTG1GTXFwUHpBSmtnQWswL0V4LzY1SG5KSnhxSWNsYVA5S3VJMlNs?=
+ =?utf-8?B?U0FHRWRzaGNtNVV5SlpGQ0I0TVc4dkt3T2Niem92ZWgwNzFMemRGZlJQQkc2?=
+ =?utf-8?B?bkR4UGdSVE5GUWozN25nSnB0bENnNjR2dTNreHpjTmpiK1RzeWJTa3N4ZGR1?=
+ =?utf-8?B?TktLMlpvNmlrZWVOa1BHQkxhODJPWE5BUWtTOVMxWHhDVG5nU21yUGNHMjVN?=
+ =?utf-8?B?UDZQWk1kc2o3NzF5TDNQMU1MYWtBTWFBdENLN205YU5ud3RTaDlIM1BvTkhv?=
+ =?utf-8?B?c0xwaTdUSUFZWjFTSWRONWdqM0Z5WDJQVnBBdktVSldwNFE2MVpsM0VXYUs1?=
+ =?utf-8?B?eTNkcXlmaC9ualMzUUR4SE9ldVRpU0htdEExUS9XVEZUVXFOcGFhdTBOUmY2?=
+ =?utf-8?B?TUFqTFpQdGtFUGxRRm1DMnJ5bVRCM0V1ME1jVC9QK1lXVjRQcnZpUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <49BBDAB2A95C7444AAAB7588F00233BA@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: jL6VL3onX+Jx59du6k0qd0g8qWAVUujBV4/xzy7hsx+e0z98bgaWZixVQ7HdxYSKDwYq2dIDAoxk4o9oJvOZaN6E3/dey5ESBUiYP6JbUniPI4KLpF86FoBhDRqiWGAN5nZOsK3gMMJGLIgxgOJiLfZ5KbJT8CAE9yogfGDg6tbMfmWFy5sA/k9Aqh/EEnf6xpq0yYoY4FUMeRNmMW56Tz5vm+VNLckjQB4svPnYQ2iKWTKZUeJoeZjmZmLs98/rnovH1VWVtUqB49Zcu8cQou0feF+TO/gjIj4r6mR3yu7vhauIZn5raK4uDxTp19eEs2DgeOeyFiks6hWQ+kwk+g==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2f3ba28-5dbf-450e-1967-08df035334fa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2026 09:20:01.5656 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /bIVnz8cveM6DY+WWfsnRuo9PtLUtk88DOpv/l8iK5E938UIDPBm6xtpEKJntgv30XbOTuknBmB3ryczi/kEww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY8PR03MB10404
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,193 +192,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 7/12/2026 7:04 PM, Dmitry Baryshkov wrote:
-> On Mon, Jun 29, 2026 at 10:14:21PM +0800, Yongxing Mou wrote:
->> Add support for Multi-stream transport for MSM chipsets that allow
->> a single instance of DP controller to send multiple streams.
->>
->> This series has been validated on sa8775p ride platform using multiple
->> MST dongles and also daisy chain method on both DP0 and DP1 upto 1080P.
-> 
-> Type-C?
-> 
-Hi, I'm planning to send a new revision of the series, but it still 
-won't include the Type-C APIs. There are two main reasons:
-1.The Type-C flow and native DP will eventually use the same set of 
-APIs, and the required changes are mostly in the DRM APIs themselves. 
-Because of that, I'd prefer to discuss and enable Type-C support as part 
-of the DRM API work rather than in this MST series. The MST flow itself 
-is not fundamentally different.
-2.I would prefer not to make this series depend on the DRM IRQ series. 
-Keeping them independent should make it easier to iterate on the reviews 
-and hopefully get the patches merged more quickly.
-
-Regarding the final MST support, my current plan is to add the Type-C 
-support back into this series once both series are close to their final 
-form. At that point, we can bring in the complete MST solution with all 
-the required pieces together.
->>
->> With 4x4K monitors, due to lack of layer mixers that combination will not
->> work but this can be supported as well after some rework on the DPU side.
->>
->> In addition, SST was re-validated with all these changes to ensure there
->> were no regressions.
->>
->> This patch series was made on top of:
->>
->> [1] : https://patchwork.freedesktop.org/series/167458/
->>
->> Overall, the patch series has been organized in the following way:
->>
->> 1) First set are a couple of fixes made while debugging MST but applicable
->> to SST as well so go ahead of everything else
->> 2) Prepare the DP driver to get ready to handle multiple streams. This is the bulk
->> of the work as current DP driver design had to be adjusted to make this happen.
->> 3) Finally, new files to handle MST related operations
->>
->> Note:
->> Validation for this series has so far been done on the latest linux-next
->> on LeMans, covering both FB console and Weston.
->>
->> Type-C MST support will be submitted shortly after this series.
-> 
-> You end up introducing issues which are fixed in those patches. The API
-> changes might need to be submitted separately, but the rest should go
-> through this patchset.
-> 
-Got it.
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> ---
->> Changes in v5(fix comments from V4):
->> - Dropped early refactoring patches (v4 01-12); restructured as
->>    "move link-level teardown", "factor out _helper variants", etc.
->> - Dropped v4 39/39 (platform MST stream list); use DT pixel-clock
->>    count instead per Dmitry's request.
->> - Patch 02: Remove artificial max-stream limitation check.
->>    unify register naming (REG_DP1 vs MMSS_DP1).
->> - Patch 05: Calculate ACT wait time dynamically from mode parameters
->>    instead of hardcoded 20 ms.
->> - Patch 08: Replace start-slot loop with direct math; fix commit message.
->> - Patch 09: Add locking annotation "Must be called with
->>    msm_dp_mst::mst_lock held" to msm_dp_ctrl_push_vcpf().
->> - Patch 17: Rename prepared flag to link_ready.
->> - Patch 22: Move drm_dp_mst_atomic_check() call into msm_atomic.c.
->> - Patch 23: Replace bridge-based MST DRM model with encoder-based
->>    approach; remove redundant bridge layer between encoder and connector.
->> - Patch 24: Add drm_edid_free(); add FIXME for bpp negotiation.
->> - Patch 25: Use dp->plugged flag instead of link status for MST plug path routing.
->> - Link to v4: https://lore.kernel.org/r/20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com
->>
->> Changes in v4:
->> - Fixed most comments from V3.
->> - Rebase onto HPD refactor V5.
->> - Fixed casing/formatting issues, for example: “mst”.
->> - Drop .mode_set() and set_mode in .atomic_enable().
->> - Rewrite commit messages that are unclear.
->> - Use the same API for MST link and SST link writes.
->> - Use the new drm_dp_dpcd_read_byte() / drm_dp_dpcd_write_byte() interfaces.
->> - Remove some unnecessary payload fields from the MST bridge.
->> - Remove some defensive NULL pointer checks.
->> - Reworked the patch order to make the series easier to follow.
->> - Add support for more platforms.
->> - Link to v3: https://lore.kernel.org/r/20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com
->>
->> Changes in v3: Fixed review comments from Dmitry
->> - Fixed lots of comments from series V1/V2.
->> - Rebased onto next-20250808.
->> - Rebased onto Jessica's HPD-refactor branch.
->> - Fixed formatting issues in commit messages under changes.
->> - Removed unnecessary one-line wrappers.
->> - Relocated MST-related .atomic_check() calls to their appropriate positions.
->> - Removed the logic related to slot checking in .mode_valid().
->> - Link to v2: https://lore.kernel.org/r/20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com
->>
->> Changes in v2: Fixed review comments from Dmitry
->> - Rebase on top of next-20250606
->> - Add all 4 streams pixel clks support and MST2/MST3 Link clk support
->> - Address the formatting issues mentioned in the review comments
->> - Drop the cache of msm_dp_panel->drm_edid cached
->> - Remove the one-line wrapper funtion and redundant conditional check
->> - Fixed the commit messgae descriptions of some patches
->> - Reordered the patches and renamed some functions and variables
->> - Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-0-f
->> 8618d42a99a@quicinc.com/
->>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>
->> ---
->> Abhinav Kumar (19):
->>        drm/msm/dp: introduce stream_id for each DP panel
->>        drm/msm/dp: introduce max_streams for DP controller MST support
->>        drm/msm/dp: Add support for programming p1/p2/p3 register blocks
->>        drm/msm/dp: use stream_id to change offsets in dp_catalog
->>        drm/msm/dp: add support to send ACT packets for MST
->>        drm/msm/dp: Add support to enable MST in mainlink control
->>        drm/msm/dp: no need to update tu calculation for mst
->>        drm/msm/dp: Add support for MST channel slot allocation
->>        drm/msm/dp: Add support for sending VCPF packets in DP controller
->>        drm/msm/dp: Always program MST_FIFO_CONSTANT_FILL for MST use cases
->>        drm/msm/dp: move link-level teardown from display_disable to display_unprepare
->>        drm/msm/dp: factor out _helper variants of bridge ops accepting a panel
->>        drm/msm/dp: replace power_on with active_stream_cnt for dp_display
->>        drm/msm/dp: Mark the SST bridge disconnected when mst is active
->>        drm/msm/dp: add an API to initialize MST on sink side
->>        drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
->>        drm/msm/dp: initialize dp_mst module for each DP MST controller
->>        drm/msm/dp: add connector abstraction for DP MST
->>        drm/msm/dp: add HPD callback for dp MST
->>
->> Yongxing Mou (6):
->>        drm/msm/dp: add link_ready to manage link-level operations
->>        drm/msm/dpu: initialize encoders per stream for DP MST
->>        drm/msm/dpu: expose dpu_encoder ops for DP MST reuse
->>        drm/msm/dpu: use msm_dp_get_mst_intf_id() to get the intf id
->>        drm/msm/dp: wire MST helpers into atomic check and commit paths
->>        drm/msm/dp: add dp_mst_drm to manage DP MST encoder operations
->>
->>   drivers/gpu/drm/msm/Makefile                |   3 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  40 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 +
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  30 +-
->>   drivers/gpu/drm/msm/dp/dp_audio.c           |   2 +-
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c            | 473 ++++++++++++++++++++--
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h            |  17 +-
->>   drivers/gpu/drm/msm/dp/dp_display.c         | 394 +++++++++++++++----
->>   drivers/gpu/drm/msm/dp/dp_display.h         |  25 +-
->>   drivers/gpu/drm/msm/dp/dp_mst_drm.c         | 583 ++++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  14 +
->>   drivers/gpu/drm/msm/dp/dp_panel.c           | 197 ++++++++--
->>   drivers/gpu/drm/msm/dp/dp_panel.h           |  20 +-
->>   drivers/gpu/drm/msm/dp/dp_reg.h             |  68 ++++
->>   drivers/gpu/drm/msm/msm_atomic.c            |  14 +-
->>   drivers/gpu/drm/msm/msm_drv.h               |  19 +
->>   drivers/gpu/drm/msm/msm_kms.c               |   1 +
->>   17 files changed, 1718 insertions(+), 190 deletions(-)
->> ---
->> base-commit: e7d700e14934e68f86338c5610cf2ae76798b663
->> change-id: 20260410-msm-dp-mst-35130b6e8b84
->> prerequisite-message-id: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
->> prerequisite-patch-id: 1d440cb9fed2bdd66d8de0e1e20475f0fe166973
->> prerequisite-patch-id: be0f4b80697df7224c80362b161b8a9f0a542184
->> prerequisite-patch-id: eefa6e6353df301420feae1da704a9db2c2155f2
->> prerequisite-patch-id: 9e9095f82dd6c131c9f3c1de4fdb8a62bd65ca24
->> prerequisite-patch-id: 3e635f008f9b56823101abd9253905f078fcb3b5
->> prerequisite-patch-id: e39e0dc124ed043c7a419610ebe03ad105da27db
->> prerequisite-patch-id: 945af39213cd4241e1a5929fada04a9286aeb5db
->> prerequisite-patch-id: 898ae7e4582a6b31492c223e7dd167fb9ce78096
->> prerequisite-patch-id: 3887553893357c1ffbda99eb010801bc2166cbad
->> prerequisite-patch-id: 7ccd961fa3c6f925659dee7d7a5bd167c8e7331b
->> prerequisite-patch-id: be2bf918e0e87ec2ea999927f36bd172c498748e
->> prerequisite-patch-id: 6aacdabb2dd0536dc04da04f8419ae39e35f8b19
->> prerequisite-patch-id: a9f27eff8f643ff445810b17d670891928f5b416
->> prerequisite-patch-id: efd300a2b52715153b8c1c7407db696eb331594b
->> prerequisite-patch-id: 950abefc4862050ef606404977fd27c5dd2cbb2b
->>
->> Best regards,
->> -- 
->> Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>
-> 
-
+T24gV2VkLCAyMDI2LTA3LTE1IGF0IDE1OjU2ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gSGF2aW5nIHRoZSBEU0kgaW50ZXJydXB0IGVuYWJsZWQgYmVmb3JlIGFj
+dHVhbGx5IGJpbmRpbmcgdGhlIERTSQ0KPiBjb21wb25lbnQgdG8gdGhlIGRpc3BsYXkgY29udHJv
+bGxlciBkcml2ZXIgaXMgYm90aCB1c2VsZXNzIGFuZA0KPiBkYW5nZXJvdXM6IHRoZSBtYWluIHB1
+cnBvc2Ugb2YgdGhpcyBpbnRlcnJ1cHQgaXMgdG8gc2lnbmFsIENNRA0KPiBkb25lLCBMUCBSWCBk
+YXRhIHJlYWR5LCBvciBWaWRlb01vZGUgZG9uZSwgb3IgdG8gcmVzZXQgdGhlIEhXDQo+IGVuZ2lu
+ZSBpZiB0aGlzIGRvZXNuJ3QgY29tZS4NCj4gDQo+IFNob3VsZCB0aGlzIGludGVycnVwdCBjb21l
+IHRvbyBsYXRlIChkdXJpbmcgcHJvYmUpLCB0aGUgSFcgd2lsbA0KPiBiZSByZXNldCBvbmx5IGF0
+IHRoZSBuZXh0IG9jY3VycmVuY2Ugb2YgYSB0aW1lb3V0LCB3aGljaCBzbG93cw0KPiBkb3duIGJv
+b3QgYW5kIG1heSByZW5kZXIgYXJ0aWZhY3RzIHRvIHRoZSBEU0kgZGlzcGxheS4NCj4gDQo+IE1v
+cmVvdmVyLCBjbGVhcmluZyB0aGUgRFNJIGludGVycnVwdCB3aGlsZSB0aGUgZGlzcGxheSBjb250
+cm9sbGVyDQo+IGlzIG5vdCByZWFkeSB5ZXQsIG1heSByZXN1bHQgaW4gYW4gaW50ZXJydXB0IHN0
+b3JtLg0KPiANCj4gSW4gb3JkZXIgdG8gcHJldmVudCB0aGlzIGZyb20gaGFwcGVuaW5nLCByZXF1
+ZXN0IHRoZSBpbnRlcnJ1cHQNCj4gd2l0aCBJUlFGX05PX0FVVE9FTiwgYW5kIGVuYWJsZSBpdCBv
+bmx5IHdoZW4gYmluZGluZyBEU0kgdG8gaXRzDQo+IGRpc3BsYXkgY29udHJvbGxlciBjb21wb25l
+bnQgbWFzdGVyLg0KDQpSZXZpZXdlZC1ieTogQ0sgSHUgPGNrLmh1QG1lZGlhdGVrLmNvbT4NCg0K
+PiANCj4gU2lnbmVkLW9mZi1ieTogQW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dp
+b2FjY2hpbm8uZGVscmVnbm9AY29sbGFib3JhLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9k
+cm0vbWVkaWF0ZWsvbXRrX2RzaS5jIHwgMjQgKysrKysrKysrKysrKy0tLS0tLS0tLS0tDQo+ICAx
+IGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQo+IA0KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kc2kuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9tZWRpYXRlay9tdGtfZHNpLmMNCj4gaW5kZXggZTNkNzMzOGMzNWUzLi5kMWFhMjU4
+ZTM3OTkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHNpLmMN
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kc2kuYw0KPiBAQCAtMjI1LDYg
+KzIyNSw3IEBAIHN0cnVjdCBtdGtfZHNpIHsNCj4gIAlpbnQgcmVmY291bnQ7DQo+ICAJYm9vbCBl
+bmFibGVkOw0KPiAgCWJvb2wgbGFuZXNfcmVhZHk7DQo+ICsJaW50IGlycTsNCj4gIAl1MzIgaXJx
+X2RhdGE7DQo+ICAJd2FpdF9xdWV1ZV9oZWFkX3QgaXJxX3dhaXRfcXVldWU7DQo+ICAJY29uc3Qg
+c3RydWN0IG10a19kc2lfZHJpdmVyX2RhdGEgKmRyaXZlcl9kYXRhOw0KPiBAQCAtMTA5Niw2ICsx
+MDk3LDggQEAgc3RhdGljIGludCBtdGtfZHNpX2JpbmQoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1
+Y3QgZGV2aWNlICptYXN0ZXIsIHZvaWQgKmRhdGEpDQo+ICAJCXJldHVybiByZXQ7DQo+ICAJfQ0K
+PiAgDQo+ICsJZW5hYmxlX2lycShkc2ktPmlycSk7DQo+ICsNCj4gIAlyZXR1cm4gMDsNCj4gIH0N
+Cj4gIA0KPiBAQCAtMTEwNCw2ICsxMTA3LDggQEAgc3RhdGljIHZvaWQgbXRrX2RzaV91bmJpbmQo
+c3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlICptYXN0ZXIsDQo+ICB7DQo+ICAJc3Ry
+dWN0IG10a19kc2kgKmRzaSA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOw0KPiAgDQo+ICsJZGlzYWJs
+ZV9pcnEoZHNpLT5pcnEpOw0KPiArDQo+ICAJZHJtX2VuY29kZXJfY2xlYW51cCgmZHNpLT5lbmNv
+ZGVyKTsNCj4gIH0NCj4gIA0KPiBAQCAtMTMzNyw3ICsxMzQyLDYgQEAgc3RhdGljIGludCBtdGtf
+ZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+ICB7DQo+ICAJc3RydWN0
+IG10a19kc2kgKmRzaTsNCj4gIAlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRldi0+ZGV2Ow0KPiAt
+CWludCBpcnFfbnVtOw0KPiAgCWludCByZXQ7DQo+ICANCj4gIAlkc2kgPSBkZXZtX2RybV9icmlk
+Z2VfYWxsb2MoZGV2LCBzdHJ1Y3QgbXRrX2RzaSwgYnJpZGdlLA0KPiBAQCAtMTM3MCw5ICsxMzc0
+LDkgQEAgc3RhdGljIGludCBtdGtfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBk
+ZXYpDQo+ICAJaWYgKElTX0VSUihkc2ktPnBoeSkpDQo+ICAJCXJldHVybiBkZXZfZXJyX3Byb2Jl
+KGRldiwgUFRSX0VSUihkc2ktPnBoeSksICJGYWlsZWQgdG8gZ2V0IE1JUEktRFBIWVxuIik7DQo+
+ICANCj4gLQlpcnFfbnVtID0gcGxhdGZvcm1fZ2V0X2lycShwZGV2LCAwKTsNCj4gLQlpZiAoaXJx
+X251bSA8IDApDQo+IC0JCXJldHVybiBpcnFfbnVtOw0KPiArCWRzaS0+aXJxID0gcGxhdGZvcm1f
+Z2V0X2lycShwZGV2LCAwKTsNCj4gKwlpZiAoZHNpLT5pcnEgPCAwKQ0KPiArCQlyZXR1cm4gZHNp
+LT5pcnE7DQo+ICANCj4gIAlkc2ktPmhvc3Qub3BzID0gJm10a19kc2lfb3BzOw0KPiAgCWRzaS0+
+aG9zdC5kZXYgPSBkZXY7DQo+IEBAIC0xMzgxLDE3ICsxMzg1LDE1IEBAIHN0YXRpYyBpbnQgbXRr
+X2RzaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPiAgDQo+ICAJcGxhdGZv
+cm1fc2V0X2RydmRhdGEocGRldiwgZHNpKTsNCj4gIA0KPiArCXJldCA9IGRldm1fcmVxdWVzdF9p
+cnEoJnBkZXYtPmRldiwgZHNpLT5pcnEsIG10a19kc2lfaXJxLA0KPiArCQkJICAgICAgIElSUUZf
+Tk9fQVVUT0VOLCBkZXZfbmFtZSgmcGRldi0+ZGV2KSwgZHNpKTsNCj4gKwlpZiAocmV0KQ0KPiAr
+CQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCByZXQsICJGYWlsZWQgdG8gcmVxdWVz
+dCBEU0kgaXJxXG4iKTsNCj4gKw0KPiAgCXJldCA9IG1pcGlfZHNpX2hvc3RfcmVnaXN0ZXIoJmRz
+aS0+aG9zdCk7DQo+ICAJaWYgKHJldCA8IDApDQo+ICAJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRl
+diwgcmV0LCAiRmFpbGVkIHRvIHJlZ2lzdGVyIERTSSBob3N0XG4iKTsNCj4gIA0KPiAtCXJldCA9
+IGRldm1fcmVxdWVzdF9pcnEoJnBkZXYtPmRldiwgaXJxX251bSwgbXRrX2RzaV9pcnEsDQo+IC0J
+CQkgICAgICAgSVJRRl9UUklHR0VSX05PTkUsIGRldl9uYW1lKCZwZGV2LT5kZXYpLCBkc2kpOw0K
+PiAtCWlmIChyZXQpIHsNCj4gLQkJbWlwaV9kc2lfaG9zdF91bnJlZ2lzdGVyKCZkc2ktPmhvc3Qp
+Ow0KPiAtCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCByZXQsICJGYWlsZWQgdG8g
+cmVxdWVzdCBEU0kgaXJxXG4iKTsNCj4gLQl9DQo+IC0NCj4gIAlkc2ktPmJyaWRnZS5vZl9ub2Rl
+ID0gZGV2LT5vZl9ub2RlOw0KPiAgCWRzaS0+YnJpZGdlLnR5cGUgPSBEUk1fTU9ERV9DT05ORUNU
+T1JfRFNJOw0KPiAgDQoNCg==
