@@ -4,47 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA48EC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72EBC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6766810EF51;
-	Thu, 27 Aug 2026 09:40:03 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E0A10EF44
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:40:01 +0000 (UTC)
-X-UUID: 41e4d5c8a1fb11f19a56ed5b684f684d-20260827
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:640dcb19-faa6-4c45-a602-b342da94bd57, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:5d4d7d0e73630483ef795926548c25ba,
- BulkI
- D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
- -100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
- 0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 41e4d5c8a1fb11f19a56ed5b684f684d-20260827
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <lilinmao@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 697264291; Thu, 27 Aug 2026 17:39:53 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: deller@gmx.de,
-	linux-fbdev@vger.kernel.org
-Cc: schmitzmic@gmail.com, miro.kropacek@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
-Date: Thu, 27 Aug 2026 17:39:48 +0800
-Message-Id: <20260827093948.2825531-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8FFB10EF61;
+	Thu, 27 Aug 2026 09:44:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tMdfO2AW";
+	dkim-atps=neutral
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40D4410E241
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 04:46:19 +0000 (UTC)
+Received: by mail-pj2-f6.google.com with SMTP id
+ 98e67ed59e1d1-38f25802c19so157607a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 21:46:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787719579; x=1788324379; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6Y7De7ARri1xphmS54uZC/QqgzV63JLdS9IYgu5HWyo=;
+ b=tMdfO2AWRRwF+t7TKVwre7ii0e4xnVkLyrk2JI9SbclMYHxCATG+RpYU3X6uS1wtY7
+ OKLjMBxHPDFpqV3wiMxRjo07nqQyjZ9neNxTvD7sdzk5Rc5a0IxsPyh1cJCr9VxoEZ/c
+ UAeiuap/Yy/ERkrltuNP25o7w1a10xzclWKg0arsglruPLNu9VCXXJaeyfmOqu8NrAwQ
+ RbJUEsuxtkwZQUXskvlk687gsAI5f5WyRm4y9q9QHfAPgCX/UbQmqDSVpTdvR0Ea8mY0
+ GoYu670K/J+XPT0y6JO+BTlykouGMzMToSs9I1HP6fdSWwNhzFLu9PnTjIIcS6ppW7vV
+ m2ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787719579; x=1788324379;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6Y7De7ARri1xphmS54uZC/QqgzV63JLdS9IYgu5HWyo=;
+ b=YLxYo1kEWlNbLC8QUvL//yL40mF+SgVFRzjkZpMfxE51c1TxjkzBEW8C0mKeChjGga
+ v8n/QeEl9bmRjbt0shBRwRF5v/03kZwGbZSXDWffNdVFB5is7nFR5QCAtu0Af5DaYves
+ fxTV7FdgP5wqspixTyXSaDaP8RcqXHkCcn2pFsNAJamqNZ/4acLs6L77k3os8XiQ6YwC
+ HSRvenf/G709Rxw3rrU6pItT843jDwOHpCinKgiRQxKvKafa4m4o9afT4Ysu9iEO87BY
+ P2i4EOudmLT//sTfzC//bSjQ+U6M/aUlv4w7WmmN0r/33yUBzsmLgvpSXtDn4smYp/sb
+ dTuw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoOkPJbWq3yLQnpD4M/alews3C2Nup1TW7Fe5eD70ufaTkRzTc02Srf+2ZMYHnyKhqWeHeEPc9u2Jo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++no+Ibn1FoMPOFyX9eLjm4jDR8W+sZFyzZeEHvXuxjYOWBpA62B
+ iG/EDCCGCGEa29A68eF0mqMAlKSTxfc6VArzMMSWLwP+QxrxGFnrl9/Q
+X-Gm-Gg: AR+sD13z8Ofvf+wm1+V9Iq3TT5YUbisPkPKa3dkR1eGBMWPLEIUjxfS9DYZ6kJ40kD4
+ uX9xCZVxIrPvLIj0H/FdK+AS++EARwxsHrBC5NGnLinCOMZUq34Q6h8NNiW21dSxmGRtpFmIHaG
+ 8/1duYjSp7JlXpA4baNBQRkBp0WrFULbEwCsanxLikgjgXz8kMMX3E9tx5p3bV3xlVFUg0A7963
+ MR0Gr3noP9re68BUmYXTfZn+n/grzuKwPA+ypwD85Qa/HlirCDvIm+/Wf3g/bDJDrqAMXqiE8XE
+ o0/raxLgXq5Pn6Xh4YDOKaEl30/AjssBnbesVexd8fjoW0WQuvP49a/+qArIb4IlNX0wl/K4UGu
+ HVC35818Gm80vzl14FoOIu3LSXQSKpqh7XCMpXi0gFQbm9HfjLwl8YdXzgNDDHznc+GGeYtbh4M
+ BxhW94KFoKqAFQRi6jXw8DQPoI0L74mDJ6VsKdhQQwrkfahUOhBWZc2t/ctEhncq3gWAaxjKhpc
+ +qSS82Q9M0n0iksulgSLA==
+X-Received: by 2002:a17:90b:5543:b0:396:41d1:cbc7 with SMTP id
+ 98e67ed59e1d1-3966d13eb75mr9224027a91.3.1787719578654; 
+ Tue, 25 Aug 2026 21:46:18 -0700 (PDT)
+Received: from DESKTOP-BDFNLNM.localdomain ([27.63.245.244])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3283fa89e8fsm5398718eec.8.2026.08.25.21.46.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Aug 2026 21:46:18 -0700 (PDT)
+From: tarund18303@gmail.com
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tarun-tarun143 <tarund18303@gmail.com>
+Subject: [PATCH] drm/i915/dp: remove redundant link state check
+Date: Wed, 26 Aug 2026 04:45:33 +0000
+Message-ID: <20260826044533.9292-1-tarund18303@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,45 +87,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The SuperBlitter operations derive an integer byte count per pixel.  The
-accelerated fill path handles only one-, two- and four-byte pixels.
-However, the operations are currently installed for every external
-framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bpp
-truecolor modes accepted by the external video parser.
+From: tarun-tarun143 <tarund18303@gmail.com>
 
-For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copies do
-nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses an
-incompatible memory layout.  For 24-bpp modes, fills also use 32-bit stores
-despite advancing addresses by three bytes per pixel.  These cases can
-corrupt the framebuffer beyond the requested rectangle.
+The DP link state is now checked and recovered after link training,
+including after modesets. The same recovery path is also used from
+the hotplug and HPD IRQ paths.
 
-Enable the SuperBlitter operations only for the layouts they implement:
-8-bpp packed pixels and 16/32-bpp truecolor.  Keep the existing software
-operations for all other external formats.
+The link state check from intel_dp_detect() is therefore redundant.
+Remove it and rely on the existing link recovery paths.
 
-Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: tarun-tarun143 <tarund18303@gmail.com>
 ---
- drivers/video/fbdev/atafb.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
-index 5bca34c45cef3..c3011b61a94b9 100644
---- a/drivers/video/fbdev/atafb.c
-+++ b/drivers/video/fbdev/atafb.c
-@@ -3360,7 +3360,11 @@ static int __init atafb_probe(struct platform_device *pdev)
- 		memset (screen_base, 0, external_len);
- 
- 		/* framebuffer in SV RAM: enable the SuperBlitter */
--		if (external_addr >= 0xa0000000) {
-+		if (external_addr >= 0xa0000000 &&
-+		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
-+		      external_depth == 8) ||
-+		     (external_pmode == -1 &&
-+		      (external_depth == 16 || external_depth == 32)))) {
- 			svblit_regs = ioremap(SVBLIT_REGS_PHYS, 0x100);
- 			if (svblit_regs) {
- 				svblit_fw = svblit_rd(SVBLIT_VERSION) & 0x1ff;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 113d767e62e9..ffd39206b958 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6379,18 +6379,6 @@ intel_dp_detect(struct drm_connector *_connector,
+ 		status = connector_status_disconnected;
+ 		goto out_unset_edid;
+ 	}
+-
+-	/*
+-	 * Some external monitors do not signal loss of link synchronization
+-	 * with an IRQ_HPD, so force a link status check.
+-	 *
+-	 * TODO: this probably became redundant, so remove it: the link state
+-	 * is rechecked/recovered now after modesets, where the loss of
+-	 * synchronization tends to occur.
+-	 */
+-	if (!intel_dp_is_edp(intel_dp))
+-		intel_dp_check_link_state(intel_dp);
+-
+ 	/*
+ 	 * Clearing NACK and defer counts to get their exact values
+ 	 * while reading EDID which are required by Compliance tests
 -- 
-2.25.1
+2.43.0
 
