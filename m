@@ -4,56 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B40ACC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 10:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F126C5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 10:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BFF410E20E;
-	Wed, 26 Aug 2026 10:48:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 875EA10E6B2;
+	Wed, 26 Aug 2026 10:48:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AO7NMPGH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CbC9eXOZ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFC6510E20E;
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8131F10E6B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 10:48:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A71E8600C4;
+ Wed, 26 Aug 2026 10:48:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DB71F000E9;
  Wed, 26 Aug 2026 10:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=AU40YXILyGoSjuYqr16V6R5BV3c8R6xD9HIogrb1R7I=; b=AO7NMPGHQ23ezwIvpQYHKPMUKY
- vCr40kYSNJoXVASDmT1I7eKMQDEGoZwYEwlrbA6j1E517xc2KYd6JKUu7zQtriP2DyNChCUMdgEi9
- klHaggaSbifABDHGxKZDFjUeOVsGyZ78f5G6eKkjBueFmE0nYe1yxXuCm2VBwwJKfjUt1F6EqYnYS
- gn5/TEGM9XT4UzKKGlXdN1PqJTGnzs8/u5VLcJucyt6dk21x5lgQiBoSdMbBn299sj3P3g2Au3Tm6
- GORxMqB/LyV7EviVHWgUwH+RQt9+t/WsWH+tHjO/9VvhCw0c+bnQoQ5QSeaGw5oFkh2dmxoHWAhsN
- V++V+9KA==;
-Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
- helo=[192.168.1.206]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wzBAU-009V34-Om; Wed, 26 Aug 2026 12:47:42 +0200
-Message-ID: <87731760-4394-42bb-893a-8d91f1dd10e9@igalia.com>
-Date: Wed, 26 Aug 2026 12:47:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787741295;
+ bh=2PBENmYs6fiknMrazp/50bVkNc1sBGJoebvvjy0eKx4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=CbC9eXOZ2dL6OuBJ1bWchF5seeE8ifsrT8Yw/a4Qo3Y5Rs2etS57xSuEdgQns99ei
+ QVPl74HmDPUGNZBf7+WL1hBpXywRwssYdENv9y3V+JkVXQ3w8kTmaN2R7sWY+TBwJt
+ rpd+iGj4akwD2mqMk+XymnQmIxApZFfAWUutiB9ezEi8bwZpp00uztIbITa3g+1Fx7
+ es9x6uOFAGNXG4NWRTnEbcER/UYbhW9caRHYj7iJhyEeIyDfIV9wtbDJ2QbkvyWlx0
+ dpH+wik6piKWJNDJwpfLl9XKfDWmEHKEB04XxOxRSgTnJpeatCCyZiHCa7kSHWZp/A
+ Z2tQRT+7IaTNA==
+Date: Wed, 26 Aug 2026 11:47:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Mirela Rabulea <mirela.rabulea@nxp.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
+ Xiaowei Song <songxiaowei@hisilicon.com>,
+ Binghui Wang <wangbinghui@hisilicon.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+ =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+ Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ Billy Tsai <billy_tsai@aspeedtech.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
+ Olof Johansson <olof@lixom.net>, Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ imx@lists.linux.dev, linux-media@vger.kernel.org,
+ mfd@lists.linux.dev, linux-pci@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+ linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
+ <>
+Message-ID: <92dfaa64-18c6-4ac0-8b17-f0a202dcf737@sirena.org.uk>
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] drm/amd/display: advertise PIXEL_NONE and PREMULTI
- blend mode for DCE
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260826104143.39077-1-mwen@igalia.com>
- <20260826104143.39077-4-mwen@igalia.com>
-Content-Language: en-US
-In-Reply-To: <20260826104143.39077-4-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hP4PYOBKxN+fM2z6"
+Content-Disposition: inline
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Cookie: Obey all traffic laws.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,79 +110,29 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+--hP4PYOBKxN+fM2z6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 26/08/2026 12:37, Melissa Wen wrote:
-> DCE can support PREMULTI and COVERAGE blend mode depending on its
-> generation, however current driver implementation either doesn't expose
-> more than primary and cursor plane, or doesn't program registers for any
-> blend mode other than PIXEL_NONE. To fix the missing-blend-mode-prop
-> warning according to current DCE plane caps, create blend mode property
-> with PIXEL_NONE and PREMULTI for primary planes. As long as the
-> background is black and there is no overlay plane, PIXEL_NONE and
-> PREMULTI are equivalent, and PREMULTI has been the mandatory/default
-> mode for years, so keep it to avoid regressions.
->
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Tested-by: Viktor Jägersküpper <viktor_jaegerskuepper@freenet.de>
-> Tested-by: Dan Wheeler <daniel.wheeler@amd.com> #v3
-> Reviewed-by: Alex Hung <alex.hung@amd.com> #v3
-> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com> #v2
+On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues around <>, which will be flagged by
+> dt-check-style.  No functional changes.
 
-Hi,
+Acked-by: Mark Brown <broonie@kernel.org>
 
-Only this patch changed in this v4, and it was only tested by Viktor.
-As r-b tags came from previous version, can I get an ack/r-b to this one 
-too?
+--hP4PYOBKxN+fM2z6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
+-----BEGIN PGP SIGNATURE-----
 
-Melissa
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqOxF4ACgkQJNaLcl1U
+h9Bdwwf+L6MG9Bumzzk/fUvAIBXVI/dikPCxxDKcuqi5O/yVCeQWiMHK4Kp/ca3l
+imB6hoNyz9NRQmnZ45EXJhpRnz1LbTO357uK3N4zx/bi7V88563ixNa8HQIJZiCi
+yBPtE5ToKgi349/KXca5/vSKWGfyCnD8DRL3icILcg9GwxUC14PEo2WFYcGR4/JP
+ZmD11XU7MLSAhan3AUqcBiK9d+baT2FfEwmxCk4tm3wswPG29CNeUWP8OU145Yuq
+YcOeBmOpgMeDFyqxfCLMwJTToaxX8FcAn5HDjE+mJ+/pTLge8S8d85cmy7dJrUoU
+IMs1ngofm5Q82f4e9E8pPeXEh4y1iQ==
+=ZN0I
+-----END PGP SIGNATURE-----
 
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
->
-> ---
-> v3:
-> - fix indentation (Alex H)
-> v4:
-> - add PREMULTI to avoid regression (reported by Viktor)
-> ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 24 +++++++++++++------
->   1 file changed, 17 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index ab9bbe8ca333..402f0d333150 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1923,14 +1923,24 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
->   	if (res)
->   		return res;
->   
-> -	/* TODO: Check which blend modes are supported in DCE-generation
-> -	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
-> -	 * property accordingly.
-> +	/* Blend mode support varies on DCE generations according to HW caps
-> +	 * and number of planes per CRTC. However, as current driver
-> +	 * implementation only creates one primary and one cursor plane per
-> +	 * CRTC for DCE (overlay is only created if
-> +	 * DC_PLANE_TYPE_DCN_UNIVERSAL), the primary plane blend mode is
-> +	 * ignored across DCE versions. Keep PREMULTI to avoid uAPI
-> +	 * regressions: it was the default/mandatory mode for many years and,
-> +	 * with no overlay plane, primary composes on top of a black
-> +	 * background, where PREMULTI and PIXEL_NONE are equivalent.
->   	 */
-> -	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
-> -	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
-> -	    plane_cap && plane_cap->per_pixel_alpha &&
-> -	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
-> +	if (plane_cap && plane_cap->type != DC_PLANE_TYPE_DCN_UNIVERSAL) {
-> +		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
-> +					  BIT(DRM_MODE_BLEND_PREMULTI);
-> +
-> +		drm_plane_create_blend_mode_property(plane, blend_caps);
-> +	} else if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
-> +		    plane->type == DRM_PLANE_TYPE_PRIMARY) &&
-> +		   plane_cap && plane_cap->per_pixel_alpha) {
->   		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->   					  BIT(DRM_MODE_BLEND_PREMULTI) |
->   					  BIT(DRM_MODE_BLEND_COVERAGE);
-
+--hP4PYOBKxN+fM2z6--
