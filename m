@@ -4,108 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E1CAC61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD616C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB5B10EBFD;
-	Wed, 26 Aug 2026 14:05:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39AC910E08A;
+	Wed, 26 Aug 2026 14:06:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Cx5EqQ6i";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="ALrcouVf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F3310EBFD
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787753132; x=1819289132;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=zp4ZxFvHpCyZaEKvO6J2cBCPxykmOIHLHvOYN+zVeBI=;
- b=Cx5EqQ6iXFgXtNnaE8r9PRoqiQ6W8bs59xIaNJd/WGZUBS0i4pxIXHWW
- jMydtMIHNEsljLeTsd7VZCo33BfxvENbUStQSIqJPlfOUosv8oqJ0/dSp
- wqE5CEDGs5Hiwud/BLYe77T5wcTEab7jBQRwCH9NqKaHrjkNXd6S1MExT
- sTq5I9Ow4IsYTO1+57TmVGkCCKkHmfQowKn2CNbzrSSDRPasg+lNwI0HU
- yLl0Am2IeYd0qL/IbUo0iJJPEv1+grr35ulFNjEpI1NLirKB/8evFILHh
- 2ly7sWOatoTkdrlIZsNTSwoLKcWn6uj9C4IOgLHtBHazYp57OT/jbDw3H w==;
-X-CSE-ConnectionGUID: +U8lC3SpTH6+i0iuPqw5Ow==
-X-CSE-MsgGUID: 16sn7NM8QZWUDxK69rBuaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88362976"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; d="scan'208";a="88362976"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2026 07:05:31 -0700
-X-CSE-ConnectionGUID: MfkaBtSDSpmzcaUT3yBSlg==
-X-CSE-MsgGUID: ntLGhDOUTCuyxLKkJe4VcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; d="scan'208";a="271090744"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.235])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2026 07:05:12 -0700
-Date: Wed, 26 Aug 2026 17:05:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
- Xiaowei Song <songxiaowei@hisilicon.com>,
- Binghui Wang <wangbinghui@hisilicon.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
- Linus Walleij <linusw@kernel.org>,
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
- =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
- Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
- Olof Johansson <olof@lixom.net>, Shree Ramamoorthy <s-ramamoorthy@ti.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- imx@lists.linux.dev, linux-media@vger.kernel.org,
- mfd@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
- linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <ao7ylZTVJFeUJ5h3@ashevche-desk.local>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFB710E08A
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:06:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787753161; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=B2fi+Xa182dFXeCL1l7EKIx8ojZfN6k/hsq5NrN5JKcE6djMXGHMVfLNtu0qvR3cHH+taNBOoFHwwzjXCxQ7klyFYOWz8BLoy4k/b12KZNnG/hzY9DUsJnkPommXuVsj51NFjLy3MYE8FEtZAJU2i4saAvVD5KKlD2BN1a28x2g=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1787753161;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=lcsqwwXhWVmoSbPbE7DPyh9awywoWMTp35RFoFX1es0=; 
+ b=mhUfz2ezI5sNwXlxo+/AYr58YZQHEgv+TGohOl09iF2i7NvsN405H6ESn533GFQhQzm8fzsBxaUr+J7mbm3wTswE1+Tpsl3v36VUAntWOos1V3YyqKMRGAiMcdzsyAFXj5QyCxMu5lFHqsYKgEdS4VX2cjYI4PeDvFWLneXUCQE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787753161; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=lcsqwwXhWVmoSbPbE7DPyh9awywoWMTp35RFoFX1es0=;
+ b=ALrcouVfprpB4OgpWdWQIbBm+ZVKR4WrMeaZTaE2o1dvrXt6tKjgMBsJaV81iM4k
+ /FnpsVW46+xiuY/FbP3dMOQ/Gx8mV9WqR1FK6OTbTDZXyu66Fa7sFDmyXJXr8cZyCvw
+ koOeA401LAjzNvzgn2H2sB9YZFl6wLdbzQmsoXdQ=
+Received: by mx.zohomail.com with SMTPS id 1787753158261687.4971270678526;
+ Wed, 26 Aug 2026 07:05:58 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 2/2] drm/tyr: unplug the GPU when reset fails
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260823-tyr-gpu-unplug-b4-v1-2-e99c07d4c785@onurozkan.dev>
+Date: Wed, 26 Aug 2026 11:05:39 -0300
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dakr@kernel.org, aliceryhl@google.com,
+ airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, tmgross@umich.edu
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <62D24E3D-0956-402E-8451-24FADC8D357D@collabora.com>
+References: <20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c785@onurozkan.dev>
+ <20260823-tyr-gpu-unplug-b4-v1-2-e99c07d4c785@onurozkan.dev>
+To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,17 +71,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
+Hi Onur,
 
-Don't know which file triggers my name to appear in Cc, but the change
-I like, and indeed it makes style better to read and consistent.
+I have nothing against this patch, but as with anything touching =
+Revocable, I'd
+rather get Danilo's opinion here regarding revoke() and the Arc in the =
+registration.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Otherwise LGTM.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+-- Daniel=
