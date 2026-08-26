@@ -4,81 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA491C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DB2C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0B7310ED7A;
-	Wed, 26 Aug 2026 16:39:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D6010ED77;
+	Wed, 26 Aug 2026 16:39:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="klOT87Y4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g6NVQNwc";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17CFB10ED77
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:34 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-499ac87c92bso9433435e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:39:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762372; x=1788367172;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tVQl0TQaqGZPy1cFk7T2Duq6yICjnn5v/QGRI0kgw3c=;
- b=klOT87Y4CEQjqqfl4q2jecU9LfekKTJoLTzblkUIjD8cs5i/8xc3OGWijg4OfFib4q
- LfiJuWvzM5+SSM7BTCqh5bW5/hqDG6NOMNEZwuNRIlznng5fecTto1LKPpIml0vJYYdm
- B6k1us3NbEEzbw8Re3QDHswo/rKGVorVUWIe6meOGMDel697cdXTJn07B9cbqd3WSj2E
- gNjcGRcvQsrBce7eOhq+hVeFZ5lZK5nsHuw/bp76YU2UPG8EaFsl02PsJlPsZmGNMdDg
- WEzSejxDNndOTEUnhkw5cGEhIDE4Z7O7VYBDeE/eQcoznS5NFWo9/1xld1qsYIRNURlS
- dnXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762372; x=1788367172;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=tVQl0TQaqGZPy1cFk7T2Duq6yICjnn5v/QGRI0kgw3c=;
- b=GVm5XmZz/OvPSR3Px4ToEsDTRfChLKHsR+YmS7KLT7nLW6YCsDDmfrGNFWCQYegYWE
- KtCiqCbuBEy60/U33V5GWCENo9jcPoIFqJjcIAsQOSlY7Mh6lFNbHyYwkiBBEC09akSC
- T2oaAnZQXD+u2lb9w5154D9iPDIMfv7PU2Qv77cL5EigAXCeLU0o2GFyU+5cZ4/umwTn
- sEG+ZfG0MRL8HBSkhVz8/Tnz7D8HVxe4zmoPhn2si+ITMT7TOw5MaTu9iCvI2TBbgrPc
- UcL0OIBeDsbvvAQT+Mp0fOLrcUlmS1c6MOnEeR9L+WjT4cciccx775LOnuyadGLa4EqB
- HjZQ==
-X-Gm-Message-State: AFuF++nBOPwzvR+PwQCtbvvIQFCK7pm3xaYEkiHKrOvJ740YXTSZ+Pc/
- zJ/MyrXcyXsHiG44qO77vp+8RfQJSazvU1u0YfEPXXcHGToyX8T9xGCRWhzU6QNKVdRC+pdWZWZ
- Nwu6q0/4O
-X-Gm-Gg: AR+sD124jQkW9uB9G+psufTloyWhRNSYhWHTQuFzdtol3NAmZPC8go/B58NPVVIgrQ7
- CIiDIg2ifWILoC7w/smBgMiudRKuahiBkdZxgPJErhdg+/uhLUph8FL1FFLe3rtezfWv9pepnA8
- T34BW2ulg7vLaEhYPtHSlMAifIg7VPdDxUaG0fb0DlvDQwL430n56PQyi8ecrwyj55BgC/74KFl
- pStVFd/hw+kX6Nc5LnIApsDnlXo6zelXT8LjTuCUDaJxW61GeWILOLahUOJmZ5EIkbu3Y2HgdZK
- LsjE37mUMkXXBvSZPtTX8g+OxfVxi9PvqZPv1vO9MontDqXTO1qgsaVLUNyfkv1Ue/sYwwYFGHj
- lgeggbRgdSwGf59nLtHZ4nb7f/gS3p6XDvCpir8DgUvoCywbdYhHxQ+bdmDNNJpNe2QOlB0afTA
- 6et6gfF7N1e0s3+4P6KpdZnYIJLDjQhksgHjAeFznX+p8gx4J19w1WBDlra0EuLYnUNKQZ1gzAU
- qRVGks3MfuUGNUvMqoL6IPZ9rKRitbe8fOHKw==
-X-Received: by 2002:a05:600c:698c:b0:493:cefc:d113 with SMTP id
- 5b1f17b1804b1-499dc6f5dcdmr86286165e9.5.1787762372220; 
- Wed, 26 Aug 2026 09:39:32 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.39.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:39:28 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/13] drm/vino: add the crypto primitives and the HDCP 2.2
- AKE
-Date: Wed, 26 Aug 2026 17:37:28 +0100
-Message-ID: <20260826163913.7052-4-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
-References: <20260826163913.7052-1-mike@fireburn.co.uk>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3AC610ED77
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787762381; x=1819298381;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=dSvJx/Hpz1DKf+kX/4R++mGLyW3yrhH24onAqUpW0Gs=;
+ b=g6NVQNwcUK35cBA99uvUcQs/YOiOfjq15ez/4EvntWFJYLku6O1TFZjd
+ kKM20Owc+EBT7FUC9wt00aatVBDYy4o6mzFr2Xa6wTb+mStPDtVjotcEL
+ 82Ug4S+DWUGvxALqtSeKkGTrL9nWbbiUC7KdKUOsyNspTVaWh3tI/RYpy
+ I4gqxCgOaVhtU+T/gZoDIYmGz84KTdUIU/Dl3UASJDchjRFLw2cAEXx8g
+ Pn/y0H7qCLc749G0MhqChjw1l5Ji1SdZNCw4cqmKdEJyTq33n3w4ftJMA
+ TOW04BldqAhEhzoZgycw9C0VXy6tNUCsuxfky2k7i605a8bKHcKhupCYo w==;
+X-CSE-ConnectionGUID: U5iJ/C04Tui7APiCX1XK0Q==
+X-CSE-MsgGUID: vbU3Brd/Qyar6obciSDjMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88014976"
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; d="scan'208";a="88014976"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2026 09:39:40 -0700
+X-CSE-ConnectionGUID: R+TUVoZuTXOkr5EYs6gsKQ==
+X-CSE-MsgGUID: k5/PwMgyTCOBXMa5c2g1Tw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; d="scan'208";a="272872479"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2026 09:39:40 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 26 Aug 2026 09:39:39 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 26 Aug 2026 09:39:39 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.55) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 26 Aug 2026 09:39:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mz+pjI5llHgDoRfRkZ3bP2ewA83BvVZXmP+/PgYH/E2dNb0jorLMPMG9CdwOv6SzXWkd0kVtuKePazeIvyIAfFwCHiE9Wh2xkKKLDjCWN4Scage7mqqqcV5+KtXSH6rbVBldJokBj/UOEAr9LfIZAMubtGO9RcTLQ6/TM1t/5NaWEEp9vC2iWv6kQ/C6jlYpcMYG6dsie3tQH30KrNDZ9z/lfr+ZeFdOd1gOZ99BgOlLy/4RC7y8KiSc9on9WPni5PeRj+2tOhZGV+IAOIS5XdhPrSxf4qXKIDy1tdJFH519ZhebeSRDeMZecUO1w7O3DkYipDSK4a3ytc9QzV7wJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M5fyHR6q+Y4idtC45eSpq1Rx/tt0Nme084DysR+t3LE=;
+ b=i92tde+9MSaXU2kBrvlgD0NlqyTV5f1jzkPgdiD81KYWVtM4/NwLut3FQdGtJvSYUNGtlWP0YsO0OMv16duhw5qyrm/Im83z+pBB1Mj23401fb1rQP1VBjf2+baHzafTfrSDcujAjRZq2ZX3dNch64cDttjYs18yKYYIvdb0FyYbWlf7mDLD7zjU8CzL5Gbu4cv5m/35g2C1JR8z8tHRy9meUVYzELV61Ob8+3I53Og21xC9onSfftEbznmBscBhJvbO4aaC+jhgSbgHKgDWk1mVySM4nLM3PDfh9/juIXFqRxt4GL1d3pdgcb5R9MOeOWlOXU1pQkzTBkF97tYbqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8019.namprd11.prod.outlook.com (2603:10b6:8:12e::18)
+ by CY8PR11MB6940.namprd11.prod.outlook.com (2603:10b6:930:58::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 16:39:34 +0000
+Received: from DS0PR11MB8019.namprd11.prod.outlook.com
+ ([fe80::fce1:3bde:b383:e801]) by DS0PR11MB8019.namprd11.prod.outlook.com
+ ([fe80::fce1:3bde:b383:e801%6]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 16:39:33 +0000
+Date: Wed, 26 Aug 2026 18:39:25 +0200
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Maarten Lankhorst <dev@lankhorst.se>, "Andi
+ Shyti" <andi.shyti@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
+Message-ID: <ao8Fc8DWbsxMtSRu@kniemiec-mobl1>
+References: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
+ <ao1hIejAdBPKUHFW@kniemiec-mobl1>
+ <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
+X-ClientProxiedBy: DU2PR04CA0157.eurprd04.prod.outlook.com
+ (2603:10a6:10:2b0::12) To DS0PR11MB8019.namprd11.prod.outlook.com
+ (2603:10b6:8:12e::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8019:EE_|CY8PR11MB6940:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0e568c0-66d0-4e1b-14fe-08df03909be6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: re6LHlilDShzZzu+TYJt+zrJuqh7odW6u2gLulemDzjX0r3rgDGkaJGozH0X6iXIpv5gEPsLxL6gElKNtAG1b98zOgJG45agdDsSPAOnFHUMZ3QEruvUTk+a+RWzFVNqKOBeLGv1EhyxQsm9P5D57n6WYgvAu3FZW2TPH3cb4zZJeevzbXu0S49Od1/nQJ8Woyfyd0UEb+MwApawtxgMiZFZiCVszwhSAIRr6CdLMceZzVzvaikF8/zaAvo3lzngpXUUKpvUAbyhAqAVfeEsQFNG7oOkeBgyF5ciKXGbNNO1FAFVAGKiSKJJWm3YvYsYQcuuFs0eSrSnQsXU8SwOlffLCSzJbPPgqIFyK9MHdBLaAZLjyv1IVSt8q9fEkmkDhagiaXRhQCAxSlLivy8ubZyWNtxTEUKCSO9+GxZ4isgV5owLAS00U7GeSpcuRV/f3GAfKSiuPsy23CQMs07OQWUUDcQ90h4WCiy9mXQRvTpkKJibaQ3BkycV8mM1ZlVbaIKOM45wLXJl4PjAAKfVH9ziOagWOxOzFALaSavXgEQlO3rv6IqKBB2hgVigAp3N6HpIWUHp9GIjs2aBst0liBq+64Jyzp1UeyQcH36JwxofJ3PZpZ4h0iEyjDaT/VOrUgnPYsh6VzZ7UNDQQpyDMzfu9rROZl6t13IwkLdFU7M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB8019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHdNdGhkaTd0TTBZM0ZKbW84b3BJNDMwQitjaStzdVBpQnc4SE9KMzFHUzFC?=
+ =?utf-8?B?RGk3cGdPYTJxRGxodE9XZ28raHJSNVVPNCtUanhYR2F3QUY2TXJIZzdEa3VE?=
+ =?utf-8?B?QWNodEdCNFZBb1JrSG13VUNKTXBkaHdjNUFCa3BDdTQrcW80L1ZHTjdiN3Z4?=
+ =?utf-8?B?OXhtekR4UDZCSmlnNUU3S3AwWnRPMzZmNFZsZGdsR0dwbkNDL0RzOVpvRmln?=
+ =?utf-8?B?N2xQR1dXSEY3VW1IVjE4Zk9uUjRpQThqOFd5T3VXV2MzR05iUElXamI0bHl2?=
+ =?utf-8?B?N1VMcFNKeEhBUlBPRU9Xb09UVVpGZ0JOY1dINEJVcmJMNU9venE3ZkpTNk5L?=
+ =?utf-8?B?MjhmcEFGMUJzWmtna1dtNllUM1k1WEtudnJNUllDQ1FSVjlId0I0V1U5U014?=
+ =?utf-8?B?SXpBMDQwYUUwNnAxVEtTaTB1dzZmdndlME9VTDIybm1RVjJOK2QxTWk2Nm9a?=
+ =?utf-8?B?TW0vL0xUT2U1WldXdDAwRWllalZEeXdHajgzL0p3aHpvc1RjTWtHc0c5WmZ1?=
+ =?utf-8?B?UHMvajk2U1hZYTZodXdqYU0rKzBtalE1eVlkNlZyeXZSWEVucDlJbVo4OUlp?=
+ =?utf-8?B?Tk1BSmdraXZUTDlJcTRyUkNQUVNDcHF1bnVDeFNacUxTbExUWlJ4WlUvM3Jk?=
+ =?utf-8?B?QTNPZWt6cEgrQUQ4ejluTmVXR2l4eGVVYWpRSk1nMS9tVVl4SnlLdU5OOFpV?=
+ =?utf-8?B?VzNSSWFLNE9hTC8xZm1ma1B0Zk9kdnlZemcyMm11bHBiR2NUd1R4YnBGTitR?=
+ =?utf-8?B?R2xTWlZoNUdYeG1hZ3JhS2ZPOHVqM3ZscWNiaEhGamwzM3I1ZjN0RjEzVDhH?=
+ =?utf-8?B?L3o1YkN1NmZPelFwNTZ0aTF4NGUyck42VjhwVGJONWEyYnc2MkIvZWZGdk8z?=
+ =?utf-8?B?Ti95M2JJZU8rU2R4S3BhclN2T1ZseWJvMDhNTFBYMUNndEJVcEd2cFI3bHFu?=
+ =?utf-8?B?Y2RDYkV3Y3h0QzJlZmFDcmNqOTNkMEhNMmc5bnl6dEltd080eC9rUGlRVFRt?=
+ =?utf-8?B?NnBhcS9WWktFZkJzRjUrbmtPOXRaL2h4YmFzUFZwSzFkdzJReWtpcS9jZXFq?=
+ =?utf-8?B?NldrVmNMRWU3YnRpVFRnZGRNMWk2Z0g1cTViVTBYMnd3UGV6N2JETWE5N3dz?=
+ =?utf-8?B?UHFXdUZ3R3JZNGEwVlBRY1RGSENrSEJENXpaQm9JQkhsbHByUmt1d2FMTC82?=
+ =?utf-8?B?WncrVW1xYUpUNXU4aE1FTFhyQm1Lak9WNlptOEJ3SW1xYkpkbDBQSFdXUC9B?=
+ =?utf-8?B?Zk82Q0I2TUpINFl1bXc2QnA4bXJoQXZwb0hkN3hNSFd6VzBkNGFiTHFKckNp?=
+ =?utf-8?B?SmhtL1RWTlR5NXpoMkpkWFh4c2JtbTZvMUdEWXV5N1o2ajFXQ1VyTkcwK1lt?=
+ =?utf-8?B?VjVmcWg2RjM0T01HNzJCSDlqSC94RG1PSU9TZ3cxWFRmTkJQSHFLM1cxY2Mz?=
+ =?utf-8?B?VTJtZVNjZTZsbHpyais3c09BUzFSeEtSMVJxYXNuYmM2ZFBpZzYxQnVCRW9k?=
+ =?utf-8?B?cVlCdDY2YldhclJHeGIvRWFGbUJrS2ZXZVN3WVdYcXpLY00zTTdZTVA3TXVo?=
+ =?utf-8?B?eVROQ0xvcHM0dngweEswa3dxOGlQaElzaW5kL05OUVo3cHA5VkRwTjh4VEZ3?=
+ =?utf-8?B?UGJieDdWSkFFYUNveFBMOVJINk9hOXpGbE5VMEs4SmRDM2tqTVZ5dmVNcEZJ?=
+ =?utf-8?B?dmJ3b2xBbUlVU000UDhFd0ovcW82UDRNVm00Z0h5OHBCWVpYOUgvdjZUbk9N?=
+ =?utf-8?B?VVdGTUxSbTNZMUp1K3cvQkJ5OUlXZk5nTU0rbzRwQmF4S2hJLzQ5OGNJM3ps?=
+ =?utf-8?B?THBtZUw5Q0dYWWxWVVVLTitQeHhBZkxOd1VOV29UQ2ZmSXZjY1lNY1FiTnZU?=
+ =?utf-8?B?UjVpNXB1WVBnNEJGRGF4SE5XcHVPRnIwRTIweGxJVGw4NlhkQzhZa0Uzd252?=
+ =?utf-8?B?eERhZ2FONlpsOXNZZVlhQUVXL0FUWFN4elg3RGdNZHVVcExWb004SFhNVWph?=
+ =?utf-8?B?eDRzeFE5dUtnNEMzVFVNWjZvN0hEMTVNajkwODdlWDRHOHJHbCtPOVlmNlcx?=
+ =?utf-8?B?U1NyNGN3cHEveTlGeEpFalVTQ1VLb0pNM2pHb3VDNUsrZXc4bStDMGZqTndp?=
+ =?utf-8?B?eXovc0tHWUlGSkpjbW1hUUFVUlNTZHFPR0VlQTB2VVl4dDZVQStNRXJUaFhV?=
+ =?utf-8?B?Zk9sM0FIc3U3MGJxVVc0THE0RHBsZVFpaS9UZ2dWYWlkKzBKbVZNOGlLQlI2?=
+ =?utf-8?B?anlja3dPSjljRnpLV0FEV1NCbjY5MnljRmMzRmoxK0dML2ZUQmJrajk4dy9N?=
+ =?utf-8?B?UmZtNFZRNzg4MTQxUWpnZUJxYUpLL1J1cTJxTmRiaXQ3ZTMrbDhhdHpaOHdm?=
+ =?utf-8?Q?YhMBrXIOxa+OmWNY=3D?=
+X-Exchange-RoutingPolicyChecked: kbO9LI/SMPKQFludd9zXCNV+wPp/bEFjZJnJl5mZPX5YPlVOqDCAIFi7loJR3QU81ksru/SRb9gbAnF1qsGMC8O8nESuOxj+NWL7jrDVAWtkI8Qn4jgabYlJdoUmHrc0Iy7zfFhQsmB4I8PfQ8MWtw32MExGz1VPU76HdR8ZAtfKbaDkNn0KQjM+L1aClqc9+qHWSSZtsUuRAW+Zvrs7GQLObSIvzAX+emWC82NADMyH08O3savceDFVuIQ5BccsYm+FrYIbdO495y2tkv9CiZ5MPWeZTQYfzQGUbiV+kVryO54Pxw9DcsrpfIJoqSV+Jr5TypdiA3xGDlAdMFSDXA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0e568c0-66d0-4e1b-14fe-08df03909be6
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8019.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:39:33.8552 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vKBUX4Y7YolLX10VZybqZAUeYulM6aGfdiz7UHpUqgQVMkKhmf2Zxf37rIbceZ6DPZ4+GnLc1J+VTr854Og0uVIbDBSB0M+Q1APxsm0g7tw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB6940
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,471 +173,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A DL3 dock authenticates as an HDCP 2.2 receiver before it will accept any
-configuration, and every later control message is sealed with keys the
-authentication establishes. The KDFs are the published HDCP 2.2 ones; what
-is not published is that the dock whitens the session key with a fixed
-device constant, and that the two nonces derived from the delivered random
-IV differ by one bit each and are not interchangeable.
+Hi Geert,
 
-Add the AES, CMAC and RNG wrappers, the HDCP key hierarchy documented once
-in one place, and the AKE itself, with the KUnit known-answer vectors that
-pin them.
+I got unnecessarily annoyed/angry in my previous reply, I'm sorry for that.
+It clouded my judgement a bit then but I still have some comments now
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
----
- drivers/gpu/drm/vino/ake.rs    | 175 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/vino/crypto.rs |  90 +++++++++++++++++
- drivers/gpu/drm/vino/hdcp.rs   | 146 +++++++++++++++++++++++++++
- drivers/gpu/drm/vino/rng.rs    |   9 ++
- 4 files changed, 420 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/ake.rs
- create mode 100644 drivers/gpu/drm/vino/crypto.rs
- create mode 100644 drivers/gpu/drm/vino/hdcp.rs
- create mode 100644 drivers/gpu/drm/vino/rng.rs
+On 2026-08-25 at 14:15:34 +0200, Geert Uytterhoeven wrote:
+> Hi Krzysztof,
+> 
+> On Tue, 25 Aug 2026 at 13:39, Krzysztof Niemiec
+> <krzysztof.niemiec@intel.com> wrote:
+> > On 2026-08-24 at 17:12:30 +0200, Geert Uytterhoeven wrote:
+> > > Enabling a (modular) test should not silently enable additional kernel
+> > > functionality, as that may increase the attack vector for a product.
+> >
+> > What vector? What product, exactly? As far as I know buddy allocator code is
+> 
+> Any product that uses DRM and has CONFIG_KUNIT_ALL_TESTS=m, so
+> developers can easily run any relevant test when the need arises.
+> 
+> > currently loaded when a) loading a drm driver (which would need that code
+> 
+> Not just "a drm driver": very few DRM drivers use it.
+> Hence one can have a product with DRM that does not need the buddy
+> allocator.
+> 
 
-diff --git a/drivers/gpu/drm/vino/ake.rs b/drivers/gpu/drm/vino/ake.rs
-new file mode 100644
-index 000000000000..54d24ca2d096
---- /dev/null
-+++ b/drivers/gpu/drm/vino/ake.rs
-@@ -0,0 +1,175 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! HDCP 2.2 AKE wire layer: byte-exact message builders for the state machine.
-+//! The dock validates fixed per-message `sub_size` and `sub_len_dw` values, so
-+//! the vendor framing records those values explicitly rather than deriving them.
-+//!
-+//! OUT body layout (sec 5.1), after the 16-byte sec 3 transport header:
-+//! ```text
-+//!   body[0..2]   u16 sub_size      (fixed per message)
-+//!   body[2..4]   u16 = 0x0010
-+//!   body[4..8]   u32 hdcp_seq      increments 1..7 across the AKE OUT messages
-+//!   body[8..22]  14 zero bytes
-+//!   body[22..26] u32 = 0x00000030  marker
-+//!   body[26]     u8  = 0x00        flag
-+//!   body[27]     u8  = msg_id
-+//!   body[28..]   HDCP payload (zero-padded to the fixed body length)
-+//! ```
-+
-+use super::*;
-+
-+/// HDCP 2.2 message IDs (sec 5.3). `pub(crate)` so the AKE state machine
-+/// ([`super::VinoDriver::run_ake`]) can match on the response IDs too.
-+pub(crate) mod id {
-+    use kernel::drm::display::hdcp::MessageId;
-+
-+    // Standard HDCP 2.2 message IDs: reuse the canonical values from
-+    // `<drm/display/drm_hdcp.h>` rather than redefining them, so vino stays in
-+    // lockstep with the kernel's HDCP definitions. Only the transport framing
-+    // around these (the DisplayLink type/sub/ctr header) is vino-specific.
-+    pub(crate) const AKE_INIT: u8 = MessageId::AKE_INIT.as_u8();
-+    pub(crate) const AKE_SEND_CERT: u8 = MessageId::AKE_SEND_CERT.as_u8();
-+    pub(crate) const AKE_NO_STORED_KM: u8 = MessageId::AKE_NO_STORED_KM.as_u8();
-+    pub(crate) const AKE_SEND_H_PRIME: u8 = MessageId::AKE_SEND_H_PRIME.as_u8();
-+    pub(crate) const LC_INIT: u8 = MessageId::LC_INIT.as_u8();
-+    pub(crate) const LC_SEND_L_PRIME: u8 = MessageId::LC_SEND_L_PRIME.as_u8();
-+    pub(crate) const SKE_SEND_EKS: u8 = MessageId::SKE_SEND_EKS.as_u8();
-+    pub(crate) const REPEATERAUTH_SEND_RECEIVERID_LIST: u8 =
-+        MessageId::REPEATERAUTH_SEND_RECEIVERID_LIST.as_u8();
-+    pub(crate) const REPEATERAUTH_SEND_ACK: u8 = MessageId::REPEATERAUTH_SEND_ACK.as_u8();
-+    pub(crate) const REPEATERAUTH_STREAM_MANAGE: u8 = MessageId::REPEATERAUTH_STREAM_MANAGE.as_u8();
-+    pub(crate) const REPEATERAUTH_STREAM_READY: u8 = MessageId::REPEATERAUTH_STREAM_READY.as_u8();
-+
-+    // DisplayLink-specific message IDs with no `<drm/display/drm_hdcp.h>` equivalent
-+    // (the AKE_Send_rrx split and the transmitter/receiver-info + auth-status messages
-+    // the DL3 dock uses), kept as literals.
-+    pub(crate) const AKE_SEND_RRX: u8 = 0x06;
-+    pub(crate) const RECEIVER_AUTH_STATUS: u8 = 0x12;
-+    pub(crate) const AKE_TRANSMITTER_INFO: u8 = 0x13;
-+}
-+
-+/// transport `sub_id` for HDCP OUT messages (type=4 sub=0x04, sec 5.1).
-+const SUB_HDCP: u16 = 0x04;
-+
-+/// Allocate a `body_len`-byte zeroed body with the sec 5.1 header filled in
-+/// (`sub_size`, the `0x0010` marker, `hdcp_seq`, the `0x30` marker and `msg_id`).
-+/// The caller writes the payload into `body[28..]`.
-+fn body(body_len: usize, sub_size: u16, hdcp_seq: u32, msg_id: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::from_elem(0u8, body_len, GFP_KERNEL)?;
-+    b[0..2].copy_from_slice(&sub_size.to_le_bytes());
-+    b[2..4].copy_from_slice(&0x0010u16.to_le_bytes());
-+    b[4..8].copy_from_slice(&hdcp_seq.to_le_bytes());
-+    b[22..26].copy_from_slice(&0x0000_0030u32.to_le_bytes());
-+    b[27] = msg_id;
-+    Ok(b)
-+}
-+
-+/// Wrap a finished HDCP body in the vendor transport header (type=4 sub=0x04)
-+/// with the message's fixed `sub_len_dw` and transport `seq`.
-+fn wrap(sub_len_dw: u16, seq: u32, body: &[u8]) -> Result<KVec<u8>> {
-+    let mut frame = KVec::with_capacity(16 + body.len(), GFP_KERNEL)?;
-+    proto::push_frame_with(&mut frame, 0x04, SUB_HDCP, sub_len_dw, seq, body)?;
-+    Ok(frame)
-+}
-+
-+/// `session-init ACK` (the `id=0x14 sub=0x76` frame).
-+///
-+/// This precedes `AKE_Init`, so AKE uses `hdcp_seq` 2..8. It is a minimal
-+/// `0x14 / 0x76 / hdcp_seq` header: a 32-byte body without a message payload or the
-+/// `0x0010 / 0x30 / msg_id` trailer written by [`body`], wrapped with `sub_len_dw=0x0a`. The dock
-+/// echoes it as a `msg_id=0` status frame that `recv_hdcp` skips.
-+pub(super) fn session_init_ack(hdcp_seq: u32, seq: u32) -> Result<KVec<u8>> {
-+    let mut b = KVec::from_elem(0u8, 32, GFP_KERNEL)?;
-+    b[0..2].copy_from_slice(&0x0014u16.to_le_bytes());
-+    b[2..4].copy_from_slice(&0x0076u16.to_le_bytes());
-+    b[4..8].copy_from_slice(&hdcp_seq.to_le_bytes());
-+    wrap(0x000a, seq, &b)
-+}
-+
-+/// `AKE_Init` (msg_id 0x02): `rtx[8] || TxCaps[3]`, padded to a 48-byte body
-+/// (`sub_size=0x22`, `sub_len_dw=0x0c`).
-+pub(super) fn ake_init(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    rtx: &[u8; drm_hdcp::RTX_LEN],
-+    tx_caps: &[u8; 3],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x0022, hdcp_seq, id::AKE_INIT)?;
-+    b[28..36].copy_from_slice(rtx);
-+    b[36..39].copy_from_slice(tx_caps);
-+    wrap(0x000c, seq, &b)
-+}
-+
-+/// `AKE_Transmitter_Info` (msg_id 0x13): byte-exact vendor framing
-+/// (`sub_size=0x1f`, `sub_len_dw=0x0f`), payload `00 06 02 00 02`.
-+pub(super) fn ake_transmitter_info(hdcp_seq: u32, seq: u32) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x001f, hdcp_seq, id::AKE_TRANSMITTER_INFO)?;
-+    b[28..33].copy_from_slice(&[0x00, 0x06, 0x02, 0x00, 0x02]);
-+    wrap(0x000f, seq, &b)
-+}
-+
-+/// `AKE_No_Stored_km` (msg_id 0x04): the 128-byte RSA-OAEP-SHA256 `Ekpub(km)`
-+/// in a 160-byte body (`sub_size=0x9a`, `sub_len_dw=0x04`).
-+pub(super) fn ake_no_stored_km(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    ekpub_km: &[u8; drm_hdcp::ENCRYPTED_MASTER_KEY_LEN],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(160, 0x009a, hdcp_seq, id::AKE_NO_STORED_KM)?;
-+    b[28..156].copy_from_slice(ekpub_km);
-+    wrap(0x0004, seq, &b)
-+}
-+
-+/// `LC_Init` (msg_id 0x09): `rn[8]` in a 48-byte body
-+/// (`sub_size=0x22`, `sub_len_dw=0x0c`).
-+pub(super) fn lc_init(hdcp_seq: u32, seq: u32, rn: &[u8; drm_hdcp::RN_LEN]) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x0022, hdcp_seq, id::LC_INIT)?;
-+    b[28..36].copy_from_slice(rn);
-+    wrap(0x000c, seq, &b)
-+}
-+
-+/// `SKE_Send_Eks` (msg_id 0x0b): `Edkey(ks)[16] || riv[8]` in a 64-byte body
-+/// (`sub_size=0x32`, `sub_len_dw=0x0c`).
-+pub(super) fn ske_send_eks(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    edkey_ks: &[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN],
-+    riv: &[u8; drm_hdcp::RIV_LEN],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(64, 0x0032, hdcp_seq, id::SKE_SEND_EKS)?;
-+    b[28..44].copy_from_slice(edkey_ks);
-+    b[44..52].copy_from_slice(riv);
-+    wrap(0x000c, seq, &b)
-+}
-+
-+/// `RepeaterAuth_Send_ACK` (msg_id 0x0f): the full `V[16]` in a 48-byte body
-+/// (`sub_size=0x2a`, `sub_len_dw=0x04`).
-+pub(super) fn repeater_auth_send_ack(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    v: &[u8; drm_hdcp::V_PRIME_HALF_LEN],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x002a, hdcp_seq, id::REPEATERAUTH_SEND_ACK)?;
-+    b[28..44].copy_from_slice(v);
-+    wrap(0x0004, seq, &b)
-+}
-+
-+/// `RepeaterAuth_Stream_Manage` SM2 (msg_id 0x10): `k=2`,
-+/// `StreamID_Type[0]=4` and `StreamID_Type[1]=5`.
-+pub(super) fn repeater_auth_stream_manage(hdcp_seq: u32, seq: u32) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x002d, hdcp_seq, id::REPEATERAUTH_STREAM_MANAGE)?;
-+    b[32..36].copy_from_slice(&[0x02, 0, 0, 0]); // k = 2 (LE)
-+    b[36..40].copy_from_slice(&[0x04, 0, 0, 0]); // StreamID_Type[0]
-+    b[43] = 0x05; // StreamID_Type[1]
-+    wrap(0x0001, seq, &b)
-+}
-+
-+/// Parse an IN HDCP message body (sec 5.2): `body[8]` marker, `body[9]` msg_id,
-+/// `body[10..]` payload (for `AKE_Send_Cert`, `body[10]` is a version flag).
-+/// Returns `(msg_id, payload)`.
-+pub(super) fn parse_in(body: &[u8]) -> Option<(u8, &[u8])> {
-+    if body.len() < 10 {
-+        return None;
-+    }
-+    Some((body[9], &body[10..]))
-+}
-diff --git a/drivers/gpu/drm/vino/crypto.rs b/drivers/gpu/drm/vino/crypto.rs
-new file mode 100644
-index 000000000000..4fc14b8bd70c
---- /dev/null
-+++ b/drivers/gpu/drm/vino/crypto.rs
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Thin adapters onto the shared [`kernel::crypto`] library-crypto bindings, so the
-+//! protocol code keeps its `crypto::aes128_ecb` / `crypto::hmac_sha256` call sites.
-+
-+use super::*;
-+
-+/// An AES-128 key prepared once for single-block encryption; re-exported so the
-+/// AES-CTR keystream loops in [`cp`](super::cp) can expand the key once and reuse
-+/// it across every block (rather than re-expanding per block).
-+pub(super) use kernel::crypto::Aes128;
-+
-+/// `AES_ECB(key, block)` -- one 16-byte AES-128 block. Convenience one-shot for
-+/// callers that encrypt a single block (e.g. HDCP dKey derivation); the AES-CTR
-+/// paths build an [`Aes128`] once and call [`Aes128::encrypt_block`] in a loop.
-+pub(super) fn aes128_ecb(key: &[u8; 16], block: &[u8; 16]) -> Result<[u8; 16]> {
-+    Ok(Aes128::new(key)?.encrypt_block(block))
-+}
-+
-+/// `HMAC-SHA256(key, data)`.
-+pub(super) fn hmac_sha256(key: &[u8], data: &[u8]) -> [u8; 32] {
-+    kernel::crypto::hmac_sha256(key, data)
-+}
-+
-+/// `AES-CMAC-128(key, data)` (RFC 4493) via the in-tree AES-CMAC library.
-+/// This is DisplayLink's "Dl3Cmac" core -- the CP per-message integrity tag is
-+/// `AES_CMAC(ks, nonce8 || BE64(counter) || content)` (see `cp::dl3cmac_tag`).
-+pub(super) fn aes_cmac(key: &[u8; 16], data: &[u8]) -> [u8; 16] {
-+    kernel::crypto::aes_cmac(key, data)
-+}
-+
-+/// `SHA256(data)`.
-+pub(super) fn sha256(data: &[u8]) -> [u8; 32] {
-+    kernel::crypto::sha256(data)
-+}
-+
-+#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_crypto)]
-+mod tests {
-+    use super::*;
-+
-+    #[test]
-+    fn aes128_ecb_fips197_kat() -> Result {
-+        // FIPS-197 / NIST SP800-38A F.1.1 AES-128 ECB known-answer vector.
-+        let key = [
-+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf,
-+            0x4f, 0x3c,
-+        ];
-+        let plaintext = [
-+            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93,
-+            0x17, 0x2a,
-+        ];
-+        assert_eq!(
-+            aes128_ecb(&key, &plaintext)?,
-+            [
-+                0x3a, 0xd7, 0x7b, 0xb4, 0x0d, 0x7a, 0x36, 0x60, 0xa8, 0x9e, 0xca, 0xf3, 0x24, 0x66,
-+                0xef, 0x97,
-+            ]
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn aes_cmac_rfc4493_kat() -> Result {
-+        // RFC 4493 sec 4 AES-CMAC test vectors (same key as above).
-+        let key = [
-+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf,
-+            0x4f, 0x3c,
-+        ];
-+        assert_eq!(
-+            aes_cmac(&key, &[]),
-+            [
-+                0xbb, 0x1d, 0x69, 0x29, 0xe9, 0x59, 0x37, 0x28, 0x7f, 0xa3, 0x7d, 0x12, 0x9b, 0x75,
-+                0x67, 0x46,
-+            ]
-+        );
-+        let msg = [
-+            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93,
-+            0x17, 0x2a,
-+        ];
-+        assert_eq!(
-+            aes_cmac(&key, &msg),
-+            [
-+                0x07, 0x0a, 0x16, 0xb4, 0x6b, 0x4d, 0x41, 0x44, 0xf7, 0x9b, 0xdd, 0x9d, 0xd0, 0x4a,
-+                0x28, 0x7c,
-+            ]
-+        );
-+        Ok(())
-+    }
-+}
-diff --git a/drivers/gpu/drm/vino/hdcp.rs b/drivers/gpu/drm/vino/hdcp.rs
-new file mode 100644
-index 000000000000..5118c9388cc3
---- /dev/null
-+++ b/drivers/gpu/drm/vino/hdcp.rs
-@@ -0,0 +1,146 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! HDCP 2.2 key derivation and verifier computation, built on [`crypto`].
-+//!
-+//! # The key hierarchy
-+//!
-+//! Every key below is per-session: they are established once by the AKE and SKE exchanges at
-+//! bring-up and then used for the life of the link. Nothing here is per-frame. The names are the
-+//! ones the HDCP 2.2 specification uses, so that a reader can follow the spec alongside the code,
-+//! and this is the one place that says how they relate.
-+//!
-+//! ```text
-+//!   km   (16 bytes, host random)        AKE master key. Sent to the dock RSA-OAEP encrypted
-+//!    |                                  under its public key, so only the dock recovers it.
-+//!    |
-+//!    +-- dkey_0, dkey_1  (rn = 0)  -->  kd = dkey_0 || dkey_1   (32 bytes)
-+//!    |                                  The derived key. Not a content key: it exists to prove
-+//!    |                                  both ends hold km, via H', L' and V.
-+//!    |
-+//!    +-- dkey_2          (rn = SKE nonce)
-+//!                                  -->  masks ks in transit:
-+//!                                       edkey = ks XOR (dkey_2 with its low 8 bytes XOR rrx)
-+//!
-+//!   ks   (16 bytes, host random)        SKE content session key. Delivered under the mask above,
-+//!    |                                  never in clear.
-+//!    |
-+//!    +-- XOR CP_KEY_WHITEN         -->  the control-plane seal key (see [`cp`](super::cp))
-+//!
-+//!   riv  (8 bytes)                      Content random IV, delivered beside ks. Nonces for the
-+//!                                       control plane are derived from it by fixed byte flips.
-+//! ```
-+//!
-+//! `kd` and `ks` are easy to confuse and are not interchangeable: `kd` is 32 bytes and
-+//! authenticates, `ks` is 16 bytes and encrypts. Both come from `km`, by different derivations.
-+
-+use super::*;
-+
-+/// `dkey_n = AES_ECB(km with low-8-bytes XOR rn, rtx || (rrx with byte15 XOR n))`
-+/// (HDCP 2.2 IIA sec 2.7, sec 5.6). The counter `n` XORs into byte 15 (LSB of the rrx
-+/// half) of the IV; `rn` XORs into the low 8 bytes (km[8..16]) of the key -- zero
-+/// for the `kd` derivation, the SKE nonce for `dkey_2`.
-+fn derive_dkey(
-+    km: &[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN],
-+    rn: &[u8; drm_hdcp::RN_LEN],
-+    rtx: &[u8; drm_hdcp::RTX_LEN],
-+    rrx: &[u8; drm_hdcp::RRX_LEN],
-+    n: u8,
-+) -> Result<kernel::crypto::Secret<{ drm_hdcp::ENCRYPTED_SESSION_KEY_LEN }>> {
-+    let mut iv = [0u8; kernel::crypto::AES128_BLOCK_SIZE];
-+    iv[..drm_hdcp::RTX_LEN].copy_from_slice(rtx);
-+    iv[drm_hdcp::RTX_LEN..].copy_from_slice(rrx);
-+    iv[kernel::crypto::AES128_BLOCK_SIZE - 1] ^= n;
-+    let mut key = kernel::crypto::Secret::new(*km);
-+    for i in 0..drm_hdcp::RN_LEN {
-+        key[kernel::crypto::AES128_BLOCK_SIZE - drm_hdcp::RN_LEN + i] ^= rn[i];
-+    }
-+    Ok(kernel::crypto::Secret::new(crypto::aes128_ecb(&key, &iv)?))
-+}
-+
-+/// `kd = dkey_0 || dkey_1` with `rn = 0` (sec 5.6) -- the 256-bit derived key.
-+pub(super) fn derive_kd(
-+    km: &[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN],
-+    rtx: &[u8; drm_hdcp::RTX_LEN],
-+    rrx: &[u8; drm_hdcp::RRX_LEN],
-+) -> Result<kernel::crypto::Secret<32>> {
-+    let rn = [0u8; drm_hdcp::RN_LEN];
-+    let dkey0 = derive_dkey(km, &rn, rtx, rrx, 0)?;
-+    let dkey1 = derive_dkey(km, &rn, rtx, rrx, 1)?;
-+    let mut kd = kernel::crypto::Secret::zeroed();
-+    kd[..kernel::crypto::AES128_BLOCK_SIZE].copy_from_slice(&dkey0[..]);
-+    kd[kernel::crypto::AES128_BLOCK_SIZE..].copy_from_slice(&dkey1[..]);
-+    Ok(kd)
-+}
-+
-+/// `H' = HMAC-SHA256(kd, rtx with byte7 ^= repeater)` (sec 5.6).
-+pub(super) fn compute_h(
-+    kd: &[u8; 32],
-+    rtx: &[u8; drm_hdcp::RTX_LEN],
-+    repeater: bool,
-+) -> [u8; drm_hdcp::H_PRIME_LEN] {
-+    let mut msg = *rtx;
-+    msg[drm_hdcp::RTX_LEN - 1] ^= repeater as u8;
-+    crypto::hmac_sha256(kd, &msg)
-+}
-+
-+/// `L' = HMAC-SHA256(kd with low-8-bytes XOR rrx, rn)` (sec 5.6).
-+///
-+/// "low-8-bytes" is the *least-significant* 64 bits of the 256-bit `kd`, i.e.
-+/// `kd[24..32]`.
-+pub(super) fn compute_l(
-+    kd: &[u8; 32],
-+    rrx: &[u8; drm_hdcp::RRX_LEN],
-+    rn: &[u8; drm_hdcp::RN_LEN],
-+) -> [u8; drm_hdcp::L_PRIME_LEN] {
-+    let mut key = kernel::crypto::Secret::new(*kd);
-+    for i in 0..drm_hdcp::RRX_LEN {
-+        key[32 - drm_hdcp::RRX_LEN + i] ^= rrx[i];
-+    }
-+    crypto::hmac_sha256(&key[..], rn)
-+}
-+
-+/// Full `V = HMAC-SHA256(kd, list_header)` (256 bits) for RepeaterAuth (sec 2.3).
-+///
-+/// The MSB 128 bits (`[..16]`) are `V'` from the receiver ID list. The LSB 128 bits (`[16..]`)
-+/// are sent in `RepeaterAuth_Send_Ack`; echoing `V'` there prevents the dock from completing
-+/// repeater authentication.
-+pub(super) fn compute_v_full(kd: &[u8; 32], list_header: &[u8]) -> [u8; 32] {
-+    crypto::hmac_sha256(kd, list_header)
-+}
-+
-+/// RSA-OAEP-SHA256 encrypt the 16-byte master key `km` under the dock's
-+/// RSA-1024 public key (`modulus[128]`, `exponent`), giving the 128-byte
-+/// `Ekpub(km)` for `AKE_No_Stored_km` (sec 5.4). Generates a fresh OAEP seed.
-+pub(super) fn oaep_encrypt_km(
-+    key: &mut kernel::crypto::akcipher::RsaPublicKey,
-+    km: &[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN],
-+) -> Result<[u8; drm_hdcp::ENCRYPTED_MASTER_KEY_LEN]> {
-+    let mut seed = kernel::crypto::Secret::zeroed();
-+    super::rng::fill(&mut seed[..]);
-+    let mut out = [0u8; drm_hdcp::ENCRYPTED_MASTER_KEY_LEN];
-+    key.oaep_sha256_encrypt(km, &seed, &mut out, GFP_KERNEL)?;
-+    Ok(out)
-+}
-+
-+/// SKE: `Edkey(ks) = ks XOR (dkey_2 with low-8-bytes XOR rrx)` (sec 5.6).
-+///
-+/// `dkey_2` is derived with the SKE nonce `rn` mixed into the key; `rrx` then
-+/// XORs into the low 8 bytes (`dkey_2[8..16]`) of the mask. The result is the
-+/// 16-byte `Edkey_ks` carried by `SKE_Send_Eks` (msg_id 0x0b).
-+pub(super) fn compute_eks(
-+    km: &[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN],
-+    rtx: &[u8; drm_hdcp::RTX_LEN],
-+    rrx: &[u8; drm_hdcp::RRX_LEN],
-+    rn: &[u8; drm_hdcp::RN_LEN],
-+    ks: &[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN],
-+) -> Result<[u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN]> {
-+    let mut mask = derive_dkey(km, rn, rtx, rrx, 2)?;
-+    for i in 0..drm_hdcp::RRX_LEN {
-+        mask[kernel::crypto::AES128_BLOCK_SIZE - drm_hdcp::RRX_LEN + i] ^= rrx[i];
-+    }
-+    let mut edkey_ks = [0u8; drm_hdcp::ENCRYPTED_SESSION_KEY_LEN];
-+    for i in 0..drm_hdcp::ENCRYPTED_SESSION_KEY_LEN {
-+        edkey_ks[i] = ks[i] ^ mask[i];
-+    }
-+    Ok(edkey_ks)
-+}
-diff --git a/drivers/gpu/drm/vino/rng.rs b/drivers/gpu/drm/vino/rng.rs
-new file mode 100644
-index 000000000000..c34766322edd
---- /dev/null
-+++ b/drivers/gpu/drm/vino/rng.rs
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Cryptographically-secure randomness for the per-session HDCP nonces/keys
-+//! (`rtx`, `km`, `rn`, `ks`, `riv`, the OAEP seed).
-+
-+/// Fills `buf` with random bytes from the kernel CSPRNG.
-+pub(super) fn fill(buf: &mut [u8]) {
-+    kernel::random::fill_bytes(buf);
-+}
+And the buddy allocator was moved out of DRM in anticipation of a
+possible non-DRM driver that wants the buddy allocator. So there's no
+implication between DRM and buddy in either way anymore.
+
+Currently it's only DRM drivers that actually use it, but there's already
+scaffolding in rust for it that does not depend on DRM, and once
+there's a non-DRM driver that wants to use the allocator it would have
+to undo the dependency added in this patch anyway.
+
+> > to function anyway) and/or b) loading the kunit test for the buddy allocator,
+> > which would need that code to function anyway. And AFAIK neither are
+> > built unconditionally into the kernel. So the amount of potential vuln
+> > surface is not exposed beyond what is reasonably required for the system to
+> > function as intended.
+> >
+> > If you've found a concrete bug/exploit/"attack vector" utilizing buddy code,
+> > then please address that directly.
+> 
+> So let's include all available code in the kernel image anyway, unless
+> you can point at a concrete bug/exploit/"attack vector"???
+> 
+> > > Fix this by reverting the select to a dependency.
+> >
+> > The way drm kunit tests do it is by select-ing the appropriate
+> > functionality out of the available ones, with "broad" depends-ons for
+> > DRM and such (say "depends on DRM\n\n select DRM_BUDDY"). DRM_BUDDY,
+> > for example, is not directly selectable in .config, as it's meant to be
+> > selected automatically if a module uses it.
+> 
+> In general, test code must not select the code to be tested, but depend
+> on it, to avoid that enabling CONFIG_KUNIT_ALL_TESTS pulls in lots of
+> unneeded code.
+> 
+
+Yeah and this didn't click for me when replying, of course this increases
+available symbols in the kernel which increases attack surface. And the
+DRM test case is different since I guess if DRM is selected it's an
+implicit agreement from the user to pull in smaller DRM components as
+needed?
+
+I still think the statement about the attack vector in the commit log is
+a bit broad and vague though, maybe just stating that "building with
+KUNIT_ALL_TESTS unconditionally pulls in code from gpu buddy, hence
+increasing the attack surface" would say that same thing but more to the
+point?
+
+> > This is also the case for drivers, with Xe having depends on DRM and
+> > then like 40 lines of selects for specific functionality, same for i915,
+> > amdgpu, so on.
+> 
+> For drivers, it is different: if you want the driver, you obviously
+> need the helper or library code.
+> 
+> > > Make sure the GPU
+> > > buddy allocator can be tested without enabling another driver that uses
+> > > DRM_BUDDY by making GPU_BUDDY visible if KUNIT is enabled.
+> >
+> > This was the case even without your patch, and was the entire point of
+> > 8fe3fc37564920ae mentioned in Fixes. The kunit test kernel can be built with
+> 
+> Yes, that was the intent of commit 8fe3fc37564920ae, but it used the
+> wrong method.
+> 
+> It is customary to make library code that is only selected by its
+> users, and cannot be enabled explicitly, visible for testing.
+> See e.g. commit bf2d44d07de726b0 ("ASoC: wm_adsp: Add kunit test for
+> firmware file search")
+> 
+> > a rather minimal .kunitconfig (included in the gpu/tests directory). So
+> > it only loads whatever kunit_tool would load, plus CONFIG_KUNIT, plus
+> > CONFIG_GPU_BUDDY_KUNIT_TEST, plus (implicitly, which I discussed above)
+> > CONFIG_GPU_BUDDY. It doesn't load DRM_BUDDY at all (which was the bug
+> > being fixed in that commit, you used to be forced to load it, now you
+> > aren't)
+> >
+> > > The page based buddy allocator for GPU memory is only used by DRM.
+> > > Hence add a dependency on DRM to GPU_BUDDY, to prevent asking the user
+> > > about this code when configuring a kernel without DRM support.
+> >
+> > It seems to be *technically* true, however, the entire point of moving the
+> > buddy allocator outside the DRM directory is to expose it to other non-DRM
+> > drivers, so the lack of dependency is kind of by design.
+> >
+> > The change was rather anticipatory, but it was clearly well reviewed and
+> > sent by a Joel, a nova-core dev, I assume it's gonna be needed at least
+> > by them at one point or another.
+> >
+> > If, say, nova decides to use the "communal" buddy allocator (if it
+> > doesn't do it already, I only briefly skimmed it looking for kernel::gpu)
+> > then the DRM dependency from this patch would have to be reverted (yet
+> > again). Maybe moving the buddy allocator up from DRM should have been done
+> > along with the first non-DRM user and only then, but it just didn't go that
+> > way.
+> >
+> > If the issue is that this option is too annoying during make or in
+> > menuconfig, then I don't think this is the way to address it.
+> 
+> Once the symbol is visible, it needs a proper dependency, to avoid
+> asking the user irrelevant questions.
+> 
+
+If it's visible and I understand now that it should be and how, then of
+course.
+
+> > > Fixes: 8fe3fc37564920ae ("gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST")
+> > > Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> 
+> > > --- a/drivers/gpu/Kconfig
+> > > +++ b/drivers/gpu/Kconfig
+> > > @@ -1,14 +1,15 @@
+> > >  # SPDX-License-Identifier: GPL-2.0
+> > >
+> > >  config GPU_BUDDY
+> > > -       bool
+> > > +       bool "Page based buddy allocator for GPU memory" if KUNIT
+> > > +       depends on DRM || COMPILE_TEST
+> >
+> > What's the justification for COMPILE_TEST here? It might be needed but
+> > you didn't explain why or mention it in the patch description at all.
+> 
+> It is customary to add "|| COMPILE_TEST" when adding dependencies that
+> are not strictly needed for a successful build.
+> 
+
+I can't tell if this is something so obvious it needs no comment; I feel
+like it should be documented explicitly in the commit log.
+
+If the DRM dependency would be dropped would the COMPILE_TEST have to
+stay? Because then we're forcing a non-drm user to enable it if they want
+to use the buddy alloc at all.
+
+I think just leaving the "if KUNIT" part would check all the boxes,
+since the tests are actually runnable with KUnit via .kunitconfig
+without building an entire DRM driver, GPU_BUDDY also won't be randomly
+enabled with KUNIT_ALL_TESTS on systems that don't care about it, and
+we're not forcing anyone to enable DRM on a feature that was explictly
+made independent from it.
+
+Thanks
+Krzysztof
