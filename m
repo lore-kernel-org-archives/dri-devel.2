@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C0BC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 18:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA62C61DC4
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 18:38:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9252B10EA5A;
-	Wed, 26 Aug 2026 18:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 867BC10EB88;
+	Wed, 26 Aug 2026 18:38:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="P5/1p3nd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VnjgcFO1";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-133.mta0.migadu.com [91.218.175.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C41F910EA5A
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 18:07:39 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=BBuko6an2w0X6q2dChjyrfTu0qhdoAlAoQ59/MakflY=; 
- c=simple/simple; d=kaitmazov.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787767657; v=1; x=1788372457;
- b=P5/1p3ndxJzcWgjzB/IBkbJtTwy8kuVmSgkr8m4243M3zsLdmfO+91nZLGuJEGvtHkVjapFk
- n5rxVGn80NIB0LYxkF2/8gRu0L22R4VxC+QXqYGS190kJ9srJcig1dTAQk9qoXiVA8jkDamwcQx
- pCy4pBBTLKFDsXDRr5FEJvsKNOlirtuno8cwLTVFrmJx95w6OjFVG6P7NGGBeiPgp7/OUAPVmtW
- 08A13X6kU8LbNQKBo3Egwmbm9734EDgh0PssMYk098x4zzpvgu/fiQc+lwpyxcDHCxn5QKLGJJw
- RBWgdyVgRCzkb7qRzcv8tvCZXLOECracadnWM4WjYP8cA==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: from [172.19.0.1] (193.42.110.63)
- by smtp.migadu.com with ESMTPS id 5b995b02bc876705;
- Wed, 26 Aug 2026 18:07:27 +0000
-X-Mizu-Trace-ID: 5b995b02bc876705
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1737ea78-0056-46ec-8283-45013d93dc92@kaitmazov.com>
-Date: Wed, 26 Aug 2026 21:07:25 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/amdxdna: make the debug BO command wait
- interruptible
-To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260826150726.126296-1-taimuraz@kaitmazov.com>
- <b7e8caf7-18de-fcbb-ee42-1b49b67b5eef@amd.com>
-Content-Language: en-US
-From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-In-Reply-To: <b7e8caf7-18de-fcbb-ee42-1b49b67b5eef@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0165810EB88
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 18:38:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 29B446001D;
+ Wed, 26 Aug 2026 18:38:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D0F1F00ADF;
+ Wed, 26 Aug 2026 18:38:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787769508;
+ bh=kRkpPIIJDseCUMtgO14yei1ZO4aE4GBXMb9b8Bse7z8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VnjgcFO18UXQBAMEIACh+VpTrxs6MEK30eCuIpk6Mb926WCLGaPyma0L0xQPERY+v
+ aTiHChUQ7VM7oG6z1bY30uXKIhLut/B8t5dte2/+RiD7OpnBxdKGASso7nPi35WzxB
+ sXbxtGDtIeB/xvpQIYb8527+ahPSmzDFOSSHJkHotAVH6R6tHsgYi5w1OVTw+bjLhA
+ E8Fig/VV0JIVWmkOb6bSWguSW8Q8VfCrw5I6zaMIHdgB/j8kzrmOoa8BmTMcrde4zq
+ oyuE+JG/Owd38so2N10iTaxHuzlnylpwgR22rGuU7Jx8OF0/V8UzNr2ELwN45gE4Z4
+ FjJMaj/NnpdHg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: clear pending flush state before physical
+ cleanup
+To: "Saim Shujah" <saimzst@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260826182459.1506522-1-saimzst@gmail.com>
+References: <20260826182459.1506522-1-saimzst@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 18:38:28 +0000
+Message-Id: <20260826183828.A8D0F1F00ADF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,98 +53,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I found out about that fix only after I had created this patch, but I 
-still want to state that the fix is not full: it unwedges the device, 
-but not the tasks already waiting. Those stay in an uninterruptible 
-wait, holding the debug BO and the command, and cannot be killed. 
-tdr_timeout_ms bounds that at 2 s by default; with tdr_timeout_ms=0 it 
-is unbounded.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I am still researching whether any race conditions can happen in the 
-current driver state.
+Pre-existing issues:
+- [High] dpu_hw_ctl_clear_pending_flush() fails to clear pending_periph_flu=
+sh_mask, leaving stale peripheral flush state across encoder teardowns.
+- [High] Sleeping function usleep_range() is called from display driver ato=
+mic contexts during encoder cleanup.
+--
 
-Taimuraz
+commit 8f92b7c700308d037e1db8696d21fde498d38560
+Author: Saim Shujah <saimzst@gmail.com>
 
-On 8/26/26 20:34, Lizhi Hou wrote:
-> On 8/26/26 08:07, Taimuraz Kaitmazov wrote:
->> aie2_cmd_wait() waits with dma_fence_wait_timeout(..., false,
->> MAX_SCHEDULE_TIMEOUT): uninterruptible and unbounded. Both callers reach
->> it from an ioctl holding xdna->dev_lock, and the only thing that can
->> signal the fence when firmware does not answer is
->> aie2_sched_job_timedout(), which takes that same lock. A debug BO 
->> command
->> that never completes therefore blocks the ioctl forever, leaves the task
->> unkillable, and stalls every other ioctl on the device behind dev_lock.
->>
->> Wait interruptibly and propagate the result. This does not remove the
->> lock dependency, it makes it survivable.
->
-> This is fixed by 
-> https://lore.kernel.org/all/20260707055732.479103-1-lizhi.hou@amd.com/
->
-> could you sync to drm-misc-fixes or the latest upstream kernel?
->
-> Thanks,
->
-> Lizhi
->
->> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
->> ---
->>   drivers/accel/amdxdna/aie2_ctx.c | 19 ++++++++++++++-----
->>   1 file changed, 14 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
->> b/drivers/accel/amdxdna/aie2_ctx.c
->> index 54486960cbf5..1f910ee4941c 100644
->> --- a/drivers/accel/amdxdna/aie2_ctx.c
->> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->> @@ -897,17 +897,20 @@ static int aie2_hwctx_cu_config(struct 
->> amdxdna_hwctx *hwctx, void *buf, u32 size
->>       return ret;
->>   }
->>   -static void aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
->> +static int aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
->>   {
->>       struct dma_fence *out_fence = aie2_cmd_get_out_fence(hwctx, seq);
->> +    long ret;
->>         if (!out_fence) {
->>           XDNA_ERR(hwctx->client->xdna, "Failed to get fence");
->> -        return;
->> +        return -EINVAL;
->>       }
->>   -    dma_fence_wait_timeout(out_fence, false, MAX_SCHEDULE_TIMEOUT);
->> +    ret = dma_fence_wait_timeout(out_fence, true, 
->> MAX_SCHEDULE_TIMEOUT);
->>       dma_fence_put(out_fence);
->> +
->> +    return ret < 0 ? ret : 0;
->>   }
->>     static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, 
->> u32 bo_hdl,
->> @@ -954,7 +957,10 @@ static int aie2_hwctx_cfg_debug_bo(struct 
->> amdxdna_hwctx *hwctx, u32 bo_hdl,
->>           goto put_cmd;
->>       }
->>   -    aie2_cmd_wait(hwctx, seq);
->> +    ret = aie2_cmd_wait(hwctx, seq);
->> +    if (ret)
->> +        goto put_cmd;
->> +
->>       if (cmd->result) {
->>           XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
->>           ret = -EINVAL;
->> @@ -1014,7 +1020,10 @@ int aie2_hwctx_sync_debug_bo(struct 
->> amdxdna_hwctx *hwctx, u32 debug_bo_hdl)
->>           goto put_cmd;
->>       }
->>   -    aie2_cmd_wait(hwctx, seq);
->> +    ret = aie2_cmd_wait(hwctx, seq);
->> +    if (ret)
->> +        goto put_cmd;
->> +
->>       if (cmd->result) {
->>           XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
->>           ret = -EINVAL;
+drm/msm/dpu: clear pending flush state before physical cleanup
+
+Hardware can consume an active-frame CTL flush while the cached software
+pending-flush mask retains the submitted bits. The patch clears the cached
+pending-flush bookkeeping before constructing the teardown state.
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_encoder.c
+> index 1f20695f81e35..45189b6076bc4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -2263,6 +2263,7 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_enc=
+oder_phys *phys_enc)
+> =20
+>  	dpu_enc =3D to_dpu_encoder_virt(phys_enc->parent);
+> =20
+> +	ctl->ops.clear_pending_flush(ctl);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does dpu_hw_ctl_clear_pendin=
+g_flush()
+leave stale peripheral flush state across encoder teardowns?
+
+In drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c:dpu_hw_ctl_clear_pending_flus=
+h():
+
+	ctx->pending_flush_mask =3D 0x0;
+	ctx->pending_intf_flush_mask =3D 0;
+	ctx->pending_wb_flush_mask =3D 0;
+	ctx->pending_cwb_flush_mask =3D 0;
+	ctx->pending_merge_3d_flush_mask =3D 0;
+	ctx->pending_dsc_flush_mask =3D 0;
+	ctx->pending_cdm_flush_mask =3D 0;
+
+	memset(ctx->pending_dspp_flush_mask, 0,
+		sizeof(ctx->pending_dspp_flush_mask));
+
+The function clears most software state caches, but ctx->pending_periph_flu=
+sh_mask
+is missed.
+
+Because pending_periph_flush_mask is omitted from the clear operation, any
+peripheral flush bits set from the previous active frame remain in the soft=
+ware
+cache. When the encoder is later re-enabled or flushed, this stale mask cou=
+ld
+be inadvertently flushed to the CTL_PERIPH_FLUSH hardware register, potenti=
+ally
+causing unexpected hardware states or hangs.
+
+>  	ctl->ops.reset(ctl);
+
+[Severity: High]
+This is a pre-existing issue, but does this hardware cleanup execute a slee=
+ping
+polling path while in an atomic context?
+
+dpu_encoder_helper_phys_cleanup() is called from the encoder atomic disable
+callback. ctl->ops.reset(ctl) resolves to dpu_hw_ctl_reset_control(), which
+polls the hardware and calls usleep_range():
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c:dpu_hw_ctl_poll_reset_status():
+
+		if (status)
+			usleep_range(20, 50);
+
+Calling sleeping functions like usleep_range() from atomic context paths in
+display drivers can cause kernel warnings, system instability, and potential
+deadlocks.
+
+> =20
+>  	dpu_encoder_helper_reset_mixers(phys_enc);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826182459.1506=
+522-1-saimzst@gmail.com?part=3D1
