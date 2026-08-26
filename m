@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B3CFC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 19:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4494AC61DBE
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 19:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCCEA10EDF3;
-	Wed, 26 Aug 2026 19:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8195610E338;
+	Wed, 26 Aug 2026 19:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jgu90rz/";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="mn30K/XY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42B8E10EDF3
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:53:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 42796601E9;
- Wed, 26 Aug 2026 19:53:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C383A1F000E9;
- Wed, 26 Aug 2026 19:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787774030;
- bh=iHBtHkeVYZ4L6m6Ve1n2kLkEP3ijEX6V0b4UNTPrdfI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jgu90rz/d66aA3GclW0vLgTir4tGQVIenmT7VMhL9CQzG/oD6c1WzvD7W8qMWYT+t
- J0TmD/D4cXGM8MISlPGGeqAE5WEaZRjrrCpUlti11FeRGSbmy9zwowbwQaKxvbp0Dj
- y5pzAeEReWauCV2o+n05E0Dvp1eHXD5NpVQbyCUz8TOG+BFGbJiwfC0CC+dF1L6bDS
- ZDLoTK7H/gTZmETV6lzCBBWJVYwiH0dL9CghwrvnMQk9nQwstnBMAZqy5ztOJ7BrhC
- ahUeLZJRV62cn78hR0H7v4Lz6BuKEWoNmdxSyl/53WDQpDpr1SPV/PRCAuvZPBoddv
- wqz44GmPMHnRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/amd/display: skip receiver power control
- without AUX
-To: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
- <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 19:53:49 +0000
-Message-Id: <20260826195349.C383A1F000E9@smtp.kernel.org>
+Received: from mta1.migadu.com (out-106.mta1.migadu.com [95.215.58.106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F8B010E338
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:57:59 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=ibUvACoBWMWLYMOqttDGfv6DpEUNCOTbV4tFb1siXOA=; 
+ c=simple/simple; d=kaitmazov.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787774277; v=1; x=1788379077;
+ b=mn30K/XYh0ZbzzcCzU3WpOuOyQ+0x2r8IXpKPSayWb8pifaL114ksd1SI0BinobtYQBoEw92
+ HGWXPWkRji0mr9JAGFX6Ei97JthXlCrSZ+MgDqPGDwQCxp/6Qw/EGtixq1xMKJHTfsltAV6F8F+
+ 1hVkgqmjvXgFy+XElM0cNncY9zVgkYgiCF+9ZiKRLNWKrVBULYpmQEOoXxIPhSy+lgYRkqVrRol
+ 9jxKXD8pwU7PGJmKMt/EKlxrawy4v9b470VSu1m8YLI28LcZUyy+Iz73XQQTLb3TfFdtABgDpZc
+ KKeLe1xc8qN38zDx4mGgafHY+ctosUViwHiwWhVfaKBCQ==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: from cachyos-26.lan (193.42.110.63)
+ by smtp.migadu.com with ESMTPS id bcb307ce9318bc8f;
+ Wed, 26 Aug 2026 19:57:47 +0000
+X-Mizu-Trace-ID: bcb307ce9318bc8f
+X-Migadu-Flow: FLOW_OUT
+From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: taimuraz@kaitmazov.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] accel/amdxdna: Bound the page count of a user supplied buffer
+Date: Wed, 26 Aug 2026 22:57:36 +0300
+Message-ID: <20260826195736.358579-1-taimuraz@kaitmazov.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,84 +54,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The newly added early return in `dpcd_write_rx_power_ctrl()` incor=
-rectly relies on `link->aux_mode` before it is initialized, causing the DP =
-receiver power-up sequence to be skipped for all newly detected DP monitors=
- and active dongles.
---
+amdxdna_get_ubuf() puts a per-entry page count derived from a __u64
+va_ent[i].len into a u32, then passes it to pin_user_pages_fast(), whose
+nr_pages is an int. An entry of 2^44 bytes truncates npages to zero, so
+nothing is pinned, the ret != npages test still passes, and ubuf->pages
+keeps whatever kvmalloc_objs() returned while ubuf->nr_pages describes the
+untruncated count. amdxdna_ubuf_release() then walks all of it. Reaching
+that needs CAP_IPC_LOCK and a multi-gigabyte kvmalloc() to succeed.
 
-commit 6bcb07f6c6cfc4188f9856f76b47789a74cb855e
-Author: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Reject a total that does not fit in an int. The lengths are page aligned
+and summed with check_add_overflow(), so the total is at least as large as
+any one entry and bounds the pin call, the offset accumulator and
+sg_alloc_table_from_pages().
 
-drm/amd/display: skip receiver power control without AUX
-   =20
-Passive DP to TMDS dongles do not provide a DP receiver and use native
-GPIO I2C rather than AUX. dpcd_write_rx_power_ctrl() nevertheless tries
-to write DP_SET_POWER, causing the DP helpers to retry a transaction
-that cannot succeed 32 times before giving up. Skip receiver power
-control when the link is not using AUX mode.
+Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
+Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+---
+ drivers/accel/amdxdna/amdxdna_ubuf.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c =
-b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> index 49521ac4b0e85..7991531f6ef44 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> @@ -50,6 +50,15 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bo=
-ol on)
->  	if (link->sync_lt_in_progress)
->  		return;
-> =20
-> +	/*
-> +	 * A passive DP to TMDS dongle presents no DP receiver, so there is
-> +	 * nothing to power up or down. The write can only fail, and the DP
-> +	 * helpers retry it 32 times before giving up, which adds tens of
-> +	 * milliseconds to link bring up.
-> +	 */
-> +	if (!link->aux_mode)
-> +		return;
+diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
+index 0e0cd69cd1fb..da8e32566ae0 100644
+--- a/drivers/accel/amdxdna/amdxdna_ubuf.c
++++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
+@@ -125,6 +125,12 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+ 	}
+ 
+ 	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
++	if (ubuf->nr_pages > INT_MAX) {
++		XDNA_ERR(xdna, "Too many pages %lld", ubuf->nr_pages);
++		ret = -EINVAL;
++		goto free_ent;
++	}
++
+ 	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
+ 	new_pinned = atomic64_add_return(ubuf->nr_pages, &ubuf->mm->pinned_vm);
+ 	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
+-- 
+2.55.0
 
-[Severity: High]
-Does this early return skip the DP receiver power-up sequence for all newly
-detected DP monitors and active dongles?
-
-During system boot or display hotplug, the dc_link struct is zero-allocated,
-so link->aux_mode defaults to false. The detection sequence starts with
-detect_link_and_local_sink(), which calls detect_dp() -> retrieve_link_cap()
--> dp_wa_power_up_0010FA(), eventually calling dpcd_write_rx_power_ctrl().
-
-Since link->aux_mode is still false at this point, the early return triggers
-and skips the DP_SET_POWER D0 write. This breaks detection for active dongl=
-es
-(such as the 0010FA) that depend on being powered up before a DPCD read.
-
-Looking at detect_link_and_local_sink() in link_detection.c, link->aux_mode
-is actually initialized after detect_dp() has already executed and failed:
-
-drivers/gpu/drm/amd/display/dc/link/link_detection.c:detect_link_and_local_=
-sink() {
-    ...
-    if (!detect_dp(link, &sink_caps, reason)) {
-    ...
-    link->aux_mode =3D
-            link_is_in_aux_transaction_mode(link->ddc);
-    ...
-}
-
-Should we ensure link->aux_mode is initialized earlier in the detection flo=
-w,
-or use a different condition to skip the power control write?
-
-> +
->  	core_link_write_dpcd(link, DP_SET_POWER, &state,
->  						 sizeof(state));
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826193602.6441=
--1-neptune@imm0nv1nhtv.is-a.dev?part=3D1
