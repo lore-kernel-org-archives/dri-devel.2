@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7998EC61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:31:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A80C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:31:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A569410E29D;
-	Wed, 26 Aug 2026 14:31:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDA410E2BE;
+	Wed, 26 Aug 2026 14:31:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="17rW5Qxr";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="kIUVEruj";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-211.mta0.migadu.com [91.218.175.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79C3010E29F
+Received: from mta1.migadu.com (out-184.mta1.migadu.com [95.215.58.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6783F10E29D
  for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:31:00 +0000 (UTC)
 X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=ir/hM9tzrgpU9IWimX/zy9BZtLgyuisHYyXvZ5J9t/8=; 
+DKIM-Signature: a=rsa-sha256; bh=wrb65SZFCMs+QvB78qEwTv6B5tg5G5dj8henQZ7EUpE=; 
  c=simple/simple; d=kaitmazov.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
  t=1787754658; v=1; x=1788359458;
- b=17rW5Qxr6KU/3Ba9rEug3mfYjX9CldOtean48VOpSjPn93SG6LKScRofurxm6zkI9BowL+fH
- YB77jq1SNnNrwBzxpGOUE3h7kXJK7o8M+aAzuymEQn7hQknblbNVs0h3gC/3pgZcboi33pc6PQf
- PY9nakUnvnMzivg55NyHVI2vh/E/hR8WvuzlxfU17Zk1Ew16xRkdRA11xUvuL1bQt5d8I/D7JXx
- Oq9seBZNR2KAX30/agHg2gVUbaJWBEwGl+581QuYYAbB4R9Sad4/zCVr5sRUrbOhBCDEbfmlmwp
- 8K8lmNdKkGxOMbn5jVZtYaw5U5Ch7g7j+4bFzm/cthTPw==
+ b=kIUVErujoPbftYrNh1sX7l8dBkJY8+b/9x6/WUXSTJ61IR7yPPlHDNuRBTy2lS1GaF2QgzaT
+ 6mZRCeQFhwakPsSqpaBbzMRqtOXjLgI0Tytu5/xz6nH/Y8stuhHT7gA+OEas3/ahYjejbXEvlly
+ wcp42dtty0irtK29sObpSg7ked42DEu2uOWaunnJYcRmi71OGbg8IKIGxNquuQkN+t2HDEo+yNb
+ gRNlEtbkdG5gJLQvtGlFfgxUVG590pFC3+YRlw5s5XJ57yIdabpABG3dfAOwOTGqa54rbEPnccl
+ ZkPcqviVDy48th2Sb2T54oCHjNm8mAnW5FXYJxNZH9ugQ==
 X-Envelope-To: dri-devel@lists.freedesktop.org
 Received: from cachyos-26.lan (193.42.110.63)
- by smtp.migadu.com with ESMTPS id 3e1d6225e98654b5;
- Wed, 26 Aug 2026 14:30:58 +0000
-X-Mizu-Trace-ID: 3e1d6225e98654b5
+ by smtp.migadu.com with ESMTPS id b88bdb14229d152c;
+ Wed, 26 Aug 2026 14:30:47 +0000
+X-Mizu-Trace-ID: b88bdb14229d152c
 X-Migadu-Flow: FLOW_OUT
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
  Oded Gabbay <ogabbay@kernel.org>
 Cc: taimuraz@kaitmazov.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] accel/amdxdna: use READ_ONCE/WRITE_ONCE on the command
- header
-Date: Wed, 26 Aug 2026 17:30:36 +0300
-Message-ID: <20260826143036.100089-3-taimuraz@kaitmazov.com>
+Subject: [PATCH 0/2] accel/amdxdna: make the shared command header safe to read
+Date: Wed, 26 Aug 2026 17:30:34 +0300
+Message-ID: <20260826143036.100089-1-taimuraz@kaitmazov.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826143036.100089-1-taimuraz@kaitmazov.com>
-References: <20260826143036.100089-1-taimuraz@kaitmazov.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -60,104 +57,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-struct amdxdna_cmd::header packs STATE, OPCODE, COUNT and EXTRA_CU_MASK
-into one u32 that lives in a BO user space keeps mapped. The driver
-re-reads it on every accessor call and read-modify-writes STATE in place,
-with plain accesses that let the compiler split or refetch either side.
+The command header lives in a BO user space keeps mapped, and the driver both
+re-reads it on every accessor call and read-modify-writes it in place.
 
-Annotate them, as the UMQ ring indices already are. This does not make
-the update atomic against user space, it only stops the compiler from
-making it worse.
+Sent as a series rather than two standalone patches: they touch the same
+function and do not apply independently.
 
-Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
----
- drivers/accel/amdxdna/amdxdna_ctx.c | 14 +++++++++-----
- drivers/accel/amdxdna/amdxdna_ctx.h | 11 +++++++----
- 2 files changed, 16 insertions(+), 9 deletions(-)
+Taimuraz Kaitmazov (2):
+  accel/amdxdna: check the command chain payload before using it
+  accel/amdxdna: use READ_ONCE/WRITE_ONCE on the command header
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 143cbbbf4b31..f809bec425a5 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -123,9 +123,10 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size)
- 	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN)
- 		num_masks = 0;
- 	else
--		num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
-+		num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK,
-+					  READ_ONCE(cmd->header));
- 
--	count = FIELD_GET(AMDXDNA_CMD_COUNT, cmd->header);
-+	count = FIELD_GET(AMDXDNA_CMD_COUNT, READ_ONCE(cmd->header));
- 	if (unlikely(count <= num_masks ||
- 		     count * sizeof(u32) +
- 		     offsetof(struct amdxdna_cmd, data[0]) >
-@@ -173,7 +174,7 @@ u32 amdxdna_cmd_get_cu_idx(struct amdxdna_gem_obj *abo)
- 	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN)
- 		return INVALID_CU_IDX;
- 
--	num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
-+	num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, READ_ONCE(cmd->header));
- 	cu_mask = cmd->data;
- 	for (i = 0; i < num_masks; i++) {
- 		if (cu_mask[i])
-@@ -191,12 +192,15 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 	struct amdxdna_client *client = job->hwctx->client;
- 	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
- 	struct amdxdna_cmd_chain *cc = NULL;
-+	u32 header;
- 
- 	if (!cmd)
- 		return -ENOMEM;
- 
--	cmd->header &= ~AMDXDNA_CMD_STATE;
--	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
-+	header = READ_ONCE(cmd->header);
-+	header &= ~AMDXDNA_CMD_STATE;
-+	header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
-+	WRITE_ONCE(cmd->header, header);
- 
- 	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN) {
- 		u32 ccnt;
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-index f6529d512217..48e1fcfd818f 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.h
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-@@ -169,19 +169,22 @@ amdxdna_cmd_get_op(struct amdxdna_gem_obj *abo)
- 	if (!cmd)
- 		return ERT_INVALID_CMD;
- 
--	return FIELD_GET(AMDXDNA_CMD_OPCODE, cmd->header);
-+	return FIELD_GET(AMDXDNA_CMD_OPCODE, READ_ONCE(cmd->header));
- }
- 
- static inline void
- amdxdna_cmd_set_state(struct amdxdna_gem_obj *abo, enum ert_cmd_state s)
- {
- 	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
-+	u32 header;
- 
- 	if (!cmd)
- 		return;
- 
--	cmd->header &= ~AMDXDNA_CMD_STATE;
--	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, s);
-+	header = READ_ONCE(cmd->header);
-+	header &= ~AMDXDNA_CMD_STATE;
-+	header |= FIELD_PREP(AMDXDNA_CMD_STATE, s);
-+	WRITE_ONCE(cmd->header, header);
- }
- 
- static inline enum ert_cmd_state
-@@ -192,7 +195,7 @@ amdxdna_cmd_get_state(struct amdxdna_gem_obj *abo)
- 	if (!cmd)
- 		return ERT_CMD_STATE_INVALID;
- 
--	return FIELD_GET(AMDXDNA_CMD_STATE, cmd->header);
-+	return FIELD_GET(AMDXDNA_CMD_STATE, READ_ONCE(cmd->header));
- }
- 
- void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size);
+ drivers/accel/amdxdna/amdxdna_ctx.c | 65 +++++++++++++++++++++--------
+ drivers/accel/amdxdna/amdxdna_ctx.h | 13 ++++--
+ 2 files changed, 57 insertions(+), 21 deletions(-)
+
 -- 
 2.55.0
 
