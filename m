@@ -4,72 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD0EC61DCB
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 938C7C61DD7
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCEE10EF6D;
-	Thu, 27 Aug 2026 09:44:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7180610EF74;
+	Thu, 27 Aug 2026 09:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="GcxNkzC1";
+	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="xXwDHC/l";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CAF710E3B4
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:01:15 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-396b3d0df94so345513a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 02:01:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=snu.ac.kr; s=google; t=1787821275; x=1788426075; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=rgBLolzdPT4tsDrmX6mCnbe4xBVr2san57ni3P7/sf0=;
- b=GcxNkzC1/FrP/d057bn5IvXi3Z0v3HpCkJjBkRgpGDEcqKHvpeRzSfwK515GlqDH0x
- pMZXmURUOTK8kq0RQMEUouuBp/W+LvgWHLkKWmWzl/fcWsZuCLd0loRr9Bfy0uJ4OW3J
- zrVqThTS6a20B0huSqKBlQ2lZx2Qv+ilHAvAs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787821275; x=1788426075;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=rgBLolzdPT4tsDrmX6mCnbe4xBVr2san57ni3P7/sf0=;
- b=Nk4f0I6llxi3V/ifo+A/xeJSCD31BhTOxDlae2xK3vXXYGZfYNX7oddsJFD87m1wvb
- u0F4gVbAwy5o37K8TR8yq2t0EVUlH4qkCSpEkrvaGPEJ0IAQcJ/yBGjOLt+nXmUJ7y3x
- bipP1/G0enXVqedf8s+ZZjhB416VqpzAludOrPh55fp9JTNKBdTwPX1FSbuovuIHWZIz
- +TcOJhaqdS7Th1rA+G+reA238r69gI2kpA3HpKauWtHzgtX7uUtGV5bDr2JjMOa4RF7D
- 4GdOsXZbln2fdgK8NpqFg8ujBltALEd8qg6Se2wZiH46ZVva2l9GNVm8bkHideneF7Qc
- geBw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqXaVunlw91rFFqMjxxKd4sqOM/Zah19PKu9Tdp2oZQNeTYvlZYsst82fTM7tjQRyO5i5w4ZA7oGdo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mqIBY5D8t9MR6kYEmFRQ3JyMwYgmqKFVULBYdXJoUUDOM9/4vo
- uP/Gxt+oCRu3gRqjfTVowZloDAETectadARRzZrH5zByfyXnNylqpPZZv+528hBMNYM=
-X-Gm-Gg: AR+sD10ZSDxHaLj9vhTZDu2Iki1HRgOGIhaoa9v3CQjU6P/eYkLXxfF3v2e5IBR/por
- lTUjf6KsN2JukxHGPKfFNY93ED87d71BHsZLXU5JpFzECNShlF7bAm+brncjzlOpGy5gEcjXP1a
- 1sxYmZWplQYETLmlahouDOS6M9oEsd2mbTJFEV4UIma6vgayQhJrlD0xR1Eev4cxTInnh+ca3Vl
- D3QJXG+2n75p4Wpfz1iUoLbqLj+KWEY4Bo3/zyLFIP9qYwBLnA/FHXtdjOlQkQBW0rNlnxJRFMB
- PS8gsRi/it83faX+yTL0fuhxrxlVDbOKEJVSgNrJjpta2Z2BxI0SyQXe7tjF/jHf1WXiPCws5vO
- i9QCHav3KLhnPm4Edu7btaiI04Ba/beLuqYLnvJpwRcSpJ7dg+R7cAXWyDlIXDg8sa+XbQKKVOj
- RXvrS3pLZZs8tdwgLF0r3ztd64iUSFYTHiXfPqAYV+3hhBJ3PjDu6JwCTmGw==
-X-Received: by 2002:a17:90a:d2c6:b0:392:c80b:8eff with SMTP id
- 98e67ed59e1d1-3966d866cc8mr28689376a91.11.1787821273852; 
- Thu, 27 Aug 2026 02:01:13 -0700 (PDT)
-Received: from 1c1aead48890.. ([49.142.45.25])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-396b112b57bsm2062845a91.17.2026.08.27.02.01.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 02:01:13 -0700 (PDT)
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Seongjun Hong <hsj0512@snu.ac.kr>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/radeon: switch from get_user_pages to pin_user_pages
-Date: Thu, 27 Aug 2026 09:00:59 +0000
-Message-ID: <20260827090100.428302-1-hsj0512@snu.ac.kr>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Greylist: delayed 8966 seconds by postgrey-1.36 at gabe;
+ Wed, 26 Aug 2026 19:36:13 UTC
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F86410EDBC
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:36:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787772967;
+ h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=6m6/nVTkN2G1SyFXrOvB2/4l1QVTjAhGUBW3iigpQ0U=;
+ b=xXwDHC/lI9wUDcOickNtgmclJ9sSYiCmwHK5xU7einvu66U3SsrJOT+V9wC7pDVTeA7iBw
+ 1iRoThyg+mMzzg12uXM9UNdM6OyRxW8j9emLfaoZbBPjOGqRq2lxUOVZ/w9tKdSqfJsH3S
+ NpgLykGftIq0WXNMYASmlQrFb7SbQMVFPt8YQXi510I+OkbRpAM24/MJ7/M6jqWWgpbmYh
+ WYqLPb/BK0z07gCTlf6AYydlUwkB2wm/9JJ+8wrWvOkKljEUFgzCcg1gQ9cFjIMzqv3O8s
+ AJWLLDGDuLYMTnJ2c7rSp4R49Enwp1JQJ4inmlKXZqBc2NUhAaKKW+st1iDVag==
+Content-Type: text/plain; charset=UTF-8
+To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
+ "Alex Deucher" <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
+ <linux-kernel@vger.kernel.org>, 
+ "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+Subject: [PATCH 1/2] drm/amd/display: skip receiver power control without AUX
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26a8f4027+79189d+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
+Content-Transfer-Encoding: 7bit
+From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+Date: Thu, 27 Aug 2026 02:36:01 +0700
+X-Mailer: git-send-email 2.47.3
+Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
+ smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 19:36:06 +0000
+References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Message-Id: <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
+In-Reply-To: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,47 +65,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch old api get_user_pages to pin_user_pages according to [1].
-It guarantees these DMA pages are pinned.
+Passive DP to TMDS dongles do not provide a DP receiver and use native
+GPIO I2C rather than AUX. dpcd_write_rx_power_ctrl() nevertheless tries
+to write DP_SET_POWER, causing the DP helpers to retry a transaction
+that cannot succeed 32 times before giving up.
 
-[1] Documentation/core-api/pin_user_pages.rst
+Skip receiver power control when the link is not using AUX mode.
 
-Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+On an Oland GPU with a passive DP to HDMI to DVI chain, this reduced
+boot-time "DP AUX transfer fail" messages from 32 to 0. The EDID
+remained 256 bytes and the display continued to use its native
+1600x900 mode.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
 ---
- drivers/gpu/drm/radeon/radeon_ttm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c  | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index e7ab8162ac69..22fc35a0e8d8 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -349,7 +349,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
- 		uint64_t userptr = gtt->userptr + pinned * PAGE_SIZE;
- 		struct page **pages = ttm->pages + pinned;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+index 49521ac4b0e8..7991531f6ef4 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+@@ -50,6 +50,15 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
+ 	if (link->sync_lt_in_progress)
+ 		return;
  
--		r = get_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
-+		r = pin_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
- 				   pages);
- 		if (r < 0)
- 			goto release_pages;
-@@ -377,7 +377,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
- 	kfree(ttm->sg);
++	/*
++	 * A passive DP to TMDS dongle presents no DP receiver, so there is
++	 * nothing to power up or down. The write can only fail, and the DP
++	 * helpers retry it 32 times before giving up, which adds tens of
++	 * milliseconds to link bring up.
++	 */
++	if (!link->aux_mode)
++		return;
++
+ 	core_link_write_dpcd(link, DP_SET_POWER, &state,
+ 						 sizeof(state));
  
- release_pages:
--	release_pages(ttm->pages, pinned);
-+	unpin_user_pages(ttm->pages, pinned);
- 	return r;
- }
- 
-@@ -404,7 +404,7 @@ static void radeon_ttm_tt_unpin_userptr(struct ttm_device *bdev, struct ttm_tt *
- 			set_page_dirty(page);
- 
- 		mark_page_accessed(page);
--		put_page(page);
-+		unpin_user_page(page);
- 	}
- 
- 	sg_free_table(ttm->sg);
 -- 
-2.43.0
-
+2.47.3
