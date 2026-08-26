@@ -4,53 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D48BC61DC7
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B96C61DCB
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C1F10EF7C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9F410EF7E;
 	Thu, 27 Aug 2026 09:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="y2dh/FJl";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="wd4KNHQh";
 	dkim-atps=neutral
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7C410EC2A
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 07:23:45 +0000 (UTC)
-Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
- server-digest SHA256) (No client certificate requested)
- by meve.dewith.io (Postfix) with ESMTPSA id 7BD5F21A63;
- Wed, 26 Aug 2026 07:23:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
- t=1787729023;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lpvFtfsJlIAI5gfNTYWyYBhU1P8rqGqemnlrcNBN2Dc=;
- b=y2dh/FJlTX2PyRxMrQWXqW6QauzDqKTxITgdXVmjMQ9lMKwHFBC5gGtYsr/CiddgATTYPO
- VnVm+wFd+jc4F3wAIszZagJkvUySZ1D1tHQfpQWKnFRggMzhu+KKlat75YRquTpOcva9tM
- LWTQ1ZbC0rlNpoBM7liaBWvBswTq804=
-From: Wim de With <wf@dewith.io>
-Date: Wed, 26 Aug 2026 09:23:10 +0200
-Subject: [PATCH v4 1/2] dt-bindings: backlight: Add Orient Chip OCP8178
+Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEA9B10E27F
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:17:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=5kr6ONTZGcP+4gzhwJRzM9uYj1wLi4Mt58RL8rHvwjE=; b=wd4KNHQhIgO1isylHY1q0VA+CZ
+ h1fX4oTNTTCAeEPUWqpdT0p9ffQdOImHi3kyK8yWHwcis7nitikxgz3xHnsSDXSi4nDA0tflEVZeT
+ ZbTo5mibht4GdbMvTsQUMR5NjK04wB/xbtU1Y/jDAT/Zl7xGN3rwBYLXDYwVGArxrAV8qKzM1P2bb
+ xvitSHBts8osJL+wzwRNuk4OGw6G1OP4MiyAW0J2AR+e4CCGLk6M/0lkd+s/49TTB0D9qbe6wmSWC
+ +mnAAPr2ASeeg80nFsJU6zDkFk2lNBF6Jkp7DReR/FGw8K4/YSSRwShBA7FdVu+NcgbVc/jUKxP1x
+ gh/wPoGg==;
+Received: from [195.240.176.17] (port=38760 helo=[192.168.2.230])
+ by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
+ id 1wzERk-00000008H1j-0yMO; Wed, 26 Aug 2026 16:17:44 +0200
+Message-ID: <5d110271-9a0d-4ba7-92e9-286ba557c16e@accessweb.be>
+Date: Wed, 26 Aug 2026 16:17:43 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
+ are released
+To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, zack.rusin@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
+References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
+ <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
+ <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
+ <55b08fb3-cc29-4c2a-bbe5-26742de77614@broadcom.com>
+ <b0b0caf9-ca76-4f93-9495-d386d313fad1@accessweb.be>
+ <7af1cbb9-bb99-462c-a3e4-c70d8fbd2dcb@broadcom.com>
+Content-Language: en-US
+From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
+In-Reply-To: <7af1cbb9-bb99-462c-a3e4-c70d8fbd2dcb@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-ocp8178-backlight-v4-1-47d7acce882e@dewith.io>
-References: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
-In-Reply-To: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
-To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Spam: Yes
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pan.awservers.eu
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - accessweb.be
+X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
+ jellis@accessweb.be
+X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,87 +78,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add device tree bindings for the Orient Chip OCP8178 LED backlight
-driver.
+Hi Maaz,
 
-Signed-off-by: Wim de With <wf@dewith.io>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../bindings/leds/backlight/ocs,ocp8178.yaml       | 47 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 +++
- 2 files changed, 52 insertions(+)
+Short version: mesa 26.2.1 is running here with 3D on, and the leak is 
+still there.
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-new file mode 100644
-index 0000000000000..1cd95aac0d168
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-@@ -0,0 +1,47 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/ocs,ocp8178.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Orient Chip OCP8178 backlight
-+
-+maintainers:
-+  - Wim de With <wf@dewith.io>
-+
-+description:
-+  The Orient Chip OCP8178 is a white LED backlight driver controlled by a single
-+  GPIO line with a vendor-specific onewire protocol.
-+
-+allOf:
-+  - $ref: common.yaml#
-+
-+properties:
-+  compatible:
-+    const: ocs,ocp8178
-+
-+  ctrl-gpios:
-+    description: GPIO to use to enable/disable and dim the backlight.
-+    maxItems: 1
-+
-+  default-brightness:
-+    maximum: 31
-+
-+  max-brightness:
-+    maximum: 31
-+
-+required:
-+  - compatible
-+  - ctrl-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    backlight {
-+        compatible = "ocs,ocp8178";
-+        ctrl-gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
-+        default-brightness = <13>;
-+        max-brightness = <31>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cfee5d47b214d..3ca99d9c32ef1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19678,6 +19678,11 @@ F:	drivers/mfd/ocelot*
- F:	drivers/net/dsa/ocelot/ocelot_ext.c
- F:	include/linux/mfd/ocelot.h
- 
-+OCP8178 BACKLIGHT DRIVER
-+M:	Wim de With <wf@dewith.io>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-+
- OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
- M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
- R:	Andrew Donnellan <andrew+kernel@donnellan.id.au>
+Setup: one boot, 119 h, a single kwin_wayland (6.7.4), mesa 3:26.2.1-1, 
+kernel 7.2.0, renderer SVGA3D.
 
--- 
-2.55.0
+   TTM sys+mob    0.36 -> 16.73 GB
+   objects        1948 -> 10365
+   kwin_wayland   holds 8484 MB in 4894 objects
+   free RAM       4.9 of 31 GB - we have to reboot today
+
+It tracks rendering, not uptime. Idle nights (02:00-07:00) in this same 
+boot:
+
+   22 Aug  -0.03 GB       25 Aug  +0.00 GB
+   23 Aug  +0.02 GB       26 Aug  +0.04 GB
+   24 Aug  +1.88 GB   <- the one night an automated GUI test run was active
+
+The surface warning still fires: 1168 WARNING blocks at 
+vmw_surface_handle_reference in the last 27 hours. That is a window, not 
+a total - journald has already rotated away the earlier part of this boot.
+
+Correction to my previous mail: "four times during session startup" was 
+wrong. It fires in bursts throughout the session.
+
+We have not tried "drm/vmwgfx: Return gem fd handle for scanout buffers" 
+we run distribution kernels here. Say the word and we will build it.
+
+Best regards,
+Jellis
+
+Op 21-08-2026 om 04:09 schreef Maaz Mombasawala:
+> For the 3D-enabled case, could you try with mesa 26.1.8 or 26.2.1, both of which contain my fix.
+> Also if you could try the patch I just submitted on dri-devel - drm/vmwgfx: Return gem fd handle for scanout buffers.
+> If you still see issues with these patches, let me know.
+> 
+> As for the 3D disabled case, I can see issues on my local machine and am working on a fix.
+> 
+> PS - Your emails are overly verbose and narrative, could you include only the actual problems you are facing.
+> If you're using an llm to write these, please make them more terse and human readable. Thanks.
+> 
+
+
 
