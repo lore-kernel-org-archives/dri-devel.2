@@ -4,107 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB0AC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 23:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3BBCC5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 23:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7B7310EE2E;
-	Wed, 26 Aug 2026 23:16:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB74010EE1E;
+	Wed, 26 Aug 2026 23:43:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AkkgA3QM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IpvXchEe";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011063.outbound.protection.outlook.com [40.107.208.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7102710EE2D
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 23:16:30 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010036.outbound.protection.outlook.com
+ [40.93.198.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1D7E10EE1E
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 23:43:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M+YOAcbUQSivnbI+Al+kRn+2OfwmBx6bQbGjaquLf2mMVGmbbHW7we6/cE3Sv7+3oCgqYVEXm2H6YaA8KawucQ3rgN8SA45dd4gngwh0PgkWhKL5EV6UDd+73MShzQv9WUcWLfZdk6BgCGEmrV2NuLmhdQCoqY2b4dV438WYR66f6xFl1fuCeG9S8ralJTvkYSQ8wEAesMjyBs1aCinsZlwZLlgHz307ybalQMz4SI0HB+S2MBWvvXv4vF3NdcCTsNMMD88kt+ufmR4lVcusClcZcpZcr5qHjnrk+zkklhFtuPZGh7p4Op8UJbF5KOQPE65Mvx7c8iljsaENjXkx0A==
+ b=Ah1uccOmtqme3YQVQrYfYRn/3Vv9rzTMHsyzznjxcyp0fIQTK6cqIJEejJMS18zpIRVhwSib0j2fJbIe/YYZFGfpVX1TQ/t/vy6lmTJZXDLHIro8GYJkO5OV5rtX0RNJv+sjgUS8tBSHbZ5DXp9eH0Wl2rjutAN/yvVc4E8/pD14Dvy6adGQt+RjgppV1gmRzIe0n6DetoLWkGDdfSw0J2urXSaXVJTzztLv5tPLmIVFTQlVNXvc2hK4AzNXefVTraYnU3uTV2Dg7P/okh36wMzAJaRk+MP0gpmgYSaCK49Ovnwprs42LM4TN5ZTZyjlw4ynFrJw/5EqZZmCjUAvnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BvSj62IHuZtWVFuDBf6N0tRRj/dt873Jc2o6CWSM4Ko=;
- b=AI6m0CAAMm8q8Kvu6f81f441dTILOl//lBIKMJ3+12IMMu+KykkU7bQfeiAZ57rsETcKiUD53KVbeAiHgNXAbROFz81VOn0jHY8RSI3JzCZzRVeGVUSEAUAX9UXGkYq/Oz4Oq3kcCKD0Bw3xfQnEehQZrtjJmUD2Vig/HxcB5w5MWsBvVIBjXwt9cWZEhDYyIp9mDhMfhhtoVD2OS8Hn9YzAMu6e8hfQwEwfBy89dqPdi5WvM+U1F/o9Vsl7QCy8vit/TZvQ4HjVUyCAu4cJWKVe8dBeX9VcMgYv041rcYkmL4dMO0+YXXad2pfKKSF+qtw+IxKhnAuxve36ipoIvg==
+ bh=negefsq3n/CCIYYmlXfAwis0SAFuolerph9KBNGmRo8=;
+ b=ymiVk3mAvNs3+MaSuGiXAI3BBeJMlXtfgHh+DscTQHTrJhgKl8JROyhbkohp0mxHNyXzTcJYtPxX2FSreDMeaxJ5uY8MMnwHh8gnKmL5Br4tzvB+13kw9a/thCDM4qO33qChZJ0pEJbl5d9YV6xpx4y/u7OyZkpKzYisWxu3jvWEGeugkhd7cqfhVkRwr6R3NU+39BG+nymHPPLXdan+z1BL3vhGjwYMJWj7DoyFuLXHVmBsjIIGoWoDABg56lPj1I1l/+DPsVAA5KWoKHFmLcLzOz46STnLpgmLYcexh3G2jQerpHtGMN80Hr+ArRhq5FY+5B9vPKFoVJo5P63LfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
  dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BvSj62IHuZtWVFuDBf6N0tRRj/dt873Jc2o6CWSM4Ko=;
- b=AkkgA3QM/0DlsUEnttTYqtP514ptsL/yo497FWgwn0k5/8MueVS5sjhalPTWl3W7jJ7KcPtnEoL5eEhHUTzw4bcThbLNKywoP0m4JcHPP7jmH3SSBjOEQKsf8ZPFn268e/nnwazC0LeUnlnUfSTdGRDD2nb+N4Q4faEeR+wCg2o=
-Received: from DM6PR02CA0145.namprd02.prod.outlook.com (2603:10b6:5:332::12)
- by DS0PR12MB7970.namprd12.prod.outlook.com (2603:10b6:8:149::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
- 2026 23:16:23 +0000
-Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
- (2603:10b6:5:332:cafe::58) by DM6PR02CA0145.outlook.office365.com
- (2603:10b6:5:332::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
- Aug 2026 23:16:23 +0000
+ bh=negefsq3n/CCIYYmlXfAwis0SAFuolerph9KBNGmRo8=;
+ b=IpvXchEeSuXU6pvQAT33HMTtuiXu0JHL0+qKE0rQz7uRCZP3tL6rUw0hC/pKC9uN9y2UZb2MHKb9Xv+ZMtNytTDJ2z4s2lHq9GPt3uTtz1PR8sbWUcDOurABPXo/ZUZIfjDnA8gU7AhAf7EGzRP8UjuyANurzwYJUc3FSlr1tpk=
+Received: from DS3P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:45e::6) by
+ SAWPR12MB999115.namprd12.prod.outlook.com (2603:10b6:806:4e3::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 23:43:29 +0000
+Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
+ (2603:10b6:8:45e:cafe::31) by DS3P221CA0001.outlook.office365.com
+ (2603:10b6:8:45e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 23:43:29 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb08.amd.com (149.199.90.133) by
- DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:16:23 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:43:29 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 18:16:22 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 18:16:22 -0500
+ 2026 18:43:28 -0500
 Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Wed, 26 Aug 2026 18:16:21 -0500
-Message-ID: <e67eebfc-9b32-115b-e605-09db03b06119@amd.com>
-Date: Wed, 26 Aug 2026 16:16:16 -0700
+ Transport; Wed, 26 Aug 2026 18:43:28 -0500
+Message-ID: <a1ba2664-b7ec-cb50-98e0-f14e766d93b0@amd.com>
+Date: Wed, 26 Aug 2026 16:43:27 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v2 2/2] accel/amdxdna: use READ_ONCE/WRITE_ONCE on the
- command header
+Subject: Re: [PATCH] accel/amdxdna: Invalidate the payload of the command that
+ failed
 Content-Language: en-US
 To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>, 
  Oded Gabbay <ogabbay@kernel.org>
 CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20260826143036.100089-1-taimuraz@kaitmazov.com>
- <20260826153121.133507-1-taimuraz@kaitmazov.com>
- <20260826153121.133507-3-taimuraz@kaitmazov.com>
+References: <20260826222735.672227-1-taimuraz@kaitmazov.com>
 From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260826153121.133507-3-taimuraz@kaitmazov.com>
+In-Reply-To: <20260826222735.672227-1-taimuraz@kaitmazov.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|DS0PR12MB7970:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ee21c61-06de-4737-df9d-08df03c80b84
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|SAWPR12MB999115:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a6b536d-6e06-4603-1b77-08df03cbd4ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 1u92Z7ou+SogNEdlUk5AdHh3ATLQRbGRQeusM9qzfNHJ/Kpy0+Zbbh99EhOCPPLRZHNULr/B7XrBJZ5/ebTot2oKobUFif/ABVBKm40siy3EMh2MVoxsdFs8SEPzPrkp7HSI4IjZ3624PrbH0oV7Qp0RsYvsAvnlbUy8ztobXVeeEOekMJSklOqYc1yiGXGpKMc6YluRdCHK9H0Mb2Q2dSzxTKAT8kWLFB0tS/7Q8CAU/CmjKxi6+ya46IcEyLrapWSMGKeKqizHeOLSDAs0vrAzkKOn7eJYWoD0f9lJplxX+DocAU01AwzgUECwNkXzz7PKovbffivbHgH3sCEaDGoSKK7b3WcqfjqvH0UuTX8zDki3rqFKp0k2491pgO+DJyTKue5DzxMAhs0P6d1r6A1f27S+RH6IdqEGzlj2mfGaRPXbyqKd+h67YfCwDHfP7mZ3afnY87las6UTz7Vv7PlydtcOihXTUokr7Wi1bCyo1XCrJsb1BKvsQYsO09Vr07U87geeSwmvibM5wOY4k8SoXYIE7hcXFbgeKZaRlPABk/f1jy6Hs2dPwM/PglAsEZ76lOjIiqSgaSdPLje/Epmmy915jb+bwunReOniIx6IHQ+PmOpuR9r05y29EQLHwT53HcAtHU8ikW+fqteUknf5Kekak2BWpm+0PQd40tnmSJWm8JX6OsStZgM3bfj1ZKcekmD3HVHX1YwE0XHzzA==
+ ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|10067099003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: NjJIeT1PpJ41f8LV786VPGoEGJq68+ZvKtqES1QJzk81u4FR9scV6CcEqvtYKmkN7/3mCxNwaT9ioSK1Q+TC5Bf+qJdDh/T9/FFi5AR3vmqMOFeTBOYMbYQOgR5dGY4tZoLtacF6eszIduGYH8c3tjXbU3Gm5J1kBUNvilfwWPUXW3Df4gw1CinoKpHUCB9fjrlIP5v2on9AWwvDG2kN+sOiACu0Ew6b+1MN7JjLG6ey0qZmGIY/yC2QbTqR7jkc5xE3o7GEa7WqUIN8p95bITx7UaNEqFAOKa9qhOvZcHlJkrBzKXw3yPA13Ct/3ZQS5K/mMN/Ms0akFXS6SbFRiUa3KmoNoF+Yz1g1y54XShS/RzryKIloB72pmmCU9egJco4veFBh8ZxecNentfMnVNnMnwHEyYUVreIowXzIydkRkDt/TpUoTteDiQnWPn6i1xuj9ZEuzFCqHPSSvZ4kT95ufH7T1QyH5IWeJQuNhJVFjcJ/Wf0E6ujS8eQGpuLeqdhcdxXMbMSdq4IBwm/GGcyINGCkAOUeHfnJE2u/UXprapAtSH330BL5l87ydZ67Buq1nvArG24rpSQLySeN60JHZEiorAT/+Vu+qnxAmmi7rGblZZSljCD4ti4a01hgLb9kTX3P0nhHeabKOYtGZQ6uwZ2PCHLEnxJfASCCzVOUKqEBAcgWV+uDh6eVn9UMzLDQTM8zCUARGa85YD8RTg==
 X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:unknown-90-133.xilinx.com;
  CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1Xreh010D+CovrCj3w2o+QInlR9ToZFr425yVlxR6OqAPeMfe3bq/wRcX/mDcfrX/gnY39P82qHdRn7Dn9xEtt+P3DHu6EcY7qvf78jy1DCO/9iBNtvYSHsMkWW9PRC8/gxknjnEJSFo+XrFj+L36izyCqv34xAZQk91JNg5HeyXyJ5JNipv6KI/vi47aW1JwO950LnWxJ1k0nof1lkcuRzMwYuNmiT+Q8mMsCJSevyEJZZHZfyLD/YihQCQm6I6aTIaP7KjcnrI/umgMb8TQUpWaaipxTKxtnSN1aW/Ndm6GK9riQteQt/nINzV9xxIMHLT10UG3WQMZQVfdIA4tmi7VDetLkkaZJ9VLK4PmReWVojWh72g/Lfn380U8I+OHR8rsw7inzSvkhyAK+KmqcoDIAvdkhtew87KmcAh3+/ajlN+Y0vZfMvrNbAkABPp
+X-MS-Exchange-AntiSpam-MessageData-0: 2z1vuTL1KZIUKw7eDP8nrvc/CjtA2Feg5LAFhQ4gXn7V/YP9+l9GdY8U4KdDcgCJTPD+iT9xPTjJlP/zkzszrG79dkCrx9PAVkTiGAAlKYCTF9eG//W1iAFTkJquBOxtf4LSOuXJLP38RtrjI4UXc9zwK+nmUHVDrpM4vRpQfd420S29VD8nash7x/55pJ1yN9gZmZiazGdMoIvxnDJx7abJhnsRw+1kSUnkR+TOyFKMGSsucwSwmNW5nT7vwf9arFGqFKcw10dLzVuZkbAmkvIQVQdtJ1+FSItck1lX6KM2XYTi8Ttao1nh1iLx/rdT1R3R9lADLKVtPRW6uvnuzUfjFiiWgKc2ZMY/sjqkATdB0c/Ih3OcNW4Q2bU4mCB72q2wvZOpea7KCO6gWYuVSThC3nIDg8IvS3TrEQLvjXtCnG88d1ymFRdLb3nHLqYl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:16:23.0357 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee21c61-06de-4737-df9d-08df03c80b84
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:43:29.2273 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a6b536d-6e06-4603-1b77-08df03cbd4ce
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7970
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999115
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,115 +116,53 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 8/26/26 08:31, Taimuraz Kaitmazov wrote:
-> struct amdxdna_cmd::header packs STATE, OPCODE, COUNT and EXTRA_CU_MASK
-> into one u32 that lives in a BO user space keeps mapped. The driver
-> re-reads it on every accessor call and read-modify-writes STATE in place,
-> with plain accesses that let the compiler split or refetch either side.
+On 8/26/26 15:27, Taimuraz Kaitmazov wrote:
+> amdxdna_cmd_set_error() computes the failing command's index into
+> cc->error_index and then looks up cc->data[0], so the 0xff fill and the
+> err_data land on the first command of the chain no matter which one failed.
+> Commit 89ff45359abb ("accel/amdxdna: Fill invalid payload for failed
+> command") added the index and that lookup together, and describes the fill
+> as being for the failed command.
 >
-> Annotate them, as the UMQ ring indices already are. This does not make
-> the update atomic against user space, it only stops the compiler from
-> making it worse.
+> So a chain that fails at a later index leaves that command's payload
+> untouched, which is what the fill exists to prevent, and overwrites the
+> payload of one that completed. XRT reads the failing command by
+> error_index, so on the timeout path the err_data lands where it does not
+> look.
 
-The user space should not change the BO content after the command is 
-submitted. Otherwise, the command could fail.
-
-In another word, driver/hardware treat this as invalid command. It is ok 
-as long as kernel/firmware does not crash. So the bad user application 
-only messes up itself.
-
-
-Thanks,
+User modifies command buffer after submitting it is not supported. In 
+this case, it is ok as long as kernel/firmware does not crash.
 
 Lizhi
 
 >
+> Use the index for the lookup. Keep it in a local: the chain lives in a BO
+> user space keeps mapped and can rewrite between the store and the load.
+> The index itself is firmware supplied and bounded by the command count
+> aie2_cmdlist_multi_execbuf() validated at submit.
+>
+> Fixes: 89ff45359abb ("accel/amdxdna: Fill invalid payload for failed command")
 > Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 > ---
->   drivers/accel/amdxdna/amdxdna_ctx.c | 14 +++++++++-----
->   drivers/accel/amdxdna/amdxdna_ctx.h | 11 +++++++----
->   2 files changed, 16 insertions(+), 9 deletions(-)
+>   drivers/accel/amdxdna/amdxdna_ctx.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-> index 9f44e3918bc1..148ae51db0f1 100644
+> index 888e857ec558..976c1ad864d7 100644
 > --- a/drivers/accel/amdxdna/amdxdna_ctx.c
 > +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-> @@ -123,9 +123,10 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size)
->   	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN)
->   		num_masks = 0;
->   	else
-> -		num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
-> +		num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK,
-> +					  READ_ONCE(cmd->header));
->   
-> -	count = FIELD_GET(AMDXDNA_CMD_COUNT, cmd->header);
-> +	count = FIELD_GET(AMDXDNA_CMD_COUNT, READ_ONCE(cmd->header));
->   	if (unlikely(count <= num_masks ||
->   		     count * sizeof(u32) +
->   		     offsetof(struct amdxdna_cmd, data[0]) >
-> @@ -173,7 +174,7 @@ u32 amdxdna_cmd_get_cu_idx(struct amdxdna_gem_obj *abo)
->   	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN)
->   		return INVALID_CU_IDX;
->   
-> -	num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
-> +	num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, READ_ONCE(cmd->header));
->   	cu_mask = cmd->data;
->   	for (i = 0; i < num_masks; i++) {
->   		if (cu_mask[i])
-> @@ -191,12 +192,15 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
->   	struct amdxdna_client *client = job->hwctx->client;
->   	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
->   	struct amdxdna_cmd_chain *cc = NULL;
-> +	u32 header;
->   
->   	if (!cmd)
->   		return -ENOMEM;
->   
-> -	cmd->header &= ~AMDXDNA_CMD_STATE;
-> -	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
-> +	header = READ_ONCE(cmd->header);
-> +	header &= ~AMDXDNA_CMD_STATE;
-> +	header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
-> +	WRITE_ONCE(cmd->header, header);
+> @@ -177,9 +177,12 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+>   	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
 >   
 >   	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN) {
->   		u32 ccnt;
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-> index f6529d512217..48e1fcfd818f 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-> @@ -169,19 +169,22 @@ amdxdna_cmd_get_op(struct amdxdna_gem_obj *abo)
->   	if (!cmd)
->   		return ERT_INVALID_CMD;
->   
-> -	return FIELD_GET(AMDXDNA_CMD_OPCODE, cmd->header);
-> +	return FIELD_GET(AMDXDNA_CMD_OPCODE, READ_ONCE(cmd->header));
->   }
->   
->   static inline void
->   amdxdna_cmd_set_state(struct amdxdna_gem_obj *abo, enum ert_cmd_state s)
->   {
->   	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
-> +	u32 header;
->   
->   	if (!cmd)
->   		return;
->   
-> -	cmd->header &= ~AMDXDNA_CMD_STATE;
-> -	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, s);
-> +	header = READ_ONCE(cmd->header);
-> +	header &= ~AMDXDNA_CMD_STATE;
-> +	header |= FIELD_PREP(AMDXDNA_CMD_STATE, s);
-> +	WRITE_ONCE(cmd->header, header);
->   }
->   
->   static inline enum ert_cmd_state
-> @@ -192,7 +195,7 @@ amdxdna_cmd_get_state(struct amdxdna_gem_obj *abo)
->   	if (!cmd)
->   		return ERT_CMD_STATE_INVALID;
->   
-> -	return FIELD_GET(AMDXDNA_CMD_STATE, cmd->header);
-> +	return FIELD_GET(AMDXDNA_CMD_STATE, READ_ONCE(cmd->header));
->   }
->   
->   void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size);
+> +		u32 err_idx;
+> +
+>   		cc = amdxdna_cmd_get_payload(abo, NULL);
+> -		cc->error_index = (cmd_idx < cc->command_count) ? cmd_idx : 0;
+> -		abo = amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+> +		err_idx = (cmd_idx < cc->command_count) ? cmd_idx : 0;
+> +		cc->error_index = err_idx;
+> +		abo = amdxdna_gem_get_obj(client, cc->data[err_idx], AMDXDNA_BO_SHARE);
+>   		if (!abo)
+>   			return -EINVAL;
+>   		cmd = amdxdna_gem_vmap(abo);
