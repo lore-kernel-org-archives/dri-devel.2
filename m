@@ -4,103 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 160F6C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 17:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 854EEC61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 17:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 516B610E1DE;
-	Wed, 26 Aug 2026 17:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95FC710E304;
+	Wed, 26 Aug 2026 17:34:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kgILLvo0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qIASH4L5";
 	dkim-atps=neutral
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7512410E1DE
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 17:31:00 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5aec201b582so1243807e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 10:31:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787765458; cv=none;
- d=google.com; s=arc-20260327;
- b=lrEFetCveLB9EBTVfAjFljZ19smEgPOO3uLbXXloEf4zW2bcrKORKnfSXXM9wUcUR6
- i8g7twDf4ffA6QBz751VvL2CyIAQJdE/TiOpy4GSJkYP4eYl8+NNMXZgykFAKSOrf5ve
- 74i7BzSVeSQ6TuPrWitFJBX1vtaeKN01gS9AIAmvbUOEaJTg0CcgjJDC7gu9iJSCYONm
- bibYUaAA563QLfGoL2o6zqLM8iTSUzBhYwyxihvjhBXwogLS+OOud6qQMzvy7hlMDwZv
- Y2IxCS3GJe/zNy8cT0hxUaocnu6DiBrzhoPEFr73hymsT3dN1aMRUnp45Xy88J2ULGun
- 7LhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
- fh=o4bCI48V39wcbbWonNM0AfWRyA5V3SmQ3o8ITZWL3hk=;
- b=NH7aoTc2LaMDQFDQIZTUe0nPx1XQcIJRUHRWzmGTfUWkavV63PIlkTDzabG3SyNDNE
- FyvrRH/qm+e6DAyznIlzC52TplKUW8Ot+Iy3YiFPK13/UjQ3+ybfiYlFTjXwtf9NN4hr
- YTQvC+DYMzixbrm/JQchGE5tX2EPipFo0qUGfrBUKMPDCH8n1leGdb6UIcFTOpDVqc+t
- /NJNrNh8/LyT/hZ7+xxQ26je5VPkb3TPv2SgwJlxk1m89+QKOe2hFgx1trekz3pxFHRa
- TawzpdNIfIw9F+hDDf9FsMpmI1RDzkXUiKlzG29HUhE7QCC1GoZAfklnvsuI7VBG7Nkv
- 4oWA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787765458; x=1788370258; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
- b=kgILLvo0+Ofs5LcOZnHRS+FL2G0nhYFeUaYl5iV4qQdGiaL/bRaEKGhJr/9tnJrLCJ
- XfeQGC2RYvVco45M6E4Z6pwyqOvEjUqqGIs6UrecIxxJ2j2ayTtOT27V3AB4ZNLWGsxT
- Zo+gWfXHJ9vlsAid7RLDjZMazSx1MfyyplTE1O5Knh5xf6P9FfggrFJivMmclHuz4Lbf
- YPV9cCOEQokzaRYcMLF3p0Fp3BkCZP8+w876tlsCeLAQLt2+VHpg/ZnuU9itZYnTXSVD
- ITeGynBTzvSPVeAyZmu/YqjcuZhwbLMiT+BYYuuo1qaLoLnGXFalbdNFWsYkKczlEnfV
- Zu7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787765458; x=1788370258;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
- b=nlEbasvPVFOkBYv2P0RG0+UTIfjcYisSC8Xh5Db13r7o8muSCgDoWzLIMETckLICS8
- njOYwm+68ohUxXtmtVZFViIL8Tx5ftJBqocs4F/GNN2+gpJgY7QKGnn3q13YGvugWs2X
- L+B7CDBfF/7cfXyiBQVkDzXoQX4cRFKyEZ2CJ7esdFw/pUMqs03VzKZHKXoKsidDvJva
- FeA8TM5XrrXHNgrEhuHAysDOwU3PyDQTexA0GsGtVTK+oXhq6lws+NcuGgey4vzaRRP3
- nTFBlFrzClwP0uEb3wROqsKxi2wzbZ9eIMwg0D/S21MxJGGP105WY9QrjKinAZHheDof
- egbg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrWkIv2gZwmB1RgGOrCzdnvYEQXe2bq+qrIftX4wvCfjWyVZX56stPf0WQfeklXxjM1bPWWGqk4vQw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lAHRJC1exUMw3fGaNpHfUC+2N+Ctx0iXE6Gz8B/YYKdMEwH6nB
- OjRN9HBJNyAIwfZlkGRO/NByF0En/CWiyFlDG2jt3JWb50upkIKfnqc//35yWrhmyq16YsGvQK1
- ByyHYG7tPO3Kf4JjP51zm7XoNgJJ76Ak=
-X-Gm-Gg: AR+sD101qb8N7aGX/tjf+a5C6Imb80unsFOKLgUEC+WhLMHlp+TBXy+zM/Uib8QBzM3
- 8yWKMAqIBdHDbV3odkLcRTV54ITInq8OX8ADg9ROq4t8kRiXyO10AJMRA37FVBpAkNYafOdevgP
- KK/+T+mQVEJRzrE9JGG0O9FNnLH7pno8unQch8Y9aHqELYtBpXQ1OHNWRrOjZPb9Gbh5d9N+Bfq
- HPVxutqWkBu+VKdDOreHKVkEXba6Dpc3xmd3PV6c4wyxF8unImdTL0jNBbL5l/VpJ8yw4cH225c
- rAClqmmr6sk4hnva7RHqLqzONHzR1dw5/MQjArW0Irs6jCOOq+BUfLLKSsU+C0fHDmcONNwLc9Y
- NsvyLE4a04bAw1Vzg4TLHPuHS5PAb7w==
-X-Received: by 2002:a05:6512:ace:b0:5b4:a9e1:b8a4 with SMTP id
- 2adb3069b0e04-5b4a9e1baf0mr2342711e87.25.1787765458127; Wed, 26 Aug 2026
- 10:30:58 -0700 (PDT)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4CD010E304
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 17:34:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=js2q88fEK+Z+iJTovqHbKSlYuSN+zp5kOxFN02boXKyfeJ0vU+G7bxwH/cXiqt8w3lj0K4nq8ox4hKCPl6knKV6GosXbunDg9d74cc9b5Rlu4NIKOHJ8+A/6RQdxn5Qe7ktkbZeNUyyAbORjEO/FgSx/q45R3Hj/9npiyA8j0Oahct8nSjdTNnnSNKvs9t54cIwBcyaGdUlC/c7GNlSbKhjw5y1LfDTtMx7cTQchMt68aH7eCtsFoQWONkt1N0seu1LzkISea1kNAEOqN4ZESR9TEmfxJRNkAuiA1mtiaNZzHd4rBW9QlElNhVj3Gd2Zl0R+2EyLR/Hb20DQjCJr3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kiAY0RvshW/eJyupEgZTrYcisCtAqISHboXEMdhANIY=;
+ b=PbHx+X0vQ7cfIMlLovFhbLZLrUA+F/ExkVIQXS7dclALJ8Uvwf1WOyap4nrdhuytncAImE1mOanZnNOd3TiXEA8A1NKpe75okX6rnHJCCCl8Xm6QHBD6A8UTCMiwxoB5OgSRlZNQC6YKpkrpyTxBC/5vkm/TgDuZmwnAwKMjqAV55q3XMC4wYEMbB5L3MLC9khN47WYIgc1Qvu3Zz+9ednKWZ6/LtT088Pce5aOWawRp8JF5Spni8m80UKsnmRdVR5K6tv1/4lHLJk6FDcEcpjAr38Ll7xjiUOtA4SmHti20k4DA2S3mXnSJ3PJisyfTIcnsnlh9wD4lCJgRpVPo/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kiAY0RvshW/eJyupEgZTrYcisCtAqISHboXEMdhANIY=;
+ b=qIASH4L5Eie8xxQNmEnIcoYXk57xiRAnYkqYzKTlVA2uMIOvHCLOW0ZjC4R8Ea+C3sbQTWYeOBII2bAWPzeIEFIp18hMUNUGplXDS+mqvHoKyMVVeu42fM/cuit+IQK6LNCUh9oESq9qHxnSkTnhKg6MIZL/syQJZiL8llwaPXI=
+Received: from CH2PR20CA0018.namprd20.prod.outlook.com (2603:10b6:610:58::28)
+ by DS0PR12MB8563.namprd12.prod.outlook.com (2603:10b6:8:165::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 17:34:22 +0000
+Received: from BN1PEPF00006000.namprd05.prod.outlook.com
+ (2603:10b6:610:58:cafe::19) by CH2PR20CA0018.outlook.office365.com
+ (2603:10b6:610:58::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 17:34:21 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb07.amd.com (149.199.90.133) by
+ BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 17:34:21 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 12:34:21 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 12:34:21 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 26 Aug 2026 12:34:20 -0500
+Message-ID: <b7e8caf7-18de-fcbb-ee42-1b49b67b5eef@amd.com>
+Date: Wed, 26 Aug 2026 10:34:20 -0700
 MIME-Version: 1.0
-References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
- <20260814-rp6-panel-v1-3-111c1aeccf0f@gmail.com>
- <007e73a9-8220-46bb-89c6-2354740392c8@linaro.org>
-In-Reply-To: <007e73a9-8220-46bb-89c6-2354740392c8@linaro.org>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Wed, 26 Aug 2026 12:30:45 -0500
-X-Gm-Features: AcwNN1V4UisMbD-bFUDbYmUeDVAuB_RlKd5IteIsWY5CDvuDkOAStLPqNpNdF9M
-Message-ID: <CALHNRZ9rKk3jkR9-sfVUyWgPOn=Prqwus+TRsj5A6H+Ze4AgZg@mail.gmail.com>
-Subject: Re: [PATCH 3/4] drm/panel: visionox-vtdr6130: Modularize panel config
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: make the debug BO command wait
+ interruptible
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>, 
+ Oded Gabbay <ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260826150726.126296-1-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260826150726.126296-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|DS0PR12MB8563:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd9595b1-0bfe-457a-ef4d-08df039843c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info: dZ4N/SwsRvTk3bdmtBtlyOgSS0h/lyT6lUcU+NTSYjGbx28wRfRhuZZwCaY/6XN13QuHIS8jS6ufsE/RDxSEdRdYMhf7/nUA9MltRb0Ggbx5TXeRSMsHENI2H2RQMSLAh/LW7+BDBicAD5JmvrlOUYBHuK/hH6Taa/bb4j+jfpnetBOddd6eEQpGn1n7Oefb28pb1Hi5BGxn3J5h3ws/PNela2d3kyWcpzBkbgo7ZvZ91xxC6lN39AZdtfgm2njBQX1G94WyWP2ohJt8SpJDAEyVwEumzvQW5e3oPfnessxn1UkuJYpHpzZrOMnRI+EnztRtM4jXl9qt9RocoXNWqCIvjH8TsE9mePHagcU1nr7ylQRf6miqFl7RnpZS/1sryqYzGA4UNrq+55hRvR7pzlkSkZ75WxRsS2jGaKKhnJDPoXidLiMGjlcvpaOsXIGeifB5VC2NdnCIggEljqiYu6dw2uvqFT/5HqiNrDI2FdNwxJNRSBABOcJtdu2r511EZNj35STvhW320pb+JLGS9Vc8eSlNG/n7RUAKjd08y2gaAp4xYMKSsgVrExIuft2rLLZkm4er49z5CK2klBhh+kIQadjzDeh6c08zhEEuS+OG1i+SCQcWqwvZZfUey329gzncBEQnzeMkXfFpDaUXJGpYDdcZZv7aqqEsLpLWleW4QlSJc24l89LPXvtaftXHorxiFysDrC6OazwZmDhq6w==
+X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:unknown-90-133.xilinx.com;
+ CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: SfxnXddqTpO4R4zNh/KqbRkfDECt08wyU/AS4dgt/5Y7C4wYSFnl3ANYgR7B9sp0OWC5iahvCI99cspS7aY+Zv+tIlI1pJS5Eyo+1wyPQfXN1dGgc3+TdiU3xXYs8mYbW2uh0pnulVU3W/4AHpV8c6gofrKzC9ptpNWpMD5peml2j4EIMs887gcovC7POOEy5zu2Mi/ExZiP4vccIUuWoVTYqjb5OCc6sgKWRxfDMU593CxscSBsnWIbUkZ7huuESPd9L9G4d++S2ahxJgD+fb+a3nPHFhZKky9SlTl3GfeP5XVL9cjIZOcFL83dWLyelOgEI35X3/ia3o6Mh/LcHJnQSNXuauUqdLJHLCbm6PNRDxTAHzqGGNvYeahEu6JIWS8vJZ4jW6qbhx8F8OZKd7KBwM7jKXdFhiRUnPgfwEl4eerpLzy1fhTX5OoB5AH/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:34:21.5125 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd9595b1-0bfe-457a-ef4d-08df039843c5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8563
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,228 +118,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 4:53=E2=80=AFAM Neil Armstrong
-<neil.armstrong@linaro.org> wrote:
+On 8/26/26 08:07, Taimuraz Kaitmazov wrote:
+> aie2_cmd_wait() waits with dma_fence_wait_timeout(..., false,
+> MAX_SCHEDULE_TIMEOUT): uninterruptible and unbounded. Both callers reach
+> it from an ioctl holding xdna->dev_lock, and the only thing that can
+> signal the fence when firmware does not answer is
+> aie2_sched_job_timedout(), which takes that same lock. A debug BO command
+> that never completes therefore blocks the ioctl forever, leaves the task
+> unkillable, and stalls every other ioctl on the device behind dev_lock.
 >
-> On 8/14/26 20:17, Aaron Kling via B4 Relay wrote:
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >
-> > The vtdr6130 is a DDIC, a common chip that is used by multiple panels.
-> > Prepare the driver for more panels.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >   drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 95 ++++++++++++++++=
-+--------
-> >   1 file changed, 65 insertions(+), 30 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/=
-gpu/drm/panel/panel-visionox-vtdr6130.c
-> > index b66d6c7128c75..805c9846c2a0b 100644
-> > --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> > +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> > @@ -19,11 +19,28 @@
-> >
-> >   struct visionox_vtdr6130 {
-> >       struct drm_panel panel;
-> > -     struct drm_dsc_config dsc;
-> > +     struct drm_connector *connector;
+> Wait interruptibly and propagate the result. This does not remove the
+> lock dependency, it makes it survivable.
+
+This is fixed by 
+https://lore.kernel.org/all/20260707055732.479103-1-lizhi.hou@amd.com/
+
+could you sync to drm-misc-fixes or the latest upstream kernel?
+
+Thanks,
+
+Lizhi
+
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> ---
+>   drivers/accel/amdxdna/aie2_ctx.c | 19 ++++++++++++++-----
+>   1 file changed, 14 insertions(+), 5 deletions(-)
 >
-> Why ? connector is unused in this patch.
-
-I forgot to strip this when removing multiple mode support. Will fix.
-
-> >       struct mipi_dsi_device *dsi;
-> >       struct gpio_desc *reset_gpio;
-> >       struct regulator_bulk_data *supplies;
-> >       enum drm_panel_orientation orientation;
-> > +     struct visionox_vtdr6130_desc *desc;
-> > +};
-> > +
-> > +struct visionox_vtdr6130_desc {
-> > +     unsigned int width_mm;
-> > +     unsigned int height_mm;
-> > +
-> > +     unsigned int bpc;
-> > +     unsigned int lanes;
-> > +     unsigned long mode_flags;
-> > +     enum mipi_dsi_pixel_format format;
-> > +
-> > +     const struct drm_display_mode *modes;
-> > +     unsigned int num_modes;
-> > +     int (*init_sequence)(struct visionox_vtdr6130 *ctx);
-> > +
-> > +     struct drm_dsc_config dsc;
-> >   };
-> >
-> >   static const struct regulator_bulk_data visionox_vtdr6130_supplies[] =
-=3D {
-> > @@ -162,7 +179,7 @@ static int visionox_vtdr6130_prepare(struct drm_pan=
-el *panel)
-> >
-> >       visionox_vtdr6130_reset(ctx);
-> >
-> > -     ret =3D visionox_vtdr6130_on(ctx);
-> > +     ret =3D ctx->desc->init_sequence(ctx);
-> >       if (ret < 0) {
-> >               gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> >               regulator_bulk_disable(ARRAY_SIZE(visionox_vtdr6130_suppl=
-ies),
-> > @@ -187,34 +204,58 @@ static int visionox_vtdr6130_unprepare(struct drm=
-_panel *panel)
-> >       return 0;
-> >   }
-> >
-> > -static const struct drm_display_mode visionox_vtdr6130_mode =3D {
-> > -     .clock =3D (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 10=
-00,
-> > -     .hdisplay =3D 1080,
-> > -     .hsync_start =3D 1080 + 20,
-> > -     .hsync_end =3D 1080 + 20 + 2,
-> > -     .htotal =3D 1080 + 20 + 2 + 20,
-> > -     .vdisplay =3D 2400,
-> > -     .vsync_start =3D 2400 + 20,
-> > -     .vsync_end =3D 2400 + 20 + 2,
-> > -     .vtotal =3D 2400 + 20 + 2 + 18,
-> > +static const struct drm_display_mode visionox_vtdr6130_modes[] =3D {
-> > +     {
-> > +             .clock =3D (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * =
-144 / 1000,
-> > +             .hdisplay =3D 1080,
-> > +             .hsync_start =3D 1080 + 20,
-> > +             .hsync_end =3D 1080 + 20 + 2,
-> > +             .htotal =3D 1080 + 20 + 2 + 20,
-> > +             .vdisplay =3D 2400,
-> > +             .vsync_start =3D 2400 + 20,
-> > +             .vsync_end =3D 2400 + 20 + 2,
-> > +             .vtotal =3D 2400 + 20 + 2 + 18,
-> > +     },
-> > +};
-> > +
-> > +static struct visionox_vtdr6130_desc visionox_vtdr6130_panel_desc =3D =
-{
-> > +     .modes =3D visionox_vtdr6130_modes,
-> > +     .num_modes =3D ARRAY_SIZE(visionox_vtdr6130_modes),
-> >       .width_mm =3D 71,
-> >       .height_mm =3D 157,
->
-> Why did you move the width/height out of the mode ?
->
-> Leave it in the mode, since you don't even use the same mode for the Retr=
-oid 6 panel
-
-It was moved to support multiple modes, because duplicating the
-dimensions across modes is wasteful. This can be deferred to when
-multiple modes are supported.
-
-But on that note, has anything happened with implementing the atomic
-changes which were going to be a better way to handle multiple modes?
-If not, is the handling you asked to be removed from the icna35xx
-change [0] still a hard block? Because that does work now to support
-multiple modes and I'm currently carrying downstream changes across
-several panel drivers to support those. And I'd really like to
-eliminate as many downstream changes as I can.
-
-> > +     .bpc =3D 8,
-> > +     .lanes =3D 4,
-> > +     .format =3D MIPI_DSI_FMT_RGB888,
-> > +     .mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET=
- |
-> > +                   MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> > +     .init_sequence =3D visionox_vtdr6130_on,
-> > +     .dsc =3D {
-> > +             .dsc_version_major =3D 0x1,
-> > +             .dsc_version_minor =3D 0x2,
-> > +             .slice_height =3D 40,
-> > +             .slice_width =3D 540,
-> > +             .slice_count =3D 2,
-> > +             .bits_per_component =3D 8,
-> > +             .bits_per_pixel =3D 8 << 4,
-> > +             .block_pred_enable =3D true,
-> > +     },
-> >   };
-> >
-> >   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
-> >                                      struct drm_connector *connector)
-> >   {
-> > +     struct visionox_vtdr6130 *ctx =3D to_visionox_vtdr6130(panel);
-> >       struct drm_display_mode *mode;
-> >
-> > -     mode =3D drm_mode_duplicate(connector->dev, &visionox_vtdr6130_mo=
-de);
-> > +     mode =3D drm_mode_duplicate(connector->dev, ctx->desc->modes);
-> >       if (!mode)
-> >               return -ENOMEM;
-> >
-> >       drm_mode_set_name(mode);
-> >
-> >       mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-> > -     connector->display_info.width_mm =3D mode->width_mm;
-> > -     connector->display_info.height_mm =3D mode->height_mm;
-> > +     connector->display_info.width_mm =3D ctx->desc->width_mm;
-> > +     connector->display_info.height_mm =3D ctx->desc->height_mm;
->
-> Drop this change, take them from the mode.
-
-Ack.
-
-> >       drm_mode_probed_add(connector, mode);
-> >
-> >       return 1;
-> > @@ -284,23 +325,17 @@ static int visionox_vtdr6130_probe(struct mipi_ds=
-i_device *dsi)
-> >               return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> >                                    "Failed to get reset-gpios\n");
-> >
-> > +     ctx->desc =3D (struct visionox_vtdr6130_desc *)of_device_get_matc=
-h_data(dev);
-> > +     if (!ctx->desc)
-> > +             return -ENODEV;
-> > +
-> >       ctx->dsi =3D dsi;
-> >       mipi_dsi_set_drvdata(dsi, ctx);
-> >
-> > -     ctx->dsc.dsc_version_major =3D 0x1;
-> > -     ctx->dsc.dsc_version_minor =3D 0x2;
-> > -     ctx->dsc.slice_height =3D 40;
-> > -     ctx->dsc.slice_width =3D 540;
-> > -     ctx->dsc.slice_count =3D 2;
-> > -     ctx->dsc.bits_per_component =3D 8;
-> > -     ctx->dsc.bits_per_pixel =3D 8 << 4;
-> > -     ctx->dsc.block_pred_enable =3D true;
-> > -
-> > -     dsi->dsc =3D &ctx->dsc;
-> > -     dsi->lanes =3D 4;
-> > -     dsi->format =3D MIPI_DSI_FMT_RGB888;
-> > -     dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PA=
-CKET |
-> > -                       MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> > +     dsi->dsc =3D &ctx->desc->dsc;
-> > +     dsi->lanes =3D ctx->desc->lanes;
-> > +     dsi->format =3D ctx->desc->format;
-> > +     dsi->mode_flags =3D ctx->desc->mode_flags;
-> >       ctx->panel.prepare_prev_first =3D true;
-> >
-> >       ret =3D drm_of_get_panel_orientation(dev->of_node, &ctx->orientat=
-ion);
-> > @@ -322,7 +357,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_=
-device *dsi)
-> >   }
-> >
-> >   static const struct of_device_id visionox_vtdr6130_of_match[] =3D {
-> > -     { .compatible =3D "visionox,vtdr6130" },
-> > +     { .compatible =3D "visionox,vtdr6130", .data =3D &visionox_vtdr61=
-30_panel_desc },
-> >       { /* sentinel */ }
-> >   };
-> >   MODULE_DEVICE_TABLE(of, visionox_vtdr6130_of_match);
-> >
->
-> Thanks,
-> Neil
->
-
-Aaron
-
-[0] https://lore.kernel.org/dri-devel/6dd8f137-a4df-4602-9536-b73abff5e7d1@=
-linaro.org/
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index 54486960cbf5..1f910ee4941c 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -897,17 +897,20 @@ static int aie2_hwctx_cu_config(struct amdxdna_hwctx *hwctx, void *buf, u32 size
+>   	return ret;
+>   }
+>   
+> -static void aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
+> +static int aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
+>   {
+>   	struct dma_fence *out_fence = aie2_cmd_get_out_fence(hwctx, seq);
+> +	long ret;
+>   
+>   	if (!out_fence) {
+>   		XDNA_ERR(hwctx->client->xdna, "Failed to get fence");
+> -		return;
+> +		return -EINVAL;
+>   	}
+>   
+> -	dma_fence_wait_timeout(out_fence, false, MAX_SCHEDULE_TIMEOUT);
+> +	ret = dma_fence_wait_timeout(out_fence, true, MAX_SCHEDULE_TIMEOUT);
+>   	dma_fence_put(out_fence);
+> +
+> +	return ret < 0 ? ret : 0;
+>   }
+>   
+>   static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+> @@ -954,7 +957,10 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+>   		goto put_cmd;
+>   	}
+>   
+> -	aie2_cmd_wait(hwctx, seq);
+> +	ret = aie2_cmd_wait(hwctx, seq);
+> +	if (ret)
+> +		goto put_cmd;
+> +
+>   	if (cmd->result) {
+>   		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
+>   		ret = -EINVAL;
+> @@ -1014,7 +1020,10 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl)
+>   		goto put_cmd;
+>   	}
+>   
+> -	aie2_cmd_wait(hwctx, seq);
+> +	ret = aie2_cmd_wait(hwctx, seq);
+> +	if (ret)
+> +		goto put_cmd;
+> +
+>   	if (cmd->result) {
+>   		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
+>   		ret = -EINVAL;
