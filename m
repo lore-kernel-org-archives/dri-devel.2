@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9690C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A57C1C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C3FD10E318;
-	Wed, 26 Aug 2026 16:58:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F0A10E31B;
+	Wed, 26 Aug 2026 16:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O+6suJtY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fJ8kl4Nw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9B7C10E31B
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:58:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D7D610E31B
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:58:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 039216136E;
- Wed, 26 Aug 2026 16:58:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A721F000E9;
- Wed, 26 Aug 2026 16:57:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B44D560AAA;
+ Wed, 26 Aug 2026 16:58:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6201F000E9;
+ Wed, 26 Aug 2026 16:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787763479;
- bh=P2wJgQRTp3nlWBgT0lFvkswr2Kww7RtpfJCm0kRRQvw=;
+ s=k20260515; t=1787763490;
+ bh=290Fi4zUPnRCx4MvZZDTo65v5fgt39G4UxPL0SHEyIs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O+6suJtYxJBC+W3w9sfsZnhB4U9Wa20IzhVwk8WKqG5f0Co02Zzhkiijdft6znmDr
- Dh50k9GqmCZysFMcuqi368XBtkhOxQCZuHYQxHq6P4PtZem/V55REv9UDMnk5ND7WS
- Svdpxwk0HXdA2V1Wjsp4dxYxCeS0nUDHJciV49mnCM7VUr9HYb2RxHzPIkjqsnJPG+
- 4IGSxzgYErrDpHIjCcx8rACVqFC6g6EFHJv28z810ZtPl2i68GfeSACT/a/wLFQy/+
- vaY5XQeIXb+ckueW5m1sRDsvyIXcAqzisGKmi6OvZnGt60PYEK6PJEAK5RbMIkbcDR
- uRRStANN7iOzg==
+ b=fJ8kl4NwI4c1o0CHziuOUMAf0Nh/FP47ugic9C0XyTX8UmimsmAzpvpPsH3HfhEik
+ YK5AjC22TahPscCQtpSZ4X9TgbrkzNYnDb91Eku1ztCUV8nQIx0e/kNLBZO+Y4feQO
+ JtxDYYXUP8SyXuBM7dYW+2gvdtFp2r+0dXI9RMv8Y3CtBC3NMZntY0DwH9fdR3i7wZ
+ 2fIWBv4vYut6F0BlWvDptXx1zTYCWbKvB5f1wXbKABDNAWDNNu3Y3P64Rsq1pC6PbC
+ QwZnxSngFicFvWUSVySgyfKG5K5NJeO/DjPwdJt8w8npNIbJzAUqXG1SLx+Mdvwqmx
+ K0hQorfyl3bUA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/13] drm/vino: add control-session bring-up
+Subject: Re: [PATCH v3 2/13] drm/vino: add the USB transport
 To: "Mike Lothian" <mike@fireburn.co.uk>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826163913.7052-8-mike@fireburn.co.uk>
+In-Reply-To: <20260826163913.7052-3-mike@fireburn.co.uk>
 References: <20260826163913.7052-1-mike@fireburn.co.uk>
- <20260826163913.7052-8-mike@fireburn.co.uk>
+ <20260826163913.7052-3-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 16:57:59 +0000
-Message-Id: <20260826165759.81A721F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 16:58:09 +0000
+Message-Id: <20260826165810.3E6201F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,156 +57,78 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The driver encrypts `stream_open` messages for unoccupied connecto=
-rs using a randomly generated video key that is never transmitted to the do=
-ck, permanently breaking hotplug for those connectors.
-- [High] EDID crosstalk in Navarro discovery due to missing wait loop for a=
-synchronous replies, causing one connector to claim another's EDID.
-- [High] AES-CTR keystream reuse and control protocol desynchronization whe=
-n an EDID transmission times out.
+- [Medium] The commit message and driver documentation claim support for an=
+ interrupt endpoint, but it is never opened or exposed, leading to a meanin=
+gful mismatch and potential device wedging.
 --
 
-commit fa0367d27511540d9b322089cdf1062994527dcc
+commit a40630ab675c3654c37821d57cc77e281c7a9a17
 Author: Mike Lothian <mike@fireburn.co.uk>
 
-drm/vino: add control-session bring-up
+drm/vino: add the USB transport
 
-Bringing a dock up runs once per bind, in order: a plaintext initialisation
-preamble, the link AKE, then the sealed setup burst that authenticates each
-downstream connector, transitions the video engine and reads back what the
-dock will answer.
+This commit introduces the USB transport for the dock. It adds a wrapper
+to manage endpoint resolution and provides functions to handle control
+and video data pipelines, as well as endpoint stall recovery.
 
-> diff --git a/drivers/gpu/drm/vino/session/setup.rs b/drivers/gpu/drm/vino=
-/session/setup.rs
+> diff --git a/drivers/gpu/drm/vino/usb_link.rs b/drivers/gpu/drm/vino/usb_=
+link.rs
 > new file mode 100644
-> index 0000000000000..b278ebcf4b4e5
+> index 0000000000000..04b9131d05ed9
 > --- /dev/null
-> +++ b/drivers/gpu/drm/vino/session/setup.rs
+> +++ b/drivers/gpu/drm/vino/usb_link.rs
 
 [ ... ]
 
-> +                if i >=3D 3 && !rrx_applied {
-> +                    let Some(rrx_h) =3D fresh_rrx else {
-> +                        // No `rrx` means this connector never began a d=
-ownstream authentication,
-[ ... ]
-> +                        vino_debug!(
-> +                            "vino: socket {socket} has no downstream sin=
-k (no AKE_Send_Rrx); skipping its authentication\n"
-> +                        );
-> +                        Self::announce_stream(link, &mut out_q, profile,=
- connector)?;
-> +                        continue 'per_head;
-> +                    };
+> +#[derive(Clone, Copy)]
+> +pub(crate) struct Endpoints {
+> +    /// EP02: host->dock control-plane bulk writes.
+> +    pub(crate) ctrl_out: usb::Endpoint<usb::BulkOut>,
+> +    /// EP84: dock->host control-plane bulk replies.
+> +    pub(crate) ctrl_in: usb::Endpoint<usb::BulkIn>,
+> +    /// Per-connector video bulk-OUT endpoints, from [`DockProfile::vide=
+o_endpoints`].
+> +    pub(crate) video: [usb::Endpoint<usb::BulkOut>; drm_sink::MAX_CONNEC=
+TORS],
+> +}
+
+[Severity: Medium]
+The commit message mentions an interrupt endpoint the dock pushes on and
+states that this wrapper opens those pipes. Does the Endpoints struct omit
+the interrupt endpoint entirely?
+
+If the dock hardware requires its interrupt endpoint to be serviced to prev=
+ent
+its internal FIFO from filling up, could ignoring it wedge the dock?
 
 [ ... ]
 
-> +            for connector in 0..connector_count {
-> +                settle_polls!(profile.protocol.setup_polls.before_open(c=
-onnector as u8));
-> +                let stream_id =3D profile.geometry().stream_id(connector=
- as u8);
-> +                let mut vkey =3D kernel::crypto::Secret::<16>::zeroed();
-> +                vkey.copy_from_slice(&video_keys[connector][..16]);
-> +                let mut vnonce =3D [0u8; 8];
-> +                vnonce.copy_from_slice(&video_keys[connector][16..24]);
-> +                let content =3D cp::stream_open(profile.protocol.stream_=
-marker_kind);
-> +                let open =3D cp::seal_video_arm(&vkey, &vnonce, stream_i=
-d, 0x000a, 0, &content)?;
-> +                link.ctrl_send(&open, timeout(), GFP_KERNEL)?;
-
-[Severity: High]
-Will this break hotplug functionality for unoccupied connectors on DL-3x00
-docks?
-
-When initializing a dock with an unplugged connector (where video_on_ctrl_p=
-ipe
-is true), the per_head loop aborts early via continue 'per_head. This means
-SKE_Send_Eks is skipped and the generated video key is never sent to the do=
-ck.
-
-Later in send_cp_setup(), the driver attempts to open the stream using this
-same unsent, randomly generated key to encrypt the stream_open message. The
-dock won't be able to decrypt this message, causing the stream to fail to
-open, which leads to permanent black screens if a monitor is subsequently
-plugged in.
+> +    pub(crate) fn resolve<Ctx: device::DeviceContext>(
+> +        intf: &usb::Interface<Ctx>,
+> +        profile: &DockProfile,
+> +    ) -> Result<(Self, u8)> {
 
 [ ... ]
 
-> +            for connector in 0..connector_count {
-[ ... ]
-> +                let fetch =3D cp::get_edid_req(cp_ctr, hu8)?;
-> +                navarro_send!(0x15, fetch);
-> +                // The fetch drain carries the asynchronous EDID in the =
-working DLM cadence.
-> +                edid_connectors[connector] =3D edid_out.take();
-> +                discovery_deferred[connector] =3D edid_connectors[connec=
-tor].is_none();
-> +            }
+> +        Ok((
+> +            Self {
+> +                ctrl_out: intf.endpoint::<usb::BulkOut>(EP_CTRL_OUT)?,
+> +                ctrl_in: intf.endpoint::<usb::BulkIn>(EP_CTRL_IN)?,
+> +                video,
+> +            },
+> +            connectors.min(profile.topology.connectors),
+> +        ))
+> +    }
 
-[Severity: High]
-Is there a risk of EDID crosstalk here if the downstream panel's DDC read
-takes longer than the 10ms timeout used in the navarro_send! macro?
-
-During Navarro EDID discovery, if the fetch times out (yielding no EDID), t=
-he
-loop advances to the next connector and issues a readiness kick. While
-draining responses for the new connector's commands, the delayed EDID reply
-from the previous connector could arrive.
-
-Because drain_ep84() unconditionally assigns any parsed EDID to edid_out
-without checking the connector ID, the current connector might mistakenly
-claim the delayed EDID from the previous one, causing monitors to be
-identified incorrectly.
-
-[ ... ]
-
-> +            for connector in 0..connector_count {
-[ ... ]
-> +                'discovery: {
-> +                    macro_rules! edid_send {
-> +                        ($ep:expr, $body:expr, $tag:expr) =3D> {{
-> +                            match Self::send_live_cp(
-> +                                link,
-> +                                session,
-> +                                ep84_q.as_mut(),
-> +                                &mut resp,
-> +                                edid_out,
-> +                                $ep,
-> +                                wseq,
-> +                                &$body,
-> +                            ) {
-> +                                Ok(e) =3D> {
-[ ... ]
-> +                                }
-> +                                Err(e) =3D> {
-> +                                    transport_error =3D Some(e);
-> +                                    break 'discovery;
-> +                                }
-> +                            }
-> +                        }};
-> +                    }
-
-[Severity: High]
-Does this error path lead to AES-CTR keystream reuse and control protocol
-desynchronization?
-
-If send_live_cp() fails (e.g., due to a USB timeout) during Ridge EDID
-discovery, the edid_send! macro sets transport_error and breaks out of the
-'discovery block. This skips the increments for both the AES-CTR block
-counter (wseq) and the message counter (cp_ctr).
-
-When the outer loop advances to the next connector, it encrypts the new
-request using the exact same wseq and cp_ctr.
-
-This reuse breaks cryptographic confidentiality. Additionally, if the dock
-successfully received the initial message but the host timed out waiting for
-the ACK, the dock will reject the next message due to the reused sequence
-numbers, permanently breaking the session.
+[Severity: Medium]
+In Endpoints::resolve(), the endpoint resolution logic does not seem to par=
+se
+or open the interrupt endpoint. Does this contradict the commit message cla=
+im
+that the wrapper opens those pipes?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826163913.7052=
--1-mike@fireburn.co.uk?part=3D7
+-1-mike@fireburn.co.uk?part=3D2
