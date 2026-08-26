@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C336C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 06:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D91EFC61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 06:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5515C10EC03;
-	Wed, 26 Aug 2026 06:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E231E10EC07;
+	Wed, 26 Aug 2026 06:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vlSLOTc4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V+sn3wqn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="seHyuQ+s";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vlw/efQ3";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="una/gLCW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B7fOr32R";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="feW12/Wl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cVx7Adfj";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0A9B10EC03
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:58:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9A2A10EC07
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:59:50 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 589E11F7F8;
- Wed, 26 Aug 2026 06:57:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 564D91F7FB;
+ Wed, 26 Aug 2026 06:59:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787727480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787727585; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
- b=vlSLOTc4l6Q6XBPwqa+DxsTajYxET9LnwYlgmEKr9DMiKxBHW2cGAnojbjFRQQhHH7u/fN
- tpMDzs6byqvT4rePVpfO9YPV76bIkXpOB//NsnwR7MxVtTXVgDOqy4Kf/Y+XJ4qR+R1EsJ
- xQpEV3tyYAKQjCazC40ZlV+4NYGliJE=
+ bh=Dcp6iHYH+CqIL3hYfOoTWxwfxf6baLJmly2OV7UhRG8=;
+ b=una/gLCWL6Li3weXy4w+rc4GD4xLYiwuL4RSIAPbaU9InxGErXplxg5d4SfAPuOBRcgQdz
+ 02V64FXuU2PtTBi49ldIwiSq++vE54nl2gS7tHMSCZHJXP4FeiWW/NlyxAfbVkUTLKBUcn
+ 2R7mVYJI2m4QKD6/0QCIsi9scQ88mGA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787727480;
+ s=susede2_ed25519; t=1787727585;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
- b=V+sn3wqnc//ld+x0xa/W5uItv9XXe6Z6ai5sLjtJEaBZEAS3EVohOFjmxg/fEvEo8hwP4y
- 2wUzWdXgudm4CYAA==
+ bh=Dcp6iHYH+CqIL3hYfOoTWxwfxf6baLJmly2OV7UhRG8=;
+ b=B7fOr32RtEKao+S+N7qe9EBpWO1iuT9rtM3p2wfCTZbpehaWrflJA3RrwzwuQW27kXbIQf
+ KUyxLWVzNFHwe+Cg==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787727476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787727581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
- b=seHyuQ+sTZjnX7pzSmq5ULpAdTZmjjrgrL6EKpoMmobmkvPbsc9bKlAPTV3cY+lkMvX9zB
- aWEdz1mLf5F/RNbUnh+3fp9vSWMP02OCIZFNpzeEIkNF+xgInzaZloQ7JCq1B1TX3E9AuK
- gM5IGu+N4km3qVEx1OyGLzF5lQGSbuA=
+ bh=Dcp6iHYH+CqIL3hYfOoTWxwfxf6baLJmly2OV7UhRG8=;
+ b=feW12/Wla1h98b52h0wiGLYABlBmlDHUGEqQspk/VORWcYfJtsP5DSyE68Gj9Jc37ouw/a
+ Ge8NTLVda5liupbxPMDAoKvhJBXU0E9lvAGtdvA8Uti64cZ9lHVNsIhV54H651vuuAofhj
+ IJdeGjNGcm+AMy32444XWOVSSamEbx4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787727476;
+ s=susede2_ed25519; t=1787727581;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
- b=vlw/efQ3ZVlMaPylx7gQFbiN5Pif34iUc7dC9zOFyeg/WAmjbVCUC2x1X9DiKoK3ku4t1M
- DQEQ8AOHmMJwLjAg==
+ bh=Dcp6iHYH+CqIL3hYfOoTWxwfxf6baLJmly2OV7UhRG8=;
+ b=cVx7AdfjBjfVpwx/ItxHMtAxhMd20XlMc7Jl2/aeyklXkEk5fHjc80VSvMBty90rCF0yR2
+ Fd0pIcm2bpJBpHDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E12513533;
- Wed, 26 Aug 2026 06:57:56 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0D52713533;
+ Wed, 26 Aug 2026 06:59:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zbEBBnSOjmp3VgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 26 Aug 2026 06:57:56 +0000
-Message-ID: <615f2d00-a29a-4c09-8c1f-9c910609736d@suse.de>
-Date: Wed, 26 Aug 2026 08:57:55 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id qN2MAd2Ojmo6WAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 26 Aug 2026 06:59:41 +0000
+Message-ID: <1d6b7e9a-2d24-43f1-871e-3740dfb3ce23@suse.de>
+Date: Wed, 26 Aug 2026 08:59:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/sysfb: ofdrm: Fix is_avivo() constant comparison
- bug
+Subject: Re: [PATCH] drm/sysfb: ofdrm: Fix integer overflow in fb_size
+ calculation
 To: oushixiong1025@163.com
 Cc: Javier Martinez Canillas <javierm@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260731111729.703116-1-oushixiong1025@163.com>
+References: <20260825104134.669676-1-oushixiong1025@163.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -110,24 +110,24 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260731111729.703116-1-oushixiong1025@163.com>
+In-Reply-To: <20260825104134.669676-1-oushixiong1025@163.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[163.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; FREEMAIL_TO(0.00)[163.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[9];
  FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[9];
- MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email, suse.com:url, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
+ MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, kylinos.cn:email, suse.de:mid,
+ suse.de:email, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,32 +145,47 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Merged into drm-misc-fixes
 
-Am 31.07.26 um 13:17 schrieb oushixiong1025@163.com:
+Am 25.08.26 um 12:41 schrieb oushixiong1025@163.com:
 > From: Shixiong Ou <oushixiong@kylinos.cn>
 >
-> The is_avivo() function has a logic error where it compares a constant
-> to another constant instead of checking the device parameter:
+> The framebuffer size calculation `fb_size = linebytes * height` can
+> overflow when both values are large (e.g., 46341 * 46341 > INT_MAX).
+> Since linebytes and height are both int types, the multiplication is
+> performed as int * int, which results in undefined behavior on overflow.
 >
->    (PCI_VENDOR_ID_ATI_R600 >= 0x9400)
+> Use check_mul_overflow() to detect and prevent this overflow, consistent
+> with the approach used in simpledrm.c and corebootdrm.c.
 >
 > Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/sysfb/ofdrm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/sysfb/ofdrm.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
 >
 > diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
-> index 819aed466727..1d95df522ad5 100644
+> index 819aed466727..a6dc34b9ec0f 100644
 > --- a/drivers/gpu/drm/sysfb/ofdrm.c
 > +++ b/drivers/gpu/drm/sysfb/ofdrm.c
-> @@ -238,7 +238,7 @@ static bool is_avivo(u32 vendor, u32 device)
->   	/* This will match most R5xx */
->   	return (vendor == PCI_VENDOR_ID_ATI) &&
->   	       ((device >= PCI_VENDOR_ID_ATI_R520 && device < 0x7800) ||
-> -		(PCI_VENDOR_ID_ATI_R600 >= 0x9400));
-> +		(device >= PCI_VENDOR_ID_ATI_R600));
->   }
+> @@ -2,6 +2,7 @@
 >   
->   static enum ofdrm_model display_get_model_of(struct drm_device *dev, struct device_node *of_node)
+>   #include <linux/aperture.h>
+>   #include <linux/of_address.h>
+> +#include <linux/overflow.h>
+>   #include <linux/pci.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/pm.h>
+> @@ -913,7 +914,10 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>   			return ERR_PTR(-EINVAL);
+>   	}
+>   
+> -	fb_size = linebytes * height;
+> +	if (check_mul_overflow(linebytes, height, &fb_size)) {
+> +		drm_err(dev, "framebuffer size exceeds maximum\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+>   
+>   	/*
+>   	 * Try to figure out the address of the framebuffer. Unfortunately, Open
 
 -- 
 --
