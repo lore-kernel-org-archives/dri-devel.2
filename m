@@ -4,96 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E22C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 08:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD69C61DC2
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 08:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AF210EC53;
-	Wed, 26 Aug 2026 08:13:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4813510E267;
+	Wed, 26 Aug 2026 08:16:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nNHU8FkN";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="EZKx7opF";
 	dkim-atps=neutral
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
- [74.125.224.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7049D10EC53
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 08:13:21 +0000 (UTC)
-Received: by mail-yx1-f46.google.com with SMTP id
- 956f58d0204a3-66b32bb75beso1000051d50.2
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 01:13:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787732000; cv=none;
- d=google.com; s=arc-20260327;
- b=kztdMIeMGudI+8hGjcfnJw+dyja+07hb+DiCwtIFUhvsCZEVg5DI7JALWg1Itvm94z
- JyGQjmAl53OWB84bHc+EA4QPNvHC0GMbaUldBu2XfWN62VHkC0pUND0LlBx+X2gOstOO
- l61uCYyeE4lTt2WrZQJeil3ExS5m2ouU9XeipFUpAlNAXDAquoquv8L+WS7O2QfxVjGu
- GKO2/NYUqwlxSs/6xJt9XH02Y1GbnvDy1BHBL8eN1ZZ9qRovg+4ghTcxNQeiPr8ANJji
- uVdRK9UkNUbs1ruVSS+zCmHsgM9xPfQNkXakKJnmYihfcgJw9E4VswBVZo/bQeJVOV4E
- sRKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=kck+Ig5YyZCjZzHtHO6ZDi0MVEFY6EL3ocVztwAac4Q=;
- fh=4g0mNN4UbrGhfJHx78HX0DUh7F+1s1Dw14N//c4syK0=;
- b=lJD0DQqn2b7LdJMiaOyAQW4/vIRFLUUkmhuPt4hcQewjhwwXXmSvQssG7iuLvSFZeR
- LR4DKr21JEenUJLys5IXe4WjJaG+5N/vR74agkMitIDpNhtE4dQAaRMIqGJeZDYDgsOQ
- Zp0gqBflj6zI0Y+uV2yPfuLg2aP8/Nd/cGNOcx7GCub2dlaynSiWvrM0r2M4S5xTag6x
- OV4zRVjnxs7Reht7sMtELmiATunxad+q920W2XRmdhtLKj4kiFZMKS2erGfK0CVb3yCd
- A/AFRG7efD7LY74p1UHi/W1OdiDQgXf2pFL8Rv6M7kWiaqOdc5w3v1ATHQmAbmLdXfy5
- lVbA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787732000; x=1788336800; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kck+Ig5YyZCjZzHtHO6ZDi0MVEFY6EL3ocVztwAac4Q=;
- b=nNHU8FkNbclY7Me/y8TXaNunrHJJv9CEa+vuWAwfQp38f9qF1bETyoG8xFKcHWwTh6
- ot5H3D+gNTWl3OdHv30Xwu0DZT1cThKpvnIUHW7K/fydDuGXR82f7JK8FbiI1/Z8Padm
- wQ+SvfRar9X6kalZ1FCfYjjkGdH4gUpnPtmfeSEVl1yqkLn+ZuXWkskEblTJkPLi4Rbl
- N4eKYrQKjV0I8FfVY4XJ3u7dQUUjawyAynlGlmAehNHddnhJ2HHkeivf24w3Ta9yKi2p
- y/EbX/QeDPmh7BpCB8iMpMsLUrZ0lss8kFFIJGsl/GrPsMUvNFUx8vAiz/8J5TL/jEgq
- j3kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787732000; x=1788336800;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=kck+Ig5YyZCjZzHtHO6ZDi0MVEFY6EL3ocVztwAac4Q=;
- b=IwAwWFjbGvO6Kc6AlScJb+PTu5EwxdhU8qP70zMr4nLVpf1EbxXATKYjMaDL/D3qxY
- kwrO8u3VafRFbnyGi477Ybx7hZiP/eW/RYQZ4SjbaU2w9UjR6Alg6C28GmdJJO4vlB36
- YnmSLeewQvaFfvnTeyhcQ56G/O+NsL9xbjF8ACyYjG1PS2+W5fo35PweEW+WTWD4nUXa
- CLJ6ThjQqkdXtUrjjxI9nlOpAALRZpSTLYmhNA8zWmgOOYLUKU+mAcjD0aArLVlL6TEY
- iJgB8FGS7JnodLAViOhpZ60tqJorYcSUe0LqnkyDX/+gggK9yhOpnpRGil1vj7ZNEv38
- +kBQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro5YEU8LGwV3SA+eL0QDzf3h5msYJYgCR7uwvu2JK+CUGY2+niUv3hm8EE9BuYXyy5RGbL2MZh1mnA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mLpZymo8aazkeycjJp0Q+F50naQSGVLG3V3xCTq9kaiSyk3EKY
- HZ6WL7fftwjyQyJlniMYSJqW8jLu0JgqIey5r5PoUdarWxxteAZ06138AV0TYuThUeYwQa/bAsv
- DSaGeZF9EbcR1vsadhNZb+2toiI5bnnE=
-X-Gm-Gg: AR+sD13cjbp4LRvrbuUfTN2NJeVs+H3bCWej7OgpiUowm/ZvifkTdQ0jnwmRYlmXKCU
- F0chwOQlMnp2majLG7ggBRcOlHb2Mftb9zsrBU9ecUraYYBNmX/P22PvueWxz/WPstMo1uMc72Z
- Ueek1Z8JbfUBZiJR9jfDNtsx4bUY9OVtc/uS9Jz0Gq8Lk0Wn/Kd97LB1jJmOTptTBpxClZ+waMb
- g8u709I/KNLZjsPAXBbhExZEyDqbFWGazN5LVeg5pglCv+6sh/iMFlES7UnfhzQTFX6y5oBF6uN
- oqvx95qErGRIQhCg5e208jP+vWMDwBUPxHpmfzSt+znUq2E=
-X-Received: by 2002:a05:690e:249b:b0:66c:e866:c4cf with SMTP id
- 956f58d0204a3-66d257afd3cmr1372322d50.31.1787732000271; Wed, 26 Aug 2026
- 01:13:20 -0700 (PDT)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FDF0890BB
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 08:16:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Hq
+ +PQvivij3P3MEGYcAKZIRnspRAwgEpPvp+39rTTpk=; b=EZKx7opF/Rug+ks6kT
+ NJbc3Bv6nRKu55seIrP5z7RMripn0m045My98LFUO/lQLZKwHTzuCuHpwrUx5AsD
+ h38Hzm8QMoNYM2M/zIJDMQVfXiFxBzFokUB03AqcCegzEeu+GRB4rhQg76rStNam
+ 5BhssaqSmXUz6dQjDwtXp4yVA=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id
+ _____wA3FQuwoI5qcmjaRA--.53472S2; 
+ Wed, 26 Aug 2026 16:15:45 +0800 (CST)
+From: oushixiong1025@163.com
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH] drm/sched: Create faux device for KUnit tests
+Date: Wed, 26 Aug 2026 16:15:43 +0800
+Message-Id: <20260826081543.508257-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20260808125953.2842241-1-lgs201920130244@gmail.com>
- <5174855b-fe2f-4a6f-8390-959e9d624cf1@kernel.org>
-In-Reply-To: <5174855b-fe2f-4a6f-8390-959e9d624cf1@kernel.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 26 Aug 2026 16:13:07 +0800
-X-Gm-Features: AcwNN1U3dbQoVXJ8NkGWFYebcVrAhiWh0QN8QowH-mZ_7LABkMoZbkQnxy1lirs
-Message-ID: <CANUHTR8c2+LPRWOPwD=_dG8WqFyuTCg++BZFQ37gzgoEKh-hnA@mail.gmail.com>
-Subject: Re: [PATCH] drm/lima: fix autosuspend cleanup during teardown
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Qiang Yu <yuq825@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Vasily Khoruzhick <anarsoul@gmail.com>, dri-devel@lists.freedesktop.org, 
- lima@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wA3FQuwoI5qcmjaRA--.53472S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr1kGw1kKryktF43JF48Xrb_yoW5urW5pa
+ 9rZFWYgrWrtFyDKrW7ua1rZFyfGw4xC347Kr1DK34Y9F1vqFy5tr4DGrW3Jry7ArW7ZFWS
+ vwnIgw47GF4jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jeFAJUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-hGSoWqOoLH4GQAA3I
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,54 +62,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-On Thu, 20 Aug 2026 at 22:50, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 08/08/2026 14:59, Guangshuo Li wrote:
-> > lima_pdev_probe() calls pm_runtime_use_autosuspend(), but its failure
-> > path does not call the matching pm_runtime_dont_use_autosuspend()
-> > before disabling runtime PM. The remove path has the same issue.
-> >
-> > In particular, lima_pdev_remove() explicitly sets the autosuspend
-> > delay to -1 while autosuspend is still enabled. A negative autosuspend
-> > delay can increase usage_count to prevent runtime suspend. Without
-> > calling pm_runtime_dont_use_autosuspend(), this reference is not
-> > dropped before runtime PM is disabled, leaving usage_count unbalanced.
-> >
-> > The documentation for pm_runtime_use_autosuspend() also notes that it
-> > is important to undo it with pm_runtime_dont_use_autosuspend() at
-> > driver exit time, unless runtime PM was initially enabled with
-> > devm_pm_runtime_enable().
-> >
-> > Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
-> > failure and remove paths.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 50de2e9ebbc0 ("drm/lima: enable runtime pm")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
->
-> You sent vast amount of patches, all separate, making it very difficult
-> to track and respond in efficient way. Do not do that.
->
-> Group your work per subsystem.
->
-> You were asked to clarify and respond to incorrect fixes statement. I do
-> not see how you clarified and responded at all.
->
-> Best regards,
-> Krzysztof
+The DRM scheduler KUnit tests currently pass NULL for the dev field in
+drm_sched_init_args, which causes a NULL pointer dereference in the
+drm_sched_job trace event when it calls dev_name() on sched->dev.
 
-Sorry about that. I should have replied to the earlier review comments
-explicitly, and I also should not have sent so many separate patches.
+Use faux_device_create() to create a fake device for the mock scheduler,
+so the scheduler always has a valid device pointer. This avoids the
+trace event crash without requiring the production code to accept a NULL
+device pointer, which conceptually makes no sense for a scheduler.
 
-I will group future patches by subsystem and make sure to respond
-clearly to review feedback before resending.
+An atomic counter is used to generate unique device names, since
+multiple mock schedulers can exist simultaneously across different
+test suites.
 
-Thanks for pointing this out.
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 14 ++++++++++++++
+ drivers/gpu/drm/scheduler/tests/sched_tests.h    |  2 ++
+ 2 files changed, 16 insertions(+)
 
-Best regards,
-Guangshuo
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 14403a762335..cd87e405bb1e 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2025 Valve Corporation */
+ 
++#include <linux/device/faux.h>
++
+ #include "sched_tests.h"
+ 
+ /*
+@@ -10,6 +12,8 @@
+  * Test cases are implemented in a separate file.
+  */
+ 
++static atomic_t drm_mock_sched_instance = ATOMIC_INIT(0);
++
+ /**
+  * drm_mock_sched_entity_new - Create a new mock scheduler entity
+  *
+@@ -296,11 +300,20 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ 		.name		= "drm-mock-scheduler",
+ 	};
+ 	struct drm_mock_scheduler *sched;
++	char name[64];
+ 	int ret;
+ 
+ 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, sched);
+ 
++	snprintf(name, sizeof(name), "drm-mock-scheduler-%d",
++		 atomic_inc_return(&drm_mock_sched_instance));
++
++	sched->faux_dev = faux_device_create(name, NULL, NULL);
++	KUNIT_ASSERT_NOT_NULL(test, sched->faux_dev);
++
++	args.dev = &sched->faux_dev->dev;
++
+ 	ret = drm_sched_init(&sched->base, &args);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+@@ -323,6 +336,7 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ void drm_mock_sched_fini(struct drm_mock_scheduler *sched)
+ {
+ 	drm_sched_fini(&sched->base);
++	faux_device_destroy(sched->faux_dev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/scheduler/tests/sched_tests.h b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+index 553d45abd057..bbf4da585866 100644
+--- a/drivers/gpu/drm/scheduler/tests/sched_tests.h
++++ b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+@@ -7,6 +7,7 @@
+ #include <kunit/test.h>
+ #include <linux/atomic.h>
+ #include <linux/completion.h>
++#include <linux/device/faux.h>
+ #include <linux/dma-fence.h>
+ #include <linux/hrtimer.h>
+ #include <linux/ktime.h>
+@@ -44,6 +45,7 @@ struct drm_mock_scheduler {
+ 	struct drm_gpu_scheduler base;
+ 
+ 	struct kunit		*test;
++	struct faux_device	*faux_dev;
+ 
+ 	spinlock_t		lock;
+ 	struct list_head	job_list;
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
