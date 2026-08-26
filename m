@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8990BC61DB9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9583C61DCD
 	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 098C110EF67;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E42E10EF76;
 	Thu, 27 Aug 2026 09:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="Gmhr/96e";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="GE4y075E";
 	dkim-atps=neutral
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD8510E10D
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 20:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787777104;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=g06uOZVXmJELdMYnWTo6U5rOWHksszgpcnk9cEV3ZX0=;
- b=Gmhr/96eKSU180TupDguNw15Nr6oeONU3wOkfthjKFtO1/4AaBAv8HdC1hyEGP6yyXtwxH
- yf+4hhV4w8XM9LgZ2CZs1U3rKQz3E6ougNC53s5mKEwUMHa05l8Bdw9JE5OShlUcPltRfc
- XnKF/Zmzh8QW2UBpGKLETwSkcMm0L3dgUtaqHH8wrSHa8VnKFuha8P3+sEbBfC3oFfwyHx
- Qrq0VrmUmqZW2M8ctako4fH3t0pshisbKFhAHV9k3t4P71+VZWZzZnOHAi03asMDy6ubur
- Vb6hkW7Uoqo0ypaJO3FGjR+DWFeJkW//a7GZdjWW4aMf88f4yfa48Rz7e5efiQ==
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Date: Thu, 27 Aug 2026 03:44:56 +0700
-Message-Id: <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a8f504f+770e10+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
-Subject: [PATCH v2 1/2] drm/amd/display: skip receiver power control without
- AUX
-Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
- smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 20:45:02 +0000
-In-Reply-To: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
-Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
- <linux-kernel@vger.kernel.org>, 
- "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
-X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-Content-Transfer-Encoding: 7bit
-To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
- "Alex Deucher" <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-X-Mailer: git-send-email 2.47.3
-Content-Type: text/plain; charset=UTF-8
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Wed, 26 Aug 2026 07:01:54 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFADA10EC09
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 07:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Jb
+ pmdGWy/go06b/bKFUmGuT6wYdXB22e+au7hEoMXwE=; b=GE4y075EiM6B+yaE6k
+ 2tJ4B6UqJZe4AiEQEJ1TIllTB/OukgmL6wpwDmlrl1oIkTUU14d52SWdMVkfTgqy
+ dEu9dy/Kc/7SEOt076Ir0/6ythzNMbApRxPUe1X/aLkDmVpdKPh8A9DeWQmDQO54
+ JegK1y05XTKogBh5mv8FJP6G8=
+Received: from localhost.localdomain (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgB3+BeSjY5qs87iOA--.19815S2;
+ Wed, 26 Aug 2026 14:54:10 +0800 (CST)
+From: Qingshuang Fu <fffsqian@163.com>
+To: Paul Kocialkowski <paulk@sys-base.io>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andy Whitcroft <apw@canonical.com>,
+ Joe Perches <joe@perches.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Qingshuang Fu <fuqingshuang@kylinos.cn>, Qingshuang Fu <fffsqian@163.com>
+Subject: [PATCH] drm/logicvc: fix device_node refcount leak in
+ logicvc_layers_init()
+Date: Wed, 26 Aug 2026 14:54:08 +0800
+Message-Id: <20260826065408.617148-1-fffsqian@163.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: QCgvCgB3+BeSjY5qs87iOA--.19815S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWrtry5tryUAF4fZw17Ww1xXwb_yoW8Jr1fpr
+ WfGas0ka12vr4ayrnYyFy5ZFy8Ww4xJrZrXr1Iyw1DXrs8A3Z8J3sYvrW5Xrn8Aa97ZFy2
+ vryqgFyqvw1jkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piXyCJUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: 5iii21xldqqiywtou0bp/xtbC6hLFkGqOjZIO6AAA3w
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,85 +65,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Passive DP to TMDS dongles do not provide a DP receiver and use native
-GPIO I2C rather than AUX. The normal link PHY and stream blanking paths
-nevertheless try to write DP_SET_POWER, causing the DP helpers to retry
-a transaction that cannot succeed 32 times before giving up.
+From: Qingshuang Fu <fuqingshuang@kylinos.cn>
 
-Gate the receiver-power calls in dp_enable_link_phy(),
-dp_disable_link_phy() and link_blank_dp_stream() on the post-detection
-aux_mode state. Keep dpcd_write_rx_power_ctrl() unchanged because early
-DP detection calls it before aux_mode is initialized, and active dongles
-may require the receiver power-up before DPCD reads.
+for_each_child_of_node() holds a reference to layer_node for the
+duration of each iteration and only releases the previous node when
+advancing to the next one.  When logicvc_layer_init() fails, the loop
+exits via the error label without ever advancing, so the reference to
+layer_node is never dropped and the device node leaks.  Add the missing
+of_node_put() on the error path.
 
-On an Oland GPU with a passive DP to HDMI to DVI chain, this reduced
-boot-time "DP AUX transfer fail" messages from 32 to 0. The EDID
-remained 256 bytes and the display continued to use its native
-1600x900 mode.
-
-Assisted-by: Claude:claude-opus-5
-Assisted-by: Codex:gpt-5
-Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
+Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
 ---
+ drivers/gpu/drm/logicvc/logicvc_layer.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Notes (amdgpu-followups-v2):
-    v2:
-    - Move the aux_mode check out of dpcd_write_rx_power_ctrl() so early
-      detection can still power active dongles before reading DPCD.
-    - Gate receiver-power writes at the normal PHY and stream-blanking call
-      sites.
-    - Retest the revised placement on the affected Oland system.
-    
-    v1: https://lore.kernel.org/r/20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev
-
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c        |  6 ++++--
- .../drm/amd/display/dc/link/protocols/link_dp_phy.c    | 10 ++++++----
- 2 files changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 48b086d15ab0..81d63e1aab53 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -146,8 +146,10 @@ void link_blank_dp_stream(struct dc_link *link, bool hw_init)
- 				}
+diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
+index 7f5ba000188a..e83a2aafed77 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_layer.c
++++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+@@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
+ 
+ 		ret = logicvc_layer_init(logicvc, layer_node, index);
+ 		if (ret) {
++			of_node_put(layer_node);
+ 			of_node_put(layers_node);
+ 			goto error;
  		}
- 
--		if (((!dc->is_switch_in_progress_dest) && ((!link->wa_flags.dp_keep_receiver_powered) || hw_init)) &&
--			(link->type != dc_connection_none))
-+		if (link->aux_mode &&
-+		    !dc->is_switch_in_progress_dest &&
-+		    (!link->wa_flags.dp_keep_receiver_powered || hw_init) &&
-+		    link->type != dc_connection_none)
- 			dpcd_write_rx_power_ctrl(link, false);
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index 49521ac4b0e8..24f09bdcab51 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -65,7 +65,8 @@ void dp_enable_link_phy(
- 	link->cur_link_settings = *link_settings;
- 	link->dc->hwss.enable_dp_link_output(link, link_res, signal,
- 			clock_source, link_settings);
--	dpcd_write_rx_power_ctrl(link, true);
-+	if (link->aux_mode)
-+		dpcd_write_rx_power_ctrl(link, true);
- }
- 
- void dp_disable_link_phy(struct dc_link *link,
-@@ -74,9 +75,10 @@ void dp_disable_link_phy(struct dc_link *link,
- {
- 	struct dc  *dc = link->ctx->dc;
- 
--	if (!link->wa_flags.dp_keep_receiver_powered &&
--			!link->skip_implict_edp_power_control &&
--			link->type != dc_connection_none)
-+	if (link->aux_mode &&
-+	    !link->wa_flags.dp_keep_receiver_powered &&
-+	    !link->skip_implict_edp_power_control &&
-+	    link->type != dc_connection_none)
- 		dpcd_write_rx_power_ctrl(link, false);
- 
- 	dc->hwss.disable_link_output(link, link_res, signal);
+
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
 -- 
-2.47.3
+2.25.1
+
