@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B306C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 13:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2104FC5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 13:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD6B610ED08;
-	Wed, 26 Aug 2026 13:40:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7596010ED0F;
+	Wed, 26 Aug 2026 13:40:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kfyoT95B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BnBfpI8H";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5E310ED08
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:40:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA8C10ED0F
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:40:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3067A6011F;
- Wed, 26 Aug 2026 13:40:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6781F000E9;
- Wed, 26 Aug 2026 13:40:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1274F404AE;
+ Wed, 26 Aug 2026 13:40:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55A41F000E9;
+ Wed, 26 Aug 2026 13:40:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787751612;
- bh=CC5nzDgUGvHFkQptgc6g8oKeZh1fjk6guBTiyuavIqI=;
+ s=k20260515; t=1787751634;
+ bh=i6Vx3i8N9dEOeQyPgCLWAqdLLSmhfHzh1p08UG3R8fk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kfyoT95BmSWz84K+eTJeeUwMo6XFmCC95p+yn7cYNcq6ecsPVz1Ml5j2dz1H1t65L
- hrH6lai4kVhEEd/L4FQb+B8KPzvZLa1JZ9db0Ti5MmMe6JGxiHu5xPPtJmA9xh1MBB
- j7eH5xx6PEumkwfwu6uh0ZacHDa8DR9X2N9u7UwHl0EVqzLl3/C3Ay+6nXpCJxGlML
- Y8w9+sWvj8rh7HKFIXeZh4xd354kuJJD4wqS4m8EZ4A0ZGRgTO2vDYGUwYtIuF0W5w
- w8oSxSTkxjsthAkDHZOpGx8lfiu/DKdM17nhn1hJ72costKsqxPkzc9AeMyHmhuT5b
- t+aKdbYs/rr5Q==
+ b=BnBfpI8HUXiIEgRS2y12RyhT3gihvJb3HzDgtaOtwsFzpbhn9vFOj2iEIs5lLme9K
+ YAr9DxGln4OKWBFSE7lml6EeKokx4U33JZpP5iSNbxKhv0L4vAeGhEPE8RQkVaYNio
+ t8lLWtbOr282B2dCZbKYzRDob3GLtzj2ANOWvO1IfGLmK0INzKIqcSVcyAELkXWJ/g
+ n5Q3atpdVwXOUNUPmMppr06yD6zZA/RdLqwTaM/qAt/Dp7+Uj/kKHYYFJIZUivMXFJ
+ S7iGjMa0OKqJG42FPmG7hmdtMlPWxKm3jahU3RimupQaEvCRPJeFpsvUnyjLXPgdi5
+ l0fhac86iZOgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] misc: fastrpc: move ADSP duplicate session
- creation to the driver
+Subject: Re: [PATCH v4 3/3] dt-bindings: misc: qcom,fastrpc: deprecate
+ qcom,nsessions
 To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260826-dup-sessions-v4-2-35555d2bfed4@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260826-dup-sessions-v4-3-35555d2bfed4@oss.qualcomm.com>
 References: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
- <20260826-dup-sessions-v4-2-35555d2bfed4@oss.qualcomm.com>
+ <20260826-dup-sessions-v4-3-35555d2bfed4@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 13:40:12 +0000
-Message-Id: <20260826134012.8D6781F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 13:40:33 +0000
+Message-Id: <20260826134033.A55A41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,156 +59,113 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Session duplication non-atomicity introduces a race window allowin=
-g a permanent leak of duplicated sessions.
+- [High] Child context bank devices are never attached to their IOMMU domai=
+ns, breaking DMA mapping and causing SMMU faults.
 
 Pre-existing issues:
-- [Critical] Premature character device registration allows unprivileged us=
-erspace to free the channel context during probe, leading to a Use-After-Fr=
-ee.
-- [High] Dangling pointer in rdev->dma_mask after probe failure leads to us=
-e-after-free.
-- [High] Dangling pointer to child platform devices after fastrpc_rpmsg_rem=
-ove leads to UAF during DMA allocations.
+- [High] Unconditional `kfree(data)` on the probe error path causes a Use-A=
+fter-Free if userspace opened the device.
 --
 
-commit a8d47b7ddf0527e896eee27dcc31b42059209d4c
+commit e928c95aa5ca7ef57a0d4943351ae2891fcf2b1c
 Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-misc: fastrpc: move ADSP duplicate session creation to the driver
+misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
 
-For ADSP, only a limited number of FastRPC context banks (CBs) are
-available. Each CB supports a single session, which means only a few
-processes can run on ADSP simultaneously. If all sessions are consumed
-by fastrpc daemons, no session remains available when a user application
-starts, causing the application to fail.
-
-To work around this, qcom,nsessions =3D <5> was set in DT to duplicate
-sessions inline during fastrpc_cb_init(). This policy does not belong
-in DT and should be handled at the driver level instead.
-
-Remove the qcom,nsessions DT property read and the per-CB duplication
-logic from fastrpc_cb_init(). After all context banks have been
-initialised in fastrpc_rpmsg_probe(), append FASTRPC_DUP_SESSIONS (4)
-copies of the last session for the ADSP domain.
+This commit replaces of_platform_populate() with manual iteration over child
+device tree nodes to initialize qcom,fastrpc-compute-cb devices synchronous=
+ly.
+It aims to ensure all context banks are fully initialized before
+fastrpc_rpmsg_probe() returns by directly calling fastrpc_cb_init().
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index a153107d00853..98a61b8b90131 100644
+> index d4fac2caca867..a153107d00853 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-[ ... ]
-> @@ -2399,16 +2398,6 @@ static int fastrpc_cb_init(struct platform_device =
-*pdev)
->  	if (cctx->domain_id =3D=3D CDSP_DOMAIN_ID)
->  		dma_bits =3D cctx->soc_data->dma_addr_bits_cdsp;
+> @@ -2363,7 +2363,7 @@ static const struct file_operations fastrpc_fops =
+=3D {
+>  	.compat_ioctl =3D fastrpc_device_ioctl,
+>  };
 > =20
-> -	if (sessions > 0) {
-> -		struct fastrpc_session_ctx *dup_sess;
-> -
-> -		for (i =3D 1; i < sessions; i++) {
-> -			if (cctx->sesscount >=3D FASTRPC_MAX_SESSIONS)
-> -				break;
-> -			dup_sess =3D &cctx->session[cctx->sesscount++];
-> -			memcpy(dup_sess, sess, sizeof(*dup_sess));
-> -		}
-> -	}
->  	spin_unlock_irqrestore(&cctx->lock, flags);
+> -static int fastrpc_cb_probe(struct platform_device *pdev)
+> +static int fastrpc_cb_init(struct platform_device *pdev)
+>  {
+>  	struct fastrpc_channel_ctx *cctx;
+>  	struct fastrpc_session_ctx *sess;
 
-[Severity: High]
-Does moving this duplication logic out of fastrpc_cb_init() introduce a
-race window?
-
-The lock is released here, but duplication now happens later in
-fastrpc_rpmsg_probe(). In the meantime, userspace can open the device
-and allocate this session, setting its used flag to true.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but earlier in
-fastrpc_cb_init(), a weak pointer to the child platform device is stored
-in the session context without incrementing its reference count:
-
-    sess->dev =3D dev;
-
-During module unbind, fastrpc_rpmsg_remove() destroys these child
-devices via of_platform_depopulate(). However, active userspace file
-descriptors are not closed.
-
-Could subsequent ioctls on an open fastrpc file descriptor pass this
-dangling sess->dev pointer to dma_alloc_coherent(), causing a
-use-after-free in the DMA API?
-
->  	rc =3D dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
->  	if (rc) {
 [ ... ]
-> @@ -2629,6 +2618,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device=
- *rpdev)
->  			goto err_depopulate;
->  	}
+
+> @@ -2642,12 +2610,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+>  	data->rpdev =3D rpdev;
+>  	dev_set_drvdata(&rpdev->dev, data);
 > =20
-> +	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
-> +		struct fastrpc_session_ctx *last_sess;
-> +		struct fastrpc_session_ctx *dup_sess;
-> +		unsigned long flags;
+> -	err =3D of_platform_populate(rdev->of_node, NULL, NULL, rdev);
+> -	if (err)
+> -		goto err_deregister_fdev;
+> +	of_node_set_flag(rdev->of_node, OF_POPULATED_BUS);
 > +
-> +		spin_lock_irqsave(&data->lock, flags);
-> +		last_sess =3D &data->session[data->sesscount - 1];
-> +		for (i =3D 0; i < FASTRPC_DUP_SESSIONS; i++) {
-> +			if (data->sesscount >=3D FASTRPC_MAX_SESSIONS)
-> +				break;
-> +			dup_sess =3D &data->session[data->sesscount++];
-> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
-
-[Severity: High]
-If a racing userspace process has already allocated last_sess and set
-its used flag to true, does this memcpy() blindly copy the used =3D true
-state to the newly duplicated sessions?
-
-Since these duplicated sessions are not attached to any open file
-descriptor, it seems they will never be freed on close(), permanently
-leaking ADSP sessions.
-
+> +	for_each_available_child_of_node_scoped(rdev->of_node, np) {
+> +		struct platform_device *pdev;
+> +
+> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
+> +			continue;
+> +
+> +		pdev =3D of_platform_device_create(np, NULL, rdev);
+> +		if (!pdev) {
+> +			err =3D -EINVAL;
+> +			goto err_depopulate;
 > +		}
-> +		spin_unlock_irqrestore(&data->lock, flags);
-> +	}
 > +
+> +		err =3D fastrpc_cb_init(pdev);
+
+[Severity: High]
+By replacing driver core matching with manual of_platform_device_create()
+followed by fastrpc_cb_init() in fastrpc_rpmsg_probe(), does this child
+device skip the driver core's platform probe path?
+
+It appears this manual initialization skips IOMMU and DMA configuration
+logic, such as of_dma_configure(), which normally runs during probe.
+
+Since these context bank devices are no longer bound to a platform driver,
+they are never attached to their SMMU domains. Could this result in SMMU
+translation faults and a failure of DSP context bank DMA operations when a
+DSP invocation attempts DMA?
+
+> +		if (err)
+> +			goto err_depopulate;
+> +	}
+> =20
 >  	return 0;
 > =20
->  err_depopulate:
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but earlier in
-fastrpc_rpmsg_probe(), the character device is registered and exposed
-to userspace before critical data structures are initialized:
-
-    err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
-    ...
-    kref_init(&data->refcount);
-
-If unprivileged userspace immediately opens the device before sessions
-are added, fastrpc_device_open() fails to find a session and calls
-fastrpc_channel_ctx_put().
-
-Does this underflow the 0-initialized refcount and free the data struct
-while fastrpc_rpmsg_probe() is still executing, leading to a
-use-after-free?
+> +err_depopulate:
+> +	of_platform_depopulate(rdev);
+>  err_deregister_fdev:
+>  	if (data->fdevice)
+>  		misc_deregister(&data->fdevice->miscdev);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but earlier in
-fastrpc_rpmsg_probe(), the device's DMA mask pointer is assigned to a
-field inside the dynamically allocated data structure:
+This is a pre-existing issue, but if fastrpc_cb_init() fails, this error pa=
+th
+jumps to err_depopulate and eventually reaches err_free_data in
+fastrpc_rpmsg_probe():
 
-    rdev->dma_mask =3D &data->dma_mask;
+err_free_data:
+	kfree(data);
+	return err;
 
-If the probe subsequently fails, the err_free_data path frees data but
-fails to clear rdev->dma_mask. Since the rpmsg_device outlives the
-probe failure, could subsequent DMA operations or teardown checks by
-the driver core dereference this dangling pointer and cause a
-use-after-free?
+Since fastrpc_device_register() makes the misc device available to userspace
+earlier in the probe, what happens if userspace has already called open()
+and incremented the data reference count via fastrpc_channel_ctx_get()?
+
+Does this unconditional kfree(data) ignore active references held by open
+file descriptors, leading to a use-after-free condition if userspace later
+performs an ioctl() on the still-open file descriptor?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-dup-sessio=
-ns-v4-0-35555d2bfed4@oss.qualcomm.com?part=3D2
+ns-v4-0-35555d2bfed4@oss.qualcomm.com?part=3D3
