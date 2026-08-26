@@ -4,73 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72EBC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDADFC61DC7
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8FFB10EF61;
-	Thu, 27 Aug 2026 09:44:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25BDB10EF64;
+	Thu, 27 Aug 2026 09:44:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tMdfO2AW";
+	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="qgXgP5T5";
 	dkim-atps=neutral
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40D4410E241
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 04:46:19 +0000 (UTC)
-Received: by mail-pj2-f6.google.com with SMTP id
- 98e67ed59e1d1-38f25802c19so157607a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 21:46:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787719579; x=1788324379; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=6Y7De7ARri1xphmS54uZC/QqgzV63JLdS9IYgu5HWyo=;
- b=tMdfO2AWRRwF+t7TKVwre7ii0e4xnVkLyrk2JI9SbclMYHxCATG+RpYU3X6uS1wtY7
- OKLjMBxHPDFpqV3wiMxRjo07nqQyjZ9neNxTvD7sdzk5Rc5a0IxsPyh1cJCr9VxoEZ/c
- UAeiuap/Yy/ERkrltuNP25o7w1a10xzclWKg0arsglruPLNu9VCXXJaeyfmOqu8NrAwQ
- RbJUEsuxtkwZQUXskvlk687gsAI5f5WyRm4y9q9QHfAPgCX/UbQmqDSVpTdvR0Ea8mY0
- GoYu670K/J+XPT0y6JO+BTlykouGMzMToSs9I1HP6fdSWwNhzFLu9PnTjIIcS6ppW7vV
- m2ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787719579; x=1788324379;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6Y7De7ARri1xphmS54uZC/QqgzV63JLdS9IYgu5HWyo=;
- b=YLxYo1kEWlNbLC8QUvL//yL40mF+SgVFRzjkZpMfxE51c1TxjkzBEW8C0mKeChjGga
- v8n/QeEl9bmRjbt0shBRwRF5v/03kZwGbZSXDWffNdVFB5is7nFR5QCAtu0Af5DaYves
- fxTV7FdgP5wqspixTyXSaDaP8RcqXHkCcn2pFsNAJamqNZ/4acLs6L77k3os8XiQ6YwC
- HSRvenf/G709Rxw3rrU6pItT843jDwOHpCinKgiRQxKvKafa4m4o9afT4Ysu9iEO87BY
- P2i4EOudmLT//sTfzC//bSjQ+U6M/aUlv4w7WmmN0r/33yUBzsmLgvpSXtDn4smYp/sb
- dTuw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoOkPJbWq3yLQnpD4M/alews3C2Nup1TW7Fe5eD70ufaTkRzTc02Srf+2ZMYHnyKhqWeHeEPc9u2Jo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++no+Ibn1FoMPOFyX9eLjm4jDR8W+sZFyzZeEHvXuxjYOWBpA62B
- iG/EDCCGCGEa29A68eF0mqMAlKSTxfc6VArzMMSWLwP+QxrxGFnrl9/Q
-X-Gm-Gg: AR+sD13z8Ofvf+wm1+V9Iq3TT5YUbisPkPKa3dkR1eGBMWPLEIUjxfS9DYZ6kJ40kD4
- uX9xCZVxIrPvLIj0H/FdK+AS++EARwxsHrBC5NGnLinCOMZUq34Q6h8NNiW21dSxmGRtpFmIHaG
- 8/1duYjSp7JlXpA4baNBQRkBp0WrFULbEwCsanxLikgjgXz8kMMX3E9tx5p3bV3xlVFUg0A7963
- MR0Gr3noP9re68BUmYXTfZn+n/grzuKwPA+ypwD85Qa/HlirCDvIm+/Wf3g/bDJDrqAMXqiE8XE
- o0/raxLgXq5Pn6Xh4YDOKaEl30/AjssBnbesVexd8fjoW0WQuvP49a/+qArIb4IlNX0wl/K4UGu
- HVC35818Gm80vzl14FoOIu3LSXQSKpqh7XCMpXi0gFQbm9HfjLwl8YdXzgNDDHznc+GGeYtbh4M
- BxhW94KFoKqAFQRi6jXw8DQPoI0L74mDJ6VsKdhQQwrkfahUOhBWZc2t/ctEhncq3gWAaxjKhpc
- +qSS82Q9M0n0iksulgSLA==
-X-Received: by 2002:a17:90b:5543:b0:396:41d1:cbc7 with SMTP id
- 98e67ed59e1d1-3966d13eb75mr9224027a91.3.1787719578654; 
- Tue, 25 Aug 2026 21:46:18 -0700 (PDT)
-Received: from DESKTOP-BDFNLNM.localdomain ([27.63.245.244])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3283fa89e8fsm5398718eec.8.2026.08.25.21.46.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Aug 2026 21:46:18 -0700 (PDT)
-From: tarund18303@gmail.com
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tarun-tarun143 <tarund18303@gmail.com>
-Subject: [PATCH] drm/i915/dp: remove redundant link state check
-Date: Wed, 26 Aug 2026 04:45:33 +0000
-Message-ID: <20260826044533.9292-1-tarund18303@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B23D10EC16
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 07:23:46 +0000 (UTC)
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by meve.dewith.io (Postfix) with ESMTPSA id 5C4D624D69;
+ Wed, 26 Aug 2026 07:23:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
+ t=1787729024;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uXApw21u7kFbyUeBtXMbtGKYUhRfHXU4v8DzWnU9RlU=;
+ b=qgXgP5T5vrFd3RIjjvJ5mBDw9x0SjgNEaijfoUXMG+I/JcTOwZ/rBkRlceOE61kJvYLKsd
+ 09hO8IRhGArEn52tNEpEu5SJq4UA0+r/Dkf53i4NVQmZWc78fLktfW6CMaL9l4q1o603ag
+ +2kuKlGFt2ht4KMif2cd/8vGIzBu8G0=
+From: Wim de With <wf@dewith.io>
+Date: Wed, 26 Aug 2026 09:23:11 +0200
+Subject: [PATCH v4 2/2] backlight: Add support for Orient Chip OCP8178
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-ocp8178-backlight-v4-2-47d7acce882e@dewith.io>
+References: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
+In-Reply-To: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
+To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Spam: Yes
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,43 +66,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: tarun-tarun143 <tarund18303@gmail.com>
+Add a driver for the Orient Chip OCP8178 backlight controller.
 
-The DP link state is now checked and recovered after link training,
-including after modesets. The same recovery path is also used from
-the hotplug and HPD IRQ paths.
+The OCP8178 supports either PWM or a vendor-specific onewire protocol
+over GPIO. This driver implements the onewire protocol, which enables
+setting static brightness levels without requiring a continuous PWM
+signal from the host CPU. Note that while the vendor calls the protocol
+1-Wire, it is not the 1-Wire protocol from Dallas Semiconductor as
+implemented in drivers/w1.
 
-The link state check from intel_dp_detect() is therefore redundant.
-Remove it and rely on the existing link recovery paths.
-
-Signed-off-by: tarun-tarun143 <tarund18303@gmail.com>
+Signed-off-by: Wim de With <wf@dewith.io>
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 12 ------------
- 1 file changed, 12 deletions(-)
+ MAINTAINERS                          |   1 +
+ drivers/video/backlight/Kconfig      |  10 ++
+ drivers/video/backlight/Makefile     |   1 +
+ drivers/video/backlight/ocp8178_bl.c | 231 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 243 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 113d767e62e9..ffd39206b958 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6379,18 +6379,6 @@ intel_dp_detect(struct drm_connector *_connector,
- 		status = connector_status_disconnected;
- 		goto out_unset_edid;
- 	}
--
--	/*
--	 * Some external monitors do not signal loss of link synchronization
--	 * with an IRQ_HPD, so force a link status check.
--	 *
--	 * TODO: this probably became redundant, so remove it: the link state
--	 * is rechecked/recovered now after modesets, where the loss of
--	 * synchronization tends to occur.
--	 */
--	if (!intel_dp_is_edp(intel_dp))
--		intel_dp_check_link_state(intel_dp);
--
- 	/*
- 	 * Clearing NACK and defer counts to get their exact values
- 	 * while reading EDID which are required by Compliance tests
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3ca99d9c32ef1..7146e4dea8d78 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19682,6 +19682,7 @@ OCP8178 BACKLIGHT DRIVER
+ M:	Wim de With <wf@dewith.io>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
++F:	drivers/video/backlight/ocp8178_bl.c
+ 
+ OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
+ M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index 7aa1c4b21111f..aa845230c5f58 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -226,6 +226,16 @@ config BACKLIGHT_LOCOMO
+ 	  If you have a Sharp Zaurus SL-5500 (Collie) or SL-5600 (Poodle) say y to
+ 	  enable the LCD/backlight driver.
+ 
++config BACKLIGHT_OCP8178
++	tristate "OCP8178 Backlight Driver"
++	depends on GPIOLIB
++	help
++	  If you have an Orient Chip OCP8178, say Y to enable the backlight
++	  driver.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called ocp8178_bl.
++
+ config BACKLIGHT_OMAP1
+ 	tristate "OMAP1 PWL-based LCD Backlight"
+ 	depends on ARCH_OMAP1 || COMPILE_TEST
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 21c8313cfb121..c4e87b708ae21 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -51,6 +51,7 @@ obj-$(CONFIG_BACKLIGHT_MAX25014)	+= max25014.o
+ obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
+ obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
+ obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
++obj-$(CONFIG_BACKLIGHT_OCP8178)		+= ocp8178_bl.o
+ obj-$(CONFIG_BACKLIGHT_OMAP1)		+= omap1_bl.o
+ obj-$(CONFIG_BACKLIGHT_PANDORA)		+= pandora_bl.o
+ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
+diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlight/ocp8178_bl.c
+new file mode 100644
+index 0000000000000..6c1e8c9451f12
+--- /dev/null
++++ b/drivers/video/backlight/ocp8178_bl.c
+@@ -0,0 +1,231 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Orient Chip OCP8178 Backlight Driver
++ *
++ * Copyright (C) 2026 Wim de With
++ *
++ * Author: Wim de With <wf@dewith.io>
++ */
++
++#include <linux/backlight.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/gpio/consumer.h>
++#include <linux/irqflags.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++
++#define OCP8178_MAX_BRIGHTNESS 0x1F /* 5 bits */
++
++#define OCP8178_DEVICE_ADDRESS 0x72
++
++#define OCP8178_DATA_RFA BIT(7)
++#define OCP8178_DATA_ADDR GENMASK(6, 5)
++#define OCP8178_DATA_VALUE GENMASK(4, 0)
++
++#define OCP8178_1W_INIT_MAX_RETRIES 5
++#define OCP8178_1W_INIT_SLEEP_US (50 * 1000)
++
++#define OCP8178_T_OFF_US (3 * 1000) /* datasheet specifies at least 2.5 ms */
++#define OCP8178_1W_T_DELAY_US (100 + 10) /* 10 us as safety factor */
++#define OCP8178_1W_T_DETECT_US (260 + 10) /* 10 us as safety factor */
++#define OCP8178_1W_T_START_US 2
++#define OCP8178_1W_T_EOS_US 2
++#define OCP8178_1W_T_WIN_NS (1000 * 1000)
++
++/*
++ * The datasheet specifies 1.7 Kbps to 160 Kbps.
++ * 1 / (160 Kbps) is about 6.67 us, so using 7 us per bit should be fine.
++ * T_HIGH + T_LOW = 7 us
++ * T_HIGH > 2 * T_LOW for high bits
++ * T_LOW > 2 * T_HIGH for low bits
++ */
++#define OCP8178_1W_HIGH_BIT_T_LOW_US 2
++#define OCP8178_1W_HIGH_BIT_T_HIGH_US 5
++#define OCP8178_1W_LOW_BIT_T_LOW_US 5
++#define OCP8178_1W_LOW_BIT_T_HIGH_US 2
++
++struct ocp8178_bl {
++	struct device *dev;
++	struct gpio_desc *gpiod;
++};
++
++static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
++{
++	u64 start, duration;
++
++	gpiod_set_value(ocp8178->gpiod, 0);
++	fsleep(OCP8178_T_OFF_US);
++
++	start = ktime_get_ns();
++
++	gpiod_set_value(ocp8178->gpiod, 1);
++	udelay(OCP8178_1W_T_DELAY_US);
++	gpiod_set_value(ocp8178->gpiod, 0);
++	udelay(OCP8178_1W_T_DETECT_US);
++	gpiod_set_value(ocp8178->gpiod, 1);
++
++	duration = ktime_get_ns() - start;
++
++	if (duration >= OCP8178_1W_T_WIN_NS) {
++		dev_err(ocp8178->dev,
++			"onewire detection window exceeded (%llu ns)\n",
++			duration);
++		return -EAGAIN;
++	}
++
++	return 0;
++}
++
++static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
++{
++	unsigned long flags;
++
++	gpiod_set_value(ocp8178->gpiod, 1);
++	udelay(OCP8178_1W_T_START_US);
++
++	local_irq_save(flags);
++
++	for (int i = 7; i >= 0; i--) {
++		if ((value >> i) & 1) {
++			gpiod_set_value(ocp8178->gpiod, 0);
++			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
++			gpiod_set_value(ocp8178->gpiod, 1);
++			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
++		} else {
++			gpiod_set_value(ocp8178->gpiod, 0);
++			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
++			gpiod_set_value(ocp8178->gpiod, 1);
++			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
++		}
++	}
++
++	gpiod_set_value(ocp8178->gpiod, 0);
++	udelay(OCP8178_1W_T_EOS_US);
++	gpiod_set_value(ocp8178->gpiod, 1);
++
++	local_irq_restore(flags);
++}
++
++static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
++{
++	u8 data = 0;
++
++	/*
++	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
++	 * configured as open drain.
++	 */
++	data |= FIELD_PREP(OCP8178_DATA_RFA, 0);
++	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
++	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
++
++	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
++	ocp8178_bl_write_u8(ocp8178, data);
++}
++
++static int ocp8178_bl_update_status(struct backlight_device *bl)
++{
++	struct ocp8178_bl *ocp8178 = bl_get_data(bl);
++	u8 brightness = backlight_get_brightness(bl);
++
++	ocp8178_bl_set_brightness(ocp8178, brightness);
++	return 0;
++}
++
++static const struct backlight_ops ocp8178_bl_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = ocp8178_bl_update_status,
++};
++
++static int ocp8178_bl_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct backlight_device *bl;
++	struct backlight_properties props;
++	struct ocp8178_bl *ocp8178;
++	u32 max_brightness, brightness;
++	int ret, retries;
++
++	ocp8178 = devm_kzalloc(dev, sizeof(*ocp8178), GFP_KERNEL);
++	if (!ocp8178)
++		return -ENOMEM;
++
++	ocp8178->dev = dev;
++
++	ret = device_property_read_u32(dev, "max-brightness", &max_brightness);
++	if (ret)
++		max_brightness = OCP8178_MAX_BRIGHTNESS;
++	if (max_brightness > OCP8178_MAX_BRIGHTNESS) {
++		dev_warn(dev, "max brightness exceeds hardware limit\n");
++		max_brightness = OCP8178_MAX_BRIGHTNESS;
++	}
++
++	ret = device_property_read_u32(dev, "default-brightness", &brightness);
++	if (ret)
++		brightness = max_brightness;
++	if (brightness > max_brightness) {
++		dev_warn(dev, "default brightness exceeds max brightness\n");
++		brightness = max_brightness;
++	}
++
++	ocp8178->gpiod = devm_gpiod_get(dev, "ctrl", GPIOD_OUT_LOW);
++	if (IS_ERR(ocp8178->gpiod))
++		return dev_err_probe(dev, PTR_ERR(ocp8178->gpiod),
++				     "GPIO missing or invalid\n");
++	if (gpiod_cansleep(ocp8178->gpiod))
++		return dev_err_probe(dev, -EINVAL,
++				     "sleeping GPIO not supported\n");
++	gpiod_set_consumer_name(ocp8178->gpiod, dev_name(dev));
++
++	for (retries = 0; retries < OCP8178_1W_INIT_MAX_RETRIES; retries++) {
++		ret = ocp8178_bl_enable_onewire(ocp8178);
++		if (!ret)
++			break;
++		if (ret != -EAGAIN)
++			return ret;
++		fsleep(OCP8178_1W_INIT_SLEEP_US);
++	}
++	if (retries >= OCP8178_1W_INIT_MAX_RETRIES)
++		return dev_err_probe(dev, -ETIMEDOUT,
++				     "failed to initialize onewire protocol\n");
++
++	props = (typeof(props)){
++		.type = BACKLIGHT_RAW,
++		.brightness = brightness,
++		.max_brightness = max_brightness,
++		.power = BACKLIGHT_POWER_ON,
++		.scale = BACKLIGHT_SCALE_NON_LINEAR,
++	};
++
++	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
++					    &ocp8178_bl_ops, &props);
++	if (IS_ERR(bl))
++		return dev_err_probe(dev, PTR_ERR(bl),
++				     "failed to register backlight\n");
++
++	platform_set_drvdata(pdev, bl);
++	backlight_update_status(bl);
++
++	return 0;
++}
++
++static const struct of_device_id ocp8178_bl_of_match[] = {
++	{ .compatible = "ocs,ocp8178" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
++
++static struct platform_driver ocp8178_bl_driver = {
++	.driver = {
++		.name = "ocp8178-bl",
++		.of_match_table = ocp8178_bl_of_match,
++	},
++	.probe = ocp8178_bl_probe,
++};
++module_platform_driver(ocp8178_bl_driver);
++
++MODULE_AUTHOR("Wim de With <wf@dewith.io>");
++MODULE_DESCRIPTION("Orient Chip OCP8178 Backlight Driver");
++MODULE_LICENSE("GPL");
+
 -- 
-2.43.0
+2.55.0
 
