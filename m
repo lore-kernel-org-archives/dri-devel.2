@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B87DEC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:18:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30492C61DBE
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE39E10E235;
-	Wed, 26 Aug 2026 21:18:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C5210E2BA;
+	Wed, 26 Aug 2026 21:18:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="iwcrrr7w";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="eQjlBwn5";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B99C10E235
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:18:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787779092; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B903610E2BA
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:18:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787779098; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=ktSWRBBvjFTjW9vvic0xjrMgxaajBjaDg/EkKNxZbGdU3NGrz3p9RscqjriiKX20cPW3fuS5ITTwyEpPXJVKvpv11IK3XmM+JItcsenmS9x530cszUawLj5fUbXrlzydht51z/RjBxeGMasqI/Ruf/uNvDsGc5+NwsxqbFd++2U=
+ b=lnKxKlJtOxBM/jnXtJBAYTdxAx+fc9k+i18myUZl7DhvMWkzQzHsAxoysaCJPcztFk6WYto/LOUKgI7pxmI08iAOj4Z3j8mMhluNtitsnVZ2mcx7JtMqhlaE+A59UG+1+fMNNaLEMW2ZCMdUgh7t0vicw7qe/9UAwQOZ/mVG8pE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787779092;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=HNekL85JDfu7UZrp0fuV5f9P7kUx27DQQ3Ok645EVVo=; 
- b=MduwtmdRaTqeV/ObS4Hx0syByFdmHHq9kNGgvb8AxwvGp3Tp+S141iieqTqOuyL44uPOZ0e8+cPeYcjroqluSFpsoKLt0ARGydrREctlHrg8imVn5JZJuEh5gmz/U8LhkvuwVIYY8gZVNyhWE2rAfZf1Z5u6QF+bCSlclm16kfA=
+ s=zohoarc; t=1787779098;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=LXKblu75Wmd4ijGN4q4BnsvjxrwQ4Xm93VsF4qtkNUA=; 
+ b=e6BmrNaLp6iyx+f4d5IAHxlxF8DdCOTpANEudU2tcaJFe0nrb870MUFV2WdlZr9tgnl4pG0v9/I1gcbCkpYkz9bBZENXgemUSsRX5WJh2WQspG2w7372rGrBauSqmaShzt9ur10clk5m0pcR+Dvla8SOSG9XDknm6CG0mIhWVNQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779092; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779098; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=HNekL85JDfu7UZrp0fuV5f9P7kUx27DQQ3Ok645EVVo=;
- b=iwcrrr7wBdNAOMQNA6VyVXjPAEiiYASYPKQxY3ZMa6RPj3LaUuuPmqNsVKt5Erx5
- kJzAflHpsvYlJ0/r0v3ysg74RDeIKDW1fHUKqKi6OXw4IHid82ioOUL9I15rTCew9DA
- p6sxw0uCWlDeU7/DG0H40a1esZfLHndF55TmYWGM=
-Received: by mx.zohomail.com with SMTPS id 1787779090297473.8921003457282;
- Wed, 26 Aug 2026 14:18:10 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=LXKblu75Wmd4ijGN4q4BnsvjxrwQ4Xm93VsF4qtkNUA=;
+ b=eQjlBwn5+WJu8cN+kgn98IxdGHBzLQNCAMfwL1PWHA8VnKpyqDn3sPvMn9BpOfn7
+ zdj+PEITYtMsTu9bC0cO5Lmf3SzXzU3WVXxPcIlh7a7oA0j8e9TtkOm6iVa+XmBVeNx
+ Ny3CmbuL27Qh2IB1QWV3+tAX4JWsSUkxfDQ9JUGU=
+Received: by mx.zohomail.com with SMTPS id 1787779096717822.7841527825088;
+ Wed, 26 Aug 2026 14:18:16 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Subject: [PATCH v6 00/16] Collection of fixes for Panfrost: Perfcnt, RPM,
- refactorings
-Date: Wed, 26 Aug 2026 22:18:02 +0100
-Message-Id: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+Date: Wed, 26 Aug 2026 22:18:03 +0100
+Subject: [PATCH v6 01/16] drm/panfrost: Move shrinker initialization and
+ unplug one level down
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NTU7DMBAF4KtUXmNkj38Sd8U9EIvJeEKNQoPiN
- gJVuTtOEQpYWT7Ne9/cROYpcRbHw01MPKecxnMJ/uEg6ITnV5YplixAgVcOjKQBr5Flnz45yxY
- 6ZVAbiy2JMvmY+H4oi+eXn5yv3RvTZTXWxinlyzh93f/Neu390v4/PWuppPYcgBFtsOGJxmHAb
- pzwkcZ3sfIzbIBXtgKgAK4h30VL2ju3B5gNaKAGzApYwN5r7KLq9wD7FwgVYAugdPBtD0xNg3u
- A24BW6wpwBTDRB6DAoSWogWVZvgFDfqHcwgEAAA==
-X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+Message-Id: <20260826-claude-fixes-v6-1-78119af409e7@collabora.com>
+References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
  Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -66,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6120;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6895;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=btXuHyjlLmBjd0Mzf5fZCZ48f639iBfAD9Uyxf3qkzk=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gLZq2buO3A6YazEvknUeO4y+fVeyAVSjatG
- qGPdGAnJKqJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YCwAKCRAOJn5M7lND
- PZcsC/9Q0O8uHBtPeg2G2PI02p3BDBqiOhsszHeW7h+TVJ7UmsUzmBWCWyEezSJ4wlNupUiGv+G
- G7C/sT9OxlpX1U5vP9lNA4NmDXdHEhVE1PQ5MBEHYyLeBVwZ6zjbHAcb2TnBqgQD77Yu6iLLGja
- zFd/ZWVBEvcka11BFzLgvlPHvTOjYAysE4gbSh+HwahldFkIAy10wgFRZ5S3DtlQLFPaD1VT5WG
- +kqByhZnnPeo3nEd5ENqcoiD5VCzWotTFKZ/NM+OYHaUEklrmYI5JvFabOob6D1PY22haInwDAR
- QXCrexvEBsh8JsbdJsEbv0SSytm5UlW/pcYZ4ybKHNbhwF/NNTC9mzB4xhEJwK9xSM/61lx6E9I
- 15R0DakPlt5GGL5bfJ+8uOhXYwelwvQfD2Lt0pb24Mj6norvLWKIqI9dvBjpKFM/qm+qRIIyV5u
- Sn69+UlUDc3hZHOQyiF0CZeB6nh7UrtH4sdCihpN1KEjzuVNP+aCZltyvXRADTm2Ohlk0=
+ bh=6xeWEUHEJGkLLAje31aRC5tjM099PLVWz/R1vWcPi3w=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gLSWQY6YsfLnP2bE2sGt0HdeH3j4JE9EPBh
+ TGq1yn7nFWJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YCwAKCRAOJn5M7lND
+ PYdyDACa9kNdEX/OPoNjc+n1Z7RkpgwBpD/59Vb5vp9jOgQ3FjZ/I4iid6drU4Qqpnh+Ml6AvcH
+ 65adq1IzfUTLEMuwDrxogE4fs46GUYYH8JzkMqlTL+fDGhoLI6xqKP4nUH2a+48zKZuKzg4DrjE
+ SNvyAkGZ/yKuE4p4xxkd60hZsiHbn0ANHvDp3JGesZnNBSg5HqJR08w7RnTq2Q6YNLhsbV0KM8F
+ m2i1W2QxPCW8HJqIaA5fnhYCIrxLc/jiQEFLDdFHAU5y5ctLxoSC/iTM0oqTdvxdzLq6qtBUvOq
+ Hqy51XNS8NCH/Ja39k58J0pLRspuspuMONJwqojGJdBDbbEi5fE7ad1LLqSa0DS+XAoZVC3UZ9L
+ zZwhRWoAsQwmFXsjwc8d4Yxh+ZmROJBhlIMscvDaJdOPUSGRdIyeqKNQwjqKFnwIr4r0tVBnxXC
+ 5/5l2JKz87H4F23TknA5l5ZwPXw81bx/DDJ+kIijcB9cBN9FNba7TiXO4rXGrQywDUI8c=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,119 +91,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series began as an assortment of small fixes for some issues
-uncovered by Claude. Over time, it has evolved to include many other
-fixes for further problems revealed by Sashiko in successive revisions,
-and also refactorings and improvements suggested by maintainer
-discussions.
+Since the moment we call drm_dev_register() the device should be in a
+position to accept jobs, so it's best if the shrinker is already
+initialized by then.
 
-A subset of patches submitted in previous revisions was already merged
-after they had been reviewed, to avoid this series growing to unmanageable
-extents.
+On top of that, make shrinker functions take an panfrost_device pointer
+like other functions in the same sequence and rename them accordingly.
+
+Essentially mimic the init/fini behaviour in Panthor.
+
+On top of that, remove the config feature check, because it's unnecessary.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
-Changes in v6:
-- Grafted trivial already-reviwed patches from previous revisions into
-their own series so that they could be merged into drm-misc-next.
-- Added commits with multiple refactorings, code rearrangements and simplifications.
-- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
-- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+ drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+ drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |  4 ++++
+ drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----------
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+ 6 files changed, 32 insertions(+), 26 deletions(-)
 
-Changes in v5:
-- Addressed more issues uncovered by Sashiko.
-- Discarded two patches to avoid dealing with too many pre-existing issues at once.
-- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
-- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 485349faf251..05c40d5a20b5 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_job;
+ 
+-	panfrost_gem_init(pfdev);
++	err = panfrost_gem_init(pfdev);
++	if (err)
++		goto out_perfcnt;
+ 
+ 	return 0;
++
++out_perfcnt:
++	panfrost_perfcnt_fini(pfdev);
+ out_job:
+ 	panfrost_jm_fini(pfdev);
+ out_mmu:
+@@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 
+ void panfrost_device_fini(struct panfrost_device *pfdev)
+ {
++	panfrost_gem_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+ 	panfrost_jm_fini(pfdev);
+ 	panfrost_mmu_fini(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 96a66d673ba6..9882a3ede75f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
+ 	if (err < 0)
+ 		goto err_out1;
+ 
+-	err = panfrost_gem_shrinker_init(&pfdev->base);
+-	if (err)
+-		goto err_out2;
+ 
+ 	return 0;
+ 
+-err_out2:
+-	drm_dev_unregister(&pfdev->base);
+ err_out1:
+ 	pm_runtime_disable(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+@@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
+ 	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+ 
+ 	drm_dev_unregister(&pfdev->base);
+-	panfrost_gem_shrinker_cleanup(&pfdev->base);
+ 
+ 	pm_runtime_get_sync(pfdev->base.dev);
+ 	pm_runtime_disable(pfdev->base.dev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
+index a2277ec61aab..bac0c415d4da 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.h
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
+@@ -4,6 +4,10 @@
+ #ifndef __PANFROST_DRV_H__
+ #define __PANFROST_DRV_H__
+ 
++#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+ extern bool panfrost_transparent_hugepage;
++#else
++#define panfrost_transparent_hugepage false
++#endif
+ 
+ #endif
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 3a7fce428898..7b993a089af2 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -15,20 +15,25 @@
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
+ 
+-void panfrost_gem_init(struct panfrost_device *pfdev)
++int panfrost_gem_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
+-	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+-	    !panfrost_transparent_hugepage)
+-		return;
++	if (panfrost_transparent_hugepage) {
++		err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
++		if (drm_gem_get_huge_mnt(&pfdev->base))
++			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
++		else if (err)
++			drm_warn(&pfdev->base,
++				 "Can't use Transparent Hugepage (%d)\n", err);
++	}
+ 
+-	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+-	if (drm_gem_get_huge_mnt(&pfdev->base))
+-		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+-	else if (err)
+-		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+-			 err);
++	return panfrost_gem_shrinker_init(pfdev);
++}
++
++void panfrost_gem_fini(struct panfrost_device *pfdev)
++{
++	panfrost_gem_shrinker_fini(pfdev);
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 79d4377019e9..5c823cdbd980 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+ 	return container_of(node, struct panfrost_gem_mapping, mmnode);
+ }
+ 
+-void panfrost_gem_init(struct panfrost_device *pfdev);
++int panfrost_gem_init(struct panfrost_device *pfdev);
++void panfrost_gem_fini(struct panfrost_device *pfdev);
+ 
+ struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
+ 
+@@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+ void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+ void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+ 
+-int panfrost_gem_shrinker_init(struct drm_device *dev);
+-void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
++int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
++void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+ 
+ void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+ int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+index 2fe967a90bcb..fefae87535d6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+@@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+  *
+  * This function registers and sets up the panfrost shrinker.
+  */
+-int panfrost_gem_shrinker_init(struct drm_device *dev)
++int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+ {
+-	struct panfrost_device *pfdev = to_panfrost_device(dev);
+-
+ 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+ 	if (!pfdev->shrinker)
+ 		return -ENOMEM;
+@@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+  *
+  * This function unregisters the panfrost shrinker.
+  */
+-void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
++void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+ {
+-	struct panfrost_device *pfdev = to_panfrost_device(dev);
+-
+ 	if (pfdev->shrinker)
+ 		shrinker_free(pfdev->shrinker);
+ }
 
-Changes in v4:
-- Fixed errors and issues uncovered by Sashiko in the previous revision.
-- Changed the way RPM checks whether the device is initialised when resuming.
-- Simplified perfcnt treatment of potential resets.
-- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
-
-Changes in v3:
-- Applied some minor suggestions for the first couple of patches in the series.
-- Moved shrinker initialisation into gem initialisation.
-- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
-- Added patch for reset sequence fixes and also a userspace knob to trigger it.
-- Reworked perfcnt fix by having the reset sequence restore its initial state.
-- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
-
-Changes in v2:
-- Fixed race conditions introduced by the previous revision, in the RPM and
-HWPerf commits specifically. These can be consulted at [1]
-- Don't attempt to suspend the device unconditionally at the end of
-probe(), and do it through autosuspend instead.
-- Broke the RPM patch into one that fixes PM refcnt proper and another one
-for MMU enablement at device init time.
-- Moved perfcnt GPU disable helper into its own commmit. Same for
-transplating shrinker initialisation and unplug.
-- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
-- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
-- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
-
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Rob Herring <robh@kernel.org>
-To: Steven Price <steven.price@arm.com>
-To: Adrián Larumbe <adrian.larumbe@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Faith Ekstrand <faith.ekstrand@collabora.com>
-To: "Marty E. Plummer" <hanetzer@startmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-To: Eric Anholt <eric@anholt.net>
-To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-To: Robin Murphy <robin.murphy@arm.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-
----
-Adrián Larumbe (16):
-      drm/panfrost: Move shrinker initialization and unplug one level down
-      drm/panfrost: Move all DRM device initialisation into device_init()
-      drm/panfrost: Move lock and modparam initialisations into their subsystems
-      drm/panfrost: Move debugfs initialisation to relevant subsystems
-      drm/panfrost: Skip NULL checks for clock enable/disabling
-      drm/panfrost: Consolidate device clock management and reset
-      drm/panfrost: Split subsystem init/reset from interrupt enablement
-      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
-      drm/panfrost: Add warning messages to fatal error conditions
-      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
-      drm/panfrost: Move perfcnt GPU disable sequence into a helper
-      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
-      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
-      drm/panfrost: Introduce a reset lock
-      drm/panfrost: Fix races between perfcnt and reset sequence
-      drm/panfrost: Bump driver minor to reflect new DUMP IOCTL req field
-
- drivers/gpu/drm/panfrost/panfrost_device.c       | 274 +++++++++++++++--------
- drivers/gpu/drm/panfrost/panfrost_device.h       |   8 +-
- drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +---------------
- drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
- drivers/gpu/drm/panfrost/panfrost_gem.c          |  63 ++++--
- drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
- drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
- drivers/gpu/drm/panfrost/panfrost_gpu.c          |  21 +-
- drivers/gpu/drm/panfrost/panfrost_gpu.h          |   2 +
- drivers/gpu/drm/panfrost/panfrost_job.c          | 108 ++++++++-
- drivers/gpu/drm/panfrost/panfrost_job.h          |   4 +
- drivers/gpu/drm/panfrost/panfrost_mmu.c          |  12 +-
- drivers/gpu/drm/panfrost/panfrost_mmu.h          |   2 +
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 226 ++++++++++++-------
- drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
- include/uapi/drm/panfrost_drm.h                  |   3 +-
- 16 files changed, 534 insertions(+), 416 deletions(-)
----
-base-commit: 8aee06aa4c72e9bdfda81ce720b51fe0fe0f307e
-change-id: 20260523-claude-fixes-82b03a134a8c
-
-Best regards,
---  
-Adrián Larumbe <adrian.larumbe@collabora.com>
+-- 
+2.55.0
 
