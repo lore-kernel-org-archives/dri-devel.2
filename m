@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26CE7C61DBE
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9771BC61DBE
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6243710E354;
-	Wed, 26 Aug 2026 21:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE6FE10E0CC;
+	Wed, 26 Aug 2026 21:31:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="BibETV8A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="frRsqImR";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 113A210E354
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:28:38 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=RZGV2XpARiVi3foo+WbHvDCezzy1e9pOxD2orUgf6f8=; 
- c=simple/simple; d=kaitmazov.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787779716; v=1; x=1788384516;
- b=BibETV8AeyUUhWA3V1ama2biM9l7lQJ7jAi87egbtb4hhXfqrykf72PQC3ohCTqU8BBkFOst
- rT2dfE47WyRofMuU7UpgPjBdVlVqoKG1wXsThe49P5YEatSbJF+IVW2XoZchwyre07fcDU1rt4O
- zWP35wUes/987hrU9pI9V0KLK7cbygVlc8u81yFx6wqxMH1hzcDYtlesGywbl9aymV00o0tHajb
- 25I5AtCsH3dOY4jDk5YutfU7gHK0fprworjm01hzibzkgyP/ilgmL8pdeAsfU+2Z+G1vNHk7RIK
- AL/Sal/WPjocTTwPDp+pNxB0BCacE2CJN3q/xZBi+Cyww==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: from cachyos-26.lan (193.42.110.63)
- by smtp.migadu.com with ESMTPS id dd1549516440c796;
- Wed, 26 Aug 2026 21:28:36 +0000
-X-Mizu-Trace-ID: dd1549516440c796
-X-Migadu-Flow: FLOW_OUT
-From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-To: Lizhi Hou <lizhi.hou@amd.com>, Min Ma <mamin506@gmail.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: taimuraz@kaitmazov.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] accel/amdxdna: Bound the page count of a user supplied
- buffer
-Date: Thu, 27 Aug 2026 00:28:25 +0300
-Message-ID: <20260826212825.408846-1-taimuraz@kaitmazov.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <f1cbc1bf-2904-e0cf-8fc6-07ce41dad2a2@amd.com>
-References: <f1cbc1bf-2904-e0cf-8fc6-07ce41dad2a2@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D617010E0CC
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:31:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BC3E94152F;
+ Wed, 26 Aug 2026 21:31:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D58D1F000E9;
+ Wed, 26 Aug 2026 21:31:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787779896;
+ bh=g66OlWT8R8PfxMlOfz/HY0zKvhyvBE1zgm69UPFVLOs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=frRsqImRHY8O80T4yG9h4ctEGYGLdZ1FppFhy7KP7S6QejLXynNQcverrLxMVKiRD
+ JCESdUrAlFIS98s9kOB9z7cQxi/TbcpivwsKujg8h6euOcGoHfpshnkekSWA/8OT42
+ u3mjJXiwTUTLb5S4Eey80rcm0tEuJdB9ILZxfzSOt3E395sY0i2CTC545pIFP2TsFx
+ Xua4JuzRKWrQLxAcuPtRnUxQtiS2Z3H5fN6ecEoA9XXPRAYfW3xfkye7WHU9SfYjyO
+ Y8JygaixN+qM2X/fy8jCWulEoZv1Nj3+P/X34Z2zn8HDn7jq3ah5XBtJFt6daNllXP
+ O3Um2KvpHpv+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 08/16] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260826-claude-fixes-v6-8-78119af409e7@collabora.com>
+References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+ <20260826-claude-fixes-v6-8-78119af409e7@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 21:31:36 +0000
+Message-Id: <20260826213136.7D58D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +54,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_get_ubuf() puts a per-entry page count derived from a __u64
-va_ent[i].len into a u32, then passes it to pin_user_pages_fast(), whose
-nr_pages is an int. An entry of 2^44 bytes truncates npages to zero, so
-nothing is pinned, the ret != npages test still passes, and ubuf->pages
-keeps whatever kvmalloc_objs() returned while ubuf->nr_pages describes the
-untruncated count. amdxdna_ubuf_release() then walks all of it. Reaching
-that needs CAP_IPC_LOCK and a multi-gigabyte kvmalloc() to succeed.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reject a total that does not fit in an int. The lengths are page aligned
-and summed with check_add_overflow(), so the total is at least as large as
-any one entry and bounds the pin call, the offset accumulator and
-sg_alloc_table_from_pages().
+New issues:
+- [High] Calling pm_runtime_put_noidle() before pm_runtime_disable() during=
+ device teardown introduces a race condition that can lead to accessing sus=
+pended hardware.
 
-Reject a zero length entry as well: it contributes nothing to the mapping
-and a table of them leaves nr_pages at zero.
+Pre-existing issues:
+- [High] Unchecked pm_runtime_get_sync() failure leads to register access w=
+hile hardware is suspended.
+--
 
-Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
-Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
----
-v2:
-- XDNA_DBG and %llu, per your comment.
-- Reject a zero length entry in the validation loop, and lower that log to
-  XDNA_DBG too, as you suggested.
+commit d10f29fd6bb7082083a7547ad09e4497f2af934a
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
- drivers/accel/amdxdna/amdxdna_ubuf.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-index 0e0cd69cd1fb..bf1e4dd7bbc3 100644
---- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-+++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-@@ -111,8 +111,9 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 
- 	for (i = 0, exp_info.size = 0; i < num_entries; i++) {
- 		if (!IS_ALIGNED(va_ent[i].vaddr, PAGE_SIZE) ||
--		    !IS_ALIGNED(va_ent[i].len, PAGE_SIZE)) {
--			XDNA_ERR(xdna, "Invalid address or len %llx, %llx",
-+		    !IS_ALIGNED(va_ent[i].len, PAGE_SIZE) ||
-+		    !va_ent[i].len) {
-+			XDNA_DBG(xdna, "Invalid address or len %llx, %llx",
- 				 va_ent[i].vaddr, va_ent[i].len);
- 			ret = -EINVAL;
- 			goto free_ent;
-@@ -125,6 +126,12 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 	}
- 
- 	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
-+	if (ubuf->nr_pages > INT_MAX) {
-+		XDNA_DBG(xdna, "Too many pages %llu", ubuf->nr_pages);
-+		ret = -EINVAL;
-+		goto free_ent;
-+	}
-+
- 	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
- 	new_pinned = atomic64_add_return(ubuf->nr_pages, &ubuf->mm->pinned_vm);
- 	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
--- 
-2.55.0
+This commit addresses issues where the PM usage count is not correctly
+adjusted during probe and unplug, which prevented the runtime suspend
+callback from being invoked or caused the usage count to monotonically
+increase on reloads. It manually adjusts the PM reference count in these
+paths and disables autosuspend during device teardown.
 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 0cc277efb5850..f6066aef47666 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+[ ... ]
+> @@ -334,9 +335,13 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err < 0)
+>  		goto out_devreg;
+> =20
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> +
+>  	return 0;
+> =20
+>  out_devreg:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+
+[Severity: High]
+Does calling pm_runtime_put_noidle() before pm_runtime_disable() create a
+race condition here?
+
+If a concurrent job completes in the background (since schedulers have not
+been stopped yet), could its interrupt handler call
+pm_runtime_put_autosuspend()?
+
+Because the teardown thread just dropped its reference, this concurrent put
+could drop the usage count to 0 and suspend the device immediately.
+
+When pm_runtime_disable() then flushes pending work and returns, the teardo=
+wn
+thread will proceed to panfrost_device_disable_hw(). Could accessing the
+registers of the now-suspended device result in a synchronous external abor=
+t?
+
+Would it be safer to call pm_runtime_put_noidle() after pm_runtime_disable()
+to guarantee no further runtime PM state transitions occur during teardown?
+
+>  	panfrost_device_disable_hw(pfdev);
+>  	panfrost_gem_fini(pfdev);
+[ ... ]
+> @@ -363,6 +368,8 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+>  	pm_runtime_get_sync(pfdev->base.dev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does ignoring the return val=
+ue
+of pm_runtime_get_sync() risk causing a system crash?
+
+If waking the device fails (for example, due to a clock or regulator
+failure), it will return a negative error code and the device remains
+suspended. Since the error is ignored, panfrost_device_fini() proceeds
+unconditionally.
+
+Could this lead to panfrost_device_disable_hw() attempting to access
+registers while the hardware is powered off, resulting in a bus error?
+
+Note that while follow-up patch 9 in this series adds a drm_WARN_ON() here,
+it doesn't appear to abort the teardown or prevent subsequent hardware acce=
+sses
+on failure.
+
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+
+[Severity: High]
+Does the same race condition mentioned above also apply here in
+panfrost_device_fini()?
+
+If a background job completes and triggers a suspend after the reference is
+dropped but before pm_runtime_disable() finishes, could this cause
+panfrost_device_disable_hw() to access a powered-off device?
+
+> =20
+>  	panfrost_device_disable_hw(pfdev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-claude-fix=
+es-v6-0-78119af409e7@collabora.com?part=3D8
