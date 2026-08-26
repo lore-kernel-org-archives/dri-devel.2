@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A24C61DBE
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:18:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCDE6C61DBE
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 579CC10E327;
-	Wed, 26 Aug 2026 21:18:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E78F10E32B;
+	Wed, 26 Aug 2026 21:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="lIz+CAfZ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Wooz17zI";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DEFA10E327
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:18:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787779104; cv=none; 
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F29910E329
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:18:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787779110; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=CdB28Mk/vunbih+z3b6/QxjB1zjtv3r9RyY6cQ/4XQpzNd+5nLv9GdVIj2x+Os0ltlnNhGBAkiv0591PyabSMPbbQ3ff8EBZjaLiFG5wmk/m1wZiTHQQp4PXEAlNv1SQtcpyqbNyMagXMw06Z3YBwulhuGCOmIyXQQnsOq9KjIs=
+ b=ILAlweHvd2JGgfwb8xwd1SqMC2lUvNlubLLL47WJ4uz0tExkbtLNBRPu/6jY67tAd7p6mekgnl2baGZXiWNQiunx1Z+APkzvx7wjp2x3foXBIAs5FQsmX3TiUfFFOOgEmvwvCUFN27eCwHvVjNtCQ9plO4FSUTdIwgFDudt94F0=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787779104;
+ s=zohoarc; t=1787779110;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KTjS5hBPQO6+RTeil7zhPBG8q7IaCwN0MeCCodQTYuk=; 
- b=ZudoOIJJQpvSLY8/lwY0iBAHKLoRY8ZL8Yz004TSq/imuauBwPdj5h26dwsvjcN3ZHTKjbMsRRQfg8WPfjIQye52I/POQOg7MMwlqInZ4qeOuPnUEBN9cqX61qij1S6Zg8zLFQzCsI90MmKxYSNqMmLKmJTB1xe0h3qBYXbdvGg=
+ bh=w3iyg6HDBs4Cp03goVcc+iKtUKTimcI5YnSFSphq3ZA=; 
+ b=iGbf3dHDPAt2xLcQEYLGgmCsv9EuEEG3ibBnyvJ2LZfEt4JtqAhb47I31SeDwl62R14rdgmTwFPX6Zdj6fJ4HTKHqv85ps4h3MhxPf8DznmUg9tM2ItkCT9darliNV5aRvMXZYmdkv5q+6zu/qN2LOJeOVT64uXws//2Lrs1/AY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779104; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779110; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=KTjS5hBPQO6+RTeil7zhPBG8q7IaCwN0MeCCodQTYuk=;
- b=lIz+CAfZxH8xyXbwhxgOfjT7oPR/CM5Ak7a5MlRn0k/iPVEpBf1vR+/PHg1ya5kG
- GfNrphv6mlKd5/4UheL1n+6WdEUEyiihdz5Y9reBU1CuNFHJIFE09794hpH2QzCcKrn
- DOsuixE7MKpPXYsH/VoquH7TYLd/IzpWAJ9kmH2Y=
-Received: by mx.zohomail.com with SMTPS id 1787779102829956.5009696482655;
- Wed, 26 Aug 2026 14:18:22 -0700 (PDT)
+ bh=w3iyg6HDBs4Cp03goVcc+iKtUKTimcI5YnSFSphq3ZA=;
+ b=Wooz17zIaBJDu6XAQOZYfE4HdcFRaqQrFWn8XZS1SDXxLLLdkuLcgC/OuCW9o3n8
+ dUNqRIjtkAms+oTF6q1o2j+sXgMcWodSmzUWXSIzNZ9YRjaBW4NYooNF0WXOBhT0EmA
+ bylUKceH4XIAVmxc1DKGQwG+yHG2tS6yuu57L0PQ=
+Received: by mx.zohomail.com with SMTPS id 1787779109030691.2423862351918;
+ Wed, 26 Aug 2026 14:18:29 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 26 Aug 2026 22:18:04 +0100
-Subject: [PATCH v6 02/16] drm/panfrost: Move all DRM device initialisation
- into device_init()
+Date: Wed, 26 Aug 2026 22:18:05 +0100
+Subject: [PATCH v6 03/16] drm/panfrost: Move lock and modparam
+ initialisations into their subsystems
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260826-claude-fixes-v6-2-78119af409e7@collabora.com>
+Message-Id: <20260826-claude-fixes-v6-3-78119af409e7@collabora.com>
 References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
 In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5174;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6181;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=+7lLC3RASscJtzYIoHPamAqwjiOy0dTWtgEK2tQLZCc=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gLdvrLyXJhJ4BggXx8G1014OtUEDJyP1fvc
- 0u5W7ppf+OJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YCwAKCRAOJn5M7lND
- PX/uDAC2pR06/NS3OJm4JXFbzaIBLfxTsO0pc84GJNbkzh+3JPCeN5XnpfCSfqPWsAGYmEzVAsI
- NKvY5C/L1jSL/dTSwtHo5nLfH04RMw4O+Sxsooj3S8sU15qX23UFedXB4bggfKPM+O0XT9FKvOa
- Tz8ZTUR0WUh6d09Mcc7SEO++PVt8KGaxoPBz5T9/USUg721VWES3q86XYHeIWusS2uE8DmqF9t0
- 6CoEv/tDNJmXobmsrCtHyvdzhm8qZ+LlpoUrU38HOE48BhXCu8thpnstob4ux+ALQQDm7zuXmPi
- j+QLav2X7fox9QEFn5khFDxz8qSa2Zr+D0cI1GaisgdHuHPzvPlCIWI1/3+eX+9Ki6ek+83mxGX
- LJBXZh7lVNx2G0zr3mQ9dp6BDZRhTeLChjvYSeajfFGR+TxqvraE5txvZrpvWu6OcmDMNPqURSu
- bac/i4X5J5OiY5Qcj/GCzaXF2dzD2/mfLZahVJdvk28jJNTB2n40RuF0JecF4rj560kgg=
+ bh=sD53kiakATC+UcUaCaf7NbRw9ob5hiejFyKuZ4y1uXI=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gLFDx/x9FUHJMD+S5WREyBw2/tbl5PQrCy9
+ ESTRSb98JqJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YCwAKCRAOJn5M7lND
+ PQwaC/4vr4FwYLxDCr/o1dFIt8ZD9sRwMOZiz3WNAcgrnWBzGLk686LeybovBegSvjcTnh4neFf
+ 7053S/92y0oGYOQk9XaqBBKsDEzzE1yEKmnBkx68BwXMtRXTvDOr7Pv89WZH0HyZs41m24QPmht
+ r33zmlx+ItBFsQHQ9WvUGU5zukJjiaP28CkiWHO7jvvPBoj6hbta7yogGBMkVk1mXGkGrxRDre/
+ qzMgbpOV2X1ngdDKl7xWxbaQHJmGsqMGnrFKqCBIFPpTuxUQbNN5A5f5Bg6Mp6P7h3nnJn9HTY+
+ aqHbNQqn5eEEQvxOYZ2HW0PavIstfLLABC+GKty/FeSffwDElhyIvRwiOMJe9lWqz9igd9CImb1
+ A8S00+f6es1caH2MJJ8owOVapO1dk0T4AtsJLNepmM1vJZGaPBivPN3BqGNZc9H5RdrtKiDBttJ
+ ZEephl3LSrrWZVibZlaB1Bmhh5AOPtKdJTqX2mm3d7bmCTZ2afb4CIMir56+m/ICyH2RM=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,169 +91,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ideally the probe() function will do as little as possible, and all device
-initialisation and registration should happen inside the panfrost device
-subsystem, just like it's done in Panthor. This also simplifies resource
-unwinding in the error path.
-
-Do the same thing for DRM driver remove, as in, sweep most of the action
-into panfrost_device_fini(), just like we did for device probe.
+The device init function feels a bit cluttered with things that should be
+done in the specific subsystems where those locks and lists are being
+used. Same goes for module parameters, it's best to limit them to the
+subsystems where they're relevant.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 33 ++++++++++++++++++++++
- drivers/gpu/drm/panfrost/panfrost_drv.c    | 44 +-----------------------------
- 2 files changed, 34 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 10 ----------
+ drivers/gpu/drm/panfrost/panfrost_drv.c          |  7 -------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          | 13 -------------
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  9 ++++++++-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  3 +++
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |  2 ++
+ drivers/gpu/drm/panfrost/panfrost_job.c          |  1 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  3 +++
+ 8 files changed, 17 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 05c40d5a20b5..d2d2830f11a7 100644
+index d2d2830f11a7..7daa2143f3c4 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -8,6 +8,7 @@
- #include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-+#include <drm/drm_drv.h>
+@@ -223,16 +223,6 @@ int panfrost_device_init(struct panfrost_device *pfdev)
  
- #include "panfrost_device.h"
- #include "panfrost_devfreq.h"
-@@ -216,6 +217,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- {
- 	int err;
+ 	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
  
-+	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
-+	if (!pfdev->comp)
-+		return -ENODEV;
-+
-+	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
-+
-+	mutex_init(&pfdev->shrinker_lock);
-+	INIT_LIST_HEAD(&pfdev->shrinker_list);
-+
- 	mutex_init(&pfdev->sched_lock);
- 	INIT_LIST_HEAD(&pfdev->as_lru_list);
- 
-@@ -284,8 +294,25 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 	if (err)
- 		goto out_perfcnt;
- 
-+	pm_runtime_set_active(pfdev->base.dev);
-+	pm_runtime_mark_last_busy(pfdev->base.dev);
-+	pm_runtime_enable(pfdev->base.dev);
-+	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-+	pm_runtime_use_autosuspend(pfdev->base.dev);
-+
-+	/*
-+	 * Register the DRM device with the core and the connectors with
-+	 * sysfs
-+	 */
-+	err = drm_dev_register(&pfdev->base, 0);
-+	if (err < 0)
-+		goto out_devreg;
-+
- 	return 0;
- 
-+out_devreg:
-+	pm_runtime_disable(pfdev->base.dev);
-+	panfrost_gem_fini(pfdev);
- out_perfcnt:
- 	panfrost_perfcnt_fini(pfdev);
- out_job:
-@@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 	panfrost_reset_fini(pfdev);
- out_pm_domain:
- 	panfrost_pm_domain_fini(pfdev);
-+	pm_runtime_set_suspended(pfdev->base.dev);
- 	return err;
- }
- 
- void panfrost_device_fini(struct panfrost_device *pfdev)
- {
-+	pm_runtime_get_sync(pfdev->base.dev);
-+	pm_runtime_disable(pfdev->base.dev);
-+
- 	panfrost_gem_fini(pfdev);
- 	panfrost_perfcnt_fini(pfdev);
- 	panfrost_jm_fini(pfdev);
-@@ -319,6 +350,8 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
- 	panfrost_clk_fini(pfdev);
- 	panfrost_reset_fini(pfdev);
- 	panfrost_pm_domain_fini(pfdev);
-+
-+	pm_runtime_set_suspended(pfdev->base.dev);
- }
- 
- #define PANFROST_EXCEPTION(id) \
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 9882a3ede75f..80996e311a9d 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -964,7 +964,6 @@ MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with T
- static int panfrost_probe(struct platform_device *pdev)
- {
- 	struct panfrost_device *pfdev;
--	int err;
- 
- 	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
- 				   struct panfrost_device, base);
-@@ -973,45 +972,7 @@ static int panfrost_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, pfdev);
- 
--	pfdev->comp = of_device_get_match_data(&pdev->dev);
--	if (!pfdev->comp)
--		return -ENODEV;
--
--	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
--
 -	mutex_init(&pfdev->shrinker_lock);
 -	INIT_LIST_HEAD(&pfdev->shrinker_list);
 -
--	err = panfrost_device_init(pfdev);
--	if (err) {
--		if (err != -EPROBE_DEFER)
--			dev_err(&pdev->dev, "Fatal error during GPU init\n");
--		goto err_out0;
--	}
+-	mutex_init(&pfdev->sched_lock);
+-	INIT_LIST_HEAD(&pfdev->as_lru_list);
 -
--	pm_runtime_set_active(pfdev->base.dev);
--	pm_runtime_mark_last_busy(pfdev->base.dev);
--	pm_runtime_enable(pfdev->base.dev);
--	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
--	pm_runtime_use_autosuspend(pfdev->base.dev);
+-	spin_lock_init(&pfdev->as_lock);
 -
--	/*
--	 * Register the DRM device with the core and the connectors with
--	 * sysfs
--	 */
--	err = drm_dev_register(&pfdev->base, 0);
--	if (err < 0)
--		goto err_out1;
+-	spin_lock_init(&pfdev->cycle_counter.lock);
 -
--
--	return 0;
--
--err_out1:
--	pm_runtime_disable(pfdev->base.dev);
--	panfrost_device_fini(pfdev);
--	pm_runtime_set_suspended(pfdev->base.dev);
--err_out0:
--	return err;
-+	return panfrost_device_init(pfdev);
- }
+ #ifdef CONFIG_DEBUG_FS
+ 	mutex_init(&pfdev->debugfs.gems_lock);
+ 	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 80996e311a9d..ec8c1c08e147 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -21,7 +21,6 @@
+ #include <drm/drm_utils.h>
  
- static void panfrost_remove(struct platform_device *pdev)
-@@ -1020,10 +981,7 @@ static void panfrost_remove(struct platform_device *pdev)
+ #include "panfrost_device.h"
+-#include "panfrost_drv.h"
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
+ #include "panfrost_job.h"
+@@ -955,12 +954,6 @@ static const struct drm_driver panfrost_drm_driver = {
+ #endif
+ };
  
- 	drm_dev_unregister(&pfdev->base);
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-bool panfrost_transparent_hugepage = true;
+-module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
+-MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
+-#endif
+-
+ static int panfrost_probe(struct platform_device *pdev)
+ {
+ 	struct panfrost_device *pfdev;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
+deleted file mode 100644
+index bac0c415d4da..000000000000
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.h
++++ /dev/null
+@@ -1,13 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 or MIT */
+-/* Copyright 2025 Amazon.com, Inc. or its affiliates */
+-
+-#ifndef __PANFROST_DRV_H__
+-#define __PANFROST_DRV_H__
+-
+-#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+-extern bool panfrost_transparent_hugepage;
+-#else
+-#define panfrost_transparent_hugepage false
+-#endif
+-
+-#endif
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 7b993a089af2..15105b7f954b 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -11,10 +11,17 @@
+ #include <drm/panfrost_drm.h>
+ #include <drm/drm_print.h>
+ #include "panfrost_device.h"
+-#include "panfrost_drv.h"
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
  
--	pm_runtime_get_sync(pfdev->base.dev);
--	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
--	pm_runtime_set_suspended(pfdev->base.dev);
- }
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++bool panfrost_transparent_hugepage = true;
++module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
++MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
++#else
++#define panfrost_transparent_hugepage false
++#endif
++
+ int panfrost_gem_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+index fefae87535d6..72cd7a165e6d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+@@ -97,6 +97,9 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+  */
+ int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+ {
++	mutex_init(&pfdev->shrinker_lock);
++	INIT_LIST_HEAD(&pfdev->shrinker_list);
++
+ 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+ 	if (!pfdev->shrinker)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+index 7d555e63e21a..8a15ccce08e9 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+@@ -516,6 +516,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
  
- static ssize_t profiling_show(struct device *dev,
++	spin_lock_init(&pfdev->cycle_counter.lock);
++
+ 	err = panfrost_gpu_soft_reset(pfdev);
+ 	if (err)
+ 		return err;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 2d12b83e900a..6f920fd0fc4e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -873,6 +873,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 
+ 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+ 	spin_lock_init(&js->job_lock);
++	mutex_init(&pfdev->sched_lock);
+ 
+ 	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
+ 	if (js->irq < 0)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 4a3162c3b659..5c393ed6e310 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -955,6 +955,9 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
++	INIT_LIST_HEAD(&pfdev->as_lru_list);
++	spin_lock_init(&pfdev->as_lock);
++
+ 	pfdev->mmu_irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "mmu");
+ 	if (pfdev->mmu_irq < 0)
+ 		return pfdev->mmu_irq;
 
 -- 
 2.55.0
