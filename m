@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A442C61DCD
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C985C61DC7
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E9D510EF60;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF8F310EF66;
 	Thu, 27 Aug 2026 09:44:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="CddO0RTL";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="0UaVc3VW";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7218D10E2CF
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:41:18 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-499d1ab3f9dso4035165e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:41:18 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B847B10ED82
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:40:47 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-49954b88fffso9828845e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:40:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762477; x=1788367277;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762446; x=1788367246;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=75XMTSvTEuzRAiNYY6ttxcW3foj2VMVr/DCaqKIXoVw=;
- b=CddO0RTLsAcG/al/11S84toUi152IfY785DK6INpySks30RNrNiYfd/ZmErlteffCw
- +jKJ9PiKS/IP2wPIIKwAyEfmOtq8cEc6RsYUGlWCjd3oMoVLh1cvekwth8YPMI1wj7Vx
- tdGwWUtH3oN1bYsQC5v+iK6mrJmRzjMBSFiC2VDhD5bSrYBns9TXHyDTq0C0xiCi9cIf
- gkRmppl6LLrcVEWQWdAZFdPZ30vWdKZTGsD8ax94Ho525Iqh/wAyUZFvlaZmG56adb19
- 0SzzyYEullCG5UAUgNc5syh/qiQ/h+hnH2HIJ5UHiLLjDpSlCtzXE+qtqlNElOkO5Sbd
- RXwQ==
+ bh=iJFb/s+KxwRZvPvMtaomEPhZNSiq6o3bfkCXp4Qot74=;
+ b=0UaVc3VWcVwX+NirzxsRgwzxEi/LfLk3eBXIjeJUwAJf4++gfGng5N9gX6aHEBWCq+
+ VwaqL0fw0S9Yf6hI8xxKiwR8xgjZn0amjBXCkjrdV19AD7ABwMAVqNicuAOgjBV0pmt6
+ xZdIoXKnV65zqKAXeBMBiF1q/ak4/cpYKI64JeF1Mxh8+olS1Hk/SwwiW+JGhDkO8eVZ
+ oNGWsYSZ1A/TZoYz2BWZjZEbZghEZ5Zy0W5xRHfL/ighKotpKrbSTYWHz7DonMu8gwPF
+ NCMEm5TlIp3cwrNiQjwHq9yzkkyzcuQDqJbDiEUhhl3bIVs0fAbqFnTReDDr9Ob57S1w
+ ZItw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762477; x=1788367277;
+ d=1e100.net; s=20251104; t=1787762446; x=1788367246;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=75XMTSvTEuzRAiNYY6ttxcW3foj2VMVr/DCaqKIXoVw=;
- b=rfryHfoZRRapLa651k8z9KjDIpQ4fowEps38hhpvtP6U2jjAmL2CD1/X0KWN4MhLM5
- NZtpyqMxjKm0VJ6qtfirMgKzQd1/d3/9ntflTiwkXQsIUjsMrfBAJ8cBQBFPsAryDnxP
- ORQhqIoU3h06mYRjnyzCWMay9iyBYzi4VJ+A4HRax5TM7ptw8leY7ZG6c7cKiGagUCu6
- YgTTgNPi1FT4y2hwNDMVfuSlewSPG4k8LYw71ySFpgoX0xCHfw+TlakrfjCOGmCLaoFY
- Edubvfz19tmsLRcJ6jgIZL+W6BGdspk7EBx0PWCQS9pcBNiXSByB1VseMHpnuDdG7Cf5
- AU0A==
-X-Gm-Message-State: AFuF++kecLL+weOJ2Bqy8KirLysZ9d8Am4B9T62BJqBFu2s2W6yerBT+
- DYUonx6EuFRC5p3rtr0z0BiMK45bfejFrLwLKvnVucDFXXfEy8Z6oxY3MUB/ViyEzdKKSzKKqI1
- mICQzbNf2
-X-Gm-Gg: AR+sD10GhPRmOSh2REjZo6MolnLInpmgEdyOqsJJ2Vvo2Ikg5MC1DUnKfaRdtN52MLG
- j1plP3IEjIDG4oJXmh4CDf6DYMDLGqSilCOESuLJrKPEDAIYh/K7+EMK0PTxPu64k7hUSuj8pUe
- 2s99cxnjMtR0HZWip+6xP93/nw6radls05nI9OQPKL3Kg4z7sE+K2yhMvcAVBccKobin7sZfx74
- iM56ualWeuRiQRyxv43pLKQE4iA85Ucd0/R877HDgHFy0/kecJM46yPD8KlVwFxeyniRsBzINSU
- nPPqSYWxs2byAEXAoqfO2g2Kz1vGsatusR8Vsx0WZyuSCLR1/v8U0iuRMCBVlWz328gPAbJEmcF
- mA7sdjTeZeEUhUOG17lfGK1P21lgR9xY2XCySY7mezA3h/al5PpzbtW6tS/eozw6EA6QgtAdn2U
- kkJUbSpMmEUSVZA6LGnld6Qxv3v9n6zDUxVwjpB5uRlEvM8icstpmuHp/LoC9pAgWLgzw6m1PIW
- ieUuqX3KyxtSA35/qeqBE7qhDZofONYqWcO
-X-Received: by 2002:a05:600c:a086:b0:499:b000:b828 with SMTP id
- 5b1f17b1804b1-499dc6e9a9dmr93554105e9.4.1787762473394; 
- Wed, 26 Aug 2026 09:41:13 -0700 (PDT)
+ bh=iJFb/s+KxwRZvPvMtaomEPhZNSiq6o3bfkCXp4Qot74=;
+ b=s0eZt59KPpYseS8Y8MDYQnHC4p2lDh9B6vwqo9bUkEZltYjXrA+ZKOf+UcVspOjwB9
+ UHd+SKHqWtPBj6TnQlVtOddGarIN2qS278G8XE1LKYOniopZSwCq01H0aIUQWlNlnpnH
+ m0mhDbEzEUUh+cPtjxFYCCT4T57PsMY+QnYXfHoQZuTMv7OYXChwIgNuho6sibQVrLIq
+ fKxF51bhexBQTHskSc5PjWsZ9zoP3gTs9JhIfBEfbg+aRF+tb/aevlaK7ENrChpqrC+u
+ K3vsn+5OZLIiwkzCW5pgbdImN1dP0sVAgD3otm+1JWzrE/p4OJ+w2G1YF5vsHbcgaNzS
+ dgVA==
+X-Gm-Message-State: AFuF++nieDKNP0a8H371hWt2qbuTksD8ntuG/MQX3gD7g/+mgp5TTXg3
+ GF+w5M18vdlj3YHgv4/V2B19RHiwrSirQqkqqKvqAtbg60dBCvtqVx8+PnIVedsYbQF40J2c1MU
+ ZsAdu10+K
+X-Gm-Gg: AR+sD12zzVaCF1msMZC9oJZD5IAgtDznBnty63Eu+1D6uZ+RU9kVtAlq+w3pi9EcJR+
+ FFH+fFkNN94hiOHBeK3xsk+OQX3s60BswTKQmRFZMQNVY7rGnbDCTyCd2oOqJRXg0Hz2m56U75B
+ 2Rowtfa1ruHT3La29pC80Eynb8q1ijvlvC0G6p2dqTInX8i254LHVdu6+FhQuXe4ojAmfhNibOs
+ nV9RLjGc77KDEbrN3BniNeXrU6YtT6b1JhRa/0NPIhp+LXIJNvIfA9TJoFNAW5x/+yT3p3vE8co
+ iN5Br2oMVvDVV0lz3Pd8B7TJK+eggwmCd9eaPwgaBFxpdryr3EfxqP9Ut3Wc8Y/KZczoMIAANTj
+ x1YdmY+b/iIzv/MBXT+rUezrGVW+/zRwteym7kZN0fdpNQZ+KtjII8MtSJn6sy2YkY383zR5sZK
+ x2ofhIpTIyaqgCmFyU5O2WC+w2oCuJyJY2JblVj8LVHVNTgmhiyBu2UBoVO6RgF3jKTuaRtjNhM
+ bR0bgS3G4KJr730RfvHOlh9gR1QskxIpuM99RlkyFD8FNM=
+X-Received: by 2002:a05:600c:8486:b0:499:49f3:77b1 with SMTP id
+ 5b1f17b1804b1-499dc6e1267mr91408015e9.3.1787762442741; 
+ Wed, 26 Aug 2026 09:40:42 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.41.11
+ 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.40.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:41:11 -0700 (PDT)
+ Wed, 26 Aug 2026 09:40:41 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
@@ -72,9 +72,9 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
  Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>,
  Gary Guo <gary@garyguo.net>, linux-kernel@vger.kernel.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 9/13] drm/vino: add the dock activation and scanout path
-Date: Wed, 26 Aug 2026 17:37:34 +0100
-Message-ID: <20260826163913.7052-10-mike@fireburn.co.uk>
+Subject: [PATCH v3 8/13] drm/vino: add the KMS device and the atomic path
+Date: Wed, 26 Aug 2026 17:37:33 +0100
+Message-ID: <20260826163913.7052-9-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
 References: <20260826163913.7052-1-mike@fireburn.co.uk>
@@ -96,5544 +96,5230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the dock-facing half of the sink. A cold dock will not light from a
-correct message sequence alone: it needs a measured bring-up choreography,
-and one driven faster than its vendor drives it stays dark or resets. Those
-timelines are data here, read off captures of each vendor stack waking the
-same hardware, and they are expressed in transcript slots rather than
-connector numbers because they were recorded from docks whose panels were
-in the first two sockets.
+Add the KMS half of the sink: the DRM driver and its GEM and file
+types, the CRTCs, planes and connectors the compositor drives over a
+software vblank clock, the mode admission checks that keep a connector
+from being handed a mode past the dock's budget, the settings a matched
+profile installs, and the workers the atomic callbacks publish to.
 
-With that come the pieces the choreography needs: connector presence and
-its EDID, the brackets a mode program has to sit inside, stream opening,
-the control-plane keepalive, and the scanout path itself -- a shadow
-surface snapshotted inside the atomic commit so the encoder never races the
-compositor's buffer, damage selection over the dock's own strip grid, and a
-per-strip retransmit debt, because a dock holds more than one buffer and a
-delta that reaches only one of them ghosts.
+An atomic callback may not sleep or touch USB, so it records what the dock
+should be doing and wakes a worker; each operation class owns one slot,
+which makes publication infallible and lets a stale cursor position be
+overwritten rather than queued behind the state that replaced it.
 
-The encoder only ever sees the link's depth. Where userspace asked for a
-deeper link than the surface it handed over, a sample is widened after
-decoding by replicating its top bits into the low ones, so both
-endpoints stay exact where a plain shift would leave full white three
-codes short and tint every highlight. The strip cache is keyed on that
-depth alongside the colour transform, since changing it re-maps every
-sample on the way into the codec while leaving the framebuffer byte for
-byte identical.
+Sample depth is decided here too, and from `max bpc` rather than from
+the committed framebuffer's format: a compositor drives a ten-bit link
+from an eight-bit surface, which is what the property means everywhere
+else. The dock's pixel budget is shared and was measured with three
+bytes stored per pixel, so a ten-bit connector costs a third more and
+the whole dock is priced at its deepest one. Where a pair does not fit,
+the depth gives way rather than the mode: a compositor handed EINVAL
+disables the output instead of asking for a shallower link. The decision
+is taken in the enable, beside the mode set that carries it to the dock,
+because a check also runs for page flips and for TEST_ONLY commits that
+are never applied.
 
-Waking a connector whose blank held its markers is a re-engage rather than
-just a bracket close: the blank powered its downstream sink down, and the
-closing markers do not bring it back. The vendor follows them with a probe,
-EDID fetch and sink engage before it programs a timing, and so does this. A
-dock woken without them comes back slowly, or not at all once the sink has
-been down long enough for the dock to have let go of it.
+The planes publish the single modifier scanout accepts, so userspace reads
+IN_FORMATS rather than inferring what will be taken from the format list.
+
+The dock-facing half of the sink -- activation, presence, the streams and
+the encoder feed -- follows in the next commit.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- drivers/gpu/drm/vino/drm_sink.rs            |   11 +
- drivers/gpu/drm/vino/drm_sink/activation.rs | 1196 +++++++++++
- drivers/gpu/drm/vino/drm_sink/bracket.rs    |  369 ++++
- drivers/gpu/drm/vino/drm_sink/cp_session.rs |  414 ++++
- drivers/gpu/drm/vino/drm_sink/presence.rs   |  435 ++++
- drivers/gpu/drm/vino/drm_sink/scanout.rs    | 1958 +++++++++++++++++++
- drivers/gpu/drm/vino/drm_sink/stream.rs     |  470 +++++
- drivers/gpu/drm/vino/drm_sink/timeline.rs   |  571 ++++++
- 8 files changed, 5424 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/drm_sink/activation.rs
- create mode 100644 drivers/gpu/drm/vino/drm_sink/bracket.rs
- create mode 100644 drivers/gpu/drm/vino/drm_sink/cp_session.rs
- create mode 100644 drivers/gpu/drm/vino/drm_sink/presence.rs
- create mode 100644 drivers/gpu/drm/vino/drm_sink/scanout.rs
- create mode 100644 drivers/gpu/drm/vino/drm_sink/stream.rs
- create mode 100644 drivers/gpu/drm/vino/drm_sink/timeline.rs
+ drivers/gpu/drm/vino/drm_sink.rs              | 1868 +++++++++++++++++
+ drivers/gpu/drm/vino/drm_sink/dispatch.rs     |  446 ++++
+ drivers/gpu/drm/vino/drm_sink/driver.rs       |  211 ++
+ drivers/gpu/drm/vino/drm_sink/limits.rs       |  489 +++++
+ drivers/gpu/drm/vino/drm_sink/mode_objects.rs |  978 +++++++++
+ drivers/gpu/drm/vino/drm_sink/settings.rs     |  574 +++++
+ drivers/gpu/drm/vino/drm_sink/worker.rs       |  571 +++++
+ 7 files changed, 5137 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/drm_sink.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink/dispatch.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink/driver.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink/limits.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink/mode_objects.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink/settings.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink/worker.rs
 
 diff --git a/drivers/gpu/drm/vino/drm_sink.rs b/drivers/gpu/drm/vino/drm_sink.rs
-index 86708db89699..535e7d18ff50 100644
---- a/drivers/gpu/drm/vino/drm_sink.rs
-+++ b/drivers/gpu/drm/vino/drm_sink.rs
-@@ -46,11 +46,18 @@
-     xxhash,
- };
- 
-+mod activation;
-+mod bracket;
-+mod cp_session;
- mod dispatch;
- mod driver;
- mod limits;
- mod mode_objects;
-+mod presence;
-+mod scanout;
- mod settings;
-+mod stream;
-+mod timeline;
- mod worker;
- 
- pub(crate) use driver::VinoObject;
-@@ -58,6 +65,10 @@
- pub(super) use mode_objects::{
-     PlaneArgs, VblankTimer, VinoConnector, VinoCrtc, VinoEncoder, VinoPlane,
- };
-+use scanout::{read_cursor_bgra, run_pending_scanout, snapshot_to_shadow, src_dims};
-+// Almost every item in `timeline` is read by the activation path; naming them individually
-+// would list the module.
-+pub(crate) use timeline::*;
- 
- /// Connector mode used until a downstream EDID is available.
- const FALLBACK_W: i32 = 2560;
-diff --git a/drivers/gpu/drm/vino/drm_sink/activation.rs b/drivers/gpu/drm/vino/drm_sink/activation.rs
 new file mode 100644
-index 000000000000..e505d80ed80d
+index 000000000000..86708db89699
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/activation.rs
-@@ -0,0 +1,1196 @@
++++ b/drivers/gpu/drm/vino/drm_sink.rs
+@@ -0,0 +1,1868 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Bringing a connector's downstream sink up.
++//! DRM/KMS integration for Vino.
 +//!
-+//! A sink that is merely programmed with a timing stays dark. The dock has to be walked through a
-+//! sequence of bracket states, carrier frames and mode sets, in an order and at intervals its own
-+//! vendor was measured using, so the constants and the ordering here are load-bearing.
++//! Each dock connector has a primary plane, cursor plane, CRTC, encoder and connector. Framebuffers
++//! are copied into driver-owned snapshots before atomic completion, then compressed and sent by
++//! per-connector workers. Connector modes come from downstream EDID tunneled over the dock's
++//! control protocol.
 +
-+use super::*;
++use core::sync::atomic::{AtomicBool, AtomicI64, Ordering};
++use kernel::{
++    drm,
++    drm::kms::{
++        self,
++        connector::{self, Connector, ConnectorGuard, ConnectorModeValidation, ModeStatus, Status},
++        crtc::{self, CrtcAtomicCheck, CrtcAtomicCommit, RawCrtc as _, RawCrtcState as _},
++        encoder,
++        modes::DisplayMode,
++        plane::{self, PlaneAtomicCheck, PlaneAtomicCommit, RawPlaneState as _},
++        vblank::{
++            OwnedVblankRef, RawVblankCrtcState as _, VblankGuard, VblankSupport, VblankTimestamp,
++        },
++        KmsDriver, ModeConfigGuard, ModeConfigInfo, ModeObject as _, UnregisteredKmsDevice,
++    },
++    error::code::{EINVAL, ENODEV, ENOMEM, ENOTSUPP},
++    impl_has_hr_timer,
++    interrupt::LocalInterruptDisabled,
++    io::Io,
++    prelude::*,
++    sync::{
++        aref::ARef, new_mutex, new_spinlock, new_spinlock_irq, Arc, ArcBorrow, Completion, Mutex,
++        SpinLock, SpinLockIrq,
++    },
++    time::{
++        delay::{fsleep, udelay},
++        hrtimer::{
++            ArcHrTimerHandle, HrTimer, HrTimerCallback, HrTimerCallbackContext, HrTimerPointer,
++            HrTimerRestart, RelativeHardMode,
++        },
++        Delta, Instant, Monotonic,
++    },
++    workqueue::{
++        self, impl_has_delayed_work, impl_has_work, new_delayed_work, new_work, DelayedWork, Work,
++        WorkItem,
++    },
++    xxhash,
++};
 +
-+impl VinoDrmData {
-+    /// Continuously present one already-encoded activation carrier for at least `duration_ms`.
-+    ///
-+    /// This deliberately performs no CP transaction between presentations. `BringUp` runs the
-+    /// status/heartbeat dialogue concurrently on another work item; doing it here would put a
-+    /// 10--15 ms control round-trip between tiny black frames and recreate the endpoint starvation
-+    /// this path exists to remove. A persistent eight-URB queue bounds how far submission can run
-+    /// ahead, so elapsed wall time closely follows actual endpoint progress rather than merely
-+    /// copying an arbitrary number of frames into unbounded memory.
-+    pub(super) fn submit_prompt_training(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        connector: u8,
-+        want: u64,
-+        frames: &[KVec<u8>],
-+        ordinary_frames: &[KVec<u8>],
-+        duration_ms: i64,
-+        with_arm: bool,
-+    ) -> Result<u32> {
-+        if frames.is_empty() {
-+            return Err(kernel::error::code::EINVAL);
++mod dispatch;
++mod driver;
++mod limits;
++mod mode_objects;
++mod settings;
++mod worker;
++
++pub(crate) use driver::VinoObject;
++use limits::{active_pixel_rate, timing_key, DEFAULT_MAX_HEAD_CLOCK_KHZ, DEFAULT_MAX_REFRESH_HZ};
++pub(super) use mode_objects::{
++    PlaneArgs, VblankTimer, VinoConnector, VinoCrtc, VinoEncoder, VinoPlane,
++};
++
++/// Connector mode used until a downstream EDID is available.
++const FALLBACK_W: i32 = 2560;
++const FALLBACK_H: i32 = 1440;
++
++/// Primary-plane format list (opaque 32bpp scanout).
++static PRIMARY_FORMATS: [u32; 1] = [drm::fourcc::XRGB8888];
++
++/// Primary-plane format list for a dock whose pipeline carries 10 bits per channel.
++///
++/// `XRGB8888` stays first: it is what every ordinary desktop commits, and a compositor choosing
++/// between them should not be pushed towards the deeper one by list order alone.
++static PRIMARY_FORMATS_HDR: [u32; 2] = [drm::fourcc::XRGB8888, drm::fourcc::XRGB2101010];
++
++/// The only framebuffer layout any of these planes accepts.
++///
++/// Publishing it gives userspace an `IN_FORMATS` property; without it the plane advertises formats
++/// with no modifier information at all.
++static LINEAR_MODIFIER: [u64; 1] = [drm::fourcc::FORMAT_MOD_LINEAR];
++
++/// Cursor-plane format list.
++static CURSOR_FORMATS: [u32; 1] = [drm::fourcc::ARGB8888];
++
++/// Stream-marker state which powers down a connector's downstream sink.
++///
++/// The resulting probe silence must be paired with [`VinoDrmData::self_blanked`] so it is not
++/// mistaken for a physical disconnect.
++///
++/// The vendor drives a DL-3x00 sink down with `0x2f` state 1 followed by `0x2e` state 3, and back
++/// up with `0x2e` state 0 then `0x2f` state 0. State 1 is what has been verified against a
++/// DL-6xxx dock, so the field is likely a bitmask rather than an enumeration; a platform that
++/// needs the vendor's exact value will have to carry it per profile.
++const BLANK_MARKER_STATE: u8 = 1;
++
++/// Delay before retrying a transient asynchronous control operation.
++const KMS_RETRY_MS: u32 = 50;
++
++/// Consecutive deferrals of a KMS command batch before it is dropped.
++///
++/// A command that fails because the dock has stopped answering will fail again for the same
++/// reason, and retrying it forever reprograms a dead link twenty times a second: it buries every
++/// other message in the log and keeps writing to a dock that has already abandoned its session.
++/// Anything genuinely transient clears well inside this, and a later commit or hotplug queues
++/// fresh work regardless. The bound is a little over the dock's own no-answer watchdog.
++const KMS_RETRY_LIMIT: u32 = 128;
++
++/// Maximum number of physical downstream connectors Vino exposes.
++///
++/// Ridge docks use the first two. Navarro has four physical DP sockets; connectors 0/2 share
++/// bulk endpoint 0x08 and connectors 1/3 share 0x0a. `DockProfile::connectors` selects the
++/// active prefix at runtime, while this constant keeps the DRM object layout fixed at registration.
++pub(crate) const MAX_CONNECTORS: usize = 4;
++
++/// Bulk transfer size on the video endpoints: a multiple of the 1024-byte maximum packet size, so
++/// only a frame's final transfer terminates short.
++const VIDEO_XFER: usize = 65536;
++
++/// Stream reports a connector sends after its stream is opened, on a dock that carries video on the
++/// control pipe.
++///
++/// The report restates the mode on a stream the dock has just been handed. DLM sends fourteen of
++/// them across 7115 frames and never two together, so one per stream is the whole of it; sending
++/// one per frame spends both the dock's bandwidth budget and its sealed block counter on a record
++/// it is not waiting for.
++const STREAM_REPORT_BURST: u32 = 1;
++
++/// Frame of a fresh stream that carries the report, counting the prologue as zero.
++///
++/// DLM restates the mode with the third frame, not the first: the two frames before it carry
++/// nothing but pixels and their closing record.
++const STREAM_REPORT_FRAME: u32 = 2;
++
++/// Whether a presentation named a ring slot, and so consumed a frame counter.
++///
++/// The counter belongs to whichever record names the slot: the frame opener on a dock that
++/// carries one, the frame trailer on a dock that carries the transition there. A presentation with
++/// neither says nothing about the ring, and counting it anyway puts every later record one slot
++/// ahead of the buffer the host actually wrote, so the dock scans out a buffer nothing has filled.
++pub(crate) fn names_ring_slot(opener: &[u8], trailer: &[u8]) -> bool {
++    !opener.is_empty() || !trailer.is_empty()
++}
++
++/// Maximum number of individual frame-damage rectangles re-converted per flip before they are
++/// collapsed into a single bounding box. Bounds the stack array used on the atomic-commit path
++/// (no per-flip allocation); a compositor that reports more clips than this just gets a coarser
++/// (still correct) repaint.
++const MAX_DAMAGE_CLIPS: usize = 16;
++/// Minimum interval between normal frames for one connector.
++const FRAME_PERIOD_MS: i64 = 5;
++/// The coalescing window in microseconds. Whole-millisecond arithmetic truncated the elapsed time
++/// and forced a 1 ms minimum sleep, so a frame could wait materially longer than the window.
++const FRAME_PERIOD_US: i64 = FRAME_PERIOD_MS * 1000;
++/// Interval between keepalive status queries on a dock whose profile does not state one.
++const STATUS_PERIOD_MS: i64 = 250;
++
++/// Activation timing relative to the mode-set submission.
++const PROMPT_VIDEO_MS: i64 = 110;
++const PROMPT_CLOSE_2F_MS: i64 = 123;
++const PROMPT_CLOSE_2E_MS: i64 = 125;
++/// Upper bound used to quiesce an already-running keepalive iteration.
++const PROMPT_KEEPALIVE_QUIESCE_MS: i64 = 40;
++/// Minimum interval between streaming status polls (`id=0x14 sub=0x0c`).
++///
++/// Issued per presentation this would be 200-600 CP round-trips a second across two connectors at
++/// ~100 fps, every one of them serialising on the single control link, and whichever connector
++/// looped fastest would re-acquire it immediately and starve the other. DLM issues ~3.8 per second,
++/// so a quarter-second floor matches the reference and leaves the link free for the other
++/// connector.
++const STATUS_POLL_MIN_MS: i64 = 250;
++const PROMPT_TRAINING_OPEN_MS: i64 = 0;
++const PROMPT_TRAINING_TAIL_MS: i64 = 400;
++/// How long [`VinoDrmData::blank_connector`] keeps presenting black when a CRTC is disabled.
++///
++/// It only has to outlast the dock's buffer rotation, which is at most three presentations on the
++/// current profiles; a black frame is ~200 KB and presents in a couple of milliseconds, so this is
++/// generous by an order of magnitude and still finishes well inside a DPMS transition. It is not a
++/// training window -- nothing downstream needs settling -- so it does not reuse
++/// [`PROMPT_TRAINING_TAIL_MS`].
++const BLANK_PRESENT_MS: i64 = 120;
++
++/// `edid_target` sentinel: nobody is waiting for an EDID.
++const NO_EDID_TARGET: u32 = u32::MAX;
++
++/// How much of a DL7400 frame's image data precedes its per-strip parameter map.
++///
++/// The map tells the dock how to read the records around it, and where it sits in the frame is
++/// load-bearing rather than cosmetic: the vendor's stream carries it this far into the image
++/// records of every frame, and a frame that carries the same valid records after all of its pixels
++/// instead is accepted twice and then leaves the endpoint permanently un-drained.
++pub(crate) const NAVARRO_PARAM_IMAGE_OFFSET: usize = 115168;
++
++/// How many leading record chunks precede the parameter map in a frame.
++///
++/// The map has to land on a record boundary, and an encoded frame's chunks are the boundaries this
++/// side knows: each holds whole records, while [`NAVARRO_PARAM_IMAGE_OFFSET`] itself falls wherever
++/// a frame's record lengths put it. So round the vendor's offset back to a chunk, and keep at least
++/// one chunk in front of the map -- what the dock will not take is the map arriving after every
++/// record it describes, not the exact byte it arrives at.
++pub(crate) fn param_map_chunk_split(frames: &[KVec<u8>]) -> usize {
++    let mut consumed = 0usize;
++    let mut chunks = 0usize;
++    for f in frames {
++        if consumed + f.len() > NAVARRO_PARAM_IMAGE_OFFSET {
++            break;
 +        }
-+        let geometry = self.geometry();
-+        let xfer: usize = VIDEO_XFER;
-+        let connector_index = connector as usize;
-+        let pipe_i = dev.video_pipe_index(connector_index)?;
-+        let connector_bit = 1u32 << connector;
-+        // The DL7400's per-strip parameter map, ahead of the pixels it describes. This path --
-+        // the startup/prompt-training submit -- is the one the dock's first frames go out on, so
-+        // wiring the map only into the steady-state scanout left it absent from every frame that
-+        // matters. Ridge has no equivalent record and gets an empty slice.
-+        let params: KVec<u8> = if geometry.connector_selector_shift == 0 {
-+            KVec::new()
-+        } else {
-+            let t = self
-+                .last_timing
-+                .lock()
-+                .get(connector_index)
-+                .copied()
-+                .flatten();
-+            match t {
-+                Some(t) => {
-+                    let (sw, sh) = (geometry.strip_w(), geometry.strip_h());
-+                    let padded_width = (t.hactive as usize).div_ceil(sw) * sw;
-+                    let padded_height = (t.vactive as usize).div_ceil(sh) * sh;
-+                    crate::video::haar::navarro_strip_params(
-+                        geometry,
-+                        connector,
-+                        padded_width,
-+                        padded_height,
-+                        &frames,
-+                        &mut self.strip_classes.lock()[connector_index],
-+                    )?
-+                }
-+                None => KVec::new(),
-+            }
-+        };
-+        vino_debug!(
-+            "vino: connector={connector} prompt-training parameter map {} B\n",
-+            params.len()
-+        );
-+        let arm = if with_arm {
-+            // The bit is cleared only once this connector's carrier has gone out, so finding it
-+            // clear means the stream is already open and the carrier already presented. That is
-+            // this call's whole purpose, so report it done. Reporting it as a failure instead makes
-+            // the caller re-arm and present a second carrier, and a retried activation then walks
-+            // the dock's ring one slot further on every pass -- six flat frames where the vendor
-+            // sends one, with the picture in a slot the dock is not showing.
-+            if self.arm_prefix_pending.load(Ordering::Acquire) & connector_bit == 0 {
-+                return Ok(0);
-+            }
-+            Some(self.build_stream_prefix_buf(connector_index)?)
-+        } else {
-+            None
-+        };
-+        if arm.is_some() {
-+            self.send_stream_open(dev, connector_index)?;
-+            // A stream that is being opened here starts its ring and its frame counter from the
-+            // beginning, whatever the connector reached before. Arming the prologue already resets
-+            // this, but an activation that is retried arms once and presents several times, so a
-+            // connector could open a stream and immediately tell the dock it was filling a later
-+            // slot with a later frame number -- and the dock scans out a slot nothing wrote.
-+            self.scanout_seq.lock()[connector_index] = 0;
-+        }
-+        let startup = arm.is_some();
-+        let seq0 = self.scanout_seq.lock()[connector_index];
-+        let started = Instant::<Monotonic>::now();
-+        let mut repeat = 0u32;
-+        // Presentations that named a ring slot, which is what the frame counter counts. See
-+        // `names_ring_slot`.
-+        let mut named = 0u32;
-+
-+        loop {
-+            if self.shutting_down.load(Ordering::Acquire)
-+                || self.modeset_requested[connector_index].load(Ordering::Acquire) != want
-+                || self.modeset_active[connector_index].load(Ordering::Acquire) != want
-+            {
-+                return Err(kernel::error::code::ENODEV);
-+            }
-+
-+            let seq = seq0.wrapping_add(named);
-+            let trailer = self.build_frame_trailer(connector, seq);
-+            let arm_slice: &[u8] = if repeat == 0 {
-+                arm.as_ref().map_or(&[], |a| &a[..])
-+            } else {
-+                &[]
-+            };
-+            let prologue_frame = startup && repeat == 0;
-+            let opener = self.build_frame_opener(connector, seq, prologue_frame);
-+            let opener_slice: &[u8] = opener.as_ref().map_or(&[], |o| &o[..]);
-+            // Counted once this presentation has actually gone out; see the loop's tail. A pass
-+            // that defers because the endpoint is full sends nothing, and a ring slot the dock
-+            // never saw must not be spent.
-+            let names_slot = names_ring_slot(opener_slice, &trailer);
-+            // The report leads the frame it rides with, ahead of any pixels; see
-+            // `build_stream_report_buf` for which frames carry one. The frame bearing the prologue
-+            // never does: every generation goes from its decoder configuration into image records.
-+            //
-+            // The parameter map is not the report and has no such exception. The same-day DLM cold
-+            // capture carries the map part-way through frame zero, and Windows carries it after
-+            // the image records. Both put it before frame close. Omitting it made vino's first
-+            // frame exactly 5,984 bytes short and left the dock briefly scanning a partially
-+            // described framebuffer.
-+            let report = if prologue_frame {
-+                None
-+            } else {
-+                self.build_stream_report_buf(connector_index, seq)?
-+            };
-+            let report_slice: &[u8] = report.as_ref().map_or(&[], |r| &r[..]);
-+            let params_slice: &[u8] = &params[..];
-+            // The prologue and ordinary DLM carriers contain identical strips but different
-+            // producer record boundaries. Select by the presence of the one-shot arm rather than
-+            // by this helper's local `repeat`: the cold timeline invokes the helper once per
-+            // measured presentation, so every invocation starts with repeat zero.
-+            let frame_parts = if prologue_frame {
-+                frames
-+            } else {
-+                ordinary_frames
-+            };
-+            let image_len: usize = frame_parts.iter().map(|f| f.len()).sum();
-+            let image_parts = frame_parts.len();
-+            let wire_len = arm_slice.len()
-+                + opener_slice.len()
-+                + report_slice.len()
-+                + params_slice.len()
-+                + image_len
-+                + trailer.len();
-+            {
-+                // One writer owns a shared pipe for the whole frame; see `own_pipe`.
-+                let _pipe = self.own_pipe();
-+                let mut staging_slots = self.video_staging.lock();
-+                let staging_slot = &mut staging_slots[connector_index];
-+                if staging_slot.is_none() {
-+                    let mut staging = KVec::new();
-+                    staging.resize(xfer, 0, GFP_KERNEL)?;
-+                    *staging_slot = Some(staging);
-+                }
-+                let staging = staging_slot.as_mut().ok_or(kernel::error::code::ENOMEM)?;
-+
-+                let mut queue_slot = self.video_q[pipe_i].lock();
-+                if queue_slot.is_none() {
-+                    // Navarro's required EP08/EP0a clears are sent together at their captured
-+                    // pre-commit point in `send_cp_setup`. Nothing clears here: doing so after
-+                    // stream setup has begun changes SuperSpeed endpoint sequence state at a
-+                    // point DLM does not.
-+                    *queue_slot = Some(dev.video_queue(connector_index, 8, xfer)?);
-+                    vino_debug!(
-+                        "vino: connector={} endpoint={:#04x} persistent video queue opened by prompt training\n",
-+                        connector,
-+                        dev.endpoints.video[connector_index].address()
-+                    );
-+                }
-+                let queue = queue_slot
-+                    .as_mut()
-+                    .get_mut()
-+                    .as_mut()
-+                    .ok_or(kernel::error::code::ENODEV)?;
-+
-+                // A carrier is one protocol frame split over several URBs. Never block after
-+                // submitting only its prefix: DLM's video producer and control workers are
-+                // independent, while this cold-timeline worker also owes the marker burst that
-+                // surrounds the first video bytes. On a non-draining endpoint the old path filled
-+                // the eight slots with two complete frames plus one URB of frame three, then
-+                // waited a second for frame-three URB two. The due +14-ms marker consequently
-+                // never reached EP02 even though the dock had authenticated the preceding marker.
-+                // Defer the whole presentation when it cannot fit; the next scheduled carrier can
-+                // retry after the control messages have advanced the dock state.
-+                let frame_urbs = wire_len.div_ceil(xfer);
-+                if !queue.can_send_n(dev.io(), frame_urbs)? {
-+                    if self
-+                        .endpoint_status_logged
-+                        .fetch_or(connector_bit, Ordering::AcqRel)
-+                        & connector_bit
-+                        == 0
-+                    {
-+                        match dev.video_endpoint_status(connector_index) {
-+                            Ok(status) => vino_debug!(
-+                                "vino: connector={} endpoint={:#04x} stopped accepting video: GET_STATUS={:#06x} halt={}\n",
-+                                connector,
-+                                dev.endpoints.video[connector_index].address(),
-+                                status,
-+                                status & 1
-+                            ),
-+                            Err(e) => pr_warn!(
-+                                "vino: connector={} endpoint={:#04x} stopped accepting video: GET_STATUS failed ({e:?})\n",
-+                                connector,
-+                                dev.endpoints.video[connector_index].address()
-+                            ),
-+                        }
-+                    }
-+                    if duration_ms <= 0 {
-+                        return Ok(repeat);
-+                    }
-+                    if (Instant::<Monotonic>::now() - started).as_millis() >= duration_ms {
-+                        break;
-+                    }
-+                    fsleep(Delta::from_millis(1));
-+                    continue;
-+                }
-+
-+                // Navarro's captured DLM stream flushes its two parameter records after exactly
-+                // NAVARRO_PARAM_IMAGE_OFFSET bytes of image records in both the prologue and
-+                // ordinary carriers. Build a borrowed scatter list in the captured order. A
-+                // carrier's chunks all hold the same records, so the exact offset is usable here:
-+                // the insertion may fall inside one allocation chunk, but is always on a
-+                // wire-record boundary. A content frame's are not uniform and round to a chunk.
-+                let mut wire_parts: KVec<&[u8]> = KVec::with_capacity(image_parts + 6, GFP_KERNEL)?;
-+                if !arm_slice.is_empty() {
-+                    wire_parts.push(arm_slice, GFP_KERNEL)?;
-+                }
-+                if !opener_slice.is_empty() {
-+                    wire_parts.push(opener_slice, GFP_KERNEL)?;
-+                }
-+                if !report_slice.is_empty() {
-+                    wire_parts.push(report_slice, GFP_KERNEL)?;
-+                }
-+                let param_at = NAVARRO_PARAM_IMAGE_OFFSET.min(image_len);
-+                let mut image_off = 0usize;
-+                let mut param_inserted = params_slice.is_empty();
-+                for f in frame_parts.iter() {
-+                    if image_off >= image_len {
-+                        break;
-+                    }
-+                    let n = f.len().min(image_len - image_off);
-+                    let split = param_at.saturating_sub(image_off).min(n);
-+                    if !param_inserted && image_off + n >= param_at {
-+                        if split != 0 {
-+                            wire_parts.push(&f[..split], GFP_KERNEL)?;
-+                        }
-+                        wire_parts.push(params_slice, GFP_KERNEL)?;
-+                        param_inserted = true;
-+                        if split != n {
-+                            wire_parts.push(&f[split..n], GFP_KERNEL)?;
-+                        }
-+                    } else if n != 0 {
-+                        wire_parts.push(&f[..n], GFP_KERNEL)?;
-+                    }
-+                    image_off += n;
-+                }
-+                if !param_inserted {
-+                    wire_parts.push(params_slice, GFP_KERNEL)?;
-+                }
-+                wire_parts.push(&trailer[..], GFP_KERNEL)?;
-+
-+                let part_count = wire_parts.len();
-+                let mut part_i = 0usize;
-+                let mut part_off = 0usize;
-+                let mut wire_off = 0usize;
-+                // DLM's authenticated first connector-0 prologue does not put all four URBs on the
-+                // xHCI ring at once. It submits at +0/+806/+851/+873 us and receives completion
-+                // of the first at +104 us, so the dock gets a ~700-us ready interval before the
-+                // second transfer and then a three-URB pipeline. Submitting chunk two immediately
-+                // leaves Navarro NRDY forever after exactly one completed URB. Preserve this
-+                // producer boundary only for the one-shot, full-size prologue; ordinary frames
-+                // use the normal eight-deep queue, just as DLM does.
-+                const NAVARRO_PROLOGUE_SUBMIT_US: [i64; 4] = [0, 806, 851, 873];
-+                let pace_prologue = !arm_slice.is_empty()
-+                    && xfer == VIDEO_XFER
-+                    && geometry.connector_selector_shift != 0;
-+                let mut prologue_anchor: Option<Instant<Monotonic>> = None;
-+                while wire_off < wire_len {
-+                    let data_len = (wire_len - wire_off).min(xfer);
-+                    let dst = &mut staging[..data_len];
-+                    let mut dst_off = 0usize;
-+                    while dst_off < dst.len() && part_i < part_count {
-+                        let part = wire_parts[part_i];
-+                        let n = (part.len() - part_off).min(dst.len() - dst_off);
-+                        dst[dst_off..dst_off + n].copy_from_slice(&part[part_off..part_off + n]);
-+                        dst_off += n;
-+                        part_off += n;
-+                        if part_off == part.len() {
-+                            part_i += 1;
-+                            part_off = 0;
-+                        }
-+                    }
-+                    if pace_prologue {
-+                        let chunk = wire_off / xfer;
-+                        if let Some(anchor) = prologue_anchor {
-+                            if let Some(&target_us) = NAVARRO_PROLOGUE_SUBMIT_US.get(chunk) {
-+                                Self::wait_video_offset(anchor, target_us);
-+                            }
-+                        }
-+                    }
-+                    // DLM's mixed transport: prologue chunk zero is reaped below, then the rest
-+                    // and all ordinary frames are pipelined.
-+                    queue.send(dev.io(), dst, crate::timeout())?;
-+                    if pace_prologue && wire_off == 0 {
-+                        let anchor = Instant::<Monotonic>::now();
-+                        prologue_anchor = Some(anchor);
-+                        // Do not expose chunk two to xHCI before chunk zero completes. The capture
-+                        // has the first completion at +104 us and the next submit at +806 us.
-+                        queue.flush(dev.io(), crate::timeout())?;
-+                    }
-+                    self.last_video_at.lock()[connector_index] = Some(Instant::<Monotonic>::now());
-+                    wire_off += data_len;
-+                }
-+            }
-+
-+            if repeat == 0 && startup {
-+                self.arm_prefix_pending
-+                    .fetch_and(!connector_bit, Ordering::Release);
-+                // The window runs from the first frame the dock actually receives, not from the
-+                // mode set, so it is re-armed here. Whether there is a window at all is
-+                // `sustain_window`'s decision and must not be second-guessed: a dock that shares
-+                // its control pipe is granted none, and re-arming one unconditionally spent three
-+                // seconds of full keyframes on the endpoint its control plane needs.
-+                let mut sustain = self.sustain_until.lock();
-+                if sustain[connector_index].is_some() {
-+                    sustain[connector_index] =
-+                        Some(Instant::<Monotonic>::now() + Delta::from_millis(SUSTAIN_MS));
-+                }
-+                drop(sustain);
-+                vino_debug!(
-+                    "vino: connector {} startup frame submitted after {} ms ({} bytes)\n",
-+                    connector,
-+                    (Instant::<Monotonic>::now() - started).as_millis(),
-+                    wire_len
-+                );
-+            }
-+            repeat = repeat.wrapping_add(1);
-+            if names_slot {
-+                named = named.wrapping_add(1);
-+            }
-+            self.scanout_seq.lock()[connector_index] = seq0.wrapping_add(named);
-+
-+            if repeat >= self.carrier_presentations() {
-+                break;
-+            }
-+            // A zero window means this dock is bounded by the count above, not by wall clock.
-+            // Testing the elapsed time against it regardless ends the carrier after one frame,
-+            // whatever the count says.
-+            if duration_ms > 0 && (Instant::<Monotonic>::now() - started).as_millis() >= duration_ms
-+            {
-+                break;
-+            }
-+            // Leave the endpoint between carrier frames on a dock that shares it, at the same
-+            // interval its ordinary frames are paced to. A back-to-back carrier is what silenced
-+            // this dock before, and it is the reason its window was reduced to a single frame.
-+            if self.video_on_ctrl_pipe() {
-+                fsleep(Delta::from_millis(self.frame_period_ms()));
-+            }
-+        }
-+
-+        vino_debug!(
-+            "vino: connector={} training complete ({} presentations, {} ms)\n",
-+            connector,
-+            repeat,
-+            (Instant::<Monotonic>::now() - started).as_millis()
-+        );
-+        Ok(repeat)
++        consumed += f.len();
++        chunks += 1;
 +    }
-+    /// Apply one desired mode generation and its activation carrier.
-+    ///
-+    /// The control timeline is always released before returning. Any failed bracket, mode-set, arm,
-+    /// or carrier transfer clears `modeset_active`, allowing the desired generation to be retried.
-+    pub(super) fn activate_head(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        connector: u8,
-+        timing: &crate::cp::Timing,
-+        want: u64,
-+    ) -> Result<bool> {
-+        let connector_index = connector as usize;
-+        if connector_index >= MAX_CONNECTORS
-+            || self.modeset_requested[connector_index].load(Ordering::Acquire) != want
-+        {
-+            return Ok(false);
++    chunks.max(1).min(frames.len())
++}
++type DamageRect = (usize, usize, usize, usize);
++type BoundInterface<'a> = super::UsbLink<'a>;
++
++/// A dock's unspent sustained-throughput credit.
++///
++/// Credit accrues at the profile's rate and is capped at one second of it, so a dock idle for a
++/// minute does not bank a minute of bytes and then hand them to the endpoint at once. Spending is
++/// allowed to overdraw: a frame's size is known only once it is encoded, and refusing to send a
++/// frame already committed to the wire would strand it. The debt is repaid before the next frame
++/// is selected, which is what turns the ledger into a rate.
++pub(crate) struct StreamCredit {
++    bytes: i64,
++    topped_up: Option<Instant<Monotonic>>,
++}
++
++impl StreamCredit {
++    fn new() -> Self {
++        Self {
++            bytes: 0,
++            topped_up: None,
 +        }
-+        // Keep no-op adoption at the activation boundary rather than in one caller. The command
-+        // worker and the scanout worker can both arrive here, and either must avoid reopening an
-+        // exact mode that is already usable under a different raw request token.
-+        if self.adopt_programmed_mode(connector_index, timing, want) {
-+            vino_debug!(
-+                "vino: connector {connector_index} already active at this mode; no re-activation\n"
-+            );
-+            return Ok(false);
-+        }
-+        // Reconfiguring one connector of a dock that shares its control pipe, while another
-+        // connector is lit, is a sequence of its own: see `ELLA_RUNTIME_MODE`. The schedule below
-+        // is the cold one, and a dock already driving a sink stops answering partway through it,
-+        // taking the lit connector down with it.
-+        if self.video_on_ctrl_pipe()
-+            && (0..MAX_CONNECTORS).any(|h| {
-+                h != connector_index && self.modeset_active[h].load(Ordering::Acquire) != 0
-+            })
-+        {
-+            let mut timings: [Option<crate::cp::Timing>; MAX_CONNECTORS] = [None; MAX_CONNECTORS];
-+            timings[connector_index] = Some(*timing);
-+            return self.activate_dock_wide(dev, ELLA_RUNTIME_MODE, timings);
-+        }
-+        // `wake` describes the state on entry and therefore has to be captured before invalidating
-+        // it. From this point onward the transaction is going to touch the dock; do not leave the
-+        // old token adoptable while a bracket, clear-mode, or set-mode is only partly complete.
-+        let wake = self.modeset_active[connector_index].swap(0, Ordering::AcqRel) == 0;
-+        self.programmed_timing.lock()[connector_index] = None;
-+        // A superseding callback can land between the initial/adoption checks and the swap.
-+        // Clearing the old active token is conservative, but sending its stale transaction is not:
-+        // leave the newer request to its queued command or inline retry.
-+        if self.modeset_requested[connector_index].load(Ordering::Acquire) != want {
-+            return Ok(false);
-+        }
-+        // Same as the dual path: a connector coming back from a blank has a bracket owed before
-+        // anything else is sent to it.
-+        self.close_blank_bracket(dev, connector)?;
-+        // The caller's timing was built when this connector was enabled, possibly before its
-+        // endpoint partner existed. The request token remains the caller's generation; the exact
-+        // corrected timing sent below is recorded separately in `programmed_timing`.
-+        let timing = &self.effective_timing(connector_index, timing);
-+
-+        let geometry = self.geometry();
-+        let padded_width =
-+            (timing.hactive as usize + geometry.strip_w() - 1) & !(geometry.strip_w() - 1);
-+        let padded_height =
-+            (timing.vactive as usize + geometry.strip_h() - 1) & !(geometry.strip_h() - 1);
-+        let prompt =
-+            crate::video::haar::black_frame_ep08(geometry, padded_width, padded_height, connector)?;
-+        let prompt_ordinary = crate::video::haar::black_frame_ep08_ordinary(
-+            geometry,
-+            padded_width,
-+            padded_height,
-+            connector,
-+        )?;
-+
-+        self.begin_cp_timeline();
-+        let transaction = (|| -> Result<bool> {
-+            // The timing is what the sink has to be retrained onto, so the bracket belongs to the
-+            // mode program and not to how the connector got here. A connector arriving from a blank
-+            // needs it exactly as much as one being configured cold.
-+            self.modeset_bracket_pre(dev, connector)?;
-+            let mode_anchor = Instant::<Monotonic>::now();
-+            // Tear the connector's pipe down before configuring it, as DLM does. See
-+            // `cp::clear_mode`: the dock expects a connector to be torn down before it is
-+            // configured.
-+            if self.clear_mode_before_set() {
-+                self.send_cp(dev, 0x48, 0, |ctr| crate::cp::clear_mode(ctr, connector))?;
-+            }
-+            self.send_cp(dev, 0x48, 0, |ctr| {
-+                crate::cp::set_mode(ctr, connector, timing)
-+            })?;
-+            self.programmed_timing.lock()[connector_index] = Some(*timing);
-+            if self.modeset_requested[connector_index].load(Ordering::Acquire) != want {
-+                return Ok(false);
-+            }
-+
-+            self.modeset_active[connector_index].store(want, Ordering::Release);
-+            self.sustain_until.lock()[connector_index] = self.sustain_window(connector_index);
-+            let bit = 1u32 << connector;
-+            self.arm_stream_prologue(connector_index);
-+            // A driven connector's stream opens with its pipe descriptor, not the idle open.
-+            self.stream_open_pending.fetch_and(!bit, Ordering::Release);
-+            self.owe_keyframe(connector_index);
-+            self.strip_hashes.lock()[connector_index] = None;
-+            self.dirty_ttl.lock()[connector_index] = None;
-+
-+            self.modeset_bracket_post_open(dev, connector, mode_anchor)?;
-+            let opening = self.submit_prompt_training(
-+                dev,
-+                connector,
-+                want,
-+                &prompt,
-+                &prompt_ordinary,
-+                self.carrier_ms(PROMPT_TRAINING_OPEN_MS),
-+                true,
-+            );
-+            let closing = self.modeset_bracket_post_close(dev, connector, mode_anchor);
-+            opening?;
-+            closing?;
-+            Ok(true)
-+        })();
-+        self.end_cp_timeline();
-+
-+        let activated = match transaction {
-+            Ok(activated) => activated,
-+            Err(e) => {
-+                self.modeset_active[connector_index].store(0, Ordering::Release);
-+                self.programmed_timing.lock()[connector_index] = None;
-+                self.unwind_bracket(dev, connector);
-+                return Err(e);
-+            }
-+        };
-+        if !activated {
-+            self.programmed_timing.lock()[connector_index] = None;
-+            self.unwind_bracket(dev, connector);
-+            return Ok(false);
-+        }
-+        // The tail continues a carrier that is bounded by wall clock, so a dock bounded by a frame
-+        // count has already presented all of it and this would add one more. The count is what the
-+        // vendor's stream opens with, and the frames it names walk the dock's ring: an extra one
-+        // puts every later frame a slot further on than the vendor puts it, and the dock presents
-+        // a slot holding the flat carrier rather than the one holding the picture.
-+        if self.carrier_ms(PROMPT_TRAINING_TAIL_MS) > 0 {
-+            if let Err(e) = self.submit_prompt_training(
-+                dev,
-+                connector,
-+                want,
-+                &prompt,
-+                &prompt_ordinary,
-+                self.carrier_ms(PROMPT_TRAINING_TAIL_MS),
-+                false,
-+            ) {
-+                self.modeset_active[connector_index].store(0, Ordering::Release);
-+                self.programmed_timing.lock()[connector_index] = None;
-+                self.unwind_bracket(dev, connector);
-+                return Err(e);
-+            }
-+        }
-+
-+        vino_debug!(
-+            "vino: applied {} stream-enable sequence for connector {}\n",
-+            if wake { "wake" } else { "mode-change" },
-+            connector
-+        );
-+        Ok(true)
-+    }
-+    /// Activate both downstream connectors using the dock-wide cold-link schedule.
-+    ///
-+    /// Both mode sets precede either connector's video. Single-connector activation and live mode
-+    /// changes use the per-connector schedule.
-+    ///
-+    /// Every connector number in a [`ColdTimeline`] is a transcript slot, not a connector: slot 0
-+    /// is the lowest-numbered activating connector and slot 1 the next, and they are resolved to
-+    /// real connectors at the point of send. Taken literally they address connectors 0 and 1, whose
-+    /// bits are absent from `sent` for any other pair of sockets, so no marker and no video would
-+    /// go out at all.
-+    pub(super) fn activate_dual_wake(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        mut timings: [Option<crate::cp::Timing>; MAX_CONNECTORS],
-+    ) -> Result<bool> {
-+        let geometry = self.geometry();
-+        let mut prompts: [Option<KVec<KVec<u8>>>; MAX_CONNECTORS] = core::array::from_fn(|_| None);
-+        let mut ordinary_prompts: [Option<KVec<KVec<u8>>>; MAX_CONNECTORS] =
-+            core::array::from_fn(|_| None);
-+        let mut keys = [0u64; MAX_CONNECTORS];
-+        let mut valid = 0u32;
-+        // Snapshot topology once for the whole dock-wide transaction, so two partner modes cannot
-+        // disagree about whether they share an endpoint if another callback lands mid-loop.
-+        let requested_heads = self.requested_connector_mask();
-+
-+        // Pre-encode both tiny carriers before excluding the keepalive or starting either
-+        // mode-set. Encoding work must not serialize the dock's back-to-back mode pair.
-+        for connector in 0..MAX_CONNECTORS {
-+            let Some(timing) = timings[connector] else {
-+                continue;
-+            };
-+            let key = timing_key(&timing);
-+            if self.modeset_requested[connector].load(Ordering::Acquire) != key
-+                || self.modeset_active[connector].load(Ordering::Acquire) != 0
-+            {
-+                continue;
-+            }
-+            timings[connector] =
-+                Some(self.effective_timing_in_mask(connector, &timing, requested_heads));
-+            vino_debug!(
-+                "vino: dual activation connector={} mode={}x{}@{}\n",
-+                connector,
-+                timing.hactive,
-+                timing.vactive,
-+                timing.refresh_hz
-+            );
-+            let padded_width =
-+                (timing.hactive as usize + geometry.strip_w() - 1) & !(geometry.strip_w() - 1);
-+            let padded_height =
-+                (timing.vactive as usize + geometry.strip_h() - 1) & !(geometry.strip_h() - 1);
-+            prompts[connector] = Some(crate::video::haar::black_frame_ep08(
-+                geometry,
-+                padded_width,
-+                padded_height,
-+                connector as u8,
-+            )?);
-+            ordinary_prompts[connector] = Some(crate::video::haar::black_frame_ep08_ordinary(
-+                geometry,
-+                padded_width,
-+                padded_height,
-+                connector as u8,
-+            )?);
-+            keys[connector] = key;
-+            valid |= 1u32 << connector;
-+        }
-+        if valid.count_ones() < 2 {
-+            return Ok(false);
-+        }
-+
-+        // The two connectors this activation is about, in the order the timeline brings them up.
-+        // Both cold timelines describe exactly two connectors, so a third is reported rather than
-+        // silently left out of the choreography.
-+        let mut slots = [0u8; 2];
-+        let mut n = 0;
-+        for connector in 0..MAX_CONNECTORS {
-+            if valid & (1u32 << connector) != 0 {
-+                if n < slots.len() {
-+                    slots[n] = connector as u8;
-+                }
-+                n += 1;
-+            }
-+        }
-+        if n > slots.len() {
-+            pr_warn!(
-+                "vino: {n} connectors activating but the cold timeline describes {}; choreographing {} and {}\n",
-+                slots.len(),
-+                slots[0],
-+                slots[1]
-+            );
-+        }
-+        // Slot -> connector. Out-of-range slots cannot occur (both timelines only name 0 and 1) but
-+        // clamp rather than panic, because a timeline is data and this runs under the CP lock.
-+        let connector_of = |slot: u8| usize::from(slots[usize::from(slot).min(slots.len() - 1)]);
-+
-+        // Keep the clear/settle phase and the real mode-set choreography in one exclusive control
-+        // transaction. Their deadlines have separate anchors because the Navarro cold timeline was
-+        // measured from the real connector-0 mode set, 1,156 ms after its pipe clear.
-+        // A blank is closed before the choreography, not during it: the bracket must be shut
-+        // before anything re-probes or re-sets the mode.
-+        for connector in 0..MAX_CONNECTORS {
-+            if valid & (1u32 << connector) != 0 {
-+                self.close_blank_bracket(dev, connector as u8)?;
-+            }
-+        }
-+        self.begin_cp_timeline();
-+        let activation_started = Instant::<Monotonic>::now();
-+        let mut anchor = activation_started;
-+        let mut sent = 0u32;
-+        let mut started = 0u32;
-+        let timeline = (|| -> Result<(u32, u32)> {
-+            if self.dock_wide_modeset() {
-+                let remap = |slot: u8| connector_of(slot) as u8;
-+
-+                // DLM's first clear pair begins a dock-wide sink reset. The authenticated
-+                // transcript then stops/restarts each EDID reader, disengages/re-engages the
-+                // downstream sinks, and clears each pipe a second time before any real mode.
-+                for (slot, &connector) in slots.iter().enumerate() {
-+                    if slot == 1 {
-+                        Self::wait_mode_offset(activation_started, NAVARRO_PRIME_CLEAR_H1_MS);
-+                    }
-+                    self.send_cp(dev, 0x48, 0, |ctr| crate::cp::clear_mode(ctr, connector))?;
-+                }
-+                for &(at, op) in NAVARRO_COLD_PRELUDE {
-+                    Self::wait_mode_offset(activation_started, at);
-+                    self.navarro_cold_op(dev, op.remap_head(&remap))?;
-+                }
-+                Self::wait_mode_offset(activation_started, NAVARRO_REAL_MODE_H0_MS);
-+                anchor = Instant::<Monotonic>::now();
-+            }
-+
-+            let dock_wide_counters = if self.dock_wide_modeset() {
-+                Some(self.reserve_cp_counters::<NAVARRO_COLD_COUNTERS>()?)
-+            } else {
-+                None
-+            };
-+
-+            // Three cursors walk the sorted schedules; `cp_until` drains everything due at or
-+            // before a given offset, preserving the ordering between markers, polls, and EDID
-+            // reads.
-+            let mut mi = 0usize;
-+            let mut pi = 0usize;
-+            let mut ei = 0usize;
-+            // Replaying Ridge's choreography at Navarro leaves its video endpoint unarmed, so the
-+            // timeline follows the dock, not the driver.
-+            let timeline: &ColdTimeline = if self.uses_arm_burst() {
-+                &COLD_RIDGE
-+            } else {
-+                &COLD_NAVARRO
-+            };
-+            let mut remoded = 0u32;
-+
-+            macro_rules! cp_until {
-+                ($limit:expr) => {{
-+                    let limit: i64 = $limit;
-+                    loop {
-+                        let nm = timeline.markers.get(mi).map(|m| m.0);
-+                        let np = timeline.polls.get(pi).copied();
-+                        let ne = timeline.edid.get(ei).map(|e| e.0);
-+                        let next = [nm, np, ne]
-+                            .into_iter()
-+                            .flatten()
-+                            .filter(|&o| o <= limit)
-+                            .min();
-+                        let Some(off) = next else { break };
-+                        Self::wait_mode_offset(anchor, off);
-+                        if nm == Some(off) {
-+                            let (_, slot, sub, state) = timeline.markers[mi];
-+                            let connector = connector_of(slot) as u8;
-+                            if sent & (1u32 << connector) != 0 {
-+                                if let Some(counters) = dock_wide_counters.as_ref() {
-+                                    let slot =
-+                                        *NAVARRO_MARKER_COUNTER_SLOTS.get(mi).ok_or(EINVAL)?;
-+                                    let ctr = *counters.get(slot).ok_or(EINVAL)?;
-+                                    self.send_cp_reserved(dev, 0x16, ctr, |ctr| {
-+                                        crate::cp::stream_marker(ctr, connector, sub, state)
-+                                    })?;
-+                                } else {
-+                                    self.stream_marker(dev, connector, sub, state)?;
-+                                }
-+                            }
-+                            mi += 1;
-+                        } else if np == Some(off) {
-+                            if let Some(counters) = dock_wide_counters.as_ref() {
-+                                let slot = *NAVARRO_POLL_COUNTER_SLOTS.get(pi).ok_or(EINVAL)?;
-+                                let ctr = *counters.get(slot).ok_or(EINVAL)?;
-+                                self.send_cp_reserved(dev, 0x14, ctr, |ctr| {
-+                                    crate::cp::device_query_req(ctr, 0x000c)
-+                                })?;
-+                            } else {
-+                                self.poll_status(dev)?;
-+                            }
-+                            pi += 1;
-+                        } else {
-+                            let (_, slot, fetch) = timeline.edid[ei];
-+                            let connector = connector_of(slot) as u8;
-+                            // Re-read the sink's EDID at its required place in the transaction.
-+                            // This dock-side DDC operation is not a source of new modes, so discard
-+                            // its reply rather than publishing a hotplug during a mode set.
-+                            self.send_cp(dev, 0x15, 0, |ctr| {
-+                                if fetch {
-+                                    crate::cp::get_edid_req(ctr, connector)
-+                                } else {
-+                                    crate::cp::get_edid_req_sub(ctr, 0x0020, connector)
-+                                }
-+                            })?;
-+                            ei += 1;
-+                        }
-+                    }
-+                }};
-+            }
-+
-+            // Both real mode sets go out before any video, spaced according to this dock's
-+            // measured cold timeline. Navarro's pipe clears were sent during the settling phase
-+            // above; do not collapse them back into this loop.
-+            for slot in 0..slots.len() {
-+                let connector = connector_of(slot as u8);
-+                let bit = 1u32 << connector;
-+                if valid & bit == 0 {
-+                    continue;
-+                }
-+                let Some(timing) = timings[connector] else {
-+                    continue;
-+                };
-+                // The second connector's mode set is spaced from the first by this dock's measured
-+                // interval -- 757 ms on Navarro, 29 ms on Ridge. Gate on the slot, so the spacing
-+                // survives whichever sockets the monitors are in.
-+                if slot == 1 {
-+                    cp_until!(timeline.h1_mode - 1);
-+                    Self::wait_mode_offset(anchor, timeline.h1_mode);
-+                }
-+                // Retrain the downstream link onto the new timing. The sink goes down
-+                // immediately ahead of the timing and the post-mode bracket brings it back up; a
-+                // dock whose vendor does not bracket this way carries no state here.
-+                if let Some(state) = self.pre_mode_sink_state() {
-+                    self.stream_marker(dev, connector as u8, 0x2f, 1)?;
-+                    self.stream_marker(dev, connector as u8, 0x2e, state)?;
-+                }
-+                if let Some(counters) = dock_wide_counters.as_ref() {
-+                    // Reservation-token slots for the two mode sets, by activation order. Keyed on
-+                    // the connector number these collided for any pair but (0, 1), and Navarro NAKs
-+                    // from the first flattened counter onward.
-+                    let ctr_slot = if slot == 0 { 0 } else { 3 };
-+                    let ctr = *counters.get(ctr_slot).ok_or(EINVAL)?;
-+                    self.send_cp_reserved(dev, 0x48, ctr, |ctr| {
-+                        crate::cp::set_mode(ctr, connector as u8, &timing)
-+                    })?;
-+                } else {
-+                    self.send_cp(dev, 0x48, 0, |ctr| {
-+                        crate::cp::set_mode(ctr, connector as u8, &timing)
-+                    })?;
-+                }
-+                self.programmed_timing.lock()[connector] = Some(timing);
-+                if self.modeset_requested[connector].load(Ordering::Acquire) != keys[connector] {
-+                    continue;
-+                }
-+                self.modeset_active[connector].store(keys[connector], Ordering::Release);
-+                self.sustain_until.lock()[connector] = self.sustain_window(connector);
-+                self.arm_stream_prologue(connector);
-+                // A driven connector's stream opens with its pipe descriptor, not the idle open.
-+                self.stream_open_pending.fetch_and(!bit, Ordering::Release);
-+                self.owe_keyframe(connector);
-+                self.strip_hashes.lock()[connector] = None;
-+                self.dirty_ttl.lock()[connector] = None;
-+                sent |= bit;
-+            }
-+
-+            // Preserve the required silent window on EP02 between the connector-1 mode set and
-+            // `cold::QUIET_END`. The exclusive control timeline already excludes keepalives.
-+            Self::wait_mode_offset(anchor, timeline.quiet_end);
-+
-+            // Bracket, status polls and the mid-bracket EDID re-read, up to the first video.
-+            cp_until!(timeline.video[0].1 - 1);
-+
-+            // DLM opens a short sealed stream on every connector without a monitor at this point.
-+            // Vino does not: this dock re-enumerates when a stream is driven at an empty connector,
-+            // and an empty socket's index is not stable across bring-ups.
-+
-+            for &(vslot, at) in timeline.video {
-+                let connector = connector_of(vslot as u8);
-+                cp_until!(at - 1);
-+                // Some docks set a connector's mode a second time shortly before its video.
-+                for &(off, reslot) in timeline.remode {
-+                    let replay_connector = connector_of(reslot as u8);
-+                    if off >= at
-+                        || remoded & (1u32 << replay_connector) != 0
-+                        || sent & (1u32 << replay_connector) == 0
-+                    {
-+                        continue;
-+                    }
-+                    let Some(timing) = timings[replay_connector] else {
-+                        continue;
-+                    };
-+                    cp_until!(off - 1);
-+                    Self::wait_mode_offset(anchor, off);
-+                    self.send_cp(dev, 0x48, 0, |ctr| {
-+                        crate::cp::set_mode(ctr, replay_connector as u8, &timing)
-+                    })?;
-+                    self.programmed_timing.lock()[replay_connector] = Some(timing);
-+                    remoded |= 1u32 << replay_connector;
-+                }
-+                cp_until!(at - 1);
-+                Self::wait_mode_offset(anchor, at);
-+                let bit = 1u32 << connector;
-+                if sent & bit == 0 {
-+                    continue;
-+                }
-+                // Exactly one ARM+carrier presentation keeps the closing markers from being
-+                // delayed behind a blocking multi-frame submission.
-+                let frames = prompts[connector].as_ref().ok_or(EINVAL)?;
-+                let ordinary_frames = ordinary_prompts[connector].as_ref().ok_or(EINVAL)?;
-+                let t_sub = Instant::<Monotonic>::now();
-+                let first_for_head = started & bit == 0;
-+                self.submit_prompt_training(
-+                    dev,
-+                    connector as u8,
-+                    keys[connector],
-+                    frames,
-+                    ordinary_frames,
-+                    self.carrier_ms(PROMPT_TRAINING_OPEN_MS),
-+                    first_for_head,
-+                )?;
-+                vino_debug!(
-+                    "vino: connector {} video submit took {} ms (timeline offset {} ms, {} ms since anchor)\n",
-+                    connector,
-+                    (Instant::<Monotonic>::now() - t_sub).as_millis(),
-+                    at,
-+                    (Instant::<Monotonic>::now() - anchor).as_millis()
-+                );
-+                started |= bit;
-+            }
-+
-+            // Remaining polls and the closing markers.
-+            cp_until!(i64::MAX);
-+            Ok((sent, started))
-+        })();
-+        self.end_cp_timeline();
-+        let (sent, started) = match timeline {
-+            Ok(state) => state,
-+            Err(e) => {
-+                for connector in 0..MAX_CONNECTORS {
-+                    if sent & (1u32 << connector) != 0
-+                        && self.modeset_active[connector].load(Ordering::Acquire) == keys[connector]
-+                    {
-+                        self.modeset_active[connector].store(0, Ordering::Release);
-+                    }
-+                }
-+                // The choreography opens every activating connector's bracket well before it sets a
-+                // mode, so unwind on `valid` rather than `sent`: a connector that failed before its
-+                // mode set is still open on the dock.
-+                for connector in 0..MAX_CONNECTORS {
-+                    if valid & (1u32 << connector) != 0 {
-+                        self.unwind_bracket(dev, connector as u8);
-+                    }
-+                }
-+                return Err(e);
-+            }
-+        };
-+        if sent.count_ones() < 2 {
-+            for connector in 0..MAX_CONNECTORS {
-+                if sent & (1u32 << connector) != 0
-+                    && self.modeset_active[connector].load(Ordering::Acquire) == keys[connector]
-+                {
-+                    self.modeset_active[connector].store(0, Ordering::Release);
-+                }
-+            }
-+            return Ok(false);
-+        }
-+
-+        // Keep both endpoints busy through downstream clock training, so the carrier outlives the
-+        // bracket rather than stopping with it.
-+        let tail_started = Instant::<Monotonic>::now();
-+        while (Instant::<Monotonic>::now() - tail_started).as_millis()
-+            < self.carrier_ms(cold::CARRIER_TAIL_MS)
-+        {
-+            for connector in 0..MAX_CONNECTORS {
-+                if started & (1u32 << connector) == 0 {
-+                    continue;
-+                }
-+                let frames = prompts[connector].as_ref().ok_or(EINVAL)?;
-+                let ordinary_frames = ordinary_prompts[connector].as_ref().ok_or(EINVAL)?;
-+                if let Err(e) = self.submit_prompt_training(
-+                    dev,
-+                    connector as u8,
-+                    keys[connector],
-+                    frames,
-+                    ordinary_frames,
-+                    self.carrier_ms(PROMPT_TRAINING_OPEN_MS),
-+                    false,
-+                ) {
-+                    for reset in 0..MAX_CONNECTORS {
-+                        if sent & (1u32 << reset) != 0
-+                            && self.modeset_active[reset].load(Ordering::Acquire) == keys[reset]
-+                        {
-+                            self.modeset_active[reset].store(0, Ordering::Release);
-+                        }
-+                    }
-+                    for reset in 0..MAX_CONNECTORS {
-+                        if valid & (1u32 << reset) != 0 {
-+                            self.unwind_bracket(dev, reset as u8);
-+                        }
-+                    }
-+                    return Err(e);
-+                }
-+            }
-+        }
-+        vino_debug!(
-+            "vino: dual-connector activation complete after {} ms (mode/started masks 0x{:x}/0x{:x})\n",
-+            (Instant::<Monotonic>::now() - anchor).as_millis(),
-+            sent,
-+            started
-+        );
-+        Ok(true)
-+    }
-+    /// Activate both connectors of a dock that carries its video on the control pipe.
-+    ///
-+    /// Replays [`ELLA_DOCK_WIDE`]: one transaction configures both connectors, the first streams,
-+    /// and the second's sink comes up behind it. The per-connector schedule cannot express this,
-+    /// because its second pass sets a mode the dock has already been given and opens a bracket the
-+    /// dock stops answering.
-+    pub(super) fn activate_dock_wide(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        steps: &[DockWideStep],
-+        mut timings: [Option<crate::cp::Timing>; MAX_CONNECTORS],
-+    ) -> Result<bool> {
-+        // Connectors the table drives, which is what decides how many the caller has to supply.
-+        let wanted = steps
-+            .iter()
-+            .filter_map(|step| match *step {
-+                DockWideStep::SetMode(slot) => Some(u32::from(slot) + 1),
-+                _ => None,
-+            })
-+            .max()
-+            .unwrap_or(0);
-+        let geometry = self.geometry();
-+        let mut prompts: [Option<KVec<KVec<u8>>>; MAX_CONNECTORS] = core::array::from_fn(|_| None);
-+        let mut ordinary_prompts: [Option<KVec<KVec<u8>>>; MAX_CONNECTORS] =
-+            core::array::from_fn(|_| None);
-+        let mut keys = [0u64; MAX_CONNECTORS];
-+        let mut valid = 0u32;
-+        let requested_heads = self.requested_connector_mask();
-+
-+        // Encode every carrier before the transaction opens. Where a table sets two modes they are
-+        // adjacent on the wire and must not be separated by this dock's encoder.
-+        for connector in 0..MAX_CONNECTORS {
-+            let Some(timing) = timings[connector] else {
-+                continue;
-+            };
-+            let key = timing_key(&timing);
-+            // Only that the connector still wants this mode. Whether it is already lit is the
-+            // caller's to decide: the cold table takes connectors whose generation is zero, and the
-+            // runtime table exists precisely to reconfigure one that is streaming.
-+            if self.modeset_requested[connector].load(Ordering::Acquire) != key {
-+                continue;
-+            }
-+            timings[connector] =
-+                Some(self.effective_timing_in_mask(connector, &timing, requested_heads));
-+            let padded_width =
-+                (timing.hactive as usize + geometry.strip_w() - 1) & !(geometry.strip_w() - 1);
-+            let padded_height =
-+                (timing.vactive as usize + geometry.strip_h() - 1) & !(geometry.strip_h() - 1);
-+            prompts[connector] = Some(crate::video::haar::black_frame_ep08(
-+                geometry,
-+                padded_width,
-+                padded_height,
-+                connector as u8,
-+            )?);
-+            ordinary_prompts[connector] = Some(crate::video::haar::black_frame_ep08_ordinary(
-+                geometry,
-+                padded_width,
-+                padded_height,
-+                connector as u8,
-+            )?);
-+            keys[connector] = key;
-+            valid |= 1u32 << connector;
-+        }
-+        if valid.count_ones() < wanted {
-+            return Ok(false);
-+        }
-+
-+        // Slot -> connector, in activation order. Two is this dock's whole complement of
-+        // connectors.
-+        let mut slots = [0u8; 2];
-+        let mut n = 0;
-+        for connector in 0..MAX_CONNECTORS {
-+            if valid & (1u32 << connector) != 0 {
-+                if n < slots.len() {
-+                    slots[n] = connector as u8;
-+                }
-+                n += 1;
-+            }
-+        }
-+        if n > slots.len() {
-+            pr_warn!(
-+                "vino: {n} connectors activating but this dock has {}; choreographing {} and {}\n",
-+                slots.len(),
-+                slots[0],
-+                slots[1]
-+            );
-+        }
-+        let connector_of = |slot: u8| usize::from(slots[usize::from(slot).min(slots.len() - 1)]);
-+
-+        // The runtime table can enter with a live target. Once any table step runs, its old stream
-+        // state is no longer safe to adopt: Ella's live table changes sink markers before SetMode.
-+        // Invalidate every participant before the first bracket/control write. A request that moved
-+        // while carriers were encoded is then left at zero for its newer command to establish.
-+        for connector in 0..MAX_CONNECTORS {
-+            if valid & (1u32 << connector) != 0 {
-+                self.modeset_active[connector].store(0, Ordering::Release);
-+                self.programmed_timing.lock()[connector] = None;
-+            }
-+        }
-+        if (0..MAX_CONNECTORS).any(|connector| {
-+            valid & (1u32 << connector) != 0
-+                && self.modeset_requested[connector].load(Ordering::Acquire) != keys[connector]
-+        }) {
-+            return Ok(false);
-+        }
-+
-+        for connector in 0..MAX_CONNECTORS {
-+            if valid & (1u32 << connector) != 0 {
-+                self.close_blank_bracket(dev, connector as u8)?;
-+            }
-+        }
-+
-+        self.begin_cp_timeline();
-+        let started = Instant::<Monotonic>::now();
-+        let mut sent = 0u32;
-+        let transaction = (|| -> Result<u32> {
-+            for step in steps {
-+                match *step {
-+                    DockWideStep::SetMode(slot) => {
-+                        let connector = connector_of(slot);
-+                        let timing = timings[connector].ok_or(EINVAL)?;
-+                        self.send_cp(dev, 0x48, 0, |ctr| {
-+                            crate::cp::set_mode(ctr, connector as u8, &timing)
-+                        })?;
-+                        self.programmed_timing.lock()[connector] = Some(timing);
-+                        if self.modeset_requested[connector].load(Ordering::Acquire)
-+                            != keys[connector]
-+                        {
-+                            return Ok(sent);
-+                        }
-+                        self.modeset_active[connector].store(keys[connector], Ordering::Release);
-+                        self.sustain_until.lock()[connector] = self.sustain_window(connector);
-+                        self.arm_stream_prologue(connector);
-+                        // A driven connector's stream opens with its pipe descriptor, not the idle
-+                        // open.
-+                        self.stream_open_pending
-+                            .fetch_and(!(1u32 << connector), Ordering::Release);
-+                        self.owe_keyframe(connector);
-+                        self.strip_hashes.lock()[connector] = None;
-+                        self.dirty_ttl.lock()[connector] = None;
-+                        sent |= 1u32 << connector;
-+                    }
-+                    DockWideStep::Marker(slot, sub, state) => {
-+                        self.stream_marker(dev, connector_of(slot) as u8, sub, state)?;
-+                    }
-+                    DockWideStep::Poll => self.poll_status(dev)?,
-+                    DockWideStep::Prologue(slot) => {
-+                        self.send_stream_prologue(dev, connector_of(slot) as u8)?;
-+                    }
-+                    DockWideStep::Ring(slot) => {
-+                        self.send_stream_ring(dev, connector_of(slot) as u8)?;
-+                    }
-+                    DockWideStep::Config(slot) => {
-+                        self.send_stream_config(dev, connector_of(slot) as u8)?;
-+                    }
-+                    DockWideStep::Carrier(slot) => {
-+                        let connector = connector_of(slot);
-+                        if sent & (1u32 << connector) == 0 {
-+                            continue;
-+                        }
-+                        self.submit_prompt_training(
-+                            dev,
-+                            connector as u8,
-+                            keys[connector],
-+                            prompts[connector].as_ref().ok_or(EINVAL)?,
-+                            ordinary_prompts[connector].as_ref().ok_or(EINVAL)?,
-+                            self.carrier_ms(PROMPT_TRAINING_OPEN_MS),
-+                            true,
-+                        )?;
-+                    }
-+                    DockWideStep::Stream(slot, frames) => {
-+                        // The vendor does not pause here, it keeps presenting. Its second connector
-+                        // is configured and its sink brought up while the first one's stream is
-+                        // running, so the records around this step reach a dock that is mid-frame
-+                        // -- which sleeping through reproduces on the wire and not at all in what
-+                        // the dock is doing. Present the connector's own flat surface: this
-+                        // transaction owns the endpoint exclusively and cannot take the
-+                        // compositor's live frame, but keeping the stream and its ring advancing is
-+                        // what the step is for.
-+                        let connector = connector_of(slot);
-+                        if sent & (1u32 << connector) == 0 {
-+                            continue;
-+                        }
-+                        self.submit_prompt_training(
-+                            dev,
-+                            connector as u8,
-+                            keys[connector],
-+                            prompts[connector].as_ref().ok_or(EINVAL)?,
-+                            ordinary_prompts[connector].as_ref().ok_or(EINVAL)?,
-+                            self.carrier_ms(
-+                                self.frame_period_ms().saturating_mul(i64::from(frames)),
-+                            ),
-+                            false,
-+                        )?;
-+                    }
-+                }
-+            }
-+            Ok(sent)
-+        })();
-+        self.end_cp_timeline();
-+
-+        let sent = match transaction {
-+            Ok(sent) => sent,
-+            Err(e) => {
-+                for connector in 0..MAX_CONNECTORS {
-+                    if valid & (1u32 << connector) != 0 {
-+                        self.modeset_active[connector].store(0, Ordering::Release);
-+                        self.programmed_timing.lock()[connector] = None;
-+                    }
-+                }
-+                // Unwind on `valid`: the transaction opens every activating connector's bracket
-+                // before it reaches that connector's mode set, so a connector that failed early is
-+                // still open on the dock.
-+                for connector in 0..MAX_CONNECTORS {
-+                    if valid & (1u32 << connector) != 0 {
-+                        self.unwind_bracket(dev, connector as u8);
-+                    }
-+                }
-+                return Err(e);
-+            }
-+        };
-+        if sent.count_ones() < wanted {
-+            for connector in 0..MAX_CONNECTORS {
-+                if valid & (1u32 << connector) != 0 {
-+                    self.modeset_active[connector].store(0, Ordering::Release);
-+                    self.programmed_timing.lock()[connector] = None;
-+                    self.unwind_bracket(dev, connector as u8);
-+                }
-+            }
-+            return Ok(false);
-+        }
-+        vino_debug!(
-+            "vino: dock-wide activation complete after {} ms (connectors 0x{:x})\n",
-+            (Instant::<Monotonic>::now() - started).as_millis(),
-+            sent
-+        );
-+        Ok(true)
 +    }
 +}
-diff --git a/drivers/gpu/drm/vino/drm_sink/bracket.rs b/drivers/gpu/drm/vino/drm_sink/bracket.rs
-new file mode 100644
-index 000000000000..e18a698ca16b
---- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/bracket.rs
-@@ -0,0 +1,369 @@
-+// SPDX-License-Identifier: GPL-2.0
 +
-+//! Taking a connector's sink down and back up, and the brackets around a mode set.
-+//!
-+//! A dock does not simply accept a new timing. Its vendor drives the sink down, programs the
-+//! timing and brings it back up, and the states and the gaps between them are what retrains the
-+//! downstream link. Get the sequence wrong and the dock accepts every byte of every frame and
-+//! lights nothing, with nothing on the wire to say so.
++/// Credit accrued over `elapsed_us` at `bps`, saturating rather than wrapping on a long idle.
++pub(crate) fn stream_credit_accrued(bps: u32, elapsed_us: i64) -> i64 {
++    let bps = i64::from(bps);
++    elapsed_us
++        .max(0)
++        .saturating_mul(bps)
++        .checked_div(1_000_000)
++        .unwrap_or(0)
++}
 +
-+use super::*;
++/// Microseconds until an overdrawn ledger is back in credit.
++pub(crate) fn stream_credit_wait_us(bps: u32, bytes: i64) -> Option<i64> {
++    if bytes >= 0 {
++        return None;
++    }
++    let bps = i64::from(bps).max(1);
++    Some(
++        bytes
++            .saturating_neg()
++            .saturating_mul(1_000_000)
++            .checked_div(bps)
++            .unwrap_or(0)
++            .saturating_add(1),
++    )
++}
++
++/// Presentations made by one logical scanout submission.
++///
++/// Cold training remains a transport exception for docks with a dedicated video endpoint.  Normal
++/// keyframe and delta counts are profile data because ring depth alone does not describe how a
++/// platform expects the host to populate that ring.
++pub(crate) fn frame_presentation_count(
++    policy: super::profile::FrameDelivery,
++    full: bool,
++    cold_training: bool,
++    video_on_ctrl_pipe: bool,
++) -> u32 {
++    if full && cold_training && !video_on_ctrl_pipe {
++        COLD_TRAINING_PRESENTATIONS
++    } else if full {
++        u32::from(policy.keyframe_presentations.max(1))
++    } else {
++        u32::from(policy.delta_presentations.max(1))
++    }
++}
++
++/// Account one accepted logical submission against per-strip delivery debt.
++pub(crate) fn pay_damage_debt(debt: &mut [u8], full: bool) {
++    if full {
++        debt.fill(0);
++    } else {
++        for remaining in debt {
++            *remaining = remaining.saturating_sub(1);
++        }
++    }
++}
++
++/// Content of the last frame successfully submitted for one connector, represented in the dock's
++/// native 64x16 strip grid. KWin frequently omits `FB_DAMAGE_CLIPS` when switching framebuffer
++/// objects; a raw-content shadow is therefore the authoritative way to distinguish an unchanged
++/// flip from a real repaint. `KVVec` permits vmalloc fallback for the roughly 29-KiB 1440p hash
++/// table.
++struct StripHashState {
++    padded_width: usize,
++    padded_height: usize,
++    hashes: KVVec<u64>,
++    /// Encoded strip bodies, parallel to `hashes`. Retransmit debt can reuse a body while its
++    /// pixels and encoding tag remain unchanged.
++    bodies: KVec<KVec<u8>>,
++    /// Everything other than the strip's own pixels that its encoded bytes depend on.
++    ///
++    /// The hash covers the raw framebuffer, so a change that alters the ENCODED output without
++    /// altering the source pixels would otherwise serve a stale body. Gamma is exactly that: a new
++    /// LUT re-maps every pixel on the way into the codec while leaving the framebuffer identical,
++    /// and although a gamma change owes a keyframe, a keyframe re-selects every strip rather than
++    /// invalidating anything, so the reuse test would still hit. Rotation is the same hazard, and
++    /// is handled by only ever caching under identity rotation.
++    tag: u64,
++}
++
++/// The DRM driver marker type.
++pub(super) struct VinoDrmDriver;
++
++/// Convenience alias for our concrete `drm::Device`.
++pub(super) type VinoDrmDevice = drm::Device<VinoDrmDriver>;
++
++/// Active control-protocol session.
++///
++/// `wire_seq` counts AES-CTR content blocks; the authentication tag does not consume keystream.
++/// `counter` is the inner protocol counter. The enclosing mutex advances both atomically with a
++/// complete request/reply transaction.
++pub(super) struct CpLink {
++    ks: kernel::crypto::Secret<16>,
++    riv: [u8; 8],
++    wire_seq: u32,
++    counter: u16,
++    ep84_q: Option<super::usb::BulkInQueue>,
++}
++
++/// How long the dock may answer nothing at all before the session is abandoned.
++///
++/// Measured in silence rather than in unanswered messages, because those are not the same thing. A
++/// connector whose sink is down leaves its own re-engage unanswered every few seconds for the life
++/// of the session while its sibling drives a lit panel and the status dialogue replies throughout;
++/// counting messages tears that session down. A dock with a video pipe of its own answers a lit,
++/// idle link continuously, so real silence there is unambiguous.
++const CP_SILENCE_LIMIT_MS: i64 = 5000;
++
++/// The same limit for a dock that shares its control pipe with video.
++///
++/// Silence is not evidence of anything on such a dock: the vendor's own capture has it say nothing
++/// for 79 s while a panel is lit, and the vendor sends nothing either. Applying the short limit
++/// there abandons a working session, and the reset that follows is what turns a stalled dock into
++/// one that has to be unplugged.
++const CP_SILENCE_LIMIT_SHARED_MS: i64 = 90_000;
++
++/// How often the watchdog checks the silence deadline.
++const CP_WATCHDOG_PERIOD_MS: u32 = 1000;
++
++/// A control-protocol operation deferred from the non-blocking atomic callbacks.
++enum KmsCmd {
++    ModeSet {
++        connector: u8,
++        timing: super::cp::Timing,
++    },
++    CursorCreate {
++        connector: u8,
++        w: u16,
++        h: u16,
++    },
++    CursorImage {
++        connector: u8,
++        w: u16,
++        h: u16,
++        bgra: KVec<u8>,
++    },
++    CursorMove {
++        connector: u8,
++        x: u16,
++        y: u16,
++        /// The dock's own visible flag. Hiding by parking the cursor at `u16::MAX` instead left a
++        /// ghost pointer at the top-left of both panels: the dock wraps an out-of-range origin
++        /// rather than clipping the cursor away.
++        visible: bool,
++    },
++    /// Drive the stream black and close its control-protocol bracket.
++    Blank {
++        connector: u8,
++    },
++}
++
++impl KmsCmd {
++    fn connector(&self) -> usize {
++        match self {
++            Self::ModeSet { connector, .. }
++            | Self::CursorCreate { connector, .. }
++            | Self::CursorImage { connector, .. }
++            | Self::CursorMove { connector, .. }
++            | Self::Blank { connector } => *connector as usize,
++        }
++    }
++}
++
++/// The cursor state one connector's dock connector is holding, as last acknowledged on the wire.
++///
++/// A mode set leaves the dock's cursor undefined -- `owe_keyframe` says so by bumping
++/// `cursor_epoch` -- but vino could only act on that when the compositor next committed the cursor
++/// plane. A pointer that is not moving produces no commit, so the cursor simply vanished until it
++/// was moved, and every mode set is now dock-wide, so it vanished on *both* panels for a change
++/// made to one. Keeping the last accepted bitmap and position lets the mode-set path put it back
++/// itself.
++struct CursorShot {
++    w: u16,
++    h: u16,
++    bgra: KVec<u8>,
++    x: u16,
++    y: u16,
++    visible: bool,
++}
++
++struct PendingKmsHead {
++    stream: Option<KmsCmd>,
++    cursor_create: Option<KmsCmd>,
++    cursor_image: Option<KmsCmd>,
++    cursor_move: Option<KmsCmd>,
++}
++
++impl PendingKmsHead {
++    const fn new() -> Self {
++        Self {
++            stream: None,
++            cursor_create: None,
++            cursor_image: None,
++            cursor_move: None,
++        }
++    }
++
++    fn slot(&mut self, cmd: &KmsCmd) -> &mut Option<KmsCmd> {
++        match cmd {
++            KmsCmd::ModeSet { .. } | KmsCmd::Blank { .. } => &mut self.stream,
++            KmsCmd::CursorCreate { .. } => &mut self.cursor_create,
++            KmsCmd::CursorImage { .. } => &mut self.cursor_image,
++            KmsCmd::CursorMove { .. } => &mut self.cursor_move,
++        }
++    }
++
++    fn update(&mut self, cmd: KmsCmd) {
++        let slot = self.slot(&cmd);
++        *slot = Some(cmd);
++    }
++
++    /// Restore a failed operation unless a newer desired operation already occupies its slot.
++    fn retry(&mut self, cmd: KmsCmd) {
++        let slot = self.slot(&cmd);
++        if slot.is_none() {
++            *slot = Some(cmd);
++        }
++    }
++
++    fn has_stream(&self) -> bool {
++        self.stream.is_some()
++    }
++}
++
++struct PendingKms {
++    connectors: [PendingKmsHead; MAX_CONNECTORS],
++}
++
++impl PendingKms {
++    const fn new() -> Self {
++        Self {
++            connectors: [const { PendingKmsHead::new() }; MAX_CONNECTORS],
++        }
++    }
++
++    fn is_empty(&self) -> bool {
++        self.connectors.iter().all(|connector| {
++            connector.stream.is_none()
++                && connector.cursor_create.is_none()
++                && connector.cursor_image.is_none()
++                && connector.cursor_move.is_none()
++        })
++    }
++
++    /// Discard every queued command. Used when the link they address is gone; see
++    /// `KMS_RETRY_LIMIT`.
++    fn clear(&mut self) {
++        self.connectors = [const { PendingKmsHead::new() }; MAX_CONNECTORS];
++    }
++
++    fn has_stream(&self) -> bool {
++        self.connectors.iter().any(PendingKmsHead::has_stream)
++    }
++
++    fn update(&mut self, cmd: KmsCmd) {
++        if let Some(pending) = self.connectors.get_mut(cmd.connector()) {
++            pending.update(cmd);
++        }
++    }
++
++    fn retry(&mut self, cmd: KmsCmd) {
++        if let Some(pending) = self.connectors.get_mut(cmd.connector()) {
++            pending.retry(cmd);
++        }
++    }
++
++    /// Restore a drained batch without replacing newer state published while it was executing.
++    fn retry_batch(&mut self, batch: Self) {
++        for connector in batch.connectors {
++            let PendingKmsHead {
++                stream,
++                cursor_create,
++                cursor_image,
++                cursor_move,
++            } = connector;
++            for cmd in [stream, cursor_create, cursor_image, cursor_move]
++                .into_iter()
++                .flatten()
++            {
++                self.retry(cmd);
++            }
++        }
++    }
++}
++
++fn kms_error_retryable(error: Error) -> bool {
++    error != EINVAL && error != ENOTSUPP
++}
++
++/// Latest primary-plane flip awaiting compression on the deferred worker. The framebuffer is
++/// refcounted, so it remains valid after the atomic commit callback returns. There is one slot per
++/// connector: a newer flip replaces an older unsent flip instead of building an unbounded queue
++/// behind a slow encoder. When replacement could lose accumulated damage, the newer flip is
++/// promoted to a full-output damage rectangle.
++struct PendingScanout {
++    connector: u8,
++    rotation: plane::Rotation,
++    clips: [DamageRect; MAX_DAMAGE_CLIPS],
++    nclips: usize,
++    w: usize,
++    h: usize,
++    /// Which private surface contains this commit's pixels.
++    shadow_idx: usize,
++    /// Generation of `shadow_idx`, used to reject a slot replaced before the worker claims it.
++    shadow_generation: u64,
++}
++
++impl Clone for PendingScanout {
++    fn clone(&self) -> Self {
++        Self {
++            connector: self.connector,
++            rotation: self.rotation,
++            clips: self.clips,
++            nclips: self.nclips,
++            w: self.w,
++            h: self.h,
++            shadow_idx: self.shadow_idx,
++            shadow_generation: self.shadow_generation,
++        }
++    }
++}
++
++/// Private snapshots let atomic commit copy into one while the worker encodes another. Copying
++/// before flip completion ensures that the compositor cannot reuse storage while Vino reads it.
++///
++/// Three, not two: a slot can be reserved by the encoder (`inflight`) *and* by a snapshot that has
++/// dropped the pool lock to copy (`writing`) at the same time, which with two slots left none free
++/// and silently dropped the commit. Three keeps one available in that state.
++const SHADOW_SLOTS: usize = 3;
++
++/// Maximum number of prepared compositor buffers retained per connector.
++///
++/// Compositors normally rotate through a small swapchain. Keeping four validated mappings moves
++/// vmap preparation out of repeated flips while bounding pinned memory when a client reallocates.
++const SOURCE_BINDINGS: usize = 4;
++
++struct SourceBinding {
++    framebuffer: ARef<kms::framebuffer::Framebuffer<VinoDrmDriver>>,
++    mapping: kms::framebuffer::FramebufferVMapOwned<VinoObject>,
++}
++
++struct SourceBindingCache {
++    entries: [Option<Arc<SourceBinding>>; SOURCE_BINDINGS],
++    next: usize,
++}
++
++impl SourceBindingCache {
++    const fn new() -> Self {
++        Self {
++            entries: [const { None }; SOURCE_BINDINGS],
++            next: 0,
++        }
++    }
++
++    fn get(
++        &mut self,
++        fb: &kms::framebuffer::Framebuffer<VinoDrmDriver>,
++    ) -> Result<Arc<SourceBinding>> {
++        if let Some(binding) = self
++            .entries
++            .iter()
++            .flatten()
++            .find(|binding| &*binding.framebuffer == fb)
++        {
++            return Ok(binding.clone());
++        }
++
++        let binding = Arc::new(
++            SourceBinding {
++                framebuffer: ARef::from(fb),
++                mapping: fb.owned_vmap::<VinoObject>()?,
++            },
++            GFP_KERNEL,
++        )?;
++        self.entries[self.next] = Some(binding.clone());
++        self.next = (self.next + 1) % SOURCE_BINDINGS;
++        Ok(binding)
++    }
++
++    fn discard(&mut self) {
++        self.entries = [const { None }; SOURCE_BINDINGS];
++        self.next = 0;
++    }
++}
++
++struct ShadowSurface {
++    w: usize,
++    h: usize,
++    pixels: KVVec<u8>,
++    /// Per-strip content hashes, computed while copying into this immutable snapshot.
++    hashes: KVVec<u64>,
++    /// Scratch holding one `STRIP_H`-row band of the source, in this surface's packed stride.
++    ///
++    /// The snapshot reads the source one full row at a time into this buffer and then hashes and
++    /// copies the band's strips out of it, so the source is read once per frame, sequentially, and
++    /// every strip's second pass hits a buffer small enough to stay in cache. At 2560 wide it is
++    /// 160 KiB against the 14.7 MB of `pixels`.
++    band: KVVec<u8>,
++}
++
++struct ShadowSlot {
++    generation: u64,
++    surface: Option<ShadowSurface>,
++}
++
++impl ShadowSlot {
++    const fn new() -> Self {
++        Self {
++            generation: 0,
++            surface: None,
++        }
++    }
++}
++
++/// One connector's shadow surfaces. Locked per connector: the snapshot copies ~14.7 MB while
++/// holding this, and it runs on the compositor's non-blocking commit tail, so a device-wide lock
++/// made one connector's commit stall the other's -- measured at up to 4.2 ms, half a 120 Hz frame
++/// budget.
++struct ShadowPool {
++    slots: [ShadowSlot; SHADOW_SLOTS],
++    inflight: Option<usize>,
++    /// Slot currently being written by a snapshot that has released the pool lock.
++    ///
++    /// The copy is far too long to hold the lock across, so the commit takes the slot's surface
++    /// out, drops the lock and copies into it unlocked. This marks the slot reserved for that
++    /// window, exactly as `inflight` does for the encoder's side.
++    writing: Option<usize>,
++    source_bindings: SourceBindingCache,
++}
++
++impl ShadowPool {
++    const fn new() -> Self {
++        Self {
++            slots: [const { ShadowSlot::new() }; SHADOW_SLOTS],
++            inflight: None,
++            writing: None,
++            source_bindings: SourceBindingCache::new(),
++        }
++    }
++
++    fn discard(&mut self) {
++        for slot in &mut self.slots {
++            slot.generation = slot.generation.wrapping_add(1);
++            slot.surface = None;
++        }
++        self.source_bindings.discard();
++    }
++}
++
++/// How long a cold downstream link is fed keyframes at frame cadence; see `sustain_window`.
++const SUSTAIN_MS: i64 = 3000;
++
++/// Delay before the one-shot post-keyframe repaint.
++const SETTLE_REPAINT_MS: i64 = 1200;
++
++/// Number of post-keyframe repaints. Cold-link training uses its separate bounded deadline.
++const SETTLE_REPAINTS: u32 = 1;
++
++/// Longest the DL7400 tolerates a silent video endpoint before it tears the link down.
++///
++/// Measured twice, with very different transfer shapes: a full 204 KB frame and a single 4 KB
++/// image record both ended with every outstanding URB completing `-ESHUTDOWN` 1.06 s and 1.10 s
++/// after the last video byte, the dock going deaf on the control plane at the same instant. DLM
++/// never gets near it -- it pairs a sealed report with every frame, a median 9-19 ms apart and at
++/// most 1.0 s apart even when the desktop is still.
++const NAVARRO_VIDEO_QUIET_MS: i64 = 1000;
++
++/// Period at which an idle DL7400 connector is re-fed, comfortably inside
++/// [`NAVARRO_VIDEO_QUIET_MS`].
++const NAVARRO_KEEPALIVE_MS: i64 = 250;
++
++/// Keep a missed repaint from being enough to trip the dock's teardown.
++const _: () = assert!(NAVARRO_KEEPALIVE_MS * 3 <= NAVARRO_VIDEO_QUIET_MS);
++
++/// DRM device-private data: the bound USB interface, engaged CP session, connector state, deferred
++/// scanout slots and per-connector transport state.
++#[pin_data]
++pub(super) struct VinoDrmData {
++    /// The USB I/O-permitted window for this device's interface, shared with the persistent
++    /// queues. `disconnect()` closes it, after which every transfer path here fails cleanly
++    /// instead of touching an unbound interface.
++    pub(super) io: Arc<super::usb::IoWindow>,
++    /// The dock's endpoints, resolved and direction/type-checked once during probe.
++    pub(super) endpoints: super::Endpoints,
++    /// Stops every producer before unplug drains the embedded work item. This is checked while
++    /// holding the producer's queue lock so a late atomic callback cannot enqueue a self-owning
++    /// `ARef<VinoDrmDevice>` after `cancel_sync()` has already returned.
++    shutting_down: AtomicBool,
++    #[pin]
++    cp_link: Mutex<Option<CpLink>>,
++    /// When the dock last answered anything, and whether a session exists at all.
++    ///
++    /// Deliberately outside `cp_link`. A dock that has stopped answering must be stopped talking
++    /// to, but the thread that discovers this is the one already stuck: `usb_bulk_msg` honours its
++    /// own timeout and then kills the URB, and *that* wait is unbounded, so a controller which
++    /// will not retire the transfer leaves the caller blocked uninterruptibly with `cp_link` held.
++    /// Everything that has to take the mutex to learn the link is stuck therefore blocks behind
++    /// the very transfer it is trying to diagnose -- including the keepalive's own liveness check.
++    /// A spinlock and an atomic are always available.
++    #[pin]
++    cp_last_reply: SpinLock<Instant<Monotonic>>,
++    cp_session_live: AtomicBool,
++    /// Set once this device has been asked to reset itself out of a wedged session.
++    ///
++    /// One attempt only. A reset that works re-probes into a fresh device with this cleared; a
++    /// reset that does not must not become a loop.
++    cp_reset_queued: AtomicBool,
++    /// Watchdog that enforces the silence deadline from off the control path.
++    ///
++    /// The keepalive cannot do this itself: it *is* the thread that wedges, so its own check at
++    /// the top of the loop is never reached again. Scheduled on the system queue rather than
++    /// vino's, which the stuck transaction owns.
++    #[pin]
++    cp_watchdog: DelayedWork<VinoDrmDevice, 5>,
++    /// Latest desired control/KMS state per connector.
++    #[pin]
++    pending_kms: Mutex<PendingKms>,
++    /// Coalescing per-connector scanout slots consumed by `cmd_work`.
++    ///
++    /// Compression and USB submission may sleep and therefore cannot run in
++    /// `atomic_update`.
++    #[pin]
++    pending_scanout: Mutex<[Option<PendingScanout>; MAX_CONNECTORS]>,
++    /// A one-shot repaint of the connector's newest known framebuffer. Cleared as soon as it is
++    /// taken, or whenever a real flip arrives (that flip already carries newer content, so the
++    /// redundant repaint is pointless). See [`SETTLE_REPAINT_MS`] for the hardware observation
++    /// behind it.
++    ///
++    /// The `bool` is "promote to a full keyframe". It is true for the post-keyframe settle repaint,
++    /// whose job is to replace a stale surface. It is false for a *debt* repaint, which carries
++    /// outstanding `dirty_ttl` retransmissions to the dock's second buffer without promoting them
++    /// to a keyframe.
++    #[pin]
++    settle_repaint: Mutex<[Option<(Instant<Monotonic>, PendingScanout, bool)>; MAX_CONNECTORS]>,
++    /// Private committed surfaces and their worker ownership state.
++    #[pin]
++    shadow: [Mutex<ShadowPool>; MAX_CONNECTORS],
++    /// Active software-vblank timers. The device owns their cancellation handles so shutdown does
++    /// not depend on atomic-disable callbacks running. A spinlock is required because
++    /// `enable_vblank` runs with local interrupts disabled.
++    #[pin]
++    vblank: SpinLock<[Option<(Arc<VblankTimer>, ArcHrTimerHandle<VblankTimer>)>; MAX_CONNECTORS]>,
++    /// Work item that drains control/KMS commands.
++    #[pin]
++    cmd_work: DelayedWork<VinoDrmDevice>,
++    /// Independent per-connector scanout workers. Their work IDs are const generics, so each
++    /// connector has an explicit field; transport state is taken from per-connector slots while a
++    /// frame is submitted.
++    #[pin]
++    scanout_work_h0: Work<VinoDrmDevice, 1>,
++    #[pin]
++    scanout_work_h1: Work<VinoDrmDevice, 2>,
++    #[pin]
++    scanout_work_h2: Work<VinoDrmDevice, 3>,
++    #[pin]
++    scanout_work_h3: Work<VinoDrmDevice, 4>,
++    /// Dedicated queue for initial authentication and the steady-state control session.
++    session_queue: workqueue::OwnedQueue,
++    /// Ordered queue for runtime KMS and cursor control transactions.
++    kms_queue: workqueue::OwnedQueue,
++    /// Per-device unbound queue for the two scanout workers.
++    scanout_queue: workqueue::OwnedQueue,
++    /// Downstream EDID per connector. Connector callbacks use their connector index to read this
++    /// owned state; publishing EDID therefore requires no raw pointer back into a DRM mode object.
++    #[pin]
++    cached_edids: Mutex<[Option<KVec<u8>>; MAX_CONNECTORS]>,
++    /// Bit N is set once CP confirms that a real downstream monitor is present on connector N.
++    connectors_present: core::sync::atomic::AtomicU32,
++    /// Each connector's gamma ramp cached from its CRTC atomic hook as three 256-entry 8-bit LUTs
++    /// (`[r; 256] ++ [g; 256] ++ [b; 256]`), or `None` for identity. Cached here (not read from the
++    /// CRTC state) because scanout runs in the plane path; each entry is `Copy`, so the scanout
++    /// snapshots its connector's entry under the lock and applies it without holding the lock in
++    /// the pixel loop. Per connector so a second display's gamma cannot clobber the first's.
++    #[pin]
++    color: Mutex<[Option<super::color::ColorPipeline>; MAX_CONNECTORS]>,
++    /// Per-connector strip hashes for the last frame accepted by the USB submission path. Updated
++    /// only after the complete frame has been queued, so a failed transfer can never advance the
++    /// shadow beyond what the dock may actually display.
++    #[pin]
++    strip_hashes: Mutex<[Option<StripHashState>; MAX_CONNECTORS]>,
++    /// The DL7400 per-strip size-class map most recently sent for each connector.
++    ///
++    /// The map describes the whole surface while a delta frame carries only its damaged strips, so
++    /// rebuilding it from zero each frame re-declares every untouched position as class 0. See
++    /// `video::haar::navarro_strip_params`.
++    #[pin]
++    strip_classes: Mutex<[KVec<u8>; MAX_CONNECTORS]>,
++    /// Per-strip retransmit debt. Spreading repeated updates across frames reaches both of the
++    /// dock's scanout buffers; consecutive presentations can target the same buffer.
++    #[pin]
++    dirty_ttl: Mutex<[Option<KVVec<u8>>; MAX_CONNECTORS]>,
++    /// Set once the dock engages the CP cipher (`wsub=0x45` acks > 0); EP08 scanout is gated on it.
++    /// Per device, so a second connected dock does not share one dock's engagement state.
++    cp_engaged: core::sync::atomic::AtomicBool,
++    /// Set once encrypted setup, initial sink discovery, and the platform's pre-mode-set readiness
++    /// interval have all completed. KMS producers may coalesce state before this, but no activation
++    /// may touch the dock until the bring-up worker publishes this one-way gate.
++    kms_activation_ready: core::sync::atomic::AtomicBool,
++    /// This device's codec geometry, packed; see [`VinoDrmData::geometry`] and
++    /// [`super::video::haar::Geometry`].
++    codec_geometry: core::sync::atomic::AtomicU32,
++    /// Keyframe, delta and damage-debt presentation counts, packed one byte each; see
++    /// [`super::profile::FrameDelivery`].
++    frame_delivery: core::sync::atomic::AtomicU32,
++    /// Whether a presence retry may reset a bracket beside a live connector; see
++    /// [`super::profile::ProbeBracket`].
++    probe_bracket: core::sync::atomic::AtomicU8,
++    /// Bit `h` set when connector `h`'s committed framebuffer is 10 bits per channel.
++    ///
++    /// Separate from `codec_geometry` because it is the one part of the codec's configuration that
++    /// is neither device-wide nor fixed: the DL7400 negotiates depth per connector, measured on
++    /// Windows holding one connector at 8 bits while the other ran at 10.
++    connector_ten_bit: core::sync::atomic::AtomicU32,
++    /// Bits per channel userspace asked the link to carry, one byte per connector, from `max bpc`.
++    ///
++    /// Deliberately separate from `connector_ten_bit`: that one says what the framebuffer holds and
++    /// decides how a pixel is decoded, this one says what the dock is told to carry.
++    connector_max_bpc: core::sync::atomic::AtomicU32,
++    /// Connectors whose requested ten-bit link does not fit the dock's shared bandwidth.
++    ///
++    /// Ten bits costs a third more per pixel, so a pair of modes that fits at eight may not fit at
++    /// ten. Refusing the mode is the wrong answer -- a compositor answers `EINVAL` by disabling the
++    /// output rather than choosing a shallower link -- so the depth gives way instead and both
++    /// connectors light at eight bits.
++    connector_deny_ten_bit: core::sync::atomic::AtomicU32,
++    /// Bit `h` set when connector `h`'s connector is being driven with the SMPTE ST 2084 (PQ)
++    /// transfer function, taken from the `HDR_OUTPUT_METADATA` blob userspace attached to it.
++    ///
++    /// Deliberately not folded into `connector_ten_bit`: depth and transfer function are two fields
++    /// of the dock's set-mode message and two independent decisions by the compositor.
++    head_st2084: core::sync::atomic::AtomicU32,
++    /// Which protocol generation this dock speaks; see `DockProfile::generation`. The two
++    /// platforms differ in their initialisation, per-connector HDCP framing, stream open and mode
++    /// description, so one flag drives all of them rather than three that can disagree.
++    dock_wide_modeset: core::sync::atomic::AtomicBool,
++    clear_mode_before_set: core::sync::atomic::AtomicBool,
++    blank_markers_held: core::sync::atomic::AtomicBool,
++    video_keepalive: core::sync::atomic::AtomicBool,
++    /// Whether the first frame after a mode set carries the cold ARM burst; see
++    /// `DockProfile::arm_burst`.
++    arm_burst: core::sync::atomic::AtomicBool,
++    /// How this dock states its framebuffer allocation; see [`profile::Allocation`].
++    allocation: kernel::sync::SetOnce<&'static super::profile::Allocation>,
++    /// Whether video records travel on the control bulk-OUT pipe; see
++    /// `DockProfile::video_on_ctrl_pipe`.
++    video_on_ctrl_pipe: core::sync::atomic::AtomicBool,
++    /// The `0x16/0x2e` state that takes a sink down; see `DockProfile::sink_down_state`.
++    sink_down_state: core::sync::atomic::AtomicU8,
++    post_mode_sink_states: core::sync::atomic::AtomicU16,
++    /// `DockProfile::pre_mode_sink_state`, with `u16::MAX` standing for `None`.
++    pre_mode_sink_state: core::sync::atomic::AtomicU16,
++    /// Heads whose sealed video stream has been opened, as a bitmask; see `set_video_keys`.
++    stream_opened: core::sync::atomic::AtomicU32,
++    /// Stream reports a connector still owes after its stream was opened; see
++    /// `arm_stream_prologue`.
++    stream_reports_owed: [core::sync::atomic::AtomicU32; MAX_CONNECTORS],
++    /// Consecutive deferrals of the asynchronous KMS batch; see `KMS_RETRY_LIMIT`.
++    kms_retries: core::sync::atomic::AtomicU32,
++    /// How this dock's video stream describes itself, packed: the layout word in the low sixteen
++    /// bits, the stream-marker kind above it, and the code-table form in bit 24. See
++    /// `set_video_stream_desc`.
++    video_stream_desc: core::sync::atomic::AtomicU32,
++    /// Shortest interval between frames on one connector; see `DockProfile::frame_period_ms`.
++    frame_period_us: core::sync::atomic::AtomicI64,
++    /// Interval between keepalive status queries; see `DockProfile::status_period_ms`.
++    status_period_ms: core::sync::atomic::AtomicI64,
++    /// Flat carrier frames a connector opens its stream with; see `DockProfile::carrier_frames`.
++    carrier_frames: core::sync::atomic::AtomicU32,
++    /// Sustained bytes per second this dock accepts; see `DockProfile::stream_pacing`.
++    stream_budget_bps: core::sync::atomic::AtomicU32,
++    /// Most that may leave back to back after an idle period; the credit ceiling.
++    stream_burst_bytes: core::sync::atomic::AtomicU32,
++    /// Unspent bytes of that budget, and when they were last topped up.
++    ///
++    /// One ledger for the whole dock rather than one per connector: what the budget describes is a
++    /// decoder behind a single endpoint, and two connectors sharing it spend from the same pool.
++    #[pin]
++    stream_credit: SpinLock<StreamCredit>,
++    /// How many downstream connectors this dock answers a presence probe for; see
++    /// `DockProfile::connectors`. Ridge: 2; Navarro: all four physical sockets.
++    connectors: core::sync::atomic::AtomicU8,
++    /// Excludes the independent keepalive loop while the mode worker emits the mode-relative
++    /// activation timeline. Without this, a keepalive poll can win `cp_link` between
++    /// two explicitly paced markers and stretch/reorder the sequence.
++    cp_timeline_exclusive: core::sync::atomic::AtomicBool,
++    /// Navarro's authenticated setup transcript continues directly into the first KMS
++    /// transaction: its first runtime message is a pipe clear, not a background status poll.
++    /// Hold the keepalive after publishing the session until that transaction has claimed the
++    /// control timeline.
++    initial_modeset_quiet: core::sync::atomic::AtomicBool,
++    /// Mode generation successfully programmed on each dock connector. Scanout must match it
++    /// because atomic plane updates can precede the deferred mode-set transaction.
++    modeset_active: [core::sync::atomic::AtomicU64; MAX_CONNECTORS],
++    /// Exact timing bytes most recently programmed on each connector.
++    ///
++    /// Kept apart from `modeset_active`: that atomic is the producer's request token, while
++    /// `dual_nivo` can be filled only after another connector on the endpoint publishes its own
++    /// request. No-op detection compares this exact dock-side state instead of pretending the
++    /// request token also describes a send-time topology correction.
++    #[pin]
++    programmed_timing: SpinLock<[Option<super::cp::Timing>; MAX_CONNECTORS]>,
++    /// Latest mode userspace currently requests per connector, encoded like `modeset_active`; zero
++    /// means the CRTC is disabled. The deferred worker uses this generation key to discard stale
++    /// mode-set commands and framebuffers left by a rapid disable/re-enable sequence.
++    modeset_requested: [core::sync::atomic::AtomicU64; MAX_CONNECTORS],
++    /// Whether a frame ending on a full packet is split; see
++    /// `DockProfile::split_full_packet_frame`.
++    split_full_packet_frame: AtomicBool,
++    /// Per-connector timestamp of the last accepted frame, used to bound scanout cadence.
++    #[pin]
++    last_frame: SpinLock<[Option<Instant<Monotonic>>; MAX_CONNECTORS]>,
++    /// When `queue_scanout` last ran for each connector, i.e. when KWin's commit tail last handed
++    /// us a framebuffer. Distinguishes "the compositor stopped committing" from "we dropped the
++    /// frame".
++    #[pin]
++    /// When the streaming status poll last went out, device-wide. The poll keeps the control
++    /// dialogue alive; it does not need to be per presentation.
++    #[pin]
++    last_status_poll: SpinLock<Option<Instant<Monotonic>>>,
++    /// When each connector's scanout work item last began executing.
++    #[pin]
++    /// Rate limiter for the stall diagnostic below.
++    #[pin]
++    /// Deadline for the sustained full-frame stream required to train a cold downstream link.
++    #[pin]
++    sustain_until: SpinLock<[Option<Instant<Monotonic>>; MAX_CONNECTORS]>,
++    /// Logical Haar frame sequence per connector.
++    #[pin]
++    scanout_seq: Mutex<[u32; MAX_CONNECTORS]>,
++    /// Persistent pipelined bulk-OUT queue per physical video endpoint. It remains live between
++    /// frames.
++    ///
++    /// The slot is the first connector whose endpoint address matches the caller's (see
++    /// [`UsbLink::video_pipe_index`](super::UsbLink::video_pipe_index)); duplicate slots remain
++    /// empty. Holding an individual slot mutex over a whole frame serializes connectors that share
++    /// a pipe without needlessly serializing independent endpoints.
++    #[pin]
++    video_q: [Mutex<Option<super::usb::BulkOutQueue>>; MAX_CONNECTORS],
++    /// Held by whoever is writing to a pipe that carries both planes; see [`Self::own_pipe`].
++    #[pin]
++    pipe_writer: Mutex<u8>,
++    /// One reusable 64-KiB coalescing window per connector. `frame_records` deliberately stores a
++    /// frame as small allocations so encoding never asks kmalloc for multi-megabyte physically
++    /// contiguous memory; scanout joins those fragments into this bounded window before
++    /// `BulkOutQueue::send` copies it into the persistent DMA ring. Internal record boundaries
++    /// remain invisible on USB.
++    #[pin]
++    video_staging: Mutex<[Option<KVec<u8>>; MAX_CONNECTORS]>,
++    /// Last requested timing, retained so scanout can retry a failed mode-set.
++    #[pin]
++    last_timing: SpinLock<[Option<super::cp::Timing>; MAX_CONNECTORS]>,
++    /// Heads whose next video stream must be prefixed with the pipe-arm records.
++    arm_prefix_pending: core::sync::atomic::AtomicU32,
++    /// Heads for which the read-only endpoint status at the first video stall was logged.
++    endpoint_status_logged: core::sync::atomic::AtomicU32,
++    /// Connectors still owed the short sealed open that names a stream vino does not drive.
++    ///
++    /// Held apart from `arm_prefix_pending` because it is the complement of it: a connector vino
++    /// is about to send pixels to opens its stream with the pipe descriptor instead, and both DLM
++    /// captures send this record only on the stream ids of the connectors left idle. The opens go
++    /// out before any connector's first frame, as DLM's do.
++    stream_open_pending: core::sync::atomic::AtomicU32,
++    /// Per-connector "owes a full keyframe" bitmask (bit `h` = connector `h`). Set (all connectors)
++    /// after a `KmsCmd::ModeSet` send: a new mode leaves the dock's framebuffer undefined, so the
++    /// first scanout after it must be a FULL frame ([`super::video::haar::colour_frame_ep08`]), not
++    /// a damage delta -- otherwise the un-redrawn strips stay garbage. Cleared for a connector once
++    /// its keyframe is sent; subsequent flips send only changed strips through
++    /// [`super::video::haar::colour_frame_ep08_damage`].
++    keyframe_pending: core::sync::atomic::AtomicU32,
++    /// Per-connector generation of the dock's cursor bitmap, bumped by [`Self::owe_keyframe`].
++    ///
++    /// The cursor plane re-uploads only when its bitmap differs from the last one sent, so it needs
++    /// to know when the dock stopped holding that bitmap. A mode-set discards it.
++    cursor_epoch: [core::sync::atomic::AtomicU32; MAX_CONNECTORS],
++    /// Rotates the shadow slot each commit so successive snapshots do not land in the same one.
++    shadow_rr: [core::sync::atomic::AtomicU32; MAX_CONNECTORS],
++    /// Geometry last announced with `cursor_create`, per connector. Whether the dock keeps one
++    /// shared cursor bitmap or one per connector is not established, so each connector announces
++    /// and uploads its own -- correct either way, at the cost of one extra upload per shape change.
++    #[pin]
++    cursor_geometry: Mutex<[Option<(u16, u16)>; MAX_CONNECTORS]>,
++    /// Heads whose next activation is a *repair* of a sink the dock dropped underneath us,
++    /// rather than a cold bring-up. A repair must not run the cold training window: the link
++    /// is already trained, and that window presents full keyframes at [`FRAME_PERIOD_MS`]
++    /// for three seconds -- measured at 1.07 GB over 12 seconds across two connectors, which is
++    /// the documented way to destabilise this dock.
++    repair_connectors: core::sync::atomic::AtomicU32,
++    /// The cursor each connector's connector is holding; see [`CursorShot`].
++    #[pin]
++    cursor_shot: Mutex<[Option<CursorShot>; MAX_CONNECTORS]>,
++    /// Dock-wide pixel-rate budget in pixels per second; zero means unknown.
++    dock_pixel_budget: core::sync::atomic::AtomicU32,
++    /// Highest refresh rate this dock is known to drive; see `DockProfile::max_refresh_hz`.
++    max_refresh_hz: core::sync::atomic::AtomicU32,
++    /// Highest per-mode pixel clock in kHz; see `DockProfile::max_connector_clock_khz`.
++    max_connector_clock_khz: core::sync::atomic::AtomicU32,
++    /// Excludes scanout while a mode-set batch can submit on a video endpoint. Paired with
++    /// `video_inflight` using sequentially consistent store-then-check handshakes.
++    cmd_busy: core::sync::atomic::AtomicBool,
++    /// Set around `run_pending_scanout`, allowing `cmd_work` to wait for a
++    /// frame already in flight when it set [`Self::cmd_busy`].
++    video_inflight: [core::sync::atomic::AtomicBool; MAX_CONNECTORS],
++    /// Consecutive failed live-scanout frames per connector, for log rate-limiting.
++    scanout_fails: [core::sync::atomic::AtomicU64; MAX_CONNECTORS],
++    /// Upcoming page flips to skip for per-connector transport backoff.
++    scanout_skip: [core::sync::atomic::AtomicU64; MAX_CONNECTORS],
++    /// Settle repaints this connector may still arm. See [`SETTLE_REPAINTS`].
++    settle_budget: [core::sync::atomic::AtomicU32; MAX_CONNECTORS],
++    /// Last inner status returned for each connector's presence probe.
++    presence_reply: [core::sync::atomic::AtomicU32; MAX_CONNECTORS],
++    /// Pending downstream-topology notification for this device's keepalive worker.
++    downstream_event: AtomicBool,
++    /// Head currently expecting an EDID from a re-engage, or [`NO_EDID_TARGET`].
++    ///
++    /// The EDID arrives as an `id=0x194` push, and during a re-engage it lands in `send_cp`'s
++    /// own lockstep drain rather than in `drain_cp_pushes`. This says "somebody is waiting for
++    /// one", so that drain can stash it instead of discarding it.
++    edid_target: core::sync::atomic::AtomicU32,
++    /// The blob that drain caught, handed back to [`VinoDrmData::reengage_connector`].
++    #[pin]
++    edid_caught: Mutex<Option<KVec<u8>>>,
++    /// Heads intentionally blanked by Vino. Their expected probe silence is not a hot-unplug.
++    self_blanked: core::sync::atomic::AtomicU32,
++    /// Heads whose blank bracket is still open on the dock, one bit each.
++    ///
++    /// Distinct from [`Self::self_blanked`], which `atomic_enable` clears on the commit thread
++    /// before the command worker runs; by then the wake choreography would no longer know a blank
++    /// was owed a close. A bracket left open keeps the sink dark through the next mode set.
++    blank_bracket_open: core::sync::atomic::AtomicU32,
++    /// Whether this dock's video pipeline can carry ten bits per channel, from its profile.
++    hdr_capable: AtomicBool,
++    /// Whether this dock composites a cursor bitmap of its own; see [`DockProfile::hw_cursor`].
++    hw_cursor: AtomicBool,
++    /// Whether the dock's presence probe describes a connector; see
++    /// [`DockProfile::reports_presence`].
++    reports_presence: AtomicBool,
++    /// Whether the connectors share one EDID handler; see [`DockProfile::shared_edid_handler`].
++    shared_edid_handler: AtomicBool,
++    /// Per-connector key and nonce used to seal pipe-arm records.
++    #[pin]
++    video_keys: Mutex<[kernel::crypto::Secret<32>; MAX_CONNECTORS]>,
++    /// When each connector last put a byte on its video endpoint.
++    ///
++    /// Drives the DL7400 keep-alive: see [`NAVARRO_VIDEO_QUIET_MS`] for why a connector that has
++    /// nothing to draw still has to say something.
++    #[pin]
++    last_video_at: SpinLock<[Option<Instant<Monotonic>>; MAX_CONNECTORS]>,
++    /// Per-connector AES-CTR block counter for the sealed records on that connector's video stream.
++    ///
++    /// Every sealed video record carries this counter in its wire `seq`, and `seal_livemac` uses
++    /// it both as the CTR block index and as the Dl3Cmac counter. It is stream state, not record
++    /// state: DLM advances it by `ceil(plaintext / 16)` for every sealed record it sends on a
++    /// stream and never rewinds it, so a re-arm continues the count rather than restarting. It is
++    /// reset only when new video keys arrive, because a fresh key is a fresh keystream.
++    video_seal_seq: [core::sync::atomic::AtomicU32; MAX_CONNECTORS],
++}
 +
 +impl VinoDrmData {
-+    /// Drive `connector` to black on the dock, then close its stream bracket.
++    /// `hdr_capable`, `hw_cursor` and `connectors` come from the dock's profile and must be
++    /// supplied here rather than stored afterwards: `create_objects` runs inside
++    /// `drm::Registration::new_static`, which is *before* probe reaches the block that publishes
++    /// the rest of the profile. Set late, they were always false while the connectors and planes
++    /// were being built, so the ten-bit format and the three HDR properties were silently never
++    /// attached, and no dock could ever withhold its cursor plane.
 +    ///
-+    /// Runs on the command worker for [`KmsCmd::Blank`], i.e. after `atomic_disable` has already
-+    /// zeroed this connector's mode generation. That zero is what makes the write legal: every
-+    /// video path gates on `modeset_requested == modeset_active == want`, and passing `want = 0`
-+    /// matches exactly the disabled state and nothing else -- so a re-enable racing this blank
-+    /// flips both atomics to a real key and the submit loop drops out with `ENODEV` instead of
-+    /// painting black over the freshly enabled mode.
++    /// `connectors` decides how many connectors exist at all. A dock that advertises more
++    /// connectors than it has sockets offers userspace outputs that can never carry a monitor, and
++    /// a compositor that enables one makes the driver encode and transmit full frames to nothing.
++    pub(super) fn new(
++        io: Arc<super::usb::IoWindow>,
++        endpoints: super::Endpoints,
++        hdr_capable: bool,
++        hw_cursor: bool,
++        connectors: u8,
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(Self {
++            io,
++            endpoints,
++            shutting_down: AtomicBool::new(false),
++            cp_link <- new_mutex!(Option::<CpLink>::None),
++            cp_last_reply <- new_spinlock!(Instant::<Monotonic>::now()),
++            cp_session_live: AtomicBool::new(false),
++            cp_reset_queued: AtomicBool::new(false),
++            cp_watchdog <- new_delayed_work!("vino::cp_watchdog"),
++            pending_kms <- new_mutex!(PendingKms::new()),
++            pending_scanout <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            settle_repaint <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            shadow <- pin_init::pin_init_array_from_fn(|_| new_mutex!(ShadowPool::new())),
++            vblank <- new_spinlock!([const { None }; MAX_CONNECTORS]),
++            cmd_work <- new_delayed_work!("vino::kms_cmd"),
++            scanout_work_h0 <- new_work!("vino::scanout_h0"),
++            scanout_work_h1 <- new_work!("vino::scanout_h1"),
++            scanout_work_h2 <- new_work!("vino::scanout_h2"),
++            scanout_work_h3 <- new_work!("vino::scanout_h3"),
++            session_queue: workqueue::Queue::new_ordered().build(kernel::c_str!("vino_session"))?,
++            // High priority: this queue carries cursor movement, and its work items are a few
++            // small control messages. Left at default priority they queue behind whatever else
++            // the machine is doing, and the pointer visibly stutters under load.
++            kms_queue: workqueue::Queue::new_ordered()
++                .highpri()
++                .build(kernel::c_str!("vino_kms"))?,
++            scanout_queue: workqueue::Queue::new_unbound()
++                .max_active(MAX_CONNECTORS as u32)
++                .build(kernel::c_str!("vino_scanout"))?,
++            cached_edids <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            connectors_present: core::sync::atomic::AtomicU32::new(0),
++            color <- new_mutex!([None; MAX_CONNECTORS]),
++            strip_hashes <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            strip_classes <- new_mutex!(core::array::from_fn(|_| KVec::new())),
++            dirty_ttl <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            cp_engaged: core::sync::atomic::AtomicBool::new(false),
++            kms_activation_ready: core::sync::atomic::AtomicBool::new(false),
++            cp_timeline_exclusive: core::sync::atomic::AtomicBool::new(false),
++            initial_modeset_quiet: core::sync::atomic::AtomicBool::new(false),
++            modeset_active: core::array::from_fn(|_| core::sync::atomic::AtomicU64::new(0)),
++            programmed_timing <- new_spinlock!([None; MAX_CONNECTORS]),
++            modeset_requested: core::array::from_fn(|_| core::sync::atomic::AtomicU64::new(0)),
++            split_full_packet_frame: AtomicBool::new(false),
++            last_frame <- new_spinlock!([const { None }; MAX_CONNECTORS]),
++            last_status_poll <- new_spinlock!(None),
++            sustain_until <- new_spinlock!([const { None }; MAX_CONNECTORS]),
++            scanout_seq <- new_mutex!([0; MAX_CONNECTORS]),
++            video_q <- pin_init::pin_init_array_from_fn(|_| new_mutex!(None)),
++            pipe_writer <- new_mutex!(0u8),
++            video_staging <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            last_timing <- new_spinlock!([None; MAX_CONNECTORS]),
++            arm_prefix_pending: core::sync::atomic::AtomicU32::new(0),
++            endpoint_status_logged: core::sync::atomic::AtomicU32::new(0),
++            stream_open_pending: core::sync::atomic::AtomicU32::new(0),
++            keyframe_pending: core::sync::atomic::AtomicU32::new(0),
++            cursor_epoch: core::array::from_fn(|_| core::sync::atomic::AtomicU32::new(0)),
++            shadow_rr: core::array::from_fn(|_| core::sync::atomic::AtomicU32::new(0)),
++            cursor_geometry <- new_mutex!([None; MAX_CONNECTORS]),
++            repair_connectors: core::sync::atomic::AtomicU32::new(0),
++            cursor_shot <- new_mutex!([const { None }; MAX_CONNECTORS]),
++            // D6000 default: 442,368,000 px/s (one 1440p@120) x2 compression headroom = dual
++            // 1440p@120. Replace it if a dock capability supplies a limit.
++            dock_pixel_budget: core::sync::atomic::AtomicU32::new(884_736_000),
++            max_refresh_hz: core::sync::atomic::AtomicU32::new(DEFAULT_MAX_REFRESH_HZ),
++            max_connector_clock_khz: core::sync::atomic::AtomicU32::new(DEFAULT_MAX_HEAD_CLOCK_KHZ),
++            cmd_busy: core::sync::atomic::AtomicBool::new(false),
++            video_inflight: core::array::from_fn(|_| core::sync::atomic::AtomicBool::new(false)),
++            scanout_fails: core::array::from_fn(|_| core::sync::atomic::AtomicU64::new(0)),
++            scanout_skip: core::array::from_fn(|_| core::sync::atomic::AtomicU64::new(0)),
++            settle_budget: core::array::from_fn(|_| core::sync::atomic::AtomicU32::new(0)),
++            presence_reply: core::array::from_fn(|_| core::sync::atomic::AtomicU32::new(0)),
++            downstream_event: AtomicBool::new(false),
++            edid_target: core::sync::atomic::AtomicU32::new(NO_EDID_TARGET),
++            edid_caught <- new_mutex!(None),
++            self_blanked: core::sync::atomic::AtomicU32::new(0),
++            blank_bracket_open: core::sync::atomic::AtomicU32::new(0),
++            hdr_capable: AtomicBool::new(hdr_capable),
++            hw_cursor: AtomicBool::new(hw_cursor),
++            reports_presence: AtomicBool::new(true),
++            shared_edid_handler: AtomicBool::new(false),
++            codec_geometry: core::sync::atomic::AtomicU32::new(0),
++            // Ridge-compatible defaults until probe publishes the matched profile.
++            frame_delivery: core::sync::atomic::AtomicU32::new(2 | (1 << 8) | (3 << 16)),
++            probe_bracket: core::sync::atomic::AtomicU8::new(
++                super::profile::ProbeBracket::Always as u8
++            ),
++            connector_ten_bit: core::sync::atomic::AtomicU32::new(0),
++            connector_max_bpc: core::sync::atomic::AtomicU32::new(0),
++            connector_deny_ten_bit: core::sync::atomic::AtomicU32::new(0),
++            head_st2084: core::sync::atomic::AtomicU32::new(0),
++            // A dock that names no connector count still has to expose something, so fall back to
++            // the maximum rather than building a card with no connectors at all.
++            connectors: core::sync::atomic::AtomicU8::new(if connectors == 0 {
++                MAX_CONNECTORS as u8
++            } else {
++                connectors.min(MAX_CONNECTORS as u8)
++            }),
++            dock_wide_modeset: core::sync::atomic::AtomicBool::new(false),
++            clear_mode_before_set: core::sync::atomic::AtomicBool::new(false),
++            blank_markers_held: core::sync::atomic::AtomicBool::new(false),
++            video_keepalive: core::sync::atomic::AtomicBool::new(false),
++            arm_burst: core::sync::atomic::AtomicBool::new(true),
++            allocation: kernel::sync::SetOnce::new(),
++            video_on_ctrl_pipe: core::sync::atomic::AtomicBool::new(false),
++            sink_down_state: core::sync::atomic::AtomicU8::new(BLANK_MARKER_STATE),
++            post_mode_sink_states: core::sync::atomic::AtomicU16::new(0x0303),
++            pre_mode_sink_state: core::sync::atomic::AtomicU16::new(u16::MAX),
++            stream_opened: core::sync::atomic::AtomicU32::new(0),
++            stream_reports_owed: core::array::from_fn(|_| core::sync::atomic::AtomicU32::new(0)),
++            kms_retries: core::sync::atomic::AtomicU32::new(0),
++            video_stream_desc: core::sync::atomic::AtomicU32::new(0),
++            frame_period_us: core::sync::atomic::AtomicI64::new(FRAME_PERIOD_US),
++            status_period_ms: core::sync::atomic::AtomicI64::new(STATUS_PERIOD_MS),
++            carrier_frames: core::sync::atomic::AtomicU32::new(u32::MAX),
++            stream_budget_bps: core::sync::atomic::AtomicU32::new(u32::MAX),
++            stream_burst_bytes: core::sync::atomic::AtomicU32::new(u32::MAX),
++            stream_credit <- new_spinlock!(StreamCredit::new()),
++            video_keys <- new_mutex!(core::array::from_fn(
++                |_| kernel::crypto::Secret::zeroed()
++            )),
++            last_video_at <- new_spinlock!([None; MAX_CONNECTORS]),
++            video_seal_seq: core::array::from_fn(
++                |_| core::sync::atomic::AtomicU32::new(0)
++            ),
++        })
++    }
++
++    /// Publish the producers' stop flag and nothing else.
 +    ///
-+    /// The dock's stream itself is still configured (vino never told it otherwise), so the black
-+    /// frames are an ordinary accepted write, not a write onto a torn-down pipe.
-+    pub(super) fn blank_connector(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        let socket = connector + 1;
-+        let connector_index = connector as usize;
-+        // A dock that wants its markers held takes two of them and then silence: no video, no mode
-+        // set and no close bracket for as long as the output stays down. It is the same pair
-+        // `modeset_bracket_pre` opens with, so the stream is held rather than torn down, and
-+        // [`Self::close_blank_bracket`] owes the matching re-open before the connector is driven
-+        // again. The scanout has already stopped, because `atomic_disable` zeroed this connector's
-+        // mode generation before queueing this command.
-+        //
-+        // Sending such a dock the close bracket below instead re-enumerates it about two seconds
-+        // later, which takes the whole desktop down with it.
-+        if self.blank_bracket() == crate::profile::BlankBracket::MarkersHeld {
-+            self.stream_marker(dev, connector, 0x2f, 1)?;
-+            self.stream_marker(dev, connector, 0x2e, self.sink_down_state())?;
-+            self.set_self_blanked(connector_index, true);
-+            self.blank_bracket_open
-+                .fetch_or(1u32 << connector_index, Ordering::Release);
-+            vino_debug!("vino: socket {socket} blanked; bracket held open, stream idle\n");
-+            return Ok(());
++    /// `disconnect()` calls this *before* `IoWindow::close()`. The scanout and command workers each
++    /// hold an `Io` token for as long as they loop and re-read `shutting_down` every iteration, so
++    /// setting it early is what keeps them from holding `close()`'s wait open. Everything in
++    /// [`shutdown`](Self::shutdown) proper must wait until USB I/O is quiesced; this must not.
++    pub(super) fn begin_shutdown(&self) {
++        self.shutting_down.store(true, Ordering::Release);
++        self.kms_activation_ready.store(false, Ordering::Release);
++        self.cp_timeline_exclusive.store(false, Ordering::Release);
++        self.initial_modeset_quiet.store(false, Ordering::Release);
++    }
++
++    /// Stand every producer down because the device is about to be reset.
++    ///
++    /// A reset takes the whole session with it: the dock forgets its content-protection keys, its
++    /// open streams and the sinks it was driving, and nothing this driver holds describes the
++    /// device on the other side of one. So the link is marked gone before the reset rather than
++    /// after, which is what stops a worker submitting a transfer across it.
++    pub(super) fn stop_for_reset(&self) {
++        self.cp_session_live.store(false, Ordering::Release);
++        self.begin_shutdown();
++    }
++
++    /// Whether the parent interface is being removed.
++    pub(super) fn is_shutting_down(&self) -> bool {
++        self.shutting_down.load(Ordering::Acquire)
++    }
++
++    /// Queue used by the session bring-up and keepalive work item.
++    pub(super) fn session_queue(&self) -> &workqueue::Queue {
++        &self.session_queue
++    }
++
++    /// Take this device's pending downstream-topology notification.
++    pub(super) fn take_downstream_event(&self) -> bool {
++        self.downstream_event.swap(false, Ordering::Acquire)
++    }
++
++    /// Stop deferred DRM work while the parent USB interface is still bound. `cmd_work` is
++    /// embedded in this DRM device and each successful enqueue temporarily owns an
++    /// `ARef<VinoDrmDevice>`; pending scanouts also retain compositor framebuffers. Quiesce both
++    /// producers, reclaim any queued work pointer, and drop those framebuffers before the final
++    /// device references disappear during devres teardown.
++    pub(super) fn shutdown(&self) {
++        // Idempotent, and `disconnect()` has normally already done this: see `begin_shutdown`.
++        self.begin_shutdown();
++        for mode in &self.modeset_requested {
++            mode.store(0, Ordering::Release);
 +        }
-+        let Some(timing) = self.last_timing.lock()[connector_index] else {
-+            // Never modeset, so there is nothing lit to blank.
-+            return Ok(());
++
++        // Stop the software vblank clocks before releasing their CRTC references. Take the
++        // registry out from under the spinlock before dropping the handles:
++        // Dropping `ArcHrTimerHandle` waits for a running callback and must
++        // not happen in atomic context.
++        let timers = {
++            let mut slots = self.vblank.lock();
++            core::mem::replace(&mut *slots, [const { None }; MAX_CONNECTORS])
 +        };
-+        let geometry = self.geometry();
-+        let padded_width =
-+            (timing.hactive as usize + geometry.strip_w() - 1) & !(geometry.strip_w() - 1);
-+        let padded_height =
-+            (timing.vactive as usize + geometry.strip_h() - 1) & !(geometry.strip_h() - 1);
-+        let frames =
-+            crate::video::haar::black_frame_ep08(geometry, padded_width, padded_height, connector)?;
-+        let ordinary_frames = crate::video::haar::black_frame_ep08_ordinary(
-+            geometry,
-+            padded_width,
-+            padded_height,
-+            connector,
-+        )?;
-+        // Present for long enough to reach every dock buffer. The dock is multi-buffered and a
-+        // single presentation lands in one buffer only -- the same reason damage debt exists --
-+        // so a one-shot blank leaves the other buffer holding the frozen desktop and the panel
-+        // alternates between black and stale content.
-+        let sent = self.submit_prompt_training(
-+            dev,
-+            connector,
-+            0,
-+            &frames,
-+            &ordinary_frames,
-+            BLANK_PRESENT_MS,
-+            false,
-+        )?;
-+        self.stream_marker(dev, connector, 0x2f, 0)?;
-+        self.stream_marker(dev, connector, 0x2e, 0)?;
-+        // Do not take the sink down for a connector whose monitor has already gone away.
++        // Clear `enabled` before cancelling so a callback racing the cancel returns `NoRestart`
++        // instead of re-arming behind it.
++        for (timer, _) in timers.iter().flatten() {
++            timer.enabled.store(false, Ordering::Relaxed);
++        }
++        // Split the registry: drop every `ArcHrTimerHandle` (each drop == `hrtimer_cancel`, which
++        // waits for a running callback), but keep the `Arc<VblankTimer>`s alive so the published
++        // CRTC handles can be released below. From here on no vblank callback can run or be
++        // re-armed, because `VinoCrtc::vblank` is only reachable through a CRTC of this device and
++        // every producer is already refusing work.
++        let timers = timers.map(|slot| {
++            slot.map(|(timer, handle)| {
++                drop(handle);
++                timer
++            })
++        });
++
++        // Break the two device-to-itself reference cycles. Both run through a `crtc::CrtcRef`,
++        // which owns an `ARef<VinoDrmDevice>`:
 +        //
-+        // `atomic_disable` fires for both a DPMS-off and a monitor removal, and they need opposite
-+        // treatment. Sending the power-down marker at a sink that is already gone is pointless, and
-+        // setting `self_blanked` would make the presence watcher deliberately ignore that
-+        // connector's silence, preventing a later replug from being detected.
-+        let candidate = if self.connector_present(connector_index) {
-+            self.sink_down_state()
-+        } else {
-+            vino_debug!(
-+                "vino: socket {socket} blank skips the sink marker -- its monitor is already gone\n"
-+            );
-+            0
-+        };
-+        if candidate != 0 {
-+            // From here the dock will stop answering this connector's presence probe, exactly as it
-+            // does for a real unplug. Claim the silence before causing it.
-+            self.set_self_blanked(connector_index, true);
-+            if let Err(e) = self.power_down_sink(dev, connector) {
-+                self.set_self_blanked(connector_index, false);
-+                return Err(e);
++        //   1. `VblankTimer::crtc`, published by the first `enable_vblank` and never released. The
++        //      timer is owned by `VinoCrtc`, which lives inside the DRM device allocation.
++        //   2. `VinoCrtc::vblank_pinned`, the driver-held vblank reference. Teardown cannot rely on
++        //      `atomic_disable` running before unplug.
++        //
++        // Safe to do here even though these were the last self-references: `shutdown()`'s only
++        // caller is `VinoDriver::disconnect`, which reaches it through the `drm::Registration`
++        // still held in the bound data -- and that owns an `ARef<VinoDrmDevice>` of its own -- so
++        // `&self` outlives this function regardless of what is dropped below. The taken values
++        // are dropped outside both locks: `drm_dev_put()` can end in `drm_dev_release()` and
++        // `drm_crtc_vblank_put()` takes the DRM vblank locks, neither of which may run under our
++        // spinlock.
++        for timer in timers.iter().flatten() {
++            let published = timer.crtc.lock().take();
++            if let Some(crtc_ref) = published {
++                // The software vblank clock has just stopped, and a page flip armed by
++                // `atomic_flush` is waiting on a tick that will never come. `drm_crtc_vblank_off()`
++                // both refuses further vblank references -- so `drm_atomic_helper_wait_for_vblanks`
++                // skips this CRTC instead of warning -- and sends every event still queued on the
++                // device's vblank list, which is exactly where `PendingVblankEvent::arm` put ours.
++                //
++                // Without it an unplug left the compositor's `commit_tail` blocked until DRM's own
++                // deadlines expired: this boot logged 73 `vblank wait timed out` warnings and 110
++                // pairs of `flip_done timed out` / `commit wait timed out`, ten seconds each, on
++                // top of every dock reset. That is most of the delay between a dock coming back and
++                // pixels reappearing.
++                crtc_ref.crtc().vblank_off();
++                let crtc: &VinoCrtc = crtc_ref.crtc();
++                drop(crtc.vblank_pinned.lock().take());
++                drop(crtc_ref);
 +            }
 +        }
-+        vino_debug!("vino: socket {socket} blanked on the dock ({sent} black presentation(s))\n");
-+        Ok(())
-+    }
-+    /// Take one connector's downstream sink out of power, leaving the monitor with no signal.
-+    ///
-+    /// The dock goes on scanning out whatever it last decoded, so a driver that simply stops
-+    /// sending pixels leaves the panel lit on a frozen image indefinitely. Only this sequence ends
-+    /// that.
-+    fn power_down_sink(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        let socket = connector + 1;
-+        self.stream_marker(dev, connector, 0x2f, 1)?;
-+        self.stream_marker(dev, connector, 0x2e, self.sink_down_state())?;
-+        self.poll_status(dev)?;
-+        self.stream_marker(dev, connector, 0x2f, 0)?;
-+        vino_debug!("vino: socket {socket} downstream sink powered down\n");
-+        Ok(())
-+    }
-+    /// Power down every sink this driver lit, before it stops being able to.
-+    ///
-+    /// Unbinding does not reach the dock: `atomic_disable` queues the blank on the command worker,
-+    /// and teardown discards that queue and cancels the worker before it runs. The dock therefore
-+    /// keeps scanning out the last frame it decoded and the monitors stay lit on a frozen desktop
-+    /// until something else drives them.
-+    ///
-+    /// Best effort by construction. It runs on the disconnect path, where the device may already be
-+    /// physically gone -- every transfer then fails immediately, which is the right outcome -- and
-+    /// it must not be the reason unbinding blocks, so it does no work at all when no connector is
-+    /// lit and its waits are the bounded ones the mode-set path already uses.
-+    pub(crate) fn park_sinks(&self) {
-+        let lit: u32 = self
-+            .modeset_active
-+            .iter()
-+            .enumerate()
-+            .fold(0, |mask, (h, active)| {
-+                mask | (u32::from(active.load(Ordering::Acquire) != 0) << h)
-+            });
-+        // Nothing lit, or nothing to say it to: an unplug arrives here with the session already
-+        // gone, and waiting for the video path to drain against a dead dock buys nothing.
-+        if lit == 0 || self.check_cp_session().is_err() {
-+            return;
++        drop(timers);
++
++        *self.pending_kms.lock() = PendingKms::new();
++        *self.pending_scanout.lock() = [const { None }; MAX_CONNECTORS];
++        *self.settle_repaint.lock() = [const { None }; MAX_CONNECTORS];
++        for h in 0..MAX_CONNECTORS {
++            self.shadow[h].lock().discard();
 +        }
-+        // Stand the scanout workers down and let any frame already on the wire finish, so these
-+        // markers do not land in the middle of one.
-+        self.cmd_busy
-+            .store(true, core::sync::atomic::Ordering::SeqCst);
-+        self.wait_for_video_idle();
-+        let Ok(link) = crate::usb_link::UsbLink::open(&self.io, self.endpoints) else {
-+            return;
++        *self.strip_hashes.lock() = [const { None }; MAX_CONNECTORS];
++        *self.dirty_ttl.lock() = [const { None }; MAX_CONNECTORS];
++        // Cancel the queued drain and reclaim the `ARef<VinoDrmDevice>` the enqueue handed to
++        // the workqueue, if it was still pending. Dropping it here releases the self-reference
++        // that would otherwise keep this device alive until the work ran.
++        //
++        // Cancel `cmd_work` first because it can enqueue both scanout workers. `shutting_down` is
++        // already visible to all workers, so cancellation only waits for work already in flight.
++        drop(self.cmd_work.cancel_sync());
++        drop(self.cp_watchdog.cancel_sync());
++        drop(self.scanout_work_h0.cancel_sync());
++        drop(self.scanout_work_h1.cancel_sync());
++        drop(self.scanout_work_h2.cancel_sync());
++        drop(self.scanout_work_h3.cancel_sync());
++
++        // A running callback may have taken a batch just before shutdown was published. It has
++        // finished now; clear anything it left behind and tear the USB queues down while their
++        // parent interface is still in Bound context.
++        *self.pending_kms.lock() = PendingKms::new();
++        *self.pending_scanout.lock() = [const { None }; MAX_CONNECTORS];
++        *self.settle_repaint.lock() = [const { None }; MAX_CONNECTORS];
++        for h in 0..MAX_CONNECTORS {
++            self.shadow[h].lock().discard();
++        }
++        *self.strip_hashes.lock() = [const { None }; MAX_CONNECTORS];
++        *self.dirty_ttl.lock() = [const { None }; MAX_CONNECTORS];
++        for queue in &self.video_q {
++            *queue.lock() = None;
++        }
++        *self.video_staging.lock() = [const { None }; MAX_CONNECTORS];
++        self.cp_session_live.store(false, Ordering::Release);
++        *self.cp_link.lock() = None;
++        vino_debug!("vino: deferred KMS/video work drained for unplug\n");
++    }
++
++    /// Cache `connector`'s CRTC colour transform (from `RawCrtcState::gamma_lut` and
++    /// `RawCrtcState::ctm`) for the scanout to apply, or clear it to identity with two `None`s.
++    pub(super) fn update_color(
++        &self,
++        connector: usize,
++        lut: Option<&[crtc::ColorLut]>,
++        ctm: Option<&crtc::ColorCtm>,
++    ) {
++        let socket = connector + 1;
++        let cached = super::color::ColorPipeline::build(lut, ctm);
++        let changed = if let Some(slot) = self.color.lock().get_mut(connector) {
++            if *slot == cached {
++                false
++            } else {
++                *slot = cached;
++                true
++            }
++        } else {
++            false
 +        };
-+        for connector in 0..MAX_CONNECTORS {
-+            if lit & (1u32 << connector) == 0 {
++        if changed {
++            if cached.is_some() {
++                vino_debug!("vino: socket {socket} colour transform updated\n");
++            } else {
++                vino_debug!("vino: socket {socket} colour transform cleared\n");
++            }
++            // The encoded-strip cache keys on a strip's source pixels, so a transform change that
++            // leaves those pixels untouched would otherwise re-send stale bodies for the whole
++            // screen. Drop the cache and owe a keyframe.
++            self.strip_hashes.lock()[connector] = None;
++            self.dirty_ttl.lock()[connector] = None;
++            self.owe_keyframe(connector);
++        }
++    }
++
++    /// Snapshot `connector`'s cached colour transform for a scanout pass (`Copy`, so no lock is
++    /// held afterwards).
++    pub(super) fn color_snapshot(&self, connector: usize) -> Option<super::color::ColorPipeline> {
++        self.color.lock().get(connector).copied().flatten()
++    }
++
++    /// Number of physical connectors selected by the matched dock profile.
++    pub(super) fn connector_count(&self) -> usize {
++        usize::from(self.connectors.load(Ordering::Acquire)).min(MAX_CONNECTORS)
++    }
++
++    /// Whether `connector` represents a distinct runtime stream on this dock.
++    ///
++    /// Every physical connector does, including both halves of a shared endpoint: the DL7400 maps
++    /// its four connectors in pairs onto two video bulk endpoints, and treating the second of each
++    /// pair as an alias would make a monitor in socket 3 or 4 invisible. Sharing an endpoint is a
++    /// transport detail, handled where it belongs by [`UsbLink::video_pipe_index`], which gives
++    /// both connectors of a pair the same persistent queue.
++    ///
++    /// Empty sockets cost nothing here: the presence probe answers negative for them, and the
++    /// keepalive's re-engage retry stands down permanently once it has.
++    pub(super) fn runtime_connector(&self, connector: usize) -> bool {
++        connector < self.connector_count()
++    }
++
++    /// Whether bring-up has reached the point where KMS may touch the dock.
++    pub(super) fn kms_activation_ready(&self) -> bool {
++        self.kms_activation_ready.load(Ordering::Acquire)
++    }
++
++    /// Take every connector down once the control session has been abandoned.
++    ///
++    /// Userspace can move its windows off a connector that has disappeared, but not off one that
++    /// is merely frozen. Recovery is a replug, which rebinds and starts a fresh session.
++    pub(super) fn drop_connectors_with_session(&self, drm_dev: &VinoDrmDevice) {
++        let mut dropped = false;
++        for connector in 0..self.connector_count() {
++            if !self.runtime_connector(connector) || !self.connector_present(connector) {
 +                continue;
 +            }
-+            if let Err(e) = self.power_down_sink(&link, connector as u8) {
-+                vino_debug!(
-+                    "vino: socket {} sink power-down on unbind failed ({e:?})\n",
-+                    connector + 1
-+                );
-+            }
-+        }
-+    }
-+    /// Drive one connector's stream bracket to the closed state.
-+    ///
-+    /// The dock holds a connector opened with `2e=3` until it is told otherwise: it stops driving
-+    /// the sink and disengages that connector's EDID handler, so the connector then reads exactly
-+    /// like an empty socket. Nothing but this sequence puts it back, and the dock keeps the state
-+    /// across a USB re-enumeration, so it must be sent rather than inferred.
-+    fn send_bracket_close(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        self.stream_marker(dev, connector, 0x2f, 1)?;
-+        self.stream_marker(dev, connector, 0x2e, 0)?;
-+        self.stream_marker(dev, connector, 0x2f, 0)?;
-+        self.stream_marker(dev, connector, 0x2e, 0)
-+    }
-+    /// Assert the closed bracket state on a connector that is about to be probed.
-+    ///
-+    /// The dock's bracket state outlives this driver's record of it, so dedicated-pipe docks assert
-+    /// it before probing. Ella is different: its vendor stream never performs a periodic reset, and
-+    /// the four markers share EP02 with pixels. Resetting an idle socket while its sibling is live
-+    /// drops the live sink, so its profile defers the close until no sibling is active.
-+    ///
-+    /// Best effort otherwise: a connector that is genuinely empty is not worth failing a probe
-+    /// over.
-+    pub(super) fn close_bracket_before_probe(&self, dev: &BoundInterface<'_>, connector: u8) {
-+        let bit = 1u32 << connector;
-+        let active_connectors = self
-+            .modeset_active
-+            .iter()
-+            .enumerate()
-+            .fold(0u32, |mask, (h, active)| {
-+                mask | (u32::from(active.load(Ordering::Acquire) != 0) << h)
-+            });
-+        if !self
-+            .probe_bracket()
-+            .should_close(connector, active_connectors)
-+        {
-+            vino_debug!(
-+                "vino: socket {} probe defers bracket reset beside active sibling(s) {:#x}\n",
-+                connector + 1,
-+                active_connectors & !bit
-+            );
-+            return;
-+        }
-+        if self.send_bracket_close(dev, connector).is_ok() {
-+            self.blank_bracket_open.fetch_and(!bit, Ordering::AcqRel);
-+        }
-+    }
-+    /// Put a connector back into the closed bracket state after a failed mode set.
-+    ///
-+    /// A mode set opens the bracket before it configures anything, so an error anywhere after that
-+    /// point leaves the connector open on the dock with no record of it here. Best effort: this
-+    /// runs on the error path, and the transport that just failed may fail again.
-+    pub(super) fn unwind_bracket(&self, dev: &BoundInterface<'_>, connector: u8) {
-+        // A dead session cannot carry the close, and every queued mode set fails against it, so
-+        // attempting one per failure floods the log with a consequence of the disconnect rather
-+        // than a cause. The dock is being re-established anyway; a fresh session closes the
-+        // bracket in `reengage_connector` before it probes.
-+        if !self.cp_link_alive() {
-+            return;
-+        }
-+        if self.send_bracket_close(dev, connector).is_err() {
-+            // The dock is still holding this connector. Say so once, rather than reporting only the
-+            // error that got us here, because the connector now reads as an empty socket.
++            self.set_disconnected(connector);
++            dropped = true;
 +            pr_warn!(
-+                "vino: socket {socket} left open after a failed mode set; it will read as empty until a re-engage closes it\n",
++                "vino: socket {socket} dropped with the control session\n",
 +                socket = connector + 1
 +            );
 +        }
++        if dropped {
++            drm_dev.hotplug_event();
++        }
 +    }
-+    /// Close a blank bracket before this connector is driven again.
++
++    /// Take the shared pipe for one indivisible sequence of writes.
 +    ///
-+    /// Precedes the EDID probe and the mode set that follow. A connector that was never blanked
-+    /// costs nothing here.
-+    pub(super) fn close_blank_bracket(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        let socket = connector + 1;
-+        let bit = 1u32 << connector;
-+        if self.blank_bracket_open.load(Ordering::Acquire) & bit == 0 {
++    /// A record is never split: the vendor's control records sit between records, never inside
++    /// one. On a dock with a video pipe of its own that is free -- the two planes cannot collide.
++    /// Here they share an endpoint, and a control write submitted between two of a frame's URBs
++    /// lands in the middle of an image record, where it desynchronises the dock's parser for the
++    /// rest of the frame. The dock accepts every byte and shows nothing, which is indistinguishable
++    /// from a dead sink.
++    ///
++    /// Returns `None` on a dock whose planes have separate endpoints, where the exclusion would
++    /// only cost the control plane latency.
++    ///
++    /// Lock order is `cp_link` then this then `video_q`. Nothing may send a control message while
++    /// holding it.
++    pub(super) fn own_pipe(
++        &self,
++    ) -> Option<kernel::sync::lock::Guard<'_, u8, kernel::sync::lock::mutex::MutexBackend>> {
++        self.video_on_ctrl_pipe().then(|| self.pipe_writer.lock())
++    }
++
++    /// Retire every outstanding URB after a physical video queue reports an error.
++    ///
++    /// The caller must still own this endpoint's `own_pipe()` guard (when present) and its
++    /// canonical `video_q` slot.  Taking and explicitly dropping the complete queue synchronously
++    /// kills every submitted URB before a stalled endpoint is cleared.  In particular, no queued
++    /// frame tail may resume after `usb_clear_halt()` without the prefix that made it parseable.
++    /// Keeping the canonical slot empty also makes the next writer create a fresh queue on a
++    /// dedicated video endpoint.
++    ///
++    /// A shared control/video pipe cannot resume locally.  Submission advances the host's frame
++    /// and ring counters before asynchronous URBs complete, so cancellation can leave the dock
++    /// expecting an earlier frame than Vino.  There is no independent endpoint to re-arm and no
++    /// safe counter-only rewind; abandon the complete session and let USB reset establish a new
++    /// one instead.  Dedicated video endpoints retain their local drain/clear recovery.
++    pub(super) fn retire_failed_video_queue(
++        &self,
++        dev: &BoundInterface<'_>,
++        connector: usize,
++        queue_slot: &mut Option<super::usb::BulkOutQueue>,
++        cause: Error,
++        clear_halt: bool,
++    ) -> Result {
++        let doomed = queue_slot.take();
++        drop(doomed);
++
++        vino_debug!(
++            "vino: connector={} retired failed physical video queue ({:?})\n",
++            connector,
++            cause
++        );
++        if self.video_on_ctrl_pipe()
++            && (cause == kernel::error::code::EPIPE
++                || cause == kernel::error::code::EPROTO
++                || cause == kernel::error::code::ETIMEDOUT)
++        {
++            // Publish the terminal state before invalidating connectors or requesting reset.  A CP
++            // writer already queued behind `own_pipe()` rechecks this flag after it acquires the
++            // pipe, and a scanout writer may not recreate the canonical queue once it is false.
++            if self
++                .cp_session_live
++                .compare_exchange(true, false, Ordering::AcqRel, Ordering::Acquire)
++                .is_ok()
++            {
++                pr_warn!(
++                    "vino: shared video/control pipe failed ({:?}); abandoning the session\n",
++                    cause
++                );
++            }
++            // This device instance is terminal even though USB reset is asynchronous.  Close the
++            // producer gate as well as the transport gate so KMS callbacks may coalesce their
++            // latest state, but cannot enqueue another activation in the reset window.  The fresh
++            // probe owns a new VinoDrmData and publishes its own readiness after setup completes.
++            self.kms_activation_ready.store(false, Ordering::Release);
++            let mut programmed = self.programmed_timing.lock();
++            for h in 0..self.connector_count() {
++                self.modeset_active[h].store(0, Ordering::Release);
++                programmed[h] = None;
++            }
++            drop(programmed);
++            self.reset_after_wedge();
 +            return Ok(());
 +        }
-+        // Clear the record only once the dock has been told, so a send that fails partway leaves
-+        // the debt standing for the next attempt. Clearing first strands the connector open
-+        // forever: the driver stops believing anything is owed while the dock goes on holding it.
-+        self.send_bracket_close(dev, connector)?;
-+        self.blank_bracket_open.fetch_and(!bit, Ordering::AcqRel);
-+        // Closing the bracket restores the stream, not the sink. The blank powered the downstream
-+        // sink down and nothing else turns it back on, so the vendor follows the closing markers
-+        // with a full probe, EDID fetch and sink engage before it programs a timing. A dock woken
-+        // without them comes back slowly, or not at all once the sink has been down long enough
-+        // for the dock to have let go of it.
-+        //
-+        // Best effort: a connector whose monitor genuinely went away while it was blanked belongs
-+        // to the presence watcher, and the mode set below is what reports a wake that failed.
-+        //
-+        // Not on a dock whose video shares the control pipe, for the same reason `sustain_window`
-+        // is withheld there: the seven paced messages are taken directly from the pipe the wake is
-+        // also driving pixels down, and this dock answers by going silent rather than by dropping
-+        // a frame.
-+        if !self.video_on_ctrl_pipe() && self.reengage_connector(dev, connector).is_err() {
-+            vino_debug!("vino: socket {socket} wake re-engage failed; the mode set will retry\n");
++        if clear_halt
++            && (cause == kernel::error::code::EPIPE || cause == kernel::error::code::EPROTO)
++        {
++            dev.clear_video_halt(connector)?;
++            pr_info!(
++                "vino: connector {} video queue drained and endpoint halt cleared\n",
++                connector
++            );
 +        }
-+        // A wake is still not a cold plug: the re-engage above restores the sink, so the
-+        // three-second keyframe window `sustain_window` grants a cold activation buys nothing here
-+        // and costs about a gigabyte per connector. Sustained bandwidth is also what destabilises
-+        // this dock, so it is never spent twice.
-+        self.repair_connectors.fetch_or(bit, Ordering::Release);
-+        vino_debug!("vino: socket {socket} blank bracket closed; wake runs as a repair\n");
 +        Ok(())
 +    }
-+    /// Open the per-connector stream bracket before changing an active mode.
-+    pub(super) fn modeset_bracket_pre(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        self.stream_marker(dev, connector, 0x2f, 1)?;
-+        // Docks that want the sink torn down before it is configured say so in their profile.
-+        // Where no state is carried the vendor sets the mode first and brackets behind it, and
-+        // downing a sink that is about to be programmed would leave it down for the whole bracket.
-+        if let Some(state) = self.pre_mode_sink_state() {
-+            self.stream_marker(dev, connector, 0x2e, state)?;
-+        }
-+        self.poll_status(dev)
++
++    /// Keep Navarro's setup-to-first-mode-set control stream free of background traffic.
++    pub(super) fn hold_cp_for_initial_modeset(&self) {
++        self.initial_modeset_quiet.store(true, Ordering::Release);
 +    }
-+    /// Sleep until an absolute millisecond offset from the mode-set anchor.
++
++    /// Whether the initial Navarro mode set still owns the next control message.
++    pub(super) fn initial_modeset_quiet(&self) -> bool {
++        self.initial_modeset_quiet.load(Ordering::Acquire)
++    }
++
++    /// Release the initial hold if userspace never submits a mode set.
++    pub(super) fn release_initial_modeset_quiet(&self) {
++        self.initial_modeset_quiet.store(false, Ordering::Release);
++    }
++
++    /// Store the per-connector video keys produced by the `id=0x32` exchange.
 +    ///
-+    /// Absolute deadlines keep scheduler delay from accumulating across the activation sequence.
-+    pub(super) fn wait_mode_offset(anchor: Instant<Monotonic>, target_ms: i64) {
-+        let elapsed_ms = (Instant::<Monotonic>::now() - anchor).as_millis();
-+        if elapsed_ms < target_ms {
-+            fsleep(Delta::from_millis(target_ms - elapsed_ms));
-+        }
-+    }
-+    /// Sleep/spin until an exact microsecond offset in a short video-transport schedule.
-+    ///
-+    /// `fsleep` handles the bulk of the delay without burning a CPU; the small busy-wait tail
-+    /// avoids scheduling a producer boundary hundreds of microseconds late. This is used only for
-+    /// the four submissions of Navarro's one-shot prologue.
-+    pub(super) fn wait_video_offset(anchor: Instant<Monotonic>, target_us: i64) {
-+        const SPIN_MARGIN_US: i64 = 80;
-+        let elapsed = anchor.elapsed().as_micros_ceil();
-+        if elapsed >= target_us {
-+            return;
-+        }
-+        if target_us - elapsed > SPIN_MARGIN_US {
-+            fsleep(Delta::from_micros(target_us - elapsed - SPIN_MARGIN_US));
-+        }
-+        let elapsed = anchor.elapsed().as_micros_ceil();
-+        if elapsed < target_us {
-+            udelay(Delta::from_micros(target_us - elapsed));
-+        }
-+    }
-+    /// Complete the stream-open markers and status polls up to the first video deadline.
-+    pub(super) fn modeset_bracket_post_open(
++    /// Called with [`publish_session`](Self::publish_session) when CP engages. `opened` is the
++    /// connector bitmask whose streams the setup burst opened; each of those consumed block zero of
++    /// its stream, so its chain continues at block one. A connector not in the mask had no sink at
++    /// setup time and still owes its open, so its chain must start at zero -- sealing at one leaves
++    /// a gap the dock accounts for as a keystream it never received, and it discards the record
++    /// with nothing on the wire to say so.
++    pub(super) fn set_video_keys(
 +        &self,
-+        dev: &BoundInterface<'_>,
-+        connector: u8,
-+        anchor: Instant<Monotonic>,
-+    ) -> Result {
-+        self.poll_status(dev)?;
-+        Self::wait_mode_offset(anchor, 5);
-+        self.stream_marker(dev, connector, 0x2f, 1)?;
-+        Self::wait_mode_offset(anchor, 9);
-+        self.stream_marker(dev, connector, 0x2e, self.post_mode_sink_state(0))?;
-+        Self::wait_mode_offset(anchor, 12);
-+        self.stream_marker(dev, connector, 0x2f, 1)?;
-+        Self::wait_mode_offset(anchor, 14);
-+        // `0x2e` state 3 takes the downstream sink down and 0 brings it back up. The vendor drives
-+        // it down once here and then straight back up; repeating the 3 leaves the sink down for
-+        // the rest of the bracket, which on DL-3x00 is a dock that accepts every byte of a frame
-+        // and displays none of it.
-+        self.stream_marker(dev, connector, 0x2e, self.post_mode_sink_state(1))?;
-+        // The vendor's ring descriptor and decoder configuration land here, between the fourth
-+        // marker and the fifth, so the closing `2e(connector, 0)` below is the last thing the dock
-+        // sees before pixels. A dock told to bring its sink up after a frame has already gone out
-+        // has been handed that frame with nothing scanning it out.
-+        self.send_stream_prologue(dev, connector)?;
-+        Self::wait_mode_offset(anchor, 20);
-+        self.stream_marker(dev, connector, 0x2f, 1)?;
-+        // The status poll shares the final `2f(1)` deadline.
-+        self.poll_status(dev)?;
-+        Self::wait_mode_offset(anchor, 26);
-+        self.stream_marker(dev, connector, 0x2e, 0)?;
-+        // There is a measured 63-ms quiet interval, then three polls at +89/+95/+110 ms. The last
-+        // poll and first video bytes share one deadline.
-+        Self::wait_mode_offset(anchor, 89);
-+        self.poll_status(dev)?;
-+        Self::wait_mode_offset(anchor, 95);
-+        self.poll_status(dev)?;
-+        Self::wait_mode_offset(anchor, PROMPT_VIDEO_MS);
-+        self.poll_status(dev)
-+    }
-+    /// Close the post-mode-set bracket after prompt video has started.
-+    ///
-+    /// The first close marker is +13 ms from video and the second is +15 ms. Background keepalive
-+    /// resumes immediately after this pair and supplies the continuing status dialogue.
-+    ///
-+    /// A dock without a video pipe has already closed its bracket: its last marker before the
-+    /// strips is the sink-up, and the vendor sends nothing at all between a frame and the next
-+    /// frame's opener. Closing again there puts two records into the one gap the vendor leaves
-+    /// empty, one of them a marker state it never uses on this generation.
-+    pub(super) fn modeset_bracket_post_close(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        connector: u8,
-+        anchor: Instant<Monotonic>,
-+    ) -> Result {
-+        if self.video_on_ctrl_pipe() {
-+            return Ok(());
++        keys: [kernel::crypto::Secret<32>; MAX_CONNECTORS],
++        opened: u32,
++    ) {
++        *self.video_keys.lock() = keys;
++        self.stream_opened.store(opened, Ordering::Release);
++        // A new key is a new keystream, so the block counters start over with it.
++        for (connector, seq) in self.video_seal_seq.iter().enumerate() {
++            let used = u32::from(opened & (1u32 << connector) != 0);
++            seq.store(used, Ordering::Release);
 +        }
-+        Self::wait_mode_offset(anchor, PROMPT_CLOSE_2F_MS);
-+        self.stream_marker(dev, connector, 0x2f, 0)?;
-+        Self::wait_mode_offset(anchor, PROMPT_CLOSE_2E_MS);
-+        self.stream_marker(dev, connector, 0x2e, 0)
++    }
++
++    /// Make a connector owe the records that open its stream, ahead of its next frame.
++    ///
++    /// On a dock that shares its control pipe the prologue restarts the stream, and the dock's
++    /// frame counter with it: DLM's next opener names ring slot 0 and frame 1 whatever the
++    /// connector had reached before. Carrying the old count over hands the dock a slot it is still
++    /// scanning out. A dock with a video pipe of its own has no such restart, and keeps counting.
++    fn arm_stream_prologue(&self, connector: usize) {
++        self.arm_prefix_pending
++            .fetch_or(1u32 << connector, Ordering::Release);
++        if self.video_on_ctrl_pipe() && connector < MAX_CONNECTORS {
++            self.scanout_seq.lock()[connector] = 0;
++            self.stream_reports_owed[connector].store(STREAM_REPORT_BURST, Ordering::Release);
++        }
++    }
++
++    /// Reserve `blocks` AES-CTR blocks on a connector's video stream and return the counter to seal
++    /// at.
++    ///
++    /// Sealed video records must tile the stream's keystream without gaps or overlaps: the dock
++    /// tracks the same counter, and a record that repeats a block a previous record already used is
++    /// a replay of that keystream. Reserving before sealing keeps that true no matter how the
++    /// records are grouped into transfers.
++    fn take_seal_seq(&self, connector: usize, blocks: u32) -> u32 {
++        self.video_seal_seq[connector].fetch_add(blocks, Ordering::AcqRel)
++    }
++
++    /// Status polls issued immediately before the first video presentation of a mode generation.
++    ///
++    /// Captured sequences interleave two status messages here and begin video while the stream
++    /// bracket is still active. The longer downstream training interval follows the bracket.
++    const PREWRITE_POLLS: u32 = 2;
++    const PREWRITE_POLL_MS: u64 = 1;
++    /// Send one `id=0x14 sub=0x000c` device-status poll.
++    fn poll_status(&self, dev: &BoundInterface<'_>) -> Result {
++        self.send_cp(dev, 0x14, 0, |ctr| super::cp::device_query_req(ctr, 0x000c))
++    }
++
++    /// One `id=0x16 sub=0x2e|0x2f` stream/display marker. State lives in byte 23, not byte 22
++    /// (byte 22 is constantly `1` -- reading it makes every marker look like state=1).
++    fn stream_marker(&self, dev: &BoundInterface<'_>, connector: u8, sub: u16, st: u8) -> Result {
++        self.send_cp(dev, 0x16, 0, |ctr| {
++            super::cp::stream_marker(ctr, connector, sub, st)
++        })
++    }
++
++    /// Send one captured Navarro sink-reset operation.
++    fn navarro_cold_op(&self, dev: &BoundInterface<'_>, op: NavarroColdOp) -> Result {
++        match op {
++            NavarroColdOp::Poll => self.poll_status(dev),
++            NavarroColdOp::EdidState(connector, state) => self.send_cp(dev, 0x16, 0, |ctr| {
++                super::cp::edid_readiness_state(ctr, connector, state)
++            }),
++            NavarroColdOp::Probe(connector) => self.send_cp(dev, 0x15, 0, |ctr| {
++                super::cp::get_edid_req_sub(ctr, 0x20, connector)
++            }),
++            NavarroColdOp::Fetch(connector) => {
++                self.send_cp(dev, 0x15, 0, |ctr| super::cp::get_edid_req(ctr, connector))
++            }
++            NavarroColdOp::SinkTeardown(connector) => self.send_cp(dev, 0x16, 0, |ctr| {
++                super::cp::edid_sink_state(ctr, connector, 0xff)
++            }),
++            NavarroColdOp::Engage(connector) => self.send_cp(dev, 0x16, 0, |ctr| {
++                super::cp::edid_engage_req(ctr, connector)
++            }),
++            NavarroColdOp::PostEdid(connector) => self.send_cp(dev, 0x15, 0, |ctr| {
++                super::cp::post_edid_query(ctr, connector)
++            }),
++            NavarroColdOp::Clear(connector) => {
++                self.send_cp(dev, 0x48, 0, |ctr| super::cp::clear_mode(ctr, connector))
++            }
++        }
++    }
++
++    /// Whether another connector on `connector`'s video endpoint is also being driven.
++    ///
++    /// `0x08` owns connectors {0, 2} and `0x0a` owns {1, 3}, so a connector's partner is the one
++    /// two away. Such a pair must declare `Dual NIVO` in both mode sets or the dock drives only one
++    /// of the two streams it is sent, however correctly they are tagged.
++    pub(super) fn endpoint_is_shared(&self, connector: usize) -> bool {
++        self.endpoint_is_shared_in_mask(connector, self.requested_connector_mask())
++    }
++
++    /// Requested connectors as one topology snapshot.
++    fn requested_connector_mask(&self) -> u32 {
++        self.modeset_requested
++            .iter()
++            .enumerate()
++            .fold(0u32, |mask, (connector, requested)| {
++                mask | (u32::from(requested.load(Ordering::Acquire) != 0) << connector)
++            })
++    }
++
++    /// Whether `connector` shares its endpoint with another requested connector in `mask`.
++    fn endpoint_is_shared_in_mask(&self, connector: usize, mask: u32) -> bool {
++        if connector >= MAX_CONNECTORS || self.connector_count() <= 2 {
++            return false;
++        }
++        let partner = connector ^ 2;
++        partner < MAX_CONNECTORS && mask & (1u32 << partner) != 0
 +    }
 +}
-diff --git a/drivers/gpu/drm/vino/drm_sink/cp_session.rs b/drivers/gpu/drm/vino/drm_sink/cp_session.rs
++
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++#[kunit_tests(vino_sink)]
++mod tests {
++    use super::*;
++    use crate::*;
++
++    #[test]
++    fn only_a_presentation_that_names_a_ring_slot_advances_the_frame_counter() -> Result {
++        // The frame counter belongs to the ring, and every generation names the ring in the
++        // record that closes a frame. A presentation carrying neither an opener nor a trailer says
++        // nothing about the ring and must not consume a slot, or every later record names a buffer
++        // one ahead of the one the host filled.
++        assert!(!names_ring_slot(&[], &video::haar::FrameTrailer::none()));
++        let ella = profile::PROFILE_ELLA.geometry();
++        assert!(names_ring_slot(
++            &[],
++            &video::haar::FrameTrailer::one(&video::haar::ella_frame_close(ella, 0, 0))
++        ));
++
++        // Both other generations close every frame, so every presentation advances the counter and
++        // this rule leaves them exactly as they were.
++        let ridge = profile::PROFILE_RIDGE.geometry();
++        assert!(names_ring_slot(
++            &[],
++            &video::haar::frame_trailer(ridge, 0, 0)
++        ));
++        let navarro = profile::PROFILE_NAVARRO.geometry();
++        assert!(names_ring_slot(
++            &[],
++            &video::haar::navarro_frame_trailer(navarro, 0, 0)
++        ));
++        Ok(())
++    }
++
++    /// The DL7400 parameter map goes among a frame's records, not after all of them.
++    ///
++    /// The dock reads the records around the map with what the map says, and takes a frame that
++    /// carries it after every record it describes twice before it stops draining the endpoint
++    /// altogether. The split lands on a chunk because that is a record boundary; the vendor's byte
++    /// offset on its own is wherever a frame's record lengths put it.
++    #[test]
++    fn param_map_lands_among_a_frame_s_records() -> Result {
++        let chunk = |len: usize| -> Result<KVec<u8>> {
++            let mut c = KVec::new();
++            c.resize(len, 0, GFP_KERNEL)?;
++            Ok(c)
++        };
++
++        // A frame of even chunks: the split is the last chunk that fits under the vendor's offset,
++        // and leaves the rest of the frame behind the map.
++        let mut even: KVec<KVec<u8>> = KVec::new();
++        for _ in 0..27 {
++            even.push(chunk(16_000)?, GFP_KERNEL)?;
++        }
++        let split = param_map_chunk_split(&even);
++        assert_eq!(split, 7);
++        assert!(split * 16_000 <= NAVARRO_PARAM_IMAGE_OFFSET);
++        assert!((split + 1) * 16_000 > NAVARRO_PARAM_IMAGE_OFFSET);
++
++        // A frame smaller than the offset still puts records in front of the map, and never names
++        // a chunk it does not have.
++        let mut small: KVec<KVec<u8>> = KVec::new();
++        small.push(chunk(4_000)?, GFP_KERNEL)?;
++        small.push(chunk(4_000)?, GFP_KERNEL)?;
++        assert_eq!(param_map_chunk_split(&small), 2);
++
++        // A single chunk larger than the offset cannot be split, and the map goes behind it rather
++        // than in front of every record in the frame.
++        let mut one: KVec<KVec<u8>> = KVec::new();
++        one.push(chunk(NAVARRO_PARAM_IMAGE_OFFSET * 2)?, GFP_KERNEL)?;
++        assert_eq!(param_map_chunk_split(&one), 1);
++        Ok(())
++    }
++
++    #[test]
++    fn frame_delivery_is_profile_data_not_ring_geometry() {
++        let ridge = profile::PROFILE_RIDGE.protocol.frame_delivery;
++        let navarro = profile::PROFILE_NAVARRO.protocol.frame_delivery;
++        let ella = profile::PROFILE_ELLA.protocol.frame_delivery;
++
++        // Preserve both established dedicated-pipe families exactly.
++        assert_eq!(ridge.keyframe_presentations, 2);
++        assert_eq!(ridge.delta_presentations, 1);
++        assert_eq!(ridge.damage_frames, 3);
++        assert_eq!(navarro.keyframe_presentations, 3);
++        assert_eq!(navarro.delta_presentations, 1);
++        assert_eq!(navarro.damage_frames, 4);
++        for (policy, keys, deltas) in [(ridge, 2, 1), (navarro, 3, 1)] {
++            assert_eq!(frame_presentation_count(policy, true, false, false), keys);
++            assert_eq!(
++                frame_presentation_count(policy, false, false, false),
++                deltas
++            );
++        }
++
++        // Ella still initialises all three buffers, but DLM carries one ordinary presentation per
++        // logical frame. Later debt frames walk the ring without multiplying each update in place.
++        assert_eq!(ella.keyframe_presentations, 3);
++        assert_eq!(ella.delta_presentations, 1);
++        assert_eq!(ella.damage_frames, 3);
++        assert_eq!(frame_presentation_count(ella, true, false, true), 3);
++        assert_eq!(frame_presentation_count(ella, false, false, true), 1);
++
++        // Dedicated endpoints retain their bounded cold-training burst. A shared control pipe
++        // uses its profile keyframe count instead, so it never receives eight multi-megabyte
++        // copies back to back.
++        assert_eq!(
++            frame_presentation_count(ridge, true, true, false),
++            drm_sink::COLD_TRAINING_PRESENTATIONS
++        );
++        assert_eq!(frame_presentation_count(ridge, false, true, false), 1);
++        assert_eq!(frame_presentation_count(ella, true, true, true), 3);
++
++        // `damage_frames` includes the first accepted submission. Ella therefore leaves exactly
++        // two scheduled debt submissions after the changed frame, covering slots 0, 1 and 2 once.
++        let mut debt = [ella.damage_frames, 1, 0];
++        pay_damage_debt(&mut debt, false);
++        assert_eq!(debt, [2, 0, 0]);
++        pay_damage_debt(&mut debt, false);
++        assert_eq!(debt, [1, 0, 0]);
++        pay_damage_debt(&mut debt, false);
++        assert_eq!(debt, [0, 0, 0]);
++        let mut full = [3, 2, 1];
++        pay_damage_debt(&mut full, true);
++        assert_eq!(full, [0, 0, 0]);
++    }
++
++    /// The pacing envelope is the vendor's, and only a shared-pipe dock declares one.
++    #[test]
++    fn stream_pacing_is_the_vendors_envelope_on_the_shared_pipe_dock_only() {
++        assert!(!profile::PROFILE_RIDGE.protocol.stream_pacing.is_metered());
++        assert!(!profile::PROFILE_NAVARRO.protocol.stream_pacing.is_metered());
++        let pacing = profile::PROFILE_ELLA.protocol.stream_pacing;
++        assert!(pacing.is_metered());
++        assert_eq!(pacing.bytes_per_sec, 8_000_000);
++        assert_eq!(pacing.burst_bytes, 24_000_000);
++        // Room for the dock-wide activation keyframe, which is 9.56 MB inside half a second and
++        // is accepted every time.
++        assert!(pacing.burst_bytes > 9_560_000);
++        // And within reach of the vendor's own worst second, rather than a fraction of it.
++        assert!(i64::from(pacing.burst_bytes) + i64::from(pacing.bytes_per_sec) >= 30_000_000);
++
++        let bps = pacing.bytes_per_sec;
++        // A second of idle accrues exactly a second of budget, before the burst cap applies.
++        assert_eq!(stream_credit_accrued(bps, 1_000_000), 8_000_000);
++        assert_eq!(stream_credit_accrued(bps, 1_000), 8_000);
++        // A long idle must not wrap into a negative windfall.
++        assert!(stream_credit_accrued(bps, i64::MAX) > 0);
++        assert_eq!(stream_credit_accrued(bps, -5), 0);
++
++        // In credit, a frame goes now. Overdrawn, it waits for exactly the debt.
++        assert_eq!(stream_credit_wait_us(bps, 1), None);
++        assert_eq!(stream_credit_wait_us(bps, 0), None);
++        // Overdrawn by a second's refill, a frame waits exactly a second.
++        assert_eq!(stream_credit_wait_us(bps, -8_000_000), Some(1_000_001));
++        assert!(stream_credit_wait_us(bps, i64::MIN).is_some());
++    }
++}
+diff --git a/drivers/gpu/drm/vino/drm_sink/dispatch.rs b/drivers/gpu/drm/vino/drm_sink/dispatch.rs
 new file mode 100644
-index 000000000000..36b3a46026a5
+index 000000000000..bd759ad4bc99
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/cp_session.rs
-@@ -0,0 +1,414 @@
++++ b/drivers/gpu/drm/vino/drm_sink/dispatch.rs
+@@ -0,0 +1,446 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! The control-plane session: sending sealed messages and keeping the link alive.
++//! Publishing desired state to the asynchronous workers.
 +//!
-+//! The control plane is host-driven lockstep. Every message carries an authenticated counter that
-+//! both ends step together, so a message sent out of turn, or a reply left undrained,
-+//! desynchronises the session and every later message decrypts to nothing. That is why sending is
-+//! serialised here rather than at the call sites.
++//! Atomic callbacks run in contexts that may not sleep or touch USB, so they record what the
++//! dock should be doing and wake a worker. Each operation class owns one slot, which makes an
++//! update infallible and lets a stale cursor position or stream state be overwritten rather
++//! than queued behind the state that replaced it.
 +
 +use super::*;
 +
 +impl VinoDrmData {
-+    pub(crate) fn set_cp_engaged(&self, engaged: bool) {
-+        self.cp_engaged
-+            .store(engaged, core::sync::atomic::Ordering::SeqCst);
-+    }
-+    /// Whether the control session is still usable.
++    /// Publish the latest desired operation for a connector and wake the async worker.
 +    ///
-+    /// Reads the flag, not the mutex: the caller is usually asking precisely because the link may
-+    /// be stuck, and the stuck thread is holding that mutex.
-+    pub(crate) fn cp_link_alive(&self) -> bool {
-+        self.cp_session_live.load(Ordering::Acquire)
++    /// Each operation class has one fixed slot, so updates cannot fail allocation and obsolete
++    /// cursor positions or stream states do not build a backlog.
++    pub(super) fn queue_cmd(&self, dev: &VinoDrmDevice, cmd: KmsCmd) {
++        let mut pending = self.pending_kms.lock();
++        if self.shutting_down.load(Ordering::Acquire) {
++            return;
++        }
++        pending.update(cmd);
++        // Registration precedes the blocking encrypted setup and platform readiness interval.
++        // Retain and coalesce commands that arrive there, but do not let them touch the dock.
++        if !self.kms_activation_ready() {
++            return;
++        }
++        // Enqueue while the queue lock still serializes us with `shutdown()`. Otherwise shutdown
++        // could cancel an idle work item between this unlock and enqueue, leaving a late work-owned
++        // device reference behind after teardown.
++        //
++        // `::<_, 0>` names `cmd_work`. The ID is only inferrable while a single `WorkItem` impl
++        // exists; adding the per-connector scanout items made every bare `enqueue` ambiguous, which
++        // is exactly the failure mode you want here -- an unannotated enqueue would otherwise be
++        // free to pick the wrong worker.
++        let _ = self.kms_queue.enqueue::<_, 0>(ARef::from(dev));
++        drop(pending);
 +    }
-+    /// Record that the dock answered. Resets the silence deadline.
-+    pub(super) fn note_cp_reply(&self) {
-+        *self.cp_last_reply.lock() = Instant::<Monotonic>::now();
++
++    /// Publish the end of bring-up and wake transport state retained while it ran.
++    pub(crate) fn publish_kms_activation_ready(&self, dev: &VinoDrmDevice) {
++        let pending = self.pending_kms.lock();
++        if self.shutting_down.load(Ordering::Acquire) {
++            return;
++        }
++        // Share `pending_kms` with `queue_cmd` as the readiness/wakeup handshake: either this sees
++        // a retained command, or a later producer sees readiness and enqueues the work itself.
++        self.kms_activation_ready.store(true, Ordering::Release);
++        if !pending.is_empty() {
++            let _ = self.kms_queue.enqueue::<_, 0>(ARef::from(dev));
++        }
++        drop(pending);
++        // Plane state may also have arrived after CP engagement but before activation readiness.
++        // Its worker gates on the same flag and leaves the coalesced frame in place until this
++        // wake.
++        self.enqueue_scanout_all(dev);
 +    }
-+    /// How long the dock has answered nothing, in milliseconds.
-+    pub(super) fn cp_silent_for_ms(&self) -> i64 {
-+        (Instant::<Monotonic>::now() - *self.cp_last_reply.lock()).as_millis()
++
++    /// Publish the latest framebuffer for one connector and wake the same deferred worker used by
++    /// the blocking runtime CP commands. Replacing an unsent flip is deliberate backpressure: the
++    /// dock needs the newest desktop, not every historical compositor buffer. If damaged flips are
++    /// coalesced, carry the unsent damage into the newest framebuffer so no intermediate update is
++    /// lost without needlessly promoting every busy compositor interval to a full-screen refresh.
++    pub(super) fn queue_scanout(
++        &self,
++        dev: &VinoDrmDevice,
++        fb: &kms::framebuffer::Framebuffer<VinoDrmDriver>,
++        mut frame: PendingScanout,
++    ) {
++        let connector = frame.connector as usize;
++        let socket = connector + 1;
++        if connector >= MAX_CONNECTORS || self.shutting_down.load(Ordering::Acquire) {
++            return;
++        }
++        // Do not snapshot faster than the encoder consumes. An unclaimed frame in the coalescing
++        // slot means the worker has not caught up, so this snapshot would be overwritten before it
++        // was ever read -- and it is not free: it runs on the compositor's atomic-commit thread and
++        // reads the whole source to hash it. On a busy machine the encoder falls behind by many
++        // commits, and paying that read for every one of them stalls the compositor itself, on
++        // every output it drives rather than only this one.
++        //
++        // Nothing is lost by dropping this flip. Damage is decided by comparing strip hashes
++        // against the last *encoded* baseline, never by the compositor's damage clips, so whatever
++        // this commit changed is still described by the next snapshot that gets through. The frame
++        // the worker eventually takes is at most one encode period old, which is the pacing the
++        // hardware imposes anyway.
++        //
++        // Geometry changes and owed keyframes are never dropped: the first makes the pending
++        // frame's damage coordinates meaningless, and the second is a mode set waiting on current
++        // content rather than an ordinary repaint.
++        let coalesce = {
++            let pending = self.pending_scanout.lock();
++            pending[connector].as_ref().is_some_and(|queued| {
++                queued.w == frame.w
++                    && queued.h == frame.h
++                    && queued.rotation == frame.rotation
++                    && self.keyframe_pending.load(Ordering::Acquire) & (1u32 << connector) == 0
++            })
++        };
++        if coalesce {
++            vino_debug!("vino: socket {socket} flip coalesced before snapshot\n");
++            return;
++        }
++        // The snapshot below is format-agnostic -- both layouts are four bytes per pixel -- so the
++        // depth only has to be recorded, not acted on, before the copy.
++        if let Some(depth) = crate::video::haar::Depth::from_fourcc(fb.format()) {
++            self.set_connector_depth(frame.connector, depth);
++        }
++        let (source_w, source_h) = src_dims(frame.rotation, frame.w, frame.h);
++        // Reserve a slot and lend its surface out, so the ~14.7 MB copy below runs with the pool
++        // lock dropped. Holding it across the copy put this connector's scanout worker into
++        // `mutex_spin_on_owner` for the whole snapshot -- 5.4% of the machine, burnt spinning.
++        let (mut surface, binding, idx) = {
++            let mut pool = self.shadow[connector].lock();
++            // Rotate, rather than always taking the first free slot. `find` returned slot 0 on
++            // every commit whenever nothing was inflight, so consecutive snapshots overwrote the
++            // same slot and bumped its generation -- invalidating any frame the worker had already
++            // selected from it, which showed up as a third of all frames being dropped at the
++            // generation check. Alternating means a fresh snapshot lands clear of the frame the
++            // worker is about to pick up.
++            let start = self.shadow_rr[connector].fetch_add(1, Ordering::Relaxed) as usize;
++            let Some(idx) = (0..SHADOW_SLOTS)
++                .map(|i| (start + i) % SHADOW_SLOTS)
++                .find(|&idx| pool.inflight != Some(idx) && pool.writing != Some(idx))
++            else {
++                return;
++            };
++            let binding = match pool.source_bindings.get(fb) {
++                Ok(binding) => binding,
++                Err(e) => {
++                    pr_warn!("vino: socket {socket} framebuffer binding failed ({e:?})\n");
++                    return;
++                }
++            };
++            pool.writing = Some(idx);
++            (pool.slots[idx].surface.take(), binding, idx)
++        };
++
++        let r = snapshot_to_shadow(
++            self.geometry(),
++            &mut surface,
++            &binding.mapping,
++            source_w,
++            source_h,
++        );
++
++        let snapshot = {
++            let mut pool = self.shadow[connector].lock();
++            pool.writing = None;
++            let slot = &mut pool.slots[idx];
++            slot.surface = surface;
++            // Bump unconditionally: the slot's contents have been rewritten either way, so any
++            // frame still pointing at the old generation must not be encoded from it.
++            slot.generation = slot.generation.wrapping_add(1);
++            r.map(|()| (idx, slot.generation))
++        };
++        let (idx, generation) = match snapshot {
++            Ok(snapshot) => snapshot,
++            Err(e) => {
++                pr_warn!("vino: socket {socket} framebuffer snapshot failed ({e:?})\n");
++                return;
++            }
++        };
++        frame.shadow_idx = idx;
++        frame.shadow_generation = generation;
++
++        // A real flip carries newer content than an armed repaint.
++        self.settle_repaint.lock()[connector] = None;
++
++        let mut pending = self.pending_scanout.lock();
++        if self.shutting_down.load(Ordering::Acquire) {
++            return;
++        }
++        if let Some(old) = pending[connector].take() {
++            if old.w != frame.w || old.h != frame.h || old.rotation != frame.rotation {
++                // Damage coordinates are not comparable across a geometry transform. A mode-set
++                // already owes a keyframe, but keep this conservative for a rotation-only commit.
++                frame.clips[0] = (0, 0, frame.w, frame.h);
++                frame.nclips = 1;
++            } else if old.nclips + frame.nclips <= MAX_DAMAGE_CLIPS {
++                // `frame` names the newest complete framebuffer. Repainting the union of its own
++                // damage and every unsent older clip reproduces all intermediate changes directly
++                // from that newest image.
++                for &clip in &old.clips[..old.nclips] {
++                    frame.clips[frame.nclips] = clip;
++                    frame.nclips += 1;
++                }
++            } else {
++                // Too many rectangles for the bounded atomic-state payload: collapse their union
++                // to one bounding box. This may repaint extra strips, but unlike the previous
++                // full-output fallback it remains small for typical pointer/window motion.
++                let mut bb = (frame.w, frame.h, 0usize, 0usize);
++                for &r in &frame.clips[..frame.nclips] {
++                    bb = (bb.0.min(r.0), bb.1.min(r.1), bb.2.max(r.2), bb.3.max(r.3));
++                }
++                for &r in &old.clips[..old.nclips] {
++                    bb = (bb.0.min(r.0), bb.1.min(r.1), bb.2.max(r.2), bb.3.max(r.3));
++                }
++                if bb.0 < bb.2 && bb.1 < bb.3 {
++                    frame.clips[0] = bb;
++                    frame.nclips = 1;
++                } else {
++                    frame.nclips = 0;
++                }
++            }
++        }
++        pending[connector] = Some(frame);
++        self.enqueue_scanout(dev, connector);
++        drop(pending);
 +    }
-+    /// Give up on the control session. Idempotent, and logs once.
++
++    /// Wake `connector`'s scanout worker. The work ID is a const generic, so the runtime connector
++    /// index has to be matched into it here. Enqueueing an already-pending item is a no-op, and
++    /// enqueueing one that is currently running re-arms it, preserving a flip that arrives during
++    /// encoding for the worker's next pass.
++    pub(super) fn enqueue_scanout(&self, dev: &VinoDrmDevice, connector: usize) {
++        match connector {
++            0 => {
++                let _ = self.scanout_queue.enqueue::<_, 1>(ARef::from(dev));
++            }
++            1 => {
++                let _ = self.scanout_queue.enqueue::<_, 2>(ARef::from(dev));
++            }
++            2 => {
++                let _ = self.scanout_queue.enqueue::<_, 3>(ARef::from(dev));
++            }
++            3 => {
++                let _ = self.scanout_queue.enqueue::<_, 4>(ARef::from(dev));
++            }
++            _ => {}
++        }
++    }
++
++    /// Wait for any frame already in flight on a scanout worker to finish, after [`Self::cmd_busy`]
++    /// has been published. A worker that has not yet started re-checks `cmd_busy` and backs off on
++    /// its own; this only covers one that got past that check before the flag was set.
 +    ///
-+    /// Only the flag is cleared here. Callers that hold `cp_link` drop its contents themselves;
-+    /// the watchdog cannot, because the mutex is exactly what a wedged transfer is holding. Every
-+    /// path consults the flag before the mutex, so an orphaned [`CpLink`] is unreachable, and
-+    /// [`Self::shutdown`] frees it with the rest of the session state.
-+    pub(super) fn abandon_cp_session(&self, silent_ms: i64) {
-+        if self
-+            .cp_session_live
-+            .compare_exchange(true, false, Ordering::AcqRel, Ordering::Acquire)
-+            .is_ok()
-+        {
-+            pr_warn!(
-+                "vino: dock has answered nothing for {silent_ms} ms; abandoning the session\n"
++    /// Bounded, and it proceeds anyway on timeout: a mode-set that never reaches the dock is worse
++    /// than one that races a frame, and this is the path cold activation depends on. The bound is
++    /// generous against a worst-case frame (a ~3.19 MB keyframe: ~21 ms to encode plus its wire
++    /// time), so exceeding it means something is genuinely wedged and the log line is the point.
++    pub(super) fn wait_for_video_idle(&self) {
++        use core::sync::atomic::Ordering::SeqCst;
++        for _ in 0..500 {
++            if !self.video_inflight.iter().any(|f| f.load(SeqCst)) {
++                return;
++            }
++            fsleep(Delta::from_millis(1));
++        }
++        pr_warn!("vino: timed out waiting for in-flight scanout before a mode-set; proceeding\n");
++    }
++
++    /// Wake every connector's scanout worker. Used by `cmd_work` once its batch is done, since a
++    /// command batch is exactly what makes the scanout workers bail (see [`run_scanout_worker`]).
++    pub(crate) fn enqueue_scanout_all(&self, dev: &VinoDrmDevice) {
++        for connector in 0..MAX_CONNECTORS {
++            self.enqueue_scanout(dev, connector);
++        }
++    }
++
++    /// Record that `connector` owes a full keyframe, and refill its settle-repaint budget.
++    ///
++    /// Mode sets, output enables, and gamma changes use this path. Training
++    /// and settle repaints may re-raise the keyframe bit without refilling
++    /// the budget, which bounds idle keyframe generation.
++    pub(super) fn owe_keyframe(&self, connector: usize) {
++        self.keyframe_pending
++            .fetch_or(1u32 << connector, Ordering::Release);
++        self.settle_budget[connector].store(SETTLE_REPAINTS, Ordering::Relaxed);
++        // Whatever left the dock's framebuffer undefined left its cursor bitmap undefined too, so
++        // the two invalidations are raised together. Keeping them in one place is deliberate:
++        // their being separate is exactly how the cursor came to be dropped on a mode-set.
++        self.cursor_epoch[connector].fetch_add(1, Ordering::Release);
++        self.cursor_geometry.lock()[connector] = None;
++    }
++
++    /// Note a cursor command the dock has just accepted, so [`Self::rearm_cursor`] can replay it.
++    pub(super) fn record_cursor(&self, cmd: &KmsCmd) {
++        let connector = cmd.connector();
++        if connector >= MAX_CONNECTORS {
++            return;
++        }
++        let mut slots = self.cursor_shot.lock();
++        match cmd {
++            KmsCmd::CursorImage { w, h, bgra, .. } => {
++                let mut copy = KVec::new();
++                if copy.extend_from_slice(bgra, GFP_KERNEL).is_err() {
++                    // A cursor that cannot be cached is still on the dock; it just will not be
++                    // restored across the next mode set. Nothing else depends on this.
++                    return;
++                }
++                match &mut slots[connector] {
++                    Some(shot) => {
++                        shot.w = *w;
++                        shot.h = *h;
++                        shot.bgra = copy;
++                    }
++                    slot @ None => {
++                        *slot = Some(CursorShot {
++                            w: *w,
++                            h: *h,
++                            bgra: copy,
++                            x: 0,
++                            y: 0,
++                            visible: false,
++                        })
++                    }
++                }
++            }
++            KmsCmd::CursorMove { x, y, visible, .. } => {
++                if let Some(shot) = &mut slots[connector] {
++                    shot.x = *x;
++                    shot.y = *y;
++                    shot.visible = *visible;
++                }
++            }
++            _ => {}
++        }
++    }
++
++    /// Re-upload the cursor on every connector in `connectors` after a mode set discarded it.
++    ///
++    /// `owe_keyframe` marks the dock's cursor stale, but only a compositor commit on the cursor
++    /// plane acted on that mark -- and a pointer that is not moving never produces one, so the
++    /// cursor stayed missing until it was moved. Replaying the cached shot closes that window
++    /// without waiting for userspace.
++    pub(super) fn rearm_cursor(&self, dev: &VinoDrmDevice, connectors: u32) {
++        for connector in 0..MAX_CONNECTORS {
++            if connectors & (1u32 << connector) == 0 {
++                continue;
++            }
++            let (w, h, bgra, x, y, visible) = {
++                let slots = self.cursor_shot.lock();
++                let Some(shot) = &slots[connector] else {
++                    continue;
++                };
++                let mut copy = KVec::new();
++                if copy.extend_from_slice(&shot.bgra, GFP_KERNEL).is_err() {
++                    continue;
++                }
++                (shot.w, shot.h, copy, shot.x, shot.y, shot.visible)
++            };
++            let connector = connector as u8;
++            // The same order the plane callback uses, and the same order `cmd_work` drains them
++            // in: geometry, then bitmap, then position.
++            self.queue_cmd(dev, KmsCmd::CursorCreate { connector, w, h });
++            self.queue_cmd(
++                dev,
++                KmsCmd::CursorImage {
++                    connector,
++                    w,
++                    h,
++                    bgra,
++                },
++            );
++            self.queue_cmd(
++                dev,
++                KmsCmd::CursorMove {
++                    connector,
++                    x,
++                    y,
++                    visible,
++                },
 +            );
 +        }
 +    }
-+    /// Gate every control transaction, without taking `cp_link`.
++
++    /// Choose the next frame or delay for `connector`.
 +    ///
-+    /// Checking the deadline here rather than under the mutex is the difference between noticing
-+    /// the dock has gone and queueing another thread behind the transfer that proves it.
-+    pub(super) fn check_cp_session(&self) -> Result {
-+        // Teardown first. `disconnect()` waits for the workers, and a worker that starts a control
-+        // transfer to a device already being disconnected waits for a completion that will not
-+        // come; on a dock whose video shares this endpoint the scanout path issues those transfers
-+        // too, so the window is wide. The pair deadlocks `usb_hub_wq` inside `usb_disconnect()`,
-+        // which stops USB hotplug machine-wide and is only recoverable by rebooting.
-+        if self.shutting_down.load(Ordering::Acquire) {
-+            return Err(ENODEV);
++    /// Neither means this connector is idle and its worker can exit.
++    pub(super) fn select_scanout(&self, connector: usize) -> (Option<PendingScanout>, Option<i64>) {
++        let socket = connector + 1;
++        // Keep a frame that arrived before the cadence deadline in the
++        // coalescing slot. Userspace may stop committing after that flip, so
++        // discarding it could leave the newest image unsent.
++        // A dock with a sustained budget is held to it ahead of everything else, including an owed
++        // keyframe: the frame that overruns it costs the session, not a repaint. The coalescing
++        // slot keeps the newest image meanwhile, so waiting here drops intermediate frames rather
++        // than delaying the desktop.
++        if let Some(us) = self.stream_budget_wait_us() {
++            return (None, Some(us));
 +        }
-+        if !self.cp_link_alive() {
-+            return Err(ENODEV);
++        let mut pending = self.pending_scanout.lock();
++        let mut selected = None;
++        let mut wait_us: Option<i64> = None;
++        if self.modeset_requested[connector].load(Ordering::Acquire) != 0
++            && pending[connector].is_some()
++        {
++            let owes_keyframe =
++                self.keyframe_pending.load(Ordering::Acquire) & (1u32 << connector) != 0;
++            let elapsed_us = self.last_frame.lock()[connector]
++                .map_or(self.frame_period_us(), |t| t.elapsed().as_micros_ceil());
++            // An owed keyframe normally jumps the cadence queue, because it is the frame that makes
++            // the output correct and a compositor may not send another. A dock sharing the control
++            // pipe cannot grant that: a keyframe is its largest frame, and anything that re-raises
++            // the keyframe bit would let it bypass the interval repeatedly and hold the endpoint
++            // for as long as it keeps being raised. There the interval binds every frame.
++            let urgent = owes_keyframe && !self.video_on_ctrl_pipe();
++            if urgent || elapsed_us >= self.frame_period_us() {
++                selected = pending[connector].take();
++                // A busy compositor continuously replaces `settle_repaint`.
++                // Force cadence-selected frames to be keyframes while training;
++                // the elapsed check above still applies the cadence limit.
++                let sustaining = self.sustain_until.lock()[connector]
++                    .is_some_and(|until| (until - Instant::<Monotonic>::now()).as_millis() > 0);
++                if sustaining {
++                    self.keyframe_pending
++                        .fetch_or(1u32 << connector, Ordering::Release);
++                }
++            } else {
++                wait_us = Some(self.frame_period_us() - elapsed_us);
++            }
 +        }
-+        let silent_ms = self.cp_silent_for_ms();
-+        if silent_ms >= self.cp_silence_limit_ms() {
-+            self.abandon_cp_session(silent_ms);
-+            return Err(ETIMEDOUT);
++        // Nothing flipped in. Fall back to the one-shot settle repaint if one is due, so a
++        // compositor that went idle straight after enabling the output still ends up with its real
++        // desktop on the panel rather than the buffer that happened to be current when the
++        // mode-set's keyframe went out.
++        if selected.is_none() {
++            let mut settle = self.settle_repaint.lock();
++            if self.modeset_requested[connector].load(Ordering::Acquire) == 0 {
++                settle[connector] = None;
++            } else if let Some((due, _, _)) = settle[connector].as_ref() {
++                let remaining = *due - Instant::<Monotonic>::now();
++                if remaining.as_millis() <= 0 {
++                    let taken = settle[connector].take();
++                    let as_keyframe = taken.as_ref().is_some_and(|(_, _, kf)| *kf);
++                    selected = taken.map(|(_, f, _)| f);
++                    if as_keyframe {
++                        self.keyframe_pending
++                            .fetch_or(1u32 << connector, Ordering::Release);
++                    }
++                    let kind = if as_keyframe {
++                        "settle repaint (compositor idle after mode-set)"
++                    } else {
++                        "debt repaint (retransmissions owed, compositor idle)"
++                    };
++                    vino_debug!("vino: socket {socket} {kind}\n");
++                } else {
++                    let remaining = remaining.as_micros_ceil().max(1);
++                    wait_us = Some(wait_us.map_or(remaining, |old| old.min(remaining)));
++                }
++            }
++        }
++        (selected, wait_us)
++    }
++}
+diff --git a/drivers/gpu/drm/vino/drm_sink/driver.rs b/drivers/gpu/drm/vino/drm_sink/driver.rs
+new file mode 100644
+index 000000000000..aed8339f6336
+--- /dev/null
++++ b/drivers/gpu/drm/vino/drm_sink/driver.rs
+@@ -0,0 +1,211 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Registration: the DRM driver description, its GEM object and file types, and the KMS
++//! entry points the core calls into.
++
++use super::*;
++
++/// GEM object inner data. Empty: the shmem-backed `drm::gem::shmem::Object` (which
++/// wires `drm_gem_shmem_dumb_create`, so userspace `DRM_IOCTL_MODE_CREATE_DUMB`
++/// works) is enough until the EP08 scanout path consumes the framebuffers.
++#[pin_data]
++pub(crate) struct VinoObject {}
++
++impl drm::gem::DriverObject for VinoObject {
++    type Driver = VinoDrmDriver;
++    type Args = ();
++
++    fn new(
++        _dev: &drm::Device<VinoDrmDriver>,
++        _size: usize,
++        _args: (),
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoObject {})
++    }
++}
++
++/// Per-open DRM client state. The generic DRM fops pin the owning module for the file lifetime.
++#[pin_data]
++pub(crate) struct VinoDrmFile {}
++
++impl drm::file::DriverFile for VinoDrmFile {
++    type Driver = VinoDrmDriver;
++
++    fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
++        KBox::try_pin_init(try_pin_init!(Self {}), GFP_KERNEL)
++    }
++}
++
++pub(super) const INFO: drm::DriverInfo = drm::DriverInfo {
++    major: 0,
++    minor: 1,
++    patchlevel: 0,
++    name: c"vino",
++    desc: c"DisplayLink DL3 (Dell D6000) DRM driver",
++};
++
++#[vtable]
++impl drm::Driver for VinoDrmDriver {
++    type Data = VinoDrmData;
++    type File = VinoDrmFile;
++    type Object = drm::gem::shmem::Object<VinoObject>;
++    type ParentDevice<Ctx: kernel::device::DeviceContext> = crate::usb::Interface<Ctx>;
++    type RegistrationData<'a> = ();
++    type Kms = Self;
++
++    const INFO: drm::DriverInfo = INFO;
++
++    // No driver-private ioctls (GEM/dumb + KMS handled by the DRM core).
++    kernel::declare_drm_ioctls! {}
++}
++
++#[vtable]
++impl KmsDriver for VinoDrmDriver {
++    type Connector = VinoConnector;
++    type Plane = VinoPlane;
++    type Crtc = VinoCrtc;
++    type Encoder = VinoEncoder;
++
++    fn mode_config_info(
++        _dev: &kernel::device::Device,
++        _drm_data: &Self::Data,
++    ) -> Result<ModeConfigInfo> {
++        Ok(ModeConfigInfo {
++            min_resolution: (0, 0),
++            max_resolution: (4096, 4096),
++            max_cursor: (64, 64),
++            preferred_depth: 32,
++            preferred_fourcc: Some(drm::fourcc::XRGB8888),
++        })
++    }
++
++    fn create_objects(dev: &UnregisteredKmsDevice<'_, Self>) -> Result {
++        let data: &VinoDrmData = dev;
++        // Build one independent connector (CRTC + primary/cursor plane + encoder + connector) per
++        // wired display, each pinned to its own video endpoint via its connector index.
++        //
++        // Only as many as the dock has sockets. `MAX_CONNECTORS` is the largest any supported dock
++        // has, so it sizes the per-connector arrays, but building that many objects on a
++        // two-connector dock publishes outputs with nothing behind them: they never gain an EDID, a
++        // compositor is free to enable one anyway, and the driver then encodes and transmits whole
++        // frames to a socket that cannot display them -- onto the same endpoint the real connector
++        // is using.
++        for connector in 0..data.connector_count() {
++            // `possible_crtcs` for the plane/encoder is a bitmask of CRTC *indices*, which only
++            // exist once `UnregisteredCrtc::new` runs -- but planes must exist before the CRTC that
++            // references them. CRTCs are created here one per connector in order, so this
++            // connector's CRTC index is `connector` and its mask is `1 << connector`.
++            let crtc_mask = 1u32 << connector;
++            let primary = plane::UnregisteredPlane::<VinoPlane>::new(
++                dev,
++                crtc_mask,
++                if data.hdr_capable() {
++                    &PRIMARY_FORMATS_HDR[..]
++                } else {
++                    &PRIMARY_FORMATS[..]
++                },
++                // Scanout is linear and nothing else is accepted: `Framebuffer` rejects any other
++                // modifier outright. Saying so publishes IN_FORMATS, so a compositor picks a format
++                // knowing what the plane takes rather than inferring it from the bare format list.
++                Some(&LINEAR_MODIFIER[..]),
++                plane::Type::Primary,
++                None,
++                PlaneArgs {
++                    connector: connector as u8,
++                    is_cursor: false,
++                },
++            )?;
++            // Tell compositors that this primary plane accepts the standard FB_DAMAGE_CLIPS
++            // property. The scanout path already consumes those clips and emits only intersecting
++            // 64x16 Haar strips, but without attaching the property KWin cannot provide them:
++            // unchanged commits arrive with an empty clip list while real updates fall back to
++            // ambiguous framebuffer swaps. That left the first keyframe frozen when empty damage
++            // was correctly treated as a no-op, or forced multi-megabyte full frames when it was
++            // treated as a repaint. EVDI exposes the same property before plane registration.
++            primary.enable_fb_damage_clips();
++            // Advertise every rotation vino's re-encode can produce by remapping source pixels
++            // (`rot_src`): the four 90-degree rotations plus the two reflections.
++            primary.create_rotation_property(
++                plane::Rotation::ROTATE_0,
++                plane::Rotation::ROTATE_0
++                    | plane::Rotation::ROTATE_90
++                    | plane::Rotation::ROTATE_180
++                    | plane::Rotation::ROTATE_270
++                    | plane::Rotation::REFLECT_X
++                    | plane::Rotation::REFLECT_Y,
++            )?;
++            // A dock that composites no cursor of its own gets no cursor plane, rather than a
++            // plane whose messages are then withheld: a cursor plane whose atomic commit succeeds
++            // makes the compositor hand the pointer over and stop drawing its own, so starving one
++            // loses the pointer entirely instead of falling back to software. A CRTC with no
++            // cursor plane is how a driver says "draw it yourself".
++            let cursor = if data.hw_cursor() {
++                let cursor = plane::UnregisteredPlane::<VinoPlane>::new(
++                    dev,
++                    crtc_mask,
++                    &CURSOR_FORMATS,
++                    Some(&LINEAR_MODIFIER[..]),
++                    plane::Type::Cursor,
++                    None,
++                    PlaneArgs {
++                        connector: connector as u8,
++                        is_cursor: true,
++                    },
++                )?;
++                // An alpha framebuffer requires a blend-mode property. The dock composites the
++                // cursor from a premultiplied bitmap, so premultiplied is the only supported mode.
++                cursor.create_blend_mode_property(plane::BlendModes::PREMULTIPLIED)?;
++                Some(cursor)
++            } else {
++                None
++            };
++            let crtc_obj = crtc::UnregisteredCrtc::<VinoCrtc>::new(
++                dev,
++                primary,
++                cursor,
++                None,
++                connector as u8,
++            )?;
++            // Advertise CTM and a 256-entry GAMMA_LUT; the scanout applies both (cached via the
++            // CRTC hooks). The dock has no colour hardware, so software application here is the
++            // only place a compositor's correction can land -- KDE's Night Colour and GNOME's
++            // Night Light drive these properties rather than rewriting the framebuffer.
++            crtc_obj.enable_color_mgmt(0, true, crate::color::LUT_LEN as u32);
++            let enc = encoder::UnregisteredEncoder::<VinoEncoder>::new(
++                dev,
++                encoder::Type::Virtual,
++                crtc_obj.mask(),
++                0,
++                None,
++                (),
++            )?;
++            let conn = connector::UnregisteredConnector::<VinoConnector>::new(
++                dev,
++                // DisplayPort connectors receive DRM's standard EDID property. A virtual connector
++                // would not, and therefore could not publish the downstream monitor's modes.
++                connector::Type::DisplayPort,
++                connector as u8,
++            )?;
++            conn.attach_encoder(&*enc)?;
++            // HDR is a property of the dock's pipeline, not of the monitor: a sink that declares
++            // ST 2084 is useless if the dock cannot be told to carry ten bits. `hdr_capable`
++            // keeps a Ridge connector from advertising an output it has no set-mode encoding for.
++            //
++            // The whole path exists now: the transfer function is offset-42 bit 6
++            // (`ST2084 colorspace used (HDR)`, read out of DLM's own `setupVideo` decode),
++            // `atomic_enable` takes it from this connector's HDR_OUTPUT_METADATA EOTF, and the
++            // depth (offset 69) and DMA format (offset 23, `NM30`) go with it.
++            //
++            // Attaching these is what makes a compositor re-encode the desktop in PQ/BT.2020. If
++            // the sink does not follow, the failure is a washed-out grey desktop that is invisible
++            // on the wire: a capture shows correct PQ code words in both the working and the
++            // broken case.
++            if data.hdr_capable() {
++                conn.attach_max_bpc_property(8, 10)?;
++                conn.attach_colorspace_property()?;
++                conn.attach_hdr_output_metadata_property();
++            }
 +        }
 +        Ok(())
 +    }
-+    /// How long this dock may say nothing before its session is abandoned.
-+    pub(super) fn cp_silence_limit_ms(&self) -> i64 {
-+        if self.video_on_ctrl_pipe() {
-+            CP_SILENCE_LIMIT_SHARED_MS
-+        } else {
-+            CP_SILENCE_LIMIT_MS
++}
+diff --git a/drivers/gpu/drm/vino/drm_sink/limits.rs b/drivers/gpu/drm/vino/drm_sink/limits.rs
+new file mode 100644
+index 000000000000..96d2d8dcf8c2
+--- /dev/null
++++ b/drivers/gpu/drm/vino/drm_sink/limits.rs
+@@ -0,0 +1,489 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! What a dock will accept: pixel-clock ceilings, refresh ceilings and the shared bandwidth
++//! budget a multi-connector commit has to fit inside.
++//!
++//! A dock silently refuses to light a mode past its budget rather than reporting anything, so
++//! these are the checks that keep a connector from being handed one.
++
++use super::*;
++
++/// Per-mode pixel-clock ceiling in kHz for a dock whose profile has not been applied yet.
++///
++/// Ridge's DLM never programs above 497.75 MHz, so no Ridge capture fills the high half of the
++/// offset-70 `u32`; this keeps the value that half can express on its own.
++pub(super) const DEFAULT_MAX_HEAD_CLOCK_KHZ: u32 = 655_350;
++
++/// Refresh ceiling for a dock whose profile has not been applied yet.
++///
++/// This is Ridge's limit, which is also DLM's: asked for 2560x1440@180 it puts 119.998 Hz on the
++/// wire, and asked for @85 it programs the 59.95 Hz CVT-RB timing.
++pub(super) const DEFAULT_MAX_REFRESH_HZ: u32 = 120;
++
++/// Return the active pixel rate, saturating on invalidly large modes.
++pub(crate) fn active_pixel_rate(hdisplay: u16, vdisplay: u16, vrefresh: i32) -> u32 {
++    u32::from(hdisplay)
++        .saturating_mul(u32::from(vdisplay))
++        .saturating_mul(vrefresh.max(0) as u32)
++}
++
++/// Nonzero generation key for every deterministic field of a set-mode timing.
++///
++/// Zero means "disabled" in the atomics that carry this key.  This is a fingerprint rather than
++/// a packed subset: porches, sync widths, allocation, VIC, depth and dual-pipe state all change
++/// bytes the dock consumes and therefore all have to invalidate a previously active mode.
++pub(crate) fn timing_key(t: &crate::cp::Timing) -> u64 {
++    let mut hash = 0x7669_6e6f_6d6f_6465u64;
++    for field in [
++        u64::from(t.hactive),
++        u64::from(t.hblank),
++        u64::from(t.hsync_front),
++        u64::from(t.hsync_width),
++        u64::from(t.vactive),
++        u64::from(t.vblank),
++        u64::from(t.vsync_front),
++        u64::from(t.vsync_width),
++        u64::from(t.refresh_hz),
++        u64::from(t.pixel_clock_10khz),
++        u64::from(t.sync_flags),
++        u64::from(t.stride),
++        u64::from(t.total_rows),
++        u64::from(t.vic_word),
++        u64::from(t.ten_bit),
++        u64::from(t.st2084),
++        u64::from(t.dual_nivo),
++    ] {
++        hash = xxhash::xxh64(&field.to_le_bytes(), hash);
++    }
++    if hash == 0 {
++        1
++    } else {
++        hash
++    }
++}
++
++/// Whether a live connector already holds the exact effective Timing a command would send.
++pub(crate) fn programmed_mode_matches(
++    active_generation: u64,
++    programmed: Option<crate::cp::Timing>,
++    effective: crate::cp::Timing,
++) -> bool {
++    active_generation != 0 && programmed == Some(effective)
++}
++
++impl VinoDrmData {
++    /// Exact Timing that would be put on the wire for the current requested topology.
++    pub(super) fn effective_timing(
++        &self,
++        connector: usize,
++        timing: &crate::cp::Timing,
++    ) -> crate::cp::Timing {
++        self.effective_timing_in_mask(connector, timing, self.requested_connector_mask())
++    }
++
++    /// Exact Timing for a stable requested-connector snapshot shared by a multi-connector
++    /// transaction.
++    pub(super) fn effective_timing_in_mask(
++        &self,
++        connector: usize,
++        timing: &crate::cp::Timing,
++        requested_heads: u32,
++    ) -> crate::cp::Timing {
++        crate::cp::Timing {
++            dual_nivo: self.endpoint_is_shared_in_mask(connector, requested_heads),
++            ..*timing
 +        }
 +    }
-+    /// Ask the USB core to reset the dock after the control session has been abandoned.
++
++    /// Adopt an already-programmed exact mode under the caller's current request generation.
 +    ///
-+    /// Without this the outputs stay down until the user unplugs the dock, because a session can
-+    /// only be established through probe. It is the one recovery a stuck transfer cannot block:
-+    /// the USB core runs it from its own work item. What turns it into a fresh session is
-+    /// `post_reset` asking for the interface to be rebound -- a reset on its own leaves the
-+    /// driver bound with nothing to drive.
-+    pub(super) fn reset_after_wedge(&self) {
-+        if self
-+            .cp_reset_queued
-+            .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
-+            .is_err()
++    /// A dynamic `dual_nivo` correction can make two request tokens differ while the exact timing
++    /// the dock holds is unchanged. Conversely, equal tokens are not enough if endpoint topology
++    /// changed. Compare the separately recorded wire state and change only `modeset_active`, whose
++    /// job is to gate scanout against the current producer request. An explicit repair clears
++    /// `modeset_active`, so it can never be optimized away here.
++    pub(super) fn adopt_programmed_mode(
++        &self,
++        connector: usize,
++        timing: &crate::cp::Timing,
++        want: u64,
++    ) -> bool {
++        if connector >= MAX_CONNECTORS
++            || self.modeset_requested[connector].load(Ordering::Acquire) != want
 +        {
-+            return;
++            return false;
 +        }
-+        // A closed window means unplug is already under way, which needs no help from us.
-+        let Ok(io) = self.io.enter() else {
-+            return;
-+        };
-+        pr_warn!("vino: resetting the dock to recover the control session\n");
-+        io.interface().queue_reset_device();
++        let active = self.modeset_active[connector].load(Ordering::Acquire);
++        if !programmed_mode_matches(
++            active,
++            self.programmed_timing.lock()[connector],
++            self.effective_timing(connector, timing),
++        ) {
++            return false;
++        }
++        // A disable that races this compare either clears `active` first (CAS fails) or clears it
++        // after (the disable wins). A newer nonzero request may leave the old active token in
++        // place, but scanout remains gated until its own command adopts or programs that request.
++        self.modeset_active[connector]
++            .compare_exchange(active, want, Ordering::AcqRel, Ordering::Acquire)
++            .is_ok()
 +    }
-+    /// Whether the current device session has engaged content protection.
-+    pub(crate) fn cp_engaged(&self) -> bool {
-+        self.cp_engaged.load(core::sync::atomic::Ordering::Acquire)
++
++    /// The dock's total pixel-rate budget shared across all connectors, unpriced by depth.
++    ///
++    /// Zero means unknown and disables limiting.
++    pub(super) fn dock_budget(&self) -> u32 {
++        self.dock_pixel_budget
++            .load(core::sync::atomic::Ordering::Relaxed)
 +    }
-+    /// Pause the background CP loop and let any iteration which passed its check finish. The mode
-+    /// worker calls this before taking its timestamp anchor; the fixed delay therefore cannot move
-+    /// any event relative to the mode-set itself.
-+    pub(super) fn begin_cp_timeline(&self) {
-+        self.cp_timeline_exclusive.store(true, Ordering::Release);
-+        self.initial_modeset_quiet.store(false, Ordering::Release);
-+        fsleep(Delta::from_millis(PROMPT_KEEPALIVE_QUIESCE_MS));
++
++    /// Whether a commit totalling `combined` pixels per second can be driven at ten bits.
++    ///
++    /// The answer moves the depth rather than refusing the commit: a compositor handed `EINVAL`
++    /// disables the output instead of asking for a shallower link.
++    pub(super) fn ten_bit_fits(&self, combined: u32) -> bool {
++        let raw = self.dock_budget();
++        raw == 0 || combined <= self.budget_at_depth(raw, true)
 +    }
-+    pub(super) fn end_cp_timeline(&self) {
-+        self.cp_timeline_exclusive.store(false, Ordering::Release);
++
++    /// A budget priced for a connector driven at ten bits per channel.
++    ///
++    /// The budget was measured with the dock storing three bytes per pixel; ten bits stores four,
++    /// so the same pixel costs a third more. The whole dock is priced at its deepest connector,
++    /// because the bandwidth is shared.
++    ///
++    /// `budget` must be the unpriced [`Self::dock_budget`]. Pricing an already-priced budget leaves
++    /// nine sixteenths of the dock, which no pair of ten-bit connectors fits inside.
++    pub(super) fn budget_at_depth(&self, budget: u32, ten_bit: bool) -> u32 {
++        if budget != 0 && ten_bit {
++            budget / 4 * 3
++        } else {
++            budget
++        }
 +    }
-+    /// Used by `BringUp`'s long-lived keepalive worker. It deliberately remains cheap because that
-+    /// worker checks it every millisecond while an activation sequence is in progress.
-+    pub(crate) fn cp_timeline_exclusive(&self) -> bool {
-+        self.cp_timeline_exclusive.load(Ordering::Acquire)
-+    }
-+    /// Publish the engaged CP session so the KMS callbacks can send runtime CP messages.
-+    /// Called once by the bring-up work item after the dock acks (`acks > 0`). `wire_seq`/
-+    /// `counter` are the next free values past the bring-up CP setup.
-+    pub(crate) fn publish_session(
++
++    /// Record this dock's pixel-rate budget, refresh ceiling and pixel-clock ceiling.
++    pub(crate) fn set_mode_limits(
 +        &self,
-+        dev: &BoundInterface<'_>,
-+        ks: &[u8; 16],
-+        riv: &[u8; 8],
-+        wire_seq: u32,
-+        counter: u16,
-+        ep84_depth: usize,
++        pixel_budget: u32,
++        max_refresh_hz: u32,
++        max_connector_clock_khz: u32,
 +    ) {
-+        // EP84 must remain posted between runtime EP02 writes. A queue drained synchronously leaves
-+        // the endpoint unposted between calls and can stall the control protocol.
-+        // `ep84_depth` is the matched profile's `ep84_queue_depth`, so the runtime queue keeps the
-+        // same number of reads posted that bring-up did.
-+        let ep84_q = match dev.ctrl_in_queue(ep84_depth, 4096) {
-+            Ok(q) => Some(q),
-+            Err(e) => {
-+                pr_warn!("vino: persistent EP84 queue open failed ({e:?}); using sync fallback\n");
-+                None
-+            }
-+        };
-+        *self.cp_link.lock() = Some(CpLink {
-+            ks: kernel::crypto::Secret::new(*ks),
-+            riv: *riv,
-+            wire_seq,
-+            counter,
-+            ep84_q,
++        self.dock_pixel_budget
++            .store(pixel_budget, core::sync::atomic::Ordering::Relaxed);
++        self.max_refresh_hz.store(
++            if max_refresh_hz == 0 {
++                DEFAULT_MAX_REFRESH_HZ
++            } else {
++                max_refresh_hz
++            },
++            core::sync::atomic::Ordering::Relaxed,
++        );
++        self.max_connector_clock_khz.store(
++            if max_connector_clock_khz == 0 {
++                DEFAULT_MAX_HEAD_CLOCK_KHZ
++            } else {
++                max_connector_clock_khz
++            },
++            core::sync::atomic::Ordering::Relaxed,
++        );
++    }
++
++    /// Highest per-mode pixel clock in kHz this dock is known to accept.
++    pub(crate) fn max_connector_clock_khz(&self) -> u32 {
++        self.max_connector_clock_khz
++            .load(core::sync::atomic::Ordering::Relaxed)
++    }
++
++    /// Highest refresh rate this dock is known to drive.
++    pub(crate) fn max_refresh_hz(&self) -> u32 {
++        self.max_refresh_hz
++            .load(core::sync::atomic::Ordering::Relaxed)
++    }
++
++    /// Whether DRM's rounded refresh rate is within this dock's limit.
++    pub(super) fn refresh_within_limit(&self, vrefresh: i32) -> bool {
++        vrefresh <= 0 || (vrefresh as u32) <= self.max_refresh_hz()
++    }
++
++    /// Combined pixel rate of every connector *except* `connector` that currently has a mode driven
++    /// onto it.
++    ///
++    /// A connector the commit carries is taken from the commit; every other connector is taken from
++    /// what is programmed. Both halves are needed: a commit reconfiguring several connectors at
++    /// once must be weighed at the rates it is asking for, and a connector standing outside it
++    /// still spends what it was last given.
++    ///
++    /// Only active connectors consume the shared limit. `last_timing` survives `atomic_disable`, so
++    /// activity is read from `modeset_requested`, which is cleared on disable.
++    ///
++    /// A connector whose monitor has gone is not spending anything either, whatever mode it was
++    /// last asked for: its downstream sink is already torn down. That has to be read from presence
++    /// rather than from the mode state, because a removal and the arrival that replaces it reach
++    /// userspace as two events -- moving a monitor from one socket to another is checked at its new
++    /// socket while the disable of the old one has not been committed yet, and charging the dock
++    /// for the dark connector is what refuses the new one its mode.
++    pub(super) fn other_connectors_rate(
++        &self,
++        state: &kernel::drm::kms::atomic::AtomicStateMutator<VinoDrmDriver>,
++        connector: usize,
++    ) -> u32 {
++        // A connector this commit describes is charged what the commit gives it. Reading its
++        // programmed rate instead would price every connector in a multi-connector commit at what
++        // it is leaving, so a pair that rises together would be admitted at the sum of the rates it
++        // is abandoning.
++        let mut proposed: [Option<u32>; MAX_CONNECTORS] = [None; MAX_CONNECTORS];
++        state.for_each_new_crtc_state(|crtc, crtc_state| {
++            let Some(slot) = proposed.get_mut(crtc.connector as usize) else {
++                return;
++            };
++            *slot = Some(if crtc_state.active() {
++                let m = crtc_state.mode();
++                active_pixel_rate(m.hdisplay(), m.vdisplay(), m.vrefresh())
++            } else {
++                0
++            });
 +        });
-+        self.note_cp_reply();
-+        self.cp_session_live.store(true, Ordering::Release);
-+    }
-+    /// Start the silence watchdog for the session just published.
-+    ///
-+    /// Separate from [`Self::publish_session`] because it needs an `ARef` to the device, and it
-+    /// re-arms itself for the lifetime of the session.
-+    pub(crate) fn start_cp_watchdog(&self, drm_dev: &VinoDrmDevice) {
-+        if self.shutting_down.load(Ordering::Acquire) {
-+            return;
++
++        let timings = *self.last_timing.lock();
++        let mut total: u32 = 0;
++        for (i, t) in timings.iter().enumerate() {
++            if i == connector {
++                continue;
++            }
++            if let Some(rate) = proposed[i] {
++                total = total.saturating_add(rate);
++                continue;
++            }
++            if self.modeset_requested[i].load(Ordering::Acquire) == 0 || !self.connector_present(i)
++            {
++                continue;
++            }
++            if let Some(t) = t {
++                total = total.saturating_add(
++                    u32::from(t.hactive)
++                        .saturating_mul(u32::from(t.vactive))
++                        .saturating_mul(u32::from(t.refresh_hz)),
++                );
++            }
 +        }
-+        let delay = kernel::time::msecs_to_jiffies(CP_WATCHDOG_PERIOD_MS);
-+        let _ = workqueue::system().enqueue_delayed::<_, 5>(ARef::from(drm_dev), delay);
++        total
 +    }
-+    /// Seal and send one interactive CP message, advance the session, and pass its paired reply
-+    /// to `consume`.
-+    ///
-+    /// `build(counter)` produces the inner message for the dock-echoed counter. The `cp_link`
-+    /// mutex serialises the complete EP02/EP84 transaction with the KMS worker and keepalive.
-+    /// Callers are sleepable; atomic callbacks queue commands instead of invoking this path.
-+    fn send_cp_reply<T>(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        id: u16,
-+        tag_reserved: usize,
-+        reserved_counter: Option<u16>,
-+        build: impl FnOnce(u16) -> Result<KVec<u8>>,
-+        consume: impl FnOnce(&[u8; 16], &[u8; 8], &[u8]) -> Result<T>,
-+    ) -> Result<T> {
-+        self.check_cp_session()?;
-+        self.send_cp_locked(dev, id, tag_reserved, reserved_counter, build, consume)
-+    }
-+    #[allow(clippy::too_many_arguments)]
-+    fn send_cp_locked<T>(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        id: u16,
-+        tag_reserved: usize,
-+        reserved_counter: Option<u16>,
-+        build: impl FnOnce(u16) -> Result<KVec<u8>>,
-+        consume: impl FnOnce(&[u8; 16], &[u8; 8], &[u8]) -> Result<T>,
-+    ) -> Result<T> {
-+        let mut guard = self.cp_link.lock();
-+        let Some(link) = (&mut *guard).as_mut() else {
-+            return Err(ENODEV);
++}
++
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++#[kunit_tests(vino_mode_limits)]
++mod tests {
++    use super::*;
++    use crate::*;
++
++    #[test]
++    fn timing_key_covers_every_set_mode_field() {
++        let base = cp::Timing {
++            hactive: 1920,
++            hblank: 280,
++            hsync_front: 88,
++            hsync_width: 44,
++            vactive: 1080,
++            vblank: 45,
++            vsync_front: 4,
++            vsync_width: 5,
++            refresh_hz: 60,
++            pixel_clock_10khz: 14_850,
++            sync_flags: 0x0400,
++            stride: 0x0800,
++            total_rows: 0x2000,
++            vic_word: 0x2810,
++            ten_bit: false,
++            st2084: false,
++            dual_nivo: false,
 +        };
-+        // DLM normally uses the next wire-order counter. Its cold Navarro mode transaction is the
-+        // exception: per-connector workers reserve counters before their writes interleave, so the
-+        // inner counter order differs from the monotonically advancing AES block sequence.
-+        let request_counter = reserved_counter.unwrap_or(link.counter);
-+        let msg = build(request_counter)?;
-+        let inner_sub = if msg.len() >= 4 {
-+            u16::from_le_bytes([msg[2], msg[3]])
++        let timings = [
++            base,
++            cp::Timing {
++                hactive: 1921,
++                ..base
++            },
++            cp::Timing {
++                hblank: 281,
++                ..base
++            },
++            cp::Timing {
++                hsync_front: 89,
++                ..base
++            },
++            cp::Timing {
++                hsync_width: 45,
++                ..base
++            },
++            cp::Timing {
++                vactive: 1081,
++                ..base
++            },
++            cp::Timing { vblank: 46, ..base },
++            cp::Timing {
++                vsync_front: 5,
++                ..base
++            },
++            cp::Timing {
++                vsync_width: 6,
++                ..base
++            },
++            // Exercise the high byte that the former packed key discarded.
++            cp::Timing {
++                refresh_hz: 0x013c,
++                ..base
++            },
++            // Exercise bits above the former 22-bit pixel-clock mask.
++            cp::Timing {
++                pixel_clock_10khz: 0x0140_3a02,
++                ..base
++            },
++            cp::Timing {
++                sync_flags: 0x0401,
++                ..base
++            },
++            cp::Timing {
++                stride: 0x0880,
++                ..base
++            },
++            cp::Timing {
++                total_rows: 0x2001,
++                ..base
++            },
++            cp::Timing {
++                vic_word: 0x281f,
++                ..base
++            },
++            cp::Timing {
++                ten_bit: true,
++                ..base
++            },
++            cp::Timing {
++                st2084: true,
++                ..base
++            },
++            cp::Timing {
++                dual_nivo: true,
++                ..base
++            },
++        ];
++        let mut keys = [0u64; 18];
++        for (i, timing) in timings.iter().enumerate() {
++            keys[i] = timing_key(timing);
++            assert_ne!(keys[i], 0);
++            for previous in &keys[..i] {
++                assert_ne!(keys[i], *previous);
++            }
++        }
++    }
++
++    #[test]
++    fn no_op_mode_set_compares_the_exact_programmed_timing() {
++        let raw = cp::Timing {
++            hactive: 2560,
++            hblank: 160,
++            hsync_front: 48,
++            hsync_width: 32,
++            vactive: 1440,
++            vblank: 41,
++            vsync_front: 3,
++            vsync_width: 5,
++            refresh_hz: 60,
++            pixel_clock_10khz: 24_150,
++            sync_flags: 0x0600,
++            stride: 0x0a80,
++            total_rows: 0x66db,
++            vic_word: 0x0800,
++            ten_bit: false,
++            st2084: false,
++            dual_nivo: false,
++        };
++        let effective = cp::Timing {
++            dual_nivo: true,
++            ..raw
++        };
++
++        // The request can have been queued before an endpoint partner appeared, so its raw token
++        // and the exact Timing corrected at send time legitimately differ.
++        assert_ne!(timing_key(&raw), timing_key(&effective));
++        assert!(programmed_mode_matches(
++            timing_key(&raw),
++            Some(effective),
++            effective
++        ));
++        assert!(!programmed_mode_matches(
++            timing_key(&raw),
++            Some(raw),
++            effective
++        ));
++        // Clearing the active generation is an explicit request to touch hardware, even if an old
++        // programmed-state snapshot remains available for diagnostics.
++        assert!(!programmed_mode_matches(0, Some(effective), effective));
++    }
++
++    /// The boundary cases matter most: each must pass by equality. A `<` would prune a dock's
++    /// working configuration and dark its panels.
++    #[test]
++    fn mode_ceilings_bound_bandwidth_not_refresh() {
++        let refresh_ok =
++            |p: &DockProfile, hz: i32| hz <= 0 || (hz as u32) <= p.capabilities.max_refresh_hz;
++        let clock_ok = |p: &DockProfile, khz: u32| khz <= p.capabilities.max_connector_clock_khz;
++        let rate = active_pixel_rate;
++
++        // Ridge carries 2560x1440p144, so no refresh cap may hide it: 597.29 MHz of clock and
++        // 530,841,600 pixels per second both sit inside its ceilings. The 180 Hz request DLM
++        // answers with 119.998 Hz is 746.64 MHz, which the clock ceiling already refuses -- that
++        // is the whole of what a refresh cap here would have bought.
++        assert!(refresh_ok(&profile::PROFILE_RIDGE, 144));
++        assert!(clock_ok(&profile::PROFILE_RIDGE, 597_290));
++        assert!(rate(2560, 1440, 144) <= profile::PROFILE_RIDGE.capabilities.pixel_budget);
++        assert!(!clock_ok(&profile::PROFILE_RIDGE, 746_640));
++
++        // The DL7400 is bounded by link rate alone too -- DLM drives it at 2560x1440@164.96.
++        assert!(
++            refresh_ok(&profile::PROFILE_NAVARRO, 180)
++                && refresh_ok(&profile::PROFILE_NAVARRO, 240)
++        );
++
++        // 2560x1440: p165 is 699.50 MHz and carried; p180 is 714.81 MHz and is the mode the dock
++        // accepts and then fails to deliver.
++        assert!(clock_ok(&profile::PROFILE_NAVARRO, 699_500));
++        assert!(!clock_ok(&profile::PROFILE_NAVARRO, 714_810));
++        // Ridge carries 2560x1440p144 at 597.29 MHz and blanks the sink at p165's 699.50 MHz.
++        assert!(
++            clock_ok(&profile::PROFILE_RIDGE, 597_290)
++                && !clock_ok(&profile::PROFILE_RIDGE, 699_500)
++        );
++
++        // A degenerate mode reports 0 Hz and carries no rate information; a signed refresh must
++        // never be read as a huge unsigned one.
++        assert!(
++            refresh_ok(&profile::PROFILE_NAVARRO, 0) && refresh_ok(&profile::PROFILE_NAVARRO, -1)
++        );
++
++        // Each budget admits its own dual-connector configuration and nothing beyond it.
++        assert_eq!(rate(2560, 1440, 120), 442_368_000);
++        // Ridge sustains 2560x1440p144 beside 2560x1440p120, so its budget must admit that pair.
++        assert_eq!(
++            profile::PROFILE_RIDGE.capabilities.pixel_budget,
++            rate(2560, 1440, 144) + rate(2560, 1440, 120)
++        );
++        assert_eq!(
++            profile::PROFILE_NAVARRO.capabilities.pixel_budget,
++            2 * rate(2560, 1440, 165)
++        );
++        // That pair is admitted at 24 bpp and refused at 30, which is what the hardware does: a
++        // budget large enough to admit it deep leaves both sinks powered off with nothing logged.
++        let price = |budget: u32| budget / 4 * 3;
++        let deep = price(profile::PROFILE_NAVARRO.capabilities.pixel_budget);
++        assert!(2 * rate(2560, 1440, 165) > deep);
++        assert!(2 * rate(2560, 1440, 120) <= deep);
++        // Two 1440p120 connectors fit deep, and stop fitting the moment the price is charged
++        // twice, so a budget priced at the depth being decided withdraws the ten bits that same
++        // pair was just admitted at.
++        assert!(2 * rate(2560, 1440, 120) > price(deep));
++        assert_eq!(rate(65535, 65535, 65535), u32::MAX); // saturates, never wraps small
++        assert_eq!(rate(2560, 1440, -1), 0);
++    }
++}
+diff --git a/drivers/gpu/drm/vino/drm_sink/mode_objects.rs b/drivers/gpu/drm/vino/drm_sink/mode_objects.rs
+new file mode 100644
+index 000000000000..d3ec818ec1da
+--- /dev/null
++++ b/drivers/gpu/drm/vino/drm_sink/mode_objects.rs
+@@ -0,0 +1,978 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! The KMS objects the compositor drives: CRTC, primary and cursor planes, encoder and connector,
++//! plus the software vblank timer that paces them.
++//!
++//! These callbacks run under the DRM atomic lock and must not block, so anything that talks to the
++//! dock is queued for [`super::VinoDrmData`]'s workers rather than done here.
++
++use super::*;
++// `hdr_output_eotf` reads the connector's HDR metadata from the CRTC enable path; the trait is
++// implemented for every connector state but has to be in scope to be called on an opaque one.
++use kernel::drm::kms::connector::RawConnectorState;
++
++/// A software vblank source: an hrtimer that fires once per frame and drives
++/// `drm_crtc_handle_vblank()`. It stops when vblank is disabled and is also cancelled
++/// unconditionally by [`VinoDrmData::shutdown`].
++#[pin_data]
++pub(crate) struct VblankTimer {
++    #[pin]
++    timer: HrTimer<Self>,
++    /// Owned CRTC reference used by the hard-timer callback.
++    ///
++    /// This reference forms a cycle through the DRM device, so shutdown clears it after cancelling
++    /// the timer. The IRQ-aware lock permits access from both process and hard-timer context.
++    #[pin]
++    pub(super) crtc: SpinLockIrq<Option<crtc::CrtcRef<VinoCrtc>>>,
++    /// One scanout frame in nanoseconds (from the mode's `framedur_ns`).
++    interval_ns: AtomicI64,
++    /// Whether vblanks should currently be delivered (toggled by enable/disable_vblank).
++    pub(super) enabled: AtomicBool,
++}
++
++impl VblankTimer {
++    fn new() -> impl PinInit<Self> {
++        pin_init!(VblankTimer {
++            timer <- HrTimer::new(),
++            crtc <- new_spinlock_irq!(None, "vino::vblank_crtc"),
++            interval_ns: AtomicI64::new(16_666_666), // ~60 Hz until a mode sets it
++            enabled: AtomicBool::new(false),
++        })
++    }
++}
++
++impl HrTimerCallback for VblankTimer {
++    type Pointer<'a> = Arc<Self>;
++
++    fn run(this: ArcBorrow<'_, Self>, mut ctx: HrTimerCallbackContext<'_, Self>) -> HrTimerRestart {
++        // Vblank is off: let the timer die instead of ticking uselessly; `enable_vblank` re-arms
++        // it. A concurrent re-arm racing this return is safe -- hrtimer keeps a timer that was
++        // re-queued during its callback enqueued even on NORESTART.
++        if !this.enabled.load(Ordering::Relaxed) {
++            return HrTimerRestart::NoRestart;
++        }
++        // Take an owned copy of the published handle and release the lock *before* delivering the
++        // vblank. `drm_crtc_handle_vblank()` takes `dev->vblank_time_lock`, and `enable_vblank`
++        // runs the other way round -- it is called with the DRM vblank locks already held and
++        // acquires this one -- so holding this lock across the delivery would be a lock inversion.
++        // Cloning is just a `drm_dev_get()`, and the clone cannot drop the last reference: the
++        // handle we cloned from stays published for the whole callback, because the only code that
++        // clears it (`VinoDrmData::shutdown`) does so after `hrtimer_cancel` has waited for this
++        // callback to return.
++        let crtc = this.crtc.lock_with(ctx.local_interrupt_disabled()).clone();
++        if let Some(crtc) = crtc {
++            crtc.crtc().handle_vblank();
++        }
++        let interval = this.interval_ns.load(Ordering::Relaxed).max(1_000_000);
++        ctx.forward_now(Delta::from_nanos(interval));
++        HrTimerRestart::Restart
++    }
++}
++
++impl_has_hr_timer! {
++    impl HasHrTimer<Self> for VblankTimer {
++        mode: RelativeHardMode<Monotonic>, field: self.timer
++    }
++}
++
++#[pin_data]
++pub(crate) struct VinoCrtc {
++    /// Which display connector (0-based) this CRTC drives. Names the connector in diagnostics, and
++    /// maps a CRTC in an atomic commit onto the connector whose rate it spends from the dock-wide
++    /// budget.
++    pub(super) connector: u8,
++    /// The software vblank source for this CRTC.
++    vblank: Arc<VblankTimer>,
++    /// One driver-owned DRM vblank reference held for the whole active interval. A USB display has
++    /// no hardware interrupt to bootstrap the compositor's first post-modeset presentation; if no
++    /// initial page-flip event is attached, the DRM core never calls `enable_vblank`, the software
++    /// timer never starts, and KWin leaves the first framebuffer frozen forever. Pinning one ref
++    /// while active starts the clock deterministically; `atomic_disable` balances it before off.
++    /// The vblank reference held for the whole time this CRTC is active. Taken in
++    /// `atomic_enable` and released in `atomic_disable`, which is longer than a borrowed
++    /// `VblankRef` can live, so an owned one is stored here.
++    #[pin]
++    pub(super) vblank_pinned: Mutex<Option<OwnedVblankRef<VinoCrtc>>>,
++}
++
++#[derive(Clone, Default)]
++pub(crate) struct VinoCrtcState;
++
++impl crtc::DriverCrtcState for VinoCrtcState {
++    type Crtc = VinoCrtc;
++}
++
++/// Whether a connector state asks for a ten-bit link.
++///
++/// A compositor sets `max bpc` to ten on every connector it can, so the request alone is not the
++/// condition: the vendor moves a link to ten bits when the connector is driven in PQ. A commit
++/// carrying no connector state, which is every page flip, asks for nothing.
++fn asks_for_ten_bits(
++    conn: Option<&kernel::drm::kms::connector::OpaqueConnectorState<VinoDrmDriver>>,
++) -> bool {
++    conn.is_some_and(|conn| {
++        conn.max_requested_bpc() >= 10
++            && conn.hdr_output_eotf() == Some(connector::Eotf::SmpteSt2084)
++    })
++}
++
++#[vtable]
++impl crtc::DriverCrtc for VinoCrtc {
++    type Args = u8;
++    type Driver = VinoDrmDriver;
++    type State = VinoCrtcState;
++    type VblankImpl = Self;
++
++    fn new(_device: &drm::Device<Self::Driver>, connector: &u8) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoCrtc {
++            connector: *connector,
++            vblank: Arc::pin_init(VblankTimer::new(), GFP_KERNEL)?,
++            vblank_pinned <- new_mutex!(None),
++        })
++    }
++
++    /// The display is turning on (scanout begins). Enables vblank pacing, pushes a live mode-set CP
++    /// message for the negotiated mode. The command is queued and is a no-op until CP engages.
++    const HAS_ATOMIC_CHECK: bool = true;
++
++    /// Reject a commit that exceeds the dock's combined active-connector budget.
++    ///
++    /// `mode_valid` checks each connector against the complete budget because the
++    /// advertised modes must not depend on another connector's current state.
++    /// A commit that does not increase this connector's rate is always allowed (it can only hold or
++    /// reduce the combined total); no limiting when the budget is 0 (unknown).
++    fn atomic_check(check: CrtcAtomicCheck<'_, Self>) -> Result {
++        let crtc = check.crtc();
++        let connector = crtc.connector as usize;
++        let data: &VinoDrmData = crtc.drm_dev();
++        let budget = data.dock_budget();
++        let (state, old, mut new) = check.take_all();
++        let wants_deep =
++            data.hdr_capable() && asks_for_ten_bits(state.new_connector_state_for_crtc(crtc));
++        // The colour description reaches the dock in the mode-set message, which is only sent from
++        // `atomic_enable`. Toggling HDR on a live output changes nothing the core considers a mode
++        // change, so ask for one: otherwise the compositor starts encoding PQ into a sink that was
++        // never told, and the picture washes out.
++        let colour_changed = {
++            let eotf = |c: Option<&_>| -> (u32, Option<connector::Eotf>) {
++                c.map_or(
++                    (0, None),
++                    |c: &kernel::drm::kms::connector::OpaqueConnectorState<VinoDrmDriver>| {
++                        (c.colorspace(), c.hdr_output_eotf())
++                    },
++                )
++            };
++            eotf(state.old_connector_state_for_crtc(crtc))
++                != eotf(state.new_connector_state_for_crtc(crtc))
++        };
++        if colour_changed {
++            new.set_mode_changed(true);
++        }
++        let old_rate = if old.active() {
++            let m = old.mode();
++            active_pixel_rate(m.hdisplay(), m.vdisplay(), m.vrefresh())
 +        } else {
 +            0
 +        };
-+        let content = &msg[..msg.len().saturating_sub(tag_reserved)];
-+        let frame = crate::cp::seal_interactive(&link.ks, &link.riv, id, link.wire_seq, content)?;
-+        let pipe = self.own_pipe();
-+        // A shared video failure publishes the session dead while a CP writer may already be
-+        // waiting for this pipe behind the failed frame.  Recheck after acquiring it so that
-+        // waiter cannot issue one last control record into the terminal stream before reset.
-+        if !self.cp_link_alive() {
-+            return Err(ENODEV);
-+        }
-+        if let Err(e) = dev.ctrl_send(&frame, crate::timeout(), GFP_KERNEL) {
-+            let silent_ms = self.cp_silent_for_ms();
-+            if silent_ms >= self.cp_silence_limit_ms() {
-+                self.abandon_cp_session(silent_ms);
-+                *guard = None;
-+            }
-+            return Err(e);
-+        }
-+        // The reply arrives on the other endpoint, so the pipe is free again the moment the
-+        // request is out: holding it across the wait would stall a frame for the whole timeout.
-+        drop(pipe);
-+        link.wire_seq = link
-+            .wire_seq
-+            .wrapping_add(((content.len() + 15) / 16) as u32);
-+        // A normal message consumes the next counter now. A reserved message consumed its counter
-+        // when its logical worker queued the transaction, before independently queued EP02 writes
-+        // interleaved; consuming it twice here would skip a value after the cold transaction.
-+        if reserved_counter.is_none() {
-+            link.counter = link.counter.wrapping_add(1);
-+        }
-+        // DLM keeps reading EP84 until it sees the reply whose inner counter echoes this request.
-+        // Navarro also emits unprompted `id=2/sub=0x86` status pushes on the same endpoint;
-+        // treating the first such push as the paired reply advances EP02 before the dock has
-+        // completed the transaction.  The dock then NAKs that write until the real reply is reaped,
-+        // which is the exact 100-ms staircase visible in the failed captures.  Consume pushes here
-+        // and stop only at the echoed counter (or a bounded timeout for request classes which do
-+        // not reply).
-+        //
-+        //
-+        // Use the validated 4096-byte request size so larger logical replies arrive intact.
-+        let mut reply = KVec::from_elem(0u8, 4096, GFP_KERNEL)?;
-+        let deadline = Instant::<Monotonic>::now() + Delta::from_millis(64);
-+        let mut matched = 0usize;
-+        let (mut reaped, mut undecodable) = (0u32, 0u32);
-+        let (mut seen_id, mut seen_sub, mut seen_counter) = (0u16, 0u16, 0u16);
-+        loop {
-+            let got = if let Some(q) = link.ep84_q.as_mut() {
-+                match q.recv(dev.io(), &mut reply, crate::cp_reply_timeout()) {
-+                    Ok(Some(n)) => n,
-+                    Ok(None) => 0,
-+                    Err(_) => break,
-+                }
-+            } else {
-+                dev.ctrl_recv(&mut reply, crate::cp_reply_timeout(), GFP_KERNEL)
-+                    .unwrap_or(0)
-+            };
-+            if got > 16 {
-+                // During re-engagement an EDID push can precede the paired acknowledgment. Keep
-+                // it for the waiting connector while continuing to wait for the echoed counter.
-+                let target = self.edid_target.load(Ordering::Relaxed);
-+                if target != NO_EDID_TARGET {
-+                    if let Ok(Some(blob)) =
-+                        crate::cp::parse_edid_from_reply(&link.ks, &link.riv, &reply[..got])
-+                    {
-+                        *self.edid_caught.lock() = Some(blob);
-+                    }
-+                }
-+                if let Some((reply_id, reply_sub, reply_counter)) =
-+                    crate::cp::decode_in_lenient(&link.ks, &link.riv, &reply[..got])
-+                {
-+                    if reply_counter == request_counter {
-+                        matched = got;
-+                        break;
-+                    }
-+                    seen_id = reply_id;
-+                    seen_sub = reply_sub;
-+                    seen_counter = reply_counter;
-+                    if reply_id == 0x44 || crate::cp::edid_reply_len(reply_id).is_some() {
-+                        self.downstream_event.store(true, Ordering::Release);
-+                    }
-+                } else {
-+                    undecodable += 1;
-+                }
-+                reaped += 1;
-+            }
-+            if (Instant::<Monotonic>::now() - deadline).as_millis() >= 0 {
-+                break;
-+            }
-+        }
-+        // Name the message that went unanswered, and say whether the dock was silent or merely
-+        // unreadable. Without this a stalled control session can only be reported as ETIMEDOUT,
-+        // which cannot distinguish "the dock sent nothing" from "the dock replied and vino could
-+        // not decode it" -- and on the D6000 the wire shows 50 sealed replies arriving during an
-+        // attempt that ends in ETIMEDOUT.
-+        if matched == 0 {
-+            // Name the *inner* sub as well as the wire id. "id=0x16 went unanswered" covers the
-+            // EDID engage, the readiness kick and both stream/display markers, and which one the
-+            // dock ignored is the whole diagnosis.
-+            vino_debug!(
-+                "vino: unanswered id={id:#06x} sub={inner_sub:#06x} ctr={request_counter}: reaped {reaped} reply/replies, {undecodable} undecodable, last decoded id={seen_id:#06x} sub={seen_sub:#06x} ctr={seen_counter}\n"
-+            );
-+            let silent_ms = self.cp_silent_for_ms();
-+            if silent_ms >= self.cp_silence_limit_ms() {
-+                self.abandon_cp_session(silent_ms);
-+                *guard = None;
-+                return Err(ETIMEDOUT);
-+            }
-+        } else {
-+            self.note_cp_reply();
-+        }
-+        consume(&link.ks, &link.riv, &reply[..matched])
-+    }
-+    /// Seal and send one interactive CP message on EP02, advancing the session keystream.
-+    pub(crate) fn send_cp(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        id: u16,
-+        tag_reserved: usize,
-+        build: impl FnOnce(u16) -> Result<KVec<u8>>,
-+    ) -> Result {
-+        self.send_cp_reply(dev, id, tag_reserved, None, build, |_, _, _| Ok(()))
-+    }
-+    /// Send one CP message using a counter token previously consumed from the live allocator.
-+    pub(super) fn send_cp_reserved(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        id: u16,
-+        inner_counter: u16,
-+        build: impl FnOnce(u16) -> Result<KVec<u8>>,
-+    ) -> Result {
-+        self.send_cp_reply(dev, id, 0, Some(inner_counter), build, |_, _, _| Ok(()))
-+    }
-+    /// Consume `N` consecutive counters from the live session and return them as reservation
-+    /// tokens. This models DLM's independently queued per-connector workers: allocation order
-+    /// remains monotonic even when their actual EP02 writes interleave in a different order.
-+    pub(super) fn reserve_cp_counters<const N: usize>(&self) -> Result<[u16; N]> {
-+        let mut guard = self.cp_link.lock();
-+        let Some(link) = (&mut *guard).as_mut() else {
-+            return Err(ENODEV);
-+        };
-+        let mut counters = [0u16; N];
-+        for counter in &mut counters {
-+            *counter = link.counter;
-+            link.counter = link.counter.wrapping_add(1);
-+        }
-+        Ok(counters)
-+    }
-+    /// Consume the dock's *unprompted* EP84 pushes, i.e. reads that are not the reply to any of our
-+    /// writes. Returns how many frames were drained.
-+    ///
-+    /// The dock also emits capability and heartbeat frames without a paired request. The bounded
-+    /// zero-timeout loop consumes those pushes without delaying keepalive or allowing a chatty dock
-+    /// to monopolise the worker.
-+    pub(crate) fn drain_cp_pushes(&self, dev: &BoundInterface<'_>, max: usize) -> usize {
-+        if !self.cp_link_alive() {
-+            return 0;
-+        }
-+        // Best-effort really does mean best-effort: if a transaction owns the link there is
-+        // nothing to reap that it is not already reaping, and blocking here would put the
-+        // keepalive behind a transfer that may never return.
-+        let Some(mut guard) = self.cp_link.try_lock() else {
-+            return 0;
-+        };
-+        let Some(link) = (&mut *guard).as_mut() else {
-+            return 0;
-+        };
-+        let Ok(mut reply) = KVec::from_elem(0u8, 4096, GFP_KERNEL) else {
-+            return 0;
-+        };
-+        let mut n = 0;
-+        while n < max {
-+            let got = match link.ep84_q.as_mut() {
-+                // Every queue slot is already posted. One millisecond is enough to reap a
-+                // completion without turning this best-effort reader into another control
-+                // deadline. A zero-jiffy completion wait does not observe an already-signalled
-+                // completion reliably, so it left pushes queued until the next EP02 write.
-+                Some(q) => q.recv(dev.io(), &mut reply, Delta::from_millis(1)),
-+                None => dev
-+                    .ctrl_recv(&mut reply, Delta::from_millis(1), GFP_KERNEL)
-+                    .map(Some),
-+            };
-+            // `Ok(None)` is the queue's timeout: nothing pending, so the dock has nothing more to
-+            // say right now. Any error is treated the same -- this is best-effort drainage.
-+            match got {
-+                Ok(Some(len)) if len > 0 => {
-+                    n += 1;
-+                    // An unprompted push is the dock answering. The silence deadline asks whether
-+                    // it is talking at all, not whether it is answering us in particular, and on
-+                    // an idle lit link the heartbeats are most of what it says.
-+                    self.note_cp_reply();
-+                    if let Some((id, _, _)) =
-+                        crate::cp::decode_in_lenient(&link.ks, &link.riv, &reply[..len])
-+                    {
-+                        // An EDID-handler reply arriving with no probe outstanding is the dock
-+                        // reporting that a downstream sink changed -- it is the *only* thing it
-+                        // sent between a measured monitor replug and its own give-up reset. Treat
-+                        // it as "re-probe now" rather than waiting out the presence period.
-+                        if id == 0x44 || crate::cp::edid_reply_len(id).is_some() {
-+                            self.downstream_event.store(true, Ordering::Release);
-+                        }
-+                    }
-+                }
-+                _ => break,
-+            }
-+        }
-+        n
-+    }
-+}
-diff --git a/drivers/gpu/drm/vino/drm_sink/presence.rs b/drivers/gpu/drm/vino/drm_sink/presence.rs
-new file mode 100644
-index 000000000000..6e58f5729223
---- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/presence.rs
-@@ -0,0 +1,435 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! What is plugged into a connector, and keeping that answer honest.
-+//!
-+//! A dock reports presence through its EDID probe rather than through any hotplug interrupt, so
-+//! everything here is polled and everything here can be wrong for a moment. A monitor still waking
-+//! up, a connector the dock has stopped answering for, and a connector this driver blanked itself
-+//! all look alike on the wire; telling them apart is what the debounce and repair paths do.
-+
-+use super::*;
-+
-+impl VinoDrmData {
-+    /// Cache a connector's downstream EDID (read during probe). Bring-up publishes all connectors
-+    /// with one hotplug only after both presence and EDID state are complete; firing here exposed
-+    /// KWin to a transient no-EDID mode list (including synthetic 1920x1440) before the real EDID
-+    /// arrived. Out-of-range connectors are ignored.
-+    pub(crate) fn set_edid(&self, connector: usize, blob: KVec<u8>) {
-+        let mut edids = self.cached_edids.lock();
-+        let Some(slot) = edids.get_mut(connector) else {
-+            return;
-+        };
-+        *slot = Some(blob);
-+    }
-+    /// Whether userspace has taken responsibility for describing `connector`'s sink, because the
-+    /// dock cannot read it.
-+    ///
-+    /// A DP-to-HDMI converter that mangles or drops DDC leaves the dock unable to read the monitor
-+    /// at all: the presence probe reports the socket occupied, but no `id=0x194` ever arrives, so
-+    /// the connector stays disconnected and nothing is ever driven. The monitor is real, and its
-+    /// EDID is readable from a working port on another machine.
-+    ///
-+    /// Rather than carry a second EDID source, this hands the connector to DRM's own override,
-+    /// which already accepts a blob two ways -- `drm_kms_helper.edid_firmware=<connector>:<path>`
-+    /// or a write to the connector's debugfs `edid_override`. The core applies it only to a
-+    /// connector that is connected and whose `get_modes` returned none, so all this flag does is
-+    /// make the connector report no modes of its own while no EDID has been read.
-+    ///
-+    /// It deliberately does not report the connector connected. Connecting a modeless connector
-+    /// hands fbdev emulation a blank cheque, and its 640x480 default mode set puts this dock into a
-+    /// 25 s re-enumeration loop. Userspace supplies the description and then forces the connector
-+    /// on (`echo on > .../status`), in that order, which is also what makes the sequence race-free.
-+    ///
-+    /// An override describes the sink, not the link. A blob claiming a mode the converter cannot
-+    /// carry gives a black screen just the same: this substitutes for a broken read, it does not
-+    /// negotiate anything.
-+    pub(crate) fn edid_from_userspace(&self, connector: usize) -> bool {
-+        usize::from(*crate::module_parameters::edid_override.value()) & (1 << connector) != 0
-+    }
-+    /// Mark a connector connected from CP engagement alone (no raw EDID). Bring-up fires one
-+    /// hotplug after every connector's EDID has also been cached, so the compositor never probes
-+    /// partial state. Called once the connector's DISPLAY-CAP push confirms monitor presence.
-+    pub(crate) fn set_connected(&self, connector: usize) {
-+        if connector >= MAX_CONNECTORS {
-+            return;
-+        }
-+        self.connectors_present
-+            .fetch_or(1 << connector, core::sync::atomic::Ordering::Release);
-+    }
-+    /// Clear a connector's presence bit and cached EDID after monitor removal.
-+    ///
-+    /// `detect()` reports connected when either exists, so both must be cleared together.
-+    pub(crate) fn set_disconnected(&self, connector: usize) {
-+        let socket = connector + 1;
-+        if connector >= MAX_CONNECTORS {
-+            return;
-+        }
-+        // Tagged with the dock's connector count, which is what tells two bound docks apart in a
-+        // single log.
-+        if self.connectors_present.load(Ordering::Acquire) & (1u32 << connector) != 0 {
-+            vino_debug!(
-+                "vino: {}-connector dock: socket {socket} presence cleared\n",
-+                self.connector_count()
-+            );
-+        }
-+        self.connectors_present
-+            .fetch_and(!(1u32 << connector), core::sync::atomic::Ordering::Release);
-+        if let Some(slot) = self.cached_edids.lock().get_mut(connector) {
-+            *slot = None;
-+        }
-+    }
-+    fn send_reengage_step(
-+        &self,
-+        io: &BoundInterface<'_>,
-+        id: u16,
-+        gap_ms: i64,
-+        build: impl FnOnce(u16) -> Result<KVec<u8>>,
-+    ) -> Result {
-+        self.send_cp(io, id, 0, build)?;
-+        fsleep(Delta::from_millis(gap_ms));
-+        Ok(())
-+    }
-+    /// Re-run one connector's EDID probe, fetch, engage, and capability query on the live CP link.
-+    ///
-+    /// Monitor removal tears down the dock's downstream sink, so a replug requires the engage
-+    /// messages before a later mode set can start its pixel clock. The cached EDID is cleared on
-+    /// removal and must be repopulated here before reporting the connector as present. Returns true
-+    /// only when a valid EDID was received.
-+    pub(crate) fn reengage_connector(
-+        &self,
-+        io: &BoundInterface<'_>,
-+        connector: u8,
-+    ) -> Result<bool> {
-+        let socket = connector + 1;
-+        self.set_self_blanked(connector as usize, false);
-+        // A connector that is not answering is exactly a connector that may be sitting in an open
-+        // bracket, where the dock has disengaged its EDID handler and every probe below would go
-+        // unanswered. The state is the dock's and it survives a re-enumeration, so a fresh session
-+        // cannot know it is owed: assert the closed state rather than infer it. A connector already
-+        // closed ignores this.
-+        self.close_bracket_before_probe(io, connector);
-+        self.edid_target.store(connector as u32, Ordering::Release);
-+        *self.edid_caught.lock() = None;
-+        let result = (|| -> Result {
-+            self.send_reengage_step(io, 0x15, 117, |c| {
-+                crate::cp::get_edid_req_sub(c, 0x0020, connector)
-+            })?;
-+            self.send_reengage_step(io, 0x15, 115, |c| {
-+                crate::cp::get_edid_req_sub(c, 0x0020, connector)
-+            })?;
-+            self.send_reengage_step(io, 0x16, 107, |c| {
-+                crate::cp::edid_readiness_kick(c, connector)
-+            })?;
-+            self.send_reengage_step(io, 0x15, 11, |c| crate::cp::get_edid_req(c, connector))?;
-+            self.send_reengage_step(io, 0x16, 118, |c| crate::cp::edid_engage_req(c, connector))?;
-+            self.send_reengage_step(io, 0x16, 107, |c| crate::cp::edid_engage_req(c, connector))?;
-+            self.send_reengage_step(io, 0x15, 11, |c| crate::cp::post_edid_query(c, connector))
-+        })();
-+        let caught = self.edid_caught.lock().take();
-+        self.edid_target.store(NO_EDID_TARGET, Ordering::Release);
-+        result?;
-+        match caught.or_else(|| self.drain_for_edid(io)) {
-+            Some(blob) => {
-+                let n = blob.len();
-+                // Say what the EDID claims to be, not just that one arrived. On unfamiliar
-+                // hardware this is what distinguishes a real monitor from a block the dock
-+                // synthesised for an empty port.
-+                if blob.len() >= 12 {
-+                    let m = u16::from_be_bytes([blob[8], blob[9]]);
-+                    let vendor = [
-+                        b'@' + ((m >> 10) & 0x1f) as u8,
-+                        b'@' + ((m >> 5) & 0x1f) as u8,
-+                        b'@' + (m & 0x1f) as u8,
-+                    ];
-+                    vino_debug!(
-+                        "vino: socket {socket} EDID {n} B, vendor {}{}{} product {:#06x}\n",
-+                        vendor[0] as char,
-+                        vendor[1] as char,
-+                        vendor[2] as char,
-+                        u16::from_le_bytes([blob[10], blob[11]])
-+                    );
-+                }
-+                self.set_edid(connector as usize, blob);
-+                Ok(true)
-+            }
-+            None => {
-+                // Deliberately not published here, even under `edid_override`. A connector that
-+                // reports connected with no modes is immediately mode-set by fbdev emulation at
-+                // its own 640x480 default, and driving that at the dock resets it -- measured, in
-+                // a 25 s re-enumeration loop. The connector stays disconnected until userspace has
-+                // supplied the description AND forced the connector on; see `edid_from_userspace`.
-+                if self.edid_from_userspace(connector as usize) {
-+                    pr_warn!(
-+                        "vino: socket {socket} has no EDID from the dock and is waiting for one from \
-+                         userspace (edid_override); it stays disconnected until then\n"
-+                    );
-+                    return Ok(false);
-+                }
-+                vino_debug!(
-+                    "vino: socket {socket} re-engaged but no EDID came back -- no monitor, or it is \
-+                     not ready yet\n"
++        let new_rate = if new.active() {
++            let m = new.mode();
++            if (!old.active() || new.mode_changed()) && !crate::cp::mode_supported(m) {
++                pr_warn!(
++                    "vino: socket {socket} mode {}x{}@{} has no dock profile\n",
++                    m.hdisplay(),
++                    m.vdisplay(),
++                    m.vrefresh(),
++                    socket = connector + 1
 +                );
-+                Ok(false)
++                return Err(EINVAL);
 +            }
-+        }
-+    }
-+    /// Drain EP84 looking for the `id=0x194` EDID the fetch above asks for, and return it.
-+    ///
-+    /// The real EDID only ever arrives as that push (never inside `id=0x4c`/`0x78`), and it can
-+    /// land a few messages after the fetch, so this reads a bounded run of replies rather than just
-+    /// the next one. Bounded twice over -- attempt count and per-read timeout -- because it runs on
-+    /// the keepalive, which must not stall.
-+    fn drain_for_edid(&self, dev: &BoundInterface<'_>) -> Option<KVec<u8>> {
-+        self.check_cp_session().ok()?;
-+        let mut guard = self.cp_link.lock();
-+        let link = (&mut *guard).as_mut()?;
-+        let mut reply = KVec::from_elem(0u8, 4096, GFP_KERNEL).ok()?;
-+        for _ in 0..24 {
-+            let got = match link.ep84_q.as_mut() {
-+                Some(q) => match q.recv(dev.io(), &mut reply, Delta::from_millis(8)) {
-+                    Ok(Some(n)) if n > 16 => n,
-+                    _ => continue,
-+                },
-+                None => match dev.ctrl_recv(&mut reply, Delta::from_millis(8), GFP_KERNEL) {
-+                    Ok(n) if n > 16 => n,
-+                    _ => continue,
-+                },
-+            };
-+            if let Ok(Some(blob)) =
-+                crate::cp::parse_edid_from_reply(&link.ks, &link.riv, &reply[..got])
-+            {
-+                return Some(blob);
-+            }
-+        }
-+        None
-+    }
-+    /// Stage 2 (runtime monitor hotplug): probe one physical connector.
-+    ///
-+    /// Navarro multiplexes two connectors per bulk endpoint, but its EDID selector and stream
-+    /// record subfield are still per socket. Never collapse sockets 0/2 or 1/3 here: doing so
-+    /// turns two independently connected monitors into one KMS connector.
-+    pub(crate) fn probe_connector_present(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        connector: u8,
-+    ) -> Option<bool> {
-+        if usize::from(connector) >= self.connector_count() {
-+            return Some(false);
-+        }
-+        self.send_presence_probe(dev, connector, connector)
-+    }
-+    /// Probe one downstream connector. `connector` selects its own presence-change cell.
-+    ///
-+    /// Sends the EDID probe (`id=0x15 sub=0x20`, byte22 = connector selector -- the same selector
-+    /// that unblocked the whole EDID path) and decodes the dock's sealed `0x45` reply. Returns
-+    /// `Some(true/false)` on a decodable reply, `None` if CP is down or nothing decoded. Reuses the
-+    /// live session `ks/riv/counter` exactly like `send_cp`, so it stays in CP lockstep.
-+    fn send_presence_probe(
-+        &self,
-+        dev: &BoundInterface<'_>,
-+        sel: u8,
-+        connector: u8,
-+    ) -> Option<bool> {
-+        let socket = connector + 1;
-+        self.check_cp_session().ok()?;
-+        let mut guard = self.cp_link.lock();
-+        let link = (&mut *guard).as_mut()?;
-+        let request_counter = link.counter;
-+        let msg = crate::cp::get_edid_req_sub(request_counter, 0x0020, sel).ok()?;
-+        let frame =
-+            crate::cp::seal_interactive(&link.ks, &link.riv, 0x15, link.wire_seq, &msg).ok()?;
-+        if dev.ctrl_send(&frame, crate::timeout(), GFP_KERNEL).is_err() {
-+            let silent_ms = self.cp_silent_for_ms();
-+            if silent_ms >= self.cp_silence_limit_ms() {
-+                self.abandon_cp_session(silent_ms);
-+                *guard = None;
-+            }
-+            return None;
-+        }
-+        link.wire_seq = link.wire_seq.wrapping_add(((msg.len() + 15) / 16) as u32);
-+        link.counter = link.counter.wrapping_add(1);
-+        // Take the reply that answers this probe, not simply the next frame on EP84: the connectors
-+        // are probed back to back, so a late reply or an unprompted push would otherwise be
-+        // attributed to the wrong connector. The inner counter echoes the request. A round that
-+        // never sees its own echo returns `None`, which the caller treats as "this poll learned
-+        // nothing" rather than as an unplug.
-+        let mut reply = KVec::from_elem(0u8, 4096, GFP_KERNEL).ok()?;
-+        let deadline = Instant::<Monotonic>::now() + Delta::from_millis(64);
-+        let got = loop {
-+            let n = match link.ep84_q.as_mut() {
-+                Some(q) => match q.recv(dev.io(), &mut reply, crate::cp_reply_timeout()) {
-+                    Ok(Some(n)) => n,
-+                    Ok(None) => 0,
-+                    Err(_) => return None,
-+                },
-+                None => dev
-+                    .ctrl_recv(&mut reply, crate::cp_reply_timeout(), GFP_KERNEL)
-+                    .unwrap_or(0),
-+            };
-+            if n > 16 {
-+                match crate::cp::decode_in_lenient(&link.ks, &link.riv, &reply[..n]) {
-+                    Some((_, _, echoed)) if echoed == request_counter => break n,
-+                    // Undecodable frames are the dock's asynchronous pushes; keep draining.
-+                    _ => {}
-+                }
-+            }
-+            if (Instant::<Monotonic>::now() - deadline).as_millis() >= 0 {
-+                return None;
-+            }
-+        };
-+        // Decode the downstream status at inner bytes 22..26 as well as the handler ID.
-+        let (id, status, ready) =
-+            crate::cp::probe_reply_status(&link.ks, &link.riv, &reply[..got])?;
-+        self.note_cp_reply();
-+        // Presence is bit 0x10 of inner byte 23, which lands in bits 8..15 of the status word:
-+        // `05 11 27 00` for an occupied connector, `05 01 <20|21|60|61> 00` for an empty one.
-+        // Which handler answered says nothing about it -- both docks reply `id=0x44` either way.
-+        let present = status & 0x0000_1000 != 0;
-+        // One line per *changed* answer per connector, so a steady link is silent and an unplug is
-+        // unmissable. Both fields are packed into the same cell: the id alone cannot distinguish a
-+        // dock that keeps saying `0x44` from one whose downstream state has moved underneath it.
-+        let cell = ((id as u32) << 16) | (status & 0xffff);
-+        let prev = self.presence_reply[connector as usize].swap(cell, Ordering::Relaxed);
-+        if prev != cell {
-+            // The dock moves the *other* connector's status word too when a sink appears or
-+            // disappears, and it does so sooner than it pushes anything. `prev == 0` is this
-+            // connector's first ever reply, which is bring-up, not an event.
-+            if prev != 0 {
-+                self.downstream_event.store(true, Ordering::Release);
-+            }
-+            // The decoded answer itself, not just the verdict derived from it. Without this a
-+            // presence flap can only be read as "monitor disconnected", which says nothing about
-+            // whether the dock changed its mind or vino changed the question. It is one line per
-+            // *changed* reply per connector, so a steady link prints nothing at all.
-+            // Tagged with this dock's video endpoints, which name the family uniquely: 08/0b is
-+            // a DL-6xxx, 08/0a a DL-7400, 02/02 a DL-3x00. A connector count does not -- two of
-+            // the three have two connectors, so once both are bound the tag distinguishes
-+            // nothing and the same reading reads as either dock.
-+            vino_debug!(
-+                "vino: [video {:02x}/{:02x}] socket {socket} presence reply id={id:#06x} \
-+                 status={status:#010x} -> present={present} ready={ready} \
-+                 (was id={:#06x} status={:#06x})\n",
-+                dev.endpoints.video[0].address(),
-+                dev.endpoints.video[1].address(),
-+                prev >> 16,
-+                prev & 0xffff
-+            );
-+        }
-+        Some(present)
-+    }
-+    /// Whether vino itself took `connector`'s sink down, so the presence watcher can tell its own
-+    /// blank apart from a real unplug. See [`VinoDrmData::self_blanked`].
-+    pub(crate) fn is_self_blanked(&self, connector: usize) -> bool {
-+        self.self_blanked.load(Ordering::Acquire) & (1u32 << connector) != 0
-+    }
-+    pub(crate) fn set_self_blanked(&self, connector: usize, on: bool) {
-+        if on {
-+            self.self_blanked
-+                .fetch_or(1u32 << connector, Ordering::Release);
++            active_pixel_rate(m.hdisplay(), m.vdisplay(), m.vrefresh())
 +        } else {
-+            self.self_blanked
-+                .fetch_and(!(1u32 << connector), Ordering::Release);
-+        }
-+    }
-+    /// How long this connector should hold the post-mode-set training cadence.
-+    ///
-+    /// A cold activation needs it: the dock will not program its downstream pixel clock without a
-+    /// sustained stream. A repair does not -- the link is already trained and the sink was dropped
-+    /// underneath us -- and running it there costs the dock three seconds of full keyframes at
-+    /// `FRAME_PERIOD_MS`. Consumes the repair flag, so the window returns for the next real
-+    /// bring-up.
-+    pub(crate) fn sustain_window(&self, connector: usize) -> Option<Instant<Monotonic>> {
-+        let bit = 1u32 << connector;
-+        if self.repair_connectors.fetch_and(!bit, Ordering::AcqRel) & bit != 0 {
-+            return None;
-+        }
-+        // A dock whose video shares the control pipe cannot be given this window. It exists to
-+        // train a downstream link by presenting keyframes at frame cadence, which on a pipe of its
-+        // own is bandwidth well spent; here it is bandwidth taken directly from the control plane,
-+        // and the dock stops answering EP84 entirely rather than merely dropping frames.
-+        if self.video_on_ctrl_pipe() {
-+            return None;
-+        }
-+        Some(Instant::<Monotonic>::now() + Delta::from_millis(SUSTAIN_MS))
-+    }
-+    /// Re-drive every lit connector after the dock dropped a downstream sink underneath us.
-+    ///
-+    /// The presence flap is the dock really taking a sink down, and the only thing that used to
-+    /// repair it was letting the DRM connector disappear so the compositor would re-enable the
-+    /// output. That cure was worse than the disease: it re-lays-out userspace, and the mode set it
-+    /// produces names one connector while its sibling is lit, which re-enumerates the dock. So vino
-+    /// repairs the connector itself and leaves the connector alone.
-+    ///
-+    /// Every lit connector is re-queued, not just the one that flapped, and they go into one batch:
-+    /// a mode set this dock accepts is one that names every connector at once
-+    /// (`activate_dual_wake`). Zeroing the mode generation is what makes that path take them.
-+    ///
-+    /// Returns the number of connectors queued.
-+    #[expect(
-+        dead_code,
-+        reason = "kept for the flap-repair experiment; see its doc comment"
-+    )]
-+    pub(super) fn repair_flapped_connector(&self, dev: &VinoDrmDevice, flapped: usize) -> u32 {
-+        let mut queued = 0u32;
-+        let mut cmds: [Option<crate::cp::Timing>; MAX_CONNECTORS] = [None; MAX_CONNECTORS];
-+        for connector in 0..MAX_CONNECTORS {
-+            let active = self.modeset_active[connector].load(Ordering::Acquire);
-+            if active == 0 || self.modeset_requested[connector].load(Ordering::Acquire) != active {
-+                continue;
-+            }
-+            let Some(timing) = self.last_timing.lock()[connector] else {
-+                continue;
-+            };
-+            if timing_key(&timing) != active {
-+                continue;
-+            }
-+            cmds[connector] = Some(timing);
-+        }
-+        if cmds.iter().flatten().count() == 0 {
-+            return 0;
-+        }
-+        for connector in 0..MAX_CONNECTORS {
-+            let Some(timing) = cmds[connector] else {
-+                continue;
-+            };
-+            // The dock's copy of this connector is gone, so nothing it holds can be diffed against.
-+            self.repair_connectors
-+                .fetch_or(1u32 << connector, Ordering::Release);
-+            self.modeset_active[connector].store(0, Ordering::Release);
-+            self.owe_keyframe(connector);
-+            self.strip_hashes.lock()[connector] = None;
-+            self.dirty_ttl.lock()[connector] = None;
-+            self.queue_cmd(
-+                dev,
-+                KmsCmd::ModeSet {
-+                    connector: connector as u8,
-+                    timing,
-+                },
-+            );
-+            queued += 1;
-+        }
-+        pr_warn!("vino: connector {flapped} sink flap -- re-driving {queued} lit connector(s) together\n");
-+        queued
-+    }
-+    /// Whether connector `connector`'s presence bit is currently set (for the keepalive to seed its
-+    /// baseline before watching for runtime connect/remove transitions). Whether a monitor has
-+    /// described itself on this socket.
-+    ///
-+    /// The dock recovers an EDID for a socket with something plugged into it and nothing at all for
-+    /// an empty one, which on a family that cannot report downstream presence is the only presence
-+    /// signal there is.
-+    pub(crate) fn connector_has_edid(&self, connector: usize) -> bool {
-+        self.cached_edids
-+            .lock()
-+            .get(connector)
-+            .is_some_and(Option::is_some)
-+    }
-+    pub(crate) fn connector_present(&self, connector: usize) -> bool {
-+        connector < MAX_CONNECTORS
-+            && self
-+                .connectors_present
-+                .load(core::sync::atomic::Ordering::Acquire)
-+                & (1u32 << connector)
-+                != 0
-+    }
-+}
-diff --git a/drivers/gpu/drm/vino/drm_sink/scanout.rs b/drivers/gpu/drm/vino/drm_sink/scanout.rs
-new file mode 100644
-index 000000000000..2edd29cffaf6
---- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/scanout.rs
-@@ -0,0 +1,1958 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Turning a committed framebuffer into bytes on a video endpoint.
-+//!
-+//! The compositor's atomic callback does no work beyond snapshotting: everything below runs on the
-+//! deferred scanout worker. In order, a frame goes through damage selection against the previous
-+//! frame's per-strip hashes, encoding (fanned across CPUs as [`EncodeChunk`]s), record framing, and
-+//! submission through the connector's persistent URB queue.
-+
-+use super::mode_objects::rot_src;
-+use super::*;
-+
-+/// Consecutive video stalls cleared before a connector is parked for a fresh mode-set.
-+const VIDEO_STALL_LIMIT: u64 = 4;
-+
-+/// Compress and submit one coalesced primary-plane flip on the deferred worker. Keeping all slow
-+/// work here makes the DRM atomic callback bounded to state inspection plus an `ARef` increment.
-+pub(super) fn run_pending_scanout(
-+    dev: &BoundInterface<'_>,
-+    data: &VinoDrmData,
-+    frame: PendingScanout,
-+) {
-+    use core::sync::atomic::Ordering::Relaxed;
-+
-+    let connector_index = frame.connector as usize;
-+    if data.modeset_requested[connector_index].load(Ordering::Acquire) == 0 {
-+        scanout_gate(
-+            frame.connector,
-+            "worker: connector has no mode-set requested",
-+        );
-+        return;
-+    }
-+    let requested_geometry_matches = data.last_timing.lock()[connector_index]
-+        .is_some_and(|t| t.hactive as usize == frame.w && t.vactive as usize == frame.h);
-+    if !requested_geometry_matches {
-+        // stale framebuffer from a different-size mode generation
-+        scanout_gate(
-+            frame.connector,
-+            "worker: framebuffer size differs from the cached mode",
-+        );
-+        return;
-+    }
-+    // Was this the mode-set's owed keyframe? Read before sending, since a successful send clears
-+    // the bit.
-+    let was_keyframe =
-+        data.keyframe_pending.load(Ordering::Acquire) & (1u32 << frame.connector) != 0;
-+    let settle_copy = was_keyframe.then(|| frame.clone());
-+    let slot = frame.shadow_idx;
-+    let generation = frame.shadow_generation;
-+    let (source_w, source_h) = src_dims(frame.rotation, frame.w, frame.h);
-+    let shadow = {
-+        let mut pool = data.shadow[connector_index].lock();
-+        // Split the validation so the counters say *which* invariant failed.
-+        let in_range = slot < SHADOW_SLOTS;
-+        let not_inflight = pool.inflight.is_none();
-+        let gen_ok = in_range && pool.slots[slot].generation == generation;
-+        let dims_ok = in_range
-+            && pool.slots[slot]
-+                .surface
-+                .as_ref()
-+                .is_some_and(|surface| surface.w == source_w && surface.h == source_h);
-+        if !not_inflight {
-+            scanout_gate(frame.connector, "slot busy: another encode inflight");
-+        } else if !gen_ok {
-+            scanout_gate(frame.connector, "slot generation moved under us");
-+        } else if !dims_ok {
-+            scanout_gate(frame.connector, "slot surface missing or wrong size");
-+        }
-+        let valid = in_range && not_inflight && gen_ok && dims_ok;
-+        if !valid {
-+            None
++            0
++        };
++        // Refresh ceiling, enforced here as well as in `mode_valid`, because pruning the mode list
++        // is not a limit: a client can commit a user-defined mode that was never advertised
++        // (`xrandr --newmode`, a modeline in a compositor config, `drm_mode_setcrtc` with its own
++        // timing). This is the check that actually stops the dock being driven at a rate it goes
++        // dark on, and it costs one comparison on the commit path.
++        //
++        // Only a commit that raises the refresh is rejected, exactly as the budget check below only
++        // examines a commit that raises the rate. Every page flip carries the CRTC state through
++        // here, so revalidating an unchanged rate would only add work to the hot path.
++        let old_refresh = if old.active() {
++            old.mode().vrefresh()
 +        } else {
-+            pool.inflight = Some(slot);
-+            pool.slots[slot].surface.take()
-+        }
-+    };
-+    let Some(shadow) = shadow else {
-+        scanout_gate(
-+            frame.connector,
-+            "worker: committed surface is no longer available",
-+        );
-+        return;
-+    };
-+
-+    // `pixels` and `hashes` are lent to the encoder and moved back below; the band is scratch that
-+    // the encoder has no use for, so it just waits here to be reunited with them.
-+    let ShadowSurface {
-+        w: source_w,
-+        h: source_h,
-+        pixels,
-+        hashes,
-+        band,
-+    } = shadow;
-+    let color = data.color_snapshot(connector_index);
-+    let direct = direct_pixel_map(frame.rotation, &color, source_w, source_h, frame.w, frame.h);
-+    let src = match Arc::new(
-+        PixelSource {
-+            pixels,
-+            pitch: source_w * 4,
-+            w: source_w,
-+            h: source_h,
-+            output_w: frame.w,
-+            output_h: frame.h,
-+            rotation: frame.rotation,
-+            color,
-+            direct,
-+            hashes,
-+            depth: data.geometry_for_connector(frame.connector).depth(),
-+            source_depth: data.connector_buffer_depth(frame.connector),
-+        },
-+        GFP_KERNEL,
-+    ) {
-+        Ok(src) => src,
-+        Err(_) => {
-+            let mut pool = data.shadow[connector_index].lock();
-+            if pool.inflight == Some(slot) {
-+                pool.inflight = None;
-+            }
-+            scanout_gate(frame.connector, "worker: pixel source allocation failed");
-+            return;
-+        }
-+    };
-+    let result = encode_and_send(
-+        dev,
-+        data,
-+        frame.connector,
-+        &src,
-+        frame.rotation,
-+        &frame.clips[..frame.nclips],
-+        frame.w,
-+        frame.h,
-+    );
-+    data.last_frame.lock()[connector_index] = Some(Instant::<Monotonic>::now());
-+    let returned = Arc::into_unique_or_drop(src).map(|src| {
-+        let mut src = core::pin::Pin::into_inner(src);
-+        ShadowSurface {
-+            w: source_w,
-+            h: source_h,
-+            pixels: core::mem::replace(&mut src.pixels, KVVec::new()),
-+            hashes: core::mem::replace(&mut src.hashes, KVVec::new()),
-+            band,
-+        }
-+    });
-+    {
-+        let mut pool = data.shadow[connector_index].lock();
-+        if pool.inflight == Some(slot) {
-+            if pool.slots[slot].generation == generation && pool.slots[slot].surface.is_none() {
-+                pool.slots[slot].surface = returned;
-+            }
-+            pool.inflight = None;
-+        }
-+    }
-+    match result {
-+        Ok(()) => {
-+            let n = data.scanout_fails[connector_index].swap(0, Relaxed);
-+            data.scanout_skip[connector_index].store(0, Relaxed);
-+            if n > 0 {
-+                pr_info!("vino: connector {connector_index} scanout recovered after {n} failed frame(s)\n");
-+            }
-+            // Arm the one-shot settle repaint. A compositor that goes idle right after enabling an
-+            // output can otherwise remain on the initial keyframe indefinitely.
-+            if let Some(mut copy) = settle_copy {
-+                copy.clips[0] = (0, 0, copy.w, copy.h);
-+                copy.nclips = 1;
-+                // During the post-mode-set training window, repaint at frame cadence so the dock
-+                // receives the sustained stream needed to program the downstream pixel clock.
-+                // Outside that window, use the bounded settle repaint.
-+                let sustaining = data.sustain_until.lock()[connector_index]
-+                    .is_some_and(|until| (until - Instant::<Monotonic>::now()).as_millis() > 0);
-+                // Training repaints at the fast cadence and is exempt from the budget; everything
-+                // else charges one settle repaint against this connector's keyframe obligation and
-+                // stops when it runs out. See `SETTLE_REPAINTS` for the unbounded keyframe loop
-+                // that made a static desktop stream ~2.7 MB/s per connector. A dock that tears the
-+                // link down over a silent video endpoint has to be re-fed whether or not anything
-+                // changed, so its repaint is periodic and unbudgeted.
-+                let keepalive = data.video_keepalive();
-+                let unbudgeted = sustaining || keepalive;
-+                let charged = unbudgeted
-+                    || data.settle_budget[connector_index]
-+                        .fetch_update(Relaxed, Relaxed, |b| b.checked_sub(1))
-+                        .is_ok();
-+                if charged {
-+                    let delay = if sustaining {
-+                        data.frame_period_ms()
-+                    } else if keepalive {
-+                        NAVARRO_KEEPALIVE_MS
-+                    } else {
-+                        SETTLE_REPAINT_MS
-+                    };
-+                    // Only a repaint that exists to put bytes on the wire has to be a keyframe:
-+                    // training programs the downstream clock with them, and a keepalive dock tears
-+                    // its link down over a silent endpoint, so both need a frame whether or not
-+                    // anything changed. The ordinary settle repaint is there to replace whatever
-+                    // the compositor happened to have mapped when the mode set went out, and a
-+                    // keyframe has since reached every dock buffer -- so what it owes is the
-+                    // difference, which on a desktop that did not change is nothing at all.
-+                    // Sending a second full surface instead costs `dock_buffers` presentations of
-+                    // it, and on a dock that shares its control pipe that is the transfer the dock
-+                    // stops accepting.
-+                    let as_keyframe = sustaining || keepalive;
-+                    data.settle_repaint.lock()[connector_index] = Some((
-+                        Instant::<Monotonic>::now() + Delta::from_millis(delay),
-+                        copy,
-+                        as_keyframe,
-+                    ));
-+                }
-+            } else {
-+                // Repaint the same framebuffer while strips still have retransmit debt. This is a
-+                // delta, not a keyframe, and terminates after at most the profile's
-+                // `damage_frames` accepted submissions because each pass decrements the ledger.
-+                let owes = data.dirty_ttl.lock()[connector_index]
-+                    .as_ref()
-+                    .is_some_and(|debt| debt.iter().any(|&d| d > 0));
-+                if owes {
-+                    data.settle_repaint.lock()[connector_index] = Some((
-+                        Instant::<Monotonic>::now() + Delta::from_millis(data.frame_period_ms()),
-+                        frame.clone(),
-+                        false,
-+                    ));
-+                }
-+            }
-+        }
-+        Err(e) => {
-+            // Log at exponentially sparser points and back off future worker attempts. An error is
-+            // transport state, not a reason to stall the compositor's pageflip path.
-+            let n = data.scanout_fails[connector_index].fetch_add(1, Relaxed) + 1;
-+            if n == 1 || n.is_power_of_two() {
-+                pr_err!("vino: connector {connector_index} scanout frame failed ({e:?}) [x{n}] -- throttling\n");
-+            }
-+            data.scanout_skip[connector_index].store(core::cmp::min(n, 120), Relaxed);
-+            // The failed queue was synchronously retired at the exact `q.send()` error site while
-+            // that physical pipe was still owned. Give up after a few consecutive stalls and wait
-+            // for the next mode set rather than repeatedly driving a pipe the dock is refusing.
-+            if e == EPIPE || e == EPROTO {
-+                if n == VIDEO_STALL_LIMIT + 1 {
-+                    pr_err!(
-+                        "vino: connector {connector_index} stalled {n} times; parking it until the next mode set\n"
-+                    );
-+                    data.modeset_active[connector_index].store(0, Ordering::Release);
-+                    data.programmed_timing.lock()[connector_index] = None;
-+                }
-+            }
-+        }
-+    }
-+}
-+
-+/// Copy a whole cursor framebuffer for the dock.
-+///
-+/// The dock takes DRM `ARGB8888` unchanged; [`crate::cp::cursor_image`] owns the wire placement.
-+/// The complete bitmap is sent every time rather than the helper's clipped rectangle: the dock is
-+/// configured for a fixed cursor size (`mode_config.cursor_width/height`) and clips at the panel
-+/// edge itself.
-+pub(super) fn read_cursor_bgra(
-+    fb: &kms::framebuffer::Framebuffer<VinoDrmDriver>,
-+    w: usize,
-+    h: usize,
-+) -> Result<KVec<u8>> {
-+    let vmap = fb.vmap::<VinoObject>()?;
-+    let view = vmap.view();
-+    let pitch = vmap.pitch();
-+    let row = w.checked_mul(4).ok_or(EINVAL)?;
-+    let len = row.checked_mul(h).ok_or(EINVAL)?;
-+    let mut out = KVec::new();
-+    out.resize(len, 0, GFP_KERNEL)?;
-+    for dy in 0..h {
-+        let src = dy.checked_mul(pitch).ok_or(EINVAL)?;
-+        view.try_copy_to_slice(src, &mut out[dy * row..(dy + 1) * row])?;
-+    }
-+    Ok(out)
-+}
-+
-+/// Source (framebuffer) dimensions for an output of `ow`x`oh` pixels under plane `rotation`.
-+/// The 90/270 rotations swap width and height between the framebuffer and the displayed output;
-+/// the others preserve them.
-+pub(super) fn src_dims(rotation: plane::Rotation, ow: usize, oh: usize) -> (usize, usize) {
-+    if matches!(
-+        rotation.angle(),
-+        plane::Rotation::ROTATE_90 | plane::Rotation::ROTATE_270
-+    ) {
-+        (oh, ow)
-+    } else {
-+        (ow, oh)
-+    }
-+}
-+
-+/// Copy a committed framebuffer into this connector's [`ShadowSurface`], reusing the existing
-+/// allocation whenever the geometry is unchanged.
-+///
-+/// Runs in the atomic commit path, so everything else (damage selection, rotation, gamma, the
-+/// codec) stays in the worker and reads this private surface instead of the compositor's live
-+/// buffer.
-+///
-+/// The traversal is band-major: for each row of strips, the source's rows are pulled into
-+/// [`ShadowSurface::band`] a full row per read, and only then are that band's strips hashed and --
-+/// where the hash moved -- copied on into `pixels`. The obvious strip-major order costs far more
-+/// for the same result, because a strip is 64 px wide but the source row is `pitch` bytes apart: it
-+/// reads the source in `STRIP_W * 4`-byte fragments (57,600 of them per 1440p frame, versus 1,440
-+/// full-row reads here), it walks those fragments against the row stride rather than sequentially,
-+/// and it has to read a changed strip out of the source a second time to copy it, because the first
-+/// read went to a fragment-sized scratch that could not be kept.
-+///
-+/// Strips whose hash is unchanged are still not written, so an idle desktop moves no more memory
-+/// than the strip-major order would, and a busy one reads the source once.
-+#[inline(never)]
-+pub(super) fn snapshot_to_shadow(
-+    geometry: crate::video::haar::Geometry,
-+    slot: &mut Option<ShadowSurface>,
-+    source: &kms::framebuffer::FramebufferVMapOwned<VinoObject>,
-+    w: usize,
-+    h: usize,
-+) -> Result {
-+    if w == 0 || h == 0 {
-+        return Err(EINVAL);
-+    }
-+    let row = w.checked_mul(4).ok_or(EINVAL)?;
-+    let need = row.checked_mul(h).ok_or(EINVAL)?;
-+    // GEM dumb buffers pad the pitch, so the source stride is not necessarily `w * 4`.
-+    let pitch = source.pitch();
-+    let view = source.view();
-+
-+    let (sw, sh) = (geometry.strip_w(), geometry.strip_h());
-+    let padded_width = (w + sw - 1) & !(sw - 1);
-+    let padded_height = (h + sh - 1) & !(sh - 1);
-+    let tiles_x = padded_width / sw;
-+    let tiles_y = padded_height / sh;
-+
-+    // A freshly allocated surface holds zeros, not the previous frame, so nothing in it may be
-+    // treated as already up to date however its stored hashes compare.
-+    let band_len = sh.checked_mul(row).ok_or(EINVAL)?;
-+    let mut fresh = false;
-+    if !matches!(slot, Some(s) if s.w == w && s.h == h) {
-+        let mut pixels: KVVec<u8> = KVVec::new();
-+        pixels.resize(need, 0, GFP_KERNEL)?;
-+        let mut hashes: KVVec<u64> = KVVec::new();
-+        hashes.resize(tiles_x * tiles_y, 0, GFP_KERNEL)?;
-+        let mut band: KVVec<u8> = KVVec::new();
-+        band.resize(band_len, 0, GFP_KERNEL)?;
-+        *slot = Some(ShadowSurface {
-+            w,
-+            h,
-+            pixels,
-+            hashes,
-+            band,
-+        });
-+        fresh = true;
-+    }
-+    let shadow = slot.as_mut().ok_or(kernel::error::code::ENOMEM)?;
-+    if shadow.hashes.len() != tiles_x * tiles_y {
-+        shadow.hashes.resize(tiles_x * tiles_y, 0, GFP_KERNEL)?;
-+    }
-+    if shadow.band.len() != band_len {
-+        shadow.band.resize(band_len, 0, GFP_KERNEL)?;
-+    }
-+
-+    // Borrow the three buffers as disjoint fields: the band is read while `pixels` is written.
-+    let ShadowSurface {
-+        pixels,
-+        hashes,
-+        band,
-+        ..
-+    } = shadow;
-+    for ty in 0..tiles_y {
-+        let sy = ty * sh;
-+        let y_end = (sy + sh).min(h);
-+        // The final band is short whenever the height is not a whole number of strips.
-+        let rows = y_end - sy;
-+        // Pull the band out of the source through the checked I/O view, one full row per read.
-+        for dy in 0..rows {
-+            let dst = &mut band[dy * row..dy * row + row];
-+            view.try_copy_to_slice((sy + dy) * pitch, dst)?;
-+        }
-+        for tx in 0..tiles_x {
-+            let sx = tx * sw;
-+            let x_end = (sx + sw).min(w);
-+            let seed = 0x9e37_79b1_85eb_ca87u64
-+                ^ (sx as u64).rotate_left(17)
-+                ^ (sy as u64).rotate_left(43);
-+            let mut hasher = xxhash::Xxh64::new(seed);
-+            let bytes = (x_end - sx) * 4;
-+            // Hash exactly the bytes, in the order, that the strip-major traversal did, so a
-+            // surface's stored hashes stay comparable across this change.
-+            if sx < x_end {
-+                for dy in 0..rows {
-+                    let off = dy * row + sx * 4;
-+                    hasher.update(&band[off..off + bytes])?;
-+                }
-+            }
-+            let hash = hasher.digest();
-+            let idx = ty * tiles_x + tx;
-+            if sx < x_end && (fresh || hashes[idx] != hash) {
-+                for dy in 0..rows {
-+                    let src = dy * row + sx * 4;
-+                    let dst = (sy + dy) * row + sx * 4;
-+                    pixels[dst..dst + bytes].copy_from_slice(&band[src..src + bytes]);
-+                }
-+            }
-+            hashes[idx] = hash;
-+        }
-+    }
-+    Ok(())
-+}
-+
-+/// Convert changed strip hashes into a compact set of damage rectangles.
-+///
-+/// The rectangles are built on the macro-tile grid, not the strip grid, because a touched
-+/// macro-tile is resent whole either way -- see `Geometry::macro_w`. Describing damage at a
-+/// granularity finer than it is transmitted at costs nothing and fragments the list by up to the
-+/// sixteen strips a macro-tile holds, which is enough for a handful of scattered updates to
-+/// exhaust the rectangle ceiling and take the whole surface with them.
-+///
-+/// Horizontal runs are joined, then equal runs on adjacent macro-rows are extended vertically. A
-+/// frame still fragmented past the ceiling falls back to one full-output rectangle rather than
-+/// growing an unbounded allocation or spending more time testing rectangles than encoding strips.
-+#[inline(never)]
-+pub(crate) fn changed_strip_rects(
-+    geometry: crate::video::haar::Geometry,
-+    old: &[u64],
-+    new: &[u64],
-+    padded_width: usize,
-+    padded_height: usize,
-+) -> Result<KVec<DamageRect>> {
-+    const MAX_RECTS: usize = 128;
-+    let tiles_x = padded_width >> geometry.strip_w_shift();
-+    let tiles_y = padded_height >> geometry.strip_h_shift();
-+    if old.len() != tiles_x * tiles_y || new.len() != old.len() {
-+        return Err(EINVAL);
-+    }
-+    let (mw, mh) = (geometry.macro_w(), geometry.macro_h());
-+    let per_x = mw / geometry.strip_w();
-+    let per_y = mh / geometry.strip_h();
-+    let macros_x = tiles_x.div_ceil(per_x);
-+    let macros_y = tiles_y.div_ceil(per_y);
-+    // The macro-tile grid as a changed/unchanged bitmap. One byte a tile: a 4K surface is 544 of
-+    // them, so the map is cheaper than the rectangle list it replaces.
-+    let mut touched: KVVec<u8> = KVVec::new();
-+    touched.resize(macros_x * macros_y, 0, GFP_KERNEL)?;
-+    for ty in 0..tiles_y {
-+        for tx in 0..tiles_x {
-+            if old[ty * tiles_x + tx] != new[ty * tiles_x + tx] {
-+                touched[(ty / per_y) * macros_x + tx / per_x] = 1;
-+            }
-+        }
-+    }
-+    let mut rects: KVec<DamageRect> = KVec::new();
-+    for my in 0..macros_y {
-+        let mut mx = 0usize;
-+        while mx < macros_x {
-+            if touched[my * macros_x + mx] == 0 {
-+                mx += 1;
-+                continue;
-+            }
-+            let run_start = mx;
-+            while mx < macros_x && touched[my * macros_x + mx] != 0 {
-+                mx += 1;
-+            }
-+            let x0 = run_start * mw;
-+            let x1 = (mx * mw).min(padded_width);
-+            let y0 = my * mh;
-+            let y1 = (y0 + mh).min(padded_height);
-+            let mut merged = false;
-+            for prior in rects.iter_mut().rev() {
-+                if prior.0 == x0 && prior.2 == x1 && prior.3 == y0 {
-+                    prior.3 = y1;
-+                    merged = true;
-+                    break;
-+                }
-+            }
-+            if !merged {
-+                if rects.len() == MAX_RECTS {
-+                    let mut full: KVec<DamageRect> = KVec::new();
-+                    full.push((0, 0, padded_width, padded_height), GFP_KERNEL)?;
-+                    return Ok(full);
-+                }
-+                rects.push((x0, y0, x1, y1), GFP_KERNEL)?;
-+            }
-+        }
-+    }
-+    Ok(rects)
-+}
-+
-+/// Maximum packet size of a SuperSpeed bulk endpoint.
-+///
-+/// Only its role as a divisor matters here: a transfer that is a whole number of these ends on a
-+/// full packet and so terminates nothing. A device running below SuperSpeed uses a smaller value,
-+/// which divides this one, so a transfer short by this measure is short by that one too.
-+const BULK_MAX_PACKET: usize = 1024;
-+
-+/// How much of a frame's last transfer is split off behind it so the frame ends short.
-+///
-+/// Any value that is neither zero nor a multiple of [`BULK_MAX_PACKET`] works; a record stride is
-+/// a multiple of sixteen, so this keeps the split on a stride boundary where a record allows one.
-+const FRAME_TAIL_BYTES: usize = 16;
-+
-+/// Hard ceiling on work items per frame, purely to bound per-frame allocation.
-+///
-+/// Each chunk owns synchronization and a coordinate list, so the count must be
-+/// bounded. At `ENCODE_MIN_STRIPS_PER_CHUNK`, a full 1440p frame needs about
-+/// 112 chunks.
-+const ENCODE_MAX_WORK_ITEMS: usize = 256;
-+
-+/// Fewest strips per chunk worth dispatching. Below this the allocation, enqueue and completion
-+/// cost more than the strips themselves; a small delta stays on the serial path.
-+const ENCODE_MIN_STRIPS_PER_CHUNK: usize = 32;
-+
-+/// Immutable driver-owned pixel source shared by parallel encode workers.
-+pub(super) struct PixelSource {
-+    pixels: KVVec<u8>,
-+    pitch: usize,
-+    /// Dimensions of the untransformed framebuffer snapshot.
-+    w: usize,
-+    h: usize,
-+    /// Dimensions and transform of the image presented to the dock.
-+    output_w: usize,
-+    output_h: usize,
-+    rotation: plane::Rotation,
-+    color: Option<crate::color::ColorPipeline>,
-+    /// True when an output pixel is the source pixel at the same coordinates: identity rotation, no
-+    /// gamma table, and output dimensions equal to the snapshot's.
-+    ///
-+    /// Fullscreen video makes `px` the third-hottest symbol in the kernel (13.8% of the machine
-+    /// on a 4K clip), because every one of the ~3.7 M pixels per frame pays a `rot_src` match and
-+    /// a gamma branch that are constant for the whole frame. Deciding once per frame lets the
-+    /// common case read straight out of the snapshot.
-+    direct: bool,
-+    /// Strip hashes computed during the snapshot -- see [`ShadowSurface::hashes`]. Carried through
-+    /// so the encoder does not re-read the whole surface just to re-derive them.
-+    hashes: KVVec<u64>,
-+    /// Bits per channel of the snapshot's pixels, and therefore of the frame the codec produces.
-+    ///
-+    /// Both layouts this handles are four bytes per pixel, so the snapshot copy above is
-+    /// depth-agnostic and only the unpack here differs: `XRGB8888` is three bytes in the low 24
-+    /// bits, `XRGB2101010` three 10-bit fields in the low 30.
-+    depth: crate::video::haar::Depth,
-+    /// Bits per channel of the framebuffer itself, which decides how a pixel is decoded.
-+    ///
-+    /// Equal to `depth` except when userspace asked for a deeper link than the surface it handed
-+    /// over, which is the ordinary way a compositor drives a ten-bit link from an eight-bit
-+    /// desktop. Samples are widened after decoding so the codec always sees `depth`.
-+    source_depth: crate::video::haar::Depth,
-+}
-+
-+/// Whether the encoder can read output pixels straight out of the snapshot. See
-+/// [`PixelSource::direct`].
-+fn direct_pixel_map(
-+    rotation: plane::Rotation,
-+    color: &Option<crate::color::ColorPipeline>,
-+    w: usize,
-+    h: usize,
-+    output_w: usize,
-+    output_h: usize,
-+) -> bool {
-+    color.is_none() && rotation == plane::Rotation::ROTATE_0 && output_w == w && output_h == h
-+}
-+
-+/// Widen an eight-bit sample to ten bits.
-+///
-+/// Replicating the top two bits into the low ones keeps both endpoints exact: black stays zero and
-+/// full white stays full white, where a plain shift would land three codes short of it and tint
-+/// every highlight.
-+#[inline]
-+fn widen_8_to_10(v: u16) -> u16 {
-+    (v << 2) | (v >> 6)
-+}
-+
-+impl PixelSource {
-+    /// Split one packed 32-bit pixel into channels at this source's depth.
-+    #[inline]
-+    fn unpack(&self, p: u32) -> (u16, u16, u16) {
-+        let (r, g, b) = self.unpack_source(p);
-+        self.widen(r, g, b)
-+    }
-+
-+    /// Widen a decoded sample from the framebuffer's depth to the link's.
-+    #[inline]
-+    fn widen(&self, r: u16, g: u16, b: u16) -> (u16, u16, u16) {
-+        match (self.source_depth, self.depth) {
-+            (crate::video::haar::Depth::Eight, crate::video::haar::Depth::Ten) => {
-+                (widen_8_to_10(r), widen_8_to_10(g), widen_8_to_10(b))
-+            }
-+            _ => (r, g, b),
-+        }
-+    }
-+
-+    /// Split one packed 32-bit pixel into channels at the framebuffer's own depth.
-+    #[inline]
-+    fn unpack_source(&self, p: u32) -> (u16, u16, u16) {
-+        match self.source_depth {
-+            // Little-endian XRGB8888.
-+            crate::video::haar::Depth::Eight => (
-+                ((p >> 16) & 0xff) as u16,
-+                ((p >> 8) & 0xff) as u16,
-+                (p & 0xff) as u16,
-+            ),
-+            // XRGB2101010: two ignored bits, then R, G, B ten bits each.
-+            crate::video::haar::Depth::Ten => (
-+                ((p >> 20) & 0x3ff) as u16,
-+                ((p >> 10) & 0x3ff) as u16,
-+                (p & 0x3ff) as u16,
-+            ),
-+        }
-+    }
-+
-+    /// Read one gamma-corrected pixel in untransformed framebuffer coordinates.
-+    #[inline]
-+    fn source_px(&self, sx: usize, sy: usize) -> (u16, u16, u16) {
-+        if sx >= self.w || sy >= self.h {
-+            return (0, 0, 0);
-+        }
-+        let off = sy * self.pitch + sx * 4;
-+        // Bounds-checked once per pixel instead of the serial path's raw `read_unaligned`. The
-+        // check is noise next to the 64-coefficient transform each pixel feeds.
-+        let Some(chunk) = self.pixels.get(off..off + 4) else {
-+            return (0, 0, 0);
++            0
 +        };
-+        let Ok(bytes) = <[u8; 4]>::try_from(chunk) else {
-+            return (0, 0, 0);
-+        };
-+        let (r, g, b) = self.unpack(u32::from_le_bytes(bytes));
-+        match &self.color {
-+            // The colour pipeline's tables are 8-bit, so a 10-bit surface is corrected at 8-bit
-+            // precision and scaled back. That loses up to two low bits of a corrected pixel -- but ignoring the
-+            // correction instead would leave a compositor's night-colour shift silently unapplied
-+            // on exactly the outputs most likely to be colour-managed. Revisit with a 10-bit LUT if
-+            // banding is ever measured on a corrected HDR connector.
-+            Some(pipeline) => match self.depth {
-+                crate::video::haar::Depth::Eight => {
-+                    let (r, g, b) = pipeline.apply(r as u8, g as u8, b as u8);
-+                    (r as u16, g as u16, b as u16)
-+                }
-+                crate::video::haar::Depth::Ten => {
-+                    let (r, g, b) = pipeline.apply((r >> 2) as u8, (g >> 2) as u8, (b >> 2) as u8);
-+                    (
-+                        (r as u16) << 2 | (r as u16 >> 6),
-+                        (g as u16) << 2 | (g as u16 >> 6),
-+                        (b as u16) << 2 | (b as u16 >> 6),
-+                    )
-+                }
-+            },
-+            None => (r, g, b),
-+        }
-+    }
-+
-+    /// Read one output pixel after applying the plane transform.
-+    ///
-+    /// Keeping the transform in the immutable shared source gives serial and parallel encoding
-+    /// exactly the same sampler. Codec padding is black and never reads beyond the snapshot.
-+    #[inline]
-+    fn px(&self, dx: usize, dy: usize) -> (u16, u16, u16) {
-+        if self.direct {
-+            // The codec pads the surface up to whole strips and expects black outside the image, so
-+            // the bounds check stays: without it a read past the row wraps into the next one.
-+            if dx >= self.w || dy >= self.h {
-+                return (0, 0, 0);
-+            }
-+            let off = dy * self.pitch + dx * 4;
-+            let Some(chunk) = self.pixels.get(off..off + 4) else {
-+                return (0, 0, 0);
-+            };
-+            if let crate::video::haar::Depth::Eight = self.source_depth {
-+                // Little-endian XRGB8888: byte 0 is blue, 1 green, 2 red.
-+                return self.widen(chunk[2] as u16, chunk[1] as u16, chunk[0] as u16);
-+            }
-+            let Ok(bytes) = <[u8; 4]>::try_from(chunk) else {
-+                return (0, 0, 0);
-+            };
-+            return self.unpack(u32::from_le_bytes(bytes));
-+        }
-+        if dx >= self.output_w || dy >= self.output_h {
-+            return (0, 0, 0);
-+        }
-+        let (sx, sy) = rot_src(self.rotation, dx, dy, self.w, self.h);
-+        self.source_px(sx, sy)
-+    }
-+}
-+
-+/// vino's own workqueue for the parallel strip encode.
-+///
-+/// On the shared `system_unbound` pool the encode's CPU time is anonymous: the kernel
-+/// composes worker thread names from the workqueue's, so shared-pool work appears only as
-+/// `kworker/uN:M-events_unbound`, indistinguishable from every other user of that pool. On a queue
-+/// of our own the same threads appear as `kworker/uN:M-vino_encode`, so `ps`/`top`/`perf`
-+/// attribute the codec's cost to vino, and the fan-out does not compete with unrelated work for
-+/// the shared pool's concurrency budget.
-+///
-+/// `WQ_UNBOUND` because strip encoding is pure compute with no CPU affinity worth preserving --
-+/// that property is what let the fan-out reach ~7.4x. Allocated once on first use and never
-+/// destroyed: it is driver-wide, costs one `workqueue_struct`, and outliving every `EncodeChunk` is
-+/// exactly what makes the join safe.
-+///
-+/// `max_active` is the CPU count. An unbound queue built without it takes `WQ_DFL_ACTIVE`, which is
-+/// half of `WQ_MAX_ACTIVE` and so far above any useful degree of parallelism that it does not bound
-+/// the fan-out at all: a full frame is a few hundred chunks per connector, and every one of them
-+/// becomes a runnable CPU-bound worker at once. On a machine that is already busy that is not
-+/// parallelism, it is a thundering herd -- it evicts the caches the codec depends on and stalls
-+/// unrelated work, including the compositor thread this driver is waiting on. Fine-grained chunks
-+/// are still the right unit (see `encode_across_cpus`); how many run at once is a separate
-+/// decision, and this is where it is made.
-+///
-+/// Falls back to `system_unbound` if the allocation ever fails, so a failure here costs the thread
-+/// *name*, not the driver.
-+fn encode_queue() -> Option<&'static workqueue::Queue> {
-+    static ENCODE_WQ: kernel::sync::SetOnce<workqueue::OwnedQueue> = kernel::sync::SetOnce::new();
-+    if let Some(q) = ENCODE_WQ.as_ref() {
-+        return Some(q);
-+    }
-+    // A concurrent racer may win the `SetOnce`; its queue is dropped and the winner's is used.
-+    if let Ok(q) = workqueue::Queue::new_unbound()
-+        .max_active(kernel::cpu::nr_cpu_ids().max(1))
-+        .build(kernel::c_str!("vino_encode"))
-+    {
-+        let _ = ENCODE_WQ.populate(q);
-+    }
-+    ENCODE_WQ.as_ref().map(|q| &**q)
-+}
-+
-+/// Encode a batch of strips from `src`, in the order given.
-+fn encode_coords(
-+    geometry: crate::video::haar::Geometry,
-+    src: &PixelSource,
-+    coords: &[(usize, usize)],
-+) -> Result<KVec<KVec<u8>>> {
-+    let mut out = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
-+    for &(sx, sy) in coords.iter() {
-+        let mut px = |dx, dy| src.px(dx, dy);
-+        out.push(
-+            crate::video::haar::colour_strip_at(geometry, sx, sy, &mut px)?,
-+            GFP_KERNEL,
-+        )?;
-+    }
-+    Ok(out)
-+}
-+
-+/// One contiguous batch of strips, encoded on whichever CPU the unbound workqueue picks.
-+///
-+/// Chunks share nothing but the read-only [`PixelSource`]: each writes only its own `out`, so no
-+/// locking is needed on the hot path and the results reassemble by chunk order.
-+#[pin_data]
-+struct EncodeChunk {
-+    #[pin]
-+    work: Work<EncodeChunk>,
-+    #[pin]
-+    done: Completion,
-+    src: Arc<PixelSource>,
-+    coords: KVec<(usize, usize)>,
-+    /// The dock's strip layout, carried per chunk so two docks of different generations can
-+    /// encode concurrently on the same workqueue.
-+    geometry: crate::video::haar::Geometry,
-+    /// Encoded strip bodies. Written once by the worker, read once by the joiner after `done`;
-+    /// the lock is uncontended and taken twice per chunk per frame.
-+    #[pin]
-+    out: Mutex<KVec<KVec<u8>>>,
-+}
-+
-+impl_has_work! {
-+    impl HasWork<Self> for EncodeChunk { self.work }
-+}
-+
-+impl EncodeChunk {
-+    fn new(
-+        geometry: crate::video::haar::Geometry,
-+        src: Arc<PixelSource>,
-+        coords: KVec<(usize, usize)>,
-+    ) -> Result<Arc<Self>> {
-+        Arc::pin_init(
-+            pin_init!(EncodeChunk {
-+                work <- new_work!("vino::EncodeChunk::work"),
-+                done <- Completion::new(),
-+                src,
-+                coords,
-+                geometry,
-+                out <- new_mutex!(KVec::new(), "vino::EncodeChunk::out"),
-+            }),
-+            GFP_KERNEL,
-+        )
-+    }
-+}
-+
-+impl WorkItem for EncodeChunk {
-+    type Pointer = Arc<EncodeChunk>;
-+
-+    fn run(this: Arc<EncodeChunk>) {
-+        if let Ok(strips) = encode_coords(this.geometry, &this.src, &this.coords) {
-+            *this.out.lock() = strips;
-+        }
-+        // Complete unconditionally. On failure `out` stays short and the joiner detects that by
-+        // length -- but it must never be left blocked on a completion that cannot fire.
-+        this.done.complete_all();
-+    }
-+}
-+
-+/// Encode `coords` across CPUs and return the strip bodies in the same order.
-+///
-+/// Order is not a nicety: [`crate::video::haar::frame_records`] groups strips into one wire record
-+/// per single-Y band and needs them x-ordered within a band, so the chunks are contiguous slices
-+/// of the raster-ordered coordinate list and are reassembled strictly in chunk order.
-+///
-+/// Returns `Ok(None)` when the frame is too small to be worth splitting, so the caller falls
-+/// through to the serial encoder rather than paying dispatch cost for a handful of strips.
-+fn parallel_strip_encode(
-+    geometry: crate::video::haar::Geometry,
-+    src: &Arc<PixelSource>,
-+    coords: &[(usize, usize)],
-+) -> Result<Option<KVec<KVec<u8>>>> {
-+    // Size chunks from the amount of work, not from the CPU count. Handing the queue more, smaller
-+    // items than there are CPUs costs a little dispatch overhead but improves load balancing: with
-+    // one chunk per CPU a single slow chunk holds up the whole join, whereas fine-grained items let
-+    // idle workers pick up the remainder.
-+    //
-+    // This is only safe because `encode_queue` caps `max_active` at the CPU count. The chunk count
-+    // is the unit of work; that cap is what keeps the count from also becoming the number of
-+    // threads competing for the machine.
-+    let nchunks = (coords.len() / ENCODE_MIN_STRIPS_PER_CHUNK).min(ENCODE_MAX_WORK_ITEMS);
-+    if nchunks < 2 {
-+        return Ok(None);
-+    }
-+    let per = coords.len().div_ceil(nchunks);
-+
-+    let mut chunks: KVec<Arc<EncodeChunk>> = KVec::with_capacity(nchunks, GFP_KERNEL)?;
-+    let mut queued: KVec<bool> = KVec::with_capacity(nchunks, GFP_KERNEL)?;
-+    let mut start = 0usize;
-+    while start < coords.len() {
-+        let end = (start + per).min(coords.len());
-+        let mut mine: KVec<(usize, usize)> = KVec::with_capacity(end - start, GFP_KERNEL)?;
-+        for &c in &coords[start..end] {
-+            mine.push(c, GFP_KERNEL)?;
-+        }
-+        let chunk = EncodeChunk::new(geometry, src.clone(), mine)?;
-+        // `enqueue` gives the item back if it is already pending -- impossible for one allocated
-+        // a line ago, but if it ever happened, waiting on its completion would hang the scanout
-+        // worker forever. Record it and encode that chunk inline instead.
-+        let ok = encode_queue()
-+            .map_or_else(
-+                || workqueue::system_unbound().enqueue(chunk.clone()),
-+                |q| q.enqueue(chunk.clone()),
-+            )
-+            .is_ok();
-+        queued.push(ok, GFP_KERNEL)?;
-+        chunks.push(chunk, GFP_KERNEL)?;
-+        start = end;
-+    }
-+
-+    // The scanout worker runs on the per-device scanout queue, so blocking here cannot deadlock
-+    // against the separate unbound pool the chunks run on.
-+    let mut strips: KVec<KVec<u8>> = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
-+    for (i, chunk) in chunks.iter().enumerate() {
-+        let mine = if queued[i] {
-+            chunk.done.wait_for_completion();
-+            core::mem::take(&mut *chunk.out.lock())
++        let new_refresh = if new.active() {
++            new.mode().vrefresh()
 +        } else {
-+            encode_coords(chunk.geometry, &chunk.src, &chunk.coords)?
++            0
 +        };
-+        if mine.len() != chunk.coords.len() {
-+            // A chunk failed to allocate. Sending a frame with strips missing would paint a
-+            // partial image the dock would keep, so fail the whole encode and let the caller's
-+            // retry/backoff handle it.
-+            return Err(ENOMEM);
-+        }
-+        for s in mine {
-+            strips.push(s, GFP_KERNEL)?;
-+        }
-+    }
-+    Ok(Some(strips))
-+}
-+
-+/// Verify that workqueue fan-out produces the same strip bytes as the serial transformed sampler.
-+///
-+/// This is kept behind the Vino KUnit option so the production driver carries no test allocation
-+/// or dispatch path. The deliberately unaligned output also verifies that both paths produce
-+/// identical black codec padding.
-+#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+pub(crate) fn parallel_rotation_matches_serial(rotation: plane::Rotation) -> Result {
-+    let (output_w, output_h) = (500usize, 123usize);
-+    let (w, h) = src_dims(rotation, output_w, output_h);
-+    let len = w
-+        .checked_mul(h)
-+        .and_then(|n| n.checked_mul(4))
-+        .ok_or(EINVAL)?;
-+    let mut pixels: KVVec<u8> = KVVec::new();
-+    pixels.resize(len, 0, GFP_KERNEL)?;
-+    for sy in 0..h {
-+        for sx in 0..w {
-+            let off = (sy * w + sx) * 4;
-+            pixels[off] = ((sx * 3 + sy * 5) & 0xff) as u8;
-+            pixels[off + 1] = ((sx * 7 + sy * 11) & 0xff) as u8;
-+            pixels[off + 2] = ((sx * 13 + sy * 17) & 0xff) as u8;
-+            pixels[off + 3] = 0xff;
-+        }
-+    }
-+    let src = Arc::new(
-+        PixelSource {
-+            pixels,
-+            pitch: w * 4,
-+            w,
-+            h,
-+            output_w,
-+            output_h,
-+            rotation,
-+            color: None,
-+            direct: direct_pixel_map(rotation, &None, w, h, output_w, output_h),
-+            hashes: KVVec::new(),
-+            depth: crate::video::haar::Depth::Eight,
-+            source_depth: crate::video::haar::Depth::Eight,
-+        },
-+        GFP_KERNEL,
-+    )?;
-+    let geometry = crate::video::haar::RIDGE_GEOMETRY;
-+    let padded_width = output_w.next_multiple_of(geometry.strip_w());
-+    let padded_height = output_h.next_multiple_of(geometry.strip_h());
-+    let coords = crate::video::haar::all_strip_coords(geometry, padded_width, padded_height)?;
-+
-+    let mut serial: KVec<KVec<u8>> = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
-+    for &(strip_x, strip_y) in coords.iter() {
-+        let mut px = |dx, dy| {
-+            if dx >= output_w || dy >= output_h {
-+                return (0, 0, 0);
-+            }
-+            let (sx, sy) = rot_src(rotation, dx, dy, w, h);
-+            src.source_px(sx, sy)
-+        };
-+        serial.push(
-+            crate::video::haar::colour_strip_at(geometry, strip_x, strip_y, &mut px)?,
-+            GFP_KERNEL,
-+        )?;
-+    }
-+
-+    let parallel = parallel_strip_encode(geometry, &src, &coords)?.ok_or(EINVAL)?;
-+    if serial.len() != parallel.len()
-+        || serial
-+            .iter()
-+            .zip(parallel.iter())
-+            .any(|(expected, actual)| expected[..] != actual[..])
-+    {
-+        return Err(EINVAL);
-+    }
-+    Ok(())
-+}
-+
-+/// A frame that trips one of these is dropped between the compositor's commit and the wire.
-+fn scanout_gate(connector: u8, reason: &str) {
-+    vino_debug!("vino: scanout connector={connector} deferred: {reason}\n");
-+}
-+
-+#[inline(never)]
-+fn encode_and_send_haar(
-+    dev: &BoundInterface<'_>,
-+    data: &VinoDrmData,
-+    connector: u8,
-+    src: &Arc<PixelSource>,
-+    rotation: plane::Rotation,
-+    _clips: &[(usize, usize, usize, usize)],
-+    w: usize,
-+    h: usize,
-+) -> Result {
-+    let geometry = data.geometry_for_connector(connector);
-+    let connector_index = connector as usize;
-+    // The vendor sends the frames that open a stream without the steady-state record bit and
-+    // every frame after them with it, whether they carry a whole surface or one damaged strip.
-+    // The training window is that opening.
-+    let opening = data.sustain_until.lock()[connector_index]
-+        .is_some_and(|until| (until - Instant::<Monotonic>::now()).as_millis() > 0);
-+    let geometry = if opening {
-+        geometry.opening()
-+    } else {
-+        geometry
-+    };
-+    // Gate video on the matching mode-set reaching the dock. Plane updates run before the CRTC
-+    // enable queues that mode-set, and the dock rejects video on an unconfigured stream. Deferring
-+    // does not advance the codec sequence; the next scanout pass retries the frame.
-+    let want = data.modeset_requested[connector_index].load(core::sync::atomic::Ordering::Acquire);
-+    if want == 0 {
-+        scanout_gate(connector, "no mode-set requested (modeset_requested == 0)");
-+        return Ok(());
-+    }
-+    // A dock that cannot report downstream presence offers every connector it has, because its
-+    // activation is one dock-wide transaction and a connector nobody described is not the same dock
-+    // state as a connector that does not exist. The empty socket still recovers no EDID, and
-+    // painting it spends a full surface per repaint on a sink that is not there -- on this family
-+    // over the endpoint its control plane also needs. So configure the connector and leave it
-+    // showing the black its carrier put there, rather than streaming to nothing.
-+    if !data.reports_presence() && !data.connector_has_edid(connector_index) {
-+        scanout_gate(connector, "no monitor has described this socket");
-+        return Ok(());
-+    }
-+    let cached = data.last_timing.lock()[connector_index];
-+    if !cached.is_some_and(|t| {
-+        timing_key(&t) == want && t.hactive as usize == w && t.vactive as usize == h
-+    }) {
-+        scanout_gate(
-+            connector,
-+            "cached timing does not match the requested mode generation",
-+        );
-+        return Ok(());
-+    }
-+    if data.modeset_active[connector_index].load(core::sync::atomic::Ordering::Acquire) != want {
-+        // A failed command-worker activation leaves the desired generation intact. This worker is
-+        // sleepable, so retry the same transaction before submitting its pending framebuffer.
-+        let timing = cached.ok_or(EINVAL)?;
-+        data.activate_head(dev, connector, &timing, want)?;
-+        // A successful inline retry has made this very commit safe to send: continue into the
-+        // encoder instead of waiting for another page flip.  A completely static connector may not
-+        // receive another atomic update after its enabling commit.
-+        if data.modeset_active[connector_index].load(core::sync::atomic::Ordering::Acquire) != want
-+        {
-+            scanout_gate(
-+                connector,
-+                "mode-set not active and the inline re-send did not land",
++        if new_refresh > old_refresh && !data.refresh_within_limit(new_refresh) {
++            let limit = data.max_refresh_hz();
++            pr_warn!(
++                "vino: socket {socket} refresh {new_refresh} exceeds {limit} Hz\n",
++                socket = connector + 1
 +            );
-+            return Ok(());
-+        }
-+    }
-+    let seq0 = data.scanout_seq.lock()[connector_index];
-+    // Source dimensions (swapped from the output for 90/270 rotation).
-+    let (sw, sh) = src_dims(rotation, w, h);
-+    if src.w != sw
-+        || src.h != sh
-+        || src.output_w != w
-+        || src.output_h != h
-+        || src.rotation != rotation
-+    {
-+        return Err(EINVAL);
-+    }
-+    // Full keyframe vs damage delta. A mode-set requires a keyframe; rotation/reflection remains
-+    // conservative because the content shadow is deliberately stored in unrotated framebuffer
-+    // space. For identity rotation, compare the actual framebuffer instead of trusting optional
-+    // FB_DAMAGE_CLIPS: KWin commonly changes framebuffer objects without publishing that blob.
-+    let kf_bit = 1u32 << connector_index;
-+    let identity = rotation.angle() == plane::Rotation::ROTATE_0
-+        && !rotation.contains(plane::Rotation::REFLECT_X | plane::Rotation::REFLECT_Y);
-+    let owes_keyframe = data
-+        .keyframe_pending
-+        .load(core::sync::atomic::Ordering::Acquire)
-+        & kf_bit
-+        != 0;
-+    let mut full = owes_keyframe || !identity;
-+    // The codec operates on complete 64x16 strips. Pad non-aligned modes to the next strip
-+    // boundary; the mode-set retains the visible dimensions and the sampler supplies black for
-+    // pixels outside them.
-+    let padded_width = (w + geometry.strip_w() - 1) & !(geometry.strip_w() - 1);
-+    let padded_height = (h + geometry.strip_h() - 1) & !(geometry.strip_h() - 1);
-+    let mut content_hashes: Option<KVVec<u64>> = None;
-+    let mut content_damage: KVec<DamageRect> = KVec::new();
-+    // Strips whose pixels moved since the last accepted frame, before the retransmit debt and the
-+    // macro-tile rounding widen that into what is actually sent. Reported next to the selected
-+    // count so an oversized delta says which of the two widened it.
-+    let mut moved_strips = 0usize;
-+    if identity {
-+        let expected = (padded_width >> geometry.strip_w_shift())
-+            * (padded_height >> geometry.strip_h_shift());
-+        if src.hashes.len() != expected {
 +            return Err(EINVAL);
 +        }
-+        let mut hashes: KVVec<u64> = KVVec::new();
-+        hashes.resize(expected, 0, GFP_KERNEL)?;
-+        hashes.copy_from_slice(&src.hashes);
-+        if !full {
-+            let previous = data.strip_hashes.lock();
-+            if let Some(state) = &previous[connector_index] {
-+                if state.padded_width == padded_width && state.padded_height == padded_height {
-+                    // Charge every strip whose content moved with the profile's logical-frame
-+                    // debt, then select every strip that still owes a transmission -- including
-+                    // ones that changed on an earlier frame and have not reached every dock
-+                    // buffer. See `dirty_ttl` and `FrameDelivery`.
-+                    let mut ttl = data.dirty_ttl.lock();
-+                    if !ttl[connector_index]
-+                        .as_ref()
-+                        .is_some_and(|t| t.len() == hashes.len())
-+                    {
-+                        let mut fresh: KVVec<u8> = KVVec::new();
-+                        fresh.resize(hashes.len(), 0, GFP_KERNEL)?;
-+                        ttl[connector_index] = Some(fresh);
-+                    }
-+                    let debt = ttl[connector_index]
-+                        .as_mut()
-+                        .ok_or(kernel::error::code::ENOMEM)?;
-+                    let damage_frames = data.frame_delivery().damage_frames.max(1);
-+                    for i in 0..hashes.len() {
-+                        if state.hashes[i] != hashes[i] {
-+                            debt[i] = damage_frames;
-+                            moved_strips += 1;
-+                        }
-+                    }
-+                    // Reuse the hash differ: mark an owed strip by handing it a baseline value that
-+                    // cannot match, and an unowed one its own value.
-+                    let mut baseline: KVVec<u64> = KVVec::new();
-+                    baseline.resize(hashes.len(), 0, GFP_KERNEL)?;
-+                    for i in 0..hashes.len() {
-+                        baseline[i] = if debt[i] > 0 { !hashes[i] } else { hashes[i] };
-+                    }
-+                    content_damage = changed_strip_rects(
-+                        geometry,
-+                        &baseline,
-+                        &hashes,
-+                        padded_width,
-+                        padded_height,
-+                    )?;
-+                } else {
-+                    full = true;
-+                }
-+            } else {
-+                full = true;
-+            }
-+        }
-+        content_hashes = Some(hashes);
-+    }
-+    if !full && content_damage.is_empty() {
-+        scanout_gate(connector, "no keyframe owed and no strip content changed");
-+        return Ok(());
-+    }
-+    // Serial fallback and parallel workers share the same transformed sampler.
-+    let px = |dx: usize, dy: usize| src.px(dx, dy);
-+    // Damage selection and encoded-strip reuse remain identity-only. Rotated and reflected frames
-+    // are conservative full updates, but their independent strips can use the same workqueue
-+    // fan-out as an identity keyframe.
-+    // What the encoded bytes depend on besides the strip pixels themselves; see
-+    // `StripHashState::tag`. Identity rotation is a precondition of caching at all, so it needs no
-+    // representation here.
-+    let encode_tag = {
-+        let gamma = match &src.color {
-+            Some(pipeline) => pipeline.tag(),
-+            None => 0,
-+        };
-+        // The sample depth belongs here for the same reason the colour transform does, and is the
-+        // more dangerous of the two: changing it re-maps every sample on the way into the codec
-+        // and moves the escape ceiling, while leaving the framebuffer byte for byte identical. A
-+        // cache keyed on the pixels alone therefore serves bodies encoded at the old depth inside
-+        // a stream declared at the new one, and the dock decodes part of the frame as noise.
-+        let deep = matches!(src.depth, crate::video::haar::Depth::Ten);
-+        gamma ^ (u64::from(deep) * 0x9e37_79b9_7f4a_7c15)
-+    };
-+    // Strips carried over verbatim from the previous frame's encode, and the strips actually
-+    // handed to the codec; kept for the post-send cache publish below.
-+    let mut encoded: Option<(KVec<(usize, usize)>, KVec<KVec<u8>>)> = None;
-+    let parallel = if !identity {
-+        let coords = crate::video::haar::all_strip_coords(geometry, padded_width, padded_height)?;
-+        match parallel_strip_encode(geometry, src, &coords)? {
-+            Some(strips) => {
-+                let records = if geometry.connector_selector_shift != 0 {
-+                    crate::video::haar::frame_records_navarro_ordinary(
-+                        geometry, &strips, connector,
-+                    )?
-+                } else {
-+                    crate::video::haar::frame_records(geometry, &strips, connector)?
-+                };
-+                Some(records)
-+            }
-+            None => None,
-+        }
-+    } else {
-+        let coords = if full {
-+            crate::video::haar::all_strip_coords(geometry, padded_width, padded_height)?
-+        } else {
-+            crate::video::haar::damage_strip_coords(
-+                geometry,
-+                padded_width,
-+                padded_height,
-+                &content_damage,
-+            )?
-+        };
-+        // What this frame costs the dock, and why. A delta that selects far more strips than moved
-+        // was widened by the retransmit debt or by rounding out to whole macro-tiles; one that
-+        // selects the surface from a handful of rectangles hit the rectangle ceiling instead.
-+        vino_debug!(
-+            "vino: scanout connector={} {} {}/{} strips from {} rect(s), {} moved\n",
-+            connector,
-+            if full { "keyframe" } else { "delta" },
-+            coords.len(),
-+            (padded_width >> geometry.strip_w_shift())
-+                * (padded_height >> geometry.strip_h_shift()),
-+            content_damage.len(),
-+            moved_strips
-+        );
-+        // Reuse an encoded strip body when its pixels and gamma tag are unchanged. Encode only
-+        // misses, then restore the required x-order within each Y band.
-+        let tiles_x = padded_width >> geometry.strip_w_shift();
-+        let mut reuse: KVec<Option<KVec<u8>>> = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
-+        let mut misses: KVec<(usize, usize)> = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
-+        {
-+            let cache = data.strip_hashes.lock();
-+            let usable = cache[connector_index].as_ref().filter(|c| {
-+                c.padded_width == padded_width
-+                    && c.padded_height == padded_height
-+                    && c.tag == encode_tag
-+            });
-+            for &(sx, sy) in coords.iter() {
-+                let idx =
-+                    (sy >> geometry.strip_h_shift()) * tiles_x + (sx >> geometry.strip_w_shift());
-+                let hit = usable.and_then(|c| {
-+                    // Same pixels as when this body was produced, and a body was kept.
-+                    let same = c.hashes.get(idx).zip(content_hashes.as_ref()?.get(idx));
-+                    let body = c.bodies.get(idx)?;
-+                    (same.is_some_and(|(a, b)| a == b) && !body.is_empty()).then_some(body)
-+                });
-+                match hit {
-+                    Some(body) => {
-+                        let mut copy: KVec<u8> = KVec::with_capacity(body.len(), GFP_KERNEL)?;
-+                        copy.extend_from_slice(body, GFP_KERNEL)?;
-+                        reuse.push(Some(copy), GFP_KERNEL)?;
-+                    }
-+                    None => {
-+                        reuse.push(None, GFP_KERNEL)?;
-+                        misses.push((sx, sy), GFP_KERNEL)?;
-+                    }
-+                }
-+            }
-+        }
-+        let fresh = match parallel_strip_encode(geometry, src, &misses)? {
-+            Some(s) => Some(s),
-+            // Too few misses to be worth splitting: encode them here rather than dropping to
-+            // the whole-frame serial path, which would re-encode the cache hits as well.
-+            None if !misses.is_empty() => Some(encode_coords(geometry, src, &misses)?),
-+            None => Some(KVec::new()),
-+        };
-+        match fresh {
-+            Some(fresh) if fresh.len() == misses.len() => {
-+                let mut strips: KVec<KVec<u8>> = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
-+                let mut next = fresh.into_iter();
-+                for slot in reuse {
-+                    match slot {
-+                        Some(body) => strips.push(body, GFP_KERNEL)?,
-+                        None => strips.push(next.next().ok_or(EINVAL)?, GFP_KERNEL)?,
-+                    }
-+                }
-+                let records = if full && geometry.connector_selector_shift != 0 {
-+                    crate::video::haar::frame_records_navarro_ordinary(
-+                        geometry, &strips, connector,
-+                    )?
-+                } else {
-+                    crate::video::haar::frame_records(geometry, &strips, connector)?
-+                };
-+                encoded = Some((coords, strips));
-+                Some(records)
-+            }
-+            _ => None,
-+        }
-+    };
-+    let frames = match parallel {
-+        Some(r) => r,
-+        None if full && geometry.connector_selector_shift != 0 => {
-+            crate::video::haar::colour_frame_ep08_navarro_ordinary(
-+                geometry,
-+                padded_width,
-+                padded_height,
-+                connector,
-+                px,
-+            )?
-+        }
-+        None if full => crate::video::haar::colour_frame_ep08(
-+            geometry,
-+            padded_width,
-+            padded_height,
-+            connector,
-+            px,
-+        )?,
-+        None => crate::video::haar::colour_frame_ep08_damage(
-+            geometry,
-+            padded_width,
-+            padded_height,
-+            connector,
-+            &content_damage,
-+            px,
-+        )?,
-+    };
-+    // A damage delta that touched no aligned strip = nothing to send this flip: skip the write
-+    // (no seq advance, no arm, keyframe obligation untouched). Full frames always have strips.
-+    if frames.is_empty() {
-+        scanout_gate(connector, "encoder produced zero records");
-+        return Ok(());
-+    }
-+    if data.shutting_down.load(Ordering::Acquire)
-+        || data.modeset_requested[connector_index].load(Ordering::Acquire) != want
-+        || data.modeset_active[connector_index].load(Ordering::Acquire) != want
-+    {
-+        scanout_gate(
-+            connector,
-+            "mode generation changed between encode and submit",
-+        );
-+        return Ok(());
-+    }
-+    // A frame is one continuous bulk stream: intermediate transfers end on a full 1024-byte packet
-+    // and only the final transfer is short. A short packet at a record boundary terminates the
-+    // frame early and desynchronises the dock. The first frame after a mode set also prepends the
-+    // connector's ten-record arm burst; clear that obligation only after a successful submission.
-+    let connector_bit = 1u32 << connector;
-+    // The 2560-byte arm burst appears only on frame zero after a mode set. Later frames begin
-+    // directly with video records.
-+    let arm = if data
-+        .arm_prefix_pending
-+        .load(core::sync::atomic::Ordering::Acquire)
-+        & connector_bit
-+        != 0
-+    {
-+        Some(data.build_stream_prefix_buf(connector_index)?)
-+    } else {
-+        None
-+    };
-+    let arm_len = arm.as_ref().map_or(0, |a| a.len());
-+    // Revalidate at the actual wire boundary too. The encoded bytes and ARM prefix are specific to
-+    // this mode generation; submitting them after a concurrent disable/re-enable poisons the next
-+    // stream even though every USB URB can still complete successfully.
-+    if data.shutting_down.load(Ordering::Acquire)
-+        || data.modeset_requested[connector_index].load(Ordering::Acquire) != want
-+        || data.modeset_active[connector_index].load(Ordering::Acquire) != want
-+    {
-+        vino_debug!(
-+            "vino: scanout connector={} superseded before video submit; frame discarded\n",
-+            connector
-+        );
-+        return Ok(());
-+    }
-+    // Preserve the last readiness-to-video adjacency from the VINO session that lit both panels.
-+    // These are real CP status transactions (with EP84 replies drained by `send_cp`), paced at the
-+    // required cadence, and only run for frame zero while the ARM prefix is present.
-+    if arm.is_some() {
-+        for _ in 0..VinoDrmData::PREWRITE_POLLS {
-+            data.poll_status(dev)?;
-+            fsleep(Delta::from_millis(VinoDrmData::PREWRITE_POLL_MS as i64));
-+        }
-+        vino_debug!(
-+            "vino: inline pre-write paced poll ({}x @{}ms) before first video connector={}\n",
-+            VinoDrmData::PREWRITE_POLLS,
-+            VinoDrmData::PREWRITE_POLL_MS,
-+            connector
-+        );
-+    }
-+    // Frame zero starts with an arm record; later frames start with video records. Record fragments
-+    // are allocation boundaries only and are joined into exact 64-KiB transfers below without a
-+    // whole-frame coalescing allocation.
-+    let frame_count = frames.len();
-+    let image_len: usize = frames.iter().take(frame_count).map(|f| f.len()).sum();
-+    // The DL7400's per-strip parameter map. DLM and Windows both include it in frame zero after
-+    // at least some image records; the deterministic image-then-map ordering is used below. Ridge
-+    // has no equivalent record and gets an empty slice.
-+    let params: KVec<u8> = if geometry.connector_selector_shift == 0 {
-+        KVec::new()
-+    } else {
-+        crate::video::haar::navarro_strip_params(
-+            geometry,
-+            connector,
-+            padded_width,
-+            padded_height,
-+            &frames,
-+            &mut data.strip_classes.lock()[connector_index],
-+        )?
-+    };
-+    vino_debug!(
-+        "vino: connector={} shift={} params={} B ({}x{} pad)\n",
-+        connector,
-+        geometry.connector_selector_shift,
-+        params.len(),
-+        padded_width,
-+        padded_height
-+    );
-+    if arm.is_some() {
-+        data.send_stream_open(dev, connector_index)?;
-+    }
-+    let startup = arm.is_some();
-+    // A cold link requires a bounded back-to-back full-frame burst until the downstream clock is
-+    // programmed. Reuse the encoded image and advance only its frame trailer and per-frame control
-+    // sync. The arm prefix remains exclusive to presentation zero.
-+    let training = full
-+        && data.sustain_until.lock()[connector_index]
-+            .is_some_and(|until| (until - Instant::<Monotonic>::now()).as_millis() > 0);
-+    // A dock that shares its control pipe cannot be given the training window's presentation
-+    // count: a whole-surface keyframe is 1.88 MB there, and eight back-to-back copies of it are
-+    // 15 MB in one scanout against a dock DLM feeds at 0.86 MB/s. Measured, the dock accepts
-+    // three such frames and then stops answering the control plane entirely. Every buffer still
-+    // gets the keyframe; it just does not get it eight times.
-+    // A keyframe has to initialise every buffer before its content shadow can become authoritative.
-+    // Ordinary updates are different: DLM sends one Ella presentation per logical frame and lets
-+    // successive frames walk the ring.  The profile keeps those two requirements separate and the
-+    // damage ledger schedules later logical frames if the compositor becomes idle.
-+    let repeat_count = frame_presentation_count(
-+        data.frame_delivery(),
-+        full,
-+        training,
-+        data.video_on_ctrl_pipe(),
-+    );
-+    let first_opener_len = data
-+        .build_frame_opener(connector, seq0, startup)
-+        .as_ref()
-+        .map_or(0, |o| o.len());
-+    // Every ordinary Navarro presentation pairs its frame-sub records with one authenticated
-+    // report on the stream sub. Build presentation zero once here so the diagnostic length and
-+    // the bytes submitted below refer to the same live counter reservation. The prologue itself
-+    // has no report; presentation one will allocate its own inside the loop.
-+    let mut first_report = if startup {
-+        None
-+    } else {
-+        data.build_stream_report_buf(connector_index, seq0)?
-+    };
-+    let first_report_len = first_report.as_ref().map_or(0, |r| r.len());
-+    let first_wire_len = arm_len
-+        + first_opener_len
-+        + first_report_len
-+        + params.len()
-+        + image_len
-+        + data.build_frame_trailer(connector, seq0).len();
-+    let (rec_count, max_stride, max_strip) =
-+        crate::video::haar::record_stats(&frames[..frame_count]);
-+    vino_debug!(
-+        "vino: connector={} chunks={} arm={} first={} presentations={} records={} max_stride={} max_strip={}\n",
-+        connector,
-+        frame_count,
-+        arm_len,
-+        first_wire_len,
-+        repeat_count,
-+        rec_count,
-+        max_stride,
-+        max_strip
-+    );
-+    // Split at 65536-byte boundaries, a multiple of the endpoint's 1024-byte maximum packet size,
-+    // so only the final transfer terminates short. Submit through a persistent eight-deep queue to
-+    // keep the frame continuous across transfer boundaries. Do not flush between frames: slot reuse
-+    // reaps completions without introducing a pipeline gap.
-+    const XFER: usize = VIDEO_XFER;
-+    let pipe_i = dev.video_pipe_index(connector_index)?;
-+    let mut last_wire_len = 0usize;
-+    // Presentations that named a ring slot, which is what the frame counter counts. See
-+    // `names_ring_slot`.
-+    let mut named = 0u32;
-+    for repeat in 0..repeat_count {
-+        // Pace the copies apart on a dock whose control plane shares this endpoint. Back-to-back
-+        // presentations hold it for as long as it takes to push several megabytes, which is
-+        // exactly when the dock has to be able to answer, and it stops answering at all.
-+        if repeat > 0 && data.video_on_ctrl_pipe() {
-+            fsleep(Delta::from_millis(data.frame_period_ms()));
-+        }
-+        // A compositor mode change can arrive while the presentation is in flight. Never let the
-+        // old frame cross the new mode generation.
-+        if data.shutting_down.load(Ordering::Acquire)
-+            || data.modeset_requested[connector_index].load(Ordering::Acquire) != want
-+            || data.modeset_active[connector_index].load(Ordering::Acquire) != want
-+        {
-+            vino_debug!(
-+                "vino: scanout connector={} superseded during presentation; stopped at {}/{}\n",
-+                connector,
-+                repeat,
-+                repeat_count
-+            );
++        if budget == 0 || new_rate <= old_rate {
 +            return Ok(());
 +        }
-+
-+        let repeat_seq = seq0.wrapping_add(named);
-+        let frame_trailer = data.build_frame_trailer(connector, repeat_seq);
-+        // Prefix ARM only to presentation zero. Every later presentation starts directly at the
-+        // image records and carries a freshly advanced three-record frame trailer.
-+        let arm_slice: &[u8] = if repeat == 0 {
-+            arm.as_ref().map_or(&[], |a| &a[..])
-+        } else {
-+            &[]
-+        };
-+        let prologue_frame = startup && repeat == 0;
-+        let frame_opener = data.build_frame_opener(connector, repeat_seq, prologue_frame);
-+        let opener_slice: &[u8] = frame_opener.as_ref().map_or(&[], |o| &o[..]);
-+        if super::names_ring_slot(opener_slice, &frame_trailer) {
-+            named = named.wrapping_add(1);
-+        }
-+        let report = if prologue_frame {
-+            None
-+        } else if repeat == 0 {
-+            first_report.take()
-+        } else {
-+            data.build_stream_report_buf(connector_index, repeat_seq)?
-+        };
-+        let report_slice: &[u8] = report.as_ref().map_or(&[], |r| &r[..]);
-+        let wire_len = arm_slice.len()
-+            + opener_slice.len()
-+            + report_slice.len()
-+            + params.len()
-+            + image_len
-+            + frame_trailer.len();
-+        last_wire_len = wire_len;
-+        {
-+            // Take this connector's staging buffer while submitting, then restore it. The queue
-+            // mutex stays locked for the complete frame: two connectors that address the same
-+            // physical endpoint must never submit their record streams concurrently.
-+            let mut staging = match data.video_staging.lock()[connector_index].take() {
-+                Some(s) => s,
-+                None => {
-+                    let mut s = KVec::new();
-+                    s.resize(XFER, 0, GFP_KERNEL)?;
-+                    s
-+                }
-+            };
-+            let submitted = {
-+                // One writer owns a shared pipe for the whole frame; see `own_pipe`.
-+                let _pipe = data.own_pipe();
-+                // A shared-pipe queue failure is terminal for its complete control/video session.
-+                // It may have happened while this worker waited behind its sibling, so recheck
-+                // under pipe ownership before recreating or touching the canonical queue.
-+                if data.video_on_ctrl_pipe() && !data.cp_link_alive() {
-+                    data.video_staging.lock()[connector_index] = Some(staging);
-+                    return Err(ENODEV);
-+                }
-+                let mut queue_slot = data.video_q[pipe_i].lock();
-+                if queue_slot.is_none() {
-+                    match dev.video_queue(connector_index, 8, XFER) {
-+                        Ok(q) => {
-+                            *queue_slot = Some(q);
-+                            vino_debug!(
-+                                "vino: connector={} endpoint={:#04x} persistent video queue opened (depth=8, {} B URBs)\n",
-+                                connector,
-+                                dev.endpoints.video[connector_index].address(),
-+                                XFER
-+                            );
-+                        }
-+                        // Nothing was taken from the shared pipe slot, but return this connector's
-+                        // staging allocation before propagating the open error.
-+                        Err(e) => {
-+                            data.video_staging.lock()[connector_index] = Some(staging);
-+                            return Err(e);
-+                        }
-+                    }
-+                }
-+                // Keep both borrows inside the mutex scope. Dropping the queue or unlocking it
-+                // mid-frame would permit a second connector to interleave URBs on this endpoint.
-+                let submit = |staging: &mut KVec<u8>, q: &mut crate::usb::BulkOutQueue| -> Result {
-+                    let staging = &mut staging[..];
-+                    let q = &mut *q;
-+                    // Scatter/gather cursor over
-+                    // [optional ARM][optional Navarro opener][authenticated stream report]
-+                    // [record chunks, with the parameter map among them][trailer]. Join only one
-+                    // transfer at a time in the reusable bounded staging allocation, avoiding a
-+                    // contiguous allocation spanning the complete frame.
-+                    let arm_parts = usize::from(!arm_slice.is_empty());
-+                    let opener_parts = usize::from(!opener_slice.is_empty());
-+                    let report_parts = usize::from(!report_slice.is_empty());
-+                    let param_parts = usize::from(!params.is_empty());
-+                    let trailer_parts = 1usize;
-+                    let opener_end = arm_parts + opener_parts;
-+                    let lead = opener_end + report_parts;
-+                    // The map describes the records around it and goes where the vendor puts it,
-+                    // part-way through them; see `param_map_chunk_split`. A dock with no map has
-+                    // no split to make.
-+                    let param_after = if param_parts == 0 {
-+                        frame_count
-+                    } else {
-+                        super::param_map_chunk_split(&frames[..frame_count])
-+                    };
-+                    let param_end = lead + param_after + param_parts;
-+                    let part_count = lead + frame_count + param_parts + trailer_parts;
-+                    let mut part_i = 0usize;
-+                    let split_tail = data.split_full_packet_frame();
-+                    let mut part_off = 0usize;
-+                    let mut wire_off = 0usize;
-+                    while wire_off < wire_len {
-+                        let mut data_len = (wire_len - wire_off).min(XFER);
-+                        // The dock delimits a frame by the short packet its last transfer ends on.
-+                        // A frame whose length is a whole number of maximum-size packets ends on a
-+                        // full one, delimits nothing, and is read as running into the next frame.
-+                        // Split one short tail off it so there is always a boundary; a record may
-+                        // span transfers, so where the split falls does not matter.
-+                        if split_tail
-+                            && data_len == wire_len - wire_off
-+                            && data_len % BULK_MAX_PACKET == 0
-+                        {
-+                            data_len -= FRAME_TAIL_BYTES;
-+                        }
-+                        let dst = &mut staging[..data_len];
-+                        let mut dst_off = 0usize;
-+                        while dst_off < dst.len() && part_i < part_count {
-+                            let part: &[u8] = if part_i < arm_parts {
-+                                arm_slice
-+                            } else if part_i < opener_end {
-+                                opener_slice
-+                            } else if part_i < lead {
-+                                report_slice
-+                            } else if part_i < lead + param_after {
-+                                &frames[part_i - lead][..]
-+                            } else if part_i < param_end {
-+                                &params[..]
-+                            } else if part_i < part_count - trailer_parts {
-+                                &frames[part_i - lead - param_parts][..]
-+                            } else {
-+                                &frame_trailer[..]
-+                            };
-+                            let n = (part.len() - part_off).min(dst.len() - dst_off);
-+                            dst[dst_off..dst_off + n]
-+                                .copy_from_slice(&part[part_off..part_off + n]);
-+                            dst_off += n;
-+                            part_off += n;
-+                            if part_off == part.len() {
-+                                part_i += 1;
-+                                part_off = 0;
-+                            }
-+                        }
-+                        if let Err(e) = q.send(dev.io(), dst, crate::timeout()) {
-+                            // The queue is eight URBs deep and `send` reaps a completion when its
-+                            // slot is reused, so this offset is where the error surfaced, not
-+                            // where the dock objected -- that was about eight transfers earlier.
-+                            // Report the frame's shape instead: a dock refuses a malformed record
-+                            // by halting the endpoint, which arrives here as a transport error and
-+                            // gets blamed on the transport.
-+                            let (records, max_stride, max_strip) =
-+                                crate::video::haar::record_stats(&frames[..frame_count]);
-+                            pr_warn!(
-+                                "vino: scanout connector={} pipeline submit at off={}/{} failed; frame has {} records, largest stride {}, largest strip {}\n",
-+                                connector,
-+                                wire_off,
-+                                wire_len,
-+                                records,
-+                                max_stride,
-+                                max_strip
-+                            );
-+                            return Err(e);
-+                        }
-+                        wire_off += data_len;
-+                    }
-+                    Ok(())
-+                };
-+                let submitted = {
-+                    let mut queue = queue_slot.as_mut().get_mut().as_mut().ok_or(ENODEV)?;
-+                    submit(&mut staging, &mut queue)
-+                };
-+                match submitted {
-+                    Ok(()) => Ok(()),
-+                    Err(e) => {
-+                        // Stay inside the existing physical-pipe and canonical-queue guards.  The
-+                        // queue drop kills and drains every later URB before halt-clear, so neither
-+                        // this connector's unframed tail nor a sibling's new frame can race
-+                        // recovery.
-+                        let clear_halt = (e == EPIPE || e == EPROTO)
-+                            && data.scanout_fails[connector_index].load(Ordering::Relaxed)
-+                                < VIDEO_STALL_LIMIT;
-+                        if let Err(recovery) = data.retire_failed_video_queue(
-+                            dev,
-+                            connector_index,
-+                            &mut *queue_slot,
-+                            e,
-+                            clear_halt,
-+                        ) {
-+                            pr_err!(
-+                                "vino: connector {connector_index} video queue recovery failed ({recovery:?})\n"
-+                            );
-+                        }
-+                        Err(e)
-+                    }
-+                }
-+            };
-+            // Restore the per-connector staging allocation after the endpoint transaction.
-+            data.video_staging.lock()[connector_index] = Some(staging);
-+            submitted?;
-+        }
-+
-+        // The ARM burst was delivered with presentation zero. Clear it immediately rather than
-+        // after the whole replay: if a later copy fails, retrying ARM would corrupt a pipe that is
-+        // already armed.
-+        if repeat == 0 && startup {
-+            data.arm_prefix_pending
-+                .fetch_and(!connector_bit, core::sync::atomic::Ordering::Release);
-+            // The cold-link requirement is measured from the start of continuous VIDEO, not from
-+            // the earlier mode-set. Refresh the complete training window here so modeset bracket
-+            // latency, cross-connector serialization, and encoder time cannot make it
-+            // intermittently too short. Subsequent cadence-selected compositor flips and idle
-+            // settle repaints are both promoted to full keyframes while this deadline is live.
-+            // Re-armed from the first frame the dock actually received, but only where
-+            // `sustain_window` granted one: a dock that shares its control pipe is granted none.
-+            {
-+                let mut sustain = data.sustain_until.lock();
-+                if sustain[connector_index].is_some() {
-+                    sustain[connector_index] =
-+                        Some(Instant::<Monotonic>::now() + Delta::from_millis(3000));
-+                }
-+            }
-+            vino_debug!(
-+                "vino: scanout connector={} initial ARM+keyframe accepted ({} B on the wire)\n",
-+                connector,
-+                wire_len
++        let others = data.other_connectors_rate(&state, connector);
++        let combined = new_rate.saturating_add(others);
++        // Price the dock at the depth this commit drives, and at what its other connectors already
++        // hold, because the bandwidth is shared. Nothing is recorded here: a check also runs for
++        // page flips and for `TEST_ONLY` commits that are never applied, so a depth recorded from
++        // one would move the codec with no mode set to re-state it to the dock.
++        let deep = wants_deep && data.ten_bit_fits(combined);
++        let budget = data.budget_at_depth(
++            budget,
++            deep || data.other_connector_programmed_ten_bit(crtc.connector),
++        );
++        if combined > budget {
++            pr_warn!(
++                "vino: socket {socket} combined rate {combined} exceeds {budget}\n",
++                socket = connector + 1
 +            );
-+            // The dock expects two stream-commit messages on EP02 immediately after accepting the
-+            // video arm burst.
-+            for _ in 0..2 {
-+                match data.send_cp(dev, 0x16, 0, |ctr| crate::cp::stream_commit(ctr, connector)) {
-+                    Ok(()) => vino_debug!("vino: stream-commit connector={} ok\n", connector),
-+                    Err(e) => pr_warn!(
-+                        "vino: stream-commit connector={} failed ({e:?})\n",
-+                        connector
-+                    ),
-+                }
++            return Err(EINVAL);
++        }
++        Ok(())
++    }
++
++    fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>) {
++        let crtc = commit.crtc();
++        crtc.vblank_on();
++        // Keep the software presentation clock running for the complete active interval. The
++        // reference is stored as an owned one because it must outlive this callback and is only
++        // released in `atomic_disable`. Page-flip events take their own additional refs.
++        let mut pinned = crtc.vblank_pinned.lock();
++        if pinned.is_none() {
++            match crtc.vblank_get() {
++                Ok(vblank_ref) => *pinned = Some(vblank_ref.into_owned()),
++                Err(e) => pr_warn!(
++                    "vino: failed to start connector {} software vblank clock ({e:?})\n",
++                    crtc.connector
++                ),
++            }
++        }
++        drop(pinned);
++        let connector = crtc.connector;
++        let dev: &VinoDrmDevice = crtc.drm_dev();
++        let data: &VinoDrmData = dev;
++        let (state, new) = commit.take_state_new_state();
++        // The transfer function is a connector property, but the mode set that carries it to the
++        // dock is built here, so read it across from the connector routed to this CRTC. Only PQ
++        // is distinguished: the dock's flags word has exactly one HDR bit, and every other EOTF
++        // (including HLG, which it cannot express) is carried as SDR rather than mislabelled.
++        let st2084 = state
++            .new_connector_state_for_crtc(crtc)
++            .and_then(|conn| conn.hdr_output_eotf())
++            == Some(connector::Eotf::SmpteSt2084);
++        data.set_connector_st2084(connector, st2084);
++        // The link depth userspace asked for, which is a separate question from the framebuffer's
++        // format: an eight-bit surface over a ten-bit link is the ordinary case, and reading the
++        // format alone silently ignores the request.
++        let requested_bpc = state
++            .new_connector_state_for_crtc(crtc)
++            .map_or(0, |conn| conn.max_requested_bpc());
++        data.set_connector_max_bpc(connector, requested_bpc);
++        // Decide the depth rather than refuse the mode: a pair that fits at eight bits may not fit
++        // at ten, and a compositor answers a rejected mode by disabling the output. Recorded here
++        // and not in the check, so that the decision and the set-mode carrying it are one commit.
++        let combined = if new.active() {
++            let m = new.mode();
++            active_pixel_rate(m.hdisplay(), m.vdisplay(), m.vrefresh())
++        } else {
++            0
++        }
++        .saturating_add(data.other_connectors_rate(&state, connector as usize));
++        let wants_deep =
++            data.hdr_capable() && asks_for_ten_bits(state.new_connector_state_for_crtc(crtc));
++        data.set_connector_ten_bit_denied(connector, wants_deep && !data.ten_bit_fits(combined));
++        // Cache this connector's colour transform for the scanout to apply.
++        data.update_color(connector as usize, new.gamma_lut(), new.ctm());
++        // Whatever this connector's sink state was, the enable path re-runs the full bracket and
++        // mode-set, so any silence from here is the dock's news, not vino's.
++        data.set_self_blanked(connector as usize, false);
++        // The depth the dock is told must match the depth the plane will actually send.
++        // `connector_ten_bit` is set from the committed framebuffer's fourcc, so a connector that
++        // never gets a 10-bit buffer is never announced as 30 bpp. It goes in rather than being
++        // patched on afterwards because the framebuffer allocation the set-mode states is derived
++        // from it.
++        let ten_bit = data.connector_is_ten_bit(connector as usize);
++        let timing = match crate::cp::timing_from_drm_mode(new.mode(), data.allocation(), ten_bit) {
++            Ok(mut timing) => {
++                // Read back rather than reusing the local, so both halves of the colour
++                // description come from the same per-connector state every other path consults.
++                timing.st2084 = data.connector_is_st2084(connector as usize);
++                // Declare the shared video endpoint. Four connectors are multiplexed onto two bulk
++                // endpoints, and DLM names bit 2 of the flags word `Dual NIVO`; a connector whose
++                // partner connector is also live has to say so, or the dock drives only one of the
++                // two streams it is being sent.
++                timing.dual_nivo = data.endpoint_is_shared(connector as usize);
++                timing
++            }
++            Err(e) => {
++                pr_err!(
++                    "vino: connector {} reached atomic enable with an unsupported mode ({e:?})\n",
++                    connector
++                );
++                return;
++            }
++        };
++        vino_debug!(
++            "vino: KMS CRTC enable -- connector {} display ON, mode {}x{}@{} {} bpc{} (scanout begins)\n",
++            connector,
++            timing.hactive,
++            timing.vactive,
++            timing.refresh_hz,
++            if timing.ten_bit { 10 } else { 8 },
++            if timing.st2084 { " PQ" } else { "" }
++        );
++        // Publish the desired timing; atomic callbacks must not block on USB.
++        let mode_key = timing_key(&timing);
++        data.last_timing.lock()[connector as usize] = Some(timing);
++        data.modeset_requested[connector as usize].store(mode_key, Ordering::Release);
++        data.queue_cmd(dev, KmsCmd::ModeSet { connector, timing });
++    }
++
++    /// The display is turning off (DPMS-off/blank/suspend all land here in atomic KMS).
++    /// Resets the scanout state so a later re-enable sends a full keyframe rather than diffing
++    /// against a shadow the dock may have dropped. Do not send the monitor's DDC/CI VCP 0xd6
++    /// here: hard standby is separate from stopping the DisplayLink stream and can leave a panel
++    /// asleep across a dock power cycle.
++    fn atomic_disable(commit: CrtcAtomicCommit<'_, Self>) {
++        let crtc = commit.crtc();
++        // Dropping the stored reference releases the vblank reference `atomic_enable` took.
++        drop(crtc.vblank_pinned.lock().take());
++        crtc.vblank_off();
++        let connector = crtc.connector;
++        let dev: &VinoDrmDevice = crtc.drm_dev();
++        let data: &VinoDrmData = dev;
++        data.update_color(connector as usize, None, None);
++        // The stream is torn down; a later re-enable must re-send the mode-set before any video
++        // write (the dock EPIPEs a write onto an unconfigured stream). Forget the active mode so
++        // the scanout gate defers until the re-enable's mode-set lands.
++        data.modeset_requested[connector as usize].store(0, Ordering::Release);
++        data.modeset_active[connector as usize].store(0, core::sync::atomic::Ordering::Release);
++        data.programmed_timing.lock()[connector as usize] = None;
++        // Drop a framebuffer queued while this CRTC was active. Otherwise the deferred worker can
++        // retry its old mode and paint after DPMS-off.
++        data.pending_scanout.lock()[connector as usize] = None;
++        data.settle_repaint.lock()[connector as usize] = None;
++        // Spend nothing on a connector that is off; the re-enable's mode-set refills it.
++        data.settle_budget[connector as usize].store(0, Ordering::Relaxed);
++        // Release the ~14.7 MB private copy; a re-enable owes a keyframe and re-snapshots.
++        data.shadow[connector as usize].lock().discard();
++        data.sustain_until.lock()[connector as usize] = None;
++        data.strip_hashes.lock()[connector as usize] = None;
++        data.dirty_ttl.lock()[connector as usize] = None;
++        vino_debug!(
++            "vino: KMS CRTC disable -- socket {socket} display OFF (scanout stopped)\n",
++            socket = connector + 1
++        );
++        // Stopping locally is not enough: the dock goes on scanning out whatever it last received,
++        // so a DPMS-off left the panel lit on a frozen desktop. Queue the dock-side take-down for
++        // the command worker -- this callback must not block on USB (see `KmsCmd`). It is queued
++        // last, after the mode generation has been zeroed, because `blank_connector` keys its write
++        // on exactly that zero.
++        data.queue_cmd(dev, KmsCmd::Blank { connector });
++    }
++
++    /// Arm the page-flip completion event to be sent by the next vblank tick, so userspace is paced
++    /// to the refresh rate rather than signalled immediately.
++    fn atomic_flush(commit: CrtcAtomicCommit<'_, Self>) {
++        let crtc = commit.crtc();
++        let data: &VinoDrmData = crtc.drm_dev();
++        let mut new = commit.take_new_state();
++        // Re-cache the colour transform on every commit that touches this CRTC, so a dynamic
++        // GAMMA_LUT or CTM change on an already-enabled connector (which does not re-run
++        // atomic_enable) is picked up rather than deferred to the next full modeset. A night-light
++        // corrector ramps its CTM continuously, so this is the path that carries it, not
++        // atomic_enable.
++        data.update_color(crtc.connector as usize, new.gamma_lut(), new.ctm());
++        if let Some(pending) = new.get_pending_vblank_event() {
++            match crtc.vblank_get() {
++                Ok(vbl_ref) => pending.arm(vbl_ref),
++                // Vblank couldn't be enabled (e.g. mid-teardown): fall back to sending now.
++                Err(_) => pending.send(),
++            }
++        }
++    }
++}
++
++impl VblankSupport for VinoCrtc {
++    type Crtc = VinoCrtc;
++
++    fn enable_vblank(
++        crtc: &crtc::Crtc<Self::Crtc>,
++        vblank_guard: &VblankGuard<'_, Self::Crtc>,
++        irq: &LocalInterruptDisabled,
++    ) -> Result {
++        let data: &VinoCrtc = crtc;
++        // Track the mode's real frame duration so the tick matches the negotiated refresh rate.
++        let fd = vblank_guard.frame_duration();
++        if fd > 0 {
++            data.vblank.interval_ns.store(fd as i64, Ordering::Relaxed);
++        }
++        // Publish the CRTC for the timer callback. Only the first enable stores it; the CRTC a
++        // given timer serves never changes, and re-taking the reference on every enable would just
++        // leak one `drm_dev_get()` per DPMS cycle. `lock_with` because the DRM core already called
++        // us with local interrupts disabled -- proven by the `irq` token.
++        {
++            let mut published = data.vblank.crtc.lock_with(irq);
++            if published.is_none() {
++                *published = Some(crtc.to_owned_ref());
++            }
++        }
++        data.vblank.enabled.store(true, Ordering::Relaxed);
++        let interval = data.vblank.interval_ns.load(Ordering::Relaxed);
++        // The started timer is registered on the DEVICE, so teardown can cancel it without
++        // depending on the DRM core calling `disable_vblank` -- see `VinoDrmData::vblank`.
++        let drm_data: &VinoDrmData = crtc.drm_dev();
++        let connector = usize::from(data.connector);
++        if connector >= MAX_CONNECTORS {
++            return Ok(());
++        }
++        let mut slots = drm_data.vblank.lock();
++        match &slots[connector] {
++            None => {
++                // First enable: start the timer and keep the handle as its sole owner.
++                slots[connector] = Some((
++                    data.vblank.clone(),
++                    data.vblank.clone().start(Delta::from_nanos(interval)),
++                ));
++            }
++            Some((_, h)) => {
++                // Re-enable after `disable_vblank` let the timer die (NoRestart): re-queue it in
++                // place. `restart` removes and re-inserts a still-pending timer, so this is
++                // correct whether the final disabled tick has already fired or not, and it never
++                // blocks on the callback -- which matters because we are called under the vblank
++                // locks with interrupts disabled.
++                h.restart(Delta::from_nanos(interval));
++            }
++        }
++        Ok(())
++    }
++
++    fn disable_vblank(
++        crtc: &crtc::Crtc<Self::Crtc>,
++        _vblank_guard: &VblankGuard<'_, Self::Crtc>,
++        _irq: &LocalInterruptDisabled,
++    ) {
++        let data: &VinoCrtc = crtc;
++        data.vblank.enabled.store(false, Ordering::Relaxed);
++    }
++
++    fn get_vblank_timestamp(
++        _crtc: &crtc::Crtc<Self::Crtc>,
++        _in_vblank_irq: bool,
++    ) -> Option<VblankTimestamp> {
++        // Let DRM estimate the timestamp from the mode timings.
++        None
++    }
++}
++
++// ---- Planes: primary (scanout) + cursor -------------------------------------
++//
++// The safe KMS layer allows one `DriverPlane` type per driver, so `VinoPlane` serves both the
++// primary and cursor planes, told apart by `is_cursor` (from the plane's `Args`).
++
++/// Constructor arguments for a [`VinoPlane`]: which connector it belongs to and whether it is that
++/// connector's cursor plane (vs. its primary scanout plane).
++#[derive(Clone, Copy)]
++pub(crate) struct PlaneArgs {
++    pub(super) connector: u8,
++    pub(super) is_cursor: bool,
++}
++
++#[pin_data]
++pub(crate) struct VinoPlane {
++    /// Which display connector (0-based) this plane belongs to. Selects the scanout video endpoint
++    /// (see `DockProfile::video_endpoints`) and the cursor CP `connector` field.
++    connector: u8,
++    /// Whether this is the cursor plane (vs. the primary scanout plane).
++    is_cursor: bool,
++    /// The framebuffer region last uploaded as the cursor bitmap.
++    #[pin]
++    cursor_last: Mutex<Option<CursorUpload>>,
++}
++
++struct CursorUpload {
++    framebuffer: ARef<kms::framebuffer::Framebuffer<VinoDrmDriver>>,
++    /// Value of this connector's `cursor_epoch` when the bitmap was sent. A newer epoch means the
++    /// dock has since been reconfigured and is no longer holding it.
++    epoch: u32,
++}
++
++#[derive(Clone, Default)]
++pub(crate) struct VinoPlaneState;
++
++impl plane::DriverPlaneState for VinoPlaneState {
++    type Plane = VinoPlane;
++}
++
++#[vtable]
++impl plane::DriverPlane for VinoPlane {
++    type Args = PlaneArgs;
++    type Driver = VinoDrmDriver;
++    type State = VinoPlaneState;
++
++    fn new(_device: &drm::Device<Self::Driver>, args: PlaneArgs) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoPlane {
++            connector: args.connector,
++            is_cursor: args.is_cursor,
++            cursor_last <- new_mutex!(None),
++        })
++    }
++
++    /// Validate plane geometry and populate `drm_plane_state.visible`, which the damage iterator
++    /// requires before it can report changed rectangles.
++    fn atomic_check(check: PlaneAtomicCheck<'_, Self>) -> Result {
++        let plane = check.plane();
++        let (state, _old, mut new) = check.take_all();
++        let Some(crtc) = new.crtc::<VinoDrmDriver>() else {
++            // A disabled plane is not visible and needs no geometry validation.
++            return Ok(());
++        };
++        let crtc_state = match state.get_new_crtc_state(crtc) {
++            Some(s) => s,
++            None => state.add_crtc_state(crtc)?,
++        };
++        // Vino supports 1:1 scanout only. Primary planes must cover the CRTC; cursor planes may be
++        // positioned and clipped by the helper. Updates on a disabled CRTC remain disallowed.
++        new.atomic_helper_check::<_, VinoDrmDriver>(&crtc_state, plane.is_cursor, false)?;
++
++        // The transfer paths currently consume a full framebuffer, not an arbitrary source crop.
++        // Require exactly that at the UAPI boundary. Cursor clipping performed by the helper above
++        // is represented separately in its derived source rectangle.
++        if let Some(fb) = new.framebuffer::<VinoDrmDriver>() {
++            let full_width = fb.width().checked_shl(16).ok_or(EINVAL)?;
++            let full_height = fb.height().checked_shl(16).ok_or(EINVAL)?;
++            if new.source_x_16_16() != 0
++                || new.source_y_16_16() != 0
++                || new.source_width_16_16() != full_width
++                || new.source_height_16_16() != full_height
++            {
++                return Err(EINVAL);
 +            }
 +        }
 +
-+        // A dedicated video endpoint can cheaply sample status after streaming.  On a shared
-+        // pipe, the long-lived keepalive already owns this same poll and DLM permits long runs of
-+        // pixels without an inline CP transaction.  Duplicating it here increases EP02 pressure
-+        // and blocks the scanout worker waiting for a reply from the endpoint it just filled.
-+        if !data.video_on_ctrl_pipe() {
-+            let due = {
-+                let mut last = data.last_status_poll.lock();
-+                let due = last.is_none_or(|t| t.elapsed().as_millis() >= STATUS_POLL_MIN_MS);
-+                if due {
-+                    *last = Some(Instant::<Monotonic>::now());
++        Ok(())
++    }
++
++    /// A new framebuffer was flipped in. Maps it, converts XRGB8888 -> RGB565 (or feeds the
++    /// Haar colour codec directly for an aligned mode), and bulk-writes the resulting EP08
++    /// frame(s).
++    ///
++    /// EP08 writes happen only after CP engagement and a matching mode-set has landed.
++    fn atomic_update(commit: PlaneAtomicCommit<'_, Self>) {
++        let plane = commit.plane();
++        let connector = plane.connector;
++        let dev: &VinoDrmDevice = plane.drm_dev();
++        let data: &VinoDrmData = dev;
++        if !data.cp_engaged.load(core::sync::atomic::Ordering::SeqCst) {
++            return;
++        }
++
++        // Cursor plane: publish bitmap and position commands for the asynchronous control worker.
++        // The protocol uses id=0x1b for create, id=0x1c with the inner bitmap flag set for image,
++        // and id=0x1a for movement.
++        if plane.is_cursor {
++            let new = commit.take_new_state();
++            match new.framebuffer::<VinoDrmDriver>() {
++                Some(fb) => {
++                    let Some(source) = new.visible_source().ok().flatten() else {
++                        *plane.cursor_last.lock() = None;
++                        data.queue_cmd(
++                            dev,
++                            KmsCmd::CursorMove {
++                                connector,
++                                x: 0,
++                                y: 0,
++                                visible: false,
++                            },
++                        );
++                        return;
++                    };
++                    let Some(destination) = new.visible_destination() else {
++                        return;
++                    };
++                    // The complete framebuffer, not the helper's clipped rectangle: the dock
++                    // expects a fixed-size cursor and clips at the panel edge itself.
++                    let Ok(w) = u16::try_from(fb.width()) else {
++                        return;
++                    };
++                    let Ok(h) = u16::try_from(fb.height()) else {
++                        return;
++                    };
++                    let epoch = data.cursor_epoch[usize::from(connector)].load(Ordering::Acquire);
++                    let mut last = plane.cursor_last.lock();
++                    // Re-send when the bitmap changed, or when a reconfigure means the dock is no
++                    // longer holding it: `CursorMove` succeeds against a cursor that no longer
++                    // exists, so a stale match is silent on the wire.
++                    let unchanged = last.as_ref().is_some_and(|last| {
++                        core::ptr::eq(&*last.framebuffer, fb) && last.epoch == epoch
++                    });
++                    if !unchanged {
++                        if let Ok(bgra) = read_cursor_bgra(fb, usize::from(w), usize::from(h)) {
++                            // One shared bitmap per device: announce geometry only when it
++                            // changes, not on every shape change.
++                            let hi = usize::from(connector);
++                            if data.cursor_geometry.lock()[hi].replace((w, h)) != Some((w, h)) {
++                                data.queue_cmd(dev, KmsCmd::CursorCreate { connector, w, h });
++                            }
++                            data.queue_cmd(
++                                dev,
++                                KmsCmd::CursorImage {
++                                    connector,
++                                    w,
++                                    h,
++                                    bgra,
++                                },
++                            );
++                            *last = Some(CursorUpload {
++                                framebuffer: ARef::from(fb),
++                                epoch,
++                            });
++                        }
++                    }
++                    // The dock positions the whole bitmap by its top-left, so this is the
++                    // unclipped origin: scanout is 1:1, so how far into the source the helper
++                    // started is how far off-screen the origin is. Clamped because the wire
++                    // coordinates are unsigned -- the pointer stops at the edge.
++                    let Ok(x) = u16::try_from((destination.x1 - source.x1).max(0)) else {
++                        return;
++                    };
++                    let Ok(y) = u16::try_from((destination.y1 - source.y1).max(0)) else {
++                        return;
++                    };
++                    data.queue_cmd(
++                        dev,
++                        KmsCmd::CursorMove {
++                            connector,
++                            x,
++                            y,
++                            visible: true,
++                        },
++                    );
 +                }
-+                due
-+            };
-+            if due {
-+                if let Err(e) =
-+                    data.send_cp(dev, 0x14, 0, |ctr| crate::cp::device_query_req(ctr, 0x000c))
-+                {
++                // Cursor disabled: clear the dock's visible flag and forget the bitmap so a later
++                // enable uploads it again.
++                None => {
++                    *plane.cursor_last.lock() = None;
++                    data.queue_cmd(
++                        dev,
++                        KmsCmd::CursorMove {
++                            connector,
++                            x: 0,
++                            y: 0,
++                            visible: false,
++                        },
++                    );
++                }
++            }
++            return;
++        }
++
++        // Primary plane: take both old and new state so the frame-damage clips can be merged.
++        let (old, new) = commit.take_old_new_state();
++        let Some(fb) = new.framebuffer::<VinoDrmDriver>() else {
++            return;
++        };
++        // Plane rotation/reflection (identity unless the compositor set the rotation property).
++        let rotation = new.rotation();
++        // atomic_check has already rejected scaling, positioning, and partial source rectangles,
++        // so these destination dimensions describe the complete output and cannot overrun the
++        // framebuffer under any advertised rotation.
++        let (w, h) = (new.crtc_w() as usize, new.crtc_h() as usize);
++        // Collect the client's individual frame-damage clips (the rectangles that
++        // `damage_merged()` would collapse into one bounding box), each clamped to the output, so
++        // only the genuinely changed rectangles are re-converted from the source rather than their
++        // whole enclosing box. Only for identity rotation (the clips are in un-rotated source
++        // space; mapping them through 90/270 is not worth it for the throttled fallback path), and
++        // never on the Haar keyframe path -- see `encode_and_send`. A fixed stack array keeps the
++        // atomic-commit path allocation-free; on overflow the clips collapse into one bounding box.
++        // An empty list means the client reported no changed pixels. Rotation/reflection still
++        // promotes it to a full frame in `encode_and_send_haar`, because source-space clips cannot
++        // yet be transformed safely for those cases.
++        let mut clips = [(0usize, 0usize, 0usize, 0usize); MAX_DAMAGE_CLIPS];
++        let mut nclips = 0usize;
++        if rotation.angle() == plane::Rotation::ROTATE_0
++            && !rotation.contains(plane::Rotation::REFLECT_X | plane::Rotation::REFLECT_Y)
++        {
++            new.for_each_damage_clip(old, |r| {
++                let c = (
++                    (r.x1.max(0) as usize).min(w),
++                    (r.y1.max(0) as usize).min(h),
++                    (r.x2.max(0) as usize).min(w),
++                    (r.y2.max(0) as usize).min(h),
++                );
++                if nclips < MAX_DAMAGE_CLIPS {
++                    clips[nclips] = c;
++                    nclips += 1;
++                } else {
++                    // Overflow: collapse ALL accumulated clips plus `c` into a single bounding box
++                    // in clips[0]. Folding only clips[0] with `c` here would silently drop the
++                    // damage in clips[1..], leaving those regions stale on screen; union every
++                    // pending clip so the whole changed area is still repainted.
++                    let mut bb = c;
++                    for &r in &clips[..nclips] {
++                        bb = (bb.0.min(r.0), bb.1.min(r.1), bb.2.max(r.2), bb.3.max(r.3));
++                    }
++                    clips[0] = bb;
++                    nclips = 1;
++                }
++            });
++        }
++
++        use core::sync::atomic::Ordering::Relaxed;
++        // Throttle: while scanout is failing (dock NAKing because CP isn't engaged), skip the
++        // upcoming pageflips set by the backoff below instead of converting+encoding+sending a
++        // frame the dock will just drop.
++        let skip = data.scanout_skip[connector as usize].load(Relaxed);
++        if skip > 0 {
++            data.scanout_skip[connector as usize].store(skip - 1, Relaxed);
++            return;
++        }
++        data.queue_scanout(
++            dev,
++            fb,
++            PendingScanout {
++                connector,
++                rotation,
++                clips,
++                nclips,
++                w,
++                h,
++                shadow_idx: 0,
++                shadow_generation: 0,
++            },
++        );
++    }
++}
++
++/// The connector's fixed encoder. The dock has no encoder configuration of its own.
++#[pin_data]
++pub(crate) struct VinoEncoder;
++
++#[vtable]
++impl encoder::DriverEncoder for VinoEncoder {
++    type Driver = VinoDrmDriver;
++    type Args = ();
++
++    fn new(_device: &drm::Device<Self::Driver>, _args: ()) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoEncoder {})
++    }
++}
++
++// ---- Connector --------------------------------------------------------------
++
++#[pin_data]
++pub(crate) struct VinoConnector {
++    /// Index into the owning device's per-connector EDID/presence arrays.
++    connector: u8,
++}
++
++#[derive(Clone, Default)]
++pub(crate) struct VinoConnectorState;
++
++impl connector::DriverConnectorState for VinoConnectorState {
++    type Connector = VinoConnector;
++}
++
++#[vtable]
++impl connector::DriverConnector for VinoConnector {
++    type Args = u8;
++    type Driver = VinoDrmDriver;
++    type State = VinoConnectorState;
++
++    fn new(_device: &drm::Device<Self::Driver>, connector: u8) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoConnector { connector })
++    }
++
++    /// Install the dock's real EDID (read during probe) when available; otherwise fall back
++    /// to a single 1920x1080@60 CVT mode. Reading the real EDID gives the true monitor
++    /// name/size and its native mode list; the fallback keeps the connector usable when
++    /// nothing is plugged into the dock or the CP channel has not yet delivered the EDID.
++    fn get_modes<'a>(
++        connector: ConnectorGuard<'a, Self>,
++        guard: &ModeConfigGuard<'a, Self::Driver>,
++    ) -> i32 {
++        let data: &VinoDrmData = connector.drm_dev();
++        let edids = data.cached_edids.lock();
++        if let Some(blob) = edids
++            .get(connector.connector as usize)
++            .and_then(Option::as_ref)
++        {
++            // A failed EDID update adds no modes; fall through to the built-in list rather than
++            // reporting a count the core did not actually get.
++            match connector.add_edid_modes(blob) {
++                Ok(n) if n > 0 => return n,
++                other => {
++                    // A cached EDID that yields no modes is indistinguishable downstream from a
++                    // socket with nothing in it: both land on the synthesised list. Say which.
 +                    vino_debug!(
-+                        "vino: scanout connector={} CP status poll failed ({e:?})\n",
-+                        connector
++                        "vino: connector {} EDID ({} B) produced no modes ({:?}); using the built-in list\n",
++                        connector.connector,
++                        blob.len(),
++                        other.map(|n| n)
 +                    );
 +                }
 +            }
 +        }
-+        // Do not drain here. The eight-URB ring spans frame boundaries; `send()` reaps a
-+        // completion when its slot is reused, so transport errors surface after the ring wraps
-+        // without introducing a per-frame pipeline bubble.
++        drop(edids);
++        let _ = guard;
++        // A connector handed to DRM's EDID override must report NO modes here: the core applies the
++        // override (`drm_kms_helper.edid_firmware=`, or a debugfs `edid_override` write) purely as
++        // a fallback for a connector that is connected and produced none. Synthesising the
++        // built-in list below would satisfy the probe helper and the override would never be
++        // consulted.
++        if data.edid_from_userspace(connector.connector as usize) {
++            return 0;
++        }
++        // No downstream EDID yet: advertise the standard mode list up to the fallback resolution
++        // and prefer it, keeping the connector usable until the dock delivers a real EDID.
++        let n = connector.add_modes_noedid((FALLBACK_W as u32, FALLBACK_H as u32));
++        connector.set_preferred_mode((FALLBACK_W as u32, FALLBACK_H as u32));
++        n
 +    }
-+    // Publish the new codec sequence only after every URB for this frame was submitted. A stale
-+    // generation or transport failure above leaves the old sequence intact for the next keyframe.
-+    //
-+    data.scanout_seq.lock()[connector_index] = seq0.wrapping_add(named);
-+    // The USB path accepted the complete image. Publish its content shadow only now; every early
-+    // return and transport error above deliberately leaves the previous dock-visible state intact.
-+    // The frame reached the dock, so every strip it carried has paid one transmission. A full
-+    // keyframe is presented twice and rewrites the whole surface, so it clears the ledger outright.
-+    {
-+        let mut ttl = data.dirty_ttl.lock();
-+        if let Some(debt) = ttl[connector_index].as_mut() {
-+            pay_damage_debt(debt, full);
++
++    /// Report the connector connected once the dock has delivered this connector's downstream EDID
++    /// (a real monitor is attached and described) OR the bring-up work item confirmed CP engagement
++    /// + this connector's DISPLAY-CAP push (`connectors_present`: on 3.4.26 the raw-EDID path can
++    /// fail, so cached EDID alone would leave every connector permanently disconnected despite a
++    /// fully-engaged dock). A connector with neither stays disconnected rather than advertising a
++    /// phantom output.
++    fn detect(connector: &Connector<Self>, _force: bool) -> Status {
++        let data: &VinoDrmData = connector.drm_dev();
++        let connector = connector.connector as usize;
++        if connector >= data.connector_count() {
++            return Status::Disconnected;
++        }
++        // On a dock that reports no downstream presence, both signals are absent for a connector
++        // that has a monitor on it, and the whole measured choreography -- the framebuffer
++        // allocation the set-mode states, the mode-set bracket, the sink states -- is the vendor
++        // driving every connector it has. Offering a subset of that leaves the dock configured for
++        // a display arrangement nobody described; `get_modes` supplies the fallback list until an
++        // EDID arrives.
++        if !data.reports_presence() {
++            // The dock recovers an EDID for the socket a monitor is in and nothing for the one
++            // that is empty, so the EDID is the whole presence signal here. The socket with
++            // nothing in it is still configured -- it joins the dock-wide transaction at its
++            // sibling's mode -- so it no longer has to be advertised to hold its place.
++            //
++            // Bring-up owns the endpoint until encrypted setup publishes the runtime CP link, so
++            // a connector must not be offered before then whatever its EDID says.
++            return if data.connector_has_edid(connector) && data.kms_activation_ready() {
++                Status::Connected
++            } else {
++                Status::Disconnected
++            };
++        }
++        let has_edid = data
++            .cached_edids
++            .lock()
++            .get(connector)
++            .is_some_and(Option::is_some);
++        let present = data
++            .connectors_present
++            .load(core::sync::atomic::Ordering::Acquire)
++            & (1 << connector)
++            != 0;
++        if has_edid || present {
++            Status::Connected
++        } else {
++            Status::Disconnected
 +        }
 +    }
-+    // Publish the content shadow, and with it the encoded body of every strip this frame carried,
-+    // so the retransmissions `damage_frames` owes can re-use the bytes instead of re-running the
-+    // codec (see `StripHashState::bodies`). Bodies for strips this frame did not touch are carried
-+    // forward from the previous state -- they are still what the dock holds, and a later debt pass
-+    // may select them. Best-effort throughout: a failed allocation costs a cache miss, never a
-+    // frame, so the hashes are published either way.
-+    {
-+        let mut state = data.strip_hashes.lock();
-+        let carried = state[connector_index]
-+            .take()
-+            .filter(|c| {
-+                c.padded_width == padded_width
-+                    && c.padded_height == padded_height
-+                    && c.tag == encode_tag
-+            })
-+            .map(|c| (c.bodies, c.hashes));
-+        state[connector_index] = content_hashes.map(|hashes| {
-+            let (mut bodies, old) = match carried {
-+                Some((b, h)) => (b, Some(h)),
-+                None => (KVec::new(), None),
-+            };
-+            // A carried body is only still valid if that strip's content has not moved since it
-+            // was encoded. Every strip whose hash changes IS selected for this frame and so is
-+            // overwritten below -- but do not rely on that invariant holding as the selection
-+            // logic evolves: a body left paired with a newer hash would be served as a cache hit
-+            // and paint stale pixels the dock would then keep, with nothing scheduled to repair
-+            // it. Cheap to make airtight, and the failure it prevents is permanent corruption.
-+            if let Some(old) = &old {
-+                if old.len() == bodies.len() && old.len() == hashes.len() {
-+                    for i in 0..bodies.len() {
-+                        if old[i] != hashes[i] {
-+                            bodies[i] = KVec::new();
-+                        }
-+                    }
-+                }
-+            }
-+            if bodies.len() != hashes.len() {
-+                bodies = KVec::new();
-+                let _ = bodies.reserve(hashes.len(), GFP_KERNEL);
-+                while bodies.len() < hashes.len() && bodies.push(KVec::new(), GFP_KERNEL).is_ok() {}
-+            }
-+            if bodies.len() == hashes.len() {
-+                if let Some((coords, strips)) = encoded {
-+                    let tiles_x = padded_width >> geometry.strip_w_shift();
-+                    for (&(sx, sy), body) in coords.iter().zip(strips) {
-+                        let idx = (sy >> geometry.strip_h_shift()) * tiles_x
-+                            + (sx >> geometry.strip_w_shift());
-+                        if let Some(slot) = bodies.get_mut(idx) {
-+                            *slot = body;
-+                        }
-+                    }
-+                }
-+            }
-+            StripHashState {
-+                padded_width,
-+                padded_height,
-+                hashes,
-+                bodies,
-+                tag: encode_tag,
-+            }
-+        });
-+    }
-+    // A full keyframe was accepted -- this connector may now send damage deltas until the next
-+    // mode-set.
-+    if full {
-+        data.keyframe_pending
-+            .fetch_and(!kf_bit, core::sync::atomic::Ordering::Release);
-+    }
 +
-+    // Charge every presentation, not the frame once: each one is a separate copy on the wire and
-+    // the dock decodes all of them.
-+    data.charge_stream_budget(last_wire_len.saturating_mul(repeat_count as usize));
-+
-+    vino_debug!(
-+        "vino: scanout connector={} frame ok ({} presentation(s), {} B final write)\n",
-+        connector,
-+        repeat_count,
-+        last_wire_len
-+    );
-+    Ok(())
++    /// Prune modes whose pixel clock exceeds a single connector's bandwidth ceiling
++    /// ([`MAX_HEAD_CLOCK_KHZ`], ~4K@60), whose refresh rate exceeds what the dock has ever been
++    /// shown to display ([`DOCK_MAX_REFRESH_HZ`]), or whose pixel rate exceeds the dock's budget.
++    fn mode_valid(connector: ConnectorModeValidation<'_, Self>, mode: &DisplayMode) -> ModeStatus {
++        let data: &VinoDrmData = connector.drm_dev();
++        if mode.clock() < 0 || mode.clock() as u32 > data.max_connector_clock_khz() {
++            return ModeStatus::ClockHigh;
++        }
++        if !data.refresh_within_limit(mode.vrefresh()) {
++            return ModeStatus::ClockHigh;
++        }
++        if !crate::cp::mode_supported(mode) {
++            return ModeStatus::Bad;
++        }
++        // Reject a mode only when that connector exceeds the dock's whole pixel budget. The atomic
++        // CRTC check enforces the combined rate of simultaneously active connectors.
++        let budget = data.dock_budget();
++        let connector_rate = active_pixel_rate(mode.hdisplay(), mode.vdisplay(), mode.vrefresh());
++        if budget != 0 && connector_rate > budget {
++            return ModeStatus::Bad;
++        }
++        ModeStatus::Ok
++    }
 +}
 +
-+/// Convert the mapped XRGB8888 frame to RGB565, Vino-encode it against the previous frame,
-+/// and bulk-write the resulting EP08 frame to the dock.
-+pub(super) fn encode_and_send(
-+    dev: &BoundInterface<'_>,
-+    data: &VinoDrmData,
-+    connector: u8,
-+    src: &Arc<PixelSource>,
++/// Map an output pixel `(dx, dy)` back to its source-framebuffer pixel `(sx, sy)` under a DRM
++/// plane `rotation` bitmask (`DRM_MODE_ROTATE_*` | `DRM_MODE_REFLECT_*`, the values the
++/// standard `drm_plane_create_rotation_property` exposes). `sw`/`sh` are the source
++/// (framebuffer) dimensions. Rotation is clockwise; reflection is applied in source space
++/// after rotation. Pure and total (saturating), so it is unit-tested directly. Applied per source
++/// pixel in [`encode_and_send`]/[`encode_and_send_haar`] for the plane's rotation property.
++#[inline]
++pub(crate) fn rot_src(
 +    rotation: plane::Rotation,
-+    // The client's changed rectangles (identity rotation only; empty means no pixel update).
-+    // `encode_and_send_haar` uses these to send a damage delta (only changed strips) after the
-+    // first full keyframe because the dock surface is undefined after a mode set.
-+    clips: &[(usize, usize, usize, usize)],
-+    w: usize,
-+    h: usize,
-+) -> Result {
-+    // Non-64x16-aligned modes are padded to complete codec strips. The dock clips the padded image
-+    // to the active timing, matching the validated 68-band wire layout for 1080-line modes.
-+    encode_and_send_haar(dev, data, connector, src, rotation, clips, w, h)
++    dx: usize,
++    dy: usize,
++    sw: usize,
++    sh: usize,
++) -> (usize, usize) {
++    let xmax = sw.saturating_sub(1);
++    let ymax = sh.saturating_sub(1);
++    let rot = rotation.angle();
++    let (mut sx, mut sy) = if rot == plane::Rotation::ROTATE_90 {
++        (dy, ymax.saturating_sub(dx))
++    } else if rot == plane::Rotation::ROTATE_180 {
++        (xmax.saturating_sub(dx), ymax.saturating_sub(dy))
++    } else if rot == plane::Rotation::ROTATE_270 {
++        (xmax.saturating_sub(dy), dx)
++    } else {
++        (dx, dy) // ROTATE_0 / unset
++    };
++    if rotation.contains(plane::Rotation::REFLECT_X) {
++        sx = xmax.saturating_sub(sx);
++    }
++    if rotation.contains(plane::Rotation::REFLECT_Y) {
++        sy = ymax.saturating_sub(sy);
++    }
++    (sx, sy)
 +}
-+
-+// ---- Encoder ----------------------------------------------------------------
 +
 +#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_scanout)]
++#[kunit_tests(vino_mode_objects)]
 +mod tests {
 +    use super::*;
-+    use crate::*;
-+
-+    /// An eight-bit desktop driven over a ten-bit link must keep both endpoints exact.
-+    ///
-+    /// A plain shift leaves full white at 1020 of 1023, which tints every highlight and is the
-+    /// kind of error that looks like a panel problem rather than an encoder one.
-+    #[test]
-+    fn widening_an_eight_bit_sample_keeps_the_endpoints() {
-+        assert_eq!(widen_8_to_10(0), 0);
-+        assert_eq!(widen_8_to_10(255), 1023);
-+        // Mid grey stays mid grey rather than drifting low.
-+        assert_eq!(widen_8_to_10(128), 514);
-+        // Monotonic, and never outside the ten-bit range.
-+        let mut previous = 0;
-+        for v in 0..=255u16 {
-+            let w = widen_8_to_10(v);
-+            assert!(w <= 1023);
-+            assert!(v == 0 || w > previous);
-+            previous = w;
-+        }
-+    }
-+
-+    /// Scattered damage must cost the strips it touches, not the surface.
-+    ///
-+    /// The rectangle list is an intermediate representation between the per-strip hash comparison
-+    /// and the strip coordinates the encoder is given, and it has a ceiling. Built on the strip
-+    /// grid, an update spread across the screen fragments into more runs than that ceiling holds
-+    /// and the whole surface is sent instead -- roughly thirty times the bytes, on a dock that
-+    /// halts its endpoint when it is given too many. Built on the macro-tile grid, which is the
-+    /// granularity a touched strip is resent at anyway, the same update stays inside it.
-+    #[test]
-+    fn scattered_damage_does_not_cost_the_whole_surface() -> Result {
-+        let geometry = profile::PROFILE_ELLA.geometry();
-+        // 1920x1088, this dock's whole top mode padded to strips: 30 x 68 = 2040 strips.
-+        let (padded_width, padded_height) = (1920usize, 1088usize);
-+        let tiles_x = padded_width >> geometry.strip_w_shift();
-+        let tiles_y = padded_height >> geometry.strip_h_shift();
-+        assert_eq!(tiles_x * tiles_y, 2040);
-+
-+        let mut old: KVVec<u64> = KVVec::new();
-+        old.resize(tiles_x * tiles_y, 0, GFP_KERNEL)?;
-+        let mut new: KVVec<u64> = KVVec::new();
-+        new.resize(tiles_x * tiles_y, 0, GFP_KERNEL)?;
-+
-+        // Nothing moved: no rectangles, and the caller skips the write entirely.
-+        assert!(changed_strip_rects(geometry, &old, &new, padded_width, padded_height)?.is_empty());
-+
-+        // Every other strip on every other band: 510 changed strips, and 510 separate runs on the
-+        // strip grid -- four times the ceiling. On the macro-tile grid they collapse into whole
-+        // rows of tiles.
-+        let mut changed = 0usize;
-+        for ty in (0..tiles_y).step_by(2) {
-+            for tx in (0..tiles_x).step_by(2) {
-+                new[ty * tiles_x + tx] = 1;
-+                changed += 1;
-+            }
-+        }
-+        assert_eq!(changed, 510);
-+        let rects = changed_strip_rects(geometry, &old, &new, padded_width, padded_height)?;
-+        assert!(!rects.is_empty());
-+        let selected =
-+            video::haar::damage_strip_coords(geometry, padded_width, padded_height, &rects)?.len();
-+        // This pattern really does reach into every macro-tile, so the surface is the right
-+        // answer; what matters is that it was reached by rounding and not by giving up.
-+        assert_eq!(selected, 2040);
-+
-+        // A realistic update instead: a window redraw, a cursor and a clock. Three regions, and
-+        // the cost is the macro-tiles they cover.
-+        for h in new.iter_mut() {
-+            *h = 0;
-+        }
-+        for (x0, y0, x1, y1) in [
-+            (4usize, 8usize, 14usize, 30usize),
-+            (20, 40, 22, 42),
-+            (26, 2, 29, 4),
-+        ] {
-+            for ty in y0..y1 {
-+                for tx in x0..x1 {
-+                    new[ty * tiles_x + tx] = 1;
-+                }
-+            }
-+        }
-+        let rects = changed_strip_rects(geometry, &old, &new, padded_width, padded_height)?;
-+        // Every rectangle is macro-tile aligned, so the selector's own rounding adds nothing.
-+        // Aligned on every edge the grid has one, and clamped to the surface where it does not:
-+        // 1920 is seven whole macro-tiles and half of an eighth.
-+        for &(x0, y0, x1, y1) in rects.iter() {
-+            assert_eq!(x0 % geometry.macro_w(), 0);
-+            assert_eq!(y0 % geometry.macro_h(), 0);
-+            assert!(x1 == padded_width || x1 % geometry.macro_w() == 0);
-+            assert!(y1 == padded_height || y1 % geometry.macro_h() == 0);
-+        }
-+        let selected =
-+            video::haar::damage_strip_coords(geometry, padded_width, padded_height, &rects)?.len();
-+        assert!(selected < 2040 / 2);
-+        Ok(())
-+    }
 +
 +    #[test]
-+    fn parallel_encoder_matches_serial_for_every_plane_transform() -> Result {
++    fn rotation_pixel_mapping() {
 +        use drm::kms::plane::Rotation;
 +
-+        let transforms = [
-+            Rotation::ROTATE_0,
-+            Rotation::ROTATE_90,
-+            Rotation::ROTATE_180,
-+            Rotation::ROTATE_270,
-+            Rotation::ROTATE_0 | Rotation::REFLECT_X,
-+            Rotation::ROTATE_90 | Rotation::REFLECT_X,
-+            Rotation::ROTATE_180 | Rotation::REFLECT_X,
-+            Rotation::ROTATE_270 | Rotation::REFLECT_X,
-+            Rotation::ROTATE_0 | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_90 | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_180 | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_270 | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_0 | Rotation::REFLECT_X | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_90 | Rotation::REFLECT_X | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_180 | Rotation::REFLECT_X | Rotation::REFLECT_Y,
-+            Rotation::ROTATE_270 | Rotation::REFLECT_X | Rotation::REFLECT_Y,
-+        ];
-+        for transform in transforms {
-+            parallel_rotation_matches_serial(transform)?;
-+        }
-+        Ok(())
++        // Source 2x3 (sw=2, sh=3). 0deg is identity; 180deg mirrors both axes.
++        assert_eq!(rot_src(Rotation::ROTATE_0, 0, 0, 2, 3), (0, 0));
++        assert_eq!(rot_src(Rotation::ROTATE_0, 1, 2, 2, 3), (1, 2));
++        assert_eq!(rot_src(Rotation::ROTATE_180, 0, 0, 2, 3), (1, 2));
++        assert_eq!(rot_src(Rotation::ROTATE_180, 1, 2, 2, 3), (0, 0));
++        // 90deg: output dims are (sh,sw)=(3,2); (dx,dy) -> (dy, sh-1-dx).
++        assert_eq!(rot_src(Rotation::ROTATE_90, 0, 0, 2, 3), (0, 2));
++        assert_eq!(rot_src(Rotation::ROTATE_90, 2, 1, 2, 3), (1, 0));
++        // 270deg: (dx,dy) -> (sw-1-dy, dx).
++        assert_eq!(rot_src(Rotation::ROTATE_270, 0, 0, 2, 3), (1, 0));
++        assert_eq!(rot_src(Rotation::ROTATE_270, 2, 1, 2, 3), (0, 2));
++        // Reflect-X composes on top of the rotation (here identity): sx -> sw-1-sx.
++        assert_eq!(
++            rot_src(Rotation::ROTATE_0 | Rotation::REFLECT_X, 0, 0, 2, 3),
++            (1, 0)
++        );
 +    }
 +}
-diff --git a/drivers/gpu/drm/vino/drm_sink/stream.rs b/drivers/gpu/drm/vino/drm_sink/stream.rs
+diff --git a/drivers/gpu/drm/vino/drm_sink/settings.rs b/drivers/gpu/drm/vino/drm_sink/settings.rs
 new file mode 100644
-index 000000000000..1adb37de980e
+index 000000000000..2142b5f20230
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/stream.rs
-@@ -0,0 +1,470 @@
++++ b/drivers/gpu/drm/vino/drm_sink/settings.rs
+@@ -0,0 +1,574 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Opening a connector's video stream, and the records that frame it.
++//! The runtime knobs a matched dock profile installs on the KMS device.
 +//!
-+//! Before any pixels reach a connector the dock has to be told what is coming: a ring of buffer
-+//! addresses, a decoder configuration, and an opening that differs by family. Every record here is
-+//! sealed with the connector's own video key, and the dock silently declines a stream whose
-+//! opening it did not expect.
++//! The KMS side has one code path per operation and no per-dock branches; every difference
++//! between generations arrives here as data, is stored in an atomic, and is read back by the
++//! workers. Nothing in this module decides anything -- [`crate::profile`] does.
 +
 +use super::*;
 +
 +impl VinoDrmData {
-+    /// Build one connector's cold video-arm burst, prepended to the first video frame after a mode
-+    /// set. Records #0/#1/#4/#5 are plaintext and #6/#7 contain a fixed `type=4` body. Records
-+    /// #2/#3/#8/#9 use this connector's video key and nonce, derived from the per-connector SKE
-+    /// with `riv_h ^ (0x08 | connector)` in byte 7, and share one block counter. Records #8/#9
-+    /// carry the decoder configuration and independent nonces. Build the per-connector video
-+    /// stream-open this platform wants in place of the cold ARM burst.
-+    ///
-+    /// Sealed with the connector's video key like every other video-endpoint message, and prefixed
-+    /// to the first frame after a mode set so it reaches the dock before any pixels. Build the
-+    /// prefix that opens a connector's video stream after a mode set.
-+    ///
-+    /// Ridge prefixes a cold ARM burst to the first frame; Navarro prefixes a short sealed
-+    /// stream-open. Both occupy the same slot ahead of any pixels, and every submission path must
-+    /// pick between them the same way: sending one platform's opening to the other's dock leaves
-+    /// the stream unopened, and the dock then watchdog-resets a few seconds later. Build the
-+    /// records that close a frame, in this dock's format.
-+    pub(super) fn build_frame_trailer(
++    /// Record this device's codec geometry; see [`Self::geometry`].
++    pub(crate) fn set_codec_geometry(
 +        &self,
-+        connector: u8,
-+        seq0: u32,
-+    ) -> crate::video::haar::FrameTrailer {
-+        let geometry = self.geometry();
-+        if self.video_on_ctrl_pipe() {
-+            crate::video::haar::FrameTrailer::one(&crate::video::haar::ella_frame_close(
-+                geometry, connector, seq0,
-+            ))
-+        } else if self.uses_arm_burst() {
-+            crate::video::haar::frame_trailer(geometry, connector, seq0)
-+        } else {
-+            crate::video::haar::navarro_frame_trailer(geometry, connector, seq0)
-+        }
-+    }
-+    /// Build the record that starts a non-prologue DL7400 frame.
-+    ///
-+    /// Ridge carries its slot transition in the three-record trailer and the DL-3x00 in its single
-+    /// closing record, so neither has an opener. Navarro terminates the old frame after its close
-+    /// record and starts the next USB transfer with this opener instead.
-+    pub(super) fn build_frame_opener(
-+        &self,
-+        connector: u8,
-+        seq0: u32,
-+        prologue: bool,
-+    ) -> Option<KVec<u8>> {
-+        if self.uses_arm_burst() || self.video_on_ctrl_pipe() || prologue {
-+            return None;
-+        }
-+        let mut out = KVec::new();
-+        out.extend_from_slice(
-+            &crate::video::haar::navarro_frame_opener(self.geometry(), connector, seq0),
-+            GFP_KERNEL,
-+        )
-+        .ok()
-+        .map(|()| out)
-+    }
-+    /// Open a connector's video stream, once per mode generation, ahead of any pixels.
-+    ///
-+    /// Does nothing on a dock whose opening is the ARM burst carried with the first frame.
-+    pub(super) fn send_stream_open(&self, dev: &BoundInterface<'_>, connector: usize) -> Result {
-+        let bit = 1u32 << connector;
-+        if self.stream_open_pending.load(Ordering::Acquire) & bit == 0 {
-+            return Ok(());
-+        }
-+        let Some(open) = self.build_stream_open_buf(connector)? else {
-+            self.stream_open_pending.fetch_and(!bit, Ordering::Release);
-+            return Ok(());
-+        };
-+        let pipe_i = dev.video_pipe_index(connector)?;
-+        let mut queue_slot = self.video_q[pipe_i].lock();
-+        if queue_slot.is_none() {
-+            *queue_slot = Some(dev.video_queue(connector, 8, VIDEO_XFER)?);
-+        }
-+        let queue = queue_slot
-+            .as_mut()
-+            .get_mut()
-+            .as_mut()
-+            .ok_or(kernel::error::code::ENODEV)?;
-+        queue.send(dev.io(), &open, crate::timeout())?;
-+        self.stream_open_pending.fetch_and(!bit, Ordering::Release);
-+        vino_debug!("vino: connector {} video stream opened\n", connector);
-+        Ok(())
-+    }
-+    /// Keep every engaged connector's video endpoint from going quiet long enough for the dock to
-+    /// tear the link down.
-+    ///
-+    /// The DL7400 stops answering -- video *and* control -- about a second after the last byte on a
-+    /// video endpoint, whatever it was doing before. A compositor with nothing to redraw leaves
-+    /// vino silent well past that, so each connector that has not sent anything for
-+    /// [`NAVARRO_KEEPALIVE_MS`] sends the same sealed report DLM pairs with every frame. Called
-+    /// from the control keepalive, which already runs for the life of the session.
-+    ///
-+    /// Only connectors whose video queue is already open are fed: a connector that has never
-+    /// streamed has nothing to keep alive, and opening a queue here would start a stream nothing
-+    /// follows.
-+    pub(crate) fn send_video_keepalive(&self, dev: &BoundInterface<'_>) {
-+        if self.uses_arm_burst() || self.shutting_down.load(Ordering::Acquire) {
-+            return;
-+        }
-+        let now = Instant::<Monotonic>::now();
-+        for connector in 0..MAX_CONNECTORS {
-+            if self.modeset_active[connector].load(Ordering::Acquire) == 0 {
-+                continue;
-+            }
-+            let due = match self.last_video_at.lock()[connector] {
-+                Some(last) => (now - last).as_millis() >= NAVARRO_KEEPALIVE_MS,
-+                None => false,
-+            };
-+            if !due {
-+                continue;
-+            }
-+            let frame = self.scanout_seq.lock()[connector];
-+            let Ok(report) = self.build_stream_report_buf(connector, frame) else {
-+                continue;
-+            };
-+            let Some(report) = report else { continue };
-+            let Ok(pipe_i) = dev.video_pipe_index(connector) else {
-+                continue;
-+            };
-+            let mut queue_slot = self.video_q[pipe_i].lock();
-+            let Some(queue) = queue_slot.as_mut().get_mut().as_mut() else {
-+                continue;
-+            };
-+            if queue.send(dev.io(), &report, crate::timeout()).is_ok() {
-+                self.last_video_at.lock()[connector] = Some(Instant::<Monotonic>::now());
-+            }
-+        }
-+    }
-+    pub(super) fn build_stream_prefix_buf(&self, connector: usize) -> Result<KVec<u8>> {
-+        if self.uses_arm_burst() {
-+            return self.build_arm_burst_buf(connector);
-+        }
-+        if self.video_on_ctrl_pipe() {
-+            // Sent inside the mode-set bracket instead, where the vendor puts it, so nothing is
-+            // owed to the frame. The empty buffer still marks this as the frame that opens the
-+            // generation. See `send_stream_prologue`.
-+            return Ok(KVec::new());
-+        }
-+        self.build_navarro_prologue_buf(connector)
-+    }
-+    /// Write a connector's stream prologue on the control pipe, for a dock that has no video pipe.
-+    ///
-+    /// The ring descriptor and the decoder configuration are records like any other on such a
-+    /// dock, so they can be ordered against the mode-set markers rather than glued to the front of
-+    /// a frame. Docks with a pipe of their own carry theirs with the first frame, which is where
-+    /// their own captures put it, and get nothing here.
-+    pub(super) fn send_stream_prologue(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        self.send_stream_ring(dev, connector)?;
-+        self.send_stream_config(dev, connector)?;
-+        Ok(())
-+    }
-+    /// Whether `connector` still owes its shared-pipe stream prologue.
-+    fn stream_prologue_pending(&self, connector: u8) -> bool {
-+        self.video_on_ctrl_pipe()
-+            && usize::from(connector) < MAX_CONNECTORS
-+            && self.arm_prefix_pending.load(Ordering::Acquire) & (1u32 << connector) != 0
-+    }
-+    /// Send only the unsealed ring descriptor of an Ella stream prologue.
-+    ///
-+    /// DLM does not concatenate this record with the decoder configuration: status and marker
-+    /// records sit between them during cold activation.  Making the two records independent table
-+    /// actions preserves that ordering while the conservative runtime path may still invoke both
-+    /// through [`Self::send_stream_prologue`].
-+    pub(super) fn send_stream_ring(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        if !self.stream_prologue_pending(connector) {
-+            return Ok(());
-+        }
-+        let ring = crate::video::haar::ella_stream_open(self.geometry(), connector);
-+        dev.ctrl_send(&ring, crate::timeout(), GFP_KERNEL)?;
-+        vino_debug!(
-+            "vino: connector={} stream ring descriptor sent inside the bracket ({} B)\n",
-+            connector,
-+            ring.len()
-+        );
-+        Ok(())
-+    }
-+    /// Send only the sealed decoder configuration of an Ella stream prologue.
-+    pub(super) fn send_stream_config(&self, dev: &BoundInterface<'_>, connector: u8) -> Result {
-+        if !self.stream_prologue_pending(connector) {
-+            return Ok(());
-+        }
-+        let connector_index = usize::from(connector);
-+        let config = self.build_ella_config_buf(connector_index)?;
-+        dev.ctrl_send(&config, crate::timeout(), GFP_KERNEL)?;
-+        vino_debug!(
-+            "vino: connector={} decoder configuration sent inside the bracket ({} B)\n",
-+            connector,
-+            config.len()
-+        );
-+        Ok(())
-+    }
-+    /// The mode header a connector's stream states, built from the mode it was last given.
-+    ///
-+    /// The surface named here is the padded one the codec actually produces: a mode whose height
-+    /// is not a whole number of strips is encoded as the next whole one, and the dock has to be
-+    /// told the size it is going to be sent. Every captured mode on a dock with its own video pipe
-+    /// is already a whole number of strips, so this only ever rounds on the shared-pipe dock,
-+    /// whose 1080-line modes are stated as 1088.
-+    /// Whether this connector is being driven at 30 bpp.
-+    ///
-+    /// The decoder configuration, the set-mode and the codec all state the depth, and all read it
-+    /// from [`Self::connector_programmed_ten_bit`] so that they cannot disagree.
-+    fn connector_ten_bit(&self, connector: usize) -> bool {
-+        u8::try_from(connector).is_ok_and(|c| self.connector_programmed_ten_bit(c))
++        strip_blocks_x: usize,
++        interlaced: bool,
++        band_parity: bool,
++        connector_selector_shift: u8,
++        stream_id_mask: u8,
++        dock_buffers: u8,
++        coding: crate::video_arm::CodeTables,
++        steady_sub_bit: u8,
++    ) {
++        let narrow = coding == crate::video_arm::CodeTables::Narrow;
++        let packed = (strip_blocks_x as u32 & 0xff)
++            | ((interlaced as u32) << 8)
++            | ((band_parity as u32) << 9)
++            | ((narrow as u32) << 10)
++            | (((steady_sub_bit != 0) as u32) << 11)
++            | ((connector_selector_shift as u32) << 16)
++            | ((stream_id_mask as u32) << 20)
++            | ((dock_buffers as u32) << 28);
++        self.codec_geometry
++            .store(packed | 0x8000, core::sync::atomic::Ordering::Release);
 +    }
 +
-+    fn stream_mode_header(&self, connector: usize) -> Result<[u8; 26]> {
-+        let timing = self
-+            .last_timing
++    /// This device's codec geometry, to be passed into every codec call made on its behalf.
++    ///
++    /// Stored packed because the DRM device allocation is pin-initialised before `probe` knows
++    /// which dock it matched. A device with no profile applied reads the Ridge layout.
++    pub(crate) fn geometry(&self) -> crate::video::haar::Geometry {
++        let p = self
++            .codec_geometry
++            .load(core::sync::atomic::Ordering::Acquire);
++        if p & 0x8000 == 0 {
++            return crate::video::haar::RIDGE_GEOMETRY;
++        }
++        crate::video::haar::Geometry::new(
++            ((p & 0xff) as usize).max(1),
++            p & (1 << 8) != 0,
++            p & (1 << 9) != 0,
++            ((p >> 16) & 0xf) as u8,
++            ((p >> 20) & 0xff) as u8,
++            ((p >> 28) & 0xf) as u8,
++        )
++        .with_coding(if p & (1 << 10) != 0 {
++            crate::video_arm::CodeTables::Narrow
++        } else {
++            crate::video_arm::CodeTables::Wide
++        })
++        .with_steady_sub_bit(if p & (1 << 11) != 0 { 0x20 } else { 0 })
++    }
++
++    /// Record how this dock delivers logical framebuffer updates to its ring buffers.
++    pub(crate) fn set_frame_delivery(&self, policy: crate::profile::FrameDelivery) {
++        let packed = u32::from(policy.keyframe_presentations.max(1))
++            | (u32::from(policy.delta_presentations.max(1)) << 8)
++            | (u32::from(policy.damage_frames.max(1)) << 16);
++        self.frame_delivery.store(packed, Ordering::Release);
++    }
++
++    /// Snapshot this dock's frame-delivery policy.
++    pub(crate) fn frame_delivery(&self) -> crate::profile::FrameDelivery {
++        let packed = self.frame_delivery.load(Ordering::Acquire);
++        crate::profile::FrameDelivery::new(
++            ((packed & 0xff) as u8).max(1),
++            (((packed >> 8) & 0xff) as u8).max(1),
++            (((packed >> 16) & 0xff) as u8).max(1),
++        )
++    }
++
++    /// Record whether timed presence probes may reset a bracket beside a live connector.
++    pub(crate) fn set_probe_bracket(&self, policy: crate::profile::ProbeBracket) {
++        self.probe_bracket.store(policy as u8, Ordering::Release);
++    }
++
++    /// This dock's bracket-reset policy.
++    pub(crate) fn probe_bracket(&self) -> crate::profile::ProbeBracket {
++        match self.probe_bracket.load(Ordering::Acquire) {
++            x if x == crate::profile::ProbeBracket::DeferWithActiveSibling as u8 => {
++                crate::profile::ProbeBracket::DeferWithActiveSibling
++            }
++            _ => crate::profile::ProbeBracket::Always,
++        }
++    }
++
++    /// Whether this dock can be driven at ten bits per channel; see [`DockProfile::hdr_capable`].
++    pub(crate) fn hdr_capable(&self) -> bool {
++        self.hdr_capable.load(Ordering::Acquire)
++    }
++
++    /// Whether this dock composites a cursor bitmap of its own; see [`DockProfile::hw_cursor`].
++    pub(crate) fn hw_cursor(&self) -> bool {
++        self.hw_cursor.load(Ordering::Acquire)
++    }
++
++    /// Record whether the dock's presence probe describes a connector; see
++    /// [`DockProfile::reports_presence`].
++    pub(crate) fn set_reports_presence(&self, on: bool) {
++        self.reports_presence.store(on, Ordering::Release);
++    }
++
++    /// Whether the dock's presence probe describes a connector; see
++    /// [`DockProfile::reports_presence`].
++    pub(crate) fn reports_presence(&self) -> bool {
++        self.reports_presence.load(Ordering::Acquire)
++    }
++
++    /// Record whether the connectors share one EDID handler; see
++    /// [`DockProfile::shared_edid_handler`].
++    pub(crate) fn set_shared_edid_handler(&self, on: bool) {
++        self.shared_edid_handler.store(on, Ordering::Release);
++    }
++
++    /// Whether the connectors share one EDID handler; see [`DockProfile::shared_edid_handler`].
++    pub(crate) fn shared_edid_handler(&self) -> bool {
++        self.shared_edid_handler.load(Ordering::Acquire)
++    }
++
++    /// Record whether a frame ending on a full packet is split; see
++    /// [`DockProfile::split_full_packet_frame`].
++    pub(crate) fn set_split_full_packet_frame(&self, on: bool) {
++        self.split_full_packet_frame.store(on, Ordering::Release);
++    }
++
++    /// Whether a frame ending on a full packet is split.
++    pub(crate) fn split_full_packet_frame(&self) -> bool {
++        self.split_full_packet_frame.load(Ordering::Acquire)
++    }
++
++    /// Whether `connector`'s committed framebuffer is 10 bits per channel.
++    ///
++    /// Read by the mode-set path, which must announce a depth to the dock that matches the one the
++    /// plane will actually send: the dock sizes its buffer from the pair and mis-sizes it if they
++    /// disagree.
++    pub(super) fn connector_is_ten_bit(&self, connector: usize) -> bool {
++        self.connector_wire_ten_bit(connector as u8)
++    }
++
++    /// Whether `connector`'s connector is being driven in PQ; see [`Self::set_connector_st2084`].
++    pub(super) fn connector_is_st2084(&self, connector: usize) -> bool {
++        self.head_st2084.load(Ordering::Acquire) & (1u32 << connector) != 0
++    }
++
++    /// Record the transfer function userspace has asked for on `connector`.
++    ///
++    /// Driven by the connector's `HDR_OUTPUT_METADATA` blob rather than by anything vino decides,
++    /// for the same reason [`Self::set_connector_depth`] follows the framebuffer's fourcc: the dock
++    /// must be told what the pixels actually are, and any state of our own could drift from them.
++    pub(super) fn set_connector_st2084(&self, connector: u8, on: bool) {
++        let bit = 1u32 << u32::from(connector);
++        if on {
++            self.head_st2084.fetch_or(bit, Ordering::Release);
++        } else {
++            self.head_st2084.fetch_and(!bit, Ordering::Release);
++        }
++    }
++
++    /// Record the link depth userspace asked this connector to carry.
++    ///
++    /// Four bits per connector is enough for every value `max bpc` takes, and keeping them in one
++    /// word means the scanout path reads the whole set with a single load.
++    pub(super) fn set_connector_max_bpc(&self, connector: u8, bpc: u32) {
++        let shift = u32::from(connector) * 4;
++        let field = bpc.min(15) << shift;
++        let mask = !(0xfu32 << shift);
++        let mut current = self.connector_max_bpc.load(Ordering::Acquire);
++        loop {
++            let next = (current & mask) | field;
++            match self.connector_max_bpc.compare_exchange_weak(
++                current,
++                next,
++                Ordering::AcqRel,
++                Ordering::Acquire,
++            ) {
++                Ok(_) => break,
++                Err(seen) => current = seen,
++            }
++        }
++    }
++
++    /// The sample depth of the framebuffer this connector is scanning out.
++    ///
++    /// This is how a pixel must be *decoded*; [`Self::geometry_for_connector`] says what the dock
++    /// is told to carry, and the two differ whenever userspace asks for a deeper link than the
++    /// surface it hands over.
++    pub(super) fn connector_buffer_depth(&self, connector: u8) -> crate::video::haar::Depth {
++        if self.connector_ten_bit.load(Ordering::Acquire) & (1u32 << u32::from(connector)) != 0 {
++            crate::video::haar::Depth::Ten
++        } else {
++            crate::video::haar::Depth::Eight
++        }
++    }
++
++    /// Whether this connector's link is driven at ten bits per channel.
++    ///
++    /// True when the framebuffer is already ten-bit, and when userspace asks for a ten-bit link
++    /// through `max bpc` on a dock that can carry one and is driving the connector in PQ. An
++    /// eight-bit surface over a ten-bit link is the ordinary case on every other driver.
++    ///
++    /// This is the decision, not the depth in force. Read it only where a mode set carries the
++    /// answer to the dock; everything else wants [`Self::connector_programmed_ten_bit`].
++    pub(super) fn connector_wire_ten_bit(&self, connector: u8) -> bool {
++        if self.connector_ten_bit.load(Ordering::Acquire) & (1u32 << u32::from(connector)) != 0 {
++            return true;
++        }
++        if self.connector_deny_ten_bit.load(Ordering::Acquire) & (1u32 << u32::from(connector)) != 0
++        {
++            return false;
++        }
++        let shift = u32::from(connector) * 4;
++        let requested = (self.connector_max_bpc.load(Ordering::Acquire) >> shift) & 0xf;
++        self.hdr_capable() && requested >= 10 && self.connector_is_st2084(connector as usize)
++    }
++
++    /// Record whether this connector's ten-bit link fits the dock's shared bandwidth.
++    pub(super) fn set_connector_ten_bit_denied(&self, connector: u8, denied: bool) {
++        let bit = 1u32 << u32::from(connector);
++        if denied {
++            self.connector_deny_ten_bit.fetch_or(bit, Ordering::Release);
++        } else {
++            self.connector_deny_ten_bit
++                .fetch_and(!bit, Ordering::Release);
++        }
++    }
++
++    /// Whether any connector other than `connector` is programmed at ten bits per channel.
++    ///
++    /// The dock's bandwidth is shared, so a commit is priced at the dock's deepest connector.
++    pub(super) fn other_connector_programmed_ten_bit(&self, connector: u8) -> bool {
++        (0..self.connector_count())
++            .any(|c| c as u8 != connector && self.connector_programmed_ten_bit(c as u8))
++    }
++
++    /// Whether the mode this connector was last programmed with drives ten bits per channel.
++    ///
++    /// The depth the dock is decoding at, so the only one the codec may encode at and the only one
++    /// the set-mode and the decoder configuration may state. Deliberately not
++    /// [`Self::connector_wire_ten_bit`], which moves between mode sets.
++    pub(super) fn connector_programmed_ten_bit(&self, connector: u8) -> bool {
++        self.last_timing
 +            .lock()
-+            .get(connector)
++            .get(connector as usize)
 +            .copied()
 +            .flatten()
-+            .ok_or(ENODEV)?;
-+        let geometry = self.geometry();
-+        let pad = |value: u16, unit: usize| -> u16 {
-+            let unit = unit.max(1) as u16;
-+            value.div_ceil(unit).saturating_mul(unit)
-+        };
-+        Ok(crate::video_arm::mode_header(
-+            pad(timing.hactive, geometry.strip_w()),
-+            pad(timing.vactive, geometry.strip_h()),
-+            self.layout_word(),
-+            timing.ten_bit,
-+        ))
++            .is_some_and(|t| t.ten_bit)
 +    }
-+    /// This connector's video sealing key and nonce, as [`set_video_keys`](Self::set_video_keys)
-+    /// stored them: the whitened SKE key at the front and the stream content nonce behind it.
-+    fn video_seal_key(&self, connector: usize) -> Result<(kernel::crypto::Secret<16>, [u8; 8])> {
-+        let keys = self.video_keys.lock();
-+        let key = keys.get(connector).ok_or(EINVAL)?;
-+        let mut vkey = kernel::crypto::Secret::zeroed();
-+        vkey.copy_from_slice(&key[..16]);
-+        let mut vnonce = [0u8; 8];
-+        vnonce.copy_from_slice(&key[16..24]);
-+        Ok((vkey, vnonce))
-+    }
-+    /// Build the sealed decoder configuration a connector owes ahead of its first frame on a dock
-+    /// that shares its control pipe.
++
++    /// This device's codec geometry at one connector's programmed sample depth.
 +    ///
-+    /// The stream itself was announced during CP setup, where the plaintext markers and the sealed
-+    /// open could be ordered against the rest of the sequence. What is left is what DLM sends after
-+    /// the mode set. The configuration continues the block counter the setup open started, which is
-+    /// why it must not be rebuilt from block zero.
-+    fn build_ella_config_buf(&self, connector: usize) -> Result<KVec<u8>> {
-+        let (vkey, vnonce) = self.video_seal_key(connector)?;
-+        let header = self.stream_mode_header(connector)?;
-+        let connector_selector = u8::try_from(connector).map_err(|_| EINVAL)?;
-+        let geometry = self.geometry();
-+        let stream = geometry.stream_id(connector_selector);
-+        let config = crate::video_arm::build_config(
-+            self.code_tables(),
-+            &header,
-+            &[],
-+            self.connector_ten_bit(connector),
-+        )?;
-+        let seq = self.take_seal_seq(connector, config.len().div_ceil(16) as u32);
-+        crate::cp::seal_video_arm(&vkey, &vnonce, stream, 0x0000, seq, &config)
-+    }
-+    /// Build the message a connector's video stream opens with, sent alone ahead of everything
-+    /// else.
-+    ///
-+    /// Ridge has none: its ARM burst opens the stream from within the first frame's transfer.
-+    ///
-+    /// Navarro has none either, for a connector it is about to drive. The short sealed open does
-+    /// exist on this dock, but both DLM captures send it only on the stream ids of the connectors
-+    /// with no monitor -- `0x17` and `0x1f` while pixels went to connectors 0 and 1 -- each as the
-+    /// first and only record on its own stream, sealed with that connector's own key at block 0. A
-+    /// driven connector's sealed chain instead opens with the pipe descriptor at block 0.
-+    ///
-+    /// It must not go out on `stream_id | 0x10`, which for connector 0 is connector 2's stream id,
-+    /// sealed with connector 0's key. That both signed another connector's stream with the wrong
-+    /// key and, because the prologue then also started at block 0, used the connector's first
-+    /// keystream block twice.
-+    fn build_stream_open_buf(&self, connector: usize) -> Result<Option<KVec<u8>>> {
-+        // A dock that carries video on the control pipe has already opened its streams: the same
-+        // record went out inside the CP setup burst, where it can be ordered against the rest of
-+        // setup. Sending a second one here would seal a block the dock has already accounted for.
-+        if self.uses_arm_burst() || self.video_on_ctrl_pipe() {
-+            return Ok(None);
-+        }
-+        let (vkey, vnonce) = self.video_seal_key(connector)?;
-+        let content = crate::cp::navarro_stream_open();
-+        let stream = self.geometry().stream_id(connector as u8);
-+        let seq = self.take_seal_seq(connector, content.len().div_ceil(16) as u32);
-+        Ok(Some(crate::cp::seal_video_arm(
-+            &vkey, &vnonce, stream, 0x0002, seq, &content,
-+        )?))
-+    }
-+    /// Build the sealed report a connector owes its stream for one frame.
-+    ///
-+    /// DLM pairs every frame on the frame sub with one of these on the stream sub, so a stream
-+    /// that sends pixels and then falls silent on its stream sub is a stream the dock stops
-+    /// believing in. Returns `None` on a dock whose frames carry no such record.
-+    ///
-+    /// The ordinary `aux=0x000c` form is what DLM sends for all but a handful of frames; the
-+    /// `aux=0x0002` form restates the mode and goes out with the frame that carries the prologue,
-+    /// which is the frame right after a mode set.
-+    pub(super) fn build_stream_report_buf(
-+        &self,
-+        connector: usize,
-+        frame: u32,
-+    ) -> Result<Option<KVec<u8>>> {
-+        if self.uses_arm_burst() {
-+            return Ok(None);
-+        }
-+        let owed = self.stream_reports_owed.get(connector).ok_or(EINVAL)?;
-+        if self.video_on_ctrl_pipe()
-+            && (frame < STREAM_REPORT_FRAME
-+                || owed
-+                    .fetch_update(Ordering::AcqRel, Ordering::Acquire, |n| n.checked_sub(1))
-+                    .is_err())
-+        {
-+            return Ok(None);
-+        }
-+        let (vkey, vnonce) = self.video_seal_key(connector)?;
-+        let stream = self.geometry().stream_id(connector as u8);
-+        let with_mode = self.video_on_ctrl_pipe()
-+            || self.arm_prefix_pending.load(Ordering::Acquire) & (1u32 << connector) != 0;
-+        let (aux, content): (u16, KVec<u8>) = if with_mode {
-+            let header = self.stream_mode_header(connector)?;
-+            let mut v = KVec::new();
-+            if self.video_on_ctrl_pipe() {
-+                v.extend_from_slice(&crate::cp::stream_report_mode_only(&header), GFP_KERNEL)?;
-+                (0x0006, v)
-+            } else {
-+                v.extend_from_slice(&crate::cp::navarro_stream_report_mode(&header), GFP_KERNEL)?;
-+                (0x0002, v)
-+            }
++    /// Every path that touches pixels wants this rather than [`Self::geometry`]: the depth decides
++    /// the entropy coder's escape ceiling, and getting it wrong desynchronises the dock's decoder
++    /// rather than merely degrading the picture. See [`crate::video::haar::Depth`].
++    pub(super) fn geometry_for_connector(&self, connector: u8) -> crate::video::haar::Geometry {
++        let ten = self.connector_programmed_ten_bit(connector);
++        self.geometry().with_depth(if ten {
++            crate::video::haar::Depth::Ten
 +        } else {
-+            let mut v = KVec::new();
-+            v.extend_from_slice(&crate::cp::navarro_stream_report(), GFP_KERNEL)?;
-+            (0x000c, v)
-+        };
-+        let seq = self.take_seal_seq(connector, content.len().div_ceil(16) as u32);
-+        Ok(Some(crate::cp::seal_video_arm(
-+            &vkey, &vnonce, stream, aux, seq, &content,
-+        )?))
++            crate::video::haar::Depth::Eight
++        })
 +    }
-+    /// Build the DL7400 records that precede a connector's first frame.
++
++    /// Record the sample depth of the framebuffer a connector is scanning out.
 +    ///
-+    /// In wire order: two plaintext stream markers, the sealed pipe descriptor, a plaintext frame
-+    /// marker, an unsealed record naming the connector's first and fifth ring addresses, and the
-+    /// sealed decoder configuration. Both sealed records draw from the stream's running block
-+    /// counter, so on a first arm the descriptor seals at block 0 and the configuration at block
-+    /// 19 -- the descriptor's 304 bytes in blocks -- exactly as DLM's `0 -> 19 -> 88` chain does.
-+    fn build_navarro_prologue_buf(&self, connector: usize) -> Result<KVec<u8>> {
-+        let (vkey, vnonce) = self.video_seal_key(connector)?;
-+        let connector_selector = connector as u8;
-+        let geometry = self.geometry();
-+        let stream = geometry.stream_id(connector_selector);
-+        let frame_sub = u16::from(geometry.connector_selector(connector_selector));
-+
-+        let mut buf = KVec::with_capacity(1600, GFP_KERNEL)?;
-+        for sub in [stream, stream | 0x0010] {
-+            buf.extend_from_slice(
-+                &crate::cp::stream_announce(sub, crate::cp::STREAM_ANNOUNCE_MARKER),
-+                GFP_KERNEL,
-+            )?;
-+        }
-+
-+        let descriptor = crate::cp::navarro_pipe_descriptor(connector_selector)?;
-+        let seal_seq = self.take_seal_seq(connector, descriptor.len().div_ceil(16) as u32);
-+        let sealed =
-+            crate::cp::seal_video_arm(&vkey, &vnonce, stream, 0x0000, seal_seq, &descriptor)?;
-+        buf.extend_from_slice(&sealed, GFP_KERNEL)?;
-+
-+        buf.extend_from_slice(&crate::cp::stream_announce(frame_sub, 0), GFP_KERNEL)?;
-+
-+        // Unsealed type-4 record: the connector_selector's first and fifth ring addresses.
-+        let mut ring = [0u8; 32];
-+        ring[2..4].copy_from_slice(&0x001cu16.to_le_bytes());
-+        ring[4..8].copy_from_slice(&4u32.to_le_bytes());
-+        ring[8..10].copy_from_slice(&frame_sub.to_le_bytes());
-+        ring[10..12].copy_from_slice(&0x0004u16.to_le_bytes());
-+        ring[16..19].copy_from_slice(&[0x0a, 0x00, 0x04]);
-+        ring[19] = frame_sub as u8;
-+        ring[22..26]
-+            .copy_from_slice(&crate::cp::navarro_pipe_ring(connector_selector, 0).to_le_bytes());
-+        ring[26..30]
-+            .copy_from_slice(&crate::cp::navarro_pipe_ring(connector_selector, 4).to_le_bytes());
-+        buf.extend_from_slice(&ring, GFP_KERNEL)?;
-+
-+        let mut tail = [0u8; 14];
-+        crate::rng::fill(&mut tail);
-+        let config = crate::video_arm::build_config(
-+            self.code_tables(),
-+            &self.stream_mode_header(connector)?,
-+            &tail,
-+            self.connector_ten_bit(connector),
-+        )?;
-+        let seal_seq = self.take_seal_seq(connector, config.len().div_ceil(16) as u32);
-+        buf.extend_from_slice(
-+            &crate::cp::seal_video_arm(&vkey, &vnonce, stream, 0x000e, seal_seq, &config)?,
-+            GFP_KERNEL,
-+        )?;
-+        Ok(buf)
-+    }
-+    fn build_arm_burst_buf(&self, connector: usize) -> Result<KVec<u8>> {
-+        let (vkey, vnonce) = self.video_seal_key(connector)?;
-+        let h = connector as u16;
-+        // The sealed records share the video channel's running block counter:
-+        // #2 seq0(+1), #3 seq1(+1), #8 seq2(+69), and #9 seq71.
-+        let mut seal_seq: u32 = 0;
-+        let mut buf = KVec::with_capacity(2560, GFP_KERNEL)?;
-+        for (i, &(_wire_type, sub_base, aux, body_len)) in
-+            crate::cp::VIDEO_ARM_BURST.iter().enumerate()
-+        {
-+            let sub = sub_base.wrapping_add(h);
-+            match i {
-+                2 | 3 => {
-+                    // Sealed under the per-connector video key/nonce. Content = the six-byte stream
-+                    // marker + 10 host-random bytes; seq is the shared block counter (16 B = 1
-+                    // block each).
-+                    let content = crate::cp::stream_open(self.stream_marker_kind());
-+                    let frame =
-+                        crate::cp::seal_video_arm(&vkey, &vnonce, sub, aux, seal_seq, &content)?;
-+                    seal_seq += 1;
-+                    buf.extend_from_slice(&frame, GFP_KERNEL)?;
-+                }
-+                6 | 7 => {
-+                    // type=4 but FIXED plaintext (not encrypted, no MAC): a 32-byte frame whose
-+                    // Its 16-byte body is fixed, with 0x10 at byte 11.
-+                    let mut f = [0u8; 32];
-+                    f[2..4].copy_from_slice(&0x001cu16.to_le_bytes());
-+                    f[4..8].copy_from_slice(&4u32.to_le_bytes());
-+                    f[8..10].copy_from_slice(&sub.to_le_bytes());
-+                    f[10..12].copy_from_slice(&aux.to_le_bytes());
-+                    f[16..32].copy_from_slice(&[
-+                        0x0a, 0x00, 0x04, 0x00, 0, 0, 0, 0, 0, 0, 0, 0x10, 0, 0, 0, 0,
-+                    ]);
-+                    buf.extend_from_slice(&f, GFP_KERNEL)?;
-+                }
-+                8 | 9 => {
-+                    debug_assert_eq!(body_len, 1104);
-+                    let mut nonce = [0u8; 14];
-+                    crate::rng::fill(&mut nonce);
-+                    let content = crate::video_arm::build_config(
-+                        self.code_tables(),
-+                        &self.stream_mode_header(connector)?,
-+                        &nonce,
-+                        self.connector_ten_bit(connector),
-+                    )?;
-+                    debug_assert_eq!(content.len(), body_len);
-+                    let frame =
-+                        crate::cp::seal_video_arm(&vkey, &vnonce, sub, aux, seal_seq, &content)?;
-+                    seal_seq += (body_len / 16) as u32;
-+                    buf.extend_from_slice(&frame, GFP_KERNEL)?;
-+                }
-+                _ => {
-+                    // wire_type==2 plaintext records (#0/#1/#4/#5).
-+                    let body = crate::cp::video_arm_plaintext_body(i, h);
-+                    let frame = crate::cp::video_arm_plain_frame(sub, &body);
-+                    buf.extend_from_slice(&frame, GFP_KERNEL)?;
-+                }
++    /// Driven by the committed framebuffer's fourcc rather than by any state of our own, so it
++    /// cannot drift from the pixels actually in hand. A format the codec does not know leaves the
++    /// connector where it was; `atomic_check` is what rejects those, and a plane list that only
++    /// offers `XRGB8888` means this never sees one.
++    pub(super) fn set_connector_depth(&self, connector: u8, depth: crate::video::haar::Depth) {
++        let bit = 1u32 << u32::from(connector);
++        let previous = match depth {
++            crate::video::haar::Depth::Ten => {
++                self.connector_ten_bit.fetch_or(bit, Ordering::Release)
 +            }
++            crate::video::haar::Depth::Eight => {
++                self.connector_ten_bit.fetch_and(!bit, Ordering::Release)
++            }
++        };
++        // Report the change, because this is the only place the sample depth is decided and
++        // nothing else on the wire says what was chosen. A connector that advertises ten bits and
++        // is driven in ST2084 still goes out at eight if the compositor never hands over a
++        // ten-bit framebuffer, and that difference is otherwise visible only on the panel.
++        let was_ten = previous & bit != 0;
++        let now_ten = matches!(depth, crate::video::haar::Depth::Ten);
++        if was_ten != now_ten {
++            let socket = connector + 1;
++            let bits = if now_ten { 10 } else { 8 };
++            vino_debug!("vino: socket {socket} scanout depth is now {bits} bits per channel\n");
 +        }
-+        Ok(buf)
++    }
++
++    /// Record the mode-programming and blanking behaviour this dock wants.
++    pub(crate) fn set_mode_behaviour(&self, profile: &'static crate::profile::DockProfile) {
++        self.dock_wide_modeset
++            .store(profile.protocol.dock_wide_modeset, Ordering::Release);
++        self.clear_mode_before_set
++            .store(profile.protocol.clear_mode_before_set, Ordering::Release);
++        self.video_keepalive
++            .store(profile.protocol.video_keepalive, Ordering::Release);
++        self.blank_markers_held.store(
++            matches!(
++                profile.protocol.blank_bracket,
++                crate::profile::BlankBracket::MarkersHeld
++            ),
++            Ordering::Release,
++        );
++    }
++
++    /// Whether a connector must keep being fed while its content is unchanged.
++    pub(crate) fn video_keepalive(&self) -> bool {
++        self.video_keepalive.load(Ordering::Acquire)
++    }
++
++    /// Whether programming any connector reconfigures the whole dock.
++    pub(crate) fn dock_wide_modeset(&self) -> bool {
++        self.dock_wide_modeset.load(Ordering::Acquire)
++    }
++
++    /// Whether a connector's pipe is torn down before a timing is programmed onto it.
++    pub(crate) fn clear_mode_before_set(&self) -> bool {
++        self.clear_mode_before_set.load(Ordering::Acquire)
++    }
++
++    /// How a connector blanks; see [`crate::profile::BlankBracket`].
++    pub(crate) fn blank_bracket(&self) -> crate::profile::BlankBracket {
++        if self.blank_markers_held.load(Ordering::Acquire) {
++            crate::profile::BlankBracket::MarkersHeld
++        } else {
++            crate::profile::BlankBracket::BlackThenClose
++        }
++    }
++
++    /// Record how this dock states its framebuffer allocation in a set-mode.
++    pub(crate) fn set_allocation(&self, allocation: &'static crate::profile::Allocation) {
++        let _ = self.allocation.populate(allocation);
++    }
++
++    /// How this dock states its framebuffer allocation; Ridge's device override until probe has
++    /// matched a profile, as with every other value published there.
++    pub(crate) fn allocation(&self) -> &'static crate::profile::Allocation {
++        self.allocation
++            .as_ref()
++            .copied()
++            .unwrap_or(&crate::profile::PROFILE_RIDGE.protocol.allocation)
++    }
++
++    /// Record whether this dock opens a stream with the ARM burst; see `DockProfile::arm_burst`.
++    pub(crate) fn set_arm_burst(&self, on: bool) {
++        self.arm_burst.store(on, Ordering::Release);
++    }
++
++    /// Whether the first frame after a mode set carries the cold ARM burst.
++    pub(super) fn uses_arm_burst(&self) -> bool {
++        self.arm_burst.load(Ordering::Acquire)
++    }
++
++    /// Length of a continuous-presentation window, for this dock.
++    ///
++    /// The activation carrier and the blank presentation both work by presenting one encoded frame
++    /// back to back for a fixed wall-clock window, with no control transaction in between. That
++    /// trains a downstream link on a dock with a video pipe of its own. On a dock that carries
++    /// video on the control pipe it instead holds the endpoint for the whole window, and the dock
++    /// is silenced at exactly the moment the mode set needs it to answer. Such a dock gets a
++    /// single presentation instead, which is what `submit_prompt_training` does at zero.
++    pub(super) fn carrier_ms(&self, base: i64) -> i64 {
++        if self.video_on_ctrl_pipe() {
++            0
++        } else {
++            base
++        }
++    }
++
++    /// How many carrier frames a connector presents before its first content frame; see
++    /// `DockProfile::carrier_frames`.
++    pub(super) fn carrier_presentations(&self) -> u32 {
++        self.carrier_frames
++            .load(core::sync::atomic::Ordering::Relaxed)
++    }
++
++    /// Record how this dock's video stream describes itself.
++    ///
++    /// The three values travel together because they are read together, by the one builder that
++    /// states a stream's mode and decoder tables.
++    pub(crate) fn set_video_stream_desc(
++        &self,
++        layout_word: u16,
++        marker_kind: u8,
++        tables: crate::video_arm::CodeTables,
++    ) {
++        let narrow = matches!(tables, crate::video_arm::CodeTables::Narrow);
++        let packed =
++            u32::from(layout_word) | (u32::from(marker_kind) << 16) | ((narrow as u32) << 24);
++        self.video_stream_desc.store(packed, Ordering::Release);
++    }
++
++    /// The word repeated beside the surface size in this dock's stream mode header.
++    pub(crate) fn layout_word(&self) -> u16 {
++        self.video_stream_desc.load(Ordering::Acquire) as u16
++    }
++
++    /// The byte naming this dock in a sealed stream's opening marker.
++    pub(crate) fn stream_marker_kind(&self) -> u8 {
++        (self.video_stream_desc.load(Ordering::Acquire) >> 16) as u8
++    }
++
++    /// Which form of decoder code tables this dock's stream configuration states.
++    pub(crate) fn code_tables(&self) -> crate::video_arm::CodeTables {
++        if self.video_stream_desc.load(Ordering::Acquire) & (1 << 24) != 0 {
++            crate::video_arm::CodeTables::Narrow
++        } else {
++            crate::video_arm::CodeTables::Wide
++        }
++    }
++
++    /// Record this dock's minimum frame interval; see `DockProfile::frame_period_ms`.
++    pub(crate) fn set_frame_period_ms(&self, ms: i64) {
++        let ms = if ms <= 0 { FRAME_PERIOD_MS } else { ms };
++        self.frame_period_us
++            .store(ms * 1000, core::sync::atomic::Ordering::Relaxed);
++    }
++
++    /// Record how many carrier frames open a stream; see `DockProfile::carrier_frames`.
++    pub(crate) fn set_carrier_frames(&self, frames: u32) {
++        self.carrier_frames
++            .store(frames.max(1), core::sync::atomic::Ordering::Relaxed);
++    }
++
++    /// Record this dock's keepalive status interval; see `DockProfile::status_period_ms`.
++    pub(crate) fn set_status_period_ms(&self, ms: i64) {
++        let ms = if ms <= 0 { STATUS_PERIOD_MS } else { ms };
++        self.status_period_ms
++            .store(ms, core::sync::atomic::Ordering::Relaxed);
++    }
++
++    /// This dock's interval between keepalive status queries, in milliseconds.
++    pub(crate) fn status_period_ms(&self) -> i64 {
++        self.status_period_ms
++            .load(core::sync::atomic::Ordering::Relaxed)
++    }
++
++    /// This dock's minimum interval between frames on one connector, in milliseconds.
++    pub(crate) fn frame_period_ms(&self) -> i64 {
++        self.frame_period_us() / 1000
++    }
++
++    /// This dock's minimum interval between frames on one connector, in microseconds.
++    pub(super) fn frame_period_us(&self) -> i64 {
++        self.frame_period_us
++            .load(core::sync::atomic::Ordering::Relaxed)
++    }
++
++    /// Record how much of this dock's endpoint may be occupied; see `DockProfile::stream_pacing`.
++    pub(crate) fn set_stream_pacing(&self, pacing: crate::profile::StreamPacing) {
++        self.stream_budget_bps.store(
++            pacing.bytes_per_sec.max(1),
++            core::sync::atomic::Ordering::Relaxed,
++        );
++        self.stream_burst_bytes.store(
++            pacing.burst_bytes.max(1),
++            core::sync::atomic::Ordering::Relaxed,
++        );
++        let mut credit = self.stream_credit.lock();
++        *credit = StreamCredit::new();
++    }
++
++    /// How long a frame must wait for this dock's sustained budget, or `None` to send it now.
++    ///
++    /// Tops the ledger up for the time since it was last read, so an idle dock is always in credit
++    /// and this costs a busy dock one spinlock per frame.
++    pub(super) fn stream_budget_wait_us(&self) -> Option<i64> {
++        let bps = self
++            .stream_budget_bps
++            .load(core::sync::atomic::Ordering::Relaxed);
++        if bps == u32::MAX {
++            return None;
++        }
++        let now = Instant::<Monotonic>::now();
++        let mut credit = self.stream_credit.lock();
++        let elapsed_us = credit
++            .topped_up
++            .map_or(1_000_000, |last| (now - last).as_micros_ceil());
++        credit.topped_up = Some(now);
++        // Cap the ledger at the burst allowance, not at a second of throughput. A dock idle for a
++        // minute must not bank a minute of bytes; nor may it bank a whole second's worth, which is
++        // more than this dock survives in one go.
++        let ceiling = i64::from(
++            self.stream_burst_bytes
++                .load(core::sync::atomic::Ordering::Relaxed),
++        );
++        credit.bytes = credit
++            .bytes
++            .saturating_add(stream_credit_accrued(bps, elapsed_us))
++            .min(ceiling);
++        stream_credit_wait_us(bps, credit.bytes)
++    }
++
++    /// Charge a frame that reached the dock against the sustained budget.
++    pub(super) fn charge_stream_budget(&self, bytes: usize) {
++        if self
++            .stream_budget_bps
++            .load(core::sync::atomic::Ordering::Relaxed)
++            == u32::MAX
++        {
++            return;
++        }
++        let mut credit = self.stream_credit.lock();
++        credit.bytes = credit.bytes.saturating_sub(bytes as i64);
++    }
++
++    /// Record the state that takes this dock's sinks down; see `DockProfile::sink_down_state`.
++    /// Record the `0x2e` state re-sent mid-bracket; see `DockProfile::bracket_reopen_state`.
++    pub(crate) fn set_post_mode_sink_states(&self, states: [u8; 2]) {
++        let packed = u16::from(states[0]) | (u16::from(states[1]) << 8);
++        self.post_mode_sink_states
++            .store(packed, core::sync::atomic::Ordering::Release);
++    }
++
++    /// Record the state this dock wants before a mode set; see
++    /// `DockProfile::pre_mode_sink_state`.
++    pub(crate) fn set_pre_mode_sink_state(&self, state: Option<u8>) {
++        self.pre_mode_sink_state.store(
++            state.map_or(u16::MAX, u16::from),
++            core::sync::atomic::Ordering::Release,
++        );
++    }
++
++    pub(crate) fn pre_mode_sink_state(&self) -> Option<u8> {
++        match self
++            .pre_mode_sink_state
++            .load(core::sync::atomic::Ordering::Acquire)
++        {
++            u16::MAX => None,
++            state => Some(state as u8),
++        }
++    }
++
++    pub(super) fn post_mode_sink_state(&self, index: usize) -> u8 {
++        let packed = self
++            .post_mode_sink_states
++            .load(core::sync::atomic::Ordering::Acquire);
++        (packed >> (8 * index)) as u8
++    }
++
++    pub(crate) fn set_sink_down_state(&self, state: u8) {
++        self.sink_down_state
++            .store(state, core::sync::atomic::Ordering::Release);
++    }
++
++    /// The `0x16/0x2e` state that takes a downstream sink down on this dock.
++    pub(crate) fn sink_down_state(&self) -> u8 {
++        self.sink_down_state
++            .load(core::sync::atomic::Ordering::Acquire)
++    }
++
++    /// Record whether video shares the control pipe; see `DockProfile::video_on_ctrl_pipe`.
++    pub(crate) fn set_video_on_ctrl_pipe(&self, on: bool) {
++        self.video_on_ctrl_pipe.store(on, Ordering::Release);
++    }
++
++    /// Whether video records travel on the control bulk-OUT pipe.
++    pub(crate) fn video_on_ctrl_pipe(&self) -> bool {
++        self.video_on_ctrl_pipe.load(Ordering::Acquire)
 +    }
 +}
-diff --git a/drivers/gpu/drm/vino/drm_sink/timeline.rs b/drivers/gpu/drm/vino/drm_sink/timeline.rs
+diff --git a/drivers/gpu/drm/vino/drm_sink/worker.rs b/drivers/gpu/drm/vino/drm_sink/worker.rs
 new file mode 100644
-index 000000000000..d6db1a2eb0e8
+index 000000000000..f06f469d1715
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/drm_sink/timeline.rs
++++ b/drivers/gpu/drm/vino/drm_sink/worker.rs
 @@ -0,0 +1,571 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Measured bring-up and mode-set timelines.
++//! The workqueue items that carry out what the atomic callbacks asked for.
 +//!
-+//! A cold dock will not light from a correct message sequence alone; the vendor's spacing is
-+//! part of the contract, and a dock driven faster than this stays dark or resets. Every delay
-+//! here was read off a capture of the vendor driver waking the same hardware.
++//! One item reconciles KMS state, one per connector drives scanout, and one watches the
++//! control plane for silence. They are the only contexts in the driver allowed to block on
++//! USB.
 +
-+/// Dual-connector cold-wake timeline relative to the connector-0 mode set.
-+///
-+/// EP02 must remain quiet between `H1_MODE` and `QUIET_END`; the dock also requires a connector-1
-+/// EDID probe and fetch before video starts.
-+pub(crate) mod cold {
-+    pub(crate) const H1_MODE: i64 = 29;
-+    /// End of the silent window. Nothing may be sent on EP02 between `H1_MODE` and here.
-+    pub(crate) const QUIET_END: i64 = 1016;
-+    pub(crate) const H0_VIDEO: i64 = 1159;
-+    pub(crate) const H1_VIDEO: i64 = 1233;
-+    /// `(offset_ms, connector, sub, state)` stream markers. `sub` 0x2f/0x2e as on the wire.
-+    pub(crate) const MARKERS: &[(i64, u8, u16, u8)] = &[
-+        (17, 0, 0x2f, 1),
-+        (21, 0, 0x2e, 3),
-+        (1016, 0, 0x2f, 1),
-+        (1021, 1, 0x2f, 1),
-+        (1023, 0, 0x2e, 3),
-+        (1029, 1, 0x2e, 3),
-+        (1056, 0, 0x2f, 1),
-+        (1057, 1, 0x2f, 1),
-+        (1064, 0, 0x2e, 0),
-+        (1124, 1, 0x2e, 3),
-+        (1132, 1, 0x2f, 1),
-+        (1135, 1, 0x2e, 0),
-+        (1195, 0, 0x2f, 0),
-+        (1208, 0, 0x2e, 0),
-+        (1220, 1, 0x2f, 1),
-+        (1225, 1, 0x2e, 0),
-+        (1295, 1, 0x2f, 0),
-+        (1298, 1, 0x2e, 0),
-+    ];
-+    /// `id=0x14 sub=0x0c` status polls.
-+    pub(crate) const POLLS: &[i64] = &[
-+        5, 26, 1019, 1130, 1192, 1204, 1222, 1235, 1253, 1270, 1287, 1304,
-+    ];
-+    /// `(offset_ms, connector, is_fetch)` -- `false` is the `0x15/0x20` probe, `true` the
-+    /// `0x15/0x21` fetch.
-+    pub(crate) const EDID: &[(i64, u8, bool)] = &[(1033, 1, false), (1059, 1, true)];
-+    /// Keep both carriers active until downstream clock programming completes.
-+    pub(crate) const CARRIER_TAIL_MS: i64 = 800;
++use super::*;
++
++impl_has_delayed_work! {
++    impl HasDelayedWork<VinoDrmDevice> for VinoDrmData { self.cmd_work }
++    impl HasDelayedWork<VinoDrmDevice, 5> for VinoDrmData { self.cp_watchdog }
 +}
 +
-+/// A dock's cold bring-up choreography, anchored on the first connector's mode set.
-+///
-+/// Ridge and Navarro differ in more than timing: Navarro opens each connector's bracket with a
-+/// state-0 pair before the state-1/3 pair, spaces its two mode sets 757 ms apart rather than 29 ms,
-+/// sets connector 0's mode a *second* time shortly before connector 0's video, and streams
-+/// connector 1 first. Replaying one dock's timeline at the other leaves the endpoint unarmed. Every
-+/// connector field below is a transcript slot, not a connector number: 0 is the first connector an
-+/// activation brings up and 1 the second, whichever sockets they occupy. Both timelines were
-+/// recorded with the panels in the first two sockets, where the two happen to coincide.
-+/// [`VinoDrmData::activate_dual_wake`] resolves them.
-+pub(super) struct ColdTimeline {
-+    /// Offset of the second slot's mode set.
-+    pub(crate) h1_mode: i64,
-+    /// End of any silent window on EP02 after the second mode set.
-+    pub(crate) quiet_end: i64,
-+    /// Slots in the order they start streaming, with the offset each starts at.
-+    pub(crate) video: &'static [(usize, i64)],
-+    /// Mode sets repeated after the initial pair, as `(offset, slot)`.
-+    pub(crate) remode: &'static [(i64, usize)],
-+    /// `(offset_ms, slot, sub, state)` stream markers. `sub` 0x2f/0x2e as on the wire.
-+    pub(crate) markers: &'static [(i64, u8, u16, u8)],
-+    /// `id=0x14 sub=0x0c` status polls.
-+    pub(crate) polls: &'static [i64],
-+    /// `(offset_ms, slot, is_fetch)` EDID re-reads inside the bracket.
-+    pub(crate) edid: &'static [(i64, u8, bool)],
++impl WorkItem<5> for VinoDrmData {
++    type Pointer = ARef<VinoDrmDevice>;
++    fn run(this: ARef<VinoDrmDevice>) {
++        run_cp_watchdog(this);
++    }
 +}
 +
-+/// Ridge's timeline, as replayed from a D6000 cold bring-up.
-+pub(super) static COLD_RIDGE: ColdTimeline = ColdTimeline {
-+    h1_mode: cold::H1_MODE,
-+    quiet_end: cold::QUIET_END,
-+    video: &[(0, cold::H0_VIDEO), (1, cold::H1_VIDEO)],
-+    remode: &[],
-+    markers: cold::MARKERS,
-+    polls: cold::POLLS,
-+    edid: cold::EDID,
-+};
-+
-+/// Navarro's timeline, measured from a DLM cold bring-up and anchored on connector 0's real
-+/// (`off23 = 2`) mode set, exactly as Ridge's is.
-+pub(super) static COLD_NAVARRO: ColdTimeline = ColdTimeline {
-+    h1_mode: 10,
-+    // DLM polls continuously across this span; there is no silent window to preserve.
-+    quiet_end: 11,
-+    // Video is not a pair of one-shot events: DLM keeps connector 0's carrier alive throughout the
-+    // still-open control bracket, starts connector 1, and continues both through the closing
-+    // markers. A gap here makes the dock accept one frame and NAK the next forever. The activation
-+    // path uses its pre-encoded carrier; normal scanout replaces it as soon as activation returns.
-+    video: &[
-+        (0, 122),
-+        (0, 124),
-+        (0, 134),
-+        (0, 171),
-+        (0, 192),
-+        (0, 199),
-+        (0, 235),
-+        (0, 252),
-+        (1, 272),
-+        (0, 277),
-+        (1, 293),
-+        (1, 303),
-+    ],
-+    remode: &[],
-+    markers: &[
-+        (7, 0, 0x2f, 1),
-+        (13, 0, 0x2e, 3),
-+        (20, 1, 0x2f, 1),
-+        (21, 0, 0x2f, 1),
-+        (35, 0, 0x2e, 0),
-+        (76, 1, 0x2e, 3),
-+        (104, 1, 0x2f, 1),
-+        (128, 1, 0x2e, 3),
-+        (131, 0, 0x2f, 1),
-+        (136, 0, 0x2e, 0),
-+        (168, 1, 0x2f, 1),
-+        (181, 1, 0x2e, 0),
-+        (228, 0, 0x2f, 0),
-+        (230, 0, 0x2e, 0),
-+        (303, 1, 0x2f, 0),
-+        (304, 1, 0x2e, 0),
-+    ],
-+    polls: &[17, 78, 120, 162, 179, 223, 267, 295, 297, 297],
-+    // Navarro reads every connector's EDID before the anchor, not inside the bracket.
-+    edid: &[],
-+};
-+
-+/// One step of a DL-3x00 dock-wide activation.
++/// Enforce the control session's silence deadline from off the control path.
 +///
-+/// Every connector field is an activation slot, not a connector number: slot 0 is the
-+/// lowest-numbered activating connector and slot 1 the next, resolved to real connectors at the
-+/// point of send, exactly as [`ColdTimeline`]'s are. Steps carry no offsets because the vendor's
-+/// are separated by its own frames rather than by a clock; [`DockWideStep::Stream`] states the ones
-+/// that matter.
-+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-+pub(crate) enum DockWideStep {
-+    /// `0x48/0x22`, this slot's mode.
-+    SetMode(u8),
-+    /// `0x16/0x2e` or `0x16/0x2f`, with the state in byte 23.
-+    Marker(u8, u16, u8),
-+    /// `id=0x14 sub=0x0c` device status.
-+    Poll,
-+    /// The ring descriptor and decoder configuration that open this slot's stream as one unit.
-+    ///
-+    /// Kept for the conservative runtime re-arm.  The cold Ella transcript separates these two
-+    /// records with control traffic and uses [`DockWideStep::Ring`] / [`DockWideStep::Config`]
-+    /// instead, so the table can state those producer boundaries exactly.
-+    Prologue(u8),
-+    /// The unsealed ring descriptor that starts this slot's stream generation.
-+    Ring(u8),
-+    /// The sealed decoder configuration that follows a slot's ring descriptor.
-+    Config(u8),
-+    /// This slot's activation carrier -- the flat surface its stream opens with.
-+    Carrier(u8),
-+    /// Frames the vendor presents on `slot` before its next control record.
-+    ///
-+    /// The second connector comes up behind a running stream, and this is that stream. A dock
-+    /// whose activation is spaced by wall clock rather than by frames has nothing to put here.
-+    Stream(u8, u32),
-+}
-+
-+/// How the vendor brings both connectors of a DL-3x00 dock up, measured record for record.
-+///
-+/// Two rules distinguish it from a driver that simply repeats a per-connector bracket, and both are
-+/// load-bearing. A single dock-wide transaction configures *both* connectors before any pixels:
-+/// the mode sets are adjacent, and every marker between them addresses the first connector. And
-+/// the second connector's sink is held down (`0x2e` state 3) across that transaction, coming up
-+/// only once the first is streaming -- with no mode set of its own, because it already has one.
-+///
-+/// A second independent bracket instead is what the dock stops answering: it acknowledges
-+/// everything up to the second bracket's first marker and nothing afterwards, which reads as a
-+/// dead dock and ends with every scanout returning `ENODEV`.
-+pub(crate) static ELLA_DOCK_WIDE: &[DockWideStep] = &[
-+    DockWideStep::SetMode(0),
-+    DockWideStep::Marker(0, 0x2f, 1),
-+    DockWideStep::Marker(0, 0x2e, 3),
-+    DockWideStep::SetMode(1),
-+    DockWideStep::Marker(0, 0x2f, 1),
-+    DockWideStep::Marker(0, 0x2e, 0),
-+    DockWideStep::Marker(1, 0x2f, 1),
-+    DockWideStep::Ring(0),
-+    DockWideStep::Poll,
-+    DockWideStep::Config(0),
-+    DockWideStep::Marker(1, 0x2e, 3),
-+    DockWideStep::Marker(0, 0x2f, 1),
-+    DockWideStep::Marker(0, 0x2e, 0),
-+    DockWideStep::Carrier(0),
-+    DockWideStep::Stream(0, 2),
-+    DockWideStep::Marker(1, 0x2f, 1),
-+    DockWideStep::Marker(0, 0x2f, 0),
-+    DockWideStep::Stream(0, 2),
-+    DockWideStep::Marker(1, 0x2e, 0),
-+    DockWideStep::Stream(0, 3),
-+    DockWideStep::Poll,
-+    DockWideStep::Ring(1),
-+    DockWideStep::Marker(0, 0x2e, 0),
-+    DockWideStep::Stream(0, 1),
-+    DockWideStep::Config(1),
-+    DockWideStep::Poll,
-+    DockWideStep::Carrier(1),
-+    // The second connector's sink is completed the same way the first one's was, and only once its
-+    // own carrier is running: assert, bring up, release, bring up again. The first connector
-+    // receives exactly this four-marker tail earlier in the transaction, and leaving it off the
-+    // second one ends the transaction with that sink half raised.
-+    DockWideStep::Marker(1, 0x2f, 1),
-+    DockWideStep::Stream(1, 2),
-+    DockWideStep::Poll,
-+    DockWideStep::Marker(1, 0x2e, 0),
-+    DockWideStep::Poll,
-+    DockWideStep::Marker(1, 0x2f, 0),
-+    DockWideStep::Poll,
-+    DockWideStep::Marker(1, 0x2e, 0),
-+];
-+
-+/// How the vendor reconfigures one connector of a DL-3x00 dock while the other one is lit.
-+///
-+/// This is not the dock-wide sequence with a connector left out. It is shorter, it takes the sink
-+/// down *before* the mode set rather than after it, and it touches nothing belonging to the other
-+/// connector -- which keeps streaming across the whole of it. Replaying the cold bracket here
-+/// instead is what silences the dock: it stops answering at the first marker and does not answer
-+/// again.
-+///
-+/// Measured twice, at two different resolutions, with identical shape both times.
-+///
-+/// The vendor also re-reads the sink's EDID between the sink-down and the mode set. That is left
-+/// out: vino reads EDID on its own schedule, and a fetch issued inside a transaction has nowhere
-+/// to deliver its reply.
-+pub(crate) static ELLA_RUNTIME_MODE: &[DockWideStep] = &[
-+    DockWideStep::Marker(0, 0x2f, 1),
-+    DockWideStep::Marker(0, 0x2e, 3),
-+    DockWideStep::SetMode(0),
-+    DockWideStep::Marker(0, 0x2f, 1),
-+    DockWideStep::Marker(0, 0x2e, 0),
-+    DockWideStep::Poll,
-+    DockWideStep::Prologue(0),
-+    DockWideStep::Carrier(0),
-+];
-+
-+/// Reservation-token slots for [`COLD_NAVARRO::markers`] and [`COLD_NAVARRO::polls`].
-+///
-+/// DLM assigns counters in its per-connector workers before their EP02 writes interleave. Wire AES
-+/// sequence remains monotonic, but the echoed inner counters consequently do not: for example the
-+/// wire order begins `n, n+1, n+3, n+2, n+5, n+4`. Navarro starts NAKing at the first flattened
-+/// counter, so retain that allocation order. These numbers index live reservation tokens; they
-+/// are not protocol counters and are never added to a captured/base counter.
-+pub(super) static NAVARRO_MARKER_COUNTER_SLOTS: &[usize] =
-+    &[1, 2, 4, 6, 8, 7, 10, 12, 11, 14, 16, 17, 20, 21, 26, 27];
-+pub(super) static NAVARRO_POLL_COUNTER_SLOTS: &[usize] = &[5, 9, 13, 15, 18, 19, 22, 23, 24, 25];
-+pub(super) const NAVARRO_COLD_COUNTERS: usize = 28;
-+
-+/// One operation in Navarro's cold sink-reset prelude. This is separate from [`ColdTimeline`]: it
-+/// runs before the first real mode set and changes downstream EDID/sink state, whereas
-+/// `ColdTimeline` brackets already-programmed streams.
-+#[derive(Clone, Copy)]
-+pub(super) enum NavarroColdOp {
-+    Poll,
-+    EdidState(u8, u8),
-+    Probe(u8),
-+    Fetch(u8),
-+    /// Tear the downstream sink down. Offset 23 is the literal state `0xff`, not a connector.
-+    SinkTeardown(u8),
-+    /// Engage the downstream sink.
-+    ///
-+    /// `id=0x16 sub=0x23` names the connector twice, at offset 22 and at offset 23, which is why it
-+    /// is [`crate::cp::edid_sink_state`]`(connector, connector)`. It is a distinct variant rather
-+    /// than a state so that the remap below cannot mistake the second selector for a constant: the
-+    /// dock acknowledges a mismatched pair and then never enables the sink.
-+    Engage(u8),
-+    PostEdid(u8),
-+    Clear(u8),
-+}
-+
-+impl NavarroColdOp {
-+    /// Translate this op's transcript slot into the connector that slot stands for in this
-+    /// activation.
-+    ///
-+    /// The captured sequence names connectors 0 and 1 because that is where DLM's panels were. It
-+    /// describes the first and second connector being brought up, whichever sockets those are.
-+    pub(crate) fn remap_head(self, remap: &impl Fn(u8) -> u8) -> Self {
-+        match self {
-+            Self::Poll => Self::Poll,
-+            Self::EdidState(h, s) => Self::EdidState(remap(h), s),
-+            Self::Probe(h) => Self::Probe(remap(h)),
-+            Self::Fetch(h) => Self::Fetch(remap(h)),
-+            Self::SinkTeardown(h) => Self::SinkTeardown(remap(h)),
-+            Self::Engage(h) => Self::Engage(remap(h)),
-+            Self::PostEdid(h) => Self::PostEdid(remap(h)),
-+            Self::Clear(h) => Self::Clear(remap(h)),
++/// Checking the deadline when a caller arrives to start a transaction is too late by
++/// construction: the thread that would arrive is the keepalive, and the keepalive is the thread
++/// that gets stuck -- a wedge then runs to 15 s against a 5 s limit, and ends only because the
++/// dock re-enumerates. This runs on the system queue, so it is scheduled whatever vino's own
++/// queues are doing, and it touches nothing a stuck transfer can be holding.
++pub(super) fn run_cp_watchdog(this: ARef<VinoDrmDevice>) {
++    let data: &VinoDrmData = &this;
++    if data.shutting_down.load(Ordering::Acquire) {
++        return;
++    }
++    // Vino must not call a dock silent while vino has chosen not to speak to it. Navarro's
++    // setup-to-first-mode-set hold runs as long as the deadline itself, so holding the deadline
++    // off here -- rather than at each of the two places the hold ends -- is what stops a healthy
++    // cold bring-up from abandoning its own session at the boundary.
++    if data.initial_modeset_quiet() {
++        data.note_cp_reply();
++    } else if data.cp_link_alive() {
++        let silent_ms = data.cp_silent_for_ms();
++        if silent_ms >= data.cp_silence_limit_ms() {
++            data.abandon_cp_session(silent_ms);
++            data.drop_connectors_with_session(&this);
++            data.reset_after_wedge();
 +        }
 +    }
++    data.start_cp_watchdog(&this);
 +}
 +
-+/// Authenticated DLM transaction between Navarro's first clear pair and its first real mode.
-+///
-+/// Offsets are milliseconds from the first connector-0 clear in
-+/// `navarro-dlm-today-124144/wire.pcapng`. Equal offsets deliberately retain wire order. Most
-+/// importantly, DLM stops both EDID readers and sends sink state `0xff` immediately after the
-+/// first clears, then re-reads and re-engages each sink before its second clear. Omitting this
-+/// whole state transition left the video endpoints accepting one bulk transfer and NAKing every
-+/// subsequent transfer.
-+pub(super) static NAVARRO_COLD_PRELUDE: &[(i64, NavarroColdOp)] = &[
-+    (2, NavarroColdOp::EdidState(0, 0)),
-+    (3, NavarroColdOp::Probe(0)),
-+    (5, NavarroColdOp::EdidState(1, 0)),
-+    (5, NavarroColdOp::Probe(1)),
-+    (7, NavarroColdOp::SinkTeardown(0)),
-+    (7, NavarroColdOp::SinkTeardown(1)),
-+    (8, NavarroColdOp::Poll),
-+    (30, NavarroColdOp::Poll),
-+    (50, NavarroColdOp::Poll),
-+    (69, NavarroColdOp::Poll),
-+    (87, NavarroColdOp::Poll),
-+    (105, NavarroColdOp::Poll),
-+    (123, NavarroColdOp::Poll),
-+    (143, NavarroColdOp::Poll),
-+    (162, NavarroColdOp::Poll),
-+    (181, NavarroColdOp::Poll),
-+    (201, NavarroColdOp::Poll),
-+    (219, NavarroColdOp::Poll),
-+    (237, NavarroColdOp::Poll),
-+    (255, NavarroColdOp::Poll),
-+    (273, NavarroColdOp::Poll),
-+    (293, NavarroColdOp::Poll),
-+    (312, NavarroColdOp::Poll),
-+    (328, NavarroColdOp::Poll),
-+    (329, NavarroColdOp::Poll),
-+    (329, NavarroColdOp::Poll),
-+    (329, NavarroColdOp::Poll),
-+    (330, NavarroColdOp::Poll),
-+    (330, NavarroColdOp::Poll),
-+    (1216, NavarroColdOp::Poll),
-+    (1233, NavarroColdOp::Poll),
-+    (1315, NavarroColdOp::Poll),
-+    (1650, NavarroColdOp::Poll),
-+    (1667, NavarroColdOp::Poll),
-+    (1750, NavarroColdOp::Poll),
-+    (1755, NavarroColdOp::Probe(0)),
-+    (1757, NavarroColdOp::EdidState(0, 1)),
-+    (1758, NavarroColdOp::Probe(0)),
-+    (1805, NavarroColdOp::Fetch(0)),
-+    (1810, NavarroColdOp::Engage(0)),
-+    (1822, NavarroColdOp::Clear(0)),
-+    (1827, NavarroColdOp::Poll),
-+    (1850, NavarroColdOp::Probe(1)),
-+    (1853, NavarroColdOp::EdidState(1, 1)),
-+    (1856, NavarroColdOp::Probe(1)),
-+    (1902, NavarroColdOp::PostEdid(0)),
-+    (1903, NavarroColdOp::Fetch(1)),
-+    (1907, NavarroColdOp::Engage(1)),
-+    (1930, NavarroColdOp::Clear(1)),
-+    (1934, NavarroColdOp::Poll),
-+    (1956, NavarroColdOp::Poll),
-+    (1975, NavarroColdOp::Poll),
-+    (1994, NavarroColdOp::Poll),
-+    (2003, NavarroColdOp::Poll),
-+    (2005, NavarroColdOp::Poll),
-+    (2007, NavarroColdOp::PostEdid(1)),
-+    (2016, NavarroColdOp::Poll),
-+];
++impl_has_work! {
++    impl HasWork<VinoDrmDevice, 1> for VinoDrmData { self.scanout_work_h0 }
++    impl HasWork<VinoDrmDevice, 2> for VinoDrmData { self.scanout_work_h1 }
++    impl HasWork<VinoDrmDevice, 3> for VinoDrmData { self.scanout_work_h2 }
++    impl HasWork<VinoDrmDevice, 4> for VinoDrmData { self.scanout_work_h3 }
++}
 +
-+/// Navarro tears both pipe descriptors down first, then executes
-+/// [`NAVARRO_COLD_PRELUDE`] before programming the first real mode.
-+pub(super) const NAVARRO_PRIME_CLEAR_H1_MS: i64 = 2;
++/// One scanout work item exists per connector, and its work ID is a const generic. Keep this
++/// assertion adjacent to the explicit fields/arms below: adding another connector without all
++/// three would silently leave its frames in `pending_scanout`.
++const _: () = assert!(
++    MAX_CONNECTORS == 4,
++    "add a scanout_work_hN work item per connector (see VinoDrmData::enqueue_scanout)"
++);
 +
-+/// One status-poll interval, the gap the prelude's own trailing polls run at.
-+pub(super) const NAVARRO_REAL_MODE_SETTLE_MS: i64 = 20;
-+
-+/// When the cold prelude's last operation is due.
-+pub(crate) const NAVARRO_COLD_PRELUDE_END_MS: i64 =
-+    NAVARRO_COLD_PRELUDE[NAVARRO_COLD_PRELUDE.len() - 1].0;
-+
-+/// Where the first real mode goes, measured from the start of activation.
-+///
-+/// DLM's capture puts it at 2978 ms, but DLM's own prelude finishes at 2016 ms; the ~960 ms
-+/// between is dead air in that capture rather than something the dock asked for, and it is over
-+/// half a 5.59 s enumerate-to-pixels bring-up. Follow the end of the prelude plus one poll
-+/// interval, so the two cannot drift apart when the prelude changes.
-+pub(crate) const NAVARRO_REAL_MODE_H0_MS: i64 =
-+    NAVARRO_COLD_PRELUDE_END_MS + NAVARRO_REAL_MODE_SETTLE_MS;
-+
-+/// How long the KMS worker waits for the rest of a multi-connector atomic commit's mode sets.
-+///
-+/// Bounded so a genuine single-connector commit costs at most this before proceeding.
-+pub(super) const MODESET_BATCH_SETTLE_MS: i64 = 20;
-+
-+/// Number of back-to-back presentations of one already-encoded full frame while a newly-mode-set
-+/// downstream is training.
-+pub(crate) const COLD_TRAINING_PRESENTATIONS: u32 = 8;
-+
-+#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+use kernel::prelude::kunit_tests;
-+
-+#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_timeline)]
-+mod tests {
-+    use super::*;
-+    use crate::*;
-+
-+    /// A mode is bounded by link rate, not by refresh, except where the dock itself clamps.
-+    ///
-+    /// The first real mode follows the cold prelude; it does not sit at a copied capture offset.
-+    ///
-+    /// DLM's capture put its first real mode at 2978 ms while its own prelude finished at
-+    /// 2016 ms. Deriving the offset keeps the two from drifting apart, and this pins the
-+    /// direction: the mode must come *after* the prelude's last op, and must not reintroduce the
-+    /// second of dead air that made it 53% of a bring-up.
-+    #[test]
-+    fn the_first_real_mode_follows_the_prelude_rather_than_the_capture() {
-+        let last = NAVARRO_COLD_PRELUDE_END_MS;
-+        assert_eq!(last, 2016);
-+        assert!(NAVARRO_REAL_MODE_H0_MS > last);
-+        assert!(NAVARRO_REAL_MODE_H0_MS - last <= 100);
++impl WorkItem<1> for VinoDrmData {
++    type Pointer = ARef<VinoDrmDevice>;
++    fn run(this: ARef<VinoDrmDevice>) {
++        run_scanout_worker(this, 0);
 +    }
++}
 +
-+    /// The DL-3x00 dock-wide activation, step for step against the vendor's record stream.
-+    ///
-+    /// The order below is transcribed from a decrypted DLM bring-up; the vendor's frames between
-+    /// its control records are what the settles stand in for. Two properties of it are what the
-+    /// dock actually enforces, and both are checked separately afterwards, because a plausible
-+    /// reordering breaks them without changing any single step.
-+    #[test]
-+    fn ella_dock_wide_matches_the_dlm_capture() -> Result {
-+        use super::DockWideStep::*;
-+        let want = [
-+            SetMode(0),         // vendor #86
-+            Marker(0, 0x2f, 1), // #87
-+            Marker(0, 0x2e, 3), // #88
-+            SetMode(1),         // #89, inside the first connector's bracket
-+            Marker(0, 0x2f, 1), // #90
-+            Marker(0, 0x2e, 0), // #91
-+            Marker(1, 0x2f, 1), // #92
-+            Ring(0),            // #93 ring descriptor
-+            Poll,               // #94, between the two records of the prologue
-+            Config(0),          // #95 decoder configuration
-+            Marker(1, 0x2e, 3), // #96, the second connector's sink held down
-+            Marker(0, 0x2f, 1), // #97
-+            Marker(0, 0x2e, 0), // #98, the last record before pixels
-+            Carrier(0),         // #99
-+            Stream(0, 2),       // #99..#227, the first connector streaming
-+            Marker(1, 0x2f, 1), // #229
-+            Marker(0, 0x2f, 0), // #247
-+            Stream(0, 2),       // #248..#429
-+            Marker(1, 0x2e, 0), // #431, the second connector's sink up behind a running stream
-+            Stream(0, 3),       // #432..#629
-+            Poll,               // #632
-+            Ring(1),            // #633 ring descriptor, ahead of the marker
-+            Marker(0, 0x2e, 0), // #634
-+            Stream(0, 1),       // one first-connector frame, #635..#732
-+            Config(1),          // #733 decoder configuration
-+            Poll,               // #734, the last record before the second connector's pixels
-+            Carrier(1),         // #735
-+            // The second connector's sink is completed exactly as the first one's was, and only
-+            // behind its own running carrier. Leaving this off ends the transaction with that
-+            // sink half raised.
-+            Marker(1, 0x2f, 1), // #737
-+            Stream(1, 2),       // #738..#742, two more carrier frames
-+            Poll,               // #743
-+            Marker(1, 0x2e, 0), // #744
-+            Poll,               // #745
-+            Marker(1, 0x2f, 0), // #746
-+            Poll,               // #747
-+            Marker(1, 0x2e, 0), // #748
-+        ];
-+        assert_eq!(ELLA_DOCK_WIDE, &want[..]);
-+        Ok(())
++impl WorkItem<2> for VinoDrmData {
++    type Pointer = ARef<VinoDrmDevice>;
++    fn run(this: ARef<VinoDrmDevice>) {
++        run_scanout_worker(this, 1);
 +    }
++}
 +
-+    /// Both connectors are configured before either sends a pixel, and only one mode set each.
-+    ///
-+    /// A second bracket around a second mode set is what the dock stops answering: it acknowledges
-+    /// every record up to that bracket's first marker and nothing afterwards.
-+    #[test]
-+    fn ella_dock_wide_sets_both_modes_before_any_pixels() -> Result {
-+        use super::DockWideStep::*;
-+        let mut modes = [0u32; 2];
-+        for step in ELLA_DOCK_WIDE {
-+            match *step {
-+                SetMode(slot) => modes[usize::from(slot)] += 1,
-+                // Every carrier finds both connectors already configured, and each exactly once.
-+                Carrier(_) => assert_eq!(modes, [1, 1]),
-+                _ => {}
++impl WorkItem<3> for VinoDrmData {
++    type Pointer = ARef<VinoDrmDevice>;
++    fn run(this: ARef<VinoDrmDevice>) {
++        run_scanout_worker(this, 2);
++    }
++}
++
++impl WorkItem<4> for VinoDrmData {
++    type Pointer = ARef<VinoDrmDevice>;
++    fn run(this: ARef<VinoDrmDevice>) {
++        run_scanout_worker(this, 3);
++    }
++}
++
++/// One connector's deferred scanout loop: pick this connector's due frame, encode it, transmit it,
++/// repeat until the connector has nothing left to do. Both connectors run concurrently on the
++/// per-device scanout queue.
++///
++/// A queued `ModeSet` must reach the dock before video for that connector, so this worker returns
++/// while a stream command is pending or executing. `cmd_work` re-enqueues the scanout workers when
++/// the command batch completes, and the pending framebuffer remains in its coalescing slot.
++///
++/// Two conditions, and both are needed: a stream operation in `pending_kms` (not yet drained), and
++/// [`VinoDrmData::cmd_busy`] (drained and executing -- the window in which `pending_kms` is
++/// misleadingly empty). The `video_inflight` store must be published *before* reading `cmd_busy`,
++/// and both use `SeqCst`, so this and `wait_for_video_idle` cannot both conclude the other is idle.
++pub(super) fn run_scanout_worker(this: ARef<VinoDrmDevice>, connector: usize) {
++    use core::sync::atomic::Ordering::SeqCst;
++    let data: &VinoDrmData = &this;
++    // Plane updates can be accepted once CP engages, before the later platform readiness interval
++    // finishes. Leave their coalesced frames untouched until bring-up publishes activation safety;
++    // the publisher wakes every scanout worker after opening this gate.
++    if !data.kms_activation_ready() {
++        return;
++    }
++    // As in `cmd_work`: once the I/O window refuses a token, unplug has begun and there is no USB
++    // left to do. `drm_dev_enter()` holds the parent interface Bound for the duration.
++    let Ok(link) = crate::UsbLink::open(&data.io, data.endpoints) else {
++        return;
++    };
++    let dev = &link;
++    loop {
++        if data.shutting_down.load(Ordering::Acquire) {
++            return;
++        }
++        // Claim the connector's video endpoint first, then look for a reason not to use it.
++        data.video_inflight[connector].store(true, SeqCst);
++        let blocked = data.cmd_busy.load(SeqCst) || data.pending_kms.lock().has_stream();
++        if blocked {
++            data.video_inflight[connector].store(false, SeqCst);
++            return;
++        }
++        let (frame, cadence_wait_us) = data.select_scanout(connector);
++        if let Some(frame) = frame {
++            run_pending_scanout(dev, data, frame);
++            data.video_inflight[connector].store(false, SeqCst);
++            continue;
++        }
++        data.video_inflight[connector].store(false, SeqCst);
++        if let Some(us) = cadence_wait_us {
++            // Bound the sleep. The settle-repaint arm can ask for its full deadline
++            // ([`SETTLE_REPAINT_MS`], 1.2 s); sleeping that long inside the work item makes the
++            // connector unreachable, because a flip arriving meanwhile finds the item already
++            // running and its enqueue is dropped. Waking at the cadence window instead costs a few
++            // extra wakeups while idle and keeps the connector responsive to real frames.
++            let us = us.min(data.frame_period_us());
++            fsleep(Delta::from_micros(us));
++            continue;
++        }
++        // Re-check before exiting. A frame published between `select_scanout` above and this point
++        // finds the work item still running, so its `enqueue_scanout` is dropped and the frame
++        // waits for some *later* flip to enqueue successfully -- a lost wakeup that showed up as
++        // multi-second stalls on whichever connector lost the race. The condition mirrors
++        // `select_scanout`'s own guard so a connector with no mode-set cannot spin here.
++        if data.modeset_requested[connector].load(Ordering::Acquire) != 0
++            && data.pending_scanout.lock()[connector].is_some()
++        {
++            continue;
++        }
++        return;
++    }
++}
++
++impl WorkItem for VinoDrmData {
++    type Pointer = ARef<VinoDrmDevice>;
++
++    /// Reconcile the latest desired stream and cursor state from the atomic callbacks.
++    fn run(this: ARef<VinoDrmDevice>) {
++        let data: &VinoDrmData = &this;
++        // Registration deliberately precedes the blocking CP/EDID setup, so userspace can publish a
++        // complete atomic mode-set batch before the runtime session exists. Do not drain that batch
++        // yet: attempting its dock-wide activation returns ENODEV, then the ordinary command loop
++        // can split it into per-connector activations as setup becomes ready between those two
++        // attempts. A readiness deferral is not a failed transport operation, so it neither
++        // consumes `kms_retries` nor rewrites any pending slot; newer atomic state may continue to
++        // coalesce there. The common worker gate applies to every dock generation.
++        if !data.kms_activation_ready() {
++            return;
++        }
++        // `drm_dev_enter()` holds the parent USB interface in Bound typestate until this worker
++        // finishes. If unplug has begun, discard queued transport work without touching USB.
++        // The I/O window is closed by `disconnect()` before it returns, so once it refuses a token
++        // there is no USB left to do: discard the queued transport work.
++        let Ok(link) = crate::UsbLink::open(&data.io, data.endpoints) else {
++            return;
++        };
++        let dev = &link;
++        loop {
++            if data.shutting_down.load(Ordering::Acquire) {
++                return;
 +            }
-+        }
-+        assert_eq!(modes, [1, 1]);
-+        Ok(())
-+    }
-+
-+    /// The second connector's sink stays down across the first connector's carrier.
-+    ///
-+    /// The vendor takes it down inside the dock-wide bracket and brings it up only once the first
-+    /// connector is streaming. A sink brought up early is a connector the dock is scanning out
-+    /// while its stream has neither a ring descriptor nor a decoder configuration.
-+    #[test]
-+    fn ella_dock_wide_holds_the_second_sink_down_until_the_first_streams() -> Result {
-+        use super::DockWideStep::*;
-+        let mut down = false;
-+        let mut streaming = false;
-+        let mut up_after_streaming = false;
-+        for step in ELLA_DOCK_WIDE {
-+            match *step {
-+                Marker(1, 0x2e, 3) => down = true,
-+                Marker(1, 0x2e, 0) => {
-+                    // Up only after it was taken down, and only once the first is streaming.
-+                    assert!(down);
-+                    assert!(streaming);
-+                    up_after_streaming = true;
++            // A dual-connector atomic commit runs `atomic_enable` once per connector, and each of
++            // those queues its own `ModeSet` and wakes this worker -- microseconds apart, but far
++            // less than it takes to get scheduled. Taking the first one alone turns one dock-wide
++            // wake into two single-connector activations and skips the cold choreography that arms
++            // the video endpoints, so wait, briefly and boundedly, for the siblings the compositor
++            // has already published a timing for.
++            {
++                let started = Instant::<Monotonic>::now();
++                let present = data.connectors_present.load(Ordering::Acquire);
++                loop {
++                    let queued = data.pending_kms.lock().connectors.iter().enumerate().fold(
++                        0u32,
++                        |acc, (h, p)| {
++                            if matches!(p.stream, Some(KmsCmd::ModeSet { .. })) {
++                                acc | (1u32 << h)
++                            } else {
++                                acc
++                            }
++                        },
++                    );
++                    // Nothing to wait for until at least one mode set has landed, and nothing
++                    // left to wait for once every connector with a monitor is either already active
++                    // or represented in this batch.
++                    let outstanding = (0..MAX_CONNECTORS).any(|h| {
++                        present & (1u32 << h) != 0
++                            && queued & (1u32 << h) == 0
++                            && data.modeset_active[h].load(Ordering::Acquire) == 0
++                    });
++                    if queued == 0
++                        || !outstanding
++                        || (Instant::<Monotonic>::now() - started).as_millis()
++                            >= MODESET_BATCH_SETTLE_MS
++                    {
++                        break;
++                    }
++                    fsleep(Delta::from_millis(1));
 +                }
-+                Carrier(0) => streaming = true,
-+                // Neither the second stream's opening records nor its pixels reach a downed sink.
-+                Carrier(1) => assert!(up_after_streaming),
-+                Ring(1) | Config(1) | Prologue(1) => assert!(up_after_streaming),
-+                _ => {}
++            }
++            let pending = core::mem::replace(&mut *data.pending_kms.lock(), PendingKms::new());
++            // A cold dual-connector atomic commit is one dock-wide wake: both mode-sets precede
++            // either connector's video. Detect that shape before consuming the owned state.
++            let mut dual_timings: [Option<crate::cp::Timing>; MAX_CONNECTORS] =
++                [None; MAX_CONNECTORS];
++            let mut cmd_connectors = 0u32;
++            for connector in &pending.connectors {
++                if let Some(KmsCmd::ModeSet {
++                    connector: cmd_head,
++                    timing,
++                }) = &connector.stream
++                {
++                    let connector_index = *cmd_head as usize;
++                    if connector_index < MAX_CONNECTORS {
++                        cmd_connectors |= 1u32 << connector_index;
++                        if data.modeset_active[connector_index].load(Ordering::Acquire) == 0
++                            && data.modeset_requested[connector_index].load(Ordering::Acquire)
++                                == timing_key(timing)
++                        {
++                            dual_timings[connector_index] = Some(*timing);
++                        }
++                    }
++                }
++            }
++            // A dock that comes up as one transaction over every connector it has needs a timing
++            // for each of them, and the compositor only describes the sockets it can see. A socket
++            // with nothing plugged into it still has to be configured -- the scanout path already
++            // declines to paint a connector with no EDID -- so let it join at its sibling's mode.
++            //
++            // The generation has to be published with the timing. A connector whose requested mode
++            // is zero is a connector the activation waits on and never gets, so it defers on every
++            // commit for as long as the dock is up, and that retry churn is what takes the shared
++            // pipe down. Publishing it is also what makes this happen once: the connector then has
++            // a request of its own and no longer looks unasked-for.
++            if data.video_on_ctrl_pipe() && dual_timings.iter().flatten().count() == 1 {
++                let sibling = dual_timings.iter().flatten().copied().next();
++                if let Some(timing) = sibling {
++                    for connector in 0..data.connector_count().min(MAX_CONNECTORS) {
++                        if dual_timings[connector].is_some()
++                            || data.modeset_requested[connector].load(Ordering::Acquire) != 0
++                            || data.modeset_active[connector].load(Ordering::Acquire) != 0
++                        {
++                            continue;
++                        }
++                        data.last_timing.lock()[connector] = Some(timing);
++                        data.modeset_requested[connector]
++                            .store(timing_key(&timing), Ordering::Release);
++                        dual_timings[connector] = Some(timing);
++                        cmd_connectors |= 1u32 << connector;
++                        vino_debug!(
++                            "vino: socket {} has no monitor and is configured at its sibling's mode\n",
++                            connector + 1
++                        );
++                    }
++                }
++            }
++            // Exclude the scanout workers for exactly as long as this batch can touch a video
++            // endpoint. `activate_dual_wake` and the `ModeSet` arm both run
++            // `submit_prompt_training`, which writes the activation carrier to the connector's
++            // endpoint; a concurrent scanout frame there would interleave records on the wire and
++            // would have its `video_q` slot double-opened. Cursor-only batches deliberately skip
++            // this: they never touch video, and a mouse in motion produces a continuous stream of
++            // them. `Blank` writes the connector's video endpoint for the same reason `ModeSet`
++            // does, so it needs the same exclusion against the scanout workers -- otherwise a frame
++            // already in flight interleaves its records with the blanking frames on the wire.
++            let has_modeset = pending.has_stream();
++            // On the DL7400 a mode set is dock-wide, not per connector. Configuring one connector
++            // while any other is lit makes the dock re-enumerate about 100 ms after the next video
++            // write, on every shape of the change: 120 -> 165, 165 -> 120 and 120 -> 60 on a live
++            // connector, waking a second connector a second after the first, and reconfiguring a
++            // connector whose sibling has been lit and idle for minutes. The same changes with the
++            // sibling disabled are clean, and so is the simultaneous `activate_dual_wake` path. DLM
++            // behaves the same way: it logs `[Profile change] Recreating device` and re-runs a
++            // bring-up-shaped burst rather than reconfiguring one connector in place.
++            //
++            // So fold every already-active connector into this batch. Zeroing its mode generation
++            // makes `activate_dual_wake` treat it as a fresh wake, and the whole dock is then taken
++            // through the one choreography the hardware accepts. The cost is that the sibling
++            // blinks through a mode change on its neighbour; the alternative is a dock reset and
++            // tens of seconds of dark panels on both. `cmd_connectors` rather than `has_modeset`: a
++            // `Blank`-only batch also counts as a stream command, and it must not drag every lit
++            // connector through a re-activation. Folding the lit connectors in makes
++            // `activate_dual_wake` name every connector at once, which is the only shape of mode
++            // set this dock accepts while more than one connector is lit. This replays the cold
++            // choreography -- a dock-wide sink reset and pipe clears -- on a dock that is already
++            // driving its sinks. That is the cost of the only mode set this dock will take.
++            if cmd_connectors != 0 && data.dock_wide_modeset() {
++                // Gather the whole dock's desired state first, and only commit to it if at least
++                // two connectors end up in it. Below two there is nothing for the dual path to do
++                // and the per-connector schedule is the proven one, so nothing is disturbed.
++                let mut fold: [Option<crate::cp::Timing>; MAX_CONNECTORS] = [None; MAX_CONNECTORS];
++                for connector in 0..MAX_CONNECTORS {
++                    // A connector this batch is already mode-setting: take the requested timing,
++                    // even if the connector is currently lit. A live reconfigure is exactly the
++                    // case that must not go down the per-connector path.
++                    if cmd_connectors & (1u32 << connector) != 0 {
++                        if let Some(timing) = data.last_timing.lock()[connector] {
++                            if data.modeset_requested[connector].load(Ordering::Acquire)
++                                == timing_key(&timing)
++                            {
++                                fold[connector] = Some(timing);
++                            }
++                        }
++                        continue;
++                    }
++                    // A connector this batch does not name, but which is lit and still wants the
++                    // mode it is showing. One whose request has already moved on has its own
++                    // `ModeSet` queued behind this batch and is left to it.
++                    let active = data.modeset_active[connector].load(Ordering::Acquire);
++                    if active != 0
++                        && data.modeset_requested[connector].load(Ordering::Acquire) == active
++                    {
++                        fold[connector] = data.last_timing.lock()[connector];
++                    }
++                }
++                if fold.iter().flatten().count() >= 2 {
++                    for connector in 0..MAX_CONNECTORS {
++                        let socket = connector + 1;
++                        let Some(timing) = fold[connector] else {
++                            continue;
++                        };
++                        // `activate_dual_wake` only accepts a connector whose generation is zero; a
++                        // dock-wide transaction re-establishes every connector from scratch, so say
++                        // so.
++                        data.modeset_active[connector].store(0, Ordering::Release);
++                        dual_timings[connector] = Some(timing);
++                        cmd_connectors |= 1u32 << connector;
++                        vino_debug!(
++                            "vino: socket {socket} joins a dock-wide mode set ({}x{}@{})\n",
++                            timing.hactive,
++                            timing.vactive,
++                            timing.refresh_hz
++                        );
++                    }
++                }
++            }
++            if has_modeset {
++                data.cmd_busy
++                    .store(true, core::sync::atomic::Ordering::SeqCst);
++                data.wait_for_video_idle();
++            }
++            // Both dock-wide schedules need two connectors coming up together; below that the
++            // per-connector path is the proven one. Which schedule applies is a property of the
++            // dock: the Ridge and DL7400 cold timeline consists of operations a dock carrying video
++            // on its control pipe does not take, and that dock has its own measured choreography in
++            // `ELLA_DOCK_WIDE`. Driving either one from the other's table fails every pass.
++            let both_connectors = dual_timings.iter().flatten().count() >= 2;
++            let dual_wake = both_connectors && !data.video_on_ctrl_pipe();
++            let dock_wide = both_connectors && data.video_on_ctrl_pipe();
++            if has_modeset {
++                vino_debug!(
++                    "vino: KMS batch -- stream cmds {}, dual timings {}, dual_wake {}, requested [{} {} {} {}], active [{} {} {} {}]\n",
++                    (0..MAX_CONNECTORS).filter(|&h| cmd_connectors & (1u32 << h) != 0).count(),
++                    dual_timings.iter().flatten().count(),
++                    dual_wake || dock_wide,
++                    data.modeset_requested[0].load(Ordering::Acquire),
++                    data.modeset_requested[1].load(Ordering::Acquire),
++                    data.modeset_requested[2].load(Ordering::Acquire),
++                    data.modeset_requested[3].load(Ordering::Acquire),
++                    data.modeset_active[0].load(Ordering::Acquire),
++                    data.modeset_active[1].load(Ordering::Acquire),
++                    data.modeset_active[2].load(Ordering::Acquire),
++                    data.modeset_active[3].load(Ordering::Acquire),
++                );
++            }
++            let multihead_attempted = dock_wide || dual_wake;
++            let dual_complete = if dock_wide {
++                match data.activate_dock_wide(dev, ELLA_DOCK_WIDE, dual_timings) {
++                    Ok(done) => done,
++                    Err(e) => {
++                        pr_warn!("vino: dock-wide activation failed ({e:?})\n");
++                        false
++                    }
++                }
++            } else {
++                dual_wake
++                    && match data.activate_dual_wake(dev, dual_timings) {
++                        Ok(done) => done,
++                        Err(e) => {
++                            pr_warn!("vino: dual-connector activation failed ({e:?})\n");
++                            false
++                        }
++                    }
++            };
++            if multihead_attempted && !dual_complete {
++                // A multihead activation is one indivisible transport transaction. In particular,
++                // never let a failed Ella cold table fall through to the ordinary per-connector
++                // loop: connector 0 can then light just as setup becomes ready and force connector
++                // 1 down the live runtime table, so the cold two-connector choreography never
++                // lands. Restore the entire owned batch; newer producer state already occupying a
++                // slot still wins.
++                if has_modeset {
++                    data.cmd_busy
++                        .store(false, core::sync::atomic::Ordering::SeqCst);
++                }
++                let mut retry_pending = data.pending_kms.lock();
++                retry_pending.retry_batch(pending);
++                let attempts = data.kms_retries.fetch_add(1, Ordering::Relaxed) + 1;
++                if attempts >= KMS_RETRY_LIMIT {
++                    pr_warn!(
++                        "vino: dropping atomic multihead KMS batch after {} deferrals; the link is not coming back on its own\n",
++                        KMS_RETRY_LIMIT
++                    );
++                    retry_pending.clear();
++                    data.kms_retries.store(0, Ordering::Relaxed);
++                    return;
++                }
++                drop(retry_pending);
++                vino_debug!("vino: atomic multihead KMS batch deferred\n");
++                if !data.shutting_down.load(Ordering::Acquire) {
++                    let delay = kernel::time::msecs_to_jiffies(KMS_RETRY_MS);
++                    let _ = workqueue::system().enqueue_delayed::<_, 0>(ARef::from(&*this), delay);
++                }
++                return;
++            }
++            // Heads whose mode this batch actually re-programmed, and whose dock-side cursor is
++            // therefore gone. See `rearm_cursor`.
++            let mut relit = if dual_complete { cmd_connectors } else { 0 };
++            let mut cmds: [Option<KmsCmd>; MAX_CONNECTORS * 4] =
++                [const { None }; MAX_CONNECTORS * 4];
++            for (connector, pending) in pending.connectors.into_iter().enumerate() {
++                cmds[connector] = pending.stream;
++                cmds[MAX_CONNECTORS + connector] = pending.cursor_create;
++                cmds[MAX_CONNECTORS * 2 + connector] = pending.cursor_image;
++                cmds[MAX_CONNECTORS * 3 + connector] = pending.cursor_move;
++            }
++            // Control-plane ordering comes first. An enabling atomic commit queues the plane flip
++            // before its CRTC mode-set. Finish the mode transaction before
++            // selecting a pending framebuffer.
++            let mut cmds = cmds.into_iter().flatten();
++            let mut retry = false;
++            while let Some(cmd) = cmds.next() {
++                let mut mode_programmed = 0u32;
++                let res = match &cmd {
++                    KmsCmd::ModeSet { connector, timing } => {
++                        if dual_complete {
++                            // `activate_dual_wake` consumed the current generation for both
++                            // connectors. A superseding generation published while it ran remains
++                            // in `pending_kms` for the next outer iteration.
++                            continue;
++                        }
++                        let connector_index = *connector as usize;
++                        let key = timing_key(timing);
++                        if connector_index >= MAX_CONNECTORS
++                            || data.modeset_requested[connector_index].load(Ordering::Acquire)
++                                != key
++                        {
++                            Ok(()) // superseded or disabled while queued
++                        } else {
++                            data.activate_head(dev, *connector, timing, key)
++                                .map(|activated| {
++                                    if activated {
++                                        mode_programmed = 1u32 << connector;
++                                    }
++                                })
++                        }
++                    }
++                    KmsCmd::CursorCreate { connector, w, h } => data.send_cp(dev, 0x1b, 0, |ctr| {
++                        crate::cp::cursor_create(ctr, *connector, *w, *h)
++                    }),
++                    KmsCmd::CursorImage {
++                        connector,
++                        w,
++                        h,
++                        bgra,
++                    } => data.send_cp(dev, 0x1c, 0, |ctr| {
++                        crate::cp::cursor_image(ctr, *connector, *w, *h, bgra)
++                    }),
++                    KmsCmd::CursorMove {
++                        connector,
++                        x,
++                        y,
++                        visible,
++                    } => data.send_cp(dev, 0x1a, 0, |ctr| {
++                        crate::cp::cursor_move(ctr, *connector, *x, *y, *visible)
++                    }),
++                    KmsCmd::Blank { connector } => data.blank_connector(dev, *connector),
++                };
++                // Remember what the dock accepted, so a later mode set can put it back. Recorded
++                // here rather than where the atomic callback queues it, because only a command
++                // that actually went out describes the dock's state.
++                if res.is_ok() {
++                    data.record_cursor(&cmd);
++                    relit |= mode_programmed;
++                }
++                if let Err(e) = res {
++                    if !kms_error_retryable(e) {
++                        pr_warn!("vino: dropping invalid asynchronous KMS command ({e:?})\n");
++                        continue;
++                    }
++
++                    // Preserve the failed command and everything ordered behind it. Concurrent
++                    // atomic callbacks may already have published newer state into these slots;
++                    // `retry` never replaces that newer state with this drained batch.
++                    let mut pending = data.pending_kms.lock();
++                    pending.retry(cmd);
++                    for cmd in cmds {
++                        pending.retry(cmd);
++                    }
++                    retry = true;
++                    vino_debug!("vino: asynchronous KMS command deferred after {e:?}\n");
++                    if data.kms_retries.fetch_add(1, Ordering::Relaxed) + 1 >= KMS_RETRY_LIMIT {
++                        pr_warn!(
++                            "vino: dropping asynchronous KMS work after {} deferrals ({e:?}); the link is not coming back on its own\n",
++                            KMS_RETRY_LIMIT
++                        );
++                        pending.clear();
++                        data.kms_retries.store(0, Ordering::Relaxed);
++                        retry = false;
++                    }
++                    break;
++                }
++            }
++            if has_modeset {
++                data.cmd_busy
++                    .store(false, core::sync::atomic::Ordering::SeqCst);
++            }
++            // Put each re-programmed connector's cursor back. Queued rather than sent inline so it
++            // drains through the ordinary path on the next turn of this loop, behind anything the
++            // compositor has published in the meantime -- a real cursor commit always wins.
++            if relit != 0 && !retry {
++                data.rearm_cursor(&this, relit);
++            }
++
++            if retry {
++                if !data.shutting_down.load(Ordering::Acquire) {
++                    let delay = kernel::time::msecs_to_jiffies(KMS_RETRY_MS);
++                    let _ = workqueue::system().enqueue_delayed::<_, 0>(ARef::from(&*this), delay);
++                }
++                return;
++            }
++            // A batch that got through means whatever was wrong has cleared.
++            data.kms_retries.store(0, Ordering::Relaxed);
++            if data.pending_kms.lock().is_empty() {
++                break;
 +            }
 +        }
-+        assert!(up_after_streaming);
-+        Ok(())
-+    }
-+
-+    /// Reconfiguring one DL-3x00 connector while the other is lit, against the vendor's own.
-+    ///
-+    /// Transcribed from two vendor reconfigurations at different resolutions, whose records agree
-+    /// step for step. The sink-down before the mode set is the part a reader is most likely to
-+    /// think redundant with the cold table's, where it comes after.
-+    #[test]
-+    fn ella_runtime_mode_matches_the_dlm_capture() -> Result {
-+        use super::DockWideStep::*;
-+        let want = [
-+            Marker(0, 0x2f, 1), // vendor #38348 / #44725
-+            Marker(0, 0x2e, 3), // #38349 / #44726, sink down ahead of the mode set
-+            SetMode(0),         // #38353 / #44729
-+            Marker(0, 0x2f, 1), // #38354 / #44730
-+            Marker(0, 0x2e, 0), // #38355 / #44731, sink up
-+            Poll,               // #38356 / #44732
-+            Prologue(0),        // #38357 / #44733
-+            Carrier(0),         // #38358 / #44734 onward
-+        ];
-+        assert_eq!(ELLA_RUNTIME_MODE, &want[..]);
-+        Ok(())
-+    }
-+
-+    /// A runtime reconfiguration names one connector and never the other.
-+    ///
-+    /// The connector that is already lit keeps streaming across the whole sequence; a marker
-+    /// addressed to it here would bracket a stream the dock is mid-frame on.
-+    #[test]
-+    fn ella_runtime_mode_touches_one_connector() -> Result {
-+        use super::DockWideStep::*;
-+        for step in ELLA_RUNTIME_MODE {
-+            let slot = match *step {
-+                SetMode(slot)
-+                | Marker(slot, _, _)
-+                | Prologue(slot)
-+                | Ring(slot)
-+                | Config(slot)
-+                | Carrier(slot) => slot,
-+                Poll | Stream(_, _) => continue,
-+            };
-+            assert_eq!(slot, 0);
-+        }
-+        Ok(())
++        // Wake both scanout workers after the command batch. They stop while
++        // a queued mode set must reach the dock before video and resume here.
++        data.enqueue_scanout_all(&this);
 +    }
 +}
