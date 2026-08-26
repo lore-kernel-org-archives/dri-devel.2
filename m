@@ -4,135 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B06A7C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 11:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFC6C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 11:52:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6E810E171;
-	Wed, 26 Aug 2026 11:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B567810E298;
+	Wed, 26 Aug 2026 11:52:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="eWGzyRNK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c2OGi2cA";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022074.outbound.protection.outlook.com [52.101.101.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE2FC10E171
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:50:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vY0+pFTY745mXeldHNPXpb7AEFHOriA4hztkXAJ50PcfRIPpcirTCAt9L3Dqv68Xlm66jZt4STJx7FZkDa3aqg/arTuxsKUsYWrC/DLVhDBO8SUrigkFIeKjuFH44OpfhcAOdbFopZ5GiG2WUT8rGHx9if8prz18dwS89RTAQchCqXmdjPAungh+F4OsSgsO7nbHF1w/mbMhKwNVGR6U+7dSGWmxRAx8QFExVq/mxB0MDi+dgF8jSA3k2mq+lZ2o35dCIVRXqE5dCOibt+LSH1R5qUt3zKGDvuFTEx+SSpbDKl1fe6l5GyBqN0ruHGaD5Aj4C1K34at032Ts9JjxiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l2X7iQcQPLylWhRTfxMCUQuZ7Ut7xnEB7gz/SO8S12w=;
- b=VJ0Nl5kVTqFkLO/CH32ovr3KAlskRMjtIy9WRLfOSboaxg1ZfUjO20xZw41uW+N5nYZNwMkV5P3FOfTxkQQBzlAKRW0EFSVyhUlXtBDSb/Z0zDJdmIiwo74VxmT5Fk3MC0/Ss2SJbDGGVsK+XDX+p13TSVmD3Ru0vFD0gEenXng1AMtgkhVJq0TxDbY443Yd2xy4kJY/BZ3peDM+APW5IMSPqwWpbL4b6liS3m1yW+mAZdSuJ2TvhSXQcNSTBFDqUN8aI+DRacJY4j8TT34DW0Ao5JLhl2upxw4KD4Hv5+wGDxMb9yQ5zct0qFCyKSjZIAUuu/PsxV3+TDiEOvD6+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l2X7iQcQPLylWhRTfxMCUQuZ7Ut7xnEB7gz/SO8S12w=;
- b=eWGzyRNKgco6a88/CLQxLlLttpRvDGtDziylQc21upkomOEmbKFzygPOZH9CEfveZfA15jRj1vF26nKZf1RaQBXQeVuQO1DIJXYsHyariFFlH+rmhMeCk8lfP2/QOHPudQkZEVAX1nx9F/+2znnFBNxgRd35HizlZck6nh/1uLw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB6066.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d3::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 11:50:49 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Wed, 26 Aug 2026
- 11:50:49 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 12:50:48 +0100
-Message-Id: <DKYUQ9CWIXKJ.3FSWLPWHXIBK@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 03/16] rust: mem: add `AsRepr` and `AsReprMut`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-3-3699a75fadf1@garyguo.net>
- <DKYU6RA4PD45.J2EMZIOB0BBF@nvidia.com>
-In-Reply-To: <DKYU6RA4PD45.J2EMZIOB0BBF@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0093.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2BA10E298;
+ Wed, 26 Aug 2026 11:52:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D9D9341A7B;
+ Wed, 26 Aug 2026 11:52:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED251F000E9;
+ Wed, 26 Aug 2026 11:52:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787745176;
+ bh=iRWRkd0hh7NrpUS5yE2QLfqEtCKKKQGDAZF4IlZG2oE=;
+ h=Date:From:To:Cc:Subject;
+ b=c2OGi2cAPPXOAYKLZsziyiNnAvK8t7iU77VLCW+1A+ypJMoxdPahVJnDq5ucQFllx
+ d+ZiklmUfqdPtXq6IyZ7fpmGheobqfWAZ7Ye77ZDFlsL7OpDMjzlCVF9S71UggV7+B
+ zPsXlcYe8Bch/6FXUCeCd+rbAlsH5nX4MwdFef8Ou5CdzLFOE5m8wBJpamiNaFVjf2
+ F3G2W4wB/6DG444VtZDHSosyA2nlWGmaqbW+M/J3/J3dSc4dj+vANWJQyOdmqqo6JK
+ CxmHGrCaTjmXVL7GCdw/mlLkhyHoDmJeFzVQMR7M+Dki1OH3O+NnaAqEEPlToEK858
+ xLEaw3jNnPqMA==
+Date: Wed, 26 Aug 2026 12:52:52 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Dave Airlie <airlied@redhat.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Lyude Paul <lyude@redhat.com>,
+ Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+Subject: linux-next: manual merge of the drm-misc-fixes tree with the origin
+ tree
+Message-ID: <ao7TlLDCvDc9KS2q@sirena.org.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6066:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5636137-f34e-47aa-1eb5-08df036845ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|10070799003|1800799024|10067099003|56012099006|5023799004|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SjyPfDiDtR/QyPMaVHSprXELEHNeM5Uf98tZqrfTR+k4lgJAbm0xyeXfvHveWcU5116Az3WZUdHo/Rwvq1fKN4boiXzZzwSRGtlwQKjipigHukHymJvb8997wdTEV1/1Rf/Wq2+x5O+QrfDD/JwYVAWAzXZUH2Y9IE2K8CFntVuQccZfLmb26z88zr378E8bWRos+B/mg/fVOvKXexhrLLvCGfcc905kHUCKRKEjGTNXy6d3PNG747hyOJqx22XggsPISoBTwkDTYoR7/63ZWwechnnM+hrnMgGgzL3vT7n+43D//LX27rysCUkctGyFTngTX8LAAcxpXXZ8+8ybUAkS8kN2XZomnQXyXqzULRT7t3abtkXmMH+Jz5IpuAEvfitU8WDjweVbKxPvHN6VLj4DsUohaKzyR70XB62Qc9iVyzueaYhjWQ4ww6wUHZbwSDXKxrASWVUTdBifdmQXCx81VzfOYhMHnrRxqbfeE94WTwZyROI/e9mukCs5r0g+ljHCCGF+s9mbc64bwjVGWoA+uQbUcgrxeilv8mjUJG2WA7BObfAiz0XAX8a/ALArZcc/10mHkCw8c+foyEcsu5UlXrIflNeuYEwk534D57bjPIyfeNAreXTj/iGyoYb95Ge11YQjdKs5aFt694xkTCgohlXyT7cVUyNj8J+ULhs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(10070799003)(1800799024)(10067099003)(56012099006)(5023799004)(4143699003)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVRTNWg4KytzNTNkMktTZUdabTdESVA2dnBDcys4aW9vS0tYc1pDTVZ3a0U5?=
- =?utf-8?B?OTRKdFRSWmZHcUdRQW5CeVEycW5wTWZVb2Z4d1JoMHJFeWpqc0VrS0dsNVls?=
- =?utf-8?B?Y2t5SW9TUjZHNk1JZ1czR3ZoQ1VWQnZiZjJFUnpXVVZkMy9pSFZYNzZKbUp5?=
- =?utf-8?B?clQ2ZHhJSkxmZjQxLy9WUktjNDNMRENMRTlXaHNsbXBpMFoyUmF4NTM4dFVt?=
- =?utf-8?B?a1pyS0d0OEtlbDJMVHI2Qnp6bDV6a1JUSG43Z01iZm9hOU1WWnlra1o2UWkw?=
- =?utf-8?B?RG9ROHMyTVZwUlRNT3NWYjl1WFNWRXFhUGhOZzZRdFVoNDMxNTlUWUxMengw?=
- =?utf-8?B?TUhva3JxNmNDcnBVVExiRFlnV2lwTmRqOU10ZG5sb3grUXVLeG54bWhWLzhN?=
- =?utf-8?B?dWx1TDBFZXdBbzJ1Zml0bU44YnpGaWJWQWNZUFJVZ05MTnNqcDBudW10OXB3?=
- =?utf-8?B?K1psYlVrTVlFOU9hOGltbmxLd2VZSVhqV0Z1RmgvWW1sUVV6TkpWOUNjM3Av?=
- =?utf-8?B?eWJLRXNvbTBGM3N1MUpVdWRMSFNyQ0ErZlF2eitHRUtNTlUrclBCVlpJRmkx?=
- =?utf-8?B?YlltYWhtM1pQQTUrOVRGYVhrRnZnVnZZSC9nMlRzcVJ5b2d2RVJqWkhSSnpQ?=
- =?utf-8?B?a2YyOUFGU3ZWZ3ZZZG1lNFR3UkhZUm5TYllDTEhpRmlpWGxPa3BMTDZBTlVi?=
- =?utf-8?B?T0NTVm92bEs2RDdXcFNLbWF3dDZGY0pHTlpnd1VFQ1FoWDNJQVNIaUFsemM3?=
- =?utf-8?B?ekxNZGM2UUdrdkludE9YMDQrQkEyalNIbDFjOHp3a1psV3BYM2llcTJEY20r?=
- =?utf-8?B?bUxXZTcyemVvZzVLNDlKa3R4WnJIdmtEVEJ0VlFucHRTVGRxa0QwcUxGam5o?=
- =?utf-8?B?MUtDeCt5V3k0R3FCMVBqUDFaZEUyUmZtdG55cERnMVpXUUtNalFSdlUxekdG?=
- =?utf-8?B?b0IxQjFkNHBxendvcnEwd1o5ZWE3OTJWS01hTDJRd0UzN1lMOWZsdjRHeFVr?=
- =?utf-8?B?amhHMEY2VmVDcU1tMkV3RkxqaWNkZlFZTnVkZ1ZZZXI4SnFzci94VXNkZW5Q?=
- =?utf-8?B?emFTRm5rbUNSVG50dnh6R3dvMzhDd3liL2ptU1NwM0o1b3FteXo5bmtqbzhh?=
- =?utf-8?B?QVR3QXVPQnBGVmx3Tmw0YnY5T0NsSWRwSXYxY2RsN0pWa2w5dVBXMSt3OWFP?=
- =?utf-8?B?NnFLTEF0R2VmelFqN3pwVGFXc2R4aGI3UzVPR0NOcTIvQzUxR1lYdjAraEpF?=
- =?utf-8?B?RE5WVmkzczYvenFRL0tjT2ZXUHRzUEdnM1dVaXdIb2RIcVg2ZzhmdkJkRFRv?=
- =?utf-8?B?SXFsbHdlUm0ycXFXdXZrU2FEV1MzdEFZUVZTeUl4alFlRmsxY3AzQ1AyeFhQ?=
- =?utf-8?B?cGhFd1VQeE9nbzV3S0w2clRvbWxHcHZCSGFwNExvek5RbE9HdUo5OEMwTkl5?=
- =?utf-8?B?U1pNQ2xyRDY0L2I4ajltOXRqNE5GaUgxNldZcVVjZCs3S0szZ3JRNk5lZkxL?=
- =?utf-8?B?VHFrMlRZamN5TWRHR055YTFha2d5S3k3S25zMHJFUW13c01nWHloc0FjMFEx?=
- =?utf-8?B?QzE2TlovK3lHM2FjSWJvbFlaczBvbEhWSVJJcDAwWDVqdmFKVmRaT2VJdzEv?=
- =?utf-8?B?bGx0dkNEdDJaL0UzYzlITlIxaWNLNUEvODB2TjE0LzNUVjRjMndodDBydU1W?=
- =?utf-8?B?ZDdMemRLTExMN3dERE4yN0dlTXhZNzJZendXQ2ZHeFFIVFJhZ1h5YnFvWDF3?=
- =?utf-8?B?Q2hSK1ZPelRHcG1ia1Z6RGJBeFNXMXEvT2NoSHhIVWpmZ2dYRk82QllVeDdX?=
- =?utf-8?B?NWF0NG5Na3l6NkIybnRpKzUyYVVaTXVvNHFOVkExTlMwQzVBN3hPbUVHbm45?=
- =?utf-8?B?ZDNpWU9LMldOTHNETWRzWmlOam55eERLUTRWR2JiaHdqZkFZaDQyMnQzRW9Z?=
- =?utf-8?B?N0tVSXVLaWxIU3ZMblcrTnYyTWhoSWdQc0VHWE1HOXBpNWhLdUVWeUNFLzlk?=
- =?utf-8?B?dHlQK2NGTHpBckxEaFJHNXAvRG94cDRPdForUEgreFZ0c0M5SFJ5a1VkT25s?=
- =?utf-8?B?RFY5MTNjN0dIY1FEZE5iUFpsRWZUZlRlOEF4ajZHUUUwbjlXTXNwamdPZHVP?=
- =?utf-8?B?RjRsZHBudnMyK0srcXl3TzdtSlpBY3hQallsWmVNT2NzbnZSRWNEOHNwODNI?=
- =?utf-8?B?ZFF5cWpCSlNZbEpXclNkTTZYdEZFZVJjNjNQVFZTWUlqcFRQMmpramVKK3Y1?=
- =?utf-8?B?ZlJRdDYzMElVL2hIcE1ZZVZRdFhuQVRhRGQ1MGE0emd0VXQ2cFRCVnE2WUo1?=
- =?utf-8?B?dVRTWWpjR1dlQ2RyNm9nRWdpbG0wZUc4QUdGc0NBWmhHWmZkZ0ZVZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5636137-f34e-47aa-1eb5-08df036845ce
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 11:50:49.3538 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 89pRMoCSyqUW2gd8siDiuxpJq4z5rBTQ1Da7zM5djnSOi1S5fVRwdOtXKRzimWbf2FxrH6GaqU4Wlh4e4Yhvnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6066
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="BcRjPkRg30TfJc73"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,189 +62,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 26, 2026 at 12:25 PM BST, Alexandre Courbot wrote:
-> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
->> Some API like atomics and I/O operate on primitives only; therefore othe=
-r
->> types would need to converted to these primitive first. Add two traits
->> `AsRepr` and `AsReprMut` to indicate that the type can be turned into a
->> primitive for these operations.
->>
->> Conceptually, `T: AsRepr` means that `&T` can be viewed as `&T::Repr` an=
-d
->> thus it has only a round-trip transmutability requirement. `T: AsReprMut=
-`
->> means that `&mut T` can be viewed as `&mut T::Repr` and thus it needs to
->> support bi-directional transmutability.
->>
->> To avoid duplicating implementation, all repr types are normalized to
->> unsigned integers.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  rust/kernel/mem.rs | 148 ++++++++++++++++++++++++++++++++++++++++++++++=
-+++++++
->>  1 file changed, 148 insertions(+)
->>
->> diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
->> index a0901cbe1b2d..5bce381d8895 100644
->> --- a/rust/kernel/mem.rs
->> +++ b/rust/kernel/mem.rs
->> @@ -35,3 +35,151 @@ pub const fn transmute<Src: IntoBytes, Dst: FromByte=
-s>(val: Src) -> Dst {
->>      // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bound=
-s.
->>      unsafe { transmute_unchecked(val) }
->>  }
->> +
->> +/// Type that is layout-compatible with a primitive representation.
->> +///
->> +/// # Round-trip transmutability
->> +///
->> +/// `T` is round-trip transmutable to `U` if and only if both of these =
-properties hold:
->> +///
->> +/// - Any valid bit pattern for `T` is also a valid bit pattern for `U`=
-.
->> +/// - Transmuting a value of type `T` to `U` and then to `T` again
->> +///   yields a value that is in all aspects equivalent to the original =
-value.
->> +///
->> +/// # Safety
->> +///
->> +/// - [`Self`] must have the same size and alignment as [`Self::Repr`].
->> +/// - [`Self`] must be [round-trip transmutable] to  [`Self::Repr`].
->> +///
->> +/// [round-trip transmutable]: AsRepr#round-trip-transmutability
->> +pub unsafe trait AsRepr: Sized {
->
-> I'm a bit confused by the naming of this trait - the commit message
-> mentions that it means that "`&T` can be viewed as `&T::Repr`", but such
-> a method doesn't exist. Instead we have an `AsRepr` trait with an
-> `into_repr` method that makes a copy.
->
-> Can we either rename this to `IntoRepr` (and `AsReprMut` into `FromRepr`
-> I guess?), or maybe better, have `fn as_repr(this: &Self) ->
-> &Self::Repr` (on top of which `into_repr` could be implemented if
-> useful) so the names of the trait and provided method align, while also
-> making the commit message match the actual API? I haven't tried but
-> since all the representations we are working with are primitives that
-> implement `Copy`, I intuitively think it should work just as well.
->
-> Same would apply to `AsReprMut`.
->
-> Since this is becoming core infrastructure, I guess `as_repr` will also
-> become valuable when we want to do in-place access (with e.g. atomics)
-> or use it with larger types that we don't want to copy.
 
-Good point. I'll add a `Repr: Copy` bound and switch impl of `as_repr`.
+--BcRjPkRg30TfJc73
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-`AsRepr` is meant as "have a primitive representation", which I imagine to =
-be
-most likely just integers. I didn't say "integers" specifically because we
-cannot lose provenance on pointers so pointers are not integer represented.
+Hi all,
 
-So I do think we might also want to make `Copy` a supertrait of `AsRepr`?
-`AtomicType` current requires it.
+Today's linux-next merge of the drm-misc-fixes tree got conflicts in:
 
->
->> +    /// Primitive representation of this type.
->> +    type Repr;
->> +
->> +    /// Convert from [`AsRepr::Repr`] to `Self`.
->> +    ///
->> +    /// # Safety
->> +    ///
->> +    /// `repr` must be a valid bit patern of `Self`. If `repr` is previ=
-ously obtained using
->
-> nit: s/patern/pattern.
->
->> +    /// [`AsRepr::into_repr`], then it will always be safe.
->> +    #[inline(always)]
->> +    unsafe fn from_repr_unchecked(repr: Self::Repr) -> Self {
->> +        // SAFETY: Per safety requirement of the trait.
->
-> "... of the trait and method" maybe?
->
->> +        unsafe { transmute_unchecked(repr) }
->> +    }
->> +
->> +    /// Convert from `Self` to [`AsRepr::Repr`].
->> +    #[inline(always)]
->> +    fn into_repr(this: Self) -> Self::Repr {
->> +        // SAFETY: Per safety requirement of the trait.
->> +        unsafe { transmute_unchecked(this) }
->> +    }
->> +}
->> +
->> +/// Type that is bi-directionally transmutable with a primitive represe=
-ntation.
->> +///
->> +/// # Safety
->> +///
->> +/// - [`Self`] must be [transmutable] from [`Self::Repr`].
->
-> nit: missing backticks on [transmutable].
+  drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
 
-Ah, this is a term. I should remove backtick from the link instead.
+between commit:
 
->
-> <...>
->> +#[cfg(target_pointer_width =3D "32")]
->> +const _: () =3D {
->> +    // SAFETY: usize has the same size and alignment with u32, and is r=
-ound-trip transmutable to it.
->> +    unsafe impl AsRepr for usize {
->> +        type Repr =3D u32;
->> +    }
->> +
->> +    // SAFETY: isize has the same size and alignment with u32, and is r=
-ound-trip transmutable to it.
->> +    unsafe impl AsRepr for isize {
->> +        type Repr =3D u32;
->> +    }
->> +
->> +    // SAFETY: usize is transmutable from u32.
->> +    unsafe impl AsReprMut for usize {}
->> +    // SAFETY: isize is transmutable from u32.
->> +    unsafe impl AsReprMut for isize {}
->> +};
->> +
->> +#[cfg(target_pointer_width =3D "64")]
->> +const _: () =3D {
->> +    // SAFETY: usize has the same size and alignment with u64, and is r=
-ound-trip transmutable to it.
->> +    unsafe impl AsRepr for usize {
->> +        type Repr =3D u64;
->> +    }
->> +
->> +    // SAFETY: isize has the same size and alignment with u64, and is r=
-ound-trip transmutable to it.
->> +    unsafe impl AsRepr for isize {
->> +        type Repr =3D u64;
->> +    }
->> +
->> +    // SAFETY: usize is transmutable from u64.
->> +    unsafe impl AsReprMut for usize {}
->> +    // SAFETY: isize is transmutable from u64.
->> +    unsafe impl AsReprMut for isize {}
->> +};
->
-> By making these available, aren't we running into the same
-> non-portability issue [1] that we discussed on the `casts` module?
->
-> [1] https://lore.kernel.org/all/DK9A6KGK5JQD.3U23MBEMSAXBK@garyguo.net/
+  804cb093b245c ("drm/nouveau/disp/r535: Add scanline position support + he=
+ad state support")
 
-I added it because `Atomic` would require it. However, it does make it poss=
-ible
-to create non-portable if `usize` is used on a `I/O` type that does not
-implement `IoCapable<u64>` on 64-bit platforms.
+=66rom the origin tree and commits:
 
-I guess an option is to have `usize` stay as `usize` and we add a forwardin=
-g
-`usize` impl in atomic module instead.
+  c6659e0ffc19b ("drm/nouveau/disp: move GSP head-timing ISR and vblank hel=
+pers to tu102.c")
+  5bb489b333237 ("drm/nouveau/gsp: fix vblank interrupts on GB20x")
 
-Best,
-Gary
+=66rom the drm-misc-fixes tree.
 
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+index b642729c254fe,5976498da9094..0000000000000
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+@@@ -56,6 -56,8 +56,8 @@@ int gv100_head_new(struct nvkm_disp *,=20
+  void gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *sta=
+te);
+  void gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline);
+ =20
++ extern const struct nvkm_head_func tu102_gsp_head;
++=20
+  #define HEAD_MSG(h,l,f,a...) do {                                        =
+      \
+  	struct nvkm_head *_h =3D (h);                                           =
+ \
+  	nvkm_##l(&_h->disp->engine.subdev, "head-%d: "f"\n", _h->id, ##a);     \
+diff --combined drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+index e77733a5d9c3c,f5f22173fc2c1..0000000000000
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+@@@ -400,16 -400,16 +400,16 @@@ r535_sor_dp_audio(struct nvkm_ior *sor
+  		r535_sor_dp_audio_mute(sor, false);
+  }
+ =20
+- static void
+- r535_sor_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16=
+ pbn, u16 aligned_pbn)
++ static int
++ r535_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16 pbn=
+, u16 aligned_pbn)
+  {
+  	struct nvkm_disp *disp =3D sor->disp;
+  	struct NV0073_CTRL_CMD_DP_CONFIG_STREAM_PARAMS *ctrl;
+ =20
+  	ctrl =3D nvkm_gsp_rm_ctrl_get(&disp->rm.objcom,
+  				    NV0073_CTRL_CMD_DP_CONFIG_STREAM, sizeof(*ctrl));
+- 	if (WARN_ON(IS_ERR(ctrl)))
+- 		return;
++ 	if (IS_ERR(ctrl))
++ 		return PTR_ERR(ctrl);
+ =20
+  	ctrl->subDeviceInstance =3D 0;
+  	ctrl->head =3D head;
+@@@ -429,12 -429,20 +429,20 @@@
+  	ctrl->MST.sendACT =3D 0;
+  	ctrl->MST.singleHeadMSTPipeline =3D 0;
+  	ctrl->MST.bEnableAudioOverRightPanel =3D 0;
+- 	WARN_ON(nvkm_gsp_rm_ctrl_wr(&disp->rm.objcom, ctrl));
++ 	return nvkm_gsp_rm_ctrl_wr(&disp->rm.objcom, ctrl);
++ }
++=20
++ static void
++ r535_sor_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16=
+ pbn, u16 aligned_pbn)
++ {
++ 	const struct nvkm_rm_api *rmapi =3D sor->disp->engine.subdev.device->gsp=
+->rm->api;
++=20
++ 	WARN_ON(rmapi->disp->dp.vcpi(sor, head, slot, slot_nr, pbn, aligned_pbn)=
+);
+  }
+ =20
+  static int
+- r535_sor_dp_sst(struct nvkm_ior *sor, int head, bool ef,
+- 		u32 watermark, u32 hblanksym, u32 vblanksym)
++ r535_dp_sst(struct nvkm_ior *sor, int head, bool ef,
++ 	    u32 watermark, u32 hblanksym, u32 vblanksym)
+  {
+  	struct nvkm_disp *disp =3D sor->disp;
+  	struct NV0073_CTRL_CMD_DP_CONFIG_STREAM_PARAMS *ctrl;
+@@@ -461,6 -469,15 +469,15 @@@
+  	return nvkm_gsp_rm_ctrl_wr(&disp->rm.objcom, ctrl);
+  }
+ =20
++ static int
++ r535_sor_dp_sst(struct nvkm_ior *sor, int head, bool ef,
++ 		u32 watermark, u32 hblanksym, u32 vblanksym)
++ {
++ 	const struct nvkm_rm_api *rmapi =3D sor->disp->engine.subdev.device->gsp=
+->rm->api;
++=20
++ 	return rmapi->disp->dp.sst(sor, head, ef, watermark, hblanksym, vblanksy=
+m);
++ }
++=20
+  static const struct nvkm_ior_func_dp
+  r535_sor_dp =3D {
+  	.sst =3D r535_sor_dp_sst,
+@@@ -545,16 -562,21 +562,21 @@@ r535_sor_hdmi_ctrl_audio(struct nvkm_ou
+  static void
+  r535_sor_hdmi_audio(struct nvkm_ior *sor, int head, bool enable)
+  {
+- 	struct nvkm_device *device =3D sor->disp->engine.subdev.device;
+- 	const u32 hdmi =3D head * 0x400;
+-=20
+  	r535_sor_hdmi_ctrl_audio(sor->asy.outp, enable);
+  	r535_sor_hdmi_ctrl_audio_mute(sor->asy.outp, !enable);
++ 	sor->disp->func->gsp.hdmi_gcp(sor, head, enable);
++ }
+ =20
+- 	/* General Control (GCP). */
+- 	nvkm_mask(device, 0x6f00c0 + hdmi, 0x00000001, 0x00000000);
+- 	nvkm_wr32(device, 0x6f00cc + hdmi, !enable ? 0x00000001 : 0x00000010);
+- 	nvkm_mask(device, 0x6f00c0 + hdmi, 0x00000001, 0x00000001);
++ static void
++ r535_sor_hdmi_infoframe_avi(struct nvkm_ior *sor, int head, void *data, u=
+32 size)
++ {
++ 	sor->disp->func->gsp.hdmi_infoframe_avi(sor, head, data, size);
++ }
++=20
++ static void
++ r535_sor_hdmi_infoframe_vsi(struct nvkm_ior *sor, int head, void *data, u=
+32 size)
++ {
++ 	sor->disp->func->gsp.hdmi_infoframe_vsi(sor, head, data, size);
+  }
+ =20
+  static void
+@@@ -582,8 -604,8 +604,8 @@@ r535_sor_hdmi =3D=20
+  	.ctrl =3D r535_sor_hdmi_ctrl,
+  	.scdc =3D r535_sor_hdmi_scdc,
+  	/*TODO: SF_USER -> KMS. */
+- 	.infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
+- 	.infoframe_vsi =3D gv100_sor_hdmi_infoframe_vsi,
++ 	.infoframe_avi =3D r535_sor_hdmi_infoframe_avi,
++ 	.infoframe_vsi =3D r535_sor_hdmi_infoframe_vsi,
+  	.audio =3D r535_sor_hdmi_audio,
+  };
+ =20
+@@@ -608,31 -630,6 +630,6 @@@ r535_sor_cnt(struct nvkm_disp *disp, un
+  	return 4;
+  }
+ =20
+- static void
+- r535_head_vblank_put(struct nvkm_head *head)
+- {
+- 	struct nvkm_device *device =3D head->disp->engine.subdev.device;
+-=20
+- 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000000);
+- }
+-=20
+- static void
+- r535_head_vblank_get(struct nvkm_head *head)
+- {
+- 	struct nvkm_device *device =3D head->disp->engine.subdev.device;
+-=20
+- 	nvkm_wr32(device, 0x611800 + (head->id * 4), 0x00000002);
+- 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000002);
+- }
+-=20
+- static const struct nvkm_head_func
+- r535_head =3D {
+- 	.state =3D gv100_head_state,
+- 	.rgpos =3D gv100_head_rgpos,
+- 	.vblank_get =3D r535_head_vblank_get,
+- 	.vblank_put =3D r535_head_vblank_put,
+- };
+-=20
+  static struct nvkm_conn *
+  r535_conn_new(struct nvkm_disp *disp, u32 id)
+  {
+@@@ -1404,35 -1401,6 +1401,6 @@@ static const struct nvkm_event_fun
+  r535_disp_event =3D {
+  };
+ =20
+- static void
+- r535_disp_intr_head_timing(struct nvkm_disp *disp, int head)
+- {
+- 	struct nvkm_subdev *subdev =3D &disp->engine.subdev;
+- 	struct nvkm_device *device =3D subdev->device;
+- 	u32 stat =3D nvkm_rd32(device, 0x611c00 + (head * 0x04));
+-=20
+- 	if (stat & 0x00000002) {
+- 		nvkm_disp_vblank(disp, head);
+-=20
+- 		nvkm_wr32(device, 0x611800 + (head * 0x04), 0x00000002);
+- 	}
+- }
+-=20
+- static irqreturn_t
+- r535_disp_intr(struct nvkm_inth *inth)
+- {
+- 	struct nvkm_disp *disp =3D container_of(inth, typeof(*disp), engine.subd=
+ev.inth);
+- 	struct nvkm_subdev *subdev =3D &disp->engine.subdev;
+- 	struct nvkm_device *device =3D subdev->device;
+- 	unsigned long mask =3D nvkm_rd32(device, 0x611ec0) & 0x000000ff;
+- 	int head;
+-=20
+- 	for_each_set_bit(head, &mask, 8)
+- 		r535_disp_intr_head_timing(disp, head);
+-=20
+- 	return IRQ_HANDLED;
+- }
+-=20
+  static void
+  r535_disp_fini(struct nvkm_disp *disp, bool suspend)
+  {
+@@@ -1659,7 -1627,7 +1627,7 @@@ r535_disp_oneinit(struct nvkm_disp *dis
+  		nvkm_gsp_rm_ctrl_done(&disp->rm.objcom, ctrl);
+ =20
+  		for_each_set_bit(i, &disp->head.mask, disp->head.nr) {
+- 			ret =3D nvkm_head_new_(&r535_head, disp, i);
++ 			ret =3D nvkm_head_new_(disp->func->gsp.head, disp, i);
+  			if (ret)
+  				return ret;
+  		}
+@@@ -1703,12 -1671,20 +1671,20 @@@
+  	if (ret)
+  		return ret;
+ =20
+- 	ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type, disp->engine.=
+subdev.inst);
++ 	/* Chips that raise head-timing interrupts on a separate low-latency
++ 	 * vector report it as a second DISP interrupt table entry, exposed
++ 	 * as instance 1 by the RM engine-index translation (see
++ 	 * r570_gsp_xlat_mc_engine_idx()). Their high-latency vector
++ 	 * (instance 0) is left unhandled as no event nouveau enables is
++ 	 * routed to it, and without a handler it stays masked.
++ 	 */
++ 	ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
++ 				  disp->func->gsp.intr_low_latency ? 1 : disp->engine.subdev.inst);
+  	if (ret < 0)
+  		return ret;
+ =20
+  	ret =3D nvkm_inth_add(&device->vfn->intr, ret, NVKM_INTR_PRIO_NORMAL, &d=
+isp->engine.subdev,
+- 			    r535_disp_intr, &disp->engine.subdev.inth);
++ 			    disp->func->gsp.intr, &disp->engine.subdev.inth);
+  	if (ret)
+  		return ret;
+ =20
+@@@ -1741,6 -1717,7 +1717,7 @@@ r535_disp_new(const struct nvkm_disp_fu
+  	rm->uevent =3D hw->uevent;
+  	rm->sor.cnt =3D r535_sor_cnt;
+  	rm->sor.new =3D r535_sor_new;
++ 	rm->gsp =3D hw->gsp;
+  	rm->ramht_size =3D hw->ramht_size;
+ =20
+  	rm->root.oclass =3D gpu->disp.class.root;
+@@@ -1782,6 -1759,8 +1759,8 @@@ r535_disp =3D=20
+  	.dp =3D {
+  		.get_caps =3D r535_dp_get_caps,
+  		.set_indexed_link_rates =3D r535_dp_set_indexed_link_rates,
++ 		.sst =3D r535_dp_sst,
++ 		.vcpi =3D r535_dp_vcpi,
+  	},
+  	.chan =3D {
+  		.set_pushbuf =3D r535_disp_chan_set_pushbuf,
+
+--BcRjPkRg30TfJc73
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO05MACgkQJNaLcl1U
+h9CATQf/eTmz4L9PldBgbRXKE1nOTca5dubEoc9B+iIZxzIFATgaP38XjuSdnNPC
+24CNMAHj4cKDL1lR6GWBBX/12q4PxJNP5uFuTy51+20ymenrTRlyCSg3YSz7RsmR
+OwucwUXHx5W0Z9MaeDgFV9WDMRdwbzOI60vx5lo36iaXo+j1sxeP2PLbqHUFR1lX
+9GtbdeTPRvNKCv03zEYf98pzZMdN1PDdUACfpOHOTiqRsIiO7wxVAsPI611HEwVj
+63zC4Wo+sYzlkDixyZpbkLc6KlXD6blfIoqfzlxu3ZDUOmluB8in4A8O8l5Y1wUl
+XMz0TJPT9gIfQU1h13EGP4ckOg9Buw==
+=vvaO
+-----END PGP SIGNATURE-----
+
+--BcRjPkRg30TfJc73--
