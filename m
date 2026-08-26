@@ -4,75 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD8BC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 11:36:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA87C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 11:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB6A810E240;
-	Wed, 26 Aug 2026 11:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C40910EC50;
+	Wed, 26 Aug 2026 11:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="YL8cSGOw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1eNBL/R+";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2589010E467
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:36:06 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-cc1bcdb3c4cso602606a12.2
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 04:36:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1787744165; x=1788348965; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qgFsXhDsJkFJhJ+ciJcglHTEsr6ZDltVDS+SXgw7Qko=;
- b=YL8cSGOwLRa2+OauXWh3434rmGNQC0yQA80FaD9Z1LanE9hpsbxIA/P1XyuDmr9Yy/
- HXm/o9cmN1Sb7ViHUynK/Gb+lXZaewX3F53BK3Wzg0vlgMREq8gdw0HxSgATUpTyqrHu
- CmTKATv2psMFsvuvvCxDRlPdvY1q57pkU2eyw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787744165; x=1788348965;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=qgFsXhDsJkFJhJ+ciJcglHTEsr6ZDltVDS+SXgw7Qko=;
- b=qQtoiCE41oSoJ65yd652bb/RwevjpQy2rn6PosxFwC9951KwZ9vJktRrJsYEFxo3B1
- Dq4d4avk/yO3twG5znuEeoSaw38ir47CFclTOvHN6fa0epAJVTAIFFTaXBuFt5KMJ/QH
- phxeWFBlZegvqAQT3xgP5Z1KH9VT574MuzOi/cA9WqM//4b+2+UoegWDStu5QLcS5Wf0
- QFrMdH0bmRMdRVA6fz88/JxMpD6KXi9lYZIo6skuYrUAS/2EEM8/oG4c2lsMZI7IDqe9
- Q0FQGl6i2+SqD642fFqY+6g1w4KuERA4POf+7UB1Cgn4o1a4Ov15J8KUDXNtU5/wnCvg
- rdRw==
-X-Gm-Message-State: AFuF++kYL1aiyOSZ+G4FBDCAxvcHHQnWmWoExjJSe+8Z7Eu7GEZXJZBY
- bVLStcqgAtIN1wySDH8AXMWxYKSoep1M2ogjG1h60Wn1gsWgPxk1TS+WhShIv/ZtSsI=
-X-Gm-Gg: AR+sD13GxPSmNJVKKxqw0/pWi06ELD76QNia0/vW5enz/FHl8MAYRg/j/SAmpbEjR5p
- WWuxd0mPN0AJmzNLELH1/9BYZp7rKAirqYV1RtfmHRp0Jlma6qskMbp0H1P3lZOimR1rbmD1YSr
- aENVSAKPK3pydi8hXTWcTjAOSUAwIe76qOs3s1OgUvtfphX805sybKyYxq3OYiPyBwwKnG7Ie1Q
- MeIGrA/Z2TluyNRp5DDP/p1cvpKa1ynVlYXFXVhbR+MubK7KHUbzgAu5KZz4kErvMjbOALtWdzM
- 1pfxoe19bLq2E9YdtoC/DFyJEyNkXzQuYE1qSzDc/EwedA2YG/h11+GDWSUJD3DS9dP70h28DYq
- 3Z6CverdBHCQxfGtW3zK5m3WyPaB4V7FLupCXkOJIz1CeT1LO/09SgO8hNs0WZh20dHMWYVM10A
- 6/dJFf1ILIGAdw25pyeMJjCd7EfG+hXT7e9zaoRg+BQJieYEcxCrBcoZsKoT9ooDTX5SZIltVoK
- Q==
-X-Received: by 2002:a17:90b:3890:b0:395:bbfe:fc6f with SMTP id
- 98e67ed59e1d1-3966d401db6mr12655903a91.3.1787744165623; 
- Wed, 26 Aug 2026 04:36:05 -0700 (PDT)
-Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39645d989cesm7634294a91.16.2026.08.26.04.36.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 04:36:05 -0700 (PDT)
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Triet Hoang <triet.hoang.dev@gmail.com>,
-	royalnet026@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ogabbay@kernel.org, tomeu@tomeuvizoso.net, markus.elfring@web.de
-Subject: Re: [PATCH v5 2/2] drm/rocket: Keep scheduler allocation in
- rocket_file_priv
-Date: Wed, 26 Aug 2026 20:35:31 +0900
-Message-ID: <20260826113538.42111-2-sidong.yang@furiosa.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260818041505.1579320-2-triet.hoang.dev@gmail.com>
-References: <20260817093009.22359-1-royalnet026@gmail.com>
- <20260818041505.1579320-1-triet.hoang.dev@gmail.com>
- <20260818041505.1579320-2-triet.hoang.dev@gmail.com>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012014.outbound.protection.outlook.com [52.101.48.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 087C710EC50
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:41:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lu+UYnNHKch1ZY6uwOnUBO24gLFZzt4RS3bNQWRaC9Y7Izcb+o+Yv4/e90bV36GoRhJJnVJwt8oXhAQ/pDfcNRBUR9wEqhY7OlVvAdWs1mBhcxn+ElWVDQ6BJrmQKNEdB8s/vmkY6faQg9Y1JqJFTTdLnOqvXf6qOa+vm/99dZ7zyW/BSgxjS6wMbt+Yzr3lVbpIwU+5fltmNm0CGClglnjN5SR8ixAnTNn4IEaGU82zXEsOoqNmfuLbdXn1bGJL6yx5GVvPO/ZupRhwWcyhsQAvPw08qBDJCP3TKSfKvcoZchspm06KvhkTyanJRkHVShzbf8jES3ig/0Po6kYUYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PfRDr59s9ydvFL0JtQK/PQCJ9TqofxBePgBMVpgCNro=;
+ b=YLFegK4c4GgqAei1qJ+sIFrBeyLTwowfyGBWWF8Hdv3U2H3T4pGcLQplGJHSMe9h6iDhxHukggHAsTwtxjIqr45rzQ29OSY9yQGJCFoDW6BNy3/FSLGGrW1j5t4cSiH5lU2QRQ20fBvgvZ0oMNup0PyfHTZu41y3LvI20B/vktLq6vbUL3pMVuXkGzgXfo2wnD99c3GLP0D3/8mTXR70HAPf98M6mOkPVTPq1g9VhO/w3mDzdMZ25i7abn8ywzsSqqJZxWSNu6MAQ/4m5ZQYmd3C1Wdjeq/fldz412JU46qXTmBSfZ6C8Nf8OJcIrwhPEGO/JsOzByYrBQJli/Rdcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PfRDr59s9ydvFL0JtQK/PQCJ9TqofxBePgBMVpgCNro=;
+ b=1eNBL/R+fExo8xllnfg/9oFC75IlJ8rcolIhhqULhzt4G70IiPCv3i7YdFtFXMypAk4pbq3S5+zq3/N6S4ynC0yqxHNPpwd9Ux0dGSooaeKMRQvdRIrLMH+x8rEOVvqJ6J9dqgMRSn2d9rjP3jEI3VZWE4vkochWucM8AN01Gt4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS1PR12MB999189.namprd12.prod.outlook.com (2603:10b6:8:495::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 11:41:56 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 26 Aug 2026
+ 11:41:56 +0000
+Message-ID: <2776f9b0-c299-45ff-bf82-89b95e73fd60@amd.com>
+Date: Wed, 26 Aug 2026 13:41:51 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dma-buf: Document how exporters and importers agree
+ on mapping lifetime
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-pci@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
+ <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0091.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS1PR12MB999189:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81b01132-6c57-4f75-9a14-08df036707e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|23010399003|4143699003|11063799006|5023799004|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: tuLv9dEXdXw2fV+zbFStOyciaGAmPRvO9fNJmnClHGg09FG9r0VzfuQBi3HDLAMMoeGfIwZbwhHjM33IR4W9qt12T/xN7U8QKDWZSv6KErHtNzhT4xXkMzzOdz9HCGeSnKk7wJZBy3fSn5grLObqzQ+qk2KKgOfKW2hXwR7G9hniwkILcjd/tQIGTcZW14NvgBatJgup+Fio4R+nRAshNl9cv1+iwNCnSPl9UE+MCzScPRoWw6WvXBQoDaWAIsz48v2JHTf41eJHIWc4I1sT/86hySYt5v5vfnaJogXb0JFv+iOwUX0bkDdKgJ6Ba0gkJ4VnJeBZcJLlhrLL0cqOyGEWIIZ5j33dKo+BeTjAUeEMtBIqSuxLa3KFOviw2OdVYzzDgrLELiB7BXjJdH8m/FDhpItqfo4tsPTBXLv0ox3EUGne6LLIpzT6+x9eeVOKHg65ImQ9TpxC4uNPPNQJY73+K2Ejrxj/w0vmjBhqvw9ycvQbLXIImnBCyl+jeDT4EooJ04h5L9eZe9mnMACBlVn1avQoX66V/LBF9dv1p9AlY/QjfQPU+OMelzPyFW6WjrUqe4S1sT1zfUE37maQHBdA2PNKPobpzkJPtzsFBnI/cERQ1TbErRS229xb6VI6+wpsoELTLjBG/AdfnQPeF5eUGH69g/zQR4K5smMFvv4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(4143699003)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SngzdFZkMnFLVmNwTWlSbVZXak5KdXdjaURBR2h4TGNUQnNSRHEweFZSdkFX?=
+ =?utf-8?B?eWppTGFyY1RzRkhLMmJ6RW1ucUdsRmRiZmRtK1kzekMyMnUvbFdzaUdtQ1U0?=
+ =?utf-8?B?TThqSm1PdmdnbVhkaE1YMjZycXNoaFlzVGs2bUdRdExBZGJuNk5Pb1p5T3A4?=
+ =?utf-8?B?eG1ZeWVoeXNjU3F4aHZiR1ZDRDRNNzllUzRQaGpWbmFjUVRaeDdHbzEvZE9U?=
+ =?utf-8?B?ZFRXWXdGTjUyaC96c25WOWlPblJlVEVSNVdnUFdJeTZENTQyYnZnRi9CY3hq?=
+ =?utf-8?B?NkE3Zkg4d0N6RVRDTHYzQURjak1WR2VNM2RoTGRTQkhDaWdhSWs4SGhsZUNC?=
+ =?utf-8?B?bXFodytaeGVUc3h0THdzMWJ1bUhXUHZvc2RGRWxVb1V5SGZXSCt3dzg3VFFV?=
+ =?utf-8?B?N1RocndpU3BuRVA4L1J3YjJlSFpnQmNVSkxTYUNzcjAzSXhHajVVVXAwT2U1?=
+ =?utf-8?B?L1VxTTRSd1o5NnVoak5kYmcwOWtZMXQ2V3l3djJTZGZEQm94RngwWHRqaXNZ?=
+ =?utf-8?B?Sm11UU12ZUhsdVNXNHZjNzR0N3l5Z1VRZ05BUUZTdzQ4WHdnT1o4UVlOVmZp?=
+ =?utf-8?B?Z0FHWE1qWkNONEx4ZU9tU0ZhUlhUVWNoN3pWM0UrVWc2MWErQm5BZDhtY01E?=
+ =?utf-8?B?SDJxcVpyR0pBU0JhVVN2SUxka3R0ZVcrVERLcTRtZGxsRGJwa1RUSEcyZTFF?=
+ =?utf-8?B?WjU0SGpQUjgrVzgzSTdMcnRhOTd2Z0s2UXd5cHhBQjBBTmV1YXVqOEoranNH?=
+ =?utf-8?B?K3BhbHZaeUFIMzFtT3owelc5ck5PbUVGYUh6aG5XamtCK3F2UmtBanNmSjRP?=
+ =?utf-8?B?WExxRGV4ODJBTWZ2VE5BWCtvaXRRM1JaWTlIeTJrQmFIbkswOTBZRXI3WjR1?=
+ =?utf-8?B?eVFzMkdtN1BZLzZjRElDQmlZWkxhTXBaa3h4aTlzSmFCY1Nlbk5NMU9GTXVO?=
+ =?utf-8?B?ZUtRVHpydGt3Z1dXM3hraWd0dWE2RGZLNjJlL3NPWkRYMjJxS1dPR2lzQmJI?=
+ =?utf-8?B?NHR1bWdZTFltZDZSU3ZKTjNKVEFndFh6cVpKeUxsYk9tWVdlK1ZaMHVaVEZ5?=
+ =?utf-8?B?RVJLa3VhazQvY1pTKzgwS3VzLzF4cmFTWnNqeTBIWmNoOHhaejZTYkwrT25v?=
+ =?utf-8?B?dnJFVWxGUmxMaTlua3dNbm9uWVRoTW1sa2lLZHp4WGRuVnA5QkV3K1g3aXhx?=
+ =?utf-8?B?SjEvY2NJbE9sbFFzU0lUNHY3L0NMYzFMSVJ1eXdQL1c5a0lhbFZLdUpsa1VS?=
+ =?utf-8?B?NWVrNHBmcGk1bEd2MDQ1WVphbFVnRC81dmFrZXJETUtuOWFJWVY0OVVTaXBz?=
+ =?utf-8?B?bjdpenR0cDRYYnNPYVh5RGh4aXRSMFBKSDR2YVh0TVFKWTlsb25JRXd3cXlo?=
+ =?utf-8?B?NngyTjRYRmVBdnV1OEVuRTVhT3ZrOUdoYW9Fcmhsa1Y5RkUvblVRN1o3eG5i?=
+ =?utf-8?B?K002ZTM3ZmsxL3c1OUxDd0pVQnIycVltQk4vUkVMV0JYankxSUFadEVxbkk4?=
+ =?utf-8?B?V0ljaThJTnFkMSswcXVNUXdLSjVwWUdoeGxqa0RleEluaDJKdis1KzUwemJ4?=
+ =?utf-8?B?Y1J5azBEVVlrdkR6SnRhYm40RHJLVG4vWElyNStSZ3UxRCtzcG94dWZVVEU0?=
+ =?utf-8?B?bFQybDl6MXdPVmllY3VvSnNSLzFFalZObmVoZHczTlViZC9hNnpQU3dVZzJT?=
+ =?utf-8?B?bXJWWEVVQk1KOUpueEl1M2dKVUxJcXZOdWJYTEpWMERKN2VIVTNRNWZ5bFVD?=
+ =?utf-8?B?c0syV3lLMHFwN2xhQjkrZC8xOVJUaThJVlVuZDJxMU9KckZjTGV6aFhpUzk3?=
+ =?utf-8?B?QlgrL3BteTUvWGU3c2I4b0xXMDJqOTNJbS9xeTNCQnByRUQvU1lWYVd5d2VG?=
+ =?utf-8?B?bzljS2dqNDRNcnZpdFFMNDJTa1hjOGZpbldEYkZpOFRiSkRkZWdvZUVtZXI2?=
+ =?utf-8?B?ZnphRHN0UW1HSEw2amJYMk84R1hQUlhlUDk4MDFIU0Z3UHFYNm8vM2ZnNldl?=
+ =?utf-8?B?RXU2aXZhTXdPRkJsSWIyajVwRUtSOWp4K0ppbmhxSlpjMU04aUhsc1dLaWth?=
+ =?utf-8?B?TjRxdVAvRk95R0cwclhVenRZY2RCd3B2ekg1aGpGTnNKOWtNNExhVnFZdFhl?=
+ =?utf-8?B?bHIxQmthMkZkK09KVENjK2VzV096cVpCS3V2Um1FRk1FYlQ4WXVpY2F2UVF4?=
+ =?utf-8?B?emFLb1ZIWDBMTmtLVzE2SUp3TFZScVRDdTRPS3FPZUxaYndqbElpMlVCMTg3?=
+ =?utf-8?B?QXJGNnZHeW9yd1Rjb0JvMjVUazBzREluRnRycjl2cTA1ZzF6am8wTktHd3M4?=
+ =?utf-8?Q?ZmA4u9G/3agDr0jHU5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81b01132-6c57-4f75-9a14-08df036707e3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 11:41:56.0813 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QtKanBA4ha8SfgAqQNKjzpwgniOKyGPBxrcRRNQ1iZdVj1pR7QHQpB0HH6BzTl7x
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR12MB999189
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +141,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Triet,
+On 8/25/26 08:28, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Pinned, revoked and movable mappings are selected by which optional
+> callbacks each side implements and by whether dma_buf_pin() succeeds,
+> not by any flag or enum. Nothing in Documentation/ says so, and the
+> rules are spread over the kdoc of dma_buf_ops.pin,
+> dma_buf_attach_ops.invalidate_mappings and dma_buf_invalidate_mappings(),
+> so a driver author has to know the symbol names before finding them.
+> 
+> Name, per flow, the callbacks both sides have to implement to end up in
+> it, describe dma_buf_pin() as the runtime negotiation, and record that
+> the pin is what tells a revoke from a move.
+> 
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  Documentation/driver-api/dma-buf.rst |  6 +++
+>  drivers/dma-buf/dma-buf.c            | 85 +++++++++++++++++++++++++++++++++++-
+>  2 files changed, 90 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
+> index 2f36c21d9948..39c201f38aa6 100644
+> --- a/Documentation/driver-api/dma-buf.rst
+> +++ b/Documentation/driver-api/dma-buf.rst
+> @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
+>  .. kernel-doc:: drivers/dma-buf/dma-buf.c
+>     :doc: dma buf device access
+>  
+> +Mapping Lifetime Negotiation
+> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> +
+> +.. kernel-doc:: drivers/dma-buf/dma-buf.c
+> +   :doc: mapping lifetime negotiation
+> +
+>  CPU Access to DMA Buffer Objects
+>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index d504c636dc29..30afec7365bc 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size, int flags)
+>   *    reference acquired with dma_buf_get() by calling dma_buf_put().
+>   *
+>   * For the detailed semantics exporters are expected to implement see
+> - * &dma_buf_ops.
+> + * &dma_buf_ops. Whether the exporter may still move or destroy the backing
+> + * storage after step 3 depends on what exporter and importer implement, see
+> + * the mapping lifetime negotiation section below.
+> + */
+> +
+> +/**
+> + * DOC: mapping lifetime negotiation
+> + *
+> + * No flag or enum says whether the exporter may move or take away the backing
+> + * storage while an importer holds a mapping. Each side implements a set of
+> + * optional callbacks, and dma_buf_pin() settles the result at runtime. Three
+> + * flows come out of it:
+> + *
+> + * - Pinned: the storage never moves and is never taken away.
 
-The code looks right to me, but the commit message does not say why the
-change is needed - and that is what stalled the same change before:
+That's not quite correct. The backing store can still disappear if the exporter is physically hot removed.
 
-  https://lore.kernel.org/all/20251107024620.912403-1-liqiang01@kylinos.cn/
+In that case the exporter will still try to invalidate the mapping even if it is pinned. A NULL invalidate_mapping callback is of course still never called and so still optional.
 
-  > Are you sure of this? The list should be freed in rocket_job_close(),
-  > just before freeing the entity.
+> + * - Revoked: the storage never moves, but the exporter may take it away.
+> + * - Movable: the exporter may relocate the storage at any time.
+> + *
 
-Fair against that patch, which added kfree(rocket_priv->scheds) while
-keeping kfree(entity->sched_list) - a double free for num_cores > 1.
-Yours replaces the free instead, so it avoids that.
+> + * Every exporter implements &dma_buf_ops.map_dma_buf,
+> + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release. dma_buf_export()
+> + * rejects an exporter missing any of them.
 
-The missing argument is why kfree(entity->sched_list) is not already
-enough. drm_sched_entity_init() stores the list conditionally:
+I think that this is superfluous, the check in dma_buf_export() should make sure that all exporters follow that.
 
-	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+> + *
+> + * An importer reaches its flow like this:
+> + *
+> + * 1. Attach with dma_buf_dynamic_attach(). Leaving
+> + *    &dma_buf_attach_ops.invalidate_mappings NULL rules out everything but the
+> + *    pinned flow, because the importer can then never be told anything.
 
-With one scheduler it keeps only entity->rq and drops the array pointer,
-and rocket_job_open() has already let its own copy go out of scope. So
-for num_cores == 1 the kfree() in rocket_job_close() is a kfree(NULL)
-and the array leaks unreachably. For num_cores > 1 there is no leak,
-which is why this is invisible in normal use on RK3588.
+I would rather write "Leaving out the optional dma_buf_attach_ops.invalidate_mappings callback pins the buffer while the attachment is present".
 
-num_cores == 1 is reachable there anyway: rocket_probe() registers the
-DRM device when the *first* core binds and increments num_cores as the
-others follow, so an open() racing the probe of cores 1 and 2 gets a
-single-scheduler entity. rocket_remove() also decrements num_cores with
-the device still registered.
+> + * 2. Call dma_buf_pin() under the reservation lock.
+> + * 3. On failure run the movable flow, or give up.
+> + * 4. On success the storage stays put. Whether the exporter may still take it
+> + *    away, which makes this the revoked flow instead of the pinned one, is the
+> + *    exporter's choice and is not reported back.
 
-Independent of the leak, the driver reads a pointer back out of
-drm_sched's own struct field to free it, and what lands in that field is
-drm_sched's decision. Owning the allocation removes that dependency -
-that seems worth stating on its own.
+That sentence sounds not really readable.
 
-Two small things:
+> + *
+> + * dma_buf_attach() is the shorthand for an importer which only ever wants the
+> + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then pins around
+> + * every dma_buf_map_attachment() and waits for the DMA_RESV_USAGE_KERNEL
+> + * fences on the importer's behalf. Peer to peer needs
+> + * dma_buf_dynamic_attach(), because &dma_buf_attach_ops.allow_peer2peer lives
+> + * in the attach ops.
 
- - No Fixes: tag, although this fixes a leak. Same one as 1/2 fits.
+That's also superfluous.
 
- - kfree() still runs before drm_sched_entity_destroy(), so
-   entity->sched_list dangles across teardown. Not a live UAF today
-   (select_rq() is only reached from drm_sched_job_arm(), and .postclose
-   runs after the last fd reference is gone), but the order is backwards
-   and moving it after destroy costs nothing.
+> + *
+> + * Pinned flow:
+> + *
+> + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to hold the
+> + *   storage still on request. An exporter whose storage never moves implements
+> + *   neither, and dma_buf_pin() then succeeds on its own. An exporter which
+> + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
+> + * - Importer: nothing more. The mapping stays valid until it unmaps.
+> + *
+> + * Revoked flow:
+> + *
+> + * - Exporter: answer dma_buf_pin() as above. Call
+> + *   dma_buf_invalidate_mappings() when the storage goes away and fail
+> + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which complete a
+> + *   revocation are described in dma_buf_invalidate_mappings().
+> + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap within
+> + *   bounded time and drop the pin.
+> + *
+> + * Movable flow:
+> + *
+> + * - Exporter: call dma_buf_invalidate_mappings() before each move, then wait
+> + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and &dma_buf_ops.unpin play
+> + *   no part here.
+> + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings drops the
+> + *   cached mapping and has to lead to dma_buf_unmap_attachment() within
+> + *   bounded time. It need not stop the hardware, because access runs until the
+> + *   importer's &dma_buf.resv fences retire. Map again before the next DMA.
 
-Caveat: I could not measure the leak - no kmemleak or KASAN here, and
-with three cores I cannot open the num_cores == 1 window on purpose. The
-above is from the source. What I did verify is that this plus the
-rocket_job_open() half of 1/2, rebased on drm-misc-next, builds clean and
-does not regress normal submits or the malformed inputs I tried.
+That is also not really correct. Those flows are not separated like this.
 
-Nit: prefix should be accel/rocket:, and "Changses" below the ---.
+> + *
+> + * The pin tells a revoke from a move.
+> + * &dma_buf_attach_ops.invalidate_mappings carries no reason, and both flows
+> + * ask for the same unmap. An importer holding a pin can only be seeing a
+> + * revoke, because the exporter promised not to move. An importer without a pin
+> + * treats every call as a move and maps again.
+> + *
+> + * A revoke need not be forever. An exporter revoking around a temporary loss
+> + * of access takes mappings again afterwards. Giving up for good is the
+> + * importer's own choice, so an exporter must not wait for one to come back.
+> + *
 
-Thanks,
-Sidong
+> + * &dma_buf_ops.attach is the only place where an exporter can turn an importer
+> + * away. An exporter which revokes rejects the importers for which
+> + * dma_buf_attach_revocable() returns false. An exporter of memory without
+> + * struct page rejects the importers which left
+> + * &dma_buf_attach_ops.allow_peer2peer clear.
+
+That is also not correct. A mapping can be rejected later on as well.
+
+Regards,
+Christian.
+
+> + *
+> + * Userspace sees none of this. The two drivers negotiate the flow between
+> + * themselves, and the DMA-buf file descriptor shows no trace of the result.
+>   */
+>  
+>  /**
+> 
+
