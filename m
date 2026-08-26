@@ -4,84 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A38CC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C57C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCF310ED72;
-	Wed, 26 Aug 2026 16:39:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0310210ED75;
+	Wed, 26 Aug 2026 16:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="ISIdfe0M";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="qUewXsvj";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6081E10ED72
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:23 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-499b2981a7bso10810485e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:39:23 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C5810ED75
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:29 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-49b0dd3c9a0so589525e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762362; x=1788367162;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762367; x=1788367167;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1IBfOn3czZ5EpdI1ZgvwhTEN3bFG5oFHkL0oK7UJwww=;
- b=ISIdfe0MCAaVb3XN1bJqcTLJwgHYDGUS9/WxL8BO6hmkzbzDarHd1cdBj6TR4zUDlu
- zcxff2h0dEns2SnelPHAqkXHZVO/Cw3AjmKrXEZkliSGzJWGCjSxx6IcFrmuPRLzKpct
- sJ8P270Xdk6ljVTLSsK5ldhdy5l9+QKD99e6xQfP0b9oXf/jWeYC2wfh2Qrcl34AzmBI
- 1PYTuguxVv1YDPXZWKfhSCyMuizEGhVr3YiC0WytM5VWj0O6MwiRiWMTEP0vcQ3TBmn3
- JsSgzfRmEmjiL3d+9m2xQSxs9B3EVRxOGB1ct7aJHaEWjy3xrXqu7+c5MyT33Z78PBgk
- KGtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762362; x=1788367162;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1IBfOn3czZ5EpdI1ZgvwhTEN3bFG5oFHkL0oK7UJwww=;
- b=CI/F69TRVHu62XiABfnAtF/n633wn1TUx8j/YVYIudj9uKyryt0QG4jdzQknUiQZIG
- bUDM466RDRd+HTXbzSR0zkdMHFOW0Q00zxB8VEpPgfWll07VrT9i+WSq00czgAQgUI3/
- NoM5oOo9fAXNjGbcRxTOAnz8KFCSWdv7QUIFg7SKtTdxXRfq/ciFtjhYw6pfnW/yC2f0
- Y/uEd9d1M3F+KPQoYPBAN02sR3NKISFa9yohxo1VN/CdFt734cRIMWwBXKAxP3Q+IiCh
- Afzj+aiCYxUAhYMs7I/qLO/IrHjHEAT9FT6ImS5t98CIKnjlNpT/oAudSQWL1llum7Pk
- dHVw==
-X-Gm-Message-State: AFuF++kcC46WtOw+vYI+YrPFf8J5D0bI6n8ZsVXLKObgENPi99OdNB7q
- A1mHtytsNEbbqDlHH4IcBjRw9Sanja90H/9MsuV0SYXPBK/X68NFYZ7FiPcaF2PN0PmbT4+Lz6s
- qadfnHg4Q
-X-Gm-Gg: AR+sD10WzazpE9Ep73XAVMJ1qFyjj37qJp4/0iQ8dussoyy5NSEymIa57Puwr7kAaY3
- oK0VRD1oyKIjFHF0Y7vrUj085bym1by6O8ATEua8iPBH9Bl1ahPOGX1v+pkHcoUhoWP+GoGdyFf
- k86Ls26iU2ouz+lYQYIJGlplk7+pUvAH3/jfpA25qzANhfC2HYDMIQp0ALWC2GPe8A6Pn6Fgg52
- jHDqKSYdLWpeo5o+HvpMNEBSdUQyFx5uzLhAGf7hfXP91lIAs695vftjUsqH5MvQn6kIPRmeEMV
- O2NL9LUd5uPhHf+u9ZiDWXhR4BU9GjpMwpiD+P0nHA0k2VLrZApXktcc/QXTtAFNrgsXXRWyTR0
- px/I4t4lKjd9svhy0hV/W9iUMh70jtFpIhU/A0N50y/PJrOMnItt7JZiq581AJR9+/shatzbi82
- yRFDrYcJucEDuxG+4CakzG/xsvzb0+oj4Z8fOhbBC5+FX2zPhCQoKVmTntWbqqvxR+AaqjCaDCE
- uAsX3lm6XpxJ89rf9RDAaq4l/saTtnQ+tzu
-X-Received: by 2002:a05:600c:a418:b0:495:52a5:8829 with SMTP id
- 5b1f17b1804b1-499dc82073fmr78646645e9.11.1787762361624; 
- Wed, 26 Aug 2026 09:39:21 -0700 (PDT)
+ bh=aHwEIe3ApZAukwk8cJYOHMlUqzV23ND3olo6PKKeC74=;
+ b=qUewXsvj+jWMTpY6JNsFTZyzdDS2FNx1/qnWsMJTeETnMqA9KBqQPU0xlVcEHZFAxe
+ ns1YbbDwPApjvd0TC8gmXSTpa8OcxZ43lbHCn2sAUUQs2q+e+kQ++E/dMR8jia3TC0mY
+ YbTMbog0jl7XUS3VBTA5BK0C+rqRZ6pqyOjfRF091fVFdtQzcfZO+e9z9Eh0bswSNaK/
+ nbBH/ip0kTA56b8hqllBzstm56NP5vT3s7o9OOVgpBLCUYW9aToB/B5qa5utX6rsA3sz
+ mukOJxsJfUzJ1pco3JcLERwjWcj7ZkIANzNP0bxe8L0L+/0KvCeajZ8oHiUdP7eOSaQD
+ Pe5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787762367; x=1788367167;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aHwEIe3ApZAukwk8cJYOHMlUqzV23ND3olo6PKKeC74=;
+ b=Q+ZxCbU77RoeHxO7a7U1R7SF7ZmsWIzP9Bwx87mcwtxvakT9Ru7lU6ZLxk6ZGEbHxA
+ i8aNKxAbCjIYPhZUO7qu9DHbZ1CzW5pngzryXift4Bbry5x1XwocUegJj4GlsDFjsTGo
+ LDPX0NDKO2rnWCwzywfvumIWVgPm5UmbLCBV3QpwPP/A+yD+0NP1VhT+hXgpjEr5/vK1
+ /xa4GkEc9xVAygNSDf/XCLjEACsKNIMdxOR9Rq5Ea088ExfLsaGMmObA5Gn+gbZiLgaT
+ wgU9pjNft5OnmJy5OPULjaj2AplVJkPMmUOqPazZAjBYsKwSjJA6xrgqswukneycMBpR
+ zn9g==
+X-Gm-Message-State: AFuF++n4z698OZAUBdeBS+FoZ6kaERoOKEOXcFVvI2eSduksMu1vEf+r
+ E+j4cdy9qnNHiIeXR1fEJvfIm+Uo0/EZqzuF9HuELGnCbZzI8XkUfsLqmay9QJN+wH6ty46N5Cg
+ obmVGttMq
+X-Gm-Gg: AR+sD13SWXh/lNKvUDZ5iHin+yjBaGH5lZ6CqdEaLkhSILXRvk9jIW7Ic+lQuaaLELg
+ fK3Dx8HVwu1mQSmhF3wl92IA0iYf5bcYWgjcIfcb3HF982N5R8k7PocKPiz9MMEQF5U0KywWRvH
+ AgApyI3wdr+gyQooT9cShXP0cfGnGwrE9lmM1y3K7Ea5tADj45ZlKoONtaKM9j025b1HsOqjpym
+ TWawvvOV6ca890CF3ptdzZKQUTezOIhc9qOYHCfV9UVGpnaEn13gBfau0AWHE/shJFRHk2IBocf
+ 4jH63gKrDCs7S5GtHX3lrQpovVYQABjhm3JteAjtII6XUMLN1JlAacsNJRIzUs/PiQFdDFvlGHf
+ EzebPYYoGLPvzYM+5LQBsy5KDB3xbeva/+8tMe9PFWE0Ueiq0ctC/OeQ60UnNEMfvWx108QDPws
+ 7+zDkLg8Ofz2P/UJjlkutXGFt99ilwBZvtYSwNNWpqCyXbwY0r+d/Xrd4R5A+ck9sC6fyD1c7+G
+ +LX1wEWJ5DlYmGfhlAYLNoblFUAKouy35nP
+X-Received: by 2002:a05:600c:4505:b0:499:593b:a15b with SMTP id
+ 5b1f17b1804b1-499dc6e9935mr70406525e9.1.1787762367315; 
+ Wed, 26 Aug 2026 09:39:27 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.39.19
+ 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.39.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:39:20 -0700 (PDT)
+ Wed, 26 Aug 2026 09:39:25 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Subject: [PATCH v3 0/13] drm/vino: a Rust driver for DisplayLink DL3 docks
-Date: Wed, 26 Aug 2026 17:37:25 +0100
-Message-ID: <20260826163913.7052-1-mike@fireburn.co.uk>
+Cc: Mike Lothian <mike@fireburn.co.uk>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/13] drm/vino: add the USB transport
+Date: Wed, 26 Aug 2026 17:37:27 +0100
+Message-ID: <20260826163913.7052-3-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
+References: <20260826163913.7052-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,199 +93,276 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Vino is a DRM/KMS driver for DisplayLink DL3 docks. These devices carry no
-standard display protocol: the host encodes each frame with a vendor codec and
-ships it over bulk USB, inside a control plane sealed with AES-CTR and keyed by
-an HDCP 2.2 authentication exchange. Until now the only way to drive one on
-Linux was an out-of-tree kernel module paired with a closed source userspace
-daemon
+The dock exposes control on a bulk pipe pair, video on one or two further
+bulk endpoints, and an interrupt endpoint the dock pushes on. A dock
+generation differs in how many of those it has and in whether video shares
+the control pipe, so the transport takes the endpoint numbers as data
+rather than deciding them.
 
-The headline change since v2 is not a refactor. v1 and v2 never lit a panel.
-This one does, on three generations of dock, driving a real desktop, from a cold
-boot with nothing of the vendor's loaded
+Add the link: a bound-interface wrapper that opens those pipes, submits
+video as a queue of pipelined URBs, and reports a stall as a stall rather
+than retrying into a wedged dock.
 
-Three generations are supported, and they differ in more than identifiers:
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+---
+ drivers/gpu/drm/vino/usb_link.rs | 250 +++++++++++++++++++++++++++++++
+ 1 file changed, 250 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/usb_link.rs
 
-  DL-3x00 (Ella), which shares one pipe between control and video, states its
-    decoder tables in a narrow form, and must never be blanked by painting
-    black, because its shared pipe halts and the session dies with the panel
-    still lit
-  DL-6xxx (Ridge), including the Dell D6000, which serves both connectors from
-    a single EDID handler, so a fetch on an empty connector returns the other
-    one's monitor
-  DL-7400 (Navarro), four connectors over two video endpoints, 10 Gbps
-
-The differences are data. A dock is placed by family into a DockProfile carrying
-its endpoints, codec geometry, allocation rules and quirks, and there is one code
-path through the driver for all three. No per-device branches, and no module
-parameter selects a profile or a code path
-
-On DL-7400 the driver drives 30 bpp in PQ: 2560x1440p120 on two connectors, with
-the sink reporting 10 bit. Depth is not a flag on the wire but a set of
-agreements, the DMA format, the colour-depth word, the framebuffer allocation,
-and the entropy coder's escape ceilings, each of which is stated to the dock by
-its own decoder code table. Getting one of them wrong is not a clean failure: a
-DC ceiling the dock was not told about desynchronises the bitstream mid-record,
-and an AC one stays in step while reconstructing every sharp edge from a
-truncated magnitude
-
-Firmware. A dock carries its running version in a vendor descriptor rather than
-in bcdDevice, which does not move across an update, so the driver reads that,
-compares it against the packaged image and writes a newer one over DFU. This is
-how a dock too old to enumerate its connectors is brought forward. With nothing
-installed the dock stays on whatever it shipped with, probe says so and carries
-on, so the update path is opt-in by putting the file there
-
-The images are DisplayLink's own, out of their Linux driver bundle, which
-installs them to /opt/displaylink. Copy the ones you want into /lib/firmware/vino
-under the names they already have:
-
-  ella-dock-release.spkg      DL-3x00
-  ridge-dock-release.spkg     DL-6xxx, the D6000
-  navarro-dock-release.spkg   DL-7400
-
-From the 6.8.1 bundle those carry 12.2.15, 12.2.25 and 12.2.26, and that is what
-the three docks here are running. Each was written by this driver, from 11.4.47,
-11.5.28 and 11.5.29 respectively, so the DFU path is exercised rather than only
-read. A manual write is also there through /sys/class/firmware/vino-<dock>/,
-which is the direction the firmware upload API is designed around
-
-Tested on:
-
-  HP 3005pr port replicator, DL-3900, two connectors at 1920x1080p60
-  Dell Universal Dock D6000, 17e9:6006, two connectors at 2560x1440p120
-  WAVLINK DL7400 quad dock, 17e9:7000, four connectors, two of them driven at
-    2560x1440p120 in 30 bpp PQ
-
-All three bind concurrently on the same host, with monitors attached, driving a
-KDE desktop. 97 KUnit tests across 19 suites run at module load under
-CONFIG_DRM_VINO_KUNIT_TEST
-
-Changes since v2:
-
-  It works, which v2 did not. The gate was one byte: the EDID engage message
-    carries its connector selector in two places and the second was being filled
-    with the message's random tail, so the dock acked it and then never enabled
-    the downstream sink
-  No raw C KMS anywhere. The driver is built on the safe KMS mode-object layer,
-    which is what Danilo Krummrich asked for on v1, and git grep bindings::drm_
-    over the driver returns nothing
-  No unsafe block and no direct bindings:: call in the driver at all
-  Three generations rather than one, and the second and third arrived without
-    adding a branch, which is the test of whether the profile split was real
-  The development history is folded away. This was 33 commits carrying a revert
-    pair, a module parameter added and later deleted, and fixes to patches
-    earlier in the same series. It is now 13 that introduce the driver in the
-    order it is understood, and a fix to a commit this series adds is folded
-    into that commit
-  select DRM_GEM_SHMEM_HELPER is gone, since RUST_DRM_GEM_SHMEM_HELPER pulls it
-    in, which Julian Braha pointed out
-  The related series are linked and Vino is named as the user for all of them,
-    which Miguel Ojeda asked for
-
-The trace_crypto module parameter, default off, deliberately logs one session's
-keys so that a USB capture of that session can be decrypted. Every constant in
-this driver came from such a capture, and it is the only way somebody holding a
-DisplayLink dock nobody here owns can produce one that says anything. It is
-flagged here rather than left to be found, because a kernel option that
-discloses key material is a fair thing to argue about
-
-The protocol was reverse engineered from captured wire traffic and from the
-vendor binaries. There is no vendor documentation for any of it, every constant
-here came from a measurement, and the assistance noted below covers that work as
-well as the implementation
-
-v2: https://lore.kernel.org/r/20260703030217.2886-1-mike@fireburn.co.uk
-
-The rest of the posting, which is one series per subsystem:
-
-  rust-core, 9 patches, rust-for-linux and linux-kernel
-  https://lore.kernel.org/r/20260826162851.2497-1-mike@fireburn.co.uk
-  rust-crypto, 2 patches, linux-crypto and rust-for-linux
-  https://lore.kernel.org/r/20260826163004.3365-1-mike@fireburn.co.uk
-  rust-usb, 5 patches, linux-usb and rust-for-linux
-  https://lore.kernel.org/r/20260826163101.4168-1-mike@fireburn.co.uk
-  rust-drm, 23 patches, dri-devel and rust-for-linux
-  https://lore.kernel.org/r/20260826163359.4998-1-mike@fireburn.co.uk
-  rust-firmware, 1 patch, linux-kernel and rust-for-linux
-  https://lore.kernel.org/r/20260826163716.6274-1-mike@fireburn.co.uk
-  drm-vino, 13 patches, this one
-
-Vino is the user for all of them. The abstractions themselves are generic and
-carry no knowledge of DisplayLink
-
-The whole thing is one branch, base and prerequisites included, which is the
-quickest way to read it:
-
-  git clone -b vino-v3 https://github.com/FireBurn/linux
-  cd linux
-  make LLVM=1 rustavailable
-  make LLVM=1 -j$(nproc)
-  make LLVM=1 -j$(nproc) modules
-
-CONFIG_RUST=y and CONFIG_DRM_VINO=m are the two to set; DRM_VINO selects the
-rest of what it needs
-
-It is the exact tree these patches were generated from, at 4c9ba407018e, the
-drm-rust-next tip of 2026-08-06. drm-next has moved on since, and this follows
-drm-rust-next deliberately: the KMS layer underneath this work lives only there,
-and that tree picks up drm-next on its own schedule
-
-Two commits on the branch are not in any of the series above, because they
-enable no part of Vino: a scheduler call site that stops compiling under the
-locking-guard series, and the Kms associated type Tyr needs once the KMS
-registration trait requires one
-
-It applies to the base above plus this, and nothing else:
-
-  Lyude Paul, Rust bindings for KMS + RVKMS
-  https://lore.kernel.org/r/20250305230406.567126-1-lyude@redhat.com
-
-  Colin Braun, rust: usb: add usb request block abstractions
-  https://lore.kernel.org/r/20260712-urb-abstraction-v1-v1-0-9fa011634ead@gmail.com
-
-  Alice Ryhl, Creation of workqueues in Rust, plus Onur Ozkan's cancel_sync
-  https://lore.kernel.org/r/20260312-create-workqueue-v4-0-ea39c351c38f@google.com
-
-The reference branch also carries Boqun Feng's counted interrupt disabling
-series, which SpinLockIrq needs. One patch of it is already in tip locking/core
-as e901c1510e24
-
-Danilo Krummrich's OwnedQueue, ScopedQueue and ScopedWork series supersedes part
-of the workqueue work carried here, and is the better answer: Vino calls
-Work::cancel_sync() in seven places to make teardown wait for its own work
-items, and ScopedWork cancels on drop, which is that idiom done properly
-
-  https://lore.kernel.org/r/20260807165252.3849875-1-dakr@kernel.org
-
-It was still moving when this was cut, so this uses what is available today.
-When it lands the swap goes in as one commit moving the prerequisites and the
-call sites together, since either half alone leaves the tree not building
-
-These patches were written with the assistance of Claude (Anthropic), used
-through Claude Code as an interactive coding assistant, across the design, the
-implementation and the tests. Every patch it contributed to carries an
-Assisted-by trailer. The Signed-off-by is mine: I have reviewed and tested what
-is here and I stand behind it
-
-Mike Lothian (13):
-  drm/vino: add the DL3 wire framing
-  drm/vino: add the USB transport
-  drm/vino: add the crypto primitives and the HDCP 2.2 AKE
-  drm/vino: add the encrypted control plane
-  drm/vino: add the dock profiles
-  drm/vino: add the video codec
-  drm/vino: add control-session bring-up
-  drm/vino: add the KMS device and the atomic path
-  drm/vino: add the dock activation and scanout path
-  drm/vino: read the dock's firmware version, and update it over DFU
-  drm/vino: add the USB driver frontend
-  drm/vino: allow the driver to be built
-  Documentation/gpu: document the Vino driver
-
- 43 files changed, 24047 insertions(+), 4 deletions(-)
-
-base-commit: 4c9ba407018e8deb06dbc643112bac8f40404f95
-prerequisite-message-id: <20250305230406.567126-1-lyude@redhat.com>
-prerequisite-message-id: <20260712-urb-abstraction-v1-v1-0-9fa011634ead@gmail.com>
-prerequisite-message-id: <20260312-create-workqueue-v4-0-ea39c351c38f@google.com>
+diff --git a/drivers/gpu/drm/vino/usb_link.rs b/drivers/gpu/drm/vino/usb_link.rs
+new file mode 100644
+index 000000000000..04b9131d05ed
+--- /dev/null
++++ b/drivers/gpu/drm/vino/usb_link.rs
+@@ -0,0 +1,250 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! The dock's USB endpoints, and the I/O handle every transfer goes through.
++//!
++//! [`Endpoints`] is resolved once against interface 0's descriptor and direction/type-checked, so
++//! the rest of the driver names an endpoint by what it is rather than by a bare address. A
++//! [`UsbLink`] can only exist while the device's [`usb::IoWindow`] is open, so a transfer cannot
++//! outlive the binding.
++
++use super::*;
++
++/// The dock's endpoints, resolved once against interface 0's descriptor and validated for
++/// direction and transfer type by [`usb::Interface::endpoint`].
++///
++/// Resolving up front means the rest of the driver names an endpoint by what it *is* rather than
++/// by a bare address, so a bulk-OUT transfer cannot be aimed at the interrupt-IN status endpoint.
++/// The whole set is [`Copy`] (each entry is an address plus a max-packet size), so it can be
++/// carried by value in a [`UsbLink`] rather than borrowed.
++#[derive(Clone, Copy)]
++pub(crate) struct Endpoints {
++    /// EP02: host->dock control-plane bulk writes.
++    pub(crate) ctrl_out: usb::Endpoint<usb::BulkOut>,
++    /// EP84: dock->host control-plane bulk replies.
++    pub(crate) ctrl_in: usb::Endpoint<usb::BulkIn>,
++    /// Per-connector video bulk-OUT endpoints, from [`DockProfile::video_endpoints`].
++    pub(crate) video: [usb::Endpoint<usb::BulkOut>; drm_sink::MAX_CONNECTORS],
++}
++
++impl Endpoints {
++    /// Resolves every endpoint the driver uses against `intf`'s active alternate setting, and
++    /// returns how many connectors the device actually backs.
++    ///
++    /// The control endpoints and the first video endpoint are required. The rest are not: a dock
++    /// in a known family with fewer outputs simply does not expose the later ones, and the count
++    /// that does resolve is the connector count. Taking it from the device is the difference
++    /// between supporting such a dock and refusing to bind to it, because a profile can only
++    /// describe the variants someone has tested. Navarro repeats addresses across connectors
++    /// (0/2 share `0x08`, 1/3 share `0x0a`), so this counts entries rather than distinct
++    /// endpoints, and the profile's own count remains the upper bound -- four resolvable entries
++    /// on a two-connector Ridge dock still means two connectors.
++    pub(crate) fn resolve<Ctx: device::DeviceContext>(
++        intf: &usb::Interface<Ctx>,
++        profile: &DockProfile,
++    ) -> Result<(Self, u8)> {
++        let mut video = [intf.endpoint::<usb::BulkOut>(profile.topology.video_endpoints[0])?;
++            drm_sink::MAX_CONNECTORS];
++        let mut connectors = 1u8;
++        for (slot, addr) in video
++            .iter_mut()
++            .zip(profile.topology.video_endpoints)
++            .skip(1)
++        {
++            let Ok(ep) = intf.endpoint::<usb::BulkOut>(addr) else {
++                break;
++            };
++            *slot = ep;
++            connectors += 1;
++        }
++
++        Ok((
++            Self {
++                ctrl_out: intf.endpoint::<usb::BulkOut>(EP_CTRL_OUT)?,
++                ctrl_in: intf.endpoint::<usb::BulkIn>(EP_CTRL_IN)?,
++                video,
++            },
++            connectors.min(profile.topology.connectors),
++        ))
++    }
++}
++
++/// A live USB transfer handle: an [`usb::Io`] token proving I/O is currently permitted, plus the
++/// resolved [`Endpoints`].
++///
++/// Obtaining one requires the device's [`usb::IoWindow`] to still be open, so a transfer cannot be
++/// issued after `disconnect()` has closed it. Carrying the endpoints in the handle also keeps raw
++/// endpoint addresses out of transfer call sites.
++pub(crate) struct UsbLink<'a> {
++    window: &'a Arc<usb::IoWindow>,
++    io: usb::Io<'a>,
++    pub(crate) endpoints: Endpoints,
++}
++
++impl<'a> UsbLink<'a> {
++    /// Opens a link on `window`, failing with `ENODEV` once the window has been closed.
++    pub(crate) fn open(window: &'a Arc<usb::IoWindow>, endpoints: Endpoints) -> Result<Self> {
++        Ok(Self {
++            io: window.enter()?,
++            window,
++            endpoints,
++        })
++    }
++
++    /// Opens the persistent EP84 control-plane reader.
++    pub(crate) fn ctrl_in_queue(&self, depth: usize, buf_len: usize) -> Result<usb::BulkInQueue> {
++        usb::BulkInQueue::new(
++            self.window,
++            &self.io,
++            &self.endpoints.ctrl_in,
++            depth,
++            buf_len,
++        )
++    }
++
++    /// Opens the pipelined EP02 control-plane writer.
++    pub(crate) fn ctrl_out_queue(&self, depth: usize, buf_len: usize) -> Result<usb::BulkOutQueue> {
++        usb::BulkOutQueue::new(
++            self.window,
++            &self.io,
++            &self.endpoints.ctrl_out,
++            depth,
++            buf_len,
++        )
++    }
++
++    /// Returns the canonical queue slot for `connector`'s physical video endpoint.
++    ///
++    /// A dock profile may repeat an endpoint address for multiple physical connectors (Navarro
++    /// uses EP08 for connectors 0/2 and EP0a for 1/3).  Those connectors must share one
++    /// persistent queue: separate queues could submit interleaved URBs to the same pipe.
++    pub(crate) fn video_pipe_index(&self, connector: usize) -> Result<usize> {
++        let endpoint = self.endpoints.video.get(connector).ok_or(EINVAL)?;
++        self.endpoints
++            .video
++            .iter()
++            .position(|candidate| candidate.address() == endpoint.address())
++            .ok_or(EINVAL)
++    }
++
++    /// Opens the pipelined video writer for `connector`'s physical video endpoint.
++    pub(crate) fn video_queue(
++        &self,
++        connector: usize,
++        depth: usize,
++        buf_len: usize,
++    ) -> Result<usb::BulkOutQueue> {
++        let ep = self.endpoints.video.get(connector).ok_or(EINVAL)?;
++        usb::BulkOutQueue::new(self.window, &self.io, ep, depth, buf_len)
++    }
++
++    /// The underlying I/O token, for the paths that open a persistent queue.
++    pub(crate) fn io(&self) -> &usb::Io<'a> {
++        &self.io
++    }
++
++    /// Writes a control-plane message to EP02.
++    pub(crate) fn ctrl_send(&self, data: &[u8], timeout: Delta, gfp: Flags) -> Result<usize> {
++        self.io
++            .bulk_send(&self.endpoints.ctrl_out, data, timeout, gfp)
++    }
++
++    /// Reads a control-plane reply from EP84.
++    pub(crate) fn ctrl_recv(&self, data: &mut [u8], timeout: Delta, gfp: Flags) -> Result<usize> {
++        self.io
++            .bulk_recv(&self.endpoints.ctrl_in, data, timeout, gfp)
++    }
++
++    /// Reads the standard two-byte status word for a video endpoint.
++    ///
++    /// Bit zero is `ENDPOINT_HALT`.  This is deliberately read-only: it distinguishes a dock
++    /// which has stalled the pipe from one which is merely returning NRDY without perturbing the
++    /// endpoint's host or device sequence state.
++    pub(crate) fn video_endpoint_status(&self, connector: usize) -> Result<u16> {
++        let address = self.endpoints.video.get(connector).ok_or(EINVAL)?.address();
++        let mut status = [0u8; 2];
++        self.control_recv(
++            0x00, // USB_REQ_GET_STATUS
++            0x82, // device-to-host, standard, endpoint
++            0,
++            u16::from(address),
++            &mut status,
++            timeout(),
++            GFP_KERNEL,
++        )?;
++        Ok(u16::from_le_bytes(status))
++    }
++
++    /// Sends the standard endpoint-halt clear without running Linux's host endpoint reset helper.
++    ///
++    /// Navarro uses this only during cold setup, before any video URB has touched the endpoint, so
++    /// the host sequence state is already its enumeration value. The working DLM wire transaction
++    /// is two raw `CLEAR_FEATURE(ENDPOINT_HALT)` requests 12.647 ms apart followed by its vendor
++    /// commit 143 us later. `usb_clear_halt()` adds an xHCI endpoint reset after the request; that
++    /// made each Vino operation return about 18 ms late and changed this transaction's ordering.
++    pub(crate) fn clear_video_halt_wire(&self, connector: usize) -> Result {
++        let address = self.endpoints.video.get(connector).ok_or(EINVAL)?.address();
++        self.control_send(
++            0x01, // USB_REQ_CLEAR_FEATURE
++            0x02, // host-to-device, standard, endpoint
++            0,    // USB_ENDPOINT_HALT
++            u16::from(address),
++            &[],
++            timeout(),
++            GFP_KERNEL,
++        )
++    }
++
++    /// Recover a video endpoint the dock has stalled.
++    ///
++    /// Unlike [`Self::clear_video_halt_wire`], this runs the full `usb_clear_halt()`, which resets
++    /// the host side's data toggle as well as sending `CLEAR_FEATURE`. That reset is exactly what
++    /// a real stall needs and what the cold-setup path deliberately avoids: after a stall the host
++    /// and device sequence state have diverged, and sending the bare request leaves every later
++    /// transfer failing.
++    ///
++    /// Nothing else clears a stalled pipe, so without this one stall is permanent -- and on a dock
++    /// whose video shares the control endpoint it takes the control plane down with it.
++    pub(crate) fn clear_video_halt(&self, connector: usize) -> Result {
++        let ep = self.endpoints.video.get(connector).ok_or(EINVAL)?;
++        self.io.clear_halt(ep)
++    }
++
++    /// Issues a control OUT transfer on EP0.
++    pub(crate) fn control_send(
++        &self,
++        request: u8,
++        request_type: u8,
++        value: u16,
++        index: u16,
++        data: &[u8],
++        timeout: Delta,
++        gfp: Flags,
++    ) -> Result {
++        self.io
++            .control_send(request, request_type, value, index, data, timeout, gfp)
++    }
++
++    /// Issues a control IN transfer on EP0.
++    pub(crate) fn control_recv(
++        &self,
++        request: u8,
++        request_type: u8,
++        value: u16,
++        index: u16,
++        data: &mut [u8],
++        timeout: Delta,
++        gfp: Flags,
++    ) -> Result {
++        self.io
++            .control_recv(request, request_type, value, index, data, timeout, gfp)
++    }
++
++    /// Selects an alternate setting on the driver's own interface.
++    pub(crate) fn set_alternate_setting(&self, alternate: u8) -> Result {
++        self.io.set_alternate_setting(alternate)
++    }
++}
++/// EP84 (dock-to-host) transfer size.
++///
++/// Replies larger than one transfer are delivered as consecutive fragments.
++pub(crate) const EP84_BUF: usize = 4096;
