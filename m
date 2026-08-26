@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1C45C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 17:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70CBFC5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 17:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54D5E10E892;
-	Wed, 26 Aug 2026 17:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFC8B10E17C;
+	Wed, 26 Aug 2026 17:28:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oq3Ww+Vx";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="BOjl42VL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B01510E17C
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 17:21:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 029AA41FA6;
- Wed, 26 Aug 2026 17:21:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE0231F000E9;
- Wed, 26 Aug 2026 17:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787764916;
- bh=AK8P/mrcdVKDrokAc7WkCMbV53gcnEr2q6mpYYsp+Jk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oq3Ww+VxXhS1ovsu2f0IMcxCavVHgd1D7znYDwMce1P0bp1WSzHjtUpk465ZEgTjk
- uL0Ujoh4XJ22k7pEkcZKT43fWPagusTyUbj5f8UXGF4SwwEX4Z7dIbgvoK3k71VJxl
- wiflwHP2kRTEi1PuTGjYIP2VHSayYwHB+QUcjkSSuNxqIK5QdiAicNCWSZDyECF1Y3
- ManJgAE05Q2m6zHLGO9O/oKE+WVtiagEa2viCvvMcD78sBegp8yeeGPG+TPA4wDVTK
- 3eNMOBCChtKT/RTBU0tYTHHDGtXhtxPDTOhvEP6vXuw5JNLBO4Zi+C23o2c5F75CtA
- /kC1trZSUL6Qg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: fall back to software I2C on hardware
- engine failure
-To: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 17:21:56 +0000
-Message-Id: <20260826172156.AE0231F000E9@smtp.kernel.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BEF910E17C
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 17:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=6kvjk25rvX43dVhJ6Zk3JZPWl7hUKkWcNDJWv+5kpek=; b=BOjl42VLN9ObfdI+7XMrnqD5cV
+ 88NXPu9JtsCP3xQzyw97dFMmboDrvhWFgUXynYKVtLFKOzfUvHBHL6yZgWfY3rdYJyDVZqQ90CltT
+ NlHkyeohACUaNJptdtjJYA0s5jFwwcq+9DjhmTzZF62JUC10Eap2/rYvl0x95OF1qjV6oSraeLKg0
+ DucId+LcouIZSj98IafphU6RC0FZRNy+yqD5I4c21pbDv4mmBluY/n215NSY5VCnr0hhlwbyYsGyl
+ vibRMHHGReiXIS0Jun0+fF0NrEkTozYJcdPA2hlCng3g/VoCWYqj87a5XihWwwYCX9IR10Vtl4VA0
+ LKp9m9Ow==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wzHQf-00000002oku-183z; Wed, 26 Aug 2026 17:28:49 +0000
+Message-ID: <b0251a55-340d-48e1-88c7-e8725e84f10d@infradead.org>
+Date: Wed, 26 Aug 2026 10:28:46 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 13/13] Documentation/gpu: document the Vino driver
+To: Mike Lothian <mike@fireburn.co.uk>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
+References: <20260826163913.7052-1-mike@fireburn.co.uk>
+ <20260826163913.7052-14-mike@fireburn.co.uk>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260826163913.7052-14-mike@fireburn.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,88 +71,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Pre-existing resource leak in acquire_i2c_hw_engine leaves DDC pin=
- permanently open on setup failure.
-- [High] TOCTOU race on shared I2C hardware buffer flag `i2c_hw_buffer_in_u=
-se` bypasses global mutual exclusion.
---
 
-commit 715340ad0a0bb4f4ee8ee30d4c2c692856bedacf
-Author: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+On 8/26/26 9:37 AM, Mike Lothian wrote:
+> diff --git a/Documentation/gpu/vino.rst b/Documentation/gpu/vino.rst
+> new file mode 100644
+> index 000000000000..98e82297a82a
+> --- /dev/null
+> +++ b/Documentation/gpu/vino.rst
+> @@ -0,0 +1,254 @@
+> +.. SPDX-License-Identifier: GPL-2.0-only
+> +
+> +==========================
+> +Vino DisplayLink DL3 driver
+> +==========================
 
-drm/amd/display: fall back to software I2C on hardware engine failure
+Documentation/gpu/vino.rst:3: WARNING: Title overline too short.
 
-This commit implements a fallback mechanism to the bit-banging software I2C
-engine when the hardware engine fails to complete longer transfers. It retr=
-ies
-the transfer on the software engine instead of outright failing, which reso=
-lves
-EDID read failures on DCE6/Oland hardware.
+==========================
+Vino DisplayLink DL3 driver
+========================== [docutils]
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c b/drivers/gpu/d=
-rm/amd/display/dc/dce/dce_i2c.c
-> index f5261e8d76785..238c17e6f51db 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-> @@ -72,9 +72,16 @@ bool dce_i2c_submit_command(
-> =20
->  	dce_i2c_hw =3D acquire_i2c_hw_engine(pool, ddc);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does acquire_i2c_hw_engine()
-leak the DDC pin on setup failure?
+Extend both the overline and the underline lines by one '='.
 
-In acquire_i2c_hw_engine(), dal_ddc_open() is called successfully, but if
-the hardware engine is busy (e.g., locked by DMCU), setup_engine() returns
-false. The error path then calls release_engine() without calling
-dal_ddc_close():
+-- 
+~Randy
 
-    if (!setup_engine(dce_i2c_hw)) {
-        release_engine(dce_i2c_hw);
-        return NULL;
-    }
-
-This leaves the pin leaked in the opened state. As a result, subsequent cal=
-ls
-to dal_ddc_open() will return GPIO_RESULT_ALREADY_OPENED, which breaks all
-future I2C transfers (and display hotplug/EDID detection) on that port until
-reboot. Is there a missing dal_ddc_close() here?
-
-[Severity: High]
-This is a pre-existing issue, but does acquire_i2c_hw_engine() have a TOCTOU
-race on the shared pool->i2c_hw_buffer_in_use flag?
-
-The function checks and sets pool->i2c_hw_buffer_in_use without a global
-lock:
-
-    if (pool->i2c_hw_buffer_in_use || !is_engine_available(dce_i2c_hw))
-        return NULL;
-    ...
-    pool->i2c_hw_buffer_in_use =3D true;
-
-Because I2C adapter locks in amdgpu_dm_i2c_xfer() are per-connector,
-concurrent I2C transfers on different display connectors can execute
-acquire_i2c_hw_engine() simultaneously. Both threads can read
-pool->i2c_hw_buffer_in_use as false, proceed to configure their respective
-hardware engines concurrently, and set the flag to true. Can this bypass
-global mutual exclusion and cause hardware timeouts or corrupted I2C
-transactions?
-
-> -	if (dce_i2c_hw)
-> -		return dce_i2c_submit_command_hw(pool, ddc, cmd, dce_i2c_hw);
-> +	if (dce_i2c_hw && dce_i2c_submit_command_hw(pool, ddc, cmd, dce_i2c_hw))
-> +		return true;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826170549.2198=
-5-1-neptune@imm0nv1nhtv.is-a.dev?part=3D1
