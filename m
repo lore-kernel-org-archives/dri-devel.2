@@ -4,45 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ABF5C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 13:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6283AC61DC2
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 13:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 688F310ED3B;
-	Wed, 26 Aug 2026 13:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 822B310E293;
+	Wed, 26 Aug 2026 13:46:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GCUkAh62";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PrVmYlJe";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kejJhBmD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD4E910ED3B
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:45:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7602441462;
- Wed, 26 Aug 2026 13:45:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D201F000E9;
- Wed, 26 Aug 2026 13:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787751937;
- bh=rmDd62rIRYn6TIf+Bj7/wbRACHQk6VDo+E9/bAH62JY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GCUkAh62cqsmIfz3tnJr4ZnmE/EUFMjzOk0z5j/wHQaEdOrEMGbbsl4V01M4Bgzw2
- 85zEK1XVmbeisuE/Jcs7dOQmHNJlXDqVupT4+F4JRb0kgP21SORvzCyp+XeS36HwXD
- sHUR4sI9Je0RodkJn7ofSyNz0tfkkwswGR0fHGZrrPAhgWrCihBceuVVjrL2CZZOPh
- sAnCPATQ4ep4K/WpFPdj6kjawUP9DCxT4xFO97CeyUT2p1n3Q4dnntuZXZ14D8tyQB
- h5iUcQE5fEDYxm8DWPY/5KUGJAyzBU25kmHVP5kbA77cbJUOmlSqTn88u006hn3rj5
- 3djR7Vk47/jig==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] misc: fastrpc: iterate CB nodes manually instead
- of of_platform_populate
-To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
-References: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
- <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 13:45:36 +0000
-Message-Id: <20260826134536.87D201F000E9@smtp.kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 273E610E293
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:46:00 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67QCCG8G882046
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:45:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=lVVXlwrDpraS1EuWGFKN4P
+ A95ibIxivwprgpu4s411U=; b=PrVmYlJeQLnOGXbM/rVA7O300WFadHHcrCI7iL
+ 9YkZGSp5SMAO+JEZqFAc+hF6VnsytiYFtaFGdniysh/MSRmqQaLCaiAiA06umgbr
+ 6YELij2KdV+vta9Of2yCxcNADIAt2WeqX6lAXFz5Hqrrn8Qbr7cipcbkUJwV+aw9
+ Za7cQKKGeWlITSxRJB6wdXQWCc8bwq2NuKGN0yBbPxNDjl/wOgRWaLwspeRoK3k8
+ TwCbSSxrJ5NftYm7RIqXR+excb0/8wuqb8zAvVFfCFy9482wg1v2EBWrqP2qrZw8
+ dKlGQcv7kdDMbYzlrBI0UsQj6q6CR6W55fAcaED11QmmpUEw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9r0k2d5a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:45:59 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-38dbe39ce62so1129194a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:45:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787751959; x=1788356759;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=lVVXlwrDpraS1EuWGFKN4PA95ibIxivwprgpu4s411U=;
+ b=kejJhBmD+GwDYuvng/QlD89BB3mBht4Tv6Pj4iHnfjy+ocm+ICRXglNW86etUZTWjA
+ Y6fyxmbnoEcsFV/VBcHGbo5g9EZQxr9RE1suWgjle/igvVyEq9qc2qAgdFzyjKzhvxqd
+ f2ucoAI/pqUaQ89qDP8J6gsj9D9BcG1QZTz7t3FX6hcnuUXZody3pVoLyVEy6PMcWBfB
+ GQQC2E8xwb5wQe62ThJrFNs7xt5KA49/DhNNpJ2SgLQ++b0/oLSgK21Rh1ub8bk8/wlx
+ 9GcHs23f1UbRX3+6QPdaucx7ykzlrhG8eKRL0RM+uAxiPcXaw2Z+t5dHmdO1HcZGlHgT
+ WafA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787751959; x=1788356759;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=lVVXlwrDpraS1EuWGFKN4PA95ibIxivwprgpu4s411U=;
+ b=nNOx8BTVYJZ5acucGMw839WLQrnu7cBWpelHd9K8XFd4Wi7GE6v1ZWHp0w/HwWYHwP
+ Zghtf30bAaO0MncGpsVsTOmp6PH76kAD0lmWxi3+t7nTvTOubimOBSWsZ1AJBInYv4nK
+ as0Bw3Q+PIhUT1rbnh+dPOpt4t08//E6rtzqhX4OkYu+4mLkeS2lRHBRc8hrbzLRUML0
+ B5xbluohxuCVvh7bUYjb/8e7xF0X9iUlhL2tAa9Viz+VMUsw9URNURlvWAqzTIof3jpC
+ ycecmlyFp6XrILejrUt3yzMg5MEiXj69qVjTtrtSy6p+/Y1+y/QUsPmFYqJAE858sS/e
+ +Eaw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RptZS4ARfzNsdNAZdu+rZ6/AHLQPr0bvMz5VLzAoQxe4IBVoGmbPal0+bNZkODAOMx3iCtdejECdYs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mizt/UPDoMyoze4phsFMB2OYcPmmQM+OyabiAs5LoyRmg0mXXS
+ o+G+u8FP/JZJ6BbPtIhQxDzAi+enKGQ6P/veyPqFuYeNSRpQfOGAqehNGtj7FbOx0ruWuYDFKVM
+ FS6M20Z5BHoSlKBRkDnXNtkgOAq3BBMr5Ho0/1ufAKCHmqBIlSIdnlmIi+eJMv1gvvOm6gA0=
+X-Gm-Gg: AR+sD11pIdG3VNoHSxWKMTAEExqwRjoGndB9f+H9jT8OPOUaEQ+EVPDROV398qnokJF
+ ZjQv7oGg+WLv4gMYAhnu4Gqn1yEmdOZ/pttirfpGXqjidgShtPKSB9krY7zPTDU/jlj2vJ0ws2s
+ QLrobtdii6KeOsEoMZrNM3qDJ+0lrKMA2kqBA7+QDgoseCKzEHBTh4LCOsO49wqjF8deTCjvNa7
+ +G9vBK5RMdBDUL+W53BauLs5WWVM7QHDwrWXXCbVtPLNuq23B/8qbDNS9jWfIU+0+EmG9s1sF57
+ YvjW/OExnWS2DDSldg+YDhG8VSVmE5jEncgEUtqxSIHTjiFIBOxfhyTGef4ofUC2t2lDT4crnxh
+ 9OmDzWaSU7CTQnB3URC/flNkFzXPbTWRxSg==
+X-Received: by 2002:a17:90b:4d81:b0:38e:7297:a92e with SMTP id
+ 98e67ed59e1d1-3966d8e8063mr7894147a91.9.1787751958569; 
+ Wed, 26 Aug 2026 06:45:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d81:b0:38e:7297:a92e with SMTP id
+ 98e67ed59e1d1-3966d8e8063mr7894064a91.9.1787751957965; 
+ Wed, 26 Aug 2026 06:45:57 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39645b64c48sm8179696a91.8.2026.08.26.06.45.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Aug 2026 06:45:57 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH 0/6] misc: fastrpc: Add extended IOVA mapping support
+Date: Wed, 26 Aug 2026 19:15:42 +0530
+Message-Id: <20260826-extended-mapping-v1-0-d046c1cb9a9f@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAbujmoC/02OSQ6DMBAEv4LmHEvDYjPmKxEHLxPiA0tsQEiIv
+ 4fAJcdqqUu1Q+IYOEGT7RB5DSmMwwn5IwP3NkPHIviTocBCIRVK8Dbz4NmL3kxTGDqhLZJFV+Z
+ IHs7bFPkVtkv5bG+O/FlO83yPYE1i4ca+D3OTGapQsXJoa106xpoIc62opLJ2FZKUVkqtJfwXN
+ dnVo1ALv0wicfp1J8GmMM4Yl2tdNWsF7XF8ATmbigDiAAAA
+X-Change-ID: 20260826-extended-mapping-9b08b0c3108d
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787751952; l=3128;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=AQp3ZzFGQIxMGUgev5a0WH6gQsFnNiiLrjLAVfK0jbo=;
+ b=kM2egXYF+WCbAy4qPAAH2BpmOef0OYYIbft1VAzscD98XzphvisNkTKE7EB3aJ4oIsxy3dGGO
+ 2odqsO3elrGBd6HghJdh7est9z974QicZKu7Ddtj69xeYsaSby1tmy0
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Authority-Analysis: v=2.4 cv=fPEJG5ae c=1 sm=1 tr=0 ts=6a8eee17 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=jGj642yAPOClK7eN77YA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfX6F+5L0yee0X7
+ 1U0r+72swQ4hdfmXFYrrlYopGHhcRgIcGOC6O9I0UltDK3gwnFjW5ElkUgKrYBKzZznnTlWjbtK
+ 1AvgLLi7fr5wXBtmEnODkEe3pQCtXek=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfX/AC/alIsKbZi
+ NQdW9QK7IWij/Zm0IDtyukhniCaWm6rQPq/8vKa4fszQAfN2HUEIfurravtye8Yz0BrrqaYfm7R
+ hMtogtNe2Eue6u3i3skFrOwbJNjsztOItGfnI8EZb2uvRV6rPUqT0s7sNmqsM+utdsziSg4Mq2S
+ OGCb1GKRiHzA1UGY83kd51GRIdUhmcqBwb690mkmke7fRyWgqsAqt56bGibBNFHjagTzBvDO/2h
+ YlJ5pUFWzAbaTwHd+67+SrNS23prIqb+uQqvKY2pw+Hkav9aaRL2pvSCRbdIIaSu1x6lE8/dVi4
+ la4kmKko1y3ifXLxyYpGBVnSmeYX5n43axPdFyHd1vj9ikZql5uUq3pZMf0tlNcNsraoLQ0keZG
+ KE2fnTYTIOfKPt48zK9oeoW2hc1Z31Cgy5ZjxtuDXSC+1nrBLpKfxFnWJr9e9mWKBHRgBog1IC+
+ ZYVdVm6FIeih3SAW/Bw==
+X-Proofpoint-ORIG-GUID: DPwlJPX84leaItUTrpdYSylJQ0I4psrv
+X-Proofpoint-GUID: DPwlJPX84leaItUTrpdYSylJQ0I4psrv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ clxscore=1015 adultscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260113
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,138 +156,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+FastRPC context banks on kaanapali and glymur are limited to a 34-bit
+IOVA window. Large compute workloads such as LLM inference on the
+CDSP require mapping buffers that exceed this range. Dedicated extended
+context banks exist in hardware but were unused by the driver.
 
-Pre-existing issues:
-- [Critical] Critical Use-After-Free and uninitialized state exposure when =
-`fastrpc_rpmsg_probe` fails after prematurely registering the misc device.
-- [High] Preexisting Use-After-Free in `fastrpc_rpmsg_probe()` where `rdev-=
->dma_mask` is left pointing to freed memory on error paths.
-- [High] Use-After-Free of context bank devices (`sess->dev`) upon fastrpc =
-channel removal due to missing device references.
---
+This series wires up end-to-end support for extended IOVA mapping:
 
-commit e928c95aa5ca7ef57a0d4943351ae2891fcf2b1c
-Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+- The DT binding gains a memory-region property for context bank nodes.
+  It points to a reserved-memory node whose iommu-addresses blocks the
+  lower IOVA range, pushing allocations into the extended address space.
+  The driver uses the presence of this property to identify the context
+  bank as an extended mapping bank. The binding also relaxes
+  #address-cells and #size-cells constraints to accommodate the 64-bit
+  values required by iommu-addresses.
 
-    misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
-   =20
-    of_platform_populate() only guarantees that child devices are registere=
-d,
-    not that their probes have completed before it returns. This creates a
-    window where fastrpc_cb_init() may not have run for all context bank
-    nodes, leaving the channel context partially initialised.
+- The driver is extended to read the correct SID from multi-cell reg
+  properties, which are needed on platforms that use #address-cells = <2>
+  on the fastrpc node.
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca867..a153107d00853 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -2363,7 +2363,7 @@ static const struct file_operations fastrpc_fops =
-=3D {
->  	.compat_ioctl =3D fastrpc_device_ioctl,
->  };
-> =20
-> -static int fastrpc_cb_probe(struct platform_device *pdev)
-> +static int fastrpc_cb_init(struct platform_device *pdev)
->  {
->  	struct fastrpc_channel_ctx *cctx;
->  	struct fastrpc_session_ctx *sess;
-> @@ -2385,7 +2385,7 @@ static int fastrpc_cb_probe(struct platform_device =
-*pdev)
->  	spin_lock_irqsave(&cctx->lock, flags);
->  	if (cctx->sesscount >=3D FASTRPC_MAX_SESSIONS) {
->  		spin_unlock_irqrestore(&cctx->lock, flags);
-> -		dev_err(&pdev->dev, "too many sessions\n");
-> +		dev_err(dev, "too many sessions\n");
->  		return -ENOSPC;
->  	}
->  	dma_bits =3D cctx->soc_data->dma_addr_bits_default;
+- kaanapali and glymur are updated to add a fastrpc_far_region node
+  blocking the lower 16 GB IOVA range and link the dedicated CDSP
+  compute context bank to it via memory-region.
 
-[Severity: High]
-This is a pre-existing issue, but does fastrpc_cb_init() save the child
-device pointer without holding a reference to it?
+- Extended context banks are shared across all open sessions and carry
+  a 40-bit DMA mask. They are kept in a separate cctx->ext_cb[] array
+  rather than the normal session[] pool to avoid mixing exclusively-owned
+  and shared resources.
 
-If sess->dev is assigned without get_device(dev), and fastrpc_rpmsg_remove()
-calls of_platform_depopulate(), the child platform devices are destroyed.
+- Two new UAPI flags (FASTRPC_MAP_FD_EXTENDED and
+  FASTRPC_MAP_FD_DELAYED_EXTENDED) allow userspace to request extended
+  mapping. When set, fastrpc_map_attach() iterates cctx->ext_cb[] and
+  retries on -ENOMEM, falling over to the next extended CB if one
+  exhausts its IOVA space. The SID offset is corrected per-CB so the
+  IOVA forwarded to the DSP is valid.
 
-Since active file descriptors aren't revoked, could an active ioctl later
-call fastrpc_dmabuf_alloc() and invoke dma_alloc_coherent() on fl->sctx->de=
-v,
-using the dangling pointer and leading to a use-after-free?
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Vinayak Katoch (6):
+      dt-bindings: misc: fastrpc: Add memory-region property for context bank
+      misc: fastrpc: Handle multi-cell reg in context bank probe
+      arm64: dts: qcom: kaanapali: Add CDSP FastRPC extended context bank
+      arm64: dts: qcom: glymur: Add CDSP FastRPC extended context bank
+      misc: fastrpc: Add extended context bank support
+      misc: fastrpc: Add UAPI flags for extended IOVA mapping
 
-[ ... ]
+ .../devicetree/bindings/misc/qcom,fastrpc.yaml     |  12 ++-
+ arch/arm64/boot/dts/qcom/glymur.dtsi               |  37 ++++---
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  35 ++++---
+ drivers/misc/fastrpc.c                             | 114 ++++++++++++++++++---
+ include/uapi/misc/fastrpc.h                        |   7 ++
+ 5 files changed, 159 insertions(+), 46 deletions(-)
+---
+base-commit: a8406e6c0b793ce0788019683837c40855b55995
+change-id: 20260826-extended-mapping-9b08b0c3108d
+prerequisite-change-id: 20260609-dup-sessions-ea2acaac1994:v4
+prerequisite-patch-id: 15f76eb917232e683ce9271fb3f0f465a4d60abe
+prerequisite-patch-id: f225961fa033cae9dce14a906752e1232b052290
+prerequisite-patch-id: da0a3d55397a522ea4b77769e387df9faea8e024
 
-> @@ -2642,12 +2610,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
->  	data->rpdev =3D rpdev;
->  	dev_set_drvdata(&rpdev->dev, data);
-> =20
-> -	err =3D of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-> -	if (err)
-> -		goto err_deregister_fdev;
-> +	of_node_set_flag(rdev->of_node, OF_POPULATED_BUS);
-> +
-> +	for_each_available_child_of_node_scoped(rdev->of_node, np) {
-> +		struct platform_device *pdev;
-> +
-> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
-> +			continue;
-> +
-> +		pdev =3D of_platform_device_create(np, NULL, rdev);
-> +		if (!pdev) {
-> +			err =3D -EINVAL;
-> +			goto err_depopulate;
-> +		}
-> +
-> +		err =3D fastrpc_cb_init(pdev);
-> +		if (err)
-> +			goto err_depopulate;
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-[Severity: Critical]
-This is a pre-existing issue, but is it possible that this error path leads
-to a use-after-free and uninitialized state exposure?
-
-Earlier in fastrpc_rpmsg_probe(), fastrpc_device_register() is called, which
-makes the misc device available to userspace. A userspace program can then
-open the device, acquiring a reference to the data structure.
-
-If fastrpc_cb_init() fails here, the code jumps to err_depopulate, and
-eventually calls kfree(data).
-
-Since userspace could already have an open file descriptor pointing to data,
-would this kfree() result in a use-after-free when subsequent ioctls or
-close() are called?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the same error path lea=
-ve
-rdev->dma_mask pointing to freed memory?
-
-Earlier in fastrpc_rpmsg_probe(), rdev->dma_mask is redirected to point
-to the dynamically allocated &data->dma_mask.
-
-If this probe function fails and frees data via kfree(data), the rpmsg
-device remains in the system unbound.
-
-Will a userspace read of /sys/devices/.../dma_mask_bits trigger a read from
-freed memory through dma_mask_bits_show() since rdev->dma_mask wasn't
-restored to its original value?
-
-> +	}
-> =20
->  	return 0;
-> =20
-> +err_depopulate:
-> +	of_platform_depopulate(rdev);
->  err_deregister_fdev:
->  	if (data->fdevice)
->  		misc_deregister(&data->fdevice->miscdev);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-dup-sessio=
-ns-v4-0-35555d2bfed4@oss.qualcomm.com?part=3D1
