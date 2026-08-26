@@ -4,45 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16664C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E979CC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A27610EF65;
-	Thu, 27 Aug 2026 09:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 056BD10EF69;
+	Thu, 27 Aug 2026 09:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="op7pjiAJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lDPRqkIk";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D51E10E895
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 10:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
- Content-Type; bh=l2nRAWEMUyhJ+guypkbcFyofsh5sge6XMoQMazS206s=;
- b=op7pjiAJPZ6JS5fHvwSRxByUsar1PULHoHaNydZ2jXAopa8VrAAx8/UFRepnPB
- 5sZ07mEL1rAZJU94kbHHnW2k+vFEXBpnBumqpymcMf4dikKOzT/L4lJ+8MU3Qznh
- 5pxJnLn25jLbG6ohH11jndDnPbbxjIoWR4p2DHP8l2Swc=
-Received: from [IPv6:::1] (unknown [])
- by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDX3hRlxI5qJbTjPg--.825S2;
- Wed, 26 Aug 2026 18:48:07 +0800 (CST)
-Date: Wed, 26 Aug 2026 18:48:03 +0800
-From: MYYDAQ <xmmntnbklsa917813@163.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-CC: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/tests: document what each drm_format test verifies
-User-Agent: K-9 Mail for Android
-Message-ID: <DE9CE460-C1A7-4E7E-85BE-AD75EB0D3C23@163.com>
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69D0A10E249
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 05:24:33 +0000 (UTC)
+Received: by mail-pz2-f6.google.com with SMTP id
+ 41be03b00d2f7-cc1c4267d50so56679a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 22:24:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787721873; x=1788326673; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=2iIl3uA7kRHPn8Sz3ycjaBFmA0XngwesOSx8TRlbXC0=;
+ b=lDPRqkIkxtVPTcEwoCLWB88kXsB3OikqGSyE6WlWTJ1wykSxCyolB/OHUGjjG5WZ51
+ qpbYl7P3mCFYQMyIZ3PlFlHNF54DCHG1eXRrce+PSJOdzDBp1qx2As03HJtrUUoi7RNN
+ akvGOwzu5S1qym20Ch1H9gfNZNEXRXDlTZhiy6LFMVuEAzp/YkFEvxEGUlAVR1POuzMn
+ oE89CSKdccIZbHSclmWyPWBoAWQt7zJlrXj/ssIC1vGQ7TfENX30Kh9hu5k99GMAmBKq
+ 6G/zG15pXgVnpAyHhrC7Kliclh7ASTjZLPCGu4EyyBeyffqPJ7kt9K4X2AObnxOog7ww
+ 9Ecw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787721873; x=1788326673;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2iIl3uA7kRHPn8Sz3ycjaBFmA0XngwesOSx8TRlbXC0=;
+ b=AMxhUCiWxJbkAXRRMc0pZzPGt7oYaYXjpaYe/+w/bwM43YYgY3Jfidmd888/6gnpc5
+ DT5vHWgDARkOHTDV0cX7M7ZewsCUQZNmFVbpLCuT+HqJvbU2LBB02E1L397n9am3AYe/
+ Wd4Tr/Qv/AgzhpunOcImjMDDcJvGqabMlKaHljBoJ3FYDlWi/X/9CEhFXG64v6xOzSHk
+ hloQAh6Zx0Q1E8qg44pcHKfEqcvVbaQKyegKmft5b4UsCNsUHYd3cn4ahJat8h2vrpX/
+ ANtpLX9xKu5ZNqSEkWh/h3QXmJu90VYACGlhzpPrmZrpbWxR7N01oOqOIXqLEhorXPZ6
+ Ivhg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqHvwBJSboGYt0HdQFKH1ruLo8xXpHXCJH/7vlYT3qeVR/7dQfIR0In2s8DaoKTvTpBd4fFIh/VdUI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mBs9RqUdBsyB3hTBXU1jDDE8wKXV9e6KckGCT/qcboQfcDFuGy
+ gcT7vmS5Yn7c/rXIyCdsZxL9a10vOyOSzAnhxZMCRt6YwsPuTROCnmdY
+X-Gm-Gg: AR+sD13VvyXNBd/iizuvmDxr1YlxljbWNWxGVKbGdD1aa6DQQsWO2LhNUEBy+9Yvknp
+ /zJ/tS62ecQAI+YJeNYZGdq3vFiq2sScX6oMKBRmDbktRWKRA/IiOMWAI7s8RMWr5Hd1gN3qQMu
+ wF8RkVa1zL6P3dYWJ8eJF5Mvw/JU6w5PzI+8W4GbjE6juc2hY/G/ZggYQK1cATdGEVbWonPmpvV
+ Zn9hNCR91bEyqHIu7IQLTC69x6K23+NHt83sxit10ya/HsJZDpi2BE4xa/7pFHNKQfhPRBiklts
+ THqnrwwPKqVuJv527vJeZjLSYm+Dl5E+5uo6V2AMh/Ls0RNOinJZR6oEo6ptIxoCZSKiltTddbl
+ ngTF9pq7mSpxIDGX7LTJQv6ZXrGx0nSt6lmy5i9Y56rzADnBuv7EEPqt6EhwEdVQ2GPdUOb6URl
+ aQCtQ+MtKHC+35yWjdzdr+OBPGHAJ9hRymhlo6wXd98cVmdt7wdXzxes+Pkvb1sXTssGFcWX0ja
+ pd+aP7Vsuk=
+X-Received: by 2002:a05:6a20:a106:b0:3cd:602e:f8ab with SMTP id
+ adf61e73a8af0-3cf7576bc90mr6714349637.4.1787721872732; 
+ Tue, 25 Aug 2026 22:24:32 -0700 (PDT)
+Received: from DESKTOP-BDFNLNM.localdomain ([27.63.245.244])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3283d8dc465sm4505557eec.24.2026.08.25.22.24.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Aug 2026 22:24:32 -0700 (PDT)
+From: tarund18303@gmail.com
+To: jani.nikula@linux.intel.com
+Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tarun-tarun143 <tarund18303@gmail.com>
+Subject: [PATCH] drm/i915/dp: remove redundant link state check
+Date: Wed, 26 Aug 2026 05:23:57 +0000
+Message-ID: <20260826052357.10151-1-tarund18303@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID: _____wDX3hRlxI5qJbTjPg--.825S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3CFyrJrW5CrWfJr4DCr18Grg_yoWDWw13pa
- y2yF98KFs8ta1Fga4UJayDZFW3Kws5Ka4jqry7J3sxtrn8K34IvF4DGF1ayrnxWFyrWwn0
- y3WYkFyDJ3ZFkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrcTPUUUUU=
-X-Originating-IP: [2408:8421:ad00:8127:f234:df0b:d07f:46ad]
-X-CM-SenderInfo: h0pp03xqenz2jdzrlmirt6il2tof0z/xtbC7QeIEGqOxGeKOwAA3E
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,273 +89,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_format test suite was converted from the former selftests and,
-like the other converted suites, its test cases lack any documentation,
-making it hard to tell what each test is supposed to verify and whether
-it still makes sense as a unit test=2E
+From: tarun-tarun143 <tarund18303@gmail.com>
 
-Add a comment to every test case explaining what is being tested and
-which edge cases are covered, as a first step towards the "Clean up and
-document former selftests suites" item in Documentation/gpu/todo=2Erst=2E
+The DP link state is checked and recovered through the encoder link
+check work from the modeset and HPD paths.
 
-No functional changes=2E
+The detect handler also used to queue the same link check work for
+non-eDP sinks. This was added when link recovery was moved to the
+encoder's check link state work, and the original change explicitly
+left a TODO to remove the detect-time check once it became redundant.
 
-Signed-off-by: MYYDAQ <xmmntnbklsa917813@163=2Ecom>
+Remove the detect-time link state check and rely on the existing link
+recovery paths.
+
+Signed-off-by: tarun-tarun143 <tarund18303@gmail.com>
 ---
- drivers/gpu/drm/tests/drm_format_test=2Ec | 95 +++++++++++++++++++++++++
- 1 file changed, 95 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_format_test=2Ec b/drivers/gpu/drm/t=
-ests/drm_format_test=2Ec
-index 22e2371fd=2E=2E6dcd69890 100644
---- a/drivers/gpu/drm/tests/drm_format_test=2Ec
-+++ b/drivers/gpu/drm/tests/drm_format_test=2Ec
-@@ -9,6 +9,12 @@
-=20
- #include <drm/drm_fourcc=2Eh>
-=20
-+/*
-+ * drm_format_info_block_width() must return 0 for invalid arguments:
-+ * a NULL format info, a negative plane index, or a plane index
-+ * beyond the number of planes, instead of crashing or returning
-+ * garbage=2E
-+ */
- static void drm_test_format_block_width_invalid(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D NULL;
-@@ -18,6 +24,11 @@ static void drm_test_format_block_width_invalid(struct =
-kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, 1), 0);
- }
-=20
-+/*
-+ * Check the block width of each plane of a single-plane, non-tiled
-+ * format (XRGB4444): plane 0 is made of 1x1 blocks, and plane indexes
-+ * beyond the number of planes report a width of 0=2E
-+ */
- static void drm_test_format_block_width_one_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_XRGB44=
-44);
-@@ -29,6 +40,11 @@ static void drm_test_format_block_width_one_plane(struc=
-t kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
- }
-=20
-+/*
-+ * Check the block width of each plane of a two-plane, non-tiled
-+ * format (NV12): both planes are made of 1x1 blocks, and plane
-+ * indexes beyond the number of planes report a width of 0=2E
-+ */
- static void drm_test_format_block_width_two_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_NV12);
-@@ -41,6 +57,11 @@ static void drm_test_format_block_width_two_plane(struc=
-t kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
- }
-=20
-+/*
-+ * Check the block width of each plane of a three-plane, non-tiled
-+ * format (YUV422): all three planes are made of 1x1 blocks, and plane
-+ * indexes beyond the number of planes report a width of 0=2E
-+ */
- static void drm_test_format_block_width_three_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_YUV422=
-);
-@@ -54,6 +75,11 @@ static void drm_test_format_block_width_three_plane(str=
-uct kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
- }
-=20
-+/*
-+ * Check the block width of a tiled format (X0L0), whose pixels are
-+ * stored in 2x2 blocks: plane 0 reports a width of 2, and plane
-+ * indexes beyond the number of planes report a width of 0=2E
-+ */
- static void drm_test_format_block_width_tiled(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_X0L0);
-@@ -65,6 +91,12 @@ static void drm_test_format_block_width_tiled(struct ku=
-nit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
- }
-=20
-+/*
-+ * drm_format_info_block_height() must return 0 for invalid arguments:
-+ * a NULL format info, a negative plane index, or a plane index
-+ * beyond the number of planes, instead of crashing or returning
-+ * garbage=2E
-+ */
- static void drm_test_format_block_height_invalid(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D NULL;
-@@ -74,6 +106,11 @@ static void drm_test_format_block_height_invalid(struc=
-t kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, 1), 0);
- }
-=20
-+/*
-+ * Check the block height of each plane of a single-plane, non-tiled
-+ * format (XRGB4444): plane 0 is made of 1x1 blocks, and plane indexes
-+ * beyond the number of planes report a height of 0=2E
-+ */
- static void drm_test_format_block_height_one_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_XRGB44=
-44);
-@@ -85,6 +122,11 @@ static void drm_test_format_block_height_one_plane(str=
-uct kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, 1), 0);
- }
-=20
-+/*
-+ * Check the block height of each plane of a two-plane, non-tiled
-+ * format (NV12): both planes are made of 1x1 blocks, and plane
-+ * indexes beyond the number of planes report a height of 0=2E
-+ */
- static void drm_test_format_block_height_two_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_NV12);
-@@ -97,6 +139,11 @@ static void drm_test_format_block_height_two_plane(str=
-uct kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, -1), 0);
- }
-=20
-+/*
-+ * Check the block height of each plane of a three-plane, non-tiled
-+ * format (YUV422): all three planes are made of 1x1 blocks, and plane
-+ * indexes beyond the number of planes report a height of 0=2E
-+ */
- static void drm_test_format_block_height_three_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_YUV422=
-);
-@@ -110,6 +157,11 @@ static void drm_test_format_block_height_three_plane(=
-struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, -1), 0);
- }
-=20
-+/*
-+ * Check the block height of a tiled format (X0L0), whose pixels are
-+ * stored in 2x2 blocks: plane 0 reports a height of 2, and plane
-+ * indexes beyond the number of planes report a height of 0=2E
-+ */
- static void drm_test_format_block_height_tiled(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_X0L0);
-@@ -121,6 +173,12 @@ static void drm_test_format_block_height_tiled(struct=
- kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, -1), 0);
- }
-=20
-+/*
-+ * drm_format_info_min_pitch() must return 0 for invalid arguments:
-+ * a NULL format info, a negative plane index, or a plane index
-+ * beyond the number of planes, instead of crashing or returning
-+ * garbage=2E
-+ */
- static void drm_test_format_min_pitch_invalid(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D NULL;
-@@ -130,6 +188,11 @@ static void drm_test_format_min_pitch_invalid(struct =
-kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_format_info_min_pitch(info, 1, 0), 0);
- }
-=20
-+/*
-+ * Check the minimum pitch of the single 8-bits-per-pixel plane of
-+ * RGB332: one byte per pixel for any width, including odd widths
-+ * which must not be rounded, up to the UINT_MAX boundary=2E
-+ */
- static void drm_test_format_min_pitch_one_plane_8bpp(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_RGB332=
-);
-@@ -153,6 +216,11 @@ static void drm_test_format_min_pitch_one_plane_8bpp(=
-struct kunit *test)
- 			(uint64_t)(UINT_MAX - 1));
- }
-=20
-+/*
-+ * Check the minimum pitch of the single 16-bits-per-pixel plane of
-+ * XRGB4444: two bytes per pixel for any width, including odd widths
-+ * which must not be rounded, up to the UINT_MAX boundary=2E
-+ */
- static void drm_test_format_min_pitch_one_plane_16bpp(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_XRGB44=
-44);
-@@ -176,6 +244,11 @@ static void drm_test_format_min_pitch_one_plane_16bpp=
-(struct kunit *test)
- 			(uint64_t)(UINT_MAX - 1) * 2);
- }
-=20
-+/*
-+ * Check the minimum pitch of the single 24-bits-per-pixel plane of
-+ * RGB888: three bytes per pixel for any width, including odd widths
-+ * which must not be rounded, up to the UINT_MAX boundary=2E
-+ */
- static void drm_test_format_min_pitch_one_plane_24bpp(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_RGB888=
-);
-@@ -199,6 +272,11 @@ static void drm_test_format_min_pitch_one_plane_24bpp=
-(struct kunit *test)
- 			(uint64_t)(UINT_MAX - 1) * 3);
- }
-=20
-+/*
-+ * Check the minimum pitch of the single 32-bits-per-pixel plane of
-+ * ABGR8888: four bytes per pixel for any width, including odd widths
-+ * which must not be rounded, up to the UINT_MAX boundary=2E
-+ */
- static void drm_test_format_min_pitch_one_plane_32bpp(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_ABGR88=
-88);
-@@ -222,6 +300,12 @@ static void drm_test_format_min_pitch_one_plane_32bpp=
-(struct kunit *test)
- 			(uint64_t)(UINT_MAX - 1) * 4);
- }
-=20
-+/*
-+ * Check the minimum pitch of both planes of NV12: the first plane
-+ * stores one byte per pixel, the second stores two bytes per pixel,
-+ * odd widths must not be rounded, and chroma subsampling is not
-+ * taken into account=2E
-+ */
- static void drm_test_format_min_pitch_two_plane(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_NV12);
-@@ -257,6 +341,11 @@ static void drm_test_format_min_pitch_two_plane(struc=
-t kunit *test)
- 			(uint64_t)(UINT_MAX - 1));
- }
-=20
-+/*
-+ * Check the minimum pitch of all three planes of YUV422, where each
-+ * plane stores one byte per pixel: odd widths must not be rounded and
-+ * chroma subsampling is not taken into account=2E
-+ */
- static void drm_test_format_min_pitch_three_plane_8bpp(struct kunit *test=
-)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_YUV422=
-);
-@@ -304,6 +393,12 @@ static void drm_test_format_min_pitch_three_plane_8bp=
-p(struct kunit *test)
- 			(uint64_t)(UINT_MAX - 1) / 2);
- }
-=20
-+/*
-+ * Check the minimum pitch of a tiled format (X0L2), which stores
-+ * 8 bytes in 2x2 pixel blocks: two bytes per pixel for any width,
-+ * including odd widths which must not be rounded, up to the UINT_MAX
-+ * boundary=2E
-+ */
- static void drm_test_format_min_pitch_tiled(struct kunit *test)
- {
- 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_X0L2);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 113d767e62e9..ffd39206b958 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6379,18 +6379,6 @@ intel_dp_detect(struct drm_connector *_connector,
+ 		status = connector_status_disconnected;
+ 		goto out_unset_edid;
+ 	}
+-
+-	/*
+-	 * Some external monitors do not signal loss of link synchronization
+-	 * with an IRQ_HPD, so force a link status check.
+-	 *
+-	 * TODO: this probably became redundant, so remove it: the link state
+-	 * is rechecked/recovered now after modesets, where the loss of
+-	 * synchronization tends to occur.
+-	 */
+-	if (!intel_dp_is_edp(intel_dp))
+-		intel_dp_check_link_state(intel_dp);
+-
+ 	/*
+ 	 * Clearing NACK and defer counts to get their exact values
+ 	 * while reading EDID which are required by Compliance tests
+-- 
+2.43.0
 
