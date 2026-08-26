@@ -4,75 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B964EC61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 712AEC61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE2510ED7C;
-	Wed, 26 Aug 2026 16:39:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB2510ED80;
+	Wed, 26 Aug 2026 16:40:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="mnBGevgU";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="jAcH7dpK";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7A610ED7B
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:51 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4921eed3fa2so8948925e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:39:51 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD2A710ED80
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:40:09 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-490cf322ed0so10308415e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:40:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762390; x=1788367190;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762408; x=1788367208;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=fmYPR9IxSzhVmSELkWCqlAOtJZlhRoJBVBoO5j6Y+18=;
- b=mnBGevgUs9AjW8b9gXbwDcEWsEfLk8/vBbuJjTCYA2wJg98IossVTPdohnlmfe27PR
- ah/d56iB5GW7ga4uQoKwOQOsSxJZTMFDw9jtVXY7VrfRiWR3ZCypWCiBZfrdYuKO4CV+
- b9BNAw0vd+q2lVMSiIIoT3kruirqxhaYjEtJ1OabvUEf8kcXfIzDkp3t8OUTghJvstrj
- DMMYZ9t0PDprAqOP8SfWOlzRnwbsC4M/Xk+kpKlQZuLT6M/kDWcKGEWrwyEz/Nfbx2Cz
- Rrm1RcTG10R+t+3E1upzWgKilI4C3ONu2WRXuvHgsGTeGrCcBfLU+/Zk/ZdWXtRpmEQK
- PmlA==
+ bh=Le9KtUXP4zcJcG7NGtvaWC8QCA8feBrUFLKwMrZ8uGQ=;
+ b=jAcH7dpKxG04EJW4fNklAsIyt7LLEbuPVgr6QuIcAE7K19PyFNf+n/35rNHnxileN9
+ 3M76Dap+85aISr2bKosVCm2VWxcDibZ8m6MShhThTZwBfBMBIyxzDl9YHFY4mQ/GED48
+ rT7MgEgS2C+u9TwdJykPgfbUqB36E1BW/kYLWxDW/nlGKglQBu7kscKM40ZtESRxKTIv
+ WEzZmR3uFfr7edYrmmTeoqi6cAvAr58lqr4X+Yw33/DXWVgkQx+63O2gaNKCuEzt0Ayd
+ YEgqNMDDoO4LnL2GIx/jp1dpw2ej2WxgTjpCoNzK8aKlTdabbeHBwTBb3c62WtBxDZu/
+ LfYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762390; x=1788367190;
+ d=1e100.net; s=20251104; t=1787762408; x=1788367208;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=fmYPR9IxSzhVmSELkWCqlAOtJZlhRoJBVBoO5j6Y+18=;
- b=DKN6I3Ga8nZaEXM5pvN+J/sBhd4RQ3cJh8rLv8cEiCn9R1FM+rAylhbGysNC1oJTWa
- +45XPa8yJZ9kKfmtMBRFrEQRa1Y3L4mO7p6c+IZ2uFC0a5Fkr6pdDo7z/ozKUP6Io9Lv
- TwG58Wz3td0I9G6sL/kHAZ7xtEuv0LBlW2LCeFcsb2CymTxzI7wAlbuTkHSXtjfxcCMJ
- E78OtoMhJFqzIN8qyqteI0dOsw2QtfjPDmhGbJdbr7/RqRrGhTS1pkiVgkmNDopuWShw
- iXxVzFJb6SVKrvwAVXNqRQdCn04NqLxMYMSZBlDvj0FqeAQS3SapBh/3M5I3mvRekVIc
- UbgA==
-X-Gm-Message-State: AFuF++nsWqmouIn31UN9z7bPM1LX0QqujVMtgu8RZS/ftt59bqesVIAX
- XCzIkY0UuSJBSbczv3NlqbebtIS54BoSXXmqFAVEB6tR39ZRGoeqEpX6NMYu4m/Eeer1+Uq7lGS
- gdYier/qI
-X-Gm-Gg: AR+sD101qg0y9jLxe+6qpKysCMdw/YAFvYVG5NCZj6DAGMNlWLCsTEjbuNBXPf3hUZG
- Y2JTUCeY9X4nnYy5eS1wjR4xC7ABA8wqdG+rXSoMR4AiknoGJZ9Lt1IrCvLJAe/rNKrN0izsFEI
- T3jQP+KkscBAO2mIPi3e1paQ3pIG5SKD/vq7r2wL25wsbRpPwY3SxlT9pExY6Q+2C5pVYuwBOaU
- wM3rS3g4uDw2T4HhBHliu2GNKKDXM222xxr7zoQbQMuUKdDIDJpohzTiHYZN0upug2Aic731MIl
- NlMzxATJ/34T38flZAadpb5VZxuy06UQrQ9m2H6/XqZ6g20y4rc9fF4yji8M2hvDZ39SJBk1j95
- 5cmXKQ45Uldv9ig+HzgJ0aJYyTC4p3SytWBzRGi7iP1uUMkDZfDaZPovlSt0FWjJZNQXfh2TEux
- lR+Loz2bJbhZPUpQLCrCoYDxMMe2ONGGKfwuw4ZZDEq44N22mSqm/SJV5Csac0XoWv2ThH74FG+
- a84hycpcb93cWVHtrE9RIbbCqqpjwv2LACX
-X-Received: by 2002:a05:600c:c48e:b0:499:9240:9a1c with SMTP id
- 5b1f17b1804b1-499dc82ced5mr71245075e9.15.1787762386855; 
- Wed, 26 Aug 2026 09:39:46 -0700 (PDT)
+ bh=Le9KtUXP4zcJcG7NGtvaWC8QCA8feBrUFLKwMrZ8uGQ=;
+ b=gT9GzO4QK750ReGTywFCMJw9He5yNLRxFG9cJSHd/EataYxI13UjKjHW8gQebuwoBP
+ 25Cei6NDIOY8BBDINv3o9ox3zs6mUGew0uZCf77783S7jgzRuXmLfDUNXFMFw4QlLHZl
+ q+hAh8sqUBESN8PRRJLirLbFUM7EO1YxH9QaZAQDJmlnG5HKCsM8WbA2BgQkxxTzRqnS
+ 1800DaOhQPr5qS1uJtOgHFYSOYEL10qSbi+h0f5lVotREUqQawJrZp8qVfLalILRfjwN
+ fjtpSg4IE2rv9cd078v9e+/xmGd3vK+C8Xlj1YsCP4A/BCk3oDpDC0AwfLWOGh2UomKQ
+ RHGA==
+X-Gm-Message-State: AFuF++kaXkOWfO3DivU0Yf0lCRTmwaIhOYeHR8hVNSx27+F5DjVn1vQT
+ sDp7NJsJsabGgepblxGUs2vEYuKuZFOqN+fl3iZm1cbPw9uRVz/DP+3Nt3k/Ui5s0a4m+eA655t
+ u9C9Aqg5l
+X-Gm-Gg: AR+sD13R3fz9R/JErB0OAgovBTihIwYtlY4a7IroO+vEpj3KRYZZqDShRT9XGoiTzuT
+ gpFznBWyPoZfjhIyRndH2pdl38xuASCKr9DuGxgOwVE5w01hGnwajJuQlPrAgcGHDpwB0F3ri7Y
+ v1H0VQ7afRMCwo/tyPicZ3XjhS4HehQI+vrRi+sTKhg+JxKlgxvHxMTuThvjvks7RWGGcT/yV/7
+ NuoMczAGTfaAef49ppXk2NMlqxddwGGaA7rmPgwkLIQB1fVt6bmRHISgJ7gSS6l4o2z6vcdjTnQ
+ mSMMMI2HCsHNp5seo8gFa291mH34dzl/d2213gbw0/Ec3+85epaEyKPv0M6NG9gOJ0RE/Otfgp1
+ Gfo7ZKy4lo9/0Tv8h27rRFM7QDLe9bGVgjpa4Zh5Pd/L7sE/bl2G4K1wffQCG6Jie5EFmjTySjJ
+ AAUG/s+dQtJASF+QBtsu2qt35jVA6hQhO00EBEFy55pKvETG61lpppDIGSmRI/I8+mOOBnH8Fp1
+ VHUSpYbyF8aEvksHyuUIg1OU3MPbeaZFzCiYg==
+X-Received: by 2002:a05:600c:138a:b0:499:d63b:a6da with SMTP id
+ 5b1f17b1804b1-499dc6e002emr73374085e9.2.1787762405562; 
+ Wed, 26 Aug 2026 09:40:05 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.39.44
+ 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.40.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:39:45 -0700 (PDT)
+ Wed, 26 Aug 2026 09:40:04 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/13] drm/vino: add the encrypted control plane
-Date: Wed, 26 Aug 2026 17:37:29 +0100
-Message-ID: <20260826163913.7052-5-mike@fireburn.co.uk>
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: [PATCH v3 6/13] drm/vino: add the video codec
+Date: Wed, 26 Aug 2026 17:37:31 +0100
+Message-ID: <20260826163913.7052-7-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
 References: <20260826163913.7052-1-mike@fireburn.co.uk>
@@ -93,3139 +96,3503 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Once the AKE completes, the dock takes only sealed messages: AES-CTR under
-one nonce, authenticated by a CMAC under another, in host-driven lockstep
-with an acknowledgment per message and an authenticated counter that a
-message sent out of turn desynchronises for the rest of the session.
+The dock decodes a proprietary multilevel Haar codec: 128x8 or 64x16
+strips, an 8x8 transform, per-plane significance trees and a unary VLC
+whose payload bits are interleaved into the runs rather than following
+them. A per-strip parameter map tells the dock how to size its own
+allocations, and on one generation it has to land among the image records
+rather than after them.
 
-Add the sealed message layer and the builders that use it, grouped by
-subject: the mode set and its timing derivation, the EDID probe, fetch and
-downstream-sink engage, and the cursor. The tails these messages carry are
-not padding -- they are HDCP payloads at fixed offsets -- and the KUnit
-tests here compare each builder byte for byte against a decrypted capture,
-because a malformed message is acknowledged like any other and then simply
-never acted on.
+Add the encoder, split into the transform, the strip grammar and the record
+framing; the decoder-configuration burst that arms a stream; and the
+software colour pipeline that applies CTM and gamma while the driver still
+has the pixels, since a dock has no colour hardware to program.
+
+Record framing is the part with no margin: records are 4096 bytes, 16-byte
+aligned, and carry their own pad count, and a dock given a malformed one
+accepts it, paints nothing, and reports nothing. The KUnit tests compare
+whole frames against a captured stream for that reason.
+
+It is one codec parameterised by sample depth, not two: an HDR frame
+differs from an SDR one only in how deep its samples are. A coefficient
+is four times the sample, so every escape ceiling the entropy coder
+holds gains two categories at ten bits, and the decoder configuration
+handed to the dock states the same rise. The ceilings are part of the
+wire format: at the maximum category an escape omits its unary
+terminator, so a DC ceiling that disagrees desynchronises the dock's
+decoder outright, while an AC one that is left behind stays in step and
+reconstructs every sharp edge from a truncated magnitude.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- drivers/gpu/drm/vino/cp.rs        | 1590 +++++++++++++++++++++++++++++
- drivers/gpu/drm/vino/cp/cursor.rs |  158 +++
- drivers/gpu/drm/vino/cp/edid.rs   |  464 +++++++++
- drivers/gpu/drm/vino/cp/mode.rs   |  874 ++++++++++++++++
- 4 files changed, 3086 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/cp.rs
- create mode 100644 drivers/gpu/drm/vino/cp/cursor.rs
- create mode 100644 drivers/gpu/drm/vino/cp/edid.rs
- create mode 100644 drivers/gpu/drm/vino/cp/mode.rs
+ drivers/gpu/drm/vino/color.rs                | 420 ++++++++
+ drivers/gpu/drm/vino/cp.rs                   |   8 +-
+ drivers/gpu/drm/vino/video.rs                | 436 ++++++++
+ drivers/gpu/drm/vino/video/haar/records.rs   | 985 +++++++++++++++++++
+ drivers/gpu/drm/vino/video/haar/strip.rs     | 507 ++++++++++
+ drivers/gpu/drm/vino/video/haar/transform.rs | 802 +++++++++++++++
+ drivers/gpu/drm/vino/video_arm.rs            | 243 +++++
+ 7 files changed, 3397 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/vino/color.rs
+ create mode 100644 drivers/gpu/drm/vino/video.rs
+ create mode 100644 drivers/gpu/drm/vino/video/haar/records.rs
+ create mode 100644 drivers/gpu/drm/vino/video/haar/strip.rs
+ create mode 100644 drivers/gpu/drm/vino/video/haar/transform.rs
+ create mode 100644 drivers/gpu/drm/vino/video_arm.rs
 
-diff --git a/drivers/gpu/drm/vino/cp.rs b/drivers/gpu/drm/vino/cp.rs
+diff --git a/drivers/gpu/drm/vino/color.rs b/drivers/gpu/drm/vino/color.rs
 new file mode 100644
-index 000000000000..0afbf64974db
+index 000000000000..050ddb12f617
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/cp.rs
-@@ -0,0 +1,1590 @@
++++ b/drivers/gpu/drm/vino/color.rs
+@@ -0,0 +1,420 @@
 +// SPDX-License-Identifier: GPL-2.0
-+//! Encrypted-control-plane message builders (the inner plaintext of the type=4
-+//! sub=0x24 AES-CTR frames) plus the AES-CTR `seal` that encrypts and frames them.
-+use super::*;
++//! Software colour management for the CRTC's `CTM` and `GAMMA_LUT` properties.
++//!
++//! There is no colour hardware to program: the dock is handed pixels that are already encoded.
++//! A compositor that colour-corrects through the KMS properties, as GNOME's Night Light and KDE's
++//! Night Colour both do rather than rewriting the framebuffer, therefore has nowhere to put the
++//! correction on such an output unless the driver applies it while it still has the pixels. This
++//! module is that application.
++//!
++//! Pipeline order follows DRM's: degamma, then CTM, then gamma. No degamma LUT is advertised, so
++//! what runs here is CTM then gamma.
++//!
++//! The transform is applied to the framebuffer's encoded (typically sRGB) values, not to linear
++//! light, because there is no degamma stage to linearise them first. That is the same
++//! simplification every software implementation of this makes, and it is what compositors expect
++//! when they compute a correction for a CRTC that advertises no degamma LUT.
++//!
++//! # Why the representation is an enum
++//!
++//! This runs on every pixel of every changed region, and `PixelSource::px` is the third-hottest
++//! symbol in the kernel under fullscreen video (13.8% of the machine on a 4K clip), so the
++//! per-pixel cost matters more than generality. A CTM that only scales each channel, which is the shape *every*
++//! colour-temperature corrector produces, collapses into per-channel lookup tables exactly as a
++//! gamma ramp does; [`ColorPipeline::Fused`] keeps that case at one table lookup per channel, the
++//! same cost as before CTM existed. Only a matrix that genuinely mixes channels pays for
++//! arithmetic.
 +
-+mod cursor;
-+mod edid;
-+mod mode;
++use kernel::drm::kms::crtc::{ColorCtm, ColorLut};
 +
-+pub(crate) use cursor::*;
-+pub(crate) use edid::*;
-+pub(crate) use mode::*;
-+
-+/// DisplayLink key whitening applied to the raw SKE session key:
-+/// ```text
-+///   cp_session_key = ske_ks XOR CP_KEY_WHITEN
-+/// ```
++/// Fixed-point scale for pixel values and matrix coefficients: 1.0 is `1 << 16`.
 +///
-+/// The whitened key is used by both the AES-CTR content cipher and Dl3Cmac. The raw key is wrapped
-+/// in `Edkey` and delivered to the dock.
-+pub(super) const CP_KEY_WHITEN: [u8; 16] = [
-+    0x26, 0xab, 0xee, 0x38, 0x93, 0xd0, 0xc4, 0x32, 0x61, 0x43, 0xa4, 0xbf, 0x5b, 0x45, 0xd6, 0xec,
-+];
++/// Q16 rather than the UAPI's S31.32 so that a coefficient-by-channel multiply is `i32 * i32` into
++/// an `i64`. S31.32 would need 128-bit intermediates, which are not available on every
++/// architecture the kernel builds for.
++const Q: i32 = 1 << 16;
 +
-+/// Derive the live CP session key from the raw SKE key.
++/// Largest Q16 pixel value, i.e. 1.0 in the pixel range.
++const MAX: i32 = 0xffff;
++
++/// Added before a `>> 16` so a fixed-point product rounds to nearest instead of truncating.
 +///
-+/// The result of `ske_ks XOR `[`CP_KEY_WHITEN`] keys the AES-CTR content
-+/// cipher and the Dl3Cmac in [`seal_livemac`]. The input is wrapped into
-+/// `Edkey`; the dock applies the same XOR.
-+pub(super) fn cp_session_key(ske_ks: &[u8; 16]) -> kernel::crypto::Secret<16> {
-+    let mut key = *ske_ks;
-+    for i in 0..16 {
-+        key[i] ^= CP_KEY_WHITEN[i];
++/// Truncation biases every multiply downwards by up to half a level, and the bias is systematic
++/// across the whole image rather than random -- a half-gain of 255 would come out at 127 instead
++/// of 128, and a corrected desktop would sit measurably darker than the correction asked for.
++const HALF_Q: i64 = 1 << 15;
++
++/// Entries in each channel's lookup table. Matches the `GAMMA_LUT_SIZE` advertised to userspace.
++pub(crate) const LUT_LEN: usize = 256;
++
++/// Expand an 8-bit channel to Q16 so that 0 -> 0 and 255 -> 65535 exactly.
++#[inline]
++fn expand(v: u8) -> i32 {
++    v as i32 * 257
++}
++
++/// Round a Q16 channel back to 8 bits.
++///
++/// The divisor is 257, not 256, because that is what [`expand`] multiplied by. Rounding by 256
++/// instead makes `narrow(expand(v))` drift above `v` -- 200 comes back as 201 -- so even an
++/// identity transform would shift the whole image.
++#[inline]
++fn narrow(v: i32) -> u8 {
++    ((v.clamp(0, MAX) + 128) / 257).min(255) as u8
++}
++
++/// Sample a 256-entry Q16 table at a Q16 input, interpolating between neighbours.
++///
++/// Straight indexing by the top 8 bits would quantise the CTM's output back to 8 bits before the
++/// gamma ramp ever saw it, which shows up as banding on the smooth gradients this is most often
++/// used on.
++#[inline]
++fn sample(table: &[u16], v: i32) -> i32 {
++    let v = v.clamp(0, MAX);
++    // Entry `i` of the table describes input `i * 257`, so the step is 257 -- the same divisor
++    // [`narrow`] uses, and for the same reason.
++    let idx = (v / 257) as usize;
++    let frac = v - idx as i32 * 257;
++    let a = table[idx.min(LUT_LEN - 1)] as i32;
++    let b = table[(idx + 1).min(LUT_LEN - 1)] as i32;
++    (a * (257 - frac) + b * frac + 128) / 257
++}
++
++/// A CRTC's colour transform, precomputed into whichever form is cheapest to apply per pixel.
++#[derive(Clone, Copy)]
++pub(crate) enum ColorPipeline {
++    /// Per-channel 8-bit tables, red then green then blue. Covers a gamma ramp alone and a gamma
++    /// ramp after a channel-independent CTM.
++    Fused([u8; 3 * LUT_LEN]),
++    /// A CTM that mixes channels, so it cannot collapse into per-channel tables. `ctm` is Q16,
++    /// row-major, and `gamma` is applied after it.
++    Mixed {
++        ctm: [i32; 9],
++        gamma: Option<[u16; 3 * LUT_LEN]>,
++    },
++}
++
++/// Read a DRM gamma blob into three Q16 channel tables, extending an under-length LUT with
++/// identity rather than with zeroes (which would render the output black).
++fn read_lut(lut: &[ColorLut]) -> [u16; 3 * LUT_LEN] {
++    let mut t = [0u16; 3 * LUT_LEN];
++    for i in 0..LUT_LEN {
++        let identity = (i * 257) as u16;
++        match lut.get(i) {
++            Some(e) => {
++                t[i] = e.red();
++                t[LUT_LEN + i] = e.green();
++                t[2 * LUT_LEN + i] = e.blue();
++            }
++            None => {
++                t[i] = identity;
++                t[LUT_LEN + i] = identity;
++                t[2 * LUT_LEN + i] = identity;
++            }
++        }
 +    }
-+    kernel::crypto::Secret::new(key)
++    t
 +}
 +
-+/// Derive a stream's AES-CTR content nonce from the RIV its `SKE_Send_Eks` restatement
-+/// (`id=0x32`) delivered.
-+///
-+/// Byte 7 is xored with the stream's content-stream id: the value the stream's
-+/// `RepeaterAuth_Stream_Manage` restatement declares, which is also the wire `sub` of that
-+/// stream's control records. The control channel is stream `0x04`, Ridge's video streams are
-+/// `0x08 | connector`, and Navarro's are `(connector << 3) | 7`.
-+pub(super) fn stream_content_nonce(riv: &[u8; 8], stream_id: u16) -> [u8; 8] {
-+    let mut nonce = *riv;
-+    nonce[7] ^= stream_id as u8;
-+    nonce
++/// Convert a decoded S31.32 coefficient to Q16, saturating rather than wrapping.
++fn to_q16(v: i64) -> i32 {
++    (v >> 16).clamp(i32::MIN as i64, i32::MAX as i64) as i32
 +}
 +
-+/// Common CP inner header: `[id u16][sub u16][counter u16][00 00]` (sec 6.1/sec 8.6.4).
-+fn header(out: &mut KVec<u8>, id: u16, sub: u16, counter: u16) -> Result {
-+    out.extend_from_slice(&id.to_le_bytes(), GFP_KERNEL)?;
-+    out.extend_from_slice(&sub.to_le_bytes(), GFP_KERNEL)?;
-+    out.extend_from_slice(&counter.to_le_bytes(), GFP_KERNEL)?;
-+    out.extend_from_slice(&[0, 0], GFP_KERNEL)?;
-+    Ok(())
-+}
-+fn pad_to(out: &mut KVec<u8>, len: usize) -> Result {
-+    while out.len() < len {
-+        out.push(0, GFP_KERNEL)?;
-+    }
-+    Ok(())
-+}
-+/// OUT session heartbeat: `id=0x16 sub=0x75`, two AES blocks.
-+///
-+/// ```text
-+/// 16 00 75 00 [ctr:2] 00 00   14x 00   e0 2e   [8-byte host-random token]
-+/// ```
-+///
-+/// Offset 22 contains `0x2ee0`; offsets 24..32 are ignored and emitted as zero. The heartbeat runs
-+/// throughout the streaming session.
-+pub(super) fn heartbeat(counter: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x16, 0x75, counter)?;
-+    pad_to(&mut b, 22)?; // block0 tail + block1[0..6]
-+    b.extend_from_slice(&[0xe0, 0x2e], GFP_KERNEL)?;
-+    pad_to(&mut b, 32)?;
-+    Ok(b)
-+}
-+/// Stream enable markers (`id=0x16`, sub `0x2e` or `0x2f`) bracket each mode set:
-+///   `2f(1) 2e(3)` -> mode-set -> `2f(1) 2e(0) 2f(1) 2e(0) 2f(0) 2e(0)`
-+///
-+/// Offset 22 selects the connector and offset 23 carries the state.
-+pub(super) fn stream_marker(counter: u16, connector: u8, sub: u16, state: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x16, sub, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.push(connector, GFP_KERNEL)?; // off22: downstream connector selector
-+    b.push(state, GFP_KERNEL)?; // off23: state byte
-+    let mut token = [0u8; 8];
-+    rng::fill(&mut token);
-+    b.extend_from_slice(&token, GFP_KERNEL)?;
-+    Ok(b)
-+}
++impl ColorPipeline {
++    /// Build the pipeline for a CRTC state's `CTM` and `GAMMA_LUT`, or [`None`] when neither is
++    /// programmed or both are the identity.
++    ///
++    /// [`None`] is not merely an optimisation: it is what keeps the direct-scanout path
++    /// available, so an uncorrected desktop pays nothing at all for this feature existing.
++    pub(crate) fn build(lut: Option<&[ColorLut]>, ctm: Option<&ColorCtm>) -> Option<Self> {
++        let gamma = lut.map(read_lut);
++        let matrix = ctm.map(|c| {
++            let raw = c.coefficients();
++            let mut m = [0i32; 9];
++            for (o, r) in m.iter_mut().zip(raw.iter()) {
++                *o = to_q16(*r);
++            }
++            m
++        });
 +
-+pub(super) fn stream_commit(counter: u16, connector: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x16, 0x4c, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.push(if connector == 0 { 0 } else { 1 }, GFP_KERNEL)?; // off22: per-connector flag
-+    b.push(0, GFP_KERNEL)?; // off23
-+    let mut token = [0u8; 8];
-+    rng::fill(&mut token);
-+    b.extend_from_slice(&token, GFP_KERNEL)?;
-+    Ok(b)
-+}
-+/// OUT device-status/capability query: `id=0x14`. Subcommand 0 performs initial capability
-+/// discovery; subcommand `0x0c` polls runtime status.
-+pub(super) fn device_query_req(counter: u16, sub: u16) -> Result<KVec<u8>> {
-+    random_tail_msg(0x14, sub, counter)
-+}
-+
-+/// DL7400 post-authentication state query (`id=0x15 sub=0x78`).
-+///
-+/// The authenticated same-day DLM transcript sends this exactly once after all four per-connector
-+/// authentication blocks and before the first `0x16/0x4c` finalizer. Its request has the ordinary
-+/// 32-byte random-tail shape; the dock replies `0x14/0x78` with state `2` at offset 22. The
-+/// handler's semantic name is not known, so keep the builder descriptive rather than assigning a
-+/// guessed protocol meaning to that state.
-+pub(super) fn post_auth_state_req(counter: u16) -> Result<KVec<u8>> {
-+    random_tail_msg(0x15, 0x0078, counter)
-+}
-+/// DL7400 real-time-clock synchronization (`id=0x1e sub=0x94`).
-+///
-+/// The ten-byte payload at offset 22 is a compact broken-down local time:
-+/// `[year LE16, month, day, hour, minute, second, weekday, yday LE16]`. The authenticated
-+/// A capture carrying Monday as weekday 1 and 214 as the zero-based day of year proves the last
-+/// three bytes are calendar fields rather than an opaque random tail.
-+pub(super) fn rtc_sync_req(
-+    counter: u16,
-+    unix_seconds: i64,
-+    utc_offset_minutes: i32,
-+) -> Result<KVec<u8>> {
-+    let local = unix_seconds.saturating_add(i64::from(utc_offset_minutes) * 60);
-+    let days = local.div_euclid(86_400);
-+    let second_of_day = local.rem_euclid(86_400);
-+
-+    // Gregorian civil date from days since 1970-01-01 (Howard Hinnant's civil_from_days).
-+    let z = days + 719_468;
-+    let era = if z >= 0 { z } else { z - 146_096 }.div_euclid(146_097);
-+    let doe = z - era * 146_097;
-+    let yoe = (doe - doe / 1_460 + doe / 36_524 - doe / 146_096) / 365;
-+    let mut year = yoe + era * 400;
-+    let doy_march = doe - (365 * yoe + yoe / 4 - yoe / 100);
-+    let mp = (5 * doy_march + 2) / 153;
-+    let day = doy_march - (153 * mp + 2) / 5 + 1;
-+    let month = mp + if mp < 10 { 3 } else { -9 };
-+    if month <= 2 {
-+        year += 1;
-+    }
-+    if !(0..=u16::MAX as i64).contains(&year) {
-+        return Err(EINVAL);
-+    }
-+    let leap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
-+    let month_starts = [0u16, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-+    let mut yday = month_starts[(month - 1) as usize] + day as u16 - 1;
-+    if leap && month > 2 {
-+        yday += 1;
-+    }
-+    let weekday = (days + 4).rem_euclid(7) as u8; // 1970-01-01 was Thursday (4).
-+
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x001e, 0x0094, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.extend_from_slice(&[0u8; 10], GFP_KERNEL)?;
-+    b[22..24].copy_from_slice(&(year as u16).to_le_bytes());
-+    b[24] = month as u8;
-+    b[25] = day as u8;
-+    b[26] = (second_of_day / 3_600) as u8;
-+    b[27] = ((second_of_day % 3_600) / 60) as u8;
-+    b[28] = (second_of_day % 60) as u8;
-+    b[29] = weekday;
-+    b[30..32].copy_from_slice(&yday.to_le_bytes());
-+    Ok(b)
-+}
-+/// Shared builder for the many CP messages that share one wire shape: the standard 8-byte
-+/// `[id][sub][counter][00 00]` header, 14 zero bytes, then a fresh 10-byte host-random tail the
-+/// dock treats as an opaque token.
-+fn random_tail_msg(id: u16, sub: u16, counter: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, id, sub, counter)?;
-+    pad_to(&mut b, 22)?;
-+    let mut tail = [0u8; 10];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?;
-+    Ok(b)
-+}
-+
-+/// OUT `id=0x14 sub=0x0000`: an inner header and a fresh ten-byte token.
-+///
-+/// The first sealed message of a session, and on a dock that carries video on the control pipe
-+/// also the last message before the sinks are engaged. The token is host-random and the dock has
-+/// no way to validate it, so what the message states is the counter it carries.
-+pub(super) fn session_hello(counter: u16) -> [u8; 32] {
-+    let mut content = [0u8; 32];
-+    content[0..2].copy_from_slice(&0x0014u16.to_le_bytes());
-+    content[4..6].copy_from_slice(&counter.to_le_bytes());
-+    rng::fill(&mut content[22..32]);
-+    content
-+}
-+
-+/// Pixel granularity the render stride is quantised to.
-+const STRIDE_ALIGN: u32 = 128;
-+
-+/// Offset 42 is not a polarity field but a flags word, and DLM decodes every bit of it in its own
-+/// `setupVideo` log line. Read out of the bit tests around DLM 3.4.26 `0x576b26`, which select
-+/// between an empty string and one of these:
-+///
-+/// | bit | mask | DLM's name |
-+/// |---|---|---|
-+/// | 0 | `0x0001` | `Interlace` |
-+/// | 1 | `0x0002` | `Cross-connector synchronized` |
-+/// | 2 | `0x0004` | `Dual NIVO` |
-+/// | 3 | `0x0008` | `Just-in-time decode` |
-+/// | 5 | `0x0020` | `DSC On`/`DSC Off` |
-+/// | 6 | `0x0040` | `ST2084 colorspace used (HDR)` |
-+/// | 7 | `0x0080` | `SingleDisplayMode enabled` |
-+/// | 8 | `0x0100` | `Horizontal Sync Inverted` |
-+/// | 9 | `0x0200` | `Vertical Syncs Inverted` |
-+/// | 12 | `0x1000` | `ReducedQuantizationRange On`/`Off` |
-+/// | 14 | `0x4000` | `Enable Timing for Gamma` |
-+/// | 15 | `0x8000` | `(Disabled)` |
-+///
-+/// Bits 8, 9 and 15 land exactly where the decrypted corpus had already put them, which is what
-+/// makes the rest of the table trustworthy. Bits 4, 10, 11 and 13 are not logged; bit 10 is the
-+/// base below, always set and still unexplained.
-+///
-+/// Base bit of the offset-42 flags word, set in every message the corpus contains.
-+const SYNC_FLAGS_BASE: u16 = 0x0400;
-+/// `hSyncInv`: horizontal sync is active low.
-+const SYNC_FLAG_HSYNC_INV: u16 = 0x0100;
-+/// `vSyncInv`: vertical sync is active low.
-+const SYNC_FLAG_VSYNC_INV: u16 = 0x0200;
-+/// `ST2084 colorspace used (HDR)`: the connector's pixels are PQ-encoded rather than SDR.
-+///
-+/// This is the transfer-function selector that no capture could settle -- the Windows HDR A/B
-+/// corpus has a sealed control plane, and DLM's Linux build never toggled HDR on this hardware --
-+/// and it turns out not to need a capture at all. There is exactly one HDR flag: the colour
-+/// primaries are not carried here, because the dock derives the downstream infoframe itself.
-+const SYNC_FLAG_ST2084: u16 = 0x0040;
-+/// `Dual NIVO`: this connector's video endpoint is carrying a second connector's stream too.
-+///
-+/// The DL-7400 multiplexes four connectors onto two video bulk endpoints -- `0x08` owns connectors
-+/// {0, 2} and `0x0a` owns {1, 3} -- so any two monitors in sockets one apart share an endpoint.
-+/// The dock drives only one of the two streams unless both mode sets declare the sharing here.
-+/// DLM's `setupVideo` flag decode names this bit `Dual NIVO`, matching the `TiledNivoViewer`
-+/// strings in its binary.
-+const SYNC_FLAG_DUAL_NIVO: u16 = 0x0004;
-+/// The offset-42 word a teardown carries in place of any polarity.
-+const SYNC_FLAGS_TEARDOWN: u16 = 0x8000;
-+
-+/// Picture aspect of CTA VICs 1 through 59, one bit per VIC: set for 16:9, clear for 4:3.
-+///
-+/// The CTA table pairs most timings, one 4:3 and one 16:9 over the same signal -- VIC 2 and 3 are
-+/// both 720x480p60, VIC 6 and 7 both 720x480i60 -- so the aspect cannot be recovered from the
-+/// timing and has to be carried per VIC.
-+const VIC_ASPECT_16_9: u64 = 0x055_575e_beaa_ed55c;
-+
-+/// Offset-66 high byte: the mode's picture aspect ratio.
-+const ASPECT_16_9: u16 = 0x2800;
-+const ASPECT_4_3: u16 = 0x1800;
-+/// Sent for a timing with no CTA VIC, which has no CTA aspect to name.
-+const ASPECT_NONE: u16 = 0x0800;
-+
-+/// Offset-68 of the `0x48/0x22` message: the colour depth, in the high byte.
-+///
-+/// The dock takes a depth enum, not a bit count: 16bpp is 1, 24bpp 2, 30bpp 3, 36bpp 4 and 48bpp
-+/// 5, and an unrecognised depth falls back to 24bpp. The low byte is a separate field that every
-+/// capture carries as zero. The three values above 24bpp are 10, 12 and 16 bits per channel --
-+/// the deep-colour ladder -- and vino drives none of them.
-+const COLOUR_DEPTH_24BPP: u16 = 0x0200;
-+/// Offset-68 for 30 bpp: the same enum, one step up the deep-colour ladder (10 bits per channel).
-+const COLOUR_DEPTH_30BPP: u16 = 0x0300;
-+
-+/// Offset-23 of the `0x48/0x22` message: the DMA buffer format the connector scans out.
-+///
-+/// The dock indexes a four-entry table with this, giving 2, 4, 3 and 4 bytes per pixel for formats
-+/// 0 through 3, and rejects anything above 3. DLM names all four: the same value selects a string
-+/// in the helper at 3.4.26 `0x62ecb0`, whose four arms point at the plaintext `NM16`, `NM32`,
-+/// `NM24` and `NM30`, and the bytes-per-pixel table at `0x8dc320` reads `{2, 4, 3, 4}` in exactly
-+/// that order.
-+///
-+/// | value | name | bytes/px |
-+/// |---|---|---|
-+/// | 0 | `NM16` | 2 |
-+/// | 1 | `NM32` | 4 |
-+/// | 2 | `NM24` | 3 |
-+/// | 3 | `NM30` | 4 |
-+///
-+/// A teardown writes no timing at all and leaves the field zero.
-+const DMA_FORMAT_NM24: u8 = 2;
-+const DMA_FORMAT_NONE: u8 = 0;
-+/// Offset-23 for a 10-bit connector: `NM30`, the second of the table's two four-byte formats.
-+///
-+/// No capture on either dock generation carries anything but `NM24`, so the name has to settle
-+/// the choice between the table's two four-byte formats: 30 bits per pixel packed into four bytes
-+/// is what a 2:10:10:10 sample is, and `NM32` is the 8-bit-with-padding format vino has no use for.
-+const DMA_FORMAT_NM30: u8 = 3;
-+
-+/// Known CP `sub` identifiers used to validate a decrypted header.
-+fn is_known_sub(sub: u16) -> bool {
-+    matches!(
-+        sub,
-+        0x00 | 0x04
-+            | 0x0b
-+            | 0x0c
-+            | 0x10
-+            | 0x20
-+            | 0x21
-+            | 0x22
-+            | 0x24
-+            | 0x25
-+            | 0x2a
-+            | 0x30
-+            | 0x31
-+            | 0x41
-+            | 0x42
-+            | 0x43
-+            | 0x45
-+            | 0x4a
-+            | 0x4b
-+            | 0x4c
-+            | 0x75
-+            | 0x84
-+            | 0x86
-+    )
-+}
-+
-+/// Return the supported dock-to-host RIVs in reply-preference order.
-+///
-+/// The first pair uses the direction bit preferred by interactive replies. The second pair covers
-+/// firmware which replies using the outgoing RIV. Within each pair, byte 0 bit 7 selects the
-+/// connector.
-+fn inbound_reply_rivs(out_riv: &[u8; 8]) -> [[u8; 8]; 4] {
-+    let in_head0 = in_riv(out_riv);
-+    let mut in_head1 = in_head0;
-+    in_head1[0] ^= 0x80;
-+    let out_head0 = *out_riv;
-+    let mut out_head1 = out_head0;
-+    out_head1[0] ^= 0x80;
-+    [in_head0, in_head1, out_head0, out_head1]
-+}
-+
-+/// Try the supported RIV variants and return the best-scoring inner header and prefix.
-+///
-+/// Interactive replies use [`in_riv`], while capability replies can use the outgoing RIV.
-+/// Flipping bit 7 of byte 0 selects the second connector.
-+pub(super) fn decode_any(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<(&'static str, u16, u16, u16, [u8; 24])> {
-+    if wire.len() <= 16 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    let rivs = inbound_reply_rivs(out_riv);
-+    let variants: [(&'static str, [u8; 8]); 4] = [
-+        ("out/h0", rivs[2]),
-+        ("in/h0", rivs[0]),
-+        ("out/h1", rivs[3]),
-+        ("in/h1", rivs[1]),
-+    ];
-+    let mut best: Option<(i32, &'static str, u16, u16, u16, [u8; 24])> = None;
-+    for (tag, riv) in variants {
-+        let Ok(plaintext) = open_in(ks, &riv, seq, body) else {
-+            continue;
++        // An identity matrix is what a compositor programs when it turns a corrector *off*, and it
++        // arrives as a real blob rather than as a removal. Treating it as "no CTM" is what lets
++        // the fast path come back afterwards.
++        let mixes = |m: &[i32; 9]| {
++            m[1] != 0 || m[2] != 0 || m[3] != 0 || m[5] != 0 || m[6] != 0 || m[7] != 0
 +        };
-+        if plaintext.len() < 8 {
-+            continue;
-+        }
-+        let id = u16::from_le_bytes([plaintext[0], plaintext[1]]);
-+        let sub = u16::from_le_bytes([plaintext[2], plaintext[3]]);
-+        let ctr = u16::from_le_bytes([plaintext[4], plaintext[5]]);
-+        let pad = u16::from_le_bytes([plaintext[6], plaintext[7]]);
-+        let mut sc = 0i32;
-+        if is_known_sub(sub) {
-+            sc += 50;
-+        }
-+        if pad == 0 {
-+            sc += 10;
-+        }
-+        if ctr < 0x400 {
-+            sc += 5;
-+        }
-+        if best.map_or(true, |b| sc > b.0) {
-+            // Retain enough plaintext to identify the decoded message class.
-+            let mut sample = [0u8; 24];
-+            let n = plaintext.len().min(24);
-+            sample[..n].copy_from_slice(&plaintext[..n]);
-+            best = Some((sc, tag, id, sub, ctr, sample));
-+        }
-+    }
-+    best.map(|(_, tag, id, sub, ctr, sample)| (tag, id, sub, ctr, sample))
-+}
-+/// Verify a dock-to-host `sub=0x45` acknowledgment for the active session.
-+///
-+/// The wire tag alone is insufficient because status frames also use `sub=0x45`. A valid
-+/// acknowledgment must decrypt to a small id, a known sub-id and a zero header pad.
-+///
-+/// Firmware revisions use both the outgoing RIV and its byte-7-bit-0 variant for replies, with
-+/// byte-0-bit-7 selecting the connector, so all four combinations are checked.
-+pub(super) fn verify_in_ack(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<(u16, u16, u16)> {
-+    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    for riv in inbound_reply_rivs(out_riv) {
-+        let Ok(plaintext) = open_in(ks, &riv, seq, body) else {
-+            continue;
++        let matrix = match matrix {
++            Some(m) if mixes(&m) => return Some(Self::mixed(m, gamma)),
++            Some(m) if m[0] == Q && m[4] == Q && m[8] == Q => None,
++            other => other,
 +        };
-+        if plaintext.len() < 8 {
-+            continue;
-+        }
-+        let id = u16::from_le_bytes([plaintext[0], plaintext[1]]);
-+        let sub = u16::from_le_bytes([plaintext[2], plaintext[3]]);
-+        let ctr = u16::from_le_bytes([plaintext[4], plaintext[5]]);
-+        let pad = u16::from_le_bytes([plaintext[6], plaintext[7]]);
-+        if id < 0x400 && is_known_sub(sub) && pad == 0 {
-+            return Some((id, sub, ctr));
-+        }
-+    }
-+    None
-+}
 +
-+/// Lenient sibling of [`verify_in_ack`] that also accepts uncatalogued sub-ids.
-+///
-+/// This distinguishes a valid message using a newly observed sub-id from a frame that cannot be
-+/// decrypted under any supported RIV variant.
-+/// Recover a dock->host frame's inner plaintext, whichever framing it used.
-+///
-+/// Ridge seals every reply as wire `sub=0x45`. Navarro also pushes frames framed in the clear as
-+/// wire `sub=0x25`, with the inner message at offset 16 and nothing to decrypt.
-+pub(super) fn inner_plaintext(ks: &[u8; 16], out_riv: &[u8; 8], wire: &[u8]) -> Option<KVec<u8>> {
-+    if wire.len() <= 16 {
-+        return None;
-+    }
-+    match u16::from_le_bytes([wire[8], wire[9]]) {
-+        0x25 => {
-+            let mut plaintext = KVec::with_capacity(wire.len() - 16, GFP_KERNEL).ok()?;
-+            plaintext.extend_from_slice(&wire[16..], GFP_KERNEL).ok()?;
-+            Some(plaintext)
++        if matrix.is_none() && gamma.is_none() {
++            return None;
 +        }
-+        0x45 => {
-+            let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+            for riv in inbound_reply_rivs(out_riv) {
-+                let Ok(plaintext) = open_in(ks, &riv, seq, &wire[16..]) else {
-+                    continue;
++        Some(Self::fuse(matrix, gamma))
++    }
++
++    fn mixed(ctm: [i32; 9], gamma: Option<[u16; 3 * LUT_LEN]>) -> Self {
++        Self::Mixed { ctm, gamma }
++    }
++
++    /// Collapse a channel-independent CTM and a gamma ramp into one 8-bit table per channel.
++    ///
++    /// Done once per property change over 768 entries, so the per-pixel path never sees the
++    /// arithmetic.
++    fn fuse(diag: Option<[i32; 9]>, gamma: Option<[u16; 3 * LUT_LEN]>) -> Self {
++        let mut fused = [0u8; 3 * LUT_LEN];
++        // Diagonal entries of a row-major 3x3.
++        let gains = diag.map(|m| [m[0], m[4], m[8]]);
++        for c in 0..3 {
++            for i in 0..LUT_LEN {
++                let mut v = expand(i as u8);
++                if let Some(g) = gains {
++                    v = ((g[c] as i64 * v as i64 + HALF_Q) >> 16).clamp(0, MAX as i64) as i32;
++                }
++                if let Some(t) = &gamma {
++                    v = sample(&t[c * LUT_LEN..(c + 1) * LUT_LEN], v);
++                }
++                fused[c * LUT_LEN + i] = narrow(v.clamp(0, MAX));
++            }
++        }
++        Self::Fused(fused)
++    }
++
++    /// Apply the transform to one pixel.
++    #[inline]
++    pub(crate) fn apply(&self, r: u8, g: u8, b: u8) -> (u8, u8, u8) {
++        match self {
++            Self::Fused(t) => (
++                t[r as usize],
++                t[LUT_LEN + g as usize],
++                t[2 * LUT_LEN + b as usize],
++            ),
++            Self::Mixed { ctm, gamma } => {
++                let (r, g, b) = (expand(r) as i64, expand(g) as i64, expand(b) as i64);
++                let mul = |row: usize| {
++                    let acc = ctm[row * 3] as i64 * r
++                        + ctm[row * 3 + 1] as i64 * g
++                        + ctm[row * 3 + 2] as i64 * b;
++                    // Clamping here, before the gamma ramp, is what keeps an out-of-gamut
++                    // intermediate from wrapping into the opposite corner of the colour cube.
++                    (((acc + HALF_Q) >> 16).clamp(0, MAX as i64)) as i32
 +                };
-+                // The verified Dl3Cmac identifies a genuine frame. Inner offsets 6..7 must not be
-+                // tested as padding: Navarro stores connector selector bits there for the third
-+                // and fourth per-connector HDCP bursts, and rejecting on them dropped those
-+                // connectors' authentic pushes.
-+                if plaintext.len() >= 8 {
-+                    return Some(plaintext);
++                let mut out = [mul(0), mul(1), mul(2)];
++                if let Some(t) = gamma {
++                    for (c, o) in out.iter_mut().enumerate() {
++                        *o = sample(&t[c * LUT_LEN..(c + 1) * LUT_LEN], *o);
++                    }
++                }
++                (
++                    narrow(out[0].clamp(0, MAX)),
++                    narrow(out[1].clamp(0, MAX)),
++                    narrow(out[2].clamp(0, MAX)),
++                )
++            }
++        }
++    }
++
++    /// A value that changes whenever the transform does.
++    ///
++    /// The encoded-strip cache keys on the pixels a strip contained, so a transform change that
++    /// leaves the source pixels alone would otherwise serve a stale body.
++    pub(crate) fn tag(&self) -> u64 {
++        const SEED: u64 = 0x9e37_79b1_85eb_ca87;
++        match self {
++            Self::Fused(t) => kernel::xxhash::xxh64(&t[..], SEED),
++            Self::Mixed { ctm, gamma } => {
++                let mut bytes = [0u8; 9 * 4];
++                for (i, c) in ctm.iter().enumerate() {
++                    bytes[i * 4..i * 4 + 4].copy_from_slice(&c.to_le_bytes());
++                }
++                let h = kernel::xxhash::xxh64(&bytes, SEED);
++                match gamma {
++                    Some(t) => {
++                        let mut g = [0u8; 2 * 3 * LUT_LEN];
++                        for (i, v) in t.iter().enumerate() {
++                            g[i * 2..i * 2 + 2].copy_from_slice(&v.to_le_bytes());
++                        }
++                        kernel::xxhash::xxh64(&g, h)
++                    }
++                    None => h,
 +                }
 +            }
-+            None
-+        }
-+        _ => None,
-+    }
-+}
-+
-+/// The dock's own log line carried by a `sub=0x0c` push, as printable ASCII.
-+///
-+/// The dock reports what it is doing, and what it refuses, on this channel. Recovering it costs
-+/// one pass over an already-decrypted frame and is the only account of a fault the dock does not
-+/// otherwise report.
-+pub(super) fn dock_trace_line(inner: &[u8]) -> Option<KVec<u8>> {
-+    if inner.len() < 10 || u16::from_le_bytes([inner[2], inner[3]]) != 0x000c {
-+        return None;
-+    }
-+    let mut out = KVec::new();
-+    for &b in &inner[8..] {
-+        if b == 0 {
-+            continue;
-+        }
-+        if !(0x20..0x7f).contains(&b) {
-+            continue;
-+        }
-+        out.push(b, GFP_KERNEL).ok()?;
-+    }
-+    if out.len() < 4 {
-+        return None;
-+    }
-+    Some(out)
-+}
-+
-+pub(super) fn decode_in_lenient(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<(u16, u16, u16)> {
-+    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    for riv in inbound_reply_rivs(out_riv) {
-+        let Ok(plaintext) = open_in(ks, &riv, seq, body) else {
-+            continue;
-+        };
-+        if plaintext.len() < 8 {
-+            continue;
-+        }
-+        let id = u16::from_le_bytes([plaintext[0], plaintext[1]]);
-+        let sub = u16::from_le_bytes([plaintext[2], plaintext[3]]);
-+        let ctr = u16::from_le_bytes([plaintext[4], plaintext[5]]);
-+        // Navarro's device-log/status replies use session-varying IDs beyond the old catalogued
-+        // range (the captured transaction boundary replies with id=0x0405/sub=0x000c). Its
-+        // per-connector HDCP pushes also use bytes 4--7 as a one-hot 32-bit selector, so `ctr` is
-+        // only an echo counter for actual request/reply classes and bytes 6..7 need not be zero --
-+        // `open_in` has already authenticated the whole ciphertext, so no plaintext plausibility
-+        // restriction is needed or wanted here.
-+        return Some((id, sub, ctr));
-+    }
-+    None
-+}
-+/// One decoded downstream-HDCP push carried inside the interactive control session.
-+///
-+/// The vendor wrapper pads all of the short HDCP messages to a fixed inner size, so callers must
-+/// interpret the payload according to `msg_id`; `payload_len` is the available padded region, not
-+/// a claim that every byte belongs to the HDCP message.  The largest value needed by the current
-+/// authentication verifier is H'/L'/M' (32 bytes).
-+#[derive(Clone, Copy)]
-+pub(super) struct PerheadHdcpPush {
-+    pub msg_id: u8,
-+    pub payload: [u8; 38],
-+    pub payload_len: usize,
-+}
-+
-+/// Decode a per-connector HDCP push from either of the two observed vendor framings.
-+///
-+/// Ridge can send the inner body directly in `wsub=0x25`; Navarro seals it as `wsub=0x45` with the
-+/// live control key. One parser covers both, so L', ReceiverID/V', receiver-auth status and M' are
-+/// decoded alongside Rrx rather than falling through as generic traffic.
-+pub(super) fn per_connector_hdcp_push(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<PerheadHdcpPush> {
-+    if wire.len() <= 16 {
-+        return None;
-+    }
-+    const SUB_HDCP_RESP: u16 = 0x25;
-+    const SUB_SEALED: u16 = 0x45;
-+    let wsub = u16::from_le_bytes([wire[8], wire[9]]);
-+
-+    let copy_push = |inner: &[u8]| -> Option<PerheadHdcpPush> {
-+        if inner.len() < 10 {
-+            return None;
-+        }
-+        let sub = u16::from_le_bytes([inner[2], inner[3]]);
-+        if sub != 0x84 {
-+            return None;
-+        }
-+        let src = &inner[10..];
-+        let n = src.len().min(38);
-+        let mut payload = [0u8; 38];
-+        payload[..n].copy_from_slice(&src[..n]);
-+        Some(PerheadHdcpPush {
-+            msg_id: inner[9],
-+            payload,
-+            payload_len: n,
-+        })
-+    };
-+
-+    if wsub == SUB_HDCP_RESP {
-+        return copy_push(&wire[16..]);
-+    }
-+    if wsub != SUB_SEALED {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    for riv in inbound_reply_rivs(out_riv) {
-+        let Ok(inner) = open_in(ks, &riv, seq, body) else {
-+            continue;
-+        };
-+        if let Some(push) = copy_push(&inner) {
-+            return Some(push);
 +        }
 +    }
-+    None
 +}
 +
-+// All three cursor messages share one 32-byte inner layout:
-+// off0..7 id/sub/counter header
-+// off8..21 zero
-+// off22 0x02 constant marker
-+// off23 connector_id (0 / 1 across the cold-ref's two monitors)
-+// off24..25 field1 LE u16 (create: width / move: X / image: 0)
-+// off26..27 field2 LE u16 (create: height / move: Y / image: 0)
-+// off28..31 zero
-+// Cursor images append their w*h*4 BGRA bitmap at off32 and set the high-byte flag in id 0x401c.
-+
-+/// off23 is the cursor's visible flag, not a message-kind tag: set to show the cursor, clear to
-+/// hide it. The bitmap-bearing messages carry it clear because an upload is not itself a show.
-+/// Offset-23 visibility flag of the cursor messages.
-+const CURSOR_VISIBLE: u8 = 0x01;
-+const CURSOR_HIDDEN: u8 = 0x00;
-+
-+/// Compute the 16-byte DisplayLink Dl3Cmac control-message integrity tag:
-+/// `tag = AES-CMAC(ks, mac_nonce(8) || BE64(wire_seq) || ciphertext)` where
-+/// - `mac_nonce` = the AES-CTR content nonce (`riv`) with `byte0 ^= 0x80`. Pass the CTR `riv`
-+///   and this function applies the byte-0 transform.
-+/// - `wire_seq` = the AES-CTR block counter (frame header off-12), zero-extended to BE64,
-+/// - `ciphertext` = the AES-CTR ciphertext content (encrypt-then-MAC), tag appended IN CLEAR.
-+///
-+/// The Dl3Cmac key is the session key `ks`; the CTR and CMAC nonces differ by byte-0 bit 7.
-+pub(super) fn dl3cmac_tag(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    wire_seq: u64,
-+    ciphertext: &[u8],
-+) -> Result<[u8; 16]> {
-+    let mut mac_nonce = *riv;
-+    mac_nonce[0] ^= 0x80;
-+    let mut buf = KVec::with_capacity(16 + ciphertext.len(), GFP_KERNEL)?;
-+    buf.extend_from_slice(&mac_nonce, GFP_KERNEL)?;
-+    buf.extend_from_slice(&wire_seq.to_be_bytes(), GFP_KERNEL)?;
-+    buf.extend_from_slice(ciphertext, GFP_KERNEL)?;
-+    Ok(crypto::aes_cmac(ks, &buf))
-+}
-+/// Seal a CP message with AES-CTR followed by a freshly computed Dl3Cmac.
-+///
-+/// `content_pt` excludes the 16-byte tag. The clear wire header supplies the sequence counter.
-+pub(super) fn seal_livemac(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    header: &[u8],
-+    content_pt: &[u8],
-+) -> Result<KVec<u8>> {
-+    let seq = u32::from_le_bytes([header[12], header[13], header[14], header[15]]);
-+    let cipher = crypto::Aes128::new(ks)?;
-+    let mut ct = KVec::with_capacity(content_pt.len(), GFP_KERNEL)?;
-+    for (i, chunk) in content_pt.chunks(16).enumerate() {
-+        let mut iv = [0u8; 16];
-+        iv[..8].copy_from_slice(riv);
-+        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
-+        let ksb = cipher.encrypt_block(&iv);
-+        for (j, &p) in chunk.iter().enumerate() {
-+            ct.push(p ^ ksb[j], GFP_KERNEL)?;
++impl PartialEq for ColorPipeline {
++    fn eq(&self, other: &Self) -> bool {
++        match (self, other) {
++            (Self::Fused(a), Self::Fused(b)) => a[..] == b[..],
++            (Self::Mixed { ctm: a, gamma: ga }, Self::Mixed { ctm: b, gamma: gb }) => {
++                a == b
++                    && match (ga, gb) {
++                        (Some(x), Some(y)) => x[..] == y[..],
++                        (None, None) => true,
++                        _ => false,
++                    }
++            }
++            _ => false,
 +        }
 +    }
-+    let tag = dl3cmac_tag(ks, riv, seq as u64, &ct)?;
-+    let mut frame = KVec::with_capacity(16 + ct.len() + 16, GFP_KERNEL)?;
-+    frame.extend_from_slice(&header[..16], GFP_KERNEL)?;
-+    frame.extend_from_slice(&ct, GFP_KERNEL)?;
-+    frame.extend_from_slice(&tag, GFP_KERNEL)?;
-+    Ok(frame)
-+}
-+/// Build a fully sealed interactive CP frame (`type=4 sub=0x24`) at `wire_seq` over `content`
-+/// (the inner plaintext, WITHOUT any appended 16-byte tag placeholder): the 16-byte wire
-+/// header -- size, `type=4`, `sub=0x24`, the per-`id` [`aux_for_id`] field, and `wire_seq` --
-+/// followed by [`seal_livemac`] (AES-CTR ciphertext + appended live Dl3Cmac). Shared by the
-+/// bring-up live loop ([`VinoDriver::send_live_cp`]) and the runtime KMS senders
-+/// ([`drm_sink::VinoDrmData::send_cp`]) so both produce a byte-identical wire frame.
-+pub(super) fn seal_interactive(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    id: u16,
-+    wire_seq: u32,
-+    content: &[u8],
-+) -> Result<KVec<u8>> {
-+    let body_len = content.len() + 16; // AES-CTR ciphertext + 16-byte Dl3Cmac
-+    let size = ((16 + body_len) - 4) as u16;
-+    let aux = aux_for_id(id, body_len);
-+    let mut hdr = [0u8; 16];
-+    hdr[2..4].copy_from_slice(&size.to_le_bytes());
-+    hdr[4..8].copy_from_slice(&4u32.to_le_bytes()); // type=4
-+    hdr[8..10].copy_from_slice(&0x24u16.to_le_bytes()); // sub=0x24 (interactive CP)
-+    hdr[10..12].copy_from_slice(&aux.to_le_bytes());
-+    hdr[12..16].copy_from_slice(&wire_seq.to_le_bytes());
-+    seal_livemac(ks, riv, &hdr, content)
-+}
-+/// Return the wire-header auxiliary value for an inner message id.
-+///
-+/// Known ids use protocol constants rather than the message length. Unknown ids fall back to the
-+/// body length in dwords.
-+pub(super) fn aux_for_id(id: u16, body_len: usize) -> u16 {
-+    match id {
-+        0x14 => 0x0a,
-+        0x15 => 0x09,
-+        0x16 => 0x08,
-+        0x19 => 0x05,
-+        0x1a => 0x04, // cursor move
-+        0x1b => 0x03, // cursor create
-+        0x1c => 0x02, // cursor image
-+        0x1e => 0x00, // Navarro RTC synchronization
-+        0x1f => 0x0f,
-+        0x22 => 0x0c,
-+        0x26 => 0x08,
-+        0x2a => 0x04,
-+        0x32 => 0x0c,
-+        0x36 => 0x08, // DDC/CI write
-+        0x48 => 0x06,
-+        0x9a => 0x04,
-+        _ => (body_len / 4) as u16,
-+    }
-+}
-+/// Per-connector downstream repeater authentication and stream-open sequence.
-+///
-+/// Each entry is `(id, sub, plaintext length)` before [`seal_interactive`] appends the Dl3Cmac.
-+/// The AKE entries carry the HDCP message id at offset 27 and its payload at offset 28. The driver
-+/// derives a self-consistent HDCP 2.2 chain independently for each connector.
-+///
-+/// [`VinoDriver::send_cp_setup`]: super::VinoDriver::send_cp_setup
-+pub(super) const CP_SETUP_PER_HEAD: [(u16, u16, usize); 9] = [
-+    (0x0022, 0x0010, 48),  // AKE_Init -- msg-id 0x02 @off27, 20B random payload
-+    (0x001f, 0x0010, 48),  // AKE_Transmitter_Info -- msg-id 0x13, fixed 00 06 02 00 02 prefix
-+    (0x009a, 0x0010, 160), // AKE_No_Stored_km -- msg-id 0x04, 132B payload (10 AES blocks)
-+    (0x0022, 0x0010, 48),  // LC_Init -- msg-id 0x09 @off27, 20B random payload
-+    (0x0032, 0x0010, 64),  // per-connector VIDEO KEY -- msg-id 0x0b, fresh 32B key @off28, stashed
-+    (0x002a, 0x0010, 48),  // LC_Send_L_prime -- msg-id 0x0f @off27, 20B random payload
-+    // RepeaterAuth_Stream_Manage -- built by `stream_manage_restatement`.
-+    (0x0026, 0x0010, 48),
-+    (0x0014, 0x0030, 32), // per-connector stream-open ctl -- no marker/tag, 10B random @off22
-+    (0x0019, 0x0031, 32), // per-connector strm2 -- connector @off22, fixed 06 [connector*4] 04 @off24
-+];
-+/// Layout of a restatement record, as the vendor's own message assembler writes it.
-+///
-+/// It allocates the record, stores a connector selector as a `u32`, a flag byte, and then copies
-+/// an HDCP message -- its id byte first, its payload after -- to a fixed offset. Naming the four
-+/// positions once keeps every builder below describing the same record rather than each repeating
-+/// a different set of literals.
-+pub(super) mod restatement {
-+    /// `u32` connector selector. The upstream authentication uses `0x30`; a downstream connector
-+    /// uses its one-based index, which puts `1` or `2` in the selector's second byte.
-+    pub(super) const SELECTOR: usize = 22;
-+    /// The HDCP message id, the first byte of the copied message.
-+    pub(super) const HDCP_ID: usize = 27;
-+    /// The HDCP payload, everything the message carries after its id.
-+    pub(super) const PAYLOAD: usize = 28;
-+
-+    /// How far an HDCP message with a `payload_len`-byte payload reaches into the record.
-+    ///
-+    /// This is where the message *ends*, not how long the record is. The vendor assembles the
-+    /// message into an allocation of exactly this size and then sends it inside a larger fixed
-+    /// record, so everything past this offset is untouched allocation -- on its side heap
-+    /// metadata, on ours a fresh token. The record length itself is per message class and comes
-+    /// from the wire.
-+    pub(super) const fn message_end(payload_len: usize) -> usize {
-+        PAYLOAD + payload_len
-+    }
 +}
 +
-+/// Build a `RepeaterAuth_Stream_Manage` restatement for one connector.
-+///
-+/// The payload is the HDCP one: a zero `seq_num_M`, a stream count, and that many content-stream
-+/// ids. One stream per connector, so the record ends after the first id -- there is nothing after
-+/// it to fill, and appending anything makes the record longer than the message it carries.
-+pub(super) fn stream_manage_restatement(
-+    counter: u16,
-+    connector: u8,
-+    stream_id: u16,
-+    onehot: bool,
-+) -> Result<KVec<u8>> {
-+    use restatement::*;
-+    // seq_num_M, stream count, one stream id.
-+    const PAYLOAD_LEN: usize = 4 + 4 + 4;
-+    // The record is 48 bytes on the wire whatever the message inside it needs; the vendor's own
-+    // is the same size and carries whatever its allocation held past `message_end`.
-+    let mut b = KVec::from_elem(0u8, 48, GFP_KERNEL)?;
-+    b[0..2].copy_from_slice(&0x0026u16.to_le_bytes());
-+    b[2..4].copy_from_slice(&0x0010u16.to_le_bytes());
-+    b[4..6].copy_from_slice(&counter.to_le_bytes());
-+    connector_marker(&mut b, connector, onehot);
-+    b[HDCP_ID] = ake::id::REPEATERAUTH_STREAM_MANAGE;
-+    // `seq_num_M` stays zero at PAYLOAD..PAYLOAD + 4.
-+    b[PAYLOAD + 4..PAYLOAD + 8].copy_from_slice(&1u32.to_le_bytes());
-+    b[PAYLOAD + 8..PAYLOAD + 12].copy_from_slice(&u32::from(stream_id).to_le_bytes());
-+    let mut past_message = [0u8; 48 - message_end(PAYLOAD_LEN)];
-+    rng::fill(&mut past_message);
-+    b[message_end(PAYLOAD_LEN)..].copy_from_slice(&past_message);
-+    Ok(b)
-+}
++// This module is shared verbatim, so the tests are gated on either driver's KUnit symbol and
++// name nothing outside it.
++#[cfg(any(CONFIG_DRM_VINO_KUNIT_TEST, CONFIG_DRM_EVDI_KUNIT_TEST))]
++use kernel::prelude::kunit_tests;
 +
-+/// Write a per-connector record's connector selector.
-+///
-+/// Ridge names the connector by a one-based connector number at offset 23. Navarro sets a one-hot
-+/// bit at offset `22 + connector`, which is why it can address four connectors where Ridge
-+/// addresses two.
-+pub(super) fn connector_marker(content: &mut [u8], connector: u8, onehot: bool) {
-+    if onehot {
-+        if let Some(byte) = content.get_mut(restatement::SELECTOR + connector as usize) {
-+            *byte = 0x80;
-+        }
-+    } else if let Some(byte) = content.get_mut(restatement::SELECTOR + 1) {
-+        *byte = connector + 1;
-+    }
-+}
-+/// Stream-finalization sequence sent after both [`CP_SETUP_PER_HEAD`] blocks.
-+///
-+/// Each tuple is `(id, sub, value at offset 22)`. Finalization messages are 32 bytes, use
-+/// `0x01` at offset 23 for `sub=0x4c`, and end with a fresh token.
-+pub(super) const CP_SETUP_FINALIZE_STEPS: [(u16, u16); 3] =
-+    [(0x0016, 0x004c), (0x0015, 0x004a), (0x0016, 0x004c)];
-+
-+/// Video-channel arm sequence prepended to the first frame on each connector's bulk endpoint.
-+///
-+/// Entries are `(wire type, connector-0 sub-id, auxiliary value, body length)`; the connector index
-+/// is added to the sub-id. Entries 0, 1, 4 and 5 are plaintext. Entries 6 and 7 are fixed type-4
-+/// records containing a tag over an empty payload. Entries 2, 3, 8 and 9 are sealed with the
-+/// per-connector video key and share one block-counter sequence. The final pair carries the decoder
-+/// configuration.
-+///
-+/// The complete arm sequence and the first encoded frame must be submitted in one URB. Splitting
-+/// them leaves the video endpoint unarmed.
-+pub(super) const VIDEO_ARM_BURST: [(u32, u16, u16, usize); 10] = [
-+    (2, 0x0008, 0x0000, 16),   // #0 plaintext: body 08 00 06
-+    (2, 0x0018, 0x0000, 16),   // #1 plaintext: body 08 00 16
-+    (4, 0x0008, 0x000a, 16),   // #2 SEALED 16B, per-connector video key, seq 0
-+    (4, 0x0018, 0x000a, 16),   // #3 SEALED 16B, per-connector video key, seq 1
-+    (2, 0x0000, 0x0000, 16),   // #4 plaintext: body 00
-+    (2, 0x0010, 0x0000, 16),   // #5 plaintext: body 00 00 10
-+    (4, 0x0000, 0x0004, 16),   // #6 type=4 FIXED plaintext 0a 00 04 ... (sub 0x00, unsealed)
-+    (4, 0x0010, 0x0004, 16),   // #7 type=4 FIXED plaintext 0a 00 04 ... (sub 0x10, unsealed)
-+    (4, 0x0008, 0x000e, 1104), // #8 sealed decoder configuration, seq 2
-+    (4, 0x0018, 0x000e, 1104), // #9 sealed decoder configuration, seq 71
-+];
-+
-+/// Build the fully-known 16-byte plaintext body for one of [`VIDEO_ARM_BURST`]'s `wire_type==2`
-+/// entries at table index `i`, for connector `h`.
-+pub(super) fn video_arm_plaintext_body(i: usize, h: u16) -> [u8; 16] {
-+    let mut b = [0u8; 16];
-+    match i {
-+        0 => {
-+            b[0..2].copy_from_slice(&(0x0008u16 + h).to_le_bytes());
-+            b[2..4].copy_from_slice(&0x0006u16.to_le_bytes());
-+        }
-+        1 => {
-+            b[0..2].copy_from_slice(&(0x0008u16 + h).to_le_bytes());
-+            b[2..4].copy_from_slice(&0x0016u16.to_le_bytes());
-+        }
-+        4 => {
-+            b[0..2].copy_from_slice(&h.to_le_bytes());
-+        }
-+        5 => {
-+            b[0..2].copy_from_slice(&h.to_le_bytes());
-+            b[2..4].copy_from_slice(&0x0010u16.to_le_bytes());
-+        }
-+        // Entries 6 and 7 are type-4 records built directly by `build_arm_burst_buf`.
-+        _ => {}
-+    }
-+    b
-+}
-+
-+/// Build a fixed 32-byte `wire_type=2` (plaintext) video-arm-burst frame: 16-byte header
-+/// (`size=0x1c`, `type=2`, `sub`, `aux=0`, `seq=0`) + the 16-byte `body`. Matches
-+/// [`VIDEO_ARM_BURST`]'s plaintext entries byte-exact.
-+pub(super) fn video_arm_plain_frame(sub: u16, body: &[u8; 16]) -> [u8; 32] {
-+    let mut f = [0u8; 32];
-+    super::video::haar::record_header(&mut f, 2, sub, 0, 0);
-+    f[16..32].copy_from_slice(body);
-+    f
-+}
-+
-+/// Build the plaintext record that announces one stream or video plane to the dock.
-+///
-+/// The body names the `sub` a second time and carries a marker: 6 on a connector's content-stream
-+/// id, 0 on its video `sub`. Every generation sends this pair; they differ only in when. A dock
-+/// with a video pipe of its own takes them immediately ahead of the first frame, and a dock that
-+/// shares its control pipe takes them during CP setup, interleaved with the per-connector blocks.
-+pub(super) fn stream_announce(sub: u16, marker: u16) -> [u8; 32] {
-+    let mut body = [0u8; 16];
-+    body[0..2].copy_from_slice(&sub.to_le_bytes());
-+    body[2..4].copy_from_slice(&marker.to_le_bytes());
-+    video_arm_plain_frame(sub, &body)
-+}
-+
-+/// The marker a record announcing a content stream carries; see [`stream_announce`].
-+pub(super) const STREAM_ANNOUNCE_MARKER: u16 = 6;
-+
-+/// Build a sealed type-4 video-arm frame from its header fields and plaintext content.
-+/// The fixed 14-byte stream marker that opens every Navarro video stream record.
-+///
-+/// It is not a normal CP header. The connector is carried solely by the *wire* sub, never here:
-+/// all four connectors send these same fourteen bytes.
-+pub(super) const NAVARRO_STREAM_MARKER: [u8; 14] = [
-+    0x04, 0x00, 0x08, 0x04, 0x05, 0x00, 0x06, 0x00, 0x07, 0x01, 0x08, 0x02, 0x07, 0x00,
-+];
-+
-+/// Build the 16-byte plaintext of a Navarro video stream-open, sent once per connector on that
-+/// connector's video endpoint before any pixels.
-+///
-+/// The content is [`NAVARRO_STREAM_MARKER`] followed by a two-byte opaque tail. The tail is host
-+/// random and differs between observed opens; it is covered by the Dl3Cmac, so its length matters
-+/// and its value does not.
-+pub(super) fn navarro_stream_open() -> [u8; 16] {
-+    let mut open = [0u8; 16];
-+    open[..14].copy_from_slice(&NAVARRO_STREAM_MARKER);
-+    rng::fill(&mut open[14..]);
-+    open
-+}
-+
-+/// Build the 16-byte plaintext that opens a connector's sealed video stream on a dock whose marker
-+/// is six bytes long.
-+///
-+/// The first four bytes are shared with [`NAVARRO_STREAM_MARKER`]; `kind` is the fifth, and is the
-+/// only part that differs between generations. The rest is a host-random token, which the dock
-+/// cannot validate but which the Dl3Cmac covers, so its length is what matters.
-+pub(super) fn stream_open(kind: u8) -> [u8; 16] {
-+    let mut open = [0u8; 16];
-+    open[..6].copy_from_slice(&[0x04, 0x00, 0x08, 0x04, kind, 0x00]);
-+    rng::fill(&mut open[6..]);
-+    open
-+}
-+
-+/// Build the 32-byte plaintext of a per-frame stream report that carries nothing but the mode.
-+///
-+/// A dock that shares its control pipe restates the mode on every report rather than only around a
-+/// mode change, and has no equivalent of the DL7400's longer report body.
-+pub(super) fn stream_report_mode_only(mode_header: &[u8; 26]) -> [u8; 32] {
-+    let mut out = [0u8; 32];
-+    out[..26].copy_from_slice(mode_header);
-+    rng::fill(&mut out[26..]);
-+    out
-+}
-+
-+/// Fixed leader of one slot record in a DL7400 pipe descriptor, observed at 2560x1440.
-+const NAVARRO_SLOT_HEADER: [u8; 12] = [
-+    0x00, 0x10, 0xb4, 0x00, 0x14, 0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0x00,
-+];
-+
-+/// Fixed trailer of one slot record.
-+const NAVARRO_SLOT_TRAILER: [u8; 10] = [0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x80, 0x01, 0x09];
-+
-+/// Slot records per connector, and the connector stride in the dock's slot-id space.
-+const NAVARRO_SLOTS_PER_CONNECTOR: u16 = 6;
-+const NAVARRO_SLOT_STRIDE: u16 = 8;
-+
-+/// Dock-side addresses each slot record names, as `base - n * step`.
-+///
-+/// The ring index counts in slot ids, so it skips the two ids each connector leaves unused; the
-+/// two CFB pools count in allocated slots and do not. Both forms are fixed by twelve records
-+/// across two independently keyed connectors.
-+const NAVARRO_RING_BASE: u32 = 0x6fcc;
-+const NAVARRO_RING_STEP: u32 = 0x21c;
-+const NAVARRO_CFB0_BASE: u32 = 0x71fb_9000;
-+const NAVARRO_CFB0_STEP: u32 = 0x5000;
-+const NAVARRO_CFB1_BASE: u32 = 0x7216_6000;
-+const NAVARRO_CFB1_STEP: u32 = 0x8000;
-+
-+/// The dock's slot id for one of a connector's pipe buffers.
-+pub(super) fn navarro_pipe_slot(connector: u8, index: u16) -> u16 {
-+    (connector as u16) * NAVARRO_SLOT_STRIDE + index
-+}
-+
-+/// The ring address a connector's pipe buffer is given.
-+pub(super) fn navarro_pipe_ring(connector: u8, index: u16) -> u32 {
-+    NAVARRO_RING_BASE - u32::from(navarro_pipe_slot(connector, index)) * NAVARRO_RING_STEP
-+}
-+
-+/// The quiescent body of a DL7400 per-frame stream report, as `[len=0x0052][kind=0x000a]` and
-+/// thirty-five `u16` values.
-+///
-+/// DLM sends one of these on a connector's *stream* sub for every frame it sends on the frame sub
-+/// -- 165 and 306 of them across a 4.3 s and a 4.7 s session, a median 9-19 ms apart and never
-+/// more than ~1.0 s apart. vino sent none, and the dock tore the link down a few seconds after
-+/// its first frame.
-+///
-+/// The five-value preamble (`1, 1, 0, 64, 64`) and the trailing zero are fixed. The thirty
-+/// values between them are three blocks of three `(a, a, b)` triples separated by `(1, 1, 1)`,
-+/// where the third triple of each block carries twice the `a` of the first two. These are the
-+/// values DLM sends on a quiescent stream, identical on both connectors in both captures; under
-+/// load `a` and `b` grow with the frame's cost, but the mapping from a frame to them is not
-+/// established, so this reports the quiescent set.
-+const NAVARRO_STREAM_REPORT: [u16; 42] = [
-+    0x0052, 0x000a, // len, kind
-+    1, 1, 0, 64, 64, // fixed preamble
-+    16, // per-report scalar: 16 quiescent, larger under load
-+    16, 16, 16, 16, 16, 16, 32, 32, 32, // block A
-+    1, 1, 1, //
-+    16, 16, 4, 16, 16, 4, 32, 32, 8, // block B
-+    1, 1, 1, //
-+    32, 32, 2, 32, 32, 2, 64, 64, 4, // block C
-+    0,
-+];
-+
-+/// Build the 84-byte body shared by both forms of the DL7400 per-frame stream report.
-+fn navarro_stream_report_body(out: &mut [u8; 84]) {
-+    for (i, v) in NAVARRO_STREAM_REPORT.iter().enumerate() {
-+        out[i * 2..i * 2 + 2].copy_from_slice(&v.to_le_bytes());
-+    }
-+}
-+
-+/// Build the 96-byte plaintext of the DL7400's ordinary per-frame stream report (`aux=0x000c`).
-+///
-+/// The report body followed by a 12-byte host-random tail. This is the form DLM sends for all but
-+/// a handful of frames: 159 of 164 on one connector, 304 of 306 on the other.
-+pub(super) fn navarro_stream_report() -> [u8; 96] {
-+    let mut out = [0u8; 96];
-+    let mut body = [0u8; 84];
-+    navarro_stream_report_body(&mut body);
-+    out[..84].copy_from_slice(&body);
-+    rng::fill(&mut out[84..]);
-+    out
-+}
-+
-+/// Build the 112-byte plaintext of the DL7400's mode-restating stream report (`aux=0x0002`).
-+///
-+/// The same body, prefixed by the 26-byte mode header that also opens the decoder configuration,
-+/// and followed by a two-byte host-random tail. DLM sends this form only a handful of times per
-+/// session, around a mode change.
-+pub(super) fn navarro_stream_report_mode(mode_header: &[u8; 26]) -> [u8; 112] {
-+    let mut out = [0u8; 112];
-+    out[..26].copy_from_slice(mode_header);
-+    let mut body = [0u8; 84];
-+    navarro_stream_report_body(&mut body);
-+    out[26..110].copy_from_slice(&body);
-+    rng::fill(&mut out[110..]);
-+    out
-+}
-+
-+/// Build a DL7400 pipe descriptor for one connector.
-+///
-+/// The 304-byte plaintext is [`NAVARRO_STREAM_MARKER`] twice, then six
-+/// `[len=0x002c][kind=0x000e][slot]` records of 40 configuration bytes. Records advance by
-+/// `len + 2`. Each configuration names the connector's slot id and the three dock-side addresses
-+/// that slot is given. 14 + 14 + 6 * 46 = 304 exactly, so there is no padding and no tail.
-+///
-+/// The marker count is not a settled constant: one capture has it once followed by the six records
-+/// and fourteen unexplained bytes, while a capture taken while DLM was driving both panels has it
-+/// twice and no trailing bytes. Both plaintexts are 304 bytes. This follows the capture that was
-+/// working, and it is the reason the fourteen bytes must not be dismissed as AES padding for *this*
-+/// record: in the working capture they are consumed by a second marker at the front.
-+///
-+/// Only 2560x1440 has been observed, and the fixed header carries mode-derived bytes, so callers
-+/// must not use this for another mode.
-+pub(super) fn navarro_pipe_descriptor(connector: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(304, GFP_KERNEL)?;
-+    b.extend_from_slice(&NAVARRO_STREAM_MARKER, GFP_KERNEL)?;
-+    b.extend_from_slice(&NAVARRO_STREAM_MARKER, GFP_KERNEL)?;
-+    for index in 0..NAVARRO_SLOTS_PER_CONNECTOR {
-+        let alloc = u32::from((connector as u16) * NAVARRO_SLOTS_PER_CONNECTOR + index);
-+        b.extend_from_slice(&0x002cu16.to_le_bytes(), GFP_KERNEL)?;
-+        b.extend_from_slice(&0x000eu16.to_le_bytes(), GFP_KERNEL)?;
-+        b.extend_from_slice(
-+            &navarro_pipe_slot(connector, index).to_le_bytes(),
-+            GFP_KERNEL,
-+        )?;
-+        b.extend_from_slice(&NAVARRO_SLOT_HEADER, GFP_KERNEL)?;
-+        b.extend_from_slice(
-+            &navarro_pipe_ring(connector, index).to_le_bytes(),
-+            GFP_KERNEL,
-+        )?;
-+        b.extend_from_slice(&[0, 0], GFP_KERNEL)?;
-+        let cfb0 = NAVARRO_CFB0_BASE - alloc * NAVARRO_CFB0_STEP;
-+        b.extend_from_slice(&cfb0.to_le_bytes(), GFP_KERNEL)?;
-+        b.extend_from_slice(&[0, 0, 0, 0], GFP_KERNEL)?;
-+        let cfb1 = NAVARRO_CFB1_BASE - alloc * NAVARRO_CFB1_STEP;
-+        b.extend_from_slice(&cfb1.to_le_bytes(), GFP_KERNEL)?;
-+        b.extend_from_slice(&NAVARRO_SLOT_TRAILER, GFP_KERNEL)?;
-+    }
-+    debug_assert_eq!(b.len(), 304);
-+    debug_assert_eq!(b.len(), 304);
-+    Ok(b)
-+}
-+
-+pub(super) fn seal_video_arm(
-+    key: &[u8; 16],
-+    riv: &[u8; 8],
-+    sub: u16,
-+    aux: u16,
-+    seq: u32,
-+    content: &[u8],
-+) -> Result<KVec<u8>> {
-+    let body_len = content.len() + 16; // AES-CTR ciphertext + 16-byte Dl3Cmac
-+    let size = ((16 + body_len) - 4) as u16;
-+    let mut hdr = [0u8; 16];
-+    hdr[2..4].copy_from_slice(&size.to_le_bytes());
-+    hdr[4..8].copy_from_slice(&4u32.to_le_bytes()); // type=4
-+    hdr[8..10].copy_from_slice(&sub.to_le_bytes());
-+    hdr[10..12].copy_from_slice(&aux.to_le_bytes());
-+    hdr[12..16].copy_from_slice(&seq.to_le_bytes());
-+    seal_livemac(key, riv, &hdr, content)
-+}
-+/// Derive the primary dock-to-host CP RIV from the host-to-dock RIV.
-+///
-+/// The two directions differ by bit 0 of byte 7 on current dock firmware.
-+pub(super) fn in_riv(out_riv: &[u8; 8]) -> [u8; 8] {
-+    let mut riv = *out_riv;
-+    riv[7] ^= 0x01;
-+    riv
-+}
-+/// Authenticate and decrypt a dock->host CP frame body.
-+///
-+/// `body` is everything after the 16-byte clear wire header: AES-CTR ciphertext followed by the
-+/// 16-byte clear Dl3Cmac. Inbound messages use the same encrypt-then-MAC construction as
-+/// [`seal_livemac`]. Verifying the tag is important on Navarro because bytes 6--7 of the inner
-+/// header are not invariably padding: per-connector HDCP pushes put the high half of their
-+/// one-hot selector there (`00 80` / `80 00`). A zero-padding heuristic therefore rejects two
-+/// connectors' authentic messages, while accepting arbitrary unauthenticated ciphertext with a
-+/// chance plaintext prefix would be unsafe.
-+pub(super) fn open_in(ks: &[u8; 16], in_riv: &[u8; 8], seq: u32, body: &[u8]) -> Result<KVec<u8>> {
-+    // Both platforms authenticate an inbound frame with a trailing Dl3Cmac over the whole body.
-+    // Verifying it is what lets callers read the plaintext without also testing it for
-+    // plausibility -- and that matters, because Navarro's per-connector HDCP pushes carry a
-+    // one-hot selector in inner bytes 6..7 that the old "those bytes are zero padding" heuristic
-+    // rejected.
-+    if body.len() < 16 {
-+        return Err(EINVAL);
-+    }
-+    let (ct, wire_tag) = body.split_at(body.len() - 16);
-+    let expected = dl3cmac_tag(ks, in_riv, seq as u64, ct)?;
-+    // Accumulate the difference so a tag mismatch does not reveal the first differing byte.
-+    let mut different = 0u8;
-+    for (&actual, &want) in wire_tag.iter().zip(expected.iter()) {
-+        different |= actual ^ want;
-+    }
-+    if different != 0 {
-+        return Err(EINVAL);
-+    }
-+
-+    let cipher = crypto::Aes128::new(ks)?;
-+    let mut plaintext = KVec::with_capacity(ct.len(), GFP_KERNEL)?;
-+    for (i, chunk) in ct.chunks(16).enumerate() {
-+        let mut iv = [0u8; 16];
-+        iv[..8].copy_from_slice(in_riv);
-+        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
-+        let ksb = cipher.encrypt_block(&iv);
-+        for (j, &c) in chunk.iter().enumerate() {
-+            plaintext.push(c ^ ksb[j], GFP_KERNEL)?;
-+        }
-+    }
-+    Ok(plaintext)
-+}
-+
-+#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_cp)]
++#[cfg(any(CONFIG_DRM_VINO_KUNIT_TEST, CONFIG_DRM_EVDI_KUNIT_TEST))]
++#[kunit_tests(drm_color_pipeline)]
 +mod tests {
 +    use super::*;
++    use kernel::error::code::EINVAL;
++    use kernel::prelude::*;
++
++    /// S31.32 sign-magnitude constants: 1.0, +0.5, and -0.5 as sign bit + magnitude.
++    const CTM_ONE: u64 = 1 << 32;
++    const CTM_HALF: u64 = 1 << 31;
++    const CTM_NEG_HALF: u64 = (1u64 << 63) | (1u64 << 31);
++
++    fn ctm_diag(r: u64, g: u64, b: u64) -> ColorCtm {
++        ColorCtm::from_raw([r, 0, 0, 0, g, 0, 0, 0, b])
++    }
++
++    /// A ramp that halves every channel, at the LUT's full 16-bit precision. The `+ 1` rounds:
++    /// entry 255 is 65535/2 = 32767.5, and truncating it would make the fixture itself ask for
++    /// 127 rather than 128.
++    fn half_lut() -> KVec<ColorLut> {
++        let mut v = KVec::new();
++        for i in 0..LUT_LEN {
++            let h = ((i * 257 + 1) / 2) as u16;
++            let _ = v.push(ColorLut::new(h, h, h), GFP_KERNEL);
++        }
++        v
++    }
 +
 +    #[test]
-+    fn seal_livemac_roundtrip() -> Result {
-+        // A sealed CP frame must decrypt back to its content under the IN riv, and its
-+        // appended tag must equal a fresh Dl3Cmac over the ciphertext (encrypt-then-MAC).
-+        let ks = [
-+            0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd,
-+            0xee, 0xff,
-+        ];
-+        let riv = [0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17];
-+        let content = [0xa5u8; 32];
-+        let mut hdr = [0u8; 16];
-+        hdr[12..16].copy_from_slice(&4u32.to_le_bytes()); // wire_seq = 4
-+        let frame = seal_livemac(&ks, &riv, &hdr, &content)?;
-+        assert_eq!(frame.len(), 16 + 32 + 16);
-+        let body = &frame[16..];
-+        let ct = &frame[16..16 + 32];
-+        // `open_in` verifies the appended Dl3Cmac, then applies AES-CTR with the supplied nonce.
-+        assert_eq!(&open_in(&ks, &riv, 4, body)?[..], &content[..]);
-+        // And pin that contract rather than leaving it implicit: the IN nonce really is different,
-+        // so both its MAC nonce and content keystream reject this fixture.
-+        assert_ne!(in_riv(&riv), riv);
-+        assert!(open_in(&ks, &in_riv(&riv), 4, body).is_err());
-+        assert_eq!(&frame[16 + 32..], &dl3cmac_tag(&ks, &riv, 4, ct)?[..]);
-+
-+        let mut damaged = KVec::new();
-+        damaged.extend_from_slice(body, GFP_KERNEL)?;
-+        let last = damaged.len() - 1;
-+        damaged[last] ^= 1;
-+        assert!(open_in(&ks, &riv, 4, &damaged).is_err());
++    fn ctm_decodes_sign_magnitude_not_twos_complement() -> Result {
++        // The UAPI encodes CTM entries in sign-magnitude. Reading the u64 as an i64 would make
++        // -0.5 come back as a huge positive number and saturate instead of darkening.
++        let m = ctm_diag(CTM_ONE, CTM_NEG_HALF, CTM_ONE);
++        assert_eq!(m.coefficient(0), Some(1i64 << 32));
++        assert_eq!(m.coefficient(4), Some(-(1i64 << 31)));
++        assert_eq!(m.coefficient(9), None);
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn reply_decoders_accept_all_supported_rivs() -> Result {
-+        let ks = [0x5au8; 16];
-+        let out_head0 = [0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17];
-+        let in_head0 = in_riv(&out_head0);
-+        let mut out_head1 = out_head0;
-+        out_head1[0] ^= 0x80;
-+        let mut in_head1 = in_head0;
-+        in_head1[0] ^= 0x80;
-+
-+        let mut header = [0u8; 16];
-+        header[8..10].copy_from_slice(&0x45u16.to_le_bytes());
-+        header[12..16].copy_from_slice(&7u32.to_le_bytes());
-+        let inner = [0x14, 0, 0x30, 0, 9, 0, 0, 0];
-+
-+        for riv in [in_head0, in_head1, out_head0, out_head1] {
-+            let frame = seal_livemac(&ks, &riv, &header, &inner)?;
-+            assert_eq!(
-+                verify_in_ack(&ks, &out_head0, &frame),
-+                Some((0x14, 0x30, 9))
-+            );
-+            assert_eq!(
-+                decode_in_lenient(&ks, &out_head0, &frame),
-+                Some((0x14, 0x30, 9))
-+            );
-+        }
-+
-+        // Navarro's connector 2/3 HDCP pushes carry the upper half of their one-hot selector at
-+        // inner offsets 6--7. They are authenticated messages, not malformed zero-pad headers.
-+        let selector_push = [0x10, 0, 0x84, 0, 0, 0, 0, 0x80];
-+        let frame = seal_livemac(&ks, &in_head0, &header, &selector_push)?;
-+        assert_eq!(
-+            decode_in_lenient(&ks, &out_head0, &frame),
-+            Some((0x10, 0x84, 0))
-+        );
-+        assert_eq!(
-+            &inner_plaintext(&ks, &out_head0, &frame).unwrap()[..],
-+            &selector_push
-+        );
++    fn identity_transform_builds_nothing() -> Result {
++        // Turning a corrector off programs an identity matrix rather than removing the blob. If
++        // that did not collapse to None the encoder would never regain its direct-scanout path.
++        assert!(ColorPipeline::build(None, None).is_none());
++        let ident = ctm_diag(CTM_ONE, CTM_ONE, CTM_ONE);
++        assert!(ColorPipeline::build(None, Some(&ident)).is_none());
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn stream_content_nonce_matches_golden_vectors() {
-+        // Ridge: each connector's video stream is `0x08 | connector`.
-+        let h0 = stream_content_nonce(&[0xa1, 0x2b, 0xaa, 0xb7, 0x0e, 0x0b, 0x02, 0x74], 0x08);
-+        assert_eq!(h0, [0xa1, 0x2b, 0xaa, 0xb7, 0x0e, 0x0b, 0x02, 0x7c]);
-+
-+        let h1 = stream_content_nonce(&[0xd0, 0x2a, 0xc0, 0x83, 0xb6, 0x42, 0x72, 0x57], 0x09);
-+        assert_eq!(h1, [0xd0, 0x2a, 0xc0, 0x83, 0xb6, 0x42, 0x72, 0x5e]);
-+
-+        // Navarro: the RIV each connector's SKE_Send_Eks delivered, and the AES-CTR nonce the
-+        // dock then expects for that connector's stream.
-+        let riv = [0x7d, 0x2c, 0xb6, 0x6b, 0x2c, 0xd1, 0x75, 0x7c];
-+        let link = stream_content_nonce(&riv, 0x04);
-+        assert_eq!(link, [0x7d, 0x2c, 0xb6, 0x6b, 0x2c, 0xd1, 0x75, 0x78]);
-+
-+        let c0 = stream_content_nonce(&[0xc3, 0x45, 0xfe, 0x55, 0x93, 0x61, 0x39, 0x01], 0x07);
-+        assert_eq!(c0, [0xc3, 0x45, 0xfe, 0x55, 0x93, 0x61, 0x39, 0x06]);
-+
-+        let c1 = stream_content_nonce(&[0x94, 0x46, 0xc8, 0x3d, 0xa5, 0xfa, 0x39, 0xe3], 0x0f);
-+        assert_eq!(c1, [0x94, 0x46, 0xc8, 0x3d, 0xa5, 0xfa, 0x39, 0xec]);
-+    }
-+
-+    #[test]
-+    fn aux_for_id_constants() {
-+        // The CP header `aux` field is a per-inner-id constant, not body_len/4.
-+        assert_eq!(aux_for_id(0x14, 48), 0x0a);
-+        assert_eq!(aux_for_id(0x15, 32), 0x09);
-+        assert_eq!(aux_for_id(0x36, 80), 0x08);
-+        assert_eq!(aux_for_id(0x48, 96), 0x06);
-+        // Cursor message IDs have fixed auxiliary fields; deriving them as `body_len / 4` would
-+        // produce 0x0c for all three.
-+        assert_eq!(aux_for_id(0x1a, 48), 0x04); // cursor move
-+        assert_eq!(aux_for_id(0x1b, 48), 0x03); // cursor create
-+        assert_eq!(aux_for_id(0x1c, 48), 0x02); // cursor image
-+        assert_eq!(aux_for_id(0x99, 40), 10); // unknown id falls back to body_len/4
-+    }
-+
-+    #[test]
-+    fn cp_setup_burst_table_framing() -> Result {
-+        // Pin the post-msg0 `(aux, body_len)` wire profile. `body_len` includes the encrypted
-+        // content and its 16-byte Dl3Cmac tag.
-+        const PER_HEAD_FINGERPRINT: [(u16, usize); 9] = [
-+            (0x0c, 64),
-+            (0x0f, 64),
-+            (0x04, 176),
-+            (0x0c, 64),
-+            (0x0c, 80),
-+            (0x04, 64),
-+            (0x08, 64),
-+            (0x0a, 48),
-+            (0x05, 48),
-+        ];
-+        // Finalization bodies contain 32 bytes of content and a 16-byte tag. Keep one fingerprint
-+        // per step so table growth cannot cause an out-of-bounds test access.
-+        const FINALIZE_FINGERPRINT: [(u16, usize); 3] = [(0x08, 48), (0x09, 48), (0x08, 48)];
-+        // Keep the fingerprint table and the step table in lockstep: growing one without the
-+        // other is exactly the defect above.
-+        build_assert!(FINALIZE_FINGERPRINT.len() == CP_SETUP_FINALIZE_STEPS.len());
-+
-+        let ks = [0x5au8; 16];
-+        let riv = [0x11u8; 8];
-+        for (i, &(id, _sub, content_len)) in CP_SETUP_PER_HEAD.iter().enumerate() {
-+            let content = KVec::from_elem(0u8, content_len, GFP_KERNEL)?;
-+            let frame = seal_interactive(&ks, &riv, id, 0, &content)?;
-+            let (want_aux, want_body) = PER_HEAD_FINGERPRINT[i];
-+            assert_eq!(frame.len(), 16 + want_body);
-+            assert_eq!(u16::from_le_bytes([frame[10], frame[11]]), want_aux);
++    fn identity_gamma_ramp_is_a_no_op() -> Result {
++        // The reason `narrow` divides by 257 and not 256. With the wrong divisor every value above
++        // about 128 came back one level high, so merely *enabling* colour management shifted the
++        // whole image even when the ramp asked for nothing.
++        let mut lut = KVec::new();
++        for i in 0..LUT_LEN {
++            let v = (i * 257) as u16;
++            let _ = lut.push(ColorLut::new(v, v, v), GFP_KERNEL);
 +        }
-+        for (i, &(id, _sub)) in CP_SETUP_FINALIZE_STEPS.iter().enumerate() {
-+            let frame = seal_interactive(&ks, &riv, id, 0, &[0u8; 32])?;
-+            let (want_aux, want_body) = FINALIZE_FINGERPRINT[i];
-+            assert_eq!(frame.len(), 16 + want_body);
-+            assert_eq!(u16::from_le_bytes([frame[10], frame[11]]), want_aux);
++        let p = ColorPipeline::build(Some(&lut), None).ok_or(EINVAL)?;
++        for v in 0..=255u8 {
++            assert_eq!(p.apply(v, v, v), (v, v, v));
 +        }
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn stream_manage_restatement_matches_dlm() -> Result {
-+        // All deterministic fields must match the captured plaintext for both connectors. The
-+        // connector marker is at offset 23, the HDCP message ID at offset 27, and the final three
-+        // u32 fields contain `0`, `1`, and `connector + 8`.
-+        const WANT: [[u8; 40]; 2] = [
-+            [
-+                0x26, 0x00, 0x10, 0x00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x00, 0x00,
-+                0x00, 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-+                0x08, 0x00, 0x00, 0x00,
-+            ],
-+            [
-+                0x26, 0x00, 0x10, 0x00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x00, 0x00,
-+                0x00, 0x02, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-+                0x09, 0x00, 0x00, 0x00,
-+            ],
-+        ];
-+        for connector in 0..2u8 {
-+            // Ridge: the connector is a one-based connector number at offset 23, and the
-+            // content-stream id at offset 36 is 8 for connector 0 and 9 for connector 1.
-+            let c = stream_manage_restatement(0, connector, 8 + u16::from(connector), false)?;
-+            assert_eq!(c.len(), 48);
-+            // Bytes 4..6 are the live counter (passed as 0 here, so already covered); the last
-+            // 8 bytes (offset 40..48) are host-random.
-+            assert_eq!(&c[..40], &WANT[connector as usize][..]);
-+        }
++    fn gamma_only_applies_the_ramp() -> Result {
++        let lut = half_lut();
++        let p = ColorPipeline::build(Some(&lut), None).ok_or(EINVAL)?;
++        assert_eq!(p.apply(0, 0, 0), (0, 0, 0));
++        assert_eq!(p.apply(255, 255, 255), (128, 128, 128));
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn video_arm_burst_table_framing() -> Result {
-+        // Pin every video-arm entry's type, sub-ID, auxiliary value, and body length to captured
-+        // traffic. Head 0 uses the table's base sub-IDs; the builders add one for connector 1. The
-+        // compile-time length check prevents the fixture and production table from drifting.
-+        const FINGERPRINT_H0: [(u32, u16, u16, usize); 10] = [
-+            (2, 0x0008, 0x0000, 16),
-+            (2, 0x0018, 0x0000, 16),
-+            (4, 0x0008, 0x000a, 16),
-+            (4, 0x0018, 0x000a, 16),
-+            (2, 0x0000, 0x0000, 16),
-+            (2, 0x0010, 0x0000, 16),
-+            (4, 0x0000, 0x0004, 16),
-+            (4, 0x0010, 0x0004, 16),
-+            (4, 0x0008, 0x000e, 1104),
-+            (4, 0x0018, 0x000e, 1104),
-+        ];
-+        build_assert!(FINGERPRINT_H0.len() == VIDEO_ARM_BURST.len());
-+        let ks = [0x5au8; 16];
-+        let riv = [0x11u8; 8];
-+        for (i, &(wire_type, sub_base, aux, body_len)) in VIDEO_ARM_BURST.iter().enumerate() {
-+            let (want_type, want_sub, want_aux, want_body) = FINGERPRINT_H0[i];
-+            assert_eq!(
-+                (wire_type, sub_base, aux, body_len),
-+                (want_type, want_sub, want_aux, want_body)
-+            );
-+            if wire_type == 2 {
-+                let body = video_arm_plaintext_body(i, 0);
-+                let frame = video_arm_plain_frame(sub_base, &body);
-+                assert_eq!(frame.len(), 32);
-+                assert_eq!(u16::from_le_bytes([frame[8], frame[9]]), want_sub);
++    fn diagonal_ctm_matches_the_general_matrix() -> Result {
++        // The diagonal fast path exists for speed; if it ever disagreed with the general path the
++        // colour would silently change with the optimisation rather than with the CTM.
++        let fast = ColorPipeline::build(None, Some(&ctm_diag(CTM_ONE, CTM_HALF, CTM_ONE)))
++            .ok_or(EINVAL)?;
++        // The same transform with a real off-diagonal zero-effect term, so it must take the
++        // mixing path. A sub-Q16 term would be truncated to zero and stay on the fast path.
++        let mixed =
++            ColorCtm::from_raw([CTM_ONE, 0, CTM_ONE / 65536, 0, CTM_HALF, 0, 0, 0, CTM_ONE]);
++        let slow = ColorPipeline::build(None, Some(&mixed)).ok_or(EINVAL)?;
++        for v in [0u8, 1, 63, 127, 128, 200, 254, 255] {
++            assert_eq!(fast.apply(v, v, v), slow.apply(v, v, v));
++        }
++        assert_eq!(fast.apply(255, 255, 255), (255, 128, 255));
++        Ok(())
++    }
++
++    #[test]
++    fn mixing_ctm_moves_channels() -> Result {
++        // Swap red and blue: proves the matrix is row-major and applied the way the UAPI documents.
++        let swap = ColorCtm::from_raw([0, 0, CTM_ONE, 0, CTM_ONE, 0, CTM_ONE, 0, 0]);
++        let p = ColorPipeline::build(None, Some(&swap)).ok_or(EINVAL)?;
++        assert_eq!(p.apply(200, 100, 50), (50, 100, 200));
++        Ok(())
++    }
++
++    #[test]
++    fn negative_coefficient_clamps_to_black() -> Result {
++        let p = ColorPipeline::build(None, Some(&ctm_diag(CTM_ONE, CTM_NEG_HALF, CTM_ONE)))
++            .ok_or(EINVAL)?;
++        assert_eq!(p.apply(255, 255, 255), (255, 0, 255));
++        Ok(())
++    }
++
++    #[test]
++    fn out_of_gamut_saturates_instead_of_wrapping() -> Result {
++        // An intermediate above 1.0 must clamp. Wrapping would put the brightest pixels at the
++        // opposite corner of the colour cube -- the failure looks like inverted highlights.
++        let gain4 = ctm_diag(4 * CTM_ONE, 4 * CTM_ONE, 4 * CTM_ONE);
++        let p = ColorPipeline::build(None, Some(&gain4)).ok_or(EINVAL)?;
++        assert_eq!(p.apply(200, 100, 255), (255, 255, 255));
++        assert_eq!(p.apply(0, 0, 0), (0, 0, 0));
++        Ok(())
++    }
++
++    #[test]
++    fn short_lut_extends_with_identity_not_black() -> Result {
++        // A LUT blob shorter than the advertised size must not leave the tail at zero, which would
++        // render everything above the truncation point black.
++        let mut lut = KVec::new();
++        for i in 0..4usize {
++            let v = (i * 257) as u16;
++            let _ = lut.push(ColorLut::new(v, v, v), GFP_KERNEL);
++        }
++        let p = ColorPipeline::build(Some(&lut), None).ok_or(EINVAL)?;
++        assert_eq!(p.apply(255, 255, 255), (255, 255, 255));
++        Ok(())
++    }
++
++    #[test]
++    fn transform_change_changes_the_strip_cache_tag() -> Result {
++        // The encoded-strip cache keys on source pixels, so a transform change that leaves the
++        // pixels alone must still invalidate it or the whole screen keeps its old colours.
++        let a = ColorPipeline::build(None, Some(&ctm_diag(CTM_ONE, CTM_HALF, CTM_ONE)))
++            .ok_or(EINVAL)?;
++        let b = ColorPipeline::build(None, Some(&ctm_diag(CTM_HALF, CTM_ONE, CTM_ONE)))
++            .ok_or(EINVAL)?;
++        assert_ne!(a.tag(), b.tag());
++        // `assert!` rather than `assert_ne!`: the latter needs `Debug`, and deriving it on a type
++        // holding 768-entry tables is code the driver would carry purely for one test message.
++        assert!(a != b);
++        Ok(())
++    }
++}
+diff --git a/drivers/gpu/drm/vino/cp.rs b/drivers/gpu/drm/vino/cp.rs
+index 0afbf64974db..24a739654db6 100644
+--- a/drivers/gpu/drm/vino/cp.rs
++++ b/drivers/gpu/drm/vino/cp.rs
+@@ -1492,8 +1492,8 @@ fn navarro_pipe_descriptor_matches_authenticated_capture() -> Result {
+ 
+         // The decoder configuration is the same message Ridge sends, with the DL7400's layout word.
+         let tail = [0x5a; 14];
+-        let header = video_arm::mode_header(2560, 1440, 0x2100);
+-        let config = video_arm::build_config(video_arm::CodeTables::Wide, &header, &tail)?;
++        let header = video_arm::mode_header(2560, 1440, 0x2100, false);
++        let config = video_arm::build_config(video_arm::CodeTables::Wide, &header, &tail, false)?;
+         assert_eq!(config.len(), 1104);
+         assert_eq!(
+             &config[..26],
+@@ -1545,8 +1545,8 @@ fn ella_stream_records_match_the_captured_bytes() -> Result {
+ 
+         // The decoder configuration, in full. 1920x1080 is stated as 1088 lines: the surface the
+         // dock is told about is the padded one the codec actually produces.
+-        let header = video_arm::mode_header(1920, 1088, 0x1800);
+-        let config = video_arm::build_config(video_arm::CodeTables::Narrow, &header, &[])?;
++        let header = video_arm::mode_header(1920, 1088, 0x1800, false);
++        let config = video_arm::build_config(video_arm::CodeTables::Narrow, &header, &[], false)?;
+         assert_eq!(config.len(), 304);
+         assert_eq!(
+             &config[..26],
+diff --git a/drivers/gpu/drm/vino/video.rs b/drivers/gpu/drm/vino/video.rs
+new file mode 100644
+index 000000000000..5ee4eef2f83a
+--- /dev/null
++++ b/drivers/gpu/drm/vino/video.rs
+@@ -0,0 +1,436 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! DisplayLink full-colour video encoder and framing.
++
++use super::*;
++
++/// Pack 8-bit RGB into RGB565.
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++pub(crate) fn rgb565(r: u8, g: u8, b: u8) -> u16 {
++    ((r as u16 >> 3) << 11) | ((g as u16 >> 2) << 5) | (b as u16 >> 3)
++}
++
++/// DisplayLink's 8x8 multilevel Haar codec and 64x16 strip grammar.
++pub(crate) mod haar {
++    mod records;
++    mod strip;
++    mod transform;
++
++    pub(crate) use records::*;
++    pub(crate) use strip::*;
++    pub(crate) use transform::*;
++
++    use super::*;
++
++    /// Per-coefficient `(shift, bias)` quantization parameters.
++    ///
++    /// All steps are powers of two. Arithmetic right shift therefore implements the required floor
++    /// division for both positive and negative coefficients without an integer division.
++    const fn step_bias(i: usize) -> (u32, i32) {
++        match i {
++            0 => (4, 8),
++            1 | 2 => (4, 8),
++            3 => (5, 16),
++            4..=11 => (2, 2),
++            12..=15 => (3, 4),
++            16..=47 => (1, 0),
++            _ => (2, 2), // 48..=63
++        }
++    }
++
++    /// [`step_bias`] and the chroma-AC shift, resolved for every coefficient at compile time.
++    ///
++    /// Both are pure functions of the coefficient index over only 64 inputs, but they were being
++    /// evaluated per coefficient -- 64 times per plane, three planes per block, sixteen blocks per
++    /// strip. Profiling `colour_block` found the resulting range-test chains dominating it: 190
++    /// compare and branch instructions against 61 arithmetic ones. A table turns each into a load.
++    static STEP_BIAS: [(u32, i32); COEFFS] = {
++        let mut t = [(0u32, 0i32); COEFFS];
++        let mut i = 0;
++        while i < COEFFS {
++            t[i] = step_bias(i);
++            i += 1;
++        }
++        t
++    };
++
++    static CHROMA_AC_SHIFT: [u32; COEFFS] = {
++        let mut t = [0u32; COEFFS];
++        let mut i = 0;
++        while i < COEFFS {
++            t[i] = if matches!(i, 1 | 2 | 4..=11) {
++                4
++            } else if i >= 48 {
++                6
 +            } else {
-+                let content = KVec::from_elem(0u8, body_len, GFP_KERNEL)?;
-+                let frame = seal_video_arm(&ks, &riv, sub_base, aux, 0, &content)?;
-+                assert_eq!(frame.len(), 16 + body_len + 16);
-+                assert_eq!(u16::from_le_bytes([frame[8], frame[9]]), want_sub);
-+                assert_eq!(u16::from_le_bytes([frame[10], frame[11]]), want_aux);
-+            }
++                5
++            };
++            i += 1;
 +        }
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn navarro_stream_open_matches_the_wire() -> Result {
-+        // The connector lives solely in the wire sub, never in the content: all four connectors
-+        // send the same marker, followed by a two-byte opaque tail.
-+        let open = navarro_stream_open();
-+        assert_eq!(open.len(), 16);
-+        assert_eq!(open[..14], NAVARRO_STREAM_MARKER);
-+
-+        // Sealing it produces the 48-byte frame the dock is sent: a 16-byte header, the 16-byte
-+        // ciphertext and a 16-byte Dl3Cmac, with `size` covering all but the first four bytes.
-+        let frame = seal_video_arm(&[0u8; 16], &[0u8; 8], 0x0007, 0x0002, 0, &open)?;
-+        assert_eq!(frame.len(), 48);
-+        assert_eq!(u16::from_le_bytes([frame[2], frame[3]]), 0x002c);
-+        assert_eq!(u16::from_le_bytes([frame[8], frame[9]]), 0x0007);
-+        assert_eq!(u16::from_le_bytes([frame[10], frame[11]]), 0x0002);
-+        Ok(())
-+    }
-+
-+    /// Where each message stops meaning something and starts being filler.
-+    ///
-+    /// This boundary is the one that has actually cost hardware runs: the DL-3x00 cold-activation
-+    /// gate was a random tail that began one byte early and buried the `0x16/0x23` connector
-+    /// selector at offset 23, and nothing on the wire says no -- the dock acknowledges the message
-+    /// either way and simply does not act on it. Every class below is checked against the vendor's
-+    /// own corpus, where a byte the vendor varies over two or three values is a field and a byte it
-+    /// varies uniformly is filler.
-+    ///
-+    /// Asserts the structured prefix and the total length. The tail itself cannot be asserted,
-+    /// which is exactly why its start offset has to be.
-+    #[test]
-+    fn random_tails_begin_where_the_vendor_stops_meaning_something() -> Result {
-+        // `0x14/0x0c`: nothing after the header; the tail is the whole of offsets 22..32.
-+        let poll = device_query_req(0x1234, 0x000c)?;
-+        assert_eq!(poll.len(), 32);
-+        assert!(poll[8..22].iter().all(|&b| b == 0));
-+
-+        // `0x16/0x2e` and `0x16/0x2f`: connector at 22, state at 23, tail from 24. The vendor's
-+        // corpus shows exactly two values at each -- connector, and the sink state.
-+        for (sub, state) in [(0x2eu16, 3u8), (0x2e, 0), (0x2f, 1), (0x2f, 0)] {
-+            for connector in 0..2u8 {
-+                let m = stream_marker(0x1234, connector, sub, state)?;
-+                assert_eq!(m.len(), 32);
-+                assert!(m[8..22].iter().all(|&b| b == 0));
-+                assert_eq!(m[22], connector);
-+                assert_eq!(m[23], state);
-+            }
-+        }
-+
-+        // `0x15/0x20` and `0x15/0x21`: connector at 22 alone, tail from 23.
-+        for sub in [0x20u16, 0x21] {
-+            for connector in 0..2u8 {
-+                let m = cp::get_edid_req_sub(0x1234, sub, connector)?;
-+                assert_eq!(m.len(), 32);
-+                assert_eq!(m[22], connector);
-+            }
-+        }
-+
-+        // `0x16/0x23`: the one that was wrong. Both bytes are selectors, and a tail that starts
-+        // at 22 instead of 24 silently disables the downstream sink enable.
-+        for connector in 0..2u8 {
-+            let m = cp::edid_engage_req(0x1234, connector)?;
-+            assert_eq!(m.len(), 32);
-+            assert_eq!(m[22], connector);
-+            assert_eq!(m[23], connector);
-+        }
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn stream_marker_routes_the_selected_head() -> Result {
-+        let h0 = stream_marker(0x1234, 0, 0x2f, 1)?;
-+        let h1 = stream_marker(0x1235, 1, 0x2e, 3)?;
-+        assert_eq!(&h0[0..6], &[0x16, 0, 0x2f, 0, 0x34, 0x12]);
-+        assert_eq!(&h0[22..24], &[0, 1]);
-+        assert_eq!(&h1[0..6], &[0x16, 0, 0x2e, 0, 0x35, 0x12]);
-+        assert_eq!(&h1[22..24], &[1, 3]);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn navarro_pipe_descriptor_matches_authenticated_capture() -> Result {
-+        // Slot ids and the three dock-side addresses of every record, for both connectors of the
-+        // authenticated capture.
-+        for (connector, slots) in [
-+            (
-+                0u8,
-+                [
-+                    (0x0000u16, 0x6fccu32, 0x71fb_9000u32, 0x7216_6000u32),
-+                    (0x0001, 0x6db0, 0x71fb_4000, 0x7215_e000),
-+                    (0x0002, 0x6b94, 0x71fa_f000, 0x7215_6000),
-+                    (0x0003, 0x6978, 0x71fa_a000, 0x7214_e000),
-+                    (0x0004, 0x675c, 0x71fa_5000, 0x7214_6000),
-+                    (0x0005, 0x6540, 0x71fa_0000, 0x7213_e000),
-+                ],
-+            ),
-+            (
-+                1u8,
-+                [
-+                    (0x0008, 0x5eec, 0x71f9_b000, 0x7213_6000),
-+                    (0x0009, 0x5cd0, 0x71f9_6000, 0x7212_e000),
-+                    (0x000a, 0x5ab4, 0x71f9_1000, 0x7212_6000),
-+                    (0x000b, 0x5898, 0x71f8_c000, 0x7211_e000),
-+                    (0x000c, 0x567c, 0x71f8_7000, 0x7211_6000),
-+                    (0x000d, 0x5460, 0x71f8_2000, 0x7210_e000),
-+                ],
-+            ),
-+        ] {
-+            let descriptor = navarro_pipe_descriptor(connector)?;
-+            assert_eq!(descriptor.len(), 304);
-+            // The marker is present twice before the slot records; 14 + 14 + 6 * 46 = 304. Assert
-+            // both copies, so the records are read from 28 rather than from the second marker.
-+            assert_eq!(&descriptor[..14], &NAVARRO_STREAM_MARKER);
-+            assert_eq!(&descriptor[14..28], &NAVARRO_STREAM_MARKER);
-+            for (index, &(slot, ring, plane0, plane1)) in slots.iter().enumerate() {
-+                let at = 28 + index * 46;
-+                assert_eq!(&descriptor[at..at + 4], &[0x2c, 0x00, 0x0e, 0x00]);
-+                assert_eq!(
-+                    u16::from_le_bytes([descriptor[at + 4], descriptor[at + 5]]),
-+                    slot
-+                );
-+                let cfg = &descriptor[at + 6..at + 46];
-+                let word =
-+                    |o: usize| u32::from_le_bytes([cfg[o], cfg[o + 1], cfg[o + 2], cfg[o + 3]]);
-+                assert_eq!(word(12), ring);
-+                assert_eq!(word(18), plane0);
-+                assert_eq!(word(26), plane1);
-+            }
-+        }
-+
-+        // The decoder configuration is the same message Ridge sends, with the DL7400's layout word.
-+        let tail = [0x5a; 14];
-+        let header = video_arm::mode_header(2560, 1440, 0x2100);
-+        let config = video_arm::build_config(video_arm::CodeTables::Wide, &header, &tail)?;
-+        assert_eq!(config.len(), 1104);
-+        assert_eq!(
-+            &config[..26],
-+            &[
-+                0x18, 0x00, 0x0b, 0x03, 0x04, 0x02, 0x02, 0x00, 0x02, 0x00, 0x00, 0x0a, 0xa0, 0x05,
-+                0x00, 0x21, 0x02, 0x00, 0x00, 0x0a, 0xa0, 0x05, 0x00, 0x21, 0x00, 0x00,
-+            ]
-+        );
-+        assert_eq!(&config[1090..], &tail);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn ella_stream_records_match_the_captured_bytes() -> Result {
-+        // The three records that open a DL-3x00 stream, each pinned to the bytes DLM sends. A
-+        // stream opened with any of them wrong is a stream the dock accepts every frame of and
-+        // presents none of, with nothing on the wire to say so -- so these are checked here rather
-+        // than on hardware, where each attempt costs a replug.
-+        let geometry = video::haar::Geometry::new(8, true, false, 0, 0x08, 3);
-+
-+        // Announcing the content stream, then the video plane. Both connectors, both markers.
-+        for (connector, stream, plane) in [(0u8, 0x08u16, 0x00u16), (1, 0x09, 0x01)] {
-+            let announce = stream_announce(stream, STREAM_ANNOUNCE_MARKER);
-+            assert_eq!(geometry.stream_id(connector), stream);
-+            assert_eq!(
-+                &announce[..12],
-+                &[0, 0, 0x1c, 0, 2, 0, 0, 0, stream as u8, 0, 0, 0]
-+            );
-+            assert_eq!(&announce[16..20], &[stream as u8, 0, 6, 0]);
-+            assert_eq!(announce[20..], [0u8; 12]);
-+
-+            let announce = stream_announce(plane, 0);
-+            assert_eq!(u16::from(geometry.connector_selector(connector)), plane);
-+            assert_eq!(
-+                &announce[..12],
-+                &[0, 0, 0x1c, 0, 2, 0, 0, 0, plane as u8, 0, 0, 0]
-+            );
-+            assert_eq!(
-+                announce[16..],
-+                [plane as u8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-+            );
-+        }
-+
-+        // The sealed open. Only the first six bytes are fixed; the rest is a host-random token
-+        // that the Dl3Cmac covers, so its length is what matters.
-+        let open = stream_open(0x01);
-+        assert_eq!(open.len(), 16);
-+        assert_eq!(&open[..6], &[0x04, 0x00, 0x08, 0x04, 0x01, 0x00]);
-+
-+        // The decoder configuration, in full. 1920x1080 is stated as 1088 lines: the surface the
-+        // dock is told about is the padded one the codec actually produces.
-+        let header = video_arm::mode_header(1920, 1088, 0x1800);
-+        let config = video_arm::build_config(video_arm::CodeTables::Narrow, &header, &[])?;
-+        assert_eq!(config.len(), 304);
-+        assert_eq!(
-+            &config[..26],
-+            &[
-+                0x18, 0x00, 0x0b, 0x03, 0x04, 0x02, 0x02, 0x00, 0x02, 0x00, 0x80, 0x07, 0x40, 0x04,
-+                0x00, 0x18, 0x02, 0x00, 0x80, 0x07, 0x40, 0x04, 0x00, 0x18, 0x00, 0x00,
-+            ]
-+        );
-+        assert_eq!(
-+            &config[26..],
-+            &[
-+                0x28, 0x00, 0x09, 0x00, 0x12, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
-+                0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x20, 0x00,
-+                0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x02,
-+                0x2c, 0x00, 0x09, 0x01, 0x14, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
-+                0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x20, 0x00,
-+                0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
-+                0x00, 0x02, 0x00, 0x04, 0x2c, 0x00, 0x09, 0x02, 0x14, 0x00, 0x01, 0x00, 0x00, 0x00,
-+                0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x10, 0x00,
-+                0x00, 0x00, 0x20, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00,
-+                0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x04, 0x16, 0x00, 0x09, 0x03, 0x09, 0x00,
-+                0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00,
-+                0x0f, 0x00, 0x02, 0x00, 0x22, 0x00, 0x09, 0x04, 0x0f, 0x00, 0x01, 0x00, 0x00, 0x00,
-+                0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x10, 0x00,
-+                0x00, 0x00, 0x20, 0x00, 0x00, 0x00, 0x40, 0x00, 0x7f, 0x00, 0x02, 0x00, 0x52, 0x00,
-+                0x0a, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x40, 0x00, 0x40, 0x00, 0x10, 0x00,
-+                0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x20, 0x00,
-+                0x20, 0x00, 0x20, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x10, 0x00, 0x10, 0x00,
-+                0x04, 0x00, 0x10, 0x00, 0x10, 0x00, 0x04, 0x00, 0x20, 0x00, 0x20, 0x00, 0x08, 0x00,
-+                0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x20, 0x00, 0x20, 0x00, 0x02, 0x00, 0x20, 0x00,
-+                0x20, 0x00, 0x02, 0x00, 0x40, 0x00, 0x40, 0x00, 0x04, 0x00, 0x00, 0x00,
-+            ]
-+        );
-+
-+        // The per-frame report on this dock is the mode header and a six-byte token, nothing else.
-+        let report = stream_report_mode_only(&header);
-+        assert_eq!(report.len(), 32);
-+        assert_eq!(&report[..26], &header);
-+        Ok(())
-+    }
-+}
-diff --git a/drivers/gpu/drm/vino/cp/cursor.rs b/drivers/gpu/drm/vino/cp/cursor.rs
-new file mode 100644
-index 000000000000..036aa66239ba
---- /dev/null
-+++ b/drivers/gpu/drm/vino/cp/cursor.rs
-@@ -0,0 +1,158 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! The dock-composited cursor.
-+//!
-+//! A cursor image is one control message carrying the whole 64x64 premultiplied bitmap. Only a
-+//! dock with a video pipe of its own is offered the plane; where control and pixels share an
-+//! endpoint the vendor sends no cursor message at all and draws the pointer into the frame.
-+
-+use super::*;
-+
-+/// The dock's connector id at off22 of every cursor message, indexed by vino's connector number.
-+///
-+/// Cursor wire layout (sec 8.6.1). All three messages share the 32-byte inner header built by
-+/// [`cursor_header`], with the connector selector at off22 and a flag at off23.
-+///
-+/// The selector is a connector bitmask, `1 << connector`; the dock numbers its connectors from one,
-+/// so `0` is never valid. The two measured entries were `[0x01, 0x02]`, which is both `1 <<
-+/// connector` and `connector + 1`, so they do not distinguish the two readings. They diverge from
-+/// connector 2 on, and a connector sent `connector + 1` draws no cursor.
-+fn cursor_head_id(connector: u8) -> Result<u8> {
-+    if usize::from(connector) >= crate::drm_sink::MAX_CONNECTORS {
-+        return Err(EINVAL);
-+    }
-+    Ok(1u8 << connector)
-+}
-+/// Common prologue of the cursor messages: the dock-side connector id at offset 22 and the
-+/// visibility flag at offset 23.
-+fn cursor_header(
-+    b: &mut KVec<u8>,
-+    id: u16,
-+    sub: u16,
-+    counter: u16,
-+    dock_connector: u8,
-+    visible: u8,
-+) -> Result {
-+    header(b, id, sub, counter)?;
-+    pad_to(b, 22)?;
-+    b.push(dock_connector, GFP_KERNEL)?;
-+    b.push(visible, GFP_KERNEL)?;
-+    Ok(())
-+}
-+/// cursor create: `id=0x1b sub=0x42`, advertises `w x h`. Sent once per bitmap geometry.
-+pub(crate) fn cursor_create(counter: u16, connector: u8, w: u16, h: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    let dock_connector = cursor_head_id(connector)?;
-+    cursor_header(&mut b, 0x1b, 0x42, counter, dock_connector, CURSOR_HIDDEN)?;
-+    b.extend_from_slice(&w.to_le_bytes(), GFP_KERNEL)?; // off24..25
-+    b.extend_from_slice(&h.to_le_bytes(), GFP_KERNEL)?; // off26..27
-+    pad_to(&mut b, 32)?; // off28..31 reserved
-+    Ok(b)
-+}
-+/// cursor move: `id=0x1a sub=0x43`, X at off24 and Y at off26 (LE), for one connector.
-+pub(crate) fn cursor_move(
-+    counter: u16,
-+    connector: u8,
-+    x: u16,
-+    y: u16,
-+    visible: bool,
-+) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    let dock_connector = cursor_head_id(connector)?;
-+    let visible_flag = if visible {
-+        CURSOR_VISIBLE
-+    } else {
-+        CURSOR_HIDDEN
++        t
 +    };
-+    cursor_header(&mut b, 0x1a, 0x43, counter, dock_connector, visible_flag)?;
-+    b.extend_from_slice(&x.to_le_bytes(), GFP_KERNEL)?; // off24..25
-+    b.extend_from_slice(&y.to_le_bytes(), GFP_KERNEL)?; // off26..27
-+    pad_to(&mut b, 32)?; // off28..31 reserved
-+    Ok(b)
-+}
-+/// cursor image: inner `id=0x401c sub=0x41` (the `0x40` high-byte flag marks the bitmap-bearing
-+/// message), a 32-byte header then the bitmap. `w`/`h` come from [`cursor_create`].
-+///
-+/// Pixels are DRM `ARGB8888` (`[B, G, R, A]`, premultiplied) and start at off34: off32..33 are
-+/// zero and the final pixel is truncated, so the message stays `32 + w*h*4` bytes.
-+pub(crate) fn cursor_image(
-+    counter: u16,
-+    connector: u8,
-+    w: u16,
-+    h: u16,
-+    bgra: &[u8],
-+) -> Result<KVec<u8>> {
-+    // `w*h*4` can wrap a 32-bit `usize` (max ~1.7e10 > u32::MAX), which would let an
-+    // undersized `bgra` pass the check; compute it with checked arithmetic so an
-+    // overflow is rejected as a mismatch rather than silently bypassing validation.
-+    let expected = (w as usize)
-+        .checked_mul(h as usize)
-+        .and_then(|n| n.checked_mul(4));
-+    if expected != Some(bgra.len()) {
-+        return Err(EINVAL);
++
++    /// Quantize coefficient `coeff` at position `i`: `sign(coeff) * floor((|coeff| + bias) / step)`
++    /// and clamp it to the 12-bit signed long-token range.
++    pub(crate) fn quantize(coeff: i32, i: usize) -> i32 {
++        let (shift, bias) = STEP_BIAS[i];
++        // Coarse bands round half-up on the signed value; the finest bands truncate towards zero.
++        let q = if bias == 0 {
++            let q = coeff.abs() >> shift;
++            if coeff < 0 {
++                -q
++            } else {
++                q
++            }
++        } else {
++            (coeff + bias) >> shift
++        };
++        q.clamp(-2048, 2047)
 +    }
-+    let mut b = KVec::with_capacity(32 + bgra.len(), GFP_KERNEL)?;
-+    let dock_connector = cursor_head_id(connector)?;
-+    cursor_header(&mut b, 0x401c, 0x41, counter, dock_connector, CURSOR_HIDDEN)?;
-+    pad_to(&mut b, 32)?; // off24..31 zero (no w/h here)
-+    b.extend_from_slice(&[0, 0], GFP_KERNEL)?; // off32..33
-+    b.extend_from_slice(&bgra[..bgra.len() - 2], GFP_KERNEL)?; // pixels @ off34
-+    Ok(b)
++
++    // The AC ceilings deliberately do not vary with depth. The DC one has to, because a DC is a
++    // direct multiple of the sample and 10-bit content immediately overflows category 10. No
++    // capture shows an AC ceiling above 8-bit's: the largest luma AC coefficient measured on
++    // 10-bit content is |273|, comfortably inside category 9, because the host tone-maps to the
++    // sink's peak luminance before the codec sees it. Guessing upward is the unsafe direction --
++    // `esc` saturates a magnitude whose category exceeds the ceiling, so an under-sized ceiling
++    // clips extreme AC detail while an over-sized one desynchronises the dock. Raise these only
++    // against a capture that needs them.
++
++    // Colour strip codec (Cb/Cr planes).
++    //
++    // Per block the 3 planes are (Cr=64*(B-G), Cb=64*(R-G), Y=64*G + 64*((Cb+Cr)>>2)).
++    //  * SYNC unit = [Cr field][Cb field][Y field]; chroma fields present only when last>0
++    //    (the per-block plane mask), Y field always present (luma `sync_unit`).
++    //  * DC plane = 16-block DPCM (Cr,Cb,Y), 3 tokens/block, chroma step 64 / luma step 16,
++    //    round-half-up on the signed value.
++    //  * AC rows (row0 blocks 0..8, row1 8..16): per block (Cr,Cb,Y) present planes, chroma
++    //    quant flat step 16 (truncate toward zero), positions 1..last, run-bit `0` for zeros.
++    //  * Strip length = w1c + round_even(row1) (the 2-byte tail overlaps row1's tail).
++
++    /// Encode a full `width`x`height` RGB frame into Haar colour records. `px(x, y)` yields the
++    /// source pixel's `(R, G, B)`; the caller applies rotation, gamma and format conversion. The
++    /// surface is tiled into 64x16 strips in raster order, each built from [`colour_block`] +
++    /// [`colour_strip`], and the strip stream is framed for the wire by [`frame_records`] using
++    /// the EP08 TLV layout. The frame counter belongs to the records that name a ring slot, not
++    /// here.
++    ///
++    /// `width`/`height` must be multiples of 64 and 16 (`EINVAL` otherwise). Live scanout pads a
++    /// non-aligned mode with black to this strip grid while preserving the real mode dimensions.
++    /// This function remains out of line to bound kernel stack use.
++    #[inline(never)]
++    pub(crate) fn colour_frame_ep08(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++        mut px: impl FnMut(usize, usize) -> (u16, u16, u16),
++    ) -> Result<KVec<KVec<u8>>> {
++        colour_frame_ep08_variant(geometry, width, height, connector, None, &mut px)
++    }
++
++    /// Encode a full live Navarro frame using the ordinary-frame producer permutation measured
++    /// from DLM. The first ordinary band is y=8, not y=0, and the captured worker boundaries are
++    /// part of the record grammar for a 2560x1440 surface.
++    pub(crate) fn colour_frame_ep08_navarro_ordinary(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++        mut px: impl FnMut(usize, usize) -> (u16, u16, u16),
++    ) -> Result<KVec<KVec<u8>>> {
++        colour_frame_ep08_variant(geometry, width, height, connector, Some(true), &mut px)
++    }
++
++    fn colour_frame_ep08_variant(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++        navarro_ordinary: Option<bool>,
++        px: &mut impl FnMut(usize, usize) -> (u16, u16, u16),
++    ) -> Result<KVec<KVec<u8>>> {
++        if width & (geometry.strip_w() - 1) != 0 || height & (geometry.strip_h() - 1) != 0 {
++            return Err(kernel::error::code::EINVAL);
++        }
++        // Build every strip body (raster order; each strip's natural row1 tail, no echo).
++        let mut strips: KVec<KVec<u8>> = KVec::new();
++        let mut sy = 0usize;
++        while sy < height {
++            let mut sx = 0usize;
++            while sx < width {
++                let blocks = colour_strip_blocks(geometry, sx, sy, px)?;
++                strips.push(
++                    colour_strip(geometry, &blocks, sx as u16, sy as u16)?,
++                    GFP_KERNEL,
++                )?;
++                sx += geometry.strip_w();
++            }
++            sy += geometry.strip_h();
++        }
++        frame_records_with_boundary(
++            geometry,
++            &strips,
++            connector,
++            navarro_ordinary.filter(|_| strips.len() == 3600),
++        )
++    }
++
++    /// Build a valid all-black Haar frame without sampling or transforming a framebuffer.
++    ///
++    /// This is the post-mode-set training carrier. Its zero-coefficient blocks are built once and
++    /// reused, so construction is proportional to the strip grid rather than the pixel count. A
++    /// real framebuffer keyframe follows.
++    pub(crate) fn black_frame_ep08(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++    ) -> Result<KVec<KVec<u8>>> {
++        black_frame_ep08_variant(geometry, width, height, connector, Some(false))
++    }
++
++    /// Build the ordinary Navarro black carrier which follows the prologue frame.
++    ///
++    /// DLM's ordinary 2560x1440 carriers contain the same 201600 bytes of strip payload as the
++    /// prologue, but split them across 53 image records rather than 52. Its additional boundary is
++    /// after strip 2804, making the complete frame 208624 bytes. Navarro accepts vino's 208608-byte
++    /// second frame and then NAKs the first transfer of frame three, so this distinction is part of
++    /// the producer grammar rather than harmless USB chunking.
++    pub(crate) fn black_frame_ep08_ordinary(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++    ) -> Result<KVec<KVec<u8>>> {
++        black_frame_ep08_variant(geometry, width, height, connector, Some(true))
++    }
++
++    fn black_frame_ep08_variant(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++        navarro_ordinary: Option<bool>,
++    ) -> Result<KVec<KVec<u8>>> {
++        if width & (geometry.strip_w() - 1) != 0 || height & (geometry.strip_h() - 1) != 0 {
++            return Err(kernel::error::code::EINVAL);
++        }
++        let mut blocks: KVec<ColourBlock> = KVec::with_capacity(STRIP_BLOCKS, GFP_KERNEL)?;
++        for _ in 0..STRIP_BLOCKS {
++            blocks.push(
++                ColourBlock {
++                    qcr: [0; COEFFS],
++                    qcb: [0; COEFFS],
++                    qy: [0; COEFFS],
++                    lcr: 0,
++                    lcb: 0,
++                    ly: 0,
++                },
++                GFP_KERNEL,
++            )?;
++        }
++        let mut strips: KVec<KVec<u8>> = KVec::new();
++        let mut sy = 0usize;
++        while sy < height {
++            let mut sx = 0usize;
++            while sx < width {
++                strips.push(
++                    colour_strip(geometry, &blocks, sx as u16, sy as u16)?,
++                    GFP_KERNEL,
++                )?;
++                sx += geometry.strip_w();
++            }
++            sy += geometry.strip_h();
++        }
++        frame_records_with_boundary(geometry, &strips, connector, navarro_ordinary)
++    }
++
++    /// The raster-ordered top-left coordinate of every strip a damage set selects.
++    ///
++    /// Split out of [`colour_frame_ep08_damage`] so the serial and parallel encoders select
++    /// exactly the same strips in exactly the same order. The order is load-bearing:
++    /// [`frame_records`] groups strips into one record per single-Y band and requires them
++    /// x-ordered within each band, so reordering here changes the wire format.
++    ///
++    /// A strip is selected when a clip overlaps its 256x64 macro-tile. Every strip in a touched
++    /// tile is resent.
++    pub(crate) fn damage_strip_coords(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        clips: &[(usize, usize, usize, usize)],
++    ) -> Result<KVec<(usize, usize)>> {
++        let mut coords: KVec<(usize, usize)> = KVec::new();
++        let (mw, mh) = (geometry.macro_w(), geometry.macro_h());
++        let mut sy = 0usize;
++        while sy < height {
++            let mut sx = 0usize;
++            while sx < width {
++                let mx = sx & !(mw - 1);
++                let my = sy & !(mh - 1);
++                let hit = clips
++                    .iter()
++                    .any(|&(x0, y0, x1, y1)| mx < x1 && x0 < mx + mw && my < y1 && y0 < my + mh);
++                if hit {
++                    coords.push((sx, sy), GFP_KERNEL)?;
++                }
++                sx += geometry.strip_w();
++            }
++            sy += geometry.strip_h();
++        }
++        Ok(coords)
++    }
++
++    /// Every strip of a full frame, in the same raster order as [`damage_strip_coords`].
++    pub(crate) fn all_strip_coords(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++    ) -> Result<KVec<(usize, usize)>> {
++        let mut coords: KVec<(usize, usize)> = KVec::new();
++        let mut sy = 0usize;
++        while sy < height {
++            let mut sx = 0usize;
++            while sx < width {
++                coords.push((sx, sy), GFP_KERNEL)?;
++                sx += geometry.strip_w();
++            }
++            sy += geometry.strip_h();
++        }
++        Ok(coords)
++    }
++
++    /// Damage-aware variant of [`colour_frame_ep08`]. It encodes only the macro-tiles selected by
++    /// the client damage rectangles.
++    ///
++    /// `clips` are `(x0, y0, x1, y1)` half-open rectangles in output/source pixels (identity
++    /// rotation only -- the caller sends a full [`colour_frame_ep08`] otherwise). A strip at
++    /// `(sx, sy)` is included iff some clip overlaps
++    /// `[sx, sx+strip_w()) x [sy, sy+strip_h())`. Raster iteration keeps strips
++    /// x-ordered within each y-band, so [`frame_records`] groups them as the
++    /// full-frame path does. Returns an empty frame list when no strip is
++    /// touched -- the caller must skip the USB write in that case (no-op
++    /// flip). The first frame after a mode-set must still be a full
++    /// keyframe (the dock's framebuffer is undefined until then).
++    ///
++    /// This function remains out of line for the same stack bound as [`colour_frame_ep08`].
++    #[inline(never)]
++    pub(crate) fn colour_frame_ep08_damage(
++        geometry: Geometry,
++        width: usize,
++        height: usize,
++        connector: u8,
++        clips: &[(usize, usize, usize, usize)],
++        mut px: impl FnMut(usize, usize) -> (u16, u16, u16),
++    ) -> Result<KVec<KVec<u8>>> {
++        if width & (geometry.strip_w() - 1) != 0 || height & (geometry.strip_h() - 1) != 0 {
++            return Err(kernel::error::code::EINVAL);
++        }
++        let coords = damage_strip_coords(geometry, width, height, clips)?;
++        let mut strips: KVec<KVec<u8>> = KVec::with_capacity(coords.len(), GFP_KERNEL)?;
++        for &(sx, sy) in coords.iter() {
++            let blocks = colour_strip_blocks(geometry, sx, sy, &mut px)?;
++            strips.push(
++                colour_strip(geometry, &blocks, sx as u16, sy as u16)?,
++                GFP_KERNEL,
++            )?;
++        }
++        frame_records(geometry, &strips, connector)
++    }
++
++    // Exact producer completion order from DLM's authenticated 2560x1440 cold capture. Navarro
++    // stops draining immediately after vino's first ordering mismatch, at strip 300. Rows alone
++    // encode almost the whole permutation; the handful of split rows below are worker boundaries.
 +}
 +
 +#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_cp_cursor)]
++#[kunit_tests(vino_video)]
 +mod tests {
 +    use super::*;
 +
 +    #[test]
-+    fn cursor_messages_structure() -> Result {
-+        // Shared 32-byte cursor layout: the dock's connector selector at 22, the visible flag at
-+        // 23, and two little-endian u16 fields at 24 and 26. Check the selector against more than
-+        // one connector: `1 << connector` and a fixed byte agree for a single connector and diverge
-+        // past it. Create (connector 0): id=0x1b sub=0x42, fields = w,h. An upload is not a show,
-+        // so hidden.
-+        let c = cursor_create(7, 0, 64, 64)?;
-+        assert_eq!(c.len(), 32);
-+        assert_eq!(&c[0..6], &[0x1b, 0x00, 0x42, 0x00, 0x07, 0x00]); // id, sub, counter (LE)
-+        assert_eq!(c[22], 0x01); // connector 0 -> dock connector 1
-+        assert_eq!(c[23], 0x00); // not visible
-+        assert_eq!(u16::from_le_bytes([c[24], c[25]]), 64); // width
-+        assert_eq!(u16::from_le_bytes([c[26], c[27]]), 64); // height
++    fn rgb565_packing() {
++        assert_eq!(rgb565(0xff, 0x00, 0x00), 0xf800);
++        assert_eq!(rgb565(0x00, 0xff, 0x00), 0x07e0);
++        assert_eq!(rgb565(0x00, 0x00, 0xff), 0x001f);
++    }
 +
-+        // Move (connector 1): id=0x1a sub=0x43, connector@22, visible@23, X@24, Y@26 (LE).
-+        let m = cursor_move(9, 1, 0x0140, 0x00f0, true)?;
-+        assert_eq!(m.len(), 32);
-+        assert_eq!(&m[0..4], &[0x1a, 0x00, 0x43, 0x00]); // id, sub
-+        assert_eq!(m[22], 0x02); // connector 1 -> dock connector 2
-+        assert_eq!(m[23], 0x01); // visible
-+        assert_eq!(u16::from_le_bytes([m[24], m[25]]), 0x0140); // X
-+        assert_eq!(u16::from_le_bytes([m[26], m[27]]), 0x00f0); // Y
-+
-+        // Every connector this driver exposes must produce a message. A two-entry lookup table left
-+        // the DL7400's third and fourth connectors returning `EINVAL`, which `cmd_work` drops
-+        // rather than retries -- so a monitor in socket 3 or 4 had no hardware cursor at all. The
-+        // selector is a bitmask, not a one-based index: the original two-entry table was `[0x01,
-+        // 0x02]`, which is `1 << connector` for the only two connectors that dock had.
-+        for connector in 0..drm_sink::MAX_CONNECTORS as u8 {
-+            let m = cursor_move(1, connector, 0, 0, true)?;
-+            assert_eq!(m[22], 1u8 << connector);
++    #[test]
++    fn colour_frame_ep08_damage_selects_changed_strips() -> Result {
++        // Deterministic gradient source (a plain fn item so it's Copy/reusable across calls).
++        fn g(x: usize, y: usize) -> (u16, u16, u16) {
++            (
++                ((x * 7) & 0xff) as u16,
++                ((y * 5) & 0xff) as u16,
++                (((x + y) * 3) & 0xff) as u16,
++            )
 +        }
-+        assert!(cursor_move(1, drm_sink::MAX_CONNECTORS as u8, 0, 0, true).is_err());
++        let total = |fs: &KVec<KVec<u8>>| fs.iter().map(|f| f.len()).sum::<usize>();
++        let flat = |fs: &KVec<KVec<u8>>| -> Result<KVec<u8>> {
++            let mut v = KVec::new();
++            for f in fs.iter() {
++                v.extend_from_slice(f, GFP_KERNEL)?;
++            }
++            Ok(v)
++        };
++        // Damage granularity is the 256x64 macro-tile (`MACRO_W`/`MACRO_H`), not the 64x16 strip:
++        // every strip of a touched macro-tile is resent. Use several macro-tiles so the partial
++        // update assertions below can distinguish one selected tile from the full frame.
++        //
++        // 512x128 = 8 strips wide (512/64) x 8 bands (128/16) = 64 strips
++        //         = 2 x 2 macro-tiles, each 4 strips wide x 4 bands = 16 strips.
++        let (w, h) = (512usize, 128usize);
++        const STRIPS_PER_MACRO: usize = 16;
++        let geometry = profile::PROFILE_RIDGE.geometry();
++        let full = haar::colour_frame_ep08(geometry, w, h, 0, g)?;
 +
-+        // Image: 32-byte header (inner id 0x401c, the 0x40 bitmap flag) + w*h*4 BGRA at off32;
-+        // wrong-size input rejected.
-+        let bitmap = KVec::from_elem(0xabu8, 64 * 64 * 4, GFP_KERNEL)?;
-+        let img = cursor_image(3, 0, 64, 64, &bitmap)?;
-+        assert_eq!(img.len(), 32 + 64 * 64 * 4);
-+        assert_eq!(&img[0..4], &[0x1c, 0x40, 0x41, 0x00]); // inner id 0x401c, sub 0x41
-+        assert_eq!(img[22], 0x01); // connector 0 -> dock connector 1
-+                                   // The bitmap begins at off34, not off32: offsets 32..33 are zero
-+                                   // and the last pixel is truncated so the message still measures
-+                                   // `32 + w*h*4`.
-+        assert_eq!(&img[32..34], &[0x00, 0x00]);
-+        assert_eq!(img[34], 0xab);
-+        assert!(cursor_image(3, 0, 64, 64, &[0u8; 16]).is_err()); // wrong bitmap length
++        // A damage clip covering the WHOLE surface selects every strip in the same raster order as
++        // the full-frame path, so the wire bytes are identical.
++        let dfull = haar::colour_frame_ep08_damage(geometry, w, h, 0, &[(0, 0, w, h)], g)?;
++        assert_eq!(flat(&full)?.as_slice(), flat(&dfull)?.as_slice());
++
++        // No damage -> no strips -> empty frame list (caller must skip the USB write).
++        let empty = haar::colour_frame_ep08_damage(geometry, w, h, 0, &[], g)?;
++        assert!(empty.is_empty());
++
++        // Selection is exact and macro-tile-quantised. Assert the strip COUNT directly (the shared
++        // selector both encoders use) as well as the byte totals -- a count is a far sharper
++        // statement than "smaller than full", and it is what actually pins the tiling behaviour.
++        let coords = |clips: &[(usize, usize, usize, usize)]| -> Result<usize> {
++            Ok(haar::damage_strip_coords(geometry, w, h, clips)?.len())
++        };
++        assert_eq!(coords(&[])?, 0);
++        assert_eq!(coords(&[(0, 0, w, h)])?, 4 * STRIPS_PER_MACRO); // all four macro-tiles
++
++        // A 1-pixel clip lands in ONE macro-tile and selects all 16 of its strips -- not 1.
++        assert_eq!(coords(&[(1, 1, 2, 2)])?, STRIPS_PER_MACRO);
++        let d1 = haar::colour_frame_ep08_damage(geometry, w, h, 0, &[(1, 1, 2, 2)], g)?;
++        assert!(!d1.is_empty());
++        assert!(total(&d1) < total(&full));
++
++        // A 1-pixel-wide clip down the whole left edge spans the left macro-tile COLUMN: 2 tiles.
++        assert_eq!(coords(&[(0, 0, 1, h)])?, 2 * STRIPS_PER_MACRO);
++        let d2 = haar::colour_frame_ep08_damage(geometry, w, h, 0, &[(0, 0, 1, h)], g)?;
++        assert!(total(&d1) < total(&d2) && total(&d2) < total(&full));
++
++        // Non-aligned geometry is rejected (same contract as colour_frame_ep08).
++        assert!(haar::colour_frame_ep08_damage(geometry, 100, 32, 0, &[(0, 0, 1, 1)], g).is_err());
++        Ok(())
++    }
++
++    #[test]
++    fn black_training_frame_matches_captured_1440p_size() -> Result {
++        // Captured first writes are 205,696 bytes:
++        // 2,560-byte arm prefix + 203,040-byte black image + 96-byte frame trailer.
++        let geometry = profile::PROFILE_RIDGE.geometry();
++        let frame = haar::black_frame_ep08(geometry, 2560, 1440, 0)?;
++        let image_len = frame.iter().map(|part| part.len()).sum::<usize>();
++        assert_eq!(image_len, 203_040);
++        assert_eq!(
++            2_560 + image_len + haar::frame_trailer(geometry, 0, 0).len(),
++            205_696
++        );
 +        Ok(())
 +    }
 +}
-diff --git a/drivers/gpu/drm/vino/cp/edid.rs b/drivers/gpu/drm/vino/cp/edid.rs
+diff --git a/drivers/gpu/drm/vino/video/haar/records.rs b/drivers/gpu/drm/vino/video/haar/records.rs
 new file mode 100644
-index 000000000000..0e7b765f3546
+index 000000000000..422ae7d83ae2
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/cp/edid.rs
-@@ -0,0 +1,464 @@
++++ b/drivers/gpu/drm/vino/video/haar/records.rs
+@@ -0,0 +1,985 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Asking the dock what is plugged into a connector.
++//! Framing strips into the records a frame is made of.
 +//!
-+//! The EDID path is where the dock is least forgiving: the selector at offset 22 names the
-+//! connector, the reply's own id carries its length, and a fetch issued before the handler is
-+//! engaged returns a block the dock synthesises for itself.
++//! Record stride, padding, sequence and sub-band coordinates are all checked by the dock, and
++//! a frame whose records are mis-framed is accepted byte for byte and displayed as nothing.
 +
 +use super::*;
 +
-+/// OUT `id=0x16 sub=0x0023` downstream-sink state request. Offset 22 selects the connector and
-+/// offset 23 carries the state. Navarro's cold transcript uses `0xff` to tear the sink down, then
-+/// the connector selector itself (`0` or `1`) to re-engage it.
-+/// Vendor and product id of the descriptor the dock serves for itself.
++/// Write the sixteen-byte header every record on every one of these docks begins with.
 +///
-+/// A fetch the dock cannot answer from the monitor is answered from here, so this pair is the only
-+/// thing separating that block from a real one.
-+const BRIDGE_ID: [u8; 4] = [0x3a, 0xd4, 0x9c, 0x07];
-+
-+pub(crate) fn edid_sink_state(counter: u16, connector: u8, state: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x16, 0x0023, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.extend_from_slice(&[connector, state], GFP_KERNEL)?;
-+    let mut tail = [0u8; 8];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?;
-+    Ok(b)
-+}
-+/// Engage one downstream sink after its EDID exchange.
-+pub(crate) fn edid_engage_req(counter: u16, connector: u8) -> Result<KVec<u8>> {
-+    edid_sink_state(counter, connector, connector)
-+}
-+/// OUT `id=0x15 sub=0x0053` post-EDID capability query. Offset 22 is a connector bitmask.
++/// ```text
++/// off 0..2   zero
++/// off 2..4   size : u16   the stride less four, so a record ends at `size + 4`
++/// off 4..8   type : u32   2 for a plaintext marker, 4 for everything else
++/// off 8..10  sub  : u16   the plane: a connector for video, a control sub otherwise
++/// off 10..12 aux  : u16   the trailing pad count on an image record, a subtype on others
++/// off 12..16 seq  : u32   the sealed stream's AES-CTR block counter, else zero
++/// ```
 +///
-+/// `connector + 1` and `1 << connector` are the same byte for connectors 0 and 1, so a capture with
-+/// both monitors in the first two sockets cannot distinguish them. DLM sends `4` for connector 2,
-+/// where a one-based index would send 3.
-+pub(crate) fn post_edid_query(counter: u16, connector: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x15, 0x0053, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.push(1u8 << connector, GFP_KERNEL)?;
-+    let mut tail = [0u8; 9];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?;
-+    Ok(b)
++/// Verified unchanged across all three generations against 92,072 captured records, which is
++/// why it is written once. `out` must be the whole record: its length fixes `size`.
++pub(crate) fn record_header(out: &mut [u8], kind: u32, sub: u16, aux: u16, seq: u32) {
++    let size = (out.len() - 4) as u16;
++    out[0..2].fill(0);
++    out[2..4].copy_from_slice(&size.to_le_bytes());
++    out[4..8].copy_from_slice(&kind.to_le_bytes());
++    out[8..10].copy_from_slice(&sub.to_le_bytes());
++    out[10..12].copy_from_slice(&aux.to_le_bytes());
++    out[12..16].copy_from_slice(&seq.to_le_bytes());
 +}
-+/// OUT `id=0x16 sub=0x004b` downstream EDID-reader state request.
-+pub(crate) fn edid_readiness_state(counter: u16, connector: u8, state: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x16, 0x4b, counter)?;
-+    pad_to(&mut b, 22)?;
-+    // Offset 22 selects the downstream connector and offset 23 stops/starts the reader.
-+    b.extend_from_slice(&[connector, state], GFP_KERNEL)?;
-+    let mut tail = [0u8; 8];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?;
-+    Ok(b)
-+}
-+/// Start one downstream EDID read.
-+pub(crate) fn edid_readiness_kick(counter: u16, connector: u8) -> Result<KVec<u8>> {
-+    edid_readiness_state(counter, connector, 1)
-+}
-+/// OUT get-EDID request (`id=0x15 sub=0x21`). A `sub=0x20` probe must precede each fetch attempt.
-+/// The dock may initially return an internal placeholder, so callers retry until a downstream EDID
-+/// arrives.
-+pub(crate) fn get_edid_req(counter: u16, connector: u8) -> Result<KVec<u8>> {
-+    get_edid_req_sub(counter, 0x21, connector)
-+}
-+/// Build an `id=0x15` EDID-family request with an explicit `sub` (`0x20` = probe/seek,
-+/// `0x21` = fetch -- see [`get_edid_req`]'s doc comment). Same 32-byte wire shape for both.
-+pub(crate) fn get_edid_req_sub(counter: u16, sub: u16, connector: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x15, sub, counter)?;
-+    pad_to(&mut b, 22)?;
-+    // Offset 22 selects the downstream connector; the remaining bytes are an opaque token.
-+    b.push(connector, GFP_KERNEL)?;
-+    let mut tail = [0u8; 9];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?;
-+    Ok(b)
-+}
-+/// How many EDID bytes a reply id says it carries, if it names an EDID reply at all.
++/// The shape of an encoded frame, read back off the records themselves.
 +///
-+/// There is no single id for an EDID reply. The field is `0x14` -- the dock's generic reply -- plus
-+/// the number of EDID bytes behind it, so a monitor whose EDID is one block answers `0x94`, a
-+/// two-block one `0x114` and a three-block one `0x194`. Matching a fixed value makes every monitor
-+/// with a different extension count invisible: the fetch is answered, the answer is discarded, and
-+/// the connector is reported as having no sink at all.
-+pub(crate) fn edid_reply_len(id: u16) -> Option<usize> {
-+    let n = usize::from(id).checked_sub(0x14)?;
-+    (n >= 128 && n % 128 == 0).then_some(n)
-+}
-+/// Whether a reply carries a connector's downstream display capability.
-+///
-+/// The inner sub names the message; the id is `0x14` plus the payload length, exactly as for an
-+/// EDID reply (see [`edid_reply_len`]), so it moves with the descriptor the attached monitor
-+/// produces. Pinning it to one observed length makes a monitor answering a shorter descriptor read
-+/// as an empty socket, and that connector is then never probed for an EDID.
-+pub(crate) fn is_display_cap_reply(id: u16, sub: u16) -> bool {
-+    sub == 0x30 && id > 0x14
-+}
-+/// Decrypt an EDID reply and return its complete base block and extensions.
-+///
-+/// EDID replies use wire `sub=0x45` and inner `sub=0x21`, with the id naming the payload length
-+/// (see [`edid_reply_len`]). The EDID starts at inner offset 22 and its base-block extension count
-+/// determines the returned length. All supported direction and connector RIV variants are checked.
-+pub(crate) fn parse_edid_from_reply(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Result<Option<KVec<u8>>> {
-+    // Wire header: [.. type@4 u32 .. sub@8 u16 .. seq@12 u32]; body at off16.
-+    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
-+        return Ok(None);
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    for riv in inbound_reply_rivs(out_riv) {
-+        let Ok(inner) = open_in(ks, &riv, seq, body) else {
-+            continue;
-+        };
-+        // Inner header: [id u16][sub u16][counter u16][00 00]; EDID payload at off22.
-+        const EDID_OFF: usize = 22;
-+        if inner.len() < EDID_OFF + 128 {
-+            continue;
-+        }
-+        let id = u16::from_le_bytes([inner[0], inner[1]]);
-+        let sub = u16::from_le_bytes([inner[2], inner[3]]);
-+        let Some(declared) = edid_reply_len(id).filter(|_| sub == 0x21) else {
-+            continue;
-+        };
-+        let edid = &inner[EDID_OFF..];
-+        // Say what arrived, not just that nothing valid did. "no EDID came back" is true of a
-+        // sink that answered with a block this rejected and of one that never answered at all,
-+        // and those want opposite fixes.
-+        if crate::debug_enabled() {
-+            vino_debug!(
-+                "vino: EDID reply candidate: inner {} B, payload {} B, first 8 {:02x?}\n",
-+                inner.len(),
-+                edid.len(),
-+                &edid[..8.min(edid.len())]
-+            );
-+        }
-+        // Validate the EDID base-block magic `00 FF FF FF FF FF FF 00`.
-+        const MAGIC: [u8; 8] = [0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00];
-+        if edid[..8] != MAGIC {
-+            if crate::debug_enabled() {
-+                vino_debug!("vino: EDID reply rejected: bad base-block magic\n");
-+            }
-+            continue;
-+        }
-+        // ...and its checksum. The magic is only eight bytes and a dock with an empty port can
-+        // return a block that carries it, which is enough to be mistaken for a monitor: the
-+        // connector is then declared connected, a hotplug is raised for a sink that is not there,
-+        // and the dock resets. A real base block sums to zero modulo 256.
-+        if edid.len() < 128 {
-+            continue;
-+        }
-+        if edid[..128].iter().fold(0u8, |a, b| a.wrapping_add(*b)) != 0 {
-+            if crate::debug_enabled() {
-+                vino_debug!("vino: EDID reply rejected: base block checksum\n");
-+            }
-+            continue;
-+        }
-+        // A fetch the dock cannot yet answer from the monitor is answered from itself: a block
-+        // describing a 1920x1080 panel under the bridge's own vendor and product id. It passes the
-+        // magic and the checksum, so nothing above catches it, and publishing it drives the sink at
-+        // a timing it never advertised. Refuse it and let the caller ask again.
-+        if edid[8..12] == BRIDGE_ID {
-+            if crate::debug_enabled() {
-+                vino_debug!("vino: EDID reply rejected: the dock's own bridge descriptor\n");
-+            }
-+            continue;
-+        }
-+        if crate::debug_enabled() {
-+            vino_debug!(
-+                "vino: EDID base block accepted: {} extension block(s) declared, {} B available\n",
-+                edid[126],
-+                edid.len()
-+            );
-+        }
-+        // The reply says how much EDID it carries; the base block says how much the monitor has.
-+        // Take the smaller, so a truncated reply is never read past its end and a base block
-+        // claiming more extensions than arrived cannot manufacture them.
-+        let total = ((1 + edid[126] as usize) * 128)
-+            .min(edid.len())
-+            .min(declared);
-+        // Keep only extension blocks that are wholly present and sum to zero. The core validates
-+        // the whole blob, so one bad extension costs the monitor every mode it described --
-+        // the connector then falls back to a synthesised list and the sink is driven at a timing
-+        // it never advertised. A base block alone is a valid EDID and still carries the native
-+        // mode, so salvage what checks out.
-+        let mut blocks = 1;
-+        while blocks * 128 + 128 <= total {
-+            let ext = &edid[blocks * 128..blocks * 128 + 128];
-+            if ext.iter().fold(0u8, |a, b| a.wrapping_add(*b)) != 0 {
++/// Returns `(records, largest record stride, largest strip)`. The wire invariants are that a
++/// stride never passes the 4080-byte cap and that a strip fits inside a record; the sizes DLM
++/// reaches for comparison are 1758 bytes per strip on DL-6xxx, 1780 on the DL-7400 and 2036 on
++/// DL-3x00. Reported when a frame fails to reach the dock, because a dock refuses a malformed
++/// record by halting the endpoint several transfers later, where it is indistinguishable from
++/// any other transport fault.
++pub(crate) fn record_stats(chunks: &[KVec<u8>]) -> (usize, usize, usize) {
++    let (mut records, mut max_stride, mut max_strip) = (0usize, 0usize, 0usize);
++    for chunk in chunks {
++        let mut off = 0usize;
++        while off + 16 <= chunk.len() {
++            let size = u16::from_le_bytes([chunk[off + 2], chunk[off + 3]]) as usize;
++            let stride = size + 4;
++            if stride < 16 || off + stride > chunk.len() {
 +                break;
 +            }
-+            blocks += 1;
++            let aux = u16::from_le_bytes([chunk[off + 10], chunk[off + 11]]) as usize;
++            let body = &chunk[off + 16..off + stride];
++            let payload = body.len().saturating_sub(aux);
++            let mut at = 0usize;
++            while at + 2 <= payload {
++                let len = u16::from_le_bytes([body[at], body[at + 1]]) as usize;
++                if len == 0 || at + 2 + len > payload {
++                    break;
++                }
++                max_strip = max_strip.max(len);
++                at += 2 + len;
++            }
++            max_stride = max_stride.max(stride);
++            records += 1;
++            off += stride;
 +        }
-+        let kept = blocks * 128;
-+        if crate::debug_enabled() && kept != total {
-+            vino_debug!(
-+                "vino: EDID extension blocks: {} of {} kept, rest failed checksum\n",
-+                blocks - 1,
-+                total / 128 - 1
-+            );
-+        }
-+        let mut out = KVec::with_capacity(kept, GFP_KERNEL)?;
-+        out.extend_from_slice(&edid[..kept], GFP_KERNEL)?;
-+        // The extension count and the base-block checksum have to agree with what is actually
-+        // being handed over, or the core rejects a blob whose blocks are individually sound.
-+        if out[126] != (blocks - 1) as u8 {
-+            out[126] = (blocks - 1) as u8;
-+            out[127] = 0;
-+            let sum = out[..128].iter().fold(0u8, |a, b| a.wrapping_add(*b));
-+            out[127] = (0u8).wrapping_sub(sum);
-+        }
-+        return Ok(Some(out));
 +    }
-+    Ok(None)
++    (records, max_stride, max_strip)
 +}
-+/// Decode the downstream status carried by an EDID probe reply.
++/// Frame a raster-ordered list of strip bodies into EP08 records:
 +///
-+/// Returns the inner message id, the little-endian status at offsets 22 through 25 and the ready
-+/// bit at offset 26. `None` means no matching reply was decrypted.
-+pub(crate) fn probe_reply_status(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<(u16, u32, bool)> {
-+    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    for riv in inbound_reply_rivs(out_riv) {
-+        let Ok(inner) = open_in(ks, &riv, seq, body) else {
-+            continue;
++/// ```text
++/// record (one per single-Y band of strips):
++///   u16 pad   = 0
++///   u16 size  = total record length (TLV..trailer, excludes the inter-record gap)
++///   u32 type  = 4
++///   u16 sub   = connector | (((y / 16) & 1) << 4)
++///   u16 aux   = zero-padding byte count
++///   u32 fseq  = 0
++///   per strip: u16 strip_id (== strip length) ++ strip bytes
++///   u8[aux]   zero padding so the complete `size + 4` stride is 16-byte aligned
++/// ```
++///
++/// The record stream is chunked internally into small record-aligned buffers. The sink streams
++/// those fragments directly into persistent 65536-byte URBs, so the internal boundaries are
++/// not USB framing. Complete record strides are limited to 4080 bytes.
++pub(crate) fn frame_records(
++    geometry: Geometry,
++    strips: &[KVec<u8>],
++    connector: u8,
++) -> Result<KVec<KVec<u8>>> {
++    frame_records_with_boundary(geometry, strips, connector, None)
++}
++/// Frame a full live Navarro surface with the ordinary DLM producer order. Other modes and
++/// damage subsets deliberately fall back to the generic interlaced order: the measured
++/// permutation and its split-worker boundaries describe exactly 3600 128x8 strips.
++pub(crate) fn frame_records_navarro_ordinary(
++    geometry: Geometry,
++    strips: &[KVec<u8>],
++    connector: u8,
++) -> Result<KVec<KVec<u8>>> {
++    frame_records_with_boundary(
++        geometry,
++        strips,
++        connector,
++        (strips.len() == 3600).then_some(true),
++    )
++}
++pub(crate) const NAVARRO_PROLOGUE_ROWS: &[u8] = &[
++    0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47,
++    49, 51, 53, 54, 57, 59, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94,
++    96, 98, 100, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 30, 32, 34, 36, 38, 40, 42, 44,
++    46, 48, 50, 52, 55, 56, 58, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93,
++    95, 97, 99, 101, 102, 103, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 134,
++    136, 138, 140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172,
++    174, 176, 178, 100, 104, 105, 106, 107, 108, 109, 111, 113, 115, 117, 119, 121, 123, 125, 127,
++    129, 131, 133, 135, 137, 139, 141, 143, 145, 147, 149, 151, 153, 155, 157, 159, 161, 163, 165,
++    167, 169, 171, 173, 175, 177, 179,
++];
++
++// Producer band order for a 1920x1080 DL-3x00 surface: 30 strips across x 68 bands of 64x16.
++// Taken from DLM's own stream. Like the DL7400, this dock stops draining at the first band it
++// did not expect, so the generic even-then-odd interlace is not close enough -- it diverges at
++// the second band, sending 2 where the dock wants 3. No band appears twice, so unlike the
++// DL7400 there are no split-row producer boundaries to reproduce.
++/// The DL-3x00 producer band order, exposed so a selftest can pin it.
++pub(crate) fn ella_rows_1080p() -> &'static [u8] {
++    ELLA_ROWS_1080P
++}
++pub(crate) const ELLA_ROWS_1080P: &[u8] = &[
++    0, 3, 5, 7, 9, 11, 13, 16, 18, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 44, 46, 48, 50,
++    51, 53, 55, 56, 58, 60, 61, 63, 65, 66, 1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24, 26,
++    28, 30, 32, 34, 36, 38, 40, 42, 45, 47, 49, 52, 54, 57, 59, 62, 64, 67,
++];
++
++pub(crate) const NAVARRO_ORDINARY_ROWS: &[u8] = &[
++    1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49,
++    51, 53, 55, 57, 59, 61, 63, 64, 66, 68, 70, 72, 73, 75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95,
++    97, 99, 0, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 28, 30, 32, 34, 36, 38, 40, 42, 44,
++    46, 48, 50, 52, 54, 56, 58, 60, 62, 65, 67, 69, 71, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94,
++    96, 98, 100, 102, 99, 101, 102, 103, 105, 107, 109, 111, 113, 115, 117, 118, 120, 122, 125,
++    127, 129, 131, 133, 135, 137, 139, 141, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164,
++    166, 168, 170, 172, 174, 176, 178, 101, 104, 106, 108, 110, 112, 114, 116, 119, 121, 123, 124,
++    126, 128, 130, 132, 134, 136, 138, 140, 142, 143, 145, 147, 149, 151, 153, 155, 157, 159, 161,
++    163, 165, 167, 169, 171, 173, 175, 177, 179,
++];
++
++pub(crate) fn frame_records_with_boundary(
++    geometry: Geometry,
++    strips: &[KVec<u8>],
++    connector: u8,
++    navarro_ordinary: Option<bool>,
++) -> Result<KVec<KVec<u8>>> {
++    let Geometry {
++        band_parity_bit,
++        interlaced_bands,
++        ..
++    } = geometry;
++    // Both platforms count an image record's 0..15 padding bytes in `aux`. Navarro also uses
++    // `aux` as a subtype on non-image records; its fixed black carriers masked the image rule
++    // because their 4048-byte strides require no padding.
++    let aux_is_pad_count = true;
++    const PREFIX: usize = 8;
++    const STRIDE_CAP: usize = 0x0ff0;
++    // Allocation boundary only, not wire framing.
++    const CHUNK: usize = 0x4000;
++    let mut frames: KVec<KVec<u8>> = KVec::new();
++    let mut chunk: KVec<u8> = KVec::new();
++    // Interlaced ordering sends even bands before odd bands while preserving x order.
++    let mut order: KVec<usize> = KVec::with_capacity(strips.len(), GFP_KERNEL)?;
++    // The rows below are a producer permutation of a 2560x1440 Navarro surface: 20 strips
++    // across x 180 bands, its strips being 128x8. A strip count alone cannot select it --
++    // Ridge at the same resolution is also exactly 3600 strips, 40 across x 90 bands -- and
++    // both black carriers reach here on every dock, so match the layout itself.
++    let navarro_layout = geometry.interlaced_bands
++        && geometry.strip_w() == STRIP_BLOCKS * DIM
++        && strips.len() == 3600;
++    // 64-wide strips with interlaced bands is DL-3x00 and nothing else: Ridge is 64 wide but
++    // raster, the DL7400 is 128 wide. Deliberately not conditioned on the strip count -- a
++    // partial frame has to reach the dock in the same order a full one would.
++    let ella_layout = geometry.interlaced_bands && geometry.strip_w() == DIM * 8;
++    let navarro_rows = match navarro_ordinary {
++        Some(false) if navarro_layout => Some(NAVARRO_PROLOGUE_ROWS),
++        Some(true) if navarro_layout => Some(NAVARRO_ORDINARY_ROWS),
++        _ => None,
++    };
++    if let Some(rows) = navarro_rows {
++        // 2560 px / 128 px per strip on the DL7400, 1920 / 64 on the DL-3x00. Guaranteed by
++        // the layout checks above.
++        let strips_across = if ella_layout { 30 } else { 20 };
++        let ordinary = navarro_ordinary == Some(true);
++        for (run, &y) in rows.iter().enumerate() {
++            // The DL-3x00 order carries whole bands; only the DL7400 splits rows at its
++            // producer boundaries.
++            let (x0, x1) = if ella_layout {
++                (0, strips_across)
++            } else if ordinary {
++                match run {
++                    50 => (0, 8),
++                    101 => (0, 8),
++                    102 => (8, 20),
++                    103 => (0, 4),
++                    104 => (8, 20),
++                    143 => (4, 20),
++                    _ => (0, 20),
++                }
++            } else {
++                match run {
++                    51 => (0, 4),
++                    139 => (4, 20),
++                    _ => (0, 20),
++                }
++            };
++            for x in x0..x1 {
++                order.push(y as usize * strips_across + x, GFP_KERNEL)?;
++            }
++        }
++    } else if ella_layout {
++        // Order by where each strip's band sits in the producer table, read from the strip
++        // itself rather than from an assumed full-surface layout. That is what lets a frame
++        // carry a *subset* of the surface and still arrive in the order the dock expects --
++        // which it must, because this dock will not take a whole surface in one frame.
++        let rank = |s: &KVec<u8>| -> usize {
++            let band = (strip_y(s) >> geometry.strip_h_shift()) as u8;
++            ELLA_ROWS_1080P
++                .iter()
++                .position(|&b| b == band)
++                .unwrap_or(usize::MAX)
 +        };
-+        if inner.len() < 8 {
++        let mut idx: KVec<usize> = KVec::with_capacity(strips.len(), GFP_KERNEL)?;
++        for n in 0..strips.len() {
++            idx.push(n, GFP_KERNEL)?;
++        }
++        // Insertion sort: the comparison is a table lookup and the driver has no sort in
++        // scope; a frame's strip count here is bounded by the dock's frame ceiling.
++        for a in 1..idx.len() {
++            let mut b = a;
++            while b > 0 {
++                let (l, r) = (idx[b - 1], idx[b]);
++                let key = |n: usize| (rank(&strips[n]), strip_x(&strips[n]));
++                if key(l) <= key(r) {
++                    break;
++                }
++                idx.swap(b - 1, b);
++                b -= 1;
++            }
++        }
++        for n in idx {
++            order.push(n, GFP_KERNEL)?;
++        }
++    } else if interlaced_bands {
++        for pass in 0..2u16 {
++            for (n, s) in strips.iter().enumerate() {
++                if (strip_y(s) >> geometry.strip_h_shift()) & 1 == pass {
++                    order.push(n, GFP_KERNEL)?;
++                }
++            }
++        }
++    } else {
++        for n in 0..strips.len() {
++            order.push(n, GFP_KERNEL)?;
++        }
++    }
++    let mut i = 0usize;
++    while i < order.len() {
++        let y0 = strip_y(&strips[order[i]]);
++        let mut record: KVec<u8> = KVec::new();
++        // Sub bit 4 carries the y-band parity when the selected framing
++        // profile requires it.
++        record.extend_from_slice(&[0u8; 8 + PREFIX], GFP_KERNEL)?;
++        let parity = u16::from(band_parity_bit) & ((y0 >> geometry.strip_h_shift()) & 1);
++        // Once a stream is running the vendor marks every image record here. Its frames and
++        // vino's are otherwise byte-identical -- same size, type, aux, sequence and payload --
++        // so this one bit is the whole difference between a stream the dock keeps taking and
++        // one it stops accepting with the endpoint still reporting healthy.
++        let sub = u16::from(geometry.connector_selector(connector))
++            | (parity << 4)
++            | u16::from(geometry.steady_sub_bit);
++        let mut n = 0usize;
++        // A record ends at a y-band boundary only where the band is part of its identity.
++        // Ridge carries the band parity in `sub`, so a record cannot span two bands; Navarro
++        // does not, and fills each record to the stride cap instead.
++        while i < order.len() && (!band_parity_bit || strip_y(&strips[order[i]]) == y0) {
++            // Preserve DLM's captured producer flushes exactly. They are not a uniform
++            // 1024-strip rule: applying that to the final 1552-strip segment added a record
++            // at 3072 and made the prologue 210064 bytes instead of 210048. The ordinary
++            // carrier also schedules the two 1024-strip producers differently, so it has its
++            // own three boundaries and one extra image record (208624 bytes total).
++            let producer_boundary = match navarro_ordinary {
++                Some(false) => matches!(i, 1024 | 2048 | 2764),
++                Some(true) => matches!(i, 2032 | 2048 | 2804),
++                None => false,
++            };
++            if interlaced_bands && n > 0 && producer_boundary {
++                break;
++            }
++            let s = &strips[order[i]];
++            let projected = record.len() + 2 + s.len();
++            let projected_aligned = (projected + 15) & !15;
++            if projected_aligned > STRIDE_CAP {
++                if n > 0 {
++                    break;
++                }
++                // A strip too big for a record of its own cannot be framed at all. Emitting it
++                // anyway produces a record whose stride is over the cap, which a dock answers
++                // by halting the endpoint -- a failure indistinguishable from any other
++                // transport fault, surfacing several transfers later and blamed on the
++                // transport. Refuse the frame instead, so the encoder is what gets looked at.
++                pr_err!(
++                    "vino: strip at {}x{} encoded to {} B, over the {} a record can carry\n",
++                    strip_x(s),
++                    strip_y(s),
++                    s.len(),
++                    STRIDE_CAP - 18
++                );
++                return Err(kernel::error::code::EOVERFLOW);
++            }
++            record.extend_from_slice(&(s.len() as u16).to_le_bytes(), GFP_KERNEL)?;
++            record.extend_from_slice(s, GFP_KERNEL)?;
++            n += 1;
++            i += 1;
++        }
++        // The wire format pads each complete record stride to 16 bytes. There is no
++        // additional trailer or inter-record gap: `size` counts from after the four-byte
++        // pad+size prefix, so `stride = size + 4` lands on the next record.
++        //
++        // Ridge carries the pad count in `aux`. Navarro does not: there `aux` names a record
++        // type, and every one of its image records carries zero, so a pad count written there
++        // would be read as some other kind of record entirely.
++        let pad = (16 - (record.len() & 15)) & 15;
++        record.extend_from_slice(&[0u8; 15][..pad], GFP_KERNEL)?;
++        // Written once the strips and the padding are in, because the stride the header
++        // states is the length of the finished record.
++        let aux = if aux_is_pad_count { pad as u16 } else { 0 };
++        record_header(&mut record, 4, sub, aux, 0);
++
++        if !chunk.is_empty() && chunk.len() + record.len() > CHUNK {
++            frames.push(chunk, GFP_KERNEL)?;
++            chunk = KVec::new();
++        }
++        chunk.extend_from_slice(&record, GFP_KERNEL)?;
++    }
++    if !chunk.is_empty() {
++        frames.push(chunk, GFP_KERNEL)?;
++    }
++    Ok(frames)
++}
++/// Bands described by one `kind=0x200f` sub-record, and the row stride of a band's values.
++///
++/// Measured: every full sub-record carries eight bands and 256 payload bytes, so a band is a
++/// fixed 32 bytes regardless of how many strips actually occupy it -- at 2560 wide only the
++/// first 20 are ever non-zero and bytes 20..32 are zero in all 5760 bytes of every map.
++///
++/// 32 covers any width up to 4096 px, but nothing wider has been captured, so a mode past
++/// that must not assume the stride still holds.
++pub(crate) const PARAM_BANDS_PER_TLV: usize = 8;
++pub(crate) const PARAM_BAND_STRIDE: usize = 32;
++/// Sub-records in the first of the pair; the rest go in the second. DLM splits 180 bands as
++/// 120 + 60, which is this many full sub-records and then the remainder.
++pub(crate) const PARAM_TLVS_PER_RECORD: usize = 15;
++/// A strip's size class, as carried in the `kind=0x200f` map.
++///
++/// The dock needs each strip's length before it parses the strip, because a strip is a
++/// self-delimiting bitstream whose end it cannot otherwise find. The class is simply the
++/// length in 512-byte units.
++///
++/// Measured over 68,347 `(strip, map value)` pairs in a DLM capture with zero disagreements:
++/// value 0 covers 54..510 bytes, 1 covers 512..1022, 2 covers 1024..1498 and 3 covers
++/// 1594..1670. Every boundary falls on a multiple of 512.
++#[inline]
++pub(crate) fn strip_size_class(len: usize) -> u8 {
++    // The field does not saturate: the corpus only reaches class 3 because its longest strip
++    // is 1670 B, and clamping a live desktop's larger strips to 3 corrupts them.
++    (len >> 9) as u8
++}
++/// Collect `(x, y, byte length)` for every strip in an already-framed set of image records.
++///
++/// The map is derived from the exact bytes about to go on the wire rather than from the
++/// encoder's intermediate state, so it cannot drift from what the dock actually receives.
++/// Each record body holds strips as `[u16 len][body]`, and every strip body opens with the
++/// codec's `01 28` magic -- which is what terminates the walk when a record's trailing
++/// padding is reached, since `aux` is a producer lane on this dock and not a pad count.
++pub(crate) fn framed_strip_extents(
++    frames: &[KVec<u8>],
++) -> impl Iterator<Item = (usize, usize, usize)> + '_ {
++    frames.iter().flat_map(|chunk| {
++        // Each element of `frames` is an allocation chunk holding several complete records,
++        // not one record, so walk records by their own stride: a record is `[u16 pad][u16
++        // size][12 B header][ (u16 len ++ strip)* ][ 0..15 pad ]` and the next begins
++        // `size + 4` bytes on. Walking strips to the end of a chunk instead stops at the first
++        // inner record boundary, because the next record's zero `pad` reads as a zero length.
++        let mut next_record = 0usize;
++        let mut p = 0usize;
++        let mut record_end = 0usize;
++        core::iter::from_fn(move || loop {
++            if p + 2 > record_end {
++                // This record is exhausted (or none has started yet): step to the next.
++                let hdr = chunk.get(next_record..next_record + 16)?;
++                let stride = usize::from(u16::from_le_bytes([hdr[2], hdr[3]])) + 4;
++                if stride < 16 || next_record + stride > chunk.len() {
++                    return None;
++                }
++                p = next_record + 16;
++                record_end = next_record + stride;
++                next_record = record_end;
++                continue;
++            }
++            let sl = usize::from(u16::from_le_bytes([chunk[p], chunk[p + 1]]));
++            // A length that cannot be a strip is this record's trailing zero padding.
++            if sl < 16 || p + 2 + sl > record_end {
++                p = record_end;
++                continue;
++            }
++            let s = &chunk[p + 2..p + 2 + sl];
++            p += 2 + sl;
++            if s[0] != 0x01 || s[1] != 0x28 {
++                p = record_end;
++                continue;
++            }
++            let x = usize::from(u16::from_le_bytes([s[2], s[3]]));
++            let y = usize::from(u16::from_le_bytes([s[4], s[5]]));
++            return Some((x, y, sl));
++        })
++    })
++}
++/// Build the DL7400's per-strip parameter map for one frame, as the pair of `kind=0x200f`
++/// records DLM sends.
++///
++/// The map covers the whole frame: one byte per strip, `height / strip_h` bands of
++/// `width / strip_w` strips, each band padded to [`PARAM_BAND_STRIDE`]. At 2560x1440 that is
++/// 180 bands of 20 strips, which is what every captured DLM map contains, split 120 + 60
++/// across the two records.
++///
++/// Values come from [`strip_size_class`] applied to the strips in `frames`. A position this
++/// frame does not carry stays zero, which is what DLM sends for it.
++///
++/// An all-zero map is not a harmless approximation: it announces every strip as "under 512
++/// bytes", so the dock mis-parses exactly the detailed strips and renders them as coloured
++/// noise while flat fills stay perfect.
++pub(crate) fn navarro_strip_params(
++    geometry: Geometry,
++    connector: u8,
++    width: usize,
++    height: usize,
++    frames: &[KVec<u8>],
++    remembered: &mut KVec<u8>,
++) -> Result<KVec<u8>> {
++    let bands = height.div_ceil(geometry.strip_h());
++    let across = width.div_ceil(geometry.strip_w()).min(PARAM_BAND_STRIDE);
++    let sub = u16::from(geometry.connector_selector(connector));
++    let mut out = KVec::new();
++
++    // One byte per map slot, laid out exactly as the sub-records carry it.
++    //
++    // The map covers the whole surface while a delta frame carries only its damaged strips,
++    // so carry the previous frame's classes forward and overwrite only what this frame sends;
++    // rebuilding from zero would re-declare every untouched strip as class 0. `remembered` is
++    // the caller's per-connector buffer, zeroed by the resize a mode change triggers, which is
++    // correct because the dock's framebuffer is undefined until the keyframe that follows.
++    if remembered.len() != bands * PARAM_BAND_STRIDE {
++        remembered.clear();
++        remembered.resize(bands * PARAM_BAND_STRIDE, 0, GFP_KERNEL)?;
++    }
++    let mut values: KVec<u8> = KVec::new();
++    values.resize(bands * PARAM_BAND_STRIDE, 0, GFP_KERNEL)?;
++    values.copy_from_slice(remembered);
++    let mut described = 0usize;
++    let mut classes = [0usize; 8];
++    let mut longest = 0usize;
++    for (x, y, len) in framed_strip_extents(frames) {
++        let (bx, by) = (x / geometry.strip_w(), y / geometry.strip_h());
++        if bx >= across || by >= bands {
 +            continue;
 +        }
-+        let id = u16::from_le_bytes([inner[0], inner[1]]);
-+        let sub = u16::from_le_bytes([inner[2], inner[3]]);
-+        let pad = u16::from_le_bytes([inner[6], inner[7]]);
-+        if id >= 0x400 || pad != 0 {
-+            continue;
++        let class = strip_size_class(len);
++        values[by * PARAM_BAND_STRIDE + bx] = class;
++        if let Some(slot) = classes.get_mut(usize::from(class)) {
++            *slot += 1;
 +        }
-+        // Ignore unrelated traffic: only a downstream capability/EDID handler response or a
-+        // generic negative acknowledgment can answer this probe. The handler's id is `0x14` plus
-+        // its payload length (see `edid_reply_len`), so it names a descriptor size rather than a
-+        // message type and cannot be matched against a list of the sizes seen so far.
-+        if !(id > 0x14 && sub == 0x0020) && id != 0x14 {
-+            continue;
-+        }
-+        // A short generic ack (the `id=0x14` the dock sends when it cannot route the probe)
-+        // carries no status region at all; report zeros rather than refusing to decode, so the
-+        // caller still learns the id.
-+        let status = if inner.len() >= 26 {
-+            u32::from_le_bytes([inner[22], inner[23], inner[24], inner[25]])
++        longest = longest.max(len);
++        described += 1;
++    }
++    // A position the walk misses is announced as class 0, so `described` must equal the strip
++    // count of the records handed in, and the histogram distinguishes a map that covers every
++    // strip from one that calls them all class 0.
++    vino_debug!(
++        "vino: connector={connector} strip map {described} strip(s) over {} chunk(s), classes {:?}, longest {longest} B\n",
++        frames.len(),
++        &classes[..4]
++    );
++    remembered.copy_from_slice(&values);
++
++    let mut band = 0usize;
++    let mut record = 0usize;
++    while band < bands {
++        // The first record takes up to PARAM_TLVS_PER_RECORD sub-records, the second the rest.
++        let take_tlvs = if record == 0 {
++            PARAM_TLVS_PER_RECORD
 +        } else {
-+            0
++            bands.div_ceil(PARAM_BANDS_PER_TLV)
 +        };
-+        let ready = inner.len() >= 27 && inner[26] & 0x80 != 0;
-+        return Some((id, status, ready));
++        let mut body = KVec::new();
++        for _ in 0..take_tlvs {
++            if band >= bands {
++                break;
++            }
++            let count = PARAM_BANDS_PER_TLV.min(bands - band);
++            let payload = count * PARAM_BAND_STRIDE;
++            body.extend_from_slice(&((6 + payload) as u16).to_le_bytes(), GFP_KERNEL)?;
++            body.extend_from_slice(&0x200fu16.to_le_bytes(), GFP_KERNEL)?;
++            body.extend_from_slice(&(band as u16).to_le_bytes(), GFP_KERNEL)?;
++            body.extend_from_slice(&(count as u16).to_le_bytes(), GFP_KERNEL)?;
++            let from = band * PARAM_BAND_STRIDE;
++            body.extend_from_slice(&values[from..from + payload], GFP_KERNEL)?;
++            band += count;
++        }
++        // DLM pads the first record's body to 3968 bytes and leaves the second exact.
++        if record == 0 && body.len() < 3968 {
++            body.resize(3968, 0, GFP_KERNEL)?;
++        }
++        let size = (body.len() + 12) as u16;
++        let aux: u16 = if record == 0 { 0x0008 } else { 0x0000 };
++        out.extend_from_slice(&0u16.to_le_bytes(), GFP_KERNEL)?;
++        out.extend_from_slice(&size.to_le_bytes(), GFP_KERNEL)?;
++        out.extend_from_slice(&4u32.to_le_bytes(), GFP_KERNEL)?;
++        out.extend_from_slice(&sub.to_le_bytes(), GFP_KERNEL)?;
++        out.extend_from_slice(&aux.to_le_bytes(), GFP_KERNEL)?;
++        out.extend_from_slice(&0u32.to_le_bytes(), GFP_KERNEL)?;
++        out.extend_from_slice(&body, GFP_KERNEL)?;
++        record += 1;
 +    }
-+    None
++    Ok(out)
 +}
-+/// Decode an EDID-readiness probe reply.
++/// A frame's closing records.
 +///
-+/// Inner offset 26 bit 7 indicates that the downstream DDC read has completed. `None` distinguishes
-+/// an unrelated or undecipherable frame from a matching reply that is not ready.
-+pub(crate) fn edid_poll_ready(ks: &[u8; 16], out_riv: &[u8; 8], wire: &[u8]) -> Option<bool> {
-+    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let body = &wire[16..];
-+    for riv in inbound_reply_rivs(out_riv) {
-+        let Ok(inner) = open_in(ks, &riv, seq, body) else {
-+            continue;
-+        };
-+        if inner.len() < 27 {
-+            continue;
++/// The two platforms delimit a frame with a different number of records, so this carries its
++/// own length and derefs to exactly the bytes that go on the wire.
++pub(crate) struct FrameTrailer {
++    bytes: [u8; 96],
++    len: usize,
++}
++impl FrameTrailer {
++    /// A frame that ends at its last strip record, with nothing closing it.
++    ///
++    /// A trailer borrowed from another generation is an unrecognised record in the middle of
++    /// the stream, so a dock whose format is not known closes nothing.
++    pub(crate) fn none() -> Self {
++        Self {
++            bytes: [0u8; 96],
++            len: 0,
 +        }
-+        let id = u16::from_le_bytes([inner[0], inner[1]]);
-+        let sub = u16::from_le_bytes([inner[2], inner[3]]);
-+        if id != 0x44 || sub != 0x20 {
-+            continue;
-+        }
-+        return Some(inner[26] & 0x80 != 0);
 +    }
-+    None
++
++    /// Carry a single closing record, for a generation that delimits a frame with one.
++    pub(crate) fn one(record: &[u8]) -> Self {
++        let mut bytes = [0u8; 96];
++        let len = record.len().min(bytes.len());
++        bytes[..len].copy_from_slice(&record[..len]);
++        Self { bytes, len }
++    }
++}
++impl core::ops::Deref for FrameTrailer {
++    type Target = [u8];
++
++    fn deref(&self) -> &[u8] {
++        &self.bytes[..self.len]
++    }
++}
++/// The ring slot a frame writes, and the one it writes next.
++///
++/// Both platforms cycle a connector's frames through three buffers. Ridge names them by a phase
++/// of `0`, `2` or `4`; Navarro names the dock-side slot id and address of each.
++pub(crate) fn ring_phase(seq0: u32) -> (u8, u8) {
++    let phase = ((seq0 % 3) as u8) * 2;
++    (phase, (phase + 2) % 6)
++}
++/// Build the DL7400 record that opens a non-prologue frame.
++///
++/// Both working transports put a USB-transfer boundary between the `aux=0x0006` close and this
++/// `aux=0x0004` next-slot record, so the opener belongs to the frame it describes rather than
++/// to the preceding trailer. This is protocol framing, not cosmetic grouping.
++pub(crate) fn navarro_frame_opener(geometry: Geometry, connector: u8, seq0: u32) -> [u8; 32] {
++    let (phase, _) = ring_phase(seq0);
++    let prev_phase = (phase + 4) % 6;
++    let slot = super::super::cp::navarro_pipe_slot(connector, u16::from(phase));
++    let ring = super::super::cp::navarro_pipe_ring(connector, u16::from(phase)) as u16;
++    let prev_ring = super::super::cp::navarro_pipe_ring(connector, u16::from(prev_phase)) as u16;
++    let sub = u16::from(geometry.connector_selector(connector));
++
++    let mut out = [0u8; 32];
++    record_header(&mut out, 4, sub, 0x0004, 0);
++    out[16..19].copy_from_slice(&[0x0a, 0x00, 0x04]);
++    out[19] = slot as u8;
++    out[22..24].copy_from_slice(&ring.to_le_bytes());
++    out[26..28].copy_from_slice(&prev_ring.to_le_bytes());
++    out
++}
++/// Build the DL-3x00 record that opens a connector's video stream, sent once before any frame.
++///
++/// Two ring descriptors naming slot 0, distinguished from the per-frame close by `aux`: this
++/// dock uses that field as a record subtype on non-image records, `0x0008` here and `0x000a`
++/// for [`ella_frame_close`]. Sending the wrong opening leaves the stream unconfigured and the
++/// dock stalls the endpoint on the first image write.
++pub(crate) fn ella_stream_open(geometry: Geometry, connector: u8) -> [u8; 48] {
++    let mut out = [0u8; 48];
++    ella_record_header(&mut out, geometry, connector, 0x0008);
++    // Ring descriptor: slot 0 next, with the last slot named as the one it follows.
++    out[16..18].copy_from_slice(&10u16.to_le_bytes());
++    out[18] = 0x04;
++    out[27] = (ELLA_RING_SLOTS - 1) as u8;
++    out[28..30].copy_from_slice(&10u16.to_le_bytes());
++    out[30] = 0x04;
++    out
++}
++/// Build the DL-3x00 record that closes a frame.
++///
++/// Names the ring slot this frame filled and the slot the next one will fill. The dock rotates
++/// [`ELLA_RING_SLOTS`] buffers, so a wrong modulus hands it a slot it is still scanning out.
++///
++/// It is the last record of the frame's final USB transfer, which is what tells the dock the
++/// frame is complete: every short-terminated transfer carrying pixels ends on one of these.
++pub(crate) fn ella_frame_close(geometry: Geometry, connector: u8, seq0: u32) -> [u8; 48] {
++    let cur = (seq0 % ELLA_RING_SLOTS) as u8;
++    let next = ((seq0 + 1) % ELLA_RING_SLOTS) as u8;
++    // The frame counter is one-based and occupies a single byte on the wire.
++    let seq = (seq0 % 256) as u8;
++
++    let mut out = [0u8; 48];
++    ella_record_header(&mut out, geometry, connector, 0x000a);
++    out[16..18].copy_from_slice(&8u16.to_le_bytes());
++    out[18] = 0x05;
++    out[19] = cur;
++    out[23] = cur;
++    out[24] = 0x01;
++    out[25] = seq.wrapping_add(1);
++    out[26..28].copy_from_slice(&10u16.to_le_bytes());
++    out[28] = 0x04;
++    out[29] = next;
++    out[33] = next;
++    // The slot this frame filled, repeated after the pair naming the next one.
++    out[37] = cur;
++    out
++}
++/// Buffers the DL-3x00 dock rotates through; see `DockProfile::dock_buffers`.
++pub(crate) const ELLA_RING_SLOTS: u32 = 3;
++/// Fill the 16-byte record header shared by this dock's non-image records.
++pub(crate) fn ella_record_header(out: &mut [u8; 48], geometry: Geometry, connector: u8, aux: u16) {
++    record_header(
++        out,
++        4,
++        u16::from(geometry.connector_selector(connector)),
++        aux,
++        0,
++    );
++}
++/// Build the DL7400's closing record for the ring slot this frame filled.
++///
++/// The next slot is announced by [`navarro_frame_opener`] only after this frame's final USB
++/// transfer has terminated.
++pub(crate) fn navarro_frame_trailer(geometry: Geometry, connector: u8, seq0: u32) -> FrameTrailer {
++    let (phase, _) = ring_phase(seq0);
++    let slot = super::super::cp::navarro_pipe_slot(connector, u16::from(phase));
++    let ring = super::super::cp::navarro_pipe_ring(connector, u16::from(phase)) as u16;
++    let sub = u16::from(geometry.connector_selector(connector));
++
++    let mut out = [0u8; 96];
++    record_header(&mut out[..32], 4, sub, 0x0006, 0);
++
++    // Slot complete: its id, its ring address, and this frame's number.
++    out[16..19].copy_from_slice(&[0x08, 0x00, 0x05]);
++    out[19] = slot as u8;
++    out[22..24].copy_from_slice(&ring.to_le_bytes());
++    out[25] = (seq0 as u8).wrapping_add(1);
++
++    FrameTrailer {
++        bytes: out,
++        len: 32,
++    }
++}
++/// They delimit every logical frame, including the ARM-prefixed first frame. The first record
++/// carries a wrapping one-based frame counter; all three carry a three-slot phase (`0,2,4`) and
++/// the selected connector.
++pub(crate) fn frame_trailer(geometry: Geometry, connector: u8, seq0: u32) -> FrameTrailer {
++    let (phase, next_phase) = ring_phase(seq0);
++    let phase_off = phase * 4;
++    let next_off = next_phase * 4;
++    let frame_no = (seq0 as u8).wrapping_add(1);
++    let mut out = [0u8; 96];
++
++    let h = geometry.connector_selector(connector);
++    for (i, connector_byte) in [h, h, h | 0x10].into_iter().enumerate() {
++        let o = i * 32;
++        let aux = if i == 0 { 0x0006 } else { 0x0004 };
++        record_header(&mut out[o..o + 32], 4, u16::from(connector_byte), aux, 0);
++    }
++
++    // Record A: frame-present marker + current ring phase + one-based u8 frame number.
++    out[16] = 0x08;
++    out[18] = 0x05;
++    out[19] = phase;
++    out[23] = phase_off;
++    out[25] = frame_no;
++
++    // Records B/C are identical apart from C's connector|0x10 header selector.
++    for o in [32usize, 64] {
++        out[o + 16] = 0x0a;
++        out[o + 18] = 0x04;
++        out[o + 19] = next_phase;
++        out[o + 23] = next_off;
++        out[o + 27] = phase_off;
++    }
++    FrameTrailer {
++        bytes: out,
++        len: 96,
++    }
 +}
 +
 +#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_cp_edid)]
++#[kunit_tests(vino_haar_records)]
 +mod tests {
-+    #[test]
-+    fn the_docks_own_bridge_descriptor_is_never_published() {
-+        // Built from a block the dock served on a warm plug: valid magic and checksum, so only the
-+        // vendor and product id separate it from a monitor's.
-+        let mut block = [0u8; 128];
-+        block[..8].copy_from_slice(&[0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00]);
-+        block[8..12].copy_from_slice(&[0x3a, 0xd4, 0x9c, 0x07]);
-+        let sum = block[..127].iter().fold(0u8, |a, b| a.wrapping_add(*b));
-+        block[127] = 0u8.wrapping_sub(sum);
-+        assert_eq!(block.iter().fold(0u8, |a, b| a.wrapping_add(*b)), 0);
-+        assert_eq!(block[8..12], super::BRIDGE_ID);
-+    }
-+
 +    use super::*;
 +
 +    #[test]
-+    fn edid_reply_guards() -> Result {
-+        // The pre-decrypt guards reject non-EDID frames without touching the cipher.
-+        let ks = [0u8; 16];
-+        let riv = [0u8; 8];
-+        assert!(parse_edid_from_reply(&ks, &riv, &[0u8; 10])?.is_none());
-+        let mut wrong_sub = [0u8; 20];
-+        wrong_sub[8] = 0x44; // wire sub != 0x45
-+        assert!(parse_edid_from_reply(&ks, &riv, &wrong_sub)?.is_none());
-+        Ok(())
-+    }
++    fn ella_stream_records_match_the_dlm_capture() -> Result {
++        // Byte-for-byte against a DLM capture of an Ella dock driving 1920x1080 on two connectors.
++        // The dock accepts a malformed record and then simply never paints, so nothing on the wire
++        // and nothing in dmesg reports a mistake here -- only this comparison does. Field meanings,
++        // in the order they appear: `aux` is a record subtype on this dock (0x0008 opens a stream,
++        // 0x000a closes a frame); the closing record names the slot the frame filled, the slot the
++        // next frame will fill, and a one-based frame counter.
++        let geometry = profile::PROFILE_ELLA.geometry();
 +
-+    /// An EDID reply's id is its payload length, not a message type.
-+    ///
-+    /// Both values below are off the wire in one session: the dock answered one connector's fetch
-+    /// with `0x114` and the other's with `0x194`, and the difference is exactly the 128 bytes of
-+    /// one extension block. Accepting only the larger left a monitor that the vendor drives
-+    /// reported as an empty socket for the whole life of the driver.
-+    #[test]
-+    fn edid_reply_id_is_the_payload_length() {
-+        assert_eq!(edid_reply_len(0x94), Some(128));
-+        assert_eq!(edid_reply_len(0x114), Some(256));
-+        assert_eq!(edid_reply_len(0x194), Some(384));
-+        assert_eq!(edid_reply_len(0x214), Some(512));
-+        // The generic reply itself carries no EDID, and neither does anything off the 128-byte
-+        // grid: a status or capability id must never be read as a base block.
-+        assert_eq!(edid_reply_len(0x14), None);
-+        assert_eq!(edid_reply_len(0x44), None);
-+        assert_eq!(edid_reply_len(0x78), None);
-+        assert_eq!(edid_reply_len(0x0), None);
-+        assert_eq!(edid_reply_len(0x95), None);
-+    }
-+
-+    #[test]
-+    fn get_edid_req_matches_dlm_wire_shape() -> Result {
-+        // The captured request is 32 bytes: an 8-byte header, 14 zero bytes, and a 10-byte random
-+        // tail at offset 22.
-+        let req = get_edid_req(0x2c, 0)?;
-+        assert_eq!(req.len(), 32);
++        // Stream open, connector 0. Two ring descriptors naming slot 0.
++        let open = ella_stream_open(geometry, 0);
 +        assert_eq!(
-+            &req[0..8],
-+            &[0x15, 0x00, 0x21, 0x00, 0x2c, 0x00, 0x00, 0x00]
++            &open[..40],
++            &[
++                0x00, 0x00, 0x2c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00,
++                0x00, 0x00, 0x0a, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
++                0x0a, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++            ][..]
 +        );
-+        assert_eq!(&req[8..22], &[0u8; 14]);
-+        // Pin the complete wire framing as well:
-+        // aux=0x09 (cp::aux_for_id(0x15, ..)), body = 32 + 16 (tag) = 48 bytes.
-+        let frame = cp::seal_interactive(&[0x5au8; 16], &[0x11u8; 8], 0x15, 0, &req)?;
-+        assert_eq!(frame.len(), 16 + 32 + 16);
-+        assert_eq!(u16::from_le_bytes([frame[10], frame[11]]), 0x09);
-+        Ok(())
-+    }
 +
-+    #[test]
-+    fn edid_engage_req_matches_dlm_wire_shape() -> Result {
-+        // Independent captures agree on `id=0x16 sub=0x0023` with the same 32-byte shape as
-+        // `get_edid_req`: an 8-byte header, 14 zero bytes, and a 10-byte random tail.
-+        let req = edid_engage_req(0x30, 0)?;
-+        assert_eq!(req.len(), 32);
-+        assert_eq!(
-+            &req[0..8],
-+            &[0x16, 0x00, 0x23, 0x00, 0x30, 0x00, 0x00, 0x00]
-+        );
-+        assert_eq!(&req[8..22], &[0u8; 14]);
-+        let frame = cp::seal_interactive(&[0x5au8; 16], &[0x11u8; 8], 0x16, 0, &req)?;
-+        assert_eq!(frame.len(), 16 + 32 + 16);
-+        assert_eq!(u16::from_le_bytes([frame[10], frame[11]]), 0x08); // cp::aux_for_id(0x16, ..)
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn edid_poll_ready_byte_matches_golden_replies() -> Result {
-+        // Golden dock-to-host `id=0x0044 sub=0x0020` replies pin the readiness bit at inner offset
-+        // 26. The first precedes a placeholder `id=0x114` fetch and the second precedes a real
-+        // `id=0x194` EDID fetch.
-+        const KS: [u8; 16] = [
-+            0xd9, 0xec, 0x1f, 0xbc, 0x8b, 0x5a, 0xb3, 0xd8, 0x71, 0x0f, 0xd3, 0xbd, 0x42, 0x04,
-+            0x06, 0x55,
++        // Three consecutive frame closes on connector 0, walking the ring 0 -> 1 -> 2.
++        let expect: [[u8; 40]; 3] = [
++            [
++                0x00, 0x00, 0x2c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00,
++                0x00, 0x00, 0x08, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x0a, 0x00,
++                0x04, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++            ],
++            [
++                0x00, 0x00, 0x2c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00,
++                0x00, 0x00, 0x08, 0x00, 0x05, 0x01, 0x00, 0x00, 0x00, 0x01, 0x01, 0x02, 0x0a, 0x00,
++                0x04, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
++            ],
++            [
++                0x00, 0x00, 0x2c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00,
++                0x00, 0x00, 0x08, 0x00, 0x05, 0x02, 0x00, 0x00, 0x00, 0x02, 0x01, 0x03, 0x0a, 0x00,
++                0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00,
++            ],
 +        ];
-+        const OUT_RIV: [u8; 8] = [0xf6, 0x21, 0xdc, 0x0d, 0x22, 0x7e, 0xf4, 0xaf];
-+        #[rustfmt::skip]
-+        const NOT_READY: [u8; 112] = [
-+            0x00, 0x00, 0x6c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x45, 0x00, 0x0a, 0x00, 0xcd, 0x00,
-+            0x00, 0x00, 0xa5, 0xea, 0x5d, 0x51, 0xf6, 0xa8, 0x6b, 0xb6, 0x89, 0x88, 0x01, 0xa2,
-+            0x47, 0x30, 0xbd, 0x6c, 0x84, 0xb8, 0xaf, 0x9f, 0x85, 0xf2, 0x8a, 0x20, 0xc8, 0xec,
-+            0x51, 0x9e, 0x8d, 0xeb, 0xef, 0x5a, 0x3a, 0x1d, 0xb5, 0xc7, 0x80, 0x02, 0xfe, 0x1e,
-+            0xed, 0x07, 0xdd, 0x71, 0x00, 0x7f, 0x45, 0x77, 0x6c, 0x82, 0xf6, 0xe9, 0xc3, 0x0d,
-+            0xdf, 0x67, 0x82, 0xac, 0xa8, 0x23, 0xd5, 0x5a, 0x1c, 0xce, 0xcb, 0x89, 0xb5, 0x98,
-+            0x65, 0xba, 0xbb, 0xb6, 0x2d, 0x0e, 0x9b, 0x55, 0xee, 0xfd, 0x46, 0x0c, 0x22, 0x35,
-+            0x6f, 0x84, 0xe5, 0x36, 0x95, 0xd0, 0xdc, 0xfc, 0x6f, 0x8a, 0x57, 0xda, 0xa2, 0xae,
-+        ];
-+        #[rustfmt::skip]
-+        const READY: [u8; 112] = [
-+            0x00, 0x00, 0x6c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x45, 0x00, 0x0a, 0x00, 0x59, 0x03,
-+            0x00, 0x00, 0xf7, 0x8e, 0x70, 0xb2, 0xa3, 0x24, 0xe2, 0x6f, 0x9f, 0xb6, 0xe9, 0x8e,
-+            0x32, 0x55, 0x11, 0x21, 0x99, 0x74, 0xf6, 0xfb, 0xea, 0x97, 0xd5, 0x7f, 0xa6, 0x45,
-+            0x9d, 0x35, 0xf0, 0xa7, 0xbe, 0xd3, 0x9b, 0x19, 0x24, 0x8c, 0x98, 0xa6, 0x0c, 0xa2,
-+            0x4d, 0x8e, 0x83, 0xaa, 0x74, 0xd5, 0x8b, 0xe0, 0x6f, 0xb1, 0x9f, 0xa4, 0xb9, 0xae,
-+            0x39, 0xc6, 0x0a, 0x9c, 0x63, 0x70, 0xdb, 0x49, 0x74, 0xe5, 0x85, 0x42, 0x07, 0x7e,
-+            0xc2, 0x49, 0xfb, 0x67, 0x54, 0xd5, 0x47, 0x72, 0xb7, 0x19, 0x24, 0x8f, 0xb1, 0xb0,
-+            0xb2, 0x83, 0x89, 0x62, 0x4b, 0xcb, 0x59, 0x15, 0x1f, 0x8f, 0x85, 0xc3, 0xa5, 0x9d,
-+        ];
-+        assert_eq!(edid_poll_ready(&KS, &OUT_RIV, &NOT_READY), Some(false));
-+        assert_eq!(edid_poll_ready(&KS, &OUT_RIV, &READY), Some(true));
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn per_head_selectors_match_dlm_in_the_far_sockets() -> Result {
-+        // `connector`, `connector + 1` and `1 << connector` agree for connectors 0 and 1, so only a
-+        // capture with a monitor in a later socket separates them. These are the bytes DLM sends
-+        // for connectors 1 and 2.
-+
-+        // `id=0x16 sub=0x23` names the connector twice, at offset 22 and offset 23.
-+        for connector in 0..drm_sink::MAX_CONNECTORS as u8 {
-+            let req = edid_engage_req(0x30, connector)?;
-+            assert_eq!(req[22], connector);
-+            assert_eq!(req[23], connector);
++        for (seq0, want) in expect.iter().enumerate() {
++            let got = ella_frame_close(geometry, 0, seq0 as u32);
++            assert_eq!(&got[..40], &want[..]);
 +        }
 +
-+        // `id=0x15 sub=0x53` carries a connector bitmask at offset 22: 2 for connector 1 and 4 for
-+        // connector 2, where a one-based index would send 3.
-+        assert_eq!(post_edid_query(0x30, 1)?[22], 2);
-+        assert_eq!(post_edid_query(0x30, 2)?[22], 4);
-+        for connector in 0..drm_sink::MAX_CONNECTORS as u8 {
-+            assert_eq!(post_edid_query(0x30, connector)?[22], 1u8 << connector);
++        // Head 1 differs only in the record `sub`: this dock uses the bare connector number.
++        let head1 = ella_frame_close(geometry, 1, 0);
++        assert_eq!(head1[8], 0x01);
++        assert_eq!(&head1[16..38], &expect[0][16..38]);
++        Ok(())
++    }
++
++    #[test]
++    fn an_encoded_strip_never_exceeds_the_decoder_input_bound() -> Result {
++        // A strip has to fit inside one record. The record builder starts a fresh record when the
++        // next strip would pass the stride cap, but the *first* strip of a record is taken at
++        // whatever size it has -- it has to be, or a frame carrying such a strip could not be
++        // built at all. So an over-long strip does not produce a short record, it produces a
++        // record whose stride is over the cap: a wire-format violation the dock can only report by
++        // halting the endpoint, which is indistinguishable from any other transport fault.
++        //
++        // The bound is the cap less the record header and the strip's own length prefix. For
++        // reference, DLM never exceeds 1758 bytes on DL-6xxx, 1780 on the DL-7400 or 2036 on
++        // DL-3x00 across roughly half a million strips, so conforming content has a wide margin;
++        // pseudo-random pixels are the worst case for an entropy coder and are what this uses.
++        const DECODER_STRIP_BOUND: usize = 0x0ff0 - 16 - 2;
++        let mut state: u32 = 0x1234_5678;
++        let mut next = || {
++            state = state.wrapping_mul(1_103_515_245).wrapping_add(12_345);
++            (state >> 16) as u16
++        };
++        let mut worst = 0usize;
++        let mut worst_eight = 0usize;
++        for geometry in [
++            video::haar::RIDGE_GEOMETRY,
++            video::haar::Geometry::new(8, true, false, 0, 0x08, 3),
++            video::haar::Geometry::new(16, true, false, 3, 0x07, 3),
++        ] {
++            // Eight-bit samples are what every mode on these docks carries; the ten-bit range is
++            // the DL-7000 HDR profile and is measured separately so an out-of-range sample cannot
++            // be mistaken for an encoder that overshoots.
++            for (mask, ten_bit) in [(0xffu16, false), (0x3ff, true)] {
++                let geometry = if ten_bit {
++                    geometry.with_depth(video::haar::Depth::Ten)
++                } else {
++                    geometry
++                };
++                for _ in 0..16 {
++                    let mut px =
++                        |_x: usize, _y: usize| (next() & mask, next() & mask, next() & mask);
++                    let strip = video::haar::colour_strip_at(geometry, 0, 0, &mut px)?;
++                    worst = worst.max(strip.len());
++                    if !ten_bit {
++                        worst_eight = worst_eight.max(strip.len());
++                    }
++                }
++            }
++        }
++        pr_info!("vino-selftest: worst 8-bit encoded strip {worst_eight} B\n");
++
++        // A flat strip is the one picture whose encoding can be compared to the vendor's exactly:
++        // every strip of a black frame encodes identically, so a whole captured frame collapses to
++        // a single payload and any difference is unambiguous. These are the bytes DLM puts on the
++        // wire for the strip at 0,0 of a black 1920x1088 DL-3x00 frame, and all 1024 strips of that
++        // frame carry them. Matching the length is not enough: the same 54 bytes can hold a
++        // different code, and a dock told one code and sent another decodes every strip to noise.
++        const DLM_FLAT_STRIP: [u8; 54] = [
++            0x01, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36, 0x00, 0x36, 0x00,
++            0x00, 0x00, 0x54, 0x15, 0xaa, 0x0a, 0x55, 0x85, 0xaa, 0x42, 0x55, 0xa1, 0xaa, 0x50,
++            0x55, 0xa8, 0x2a, 0x54, 0x15, 0xaa, 0x0a, 0x55, 0x85, 0xaa, 0x42, 0x55, 0xa1, 0xaa,
++            0x50, 0x55, 0xa8, 0x2a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++        ];
++        let ella = video::haar::Geometry::new(8, true, false, 0, 0x08, 3)
++            .with_coding(video_arm::CodeTables::Narrow);
++        let mut black = |_x: usize, _y: usize| (0u16, 0u16, 0u16);
++        let flat = video::haar::colour_strip_at(ella, 0, 0, &mut black)?;
++        // A smooth gradient stands in for an ordinary desktop, where DLM averages about 175 bytes.
++        let mut ramp = |x: usize, y: usize| {
++            let v = ((x + y) & 0xff) as u16;
++            (v, v, v)
++        };
++        let gradient = video::haar::colour_strip_at(ella, 0, 0, &mut ramp)?;
++
++        // A flat strip cannot tell the payload orders apart: every field of it carries an all-zero
++        // payload, so the bytes above are identical whichever end goes out first. Pin a strip that
++        // does carry payload bits. The order itself was settled against 8000 captured DL-3x00
++        // strips three ways -- reading the interleaved payload least significant bit first takes
++        // whole-strip decoding from 77% to 100%, brings the recovered luma DC into its exact
++        // 0..1020 range instead of an impossible -3205..996, and turns the reconstructed frame
++        // from streaks into a legible desktop.
++        const NARROW_GRADIENT_HEAD: [u8; 64] = [
++            0x01, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x00, 0xf8, 0x00,
++            0x00, 0x00, 0x5c, 0xe1, 0x0a, 0x57, 0xb8, 0xc2, 0x15, 0xae, 0x70, 0x85, 0x2b, 0x5c,
++            0xe1, 0x0a, 0x57, 0xb8, 0xc2, 0x15, 0xae, 0x70, 0x85, 0x2b, 0x5c, 0x8f, 0xab, 0xc2,
++            0x55, 0xe1, 0xaa, 0x70, 0x55, 0xb8, 0x2a, 0x5c, 0x15, 0xae, 0x0a, 0x55, 0xd5, 0xb8,
++            0x2a, 0x5c, 0x15, 0xae, 0x0a, 0x57, 0x85, 0xab,
++        ];
++        assert_eq!(
++            &gradient[..NARROW_GRADIENT_HEAD.len()],
++            &NARROW_GRADIENT_HEAD[..]
++        );
++        pr_info!(
++            "vino-selftest: flat strip {} B (DLM sends 54), gradient strip {} B\n",
++            flat.len(),
++            gradient.len()
++        );
++        assert_eq!(flat.len(), DLM_FLAT_STRIP.len());
++        if let Some(at) = (0..flat.len()).find(|&i| flat[i] != DLM_FLAT_STRIP[i]) {
++            pr_err!(
++                "vino-selftest: flat strip differs from DLM at byte {}: {:#04x} vs {:#04x}\n",
++                at,
++                flat[at],
++                DLM_FLAT_STRIP[at]
++            );
++        }
++        assert_eq!(&flat[..], &DLM_FLAT_STRIP[..]);
++        pr_info!("vino-selftest: worst encoded strip {worst} B (bound {DECODER_STRIP_BOUND})\n");
++        // Eight bits per channel is every mode these docks are driven at today, and it stays
++        // inside the bound with room to spare.
++        assert!(worst_eight <= DECODER_STRIP_BOUND);
++        // The ten-bit profile does not, so the framing has to refuse it rather than put an
++        // over-cap record on the wire. Build a frame from one such strip and check that it does.
++        if worst > DECODER_STRIP_BOUND {
++            let geometry = video::haar::RIDGE_GEOMETRY.with_depth(video::haar::Depth::Ten);
++            let mut oversized: KVec<KVec<u8>> = KVec::new();
++            loop {
++                let mut px =
++                    |_x: usize, _y: usize| (next() & 0x3ff, next() & 0x3ff, next() & 0x3ff);
++                let strip = video::haar::colour_strip_at(geometry, 0, 0, &mut px)?;
++                if strip.len() > DECODER_STRIP_BOUND {
++                    oversized.push(strip, GFP_KERNEL)?;
++                    break;
++                }
++            }
++            assert!(frame_records(geometry, &oversized, 0).is_err());
 +        }
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn display_capability_reply_reports_presence() -> Result {
-+        let key = [0x5au8; 16];
-+        let riv = [0x33u8; 8];
-+        let mut inner = [0u8; 32];
-+        inner[0..2].copy_from_slice(&0x78u16.to_le_bytes());
-+        inner[2..4].copy_from_slice(&0x20u16.to_le_bytes());
-+        inner[22..26].copy_from_slice(&0x1234u32.to_le_bytes());
-+        inner[26] = 0x80;
-+        let mut wire = cp::seal_interactive(&key, &riv, 0x78, 11, &inner)?;
-+        wire[8..10].copy_from_slice(&0x45u16.to_le_bytes());
-+
-+        assert_eq!(
-+            probe_reply_status(&key, &riv, &wire),
-+            Some((0x78, 0x1234, true))
-+        );
++    fn record_stats_reads_a_frame_back_off_its_own_records() -> Result {
++        // The diagnostic that runs when a frame fails to reach a dock, so it has to be right when
++        // nothing else is: a wrong reading here sends the next investigation at the transport.
++        let geometry = video::haar::Geometry::new(8, true, false, 0, 0x08, 3);
++        let mut strips: KVec<KVec<u8>> = KVec::new();
++        let mut px = |_x: usize, _y: usize| (0u16, 0u16, 0u16);
++        for _ in 0..40 {
++            strips.push(
++                video::haar::colour_strip_at(geometry, 0, 0, &mut px)?,
++                GFP_KERNEL,
++            )?;
++        }
++        let flat = strips[0].len();
++        let records = frame_records(geometry, &strips, 0)?;
++        let (count, max_stride, max_strip) = record_stats(&records);
++        assert!(count > 0);
++        assert_eq!(max_strip, flat);
++        assert!(max_stride <= 0x0ff0);
++        assert_eq!(max_stride % 16, 0);
 +        Ok(())
++    }
++
++    #[test]
++    fn ella_band_order_is_the_producer_order_not_a_plain_interlace() -> Result {
++        // This dock stops draining at the first band it did not expect, so the order is part of
++        // the format rather than a preference. The generic even-then-odd interlace diverges at the
++        // second band -- it sends 2 where the dock wants 3 -- which is inside the first sixty
++        // strips of every frame.
++        let rows = ella_rows_1080p();
++        assert_eq!(rows.len(), 68);
++        assert_eq!(&rows[..8], &[0, 3, 5, 7, 9, 11, 13, 16]);
++        assert_eq!(&rows[33..37], &[65, 66, 1, 2]);
++        assert_eq!(rows[67], 67);
++        // Every band exactly once: a repeat would mean a split-row producer boundary, which this
++        // dock does not have and which the ordering code would silently mis-handle.
++        let mut seen = [false; 68];
++        for &y in rows {
++            assert!(!seen[y as usize]);
++            seen[y as usize] = true;
++        }
++        assert!(seen.iter().all(|s| *s));
++        Ok(())
++    }
++
++    #[test]
++    fn video_frame_trailer_matches_dlm_cycle_and_head() {
++        let geometry = profile::PROFILE_RIDGE.geometry();
++        let t0 = frame_trailer(geometry, 0, 0);
++        assert_eq!(
++            &t0[..32],
++            &[
++                0, 0, 0x1c, 0, 4, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 8, 0, 5, 0, 0, 0, 0, 0, 0, 1, 0,
++                0, 0, 0, 0, 0,
++            ]
++        );
++        assert_eq!(
++            &t0[32..64],
++            &[
++                0, 0, 0x1c, 0, 4, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0x0a, 0, 4, 2, 0, 0, 0, 8, 0, 0,
++                0, 0, 0, 0, 0, 0,
++            ]
++        );
++        // Record C ORs the connector selector with 0x10. `sub` is the little-endian u16 at bytes
++        // 8..10, so the selector belongs in byte 8; placing it in byte 9 would encode 0x1100
++        // instead of 0x0011 and prevent connector 1 from presenting the frame.
++        assert_eq!(
++            &t0[64..],
++            &[
++                0, 0, 0x1c, 0, 4, 0, 0, 0, 0x10, 0, 4, 0, 0, 0, 0, 0, 0x0a, 0, 4, 2, 0, 0, 0, 8, 0,
++                0, 0, 0, 0, 0, 0, 0,
++            ]
++        );
++
++        let t1 = frame_trailer(geometry, 1, 1);
++        assert_eq!(u16::from_le_bytes([t1[8], t1[9]]), 0x0001);
++        assert_eq!(u16::from_le_bytes([t1[32 + 8], t1[32 + 9]]), 0x0001);
++        assert_eq!(u16::from_le_bytes([t1[64 + 8], t1[64 + 9]]), 0x0011);
++        assert_eq!(t1[19], 2);
++        assert_eq!(t1[23], 8);
++        assert_eq!(t1[25], 2);
++        assert_eq!(t1[32 + 19], 4);
++        assert_eq!(t1[32 + 23], 16);
++        assert_eq!(t1[32 + 27], 8);
 +    }
 +}
-diff --git a/drivers/gpu/drm/vino/cp/mode.rs b/drivers/gpu/drm/vino/cp/mode.rs
+diff --git a/drivers/gpu/drm/vino/video/haar/strip.rs b/drivers/gpu/drm/vino/video/haar/strip.rs
 new file mode 100644
-index 000000000000..91f4fc5d3625
+index 000000000000..9930063b6226
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/cp/mode.rs
-@@ -0,0 +1,874 @@
++++ b/drivers/gpu/drm/vino/video/haar/strip.rs
+@@ -0,0 +1,507 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Describing a mode to the dock.
++//! Strip geometry and the encoding of one strip.
 +//!
-+//! The dock is not told a DRM mode. It is told a pixel clock, a set of totals, a sync polarity
-+//! and an allocation, and it programs its downstream link from those. A mode it accepts but
-+//! cannot carry lights nothing, so what is sent is bounded by the profile rather than by what
-+//! the compositor asked for.
++//! A strip is the unit the dock accepts: sixteen blocks, laid out per family, carrying Y, Cb
++//! and Cr for a rectangle of the surface. Geometry says how a surface is cut into them.
 +
 +use super::*;
 +
-+/// A video timing as carried by the `0x48/0x22` set-mode message.
-+///
-+/// Field names follow the vendor's own vocabulary, which it logs as `hActive hBlanking
-+/// hFrontPorch hSyncWidth hSyncInv vActive vBlanking vFrontPorch vSyncWidth vSyncInv vic
-+/// pixelClock`. That is this payload in order: eight geometry words at offsets 26 through 40, the
-+/// two sync-inversion flags packed into [`Timing::sync_flags`] at offset 42, the CTA VIC in the
-+/// low byte of [`Timing::vic_word`] at offset 66, and the pixel clock at offset 70.
-+#[derive(Clone, Copy, PartialEq, Eq)]
-+pub(crate) struct Timing {
-+    pub hactive: u16,
-+    pub hblank: u16,
-+    pub hsync_front: u16,
-+    pub hsync_width: u16,
-+    pub vactive: u16,
-+    pub vblank: u16,
-+    pub vsync_front: u16,
-+    pub vsync_width: u16,
-+    pub refresh_hz: u16,
-+    /// Pixel clock in 10 kHz units, serialized as a `u32` at offsets 70 through 73.
-+    ///
-+    /// It is a full 32-bit field. No Ridge capture
-+    /// could show that, because Ridge is never driven above 497.75 MHz and the high half is
-+    /// always zero there -- but the DL7400 sends `0x0001113d` (699.49 MHz) for 2560x1440p165,
-+    /// so the upper word is real. Truncating to `u16` made every mode past 655.35 MHz fail the
-+    /// conversion and never reach the dock at all.
-+    pub pixel_clock_10khz: u32,
-+    /// Sync-polarity flags at offset 42; see [`sync_flags`].
-+    pub sync_flags: u16,
-+    /// Render stride at offset 46, in pixels; see [`render_stride`].
-+    pub stride: u16,
-+    /// Row count at offset 48; see [`profile::Allocation`].
-+    pub total_rows: u16,
-+    /// Picture aspect and CTA VIC at offset 66; see [`vic_word`].
-+    pub vic_word: u16,
-+    /// Whether this connector scans out 10 bits per channel, which selects the offset-68 colour
-+    /// depth and the offset-23 DMA buffer format together. They are one decision: the dock sizes
-+    /// its own buffer from the format's bytes-per-pixel and interprets the samples by the depth, so
-+    /// a mismatched pair mis-sizes the allocation.
-+    pub ten_bit: bool,
-+    /// Whether the pixels this connector carries are encoded with the SMPTE ST 2084 (PQ) transfer
-+    /// function, which sets [`SYNC_FLAG_ST2084`] in the offset-42 flags word.
-+    ///
-+    /// Independent of [`Timing::ten_bit`]: the depth says how many bits a sample has, this says
-+    /// what curve those bits are on. A compositor can drive a 10-bit SDR output, and PQ in 8 bits
-+    /// is merely a bad idea rather than a contradiction, so the dock is told the two separately --
-+    /// exactly as DLM tells it.
-+    pub st2084: bool,
-+    /// This connector's video endpoint also carries another connector; see [`SYNC_FLAG_DUAL_NIVO`].
-+    pub dual_nivo: bool,
-+}
-+/// The render stride for `hactive`, in pixels: quantised up to [`STRIDE_ALIGN`], then one whole
-+/// unit more.
-+///
-+/// The trailing unit is added after the quantisation, not as slack for it, so a width that is
-+/// already a multiple of 128 still gains 128. Both decrypted DL7400 widths are such multiples,
-+/// which is why `0x0a80` at 2560 and `0x0300` at 640 both read as a plain `hactive + 128`.
-+pub(crate) fn render_stride(hactive: u16) -> u16 {
-+    let quantised = (u32::from(hactive) + STRIDE_ALIGN - 1) / STRIDE_ALIGN;
-+    (((quantised + 1) * STRIDE_ALIGN) & 0xffff) as u16
-+}
-+/// Build the offset-42 flags word from the mode's sync polarity.
-+///
-+/// This is the vendor's `hSyncInv`/`vSyncInv` pair packed into one word, over a base bit that is
-+/// set in every observed message and whose own meaning is unknown. Every decrypted mode set on
-+/// both dock generations agrees:
-+///
-+/// | mode | polarity | off42 |
-+/// |---|---|---|
-+/// | 1280x720p60, 1920x1080p60/p120 (CTA) | `+h +v` | `0x0400` |
-+/// | 2560x1440p60/p120/p165 (CVT-RB) | `+h -v` | `0x0600` |
-+/// | 640x480p60 (DMT) | `-h -v` | `0x0700` |
-+///
-+/// The last row also fixes the assignment within the pair: 2560x1440 is `+h -v` and carries
-+/// `0x0600`, so `0x0200` is the vertical flag and swapping the two would predict `0x0500`.
-+/// DLM's own bit test confirms both independently; see [`SYNC_FLAGS_BASE`].
-+fn sync_flags(mode: &kernel::drm::kms::modes::DisplayMode) -> u16 {
-+    type ModeFlags = kernel::drm::kms::modes::ModeFlags;
++pub(crate) const STRIP_ROW_BLOCKS: usize = 8; // blocks in one coded half
++pub(crate) const STRIP_BLOCKS: usize = 16;
 +
-+    let flags = mode.flags();
-+    let mut word = SYNC_FLAGS_BASE;
-+    if flags.contains(ModeFlags::NHSYNC) {
-+        word |= SYNC_FLAG_HSYNC_INV;
-+    }
-+    if flags.contains(ModeFlags::NVSYNC) {
-+        word |= SYNC_FLAG_VSYNC_INV;
-+    }
-+    word
++/// Everything about a dock's video encoding that differs between platforms.
++///
++/// Passed by value rather than held in shared state: two docks of different generations may
++/// encode concurrently, and each frame must carry its own dock's layout.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) struct Geometry {
++    /// `log2` of the strip width in pixels. A strip is always [`STRIP_BLOCKS`] blocks of
++    /// `DIM` x `DIM` split into two halves of [`STRIP_ROW_BLOCKS`]; the docks differ only in
++    /// how those blocks are laid over pixels. Ridge puts them 8 across x 2 down (64x16), the
++    /// DL7400 16 across x 1 down (128x8). Same block count, same coded strip.
++    ///
++    /// Held as shifts because a strip is a power of two in each direction, so every geometry
++    /// query is a shift or a mask: dividing by a value the compiler cannot bound would put a
++    /// panic path into the codec's hot functions.
++    strip_w_shift: u32,
++    /// `log2` of the strip height in pixels; see [`Geometry::strip_w_shift`].
++    strip_h_shift: u32,
++    /// Whether image records are emitted with even y-bands before odd ones.
++    ///
++    /// Ridge sends them in raster order; the DL7400 interlaces, which its own records show as
++    /// a y sequence of 0, 16, 32 ... over 8-row strips before it returns for 8, 24, 40 ...
++    pub(crate) interlaced_bands: bool,
++    /// Whether an image record's `sub` carries the y-band parity in bit 4.
++    ///
++    /// Ridge does, which also means one of its records can never span two bands. Navarro's
++    /// image records carry only the connector, and fill to the stride cap across band
++    /// boundaries.
++    pub(crate) band_parity_bit: bool,
++    /// How the dock encodes a connector in a video record's `sub` field, as a left shift.
++    ///
++    /// Ridge puts the bare connector number there (0, 1). Navarro shifts it by three: its
++    /// records use `0x00`/`0x08`/`0x10`/`0x18` and its stream-open ids are
++    /// `0x07`/`0x0f`/`0x17`/`0x1f` -- the same eight-apart spacing.
++    pub(crate) connector_selector_shift: u8,
++    /// The bits a connector's stream id sets over its record `sub`.
++    ///
++    /// A dock names each video stream by its connector's record `sub` with a fixed low pattern
++    /// set: Ridge uses `0x08 | connector`, Navarro `(connector << 3) | 7`. The same id is the
++    /// wire `sub` of the stream's control records, the value its `RepeaterAuth_Stream_Manage`
++    /// restatement declares, and the byte-7 tweak deriving the stream's AES-CTR nonce from its
++    /// SKE RIV.
++    pub(crate) stream_id_mask: u8,
++    /// How many buffers the dock rotates through as it presents frames; see
++    /// `DockProfile::dock_buffers`.
++    pub(crate) dock_buffers: u8,
++    /// Bits a steady-state image record adds to its `sub`; see
++    /// `DockProfile::steady_record_sub_bit`.
++    ///
++    /// Cleared for the frames that open a stream, which the vendor sends without it.
++    pub(crate) steady_sub_bit: u8,
++    /// Bits per channel of the surface being encoded; see [`Depth`].
++    ///
++    /// Geometry is otherwise fixed per dock, and this is not -- a connector moves between
++    /// depths at runtime when a compositor turns HDR on. It lives here because it is the one
++    /// remaining thing the codec needs to know that is neither a block coordinate nor a
++    /// coefficient, and `Geometry` is already threaded through every path that would have to
++    /// carry it separately. [`Geometry::new`] gives [`Depth::Eight`]; a 10-bit connector asks
++    /// for [`Geometry::with_depth`].
++    depth: Depth,
++    /// Which dialect of the shared unary code this dock's decoder reads.
++    ///
++    /// The same profile field states the dock's code tables in its stream configuration, so
++    /// the code vino emits and the code it declares cannot drift apart.
++    coding: super::super::video_arm::CodeTables,
 +}
-+/// Build the offset-66 word: the picture aspect in the high byte, the CTA VIC in the low.
++impl Geometry {
++    /// Build a dock's geometry from its profile.
++    ///
++    /// `strip_blocks_x` must divide [`STRIP_BLOCKS`]; anything else falls back to the Ridge
++    /// layout rather than producing a strip that is not a whole number of blocks.
++    pub(crate) fn new(
++        strip_blocks_x: usize,
++        interlaced_bands: bool,
++        band_parity_bit: bool,
++        connector_selector_shift: u8,
++        stream_id_mask: u8,
++        dock_buffers: u8,
++    ) -> Self {
++        let (strip_w_shift, strip_h_shift) = match strip_blocks_x {
++            16 => (7, 3), // 128 x 8
++            _ => (6, 4),  // 64 x 16
++        };
++        Self {
++            strip_w_shift,
++            strip_h_shift,
++            interlaced_bands,
++            band_parity_bit,
++            connector_selector_shift,
++            stream_id_mask,
++            dock_buffers: dock_buffers.max(1),
++            steady_sub_bit: 0,
++            depth: Depth::Eight,
++            coding: super::super::video_arm::CodeTables::Wide,
++        }
++    }
++
++    /// The same dock geometry at a different sample depth; see [`Geometry::depth`].
++    #[inline]
++    pub(crate) fn with_depth(self, depth: Depth) -> Self {
++        Self { depth, ..self }
++    }
++
++    /// Select the bitstream dialect; see [`Geometry::coding`].
++    pub(crate) fn with_coding(self, coding: super::super::video_arm::CodeTables) -> Self {
++        Self { coding, ..self }
++    }
++
++    /// The same geometry with the steady-state record bit set; see
++    /// [`Geometry::steady_sub_bit`].
++    pub(crate) fn with_steady_sub_bit(self, bit: u8) -> Self {
++        Self {
++            steady_sub_bit: bit,
++            ..self
++        }
++    }
++
++    /// The same geometry for a frame that opens a stream, which carries no steady-state bit.
++    pub(crate) fn opening(self) -> Self {
++        Self {
++            steady_sub_bit: 0,
++            ..self
++        }
++    }
++
++    /// Which dialect of the shared unary code this dock's decoder reads.
++    #[inline]
++    pub(crate) fn coding(&self) -> super::super::video_arm::CodeTables {
++        self.coding
++    }
++
++    /// Bits per channel this frame is being encoded at.
++    #[inline]
++    pub(crate) fn depth(&self) -> Depth {
++        self.depth
++    }
++
++    /// `log2` of the strip width; see [`Geometry::strip_w_shift`].
++    #[inline]
++    pub(crate) fn strip_w_shift(&self) -> u32 {
++        self.strip_w_shift
++    }
++
++    /// `log2` of the strip height; see [`Geometry::strip_w_shift`].
++    #[inline]
++    pub(crate) fn strip_h_shift(&self) -> u32 {
++        self.strip_h_shift
++    }
++
++    /// Strip width in pixels: [`Geometry::strip_w_shift`] blocks across, each `DIM` square.
++    #[inline]
++    pub(crate) fn strip_w(&self) -> usize {
++        1usize << self.strip_w_shift
++    }
++
++    /// Strip height in pixels; see [`Geometry::strip_w`].
++    #[inline]
++    pub(crate) fn strip_h(&self) -> usize {
++        1usize << self.strip_h_shift
++    }
++
++    /// Damage macro-tile: 4x4 strips. A touched macro-tile must be resent in full because the
++    /// dock rotates its backing buffers at this granularity.
++    #[inline]
++    pub(crate) fn macro_w(&self) -> usize {
++        4 * self.strip_w()
++    }
++
++    /// Damage macro-tile height; see [`Geometry::macro_w`].
++    #[inline]
++    pub(crate) fn macro_h(&self) -> usize {
++        4 * self.strip_h()
++    }
++
++    /// Encode `connector` the way this dock expects it in a record `sub` field.
++    #[inline]
++    pub(crate) fn connector_selector(&self, connector: u8) -> u8 {
++        connector << self.connector_selector_shift
++    }
++
++    /// The content-stream id of `connector` on this dock; see [`Geometry::stream_id_mask`].
++    #[inline]
++    pub(crate) fn stream_id(&self, connector: u8) -> u16 {
++        u16::from(self.connector_selector(connector) | self.stream_id_mask)
++    }
++}
++/// The Ridge layout, and the value every geometry-free code path starts from.
++pub(crate) const RIDGE_GEOMETRY: Geometry = Geometry {
++    strip_w_shift: 6,
++    strip_h_shift: 4,
++    interlaced_bands: false,
++    band_parity_bit: true,
++    connector_selector_shift: 0,
++    stream_id_mask: 0x08,
++    dock_buffers: 2,
++    // The geometry-free starting point describes a stream that has not opened yet.
++    steady_sub_bit: 0,
++    depth: Depth::Eight,
++    coding: super::super::video_arm::CodeTables::Wide,
++};
++
++/// `log2(DIM)`, so a block index splits into (x, y) by shift and mask rather than division.
++pub(crate) const DIM_SHIFT: u32 = 3;
++
++/// Round a byte count up to an even number (every coder sub-region is even-aligned).
++pub(crate) fn round_even(n: usize) -> usize {
++    n + (n & 1)
++}
++/// One quantized colour block: the three planes' 64 coefficients and exact last-significant
++/// AC positions. Built by [`colour_block`] from a block's per-plane samples.
++pub(crate) struct ColourBlock {
++    pub(crate) qcr: [i32; COEFFS],
++    pub(crate) qcb: [i32; COEFFS],
++    pub(crate) qy: [i32; COEFFS],
++    pub(crate) lcr: usize,
++    pub(crate) lcb: usize,
++    pub(crate) ly: usize,
++}
++/// Return the exact chroma AC extent.
++/// Only the KUnit tests call this now: `colour_block` folds the same search into the pass that
++/// writes the coefficients, so the production path never scans them a second time.
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++pub(crate) fn chroma_last(q: &[i32; COEFFS]) -> usize {
++    (1..COEFFS).rev().find(|&i| q[i] != 0).unwrap_or(0)
++}
++/// Transform + quantize one block's three planes (each 64 samples in the codec's x64 fixed
++/// point: `cr[i] = 64*(B-G)`, `cb[i] = 64*(R-G)`, `y[i] = 64*G + 64*((Cb+Cr)>>2)`). Luma uses
++/// the per-position `quantize`; chroma AC uses `quantize_chroma_ac`; all DCs use
++/// `quantize_dc_round`.
 +///
-+/// The low byte is the VIC, or zero for a timing that has none. Measured: `0x10` for 1920x1080p60
-+/// (VIC 16), `0x3f` for 1920x1080p120 (VIC 63), `0x00` for the VIC-less 2560x1440 CVT-RB timings.
++/// `#[inline(never)]`: see `haar2d`'s doc comment -- part of the kernel-stack-overflow fix.
++#[inline(never)]
++pub(crate) fn colour_block(
++    cr: &[i32; PIXELS],
++    cb: &[i32; PIXELS],
++    y: &[i32; PIXELS],
++) -> ColourBlock {
++    // Do not reach for SIMD here. An AVX2 in-block Haar is byte-exact but parity-to-slower
++    // once `kernel_fpu_begin`/`end` are paid per block, costing about 18% more CPU on a live
++    // encode. A strip is ~72% entropy coder, which is bit-serial, so even a free transform
++    // caps the whole win near 23%.
++    let (tcr, tcb, ty) = (transform(cr), transform(cb), transform(y));
++    // Quantise all three planes and find each one's last significant coefficient in a single
++    // pass. Folding the search into the write avoids three further 63-element reverse scans
++    // ([`chroma_last`]) over arrays just written, and keeps the three planes in cache together.
++    //
++    // An explicit ascending loop rather than `core::array::from_fn`: the fold depends on the
++    // index order, and `from_fn` does not document one. Every element is written, so the zero
++    // initialiser costs nothing.
++    let mut qcr = [0i32; COEFFS];
++    let mut qcb = [0i32; COEFFS];
++    let mut qy = [0i32; COEFFS];
++    let (mut lcr, mut lcb, mut ly) = (0usize, 0usize, 0usize);
++    qcr[0] = quantize_dc_round(2, tcr[0]);
++    qcb[0] = quantize_dc_round(1, tcb[0]);
++    qy[0] = quantize_dc_round(0, ty[0]);
++    // Coefficient 0 is deliberately excluded: the last-significant index is over 1..COEFFS.
++    for i in 1..COEFFS {
++        let (vcr, vcb, vy) = (
++            quantize_chroma_ac(tcr[i], i),
++            quantize_chroma_ac(tcb[i], i),
++            quantize(ty[i], i),
++        );
++        if vcr != 0 {
++            lcr = i;
++        }
++        if vcb != 0 {
++            lcb = i;
++        }
++        if vy != 0 {
++            ly = i;
++        }
++        qcr[i] = vcr;
++        qcb[i] = vcb;
++        qy[i] = vy;
++    }
++    ColourBlock {
++        qcr,
++        qcb,
++        qy,
++        lcr,
++        lcb,
++        ly,
++    }
++}
++/// Encode one 64x16 COLOUR strip at pixel `(x, y)` from its 16 quantized colour blocks
++/// (raster: 0..8 top 8-px half, 8..16 bottom).
 +///
-+/// The aspect is looked up in [`VIC_ASPECT_16_9`], which covers VICs 1 through 59. A VIC outside
-+/// that range gets [`ASPECT_NONE`] rather than being clamped into it -- that is what makes
-+/// 1920x1080p120 (VIC 63) carry `0x083f` while 1920x1080p60 (VIC 16) carries `0x2810`.
-+pub(crate) fn vic_word(vic: u8) -> u16 {
-+    let vic = u16::from(vic);
-+    let aspect = match vic.checked_sub(1) {
-+        Some(bit) if bit < 59 => {
-+            if VIC_ASPECT_16_9 & (1u64 << bit) != 0 {
-+                ASPECT_16_9
-+            } else {
-+                ASPECT_4_3
++/// `#[inline(never)]`: see `haar2d`'s doc comment -- part of the kernel-stack-overflow fix.
++#[inline(never)]
++pub(crate) fn colour_strip(
++    geometry: Geometry,
++    blocks: &[ColourBlock],
++    x: u16,
++    y: u16,
++) -> Result<KVec<u8>> {
++    let dc_cmax = geometry.depth().dc_cmax();
++    let coding = geometry.coding();
++    let mut main = Bits::new(coding);
++    for b in blocks {
++        main.colour_sync_unit(b.lcr, b.lcb, b.ly)?;
++    }
++    let (mut pcr, mut pcb, mut py) = (0i32, 0i32, 0i32);
++    for b in blocks {
++        let (cr, cb, yv) = (b.qcr[0], b.qcb[0], b.qy[0]);
++        main.esc(cr - pcr, dc_cmax)?;
++        main.esc(cb - pcb, dc_cmax)?;
++        main.esc(yv - py, dc_cmax)?;
++        (pcr, pcb, py) = (cr, cb, yv);
++    }
++    let mut row0 = Bits::new(coding);
++    for b in &blocks[..STRIP_ROW_BLOCKS] {
++        row0.colour_block_ac(&b.qcr, &b.qcb, &b.qy, b.lcr, b.lcb, b.ly, geometry.depth())?;
++    }
++    let mut row1 = Bits::new(coding);
++    for b in &blocks[STRIP_ROW_BLOCKS..] {
++        row1.colour_block_ac(&b.qcr, &b.qcb, &b.qy, b.lcr, b.lcb, b.ly, geometry.depth())?;
++    }
++
++    // `Bits` buffers into a word, so `out` is only complete once finished -- take all three
++    // before any length is read.
++    let (main, row0, row1) = (main.finish()?, row0.finish()?, row1.finish()?);
++    let r0 = round_even(row0.len());
++    let r1 = round_even(row1.len());
++    let main_b = round_even(main.len()) + 2;
++    let w18 = 16 + main_b;
++    let w1c = w18 + r0;
++    // The 2-byte tail overlaps the end of the row1 region (len = w1c + round_even(row1)).
++    let len = w1c + r1;
++
++    let mut out = KVec::new();
++    out.resize(len, 0, GFP_KERNEL)?;
++    out[0] = 0x01;
++    out[1] = 0x28;
++    out[2..4].copy_from_slice(&x.to_le_bytes());
++    // Strip y is the band's top edge.
++    out[4..6].copy_from_slice(&y.to_le_bytes());
++    out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
++    out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
++    out[16..16 + main.len()].copy_from_slice(&main);
++    out[w18..w18 + row0.len()].copy_from_slice(&row0);
++    out[w1c..w1c + row1.len()].copy_from_slice(&row1);
++    // No forward-hint tail: on the EP08 wire the strip's last 2 bytes are the natural row1
++    // bit-packing. The record framing carries the length as `strip_id == len`, so the in-strip
++    // echo the sink hook showed is not transmitted on the wire. See `frame_records`.
++    Ok(out)
++}
++/// Gather one 64x16 strip's 16 colour blocks from a pixel source. `px(x, y)` returns the
++/// 8-bit `(R, G, B)` at absolute frame coordinate `(x, y)`; `(ox, oy)` is the strip's
++/// top-left pixel. Each block's three planes are built in the codec's x64 fixed point via
++/// [`colour`] (per-pixel `(Y, Cb, Cr)`, stored `(Cr, Cb, Y)` for [`colour_block`]). Blocks are
++/// raster order within the strip (0..8 top 8-px half, 8..16 bottom), matching [`colour_strip`].
++///
++/// `#[inline(never)]`: see `haar2d`'s doc comment -- part of the kernel-stack-overflow fix.
++/// The block array is heap allocated because it is about 6.5 KiB and nested copies can exhaust
++/// the kernel stack.
++#[inline(never)]
++pub(crate) fn colour_strip_blocks(
++    geometry: Geometry,
++    ox: usize,
++    oy: usize,
++    px: &mut impl FnMut(usize, usize) -> (u16, u16, u16),
++) -> Result<KVec<ColourBlock>> {
++    let mut blocks = KVec::with_capacity(STRIP_BLOCKS, GFP_KERNEL)?;
++    for k in 0..STRIP_BLOCKS {
++        let across_shift = geometry.strip_w_shift() - DIM_SHIFT;
++        let (bx, by) = (k & ((1usize << across_shift) - 1), k >> across_shift);
++        // One `px` call per pixel, in the same row-major order as before -- it is the
++        // expensive accessor, so the converted values are gathered once and then split into
++        // the three planes. `from_fn` avoids the zeroing that filling `[0i32; PIXELS]`
++        // afterwards would leave behind.
++        // Left as a zero-initialised fill on purpose. Gathering into an interleaved
++        // array and splitting it (as `colour_block`/`transform` now do) removes the `memset`
++        // but costs ~736 bytes of stack here, and this path already runs ~8 KB deep inside a
++        // 16 KB kernel stack -- the same budget the `#[inline(never)]` markers protect.
++        let (mut cr, mut cb, mut y) = ([0i32; PIXELS], [0i32; PIXELS], [0i32; PIXELS]);
++        // Monotonic indexing lets LLVM prove that every element is initialized before use.
++        let mut i = 0usize;
++        for r in 0..DIM {
++            for c in 0..DIM {
++                let (rr, gg, bb) = px(ox + bx * DIM + c, oy + by * DIM + r);
++                let (yv, cbv, crv) = colour(rr as i32, gg as i32, bb as i32);
++                (cr[i], cb[i], y[i]) = (crv, cbv, yv);
++                i += 1;
 +            }
 +        }
-+        _ => ASPECT_NONE,
-+    };
-+    aspect | vic
++        blocks.push(colour_block(&cr, &cb, &y), GFP_KERNEL)?;
++    }
++    Ok(blocks)
 +}
-+/// A mode's offset-42 and offset-66 set-mode words, and how they were obtained.
-+pub(crate) struct ModeProfile {
-+    pub sync_flags: u16,
-+    pub vic_word: u16,
-+    /// True when these bytes are reproduced from a decrypted DLM set-mode message.
-+    pub measured: bool,
-+}
-+/// Return the two mode-dependent set-mode words at offsets 42 and 66.
++/// Encode ONE 64x16 strip whose top-left output pixel is `(sx, sy)`.
 +///
-+/// Both words are derived by [`sync_flags`] and [`vic_word`], which between them reproduce every
-+/// decrypted message byte-exactly, so an unsampled timing is driven rather than refused. The
-+/// envelope the dock stays inside -- refresh ceiling, per-connector clock and the shared pixel
-+/// budget -- is enforced by `drm_sink`'s `mode_valid`, not here.
-+pub(crate) fn mode_profile(mode: &kernel::drm::kms::modes::DisplayMode) -> Option<ModeProfile> {
-+    let clock = mode.clock();
-+    if clock <= 0 {
-+        return None;
-+    }
-+    if mode.vrefresh() <= 0 {
-+        return None;
-+    }
-+
-+    // The whole decrypted DLM corpus: 1920x1080p60 and p120 (CTA), 2560x1440p60 and p120
-+    // (CVT-RB), with the two words each carries on the wire.
-+    //
-+    // These are taken from the capture rather than derived, because the derivation reads the
-+    // sync polarity and the CTA VIC off the DRM mode and a mode built from the fallback list
-+    // carries neither: a 1920x1080p60 with exactly these timings arrives with both syncs marked
-+    // negative and no VIC at all, which sends `0x0700`/`0x0800` where the vendor sends
-+    // `0x0400`/`0x2810`. The timings identify the mode; the flags on the struct do not.
-+    let captured = match (
-+        clock,
-+        mode.hdisplay(),
-+        mode.hsync_start(),
-+        mode.hsync_end(),
-+        mode.htotal(),
-+        mode.vdisplay(),
-+        mode.vsync_start(),
-+        mode.vsync_end(),
-+        mode.vtotal(),
-+    ) {
-+        (148_500, 1920, 2008, 2052, 2200, 1080, 1084, 1089, 1125) => Some((0x0400, 0x2810)),
-+        (297_000, 1920, 2008, 2052, 2200, 1080, 1084, 1089, 1125) => Some((0x0400, 0x083f)),
-+        (241_500, 2560, 2608, 2640, 2720, 1440, 1443, 1448, 1481) => Some((0x0600, 0x0800)),
-+        (497_750, 2560, 2608, 2640, 2720, 1440, 1443, 1448, 1525) => Some((0x0600, 0x0800)),
-+        _ => None,
-+    };
-+
-+    Some(ModeProfile {
-+        sync_flags: captured.map_or_else(|| sync_flags(mode), |(s, _)| s),
-+        vic_word: captured.map_or_else(|| vic_word(mode.cea_vic()), |(_, v)| v),
-+        measured: captured.is_some(),
-+    })
++/// This is the unit of work both frame encoders are built from, and it is the reason a
++/// parallel encode is possible at all: a strip reads only its own 64x16 region through `px`
++/// and produces its own independent byte vector, sharing no state with any other strip. The
++/// scanout encoder in `drm_sink.rs` fans batches of these across CPUs; see `EncodeChunk`.
++pub(crate) fn colour_strip_at(
++    geometry: Geometry,
++    sx: usize,
++    sy: usize,
++    px: &mut impl FnMut(usize, usize) -> (u16, u16, u16),
++) -> Result<KVec<u8>> {
++    let blocks = colour_strip_blocks(geometry, sx, sy, px)?;
++    colour_strip(geometry, &blocks, sx as u16, sy as u16)
 +}
-+/// Whether the dock can be given a mode profile for `mode`.
-+pub(crate) fn mode_supported(mode: &kernel::drm::kms::modes::DisplayMode) -> bool {
-+    mode_profile(mode).is_some()
++/// A strip's `y` (the EP08 record bands group strips by row). Reads the `y` field the strip
++/// builders write at byte offset 4 ([`colour_strip`] / [`solid_strip`]).
++pub(crate) fn strip_y(s: &[u8]) -> u16 {
++    u16::from_le_bytes([s[4], s[5]])
 +}
-+/// Build the set-mode message's teardown form: every timing word zero and
-+/// [`SYNC_FLAGS_TEARDOWN`] at offset 42.
-+///
-+/// The dock expects this for a connector before that connector's real mode. DLM sends two rounds
-+/// of `(conn 0, conn 1)` teardowns 3.1 s and 1.2 s ahead of the real pair, which itself lands
-+/// 0.12 s before the first video byte.
-+pub(crate) fn clear_mode(counter: u16, connector: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(80, GFP_KERNEL)?;
-+    header(&mut b, 0x48, 0x22, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.push(connector, GFP_KERNEL)?; // off22: connector
-+    b.push(DMA_FORMAT_NONE, GFP_KERNEL)?;
-+    pad_to(&mut b, 42)?;
-+    b.extend_from_slice(&SYNC_FLAGS_TEARDOWN.to_le_bytes(), GFP_KERNEL)?;
-+    pad_to(&mut b, 74)?;
-+    let mut tail = [0u8; 6];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?; // off74..79: pad to the AES block
-+    Ok(b)
-+}
-+/// Set-mode (`id=0x48 sub=0x22`): an 80-byte inner message carrying the target connector and a
-+/// timing record. Offsets 26 through 48 hold the geometry, sync flags, refresh and the
-+/// resolution-keyed pair; offset 66 carries the VIC word, offset 68 is fixed, offset 70 the pixel
-+/// clock, and offsets 74 through 79 a fresh token.
-+pub(crate) fn set_mode(counter: u16, connector: u8, t: &Timing) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(80, GFP_KERNEL)?;
-+    header(&mut b, 0x48, 0x22, counter)?;
-+    pad_to(&mut b, 22)?;
-+    b.push(connector, GFP_KERNEL)?; // off22: downstream connector selector
-+    b.push(
-+        if t.ten_bit {
-+            DMA_FORMAT_NM30
-+        } else {
-+            DMA_FORMAT_NM24
-+        },
-+        GFP_KERNEL,
-+    )?;
-+    pad_to(&mut b, 26)?; // off24..25 zero; timing begins at off26
-+                         // The transfer function rides in the same word as the sync polarity; see
-+                         // `SYNC_FLAG_ST2084`.
-+    let flags = t.sync_flags
-+        | if t.st2084 { SYNC_FLAG_ST2084 } else { 0 }
-+        | if t.dual_nivo { SYNC_FLAG_DUAL_NIVO } else { 0 };
-+    for v in [
-+        t.hactive,
-+        t.hblank,
-+        t.hsync_front,
-+        t.hsync_width,
-+        t.vactive,
-+        t.vblank,
-+        t.vsync_front,
-+        t.vsync_width,
-+        flags,
-+        t.refresh_hz,
-+        t.stride,
-+        t.total_rows,
-+    ] {
-+        b.extend_from_slice(&v.to_le_bytes(), GFP_KERNEL)?;
-+    }
-+    pad_to(&mut b, 58)?;
-+    b.extend_from_slice(&0x0080u16.to_le_bytes(), GFP_KERNEL)?; // off58: profile constant
-+    b.extend_from_slice(&0x00ffu16.to_le_bytes(), GFP_KERNEL)?; // off60: profile constant
-+    pad_to(&mut b, 66)?;
-+    b.extend_from_slice(&t.vic_word.to_le_bytes(), GFP_KERNEL)?; // off66: see `vic_word`
-+    b.extend_from_slice(
-+        &if t.ten_bit {
-+            COLOUR_DEPTH_30BPP
-+        } else {
-+            COLOUR_DEPTH_24BPP
-+        }
-+        .to_le_bytes(),
-+        GFP_KERNEL,
-+    )?;
-+
-+    // off70..73: pixel clock in 10 kHz units, a full u32. Ridge only ever fills the low half, so
-+    // this is byte-identical there to the old u16 followed by two zero bytes.
-+    b.extend_from_slice(&t.pixel_clock_10khz.to_le_bytes(), GFP_KERNEL)?;
-+    pad_to(&mut b, 74)?;
-+    let mut tail = [0u8; 6];
-+    rng::fill(&mut tail);
-+    b.extend_from_slice(&tail, GFP_KERNEL)?; // off74..79: fresh per-message token
-+    Ok(b)
-+}
-+/// Convert a DRM display mode into the dock's set-mode timing representation.
-+pub(crate) fn timing_from_drm_mode(
-+    mode: &kernel::drm::kms::modes::DisplayMode,
-+    allocation: &profile::Allocation,
-+    ten_bit: bool,
-+) -> Result<Timing> {
-+    let refresh = mode.vrefresh() as u16;
-+    let sub = |a: u16, b: u16| a.saturating_sub(b);
-+    let profile = mode_profile(mode).ok_or(EINVAL)?;
-+    let clock = mode.clock();
-+    if clock <= 0 {
-+        return Err(EINVAL);
-+    }
-+    // A dark panel on a mode with no decrypted message is far more likely to be these two words
-+    // than anything else in the pipeline, so name them in the log.
-+    if !profile.measured {
-+        vino_debug!(
-+            "vino: {}x{}@{} has no decrypted DLM profile; inferring sync_flags={:#06x} \
-+             vic_word={:#06x}\n",
-+            mode.hdisplay(),
-+            mode.vdisplay(),
-+            refresh,
-+            profile.sync_flags,
-+            profile.vic_word
-+        );
-+    }
-+    let pixel_clock_10khz = (clock as u32) / 10;
-+    let (stride, total_rows, known) = allocation.words(mode.hdisplay(), mode.vdisplay(), ten_bit);
-+    // A dock with nowhere to put the second frame stops consuming and says nothing, so name an
-+    // allocation no capture covers.
-+    if !known {
-+        vino_debug!(
-+            "vino: {}x{} has no stated allocation; sending this dock's default {:#06x} rows\n",
-+            mode.hdisplay(),
-+            mode.vdisplay(),
-+            total_rows
-+        );
-+    }
-+    Ok(Timing {
-+        hactive: mode.hdisplay(),
-+        hblank: sub(mode.htotal(), mode.hdisplay()),
-+        hsync_front: sub(mode.hsync_start(), mode.hdisplay()),
-+        hsync_width: sub(mode.hsync_end(), mode.hsync_start()),
-+        vactive: mode.vdisplay(),
-+        vblank: sub(mode.vtotal(), mode.vdisplay()),
-+        vsync_front: sub(mode.vsync_start(), mode.vdisplay()),
-+        vsync_width: sub(mode.vsync_end(), mode.vsync_start()),
-+        refresh_hz: refresh,
-+        pixel_clock_10khz,
-+        sync_flags: profile.sync_flags,
-+        stride,
-+        total_rows,
-+        vic_word: profile.vic_word,
-+        // The depth is an argument because the allocation above divides by it, so the pair cannot
-+        // disagree: a connector told 30 bpp is told the row count that goes with 30 bpp.
-+        ten_bit,
-+        // Filled by the caller. Both describe the pixels a connector will actually carry, which a
-+        // DRM mode does not know: `atomic_enable` reads them from the committed framebuffer and the
-+        // connector's HDR properties.
-+        st2084: false,
-+        dual_nivo: false,
-+    })
++/// A strip's `x`, written by the strip builders at byte offset 2.
++pub(crate) fn strip_x(s: &[u8]) -> u16 {
++    u16::from_le_bytes([s[2], s[3]])
 +}
 +
 +#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
-+#[kunit_tests(vino_cp_mode)]
++#[kunit_tests(vino_haar_strip)]
 +mod tests {
 +    use super::*;
-+    use kernel::drm::kms::modes::{DisplayMode, ModeFlags, ModeTimings};
 +
 +    #[test]
-+    fn dual_nivo_rides_the_flags_word() -> Result {
-+        // Bit 2 of offset 42 declares that this connector's video endpoint carries a second
-+        // connector. It must not disturb anything else in the word.
-+        let base = Timing {
-+            hactive: 2560,
-+            hblank: 160,
-+            hsync_front: 48,
-+            hsync_width: 32,
-+            vactive: 1440,
-+            vblank: 85,
-+            vsync_front: 3,
-+            vsync_width: 8,
-+            pixel_clock_10khz: 49775,
-+            sync_flags: 0x0600,
-+            refresh_hz: 120,
-+            stride: 0x0a80,
-+            total_rows: 0x66db,
-+            vic_word: 0x0800,
-+            ten_bit: false,
-+            st2084: false,
-+            dual_nivo: false,
-+        };
-+        let plain = set_mode(0x30, 0, &base)?;
-+        let shared = set_mode(
-+            0x30,
-+            0,
-+            &Timing {
-+                dual_nivo: true,
-+                ..base
-+            },
-+        )?;
-+        assert_eq!(plain.len(), shared.len());
-+        let f_plain = u16::from_le_bytes([plain[42], plain[43]]);
-+        let f_shared = u16::from_le_bytes([shared[42], shared[43]]);
-+        assert_eq!(f_shared, f_plain | 0x0004);
-+        // Nothing else in the timing block moves. Compare only up to the end of the timing: this
-+        // message carries a random tail like every other, so a byte-for-byte comparison of the
-+        // whole thing compares two different random draws and fails for the wrong reason.
-+        assert_eq!(plain[..42], shared[..42]);
-+        assert_eq!(plain[44..74], shared[44..74]);
-+        Ok(())
++    fn haar_colour_and_quantize() {
++        use video::haar;
++        // Colour transform against captured transform-DC values: white maps to Y=16320,
++        // achromatic pixels have zero chroma, and red's floored luma is 4032.
++        assert_eq!(haar::colour(255, 255, 255), (16320, 0, 0));
++        assert_eq!(haar::colour(128, 128, 128), (128 * 64, 0, 0));
++        assert_eq!(haar::colour(255, 0, 0), (4032, 64 * 255, 0));
++        // Green has two negative signed-chroma components.
++        assert_eq!(haar::colour(0, 255, 0), (8128, -64 * 255, -64 * 255));
++        assert_eq!(haar::colour(0, 0, 255), (4032, 0, 64 * 255));
++        // White Y_DC=16320 quantizes to 1020 at DC position zero.
++        assert_eq!(haar::quantize(16320, 0), 1020);
++        // AC clamps to the 12-bit signed long-token range.
++        assert_eq!(haar::quantize(1_000_000, 16), 2047);
++        assert_eq!(haar::quantize(-1_000_000, 16), -2048);
 +    }
 +
-+    /// Verify set-mode geometry and profile words against the decrypted DLM corpus.
-+    ///
-+    /// The middle four cases are byte-exact DLM messages (1920x1080p60/p120, 2560x1440p60/p120); no
-+    /// capture backs the 1280x720p60 and 3840x2160p60 cases, which the derivation supplies.
++    /// The colour transform is depth-agnostic: it carries code words, applies no transfer function
++    /// and no matrix, and the host has already encoded whatever curve the sink wants.
 +    #[test]
-+    fn set_mode_matches_dlm_corpus() -> Result {
-+        // hact, htotal, hsync_start, hsync_end, vact, vtotal, vsync_start, vsync_end, clock kHz,
-+        // refresh, sync flags, off42, off66.
-+        type Case = (
-+            u16,
-+            u16,
-+            u16,
-+            u16,
-+            u16,
-+            u16,
-+            u16,
-+            u16,
-+            i32,
-+            u16,
-+            ModeFlags,
-+            u16,
-+            u16,
++    fn haar_colour_carries_ten_bit_unchanged() {
++        use video::haar;
++        assert_eq!(haar::colour(1023, 1023, 1023), (64 * 1023, 0, 0));
++        assert_eq!(haar::colour(512, 512, 512), (512 * 64, 0, 0));
++        assert_eq!(haar::colour(1023, 0, 0), (64 * (1023 >> 2), 64 * 1023, 0));
++        // 10-bit white quantises to 4092 at DC, which is why the ceiling has to move.
++        //
++        // Through `quantize_dc_round`, which is what the encoder applies to coefficient zero. The
++        // AC quantiser is the wrong function to assert here: its clamp to the 12-bit signed token
++        // range caps the value at 2047, and the DC never reaches it. That clamp is deliberate --
++        // an over-range AC magnitude saturates in `esc` and only loses detail, whereas an
++        // over-sized ceiling desynchronises the dock's decoder outright.
++        let (y, _, _) = haar::colour(1023, 1023, 1023);
++        assert_eq!(
++            haar::quantize_dc_round(0, haar::transform(&[y; haar::BLOCK])[0]),
++            4092
 +        );
-+        let cta = ModeFlags::PHSYNC | ModeFlags::PVSYNC;
-+        let cvt_rb = ModeFlags::PHSYNC | ModeFlags::NVSYNC;
-+        let cases: [Case; 6] = [
-+            (
-+                1280, 1650, 1390, 1430, 720, 750, 725, 730, 74_250, 60, cta, 0x0400, 0x2804,
-+            ),
-+            (
-+                1920, 2200, 2008, 2052, 1080, 1125, 1084, 1089, 148_500, 60, cta, 0x0400, 0x2810,
-+            ),
-+            (
-+                1920, 2200, 2008, 2052, 1080, 1125, 1084, 1089, 297_000, 120, cta, 0x0400, 0x083f,
-+            ),
-+            (
-+                2560, 2720, 2608, 2640, 1440, 1481, 1443, 1448, 241_500, 60, cvt_rb, 0x0600, 0x0800,
-+            ),
-+            (
-+                2560, 2720, 2608, 2640, 1440, 1525, 1443, 1448, 497_750, 120, cvt_rb, 0x0600,
-+                0x0800,
-+            ),
-+            (
-+                3840, 4000, 3888, 3920, 2160, 2222, 2163, 2168, 533_120, 60, cvt_rb, 0x0600, 0x0800,
-+            ),
-+        ];
-+        for (hact, htotal, hss, hse, vact, vtotal, vss, vse, clock, refresh, flags, off42, off66) in
-+            cases
-+        {
-+            let mode = DisplayMode::from_timings(ModeTimings {
-+                clock_khz: clock,
-+                hdisplay: hact,
-+                hsync_start: hss,
-+                hsync_end: hse,
-+                htotal,
-+                vdisplay: vact,
-+                vsync_start: vss,
-+                vsync_end: vse,
-+                vtotal,
-+                flags,
-+            })?;
-+            let t =
-+                timing_from_drm_mode(&mode, &profile::PROFILE_RIDGE.protocol.allocation, false)?;
-+            let w = set_mode(7, 1, &t)?;
-+            assert_eq!(w.len(), 80);
-+            let u16_at = |off: usize| u16::from_le_bytes([w[off], w[off + 1]]);
-+            assert_eq!(u16_at(26), hact); // hactive
-+            assert_eq!(u16_at(28), htotal - hact); // hblank
-+            assert_eq!(u16_at(30), hss - hact); // hsync front porch
-+            assert_eq!(u16_at(32), hse - hss); // hsync width
-+            assert_eq!(u16_at(34), vact); // vactive
-+            assert_eq!(u16_at(36), vtotal - vact); // vblank
-+            assert_eq!(u16_at(38), vss - vact); // vsync front porch
-+            assert_eq!(u16_at(40), vse - vss); // vsync width
-+            assert_eq!(u16_at(42), off42);
-+            assert_eq!(u16_at(44), refresh);
-+            assert_eq!(u16_at(66), off66);
-+            assert_eq!(u16_at(68), 0x0200);
-+            assert_eq!(u16_at(70), (clock as u32 / 10) as u16); // pixel clock / 10 kHz
-+            assert_eq!(&w[72..74], &[0, 0]);
-+        }
-+        Ok(())
 +    }
 +
-+    /// The DL-3x00 set-mode, byte for byte against DLM's own, both connectors.
++    /// The same quantised blocks encode to different bytes at the two depths.
 +    ///
-+    /// Offsets 46 and 48 state the dock's framebuffer allocation, and nothing on the wire reports
-+    /// them wrong: the dock accepts the set-mode, accepts the first frame, and then stops
-+    /// consuming because it has nowhere to put the next one. Ridge's device-level override is a
-+    /// different pair entirely, so a dock of one generation carrying another's allocation is the
-+    /// failure this pins.
++    /// This is the whole of the HDR difference on this wire, so it is worth a test that would fail
++    /// if the depth ever stopped reaching the entropy coder: a DC of 4092 saturates to category
++    /// 10's largest value at 8 bits and survives intact at 10.
 +    #[test]
-+    fn ella_set_mode_matches_the_dlm_capture() -> Result {
-+        let mode = DisplayMode::from_timings(ModeTimings {
-+            clock_khz: 148_500,
-+            hdisplay: 1920,
-+            hsync_start: 2008,
-+            hsync_end: 2052,
-+            htotal: 2200,
-+            vdisplay: 1080,
-+            vsync_start: 1084,
-+            vsync_end: 1089,
-+            vtotal: 1125,
-+            flags: ModeFlags::PHSYNC | ModeFlags::PVSYNC,
-+        })?;
-+        let t = timing_from_drm_mode(&mode, &profile::PROFILE_ELLA.protocol.allocation, false)?;
-+        for connector in 0..2u8 {
-+            let w = set_mode(0, connector, &t)?;
-+            // Everything DLM sends, except its message counter at offset 4, the connector at 22 and
-+            // the six-byte token at 74.
-+            let want: [u8; 74] = [
-+                0x48, 0x00, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, connector, 0x02, 0x00, 0x00, 0x80,
-+                0x07, 0x18, 0x01, 0x58, 0x00, 0x2c, 0x00, 0x38, 0x04, 0x2d, 0x00, 0x04, 0x00, 0x05,
-+                0x00, 0x00, 0x04, 0x3c, 0x00, 0x00, 0x08, 0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00,
-+                0x00, 0x00, 0x00, 0x80, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x28, 0x00,
-+                0x02, 0x02, 0x3a, 0x00, 0x00,
-+            ];
-+            assert_eq!(w.len(), 80);
-+            assert_eq!(&w[..4], &want[..4]);
-+            assert_eq!(&w[6..74], &want[6..74]);
++    fn haar_strip_encoding_follows_the_depth() -> Result {
++        use video::haar::{self, Depth};
++        let white = haar::colour(1023, 1023, 1023).0;
++        let plane = [white; haar::PIXELS];
++        let zero = [0i32; haar::PIXELS];
++        let mut blocks = KVec::new();
++        for _ in 0..16 {
++            blocks.push(haar::colour_block(&zero, &zero, &plane), GFP_KERNEL)?;
 +        }
-+        Ok(())
-+    }
-+
-+    /// Pin offsets 46 and 66 to the rules the vendor's own serializer applies.
-+    ///
-+    /// The stride quantises the width up to 128 pixels and then adds one whole unit; both decrypted
-+    /// DL7400 widths are already multiples of 128, so they cannot tell that apart from a plain
-+    /// `hactive + 128` and the cases below deliberately do.
-+    ///
-+    /// The offset-66 high byte is the CTA picture aspect, which pairs of VICs disagree on over
-+    /// identical timings, so it is per VIC and not derivable from the mode.
-+    #[test]
-+    fn stride_and_vic_word_match_the_vendor_rules() -> Result {
-+        // (hactive, expected offset-46 stride)
-+        let strides: [(u16, u16); 6] = [
-+            // The two decrypted DL7400 widths.
-+            (2560, 0x0a80),
-+            (640, 0x0300),
-+            // Widths that are not multiples of 128: a plain `hactive + 128` would give 0x05d6 and
-+            // 0x0740, and quantising without the trailing unit would give 0x0580 and 0x06c0.
-+            (1366, 0x0600),
-+            // 1600 is 12.5 units, so it quantises to 13 and the trailing unit makes 14 x 128.
-+            (1600, 0x0700),
-+            // The boundaries of one quantisation step.
-+            (129, 0x0180),
-+            (128, 0x0100),
-+        ];
-+        for (hactive, expect) in strides {
-+            assert_eq!(render_stride(hactive), expect);
-+        }
-+
-+        // (vic, expected offset-66 word)
-+        let words: [(u8, u16); 7] = [
-+            // Measured: 16:9 with a VIC, and a VIC past the table.
-+            (4, 0x2804),
-+            (16, 0x2810),
-+            (63, 0x083f),
-+            // No VIC at all -- the CVT-RB timings the docks actually run.
-+            (0, 0x0800),
-+            // 4:3, which no capture covers and which a refresh rule would have called 16:9.
-+            (1, 0x1801),
-+            (2, 0x1802),
-+            // 720x480p60 again, but the 16:9 half of the pair: same timing, different aspect.
-+            (3, 0x2803),
-+        ];
-+        for (vic, expect) in words {
-+            assert_eq!(vic_word(vic), expect);
-+        }
-+        Ok(())
-+    }
-+
-+    /// Pin offset 42 to the mode's sync polarity across both dock generations.
-+    ///
-+    /// 640x480p60 is the case that separates polarity from any resolution rule: it is the
-+    /// narrowest mode in the corpus and the only one with both syncs active low, and the DL7400
-+    /// message carries `0x0700` where a width ladder predicts the `0x0400` of every other mode
-+    /// below 1920.
-+    #[test]
-+    fn sync_flags_follow_mode_polarity() -> Result {
-+        // hact, htotal, hss, hse, vact, vtotal, vss, vse, clock kHz, flags, off42.
-+        type Case = (u16, u16, u16, u16, u16, u16, u16, u16, i32, ModeFlags, u16);
-+        let cases: [Case; 4] = [
-+            // 640x480p60 DMT, -h -v: the DL7400 capture.
-+            (
-+                640,
-+                800,
-+                656,
-+                752,
-+                480,
-+                525,
-+                490,
-+                492,
-+                25_175,
-+                ModeFlags::NHSYNC | ModeFlags::NVSYNC,
-+                0x0700,
-+            ),
-+            // 1920x1080p60 CTA, +h +v.
-+            (
-+                1920,
-+                2200,
-+                2008,
-+                2052,
-+                1080,
-+                1125,
-+                1084,
-+                1089,
-+                148_500,
-+                ModeFlags::PHSYNC | ModeFlags::PVSYNC,
-+                0x0400,
-+            ),
-+            // 2560x1440p120 CVT-RB, +h -v.
-+            (
-+                2560,
-+                2720,
-+                2608,
-+                2640,
-+                1440,
-+                1525,
-+                1443,
-+                1448,
-+                497_750,
-+                ModeFlags::PHSYNC | ModeFlags::NVSYNC,
-+                0x0600,
-+            ),
-+            // No sample carries -h +v; the packing says it is the base plus the horizontal flag.
-+            // Stated on a timing the corpus does not cover, because the four it does cover carry
-+            // the polarity the capture recorded rather than the one the mode struct claims.
-+            (
-+                640,
-+                800,
-+                656,
-+                752,
-+                480,
-+                525,
-+                490,
-+                492,
-+                25_175,
-+                ModeFlags::NHSYNC | ModeFlags::PVSYNC,
-+                0x0500,
-+            ),
-+        ];
-+        for (hact, htotal, hss, hse, vact, vtotal, vss, vse, clock, flags, off42) in cases {
-+            let mode = DisplayMode::from_timings(ModeTimings {
-+                clock_khz: clock,
-+                hdisplay: hact,
-+                hsync_start: hss,
-+                hsync_end: hse,
-+                htotal,
-+                vdisplay: vact,
-+                vsync_start: vss,
-+                vsync_end: vse,
-+                vtotal,
-+                flags,
-+            })?;
-+            assert_eq!(
-+                timing_from_drm_mode(&mode, &profile::PROFILE_RIDGE.protocol.allocation, false)?
-+                    .sync_flags,
-+                off42
-+            );
-+            assert_eq!(
-+                timing_from_drm_mode(&mode, &profile::PROFILE_NAVARRO.protocol.allocation, false)?
-+                    .sync_flags,
-+                off42
-+            );
-+        }
-+        // The teardown form carries none of it.
-+        let w = clear_mode(3, 0)?;
-+        assert_eq!(u16::from_le_bytes([w[42], w[43]]), 0x8000);
-+        assert_eq!(w[23], 0);
++        let geometry = haar::RIDGE_GEOMETRY;
++        let eight = haar::colour_strip(geometry, &blocks, 0, 0)?;
++        let ten = haar::colour_strip(geometry.with_depth(Depth::Ten), &blocks, 0, 0)?;
++        assert_ne!(eight[..], ten[..]);
++        // Saturating at the lower ceiling costs bits, so the 8-bit encoding is the shorter one.
++        assert!(eight.len() <= ten.len());
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn unmeasured_mode_is_accepted_with_a_derived_profile() -> Result {
-+        // 2560x1440@165: no decrypted message exists for it, but the profile is derived rather
-+        // than refused, and the DL7400's ceilings admit it. This is the mode the dock really runs.
-+        let mode = DisplayMode::from_timings(ModeTimings {
-+            clock_khz: 699_500,
-+            hdisplay: 2560,
-+            hsync_start: 2608,
-+            hsync_end: 2640,
-+            htotal: 2720,
-+            vdisplay: 1440,
-+            vsync_start: 1443,
-+            vsync_end: 1451,
-+            vtotal: 1559,
-+            flags: ModeFlags::PHSYNC | ModeFlags::NVSYNC,
-+        })?;
-+        assert!(mode_supported(&mode));
-+        // Inside the DL7400's envelope, and exactly at its clock ceiling: the monitor's EDID DTD
-+        // says 699.50 MHz where DLM's wire value rounds to its 10 kHz unit (699.49), so a ceiling
-+        // taken from DLM's rounding would prune this mode by 10 kHz. It must not.
-+        assert!(
-+            mode.clock() as u32
-+                <= profile::PROFILE_NAVARRO
-+                    .capabilities
-+                    .max_connector_clock_khz
++    fn haar_chroma_last_is_exact() {
++        use video::haar::{chroma_last, COEFFS};
++        let mut q = [0i32; COEFFS];
++        assert_eq!(chroma_last(&q), 0);
++        for exact in [1usize, 2, 3, 4, 7, 8, 11, 15, 16, 27, 31, 32, 48, 62, 63] {
++            q.fill(0);
++            q[exact] = 1;
++            assert_eq!(chroma_last(&q), exact);
++        }
++    }
++}
+diff --git a/drivers/gpu/drm/vino/video/haar/transform.rs b/drivers/gpu/drm/vino/video/haar/transform.rs
+new file mode 100644
+index 000000000000..b009061ce13b
+--- /dev/null
++++ b/drivers/gpu/drm/vino/video/haar/transform.rs
+@@ -0,0 +1,802 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! The Haar transform, the quantiser and the entropy coder.
++//!
++//! Three levels of separable 2-D Haar in a Mallat decomposition, a power-of-two quantiser
++//! whose ceilings differ per plane, and DisplayLink's unary VLC. These are the numbers the
++//! dock's decoder expects exactly; every constant here was read off the wire.
++
++use super::*;
++
++/// One separable 2-D Haar step over the top-left `n`x`n` of `src` (row-major, `n` columns,
++/// `n` in {8,4,2}). The 1-D Haar butterfly is `lo = a + b`, `hi = a - b`; applied to rows then
++/// columns it splits the `n`x`n` block into four `(n/2)`x`(n/2)` subbands written to
++/// `ll`/`hl`/`lh`/`hh` (row-major, stride `n/2`). Unnormalized -- `transform()` floor-divides
++/// the final coefficients by 64.
++///
++/// Fixed array sizes let LLVM remove bounds checks and allocate only the scratch space needed
++/// by each transform level.
++macro_rules! haar2d_level {
++    ($name:ident, $n:literal, $h:literal) => {
++        /// One separable 2-D Haar step for a single level; see the macro's documentation.
++        #[inline(always)]
++        fn $name(
++            src: &[i32; $n * $n],
++            ll: &mut [i32; $h * $h],
++            hl: &mut [i32; $h * $h],
++            lh: &mut [i32; $h * $h],
++            hh: &mut [i32; $h * $h],
++        ) {
++            // Row pass: L = row-lo, H = row-hi (each n rows x h cols).
++            let mut l = [0i32; $n * $h];
++            let mut hb = [0i32; $n * $h];
++            for r in 0..$n {
++                for i in 0..$h {
++                    let (a, b) = (src[r * $n + 2 * i], src[r * $n + 2 * i + 1]);
++                    l[r * $h + i] = a + b;
++                    hb[r * $h + i] = a - b;
++                }
++            }
++            // Column pass: LL/LH = col-lo/hi of L, HL/HH = col-lo/hi of H (each h x h).
++            for c in 0..$h {
++                for i in 0..$h {
++                    let (a, b) = (l[2 * i * $h + c], l[(2 * i + 1) * $h + c]);
++                    ll[i * $h + c] = a + b;
++                    lh[i * $h + c] = a - b;
++                    let (a2, b2) = (hb[2 * i * $h + c], hb[(2 * i + 1) * $h + c]);
++                    hl[i * $h + c] = a2 + b2;
++                    hh[i * $h + c] = a2 - b2;
++                }
++            }
++        }
++    };
++}
++
++haar2d_level!(haar2d_8, 8, 4);
++haar2d_level!(haar2d_4, 4, 2);
++haar2d_level!(haar2d_2, 2, 1);
++
++/// Transform block geometry. Each 8x8 input block produces 64 coefficients.
++pub(crate) const DIM: usize = 8;
++pub(crate) const PIXELS: usize = DIM * DIM;
++pub(crate) const COEFFS: usize = 64;
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++pub(crate) const BLOCK: usize = PIXELS;
++/// Vino colour transform, in the codec's 64x fixed point: `Cb = 64(R-G)`,
++/// `Cr = 64(B-G)` (achromatic R=G=B -> Cb=Cr=0), and the reversible luma
++///
++/// ```text
++///     Y = 64*G + 64*((Cb_raw + Cr_raw) >> 2)   where Cb_raw=R-G, Cr_raw=B-G
++/// ```
++///
++/// The arithmetic shift rounds negative chroma contributions towards negative infinity.
++///
++/// Channels are `i32` rather than `u8` because the same transform carries a 10-bit surface
++/// unchanged -- see [`Depth`]. Values are the framebuffer's own code words at whatever depth
++/// the plane is in; this applies no transfer function and no matrix of its own.
++pub(crate) fn colour(r: i32, g: i32, b: i32) -> (i32, i32, i32) {
++    let (cb, cr) = (r - g, b - g);
++    (64 * g + 64 * ((cb + cr) >> 2), 64 * cb, 64 * cr)
++}
++/// Apply the codec's 8x8 2-D Haar (Mallat) transform, floor-divided by 64. `block` is
++/// 8x8 luma (`Y` in the
++/// codec's x64 fixed point); the output is 64 coefficients in the wire's Mallat layout:
++/// `c[0]` = LL; `c[1..4]` = level-3 HL/LH/HH; `c[4..8]/[8..12]/[12..16]` = level-2 HL/LH/HH
++/// (2x2 row-major each); `c[16..32]`, `c[32..48]`, and `c[48..64]` are the level-1 HL, LH,
++/// and HH 4x4 bands. Each level-1 band uses the same 2x2 Morton scan. A uniform block yields
++/// `DC = mean`, all AC = 0.
++///
++/// This function must remain out of line. Inlining it into the frame encoder combines the
++/// transform scratch arrays with its callers and can exhaust a 16-KiB kernel stack.
++#[inline(never)]
++pub(crate) fn transform(block: &[i32; PIXELS]) -> [i32; COEFFS] {
++    let sh = |x: i32| x >> 6; // arithmetic shift: wire fixed-point floor division by 64
++                              // Level 1: 8x8 -> three 4x4 detail bands.
++    let (mut ll1, mut hl1, mut lh1, mut hh1) = ([0i32; 16], [0i32; 16], [0i32; 16], [0i32; 16]);
++    haar2d_8(block, &mut ll1, &mut hl1, &mut lh1, &mut hh1);
++    // Level 2: LL1 (4x4) -> 2x2 subbands.
++    let (mut ll2, mut hl2, mut lh2, mut hh2) = ([0i32; 4], [0i32; 4], [0i32; 4], [0i32; 4]);
++    haar2d_4(&ll1, &mut ll2, &mut hl2, &mut lh2, &mut hh2);
++    // Level 3: LL2 (2x2) -> the DC and coarse coefficients.
++    let (mut ll3, mut hl3, mut lh3, mut hh3) = ([0i32; 1], [0i32; 1], [0i32; 1], [0i32; 1]);
++    haar2d_2(&ll2, &mut ll3, &mut hl3, &mut lh3, &mut hh3);
++    // Every 4x4 level-one band uses 2x2 Morton scan order.
++    const SCAN4_MORTON: [usize; 16] = [0, 2, 8, 10, 1, 3, 9, 11, 4, 6, 12, 14, 5, 7, 13, 15];
++    // Assemble band by band, not coefficient by coefficient. Selecting the source with a
++    // `from_fn(|i| match i { .. })` reads well but compiles to a range test per coefficient
++    // in a
++    // rolled 64-iteration loop: profiling this function showed the `cmp`/`and`/`jne` dispatch
++    // dominating it, against only ~66 add/sub for the transform itself. These fixed-length
++    // loops unroll into straight-line stores, and every element is written so the initialiser
++    // costs nothing.
++    let mut out = [0i32; COEFFS];
++    out[0] = sh(ll3[0]);
++    out[1] = sh(hl3[0]);
++    out[2] = sh(lh3[0]);
++    out[3] = sh(hh3[0]);
++    for i in 0..4 {
++        out[4 + i] = sh(hl2[i]);
++        out[8 + i] = sh(lh2[i]);
++        out[12 + i] = sh(hh2[i]);
++    }
++    for i in 0..16 {
++        let m = SCAN4_MORTON[i];
++        out[16 + i] = sh(hl1[m]);
++        out[32 + i] = sh(lh1[m]);
++        out[48 + i] = sh(hh1[m]);
++    }
++    out
++}
++/// Vino entropy VLC, indexed by symbol as `(code, nbits)` and emitted least-significant bit
++/// first.
++/// Symbol 0 = the 1-bit code `0` (zero / most common); symbol 31 = the all-ones escape prefix.
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++pub(crate) const CODEBOOK: [(u32, u8); 32] = [
++    (0, 1),
++    (1, 3),
++    (5, 3),
++    (3, 5),
++    (19, 5),
++    (11, 5),
++    (27, 5),
++    (7, 7),
++    (71, 7),
++    (39, 7),
++    (103, 7),
++    (23, 7),
++    (87, 7),
++    (55, 7),
++    (119, 7),
++    (15, 8),
++    (143, 8),
++    (79, 8),
++    (207, 8),
++    (47, 8),
++    (175, 8),
++    (111, 8),
++    (239, 8),
++    (31, 8),
++    (159, 8),
++    (95, 8),
++    (223, 8),
++    (63, 8),
++    (191, 8),
++    (127, 8),
++    (255, 9),
++    (511, 9),
++];
++
++/// LSB-first VLC bit packer matching the dock (final byte padded with 1-bits -- a
++/// truncated all-ones code required by the wire format).
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++pub(crate) struct Vlc {
++    out: KVec<u8>,
++    acc: u32,
++    nbits: u32,
++}
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++impl Vlc {
++    pub(crate) fn new() -> Self {
++        Self {
++            out: KVec::new(),
++            acc: 0,
++            nbits: 0,
++        }
++    }
++
++    /// Append one bit (LSB-first within each byte).
++    fn bit(&mut self, b: u32) -> Result {
++        self.acc |= (b & 1) << self.nbits;
++        self.nbits += 1;
++        if self.nbits == 8 {
++            self.out.push((self.acc & 0xff) as u8, GFP_KERNEL)?;
++            self.acc = 0;
++            self.nbits = 0;
++        }
++        Ok(())
++    }
++
++    /// Emit codebook `sym`'s code, least-significant bit first.
++    pub(crate) fn symbol(&mut self, sym: usize) -> Result {
++        let (code, n) = CODEBOOK[sym];
++        for k in 0..n as u32 {
++            self.bit(code >> k)?;
++        }
++        Ok(())
++    }
++
++    /// Emit one quantized coefficient as a JPEG-SSSS-style magnitude code. A zero coefficient
++    /// is the one-bit symbol 0. A nonzero
++    /// `q` emits the unary category `c = bit_length(|q|)` (c ones + a 0 terminator), then the
++    /// `(c-1)`-bit magnitude offset `|q| - 2^(c-1)` (MSB-first within the field), then a sign
++    /// bit (`0` = negative). This helper is used for the luma codebook; the full-colour path
++    /// uses [`Bits::esc`].
++    /// This helper rejects categories >= 9 instead of silently mixing the two grammars.
++    pub(crate) fn coeff(&mut self, q: i32) -> Result {
++        if q == 0 {
++            return self.symbol(0);
++        }
++        let c = mag_category(q); // bit_length(|q|)
++        if c >= 9 {
++            return Err(kernel::error::code::EOVERFLOW);
++        }
++        for _ in 0..c {
++            self.bit(1)?; // unary category
++        }
++        self.bit(0)?; // terminator
++        let offset = q.unsigned_abs() - (1 << (c - 1));
++        for i in (0..c - 1).rev() {
++            self.bit(offset >> i)?; // (c-1)-bit magnitude offset, MSB-first
++        }
++        self.bit(if q < 0 { 0 } else { 1 }) // sign bit (0 = negative)
++    }
++
++    /// Flush, padding the final byte with 1-bits (matches the dock's truncated all-ones code).
++    pub(crate) fn finish(mut self) -> Result<KVec<u8>> {
++        if self.nbits > 0 {
++            while self.nbits < 8 {
++                self.acc |= 1 << self.nbits;
++                self.nbits += 1;
++            }
++            self.out.push((self.acc & 0xff) as u8, GFP_KERNEL)?;
++        }
++        Ok(self.out)
++    }
++}
++/// Magnitude category of a quantized coefficient: `bit_length(|coeff|)`, or zero for zero.
++pub(crate) fn mag_category(coeff: i32) -> u32 {
++    coeff.unsigned_abs().checked_ilog2().map_or(0, |l| l + 1)
++}
++/// Maximum DC escape category at 8 bits per channel; the maximum category omits the unary
++/// 0-terminator (a complete prefix code on categories `1..=SOLID_DC_CMAX`).
++/// `|qY| <= 1020 => c <= 10`, `|qCb| <= 255`. See [`Depth::dc_cmax`] for the 10-bit ceiling.
++pub(crate) const SOLID_DC_CMAX: u32 = 10;
++/// Max LUMA AC magnitude category (the maximum category omits the unary 0-terminator).
++pub(crate) const AC_CMAX: u32 = 9;
++/// Maximum chroma AC magnitude category. It is higher than luma's, so a category-9 chroma
++/// coefficient still carries the unary 0-terminator that luma's omits.
++pub(crate) const CHROMA_AC_CMAX: u32 = 10;
++/// Bits per colour channel in the surface being encoded.
++///
++/// This is the only thing that differs between an SDR and an HDR frame on this wire. Measured
++/// against a DL7400 driven by Windows with HDR content: record framing, strip header,
++/// significance tree, transform and quantiser are byte-identical across an HDR toggle, and the
++/// colour maths is entirely host-side -- what arrives is an ordinary PQ-encoded 10-bit RGB
++/// surface. So this is one codec parameterised by depth, not two codecs.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) enum Depth {
++    /// 8 bits per channel: every mode on a Ridge dock, and a Navarro one outside HDR.
++    Eight,
++    /// 10 bits per channel, the DL-7000 "10bit profile".
++    Ten,
++}
++impl Depth {
++    /// Maximum escape category for a DC coefficient at this depth.
++    ///
++    /// A luma DC is four times the sample, so the largest magnitude is `4 * ((1 << bits) - 1)`
++    /// -- 1020 at 8 bits (category 10) and 4092 at 10 bits (category 12). The ceiling is part
++    /// of the wire format, not an implementation limit: at the maximum category `esc` omits
++    /// the unary 0-terminator, so a decoder reading with the wrong ceiling silently
++    /// desynchronises. Both values are measured, each uniquely, by decoding a captured PQ ramp
++    /// under every candidate and keeping the one that stays monotonic.
++    #[inline]
++    pub(crate) fn dc_cmax(self) -> u32 {
++        match self {
++            Depth::Eight => SOLID_DC_CMAX,
++            Depth::Ten => SOLID_DC_CMAX + 2,
++        }
++    }
++
++    /// Maximum escape category for a luma AC coefficient at this depth.
++    ///
++    /// A coefficient is four times the sample, so every depth-sensitive ceiling gains two
++    /// categories at 10 bits, not just the DC one, and the code table the dock is handed states
++    /// the same rise. Coding to the eight-bit ceiling on a ten-bit link fails quietly, because an
++    /// AC escape saturates rather than desynchronising: the category still fixes the field width,
++    /// so the stream stays in step and only the largest coefficients come out wrong. Smooth
++    /// gradients are perfect and every sharp edge is reconstructed from a truncated magnitude.
++    #[inline]
++    pub(crate) fn ac_cmax(self) -> u32 {
++        match self {
++            Depth::Eight => AC_CMAX,
++            Depth::Ten => AC_CMAX + 2,
++        }
++    }
++
++    /// Maximum escape category for a chroma AC coefficient at this depth.
++    ///
++    /// One category above luma's at either depth, so a coefficient at luma's ceiling still carries
++    /// the unary 0-terminator on the chroma planes. See [`Self::ac_cmax`].
++    #[inline]
++    pub(crate) fn chroma_ac_cmax(self) -> u32 {
++        match self {
++            Depth::Eight => CHROMA_AC_CMAX,
++            Depth::Ten => CHROMA_AC_CMAX + 2,
++        }
++    }
++
++    /// The depth of a DRM pixel format, or `None` for one this codec cannot encode.
++    ///
++    /// Both layouts are four bytes per pixel, so they share the snapshot path and differ only
++    /// in how `PixelSource` splits a word.
++    #[inline]
++    pub(crate) fn from_fourcc(fourcc: u32) -> Option<Self> {
++        match fourcc {
++            kernel::drm::fourcc::XRGB8888 => Some(Depth::Eight),
++            kernel::drm::fourcc::XRGB2101010 => Some(Depth::Ten),
++            _ => None,
++        }
++    }
++}
++/// LSB-first bit accumulator for the production AC-strip coder.
++///
++/// Bits are buffered in a 64-bit word and copied to `out` a byte at a time. `out` is incomplete
++/// until [`Bits::finish`] flushes the final zero-padded partial byte.
++pub(crate) struct Bits {
++    out: KVec<u8>,
++    /// Pending bits, LSB-first, valid in the low `nacc`.
++    acc: u64,
++    nacc: u32,
++    /// Which dialect of the shared unary code to emit; see [`Bits::unary`].
++    coding: super::super::video_arm::CodeTables,
++}
++impl Bits {
++    pub(crate) fn new(coding: super::super::video_arm::CodeTables) -> Self {
++        Self {
++            out: KVec::new(),
++            acc: 0,
++            nacc: 0,
++            coding,
++        }
++    }
++
++    /// Append one bit.
++    ///
++    /// `#[inline(always)]` because this is the codec's innermost operation -- `esc` calls it
++    /// once per unary, offset and sign bit. Out of line it costs a call, a return and a
++    /// reload/store of `acc`/`nacc` *per bit*; inlined, the accumulator stays in registers
++    /// across a run of bits. The eight-byte spill is deliberately left out of line so that
++    /// inlining stays cheap.
++    #[inline(always)]
++    fn bit(&mut self, b: u32) -> Result {
++        self.acc |= ((b & 1) as u64) << self.nacc;
++        self.nacc += 1;
++        if self.nacc == 64 {
++            self.spill()?;
++        }
++        Ok(())
++    }
++
++    /// Write the full accumulator out and reset it. Cold: once per 64 bits.
++    #[inline(never)]
++    fn spill(&mut self) -> Result {
++        for k in 0..8 {
++            self.out.push((self.acc >> (8 * k)) as u8, GFP_KERNEL)?;
++        }
++        self.acc = 0;
++        self.nacc = 0;
++        Ok(())
++    }
++
++    /// Flush the accumulator and yield the packed bytes, zero-padding the final byte.
++    pub(crate) fn finish(mut self) -> Result<KVec<u8>> {
++        let nbytes = self.nacc.div_ceil(8) as usize;
++        for k in 0..nbytes {
++            self.out.push((self.acc >> (8 * k)) as u8, GFP_KERNEL)?;
++        }
++        Ok(self.out)
++    }
++
++    /// The one code every field in a strip is built from: a unary category of `count` ones, a
++    /// `0` terminator unless the category is the codebook maximum, and exactly `count` payload
++    /// bits.
++    ///
++    /// The dock generations differ in where the payload sits and in which end of it comes
++    /// first. Ridge and the DL7400 group it after the terminator, most significant bit first.
++    /// A DL-3x00 decoder expects one payload bit immediately after each unary one, terminator
++    /// last, and reads that interleaved payload least significant bit first. Every
++    /// spelling is the same length, so emitting the wrong one produces records of exactly the
++    /// right size that decode to noise -- and a flat strip cannot tell them apart, because its
++    /// payload is all zeroes.
++    fn unary(&mut self, count: u32, terminate: bool, payload: u32) -> Result {
++        match self.coding {
++            super::super::video_arm::CodeTables::Wide => {
++                for _ in 0..count {
++                    self.bit(1)?;
++                }
++                if terminate {
++                    self.bit(0)?;
++                }
++                for i in (0..count).rev() {
++                    self.bit(payload >> i)?;
++                }
++            }
++            super::super::video_arm::CodeTables::Narrow => {
++                for i in 0..count {
++                    self.bit(1)?;
++                    self.bit(payload >> i)?;
++                }
++                if terminate {
++                    self.bit(0)?;
++                }
++            }
++        }
++        Ok(())
++    }
++
++    /// The shared escape value code: a 0 is one `0` bit; else a category of `c` carrying
++    /// `offset(c-1) ++ sign(1=positive)` as its payload. `c = bit_length(|v|)`.
++    pub(crate) fn esc(&mut self, v: i32, cmax: u32) -> Result {
++        if v == 0 {
++            return self.bit(0);
++        }
++        // Saturate a magnitude whose category exceeds the codebook maximum (`cmax`) to the
++        // largest value that category `cmax` encodes. This keeps the unary prefix at most
++        // `cmax` ones: a decoder that stops after `cmax` ones (the max-category escape, whose
++        // 0-terminator is omitted) would otherwise read the (cmax+1)th one as an offset bit
++        // and desync the rest of the strip. In-range coefficients (`c <= cmax`) are
++        // unaffected; this only bounds the out-of-range case, which the recovered grammar does
++        // not otherwise exercise.
++        let c = mag_category(v).min(cmax);
++        let off = v.unsigned_abs().min((1 << c) - 1) - (1 << (c - 1));
++        // The payload is the offset with the sign bit below it, which is `c` bits: an offset
++        // spans `c - 1` bits at category `c`.
++        self.unary(c, c < cmax, (off << 1) | u32::from(v > 0))
++    }
++
++    /// Per-block luma significance, after the two zero root branches a present chroma plane
++    /// replaces. For `k=floor(log2(64-last))` the category is `k` and the payload the `k`-bit
++    /// value `(64-2^k)-last`; a flat block is the maximum category with an all-zero payload,
++    /// which is why it reads as one fixed-width code rather than a position.
++    fn sync_unit_after(&mut self, last: usize, skip: usize) -> Result {
++        for _ in skip..2 {
++            self.bit(0)?;
++        }
++        if last == 0 {
++            self.unary(6, true, 0)
++        } else {
++            debug_assert!(last < COEFFS);
++            let k = usize::BITS - 1 - (COEFFS - last).leading_zeros();
++            let end = COEFFS - (1usize << k);
++            self.unary(k, true, (end - last) as u32)
++        }
++    }
++
++    fn sync_unit(&mut self, last: usize) -> Result {
++        self.sync_unit_after(last, 0)
++    }
++}
++/// Chroma AC quantizer. Coarse bands 1/2 and 4..11 use step 16; coefficient 3 and positions
++/// 12..47 use step 32; the final HH band uses step 64. All use signed half-up rounding.
++///
++/// Shifts rather than divisions, for the reason given on [`step_bias`]; steps 16/32/64 are
++/// shifts 4/5/6 and `step / 2` is `1 << (shift - 1)`.
++pub(crate) fn quantize_chroma_ac(coeff: i32, i: usize) -> i32 {
++    let shift = CHROMA_AC_SHIFT[i];
++    (coeff + (1 << (shift - 1))) >> shift
++}
++/// Per-plane DC quantizer, round-half-up on the SIGNED value (toward +inf): luma (plane 0)
++/// step 16, chroma step 64. `+224/64 = 3.5 -> 4`; `-8416/64 = -131.5 -> -131`.
++pub(crate) fn quantize_dc_round(plane: usize, v: i32) -> i32 {
++    let shift: u32 = if plane == 0 { 4 } else { 6 };
++    (v + (1 << (shift - 1))) >> shift
++}
++impl Bits {
++    /// Exact chroma last-position tree node. For `c=floor(log2(last+1))` the category is `c`
++    /// and the payload the `c`-bit offset `last-(2^c-1)`.
++    fn chroma_base(&mut self, last: usize) -> Result {
++        debug_assert!(last > 0 && last < COEFFS);
++        let c = usize::BITS - 1 - (last + 1).leading_zeros();
++        self.unary(c, true, (last - ((1usize << c) - 1)) as u32)
++    }
++
++    /// One block's three-plane significance tree. The luma code begins with two
++    /// zero root branches. A present Cr replaces the first with its chroma node; a present Cb
++    /// replaces the second.
++    pub(crate) fn colour_sync_unit(&mut self, lcr: usize, lcb: usize, ly: usize) -> Result {
++        match (lcr != 0, lcb != 0) {
++            (false, false) => self.sync_unit(ly),
++            (true, false) => {
++                self.chroma_base(lcr)?;
++                self.sync_unit_after(ly, 1)
++            }
++            (false, true) => {
++                self.bit(0)?;
++                self.chroma_base(lcb)?;
++                self.sync_unit_after(ly, 2)
++            }
++            (true, true) => {
++                self.chroma_base(lcr)?;
++                self.chroma_base(lcb)?;
++                self.sync_unit_after(ly, 2)
++            }
++        }
++    }
++
++    /// One block's colour AC: present planes in (Cr, Cb, Y) order, positions `1..=last`,
++    /// run-bit `0` for an insignificant coefficient else the magnitude escape. Chroma and luma
++    /// use DIFFERENT codebook maxima (`CHROMA_AC_CMAX` / `AC_CMAX`) -- see `CHROMA_AC_CMAX`.
++    pub(crate) fn colour_block_ac(
++        &mut self,
++        qcr: &[i32; COEFFS],
++        qcb: &[i32; COEFFS],
++        qy: &[i32; COEFFS],
++        lcr: usize,
++        lcb: usize,
++        ly: usize,
++        depth: Depth,
++    ) -> Result {
++        for &(q, last, cmax) in &[
++            (qcr, lcr, depth.chroma_ac_cmax()),
++            (qcb, lcb, depth.chroma_ac_cmax()),
++            (qy, ly, depth.ac_cmax()),
++        ] {
++            for i in 1..=last {
++                if q[i] == 0 {
++                    self.bit(0)?;
++                } else {
++                    self.esc(q[i], cmax)?;
++                }
++            }
++        }
++        Ok(())
++    }
++}
++
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++#[kunit_tests(vino_haar_transform)]
++mod tests {
++    use super::*;
++
++    /// The AC ceilings scale with the sample depth, exactly as the DC ceiling does.
++    ///
++    /// A ten-bit sample makes every coefficient four times larger, which is two categories. Held
++    /// at their eight-bit values the escape saturates the bulk of the AC energy rather than just
++    /// the extremes, and the picture breaks up into blocks. The vendor's own stress content states
++    /// the same scaling: a two-pixel grating that is category 9 in SDR is category 11 in HDR.
++    #[test]
++    fn haar_depth_selects_the_ac_codebooks() {
++        use Depth;
++        assert_eq!(Depth::Eight.ac_cmax(), 9);
++        assert_eq!(Depth::Ten.ac_cmax(), 11);
++        assert_eq!(Depth::Eight.chroma_ac_cmax(), 10);
++        assert_eq!(Depth::Ten.chroma_ac_cmax(), 12);
++        // An AC ceiling left behind stays in step, because the category fixes the field width,
++        // and reconstructs every sharp edge from a truncated magnitude instead.
++        assert_eq!(Depth::Ten.ac_cmax(), Depth::Eight.ac_cmax() + 2);
++        assert_eq!(
++            Depth::Ten.chroma_ac_cmax(),
++            Depth::Eight.chroma_ac_cmax() + 2
 +        );
-+        // The clock field itself carries it fine: offsets 70..73 are a u32, as the DL7400's
-+        // 2560x1440p165 mode set proves (0x0001113d = 699.49 MHz). Admission is the refresh
-+        // limit's job, not a silent conversion failure.
-+        let t = timing_from_drm_mode(&mode, &profile::PROFILE_RIDGE.protocol.allocation, false)?;
-+        assert_eq!(t.pixel_clock_10khz, (mode.clock() as u32) / 10);
-+        assert!(t.pixel_clock_10khz > u32::from(u16::MAX));
-+        Ok(())
++        assert_eq!(Depth::Ten.dc_cmax(), Depth::Eight.dc_cmax() + 2);
++        // Chroma stays one category above luma, so a coefficient at luma's ceiling still carries
++        // the unary terminator on the chroma planes.
++        assert_eq!(Depth::Eight.chroma_ac_cmax(), Depth::Eight.ac_cmax() + 1);
++        assert_eq!(Depth::Ten.chroma_ac_cmax(), Depth::Ten.ac_cmax() + 1);
 +    }
 +
-+    /// A resolution with no capture at all must still produce a usable profile, so a monitor whose
-+    /// native mode was never sampled is driven rather than refused.
++    /// The escape codebook's ceiling is part of the wire format and follows the sample depth.
++    ///
++    /// Measured against a DL7400 driven by Windows in its 10-bit profile: a captured PQ ramp
++    /// decodes monotonically at ceiling 12 and at no other value, and the SDR half of the same
++    /// capture only at 10. Getting this wrong does not degrade the picture, it desynchronises the
++    /// dock's decoder -- at the maximum category `esc` omits the unary 0-terminator, so the next
++    /// value's first bit is read as an offset bit.
 +    #[test]
-+    fn derived_profile_covers_an_unsampled_resolution() -> Result {
-+        // 1680x1050@60 CVT-RB: 119.00 MHz, no CTA VIC.
-+        let mode = DisplayMode::from_timings(ModeTimings {
-+            clock_khz: 119_000,
-+            hdisplay: 1680,
-+            hsync_start: 1728,
-+            hsync_end: 1760,
-+            htotal: 1840,
-+            vdisplay: 1050,
-+            vsync_start: 1053,
-+            vsync_end: 1059,
-+            vtotal: 1080,
-+            flags: ModeFlags::PHSYNC | ModeFlags::NVSYNC,
-+        })?;
-+        let t = timing_from_drm_mode(&mode, &profile::PROFILE_RIDGE.protocol.allocation, false)?;
-+        // CVT-RB, so vertical sync is active low and horizontal is not.
-+        assert_eq!(t.sync_flags, 0x0600);
-+        // No VIC, so the low byte is zero and the base is the common 0x0800.
-+        assert_eq!(t.vic_word, 0x0800);
-+        assert_eq!(t.pixel_clock_10khz, 11_900);
-+        Ok(())
++    fn haar_depth_selects_the_dc_codebook() {
++        use Depth;
++        assert_eq!(Depth::Eight.dc_cmax(), 10);
++        assert_eq!(Depth::Ten.dc_cmax(), 12);
++        // A luma DC is four times the sample, so each ceiling is exactly the category that holds
++        // its depth's largest value: 4 x 255 = 1020 (c=10) and 4 x 1023 = 4092 (c=12).
++        assert_eq!(mag_category(4 * 255), Depth::Eight.dc_cmax());
++        assert_eq!(mag_category(4 * 1023), Depth::Ten.dc_cmax());
++    }
++
++    /// The depth comes from the committed framebuffer's fourcc, never from state of our own.
++    #[test]
++    fn haar_depth_from_fourcc() {
++        use Depth;
++        assert!(matches!(
++            Depth::from_fourcc(kernel::drm::fourcc::XRGB8888),
++            Some(Depth::Eight)
++        ));
++        assert!(matches!(
++            Depth::from_fourcc(kernel::drm::fourcc::XRGB2101010),
++            Some(Depth::Ten)
++        ));
++        assert!(Depth::from_fourcc(kernel::drm::fourcc::ARGB8888).is_none());
 +    }
 +
 +    #[test]
-+    fn set_mode_has_head_and_exact_dlm_plaintext_length() -> Result {
-+        let timing = Timing {
-+            hactive: 3840,
-+            hblank: 160,
-+            hsync_front: 48,
-+            hsync_width: 32,
-+            vactive: 2160,
-+            vblank: 62,
-+            vsync_front: 3,
-+            vsync_width: 5,
-+            refresh_hz: 60,
-+            pixel_clock_10khz: 0xd040,
-+            sync_flags: 0x0600,
-+            stride: 0x4000,
-+            total_rows: 0x6000,
-+            vic_word: 0x0800,
-+            ten_bit: false,
-+            st2084: false,
-+            dual_nivo: false,
++    fn haar_transform_uniform() {
++        use video::haar;
++        // A uniform block has the per-pixel value at DC and zero AC terms.
++        let block = [16320i32; haar::BLOCK];
++        let c = haar::transform(&block);
++        assert_eq!(c[0], 16320);
++        assert!(c[1..].iter().all(|&x| x == 0));
++        // White pixel -> Y plane -> Haar DC -> quantized value.
++        let (y, _, _) = haar::colour(255, 255, 255);
++        assert_eq!(
++            haar::quantize(haar::transform(&[y; haar::BLOCK])[0], 0),
++            1020
++        );
++    }
++
++    /// The quantisers divide by powers of two with arithmetic shifts, avoiding a runtime division
++    /// for every coefficient.
++    ///
++    /// The rewrite is only valid because floor division by `2^k` IS an arithmetic right shift, for
++    /// negative operands as well as positive. That identity is easy to state and easy to get wrong
++    /// (a *truncating* `/` is not the same thing on negatives), and a coefficient off by one is a
++    /// wire-visible codec change. So assert it directly, over the full coefficient range the
++    /// transform can produce, against the equivalent division.
++    #[test]
++    fn quantiser_shifts_match_division() {
++        use video::haar::{quantize, COEFFS};
++        // 8-bit input in the codec's x64 fixed point, summed over an 8x8 block and floor-divided by
++        // 64 by `transform`, bounds |coeff| well inside this; step past it on both signs anyway.
++        const LIMIT: i32 = 200_000;
++        // The luma table, restated here as DIVISORS so the test is not written against the same
++        // shift constants it is checking.
++        let step_bias = |i: usize| -> (i32, i32) {
++            match i {
++                0 | 1 | 2 => (16, 8),
++                3 => (32, 16),
++                4..=11 => (4, 2),
++                12..=15 => (8, 4),
++                16..=47 => (2, 0),
++                _ => (4, 2),
++            }
 +        };
-+        let m = set_mode(0x1234, 1, &timing)?;
-+        assert_eq!(m.len(), 80);
-+        assert_eq!(&m[0..6], &[0x48, 0x00, 0x22, 0x00, 0x34, 0x12]);
-+        assert!(m[6..22].iter().all(|&x| x == 0));
-+        assert_eq!(&m[22..26], &[1, 2, 0, 0]);
-+        assert_eq!(u16::from_le_bytes([m[26], m[27]]), 3840);
-+        assert_eq!(u16::from_le_bytes([m[34], m[35]]), 2160);
-+        assert_eq!(u32::from_le_bytes([m[70], m[71], m[72], m[73]]), 0xd040);
-+        assert_eq!(u16::from_le_bytes([m[68], m[69]]), 0x0200);
-+        Ok(())
++        for i in 0..COEFFS {
++            let (step, bias) = step_bias(i);
++            for coeff in (-LIMIT..=LIMIT).step_by(37) {
++                let want = if bias == 0 {
++                    let q = coeff.abs() / step;
++                    if coeff < 0 {
++                        -q
++                    } else {
++                        q
++                    }
++                } else {
++                    (coeff + bias).div_euclid(step)
++                }
++                .clamp(-2048, 2047);
++                assert_eq!(quantize(coeff, i), want);
++            }
++        }
++        // Boundary cases the stride above can step over: every exact multiple and half-step of the
++        // coarsest divisor, on both signs, is where floor-vs-truncate actually differs.
++        for i in 0..COEFFS {
++            let (step, bias) = step_bias(i);
++            for m in -4i32..=4 {
++                for d in [-1, 0, 1, step / 2, -step / 2] {
++                    let coeff = m * step + d;
++                    let want = if bias == 0 {
++                        let q = coeff.abs() / step;
++                        if coeff < 0 {
++                            -q
++                        } else {
++                            q
++                        }
++                    } else {
++                        (coeff + bias).div_euclid(step)
++                    }
++                    .clamp(-2048, 2047);
++                    assert_eq!(quantize(coeff, i), want);
++                }
++            }
++        }
 +    }
 +
-+    /// The three fields that describe an HDR connector, against the values read out of DLM 3.4.26.
-+    ///
-+    /// Offset 23 is the DMA buffer format, whose four values DLM names `NM16`/`NM32`/`NM24`/`NM30`
-+    /// against a bytes-per-pixel table of `{2, 4, 3, 4}`; 30 bpp is `NM30` = 3. Offset 69 is the
-+    /// colour-depth enum from DLM's own `depth` switch, where 24 -> 2 and 30 -> 3, and offset 68 is
-+    /// the byte below it, zero on every enable. Offset 42 bit 6 is `ST2084 colorspace used (HDR)`,
-+    /// which rides over the sync polarity in the same word.
-+    ///
-+    /// The SDR half is here too: an 8-bit connector must be byte-identical to what it sent before
-+    /// any of this existed, which is what makes the HDR half safe to land.
 +    #[test]
-+    fn set_mode_carries_depth_and_transfer_function() -> Result {
-+        let base = Timing {
-+            hactive: 2560,
-+            hblank: 160,
-+            hsync_front: 48,
-+            hsync_width: 32,
-+            vactive: 1440,
-+            vblank: 85,
-+            vsync_front: 3,
-+            vsync_width: 8,
-+            refresh_hz: 165,
-+            pixel_clock_10khz: 0x1113d,
-+            sync_flags: 0x0600,
-+            stride: 0x0a80,
-+            total_rows: 0x66db,
-+            vic_word: 0x0800,
-+            ten_bit: false,
-+            st2084: false,
-+            dual_nivo: false,
-+        };
-+
-+        let sdr = set_mode(0x1234, 1, &base)?;
-+        // An 8-bit connector still sends NM24.
-+        assert_eq!(sdr[23], 2);
-+        assert_eq!(u16::from_le_bytes([sdr[42], sdr[43]]), 0x0600);
-+        assert_eq!(u16::from_le_bytes([sdr[68], sdr[69]]), 0x0200);
-+
-+        // Ten bits per channel on its own: a 10-bit SDR output is a thing a compositor can ask
-+        // for, and it must not set the HDR bit.
-+        let deep = set_mode(
-+            0x1234,
-+            1,
-+            &Timing {
-+                ten_bit: true,
-+                ..base
-+            },
-+        )?;
-+        assert_eq!(deep[23], 3); // NM30
-+        assert_eq!(u16::from_le_bytes([deep[42], deep[43]]), 0x0600);
-+        assert_eq!(u16::from_le_bytes([deep[68], deep[69]]), 0x0300);
-+
-+        // PQ on its own: the transfer function is independent of the depth.
-+        let pq8 = set_mode(
-+            0x1234,
-+            1,
-+            &Timing {
-+                st2084: true,
-+                ..base
-+            },
-+        )?;
-+        assert_eq!(pq8[23], 2);
-+        assert_eq!(u16::from_le_bytes([pq8[42], pq8[43]]), 0x0640);
-+        assert_eq!(u16::from_le_bytes([pq8[68], pq8[69]]), 0x0200);
-+
-+        // What a compositor driving HDR actually produces.
-+        let hdr = set_mode(
-+            0x1234,
-+            1,
-+            &Timing {
-+                ten_bit: true,
-+                st2084: true,
-+                ..base
-+            },
-+        )?;
-+        assert_eq!(hdr[23], 3);
-+        assert_eq!(u16::from_le_bytes([hdr[42], hdr[43]]), 0x0640);
-+        assert_eq!(u16::from_le_bytes([hdr[68], hdr[69]]), 0x0300);
-+        // The timing itself is untouched by either flag.
-+        assert_eq!(&hdr[26..42], &sdr[26..42]);
-+        assert_eq!(&hdr[44..68], &sdr[44..68]);
-+        assert_eq!(&hdr[70..74], &sdr[70..74]);
-+        Ok(())
++    fn haar_transform_haar_vectors() {
++        // Independent golden vectors cover the source gradient blocks. Input luma is
++        // `Y = 64 * gray`.
++        use video::haar::{transform, DIM, PIXELS};
++        // Build an 8x8 Y block by evaluating a gray-per-(row,col) selector.
++        fn build(gray: impl Fn(usize, usize) -> i32) -> [i32; PIXELS] {
++            let mut b = [0i32; PIXELS];
++            for r in 0..DIM {
++                for c in 0..DIM {
++                    b[r * DIM + c] = 64 * gray(r, c);
++                }
++            }
++            b
++        }
++        // vstripe2 (period-2 vertical, full contrast 0/255) -> level-2 HL band c[4..8] = -2040.
++        let c = transform(&build(|_, c| if (c / 2) & 1 != 0 { 255 } else { 0 }));
++        assert_eq!(&c[4..8], &[-2040, -2040, -2040, -2040]);
++        assert!(c[1..4].iter().all(|&x| x == 0) && c[8..].iter().all(|&x| x == 0));
++        // Period-four vertical stripe: coarse HL c[1] = -8160.
++        let c = transform(&build(|_, c| if (c / 4) & 1 != 0 { 255 } else { 0 }));
++        assert_eq!(c[1], -8160);
++        // Period-two horizontal stripe: level-two LH band is -2040.
++        let c = transform(&build(|r, _| if (r / 2) & 1 != 0 { 255 } else { 0 }));
++        assert_eq!(&c[8..12], &[-2040, -2040, -2040, -2040]);
++        // A per-column gradient exercises DC, coarse-HL, and the finest band.
++        let c = transform(&build(|_, col| 36 * col as i32));
++        assert_eq!(c[0], 8064); // DC = mean(36*0..36*7)*64/64 = 8064
++        assert_eq!(&c[4..8], &[-576, -576, -576, -576]);
++        // The level-1 tail contains three 4x4 Morton-scanned bands:
++        // c[16..32] = HL1, c[32..48] = LH1, and c[48..64] = HH1.
++        //
++        // A per-column ramp has no vertical detail: HL1 is uniformly -72 and LH1/HH1 are zero.
++        assert!(c[16..32].iter().all(|&x| x == -72)); // finest HL: horizontal detail only
++        assert!(c[32..].iter().all(|&x| x == 0)); // LH1 + HH1: no vertical detail
 +    }
 +
-+    /// A teardown carries no colour description at all, whatever the connector was doing before it.
-+    ///
-+    /// Offset 42 bit 15 is `(Disabled)` in DLM's decode, and it is a real branch: the serializer
-+    /// skips every timing write when it is set. Setting an HDR bit beside it would be describing
-+    /// a signal that is being switched off.
 +    #[test]
-+    fn clear_mode_carries_no_colour_description() -> Result {
-+        let m = clear_mode(0x1234, 1)?;
-+        // No DMA format on a teardown.
-+        assert_eq!(m[23], 0);
-+        assert_eq!(u16::from_le_bytes([m[42], m[43]]), 0x8000);
-+        assert!(m[44..74].iter().all(|&x| x == 0));
++    fn haar_vlc_codebook_byte_exact() -> Result {
++        // The LSB-first entropy VLC is checked against independent golden output. Symbol 7 is the
++        // AC code
++        // 0b1110000 (LSB-first); four of them pack to the wire's per-block AC unit bytes, and the
++        // final byte is padded with 1-bits (a truncated all-ones code), exactly as the dock emits.
++        use Vlc;
++        let mut w = Vlc::new();
++        for _ in 0..4 {
++            w.symbol(7)?;
++        }
++        assert_eq!(&w.finish()?[..], &[0x87, 0xc3, 0xe1, 0xf0]);
++        // The full per-block AC unit `0 0 0 7 7 7 7` (idx1-3 zero, idx4-7 AC) -- matches the live
++        // wire bytes `38 1c 0e ...` captured for vstripe2.
++        let mut w = Vlc::new();
++        for s in [0usize, 0, 0, 7, 7, 7, 7] {
++            w.symbol(s)?;
++        }
++        assert_eq!(&w.finish()?[..4], &[0x38, 0x1c, 0x0e, 0x87]);
++        // Symbol 0 (the 1-bit `0` code) alone -> one byte padded with seven 1-bits.
++        let mut w = Vlc::new();
++        w.symbol(0)?;
++        assert_eq!(&w.finish()?[..], &[0xfe]);
 +        Ok(())
 +    }
 +
 +    #[test]
-+    fn timing_from_drm_mode_1080p60() -> Result {
-+        // CEA 1920x1080@60: clock 148.5 MHz, h 2008/2052/2200, v 1084/1089/1125.
-+        let mode = DisplayMode::from_timings(ModeTimings {
-+            clock_khz: 148_500,
-+            hdisplay: 1920,
-+            hsync_start: 2008,
-+            hsync_end: 2052,
-+            htotal: 2200,
-+            vdisplay: 1080,
-+            vsync_start: 1084,
-+            vsync_end: 1089,
-+            vtotal: 1125,
-+            flags: ModeFlags::PHSYNC | ModeFlags::PVSYNC,
-+        })?;
-+        assert_eq!(mode.cea_vic(), 16);
-+        let t = timing_from_drm_mode(&mode, &profile::PROFILE_RIDGE.protocol.allocation, false)?;
-+        assert_eq!(t.hactive, 1920);
-+        assert_eq!(t.hblank, 280); // htotal - hdisplay
-+        assert_eq!(t.hsync_front, 88); // hsync_start - hdisplay
-+        assert_eq!(t.hsync_width, 44); // hsync_end - hsync_start
-+        assert_eq!(t.vactive, 1080);
-+        assert_eq!(t.vblank, 45); // vtotal - vdisplay
-+        assert_eq!(t.vsync_front, 4);
-+        assert_eq!(t.vsync_width, 5);
-+        assert_eq!(t.pixel_clock_10khz, 14_850); // clock(kHz) / 10
-+        assert_eq!(t.refresh_hz, 60); // via drm_mode_vrefresh
++    fn haar_coeff_magnitude_code() -> Result {
++        // The AC magnitude-code emitter is checked against per-coefficient golden wire bits for
++        // q-4, q-8, and q-16.
++        use Vlc;
++        // Four q-4 coefficients (category 3, zero offset) == four sym7 -- the per-block AC unit.
++        let mut w = Vlc::new();
++        for _ in 0..4 {
++            w.coeff(-4)?;
++        }
++        assert_eq!(&w.finish()?[..], &[0x87, 0xc3, 0xe1, 0xf0]);
++        // A zero coefficient is the 1-bit symbol 0 -> one byte padded with seven 1-bits.
++        let mut w = Vlc::new();
++        w.coeff(0)?;
++        assert_eq!(&w.finish()?[..], &[0xfe]);
++        // Within-category offset (q-6 = category 3, offset 2) and sign polarity (negative vs +).
++        let mut w = Vlc::new();
++        w.coeff(-6)?;
++        assert_eq!(&w.finish()?[..], &[0x97]);
++        let mut w = Vlc::new();
++        w.coeff(6)?;
++        assert_eq!(&w.finish()?[..], &[0xd7]); // same magnitude, sign bit flipped
++                                               // Category 5 with offset (q-16) spans two bytes.
++        let mut w = Vlc::new();
++        w.coeff(-16)?;
++        assert_eq!(&w.finish()?[..], &[0x1f, 0xf8]);
++        // The unsupported long-form escape is rejected.
++        let mut w = Vlc::new();
++        assert!(w.coeff(-256).is_err());
++        Ok(())
++    }
++
++    #[test]
++    fn haar_magnitude_category() {
++        // Magnitude category is `bit_length(abs(coeff))`.
++        use mag_category;
++        assert_eq!(mag_category(0), 0);
++        assert_eq!(mag_category(1), 1);
++        assert_eq!(mag_category(-4), 3);
++        assert_eq!(mag_category(7), 3);
++        assert_eq!(mag_category(-8), 4);
++        assert_eq!(mag_category(16), 5);
++        assert_eq!(mag_category(-128), 8);
++        assert_eq!(mag_category(255), 8);
++    }
++}
+diff --git a/drivers/gpu/drm/vino/video_arm.rs b/drivers/gpu/drm/vino/video_arm.rs
+new file mode 100644
+index 000000000000..85a2bdef8d09
+--- /dev/null
++++ b/drivers/gpu/drm/vino/video_arm.rs
+@@ -0,0 +1,243 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Video decoder configuration carried in cold pipe-arm records.
++
++use kernel::{alloc::flags::GFP_KERNEL, prelude::*};
++
++const WIDE_TABLE_RECORD_LEN: u16 = 194;
++const QUANT_TABLE_LEN: u16 = 82;
++
++/// Record kind of a code table, which also fixes how its values are laid out.
++const WIDE_TABLE_KIND: u16 = 0x000d;
++const NARROW_TABLE_KIND: u16 = 0x0009;
++
++/// Record kind of the quantiser table, the same on every generation.
++const QUANT_TABLE_KIND: u16 = 0x000a;
++
++// Five decoder code tables follow the mode header. Each record contains a table index, a version
++// word, and 47 little-endian values.
++const CODE_TABLES: [[u32; 47]; 5] = [
++    [
++        0, 6, 0, 28, 0, 120, 0, 496, 0, 2016, 0, 8128, 0, 32640, 0, 130816, 262144, 0, 0, 0, 0, 0,
++        0, 0, 0, 3, 0, 21, 0, 105, 0, 465, 0, 1953, 0, 8001, 0, 32385, 0, 130305, 261121, 0, 0, 0,
++        0, 0, 0,
++    ],
++    [
++        0, 6, 0, 28, 0, 120, 0, 496, 0, 2016, 0, 8128, 0, 32640, 0, 130816, 0, 523776, 1048576, 0,
++        0, 0, 0, 0, 0, 3, 0, 21, 0, 105, 0, 465, 0, 1953, 0, 8001, 0, 32385, 0, 130305, 0, 522753,
++        1046529, 0, 0, 0, 0,
++    ],
++    [
++        0, 6, 0, 28, 0, 120, 0, 496, 0, 2016, 0, 8128, 0, 32640, 0, 130816, 0, 523776, 1048576, 0,
++        0, 0, 0, 0, 0, 3, 0, 21, 0, 105, 0, 465, 0, 1953, 0, 8001, 0, 32385, 0, 130305, 0, 522753,
++        1046529, 0, 0, 0, 0,
++    ],
++    [
++        0, 6, 0, 28, 0, 120, 255, 512, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 21,
++        0, 105, 225, 480, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
++    ],
++    [
++        0, 6, 0, 28, 0, 120, 0, 496, 0, 2016, 0, 8128, 16383, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
++        0, 3, 0, 21, 0, 105, 0, 465, 0, 1953, 0, 8001, 16129, 32512, 0, 0, 0, 0, 0, 0, 0, 0, 0,
++    ],
++];
++
++// The same five tables for a DL-3x00 decoder, which states them as a counted list of 16-bit
++// values rather than a version word and 47 32-bit ones. The code they describe is a different one:
++// where the wider form carries a run of unary prefixes, this carries a plain power-of-two ladder.
++const NARROW_CODE_TABLES: [&[u16]; 5] = [
++    &[
++        1, 0, 2, 0, 4, 0, 8, 0, 16, 0, 32, 0, 64, 0, 128, 0, 256, 512,
++    ],
++    &[
++        1, 0, 2, 0, 4, 0, 8, 0, 16, 0, 32, 0, 64, 0, 128, 0, 256, 0, 512, 1024,
++    ],
++    &[
++        1, 0, 2, 0, 4, 0, 8, 0, 16, 0, 32, 0, 64, 0, 128, 0, 256, 0, 512, 1024,
++    ],
++    &[1, 0, 2, 0, 4, 0, 8, 15, 2],
++    &[1, 0, 2, 0, 4, 0, 8, 0, 16, 0, 32, 0, 64, 127, 2],
++];
++
++/// The decoder code tables one dock generation states when it opens a stream.
++///
++/// The configuration record is otherwise identical everywhere -- the same mode header opens it and
++/// the same quantiser table closes it -- so only the code tables select a variant.
++///
++/// This also selects the dialect the encoder emits, because the two must agree: a dock told one
++/// code and sent another decodes every strip to noise while each record stays exactly the right
++/// length. Keeping both behind one field is what makes disagreeing impossible.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) enum CodeTables {
++    /// Five 47-entry 32-bit tables, each with a version word, under record kind 0x0d.
++    Wide,
++    /// Five counted 16-bit tables under record kind 0x09.
++    Narrow,
++}
++
++// Decoder quantization parameters. These match the Haar configuration used by the video encoder.
++const QUANT_TABLE: [u16; 41] = [
++    10, 1, 1, 0, 64, 64, 16, 16, 16, 16, 16, 16, 16, 32, 32, 32, 1, 1, 1, 16, 16, 4, 16, 16, 4, 32,
++    32, 8, 1, 1, 1, 32, 32, 2, 32, 32, 2, 64, 64, 4, 0,
++];
++
++fn push_u16(out: &mut KVec<u8>, value: u16) -> Result {
++    out.extend_from_slice(&value.to_le_bytes(), GFP_KERNEL)?;
++    Ok(())
++}
++
++fn push_u32(out: &mut KVec<u8>, value: u32) -> Result {
++    out.extend_from_slice(&value.to_le_bytes(), GFP_KERNEL)?;
++    Ok(())
++}
++
++/// The 26-byte `[len=0x0018][kind=0x030b]` header that states a stream's mode.
++///
++/// It opens the decoder configuration and is repeated verbatim by the mode-restating form of the
++/// per-frame stream report, so both build it here. The mode appears twice, each time as
++/// `[format][width][height][layout word]`.
++///
++/// The format word repeats the DMA format the set-mode states at offset 23: a connector whose
++/// timing is programmed for 30 bpp has to open its decoder for 30 bpp too.
++pub(super) fn mode_header(width: u16, height: u16, layout_word: u16, ten_bit: bool) -> [u8; 26] {
++    let format = if ten_bit { 0x0003u16 } else { 0x0002 };
++    let mut out = [0u8; 26];
++    for (i, value) in [
++        0x0018u16,
++        0x030b,
++        0x0204,
++        0x0002,
++        format,
++        width,
++        height,
++        layout_word,
++        format,
++        width,
++        height,
++        layout_word,
++        0,
++    ]
++    .into_iter()
++    .enumerate()
++    {
++        out[i * 2..i * 2 + 2].copy_from_slice(&value.to_le_bytes());
++    }
++    out
++}
++
++/// Build the plaintext decoder configuration a connector's stream opens with.
++///
++/// The configuration opens with the stream's [`mode_header`] and closes with the quantiser table;
++/// `tail` is whatever the generation appends after that, which for some is a host-random nonce and
++/// for others nothing at all.
++/// One plane's escape codebook, stating a ceiling of `naturals + 1`.
++///
++/// The entries are `2^n * (2^(n+1) - 1)` up to a terminator of `2^(2N+2)`, and the second half of
++/// the record repeats each less `2^(n+1) - 1`.
++fn code_table(naturals: usize) -> [u32; 47] {
++    let mut t = [0u32; 47];
++    let mut n = 1;
++    while n <= naturals {
++        t[2 * n - 1] = ((1u64 << n) * ((1u64 << (n + 1)) - 1)) as u32;
++        t[24 + 2 * n - 1] = t[2 * n - 1] - ((1u32 << (n + 1)) - 1);
++        n += 1;
++    }
++    t[2 * naturals] = 1u32 << (2 * naturals + 2);
++    t[24 + 2 * naturals] = t[2 * naturals] - ((1u32 << (naturals + 2)) - 1);
++    t
++}
++
++/// Naturals each table carries for a 30 bpp connector, or zero for one the depth does not move.
++///
++/// Indexed as the dock is given them: luma AC, chroma AC, DC, then two the sample depth leaves
++/// alone. The chroma AC and DC tables are identical at 24 bpp because they share a ceiling there.
++const DEEP_NATURALS: [usize; 5] = [10, 11, 11, 0, 0];
++
++pub(super) fn build_config(
++    tables: CodeTables,
++    mode_header: &[u8; 26],
++    tail: &[u8],
++    ten_bit: bool,
++) -> Result<KVec<u8>> {
++    let mut out = KVec::new();
++
++    out.extend_from_slice(mode_header, GFP_KERNEL)?;
++
++    match tables {
++        CodeTables::Wide => {
++            // The dock decodes each plane with the ceiling its table states, so a table left at
++            // 24 bpp while the encoder codes 30 bpp coefficients loses the stream or the detail.
++            let mut deep = [0u32; 47];
++            for (index, table) in CODE_TABLES.iter().enumerate() {
++                let raise = ten_bit && DEEP_NATURALS[index] != 0;
++                if raise {
++                    deep = code_table(DEEP_NATURALS[index]);
++                }
++                let table: &[u32; 47] = if raise { &deep } else { table };
++                push_u16(&mut out, WIDE_TABLE_RECORD_LEN)?;
++                push_u16(&mut out, ((index as u16) << 8) | WIDE_TABLE_KIND)?;
++                push_u32(&mut out, 1)?;
++                for &value in table {
++                    push_u32(&mut out, value)?;
++                }
++            }
++        }
++        CodeTables::Narrow => {
++            for (index, table) in NARROW_CODE_TABLES.iter().enumerate() {
++                // The record length counts everything after itself: the kind word, the count
++                // word, and the values.
++                push_u16(&mut out, 4 + 2 * table.len() as u16)?;
++                push_u16(&mut out, ((index as u16) << 8) | NARROW_TABLE_KIND)?;
++                push_u16(&mut out, table.len() as u16)?;
++                for &value in table.iter() {
++                    push_u16(&mut out, value)?;
++                }
++            }
++        }
++    }
++
++    push_u16(&mut out, QUANT_TABLE_LEN)?;
++    debug_assert_eq!(QUANT_TABLE[0], QUANT_TABLE_KIND);
++    for value in QUANT_TABLE {
++        push_u16(&mut out, value)?;
++    }
++    out.extend_from_slice(tail, GFP_KERNEL)?;
++    Ok(out)
++}
++
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++#[kunit_tests(vino_video_arm)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn video_arm_configuration_uses_mode_and_nonce() -> Result {
++        let nonce = [0x5a; 14];
++        let header = mode_header(1920, 1080, 0x4000, false);
++        let config = build_config(CodeTables::Wide, &header, &nonce, false)?;
++
++        assert_eq!(config.len(), 1104);
++        assert_eq!(&config[10..14], &[0x80, 0x07, 0x38, 0x04]);
++        assert_eq!(&config[18..22], &[0x80, 0x07, 0x38, 0x04]);
++        assert_eq!(&config[1090..], &nonce);
++
++        // A 30 bpp connector differs from a 24 bpp one in the two format words and nothing else.
++        assert_eq!(&header[8..10], &[0x02, 0x00]);
++        assert_eq!(&header[16..18], &[0x02, 0x00]);
++        let deep = mode_header(1920, 1080, 0x4000, true);
++        assert_eq!(&deep[8..10], &[0x03, 0x00]);
++        assert_eq!(&deep[16..18], &[0x03, 0x00]);
++        assert_eq!(&deep[10..16], &header[10..16]);
++
++        // The generator has to reproduce the captured tables before it can be trusted to raise
++        // one, and the record holds exactly the eleven naturals a ceiling of twelve needs.
++        assert_eq!(code_table(8), CODE_TABLES[0]);
++        assert_eq!(code_table(9), CODE_TABLES[1]);
++        assert_eq!(code_table(9), CODE_TABLES[2]);
++        let deep_dc = code_table(DEEP_NATURALS[2]);
++        assert_eq!(deep_dc[21], 8_386_560);
++        assert_eq!(deep_dc[22], 16_777_216);
++        assert_eq!(deep_dc[46], 16_769_025);
 +        Ok(())
 +    }
 +}
