@@ -4,51 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 938C7C61DD7
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF82C61DD4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7180610EF74;
-	Thu, 27 Aug 2026 09:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0032010EF73;
+	Thu, 27 Aug 2026 09:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="xXwDHC/l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QAK7KJz7";
 	dkim-atps=neutral
-X-Greylist: delayed 8966 seconds by postgrey-1.36 at gabe;
- Wed, 26 Aug 2026 19:36:13 UTC
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F86410EDBC
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787772967;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=6m6/nVTkN2G1SyFXrOvB2/4l1QVTjAhGUBW3iigpQ0U=;
- b=xXwDHC/lI9wUDcOickNtgmclJ9sSYiCmwHK5xU7einvu66U3SsrJOT+V9wC7pDVTeA7iBw
- 1iRoThyg+mMzzg12uXM9UNdM6OyRxW8j9emLfaoZbBPjOGqRq2lxUOVZ/w9tKdSqfJsH3S
- NpgLykGftIq0WXNMYASmlQrFb7SbQMVFPt8YQXi510I+OkbRpAM24/MJ7/M6jqWWgpbmYh
- WYqLPb/BK0z07gCTlf6AYydlUwkB2wm/9JJ+8wrWvOkKljEUFgzCcg1gQ9cFjIMzqv3O8s
- AJWLLDGDuLYMTnJ2c7rSp4R49Enwp1JQJ4inmlKXZqBc2NUhAaKKW+st1iDVag==
-Content-Type: text/plain; charset=UTF-8
-To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
- "Alex Deucher" <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
- <linux-kernel@vger.kernel.org>, 
- "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Subject: [PATCH 1/2] drm/amd/display: skip receiver power control without AUX
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a8f4027+79189d+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
-Content-Transfer-Encoding: 7bit
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Date: Thu, 27 Aug 2026 02:36:01 +0700
-X-Mailer: git-send-email 2.47.3
-Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
- smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 19:36:06 +0000
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
-X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-Message-Id: <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
-In-Reply-To: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC4A10EB88
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 18:25:55 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c252ff776efso38716366b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787768754; x=1788373554; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=2AANzETdmnhX2GAGuIhUsamI5Im+2Kfn2eShC6d5HLA=;
+ b=QAK7KJz70xYSZ0ehyR0cfmrNe8U6P04BmiSOuhk0v4H7CwV0VDWEBYTJRa82WBD/U9
+ pFkoLLOcJZ8lGnyxV5Zr22L9QW5sxj69E8SCcmaOlNfBewR7SySwqtZgoXuHNiCgNmZ7
+ OTFdm3z3b6KwjBeYyUpmgDn5tOTldf+YEWJUq/T7oStKF47V20ZEJqXwdkXxsAbtlK1P
+ jPJK4ipO0IIilGv5m4uKuXPtoUaLDvcnJVzLZQa8kq+0cKFCIa7x3Wvg34u9SrtlNmOa
+ 2r05wFEe+zrAxAffxVyyTrNPVrWMq2GdSaWemWpVRpp3zKjcq7eXEVmJzo0WifGXeg+T
+ EaKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787768754; x=1788373554;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2AANzETdmnhX2GAGuIhUsamI5Im+2Kfn2eShC6d5HLA=;
+ b=c7dtCIHPzS5fDfV9jCEPCGmgKecGNFbVHydUw7o5lUV64xii1Vh/FrIahBP1Y7Scuz
+ fG+vy3+T5zUwru3ZpTXdAD/yLfZDSdGo2AmFbIoPsOM9ayOzfp2bdlWX6Y7nV3mLu15r
+ 6MiAnUrs69SSwlu5N1tqQb5qakK0rW9lZfCQc6twU4RXtRt5fDIpz2/I3aONTHGOck8F
+ smHD5XaXblLo+PxP0lv8kzHebJUpowJzbcNF4j6QMg5GySQIJ/TkrXlfo+I1bU35v7hb
+ Dl0HJOZEGDjfy2Xe8bH+VUX/orGYfQODAGcCMLyi7lMb+noHHzn6C6iqfCd9rtzx8Oi0
+ gsJQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrJJR+MnRjwU3zYWVn19f0VsOmpEq2TbcSmjyb9AjL2jVw38vmmEhuif3NEDPk5Yb0bZCFRs1DF20Q=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lzjvZ2Br1zovKz88jIvlI9ifjaRht+hLSgg1EZ29XiM5VaK8KO
+ O5QPEtwKNbLD2/Zw6YcF6edTuZCa6Q05nMjtCMfYFQvej4n8UVLKNORd
+X-Gm-Gg: AR+sD10+uAk6FCz6BIGR3OPvqsR2zgXh9VV6DmFNJKZJ2pbnSbSdZDvWCAItwsbphOS
+ RFAchBCdJuxXjElHa9TxoGrJZOc5TgAwbwQV3vAVyG5OabY3c2vAkblZy1dmReU+DvtCy96WD7H
+ xhPPeX70ldV5xZpb9a7FyKqqF9o26ynngCGz9minCMPiWR2tfu5gNTN04YoKHp5OMgB1FZ5EwAT
+ v25Ae9/4NnlOAihhiXM2oTk57FgojYWoKMpxSz+wWA6C269Q86iB6kHseY7O++Al0962AXydr2J
+ O9RSTWPYyIa1yfdHuyaxUhoRWcnJnOlho3G1oCjcVL/kaeMxWlaDm30G9Lr8y3DwKytOuYtrSrm
+ r+J4Ci/Z4eEaQT9uMO5rVZMSOJv51NUvwSqoNqNNptWFWvMUUv7F4IqXYfPR/B6XIto4zukdy1n
+ aF5RKpwPPs84ZHlG2WEEjxCD/ercC5yeHQDTUA7pv1io0LWcZtxr/jwgpok4KWdEIWuGM=
+X-Received: by 2002:a17:906:4784:b0:c1c:49d9:4c34 with SMTP id
+ a640c23a62f3a-c25360ae6f6mr120564366b.11.1787768753983; 
+ Wed, 26 Aug 2026 11:25:53 -0700 (PDT)
+Received: from fedora ([2404:3100:1006:efb1:8177:ae9d:629e:eab1])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c250a9b43absm612769666b.51.2026.08.26.11.25.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Aug 2026 11:25:53 -0700 (PDT)
+From: Saim Shujah <saimzst@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Saim Shujah <saimzst@gmail.com>
+Subject: [PATCH] drm/msm/dpu: clear pending flush state before physical cleanup
+Date: Wed, 26 Aug 2026 23:24:59 +0500
+Message-ID: <20260826182459.1506522-1-saimzst@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,43 +92,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Passive DP to TMDS dongles do not provide a DP receiver and use native
-GPIO I2C rather than AUX. dpcd_write_rx_power_ctrl() nevertheless tries
-to write DP_SET_POWER, causing the DP helpers to retry a transaction
-that cannot succeed 32 times before giving up.
+Hardware can consume an active-frame CTL flush while the cached software
+pending-flush mask retains the submitted bits. Video-mode disable stops the
+timing engine before physical cleanup, which then adds teardown bits to the
+stale cached mask.
 
-Skip receiver power control when the link is not using AUX mode.
+The teardown trigger can replay source-pipe bits after timing
+stops, leaving one pending and preventing the first commit after re-enable.
 
-On an Oland GPU with a passive DP to HDMI to DVI chain, this reduced
-boot-time "DP AUX transfer fail" messages from 32 to 0. The EDID
-remained 256 bytes and the display continued to use its native
-1600x900 mode.
+Clear the cached pending-flush bookkeeping before constructing the teardown
+state. clear_pending_flush() updates software bookkeeping only; it does not
+write the hardware CTL_FLUSH register.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Saim Shujah <saimzst@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c  | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index 49521ac4b0e8..7991531f6ef4 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -50,6 +50,15 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
- 	if (link->sync_lt_in_progress)
- 		return;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 778e231..f3b1fdc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -2264,6 +2264,7 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
  
-+	/*
-+	 * A passive DP to TMDS dongle presents no DP receiver, so there is
-+	 * nothing to power up or down. The write can only fail, and the DP
-+	 * helpers retry it 32 times before giving up, which adds tens of
-+	 * milliseconds to link bring up.
-+	 */
-+	if (!link->aux_mode)
-+		return;
-+
- 	core_link_write_dpcd(link, DP_SET_POWER, &state,
- 						 sizeof(state));
+ 	dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
  
++	ctl->ops.clear_pending_flush(ctl);
+ 	ctl->ops.reset(ctl);
+ 
+ 	dpu_encoder_helper_reset_mixers(phys_enc);
 -- 
-2.47.3
+2.55.0
+
