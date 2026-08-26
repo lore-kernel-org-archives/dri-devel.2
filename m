@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06190C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190B4C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:36:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 454F810ED51;
-	Wed, 26 Aug 2026 16:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E8E10ED6E;
+	Wed, 26 Aug 2026 16:36:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="tv199sA5";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="NmxI3sdK";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29F4010ED6C
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:25 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so10279175e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:25 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3891B10ED60
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:31 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-49800c6a846so9411975e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762183; x=1788366983;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762190; x=1788366990;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Vl+DiUajk5iNhGqiCsP7kWZwbRynvLhcntFNkKHXw/s=;
- b=tv199sA5ZDDWx79JPlGiP1pJaNuh/J5ECvTiupkuVWFzI3BQerBnaFPA46mOsVEt+m
- 4tUGYPhal+01YU+gCiDU34ZuuADwplPZ7JaDROv3XqO086TIEiMcLCWfMZXWVvLw5n6a
- QCFzG1Il+IpB+9tjR/I9IstCqkB0be+9j42OpzFuA8sDif8M28Xi2jkENRV4cnAk5wvd
- IGjNYfByTw+XWxNpzh9A25Lja/2IVNSuRA6sHj+YOKQMNul/Ah5gcpUjIJiOlSYNURzj
- udkIh43msv4rz8UtLhTBXTHKnQ8attr+ajuFouYemBTPGIGFcQYloKecgHa3tHN1KKky
- cMSw==
+ bh=r2OHbwXA2OvxO/KGmpi5z3jM0ajQdXHlh6ANlHWfPkU=;
+ b=NmxI3sdKNg1oE48QLdezXYBTb/LLmASsuLe/VlQEiNpe+LU74eK4GO4VEX7uoAJRxz
+ pXrsPe1/1EfKv6f/sgLKvEtvZRF0KlXzOI6EfSgYN0MVWilH++jHGtnA0ssCOAcVTTxm
+ Qx1PJVOqzeDUCoySMr7N3u0RH/+MEmfZC1b32SO+0Ne5SkDjCjuhCuFzaMnTT6TxbA19
+ qlWZa/cQH/YnimI1izIL/qWRLNXRpPlv/ce1ga4VdbtJrj6fm0wr5Nk/TSlXelSk5c8D
+ 9D/3sBNcjayAMwESVneW47EiXi4s+xkdQ0rNeTSBfxSF7MNHDrM46QtFZK24MNb6aL0R
+ rYOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762183; x=1788366983;
+ d=1e100.net; s=20251104; t=1787762190; x=1788366990;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Vl+DiUajk5iNhGqiCsP7kWZwbRynvLhcntFNkKHXw/s=;
- b=gZsCKQ9iqGGc3S9EaC0vmtQLh6vD2L+CTveGi3owjPg5vObYAhJMhpzuev6jReqrFU
- i8J+MHhtVtiBBr7HvbqmNPcYEhGipfSxqu5J9h0WCJjL+4yWsjE6EMJyqTTxASmGc9gR
- Dr5Ls58BqhzEqFmjbBxwCFdUx2RfYWAryz/fSpmD5ahqftuLZf+EKqDTWXmTdnjndJfD
- MpZsn3pUkutlgh5RgGNyy8prH8UTlCdmivn/BJwZTlcjl0R9dFzwK+jp3H40xGfhI2Lu
- pU2TJ/nn0e/i5Q+v4G6ADQj+4vagRmNReD9roogO52VjbAe2g6jSwnd17MwLw2aWqSy6
- HKPg==
-X-Gm-Message-State: AFuF++ka95UHhwauLFHJcxRUdG8XsrkDB7TkMAaBDh70M8ohg7Q4PUQ6
- oVBKothkrCMewik4Xkh4cxsb8Qb75qz1nAnFr4d2phq5BR9TW0EfhIAD6dA4W+4jnkHvJAUUOjD
- pNx4FdUkK
-X-Gm-Gg: AR+sD103v7i/oCmbd5RlRDXkK/V5q0lBv+JD+/zWlO3y+MUs5DGfOVqpf9R/IWrCYHR
- SwsWkb5K4wIB2TgqFjpos594obVLq2yo5iXfoGrySJRxUTaAO9WFUbuLb5Zju/bI+6BH8Zhg46+
- AMcE821P00hCfmFUKbaKGGgXqJKvSjwunYuko7utof5vkSgHCvvTC1ubRM1lGb8WqT2eOs+M3WP
- ATZ1YGvGmaq4v56Qi2QBf/iLXNriqggCH6C6Te8/qKhBRTMP+mOoX+wuDwZbJI7OecL1vXi7+1j
- cZICG4fAl67UJJ1npJNosvKHC2Jv0mFIg5jP8reJp0Niw/E/IiVHoUCv5UYT6M+vMNTsnp5VEtY
- Hmz1NMXzGcmQxhCteIkOSRGpd0rrJY3UhouFct3/ec/MUTwyiJ2VbzWXHrcEv+bFx6P485PZ+0p
- +GghkBLVfnQUqLkdR66my3ogzx4owThhsaTzWqG9Nl9zQIcergM+5L7RsGMDjS6hOz/pRi9IV+f
- aoaO/zMJQQR6rmskcRI+CbDq7Z6gnml4u9x
-X-Received: by 2002:a05:600c:a086:b0:499:b000:b828 with SMTP id
- 5b1f17b1804b1-499dc6e9a9dmr93091925e9.4.1787762183517; 
- Wed, 26 Aug 2026 09:36:23 -0700 (PDT)
+ bh=r2OHbwXA2OvxO/KGmpi5z3jM0ajQdXHlh6ANlHWfPkU=;
+ b=anCZ9P/91j64/saWrZ4Haw9cV1P4WL1C66U6Rm1Ipnda8z7KXCqDKhS2Vpl9c1EXbr
+ YXht3yqYhKRIBYR/h1ahZb7v9SrEY8C2niQ1lXhGpOmUJU65MXnUPVRbUyb9ei1P7q6s
+ /je78HM19fW2MO8KAUKO1CfV4i5QBPzjDyxql3PaW8yFaNKA3tPoKkx5a55J+4QKIlSb
+ p4mGh89f98aoQnWx2mkYSb8M+rMl5thR7gB9Obigq03HV2wV85YpW9dvJOYid6ikc1b6
+ sNbrbFwO+fcOgx4M8sWCpJmSqZ6KJ2IJtFFNFsChwdBkS9w1VQwNx7zvw725YNKR0ahI
+ xKbA==
+X-Gm-Message-State: AFuF++n7AQoc76H45wclO7GAiFvHbZgH0q7LCLOnufaaAFfhWn/6ZUkx
+ O6FHstTEpImPo96ARK7e26t3fSSLakmH10fzKgzYtp20PA3/1iZvBqZio42WodR2mcavrjO/rof
+ 5uzHCnazx
+X-Gm-Gg: AR+sD12KmowuCQAQmhzcu6vIhZVo1+m7tWImO7LQQYlW/yDZG6BUbQGEvaW6sfJ7AU9
+ ThxQSRezcudme6xq9FRKtMkamohO52KpUBMf6D+tWjwY0dEgfxTyLzizo2LmkarB8y7z+mHUsMQ
+ YfUaMjwEeP8cRWwBHsECDmP8jykS99yDdP/oxnt/zajv+gK4S0qyBb0+V+CCeJVW4QUnXw0YrMn
+ /OdyWOi7UXWv1xhNx3WBn3v18R8yWDtBpsfoX7BtvrleKEMBBqvN+07NlUSRe/l/1GlRUI/V2hQ
+ 69WAlW5vxwvKd43tCkp/aPmikGiOpDy/ZGbxnD82jt2BW1dGQROdpUTy35E+2Y67o6uEVNvVDj5
+ lO0Uivmh0XiPJKIdx+6DPt9SPnjvH5Ocl8CJnWuN6dCw5elbYF6as083Yv6XW7/HGhqGdssI57T
+ dvYl4/TRMI5xRiyIkh6D3Ct6jleW0vZc8YaynbHCfvy4fQ7xrnV5YjWkvnrPhUUdfdEitKM0pfH
+ rEuu8kGajD73/9OzE8iK9UMqYMGmEmLMCdssc+G0GjaO7Q=
+X-Received: by 2002:a05:600c:19c6:b0:499:900c:9c69 with SMTP id
+ 5b1f17b1804b1-499dc7252fcmr78430185e9.9.1787762189623; 
+ Wed, 26 Aug 2026 09:36:29 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.20
+ 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:36:21 -0700 (PDT)
+ Wed, 26 Aug 2026 09:36:27 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
@@ -78,9 +78,9 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
  Lyude Paul <lyude@redhat.com>, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 18/23] rust: drm: expose mode flags and CTA VIC matching
-Date: Wed, 26 Aug 2026 17:31:49 +0100
-Message-ID: <20260826163359.4998-19-mike@fireburn.co.uk>
+Subject: [PATCH v3 19/23] rust: drm: expose CRTC mode changes
+Date: Wed, 26 Aug 2026 17:31:50 +0100
+Message-ID: <20260826163359.4998-20-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -101,123 +101,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Let Rust DRM drivers construct modes with signal flags, inspect those
-flags, and use the DRM EDID helper to identify the matching CTA-861
-Video Identification Code. This keeps drivers from duplicating the
-canonical HDMI mode table.
+Allow Rust DRM drivers to distinguish a modeset or enable transition
+from an ordinary atomic page flip. This avoids repeating mode-specific
+validation on the page-flip hot path.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/kms/modes.rs | 73 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+ rust/kernel/drm/kms/crtc.rs | 139 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 138 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/drm/kms/modes.rs b/rust/kernel/drm/kms/modes.rs
-index b48a02edfc13..584f20456c07 100644
---- a/rust/kernel/drm/kms/modes.rs
-+++ b/rust/kernel/drm/kms/modes.rs
-@@ -11,6 +11,60 @@
-     types::Opaque,
- };
+diff --git a/rust/kernel/drm/kms/crtc.rs b/rust/kernel/drm/kms/crtc.rs
+index 892f04f04e22..9e888c4e2f68 100644
+--- a/rust/kernel/drm/kms/crtc.rs
++++ b/rust/kernel/drm/kms/crtc.rs
+@@ -31,6 +31,17 @@
+ pub struct ColorLut(bindings::drm_color_lut);
  
-+/// Flags describing signal polarity and scan format for a display mode.
+ impl ColorLut {
++    /// Build an entry. Mainly useful for tests and for drivers synthesising a ramp.
++    #[inline]
++    pub const fn new(red: u16, green: u16, blue: u16) -> Self {
++        Self(bindings::drm_color_lut {
++            red,
++            green,
++            blue,
++            reserved: 0,
++        })
++    }
++
+     /// Red channel value.
+     pub fn red(&self) -> u16 {
+         self.0.red
+@@ -47,6 +58,65 @@ pub fn blue(&self) -> u16 {
+     }
+ }
+ 
++/// A colour transformation matrix, as programmed through the CRTC's `CTM` property.
 +///
-+/// These correspond to the `DRM_MODE_FLAG_*` values accepted by the DRM mode helpers.
-+#[derive(Clone, Copy, Default, PartialEq, Eq)]
-+pub struct ModeFlags(u32);
++/// The matrix is applied to the pixel values that the degamma LUT produced, before the gamma LUT:
++///
++/// ```text
++/// out   matrix    in
++/// |R|   |0 1 2|   |R|
++/// |G| = |3 4 5| x |G|
++/// |B|   |6 7 8|   |B|
++/// ```
++#[repr(transparent)]
++pub struct ColorCtm(bindings::drm_color_ctm);
 +
-+impl ModeFlags {
-+    /// Horizontal sync is active high.
-+    pub const PHSYNC: Self = Self(bindings::DRM_MODE_FLAG_PHSYNC);
-+    /// Horizontal sync is active low.
-+    pub const NHSYNC: Self = Self(bindings::DRM_MODE_FLAG_NHSYNC);
-+    /// Vertical sync is active high.
-+    pub const PVSYNC: Self = Self(bindings::DRM_MODE_FLAG_PVSYNC);
-+    /// Vertical sync is active low.
-+    pub const NVSYNC: Self = Self(bindings::DRM_MODE_FLAG_NVSYNC);
-+    /// The mode is interlaced.
-+    pub const INTERLACE: Self = Self(bindings::DRM_MODE_FLAG_INTERLACE);
-+    /// The mode uses doublescan.
-+    pub const DBLSCAN: Self = Self(bindings::DRM_MODE_FLAG_DBLSCAN);
-+    /// The mode uses composite sync.
-+    pub const CSYNC: Self = Self(bindings::DRM_MODE_FLAG_CSYNC);
-+    /// Composite sync is active high.
-+    pub const PCSYNC: Self = Self(bindings::DRM_MODE_FLAG_PCSYNC);
-+    /// Composite sync is active low.
-+    pub const NCSYNC: Self = Self(bindings::DRM_MODE_FLAG_NCSYNC);
-+    /// The mode carries a horizontal skew value.
-+    pub const HSKEW: Self = Self(bindings::DRM_MODE_FLAG_HSKEW);
-+    /// The mode is double-clocked.
-+    pub const DBLCLK: Self = Self(bindings::DRM_MODE_FLAG_DBLCLK);
-+    /// The mode uses a half-rate clock.
-+    pub const CLKDIV2: Self = Self(bindings::DRM_MODE_FLAG_CLKDIV2);
-+
-+    /// Return whether all flags in `other` are set.
-+    pub fn contains(self, other: Self) -> bool {
-+        self & other == other
-+    }
-+}
-+
-+impl core::ops::BitOr for ModeFlags {
-+    type Output = Self;
-+
-+    fn bitor(self, rhs: Self) -> Self::Output {
-+        Self(self.0 | rhs.0)
-+    }
-+}
-+
-+impl core::ops::BitAnd for ModeFlags {
-+    type Output = Self;
-+
-+    fn bitand(self, rhs: Self) -> Self::Output {
-+        Self(self.0 & rhs.0)
-+    }
-+}
-+
- /// The essential timing fields of a display mode.
- #[derive(Clone, Copy)]
- pub struct ModeTimings {
-@@ -32,6 +86,8 @@ pub struct ModeTimings {
-     pub vsync_end: u16,
-     /// Total vertical lines including blanking.
-     pub vtotal: u16,
-+    /// Signal polarity and scan-format flags.
-+    pub flags: ModeFlags,
- }
- 
- /// DRM kernel-internal display mode structure.
-@@ -84,6 +140,7 @@ pub fn from_timings(t: ModeTimings) -> Result<Self> {
-         mode.vsync_start = t.vsync_start;
-         mode.vsync_end = t.vsync_end;
-         mode.vtotal = t.vtotal;
-+        mode.flags = t.flags.0;
- 
-         Ok(Self {
-             inner: Opaque::new(mode),
-@@ -202,10 +259,26 @@ pub fn clock(&self) -> i32 {
-         unsafe { (*self.as_raw()).clock }
-     }
- 
-+    /// Return the mode's signal-polarity and scan-format flags.
++impl ColorCtm {
++    /// Build a matrix from raw S31.32 **sign-magnitude** entries. Mainly useful for tests.
 +    #[inline]
-+    pub fn flags(&self) -> ModeFlags {
-+        // SAFETY: Reading this field is safe via the type invariants.
-+        ModeFlags(unsafe { (*self.as_raw()).flags })
++    pub const fn from_raw(matrix: [u64; 9]) -> Self {
++        Self(bindings::drm_color_ctm { matrix })
 +    }
 +
-     /// Return the refresh rate in Hz as computed by DRM.
-     #[inline]
-     pub fn vrefresh(&self) -> i32 {
-         // SAFETY: `drm_mode_vrefresh` only reads this valid display mode.
-         unsafe { bindings::drm_mode_vrefresh(self.as_raw()) }
-     }
-+
-+    /// Return the CTA-861 Video Identification Code matching this mode.
++    /// The raw matrix, in the UAPI's S31.32 **sign-magnitude** encoding.
 +    ///
-+    /// A return value of zero means the mode is not one of the CTA-861 modes known to DRM.
++    /// Prefer [`Self::coefficient`], which decodes an entry into an ordinary signed value.
 +    #[inline]
-+    pub fn cea_vic(&self) -> u8 {
-+        // SAFETY: `drm_match_cea_mode` only reads this valid display mode.
-+        unsafe { bindings::drm_match_cea_mode(self.as_raw()) }
++    pub fn raw(&self) -> &[u64; 9] {
++        &self.0.matrix
++    }
++
++    /// Return matrix entry `i` as a two's-complement S31.32 fixed-point value, or [`None`] if `i`
++    /// is out of range.
++    ///
++    /// The UAPI encodes these in **sign-magnitude, not two's complement** (bit 63 is the sign and
++    /// the remaining 63 bits are the magnitude), so reading the `u64` as an `i64` silently turns
++    /// every negative coefficient into a huge positive one. Decoding here means no driver has to
++    /// remember that.
++    #[inline]
++    pub fn coefficient(&self, i: usize) -> Option<i64> {
++        let raw = *self.0.matrix.get(i)?;
++        // The magnitude is capped so it always fits a positive i64.
++        let magnitude = (raw & !(1u64 << 63)) as i64;
++        Some(if raw & (1u64 << 63) != 0 {
++            -magnitude
++        } else {
++            magnitude
++        })
++    }
++
++    /// Return all nine coefficients decoded by [`Self::coefficient`].
++    #[inline]
++    pub fn coefficients(&self) -> [i64; 9] {
++        let mut out = [0i64; 9];
++        for (i, o) in out.iter_mut().enumerate() {
++            // The index is in range by construction, so the fallback is unreachable.
++            *o = self.coefficient(i).unwrap_or(0);
++        }
++        out
++    }
++}
++
+ /// The main trait for implementing the [`struct drm_crtc`] API for [`Crtc`].
+ ///
+ /// Any KMS driver should have at least one implementation of this type, which allows them to create
+@@ -440,8 +510,28 @@ pub fn new<'a, PrimaryData, CursorData>(
+     /// Call this during [`KmsDriver::probe`](crate::drm::kms::KmsDriver::probe), before the device
+     /// is registered.
+     pub fn enable_gamma(&self, gamma_size: u32) {
++        self.enable_color_mgmt(0, false, gamma_size)
++    }
++
++    /// Enable colour management on this CRTC, creating the `DEGAMMA_LUT`, `CTM` and `GAMMA_LUT`
++    /// properties that userspace can program.
++    ///
++    /// A size of zero suppresses the corresponding LUT property, and `has_ctm` selects whether the
++    /// `CTM` property is created. The programmed values are then readable from the CRTC state via
++    /// [`RawCrtcState::degamma_lut`], [`RawCrtcState::ctm`] and [`RawCrtcState::gamma_lut`].
++    ///
++    /// A driver with no colour hardware can still advertise these and apply them in software while
++    /// it has the pixels; compositors that colour-correct through the CRTC properties (rather than
++    /// by rewriting the framebuffer) otherwise have nowhere to put the correction on such an
++    /// output.
++    ///
++    /// Call this during [`KmsDriver::probe`](crate::drm::kms::KmsDriver::probe), before the device
++    /// is registered.
++    pub fn enable_color_mgmt(&self, degamma_size: u32, has_ctm: bool, gamma_size: u32) {
+         // SAFETY: `as_raw()` is a valid, not-yet-registered CRTC.
+-        unsafe { bindings::drm_crtc_enable_color_mgmt(self.as_raw(), 0, false, gamma_size) };
++        unsafe {
++            bindings::drm_crtc_enable_color_mgmt(self.as_raw(), degamma_size, has_ctm, gamma_size)
++        };
+     }
+ }
+ 
+@@ -766,6 +856,12 @@ fn active(&self) -> bool {
+         unsafe { (*self.as_raw()).active }
+     }
+ 
++    /// Returns whether the mode or enable state changed in this atomic state.
++    fn mode_changed(&self) -> bool {
++        // SAFETY: The atomic-state API serializes access to this state, including its bitfields.
++        unsafe { (*self.as_raw()).mode_changed() }
++    }
++
+     /// Return the display mode programmed into this CRTC state.
+     fn mode(&self) -> &DisplayMode {
+         // SAFETY: `mode` is embedded in the CRTC state and therefore has the same lifetime. The
+@@ -793,6 +889,47 @@ fn gamma_lut(&self) -> Option<&[ColorLut]> {
+         // entries valid for the state's lifetime.
+         Some(unsafe { core::slice::from_raw_parts(data.cast::<ColorLut>(), n) })
+     }
++
++    /// Returns the CRTC's degamma LUT for this state as an array of [`ColorLut`] entries, or
++    /// [`None`] if none is programmed. Requires a non-zero `degamma_size` to have been passed to
++    /// [`UnregisteredCrtc::enable_color_mgmt`].
++    fn degamma_lut(&self) -> Option<&[ColorLut]> {
++        // SAFETY: `as_raw()` is a valid `drm_crtc_state`.
++        let blob = unsafe { (*self.as_raw()).degamma_lut };
++        if blob.is_null() {
++            return None;
++        }
++        // SAFETY: a non-null degamma_lut blob is valid for the state's lifetime.
++        let (data, length) = unsafe { ((*blob).data, (*blob).length) };
++        let n = length / core::mem::size_of::<ColorLut>();
++        if data.is_null() || n == 0 {
++            return None;
++        }
++        // SAFETY: `ColorLut` is transparent over `drm_color_lut`; the blob holds `n` contiguous
++        // entries valid for the state's lifetime.
++        Some(unsafe { core::slice::from_raw_parts(data.cast::<ColorLut>(), n) })
++    }
++
++    /// Returns the CRTC's colour transformation matrix for this state, or [`None`] if none is
++    /// programmed. Requires `has_ctm` to have been passed to
++    /// [`UnregisteredCrtc::enable_color_mgmt`].
++    fn ctm(&self) -> Option<&ColorCtm> {
++        // SAFETY: `as_raw()` is a valid `drm_crtc_state`.
++        let blob = unsafe { (*self.as_raw()).ctm };
++        if blob.is_null() {
++            return None;
++        }
++        // SAFETY: a non-null ctm blob is valid for the state's lifetime.
++        let (data, length) = unsafe { ((*blob).data, (*blob).length) };
++        // DRM validates the blob length when the property is set, but this is the boundary where
++        // a short blob would become an out-of-bounds read of nine u64s.
++        if data.is_null() || length < core::mem::size_of::<ColorCtm>() {
++            return None;
++        }
++        // SAFETY: `ColorCtm` is transparent over `drm_color_ctm`, and the blob is at least that
++        // long and valid for the state's lifetime.
++        Some(unsafe { &*data.cast::<ColorCtm>() })
 +    }
  }
+ impl<T: AsRawCrtcState> RawCrtcState for T {}
+ 
