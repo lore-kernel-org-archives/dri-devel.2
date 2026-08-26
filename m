@@ -4,91 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200C9C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 10:53:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C695AC5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 10:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBA1110E290;
-	Wed, 26 Aug 2026 10:52:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7B510E895;
+	Wed, 26 Aug 2026 10:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YwzOoaUv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wik+GUOL";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD4010E290
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 10:52:58 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 410031A1840;
- Wed, 26 Aug 2026 10:52:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 066F8604EC;
- Wed, 26 Aug 2026 10:52:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 23C1A11C7AC46; 
- Wed, 26 Aug 2026 12:52:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1787741569; h=from:subject:date:message-id:to:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=Ey9RYH2RFNaz6azoD+KUbSwAq0kYLs0uc4QHAcA42gw=;
- b=YwzOoaUvCBxvOqya44IQRmcChvhXL8vgHGxbcCmbhbmECnpLcwRQMcP313YXEjBjIbGjtb
- I3Wid39NLAGygcDi2YmXtYo3AnvhAC8qiwoT3eV4cBJRzRjsj5XRyCYrw6G4qiA7F8Zjly
- vEXRD7XVgML/YjQ2Uyrc+ngfVs8rycv3oyvd6Hm0WMNZvz7S4w0rvpxlqOaEK5j0BYuwCJ
- L8Oeso8gBo83WUUPKcbxUYj/zwWIS4h0vUpJl6+JVbBurpBXA6XJKvKWQUQD1lfPaBrb6L
- 0YOhDZdzMEyQk7IuWvSDDzCZv3a6OjEkFdKfO+U7ZZbKTgyueYwGfJ0tIk2zlA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 12:52:21 +0200
-Message-Id: <DKYTHI4WWQ6V.2CAMI1VACSS7N@bootlin.com>
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values
- in <>
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Suzuki K
- Poulose" <suzuki.poulose@arm.com>, "Mike Leach" <mike.leach@arm.com>,
- "James Clark" <james.clark@linaro.org>, "Leo Yan" <leo.yan@arm.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Michal Simek"
- <michal.simek@amd.com>, "Andi Shyti" <andi.shyti@kernel.org>, "Jonathan
- Cameron" <jic23@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Mirela
- Rabulea" <mirela.rabulea@nxp.com>, "Mauro Carvalho Chehab"
- <mchehab@kernel.org>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Lee Jones"
- <lee@kernel.org>, "Xiaowei Song" <songxiaowei@hisilicon.com>, "Binghui
- Wang" <wangbinghui@hisilicon.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Manivannan
- Sadhasivam" <mani@kernel.org>, "Dvorkin Dmitry" <dvorkin@tibbo.com>, "Wells
- Lu" <wellslutw@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Chin-Ting
- Kuo" <chin-ting_kuo@aspeedtech.com>, =?utf-8?q?C=C3=A9dric_Le_Goater?=
- <clg@kaod.org>, "Mark Brown" <broonie@kernel.org>, "Joel Stanley"
- <joel@jms.id.au>, "Andrew Jeffery" <andrew@codeconstruct.com.au>, "Ryan
- Chen" <ryan_chen@aspeedtech.com>, "Billy Tsai" <billy_tsai@aspeedtech.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Daniel Lezcano"
- <daniel.lezcano@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
- Luba" <lukasz.luba@arm.com>, "Boris Brezillon" <bbrezillon@kernel.org>,
- <info@mocean-labs.com>, "Olof Johansson" <olof@lixom.net>, "Shree
- Ramamoorthy" <s-ramamoorthy@ti.com>, <coresight@lists.linaro.org>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-i2c@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-media@vger.kernel.org>, <mfd@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
- <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
- <linux-spi@vger.kernel.org>, <linux-pm@vger.kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF0F10E895
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 10:54:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B3922601E9;
+ Wed, 26 Aug 2026 10:54:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DD91F000E9;
+ Wed, 26 Aug 2026 10:54:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787741667;
+ bh=zBtPu+db9RSzD3FBUi4xb2NNk9iniOP6mDk0cqAmda4=;
+ h=From:To:Cc:Subject:Date;
+ b=Wik+GUOLq906uOZTbmIGKVULn7zt46W/+9bvBjXazjucCVYx7DQkKdU2u5V8o2bgg
+ uPSkdET2q6rzHS3Sp6DkCZt12eh2hvpbuosscpHcpZtOCM3i7zJ6J/GqPq8Htgy8c3
+ lFj0BF3L2Y1KDmwTSKwmdXMSbH2JgcqqKMWkm2XOuagdjT9jQDDI2JTo94u+/Z6B5G
+ t/ih6v9QhDO0oOO+Vvu0Yuhz3rn54CL2tUZqL1oXzJVYaLI9Bp+bMNpMsgmB1/6cms
+ 4rhfAATGnbLY8lZ5nhW7pTDuRSbyRQQJsrHlB17RTGO5Lf2oEvZ6OWKVVdBaUJvGnK
+ tqNRXIJEXKYnA==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+Subject: [PATCH] drm/tegra: Add blend mode properties
+Date: Wed, 26 Aug 2026 12:54:21 +0200
+Message-ID: <20260826105421.1825331-1-thierry.reding@kernel.org>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,15 +55,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 26, 2026 at 12:20 PM CEST, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+From: Thierry Reding <treding@nvidia.com>
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The default programming in the driver matches the "coverage" blend mode,
+so add the corresponding pixel blend mode property to let userspace know
+about it.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+ drivers/gpu/drm/tegra/dc.c  | 6 ++++++
+ drivers/gpu/drm/tegra/hub.c | 2 ++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index 0b3fcc7011b35..fefc3761a4bc7 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -904,6 +904,7 @@ static struct drm_plane *tegra_primary_plane_create(struct drm_device *drm,
+ 						    struct tegra_dc *dc)
+ {
+ 	unsigned long possible_crtcs = tegra_plane_get_possible_crtcs(drm);
++	unsigned int blend_caps = BIT(DRM_MODE_BLEND_COVERAGE);
+ 	enum drm_plane_type type = DRM_PLANE_TYPE_PRIMARY;
+ 	struct tegra_plane *plane;
+ 	unsigned int num_formats;
+@@ -939,6 +940,7 @@ static struct drm_plane *tegra_primary_plane_create(struct drm_device *drm,
+ 	}
+ 
+ 	drm_plane_helper_add(&plane->base, &tegra_plane_helper_funcs);
++	drm_plane_create_blend_mode_property(&plane->base, blend_caps);
+ 	drm_plane_create_zpos_property(&plane->base, plane->index, 0, 255);
+ 
+ 	err = drm_plane_create_rotation_property(&plane->base,
+@@ -1209,6 +1211,7 @@ static struct drm_plane *tegra_dc_cursor_plane_create(struct drm_device *drm,
+ 						      struct tegra_dc *dc)
+ {
+ 	unsigned long possible_crtcs = tegra_plane_get_possible_crtcs(drm);
++	unsigned int blend_caps = BIT(DRM_MODE_BLEND_COVERAGE);
+ 	struct tegra_plane *plane;
+ 	unsigned int num_formats;
+ 	const u32 *formats;
+@@ -1252,6 +1255,7 @@ static struct drm_plane *tegra_dc_cursor_plane_create(struct drm_device *drm,
+ 	}
+ 
+ 	drm_plane_helper_add(&plane->base, &tegra_cursor_plane_helper_funcs);
++	drm_plane_create_blend_mode_property(&plane->base, blend_caps);
+ 	drm_plane_create_zpos_immutable_property(&plane->base, 255);
+ 
+ 	return &plane->base;
+@@ -1356,6 +1360,7 @@ static struct drm_plane *tegra_dc_overlay_plane_create(struct drm_device *drm,
+ 						       bool cursor)
+ {
+ 	unsigned long possible_crtcs = tegra_plane_get_possible_crtcs(drm);
++	unsigned int blend_caps = BIT(DRM_MODE_BLEND_COVERAGE);
+ 	struct tegra_plane *plane;
+ 	unsigned int num_formats;
+ 	enum drm_plane_type type;
+@@ -1394,6 +1399,7 @@ static struct drm_plane *tegra_dc_overlay_plane_create(struct drm_device *drm,
+ 	}
+ 
+ 	drm_plane_helper_add(&plane->base, &tegra_plane_helper_funcs);
++	drm_plane_create_blend_mode_property(&plane->base, blend_caps);
+ 	drm_plane_create_zpos_property(&plane->base, plane->index, 0, 255);
+ 
+ 	err = drm_plane_create_rotation_property(&plane->base,
+diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
+index bd442bfd45407..448f49f3a7d7e 100644
+--- a/drivers/gpu/drm/tegra/hub.c
++++ b/drivers/gpu/drm/tegra/hub.c
+@@ -759,6 +759,7 @@ struct drm_plane *tegra_shared_plane_create(struct drm_device *drm,
+ 					    unsigned int index,
+ 					    enum drm_plane_type type)
+ {
++	unsigned int blend_caps = BIT(DRM_MODE_BLEND_COVERAGE);
+ 	struct tegra_drm *tegra = drm->dev_private;
+ 	struct tegra_display_hub *hub = tegra->hub;
+ 	struct tegra_shared_plane *plane;
+@@ -797,6 +798,7 @@ struct drm_plane *tegra_shared_plane_create(struct drm_device *drm,
+ 	}
+ 
+ 	drm_plane_helper_add(p, &tegra_shared_plane_helper_funcs);
++	drm_plane_create_blend_mode_property(p, blend_caps);
+ 	drm_plane_create_zpos_property(p, 0, 0, 255);
+ 
+ 	return p;
+-- 
+2.55.0
+
