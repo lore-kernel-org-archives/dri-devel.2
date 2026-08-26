@@ -4,52 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDADFC61DC7
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16664C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25BDB10EF64;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A27610EF65;
 	Thu, 27 Aug 2026 09:44:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="qgXgP5T5";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="op7pjiAJ";
 	dkim-atps=neutral
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B23D10EC16
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 07:23:46 +0000 (UTC)
-Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
- server-digest SHA256) (No client certificate requested)
- by meve.dewith.io (Postfix) with ESMTPSA id 5C4D624D69;
- Wed, 26 Aug 2026 07:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
- t=1787729024;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=uXApw21u7kFbyUeBtXMbtGKYUhRfHXU4v8DzWnU9RlU=;
- b=qgXgP5T5vrFd3RIjjvJ5mBDw9x0SjgNEaijfoUXMG+I/JcTOwZ/rBkRlceOE61kJvYLKsd
- 09hO8IRhGArEn52tNEpEu5SJq4UA0+r/Dkf53i4NVQmZWc78fLktfW6CMaL9l4q1o603ag
- +2kuKlGFt2ht4KMif2cd/8vGIzBu8G0=
-From: Wim de With <wf@dewith.io>
-Date: Wed, 26 Aug 2026 09:23:11 +0200
-Subject: [PATCH v4 2/2] backlight: Add support for Orient Chip OCP8178
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D51E10E895
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 10:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
+ Content-Type; bh=l2nRAWEMUyhJ+guypkbcFyofsh5sge6XMoQMazS206s=;
+ b=op7pjiAJPZ6JS5fHvwSRxByUsar1PULHoHaNydZ2jXAopa8VrAAx8/UFRepnPB
+ 5sZ07mEL1rAZJU94kbHHnW2k+vFEXBpnBumqpymcMf4dikKOzT/L4lJ+8MU3Qznh
+ 5pxJnLn25jLbG6ohH11jndDnPbbxjIoWR4p2DHP8l2Swc=
+Received: from [IPv6:::1] (unknown [])
+ by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDX3hRlxI5qJbTjPg--.825S2;
+ Wed, 26 Aug 2026 18:48:07 +0800 (CST)
+Date: Wed, 26 Aug 2026 18:48:03 +0800
+From: MYYDAQ <xmmntnbklsa917813@163.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+CC: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/tests: document what each drm_format test verifies
+User-Agent: K-9 Mail for Android
+Message-ID: <DE9CE460-C1A7-4E7E-85BE-AD75EB0D3C23@163.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-ocp8178-backlight-v4-2-47d7acce882e@dewith.io>
-References: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
-In-Reply-To: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
-To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Spam: Yes
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID: _____wDX3hRlxI5qJbTjPg--.825S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3CFyrJrW5CrWfJr4DCr18Grg_yoWDWw13pa
+ y2yF98KFs8ta1Fga4UJayDZFW3Kws5Ka4jqry7J3sxtrn8K34IvF4DGF1ayrnxWFyrWwn0
+ y3WYkFyDJ3ZFkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrcTPUUUUU=
+X-Originating-IP: [2408:8421:ad00:8127:f234:df0b:d07f:46ad]
+X-CM-SenderInfo: h0pp03xqenz2jdzrlmirt6il2tof0z/xtbC7QeIEGqOxGeKOwAA3E
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,307 +59,273 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a driver for the Orient Chip OCP8178 backlight controller.
+The drm_format test suite was converted from the former selftests and,
+like the other converted suites, its test cases lack any documentation,
+making it hard to tell what each test is supposed to verify and whether
+it still makes sense as a unit test=2E
 
-The OCP8178 supports either PWM or a vendor-specific onewire protocol
-over GPIO. This driver implements the onewire protocol, which enables
-setting static brightness levels without requiring a continuous PWM
-signal from the host CPU. Note that while the vendor calls the protocol
-1-Wire, it is not the 1-Wire protocol from Dallas Semiconductor as
-implemented in drivers/w1.
+Add a comment to every test case explaining what is being tested and
+which edge cases are covered, as a first step towards the "Clean up and
+document former selftests suites" item in Documentation/gpu/todo=2Erst=2E
 
-Signed-off-by: Wim de With <wf@dewith.io>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+No functional changes=2E
+
+Signed-off-by: MYYDAQ <xmmntnbklsa917813@163=2Ecom>
 ---
- MAINTAINERS                          |   1 +
- drivers/video/backlight/Kconfig      |  10 ++
- drivers/video/backlight/Makefile     |   1 +
- drivers/video/backlight/ocp8178_bl.c | 231 +++++++++++++++++++++++++++++++++++
- 4 files changed, 243 insertions(+)
+ drivers/gpu/drm/tests/drm_format_test=2Ec | 95 +++++++++++++++++++++++++
+ 1 file changed, 95 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3ca99d9c32ef1..7146e4dea8d78 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19682,6 +19682,7 @@ OCP8178 BACKLIGHT DRIVER
- M:	Wim de With <wf@dewith.io>
- S:	Maintained
- F:	Documentation/devicetree/bindings/leds/backlight/ocs,ocp8178.yaml
-+F:	drivers/video/backlight/ocp8178_bl.c
- 
- OCXL (Open Coherent Accelerator Processor Interface OpenCAPI) DRIVER
- M:	Mahesh J Salgaonkar <mahesh@linux.ibm.com>
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7aa1c4b21111f..aa845230c5f58 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -226,6 +226,16 @@ config BACKLIGHT_LOCOMO
- 	  If you have a Sharp Zaurus SL-5500 (Collie) or SL-5600 (Poodle) say y to
- 	  enable the LCD/backlight driver.
- 
-+config BACKLIGHT_OCP8178
-+	tristate "OCP8178 Backlight Driver"
-+	depends on GPIOLIB
-+	help
-+	  If you have an Orient Chip OCP8178, say Y to enable the backlight
-+	  driver.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called ocp8178_bl.
-+
- config BACKLIGHT_OMAP1
- 	tristate "OMAP1 PWL-based LCD Backlight"
- 	depends on ARCH_OMAP1 || COMPILE_TEST
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 21c8313cfb121..c4e87b708ae21 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -51,6 +51,7 @@ obj-$(CONFIG_BACKLIGHT_MAX25014)	+= max25014.o
- obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
- obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
- obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
-+obj-$(CONFIG_BACKLIGHT_OCP8178)		+= ocp8178_bl.o
- obj-$(CONFIG_BACKLIGHT_OMAP1)		+= omap1_bl.o
- obj-$(CONFIG_BACKLIGHT_PANDORA)		+= pandora_bl.o
- obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
-diff --git a/drivers/video/backlight/ocp8178_bl.c b/drivers/video/backlight/ocp8178_bl.c
-new file mode 100644
-index 0000000000000..6c1e8c9451f12
---- /dev/null
-+++ b/drivers/video/backlight/ocp8178_bl.c
-@@ -0,0 +1,231 @@
-+// SPDX-License-Identifier: GPL-2.0-only
+diff --git a/drivers/gpu/drm/tests/drm_format_test=2Ec b/drivers/gpu/drm/t=
+ests/drm_format_test=2Ec
+index 22e2371fd=2E=2E6dcd69890 100644
+--- a/drivers/gpu/drm/tests/drm_format_test=2Ec
++++ b/drivers/gpu/drm/tests/drm_format_test=2Ec
+@@ -9,6 +9,12 @@
+=20
+ #include <drm/drm_fourcc=2Eh>
+=20
 +/*
-+ * Orient Chip OCP8178 Backlight Driver
-+ *
-+ * Copyright (C) 2026 Wim de With
-+ *
-+ * Author: Wim de With <wf@dewith.io>
++ * drm_format_info_block_width() must return 0 for invalid arguments:
++ * a NULL format info, a negative plane index, or a plane index
++ * beyond the number of planes, instead of crashing or returning
++ * garbage=2E
 + */
-+
-+#include <linux/backlight.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/irqflags.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+
-+#define OCP8178_MAX_BRIGHTNESS 0x1F /* 5 bits */
-+
-+#define OCP8178_DEVICE_ADDRESS 0x72
-+
-+#define OCP8178_DATA_RFA BIT(7)
-+#define OCP8178_DATA_ADDR GENMASK(6, 5)
-+#define OCP8178_DATA_VALUE GENMASK(4, 0)
-+
-+#define OCP8178_1W_INIT_MAX_RETRIES 5
-+#define OCP8178_1W_INIT_SLEEP_US (50 * 1000)
-+
-+#define OCP8178_T_OFF_US (3 * 1000) /* datasheet specifies at least 2.5 ms */
-+#define OCP8178_1W_T_DELAY_US (100 + 10) /* 10 us as safety factor */
-+#define OCP8178_1W_T_DETECT_US (260 + 10) /* 10 us as safety factor */
-+#define OCP8178_1W_T_START_US 2
-+#define OCP8178_1W_T_EOS_US 2
-+#define OCP8178_1W_T_WIN_NS (1000 * 1000)
-+
+ static void drm_test_format_block_width_invalid(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D NULL;
+@@ -18,6 +24,11 @@ static void drm_test_format_block_width_invalid(struct =
+kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, 1), 0);
+ }
+=20
 +/*
-+ * The datasheet specifies 1.7 Kbps to 160 Kbps.
-+ * 1 / (160 Kbps) is about 6.67 us, so using 7 us per bit should be fine.
-+ * T_HIGH + T_LOW = 7 us
-+ * T_HIGH > 2 * T_LOW for high bits
-+ * T_LOW > 2 * T_HIGH for low bits
++ * Check the block width of each plane of a single-plane, non-tiled
++ * format (XRGB4444): plane 0 is made of 1x1 blocks, and plane indexes
++ * beyond the number of planes report a width of 0=2E
 + */
-+#define OCP8178_1W_HIGH_BIT_T_LOW_US 2
-+#define OCP8178_1W_HIGH_BIT_T_HIGH_US 5
-+#define OCP8178_1W_LOW_BIT_T_LOW_US 5
-+#define OCP8178_1W_LOW_BIT_T_HIGH_US 2
-+
-+struct ocp8178_bl {
-+	struct device *dev;
-+	struct gpio_desc *gpiod;
-+};
-+
-+static int ocp8178_bl_enable_onewire(struct ocp8178_bl *ocp8178)
-+{
-+	u64 start, duration;
-+
-+	gpiod_set_value(ocp8178->gpiod, 0);
-+	fsleep(OCP8178_T_OFF_US);
-+
-+	start = ktime_get_ns();
-+
-+	gpiod_set_value(ocp8178->gpiod, 1);
-+	udelay(OCP8178_1W_T_DELAY_US);
-+	gpiod_set_value(ocp8178->gpiod, 0);
-+	udelay(OCP8178_1W_T_DETECT_US);
-+	gpiod_set_value(ocp8178->gpiod, 1);
-+
-+	duration = ktime_get_ns() - start;
-+
-+	if (duration >= OCP8178_1W_T_WIN_NS) {
-+		dev_err(ocp8178->dev,
-+			"onewire detection window exceeded (%llu ns)\n",
-+			duration);
-+		return -EAGAIN;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
-+{
-+	unsigned long flags;
-+
-+	gpiod_set_value(ocp8178->gpiod, 1);
-+	udelay(OCP8178_1W_T_START_US);
-+
-+	local_irq_save(flags);
-+
-+	for (int i = 7; i >= 0; i--) {
-+		if ((value >> i) & 1) {
-+			gpiod_set_value(ocp8178->gpiod, 0);
-+			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
-+			gpiod_set_value(ocp8178->gpiod, 1);
-+			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
-+		} else {
-+			gpiod_set_value(ocp8178->gpiod, 0);
-+			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
-+			gpiod_set_value(ocp8178->gpiod, 1);
-+			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
-+		}
-+	}
-+
-+	gpiod_set_value(ocp8178->gpiod, 0);
-+	udelay(OCP8178_1W_T_EOS_US);
-+	gpiod_set_value(ocp8178->gpiod, 1);
-+
-+	local_irq_restore(flags);
-+}
-+
-+static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
-+{
-+	u8 data = 0;
-+
-+	/*
-+	 * We cannot set RFA (request for acknowledge) unless the GPIO pin is
-+	 * configured as open drain.
-+	 */
-+	data |= FIELD_PREP(OCP8178_DATA_RFA, 0);
-+	data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
-+	data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
-+
-+	ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
-+	ocp8178_bl_write_u8(ocp8178, data);
-+}
-+
-+static int ocp8178_bl_update_status(struct backlight_device *bl)
-+{
-+	struct ocp8178_bl *ocp8178 = bl_get_data(bl);
-+	u8 brightness = backlight_get_brightness(bl);
-+
-+	ocp8178_bl_set_brightness(ocp8178, brightness);
-+	return 0;
-+}
-+
-+static const struct backlight_ops ocp8178_bl_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = ocp8178_bl_update_status,
-+};
-+
-+static int ocp8178_bl_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct backlight_device *bl;
-+	struct backlight_properties props;
-+	struct ocp8178_bl *ocp8178;
-+	u32 max_brightness, brightness;
-+	int ret, retries;
-+
-+	ocp8178 = devm_kzalloc(dev, sizeof(*ocp8178), GFP_KERNEL);
-+	if (!ocp8178)
-+		return -ENOMEM;
-+
-+	ocp8178->dev = dev;
-+
-+	ret = device_property_read_u32(dev, "max-brightness", &max_brightness);
-+	if (ret)
-+		max_brightness = OCP8178_MAX_BRIGHTNESS;
-+	if (max_brightness > OCP8178_MAX_BRIGHTNESS) {
-+		dev_warn(dev, "max brightness exceeds hardware limit\n");
-+		max_brightness = OCP8178_MAX_BRIGHTNESS;
-+	}
-+
-+	ret = device_property_read_u32(dev, "default-brightness", &brightness);
-+	if (ret)
-+		brightness = max_brightness;
-+	if (brightness > max_brightness) {
-+		dev_warn(dev, "default brightness exceeds max brightness\n");
-+		brightness = max_brightness;
-+	}
-+
-+	ocp8178->gpiod = devm_gpiod_get(dev, "ctrl", GPIOD_OUT_LOW);
-+	if (IS_ERR(ocp8178->gpiod))
-+		return dev_err_probe(dev, PTR_ERR(ocp8178->gpiod),
-+				     "GPIO missing or invalid\n");
-+	if (gpiod_cansleep(ocp8178->gpiod))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "sleeping GPIO not supported\n");
-+	gpiod_set_consumer_name(ocp8178->gpiod, dev_name(dev));
-+
-+	for (retries = 0; retries < OCP8178_1W_INIT_MAX_RETRIES; retries++) {
-+		ret = ocp8178_bl_enable_onewire(ocp8178);
-+		if (!ret)
-+			break;
-+		if (ret != -EAGAIN)
-+			return ret;
-+		fsleep(OCP8178_1W_INIT_SLEEP_US);
-+	}
-+	if (retries >= OCP8178_1W_INIT_MAX_RETRIES)
-+		return dev_err_probe(dev, -ETIMEDOUT,
-+				     "failed to initialize onewire protocol\n");
-+
-+	props = (typeof(props)){
-+		.type = BACKLIGHT_RAW,
-+		.brightness = brightness,
-+		.max_brightness = max_brightness,
-+		.power = BACKLIGHT_POWER_ON,
-+		.scale = BACKLIGHT_SCALE_NON_LINEAR,
-+	};
-+
-+	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ocp8178,
-+					    &ocp8178_bl_ops, &props);
-+	if (IS_ERR(bl))
-+		return dev_err_probe(dev, PTR_ERR(bl),
-+				     "failed to register backlight\n");
-+
-+	platform_set_drvdata(pdev, bl);
-+	backlight_update_status(bl);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ocp8178_bl_of_match[] = {
-+	{ .compatible = "ocs,ocp8178" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
-+
-+static struct platform_driver ocp8178_bl_driver = {
-+	.driver = {
-+		.name = "ocp8178-bl",
-+		.of_match_table = ocp8178_bl_of_match,
-+	},
-+	.probe = ocp8178_bl_probe,
-+};
-+module_platform_driver(ocp8178_bl_driver);
-+
-+MODULE_AUTHOR("Wim de With <wf@dewith.io>");
-+MODULE_DESCRIPTION("Orient Chip OCP8178 Backlight Driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.55.0
+ static void drm_test_format_block_width_one_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_XRGB44=
+44);
+@@ -29,6 +40,11 @@ static void drm_test_format_block_width_one_plane(struc=
+t kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
+ }
+=20
++/*
++ * Check the block width of each plane of a two-plane, non-tiled
++ * format (NV12): both planes are made of 1x1 blocks, and plane
++ * indexes beyond the number of planes report a width of 0=2E
++ */
+ static void drm_test_format_block_width_two_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_NV12);
+@@ -41,6 +57,11 @@ static void drm_test_format_block_width_two_plane(struc=
+t kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
+ }
+=20
++/*
++ * Check the block width of each plane of a three-plane, non-tiled
++ * format (YUV422): all three planes are made of 1x1 blocks, and plane
++ * indexes beyond the number of planes report a width of 0=2E
++ */
+ static void drm_test_format_block_width_three_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_YUV422=
+);
+@@ -54,6 +75,11 @@ static void drm_test_format_block_width_three_plane(str=
+uct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
+ }
+=20
++/*
++ * Check the block width of a tiled format (X0L0), whose pixels are
++ * stored in 2x2 blocks: plane 0 reports a width of 2, and plane
++ * indexes beyond the number of planes report a width of 0=2E
++ */
+ static void drm_test_format_block_width_tiled(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_X0L0);
+@@ -65,6 +91,12 @@ static void drm_test_format_block_width_tiled(struct ku=
+nit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_width(info, -1), 0);
+ }
+=20
++/*
++ * drm_format_info_block_height() must return 0 for invalid arguments:
++ * a NULL format info, a negative plane index, or a plane index
++ * beyond the number of planes, instead of crashing or returning
++ * garbage=2E
++ */
+ static void drm_test_format_block_height_invalid(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D NULL;
+@@ -74,6 +106,11 @@ static void drm_test_format_block_height_invalid(struc=
+t kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, 1), 0);
+ }
+=20
++/*
++ * Check the block height of each plane of a single-plane, non-tiled
++ * format (XRGB4444): plane 0 is made of 1x1 blocks, and plane indexes
++ * beyond the number of planes report a height of 0=2E
++ */
+ static void drm_test_format_block_height_one_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_XRGB44=
+44);
+@@ -85,6 +122,11 @@ static void drm_test_format_block_height_one_plane(str=
+uct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, 1), 0);
+ }
+=20
++/*
++ * Check the block height of each plane of a two-plane, non-tiled
++ * format (NV12): both planes are made of 1x1 blocks, and plane
++ * indexes beyond the number of planes report a height of 0=2E
++ */
+ static void drm_test_format_block_height_two_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_NV12);
+@@ -97,6 +139,11 @@ static void drm_test_format_block_height_two_plane(str=
+uct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, -1), 0);
+ }
+=20
++/*
++ * Check the block height of each plane of a three-plane, non-tiled
++ * format (YUV422): all three planes are made of 1x1 blocks, and plane
++ * indexes beyond the number of planes report a height of 0=2E
++ */
+ static void drm_test_format_block_height_three_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_YUV422=
+);
+@@ -110,6 +157,11 @@ static void drm_test_format_block_height_three_plane(=
+struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, -1), 0);
+ }
+=20
++/*
++ * Check the block height of a tiled format (X0L0), whose pixels are
++ * stored in 2x2 blocks: plane 0 reports a height of 2, and plane
++ * indexes beyond the number of planes report a height of 0=2E
++ */
+ static void drm_test_format_block_height_tiled(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_X0L0);
+@@ -121,6 +173,12 @@ static void drm_test_format_block_height_tiled(struct=
+ kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_block_height(info, -1), 0);
+ }
+=20
++/*
++ * drm_format_info_min_pitch() must return 0 for invalid arguments:
++ * a NULL format info, a negative plane index, or a plane index
++ * beyond the number of planes, instead of crashing or returning
++ * garbage=2E
++ */
+ static void drm_test_format_min_pitch_invalid(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D NULL;
+@@ -130,6 +188,11 @@ static void drm_test_format_min_pitch_invalid(struct =
+kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_format_info_min_pitch(info, 1, 0), 0);
+ }
+=20
++/*
++ * Check the minimum pitch of the single 8-bits-per-pixel plane of
++ * RGB332: one byte per pixel for any width, including odd widths
++ * which must not be rounded, up to the UINT_MAX boundary=2E
++ */
+ static void drm_test_format_min_pitch_one_plane_8bpp(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_RGB332=
+);
+@@ -153,6 +216,11 @@ static void drm_test_format_min_pitch_one_plane_8bpp(=
+struct kunit *test)
+ 			(uint64_t)(UINT_MAX - 1));
+ }
+=20
++/*
++ * Check the minimum pitch of the single 16-bits-per-pixel plane of
++ * XRGB4444: two bytes per pixel for any width, including odd widths
++ * which must not be rounded, up to the UINT_MAX boundary=2E
++ */
+ static void drm_test_format_min_pitch_one_plane_16bpp(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_XRGB44=
+44);
+@@ -176,6 +244,11 @@ static void drm_test_format_min_pitch_one_plane_16bpp=
+(struct kunit *test)
+ 			(uint64_t)(UINT_MAX - 1) * 2);
+ }
+=20
++/*
++ * Check the minimum pitch of the single 24-bits-per-pixel plane of
++ * RGB888: three bytes per pixel for any width, including odd widths
++ * which must not be rounded, up to the UINT_MAX boundary=2E
++ */
+ static void drm_test_format_min_pitch_one_plane_24bpp(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_RGB888=
+);
+@@ -199,6 +272,11 @@ static void drm_test_format_min_pitch_one_plane_24bpp=
+(struct kunit *test)
+ 			(uint64_t)(UINT_MAX - 1) * 3);
+ }
+=20
++/*
++ * Check the minimum pitch of the single 32-bits-per-pixel plane of
++ * ABGR8888: four bytes per pixel for any width, including odd widths
++ * which must not be rounded, up to the UINT_MAX boundary=2E
++ */
+ static void drm_test_format_min_pitch_one_plane_32bpp(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_ABGR88=
+88);
+@@ -222,6 +300,12 @@ static void drm_test_format_min_pitch_one_plane_32bpp=
+(struct kunit *test)
+ 			(uint64_t)(UINT_MAX - 1) * 4);
+ }
+=20
++/*
++ * Check the minimum pitch of both planes of NV12: the first plane
++ * stores one byte per pixel, the second stores two bytes per pixel,
++ * odd widths must not be rounded, and chroma subsampling is not
++ * taken into account=2E
++ */
+ static void drm_test_format_min_pitch_two_plane(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_NV12);
+@@ -257,6 +341,11 @@ static void drm_test_format_min_pitch_two_plane(struc=
+t kunit *test)
+ 			(uint64_t)(UINT_MAX - 1));
+ }
+=20
++/*
++ * Check the minimum pitch of all three planes of YUV422, where each
++ * plane stores one byte per pixel: odd widths must not be rounded and
++ * chroma subsampling is not taken into account=2E
++ */
+ static void drm_test_format_min_pitch_three_plane_8bpp(struct kunit *test=
+)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_YUV422=
+);
+@@ -304,6 +393,12 @@ static void drm_test_format_min_pitch_three_plane_8bp=
+p(struct kunit *test)
+ 			(uint64_t)(UINT_MAX - 1) / 2);
+ }
+=20
++/*
++ * Check the minimum pitch of a tiled format (X0L2), which stores
++ * 8 bytes in 2x2 pixel blocks: two bytes per pixel for any width,
++ * including odd widths which must not be rounded, up to the UINT_MAX
++ * boundary=2E
++ */
+ static void drm_test_format_min_pitch_tiled(struct kunit *test)
+ {
+ 	const struct drm_format_info *info =3D drm_format_info(DRM_FORMAT_X0L2);
 
