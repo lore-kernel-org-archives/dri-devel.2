@@ -4,70 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51360C61DC4
-	for <dri-devel@archiver.kernel.org>; Tue, 25 Aug 2026 23:45:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC3DDC61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 00:51:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F177510EB98;
-	Tue, 25 Aug 2026 23:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8D5010E10A;
+	Wed, 26 Aug 2026 00:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EHxnvV3f";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="ame2q62P";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5424810EB91
- for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 23:44:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 70BFA60A5B;
- Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24607C2BCF6;
- Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1787701498;
- bh=+SG7MQ6dj2q9A59lleV8xmfVK6vHOA9hYyn78jLb98I=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=EHxnvV3f4vvI4h4iiIbASHVQiLamRo7ZNlEXyJzdSz6qVSVj/w1dD+0Da+jBrXKPl
- GuXQfOMrubwzgkU6ibifvLO8DWnBInjTz7+jciNZtxqCv9xoYBsjOzYd0i9nOuBeBH
- O1foV7qgO1xpjjOXUoMBCXhvXrcA6njag3resjjdae2L/+cKeZFSmsXEhpkaWr+X44
- NfyNDUDLyOJH+AMkkZX6oUo6WnCGrZIU+ZJaTjfVvgE7O2Do4uj3Y4K/Jfsw3oCiXR
- YFoYBx79HOZ7MMFtQXevVQU1oAX9PmDhXkgmitzkEkf0fUaHHT8chj8m5QIM9owuhO
- Ieku/7ZMIp+0A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 03AC8C61DB9;
- Tue, 25 Aug 2026 23:44:58 +0000 (UTC)
-From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Wed, 26 Aug 2026 01:44:19 +0200
-Subject: [PATCH 2/4] gpu: nova-core: falcon: Extract PRISCV register
+Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com
+ [209.85.210.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0243210E10A
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 00:51:12 +0000 (UTC)
+Received: by mail-pf1-f225.google.com with SMTP id
+ d2e1a72fcca58-848743155bcso238788b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 17:51:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787705472; x=1788310272;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=SjaCIdVU7kETJpx88YkabqKD+cdjiVBYTuWkimnlXeo=;
+ b=rkCIFr7ymlX79VtvlOeHL+xF0C0xigvZk7o+6YQLbvp0zftFj02LK6e/tMF/pxssbb
+ fnWMzPROmpE1wDezDI6cFj6iB4HyiuVjztE9MvbZXiqtFPcwd0jqhk6N2RINjFGd/PEg
+ /rIqdipF3lF3jKqTiykP+Nh8FqGZy1uDWASu/TYkhWyL5kcodrmmXL+xxDJXprhYoH5V
+ cpc9CP7Ud6hiCAQR3x4fGg7ZpAERGp8H6Hzztw47WHgdxryTR0SVhNVV1sIk5dLtGBex
+ CT05/CVpctOqpj+1R/5QhCqvqTmIhXxykmFQeOsgKGxCNfVWAyPTT7xr2W0aLMwYgknI
+ 6naQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpKt2575/IWeiho23tjRywF6bsq0moz9UIvb5i7D1mPty9WSjpP0EeNrlzqQ93SUB3U/lARWOvq9pQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ne94uBQdTj95YIeHV057HAUOR6IH254rAx2FOgh6ighcw9l6zy
+ Bvqi6hmt2W9dsYWdLWS8dpgwOg6iY541PeQF6pz0/1ljYYf2G9r2HBc1dNbEjc9LMySpDQZ12gR
+ mWy9hzkuYyPJJeuepJo2elyUYttdbSZ6hZtVxIaRQftSCuJ37wh0D4ZxzkKzkfag1w7HLzyp7XM
+ vG5YJA7Wu4LblKYRyoow4luCKqyZ5nudWbXvQx84QL5SLgFibk4rxk9H0LusKV/p5cClEBq5xzU
+ 040l6K5fHzw8GV01utlmUsSQ1J5
+X-Gm-Gg: AR+sD13+fY1OKsXs7jyku6Kb7U8OXRLbsCrL5Wti4TYsyBVPRPI32bIws88KIM3G24g
+ ksYXyZrVSQPY2SkUkk0V0M5arSJXkQZwSYyHkYxnK7JMwHE9oYSlq7d9v1WmLS2v0MLeIbmfzX+
+ 5jRkGlO9/CsZ+aEWutSYmej0FNsg8Keauexr/cFTpx6W4vGZ6fi4oAZSJJjN5N6fL7J9serX6aq
+ yKHTAEM6tu3bVvTJOdiVlN3L1AsmM2nE9diGLoK06mq7iaTAIpgRkl72hlSlvjiHolOXeYsQvsW
+ 1419fVgcmpA76KgQivMdR+pjPtyGDH3jIzfsHLRD2f3effegQB9IKuGNgFTb3Hm3Vh558bBOvGG
+ KmyZ4+XlSKrR37pVGgmc7GV/RTVRmIafzo+hRL8aj4jLwjIqXEv4QxXxU+mEewTuXYjl87wV4xU
+ gIrRiIdMu9AMNSn0HWardArAPugcRw9UwHi+TSl+rn
+X-Received: by 2002:a05:6a00:438c:b0:851:c1d2:c48d with SMTP id
+ d2e1a72fcca58-85372fa9890mr5396681b3a.8.1787705472327; 
+ Tue, 25 Aug 2026 17:51:12 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
+ by smtp-relay.gmail.com with ESMTPS id
+ d2e1a72fcca58-8538a10d27csm346094b3a.1.2026.08.25.17.51.11
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 25 Aug 2026 17:51:12 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-cc1a439db36so391870a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 25 Aug 2026 17:51:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1787705470; x=1788310270;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SjaCIdVU7kETJpx88YkabqKD+cdjiVBYTuWkimnlXeo=;
+ b=ame2q62PPzpJwMHnSt4CObgSz/BCVzqe1tl3k7A6yo0mmIln9r5fr2701uEJT9Jh4k
+ dYZprRmxiB/nRHzflpzCQbYIVA4L/cgg7LCjyBsGYg1G15duCkvxUet5ODtMO607Ajs8
+ scB+EWrskRVZDSrASNcnZ8xB2VLLmWw/IEcOY=
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqqHHr29d4+dKn2wXXYqvJFMuCctEwLbFLkE/nGIT/K2m7awh8UHHlcEYLgJE15hgu/JObEnLblFaM=@lists.freedesktop.org
+X-Received: by 2002:a17:90b:4a8d:b0:381:28e0:6259 with SMTP id
+ 98e67ed59e1d1-3966d412ab2mr5707687a91.9.1787705470455; 
+ Tue, 25 Aug 2026 17:51:10 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a8d:b0:381:28e0:6259 with SMTP id
+ 98e67ed59e1d1-3966d412ab2mr5707612a91.9.1787705469948; 
+ Tue, 25 Aug 2026 17:51:09 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3283d63bb23sm2948885eec.7.2026.08.25.17.51.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Aug 2026 17:51:09 -0700 (PDT)
+Message-ID: <fb9eda28-ffe5-4ba3-a993-9e1e895084f2@broadcom.com>
+Date: Tue, 25 Aug 2026 17:51:17 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION
+ as unset
+To: fausten <yunfeng.li.nb@gmail.com>, dri-devel@lists.freedesktop.org,
+ zack.rusin@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+References: <20260823083211.2654733-1-yunfeng.li.nb@email.com>
+ <20260823085916.2707488-1-yunfeng.li.nb@gmail.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <20260823085916.2707488-1-yunfeng.li.nb@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-2-38351df09084@nanonej.com>
-References: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
-In-Reply-To: <20260826-b4-extract-pfsp-registers-to-falcon-mod-v1-0-38351df09084@nanonej.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7318; i=dev@nanonej.com;
- h=from:subject:message-id;
- bh=bX0B3Voxms/whW42qQyonw4PJ52AO9nzIiHe/Qc+KFY=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqjij4TocfUQf7uDpWfkaD9KGQetyuehQkIzWLZ
- Z9xRYBZ/y2JAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCao4o+AAKCRBmh/EjChUV
- /VfjD/9FvSjEirtIPPEje0SBiUKJpDtcs70n754oeVdCXT6YiVTQ0MhpKr4TbcedDXvXDCYVYG2
- 6xDMAcSwAwyixCveysiCGKLFRvQxLSaFSBiw2te1uMWE6tUcMR+i3okTNssRljAVLHZkpgvLHSP
- O7oy4Rs26o0+eVRS5g1my2zOxEK6zU+Hv6e8RGjB9vRTSMZMx8VV6NtU8vm+JjCpfdVFKlDpzX7
- fPovjo1QmHfJDsZGNrDbXPzazpUMN3/if6nerepWQ2xCl09Zaw8Rzlr+1o+4FyK4+axsBPO3XZS
- +cZdvERcygtF0Hv00ifA/qkTQl4pjrL5YI1V4GrN1UOANzgJQFzRo0UDZOOOt9PwDGX8xAS+Im8
- 9t+Yfa7i2rKI+cGTZIstKcLM9C/Xd29tSdIIaKJQgwyXLTQfqd95XtDXa0OCC4jw7ZRWdab1VYA
- 6gizyCXJHZ70zfQ771Zqre7E0PfvkFRVCWSh/HLOrmOCuCQiyEQteU1VIalP9NkGeBhUqdPcaJp
- G7QYThoku0FGZHqt9JF9fvEa1IfBKyl1Yz0eiQ5ywxRucdrl5SgkZl5xkBuQs28EFbMU41zdYH0
- BMf/BMnO6WKYN6nUMBF9ldVvhRar7peTeFGU0RjXhXmAHIMgxcAagZ1VHLgQbOHjG+aIzLWcZOM
- uDzvXxsZqPKPLZg==
-X-Developer-Key: i=dev@nanonej.com; a=openpgp;
- fpr=83B64FB07C91212F5285227D6687F1230A1515FD
-X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
-X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,202 +115,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
+On 8/23/26 1:59 AM, fausten wrote:
+> The cursor plane code validates cursor dimensions against
+> SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
+> rejects the update with -EINVAL if the cursor is larger than the
+> reported maximum.
+> 
+> However, some SVGA implementations do not implement this register
+> and return 0 for it. In that case every cursor update is rejected,
+> and the log is spammed with:
+> 
+>   [drm] Cursor dimensions (64, 64) exceed device max 0
+> 
+> The visible symptom is that the hardware cursor never appears at
+> all on VMware Fusion guests (SVGA version 2), making the mouse
+> pointer invisible even though the input devices work fine.
+> 
+> Treat a reported maximum of 0 as "not implemented" and skip the
+> dimension check in that case, restoring the pre-existing behaviour
+> of accepting the cursor.
+> 
+> Tested on VMware Fusion with an SVGA version 2 device where the
+> cursor previously did not show up.
 
-Move PRISCV register definitions from the root regs.rs file into the
-falcon module that own them, in the existing falcon/regs.rs file.
+I take it this is an x86_64 mac? What version of fusion are you using?
+Also what is the hwVersion of your VM?
 
-This follows the same pattern established by previous commits for
-GSP, PDISP, PFB, PBUS, PMC and PFSP registers: register definitions
-move to the module that interprets their service, visibility changes
-to pub(super).
+> 
+> Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
+> Signed-off-by: fausten <yunfeng.li.nb@gmail.com>
+> ---
+> Changes in v2:
+> - Fix author name and email address (v1 was sent with a wrong From).
+> 
+>  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> index d1e7df500..fbdd23ecb 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> @@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
+>  	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
+>  	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
+>  
+> -	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
+> -	    vps->base.crtc_h > cursor_max_dim)
+> +	/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
+> +	if (cursor_max_dim &&
+> +	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
+> +	     vps->base.crtc_h > cursor_max_dim))
+>  		return -EINVAL;
+>  
+>  	if (vps->cursor.mob) {
+> @@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
+>  		u32 cursor_max_dim =
+>  			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
+>  
+> -		if (new_state->crtc_w > cursor_max_dim ||
+> -		    new_state->crtc_h > cursor_max_dim) {
+> +		/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
+> +		if (cursor_max_dim &&
+> +		    (new_state->crtc_w > cursor_max_dim ||
+> +		    new_state->crtc_h > cursor_max_dim)) {
+>  			drm_warn(&vmw->drm,
+>  				 "Cursor dimensions (%d, %d) exceed device max %u\n",
+>  				 new_state->crtc_w, new_state->crtc_h,
 
-Since PFALCON, PFALCON2 and FUSE registers are defined in the root
-regs.rs but are also part of the falcon interface, accessed by the
-whole falcon module. They are re-exported in falcon/regs.rs so falcon
-code can use a single regs:: prefix.
-Once these families moves out of the root module, these re-exports
-will become plain definitions.
-
-Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
----
- drivers/gpu/nova-core/falcon/hal/ga102.rs |  4 +--
- drivers/gpu/nova-core/falcon/hal/tu102.rs | 12 +++----
- drivers/gpu/nova-core/falcon/regs.rs      | 56 +++++++++++++++++++++++++------
- drivers/gpu/nova-core/regs.rs             | 27 +--------------
- 4 files changed, 53 insertions(+), 46 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/falcon/hal/ga102.rs b/drivers/gpu/nova-core/falcon/hal/ga102.rs
-index 7600ee07ca2e..7586f80388b0 100644
---- a/drivers/gpu/nova-core/falcon/hal/ga102.rs
-+++ b/drivers/gpu/nova-core/falcon/hal/ga102.rs
-@@ -20,13 +20,13 @@
-     driver::Bar0,
-     falcon::{
-         hal::LoadMethod,
-+        regs, //
-         Falcon,
-         FalconBromParams,
-         FalconEngine,
-         FalconModSelAlgo,
--        PeregrineCoreSelect, //
-+        PeregrineCoreSelect,
-     },
--    regs,
- };
- 
- use super::FalconHal;
-diff --git a/drivers/gpu/nova-core/falcon/hal/tu102.rs b/drivers/gpu/nova-core/falcon/hal/tu102.rs
-index 5291598fedf7..fb624b925f49 100644
---- a/drivers/gpu/nova-core/falcon/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/falcon/hal/tu102.rs
-@@ -12,14 +12,12 @@
-     time::Delta, //
- };
- 
--use crate::{
--    falcon::{
--        hal::LoadMethod,
--        Falcon,
--        FalconBromParams,
--        FalconEngine, //
--    },
-+use crate::falcon::{
-+    hal::LoadMethod,
-     regs, //
-+    Falcon,
-+    FalconBromParams,
-+    FalconEngine,
- };
- 
- use super::FalconHal;
-diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-core/falcon/regs.rs
-index 96e1f0f1df5a..a9e1f75598dd 100644
---- a/drivers/gpu/nova-core/falcon/regs.rs
-+++ b/drivers/gpu/nova-core/falcon/regs.rs
-@@ -2,6 +2,35 @@
- 
- use kernel::io::register;
- 
-+use crate::falcon::{
-+    PFalcon2Base,
-+    PeregrineCoreSelect, //
-+};
-+
-+// PRISCV
-+
-+register! {
-+    /// RISC-V status register for debug (Turing and GA100 only).
-+    /// Reflects current RISC-V core status.
-+    pub(super) NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS(u32) @ PFalcon2Base + 0x00000240 {
-+        /// RISC-V core active/inactive status.
-+        0:0     active_stat => bool;
-+    }
-+
-+    /// GA102 and later.
-+    pub(super) NV_PRISCV_RISCV_CPUCTL(u32) @ PFalcon2Base + 0x00000388 {
-+        7:7     active_stat => bool;
-+        4:4     halted => bool;
-+    }
-+
-+    /// GA102 and later.
-+    pub(super) NV_PRISCV_RISCV_BCR_CTRL(u32) @ PFalcon2Base + 0x00000668 {
-+        8:8     br_fetch => bool;
-+        4:4     core_select => PeregrineCoreSelect;
-+        0:0     valid => bool;
-+    }
-+}
-+
- // FSP (Foundation Security Processor) queue registers for Hopper/Blackwell Chain of Trust.
- // These registers manage falcon EMEM communication queues.
- 
-@@ -23,17 +52,22 @@
-     }
- }
- 
--// PFALCON registers are defined in the root `regs.rs` but are part of the falcon
--// interface, accessed by the whole falcon module. They are re-exported here so
--// falcon code can use a single `regs::` prefix.
--// Once the PFALCON family moves out of the root module, these re-exports become
-+// PFALCON, PFALCON2 and FUSE registers are defined in the root `regs.rs` but
-+// are part of the falcon interface, accessed by the whole falcon module. They
-+// are re-exported here so falcon code can use a single `regs::` prefix.
-+// Once these families move out of the root module, these re-exports become
- // plain definitions.
- pub(super) use crate::regs::{
--    NV_PFALCON_FALCON_BOOTVEC, NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS,
--    NV_PFALCON_FALCON_DMACTL, NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1,
--    NV_PFALCON_FALCON_DMATRFCMD, NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS,
--    NV_PFALCON_FALCON_DMEMC, NV_PFALCON_FALCON_DMEMD, NV_PFALCON_FALCON_EMEMC,
--    NV_PFALCON_FALCON_EMEMD, NV_PFALCON_FALCON_IMEMC, NV_PFALCON_FALCON_IMEMD,
--    NV_PFALCON_FALCON_IMEMT, NV_PFALCON_FALCON_MAILBOX0, NV_PFALCON_FALCON_MAILBOX1,
--    NV_PFALCON_FALCON_OS, NV_PFALCON_FALCON_RM, NV_PFALCON_FBIF_CTL, NV_PFALCON_FBIF_TRANSCFG,
-+    NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION, NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION,
-+    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE,
-+    NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID, NV_PFALCON2_FALCON_BROM_ENGIDMASK,
-+    NV_PFALCON2_FALCON_BROM_PARAADDR, NV_PFALCON2_FALCON_MOD_SEL, NV_PFALCON_FALCON_BOOTVEC,
-+    NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS, NV_PFALCON_FALCON_DMACTL,
-+    NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1, NV_PFALCON_FALCON_DMATRFCMD,
-+    NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS, NV_PFALCON_FALCON_DMEMC,
-+    NV_PFALCON_FALCON_DMEMD, NV_PFALCON_FALCON_EMEMC, NV_PFALCON_FALCON_EMEMD,
-+    NV_PFALCON_FALCON_ENGINE, NV_PFALCON_FALCON_HWCFG2, NV_PFALCON_FALCON_IMEMC,
-+    NV_PFALCON_FALCON_IMEMD, NV_PFALCON_FALCON_IMEMT, NV_PFALCON_FALCON_MAILBOX0,
-+    NV_PFALCON_FALCON_MAILBOX1, NV_PFALCON_FALCON_OS, NV_PFALCON_FALCON_RM, NV_PFALCON_FBIF_CTL,
-+    NV_PFALCON_FBIF_TRANSCFG,
- };
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 0404fb82aa7e..5c1cef1c66a1 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -24,8 +24,7 @@
-         FalconModSelAlgo,
-         FalconSecurityModel,
-         PFalcon2Base,
--        PFalconBase,
--        PeregrineCoreSelect, //
-+        PFalconBase, //
-     },
- };
- 
-@@ -335,30 +334,6 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
-     }
- }
- 
--// PRISCV
--
--register! {
--    /// RISC-V status register for debug (Turing and GA100 only).
--    /// Reflects current RISC-V core status.
--    pub(crate) NV_PRISCV_RISCV_CORE_SWITCH_RISCV_STATUS(u32) @ PFalcon2Base + 0x00000240 {
--        /// RISC-V core active/inactive status.
--        0:0     active_stat => bool;
--    }
--
--    /// GA102 and later.
--    pub(crate) NV_PRISCV_RISCV_CPUCTL(u32) @ PFalcon2Base + 0x00000388 {
--        7:7     active_stat => bool;
--        4:4     halted => bool;
--    }
--
--    /// GA102 and later.
--    pub(crate) NV_PRISCV_RISCV_BCR_CTRL(u32) @ PFalcon2Base + 0x00000668 {
--        8:8     br_fetch => bool;
--        4:4     core_select => PeregrineCoreSelect;
--        0:0     valid => bool;
--    }
--}
--
- // The modules below provide registers that are not identical on all supported chips. They should
- // only be used in HAL modules.
- 
 
 -- 
-2.55.0
-
-
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
