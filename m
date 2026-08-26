@@ -4,45 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2104FC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 13:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41836C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 13:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7596010ED0F;
-	Wed, 26 Aug 2026 13:40:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 728FF10ED39;
+	Wed, 26 Aug 2026 13:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BnBfpI8H";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hlNd3RgX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h1XScW/5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA8C10ED0F
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:40:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1274F404AE;
- Wed, 26 Aug 2026 13:40:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55A41F000E9;
- Wed, 26 Aug 2026 13:40:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787751634;
- bh=i6Vx3i8N9dEOeQyPgCLWAqdLLSmhfHzh1p08UG3R8fk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BnBfpI8HUXiIEgRS2y12RyhT3gihvJb3HzDgtaOtwsFzpbhn9vFOj2iEIs5lLme9K
- YAr9DxGln4OKWBFSE7lml6EeKokx4U33JZpP5iSNbxKhv0L4vAeGhEPE8RQkVaYNio
- t8lLWtbOr282B2dCZbKYzRDob3GLtzj2ANOWvO1IfGLmK0INzKIqcSVcyAELkXWJ/g
- n5Q3atpdVwXOUNUPmMppr06yD6zZA/RdLqwTaM/qAt/Dp7+Uj/kKHYYFJIZUivMXFJ
- S7iGjMa0OKqJG42FPmG7hmdtMlPWxKm3jahU3RimupQaEvCRPJeFpsvUnyjLXPgdi5
- l0fhac86iZOgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] dt-bindings: misc: qcom,fastrpc: deprecate
- qcom,nsessions
-To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826-dup-sessions-v4-3-35555d2bfed4@oss.qualcomm.com>
-References: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
- <20260826-dup-sessions-v4-3-35555d2bfed4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 13:40:33 +0000
-Message-Id: <20260826134033.A55A41F000E9@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9073A10ED39
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:45:21 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67QCC4GB356880
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:45:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=; b=hlNd3RgXSWmiQxeY
+ bbtdV+I8fqLURJiyTIgClpz0Tr8jUPb/86Dv5BytCuvpCkSiYE7mnx38abo6bJMq
+ GjE9WG8+JKCJkKlYb0RJS8sWBugJ4FbAMqRouy5blxcv1fQmCGIbm1oml9W6uyTH
+ ef8Pna7IoNIgndJZ1ObAEwbaU9/pb0zYQD3t3Y2UWWqkWOu4IwJFSUPGu1aLnhYm
+ 214P6eaLNfyjtRKPHkvmniCr8A9BwTWFvK0eJ42ay9hv8UG22ttXfiGKG53RNmSF
+ MQhJEe/Hv4GgzNS9dwjZUsGE8AREGlMrUpU85qt8eCx75ccDuh9q7j208avufXzG
+ pstV8A==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9s9ga389-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 13:45:19 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-38f5ac7416eso1619390a91.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:45:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1787751919; x=1788356719;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=;
+ b=h1XScW/5Q2bE0GYl7rj0m0blv7GuPC7y0tNj5etwK29NlVrlgdlo2pGTR0YuH2saAR
+ RP0fy6PrXjjdQqf5taZM+Aw39wMub8OKUGhQ2OiT9vB3yS1hKxOUxcqzqjPKTZZCLRaj
+ uLRJ7wAOJQmhniBCO8shxVIqt0QqQOURVw9CvEmNxlalnXEeiQ3sgH737PH8II1THYfS
+ SnfCGZ4UyHrxO7OjYqNAl0suxQyaPf38lw9WfP6bIMOc7qvZRgLnIASQj7one6+Y1K3I
+ 1veNNDp5tE2i1qW+eRtkXoGktHZx1nAw+XOLtyd/Mc/h+L36szv3ktDibgx4+9baObBc
+ n2+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787751919; x=1788356719;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=;
+ b=NkpBpSwFu6IOc9G2+kTDvUgQfaSHbZm6hMV6A2+NblO9yAnD+iedkd8H0V7X+dISwV
+ Q4fsDCqWTJ90VAU9xT5dGwxEQfZuu7PZTxmknYjAy1EcwpaZ8EUzmYKkzOD7xGgqAHYo
+ G6qwW5btXOANWnjqzIvoWsSxGKcxieDjJdjYboKxSrDSqfUw2P9kBTG1RGR5EfWQ2dr5
+ fsydXYiEkohB0wTa8L2Qlcmu/8aOHGuKoOc7RLgGnxsS1DSUZcernHSOU3JWTAFQ8Dnt
+ 2gM1OP9SDUYpt7tksaQqgGwUbQQGOMPBWxUTh8ORhCTPEe719d8h8WnBQ0nQgHW2z1vS
+ 02dA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoGsmDfcXXl5SEHuPmTjOEMc5hz1BGx84ip1xPyQMFA3K52AbG0UsTQ9oGFHGv99R5fbUtOaGkI9TI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mxg79RYkcmVht9DkYWCusXfTMPujS3wd45VuSB5EXh9Ae+nzya
+ 4I4AMcTTucu0GFq9fIsNnQO4KWhztrq9t7m9hN1Uqh/6VCzWIPKdfESbFKxZ5dwhzjAYH+EtTJh
+ mrE3KonwDy+6Q0SE6LAac/aEtdDuASSh8RBihtqCFFAOo/roPzo+IWCIZhU7tSa38PbryysU=
+X-Gm-Gg: AR+sD12wGypM2k+qa+NtvpVw/W4BDyyovTf302enmM7izIvkuzCA+cGjVvZUQvC8kSA
+ fivIJG1OuUb59xL6iF2WmSyYZ01PISMW67kkokiYGeVLs5sok9BgzObrLcvbkB1aHBEB+rISV/H
+ dQvLrefd6b9mbyFX19jG0nSNr6QGAqvk+czWlyeVYSW8PUimnndCSk8wgOBuVFNgbHLy1t81p+f
+ GNNzlD/IaBB3SOlpAlYVLwC/uXV2KtHBCiVgt3MzXjrHBwxvXorxFL1U4CMHPDWpA/lH1ViW12S
+ CCKE62dLaDFMgtig2JxiDl9fzLj2c/IRmX7+rRfyJECQ//hstkIG05PCEeLCc7ET2rK/+GjrJfL
+ h+HzU6IClpIUNgkgyGvMTfAamn0xWLQ==
+X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id
+ 98e67ed59e1d1-3966d3dafb9mr15826003a91.11.1787751918845; 
+ Wed, 26 Aug 2026 06:45:18 -0700 (PDT)
+X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id
+ 98e67ed59e1d1-3966d3dafb9mr15825822a91.11.1787751918186; 
+ Wed, 26 Aug 2026 06:45:18 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-141a8f20036sm13571333c88.5.2026.08.26.06.45.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Aug 2026 06:45:17 -0700 (PDT)
+Message-ID: <2febead3-0f0c-4e0d-b11a-8c61ec027f44@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 19:15:07 +0530
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and memory
+ manager integration
+To: rob.clark@oss.qualcomm.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com,
+ dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
+ <7030a8f8-f320-4b09-b2de-2c8e897409f8@amd.com>
+ <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: lUPh-InYSPxbrjf4uyZETFrAWUGZbARg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfX2NzM+Uy2v8iU
+ yjzF1so4EYXvTXD51GQIDjaD5fICaNWU5FdClR8vxFJCNKZAqk65/fvtwB6eJILqp7DZnaGipd8
+ V6BjzXioaUw77uUXeKVhKIDaqsINPu9PRpTauleepuh/uGAvfR8kaiqO19pBlOxWUfxX/7tzZL+
+ XDTX5j0pAcmXiEpqFSEHqj5DmTAN3TBhi3z/cDN1eWQPELuxIhl3fIXKzXxw5NBoyEYWUKFJcDm
+ T40y3WIQVaARqge2fMlNpjT+ljIUsQwUhF/kBblmRUKOlzKPeFx3GI9+bKQQfa6KsMzaFQ3lD9V
+ 23CMbiLo7oBGsB549Zr9XqYmCXl66zGa8EGmpx+ESrE+j0rwofCMnwK7fettP51mF1IW2ub8MhF
+ QvWtUUHKAFMrR11tSvvIPsALN2W9jzRDfU8sg3SAbgCrgUwTWqb3+QOCc24WmI6G6uE0d+cG3wz
+ Q4L3AwuzDPCiLZhPJpA==
+X-Authority-Analysis: v=2.4 cv=Xfq5Co55 c=1 sm=1 tr=0 ts=6a8eedef cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=sLzL-2GVjjNmCx-rav0A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfX2hTBjoynO5v6
+ 7328JKf68wfmQCxrXGXClpwLZq/DzeEt7G0SQbWUet+M07XO/oU9+HV/iWSFCSvuqR9BQRQjf0M
+ lZnGvnzf7l3rjIBc2QKz2G9RWkSenx8=
+X-Proofpoint-ORIG-GUID: lUPh-InYSPxbrjf4uyZETFrAWUGZbARg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260113
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,117 +162,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 24-08-2026 20:37, Rob Clark wrote:
+>>> qda_memory_dma.c / qda_memory_dma.h
+>>>   DMA coherent allocation backend. qda_dma_alloc() calls
+>>>   dma_alloc_coherent() on the CB device and encodes the stream ID
+>>>   (SID) in the upper 32 bits of the returned DMA address, following
+>>>   the Qualcomm FastRPC convention for IOMMU address space tagging.
+>>>   qda_dma_free() strips the SID prefix before calling
+>>>   dma_free_coherent().
+>>>
+>>> qda_memory_manager.c
+>>>   Adds process-to-device assignment: each DRM file (process) is
+>>>   assigned one IOMMU context bank device for the lifetime of the
+>>>   session. qda_memory_manager_assign_device() first checks whether
+>>>   the process already has a device (reusing it with a refcount
+>>>   increment), then falls back to claiming an unassigned device.
+>>>   qda_memory_manager_alloc() and qda_memory_manager_free() delegate
+>>>   to the DMA backend after resolving the correct CB device for the
+>>>   calling process.
+>> Oh, stuff like that is usually a pretty big NO-GO now.
+>>
+>> AMD has made the same mistake with KFD and it resulted in a massive chaos.
+>>
+>> The DRM file is the driver context your process uses and even if there are multiple DRM files for the same PID you should absolute *NOT* share anything between them.
+>>
+>> The general rule of thumb is to not attach anything to the process using the DRM file descriptor.
+> A couple other things to keep in mind:
+> 
+> 1. drm device fd can be passed across processes
+> 2. virtgpu/virglrenderer drm native ctx is a single process that opens
+> the drm device file N times on behalf of N guest userspace processes.
+> 
+> All that to say, Christian is right here.. drm_file is your context,
+> pgtables should be attached to the drm_file (potentially via
+> drm_gpuvm.. which you perhaps want to use).
+> 
+> BR,
+> -R
+> 
+>> Regards,
+>> Christian.
+>>
 
-New issues:
-- [High] Child context bank devices are never attached to their IOMMU domai=
-ns, breaking DMA mapping and causing SMMU faults.
+Hi Christian, Rob,
 
-Pre-existing issues:
-- [High] Unconditional `kfree(data)` on the probe error path causes a Use-A=
-fter-Free if userspace opened the device.
---
+Thank you for highlighting this.
 
-commit e928c95aa5ca7ef57a0d4943351ae2891fcf2b1c
-Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+I'll rework the CB assignment to be per-drm_file. Each open() will get a
+CB assigned from the available pool (find-first-available, not
+find-by-PID). The assigned_pid field and PID-matching logic will be
+removed entirely.
 
-misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+The hardware has a limited number of context banks that serve many
+sessions (on fastrpc, via the DT "qcom,nsessions" property), so multiple
+drm_files may end up sharing the same underlying CB due to hardware
+constraints, but while implementing that also, I'll ensure that the
+association goes through drm_file->driver_priv, never through a PID scan.
 
-This commit replaces of_platform_populate() with manual iteration over child
-device tree nodes to initialize qcom,fastrpc-compute-cb devices synchronous=
-ly.
-It aims to ensure all context banks are fully initialized before
-fastrpc_rpmsg_probe() returns by directly calling fastrpc_cb_init().
+I'll also look into drm_gpuvm for the longer-term address space
+management as Rob suggested.
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca867..a153107d00853 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -2363,7 +2363,7 @@ static const struct file_operations fastrpc_fops =
-=3D {
->  	.compat_ioctl =3D fastrpc_device_ioctl,
->  };
-> =20
-> -static int fastrpc_cb_probe(struct platform_device *pdev)
-> +static int fastrpc_cb_init(struct platform_device *pdev)
->  {
->  	struct fastrpc_channel_ctx *cctx;
->  	struct fastrpc_session_ctx *sess;
+Thanks,
+Ekansh
 
-[ ... ]
-
-> @@ -2642,12 +2610,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
-e *rpdev)
->  	data->rpdev =3D rpdev;
->  	dev_set_drvdata(&rpdev->dev, data);
-> =20
-> -	err =3D of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-> -	if (err)
-> -		goto err_deregister_fdev;
-> +	of_node_set_flag(rdev->of_node, OF_POPULATED_BUS);
-> +
-> +	for_each_available_child_of_node_scoped(rdev->of_node, np) {
-> +		struct platform_device *pdev;
-> +
-> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
-> +			continue;
-> +
-> +		pdev =3D of_platform_device_create(np, NULL, rdev);
-> +		if (!pdev) {
-> +			err =3D -EINVAL;
-> +			goto err_depopulate;
-> +		}
-> +
-> +		err =3D fastrpc_cb_init(pdev);
-
-[Severity: High]
-By replacing driver core matching with manual of_platform_device_create()
-followed by fastrpc_cb_init() in fastrpc_rpmsg_probe(), does this child
-device skip the driver core's platform probe path?
-
-It appears this manual initialization skips IOMMU and DMA configuration
-logic, such as of_dma_configure(), which normally runs during probe.
-
-Since these context bank devices are no longer bound to a platform driver,
-they are never attached to their SMMU domains. Could this result in SMMU
-translation faults and a failure of DSP context bank DMA operations when a
-DSP invocation attempts DMA?
-
-> +		if (err)
-> +			goto err_depopulate;
-> +	}
-> =20
->  	return 0;
-> =20
-> +err_depopulate:
-> +	of_platform_depopulate(rdev);
->  err_deregister_fdev:
->  	if (data->fdevice)
->  		misc_deregister(&data->fdevice->miscdev);
-
-[Severity: High]
-This is a pre-existing issue, but if fastrpc_cb_init() fails, this error pa=
-th
-jumps to err_depopulate and eventually reaches err_free_data in
-fastrpc_rpmsg_probe():
-
-err_free_data:
-	kfree(data);
-	return err;
-
-Since fastrpc_device_register() makes the misc device available to userspace
-earlier in the probe, what happens if userspace has already called open()
-and incremented the data reference count via fastrpc_channel_ctx_get()?
-
-Does this unconditional kfree(data) ignore active references held by open
-file descriptors, leading to a use-after-free condition if userspace later
-performs an ioctl() on the still-open file descriptor?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-dup-sessio=
-ns-v4-0-35555d2bfed4@oss.qualcomm.com?part=3D3
