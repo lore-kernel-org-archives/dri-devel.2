@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BB3BC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 505BBC61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:50:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 759A910E2B4;
-	Wed, 26 Aug 2026 14:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE8210E2C6;
+	Wed, 26 Aug 2026 14:50:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FmoimfpO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mqKsxTmC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 384CD10E2B4
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:43:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1913A10E2C6
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:50:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E6E1E4028D;
- Wed, 26 Aug 2026 14:43:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A731D1F000E9;
- Wed, 26 Aug 2026 14:43:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E3D96001D;
+ Wed, 26 Aug 2026 14:50:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60FC1F000E9;
+ Wed, 26 Aug 2026 14:50:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787755387;
- bh=KGsN8Oi2CCV2OCB/OEFITlbj1Gh64f6IirrHwlBEZKk=;
+ s=k20260515; t=1787755806;
+ bh=JHthwPmnUi+JmfTFV9Eu0DxaofrSdWKBn+mG9uv0IqQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FmoimfpOn/1nky9fHsTrjcV4YxhPu1K9fGKtkfNtu0iSkOs99j05lPWv+7Euk1Nr6
- vLDDAbVe4IdMRHy5HWEK8joOwp+OJuwtfoZZ6m4bbS0uTKzpBn3uK1muXyOf9eJ3DP
- xrwXNBlp9cFpqSWT+AGktHJKGRW+gRx7yZegWtgKUxnOtTYS5cyZEefpPqYvuYJV55
- 5VpUOJ1m6ybS+vU+2SVmVb2A0iSmWM3yzpMqlk1Wys7VN4sECMixca8Z/kCE+jWOLk
- FHQtDN+Ot11eeJ/5OdUNxp9ecAdvsz5rF6RuakMn9Ug4fjjhi2mNxfILOkNFSCydMo
- Q6tBdn0E11s+w==
+ b=mqKsxTmCNBzHujz6+u/Dao7E5XZ6KfWl97PId9pMxVOf3AYO8B6nGtMu5Q+CYcuDt
+ /h3ESj0voRIyFb6rmAFmifH2+sQJRMvOxl3GjXZ55VtZVDJXNwVdnwJoSqqrQddrt0
+ 7g3PA91MhfETUHvTnJz8tnQMrDdVlgDOYF14tMdAL3I7PHKS4rmPi4QSLgBg9L1lOa
+ aWpPSDxl0Wa/DjjyJXnryXm3hy9syxFqlHomsB3NfmhXb9AalglI78ABA34TGJ+232
+ Q7JPyEKiRpTE3FMYkUG24ElHkQ7WEcJDBZIhu0yjtD7NvkZ0r/O8UESiWpLcxcAez4
+ TQ95RdKvDQLjg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] accel/amdxdna: check the command chain payload
- before using it
+Subject: Re: [PATCH 2/2] accel/amdxdna: use READ_ONCE/WRITE_ONCE on the
+ command header
 To: "Taimuraz Kaitmazov" <taimuraz@kaitmazov.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826143036.100089-2-taimuraz@kaitmazov.com>
+In-Reply-To: <20260826143036.100089-3-taimuraz@kaitmazov.com>
 References: <20260826143036.100089-1-taimuraz@kaitmazov.com>
- <20260826143036.100089-2-taimuraz@kaitmazov.com>
+ <20260826143036.100089-3-taimuraz@kaitmazov.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 14:43:07 +0000
-Message-Id: <20260826144307.A731D1F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 14:50:06 +0000
+Message-Id: <20260826145006.A60FC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,127 +61,108 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] Missing READ_ONCE() when reading `cc->command_count` from a user=
--space mapped buffer introduces a Time-of-Check to Time-of-Use (TOCTOU) vul=
-nerability.
-
 Pre-existing issues:
-- [High] Reference leak for the chained GEM object `abo` in `amdxdna_cmd_se=
-t_error()` when `amdxdna_gem_vmap()` fails.
-- [High] Unprotected access to user-mapped flexible array `cc->data[0]` cau=
-ses data races and triggers UBSAN panics via `__counted_by`.
+- [High] Missing READ_ONCE on shared BO field `command_count` leaves it vul=
+nerable to compiler refetching optimization.
+- [High] Memory leak of a GEM object reference on the error path in `amdxdn=
+a_cmd_set_error()`.
+- [Medium] Race condition where the error state is written to the command h=
+eader before the error payload is populated.
 --
 
-commit a1b05572fd8c69d4959c5969b2a34b2e5ce07591
+commit b8c13d2d8e5350b458948c5624a0d76772f2851a
 Author: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-Subject: accel/amdxdna: check the command chain payload before using it
 
-This commit introduces a new function amdxdna_cmd_get_chain() to ensure the
-chain payload of a BO is checked before use. It makes the size parameter
-mandatory in amdxdna_cmd_get_payload() and updates amdxdna_cmd_set_error()
-to utilize the new chain validation logic.
+accel/amdxdna: use READ_ONCE/WRITE_ONCE on the command header
+
+The driver modifies state flags in place, allowing the compiler to split or
+refetch accesses. This patch annotates these accesses with READ_ONCE and
+WRITE_ONCE to stop the compiler from optimizing them in unsafe ways.
 
 > diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/=
 amdxdna_ctx.c
-> index 855da8c79a1cd..143cbbbf4b310 100644
+> index 143cbbbf4b310..f809bec425a57 100644
 > --- a/drivers/accel/amdxdna/amdxdna_ctx.c
 > +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
 
-> [ ... ]
+[ ... ]
 
-> @@ -125,20 +125,42 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_ob=
-j *abo, u32 *size)
-
-> [ ... ]
-
-> +/*
-> + * Returns the chain payload of @abo, with @count set to a command count=
- that
-> + * has been checked to fit. The chain fields live in a BO user space kee=
-ps
-> + * mapped, so nothing may read them without going through here.
-> + */
-> +struct amdxdna_cmd_chain *
-> +amdxdna_cmd_get_chain(struct amdxdna_gem_obj *abo, u32 *count)
-> +{
-> +	struct amdxdna_cmd_chain *cc;
-> +	u32 len, ccnt;
-> +
-> +	cc =3D amdxdna_cmd_get_payload(abo, &len);
-> +	if (!cc || len < sizeof(*cc))
-> +		return NULL;
-> +
-> +	ccnt =3D cc->command_count;
-> +	if (len < struct_size(cc, data, ccnt))
-> +		return NULL;
-> +
-> +	*count =3D ccnt;
+> @@ -191,12 +192,15 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *a=
+bo,
+>  	struct amdxdna_client *client =3D job->hwctx->client;
+>  	struct amdxdna_cmd *cmd =3D amdxdna_gem_vmap(abo);
+>  	struct amdxdna_cmd_chain *cc =3D NULL;
+> +	u32 header;
+> =20
+>  	if (!cmd)
+>  		return -ENOMEM;
+> =20
+> -	cmd->header &=3D ~AMDXDNA_CMD_STATE;
+> -	cmd->header |=3D FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
+> +	header =3D READ_ONCE(cmd->header);
+> +	header &=3D ~AMDXDNA_CMD_STATE;
+> +	header |=3D FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
+> +	WRITE_ONCE(cmd->header, header);
 
 [Severity: Medium]
-Since the memory for cc resides in a GEM object mapped to userspace, can the
-compiler perform multiple memory loads of cc->command_count here because it
-lacks a READ_ONCE() wrapper?
+This is a pre-existing issue, but does writing the error state here create a
+race condition where user-space might read stale or garbage data?
 
-If a user modifies cc->command_count concurrently between the struct_size()
-bounds check and the assignment to *count, could this bypass the newly added
-bounds check and pass a larger ccnt to the caller?
+The driver modifies the state flags in the shared cmd->header prior to
+issuing the memset and memcpy to populate the error payload later in the
+function:
 
-> +	return cc;
-> +}
+	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
+	if (err_data)
+		memcpy(cmd->data, err_data, min(size, abo->mem.size - sizeof(*cmd)));
 
-> [ ... ]
-
-> @@ -177,8 +199,13 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *ab=
-o,
->  	cmd->header |=3D FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
-> =20
->  	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN) {
-> -		cc =3D amdxdna_cmd_get_payload(abo, NULL);
-> -		cc->error_index =3D (cmd_idx < cc->command_count) ? cmd_idx : 0;
-> +		u32 ccnt;
-> +
-> +		cc =3D amdxdna_cmd_get_chain(abo, &ccnt);
-> +		if (!cc || !ccnt)
-> +			return -EINVAL;
-> +
-> +		cc->error_index =3D (cmd_idx < ccnt) ? cmd_idx : 0;
->  		abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+If user-space is polling the state field, could it see the error state and
+immediately read the payload before the driver has finished writing it?
 
 [Severity: High]
-This is a pre-existing issue, but since struct amdxdna_cmd_chain defines da=
-ta
-as a flexible array u64 data[] __counted_by(command_count), does accessing
-cc->data[0] dynamically re-read cc->command_count from memory to assert
-0 < command_count?
+This is also a pre-existing issue in this same function, but does this code
+leak a GEM object reference on the error path?
 
-If cc is backed by user-mapped memory, couldn't a malicious user concurrent=
-ly
-write 0 to command_count, causing the dynamically validated access to fail
-and trigger a UBSAN kernel panic if CONFIG_UBSAN_BOUNDS is enabled?
+If amdxdna_gem_vmap() fails after acquiring the abo reference, the code
+returns -ENOMEM without calling amdxdna_gem_put_obj():
 
->  		if (!abo)
->  			return -EINVAL;
+	if (amdxdna_cmd_get_op(abo) =3D=3D ERT_CMD_CHAIN) {
+		...
+		abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+		if (!abo)
+			return -EINVAL;
+		cmd =3D amdxdna_gem_vmap(abo);
+		if (!cmd)
+			return -ENOMEM;
+	}
+
+Could successive failures eventually exhaust kernel memory resources?
 
 [Severity: High]
-This is a pre-existing issue, but does this function leak the reference to
-the chained GEM object abo if amdxdna_gem_vmap() fails?
+This isn't a bug introduced by this patch, but while annotating BO memory
+accesses with READ_ONCE, are there other places where shared BO fields are
+read without it?
 
-Looking at amdxdna_cmd_set_error(), it successfully looks up the chained BO
-using amdxdna_gem_get_obj(), which increments its reference count:
+For instance, command_count is read from shared memory and used in bounds
+checks in aie2_cmdlist_multi_execbuf():
 
-	abo =3D amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
-	if (!abo)
-		return -EINVAL;
-	cmd =3D amdxdna_gem_vmap(abo);
-	if (!cmd)
-		return -ENOMEM;
+	ccnt =3D payload->command_count;
+	if (payload_len < struct_size(payload, data, ccnt)) {
+		...
+		for (i =3D 0; i < ccnt; i++)
 
-If amdxdna_gem_vmap() fails, the function returns -ENOMEM without calling
-amdxdna_gem_put_obj(abo). Can an unprivileged user trigger this by causing
-job failures under memory pressure or by crafting a BO that fails to map,
-leading to a memory leak and eventual Denial of Service?
+And similarly in amdxdna_cmd_get_chain():
+
+	ccnt =3D cc->command_count;
+	if (len < struct_size(cc, data, ccnt))
+
+Could the compiler refetch command_count from shared memory after the bounds
+check?
+
+If user space concurrently modifies the value after the bounds check, could
+the subsequent loop read out-of-bounds kernel memory, potentially leading to
+a kernel page fault?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826143036.1000=
-89-1-taimuraz@kaitmazov.com?part=3D1
+89-1-taimuraz@kaitmazov.com?part=3D2
