@@ -4,91 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C39C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39F75C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:56:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C40FB10E39F;
-	Wed, 26 Aug 2026 14:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D49310E0A5;
+	Wed, 26 Aug 2026 14:56:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="YXQ1DnZP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XnwbnByx";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 914D410E39F
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:51:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 124DF16F2;
- Wed, 26 Aug 2026 07:51:43 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 73BBD3F7D8;
- Wed, 26 Aug 2026 07:51:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787755906; bh=tOodu0VszRohRtMpFFB6dYKNtMAf7OMx0ItWyxqnr/k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YXQ1DnZPOLhXEtKbwELsDp94I7KPv6NJqCCc+P/ZvoSWmJ8KCcKahNh7+sQWL3CXe
- Epva2iw+zUipeNYduk/uateqT+WdNJ2g8p5ZxLII6bzY6QQhqe7ssRQ+Ghq+nqNteW
- f98Yr+78VjADUvqwt45aWv7UK+TBbIxawOLDtO68=
-Date: Wed, 26 Aug 2026 15:51:44 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
- Xiaowei Song <songxiaowei@hisilicon.com>,
- Binghui Wang <wangbinghui@hisilicon.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
- Linus Walleij <linusw@kernel.org>,
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
- =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
- Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
- Olof Johansson <olof@lixom.net>, Shree Ramamoorthy <s-ramamoorthy@ti.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- imx@lists.linux.dev, linux-media@vger.kernel.org,
- mfd@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
- linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <20260826145144.GH8904@e132581.arm.com>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB0810E0A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1787756180;
+ bh=IY55ctd8QpVuJxEhgpxyAs4KE3A33RMtWcMVdJveAoc=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=XnwbnByxyESQk2w0NAYiBavfZh5wnSigjtC5MNIxFDJiJ/pG0Q+MU1ESGG/rGLW9A
+ raUd1fAa167GULD43Kk8qBKmQJC0QBXMoMOlha+M1Ma3uUJDor6vsMxFzg/O1iTMTc
+ O6TS8TwcjaYt2/QkMKyvAGLbrLO3QmmnJtuzQBhMCtly37IPoQmWKQ+ECuOA9A8LbZ
+ WfyPeR447q85Ilt5AvQERcZlJ/Euh+BMzBihGtDeAJyS79ZDlIiR0MCtnj+kf9yPcz
+ v8I2uMFZWw4lxwbYdOp4uAd/vhnD70gzF2FWzO7M90f/TYUh8YiJawBrEJPmys8Hd4
+ YY53bRmACrC7A==
+Received: from fedora-32.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AC36E17E0A4C;
+ Wed, 26 Aug 2026 16:56:19 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Date: Wed, 26 Aug 2026 16:56:00 +0200
+Subject: [PATCH v4 01/18] drm/panthor: Disable reset work before unplug
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787756178; l=3456;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=IY55ctd8QpVuJxEhgpxyAs4KE3A33RMtWcMVdJveAoc=;
+ b=rIbMfAgdsvBYVBOZ+KoWfjDLuJ85lAbb6Vwh24qLqzgMHBnJXFYPOtDgFv6dhLNXoEJO+Ug0H
+ 8vOGQ2vs1qtBkWJiapvgco6J3U14/ULZYb/1qJHnX+1jwbd6jLyYsup
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,22 +71,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
+Unplug is supposed to be the end of the road, so we need to make sure
+reset works won't execute while we're cleaning up everything as part
+of the unplug, otherwise it would mess up the internal state.
 
-[...]
+In order to be able to call disable_work_sync() in the unplug
+path, we need to defer the unplug triggered by the reset logic,
+otherwise we would deadlock.
 
-> --- a/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-> +++ b/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-> @@ -308,7 +308,7 @@ examples:
->              arm,trig-in-sigs = <0 1>;
->              arm,trig-in-types = <PE_DBGTRIGGER
->                                   PE_PMUIRQ>;
-> -            arm,trig-out-sigs = <0 1 2 >;
-> +            arm,trig-out-sigs = <0 1 2>;
->              arm,trig-out-types = <PE_EDBGREQ
->                                    PE_DBGRESTART
->                                    PE_CTIIRQ>;
+Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+---
+ drivers/gpu/drm/panthor/panthor_device.c | 21 ++++++++++++++++++++-
+ drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-For this CoreSight change:
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index 0b25abebb803..7c55d0c45cfd 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -79,6 +79,9 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+ 		return;
+ 	}
+ 
++	/* Make sure we're not interrupted by resets while we're unplugging. */
++	disable_work_sync(&ptdev->reset.work);
++
+ 	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
+ 
+ 	/* Call drm_dev_unplug() so any access to HW blocks happening after
+@@ -91,6 +94,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+ 	 */
+ 	mutex_unlock(&ptdev->unplug.lock);
+ 
++	/* Unplug triggered by a device removal might race with the deferred
++	 * one queued by the reset work. The function covers this concurrent
++	 * unplug situation, but if we can disable the work before its
++	 * execution, that's still better.
++	 */
++	disable_work(&ptdev->unplug.work);
++
+ 	/* Now, try to cleanly shutdown the GPU before the device resources
+ 	 * get reclaimed.
+ 	 */
+@@ -114,6 +124,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+ 	complete_all(&ptdev->unplug.done);
+ }
+ 
++static void panthor_device_unplug_work(struct work_struct *work)
++{
++	struct panthor_device *ptdev = container_of(work, struct panthor_device, unplug.work);
++
++	panthor_device_unplug(ptdev);
++}
++
+ static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
+ {
+ 	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
+@@ -148,8 +165,9 @@ static void panthor_device_reset_work(struct work_struct *work)
+ 	drm_dev_exit(cookie);
+ 
+ 	if (ret) {
+-		panthor_device_unplug(ptdev);
++		disable_work(&ptdev->reset.work);
+ 		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
++		queue_work(ptdev->reset.wq, &ptdev->unplug.work);
+ 	}
+ }
+ 
+@@ -206,6 +224,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 	 */
+ 	*dummy_page_virt = 1;
+ 
++	INIT_WORK(&ptdev->unplug.work, panthor_device_unplug_work);
+ 	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
+ 	disable_work(&ptdev->reset.work);
+ 	ptdev->reset.wq = alloc_ordered_workqueue("panthor-reset-wq", 0);
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index b55a3f9edd41..6529e01e838d 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -268,6 +268,9 @@ struct panthor_device {
+ 		 * operation is done.
+ 		 */
+ 		struct completion done;
++
++		/** @work: Unplug work. */
++		struct work_struct work;
+ 	} unplug;
+ 
+ 	/** @reset: Reset related fields. */
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+-- 
+2.55.0
+
