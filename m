@@ -4,87 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 500CDC61DC2
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 06:57:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C336C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 06:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7616410EBE8;
-	Wed, 26 Aug 2026 06:57:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5515C10EC03;
+	Wed, 26 Aug 2026 06:58:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1dopK4gm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1HDIgZRC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jxzi81Wq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qfiqrytB";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vlSLOTc4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V+sn3wqn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="seHyuQ+s";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vlw/efQ3";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5A5F10EBE8
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:57:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A9B10EC03
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:58:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1239E1F7F6;
- Wed, 26 Aug 2026 06:57:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 589E11F7F8;
+ Wed, 26 Aug 2026 06:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787727452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787727480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
- b=1dopK4gmbdUGldC8wPoHsZ/q91A8028zEwWab1SqBcu2lqkRmdOCwqcvkTNTC+foFmnDpf
- LraETcBNykLGV6yZ4MyxyHXZtqZw09FWWQITEbGc67kHTHpTQq5UeWx+Rj9d86p0dO6XqA
- VeY4R6zF/HCB9/KUleC/6099ZXU14NU=
+ bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
+ b=vlSLOTc4l6Q6XBPwqa+DxsTajYxET9LnwYlgmEKr9DMiKxBHW2cGAnojbjFRQQhHH7u/fN
+ tpMDzs6byqvT4rePVpfO9YPV76bIkXpOB//NsnwR7MxVtTXVgDOqy4Kf/Y+XJ4qR+R1EsJ
+ xQpEV3tyYAKQjCazC40ZlV+4NYGliJE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787727452;
+ s=susede2_ed25519; t=1787727480;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
- b=1HDIgZRCX3PAYrMZ+8Cjv+dl468knsXrys4RScm6BIcnGbwrns29gGDBP30j9lWtRGj/a3
- 8EbrPdxWfzRVRACw==
+ bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
+ b=V+sn3wqnc//ld+x0xa/W5uItv9XXe6Z6ai5sLjtJEaBZEAS3EVohOFjmxg/fEvEo8hwP4y
+ 2wUzWdXgudm4CYAA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jxzi81Wq;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qfiqrytB
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787727448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787727476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
- b=jxzi81Wq/ORegKCwe5YqxK/kUKzRQXd3SGYysLGmtSOW7rGvf0iDZNvRks1r6EMaOVV7a1
- 7tn65HQc+dWJbW5Tsl0QWPJY5KrWvDb4qULm5g4JcsWulTtP1xQ+1XeIEcNDnRSi3vNV5N
- 2CwRuDfsrHrz0RTHpDTDjRVRYsbAVRY=
+ bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
+ b=seHyuQ+sTZjnX7pzSmq5ULpAdTZmjjrgrL6EKpoMmobmkvPbsc9bKlAPTV3cY+lkMvX9zB
+ aWEdz1mLf5F/RNbUnh+3fp9vSWMP02OCIZFNpzeEIkNF+xgInzaZloQ7JCq1B1TX3E9AuK
+ gM5IGu+N4km3qVEx1OyGLzF5lQGSbuA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787727448;
+ s=susede2_ed25519; t=1787727476;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
- b=qfiqrytBjmFogEQnk7guycXfrOVc0q9/7qMFJe8uoUpEffgYKlB7WR/Zz2ub3B932wK5WR
- m1TGu6BYAyk03ICA==
+ bh=t+3Jciecyq3Uab0rClUihA02LKtJQYU1Pl7Pwe0mHkQ=;
+ b=vlw/efQ3ZVlMaPylx7gQFbiN5Pif34iUc7dC9zOFyeg/WAmjbVCUC2x1X9DiKoK3ku4t1M
+ DQEQ8AOHmMJwLjAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B03B813533;
- Wed, 26 Aug 2026 06:57:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E12513533;
+ Wed, 26 Aug 2026 06:57:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KtzaKVeOjmpjVQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 26 Aug 2026 06:57:27 +0000
-Message-ID: <03ab9470-60c6-40fe-8d24-89c820b978ec@suse.de>
-Date: Wed, 26 Aug 2026 08:57:27 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zbEBBnSOjmp3VgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 26 Aug 2026 06:57:56 +0000
+Message-ID: <615f2d00-a29a-4c09-8c1f-9c910609736d@suse.de>
+Date: Wed, 26 Aug 2026 08:57:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/cirrus-qemu: Validate BAR0 size during probe
-To: Slawomir Stepien <sst@poczta.fm>, syzkaller-bugs@googlegroups.com,
- airlied@gmail.com, airlied@redhat.com, dri-devel@lists.freedesktop.org,
- kraxel@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- simona@ffwll.ch, virtualization@lists.linux.dev
-Cc: jani.nikula@intel.com, linux-kernel@vger.kernel.org,
- syzbot@lists.linux.dev, syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
-References: <20260825120729.493611-1-sst@poczta.fm>
+Subject: Re: [PATCH v2] drm/sysfb: ofdrm: Fix is_avivo() constant comparison
+ bug
+To: oushixiong1025@163.com
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+References: <20260731111729.703116-1-oushixiong1025@163.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,32 +110,24 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260825120729.493611-1-sst@poczta.fm>
+In-Reply-To: <20260731111729.703116-1-oushixiong1025@163.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[163.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[poczta.fm,googlegroups.com,gmail.com,redhat.com,lists.freedesktop.org,linux.intel.com,kernel.org,ffwll.ch,lists.linux.dev];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,poczta.fm];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- TAGGED_RCPT(0.00)[2442951a6abb004df963];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim, suse.com:url,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo,
- appspotmail.com:email]
-X-Rspamd-Queue-Id: 1239E1F7F6
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[9];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email, suse.com:url, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,73 +145,32 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Merged into drm-misc-fixes
 
-Am 25.08.26 um 14:07 schrieb Slawomir Stepien:
-> The `cirrus-qemu` driver relies on `CIRRUS_VRAM_SIZE` (4 MB) to validate
-> framebuffer sizes. However, during PCI probe, the driver mapped BAR0
-> without verifying that its size matches `CIRRUS_VRAM_SIZE`.
+Am 31.07.26 um 13:17 schrieb oushixiong1025@163.com:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
 >
-> If a PCI device with a BAR0 smaller than 4 MB is bound to the driver, the
-> mapped VRAM will be smaller than expected. Because validation checks assume
-> 4 MB VRAM, framebuffers larger than the mapped memory can be created.
+> The is_avivo() function has a logic error where it compares a constant
+> to another constant instead of checking the device parameter:
 >
-> When the display plane is updated (e.g. during release),
-> `cirrus_primary_plane_helper_atomic_update()` copies the framebuffer to
-> VRAM using `drm_fb_memcpy()`. Writing past the end of the mapped I/O memory
-> causes a supervisor write page fault:
+>    (PCI_VENDOR_ID_ATI_R600 >= 0x9400)
 >
-> BUG: unable to handle page fault for address: ffffc9000389c000
-> ...
-> RIP: 0010:memcpy_toio+0x7c/0xe0 arch/x86/lib/iomem.c:110
-> ...
-> Call Trace:
->   <TASK>
->   iosys_map_memcpy_to include/linux/iosys-map.h:285 [inline]
->   drm_fb_memcpy+0x325/0x5d0 drivers/gpu/drm/drm_format_helper.c:442
->   cirrus_primary_plane_helper_atomic_update+0x98a/0xb00
->   drivers/gpu/drm/tiny/cirrus-qemu.c:358
->   drm_atomic_helper_commit_planes+0x626/0xea0
->   drivers/gpu/drm/drm_atomic_helper.c:3038
->   drm_atomic_helper_commit_tail+0x60/0x510
->   drivers/gpu/drm/drm_atomic_helper.c:1989
->   commit_tail+0x2b1/0x3c0 drivers/gpu/drm/drm_atomic_helper.c:2074
->   drm_atomic_helper_commit+0xa77/0xb10
->   drivers/gpu/drm/drm_atomic_helper.c:2312
->
-> Fix this by validating in `cirrus_pci_probe()` that the PCI BAR0 resource
-> is not less than `CIRRUS_VRAM_SIZE`, returning `-ENODEV` if it is less.
->
-> Fixes: ab3e023b1b4c ("drm/cirrus: rewrite and modernize driver.")
-> Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
-> Reported-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=2442951a6abb004df963
-> Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
-> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 > ---
-> v2:
-> * move the check before aperture_remove_conflicting_pci_devices() as suggested by sashiko.
-> * check if the pci_resource_len() for BAR0 is less than CIRRUS_VRAM_SIZE as suggested by Thomas. The
->    qemu emulates 4, (8 and 16 MB for compatibility) - never less than 4MB.
+>   drivers/gpu/drm/sysfb/ofdrm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> v1:
-> * https://lore.kernel.org/all/b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org/T/
-> ---
->   drivers/gpu/drm/tiny/cirrus-qemu.c | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
-> index 075221b431d3..3bf23fcf6574 100644
-> --- a/drivers/gpu/drm/tiny/cirrus-qemu.c
-> +++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
-> @@ -582,6 +582,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
->   	struct cirrus_device *cirrus;
->   	int ret;
+> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
+> index 819aed466727..1d95df522ad5 100644
+> --- a/drivers/gpu/drm/sysfb/ofdrm.c
+> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
+> @@ -238,7 +238,7 @@ static bool is_avivo(u32 vendor, u32 device)
+>   	/* This will match most R5xx */
+>   	return (vendor == PCI_VENDOR_ID_ATI) &&
+>   	       ((device >= PCI_VENDOR_ID_ATI_R520 && device < 0x7800) ||
+> -		(PCI_VENDOR_ID_ATI_R600 >= 0x9400));
+> +		(device >= PCI_VENDOR_ID_ATI_R600));
+>   }
 >   
-> +	if (pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE)
-> +		return -ENODEV;
-> +
->   	ret = aperture_remove_conflicting_pci_devices(pdev, cirrus_driver.name);
->   	if (ret)
->   		return ret;
+>   static enum ofdrm_model display_get_model_of(struct drm_device *dev, struct device_node *of_node)
 
 -- 
 --
