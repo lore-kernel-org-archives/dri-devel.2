@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C75F1C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 164E9C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:36:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0032910ED4D;
-	Wed, 26 Aug 2026 16:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59E8810ED4F;
+	Wed, 26 Aug 2026 16:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="b8s4PdEt";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="GB4eC0E7";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44E7D10ED4D
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:04 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4954a9e8490so394035e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:04 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B691210ED4D
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:09 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4954a9e8490so394505e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762163; x=1788366963;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762168; x=1788366968;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=3EL6Jw26lW1z9BDf8CloPoJWlkDCbIL/77zIh+v+UO4=;
- b=b8s4PdEthbVJxpij9ZhWaCIM8iTvs1XQfr4dmnaYbGfuqptMFHeNCZAGF0ZhM8uZMG
- bDTU2GNCKuYpaqgCawEUaub4fH6eioBdIRraRhVcs93n1Bd2ixdMspnyB3wE30RUEj5F
- HF+brIS/6s0r51JwGfF20zsaqsR+6lLa4pYE8Xn8hGRKXmQkS9evvivXbZMMAi5dGz9P
- D6jqVbSPDN0hbrwd+HLa0IqEyguB8i8fauvOXTrXpvDYHdrfp4d+EYKDNAwXgtOVnVH0
- c2HSDegMBs0rGGNuJROD4FcEovi0ThWXJmTgPWHyQIWgIaPhH2p8Hl1pgT4RxYthzObV
- qApA==
+ bh=etS7dDlMuCWd3+VoKkG/reluEY3jsEXWbjkOvSEBEgk=;
+ b=GB4eC0E7dwJwaJh3efv9W+qkLOlHRtjDkAFDh0RulKK1myoIndOpBldOFmwNU1NOni
+ rxkLnUY0yHvxxosM3vbT9cTZJrZDQuH4+v2w3ZXf2kdJMz7vf+94ugckxDip1L8S759G
+ jaGwRsIUCZJMwEuwsY7QoZy/FAnP/j98IYK8LUP874t3mIGFxDvrqybDnHq0/nsFXxDT
+ ISKrHepMjPRWVrDcgPTNKLGMT8VNNI4FRi8m78kw0jpf14o+fKpmpIJ5Pcp9uEngtIAm
+ BK8JeoB+6Hoeh1tCrYdY0a05tDGn7A3YnJvW8Gnbi1uHv1oMN/Ck58Zl2AieM2swpi+J
+ FhVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762163; x=1788366963;
+ d=1e100.net; s=20251104; t=1787762168; x=1788366968;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3EL6Jw26lW1z9BDf8CloPoJWlkDCbIL/77zIh+v+UO4=;
- b=YWKqTJVndEA4D2tp9llcbx2kCacp+U3kduxtd+SHT2S/zGxCtq2uF9Ydf6T/0dusOT
- EdVYGFSTDrFC1G/WJ512SpphbS7hejWIo1F3rj6tlSx7XOY6SPWiLBOMivcdIOSTCtyy
- c8uRc7VV0B5vlbGCjEC35cmq4qycOfBdyDXKu0GzyOlOG6vOjAiY8isUO38clKvb1dkc
- neeioweBbdWmlwWnbi9rmnITQ96sHM0tYhgRkKCcVtazSHabceQ4jfHAupimte8raOk7
- T1MVxWkAJF/bycx1ZnVsU9Lg4CjjxihAcsLS2na0jZB0vtSx3uxNA0njPv0Nh18JuLK+
- KgyA==
-X-Gm-Message-State: AFuF++lIAyhwEe1fAqChBzZhhh06IRbXYiumXdbCyUYlEpMG4lgDY90i
- a3m4egJWKZUvVaBarD4GKiHpUAXuMp7mmKJnlcUuqXB0k8FEJXZHp3jm2m+FHXulGo0pRXtL4Z4
- qGHPfcEMh
-X-Gm-Gg: AR+sD10PTeAsWR5NLnLZrvo9H7IcN3iPd3//rB4NUqdVuIvKRiJlwXe3CYV3zNG7424
- 1kz2raZQW5NL4pjDaHf6lG9afK5jfS6JvgIbQHbIuo5a4J3FYc84AqChBcFpQuw2juZrllppvQ1
- 9xcIaHf91Yti5Q4JIvOCHImb57jU+Tuf4q/NZarjvg7Ij/hiJSZFLVBkpqukP6/WWTliko670bP
- 6qjShbMyEdrdIO/SGqMOuOAID7+RQayDRZVREgQePR9LY1Jvc/xZEso7E2X0GOokUI9lztfCfdy
- 3RlMIq8rxeFyOBwXXnyzobejxjaLtgt/IFbpOPnJ0A+xvLbzuBrnm/x+82prGhE3pEkWdaOEhNZ
- PhmiGXT68pFaUC1bKPulVPoUCbAbXq036t3BzlF1S0V+bBKWGjXnwboDIC5f/uX8TS8d0KXA0XY
- wWpx343jBlhqncOnSqi1+GFTHlVkrfF/UnPdy5f8rdcibuRwKZ4A4MiLZr9KQgO7SQdeIVh694l
- lIvHOM/+MzRS3SxbM+HfhjHPrj/q3nPAIGw
-X-Received: by 2002:a05:600c:800f:b0:499:59fd:dbfc with SMTP id
- 5b1f17b1804b1-49b0dea9491mr4564165e9.1.1787762162730; 
- Wed, 26 Aug 2026 09:36:02 -0700 (PDT)
+ bh=etS7dDlMuCWd3+VoKkG/reluEY3jsEXWbjkOvSEBEgk=;
+ b=c6uMg1p8JknOjdAXJfo9hyypDuN685onqN2FALYhZ/iKs/X9FGZK0Ex35ij8tJ4i8X
+ EQUi6AZamoLOGYMwDX02J8kmB0FsiViJstaHWByrJQGV/QafSFjLc3dwf86nXgQVRSjz
+ 9t0fzTQLaxKjHSTNCZJW/BnqDNLLLp7y0QGC2T+TaHnKwKtoJ0greII2y8amI2SX4NiI
+ +Zj9QyXWTrd3jM6LCQKoxGvdXpy6oFTQDazaTOp19NcvWMrrCMmoiUWFoLL9KS4oWIAs
+ bfzF33NYc29piJBMB8YUCK0Zu9PQc2wR5jSY0VXHez5LQHha8aBm4bIYzk1kFqXRoasi
+ BdXA==
+X-Gm-Message-State: AFuF++ldOu+grZB/TU7w12JDOy9hfzbtAWuDFO/+h/txpTZkqsZBrAhk
+ Y26EO/tAUF+T3MQnl6qshsxESuLVlGw/6WLTBXUuc6yXEKc1wWxNA83xTszq1GpZigZ2ctpmNoW
+ ZFrd4j3oO
+X-Gm-Gg: AR+sD10tTxDCJyw/FuKiJpe/EpWi1oKhgFjguA/B/tyoJbWIOvZ22B9oJSOmz2pTAgs
+ sTPm7F4mToFybISNaoH7i9tInxPEu8dHBLEOhCUEI/X0t7N45F+OBPQbQ178EgkiavD+uFetgDR
+ GWyle50/ZMgigURVFEyJHcMfWlTUDe/rNEi0EEygb6Nd+/1NvARXxUmHySJ3ZwiJbn+ArxdEy5q
+ KFIYuiLhBrF6aT9BDO10dwUnRrvaPu+bz5mBn/zbjuNiZP7stzUKeZBhcWuHlP1R+HcvEfvjQOl
+ r/FcLtAY6soDybwE4NTqarv9FyBbT3ddhTUjbHgOCdMEeJZJuuoAu1nhm+g+dBpAL898YfXWSKQ
+ bGwvz9VBgfBxlyryB//Q2XyimNnoNhVQzwZhfnpgvdSsRtSs4nSbjZ//kBNQLIvL/SmE2Ew5f/d
+ 02hY7fUlZ+P3tPNLRuQw4TcPRzIzGhk+nNdYR2sZl3o7OGYPSmGiWgex68vCaPdeZFz5oMEsXDx
+ w89tOKfBBhAG/Wc9n9fzmxUTh+puBA6ExmOhSX3HY2WRAM=
+X-Received: by 2002:a05:600c:3151:b0:499:a5cb:b7c0 with SMTP id
+ 5b1f17b1804b1-49b0deb14d0mr4919895e9.3.1787762168128; 
+ Wed, 26 Aug 2026 09:36:08 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.00
+ 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:36:01 -0700 (PDT)
+ Wed, 26 Aug 2026 09:36:06 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+Cc: Mike Lothian <mike@fireburn.co.uk>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
@@ -76,11 +76,13 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
  Tamir Duberstein <tamird@kernel.org>,
  Alexandre Courbot <acourbot@nvidia.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 14/23] rust: drm: add a safe constructor for owned
- registration data
-Date: Wed, 26 Aug 2026 17:31:45 +0100
-Message-ID: <20260826163359.4998-15-mike@fireburn.co.uk>
+ Lyude Paul <lyude@redhat.com>,
+ "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+ Asahi Lina <lina+kernel@asahilina.net>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 15/23] rust: drm: pin the owner while DRM files remain open
+Date: Wed, 26 Aug 2026 17:31:46 +0100
+Message-ID: <20260826163359.4998-16-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -101,70 +103,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A DRM registration whose associated data is 'static cannot outlive any
-references held by that data. Add a safe constructor for this common
-case so drivers do not have to promise manually that their registration
-will never be forgotten.
+Give each Rust DRM device its own driver and file-operations tables
+so file_operations::owner can identify the module that owns the
+implementation. Open DRM file descriptors then hold the same module
+reference that C DRM drivers receive through DEFINE_DRM_GEM_*_FOPS().
 
-Keep the existing unsafe constructor for registration data which
-genuinely borrows from the bus binding.
+Pass the owning module to UnregisteredDevice::new() and use the
+built-in null module for the shmem KUnit device.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/driver.rs | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ rust/kernel/drm/device.rs    | 46 ++++++++++++++++++++++++++++++++++--
+ rust/kernel/drm/gem/shmem.rs |  8 ++++++-
+ 2 files changed, 51 insertions(+), 3 deletions(-)
 
-diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-index 356be329a2b6..2e7987a71a7a 100644
---- a/rust/kernel/drm/driver.rs
-+++ b/rust/kernel/drm/driver.rs
-@@ -169,7 +169,8 @@ pub struct Registration<'a, T: Driver> {
- }
- 
- impl<'a, T: Driver> Registration<'a, T> {
--    /// Register a new [`UnregisteredDevice`](drm::UnregisteredDevice) with userspace.
-+    /// Registers a new [`UnregisteredDevice`](drm::UnregisteredDevice) with borrowed
-+    /// registration data.
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index bc2cdcd2b695..efbec3f42bda 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -208,9 +208,14 @@ const fn compute_features() -> u32 {
+     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
      ///
-     /// # Safety
-     ///
-@@ -177,7 +178,7 @@ impl<'a, T: Driver> Registration<'a, T> {
-     /// [`Drop`] implementation from running, since the registration data may contain borrowed
-     /// references that become invalid after `'a` ends.
-     pub unsafe fn new<E>(
--        dev: &'a device::Device<device::Bound>,
-+        dev: &device::Device<device::Bound>,
-         drm: drm::UnregisteredDevice<T>,
-         reg_data: impl PinInit<T::RegistrationData<'a>, E>,
-         flags: usize,
-@@ -243,6 +244,29 @@ pub fn device(&self) -> &drm::Device<T> {
-     }
- }
- 
-+impl<T: Driver> Registration<'static, T> {
-+    /// Registers a new [`UnregisteredDevice`](drm::UnregisteredDevice) with owned registration
-+    /// data.
+     /// This can be used to create a [`Registration`](kernel::drm::Registration).
 +    ///
-+    /// Unlike [`Registration::new`], this constructor is safe because its registration
-+    /// data cannot contain non-static references. Forgetting the returned registration can leak
-+    /// the DRM device and its parent reference, but cannot leave a live registration referring to
-+    /// expired data.
-+    pub fn new_static<E>(
-+        dev: &device::Device<device::Bound>,
-+        drm: drm::UnregisteredDevice<T>,
-+        reg_data: impl PinInit<T::RegistrationData<'static>, E>,
-+        flags: usize,
-+    ) -> Result<Self>
-+    where
-+        Error: From<E>,
-+    {
-+        // SAFETY: `RegistrationData<'static>` cannot borrow data that expires while a forgotten
-+        // registration remains accessible.
-+        unsafe { Self::new(dev, drm, reg_data, flags) }
-+    }
-+}
++    /// `module` must be the module that owns the driver implementation, i.e. `&THIS_MODULE`. It is
++    /// stamped into this device's `file_operations::owner` so that an open `/dev/dri/cardN` file
++    /// descriptor pins the module, exactly as `DEFINE_DRM_GEM_*_FOPS()` does in C.
+     pub fn new(
+         dev: &T::ParentDevice<device::Bound>,
+         data: impl PinInit<T::Data, Error>,
++        module: &'static ThisModule,
+     ) -> Result<Self> {
+         // `__drm_dev_alloc` uses `kmalloc()` to allocate memory, hence ensure a `kmalloc()`
+         // compatible `Layout`.
+@@ -253,8 +258,37 @@ pub fn new(
+             unsafe { bindings::drm_dev_put(drm_dev) };
+         })?;
+ 
+-        // SAFETY: `drm_dev` is still private to this function.
+-        unsafe { (*drm_dev).driver = const { &Self::VTABLE } };
++        // Give this device its own `file_operations`/`drm_driver` pair so that the owning module
++        // can be stamped into the fops. `fops->owner` is what makes `fops_get()` in
++        // `drm_stub_open()` take a module reference for every open DRM file: without it nothing
++        // pins the module, and unloading the driver while a compositor still has
++        // `/dev/dri/cardN` in a poll set frees the `file_operations` out from under
++        // `do_sys_poll()`, which then faults on `f_op->poll`.
++        //
++        // SAFETY: `raw_drm` is a valid pointer to `Self`, still private to this function, and
++        // both fields are plain data that need no drop.
++        let raw_fops = unsafe { Opaque::cast_into(ptr::addr_of!((*raw_drm.as_ptr()).fops)) };
++        // SAFETY: `raw_fops` is valid, aligned and points at uninitialized memory we own.
++        unsafe {
++            raw_fops.write(bindings::file_operations {
++                owner: module.as_ptr(),
++                ..Self::GEM_FOPS
++            })
++        };
 +
- // SAFETY: `Registration` doesn't offer any methods or access to fields when shared between
- // threads, hence it's safe to share it.
- unsafe impl<T: Driver> Sync for Registration<'_, T> {}
++        // SAFETY: as above, for the per-device `drm_driver` copy.
++        let raw_vtable = unsafe { Opaque::cast_into(ptr::addr_of!((*raw_drm.as_ptr()).vtable)) };
++        // SAFETY: `raw_vtable` is valid, aligned and points at uninitialized memory we own.
++        unsafe {
++            raw_vtable.write(bindings::drm_driver {
++                fops: raw_fops,
++                ..Self::VTABLE
++            })
++        };
++
++        // SAFETY: `drm_dev` is still private to this function; `raw_vtable` lives inside the DRM
++        // device allocation and so outlives every use of `drm_device::driver`.
++        unsafe { (*drm_dev).driver = raw_vtable };
+ 
+         // SAFETY: `raw_drm` is valid; no concurrent access before registration.
+         unsafe { (*raw_drm.as_ptr()).registration_data = UnsafeCell::new(NonNull::dangling()) };
+@@ -277,12 +311,20 @@ pub fn new(
+ ///
+ /// * `self.dev` is a valid instance of a `struct device`.
+ /// * The data layout of `Self` remains the same across all implementations of `C`.
++/// * `self.vtable` and `self.fops` are initialized before the device is registered and are never
++///   mutated afterwards; `self.dev.driver` points at `self.vtable`, whose `fops` points at
++///   `self.fops`.
+ /// * Any invariants for `C` also apply.
+ #[repr(C)]
+ pub struct Device<T: drm::Driver, C: DeviceContext = Normal> {
+     dev: Opaque<bindings::drm_device>,
+     data: T::Data,
+     pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationData<'static>>>,
++    /// Per-device copy of the driver vtable, so that `fops` below can be referenced from it.
++    vtable: Opaque<bindings::drm_driver>,
++    /// Per-device copy of the DRM file operations, carrying the owning module in `owner` so that
++    /// an open DRM file descriptor pins the module.
++    fops: Opaque<bindings::file_operations>,
+     _ctx: PhantomData<C>,
+ }
+ 
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 86797ab39ffd..8751000c92bb 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -642,12 +642,18 @@ impl drm::Driver for KunitDriver {
+         const IOCTLS: &'static [drm::ioctl::DrmIoctlDescriptor] = &[];
+     }
+ 
++    // These tests only ever build into the kernel image, so there is no module to pin. A null
++    // `file_operations::owner` is exactly what a built-in driver uses.
++    //
++    // SAFETY: `NULL` is the correct `THIS_MODULE` for built-in code.
++    static KUNIT_MODULE: ThisModule = unsafe { ThisModule::from_ptr(ptr::null_mut()) };
++
+     fn create_drm_dev() -> Result<(faux::Registration, UnregisteredDevice<KunitDriver>)> {
+         // Create a faux DRM device so we can test gem object creation.
+         let data = try_pin_init!(KunitData {});
+         let reg = faux::Registration::new(c"Kunit", None)?;
+         let fdev = reg.as_ref();
+-        let drm = UnregisteredDevice::new(fdev, data)?;
++        let drm = UnregisteredDevice::new(fdev, data, &KUNIT_MODULE)?;
+ 
+         Ok((reg, drm))
+     }
