@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95DF5C61DC2
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 09:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF203C5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 09:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C899010E297;
-	Wed, 26 Aug 2026 09:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F156810E273;
+	Wed, 26 Aug 2026 09:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="We01mxx0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GsLs3BzP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5780010E297;
- Wed, 26 Aug 2026 09:30:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACA6110E273;
+ Wed, 26 Aug 2026 09:31:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 54A36600C4;
- Wed, 26 Aug 2026 09:30:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702F41F000E9;
- Wed, 26 Aug 2026 09:30:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2155360A59;
+ Wed, 26 Aug 2026 09:31:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3E61F000E9;
+ Wed, 26 Aug 2026 09:31:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787736628;
- bh=iMEzDkYcY451+lpGVbq4N303Ki4TMyeDEp9MG7bMHsQ=;
+ s=k20260515; t=1787736690;
+ bh=5jun+E2eMGR1/N67LbFf2iWsxF74r4ZAeTvmAQz6j8Q=;
  h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=We01mxx09AWtjjIEC7dgcumwsPTlnB+RumUI2X0cDWBcS8vCWRsEp95aPLzwMp3cZ
- 02Qz7Xa8UziCq4AVb2PuyW+VeMwVHCBn7/Ht9JEsUpbO66PmqRHIYGlGme6/JRYYfF
- 4hwgZ5jHIH3cKf4LlWBOPWrXAshUGINwiIuCBBZ9A+pg3n8jwT2Cdg0romH8wAoany
- v6WOn2w8PTxqpz5X76NgihkagKy381C55iE9qZQDsk7OR92r7bc3bFDjNNF2oE+Jba
- CoADfDyTO9Hogk1Z/rRoipR5eCZMWRtbg0iU6x8zaas/Si3BBz0BOA+XZYR16VH061
- ai9S/QRmsD/IA==
+ b=GsLs3BzPHldXvItdO62wqWRV4PElfaPnzOqiGn8RAyVBp64gPgcq7mCEwSZl8wnVy
+ FWA8GQBB2ymMgKRf8Afs+vxRXmT7WLl+fxLWXBu+r6BwQIo+9YZBw2S598jSIRBwbI
+ zKFOtGlWXRCW4w9jCBJZ7yRzVITe6DUZfxUG6tOOsa6/EJ9Q46P7MxI9RIDIQ2ak51
+ lmgi4kKVav5j7qRBhy7AR0sdWCIpHN0ld1iPC7FyjTLlhyar4cfr0vVqn+SNHNIf0s
+ kPQ168qZCz4I6j1fGt0DeffmR1lcpV24uBN2tv9Za96wKgHOOxVSdhHu3C1LkvoSVP
+ owWkeBzlmENqw==
 From: Andreas Hindborg <a.hindborg@kernel.org>
 To: Gary Guo <gary@garyguo.net>, Anna-Maria Behnsen
  <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
@@ -49,13 +49,14 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
  <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 6/6] rust: hrtimer: Make HrTimer repr(transparent)
-In-Reply-To: <DKY2AIA7ELLI.1REFFZGXL78Q5@garyguo.net>
+Subject: Re: [PATCH 5/6] rust: hrtimer: document deadlock when starting a
+ timer in its handler
+In-Reply-To: <DKY292V0LWJN.1L3HG02NBW6K5@garyguo.net>
 References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-6-90411c6217c7@kernel.org>
- <DKY2AIA7ELLI.1REFFZGXL78Q5@garyguo.net>
-Date: Wed, 26 Aug 2026 11:30:16 +0200
-Message-ID: <87v78x1b6f.fsf@t14s.mail-host-address-is-not-set>
+ <20260825-expires-v2-v1-5-90411c6217c7@kernel.org>
+ <DKY292V0LWJN.1L3HG02NBW6K5@garyguo.net>
+Date: Wed, 26 Aug 2026 11:31:17 +0200
+Message-ID: <87se411b4q.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,23 +77,27 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 "Gary Guo" <gary@garyguo.net> writes:
 
 > On Tue Aug 25, 2026 at 1:16 PM BST, Andreas Hindborg wrote:
->> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+>> The state machine documentation states that for pointer types that
+>> implement `Clone`, the `start` operation may be issued while the timer
+>> is in the **running** state, and that it is then equivalent to the
+>> `restart` operation. That only holds when the operation is issued from
+>> outside the timer handler.
 >>
->> HrTimerCallbackContext acquires a &HrTimer<T> from a
->> NonNull<HrTimer<T>> while a &mut HrTimer<T> can exist at the same
->> time. This is sound only because HrTimer's sole field is
->> Opaque<bindings::hrtimer>, which puts every byte behind an UnsafeCell.
->> Adding a field to HrTimer that is not Opaque would make acquiring that
->> shared reference unsound.
+>> The `start` operation returns a `HrTimerHandle`, and dropping the
+>> handle cancels the timer with `hrtimer_cancel()`, which blocks until a
+>> running handler has returned. When `start` is issued from within the
+>> handler, the handle is also dropped within the handler, so the cancel
+>> waits for the very handler that issues it, and the handler deadlocks.
 >
-> HrTimerCallbackContext is removed in patch 4, though?
+> That's not always true, you can start timer and store its handle elsewhere.
 >
-> Still worh preferring `#[repr(transparent)]` over `#[repr(C)]`, but the
-> motivation should be reworded and the comment on `HrTimer` should be removed.
+> I think the proper wording is that "cancelling a timer from within the timer
+> handler will lead to deadlock".
 
-Yes, I was a little too fast when I added this patch. I'd like to keep
-it as well, but it needs some edits.
+Right, I'll update the wording and comment.
+
 
 Best regards,
 Andreas Hindborg
+
 
