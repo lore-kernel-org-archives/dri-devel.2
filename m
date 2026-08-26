@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B6CC61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:37:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17E14C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F86D10ED70;
-	Wed, 26 Aug 2026 16:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E4AB10ED71;
+	Wed, 26 Aug 2026 16:37:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="O/qInibV";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="e6BHfIWc";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6264910ED70
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:59 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-482dd6ee390so1130074f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:59 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A545E10ED71
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:37:04 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-49b0d78a801so1163535e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:37:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762217; x=1788367017;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762223; x=1788367023;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=OkRk1iaOzdwQPEjbMkHe3YM7CcoWsAQlRLu4eqxZlx0=;
- b=O/qInibVAvPXCM9Veygv3wF6tflS/POK0RtH/ZmTcXC/jOAdVt/XiUVRtw1bj45iS5
- /2jF8wfrvRE5B5P5jFwBdnL36iHHK6Fp/CeT+nyiSzJjfGDAgZ912TpS113uudJ+PJeb
- YrfbkFo5RNhMTm20Vo2x5cj6RzBE/c0ZEcxI/1E7hheHiSoOCz+aLRzCsG4cJDWD0ShK
- i6J9GnLn/IdvW9XY0DxCxEJsuGPoOAqqCWU0dMhVyZfNnzejb2GCOQlrznxeBPdtCUrM
- EEC3P3DVGxpKDVTVnNJFQXW7JqG69NdgQoCpOSSa934XD6CY9H1ctx+fXbej3JRt8gW9
- pvPA==
+ bh=mdJB+7gpvS5WCvpUSsJAui6rgsKkc8CSJW/uARo52jk=;
+ b=e6BHfIWcrCROcSMBv+GrWezKI6QkVZ7RyisZENV6ZoLRQlEPg6iXaRg9AQ99zmAezv
+ yrAk5QGn5BFhCESLkp4gubsC6dwTrsLOLAdl7Cp0JS/GVOIa7rsBYoCNWLGFaDKzjUKc
+ e8L6zUJeF0Yhn2jW3YteTniHR9PJNJSrg/RyJqhnZRrSQsiEtOAN4iO8IQxgA1e0vzck
+ LSDNCMMg5nfdNPTMeNXq0RlMKKxN9Hv3JtqmmHRqtulVmEPdxOV/DgNBnbM8zeciiIzN
+ 91MmS7FDDIaHX3D/Tauxk4PakkB6yl+E4D1PIu0ThIlf7MQUo3doqAjOk7JxuwCz0dXq
+ uzXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762217; x=1788367017;
+ d=1e100.net; s=20251104; t=1787762223; x=1788367023;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=OkRk1iaOzdwQPEjbMkHe3YM7CcoWsAQlRLu4eqxZlx0=;
- b=JFLX200cGf+s3w6PItVzVBT7iBoeXRgkYFvy5+irhsSgbeWX0uJ/2irGWgMHXYyxpX
- o3+O341f09L143leHdosUYbkDnZaolMs0tEcRxUCrnvHRk+A0jxkgbBUlKmdieYneGVc
- Fee/lMsnsL2LwgvKTbaFjZY2VBw+UMDjwK66MG5MexKUM+RzAnxSYLld7zn8yTABW0gj
- w1zpjYUZSzspxbGbjeknV6qINWTwlBBG346VfbunI9l4/RuH3jk36apcVhB8+tGl1t/1
- ryQ/gAdGaAAftuGYUxwj+roy3vxUv4E9s9F+gAWU/7vJjrboR+cQwruIxOurpliQCQd3
- QNvQ==
-X-Gm-Message-State: AFuF++k7i+EsTbt1VMp28bYa7H34YPNxRXHitKT1dHlYQuzFmQVD3etY
- 0Jj3hy0382SyZE0G7gmKauy6J+3spXIX6F0eAQ1nvqn0BEB5lri5QL75MHIxrZvNMJEGMJn64Y+
- mCJF3GK46
-X-Gm-Gg: AR+sD12M4eXsxEiIbUoPmP/qYcSQR+USBPIdE9dJLqdPa3IapxXUuyfGHOn3LOBt9wy
- uZNpWBfwmagogdBZNdpGkHEbv86/D/v08aAVXdI4xzdWUQzwN98vG1earYqg1+cO2CMO+iTSiL5
- XPBhRWbqZU5PQiEUPw464Q4ggRtkqIGg0VS/E4JlQTianl3SsSygZuFtx8S3TNjo5g/E/mCIq9I
- 1hXphCgs21HNPxtvckCo5M8NXyePRqVRH2ktT5Jtx1WgA4Uc3yNpavqdd58OlgOqdWXul+eJMBd
- VbfzDVQhjzG+vk1x+hiELGbVw2PQaPQCL5Q50A2wRojyumBXHBFDVfJ4EvIKsFhlbjAXyVq9qQs
- SHc2GcW6LqbO6cLd+/ScZ4pK7WQonvtQFTe5FuaK89WLQxAr/+poqRJa4TTmGnbDlt5TUp3nRv4
- jTwie/KySGdZj2aK/cZj6DGkkN418JLvizju+VLTNLT4xE2FVZX+LY54Up/pkD4L+JgvkkJl+d9
- 0SZdwvyUDpyI9xB76IAw3poIL2fzziGh94+u+M99RbcIdY=
-X-Received: by 2002:a05:600c:811a:b0:499:db9b:f253 with SMTP id
- 5b1f17b1804b1-499dc6ec214mr84001985e9.3.1787762217462; 
- Wed, 26 Aug 2026 09:36:57 -0700 (PDT)
+ bh=mdJB+7gpvS5WCvpUSsJAui6rgsKkc8CSJW/uARo52jk=;
+ b=qKHcpavnz25kssE+E554/Tu8r/+sWwIVeawwy/cap/w1b9KgR88qHrI3UArGdOnvn+
+ 6Fzagq7777vZEw09FsX1L/NRr4lNkn9bsqsP13YX5qE6xyDbTscNXJ288kkMIMShcKne
+ xQOQ3KJQMBxPE9GzuLcP5VFoYPtlw9pQm0JlcS+FLtoVJ+dJCjuPf5ZLH1f9TEs+DsFs
+ 1GZ3qctpM7Biv/xzIzxzfuM6CiNCATjhMPSjh7RQtZBx8qrzeOPGpnjROV/TQLEf8aHb
+ jXKn91q6UVzphWfTciB9mXgeBI0G8Vd1o9pqo4J0g/J4KELfkYuFjHClQLnrBLxhmjO6
+ fg+A==
+X-Gm-Message-State: AFuF++n8jXBxpQMEWcIx0jcnptgO/86Ge0VwKkXHdDZ6ZXdSisBZ+vEg
+ S4mRf/ghGxhR2eH7cKANWxS5ik9vE4CIupENozncq2toDx2959VhkgMud/ijV59JzIcGva2hIOz
+ c5qx2CvUa
+X-Gm-Gg: AR+sD1095o5362X1a63lA+sI6ZJ4NbJ15kMqQ5ZcFT63Ux5BsyHgr6A2zFeTcRS3S2h
+ E9JpAZDDSilrucLTf1tlQAFcy6mR2UKtOsVut1U5lDkA9f/b0/W3A63kO9hcLoECSEsx/2fEGKK
+ ievkLeM/I7YC+VTuj0Ga80/YLpjWYe/V3sbhF5HJq/M/HShf9CeTC/jpamnvP7DOEMdkJbPs1zA
+ S36y607BzHVulaH+3BYhaJP6vS+cACXIc2koWbcIa3T4SEfqGa1hlkjWve8JVvGFw9x1uy3KTUv
+ mGg1Ux9NCU7Y0mrhbwRG6tF+D76JD8aAiwshG8uDgbtifSzP1HSjShHr9Amg4gLute14u+FWx+y
+ k1WsMkAKf2odRa2RKdYX70pFp/qXqK4L4d252E6Is3imwWw1dxKICVytoL7rPlRPBMQEQhkUf6A
+ 9CaOigKcJJYPrK2nrO4rcn8ojCO31iIkFsPHJ1SbWdZx/ncSgpZ4lAaH18HUs9nOHxdE/1B3YoO
+ HNkHzCEBkru1Vy8YqGJNd155MBGkpGygejQMA==
+X-Received: by 2002:a05:600c:8486:b0:499:49f3:77b1 with SMTP id
+ 5b1f17b1804b1-499dc6e1267mr91011085e9.3.1787762223039; 
+ Wed, 26 Aug 2026 09:37:03 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.55
+ 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.37.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:36:55 -0700 (PDT)
+ Wed, 26 Aug 2026 09:37:02 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+Cc: Mike Lothian <mike@fireburn.co.uk>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
@@ -78,10 +78,10 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
  Lyude Paul <lyude@redhat.com>, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 22/23] rust: drm: kms: walk the CRTCs an atomic commit
- carries
-Date: Wed, 26 Aug 2026 17:31:53 +0100
-Message-ID: <20260826163359.4998-23-mike@fireburn.co.uk>
+Subject: [PATCH v3 23/23] rust: drm: kms: expose a connector's requested link
+ depth
+Date: Wed, 26 Aug 2026 17:31:54 +0100
+Message-ID: <20260826163359.4998-24-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -102,94 +102,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A driver enforcing a constraint its CRTCs share -- a bandwidth budget,
-a clock source, a fixed pool of scanout engines -- has to weigh what
-every head will be once the commit lands, and a per-CRTC callback can
-only reach its own new state. Reaching the others through committed
-state answers a different question: it prices each sibling at what it
-is leaving rather than what it is taking, so two heads that both rise
-in one commit each find the other still low, pass individually, and
-break the shared limit together.
+`max bpc` is how userspace asks for the number of bits the link
+carries, and it is deliberately independent of the framebuffer's
+format: scanning out an eight-bit surface over a ten-bit link is the
+ordinary case. A driver could attach the property but had no way to
+read back what was asked for, so the request could only be ignored.
 
-Add the walk over the CRTCs an atomic state carries, the Rust spelling
-of for_each_new_crtc_in_state(), on both the state and its mutator.
-The CRTC is handed over alongside its new state because the
-driver-private data that names what a CRTC drives hangs off the CRTC,
-not off the state.
+Add the accessor, and make the linear format modifier nameable outside
+the crate so a driver that accepts only linear scanout can say so in
+its plane's modifier list rather than leaving userspace to infer it.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/kms/atomic.rs | 52 +++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ rust/kernel/drm/fourcc.rs        |  5 ++++-
+ rust/kernel/drm/kms/connector.rs | 16 ++++++++++++++++
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/drm/kms/atomic.rs b/rust/kernel/drm/kms/atomic.rs
-index f9f91edc89c3..24daeaeca075 100644
---- a/rust/kernel/drm/kms/atomic.rs
-+++ b/rust/kernel/drm/kms/atomic.rs
-@@ -142,6 +142,48 @@ pub fn new_connector_state_for_crtc<C>(&self, crtc: &C) -> Option<&OpaqueConnect
-         None
+diff --git a/rust/kernel/drm/fourcc.rs b/rust/kernel/drm/fourcc.rs
+index 010823c4c86c..3a68af66f236 100644
+--- a/rust/kernel/drm/fourcc.rs
++++ b/rust/kernel/drm/fourcc.rs
+@@ -13,7 +13,10 @@ const fn fourcc_code(a: u8, b: u8, c: u8, d: u8) -> u32 {
+ // function-like macros in bindgen yet.
+ pub(crate) const FORMAT_MOD_INVALID: u64 = 0xffffffffffffff;
+ /// Linear framebuffer layout (`DRM_FORMAT_MOD_LINEAR`).
+-pub(crate) const FORMAT_MOD_LINEAR: u64 = 0;
++///
++/// A driver that accepts only linear scanout has to say so through the plane's format-modifier
++/// list, or userspace sees no `IN_FORMATS` property and has to guess what the plane will take.
++pub const FORMAT_MOD_LINEAR: u64 = 0;
+ 
+ /// 32 bpp RGB with unused alpha.
+ pub const XRGB8888: u32 = fourcc_code(b'X', b'R', b'2', b'4');
+diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
+index 231857cc1f20..633f4f76a610 100644
+--- a/rust/kernel/drm/kms/connector.rs
++++ b/rust/kernel/drm/kms/connector.rs
+@@ -935,6 +935,22 @@ fn colorspace(&self) -> u32 {
+         self.as_raw().colorspace
      }
  
-+    /// Invoke `f` for every CRTC this [`AtomicState`] carries a new state for, passing the CRTC
-+    /// and that state.
++    /// The bits per colour channel userspace has asked the link to carry, through the `max bpc`
++    /// property.
 +    ///
-+    /// This is the Rust spelling of walking `for_each_new_crtc_in_state()`.
++    /// This is a property of the *link*, not of the framebuffer: userspace routinely scans out an
++    /// eight-bit surface over a ten-bit link, and a driver that derives its output depth from the
++    /// framebuffer format alone silently ignores what was asked for.
 +    ///
-+    /// A driver enforcing a constraint its heads share -- a bandwidth budget, a clock source, a
-+    /// fixed pool of scanout engines -- has to weigh what every head will be once the commit
-+    /// lands. A per-CRTC callback that consults committed state instead sees each sibling at its
-+    /// old value, so two heads that both rise in one commit each find the other still low, pass
-+    /// individually, and break the shared limit together.
-+    pub fn for_each_new_crtc_state<F>(&self, mut f: F)
-+    where
-+        F: FnMut(&Crtc<T::Crtc>, &OpaqueCrtcState<T>),
-+    {
-+        // SAFETY: `state` is initialized via our type invariants, and `crtcs` together with the
-+        // device's `num_crtc` are invariant for as long as we hold a reference to it.
-+        let (crtcs, num) = unsafe {
-+            let raw = self.as_raw();
-+            ((*raw).crtcs, (*(*raw).dev).mode_config.num_crtc)
-+        };
-+        if crtcs.is_null() || num <= 0 {
-+            return;
-+        }
-+        for i in 0..num as usize {
-+            // SAFETY: `crtcs` points to `num_crtc` initialized entries.
-+            let (ptr, new_state) = unsafe { ((*crtcs.add(i)).ptr, (*crtcs.add(i)).new_state) };
-+            if ptr.is_null() || new_state.is_null() {
-+                continue;
-+            }
-+            // SAFETY: every CRTC of a `KmsDriver` device is a `Crtc<T::Crtc>`, and a non-null
-+            // `new_state` is a valid `drm_crtc_state`. Both borrow from `self`, so neither can
-+            // outlive the atomic state owning them.
-+            let (crtc, state) = unsafe {
-+                (
-+                    Crtc::<T::Crtc>::from_raw(ptr),
-+                    OpaqueCrtcState::<T>::from_raw(new_state),
-+                )
-+            };
-+            f(crtc, state);
-+        }
++    /// Meaningful only on a connector that
++    /// [`UnregisteredConnector::attach_max_bpc_property`] was called for; everything else leaves
++    /// it at zero.
++    fn max_requested_bpc(&self) -> u32 {
++        // `max_requested_bpc` is an `unsigned int` clamped by DRM to the range the driver gave
++        // `drm_connector_attach_max_bpc_property()`, so it needs no validation here.
++        self.as_raw().max_requested_bpc as u32
 +    }
 +
-     /// Return the old state of the first connector routed to `crtc` in this [`AtomicState`], if
-     /// any.
+     /// The electro-optical transfer function from the `HDR_OUTPUT_METADATA` blob, or [`None`] if
+     /// userspace has not set one.
      ///
-@@ -282,6 +324,16 @@ pub fn new_connector_state_for_crtc<C>(&self, crtc: &C) -> Option<&OpaqueConnect
-         self.state.new_connector_state_for_crtc(crtc)
-     }
- 
-+    /// Invoke `f` for every CRTC this state carries a new state for.
-+    ///
-+    /// See [`AtomicState::for_each_new_crtc_state`].
-+    pub fn for_each_new_crtc_state<F>(&self, f: F)
-+    where
-+        F: FnMut(&Crtc<T::Crtc>, &OpaqueCrtcState<T>),
-+    {
-+        self.state.for_each_new_crtc_state(f)
-+    }
-+
-     /// Return the old state of the first connector routed to `crtc`, if any.
-     ///
-     /// See [`AtomicState::old_connector_state_for_crtc`].
