@@ -4,66 +4,177 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5080C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 12:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53259C5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 12:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C074C10E1D3;
-	Wed, 26 Aug 2026 12:05:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC1510E279;
+	Wed, 26 Aug 2026 12:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="g+ScnngL";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="uVab0SxY";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DGIuEy/C";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wPR8sBIT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XkND9Kmf";
 	dkim-atps=neutral
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C17B410E1D3
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 12:05:14 +0000 (UTC)
-Content-Language: ru-RU
-Content-Type: text/plain; charset="koi8-r"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
- c=relaxed/relaxed; t=1787745909; h=from:to:date:message-id:subject;
- bh=aL1S/oO3egT35wuO0PK/N4Ble76Et9HPt7+fW86EzdM=;
- b=g+ScnngLb2DinA7EHy4q8+7pK6q7iolWE8hhwZSC4y/LBs3nVWhrxSWCkT++emhy+n5bIWC/oT2
- 4ExgvhTwrfupGwc75e9YBb7HoRhoD9YJPd0at1qfP9uOuSlwNXoYSyRwi5ZdA6dwuU9RRe55l6Wt0
- bMgHKHJsEPTcTl17Z4WY68pxKo6Xw7GUN0rSF7w+SyNkBnEAW8Xrdd9JHxC+LFVdmxUx6frRAZaqY
- L/sRtfLkfhxpIk1DwcNv4KQOF2YmpquJ0WenoPV5d/tNHdJ3u/Z/XFfWzdt9TCHo1XEq4aTTa34Cd
- YaFqtRvsYuOO9gXuTStRZgmH+83iuftF5t+g==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30;
- Wed, 26 Aug 2026 17:05:09 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Wed, 26 Aug 2026 17:05:11 +0500
-Received: from echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed]) by
- echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed%17]) with mapi id
- 15.02.1748.039; Wed, 26 Aug 2026 17:05:11 +0500
-From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
- <r.zhambakiev@prosoftsystems.ru>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
- <r.zhambakiev@prosoftsystems.ru>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harikrishna Shenoy <h-shenoy@ti.com>, "Tomi
- Valkeinen" <tomi.valkeinen@ideasonboard.com>, Jayesh Choudhary
- <j-choudhary@ti.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Kees Cook <kees@kernel.org>, Qi Xi <xiqi2@huawei.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>
-Subject: [PATCH v2] drm: bridge: cdns-mhdp8546: drop redundant NULL check
-Thread-Topic: [PATCH v2] drm: bridge: cdns-mhdp8546: drop redundant NULL check
-Thread-Index: AQHdNVMlQIQLUZ3MmEedP2wxUV9CLg==
-Date: Wed, 26 Aug 2026 12:05:11 +0000
-Message-ID: <20260826120351.88650-1-r.zhambakiev@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.25.1.89]
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 265FF10E279
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 12:22:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 035ED1F822;
+ Wed, 26 Aug 2026 12:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787746901; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=DfJeqZ0bau7jEJJJvGO32xH5KjuTNFcBSKCpKpFG+LI=;
+ b=uVab0SxYMR/+N9UPruFWGWyG9I36bEDa8zsLoB4NzsI2qBEElaZ/5DZCHzkHWDprnCyDEw
+ R0uwjr0YDvXj1TmU5ztFzOTS3aimGNIxZeQhPLQHu8m44TyZdpaeyuhXhjH1UCW3glS4jq
+ QoTh3PYzFp8Yu2fElM0XkLc2DrUxoyU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787746901;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=DfJeqZ0bau7jEJJJvGO32xH5KjuTNFcBSKCpKpFG+LI=;
+ b=DGIuEy/CudMk3cnncrFeKYGLxXCZqbeo2sEhLdK0lo6AqhJZpdU9FDJ8oCitjYM/kFqerb
+ BgKG0C2ysVE+hEAQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wPR8sBIT;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=XkND9Kmf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787746897; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=DfJeqZ0bau7jEJJJvGO32xH5KjuTNFcBSKCpKpFG+LI=;
+ b=wPR8sBIT2frtnc6D78zAycwSBgyVdWoFRVhBygmyb2Ca3AaFUwIqp7L0gxtjypqQldZDpt
+ TU8r7AUVtuTPJWd6Ehd1CdtlHZB5ajCAnQiQ4cZ7I0+sNm6H1UgxdShzH/5l+d7CK6k95+
+ VKOtkU/ofwaRSEMNTlXBdQujjVs4L0w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787746897;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=DfJeqZ0bau7jEJJJvGO32xH5KjuTNFcBSKCpKpFG+LI=;
+ b=XkND9KmfuGPt0J2MaAOPK7SXHD3tA2Y4FuRteyuP+QxvSku29ElYGIlQxEuPr3E6lQ4ScU
+ BHbmLsDpbky789DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 96DAA13354;
+ Wed, 26 Aug 2026 12:21:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6vt+I0/ajmrGIwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 26 Aug 2026 12:21:35 +0000
+Message-ID: <e7522f72-69f7-4f4c-80c0-86680c0e6f54@suse.de>
+Date: Wed, 26 Aug 2026 14:21:35 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/15] drm/drm_simple: remove drm_simple_encoder_init
+To: Diogo Silva <diogompaissilva@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Stefan Agner <stefan@agner.ch>,
+ Alison Wang <alison.wang@nxp.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
+ <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-doc@vger.kernel.org
+References: <20260720-drm_simple_encoder_init-v2-0-5020b630668a@gmail.com>
+ <e393996a-3ef1-4c43-b762-af8cd0f2a4b6@suse.de>
+ <CAJpoHp56yo+eQAYjvR3ez=HTSzapCd3dYppo=MdPx-Lm4J4DQg@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAJpoHp56yo+eQAYjvR3ez=HTSzapCd3dYppo=MdPx-Lm4J4DQg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,samsung.com,ffwll.ch,kernel.org,linaro.org,ideasonboard.com,linux.intel.com,amd.com,nvidia.com,agner.ch,nxp.com,intel.com,redhat.com,collabora.com,chromium.org,iki.fi,pengutronix.de,glider.be,google.com,arm.com,baylibre.com,googlemail.com,lwn.net,linuxfoundation.org,lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[gmail.com];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RL5qdohruh175rhiw1bqi96ifb)];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCPT_COUNT_GT_50(0.00)[59]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[renesas];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:mid, suse.de:dkim, suse.com:url]
+X-Rspamd-Queue-Id: 035ED1F822
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,47 +190,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+Hi
 
-to_cdns_mhdp_bridge_state() is a container_of() on the first member
-of struct cdns_mhdp_bridge_state, so it cannot return NULL as long
-as its input is non-NULL. The bridge state is already NULL-checked
-right before the conversion, making the check on the converted
-pointer dead code.
+Am 25.08.26 um 20:39 schrieb Diogo Silva:
+> Hey,
+>
+>> Diogo, do you want to send out another revision? Otherwise it's time to
+>> get these patches merged.
+> I would keep them as is, unless you see anything that should really be
+> improved before merging.
 
-Remove it.
+I've now merged patch 1 to 13 and 15 into drm-misc-next. There was a 
+conflict with the exynos tree, which I resolved.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Patch 14 first requires syncing with the amdgpu tree, which will happen 
+in a few days. You don't have to do anything here. After that, 
+simple_encoder_init will be gone.  Thanks for helping with this.
 
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
----
-Changes since v1:
-- Fixed text encoding of the patch itself, so git am applies
-correctly
-- Added explicit `From: ...` to the top of the patch body, to
-prevent checkpatch.pl email name mismatch error
-=20
+Best regards
+Thomas
 
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 5 -----
- 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/=
-gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-index 36c07b71fe04..424183db6f76 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-@@ -2145,11 +2145,6 @@ static int cdns_mhdp_update_link_status(struct cdns_=
-mhdp_device *mhdp)
- 		}
-=20
- 		cdns_bridge_state =3D to_cdns_mhdp_bridge_state(state);
--		if (!cdns_bridge_state) {
--			ret =3D -EINVAL;
--			goto out;
--		}
--
- 		current_mode =3D cdns_bridge_state->current_mode;
- 		if (!current_mode) {
- 			ret =3D -EINVAL;
---=20
-2.53.0
+
+>
+> Best regards,
+> Diogo
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
