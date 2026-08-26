@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A9DC61DCB
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579E6C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F59D10EF6B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36AA210EF6A;
 	Thu, 27 Aug 2026 09:44:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="fZSPTl2c";
-	dkim-atps=neutral
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBEC10EC24
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 07:23:47 +0000 (UTC)
-Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
- server-digest SHA256) (No client certificate requested)
- by meve.dewith.io (Postfix) with ESMTPSA id 1E67624F7A;
- Wed, 26 Aug 2026 07:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
- t=1787729025;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=QAUOj2QAkKl6zEzdhup86/l49AfWYPOJZzp6vrxeQlI=;
- b=fZSPTl2cq6asaC+h1SoLhhFJG4IvcGBV4fIApcJ9IYPbx1Y2/3B7GWEZeumCYh0c7D2v4l
- UWXKUkVMWNNf1zkl4Tst6H8BMgQzU+MZsPMROd/SKdhguqkq+ee7AU53K8NCA+3hCbcsZG
- M4A6USD34H0/PRKHgRNcLeMc9jcNr2s=
-From: Wim de With <wf@dewith.io>
-Subject: [PATCH v4 0/2] backlight: Add support for Orient Chip OCP8178
-Date: Wed, 26 Aug 2026 09:23:09 +0200
-Message-Id: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A90A10EBF2;
+ Wed, 26 Aug 2026 08:37:32 +0000 (UTC)
+X-UUID: 5b4cb9eaa12911f19a56ed5b684f684d-20260826
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:3271276e-ecaf-42b4-9819-320377205142, IP:0,
+ U
+ RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:7db8b62, CLOUDID:6c3636afc8496d9cf70cbed7c874e8f3,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+ il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+ S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5b4cb9eaa12911f19a56ed5b684f684d-20260826
+X-User: yanglinlin@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yanglinlin@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1157170727; Wed, 26 Aug 2026 16:37:22 +0800
+From: Linlin Yang <yanglinlin@kylinos.cn>
+To: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ Linlin Yang <yanglinlin@kylinos.cn>
+Subject: [PATCH] treewide: fix spelling of "overridden"
+Date: Wed, 26 Aug 2026 16:37:15 +0800
+Message-Id: <20260826083715.625136-1-yanglinlin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OzW7CMBAE4FdBPneR/5I6PfU9Kg6Os8YLLUa2C
- a1Q3h0besiB40gzn+bGMibCzD42N5ZwpkzxVIN+2zAX7GmPQFPNTHLZc8MNRHc24t3AaN3xm/a
- hwIB2Ujgojl6xujsn9PT7ML92z5wv4wFdaVBr+BR/oIRUhyu7l1x0WmwFF4prEHD1nxNeqYQtx
- TYLlEtMf4+vs2z8/1TIF7dmCRy0nYQZtRnRmxXWbs1qLfSvBFUFZ/3QOd0p1/G1sCzLHaoaE1Y
- 9AQAA
-X-Change-ID: 20260808-ocp8178-backlight-9ead3e930ef3
-To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,76 +62,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The ClockworkPi uConsole[1] is a modular handheld console manufactured
-by Clockwork Tech that runs Linux. It consists of a mainboard which
-connects a number of peripherals, such as the screen, batteries and
-keyboard. This mainboard hosts a system on a module (SoM), such as the
-Raspberry Pi Compute Module as a so-called core to provide the compute
-for the device. The device supports different kinds of SoM as cores. The
-mainboard is shared between different devices, such as the DevTerm[2].
+Fix misspelling of "overridden" (missing a 'd') in comments across
+multiple drivers.  The correct spelling "overridden" is already used
+292 times in the same drivers/ directory.
 
-Currently, the uConsole requires a number of out-of-tree drivers to
-support the hardware. In addition, most (if not all) supported SoMs
-require vendor kernels. In practice, this means that kernel support for
-the device is scattered across various repositories in the form of
-patches with dubious quality.
+All occurrences are in comments only, no functional change.
 
-This patch series is the first in an attempt to upstream as many of the
-needed drivers as possible. The goal is to support at least the
-mainboard and the peripherals of the uConsole in the upstream kernel.
-These drivers should find their way downstream to the SoM vendor kernels
-eventually.
-
-This series adds the driver for the backlight controller, the Orient
-Chip OCP8178. I wrote the driver from scratch using the datasheet, to
-avoid any copyright or attribution problems.
-
-[1]: https://www.clockworkpi.com/home-uconsole
-[2]: https://www.clockworkpi.com/home-devterm
-
+Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
 ---
-Changes in v4:
-No functional changes
-- Collect Reviewed-by trailers
-- Link to v3: https://patch.msgid.link/20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io
+ .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c    | 2 +-
+ .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 2 +-
+ .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 ++--
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c               | 2 +-
+ drivers/gpu/drm/msm/registers/gen_header.py                   | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_bios.c                        | 2 +-
+ drivers/hwmon/abituguru.c                                     | 2 +-
+ drivers/mmc/core/block.c                                      | 2 +-
+ drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c              | 2 +-
+ drivers/net/ethernet/chelsio/cxgb4vf/sge.c                    | 2 +-
+ drivers/net/ethernet/freescale/fman/fman_memac.c              | 2 +-
+ drivers/net/ethernet/sfc/mcdi_pcol.h                          | 2 +-
+ drivers/scsi/aic7xxx/aic79xx_osm.c                            | 2 +-
+ drivers/scsi/sym53c8xx_2/sym53c8xx.h                          | 2 +-
+ drivers/spi/spi-omap2-mcspi.c                                 | 2 +-
+ drivers/video/fbdev/tridentfb.c                               | 2 +-
+ 16 files changed, 17 insertions(+), 17 deletions(-)
 
-Changes in v3:
-- Rename enable-gpios to ctrl-gpios
-- Remove probe debug message
-- Remove onewire debug message
-- Link to v2: https://patch.msgid.link/20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io
-
-Changes in v2:
-- Add a note in the commit message that the 1-Wire protocol is not the
-  one implemented in drivers/w1
-- Explicitly reject sleepable GPIO and don't use _cansleep() functions
-- Fix bug where interrupts were restored during timing-critical section
-- Remove unnecessary logging
-- Add missing \n to dev_err_probe message
-- Remove linux/mod_devicetable.h include
-- Remove struct init padding
-- Remove unnecessary backlight_is_blank() check
-- Use appropriate delay functions
-- Set RFA explicitly and move comment
-- Format DT binding YAML
-- Link to v1: https://patch.msgid.link/20260806201541.101304-1-wf@dewith.io
-
----
-Wim de With (2):
-      dt-bindings: backlight: Add Orient Chip OCP8178
-      backlight: Add support for Orient Chip OCP8178
-
- .../bindings/leds/backlight/ocs,ocp8178.yaml       |  47 +++++
- MAINTAINERS                                        |   6 +
- drivers/video/backlight/Kconfig                    |  10 +
- drivers/video/backlight/Makefile                   |   1 +
- drivers/video/backlight/ocp8178_bl.c               | 231 +++++++++++++++++++++
- 5 files changed, 295 insertions(+)
----
-base-commit: 315f4bd234b3b8a3ed3a71fd4c53b110cf373720
-change-id: 20260808-ocp8178-backlight-9ead3e930ef3
-
-Best regards,
---  
-Wim de With <wf@dewith.io>
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+index 33b5136f7ce3..75bdad22bf69 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+@@ -1805,7 +1805,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 	v->DISPCLKWithRamping = 0;
+ 	v->DISPCLKWithoutRamping = 0;
+ 	v->GlobalDPPCLK = 0.0;
+-	/* DAL custom code: need to update ReturnBW in case min dcfclk is overriden */
++	/* DAL custom code: need to update ReturnBW in case min dcfclk is overridden */
+ 	v->IdealSDPPortBandwidthPerState[v->VoltageLevel][v->maxMpcComb] = dml_min3(
+ 			v->ReturnBusWidth * v->DCFCLK,
+ 			v->DRAMSpeedPerState[v->VoltageLevel] * v->NumberOfChannels * v->DRAMChannelWidth,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+index 8064c4b3fd25..3f62ea493787 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+@@ -2045,7 +2045,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 	v->DISPCLKWithRamping = 0;
+ 	v->DISPCLKWithoutRamping = 0;
+ 	v->GlobalDPPCLK = 0.0;
+-	/* DAL custom code: need to update ReturnBW in case min dcfclk is overriden */
++	/* DAL custom code: need to update ReturnBW in case min dcfclk is overridden */
+ 	{
+ 	double IdealFabricAndSDPPortBandwidthPerState = dml_min(
+ 			v->ReturnBusWidth * v->DCFCLKState[v->VoltageLevel][v->maxMpcComb],
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 16951a9550f2..d3fe6e024891 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -108,7 +108,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
+ 			/* alternate scrambler reset is required for Travis
+ 			 * for the case when external chip does not
+ 			 * provide sink device id, alternate scrambler
+-			 * scheme will  be overriden later by querying
++			 * scheme will  be overridden later by querying
+ 			 * Encoder features
+ 			 */
+ 			if (strncmp(
+@@ -124,7 +124,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
+ 			/* alternate scrambler reset is required for NUTMEG
+ 			 * for the case when external chip does not provide
+ 			 * sink device id, alternate scrambler scheme will
+-			 * be overriden later by querying Encoder feature
++			 * be overridden later by querying Encoder feature
+ 			 */
+ 			if (strncmp(link->dpcd_caps.branch_dev_name,
+ 				DP_VGA_LVDS_CONVERTER_ID_3,
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 204375f1eff8..587d26c742cd 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -584,7 +584,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
+ 		return false;
+ 	}
+ 
+-	/* set default inbox type if not overriden */
++	/* set default inbox type if not overridden */
+ 	if (dmub->inbox_type == DMUB_CMD_INTERFACE_DEFAULT) {
+ 		if (default_inbox_type != DMUB_CMD_INTERFACE_DEFAULT) {
+ 			/* use default inbox type as specified by DCN rev */
+diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
+index d3b56a9d84fb..d6bfb7b7d7b3 100644
+--- a/drivers/gpu/drm/msm/registers/gen_header.py
++++ b/drivers/gpu/drm/msm/registers/gen_header.py
+@@ -576,7 +576,7 @@ class Parser(object):
+             raise self.error(e)
+ 
+     def parse_varset(self, attrs):
+-        # Inherit the varset from the enclosing domain if not overriden:
++        # Inherit the varset from the enclosing domain if not overridden:
+         varset = self.current_varset
+         if "varset" in attrs:
+             varset = self.enums[attrs["varset"]]
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bios.c b/drivers/gpu/drm/nouveau/nouveau_bios.c
+index 38032bb95826..10cd606d01b9 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bios.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bios.c
+@@ -323,7 +323,7 @@ get_fp_strap(struct drm_device *dev, struct nvbios *bios)
+ 	/*
+ 	 * The fp strap is normally dictated by the "User Strap" in
+ 	 * PEXTDEV_BOOT_0[20:16], but on BMP cards when bit 2 of the
+-	 * Internal_Flags struct at 0x48 is set, the user strap gets overriden
++	 * Internal_Flags struct at 0x48 is set, the user strap gets overridden
+ 	 * by the PCI subsystem ID during POST, but not before the previous user
+ 	 * strap has been committed to CR58 for CR57=0xf on head A, which may be
+ 	 * read and used instead
+diff --git a/drivers/hwmon/abituguru.c b/drivers/hwmon/abituguru.c
+index ba8c68ae4595..5accd463599c 100644
+--- a/drivers/hwmon/abituguru.c
++++ b/drivers/hwmon/abituguru.c
+@@ -475,7 +475,7 @@ abituguru_detect_bank1_sensor_type(struct abituguru_data *data,
+ 	u8 val, test_flag, buf[3];
+ 	int i, ret = -ENODEV; /* error is the most common used retval :| */
+ 
+-	/* If overriden by the user return the user selected type */
++	/* If overridden by the user return the user selected type */
+ 	if (bank1_types[sensor_addr] >= ABIT_UGURU_IN_SENSOR &&
+ 			bank1_types[sensor_addr] <= ABIT_UGURU_NC) {
+ 		ABIT_UGURU_DEBUG(2, "assuming sensor type %d for bank1 sensor "
+diff --git a/drivers/mmc/core/block.c b/drivers/mmc/core/block.c
+index e760d13ee325..a02bb2fee874 100644
+--- a/drivers/mmc/core/block.c
++++ b/drivers/mmc/core/block.c
+@@ -86,7 +86,7 @@ MODULE_ALIAS("mmc:block");
+ static DEFINE_MUTEX(block_mutex);
+ 
+ /*
+- * The defaults come from config options but can be overriden by module
++ * The defaults come from config options but can be overridden by module
+  * or bootarg options.
+  */
+ static int perdev_minors = CONFIG_MMC_BLOCK_MINORS;
+diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c
+index ea310057fe3a..bc36d7578ce2 100644
+--- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c
++++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c
+@@ -3743,7 +3743,7 @@ static void bnx2x_warpcore_enable_AN_KR(struct bnx2x_phy *phy,
+ 		{MDIO_WC_DEVAD, MDIO_WC_REG_CL72_USERB0_CL72_TX_FIR_TAP, 0},
+ 	};
+ 	DP(NETIF_MSG_LINK, "Enable Auto Negotiation for KR\n");
+-	/* Set to default registers that may be overriden by 10G force */
++	/* Set to default registers that may be overridden by 10G force */
+ 	for (i = 0; i < ARRAY_SIZE(reg_set); i++)
+ 		bnx2x_cl45_write(bp, phy, reg_set[i].devad, reg_set[i].reg,
+ 				 reg_set[i].val);
+diff --git a/drivers/net/ethernet/chelsio/cxgb4vf/sge.c b/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
+index 31fab2415743..b4374ca1d653 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
++++ b/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
+@@ -2194,7 +2194,7 @@ static void __iomem *bar2_address(struct adapter *adapter,
+  *	@rspq: pointer to the new rxq's Response Queue to be filled in
+  *	@iqasynch: if 0, a normal rspq; if 1, an asynchronous event queue
+  *	@dev: the network device associated with the new rspq
+- *	@intr_dest: MSI-X vector index (overriden in MSI mode)
++ *	@intr_dest: MSI-X vector index (overridden in MSI mode)
+  *	@fl: pointer to the new rxq's Free List to be filled in
+  *	@hnd: the interrupt handler to invoke for the rspq
+  */
+diff --git a/drivers/net/ethernet/freescale/fman/fman_memac.c b/drivers/net/ethernet/freescale/fman/fman_memac.c
+index e2d8c58deef0..c1d588337751 100644
+--- a/drivers/net/ethernet/freescale/fman/fman_memac.c
++++ b/drivers/net/ethernet/freescale/fman/fman_memac.c
+@@ -1311,7 +1311,7 @@ int memac_initialization(struct mac_device *mac_dev,
+ 
+ 	/* Most boards should use MLO_AN_INBAND, but existing boards don't have
+ 	 * a managed property. Default to MLO_AN_INBAND rather than MLO_AN_PHY.
+-	 * Phylink will allow this to be overriden by a fixed link. We need to
++	 * Phylink will allow this to be overridden by a fixed link. We need to
+ 	 * be careful and not enable this if we are using MII or RGMII, since
+ 	 * those configurations modes don't use in-band autonegotiation.
+ 	 */
+diff --git a/drivers/net/ethernet/sfc/mcdi_pcol.h b/drivers/net/ethernet/sfc/mcdi_pcol.h
+index b9866e389e6d..9adfa058512f 100644
+--- a/drivers/net/ethernet/sfc/mcdi_pcol.h
++++ b/drivers/net/ethernet/sfc/mcdi_pcol.h
+@@ -13547,7 +13547,7 @@
+  * an ancestor of the current user (see MC_CMD_SET_VI_USER). Note that LL
+  * queues require this to be called after allocation but before initialisation
+  * of the queue. TLP options of a queue are fixed after queue is initialised,
+- * with the values set to current global value or they can be overriden using
++ * with the values set to current global value or they can be overridden using
+  * this command. At LL queue allocation, all overrides are cleared.
+  */
+ #define MC_CMD_SET_VI_TLP_PROCESSING 0xb1
+diff --git a/drivers/scsi/aic7xxx/aic79xx_osm.c b/drivers/scsi/aic7xxx/aic79xx_osm.c
+index feb1707feb7e..c9470f80626b 100644
+--- a/drivers/scsi/aic7xxx/aic79xx_osm.c
++++ b/drivers/scsi/aic7xxx/aic79xx_osm.c
+@@ -173,7 +173,7 @@ static adapter_tag_info_t aic79xx_tag_info[] =
+ 
+ /*
+  * The I/O cell on the chip is very configurable in respect to its analog
+- * characteristics.  Set the defaults here; they can be overriden with
++ * characteristics.  Set the defaults here; they can be overridden with
+  * the proper insmod parameters.
+  */
+ struct ahd_linux_iocell_opts
+diff --git a/drivers/scsi/sym53c8xx_2/sym53c8xx.h b/drivers/scsi/sym53c8xx_2/sym53c8xx.h
+index 11f5dc29aa59..8790f1315f75 100644
+--- a/drivers/scsi/sym53c8xx_2/sym53c8xx.h
++++ b/drivers/scsi/sym53c8xx_2/sym53c8xx.h
+@@ -128,7 +128,7 @@ struct sym_driver_setup {
+ /*
+  *  Initial setup.
+  *
+- *  Can be overriden at startup by a command line.
++ *  Can be overridden at startup by a command line.
+  */
+ #define SYM_LINUX_DRIVER_SETUP	{				\
+ 	.max_tag	= CONFIG_SCSI_SYM53C8XX_DEFAULT_TAGS,	\
+diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
+index a3355147f5de..90f3990e0060 100644
+--- a/drivers/spi/spi-omap2-mcspi.c
++++ b/drivers/spi/spi-omap2-mcspi.c
+@@ -1244,7 +1244,7 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ 		omap2_mcspi_set_fifo(spi, t, 0);
+ 
+ out:
+-	/* Restore defaults if they were overriden */
++	/* Restore defaults if they were overridden */
+ 	if (par_override) {
+ 		par_override = 0;
+ 		status = omap2_mcspi_setup_transfer(spi, NULL);
+diff --git a/drivers/video/fbdev/tridentfb.c b/drivers/video/fbdev/tridentfb.c
+index 9f055ba776c8..6501f6e2615a 100644
+--- a/drivers/video/fbdev/tridentfb.c
++++ b/drivers/video/fbdev/tridentfb.c
+@@ -58,7 +58,7 @@ static struct fb_fix_screeninfo tridentfb_fix = {
+ 	.accel = FB_ACCEL_NONE,
+ };
+ 
+-/* defaults which are normally overriden by user values */
++/* defaults which are normally overridden by user values */
+ 
+ /* video mode */
+ static char *mode_option;
+-- 
+2.25.1
 
