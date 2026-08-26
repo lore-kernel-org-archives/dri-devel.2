@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3852C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:56:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EE24C5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 14:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0331210ECF5;
-	Wed, 26 Aug 2026 14:56:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 856FA10ED27;
+	Wed, 26 Aug 2026 14:57:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="l46n0kyf";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="F1pMF2WI";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E35D610E2EA
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:56:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9728810E2EA
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 14:56:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1787756189;
- bh=8t/sbsojgSVtsvuQe2EZEnTeOhBDwhsSko+A8t4PTlA=;
+ s=mail; t=1787756183;
+ bh=GzR6HfRXlLcIDGEAtWZHYpe21WeYBskWqA2ihJfMXu4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=l46n0kyfpTVEhZUBej9yFgGZSGT1aReUNkNZd39z+Z2jfSJtgSAWEnHTv0TMaXThb
- z15TvLNU/TQFPjlOwqSQnR3VYVsLDWF5J887YVsr1qcNfl1BqlYhKAL13YANhkeEp5
- RFOHYwKw37KASVNc2QV8qddqaUUZrOTbNQ5c07l/FbXwoV/OObQsAjx7m5TvMJJq7w
- vJ41nhkLeu/3XwGXOecahWUcwS6+1YAd93wLIqJlEr9McCdC93itTt4G6t2WWRq1nW
- DqBuAfwYZJEtileSfrNxZou6uXrSorAZs7NIBifXWCLktYJkd0TDxTY673jnXvOqAz
- q5htxL0Eo/pNg==
+ b=F1pMF2WIpFr3bgmgMJNZHboiEY+5RK7VGsYFw2t7W8lqnY3ZUj4zuTfNxbu0g/NIP
+ 1UIEzl/VMC7gKabCS/w8vJ7izqHwAY9zwV1fF3tUG/ri06M7jz6n/SVmh09iifM942
+ VNSMOpyfwgq+drOJiKpHQX2N23GRdVYJ+0pbOpm7gJBEHkm974soMre+y4lT4L40BC
+ ITHs9EWhaKNYaKB9anxg51LEZrI2CWcc77W94QulSAQBUE6AN0V49/HFMYHXpXrlal
+ rllkLI3/rhr85L0ivS3e41CltKf7TZGB0ZzR31Q2BKzp+EIqq/nhKX61Ls/RAI3hBt
+ w2ZM8LcAPhnMA==
 Received: from fedora-32.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C24C17E0A4C;
- Wed, 26 Aug 2026 16:56:29 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A9E4717E0FE2;
+ Wed, 26 Aug 2026 16:56:22 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Wed, 26 Aug 2026 16:56:16 +0200
-Subject: [PATCH v4 17/18] drm/panthor: Fix the unplug logic
+Date: Wed, 26 Aug 2026 16:56:05 +0200
+Subject: [PATCH v4 06/18] drm/panthor: Drop unused vm argument passed to
+ panthor_vm_prepare_sync_only_op_ctx()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-panthor-unplug-fixes-v4-17-982cc8f4234b@collabora.com>
+Message-Id: <20260826-panthor-unplug-fixes-v4-6-982cc8f4234b@collabora.com>
 References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
 In-Reply-To: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -49,11 +50,11 @@ Cc: Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787756178; l=24422;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787756178; l=1147;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=8t/sbsojgSVtsvuQe2EZEnTeOhBDwhsSko+A8t4PTlA=;
- b=AyVUIHQQYMKp6zYF4U4eau1XSBlCheY6p2KaATOmygjtZ6jhO/xh9sSP+tOzwRnHaS4C1v5v4
- nFwkFuusdkdCJvx44N1ZfVbbxx4jGkWCQEKOZKkGT2Czniy3wcO4OdV
+ bh=GzR6HfRXlLcIDGEAtWZHYpe21WeYBskWqA2ihJfMXu4=;
+ b=9DfdLTo4Cssn5LWpAcGmXUCPxBNlXin39WE/2M2vfiCR6yNFx2E+DzVip/8Cl8GSmyOE4sxQ9
+ Hdi2bh0yDTLCdNo0MMGhWd+WvIW+do06n/q+BdHrBp+99BQcXJECJeo
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,737 +72,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The current unplug logic is broken in multiple subtle ways:
-
-1. it assumes that the HW is still accessible in multiple places,
-   which goes against the very concept of hot-unplug
-2. it doesn't take into account the fact the stop is a failible
-   operation, and that we theoretically have no guarantee that the HW
-   is actually stopped after we've released the resources
-
-Those issues are hard to reason about because Mali GPUs are on a
-platform bus, which is not hot-pluggable, so they are in practice
-always accessible as long as we can enable their dependencies (clocks,
-power-domain, ...). The problem is, if the GPU is in such a bad state
-it can't properly reset/resume, there are various operations that can't
-be done properly, and the unplug logic is clearly not ready for that.
-And more importantly, if we can't guarantee the reset was effective,
-we have to assume the HW still has access to the resource we passed to
-it, meaning we can't return these resources to the system without
-risking a UAF.
-
-This patch does several things:
-
-- it resets the GPU before calling the <component>_unplug() functions
-- it drops the pm_get/put that around the sub-component unplug calls
-  (no longer needed if we assume the HW is gone and can't be accessed
-  anymore)
-- it changes the _unplug() implementations to not touch the HW anymore
-- it let's each component know whether it should leak resources the HW
-  might have its hands on at the time the unplug happens
-- it releases all resources at unplug time even if open FDs exist. This
-  is needed otherwise we could have deferred cleanup work accessing
-  objects that have been freed
-
-Unfortunately, I couldn't find a way to break things into multiple
-commits while preserving bisectability.
+No need to pass a panthor_vm around if it's unused.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c |  50 +++++++++----
- drivers/gpu/drm/panthor/panthor_drv.c    | 122 ++++++++++++++++++++++++-------
- drivers/gpu/drm/panthor/panthor_fw.c     |   9 +--
- drivers/gpu/drm/panthor/panthor_gpu.c    |   2 +-
- drivers/gpu/drm/panthor/panthor_mmu.c    |  72 +++++++++++-------
- drivers/gpu/drm/panthor/panthor_pwr.c    |   2 +-
- drivers/gpu/drm/panthor/panthor_sched.c  |  90 +++++++++++++++++++++--
- 7 files changed, 267 insertions(+), 80 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 817312f598f3..328e601d80e8 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -83,13 +83,28 @@ void panthor_device_unplug(struct panthor_device *ptdev)
- 	/* Make sure we're not interrupted by resets while we're unplugging. */
- 	disable_work_sync(&ptdev->reset.work);
- 
--	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
-+	/* Disable RPM callbacks early, so we're sure external RPM calls won't
-+	 * interfere with our unplug logic.
-+	 */
-+	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
-+	pm_runtime_disable(ptdev->base.dev);
- 
- 	/* Call drm_dev_unplug() so any access to HW blocks happening after
- 	 * that point get rejected.
- 	 */
- 	drm_dev_unplug(&ptdev->base);
- 
-+	/* If the device is suspended we know for sure the device is idle and
-+	 * we can proceed with the rest of the unplug without issuing a
-+	 * SOFT_RESET.
-+	 */
-+	if (!pm_runtime_status_suspended(ptdev->base.dev)) {
-+		/* A soft-reset should guarantee that all components of the HW
-+		 * are off, meaning we can proceed with the rest of the unplug.
-+		 */
-+		panthor_hw_soft_reset(ptdev);
-+	}
-+
- 	/* We do the rest of the unplug with the unplug lock released,
- 	 * future callers will wait on ptdev->unplug.done anyway.
- 	 */
-@@ -112,13 +127,21 @@ void panthor_device_unplug(struct panthor_device *ptdev)
- 	panthor_gpu_unplug(ptdev);
- 	panthor_pwr_unplug(ptdev);
- 
--	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
--	pm_runtime_put_sync_suspend(ptdev->base.dev);
--
--	/* If PM is disabled, we need to call the suspend handler manually. */
--	if (!IS_ENABLED(CONFIG_PM))
-+	/* If the device is not suspended, suspend it now. Note that it covers
-+	 * the !CONFIG_PM case because pm_runtime_status_suspended() always
-+	 * returns false in that case.
-+	 */
-+	if (!pm_runtime_status_suspended(ptdev->base.dev)) {
-+		/* RPM callbacks were disabled at the beginning of this function,
-+		 * so we need to call the suspend hook manually to return the
-+		 * clks/regulators refs we still own.
-+		 */
- 		panthor_device_suspend(ptdev->base.dev);
- 
-+		/* Make sure the device is considered suspended by the PM core. */
-+		pm_runtime_set_suspended(ptdev->base.dev);
-+	}
-+
- 	/* Report the unplug operation as done to unblock concurrent
- 	 * panthor_device_unplug() callers.
- 	 */
-@@ -280,13 +303,6 @@ int panthor_device_init(struct panthor_device *ptdev)
- 	 * will vanish.
- 	 */
- 	disable_work(&ptdev->reset.work);
--	ret = devm_pm_runtime_enable(ptdev->base.dev);
--	if (ret)
--		return ret;
--
--	ret = pm_runtime_resume_and_get(ptdev->base.dev);
--	if (ret)
--		return ret;
- 
- 	/* If PM is disabled, we need to call panthor_device_resume() manually. */
- 	if (!IS_ENABLED(CONFIG_PM)) {
-@@ -295,6 +311,11 @@ int panthor_device_init(struct panthor_device *ptdev)
- 			return ret;
- 	}
- 
-+	pm_runtime_enable(ptdev->base.dev);
-+	ret = pm_runtime_resume_and_get(ptdev->base.dev);
-+	if (ret)
-+		goto err_rpm_disable;
-+
- 	ret = panthor_hw_init(ptdev);
- 	if (ret)
- 		goto err_rpm_put;
-@@ -364,6 +385,9 @@ int panthor_device_init(struct panthor_device *ptdev)
- 
- err_rpm_put:
- 	pm_runtime_put_sync_suspend(ptdev->base.dev);
-+
-+err_rpm_disable:
-+	pm_runtime_disable(ptdev->base.dev);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 3993e1a81495..f34050aae3fe 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1025,11 +1025,21 @@ static int panthor_ioctl_vm_destroy(struct drm_device *ddev, void *data,
- {
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_vm_destroy *args = data;
-+	int cookie, ret;
- 
--	if (args->pad)
--		return -EINVAL;
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
- 
--	return panthor_vm_pool_destroy_vm(pfile->vms, args->id);
-+	if (args->pad) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
-+
-+	ret = panthor_vm_pool_destroy_vm(pfile->vms, args->id);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
- 
- #define PANTHOR_BO_FLAGS		(DRM_PANTHOR_BO_NO_MMAP | \
-@@ -1219,11 +1229,21 @@ static int panthor_ioctl_group_destroy(struct drm_device *ddev, void *data,
- {
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_destroy *args = data;
-+	int cookie, ret;
- 
--	if (args->pad)
--		return -EINVAL;
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
- 
--	return panthor_group_destroy(pfile, args->group_handle);
-+	if (args->pad) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
-+
-+	ret = panthor_group_destroy(pfile, args->group_handle);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
- 
- static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
-@@ -1232,27 +1252,36 @@ static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_create *args = data;
- 	struct drm_panthor_queue_create *queue_args;
--	int ret;
-+	int cookie, ret;
- 
--	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
--		return -EINVAL;
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
-+
-+	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	ret = PANTHOR_UOBJ_GET_ARRAY(queue_args, &args->queues);
- 	if (ret)
--		return ret;
-+		goto out_dev_exit;
- 
- 	ret = group_priority_permit(file, args->priority);
- 	if (ret)
--		goto out;
-+		goto out_free_args;
- 
- 	ret = panthor_group_create(pfile, args, queue_args, file->client_id);
- 	if (ret < 0)
--		goto out;
-+		goto out_free_args;
-+
- 	args->group_handle = ret;
- 	ret = 0;
- 
--out:
-+out_free_args:
- 	kvfree(queue_args);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
- 	return ret;
- }
- 
-@@ -1261,8 +1290,15 @@ static int panthor_ioctl_group_get_state(struct drm_device *ddev, void *data,
- {
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_group_get_state *args = data;
-+	int cookie, ret;
- 
--	return panthor_group_get_state(pfile, args);
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
-+
-+	ret = panthor_group_get_state(pfile, args);
-+
-+	drm_dev_exit(cookie);
-+	return ret;
- }
- 
- static int panthor_ioctl_tiler_heap_create(struct drm_device *ddev, void *data,
-@@ -1272,11 +1308,16 @@ static int panthor_ioctl_tiler_heap_create(struct drm_device *ddev, void *data,
- 	struct drm_panthor_tiler_heap_create *args = data;
- 	struct panthor_heap_pool *pool;
- 	struct panthor_vm *vm;
--	int ret;
-+	int cookie, ret;
-+
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
- 
- 	vm = panthor_vm_pool_get_vm(pfile->vms, args->vm_id);
--	if (!vm)
--		return -EINVAL;
-+	if (!vm) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	pool = panthor_vm_get_heap_pool(vm, true);
- 	if (IS_ERR(pool)) {
-@@ -1305,6 +1346,9 @@ static int panthor_ioctl_tiler_heap_create(struct drm_device *ddev, void *data,
- 
- out_put_vm:
- 	panthor_vm_put(vm);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
- 	return ret;
- }
- 
-@@ -1315,14 +1359,21 @@ static int panthor_ioctl_tiler_heap_destroy(struct drm_device *ddev, void *data,
- 	struct drm_panthor_tiler_heap_destroy *args = data;
- 	struct panthor_heap_pool *pool;
- 	struct panthor_vm *vm;
--	int ret;
-+	int cookie, ret;
- 
--	if (args->pad)
--		return -EINVAL;
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
-+
-+	if (args->pad) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	vm = panthor_vm_pool_get_vm(pfile->vms, args->handle >> 16);
--	if (!vm)
--		return -EINVAL;
-+	if (!vm) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	pool = panthor_vm_get_heap_pool(vm, false);
- 	if (IS_ERR(pool)) {
-@@ -1335,6 +1386,9 @@ static int panthor_ioctl_tiler_heap_destroy(struct drm_device *ddev, void *data,
- 
- out_put_vm:
- 	panthor_vm_put(vm);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
- 	return ret;
- }
- 
-@@ -1466,10 +1520,16 @@ static int panthor_ioctl_vm_get_state(struct drm_device *ddev, void *data,
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_panthor_vm_get_state *args = data;
- 	struct panthor_vm *vm;
-+	int cookie, ret;
-+
-+	if (!drm_dev_enter(ddev, &cookie))
-+		return -ENODEV;
- 
- 	vm = panthor_vm_pool_get_vm(pfile->vms, args->vm_id);
--	if (!vm)
--		return -EINVAL;
-+	if (!vm) {
-+		ret = -EINVAL;
-+		goto out_dev_exit;
-+	}
- 
- 	if (panthor_vm_is_unusable(vm))
- 		args->state = DRM_PANTHOR_VM_STATE_UNUSABLE;
-@@ -1477,7 +1537,11 @@ static int panthor_ioctl_vm_get_state(struct drm_device *ddev, void *data,
- 		args->state = DRM_PANTHOR_VM_STATE_USABLE;
- 
- 	panthor_vm_put(vm);
--	return 0;
-+	ret = 0;
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
-+	return ret;
- }
- 
- static int panthor_ioctl_bo_set_label(struct drm_device *ddev, void *data,
-@@ -1730,9 +1794,13 @@ static void panthor_show_internal_memory_stats(struct drm_printer *p, struct drm
- 	char *drv_name = file->minor->dev->driver->name;
- 	struct panthor_file *pfile = file->driver_priv;
- 	struct drm_memory_stats stats = {0};
-+	int cookie;
- 
--	panthor_fdinfo_gather_group_mem_info(pfile, &stats);
--	panthor_vm_heaps_sizes(pfile, &stats);
-+	if (drm_dev_enter(&pfile->ptdev->base, &cookie)) {
-+		panthor_fdinfo_gather_group_mem_info(pfile, &stats);
-+		panthor_vm_heaps_sizes(pfile, &stats);
-+		drm_dev_exit(cookie);
-+	}
- 
- 	drm_fdinfo_print_size(p, drv_name, "resident", "memory", stats.resident);
- 	drm_fdinfo_print_size(p, drv_name, "active", "memory", stats.active);
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 731da736e372..aafe0a7daac1 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1290,11 +1290,9 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
- 
- 	disable_delayed_work_sync(&ptdev->fw->watchdog.ping_work);
- 
--	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
--		/* Make sure the IRQ handler cannot be called after that point. */
-+	/* Make sure the IRQ handler cannot be called after that point. */
-+	if (!pm_runtime_status_suspended(ptdev->base.dev))
- 		panthor_irq_suspend(&ptdev->fw->irq);
--		panthor_fw_stop(ptdev);
--	}
- 
- 	list_for_each_entry(section, &ptdev->fw->sections, node)
- 		panthor_kernel_bo_destroy(section->mem);
-@@ -1306,9 +1304,6 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
- 	 */
- 	panthor_vm_put(ptdev->fw->vm);
- 	ptdev->fw->vm = NULL;
--
--	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
--		drm_WARN_ON(&ptdev->base, panthor_hw_l2_power_off(ptdev));
- }
- 
- /**
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index 09ebe0294691..1cd19a02d2f2 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -132,7 +132,7 @@ void panthor_gpu_unplug(struct panthor_device *ptdev)
- 	unsigned long flags;
- 
- 	/* Make sure the IRQ handler is not running after that point. */
--	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
-+	if (!pm_runtime_status_suspended(ptdev->base.dev))
- 		panthor_irq_suspend(&ptdev->gpu->irq);
- 
- 	/* Wake-up all waiters. */
 diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 6368bf57b8f5..429aa96d699f 100644
+index b4e41556247a..44a44602b8ba 100644
 --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -1799,17 +1799,27 @@ panthor_vm_pool_get_vm(struct panthor_vm_pool *pool, u32 handle)
-  */
- void panthor_vm_pool_destroy(struct panthor_file *pfile)
- {
-+	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_vm *vm;
- 	unsigned long i;
-+	int cookie;
- 
- 	if (!pfile->vms)
- 		return;
- 
--	xa_for_each(&pfile->vms->xa, i, vm)
--		panthor_vm_pool_destroy_vm(pfile->vms, i);
-+	/* If device is gone VMs have been destroyed already, and the XArray
-+	 * contains pointers to objects that have been freed.
-+	 */
-+	if (drm_dev_enter(&ptdev->base, &cookie)) {
-+		xa_for_each(&pfile->vms->xa, i, vm)
-+			panthor_vm_pool_destroy_vm(pfile->vms, i);
-+
-+		drm_dev_exit(cookie);
-+	}
- 
- 	if (pfile->vms->dummy)
- 		drm_gem_object_put(&pfile->vms->dummy->base);
-+
- 	xa_destroy(&pfile->vms->xa);
- 	kfree(pfile->vms);
- }
-@@ -2243,6 +2253,11 @@ static bool vm_prep_for_cleanup(struct panthor_vm *vm)
- 	}
- 
- 	if (!drm_dev_enter(&ptdev->base, &cookie)) {
-+		/* Device is gone, take the unplug lock to make sure
-+		 * panthor_device_stop_before_unplug() has run and
-+		 * ::leak_active_resources is valid.
-+		 */
-+		guard(mutex)(&ptdev->unplug.lock);
- 		guard(mutex)(&ptdev->mmu->as.slots_lock);
- 
- 		/* If we're still on a slot after an unplug, it means
-@@ -3616,6 +3631,20 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
- 	return freed;
+@@ -1462,8 +1462,8 @@ static int panthor_vm_prepare_unmap_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+ 	return ret;
  }
  
-+static struct panthor_vm *
-+pop_user_owned_vm(struct panthor_device *ptdev)
-+{
-+	struct panthor_vm *vm;
-+
-+	guard(mutex)(&ptdev->mmu->vm.lock);
-+	vm = list_first_entry_or_null(&ptdev->mmu->vm.user_owned,
-+				      struct panthor_vm, user_node);
-+	if (vm)
-+		list_del_init(&vm->user_node);
-+
-+	return vm;
-+}
-+
- /**
-  * panthor_mmu_unplug() - Unplug the MMU logic
-  * @ptdev: Device.
-@@ -3625,32 +3654,21 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
-  */
- void panthor_mmu_unplug(struct panthor_device *ptdev)
+-static void panthor_vm_prepare_sync_only_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+-						struct panthor_vm *vm)
++static void
++panthor_vm_prepare_sync_only_op_ctx(struct panthor_vm_op_ctx *op_ctx)
  {
--	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
--		panthor_irq_suspend(&ptdev->mmu->irq);
--
--	mutex_lock(&ptdev->mmu->as.slots_lock);
--	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
--		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
--		int ret;
--
--		if (!as)
--			continue;
--
--		ret = panthor_mmu_as_disable(ptdev, i, false);
--		drm_WARN_ON(&ptdev->base, ret);
--
--		/* Drop the unmap restriction if the disabled worked, so we
--		 * don't leak resources in the normal situation.
--		 */
--		if (!ret)
--			atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
--
--		panthor_as_release_hw_slot_locked(as);
-+	/* Collect non-destroyed user VMs so we can return the ref owned by the
-+	 * XArray. If we don't do that, we leak all user VMs that were still
-+	 * alive at the point drm_dev_unplug() was called, because
-+	 * panthor_ioctl_vm_destroy() bails out early if the device is
-+	 * unplugged.
-+	 */
-+	for (struct panthor_vm *vm = pop_user_owned_vm(ptdev); vm;
-+	     vm = pop_user_owned_vm(ptdev)) {
-+		panthor_vm_destroy(vm);
- 	}
+ 	memset(op_ctx, 0, sizeof(*op_ctx));
+ 	op_ctx->flags = DRM_PANTHOR_VM_BIND_OP_TYPE_SYNC_ONLY;
+@@ -3031,7 +3031,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
+ 		if (!op->syncs.count)
+ 			return -EINVAL;
  
--	if (!list_empty(&ptdev->mmu->as.cleanup_list))
--		queue_work(ptdev->cleanup_wq, &ptdev->mmu->vm.cleanup_work);
--	mutex_unlock(&ptdev->mmu->as.slots_lock);
-+	if (!pm_runtime_status_suspended(ptdev->base.dev))
-+		panthor_irq_suspend(&ptdev->mmu->irq);
-+
-+	mmu_post_reset_cleanup(ptdev);
+-		panthor_vm_prepare_sync_only_op_ctx(op_ctx, vm);
++		panthor_vm_prepare_sync_only_op_ctx(op_ctx);
+ 		return 0;
  
- 	/* Make sure pending VM cleanups are processed before leaving. Those
- 	 * cleanups might schedule vm_bind_job cleanups, so keep this
-@@ -3658,6 +3676,8 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
- 	 */
- 	flush_work(&ptdev->mmu->vm.cleanup_work);
- 	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->as.cleanup_list));
-+	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->vm.list));
-+	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->vm.user_owned));
- 
- 	/* Ensure any pending job cleanup work are executed before returning,
- 	 * otherwise those might access objects that are gone if the work is
-diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-index c81e2cc053db..49eb6ff47620 100644
---- a/drivers/gpu/drm/panthor/panthor_pwr.c
-+++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-@@ -458,7 +458,7 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
- 		return;
- 
- 	/* Make sure the IRQ handler is not running after that point. */
--	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
-+	if (!pm_runtime_status_suspended(ptdev->base.dev))
- 		panthor_irq_suspend(&ptdev->pwr->irq);
- 
- 	/* Wake-up all waiters. */
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index bd5dcf4cb580..7d2815b4db0f 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -2548,7 +2548,7 @@ static void tick_work(struct work_struct *work)
- 		return;
- 
- 	ret = panthor_device_resume_and_get(ptdev);
--	if (drm_WARN_ON(&ptdev->base, ret))
-+	if (ret)
- 		goto out_dev_exit;
- 
- 	/* If the tick is stopped, calculate when the next tick would be */
-@@ -3100,12 +3100,17 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
- void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
- {
- 	struct panthor_group_pool *gpool = pfile->groups;
-+	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_group *group;
- 	unsigned long i;
-+	int cookie;
- 
- 	if (IS_ERR_OR_NULL(gpool))
- 		return;
- 
-+	if (!drm_dev_enter(&ptdev->base, &cookie))
-+		return;
-+
- 	xa_lock(&gpool->xa);
- 	xa_for_each_marked(&gpool->xa, i, group, GROUP_REGISTERED) {
- 		guard(spinlock)(&group->fdinfo.lock);
-@@ -3115,6 +3120,8 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
- 		group->fdinfo.data.time = 0;
- 	}
- 	xa_unlock(&gpool->xa);
-+
-+	drm_dev_exit(cookie);
- }
- 
- struct panthor_job_ringbuf_instrs {
-@@ -3320,7 +3327,7 @@ queue_run_job(struct drm_sched_job *sched_job)
- 	}
- 
- 	ret = panthor_device_resume_and_get(ptdev);
--	if (drm_WARN_ON(&ptdev->base, ret))
-+	if (ret)
- 		return ERR_PTR(ret);
- 
- 	mutex_lock(&sched->lock);
-@@ -3873,14 +3880,23 @@ int panthor_group_pool_create(struct panthor_file *pfile)
- void panthor_group_pool_destroy(struct panthor_file *pfile)
- {
- 	struct panthor_group_pool *gpool = pfile->groups;
-+	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_group *group;
- 	unsigned long i;
-+	int cookie;
- 
- 	if (IS_ERR_OR_NULL(gpool))
- 		return;
- 
--	xa_for_each(&gpool->xa, i, group)
--		panthor_group_destroy(pfile, i);
-+	/* If device is gone groups have been destroyed already, and the XArray
-+	 * contains pointers to objects that have been freed.
-+	 */
-+	if (drm_dev_enter(&ptdev->base, &cookie)) {
-+		xa_for_each(&gpool->xa, i, group)
-+			panthor_group_destroy(pfile, i);
-+
-+		drm_dev_exit(cookie);
-+	}
- 
- 	xa_destroy(&gpool->xa);
- 	kfree(gpool);
-@@ -3899,11 +3915,16 @@ panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
- 				     struct drm_memory_stats *stats)
- {
- 	struct panthor_group_pool *gpool = pfile->groups;
-+	struct panthor_device *ptdev = pfile->ptdev;
- 	struct panthor_group *group;
- 	unsigned long i;
-+	int cookie;
-+
-+	if (!drm_dev_enter(&ptdev->base, &cookie))
-+		return;
- 
- 	if (IS_ERR_OR_NULL(gpool))
--		return;
-+		goto out_dev_exit;
- 
- 	xa_lock(&gpool->xa);
- 	xa_for_each_marked(&gpool->xa, i, group, GROUP_REGISTERED) {
-@@ -3912,6 +3933,9 @@ panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
- 			stats->active += group->fdinfo.kbo_sizes;
- 	}
- 	xa_unlock(&gpool->xa);
-+
-+out_dev_exit:
-+	drm_dev_exit(cookie);
- }
- 
- static void job_release(struct kref *ref)
-@@ -4057,22 +4081,78 @@ void panthor_job_update_resvs(struct drm_exec *exec, struct drm_sched_job *sched
- void panthor_sched_unplug(struct panthor_device *ptdev)
- {
- 	struct panthor_scheduler *sched = ptdev->scheduler;
-+	struct panthor_group *group, *tmp_group;
-+	LIST_HEAD(groups);
- 
- 	disable_delayed_work_sync(&sched->tick_work);
- 	disable_work_sync(&sched->sync_upd_work);
- 
- 	mutex_lock(&sched->lock);
-+
-+	/* Do a pass on the on-slot groups, and schedule termination. */
-+	for (u32 i = 0; i < sched->csg_slot_count; i++) {
-+		struct panthor_csg_slot *csg_slot = &sched->csg_slots[i];
-+		struct panthor_group *group = csg_slot->group;
-+
-+		if (!group)
-+			continue;
-+
-+		group_get(group);
-+		group->state = PANTHOR_CS_GROUP_TERMINATED;
-+		group_unbind_locked(group);
-+		list_del_init(&group->wait_node);
-+		group_queue_work(group, term);
-+
-+		group_put(group);
-+	}
-+
-+	/* Now take care of the non-resident groups. */
-+	for (u32 i = 0; i < ARRAY_SIZE(sched->groups.runnable); i++)
-+		list_splice_init(&sched->groups.runnable[i], &groups);
-+
-+	for (u32 i = 0; i < ARRAY_SIZE(sched->groups.idle); i++)
-+		list_splice_init(&sched->groups.idle[i], &groups);
-+
-+	list_for_each_entry_safe(group, tmp_group, &groups, run_node) {
-+		list_del_init(&group->run_node);
-+		list_del_init(&group->wait_node);
-+		group_queue_work(group, term);
-+	}
-+
-+	/* All groups that still have a user handle need a group_put()
-+	 * because after drm_dev_unplug() has been called those handles
-+	 * can't be released through the GROUP_DESTROY IOCTL anymore.
-+	 */
-+	list_for_each_entry_safe(group, tmp_group, &sched->groups.user_owned, user_node) {
-+		list_del_init(&group->user_node);
-+		group_put(group);
-+	}
-+
- 	if (sched->pm.has_ref) {
- 		pm_runtime_put(ptdev->base.dev);
- 		sched->pm.has_ref = false;
- 	}
- 	mutex_unlock(&sched->lock);
- 
-+	/* Ensure all term work are done. */
-+	flush_workqueue(sched->wq);
-+
-+	/* Ensure all tiler OOM work are done. */
-+	flush_workqueue(sched->heap_alloc_wq);
-+
- 	/* Ensure any pending group release work are executed before returning,
- 	 * otherwise those might access objects that are gone if the work is
- 	 * executed after other components are unplugged.
- 	 */
- 	flush_workqueue(ptdev->cleanup_wq);
-+
-+	/* After we've flushed the workqueues, all lists should be empty. */
-+	drm_WARN_ON(&ptdev->base, !list_empty(&sched->groups.user_owned));
-+	for (u32 i = 0; i < ARRAY_SIZE(sched->groups.runnable); i++)
-+		drm_WARN_ON(&ptdev->base, !list_empty(&sched->groups.runnable[i]));
-+
-+	for (u32 i = 0; i < ARRAY_SIZE(sched->groups.idle); i++)
-+		drm_WARN_ON(&ptdev->base, !list_empty(&sched->groups.idle[i]));
- }
- 
- static void panthor_sched_fini(struct drm_device *ddev, void *res)
+ 	default:
 
 -- 
 2.55.0
