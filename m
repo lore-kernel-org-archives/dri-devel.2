@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B51E8C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:36:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C75F1C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:36:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09C3C10ED4A;
-	Wed, 26 Aug 2026 16:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0032910ED4D;
+	Wed, 26 Aug 2026 16:36:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="UnBxBrYi";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="b8s4PdEt";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD3610ED4A
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:02 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49800c6a846so9407495e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:02 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44E7D10ED4D
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:36:04 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4954a9e8490so394035e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:36:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762160; x=1788366960;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762163; x=1788366963;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0nvAIuzjWICzRaerW41m6ADpOsCWM5ip30oIcAiVpx0=;
- b=UnBxBrYiQbJSAtqgAy37/sVLdAix9CX7XaEJmVPSMT5lzluWarLl+zeN60oHCBDCtj
- NPB9YL8nnGCZ7FTFXzvg+4GdD21gXiF+Mo/7SA36t5YfIYxZk6bZdjSPrKLARO5AAtEd
- H+8WMU+i4xm0dmbZ6SoZXTosxWlXY0YP0r03OynbvopMU9yrM8yLIxxkUMdQ95/5RGeS
- b7Rpfd0T/naB3Abwprc+9IAYP2T2kePEmMj7WsVjPN+HQPGpIn/a2A1El7NbHGMPMxzQ
- 0MunIvt1/BMidQO/M5W48v5BhKgVOHB19aAf6QVATuhQl7wpF8ULEQ5FBtFrE3F1MT9Q
- hhVA==
+ bh=3EL6Jw26lW1z9BDf8CloPoJWlkDCbIL/77zIh+v+UO4=;
+ b=b8s4PdEthbVJxpij9ZhWaCIM8iTvs1XQfr4dmnaYbGfuqptMFHeNCZAGF0ZhM8uZMG
+ bDTU2GNCKuYpaqgCawEUaub4fH6eioBdIRraRhVcs93n1Bd2ixdMspnyB3wE30RUEj5F
+ HF+brIS/6s0r51JwGfF20zsaqsR+6lLa4pYE8Xn8hGRKXmQkS9evvivXbZMMAi5dGz9P
+ D6jqVbSPDN0hbrwd+HLa0IqEyguB8i8fauvOXTrXpvDYHdrfp4d+EYKDNAwXgtOVnVH0
+ c2HSDegMBs0rGGNuJROD4FcEovi0ThWXJmTgPWHyQIWgIaPhH2p8Hl1pgT4RxYthzObV
+ qApA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762160; x=1788366960;
+ d=1e100.net; s=20251104; t=1787762163; x=1788366963;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0nvAIuzjWICzRaerW41m6ADpOsCWM5ip30oIcAiVpx0=;
- b=g4jpHMuv1dZp/Mhii8Z3JuFvZI4AAbyk4sY0uZI7Gd6aooY2mVAO3PH3VOgrMSipTT
- PVKgOsLEUy4jOqpp10gG1GOElWYVwGkcm4vZvG5NreRKbVMDyNCje/DLMxby7Sccj4Rl
- k/gOJM5Hk9hE4LaAkFPOuqhJSG2kxviZ6sDFLT9hzULIbUdVxp2eErkAlO4PWWY6HpQD
- /D5qLof0tfxv5BulO8CxL9CM8xTmgTe1WGdgPnR3n3cKimMJTYMbFNfdBqt7mASrLWPc
- MH5ZoTcN35GFqOxB9+SBOfRV7P8shWUNiMvDl3fc/dmVy2/036JOags5wEdbk65v7ylF
- yEWQ==
-X-Gm-Message-State: AFuF++nG+ddQod1ahWxxogvBIbqXRS5iKZ1fBX64xWB2IKNcyuyJ05cg
- +KO5sbOeHV2LSl3mtyFFOlM0pS4K/aiajhbWVIZr5CdO/LwaxvQw6b4dxq2/CsEDGQoSQcz64bG
- NN4Rn3A==
-X-Gm-Gg: AR+sD13M05nFGDumtpXD5ylV2Q+/IoToAHUoOJ31RCM6jW389BRxtyzzehV3w1oeYO5
- YzrhhbP5iMhu0wQnmjEtA9dmFZrMqGTKANcz0aANhWZzUypISh/lv4mLPyQJG2lExQ0IWL0hAnu
- iBeUtTkfY1ZDCwM+7zc9AU827X5OCjZpaEdMaQRSaRhAhi7WiIUybL/uQptcVCE7DY5BiwJ6u3t
- 0OxPhSbaUfJWx2fU4NYrQ+knh3OGzO/6Is6mTDWGRVNOWQyLMVAkTLM7GI0mLmIoFLCXRtmn6/R
- NNQzQTv0L+ETRUV/Xyfu7zEgloSeSMbH+AvBjTsvJyBkKMfXi5X4Qucon9o8K4PNJ8pg7DsfrC9
- qbnVKSNEjGes6ORAK4pmKlp/vnW87rdi/kaPsdTmvbV6qtC6WeL2gO8wdCoYEMNWQE7uM93AZds
- bMd6342Clr+JQz8IRt7GaH1lRWxa8xKBj3ECvys56CpDaGxGSuVUX7VJDurCF9QxpMC9OiijnBM
- b2ih98GS1gsIGA=
-X-Received: by 2002:a05:600c:4503:b0:499:8b13:3a98 with SMTP id
- 5b1f17b1804b1-499dc6f6856mr83360345e9.4.1787762160620; 
- Wed, 26 Aug 2026 09:36:00 -0700 (PDT)
+ bh=3EL6Jw26lW1z9BDf8CloPoJWlkDCbIL/77zIh+v+UO4=;
+ b=YWKqTJVndEA4D2tp9llcbx2kCacp+U3kduxtd+SHT2S/zGxCtq2uF9Ydf6T/0dusOT
+ EdVYGFSTDrFC1G/WJ512SpphbS7hejWIo1F3rj6tlSx7XOY6SPWiLBOMivcdIOSTCtyy
+ c8uRc7VV0B5vlbGCjEC35cmq4qycOfBdyDXKu0GzyOlOG6vOjAiY8isUO38clKvb1dkc
+ neeioweBbdWmlwWnbi9rmnITQ96sHM0tYhgRkKCcVtazSHabceQ4jfHAupimte8raOk7
+ T1MVxWkAJF/bycx1ZnVsU9Lg4CjjxihAcsLS2na0jZB0vtSx3uxNA0njPv0Nh18JuLK+
+ KgyA==
+X-Gm-Message-State: AFuF++lIAyhwEe1fAqChBzZhhh06IRbXYiumXdbCyUYlEpMG4lgDY90i
+ a3m4egJWKZUvVaBarD4GKiHpUAXuMp7mmKJnlcUuqXB0k8FEJXZHp3jm2m+FHXulGo0pRXtL4Z4
+ qGHPfcEMh
+X-Gm-Gg: AR+sD10PTeAsWR5NLnLZrvo9H7IcN3iPd3//rB4NUqdVuIvKRiJlwXe3CYV3zNG7424
+ 1kz2raZQW5NL4pjDaHf6lG9afK5jfS6JvgIbQHbIuo5a4J3FYc84AqChBcFpQuw2juZrllppvQ1
+ 9xcIaHf91Yti5Q4JIvOCHImb57jU+Tuf4q/NZarjvg7Ij/hiJSZFLVBkpqukP6/WWTliko670bP
+ 6qjShbMyEdrdIO/SGqMOuOAID7+RQayDRZVREgQePR9LY1Jvc/xZEso7E2X0GOokUI9lztfCfdy
+ 3RlMIq8rxeFyOBwXXnyzobejxjaLtgt/IFbpOPnJ0A+xvLbzuBrnm/x+82prGhE3pEkWdaOEhNZ
+ PhmiGXT68pFaUC1bKPulVPoUCbAbXq036t3BzlF1S0V+bBKWGjXnwboDIC5f/uX8TS8d0KXA0XY
+ wWpx343jBlhqncOnSqi1+GFTHlVkrfF/UnPdy5f8rdcibuRwKZ4A4MiLZr9KQgO7SQdeIVh694l
+ lIvHOM/+MzRS3SxbM+HfhjHPrj/q3nPAIGw
+X-Received: by 2002:a05:600c:800f:b0:499:59fd:dbfc with SMTP id
+ 5b1f17b1804b1-49b0dea9491mr4564165e9.1.1787762162730; 
+ Wed, 26 Aug 2026 09:36:02 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.35.59
+ 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:36:00 -0700 (PDT)
+ Wed, 26 Aug 2026 09:36:01 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
+Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
@@ -76,12 +76,11 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, Danilo Krummrich <dakr@kernel.org>,
  Tamir Duberstein <tamird@kernel.org>,
  Alexandre Courbot <acourbot@nvidia.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Lyude Paul <lyude@redhat.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 13/23] rust: drm: kms: plane: add FB_DAMAGE_CLIPS property
- support
-Date: Wed, 26 Aug 2026 17:31:44 +0100
-Message-ID: <20260826163359.4998-14-mike@fireburn.co.uk>
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 14/23] rust: drm: add a safe constructor for owned
+ registration data
+Date: Wed, 26 Aug 2026 17:31:45 +0100
+Message-ID: <20260826163359.4998-15-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -102,55 +101,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Userspace can only hand a driver the rectangles that actually changed
-between two framebuffers if the plane advertises the FB_DAMAGE_CLIPS
-property. Without it a compositor supplies nothing, and unchanged
-commits are indistinguishable from missing damage information --
-which forces a driver either to freeze or to re-send whole frames.
+A DRM registration whose associated data is 'static cannot outlive any
+references held by that data. Add a safe constructor for this common
+case so drivers do not have to promise manually that their registration
+will never be forgotten.
 
-That matters most for drivers uploading their scanout over a slow link.
-Wrap `drm_plane_enable_fb_damage_clips()` so a plane can attach
-the property before registration, alongside the existing rotation
-property helper.
-
-The consumer is the vino DisplayLink driver, which encodes and sends
-only the changed strips of each frame over USB.
+Keep the existing unsafe constructor for registration data which
+genuinely borrows from the bus binding.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/kms/plane.rs | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ rust/kernel/drm/driver.rs | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
-index bc830503b142..62de8a1dad19 100644
---- a/rust/kernel/drm/kms/plane.rs
-+++ b/rust/kernel/drm/kms/plane.rs
-@@ -438,6 +438,27 @@ pub fn create_rotation_property(
-             )
-         })
-     }
-+
-+    /// Attaches the `FB_DAMAGE_CLIPS` property to this plane.
-+    ///
-+    /// Userspace can then hand the driver the list of rectangles that actually changed between two
-+    /// framebuffers, instead of leaving it to infer damage from a buffer swap. Drivers that upload
-+    /// their scanout over a slow link -- USB display adapters especially -- need this to send only
-+    /// the changed regions.
-+    ///
-+    /// Without the property attached, a compositor cannot supply clips at all: unchanged commits
-+    /// arrive with an empty list, which is indistinguishable from "no damage information".
-+    ///
-+    /// The clips are read back through
-+    /// [`RawPlaneState::damage_clips`](crate::drm::kms::plane::RawPlaneState::damage_clips).
-+    ///
-+    /// Call this during [`KmsDriver::create_objects`](crate::drm::kms::KmsDriver::create_objects),
-+    /// before the device is registered.
-+    pub fn enable_fb_damage_clips(&self) {
-+        // SAFETY: `as_raw()` is a valid, not-yet-registered plane; attaching a property before
-+        // registration is exactly what this helper is for.
-+        unsafe { bindings::drm_plane_enable_fb_damage_clips(self.as_raw()) }
-+    }
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index 356be329a2b6..2e7987a71a7a 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -169,7 +169,8 @@ pub struct Registration<'a, T: Driver> {
  }
  
- /// A trait implemented by any type that acts as a [`struct drm_plane`] interface.
+ impl<'a, T: Driver> Registration<'a, T> {
+-    /// Register a new [`UnregisteredDevice`](drm::UnregisteredDevice) with userspace.
++    /// Registers a new [`UnregisteredDevice`](drm::UnregisteredDevice) with borrowed
++    /// registration data.
+     ///
+     /// # Safety
+     ///
+@@ -177,7 +178,7 @@ impl<'a, T: Driver> Registration<'a, T> {
+     /// [`Drop`] implementation from running, since the registration data may contain borrowed
+     /// references that become invalid after `'a` ends.
+     pub unsafe fn new<E>(
+-        dev: &'a device::Device<device::Bound>,
++        dev: &device::Device<device::Bound>,
+         drm: drm::UnregisteredDevice<T>,
+         reg_data: impl PinInit<T::RegistrationData<'a>, E>,
+         flags: usize,
+@@ -243,6 +244,29 @@ pub fn device(&self) -> &drm::Device<T> {
+     }
+ }
+ 
++impl<T: Driver> Registration<'static, T> {
++    /// Registers a new [`UnregisteredDevice`](drm::UnregisteredDevice) with owned registration
++    /// data.
++    ///
++    /// Unlike [`Registration::new`], this constructor is safe because its registration
++    /// data cannot contain non-static references. Forgetting the returned registration can leak
++    /// the DRM device and its parent reference, but cannot leave a live registration referring to
++    /// expired data.
++    pub fn new_static<E>(
++        dev: &device::Device<device::Bound>,
++        drm: drm::UnregisteredDevice<T>,
++        reg_data: impl PinInit<T::RegistrationData<'static>, E>,
++        flags: usize,
++    ) -> Result<Self>
++    where
++        Error: From<E>,
++    {
++        // SAFETY: `RegistrationData<'static>` cannot borrow data that expires while a forgotten
++        // registration remains accessible.
++        unsafe { Self::new(dev, drm, reg_data, flags) }
++    }
++}
++
+ // SAFETY: `Registration` doesn't offer any methods or access to fields when shared between
+ // threads, hence it's safe to share it.
+ unsafe impl<T: Driver> Sync for Registration<'_, T> {}
