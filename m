@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED00C5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED6C4C61DC6
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6878F10E312;
-	Wed, 26 Aug 2026 16:34:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2270610E314;
+	Wed, 26 Aug 2026 16:34:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="z0Pp2ziU";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="dfJr9TQY";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3121510E30D
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:34:46 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so10267275e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:34:46 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9A510E314
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:34:48 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4996f1ee4a4so8497835e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:34:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762084; x=1788366884;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762087; x=1788366887;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=m7iMM34EcFPmhnGpJzLucaa/0lRT/oiuDhD8v2Q+RQs=;
- b=z0Pp2ziUJ+yCwAghINXUoZdTxGFTBcjrE9s9KNlTF/bA4mw6itFdnmdgWkmX6v+Otg
- 2CMbkPe+YGuGi0yg3NNaLegwtHiVlYBf5on7YOhdXNkBAGHqMgATGMrx3MwSg7oeNthL
- zsaI79zB5Xgz9ebazbGn5pI0421vHUxx+bGRmNddIcRgPqBhy0FISmKzAjfJM+wU1tT0
- Xfk/M0zwgJ2hZWkk8SaP8GNWS6BJs0ISRgIFIYIJx3Hi+c6rLeG4c3QeL8w+1Brp+rI+
- cg3f1RZsTpg3f8Vb0qZsg9uKMBvVplHj1Ewc7/Dl7qdqbYI86n1weWK70U/Rb4Jp2EcZ
- 0vBQ==
+ bh=dA2lE/gtA/CbYkkrJu7IaBkzRDM8/vT0VxRhU8+R4ns=;
+ b=dfJr9TQYbjEwgCge5Y1abq4yaijPqu0DemSpqQ/3jOVmVNuv5AKpj5KRGoKJJsoPMQ
+ Ab8fx1AFlnsPYW5b/p6vIpOgCchZFviMUWGzjg5sK3PbLyF1xkIFWoDsrN66ZV1ob+Jk
+ +jyz3BsSFk+sM6FqWURsfQql2wordwJchXuMamyyj3zZYfu6R9R6rT6Ak9okd144dJH+
+ BOYqoxf3L3rcP0d4iJK9Tf7QaFe9/OD3JiQgrVFiPykuvbvc7VRB6rYH5rtJ7GVKWukQ
+ +I9hU1XNDyFeJ0ipJ8vKus2glps4uIjepBLlCXZc33sdhDBI5er2iY/i+F+TMCvEzo+K
+ lWAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787762084; x=1788366884;
+ d=1e100.net; s=20251104; t=1787762087; x=1788366887;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=m7iMM34EcFPmhnGpJzLucaa/0lRT/oiuDhD8v2Q+RQs=;
- b=iap6j5YW63bejtC/x/Oa4P3EEoA0ArXqGAEu1z+UpdKTj3EusyiMFJPKZtQya4B7kZ
- TWB1B7rf+vcYCnv15gynd2M9Ttb3KMFmw75h1FTnNK6ypcfXfxRdmtUNYNc9A6e9NOu6
- HeCjlgdTduYqAAPXAy1fC5PHy3m+Mr6oabVVIGnyh1i3/jqadD/XhFaEWFUT0F3IvJHB
- lARF0sBvj97mB6lJqx4dAKUCDBZdymKmnIEs/D+MYhlU/OHHxHfqrkR7n6SlsKStjIiR
- 7/OjW/IA5mkoblb6sNKmmQhekF1hxShh56HY6HcmWgKR7Z2WrFQwI67JQxUrJYQR7jIz
- QQeQ==
-X-Gm-Message-State: AFuF++mVoX7JGXdpyZfLRVjurNkvcz5U+XS7FgHmutW960PnH3PGHIvQ
- Aonp9wbqEZ+YFG8T8yqYWUqM0u4C3PmnHZ2wpwXlxA0v1gPYjEZBPl7AYL3ghfdK6mcK2kTujWw
- +OOIQM8kC
-X-Gm-Gg: AR+sD133POasTeAMNMUju3STatNwCjNnfLetyHjtdikhRSYC6/XyA80SYDuNy9lvN3W
- gfyacb4Oks1qsfly0vGzvukjsNZI8zqzFCXqzUf6hPRZcycdB7Bybotw7FdMq+GlxI/Zeh2aVqb
- QWejPEioBnBPclZNSJxXeXlXV2kALjtvhAmbKrfn3GYqeStVpNXjMe21lHwbRp++920tya87Q95
- tL/86BUpVdQd510MpkI1YXXS9dcvFutl8G1tRGaAn5rDtPJUd+BFuWkXVG8F3l4WhoHNEz1Gl4v
- gUkl4oCPJBmsmhVkOWthfg3BO+Rq79B/9lzuD2x+GH+K84je/83/PrGmxzcOu9gXQua9DxffVxW
- YcYXGEqJJ0wRid6JDYfoamRI76VPiJY8JD8Z97c7EoEXncBImBuamCiaNG8UB/mJ1aAm0IbX4/n
- vXW4/17Kw5ceQ74vRi3/nAEeJsSVIf4Z6RMapBQ3EuS9Dau4ybjqgK991wFLbFIdL+tiTQkki7o
- 0/HDPbBN+lhYlLVrTKamoprl/ORatbd58mVN9QfvGZizcI=
-X-Received: by 2002:a05:600c:c87:b0:495:7888:281c with SMTP id
- 5b1f17b1804b1-499dc693e38mr69082575e9.0.1787762084591; 
- Wed, 26 Aug 2026 09:34:44 -0700 (PDT)
+ bh=dA2lE/gtA/CbYkkrJu7IaBkzRDM8/vT0VxRhU8+R4ns=;
+ b=dr2PDz3AdGuWovcYQX7Vo3Ku6U9tStgnvPcgiYSKT02GdVr8AIBrKVQDSYpEJ+A8kl
+ yKPgcjP84wDtoYjR2ubW23EpV01BfOlAIWhUk8/t3tPNFCQIwL2/mUyj3s7MGGbMOW6B
+ 8UHxMryM31RUFxRlyoTee4CtEHnZyFhvVjvZdWC+vfEqoKeprbU4y9gomFO6bLVyIg5V
+ YxPUS6ysyzX+MuxT6WhhA+aWsqpBYZOH94QZv3bRjH/a5qxzZWXwPy3G3zCIeYIUzj9Z
+ PQDgEBrEjEywO/TkcmEkejEqtDUeo2HkWyFmfoi8gUFACdiLX6P5uF9bjIZNHmMz4X2/
+ JuIg==
+X-Gm-Message-State: AFuF++ku+xq7nkdAy4Pl/1mHksdhdmitbEXMBA71yRyCBNmk7stK/gNy
+ fl7g+UfCIJOtdm8r5TmUtYrm1LSO/b8v9mcDf1HTpHHR2WLGEXNsVYf3p+dajk+oy3UkEEIvDQz
+ pydzPDje/
+X-Gm-Gg: AR+sD12+lUxBZ8krkLQlfcc+c/pJ8hVA5iVscx7DT8On/JzVtdjbH/KdTAmWhkW+oYv
+ yGLqC+rLMoEAAUViDyKU0AieCxF6D4OBjQuyo1AbtzW1lontorMCVpim+2Qa0kVbxHNEjvNTGY4
+ BWF5uD/fK2Pvi8idwk5jN7CNxXIRCoqFV4Gi3SveKrlBYdquR6o95RQERYRKAQ4VDqzydI1lWm9
+ YVwFCBN9AxXyJoJ3uQKCnVojSj0pXf3AgH3b+IiVA7TB0j7gxttb2nZuGUKFe5NNJVqLi2XC6Cc
+ VMzW1hJ6cdXYXqidwTp6U08MFLUGVPJueqRb/B+OyG7LpGpt1vE7A82gIr+G7wZKwgl1qrE00c3
+ T1SYxSxcGINRlt7PgtlV1WkRtBYXdaPwqx588B6Yx13K9ZbwxFmcTyVCsyQ6F2JKhmhg3CX/hnt
+ ogq6CleqL9fArI6ger8HbRbIeN9NvnuNMWkRwVFCFzebNkU9IhrTnYjAZFrMWOFjneZ6foxz/Xf
+ DfbGQikoGpukAWeCFDzhwHAooegq0i7z21h
+X-Received: by 2002:a05:600c:190e:b0:499:a277:e8c8 with SMTP id
+ 5b1f17b1804b1-499dc725b50mr73945485e9.13.1787762086859; 
+ Wed, 26 Aug 2026 09:34:46 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.34.43
+ 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.34.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2026 09:34:43 -0700 (PDT)
+ Wed, 26 Aug 2026 09:34:45 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+Cc: Mike Lothian <mike@fireburn.co.uk>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
@@ -76,11 +76,12 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, David Airlie <airlied@gmail.com>,
  Tamir Duberstein <tamird@kernel.org>,
  Alexandre Courbot <acourbot@nvidia.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Lyude Paul <lyude@redhat.com>, rust-for-linux@vger.kernel.org,
+ Lyude Paul <lyude@redhat.com>, Janne Grunau <j@jananu.net>,
+ Asahi Lina <lina+kernel@asahilina.net>, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/23] rust: drm: kms: constrain connector encoder attachment
-Date: Wed, 26 Aug 2026 17:31:34 +0100
-Message-ID: <20260826163359.4998-4-mike@fireburn.co.uk>
+Subject: [PATCH v3 4/23] rust: drm: reject cross-device GEM handle creation
+Date: Wed, 26 Aug 2026 17:31:35 +0100
+Message-ID: <20260826163359.4998-5-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -101,49 +102,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_connector_attach_encoder() requires both objects to belong to the same
-DRM device. The safe wrapper previously accepted any AsRawEncoder,
-including an encoder from another driver or device.
+The Rust type bounds prove that a GEM object and file use the same
+driver implementation, but one driver can own multiple DRM device
+instances. drm_gem_handle_create() also requires the object and file
+to belong to the same instance.
 
-Accept only an UnregisteredEncoder from the same KMS driver and reject a
-different device instance before entering C.
+Expose the owning device pointer within the DRM crate and return
+EINVAL for a mismatched instance.
 
-Fixes: 322a9b8d699b ("rust: drm/kms: Add UnregisteredConnector::attach_encoder()")
+Fixes: c284d3e42338 ("rust: drm: gem: Add GEM object abstraction")
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/kms/connector.rs | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ rust/kernel/drm/file.rs    | 7 +++++++
+ rust/kernel/drm/gem/mod.rs | 7 +++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
-index 78b08b94587b..b36d138ae950 100644
---- a/rust/kernel/drm/kms/connector.rs
-+++ b/rust/kernel/drm/kms/connector.rs
-@@ -404,11 +404,22 @@ pub fn new<'a>(
+diff --git a/rust/kernel/drm/file.rs b/rust/kernel/drm/file.rs
+index 10160601ce5a..0abb7813f011 100644
+--- a/rust/kernel/drm/file.rs
++++ b/rust/kernel/drm/file.rs
+@@ -45,6 +45,13 @@ pub(super) fn as_raw(&self) -> *mut bindings::drm_file {
+         self.0.get()
+     }
  
-     /// Attach an encoder to this [`Connector`].
-     #[must_use]
--    pub fn attach_encoder(&self, encoder: &impl AsRawEncoder) -> Result {
-+    pub fn attach_encoder<E>(&self, encoder: &UnregisteredEncoder<E>) -> Result
-+    where
-+        E: DriverEncoder<Driver = T::Driver>,
-+    {
-+        // SAFETY: Both unregistered objects have been initialized, so their parent device
-+        // pointers are valid and invariant for their lifetimes.
-+        let same_device = unsafe { (*self.as_raw()).dev == (*encoder.as_raw()).dev };
-+        if !same_device {
++    /// Return the DRM device that owns this open file.
++    pub(crate) fn device_raw(&self) -> *mut bindings::drm_device {
++        // SAFETY: An open `drm_file` has a valid `minor`, whose `dev` pointer remains valid for
++        // the lifetime of the file.
++        unsafe { (*(*self.as_raw()).minor).dev }
++    }
++
+     fn driver_priv(&self) -> *mut T {
+         // SAFETY: By the type invariants of `Self`, `self.as_raw()` is always valid.
+         unsafe { (*self.as_raw()).driver_priv }.cast()
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 60491e5521e4..334e946833fb 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -186,6 +186,13 @@ fn create_handle<D, F>(&self, file: &drm::File<F>) -> Result<u32>
+         D: drm::Driver<Object = Self, File = F>,
+         F: drm::file::DriverFile<Driver = D>,
+     {
++        // The associated-type bounds prove a common driver type; separately reject another
++        // instance of that driver before passing the pair to the C API.
++        // SAFETY: `self.as_raw()` is a valid GEM object by the trait invariant.
++        if unsafe { (*self.as_raw()).dev } != file.device_raw() {
 +            return Err(EINVAL);
 +        }
 +
-         // SAFETY:
--        // - Both as_raw() calls are guaranteed to return a valid pointer
--        // - We're guaranteed this connector is not registered via our type invariants, thus this
--        //   function is safe to call
-+        // - Both `as_raw()` calls return valid pointers.
-+        // - The generic bound and check above prove that both objects belong to the same driver
-+        //   and device.
-+        // - `self` is unregistered, as required by the C API.
+         let mut handle: u32 = 0;
+         // SAFETY: The arguments are all valid per the type invariants.
          to_result(unsafe {
-             bindings::drm_connector_attach_encoder(self.as_raw(), encoder.as_raw())
-         })
