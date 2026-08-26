@@ -4,100 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0697C61DC2
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 08:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A7EEC61DC2
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 08:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2112B10EC4F;
-	Wed, 26 Aug 2026 08:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF0210EC51;
+	Wed, 26 Aug 2026 08:13:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eEYQyxV/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cPetaliH";
 	dkim-atps=neutral
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
- [74.125.224.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2C8E10EC49
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 08:11:04 +0000 (UTC)
-Received: by mail-yx1-f53.google.com with SMTP id
- 956f58d0204a3-66c9995ca60so2907384d50.1
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 01:11:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787731864; cv=none;
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
+ [74.125.224.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3352510EC51
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 08:13:08 +0000 (UTC)
+Received: by mail-yx1-f50.google.com with SMTP id
+ 956f58d0204a3-66c7127a73dso883244d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 01:13:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787731987; cv=none;
  d=google.com; s=arc-20260327;
- b=n/6D4r78O5S7s08oMSTOi3KDIs80Ji9M6AZ4K6jGOfbdfhgpoCR8rJc9IBg+T7juB0
- rl2qBoxdj9/ZbqKOKCzXrQp0osN74F3Fq0w20nYa+uSSy/BeNg1Z4Gj/v+uM/7ldFVtg
- kVj0ZJkL9Arbq73Qwxw9XgfXwjvvMMc6IiGQoq8Vpl4X3ZShZn4scy8JqO/vFVtcYggS
- YoVWu6XEp0UepTXLLrOZVt6gVaJXJAVgA7xYAoLb/QMhX4VI04EXSonKCtEUxVdz+Gf4
- Y/mlNOMiTxHhE4i4knFUQRi5tl1YXlEIZYe745FQFLR/R8tUJBHcZfbZfazaNNJA4N95
- VvRw==
+ b=bdr1NotPEp2zMhoVu9y7CjEpDbO5ZwtoyOpj6UqM11Qnj8O/Lr8ZdhjGMgGG/M5Jqd
+ rdUEweNVnoQ0pBrthg5PwyHYWALEp7+q5WAP8jViQlsywATHMFyxQPfLbpshRLBwynQj
+ rg8PmnZoK9jQPRIMQAJhQYBqcYzZIOy46zYcMh2VEtSBqm6ME77WafEfM/hWyF8vtY8y
+ aat3b2psJ7RRD3rhTjiOLZSkIYiiCIiIkiyUp6Olt+ll5txOCTP9a+1s12Y9ZsP5C1Ph
+ eD+2qd2dg+f/TZPEzqtaI8Gkm19lx6J3o6Gn+HTBTZATr4j73rD2ESGm1vkEe3kZ+GZ6
+ Xh8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=5yyh1VvWI+vaETl8iuGoTVN8P021SyOBwMiKg7S/KSA=;
- fh=eqF2UhgqjlkN2heBUBuyO3wOPpR3wswlNBnP6a7WS3Y=;
- b=SfAPHynaqUdfN/VSEFNyafGosfFiC2LTGY/B+mfUdPNbFbh3tdZKn6bYyFUtp4SVKz
- q8iF+PAB13UuZLrFCFyFsxC7vfGKNWtQT/6pBPIfXp+ZhfYFJdV3zaXxrdUanS+GH56/
- ehifbupjtMcP3JpgPnGM0kqxkjPH38vCInNHxO3ekFxeMEAYeR1R9En/3PouMSI/XpFM
- 5LbxKILQA26i+z7PTa5eJl0nAOVjwXOdE1CTnfjIVmkY6QLQXv8m962zAUuIXp2hvIk8
- f2o45p+tW6dNatzmV1sCwoeuLHeluFjtlYNzUaL/zo0iXtef0pzNR0fla35EFfv1I+ul
- YQvg==; darn=lists.freedesktop.org
+ bh=DP/2gqU3fyId2g2cAS1ww7m2xwj996soZxme+tkBNoQ=;
+ fh=yiR31S1JRCM0KBTVMlUxIFZomRwtInydEtUxUpNdyzc=;
+ b=frrSb0rYJXVLXpoPggw9sxGgGxXeUvv3Gw+rCXOYTDpCjG7EhNC3h73ucGQ2xJ/Pk0
+ m2QJMvOc1wTRTZelU8kd3D/Cxgbn470k8TfYRa3+MZsbqxvUU6lTfbhkWq7sFZyDp3zm
+ rsMA44lRNiJ8SqM8JbsPzVMKGGNva5lcFynaxJL+Hz1oT/sbxPayva4ma1iMUeUZxwgx
+ xuN9RmueH8H7iHxA1gEiHxvZN57v1shFcrtcG3hmX6VkTjS0qF4hZPyq5YVqNRjUIYVL
+ vPkhweCEjww+Va5v8g6VL8sxGDaBzqdrAwWoFk1HrYiGacMHCaM9LSbpMtESdbJWiutb
+ Wm2g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787731864; x=1788336664; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787731987; x=1788336787; darn=lists.freedesktop.org;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=5yyh1VvWI+vaETl8iuGoTVN8P021SyOBwMiKg7S/KSA=;
- b=eEYQyxV/Oa732OHOXXtYO7sNVINgMNdeJc5cd/eQ9tPIwMUiTCM34mAZQCNRcdWa9w
- AEprhQcHz6lhhWy6aHci8fhPZttMO/Mz61w+Lg7u3/Ei6QBR+bnnFYDp/B7jOGuF9Fmt
- tg+djfsXi7aFuiH59jGuggBlwe6A2tICsobI5MMF1W8YVieedXTkSPLBNjy2i8lxG4vg
- UsiBfCiHt1F8JUxNGRmJRQ3/nfLAwXFDB5XU2Ce/Ost5SO6HRqLm7Dlz/hQdmLasTuZu
- H0fIuqi8+lx+CMN21ymjs6fZQVLlZhzRgu9LI+4mCZGHm/RBiXHewuSwXhIGmUvmOs5V
- /zNQ==
+ :content-type; bh=DP/2gqU3fyId2g2cAS1ww7m2xwj996soZxme+tkBNoQ=;
+ b=cPetaliHxKhLIl7cQWWX8M3BeSBls4ZUWHy6P8orZ/gcFzMDowz0Dp7cRwTsbho8iv
+ K8hRvW8BREfw4DVxszjq/uNPwOBa+fsMBhlRzr4UXzn8d31Axf1a0V7JlKiDrLT2u1Ug
+ cMwbyGPmg9Abkz6REeRaiVeOfwYNvJdZTld0JMdSKf2f94OaqrH9fofkC5b9wNxHNUbz
+ mkx90QPzzpNthDuhpiS8NdnLlTK0o30bixz5amMjgPt4qEDIRQEig4/yf7efr4S4PR0/
+ 4hy3DBjCOvH/eXm71sAlE81OSSHmqLJJZeMTv7J6s6yGFLjBpuxZp4SeGSv1YGWEAY/n
+ 6b7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787731864; x=1788336664;
+ d=1e100.net; s=20251104; t=1787731987; x=1788336787;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=5yyh1VvWI+vaETl8iuGoTVN8P021SyOBwMiKg7S/KSA=;
- b=DhKDX86fpP8GYONq1l2DB/1NW9usm9WhRH1qVumQe3+evfnLfuN13xfEly2JPml/gZ
- huKoa9jtF7MxoOU09nTJ7kPWD7+2Fh778mifMSsLAgk/3SIrU2lWwb31/Bh+EPjyEL5l
- I5l41fEIG1KAamCpFs9oMeaA++8NkQaOGCzQrm10zh6Bb+LtcPM/jSE399m2WU4A/Ipd
- y6a/EqaTXq5OWilFNSfItfIALAkQPfZo6lzUsErgY61z3NCLT8kL9jHKvH7gR9nEVOnj
- LPWDMfiEI5IGYyVKTM99ndyETR5ux1djC5yZMICce8nI9QrdiAiQ+U/vOtl2YHkydqcz
- SH9Q==
+ bh=DP/2gqU3fyId2g2cAS1ww7m2xwj996soZxme+tkBNoQ=;
+ b=PVAVj/I13Z+lsXU6a7icDglG0ruFyz0Q+C/ilG/rQEdCy4ley6wAeY+zeIldiLoZbg
+ Ya8FUZs2g9xNZg1vENkgiqfB5qHHEg8ujcqmjtuYBP1lJjhXL1LlgYX/inhexRqMc7Xi
+ CavbID73srP4T4uM63n+/GTvv7boCgZYZwpqc+QzNzZ9WnkVK1/fv9pUZA21UkwOVtNN
+ ELgj3oXqVVQgFTn89f7bE+uMDZXlL7ekxiyoFv3myKeDoGyuNOuD+0Sh3r+CvMdPDfn0
+ UTWGND2mUnY8SypDSIJ7GCUjH/x2rTYbv3FNoxZ5TUhFcPFFiD6XmeNT3RWyYt8z19QD
+ 4sNA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrWBcFh9QhRzumnP8ku82oxR2FpUKUBKunPmbAB9i4AgMbGBFagRoknv60ZtxGMETsB5wa14fFCQSw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m14vV8MEoprF2uQk3hRf9sX7vuCQ6kBeEXS3RxQoy4dOGGf0Ir
- Sba0DGqTGB+hO+HFXkJNxv2yAKzjEWa4djTeB58SWy/U4MSO+3TLwibWoMnR4yvug4wmP8oHzgq
- pMe+Vw7kP1HHKW4Bf3WRMaLGkNzX1+MY=
-X-Gm-Gg: AR+sD12XjfcNZzRnkibnBeoPrVkUkVlP6gE9Pp0Vu+Gxie4Lpz7YLlzVgxAB/OsWEtA
- P8oCpTmYXKuQyHu+jIM85/V6RagVqyFtoMsfrEH8XwEcE6/CgYaVd3Ge4bb4U/CFdJMz9OCbIPd
- ycLLwzUk3W5hF3tOYkYLg+/G/YJVF0YJZ7HcyOah0wJjKFET6XMfNubVe1FAXKrHa2V9aRazxzv
- woGI0QMFLbDnLuCu4APECOvrOCu7m5MKdo/t6aTuC5STXJSPeOv9UbryfqZcWf4Rut8FIdDdzE3
- LzQ5ueU+e6f4MugRFCl3o6qo6U9bDpPXXCtYCejCLVLyEXE=
-X-Received: by 2002:a05:690e:214f:b0:66a:b15e:bb93 with SMTP id
- 956f58d0204a3-66d25197bf4mr1276551d50.13.1787731863957; Wed, 26 Aug 2026
- 01:11:03 -0700 (PDT)
+ AHgh+RrOhk2D2SGNBP3ufnkCXI6w1gRpWO/Lp0YD+PZNCV1GkIpKSR6bBX+cNFYFA2AuBiKmNWx2J0sJIMg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kdzITdcAjIQ2zJAERzTGB1SmLxff568mpKo6/c1b16eirhTg0h
+ oshmiDMTHTMzrxWrJi/kJaQoWoMVr2jkh4DWVgE5LdYUebxOxhbpttZsmnOVPhii5OOWAysD8eW
+ KjZzParJqwiQOE228eCXEtHla3SLy8Bv/dmow6sz08g==
+X-Gm-Gg: AR+sD11hIbOdx+6OtMnARduAIaMwORAKCD1eVXbtzgOMjNbHhWE6Zi7ud3rtpiCQZ9a
+ vne/KY+6SMH9sXTmuQWZ6izWpJfOG8V0ZbdGkHhCraCFyjzR+ipAJ6PCeEhPm1z0WOLK/Hf0Li/
+ MsLaZr1jjWtkL7F6Rgb5vxGGu20ebUstBn9UsJut/zX8HbkApJF5rYK3iHn3WIHycRDy4vfvgHp
+ Oav64a5QwnjkO5GvVkDsKjYJD51/ah82HgIVvwR+XMQ7F/Nyjz9eKTlaposZ3QtrTcbaW9z3P6k
+ wkl3UgAeG9TfhI6ZuhChrY5DusEr2mCROcxZBqy/abnUL5YM
+X-Received: by 2002:a53:c643:0:b0:66c:486c:aa07 with SMTP id
+ 956f58d0204a3-66d257632b5mr1226829d50.35.1787731987131; Wed, 26 Aug 2026
+ 01:13:07 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
- <e5964398-cc23-440c-8c69-01353b5a5ecc@oss.qualcomm.com>
- <d85c9ffc-d9a4-4f33-bd63-5cb7a505a840@kernel.org>
-In-Reply-To: <d85c9ffc-d9a4-4f33-bd63-5cb7a505a840@kernel.org>
+References: <20260808142217.2893936-1-lgs201920130244@gmail.com>
+ <400c3d0a-97ca-4c76-909c-0c09d534cd41@kernel.org>
+In-Reply-To: <400c3d0a-97ca-4c76-909c-0c09d534cd41@kernel.org>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 26 Aug 2026 16:10:51 +0800
-X-Gm-Features: AcwNN1X9rQBObyVrmy9DFrGufRcw2p9RUUYyy3KtMY7rqaV5_V0d3WC11PgO3Yo
-Message-ID: <CANUHTR8sA2xbXsex1VQu2acL2kZyCHAK6xQk1EKA_Hxv4n12rQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+Date: Wed, 26 Aug 2026 16:12:55 +0800
+X-Gm-Features: AcwNN1WiakOYjCu3-MZaTlXfcEIIF1SEVa43x_3CROHSyWNzCBcShiqF2n9BY7s
+Message-ID: <CANUHTR_Sr49S5JwGE_wzTFed6weW_8MMo8o+20vf=bZE3Xhc-w@mail.gmail.com>
+Subject: Re: [PATCH] drm/tegra: gr3d: fix autosuspend cleanup during teardown
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,41 +110,39 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Krzysztof,
 
-On Mon, 24 Aug 2026 at 14:17, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Thu, 20 Aug 2026 at 22:50, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> On 18/08/2026 12:40, Konrad Dybcio wrote:
-> > On 8/8/26 3:16 PM, Guangshuo Li wrote:
-> >> adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
-> >> adreno_gpu_cleanup() does not call the matching
-> >> pm_runtime_dont_use_autosuspend() during teardown.
-> >>
-> >> If the autosuspend delay is set to a negative value while autosuspend
-> >> is enabled, the runtime PM core increments usage_count to prevent
-> >> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> >> during teardown, this reference is not dropped and usage_count remains
-> >> unbalanced.
-> >>
-> >> The documentation for pm_runtime_use_autosuspend() also notes that it
-> >> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> >> driver exit time, unless runtime PM was initially enabled with
-> >> devm_pm_runtime_enable().
-> >>
-> >> Add the missing pm_runtime_dont_use_autosuspend() call to
-> >> adreno_gpu_cleanup().
-> >>
-> >> This issue was found by manual code inspection.
-> >>
-> >> Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> >> ---
+> On 08/08/2026 16:22, Guangshuo Li wrote:
+> > gr3d_probe() calls pm_runtime_use_autosuspend(), but gr3d_remove()
+> > does not call the matching pm_runtime_dont_use_autosuspend() during
+> > teardown.
 > >
-> > I think we can use devm_pm_runtime_enable() instead, which will take
-> > care of cleaning up both the autosuspend and runpm halves
+> > If the autosuspend delay is set to a negative value while autosuspend
+> > is enabled, the runtime PM core increments usage_count to prevent
+> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> > during teardown, this reference is not dropped.
 > >
+> > The documentation for pm_runtime_use_autosuspend() also notes that it
+> > is important to undo it with pm_runtime_dont_use_autosuspend() at
+> > driver exit time, unless runtime PM was initially enabled with
+> > devm_pm_runtime_enable().
+> >
+> > Add the missing pm_runtime_dont_use_autosuspend() call to the driver
+> > remove path.
+> >
+> > This issue was found by manual code inspection.
+> >
+> > Fixes: 62fa0a985e2c ("drm/tegra: Enable runtime PM during probe")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 >
-> Author here is unresponsive, he was told a few times to send corrections
-> for his vast amount of unthreaded patches and there is zero reaction.
+> You sent vast amount of patches, all separate, making it very difficult
+> to track and respond in efficient way. Do not do that.
+>
+> Group your work per subsystem.
+>
+> You were asked to clarify and respond to incorrect fixes statement. I do
+> not see how you clarified and responded at all.
 >
 > Best regards,
 > Krzysztof
