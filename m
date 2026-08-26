@@ -4,160 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DB2C61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB9BAC5DF97
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93D6010ED77;
-	Wed, 26 Aug 2026 16:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 958E710ED7F;
+	Wed, 26 Aug 2026 16:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g6NVQNwc";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="IoUxdz3Z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3AC610ED77
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787762381; x=1819298381;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=dSvJx/Hpz1DKf+kX/4R++mGLyW3yrhH24onAqUpW0Gs=;
- b=g6NVQNwcUK35cBA99uvUcQs/YOiOfjq15ez/4EvntWFJYLku6O1TFZjd
- kKM20Owc+EBT7FUC9wt00aatVBDYy4o6mzFr2Xa6wTb+mStPDtVjotcEL
- 82Ug4S+DWUGvxALqtSeKkGTrL9nWbbiUC7KdKUOsyNspTVaWh3tI/RYpy
- I4gqxCgOaVhtU+T/gZoDIYmGz84KTdUIU/Dl3UASJDchjRFLw2cAEXx8g
- Pn/y0H7qCLc749G0MhqChjw1l5Ji1SdZNCw4cqmKdEJyTq33n3w4ftJMA
- TOW04BldqAhEhzoZgycw9C0VXy6tNUCsuxfky2k7i605a8bKHcKhupCYo w==;
-X-CSE-ConnectionGUID: U5iJ/C04Tui7APiCX1XK0Q==
-X-CSE-MsgGUID: vbU3Brd/Qyar6obciSDjMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88014976"
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; d="scan'208";a="88014976"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2026 09:39:40 -0700
-X-CSE-ConnectionGUID: R+TUVoZuTXOkr5EYs6gsKQ==
-X-CSE-MsgGUID: k5/PwMgyTCOBXMa5c2g1Tw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; d="scan'208";a="272872479"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2026 09:39:40 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 26 Aug 2026 09:39:39 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 26 Aug 2026 09:39:39 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.55) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 26 Aug 2026 09:39:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mz+pjI5llHgDoRfRkZ3bP2ewA83BvVZXmP+/PgYH/E2dNb0jorLMPMG9CdwOv6SzXWkd0kVtuKePazeIvyIAfFwCHiE9Wh2xkKKLDjCWN4Scage7mqqqcV5+KtXSH6rbVBldJokBj/UOEAr9LfIZAMubtGO9RcTLQ6/TM1t/5NaWEEp9vC2iWv6kQ/C6jlYpcMYG6dsie3tQH30KrNDZ9z/lfr+ZeFdOd1gOZ99BgOlLy/4RC7y8KiSc9on9WPni5PeRj+2tOhZGV+IAOIS5XdhPrSxf4qXKIDy1tdJFH519ZhebeSRDeMZecUO1w7O3DkYipDSK4a3ytc9QzV7wJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M5fyHR6q+Y4idtC45eSpq1Rx/tt0Nme084DysR+t3LE=;
- b=i92tde+9MSaXU2kBrvlgD0NlqyTV5f1jzkPgdiD81KYWVtM4/NwLut3FQdGtJvSYUNGtlWP0YsO0OMv16duhw5qyrm/Im83z+pBB1Mj23401fb1rQP1VBjf2+baHzafTfrSDcujAjRZq2ZX3dNch64cDttjYs18yKYYIvdb0FyYbWlf7mDLD7zjU8CzL5Gbu4cv5m/35g2C1JR8z8tHRy9meUVYzELV61Ob8+3I53Og21xC9onSfftEbznmBscBhJvbO4aaC+jhgSbgHKgDWk1mVySM4nLM3PDfh9/juIXFqRxt4GL1d3pdgcb5R9MOeOWlOXU1pQkzTBkF97tYbqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8019.namprd11.prod.outlook.com (2603:10b6:8:12e::18)
- by CY8PR11MB6940.namprd11.prod.outlook.com (2603:10b6:930:58::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 16:39:34 +0000
-Received: from DS0PR11MB8019.namprd11.prod.outlook.com
- ([fe80::fce1:3bde:b383:e801]) by DS0PR11MB8019.namprd11.prod.outlook.com
- ([fe80::fce1:3bde:b383:e801%6]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 16:39:33 +0000
-Date: Wed, 26 Aug 2026 18:39:25 +0200
-From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Karas <krzysztof.karas@intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Maarten Lankhorst <dev@lankhorst.se>, "Andi
- Shyti" <andi.shyti@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-Message-ID: <ao8Fc8DWbsxMtSRu@kniemiec-mobl1>
-References: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
- <ao1hIejAdBPKUHFW@kniemiec-mobl1>
- <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
-X-ClientProxiedBy: DU2PR04CA0157.eurprd04.prod.outlook.com
- (2603:10a6:10:2b0::12) To DS0PR11MB8019.namprd11.prod.outlook.com
- (2603:10b6:8:12e::18)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09FDD10ED7C
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:39:53 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-499b2981a7bso10816715e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 09:39:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762391; x=1788367191;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IY3+/HsXGFAdI6OmLQsYdEfFpx+0NMuWjkImQPJRI3I=;
+ b=IoUxdz3ZfBkPlYOiDu/OBjYcd68lGEVkKsYl2DpnICTfj9aHfJ9x0p17J9/p8q1yUE
+ /znkHyR4jS3UBChb/KSGupqkPwq96iC0BSSa+jtIAydQkGGPzfjSai0lrg2elmXXtwfH
+ NbankFsq482M+3T4tXSXtMk5ClyqXKoXKl3u0dJrZ7ymlyIMPYXyVEnG3iVPONUx2XvJ
+ iI2WdI7k10obFNsMHJSIrOLM+FKrbUTI+dvTAnF7xmfgqkHmTCBP2hZcjv9AlJqZwast
+ bu+eVECzjIMLsaDl56/LRvY5nLqDF08uriLme6kXKdrZd6shsiAHH5M7NEiM4cN9VKKF
+ NRkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787762391; x=1788367191;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IY3+/HsXGFAdI6OmLQsYdEfFpx+0NMuWjkImQPJRI3I=;
+ b=myGuPUQ3hWuCwKNNtup5J8wkdtFAqg2cBJAiZIRdZJ6KLNjUleF9NtURk2P4GtOxn+
+ yWJiZcNFuYZtwa90iGOYpqYSmq3mKN9Yws9s23toQM49U/1JX/5R1tK5fx/TRs1DrTTl
+ zuakHPNOJBcD5bzVUIUuErZmnNoUjvblr3bOQPkr/GNtecEDKjAniPdeXyGvAJG0d3Lu
+ 8X3n0JXeVmffgE4sGjgT2vj18EceEQjko0FwNfqVlWYWsNC9dj0mpaWpGfLrS8BZJISw
+ rmgVUrjnkJvjaCmMTGn+bcu/CY6Ckp6BB2vJNtCl8hskpqId6VUvwCg9lZGPMTGTq+9x
+ qTBQ==
+X-Gm-Message-State: AFuF++kZYTj8fKIBhPzkSq5UWFjfO/6YGzPx/ONdhxexmhKUee/r5xpn
+ XupUGCzEAht68Em+9rmKuP2rM9fmaICz/CzJPDmQ2cxWdKWe5L0cChkpTjr4NAZ/5WVdEBlUxSH
+ rJtYlAqQN
+X-Gm-Gg: AR+sD10Ov8mSRHG2VKiC/pkyF0lGvkOBHakvKPCIhMOqJNmHhFWGRy0aHHk2PwIuLIE
+ XObMgM8DG2e92cZO/JVwms0XNRimK0jl7Q8t8S5vUN6fn2tp5bblW21BUsrpnaDMW1mFV8PIxcY
+ fQ1AcovBfgaMrDt7eLijCA1L1mJ9KFYOeE9GNnrkzieG6cAttzxWeYEaFxb4OhkC7bzNmKAMoP4
+ M8eXHr78xIQO7XyzQXWvJtMvEaE7XVPKrUBy+eNkgvIKdWfkFlzmo98AknMmw3XBrkKkhqjxXuO
+ a72a8IUr6PO8wje7X8NhQ3kWSlAlnCScALXm5gFVsVCJQgd2VaLH+lHoewE+2CQBNJoBiDgztLU
+ v1r/C306ady9S8m0Y7BxNiurb5xn2mgPbXqUI5+Ge3VezqynhrfGI2z/g0LjmzpbKzO4hCy/zEV
+ W98qRs4f/yB9L6K7wGK1IwyvuLNHs8lH6iBj4RytPmhoem3Gd3Rv7ZUIehK6qphBnPW9docj1AE
+ pna91Ow16QWdy1WMD+YBUAxvSFr72iLubo3
+X-Received: by 2002:a05:600c:6088:b0:499:a277:e8b5 with SMTP id
+ 5b1f17b1804b1-499dc6f3248mr85632495e9.3.1787762389837; 
+ Wed, 26 Aug 2026 09:39:49 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.39.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Aug 2026 09:39:48 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: dri-devel@lists.freedesktop.org
+Cc: Mike Lothian <mike@fireburn.co.uk>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 5/13] drm/vino: add the dock profiles
+Date: Wed, 26 Aug 2026 17:37:30 +0100
+Message-ID: <20260826163913.7052-6-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
+References: <20260826163913.7052-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8019:EE_|CY8PR11MB6940:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0e568c0-66d0-4e1b-14fe-08df03909be6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: re6LHlilDShzZzu+TYJt+zrJuqh7odW6u2gLulemDzjX0r3rgDGkaJGozH0X6iXIpv5gEPsLxL6gElKNtAG1b98zOgJG45agdDsSPAOnFHUMZ3QEruvUTk+a+RWzFVNqKOBeLGv1EhyxQsm9P5D57n6WYgvAu3FZW2TPH3cb4zZJeevzbXu0S49Od1/nQJ8Woyfyd0UEb+MwApawtxgMiZFZiCVszwhSAIRr6CdLMceZzVzvaikF8/zaAvo3lzngpXUUKpvUAbyhAqAVfeEsQFNG7oOkeBgyF5ciKXGbNNO1FAFVAGKiSKJJWm3YvYsYQcuuFs0eSrSnQsXU8SwOlffLCSzJbPPgqIFyK9MHdBLaAZLjyv1IVSt8q9fEkmkDhagiaXRhQCAxSlLivy8ubZyWNtxTEUKCSO9+GxZ4isgV5owLAS00U7GeSpcuRV/f3GAfKSiuPsy23CQMs07OQWUUDcQ90h4WCiy9mXQRvTpkKJibaQ3BkycV8mM1ZlVbaIKOM45wLXJl4PjAAKfVH9ziOagWOxOzFALaSavXgEQlO3rv6IqKBB2hgVigAp3N6HpIWUHp9GIjs2aBst0liBq+64Jyzp1UeyQcH36JwxofJ3PZpZ4h0iEyjDaT/VOrUgnPYsh6VzZ7UNDQQpyDMzfu9rROZl6t13IwkLdFU7M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHdNdGhkaTd0TTBZM0ZKbW84b3BJNDMwQitjaStzdVBpQnc4SE9KMzFHUzFC?=
- =?utf-8?B?RGk3cGdPYTJxRGxodE9XZ28raHJSNVVPNCtUanhYR2F3QUY2TXJIZzdEa3VE?=
- =?utf-8?B?QWNodEdCNFZBb1JrSG13VUNKTXBkaHdjNUFCa3BDdTQrcW80L1ZHTjdiN3Z4?=
- =?utf-8?B?OXhtekR4UDZCSmlnNUU3S3AwWnRPMzZmNFZsZGdsR0dwbkNDL0RzOVpvRmln?=
- =?utf-8?B?N2xQR1dXSEY3VW1IVjE4Zk9uUjRpQThqOFd5T3VXV2MzR05iUElXamI0bHl2?=
- =?utf-8?B?N1VMcFNKeEhBUlBPRU9Xb09UVVpGZ0JOY1dINEJVcmJMNU9venE3ZkpTNk5L?=
- =?utf-8?B?MjhmcEFGMUJzWmtna1dtNllUM1k1WEtudnJNUllDQ1FSVjlId0I0V1U5U014?=
- =?utf-8?B?SXpBMDQwYUUwNnAxVEtTaTB1dzZmdndlME9VTDIybm1RVjJOK2QxTWk2Nm9a?=
- =?utf-8?B?TW0vL0xUT2U1WldXdDAwRWllalZEeXdHajgzL0p3aHpvc1RjTWtHc0c5WmZ1?=
- =?utf-8?B?UHMvajk2U1hZYTZodXdqYU0rKzBtalE1eVlkNlZyeXZSWEVucDlJbVo4OUlp?=
- =?utf-8?B?Tk1BSmdraXZUTDlJcTRyUkNQUVNDcHF1bnVDeFNacUxTbExUWlJ4WlUvM3Jk?=
- =?utf-8?B?QTNPZWt6cEgrQUQ4ejluTmVXR2l4eGVVYWpRSk1nMS9tVVl4SnlLdU5OOFpV?=
- =?utf-8?B?VzNSSWFLNE9hTC8xZm1ma1B0Zk9kdnlZemcyMm11bHBiR2NUd1R4YnBGTitR?=
- =?utf-8?B?R2xTWlZoNUdYeG1hZ3JhS2ZPOHVqM3ZscWNiaEhGamwzM3I1ZjN0RjEzVDhH?=
- =?utf-8?B?L3o1YkN1NmZPelFwNTZ0aTF4NGUyck42VjhwVGJONWEyYnc2MkIvZWZGdk8z?=
- =?utf-8?B?Ti95M2JJZU8rU2R4S3BhclN2T1ZseWJvMDhNTFBYMUNndEJVcEd2cFI3bHFu?=
- =?utf-8?B?Y2RDYkV3Y3h0QzJlZmFDcmNqOTNkMEhNMmc5bnl6dEltd080eC9rUGlRVFRt?=
- =?utf-8?B?NnBhcS9WWktFZkJzRjUrbmtPOXRaL2h4YmFzUFZwSzFkdzJReWtpcS9jZXFq?=
- =?utf-8?B?NldrVmNMRWU3YnRpVFRnZGRNMWk2Z0g1cTViVTBYMnd3UGV6N2JETWE5N3dz?=
- =?utf-8?B?UHFXdUZ3R3JZNGEwVlBRY1RGSENrSEJENXpaQm9JQkhsbHByUmt1d2FMTC82?=
- =?utf-8?B?WncrVW1xYUpUNXU4aE1FTFhyQm1Lak9WNlptOEJ3SW1xYkpkbDBQSFdXUC9B?=
- =?utf-8?B?Zk82Q0I2TUpINFl1bXc2QnA4bXJoQXZwb0hkN3hNSFd6VzBkNGFiTHFKckNp?=
- =?utf-8?B?SmhtL1RWTlR5NXpoMkpkWFh4c2JtbTZvMUdEWXV5N1o2ajFXQ1VyTkcwK1lt?=
- =?utf-8?B?VjVmcWg2RjM0T01HNzJCSDlqSC94RG1PSU9TZ3cxWFRmTkJQSHFLM1cxY2Mz?=
- =?utf-8?B?VTJtZVNjZTZsbHpyais3c09BUzFSeEtSMVJxYXNuYmM2ZFBpZzYxQnVCRW9k?=
- =?utf-8?B?cVlCdDY2YldhclJHeGIvRWFGbUJrS2ZXZVN3WVdYcXpLY00zTTdZTVA3TXVo?=
- =?utf-8?B?eVROQ0xvcHM0dngweEswa3dxOGlQaElzaW5kL05OUVo3cHA5VkRwTjh4VEZ3?=
- =?utf-8?B?UGJieDdWSkFFYUNveFBMOVJINk9hOXpGbE5VMEs4SmRDM2tqTVZ5dmVNcEZJ?=
- =?utf-8?B?dmJ3b2xBbUlVU000UDhFd0ovcW82UDRNVm00Z0h5OHBCWVpYOUgvdjZUbk9N?=
- =?utf-8?B?VVdGTUxSbTNZMUp1K3cvQkJ5OUlXZk5nTU0rbzRwQmF4S2hJLzQ5OGNJM3ps?=
- =?utf-8?B?THBtZUw5Q0dYWWxWVVVLTitQeHhBZkxOd1VOV29UQ2ZmSXZjY1lNY1FiTnZU?=
- =?utf-8?B?UjVpNXB1WVBnNEJGRGF4SE5XcHVPRnIwRTIweGxJVGw4NlhkQzhZa0Uzd252?=
- =?utf-8?B?eERhZ2FONlpsOXNZZVlhQUVXL0FUWFN4elg3RGdNZHVVcExWb004SFhNVWph?=
- =?utf-8?B?eDRzeFE5dUtnNEMzVFVNWjZvN0hEMTVNajkwODdlWDRHOHJHbCtPOVlmNlcx?=
- =?utf-8?B?U1NyNGN3cHEveTlGeEpFalVTQ1VLb0pNM2pHb3VDNUsrZXc4bStDMGZqTndp?=
- =?utf-8?B?eXovc0tHWUlGSkpjbW1hUUFVUlNTZHFPR0VlQTB2VVl4dDZVQStNRXJUaFhV?=
- =?utf-8?B?Zk9sM0FIc3U3MGJxVVc0THE0RHBsZVFpaS9UZ2dWYWlkKzBKbVZNOGlLQlI2?=
- =?utf-8?B?anlja3dPSjljRnpLV0FEV1NCbjY5MnljRmMzRmoxK0dML2ZUQmJrajk4dy9N?=
- =?utf-8?B?UmZtNFZRNzg4MTQxUWpnZUJxYUpLL1J1cTJxTmRiaXQ3ZTMrbDhhdHpaOHdm?=
- =?utf-8?Q?YhMBrXIOxa+OmWNY=3D?=
-X-Exchange-RoutingPolicyChecked: kbO9LI/SMPKQFludd9zXCNV+wPp/bEFjZJnJl5mZPX5YPlVOqDCAIFi7loJR3QU81ksru/SRb9gbAnF1qsGMC8O8nESuOxj+NWL7jrDVAWtkI8Qn4jgabYlJdoUmHrc0Iy7zfFhQsmB4I8PfQ8MWtw32MExGz1VPU76HdR8ZAtfKbaDkNn0KQjM+L1aClqc9+qHWSSZtsUuRAW+Zvrs7GQLObSIvzAX+emWC82NADMyH08O3savceDFVuIQ5BccsYm+FrYIbdO495y2tkv9CiZ5MPWeZTQYfzQGUbiV+kVryO54Pxw9DcsrpfIJoqSV+Jr5TypdiA3xGDlAdMFSDXA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0e568c0-66d0-4e1b-14fe-08df03909be6
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8019.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:39:33.8552 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vKBUX4Y7YolLX10VZybqZAUeYulM6aGfdiz7UHpUqgQVMkKhmf2Zxf37rIbceZ6DPZ4+GnLc1J+VTr854Og0uVIbDBSB0M+Q1APxsm0g7tw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB6940
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,169 +93,1212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert,
+Three DisplayLink generations are driven here -- Ella (DL-3x00), Ridge
+(DL-6xxx) and Navarro (DL-7400) -- and they differ in connector count,
+video endpoints, codec geometry, mode ceilings, pacing, and in a dozen
+smaller behaviours measured from each vendor stack. None of that belongs in
+the code paths that act on it: the driver has one implementation of each
+operation and no per-dock branches.
 
-I got unnecessarily annoyed/angry in my previous reply, I'm sorry for that.
-It clouded my judgement a bit then but I still have some comments now
+Add the profile: every such difference as data, keyed by device family so
+that hardware nobody has tested is still offered to the driver rather than
+being invisible to it.
 
-On 2026-08-25 at 14:15:34 +0200, Geert Uytterhoeven wrote:
-> Hi Krzysztof,
-> 
-> On Tue, 25 Aug 2026 at 13:39, Krzysztof Niemiec
-> <krzysztof.niemiec@intel.com> wrote:
-> > On 2026-08-24 at 17:12:30 +0200, Geert Uytterhoeven wrote:
-> > > Enabling a (modular) test should not silently enable additional kernel
-> > > functionality, as that may increase the attack vector for a product.
-> >
-> > What vector? What product, exactly? As far as I know buddy allocator code is
-> 
-> Any product that uses DRM and has CONFIG_KUNIT_ALL_TESTS=m, so
-> developers can easily run any relevant test when the need arises.
-> 
-> > currently loaded when a) loading a drm driver (which would need that code
-> 
-> Not just "a drm driver": very few DRM drivers use it.
-> Hence one can have a product with DRM that does not need the buddy
-> allocator.
-> 
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+---
+ drivers/gpu/drm/vino/profile.rs | 1185 +++++++++++++++++++++++++++++++
+ 1 file changed, 1185 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/profile.rs
 
-And the buddy allocator was moved out of DRM in anticipation of a
-possible non-DRM driver that wants the buddy allocator. So there's no
-implication between DRM and buddy in either way anymore.
-
-Currently it's only DRM drivers that actually use it, but there's already
-scaffolding in rust for it that does not depend on DRM, and once
-there's a non-DRM driver that wants to use the allocator it would have
-to undo the dependency added in this patch anyway.
-
-> > to function anyway) and/or b) loading the kunit test for the buddy allocator,
-> > which would need that code to function anyway. And AFAIK neither are
-> > built unconditionally into the kernel. So the amount of potential vuln
-> > surface is not exposed beyond what is reasonably required for the system to
-> > function as intended.
-> >
-> > If you've found a concrete bug/exploit/"attack vector" utilizing buddy code,
-> > then please address that directly.
-> 
-> So let's include all available code in the kernel image anyway, unless
-> you can point at a concrete bug/exploit/"attack vector"???
-> 
-> > > Fix this by reverting the select to a dependency.
-> >
-> > The way drm kunit tests do it is by select-ing the appropriate
-> > functionality out of the available ones, with "broad" depends-ons for
-> > DRM and such (say "depends on DRM\n\n select DRM_BUDDY"). DRM_BUDDY,
-> > for example, is not directly selectable in .config, as it's meant to be
-> > selected automatically if a module uses it.
-> 
-> In general, test code must not select the code to be tested, but depend
-> on it, to avoid that enabling CONFIG_KUNIT_ALL_TESTS pulls in lots of
-> unneeded code.
-> 
-
-Yeah and this didn't click for me when replying, of course this increases
-available symbols in the kernel which increases attack surface. And the
-DRM test case is different since I guess if DRM is selected it's an
-implicit agreement from the user to pull in smaller DRM components as
-needed?
-
-I still think the statement about the attack vector in the commit log is
-a bit broad and vague though, maybe just stating that "building with
-KUNIT_ALL_TESTS unconditionally pulls in code from gpu buddy, hence
-increasing the attack surface" would say that same thing but more to the
-point?
-
-> > This is also the case for drivers, with Xe having depends on DRM and
-> > then like 40 lines of selects for specific functionality, same for i915,
-> > amdgpu, so on.
-> 
-> For drivers, it is different: if you want the driver, you obviously
-> need the helper or library code.
-> 
-> > > Make sure the GPU
-> > > buddy allocator can be tested without enabling another driver that uses
-> > > DRM_BUDDY by making GPU_BUDDY visible if KUNIT is enabled.
-> >
-> > This was the case even without your patch, and was the entire point of
-> > 8fe3fc37564920ae mentioned in Fixes. The kunit test kernel can be built with
-> 
-> Yes, that was the intent of commit 8fe3fc37564920ae, but it used the
-> wrong method.
-> 
-> It is customary to make library code that is only selected by its
-> users, and cannot be enabled explicitly, visible for testing.
-> See e.g. commit bf2d44d07de726b0 ("ASoC: wm_adsp: Add kunit test for
-> firmware file search")
-> 
-> > a rather minimal .kunitconfig (included in the gpu/tests directory). So
-> > it only loads whatever kunit_tool would load, plus CONFIG_KUNIT, plus
-> > CONFIG_GPU_BUDDY_KUNIT_TEST, plus (implicitly, which I discussed above)
-> > CONFIG_GPU_BUDDY. It doesn't load DRM_BUDDY at all (which was the bug
-> > being fixed in that commit, you used to be forced to load it, now you
-> > aren't)
-> >
-> > > The page based buddy allocator for GPU memory is only used by DRM.
-> > > Hence add a dependency on DRM to GPU_BUDDY, to prevent asking the user
-> > > about this code when configuring a kernel without DRM support.
-> >
-> > It seems to be *technically* true, however, the entire point of moving the
-> > buddy allocator outside the DRM directory is to expose it to other non-DRM
-> > drivers, so the lack of dependency is kind of by design.
-> >
-> > The change was rather anticipatory, but it was clearly well reviewed and
-> > sent by a Joel, a nova-core dev, I assume it's gonna be needed at least
-> > by them at one point or another.
-> >
-> > If, say, nova decides to use the "communal" buddy allocator (if it
-> > doesn't do it already, I only briefly skimmed it looking for kernel::gpu)
-> > then the DRM dependency from this patch would have to be reverted (yet
-> > again). Maybe moving the buddy allocator up from DRM should have been done
-> > along with the first non-DRM user and only then, but it just didn't go that
-> > way.
-> >
-> > If the issue is that this option is too annoying during make or in
-> > menuconfig, then I don't think this is the way to address it.
-> 
-> Once the symbol is visible, it needs a proper dependency, to avoid
-> asking the user irrelevant questions.
-> 
-
-If it's visible and I understand now that it should be and how, then of
-course.
-
-> > > Fixes: 8fe3fc37564920ae ("gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST")
-> > > Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> 
-> > > --- a/drivers/gpu/Kconfig
-> > > +++ b/drivers/gpu/Kconfig
-> > > @@ -1,14 +1,15 @@
-> > >  # SPDX-License-Identifier: GPL-2.0
-> > >
-> > >  config GPU_BUDDY
-> > > -       bool
-> > > +       bool "Page based buddy allocator for GPU memory" if KUNIT
-> > > +       depends on DRM || COMPILE_TEST
-> >
-> > What's the justification for COMPILE_TEST here? It might be needed but
-> > you didn't explain why or mention it in the patch description at all.
-> 
-> It is customary to add "|| COMPILE_TEST" when adding dependencies that
-> are not strictly needed for a successful build.
-> 
-
-I can't tell if this is something so obvious it needs no comment; I feel
-like it should be documented explicitly in the commit log.
-
-If the DRM dependency would be dropped would the COMPILE_TEST have to
-stay? Because then we're forcing a non-drm user to enable it if they want
-to use the buddy alloc at all.
-
-I think just leaving the "if KUNIT" part would check all the boxes,
-since the tests are actually runnable with KUnit via .kunitconfig
-without building an entire DRM driver, GPU_BUDDY also won't be randomly
-enabled with KUNIT_ALL_TESTS on systems that don't care about it, and
-we're not forcing anyone to enable DRM on a feature that was explictly
-made independent from it.
-
-Thanks
-Krzysztof
+diff --git a/drivers/gpu/drm/vino/profile.rs b/drivers/gpu/drm/vino/profile.rs
+new file mode 100644
+index 000000000000..43b5d70e02c6
+--- /dev/null
++++ b/drivers/gpu/drm/vino/profile.rs
+@@ -0,0 +1,1185 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! What distinguishes one DisplayLink dock from another.
++//!
++//! All of it is data -- endpoints, strip geometry, connector count, link limits, and the handful
++//! of sequencing choices that genuinely differ -- which the rest of the driver reads rather than
++//! branches on. Adding a dock is adding a profile, not adding a code path.
++//!
++//! Where two docks need different behaviour, the field says which behaviour and why, never which
++//! model. A predicate named after a product answers the wrong question at every call site: it
++//! cannot be reused by the next dock that happens to share the trait, and it tells a reader
++//! nothing about what the hardware actually wants.
++
++use super::*;
++
++/// How a dock acknowledges each control-plane operation during setup.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) enum ReplyDiscipline {
++    /// Read the matching authenticated counter and move on as soon as it arrives.
++    ///
++    /// The vendor's reference transaction for this dock is reply-lockstep. A generic drain adds an
++    /// empty 10 ms read after every acknowledgment, which reorders EP0 against EP02.
++    Lockstep,
++    /// Drain the interrupt endpoint until it goes quiet before continuing.
++    Drain,
++}
++
++/// Where a dock wants its video-engine transition within the setup burst.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) enum VideoCommitPoint {
++    /// After the reply to the status records and before the connector-selecting records.
++    ///
++    /// The working vendor transaction places it at this exact authenticated boundary.
++    BeforeConnectorRecords,
++    /// After the session is finalised.
++    AfterFinalize,
++}
++
++/// How a connector is taken down when it blanks.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) enum BlankBracket {
++    /// Two stream markers and then silence, holding the bracket open.
++    ///
++    /// The marker pair that opens a mode-change bracket, so the stream is held rather than torn
++    /// down and the wake owes the matching re-open. A dock that wants this re-enumerates about two
++    /// seconds after being sent [`Self::BlackThenClose`] instead, taking the desktop with it.
++    MarkersHeld,
++    /// Present black, close the stream bracket, then power the downstream sink down.
++    ///
++    /// The dock goes on scanning out whatever it last decoded, so the black frames alone leave the
++    /// panel lit on a black image; only the power-down ends the signal.
++    BlackThenClose,
++}
++
++/// How logical framebuffer updates are delivered to a dock's rotating buffers.
++///
++/// These are deliberately independent of [`DockProfile::dock_buffers`].  The ring depth describes
++/// the wire format; it does not say whether repeated presentations within one submission advance
++/// that ring, nor how many later submissions must carry a changed strip.  Conflating those facts
++/// made Ella send every ordinary update three times across four logical debt frames.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) struct FrameDelivery {
++    /// Presentations made from one newly owed full-surface keyframe.
++    pub(crate) keyframe_presentations: u8,
++    /// Presentations made from one ordinary damage update.
++    pub(crate) delta_presentations: u8,
++    /// Logical frames for which a changed strip remains selected, including its first frame.
++    pub(crate) damage_frames: u8,
++}
++
++impl FrameDelivery {
++    pub(crate) const fn new(
++        keyframe_presentations: u8,
++        delta_presentations: u8,
++        damage_frames: u8,
++    ) -> Self {
++        Self {
++            keyframe_presentations,
++            delta_presentations,
++            damage_frames,
++        }
++    }
++}
++
++/// Status polls a dock's vendor spaces the stages of its setup burst with.
++///
++/// The polls are `0x14/0x0c`, the same message the keepalive sends, and they are not filler: each
++/// is a round trip, so a stage that is separated by three of them is a stage the host waited for
++/// the dock to acknowledge three times before starting the next. Sending the stages back to back
++/// puts the same records on the wire in the same order and gives the dock none of that time.
++///
++/// Stated as counts rather than delays because that is what the wire shows and what a capture can
++/// check: a delay would have to be re-derived for every dock and could not be pinned by a test.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) struct SetupPolls {
++    /// Between the per-connector engage records and the first stream open.
++    pub(crate) before_stream_opens: u8,
++    /// Between one connector's stream open and the next connector's.
++    pub(crate) between_stream_opens: u8,
++    /// Between the last stream open and the capability queries that follow it.
++    pub(crate) after_stream_opens: u8,
++}
++
++impl SetupPolls {
++    pub(crate) const fn new(before: u8, between: u8, after: u8) -> Self {
++        Self {
++            before_stream_opens: before,
++            between_stream_opens: between,
++            after_stream_opens: after,
++        }
++    }
++
++    /// Polls owed before opening connector `connector`'s stream, of `connectors` total.
++    pub(crate) fn before_open(self, connector: u8) -> u8 {
++        if connector == 0 {
++            self.before_stream_opens
++        } else {
++            self.between_stream_opens
++        }
++    }
++
++    /// A dock whose vendor does not space this burst at all.
++    pub(crate) const NONE: Self = Self::new(0, 0, 0);
++}
++
++/// How much of a dock's endpoint the driver may occupy, and how quickly.
++///
++/// Two numbers, because one does not describe the vendor's behaviour. It bursts a whole frame at
++/// tens of megabytes a second and drives frames milliseconds apart when it has them, so an
++/// instantaneous cap would be wrong; and it never sustains that, so a sustained cap alone is
++/// useless if it lets a second of unspent budget out at once. A dock that shares its endpoint
++/// between pixels and control answers a burst it cannot absorb by halting the endpoint, which
++/// takes the control plane with it.
++///
++/// Stated in bytes rather than as a frame rate because content decides what a frame costs: the
++/// same desktop is four times the size under a photographic wallpaper as under a flat one, and a
++/// frame-rate cap cannot tell those apart.
++#[derive(Clone, Copy, PartialEq, Eq)]
++pub(crate) struct StreamPacing {
++    /// Sustained bytes per second, averaged over the credit window.
++    pub(crate) bytes_per_sec: u32,
++    /// Most that may leave back to back after an idle period.
++    pub(crate) burst_bytes: u32,
++}
++
++impl StreamPacing {
++    pub(crate) const fn new(bytes_per_sec: u32, burst_bytes: u32) -> Self {
++        Self {
++            bytes_per_sec,
++            burst_bytes,
++        }
++    }
++
++    /// A dock with a video endpoint of its own, where neither limit has been measured.
++    pub(crate) const UNMETERED: Self = Self::new(u32::MAX, u32::MAX);
++
++    /// Whether this dock is metered at all.
++    pub(crate) fn is_metered(self) -> bool {
++        self.bytes_per_sec != u32::MAX
++    }
++}
++
++/// Whether a presence retry may reset one connector's stream bracket while another connector is
++/// lit.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++#[repr(u8)]
++pub(crate) enum ProbeBracket {
++    /// Assert the target bracket before every probe, as the dedicated-pipe docks already do.
++    Always = 0,
++    /// Defer the assertion while another connector is active on the dock.
++    DeferWithActiveSibling = 1,
++}
++
++impl ProbeBracket {
++    /// Decide without I/O so the safety boundary can be exhaustively unit-tested.
++    pub(crate) fn should_close(self, connector: u8, active_connectors: u32) -> bool {
++        match self {
++            Self::Always => true,
++            Self::DeferWithActiveSibling => {
++                active_connectors & !(1u32 << u32::from(connector)) == 0
++            }
++        }
++    }
++}
++
++/// How a dock's connectors, video pipes and USB endpoints are arranged.
++///
++/// The control plane is identical across every dock here -- bulk OUT `0x02`, bulk IN `0x84`, the
++/// same HDCP and CP sequence -- but the video endpoints are not, so they cannot be a global
++/// constant. The D6000 exposes four video bulk-OUT endpoints and drives its two connectors from
++/// `0x08` and `0x0b`; the DL7400 exposes only two, `0x08` and `0x0a`, so naming `0x0b` there fails
++/// endpoint resolution outright and the device never comes up.
++pub(crate) struct Topology {
++    /// Video bulk-OUT endpoint per physical connector. Navarro deliberately repeats its two
++    /// endpoint addresses: connectors 0/2 share 0x08 and connectors 1/3 share 0x0a.
++    pub(crate) video_endpoints: [u8; drm_sink::MAX_CONNECTORS],
++    /// Whether video records and control messages share one bulk-OUT pipe.
++    ///
++    /// DL-3x00 hardware exposes only `0x02` OUT and `0x84` IN on its display interface, so image
++    /// records and control messages form a single ordered record stream. That makes the control
++    /// plane and the scanout path two writers on one endpoint, which they are not on hardware that
++    /// separates them: a control message submitted while video is queued lands in the middle of a
++    /// record. Submission on such a dock must therefore be serialised across both paths.
++    ///
++    /// This is a submission policy, not an observation about endpoint numbering. A dock that
++    /// happened to place video on `0x02` while keeping a pipe of its own would still not want the
++    /// serialisation, and a dock that shares a pipe at some other address would.
++    pub(crate) video_on_ctrl_pipe: bool,
++    /// Number of downstream connectors the dock answers a presence probe for.
++    ///
++    /// This is the range of the selector at probe byte 22, and it is not the connector count: Ridge
++    /// has two of each, Navarro has four connectors feeding two video endpoints (`0x08` carried
++    /// connectors 0 then 2, `0x0a` carried 1 then 3, measured across cable moves). Connector index
++    /// is the physical socket number minus one.
++    pub(crate) connectors: u8,
++}
++
++/// What a dock can be asked to drive.
++pub(crate) struct Capabilities {
++    /// Highest refresh rate this dock is known to drive, or `u32::MAX` for a dock bounded by its
++    /// link rate alone.
++    ///
++    /// This is a rate limit, not a bandwidth one -- `max_connector_clock_khz` and `pixel_budget`
++    /// carry bandwidth, and on every dock here they are what actually bounds a mode. Reserve this
++    /// for a dock that refuses a refresh its clock and budget both admit.
++    ///
++    /// A bandwidth ceiling expressed as a refresh cap prunes working modes, because refresh alone
++    /// does not order two modes by how hard they are to drive: 2560x1440p144 and 3840x2160p60 sit 3
++    /// MHz of pixel clock apart and 84 Hz of refresh apart.
++    pub(crate) max_refresh_hz: u32,
++    /// Highest per-mode pixel clock in kHz this dock is known to carry.
++    ///
++    /// This is the constraint that actually bounds a mode: the DL7400 accepts 2560x1440@180 and
++    /// then fails to deliver it, and what separates that mode from the 165 Hz one it does drive is
++    /// 714.81 MHz against 699.50 MHz of link rate, not 180 against 165 of refresh.
++    ///
++    /// The set-mode message carries the clock at offsets 70..73 as a `u32` in 10 kHz units. Take
++    /// the ceiling from the mode's own clock rather than from DLM's copy of it, which is rounded
++    /// to the wire's 10 kHz unit (`0x0001113d`, 699.49 MHz, for a 699.50 MHz mode).
++    ///
++    /// Ridge's is not merely the low half of that field: driven at 2560x1440p165, 699.50 MHz, it
++    /// blanks the sink even with the other connector idle, so the limit is the dock's and not the
++    /// encoding's. It carries 2560x1440p144 at 597.29 MHz.
++    pub(crate) max_connector_clock_khz: u32,
++    /// Dock-wide pixel-rate budget in pixels per second, shared across all connectors.
++    ///
++    /// The DL7400's is the dual-connector rate DLM was measured sustaining, and it is also what
++    /// bounds the depth: three quarters of it is what a 30 bpp connector is priced against, which
++    /// puts two connectors at 2560x1440p165 outside 30 bpp. Raising it to the dock's rated
++    /// four-connector 4K60 load admits that pair and the sinks then power off with nothing logged,
++    /// so the rated figure is not a bound this budget can borrow. Ridge's is the highest combined
++    /// rate measured driving cleanly, 2560x1440p144 beside 2560x1440p120. Both are floors on the
++    /// dock's real ceiling rather than the ceiling itself.
++    ///
++    /// Do not mistake DLM's declared per-connector `pixel_per_second_limit` for the bound. It
++    /// clamps every Ridge connector to 120 Hz as policy, and the dock drives a single connector a
++    /// fifth past that figure -- a budget derived from it prunes configurations the hardware
++    /// sustains.
++    pub(crate) pixel_budget: u32,
++    /// Whether this dock has the DL-7000 "10bit profile", i.e. can be driven at 10 bits per
++    /// channel for HDR.
++    ///
++    /// DisplayLink documents HDR10 as DL-7000 only, and the D6000's own connector reports
++    /// `HDR supported = False` to Windows even with an HDR-capable monitor on it -- so this is a
++    /// silicon generation property, not a mode one. It says the dock *could* be put in that
++    /// profile; it does not say vino knows how to ask yet.
++    pub(crate) hdr_capable: bool,
++    /// Whether this dock composites a host-uploaded cursor bitmap of its own.
++    ///
++    /// A cursor image is one control message carrying the whole 64x64 premultiplied bitmap, which
++    /// is 16,448 bytes on the wire. That is fine on a dock with a video pipe of its own, and on a
++    /// dock that shares one it is both far past the largest record the platform ever carries and a
++    /// record landing in the middle of the video stream. The vendor sends no cursor message of any
++    /// kind on such a dock, and draws the pointer into the frame instead.
++    ///
++    /// A false here withdraws the cursor plane rather than merely declining to send: a plane whose
++    /// atomic commit succeeds makes the compositor stop drawing its own pointer, so starving one
++    /// loses the pointer altogether.
++    pub(crate) hw_cursor: bool,
++}
++
++/// Exceptional behaviour that has to be worked around rather than described.
++///
++/// This is not where an ordinary difference in topology, capability or protocol belongs. A field
++/// earns a place here by being a defect: behaviour that contradicts what the rest of the model
++/// would predict, and that exists only because the hardware does it.
++pub(crate) struct Quirks {
++    /// Whether one EDID handler is shared between this dock's connectors.
++    ///
++    /// On such a dock a fetch does not read the monitor named at offset 22; it reads whichever
++    /// connector the handler is currently engaged for, and engaging it for one connector disengages
++    /// it for the other. Two failures follow from treating a fetch as if it named a connector. A
++    /// fetch issued before the handler is engaged returns a block the dock synthesises for itself,
++    /// describing a 1920x1080 panel under the bridge's own vendor id, which is then published as
++    /// the sink's EDID and drives the monitor at a timing it never advertised. A fetch issued on an
++    /// empty connector returns the other connector's monitor, so one connector appears to move
++    /// between sockets.
++    ///
++    /// The presence reply says which answer is coming: offset 26 bit 7 is set once the downstream
++    /// DDC read has completed for the connector the handler is engaged for. Acceptance is gated on
++    /// it, and a connector the probe reports absent is never engaged, because engaging it would
++    /// take the handler away from a connector that is driving a panel.
++    pub(crate) shared_edid_handler: bool,
++    /// Whether this dock reports its downstream DDC read complete in the presence reply.
++    ///
++    /// Offset 26 bit 7 is that report. A block offered before it describes the dock's own bridge
++    /// rather than the monitor, and publishing it drives the panel at a timing it never
++    /// advertised, so where the bit is reported an early block is dropped and the fetch retried.
++    /// A dock that never sets it answers the fetch correctly anyway and must not be gated on it,
++    /// or discovery discards every block it is given.
++    pub(crate) edid_ready_reported: bool,
++    /// Whether a frame whose length is a whole number of maximum-size packets is split so it does
++    /// not end on a full one.
++    ///
++    /// The split cannot do what its name says. A frame of length `N` that is a multiple of the
++    /// 1024-byte maximum packet is sent as `N - 16` and then `16`, and `N - 16` is not a multiple
++    /// either, so the first transfer ends short as well: a dock that delimits frames on a short
++    /// packet sees the frame end sixteen bytes early and then a stray sixteen-byte frame behind it.
++    /// Ending a frame short without splitting it needs a zero-length packet, and there is no
++    /// binding for one yet.
++    ///
++    /// So this stays where it was measured to help and nowhere else. On a DL-6xxx it is what makes
++    /// the dock stop accepting bytes on its video endpoint about fifty milliseconds later, with the
++    /// endpoint still reporting healthy -- measured across three captures, one of which contained a
++    /// single such transfer and a single failure.
++    pub(crate) split_full_packet_frame: bool,
++}
++
++/// How a dock speaks: session bring-up, mode programming, and the video record stream.
++pub(crate) struct Protocol {
++    /// The `wValue` of the first vendor transition, before the AKE.
++    ///
++    /// Both families use the same request number and differ only in this value. Sending the wrong
++    /// one still permits AKE and an exact control-endpoint transcript, so nothing on the wire
++    /// reports it, but it leaves the dock's video-side state machine in a different state before
++    /// its later commit.
++    pub(crate) initial_vendor_state: u16,
++    /// Whether a per-connector HDCP record selects its connector as a one-hot bit at byte `22 +
++    /// connector`, rather than as a one-based connector number at byte 23.
++    pub(crate) per_connector_onehot: bool,
++    /// How long to wait for a connector's `AKE_Send_Rrx` before reading it as an empty socket.
++    ///
++    /// The push is how a connector says it has a sink at all, so this one bound decides both how
++    /// long a populated connector may take to answer and how long an empty one is waited on. It
++    /// belongs to the dock because it is a property of the receiver behind the connector and of
++    /// how busy the dock is when asked. Set below what the dock needs, a populated connector
++    /// reads as empty and loses the rest of its burst -- including the SKE that hands the dock
++    /// the key for that connector's content stream, without which the sealed decoder
++    /// configuration cannot be read and the dock renders every strip as noise. Set high, it costs
++    /// one dead wait per genuinely empty connector.
++    pub(crate) perhead_rrx_wait_ms: i64,
++    /// How this dock acknowledges each setup operation; see [`ReplyDiscipline`].
++    pub(crate) reply_discipline: ReplyDiscipline,
++    /// Where this dock wants its video-engine transition; see [`VideoCommitPoint`].
++    pub(crate) video_commit_point: VideoCommitPoint,
++    /// Whether programming any connector reconfigures the whole dock.
++    ///
++    /// On such a dock a mode set is not a per-connector operation. Reconfiguring one connector
++    /// while another is lit resets the dock, so every lit connector has to be gathered and
++    /// committed together, the cold bring-up resets all sinks before programming any, and the
++    /// control plane is held quiet across the first mode set rather than answering probe retries in
++    /// the middle of it.
++    pub(crate) dock_wide_modeset: bool,
++    /// Whether a connector's pipe is torn down before it is configured.
++    ///
++    /// The dock expects a connector cleared before a timing is programmed onto it.
++    pub(crate) clear_mode_before_set: bool,
++    /// How a connector blanks; see [`BlankBracket`].
++    pub(crate) blank_bracket: BlankBracket,
++    /// Whether a connector must keep being fed while its content is unchanged.
++    ///
++    /// A dock that tears the downstream link down over a silent video endpoint has to be re-fed
++    /// whether or not anything changed, so its settle repaint is periodic and is not charged
++    /// against the connector's keyframe budget.
++    pub(crate) video_keepalive: bool,
++    /// How the dock encodes a connector in a video record's `sub` field, as a left shift.
++    ///
++    /// Ridge uses the bare connector number (shift 0). Navarro spaces connectors eight apart --
++    /// records use `0x00`/`0x08`/`0x10`/`0x18` and stream-opens `0x07`/`0x0f`/`0x17`/`0x1f`.
++    pub(crate) connector_selector_shift: u8,
++    /// The bits a connector's content-stream id sets over its record `sub`.
++    ///
++    /// Ridge streams are `0x08 | connector`, Navarro's `(connector << 3) | 7`. See
++    /// [`video::haar::Geometry::stream_id_mask`], which this configures.
++    pub(crate) stream_id_mask: u8,
++    /// The connector-count marker byte the per-connector `strm2` record carries at offset 24.
++    pub(crate) strm2_marker: u8,
++    /// Whether an image record's `sub` carries the y-band parity; see
++    /// [`video::haar::Geometry::band_parity_bit`].
++    pub(crate) band_parity_bit: bool,
++    /// Blocks across one strip; see [`video::haar::Geometry`]. Ridge lays a strip's sixteen
++    /// blocks 8 across x 2 down (64x16 px), the DL7400 16 across x 1 down (128x8 px).
++    pub(crate) strip_blocks_x: usize,
++    /// Whether image records interlace y bands; see [`video::haar::Geometry::interlaced_bands`].
++    pub(crate) interlaced_bands: bool,
++    /// How many buffers the dock rotates through as it presents frames.
++    ///
++    /// Ridge is double buffered. The DL7400 rotates three slots -- `video::haar::ring_phase()`
++    /// steps `seq0 % 3` and its pipe descriptor names three ring addresses. Presentation and debt
++    /// counts are separate policy below: the same ring depth does not imply the same delivery
++    /// choreography.
++    pub(crate) dock_buffers: u8,
++    /// How keyframes and deltas are spread over those buffers; see [`FrameDelivery`].
++    pub(crate) frame_delivery: FrameDelivery,
++    /// Whether the dock's presence probe says anything about what is plugged into a connector.
++    ///
++    /// Where it does, an unoccupied connector stays disconnected rather than advertising a phantom
++    /// output. Where it does not, every connector the dock declares is offered: this dock answers
++    /// the probe "absent" and returns no EDID for a socket with a live monitor on it, and the
++    /// vendor configures both of its connectors before any pixels regardless.
++    pub(crate) reports_presence: bool,
++    /// Bits a steady-state image record adds to its `sub`, once a stream is past its opening.
++    ///
++    /// Read off the vendor driving this dock: after the frames that open a stream, every image
++    /// record it sends carries this over the connector and the y-band parity, and it never clears
++    /// it again. The records are otherwise byte-identical to vino's -- same size, type, aux,
++    /// sequence and payload -- so a dock that stops accepting a stream while its endpoint still
++    /// reports healthy is the failure this describes.
++    pub(crate) steady_record_sub_bit: u8,
++    /// Whether a timed presence retry may reset its bracket while another connector is active.
++    pub(crate) probe_bracket: ProbeBracket,
++    /// How the vendor spaces the stages of the setup burst; see [`SetupPolls`].
++    pub(crate) setup_polls: SetupPolls,
++    /// Outstanding EP84 reads to keep posted.
++    ///
++    /// Navarro needs exactly one, as DLM keeps: a deeper queue delays an EDID reply behind an
++    /// un-reaped slot and the dock then NAKs EP02. Ridge interleaves many more unsolicited pushes
++    /// with the replies it waits for, and loses them at a depth of one.
++    pub(crate) ep84_queue_depth: usize,
++    /// Flat carrier frames a connector presents before its first content frame.
++    ///
++    /// Every one of them walks the dock's ring another slot and steps its frame counter, so this
++    /// is a count the vendor's own stream states, not a duration to fill. `u32::MAX` leaves a
++    /// family bounded by the carrier's wall-clock window instead, which is only safe where that
++    /// window is itself the measured thing.
++    pub(crate) carrier_frames: u32,
++    /// Whether the first frame after a mode set carries the cold ARM burst.
++    ///
++    /// A dock either prefixes the ARM burst to the first frame of a stream, or opens the stream
++    /// with a short plaintext record on the connector's video `sub` followed by a sealed report on
++    /// its stream id. Sending the wrong opening leaves the stream unopened and the dock stalls the
++    /// endpoint, which surfaces as `EPROTO` on the first scanout write.
++    pub(crate) arm_burst: bool,
++    /// The `0x16/0x2e` state that takes a downstream sink down.
++    ///
++    /// 0 always brings a sink back up; what puts it down is not shared. DL-3x00 uses 3, and the
++    /// value verified against DL-6xxx is 1 -- so this is likely a bitmask rather than an
++    /// enumeration. Sending the wrong one leaves a dock accepting every byte of a frame and
++    /// displaying none of it, with nothing on the wire to say so.
++    pub(crate) sink_down_state: u8,
++    /// The two `0x2e` states this dock's post-mode-set bracket carries, in order.
++    ///
++    /// `0` is up and `3` is down. Read off each vendor driving its own dock: the DL-6xxx is sent
++    /// the down *before* the set-mode and nothing but `0` after it, so a `3` here leaves its sink
++    /// down for the rest of the bracket -- a dock that accepts every byte of a frame and displays
++    /// none of it.
++    pub(crate) post_mode_sink_states: [u8; 2],
++    /// The `0x2e` state this dock wants before a mode is programmed, if it wants one.
++    ///
++    /// The DL-6xxx is driven down and straight back up around every set-mode: its vendor sends
++    /// `0x2f` 1 and `0x2e` 3 immediately ahead of the timing and nothing but `0` behind it, which
++    /// is what retrains the downstream link onto the new timing. Without it the dock programs the
++    /// timing, accepts every byte of every frame and lights nothing. Docks whose vendor does not
++    /// bracket this way leave it `None`.
++    pub(crate) pre_mode_sink_state: Option<u8>,
++    /// The byte that names this dock in the marker opening a sealed video stream.
++    ///
++    /// The marker is otherwise the same four bytes everywhere; see `cp::stream_open`.
++    pub(crate) stream_marker_kind: u8,
++    /// The word repeated beside the surface size in a stream's mode header.
++    ///
++    /// It is not a pitch and its meaning is not established, so each generation carries the value
++    /// its own captures show rather than one computed here.
++    pub(crate) layout_word: u16,
++    /// Which form of decoder code tables this dock's stream configuration states.
++    pub(crate) code_tables: video_arm::CodeTables,
++    /// Whether the dock takes the three dock-wide records that precede the per-connector blocks.
++    ///
++    /// `0x14/0x30`, `0x15/0x0b` and one `0x16/0x2a` per connector. A dock that does not expect
++    /// them is left every later inner counter and AES block out of step by sending them.
++    pub(crate) dock_wide_init: bool,
++    /// Shortest interval between two frames on one connector, in milliseconds.
++    ///
++    /// A dock with a video pipe of its own can be fed as fast as the encoder and USB allow, and
++    /// this only has to stop a busy compositor from queueing work faster than it drains. A dock
++    /// that carries video on the control pipe needs it to do more: the gaps between frames are the
++    /// only time its control plane gets the endpoint, so an interval that is too short does not
++    /// merely drop frames, it silences the dock.
++    pub(crate) frame_period_ms: i64,
++    /// Interval between the session keepalive's status queries, in milliseconds.
++    ///
++    /// A dock with a video pipe of its own can be asked as often as is convenient: the query and
++    /// the pixels do not contend. Where they share an endpoint the query is bytes queued ahead of
++    /// a frame and a reply the dock has to produce mid-scanout, so this follows what the vendor
++    /// does on that dock rather than what is convenient here.
++    pub(crate) status_period_ms: i64,
++    /// How much this dock will take, and how fast; see [`StreamPacing`].
++    pub(crate) stream_pacing: StreamPacing,
++    /// How this dock states its framebuffer allocation in a set-mode; see [`Allocation`].
++    pub(crate) allocation: Allocation,
++}
++
++/// Everything that distinguishes one dock from another.
++pub(crate) struct DockProfile {
++    /// Human name, logged at probe so an unfamiliar unit identifies itself in dmesg.
++    pub(crate) name: &'static str,
++    /// How this dock's connectors, pipes and endpoints are arranged.
++    pub(crate) topology: Topology,
++    /// What this dock can be asked to drive.
++    pub(crate) capabilities: Capabilities,
++    /// How this dock speaks.
++    pub(crate) protocol: Protocol,
++    /// Where this dock departs from what the model above would predict.
++    pub(crate) quirks: Quirks,
++}
++
++/// The offset-46 stride and offset-48 row count of a set-mode.
++///
++/// The pair describes the dock's own framebuffer allocation rather than the timing, and getting it
++/// wrong is invisible on the wire: the dock accepts the set-mode, accepts pixels, and then has
++/// nowhere to put the frame after the first.
++pub(crate) enum Allocation {
++    /// A device-level override the dock carries on every mode, whatever the width.
++    ///
++    /// The whole decrypted Ridge corpus carries one pair at 1280x720, 1920x1080 and 2560x1440
++    /// alike, where a derived stride would differ per width.
++    Fixed { stride: u16, rows: u16 },
++    /// Stride quantised up from the width, row count derived from a fixed framebuffer size.
++    ///
++    /// The vendor's serializer computes the row count as its framebuffer allocation divided by one
++    /// row of the render stride, so a dock that partitions a fixed number of bytes per connector
++    /// states a row count that falls out of the width and the sample depth alone. `bytes` is that
++    /// partition.
++    Derived { bytes: u32 },
++    /// Stride quantised up from the width, row count as measured for the resolution.
++    ///
++    /// For a dock whose allocator hands out a different size per mode, nothing derives the row
++    /// count and a resolution no capture covers has no answer but a family default.
++    Measured {
++        rows: &'static [(u16, u16, u16)],
++        default_rows: u16,
++    },
++}
++
++impl Allocation {
++    /// The `(stride, rows)` pair for one mode, and whether the rows are known rather than guessed.
++    ///
++    /// A row of the dock's framebuffer is `stride * bytes_per_pixel` wide, so the depth the
++    /// connector will actually send belongs in the division: a 30 bpp connector is told three
++    /// quarters of the rows a 24 bpp one is.
++    pub(crate) fn words(&self, hactive: u16, vactive: u16, ten_bit: bool) -> (u16, u16, bool) {
++        // The dock's DMA formats index a bytes-per-pixel table; the two this driver sends are
++        // 24 bpp packed and 30 bpp in a 32-bit container.
++        let bytes_per_pixel = if ten_bit { 4 } else { 3 };
++        match self {
++            Allocation::Fixed { stride, rows } => (*stride, *rows, true),
++            Allocation::Derived { bytes } => {
++                let stride = cp::render_stride(hactive);
++                let row = u32::from(stride) * bytes_per_pixel;
++                // A stride is never zero for a width a sink can advertise, but say so rather than
++                // carrying a division that has to trap.
++                let rows = bytes.checked_div(row).unwrap_or(0).min(u32::from(u16::MAX)) as u16;
++                (stride, rows, true)
++            }
++            Allocation::Measured { rows, default_rows } => {
++                let stride = cp::render_stride(hactive);
++                let (rows, known) =
++                    match rows.iter().find(|(w, h, _)| *w == hactive && *h == vactive) {
++                        Some((_, _, r)) => (*r, true),
++                        None => (*default_rows, false),
++                    };
++                // The table is measured at 24 bpp and the partition behind it does not grow with
++                // the depth, so the row count gives way by the ratio the row width gained.
++                let rows = (u32::from(rows) * 3 / bytes_per_pixel) as u16;
++                (stride, rows, known)
++            }
++        }
++    }
++}
++
++impl DockProfile {
++    /// This dock's codec geometry, for the codec calls made before a DRM device exists.
++    ///
++    /// The steady-state path reads `VinoDrmData::geometry()` instead; both describe the same
++    /// dock, and this exists because CP setup names stream ids before the sink is published.
++    pub(crate) fn geometry(&self) -> video::haar::Geometry {
++        video::haar::Geometry::new(
++            self.protocol.strip_blocks_x,
++            self.protocol.interlaced_bands,
++            self.protocol.band_parity_bit,
++            self.protocol.connector_selector_shift,
++            self.protocol.stream_id_mask,
++            self.protocol.dock_buffers,
++        )
++        .with_coding(self.protocol.code_tables)
++        .with_steady_sub_bit(self.protocol.steady_record_sub_bit)
++    }
++}
++
++/// DL-3x00 docks (Ella), such as the HP 3005pr port replicator.
++///
++/// This dock has no video endpoint. Its display interface exposes only the control pair, `0x02`
++/// OUT and `0x84` IN, and it carries pixels down `0x02` alongside the control messages -- measured
++/// at 289 MB of video against 68 kB of replies in one session. The two planes are told apart by a
++/// record's `sub`: a connector number for video, and the sealed control subs otherwise. Naming
++/// `0x02` here is what lets the ordinary video path drive it unchanged; the cost is that the
++/// control and video writers now share an endpoint and must not interleave mid-record.
++///
++/// Everything else is Ridge: 64x16 strips, the bare connector number in a record's `sub`, the
++/// `0x08 | connector` stream ids, the same record framing and the same set-mode layout. The one
++/// departure is band handling, which follows Navarro -- bands are interlaced and a record carries
++/// no parity bit, so a record may span a band boundary and fill to the stride cap.
++pub(crate) static PROFILE_ELLA: DockProfile = DockProfile {
++    name: "DL-3x00 dock (Ella, DL-3900)",
++    topology: Topology {
++        video_endpoints: [0x02, 0x02, 0x02, 0x02],
++        video_on_ctrl_pipe: true,
++        connectors: 2,
++        // Three, measured: the per-frame opener's slot field cycles 0, 1, 2 across 7115 records.
++    },
++    capabilities: Capabilities {
++        max_refresh_hz: 75,
++        max_connector_clock_khz: 148_500,
++        pixel_budget: 248_832_000,
++        hdr_capable: false,
++        // No cursor message of any kind appears in 326 s of the vendor driving this dock, and its
++        // largest control record is 192 bytes against the 16,448 a cursor upload would need.
++        hw_cursor: false,
++    },
++    protocol: Protocol {
++        initial_vendor_state: 3,
++        per_connector_onehot: false,
++        // A cold DL-3x00 takes 221 ms to answer the first per-connector AKE_No_Stored_km,
++        // against under two once it is warm, so the bound is sized above the cold figure with
++        // margin.
++        perhead_rrx_wait_ms: 500,
++        reply_discipline: ReplyDiscipline::Drain,
++        video_commit_point: VideoCommitPoint::AfterFinalize,
++        dock_wide_modeset: false,
++        clear_mode_before_set: false,
++        // Measured against this dock's own vendor: the sink goes down on `2f=1`, `2e=3` alone,
++        // with no video in the window. Painting black first is not merely redundant here, it is
++        // harmful -- video shares the control pipe on this platform, a black desktop quadruples
++        // what the vendor puts on that pipe, and the endpoint halts under exactly that load,
++        // which abandons the session and leaves the dock scanning out its last frame.
++        blank_bracket: BlankBracket::MarkersHeld,
++        video_keepalive: false,
++        connector_selector_shift: 0,
++        stream_id_mask: 0x08,
++        // Not a connector count: this platform sends 0x10 with two connectors where Ridge sends
++        // 0x06 with two and Navarro 0x0c with four.
++        strm2_marker: 0x10,
++        band_parity_bit: false,
++        strip_blocks_x: 8,
++        interlaced_bands: true,
++        dock_buffers: 3,
++        // DLM presents every content frame once.  Keep a changed strip selected across the ring
++        // instead of multiplying every logical frame into three back-to-back copies.
++        frame_delivery: FrameDelivery::new(3, 1, 3),
++        // DLM offers 75 Hz at 1024x768, 1280x1024, 800x600 and 640x480, and stops at 1920x1080@60
++        // -- so refresh is not what bounds this dock, the pixel clock is. 1920x1080@60 is 148.5 MHz
++        // and is the largest mode offered; the budget is that mode on both connectors.
++        reports_presence: false,
++        // Kept: this is the family the split was measured on.
++        steady_record_sub_bit: 0,
++        // Ella shares control and pixels on EP02.  Its vendor stream never resets an idle
++        // connector's bracket periodically, and doing so while the sibling is lit drops that
++        // sibling's sink.
++        probe_bracket: ProbeBracket::DeferWithActiveSibling,
++        // Counted off the vendor's own burst: two polls between the engage records and the first
++        // stream open, three between the two opens, three before the capability queries.
++        setup_polls: SetupPolls::new(2, 3, 3),
++        // One is the whole opening: the vendor's first connector goes straight from a single flat
++        // frame into a full content frame. Its second connector sends several because that is what
++        // its compositor had, not because the dock wants them.
++        ep84_queue_depth: 1,
++        // DLM opens an Ella stream the way it opens a Navarro one: a 48-byte plaintext record on
++        // the connector's video sub, then a 336-byte sealed record on stream id 0x08|connector,
++        // then strips.
++        carrier_frames: 1,
++        // One, as Navarro keeps and as this dock's vendor keeps: 313 submissions against 312
++        // completions in a 326 s session, never two outstanding. A deeper queue leaves a reply
++        // behind an un-reaped slot, and this dock answers that by halting EP02 -- which on a dock
++        // that carries its pixels there takes the video with it.
++        arm_burst: false,
++        sink_down_state: 3,
++        post_mode_sink_states: [3, 0],
++        pre_mode_sink_state: None,
++        stream_marker_kind: 0x01,
++        layout_word: 0x1800,
++        code_tables: video_arm::CodeTables::Narrow,
++        dock_wide_init: true,
++        // Measured from DLM, per connector, between the records that close consecutive frames:
++        // median 16.6 ms with a tenth percentile of 15.8, which is a 60 Hz producer and not a dock
++        // limit. The floor is far lower -- 1.3 ms -- and the peak rate 82.9 MB/s.
++        frame_period_ms: 16,
++        // DLM sends 179 sealed control records in a 326 s session -- one status query per 2.5 s --
++        // and nothing at all during its long silences. Its pixels and its control plane share this
++        // endpoint, and it spends the endpoint on pixels.
++        status_period_ms: 2500,
++        // The vendor's own envelope over a 326 s session, measured as peak bytes in a sliding
++        // window: 34.4 MB in any second, 36.2 in any two, 38.5 in any three, 42.8 in any five. It
++        // bursts a frame at 158 MB/s and then goes quiet, so the pair has to be read as a curve --
++        // a single sustained figure large enough for the bursts permits many times the five-second
++        // total.
++        //
++        // A bucket of 24 MB refilling at 8 MB/s reproduces that curve: 32 MB in a second against
++        // the vendor's 34.4, 40 in two against 36.2, 64 in five against 42.8. Deliberately at the
++        // vendor's shoulder rather than under it, because what halts the endpoint is a frame
++        // ending on a full packet, not volume, and a ceiling below the vendor's own demand is
++        // a ceiling the desktop feels.
++        stream_pacing: StreamPacing::new(8_000_000, 24_000_000),
++        allocation: Allocation::Derived {
++            bytes: 48 * 1024 * 1024,
++        },
++    },
++    quirks: Quirks {
++        shared_edid_handler: false,
++        edid_ready_reported: false,
++        split_full_packet_frame: true,
++    },
++};
++/// Dell D6000 and other Ridge-platform docks.
++pub(crate) static PROFILE_RIDGE: DockProfile = DockProfile {
++    name: "Dell D6000 (Ridge, DL-6xxx)",
++    topology: Topology {
++        video_endpoints: [0x08, 0x0b, 0x08, 0x0b],
++        video_on_ctrl_pipe: false,
++        connectors: 2,
++    },
++    capabilities: Capabilities {
++        max_refresh_hz: u32::MAX,
++        max_connector_clock_khz: 655_350,
++        pixel_budget: 973_209_600,
++        hdr_capable: false,
++        hw_cursor: true,
++    },
++    protocol: Protocol {
++        initial_vendor_state: 3,
++        per_connector_onehot: false,
++        perhead_rrx_wait_ms: 30,
++        reply_discipline: ReplyDiscipline::Drain,
++        video_commit_point: VideoCommitPoint::AfterFinalize,
++        dock_wide_modeset: false,
++        clear_mode_before_set: false,
++        blank_bracket: BlankBracket::BlackThenClose,
++        video_keepalive: false,
++        connector_selector_shift: 0,
++        stream_id_mask: 0x08,
++        strm2_marker: 0x06,
++        band_parity_bit: true,
++        strip_blocks_x: 8,
++        interlaced_bands: false,
++        dock_buffers: 2,
++        frame_delivery: FrameDelivery::new(2, 1, 3),
++        reports_presence: true,
++        // One handler, shared: the vendor reads this dock twice, discards the first block and takes
++        // the second once the readiness bit is set.
++        steady_record_sub_bit: 0x20,
++        // A stray sixteen-byte transfer is what this dock stops accepting bytes over.
++        probe_bracket: ProbeBracket::Always,
++        // Ridge opens its streams from the scanout path, on a video pipe of its own.
++        setup_polls: SetupPolls::NONE,
++        ep84_queue_depth: 4,
++        // Unmeasured here: the cold timeline this family was tuned on bounds the carrier by its
++        // wall-clock window, and that window is the measured thing.
++        carrier_frames: u32::MAX,
++        arm_burst: true,
++        sink_down_state: 1,
++        // Read off DLM driving this dock: it sends the down before the set-mode, and every `0x2e`
++        // after it carries 0.
++        post_mode_sink_states: [0, 0],
++        pre_mode_sink_state: Some(3),
++        stream_marker_kind: 0x03,
++        layout_word: 0x4000,
++        code_tables: video_arm::CodeTables::Wide,
++        dock_wide_init: false,
++        // The vendor's own floor on this endpoint: it never puts two frames closer together than
++        // 8.2 ms. Matching it rather than undercutting it by three times costs nothing a desktop
++        // can see.
++        frame_period_ms: 8,
++        // Video has an endpoint of its own here, so a status query costs a frame nothing.
++        status_period_ms: 250,
++        // A video endpoint of its own, and no limit of either kind has been measured on it.
++        stream_pacing: StreamPacing::UNMETERED,
++        allocation: Allocation::Fixed {
++            stride: 0x4000,
++            rows: 0x6000,
++        },
++    },
++    quirks: Quirks {
++        shared_edid_handler: true,
++        edid_ready_reported: true,
++        split_full_packet_frame: false,
++    },
++};
++/// DL-7400 quad-display docks (Navarro).
++///
++/// Four independent physical connectors multiplexed over two video endpoints. This is not tiling:
++/// the Windows capture has a distinct stream-open and record `sub` for each socket.
++pub(crate) static PROFILE_NAVARRO: DockProfile = DockProfile {
++    name: "DL-7400 quad dock (Navarro, DL-7000)",
++    topology: Topology {
++        video_endpoints: [0x08, 0x0a, 0x08, 0x0a],
++        video_on_ctrl_pipe: false,
++        connectors: 4,
++    },
++    capabilities: Capabilities {
++        max_refresh_hz: u32::MAX,
++        max_connector_clock_khz: 699_500,
++        pixel_budget: 1_216_512_000,
++        hdr_capable: true,
++        hw_cursor: true,
++    },
++    protocol: Protocol {
++        initial_vendor_state: 0,
++        per_connector_onehot: true,
++        perhead_rrx_wait_ms: 30,
++        reply_discipline: ReplyDiscipline::Lockstep,
++        video_commit_point: VideoCommitPoint::BeforeConnectorRecords,
++        dock_wide_modeset: true,
++        clear_mode_before_set: true,
++        blank_bracket: BlankBracket::MarkersHeld,
++        video_keepalive: true,
++        connector_selector_shift: 3,
++        stream_id_mask: 0x07,
++        strm2_marker: 0x0c,
++        band_parity_bit: false,
++        strip_blocks_x: 16,
++        interlaced_bands: true,
++        dock_buffers: 3,
++        frame_delivery: FrameDelivery::new(3, 1, 4),
++        reports_presence: true,
++        steady_record_sub_bit: 0,
++        // Left as it has been since the split was introduced. It is very likely wrong here for the
++        // same reason it is wrong on a DL-6xxx, but this dock was not on the bus to test it and
++        // changing behaviour that is currently working on hardware nobody can check is not a
++        // trade worth making. Re-measure when the dock is back: look for 16-byte transfers on
++        // its video endpoints.
++        probe_bracket: ProbeBracket::Always,
++        // As Ridge: the DL7400 has video endpoints of its own and opens a stream ahead of the
++        // frame.
++        setup_polls: SetupPolls::NONE,
++        ep84_queue_depth: 1,
++        // DLM opens a stream here with five quiescent frames of about fifty image records each
++        // before the first detailed one. A window instead of a count made this whatever the
++        // endpoint would take in 400 ms -- four frames when the dock was draining slowly and 852
++        // when it was not.
++        carrier_frames: 5,
++        arm_burst: false,
++        sink_down_state: 3,
++        // Unchanged: this dock drives a panel with both downs in place.
++        post_mode_sink_states: [3, 3],
++        pre_mode_sink_state: Some(3),
++        stream_marker_kind: 0x05,
++        layout_word: 0x2100,
++        code_tables: video_arm::CodeTables::Wide,
++        dock_wide_init: true,
++        frame_period_ms: 5,
++        // Video has an endpoint of its own here, so a status query costs a frame nothing.
++        status_period_ms: 250,
++        // A video endpoint of its own, and no limit of either kind has been measured on it.
++        stream_pacing: StreamPacing::UNMETERED,
++        allocation: Allocation::Measured {
++            rows: &[(2560, 1440, 0x66db), (640, 480, 0x6800)],
++            default_rows: 0x6000,
++        },
++    },
++    quirks: Quirks {
++        shared_edid_handler: false,
++        edid_ready_reported: true,
++        split_full_packet_frame: true,
++    },
++};
++
++/// The profile for a dock family, or `None` for a family this driver cannot drive yet.
++///
++/// The family comes from the device's own identity descriptor, so this is what a dock *is*, not
++/// what product ID it happens to ship under. A product-ID table can only ever describe the
++/// hardware someone tested; see Documentation/gpu/vino.rst.
++///
++/// Declining a family is deliberate: an unrecognised device that says what it is produces a usable
++/// report, whereas a guessed profile produces a dock reset.
++///
++/// Firefly has never been seen here at all.
++pub(crate) fn for_family(family: firmware::Family) -> Option<&'static DockProfile> {
++    match family {
++        firmware::Family::Ella => Some(&PROFILE_ELLA),
++        firmware::Family::Ridge => Some(&PROFILE_RIDGE),
++        firmware::Family::Navarro => Some(&PROFILE_NAVARRO),
++        firmware::Family::Firefly => None,
++    }
++}
++
++/// The profile for a device whose identity descriptor could not be read.
++///
++/// This is the quirk table, and the only thing product IDs are still good for: a dock that will
++/// not answer `GET_DESCRIPTOR` for its identity is one this driver has no other way to place. It
++/// is not the gate -- a device missing from it is still driven if it names its family.
++pub(crate) fn for_product(product: u16) -> Option<&'static DockProfile> {
++    match product {
++        PID_D6000 => Some(&PROFILE_RIDGE),
++        PID_DL7400 => Some(&PROFILE_NAVARRO),
++        _ => None,
++    }
++}
++
++/// Control and per-connector bulk endpoints.
++pub(crate) const EP_CTRL_OUT: u8 = 0x02;
++pub(crate) const EP_CTRL_IN: u8 = 0x84;
++
++#[cfg(CONFIG_DRM_VINO_KUNIT_TEST)]
++#[kunit_tests(vino_profile)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn an_endpoint_list_logs_on_one_line() -> Result {
++        // A log line has to be one line. `{:#04x?}` on an array compiles and reads fine in source
++        // but asks the derived `Debug` to pretty-print, putting each endpoint on its own line in
++        // dmesg; nothing but rendering it catches that.
++        let rendered = kernel::str::CString::try_from_fmt(kernel::prelude::fmt!(
++            "{}",
++            crate::HexList(&PROFILE_NAVARRO.topology.video_endpoints)
++        ))?;
++        assert_eq!(rendered.to_bytes(), b"08 0a 08 0a");
++        assert!(!rendered.to_bytes().contains(&b'\n'));
++        Ok(())
++    }
++
++    #[test]
++    fn stream_ids_follow_the_dock_profile() {
++        // Each dock's ids come from its own geometry value, so two bound docks cannot interfere.
++        let ridge = PROFILE_RIDGE.geometry();
++        assert_eq!(ridge.stream_id(0), 0x0008);
++        assert_eq!(ridge.stream_id(1), 0x0009);
++
++        let navarro = PROFILE_NAVARRO.geometry();
++        assert_eq!(navarro.stream_id(0), 0x0007);
++        assert_eq!(navarro.stream_id(1), 0x000f);
++        assert_eq!(navarro.stream_id(2), 0x0017);
++        assert_eq!(navarro.stream_id(3), 0x001f);
++
++        // And the Ridge values are unchanged by having read the Navarro ones.
++        assert_eq!(ridge.stream_id(0), 0x0008);
++    }
++
++    /// cannot be asked.
++    ///
++    /// The failure this pins is silent and total: swap two arms and every dock of both families
++    /// gets the other's codec geometry, which the hardware answers with a reset. The unsupported
++    /// families must stay unsupported for the same reason -- a guessed profile is worse than a
++    /// declined bind, because a declined bind produces a report.
++    #[test]
++    fn a_dock_is_placed_by_family_and_product_ids_are_only_quirks() {
++        use crate::firmware::Family;
++
++        assert!(core::ptr::eq(
++            for_family(Family::Navarro).unwrap(),
++            &PROFILE_NAVARRO
++        ));
++        assert!(core::ptr::eq(
++            for_family(Family::Ridge).unwrap(),
++            &PROFILE_RIDGE
++        ));
++        assert!(core::ptr::eq(
++            for_family(Family::Ella).unwrap(),
++            &PROFILE_ELLA
++        ));
++        assert!(for_family(Family::Firefly).is_none());
++
++        // DL-3x00 is the only shape that shares the control pipe, and it is the only one allowed
++        // to: `send_cp_reply` excludes scanout for the duration of a control message on such a
++        // dock. A profile that starts sharing the pipe without that exclusion splits a record.
++        // Every family except Ella, which is the exception being pinned.
++        for family in [Family::Ridge, Family::Navarro, Family::Firefly] {
++            if let Some(profile) = for_family(family) {
++                assert!(!profile.topology.video_on_ctrl_pipe);
++            }
++        }
++        assert!(PROFILE_ELLA.topology.video_on_ctrl_pipe);
++
++        // Measured from a DLM capture of an Ella dock driving two 1920x1080 connectors: 992,496
++        // strips at 30 distinct x positions 64 apart and 68 distinct y positions 16 apart, image
++        // records whose `sub` is a bare connector number with no band-parity bit, and `0x08 |
++        // connector` stream ids. Getting any of these wrong produces a dock that accepts every byte
++        // and shows nothing, so pin them.
++        let ella = PROFILE_ELLA.geometry();
++        assert_eq!(ella.strip_w(), 64);
++        assert_eq!(ella.strip_h(), 16);
++        assert_eq!(PROFILE_ELLA.protocol.connector_selector_shift, 0);
++        assert_eq!(PROFILE_ELLA.protocol.stream_id_mask, 0x08);
++        assert!(!PROFILE_ELLA.protocol.band_parity_bit);
++        assert!(PROFILE_ELLA.protocol.interlaced_bands);
++
++        // A dock that shares the control pipe lives in the gaps between its own frames, so the
++        // interval is a functional requirement rather than a tuning preference: driving it at the
++        // shared 5 ms default put 191 MB/s on the pipe and the dock stopped answering EP84
++        // entirely. DLM's own median gap between the records closing consecutive frames is
++        // 16.6 ms, with a tenth percentile of 15.8.
++        assert_eq!(PROFILE_ELLA.protocol.frame_period_ms, 16);
++        // Pinned per family rather than as "everything except Ella". The vendor never puts two
++        // frames on a DL-6xxx's video endpoint closer together than 8.2 ms, so that dock's floor
++        // is its own measurement and not the shared default.
++        assert_eq!(PROFILE_RIDGE.protocol.frame_period_ms, 8);
++        assert_eq!(PROFILE_NAVARRO.protocol.frame_period_ms, 5);
++
++        // The quirk table agrees with the families it stands in for, and knows nothing else. A
++        // product missing here is still driven if its identity descriptor can be read.
++        assert!(core::ptr::eq(for_product(0x6006).unwrap(), &PROFILE_RIDGE));
++        assert!(core::ptr::eq(
++            for_product(0x7000).unwrap(),
++            &PROFILE_NAVARRO
++        ));
++        assert!(for_product(0x6015).is_none());
++    }
++
++    #[test]
++    fn edid_is_gated_on_the_readiness_report_where_the_dock_makes_one() {
++        // Gating a dock that never reports the read complete discards every block it offers, and
++        // not gating one that does publishes the dock's own bridge descriptor as the sink's EDID.
++        // The two properties are independent of whether the connectors share a handler.
++        assert!(!PROFILE_ELLA.quirks.edid_ready_reported);
++        assert!(PROFILE_RIDGE.quirks.edid_ready_reported);
++        assert!(PROFILE_NAVARRO.quirks.edid_ready_reported);
++        assert!(!PROFILE_NAVARRO.quirks.shared_edid_handler);
++    }
++
++    /// The rrx bound has to cover a cold receiver, and so is pinned per dock.
++    ///
++    /// A connector that does not answer inside it is taken for an empty socket and loses the rest
++    /// of its authentication, which costs that connector its content-stream key. A cold DL-3x00
++    /// takes 221 ms to answer.
++    #[test]
++    fn the_rrx_bound_covers_a_cold_receiver_on_the_dock_that_needs_it() {
++        assert!(PROFILE_ELLA.protocol.perhead_rrx_wait_ms >= 221);
++        assert_eq!(PROFILE_ELLA.protocol.perhead_rrx_wait_ms, 500);
++        assert_eq!(PROFILE_RIDGE.protocol.perhead_rrx_wait_ms, 30);
++        assert_eq!(PROFILE_NAVARRO.protocol.perhead_rrx_wait_ms, 30);
++    }
++
++    /// Status queries follow the dock, because on a shared pipe they cost a frame.
++    #[test]
++    fn status_period_follows_the_vendor_on_the_shared_pipe_dock() {
++        // A dedicated video endpoint means a query contends with nothing.
++        assert_eq!(PROFILE_RIDGE.protocol.status_period_ms, 250);
++        assert_eq!(PROFILE_NAVARRO.protocol.status_period_ms, 250);
++        // DLM sends 179 sealed control records in 326 s on the DL-3x00 -- one per 2.5 s.
++        assert_eq!(PROFILE_ELLA.protocol.status_period_ms, 2500);
++        assert!(PROFILE_ELLA.topology.video_on_ctrl_pipe);
++    }
++
++    /// Blanking follows the vendor's own disable, and the two shapes are not interchangeable.
++    ///
++    /// These two behaviours were once selected by one predicate that appeared twice, and splitting
++    /// it into a two-valued field inverted them: every dock got the other one's disable, which
++    /// leaves a panel lit on black rather than taking its signal away. Pin each dock to the
++    /// sequence measured from its own vendor.
++    #[test]
++    fn blanking_follows_the_vendor_disable_for_each_dock() {
++        // The DL-7400's disable is `2f=1`, `2e=3` and then silence, holding the bracket open.
++        // Sending it the close bracket re-enumerates the dock about two seconds later.
++        assert!(matches!(
++            PROFILE_NAVARRO.protocol.blank_bracket,
++            BlankBracket::MarkersHeld
++        ));
++        assert_eq!(PROFILE_NAVARRO.protocol.sink_down_state, 3);
++
++        // The DL-3x00 takes the same pair, and must not paint on the way: video shares the
++        // control pipe there, a black desktop quadruples what the vendor puts on that pipe, and
++        // the endpoint halts under that load -- which abandons the session and leaves the dock
++        // scanning out its last frame, the opposite of blanking.
++        assert!(matches!(
++            PROFILE_ELLA.protocol.blank_bracket,
++            BlankBracket::MarkersHeld
++        ));
++        assert!(PROFILE_ELLA.topology.video_on_ctrl_pipe);
++
++        // A dock with a video endpoint of its own presents black, closes the bracket and then
++        // powers the sink down. Black frames alone leave the panel lit, because the dock goes on
++        // scanning out what it last decoded.
++        assert!(matches!(
++            PROFILE_RIDGE.protocol.blank_bracket,
++            BlankBracket::BlackThenClose
++        ));
++        assert!(!PROFILE_RIDGE.topology.video_on_ctrl_pipe);
++
++        // Pinned per dock, not as a group: the state is the vendor's own, a zero would skip the
++        // power-down entirely, and the moment one dock is measured separately a shared assertion
++        // stops describing any of them.
++        assert_eq!(PROFILE_ELLA.protocol.sink_down_state, 3);
++        assert_eq!(PROFILE_RIDGE.protocol.sink_down_state, 1);
++    }
++
++    /// The setup burst is spaced the way the vendor spaces it, per dock.
++    #[test]
++    fn setup_polls_space_the_burst_the_way_the_vendor_does() {
++        // Counted off the vendor's own stream-open block: two polls, open, three, open, three.
++        let ella = PROFILE_ELLA.protocol.setup_polls;
++        assert_eq!(ella.before_stream_opens, 2);
++        assert_eq!(ella.between_stream_opens, 3);
++        assert_eq!(ella.after_stream_opens, 3);
++        assert_eq!(ella.before_open(0), 2);
++        assert_eq!(ella.before_open(1), 3);
++        assert_eq!(ella.before_open(3), 3);
++
++        // The docks that open a stream from the scanout path space nothing here, and must keep
++        // sending the burst they already send.
++        for polls in [
++            PROFILE_RIDGE.protocol.setup_polls,
++            PROFILE_NAVARRO.protocol.setup_polls,
++        ] {
++            assert_eq!(polls, SetupPolls::NONE);
++            assert_eq!(polls.before_open(0), 0);
++            assert_eq!(polls.before_open(1), 0);
++            assert_eq!(polls.after_stream_opens, 0);
++        }
++    }
++
++    #[test]
++    fn probe_bracket_close_is_suppressed_only_beside_a_lit_shared_pipe() {
++        use ProbeBracket::{Always, DeferWithActiveSibling};
++
++        // Ridge and Navarro keep their existing unconditional recovery sequence.
++        assert!(Always.should_close(0, 0));
++        assert!(Always.should_close(0, 1 << 1));
++
++        // Ella can establish an unknown bracket when nothing else is at risk, and can retry the
++        // target itself. Only a different live connector blocks the shared-pipe reset.
++        assert!(DeferWithActiveSibling.should_close(0, 0));
++        assert!(DeferWithActiveSibling.should_close(0, 1 << 0));
++        assert!(!DeferWithActiveSibling.should_close(0, 1 << 1));
++        assert!(!DeferWithActiveSibling.should_close(1, (1 << 0) | (1 << 1)));
++
++        assert_eq!(PROFILE_RIDGE.protocol.probe_bracket, Always);
++        assert_eq!(PROFILE_NAVARRO.protocol.probe_bracket, Always);
++        assert_eq!(PROFILE_ELLA.protocol.probe_bracket, DeferWithActiveSibling);
++    }
++
++    /// Every offset-48 row count DLM states on a DL-3x00, across two sinks and ten modes.
++    ///
++    /// The vendor's serializer divides a fixed framebuffer size by one row of the render stride,
++    /// so the row count depends on the width alone. These are the six distinct widths of the mode
++    /// sweep; a table keyed on the full resolution would have answered only for the one that was
++    /// captured and sent a default -- a whole framebuffer too large -- for the other nine.
++    #[test]
++    fn ella_row_count_follows_the_width_alone() -> Result {
++        // (hactive, vactive, offset-48 row count DLM sent)
++        let measured: [(u16, u16, u16); 8] = [
++            (2560, 1440, 6241),
++            (1920, 1080, 8192),
++            (1280, 1024, 11915),
++            // Same width, three heights and two refreshes: DLM sent one value for all of them.
++            (1280, 960, 11915),
++            (1280, 720, 11915),
++            (1024, 768, 14563),
++            // The only width that is not a multiple of 128, so the only one that shows the stride
++            // quantising: it allocates as 896 + 128 wide.
++            (800, 600, 16384),
++            (640, 480, 21845),
++        ];
++        for (hactive, vactive, rows) in measured {
++            let (_, got, known) = PROFILE_ELLA
++                .protocol
++                .allocation
++                .words(hactive, vactive, false);
++            assert_eq!(got, rows);
++            assert!(known);
++        }
++
++        // A row is `stride * bytes_per_pixel`, so 30 bpp in a 32-bit container fits three quarters
++        // of the rows 24 bpp does.
++        let (_, ten_bit_rows, _) = PROFILE_ELLA.protocol.allocation.words(1920, 1080, true);
++        assert_eq!(ten_bit_rows, 6144);
++
++        // A measured table owes the same three quarters: a 24 bpp row count alongside a 30 bpp
++        // format hands the dock a partition it cannot hold.
++        let (_, eight, known) = PROFILE_NAVARRO.protocol.allocation.words(2560, 1440, false);
++        assert_eq!(eight, 0x66db);
++        assert!(known);
++        let (_, ten, _) = PROFILE_NAVARRO.protocol.allocation.words(2560, 1440, true);
++        assert_eq!(ten, 19748); // 0x66db * 3 / 4
++        Ok(())
++    }
++}
