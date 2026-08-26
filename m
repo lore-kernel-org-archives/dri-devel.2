@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E115BC5DF97
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:34:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD2D4C61DBE
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 21:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADD210E5FE;
-	Wed, 26 Aug 2026 21:34:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE4CA10E6BF;
+	Wed, 26 Aug 2026 21:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kHYPTXQF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oi2wvBIL";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D3610E5FE
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:34:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51BB010ECD1
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 21:35:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8B92060254;
- Wed, 26 Aug 2026 21:34:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EDA61F000E9;
- Wed, 26 Aug 2026 21:34:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8DF4C6020E;
+ Wed, 26 Aug 2026 21:35:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDFD1F000E9;
+ Wed, 26 Aug 2026 21:35:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787780074;
- bh=/HScJawnOdF1O7Mq703ZG7YtaTlSTHxfRQGgbUHZt/E=;
+ s=k20260515; t=1787780131;
+ bh=QBeIZhuh5fpMy2E0EEJ987/+M7qbUynbI/25X0DGK9A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kHYPTXQFWV68qrGzkiU79pwIHA/ThvQlebWJbhnIbm9PsBdPDP81RyBqHhDLEqBwV
- J0F/75fSMBxutvmkbFYvx1HI6Q87j/hKuFK6q9dCgiDFDqgCtBCnCY3YZjV9qWWK6I
- Prr+FNRMTsMOb7k3J8af/GtSAAgIAScReKi5+igqo/NEChFSdXMN6vcvDLmmun3f14
- wI07SayF9uyeq1V+lNdPKoU8If1mSXiOa9HFkh7O0m0Lt1gBGvQM15Bvy+iu1bAD4L
- VLIgQkbhzWk6PoX7e97u+qxQYdbbZBVgitsNe1BVfaIz1TpBm//JWoOQ2uacM2e3on
- zba5URXCFFtxQ==
+ b=Oi2wvBILSynfOM077XwpPZdTMxaWs93RVlTRzgIAW9TpSLpdn7W6n6RGicRy1tdIc
+ XXc/alfnI+DQ0V/8LBUBAoXpXcg4uKtzULpQKM5amGuYp2NqhRoQzTK65cB6xCvq6Q
+ eNJLyz+h9yxJHZUTBxlA6cUFIR7pRs+nUu4qLG6Dujl0qGliTheOq8soJ2cDXwNXqe
+ lxhsba1d0Z/PnIpbTWtKf2IyL1RuskKaBEE8e5e0rn6MYZNOP8W1QZAJf0N/dAgEox
+ pt+Yipnz3qYVgXoAtlKHoXIpwHwVYVhPHptIoWTxr8ZS1ggYqNflKP+Od1otO2NAMb
+ q9+UnadWM8GOA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/16] drm/panfrost: Split subsystem init/reset from
- interrupt enablement
+Subject: Re: [PATCH v6 15/16] drm/panfrost: Fix races between perfcnt and
+ reset sequence
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826-claude-fixes-v6-7-78119af409e7@collabora.com>
+In-Reply-To: <20260826-claude-fixes-v6-15-78119af409e7@collabora.com>
 References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
- <20260826-claude-fixes-v6-7-78119af409e7@collabora.com>
+ <20260826-claude-fixes-v6-15-78119af409e7@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 21:34:33 +0000
-Message-Id: <20260826213434.2EDA61F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 21:35:30 +0000
+Message-Id: <20260826213531.2CDFD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,112 +58,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Masking GPU interrupts during device teardown creates an interrupt=
- storm deadlock if jobs are actively running.
-
-Pre-existing issues:
-- [High] Race condition during device teardown where a pending reset work i=
-tem executes concurrently with or after scheduler destruction, causing a Us=
-e-After-Free and erroneously re-enabling interrupts.
+- [High] Hardware initialization is bypassed on new perfcnt sessions, break=
+ing performance counters.
+- [High] Unconditional MMU AS reference put causes reference count underflo=
+w.
+- [Medium] Mixing goto-based error handling with scoped_guard violates the =
+kernel cleanup API.
 --
 
-commit a45fd41d29f7c5d2faeeffea961ca1caad97ff77
+commit 036d049b8b6f60dc9ba18742b07e01b404ef96c3
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Split subsystem init/reset from interrupt enablement
+drm/panfrost: Fix races between perfcnt and reset sequence
 
-Because MMU interrupts are only enabled when the device is reset, it
-happened that after DRM device registration, the very first job targeting
-the tiler heap BO would always time out. The reason is the reset sequence
-is only part of PM runtime resume, which is not called explicitly at driver
-probe time, and an actual reset work item manually triggered after a HW
-error.
+Formerly, the reset sequence would race with panfrost_mmu_as_put()
+when tearing down a perfcnt session. On top of that, poking GPU
+registers to program a perfcnt session or obtaining a dump might lead to
+undefined behaviour when done at the same time a reset was ongoing.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 9549ddb7854a3..0cc277efb5850 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a9..7dcf27add7ae7 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 [ ... ]
-> @@ -341,6 +365,8 @@ void panfrost_device_fini(struct panfrost_device *pfd=
-ev)
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
+> @@ -132,44 +206,20 @@ static int panfrost_perfcnt_enable_locked(struct pa=
+nfrost_device *pfdev,
+>  	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+>  	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
 > =20
-> +	panfrost_device_disable_hw(pfdev);
-> +
+> -	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> -	if (ret < 0)
+> -		goto err_vunmap;
+> -
+[ ... ]
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		if (perfcnt->reset_failed) {
+> +			ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +			if (ret)
+> +				goto err_vunmap;
+> +		}
 
 [Severity: High]
-Does calling panfrost_device_disable_hw() unconditionally on driver unload
-create an interrupt storm risk?
+Does this code inadvertently skip hardware initialization for new perfcnt
+sessions?
 
-Since jobs are not guaranteed to be stopped yet, the GPU may generate a fau=
-lt
-or completion interrupt in panfrost_gpu_suspend_irq() right after setting
-the software flag but before masking the hardware interrupt:
+Earlier in panfrost_perfcnt_enable_locked(), the function returns early if
+perfcnt->user is not NULL. Because reset_failed is only set during a reset
+while a session is already active, reset_failed is guaranteed to be false
+when creating a new session.
 
-drivers/gpu/drm/panfrost/panfrost_gpu.c:panfrost_gpu_suspend_irq() {
-    set_bit(PANFROST_COMP_BIT_GPU, pfdev->is_suspended);
-    <-- interrupt fires here
-    gpu_write(pfdev, GPU_INT_MASK, 0);
-}
+Consequently, panfrost_perfcnt_hw_enable() is never called here, the MMU
+address space is not acquired, and hardware performance counters are never
+enabled.
 
-The panfrost_gpu_irq_handler() sees is_suspended set and returns IRQ_NONE
-without clearing the hardware interrupt. Because the IRQ is level-triggered,
-it would re-fire immediately upon exit, leading to a soft lockup and forcing
-the kernel to permanently disable the shared IRQ line.
+[Severity: Medium]
+Is it safe to mix goto-based error handling with scoped_guard() blocks here?
 
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-[ ... ]
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index 5016d2d53da26..087905cd347a5 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-[ ... ]
-> @@ -753,8 +753,8 @@ panfrost_reset(struct panfrost_device *pfdev,
->  	for (i =3D 0; i < NUM_JOB_SLOTS; i++)
->  		drm_sched_start(&pfdev->js->queue[i].sched, 0);
+According to the kernel cleanup subsystem guidelines, the usage of "goto" a=
+nd
+cleanup helpers should never be mixed in the same function to prevent
+confusing ownership semantics and potential resource leak bugs.
+
+The jump to err_vunmap directly exits the scoped_guard block, breaking this
+rule.
+
+> +		perfcnt->reset_happened =3D false;
+> +		perfcnt->reset_failed =3D false;
+> +		perfcnt->user =3D user;
+> +	}
 > =20
-> -	/* Re-enable job interrupts now that everything has been restarted. */
-> -	panfrost_jm_enable_interrupts(pfdev);
-> +	/* Re-enable interrupts now that everything has been restarted. */
-> +	panfrost_device_enable_int(pfdev);
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+[ ... ]
+> @@ -195,13 +245,15 @@ static int panfrost_perfcnt_disable_locked(struct p=
+anfrost_device *pfdev,
+>  	if (user !=3D perfcnt->user)
+>  		return -EINVAL;
+> =20
+> -	panfrost_perfcnt_hw_disable(pfdev);
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		panfrost_perfcnt_hw_disable(pfdev);
+> +		panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
 
 [Severity: High]
-This is a pre-existing issue, but does adding panfrost_device_enable_int()
-here exacerbate a teardown race with the reset workqueue?
+Can this unconditional call to panfrost_mmu_as_put() cause a reference count
+underflow regression?
 
-During teardown, panfrost_device_fini() disables hardware and then calls
-panfrost_jm_fini(), which destroys the schedulers before synchronizing the
-reset workqueue:
+If panfrost_perfcnt_hw_enable() was skipped during initialization as noted
+above, or if it failed to re-acquire the AS during reset recovery, the perf=
+cnt
+session does not actually hold an MMU AS reference.
 
-drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_jm_fini() {
-    for (j =3D 0; j < NUM_JOB_SLOTS; j++) {
-        drm_sched_fini(&js->queue[j].sched);
-    }
-    cancel_work_sync(&pfdev->reset.work);
-}
+When a userspace client closes the perfcnt session, panfrost_mmu_as_put() is
+called unconditionally, which will drive the mmu->as_count reference count =
+to
+-1 and trigger a kernel warning.
 
-If a job timeout occurs before or during panfrost_device_fini(), the
-concurrent reset work item can execute after scheduler destruction, causing
-a use-after-free.
-
-Furthermore, because this patch adds panfrost_device_enable_int() to the end
-of the reset sequence, the racing reset work could erroneously clear the
-is_suspended bits and re-enable hardware interrupts right before the clocks
-are turned off in teardown.
-
+> +		perfcnt->user =3D NULL;
+> +	}
 > =20
->  	dma_fence_end_signalling(cookie);
->  }
+> -	perfcnt->user =3D NULL;
+>  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+>  	perfcnt->buf =3D NULL;
+>  	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
+> -	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+>  	panfrost_gem_mapping_put(perfcnt->mapping);
+>  	perfcnt->mapping =3D NULL;
+>  	pm_runtime_put_autosuspend(pfdev->base.dev);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-claude-fix=
-es-v6-0-78119af409e7@collabora.com?part=3D7
+es-v6-0-78119af409e7@collabora.com?part=3D15
