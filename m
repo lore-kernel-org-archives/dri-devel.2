@@ -4,181 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17EB5C61DC2
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 06:54:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 500CDC61DC2
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 06:57:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429D010EBF7;
-	Wed, 26 Aug 2026 06:54:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7616410EBE8;
+	Wed, 26 Aug 2026 06:57:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="dV6jPd+V";
-	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="ccVbO9Ik";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1dopK4gm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1HDIgZRC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jxzi81Wq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qfiqrytB";
 	dkim-atps=neutral
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D647710EBF7
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:54:13 +0000 (UTC)
-X-UUID: ee8a9452a11a11f18dc8c9802ae25ab1-20260826
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=kMzrhhZpMQLlYgb3BNIwU0RarFOmmKuE3MzpL4vJsWM=; 
- b=dV6jPd+VeXWqrZpEkKchBa5hvZfdUe3Y6CbI8M2s1neQeb5WFdyUPgMe3PlriquMSMjDOVPAtMgGEkoFLUv+Dqg1+hVGi7FKK8jyeorkSiWdBDglw2WF9S9ObQnI809k+5KsO+DcQjAJ/PVFFFxL3pTqMWIlQTslDiMl+GTrzmM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:3485f044-8bc2-4910-95aa-38f5d3e48ed7, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:8ba36efe-f4cb-4ad2-b022-e3ac6648bf25,
- B
- ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
- :-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
- nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
- :0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ee8a9452a11a11f18dc8c9802ae25ab1-20260826
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
- mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 686066055; Wed, 26 Aug 2026 14:54:06 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 26 Aug 2026 14:54:05 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 26 Aug 2026 14:54:05 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H9fW2EKoq8fs4Nap/+QlFnuo1nea7A7Q7MDoPVZDvCY/UVZtIsTsNLq8AINCaG095wGZs5c/TWcbwEVDMhPe+fGo+DkwtBKYvLoQ0lRCLw/mNZYxCxK/Rf1R+N1riKgcPznKLctVc3gwFI5ih/OTkVXps6E7Y9WngkH0a7/g+dT9vdLsCg1qmmJBm1G+hN8ere46QSydk47mN8K8eaCFPbXdZspBvLTr42wsdEGIhg15YpP2vqkqu9CmLniEIBYJWOELZfjsbiifsdkTfECACsKxvMHahPDh/bRKJ6I+0Xc3NlW83gHfrAOVU75IFv0j3dFI3PdKpNxNpje/cTFJVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kMzrhhZpMQLlYgb3BNIwU0RarFOmmKuE3MzpL4vJsWM=;
- b=LbkuZw+IuNafIeoSvJA0lozZKq7WMAJlsGtXH3SHT5SxhFZ3h5Skik9tJN+EvM7RczXbKYfLzsVoc34PuKsGDn6WVPRVDlMWxvqW8vFcY25wZDgtsTGuHJZwuKFAQfVsUX5PambeiIwfc1JHwQ1EdudtrBRYTGu0LKR8BOSrBl+9k+4n/4hTNjEKI09mgggNJ3j4wka/Uoqln+9uinhHfXdYalKiPvVrOiDRDdhHXaF/uSb2jf4vy/MhKnNe41sbiB7i/YhPHfCBejD+5kAkiGFs1bZLeJ5VmjAt0c2I+NrDkdMa7E58sINnUXAiREFjHlD6MQfVe7vWtZ8iZaQfjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kMzrhhZpMQLlYgb3BNIwU0RarFOmmKuE3MzpL4vJsWM=;
- b=ccVbO9Ik1kVG61SKLH6gn7MKhhBGx4GFFiBLpZ7/X8/bmzYRtasMlipfoFZncF/mhAoXM+Yb1k25mq8CPnGyivbCm9n9S+JIIuQ7EVYMITBx3oYs4dBXLEY2AlZ6fALcjDf2MjnPIb1Y2mc0+ejOYKHmSwapb44Dri4EAtjd0hg=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by SEYPR03MB9376.apcprd03.prod.outlook.com (2603:1096:101:2d0::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 06:54:01 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
- 06:54:01 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
- <robh@kernel.org>, "krzysztof.kozlowski@oss.qualcomm.com"
- <krzysztof.kozlowski@oss.qualcomm.com>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "mripard@kernel.org" <mripard@kernel.org>,
- =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?= <jitao.shi@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "airlied@gmail.com"
- <airlied@gmail.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
- <matthias.bgg@gmail.com>, =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?=
- <Justin.Yeh@mediatek.com>, =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?=
- <Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH v6 03/11] dt-bindings: display: mediatek: dsi: Document
- MT8189 and MT8196
-Thread-Topic: [PATCH v6 03/11] dt-bindings: display: mediatek: dsi: Document
- MT8189 and MT8196
-Thread-Index: AQHdFGHsYbsURHvEmEa/HfsbecjI8rawJpQA
-Date: Wed, 26 Aug 2026 06:54:01 +0000
-Message-ID: <cdb6c1dfba7f7972c5a53f1f00ac11524474fbe9.camel@mediatek.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
- <20260715135703.46540-4-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260715135703.46540-4-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SEYPR03MB9376:EE_
-x-ms-office365-filtering-correlation-id: a1a0631d-f02e-4f38-5383-08df033ecfaa
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|42112799006|7416014|376014|23010399003|366016|38070700021|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info: 3DI0idWLNiqp/jplxBRDKjJDf3B+NcFumk3zDOjp+wZ6Stf3o66su95zOS0rpRn/uKmOp6xCiCxgGMgPwsBoj+mKLmdefSCjL55wwoUdRl0Qxf+R7K/eZHDFqZ/ti2Gn4TM5AGKq6btmxvvmMNhDxxoadt3eW44R5AqOapgluPNrP7zXFCSTgrQ4cxbXB9V3k7yfT5hQlJPn5fibb5IySZZ3LRwY5u3Shsq7bI3PEDpe3HcP8gb7jNeY1gg7VQLWM2tQa7Pz47TnJRM11dYyPQeXLYAcH7575SaMl577SalaHxggqHCmL1EDP99Qz7A3J+VelAm0UXtBSAN2pyyGiG9jDtnWsNgUB6evSUZEkIMf+xRTm837LoMI2gjssCuTsAqkxiAa8NuN75g0GH6A5TljGwcWihKZ58DJ+P4jpsNSwLjXZysMwAP1/7t81bOe/NX9qIL5omEUjtEkg1xyvd/vDVCCrioHkndkG8FCBe33GcsCXs4fEEFzorisbPEaugdbTwe7AmTSmr1bjG9IeP8OtQ+89XtHp5z910veIS/ZZCiRWZurUcrKJvEQ+gHgcarT7IXk9UNVPM1YJRvDm4+R3X3vYHn8JRcB07s+qljRujWU28EjqynD6G1OPhg0Sgl3V+ssiseqEY9agqRrevjrWhshBsEu0q8qQRbxaOyjIKq6rqbjbeZUd41DFCu3GLFoLYxXQBKHtCCOnQS6U8vFAdramKPFEdI1E2xW8qU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(42112799006)(7416014)(376014)(23010399003)(366016)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WE14WktaL1lSckVQMjBnQ2JNS2I3a1lEcmpZaStvYXBaWmQ1Z3QwTjNVWlJU?=
- =?utf-8?B?aXM3c0cydHRMMWpnSytxT1lhYTFGczZCdFkrSWNrOFBpN1k0ZERLZUJORFZK?=
- =?utf-8?B?RDNsaXhIbmtwTEtTTnlIOXZxZXVRM240WUlHMU81ZlpjejVwd2lrRXV2bGFZ?=
- =?utf-8?B?Wk1lT2h2c3lzUHpLOGMxc0t6ZERieFM0UmR0MWpKY09aaHlCcXpWeUFnK3p6?=
- =?utf-8?B?MTFlcWlkQUdoVmtQMzNXUzVpbEVJSCthZHJBQWJtMExSSVQ2MWpuRk9tOU90?=
- =?utf-8?B?S202cnlENWpqS2c2VTBPalRveG5QZlp3VE52QXhPZ2RnbkpkekdWWkN5WW9L?=
- =?utf-8?B?Qm96M25RYnFVd0pLd05YRS9GcVRMVWxRS3MxTmFKWDNWRzdReEc3MXBTbHpi?=
- =?utf-8?B?NHlWb0l2REYzRktyQnVvaUpBKzRuYXNxbW5YM1d6WTRnbm51dzg0OCtLRUZs?=
- =?utf-8?B?V21lL2tkQzJwWmsxTU55bUxvR1V0L0NvdjAxWmI1dTFEa1ZTT3hwaVlhYitH?=
- =?utf-8?B?czF1Qm5DYXAxNUFwWHFQa09qeEw3bG9qdmlnNUF5a2xnazNya1lMMFJpMXN4?=
- =?utf-8?B?ZUxCd2dUdTVIWFJMckpQYnFLL0RVcWdyYWpweGVqV1NaczFEaW8wOFJIS0cz?=
- =?utf-8?B?c3RCVnZHSzdzWEM3TEtBT0F5UXU1Vk1DRmlFYmxQNGQrVllHazNKL3g0b2F4?=
- =?utf-8?B?RUZYT3JVRFdib2xWUmhodHNmL0JUUG9PK3BrYTgwODlVb25sNUpncFgvcmV1?=
- =?utf-8?B?cjcyWTRIakRUcnFLRGhHK240K1MycUdsWTZFTWpudUxsZDM5eVBZL2JjbENN?=
- =?utf-8?B?VjE5bE1Od0gycVoxMHdHcXRMM0R0aW9CUllQS3cwL1dKandzMmFVZ2wveEFK?=
- =?utf-8?B?VU9BWUNNcjFOb1lqWXBQcXh6NG4xRkVYSlJhazZtNEJwRmFlUHJyNFdqeHkx?=
- =?utf-8?B?Q1dEd1B3WVM0VHlLWHFFSHpGMWdIMGl3MTM0cjNidFp0N3Nxb1h6c3lPUFBF?=
- =?utf-8?B?ZzZ0ZGoxT1RvYTlvWkRya2FkOGVNaHdHOTNVcEZ5QktVcjN1NVl0SVBaOHVM?=
- =?utf-8?B?N2hUOHFFdUVBUitkWExKRGJ2V2tnSzF5b3NxMVJmcVJkWkN6UWlXUE1lV25n?=
- =?utf-8?B?N09PRUljeUQ3Mm5xYjdUZHpoc1hhMUx2WFFPRE0zblQzY2xYeFp5WnN0bmc2?=
- =?utf-8?B?aEFzenB6N1pON2lNVGxpb3BSM2U5NHBLdXF0VmVQbTFBVEhWV295MHZNUzM4?=
- =?utf-8?B?SG91dEIyU0FIb09WMmFncUY2dmJCTkVrT3pLMXgwaS9ybWo3bFFQdEFRK2RH?=
- =?utf-8?B?aGl3ZWEyR1ZiVFhRSGo1M2N6MW40Y2N0MTMrMkV4TGZoY2UxUTdVdXpGVjBJ?=
- =?utf-8?B?ZUZpa253RGRRNmRWeHNudFVQQk8yU1hrQVhBcXNxdTl5RWY2b2VXTm9HYUI4?=
- =?utf-8?B?N2hTS0N2cThVOUNCZWtyUDJpQVl0UlllTzhWUVo5YXlMRmc2dm5HVVQyTG96?=
- =?utf-8?B?NEdlamJlMXRib1NtSDJUd21uUC9kQTkvdjNoOWx6K3pDR05FUEErN1d2akRu?=
- =?utf-8?B?RmZlVmpXRTZ5czMyWklGeURYVzl2TVVRSU5WZkhRRExVZnduRWl1NFkydFQ0?=
- =?utf-8?B?amhWN2N6aElGcnRZM3ZobUFkQVAyK2lVZXh1VlJIaTcxa1VnbEhkcGJmZ3N4?=
- =?utf-8?B?V1U3MS9PV1MrQmhvRW8wajMzOFEwbmYzWUVBbkdzVUNEanNBZkxtcGF1amtp?=
- =?utf-8?B?Q3lwTm5Cd2JsRDZsVG1MNENxdDFZSXRlQk5OME5mMm1kSzVuNDVOS1N2NkE5?=
- =?utf-8?B?TmpkNUJhR3V1b0pzckFlQWRaTzZCZjJ4VjhDc1lCcHFtYnNrdUVRL2YrcVlQ?=
- =?utf-8?B?ajIzaVVSTTVieEcxZzlVeUNDYmh4WXJUZUpWemRrQTJRd1JxZlZtaWJ5eFlT?=
- =?utf-8?B?Y3dNa0pkTVNkay9LaitKdzJJeGJxM002dlliRFdLMjNEN0dlYkw3N2xCTTdj?=
- =?utf-8?B?QlhNSDdyN005dERnZjhqZnNEVFZuNklQbU1jUStEc0x3T3RqU1VPaW5oOE9K?=
- =?utf-8?B?Q25YOG91eDhIWEN5Nll6OUpWKzNuTXVxYVJ5bnA1dFVZSEV0bDVNaEsycUhI?=
- =?utf-8?B?VkZoQVAyNmRjZ0c0SUhCbTU4SWJsd3NsdHZUM3lzbFdKa053VG5FZFRJdmZB?=
- =?utf-8?B?NlZwYkh1b0Nmd05BZjJqSzdpSEpiMy9qelBieFpCd043MUx0bmZBdDl2ME5Y?=
- =?utf-8?B?elZ1UHpwcllJS3YzbkFCRm8yNkNKUUJnWHZQRmYxKzBPbW5tOFgyZk9HUC8v?=
- =?utf-8?B?RXpFRDlTaDhzVDl4bWhYeTRVL3RQbjkxZzF3YnJJMjAzQ2xGU3ZDdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C9EE2696B44D2344BEFFFEEBFF39B833@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5A5F10EBE8
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 06:57:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1239E1F7F6;
+ Wed, 26 Aug 2026 06:57:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787727452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
+ b=1dopK4gmbdUGldC8wPoHsZ/q91A8028zEwWab1SqBcu2lqkRmdOCwqcvkTNTC+foFmnDpf
+ LraETcBNykLGV6yZ4MyxyHXZtqZw09FWWQITEbGc67kHTHpTQq5UeWx+Rj9d86p0dO6XqA
+ VeY4R6zF/HCB9/KUleC/6099ZXU14NU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787727452;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
+ b=1HDIgZRCX3PAYrMZ+8Cjv+dl468knsXrys4RScm6BIcnGbwrns29gGDBP30j9lWtRGj/a3
+ 8EbrPdxWfzRVRACw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jxzi81Wq;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qfiqrytB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787727448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
+ b=jxzi81Wq/ORegKCwe5YqxK/kUKzRQXd3SGYysLGmtSOW7rGvf0iDZNvRks1r6EMaOVV7a1
+ 7tn65HQc+dWJbW5Tsl0QWPJY5KrWvDb4qULm5g4JcsWulTtP1xQ+1XeIEcNDnRSi3vNV5N
+ 2CwRuDfsrHrz0RTHpDTDjRVRYsbAVRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787727448;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sBfgI5vwAaQkNS2Sqa0AXBE6+/CTnkGwvymAGJWg9RE=;
+ b=qfiqrytBjmFogEQnk7guycXfrOVc0q9/7qMFJe8uoUpEffgYKlB7WR/Zz2ub3B932wK5WR
+ m1TGu6BYAyk03ICA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B03B813533;
+ Wed, 26 Aug 2026 06:57:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KtzaKVeOjmpjVQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 26 Aug 2026 06:57:27 +0000
+Message-ID: <03ab9470-60c6-40fe-8d24-89c820b978ec@suse.de>
+Date: Wed, 26 Aug 2026 08:57:27 +0200
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: FRZ7udyw6Z/3PT3EkVt/C4wArtldJTvmfFM1J+o6bxHzBPkBbGZNmg1NochYSLJCPAwq8rlM1Whe2z1mdVI/mEuq+V6LLugrss/7GeG+1pF5RzVsRNz8SofdaGJBpjRZajwzAlYdK7wR2p6pqTAxQd7dXewqafH64EmchMzTL1sJq//VHPlg8S+m5ueVx+6N71Un5ZTWdr+2Qc7AzJQmsqgl+g1msDmftyp6VUM1XnwRBYD0RMuSKBqVHDGbSQcqYKf7oeaNTg5MmjUoBNbKhM1AZskBKuMTjZBDpIi7CeU0elSKc+WuxyD3lQZQVL2v7hPmyPyPFlEfvMN5asVa2A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1a0631d-f02e-4f38-5383-08df033ecfaa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2026 06:54:01.5624 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: l4XznMQK1wnqz/SHJ9s1AI0OxK8I4KvZHN0RLVvzYjIAwG0+Un9XnTFbDUzUAoLwopzpsdmzRcrOvROpc5O4eA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB9376
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/cirrus-qemu: Validate BAR0 size during probe
+To: Slawomir Stepien <sst@poczta.fm>, syzkaller-bugs@googlegroups.com,
+ airlied@gmail.com, airlied@redhat.com, dri-devel@lists.freedesktop.org,
+ kraxel@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ simona@ffwll.ch, virtualization@lists.linux.dev
+Cc: jani.nikula@intel.com, linux-kernel@vger.kernel.org,
+ syzbot@lists.linux.dev, syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
+References: <20260825120729.493611-1-sst@poczta.fm>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260825120729.493611-1-sst@poczta.fm>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[poczta.fm,googlegroups.com,gmail.com,redhat.com,lists.freedesktop.org,linux.intel.com,kernel.org,ffwll.ch,lists.linux.dev];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,poczta.fm];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ TAGGED_RCPT(0.00)[2442951a6abb004df963];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:dkim, suse.com:url,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo,
+ appspotmail.com:email]
+X-Rspamd-Queue-Id: 1239E1F7F6
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -194,25 +152,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyMDI2LTA3LTE1IGF0IDE1OjU2ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gQWRkIGNvbXBhdGlibGUgc3RyaW5ncyBmb3IgTVQ4MTg5IGFuZCBNVDgx
-OTYgU29Dcy4NCj4gVGhlc2UgYXJlIGNvbXBhdGlibGUgd2l0aCB0aGUgRFNJIElQcyBmb3VuZCBp
-biB0aGUgTVQ4MTg4Lzk1IGFuZA0KPiBvdGhlcnMsIGJ1dCB3aXRoIGRpZmZlcmVuY2VzIG1ha2lu
-ZyB0aGVtIG5vdCBmdWxseSBjb21wYXRpYmxlLg0KDQpSZXZpZXdlZC1ieTogQ0sgSHUgPGNrLmh1
-QG1lZGlhdGVrLmNvbT4NCg0KPiANCj4gQWNrZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGty
-enlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogQW5n
-ZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFi
-b3JhLmNvbT4NCj4gLS0tDQo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlh
-dGVrL21lZGlhdGVrLGRzaS55YW1sICAgICAgfCAyICsrDQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBp
-bnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZHNpLnlhbWwgYi9Eb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxkc2kueWFt
-bA0KPiBpbmRleCAyN2ZmYmNjYzJhMDguLmI1Y2RmZTBlYWNhNCAxMDA2NDQNCj4gLS0tIGEvRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWss
-ZHNpLnlhbWwNCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3Bs
-YXkvbWVkaWF0ZWsvbWVkaWF0ZWssZHNpLnlhbWwNCj4gQEAgLTMwLDYgKzMwLDggQEAgcHJvcGVy
-dGllczoNCj4gICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4My1kc2kNCj4gICAgICAgICAgICAt
-IG1lZGlhdGVrLG10ODE4Ni1kc2kNCj4gICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4OC1kc2kN
-Cj4gKyAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4OS1kc2kNCj4gKyAgICAgICAgICAtIG1lZGlh
-dGVrLG10ODE5Ni1kc2kNCj4gICAgICAgIC0gaXRlbXM6DQo+ICAgICAgICAgICAgLSBlbnVtOg0K
-PiAgICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10Njc5NS1kc2kNCg0K
+Merged into drm-misc-fixes
+
+Am 25.08.26 um 14:07 schrieb Slawomir Stepien:
+> The `cirrus-qemu` driver relies on `CIRRUS_VRAM_SIZE` (4 MB) to validate
+> framebuffer sizes. However, during PCI probe, the driver mapped BAR0
+> without verifying that its size matches `CIRRUS_VRAM_SIZE`.
+>
+> If a PCI device with a BAR0 smaller than 4 MB is bound to the driver, the
+> mapped VRAM will be smaller than expected. Because validation checks assume
+> 4 MB VRAM, framebuffers larger than the mapped memory can be created.
+>
+> When the display plane is updated (e.g. during release),
+> `cirrus_primary_plane_helper_atomic_update()` copies the framebuffer to
+> VRAM using `drm_fb_memcpy()`. Writing past the end of the mapped I/O memory
+> causes a supervisor write page fault:
+>
+> BUG: unable to handle page fault for address: ffffc9000389c000
+> ...
+> RIP: 0010:memcpy_toio+0x7c/0xe0 arch/x86/lib/iomem.c:110
+> ...
+> Call Trace:
+>   <TASK>
+>   iosys_map_memcpy_to include/linux/iosys-map.h:285 [inline]
+>   drm_fb_memcpy+0x325/0x5d0 drivers/gpu/drm/drm_format_helper.c:442
+>   cirrus_primary_plane_helper_atomic_update+0x98a/0xb00
+>   drivers/gpu/drm/tiny/cirrus-qemu.c:358
+>   drm_atomic_helper_commit_planes+0x626/0xea0
+>   drivers/gpu/drm/drm_atomic_helper.c:3038
+>   drm_atomic_helper_commit_tail+0x60/0x510
+>   drivers/gpu/drm/drm_atomic_helper.c:1989
+>   commit_tail+0x2b1/0x3c0 drivers/gpu/drm/drm_atomic_helper.c:2074
+>   drm_atomic_helper_commit+0xa77/0xb10
+>   drivers/gpu/drm/drm_atomic_helper.c:2312
+>
+> Fix this by validating in `cirrus_pci_probe()` that the PCI BAR0 resource
+> is not less than `CIRRUS_VRAM_SIZE`, returning `-ENODEV` if it is less.
+>
+> Fixes: ab3e023b1b4c ("drm/cirrus: rewrite and modernize driver.")
+> Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
+> Reported-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=2442951a6abb004df963
+> Link: https://syzkaller.appspot.com/ai_job?id=ba262a3a-bccf-4ad8-a1b0-583c55d34fd6
+> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+> ---
+> v2:
+> * move the check before aperture_remove_conflicting_pci_devices() as suggested by sashiko.
+> * check if the pci_resource_len() for BAR0 is less than CIRRUS_VRAM_SIZE as suggested by Thomas. The
+>    qemu emulates 4, (8 and 16 MB for compatibility) - never less than 4MB.
+>
+> v1:
+> * https://lore.kernel.org/all/b11f8965-5896-4119-98b7-6bd0eb9fa139@mail.kernel.org/T/
+> ---
+>   drivers/gpu/drm/tiny/cirrus-qemu.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
+> index 075221b431d3..3bf23fcf6574 100644
+> --- a/drivers/gpu/drm/tiny/cirrus-qemu.c
+> +++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
+> @@ -582,6 +582,9 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
+>   	struct cirrus_device *cirrus;
+>   	int ret;
+>   
+> +	if (pci_resource_len(pdev, 0) < CIRRUS_VRAM_SIZE)
+> +		return -ENODEV;
+> +
+>   	ret = aperture_remove_conflicting_pci_devices(pdev, cirrus_driver.name);
+>   	if (ret)
+>   		return ret;
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
