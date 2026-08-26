@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30D9EC61DBD
-	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:58:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92313C61DBD
+	for <dri-devel@archiver.kernel.org>; Wed, 26 Aug 2026 16:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B5E610E323;
-	Wed, 26 Aug 2026 16:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E939010E629;
+	Wed, 26 Aug 2026 16:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eVv1sBQA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eShmyIdY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 783A610E322
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:58:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B17310E629
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 16:59:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4386E40D68;
- Wed, 26 Aug 2026 16:58:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0494E1F00A3A;
- Wed, 26 Aug 2026 16:58:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E0EC433EE;
+ Wed, 26 Aug 2026 16:59:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63521F000E9;
+ Wed, 26 Aug 2026 16:59:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787763536;
- bh=LLv5ZyrSPQUzSePEUOB8eyEVQQaOnBDV2ezBKxFfIjQ=;
+ s=k20260515; t=1787763571;
+ bh=7b3TmpfZWtXghaVxBNkm9OuG0Dlt3EOBe0tJ/ZTOHC4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eVv1sBQAyuT0y6kd92H2hQWUOnE4Ck3esg6T+7ComPS7IcxXll+6SMB3WjSe0Fhdq
- 16/cU0XTtwvPpLdyRN/O9rQJTGCO+8Ilyv/om2/DTrHcEdmOgv1Gecw1ZEVzivyGXI
- 6RKO8omTzkPreqkkrn/AowltxB7V9k1CzAuuJZciHrJNVTmoGPd06rnpRLp1CP9H1T
- xB3i8ma0koqV+u6AWVvcNqAorizBZ8OMWc+X0o1tHc7fMS8P+Kl+CnJpD4odmDnAwD
- 1yEBZ9eU+zOKg3scRmX9/J60N4P4xXCbPd1VjQe7Hs0S+gU6WjoRaY29oe2dMLt2op
- myI+mw3QgtzOg==
+ b=eShmyIdYWQBeSD3p484f0JAeklOMUse7WHzoTfyZOdDjeFPtCftxL76NuTufipJjb
+ T9YywA2DwciGpSXWgFj69i/kDQBWpvt0Af/I+WUkdfAU20SRYeXM+DEwvAjLbmaD/W
+ Aycq8r/0iEiU7n1iGCbh7dEB91sIZTKAvBqxeLAvj3gJlj8tLfMje99jUFgaYsfwCM
+ GkqAZteWeNPpFAsxl8Gs+szs1N0vScBdqV98zzbKwh9n0w5RFs9J4IRIouhdCWmsmd
+ 2wOpDjVScHgN9auUzwIOLKezLJMOeQOuV+33IRi7vJYGMuiaYkU9G/U/91t9rmKqv0
+ 7ZkjopM7RuFtg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/13] drm/vino: read the dock's firmware version,
- and update it over DFU
+Subject: Re: [PATCH v3 8/13] drm/vino: add the KMS device and the atomic path
 To: "Mike Lothian" <mike@fireburn.co.uk>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260826163913.7052-11-mike@fireburn.co.uk>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260826163913.7052-9-mike@fireburn.co.uk>
 References: <20260826163913.7052-1-mike@fireburn.co.uk>
- <20260826163913.7052-11-mike@fireburn.co.uk>
+ <20260826163913.7052-9-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 16:58:55 +0000
-Message-Id: <20260826165856.0494E1F00A3A@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 16:59:31 +0000
+Message-Id: <20260826165931.B63521F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,113 +57,196 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The automatic update path in `update_if_newer` fails to verify tha=
-t the firmware package matches the dock's hardware family, allowing a misma=
-tched firmware file to permanently brick the dock.
-- [Medium] Infinite update loop and data race due to a single shared non-at=
-omic rate-limit slot (`UPDATE_ATTEMPTS`).
+- [High] Operations that sleep (Mutex locks, GFP_KERNEL allocations, and vm=
+ap) and long synchronous memory copies are performed within DRM atomic comm=
+it callbacks.
+- [High] Page flips are permanently lost if an older frame is still pending=
+, causing the screen to freeze on stale frames.
+- [High] atomic_check reads shared global state without global atomic track=
+ing, allowing concurrent commits to overcommit the dock's pixel bandwidth.
 --
 
-commit 872c2fc3f8d6d143ff1f9c6026fbab419e5a21e3
+commit b222a22b8b0ea906ee63e26872096f97f4fb7ece
 Author: Mike Lothian <mike@fireburn.co.uk>
-Subject: drm/vino: read the dock's firmware version, and update it over DFU
+drm/vino: add the KMS device and the atomic path
 
-A DisplayLink dock does not advance bcdDevice when its firmware changes. Th=
-is
-patch adds parsers for the dock's identity descriptor and shipped firmware
-package, and applies updates automatically over USB DFU if the packaged
-version is strictly newer. It also provides a manual upload interface.
+This commit adds the KMS side of the sink, including the DRM driver, GEM
+and file types, CRTCs, planes, and connectors. It introduces atomic
+callbacks to record desired state and workers to handle scanout, formatting,
+and KMS limits checking.
 
-> diff --git a/drivers/gpu/drm/vino/firmware.rs b/drivers/gpu/drm/vino/firm=
-ware.rs
-> new file mode 100644
-> index 0000000000000..13c9cff55ae48
+> diff --git a/drivers/gpu/drm/vino/drm_sink.rs b/drivers/gpu/drm/vino/drm_=
+sink.rs
+> index 0000000000000..86708db89699a
 > --- /dev/null
-> +++ b/drivers/gpu/drm/vino/firmware.rs
+> +++ b/drivers/gpu/drm/vino/drm_sink.rs
 [ ... ]
-> +fn claim_update_attempt(dev: &Device) -> bool {
-> +    let key =3D attempt_key(dev);
-> +    let slot =3D UPDATE_ATTEMPTS.load(Ordering::Acquire);
-> +    let count =3D if slot & ATTEMPT_KEY_MASK =3D=3D key {
-> +        slot as u32
-> +    } else {
-> +        0
-> +    };
-> +    if count >=3D MAX_UPDATE_ATTEMPTS {
-> +        return false;
-> +    }
-> +    UPDATE_ATTEMPTS.store(key | u64::from(count + 1), Ordering::Release);
-     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Medium]
-Could this non-atomic read-modify-write on the shared global UPDATE_ATTEMPTS
-variable cause an infinite update loop?
-
-If two docks are connected that require an update, and both fail to apply it
-successfully, they might re-enumerate and probe continuously. Because
-claim_update_attempt() loads and then stores on a single global slot, it lo=
-oks
-like the two docks might continuously evict each other's attempt counts.
-
-This could prevent either dock from reaching MAX_UPDATE_ATTEMPTS to break
-the loop, which might lead to constant USB bus resets and flash memory wear=
--out.
-
-Similarly, clear_update_attempts() performs a non-atomic check-and-clear
-that might race with this logic and clear another device's freshly recorded
-attempts:
-
-    if UPDATE_ATTEMPTS.load(Ordering::Acquire) & ATTEMPT_KEY_MASK =3D=3D ke=
-y {
-        UPDATE_ATTEMPTS.store(0, Ordering::Release);
-    }
-
+> +    fn get(
+> +        &mut self,
+> +        fb: &kms::framebuffer::Framebuffer<VinoDrmDriver>,
+> +    ) -> Result<Arc<SourceBinding>> {
 [ ... ]
-> +pub(crate) fn update_if_newer(
-> +    io: &usb::Io<'_>,
-> +    dev: &Device,
-> +    identity: &Identity,
-> +    iface: u16,
-> +    force: bool,
-> +) -> Result {
-[ ... ]
-> +    let Some(packaged) =3D package_version(fw.data()) else {
-> +        dev_warn!(dev, "{} carries no version tag; ignoring it\n", name);
-> +        return Ok(());
-> +    };
-> +    if packaged <=3D identity.version && !force {
-> +        clear_update_attempts(dev);
-> +        vino_dev_debug!(dev, "firmware is current ({} offers {})\n", nam=
-e, packaged);
-> +        return Ok(());
-> +    }
-[ ... ]
-> +    dev_info!(
-> +        dev,
-> +        "updating dock firmware {} -> {}{}\n",
-> +        identity.version,
-> +        packaged,
-> +        if force { " (forced)" } else { "" }
-> +    );
-> +    flash(io, iface, fw.data())
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +        let binding =3D Arc::new(
+> +            SourceBinding {
+> +                framebuffer: ARef::from(fb),
+> +                mapping: fb.owned_vmap::<VinoObject>()?,
+> +            },
+> +            GFP_KERNEL,
+> +        )?;
 
 [Severity: High]
-Should this automatic update path verify that the firmware package matches
-the dock's hardware family before flashing?
+Does this code sleep in an atomic context?
 
-The manual upload path (Upload::prepare) uses package_family(image) and
-refuses to flash if the family does not match the hardware. However,
-update_if_newer() only checks the version and relies on the filename.
+DRM CRTC and plane atomic callbacks execute in an atomic context during
+non-blocking commits, where sleeping is strictly forbidden. This performs
+a GFP_KERNEL allocation and maps memory with fb.owned_vmap(), both of
+which can sleep.
 
-If a mismatched firmware file is inadvertently placed in /lib/firmware/vino=
-/,
-it appears this would silently flash the incompatible image and permanently
-render the dock unusable, circumventing the safety check implemented for
-manual uploads.
+> diff --git a/drivers/gpu/drm/vino/drm_sink/dispatch.rs b/drivers/gpu/drm/=
+vino/drm_sink/dispatch.rs
+> index 0000000000000..bd759ad4bc992
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vino/drm_sink/dispatch.rs
+[ ... ]
+> +    pub(super) fn queue_scanout(
+> +        &self,
+> +        dev: &VinoDrmDevice,
+> +        fb: &kms::framebuffer::Framebuffer<VinoDrmDriver>,
+> +        mut frame: PendingScanout,
+> +    ) {
+[ ... ]
+> +        let coalesce =3D {
+> +            let pending =3D self.pending_scanout.lock();
+> +            pending[connector].as_ref().is_some_and(|queued| {
+> +                queued.w =3D=3D frame.w
+> +                    && queued.h =3D=3D frame.h
+> +                    && queued.rotation =3D=3D frame.rotation
+> +                    && self.keyframe_pending.load(Ordering::Acquire) & (=
+1u32 << connector) =3D=3D 0
+> +            })
+> +        };
+> +        if coalesce {
+> +            vino_debug!("vino: socket {socket} flip coalesced before sna=
+pshot\n");
+> +            return;
+> +        }
+
+[Severity: High]
+Can this early return cause the display to permanently freeze on stale fram=
+es?
+
+If pending[connector] contains an unclaimed frame (making coalesce true),
+this discards the new frame before taking a snapshot. The scanout worker
+will only encode and scan out the older pending frame. If the compositor
+goes idle and stops submitting frames, the worker will repeatedly process
+the old frame and arm the settle_repaint timer with it, losing the most
+recent updates.
+
+[ ... ]
+> +        let (mut surface, binding, idx) =3D {
+> +            let mut pool =3D self.shadow[connector].lock();
+
+[Severity: High]
+Could this Mutex lock cause a deadlock or panic when called from the
+atomic commit path?
+
+This acquires a sleeping Mutex (shadow.lock()), which is unsafe in
+atomic context.
+
+[ ... ]
+> +        let r =3D snapshot_to_shadow(
+> +            self.geometry(),
+> +            &mut surface,
+> +            &binding.mapping,
+> +            source_w,
+> +            source_h,
+> +        );
+
+[Severity: High]
+Is it safe to perform a synchronous memory copy of up to 14.7 MB here?
+
+Executing a long synchronous memory copy in the non-blocking atomic
+commit callback can lead to system instability, as atomic contexts
+should be kept as short as possible.
+
+> diff --git a/drivers/gpu/drm/vino/drm_sink/limits.rs b/drivers/gpu/drm/vi=
+no/drm_sink/limits.rs
+> index 0000000000000..96d2d8dcf8c29
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vino/drm_sink/limits.rs
+[ ... ]
+> +    pub(super) fn other_connectors_rate(
+> +        &self,
+> +        state: &kernel::drm::kms::atomic::AtomicStateMutator<VinoDrmDriv=
+er>,
+> +        connector: usize,
+> +    ) -> u32 {
+[ ... ]
+> +        let timings =3D *self.last_timing.lock();
+> +        let mut total: u32 =3D 0;
+> +        for (i, t) in timings.iter().enumerate() {
+> +            if i =3D=3D connector {
+> +                continue;
+> +            }
+
+[Severity: High]
+Does reading shared global state here without global DRM atomic tracking
+allow concurrent commits to overcommit the dock's pixel bandwidth?
+
+Because this state is protected only by a local spinlock rather than being
+part of the global DRM atomic state machine (e.g., via a drm_private_obj),
+concurrent commits to different connectors will not serialize against each
+other. Each commit will see the other connector's old bandwidth and succeed,
+potentially bypassing hardware limits and causing a blank display.
+
+> diff --git a/drivers/gpu/drm/vino/drm_sink/mode_objects.rs b/drivers/gpu/=
+drm/vino/drm_sink/mode_objects.rs
+> index 0000000000000..d3ec818ec1daa
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vino/drm_sink/mode_objects.rs
+[ ... ]
+> +    fn atomic_check(check: CrtcAtomicCheck<'_, Self>) -> Result {
+[ ... ]
+> +        let others =3D data.other_connectors_rate(&state, connector);
+> +        let combined =3D new_rate.saturating_add(others);
+
+[Severity: High]
+Could this call read a stale bandwidth value from other connectors?
+
+As noted in limits.rs, this reads shared global state without global
+atomic tracking, which might allow concurrent commits to overcommit
+the display bandwidth.
+
+[ ... ]
+> +    fn atomic_update(commit: PlaneAtomicCommit<'_, Self>) {
+[ ... ]
+> +        data.queue_scanout(
+> +            dev,
+> +            fb,
+> +            PendingScanout {
+> +                connector,
+> +                rotation,
+> +                clips,
+> +                nclips,
+> +                w,
+> +                h,
+> +                shadow_idx: 0,
+> +                shadow_generation: 0,
+> +            },
+> +        );
+> +    }
+
+[Severity: High]
+Does calling queue_scanout() from this atomic callback invoke operations
+that are unsafe in atomic context?
+
+VinoPlane::atomic_update() executes in an atomic context during
+non-blocking commits. However, queue_scanout() acquires a sleeping
+Mutex, allocates with GFP_KERNEL, maps memory, and performs large
+synchronous memory copies.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826163913.7052=
--1-mike@fireburn.co.uk?part=3D10
+-1-mike@fireburn.co.uk?part=3D8
