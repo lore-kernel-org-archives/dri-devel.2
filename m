@@ -4,36 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DF9C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 19:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 336B8C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 19:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63CBB10F16F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F24710F179;
 	Thu, 27 Aug 2026 19:09:08 +0000 (UTC)
-Received: from mail.muc.de (mail.muc.de [193.149.48.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AECCD10E1F5
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 18:52:51 +0000 (UTC)
-Received: (qmail 21432 invoked by uid 3782); 27 Aug 2026 20:52:50 +0200
-Received: from muc.de (p4fe15cdf.dip0.t-ipconnect.de [79.225.92.223]) (using
- STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
- Thu, 27 Aug 2026 20:52:49 +0200
-Received: (qmail 31137 invoked by uid 1000); 27 Aug 2026 18:52:48 -0000
-Date: Thu, 27 Aug 2026 18:52:48 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: acm@muc.de
-Subject: [Patch 6/9]: vt: Use u32 and typedef u1632 to handle whole glyphs
-Message-ID: <apCHgPpGWGfVz2cI@MAC.fritz.box>
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V8J7JM0R";
+	dkim-atps=neutral
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC3310F0BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:47:54 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2d58efc7356so26324665ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787842074; x=1788446874; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qbEkvagZ9qeyC6jVzXtKZoIKK94uFwUXLSPjBHZM3eg=;
+ b=V8J7JM0Rj15bm24auYSHftMMRQ4ETDou08h2eVJPgpjLJ0UnP72o7TVweVywCA3QW+
+ TquoAMFAijwJkMkYZj1aJbEFWNKkVL1Z9RosMItnwwpBHmnbAsLlCrgdsBJvpSAAEhwN
+ dNvJxDWAXbEq4UnR4D9GisyJmBnF3+5oVqKuWQHqoh+JPryOPL6G3Jl98uzOcZtBjFXp
+ IRccuO9HOyxx6V06Y9+ItpFb0z4Ud0HSO3PdUdr6D+zahD7kT6maLrBrRyOO1L8KPtAM
+ N+RGePH+2Bv7wcEW3EfsVKhnkfl+0Zmasb5LmcxzXqpEbFzbWO495VO2IXCHsoyAnhYC
+ beqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787842074; x=1788446874;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qbEkvagZ9qeyC6jVzXtKZoIKK94uFwUXLSPjBHZM3eg=;
+ b=Oa8IUo8PUL67H0yEuQlBQ+ktwqa3ItgwCbgxOsGwH1Up9GFW8NS5cdG2dy0f47Y8jQ
+ CQOZJzEI0uoVIr1mUzsoXQR1T0tullY9cr5b3MdGjPQTbDZi6n5au6ZMFbaUjuLYDJeH
+ r9OjyQsv87A0Z/VTyOHc2JSAuYOm1lgHSV6DIZbQoY2isvA5z4pfaYW05z7FqS1rsDwz
+ kHLkovWPb84mDon2rI24r1gyooVNy21o+Gy5P1ygErl6XK6eylIdfP9pNLkno8+7pNfJ
+ 6ih3EHh4LwEEpWCkjOiu2KXRmr2uBEngXHlpBxfr6I52+oHuSc26A9RgS4vIGlX20zMX
+ rEQA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp0704GKyh5kGSAlTypm2mEN7pABoJ7tNhLh4mXsqtrRf05ADV+MDQJKGpt1midNS6Q0oHNbUgRAiI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kpBzBE4sHgjDDu+DW4BxsNYl5ZM3yOqb1Ru5gtvUVZlmI6q0F8
+ qMvnRXXzXxtO7kGCgumYUQtPvq2tc3LVgWfuVWTS6aKb116SN7jeZ6g4
+X-Gm-Gg: AR+sD11MLECSeBMSBSC/wfbgo8FLBqZzvs2Q7G+FE8XM+mE8jz2RzMDeOqe0+dYgy0F
+ oCejwiQHmkoGYsf3fwoglxfVA5BW7Ay20VafqmkzX1qG/hvxkQbJAxnwhEaDfc5s2NCzuFE4UtA
+ n7j+d0KF/IFrOx3SY/v4DIl5AwyDAX6987CSLgHg4x9eDJp8q8kMcqjFt+YKhcmCMnY26jxT1RN
+ Nk0pBPNUWsVy0QlX7Zf63l2iifP3EZri6GLvhKD3V6VBLe+mwKlvQMFn4RYfNqlQK2tEAAp8hZX
+ fGL8wzbBcOV0z69NasiZr8XNIGfO/pjGymFWi7AytF1ocdY4VMxDO0BBVUsTyh+MScyBabQlkRG
+ AJU1MTSDLnUIaemAhWu/OFQ1/5g0ql9ayLxy1I7B8VwHTKXHG/xFjKq/obKcnGK1UT+XUvpKZkY
+ m/MC+PfjXx16zE7Uirx5CVnr7o2+FbUVOfYHTUPO3bb/lAwBWQdMLVwpM=
+X-Received: by 2002:a17:903:2383:b0:2d7:71e:575d with SMTP id
+ d9443c01a7336-2d707af8a58mr304661165ad.9.1787842073561; 
+ Thu, 27 Aug 2026 07:47:53 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d704c2bb7dsm17953815ad.71.2026.08.27.07.47.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 07:47:52 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/ras: drop redundant memset in
+ amdgpu_virt_ras_get_cper_records()
+Date: Thu, 27 Aug 2026 23:46:13 +0900
+Message-ID: <20260827144614.487229-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCEDM2sWv_M354-@MAC.fritz.box>
-X-Submission-Agent: TMDA/1.3.x (Ph3nix)
-From: Alan Mackenzie <acm@muc.de>
-X-Primary-Address: acm@muc.de
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 27 Aug 2026 19:08:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,250 +89,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vt: 32b glyph: 6. Use u32 and typedef u1632 to handle whole glyphs
+kzalloc() returns zeroed memory, so the memset after the allocation is
+redundant.
 
-The glyph size u1632 is an either 32- or 16-bit unsigned word
-depending on whether or not CONFIG_FB_GLYPH_21BIT is #defined.
+No functional change.
 
-Signed-off-by: Alan Mackenzie <acm@muc.de>
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 8f467b22b799..0c389a564357 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -322,12 +323,12 @@ static inline u16 *screenpos(const struct vc_data *vc, unsigned int offset,
- 	return (u16 *)(origin + offset);
- }
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+index 1e83cb5064ff..f021719ff0a8 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+@@ -298,8 +298,6 @@ static int amdgpu_virt_ras_get_cper_records(struct ras_core_context *ras_core,
+ 		return RAS_CMD__ERROR_GENERIC;
+ 	}
  
--static void con_putc(struct vc_data *vc, u16 ca, unsigned int y, unsigned int x)
-+static void con_putc(struct vc_data *vc, u32 ca, unsigned int y, unsigned int x)
- {
- 	if (vc->vc_sw->con_putc)
- 		vc->vc_sw->con_putc(vc, ca, y, x);
- 	else
--		vc->vc_sw->con_putcs(vc, &ca, 1, y, x);
-+		vc->vc_sw->con_putcs(vc, (u16 *)&ca, 1, y, x);
- }
- 
- /* Called  from the keyboard irq path.. */
-@@ -782,7 +773,7 @@ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed)
- void complement_pos(struct vc_data *vc, int offset)
- {
- 	static int old_offset = -1;
--	static unsigned short old;
-+	static unsigned int old;
- 	static unsigned short oldx, oldy;
- 
- 	WARN_CONSOLE_UNLOCKED();
-@@ -3194,7 +3250,7 @@ static int vc_con_write_normal(struct vc_data *vc, int tc, int c,
- {
- 	int next_c;
- 	unsigned char vc_attr = vc->vc_attr;
--	u16 himask = vc->vc_hi_font_mask;
-+	u32 himask = vc->vc_hi_font_mask;
- 	u8 width = 1;
- 	bool inverse = false;
- 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 9f5c4c101581..18fbf7cf11dd 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -313,7 +313,7 @@ static inline bool fbcon_is_active(struct vc_data *vc, struct fb_info *info)
- }
- 
- static int get_color(struct vc_data *vc, struct fb_info *info,
--		     u16 c, bool is_fg)
-+		     u32 c, bool is_fg)
- {
- 	int depth = fb_get_color_depth(&info->var, &info->fix);
- 	int color = 0;
-@@ -379,12 +379,12 @@ static int get_color(struct vc_data *vc, struct fb_info *info,
- 	return color;
- }
- 
--static int get_fg_color(struct vc_data *vc, struct fb_info *info, u16 c)
-+static int get_fg_color(struct vc_data *vc, struct fb_info *info, u32 c)
- {
- 	return get_color(vc, info, c, true);
- }
- 
--static int get_bg_color(struct vc_data *vc, struct fb_info *info, u16 c)
-+static int get_bg_color(struct vc_data *vc, struct fb_info *info, u32 c)
- {
- 	return get_color(vc, info, c, false);
- }
-@@ -1639,8 +1657,8 @@ static void fbcon_redraw_move(struct vc_data *vc, struct fbcon_display *p,
- 	while (count--) {
- 		unsigned short *start = s;
- 		unsigned short *le = advance_row(s, 1);
--		unsigned short c;
-+		unsigned int c;
- 		int x = 0;
--		unsigned short attr = 1;
-+		unsigned int attr = 1;
- 
- 		do {
-@@ -1668,7 +1688,7 @@ static void fbcon_redraw_blit(struct vc_data *vc, struct fb_info *info,
- 	int offset = ycount * vc->vc_cols;
- 	unsigned short *d = (unsigned short *)
- 	    (vc->vc_origin + vc->vc_size_row * line);
--	unsigned short *s = d + offset;
-+	unsigned short *s = d + ((long) offset) * GLYPH_HW;
- 	struct fbcon_par *par = info->fbcon_par;
- 
- 	while (count--) {
-@@ -1719,8 +1739,8 @@ static void fbcon_redraw(struct vc_data *vc, int line, int count, int offset)
- 	while (count--) {
- 		unsigned short *start = s;
- 		unsigned short *le = advance_row(s, 1);
--		unsigned short c;
-+		unsigned int c;
- 		int x = 0;
--		unsigned short attr = 1;
-+		unsigned int attr = 1;
- 
- 		do {
-@@ -2030,7 +2052,7 @@ static void updatescrollmode_accel(struct fbcon_display *p,
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
- 	struct fbcon_par *par = info->fbcon_par;
- 	int cap = info->flags;
--	u16 t = 0;
-+	u32 t = 0;
- 	int ypan = FBCON_SWAP(par->rotate, info->fix.ypanstep, info->fix.xpanstep);
- 	int ywrap = FBCON_SWAP(par->rotate, info->fix.ywrapstep, t);
- 	int yres = FBCON_SWAP(par->rotate, info->var.yres, info->var.xres);
-@@ -2146,6 +2168,7 @@ static bool fbcon_switch(struct vc_data *vc)
- 	struct fbcon_par *par;
- 	struct fbcon_display *p = &fb_display[vc->vc_num];
- 	struct fb_var_screeninfo var;
-+	unsigned short *d, *s;
- 	int i, ret, prev_console;
- 
- 	info = fbcon_info_from_console(vc->vc_num);
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 407d207b14f1..5aaef363a343 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -217,7 +211,7 @@ static inline int real_y(struct fbcon_display *p, int ypos)
- }
- 
- 
--static inline int get_attribute(struct fb_info *info, u16 c)
-+static inline int get_attribute(struct fb_info *info, u32 c)
- {
- 	int attribute = 0;
- 
-diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
-index fe915afdece5..5afce52057ca 100644
---- a/include/linux/console_struct.h
-+++ b/include/linux/console_struct.h
-@@ -110,7 +119,7 @@ unsigned int vc_font_size(const struct vc_font *font);
-  * (vc_origin +            |                      |  \ EMPTY, to be filled by
-  *  vc_screenbuf_size)     |                      |  / vc_video_erase_char
-  *                         +----------------------+-'
-- *                         <---- 2 * vc_cols ----->
-+ *                         <--- 2/4 * vc_cols ---->
-  *                         <---- vc_size_row ----->
-  *
-  * Note that every character in the console buffer is accompanied with an
-@@ -178,7 +190,7 @@ struct vc_data {
- 		 int	vc_utf_char;
- 	DECLARE_BITMAP(vc_tab_stop, VC_TABSTOPS_COUNT);	/* Tab stops. 256 columns. */
- 	unsigned char   vc_palette[16*3];       /* Colour palette for VGA+ */
--	unsigned short * vc_translate;
-+	u1632		*vc_translate;
- 	unsigned int	vc_bell_pitch;		/* Console bell pitch */
- 	unsigned int	vc_bell_duration;	/* Console bell duration */
- 	unsigned short	vc_cur_blink_ms;	/* Cursor blink duration */
-diff --git a/include/linux/consolemap.h b/include/linux/consolemap.h
-index 539d488fdc03..5e50b4d4bd0b 100644
---- a/include/linux/consolemap.h
-+++ b/include/linux/consolemap.h
-@@ -19,11 +19,21 @@ enum translation_map {
- 
- #include <linux/types.h>
- 
-+#ifdef CONFIG_FB_GLYPH_21BIT
-+#define u1632 u32
-+#else
-+#define u1632 u16
-+#endif
-+
- struct vc_data;
- 
-+extern u8 dfont_unicount[];	/* Defined in consolemap_deftbl.c */
-+extern u16 dfont_unitable[];	/* Ditto */
-+
- #ifdef CONFIG_CONSOLE_TRANSLATIONS
--u16 inverse_translate(const struct vc_data *conp, u16 glyph, bool use_unicode);
--unsigned short *set_translate(enum translation_map m, struct vc_data *vc);
-+u1632 inverse_translate(const struct vc_data *conp, u1632 glyph,
-+			bool use_unicode);
-+u1632 *set_translate(enum translation_map m, struct vc_data *vc);
- int conv_uni_to_pc(struct vc_data *conp, long ucs);
- u32 conv_8bit_to_uni(unsigned char c);
- int conv_uni_to_8bit(u32 uni);
-@@ -32,7 +42,7 @@ unsigned int ucs_get_width(uint32_t cp);
- u32 ucs_recompose(u32 base, u32 mark);
- u32 ucs_get_fallback(u32 cp);
- #else
--static inline u16 inverse_translate(const struct vc_data *conp, u16 glyph,
-+static inline u1632 inverse_translate(const struct vc_data *conp, u16 glyph,
- 		bool use_unicode)
- {
- 	return glyph;
-diff --git a/include/linux/selection.h b/include/linux/selection.h
-index bab7d30d3446..44bc2b2892d8 100644
---- a/include/linux/selection.h
-+++ b/include/linux/selection.h
-@@ -33,7 +33,7 @@ extern unsigned char default_grn[];
- extern unsigned char default_blu[];
- 
- unsigned short *screen_pos(const struct vc_data *vc, int w_offset, bool viewed);
--u16 screen_glyph(const struct vc_data *vc, int offset);
-+u32 screen_glyph(const struct vc_data *vc, int offset);
- u32 screen_glyph_unicode(const struct vc_data *vc, int offset);
- void complement_pos(struct vc_data *vc, int offset);
- void invert_screen(struct vc_data *vc, int offset, int count, bool viewed);
-@@ -41,8 +41,8 @@ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed);
- void getconsxy(const struct vc_data *vc, unsigned char xy[static 2]);
- void putconsxy(struct vc_data *vc, unsigned char xy[static const 2]);
- 
--u16 vcs_scr_readw(const struct vc_data *vc, const u16 *org);
--void vcs_scr_writew(struct vc_data *vc, u16 val, u16 *org);
-+u32 vcs_scr_readw(const struct vc_data *vc, const u16 *org);
-+void vcs_scr_writew(struct vc_data *vc, u32 val, u16 *org);
- void vcs_scr_updated(struct vc_data *vc);
- 
- int vc_uniscr_check(struct vc_data *vc);
-diff --git a/include/linux/vt_kern.h b/include/linux/vt_kern.h
-index d008c3d0a9bb..af99aeefe177 100644
---- a/include/linux/vt_kern.h
-+++ b/include/linux/vt_kern.h
-@@ -56,14 +56,20 @@ int tioclinux(struct tty_struct *tty, unsigned long arg);
- /* consolemap.c */
- 
- struct unipair;
-+struct unipair21;
-+#ifdef CONFIG_FB_GLYPH_21BIT
-+#define unipair8_21 unipair21
-+#else
-+#define unipair8_21 unipair
-+#endif
- 
- int con_set_trans_old(unsigned char __user * table);
- int con_get_trans_old(unsigned char __user * table);
- int con_set_trans_new(unsigned short __user * table);
- int con_get_trans_new(unsigned short __user * table);
- int con_clear_unimap(struct vc_data *vc);
--int con_set_unimap(struct vc_data *vc, ushort ct, struct unipair __user *list);
--int con_get_unimap(struct vc_data *vc, ushort ct, ushort __user *uct, struct unipair __user *list);
-+int con_set_unimap(struct vc_data *vc, u32 ct, struct unipair8_21 *list);
-+int con_get_unimap(struct vc_data *vc, u32 ct, u1632 __user *uct, struct unipair8_21 *list);
- int con_set_default_unimap(struct vc_data *vc);
- void con_free_unimap(struct vc_data *vc);
- int con_copy_unimap(struct vc_data *dst_vc, struct vc_data *src_vc);
-
-
+-	memset(out_buf, 0, req->buf_size);
+-
+ 	for (i = 0; i < req->cper_num; i++) {
+ 		batch_id = req->cper_start_id + i;
+ 		if (batch_id >= overview->last_batch_id)
 -- 
-Alan Mackenzie (Nuremberg, Germany).
+2.43.0
+
