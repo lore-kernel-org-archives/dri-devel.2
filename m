@@ -4,64 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F673C61DC7
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D847C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:02:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7D0210E393;
-	Thu, 27 Aug 2026 09:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311A210E3D7;
+	Thu, 27 Aug 2026 09:02:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="AbsTb/lI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qx+GMBP6";
 	dkim-atps=neutral
-Received: from smtpout8.mo540.mail-out.ovh.net
- (smtpout8.mo540.mail-out.ovh.net [51.210.91.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B50910E393
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:01:18 +0000 (UTC)
-Received: from director6.derp.mail-out.ovh.net
- (director6.derp.mail-out.ovh.net [79.137.60.226])
- by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4hVwVM2kbnz4481;
- Thu, 27 Aug 2026 09:01:15 +0000 (UTC)
-Received: from director6.derp.mail-out.ovh.net
- (director6.derp.mail-out.ovh.net. [127.0.0.1])
- by director6.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <rppt@kernel.org>; Thu, 27 Aug 2026 09:01:15 +0000 (UTC)
-Received: from mta10.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.149])
- by director6.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hVwVM1mc9z47ld;
- Thu, 27 Aug 2026 09:01:15 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.7])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta10.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 5578C781AA9;
- Thu, 27 Aug 2026 09:01:14 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-104R005274fb7cd-4520-4c59-a96d-bafdc18ff095,
- F479AFC6405D7EE93EC47B32B82D502C87CDF03D) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <b75359de-56c7-481f-9ce5-10f9ce0bb075@pixelcluster.dev>
-Date: Thu, 27 Aug 2026 11:01:13 +0200
-MIME-Version: 1.0
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010002.outbound.protection.outlook.com [52.101.61.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D628410E3B4;
+ Thu, 27 Aug 2026 09:02:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AQ9Yx0jWXpPy0uzOjRdaM0/2HIyw9FctQ0SA4bEvzlUwl6Emsw4X51t9Rx+9C2jirndpUY0/D04XptlmVra0yfP7vTx9Tptrle5CslaR/fnyyCVjJOFg+eDo0iEif6bTamj1EIHpmUml65D8bG2yG7GiOAaMvJfydUxKLLBKOMDd3xo+YO2LRaH1USf4WfwN3Vg9OyAE/q4O35OoAKpVIhcwmv41Lu2lzPfRR7NoWQw+CnfkAnC0e10SZjRF9Thg0a86+wBGUTGprgERDLw/1rG4ztfmowkLtIQX2CARkUOJAVgpxEIZQgKzutNbylHXb5ndCc0rZBmiaEMdeHsaIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BNpK9QC+C1Fk+f0iORlIaQfiTRUF0FeD6aPKyFdhAbg=;
+ b=ZZGMbyIvzbW+n9Nx99CbONPIWvfXbkGkg9Qz8yQ7IPF+fO4UbYu9dR8rbDiUeYE6D+GonvfZsww0g+S2C+JtlIcMSl3c8KvNkmWjUND5znxrwhp5NFjuax5fGr+2Pd3v9/iSK+FumtUYtpBI/wHfJXXfrONt/VCwjcoE+q54F6r3DmQIPset5M09QG1gguuuwnd4LAjpx84lVgOW2ATgqO4ZLSyQ/uyKBwFUARuz/fD67UxCw3+viLTaowpuGYf124SQeDO//jzO2QeAGo4KK55KmiN/rGeLOBFupeXhMpbxElmet9aJDkCackqIh8kT9VRUjOKRnhJ9gUVj2UkWEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BNpK9QC+C1Fk+f0iORlIaQfiTRUF0FeD6aPKyFdhAbg=;
+ b=qx+GMBP6d/FGMVDd5f6iod6O7cptBTr3c0985twqYzbgcgiurcovSXI2opt1VwH0Dyc/RqoDY1w5gwUFyZjsP3oSkUpNtpV5PijSHqocWJV/EE/6GPubIPfl3kdiVRGHdX1WOUoksRqShi4v1EDLcdVAKU6kXaTCfIfs2gKZKTQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by CH8PR12MB9765.namprd12.prod.outlook.com (2603:10b6:610:264::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 09:02:52 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%6]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 09:02:52 +0000
+Message-ID: <bcdc465f-2f83-4fc0-93e6-ed94b076989c@amd.com>
+Date: Thu, 27 Aug 2026 17:02:43 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: userfaultfd wp-async support for (GPU) special mappings?
-To: Peter Xu <peterx@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
- <rppt@kernel.org>, linux-mm@kvack.org, dri-devel@lists.freedesktop.org
-References: <d5ea3344-24e7-4834-b743-4dec812ada70@pixelcluster.dev>
- <aoNGR04WaFkqde8a@x1.local>
+Subject: Re: [RFC PATCH v1 1/5] drm/gpusvm: extract drm_gpusvm_hmm_fault()
+ helper
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: sima@ffwll.ch, rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
+ dakr@kernel.org, intel-xe@lists.freedesktop.org, aliceryhl@google.com,
+ Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Christian.Koenig@amd.com,
+ Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
+ Yiru.Ma@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260827071449.520398-1-honghuan@amd.com>
+ <20260827071449.520398-2-honghuan@amd.com>
+ <ao/nrkOMOllUKqyG@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <aoNGR04WaFkqde8a@x1.local>
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <ao/nrkOMOllUKqyG@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-x-ovh-tracer-id: 18220156719306727879
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTG0kBmYL0V4dZBJOcFc5VYyAOLiwpykFwH5HtWGFQyT9PZtBFbNMuq+mm80fuOlLkc9DfH9S4QAeMsem+qrc//SMoBlJaSfCft3bgmFlOByXaSdBAQ9Jy7IQAr+z4Gd7rgzHI9EhrE42BTHKFuyDh5wuRXKEnFJWZB/lPaMAZk2rdZ/pAOXYz/aSzHiEKF26cYw9KjXhbgfTBr/BpF/2y4ma+KnHGvh7VDnE+Ya1j/J2S8P4FRCz0EcajPO1mgdLIDP2P4YcERXElLNtySbqPrMm684RJNSSkSMIc5LES5Wqbx78HoezLJFt1mI8j5h3cfZ1NCX8A0cfGro67ePJeObZB+GmLShFyFGW2UrHHZUTqCtnyVL4aMyM4d0BTBf3sVnhGnYrvzNoogSF2yrF4sEbfVK4SjW7fBnyEX15CzVTTjQcXqXS748ez19dyRI4LAUJKjmQSAp0ut0oow+Ps2BmbMF+ai/h06qwtYoXkw629lA8om2zG23Lp5pBF+3oAl0znUX59AluWWswUgzIcEsVmhL2ybWNLYWBWFV/lLnvSWorJTMYCMI+FtB0OebN1FUF1wXHWKFDoG13RhzywBkhsf9sl7odNRWN99UXE5eq0PUx7KkbohWTgMsoCjSvx1DpsReiirzc5+KckClKc0m9Rr+Bmvcq9kwBQr+gh8Wqg
-DKIM-Signature: a=rsa-sha256; bh=xF8jVyrOFp9EpIAZTMTAKQHAXFEZm/Mc9X0eoiaqEwI=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1787821276; v=1;
- b=AbsTb/lI3b4z6UpWj9+sD7zBNiRVTfCTXt0NnrQgyDJ1GlKOrjaEbFt5+Q2czCaEUt+AuK9p
- V+F1ZFbjNrUXAbcuDBcRoSW1jd8JtbsBpPejZruRTdYDQHFpfXJPDihtDvdxaB+LsnT31h17FQX
- 3SpDCU0R/QP3TWOpa3yUXmnQAh1T9ujO/Qm0kd49vpp7LmhoZhcta1/Do6GUag2B2Xj4xfupENX
- NEwxnXn73OUp1/XserzR6W0OwLljyN3MyjAYzAvEvTT1PaNxqw4i6LxXvbQsh9dw2I7rQ+svs7s
- 67MAe4aCW1It1YwjOLgytX74PLJZ518T/110xlpVMkmSA==
+X-ClientProxiedBy: SG2P153CA0037.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::6)
+ To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|CH8PR12MB9765:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c9d80d6-6e5a-4c12-d358-08df0419f9a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|10067099003|18002099003|22082099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: YMmPTjEwlvb9zt9YHN0QyYxryBg9beoRVXyQDikbJ2s0k6IquAwqWmbZqbnOn1V4s5h412TexvJoalKAU2zC3Sr7MgNNxL6q7wbJgykk7LsKKOv+NMzemaXg0OaDCOeKGEmtkHOz8PLMtqW8JESnIHYU6D9kGb9L0qwQ4VhAb+UnpPqzfqhxfIft0rwgmNjLdFSao2b23starvJFLEmfTXC1UnAE4UWjeRRa5g6NBv8XTpNwlU+WvQTz5b9v1r/APQCDQLCWBlVIVQ3pzFPD8oYEbCkUgVgMPme6WqrJuevji2Em0AYtlgKneN5b0szq6dyzq78SV/zuXRovbGRcVfFxkRCHR3cJ1zIalHeKtxwUP8T7ZrUHucx5kLvZtHmHV+HVqAgpM52EsJxbKffgqzbxLrdKTQGVkPNI3skK3whlcHHeZvt2XIHCUJXL7/qxtGkoNGocJKcOzB7y9nQQlJ9QA9FmDYUSbpoOwC49u9JjQddM2yXmaBV4zXnFEcM3+XV6MBF3uu9NwmeBcBdYRmsHdAs1M9ilVghp/7YMJ7jtY4omda8cdFa6838YE7y2Qv1MjAC/Q+6wRhXaBm4cex5mw97Kmbr5mXTQp8a3cjU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eldEN0RiTjErYWptL1orWVhGamJPcURGU3VJMlE5S081dzlBNTlGTnJEQXI3?=
+ =?utf-8?B?QVVncksxS2tWRzZTa0pXNExmbGVXUTU3bnBCQ2xwZlRqT2Nld3JKOC9IVytY?=
+ =?utf-8?B?MHFkRWlPdnFTTnp5WUdPM1YyM0IrOFQ1SUQ3ZEtjeVdpZlYyVTBsNkhFNnhQ?=
+ =?utf-8?B?SVBTM3lVb21mVVZNTXl4aWNDdTNTNSthTzZWWCtFaTF1RkdkVGJ2bm1teVJC?=
+ =?utf-8?B?aFZaclJ2VHlwZm1WVjJQd2VicFNIVytXOG9URjhyUHVUQkpJNWxSREp4V3RW?=
+ =?utf-8?B?YS9KWC9BOTNtQmRVQTB4UUxSUHczcHJYdXdETkp1eUdaZlBOZXpIU3lOeXJy?=
+ =?utf-8?B?M1J1bGNKRlhKSms2TEtOMFhBcXR2MWhQRnBXMnlvNmplV1lwRTg3SUwvWXlm?=
+ =?utf-8?B?cWY3RnljYS9BZzcwSVNrRTVtTUlYWGRQNHhqdjV0ZkpSdEwrWU5YdTlsZEhm?=
+ =?utf-8?B?ZjNETHI1SlZOejhXT0hqRzJYcGJBMzQ4bTNVMXA0TURxQlJUZ3dIM3p3K1NP?=
+ =?utf-8?B?dnhwTzV2YWl3Y2dhL1FXem0zcUM5ZDd1UXQvR3E0d01lQ01KM2hhYjhUM2V3?=
+ =?utf-8?B?bVFUK2JBZ01GSlRWdnViNHVyU2ZRcUdRY1YvNXJZTktCQlh3b29mNEhPdmFJ?=
+ =?utf-8?B?cmhxRXQ4RVNOQkcxMnh0eDNucmdDN0Y5NXlRTlJzWG1BWGowVzBFd2NMQ3V5?=
+ =?utf-8?B?N2ZXd2hCb0lPVGdOT0xmdjlwMGc5RktyN0poZDlCUVVGSExVTlM4TkFQNU1I?=
+ =?utf-8?B?N3B0ZVMrVkU2MDNLZnFpSkhEVFc1MEV0TFFuRXQyL1RJR01iQkJLVDQzdWVm?=
+ =?utf-8?B?aEx6MUx3SExMK0FaUVRiTk5udzlmOTdjWjgwWVRkYjBITEtGS1F2Q2tzZC9p?=
+ =?utf-8?B?amhHY3hQUHI3cmxEM3NKdzFXRGRXRVVpSTBoY1ZuTlNxdUFGTlNZeXZFYVpR?=
+ =?utf-8?B?a0F1blR0aWhGaFZQcEUzVGJYZm9uMlY0anl3L0IxUXNJUGJwbkZXbUk3bStL?=
+ =?utf-8?B?dUpKUkEzSkV0Y0I3WGRIdUhnZ0dRWjdSdjhMVWZ0Zm1ZUUdkNWtkYUxzcXIv?=
+ =?utf-8?B?ZUoxMnpxeXBTMGVlL0lYQytkS2cyS2hycHRReXpKQ3M5TzNYNlJMb21va2V0?=
+ =?utf-8?B?dUdnL0NwODEyRXNGSURNdk9XVTRRQUQ2OXpyZjZzU2M4cUJoYkRaYjBXTDN5?=
+ =?utf-8?B?RlZGSmtoWktNVFVOSkNiNG1mRmlGTk9Uc3N4MktvK3FsemI1WUYvaTN0bkZK?=
+ =?utf-8?B?Qlh0bkNRaFNaZTJHeXp1d2J6bWFLMVBmcmFyeWUvc1g0N1pMY2NjeGJMc0Jy?=
+ =?utf-8?B?TVBVY1Z6UDRXSnM4OGc0Y2szZTROWGFiVDQzNW1IM002K3lyeGRUUXBVWWZF?=
+ =?utf-8?B?aHZwV2dPWGlHUFZBNWNMVGRFSEhlN0IrckYzVHpxcTduZlk0WVBPaWwzYWJW?=
+ =?utf-8?B?bFVFVklXbmZwRUVxOSsxYSszVzFBbzRiRXE5enZTSnA4bDE2R0p4dnliQnMy?=
+ =?utf-8?B?ai9ONTdCQzRONkFDM3FHOWRPcDFOdGdQbjMrTHUxN1NGK3k0VE14Z3ZHUkNP?=
+ =?utf-8?B?a2xwaDJSNGl1V1g3T25GTTZZaTdjRCttdUxpbUx5MUw3ZkdlZXVqL0plSytX?=
+ =?utf-8?B?Zi9wWUdjWVBzR2VJSmZWVG9iQzdzSTdrS095QlIyTUZOeG9uYmJlZ25RVHQ0?=
+ =?utf-8?B?ZVhOcjZqTEhFMS9VeGx4VExTWEJLME4xQzRwMGtZWlAzQzRseGQrbW9rSzI0?=
+ =?utf-8?B?WVNTdUhYTWlyQllVemVLL1NNakFQMW5qVlBLZDlscXM5Rkd4LzcydFA5cWF5?=
+ =?utf-8?B?bUdZNDFzd2JzZ1BOeEVSMzdsS09hRnBFOEhRSkJCK1F6Skdad1Iyd0VYYmtw?=
+ =?utf-8?B?cmpxaUgwUXNrM2FtM3dqMjg4V25MWit4UW1vaEhEOGIwSjcxSE1DS1hFVmJx?=
+ =?utf-8?B?L25BUmtRVHE1RmZjUUVkTVcvVXc1RjRUOGt4S3luYnBmdFdUeHFLanB5TVJm?=
+ =?utf-8?B?QmNuNHlZdkErWG90eTZlYWVCNVF0Q2lTL2pWT0cwRUp0aDdOQ3RxOW4wTDZS?=
+ =?utf-8?B?NWMvaUlkdXhmcnZWRy9vbDBvNFhnMGxJaWhwY2hCWmtnNGtUZG1xcUw5V2VE?=
+ =?utf-8?B?U0N5OThVNDJicXFMaDF4VXFSL1gvU29YMUNUVVg2TXdYQitmSG92OUx2VTFr?=
+ =?utf-8?B?UFA1Y0lHelhZckQ5bHZhYVd4c2xOQTlkM1B5V2tWVVphMkY1T1FPRUtjZGhE?=
+ =?utf-8?B?WVNWajJ2WXZHOFVRQzdjUFlMUkgvMUJYLzFZMUZ2RU9xcm9jSi9LMzdQRUJK?=
+ =?utf-8?Q?yLfMiah/3RejBOPw+o?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c9d80d6-6e5a-4c12-d358-08df0419f9a9
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 09:02:52.2339 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IBb6qiwGK0cr4czfXgQiICciMd9Eu6Sv91n+KoNmkYx/mIzGkcdSqcW3okclyYeNSO4PRqjw/00Oo4q3sNz7xQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9765
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,268 +142,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-sorry for the late reply! I had to put out some fires in other areas and
-only now had the time to get back to this.
 
-On 8/17/26 19:35, Peter Xu wrote:
-> On Wed, Aug 12, 2026 at 11:01:55PM +0200, Natalie Vock wrote:
->> Hi all,
+On 8/27/2026 3:30 PM, Matthew Brost wrote:
+> On Thu, Aug 27, 2026 at 03:14:45PM +0800, Honglei Huang wrote:
+>> Make the HMM fault step of drm_gpusvm_get_pages(), including its -EBUSY
+>> retry loop, into a helper drm_gpusvm_hmm_fault(). The existing logic of
+>> the public drm_gpusvm_get_pages() is not changed, only relocated, so
+>> there is no functional change. Keeping the retry loop in common code
+>> also means drivers never have to open-code their own fault/retry loop.
+>>
+>> A single fault can later be shared by several drm_gpusvm_pages instances
+>> that mirror the same CPU range. This prepares get_pages() to split the
+>> shared MM-level fault from the per-device DMA mapping. No functional
+>> change intended.
+>>
 > 
-> Hi, Natalie,
+> I think you might want to just wait on this until Sunday for this
+> series. I think this patch [1] is in the core MM tree so when drm-tip
+> moves to 7.3.rc1, Sunday, we will have a version of this helper to core
+> MM used in gpusvm.
+
+Got it, will wait until Sunday. Thanks for the information.
+
+Regards,
+Honglei
+
 > 
->>
->> lately I've been investigating some ways to efficiently query for whether
->> particular memory has been written to or not. The functionality I'm looking
->> for is pretty much exactly what userfaultfd's wp-async mode exposes, but
->> with a twist: The memory I'm interested in is GPU memory mapped into users'
->> address spaces.
->>
->> The broader context here is writing a "capture/replay" tool for the Vulkan
->> graphics API: The tool lives in a .so that is injected into some app at
->> runtime (LD_PRELOAD style). All graphics API calls (rendering commands etc.)
->> are then intercepted, making a copy of any call parameters and writing
->> ("capturing") them to disk. Later, these calls can be read back from the
->> file and "replayed", reproducing the exact same sequence of rendering
->> commands again (hopefully leading to the same rendering output, too).
->> However, one of the commands is a simple wrapper over mmap(), where the
->> input is a GPU resource and the output is a mapped pointer for free use by
->> applications. To correctly reproduce the behavior of apps using this
->> command, the capture/replay tool needs some side-channel to know which parts
->> of this mapped memory have been overwritten by the CPU, so that it can
->> perform the same modifications when replaying API calls.
->>
->> The only part I'm interested here are writes done by the CPU. The GPU may
->> also write to the mapped memory itself, but there's no need to track where
->> it wrote.
->>
->> userfaultfd wp-async tracking would be a pretty great match for this, if
->> only it could be made to work with GPU mappings, too. I've been hacking
->> around in the kernel and I did get my use case working fairly well with only
->> a few modifications:
->>
->> First, I mostly-reverted commit 3c58f641e81 ("userfaultfd: prevent
->> registration of special VMAs") for rather obvious reasons :)
->> Then, all I had to change to get things to work was add handling for
->> encountering uffd-wp marker PTEs on a read fault inside insert_pfn(), and
->> allow the PM_SCAN ioctl for /proc/<pid>/pagemap to process vmas marked with
->> VM_PFNMAP if ioctl only does uffd wp-async bookkeeping.
->>
->> I included a complete diff of these changes at the end of this email, but
->> their quality is very much proof-of-concept only; it's not remotely in an
->> upstreamable state.
->>
->> Is this something upstream would consider supporting at all? I'm not
->> familiar enough with memory management to judge whether there are
->> fundamental pitfalls making this whole idea impossible (but for what it's
->> worth, it worked really well on every program I tried capturing/replaying
->> :P)
+> Matt
 > 
-> I believe the VM_FAULT_NOPAGE path was used to be overlooked.. bypassing
-> finish_fault() completely.  It's good to see that we have forbidden SPECIAL
-> mappings for now.
+> [1] https://lore.freedesktop.org/nouveau/20260722-hmm-v10-v1-6-606464dd601a@gmail.com/T/#m68f663ce3e802d7692363c70e6364569134cd6c7
 > 
-> On the use case alone, it looks like a valid one. Said that, I think it'll
-> be slightly more involved than what you have proposed below.
-> 
->>
->> Best,
->> Natalie
->>
+>> Suggested-by: Matthew Brost <matthew.brost@intel.com>
+>> Signed-off-by: Honglei Huang <honghuan@amd.com>
 >> ---
+>>   drivers/gpu/drm/drm_gpusvm.c | 67 ++++++++++++++++++++++++------------
+>>   1 file changed, 45 insertions(+), 22 deletions(-)
 >>
->> Here's the diff for my dirty hacks making uffd work with GPU mappings, based
->> on commit f5098b6bae ("Linux 7.2-rc5"):
->>
->> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
->> index d32408f7cd5ed..7ac75ac0a7794 100644
->> --- a/fs/proc/task_mmu.c
->> +++ b/fs/proc/task_mmu.c
->> @@ -2426,6 +2426,19 @@ struct pagemap_scan_private {
->>   	struct page_region __user *vec_out;
->>   };
->>
->> +static bool pagemap_exclusively_mark_wp(struct pagemap_scan_private *p)
+>> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+>> index fcfe635bc195..507ef6f0a60e 100644
+>> --- a/drivers/gpu/drm/drm_gpusvm.c
+>> +++ b/drivers/gpu/drm/drm_gpusvm.c
+>> @@ -1442,6 +1442,50 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
+>>   	return pages_valid;
+>>   }
+>>   
+>> +/**
+>> + * drm_gpusvm_hmm_fault() - Run the shared HMM fault for a CPU range
+>> + * @gpusvm: Pointer to the GPU SVM structure
+>> + * @mm: The mm corresponding to the CPU range
+>> + * @hmm_range: The hmm_range to fault.
+>> + * @pfns: The pfn array to populate (size @npages)
+>> + * @timeout: jiffies deadline for the -EBUSY retry loop
+>> + *
+>> + * Fault the CPU pages of the range into @pfns. This is the MM level step.
+>> + *
+>> + * Return: 0 on success, negative error code on failure.
+>> + */
+>> +static int drm_gpusvm_hmm_fault(struct drm_gpusvm *gpusvm,
+>> +				struct mm_struct *mm,
+>> +				struct hmm_range *hmm_range,
+>> +				unsigned long *pfns,
+>> +				unsigned long timeout)
 >> +{
->> +	return (p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out;
+>> +	int err;
+>> +
+>> +	if (!mmget_not_zero(mm))
+>> +		return -EFAULT;
+>> +
+>> +	hmm_range->hmm_pfns = pfns;
+>> +	while (true) {
+>> +		mmap_read_lock(mm);
+>> +		err = hmm_range_fault(hmm_range);
+>> +		mmap_read_unlock(mm);
+>> +
+>> +		if (err == -EBUSY) {
+>> +			if (time_after(jiffies, timeout))
+>> +				break;
+>> +
+>> +			hmm_range->notifier_seq =
+>> +				mmu_interval_read_begin(hmm_range->notifier);
+>> +			continue;
+>> +		}
+>> +		break;
+>> +	}
+>> +	mmput(mm);
+>> +
+>> +	return err;
 >> +}
 >> +
->> +static bool
->> +pagemap_exclusively_mark_and_query_wp(struct pagemap_scan_private *p)
->> +{
->> +	return !p->arg.category_anyof_mask && !p->arg.category_inverted &&
->> +	       p->arg.category_mask == PAGE_IS_WRITTEN &&
->> +	       p->arg.return_mask == PAGE_IS_WRITTEN;
->> +}
->> +
->>   static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
->>   					   struct vm_area_struct *vma,
->>   					   unsigned long addr, pte_t pte)
->> @@ -2689,7 +2702,9 @@ static int pagemap_scan_test_walk(unsigned long start,
->> unsigned long end,
->>   		 */
->>   	}
->>
->> -	if (vma->vm_flags & VM_PFNMAP)
->> +	if ((vma->vm_flags & VM_PFNMAP) &&
->> +	    !(pagemap_exclusively_mark_wp(p) ||
->> +	      pagemap_exclusively_mark_and_query_wp(p)))
->>   		return 1;
->>
->>   	if (wp_allowed)
->> @@ -2844,7 +2859,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, unsigned
->> long start,
->>
->>   	lazy_mmu_mode_enable();
->>
->> -	if ((p->arg.flags & PM_SCAN_WP_MATCHING) && !p->vec_out) {
->> +	if (pagemap_exclusively_mark_wp(p)) {
->>   		/* Fast path for performing exclusive WP */
->>   		for (addr = start; addr != end; pte++, addr += PAGE_SIZE) {
->>   			pte_t ptent = ptep_get(pte);
->> @@ -2860,9 +2875,7 @@ static int pagemap_scan_pmd_entry(pmd_t *pmd, unsigned
->> long start,
->>   		goto flush_and_return;
->>   	}
->>
->> -	if (!p->arg.category_anyof_mask && !p->arg.category_inverted &&
->> -	    p->arg.category_mask == PAGE_IS_WRITTEN &&
->> -	    p->arg.return_mask == PAGE_IS_WRITTEN) {
->> +	if (pagemap_exclusively_mark_and_query_wp(p)) {
->>   		for (addr = start; addr < end; pte++, addr += PAGE_SIZE) {
->>   			unsigned long next = addr + PAGE_SIZE;
->>   			pte_t ptent = ptep_get(pte);
->> diff --git a/mm/memory.c b/mm/memory.c
->> index ff338c2abe923..a06a31f7f45cc 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -2698,6 +2698,10 @@ static vm_fault_t insert_pfn(struct vm_area_struct
->> *vma, unsigned long addr,
->>   			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->>   			if (ptep_set_access_flags(vma, addr, pte, entry, 1))
->>   				update_mmu_cache(vma, addr, pte);
->> +		} else if (pte_uffd_wp(entry)) {
->> +			entry = pte_mkspecial(pfn_pte(pfn, prot));
->> +			entry = pte_mkuffd_wp(entry);
->> +			goto out_set_pte;
->>   		}
-> 
-> I don't think I understand how this current patch works so far at least
-> here..  Logically this path should need to at very minimum take care of pte
-> markers, which async uffd-wp tracking requires.  I think it means we may
-> need to pass *vmf over to check orig_pte, atomically install the pte with
-> the knowledge of what is orig_pte, especially if it was a marker.
-> 
-> Maybe in your case the pfnmap VMA doesn't dynamically do .fault()s, but
-> install the pgtables either with remap_pfn_range(), or something always
-> populated in mmap() time?
-
-The VMA should dynamically fault(). The relevant handling for this is in
-ttm_bo_vm_fault_reserved() in drivers/gpu/drm/ttm/ttm_bo_vm.c.
-
-TTM's fault handler also does some prefaulting inside the handler itself
-- I'm not sure I've seen many other fault handlers do that? Not sure if
-that influences anything here.
-
-For what it's worth, I observed a lot of applications already working 
-with no changes to any fault handling at all. This was probably only by 
-chance, and I noticed that sometimes, reading some address in the 
-uffd-wp'd vma would simply cause the program to essentially "halt".
-I traced this to insert_pfn() effectively doing nothing when there is a
-uffd-wp marker page installed.
-
-pte_none() returns false for uffd-wp marker ptes, and mkwrite was false 
-as well, so execution reached the goto out_unlock; without ever
-installing any new pte.
-
-After the fault handler finished, the retried access would just fault
-again (after all, no pte was ever altered) and that repeated ad
-infinitum. That's what this insert_pfn() hack was supposed to work
-around.
-
-> If all the entries were populated at pte level
-> properly, uffd-wp could have worked all fine indeed even for pfnmap.
-> However it may not work fine with pfnmaps that either allow ptes to be
-> dynamcally faulted in, or being zapped and repopulated somehow.
-> 
-> Currently, for any holes that are tracked (e.g. pfnmaps that can lazily be
-> faulted into the pgtable with fault()s), the async uffd-wp tracking relies
-> on the pte markers installed in the pgtables when wr-protection happened
-> without a mapping.
-> 
-> To support pfnmap with uffd-wp async in a generic way, IIUC we need to make
-> sure all VM_FAULT_NOPAGE users be able to properly process pte markers with
-> uffd-wp bit set, then install a RO+UFFD_WP pte instead, leaving the rest
-> processing to do_wp_page().
-
-This sounds more or less like what I tried to do here in insert_pfn(), 
-but I guess this may not be the right place to do it? If handling of
-uffd-wp markers should be done inside the actual fault handlers instead
-of insert_pfn(), what would these fault handlers need do to actually
-install the correct pte? Or would insert_pfn() need to receive some
-changes after all?
-
-> 
-> That's why the current change of insert_pfn() doesn't look like to have
-> achieved what is needed to me.  The other thing is, insert_pfn() may also
-> not be the only path that can be used by pfnmaps.  E.g. I saw at least
-> insert_page_in_batch_locked() that may need similar care.
-> 
-> So supporting pfnmaps with uffd-wp async tracking might be more challenging
-> to be done in one shot, and that may need careful look.  We need to make
-> sure all paths like that to be properly covered, and AFAIU it's not easy,
-> because VM_FAULT_NOPAGE can be randomly used in special drivers.. unlike
-> the other normal case where __do_fault() will bring back a page within
-> vmf->page, then finish_fault() will do the pgtable job in one place.
-> 
-> Nowadays, with vm_uffd_ops, maybe one viable approach is to allow drivers
-> opt-in with uffd-wp on pfnmaps, that might be slightly easier to achieve
-> with a custom .can_userfault() after justifying the driver works, either
-> the driver should make sure all pfnmaps will be populated upfront and never
-> zapped, or the driver should be able to identify things like pte markers
-> when injecting pfnmaps.
-
-This generally sounds fine to me. I could take a stab at implementing
-that properly (though I'd probably need an answer to the insert_pfn()
-question above).
-
-Thanks,
-Natalie
-
-> 
-> Thanks,
-> 
->>   		goto out_unlock;
->>   	}
->> @@ -2710,6 +2714,7 @@ static vm_fault_t insert_pfn(struct vm_area_struct
->> *vma, unsigned long addr,
->>   		entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->>   	}
->>
->> +out_set_pte:
->>   	set_pte_at(mm, addr, pte, entry);
->>   	update_mmu_cache(vma, addr, pte); /* XXX: why not for insert_page? */
->>
->> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
->> index c3adedaaf7d54..aa1553ec5a3bb 100644
->> --- a/mm/userfaultfd.c
->> +++ b/mm/userfaultfd.c
->> @@ -2114,8 +2114,8 @@ static bool vma_can_userfault(struct vm_area_struct
->> *vma, vm_flags_t vm_flags,
->>   	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
->>   		return false;
->>
->> -	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
->> -		return false;
->> +	//if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
->> +	//	return false;
->>
->>   	vm_flags &= __VM_UFFD_FLAGS;
->>
+>>   /**
+>>    * drm_gpusvm_get_pages() - Get pages and populate GPU SVM pages struct
+>>    * @gpusvm: Pointer to the GPU SVM structure
+>> @@ -1503,28 +1547,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>>   	if (!pfns)
+>>   		return -ENOMEM;
+>>   
+>> -	if (!mmget_not_zero(mm)) {
+>> -		err = -EFAULT;
+>> -		goto err_free;
+>> -	}
+>> -
+>> -	hmm_range.hmm_pfns = pfns;
+>> -	while (true) {
+>> -		mmap_read_lock(mm);
+>> -		err = hmm_range_fault(&hmm_range);
+>> -		mmap_read_unlock(mm);
+>> -
+>> -		if (err == -EBUSY) {
+>> -			if (time_after(jiffies, timeout))
+>> -				break;
+>> -
+>> -			hmm_range.notifier_seq =
+>> -				mmu_interval_read_begin(notifier);
+>> -			continue;
+>> -		}
+>> -		break;
+>> -	}
+>> -	mmput(mm);
+>> +	err = drm_gpusvm_hmm_fault(gpusvm, mm, &hmm_range, pfns, timeout);
+>>   	if (err)
+>>   		goto err_free;
+>>   
 >> -- 
->> 2.55.0
+>> 2.34.1
 >>
->>
-> 
 
