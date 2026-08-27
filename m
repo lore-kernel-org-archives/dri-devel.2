@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16C3EC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:29:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC7D8C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:29:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF3E10EF93;
-	Thu, 27 Aug 2026 10:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4731210E641;
+	Thu, 27 Aug 2026 10:29:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lbhd7ZQd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S7gjTPPZ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67AB810EF93
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 10:29:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A485210E641
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 10:29:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787826571; x=1819362571;
+ t=1787826579; x=1819362579;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=R2i8bF8LbxoB3S0yvidye80F+6/08ElMFw5/FwfgP/M=;
- b=lbhd7ZQdZCSPwx+1o8vxiRvreLtUxm7DMDH8R57NeOEE7buHmtE8gAKW
- PfRRvUwCeHCEodzCGi6pHQM/ps0FvbEO+40BosfvXfOTZTxzWUHEb6FoI
- deSZKhdERvJlHdV1e/DybqxsmfI/DgXMo89mckqM3tFYjR1lh79uAPk5W
- /oVp0mCA7zUOpXnzLHX0XfowD1xTW+qXqYbWaSFzKh614unCTHtF9DzX7
- Ki6uK4xsfZFNP2serHdRizCHMHazPry/vTwU3eLbgot8ZeFYr65iWtWi/
- 04iPHmjYvrRDKObPCLw9qRXax35OyqF/pCKHov1BvexQ8UAAK9HIAo6oP A==;
-X-CSE-ConnectionGUID: 1NmKHhztThKLvNbwd6GZ7A==
-X-CSE-MsgGUID: c+76YTE0S4i3faIxD01PBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98920686"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98920686"
+ bh=WTeSaKkx6c5J8iEmuDSbplgMP3mpr/maEgb4TBLsY48=;
+ b=S7gjTPPZzdIM8Ii6tn7WrZ8RkpO9tJBbyNRVC/PRvD8z8y0NiYJtVBuX
+ 9M537MFETufxW43y7L91pM2bZ/MPXmvmiHHEfYXTieYJnqCBSir+2Xrfl
+ C7UCB9smNYFEH3ARbOtB2l1EqtEjCpeWyOQwRkHaI/yhPEQ+EWlI92NVS
+ sh8mBmOvw1XYyIql2q9vJ8qdJXMolzM7+z2+6e+CrdtlzkB05SylTmqlh
+ ByTupqKoNtLtClfe+sVr5TA/FiIv9TUstdOO1LhxeE/SqfcEzH0AczYrB
+ 7r8oBegYYhH/TbUqd1VwhD0GKubmZlBUSkW61dL5ZAj5Ej3+l6FXnYeLd g==;
+X-CSE-ConnectionGUID: 2k0oPmNnTV+0pMSZXWCjbg==
+X-CSE-MsgGUID: KMXkq2QySk+m00b+h9lrtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98920701"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98920701"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:29:31 -0700
-X-CSE-ConnectionGUID: nVhqKwGfQRCV32gaVneBgA==
-X-CSE-MsgGUID: G5DmhbXTQ+uW/sHccESRkA==
+ 27 Aug 2026 03:29:39 -0700
+X-CSE-ConnectionGUID: nWyXoqc7S7yqE6fv+y7N8Q==
+X-CSE-MsgGUID: F7NcmyI/Sx6u2hjlhPFTzA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="261711636"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="261711649"
 Received: from try2-8594.igk.intel.com ([10.91.220.58])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:29:29 -0700
+ 27 Aug 2026 03:29:37 -0700
 From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
@@ -48,9 +48,9 @@ Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
  andrzej.kacprowski@linux.intel.com,
  Magdalena Schulfer <magdalena.schulfer@intel.com>, stable@vger.kernel.org,
  Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Subject: [PATCH 1/2] accel/ivpu: Validate full buffer range in ivpu_to_cpu_addr
-Date: Thu, 27 Aug 2026 12:23:38 +0200
-Message-ID: <20260827102339.281799-2-dawid.osuchowski@linux.intel.com>
+Subject: [PATCH 2/2] accel/ivpu: Validate firmware log buffer metadata
+Date: Thu, 27 Aug 2026 12:23:39 +0200
+Message-ID: <20260827102339.281799-3-dawid.osuchowski@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827102339.281799-1-dawid.osuchowski@linux.intel.com>
 References: <20260827102339.281799-1-dawid.osuchowski@linux.intel.com>
@@ -75,81 +75,175 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Magdalena Schulfer <magdalena.schulfer@intel.com>
 
-Add a size parameter to ivpu_to_cpu_addr() and validate that the
-whole [vpu_addr, vpu_addr + size) range stays within the BO.
+The tracing log headers parsed by fw_log_print_buffer() reside in
+DMA-shared BOs that the NPU firmware can write to.
+
+fw_log_from_bo() validated log->header_size and log->size, but
+fw_log_print_buffer() re-read those same fields from shared memory
+afterwards, allowing a TOCTOU where firmware changes them between the
+check and the use, and making the host dereference out-of-bounds
+addresses while printing logs.
+
+Snapshot the validated values once with READ_ONCE() and pass them down
+explicitly in a new struct ivpu_fw_log_desc instead of re-reading them
+from the shared struct.
 
 Cc: stable@vger.kernel.org
-Fixes: 647371a6609d ("accel/ivpu: Add GEM buffer object management")
+Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
 Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
 Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 ---
- drivers/accel/ivpu/ivpu_gem.h | 14 +++++++++++---
- drivers/accel/ivpu/ivpu_ipc.c |  7 ++++---
- 2 files changed, 15 insertions(+), 6 deletions(-)
+ drivers/accel/ivpu/ivpu_fw_log.c | 76 +++++++++++++++++++-------------
+ 1 file changed, 45 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
-index 0c3350f22b55..b1ae020a4fc2 100644
---- a/drivers/accel/ivpu/ivpu_gem.h
-+++ b/drivers/accel/ivpu/ivpu_gem.h
-@@ -87,15 +87,23 @@ static inline bool ivpu_bo_is_resident(struct ivpu_bo *bo)
- 	return !!bo->base.pages;
- }
+diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
+index 716467aa3156..4f9055aa9d33 100644
+--- a/drivers/accel/ivpu/ivpu_fw_log.c
++++ b/drivers/accel/ivpu/ivpu_fw_log.c
+@@ -26,10 +26,17 @@ MODULE_PARM_DESC(fw_log_level,
+ 		 " error=" __stringify(IVPU_FW_LOG_ERROR)
+ 		 " fatal=" __stringify(IVPU_FW_LOG_FATAL));
  
--static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u32 vpu_addr)
-+static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u64 vpu_addr, u64 size)
++struct ivpu_fw_log_desc {
++	struct vpu_tracing_buffer_header *log;
++	u32 header_size;
++	u32 size;
++};
++
+ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
+-			  struct vpu_tracing_buffer_header **out_log)
++			  struct ivpu_fw_log_desc *desc)
  {
-+	u64 bo_size = ivpu_bo_size(bo);
-+	u64 offset;
-+
- 	if (vpu_addr < bo->vpu_addr)
- 		return NULL;
+ 	struct vpu_tracing_buffer_header *log;
++	u32 header_size, size;
  
--	if (vpu_addr >= (bo->vpu_addr + ivpu_bo_size(bo)))
-+	if (size > bo_size)
-+		return NULL;
-+
-+	offset = vpu_addr - bo->vpu_addr;
-+
-+	if (offset > bo_size - size)
- 		return NULL;
+ 	if ((*offset + sizeof(*log)) > ivpu_bo_size(bo))
+ 		return -EINVAL;
+@@ -39,26 +46,32 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
+ 	if (log->vpu_canary_start != VPU_TRACING_BUFFER_CANARY)
+ 		return -EINVAL;
  
--	return ivpu_bo_vaddr(bo) + (vpu_addr - bo->vpu_addr);
-+	return ivpu_bo_vaddr(bo) + offset;
- }
- 
- static inline u32 cpu_to_vpu_addr(struct ivpu_bo *bo, void *cpu_addr)
-diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-index 978bc3d8704f..8f69fb133e2e 100644
---- a/drivers/accel/ivpu/ivpu_ipc.c
-+++ b/drivers/accel/ivpu/ivpu_ipc.c
-@@ -79,7 +79,7 @@ ivpu_ipc_tx_prepare(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
- 		return -ENOMEM;
+-	if (log->header_size < sizeof(*log) || log->header_size > 1024) {
+-		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
++	header_size = READ_ONCE(log->header_size);
++	size = READ_ONCE(log->size);
++
++	if (header_size < sizeof(*log) || header_size > 1024) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", header_size);
+ 		return -EINVAL;
+ 	}
+-	if (log->size < log->header_size) {
+-		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
++	if ((char *)log + size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", size);
+ 		return -EINVAL;
+ 	}
+-	if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
+-		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
++	if (size < header_size) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x < header size 0x%x\n",
++			 size, header_size);
+ 		return -EINVAL;
  	}
  
--	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr);
-+	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
- 	if (drm_WARN_ON(&vdev->drm, !tx_buf)) {
- 		gen_pool_free(ipc->mm_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
- 		return -EIO;
-@@ -420,7 +420,7 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
- 			return;
- 		}
+-	*out_log = log;
+-	*offset += log->size;
++	desc->log = log;
++	desc->header_size = header_size;
++	desc->size = size;
++	*offset += size;
  
--		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr);
-+		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr, sizeof(*ipc_hdr));
- 		if (!ipc_hdr) {
- 			ivpu_warn_ratelimited(vdev, "IPC msg 0x%x out of range\n", vpu_addr);
- 			continue;
-@@ -429,7 +429,8 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+ 	ivpu_dbg(vdev, FW_BOOT,
+ 		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
+-		 log->name, log->write_index, log->size, log->wrap_count, log->header_version,
+-		 log->header_size, log->format, log->alignment);
++		 log->name, log->write_index, size, log->wrap_count, log->header_version,
++		 header_size, log->format, log->alignment);
  
- 		jsm_msg = NULL;
- 		if (ipc_hdr->channel != IVPU_IPC_CHAN_BOOT_MSG) {
--			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr);
-+			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr,
-+						   sizeof(*jsm_msg));
- 			if (!jsm_msg) {
- 				ivpu_warn_ratelimited(vdev, "JSM msg 0x%x out of range\n",
- 						      ipc_hdr->data_addr);
+ 	return 0;
+ }
+@@ -94,11 +107,12 @@ static void fw_log_print_lines(char *buffer, u32 size, struct drm_printer *p)
+ 		drm_printf(p, "%s", line);
+ }
+ 
+-static void fw_log_print_buffer(struct vpu_tracing_buffer_header *log, const char *prefix,
++static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefix,
+ 				bool only_new_msgs, struct drm_printer *p)
+ {
+-	char *log_data = (void *)log + log->header_size;
+-	u32 data_size = log->size - log->header_size;
++	struct vpu_tracing_buffer_header *log = desc->log;
++	char *log_data = (void *)log + desc->header_size;
++	u32 data_size = desc->size - desc->header_size;
+ 	u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
+ 	u32 log_end = READ_ONCE(log->write_index);
+ 
+@@ -134,11 +148,11 @@ static void
+ fw_log_print_all_in_bo(struct ivpu_device *vdev, const char *name,
+ 		       struct ivpu_bo *bo, bool only_new_msgs, struct drm_printer *p)
+ {
+-	struct vpu_tracing_buffer_header *log;
++	struct ivpu_fw_log_desc desc;
+ 	u32 next = 0;
+ 
+-	while (fw_log_from_bo(vdev, bo, &next, &log) == 0)
+-		fw_log_print_buffer(log, name, only_new_msgs, p);
++	while (fw_log_from_bo(vdev, bo, &next, &desc) == 0)
++		fw_log_print_buffer(&desc, name, only_new_msgs, p);
+ }
+ 
+ void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p)
+@@ -149,36 +163,36 @@ void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_
+ 
+ void ivpu_fw_log_mark_read(struct ivpu_device *vdev)
+ {
+-	struct vpu_tracing_buffer_header *log;
++	struct ivpu_fw_log_desc desc;
+ 	u32 next;
+ 
+ 	next = 0;
+-	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
+-		log->read_index = READ_ONCE(log->write_index);
+-		log->read_wrap_count = READ_ONCE(log->wrap_count);
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
++		desc.log->read_index = READ_ONCE(desc.log->write_index);
++		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
+ 	}
+ 
+ 	next = 0;
+-	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
+-		log->read_index = READ_ONCE(log->write_index);
+-		log->read_wrap_count = READ_ONCE(log->wrap_count);
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
++		desc.log->read_index = READ_ONCE(desc.log->write_index);
++		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
+ 	}
+ }
+ 
+ void ivpu_fw_log_reset(struct ivpu_device *vdev)
+ {
+-	struct vpu_tracing_buffer_header *log;
++	struct ivpu_fw_log_desc desc;
+ 	u32 next;
+ 
+ 	next = 0;
+-	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
+-		log->read_index = 0;
+-		log->read_wrap_count = 0;
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
++		desc.log->read_index = 0;
++		desc.log->read_wrap_count = 0;
+ 	}
+ 
+ 	next = 0;
+-	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
+-		log->read_index = 0;
+-		log->read_wrap_count = 0;
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
++		desc.log->read_index = 0;
++		desc.log->read_wrap_count = 0;
+ 	}
+ }
 -- 
 2.43.0
 
