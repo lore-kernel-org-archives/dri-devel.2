@@ -4,67 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914BDC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E54CC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93E5F10E1E6;
-	Thu, 27 Aug 2026 15:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D089610E3BC;
+	Thu, 27 Aug 2026 15:12:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="CvKSNurG";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="TK/lRied";
 	dkim-atps=neutral
-Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E59E910E1E6
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RWYWQFXkeODc3doWR30hvgFUNe4Y5T/4MwtTcVuF9YA=; b=CvKSNurG7Cf/kSvjwRByyoduvc
- C8BKu/gK2mfczADhqhZ3T/6pt8N7GXdIJFoS39z8lK0IW/cO+gkW9Z82p8H0Z2wrOPhb5qxV89qs4
- J9/KeoP2TkSWGqPFvRAK9c+vPuHnwuVpauQoxl8Nrd3h88lJeF7huoE1YwTixTC0Z97QCueF4J/Ka
- H1s3lEpDc1SkF9TMAycfwM4zKJ4gWOOPA76WFhdU9VtJsTi00CZCfuJITFJRBy5yLNeTzTsaazz4p
- 2Uio5WydhXM/1K2K4gumWT5VPIXCKcTmgUdWZnOViF8ycsGuNTfRCl6froOVR2DHty7jw9TP/Ntn/
- /zQ+07MQ==;
-Received: from [195.240.176.17] (port=44304 helo=[192.168.2.230])
- by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
- id 1wzblO-0000000Ahwt-0jwv; Thu, 27 Aug 2026 17:11:33 +0200
-Message-ID: <b30024ff-e9bc-4123-8024-c4a431953a3a@accessweb.be>
-Date: Thu, 27 Aug 2026 17:11:32 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C31AC10E3BC
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:12:40 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7339F1BCA
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:12:36 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 23DAB3F66F
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:12:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787843560; bh=KkLYSOWi5UsqSDzxZZHjUrZJOhLkzRyn4aZC3IYcT/c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TK/lRiedQMB5FHds7tBU6/jZgZWyXJWGGGEi4NAtgetW7yX3W303k1niDKGtLHObr
+ jSCQTKw94erbS4DBmeOyNfs1Nm2vADJmaE/kDVGwsWXfL+50Y1IfXjxqkwCXOnaj3M
+ p1E8YDkS3JHKQ4+6tqJ5RFAOhUdcOCSsKr/lSWbA=
+Date: Thu, 27 Aug 2026 16:12:30 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 03/18] drm/panthor: Make panthor_device::pm::state
+ non-atomic
+Message-ID: <apBT3tGIiQNNRe_r@e142607>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
- are released
-From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
-References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
- <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
- <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
- <55b08fb3-cc29-4c2a-bbe5-26742de77614@broadcom.com>
- <b0b0caf9-ca76-4f93-9495-d386d313fad1@accessweb.be>
- <7af1cbb9-bb99-462c-a3e4-c70d8fbd2dcb@broadcom.com>
- <5d110271-9a0d-4ba7-92e9-286ba557c16e@accessweb.be>
- <194908f7-fde4-4136-b535-86f21c27d967@broadcom.com>
- <ba7af534-c285-4075-929b-b2e37cd6bd65@accessweb.be>
-Content-Language: en-US
-In-Reply-To: <ba7af534-c285-4075-929b-b2e37cd6bd65@accessweb.be>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pan.awservers.eu
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - accessweb.be
-X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
- jellis@accessweb.be
-X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-3-982cc8f4234b@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,111 +63,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-More data:
+On Wed, Aug 26, 2026 at 04:56:02PM +0200, Boris Brezillon wrote:
+> Now that the reset logic has been reworked to use disable/enable_work(),
+> there's no need for panthor_device::pm::state to be an atomic. It can
+> simply be accessed under the same lock we use to touch MMIO mappings.
+> 
+> While at it, rename the lock to make it clear it protects more than just
+> the MMIO logic, and transition locked sections to scoped_guard().
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 97 +++++++++++++++++---------------
+>  drivers/gpu/drm/panthor/panthor_device.h | 16 ++++--
+>  2 files changed, 63 insertions(+), 50 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 2974f4bc0bb1..133e3895cd0a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -147,8 +147,10 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	/* If the device is entering suspend, we don't reset. A slow reset will
+>  	 * be forced at resume time instead.
+>  	 */
+> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> -		return;
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> +			return;
+> +	}
+>  
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+>  		return;
+> @@ -204,7 +206,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.mmio_lock);
+> +	ret = drmm_mutex_init(&ptdev->base, &ptdev->pm.lock);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -213,7 +215,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	INIT_LIST_HEAD(&ptdev->gems.node);
+>  #endif
+>  
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
+>  	p = alloc_page(GFP_KERNEL | __GFP_ZERO);
+>  	if (!p)
+>  		return -ENOMEM;
+> @@ -432,40 +434,39 @@ static vm_fault_t panthor_mmio_vm_fault(struct vm_fault *vmf)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	struct panthor_device *ptdev = vma->vm_private_data;
+> -	u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
+> -	unsigned long pfn;
+> -	pgprot_t pgprot;
+>  	vm_fault_t ret;
+> -	bool active;
+>  	int cookie;
+>  
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+>  		return VM_FAULT_SIGBUS;
+>  
+> -	mutex_lock(&ptdev->pm.mmio_lock);
+> -	active = atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE;
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		bool active = ptdev->pm.state == PANTHOR_DEVICE_PM_STATE_ACTIVE;
+> +		u64 offset = (u64)vma->vm_pgoff << PAGE_SHIFT;
+> +		unsigned long pfn;
+> +		pgprot_t pgprot;
+>  
+> -	switch (offset) {
+> -	case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
+> +		switch (offset) {
+> +		case DRM_PANTHOR_USER_FLUSH_ID_MMIO_OFFSET:
+> +			if (active)
+> +				pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
+> +			else
+> +				pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
+> +			break;
+> +
+> +		default:
+> +			ret = VM_FAULT_SIGBUS;
+> +			goto out_dev_exit;
+> +		}
+> +
+> +		pgprot = vma->vm_page_prot;
+>  		if (active)
+> -			pfn = __phys_to_pfn(ptdev->phys_addr + CSF_GPU_LATEST_FLUSH_ID);
+> -		else
+> -			pfn = page_to_pfn(ptdev->pm.dummy_latest_flush);
+> -		break;
+> +			pgprot = pgprot_noncached(pgprot);
+>  
+> -	default:
+> -		ret = VM_FAULT_SIGBUS;
+> -		goto out_unlock;
+> +		ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
+>  	}
+>  
+> -	pgprot = vma->vm_page_prot;
+> -	if (active)
+> -		pgprot = pgprot_noncached(pgprot);
+> -
+> -	ret = vmf_insert_pfn_prot(vma, vmf->address, pfn, pgprot);
+> -
+> -out_unlock:
+> -	mutex_unlock(&ptdev->pm.mmio_lock);
+> +out_dev_exit:
+>  	drm_dev_exit(cookie);
+>  	return ret;
+>  }
+> @@ -526,10 +527,13 @@ int panthor_device_resume(struct device *dev)
+>  	struct panthor_device *ptdev = dev_get_drvdata(dev);
+>  	int ret, cookie;
+>  
+> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
+> -		return -EINVAL;
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_SUSPENDED)
+> +			return -EINVAL;
+> +
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_RESUMING;
+> +	}
+>  
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_RESUMING);
+>  
+>  	ret = clk_prepare_enable(ptdev->clks.core);
+>  	if (ret)
+> @@ -574,11 +578,11 @@ int panthor_device_resume(struct device *dev)
+>  	 * are removed and the real iomem mapping will be restored on next
+>  	 * access.
+>  	 */
+> -	mutex_lock(&ptdev->pm.mmio_lock);
+> +	mutex_lock(&ptdev->pm.lock);
+>  	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
+>  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
+> -	mutex_unlock(&ptdev->pm.mmio_lock);
+> +	ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_ACTIVE;
+> +	mutex_unlock(&ptdev->pm.lock);
 
-Now from `vmwgfx_gem_info` (3h uptime, KDE Wayland, three 1920x1080
-outputs):
+Can this also use scoped_guard()?
 
-     kwin_wayland   18.5 GB   4054 objects   2068 of them >= 1920x1080x4
-     plasmashell     1.0 GB   3383 objects    105
-     Xwayland         33 MB      18 objects      3
+Otherwise, this looks good to me!
 
-kwin's GEM total and GPUActive rise together (+0.13 vs +0.10 GB over the 
-same 5 min), and 570 of its objects are down to a single GEM ref. Growth 
-is bursty and tracks render activity, not uptime.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Your patch did fix its own target: zero gem_close errors this boot.
+Best regards,
+Liviu
 
-One thing that may be worth a look: mesa 26.2.1 (libgallium) logs
+>  
+>  	/* Now that everything is resumed, we can re-enable the reset work. */
+>  	enable_resets(ptdev);
+> @@ -595,7 +599,9 @@ int panthor_device_resume(struct device *dev)
+>  	clk_disable_unprepare(ptdev->clks.core);
+>  
+>  err_set_suspended:
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+> +	scoped_guard(mutex, &ptdev->pm.lock)
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
+> +
+>  	atomic_set(&ptdev->pm.recovery_needed, 1);
+>  	return ret;
+>  }
+> @@ -605,21 +611,21 @@ int panthor_device_suspend(struct device *dev)
+>  	struct panthor_device *ptdev = dev_get_drvdata(dev);
+>  	int cookie;
+>  
+> -	if (atomic_read(&ptdev->pm.state) != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> -		return -EINVAL;
+> -
+>  	/* Clear all IOMEM mappings pointing to this device before we
+>  	 * shutdown the power-domain and clocks. Failing to do that results
+>  	 * in external aborts when the process accesses the iomem region.
+>  	 * We change the state and call unmap_mapping_range() with the
+> -	 * mmio_lock held to make sure the vm_fault handler won't set up
+> +	 * lock held to make sure the vm_fault handler won't set up
+>  	 * invalid mappings.
+>  	 */
+> -	mutex_lock(&ptdev->pm.mmio_lock);
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDING);
+> -	unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
+> -			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+> -	mutex_unlock(&ptdev->pm.mmio_lock);
+> +	scoped_guard(mutex, &ptdev->pm.lock) {
+> +		if (ptdev->pm.state != PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> +			return -EINVAL;
+> +
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDING;
+> +		unmap_mapping_range(ptdev->base.anon_inode->i_mapping,
+> +				    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+> +	}
+>  
+>  	/* Make sure we're not interrupted by resets after that point
+>  	 * until the GPU is resumed.
+> @@ -644,6 +650,9 @@ int panthor_device_suspend(struct device *dev)
+>  	clk_disable_unprepare(ptdev->clks.coregroup);
+>  	clk_disable_unprepare(ptdev->clks.stacks);
+>  	clk_disable_unprepare(ptdev->clks.core);
+> -	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+> +
+> +	scoped_guard(mutex, &ptdev->pm.lock)
+> +		ptdev->pm.state = PANTHOR_DEVICE_PM_STATE_SUSPENDED;
+> +
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index f55baa21b25e..217eec811bdb 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -298,18 +298,22 @@ struct panthor_device {
+>  
+>  	/** @pm: Power management related data. */
+>  	struct {
+> -		/** @state: Power state. */
+> -		atomic_t state;
+> +		/**
+> +		 * @state: Power state.
+> +		 *
+> +		 * Must be accessed with the panthor_device::pm::lock held.
+> +		 */
+> +		enum panthor_device_pm_state state;
+>  
+>  		/**
+> -		 * @mmio_lock: Lock protecting MMIO userspace CPU mappings.
+> +		 * @lock: Lock protecting PM related fields.
+>  		 *
+>  		 * This is needed to ensure we map the dummy IO pages when
+>  		 * the device is being suspended, and the real IO pages when
+> -		 * the device is being resumed. We can't just do with the
+> -		 * state atomicity to deal with this race.
+> +		 * the device is being resumed. We can't just do with an
+> +		 * atomic state to deal with this race.
+>  		 */
+> -		struct mutex mmio_lock;
+> +		struct mutex lock;
+>  
+>  		/**
+>  		 * @dummy_latest_flush: Dummy LATEST_FLUSH page.
+> 
+> -- 
+> 2.55.0
+> 
 
-     Failed referencing shared surface. SID <n>
-     Error -22
-
-572 times this boot, across 123 distinct surface IDs, 402 of them in the 
-hour with five RDP sessions open. I can't tell you whether that is new 
-the pre-patch boot had too little comparable activity to compare against.
-
-Op 27-08-2026 om 15:39 schreef Jellis Onsea | AccessWeb:
-> Tried the scanout patch on kernel 7.2.0. Confirmed running:
-> `[drm] Initialized vmwgfx 2.22.0`.
-> 
-> No change here. GPUActive from /proc/meminfo:
-> 
->      5 RDP sessions, 39 min open:   0.70 -> 3.97 GB
->      then 42 min at zero sessions:  3.92 -> 4.73 GB
-> 
-> Not a single sample went down. Same as on 2.21.
-> 
-> It also keeps growing with zero sessions and small usage of the machine, 
-> so RDP is a good trigger, not the only one.
-> 
-> Build details if useful: distribution kernel (CachyOS 7.2.0-1), vmwgfx 
-> built out-of-tree from the matching source with clang 22.1.8, no LTO.
-> 
-> 
-> Regards,
-> 
-> Jellis
-> 
-> Op 27-08-2026 om 03:01 schreef Maaz Mombasawala:
->> On 8/26/26 7:17 AM, Jellis Onsea | AccessWeb wrote:
->>> Hi Maaz,
->>>
->>> Short version: mesa 26.2.1 is running here with 3D on, and the leak 
->>> is still there.
->>>
->>> Setup: one boot, 119 h, a single kwin_wayland (6.7.4), mesa 
->>> 3:26.2.1-1, kernel 7.2.0, renderer SVGA3D.
->>>
->>>    TTM sys+mob    0.36 -> 16.73 GB
->>>    objects        1948 -> 10365
->>>    kwin_wayland   holds 8484 MB in 4894 objects
->>>    free RAM       4.9 of 31 GB - we have to reboot today
->>>
->>> It tracks rendering, not uptime. Idle nights (02:00-07:00) in this 
->>> same boot:
->>>
->>>    22 Aug  -0.03 GB       25 Aug  +0.00 GB
->>>    23 Aug  +0.02 GB       26 Aug  +0.04 GB
->>>    24 Aug  +1.88 GB   <- the one night an automated GUI test run was 
->>> active
->>>
->>> The surface warning still fires: 1168 WARNING blocks at 
->>> vmw_surface_handle_reference in the last 27 hours. That is a window, 
->>> not a total - journald has already rotated away the earlier part of 
->>> this boot.
->>>
->>> Correction to my previous mail: "four times during session startup" 
->>> was wrong. It fires in bursts throughout the session.
->>>
->>> We have not tried "drm/vmwgfx: Return gem fd handle for scanout 
->>> buffers" we run distribution kernels here. Say the word and we will 
->>> build it.
->> Yes please, can you go ahead and try that patch, it fixes some errors 
->> on kde and might fix this issue you are facing too.
->>
->>> Best regards,
->>> Jellis
->>>
->>> Op 21-08-2026 om 04:09 schreef Maaz Mombasawala:
->>>> For the 3D-enabled case, could you try with mesa 26.1.8 or 26.2.1, 
->>>> both of which contain my fix.
->>>> Also if you could try the patch I just submitted on dri-devel - drm/ 
->>>> vmwgfx: Return gem fd handle for scanout buffers.
->>>> If you still see issues with these patches, let me know.
->>>>
->>>> As for the 3D disabled case, I can see issues on my local machine 
->>>> and am working on a fix.
->>>>
->>>> PS - Your emails are overly verbose and narrative, could you include 
->>>> only the actual problems you are facing.
->>>> If you're using an llm to write these, please make them more terse 
->>>> and human readable. Thanks.
->>>>
->>>
->>>
->>>
->>
->>
-> 
-> 
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
