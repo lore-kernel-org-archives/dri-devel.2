@@ -4,89 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1BE8C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:46:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8418CC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90AFB10EF81;
-	Thu, 27 Aug 2026 09:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B76E710EF63;
+	Thu, 27 Aug 2026 09:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GAOODK1/";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="vqqd01XC";
 	dkim-atps=neutral
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F045410E9B0
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 18:02:48 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-836c4474028so14415887b3.0
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 11:02:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787767368; cv=none;
- d=google.com; s=arc-20260327;
- b=Zau5gYNb8KJ1JaaNLxePPf9R85XaCMe8oJOe24d4wW8DzH3TU9I6OLt6tgOTGcPj/1
- dfHGy/+MAj4ipQ+K/04OGBipGpsvVeaMJnqIihVHZDLPVCtWSpcuTJ1g3pPKXOwyXzVQ
- 8aCfFRohw39KUpgZEW7dspASehVDCo9kz3IqwMVHtwslxHAc6umgYNi9JA+DJqeo9TJI
- uRtW4g27CWXAPShhi/ye0vYlSxrgi/MuoDbWc5sVpqy3yBGx+z4f6F+Xyvk9q370u1xd
- Xh6xyujVSy2HrtYJnOf7CQkPcBqcwDYntvmRWmjkcezKaPLuJaQQGY7ohLsX+A1t5W8f
- gsHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=ufqJcA4GLe7bKYSt4VuOA7LyG7GHrT+0lE+aWzUukb0=;
- fh=kRoc/2KcYkmALHiDjooNCy967eYxeVuy74hhpYdLNjM=;
- b=WTIYI4+/KIEeO4C4urTNfoD/K5KWfD7DrDaewW5+c06tlw1923gllwPRf9mqz7rs3V
- s5iUbQC97iQz3GLdLsLhc5bzb0qw/vAu9lRoRdJJSiaPprg6jvN6KHng8vxgeGXTKGxY
- tkpF/Ps15NxGXfu4mazSGZ1ro14JatR9qaM4InglJjW4NWPsBB7VKBCdqfSkuF0xo9eC
- U/1w4it7By6O9ZczCpWneItXMKLXvo7ylu74tx3MviPKUfaxnqTAMCn9/wrL9cmzJxbr
- 8d1LMpOF8p95dqQgKsNq4ql0vB1aCM/q0GGVuyFEdKBG7xX7mofYCLXVQO/tHJGPsPgf
- kOMQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787767367; x=1788372167; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ufqJcA4GLe7bKYSt4VuOA7LyG7GHrT+0lE+aWzUukb0=;
- b=GAOODK1/a1CbYedXewMuoe0+/NalFMEJH+S05Z7nurzQ1dLW7PN6PF/pEGgLrCCwow
- v46Lr/GRcblxrpPPgIBnl6iURXjuFbER/xbhev/yM8k89yNDuHO8p4Y78hpdaJdx1bra
- VbMl3v9+dMR19OADSobH3NIuaJPojSBsQt6jVFmqUz4/OMD6FVvEaCRjCyxdaM+ooJFj
- 1XieLfNxxvSwbY0wsV7UPIERoEq7FEwtQE4CWNnhBa8jBmO4cko/FpjifwB4bvRku83b
- xzhO1kvxpTXqZM7BOaG9UN852n73HtXUj3ucLrBil3NbBala2++6xCh3LwFcExA51hdO
- 0dnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787767368; x=1788372168;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=ufqJcA4GLe7bKYSt4VuOA7LyG7GHrT+0lE+aWzUukb0=;
- b=SC1RO0GJKNQfvX9PJQgCBYcxIhnoA4XoP3pzOYYX+oPTra6x/00bPQLyQUnr5k8oWS
- AH31/bZe41iHRQONt1jat2l18XSYfW6k8hpkTuRodSeyrIjWcla6lNp0rzXJMbBX+ZGt
- e4jXJw8MiJF94j6cidAt+lHFFySaVdBauErpiZs2gH8hydtywnFdGjMUOtVDa/U7o5CA
- rFrBIWdHBRzkqAV8rIyZntOzFNhvlsPxe0GVkWF3CaLXTPlxpSqWz99GB5Uvt4PeeKOG
- GP7HORVK72FwC83WqpsEz2yKfsbmVr610O26G/kA9+3XUQCZtwf9U2zCsDTHwjMaXIOB
- iFFw==
-X-Gm-Message-State: AFuF++mhbxRlcLBEBrTx8OrHLEgvcnIt68hEeSe5HZEMoIB1jHi2zUwH
- ceswgxwbrSOmn/0CS6ycSq+dl8EXBrRBHM7oz7l8rMRbTndalnXPLuXd+7OB4v/PcYcXY/tvOGw
- Oa12MZmw9yXwZr0YGlfCEHR3MducZT2o=
-X-Gm-Gg: AR+sD13BoiZ9rQo7heDvo8ISG+RJ8wRzZDZem6DapW9Ml0It3ru5Kf4HQ1K3fuVanx8
- Y4kH+Q5yahkO09sSsyLgSu6uorvhznXi5xoGBQV8XnJtD5DQ45mUGghDuuTz3gqtqorgwdRSXqa
- 7k3tLMr6S8t9/hw5Eddsn8xUurORF5WN8p1Cb7SMn+7SgK62bOFzkRgF2GzPky3y+EF+yifxCi2
- jQu+bH7R82cGcCavJnEGN4AM+pbKL51vElgGvRcSgzfCZuEU91+2qar/tsaGk/AdyIoDkA5r8oE
- 7275IJ/IanmoSlf/7pgvg/KDTbijwRmkSa7AWcskMZdb
-X-Received: by 2002:a05:690e:1c09:b0:667:b645:5303 with SMTP id
- 956f58d0204a3-66d25760bd1mr3181148d50.33.1787767367406; Wed, 26 Aug 2026
- 11:02:47 -0700 (PDT)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010035.outbound.protection.outlook.com [52.101.229.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0BFF10EF63
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:54:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v/5R+CfqrFRWZE/iP2jKJMeFapst/s19YvmNeKSCeLFaTQ2X/ld7nfEy/GQoIHQ5rdlCa3CMTRJZ2ELpIJHSiamZNHFCsLqRJv8W2MmeloB5qF/iaHQ2zx0YZjn9OgbOLnJC/dOXex2EQINIqZFB2r2qJu6s68sQdZNPHxzcoocBypIBFea9Pecj32VVrZnG0Tmn6YAKIE+WfPepH29xE7yIcXYGZBv5PLG0rcu+Ppv+mfcABO0nQD8JeBHBKhhvGL8NPy7zFWcjogjlQlZFVaH8l8w/My9cxycG3QMWQcuZNMsVc7RTbzHkdweqBIT5vOkhdhxCoxCyUYfyUhxtoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kaJHtES7TOA8k/HbVilXgUdWCjCIetN+uOzShVTQD98=;
+ b=bIhX1Ft3eWYo+fdhUARmjxJvx9OSF2fvWiktVxQ82v4Wpenz56P+Wv0d1sh74KVum9puTDFv6b82QqJq3GLiWG9cnKg2qZBz8mO0qet9iTvPlqr2kI/hEQ+MREVF5KxbL3ZtfnqXXIatM6aPxBv3mzkb5kMiYk0MZ/qvHgWIqjuQ7SZNy2eYj4MSzOi3hKSl/ZFDOLGjGr4TIvgGqdhR4NurtKG7wSozPDTrH+MniUlR6cY2fHndl7zfo4wWXPUxeK/rD8dfzM+Hk31WJ4WT6pMBI+Cr/d3dpuattMIhxCDjn85Nh0Gi1TudsBY1HPPbhBB2uNOHpOzmCO8F917x6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kaJHtES7TOA8k/HbVilXgUdWCjCIetN+uOzShVTQD98=;
+ b=vqqd01XCd+yXPNibYiCSuSHNqeKpRP8rjZUP8YREbzvi7ECS1glKN1VzyFBs5u5XSrytV71sU9MgOai3I/WRw6DOp5o1jceuCsojCjA8Pnf2/0OrOXPDeEFswOkuobvZfiy8Ff0Njvi5aqe6vDVps60bIHvPC15mxmp5sXu8GmI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYWPR01MB10224.jpnprd01.prod.outlook.com (2603:1096:400:1e5::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 09:54:28 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 09:54:28 +0000
+Date: Thu, 27 Aug 2026 11:54:12 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 05/13] drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI
+ DSI support
+Message-ID: <apAJRBTNAPW4ZOeO@tom-desktop>
+References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
+ <20260826174854.199139-6-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826174854.199139-6-biju.das.jz@bp.renesas.com>
+X-ClientProxiedBy: FR2P281CA0115.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::17) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 MIME-Version: 1.0
-References: <20260810214247.21416-1-asiyee994@gmail.com>
-In-Reply-To: <20260810214247.21416-1-asiyee994@gmail.com>
-From: =?UTF-8?B?QXNpeWUgU2FyxLF5xLFsZMSxeg==?= <asiyee994@gmail.com>
-Date: Wed, 26 Aug 2026 19:02:35 +0100
-X-Gm-Features: AcwNN1UgVU2OJU0Ndh5gFopwbB5Zne-wNYn2HQhiFLBY_r0ZLdpgNTzIBOLm2KA
-Message-ID: <CAK77STDMnTrD9E6-N6+te9EZQ0gZTHd-qUZY5Lv1i=M1mm9oDg@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau/clk/gk20a: fix undefined behaviour in signed
- left shift
-To: lyude@redhat.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000e01da80659f70697"
-X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYWPR01MB10224:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9efa727a-df7f-4497-cd32-08df04212f18
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|52116014|23010399003|376014|38350700014|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: VV1O/zNbvsUYahvdAwTYThQE21nmYuw0aMp3N2uIojnfnm3QLc4WF1Ayy8O9FFKmb7SPlOuNLJVnV7LhM1Ol3emq1Rs18aqtkBhECubraBqhvJaEcD/o5JbR43a2G5zv5CyDixvjGeH6s/aRZuRsNH7TjC9nM1wlef5Li527guOfUdFlNYS/3gP0BNtSgO2IZkuHAol6YBbPOtFhKIO49nVRdckFbDYd/z1vIfJI+0+oDcCJNE0xPLo74V97z+2yZ+Y01JWtkw5nruE5nk39pWrLwbMU5TiqZYd2CiQG5iStWW2C+BOnxBtKQI1/8iZYwlTeyVoctLeXLJ6filc9lxCP/M1iok7CvZ4oAPqgRX2trVeDU+DcLRNfwzEuPmSlPS5by1SNCEpWXi3/O7/D1C18mJyGzSqzbVr5N/Q+HYPqHDWiuBVCROYEB8o7XH7wAuVOTtD4e2sgouBRt5xk/S/Fo3s4AAhFW1r0nabFDu/Zt3DXNS7Ffh5R5B4ln41boL+SKgplkDKd5NApadFed8U9Xb/5gE2nBjXXP1geCyc3vpvgjhsQI2vB0kjP8f6Zbg97oIO/j5KpMzsHMgNSAfiolbTzmPEdc4ytRQNPrRquy26MIvZqYohaRh+Xwcbc98JNJzn44jTVjqhIMoQ4/u3pHWqfBkEfhSwqXyBMDXCnycDcYsjMjaOdc4kr+hKuW4yo4ee6S+OWdXAgveggcGi8cHdUFxlthendZq4ilsM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYRPR01MB13588.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(23010399003)(376014)(38350700014)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GKGBPA+wjSra24vOkYyy6/0++iemz/vwTA5K/dn4ge4Y2hNeJCusAr1Emgsb?=
+ =?us-ascii?Q?Sg4/vvsZP8uKFoCOz7S0uVbo/1sCYC5RBjsu6hJASw4olelgtvJpxMgoH6Y+?=
+ =?us-ascii?Q?ZWqsnu0f00/Ls3qObfrEpOjDf89vTh8jUkZ6CDDodkWYBcAOez9Vw99h6vCV?=
+ =?us-ascii?Q?roUzEX4VbCem4wXnvmpfFrFVIMkuWAeL7ygcBpmy5PvcoXSKVUdmatuLrVj2?=
+ =?us-ascii?Q?2Du50Dnncm8Ipc8ArRgKxd+mB2YiK3BM6KAdPHgOTi64xjZZa4SCfBSs9hT+?=
+ =?us-ascii?Q?sRzuuCA1YWmHgqAAuM6tsg8NlblHETE8Djzt/CNSdbX8YI3hGRZ1I04dPjW9?=
+ =?us-ascii?Q?obx8yF9oMHvmz7vrGbq0TxN0BYDCyWeQr1/ImzXQwzVS2qqRWhxJ1K64O+4c?=
+ =?us-ascii?Q?gT09e35enIoBoWEKs3KqIYD+TxEozYeczVdLRifL3h1o4Gz+Ef1i+ue6zpni?=
+ =?us-ascii?Q?AI7AsnRlYaiz6Yw6MFsEQQz+a30invDQbRJEeYJUVsCJ191FXkSiaNN99P7f?=
+ =?us-ascii?Q?9GRACY38w2YZj9h/Kub5tNdOfkEfu5LqRiq9tS/Vir2IeoLjkP+q1SZkrfSi?=
+ =?us-ascii?Q?RO8BLKO/HNru4cTVeUMkwU4QDzZNF7pEs1hxM8Sg5Mv0VDvGCR5naMKbQoUN?=
+ =?us-ascii?Q?oMlBZs9SR8OH/FtxGBoQan1Z2pGvOKXgM/3wJ58nleuqBBSdqsHIk9XjjeLH?=
+ =?us-ascii?Q?k6N62GdwbXzNXfmInBNuJysVccHFHBiZoYGZj+g7w8OWrWCLMTy2ZqV6vJrJ?=
+ =?us-ascii?Q?AQ5fk1ZCSWGZKoV567m2SZ7RpbjPYerywdHR9TdipDxtlvf1xp5UgVHu2hPa?=
+ =?us-ascii?Q?pev47+w7v00WwtAT9szsDxTyk/y+Tl14/2gsimskaBs1MIJqyn9WXtDunwbX?=
+ =?us-ascii?Q?QBjGZo8yfMjF0rkIuSSAeA9ulUL8tEw0oeddSai2YppWp/ZLLZbjYYv8A90v?=
+ =?us-ascii?Q?Y6E1AFGMh1E2YhIL4O/KpTKX4bQFqqpmhiv4/bewPjkjJ0/bLnTVNmwzQSnX?=
+ =?us-ascii?Q?HFh0rZxFE3QgFUTnMJ3VdbwXHM0Xa7exaQeBe1dNJ/8+jRkW+0pfTQUJTUI/?=
+ =?us-ascii?Q?rrTASCOb4KWrl0e/wTKrBSDhZ0Vu4bk3igATcPDvpeA5llNHagHR/2NqsmCd?=
+ =?us-ascii?Q?ygm2MJIJUzWOc+TFIFO8hg7Hvk9QvvBNJB8nAy1Rf+n7fDVK5GLnJSEzQVGE?=
+ =?us-ascii?Q?/X3IqrGwCCCbWKGDEKKiM+pN5CakwOf4UzxXiFwI5KCy56QShjbUXp+RQP+m?=
+ =?us-ascii?Q?WES8rQWyM1FFJMtlZ28YsGjZFpOmEdLfq1wmYmwm77RzhLYs//GR4q5rZVzV?=
+ =?us-ascii?Q?HMcogwV7fPAW4PBmKN3+W8kU/UIwBoYy+tFEr83yXAvQr/8LB5J6yd+JqI4m?=
+ =?us-ascii?Q?LWWtCEDNbPqvhuq/XFaGb+rViHXrTOGy79acJkDoYVlknNAUecXvGuJ0GZ5M?=
+ =?us-ascii?Q?JpCWCHfnEqKfzTnpHWoKsuUyiqqkPPzPM0QYYh+MTJB50FGtFYPy1rLPMjuB?=
+ =?us-ascii?Q?Z9FipUYoLjg2dwhiYDUj9oN8whqWJx8A9/ldKCoNU6YN7W04Zjhso3T9wpWx?=
+ =?us-ascii?Q?wL1dmupGs9f9ILw+mjdmiB2p7EpRchblMwmFXIUHK9ia5dowdvnBnjc6Kd/V?=
+ =?us-ascii?Q?n+MSwMpMw63BC5mhgGApu/BGoLdc7Wi/DfUdxip24xJUTIGLH+6UNr6d6F9P?=
+ =?us-ascii?Q?RQOUYS3+UbwK/GS3BKjZN9mo8JyqpnhlKMKwu5RaRL/s8qlTgd8G0ZxQGrjw?=
+ =?us-ascii?Q?aCGtuRaflve5+IMXsxB7OfKGeYCKG8gzI1jcFezo3fdI36alWs7v?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9efa727a-df7f-4497-cd32-08df04212f18
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 09:54:28.4096 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: McRREtvM+8f3blrPqbXDxV0dwdkPU7S0BeHdT5iS4nwXb+gVno/tz4xpkt925IaH1uAOskel/GQ3cyH9Pf5yBLGw+iK2r1+2QtP3T6sgCUvUeWy/wHD2DXw5ymQpDAaA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10224
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,133 +136,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000e01da80659f70697
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Biju,
+Thanks for your patch.
 
-Hi just pinging to see if anyone has had a chance to review this patch.
-Thanks
-
-10 A=C4=9Fu 2026 Pzt 22:42 tarihinde Muhammed Sariyildiz <asiyee994@gmail.c=
-om>
-=C5=9Funu yazd=C4=B1:
-
-> MASK(w) expands as ((1 << (w)) - 1), and GPC2CLK_OUT_SDIV14_INDIV4_MODE
-> is defined as plain 1. Both are used, via GPC2CLK_OUT_INIT_MASK and
-> GPC2CLK_OUT_INIT_VAL in gk20a_clk_prog() (and reused by gm20b, which
-> includes gk20a.h), to compute:
->
->         1 << 31
->
-> Left-shifting a signed int into its sign bit is undefined behaviour
-> per the C standard (ISO C11 6.5.7p4), and is flagged by UBSan and
-> static analysis tools such as cppcheck (shiftTooManyBitsSigned). Make
-> the shifted operand unsigned to fix it, matching the pattern used
-> elsewhere in the kernel for register bitfield masks.
->
-> No functional change intended.
->
-> Found via static analysis (cppcheck --enable=3Dportability) while
-> auditing nvkm/subdev/clk for correctness issues.
->
-> Signed-off-by: Muhammed Sariyildiz <asiyee994@gmail.com>
+On Wed, Aug 26, 2026 at 06:48:39PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> Add support for the MIPI DSI controller found on the Renesas RZ/G3L
+> (R9A08G046) SoC. The D-PHY global timing table of RZ/G3L SoC different
+> compared to the other SoCs. Introduce a dedicated D-PHY global timing
+> table rzg3l_mipi_dsi_global_timings and wire it up via a new
+> rzg3l_mipi_dsi_info hw_info variant for RZ/G3L SoC.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
->  drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h
-> b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h
-> index ea5b0ba..7a93f9f 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h
-> @@ -27,7 +27,7 @@
->  #define KHZ (1000)
->  #define MHZ (KHZ * 1000)
->
-> -#define MASK(w)        ((1 << (w)) - 1)
-> +#define MASK(w)        ((1U << (w)) - 1)
->
->  #define GK20A_CLK_GPC_MDIV 1000
->
-> @@ -79,7 +79,7 @@
->  #define GPC2CLK_OUT                    (SYS_GPCPLL_CFG_BASE + 0x250)
->  #define GPC2CLK_OUT_SDIV14_INDIV4_WIDTH        1
->  #define GPC2CLK_OUT_SDIV14_INDIV4_SHIFT        31
-> -#define GPC2CLK_OUT_SDIV14_INDIV4_MODE 1
-> +#define GPC2CLK_OUT_SDIV14_INDIV4_MODE 1U
->  #define GPC2CLK_OUT_VCODIV_WIDTH       6
->  #define GPC2CLK_OUT_VCODIV_SHIFT       8
->  #define GPC2CLK_OUT_VCODIV1            0
-> --
+> v1->v2:
+>  * Moved set duty cycle to DU encoder.
+> v1->v2:
+>  * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
+> ---
+>  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 117 ++++++++++++++++++
+>  1 file changed, 117 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> index 7df5f4a4161b..88ec0612d529 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -226,6 +226,107 @@ static const struct rzg2l_mipi_dsi_timings rzg2l_mipi_dsi_global_timings[] = {
+>  	},
+>  };
+>  
+> +static const struct rzg2l_mipi_dsi_timings rzg3l_mipi_dsi_global_timings[] = {
+> +	{
+> +		.hsfreq_max = 100000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 18,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 13,
+> +		.tclk_post = 94,
+> +		.tclk_trail = 10,
+> +		.ths_zero = 16,
+> +		.ths_trail = 22,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +	{
+> +		.hsfreq_max = 150000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 16,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 13,
+> +		.tclk_post = 94,
+> +		.tclk_trail = 10,
+> +		.ths_zero = 16,
+> +		.ths_trail = 15,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +	{
+> +		.hsfreq_max = 250000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 13,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 13,
+> +		.tclk_post = 58,
+> +		.tclk_trail = 8,
+> +		.ths_zero = 16,
+> +		.ths_trail = 10,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +	{
+> +		.hsfreq_max = 400000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 12,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 4,
+> +		.tclk_post = 58,
+> +		.tclk_trail = 7,
+> +		.ths_zero = 16,
+> +		.ths_trail = 9,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +	{
+> +		.hsfreq_max = 600000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 11,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 4,
+> +		.tclk_post = 35,
+> +		.tclk_trail = 5,
+> +		.ths_zero = 16,
+> +		.ths_trail = 6,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +	{
+> +		.hsfreq_max = 1000000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 11,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 4,
+> +		.tclk_post = 35,
+> +		.tclk_trail = 5,
+> +		.ths_zero = 16,
+> +		.ths_trail = 6,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +	{
+> +		.hsfreq_max = 1500000000,
+> +		.t_init = 79801,
+> +		.tclk_prepare = 10,
+> +		.ths_prepare = 11,
+> +		.tclk_zero = 35,
+> +		.tclk_pre = 4,
+> +		.tclk_post = 35,
+> +		.tclk_trail = 4,
+> +		.ths_zero = 16,
+> +		.ths_trail = 5,
+> +		.ths_exit = 15,
+> +		.tlpx = 9,
+
+Ok
+
+> +	},
+> +};
+
+
+This is aligned with:
+
+9.5 MIPI DSI Interface (DSI)
+Table 9.5-4 (Recommended Setting Values of the DSI D-PHY Timing
+Register)
+
+Of the the RZ/G3L reference manual.
+
+> +
+>  /**
+>   * struct rzv2h_mipi_dsi_timings - Timing parameter table structure
+>   *
+> @@ -1580,7 +1681,23 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+>  	.activation_dly = 1000,
+>  };
+>  
+> +static const struct rzg2l_mipi_dsi_hw_info rzg3l_mipi_dsi_info = {
+> +	.dphy_init = rzg2l_mipi_dsi_dphy_init,
+> +	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
+> +	.dphy_conf_clks = rzg2l_dphy_conf_clks,
+> +	.dsi_global_timings = rzg3l_mipi_dsi_global_timings,
+> +	.num_dsi_global_timings = ARRAY_SIZE(rzg3l_mipi_dsi_global_timings),
+> +	.link_reg_offset = 0x10000,
+> +	.dphyctrl0_init_val = DSIDPHYCTRL0_CMN_MASTER_EN | DSIDPHYCTRL0_EN_BGR,
+> +	.min_dclk = 5440,
+> +	.max_dclk = 187500,
+> +	.activation_dly = 100,
+> +	.features = RZ_MIPI_DSI_FEATURE_16BPP,
+> +	.pwrrdy = true,
+> +};
+> +
+>  static const struct of_device_id rzg2l_mipi_dsi_of_table[] = {
+> +	{ .compatible = "renesas,r9a08g046-mipi-dsi", .data = &rzg3l_mipi_dsi_info, },
+
+Looks good to me.
+
+Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+
+Kind regards,
+Tommaso
+
+>  	{ .compatible = "renesas,r9a09g057-mipi-dsi", .data = &rzv2h_mipi_dsi_info, },
+>  	{ .compatible = "renesas,rzg2l-mipi-dsi", .data = &rzg2l_mipi_dsi_info, },
+>  	{ /* sentinel */ }
+> -- 
 > 2.43.0
->
->
-
---000000000000e01da80659f70697
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi just pinging to see if anyone has had a chance to revi=
-ew this patch. Thanks</div><br><div class=3D"gmail_quote gmail_quote_contai=
-ner"><div dir=3D"ltr" class=3D"gmail_attr">10 A=C4=9Fu 2026 Pzt 22:42 tarih=
-inde Muhammed Sariyildiz &lt;<a href=3D"mailto:asiyee994@gmail.com">asiyee9=
-94@gmail.com</a>&gt; =C5=9Funu yazd=C4=B1:<br></div><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
-ft:1ex">MASK(w) expands as ((1 &lt;&lt; (w)) - 1), and GPC2CLK_OUT_SDIV14_I=
-NDIV4_MODE<br>
-is defined as plain 1. Both are used, via GPC2CLK_OUT_INIT_MASK and<br>
-GPC2CLK_OUT_INIT_VAL in gk20a_clk_prog() (and reused by gm20b, which<br>
-includes gk20a.h), to compute:<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 1 &lt;&lt; 31<br>
-<br>
-Left-shifting a signed int into its sign bit is undefined behaviour<br>
-per the C standard (ISO C11 6.5.7p4), and is flagged by UBSan and<br>
-static analysis tools such as cppcheck (shiftTooManyBitsSigned). Make<br>
-the shifted operand unsigned to fix it, matching the pattern used<br>
-elsewhere in the kernel for register bitfield masks.<br>
-<br>
-No functional change intended.<br>
-<br>
-Found via static analysis (cppcheck --enable=3Dportability) while<br>
-auditing nvkm/subdev/clk for correctness issues.<br>
-<br>
-Signed-off-by: Muhammed Sariyildiz &lt;<a href=3D"mailto:asiyee994@gmail.co=
-m" target=3D"_blank" rel=3D"noreferrer">asiyee994@gmail.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h | 4 ++--<br>
-=C2=A01 file changed, 2 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h b/drivers/gpu/=
-drm/nouveau/nvkm/subdev/clk/gk20a.h<br>
-index ea5b0ba..7a93f9f 100644<br>
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h<br>
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a.h<br>
-@@ -27,7 +27,7 @@<br>
-=C2=A0#define KHZ (1000)<br>
-=C2=A0#define MHZ (KHZ * 1000)<br>
-<br>
--#define MASK(w)=C2=A0 =C2=A0 =C2=A0 =C2=A0 ((1 &lt;&lt; (w)) - 1)<br>
-+#define MASK(w)=C2=A0 =C2=A0 =C2=A0 =C2=A0 ((1U &lt;&lt; (w)) - 1)<br>
-<br>
-=C2=A0#define GK20A_CLK_GPC_MDIV 1000<br>
-<br>
-@@ -79,7 +79,7 @@<br>
-=C2=A0#define GPC2CLK_OUT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 (SYS_GPCPLL_CFG_BASE + 0x250)<br>
-=C2=A0#define GPC2CLK_OUT_SDIV14_INDIV4_WIDTH=C2=A0 =C2=A0 =C2=A0 =C2=A0 1<=
-br>
-=C2=A0#define GPC2CLK_OUT_SDIV14_INDIV4_SHIFT=C2=A0 =C2=A0 =C2=A0 =C2=A0 31=
-<br>
--#define GPC2CLK_OUT_SDIV14_INDIV4_MODE 1<br>
-+#define GPC2CLK_OUT_SDIV14_INDIV4_MODE 1U<br>
-=C2=A0#define GPC2CLK_OUT_VCODIV_WIDTH=C2=A0 =C2=A0 =C2=A0 =C2=A06<br>
-=C2=A0#define GPC2CLK_OUT_VCODIV_SHIFT=C2=A0 =C2=A0 =C2=A0 =C2=A08<br>
-=C2=A0#define GPC2CLK_OUT_VCODIV1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-0<br>
--- <br>
-2.43.0<br>
-<br>
-</blockquote></div>
-
---000000000000e01da80659f70697--
+> 
