@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54AC6C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26D22C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704BF10EFA1;
-	Thu, 27 Aug 2026 10:19:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 994C110E3E0;
+	Thu, 27 Aug 2026 10:24:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bG6d9+JB";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JA0Dp+sQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8775B10EF90;
- Thu, 27 Aug 2026 10:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787825934; x=1819361934;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=JVQDUUH3DQaJlMs1iKS7yPiv1XIwwP2dSpKjaGpxFzE=;
- b=bG6d9+JBQzlGWJVG8WhHbHokpXg5Tro4gPdasvpsa0mKrdZnRVaRGmBD
- h6m7pwX4h8T9NeVOpMFEcOik0bbJ/SIKkpwEtJ4iUDT6Tj7af+f1fB4QL
- tzufe1DcMwFfZ4fGM0y+wn0qebcignyu9FohU9DmldYaPwD6joL5lgxwt
- pvA5ZzX6NgU+P6cJLb6PI4LM9M6vR0gG0Ifj9hOYXBVxzVIcG4u+UFrg7
- /dhgLt24f/oLl4amhPLRpEXt1l7ks8i+tdTVxYL3AyhF5OD8EuRlJkilk
- WdNlH9IzZf6KHShaxm3EBBEiC0ZfgHB29VQXO+F1c95vtu3JihBXANgmR w==;
-X-CSE-ConnectionGUID: fiPIv192S0OLVywCqbushg==
-X-CSE-MsgGUID: heTphoVzSii5sSdo96RZIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88445881"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="88445881"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:18:54 -0700
-X-CSE-ConnectionGUID: TM+Gsd7KQhGogawbr9OTqw==
-X-CSE-MsgGUID: Ra5YE3lKTsG+hIn8bspQBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="306057664"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:18:53 -0700
-From: Arvind Yadav <arvind.yadav@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [PATCH 12/13] drm/xe: Skip PM notifier preparation for wedged devices
-Date: Thu, 27 Aug 2026 15:48:00 +0530
-Message-ID: <20260827101801.1247654-13-arvind.yadav@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827101801.1247654-1-arvind.yadav@intel.com>
-References: <20260827101801.1247654-1-arvind.yadav@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6288710E3E0;
+ Thu, 27 Aug 2026 10:24:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=tYGgf7xKuGOlswlRccJyniNDxOZS5LEFyZBK1IRiB5A=; b=JA0Dp+sQ4OMaLV+23ZvdLu9t00
+ Zx3jfXeGTrDi9yNL7NtjcjQwGZrKTlw/4zpa06Q4iBc7fHUVtFYU+ips17Wa4IlCMy4Wu0E3+Jnht
+ I4ZpSGPDG2W0xiiVZT9njmeVM1jmwDaIa4oKVH4JYZd0WnjyuErnnTLgQZG8LG7+EwPDXtilDTzqM
+ OElQG4qbKuzN/Ks0OSd3luiVbUQ5S57t92bYslLxpgZdpISLn5mweG30+ui/zAWlWEiGLflHKC1v/
+ xtKnb/wjb2jbhVdhKPG3DNXyi0eZNWuOU8x2OCyh/3DTpLQMFzm/ixCUT5XBOkLt7JdcpZuACeAIH
+ 6ZXU/5zQ==;
+Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
+ helo=[192.168.1.206]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wzXHS-009y8R-19; Thu, 27 Aug 2026 12:24:22 +0200
+Message-ID: <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+Date: Thu, 27 Aug 2026 12:24:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: use plane color_mgmt_changed to track
+ colorop changes
+To: Dave Airlie <airlied@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
+ siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260807115712.22423-1-mwen@igalia.com>
+ <CADnq5_OxnaEdNUpC1VQsCgensRYAgFCMeGy3uL5n6mYXqOHV-g@mail.gmail.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <CADnq5_OxnaEdNUpC1VQsCgensRYAgFCMeGy3uL5n6mYXqOHV-g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,69 +65,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The system PM notifier runs before the PCI suspend callback and may evict
-BOs or submit migration work. This work must not start after the device
-has been declared wedged.
 
-Skip PM preparation for a wedged device. Track whether preparation ran
-so the post callback only performs matching cleanup and releases the
-runtime PM reference when needed.
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
----
- drivers/gpu/drm/xe/xe_device_types.h |  2 ++
- drivers/gpu/drm/xe/xe_pm.c           | 10 ++++++++++
- 2 files changed, 12 insertions(+)
+On 10/08/2026 20:40, Alex Deucher wrote:
+> On Fri, Aug 7, 2026 at 8:08 AM Melissa Wen <mwen@igalia.com> wrote:
+>> This is a resubmission of d79716401a95 ("drm/amd/display: use plane
+>> color_mgmt_changed to track colorop changes") whose change was reverted
+>> by 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of
+>> https://gitlab.freedesktop.org/agd5f/linux into drm-next") during a
+>> merge conflict resolution.
+>>
+>> Original commit message:
+>>
+>> ```
+>> Ensure the driver tracks changes in any colorop property of a plane
+>> color pipeline by using the same mechanism of CRTC color management and
+>> update plane color blocks when any colorop property changes. It fixes an
+>> issue observed on gamescope settings for night mode which is done via
+>> shaper/3D-LUT updates.
+>> ```
+>>
+>> Fixes: 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of https://gitlab.freedesktop.org/agd5f/linux into drm-next")
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index 508ba3872e72..c9dc417878e7 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -471,6 +471,8 @@ struct xe_device {
- 
- 	/** @pm_notifier: Our PM notifier to perform actions in response to various PM events. */
- 	struct notifier_block pm_notifier;
-+	/** @pm_notifier_active: PM notifier prepare work was performed */
-+	bool pm_notifier_active;
- 	/** @pm_block: Completion to block validating tasks on suspend / hibernate prepare */
- 	struct completion pm_block;
- 	/** @rebind_resume_list: List of wq items to kick on resume. */
-diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
-index 720e083cd279..dd7fd170bc94 100644
---- a/drivers/gpu/drm/xe/xe_pm.c
-+++ b/drivers/gpu/drm/xe/xe_pm.c
-@@ -457,9 +457,14 @@ static int xe_pm_notifier_callback(struct notifier_block *nb,
- 	{
- 		struct xe_validation_ctx ctx;
- 
-+		/* Do not start PM preparation after a wedge is declared. */
-+		if (xe_device_wedged(xe))
-+			break;
-+
- 		reinit_completion(&xe->pm_block);
- 		xe_pm_block_begin_signalling();
- 		xe_pm_runtime_get(xe);
-+		xe->pm_notifier_active = true;
- 		(void)xe_validation_ctx_init(&ctx, &xe->val, NULL,
- 					     (struct xe_val_flags) {.exclusive = true});
- 		err = xe_bo_evict_all_user(xe);
-@@ -480,6 +485,11 @@ static int xe_pm_notifier_callback(struct notifier_block *nb,
- 	}
- 	case PM_POST_HIBERNATION:
- 	case PM_POST_SUSPEND:
-+		if (!xe->pm_notifier_active)
-+			break;
-+
-+		xe->pm_notifier_active = false;
-+
- 		complete_all(&xe->pm_block);
- 		xe_pm_wake_rebind_workers(xe);
- 		xe_bo_notifier_unprepare_all_pinned(xe);
--- 
-2.43.0
+Hey Dave,
+
+Can you apply it to drm-next?
+
+This a regression from 
+https://lists.freedesktop.org/archives/amd-gfx/2026-July/148126.html
+And AFAIU drm-misc's branches are not the right place.
+
+Best Regards,
+
+Melissa
+
+>
+>
+>> ---
+>>
+>> Hey,
+>>
+>> I noticed this problem in the resolution of a merge conflict after
+>> testing drm-misc-next on SteamDeck with KMS colorop API support and
+>> verifying the issue of missing updates in nightlight-mode was back.
+>>
+>> Let me know what are the right steps to address it.
+>>
+>> Thanks,
+>>
+>> Melissa
+>>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 67b825cbb88f..d0e612371c8f 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -4202,7 +4202,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>>                          continue;
+>>
+>>                  bundle->surface_updates[planes_count].surface = dc_plane;
+>> -               if (new_pcrtc_state->color_mgmt_changed) {
+>> +               if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
+>>                          bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
+>>                          bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
+>>                          bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
+>> @@ -6012,6 +6012,10 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
+>>          if (new_crtc_state->color_mgmt_changed)
+>>                  return true;
+>>
+>> +       /* Plane color pipeline or its colorop changes. */
+>> +       if (new_plane_state->color_mgmt_changed)
+>> +               return true;
+>> +
+>>          /*
+>>           * On zpos change, planes need to be reordered by removing and re-adding
+>>           * them one by one to the dc state, in order of descending zpos.
+>> --
+>> 2.53.0
+>>
 
