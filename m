@@ -4,56 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF564C61DC6
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 12:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AC2C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 12:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C1A10E665;
-	Thu, 27 Aug 2026 12:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C78510EFEE;
+	Thu, 27 Aug 2026 12:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JYnvcx4l";
+	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="IkWCT2Mu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 411A510E32D
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 12:30:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D8E3E40D94;
- Thu, 27 Aug 2026 12:30:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4321F1F000E9;
- Thu, 27 Aug 2026 12:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787833804;
- bh=B3zdOqVmIxLHUNHyacumPu1KWZMrgXOPAscx40uJgy4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JYnvcx4lpC5rt0tODkszIRfP1q1k1oz945jyMgiKjOGzq4R1nOGGt+1Lb/UlzwdKC
- vIVpEfluDNsxwWv7AyyTHfpSnt4D4oSjg8K2sADBRhiHh7wiBiLKhmUIxk9DGwitlj
- ExhlNc2+dTqKeH9LrxLAR+udFLMru7dj4+ZLWhnhkTjH5orRpHvVcI8vZYKtQYBvIS
- hfp60poiTMqWvnHxcs5thAtgVPx6gYexl4V51gOurYlmlmlPCIGBlDOyS13BsjThE3
- l+K2h1nOY66feR6Y6baoS5M0wuKerXtuQ/h6xUPXewrfRqZVe0kB/acyZmpbCl2uu3
- mknGl3E5w57hA==
-Date: Thu, 27 Aug 2026 14:30:01 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Viktor =?utf-8?B?SsOkZ2Vyc2vDvHBwZXI=?= <viktor_jaegerskuepper@freenet.de>
-Cc: maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, 
- dri-devel@lists.freedesktop.org, airlied@gmail.com, broonie@kernel.org,
- daniels@collabora.com, 
- jani.nikula@linux.intel.com, miguel.ojeda.sandonis@gmail.com,
- pekka.paalanen@collabora.com, 
- simona@ffwll.ch, penguin-kernel@i-love.sakura.ne.jp, tytso@mit.edu, 
- ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org, 
- Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>
-Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
- validate_blend_mode_for_alpha_formats()
-Message-ID: <20260826-brave-nyala-of-elevation-d23aea@houat>
-References: <20260731154232.37020-1-leandro.ribeiro@collabora.com>
- <20260731154232.37020-2-leandro.ribeiro@collabora.com>
- <CAPj87rPvh6cz1JmRjfev5VJWZHhZqwyPn_nA3x43q6_qVDf=Tw@mail.gmail.com>
- <29aca774-e502-4e5b-8ebf-7319bc8df77c@freenet.de>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 056BC10EFED
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 12:35:23 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-49b0eab380eso8315325e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 05:35:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1787834122; x=1788438922;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=FqMm8FT0UDvKvnU0PABnBSS+wYbc4aE8U5V+uRrPoww=;
+ b=IkWCT2MurZSNnzMBM4RejnY+6rh+AJHDQkIK+xTaTTj8zQ2hyzeHfcDvGwACFqNgSf
+ MKyWZSxYfviAEt3UqVdXomWwdMvEcyLcBuE33L7MDbjSY9mWiOZs9bUqGzS3UP6ZNgm7
+ wEwcZ50Zc7XZVx4LRvNFgGtXmNJXOvgrnAD9a326VAjt9vqbm7Quxs9sQylsdqsPZVS7
+ NHaM/YX+3dT87UwfOMWUyqAA3Jfg3Bz6h2kPVuATvoPqU1bVEgjJpP5z0mM63cvdArHn
+ DMtzeGogE5K7ZHrzG43TNyBQrtQ9AboJrVKYXD+wFo6qVLKnCj16hQaEAfdUoh/e9Nkq
+ Qu0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787834122; x=1788438922;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FqMm8FT0UDvKvnU0PABnBSS+wYbc4aE8U5V+uRrPoww=;
+ b=LjlUxanQPs+TL+3u3qAyVbze2vrwkWsyktYQIwLqPTKouQjRtKoE2YYGYCP+KZTUuX
+ DJKO/HIPdeYj9toe6isCcjQSEzxGtvfmeh29quJN8aL/McTqPpEf7NzeRFGGBHdZ+jBN
+ c6GNJKg4T3dI2m/j9UwbK2GJm9qBKltGKXNrdOI98ThvjcQhZQl9ezqLpWqaxHEdbg5O
+ l28RGerdQl5G6gk90Ub438quwpoiuYDs+6IYIkk0IjtwbKxmPCprRjTlGBUVDHzAZeRm
+ 9fIu/nVQmeXgRpT7XYEtrczoLNvq24+5ZtGwRhSm85SpY/yels0cY3pqgpaZg0NbwzoA
+ lgiA==
+X-Gm-Message-State: AFuF++lz5lxS5RvuPOH2fczeHRhXHFr+kaatbwzxKQDx+fV2E98QykCO
+ bQsAUuLiCptwzg699Y5tQSGxjKGRowfqDOiYA0jxXdFZtsLRA5D4K8sxW68PfgsZO/g=
+X-Gm-Gg: AR+sD11ZXXnhq1p3NTBTC2TKADkzyUyhgTNQc6drjKz15+qeLDg+ZVVSGVkfzwI7ghi
+ hKVx7puyNKFdLav2gme34SH4Zl5TrLpBBm7Cy71vpZaFXMkV4QwAmE004yG8mxjD8GQODV9U5ep
+ PDyEI8ia225UljRz/TxTBgU1xoSOgLh1QCmj+ik+otz5LeBcLzl/2AJAmmEuOmlE/H8+ickB4g0
+ Vg03Txg8Oe7hAR5+XY9LGHDY9NEOjUJwTl23qUqhNRsj6k7OkxTEhFHOKccnqTtojzcaYSyxE8L
+ nUCn+xyM+qL9Cp0utKZP4+gFeJdJmdjHQTlH+9DANVUjWwOC0ewxwtYUVVVscWy2u822nFE3+oD
+ rm2ecpVmaJ3lH9v5ubg3Mw68Eq+uEbj7b/vSYuY8zHICpc6TYUU6aVz0Rg4tsteZ8QfUuNOA8my
+ 9Q2eyKBA0CKGfgChqTFoDuFu60o7M1MqffjMWdCM0jYXfd/7WsQ4/zEli5fJQjSrxE3Y7tyNMBf
+ u1Z74l5
+X-Received: by 2002:a05:600c:3e8e:b0:499:5f80:83ac with SMTP id
+ 5b1f17b1804b1-49b0dfd7d2cmr84639315e9.7.1787834121595; 
+ Thu, 27 Aug 2026 05:35:21 -0700 (PDT)
+Received: from localhost ([140.209.217.211]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b4a940aeasm46658765e9.10.2026.08.27.05.35.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 05:35:21 -0700 (PDT)
+Date: Thu, 27 Aug 2026 14:35:16 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Konstantin Sinyuk <ksinyuk@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Francois Dugast <francois.dugast@intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Ilia Levi <ilia.levi@intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jhs@mojatatu.com,
+ jgg@nvidia.com
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <apAsfOowcG0cTvT8@FV6GYCPJ69>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="ow3ueemvc4qjemei"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <29aca774-e502-4e5b-8ebf-7319bc8df77c@freenet.de>
+In-Reply-To: <cover.1787552412.git.ksinyuk@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +102,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Mon, Aug 24, 2026 at 10:09:28AM +0200, ksinyuk@kernel.org wrote:
 
---ow3ueemvc4qjemei
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
- validate_blend_mode_for_alpha_formats()
-MIME-Version: 1.0
+[..]
 
-On Thu, Aug 27, 2026 at 01:25:18PM +0200, Viktor J=E4gersk=FCpper wrote:
-> On 8/14/26 15:42, Daniel Stone wrote:
-> > Hi Leandro,
-> >=20
-> > On Fri, 31 Jul 2026 at 16:43, Leandro Ribeiro
-> > <leandro.ribeiro@collabora.com> wrote:
-> >> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> >> with alpha exposed") introduced a WARN() to let driver developers know
-> >> that a previously valid behavior should now be changed.
-> >>
-> >> But WARN() should not be used for that, as it's a kernel warning report
-> >> mechanism for conditions that are not expected to happen. It also
-> >> produces a stack trace. Instead, a simple warning-level log message
-> >> should have been used, as drivers were expected to trigger the
-> >> condition.
-> >>
-> >> This is causing problems for fuzzers, as they may stop when encounteri=
-ng
-> >> a "BUG:" or "WARNING:" in the logs.
-> >>
-> >> Replace WARN() with drm_warn() in this function, avoiding these issues.
-> >>
-> >> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format=
- with alpha exposed")
-> >> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-> >=20
-> > Thanks, this is:
-> > Reviewed-by: Daniel Stone <daniels@collabora.com>
-> >=20
-> > I'll fix up the newline when applying.
->=20
-> Hi Maarten, Maxime and Thomas,
->=20
-> can you cherry-pick this fix for drm-misc-fixes and send a pull-request
-> to Dave and Simona before the end of this week? I think this should land
-> in rc1 because people are already complaining about the warnings and it
-> will take some time to fix all affected drivers. I'm not even sure if
-> those fixes can land in mainline after rc1.
->=20
-> If you don't have the time to do this or the other fixes in
-> drm-misc-fixes are not yet ready for mainline, I will ask Linus to pick
-> this fix directly.
+>Example queries using the in-tree YNL tool are:
+>
+>    $ ./tools/net/ynl/pyynl/cli.py \
+>          --spec Documentation/netlink/specs/drm_fabric.yaml \
+>          --dump fabric-get
+>    $ ./tools/net/ynl/pyynl/cli.py \
+>          --spec Documentation/netlink/specs/drm_fabric.yaml \
+>          --dump endpoint-get --json '{"fabric-id": <id>}'
+>    $ ./tools/net/ynl/pyynl/cli.py \
+>          --spec Documentation/netlink/specs/drm_fabric.yaml \
+>          --do port-get --json '{"endpoint-id": <id>, "port-index": 0}'
 
-This has been sent last week:
-https://lore.kernel.org/dri-devel/20260820-fabulous-nimble-woodpecker-ffa69=
-5@houat/
+Using generic netlink instead of sysfs for this makes a lot of sense,
+but it may be a bit odd to use it outside the networking area.
+I've been struggling with the same in another non-networking use-case
+as well. I have been building a framework that keeps the benefits of
+generic netlink, extends it and is fd-based.
+I call it CTLV, here's a link to an early pre-RFC draft:
 
-Maxime
+https://github.com/jpirko/linux_mlxsw/commits/wip_ctlv_pre_rfc_draft1/
 
---ow3ueemvc4qjemei
-Content-Type: application/pgp-signature; name="signature.asc"
+What are the benefits over generic netlink:
 
------BEGIN PGP SIGNATURE-----
+- No networking in the dependency chain. No netlink sockets,
+  no CAP_NET_ADMIN, and no network namespace semantics to reason about
+  for a device that has none.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapAtyAAKCRAnX84Zoj2+
-dtg4AX4ljZnSxKXFZVfAS4/mgs1gRfOlBlzU1a7n0S8hWV7p10ignjVCSnoMehCJ
-LeScKdoBgNJDbnBtt26jZQs2opiLr0n2DHe1zBV+Y+MzYoF5s0nLcaPP7DP5mpJ8
-OhAIOGWOSg==
-=Ro9b
------END PGP SIGNATURE-----
+- One character device per registered instance, not one global family.
+  Access control is the file: udev rules, ACLs, an fd passed into
+  a container. The open mode decides what is allowed - actions need
+  write, queries need read - so there is no permission model
+  to reinvent per family.
 
---ow3ueemvc4qjemei--
+- Events per open file description, not a multicast group.
+  Each descriptor has its own subscriptions and queue, and an overflow
+  is reported in-band: the next read returns an event-overflow record
+  naming the first and last sequence lost and how many.
+
+- Large payloads are referenced, not copied. A blob attribute carries
+  a user VA, a memfd and offset, or a dma-buf fd. Nothing big travels
+  through the message.
+
+- One YAML specification, everything generated from it: kernel metadata,
+  UAPI headers, userspace bindings and the reference documentation.
+  Introspectio. is answered out of the same metadata the validator
+  enforces, so a device cannot advertise an operation it will refuse.
+  A checked-in ABI snapshot makes any wire change a reviewable diff.
+
+- Family inheritance. A family inherits another's operations and fills
+  declared extension points. The effective schema is resolved per
+  device and the chain is exposed to user. A shared core with
+  per-driver extensions is declared once, and both attributes and
+  operations can be extended.
+
+- Introspection is per-device and live. The framework answers three
+  queries on every device: the family chain, one entry per published
+  operation, and any operation's full attribute tree with its bounds
+  and limits.
+
+  The answer is what this device accepts right now, including what
+  a vendor extension added to an inherited operation and whether an op
+  is currently disabled, and op-changed events carry the generation
+  ops-dump reports, so a dump can be ordered against a change.
+  GETFAMILY and GETPOLICY describe a family statically - there is
+  no device in that model to ask.
+
+- Fragmented queries are built in, with a consistency check.
+  A continuation carries the generation it started from, and if
+  the answer changed underneath it is refused with ESTALE,
+  reporting the expected and the current generation instead of
+  reassembling a torn reply.
+
+- Attributes are 8-byte aligned. CTLV_ALIGNTO is 8, so
+  a 64-bit payload is naturally aligned and there is no per-family
+  padding to remember - netlink's 4-byte alignment is why
+  nla_put_64bit() needs an explicit NOP pad attribute.
+
+- Cheaper round trip. A one-attribute query measured 2.6x cheaper
+  than a genetlink one in the same guest - a debug kernel.
+
+- Async operations using io_uring are planned as a follow-up extension.
+
+The framework owns validation, schema resolution, blob acquisition,
+reply serialization and the event queues. All getters and putters
+are generated helpers. A family implements semantics only, and
+the aim is to make that hard to get wrong.
+
+Would this make sense to use for you?
+
+[..]
