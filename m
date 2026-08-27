@@ -4,85 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E036C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 958EDC61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F3610F0B6;
-	Thu, 27 Aug 2026 14:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B126910F0B8;
+	Thu, 27 Aug 2026 14:44:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xBEIQA3x";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mIX4BbA3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AGZsoRoE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GxRUaVBp";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RfNgf9YI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DKiqoyjk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fSBCyOpL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cPePCkT2";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2BDA10F0B6
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:40:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA0810F0B8
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:44:23 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1AD821FB32;
- Thu, 27 Aug 2026 14:40:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C1EA31F854;
+ Thu, 27 Aug 2026 14:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787841633; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787841857; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
- b=xBEIQA3xRu783NZ5z651ZEYQcYzoKh9XbPfSg1Zx83P9DponKnycrbX7LMTnopHA6h482t
- G+/arDx7pFdyXL4y+lqKYC8b1DKHctPuY+sw9SW6KtAkKxBEZHLKXDPikB+pMZ7qSN9vA8
- k36s6jYG2m4VZB6QWVM3G53kO4m8uRs=
+ bh=xfdt9NuC3X1wEU8idm0OQAVUYE0XtkUGS6bU1nGq/iI=;
+ b=RfNgf9YIsa9KxC38fRXNaAI3N2c47cOEvEhl9dr+Ne3eX0FhjKxDfTaZL6qsJ9PF+wsILq
+ QGCXaYbxawOOcFr75/oacM1Mo7FEdwPnBv9Ic1IBFwDjltw7ITqldrhVW0RgseUIWxdHmz
+ aaMCxxDShjeq6p/Y1kLsDYqN50oMD+Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787841633;
+ s=susede2_ed25519; t=1787841857;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
- b=mIX4BbA3kPPwAsq6KinCd1opMoTs7AqkkyzCTVT63pH9GviQ4VAKyerFjTpsd2VeJ2mDW0
- paujlBWkKcaxUHAg==
+ bh=xfdt9NuC3X1wEU8idm0OQAVUYE0XtkUGS6bU1nGq/iI=;
+ b=DKiqoyjk7elnZApU+yVkjHAXmz+CDqW4SeVSr0kDXj6JjCRf8X+P4Rlt46KA7tySIti/Dp
+ WT0pRYGt8YaWdjBA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AGZsoRoE;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GxRUaVBp
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fSBCyOpL;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cPePCkT2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787841629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787841853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
- b=AGZsoRoEL/XwFjMfR6C+sFBB9UP7cJf+tiuBafaRMG3HO494gEkVzRafPqfaGc4BYHSbX6
- MXcIAHHwW0XOCmxN7oyOn09BQKTIDsXZvCnm1XZG7stpgFDGa2DkhRNQ8qfeS5+xdrwmeq
- 6jE/hKVJw861kQ1WatSwVy/wyvL9b/g=
+ bh=xfdt9NuC3X1wEU8idm0OQAVUYE0XtkUGS6bU1nGq/iI=;
+ b=fSBCyOpLfN7tieZbkj8eR2ZHj68O06bKRXojlNTcdsiA/1jEoKtSD01ZZRjVUdnfOLWL/A
+ KenEuqO1+zNlZKFGI+Q5/tSrcgTcc99r6w4/hhra+pJN4HHZwsHe3XI73e9OBwrTtyYs3k
+ L+7knFMZsrLCb/K1nX37zJz+83cQoyo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787841629;
+ s=susede2_ed25519; t=1787841853;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
- b=GxRUaVBpdiQpmtDuj8SMabAzbgK/+b12NVtsDJrHuGauO2YJDbrvF3EvxthcK6IGeNDfIY
- UjubrMAlLNztqNAA==
+ bh=xfdt9NuC3X1wEU8idm0OQAVUYE0XtkUGS6bU1nGq/iI=;
+ b=cPePCkT25V+zw08qFXwMEHztIQYruUYtcyjAdrtoqMwPWklRHgd9vkcu/iI6pl5s9A3FVD
+ J8wljhx5dZDwphCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 037191352C;
- Thu, 27 Aug 2026 14:40:28 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA9D01352C;
+ Thu, 27 Aug 2026 14:44:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uFI9O1xMkGpXNgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 27 Aug 2026 14:40:28 +0000
-Message-ID: <b336b262-4662-44f7-b1b7-db3b42f6d7e0@suse.de>
-Date: Thu, 27 Aug 2026 16:40:28 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iqECKD1NkGreOQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 27 Aug 2026 14:44:13 +0000
+Message-ID: <eca20b6f-0f46-47c1-b6c7-5c906b23b7d6@suse.de>
+Date: Thu, 27 Aug 2026 16:44:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/edid: Add drm_edid_get_preferred_size()
+Subject: Re: [PATCH 2/3] drm/sysfb: Use preferred panel size for panel
+ orientation quirks
 To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org
 References: <20260827140726.420734-1-tzimmermann@suse.de>
- <20260827140726.420734-2-tzimmermann@suse.de>
- <20260827141954.2AC011F000E9@smtp.kernel.org>
+ <20260827140726.420734-3-tzimmermann@suse.de>
+ <20260827142139.E0D121F00A3A@smtp.kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,26 +110,27 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260827141954.2AC011F000E9@smtp.kernel.org>
+In-Reply-To: <20260827142139.E0D121F00A3A@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1AD821FB32
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C1EA31F854
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
  MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_TLS_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCPT_COUNT_TWO(0.00)[2];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- TO_DN_NONE(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -148,101 +150,144 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 27.08.26 um 16:19 schrieb sashiko-bot@kernel.org:
+Am 27.08.26 um 16:21 schrieb sashiko-bot@kernel.org:
 > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Pointer Dereference and Logic Error in drm_edid_get_preferred_size
+>
+> New issues:
+> - [Medium] The sysfb drivers parse unvalidated EDID data to extract the preferred size.
 
-This is just a pretty stupid typo. Will be fixed.
+If we read bogus values, the panel orientation could be wrong. Nothing 
+worse happens.  Apart from that, most drivers call 
+drm_edid_header_is_valid(). I'll add this call to ofdrm, which is 
+currently missing it.
+>
+> Pre-existing issues:
+> - [High] drm_edid_get_preferred_size() incorrectly checks the value pointed to by width/height instead of validating the pointers themselves.
 
-> - [High] Missing EDID Hardware Validation for Detailed Timing Descriptor
-
-Will also be fixed.
-
+That's just fallout from the typo in patch 1.
 
 > --
 >
-> commit 2d529ec582fce7d82757afd45c986da44f50ceb6
+> commit df008c5490e15b30036ebe81983d7a6c0c6e5b33
 > Author: Thomas Zimmermann <tzimmermann@suse.de>
-> Subject: drm/edid: Add drm_edid_get_preferred_size()
 >
-> This commit adds drm_edid_get_preferred_size() to extract the panel's
-> preferred display resolution from a given EDID. This is required for
-> DRM's panel orientation quirks.
+> drm/sysfb: Use preferred panel size for panel orientation quirks
 >
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index df3c25bac761d..650ccd05977be 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
+> Sysfb drivers currently use the given display mode for looking up the
+> panel orientation. But the look-up table stores the native geometry of
+> the panels, so the lookup fails if the current mode sizes differs.
+>
+> Get the panel's native geometry with drm_edid_get_preferred_size() from
+> the EDID and use it for looking up the panel orientation.
+>
+>> diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
+>> index 3f9cd5d03efb2..7a7d12003304f 100644
+>> --- a/drivers/gpu/drm/sysfb/efidrm.c
+>> +++ b/drivers/gpu/drm/sysfb/efidrm.c
 > [ ... ]
+>> @@ -217,6 +218,20 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>>   	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>>   		sysfb->edid = dpy->edid.dummy;
+>>   #endif
+>> +
+>> +	panel_width = width;
+>> +	panel_height = height;
+>> +
+>> +	if (sysfb->edid) {
+>> +		const struct drm_edid *drm_edid;
+>> +
+>> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+>> +		if (drm_edid) {
+>> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+> [Severity: High]
+> This isn't a bug introduced by this patch, but I wanted to ask about the
+> semantics of drm_edid_get_preferred_size(). In drivers/gpu/drm/drm_edid.c,
+> it does:
 >
->> @@ -2844,6 +2844,46 @@ u32 drm_edid_get_panel_id(const struct drm_edid *drm_edid)
->>   }
->>   EXPORT_SYMBOL(drm_edid_get_panel_id);
+> 	if (*width)
+> 		*width = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
+> 	if (*height)
+> 		*height = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
+>
+> This incorrectly checks the values pointed to by width/height instead of
+> validating the pointers themselves. A caller passing a NULL pointer for
+> either width or height will cause a kernel panic (NULL pointer dereference).
+>
+> Furthermore, passing a pointer to a zero-initialized variable evaluates to
+> false, causing the function to silently skip populating the preferred size.
+> While this patch bypasses the crash by passing non-NULL pointers initialized
+> to >0, is it worth fixing the generic API so other callers do not trip over
+> this?
+>
+> [Severity: Medium]
+> Does parsing an unvalidated EDID block pose a risk here? The sysfb drivers
+> parse unvalidated EDID data to extract the preferred size.
+>
+> If the firmware provides a corrupted EDID where only the 8-byte header is
+> valid, this code extracts geometry from potentially corrupted firmware data,
+> which can result in bogus resolutions being passed to the panel orientation
+> quirk lookup.
+>
+>> +			drm_edid_free(drm_edid);
+>> +		}
+>> +	}
+>> +
+> [ ... ]
+>> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
+>> index 819aed466727e..6cf2440d7d9e2 100644
+>> --- a/drivers/gpu/drm/sysfb/ofdrm.c
+>> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
+> [ ... ]
+>> @@ -994,6 +995,19 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>>   		sysfb->fb_gamma_lut_size = OFDRM_GAMMA_LUT_SIZE;
+>>   	sysfb->edid = edid;
 >>   
->> +/**
->> + * drm_edid_get_preferred_size - Get a panel's preferred size from EDID
->> + * @drm_edid: EDID that contains panel ID.
->> + * @width: Returns the panel's width in pixels per scanline, if given
->> + * @height: Returns the panel's height in scanlines, if given
->> + *
->> + * This function detects the preferred size of a panel from the given
->> + * EDID. There is no such information stored in the EDID block directly,
->> + * but the preferred mode often corresponds to the panel's native geometry.
->> + *
->> + * Return: Zero on success, or a negative errno code otherwise.
->> + */
->> +int drm_edid_get_preferred_size(const struct drm_edid *drm_edid,
->> +				unsigned int *width, unsigned int *height)
->> +{
->> +	const struct edid *edid = drm_edid->edid;
->> +	const struct detailed_pixel_timing *pt;
+>> +	panel_width = width;
+>> +	panel_height = height;
 >> +
->> +	if (drm_edid->size < EDID_LENGTH)
->> +		return -EINVAL;
+>> +	if (sysfb->edid) {
+>> +		const struct drm_edid *drm_edid;
 >> +
->> +	/*
->> +	 * Use whatever the Preferred Timing Descriptor tells us. For old
->> +	 * and obscure displays, we might need better heuristics.
->> +	 */
->> +
->> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING))
->> +		return -EINVAL; /* no Preferred Timing Descriptor */
->> +
->> +	pt = &edid->detailed_timings[0].data.pixel_data;
-> [Severity: High]
-> Does this safely handle non-compliant or corrupted EDIDs where the first
-> detailed timing block might be a Display Descriptor rather than a pixel
-> timing descriptor?
+>> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+>> +		if (drm_edid) {
+>> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+> [Severity: Medium]
+> Similarly here in ofdrm_device_create(), unvalidated EDID data is parsed.
+> Could this lead to bogus geometry being extracted from a corrupted EDID?
 >
-> In the EDID specification, a detailed timing block is only a Detailed Timing
-> Descriptor if its pixel clock is non-zero. If the pixel clock is 0, the block
-> is a Display Descriptor like an ASCII monitor name. By unconditionally
-> accessing it as pixel data without validating it, could we end up reading
-> overlapping union fields and returning garbage display geometry data to the
-> driver?
->
+>> +			drm_edid_free(drm_edid);
+>> +		}
+>> +	}
 >> +
->> +	if (*width)
->> +		*width = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
->> +	if (*height)
->> +		*height = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
-> [Severity: High]
-> Does this logic incorrectly dereference the pointers before checking if they
-> are valid?
->
-> The kernel doc mentions that width and height are optional, which implies
-> callers might pass a NULL pointer. If a caller passes NULL for width or
-> height, evaluating if (*width) will cause a NULL pointer dereference crash.
->
-> Additionally, if a caller passes a valid pointer to a 0-initialized variable,
-> evaluating if (*width) will result in false, skipping the assignment entirely
-> and leaving the output as 0. Should these conditions check if (width) and
-> if (height) instead?
->
+> [ ... ]
+>> diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
+>> index 6a67b2d2e451b..8c52bbac6d2ff 100644
+>> --- a/drivers/gpu/drm/sysfb/vesadrm.c
+>> +++ b/drivers/gpu/drm/sysfb/vesadrm.c
+> [ ... ]
+>> @@ -484,6 +485,20 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>>   	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>>   		sysfb->edid = dpy->edid.dummy;
+>>   #endif
 >> +
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL(drm_edid_get_preferred_size);
+>> +	panel_width = width;
+>> +	panel_height = height;
+>> +
+>> +	if (sysfb->edid) {
+>> +		const struct drm_edid *drm_edid;
+>> +
+>> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+>> +		if (drm_edid) {
+>> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+> [Severity: Medium]
+> Likewise in vesadrm_device_create(), parsing unvalidated EDID data may
+> result in bogus resolutions being passed to the panel orientation quirk
+> lookup. Should the EDID be fully validated first?
+>
+>> +			drm_edid_free(drm_edid);
+>> +		}
+>> +	}
+>> +
 
 -- 
 --
