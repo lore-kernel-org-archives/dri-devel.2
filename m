@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA7AC61DC7
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 13:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3EBCC61DC6
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 13:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07D0610F043;
-	Thu, 27 Aug 2026 13:13:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3F3C10F033;
+	Thu, 27 Aug 2026 13:19:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BlRuVbP2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dZ5fydcn";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5878810F033;
- Thu, 27 Aug 2026 13:13:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C617B10F033;
+ Thu, 27 Aug 2026 13:19:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 057F4417B3;
- Thu, 27 Aug 2026 13:13:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB091F000E9;
- Thu, 27 Aug 2026 13:13:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 93AB642D72;
+ Thu, 27 Aug 2026 13:19:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40AC81F000E9;
+ Thu, 27 Aug 2026 13:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787836395;
- bh=Vjl3JIo7fSL8qy6MLLEaaNJjwY/54mWv9KLB8wYToKk=;
+ s=k20260515; t=1787836755;
+ bh=8l6s2dYN0FiR9p5UAd+4kjWPBVjasCj/Opzn3WlrhJ8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BlRuVbP25RLbaFFwhEnO7TcSK6heEXx3Wttmw1qYP/dvTdRa93hNCD9kx5i/FjDyO
- 235AwQnk1ybh2SrRplke44H810GK4cprU4a1sCDQT5GDE6dTzfNNbapqaqwgLLwDG+
- 2Uh7W0pqZOVJ8VsGH76sirm1o48fsXzMR8S4mzUk8HYHBYRgTxRP0WcCgsEzWqyOh7
- X5XK/iubs23h2CyjSCloUZAnezyzOFbB3xczuKLzW/dCmSJe1jIJjoiu9N4Krl6mwZ
- zYC2sX18pJ9p9q3OYkHhWPYrvFZ3SDo0TVUyRaheJ4uBlSqllTFQMHW63oLGr+UWdl
- ulPNrby5JI5nw==
+ b=dZ5fydcndgSV9k4SIgJwxkyeb6ygR+0jm+tbplnKotppGln1Z9nD1JB6JpTpcrZ8h
+ +7wVod1oIy9FpnfB9abImAj50oNfmZZSiurRRs3ktApK/otKsrwL8pTYZR87q4Z2qp
+ cgixIa2afQloBsMRCi+F8m9yNpWbI3htq0AyyDE6x8d+f0dcx5mKEzJiO40Xx5MAOw
+ bQ2AU5vhxPvj9JRi9t5qoaliV/EM5o2XuGnqfkC8NnDu3W7D0USWSQYvPLQg8UdhQW
+ ePNl3gsyhM6UvOu8sssEQmEJzY34utH/aOw3mNJRbVz4EqrHFPclqPgY1vKcMA7XHD
+ VTZ/Liwtofm7w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/10] drm/gem: Use dynamic allocation for GEM object
- dma_resv
+Subject: Re: [PATCH 04/10] drm/gem: Convert drm_gem_private_object_init to
+ return error code
 To: =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827124910.2245-6-christian.koenig@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260827124910.2245-5-christian.koenig@amd.com>
 References: <20260827124910.2245-1-christian.koenig@amd.com>
- <20260827124910.2245-6-christian.koenig@amd.com>
+ <20260827124910.2245-5-christian.koenig@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 13:13:15 +0000
-Message-Id: <20260827131315.9CB091F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 13:19:14 +0000
+Message-Id: <20260827131915.40AC81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,138 +59,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Uninitialized `dma_resv` for internal Nouveau buffer objects c=
-auses NULL pointer dereferences and memory leaks.
-- [Critical] Massive memory leak of dynamically allocated `dma_resv` object=
-s for all i915 GEM objects.
-- [High] Memory leak of `dma_resv` object in TTM ghost objects due to missi=
-ng `dma_resv_put()` in `ttm_transfered_destroy()`.
-- [Medium] KUnit test runtime crash and compilation failure due to comparin=
-g `struct dma_resv *` with `struct dma_resv **`.
+- [Medium] Memory leak in xe_bo_init_locked() on drm_gem_private_object_ini=
+t() failure.
+- [Medium] Memory leak in vmw_bo_create() when vmw_bo_init() fails at GEM i=
+nitialization.
+- [Medium] Heap allocation leak in amdxdna_drm_create_dev_bo() when drm_gem=
+_private_object_init() fails.
 --
 
-commit ea9a73424b175ca45f706102b9727e26c5e65f0b
+commit 31f8fb9f49fa7d6352b54fca867dc5132c27a261
 Author: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
 
-drm/gem: Use dynamic allocation for GEM object dma_resv
+drm/gem: Convert drm_gem_private_object_init to return error code
 
-This patch removes the embedded dma_resv from struct drm_gem_object and
-replaces it with a dynamically allocated reservation object. It updates
-GEM object initialization to allocate the object and cleans up references
-appropriately. It also updates TTM and driver-specific code to handle
-the dynamically allocated individual_resv.
-
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm=
-/i915/gem/i915_gem_object.c
-> index 384c74794fdc1..5e48e169f2de0 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> @@ -144,7 +144,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_objec=
-t *obj)
->  {
->  	mutex_destroy(&obj->mm.get_page.lock);
->  	mutex_destroy(&obj->mm.get_dma_page.lock);
-> -	dma_resv_put(&obj->base._resv);
->  }
-
-[Severity: Critical]
-Does this code completely leak the dynamically allocated dma_resv object for
-all i915 GEM objects?
-
-Since the custom destruction logic in __i915_gem_object_fini() no longer
-calls dma_resv_put() for the base GEM resv object, and
-drm_gem_private_object_fini() is bypassed by i915, it seems the resv alloca=
-ted
-in drm_gem_private_object_init() is permanently lost upon destruction.
+This commit changes drm_gem_private_object_init() to return an error code
+instead of void, allowing it to gracefully fail rather than crashing the
+kernel with BUG_ON. Call sites across various DRM and accelerator drivers
+have been updated to check the return value and handle errors appropriately.
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouve=
-au/nouveau_bo.c
-> index 67c9d32f4f27b..65e1f0c2f984d 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-[ ... ]
-> @@ -385,7 +383,6 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int=
- align,
->  		return PTR_ERR(nvbo);
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/=
+amdxdna_gem.c
+> index b01f5d95fac83..96490aa0af1be 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -1050,7 +1050,11 @@ amdxdna_drm_create_dev_bo(struct drm_device *dev,
+>  		return ERR_PTR(ret);
+>  	}
 > =20
->  	nvbo->bo.base.size =3D size;
-> -	dma_resv_init(&nvbo->bo.base._resv);
->  	drm_vma_node_reset(&nvbo->bo.base.vma_node);
-
-[Severity: Critical]
-Does this leave the dma_resv pointer uninitialized (NULL) for internal
-Nouveau buffer objects?
-
-Because nouveau_bo_alloc() uses kzalloc() and bypasses standard GEM
-initialization, bo->base.resv remains NULL without this initialization.
-Later, when ttm_bo_init_reserved() evaluates
-WARN_ON(!dma_resv_trylock(bo->base.resv)), won't this result in an
-immediate NULL pointer dereference because bo->base.resv is NULL?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/g=
-pu/drm/ttm/tests/ttm_bo_validate_test.c
-> index bb430763e7a52..6fc381a9d2da6 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> @@ -637,7 +637,7 @@ static void ttm_bo_validate_no_placement_not_signaled=
-(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, 0);
-> =20
->  	if (bo->type !=3D ttm_bo_type_sg)
-> -		KUNIT_ASSERT_PTR_EQ(test, bo->base.resv, &bo->base._resv);
-> +		KUNIT_ASSERT_PTR_EQ(test, bo->base.resv, &bo->individual_resv);
+> -	drm_gem_private_object_init(dev, gobj, aligned_sz);
+> +	ret =3D drm_gem_private_object_init(dev, gobj, aligned_sz);
+> +	if (ret) {
+> +		amdxdna_gem_destroy_obj(abo);
+> +		return ERR_PTR(ret);
+> +	}
 
 [Severity: Medium]
-Can this compile cleanly or pass at runtime?
-
-The variable bo->individual_resv is now a pointer to struct dma_resv. By
-using the address-of operator here, this assertion attempts to compare a
-struct dma_resv pointer with a double pointer, which will unconditionally
-fail the test and break the KUnit suite.
+Does this code leak the heap allocation? In amdxdna_drm_create_dev_bo(),=20
+there is an earlier successful call to amdxdna_gem_heap_alloc(). If=20
+drm_gem_private_object_init() fails, the error handler only calls=20
+amdxdna_gem_destroy_obj() and skips calling amdxdna_gem_heap_free(),=20
+which leaves a persistent resource leak in the client's heap tracking.
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_=
-bo_util.c
-> index af5732f9e489e..7457a16b744f5 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -207,7 +207,7 @@ static void ttm_transfered_destroy(struct ttm_buffer_=
-object *bo)
->  	struct ttm_transfer_obj *fbo;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/=
+vmwgfx_bo.c
+> index 9c7a73c0b0dc3..e4e4b87e738d3 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> @@ -426,7 +426,9 @@ static int vmw_bo_init(struct vmw_private *dev_priv,
+>  	atomic_set(&vmw_bo->map_count, 0);
 > =20
->  	fbo =3D container_of(bo, struct ttm_transfer_obj, base);
-> -	dma_resv_put(&fbo->base.base._resv);
-> +	dma_resv_put(fbo->base.individual_resv);
->  	ttm_bo_put(fbo->bo);
->  	kfree(fbo);
->  }
+>  	params->size =3D ALIGN(params->size, PAGE_SIZE);
+> -	drm_gem_private_object_init(vdev, &vmw_bo->tbo.base, params->size);
+> +	ret =3D drm_gem_private_object_init(vdev, &vmw_bo->tbo.base, params->si=
+ze);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	vmw_bo_placement_set(vmw_bo, params->domain, params->busy_domain);
+>  	ret =3D ttm_bo_init_reserved(bdev, &vmw_bo->tbo, params->bo_type,
 
-[Severity: High]
-Does this code permanently leak the dma_resv object dynamically allocated
-for a ghost object?
+[Severity: Medium]
+Could this early return cause the vmw_bo structure to be leaked?=20
+When vmw_bo_create() allocates the object, it passes it to vmw_bo_init()
+with a destruction callback. If drm_gem_private_object_init() fails and
+returns early here, it bypasses the ttm_bo_init_reserved() setup. Because
+TTM never receives the destruction callback, the caller receives the error=
+=20
+and nullifies the pointer without actually freeing it, permanently leaking=
+=20
+the struct.
 
-In ttm_buffer_object_transfer(), the ghost object acquires an extra referen=
-ce
-to fbo->base.base.resv:
+[ ... ]
 
-fbo->base.individual_resv =3D dma_resv_alloc();
-...
-fbo->base.base.resv =3D dma_resv_get(fbo->base.individual_resv);
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index dde309821237b..85e49b48f9d3a 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -2400,7 +2400,9 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *x=
+e, struct xe_bo *bo,
+>  	/* Initialize purge advisory state */
+>  	bo->purgeable.state =3D XE_MADV_PURGEABLE_WILLNEED;
+> =20
+> -	drm_gem_private_object_init(&xe->drm, &bo->ttm.base, size);
+> +	err =3D drm_gem_private_object_init(&xe->drm, &bo->ttm.base, size);
+> +	if (err)
+> +		return ERR_PTR(err);
+> =20
+>  	if (resv) {
+>  		ctx.allow_res_evict =3D !(flags & XE_BO_FLAG_NO_RESV_EVICT);
 
-However, when the ghost object is destroyed, ttm_bo_release() sets
-bo->individual_resv to NULL before calling the destroyer callback. As a
-result, when ttm_transfered_destroy() calls
-dma_resv_put(fbo->base.individual_resv), it is operating on a NULL pointer.
-This leaves the reference on the base GEM dma_resv unreleased, causing a
-memory leak during buffer evictions.
+[Severity: Medium]
+Can this error path leak the xe_bo struct? If xe_bo_init_locked() is called
+with a NULL bo pointer, such as from xe_bo_create_locked(), it allocates a
+new xe_bo structure internally. If drm_gem_private_object_init() then fails,
+returning ERR_PTR(err) immediately means the newly allocated bo reference i=
+s=20
+lost before it can be freed with xe_bo_free().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827124910.2245=
--1-christian.koenig@amd.com?part=3D5
+-1-christian.koenig@amd.com?part=3D4
