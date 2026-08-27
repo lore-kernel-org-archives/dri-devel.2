@@ -4,118 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0719C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89BEFC61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE79510F0C1;
-	Thu, 27 Aug 2026 14:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B666910E597;
+	Thu, 27 Aug 2026 15:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="hLU8g6oQ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="b12eZfzE";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF7810F0C5
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:55:34 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-482db627cd8so1004513f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:55:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787842533; cv=none;
- d=google.com; s=arc-20260327;
- b=hns2ZFAMsCIhoRr6+9Eh8D2B/iwsUfkRa2tvoNe5O8lE0W1KX14cng+CGD3llyOzMx
- Bk0/XElMLp7gBtN8uTBXMcW4K+cDiHVcGa9RdvEQ6YsfLeS53JFExlY8UFWi0qvm74pr
- 4MmlovmJggI0jIW10ZQaNDfDmJ6LJTPECUkJBby5xCtmV0yy6dwUvLuDo7CFwQEIQwwD
- 48MOEgy4FkVWztiWcLrU4Z91c07Hpn7bh6/i7Rru8f0UKwe8mTyEnOfjYHDZ5knQW4En
- E+AwCG3s5Fl5g9KIMuEGkeWBOFYMJ1Zkrlsn4W49T8Xy1N7imhEzHE0v+rm0El67eSJV
- FfUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qVBhIMzhe7WHb1kI7rr6+dI+gx2GywitZXgSUgINjAg=;
- fh=wuBqH4iNlQbZLw5qmvjLGd7IHlI7POPITD61nkbT0Aw=;
- b=ThvHNUoYe0xw4hnO6xxxbfxChSRQz+l4RSAr5fcoXewraJH5+ekFzAt8qEByJyLo7/
- 5D2SJONbARXoqZXwObarkiE23K3QOeTRUaiK30naav7b/cnp8XZ7QAPa/vq4e/LUdDmR
- OD3lEWbE3FTD0lnvFWrXkwkmADsImv1uIhQy4P8+jHv4nU6DBM/JIr/J5eJA096e85zI
- Om8McvE9ioLM9FGRecqQ3WTZIUhp9MMssg+OEqQ1CZNjID2WhzXHd1uDb+GzZzK01t5Y
- 8HrsStjxGaM5aXXFzuABEnU712ejAtJAWqHUX6tVYEHiugcpEqtMmisndERRejsZ/Mtt
- qFHg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1787842533; x=1788447333;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qVBhIMzhe7WHb1kI7rr6+dI+gx2GywitZXgSUgINjAg=;
- b=hLU8g6oQzqWTvtCwQaDB16+xb7aB1KA/7CWaM5Mg3PwLeBYBMvc9vyGMmg/xdqjZ6I
- b6sXKXqriMINmOCBahBRN2uXpwjlsm3ABaSbRgEqHpFWn/2ysd13z0qaayKb0wge6QVl
- Xmtdnwa0Si9fCvtWxXh3I64abSZ4WqARVWEHPU9vlADYjJdlbDX6N64+wvkuPI2iWtYn
- QSdb5W8SLE3OcS4EGG+FpAn8gsAkp0Rn1q8+SLWUW1GFs8P750pzJoDEX+JDQyuLkCoz
- /iJc4yTubUXV/at0gvrXFIbsvTDSe41Inq3alBQfbZs6MrQ42kc3+XD8r+BXOjgcxyr4
- ilyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787842533; x=1788447333;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qVBhIMzhe7WHb1kI7rr6+dI+gx2GywitZXgSUgINjAg=;
- b=maucRHqOTtLchPE98RJMKQ8FOiOEyqUmrqJyqOsoF9OIyylE6Q2f9sZ8+Z4l9JNojr
- 9ue7bF+1OdXnTI3hJcEi5ETpNGcvz2a+yhvmKtMK+/XdPgG/kd7IZwaYklEcl/wIM2qf
- ce0sgkzGN31YVFiO+cV13X2dhABSFKuNXB3q7X/260OR6NB7emckn3VcmAtKoDshCjlx
- xpuz3rrePI/WnCCZWcjzhlVRTaXdzsBKXetG66e6kZNHREjisSZEodYJevGLW2lxxFk0
- gKmATg61ZRnbH2FTS4BmmPJPpjO+DSPbC6F39Cc+6iYB2x+A4gEEc5Vsd2DumNmckSBJ
- 84rQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpmASfUXhsV1yS0p0AMxzuLmI8yp49iwqNdyi0cWEo9FGjEtQDx8hnwux3u4H50UhmUwr5DqQwvqcY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nFCqOrTttdqk9WHYOv1xfvHczpWU7dU7g5fSToke2XloZmIvnc
- n62xnml9ItSPOHY1bNhbx9fg42pugQiFqi4GAtI6LpLutqYMAdJyrvJqXSGiL784QFWc2P/WnX7
- LZeVIeblcnwby+3ydQVptSaGwooOSU5XPg9+yAwEo
-X-Gm-Gg: AR+sD11afD4Tq5bJqgY4qeDBPnM45q/cGW/poCpAeisiWNBYeObBP3Zf2qzKjO528Hg
- HdD9RK6xjfa1L2KPfLrubfSV5JDPJsYStFGiUlKqCOsOgCKwLV6xRFbVunu0K9brYeM1DT3yGhn
- hOW5x3sqk0OQ0mW3iBnvxUwljQ2a3lIOqwXnjMXS8R3Sz1VjhqEe7DVXvoUQ2jTVnlgQAfjsRoJ
- aO9Fmhvve58Jwf4pIuH1lmMGROs57PEFSYJlunAo2x+8P2yauIEVQnbOlc3nnw3VcovcLl/kfUa
- Uh7uaUIMhyXtCZ9vwcWM/j/cjcXbMK6pTc/KZmG8xW9EC+OpSyQyMYwKyO4p7yO/0TT1lYhj5WV
- HPUM2H2OtZGSd+PjXHXO07cexduHOQJw=
-X-Received: by 2002:a05:6000:3106:b0:482:e2f2:19c5 with SMTP id
- ffacd0b85a97d-482e2f21d8dmr18185624f8f.4.1787842532050; Thu, 27 Aug 2026
- 07:55:32 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 86FA410E3BC
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:04:25 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2743F165C
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:04:21 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ CB2403F66F
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:04:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787843065; bh=bxC37lvaz4/0Z9c/u7R7FG/15uLvlqrBQIyoFjZtV9s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=b12eZfzENXB8lzJ2t+keUZFOnO0AUwFWaEoeudK1QM2rLrhr584sgiqqu7GgQeDrL
+ r33HthlN04KdlLMixQnRFjI3sI3p2o0uvAhXj1uSnb/xgm42Tcb6yLn7DXjGTDZBfH
+ Ktyeqbo7izBUFl/nS0Fjm6hdyVQB1F+QnVEgFDtk=
+Date: Thu, 27 Aug 2026 16:04:15 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/18] drm/panthor: Revisit the reset logic to avoid
+ reset request loss
+Message-ID: <apBR7_3pBINYd-gZ@e142607>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-2-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-3-bc74c77d0214@nvidia.com>
- <apAEK9CUZICDTL1i@google.com> <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
- <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
- <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
- <DKZSPZS1CQ29.11DHEBVKWF21O@nvidia.com>
- <DKZSWB7OFDRY.1QKAIFC1QP9RA@garyguo.net>
-In-Reply-To: <DKZSWB7OFDRY.1QKAIFC1QP9RA@garyguo.net>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 27 Aug 2026 16:55:19 +0200
-X-Gm-Features: AcwNN1W6xr0Wm3p3I71rq2uMxpgrJyrhaLEP44TiP1BL4sxWyBuOjb97Iy1a-84
-Message-ID: <CAH5fLgiGcOn+HQLj4w9yDc31V54PbqNUQv8cUFRoEuFzQrAAZA@mail.gmail.com>
-Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
- constant expressions
-To: Gary Guo <gary@garyguo.net>
-Cc: Alexandre Courbot <acourbot@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>, 
- Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-2-982cc8f4234b@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,150 +63,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 4:37=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> On Thu Aug 27, 2026 at 3:29 PM BST, Alexandre Courbot wrote:
-> > On Thu Aug 27, 2026 at 10:48 PM JST, Eliot Courtney wrote:
-> >> On Thu Aug 27, 2026 at 8:12 PM JST, Alexandre Courbot wrote:
-> >>> On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
-> >>>> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
-> >>>>> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
-> >>>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
-> >>>>>> unfortunate because it disincentivizes using it in interface bound=
-aries.
-> >>>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for co=
-nstant
-> >>>>>> value) takes a const integer expression and widens it to i128 (at =
-build
-> >>>>>> time only) before passing it as a const generic value to a new tra=
-it
-> >>>>>> function `FromConst::from_const`. The trait is implemented by NonZ=
-ero,
-> >>>>>> Bounded, and Alignment and lets values of each be constructed from
-> >>>>>> constants without a verbose turbofish syntax. For example,
-> >>>>>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
-> >>>>>>
-> >>>>>> Suggested-by: Gary Guo <gary@garyguo.net>
-> >>>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> >>>>>
-> >>>>> This doesn't work in const context, so I don't think this is a grea=
-t
-> >>>>> strategy.
-> >>>>>
-> >>>>> I would want to use it for cases like this:
-> >>>>>
-> >>>>> drivers/android/binder/netlink.rs
-> >>>>>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_RE=
-PORT as u8;
-> >>>>>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER=
-_A_REPORT_ERROR as c_int;
-> >>>>>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BIND=
-ER_A_REPORT_CONTEXT as c_int;
-> >>>>>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BIN=
-DER_A_REPORT_FROM_PID as c_int;
-> >>>>>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BIN=
-DER_A_REPORT_FROM_TID as c_int;
-> >>>>>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDE=
-R_A_REPORT_TO_PID as c_int;
-> >>>>>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDE=
-R_A_REPORT_TO_TID as c_int;
-> >>>>>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BIN=
-DER_A_REPORT_IS_REPLY as c_int;
-> >>>>>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER=
-_A_REPORT_FLAGS as c_int;
-> >>>>>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_=
-A_REPORT_CODE as c_int;
-> >>>>>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BI=
-NDER_A_REPORT_DATA_SIZE as c_int;
-> >>>>
-> >>>> `const_as!` [1] should do the trick for this, provided you don't nee=
-d to
-> >>>> create a const `NonZero`.
-> >>>>
-> >>>> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@=
-nvidia.com/
-> >>>
-> >>> ... but I agree it would be nice to be able to use this in const
-> >>> context. And there is an overlap with `const_as!` that becomes more
-> >>> obvious the more I look at it.
-> >>>
-> >>> In for a penny, in for a pound of macro code as they say. Since we
-> >>> agreed on using macros, how about unifying both under the same `cv!`
-> >>> macro, with as many branches as we have types we want to initialize f=
-rom
-> >>> a constant value? For instance:
-> >>>
-> >>>     // Does what `const_as!` currently does under the hood.
-> >>>     const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDER=
-_CMD_REPORT));
-> >>>     // Calls `NonZero::new().unwrap()` under the hood.
-> >>>     const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uapi=
-::NONZERO_VALUE));
-> >>>     // Calls `Bounded::new::<{ ...}>()` under the hood.
-> >>>     const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel::=
-uapi::SMALL_VALUE));
-> >>>
-> >>> I.e. we would have one extra matching arm in `cv!` per type it handle=
-s
-> >>> instead of implementing a trait. The syntax of the macro would look m=
-ore
-> >>> natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have t=
-he
-> >>> limitations of such a semantic dispatch.
-> >>>
-> >>> Even the name `const_as!` wasn't really accurate to begin with: what =
-it
-> >>> really emulates is a const `try_from`, and we even discussed
-> >>> implementing it in these terms in the future.
-> >>>
-> >>> I'm sure the idea needs more polishing but I think there's something =
-to
-> >>> explore here.
-> >>
-> >> Yeah I agree that const_as! is similar and if we had const traits we
-> >> could fully merge them and have it always work in a const context for
-> >> both duties (which are really a const tryfrom as you said).
-> >>
-> >> I am not sure about the suggested syntax (e.g.
-> >> cv!(Bounded::new(kernel::uapi::SMALL_VALUE))), since it seems very
-> >> verbose.
-> >
-> > A bit, but what I like is that it looks very close to what you would
-> > naturally write if you had const traits (minus the unwraps), so you
-> > don't have to learn a new syntax. As long as it's not *more* verbose
-> > than natural Rust, I think it's fine.
-> >
-> > It also has the benefit of relying less on type inference, i.e. `cv!(5)=
-`
-> > requires the caller to specify the type even with a `let` statement,
-> > whereas you could do `let v =3D cv!(NonZero::new(5));` and it would wor=
-k
-> > as expected.
->
-> Even with const try_from we'd still want `cv!()` to avoid having to write
->
->     const { Type::try_from(...).unwrap() }
->
-> I think having `=3D>` syntax is great because it is a good place to *opti=
-onally*
-> require type annotation.
->
-> For enum repr for example, I think it'd be great that
->
->     const BINDER_CMD_REPORT: u8 =3D cv!(kernel::uapi::BINDER_CMD_REPORT);
->
-> would work directly. It might need some tricks, which I have hard time co=
-ming up
-> as I'm not feeling very well today, but I'll give it a shot over the week=
-end...
+On Wed, Aug 26, 2026 at 04:56:01PM +0200, Boris Brezillon wrote:
+> disable/enable_work() provide a ready to use mechanism to temporarily
+> disable a work item, so use that instead of the complex state machinery
+> based on the PM state.
+> 
+> This also allows us to automate the reset resubmission in case a reset
+> was received while the work item was disabled.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-One could potentially define a trait with a MIN and MAX value
-constant, and then implement cv! like this:
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-1. Verify that the value lies between MIN and MAX.
-2. Cast the value to uNN of the same size as the target type.
-3. Transmute the uNN to the target type.
+Best regards,
+Liviu
 
-Since the trait has no methods, this works in const eval.
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 36 +++++++++++++++++++++++++-------
+>  drivers/gpu/drm/panthor/panthor_device.h |  3 +--
+>  2 files changed, 29 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 7c55d0c45cfd..2974f4bc0bb1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -181,6 +181,15 @@ static void panthor_device_free_page(struct drm_device *ddev, void *data)
+>  	__free_page(data);
+>  }
+>  
+> +static void enable_resets(struct panthor_device *ptdev)
+> +{
+> +	/* If a reset has been queued while the work was
+> +	 * disabled, reschedule it.
+> +	 */
+> +	if (enable_work(&ptdev->reset.work) && atomic_read(&ptdev->reset.pending))
+> +		queue_work(ptdev->reset.wq, &ptdev->reset.work);
+> +}
+> +
+>  int panthor_device_init(struct panthor_device *ptdev)
+>  {
+>  	u32 *dummy_page_virt;
+> @@ -256,6 +265,13 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  
+>  	ptdev->phys_addr = res->start;
+>  
+> +	/* panthor_device_resume() calls enable_resets(), so we need to disable
+> +	 * the reset.work manually before this gets called to keep things
+> +	 * balanced. We don't bother re-enabling the work if the resume fails,
+> +	 * because the whole initialization will fail in that case, and the work
+> +	 * will vanish.
+> +	 */
+> +	disable_work(&ptdev->reset.work);
+>  	ret = devm_pm_runtime_enable(ptdev->base.dev);
+>  	if (ret)
+>  		return ret;
+> @@ -305,9 +321,6 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  
+>  	panthor_gem_init(ptdev);
+>  
+> -	/* Now that everything is initialized, we can enable the reset work. */
+> -	enable_work(&ptdev->reset.work);
+> -
+>  	/* ~3 frames */
+>  	pm_runtime_set_autosuspend_delay(ptdev->base.dev, 50);
+>  	pm_runtime_use_autosuspend(ptdev->base.dev);
+> @@ -316,6 +329,9 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		goto err_disable_autosuspend;
+>  
+> +	/* Now that everything is initialized, we can enable the reset work. */
+> +	enable_resets(ptdev);
+> +
+>  	pm_runtime_put_autosuspend(ptdev->base.dev);
+>  	return 0;
+>  
+> @@ -534,10 +550,8 @@ int panthor_device_resume(struct device *dev)
+>  		/* If there was a reset pending at the time we suspended the
+>  		 * device, we force a slow reset.
+>  		 */
+> -		if (atomic_read(&ptdev->reset.pending)) {
+> +		if (atomic_cmpxchg(&ptdev->reset.pending, 1, 0))
+>  			ptdev->reset.fast = false;
+> -			atomic_set(&ptdev->reset.pending, 0);
+> -		}
+>  
+>  		ret = panthor_device_resume_hw_components(ptdev);
+>  		if (ret && ptdev->reset.fast) {
+> @@ -565,6 +579,9 @@ int panthor_device_resume(struct device *dev)
+>  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+>  	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
+>  	mutex_unlock(&ptdev->pm.mmio_lock);
+> +
+> +	/* Now that everything is resumed, we can re-enable the reset work. */
+> +	enable_resets(ptdev);
+>  	return 0;
+>  
+>  err_suspend_devfreq:
+> @@ -604,10 +621,13 @@ int panthor_device_suspend(struct device *dev)
+>  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
+>  	mutex_unlock(&ptdev->pm.mmio_lock);
+>  
+> +	/* Make sure we're not interrupted by resets after that point
+> +	 * until the GPU is resumed.
+> +	 */
+> +	disable_work_sync(&ptdev->reset.work);
+> +
+>  	if (panthor_device_is_initialized(ptdev) &&
+>  	    drm_dev_enter(&ptdev->base, &cookie)) {
+> -		cancel_work_sync(&ptdev->reset.work);
+> -
+>  		/* We prepare everything as if we were resetting the GPU.
+>  		 * The end of the reset will happen in the resume path though.
+>  		 */
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 6529e01e838d..f55baa21b25e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -389,8 +389,7 @@ void panthor_device_unplug(struct panthor_device *ptdev);
+>   */
+>  static inline void panthor_device_schedule_reset(struct panthor_device *ptdev)
+>  {
+> -	if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1) &&
+> -	    atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE)
+> +	if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1))
+>  		queue_work(ptdev->reset.wq, &ptdev->reset.work);
+>  }
+>  
+> 
+> -- 
+> 2.55.0
+> 
 
-Alice
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
