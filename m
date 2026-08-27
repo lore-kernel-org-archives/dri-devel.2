@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8418CC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A10BC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B76E710EF63;
-	Thu, 27 Aug 2026 09:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B3C10E3D0;
+	Thu, 27 Aug 2026 10:00:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="vqqd01XC";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="isRx0Dq8";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010035.outbound.protection.outlook.com [52.101.229.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0BFF10EF63
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:54:31 +0000 (UTC)
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011000.outbound.protection.outlook.com [40.107.74.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1346D10E3D0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 10:00:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v/5R+CfqrFRWZE/iP2jKJMeFapst/s19YvmNeKSCeLFaTQ2X/ld7nfEy/GQoIHQ5rdlCa3CMTRJZ2ELpIJHSiamZNHFCsLqRJv8W2MmeloB5qF/iaHQ2zx0YZjn9OgbOLnJC/dOXex2EQINIqZFB2r2qJu6s68sQdZNPHxzcoocBypIBFea9Pecj32VVrZnG0Tmn6YAKIE+WfPepH29xE7yIcXYGZBv5PLG0rcu+Ppv+mfcABO0nQD8JeBHBKhhvGL8NPy7zFWcjogjlQlZFVaH8l8w/My9cxycG3QMWQcuZNMsVc7RTbzHkdweqBIT5vOkhdhxCoxCyUYfyUhxtoA==
+ b=l2LQPBGmr/vFZm4JJT74A/UfqdlxrJIla7lEDe7S6BO/jT8d0EUyNw06NTwjj3rS20LK0xznjHjcCX1sJD/LXekWAwnb25rCOV7LJfKnmvUWg3c21mgMrG6Rz4grzXp/ripRLWieHsxu47ldr/AF1MASrVK0fpI4LG3p0WwVm2NfaLElfHSh/oZ4fPcyaaOXM333qd0McOlERTyb2r9TPHVjEMmHvRsrH1eAh+ci7XoPyk13mTDPhYFV1u+TnUheSDxDNpRAt8JOBwXlsu9Oa/FuNpIreTQNDDk4it340OepL9nG8hto5h7rhEBpg/EOi6yjwcHwM+2g/61ZBprZVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kaJHtES7TOA8k/HbVilXgUdWCjCIetN+uOzShVTQD98=;
- b=bIhX1Ft3eWYo+fdhUARmjxJvx9OSF2fvWiktVxQ82v4Wpenz56P+Wv0d1sh74KVum9puTDFv6b82QqJq3GLiWG9cnKg2qZBz8mO0qet9iTvPlqr2kI/hEQ+MREVF5KxbL3ZtfnqXXIatM6aPxBv3mzkb5kMiYk0MZ/qvHgWIqjuQ7SZNy2eYj4MSzOi3hKSl/ZFDOLGjGr4TIvgGqdhR4NurtKG7wSozPDTrH+MniUlR6cY2fHndl7zfo4wWXPUxeK/rD8dfzM+Hk31WJ4WT6pMBI+Cr/d3dpuattMIhxCDjn85Nh0Gi1TudsBY1HPPbhBB2uNOHpOzmCO8F917x6w==
+ bh=uePma76aRyYkLRL6Zo56VDAnPGK3kllYY3nVk5G0rJs=;
+ b=mFVcRTgqq4W+Eq2wUQ7ppr8AL0x2vVpVFnO0kTYLoCsXEZokaqf+GCkDYMe0do7Y7rc/oEhSSlGK41GCIWswCkgYo4ggkwlr3fjthKoQHdmVJTeiTiCNZU+DGXFTZmUQF/oFyizPe37vwy701I7joPd6VeVBkmkSkJFVlIIVGaObGRfSLHY9Q4TRSAlWOGhwSIvsBPZ8x0lE9+IlbcRH3UOcfBqnvvCYi5x437uG/f+Zz20bX9dcophedWTuGU0DdC7Xjj4cyzk/uozAp213Tm2tQh4lXTmjUSfkv3rbSArSSxOX83XcdiTDinuUvwUEJPekHupXKVXSHgmYVmwdKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
  header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kaJHtES7TOA8k/HbVilXgUdWCjCIetN+uOzShVTQD98=;
- b=vqqd01XCd+yXPNibYiCSuSHNqeKpRP8rjZUP8YREbzvi7ECS1glKN1VzyFBs5u5XSrytV71sU9MgOai3I/WRw6DOp5o1jceuCsojCjA8Pnf2/0OrOXPDeEFswOkuobvZfiy8Ff0Njvi5aqe6vDVps60bIHvPC15mxmp5sXu8GmI=
+ bh=uePma76aRyYkLRL6Zo56VDAnPGK3kllYY3nVk5G0rJs=;
+ b=isRx0Dq8aGNuyrx7i8LOY94mRQg9Ic3IvsYvg9Uvojh83XLymBPjp970zGWZJWLCud6qfMWgOV6DZvw6xLBadqkGQ7FuEqbncelP1cNhXQDD3cy+jvvy9aKB//h14iddySPtRKtiuMPPybjQyWIrHwhnmfxnQPGk6X96dVvQRcw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=bp.renesas.com;
 Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by TYWPR01MB10224.jpnprd01.prod.outlook.com (2603:1096:400:1e5::14)
+ by OS9PR01MB17815.jpnprd01.prod.outlook.com (2603:1096:604:447::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 09:54:28 +0000
+ 2026 10:00:08 +0000
 Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
  ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
  ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 09:54:28 +0000
-Date: Thu, 27 Aug 2026 11:54:12 +0200
+ 10:00:08 +0000
+Date: Thu, 27 Aug 2026 11:59:57 +0200
 From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 To: Biju <biju.das.au@gmail.com>
 Cc: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -50,77 +50,75 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
  dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 05/13] drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI
- DSI support
-Message-ID: <apAJRBTNAPW4ZOeO@tom-desktop>
+Subject: Re: [PATCH v3 03/13] drm: renesas: rzg2l_mipi_dsi: Move global
+ timings into hardware info struct
+Message-ID: <apAKnQLSjTP8tma8@tom-desktop>
 References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
- <20260826174854.199139-6-biju.das.jz@bp.renesas.com>
+ <20260826174854.199139-4-biju.das.jz@bp.renesas.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826174854.199139-6-biju.das.jz@bp.renesas.com>
-X-ClientProxiedBy: FR2P281CA0115.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::17) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+In-Reply-To: <20260826174854.199139-4-biju.das.jz@bp.renesas.com>
+X-ClientProxiedBy: FR5P281CA0026.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f1::11) To TYRPR01MB13588.jpnprd01.prod.outlook.com
  (2603:1096:405:18d::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYWPR01MB10224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9efa727a-df7f-4497-cd32-08df04212f18
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS9PR01MB17815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a92f2d7-07c9-487d-5024-08df0421f986
 X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|52116014|23010399003|376014|38350700014|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: VV1O/zNbvsUYahvdAwTYThQE21nmYuw0aMp3N2uIojnfnm3QLc4WF1Ayy8O9FFKmb7SPlOuNLJVnV7LhM1Ol3emq1Rs18aqtkBhECubraBqhvJaEcD/o5JbR43a2G5zv5CyDixvjGeH6s/aRZuRsNH7TjC9nM1wlef5Li527guOfUdFlNYS/3gP0BNtSgO2IZkuHAol6YBbPOtFhKIO49nVRdckFbDYd/z1vIfJI+0+oDcCJNE0xPLo74V97z+2yZ+Y01JWtkw5nruE5nk39pWrLwbMU5TiqZYd2CiQG5iStWW2C+BOnxBtKQI1/8iZYwlTeyVoctLeXLJ6filc9lxCP/M1iok7CvZ4oAPqgRX2trVeDU+DcLRNfwzEuPmSlPS5by1SNCEpWXi3/O7/D1C18mJyGzSqzbVr5N/Q+HYPqHDWiuBVCROYEB8o7XH7wAuVOTtD4e2sgouBRt5xk/S/Fo3s4AAhFW1r0nabFDu/Zt3DXNS7Ffh5R5B4ln41boL+SKgplkDKd5NApadFed8U9Xb/5gE2nBjXXP1geCyc3vpvgjhsQI2vB0kjP8f6Zbg97oIO/j5KpMzsHMgNSAfiolbTzmPEdc4ytRQNPrRquy26MIvZqYohaRh+Xwcbc98JNJzn44jTVjqhIMoQ4/u3pHWqfBkEfhSwqXyBMDXCnycDcYsjMjaOdc4kr+hKuW4yo4ee6S+OWdXAgveggcGi8cHdUFxlthendZq4ilsM=
+ ARA:13230040|23010399003|1800799024|376014|52116014|7416014|366016|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info: NIDdY9VkvIm/oqCByjreQGYWl+dRnIXhGqs38cLi9hK6EsLVP8F16AY63PtOJmiNomNJVBrGKY6MdMAkL/5tTlvRzvyma2pN1zmond6axWU1Q1Q/F5JFwXilXRItIgC5BeSAY38ljNBNgHEEUNSz5Uz10LRaYHBTLyxw4jxL02sK2HgspsjofUNaGyvfPa3PdeSKit9k8T2+curBK/2XdMELmZdtWqZvML2+V8dC9JM7spPTNqa7sUNsWsuwt2WXZuW+scfx1vOwoavIPb8xlxqEuHMYEHZtnmOxpEZeY/mQagu90yXHfphLZh3O/L0zHF67Dk06ZaXAUBZ1rad8fruWwT8w5N5Yi/jGTeLl/uE3aXNu8yQvcUXYrfenuWMyg9rTtaKtg2s6yN+T+PWzMTno7jKB98kzKIJG+JT+3ad8Pef5XrrEGxBEIXjU+njZ3ZBclCJsPKhxIUdqgom1G3yfiTmM87YsUuBj9odCAe+RI3mVnC4usd+vmBlLGoW8YcoJVdgVwEmpw2+/Qha9RLGQd9WVanpqKrRx3/5X7F/2gw8vj1C9P4B4IhYIWAhG17/KL9jM5gu9ZQrN6ID9YOqfcP4xDoQUTPl1SeS1ZAYC2zZN4oPkKFgILJCn4ox9ZObZ43Rn68lejEHWLfxMPsC7u9PEqFtux8N8KjXI6cfk6Z3aM1BTJbsKKNLYlr+Ov6ojGLGnKrUdss4GH3MM4Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:TYRPR01MB13588.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(23010399003)(376014)(38350700014)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(52116014)(7416014)(366016)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(38350700014);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GKGBPA+wjSra24vOkYyy6/0++iemz/vwTA5K/dn4ge4Y2hNeJCusAr1Emgsb?=
- =?us-ascii?Q?Sg4/vvsZP8uKFoCOz7S0uVbo/1sCYC5RBjsu6hJASw4olelgtvJpxMgoH6Y+?=
- =?us-ascii?Q?ZWqsnu0f00/Ls3qObfrEpOjDf89vTh8jUkZ6CDDodkWYBcAOez9Vw99h6vCV?=
- =?us-ascii?Q?roUzEX4VbCem4wXnvmpfFrFVIMkuWAeL7ygcBpmy5PvcoXSKVUdmatuLrVj2?=
- =?us-ascii?Q?2Du50Dnncm8Ipc8ArRgKxd+mB2YiK3BM6KAdPHgOTi64xjZZa4SCfBSs9hT+?=
- =?us-ascii?Q?sRzuuCA1YWmHgqAAuM6tsg8NlblHETE8Djzt/CNSdbX8YI3hGRZ1I04dPjW9?=
- =?us-ascii?Q?obx8yF9oMHvmz7vrGbq0TxN0BYDCyWeQr1/ImzXQwzVS2qqRWhxJ1K64O+4c?=
- =?us-ascii?Q?gT09e35enIoBoWEKs3KqIYD+TxEozYeczVdLRifL3h1o4Gz+Ef1i+ue6zpni?=
- =?us-ascii?Q?AI7AsnRlYaiz6Yw6MFsEQQz+a30invDQbRJEeYJUVsCJ191FXkSiaNN99P7f?=
- =?us-ascii?Q?9GRACY38w2YZj9h/Kub5tNdOfkEfu5LqRiq9tS/Vir2IeoLjkP+q1SZkrfSi?=
- =?us-ascii?Q?RO8BLKO/HNru4cTVeUMkwU4QDzZNF7pEs1hxM8Sg5Mv0VDvGCR5naMKbQoUN?=
- =?us-ascii?Q?oMlBZs9SR8OH/FtxGBoQan1Z2pGvOKXgM/3wJ58nleuqBBSdqsHIk9XjjeLH?=
- =?us-ascii?Q?k6N62GdwbXzNXfmInBNuJysVccHFHBiZoYGZj+g7w8OWrWCLMTy2ZqV6vJrJ?=
- =?us-ascii?Q?AQ5fk1ZCSWGZKoV567m2SZ7RpbjPYerywdHR9TdipDxtlvf1xp5UgVHu2hPa?=
- =?us-ascii?Q?pev47+w7v00WwtAT9szsDxTyk/y+Tl14/2gsimskaBs1MIJqyn9WXtDunwbX?=
- =?us-ascii?Q?QBjGZo8yfMjF0rkIuSSAeA9ulUL8tEw0oeddSai2YppWp/ZLLZbjYYv8A90v?=
- =?us-ascii?Q?Y6E1AFGMh1E2YhIL4O/KpTKX4bQFqqpmhiv4/bewPjkjJ0/bLnTVNmwzQSnX?=
- =?us-ascii?Q?HFh0rZxFE3QgFUTnMJ3VdbwXHM0Xa7exaQeBe1dNJ/8+jRkW+0pfTQUJTUI/?=
- =?us-ascii?Q?rrTASCOb4KWrl0e/wTKrBSDhZ0Vu4bk3igATcPDvpeA5llNHagHR/2NqsmCd?=
- =?us-ascii?Q?ygm2MJIJUzWOc+TFIFO8hg7Hvk9QvvBNJB8nAy1Rf+n7fDVK5GLnJSEzQVGE?=
- =?us-ascii?Q?/X3IqrGwCCCbWKGDEKKiM+pN5CakwOf4UzxXiFwI5KCy56QShjbUXp+RQP+m?=
- =?us-ascii?Q?WES8rQWyM1FFJMtlZ28YsGjZFpOmEdLfq1wmYmwm77RzhLYs//GR4q5rZVzV?=
- =?us-ascii?Q?HMcogwV7fPAW4PBmKN3+W8kU/UIwBoYy+tFEr83yXAvQr/8LB5J6yd+JqI4m?=
- =?us-ascii?Q?LWWtCEDNbPqvhuq/XFaGb+rViHXrTOGy79acJkDoYVlknNAUecXvGuJ0GZ5M?=
- =?us-ascii?Q?JpCWCHfnEqKfzTnpHWoKsuUyiqqkPPzPM0QYYh+MTJB50FGtFYPy1rLPMjuB?=
- =?us-ascii?Q?Z9FipUYoLjg2dwhiYDUj9oN8whqWJx8A9/ldKCoNU6YN7W04Zjhso3T9wpWx?=
- =?us-ascii?Q?wL1dmupGs9f9ILw+mjdmiB2p7EpRchblMwmFXIUHK9ia5dowdvnBnjc6Kd/V?=
- =?us-ascii?Q?n+MSwMpMw63BC5mhgGApu/BGoLdc7Wi/DfUdxip24xJUTIGLH+6UNr6d6F9P?=
- =?us-ascii?Q?RQOUYS3+UbwK/GS3BKjZN9mo8JyqpnhlKMKwu5RaRL/s8qlTgd8G0ZxQGrjw?=
- =?us-ascii?Q?aCGtuRaflve5+IMXsxB7OfKGeYCKG8gzI1jcFezo3fdI36alWs7v?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SNIU9QR6q1CsJvi7YdddDVtx7iPV0MBZo0x5yUUoogWmI3c/OWHtgDS1Nk9r?=
+ =?us-ascii?Q?GD8w1fkU1y0F669TasdSEKiruZNjx7aWv+Rv31lFImZXYKi4yPMIbHp1WYB0?=
+ =?us-ascii?Q?uRJ6qx7fkw9kvjQgVb744i0RnPXxeimaptM5QHyh5m7GzDgg3KD+ePPMH6tD?=
+ =?us-ascii?Q?E7Wjh1sYBuMe9q/BhGB/eH25BCQ7GMMd/t6+Q5adtckrYrUji/BtVa4Rkyob?=
+ =?us-ascii?Q?suVB9BdO5drdX8PZLUbRFb8e8no44ont7DM+WXbTbEi0IMLZOdT24DVUx5RC?=
+ =?us-ascii?Q?PhpcKNHk9XDuVktOox0uMOKdZxWfTKWstFAJM8/K1AL7GmLVUu0Xap2SFCeH?=
+ =?us-ascii?Q?FkqwPN5ZVfhnFypu6lGcuUx67tdVL2ftZEkeJyopsPQLL4gYsabHubYnIZIF?=
+ =?us-ascii?Q?9ucj5kyjaImHuJBsdrOztbYyOJobzuT4NP3QkhNVPEQk/dF3ghIKEGowjWCz?=
+ =?us-ascii?Q?z8x7DPQlohWIHs2jw7vt+Vdh8JPm14upuFr1jfQh0Rg1k/ImZwGSNPSYDXxZ?=
+ =?us-ascii?Q?NC0IcFwjOyStzbCwKrG8q5MbCUejGjGIv5DGyGflLvGTU0F0dJEmsrSDbzSe?=
+ =?us-ascii?Q?9Ti9MIiS8Ro6de09hSrtJic8XWpEAA2R8EWd6//KxnJwElsk7ijQEXJDhaCA?=
+ =?us-ascii?Q?LT10mMm0PLRU9V5qoeoS1/2L0huobTrkHhgBSOOVQfziECfGqoNtyDL24JLC?=
+ =?us-ascii?Q?MVAWrczvqz36OpRwIZBAmzGxgmm/VkqLLvoo32og/TXhnIxUtxv5mkGmzDb+?=
+ =?us-ascii?Q?6Yv1b1zhudqKXmYTeDiTDtCBJ9/GERDpOEWO/uXp78wg7WchIJaM9ppyJ+4g?=
+ =?us-ascii?Q?08DZMqGtbAUCIPBD4aTOoJ9Vf3P250palzgb1Fpqupy5Q8xaYTEElD0I2jxD?=
+ =?us-ascii?Q?kzd7OFP8JkKIsdb9QYRz3xbjk7Z7r8L5Zk8KY9vUSTRY6jYfEBCmFfZjB/em?=
+ =?us-ascii?Q?H3LXuxo4CY47u69Ksn2Mpg3jf+oC3/OBnj1zwJhuN0LLOJuuXdkOoTnId2yf?=
+ =?us-ascii?Q?geQXaorr54Ss62/hutHqZ/QEAGlmxtewoFmMtE/IbI7QAwl9N6EklQhvBL+G?=
+ =?us-ascii?Q?1VnxE9niKy8YVmyawPNMah5rcQOx6d/gQVjXtP7QStxxwod5KVHPuUHa67tI?=
+ =?us-ascii?Q?KxXmBKCHkbEUU/8Tm7pAGIevpxp2lb9i1GbcAUdU6/b5Er0ZgN+QVFuLqZKx?=
+ =?us-ascii?Q?/YaeKtyd8WTaz69f8uHh8Cw634JgQ+0j8X2y8O/RqglLwOl0/insSYftsD0X?=
+ =?us-ascii?Q?Hc7Bnq6jpQ3nYhzW9cWZkvVyV62TITtZrtv628JygkBnNZaPRvwyy7Q3iECS?=
+ =?us-ascii?Q?1nalrbTcMow0hwqpjxkr/TRDewiAuHPSuQ9ER9SZqyN2/3G1VWgJ4a5ITH/s?=
+ =?us-ascii?Q?mqYgZOXRLHyYmmpokh9cnSLrkd7k7ZHAalttscGONx0SJofmFVy1n7D9OBj6?=
+ =?us-ascii?Q?9aJAnzaquZxg3M0jVA2UU42n2bVF/i2g4yiSdUIYJbxLAW2RzuwYZSjSmm0i?=
+ =?us-ascii?Q?j8m5TamyX8iqQ+uwuM5SSfMbyA1qeZiSuu7o5iU6ruED1raI7szITkSM1fFJ?=
+ =?us-ascii?Q?/0Gms9UoPSnhbuN6OJU1t4KOLSLN99Lhx3oDL6JLK9rZCqwYhVOQNbtdAwoU?=
+ =?us-ascii?Q?JBgwPO6eoBUbGSMq9czrpcp5VpI0WUF+yzSQ0BYkeGoVJHCGyuFzwW5K9Aw4?=
+ =?us-ascii?Q?Uzv+9tvrJgVsuEwN1vU0qyG9H3D10+cyQinXBl6RxF6LpY7hAM0p3vjbH+fp?=
+ =?us-ascii?Q?ANasJdXq5NUQptNStjZ4WNI8eWSZ7HceTetrRA4y3PS1+DxaVyje?=
 X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9efa727a-df7f-4497-cd32-08df04212f18
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a92f2d7-07c9-487d-5024-08df0421f986
 X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 09:54:28.4096 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 10:00:08.4353 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: McRREtvM+8f3blrPqbXDxV0dwdkPU7S0BeHdT5iS4nwXb+gVno/tz4xpkt925IaH1uAOskel/GQ3cyH9Pf5yBLGw+iK2r1+2QtP3T6sgCUvUeWy/wHD2DXw5ymQpDAaA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10224
+X-MS-Exchange-CrossTenant-UserPrincipalName: T429XOLeKbN5GFL2+8AmOIGqcA5gads1vrSYIIVyvreMVtuV/nMLx6CT+wLfxea7YG58cexUWpGlWHn5lnm4LttWTJ747ffbWIpMnSxYPob808ToliplWfilpmKQiWl+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB17815
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,200 +137,68 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Hi Biju,
 Thanks for your patch.
 
-On Wed, Aug 26, 2026 at 06:48:39PM +0100, Biju wrote:
+On Wed, Aug 26, 2026 at 06:48:37PM +0100, Biju wrote:
 > From: Biju Das <biju.das.jz@bp.renesas.com>
 > 
-> Add support for the MIPI DSI controller found on the Renesas RZ/G3L
-> (R9A08G046) SoC. The D-PHY global timing table of RZ/G3L SoC different
-> compared to the other SoCs. Introduce a dedicated D-PHY global timing
-> table rzg3l_mipi_dsi_global_timings and wire it up via a new
-> rzg3l_mipi_dsi_info hw_info variant for RZ/G3L SoC.
+> Move rzg2l_mipi_dsi_global_timings and its array size out of the hardcoded
+> ARRAY_SIZE reference in rzg2l_mipi_dsi_dphy_init() and into the struct
+> rzg2l_mipi_dsi_hw_info. This allows future hardware variants to supply
+> their own timing tables rather than sharing a single global array, making
+> the driver more extensible without code duplication.
 > 
 > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
-> v1->v2:
->  * Moved set duty cycle to DU encoder.
-> v1->v2:
->  * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
-> ---
->  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 117 ++++++++++++++++++
->  1 file changed, 117 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> index 7df5f4a4161b..88ec0612d529 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -226,6 +226,107 @@ static const struct rzg2l_mipi_dsi_timings rzg2l_mipi_dsi_global_timings[] = {
->  	},
->  };
->  
-> +static const struct rzg2l_mipi_dsi_timings rzg3l_mipi_dsi_global_timings[] = {
-> +	{
-> +		.hsfreq_max = 100000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 18,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 13,
-> +		.tclk_post = 94,
-> +		.tclk_trail = 10,
-> +		.ths_zero = 16,
-> +		.ths_trail = 22,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
+> v2->v3:
+>  * Dropped .dsi_global_timings from rzv2h_mipi_dsi_info as it uses
+>    different path.
 
-Ok
-
-> +	},
-> +	{
-> +		.hsfreq_max = 150000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 16,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 13,
-> +		.tclk_post = 94,
-> +		.tclk_trail = 10,
-> +		.ths_zero = 16,
-> +		.ths_trail = 15,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
-
-Ok
-
-> +	},
-> +	{
-> +		.hsfreq_max = 250000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 13,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 13,
-> +		.tclk_post = 58,
-> +		.tclk_trail = 8,
-> +		.ths_zero = 16,
-> +		.ths_trail = 10,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
-
-Ok
-
-> +	},
-> +	{
-> +		.hsfreq_max = 400000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 12,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 4,
-> +		.tclk_post = 58,
-> +		.tclk_trail = 7,
-> +		.ths_zero = 16,
-> +		.ths_trail = 9,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
-
-Ok
-
-> +	},
-> +	{
-> +		.hsfreq_max = 600000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 11,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 4,
-> +		.tclk_post = 35,
-> +		.tclk_trail = 5,
-> +		.ths_zero = 16,
-> +		.ths_trail = 6,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
-
-Ok
-
-> +	},
-> +	{
-> +		.hsfreq_max = 1000000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 11,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 4,
-> +		.tclk_post = 35,
-> +		.tclk_trail = 5,
-> +		.ths_zero = 16,
-> +		.ths_trail = 6,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
-
-Ok
-
-> +	},
-> +	{
-> +		.hsfreq_max = 1500000000,
-> +		.t_init = 79801,
-> +		.tclk_prepare = 10,
-> +		.ths_prepare = 11,
-> +		.tclk_zero = 35,
-> +		.tclk_pre = 4,
-> +		.tclk_post = 35,
-> +		.tclk_trail = 4,
-> +		.ths_zero = 16,
-> +		.ths_trail = 5,
-> +		.ths_exit = 15,
-> +		.tlpx = 9,
-
-Ok
-
-> +	},
-> +};
-
-
-This is aligned with:
-
-9.5 MIPI DSI Interface (DSI)
-Table 9.5-4 (Recommended Setting Values of the DSI D-PHY Timing
-Register)
-
-Of the the RZ/G3L reference manual.
-
-> +
->  /**
->   * struct rzv2h_mipi_dsi_timings - Timing parameter table structure
->   *
-> @@ -1580,7 +1681,23 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
->  	.activation_dly = 1000,
->  };
->  
-> +static const struct rzg2l_mipi_dsi_hw_info rzg3l_mipi_dsi_info = {
-> +	.dphy_init = rzg2l_mipi_dsi_dphy_init,
-> +	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
-> +	.dphy_conf_clks = rzg2l_dphy_conf_clks,
-> +	.dsi_global_timings = rzg3l_mipi_dsi_global_timings,
-> +	.num_dsi_global_timings = ARRAY_SIZE(rzg3l_mipi_dsi_global_timings),
-> +	.link_reg_offset = 0x10000,
-> +	.dphyctrl0_init_val = DSIDPHYCTRL0_CMN_MASTER_EN | DSIDPHYCTRL0_EN_BGR,
-> +	.min_dclk = 5440,
-> +	.max_dclk = 187500,
-> +	.activation_dly = 100,
-> +	.features = RZ_MIPI_DSI_FEATURE_16BPP,
-> +	.pwrrdy = true,
-> +};
-> +
->  static const struct of_device_id rzg2l_mipi_dsi_of_table[] = {
-> +	{ .compatible = "renesas,r9a08g046-mipi-dsi", .data = &rzg3l_mipi_dsi_info, },
-
-Looks good to me.
+Thanks for doing that.
+Patch LGTM now.
 
 Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
 Kind regards,
-Tommaso
+Tommmaso
 
->  	{ .compatible = "renesas,r9a09g057-mipi-dsi", .data = &rzv2h_mipi_dsi_info, },
->  	{ .compatible = "renesas,rzg2l-mipi-dsi", .data = &rzg2l_mipi_dsi_info, },
->  	{ /* sentinel */ }
+> v1->v2:
+>  * No change.
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> index 1538eeece2b5..d67e1230b70c 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -54,6 +54,8 @@ struct rzg2l_mipi_dsi_hw_info {
+>  		const u8 *table;
+>  		const u8 table_size;
+>  	} cpg_plldsi;
+> +	const struct rzg2l_mipi_dsi_timings *dsi_global_timings;
+> +	unsigned int num_dsi_global_timings;
+>  	u32 phy_reg_offset;
+>  	u32 link_reg_offset;
+>  	u32 dphyctrl0_init_val;
+> @@ -488,8 +490,8 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+>  	u32 dphytim3;
+>  
+>  	/* All DSI global operation timings are set with recommended setting */
+> -	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
+> -		dphy_timings = &rzg2l_mipi_dsi_global_timings[i];
+> +	for (i = 0; i < dsi->info->num_dsi_global_timings; ++i) {
+> +		dphy_timings = &dsi->info->dsi_global_timings[i];
+>  		if (hsfreq <= dphy_timings->hsfreq_max)
+>  			break;
+>  	}
+> @@ -1530,6 +1532,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+>  	.dphy_init = rzg2l_mipi_dsi_dphy_init,
+>  	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
+>  	.dphy_conf_clks = rzg2l_dphy_conf_clks,
+> +	.dsi_global_timings = rzg2l_mipi_dsi_global_timings,
+> +	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
+>  	.link_reg_offset = 0x10000,
+>  	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
+>  			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
 > -- 
 > 2.43.0
 > 
