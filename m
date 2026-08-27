@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A68C9C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 08:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C85EEC61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 08:01:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D1510EEDF;
-	Thu, 27 Aug 2026 08:01:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27C2910EEE7;
+	Thu, 27 Aug 2026 08:01:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RS0nKWei";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KmA7Vapz";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6057A10EEDF
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E5A10EEDF
  for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:01:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1787817697;
- bh=Wmdr0hoqNBZwZfY4RPaKUuFoMfMYXlwXpLbrI6oTzqI=;
- h=From:Subject:Date:To:Cc:From;
- b=RS0nKWeiWBR8rQquaaVLxnS6KWk0r3UNq0fGrQEJ+IXhhVqlbILCNKzyGYwVTgkPk
- mkhhgHKUBYwcjmnzhODeCYILa5UXgghSkClU5yn3WA2/aZ7GTnGOWlCljcdT5XpCzt
- Rsl4mNV8JrTkNu4+/gA6rXhy8rwquNBMs3UgqGrqDu7K6UO8rs/G2/v2S39SCjKxUy
- 7jFf56ZIphkUsXfECvuwjzgcNxDo0noD4ScgRry6NFAbnRD8IMnnxSzmxNZNWTyNCv
- dLV1x26GQ453tOLdV8HPY3JP7bGIn3xkOyURUnKm70pS5iJSh5+RD9qkFJ3P4IJOIW
- n1yxGrtA3rilw==
+ s=mail; t=1787817698;
+ bh=M1sla4NI7Z2SPj1X+URJliQyRjhU54PnMBlz9sucijQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=KmA7VapziNpyndCRUlOBLl3iQwwuORFPmQ3iaWwhBo0aiCZgupHCC9/sZNS0y5qnV
+ 1DdSDEeUmn9ii3aSj/BX3en9PXinTFJba6GoCjMq4QdMlpA/EVcxfRG5FLPrcCYLrJ
+ eeowYjkwXxYo6s6n4eMdOt/frb51lFIZfzj9fUl5Blf8SMsAne4rgIp+9/ZtzpJKUA
+ bYE6Xu5Dw6wSYYBHHUI5BLuQ3SrITda6BFf6XL8fKaIUxbGOPrUyxp3enAL1nFR5vl
+ BiJZ3xu+vpDdmozQb7PSVtbI8AgBgXfEmD9udR20IvB4j+SLVPNXTBcLv9WS6GatCF
+ Jlp1KdXvVFQ7w==
 Received: from laura.lan (unknown [100.64.0.215])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BC9117E0467;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E4F9317E052E;
  Thu, 27 Aug 2026 10:01:37 +0200 (CEST)
 From: Laura Nao <laura.nao@collabora.com>
-Subject: [PATCH v6 0/2] drm/tyr: add Job IRQ handling
-Date: Thu, 27 Aug 2026 10:01:09 +0200
-Message-Id: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com>
+Date: Thu, 27 Aug 2026 10:01:10 +0200
+Subject: [PATCH v6 1/2] drm/tyr: add TyrIrq threaded IRQ wrapper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAMXuj2oC/3XO3wrCIBTH8VcJrzOOx51tdtV7RBfuzJVQWS6kG
- Hv3XBD9ocCbn/D56iB6F73rxXI2iOiS73045lHOZ4J39rh10rd5CwQsocJaXm5R+niWCSU0mgk
- QG6e1yOAUXeevj9h6k/fO95cQb492wun2mTHvmXyUZKwIOlaqJbPisN/bJkS74HAQUyrpd/7xi
- 6QzN2waJgY0TL948eI10AcvMq+VLSpQpVIMvzj9f50yJ9O1pnXWENpvPo7jHe1rc4BlAQAA
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-tyr-irq-v2-v6-1-15c90baed949@collabora.com>
+References: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com>
+In-Reply-To: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -73,94 +71,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Changes in v6:
-- Split changes into two separate commits: the first one creates a new 
-  file with TyrIrq/TyrIrqTrait and their related impls, the second 
-  commit imports and uses TyrIrq/TyrIrqTrait from crate::irq instead of
-  crate::driver
-- Removed irq() accessor, unmasking the interrupts in TyrIrq::request() 
-  by accessing the private irq field directly instead
-- Add JobIrqMaskGuard to mask the Job IRQ before free_irq() runs, fixing 
-  incorrect drop order in the IRQ teardown path 
-- Combined fw_ready/job_irq_wait into a separate JobIrqEvents type
-- Store firmware-ready state only once and always wake waiters 
-  unconditionally
-- Clear the status once the handler has been successfully registered
-- Use mask() in reenable_mask() to reduce code duplication
-- Reworded commit messages to reflect the changes
-- Link to v5: https://lore.kernel.org/r/20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com
+Introduce a generic TyrIrq threaded IRQ wrapper along with the
+TyrIrqTrait trait describing the operations required to handle a
+Tyr interrupt source.
 
-Changes in v5:
-- Implement PinnedDrop on TyrIrq to clear the interrupt mask on teardown 
-- Link to v4: https://lore.kernel.org/r/20260805-tyr-irq-v2-v4-1-81a4701611c0@collabora.com
-
-Changes in v4:
-- Replaced c_str! with C-String in irq.rs
-- Moved clear_status() before handle() in handle_threaded(), to avoid 
-  losing events if hw re-asserts the bit while handle() is running.
-- Only unmask interrupt sources in job_irq_init() when the handler is 
-  correctly registered.
-- Link to v3: https://lore.kernel.org/r/20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com
-
-Changes in v3:
-- Propagated request_threaded_irq_by_name safety requirement up the
-  call chain, made TyrIrq::request() and job_irq_init() unsafe
-- Dropped CSG bits masking, added TODO comment to note this will be
-  handled at a later stage. Reworded commit message to reflect the
-  change.
-- Added documentation for TyrIrqTrait, TyrIrq, JobIrq and job_irq_init()
-- Link to v2: https://lore.kernel.org/r/20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com
-
-Changes in v2:
-- Dropped Wait custom type in favor of WaitQueue
-- Renamed JobIrq lifetime to generic 'a
-
-This series follows up to [1], which adds support for firmware loading
-and MCU booting to the Tyr driver. The changes included here were
-originally introduced in its v4[2], then dropped to reduce the scope of
-the series, and have been adjusted to work with the HRT (Higher-Ranked
-Lifetime Types) driver architecture recently introduced.
-
-The series adds a threaded IRQ wrapper for the firmware Job interrupts,
-used to signal events from the global CSF (GLB) and Command Stream Group
-(CSG) interfaces.
-
-These changes will be later used to wait for global CSF interface
-readiness after firmware boot, as part of the CSF firmware interfaces
-support that will be submitted as a separate series.
-
-This series is based on drm-rust-next and depends on:
-- [PATCH v2] rust: irq: make Registration compatible with lifetime-bound drivers[3]
-- [PATCH 0/5] rust: sync: add WaitQueue infrastructure[4]
-
-Note: [4] doesn't apply cleanly on drm-rust-next at the moment, due to
-missing changes in rust/kernel/sync/lock/spinlock.rs[5]. I've applied
-all dependencies and fixed conflicts for the purpose of testing this
-patch on top of drm-rust-next, a branch with these changes is available
-here: https://gitlab.freedesktop.org/laura.nao/linux/-/commits/b4/tyr-irq-v6
-
-[1] https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com/ 
-[2] https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com/
-[3] https://lore.kernel.org/rust-for-linux/20260719153631.559341-1-dakr@kernel.org/
-[4] https://lore.kernel.org/rust-for-linux/20260726223613.1242940-1-dakr@kernel.org/
-[5] https://lore.kernel.org/all/20260302232154.861916-1-lyude@redhat.com/
-
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 Signed-off-by: Laura Nao <laura.nao@collabora.com>
 ---
-Laura Nao (2):
-      drm/tyr: add TyrIrq threaded IRQ wrapper
-      drm/tyr: add Job IRQ handling
+ drivers/gpu/drm/tyr/irq.rs | 115 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs |   1 +
+ 2 files changed, 116 insertions(+)
 
- drivers/gpu/drm/tyr/fw.rs     |   1 +
- drivers/gpu/drm/tyr/fw/irq.rs | 174 ++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/irq.rs    | 114 +++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/tyr.rs    |   1 +
- 4 files changed, 290 insertions(+)
----
-base-commit: d7962d990307dc28dfded8cf6ba96d7498af7631
-change-id: 20260728-tyr-irq-v2-0b3c5022be33
+diff --git a/drivers/gpu/drm/tyr/irq.rs b/drivers/gpu/drm/tyr/irq.rs
+new file mode 100644
+index 000000000000..e6a739532daa
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/irq.rs
+@@ -0,0 +1,115 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! Threaded IRQ wrapper shared by all Tyr interrupt sources.
++#![allow(dead_code)]
++use core::marker::PhantomPinned;
++
++use kernel::{
++    device::Bound,
++    irq::{
++        Flags,
++        IrqReturn,
++        ThreadedHandler,
++        ThreadedIrqReturn,
++        ThreadedRegistration, //
++    },
++    platform,
++    prelude::*, //
++};
++
++/// Trait describing the operations required to service a Tyr interrupt source.
++pub(crate) trait TyrIrqTrait: Sync {
++    /// Returns the masked interrupt status.
++    fn read_status(&self) -> u32;
++
++    /// Clears all bits in the mask register, disabling the interrupt sources.
++    fn clear_mask(&self);
++
++    /// Sets the mask register to re-enable the interrupt sources.
++    fn reenable_mask(&self);
++
++    /// Returns the raw interrupt status, regardless of the current mask.
++    fn read_raw_status(&self) -> u32;
++
++    /// Clears the given bits in the interrupt status register.
++    fn clear_status(&self, status: u32);
++
++    /// Returns the bitmask of interrupt sources handled by this instance.
++    fn mask(&self) -> u32;
++
++    /// Handles the given pending, unmasked interrupt bits.
++    fn handle(&self, status: u32);
++}
++
++/// A threaded IRQ wrapper shared by all Tyr interrupt sources.
++#[pin_data]
++pub(crate) struct TyrIrq<T: TyrIrqTrait> {
++    /// The interrupt source.
++    irq: T,
++    #[pin]
++    _pin: PhantomPinned,
++}
++
++impl<T: TyrIrqTrait> TyrIrq<T> {
++    /// Requests a threaded IRQ registration for `irq`, using `name` to look up the interrupt.
++    ///
++    /// # Safety
++    ///
++    /// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
++    /// [`Drop`] implementation from running.
++    pub(crate) unsafe fn request<'a>(
++        pdev: &'a platform::Device<Bound>,
++        name: &'static CStr,
++        irq: T,
++    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + 'a>
++    where
++        T: 'a,
++    {
++        let handler = try_pin_init!(Self {
++            irq,
++            _pin: PhantomPinned,
++        });
++
++        // SAFETY: The caller guarantees the resulting registration will not be leaked.
++        let registration =
++            unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, name, name, handler) };
++
++        // Clear the status and unmask once the handler has been
++        // successfully registered.
++        Ok(registration.pin_chain(|reg| {
++            let irq = &reg.handler().irq;
++            irq.clear_status(irq.mask());
++            irq.reenable_mask();
++            Ok(())
++        }))
++    }
++}
++
++impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<T> {
++    fn handle(&self) -> ThreadedIrqReturn {
++        let masked_status = self.irq.read_status();
++
++        if masked_status == 0 {
++            return ThreadedIrqReturn::None;
++        }
++        self.irq.clear_mask();
++        ThreadedIrqReturn::WakeThread
++    }
++
++    fn handle_threaded(&self) -> IrqReturn {
++        let mut ret = IrqReturn::None;
++
++        loop {
++            let raw_status = self.irq.read_raw_status() & self.irq.mask();
++            if raw_status == 0 {
++                break;
++            }
++            self.irq.clear_status(raw_status);
++            self.irq.handle(raw_status);
++            ret = IrqReturn::Handled;
++        }
++
++        self.irq.reenable_mask();
++        ret
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
+index e7ec450bdc9c..31205e3bf0e7 100644
+--- a/drivers/gpu/drm/tyr/tyr.rs
++++ b/drivers/gpu/drm/tyr/tyr.rs
+@@ -12,6 +12,7 @@
+ mod fw;
+ mod gem;
+ mod gpu;
++mod irq;
+ mod mmu;
+ mod regs;
+ mod slot;
 
-Best regards,
 -- 
-Laura Nao <laura.nao@collabora.com>
+2.39.5
 
