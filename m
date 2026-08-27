@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 133ABC61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:19:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54AC6C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:19:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55ABE10EF99;
-	Thu, 27 Aug 2026 10:18:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 704BF10EFA1;
+	Thu, 27 Aug 2026 10:19:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KvdMgCPW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bG6d9+JB";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF96D10EF92;
- Thu, 27 Aug 2026 10:18:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8775B10EF90;
+ Thu, 27 Aug 2026 10:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787825936; x=1819361936;
+ t=1787825934; x=1819361934;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5IVKJG61ZRpGvcrack0euFQ9WvdsWjeyMftRGQMMVIk=;
- b=KvdMgCPWHwf+MNVbEndfxSDJdE3H/QfTm6QoGyNBsxCihoB97K/9WfXg
- VCLLL/cakKfZl6Sspl45WJFOgA8YxR6ZV+2Mcbi0/HTgHH0t4tyvqE/QC
- WNGL223+8f3I/aY6q0KWznHJvpAbTsG9nKrvczKqIiU3QpmeNAHRwsg77
- 2bIDRUOJ8+1dwK6E4i+K6aebMQS4aMxnQ0IsQspqogKTmfryUG9doMNxM
- k4VVROpDYLONRXs5oxpXaDO/yG0KWsnPoGpGqRovwkAKRn7+FyKSFustF
- UUN1BDObRGVKQavDIkEQ2ap4m05A+4xiy62VCcZuHRruPI3bMs7IowOAz A==;
-X-CSE-ConnectionGUID: D3hZQ/ZVRAOhWwC6ui75qw==
-X-CSE-MsgGUID: puTPmNnDQneIn5N3nE95TA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88445885"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="88445885"
+ bh=JVQDUUH3DQaJlMs1iKS7yPiv1XIwwP2dSpKjaGpxFzE=;
+ b=bG6d9+JBQzlGWJVG8WhHbHokpXg5Tro4gPdasvpsa0mKrdZnRVaRGmBD
+ h6m7pwX4h8T9NeVOpMFEcOik0bbJ/SIKkpwEtJ4iUDT6Tj7af+f1fB4QL
+ tzufe1DcMwFfZ4fGM0y+wn0qebcignyu9FohU9DmldYaPwD6joL5lgxwt
+ pvA5ZzX6NgU+P6cJLb6PI4LM9M6vR0gG0Ifj9hOYXBVxzVIcG4u+UFrg7
+ /dhgLt24f/oLl4amhPLRpEXt1l7ks8i+tdTVxYL3AyhF5OD8EuRlJkilk
+ WdNlH9IzZf6KHShaxm3EBBEiC0ZfgHB29VQXO+F1c95vtu3JihBXANgmR w==;
+X-CSE-ConnectionGUID: fiPIv192S0OLVywCqbushg==
+X-CSE-MsgGUID: heTphoVzSii5sSdo96RZIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88445881"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="88445881"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:18:56 -0700
-X-CSE-ConnectionGUID: dxcX0MIZTHezdTYIzWRLOg==
-X-CSE-MsgGUID: 7yOugB1cSuiEGbdeNvJ6Pg==
+ 27 Aug 2026 03:18:54 -0700
+X-CSE-ConnectionGUID: TM+Gsd7KQhGogawbr9OTqw==
+X-CSE-MsgGUID: Ra5YE3lKTsG+hIn8bspQBA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="306057670"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="306057664"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:18:55 -0700
+ 27 Aug 2026 03:18:53 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [PATCH 13/13] drm/xe: Block BO VM access when device I/O is
- unavailable
-Date: Thu, 27 Aug 2026 15:48:01 +0530
-Message-ID: <20260827101801.1247654-14-arvind.yadav@intel.com>
+Subject: [PATCH 12/13] drm/xe: Skip PM notifier preparation for wedged devices
+Date: Thu, 27 Aug 2026 15:48:00 +0530
+Message-ID: <20260827101801.1247654-13-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827101801.1247654-1-arvind.yadav@intel.com>
 References: <20260827101801.1247654-1-arvind.yadav@intel.com>
@@ -71,16 +70,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_bo_vm_access() may acquire a runtime PM reference and access a BO
-during PCI error recovery, after a permanent wedge or during device
-unplug.
+The system PM notifier runs before the PCI suspend callback and may evict
+BOs or submit migration work. This work must not start after the device
+has been declared wedged.
 
-Return -EIO when device I/O is blocked. Use drm_dev_enter() to protect
-against concurrent unplug and keep that protection until the runtime PM
-reference has been released.
-
-Use the same SRCU domain as CPU faults so wedge isolation waits for a BO
-access that started before the wedge.
+Skip PM preparation for a wedged device. Track whether preparation ran
+so the post callback only performs matching cleanup and releases the
+runtime PM reference when needed.
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -89,41 +85,54 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_device_types.h |  2 ++
+ drivers/gpu/drm/xe/xe_pm.c           | 10 ++++++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 1eabece56f6c..717d318c7072 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -2245,9 +2245,25 @@ static int xe_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
- 	struct ttm_buffer_object *ttm_bo = vma->vm_private_data;
- 	struct xe_bo *bo = ttm_to_xe_bo(ttm_bo);
- 	struct xe_device *xe = xe_bo_device(bo);
-+	int idx, srcu_idx, ret = -EIO;
+diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+index 508ba3872e72..c9dc417878e7 100644
+--- a/drivers/gpu/drm/xe/xe_device_types.h
++++ b/drivers/gpu/drm/xe/xe_device_types.h
+@@ -471,6 +471,8 @@ struct xe_device {
  
--	guard(xe_pm_runtime)(xe);
--	return ttm_bo_vm_access(vma, addr, buf, len, write);
-+	srcu_idx = srcu_read_lock(&xe->mem_access.vram_userfault.srcu);
-+
-+	if (xe_device_io_blocked(xe) || !drm_dev_enter(&xe->drm, &idx))
-+		goto out_srcu;
-+
-+	/*
-+	 * Keep the drm_dev_enter() protection until the runtime PM
-+	 * reference has been released.
-+	 */
-+	scoped_guard(xe_pm_runtime, xe)
-+		ret = ttm_bo_vm_access(vma, addr, buf, len, write);
-+
-+	drm_dev_exit(idx);
-+
-+out_srcu:
-+	srcu_read_unlock(&xe->mem_access.vram_userfault.srcu, srcu_idx);
-+	return ret;
- }
+ 	/** @pm_notifier: Our PM notifier to perform actions in response to various PM events. */
+ 	struct notifier_block pm_notifier;
++	/** @pm_notifier_active: PM notifier prepare work was performed */
++	bool pm_notifier_active;
+ 	/** @pm_block: Completion to block validating tasks on suspend / hibernate prepare */
+ 	struct completion pm_block;
+ 	/** @rebind_resume_list: List of wq items to kick on resume. */
+diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+index 720e083cd279..dd7fd170bc94 100644
+--- a/drivers/gpu/drm/xe/xe_pm.c
++++ b/drivers/gpu/drm/xe/xe_pm.c
+@@ -457,9 +457,14 @@ static int xe_pm_notifier_callback(struct notifier_block *nb,
+ 	{
+ 		struct xe_validation_ctx ctx;
  
- /**
++		/* Do not start PM preparation after a wedge is declared. */
++		if (xe_device_wedged(xe))
++			break;
++
+ 		reinit_completion(&xe->pm_block);
+ 		xe_pm_block_begin_signalling();
+ 		xe_pm_runtime_get(xe);
++		xe->pm_notifier_active = true;
+ 		(void)xe_validation_ctx_init(&ctx, &xe->val, NULL,
+ 					     (struct xe_val_flags) {.exclusive = true});
+ 		err = xe_bo_evict_all_user(xe);
+@@ -480,6 +485,11 @@ static int xe_pm_notifier_callback(struct notifier_block *nb,
+ 	}
+ 	case PM_POST_HIBERNATION:
+ 	case PM_POST_SUSPEND:
++		if (!xe->pm_notifier_active)
++			break;
++
++		xe->pm_notifier_active = false;
++
+ 		complete_all(&xe->pm_block);
+ 		xe_pm_wake_rebind_workers(xe);
+ 		xe_bo_notifier_unprepare_all_pinned(xe);
 -- 
 2.43.0
 
