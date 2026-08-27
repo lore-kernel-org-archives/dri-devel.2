@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC7D8C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD3D0C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4731210E641;
-	Thu, 27 Aug 2026 10:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C2D310EFAA;
+	Thu, 27 Aug 2026 10:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S7gjTPPZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JocmhI1e";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A485210E641
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 10:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787826579; x=1819362579;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WTeSaKkx6c5J8iEmuDSbplgMP3mpr/maEgb4TBLsY48=;
- b=S7gjTPPZzdIM8Ii6tn7WrZ8RkpO9tJBbyNRVC/PRvD8z8y0NiYJtVBuX
- 9M537MFETufxW43y7L91pM2bZ/MPXmvmiHHEfYXTieYJnqCBSir+2Xrfl
- C7UCB9smNYFEH3ARbOtB2l1EqtEjCpeWyOQwRkHaI/yhPEQ+EWlI92NVS
- sh8mBmOvw1XYyIql2q9vJ8qdJXMolzM7+z2+6e+CrdtlzkB05SylTmqlh
- ByTupqKoNtLtClfe+sVr5TA/FiIv9TUstdOO1LhxeE/SqfcEzH0AczYrB
- 7r8oBegYYhH/TbUqd1VwhD0GKubmZlBUSkW61dL5ZAj5Ej3+l6FXnYeLd g==;
-X-CSE-ConnectionGUID: 2k0oPmNnTV+0pMSZXWCjbg==
-X-CSE-MsgGUID: KMXkq2QySk+m00b+h9lrtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98920701"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98920701"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:29:39 -0700
-X-CSE-ConnectionGUID: nWyXoqc7S7yqE6fv+y7N8Q==
-X-CSE-MsgGUID: F7NcmyI/Sx6u2hjlhPFTzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="261711649"
-Received: from try2-8594.igk.intel.com ([10.91.220.58])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:29:37 -0700
-From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com,
- Magdalena Schulfer <magdalena.schulfer@intel.com>, stable@vger.kernel.org,
- Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Subject: [PATCH 2/2] accel/ivpu: Validate firmware log buffer metadata
-Date: Thu, 27 Aug 2026 12:23:39 +0200
-Message-ID: <20260827102339.281799-3-dawid.osuchowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827102339.281799-1-dawid.osuchowski@linux.intel.com>
-References: <20260827102339.281799-1-dawid.osuchowski@linux.intel.com>
-MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-31
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3210310EFBA;
+ Thu, 27 Aug 2026 10:30:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C2A8B408EB;
+ Thu, 27 Aug 2026 10:30:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FA71F000E9;
+ Thu, 27 Aug 2026 10:30:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787826643;
+ bh=142kRjmzPQUicVULYUprTh6XseyAHoUcCmFe2A2FQmY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JocmhI1e+OUPFTfovKbpo6gx3diST6kc34siSxWfY1OMI/9kjhFF/fh1EnVsuLpTK
+ 52JvT7woG9f6wNCUb8Iu9wiuzmGw4oNeHWCWLTJmgex4oA/xag6KZuERgW5BE6CUFz
+ W0hIcw4KtPcjKpNT/IOI2sMqXA7nSCKOcgUjGFPeMuZAP5Tddn1/jLxj0sp89ytmGh
+ 81/E6hh9pEkF4bzHaqIOFc6ROkDxC44UBelwVB3A83zmZPTqyA5O5Qs2YNEoqtONXr
+ sE52a7MJsNjjtBPv31Y9P2R4mxW6Y8+OgeEXMoMrvoYWiVJ3GNx6lAqNP10oOr2Q31
+ 0ylwvipj7yFaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 13/13] drm/xe: Block BO VM access when device I/O is
+ unavailable
+To: "Arvind Yadav" <arvind.yadav@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260827101801.1247654-14-arvind.yadav@intel.com>
+References: <20260827101801.1247654-1-arvind.yadav@intel.com>
+ <20260827101801.1247654-14-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 10:30:42 +0000
+Message-Id: <20260827103043.70FA71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,180 +54,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Magdalena Schulfer <magdalena.schulfer@intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The function `xe_bo_vm_access` mixes goto-based error handling with=
+ scope-based cleanup helpers, violating kernel cleanup guidelines.
+--
 
-The tracing log headers parsed by fw_log_print_buffer() reside in
-DMA-shared BOs that the NPU firmware can write to.
+commit ab2c90ef1f693fb22833ef442c6ad80ec3443ca6
+Author: Arvind Yadav <arvind.yadav@intel.com>
 
-fw_log_from_bo() validated log->header_size and log->size, but
-fw_log_print_buffer() re-read those same fields from shared memory
-afterwards, allowing a TOCTOU where firmware changes them between the
-check and the use, and making the host dereference out-of-bounds
-addresses while printing logs.
+drm/xe: Block BO VM access when device I/O is unavailable
 
-Snapshot the validated values once with READ_ONCE() and pass them down
-explicitly in a new struct ivpu_fw_log_desc instead of re-reading them
-from the shared struct.
+This commit modifies xe_bo_vm_access() to return -EIO when device I/O is
+blocked. It uses drm_dev_enter() to protect against concurrent unplug and
+protects the block with a userfault SRCU lock.
 
-Cc: stable@vger.kernel.org
-Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
-Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
-Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
----
- drivers/accel/ivpu/ivpu_fw_log.c | 76 +++++++++++++++++++-------------
- 1 file changed, 45 insertions(+), 31 deletions(-)
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 1eabece56f6c6..717d318c7072d 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -2245,9 +2245,25 @@ static int xe_bo_vm_access(struct vm_area_struct *=
+vma, unsigned long addr,
+>  	struct ttm_buffer_object *ttm_bo =3D vma->vm_private_data;
+>  	struct xe_bo *bo =3D ttm_to_xe_bo(ttm_bo);
+>  	struct xe_device *xe =3D xe_bo_device(bo);
+> +	int idx, srcu_idx, ret =3D -EIO;
+> =20
+> -	guard(xe_pm_runtime)(xe);
+> -	return ttm_bo_vm_access(vma, addr, buf, len, write);
+> +	srcu_idx =3D srcu_read_lock(&xe->mem_access.vram_userfault.srcu);
+> +
+> +	if (xe_device_io_blocked(xe) || !drm_dev_enter(&xe->drm, &idx))
+> +		goto out_srcu;
+> +
+> +	/*
+> +	 * Keep the drm_dev_enter() protection until the runtime PM
+> +	 * reference has been released.
+> +	 */
+> +	scoped_guard(xe_pm_runtime, xe)
+> +		ret =3D ttm_bo_vm_access(vma, addr, buf, len, write);
 
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-index 716467aa3156..4f9055aa9d33 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.c
-+++ b/drivers/accel/ivpu/ivpu_fw_log.c
-@@ -26,10 +26,17 @@ MODULE_PARM_DESC(fw_log_level,
- 		 " error=" __stringify(IVPU_FW_LOG_ERROR)
- 		 " fatal=" __stringify(IVPU_FW_LOG_FATAL));
- 
-+struct ivpu_fw_log_desc {
-+	struct vpu_tracing_buffer_header *log;
-+	u32 header_size;
-+	u32 size;
-+};
-+
- static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
--			  struct vpu_tracing_buffer_header **out_log)
-+			  struct ivpu_fw_log_desc *desc)
- {
- 	struct vpu_tracing_buffer_header *log;
-+	u32 header_size, size;
- 
- 	if ((*offset + sizeof(*log)) > ivpu_bo_size(bo))
- 		return -EINVAL;
-@@ -39,26 +46,32 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
- 	if (log->vpu_canary_start != VPU_TRACING_BUFFER_CANARY)
- 		return -EINVAL;
- 
--	if (log->header_size < sizeof(*log) || log->header_size > 1024) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
-+	header_size = READ_ONCE(log->header_size);
-+	size = READ_ONCE(log->size);
-+
-+	if (header_size < sizeof(*log) || header_size > 1024) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", header_size);
- 		return -EINVAL;
- 	}
--	if (log->size < log->header_size) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-+	if ((char *)log + size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", size);
- 		return -EINVAL;
- 	}
--	if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-+	if (size < header_size) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x < header size 0x%x\n",
-+			 size, header_size);
- 		return -EINVAL;
- 	}
- 
--	*out_log = log;
--	*offset += log->size;
-+	desc->log = log;
-+	desc->header_size = header_size;
-+	desc->size = size;
-+	*offset += size;
- 
- 	ivpu_dbg(vdev, FW_BOOT,
- 		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
--		 log->name, log->write_index, log->size, log->wrap_count, log->header_version,
--		 log->header_size, log->format, log->alignment);
-+		 log->name, log->write_index, size, log->wrap_count, log->header_version,
-+		 header_size, log->format, log->alignment);
- 
- 	return 0;
- }
-@@ -94,11 +107,12 @@ static void fw_log_print_lines(char *buffer, u32 size, struct drm_printer *p)
- 		drm_printf(p, "%s", line);
- }
- 
--static void fw_log_print_buffer(struct vpu_tracing_buffer_header *log, const char *prefix,
-+static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefix,
- 				bool only_new_msgs, struct drm_printer *p)
- {
--	char *log_data = (void *)log + log->header_size;
--	u32 data_size = log->size - log->header_size;
-+	struct vpu_tracing_buffer_header *log = desc->log;
-+	char *log_data = (void *)log + desc->header_size;
-+	u32 data_size = desc->size - desc->header_size;
- 	u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
- 	u32 log_end = READ_ONCE(log->write_index);
- 
-@@ -134,11 +148,11 @@ static void
- fw_log_print_all_in_bo(struct ivpu_device *vdev, const char *name,
- 		       struct ivpu_bo *bo, bool only_new_msgs, struct drm_printer *p)
- {
--	struct vpu_tracing_buffer_header *log;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next = 0;
- 
--	while (fw_log_from_bo(vdev, bo, &next, &log) == 0)
--		fw_log_print_buffer(log, name, only_new_msgs, p);
-+	while (fw_log_from_bo(vdev, bo, &next, &desc) == 0)
-+		fw_log_print_buffer(&desc, name, only_new_msgs, p);
- }
- 
- void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p)
-@@ -149,36 +163,36 @@ void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_
- 
- void ivpu_fw_log_mark_read(struct ivpu_device *vdev)
- {
--	struct vpu_tracing_buffer_header *log;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next;
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
--		log->read_index = READ_ONCE(log->write_index);
--		log->read_wrap_count = READ_ONCE(log->wrap_count);
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-+		desc.log->read_index = READ_ONCE(desc.log->write_index);
-+		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
- 	}
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
--		log->read_index = READ_ONCE(log->write_index);
--		log->read_wrap_count = READ_ONCE(log->wrap_count);
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-+		desc.log->read_index = READ_ONCE(desc.log->write_index);
-+		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
- 	}
- }
- 
- void ivpu_fw_log_reset(struct ivpu_device *vdev)
- {
--	struct vpu_tracing_buffer_header *log;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next;
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
--		log->read_index = 0;
--		log->read_wrap_count = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-+		desc.log->read_index = 0;
-+		desc.log->read_wrap_count = 0;
- 	}
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
--		log->read_index = 0;
--		log->read_wrap_count = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-+		desc.log->read_index = 0;
-+		desc.log->read_wrap_count = 0;
- 	}
- }
--- 
-2.43.0
+[Severity: Low]
+Does this mix goto-based error handling with scope-based cleanup helpers in
+xe_bo_vm_access()?
 
+According to the cleanup guidelines in include/linux/cleanup.h, the usage
+of goto and scope-based cleanup helpers should never be mixed in the same
+function.=20
+
+Could this create confusing ownership semantics or risk subtle ordering bugs
+on scope exit? To maintain consistency, would it be better to convert all
+resources in this function to scope-based cleanup, or stick entirely to
+goto-based cleanup?
+
+> +
+> +	drm_dev_exit(idx);
+> +
+> +out_srcu:
+> +	srcu_read_unlock(&xe->mem_access.vram_userfault.srcu, srcu_idx);
+> +	return ret;
+>  }
+> =20
+>  /**
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827101801.1247=
+654-1-arvind.yadav@intel.com?part=3D13
