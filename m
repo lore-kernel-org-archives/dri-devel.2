@@ -4,136 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7057C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:26:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E2ABC61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26DB710F0A3;
-	Thu, 27 Aug 2026 14:26:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F34810F0AE;
+	Thu, 27 Aug 2026 14:29:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="b8jWn5lE";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="X9Kp0Z4X";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020109.outbound.protection.outlook.com [52.101.195.109])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82AA010F0A3
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:26:12 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011036.outbound.protection.outlook.com [40.107.208.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB7A10F0A4;
+ Thu, 27 Aug 2026 14:29:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xo3c6dMfKIHktS/lSLxunWjyRCGgbERyIZY3NNPW37IcFV2mwSWIDR6yWCGVb3g0OKlZeyEx0ZrYIUMJneMAXhIRtYlRwKIPY/O9ijahfdKeNL022MOdRIcc5vXs8EmEKC2RHvfhz1tOlBFSMNvosQXER6nIzBt79h3XFck9H6czg95Wj9HK4w7Oj30qHHyPlalMSAe3KAYv8GckzKG3Bhu+77vev8Pmevr4dDpQCGTApn9mzcOc9H1iQXUhSOsWKiCPdjUBO/IsQKPSDpvclY1w47ocLY2I/RFTPsplD/92kgPGKo5A63YiBTt7jBkP1PMhYoegf3FDwzp1M2lwPg==
+ b=tAqVO0eQYeVFTkVHh89N4ST+rpQCDcPQRWutf4snDKIJ3EFNxv7qrV5VCcBT0Ooqcc6Cm7LFTPnMhg8vElEoOmgkX0CKT8GE4ImEPfELz4TqxYU8I2yNuHfGpHNWEV6coCBowpWoUHc7ggcA+b9C598uQmSaKbTJ+iDQ0S2XAaSWSM9bZBa/KdI+vtXti9dJl+Y3XNeOYs76atfN0GiyJ0RT48XxVJgQftS57Y8E8XFoSKUKSnFv4kf8wEIFLSDhose8pgJzas1c7TuoxTT2SDDPsz3abHb1GGpL5GEwrDiMXljHth24Mujbibt17DJEz385kXHq+g0C+kxt2djjug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZP1TzhPGObqCdOReiTmpCrLvbbt7Cwe/1RxY2+oh7dI=;
- b=YhCm/OtejP1HY5SUij62b8oi4YWivUPi87BfiwRmlW0sJY/MxIL04Jw75hRtKoHnzKDeMFurtRTrssCk5aa3eA+WlOkkS0zeVyRVPHog6yrRt2U03Tj5n+ly9LQV3rEOJx4Q+dj07MyLhR5VCI9z+al1y/fGEfqFXBIXYwYOUdoG6FKQwgAxpLGBj2dsqEPhfxd5Sd/USql4smEvf7hVJFRS8l5KEhx5YXOnBikj10A5zasaKPQ8oDLB1LcdjArR9hJ1hFisBHkPOjoIhFjGgib5j2pFrjmlc40HYxdotnt8dlKfWN1JjvTukrRlfoIYkW8NVS4KkR1YjG5n7Z2wHQ==
+ bh=UPm6CPL/VgBth7tkV8IKMtY7jVpgG33ERp3iac3qKSA=;
+ b=AAeSebDphSmMHMV96+waNeCCCRjiMrqnCdH+4ozY4mMTCKX6q2RxLcQYLk9AkOFcz+R7aP95Tsh+z4nR+/BmPOPkWnFEPX0/6OkH2374d1GwiFp1MOiQ9iS4qMpuI/UIO/8qS2/67ttX0vl7blihLxKvWHVj/Z5znQ8QWrZEtWkDg8ydRnx0wZz12IOEw/SE4DJ+wUdf1nfALnNpwC/OiFBacTOjPjHuaJWWEArr9ufawVZRgcgAAEhiQxWdX5KxRRZ0tzfR0udC6yG2axPRxpFShHQFNoaaj0X/8/oAa1c9loRa+2hgv4XUH0xvzENNWPDpD7zrbbJbJiylR1jlNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZP1TzhPGObqCdOReiTmpCrLvbbt7Cwe/1RxY2+oh7dI=;
- b=b8jWn5lEKTdceA/fBxxKpKtOtmFEtbxAsJJH/q2xMQtFNPU2OjCGOtu/izVfNXafOyYVH1kW6jUIWN/LtIjiuQDmeAo+KwyaNm1EgMrhzvrJMS2cQSwyfB6j/dAJngxeWUdqGSOOFVbYSustqHwpuRsjVGo5H705spnlif4/W7Q=
+ bh=UPm6CPL/VgBth7tkV8IKMtY7jVpgG33ERp3iac3qKSA=;
+ b=X9Kp0Z4XkpzDqY9VuZr9pW0zem8DfgEWGH/0Arg4hwjhFWVV//0RFHNn8/4HJJuiqni4aeLjRfZwxiHiUHjIYKaUK2/9tgp8zvu5yOhyJ4KufPSxw6H/1TPYs7PEfo/r+3IDBKXCX0cC+MZetLrOlVfwBGvhk9lZlzVikDuOH1d83yV60Fj4CfdsWkNC4/iC8SgubrPER4Uz3ZfhFtsLxWuHMotEW41lj1IrvA42+8rxMJoZamv/A6MPWFsPHt2numXnJAU6k9x9ePYXdShtx798N5Kb9cqp79NgKzwHdoJTEFK6Qm7RtC/9EfMroFXNLhZrdwXjPk5LCYnASPNl1A==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB2851.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:cc::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 14:26:07 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 14:26:07 +0000
-Content-Transfer-Encoding: quoted-printable
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SA1PR12MB8988.namprd12.prod.outlook.com (2603:10b6:806:38e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
+ 2026 14:29:08 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
+ 14:29:08 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 15:26:06 +0100
-Message-Id: <DKZSNPIF9PLE.3Q1U8A7YX69PM@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+Date: Thu, 27 Aug 2026 23:29:05 +0900
+Message-Id: <DKZSPZS1CQ29.11DHEBVKWF21O@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
  =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
  <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 02/16] rust: mem: add `transmute` with deferred size
- check
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-2-3699a75fadf1@garyguo.net>
- <DKZIEVS56DGW.1JSQZAO4SGPMW@nvidia.com>
-In-Reply-To: <DKZIEVS56DGW.1JSQZAO4SGPMW@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0259.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:194::12) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
+ <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
+ <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
+ <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
+In-Reply-To: <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
+X-ClientProxiedBy: TYCPR01CA0172.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b2::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB2851:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30c00f67-1344-49ad-b1dd-08df044721ef
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB8988:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82fb29aa-2362-40d7-35a3-08df04478df7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|10070799003|23010399003|7416014|366016|6133799003|56012099006|10067099003|5023799004|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: JBg2B8vNiopzaBJOc2/2zLqSlPOhOwCRznxuTFR+9H0ki52KM1uQYjPC1kr1+8PK71fkRswaXN+ZiaxpNTw/Ti+314phWP3l2rG4QsYvaqEd8Z4QIjYhgZrdLJEIywtbTWGmEeVWJRfCj0xUjsEAG7vkLiHbHSXLqPCSYz6ZrbynxKEwCRBRvft3i22EggfxvhXqI1HxFvuDV1qbqZv+VXXvYF+GYNqzoUTnH4WplPxJc8b4Mlq9mxxyqdSrIml0NFVBVJ/jdlu8RooQzBifVmkUFzUQAQ+O6/hHXeqf/Gi3H4zfqpoerJN0FfL6rDqfED8Ddpgz5r5TSMHamgAAy7DHSi1L673nKkzb7b5XS/NZxJAfBryNoHxSwwOXiJXnxNJ4ll0LN4cfoQfAb3BSRjCls+xt+MzUtAYTSlnJEc3i/2lLqqiacNNa43OmXK2GP5Y+IiToyLpUmRI5YtE/YNlw6lU66vpPQzZM1bOQpjxiqq0r8Fw3MjeAMs2HGlJqR3ijxSzSzFrSYDGgrTn/m4IhRD6deES51wpRPyDziDgkoBuAoV+IA+xWaNPN5wrA5rp0yyPpxxgF1G/HA2s3WLBdDVbyCLm/AppFH8+mMX/RrxDzJYDweyh93LMYWM+tetyGbFVpm70DegrtGB7p1ciVSOcHSFf0vOClII6BJyk=
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|10070799003|56012099006|10067099003|18002099003|22082099003|5023799004|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: upk8NEFyBPrYU79baXk/QZsc7SXgQzqt/dbRvVo/Lvy8RCmrxzC7nzUWiePwt5oMAdyiUZ7xmAa3OfHv/NCrloRATTB4PyC7mEd9CqsO6ueeTqlct04XjLIQJWhLuxPHvQQMzZ0N717OjJBTn3nMqQpSxmYuSJcrkDFqcjzpKeatMW5V9SlRXe+QHkxLfg0jiRo9Pxq9gMsqcquezavWCOpT2HUAhbRB1XsH//mupxqG+TgEMrFVjTyB0RfFto8kBmQn00apXephmMKRAHQmc7JbJAEGppYyzr8hpEoUk/mqvADUGQDkb8UYadv6jk1HOjRTthRIdogccfuFXR/9oJ/q08gFOhyoFET1kK7SPrskZHBiqsWUQfVEBDjPp6VIvBTphCCiEkJVSBZ2tbMrXVB6i/Tp6GfPBnFgWqaoZu7/0Anmk7ssnS0yvW9DVeKaKGa/nJ0xxJvJVsgrT+nHrkjXi9rkF3R71SPqgbuoXdgwzvJDTIe8jgZ/YepjHig0wDSDiYRW6zY6gwa2KweoSNIcay3sHhAxzraBz7GMzATAXzVWUajSbSgoqvWCOcfrrho5MwuJIjKfcgYawn6eHpLUhV2khUEjh3gH8W/Wjc542Tt+i+ZQrWu7QpufaTRdG9YGpft76a3/95C5cKoENc9I/qZbtjkZUyknYmYTk5M=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(10070799003)(23010399003)(7416014)(366016)(6133799003)(56012099006)(10067099003)(5023799004)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MHljUXNNNlJBblN0OXBBdEtmdWIyenhaYTlqTkIxdXZTcDcyRWhJMlgxWTd5?=
- =?utf-8?B?N2Z1SWc0MXV5QTF3Z2R0b1kwOFFZYTladXd5OGdEdTl0WXU4QWJFclBjODJY?=
- =?utf-8?B?ejlyRjJjbEJtc21YRlBVMmtTZGNzMWtSekpZK04wazJ4bG5weWx4clVjaTdi?=
- =?utf-8?B?ak80dHYwNC81aTFYVXRLcU1LemdnVDMrOUJabytuaGZpSU4yMmIvdkVQRWQ3?=
- =?utf-8?B?UTNsbVVhNG4yTXJWa3o4eGxLLytqaG9hR0ZmcEdGdkNIWkFLeWt5M1JxMnM4?=
- =?utf-8?B?cFUxRjZHQll0K3p4NXJtV0FLUkJPTEZxQlEyNGVMcEFPOWJrSS9TZXJ6MUVw?=
- =?utf-8?B?ZG1Ed1N0SkljUUhlTm5YakFxUHlXQlNJWGg2YTJIdlJ2NmdCbitIZyt3TURU?=
- =?utf-8?B?T1ZLeVdzZFhpemVnd05mbG1adFFKZzRhejNJYjh2RGhLQnBDdHRKK08xa2dC?=
- =?utf-8?B?UytabHRQQ2l4Y0cxbGJxT3FLR0ZmaVpOSFhKejZIeDJRQVRIQjlNZXdaYTF2?=
- =?utf-8?B?RXBwK2cxSkkwYko3SVRzb0V2ZUhqMW8xeWRKT1Ywb2RXM2xqRnNEMG5yNStJ?=
- =?utf-8?B?emFEOHV6UmhMNU1KQmVjNUJ5NDBrU2tuTzlBNHFkR09LUU5TSE54Y0IvMjlU?=
- =?utf-8?B?aldQamxQSGhWc3pwekgrOXp6bHJCWE5qQm5YdUZZQUE3MWUwTFExZ3ZaK2VL?=
- =?utf-8?B?Yk9seHhRR3NqbGpwNzFJUDh0UkxlUmNNYmtBUGc1TUtzWGtmQUZ6czNqR2Ey?=
- =?utf-8?B?VjN1UHFqdXJKNHRWRmpIeG5jZ05OZHlub0Z2SklxVHAyM0VROWtwSG45eW9G?=
- =?utf-8?B?VFdrRGwxSEJrWm1pVXZneFh2SjI1VXhLMUFyNGxkT1BtbFdMTklDUDZLK08y?=
- =?utf-8?B?NEJnQnFYNGYwRERIQXN5YThjWWxMRmFkQlRZRmo3MmJWYUxkbmFPVE5YSlFj?=
- =?utf-8?B?NHJPMXFFMExUZmM5a24vU21Mb09jWHMvK2gwd0NJT3pUemlwRWZkUXBLUHZU?=
- =?utf-8?B?ZldhVEk0WmZnMHRBK20vRHJRZ2hUWnRCS1BKbmt1ZFFGMGRNYWdnR2FsMDE4?=
- =?utf-8?B?WVVMd0ZHbnhPY0RTWlhuNUJPVStOWmFUWmJjaldRaWxaR1RnYlAwcG5Fc1lI?=
- =?utf-8?B?aEhLU1B3Z2hIRlN1cXRlQWc0Sm9JaEpGOFJZR05PRDl6QTdhcFYwMEdIdklj?=
- =?utf-8?B?WklSSWV1WXFjM2ZzZDA4bnNQVExVMjlPUlQvd0JRaTR1THJoZ3MvdE1Kc09H?=
- =?utf-8?B?dUxROEpDWGhFdGd2TXhGbmtoZjVhb2MvaE8rUkpwTmNjWllteS9oMlpwUW14?=
- =?utf-8?B?VWY4SStHQnRxQUpUMTNzeklacmMxbW9WQjhDMjV6RUE5REM4WUp3M2Jkai9B?=
- =?utf-8?B?Q0R4S2NmUlMwVzVUUEU3YlFEMTVoWXZlU0htUnN3Z2NCQlhFTWN2YldRdis3?=
- =?utf-8?B?TjV0aWRuTlFsMk9pa2doZ0dMUzFDZWZYMWhWUTdYVDNkM2tpWVRWNXQyS3dV?=
- =?utf-8?B?V2FOVTZjcXlGZ09DcXUrUzNiMVFDaWk0bTJYRk1JcWMxVVJ4U2hubTY5d3BN?=
- =?utf-8?B?YXpHcE9aRE52SkVTQU1SN1BMV0VqWFJQVjlOM29oWWdVdEYwYTh4OHpqQ0dl?=
- =?utf-8?B?WEhZNFVIVnVUSnREVi91OVZzbkJYd3BkNXNXUHVIT1lpYWZ5YnhITXJmYlFF?=
- =?utf-8?B?YUd2cytjcGxqaTJrNVA1OTJYMXgxY254SEdRM2Qxc2J3RE9vc2hYNVByMWFz?=
- =?utf-8?B?R09leDRvSklZbkdia2tHODg5V3BXaTkyVGZrL3UrNUlCK0N1ODE2ZUNxT1VV?=
- =?utf-8?B?VTFHbjF3WW1uMkFGSHJYYkJkYmxxMVRrT0xINFNmZkRHbHh5VzlGbWhRQ3Zm?=
- =?utf-8?B?eTVJSmthRDEwbzVYdC84aVg5R2xTaEp5dEVySHFHb0JyZXJCdmVxckdiRmhL?=
- =?utf-8?B?Z1pUaXZtMEZITUxpa1piSHVLWmFlS0s1aUJlQ1VjNnRoZUo2ZzhuZndvN2F1?=
- =?utf-8?B?R2hDOTZMdGFhenNBVGl1UG9keG5NcE1KWEVwdzNXbktWSWZGdUl5MDlGR2pQ?=
- =?utf-8?B?ekpkNjVDQi9wcHJJVkdFS2RCODkzUFRBcFBNbkpxMDdLT1hWWU52YzljN05P?=
- =?utf-8?B?b0hZcjl1Q3cyNW9KVk9xcmRLWjREVjhmUVl5T2NSTGVCWEFCV0NzTUh6eDFP?=
- =?utf-8?B?VkkwRER0aWVRcVVHRU1IY2wwdlYxazZib20rUGhOZm9mNUpScE5zRzVQK1Bi?=
- =?utf-8?B?VVhXUzQyVXJTZGI4bUtqc3JoZW1Pa1JONEtwcUQwOEo3dTNXdTBkMkJVSEsw?=
- =?utf-8?B?WEVHYmpDcXdUdUpTZWJUNlpUL09UUWZvYXB4eEdpUENQQnpCK1hCdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30c00f67-1344-49ad-b1dd-08df044721ef
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10070799003)(56012099006)(10067099003)(18002099003)(22082099003)(5023799004)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlFkK1h6Q3d1elhTcDZDM2JmK3JvbDVkTE1YaWYyVHNUNDlrNWNLN3hWbHRD?=
+ =?utf-8?B?VnJRc2ViMHFTMEVaZHBkS3pSSGl1bmxheFlDTkJiVURjdTZaQnpuUWQ1cDNX?=
+ =?utf-8?B?aGpSaFlzTEdWT29UZUJQWm1veG5QWm1SZHJ1STBkNitVOEpPMHBoN0hzbGVD?=
+ =?utf-8?B?YWpIc0p5RnVWR0ZwK1lWV011VTJwYnlWMk92RzhHYTVRemFsWEo1N3NCeWtY?=
+ =?utf-8?B?OXlEcU9wMjM5cUwvZE1jN1JZZTNFNThFZ3UwRTZ0Qlp2VTgzMmZDakROYjFp?=
+ =?utf-8?B?Nnd0QldPNElJeE5vcXY5WXIzMkRXS1l4bU1Jbk4zTXJhdTNRSXdPa3RZTmhk?=
+ =?utf-8?B?TUZnQXRPWjM0OFl1V1FCbG84Snh3OWphN09TMk5FMk00S01adnlyTUpKQXZY?=
+ =?utf-8?B?UWM5Vy9GUW0wMVlTYzN1NzRqZDVDeTBsd2hVL2UrM044VFhDbHRPdGNFbTNj?=
+ =?utf-8?B?L3I0TU80Mmxpa0h6WUtQU01WT2hhWnBucnl5NGpZNzZYZnQ1SDhOeUV5b3la?=
+ =?utf-8?B?aC96Q0djQWk2ZHF1akRYMitZQndoaUxXMUJncDhwUTZ0SUN0RXk2OURWQ2ov?=
+ =?utf-8?B?K2o0aSsxaE9YYzFvWlRJNjdmQ3hwQ0NlcFM1dWVWWmU4UFVRaXo4VXN0bjh2?=
+ =?utf-8?B?WUNPV1dzUm1FbHNYeVFpUEpwTWQ4VG8wa2R5YnhzT2p4ZW1sT2xpVUsvMnJl?=
+ =?utf-8?B?TklwSkxpdmxuSnRZR1BNWnc0NjBlUkdFYWRLaDZyb3JPSVk0bEprRTRQVnUz?=
+ =?utf-8?B?OGNBVzB1Y3JSZmJ0dmJ0d0lyVlZ6ZXBDWVl4TlkxeFBMWDJUc3AzSk01Vmsx?=
+ =?utf-8?B?RjFNUmVXdlVxYjF1TGRXVTZvQkcxbzBhNzcwNVVWQVZCWXRmaUl4TUxNVWdt?=
+ =?utf-8?B?SjFCQi82WDUyOTZ6ekg3REtlbEIyQzJpYXg4L2RxdWZIVVRUd1JNWXk0Zkc4?=
+ =?utf-8?B?RkNiVWx0L3lxeHlEWnk0WDRYdkhCemVGT28vVlZVZGViZEhmNjUyNW5UMGxV?=
+ =?utf-8?B?Tmd5RWVFWlJQQ0JDSnN5eU94Z1NjTHY1Z01DMEpSZG52KzhXQ0FwYjh2Nmli?=
+ =?utf-8?B?WS9nVUJhTzVra3JMOHdMVzcxSklvYTVLU3hhejlwU1Rxc0pNRVE1Tk9IRk9R?=
+ =?utf-8?B?VmdEdVZJYjUxblpURnZuK1JYSVJVT2U5U001SFljb05Kc3l3REFmNUcrWUFh?=
+ =?utf-8?B?cjJNdG53ZGR4R2dXMkNsakU1TWhTellTa2tpazRmSTJwVEhCY1BzZEFUY2VS?=
+ =?utf-8?B?dmtjWS9TQzRQZi9DNWNWWkxKaUc4WjIwS3d1UElOMFlMZGlZckJDRHE4enBF?=
+ =?utf-8?B?cVhBc29RTUhiZXBUMHEwNUFKbHBXU052M0h4cnBLM216emJ2Vmp5dzVCZmtL?=
+ =?utf-8?B?ZUtyYmlDdHpENEZ6dGJmbXNOMFpOd2Q1TDl2TEhjSzdWa0p6cUE1dWdIbkFI?=
+ =?utf-8?B?Z0o2SkVub0ovQndZQ1ppMW0vSVRIUHNNSWg5SjVHcFAwbTlNcnQ4Zk5NZ2Zh?=
+ =?utf-8?B?dTJhS3FQTzN5S3R2cnE4dkZSVWZSWlE3VitvYVdGa3lub0hnTUtCVHZOVmFW?=
+ =?utf-8?B?UzN5clprdzIxa3hIRHQrbGRhRzZ1NlYzVmloQkZaWHVMR1dhbWhYRzdkOEx3?=
+ =?utf-8?B?THQ0azJjSmgvU3NVVVJjMWx5aDFKZERicHhvODlVU0pSa0YzeGNrSkF5cHZ5?=
+ =?utf-8?B?MTk4TGYrTWZENHdhS1hBTzRaSHdDYW9icVRobUJ0NGtyYU1OdkI0NmJoNGlR?=
+ =?utf-8?B?SmI0UG5rUXZGNnRrdHRjeTZSbHJaMHBOdWVYRlZRU1dLTkIxYTRZZGV3Ulgy?=
+ =?utf-8?B?bVJkeVVsR2dscFlXVElDdWxvY1FDWklGZXRZRURVZHF6d3ZrejBJVG5LL3hq?=
+ =?utf-8?B?NEM1cnB3SGhiUS8yR0xBd25vb3VVQ3FGL0tISEpiaU9vVWRhbGhoTnRaa2lM?=
+ =?utf-8?B?MER3eDU0eXIvay9Qd2RBZmxhTEg5TWhoaGdNRjFndVF5RGdxVjhuc3lXSGlW?=
+ =?utf-8?B?YkxzdGk3K1lPUElDeDlEY0FpMnNVR1NOZjUybkFSMXhEVGpUYlppbi96OUpM?=
+ =?utf-8?B?M20yVXRQMlgwOEw4OStiNzZGejJDdks4Y0FTcE1xRFlrVTlERkhKM0tMWXdp?=
+ =?utf-8?B?WWcyd1l0RjJrSkxGZ000Ty82ckVhN2xzS1RkZXZqY0oxWDBoTVlzV0ZqUHFQ?=
+ =?utf-8?B?V0w5U01JT29TQ0diRllqRlluenBVYW9TRWVCdlllUEd4cnFmSEVnMEh3a1Qv?=
+ =?utf-8?B?MEZjWWVUOVlib0pnZVk5ZjhXMlV1THNCbDhMcXVDMFc5aVVZaWZMNFREU3lh?=
+ =?utf-8?B?NUM5aGR5bEtiWjZiQ0srWnE4SjEyWmZmMGR4QmNDSkd1cDJlTXNEenZUUGww?=
+ =?utf-8?Q?uKg3P6zlHtUbgqhi6P5fYKZrnbt/f57u7py0xY05EoJhw?=
+X-MS-Exchange-AntiSpam-MessageData-1: 3grq3BtRkJc7DA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82fb29aa-2362-40d7-35a3-08df04478df7
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:26:06.9730 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:29:08.3562 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xelVBiubAag8mHWNZ9aeaVTIkxJQnBQg8LkToL8bAPJ/dfZjBgt+tGHY1QvtgHJixSPVjO1htuKzuMA9K1Kv/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2851
+X-MS-Exchange-CrossTenant-UserPrincipalName: /QzJNRBMaxcUrVJlEoBlW6W7ybLAq6aUDB1moAZdgtB3TBtEmflSoB2FsWt0eE+oJmK0Y4oNEcwIKs3c+i6sYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8988
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,87 +155,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 27, 2026 at 7:24 AM BST, Alexandre Courbot wrote:
-> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
->> Implement a `transmute_unchecked/transmute` that checks size at
->> monomorphization time instead of type-checking time. This allows more ca=
-ses
->> where we know that the size matches but this is not generically checkabl=
-e.
+On Thu Aug 27, 2026 at 10:48 PM JST, Eliot Courtney wrote:
+> On Thu Aug 27, 2026 at 8:12 PM JST, Alexandre Courbot wrote:
+>> On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
+>>> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
+>>>> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
+>>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>>>>> unfortunate because it disincentivizes using it in interface boundari=
+es.
+>>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for const=
+ant
+>>>>> value) takes a const integer expression and widens it to i128 (at bui=
+ld
+>>>>> time only) before passing it as a const generic value to a new trait
+>>>>> function `FromConst::from_const`. The trait is implemented by NonZero=
+,
+>>>>> Bounded, and Alignment and lets values of each be constructed from
+>>>>> constants without a verbose turbofish syntax. For example,
+>>>>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
+>>>>>=20
+>>>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>>
+>>>> This doesn't work in const context, so I don't think this is a great
+>>>> strategy.
+>>>>
+>>>> I would want to use it for cases like this:
+>>>>
+>>>> drivers/android/binder/netlink.rs
+>>>>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPOR=
+T as u8;
+>>>>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_ERROR as c_int;
+>>>>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_=
+A_REPORT_CONTEXT as c_int;
+>>>>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_FROM_PID as c_int;
+>>>>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_FROM_TID as c_int;
+>>>>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A=
+_REPORT_TO_PID as c_int;
+>>>>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A=
+_REPORT_TO_TID as c_int;
+>>>>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_IS_REPLY as c_int;
+>>>>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_FLAGS as c_int;
+>>>>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_R=
+EPORT_CODE as c_int;
+>>>>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDE=
+R_A_REPORT_DATA_SIZE as c_int;
+>>>
+>>> `const_as!` [1] should do the trick for this, provided you don't need t=
+o
+>>> create a const `NonZero`.
+>>>
+>>> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvi=
+dia.com/
 >>
->> The signature is equivalent to the unstable `transmute_neo` function in =
-the
->> standard library. A safe variant is provided to use with types implement=
-ing
->> `FromBytes` and `IntoBytes`.
+>> ... but I agree it would be nice to be able to use this in const
+>> context. And there is an overlap with `const_as!` that becomes more
+>> obvious the more I look at it.
 >>
->> Existing users of `transmute_copy` to bypass size checks are converted.
+>> In for a penny, in for a pound of macro code as they say. Since we
+>> agreed on using macros, how about unifying both under the same `cv!`
+>> macro, with as many branches as we have types we want to initialize from
+>> a constant value? For instance:
 >>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>     // Does what `const_as!` currently does under the hood.
+>>     const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDER_CM=
+D_REPORT));
+>>     // Calls `NonZero::new().unwrap()` under the hood.
+>>     const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uapi::N=
+ONZERO_VALUE));
+>>     // Calls `Bounded::new::<{ ...}>()` under the hood.
+>>     const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel::uap=
+i::SMALL_VALUE));
+>>
+>> I.e. we would have one extra matching arm in `cv!` per type it handles
+>> instead of implementing a trait. The syntax of the macro would look more
+>> natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have the
+>> limitations of such a semantic dispatch.
+>>
+>> Even the name `const_as!` wasn't really accurate to begin with: what it
+>> really emulates is a const `try_from`, and we even discussed
+>> implementing it in these terms in the future.
+>>
+>> I'm sure the idea needs more polishing but I think there's something to
+>> explore here.
 >
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Yeah I agree that const_as! is similar and if we had const traits we
+> could fully merge them and have it always work in a const context for
+> both duties (which are really a const tryfrom as you said).
 >
-> ... with a couple of minor nits below.
->
-> <...>
->> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
->> index 4d5c96ddc49c..7225abc64084 100644
->> --- a/rust/kernel/lib.rs
->> +++ b/rust/kernel/lib.rs
->> @@ -98,6 +98,7 @@
->>  pub mod kunit;
->>  pub mod list;
->>  pub mod maple_tree;
->> +pub mod mem;
->>  pub mod miscdevice;
->>  pub mod mm;
->>  pub mod module;
->> diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
->> new file mode 100644
->> index 000000000000..a0901cbe1b2d
->> --- /dev/null
->> +++ b/rust/kernel/mem.rs
->> @@ -0,0 +1,37 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +//! Basic utilities for dealing with memory, values, and types.
->> +
->> +use crate::prelude::*;
->> +
->> +/// Version of `transmute` that performs size check at monomorphization=
--time.
->> +///
->> +/// Use this instead of [`core::mem::transmute`] when it is known that =
-sizes are identical but this
->> +/// cannot be proven by the compiler during type checking.
->> +///
->> +/// The signature is equivalent after Rust standard library's unstable =
-`transmute_neo` and that of
->
-> nit: "equivalent to Rust..."?
->
->> +/// [RFC 3844](https://github.com/rust-lang/rfcs/pull/3844).
->> +///
->> +/// # Safety
->> +///
->> +/// Same as [`core::mem::transmute`].
->
-> Let's add a short doctest for this new core function (and for
-> `transmute` as well).
->
->> +#[inline(always)]
->
-> I suspect we want `#[inline]` here in line with Sashiko's comment on
-> patch 3.
+> I am not sure about the suggested syntax (e.g.
+> cv!(Bounded::new(kernel::uapi::SMALL_VALUE))), since it seems very
+> verbose.
 
-That's a known false positive of Sashiko (latest prompt should have fixed i=
-t).
+A bit, but what I like is that it looks very close to what you would
+naturally write if you had const traits (minus the unwraps), so you
+don't have to learn a new syntax. As long as it's not *more* verbose
+than natural Rust, I think it's fine.
 
-For this function I really want it to *never* be not inlined (it's supposed=
- to
-compile down to, well, nothing), so for example, it's allowed to rely on th=
-is
-function for code that use build_assert.
+It also has the benefit of relying less on type inference, i.e. `cv!(5)`
+requires the caller to specify the type even with a `let` statement,
+whereas you could do `let v =3D cv!(NonZero::new(5));` and it would work
+as expected.
 
-Best,
-Gary
+I also feel that we should be able to support const items with `cv!`
+today, which is not going to be possible with the trait-based approach,
+so if we switch to macro dispatch we need differentiating syntax to
+decide the arm.
+
+>
+> Alternatively, what about just directly merging them so you use
+> cv!(5) (the non const context FromConst::from_const dispatcher in this
+> series) or cv!(value =3D> u8) (exactly const_as!), with the =3D>
+> distinguishing between the two?
+>
+> So this is what would work for Alice's example (const_as! but pushed
+> inside cv!):
+> ```
+> const BINDER_CMD_REPORT: u8 =3D cv!(kernel::uapi::BINDER_CMD_REPORT =3D> =
+u8);
+> ```
+>
+> When we have const traits then we could remove the =3D> syntax I think.
+
+Agreed that they should be merged in any case, even if we keep the
+current syntax of `const_as`, the macro itself is hard to justify in a
+world where `cv` exists. And `cv` also corresponds better to the actual
+purpose of `const_as` (which is not, as I initially thought, a const
+`as`, but rather a `try_from`).
