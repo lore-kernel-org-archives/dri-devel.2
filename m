@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72D9CC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C03FC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95A8D10F0B5;
-	Thu, 27 Aug 2026 14:52:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D44710F0BF;
+	Thu, 27 Aug 2026 14:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XgQIYt7m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cyGgIDBq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6AD710F0B5;
- Thu, 27 Aug 2026 14:52:28 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 809EF10F0BF
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:55:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 99EFB4012F;
- Thu, 27 Aug 2026 14:52:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478961F000E9;
- Thu, 27 Aug 2026 14:52:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 825D9600D3;
+ Thu, 27 Aug 2026 14:55:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8621F000E9;
+ Thu, 27 Aug 2026 14:55:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787842348;
- bh=+fWbtzVgQDFg+IRS5PwCRbAuijx8PRzrDBLinuUNimI=;
+ s=k20260515; t=1787842520;
+ bh=yMfsVHo1v6LWvWfVIrIqN7rvoh3h2BxKsHv/RKB8rm0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XgQIYt7mqJNWaquL+xmomAaXbPfYvgbDv0MCoX1Vs+ElNBzRUn8omGlw847vwDPOW
- bvBeWt1TW2IyP/5faczMkQHTMwYZC3GhxyjXQVqHpxizss4lmZ4wwR1KfsLCvpesgu
- z834bnIajrgud0P9m5MadYDjIY7WSyydM0XYXvcb4YMgjOrw+5/a+omO4/UxrNGw94
- 7wRYYEpXqquxwzGmLpo1ZGwbiEFTI860tYHKsr5ihw1w6d4I0vO9cvQzUVh9olCKWr
- N7QrYPm2n3dBAIRsfinoKfxlgx5EUmYabwYkl8wiI2YDNT6HpnY279YjM+YJorFtu2
- ouxKVHgSLi2ZQ==
+ b=cyGgIDBqK/b0O99nao36d6duJBuMVyr6M8T7InvAIF6Yr/VRy3YRGfUGSeSTki7jF
+ 3TJBCco3OUzk/9xUprCuHHZjAwwV+4a53W7vqsb30sUiZGWEG0UlYiPCWq8+m1dzTV
+ 4wS2IQ0cwl/zMQhUh4nfLXN0zXoSIL49l1M4Ofrh1fWtmmbLtHllN7oKcmq/ZvKlWW
+ /58BkZ5znpm/jWIRZmUbRw2J9/7ESjn3Vgka8TCeKhW327wrNMDYOvveTN+pmLLLuj
+ JUUzRcizC64FWvLN4Q06gtOTedSNM3MZG7cJMFoaDfge4B3QuQur72BTmXYO5zDKd9
+ EBle7oQr74xfA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] drm: Unwind drm device registration upon error
-To: "Krzysztof Niemiec" <krzysztof.niemiec@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827143447.99553-2-krzysztof.niemiec@intel.com>
-References: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
- <20260827143447.99553-2-krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH] drm/amd/ras: drop redundant memset in
+ amdgpu_virt_ras_get_cper_records()
+To: "Sang-Heon Jeon" <ekffu200098@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260827144614.487229-1-ekffu200098@gmail.com>
+References: <20260827144614.487229-1-ekffu200098@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 14:52:27 +0000
-Message-Id: <20260827145228.478961F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 14:55:19 +0000
+Message-Id: <20260827145520.0D8621F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +59,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Debugfs pollution due to early destruction of dev->debugfs_root =
-in drm_dev_register() error path.
+
+Pre-existing issues:
+- [Medium] Missing buffer full check causes successful operations to fail w=
+hen the buffer is perfectly filled.
 --
 
-commit d5c910dd66292cf0f42ddf2dd15a2566f8663a8a
-Author: Krzysztof Karas <krzysztof.karas@intel.com>
+commit 24dbd1a80d649ce6f08f74e92eab2a4b85e073a8
+Author: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-drm: Unwind drm device registration upon error
+drm/amd/ras: drop redundant memset in amdgpu_virt_ras_get_cper_records()
 
-The drm device registration is done via drm_dev_register().
-This function attempts to undo some of the initiatlization steps
-under err_unload and err_minors labels, but this process is
-incomplete - debugfs entries remain and the dev->registered flag
-is still set to true.
+This commit drops a redundant memset() after kzalloc() since kzalloc()
+already returns zeroed memory.
 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index cb53baa70995f..2d964c9535f49 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -1144,6 +1144,8 @@ int drm_dev_register(struct drm_device *dev, unsign=
-ed long flags)
->  	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
->  	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
->  	drm_minor_unregister(dev, DRM_MINOR_RENDER);
-> +	drm_debugfs_dev_fini(dev);
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c b/driv=
+ers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> index 1e83cb5064ff6..f021719ff0a8b 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> @@ -298,8 +298,6 @@ static int amdgpu_virt_ras_get_cper_records(struct ra=
+s_core_context *ras_core,
+>  		return RAS_CMD__ERROR_GENERIC;
+>  	}
+> =20
+> -	memset(out_buf, 0, req->buf_size);
+> -
+>  	for (i =3D 0; i < req->cper_num; i++) {
+>  		batch_id =3D req->cper_start_id + i;
+>  		if (batch_id >=3D overview->last_batch_id)
 
 [Severity: Medium]
-Will this cause debugfs pollution if a driver retries registration after a
-failure?
+This is a pre-existing issue, but while reviewing this function, I noticed a
+potential issue if the buffer gets perfectly filled.
 
-In drivers like amdgpu, there is a retry mechanism for registration:
+Further down in amdgpu_virt_ras_get_cper_records(), we have this sequence:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:amdgpu_pci_probe() {
-    ...
-retry_init:
-	ret =3D drm_dev_register(ddev, flags);
-	if (ret =3D=3D -EAGAIN && ++retry <=3D 3) {
-		drm_info(adev_to_drm(adev), "retry init %d\n", retry);
-		/* Don't request EX mode too frequently which is attacking */
-		msleep(5000);
-		goto retry_init;
-	}
-    ...
-}
+		if (count > 0) {
+			ret =3D ras_cper_generate_batch_cper(ras_core, batch_logs, count,
+					&out_buf[offset], req->buf_size - offset, &real_data_len);
+			if (ret)
+				break;
 
-Because dev->debugfs_root is initialized during drm_dev_init(), calling
-drm_debugfs_dev_fini() here in the error path of drm_dev_register() destroys
-the directory and permanently sets dev->debugfs_root to NULL.
+			offset +=3D real_data_len;
+		}
 
-If the driver retries drm_dev_register() on the same device instance,
-drm_debugfs_dev_register() will pass the NULL dev->debugfs_root to
-debugfs_create_file(). This causes device-specific debugfs files (like
-'clients', 'gem_names', 'framebuffer') to be created in the global debugfs
-root (/sys/kernel/debug/) instead of the device-specific directory, polluti=
-ng
-the global namespace and causing naming collisions.
+If a previous iteration perfectly fills the buffer, offset will exactly equ=
+al
+req->buf_size.
 
-Should dev->debugfs_root only be destroyed in drm_dev_release() to maintain
-object lifecycle symmetry?
+On the next iteration, req->buf_size - offset will evaluate to 0.
 
-> +	dev->registered =3D false;
->  out_unlock:
->  	if (drm_dev_needs_global_mutex(dev))
->  		mutex_unlock(&drm_global_mutex);
+ras_cper_generate_batch_cper() explicitly rejects a buffer length of 0 by
+returning -EINVAL.
+
+Because the caller treats -EINVAL as a fatal error (the check
+ret && (ret !=3D -ENOMEM) evaluates to true), the function fails completely=
+ and
+discards the successfully retrieved records rather than returning them to t=
+he
+caller.
+
+Could we add a check to break early if offset >=3D req->buf_size, similar to
+how it is mitigated in ras_cmd_get_cper_records() in core/cmd.c?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827143447.9955=
-3-1-krzysztof.niemiec@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827144614.4872=
+29-1-ekffu200098@gmail.com?part=3D1
