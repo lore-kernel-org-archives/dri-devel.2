@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BB21C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB744C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 21:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BEF510F1D2;
-	Thu, 27 Aug 2026 20:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8405F10F1D3;
+	Thu, 27 Aug 2026 21:08:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="S2ZRXir6";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="eVUuAiHk";
 	dkim-atps=neutral
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011020.outbound.protection.outlook.com
- [40.107.130.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 409F710F1D2
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:57:22 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011003.outbound.protection.outlook.com [52.101.70.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8C1810F1D3
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 21:08:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZTzmkFuAU9O1fhEK34M5mZSDz18rX/iShAH0+U1nnJPcWRsTa4XGuuNKFu75cW9eRfLkCmZdj8Q3EA6qtUSp6zimyBJizD3rlchnetwqnNhk3uKuQ29SIrurAZ0Xq+j6B070/SXNcF9SUUu/k41OEerzP6j7dd/KuTPyrS38zvt636xbKCj+gXT4haTWImT5zlP+tVWmA7dRWNI6BiTat5iVOoSjg5NHfUzeC+k547JeXN556JqfaPRvt92iIEo4Hhd7BMS4pmyeV0xfsmIKfuu+wDeoBlC13QjKgNu13IgkOCRVfL+L13rkL2SAlCDmhR+BYnHsS66nbGK2JNfcw==
+ b=vTz5DIReNUDbkKvhwmLOYimAn42mzxytMxfLPTmdIvhr8TzruD6JHFnMZaaArKGU300YP++Y6qVBzN9FRE0LddPlTfBTHBAJAl7sPhe3OcVdHhuyy7y+4lIJuL+uT5JlvbL34aNbC1SKmwooJqj7UMpZ7dTrUxkOz5+FgzllRhGqhs1Tnmcer0E1g1HyjHRL+Xv7qnB6MjYdOl2KPA40AFHfIk8jjbvxziBeKfp3wUe0LmZMu5eyMwt7mFy0vc0lyqqFQPA5sSuubI5r3zCVL2Ckn9uMALVhBoahkrQrbFtQZ8Qq+ZT4QD0H1cwH8qoPdOK+jPtNEp//KM5BTQ1+SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8tGM9AW+WOJ4aOkd0eHhkkRK+rwSWeG0CUwho4v4eyU=;
- b=E3UzyX/P2g4KDuhwneGD9NP8n0/HLqyZlEwqeDOYrJvJLc5RWfRNWwMzAS1oAeM2MBiWFjFtJGKeFvfJQpAcsNgDmY2JwNA/vK9UBX9pDg+VL9jYkLX6KoXmQoKMS8Nzj+D3LpXYi9HpHYqNSZ6OqDP0Q6EAiCXOgtRxpo1/cb6OIl3g2uWu5dUNLRLtwfv85oYaI0035lp4in44OrA5eatuvCBUodmByvHSPZZnbSt5q2nBI2bEDLQFWx/RTZblPvR20KFmumeg8kVL0Lj+VBDO4/SLD7FwTyvhx6ss3kWKVw9WFuXeySiN4RLnLLzDEchinYT03/DWj2raFZs5Hw==
+ bh=u/1jGQByZBJtPs80xUtwhyTixpmN7TzxNeKAcqZTSvU=;
+ b=k3OJv6JI1fzGH+nhwH26hJQEE8UYgM/pCAaPCEw3Fe6aPgfS2w64Vz9KMnXGkZGZQ40TgDPjqSEdDLjAR76xu8NdZlqDYLRUE5iS3vQPlgSBP8daVNd91LrZy0txGnI7JH0GckuP9CYCx8Z2WdSjmjibHOmSbOgbMWT9X0CHrn2V/PZ3kJ4IrlqpYAez2owipYRgWDyghE4ZLcsHh0TMoQZzzWt4Any9baoeJpLuP6BJvYIAHlU7RcscRU2jlrJOhReeEWosk5DTK+f3/pt0aDyOGZf4rxCp/O6jnfzmZF2Yva+5+CoGTYOB2FIr3ixuPeKA1ckC561HoKH7vA+iTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8tGM9AW+WOJ4aOkd0eHhkkRK+rwSWeG0CUwho4v4eyU=;
- b=S2ZRXir6fuDmAzJpN7S1V18aaI13GO+EYZL//dk/wjkl/wd200WHQRre+pXAueX4kNFhwO+nflZe5hl/czquGHo3u8ymKm9m3VBv9AiJrApWe7oQf/w3n34PlKb8wwt5DMKw07xgqpNdrvppoiCP6P1sySdDbRp7Rzgpot0svz3C6v4ZYWKgnfVMKDWBBTuzBql023GMm9DRLNErEHFE5wVEXEmUqtoFetK9Z3RXEPj2vNP4Q7DyEriWiEr0JHzwwou3+DCdH2p/vgxW+7pXwUXr96IZE8Sh+af7TuzywuarorAIwNzFHaM4VT/dxvUhyGpda4nol8+3zvEsQKtyPw==
+ bh=u/1jGQByZBJtPs80xUtwhyTixpmN7TzxNeKAcqZTSvU=;
+ b=eVUuAiHkEcn+dU1AZEKOv6kvkfGzSC7yYmJOLDEOwICemeWc/JNrGtDBUya7o8650kobEq1qxQgtPjQ1BWkZZGrD2G/tiGpQNoRJorlxR0fE9hczarcwNpVWdfCUfZ2aft/DVKymL9Nk6W75yotm0decQvFzM4h6y//q1gz/VzvDhA6CGy6dCm2qBELoOJLE6jxQIsiN7ozTGXPhn4zi30OZtdbr8jssXief6Ge44ZNGaJOK0WOMEnJbqBJ+9Iq4a52tl5ZoZnDP2/8V59O0bOjwAKde/BQGJEBWVWf8ZHgqsSpHrRxR3ULK5FXTUn4xN5dZPskojnjDak4vqCmQEA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAWPR04MB11569.eurprd04.prod.outlook.com (2603:10a6:102:50a::7)
+ by VI0PR04MB398878.eurprd04.prod.outlook.com (2603:10a6:800:35f::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 20:57:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Thu, 27 Aug
+ 2026 21:08:22 +0000
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 20:57:18 +0000
-Date: Thu, 27 Aug 2026 16:57:10 -0400
+ 21:08:22 +0000
+Date: Thu, 27 Aug 2026 17:08:14 -0400
 From: Frank Li <Frank.li@oss.nxp.com>
 To: "Rob Herring (Arm)" <robh@kernel.org>
 Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 05/11] accel: ethosu: Ensure SRAM region size matches job
-Message-ID: <apCkpjQtKRaTNQ1n@lizhi-Precision-Tower-5810>
+Subject: Re: [PATCH 06/11] accel: ethosu: Fix probe error cleanup
+Message-ID: <apCnPtUSknO0XBSY@lizhi-Precision-Tower-5810>
 References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
+ <20260827-ethosu-fixes-v1-6-346f9ea8791c@kernel.org>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
-X-ClientProxiedBy: PH7P220CA0131.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:327::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
+In-Reply-To: <20260827-ethosu-fixes-v1-6-346f9ea8791c@kernel.org>
+X-ClientProxiedBy: PH8P220CA0039.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
  (2603:10a6:150:2cf::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAWPR04MB11569:EE_
-X-MS-Office365-Filtering-Correlation-Id: e76b4fae-f05a-470a-c0fc-08df047dc842
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB398878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b07bb65-b3e0-4cc1-3e2a-08df047f538e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|376014|19092799006|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SRJNkx7+NrRiVJ5UWf/yXAsSFv7SffFLH0Eaewpg6tc25w1W4XjrIFy3mvOa8sCWojomZ7Tr46s7mAZvXlKcjD74WpzsuRxqcL/1muqtWnp3xaaMjbt9husBPfRpIIhLvRcwY+6jdx3icRTKf+K6FiZV7Zx32hGbvlSAw46YPJnh9wmGkIk5MeVKmSS+5E+0K3Uw8JuVv142J1D4MT3d62OU4iS0T7INRuiAGa+qQBsuWdn/XTTs9QmA5Gy1ZvVuVrZIX/qCYyosAoVBpYEHgyfY+rxX7wk+Hy9q/td8LHudSGijPSdvE980MC8lym7zEpJrb9aL1RAAxXdmWd51lW8PvzomwlsVu/WvqW4/gGDC3Ub3xtGob8bG5KV+9k8YUB/51RQw0Vvm7fLeAm8R3ajnYWE+FGxcqE/ZT8eoUDkix7EQ+OnM1rO4F8D8FWrZwi8gUatNuyjHfqpgmJ1ZgsoI7F5dirMTWwLssvLTlWUnhfrY3h+WryJ1sgNsOPOVH76n3HP85rYrTQVi1VNO1w19kloHQ1CaIDuKsEo5mvUjHZ5kaENE3CG71P4t4NZFM5ErvZfPk/R6bFdg2Fvg1nBz49ChTB8rYVfnN3RczW8w+gA+qtzH2n2dxxZ2cqiIIOle8PhjlAeS9AM2IgUsNT2mfLbQy+QGbep6HIfdjG8=
+ ARA:13230040|376014|19092799006|1800799024|366016|23010399003|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: cOZXrTyZBAx4yGymCOk+Q8VAZyjU9fMRkZ1soU8eNT+aFUOplIzNfxUXSvs1JLVWAt3+fpGMbor7w0EvQK7nNOf0agdYgpyJeKx2NdMcZX0UMbOkgvYRXxRo+tEMnEYhglAHWr8AzsRFgJHwv89wHcYGKuNYCLveLmQCypvcv7Z8/RqdnqDwmEuy7bnelDzshdN3/FvcTWE2Jxh2t2OjJdWu38iAT2rzdqzKZmyNQNZt2TNFDupfrfKiTBbFb1E7ahRHHuayd53bfM3ZF4cwWVo9OocEDp+jCzNIOF6eoh40hKfaSNBxQUBoq6f/cRkH36m8wqOi2jElJwdYs2RvtQ/B6NbsKUFjfJ/PfEE6Ok41j0Dp14S3X+nKnh1UJx5z5Q8fk2FVD4wDmaDf6hRKtkx8SDrPgW06gE2tm6M2IKsVUfSFfwWduXnKQnVzV9WBxhvM9OEmh6mRr+xLMvL6x26FXFo8H+U6DwraTUnlKH57YAAAHdLKWveUAHDND0YUHbX1ZPVRDNiBpukcRQYL+NVAnClEKBf9qAjsogTmYbT0XEKjmHqyR9UJvI0qW1mcy8dIhjxBzzf/a58VWmVNu2ONPVfaDkGgJgw0cE6hLif4ungES18Mt4LqA2pYbYCxj8OIZZNo1w2c12jyMLOthToiZ6ZX5AWCMwN76IYa6bc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(19092799006)(1800799024)(366016)(23010399003)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?NJUG4srbzmCmMFj+AoBE74UMLKT+iQlheiLageMZCMnaFTcENi7jOc4gbfwv?=
- =?us-ascii?Q?TSQ9D3UJi+ZQh9/CYLNvcm5Cc+t2Ln33v+5YIJ2ECW4und4p3yFzn4GjakI1?=
- =?us-ascii?Q?5Ux92a9IsPYptpl9Mhe/Fp/bp4rv9Mqi5eCjYWY63Jv1NLN68xd9VIpIlaPm?=
- =?us-ascii?Q?EeHX8N/ztGGgFX0rhUrnXXnwJf/p6lbP90cQ68XQWofgLjyV7YD5sgD/azrH?=
- =?us-ascii?Q?nTGEFJaLCYUcR86lq82tJ791ZHbf5WZbay9rdzcN7cGjoWw4n74eVC0JnDod?=
- =?us-ascii?Q?RdbQajsQL5rLouBeuAgCpqlaKlMmVs1hIffNlIZgfT4yq0uEjMCKbgVbZE9z?=
- =?us-ascii?Q?6dXfQuSjml9YZ+Gq2spotxEUQE4pkY5lKXikTBnwr5O3Rwux/ZQEQrZUSS9v?=
- =?us-ascii?Q?08R2RYck2f4M0vsJPW8y0ILDqjfVGifYHh6mtppS/HuhIfxE9L9yVR0iV9Mp?=
- =?us-ascii?Q?NAD8i2VB5J/qRQSFMPbr7t4zrwJuSGMWLSwxsMKosQGyuCsobeE78svoZYRo?=
- =?us-ascii?Q?H7Jn59+RrzBAxWnfwx5F4I1mFbCIkBHSXJtRaTbQSYhlvy9PWeHc7s41rndT?=
- =?us-ascii?Q?bA1mnFXXR/MvM7NGY8ODYq4G1nNCu1dtz/BfDkyvcSQDArq8D2pXNSaXIVMK?=
- =?us-ascii?Q?mL4WicYHEsfHsHi6we6DoUSGJsSVEEQ11sZrfVZlnlhqs4WSHi+9WiIS36Ix?=
- =?us-ascii?Q?Oz5ITBf5b8vsO8td4M+bl5zUfmB/3a4ag1AcqlL+UKc51APta1/3aBWmTQK8?=
- =?us-ascii?Q?h2MfXLZZNaKWgFrV6S13a51JFVvHNcThRns2HPLmSRLxh/+Ich00FbB5stNZ?=
- =?us-ascii?Q?hD/xFJrqazfUmbLw9bm3XeJ/9Jlz7IgNxp1TXtDldfDZnxf6JHSvbIvw25ig?=
- =?us-ascii?Q?0uCGttG2lFd8yGCMOerytp9UMfcpx9aRCqMUfq8J0WeqANfytahpUSys2CO+?=
- =?us-ascii?Q?3UwzbXh9DEgdbq5TgBE7OFW0waz3bn3+F0GlXtXG9C/oITy315O9oxj16/2S?=
- =?us-ascii?Q?4cGjmC1jrmp/YzuIEla49ooueiwb1bGRn5jO4SDnjvfpvEPkeO0xWyo6wL3h?=
- =?us-ascii?Q?OKf4/JoE6WKBD8FE0E0K9rO2uhQ5yV5ergOury3uzHjDpCWTNxOe36oCDvJB?=
- =?us-ascii?Q?jw82BDDs3pWVpvIoauWATRAyotK9P/PO4O14Mmn9968UQa3bpawxoJ68BKp/?=
- =?us-ascii?Q?IF3Vn6klkGp3Qb7vvtBjKX2eS/VBgh2RpTRXuFMfrkKzWC7vTXWugn5AwI/S?=
- =?us-ascii?Q?LQvvVmX/97OIYYUrG3dX5BaXVQJkMJoFYpjydIB0M64JdZWyUvzh48KLrwRu?=
- =?us-ascii?Q?kwDy+P1ziMPdeOnW0LGjcArmeQzNZxq6XfFAzres/F5e+ttRZhk2uHDA7ThU?=
- =?us-ascii?Q?3MG3xPJHZQKr35UbyGiLRseBaW5o/jMVbP2A0/sAzG4JppTJzs3eR4lYpKhm?=
- =?us-ascii?Q?BSA93j9PR70C04fu4pwLGJFcE4/hEL5vp/5I2wUosuBD9pmu3fw9tkBuuaul?=
- =?us-ascii?Q?JhIBi5KGsqGe/1OPUWunR70LIjxzXU4Tm7Jo5W5T+9g2PMV2YpKzVjf9AMWn?=
- =?us-ascii?Q?UjMtsdmCdGITABFSWy9TX1pB+e+NLMaDTEsp2zQAso+Xh3IJRAJQlMrMUS9t?=
- =?us-ascii?Q?a66pIiO2VcOOQkqOt9DRl5CzxkSc2K/XjkR0A2Uc9pTHiZ/rBDASc32cN31d?=
- =?us-ascii?Q?eLwG6TvVgTUwBcAQHtVVvO+PdmBf1nqTKvUhOEOEnYZjxQ78oQ9awmFilNE2?=
- =?us-ascii?Q?xzqCmwJvUBtH9iG9euL42wQHY73A3SbC1MkvWyLE+7aaqS8iLmb/?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ph8S3C11OLZRhxGHI/D6k9Nmsndv25S6kdwIBtbPhPz07oySvvKbJmh4zJH1?=
+ =?us-ascii?Q?2FJR59sdQyNKeznyGG3yJ6/7crFQlfYozR7Oh4hE5KdJFmE//XQ98155vtRn?=
+ =?us-ascii?Q?q3ylLSyeBFzNZ8CSc0l6sC2Qfo1BNLsV86t7JP/vy01cnTBbh7THvYTyorSv?=
+ =?us-ascii?Q?zFSd3HVKFD3k/537Yn+ra4+WRY3gizFYkRKcgWXP/R/AoCNtwjs+2FLdJgJ6?=
+ =?us-ascii?Q?suOpNiN3zNnkKJp7Vpy+uDCGkyjJEqfME6FsTVfkQWmUXn3dqzOqhwguEX2S?=
+ =?us-ascii?Q?Tnn7MfY6/pEeDRv6bDugjaAhjBK1IzKFE2Qv0E1FZGO+Vx00/3SUQeLW5eOn?=
+ =?us-ascii?Q?qVE8EUwrH7bVssAm4ZzNdY1E/CsFXutGU919faiuyE5SY8rfg596SJxIAQAj?=
+ =?us-ascii?Q?iw7jDUflF0HICuOjhLuRUrmY5VPuKlRkwlAyEHDVeCaflQG3rJI04vY97zeU?=
+ =?us-ascii?Q?zdyDNk4ULvQ+Xi/H4atK6qSedtdeYi2W7LeuwDR8CwiqwZlzX3BIg6L5uwiF?=
+ =?us-ascii?Q?wPNjqHSrr1xpDpAUSnxEcICnS1QXrKZBHj9GEdJqbHXW7ccP1B5YS8hHAr2F?=
+ =?us-ascii?Q?O3yETxYRFuiaDPK+ku0XjN5r5KTb7wN6yUSDyQn6TPZ4wzsPNu0GPkaBbqyf?=
+ =?us-ascii?Q?tJxVQsqVvuAqaODjTXMtHYcEP54M3B6wQX1/4Y2dJUQXOMnPN2/KwbrQ8byP?=
+ =?us-ascii?Q?jOwTZ5eUzbE/ND96rdM9P6zqQbVV8F81PspOdqtpRZnTKX0d0f4pZhOre5uM?=
+ =?us-ascii?Q?OZtJwe4hgOehatpSmu7Bg1tp/SZJt/8R2CnC6m2Fqhcp/A3K/StfU/VKZKCt?=
+ =?us-ascii?Q?3MLaerM2+ebZ5SApPKiikCWPswuZxv/SOjWSPwck1w7j5boy/dDoyqP1z8af?=
+ =?us-ascii?Q?IloZK1a2HlbEY2GpZAuU2IVjWb+5XNr4MFNFrzyO7QYOgvAEY7aDsaOYjtTJ?=
+ =?us-ascii?Q?fiTi5EAMh1Q6oLJt8lmb5Caz23i2fx+SEt7xGej2xI2b+t6RrrLEmDlKRo9y?=
+ =?us-ascii?Q?MI4aYjzN9N47YjfKTctZyO4sxMx5RyWG5a34s98H3QxD7rwxnYmsMVy8bwz1?=
+ =?us-ascii?Q?4ZzU0QNgkIQtWmwZ8WsmSy7xt95WZv5Fo32U6opMLz2+G5CbmXgP9tZEH6vY?=
+ =?us-ascii?Q?bepOPXYsoTtMtwZyxrb8bmK0cGczrmZm3IriwLn6WjKbHCfBNSihEkAQI9Hu?=
+ =?us-ascii?Q?vzFGLFm6iUJDWe5+FnrywXanEI5IQkLIWnuzIEBUFkR0fiAjbG6eazFZG+sE?=
+ =?us-ascii?Q?ihpsuh/9aNBJueRpaZLEoiVokH5mI/rv+uY5HeuEM6cat6tRTTizWvI6BUWF?=
+ =?us-ascii?Q?Int4aKv3dTSFbSOEI/lTV7w0erBfHcjLADbXeN7dn/bX6LqUIGT9LgqZ+QQN?=
+ =?us-ascii?Q?wEC80CBiP+wp12v1k6cA/Ai+EM871I+nAU046Ol94fzKL3pfHvg4l7bLhLDS?=
+ =?us-ascii?Q?oIzb/WGkH13wu4b8HxDRdrYTHC5UDvbr+neSZ1x54IVnOyZBycO8Tkhr0AV5?=
+ =?us-ascii?Q?5elQPuXa0ABWDhksQRPYDC+u0kdEfFlOl2YafB4vH12vv48jqdOqaZbYspU8?=
+ =?us-ascii?Q?69QpC/U1tDnvkpN1+C9EzfXXgZ8XNw8ihcK66u3jFfRemTwn/UxRsCusDZdm?=
+ =?us-ascii?Q?hXi2wT40gtqjv124Tlp2Xc+3Y/rO+SL2s+Y4O9F0d1y2KLHaVTyjGMMXXb10?=
+ =?us-ascii?Q?xZSEPhmkOfuDTVCWZG9u8yFKP7RLIrrk3JpvPh/UT+uw3cjaFexH3131Ox9V?=
+ =?us-ascii?Q?oYNDqbM58xAMFrlcBLRCpa6QEb33hl+mpD55yunJ9gDVHu3J9PLe?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e76b4fae-f05a-470a-c0fc-08df047dc842
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b07bb65-b3e0-4cc1-3e2a-08df047f538e
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:57:18.8728 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 21:08:22.2196 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IBSlz8+f4sYCIjZMgi1EKtaOZedqsTyYeolIOletbljOrjedGMqIRqKBmmv0MtCU1fy+t/yGr0qR2osDFrqqLemH+1jgKSO4DgIhn0Y7xENy/WcAnnrBFQbpAX6u+VQi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11569
+X-MS-Exchange-CrossTenant-UserPrincipalName: JYya2WVg24MWiAsc1aQOyiSXCH+x/T8XoYzoOm8ypiTM4KjdJkbeFQMSfpyztg/BP1bTzpJP4FJ0o3RJOu2OfZDmSjl+BkY8Ff6c1e2CE2WI5NZB8J9/O7+Rpi4VrDPL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB398878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,47 +127,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 03:33:04PM -0500, Rob Herring (Arm) wrote:
-> It is possible for userspace to set the job SRAM size to 0, but then still
-> have SRAM accesses in the command stream. When the job SRAM size is 0,
-> setting the region base register is skipped and a stale base address from
-> a prior job is used.
+On Thu, Aug 27, 2026 at 03:33:05PM -0500, Rob Herring (Arm) wrote:
+> Once the job scheduler has been initialized, failures from ethosu_init()
+> or drm_dev_register() return from probe without tearing it down. The
+> registration failure also leaves the SRAM-pool allocation in use, because
+> the platform remove callback is not called after a failed probe.
 >
-> Check the region size against the job's SRAM size instead of just the size
-> of the SRAM. The job's SRAM size was already checked against the total SRAM
-> size.
+> Unwind the initialized resources on both paths. Also do not call
+> drm_sched_fini() after a failed drm_sched_init(): the scheduler initializer
+> already unwinds its partial setup, while drm_sched_fini() requires a
+> successfully initialized scheduler.
 >
-> Fixes: 9cff90774872 ("accel: ethosu: Validate SRAM size on submit")
+> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 > Cc: stable@vger.kernel.org
+> Assisted-by: LLM
 > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
+>  drivers/accel/ethosu/ethosu_drv.c | 14 ++++++++++++--
+>  drivers/accel/ethosu/ethosu_job.c |  6 +-----
+>  2 files changed, 13 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+> index f1af7b3ea038..41ecfc623d42 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+> @@ -371,13 +371,23 @@ static int ethosu_probe(struct platform_device *pdev)
+>
+>  	ret = ethosu_init(ethosudev);
+>  	if (ret)
+> -		return ret;
+> +		goto err_job_fini;
+>
+>  	ret = drm_dev_register(&ethosudev->base, 0);
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Does this involve any hardware access by callbck? I suppose
+pm_runtime_put_autosuspend() should be end of ethosu_init().
 
->  drivers/accel/ethosu/ethosu_job.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  	if (ret)
+> -		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
+> +		goto err_pm_runtime;
+> +
+> +	pm_runtime_put_autosuspend(ethosudev->base.dev);
+> +	return 0;
+>
+> +err_pm_runtime:
+> +	pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
+
+it should be call by pm_runtime_disable_action().
+
+Frank
+>  	pm_runtime_put_autosuspend(ethosudev->base.dev);
+> +	if (ethosudev->sram)
+> +		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
+> +			      ethosudev->npu_info.sram_size);
+> +err_job_fini:
+> +	ethosu_job_fini(ethosudev);
+>  	return ret;
+>  }
 >
 > diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-> index c33f2877b385..0982722a9195 100644
+> index 0982722a9195..7cadd75ad0ba 100644
 > --- a/drivers/accel/ethosu/ethosu_job.c
 > +++ b/drivers/accel/ethosu/ethosu_job.c
-> @@ -441,13 +441,13 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
->  			if (!cmd_info->region_size[i])
->  				continue;
->  			if (i == ETHOSU_SRAM_REGION) {
-> -				if (cmd_info->region_size[i] <= edev->npu_info.sram_size)
-> +				if (cmd_info->region_size[i] <= ejob->sram_size)
->  					continue;
+> @@ -349,14 +349,10 @@ int ethosu_job_init(struct ethosu_device *edev)
+>  	ret = drm_sched_init(&edev->sched, &args);
+>  	if (ret) {
+>  		dev_err(dev, "Failed to create scheduler: %d\n", ret);
+> -		goto err_sched;
+> +		return ret;
+>  	}
 >
->  				dev_err(dev->dev,
-> -					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
-> +					"cmd stream region %d size greater than job SRAM size (%llu > %u)\n",
->  					i, cmd_info->region_size[i],
-> -					edev->npu_info.sram_size);
-> +					ejob->sram_size);
->  				ret = -EINVAL;
->  				goto out_cleanup_job;
->  			}
+>  	return 0;
+> -
+> -err_sched:
+> -	drm_sched_fini(&edev->sched);
+> -	return ret;
+>  }
+>
+>  void ethosu_job_fini(struct ethosu_device *dev)
 >
 > --
 > 2.53.0
