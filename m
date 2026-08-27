@@ -4,137 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D711C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:39:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E036C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0FBA10F085;
-	Thu, 27 Aug 2026 14:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5F3610F0B6;
+	Thu, 27 Aug 2026 14:40:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="fSpx4HTH";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xBEIQA3x";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mIX4BbA3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AGZsoRoE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GxRUaVBp";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012045.outbound.protection.outlook.com [40.107.209.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF1B10F085
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:39:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yzvnBe5EYVJk7rR6oXbdE/hvkwvVJ/9eLm/Ctpe96ZnUam71U0h0pIgSvdYB8q5XGoSoDuAdpw60PB+uy+ECyXFuIKr2S2oRNBg2PqzIpnSVbSVI1TkCcosjmjkt9XuPyJAjB6Z283yNx/dQ61FT35AiLsL9G1FlD6WsM25siD2q4Dlt651acD+pbmnjP7l/IbkPOcokr26Jeq4xsoH/xBxKT1RRyIU0ZwJKcbhMFrGV17jOLDqeRuaGZL58SiJWyzGrPWPV4BEzXBfpvXEBKRlowQmrDUr3bC3rMLxMXyXoXWXF3pLA6Ac9GThQYzIx4bc6mCrBybcN4drBeOEtLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ApMdX9guvyOceEXrTPhY7HE0HrnGefrRWUY7ZHDJl5k=;
- b=kxGg2SlYl7WVX4tzr5/jLZG3aXxLqpg0KUapqlAZwYFGTIShvkC9ZkZS8qRw1PIQx+mzaCLjRAfmuj618sgkNoUxuuwvFZxkFiV4bYZKW27Qn8hKyUq85G2i5CBKk/hZB7DP8a0X4WBWTfeGFA6qV/3LVYq9pI6KQK5JgBpjbTBBSJ7ID0VvxlnIC4u5+C6mUMiR8C54RxCZJIiI1l7D6TVutnLE+d8U1Ag2QhOVpQ0h00GRyLpwVzF57aR+8K5kw+/9Z5tlMvNLZzWeHhXCkqU4bd9wIexJUtefksq9evDtNz0IIHD7Ssc2d+IZb4uajzm5TgyDZtQDUog+RUxdOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ApMdX9guvyOceEXrTPhY7HE0HrnGefrRWUY7ZHDJl5k=;
- b=fSpx4HTHkWjQsKl0OkQNd5LpysXpPpYDDQACgdW/ZFgiK7guCrE25qMcXWj/t+E/gqwQOxoEzeWeyzrZgCt57ZCgnGUNfOdDk1tTT6Xjhzmt+L9YN23R7DUaWijhuZISxSRGLgrw+F+c9YnDs7DXRrx00QFyy1XacPl5USFH5vkwL0fKPbDF9rKgVrQxLetur4sCesX2SgpKZ+qF+EFlY5Gwfj5TetBks3cPa76TwzFSL0QcdoyAYsBE30v+QaXbH4D1y9Mb/3W7C0GXOm81zvfqdzX7pxYsynDgq0VZvC0V16rbzOPIWX+x/ZUQq3H175ug3YhXIJzwlKBfeKOiug==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH7PR12MB6719.namprd12.prod.outlook.com (2603:10b6:510:1b2::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Thu, 27 Aug
- 2026 14:39:06 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
- 14:39:06 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 23:39:03 +0900
-Message-Id: <DKZSXMNDXTI9.3Q3WFXWD3YS64@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
- <DKZJ14NCZ37X.31YOYFWBKZ478@nvidia.com>
- <DKZSK6DW84GM.2EARLBR7IPHQ5@garyguo.net>
-In-Reply-To: <DKZSK6DW84GM.2EARLBR7IPHQ5@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0158.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:383::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2BDA10F0B6
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:40:38 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1AD821FB32;
+ Thu, 27 Aug 2026 14:40:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787841633; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
+ b=xBEIQA3xRu783NZ5z651ZEYQcYzoKh9XbPfSg1Zx83P9DponKnycrbX7LMTnopHA6h482t
+ G+/arDx7pFdyXL4y+lqKYC8b1DKHctPuY+sw9SW6KtAkKxBEZHLKXDPikB+pMZ7qSN9vA8
+ k36s6jYG2m4VZB6QWVM3G53kO4m8uRs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787841633;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
+ b=mIX4BbA3kPPwAsq6KinCd1opMoTs7AqkkyzCTVT63pH9GviQ4VAKyerFjTpsd2VeJ2mDW0
+ paujlBWkKcaxUHAg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AGZsoRoE;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GxRUaVBp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787841629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
+ b=AGZsoRoEL/XwFjMfR6C+sFBB9UP7cJf+tiuBafaRMG3HO494gEkVzRafPqfaGc4BYHSbX6
+ MXcIAHHwW0XOCmxN7oyOn09BQKTIDsXZvCnm1XZG7stpgFDGa2DkhRNQ8qfeS5+xdrwmeq
+ 6jE/hKVJw861kQ1WatSwVy/wyvL9b/g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787841629;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=9NhmnwAY3zQtddsW+n18+q9WpvJ+kUU3nXAO3crVuNQ=;
+ b=GxRUaVBpdiQpmtDuj8SMabAzbgK/+b12NVtsDJrHuGauO2YJDbrvF3EvxthcK6IGeNDfIY
+ UjubrMAlLNztqNAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 037191352C;
+ Thu, 27 Aug 2026 14:40:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uFI9O1xMkGpXNgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 27 Aug 2026 14:40:28 +0000
+Message-ID: <b336b262-4662-44f7-b1b7-db3b42f6d7e0@suse.de>
+Date: Thu, 27 Aug 2026 16:40:28 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB6719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38b9bcb0-2c28-4d92-d1d5-08df0448f27f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|23010399003|7416014|376014|366016|10067099003|56012099006|5023799004|11063799006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: l+EhGhYQ2qMKsPYfBq58+0iz9jlDU6WiHQP3HainPRIC4hsUC/k+FzeBdoxUhqi/G+Yc+XsEF53axm8Go+LhWS9peEpHaUjQWQDo5qTWvxbl5bjmaQA0FqpyoNenMRUC5VM6zpYJFWSR4EP1jkeTCToNU/UTuIyVh5dZHfw6to7S+E+/tjPSlyy7BdZjXuMjVz8P2yBq8pujXw4xkxnSzQkxwXubSjnSH0uBMCJm9v73Y2uWMTy7iGQkB6C0D2RsgugzwJq+UW7EkLl7INasvFQN3ooQ2PqqKRz7ixxdsdv8VbA1lebFbOVFVz6w4mHP6oqNzRZVQZ30rT5ri2QddQEH5IKHpwHet6+AjTx7q7p1T2JEovRX2LiP9vbtukoP3S+jXcv7UeDfB8aNjugWAiN25KzTJclGKab4dzoSr5whm/0U47SAbBtSgcGfCSzD8q9FqRgSz2FyFWkeWoufmQN+6Z1iISFOWF+d7cp7vHayHHQiqXwF4fi3kM1NWbdq1A9AgeIKlahoF2WcX3gxwskUVhrx0TVrU2l78j8xluynfraRNtytuOJGsgdpNgLMet6bOBE6xvfuf1bGzsIgM2r/u9ePHoWGkcbMig6vi/31J0YKYA4t7KxGDj0r74/f0C5e1XblwStz1uUdXyZo600Iix0a9dIu9T4IunMNxNo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(23010399003)(7416014)(376014)(366016)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2FGUkttQjI3YlkySVdDVW45WWhuRzdsTHg0YURJa1llMnRoTVBqQjlkY3hw?=
- =?utf-8?B?VU4zWERqMWdkOFhVS0lPSG16MVBzaVM3b0IyODhUclUyVElablRVSlVPb3NN?=
- =?utf-8?B?OHBCVFdBd1d2TmJNWjRxZkV1NktkQW9YWTh5SUxScDBGMFhuWTdTSStUOSto?=
- =?utf-8?B?cGtjeXQxNEUwYkRBdWVXT0JTTkJtZy9UV3NCaitMK3czamx2MVEzK1U4U00z?=
- =?utf-8?B?cjRHWjhXYVpoMnZKVTRHdGx1MlArTlZYQkMxelkwMW5QOU85YWdwNTJXMzhp?=
- =?utf-8?B?L0xJZnVHNWNnVXNYZzZFQStXY2JWS3dKckNWdnBmbmw0NVMvZEFBaWdCMENu?=
- =?utf-8?B?MWllQWRaMWtjVXBRMC94OW5lblR6MHBrZTBrSW5VNHB4ZjBCTDlHdFkyNzJU?=
- =?utf-8?B?aWx3UFNseDg5akJDSnZBSEt4M1hZbVBoaGIwalB3OVBjaWdYNG9GY1F4L2xr?=
- =?utf-8?B?VkdadlgrcmQyaGlGRmcwNVlHZ3VOTklScW1NMnc0dm9FOWxyMTA5S2t3UDJw?=
- =?utf-8?B?Z3RQem9vTUZBcDZNNU1uNEgrdzBZcDNtOFZWVTBnVW1pQTBhUnN5bjFLZndr?=
- =?utf-8?B?WExPZkdkTUtyeVBJRTBMdEdGV0Y1QUE0ZWRCZ3JiKzk3b29NRFdhM21SdmpS?=
- =?utf-8?B?UFVuZmkvQkF4WW9teVppdzRzekJsblpHQzllcmlLQy9RaXpuZDZyRHE4bjUr?=
- =?utf-8?B?VEtEQWFWN202UTBmNXloRWlkWURGTmxVUmlFaUlBTk5ERnBiMmVZNWQ1ZGNl?=
- =?utf-8?B?TXJSY2dXejZSdjNOTStWUWh6UGdZeDkzaFJ1d29XR0xzVFJNLzZtSTc4UkN1?=
- =?utf-8?B?aVVuM2RMQk8yTEhuVXhPTGpzTGNRMHd2d0l1OW5jTUJEWHdyRWw3UWhiUVZD?=
- =?utf-8?B?bGtWUEhJNlp2QmtHcHlFSS9tSXdaT3VTWFEwZm9LUVV3WkNmbTRIbkxGdE13?=
- =?utf-8?B?aEZKS0FLMWJQL2pRVGdjMXMzZ1crZ1plNGdISGZhK3gvNDBzUW4rWE9oT1BO?=
- =?utf-8?B?M3RlL1NsYi9maTdQZkh4STlOQ2RXbEs0QzVPMk14RERGQ1l5OUh3d2tzclpH?=
- =?utf-8?B?aGEwWUQ2MFc4a0R3bktYaU80NW9RN21COTIyWTJVT0V2U2VvQ1ZDWlVNODVl?=
- =?utf-8?B?Q0JiQnNaUTRaTkRFQ1htN3ljOW8vVlBGT1JDeDBZbWJLNG5rVmszc3FHaUsx?=
- =?utf-8?B?aml5R3VucXVYWGZrdmdRV0JyY1VsdjYvZGxDSmFFNG5lUmtkSTNPOWVUdVBW?=
- =?utf-8?B?UElHbmVXMU1FaDRCbE41NWhmQ3lrZ2JNMElJOWN1em1pbUFGWEtCSTZSbWZp?=
- =?utf-8?B?aTY1MlAxdy9NSUluRnI2aElJUnJVUU9GYkZlUkxhWERYZ1ZscXBPYXkyMk1S?=
- =?utf-8?B?UjdvODhFNVc3SElqc2NqVlh5WkZMczJ2d3BnUTl3TVkveFRqZ1FQVTlsYjFH?=
- =?utf-8?B?LzVQeG9JYmVOM1hXckV1MUdiMjE1WlJwSDgrMXQvTHhFWGY1K1JOMW9iSjZI?=
- =?utf-8?B?VWE2Y3NjcWhkbmdHT2JSdk9LTmFvWisrMmhHeDZRcUh3ZUJHazhwTXEwZDlR?=
- =?utf-8?B?YWJqMW93cGx3bTJsb2hRYzQ0MGFBdnZUUWVlaEpOeC9KUW01ZnVTeUZTYlU5?=
- =?utf-8?B?andLclNZd0lMd2IyODA4dHVaeCs1VU9NMm84VUwrR09Xb3k1Qy9NSVE4QlVS?=
- =?utf-8?B?d2dtUDc5YUh1Unc1UnpZWktHQVRoNGhNcElUMFFlNExYTXM2dHpBV3VhOUhH?=
- =?utf-8?B?MW5tR0VoVU5KWjBrSWlScC9RVWJOWDBSUDVkOTgxek5ZM1c4Ni9RRGlkSFB3?=
- =?utf-8?B?ZXZ4WEFWUXFobi9TZWtUWXZ6V2d6RCtuSDFFVEdaTTVaenZrVXJZOWtqM1Uy?=
- =?utf-8?B?dURFTi9HcXFZS3J0K0ludVp3eDZVdFVmRlRteTV5YVlRaEtITVNzTFhPQWt5?=
- =?utf-8?B?aVd1WW9heHlVY2xkalNpRkJMMGxjR3pya0ExbU4yeVZSWk0rLzRFUXZSTnBi?=
- =?utf-8?B?STRLL0xYdGQwZ3grRFdrM2FYbUExM3RwQXlEMTRBSGZjcFU5WVFJQ2lXM3p1?=
- =?utf-8?B?UEJsQjRsSmkxQUJiNmlHUEh5M3NScStJQk5xbHUvdno1c1lROC8vcWR2Mnlt?=
- =?utf-8?B?QWlsaWFJaVVHQVFNd3FzNjg5ZG1WaThYbElBMHY0UlRRaWQvTWIrVFNtcFBQ?=
- =?utf-8?B?dWVXZW5HeDhjaVBGcW91d2RsaVUwdW02U1daaEh6M0tsK1RHMlZSU2VWQkQ3?=
- =?utf-8?B?dWozaFM3UG5ld1N1WEZGeG9ZdnRONXhYOWtwaEgyclNodzBzSVJuODZSYzVE?=
- =?utf-8?B?UVJiZExvYURreC81eHVJcTNLeXhVZlloMGx4cExXK3hJUXlxNktEYjVhenNa?=
- =?utf-8?Q?lNHanoGkdEbIiRYIk5asg5Kvu0R+yDdi7V1rN+0jqnhzg?=
-X-MS-Exchange-AntiSpam-MessageData-1: jBpmYFQKarBpqA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38b9bcb0-2c28-4d92-d1d5-08df0448f27f
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:39:06.3663 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3PnsXCbu6z7dpON+lJgd3nwBsC4PXhL55fR8vidnucrNteZKLNDTHSX0uxcyiR+4+GVLV4vhIVfXDgu48ahvJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6719
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/edid: Add drm_edid_get_preferred_size()
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+References: <20260827140726.420734-1-tzimmermann@suse.de>
+ <20260827140726.420734-2-tzimmermann@suse.de>
+ <20260827141954.2AC011F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260827141954.2AC011F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 1AD821FB32
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TO_DN_NONE(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,72 +146,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Aug 27, 2026 at 11:21 PM JST, Gary Guo wrote:
-> On Thu Aug 27, 2026 at 7:53 AM BST, Alexandre Courbot wrote:
->> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
->>> For types that are layout-compatible with an I/O capable type, we would
->>> want the ability to use them directly for I/O operations. E.g.
->>>
->>>     bitfield! {
->>>         pub struct Foo(u32) {
->>>             ...
->>>         }
->>>     }
->>>
->>>     #[repr(C)]
->>>     struct Bar {
->>>         foo: Foo,
->>>     }
->>>
->>>     let mmio: Mmio<'_, Bar> =3D ...;
->>>     io_read!(mmio, .foo)
->>>
->>> Currently this feature is available from `register!()` macro but not
->>> otherwise available with `io_read!`, `io_write!`. Support this by
->>> performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
->>> trait.
->>>
->>> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
->>> remove them; also convert register methods to use the `read_val` and
->>> `write_val` instead.
->>
->> Nice, the redundancy was bothering me a bit so this is clearly a better
->> design.
->>
->> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->>
->>>
->>> Signed-off-by: Gary Guo <gary@garyguo.net>
->>> ---
->>>  rust/kernel/bitfield.rs    |  10 ++++
->>>  rust/kernel/io.rs          | 135 +++++++++++++++++++++++++------------=
---------
->>>  rust/kernel/io/register.rs |  15 -----
->>>  rust/macros/io/register.rs |   2 -
->>>  4 files changed, 86 insertions(+), 76 deletions(-)
->>>
->>> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
->>> index a0d089423f21..619c5e2189d1 100644
->>> --- a/rust/kernel/bitfield.rs
->>> +++ b/rust/kernel/bitfield.rs
->>> @@ -308,6 +308,7 @@ macro_rules! bitfield {
->>>          $(#[$attr])*
->>>          #[repr(transparent)]
->>>          #[derive(Clone, Copy, PartialEq, Eq)]
->>> +        #[derive($crate::prelude::FromBytes, $crate::prelude::IntoByte=
-s)]
->>
->> Do we need `FromBytes`/`IntoBytes` for every single bitfield type? I
->> mean that probably doesn't hurt, but if we need them for registers then
->> we can derive them from the register macro.
->
-> These are not needed now (as `AsRepr` provides sufficient guarantee so
-> read_val/write_val use unsafe with them instead); but I kept them as I th=
-ink
-> it's useful derive regardless. I suppose these are not needed for `regist=
-er!` so
-> direct user of `bitfield` can derive them manually instead.
 
-Yeah, I don't think it's a big deal to have these, but since it is
-easier to add in the future than to remove once people start relying on
-them, I'd rather add them when a concrete need manifests itself.
+
+Am 27.08.26 um 16:19 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Pointer Dereference and Logic Error in drm_edid_get_preferred_size
+
+This is just a pretty stupid typo. Will be fixed.
+
+> - [High] Missing EDID Hardware Validation for Detailed Timing Descriptor
+
+Will also be fixed.
+
+
+> --
+>
+> commit 2d529ec582fce7d82757afd45c986da44f50ceb6
+> Author: Thomas Zimmermann <tzimmermann@suse.de>
+> Subject: drm/edid: Add drm_edid_get_preferred_size()
+>
+> This commit adds drm_edid_get_preferred_size() to extract the panel's
+> preferred display resolution from a given EDID. This is required for
+> DRM's panel orientation quirks.
+>
+>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>> index df3c25bac761d..650ccd05977be 100644
+>> --- a/drivers/gpu/drm/drm_edid.c
+>> +++ b/drivers/gpu/drm/drm_edid.c
+> [ ... ]
+>
+>> @@ -2844,6 +2844,46 @@ u32 drm_edid_get_panel_id(const struct drm_edid *drm_edid)
+>>   }
+>>   EXPORT_SYMBOL(drm_edid_get_panel_id);
+>>   
+>> +/**
+>> + * drm_edid_get_preferred_size - Get a panel's preferred size from EDID
+>> + * @drm_edid: EDID that contains panel ID.
+>> + * @width: Returns the panel's width in pixels per scanline, if given
+>> + * @height: Returns the panel's height in scanlines, if given
+>> + *
+>> + * This function detects the preferred size of a panel from the given
+>> + * EDID. There is no such information stored in the EDID block directly,
+>> + * but the preferred mode often corresponds to the panel's native geometry.
+>> + *
+>> + * Return: Zero on success, or a negative errno code otherwise.
+>> + */
+>> +int drm_edid_get_preferred_size(const struct drm_edid *drm_edid,
+>> +				unsigned int *width, unsigned int *height)
+>> +{
+>> +	const struct edid *edid = drm_edid->edid;
+>> +	const struct detailed_pixel_timing *pt;
+>> +
+>> +	if (drm_edid->size < EDID_LENGTH)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * Use whatever the Preferred Timing Descriptor tells us. For old
+>> +	 * and obscure displays, we might need better heuristics.
+>> +	 */
+>> +
+>> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING))
+>> +		return -EINVAL; /* no Preferred Timing Descriptor */
+>> +
+>> +	pt = &edid->detailed_timings[0].data.pixel_data;
+> [Severity: High]
+> Does this safely handle non-compliant or corrupted EDIDs where the first
+> detailed timing block might be a Display Descriptor rather than a pixel
+> timing descriptor?
+>
+> In the EDID specification, a detailed timing block is only a Detailed Timing
+> Descriptor if its pixel clock is non-zero. If the pixel clock is 0, the block
+> is a Display Descriptor like an ASCII monitor name. By unconditionally
+> accessing it as pixel data without validating it, could we end up reading
+> overlapping union fields and returning garbage display geometry data to the
+> driver?
+>
+>> +
+>> +	if (*width)
+>> +		*width = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
+>> +	if (*height)
+>> +		*height = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
+> [Severity: High]
+> Does this logic incorrectly dereference the pointers before checking if they
+> are valid?
+>
+> The kernel doc mentions that width and height are optional, which implies
+> callers might pass a NULL pointer. If a caller passes NULL for width or
+> height, evaluating if (*width) will cause a NULL pointer dereference crash.
+>
+> Additionally, if a caller passes a valid pointer to a 0-initialized variable,
+> evaluating if (*width) will result in false, skipping the assignment entirely
+> and leaving the output as 0. Should these conditions check if (width) and
+> if (height) instead?
+>
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_edid_get_preferred_size);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
