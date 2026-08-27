@@ -4,85 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0ADFC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 16:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801F7C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 16:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E48FB10E406;
-	Thu, 27 Aug 2026 16:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D3310E417;
+	Thu, 27 Aug 2026 16:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="c+dtUL7V";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="oVdEW+T3";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 861B010E406
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 16:24:17 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-6a1a546a6bbso3730360a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:24:17 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE39C10E417
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 16:31:23 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c25420fe973so9176566b.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:31:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1787847856; x=1788452656;
+ d=chromium.org; s=google; t=1787848282; x=1788453082;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=mzMGBct2T5j19pFzqr+r438MOOPyyfPFxEllccYYNUA=;
- b=c+dtUL7Vfos3hV1p6L8eRpX9cb31XRZ6Gbu2d2SYopwr87I5u2zDWl3DrfJ2cMgldn
- 7J3LS3GLbwPIkgi/psUHtgtB6LWyclerdpyhJIU3K58Si30NSZxQAVSGslmMjjcYcPZ1
- 5hzQ4LgbALReNq37ce2O4w1Xswws1UJKk/Y+Y=
+ bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
+ b=oVdEW+T3ABi21NllB8DTCZf2kj08aaGJNk8scOde8Zs2jHVJwblAtnFLVgbnDaGIX3
+ YxKCBeOJ+m2OqRWmIdJAmO6MWtt91EfiSyNH7X8TGlD+D6G2ZnOFDVK1LhMb/tOyVl8U
+ umw5+v/w6Og98FV7H6kej/nSyK/uGoRckJjVE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787847856; x=1788452656;
+ d=1e100.net; s=20251104; t=1787848282; x=1788453082;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=mzMGBct2T5j19pFzqr+r438MOOPyyfPFxEllccYYNUA=;
- b=ikWnXT6jhYoB12pwYLovlqt/Iefzd7nouAQ6g28PWGvZDdA9sKuq/f1ySPMTcaDGib
- NCT12TODDfK8Ck78nsmHbmTtqwT82YZhpL8zXpD0QhtiIKvfu8j4Zq2Fyirazt4AsJEY
- UPiSPbyEGSPjNb/y3GBCV66SqQfcF3r9s6OKY0ZehTHNoYO3KiJQW/s/xa0M/M5C6Bxh
- /AAMsOauKurYOBQ4/vM5i3ukaE2cTvBIyPraIJ+RUDu9f7QkOYNN/OFM1UHlG/12UycH
- Prmldb20u1P/joh0tVtbfPuuXSt5yBSqTdz/g7CxTtFRR9YYewVf55K8npHAoYDS+6F5
- SFSw==
+ bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
+ b=BIvn6DD7GuKTDk4ZldIM5QhMpEAK5DZEfXO1FggjrgsuXCPL/3sGS2+OoYQh4abVyo
+ 3vH8yfRgormxJciVZW7qscgKF0zfkK4kTfKvBh+M8HcTkB8M3cG61nlkhjcO19AHQMyE
+ SyYKiDo3NDjzkpx+4PmVN45b6/Ft3CfJBQ4MLzW4aq/x9IUU+/qXiYERnxyB1OIv7QGO
+ 21T3CtojhbBJKW+zZ9rmDqUnNfbPrYFQPcRzWBd6LRdv91LNLW1W8TvZyuoTEMvu9NhY
+ K6DmOUGvubFmi8EOgh6nRUKN1YfYvCfqllTaAIwQ8Tu7BZKEJ4S1RQNeE+M0feEj2HnA
+ 4upg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro6UeUoZ9PWgIOrkkHV7GRSxnsjpevaE05X98ttpsdwqN5xWNtBa66cKESSs+8pYzuFCyUuu6e/o18=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lwlNbxQBe250nox96hoFt5zNQI8eb/QfzZP6wotfmDY3P3m3LV
- XknvB+wow2o6kX+MTUUrnlG2Iv4MRsE3YwFgGlkHw2AxkKSZb1wNNj1A2F5q9P/cObYQu9MSVX7
- F5kXecA==
-X-Gm-Gg: AR+sD119EKRcsdvj3tq8hzOJx3HCxujNX2PqVlNfvHoEObx9xx/xOZQI8fUJjh8pBZ9
- FUBRz1eIKhn67r3PkE5r+lAjQN8oaTEZbOa6jMT6jfwNRo6vCnNJmz2dtvLZpoOx87Suci1F1dN
- lFFPVc1j4hfmYdN136VbRedAaPGOpRPQM7YRQ1EPUi9iCsvIpwNutuRIt5qHhKFWqnrV45FDQhU
- HRNq8sD2uqBZ0janTavxmnmMxMUFZVb2uy2Nq+kHgdojGkIYK+7upBCMM23PsQBa+FbeaXDT8vx
- oqz6LU+Pswdr90QjQSXJejchaDZWWulyGK7aeXshw2fsuGtOFco3ndZKgrLwHLj1WftbJ+i6028
- Yq7UkoUzHZ82nywZpyeMIzN+dER5YudxH9VPFSY5fGtnx9+hL7GtGuFTOh6FvbUriNbZiN5nFVa
- um8Xv5Xwa6slSXJxurGsUoyepHt9t9QxGW/nftOMcUjw7pm9YPYlkUIOvKEDKrnnAZfHLa5LOgC
- 3K6mxSP1dzZOC7G9UOdPCx9XUk=
-X-Received: by 2002:a17:907:3e28:b0:c20:21be:ea75 with SMTP id
- a640c23a62f3a-c250bb50751mr1511712366b.8.1787847855828; 
- Thu, 27 Aug 2026 09:24:15 -0700 (PDT)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com.
- [209.85.128.44]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a5de8d1188sm6754050a12.7.2026.08.27.09.24.13
+ AHgh+Ro6B4gFoCzCjyEfmdCtUwqvGrUFpU0YGQWoSAQ3447HFZsosl319iJVOxHIkE4oZogG5Gc32CyPUyA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kPK61xGBefMjiDh7R4B9P7bC9bu5KntbEq12DtTBHhpNeNI4O2
+ NoL0Pwpwa4mncynXwnSVVOZbsGg5KCl0AmRwBDJ/BBneV73ELWSvCN1CGh4PIuc/lGXgYJi5d43
+ khcyqZDe6
+X-Gm-Gg: AR+sD10aHQOmu2A3Hfcl7Aespx5cZ6aQJeqxL/0lXVgeOVFMPUgpTalNyVNpQHqvW+b
+ VMnYT4qsjt9bTI2vgFHZtWWazgp+SN6Aj/4+qnRQiCyhDaxYtyIuNTAOw86RSwNGNYwlye/SCyG
+ 8wR5MuIyoa13P92VH+aSa2InaKbZ6d3bRtP5PRIRhXQCyZ5NpuLcyaBGu0PUhO/YSy6nEQeLvLl
+ rRuBpionsgSBMWkxMBJ5CF2ZpThHfHw9Ii8GrZv4dpZ3lyyvARhkKD1J1QOYNOwwBszIMnCK3z7
+ w/r5nkyh+Pe5trZL9OnHq1Jq0jAAJPjWFSAiBSCEva/ha9DFwYFR+wc0cGdyeNtp9m+/YGA1qM7
+ VhpjBtad634vcViQWN0C8kQ5j7PuFOTgEBQHMXxV/vqE6dKvBBi+AUAm32ZTajsAvUO7iPkAPuf
+ EfQt98l33JcA7zp/P7X/xqvHbhtzzH/JPoALBrkKIoqsidVSqhtZiOzVEd79tAUO5ebjyQD5C3u
+ feNhhde3eMzfI51EAbvA/Ib+88=
+X-Received: by 2002:a17:907:3e02:b0:c1c:2173:d412 with SMTP id
+ a640c23a62f3a-c250bbbf356mr1835356166b.1.1787848282126; 
+ Thu, 27 Aug 2026 09:31:22 -0700 (PDT)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com.
+ [209.85.208.48]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c250a9b106dsm873243166b.43.2026.08.27.09.31.21
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Aug 2026 09:24:14 -0700 (PDT)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4953e04ef16so22986535e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:24:13 -0700 (PDT)
+ Thu, 27 Aug 2026 09:31:21 -0700 (PDT)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-6a601ba6870so927745a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:31:21 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr8PgCMIDRmbIvMOEMxYLBxbTgdDf/rdEOEmdy9nlQwMFRC+A9o8yxe8RiQ6dr05bn+kChnykCOPQo=@lists.freedesktop.org
-X-Received: by 2002:a05:600c:1d8c:b0:49b:916f:1471 with SMTP id
- 5b1f17b1804b1-49b91c1df21mr2431435e9.3.1787847852763; Thu, 27 Aug 2026
- 09:24:12 -0700 (PDT)
+ AHgh+RrHh2MCkKN4SR+rEKbLLu/tsJYvlZqulD+5o9NjctfXyE2MMO1XrnGZFUFFVeMNT1X6/fG6qXlx3EU=@lists.freedesktop.org
+X-Received: by 2002:a5d:64c2:0:b0:482:e10e:58df with SMTP id
+ ffacd0b85a97d-482e26d51e8mr23348728f8f.21.1787847829596; Thu, 27 Aug 2026
+ 09:23:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
- <20260825-drm-bridge-drm_panel-cleanup-v2-4-c6c88ba7ffd2@bootlin.com>
-In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-4-c6c88ba7ffd2@bootlin.com>
+ <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
+In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 27 Aug 2026 09:24:01 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VtDHWX5yXDE_CSMEZY9nTAd9372kkUAuti1K09zLywig@mail.gmail.com>
-X-Gm-Features: AcwNN1VF3py5doozl6LD9Pr4fEpbkFlfT_OL-hoHyQ67imrOzi930oQk0T6UzBQ
-Message-ID: <CAD=FV=VtDHWX5yXDE_CSMEZY9nTAd9372kkUAuti1K09zLywig@mail.gmail.com>
-Subject: Re: [PATCH v2 04/12] drm/bridge: ti-sn65dsi86: don't select unused
- DRM_PANEL
+Date: Thu, 27 Aug 2026 09:23:38 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
+X-Gm-Features: AcwNN1Uxl8vA8-7oT2LAyO-KpGAM6LbpIr9SieIL_bb_C2KnJR44V7-XxhJsCE0
+Message-ID: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
+Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select
+ DRM_PANEL_BRIDGE
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -99,9 +99,9 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Sandeep Panda <spanda@codeaurora.org>,
- Franz Schnyder <franz.schnyder@toradex.com>, 
- John Ripple <john.ripple@keysight.com>, Michael Walle <mwalle@kernel.org>
+ Jitao Shi <jitao.shi@mediatek.com>, CK Hu <ck.hu@mediatek.com>, 
+ Pin-yen Lin <treapking@chromium.org>,
+ Enric Balletbo i Serra <eballetbo@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -124,36 +124,14 @@ Hi,
 On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootli=
 n.com> wrote:
 >
-> This driver does not use the drm_panel APIs at all, so no need to select
-> DRM_PANEL.
->
-> Cc: Douglas Anderson <dianders@chromium.org>
-> Cc: Sandeep Panda <spanda@codeaurora.org>
-> Cc: Franz Schnyder <franz.schnyder@toradex.com>
-> Cc: John Ripple <john.ripple@keysight.com>
-> Cc: Michael Walle <mwalle@kernel.org>
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/bridge/Kconfig | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
-fig
-> index 043596801a65..d46aa2eb01b5 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -474,7 +474,6 @@ config DRM_TI_SN65DSI86
->         select DRM_BRIDGE_CONNECTOR
->         select DRM_KMS_HELPER
->         select REGMAP_I2C
-> -       select DRM_PANEL
->         select DRM_MIPI_DSI
->         select AUXILIARY_BUS
->         select DRM_DISPLAY_DP_AUX_BUS
+> This driver uses the drm_panel_bridge API and not the drm_panel API so it
+> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
 
-Looks right to me. Ages ago it used panel APIs directly, but not today.
+Which exact "drm_panel_bridge" API does it use? I don't see any...
+Certainly it's highly likely that the next bridge in the chain is a
+panel, but there are no API calls that I see. Maybe the scripts got
+confused because the variable name didn't get updated in commit
+5486eac81004 ("drm/bridge: parade-ps8640: switch to
+devm_drm_of_get_bridge") ?
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-I assume you have a plan for landing the series. If you want me to
-land this patch on its own to drm-misc-next, please yell.
+-Doug
