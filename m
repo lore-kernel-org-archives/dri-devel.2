@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190D2C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:18:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4F7C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4AC810EF8A;
-	Thu, 27 Aug 2026 10:18:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A776510E3DC;
+	Thu, 27 Aug 2026 10:18:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SZcxqFuQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PuUJtBGa";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28C610EF88;
- Thu, 27 Aug 2026 10:18:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D495410EF92;
+ Thu, 27 Aug 2026 10:18:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787825917; x=1819361917;
+ t=1787825919; x=1819361919;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FMN8z66o/LNQ8cgOHAyFoBi9E6pP2e+CTjzZRjF0Mzw=;
- b=SZcxqFuQgnp85NKMCJK2swLt5foqx/gw4vNBbRIsgfvGy8xCkc/ypmnI
- P4yQGmEO5d092+ivyXJ+VGqYAM5muN4wRXcZpRo1PwdgvYOApD3y8lOFk
- /yuj/NgFc6l5e5JTIMbqA/yyvibzQvlF6cz0pevoLdgzZKvXmw9+DWRm+
- f5ICCPhjrNyL0JsHMKos46Rreml7GPJz4zsHyHn4cIKqVKfUorb4dOk9q
- KjWJxsJVC8BsSQcYxqG0zhQ7FgRkGTlZsvqQH1QzCw2PKYrRrkwpTJ3Zg
- 2KaHyulqCvB1H+nQrqarfV1OTZb1YJdWai3sIClKW6JATSFzvzuQWNLxW g==;
-X-CSE-ConnectionGUID: QDFcYOSXQvy061zknZYEug==
-X-CSE-MsgGUID: ukNANlxATgWtMtmrtXaoMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88445864"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="88445864"
+ bh=Whu9r795dXhNFA3wLb6AFivB5+R7vRa0XznDo+tbGdU=;
+ b=PuUJtBGagwuwbzE8MP0jvCIcwdQLXqIwq2ppghsmRF+5JLvqZBZ1iP29
+ SfXAc2prxRJu+CWuZFJLsTV9Dl208UEnvMUrOoJutKu38WnZy0fwIjSC1
+ S+szWu8U8nTYcyC6Y08Hs2AVlKvT0GeV8NgOWOnxPABajKsG3sYY+g54s
+ 4OSTQgBps8BjTySjdMuDwov3NguPXVgiDH93Kd1LDWYOk3/H067taT3xD
+ SbJrlvuhczDklY1t7uHZcYR0FxfaLLFf9Q41dj6SzVF2AzaeOtEx8FtGr
+ sc9BQAjjofmvEorg2RTuzHCPXMXD7eCnXPBGLIlP5JGMhofqjnY0Mu8N5 A==;
+X-CSE-ConnectionGUID: mrAksDypSTeObkLq1BtJJA==
+X-CSE-MsgGUID: CK2PjqZNRnem/5XQizk/9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88445866"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="88445866"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:18:37 -0700
-X-CSE-ConnectionGUID: qBjO/Bl5S+uqsGVFVIBgAA==
-X-CSE-MsgGUID: tKpOQX/4RjWIHMsYTwIiLg==
+ 27 Aug 2026 03:18:39 -0700
+X-CSE-ConnectionGUID: YMExoz9TTeuWMfIydXQH4g==
+X-CSE-MsgGUID: pPORnhlrQ9WEFNYZcanVbg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="306057623"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="306057628"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:18:36 -0700
+ 27 Aug 2026 03:18:38 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [PATCH 04/13] drm/xe: Stop VM work when device I/O is blocked
-Date: Thu, 27 Aug 2026 15:47:52 +0530
-Message-ID: <20260827101801.1247654-5-arvind.yadav@intel.com>
+Subject: [PATCH 05/13] drm/xe: Send wedged notification from a worker
+Date: Thu, 27 Aug 2026 15:47:53 +0530
+Message-ID: <20260827101801.1247654-6-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827101801.1247654-1-arvind.yadav@intel.com>
 References: <20260827101801.1247654-1-arvind.yadav@intel.com>
@@ -70,16 +70,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SVM fault handling and VM rebind work may still run when PCI error
-recovery starts or the device becomes permanently wedged. This work can
-validate BOs, update page tables or submit migration work after device
-I/O has been blocked.
+Move the wedged event to a device worker. This provides a sleepable
+context for later isolation work and allows it to complete before
+userspace is notified.
 
-Stop SVM fault handling, pagemap population, device-memory copies and
-preempt rebind work when device I/O is blocked.
+Keep one-time wedge bookkeeping on the first transition, but rescan the
+GT state on later declarations because the recovery method may change.
+For example, survivability handling can add VENDOR recovery after an
+earlier REBIND notification.
 
-SVM invalidation still performs its software cleanup. Do not warn when
-TLB invalidation returns -ECANCELED because hardware access is blocked.
+Track the last reported method and resample it after each event so an
+update is not lost when the worker is already running.
+
+Drain the worker before probe cleanup, remove, shutdown and IRQ teardown
+to prevent it from racing device teardown.
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -88,119 +92,192 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_svm.c | 21 ++++++++++++++++++++-
- drivers/gpu/drm/xe/xe_vm.c  | 16 ++++++++++++++++
- 2 files changed, 36 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_device.c       | 77 +++++++++++++++++++++++-----
+ drivers/gpu/drm/xe/xe_device_types.h |  4 ++
+ 2 files changed, 67 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index 627a741293d5..9e78131bfa39 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_pagemap_util.h>
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index a92e90acdf0d..ffbaf85eaab1 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -83,6 +83,8 @@
+ #include <generated/xe_device_wa_oob.h>
+ #include <generated/xe_wa_oob.h>
  
- #include "xe_bo.h"
-+#include "xe_device.h"
- #include "xe_exec_queue_types.h"
- #include "xe_gt_stats.h"
- #include "xe_migrate.h"
-@@ -288,8 +289,11 @@ static void xe_svm_invalidate(struct drm_gpusvm *gpusvm,
- 
- 	err = xe_tlb_inval_range_tilemask_submit(xe, vm->usm.asid, adj_start, adj_end,
- 						 tile_mask, &batch);
--	if (!WARN_ON_ONCE(err))
-+	if (!err)
- 		xe_tlb_inval_batch_wait(&batch);
-+	else if (!(err == -ECANCELED &&
-+		   xe_device_io_blocked(xe)))
-+		WARN_ON_ONCE(err);
- 
- range_notifier_event_end:
- 	r = first;
-@@ -631,6 +635,11 @@ static int xe_svm_copy(struct page **pages,
- 		}
- 		XE_WARN_ON(spage && xe_page_to_vr(spage) != vr);
- 
-+		if (vr && xe_device_io_blocked(xe)) {
-+			err = -ECANCELED;
-+			goto err_out;
-+		}
++static void xe_device_wedged_work(struct work_struct *work);
 +
+ static int xe_file_open(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct xe_device *xe = to_xe_device(dev);
+@@ -535,6 +537,9 @@ int xe_device_init_early(struct xe_device *xe)
+ {
+ 	int err;
+ 
++	INIT_WORK(&xe->wedged.work, xe_device_wedged_work);
++	xe->wedged.reported_method = ~0UL;
++
+ 	err = ttm_device_init(&xe->ttm, &xe_ttm_funcs, xe->drm.dev,
+ 			      xe->drm.anon_inode->i_mapping,
+ 			      xe->drm.vma_offset_manager,
+@@ -953,6 +958,35 @@ static int xe_debug_page_size_alloc_ctrl_init(struct xe_device *xe)
+ }
+ #endif
+ 
++static void xe_device_wedged_work(struct work_struct *work)
++{
++	struct xe_device *xe =
++			container_of(work, struct xe_device, wedged.work);
++	unsigned long method;
++
++	/* Report at most one recovery method per worker invocation. */
++	method = READ_ONCE(xe->wedged.method);
++	if (method != READ_ONCE(xe->wedged.reported_method)) {
++		drm_dev_wedged_event(&xe->drm, method, NULL);
++		WRITE_ONCE(xe->wedged.reported_method, method);
++	}
++
++	/*
++	 * Queue another pass if the method changed while the event was sent.
++	 * This preserves the update without keeping this worker in a loop.
++	 */
++	if (READ_ONCE(xe->wedged.method) !=
++	    READ_ONCE(xe->wedged.reported_method))
++		queue_work(xe->unordered_wq, &xe->wedged.work);
++}
++
++static void xe_device_wedged_disable(void *arg)
++{
++	struct xe_device *xe = arg;
++
++	disable_work_sync(&xe->wedged.work);
++}
++
+ int xe_device_probe(struct xe_device *xe)
+ {
+ 	struct xe_tile *tile;
+@@ -1061,6 +1095,12 @@ int xe_device_probe(struct xe_device *xe)
+ 	if (err)
+ 		return err;
+ 
++	/* Drain wedge work before irq_uninstall() during devres unwind. */
++	err = devm_add_action_or_reset(xe->drm.dev,
++				       xe_device_wedged_disable, xe);
++	if (err)
++		return err;
++
+ 	for_each_gt(gt, xe, id) {
+ 		err = xe_gt_init(gt);
+ 		if (err)
+@@ -1166,6 +1206,7 @@ int xe_device_probe(struct xe_device *xe)
+ 	return 0;
+ 
+ err_unregister_display:
++	xe_device_wedged_disable(xe);
+ 	xe_display_unregister(xe);
+ 	drm_dev_unregister(&xe->drm);
+ 
+@@ -1174,6 +1215,8 @@ int xe_device_probe(struct xe_device *xe)
+ 
+ void xe_device_remove(struct xe_device *xe)
+ {
++	xe_device_wedged_disable(xe);
++
+ 	xe_display_unregister(xe);
+ 
+ 	drm_dev_unplug(&xe->drm);
+@@ -1188,6 +1231,8 @@ void xe_device_shutdown(struct xe_device *xe)
+ 
+ 	drm_dbg(&xe->drm, "Shutting down device\n");
+ 
++	xe_device_wedged_disable(xe);
++
+ 	xe_display_shutdown(xe);
+ 
+ 	xe_irq_suspend(xe);
+@@ -1440,7 +1485,7 @@ u64 xe_device_uncanonicalize_addr(struct xe_device *xe, u64 address)
+  */
+ void xe_device_set_wedged_method(struct xe_device *xe, unsigned long method)
+ {
+-	xe->wedged.method = method;
++	WRITE_ONCE(xe->wedged.method, method);
+ }
+ 
+ #define WEDGED_URL	"https://docs.kernel.org/gpu/drm-uapi.html#device-wedging"
+@@ -1467,6 +1512,7 @@ void xe_device_set_wedged_method(struct xe_device *xe, unsigned long method)
+ void xe_device_declare_wedged(struct xe_device *xe)
+ {
+ 	struct xe_gt *gt;
++	bool first;
+ 	u8 id;
+ 
+ 	if (xe->wedged.mode == XE_WEDGED_MODE_NEVER) {
+@@ -1474,7 +1520,8 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 		return;
+ 	}
+ 
+-	if (!atomic_xchg(&xe->wedged.flag, 1)) {
++	first = !atomic_xchg(&xe->wedged.flag, 1);
++	if (first) {
+ 		xe->needs_flr_on_fini = true;
+ 		xe_pm_runtime_get_noresume(xe);
+ 
+@@ -1483,12 +1530,7 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 			    "For recovery procedure, refer to %s\n"
+ 			    "Please file a _new_ bug report at %s\n",
+ 			    WEDGED_URL, XE_BUG_URL);
+-	}
+-
+-	for_each_gt(gt, xe, id)
+-		xe_gt_declare_wedged(gt);
+ 
+-	if (xe_device_wedged(xe)) {
  		/*
- 		 * CPU page and device page valid, capture physical address on
- 		 * first device page, check if physical contiguous on subsequent
-@@ -1125,6 +1134,11 @@ static int xe_drm_pagemap_populate_mm(struct drm_pagemap *dpagemap,
- 	if (!drm_dev_enter(&xe->drm, &idx))
- 		return -ENODEV;
- 
-+	if (xe_device_io_blocked(xe)) {
-+		err = -ECANCELED;
-+		goto out_drm;
-+	}
-+
- 	xe_pm_runtime_get(xe);
- 
- 	xe_validation_guard(&vctx, &xe->val, &exec, (struct xe_val_flags) {}, err) {
-@@ -1165,6 +1179,8 @@ static int xe_drm_pagemap_populate_mm(struct drm_pagemap *dpagemap,
- 		xe_bo_put(bo);
+ 		 * XE_WEDGED_MODE_UPON_ANY_HANG_NO_RESET is intended for debugging
+ 		 * hangs, so wedge the device with 'none' recovery method and have
+@@ -1496,14 +1538,21 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 		 */
+ 		if (xe->wedged.mode == XE_WEDGED_MODE_UPON_ANY_HANG_NO_RESET)
+ 			xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_NONE);
+-		/* If no wedge recovery method is set, use default */
+-		else if (!xe->wedged.method)
+-			xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_REBIND |
+-						    DRM_WEDGE_RECOVERY_BUS_RESET);
+-
+-		/* Notify userspace of wedged device */
+-		drm_dev_wedged_event(&xe->drm, xe->wedged.method, NULL);
  	}
- 	xe_pm_runtime_put(xe);
 +
-+out_drm:
- 	drm_dev_exit(idx);
- 
- 	return err;
-@@ -1301,6 +1317,9 @@ static int __xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
- 		drm_gpusvm_range_put(&range->base);
- 	}
- 
-+	if (xe_device_io_blocked(vm->xe))
-+		return -ECANCELED;
++	/* Re-scan GT submission state on every declaration. */
++	for_each_gt(gt, xe, id)
++		xe_gt_declare_wedged(gt);
 +
- 	/* Always process UNMAPs first so view SVM ranges is current */
- 	err = xe_svm_garbage_collector(vm);
- 	if (err)
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 19b3d0be7928..0cee5306fb9c 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -497,6 +497,11 @@ static void preempt_rebind_work_func(struct work_struct *w)
- 	}
- 
- retry:
-+	if (xe_device_io_blocked(vm->xe)) {
-+		err = 0;
-+		goto out_unlock_outer;
-+	}
++	/* If no wedge recovery method is set, use default */
++	if (!READ_ONCE(xe->wedged.method))
++		xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_REBIND |
++					    DRM_WEDGE_RECOVERY_BUS_RESET);
 +
- 	if (!try_wait_for_completion(&vm->xe->pm_block) && vm_suspend_rebind_worker(vm)) {
- 		up_write(&vm->lock);
- 		/* We don't actually block but don't make progress. */
-@@ -518,6 +523,12 @@ static void preempt_rebind_work_func(struct work_struct *w)
- 	drm_exec_until_all_locked(&exec) {
- 		bool done = false;
++	if (first ||
++	    READ_ONCE(xe->wedged.method) !=
++	    READ_ONCE(xe->wedged.reported_method))
++		queue_work(xe->unordered_wq, &xe->wedged.work);
+ }
  
-+		if (xe_device_io_blocked(vm->xe)) {
-+			xe_validation_ctx_fini(&ctx);
-+			err = 0;
-+			goto out_unlock_outer;
-+		}
-+
- 		err = xe_preempt_work_begin(&exec, vm, &done);
- 		drm_exec_retry_on_contention(&exec);
- 		xe_validation_retry_on_oom(&ctx, &err);
-@@ -531,6 +542,11 @@ static void preempt_rebind_work_func(struct work_struct *w)
- 	if (err)
- 		goto out_unlock;
+ /**
+diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+index 180d450a6deb..382a2b470647 100644
+--- a/drivers/gpu/drm/xe/xe_device_types.h
++++ b/drivers/gpu/drm/xe/xe_device_types.h
+@@ -534,6 +534,10 @@ struct xe_device {
+ 		unsigned long method;
+ 		/** @wedged.inconsistent_reset: Inconsistent reset policy state between GTs */
+ 		bool inconsistent_reset;
++		/** @wedged.work: Runs sleepable wedge handling */
++		struct work_struct work;
++		/** @wedged.reported_method: Last recovery method reported to userspace */
++		unsigned long reported_method;
+ 	} wedged;
  
-+	if (xe_device_io_blocked(vm->xe)) {
-+		err = 0;
-+		goto out_unlock;
-+	}
-+
- 	xe_vm_set_validation_exec(vm, &exec);
- 	err = xe_vm_rebind(vm, true);
- 	xe_vm_set_validation_exec(vm, NULL);
+ 	/** @devres_group: devres group */
 -- 
 2.43.0
 
