@@ -4,107 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85934C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AC9C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5BC810F0D3;
-	Thu, 27 Aug 2026 15:20:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F39810F0E8;
+	Thu, 27 Aug 2026 15:20:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xU5tfqyh";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="exRWdJfQ";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011032.outbound.protection.outlook.com
- [40.93.194.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B19810F0C2;
- Thu, 27 Aug 2026 15:20:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cQQZShh/mhfNmg/FHGR2v70S72GXdtJP20SJ0+WgrCiiY7W9/yppeeR3CrpV6ZU/ninXRB3hUKwfAGLhjWWc+bWsIWNQwcvI+8iFwkbVJFei8X5aNsw3x+74Ak+V+KmNdOss8lPOKSUooblGxULcN6rYlgMj5mgisx9qvlRLjB+afnrndckGUndu9VDqhZnxykjnJNGbBTQAuuB3FORFmVJEwE0Eek0CFKJY8663FXilyR2wfPm91n8wPAYcodPKj3xxrCUsMh6pZgI1+5JhEsIdeaShJ/VW3ZlZVwn4+kspKVjUlGZGZQrwg1RzcpYG1QQaoOwYiWXXlpiYb7RneA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=07NLEWPyKqY8J7b1BWFsLE0WSc4j1PzmmyeYIeVIOHU=;
- b=t1lnv2r3hUGjY8n8ZG55JxDgPsu2T9tA3I9QPtlH0GoYKnKR7gqD5t9ABXdk1RV4ZnSZF0XLe+sJW3n46/KN8/wybcHvfNYmkDwJsP6DGk+HT/LgvKCOKyofm8Z9diUn94FinChbUTTs1nbr6bSUivd9LyMO34dlQO9hjFwSrQ7VyvVxY1lvkowl1zJUrr0WDL9hepEGQVaA+Eb+5reNattV5vNIDU2fOHk6tAErXOB4cOVplPZsSlt/JIp33qUEH/Z7Lql7ITY0tI2l4Tem4qCU5rOr4oTlS8BMqg+ONG+3GC2c1t/jUJ/QaK4qJ+0mG/fwhhc2GN+LaOI8HdGIjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=07NLEWPyKqY8J7b1BWFsLE0WSc4j1PzmmyeYIeVIOHU=;
- b=xU5tfqyhwfCpjadWE+CvCbF2din4TIn6fXsh29Y2dlsNjwAcukXcBCRAq6XYC8xvIRtx8ZFIG1dfzBZuq5QjjCg7acF4DAB6xlw3H5a1NzyRRIlnusAa4iqaRMXuAgPMux6M11O3QZnje6V/mXNu5jfWAnLa+0VK0S+AxTQeKHg=
-Received: from SA9PR13CA0009.namprd13.prod.outlook.com (2603:10b6:806:21::14)
- by MW4PR12MB5644.namprd12.prod.outlook.com (2603:10b6:303:189::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 15:20:16 +0000
-Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
- (2603:10b6:806:21:cafe::46) by SA9PR13CA0009.outlook.office365.com
- (2603:10b6:806:21::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.6 via Frontend Transport; Thu, 27
- Aug 2026 15:20:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 15:20:15 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 27 Aug 2026 10:20:10 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: <matthew.brost@intel.com>
-CC: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3 1/2] drm: Add common drm_user_fence helper
-Date: Thu, 27 Aug 2026 20:49:49 +0530
-Message-ID: <20260827151950.4080674-2-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260827151950.4080674-1-srinivasan.shanmugam@amd.com>
-References: <20260827151950.4080674-1-srinivasan.shanmugam@amd.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D533E10F0D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:20:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A6AB61684
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:20:27 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 2B3E83F66F
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:20:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787844031; bh=guA22aR5n/GaxPCRi65Ve4BEhi6vdqixdPS9r4RVKHg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=exRWdJfQtOAoBSCAeCC8ZReRaKJpqrdMUEXw/yPCBo1rYpfbklJx4DU+q0XZJJveR
+ ZNzDaD5mXnhOfJmPXdUIet77h8c8kA+n1EVwP1nSm9bRjLpFhZBN9Um04D9BX7YbQq
+ KO+euFfqiamBDtRjjpbaXQ1UaDVJXHZse1PnQ7Uw=
+Date: Thu, 27 Aug 2026 16:20:21 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 05/18] drm/panthor: Make the page table cache and
+ cleanup workqueue device-local
+Message-ID: <apBVtYhaFk4cHNTH@e142607>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-5-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|MW4PR12MB5644:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bf0ad20-a09e-4305-98cf-08df044eb280
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|7416014|376014|23010399003|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: MTpVPLdExxVEpyy7tcB7eJat8s2oI4w3At3VrReS9Aqt2QZeljoNCGsoVuU4YdXhxFcuh6hemMvMJ4d/0YG5L4oe7viC+xYb17Fzyxln2+gRi1yavb7jWm1d4PfNSfteMH/c8G8Ala1bBMwLnr2Hrj2FUPzYksasqG/K8Nf/0LEA5J+UijkBq7Mhi05KTfRdootpyPvYOKz363XQJfx5yFqan98RekdQj3wUtQNFYRPPVvMbmLBxFKJk2uyAeyf5bBR8KohY+9p1ZHX2eGQJO0ao1920eDtwAJIw4cyjh30jixNyRts1xFYVNw+urck1eYzsz6Ut+GAT00PH0/COxUug4C0IEt1CyfahBAoM+9lvJGbwjyhoTqBVZopfMyaJCPJGfKMkfFbODXmTy82xOiInDLh67OZE6Zl6x6hqludRB0TksRQk7Bz70O7xiRKByREWzj+EOXunb5aGRJ9r3Wdv33mmydPwgRmC+Rl5zlv+52qP3VkrYkHjcXm1cUL7OzqmT5D/jZSslOl4tsk22jM0+XjIxxOAXURnNCDRbnBl8f97OeovAUpa+x+yZCdbh2geskuSS6qHQjmsNplNgfgrLL2+JRj4R9HRXwtOguC1Nyhl0p7ZiLSQLuFOm9pMsCteD9oTm5iKkmFKdEA+35IiEX8WWf5YfZrVFez+XUjaNyCQ8og8ExOQA1TRzmyFAyViQ2I0iUAPyFD811hyCQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(7416014)(376014)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: iVIt8nMt4fR2HnxcE44w8aq/IDgmikZW7W259DUrpVCCBbrU3KLbQBUh+u7dLpAaEENU5pdrd88kn2zKZJly2jo0HR5ubsgh08vkV058YBeTuyqyM+CMJ95yVEaC7wGQ88bJzsaeO/4pA8+JCrAG2HsFKtEsMRVSo/kU3X6bYkTKKKpkeLNYSDve+uBblDLROKvUh6HSmsFzDk4Hc0hR3y8JI7LYOY447W22oSfju6EMZ6jBwOuzke5+g52bH/EsKk/HQuHmfp4URevAZSi91DiwDhkJ4yzgE+IJjKUDb+cXhA3WkQm7Jh3XHTRqmPNUS+4wiTVhKdO9tmDguKOHoWnl3iOk1XLeThpfnKS+uBqj2p/++SWCppIlIxr6AAzoIedxvuyugqcM5ktnuqCf3B5NLCxsHxVRMkhbxnPWKJsVKZhbcDaYOsbb6iep156Z
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:20:15.8010 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bf0ad20-a09e-4305-98cf-08df044eb280
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5644
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-5-982cc8f4234b@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,381 +63,368 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce a common DRM user fence helper providing the kref-managed,
-MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
-that must access userspace memory from a kthread context when a GPU
-fence signals.
+On Wed, Aug 26, 2026 at 04:56:04PM +0200, Boris Brezillon wrote:
+> There's no clue that we'll ever have an SoC with multiple Mali GPUs,
+> and even then, the gains of sharing the PT caches and cleanup workqueue
+> remains unclear.
+> 
+> On the other hand, binding those resources to the device allows us to
+> detect leaks or UAF at drm_device removal time instead of when the
+> module is removed.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-XE uses this pattern (xe_sync.c) to write a fence completion value
-to a userspace VA. AMDGPU will use the same pattern to signal a
-per-queue eventfd from a user-queue EOP fence callback.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-The helper provides:
- - struct drm_user_fence: embeddable base structure
- - struct drm_user_fence_ops: worker/destroy callbacks
- - drm_user_fence_init(): initialize and grab the process MM
- - drm_user_fence_get/put(): reference counting
- - drm_user_fence_add_callback(): attach to a dma-fence
+Best regards,
+Liviu
 
-The worker callback receives a bool indicating whether the process
-MM was successfully obtained, allowing drivers to handle the
-unavailable-MM case (log, skip the userspace write, etc.) without
-duplicating the mmget/kthread_use_mm/mmput boilerplate.
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 17 ++++---
+>  drivers/gpu/drm/panthor/panthor_device.h |  8 ++++
+>  drivers/gpu/drm/panthor/panthor_drv.c    | 47 +------------------
+>  drivers/gpu/drm/panthor/panthor_mmu.c    | 78 +++++++++++++++-----------------
+>  drivers/gpu/drm/panthor/panthor_mmu.h    |  3 --
+>  drivers/gpu/drm/panthor/panthor_sched.c  |  4 +-
+>  6 files changed, 58 insertions(+), 99 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 133e3895cd0a..08bb4d410941 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -131,12 +131,9 @@ static void panthor_device_unplug_work(struct work_struct *work)
+>  	panthor_device_unplug(ptdev);
+>  }
+>  
+> -static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
+> +static void destroy_wq(struct drm_device *ddev, void *wq)
+>  {
+> -	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
+> -
+> -	disable_work_sync(&ptdev->reset.work);
+> -	destroy_workqueue(ptdev->reset.wq);
+> +	destroy_workqueue(wq);
+>  }
+>  
+>  static void panthor_device_reset_work(struct work_struct *work)
+> @@ -242,7 +239,15 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	if (!ptdev->reset.wq)
+>  		return -ENOMEM;
+>  
+> -	ret = drmm_add_action_or_reset(&ptdev->base, panthor_device_reset_cleanup, NULL);
+> +	ret = drmm_add_action_or_reset(&ptdev->base, destroy_wq, ptdev->reset.wq);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ptdev->cleanup_wq =  alloc_workqueue("panthor-cleanup", WQ_UNBOUND, 0);
+> +	if (!ptdev->cleanup_wq)
+> +		return -ENOMEM;
+> +
+> +	ret = drmm_add_action_or_reset(&ptdev->base, destroy_wq, ptdev->cleanup_wq);
+>  	if (ret)
+>  		return ret;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 217eec811bdb..a7ea475fb407 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -327,6 +327,14 @@ struct panthor_device {
+>  		atomic_t recovery_needed;
+>  	} pm;
+>  
+> +	/**
+> +	 * @cleanup_wq: Workqueue used for cleanup operations.
+> +	 *
+> +	 * We create a dedicated workqueue so we can flush on unplug and
+> +	 * make sure all resources are freed before we finish the unplug.
+> +	 */
+> +	struct workqueue_struct *cleanup_wq;
+> +
+>  	/** @profile_mask: User-set profiling flags for job accounting. */
+>  	u32 profile_mask;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 46a3080b0b20..67db6701699b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1904,52 +1904,7 @@ static struct platform_driver panthor_driver = {
+>  		.dev_groups = panthor_groups,
+>  	},
+>  };
+> -
+> -/*
+> - * Workqueue used to cleanup stuff.
+> - *
+> - * We create a dedicated workqueue so we can drain on unplug and
+> - * make sure all resources are freed before the module is unloaded.
+> - */
+> -struct workqueue_struct *panthor_cleanup_wq;
+> -
+> -static int __init panthor_init(void)
+> -{
+> -	int ret;
+> -
+> -	ret = panthor_mmu_pt_cache_init();
+> -	if (ret)
+> -		return ret;
+> -
+> -	panthor_cleanup_wq = alloc_workqueue("panthor-cleanup", WQ_UNBOUND, 0);
+> -	if (!panthor_cleanup_wq) {
+> -		pr_err("panthor: Failed to allocate the workqueues");
+> -		ret = -ENOMEM;
+> -		goto err_mmu_pt_cache_fini;
+> -	}
+> -
+> -	ret = platform_driver_register(&panthor_driver);
+> -	if (ret)
+> -		goto err_destroy_cleanup_wq;
+> -
+> -	return 0;
+> -
+> -err_destroy_cleanup_wq:
+> -	destroy_workqueue(panthor_cleanup_wq);
+> -
+> -err_mmu_pt_cache_fini:
+> -	panthor_mmu_pt_cache_fini();
+> -	return ret;
+> -}
+> -module_init(panthor_init);
+> -
+> -static void __exit panthor_exit(void)
+> -{
+> -	platform_driver_unregister(&panthor_driver);
+> -	destroy_workqueue(panthor_cleanup_wq);
+> -	panthor_mmu_pt_cache_fini();
+> -}
+> -module_exit(panthor_exit);
+> +module_platform_driver(panthor_driver);
+>  
+>  MODULE_AUTHOR("Panthor Project Developers");
+>  MODULE_DESCRIPTION("Panthor DRM Driver");
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 1385ee28bee5..b4e41556247a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -61,6 +61,16 @@ struct panthor_mmu {
+>  	/** @irq: The MMU irq. */
+>  	struct panthor_irq irq;
+>  
+> +	/**
+> +	 * @pt_cache: Cache used to allocate MMU page tables.
+> +	 *
+> +	 * The pre-allocation pattern forces us to over-allocate to plan for
+> +	 * the worst case scenario, and return the pages we didn't use.
+> +	 *
+> +	 * Having a kmem_cache allows us to speed allocations.
+> +	 */
+> +	struct kmem_cache *pt_cache;
+> +
+>  	/**
+>  	 * @as: Address space related fields.
+>  	 *
+> @@ -440,16 +450,6 @@ struct panthor_vm_bind_job {
+>  	struct panthor_vm_op_ctx ctx;
+>  };
+>  
+> -/*
+> - * @pt_cache: Cache used to allocate MMU page tables.
+> - *
+> - * The pre-allocation pattern forces us to over-allocate to plan for
+> - * the worst case scenario, and return the pages we didn't use.
+> - *
+> - * Having a kmem_cache allows us to speed allocations.
+> - */
+> -static struct kmem_cache *pt_cache;
+> -
+>  /**
+>   * alloc_pt() - Custom page table allocator
+>   * @cookie: Cookie passed at page table allocation time.
+> @@ -530,7 +530,7 @@ static void free_pt(void *cookie, void *data, size_t size)
+>  		return;
+>  
+>  	/* Return the page to the pt_cache. */
+> -	kmem_cache_free(pt_cache, data);
+> +	kmem_cache_free(vm->ptdev->mmu->pt_cache, data);
+>  }
+>  
+>  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
+> @@ -1179,7 +1179,8 @@ static void panthor_vm_cleanup_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  				     !op_ctx->map.bo;
+>  
+>  	if (remaining_pt_count) {
+> -		kmem_cache_free_bulk(pt_cache, remaining_pt_count,
+> +		kmem_cache_free_bulk(vm->ptdev->mmu->pt_cache,
+> +				     remaining_pt_count,
+>  				     op_ctx->rsvd_page_tables.pages +
+>  				     op_ctx->rsvd_page_tables.ptr);
+>  	}
+> @@ -1279,7 +1280,8 @@ static void panthor_vm_init_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	op_ctx->va.addr = va;
+>  }
+>  
+> -static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
+> +static int panthor_vm_op_ctx_prealloc_pts(struct panthor_device *ptdev,
+> +					  struct panthor_vm_op_ctx *op_ctx)
+>  {
+>  	u64 size = op_ctx->va.range;
+>  	u64 va = op_ctx->va.addr;
+> @@ -1298,7 +1300,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
+>  	if (!op_ctx->rsvd_page_tables.pages)
+>  		return -ENOMEM;
+>  
+> -	if (!kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, pt_count,
+> +	if (!kmem_cache_alloc_bulk(ptdev->mmu->pt_cache, GFP_KERNEL, pt_count,
+>  				   op_ctx->rsvd_page_tables.pages)) {
+>  		op_ctx->rsvd_page_tables.count = 0;
+>  		return -ENOMEM;
+> @@ -1385,7 +1387,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	op_ctx->map.vm_bo = drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
+>  	op_ctx->map.bo_offset = op->bo_offset;
+>  
+> -	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
+> +	ret = panthor_vm_op_ctx_prealloc_pts(vm->ptdev, op_ctx);
+>  	if (ret)
+>  		goto err_cleanup;
+>  
+> @@ -1444,8 +1446,9 @@ static int panthor_vm_prepare_unmap_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  			goto err_cleanup;
+>  		}
+>  
+> -		if (!kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, pt_count,
+> -				op_ctx->rsvd_page_tables.pages)) {
+> +		if (!kmem_cache_alloc_bulk(vm->ptdev->mmu->pt_cache,
+> +					   GFP_KERNEL, pt_count,
+> +					   op_ctx->rsvd_page_tables.pages)) {
+>  			ret = -ENOMEM;
+>  			goto err_cleanup;
+>  		}
+> @@ -2580,7 +2583,7 @@ static int remap_evicted_vma(struct drm_gpuvm_bo *vm_bo,
+>  	bool found = false;
+>  	int ret;
+>  
+> -	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
+> +	ret = panthor_vm_op_ctx_prealloc_pts(vm->ptdev, op_ctx);
+>  	if (ret)
+>  		goto out_cleanup;
+>  
+> @@ -2821,7 +2824,7 @@ panthor_vm_bind_free_job(struct drm_sched_job *sched_job)
+>  	/* Do the heavy cleanups asynchronously, so we're out of the
+>  	 * dma-signaling path and can acquire dma-resv locks safely.
+>  	 */
+> -	queue_work(panthor_cleanup_wq, &job->cleanup_op_ctx_work);
+> +	queue_work(job->vm->ptdev->cleanup_wq, &job->cleanup_op_ctx_work);
+>  }
+>  
+>  static enum drm_gpu_sched_stat
+> @@ -3372,7 +3375,7 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+>  	 * otherwise those might access objects that are gone if the work is
+>  	 * executed after other components are unplugged.
+>  	 */
+> -	flush_workqueue(panthor_cleanup_wq);
+> +	flush_workqueue(ptdev->cleanup_wq);
+>  }
+>  
+>  static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+> @@ -3385,6 +3388,11 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
+>  	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
+>  }
+>  
+> +static void free_pt_cache(struct drm_device *, void *pt_cache)
+> +{
+> +	kmem_cache_destroy(pt_cache);
+> +}
+> +
+>  /**
+>   * panthor_mmu_init() - Initialize the MMU logic.
+>   * @ptdev: Device.
+> @@ -3414,6 +3422,14 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	mmu->pt_cache = kmem_cache_create("panthor-mmu-pt", SZ_4K, SZ_4K, 0, NULL);
+> +	if (!mmu->pt_cache)
+> +		return -ENOMEM;
+> +
+> +	ret = drmm_add_action_or_reset(&ptdev->base, free_pt_cache, mmu->pt_cache);
+> +	if (ret)
+> +		return ret;
+> +
+>  	mmu->iomem = ptdev->iomem + MMU_AS_BASE;
+>  	ptdev->mmu = mmu;
+>  
+> @@ -3498,25 +3514,3 @@ void panthor_mmu_debugfs_init(struct drm_minor *minor)
+>  				 minor->debugfs_root, minor);
+>  }
+>  #endif /* CONFIG_DEBUG_FS */
+> -
+> -/**
+> - * panthor_mmu_pt_cache_init() - Initialize the page table cache.
+> - *
+> - * Return: 0 on success, a negative error code otherwise.
+> - */
+> -int panthor_mmu_pt_cache_init(void)
+> -{
+> -	pt_cache = kmem_cache_create("panthor-mmu-pt", SZ_4K, SZ_4K, 0, NULL);
+> -	if (!pt_cache)
+> -		return -ENOMEM;
+> -
+> -	return 0;
+> -}
+> -
+> -/**
+> - * panthor_mmu_pt_cache_fini() - Destroy the page table cache.
+> - */
+> -void panthor_mmu_pt_cache_fini(void)
+> -{
+> -	kmem_cache_destroy(pt_cache);
+> -}
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
+> index 3522fbbce369..de6b4ee4e41a 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
+> @@ -104,9 +104,6 @@ void panthor_vm_update_resvs(struct panthor_vm *vm, struct drm_exec *exec,
+>  			     enum dma_resv_usage private_usage,
+>  			     enum dma_resv_usage extobj_usage);
+>  
+> -int panthor_mmu_pt_cache_init(void);
+> -void panthor_mmu_pt_cache_fini(void);
+> -
+>  #ifdef CONFIG_DEBUG_FS
+>  void panthor_mmu_debugfs_init(struct drm_minor *minor);
+>  #endif
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index a6d57dc1b43e..4ea16b40d6b9 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -972,7 +972,7 @@ static void group_release(struct kref *kref)
+>  	drm_WARN_ON(&ptdev->base, !list_empty(&group->run_node));
+>  	drm_WARN_ON(&ptdev->base, !list_empty(&group->wait_node));
+>  
+> -	queue_work(panthor_cleanup_wq, &group->release_work);
+> +	queue_work(ptdev->cleanup_wq, &group->release_work);
+>  }
+>  
+>  static void group_put(struct panthor_group *group)
+> @@ -4054,7 +4054,7 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+>  	 * otherwise those might access objects that are gone if the work is
+>  	 * executed after other components are unplugged.
+>  	 */
+> -	flush_workqueue(panthor_cleanup_wq);
+> +	flush_workqueue(ptdev->cleanup_wq);
+>  }
+>  
+>  static void panthor_sched_fini(struct drm_device *ddev, void *res)
+> 
+> -- 
+> 2.55.0
+> 
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
-Cc: linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
-v3:
- - Store fence reference inside drm_user_fence during add_callback so
-   drm_user_fence_cancel() can be called safely without the caller
-   holding a separate fence reference, fixing a potential UAF when a
-   foreign dma-fence signals after driver teardown. (Sashiko review)
- - Fix contradictory kernel-doc for drm_user_fence_cancel() which
-   incorrectly instructed callers to put references that the function
-   already puts internally. (Sashiko review)
- - Add drm_user_fence_cancel_sync() to guarantee the worker has fully
-   completed before returning. (Sashiko review)
-
-v2:
- - Move INIT_WORK() to drm_user_fence_init() fixing lockdep class
-   divergence. (Sashiko review)
- - drm_user_fence_add_callback() now consumes the fence reference in
-   all paths. (Sashiko review)
- - Add drm_user_fence_cancel() for safe driver teardown. (Sashiko review)
- - Fix missing newline at end of new files.
- 
- drivers/gpu/drm/Makefile         |   1 +
- drivers/gpu/drm/drm_user_fence.c | 210 +++++++++++++++++++++++++++++++
- include/drm/drm_user_fence.h     |  76 +++++++++++
- 3 files changed, 287 insertions(+)
- create mode 100644 drivers/gpu/drm/drm_user_fence.c
- create mode 100644 include/drm/drm_user_fence.h
-
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index e97faabcd783..52de1f474535 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -69,6 +69,7 @@ drm-y := \
- 	drm_syncobj.o \
- 	drm_sysfs.o \
- 	drm_trace_points.o \
-+	drm_user_fence.o \
- 	drm_vblank.o \
- 	drm_vblank_work.o \
- 	drm_vma_manager.o \
-diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
-new file mode 100644
-index 000000000000..83920d2be43b
---- /dev/null
-+++ b/drivers/gpu/drm/drm_user_fence.c
-@@ -0,0 +1,209 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2024 The Linux Foundation
-+ *
-+ * Common DRM user fence helper.
-+ *
-+ * When a GPU dma-fence signals, drivers often need to write a value to a
-+ * userspace VA or notify userspace via an eventfd. Both operations require
-+ * a valid process MM, which is not available in IRQ context.
-+ *
-+ * This helper queues a work item on fence signal. The work item borrows the
-+ * process MM via kthread_use_mm() and calls ops->worker(), which the driver
-+ * implements to perform the actual userspace access.
-+ */
-+
-+#include <linux/kthread.h>
-+#include <linux/sched/mm.h>
-+#include <linux/workqueue.h>
-+
-+#include <drm/drm_user_fence.h>
-+
-+static void drm_user_fence_destroy(struct kref *kref)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(kref, struct drm_user_fence, refcount);
-+
-+	/* Release the extra reference stored for cancel() */
-+	if (ufence->fence)
-+		dma_fence_put(ufence->fence);
-+
-+	mmdrop(ufence->mm);
-+	ufence->ops->destroy(ufence);
-+}
-+
-+/**
-+ * drm_user_fence_get - Acquire a reference to a user fence
-+ * @ufence: user fence
-+ */
-+void drm_user_fence_get(struct drm_user_fence *ufence)
-+{
-+	kref_get(&ufence->refcount);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_get);
-+
-+/**
-+ * drm_user_fence_put - Release a reference to a user fence
-+ * @ufence: user fence
-+ */
-+void drm_user_fence_put(struct drm_user_fence *ufence)
-+{
-+	kref_put(&ufence->refcount, drm_user_fence_destroy);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_put);
-+
-+static void drm_user_fence_work(struct work_struct *w)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(w, struct drm_user_fence, work);
-+	bool mm_ok = false;
-+
-+	if (mmget_not_zero(ufence->mm)) {
-+		kthread_use_mm(ufence->mm);
-+		mm_ok = true;
-+	}
-+
-+	ufence->ops->worker(ufence, mm_ok);
-+
-+	if (mm_ok) {
-+		kthread_unuse_mm(ufence->mm);
-+		mmput(ufence->mm);
-+	}
-+
-+	drm_user_fence_put(ufence);
-+}
-+
-+static void drm_user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-+{
-+	struct drm_user_fence *ufence =
-+		container_of(cb, struct drm_user_fence, cb);
-+
-+	queue_work(ufence->wq, &ufence->work);
-+	/*
-+	 * Put the transferred reference from add_callback. The stored
-+	 * reference in ufence->fence is released in drm_user_fence_destroy().
-+	 */
-+	dma_fence_put(fence);
-+}
-+
-+/**
-+ * drm_user_fence_init - Initialize a user fence
-+ * @ufence: user fence to initialize
-+ * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
-+ * @ops: driver operations
-+ *
-+ * Must be called from process context. Grabs a reference to current->mm.
-+ */
-+void drm_user_fence_init(struct drm_user_fence *ufence,
-+			 struct workqueue_struct *wq,
-+			 const struct drm_user_fence_ops *ops)
-+{
-+	kref_init(&ufence->refcount);
-+	ufence->mm = current->mm;
-+	mmgrab(ufence->mm);
-+	ufence->wq = wq;
-+	ufence->ops = ops;
-+	ufence->fence = NULL;
-+	INIT_WORK(&ufence->work, drm_user_fence_work);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_init);
-+
-+/**
-+ * drm_user_fence_add_callback - Attach a user fence to a dma-fence
-+ * @ufence: user fence
-+ * @fence: dma-fence to watch; ownership of this reference is transferred
-+ *         to the callback — caller must NOT put it afterward.
-+ *
-+ * When @fence signals, a work item is queued that calls ops->worker() with
-+ * the process MM active. If @fence has already signaled the work item is
-+ * queued immediately.
-+ *
-+ * An additional reference to @fence is stored internally in @ufence to
-+ * allow drm_user_fence_cancel() to be called safely without the caller
-+ * needing to hold a separate fence reference.
-+ *
-+ * On any return value the caller's fence reference is consumed.
-+ *
-+ * Return: 0 on success, negative errno on error.
-+ */
-+int drm_user_fence_add_callback(struct drm_user_fence *ufence,
-+				struct dma_fence *fence)
-+{
-+	int err;
-+
-+	drm_user_fence_get(ufence);
-+
-+	/* Extra ref stored for cancel() — lives until drm_user_fence_destroy() */
-+	ufence->fence = dma_fence_get(fence);
-+
-+	err = dma_fence_add_callback(fence, &ufence->cb, drm_user_fence_cb);
-+	if (err == -ENOENT) {
-+		/* fence already signaled — queue work and release transferred ref */
-+		queue_work(ufence->wq, &ufence->work);
-+		dma_fence_put(fence);
-+		err = 0;
-+	} else if (err) {
-+		dma_fence_put(ufence->fence);
-+		ufence->fence = NULL;
-+		drm_user_fence_put(ufence);
-+		dma_fence_put(fence);
-+	}
-+	/* on success: transferred ref goes to drm_user_fence_cb */
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_add_callback);
-+
-+/**
-+ * drm_user_fence_cancel - Cancel a pending user fence callback
-+ * @ufence: user fence
-+ *
-+ * Attempts to remove the pending callback before driver context teardown.
-+ * Must be called before the driver tears down its workqueue or ops.
-+ * The caller must hold a reference to @ufence across this call.
-+ *
-+ * If the callback has already fired this returns false and all cleanup
-+ * has already been handled internally — the caller needs no further action.
-+ *
-+ * If removal succeeds all references are released internally — the caller
-+ * must NOT call drm_user_fence_put() or dma_fence_put() afterward.
-+ *
-+ * Return: true if callback was removed, false if it had already fired.
-+ */
-+bool drm_user_fence_cancel(struct drm_user_fence *ufence)
-+{
-+	struct dma_fence *fence = ufence->fence;
-+
-+	if (!fence)
-+		return false;
-+
-+	if (dma_fence_remove_callback(fence, &ufence->cb)) {
-+		/*
-+		 * Callback will not fire — release the transferred reference
-+		 * that would have been put by drm_user_fence_cb(). The stored
-+		 * reference in ufence->fence is released in destroy().
-+		 */
-+		dma_fence_put(fence);
-+		drm_user_fence_put(ufence);
-+		return true;
-+	}
-+
-+	/* Callback already fired — it handled its own cleanup */
-+	return false;
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_cancel);
-+
-+/**
-+ * drm_user_fence_cancel_sync - Cancel callback and wait for worker to finish
-+ * @ufence: user fence
-+ *
-+ * Calls drm_user_fence_cancel() then cancel_work_sync() to guarantee
-+ * the worker has fully completed before returning. Drivers must call
-+ * this during teardown before freeing any resources accessed by
-+ * ops->worker().
-+ */
-+void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
-+{
-+	drm_user_fence_cancel(ufence);
-+	cancel_work_sync(&ufence->work);
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_cancel_sync);
-diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
-new file mode 100644
-index 000000000000..02a02266ab93
---- /dev/null
-+++ b/include/drm/drm_user_fence.h
-@@ -0,0 +1,75 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2024 The Linux Foundation
-+ */
-+
-+#ifndef __DRM_USER_FENCE_H__
-+#define __DRM_USER_FENCE_H__
-+
-+#include <linux/dma-fence.h>
-+#include <linux/kref.h>
-+#include <linux/workqueue.h>
-+
-+struct drm_user_fence;
-+
-+/**
-+ * struct drm_user_fence_ops - driver callbacks for a DRM user fence
-+ */
-+struct drm_user_fence_ops {
-+	/**
-+	 * @worker: Called from workqueue context.
-+	 *
-+	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
-+	 * (copy_to_user, eventfd_signal, etc.) may be accessed safely.
-+	 * If @mm_ok is false, the process MM was already gone; the driver
-+	 * should log a warning and skip the userspace write.
-+	 *
-+	 * wake_up() or other post-signal housekeeping should also happen here.
-+	 */
-+	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
-+
-+	/**
-+	 * @destroy: Called when the last reference is dropped.
-+	 * Free the containing structure here.
-+	 */
-+	void (*destroy)(struct drm_user_fence *ufence);
-+};
-+
-+/**
-+ * struct drm_user_fence - embeddable DRM user fence
-+ *
-+ * Drivers embed this in their own structure and implement
-+ * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
-+ * drm_user_fence_add_callback() to arm on a dma-fence.
-+ * Call drm_user_fence_cancel_sync() before driver teardown.
-+ */
-+struct drm_user_fence {
-+	/** @refcount: Reference count. */
-+	struct kref refcount;
-+	/** @mm: Process MM grabbed at init time. */
-+	struct mm_struct *mm;
-+	/** @work: Work item queued when the dma-fence signals. */
-+	struct work_struct work;
-+	/** @cb: dma-fence callback. */
-+	struct dma_fence_cb cb;
-+	/**
-+	 * @fence: Extra reference held for safe cancel(). Set during
-+	 * add_callback, released in destroy().
-+	 */
-+	struct dma_fence *fence;
-+	/** @wq: Workqueue to run @work on. */
-+	struct workqueue_struct *wq;
-+	/** @ops: Driver operations. */
-+	const struct drm_user_fence_ops *ops;
-+};
-+
-+void drm_user_fence_init(struct drm_user_fence *ufence,
-+			 struct workqueue_struct *wq,
-+			 const struct drm_user_fence_ops *ops);
-+void drm_user_fence_get(struct drm_user_fence *ufence);
-+void drm_user_fence_put(struct drm_user_fence *ufence);
-+int drm_user_fence_add_callback(struct drm_user_fence *ufence,
-+				struct dma_fence *fence);
-+bool drm_user_fence_cancel(struct drm_user_fence *ufence);
-+void drm_user_fence_cancel_sync(struct drm_user_fence *ufence);
-+
-+#endif /* __DRM_USER_FENCE_H__ */
 -- 
-2.34.1
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
