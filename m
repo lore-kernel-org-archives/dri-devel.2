@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9F86C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:29:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D786C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB7D410EEC0;
-	Thu, 27 Aug 2026 07:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1C310EECD;
+	Thu, 27 Aug 2026 07:29:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZQuc/Ltz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ANCAH1aS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3688310EECA;
- Thu, 27 Aug 2026 07:29:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D633D10EEC5;
+ Thu, 27 Aug 2026 07:29:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0809540250;
- Thu, 27 Aug 2026 07:29:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FE61F000E9;
- Thu, 27 Aug 2026 07:29:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BFE9E403AC;
+ Thu, 27 Aug 2026 07:29:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6301F000E9;
+ Thu, 27 Aug 2026 07:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787815770;
- bh=Cfp3DZ35lhqdG5JNhAp2kBeTyi/TLYDcpEsaNs9zzLo=;
+ s=k20260515; t=1787815786;
+ bh=VvHaZIVB2YqtsyptQJZpt4TN1NiNBcUQ/OxjPtrfOPs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZQuc/LtzpZyHHWMABBYhv9D9z/1lCGNhunD/ebnos4BPy3Qa8RXImPbHR1AMT+iIu
- 89OYTZRpbU6TYgSw+4HOGfuQrs/VOxScu/VhWi+DYrTE/OAeDOvzG80WcZ7EDQBrou
- vT9vQgDA0uMYYmuwLjcNz7VB0F6SWZW5MvlnS9HMfqcWvYs+3Pg8diX2R8hVwjDhQc
- QR0jCzJg/gjEAA/SxraDpasboQ6arDmErNN9/AwiX575zrxoTpyKARSCXArY1x6Pud
- 9I8AIB1yePo12zN4OIiX3BXxj2eUdwd6xgRov3U1AV87RvybQ/YYYGjoiCk+B+GuS1
- CvP5nrpNv2qww==
+ b=ANCAH1aS7usJGe9aH+kf7OJMt20kG8JJvP0JOCBWJ5Oz9nTT+wfHjjqYYDPc47tdd
+ P3N7723jHFFKRBqZv1U897h83E1/aWfMFNp8Ubykjb5AIcki91lwYue+ozKILl4Qx4
+ P2L8Q8L4Hk5ks27dQdBv73KJSHJ8myKObp/zM6Cy6skZ1qDMwK4x5FMrnTsPixPVkM
+ +z2eQFX9CNY4UilruJf6L9xnWrzHQ5TlH03qJ6z9oi+wcXU9zxQqg+gSnFIVT/PfHI
+ R1kIo2QNZNc26/I/LP0wfVYuoxpR6QwAyD8CQMEfwKUd4W2ORGOs2s+XudLdUh9Ciw
+ wg5zgX6MCCBlw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v1 4/5] drm/gpusvm: let drm_gpusvm_get_pages() map
- an array of pages
+Subject: Re: [RFC PATCH v1 2/5] drm/gpusvm: move dma_addr allocation before
+ the notifier lock
 To: "Honglei Huang" <honghuan@amd.com>
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260827071449.520398-5-honghuan@amd.com>
+In-Reply-To: <20260827071449.520398-3-honghuan@amd.com>
 References: <20260827071449.520398-1-honghuan@amd.com>
- <20260827071449.520398-5-honghuan@amd.com>
+ <20260827071449.520398-3-honghuan@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 07:29:30 +0000
-Message-Id: <20260827072930.A9FE61F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 07:29:46 +0000
+Message-Id: <20260827072946.6D6301F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,86 +62,81 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Device memory mappings are leaked when drm_gpusvm_dma_map_pages() =
-fails midway.
+- [High] Device mappings are permanently leaked on the error path because `=
+svm_pages->dpagemap` is assigned too late.
 --
 
-commit 9ac7ddc26000d29a77c97e82c04194e8d027c3ec
+commit 69970ff2a9a2262bbdbdbce9ebee1a8d4c896b22
 Author: Honglei Huang <honghuan@amd.com>
 
-drm/gpusvm: let drm_gpusvm_get_pages() map an array of pages
+drm/gpusvm: move dma_addr allocation before the notifier lock
 
-This patch updates drm_gpusvm_get_pages() to take a contiguous array of
-drm_gpusvm_pages plus a count. It performs the HMM fault once for the CPU
-range and then DMA maps each instance per owning drm_device.
+The dma_addr allocation was in a lazy allocation flow, it needs unlock
+and goto map_pages. The allocation only needs npages, so just do it
+before taking the lock. Drop the map_pages label and the relock flow, so
+the sequence becomes fault, allocate, then lock, validate, map and
+unlock. No functional change intended.
 
 > diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index 507ef6f0a60e7..3496cb5688365 100644
 > --- a/drivers/gpu/drm/drm_gpusvm.c
 > +++ b/drivers/gpu/drm/drm_gpusvm.c
 [ ... ]
-> @@ -1727,15 +1765,30 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusv=
-m,
+> @@ -1575,18 +1583,6 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
 >  		goto retry;
 >  	}
 > =20
-> -	err =3D drm_gpusvm_dma_map_pages(gpusvm, svm_pages, pfns, npages, ctx,
-> -				       dma_dir);
-> -	drm_gpusvm_notifier_unlock(gpusvm);
-> -	if (err)
-> -		goto err_free;
-> +	for (p =3D 0; p < num_pages; ++p) {
-> +		if (drm_gpusvm_pages_valid(gpusvm, &svm_pages[p]))
-> +			continue;
-> +
-> +		err =3D drm_gpusvm_dma_map_pages(gpusvm, &svm_pages[p], pfns,
-> +					       npages, ctx, dma_dir);
+> -	if (!svm_pages->dma_addr) {
+> -		/* Unlock and restart mapping to allocate memory. */
+> -		drm_gpusvm_notifier_unlock(gpusvm);
+> -		svm_pages->dma_addr =3D
+> -			kvmalloc_objs(*svm_pages->dma_addr, npages);
+> -		if (!svm_pages->dma_addr) {
+> -			err =3D -ENOMEM;
+> -			goto err_free;
+> -		}
+> -		goto map_pages;
+> -	}
+> -
+>  	zdd =3D NULL;
+>  	pagemap =3D NULL;
+>  	num_dma_mapped =3D 0;
 
 [Severity: High]
-This is a pre-existing issue, but I noticed a potential leak in how
-drm_gpusvm_dma_map_pages() handles its error path.
+This is a pre-existing issue, but does the error path here permanently leak
+device mappings?
 
-If drm_gpusvm_dma_map_pages() maps one or more device pages successfully bu=
-t a
-subsequent page fails (for example, yielding -EOPNOTSUPP due to mixed memor=
-y,
-or -EFAULT from dma_mapping_error), it jumps to err_unmap:
+If dpagemap->ops->device_map() succeeds for some pages in
+drm_gpusvm_get_pages(), but a subsequent mapping operation (like
+dma_map_page() or dma_iova_link()) fails, the code jumps to err_unmap:
 
-drm_gpusvm_dma_map_pages() {
-    ...
-err_unmap:
-    svm_pages->flags.has_dma_mapping =3D true;
-    __drm_gpusvm_unmap_pages(gpusvm, svm_pages, num_dma_mapped);
-    return err;
-}
+	err_unmap:
+		svm_pages->flags.has_dma_mapping =3D true;
+		__drm_gpusvm_unmap_pages(gpusvm, svm_pages, num_dma_mapped);
 
-The rollback calls __drm_gpusvm_unmap_pages(), which relies on
-svm_pages->dpagemap to invoke device_unmap:
+Inside __drm_gpusvm_unmap_pages(), it reads:
 
-__drm_gpusvm_unmap_pages() {
-    ...
-            else if (dpagemap && dpagemap->ops->device_unmap)
-                dpagemap->ops->device_unmap(dpagemap, dev, addr);
-    ...
-}
+	struct drm_pagemap *dpagemap =3D svm_pages->dpagemap;
 
-However, svm_pages->dpagemap is only updated at the very end of
-drm_gpusvm_dma_map_pages() upon success. During the error path, it is still
-NULL.
+And later checks it before unmapping:
 
-Can this result in __drm_gpusvm_unmap_pages() silently skipping the unmappi=
-ng
-of all previously mapped device pages, thereby leaking device mapping
-resources?
+	else if (dpagemap && dpagemap->ops->device_unmap)
+		dpagemap->ops->device_unmap(dpagemap, dev, addr);
 
-> +		if (err) {
-> +			/*
-> +			 * drm_gpusvm_dma_map_pages() already cleaned up the
-> +			 * instance that failed. Leave the earlier ones mapped:
-> +			 * on -EAGAIN the retry reuses them, on other errors the
-> +			 * driver frees them with the range. They may also be
-> +			 * used by other drm_devices, so do not unmap them here.
-> +			 */
+However, back in drm_gpusvm_get_pages(), svm_pages->dpagemap is only
+assigned at the very end of the success path:
+
+	if (pagemap) {
+		flags.has_devmem_pages =3D true;
+		drm_pagemap_get(dpagemap);
+		drm_pagemap_put(svm_pages->dpagemap);
+		svm_pages->dpagemap =3D dpagemap;
+	}
+
+Does this mean that during the error path, svm_pages->dpagemap is NULL,
+causing __drm_gpusvm_unmap_pages() to silently skip calling
+dpagemap->ops->device_unmap() and permanently leak the mappings?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827071449.5203=
-98-1-honghuan@amd.com?part=3D4
+98-1-honghuan@amd.com?part=3D2
