@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 936BBC61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98180C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:41:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86BC010EEC6;
-	Thu, 27 Aug 2026 07:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A00DB10EEF4;
+	Thu, 27 Aug 2026 07:41:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R9kQ2a5y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wa4jiXUg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8632910EEC6
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:40:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E4810EEDC
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:41:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 363D243D47;
- Thu, 27 Aug 2026 07:40:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFCCD1F000E9;
- Thu, 27 Aug 2026 07:40:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 92B02600D0;
+ Thu, 27 Aug 2026 07:41:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED811F000E9;
+ Thu, 27 Aug 2026 07:41:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787816402;
- bh=BRVVj9KGZ6/sCQDWGpW76yiew9uVktsrh5yPwfFQ4zE=;
+ s=k20260515; t=1787816508;
+ bh=BDZEHW6vwP2m4KsmF1PQ35psZOW8RmTbccykiQgIuAw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=R9kQ2a5y9MxUU+fGouq0ab4VfNNunhNqH/6viKTYGQMHqEUXPrO6vas1FFVS2tU/T
- p7aLEmB4+ahCwfV0Z3VK0b2RTg4e9c+vpA1h+zmFomxM3/c0G1XxmVhd/b54RrgP5N
- suH/aTl5o+XNDAmwaHF5Z17mwPk+aeMhmBF+8BVvbzj8AQGF4qPhGktLOPIWuJJP7+
- lt+WyikIb/TESkBb6AXaVsR1lYznt+1OwZE+U0w+V9H9M2V+RHO1LThi3MGwjRrG/4
- 2tfzc8FifG0BeXlfK9pEG/PJ5oJ6jDtRny7w4EtJ5PL2nMvrR6YrF9Hz293Sf7Oxho
- UnetmyId+vIwA==
+ b=Wa4jiXUgPZA3uJvEkb7DZjPMdjmohHhlsp91Oi7T9XYlNja9cYr235mthzvHApSZi
+ T2rXI1Kc5o+51OtxSOMb41XVUpo+zy8hvx5YRQRSZu3jwBlHiNtmJ6pH8erzZSqSU2
+ f9XCxTed7jno6Ox/dUVwjHFzAmApa59+KwWL4msWnbBj0rPkEkl1YTOxzdSMte6KO6
+ p+sur1Zrh7D3gBAwFm4RK/WYf8kRKx2Qlzk+U0kUi7YjU9EGDmSBpWFDOm5ElqYYCa
+ xH74nKw32eihctwpEMsfPgsC61eoFnAfic9OK8huzf8dTP8r0B18qnyMtqXETTjHm1
+ EnFGRVNgWZnbw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/12] rust: bitmap: restrict bitmap length to at
- most i32::MAX
+Subject: Re: [PATCH v8 11/12] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260827-chid-v8-2-bc74c77d0214@nvidia.com>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260827-chid-v8-11-bc74c77d0214@nvidia.com>
 References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-2-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-11-bc74c77d0214@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 07:40:01 +0000
-Message-Id: <20260827074001.BFCCD1F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 07:41:47 +0000
+Message-Id: <20260827074147.EED811F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,75 +61,68 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Incomplete SAFETY comments for `Bitmap::from_raw` calls in unit tes=
-ts.
+- [High] Calling `find_unused_id(0)` or `reserve_ids(0, ...)` on an `IdPool=
+` initialized with a capacity of 0 triggers a kernel panic when `CONFIG_RUS=
+T_BITMAP_HARDENED` is enabled.
 --
 
-commit f2871aa21f86bcf804086540b9bc1b66aba9457a
+commit c0cd93bbf9f36768f04bc377021b9e32ae0dce05
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-rust: bitmap: restrict bitmap length to at most i32::MAX
+rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
 
-This restricts all Bitmaps (even non-BitmapVec backed ones) to a maximum
-size of i32::MAX to simplify operations and match BitmapVec::MAX_LEN. It
-adds this requirement to the unsafe preconditions and invariants of Bitmap
-functions.
+This commit modifies IdPool::with_capacity to stop rounding the capacity up
+to BitmapVec::MAX_INLINE_LEN. This allows explicitly creating pools with 0
+capacity, and adjusts grow_request and shrink_request to handle the new flo=
+or.
 
-Link: https://lore.kernel.org/DKG0U8RLO7LZ.2I1AIH0S38PAP@nvidia.com
+> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> index 06a4c71c4c6c9..4f329249df9d0 100644
+> --- a/rust/kernel/id_pool.rs
+> +++ b/rust/kernel/id_pool.rs
+> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+>      }
+> =20
+>      /// Constructs a new [`IdPool`] with space for a specific number of =
+bits.
+> -    ///
+> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_=
+LEN`].
+> -    ///
+> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      #[inline]
+>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, A=
+llocError> {
+> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>          let map =3D BitmapVec::new(num_ids, flags)?;
+>          Ok(Self { map })
+>      }
 
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index a43bfe0ec3dc2..df5505ec7a965 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-[ ... ]
-> @@ -17,24 +17,59 @@
-[ ... ]
->  impl Bitmap {
->      /// Borrows a C bitmap.
->      ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `nbits` exc=
-eeds `i32::MAX`.
-> +    ///
->      /// # Safety
->      ///
->      /// * `ptr` holds a non-null address of an initialized array of `uns=
-igned long`
->      ///   that is large enough to hold `nbits` bits.
-> +    /// * `nbits` must not exceed `i32::MAX`.
->      /// * the array must not be freed for the lifetime of this [`Bitmap`]
->      /// * concurrent access only happens through atomic operations
->      pub unsafe fn from_raw<'a>(ptr: *const usize, nbits: usize) -> &'a B=
-itmap {
+[Severity: High]
+Does allowing a capacity of 0 here introduce a kernel panic during standard
+allocations if CONFIG_RUST_BITMAP_HARDENED is enabled?
 
-[Severity: Low]
-Since a new safety precondition is added here, shouldn't the SAFETY comments
-on existing callers be updated to explain how this condition is satisfied?
+If a caller attempts to allocate an ID on a 0-capacity pool using patterns =
+like
+pool.find_unused_id(0) or pool.reserve_ids(0, ...), the call delegates dire=
+ctly
+to the underlying bitmap without its own bounds check:
 
-For example, the test code in rust/kernel/bitmap.rs calls from_raw() but
-the comments only justify the array length:
-
-rust/kernel/bitmap.rs:tests::bitmap_borrow() {
-    ...
-    // SAFETY: `fake_c_bitmap` is an array of expected length.
-    let b =3D unsafe { Bitmap::from_raw(fake_bitmap.as_ptr(), fake_bitmap_l=
-en) };
-    ...
+IdPool::find_unused_id() {
+    Some(UnusedId {
+        id: self.map.next_zero_bit(offset)?,
+        pool: self,
+    })
 }
 
-rust/kernel/bitmap.rs:tests::bitmap_copy() {
-    ...
-    // SAFETY: `fake_c_bitmap` can be used as one-element array of expected=
- length.
-    let b =3D unsafe { Bitmap::from_raw(core::ptr::addr_of!(fake_bitmap), 8=
-) };
-    ...
-}
+This passes offset=3D0 to Bitmap::next_zero_bit(), which contains an assert=
+ion
+that start < self.len(). Since 0 < 0 is false on a 0-capacity pool, it pani=
+cs
+immediately instead of gracefully returning None to prompt a grow_request().
 
-Should these be updated to also mention that fake_bitmap_len and 8 do not
-exceed i32::MAX?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-chid-v8-0-=
-bc74c77d0214@nvidia.com?part=3D2
+bc74c77d0214@nvidia.com?part=3D11
