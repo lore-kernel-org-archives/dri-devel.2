@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5270FC5DF9D
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 08:14:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D3D9C5DF9D
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 08:15:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A474D10E3BA;
-	Thu, 27 Aug 2026 08:14:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC6010E3D2;
+	Thu, 27 Aug 2026 08:15:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESS16Hmn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fss59sp2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFC510E3BA
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:14:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2883B10EEF2
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:15:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C4C91600D2;
- Thu, 27 Aug 2026 08:14:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443EE1F000E9;
- Thu, 27 Aug 2026 08:14:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7BB7E600D2;
+ Thu, 27 Aug 2026 08:15:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6B21F000E9;
+ Thu, 27 Aug 2026 08:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787818456;
- bh=t20+6dzRGs+dHZ39xsofIQsFVsiBILWyQWFfwdY21Gc=;
+ s=k20260515; t=1787818513;
+ bh=TAGF2fVeDdFbrGgAIllPdWpn3FRHkSe4i68ntDwWZyk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ESS16HmnRGexIGHl9MQQCI2/WUV1NT1QHopqjGIoGN65puz77E6sJTJ+OH7MfQVb2
- LEKCVuXDdRqtZXufH59IJn73w5ftRWpVeuVz4y3DK1kTMxVpLssqu8v6zCEegkoDQY
- Z3dUjvaTPF+odfQOu6Kfa/UXkw8H8VmZGezPZW+hg5jnLejCOQ4hbzAjfdZ/1x6tkK
- kjS2UR2j3l6F2t6GS4wF6LM2x2DfXc3warLWEc3ya/XaLZjoiiBUxH7iDa7awL4QD8
- lD/pUpmVmGGOdjA9Ap5hResTBqDmLKye/nkPa+PtW0sZ6PbUySE5DGHWv5nTdtfnRH
- G6e+GeT/Ojy1w==
+ b=Fss59sp22Ti14nU++RSkBjfl3BSfiewYImsuT87WR2JAMJtWuDkdAYVeHUqycMcOU
+ 3HnQ7CIHTLamd5Ja00NJwj4/Hks8xPF/CHsttcLLB4aqnbrG91fuJcI03apogQc75F
+ 8Plw09KxIn5liG4Knjltc5X4AfMVkAygqXPumkXBBFnRercuQ1zTk1Ce3L+Z3uFuWW
+ QMqsNVCTwNleWtqFlYe6SBAzq2isTmscIlA4gj+KVMwgMTG3uWSoYYBz0e2/krGXwk
+ Nik/AqK0FeLEBxN2NeBm7T6JWcMLqruc1ITgMFesJ/WA1ceKfSA33nM+T1ayf4xUUs
+ GLt0hFEhkCq5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] drm/tyr: add Job IRQ handling
+Subject: Re: [PATCH v6 1/2] drm/tyr: add TyrIrq threaded IRQ wrapper
 To: "Laura Nao" <laura.nao@collabora.com>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-tyr-irq-v2-v6-2-15c90baed949@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260728-tyr-irq-v2-v6-1-15c90baed949@collabora.com>
 References: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com>
- <20260728-tyr-irq-v2-v6-2-15c90baed949@collabora.com>
+ <20260728-tyr-irq-v2-v6-1-15c90baed949@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 08:14:15 +0000
-Message-Id: <20260827081416.443EE1F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 08:15:12 +0000
+Message-Id: <20260827081512.EF6B21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,79 +57,90 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] JobIrqEvents::wait_ready discards the timeout result from wait_eve=
-nt_timeout, improperly returning success even if the wait times out.
-- [High] Race condition during IRQ teardown between JobIrqMaskGuard and the=
- threaded IRQ handler leaves the hardware interrupt incorrectly unmasked.
+- [High] The IRQ wrapper requests the threaded IRQ before clearing the devi=
+ce's pending interrupt status, creating an initialization race condition th=
+at can drop valid interrupts or cause IRQ storms.
 --
 
-commit 56688d4ee1c985c61ffa39c42b540903cfd3dca8
+commit e2f89c4d0d12a403d87f79e5dbf89539040c84df
 Author: Laura Nao <laura.nao@collabora.com>
 
-drm/tyr: add Job IRQ handling
+drm/tyr: add TyrIrq threaded IRQ wrapper
 
-This commit adds Job IRQ handling to report requests from the CSF firmware,
-including global interface requests to check firmware readiness. It adds
-JobIrqEvents to signal readiness and JobIrqMaskGuard to ensure the Job IRQ
-is masked before registration is freed.
+Introduce a generic TyrIrq threaded IRQ wrapper along with the
+TyrIrqTrait trait describing the operations required to handle a
+Tyr interrupt source.
 
-> diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
+> diff --git a/drivers/gpu/drm/tyr/irq.rs b/drivers/gpu/drm/tyr/irq.rs
 > new file mode 100644
-> index 0000000000000..7dd894de18cb2
+> index 0000000000000..e6a739532daa2
 > --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw/irq.rs
+> +++ b/drivers/gpu/drm/tyr/irq.rs
 
 [ ... ]
 
-> +    /// Waits until the firmware signals readiness via the GLB IRQ bit, =
-or the timeout expires.
-> +    pub(crate) fn wait_ready(&self, timeout_ms: Msecs) -> Result {
-> +        self.wait.wait_event_timeout(
-> +            || self.ready.load(ordering::Acquire),
-> +            msecs_to_jiffies(timeout_ms),
-> +        )?;
+> +impl<T: TyrIrqTrait> TyrIrq<T> {
+> +    /// Requests a threaded IRQ registration for irq, using name to look=
+ up the interrupt.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Callers must not mem::forget() the resulting registration or oth=
+erwise prevent its
+> +    /// [Drop] implementation from running.
+> +    pub(crate) unsafe fn request<'a>(
+> +        pdev: &'a platform::Device<Bound>,
+> +        name: &'static CStr,
+> +        irq: T,
+> +    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + 'a>
+> +    where
+> +        T: 'a,
+> +    {
+> +        let handler =3D try_pin_init!(Self {
+> +            irq,
+> +            _pin: PhantomPinned,
+> +        });
 > +
-> +        Ok(())
-> +    }
+> +        // SAFETY: The caller guarantees the resulting registration will=
+ not be leaked.
+> +        let registration =3D
+> +            unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, na=
+me, name, handler) };
+> +
+> +        // Clear the status and unmask once the handler has been
+> +        // successfully registered.
+> +        Ok(registration.pin_chain(|reg| {
+> +            let irq =3D &reg.handler().irq;
+> +            irq.clear_status(irq.mask());
 
 [Severity: High]
-Does this code accidentally discard the timeout result from
-wait_event_timeout()?=20
+Does this code request the threaded IRQ before clearing the device's pending
+interrupt status?
 
-The ? operator will only unwrap wait queue errors, but the actual return
-value indicating whether the wait timed out or completed is discarded by
-the semicolon, resulting in an unconditional Ok(()) return.=20
+Calling pdev.request_threaded_irq_by_name() immediately registers the
+handler and enables the IRQ at the interrupt controller. However, the
+hardware status is only cleared later when the .pin_chain closure executes.
 
-Could this cause the driver to proceed as if the firmware successfully
-signaled readiness even when the initialization timed out, leading to=20
-invalid hardware interactions or driver hangs?
+If the device line is shared and level-triggered, could a pending stale
+interrupt cause the hardirq handler to fire immediately? If masked, it
+returns None, leading the kernel to see an unhandled level interrupt, which
+could trigger an IRQ storm and permanently disable the line.
 
-[ ... ]
+Furthermore, if a valid hardware interrupt arrives after registration but
+before the .pin_chain closure runs, does irq.clear_status(irq.mask())
+unconditionally wipe it out, permanently losing the event?
 
-> +pub(crate) struct JobIrqMaskGuard<'a>(Arc<IoMem<'a>>);
-> +
-> +impl Drop for JobIrqMaskGuard<'_> {
-> +    fn drop(&mut self) {
-> +        self.0.write_reg(JOB_IRQ_MASK::zeroed());
+Should the device be quiesced (clearing status and masking) before
+registering the IRQ?
+
+> +            irq.reenable_mask();
+> +            Ok(())
+> +        }))
 > +    }
 > +}
 
-[Severity: High]
-Can this mask guard race with the threaded IRQ handler during teardown?
-
-During driver teardown, this Drop implementation zeroes the hardware IRQ
-mask before the ThreadedRegistration is dropped. However, if the
-threaded handler handle_threaded() is running concurrently on another CPU,
-it finishes its execution by unconditionally calling
-self.irq.reenable_mask().
-
-If the handler's reenable_mask() executes after this Drop but before
-free_irq() completes, it would leave the hardware interrupt incorrectly
-unmasked. Since the handler is being unregistered, could this lead to an
-unhandled interrupt storm on the shared IRQ line?
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-tyr-irq-v2=
--v6-0-15c90baed949@collabora.com?part=3D2
+-v6-0-15c90baed949@collabora.com?part=3D1
