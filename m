@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9502BC61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 17:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A97B8C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 17:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B438510F125;
-	Thu, 27 Aug 2026 17:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 047BC10F12B;
+	Thu, 27 Aug 2026 17:18:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="c2busy9x";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FoTkK7La";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D94C10F122;
- Thu, 27 Aug 2026 17:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=DTBhJEJHZI55kJCFDx4A356JH3QtY1H5UX8/+M/u0IU=; b=c2busy9xrFDASlQI0jk8ltrEM0
- WcemqB2Y2i183opYD92xhE1T0XqtYpdRI3hDpUwBkE2JWZh3y46LCF7sauVjU1VMdfN8BaeFovqBa
- Ry2R/iDy25MUjJfVTYG1GztNTBnEkGo/ox9FLU2bRHfHbq57fO51BBfwEZkz990EMza6pkd4WKjaA
- EXlWwVoIP6h+16iSIPT6GX8CJFuv9Iseopm9Ij5Y/EP9foN5nCD8rSs73747UB3Pr8onke1xq6E11
- 371ARpjaO6H7Nsa1uExxwyGkeUIaP4auT/QDRt+3XD7ZxRgNfD2RRkSRoFcrmoGk7Pk8Wh+d5PK5p
- CMK7Ch3w==;
-Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
- helo=[192.168.1.206]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wzdj5-00AIQt-NZ; Thu, 27 Aug 2026 19:17:19 +0200
-Message-ID: <84a1d963-0344-4097-9d57-4d88a6d8071f@igalia.com>
-Date: Thu, 27 Aug 2026 19:17:17 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260826104143.39077-1-mwen@igalia.com>
- <OBTNak9WT7OSHXS1TK53DA@gmail.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <OBTNak9WT7OSHXS1TK53DA@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E722610F12B
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 17:18:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E5497600D2;
+ Thu, 27 Aug 2026 17:18:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 862D41F000E9;
+ Thu, 27 Aug 2026 17:18:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787851088;
+ bh=nzrR0dEd3YknaN56KY4Hjj3e4OVPhh1moTQuAh4ryd4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FoTkK7Laap2L0UKv6vUHERgEbvmLug2cXaBKdpbVm2YgPd/gF6RTVcKsOKyZQkps7
+ ghXXUH4pIJ/0PWwrnkxpultMWoPqDgNYk8EYMNRIbF2MwS1Fg+32+QOugcEmnaVnXQ
+ Ct2Ej4GsLZ+34My2hWnnc8ceMciYEiHkIifiRztyZ7WErssVK6RMgxMikpcf4JFBMt
+ Z7JRYUsy2LyNZm0xZnTftI0gUTJ9gGywGDGViqLp08+xf89w+beDletZkrQdA5EdLp
+ ZZolqtaBqSzAKFqky1Ofq5BbbeqFggKuK1dcqd7rnnZBS1SCf6em52z5ftrkkv37V/
+ TW0lVtJGR6nrg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] accel/rocket: Propagate job submission errors
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260827170608.39511-4-Naixumogu@whut.edu.cn>
+References: <20260827170608.39511-1-Naixumogu@whut.edu.cn>
+ <20260827170608.39511-4-Naixumogu@whut.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 17:18:08 +0000
+Message-Id: <20260827171808.862D41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,121 +53,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+
+New issues:
+- [High] Returning `-ERESTARTSYS` after partially submitting jobs causes im=
+plicit resubmission, executing already queued jobs twice.
+
+Pre-existing issues:
+- [High] The driver fails to attach the job's execution fence to its input =
+BOs, causing read-after-write hazards.
+- [High] Reference count leak of the IOMMU group in rocket_job_handle_irq()=
+ due to unmatched iommu_group_get().
+--
+
+commit 2749eed226ce8a85f8e14c26ff4f82f1e0274b87
+Author: MoGGuU <Naixumogu@whut.edu.cn>
+
+    accel/rocket: Propagate job submission errors
+   =20
+    rocket_ioctl_submit() discards each job's return value and reports succ=
+ess
+    even when every job fails.
+   =20
+    Return the first error and stop submitting the remaining jobs. Jobs que=
+ued
+    before an error remain queued, giving the ioctl ordered partial-submit
+    semantics.
+   =20
+    Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+    Cc: stable@vger.kernel.org
+    Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+    Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 51e8b43c05131..964d12475a0d5 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -647,8 +647,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void=
+ *data, struct drm_file *fil
+>  	}
+> =20
+> =20
+> -	for (i =3D 0; i < args->job_count; i++)
+> -		rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +	for (i =3D 0; i < args->job_count; i++) {
+> +		ret =3D rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +		if (ret)
+> +			goto exit;
+
+[Severity: High]
+If rocket_ioctl_submit_job() fails on a later iteration (for example, by
+returning -ERESTARTSYS or -EINTR when drm_gem_lock_reservations() is
+interrupted by a signal), will returning this error to userspace cause
+the entire batch of jobs to be resubmitted?
+
+Because jobs 0 through i - 1 have already been pushed to the DRM
+scheduler, it appears returning -ERESTARTSYS would cause the kernel
+to restart the ioctl, executing the already queued jobs a second time
+and potentially causing data corruption.
+
+> +	}
+> =20
+>  exit:
+>  	kvfree(jobs);
 
 
-On 26/08/2026 18:49, Timur Kristóf wrote:
-> On Wednesday, August 26, 2026 12:37:04 PM Central European Summer Time Melissa
-> Wen wrote:
->> PREMULTI was the default DRM blend mode until 9813e158d13d
->> ("drm/drm_blend: allow blend mode property without PREMULTI") introduced
->> the possibility of exposing the blend mode property without PREMULTI
->> being supported. However, __drm_atomic_helper_plane_state_init() still
->> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
->> mode in this property. In the same series, 860e748bddcc ("drm: ensure
->> blend mode supported if pixel format with alpha exposed") starts warning
->> drivers that supports alpha formats in a given planes but doesn't
->> support blend mode property, which includes AMD primary and cursor
->> planes.
->>
->> For AMD DCN families, overlay and primary planes support the three blend
->> modes, and therefore PREMULTI is still the default mode. So the warning
->> can be fixed by just creating blend mode properties for primary planes
->> too. PREMULTI is the default/unique mode for cursor planes in DCN and
->> DCE driver. However, looks like PIXEL_NONE is the unique blend mode
->> supported by DCE-generation driver. I don't have the hardware to check
->> it out, but looking at the code I understand that, even if the hardware
->> can do PREMULTI or COVERAGE, the way it programs registers doesn't make
->> these other blend modes actually available.
-> Hi Melissa,
->
-> Thanks for noticing and fixing this.
-> To make the code a bit easier to follow, I recommend moving the consideration
-> for blending and alpha properties to a smaller helper function. That's just my
-> personal preference though. The way you wrote it in the series is also good.
+While reviewing this file, I noticed a couple of pre-existing issues in
+other functions:
 
-Hey,
+drivers/accel/rocket/rocket_job.c:rocket_job_push()
+> 	rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->infere=
+nce_done_fence);
+>=20
+> err_unlock:
 
-I agree with your recommendation.
-I'll do this helper in a follow-up patch, and ask you to help me testing 
-it :)
+[Severity: High]
+This is a pre-existing issue, but does this function fail to attach the
+job's execution fence to its input BOs?
 
-Thanks!
-
-Melissa
+It appears the job's completion fence is attached to the output BOs, but
+the equivalent call for input BOs is missing. Without attaching the fence
+to the input BOs (which should be attached with DMA_RESV_USAGE_READ), will
+subsequent jobs that write to these input BOs fail to wait for the current
+job to finish reading them, leading to hardware execution races?
 
 
->
-> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
->
->> Bearing this in mind, this series is organized as follow:
->>
->> - Patch 1 fixes the pixel_blend_mode reset when the blend mode property
->>    is advertised without PREMULTI support. It's needed for AMD
->>    DCE-generation (patch 3) and I think with this we can also remove a
->>    workaround in nouveau nv50_wndw_default_state() caused by the
->>    hardcoded PREMULTI default value [1].
->>
->> - Patch 2 fixes the missing-blend-mode-property warning for DCN primary
->>    plane and for DCN+DCE cursor plane. The alpha property keeps only on
->>    overlay planes because looks like this is not supported by AMD primary
->>    planes and it doesn't affect the blend mode warning we are targetting.
->>    Enabling alpha properties to primary was also causing -EINVAL on IGT
->>    alpha tests because it started testing primary planes and disabling it
->>    (which is not allowed by the AMD display driver).
->>
->> - Patch 3 fixes the warning for DCE primary plane, but I detached this
->>    solution from the previous patch because I don't have hardware to
->>    validate if my assumption about PIXEL_NONE-only is correct. Also, I
->>    added PREMULTI to the list of supported blend mode to avoid uAPI
->>    regressions since it was the required/default mode for many years and,
->>    without overlay plane, PIXEL_NONE and PREMULTI are equivalent for
->>    primary on top of a black blackground.
->>
->> [1]
->> https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.com/
->>
->> [v1]:
->> https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia.com/
->> Changes:
->> - new patch for pixel_blend_mode default value other than PREMULTI.
->> - remove DCE11 which supports per_pixel_alpha but doesn't support
->> DCN_UNIVERSAL_PLANE. - new patch for the primary plane blend mode on
->> DCE-generations
->>
->> [v2]:
->> https://lore.kernel.org/dri-devel/20260804140758.107683-1-mwen@igalia.com/
->> Changes:
->> - keep alpha property only for overlay planes (looks like primary plane
->>    doesn't actually support it) - alpha prop in primary planes causes IGT
->>    test failures with RX 7900 XT on a 4k60 HP U27 as reported by Daniel
->>    Wheeler.
->> - improve readability of if conditions (Alex H)
->> - add Leandro's r-b tags.
->>
->> [v3]:
->> https://lore.kernel.org/dri-devel/20260813143605.106104-1-mwen@igalia.com/
->> Changes:
->> - add Daniel's, Mikhail's and Viktor's tested-by tag, accordingly
->> - add Alex H r-b tag
->> - add PREMULTI to the DCE list of supported blend modes to avoid
->>    uAPI regression reported by Viktor.
->>
->> Best Regards,
->>
->> Melissa
->>
->> Melissa Wen (3):
->>    drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
->>    drm/amd/display: fix missing blend-mode-prop warning for DCN
->>    drm/amd/display: advertise PIXEL_NONE and PREMULTI blend mode for DCE
->>
->>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 31 +++++++++++++++++--
->>   drivers/gpu/drm/drm_atomic_state_helper.c     |  7 +++++
->>   2 files changed, 35 insertions(+), 3 deletions(-)
->
->
->
+drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq()
+> 			iommu_detach_group(NULL, iommu_group_get(core->dev));
+> 			dma_fence_signal(core->in_flight_job->done_fence);
 
+[Severity: High]
+This isn't a bug introduced by this patch, but does this leak the IOMMU
+group reference count?
+
+During the handling of a completed job, iommu_group_get() increments the
+reference count, but iommu_detach_group() does not consume it. Since the
+pointer isn't saved, there is no corresponding iommu_group_put() call.
+This could eventually overflow the reference count or prevent the group
+from ever being freed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827170608.3951=
+1-1-Naixumogu@whut.edu.cn?part=3D3
