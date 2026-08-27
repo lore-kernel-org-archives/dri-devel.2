@@ -4,106 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801F7C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 16:31:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74BF4C61DC6
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 16:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5D3310E417;
-	Thu, 27 Aug 2026 16:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8BE10F10C;
+	Thu, 27 Aug 2026 16:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="oVdEW+T3";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NTlM4cRQ";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE39C10E417
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 16:31:23 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c25420fe973so9176566b.0
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:31:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1787848282; x=1788453082;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
- b=oVdEW+T3ABi21NllB8DTCZf2kj08aaGJNk8scOde8Zs2jHVJwblAtnFLVgbnDaGIX3
- YxKCBeOJ+m2OqRWmIdJAmO6MWtt91EfiSyNH7X8TGlD+D6G2ZnOFDVK1LhMb/tOyVl8U
- umw5+v/w6Og98FV7H6kej/nSyK/uGoRckJjVE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787848282; x=1788453082;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
- b=BIvn6DD7GuKTDk4ZldIM5QhMpEAK5DZEfXO1FggjrgsuXCPL/3sGS2+OoYQh4abVyo
- 3vH8yfRgormxJciVZW7qscgKF0zfkK4kTfKvBh+M8HcTkB8M3cG61nlkhjcO19AHQMyE
- SyYKiDo3NDjzkpx+4PmVN45b6/Ft3CfJBQ4MLzW4aq/x9IUU+/qXiYERnxyB1OIv7QGO
- 21T3CtojhbBJKW+zZ9rmDqUnNfbPrYFQPcRzWBd6LRdv91LNLW1W8TvZyuoTEMvu9NhY
- K6DmOUGvubFmi8EOgh6nRUKN1YfYvCfqllTaAIwQ8Tu7BZKEJ4S1RQNeE+M0feEj2HnA
- 4upg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro6B4gFoCzCjyEfmdCtUwqvGrUFpU0YGQWoSAQ3447HFZsosl319iJVOxHIkE4oZogG5Gc32CyPUyA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kPK61xGBefMjiDh7R4B9P7bC9bu5KntbEq12DtTBHhpNeNI4O2
- NoL0Pwpwa4mncynXwnSVVOZbsGg5KCl0AmRwBDJ/BBneV73ELWSvCN1CGh4PIuc/lGXgYJi5d43
- khcyqZDe6
-X-Gm-Gg: AR+sD10aHQOmu2A3Hfcl7Aespx5cZ6aQJeqxL/0lXVgeOVFMPUgpTalNyVNpQHqvW+b
- VMnYT4qsjt9bTI2vgFHZtWWazgp+SN6Aj/4+qnRQiCyhDaxYtyIuNTAOw86RSwNGNYwlye/SCyG
- 8wR5MuIyoa13P92VH+aSa2InaKbZ6d3bRtP5PRIRhXQCyZ5NpuLcyaBGu0PUhO/YSy6nEQeLvLl
- rRuBpionsgSBMWkxMBJ5CF2ZpThHfHw9Ii8GrZv4dpZ3lyyvARhkKD1J1QOYNOwwBszIMnCK3z7
- w/r5nkyh+Pe5trZL9OnHq1Jq0jAAJPjWFSAiBSCEva/ha9DFwYFR+wc0cGdyeNtp9m+/YGA1qM7
- VhpjBtad634vcViQWN0C8kQ5j7PuFOTgEBQHMXxV/vqE6dKvBBi+AUAm32ZTajsAvUO7iPkAPuf
- EfQt98l33JcA7zp/P7X/xqvHbhtzzH/JPoALBrkKIoqsidVSqhtZiOzVEd79tAUO5ebjyQD5C3u
- feNhhde3eMzfI51EAbvA/Ib+88=
-X-Received: by 2002:a17:907:3e02:b0:c1c:2173:d412 with SMTP id
- a640c23a62f3a-c250bbbf356mr1835356166b.1.1787848282126; 
- Thu, 27 Aug 2026 09:31:22 -0700 (PDT)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com.
- [209.85.208.48]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c250a9b106dsm873243166b.43.2026.08.27.09.31.21
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Aug 2026 09:31:21 -0700 (PDT)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-6a601ba6870so927745a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:31:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrHh2MCkKN4SR+rEKbLLu/tsJYvlZqulD+5o9NjctfXyE2MMO1XrnGZFUFFVeMNT1X6/fG6qXlx3EU=@lists.freedesktop.org
-X-Received: by 2002:a5d:64c2:0:b0:482:e10e:58df with SMTP id
- ffacd0b85a97d-482e26d51e8mr23348728f8f.21.1787847829596; Thu, 27 Aug 2026
- 09:23:49 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78ED810F10B;
+ Thu, 27 Aug 2026 16:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=eMGmaKmD8tHpkRCZlcEk+co6XbHhCxuvJTWhXy8vzuw=; b=NTlM4cRQ9XBBd4MeY1uOpveCH9
+ FC2ipMNMxbaPipONyR2mgxN+ohdbTZXtWQH0rZHWU9HgWWojK4onGZJGwnO0vXl+eYsmR/lNnROz6
+ knf0ay12UltY9Sm0SC601OW55ff6WWDm1I/ytSfHJpcSRS9p3lQqCU4fwewgIPpbziYpC1puhEMOC
+ S3Aom9YxRHNaJlCySwFIN46eqezw3hmPxSMp8l0Xk8k0lfn1/KpY0anlV/YBcVo+G9FSCYWn6pfUQ
+ ne4eAWdhu3we0fRAi7Xb4Rztlwpa2NNa2moDP9+e29tXskj3wes4EfiWf6SRvir/8x6F8rmZ1F+C9
+ 9XKA8fLA==;
+Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
+ helo=[192.168.1.206]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wzd6s-00AEoP-KA; Thu, 27 Aug 2026 18:37:50 +0200
+Message-ID: <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
+Date: Thu, 27 Aug 2026 18:37:48 +0200
 MIME-Version: 1.0
-References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
- <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
-In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 27 Aug 2026 09:23:38 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-X-Gm-Features: AcwNN1Uxl8vA8-7oT2LAyO-KpGAM6LbpIr9SieIL_bb_C2KnJR44V7-XxhJsCE0
-Message-ID: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select
- DRM_PANEL_BRIDGE
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Jitao Shi <jitao.shi@mediatek.com>, CK Hu <ck.hu@mediatek.com>, 
- Pin-yen Lin <treapking@chromium.org>,
- Enric Balletbo i Serra <eballetbo@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
+ warning
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniels@collabora.com, harry.wentland@amd.com,
+ leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
+ Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
+ kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260826104143.39077-1-mwen@igalia.com>
+ <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,19 +70,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootli=
-n.com> wrote:
+
+On 27/08/2026 15:34, Alex Deucher wrote:
+> On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
+>> PREMULTI was the default DRM blend mode until 9813e158d13d
+>> ("drm/drm_blend: allow blend mode property without PREMULTI") introduced
+>> the possibility of exposing the blend mode property without PREMULTI
+>> being supported. However, __drm_atomic_helper_plane_state_init() still
+>> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
+>> mode in this property. In the same series, 860e748bddcc ("drm: ensure
+>> blend mode supported if pixel format with alpha exposed") starts warning
+>> drivers that supports alpha formats in a given planes but doesn't
+>> support blend mode property, which includes AMD primary and cursor
+>> planes.
+>>
+>> For AMD DCN families, overlay and primary planes support the three blend
+>> modes, and therefore PREMULTI is still the default mode. So the warning
+>> can be fixed by just creating blend mode properties for primary planes
+>> too. PREMULTI is the default/unique mode for cursor planes in DCN and
+>> DCE driver. However, looks like PIXEL_NONE is the unique blend mode
+>> supported by DCE-generation driver. I don't have the hardware to check
+>> it out, but looking at the code I understand that, even if the hardware
+>> can do PREMULTI or COVERAGE, the way it programs registers doesn't make
+>> these other blend modes actually available.
+>>
+>> Bearing this in mind, this series is organized as follow:
+>>
+>> - Patch 1 fixes the pixel_blend_mode reset when the blend mode property
+>>    is advertised without PREMULTI support. It's needed for AMD
+>>    DCE-generation (patch 3) and I think with this we can also remove a
+>>    workaround in nouveau nv50_wndw_default_state() caused by the
+>>    hardcoded PREMULTI default value [1].
+>>
+>> - Patch 2 fixes the missing-blend-mode-property warning for DCN primary
+>>    plane and for DCN+DCE cursor plane. The alpha property keeps only on
+>>    overlay planes because looks like this is not supported by AMD primary
+>>    planes and it doesn't affect the blend mode warning we are targetting.
+>>    Enabling alpha properties to primary was also causing -EINVAL on IGT
+>>    alpha tests because it started testing primary planes and disabling it
+>>    (which is not allowed by the AMD display driver).
+>>
+>> - Patch 3 fixes the warning for DCE primary plane, but I detached this
+>>    solution from the previous patch because I don't have hardware to
+>>    validate if my assumption about PIXEL_NONE-only is correct. Also, I
+>>    added PREMULTI to the list of supported blend mode to avoid uAPI
+>>    regressions since it was the required/default mode for many years and,
+>>    without overlay plane, PIXEL_NONE and PREMULTI are equivalent for
+>>    primary on top of a black blackground.
+>>
+> I presume you are planning to apply this directly to drm-misc for 7.3?
+
+Right, I'll apply to drm-misc-fixes, just doing it now.
+
+Best Regards,
+
+Melissa
+
 >
-> This driver uses the drm_panel_bridge API and not the drm_panel API so it
-> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
+> Thanks,
+>
+> Alex
+>
+>> [1] https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.com/
+>>
+>> [v1]: https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia.com/
+>> Changes:
+>> - new patch for pixel_blend_mode default value other than PREMULTI.
+>> - remove DCE11 which supports per_pixel_alpha but doesn't support DCN_UNIVERSAL_PLANE.
+>> - new patch for the primary plane blend mode on DCE-generations
+>>
+>> [v2]: https://lore.kernel.org/dri-devel/20260804140758.107683-1-mwen@igalia.com/
+>> Changes:
+>> - keep alpha property only for overlay planes (looks like primary plane
+>>    doesn't actually support it) - alpha prop in primary planes causes IGT
+>>    test failures with RX 7900 XT on a 4k60 HP U27 as reported by Daniel
+>>    Wheeler.
+>> - improve readability of if conditions (Alex H)
+>> - add Leandro's r-b tags.
+>>
+>> [v3]: https://lore.kernel.org/dri-devel/20260813143605.106104-1-mwen@igalia.com/
+>> Changes:
+>> - add Daniel's, Mikhail's and Viktor's tested-by tag, accordingly
+>> - add Alex H r-b tag
+>> - add PREMULTI to the DCE list of supported blend modes to avoid
+>>    uAPI regression reported by Viktor.
+>>
+>> Best Regards,
+>>
+>> Melissa
+>>
+>> Melissa Wen (3):
+>>    drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
+>>    drm/amd/display: fix missing blend-mode-prop warning for DCN
+>>    drm/amd/display: advertise PIXEL_NONE and PREMULTI blend mode for DCE
+>>
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 31 +++++++++++++++++--
+>>   drivers/gpu/drm/drm_atomic_state_helper.c     |  7 +++++
+>>   2 files changed, 35 insertions(+), 3 deletions(-)
+>>
+>> --
+>> 2.53.0
+>>
 
-Which exact "drm_panel_bridge" API does it use? I don't see any...
-Certainly it's highly likely that the next bridge in the chain is a
-panel, but there are no API calls that I see. Maybe the scripts got
-confused because the variable name didn't get updated in commit
-5486eac81004 ("drm/bridge: parade-ps8640: switch to
-devm_drm_of_get_bridge") ?
-
--Doug
