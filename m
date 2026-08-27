@@ -4,108 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C587C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914BDC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:11:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62F8710E088;
-	Thu, 27 Aug 2026 15:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E5F10E1E6;
+	Thu, 27 Aug 2026 15:11:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nHe4CmaV";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="CvKSNurG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1418210E088;
- Thu, 27 Aug 2026 15:05:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 00A3F600D2;
- Thu, 27 Aug 2026 15:05:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F111F000E9;
- Thu, 27 Aug 2026 15:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787843118;
- bh=JAv5ec+HrqSWxCZoJniPdwA/qfsGl/k5VHJgM9oKE54=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=nHe4CmaV/Xijn/whr/wnQl+9tmZuynl9FfE8Htdg2lDY2Y3o/cdcFStfX28WbvJ4Z
- 57C3TBTOGbAOi62eBEA6at7A80fuK6bvZOhRwlo2njW6dATkRYBG8nGKsBIKBP/YRr
- RJDBVuqyvX4EGIzRG6SHs6hymH2yCAicgnxk3jrB14jj7C47XYBpo/T+KWcXwabssT
- dIhg6zan3PjIjzo0nHUwDttPke/Uz4LDSVCnBx3MK/yDwzqwhdu28NKfQw9w9mRCvX
- 7z97r5q4FiJED+F2d2TOztuqndzUoYlmnJaWZw/Ec7uYXMyNNK7BXTu4Q/0iYIJ2zc
- pFc4EFDJlwDyw==
-Message-ID: <4312740f-2aa2-41f1-8442-d4a80682753d@kernel.org>
-Date: Thu, 27 Aug 2026 17:05:09 +0200
+Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59E910E1E6
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RWYWQFXkeODc3doWR30hvgFUNe4Y5T/4MwtTcVuF9YA=; b=CvKSNurG7Cf/kSvjwRByyoduvc
+ C8BKu/gK2mfczADhqhZ3T/6pt8N7GXdIJFoS39z8lK0IW/cO+gkW9Z82p8H0Z2wrOPhb5qxV89qs4
+ J9/KeoP2TkSWGqPFvRAK9c+vPuHnwuVpauQoxl8Nrd3h88lJeF7huoE1YwTixTC0Z97QCueF4J/Ka
+ H1s3lEpDc1SkF9TMAycfwM4zKJ4gWOOPA76WFhdU9VtJsTi00CZCfuJITFJRBy5yLNeTzTsaazz4p
+ 2Uio5WydhXM/1K2K4gumWT5VPIXCKcTmgUdWZnOViF8ycsGuNTfRCl6froOVR2DHty7jw9TP/Ntn/
+ /zQ+07MQ==;
+Received: from [195.240.176.17] (port=44304 helo=[192.168.2.230])
+ by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
+ id 1wzblO-0000000Ahwt-0jwv; Thu, 27 Aug 2026 17:11:33 +0200
+Message-ID: <b30024ff-e9bc-4123-8024-c4a431953a3a@accessweb.be>
+Date: Thu, 27 Aug 2026 17:11:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
- the src_pfns array
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Sashiko <sashiko-bot@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
-References: <20260805231041.3791771-1-matthew.brost@intel.com>
- <20260805231041.3791771-3-matthew.brost@intel.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
+ are released
+From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
+To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>, zack.rusin@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
+References: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
+ <9ad23800-db89-48f2-a960-6c2fa11ee6d5@broadcom.com>
+ <363bcf88-1f13-46c0-9dbc-aa21102ab397@accessweb.be>
+ <55b08fb3-cc29-4c2a-bbe5-26742de77614@broadcom.com>
+ <b0b0caf9-ca76-4f93-9495-d386d313fad1@accessweb.be>
+ <7af1cbb9-bb99-462c-a3e4-c70d8fbd2dcb@broadcom.com>
+ <5d110271-9a0d-4ba7-92e9-286ba557c16e@accessweb.be>
+ <194908f7-fde4-4136-b535-86f21c27d967@broadcom.com>
+ <ba7af534-c285-4075-929b-b2e37cd6bd65@accessweb.be>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260805231041.3791771-3-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <ba7af534-c285-4075-929b-b2e37cd6bd65@accessweb.be>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pan.awservers.eu
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - accessweb.be
+X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
+ jellis@accessweb.be
+X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,92 +80,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/6/26 01:10, Matthew Brost wrote:
-> migrate_device_range() and migrate_device_pfns() zero the tail entries
-> of a large folio without checking them against @npages:
+More data:
+
+Now from `vmwgfx_gem_info` (3h uptime, KDE Wayland, three 1920x1080
+outputs):
+
+     kwin_wayland   18.5 GB   4054 objects   2068 of them >= 1920x1080x4
+     plasmashell     1.0 GB   3383 objects    105
+     Xwayland         33 MB      18 objects      3
+
+kwin's GEM total and GPUActive rise together (+0.13 vs +0.10 GB over the 
+same 5 min), and 570 of its objects are down to a single GEM ref. Growth 
+is bursty and tracks render activity, not uptime.
+
+Your patch did fix its own target: zero gem_close errors this boot.
+
+One thing that may be worth a look: mesa 26.2.1 (libgallium) logs
+
+     Failed referencing shared surface. SID <n>
+     Error -22
+
+572 times this boot, across 123 distinct surface IDs, 402 of them in the 
+hour with five RDP sessions open. I can't tell you whether that is new 
+the pre-patch boot had too little comparable activity to compare against.
+
+Op 27-08-2026 om 15:39 schreef Jellis Onsea | AccessWeb:
+> Tried the scanout patch on kernel 7.2.0. Confirmed running:
+> `[drm] Initialized vmwgfx 2.22.0`.
 > 
-> 	for (j = 1; j < nr; j++)
-> 		src_pfns[i+j] = 0;
+> No change here. GPUActive from /proc/meminfo:
 > 
-> @nr comes from the folio, not from the array, so a folio that extends
-> past the end of the range being migrated writes beyond src_pfns[].
-> Callers size that array for @npages entries, so this corrupts whatever
-> follows it.
+>      5 RDP sessions, 39 min open:   0.70 -> 3.97 GB
+>      then 42 min at zero sessions:  3.92 -> 4.73 GB
 > 
-> Bound the loop by @npages. The subsequent "i += j - 1" still terminates
-> the outer loop correctly: on a bounded exit j is @npages - i, leaving i
-> at @npages after the increment.
+> Not a single sample went down. Same as on 2.21.
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: Liam R. Howlett <liam@infradead.org>
-> Cc: Nico Pache <nico.pache@linux.dev>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Dev Jain <dev.jain@arm.com>
-> Cc: Barry Song <baohua@kernel.org>
-> Cc: Lance Yang <lance.yang@linux.dev>
-> Cc: Usama Arif <usama.arif@linux.dev>
-> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-> Cc: Rakie Kim <rakie.kim@sk.com>
-> Cc: Byungchul Park <byungchul@sk.com>
-> Cc: Gregory Price <gourry@gourry.net>
-> Cc: Ying Huang <ying.huang@linux.alibaba.com>
-> Cc: Alistair Popple <apopple@nvidia.com>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Francois Dugast <francois.dugast@intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub_Copilot:claude-opus-5
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  mm/migrate_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> It also keeps growing with zero sessions and small usage of the machine, 
+> so RDP is a good trigger, not the only one.
 > 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 162d29b2807a..ae9027421b80 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
->  		nr = folio_nr_pages(folio);
->  		if (nr > 1) {
->  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
-> -			for (j = 1; j < nr; j++)
-> +			for (j = 1; j < nr && (i + j) < npages; j++)
->  				src_pfns[i+j] = 0;
->  			i += j - 1;
->  			pfn += j - 1;
-> @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
->  		nr = folio_nr_pages(folio);
->  		if (nr > 1) {
->  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
-> -			for (j = 1; j < nr; j++)
-> +			for (j = 1; j < nr && (i + j) < npages; j++)
->  				src_pfns[i+j] = 0;
->  			i += j - 1;
->  		}
-
-What's the status of this? I assume this is fixed by
-
-	https://lore.kernel.org/20260817120758.669807-3-sh_def@163.com
-
-instead?
-
-What is the right direction?
-
--- 
-Cheers,
-
-David
+> Build details if useful: distribution kernel (CachyOS 7.2.0-1), vmwgfx 
+> built out-of-tree from the matching source with clang 22.1.8, no LTO.
+> 
+> 
+> Regards,
+> 
+> Jellis
+> 
+> Op 27-08-2026 om 03:01 schreef Maaz Mombasawala:
+>> On 8/26/26 7:17 AM, Jellis Onsea | AccessWeb wrote:
+>>> Hi Maaz,
+>>>
+>>> Short version: mesa 26.2.1 is running here with 3D on, and the leak 
+>>> is still there.
+>>>
+>>> Setup: one boot, 119 h, a single kwin_wayland (6.7.4), mesa 
+>>> 3:26.2.1-1, kernel 7.2.0, renderer SVGA3D.
+>>>
+>>>    TTM sys+mob    0.36 -> 16.73 GB
+>>>    objects        1948 -> 10365
+>>>    kwin_wayland   holds 8484 MB in 4894 objects
+>>>    free RAM       4.9 of 31 GB - we have to reboot today
+>>>
+>>> It tracks rendering, not uptime. Idle nights (02:00-07:00) in this 
+>>> same boot:
+>>>
+>>>    22 Aug  -0.03 GB       25 Aug  +0.00 GB
+>>>    23 Aug  +0.02 GB       26 Aug  +0.04 GB
+>>>    24 Aug  +1.88 GB   <- the one night an automated GUI test run was 
+>>> active
+>>>
+>>> The surface warning still fires: 1168 WARNING blocks at 
+>>> vmw_surface_handle_reference in the last 27 hours. That is a window, 
+>>> not a total - journald has already rotated away the earlier part of 
+>>> this boot.
+>>>
+>>> Correction to my previous mail: "four times during session startup" 
+>>> was wrong. It fires in bursts throughout the session.
+>>>
+>>> We have not tried "drm/vmwgfx: Return gem fd handle for scanout 
+>>> buffers" we run distribution kernels here. Say the word and we will 
+>>> build it.
+>> Yes please, can you go ahead and try that patch, it fixes some errors 
+>> on kde and might fix this issue you are facing too.
+>>
+>>> Best regards,
+>>> Jellis
+>>>
+>>> Op 21-08-2026 om 04:09 schreef Maaz Mombasawala:
+>>>> For the 3D-enabled case, could you try with mesa 26.1.8 or 26.2.1, 
+>>>> both of which contain my fix.
+>>>> Also if you could try the patch I just submitted on dri-devel - drm/ 
+>>>> vmwgfx: Return gem fd handle for scanout buffers.
+>>>> If you still see issues with these patches, let me know.
+>>>>
+>>>> As for the 3D disabled case, I can see issues on my local machine 
+>>>> and am working on a fix.
+>>>>
+>>>> PS - Your emails are overly verbose and narrative, could you include 
+>>>> only the actual problems you are facing.
+>>>> If you're using an llm to write these, please make them more terse 
+>>>> and human readable. Thanks.
+>>>>
+>>>
+>>>
+>>>
+>>
+>>
+> 
+> 
