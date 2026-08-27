@@ -4,94 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DEB6C61DC6
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 12:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 023E6C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 13:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F7610E3F3;
-	Thu, 27 Aug 2026 12:53:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 591AC10E3F7;
+	Thu, 27 Aug 2026 13:00:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HpxQ/he4";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="koaATxDb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A47210E3F3
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 12:53:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 92D59600D2;
- Thu, 27 Aug 2026 12:53:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931B61F000E9;
- Thu, 27 Aug 2026 12:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787835181;
- bh=Jv30IeE2s+n2A5GRghn5mbNA+ntwEskVEvnsJS/gqNQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=HpxQ/he4c1l/67bjg6zHCWSh7AxGIRhKnrX19FKhID1R0BcbkibPRl+2xW0tbC0ak
- hJFvx1qCJqhl53iZGTG/JR7u301HQSljASB0swdFEdVZiKibGOnJN2iCVJHXEYbnTf
- GTCBUKdpsBjmlMtHpvbarSgA6dZyeIoEjTP+/Oeo1lq7Q8tVwMRTyOl2wZZNfvhYA1
- 9RM2gDKmt7oe1am3axpJpa781gtZmH8OBSvfT08Xeg0hRghVLZPfZNQDoRaVSKZks6
- UT3rnJOuGjx34CvvC3Nvte8iWDqvxO3jI9R1oIEGE2wOgx6fk6r/6aGuzyfLhzB/cZ
- qVz1y3R5ubGhg==
-Date: Thu, 27 Aug 2026 13:52:45 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6912910E3F7
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 13:00:52 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1441E169E
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 06:00:48 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 968DF3F85F
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 06:00:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787835651; bh=g25jzuf+eqcO/IIS8eTk7Cr9RLtw+eho1T/tyqHvaUM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=koaATxDbptsIrh0bTYqNFQdxI5p0O1ZB2EYWT6FxnZZHvDIZMYwZuWkFRmGJ1jb2u
+ aMsXhMT58pR7KovLHWTKHWXtegdlxRlNAQMIaVM6aJq05Wt4k+iX2EaQzH4kAKZ5Bp
+ WtjkllzxDh5ysB4q0tdVMYr2rbGJvwSmagvkSUKs=
+Date: Thu, 27 Aug 2026 14:00:42 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Akash Goel <akash.goel@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Xiaowei Song <songxiaowei@hisilicon.com>,
- Binghui Wang <wangbinghui@hisilicon.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
- Linus Walleij <linusw@kernel.org>,
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
- =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
- Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
- Olof Johansson <olof@lixom.net>, Shree Ramamoorthy <s-ramamoorthy@ti.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- imx@lists.linux.dev, linux-media@vger.kernel.org,
- mfd@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
- linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <20260827125245.GI770273@google.com>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/18] drm/panthor: Disable reset work before unplug
+Message-ID: <apA0-ph6OBxUp6CW@e142607>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,33 +62,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 26 Aug 2026, Krzysztof Kozlowski wrote:
-
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
+On Wed, Aug 26, 2026 at 04:56:00PM +0200, Boris Brezillon wrote:
+> Unplug is supposed to be the end of the road, so we need to make sure
+> reset works won't execute while we're cleaning up everything as part
+> of the unplug, otherwise it would mess up the internal state.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> In order to be able to call disable_work_sync() in the unplug
+> path, we need to defer the unplug triggered by the reset logic,
+> otherwise we would deadlock.
 > 
+> Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 21 ++++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+>  2 files changed, 23 insertions(+), 1 deletion(-)
 > 
-> Rob, Can you take it directly?
-> ---
->  .../bindings/arm/arm,coresight-cti.yaml       |  2 +-
->  .../bindings/display/bridge/sil,sii9022.yaml  |  2 +-
->  .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml     |  4 ++--
->  .../bindings/iio/light/upisemi,us5182.yaml    |  2 +-
->  .../bindings/input/matrix-keymap.yaml         |  3 +--
->  .../devicetree/bindings/input/ti,tca8418.yaml | 21 +++++++++----------
->  .../bindings/media/nxp,imx8-jpeg.yaml         |  4 ++--
->  .../devicetree/bindings/mfd/ti,tps65910.yaml  |  2 +-
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 0b25abebb803..7c55d0c45cfd 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -79,6 +79,9 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  		return;
+>  	}
+>  
+> +	/* Make sure we're not interrupted by resets while we're unplugging. */
+> +	disable_work_sync(&ptdev->reset.work);
+> +
+>  	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
+>  
+>  	/* Call drm_dev_unplug() so any access to HW blocks happening after
+> @@ -91,6 +94,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	 */
+>  	mutex_unlock(&ptdev->unplug.lock);
+>  
+> +	/* Unplug triggered by a device removal might race with the deferred
+> +	 * one queued by the reset work. The function covers this concurrent
+> +	 * unplug situation, but if we can disable the work before its
+> +	 * execution, that's still better.
+> +	 */
+> +	disable_work(&ptdev->unplug.work);
+> +
 
-Acked-by: Lee Jones <lee@kernel.org>
+That's being super cautious and I'm not convinced it is necessary. Anything
+queued at this moment should end up waiting for unplug.done.
 
->  .../bindings/pci/hisilicon,kirin-pcie.yaml    |  4 ++--
->  .../pinctrl/sunplus,sp7021-pinctrl.yaml       |  2 +-
->  .../bindings/spi/aspeed,ast2600-fmc.yaml      |  6 +++---
->  .../bindings/thermal/thermal-idle.yaml        |  2 +-
->  12 files changed, 26 insertions(+), 28 deletions(-)
+With the above call removed, I'm OK with the rest of the patch.
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+
+>  	/* Now, try to cleanly shutdown the GPU before the device resources
+>  	 * get reclaimed.
+>  	 */
+> @@ -114,6 +124,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	complete_all(&ptdev->unplug.done);
+>  }
+>  
+> +static void panthor_device_unplug_work(struct work_struct *work)
+> +{
+> +	struct panthor_device *ptdev = container_of(work, struct panthor_device, unplug.work);
+> +
+> +	panthor_device_unplug(ptdev);
+> +}
+> +
+>  static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
+>  {
+>  	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
+> @@ -148,8 +165,9 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	drm_dev_exit(cookie);
+>  
+>  	if (ret) {
+> -		panthor_device_unplug(ptdev);
+> +		disable_work(&ptdev->reset.work);
+>  		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
+> +		queue_work(ptdev->reset.wq, &ptdev->unplug.work);
+>  	}
+>  }
+>  
+> @@ -206,6 +224,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	 */
+>  	*dummy_page_virt = 1;
+>  
+> +	INIT_WORK(&ptdev->unplug.work, panthor_device_unplug_work);
+>  	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
+>  	disable_work(&ptdev->reset.work);
+>  	ptdev->reset.wq = alloc_ordered_workqueue("panthor-reset-wq", 0);
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index b55a3f9edd41..6529e01e838d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -268,6 +268,9 @@ struct panthor_device {
+>  		 * operation is done.
+>  		 */
+>  		struct completion done;
+> +
+> +		/** @work: Unplug work. */
+> +		struct work_struct work;
+>  	} unplug;
+>  
+>  	/** @reset: Reset related fields. */
+> 
+> -- 
+> 2.55.0
+> 
 
 -- 
-Lee Jones
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
