@@ -4,43 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD15AC61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF897C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C40510F1C8;
-	Thu, 27 Aug 2026 20:48:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39A2F10F1C9;
+	Thu, 27 Aug 2026 20:49:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NfSn9eK4";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WRyyRTsT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21BBB10F1C8
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:48:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AEF240573
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:48:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87711F00A3A;
- Thu, 27 Aug 2026 20:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787863735;
- bh=Kh8dFszBAmUlMJD0LxWOCpXXnr+O8co35WA0sHjOflk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NfSn9eK4ExL6HNRjpJ7UrbTTC86gnfmlzLfvR7Uvkz2VwaTbpADNm+MdidobGxL4n
- VbLEwx1K9qUH6KVV9rEnxJxDC+h9I1hB3bAjKJqgm0u7LhRxLr7X4yZGQUTvbV1ESn
- DA6fMroCjPoDr7QWI6yYcmAJiNM5qSLrbrxRRVNJZdy5M3xxFL5XNr2d/gCj4cNnMp
- ZWfBkhxCJ52cd6uapvdpkrc2+harfUObQxY8vAeiySfM8KOciNOjPahKVtR7AsOfWZ
- +mqcvLMf0s17q1HieNT6Pgg8iXNGVPnzYuUeFnI44+IvUMZjzeMfJp8ZvRh3suUO5O
- B7yTF08/Ao9lQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/11] accel: ethosu: Reject unsupported commands
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827-ethosu-fixes-v1-9-346f9ea8791c@kernel.org>
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013071.outbound.protection.outlook.com [52.101.72.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0312910F1C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:49:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ojcbpJ/ztV7sDv3kiKyX7eF0/Bh6JOCsRBOqTQX6V9ACPqQBC0sMKR54JZbdmbX9d9yMabMBIAPFVR1ng0Kvj76lCpaH/3qtCfTM9rCPjF8akoLmalsMTBXJon11u0rYyIqcbLJHRBMghvyGc8LqEoBOuYuqadpRCl2kPH6Go6BQewfxMRHl4XHxiTENoqSk/K2VOy8ypf4TxU2QP+foQR8fz3XpAZI2NqXMyMB2I6/ijECLd7ajrUk+sQFXJs2w1zZMcgNJqKJGYGAyrz2KfXfGsKfF6v79rvQPgTE397k62xLjUTj6GGrpq2RwAsmgu2XfkrVqJiEx7w6nUL/TzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a3xcBxC4P8KzbA5xb+ySYYYySeDDMAAaRJg6fn/0Mtk=;
+ b=camaZiJUQtuL6Jj57yBdl2yTgTP7ZA2CO7KFBnb/yS7hKpv91lK6tdftyNME2xQZEbYvy8YPpQyiF5dLGHuU8r3vJYSEVxwutFBZt4f/wtF/GZwFBq4P89MOwZUmfYf67UudWiW6kxKCLVYEbtk4PLjK6mnF3zObv92Ju3y3MBmYyOdO/6OhU20Nbr86zGfdTRLBgXGZpdZ0+OiAlMpotb4u/b5xeZw8EQx+78rWJJUvFVkhZCc0/bgZVeCmCNavlw8W9a/MdQiPC65mai50ugRHANwXygybEMYphFhh+OotvMVls/qcuKP/PrzV6MNNvtbR0llX876vXRie/bKRLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a3xcBxC4P8KzbA5xb+ySYYYySeDDMAAaRJg6fn/0Mtk=;
+ b=WRyyRTsTotjbnWzWdzyKKCjPFsVYyV+Fk8IMZbwMgQTvSnn0gc08ArZs8Wn8V7Oq8Qqr5ixVGSLWF1fbl9Wv7sRhaTc12jrFLc16YLTcsHCCGCCsvTDGgm/npVduqaO5z/CLxNmb+RyF6aVS5TSUdaHqq/Yv6lI/WwxzbmrdVxGRMpWJ8JIF7WMcXM7BWtw+HvoJJfiZY7+C8WY81G4x6ASN3m36QyYUJxs0ZqCcj07+oIKLjXJAxhU0aFhe3POc0PzKKr2+lR38M0xBk5noLFW9bgKqRff1DtwnoIZ9E1te9oaI0E2OOzhHgfyvlmzi9RQXkO5VDQyLEvP+J9q2FA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAWPR04MB11569.eurprd04.prod.outlook.com (2603:10a6:102:50a::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 20:49:08 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 20:49:08 +0000
+Date: Thu, 27 Aug 2026 16:49:00 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 02/11] accel: ethosu: Drop IRQF_SHARED flag
+Message-ID: <apCivETYMmoqnnrx@lizhi-Precision-Tower-5810>
 References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-9-346f9ea8791c@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 20:48:55 +0000
-Message-Id: <20260827204855.B87711F00A3A@smtp.kernel.org>
+ <20260827-ethosu-fixes-v1-2-346f9ea8791c@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-ethosu-fixes-v1-2-346f9ea8791c@kernel.org>
+X-ClientProxiedBy: PH7P221CA0082.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:328::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAWPR04MB11569:EE_
+X-MS-Office365-Filtering-Correlation-Id: b91b41d7-2112-4a2c-d3bb-08df047ca39a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|366016|376014|19092799006|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: DsAXStCbLw0ysHNfeBb2t656XPMPRtRAGkCS6FBq1SgGlaD9hZg1y5pl9NesGJxciZ4o7Eu2saqa/XvWP3aRmO8WWy6Sgl0mtSDZndEWCB9QzuUHCp0DEOM28rMB/FE/LRwUlv+2r20i9MNz30XX979zx8ZI7Jg2W6PIiIYfwYTgkYbMu1z62lioy9Il2oxe9tc+O7P2UemY4Gt6tbiLwiAJsquVogoRJ/2pIsfmNvHbU/EBy5z4sg3m0nGYKocOt46hQ6bGG453ycAYaO90pKXMDh0wSmcmwCKhvDEUCxMKPhrER4lxuIPjfirLYG5rVntpMzSH/87KeMyAynlOfOQxdu8Oi7dtD7InVMIWhlu0S2rj30O09cnUyAOc4F6/y1LknaNxQ8rYVRDiR140FVhMtf412GM9GhMDWUVlGZ/FObNO7v4ilIcH+8yCUZRKSZvsDnmEiZ2ipEq893jrw0FTpJYH0yoaUlLcUnWPy4LRmI6c2dt0GA9dGybTPXTcc2VwHXP/MEolbFRa1J5k6FD3M6urIxPUHsneB68g+iIEv4NrepjQxjVto2ZP7lny2Yfe6O8iPlYkL8CYnvExeqU+g3ldfxyH4BtIV8k9Iu6B+GvNbPFLCra0pPjmf3Ln/2RAVZ4dWYU0Ki4zg/XgQsm9a9K963QMe6fKQxY2RpI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uZfX9e5BKEFhS84VK6AJTm/OK+wFcGZ+QjJ941jkQdpUbN9LqYGES6FcCXRg?=
+ =?us-ascii?Q?/CzL1wdV0mxkriZQxkc/9AXY9VLapQRyZFYgvmmsCUgcH2NrZycsWQWbsb5U?=
+ =?us-ascii?Q?v0+3BWww38vu6qTHxeLfYjTxdgcc0e3O9/7v8RVEadPeELbEJC2nnrhfYnLH?=
+ =?us-ascii?Q?oHWa8WbOLgfBco73LQeQExNqL9FU6LyXZ6pQWLAJ4rfx/M+BJpzahY+20q9t?=
+ =?us-ascii?Q?HelYv21IvaOhdnCkWpLw+my0wq5XKHcXRsbBhm+vCevi196IETwdfkTt9pS9?=
+ =?us-ascii?Q?jiZF5Gpg8QRry+ChagN3Fs9G6kiwlwMS2q7KBbjcoDgIBkkFa9EOLyfJPW06?=
+ =?us-ascii?Q?KvLrzlMgcGcaQzlwXSNfXjOA+o2fuXrnSzPDnM+sT3WU9C0ansUvWKApPpcJ?=
+ =?us-ascii?Q?2JIvPqBsfQwarttW274fcLaz3SqXYDUjWamxKH2BblHI3WxKf7Bk/IGBecg5?=
+ =?us-ascii?Q?ihv0GpUyFnL+PMuNQJG4aiphgkE8bSxmAyyuGuoJNQUSk4SwX4UoBXCLzd/H?=
+ =?us-ascii?Q?33/XPzk6eGfrI4BKx3rWClQ03vIbfGgZKbwrqygYdy25sOzZMHraMKR4ptUX?=
+ =?us-ascii?Q?PpS7nVpOodczHK+16c1EZx2XJ8INEIPgJ6wD0Jem/U0eNwHn70/E/19vXdnN?=
+ =?us-ascii?Q?FetbX/Nn6o2Ycry+bxMQTl4xtq/dkfColpKIPHJ+rBbihrIgpWjRkFZ8tocB?=
+ =?us-ascii?Q?b31g36JVWdY3fqQVah3bBdfv76M0xlIP8vu7762SzFTjbplY82kOaKLPe/8W?=
+ =?us-ascii?Q?c+gdqYtPrwPRGJ8/BWc84iApUkgLmNklxDfDPslb3ishuUnyWlot5V0yGLKg?=
+ =?us-ascii?Q?S7mqrEz3KQogF9FHvo4Z25FWgUdfbJhT8bVCoTovmT9fYDZXNxhz5YcVK1Kv?=
+ =?us-ascii?Q?/YC78ZMZyXa/Y/uWiuLafUIMiYBnqyP1wjZ0UD2ADGVOWzqnnAZH8iVPM7Ai?=
+ =?us-ascii?Q?CrfloXt+ZI6D95IuqP7XAroLZQzPPPcNfeX9D4jIjbnjl2Yym6C7kKX5+GQi?=
+ =?us-ascii?Q?2v+kEzaaeGQGh2AGkOV4IU50N/mE82zvIrLjOUmeQ4f26BoVDTmm8aK2U73R?=
+ =?us-ascii?Q?XnjPH04Z6eOArjaHStzjd0gFh8n6O1n8n4TQy5AzstIPY5wlJbK0L0NlbvFU?=
+ =?us-ascii?Q?XlwgTQ+jBIEYZwGS4t0/Dj7+7uDq92TUYkITvnlyXNl6uNgzo4zUSKhDtor0?=
+ =?us-ascii?Q?LySIT2kRuD5EdNeM3uWTX8QFfszdBJE9RY7KHU4P2/8HZosANvWOf/+L2NL6?=
+ =?us-ascii?Q?bi8/9sHgWjgXX/azxhjAlO41+xXpVhlqWUXcsMlSmEM/CsX2NnJXHj02uUzQ?=
+ =?us-ascii?Q?rZ10ZIUelI7UCwbawniYSDH980opehAHcvSv3KvAxu+H/GNUhcFeDiAKCq3h?=
+ =?us-ascii?Q?qqs1Hgi0h+MD8n84g19OFbCIYx8YhdaPpEMoPttH5pSNRZaeUcvBX9zMzOVq?=
+ =?us-ascii?Q?mGRe5BxgHwdgSUMhO6P31/lsmf7ywIZzGOBlRWHUjEFrSAtw1G2sXVusu/+D?=
+ =?us-ascii?Q?0XKA7J48be5dFNZrXpJosHg/V0i5dzjYYD/4LWyMddesZ6eKtMuIsnddR5GV?=
+ =?us-ascii?Q?Ab0ctjLP5D+JClSSmAUTyZ4HF08TEPZ7wDFhJyBXWDHNpUlOjV0H50xyoBmb?=
+ =?us-ascii?Q?P6NZ/PC/1sM+o4MTdVsbcv00Fm+MJT8T7nUQk00LJP+Y+HSePp5e4/icyA20?=
+ =?us-ascii?Q?om/oXjIQ+pZ2sVXuTiugHoZ5vbg9UauiafTNkapnF5g3POlws8t1ubDlRX6B?=
+ =?us-ascii?Q?hni22qti1Fsg0fF8r2se88x7yvid/17lrURausfWxUGhq+RL7AWO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b91b41d7-2112-4a2c-d3bb-08df047ca39a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:49:07.9593 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: umYDO4I5VDYC7P5+M4WWcz6biyKwfJ35+3JGhHTL+O1MvkB+Se3L6N9PV/cBXIPeAE1pDO78RBp9M6QeJE3tYF9Hdv4qpqrXebqS3kI47sTGq+jzDpOmB0J4zcb1de2M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11569
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,162 +124,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Thu, Aug 27, 2026 at 03:33:01PM -0500, Rob Herring (Arm) wrote:
+> The IRQF_SHARED flag doesn't work with runtime-pm as the IRQ handler
+> could run without resuming the device. This could also be fixed with
+> runtime-pm calls in the IRQ handler, but there is no known need for a
+> shared IRQ.
+>
+> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
 
-Pre-existing issues:
-- [Critical] The hardware's state registers and BASEP (base pointer) regist=
-ers are not reset between jobs, allowing an attacker to omit configuration =
-commands and hijack memory regions from previously executed jobs.
-- [Critical] The `dma_length()` function incorrectly calculates memory boun=
-ds for negative DMA strides, drastically underestimating the maximum addres=
-s and failing to check for buffer underflows.
-- [Medium] The command-stream validator employs a default-allow policy for =
-unknown commands, passing unrecognized NPU commands directly to the hardwar=
-e without any safety checks.
---
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-commit 3012502d7ce6f9c86b531a92e4564ed74d340366
-Author: Rob Herring (Arm) <robh@kernel.org>
-accel: ethosu: Reject unsupported commands
-
-This commit updates the command-stream validator to reject unsupported comm=
-ands
-like branches, IRQs, and certain DMA configurations. It prevents commands t=
-hat
-bypass validation state or access unchecked index buffers.
-
-> diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
-osu_gem.c
-> index 3d1f4121db4f4..2aafbfe95a8c2 100644
-> --- a/drivers/accel/ethosu/ethosu_gem.c
-> +++ b/drivers/accel/ethosu/ethosu_gem.c
-[ ... ]
-> @@ -450,6 +450,9 @@ static int ethosu_gem_cmdstream_copy_and_validate(str=
-uct drm_device *ddev,
->  		}
-> =20
->  		switch (cmd) {
-> +		case NPU_OP_BRANCH:
-> +		case NPU_OP_IRQ:
-> +			return -EINVAL;
-
-[Severity: Medium]
-This is a pre-existing issue, but is the validator using a default-allow
-policy for unknown commands?
-
-If a user submits a command stream containing unrecognized opcodes (such as
-undocumented commands or those from a minor hardware revision), the validat=
-or
-hits the default case:
-
-drivers/accel/ethosu/ethosu_gem.c:ethosu_gem_cmdstream_copy_and_validate() {
-		...
-		switch (cmd) {
-		...
-		default:
-			break;
-		}
-		...
-}
-
-This ignores the command without calculating memory bounds for it, allowing=
- it
-to be copied to the execution buffer. The hardware could then execute it,
-potentially accessing physical memory outside the validated GEM bounds. Sho=
-uld
-the validator fail closed by returning -EINVAL for unrecognized commands?
-
-[ ... ]
-> @@ -673,13 +684,19 @@ static int ethosu_gem_cmdstream_copy_and_validate(s=
-truct drm_device *ddev,
->  			break;
-> =20
->  		case NPU_SET_DMA0_SRC_REGION:
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but what happens if an attacker
-intentionally omits these configuration commands?
-
-If a command stream contains NPU_OP_DMA_START but omits
-NPU_SET_DMA0_SRC_REGION and NPU_SET_DMA0_DST_REGION, the regions default to
--1 because cmd_state_init() initializes the state with 0xff:
-
-drivers/accel/ethosu/ethosu_gem.c:cmd_state_init() {
-	memset(st, 0xff, sizeof(*st));
-}
-
-In dma_length(), the upper bound update is bypassed because of the region c=
-heck:
-
-drivers/accel/ethosu/ethosu_gem.c:dma_length() {
-	if (dma->region >=3D 0) {
-		...
-		info->region_size[dma->region] =3D max(...);
-	}
-}
-
-Because region_size remains 0, the job can be submitted without a valid
-region_bo_handle. When ethosu_job_hw_submit() runs, it only programs NPU_RE=
-G_BASEP
-for explicitly provided regions:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_hw_submit() {
-	...
-	writel_relaxed(lower_32_bits(bo->dma_addr), dev->regs + NPU_REG_BASEP(regi=
-on));
-	...
-}
-
-This leaves other BASEP registers retaining physical addresses from the pre=
-viously
-executed job. The NPU hardware retains internal state across jobs, so it co=
-uld
-use the un-overridden regions from the previous job, leading to cross-proce=
-ss
-memory leaks or physical memory corruption.
-
-[Severity: Critical]
-This is also a pre-existing issue, but how are negative DMA strides handled
-during length calculation?
-
-drivers/accel/ethosu/ethosu_gem.c:dma_length() {
-	...
-	len +=3D dma->stride[0];
-	if (check_mul_overflow(len, (u64)dma_st->size0, &len))
-		return U64_MAX;
-	...
-}
-
-If a negative stride is provided (e.g., stride[0] =3D -len and offset =3D 0=
-), the
-logic incorrectly subtracts it before multiplication. This results in len =
-=3D 0,
-making the maximum address calculation 0 and bypassing the upper bound chec=
-k.
-
-Since the hardware DMA engine iterates backwards, it would access physical =
-memory
-below BASEP. The validator never calculates the minimum address accessed nor
-checks for this lower bound underflow, which can allow out-of-bounds physic=
-al
-memory access.
-
-> +			if (param & NPU_DMA_REGION_INDEX_MODE)
-> +				return -EINVAL;
->  			if (param & 0x100)
->  				st.dma.src.region =3D -1;
->  			else
->  				st.dma.src.region =3D param & 0x7;
->  			st.dma.mode =3D (param >> 9) & 0x3;
-> +			if (st.dma.mode =3D=3D 3)
-> +				return -EINVAL;
->  			break;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-ethosu-fix=
-es-v1-0-346f9ea8791c@kernel.org?part=3D9
+>  drivers/accel/ethosu/ethosu_job.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+> index 99c8812691e5..c33f2877b385 100644
+> --- a/drivers/accel/ethosu/ethosu_job.c
+> +++ b/drivers/accel/ethosu/ethosu_job.c
+> @@ -337,7 +337,7 @@ int ethosu_job_init(struct ethosu_device *edev)
+>  	ret = devm_request_threaded_irq(dev, edev->irq,
+>  					ethosu_job_irq_handler,
+>  					ethosu_job_irq_handler_thread,
+> -					IRQF_SHARED, KBUILD_MODNAME,
+> +					0, KBUILD_MODNAME,
+>  					edev);
+>  	if (ret) {
+>  		dev_err(dev, "failed to request irq\n");
+>
+> --
+> 2.53.0
+>
