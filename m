@@ -4,50 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89BEFC61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C587C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B666910E597;
-	Thu, 27 Aug 2026 15:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62F8710E088;
+	Thu, 27 Aug 2026 15:05:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="b12eZfzE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nHe4CmaV";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 86FA410E3BC
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:04:25 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2743F165C
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:04:21 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- CB2403F66F
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:04:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787843065; bh=bxC37lvaz4/0Z9c/u7R7FG/15uLvlqrBQIyoFjZtV9s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b12eZfzENXB8lzJ2t+keUZFOnO0AUwFWaEoeudK1QM2rLrhr584sgiqqu7GgQeDrL
- r33HthlN04KdlLMixQnRFjI3sI3p2o0uvAhXj1uSnb/xgm42Tcb6yLn7DXjGTDZBfH
- Ktyeqbo7izBUFl/nS0Fjm6hdyVQB1F+QnVEgFDtk=
-Date: Thu, 27 Aug 2026 16:04:15 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Chris Diamand <chris.diamand@arm.com>,
- Akash Goel <akash.goel@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/18] drm/panthor: Revisit the reset logic to avoid
- reset request loss
-Message-ID: <apBR7_3pBINYd-gZ@e142607>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-2-982cc8f4234b@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1418210E088;
+ Thu, 27 Aug 2026 15:05:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 00A3F600D2;
+ Thu, 27 Aug 2026 15:05:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F111F000E9;
+ Thu, 27 Aug 2026 15:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787843118;
+ bh=JAv5ec+HrqSWxCZoJniPdwA/qfsGl/k5VHJgM9oKE54=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=nHe4CmaV/Xijn/whr/wnQl+9tmZuynl9FfE8Htdg2lDY2Y3o/cdcFStfX28WbvJ4Z
+ 57C3TBTOGbAOi62eBEA6at7A80fuK6bvZOhRwlo2njW6dATkRYBG8nGKsBIKBP/YRr
+ RJDBVuqyvX4EGIzRG6SHs6hymH2yCAicgnxk3jrB14jj7C47XYBpo/T+KWcXwabssT
+ dIhg6zan3PjIjzo0nHUwDttPke/Uz4LDSVCnBx3MK/yDwzqwhdu28NKfQw9w9mRCvX
+ 7z97r5q4FiJED+F2d2TOztuqndzUoYlmnJaWZw/Ec7uYXMyNNK7BXTu4Q/0iYIJ2zc
+ pFc4EFDJlwDyw==
+Message-ID: <4312740f-2aa2-41f1-8442-d4a80682753d@kernel.org>
+Date: Thu, 27 Aug 2026 17:05:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
+ the src_pfns array
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+ <20260805231041.3791771-3-matthew.brost@intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260805231041.3791771-3-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-2-982cc8f4234b@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,143 +121,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 04:56:01PM +0200, Boris Brezillon wrote:
-> disable/enable_work() provide a ready to use mechanism to temporarily
-> disable a work item, so use that instead of the complex state machinery
-> based on the PM state.
+On 8/6/26 01:10, Matthew Brost wrote:
+> migrate_device_range() and migrate_device_pfns() zero the tail entries
+> of a large folio without checking them against @npages:
 > 
-> This also allows us to automate the reset resubmission in case a reset
-> was received while the work item was disabled.
+> 	for (j = 1; j < nr; j++)
+> 		src_pfns[i+j] = 0;
 > 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
+> @nr comes from the folio, not from the array, so a folio that extends
+> past the end of the range being migrated writes beyond src_pfns[].
+> Callers size that array for @npages entries, so this corrupts whatever
+> follows it.
+> 
+> Bound the loop by @npages. The subsequent "i += j - 1" still terminates
+> the outer loop correctly: on a bounded exit j is @npages - i, leaving i
+> at @npages after the increment.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Liam R. Howlett <liam@infradead.org>
+> Cc: Nico Pache <nico.pache@linux.dev>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Dev Jain <dev.jain@arm.com>
+> Cc: Barry Song <baohua@kernel.org>
+> Cc: Lance Yang <lance.yang@linux.dev>
+> Cc: Usama Arif <usama.arif@linux.dev>
+> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Cc: Rakie Kim <rakie.kim@sk.com>
+> Cc: Byungchul Park <byungchul@sk.com>
+> Cc: Gregory Price <gourry@gourry.net>
+> Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Francois Dugast <francois.dugast@intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub_Copilot:claude-opus-5
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_device.c | 36 +++++++++++++++++++++++++-------
->  drivers/gpu/drm/panthor/panthor_device.h |  3 +--
->  2 files changed, 29 insertions(+), 10 deletions(-)
+>  mm/migrate_device.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 7c55d0c45cfd..2974f4bc0bb1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -181,6 +181,15 @@ static void panthor_device_free_page(struct drm_device *ddev, void *data)
->  	__free_page(data);
->  }
->  
-> +static void enable_resets(struct panthor_device *ptdev)
-> +{
-> +	/* If a reset has been queued while the work was
-> +	 * disabled, reschedule it.
-> +	 */
-> +	if (enable_work(&ptdev->reset.work) && atomic_read(&ptdev->reset.pending))
-> +		queue_work(ptdev->reset.wq, &ptdev->reset.work);
-> +}
-> +
->  int panthor_device_init(struct panthor_device *ptdev)
->  {
->  	u32 *dummy_page_virt;
-> @@ -256,6 +265,13 @@ int panthor_device_init(struct panthor_device *ptdev)
->  
->  	ptdev->phys_addr = res->start;
->  
-> +	/* panthor_device_resume() calls enable_resets(), so we need to disable
-> +	 * the reset.work manually before this gets called to keep things
-> +	 * balanced. We don't bother re-enabling the work if the resume fails,
-> +	 * because the whole initialization will fail in that case, and the work
-> +	 * will vanish.
-> +	 */
-> +	disable_work(&ptdev->reset.work);
->  	ret = devm_pm_runtime_enable(ptdev->base.dev);
->  	if (ret)
->  		return ret;
-> @@ -305,9 +321,6 @@ int panthor_device_init(struct panthor_device *ptdev)
->  
->  	panthor_gem_init(ptdev);
->  
-> -	/* Now that everything is initialized, we can enable the reset work. */
-> -	enable_work(&ptdev->reset.work);
-> -
->  	/* ~3 frames */
->  	pm_runtime_set_autosuspend_delay(ptdev->base.dev, 50);
->  	pm_runtime_use_autosuspend(ptdev->base.dev);
-> @@ -316,6 +329,9 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (ret)
->  		goto err_disable_autosuspend;
->  
-> +	/* Now that everything is initialized, we can enable the reset work. */
-> +	enable_resets(ptdev);
-> +
->  	pm_runtime_put_autosuspend(ptdev->base.dev);
->  	return 0;
->  
-> @@ -534,10 +550,8 @@ int panthor_device_resume(struct device *dev)
->  		/* If there was a reset pending at the time we suspended the
->  		 * device, we force a slow reset.
->  		 */
-> -		if (atomic_read(&ptdev->reset.pending)) {
-> +		if (atomic_cmpxchg(&ptdev->reset.pending, 1, 0))
->  			ptdev->reset.fast = false;
-> -			atomic_set(&ptdev->reset.pending, 0);
-> -		}
->  
->  		ret = panthor_device_resume_hw_components(ptdev);
->  		if (ret && ptdev->reset.fast) {
-> @@ -565,6 +579,9 @@ int panthor_device_resume(struct device *dev)
->  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
->  	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
->  	mutex_unlock(&ptdev->pm.mmio_lock);
-> +
-> +	/* Now that everything is resumed, we can re-enable the reset work. */
-> +	enable_resets(ptdev);
->  	return 0;
->  
->  err_suspend_devfreq:
-> @@ -604,10 +621,13 @@ int panthor_device_suspend(struct device *dev)
->  			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
->  	mutex_unlock(&ptdev->pm.mmio_lock);
->  
-> +	/* Make sure we're not interrupted by resets after that point
-> +	 * until the GPU is resumed.
-> +	 */
-> +	disable_work_sync(&ptdev->reset.work);
-> +
->  	if (panthor_device_is_initialized(ptdev) &&
->  	    drm_dev_enter(&ptdev->base, &cookie)) {
-> -		cancel_work_sync(&ptdev->reset.work);
-> -
->  		/* We prepare everything as if we were resetting the GPU.
->  		 * The end of the reset will happen in the resume path though.
->  		 */
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 6529e01e838d..f55baa21b25e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -389,8 +389,7 @@ void panthor_device_unplug(struct panthor_device *ptdev);
->   */
->  static inline void panthor_device_schedule_reset(struct panthor_device *ptdev)
->  {
-> -	if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1) &&
-> -	    atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE)
-> +	if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1))
->  		queue_work(ptdev->reset.wq, &ptdev->reset.work);
->  }
->  
-> 
-> -- 
-> 2.55.0
-> 
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 162d29b2807a..ae9027421b80 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+>  		nr = folio_nr_pages(folio);
+>  		if (nr > 1) {
+>  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> -			for (j = 1; j < nr; j++)
+> +			for (j = 1; j < nr && (i + j) < npages; j++)
+>  				src_pfns[i+j] = 0;
+>  			i += j - 1;
+>  			pfn += j - 1;
+> @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+>  		nr = folio_nr_pages(folio);
+>  		if (nr > 1) {
+>  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> -			for (j = 1; j < nr; j++)
+> +			for (j = 1; j < nr && (i + j) < npages; j++)
+>  				src_pfns[i+j] = 0;
+>  			i += j - 1;
+>  		}
+
+What's the status of this? I assume this is fixed by
+
+	https://lore.kernel.org/20260817120758.669807-3-sh_def@163.com
+
+instead?
+
+What is the right direction?
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Cheers,
+
+David
