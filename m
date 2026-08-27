@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685ECC61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6267EC61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9116F10F1B8;
-	Thu, 27 Aug 2026 20:45:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F9910F1BA;
+	Thu, 27 Aug 2026 20:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T1chxEF0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ay8CeYBm";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58F6210F1B8
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:45:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7303810F1BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:45:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DE7E600D4
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:45:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03FC81F000E9;
- Thu, 27 Aug 2026 20:45:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EAC91601F1
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:45:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C60E1F00A3A;
+ Thu, 27 Aug 2026 20:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787863531;
- bh=+Yo/apEn8NQ9KW1pVAOj1OBFtet2hS5vMIZmfv6gY8g=;
+ s=k20260515; t=1787863536;
+ bh=hfnN1Yb1aGf8kCfByhGAN+tLm0JVYfx86WY1W0Eov6o=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T1chxEF0bJNgconD15AZh1imPN/4EH8lsKZkiv+VpriRIMpgS8UeZzkOoVf6qE/Cy
- bqYpyrJ00XEfMyV45woCKdWornUKVkjUbR/RLF2qLcc+gOWFjAASWwPFiscSGj0O8g
- x8kokaUsEZIsZUmyBi/TUHGg/sQNhoLN6TCo5Z0Us9UB7U0gd6qUPPBx9A5dL+WacB
- V7IuZRj2P6s+q6esnNlk/kh4PWLOAPEwEYufL4dOcBZSB/fExyE1gBvbvnyQc15NV0
- 3uFbRwi6ib5IxBu5yjwYLECxOM3JZ0I8H4mxM3pjtCgzx/q3uOOVZIyBiyXscCdyUg
- sHuGsP4uOypug==
+ b=Ay8CeYBmQAMeVWTl8x9DP1rIxNdn9tuWNSW50usMSciKuH6XFmflQVznOd1QLewbd
+ c/i/LHtlSM/qV9utI91A0E7OYL+951UTdpPh1aEBPUJpufV3FHVfLoV47iCo9rsJKJ
+ yiCp8RbIWDHcPCMXoMwD5LVpfWU+u1PovCsoZFvDkfCIS4HpBzoct31UWOT4IjZEsi
+ ZJKuHbqlb/g7/+zOj2vaThjyhRvpVA2av76ZQ30kpmdeKb57OkTYiFiNOgDmGG8Jcz
+ yMus4NaZD4QnCwhN4YcF4pSCJYX+JtA3T7PSnSB5i7jcmR/aArYZxgtDelZYlxyQv7
+ KdxJAbTdAF+8g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/11] accel: ethosu: Validate all feature map tiles
+Subject: Re: [PATCH 06/11] accel: ethosu: Fix probe error cleanup
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827-ethosu-fixes-v1-10-346f9ea8791c@kernel.org>
+In-Reply-To: <20260827-ethosu-fixes-v1-6-346f9ea8791c@kernel.org>
 References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-10-346f9ea8791c@kernel.org>
+ <20260827-ethosu-fixes-v1-6-346f9ea8791c@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 20:45:30 +0000
-Message-Id: <20260827204531.03FC81F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 20:45:36 +0000
+Message-Id: <20260827204536.8C60E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,110 +57,140 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
-New issues:
-- [Critical] Incomplete U65 storage encoding override causes inconsistent t=
-ile address calculation and broken validation.
-
 Pre-existing issues:
-- [Critical] Insufficient bounds checking of intermediate feature map tiles=
- due to evaluating start coordinates instead of maximum accessed coordinate=
-s.
+- [High] Asynchronous Runtime PM put on probe error path causes device to r=
+emain powered on.
+- [High] IRQ remains active while the DRM scheduler is destroyed on probe e=
+rror and unbind, risking Use-After-Free.
+- [High] IRQ handler accesses hardware registers without PM runtime protect=
+ion, causing bus faults.
+- [High] Memory leak of `done_fence` via user-controlled ioctl error path.
 --
 
-commit 6ed551b31329946a632c14e3d13b0adf33231586
+commit 929da42114076da83041012a4812042cd457402a
 Author: Rob Herring (Arm) <robh@kernel.org>
 
-accel: ethosu: Validate all feature map tiles
+accel: ethosu: Fix probe error cleanup
 
-This commit updates the command-stream validator to check the final=20
-coordinate of every tile touched by an operation instead of just the=20
-final feature-map coordinate. It also treats U65 feature maps as 2x2=20
-tiled.
+This commit unwinds initialized resources on probe error paths to prevent
+leaks and leaves the hardware cleanly. It also prevents calling
+drm_sched_fini() on a failed scheduler initialization.
 
-> diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
-osu_gem.c
-> index 2aafbfe95a8c2..a042e650f626a 100644
-> --- a/drivers/accel/ethosu/ethosu_gem.c
-> +++ b/drivers/accel/ethosu/ethosu_gem.c
-[ ... ]
-> @@ -259,6 +259,72 @@ static u64 feat_matrix_length(struct ethosu_device *=
-edev,
->  	return addr;
->  }
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
+osu_drv.c
+> index f1af7b3ea0385..41ecfc623d425 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+> @@ -371,13 +371,23 @@ static int ethosu_probe(struct platform_device *pde=
+v)
 > =20
-> +static int feat_matrix_check_location(struct ethosu_device *edev,
-[ ... ]
-> +static int feat_matrix_size(struct ethosu_device *edev,
-> +			    struct ethosu_validated_cmdstream_info *info,
-> +			    struct feat_matrix *fm,
-> +			    u32 x, u32 y, u32 c, bool ofm, u64 *max_len)
-> +{
-> +	u32 storage =3D ethosu_is_u65(edev) ? 0 : fm->precision >> 14;
+>  	ret =3D ethosu_init(ethosudev);
+>  	if (ret)
+> -		return ret;
+> +		goto err_job_fini;
 
-[Severity: Critical]
-Does this U65 storage encoding override create an inconsistency with how
-feat_matrix_length() calculates the storage?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the initialization order
+risk a bus fault if a spurious interrupt arrives early?
 
-In feat_matrix_size(), storage is forced to 0 for U65. However, looking at
-feat_matrix_length(), it still decodes storage using the precision bits:
+In ethosu_probe(), ethosu_job_init() requests and unmasks the IRQ before
+ethosu_init() is called to enable the device clocks.
 
-static u64 feat_matrix_length(...)
-{
-        u32 element_size, storage =3D fm->precision >> 14;
-        ...
+If a spurious interrupt fires while the device is still powered off (or in
+autosuspend), the handler executes unconditionally:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler() {
+    ...
+    u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
+    ...
 }
 
-Could a manipulated command stream use this discrepancy to pass validation =
-on
-one tile (using storage =3D 0) while the hardware accesses a different,
-unvalidated tile base address (using storage =3D 1)?
+Can reading these unclocked memory-mapped registers cause a synchronous
+external abort?
 
-> +	int ret;
+> =20
+>  	ret =3D drm_dev_register(&ethosudev->base, 0);
+>  	if (ret)
+> -		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
+> +		goto err_pm_runtime;
 > +
-> +	*max_len =3D 0;
-> +
-> +	if (ethosu_is_u65(edev) || storage =3D=3D 0) {
-> +		for (int xi =3D 0; xi < 2; xi++) {
-> +			for (int yi =3D 0; yi < 2; yi++) {
-> +				ret =3D feat_matrix_check_location(edev, info, fm,
-> +								 xi ? x : 0,
-> +								 yi ? y : 0, c, ofm,
-> +								 max_len);
+> +	pm_runtime_put_autosuspend(ethosudev->base.dev);
+> +	return 0;
+> =20
+> +err_pm_runtime:
+> +	pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
+>  	pm_runtime_put_autosuspend(ethosudev->base.dev);
 
-[Severity: Critical]
-This is a pre-existing issue, but does this loop evaluate the absolute
-coordinate 0 instead of the maximum valid coordinate for the intermediate
-tile?
+[Severity: High]
+This isn't a bug introduced by this patch, but does using
+pm_runtime_put_autosuspend() here cause a problem with devres cleanup?
 
-By checking (0, y) and (x, y), it appears we skip the maximum local
-coordinate accessed in the intermediate tile (such as fm->width0). Could
-this allow a command stream with an inflated stride to pass validation
-here but cause the hardware to perform an out-of-bounds DMA access?
+When the probe function fails and returns, devres will immediately call
+pm_runtime_disable().
 
-> +				if (ret)
-> +					return ret;
-> +			}
-> +		}
-> +		return 0;
-> +	}
-> +
-> +	if (storage =3D=3D 1) {
-> +		ret =3D feat_matrix_check_location(edev, info, fm, x, 0, c,
-> +						 ofm, max_len);
+According to the PM subsystem guidelines, using an asynchronous
+pm_runtime_put() like pm_runtime_put_autosuspend() when
+pm_runtime_disable() follows immediately causes the pending suspend work
+to be cancelled.
 
-[Severity: Critical]
-This is a pre-existing issue, but similar to the 2x2 case above, is tile 0
-checked at y=3D0 instead of its maximum accessed extent (fm->height[0])?
+Can this leave the NPU hardware powered on and in an incorrect PM state?
 
-This might leave its size bounds not fully validated.
+> +	if (ethosudev->sram)
+> +		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
+> +			      ethosudev->npu_info.sram_size);
+> +err_job_fini:
+> +	ethosu_job_fini(ethosudev);
 
-> +		if (ret)
-> +			return ret;
-[ ... ]
+[Severity: High]
+This isn't a bug introduced by this patch, but could this error path lead to
+a use-after-free regression due to the interrupt handler remaining active?
+
+In ethosu_job_init(), the hardware interrupt is requested via
+devm_request_threaded_irq().
+
+Because it is devres-managed, the IRQ is not disabled until after the probe
+function completely finishes and devres runs.
+
+However, ethosu_job_fini() synchronously destroys the DRM scheduler here.
+
+If a spurious or delayed interrupt fires in the window between
+drm_sched_fini() and devres cleanup:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_irq_handler() {
+    ...
+    drm_sched_fault(&edev->sched);
+    ...
+}
+
+Will the IRQ handler access the freed scheduler structures?
+
+>  	return ret;
+>  }
+
+
+[Severity: High]
+This is a pre-existing issue, but does the error path in
+ethosu_ioctl_submit_job() leak the done_fence allocation?
+
+In ethosu_ioctl_submit_job(), ejob->done_fence is dynamically allocated:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_ioctl_submit_job() {
+    ...
+    ejob->done_fence =3D kzalloc_obj(*ejob->done_fence);
+    ...
+}
+
+If a subsequent step fails (such as drm_gem_object_lookup failing due to an
+invalid command stream buffer handle), the code jumps to out_cleanup_job.=20
+
+The cleanup function ethosu_job_err_cleanup() frees the job struct and BO
+references, but it doesn't appear to call kfree() on ejob->done_fence.
+
+Could unprivileged userspace trigger this repeatedly to drain kernel memory?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-ethosu-fix=
-es-v1-0-346f9ea8791c@kernel.org?part=3D10
+es-v1-0-346f9ea8791c@kernel.org?part=3D6
