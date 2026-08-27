@@ -4,159 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAB3EC61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:40:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE42C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 10:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99D210E63C;
-	Thu, 27 Aug 2026 10:40:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 839AB10E3DF;
+	Thu, 27 Aug 2026 10:42:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hnB4Rer3";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="AGCjgI7x";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567DC10E63C;
- Thu, 27 Aug 2026 10:39:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787827199; x=1819363199;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=o2SXyh4UruzbJAdFS3iLu4gJ/02/RPEI4btxUUqgZ/I=;
- b=hnB4Rer3HGzN0hoeDAfSF109gDq21Y2JqClfQASOKgzxNNB7TaJbPXjT
- VCWFg3l/U4IF5AILaZrflBtUyvJ5Yx2Rj3VpygkvPNQIgYEopQyDZAisS
- zjA7dsm+9Mggb92Szzal4CDRDHoANaHzri3qXLe99W1p/MGDyJVYCP73S
- nKpmJHygqgVgA+pCsVmUVEJib+LvG56O2BD85eWm+nsdxETVyexCRJ4ss
- xiUkI+B5f2Ejnj/qFprgltBNdRr1r0OP79GLTay8TRQnQ9GGkYZEc0+2Z
- VbFOeps0XahxV7k2PrVwnfiG0phyydQKzX3pRJEPhl4eNcduLj9BDzjdm Q==;
-X-CSE-ConnectionGUID: f208levgS0+5fk+dHoTkIQ==
-X-CSE-MsgGUID: jjw09OCrQbSkrzPmj1wa2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="99841294"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="99841294"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:39:59 -0700
-X-CSE-ConnectionGUID: 2C+Gp4O3RDyP3zIHQWRSvA==
-X-CSE-MsgGUID: ZJZn/A0aTGe2lujdEV8Zrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="297723486"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 03:39:59 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 27 Aug 2026 03:39:57 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 27 Aug 2026 03:39:57 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.26) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 27 Aug 2026 03:39:57 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010001.outbound.protection.outlook.com [52.101.85.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50F8210E3DF
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 10:42:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YDUJvrPCcCPnjs0s5pEgoBLybJvWBeHkjt/MKcLIjGtZCS2yjzigOSLxOpv1YsOMCWeAOnJTrdblMo8AlkwBJy0UXOYIx7Gg09oIfdCfIRtsioIZ2GTKsIwUISKZMH+s53y3FLIiwgWTKkdXnkP8j2ChfeoqDmxwNf+/j1d2+5XZqj3CP8kdVmh3woPOmFGqKxBMAykbxKUvsHc7anjVlR3q7llukwJZIeD7ewWm33ERikhljgL+hGhJxf9KZDpqPb4q4jbW6Wp4dsPX/GxwLPNJosSWniVOQBVmasXzcWCDYH110HFsy0FX+/XzMLTA6V6PfCin3MOraXGKbNs2Hw==
+ b=IvpWy5prUKxWVYVdcYSg5K/NWUDZp9qnCvDY3MNNZZtE4Zw9NBWteOAD9sAUyO70QJ6aY8IfGw5mlKfKGQZYeV/ylbD6+0VTV1wCzAEAY9e2/mZS3+gEEEtVII2jZXwOncjHBZJejXKnrUTj+gtGGpYFmWdpVcIc4DPzNGZrhtbRXz2f/lA6kerhQo+uYJs9yx0CoM9bM2PFEv5NxfrxJCmy9b9HOVg0chOqz7knjZbvnjJTHekOcg9+EM7kaLKAOWGSoqSpXPscRCisin0zrq/x3I3Awl/zSYBi+Ix9jy61OL0tp2Y42mFvENR0Cem0C+/F4UfzRu0IEGl9+EMcig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xgt62EnVqR8Vh20Gt+eep9ZnPB5bWH725T0LfHjrLeE=;
- b=BTaizsV2UHXklw7ADnLC+EHqW+iQC+QGquK0p3GOR9Y93PtmsbCeeB5672zH8Z2xT3GQ9dyP+qo1UUYZqhzb2n1SVhpNel58bYF4oNu4yVij6+zcfUVX9oBTLRk9dSelVwkDu5Sg5RL3NIz1Zij/vCZ7DFLX3/NsqFPezgIthCIu1OCGVk+szMkunFGQKhVFASXCw9acmvycRK73G9YigNSJJpF2iPStjDCpTg1zHyqytql1QmOING0O1doOFDVmKuvvawBIBrvBD5NqSzZ/+Na6AmteeOcfRUu8eflB7tKRuio8hGOXDKSWwbtrcjyLsuH1zW2WLZ2slbvXwRJkiw==
+ bh=gOstUSvGvsDFm3zaSmWG+zOrPwRH8Lk+vhw21hz/bR4=;
+ b=pzNYhby24CbK1zPhNCCI/1cmBvWr6ae3TRmqwivcabzcQ+a+GiGxb9J6+OQRwaG72KAAKMYNf4HwVeLEOMbfO6kC2d/fHylslB+2gZtVlUT+b05v2vH+v9SxRwrs4oUZkG1u3sulwOMjQtWt8y7QPm8DIosUP86M58RIdeG4tlUrEK/aGPV+CMNaEZRzjot6SjBn+VhuZq8ZVYxP7WZUHdK+tf9vj95zFpz2Ma7H6MyBHvpzVwwCJYmNsHFFysXrP6YCNUISqVCSCAQ7i85H9QO/m60a3bjBqZjgklYowFUBXPnw8VCT4IefEOR7sQFopKRsz6OKxNG03Eln2eWobw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gOstUSvGvsDFm3zaSmWG+zOrPwRH8Lk+vhw21hz/bR4=;
+ b=AGCjgI7x1sUthhLxfSvCJQaka6jREL2+S20hvlCk8E5emQhl26CiehgqJQsOvxkD1CgY7NeD8PEPL8Pr1oK0u2IJ1uOhDB3HJzUqYD8guASKWA2ShodsMCvI6b2B738432D1FnsBnYDvPYoioPwrN3I2U+t2dyV9AiN4qacjEcs1g7jWwUn/0K+NyFOOboLEtErkqVnzuWIeMYAv6pSNCMlQcF04nJ6BMWwDXwe30hviAbJqSf+xpsKOCXZSwdUWzoOmPrWqRRfSO3QrNLP8S4IZft1NUQIdU7LIDBYC1r7bbyHXUSD74Nz4/qU0C/OmvilUMM5/FKHYohNWUbqebQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::2a) by SJ5PPF1170C8165.namprd11.prod.outlook.com
- (2603:10b6:a0f:fc02::810) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 10:39:50 +0000
-Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
- ([fe80::5a5c:9c7a:cd1d:d687]) by DS4PPF691668CDD.namprd11.prod.outlook.com
- ([fe80::5a5c:9c7a:cd1d:d687%6]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 10:39:50 +0000
-Message-ID: <be78bbde-0cc7-4be2-ad69-1801a8d73d48@intel.com>
-Date: Thu, 27 Aug 2026 16:09:41 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/13] drm/xe/irq: Always free requested IRQs on uninstall
-To: Arvind Yadav <arvind.yadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-CC: <matthew.brost@intel.com>, <thomas.hellstrom@linux.intel.com>,
- <rodrigo.vivi@intel.com>
-References: <20260827101801.1247654-1-arvind.yadav@intel.com>
- <20260827101801.1247654-2-arvind.yadav@intel.com>
-Content-Language: en-US
-From: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
-In-Reply-To: <20260827101801.1247654-2-arvind.yadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0356.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:219::12) To DS4PPF691668CDD.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::2a)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by MW4PR12MB7286.namprd12.prod.outlook.com (2603:10b6:303:22f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Thu, 27 Aug
+ 2026 10:42:39 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
+ 10:42:38 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 19:42:33 +0900
+Message-Id: <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
+To: "Alice Ryhl" <aliceryhl@google.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
+In-Reply-To: <apAEK9CUZICDTL1i@google.com>
+X-ClientProxiedBy: TY4PR01CA0083.jpnprd01.prod.outlook.com
+ (2603:1096:405:36c::13) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF691668CDD:EE_|SJ5PPF1170C8165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b265dd2-c09e-474c-9f2f-08df04278542
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW4PR12MB7286:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06c35aed-671a-40fd-2fdc-08df0427e938
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: EWhuv3oNOJQmen2Tyen258nO3/Sg109UFszH7DwK3NSAkWpHuPho2s7ZoFGSISliwaoRNb4dvNjIutp/AKeJuQKkltKM/ZXx0hHTxVwiCwRkeadqzMZ4kDT4elPQca+7iwnxqfdcbhVwQND6s39o8iP2P+W8wsOeNjpan42GTeXiWQrUVqaUaZ1vEvESALNNKBfEXF4Jd6TKNk0MvlXdCCSLxAdpo7g5AMkE9loNwhW1j1ID5l3xga8OMAkEJ4s6VLG9yPQmMkpx5asvvlYLhc0b/707kMu8oj/KQ1nu8iUVSbw2NlRGNH0pPd9iSLtgYFvTHJ2TKAnuA4afqrwk9ds9qO8DAId0wKUf0ly29r7uWEA9f7jjvrdWLTaBSeMv4Dxy6L4X7SZhBQkeBEe0L6sSANjX9NznEVvv4/wDEH7SWhc2pGsv968ItpYLL2geTdVDWMX8JBRa4uB4eBy9fCCqGXh9AwZTA9guv5ge8lcFNBsQBcJj00KT8ggiBIrZL0oc05xYLWhUQSHtbygI11h8tNzNyc8xOrt0TnukGDL1u06OxpqnU+2FVLLl2HNBEbEV6fd2mFhFpUDjG3mP3co6K8TKzUu5bCiFQ/JkCg7GlO/JC5KYq3ow+wAnYFnx4zwmieHF5Rtwguc740Mu/7ZQOXUbsswYrfaLJN7H6Bw=
+ ARA:13230040|7416014|376014|10070799003|1800799024|366016|23010399003|18002099003|22082099003|4143699003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: IMVrI4P4248kjOqvATHMfBXFcEOsG5ox9OuwSoELNvLtGsBtoIL3foTxuQ2XkSzENn688AUxi07d9g4PxqmLxUYiwf6TyvWUuX7Viz3Ac/Z4pi/XT8Tndp+MkuZBXCEJUhydx1loOlffq679uDWJy33rvKT+zrhI9oeKEAqQOGb3WRc59urQxCzq3jB4z3TWw6Q0DyTFpFGvkGzSxbl5n4K2dHvCBlG+G7iCfwMJQfU/TOcxK5akan4xHPN6wRSWgq0XzcaYPHeRG1TQ1OuofrJ7iVj95yjVgyu0n/MzLo1G0vKe4b8JKvbjrvBq7JkZOZMevRhkLSrrEYFYb8rhUOZyDxhcHApKL5P/H7VEZHxJEhWTCJeCSFMUq7p/O9J/8cimT+tcI/gYwpv3mAbcXlUYZNhNRnczewG5Jsbk4JQ/NaaKxAQwyCdOyJLMYRlPx+ty8glTeK4OLjzAUeJCZKFwz7AHp5Heh8aLmJVJPoLToBB1YZY4IU+m+bIAoNxi6F1BaTMwAdV0Zh0pZGseNrwMV01ISEa3uRyLx+V+whXQ/3X/orrV7eJq0qBCV/zuzKcFWdq7nchIXan2iIDIo2+77JShumuxDZY1vO2Iri+liWRXfrNWJXRrtVPL8fPjFWjO5kDr/uJx4nRDCDODL2TyvrSSRv5WsyRoyed2pM8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPF691668CDD.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VThDMDYrK0wxaVZUWThHN01OUGJOd3R0Q09YeGF0VldWSHRKa2tTYjAvV3da?=
- =?utf-8?B?a1J4OGg4T2VxQk1vZVhRNHRuV3pQUnhPTmJQR012VzNIQWt3Vm5yNnp3bXls?=
- =?utf-8?B?OThKLzhwckxiZmt1N1RhMlNnbDRvelhVTUttSmR6ZkdkUmNEcGg3V1l3TElk?=
- =?utf-8?B?dmdKRE13bWhEd1Joa3RlZFkxT216eXBLamd3Y3ozZGUyUWZVOUNFdHhDUFda?=
- =?utf-8?B?SUpqWHA4VXZReWl4UllROVAzbFdMdDZZdnR5cmdaQXFvakM3ZSsxZ0JnMWFj?=
- =?utf-8?B?dHJWcnBLaTEyeDB6VWhibUxBUGRhYUVwK1dmZU9DYThOODZRUUxqWDNQNCtT?=
- =?utf-8?B?ZTlMZy9MT2JFSXRITmU2S3hpc1VvYjYzUjJJRklZM0pES0lYSEhpMGdSWkFi?=
- =?utf-8?B?d1F6elU5N2ZzaG4rMHZtZFc0OHBKRTYwWko3ZStlZUpFcGVPZlVLRHNkUlZv?=
- =?utf-8?B?ZU4rdG5xeVJ3RVhXR05xM1RObHJFRHNtem41clp2ZytjZ2JYQ01MNjQ4SkZo?=
- =?utf-8?B?UUYvekRiMDJ0TlJnS3RKSi92VUZvbzFab0lWVzZpUEd4eU1UckU1N21KQXlH?=
- =?utf-8?B?RXptYUJPWmtiOHdsTEpiRnB5MzMwMStVZWNaeTUrZ21sbEp3TXdtdm0vZ2tO?=
- =?utf-8?B?Snd6TC9VajJOQ0JVVi9mRXMvOXNxYnpDbVNDMk51QitTUXlHUDVGYUhKaFRY?=
- =?utf-8?B?TUJJVldLbWNjcVdIbk11elVDK3JHRkRLTkgwN2RuK1dMZTdMejZMVFFRQnU0?=
- =?utf-8?B?TUJrUSt5ZWZUS2hLbW9JODNRUzZreU01OUJTdkQ3VHhwbDBsU1ZOd0FCWUxt?=
- =?utf-8?B?T1NnNnk5Q3gxOHFpdUEybE9CZlZ4eStPVWViVUlNQSs3bFNhTnlZeGJDeWIv?=
- =?utf-8?B?cW5KQzdQYjJxbmtYUEFyejNYTmlNbXh5YWZjMEFNZVpmYWQvRzVtaXZneml2?=
- =?utf-8?B?b3BEcDVvTDhWT0Q3NWxSQlNaZDNQaVVpVWg0cVZXMVQrODIzK1JraVBjdjRj?=
- =?utf-8?B?KzhnVCtEWjIyamlrb2x0WW42Ry9lUW91NkhhL2w0VkxyQy82L1NNSUp2U1M5?=
- =?utf-8?B?dk9PNCsvZjhLLzAzdUgxbnFEYzJqNWNHaEhCWk5hZE5ybTFUQm9YSDA4QzFB?=
- =?utf-8?B?Z0lkOU1ab1hISjBzNkdyNExGbkR6Z0ZJZVR0cHNaUW9laVFvY3VoQ0lCRXpM?=
- =?utf-8?B?R1RzZS9VeGxjL2x1SGNuVThJTGFGS09BQWpTenNqZUQrNXNjaU1aQkU5RXZX?=
- =?utf-8?B?cHlyeVgzTWFBK2tGWm44N3cvc1M4aDdDeHBycnBNNlhWRnVXRjVNWU9mT2hW?=
- =?utf-8?B?MUlPbTFRMG5aUUJEKzAzaW1tNXlNaDRsdXVwbElDaEJ2QWZ1TlB4b1d2NTNq?=
- =?utf-8?B?UnJneDNkTUYwUkFPRGRjMVdqelZvTmdSSnJTSkkxRTVhUm55OHlUcW0zcGYx?=
- =?utf-8?B?Z2lNQ1diSk9KRm9EdGhPMjFxbkdvckw5TkpmM3NXemtXMlkzMG5PczJ2RmI3?=
- =?utf-8?B?VGdPWDZid3ZqU0hkeEdvT002TWFpUi9WYjBkUHlBT3VOZ1VjVkc3dGFoVmZR?=
- =?utf-8?B?QThFL3VzemN3REtVQmhnTmJFYStkRjh6UWI0SVNLQUVJRFhyREwrMnhlaFlT?=
- =?utf-8?B?NlB6aGNsQ3hEN01MSWErNTgyVUVaZmVyMTBjTExMV2Q4NXB1akdTeEVGdzE4?=
- =?utf-8?B?dk1MbFRwM1dFVlhDQzdzOXpxaGErUGpIYmhWdW5hZDYyVk4vdHluVE5MME9m?=
- =?utf-8?B?NlE3Y3FrdjJtWWcwVXQyczdtTlg3UlFNbUJHTk1KOXY4bURBMjJHdDFCTng3?=
- =?utf-8?B?dHJ6RUNVdHErdWwza0xsN3RGNWdxcEVMRXRnWVhaUHpBcWxPaVc2ZFI2NlJ3?=
- =?utf-8?B?bnMwUkVKTllRU1NkMlozVHpQRUJXa3lzNlV6eG56eGpKVHdOZFJzNjV6U3U1?=
- =?utf-8?B?eFYvMFVBR0k1VXdYbWJ3VG56RDdPMm1EcEZFdzdNOXB1U1N5ZnZ1QW1vRVZu?=
- =?utf-8?B?b0VUTTA5Zkg3VlRmSnFrTG5YNjk3UzVXUW9jNFZSdUdzVCtaeUJVWUdwZ3RV?=
- =?utf-8?B?Q0UrNUF5di9maFFaMUU2UW9Za1piNjBpcXBJRlBoUklhZVMzMG5SNHdhQlV0?=
- =?utf-8?B?a3FsbXJWOHA3Y0FvMGppU3kwRGlPTEhqYzVnQzUxdHU5WTRMZzZRdUJyUUQ1?=
- =?utf-8?B?aGZoUHIvN1l1d2NRMkRNb1o2NVgwREx2bjZwQ3dSelplNUxvczRlci9CUm9Z?=
- =?utf-8?B?cVQ3VitWdFRaeTBrZ05IdVRxK0hvbzlHb0VzZ2d0bVNXVkVIUUN6TEVWdGxn?=
- =?utf-8?B?eWJrV3hZekhoVCtYUnFDd1pwSzFpVlpUcG1UVmxQY1hkNUJhY2o0UEpXTzVS?=
- =?utf-8?Q?VC7FM+f1HCWve0bs=3D?=
-X-Exchange-RoutingPolicyChecked: gpjz43sH2saZ1ak26mWXIPoRN/iV2U8Y+5zV0imaT+w8KRxHBVskkN2rp6iFxnjbViS+yFV/3iC+xTs9B/52SGUR1hwIDLLtrb8gw1ibl4bOTXXEuOrqgslvAH3OdRrpkuyeqhCE6m4Qw9lq2TdOOy6Bzr5u97BuYBEF4UG/Hpi63QDEZHyroPoNcdiq3clqlQyyJlS3nPduLJlKf82qGu+UQ3CZ39ys/MNEhkaG4MxwEH0MwyqnlzhajIaezTg25idJ95kwydwXR8Am0z5ohgGA898OosYBIVAOZpDRCII5RCZvKyZYIEJvPOH1YLhdRKPdJm4H6rzQMghSpIzgEg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b265dd2-c09e-474c-9f2f-08df04278542
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF691668CDD.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZGJuUngxT3pIdEVEMUlTUHMxQURRR2R3TnhKOUl5M0JBU0syTlcvZkNQbUd3?=
+ =?utf-8?B?VVMwcDJVRHU4UEdWOWRDaU9JUWFRRmY2a0xlckp5ZXdwclIyNFZzcDE5VXU5?=
+ =?utf-8?B?QlFwbTk2QTRINkJkdWxOc1dCUVVHWEhodGlXdEE4YXBNZEFUajc1NXl1ZXdF?=
+ =?utf-8?B?MWwyRE5TNVpCVEk4N2xMWnY2Yis5RmNQNXFvS0o3NEtGcFhqVW9wdkZUeHEy?=
+ =?utf-8?B?d2RsWFV4OUxuMjlUV2c0MDVaSWNjeXk1Z0ppOGFWL2NSMDVkbHl2d1pySUJB?=
+ =?utf-8?B?bzdieTh4QitwS3BNVllVOW12ZHhjbVBxTW02V3JKNXNQSlJobU1QRG5zazBL?=
+ =?utf-8?B?cUEyVTZWQkV1M1pVSDJCMlIyZHNvTjB5Vko4NENvcjdYUUtnakpzaThMbjIx?=
+ =?utf-8?B?dlNacVFlMGNFWnl6cTV2ZUF4eFZPU2lka1hnR2NjVmZLUEFBRW1rV2ZuWnBE?=
+ =?utf-8?B?SElITGN5cFgyMTVlRTkrWjZRSHJwMmNOWUVINTFpdlIvb3c4L1VpcXY3eHI1?=
+ =?utf-8?B?Z3Vzcm1QR3lDOEIrUEQ1YW1VUFAzVlIxNWlzbVJxd1pYbTBQK3BydkI1andr?=
+ =?utf-8?B?ZkVpb2JFSG9HT29NNGdaeThBa25nbjhKQTl5Rkh1SStXWUY2YmZkdzREamF6?=
+ =?utf-8?B?SElGVFAxQ2FFRjFBdmlOOUpLSU8waG95TW40QXMzRGRxY1AwSnRzYlVzZnJ0?=
+ =?utf-8?B?VnhabEtYNTlTNWloYlBqdTJXV24xQlpFcmppbTRFSjZHTzN5cm9XQThKTVZS?=
+ =?utf-8?B?dWs4ZHdocHJhbzljTlc1WTNldDF1ZHpUeElMZG9FWDhma2UyOUVKRFJiN2ov?=
+ =?utf-8?B?alVGVHV4SGlQTGJUUys1ZUZ1eUk3cHp2L3I2dFltWno0dTJpL2ZBcnpFWG9Y?=
+ =?utf-8?B?VHdFMjVHTW16dnA5b3hZWlJubHBlTEU1RVFvYS9CcFNMcFhvdXdXcnVpc29P?=
+ =?utf-8?B?L20xc2pSUTJ6T3NHeGI5WXlrbXQxbStkVXBnS1NUcUVTVjBZWm9HOVkzUXlN?=
+ =?utf-8?B?ejBaRU1jWXVyTzFWT2RObmNDYjUvVk85NUhZWTBPQ21FeEgxSVdMbk9FUWx3?=
+ =?utf-8?B?V24yWkxoamxKTzRqZGlPcnZTaDZUS213WFl3cGhYZjJXR251Yi82YTRSWlJQ?=
+ =?utf-8?B?MUhnK0R2bnhzdklTc1RENkRzWFZndFRoSzJUeThZcFRjRmFvMFl4OGl4dkY0?=
+ =?utf-8?B?NWlwZWxOSlVXNXcvUnBhQzdwV1ZBWUZqWEFiU3JSOURPY1p5VlJRbzdQeUxo?=
+ =?utf-8?B?NWZOVC9jY0duWjMza3pEMzBBTVJ3TDJtcVZvK3lBd05GdUFSdFFEMW5KbWgw?=
+ =?utf-8?B?L0lOT2dnYU5DZUVSTkozNWwyZHdnL0F0eVUzRlAzTWY1ODdCczRnZ3AyM1hn?=
+ =?utf-8?B?UzlEU2NXQk5rZnpYZWZTM3RkenFnd1FxeWpacUJrR0pPSHdyRFBFckttSDhG?=
+ =?utf-8?B?M29FRjZCRjFITmNjaWdMRnFtN2FDSVJRdytOTWk1MjYzQjhZbTFWR2NaZGRk?=
+ =?utf-8?B?Wno1VTZQNWxIM3RVNTdiWVplWWM3eDRsQXJsRzBBMUpuK3hYUnRkNlZSanQv?=
+ =?utf-8?B?cVFRWjJXb2xxUy9xOW84LzF3RDhselBOTjVvcVdiY3lIeWZXenFRK2NSRzV4?=
+ =?utf-8?B?V1c0MnRmMDFUQ05OL1dEeTY3NVJFeHI3YTN3eUJJdXU3TjlaS1hvT1ZCRXQy?=
+ =?utf-8?B?MXdvM2pQTUFqY0dKSGpNVnloc05zaDBsMHlxTVlsM0tVQ2dKTm5SSWpSYmVU?=
+ =?utf-8?B?M2JsZUxlRVdkUU9VUm1kQzh2dUtoZFRTVEVPR2NBdnE4T2NVTnhTWlQxbjQw?=
+ =?utf-8?B?Vzk1K2NoUkJzNjFaYWZQc1N5YlpPSWVpMndKdkdIR3Fmd3lpcjU5bUhQc3J6?=
+ =?utf-8?B?QS9QaUxtRmdIRWVvZnB5T0c0R1VNNUF1MGpoSkZubUFIRitqRkUzUWtLQWJ2?=
+ =?utf-8?B?Q24vWDVnU09OTXc5V2MyemdJTlZCVG5pb3dwdEVDL3NVVEtyL3pKTkxWSFI4?=
+ =?utf-8?B?NnNDdHBlRC9xK3FicmJFdjZlT3l5Rm5iQXc4aXhBYnExdDAyd0NKdEJscktZ?=
+ =?utf-8?B?VmVpb1gwTW9FTjBiTWlFUlNtUzVwelAxaWJzSkZKc0RmQW1HeURwSjJCTW9m?=
+ =?utf-8?B?K1dMczlOSXliSmo3NWVLRXRBekdxT0oxOEgyTTA4MkQ2U3FkakhnbEV3Sjc3?=
+ =?utf-8?B?dW41OFFmRDB2dlhOS2lYZk95UHk4UGI0S0UwMi9pQXlOZyt0ZHBBOEFZeGxI?=
+ =?utf-8?B?M0lzamZEMjEwY01BNzdWbDN2NFpzNllsZE01Yml0dU4wWGRQVWRyaVhRK2Vh?=
+ =?utf-8?B?UWU3dWgvUkoxbDQ0ZHFLOU03bTBlTmVYWHhCSExVOUhISnV6VzNVbmVGUFM1?=
+ =?utf-8?Q?pWxBSt8RIeTIipBJydi2UVexQ32gJU/CPP4GRoNPStnp+?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1xcWGX8iUaLUPA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06c35aed-671a-40fd-2fdc-08df0427e938
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 10:39:49.9356 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 10:42:38.6173 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AqZw5BjcHPFNJCnzncYTHCB7SfdU164atGvdkOxJGMG87j7yKXuNuLQbvkpUNMcn4SSFwIRDV7riKwfEqOnK+c0hzuGNQTCnn3vQFV5nCnE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF1170C8165
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: EnR+3KMR056TNWOMpxGoolwOcYA4qEEM90zjdkLcsTzs03tXcuv5FFzB4BMBtlGatCPehIIfm01QwtM3Zqt+rQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7286
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,52 +151,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
+> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
+>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>> unfortunate because it disincentivizes using it in interface boundaries.
+>> Introduce a macro to make it nicer to use. The macro `cv!` (for constant
+>> value) takes a const integer expression and widens it to i128 (at build
+>> time only) before passing it as a const generic value to a new trait
+>> function `FromConst::from_const`. The trait is implemented by NonZero,
+>> Bounded, and Alignment and lets values of each be constructed from
+>> constants without a verbose turbofish syntax. For example,
+>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
+>>=20
+>> Suggested-by: Gary Guo <gary@garyguo.net>
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>
+> This doesn't work in const context, so I don't think this is a great
+> strategy.
+>
+> I would want to use it for cases like this:
+>
+> drivers/android/binder/netlink.rs
+>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPORT a=
+s u8;
+>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_REP=
+ORT_ERROR as c_int;
+>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_A_R=
+EPORT_CONTEXT as c_int;
+>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_FROM_PID as c_int;
+>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_FROM_TID as c_int;
+>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A_RE=
+PORT_TO_PID as c_int;
+>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A_RE=
+PORT_TO_TID as c_int;
+>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_IS_REPLY as c_int;
+>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_REP=
+ORT_FLAGS as c_int;
+>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_REPO=
+RT_CODE as c_int;
+>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDER_A=
+_REPORT_DATA_SIZE as c_int;
 
+`const_as!` [1] should do the trick for this, provided you don't need to
+create a const `NonZero`.
 
-On 27-08-2026 15:47, Arvind Yadav wrote:
-> xe_irq_suspend() clears irq.enabled after disabling and synchronizing the
-> interrupts. irq_uninstall() currently returns when that flag is clear, so
-> a suspended device can skip free_irq() during teardown.
-> 
-> The managed uninstall action is registered only after the IRQ request
-> succeeds. Reset the interrupt registers only when interrupts are still
-> enabled, but always free the requested IRQs.
-> 
-> Fixes: 4d79a1266d4c ("drm/xe: Make irq enabled flag atomic")
-
-Fixes seems incorrect, the early return was even before the change.
-
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_irq.c | 6 ++----
->   1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_irq.c b/drivers/gpu/drm/xe/xe_irq.c
-> index 9e49e2241da4..d314993b14a1 100644
-> --- a/drivers/gpu/drm/xe/xe_irq.c
-> +++ b/drivers/gpu/drm/xe/xe_irq.c
-> @@ -786,10 +786,8 @@ static void irq_uninstall(void *arg)
->   {
->   	struct xe_device *xe = arg;
->   
-> -	if (!atomic_xchg(&xe->irq.enabled, 0))
-> -		return;
-> -
-> -	xe_irq_reset(xe);
-> +	if (atomic_xchg(&xe->irq.enabled, 0))
-> +		xe_irq_reset(xe);
-
-Patch looks correct. With correct fixes-tag:
-
-Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-
-
->   
->   	if (xe_device_has_msix(xe))
->   		xe_irq_msix_free(xe);
-
+[1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvidia.=
+com/
