@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC34C61DB9
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86AC1C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:34:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADA5910F0A7;
-	Thu, 27 Aug 2026 14:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2FE510F0A9;
+	Thu, 27 Aug 2026 14:34:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nihSBCFl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B4hhhJzD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA46510F0A7
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:33:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9915C10F0A9
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:34:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4A457414CF;
- Thu, 27 Aug 2026 14:33:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3301F000E9;
- Thu, 27 Aug 2026 14:33:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D3CE1600D2;
+ Thu, 27 Aug 2026 14:34:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F1C1F00A3F;
+ Thu, 27 Aug 2026 14:34:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787841201;
- bh=3BpF00NijwxXeoA3FQaxE7YbtCYnUdvUOj9eCJK+OrU=;
+ s=k20260515; t=1787841272;
+ bh=0sCr1lNGeYTpyIoUlvRGeUMCKERonYUVv9XgYtZuLYI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nihSBCFlVmH0u1XzVdJBXJvnlygRThz5lVhdnxGUz5gpV6/kTd7tI8hQMFRaC74Ys
- 39a513CL/MkmTNCVKreH5BYZQdfKuuVtaYc0ZV6+w94PWPEsh3SsAAOvISkRIfr+U8
- vN9lXHQQQpvFcw0DUo/dBjDukt/u+5EfN9RdPHWsyhWLMdfrzNbGmXs+rzrJJ98EwT
- 63iHquqBVM37nKloL2DdSagFwV0F0RDfVjRydAQFaaMCaiDGOTdgUAsbeDl8oPXFmT
- i8iHPntbEq+YeYPrgK6xTprycDCUPb5t0ixom5sevCsv2YGZJLDZy6FQ989zU95+z6
- cnfkrZ2JJcjdA==
+ b=B4hhhJzDHaaHzZl+9jxY/hUmBvRfaAYCmfwNtoEvv4M3GmX4eJDCT/eJWKyBdza0K
+ PPDoi19h6XDGPW1lZxicOJciNNIEFMwlR/HUuW6i8OWprTZWx5vxCSHO+p+kZaa7P6
+ 0aC0HXQ7UKDwvszkNzzyvXcww6Aj4u3/Qkzbl/NCvDfll+TxYfvx8Asaxa3tX1oMnL
+ uoKw4sep2XACTOwQLJrPrb0wOSXMmGG4yOr71BtWTQHHBoawkpZQUgDQl2WDtRo7SJ
+ z7H1diXNbKNEZ/0AbZ+cLc/v1RNEwwEM0Q5GBIob+mULyWeW2xmrWfkKhdkTVIP0VW
+ 2dDjqN5cegIjw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/8] rust: alloc: add ArrayVec
+Subject: Re: [PATCH v2 8/8] gpu: nova-core: add NVKV GSP_INIT schemas
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org
-In-Reply-To: <20260827-b4-nvkv-v2-3-0de9d5c8658c@nvidia.com>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260827-b4-nvkv-v2-8-0de9d5c8658c@nvidia.com>
 References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
- <20260827-b4-nvkv-v2-3-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-8-0de9d5c8658c@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 14:33:20 +0000
-Message-Id: <20260827143320.EA3301F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 14:34:31 +0000
+Message-Id: <20260827143432.42F1C1F00A3F@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +60,53 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Small abstraction functions are missing the `#[inline]` attribute.
+- [Low] Incorrect vertical import alphabetical sorting for `nvkv_decode` an=
+d `nvkv_encode`.
 --
 
-commit 04be610d7cb2829e10f7bdcdb68a4d11695975ca
+commit 70350e378f301f73e838aa27ff2017d800f88a22
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-rust: alloc: add ArrayVec
+gpu: nova-core: add NVKV GSP_INIT schemas
 
-Add a fixed capacity vector backed by an uninitialized array. The ArrayVec
-is initializable with a closure to avoid stack construction. It provides
-a way to avoid heap allocations for small but varying size arrays stored
-on the stack.
+This commit introduces the first user of NVKV encode/decode for the GSP init
+request and response schemas. It implements the associated structures and
+exercises them via unit tests.
 
-> diff --git a/rust/kernel/alloc/arrayvec.rs b/rust/kernel/alloc/arrayvec.rs
-> new file mode 100644
-> index 0000000000000..4172a982e4775
-> --- /dev/null
-> +++ b/rust/kernel/alloc/arrayvec.rs
+> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-=
+core/gsp/fw/commands.rs
+> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+
 [ ... ]
-> +    /// Appends an element to the back of the [`ArrayVec`].
-> +    ///
-> +    /// Fails when the [`ArrayVec`] is full, handing the element back in=
- [`PushError`].
-> +    pub fn push(&mut self, v: T) -> Result<(), PushError<T>> {
+
+> @@ -19,6 +21,19 @@
+>      num::IntoSafeCast, //
+>  };
+> =20
+> +use crate::gsp::nvkv::{
+> +    nvkv_decode,
+> +    nvkv_encode,
+> +    Accumulated,
+> +    Array,
+> +    DecoderValue,
+> +    Encodable,
+> +    Encoder,
+> +    Key,
+> +    KeyId,
+> +    Required, //
+> +};
 
 [Severity: Low]
-Should ArrayVec::push in rust/kernel/alloc/arrayvec.rs include an #[inline]
-attribute?
+This isn't a bug, but does this import block in commands.rs miss the Rust
+kernel coding guidelines for vertical import sorting?
 
-> +        self.try_push_init(v)
-> +            .map_err(|PushInitError::Full(v)| PushError(v))
-> +    }
-> +
-> +    /// Appends an element to the back of the [`ArrayVec`] by initializi=
-ng it in place.
-> +    ///
-> +    /// Fails with [`FullError`] when the [`ArrayVec`] is full.
-> +    pub fn push_init(&mut self, init: impl Init<T>) -> Result<(), FullEr=
-ror> {
-
-[Severity: Low]
-Would it be appropriate to add #[inline] to ArrayVec::push_init as well,
-given that it purely forwards to try_push_init?
-
-> +        self.try_push_init(init)
-> +            .map_err(|PushInitError::Full(_)| FullError)
-> +    }
-[ ... ]
-> +    /// Returns a slice of `MaybeUninit<T>` for the remaining spare capa=
-city of the [`ArrayVec`].
-> +    fn spare_capacity_mut(&mut self) -> &mut [MaybeUninit<T>] {
-
-[Severity: Low]
-Is the short helper function ArrayVec::spare_capacity_mut missing an #[inli=
-ne]
-attribute?
-
-> +        // PANIC: `len` never exceeds `N` by the type invariants.
-> +        &mut self.data[self.len..]
-> +    }
+The items nvkv_decode and nvkv_encode are placed at the top of the list, but
+alphabetically they should come after the capitalized items like Accumulate=
+d,
+Array, and DecoderValue. Should these be relocated to their proper
+alphabetical position at the bottom of this import block?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-b4-nvkv-v2=
--0-0de9d5c8658c@nvidia.com?part=3D3
+-0-0de9d5c8658c@nvidia.com?part=3D8
