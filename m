@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109CEC61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2DA8C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411B310F082;
-	Thu, 27 Aug 2026 14:17:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1734F10F088;
+	Thu, 27 Aug 2026 14:19:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LOOuDyD1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TFT4gYce";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD92310F082
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:17:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A3B10F088
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:19:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 98C2A41639;
- Thu, 27 Aug 2026 14:17:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A01B1F000E9;
- Thu, 27 Aug 2026 14:17:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 95EBE600D3;
+ Thu, 27 Aug 2026 14:19:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC011F000E9;
+ Thu, 27 Aug 2026 14:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787840228;
- bh=SRS6X6TXw6Tr+PFBiZcsPHGo5nRK4IWPTb7UQu+FNwU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LOOuDyD1bld19rGBu8oHAHMiweAT/Te66dh5B+NbY34f+CmejOjHIq9nTHRXW/uEZ
- D4b1L46WgQJnV0e4gnFWE7mszOSJ/PMQPzId1vHY6PWFj+S5/66sKQJpEN/jglF65J
- E2BzvdctpNl7LKh331P3vgzpvAPozUc3FFQlMZpuSXtl/MV0bqXubI8MnyqKVqGEYg
- yiIqoMnZXTWiabr4DFJiBexZKXlgWCXIPXfZ6ThRad0UYimgqlgiDCTcd9y5v2PVvP
- Ov+jNbQTZ3lKRizZWwuezlN+mFrChWxAZEq0C4AjOW+Kw2GewlJu4iO+7yVd6VKENg
- DHrK4LzA99R0g==
-Date: Thu, 27 Aug 2026 16:17:04 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-Message-ID: <apBGjqt9GI5egQW6@houat>
-References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
- <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
- <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="3h6vkmrdieos4f6d"
-Content-Disposition: inline
-In-Reply-To: <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
+ s=k20260515; t=1787840394;
+ bh=ESru2GpfcWhRVaYcQLXjsdmf5HAS0fthnsuPNAlGccM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TFT4gYceDU/bshZpBDJyJXnTuHm4jDjB7/p6G61pEY2qfCniji6AhYlAelSo3XpSb
+ fqqj2iqG8MPp90aVtKZFw7jdUx6PQ1Y0fi7SIWRYp01QGLt3XMVzy0PY1s7sgIu15v
+ QDaeecGWpTQnb+qSZQ+VOfhnxK1SnvJ0WrdcLQw8WnmHByJ8+3T9DW5+a0ETUU5hOj
+ TCmB0Lql+1gbsGTyQDBZBPhytxG4HqiWNcy/Wndx5fOQbYJGqZG8rCbsUso25KdJ8N
+ 3ycf5ZGticYeT2vFSn5W4S6VP53wxZgFlOLefJOAbBxRMI82HH7pDqMXTYfjcf06wh
+ nvpSDEcsryjaQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] drm/edid: Add drm_edid_get_preferred_size()
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260827140726.420734-2-tzimmermann@suse.de>
+References: <20260827140726.420734-1-tzimmermann@suse.de>
+ <20260827140726.420734-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 14:19:53 +0000
+Message-Id: <20260827141954.2AC011F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,107 +53,108 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Pointer Dereference and Logic Error in drm_edid_get_preferred_size
+- [High] Missing EDID Hardware Validation for Detailed Timing Descriptor
+--
 
---3h6vkmrdieos4f6d
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-MIME-Version: 1.0
+commit 2d529ec582fce7d82757afd45c986da44f50ceb6
+Author: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: drm/edid: Add drm_edid_get_preferred_size()
 
-On Mon, Aug 24, 2026 at 04:16:02PM +0200, Luca Ceresoli wrote:
-> Hi Maxime,
->=20
-> On Mon Aug 24, 2026 at 9:48 AM CEST, Maxime Ripard wrote:
-> > On Mon, Aug 17, 2026 at 02:27:58PM +0200, Luca Ceresoli wrote:
-> >> On Mon Aug 17, 2026 at 10:31 AM CEST, Maxime Ripard wrote:
-> >> > On Fri, Aug 14, 2026 at 04:05:52PM +0200, Luca Ceresoli wrote:
-> >> >> Work is in progress to make every drm_panel automatically create a
-> >> >> panel_bridge [0][1].
-> >> >>
-> >> >> This requires the panel code to call the drm_panel_bridge APIs. How=
-ever
-> >> >> this would create a circular dependency loop on modular builds:
-> >> >>
-> >> >> __devm_drm_panel_alloc() [drm]
-> >> >>    -> drm_panel_bridge_add() [drm_kms_helper]
-> >> >>       -> drm_bridge.c APIs [drm]
-> >> >>
-> >> >> Moving just the panel_brige.o file from [drm_kms_helper] to [drm] d=
-oes not
-> >> >> work because the panel bridge code uses the drm_atomic_helper and
-> >> >> drm_probe_helper which add further dependencies on symbols in the
-> >> >> [drm_kms_helper] module.
-> >> >>
-> >> >> So take a simple approach, and move the entire drm_kms_helper into =
-the
-> >> >> [drm] module.
-> >> >>
-> >> >> Link: https://lore.kernel.org/all/emuj2innmp6zmzd7pyakqzjqpdzhly6qf=
-hakya3ydwmd63pl26@5jwxaidpikjw/ [0]
-> >> >> Link: https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-8=
--9d6f2c9c3058@bootlin.com/ [1]
-> >> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> >> >
-> >> > So, that's not an option. However, why do we need drm_panel_bridge_a=
-dd()
-> >> > after this work is done? If we want to create a bridge for every pan=
-el,
-> >> > then the bridge implementation can live in drm_panel.c, which is par=
-t of
-> >> > the drm module.
-> >> >
-> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, and mak=
-e it
-> >> > private.
-> >>
-> >> Yes in theory, but the panel_bridge code uses other parts of the
-> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, maybe m=
-ore,
-> >> so we'd have to move them into the drm module too.
-> >
-> > Ah, right. What would happen if we were doing it the other way around
-> > then? Move drm_panel out of the main drm module?
->=20
-> Into the drm_kms_helper module?
->=20
-> I had a look and did some experiments and I found at least one user in th=
-e drm
-> module calling a drm_panel API, and guess who:
->=20
->  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper module)
->=20
-> Based on our discussion after patch 3, I'm not sure
-> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, I guess
-> we can try to move drm_of_find_panel_or_bridge() into bridge/panel.c which
-> is in the drm_kms_helper module (and from drm_of.h info
-> drm_bridge.h?). That however might trigger build failures for drivers whi=
-ch
-> currently don't select DRM_KMS_HELPER and which would have to select it.
->=20
-> I'll give it a try, and if I see major drawbacks I will get back to moving
-> all the drm_kms_helper code into the main drm module.
+This commit adds drm_edid_get_preferred_size() to extract the panel's
+preferred display resolution from a given EDID. This is required for
+DRM's panel orientation quirks.
 
-No, I meant into its own module. Do we have any dependency from the main
-drm module into drm_panel?
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index df3c25bac761d..650ccd05977be 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
 
-Maxime
+[ ... ]
 
---3h6vkmrdieos4f6d
-Content-Type: application/pgp-signature; name="signature.asc"
+> @@ -2844,6 +2844,46 @@ u32 drm_edid_get_panel_id(const struct drm_edid *d=
+rm_edid)
+>  }
+>  EXPORT_SYMBOL(drm_edid_get_panel_id);
+> =20
+> +/**
+> + * drm_edid_get_preferred_size - Get a panel's preferred size from EDID
+> + * @drm_edid: EDID that contains panel ID.
+> + * @width: Returns the panel's width in pixels per scanline, if given
+> + * @height: Returns the panel's height in scanlines, if given
+> + *
+> + * This function detects the preferred size of a panel from the given
+> + * EDID. There is no such information stored in the EDID block directly,
+> + * but the preferred mode often corresponds to the panel's native geomet=
+ry.
+> + *
+> + * Return: Zero on success, or a negative errno code otherwise.
+> + */
+> +int drm_edid_get_preferred_size(const struct drm_edid *drm_edid,
+> +				unsigned int *width, unsigned int *height)
+> +{
+> +	const struct edid *edid =3D drm_edid->edid;
+> +	const struct detailed_pixel_timing *pt;
+> +
+> +	if (drm_edid->size < EDID_LENGTH)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Use whatever the Preferred Timing Descriptor tells us. For old
+> +	 * and obscure displays, we might need better heuristics.
+> +	 */
+> +
+> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED=
+_TIMING))
+> +		return -EINVAL; /* no Preferred Timing Descriptor */
+> +
+> +	pt =3D &edid->detailed_timings[0].data.pixel_data;
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Does this safely handle non-compliant or corrupted EDIDs where the first
+detailed timing block might be a Display Descriptor rather than a pixel
+timing descriptor?
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapBG3AAKCRAnX84Zoj2+
-dncAAX9e0Le80mECcRvZjSFwfKDsJn14yX3qpt61zpnr4XCT7oYutU6uDr1R3/aq
-BtDoNW8BgKN0pJx0d4WvMJowi4FKM9HLeXIVZOanNJQlHbCV551rvrJJHQkcpP9u
-wtO4YWM9TA==
-=RS0G
------END PGP SIGNATURE-----
+In the EDID specification, a detailed timing block is only a Detailed Timing
+Descriptor if its pixel clock is non-zero. If the pixel clock is 0, the blo=
+ck
+is a Display Descriptor like an ASCII monitor name. By unconditionally
+accessing it as pixel data without validating it, could we end up reading
+overlapping union fields and returning garbage display geometry data to the
+driver?
 
---3h6vkmrdieos4f6d--
+> +
+> +	if (*width)
+> +		*width =3D (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
+> +	if (*height)
+> +		*height =3D (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
+
+[Severity: High]
+Does this logic incorrectly dereference the pointers before checking if they
+are valid?
+
+The kernel doc mentions that width and height are optional, which implies
+callers might pass a NULL pointer. If a caller passes NULL for width or
+height, evaluating if (*width) will cause a NULL pointer dereference crash.
+
+Additionally, if a caller passes a valid pointer to a 0-initialized variabl=
+e,
+evaluating if (*width) will result in false, skipping the assignment entire=
+ly
+and leaving the output as 0. Should these conditions check if (width) and
+if (height) instead?
+
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_edid_get_preferred_size);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827140726.4207=
+34-1-tzimmermann@suse.de?part=3D1
