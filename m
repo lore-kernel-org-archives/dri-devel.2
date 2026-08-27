@@ -4,36 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79C97C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 19:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC05FC61DCB
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 19:08:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E8A10F163;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2C9E10F162;
 	Thu, 27 Aug 2026 19:08:25 +0000 (UTC)
-Received: from mail.muc.de (mail.muc.de [193.149.48.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 304B010F14B
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 18:58:51 +0000 (UTC)
-Received: (qmail 25881 invoked by uid 3782); 27 Aug 2026 20:58:49 +0200
-Received: from muc.de (p4fe15cdf.dip0.t-ipconnect.de [79.225.92.223]) (using
- STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
- Thu, 27 Aug 2026 20:58:49 +0200
-Received: (qmail 31226 invoked by uid 1000); 27 Aug 2026 18:58:48 -0000
-Date: Thu, 27 Aug 2026 18:58:48 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: acm@muc.de
-Subject: [Patch 9/9]: vt: Misc changes, e.g. to #include directives
-Message-ID: <apCI6JhoH5D7ss34@MAC.fritz.box>
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 509DE10EFE6
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 17:05:50 +0000 (UTC)
+Received: from Mogu.localdomain (unknown [223.73.65.69])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4b9692dc5;
+ Fri, 28 Aug 2026 01:05:47 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
+To: Sidong Yang <sidong.yang@furiosa.ai>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] accel/rocket: Fix job submit error handling
+Date: Fri, 28 Aug 2026 01:05:38 +0800
+Message-ID: <20260827170538.39179-1-Naixumogu@whut.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ao706o8ReDs-IXqf@rock-5b-plus>
+References: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
+ <ao706o8ReDs-IXqf@rock-5b-plus>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCEDM2sWv_M354-@MAC.fritz.box>
-X-Submission-Agent: TMDA/1.3.x (Ph3nix)
-From: Alan Mackenzie <acm@muc.de>
-X-Primary-Address: acm@muc.de
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0442f541003a1kunmb006e1c06f573
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTENDVh8YTkNISx1PQx0ZH1YeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
+ pVSktLVUtZBg++
 X-Mailman-Approved-At: Thu, 27 Aug 2026 19:08:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,132 +52,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vt: 32b glyph: 9. Misc changes, e.g. to #include directives
+Thanks for testing the patch and for the suggestion.
 
-Rearrange some #include directives, add some clarifying
-comments, and some code changes which didn't fit elsewhere.
+I have split the three independent fixes into separate patches and will send
+a v2 series. I will carry your Tested-by tag.
 
-Signed-off-by: Alan Mackenzie <acm@muc.de>
-
-diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
-index dfdea0842149..35da5e127a49 100644
---- a/drivers/tty/vt/keyboard.c
-+++ b/drivers/tty/vt/keyboard.c
-@@ -25,7 +25,6 @@
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
--#include <linux/consolemap.h>
- #include <linux/init.h>
- #include <linux/input.h>
- #include <linux/jiffies.h>
-@@ -46,6 +45,7 @@
- #include <linux/tty.h>
- #include <linux/uaccess.h>
- #include <linux/vt_kern.h>
-+#include <linux/consolemap.h>
- 
- #include <asm/irq_regs.h>
- 
-diff --git a/drivers/tty/vt/selection.c b/drivers/tty/vt/selection.c
-index 13f4e48b4142..18affdb3c7c5 100644
---- a/drivers/tty/vt/selection.c
-+++ b/drivers/tty/vt/selection.c
-@@ -48,6 +48,8 @@ static struct vc_selection {
- 	.start = -1,
- };
- 
-+static unsigned int size_row;
-+
- /* clear_selection, highlight and highlight_pointer can be called
-    from interrupt (via scrollback/front) */
- 
-@@ -340,6 +342,7 @@ static int vc_selection(struct vc_data *vc, struct tiocl_selection *v,
- {
- 	int ps, pe;
- 
-+	size_row = vc->vc_size_row;
- 	poke_blanked_console();
- 
- 	if (v->sel_mode == TIOCL_SELCLEAR) {
-diff --git a/drivers/tty/vt/vc_screen.c b/drivers/tty/vt/vc_screen.c
-index 7d40eacc21b3..f23d61fe10c1 100644
---- a/drivers/tty/vt/vc_screen.c
-+++ b/drivers/tty/vt/vc_screen.c
-@@ -201,6 +201,8 @@ static struct vc_data *vcs_vc(struct inode *inode, bool *viewed)
- 
- /**
-  * vcs_size - return size for a VC in @vc
-+ * The size is the number of bytes required by a buffer reading to/writing from
-+ * the entire device.
-  * @vc: which VC
-  * @attr: does it use attributes?
-  * @unicode: is it unicode?
-@@ -307,7 +314,9 @@ static unsigned int vcs_read_buf(const struct vc_data *vc, char *con_buf,
- 		getconsxy(vc, con_buf + 2);
- 
- 		*skip += pos;
--		count += pos;
-+		count += pos;	/* COUNT is now the byte offset of the end
-+				 * position from the start of the header.
-+				 */
- 		if (count > CON_BUF_SIZE) {
- 			count = CON_BUF_SIZE;
- 			filled = count - pos;
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 8f467b22b799..0c389a564357 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -89,6 +89,7 @@
- #include <linux/init.h>
- #include <linux/mutex.h>
- #include <linux/vt_kern.h>
-+#include <linux/vt_buffer.h>
- #include <linux/selection.h>
- #include <linux/tiocl.h>
- #include <linux/kbd_kern.h>
-@@ -4910,15 +4967,17 @@ static int con_font_get(struct vc_data *vc, struct console_font_op *op)
- static int con_font_get(struct vc_data *vc, struct console_font_op *op)
- {
- 	struct console_font font;
- 	int c;
--	unsigned int vpitch = op->op == KD_FONT_OP_GET_TALL ? op->height : 32;
-+	unsigned int vpitch =
-+		op->op == KD_FONT_OP_GET_TALL ? vc->vc_font.height : 32;
- 
- 	if (vpitch > max_font_height)
- 		return -EINVAL;
- 
- 	void *font_data __free(kvfree) = NULL;
-+	c = DIV_ROUND_UP(vc->vc_font.width, 8) * vpitch * vc->vc_font.charcount;
- 	if (op->data) {
--		font.data = font_data = kvzalloc(max_font_size, GFP_KERNEL);
-+		font.data = font_data = kvzalloc(c, GFP_KERNEL);
- 		if (!font.data)
- 			return -ENOMEM;
- 	} else
-@@ -4935,8 +4994,6 @@ static int con_font_get(struct vc_data *vc, struct console_font_op *op)
- 			return ret;
- 	}
- 
--	c = DIV_ROUND_UP(font.width, 8) * vpitch * font.charcount;
--
- 	if (op->data && font.charcount > op->charcount)
- 		return -ENOSPC;
- 	if (font.width > op->width || font.height > op->height)
-diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
-index fe915afdece5..5afce52057ca 100644
---- a/include/linux/console_struct.h
-+++ b/include/linux/console_struct.h
-@@ -13,6 +13,7 @@
- #ifndef _LINUX_CONSOLE_STRUCT_H
- #define _LINUX_CONSOLE_STRUCT_H
- 
-+#include <linux/consolemap.h>
- #include <linux/vt.h>
- #include <linux/wait.h>
- #include <linux/workqueue.h>
-
-
--- 
-Alan Mackenzie (Nuremberg, Germany).
+Regards,
+MoGGuU
