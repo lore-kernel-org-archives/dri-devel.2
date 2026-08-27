@@ -4,50 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16448C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 249D8C61DD4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 09:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B90B10EF6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6873010EF6F;
 	Thu, 27 Aug 2026 09:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="lqhyfavv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GrLNtAOe";
 	dkim-atps=neutral
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A7010EDC7
- for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787772969;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=bQkE0sp1250wEmpHG0fFU1uyDKyKi32y1d4HaaoYnpE=;
- b=lqhyfavvaBPI7vbcnIzgEEDZSgqgpZBmjkIyBabfLb+8LvDMhE/qefT09BiKP5tksxr/tZ
- qkJSYXkJ9BiWgo4THnAi0cjIaV6O36/+eQDTTK3C9jBldpzlSYnU8rJn3A16ANaE9ndzN3
- CMXQha4QUofZDj+03xynyJwcuw0xOgMOIsvKbMi1fO6D85mcHdmG+Ffs7d7uXRgnz5IUoV
- mermnrA291hMP06dyGjxrfXLH31Np9QxP9b6H1ZQBvA5B6rJzcvSWM8GAZ3AfSwCViCwo2
- at2tCD2SuM4IqIhS0I7+rcedJFzP01sBkiO1KnvTYeHa9bhoE2MBwh5IITMOaA==
-Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
- smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 19:36:09 +0000
-In-Reply-To: <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
-Content-Type: text/plain; charset=UTF-8
-To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
- "Alex Deucher" <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Date: Thu, 27 Aug 2026 02:36:02 +0700
-Message-Id: <20260826193602.6441-2-neptune@imm0nv1nhtv.is-a.dev>
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
- <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH 2/2] drm/amd/display: close DDC on I2C engine setup failure
-X-Lms-Return-Path: <lba+26a8f4029+f4ceba+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
-X-Mailer: git-send-email 2.47.3
-Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
- <linux-kernel@vger.kernel.org>, 
- "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Mime-Version: 1.0
-X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88EFF10E373
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 02:21:24 +0000 (UTC)
+Received: by mail-pj2-f6.google.com with SMTP id
+ 98e67ed59e1d1-3964e7720afso976311a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 26 Aug 2026 19:21:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787797284; x=1788402084; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=w5YaH8mokWPLQfhjUseDA3RHoFgBNedWh0XDxf4FNzc=;
+ b=GrLNtAOeSBPz2p1srNvKuMXJQgMEM62iX/6uTKa4t+f02YbYFtBxGkU6vcav8232w6
+ aI3Kt+l+EHFCV7j5/cD9NjtR+rfO9dCTsn+21dhIcyKcDCPq+CH53vahonXsQkeuoJqB
+ u/8ue5kk63oaeAq5OBTbrIVvROmnIuM7GzSsfw56WEpLQ1dWqRf6oImk1rqzvHpvSX0e
+ tiGTnGqjTaSle8DIxNr+paB9X5Obpo66hU2atKDoY8pusPVB4ok1EzwJ5T2K6MZ0DKR5
+ CyN64WYq6ttsf+LABxIZBAuAgPlMnYIxMdj6wro1aW2QuG0T0AEGWfXPm2r914IZM+AJ
+ jB4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787797284; x=1788402084;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=w5YaH8mokWPLQfhjUseDA3RHoFgBNedWh0XDxf4FNzc=;
+ b=K9mFS4V+vxSQcfrODk6dp227S5yDfcPZZ93BPZ5Cr2SX8qk+3SNzaLJw5zM+YU34gO
+ 11Hzf3y3A0kws6IMhFkPZBc0UkuSsW1EF1pbFqUcJPtxj3/jT66zqouLzf7ypiMWjmm1
+ OiZZs0rOdfQUg1ERBsFT+2fJutb0K9gvETprXGjsFalMckq0RJlYconJELRm5G98Q7SJ
+ TZlfbYzmQed+DAgkS7/oIsgRTW0PwGd4PylDtNcPTmPol1J5RxSkQytcI1LFdteumd3m
+ gp3Q0ozhZr1+GA8iwpDN0QmdBRzxJPKPTtWkgfcOfarb+5Mdt0G3VZXHQ5olWy8HdESS
+ bupg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpizPtiFpjnU/XXn97YaWu4q9HM09eWMLLTx7P/793jj5tYnAP1umgNcwimzk0FLl/HOqFmZuBYHk4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++la6Hb5Hbni8CqiR+Upvjly9rF1n/RRTDPHo+b3l/XpgmT/0lZV
+ k1+/cCzA1JnXA0+WaLkN7cr+Eb30D5d0GCrExWRLQzIwkcfLaGOuXXmN
+X-Gm-Gg: AR+sD13sxs8tQXAhQijk6QA16bKF+df/EtoLLCOvto7YqrszXBCOul/HWnU1l0FGi4r
+ 4QViYHWALD1gEzqbahqsP0zMxrH4TjynM7Gzk7RCxMTzGG9YjM3Vrbgp5vWtAMJIwGllPkLjtPa
+ UPaeWfR56xsieoNmAXp1l5TH02H2OPtxO9Kk0hZr2RRC2OmSwFtqs4ocQrsD22Mqi1QlPCkbDi4
+ jZJVk+PnKnYMH2F0dPtBQIUlySzdHLwRD6tvZMweaPRa9IB+Op+Qm6e1nAFRs9TqBzyOc/K9LhP
+ eYIakLpTceNyvuq76FCjEGMVn4uQPw9Rxi+T9A8KFQb7Y46Rz/QrsvED2eik+QeROkUroSQw22c
+ wKlU58ZHZUu2RREknzuxcSmveipbhOPhRZ6rIg9IWQ4JcMv3WdVLYhnLjxTVBzu6UMOWhoiRhxZ
+ bHx5WL8aPeY0p9GuHgo1fWrfGPqMxawYpXMvxpy15Ic0ppu/VaWtiN7xT5ViU1jysdd22+Jy2z+
+ iYroDm1CHQV53vBjyo1KMdL5A==
+X-Received: by 2002:a17:90b:390a:b0:396:5785:843 with SMTP id
+ 98e67ed59e1d1-3966d203a94mr21084902a91.8.1787797284194; 
+ Wed, 26 Aug 2026 19:21:24 -0700 (PDT)
+Received: from DESKTOP-BDFNLNM.localdomain ([223.231.133.255])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3283d60c291sm20850538eec.6.2026.08.26.19.21.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Aug 2026 19:21:23 -0700 (PDT)
+From: tarund18303@gmail.com
+To: jani.nikula@linux.intel.com
+Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ tarun-tarun143 <tarund18303@gmail.com>
+Subject: [PATCH] drm/i915/dp_link_caps: Validate max link rate
+Date: Thu, 27 Aug 2026 02:20:34 +0000
+Message-ID: <20260827022035.3442-1-tarund18303@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 27 Aug 2026 09:44:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,35 +90,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-acquire_i2c_hw_engine() opens the DDC pins before setting up the
-hardware engine. If setup_engine() fails, the error path releases the
-engine but leaves the DDC pins open and the engine's DDC pointer set.
+From: tarun-tarun143 <tarund18303@gmail.com>
 
-Subsequent attempts to open the pins then return
-GPIO_RESULT_ALREADY_OPENED, preventing further I2C transfers, EDID
-reads and hotplug detection on that port until reboot.
+Validate the maximum link rate against the source-supported rates
+before using the maximum link limits to calculate allowed
+configurations.
 
-Mirror the normal teardown path by closing the DDC pins and clearing
-the pointer after releasing the engine.
+This prevents an unsupported link rate from being accepted as a
+maximum link limit.
 
-Assisted-by: Codex:gpt-5
-Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Signed-off-by: tarun-tarun143 <tarund18303@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp_link_caps.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-index 05892ab4529f..e7a05494abab 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-@@ -485,6 +485,8 @@ struct dce_i2c_hw *acquire_i2c_hw_engine(
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+index 7b6cc6055da8..0934488153bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+@@ -710,7 +710,10 @@ static bool max_link_limits_valid(struct intel_dp_link_caps *link_caps,
+ 	    !is_power_of_2(max_link_limits->lane_count))
+ 		return false;
  
- 	if (!setup_engine(dce_i2c_hw)) {
- 		release_engine(dce_i2c_hw);
-+		dal_ddc_close(dce_i2c_hw->ddc);
-+		dce_i2c_hw->ddc = NULL;
- 		return NULL;
- 	}
+-	/* TODO: Validate max_link_limits->rate against the source supported rates. */
++	if (intel_dp_rate_index(link_caps->dp->source_rates,
++				link_caps->dp->num_source_rates,
++				max_link_limits->rate) < 0)
++		return false;
  
+ 	intel_dp_link_caps_get_forced_params(link_caps, &forced_params);
+ 	allowed_configs = calc_allowed_config_filter(link_caps, link_caps->enabled_configs,
+
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
 -- 
-2.47.3
+2.43.0
+
