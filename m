@@ -4,44 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE473C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13F93C61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 16:01:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B82F210E593;
-	Thu, 27 Aug 2026 15:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9B710F0D0;
+	Thu, 27 Aug 2026 16:01:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QfoNqk8U";
+	dkim=pass (1024-bit key; unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="OiipsV10";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50DCA10E513;
- Thu, 27 Aug 2026 15:35:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 64AEC600D2;
- Thu, 27 Aug 2026 15:35:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC6891F000E9;
- Thu, 27 Aug 2026 15:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787844949;
- bh=XuJh8vYrMtuHfTomWGayuzo7xAj76LVxx+0A002eeBA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QfoNqk8UrIpo+Pm/+P986ReNiMIufnHOQsOCYd5IRe2VoHuXQw8GOElljGSm+HimD
- ACsy4lSs1JMXy++2G1ryIp/5ww58zomTXV36vn/amd3QCFBzkTiH3h+p+4DF5AtjET
- ceN2csFQqrsM1IrEY/IEADyy/AP5HzF6ZoQ10WTeG87PmjRpZkehgVzAWkoi+8zgto
- 8+hZ6q4sriNxNB0P9bzuEEaavkQj0TQ9Q5vtwvQbT/5Obd/MMbG/dzduZhMthjejOb
- hx62P8aVqSc5ocz87D54zY21kKnDznUXrx1oSEzxfzykUyVgEWOhXenMT001g68zw8
- 4l36W5kr6J3bw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/xe: Convert xe_user_fence to drm_user_fence
-To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- media-ci@linuxtv.org
-In-Reply-To: <20260827151950.4080674-3-srinivasan.shanmugam@amd.com>
-References: <20260827151950.4080674-1-srinivasan.shanmugam@amd.com>
- <20260827151950.4080674-3-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 15:35:48 +0000
-Message-Id: <20260827153548.CC6891F000E9@smtp.kernel.org>
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1185810F0EA
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 16:01:37 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-853c947bfefso1090919b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 09:01:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=snu.ac.kr; s=google; t=1787846496; x=1788451296; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7sryVqJwijt526l6++VdXSITZiFhPfcV5wF4kc67w4s=;
+ b=OiipsV10svfhMiovOn3v1SR0g35ovedJcRfO7N+pqqb5y1C7wbuMcM/GlqIyvel56Z
+ bD3vuscDp/ReQCx+L6SMxlJldRqjU6RMr76GlyA8SFPJfeFTJEOckJEjaF7MdDN0hXt5
+ qiOCNjqVa6Ul4MNuVJAIxMK8OU0NcaebjfPDY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787846496; x=1788451296;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7sryVqJwijt526l6++VdXSITZiFhPfcV5wF4kc67w4s=;
+ b=T+KLxHRqv4cHcb7wcIRkOFTYCGR7jgcsyzSDABAcQwZDxq7j4FFkNGTUtcOzL+IOGP
+ 3FYDTR/utdQe3+0oO2rkSIlBgb+zFlfSbZo9VZnJzlQPFRJPg/xUyu0Yj5+iKdDRXzTv
+ K0ILsb1qciqUkEOvbY+ldr+SLbkapWvBvitH8D8Uc2gACnnlOIslCjbRVjQ4/TP4dCXX
+ 4GONNCl17TJwOdzCBYJSFrz3Psil30qRFhaXsVa9wjKJ/vo5yp1Y9iuj8fHWDa8F5JZe
+ IIeKgGQ6a/prftU3uR9ThofgxUc+yn7HCtWpZiys2meB7Xqtc2KsRowCiMfLOdgN20kb
+ 3u9Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrJ5os9cG5+PTJ/uJm6LDPpKq5zc2Y4MRbIyPuthlgKdLKQdOLmjBGkTbX9njyzgnH945m1q50V8ic=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mjaeGrWL6BD0ixF1iOaQ6CRAtUsiVMKgcKeHOEk2EKQZmVp5tz
+ xP61q/Vhy+dk8TCdtpIrr6NYGWYxKDYfHEWvoq8MdI7biECbAkZIIZD5/5tU20FMht0=
+X-Gm-Gg: AR+sD13ignyWRkFXHzrGa5MF2aTPeKOjY7N+wwXUiTB3yYvHCA3mTLRv7o/oNHTyLB8
+ dQlfZSyoTZ7QWhBnli+DT3iRwFY3jAV1al2lNbUKpyt7iqxqmDh6rUqBJ5eYasH845N7lHM7PMD
+ yYjFQk63cyMAbF2AEnaUV/D9MRFFD09dd+0d+RBQB4ub/G/eNAW7muO4hHTAtDRKFQvZbfW6RnD
+ TtwrqMX1Zqa5YU6dUyy8g1bwWcn+XJNjt03k8NmxZsQSbxTydPz2pVo0dECKuE33ueWED24PWSO
+ TqJES8uhym998859EJtoFXt9U5pJCjgljr5iLvmh5moxGFEX65go4SXUNBe84TiE5duuyyV2X5f
+ B4nNGv8hw+hF+HUfE3hd+lZ02YUFu2ojRkCiLjvFZJrheI1AliHxbeB1Vt5kdDY89o1HPy19KIh
+ cPb1qRxduzONf2I8CvIKG8RoguLs2U2WAFlXmVKnVM1ZsD4f6h60tQT/Y+/w==
+X-Received: by 2002:a05:6a00:4fd0:b0:84b:9a69:156d with SMTP id
+ d2e1a72fcca58-8562543f74cmr429998b3a.0.1787846494915; 
+ Thu, 27 Aug 2026 09:01:34 -0700 (PDT)
+Received: from 1c1aead48890.. ([49.142.45.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8535a8bd941sm2178632b3a.18.2026.08.27.09.01.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 09:01:34 -0700 (PDT)
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>,
+ Sashiko AI Review <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/radeon: fix double-free/UAF of ttm->sg on userptr pin
+ failure
+Date: Thu, 27 Aug 2026 16:01:22 +0000
+Message-ID: <20260827160124.679309-1-hsj0512@snu.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827091532.340141F000E9@smtp.kernel.org>
+References: <20260827091532.340141F000E9@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,90 +88,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Canceling a queued drm_user_fence work item leaks a reference to t=
-he user fence, its mm_struct, and the stored dma_fence.
-- [High] Unconditional cancellation of user fences in xe_sync_entry_cleanup=
-() completely breaks VM_BIND user fences.
---
+If sg_alloc_table_from_pages() or dma_map_sgtable() fails inside
+radeon_ttm_tt_pin_userptr(), the error path frees ttm->sg with
+kfree(). But ttm->sg is not owned by this function - it is allocated
+once in radeon_ttm_tt_populate() and is only supposed to be freed by
+radeon_ttm_tt_unpopulate(), which persists across multiple bind/unbind
+cycles of the same ttm_tt.
 
-commit 0c5a87e71dfa22fb04a23aa8d1dc27d00d244cde
-Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+kfree()'ing it here without resetting ttm->sg to NULL leaves a
+dangling pointer:
 
-drm/xe: Convert xe_user_fence to drm_user_fence
+ - radeon_ttm_tt_unpopulate() will kfree() the same pointer again
+   later, a double-free.
 
-This patch replaces the open-coded user fence implementation in the xe driv=
-er
-with the new common drm_user_fence helper. It moves the local destruction a=
-nd
-worker logic into xe_ufence_ops callbacks which are executed by the core he=
-lper.
+ - Anything that dereferences ttm->sg in the meantime (e.g. the
+   "!ttm->sg || !ttm->sg->sgl" check in
+   radeon_ttm_tt_unpin_userptr(), or a retried bind calling
+   sg_alloc_table_from_pages(ttm->sg, ...) again) is a
+   use-after-free.
 
-> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-> --- a/drivers/gpu/drm/xe/xe_sync.c
-> +++ b/drivers/gpu/drm/xe/xe_sync.c
+Additionally, if sg_alloc_table_from_pages() succeeded but
+dma_map_sgtable() failed, kfree() only frees the struct sg_table
+header, not the sgl entries array it allocated internally, leaking
+that allocation.
 
-[ ... ]
+Use sg_free_table() instead, which releases only the sgl entries
+this function allocated and leaves the ttm->sg header intact for
+radeon_ttm_tt_unpopulate() to free later, matching the ownership the
+normal (non-error) unpin path already assumes.
 
-> @@ -310,8 +295,10 @@ void xe_sync_entry_cleanup(struct xe_sync_entry *syn=
-c)
->  	dma_fence_put(sync->fence);
->  	dma_fence_chain_free(sync->chain_fence);
->  	dma_fence_chain_free(sync->ufence_chain_fence);
-> -	if (!IS_ERR_OR_NULL(sync->ufence))
-> +	if (!IS_ERR_OR_NULL(sync->ufence)) {
-> +		drm_user_fence_cancel_sync(&sync->ufence->base);
+Fixes: f72a113a71ab ("drm/radeon: add userptr support v8")
+Reported-by: Sashiko AI Review <sashiko-bot@kernel.org>
+Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+---
+ drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[Severity: High]
-Does this unconditionally cancel the user fence worker during the ioctl's
-teardown path?
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 22fc35a0e8d8..cbc0339cf127 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -374,7 +374,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
+ 	return 0;
+ 
+ release_sg:
+-	kfree(ttm->sg);
++	sg_free_table(ttm->sg);
+ 
+ release_pages:
+ 	unpin_user_pages(ttm->pages, pinned);
+-- 
+2.43.0
 
-During the normal, successful execution of xe_vm_bind_ioctl() in
-drivers/gpu/drm/xe/xe_vm.c, the function falls through to the free_syncs
-label and calls xe_sync_entry_cleanup() for all parsed sync entries:
-
-    free_syncs:
-        ...
-        while (num_syncs--)
-            xe_sync_entry_cleanup(&syncs[num_syncs]);
-
-If the worker is canceled immediately after the ioctl submits the GPU work,
-it appears the user fence is disarmed before the GPU finishes. Could this
-cause userspace applications using VM_BIND with user fences to hang
-indefinitely, as the completion signal is never delivered?
-
-[Severity: High]
-Additionally, when drm_user_fence_cancel_sync() is called here, can it leak
-a reference to the user fence?
-
-Looking at the implementation of drm_user_fence_cancel_sync() in
-drivers/gpu/drm/drm_user_fence.c:
-
-    void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
-    {
-        drm_user_fence_cancel(ufence);
-        cancel_work_sync(&ufence->work);
-    }
-
-The return value of cancel_work_sync() is ignored. If it returns true
-(meaning the work was queued but hadn't started yet), the=20
-drm_user_fence_work() worker function is bypassed.=20
-
-Since the work item owns a reference to the user fence (acquired during
-drm_user_fence_add_callback()), skipping the worker means
-drm_user_fence_put() is never called. Could this result in a memory leak of
-the drm_user_fence structure, its mmgrab() reference, and its stored=20
-dma_fence?
-
->  		user_fence_put(sync->ufence);
-> +	}
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827151950.4080=
-674-1-srinivasan.shanmugam@amd.com?part=3D2
