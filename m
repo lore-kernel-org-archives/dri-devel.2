@@ -4,104 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFE9C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8042C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3638910EEB4;
-	Thu, 27 Aug 2026 07:15:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3B7310EEA4;
+	Thu, 27 Aug 2026 07:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DAALKIgn";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="czH0Hxxk";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012002.outbound.protection.outlook.com [52.101.53.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E552C10EEA4;
- Thu, 27 Aug 2026 07:15:32 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012056.outbound.protection.outlook.com [40.107.209.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE53010EEA4
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:17:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VDyaOobOURpAfp+tjbqttd5b5GMkE7ulhTX9F8m39PxJcOl6FAOrgu9z+OSwTLTaPm6CQXT4uYmL9bJd8eugRgnTGhMmE8gMB/vfX5c10GvnPmcjpjA61mZu7MYCSFY/ihIyWI6OE0CeCnp6UnqgabsdUbyo6idSIqeaBE3LwDj6qpf9XP+jvybImpMowZxaA71/LD84drNEvEGJckNQ1KP2bL8QdTT55jvan71RD+tWWURDSBGUnWVTAygd8pjiHpzTyBaW/f4vxWAE4EKwYHXyWHeeSesl9RXDvQvooV8AH8RUtcnWH5mPYNRU1V2Bnbee/rnIVCGXqH4c4sRVqQ==
+ b=ZB51Pk1EzwLdsAtTi8tyH6YFngmump+WA88EOGCL7xIwH86kX2rzfvyaiIVsS4aGJ6tEpuI6GGLTyZuyI5v+tUZPfYXuRBdHJmSj5e+B6x0/fE3oOjDff1XYFWG0VegVd6B/lhux4uEnLb6GC9RcPlRJfAz82eRnD/dt9ZFjYNGJY2hDk2Q8FEorYydys6js2EdSjn4Ra++6vxEc/vvEYPVEOjsCol1mGVKAxj3N0cPfvmeZRNf55esTHoq/PlfaE0VzAvx2zE5K+GmnDsbKFemVidiyQojftsJki9CYR2b79WL9cL8CSXPsKBpKSAxZMEk47l2p4GkHNkXaWQWnlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s7siTEW2CKiZshvU8V5uDSNGrVsPJi1BQF/HyVxzdbM=;
- b=WDbCPsUHm4rjlSfPkmt5J9VCo8RgKm/eivVkSulUKFEDo1RT5/zMPaYpc0My83fhfU/+clSwAhTzNiJ+G5o4k4vREUntk1QijOO9Ncsssuon/e3x9MAoHTswPGKdlJdv5E2xk+D6za+wIdXe48QJROb5NCis1T8oJloK75p9H3OcWnD0xxlkgCJsco5d0LI3ullPN9/k2QWKsdNNswkOKw1FL8cGoiwTiXgoReFul665zg/eZXO0VqhiFfF4ZLL0IgUIBljfzTQutvvRa3upWxz3b+CCBghRjEttdSigkXOzw0YAFqF5qEXBufRn4LYUlREB9f/pYvkbt70yJK5ZTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=tHp3HF1fckwqvw7XIZQN/pMQrtdM8efsYXf0ZUyc0JI=;
+ b=LMZaViELZWezhqezP2h6FNttxigAPJhxQuTSADQade6qIoqR/kce5QrN6rKJAZg5SJmR2v+nENs11bKElFJIqWWNoSgXEi5MB8uYQH9BHJbU19MOZqGhl3W6A/q6I8L0vChK7/qbxw4Cxat+Zv9hnblrpIjuLdUZiMPo+Ei2D/x1fYH3wy22kw/GEX0zOZIHarZ1VEs3U/c6eYYY1nNCi4Exx3CgdEHBJvJGXEquc9PmfHYYzV9w1EBJhNBcG2TWalCYK6n1VQXtYNyZ301071qMQzrHS2O+dL7x/n5QdSdPWuPYL+qG1TSb5F1k5x97okJYW5J+cwXZoiHnFuI2qA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s7siTEW2CKiZshvU8V5uDSNGrVsPJi1BQF/HyVxzdbM=;
- b=DAALKIgnihB1vt7bseI/nE8BViXGCwA6e4bijYJ2lzSFE+XO0OVOhg0y9d3DVOr3hXMtBk7jpFzn2gnGKh7AekRQ3ab0U49WkDO8Yig1ouVGC7qzHotowPbC/OYqMa4WxcD2dGcRHxbgdF18MwCxKvti1zkYCjKIHT3Ps9xBZhk=
-Received: from BL1PR13CA0011.namprd13.prod.outlook.com (2603:10b6:208:256::16)
- by DS0PR12MB8341.namprd12.prod.outlook.com (2603:10b6:8:f8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 07:15:25 +0000
-Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
- (2603:10b6:208:256:cafe::35) by BL1PR13CA0011.outlook.office365.com
- (2603:10b6:208:256::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Thu, 27
- Aug 2026 07:15:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 07:15:25 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
- 2026 02:15:21 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
- <intel-xe@lists.freedesktop.org>
-CC: <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
- <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, <Ray.Huang@amd.com>,
- <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <Yiru.Ma@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <honghuan@amd.com>
-Subject: [RFC PATCH v1 5/5] drm/gpusvm: make the DMA mapping step in
- get_pages() optional
-Date: Thu, 27 Aug 2026 15:14:49 +0800
-Message-ID: <20260827071449.520398-6-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260827071449.520398-1-honghuan@amd.com>
-References: <20260827071449.520398-1-honghuan@amd.com>
+ bh=tHp3HF1fckwqvw7XIZQN/pMQrtdM8efsYXf0ZUyc0JI=;
+ b=czH0HxxkLG+Nr4g8DzQaPc0m4W6oYyz4OkJ00fP5eT30tNZs0cUIG1WWiVTm7D0Em6AJ/zJLO0eTNA0S/Ywd05gKLLvjBwlUzMhqZS/rLWZmtvDHmaCTk8pEOvhIeIu/7/TGMPJ7iLMADBL5WzUiH5/87Rpv5ILhnQv383ArSHY/BQBxWjp80EN6rQ5m2CkGY6hYuQvObglxpSGusM7AFQV0IUu5XaQ/whKKT1yI7Z4F0bZ+A+c1SKETmXfiYii4azTO9dLATvpUzQNyZRFQjkb7hFlW80KjYTqJyGZc9xBambDWrcA8bz29IdHJ145/6sR5A4Gsa56dmMOrw2MMcw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by BY5PR12MB4324.namprd12.prod.outlook.com (2603:10b6:a03:209::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Thu, 27 Aug
+ 2026 07:17:15 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
+ 07:17:15 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 16:17:12 +0900
+Message-Id: <DKZJJBS1UJVH.1HXS6MF69RT6R@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 06/16] rust: io: register: allow explicit base type
+ specification
+Content-Transfer-Encoding: quoted-printable
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-6-3699a75fadf1@garyguo.net>
+In-Reply-To: <20260819-typed_register-v3-6-3699a75fadf1@garyguo.net>
+X-ClientProxiedBy: TYCP286CA0363.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:79::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|DS0PR12MB8341:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31d6acc4-5a68-4a78-b43d-08df040af770
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BY5PR12MB4324:EE_
+X-MS-Office365-Filtering-Correlation-Id: db286559-0311-41b4-c8fe-08df040b38f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: dHlGJZIL9DRUzhaE/lO27YspqdWPzngwppzBXTPe/o52woDJ2uSZjUiAwN8S8o7Q9ZInVCn882/LdABMIWvLT7ilI4PUfbufwT+onLqY89jPSaW9jun0bbnrvzKd3kv/E40ktPwnszkg9+GLDCP3+dHwtNvuJtifuQ1LJ/Dz99No266IgDBNwcNrO7cgnubB+S/Jr5F+/gKTTpZxAq8wL6inFTCKyEWJWsb8wrEKyugAaaW0TYFDFOw6DCB1wTX7Sc72FHKSWco+Ej+2qs1YHylvti8YrhafAqm1gcMJ2mQ2ottnEKVMFdyexjRDqgZUK7oMGUE408tUaM34rkUtJccjT5LHPUYlm8vdTt3gjyNm0g9B9ek9U9DoEjVekyL8fxoRhyL9NmuiXa82pDD+kkNHeljL3MKamoSNX/iRGMLPoYPYywcWcURjfCf1pybBj4SmSN8adYj7dD6uqkF/WFdXMdB1d9R1MgWtwWUlZIm7kpBfe+n6p2vziPUhUM00MBgKm5O2tzOQFctxF+0uKB0RTKDkF0fg/5fiyhDgSDTZDbdeAvsXGTm0jxK9mTv4sOL49dPUIb/yvhB//YYZaQn59JPA34eFG2odJBOJ8CGaPLUa90ZUQdL8mOjU3Wjrt7EOLqNGgEbgQewAHgUE9aMp+OtB5SIohyQqArRo7RZCE3VwBnPsYnLzpaTYrPobppUIWwQTqfUEct8e05fpaA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006);
+ ARA:13230040|366016|1800799024|10070799003|7416014|376014|23010399003|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: IXybtYFN1bkoR85VQuYvVSgpvQrMNsUHyMYHJNCz4iDABuszIxyuDih2vPuA1P1mZF6iMfLCUpbsYEVo5qIOqyk3TbKf2v0TrIGaOYAMQaRlchF6JHvop5xwti2u3+bfMw9RIIoaQtIfDYEu+FfrpxxTLxyE6+clhnUmZqidkqGFJOROASd2XFLIfXhrfBhhjV3gnuEuGet0tU2nNlCy9TB2vz/jiONSz9ErE/D72EMaPL2WOQ59CE2EHPN0W4McMtPiGJJ/zpptT15C+NjHBoVt+PJmN1Uza1cpR5//UsLF2sYLQwg3EYJb4d2C2fB7JeFXFcgMYcVrVy0pkfr02XDWOhhtKPHGx4yYQr5ZmNXZpgkGKgrK/xFT1RPlu9gHTXcsg9fcYhTA0q1UNYREzBIdU+L2XnK4a9csMdTJxXJ5k7PKlPp0aTm3Cnqx4zbJ98k8dbDJLM2WUEV73UlMw+VbhvKYI6byeLcFy/77OMzFQbawPQIwqVWnEDI3tpaor2wb9ugKY8Kw3dJcV2h4sbfjt9ClTQZWWZ7N910oy4qM3L96du6DgSEl8hTRbPGZM7xil4ymrH3OWghJQHCrPQDDyNQeZmB8vM5yOhI+yppOuhnsTo5nCJ01JJwWdNDZ/+fHSNKJTvikkmWQgIHn8kWJgXcJjihstt4brMurW2c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gSBSkUBExh3wdVIoJU47D99YZewvaOk+NNMF4UTFMCXjUmKtAlPZIsirOexweDg8vgFz9nBUGdVLUyvnmmdjwN5lxveqHOouiFUl9B1PzQHgUDcLufZ2bzliXLskRoYQBTZbuQOiaGeDPDSjx9IwLAQ8Hu7qpmjBUzi0k+EHnWxMLqTpHVoO+PSvJkXLMX/kDydJn9Fu9eAbnqsRHdIZJ9SAMhG5QGHgA1KStMBwT+X3bGTf93EPRsVrZNrFjRYMWFHzh/eMiw01jbReCbdwyvQE9BtU1sWe14q+OMuGv9jDWn8EHLQAXOXBFx87TTNypU4cln+7p96/lhjXokSasYfLSjPiskiHhFPndl4mqa2BfUz8aqldsZ6OuKOgW+Dof+S82I5y/ESHetF6i0jPQbZq5dTq8/rL1iDWvLPxHegQJRzxAxXSVWhsBaAheToN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:15:25.6990 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31d6acc4-5a68-4a78-b43d-08df040af770
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8341
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVVOM21VUVEzdUZqQmlHOWxWTENtRGE3SGxkdmZlUFZiRkJXZE94WmlMUmls?=
+ =?utf-8?B?YVdxLzQ1elkvdTh6YTlaK01aeHBhYzNUT2FGdVFPWFNuRVNwdGw2d1JjOGc3?=
+ =?utf-8?B?eWZLblhUdHBheDR0VStTMWU1RzMxcEhFcFVVYVM2SzBVaHY4MUZ6VllyaThk?=
+ =?utf-8?B?ZTkrNndJU3Z1eDhJRURaK3FXSndzRzJySG05cXJIeEJia00veTVUMUNQVWJq?=
+ =?utf-8?B?dWs5Rk82ZklKYVR4bVBEYXd5UFlzUGI3bEplRVdxaktXZXY2M1liOGZyTTdv?=
+ =?utf-8?B?ckhoWkwwRGtaRzZYMnhIL2NON0J0VEhOckpHb1U5aUhmQW40TkhFcEtIdWRm?=
+ =?utf-8?B?cUdaYmVydkEwc2l3eDJHWjFsUnFzaWsydHVLZE5nN2R1OTJUYkZpWXV2eEFD?=
+ =?utf-8?B?NnVwRENrMGphZ05QaFJYQjlYSzRqalplQ1VzZExmbGpTK0JwRGJCZ0NWV2lQ?=
+ =?utf-8?B?YW5Oc1QwT1VwbXBPN3JTazNncUhiQnprWVZGUlVyV2J3Mk1FSVY3SGFuRnZ1?=
+ =?utf-8?B?K3hoYWdXdVNCenkwTlVvcCtsTUhTbUcwbVBFZVUzRGxIMDNzeHR5eWhCZE5I?=
+ =?utf-8?B?Zk9vQU15UElWSERjdzRtMVkwa2VHcTZhL1gvV2JoT2tQTTd3aFlZeTJxMkcv?=
+ =?utf-8?B?dEY4Mzl0eWgweDNSVnBSTlB3SXBzbkVPMjk5cDVLTXV1c3Q3eFdaOFc4YVQ4?=
+ =?utf-8?B?VUNSbTNuTkRLOVUxeTUvSEU5VnFITzJFYlZSNFpsVjM0K1pKUFgyMnhrNTM1?=
+ =?utf-8?B?bzVhQ0RPaVpOQmRxUWhhdHVuakIxWmQzN3d0Q0l5NDVuUGFiN1JDQzdSSG1Z?=
+ =?utf-8?B?T1ZpNWFOcmMzLzJYRmo2YTBSVzgxTjRlby9VOGFFaWJSWW9BbDR3SWlUblNB?=
+ =?utf-8?B?V1BjMTg2cDFGZE9TL3NRenlXSkxoQnlYQnhsNXhQL0J2MTVKcFRDVitNVW9L?=
+ =?utf-8?B?QWlHMUR4NUxWbTEzT3FIWmZieDhTcURuM1V2Ym9rVnhTV1liRkpOWVZ3TC9R?=
+ =?utf-8?B?TWM5b0VCTU8zTG0rMVhDbUFUYU5OaGtXRldLRHM2TEV0MzB6ZUppR3BMaEZ5?=
+ =?utf-8?B?RVJ3eW8xZkt1NTZDczRaWlFhbWVmZkx5Mml2VktpRG5mWHZMZEE1N0dHdGFL?=
+ =?utf-8?B?ZHlERnRiVi9yRnRsc2tGSGFOTU1tOUJGMW1DSVJVQk56djVqcmsvSjUra01J?=
+ =?utf-8?B?Y3BLSXNWSTV5VWZKREN6cWdRMkFxOU8wYlBmbnFWQzRlWDlVSjlDUmsyNkpG?=
+ =?utf-8?B?U3hyQ3FsNjJrZHVPUEN6bHRxcU5YcHFJaWNMZ2FRdlNLdlRreTFRL3ZqQWl3?=
+ =?utf-8?B?NDJIZlZ3cXlFeFVTKzVVY0ViTUVwa3BoQWlMME5IN3IxTTJ3OFZzQUVNNGJH?=
+ =?utf-8?B?SHpkWUw2Unp5eXVxVENrbVhQaDlzWnpETE1Zek53YmhaKzBlcXBxT1BLMENP?=
+ =?utf-8?B?NHBDU2NCNnQ3Sjh1cGtmRlFNZFU2N0lCYTdnVGRIY01URjJmdWFlL3ZFZkhU?=
+ =?utf-8?B?Wnpuek9RaytNa0tjZkJxZlFtR0F2VzYyQ2gyTHV2NStLRm1hQWpZdEVzcmww?=
+ =?utf-8?B?d0hVNk1RTlBIUUpOMDUvd096eVlLem9ROURuZkxxd3M2N25sUE56QzBEekdQ?=
+ =?utf-8?B?OUtRaDdoYllnbk1Kdlg4MmttbHNYY1hTQzEvcEtwRG9GZnFrbHMwNSswQzVy?=
+ =?utf-8?B?TmxxOVA5WlBZNENKdWROMVIwS1pYWms1OWwwU0tTQ2JwYzUzWXRzcnVScGRr?=
+ =?utf-8?B?eGcxdW0zY0szcklFSGRERVpYRkhkRlJCUU8xMXNmREhnQ2c2VjgwdDVDNWNR?=
+ =?utf-8?B?TVYxaE1WYTAvUHJwRFZCbFkxK1FpdjZ2OUo2OTFrWlJuUTJnVHQ0STJTY3dh?=
+ =?utf-8?B?ZUozeFVyMGVuTk1xcVVpNVZ2dnprTGs2a0tlL0RHQm9ZeWNmYUJZcERYTVgx?=
+ =?utf-8?B?STdNdDYwdVp1bmg5VHArVDBrMnVYWjE4ZndlT3A0WktoU2l1TXAxZit0Wmo5?=
+ =?utf-8?B?QmUrUUhpMmwzd2xQREhGcDNONU9UMkY0M0lBTzgwUlg3bkhZc2VyNXl6Vnlu?=
+ =?utf-8?B?dERRYjZtNWYxWXRuOXJtdHIzNEVobDVsK0t2VHVLMGtrQmt6enhoRmFQYkls?=
+ =?utf-8?B?TGY2ZDVXWnZ0aHJLL05EcmlTenhHSDRYWkFWUXJSQ1gyQUFyeVFJT05mT3dN?=
+ =?utf-8?B?ZWpVSHQ2azBuWTBBYWhaWTE3TXc4V0NZTlBlRnhoTWhqNWJiTEtoaWRrVmFU?=
+ =?utf-8?B?OWNMbXI2TEl2dDYxOEI1a3BrZ0RZUHg4RlBFM0VFZmlKaDdwcUJ4dWMrT2ZL?=
+ =?utf-8?B?UXl0SWtTSzMrTXBBYnNVT0pHRFBrTTJOQldna0xLWFRKYS8rQUtpSG16Z1p1?=
+ =?utf-8?Q?ASdb+z1gf2c7xgEofa9+i/uRox7AebxVP2smrm7IUlCRY?=
+X-MS-Exchange-AntiSpam-MessageData-1: Lnxzi/IOjuJlrg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db286559-0311-41b4-c8fe-08df040b38f1
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:17:15.7248 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TNbFsnH7Z010EqSGRVnak6CdauWeYIHCUwH7yzvPWepjdm1sL1iLR+uClAsOALhRKGzz0qsMTINXEanrpao5sA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,152 +149,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some drivers (e.g. AMDXDNA) only need the CPU pages faulted in and tracked
-by the notifier, no need DMA mapping.
+On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
+> Currently registers work for all untyped I/O regions, which is not ideal.
+> It allows registers defined for device A to work for another device B and
+> there is no safeguarding at all.
+>
+> All users of the `register!` macro know what type it will be operating on=
+,
+> and that type is consistent across the driver. Therefore, add a `base`
+> parameter to `register!`.
+>
+> Currently this parameter is unused in the generated code; it will be used
+> when all users of `register!` is converted to gain the parameter.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-Add a drm_gpusvm_ctx::no_dma_map flag. When set, get_pages() does the
-shared HMM fault and records notifier_seq, but skips svm_pages->drm
-validation, the dma_addr allocation and drm_gpusvm_dma_map_pages().
-With no mapping state to check, the fault is redone on every call. The
-default (no_dma_map == 0) is unchanged.
+While trying to confirm Sashiko's doctest warning I stumbled upon this warn=
+ing:
 
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/drm_gpusvm.c | 64 ++++++++++++++++++++++++++----------
- include/drm/drm_gpusvm.h     |  5 +++
- 2 files changed, 51 insertions(+), 18 deletions(-)
+    warning: field `base` is never read
+      --> ../rust/macros/io/register.rs:143:5
+        |
+    142 | pub(crate) struct RegDef {
+        |                   ------ field in this struct
+    143 |     base: Option<Type>,
+        |     ^^^^
+        |
+        =3D note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by de=
+fault
 
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 42e606b94681..c89ff4a9d081 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -1703,11 +1703,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 	int err = 0;
- 	enum dma_data_direction dma_dir = ctx->read_only ? DMA_TO_DEVICE :
- 							   DMA_BIDIRECTIONAL;
-+	const bool map_dma = !ctx->no_dma_map;
- 	unsigned int p;
--	bool all_valid;
- 
- 	for (p = 0; p < num_pages; ++p)
--		if (!svm_pages[p].drm)
-+		if (map_dma && !svm_pages[p].drm)
- 			return -EINVAL;
- 
- retry:
-@@ -1716,12 +1716,24 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 
- 	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
- 
--	all_valid = true;
--	for (p = 0; p < num_pages; ++p)
--		if (!drm_gpusvm_pages_valid_unlocked(gpusvm, &svm_pages[p]))
--			all_valid = false;
--	if (all_valid)
--		goto set_seqno;
-+	/*
-+	 * The HMM fault is shared by all the drm_gpusvm_pages instances (they
-+	 * all mirror the same CPU range); only the DMA mapping below is
-+	 * per-instance. In no_dma_map mode there is no DMA mapping state to
-+	 * validate, so the fault is always redone. Otherwise skip the fault
-+	 * entirely if every instance is already valid.
-+	 * drm_gpusvm_pages_valid_unlocked() also drops the stale dma_addr array
-+	 * of any instance that is no longer valid.
-+	 */
-+	if (map_dma) {
-+		bool all_valid = true;
-+
-+		for (p = 0; p < num_pages; ++p)
-+			if (!drm_gpusvm_pages_valid_unlocked(gpusvm, &svm_pages[p]))
-+				all_valid = false;
-+		if (all_valid)
-+			goto set_seqno;
-+	}
- 
- 	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
- 	if (!pfns)
-@@ -1731,17 +1743,24 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 	if (err)
- 		goto err_free;
- 
--	for (p = 0; p < num_pages; ++p) {
--		if (svm_pages[p].dma_addr)
--			continue;
--		svm_pages[p].dma_addr =
--			kvmalloc_objs(*svm_pages[p].dma_addr, npages);
--		if (!svm_pages[p].dma_addr) {
--			err = -ENOMEM;
--			goto err_free;
-+	/*
-+	 * Allocate the dma_addr array of each instance outside the notifier
-+	 * lock. A still-valid instance keeps its existing dma_addr array and
-+	 * is not reallocated. Skipped entirely in no_dma_map mode.
-+	 */
-+	if (map_dma) {
-+		for (p = 0; p < num_pages; ++p) {
-+			if (svm_pages[p].dma_addr)
-+				continue;
-+			svm_pages[p].dma_addr =
-+				kvmalloc_objs(*svm_pages[p].dma_addr, npages);
-+			if (!svm_pages[p].dma_addr) {
-+				err = -ENOMEM;
-+				goto err_free;
-+			}
-+			svm_pages[p].state = (struct dma_iova_state){};
-+			svm_pages[p].state_offset = 0;
- 		}
--		svm_pages[p].state = (struct dma_iova_state){};
--		svm_pages[p].state_offset = 0;
- 	}
- 
- 	/*
-@@ -1765,6 +1784,14 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 		goto retry;
- 	}
- 
-+	/*
-+	 * no_dma_map: the caller only needs the HMM fault, not a device DMA
-+	 * mapping. The fault has been validated under the notifier lock
-+	 * above; skip the per-instance DMA mapping entirely.
-+	 */
-+	if (!map_dma)
-+		goto done_mapping;
-+
- 	for (p = 0; p < num_pages; ++p) {
- 		if (drm_gpusvm_pages_valid(gpusvm, &svm_pages[p]))
- 			continue;
-@@ -1784,6 +1811,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 		}
- 	}
- 
-+done_mapping:
- 	drm_gpusvm_notifier_unlock(gpusvm);
- 	kvfree(pfns);
- set_seqno:
-diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
-index d2b6f3d2b842..84db209cf148 100644
---- a/include/drm/drm_gpusvm.h
-+++ b/include/drm/drm_gpusvm.h
-@@ -254,6 +254,10 @@ struct drm_gpusvm {
-  * @allow_mixed: Allow mixed mappings in get pages. Mixing between system and
-  *               single dpagemap is supported, mixing between multiple dpagemap
-  *               is unsupported.
-+ * @no_dma_map: Only fault the CPU pages for the range; skip the device DMA
-+ *              mapping step. Used by drivers (e.g. AMDXDNA userptr) that
-+ *              consume the faulted pages without needing a DMA mapping. In
-+ *              this mode @drm on the drm_gpusvm_pages is not required.
-  *
-  * Context that is DRM GPUSVM is operating in (i.e. user arguments).
-  */
-@@ -266,6 +270,7 @@ struct drm_gpusvm_ctx {
- 	unsigned int devmem_possible :1;
- 	unsigned int devmem_only :1;
- 	unsigned int allow_mixed :1;
-+	unsigned int no_dma_map :1;
- };
- 
- int drm_gpusvm_init(struct drm_gpusvm *gpusvm,
--- 
-2.34.1
+... and a few rustdoc ones (introduced before this patch I believe):
 
+    warning: unresolved link to `transmutable`
+      --> rust/kernel/mem.rs:83:25
+      |
+    83 | /// - [`Self`] must be [transmutable] from [`Self::Repr`].
+      |                         ^^^^^^^^^^^^ no item named `transmutable` i=
+n scope
+      |
+      =3D help: to escape `[` and `]` characters, add '\' before them like =
+`\[` or `\]`
+      =3D note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
+
+    warning: unresolved link to `Self::Repr`
+      --> rust/kernel/mem.rs:83:46
+      |
+    83 | /// - [`Self`] must be [transmutable] from [`Self::Repr`].
+      |                                              ^^^^^^^^^^ the trait `=
+AsReprMut` has no associated item named `Repr`
+
+    warning: unresolved link to `Self::Repr`
+      --> rust/kernel/mem.rs:84:19
+      |
+    84 | /// - Note that [`Self::Repr`] must be [transmutable] from `Self` =
+as well, however that is a
+      |                   ^^^^^^^^^^ the trait `AsReprMut` has no associate=
+d item named `Repr`
+
+    warning: unresolved link to `transmutable`
+      --> rust/kernel/mem.rs:84:41
+      |
+    84 | /// - Note that [`Self::Repr`] must be [transmutable] from `Self` =
+as well, however that is a
+      |                                         ^^^^^^^^^^^^ no item named =
+`transmutable` in scope
+      |
+      =3D help: to escape `[` and `]` characters, add '\' before them like =
+`\[` or `\]`
+
+    warning: 4 warnings emitted
+
+<...>
+> diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
+> index 8af12caa964b..2fb48e1be82d 100644
+> --- a/rust/macros/io/register.rs
+> +++ b/rust/macros/io/register.rs
+> @@ -27,6 +27,7 @@
+>  };
+> =20
+>  mod kw {
+> +    syn::custom_keyword!(base);
+>      syn::custom_keyword!(stride);
+>  }
+> =20
+> @@ -139,16 +140,26 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Res=
+ult<Self> {
+>  }
+> =20
+>  pub(crate) struct RegDef {
+> +    base: Option<Type>,
+>      regs: Vec<Reg>,
+>  }
+> =20
+>  impl Parse for RegDef {
+>      fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
+> +        let base =3D if input.peek(kw::base) {
+
+Here as well Sashiko's finding looks accurate, albeit probably not
+serious. The proposed fix is cheap though.
