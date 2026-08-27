@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98180C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B05BC61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 07:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A00DB10EEF4;
-	Thu, 27 Aug 2026 07:41:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C6810EED7;
+	Thu, 27 Aug 2026 07:43:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wa4jiXUg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MpZVu+hT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E4810EEDC
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:41:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 102ED10EED7
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 07:43:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 92B02600D0;
- Thu, 27 Aug 2026 07:41:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED811F000E9;
- Thu, 27 Aug 2026 07:41:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 586C2600D0;
+ Thu, 27 Aug 2026 07:43:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2241F000E9;
+ Thu, 27 Aug 2026 07:43:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787816508;
- bh=BDZEHW6vwP2m4KsmF1PQ35psZOW8RmTbccykiQgIuAw=;
+ s=k20260515; t=1787816589;
+ bh=vp3nGe964DbCfAeNt9KBjiqyMe9sCec5kxQ7uxk9Ktk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Wa4jiXUgPZA3uJvEkb7DZjPMdjmohHhlsp91Oi7T9XYlNja9cYr235mthzvHApSZi
- T2rXI1Kc5o+51OtxSOMb41XVUpo+zy8hvx5YRQRSZu3jwBlHiNtmJ6pH8erzZSqSU2
- f9XCxTed7jno6Ox/dUVwjHFzAmApa59+KwWL4msWnbBj0rPkEkl1YTOxzdSMte6KO6
- p+sur1Zrh7D3gBAwFm4RK/WYf8kRKx2Qlzk+U0kUi7YjU9EGDmSBpWFDOm5ElqYYCa
- xH74nKw32eihctwpEMsfPgsC61eoFnAfic9OK8huzf8dTP8r0B18qnyMtqXETTjHm1
- EnFGRVNgWZnbw==
+ b=MpZVu+hTj2JDMAbgWMe51PosCXDpnwHhZa5z0LK0gnSu3FE8rO/Ev5MOEtvhFSWSu
+ 21EZEsoyKJ3qBOq4rPNzSV/MLKF2p4Nk77+rnPSIlbCfIZQWuwRd79GW65ThLupV/H
+ daRlEkqQ7W75Xa00M2ZkG2OJd087PdrnPSR0x1CkLdXgkAasSdxARtGGqEyrba7Y8n
+ UbLJOFTrqJ4SJPaXcmnKBMR5BFh9IwvUeT6qiWZJPxqohuMooxyj+VM8sbs92fYPmz
+ HXRK74oZbfhrBnqSUptQsphfPOIbZvqhUGUW8mO38D72/7A2zprOxxnusItjpYwd4F
+ q8yoIpf9ISfcQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 11/12] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
+Subject: Re: [PATCH v8 09/12] rust: bitmap: add contiguous area operations
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827-chid-v8-11-bc74c77d0214@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org
+In-Reply-To: <20260827-chid-v8-9-bc74c77d0214@nvidia.com>
 References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-11-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-9-bc74c77d0214@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 07:41:47 +0000
-Message-Id: <20260827074147.EED811F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 07:43:08 +0000
+Message-Id: <20260827074308.CB2241F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +60,85 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Calling `find_unused_id(0)` or `reserve_ids(0, ...)` on an `IdPool=
-` initialized with a capacity of 0 triggers a kernel panic when `CONFIG_RUS=
-T_BITMAP_HARDENED` is enabled.
+- [Medium] Overly strict bounds check in `next_zero_area_off` causes unwarr=
+anted panics for valid edge cases when `CONFIG_RUST_BITMAP_HARDENED` is ena=
+bled.
 --
 
-commit c0cd93bbf9f36768f04bc377021b9e32ae0dce05
+commit 9d58aea77dca5a824882cabebc4724be42a07915
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
+rust: bitmap: add contiguous area operations
 
-This commit modifies IdPool::with_capacity to stop rounding the capacity up
-to BitmapVec::MAX_INLINE_LEN. This allows explicitly creating pools with 0
-capacity, and adjusts grow_request and shrink_request to handle the new flo=
-or.
+This commit introduces bindings for contiguous area operations on bitmaps,
+specifically next_zero_area_off(), next_zero_area(), set(), and clear().
+It adds safety bounds checking that can be hardened via
+CONFIG_RUST_BITMAP_HARDENED, along with KUnit tests for these operations.
 
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 06a4c71c4c6c9..4f329249df9d0 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+> index df5505ec7a965..23c2b43a98acf 100644
+> --- a/rust/kernel/bitmap.rs
+> +++ b/rust/kernel/bitmap.rs
+
+[ ... ]
+
+> @@ -525,13 +529,159 @@ pub fn next_zero_bit(&self, start: usize) -> Optio=
+n<usize> {
+>              Some(index)
+>          }
 >      }
-> =20
->      /// Constructs a new [`IdPool`] with space for a specific number of =
-bits.
-> -    ///
-> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_=
-LEN`].
-> -    ///
-> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
->      #[inline]
->      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, A=
-llocError> {
-> -        let num_ids =3D usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
->          let map =3D BitmapVec::new(num_ids, flags)?;
->          Ok(Self { map })
->      }
+> +
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`=
+, where the area plus
+> +    /// `align_offset` is aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if n=
+o such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index plus `align_offset` is a multiple of `align`.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is =
+out of bounds.
+> +    #[inline]
+> +    pub fn next_zero_area_off(
+> +        &self,
+> +        start: usize,
+> +        nbits: NonZero<usize>,
+> +        align: Alignment,
+> +        align_offset: usize,
+> +    ) -> Option<usize> {
+> +        bitmap_assert!(
+> +            start < self.len(),
+> +            "`start` must be < {}, was {}",
+> +            self.len(),
+> +            start
+> +        );
 
-[Severity: High]
-Does allowing a capacity of 0 here introduce a kernel panic during standard
-allocations if CONFIG_RUST_BITMAP_HARDENED is enabled?
+[Severity: Medium]
+When CONFIG_RUST_BITMAP_HARDENED is enabled, does this overly strict bounds
+check cause unwarranted panics for valid edge cases?
 
-If a caller attempts to allocate an ID on a 0-capacity pool using patterns =
-like
-pool.find_unused_id(0) or pool.reserve_ids(0, ...), the call delegates dire=
-ctly
-to the underlying bitmap without its own bounds check:
+Calling next_zero_area_off() (or its wrapper next_zero_area()) on an empty
+BitmapVec (length 0) will panic immediately because 0 < 0 is false.
+Additionally, standard iteration loops that update start to area_start + nb=
+its
+will panic on their final check if the previous area ended exactly at the
+bitmap boundary (start =3D=3D self.len()).
 
-IdPool::find_unused_id() {
-    Some(UnusedId {
-        id: self.map.next_zero_bit(offset)?,
-        pool: self,
-    })
-}
+The underlying C implementation bitmap_find_next_zero_area_off() safely
+handles start >=3D self.len() and returns an out-of-bounds index, which this
+Rust wrapper correctly turns into a None return. Could this assertion be
+relaxed to start <=3D self.len() to avoid these spurious panics?
 
-This passes offset=3D0 to Bitmap::next_zero_bit(), which contains an assert=
-ion
-that start < self.len(). Since 0 < 0 is false on a 0-capacity pool, it pani=
-cs
-immediately instead of gracefully returning None to prompt a grow_request().
+> +
+> +        let nr =3D u32::try_from(nbits.get()).ok()?;
+> +        let align_mask =3D align.as_usize() - 1;
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-chid-v8-0-=
-bc74c77d0214@nvidia.com?part=3D11
+bc74c77d0214@nvidia.com?part=3D9
