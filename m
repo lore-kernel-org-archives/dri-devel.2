@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE02FC61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:21:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 421C7C61DCD
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 15:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1336D10E8AD;
-	Thu, 27 Aug 2026 15:21:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3618810E51C;
+	Thu, 27 Aug 2026 15:29:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="tdpF6N75";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hC/hnA2X";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4C39610E8AD
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 15:21:13 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E78AD1692
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:21:08 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 9AA353F66F
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 08:21:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787844072; bh=vFkhu4YoIETy2KopYLS25E7PLiCY5PePdtoT9J6801Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tdpF6N75HhEmuf/R5Bs+FNuHb5CGlOweModgesmHJ6ju0UPmfETBr0ZFtTgM3loJ+
- 23YGBbfAwKtcO18OoPHrfOVgtdOuB3P1/1OgmquwIfc2Nfyr9zn2MCF+4hnJOgzYJ8
- yIEzoP9x37RkRG6Fz5JgQ5WUUx6+5aUa85jMA3oQ=
-Date: Thu, 27 Aug 2026 16:21:02 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Chris Diamand <chris.diamand@arm.com>,
- Akash Goel <akash.goel@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/18] drm/panthor: Drop unused vm argument passed to
- panthor_vm_prepare_sync_only_op_ctx()
-Message-ID: <apBV3tCWWeOl6BTT@e142607>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-6-982cc8f4234b@collabora.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 337D710E513;
+ Thu, 27 Aug 2026 15:29:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6125B600D2;
+ Thu, 27 Aug 2026 15:29:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E6E1F000E9;
+ Thu, 27 Aug 2026 15:29:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787844596;
+ bh=aHK/HZzsKzlEw6KHxTYsXjb3SLL6O21BDMqAnE354bo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hC/hnA2XgXiDbdb/Vk6zlHeOTKhY2vrEwp9SJQ1ZzDKbm9V7HUNRilk96bePsSvm0
+ 8jBKehNYKCrOO8RxgOJTjoDXTCHiOzFIA0zBb9rytLdUKeFm0HAd1dLmRkxxKl7pMC
+ AuXAIEy70FmljdykQHPd30sMGGf1R3Bey379VtlFQfRZ3WK8kdwnQEiAkIa2xoZif2
+ 1C0ojRKwhoiaFlXW9XCF0oFw+bkMbce8X02H1QyDvE1UzDY9+mLLDKO5lfkrh8sZYI
+ oIk9ELkL0NW8ST1fU6lwT2XEnrN2z8kfj4AasAyoVQiN+koznItmJX5vgSQzFHCo9v
+ N1HkATNO8rK8Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] drm: Add common drm_user_fence helper
+To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260827151950.4080674-2-srinivasan.shanmugam@amd.com>
+References: <20260827151950.4080674-1-srinivasan.shanmugam@amd.com>
+ <20260827151950.4080674-2-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-6-982cc8f4234b@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 15:29:55 +0000
+Message-Id: <20260827152955.D2E6E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +54,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 04:56:05PM +0200, Boris Brezillon wrote:
-> No need to pass a panthor_vm around if it's unused.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Memory leak of `drm_user_fence`, `mm_struct`, and `dma_fence` when=
+ a pending work item is successfully cancelled.
+--
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+commit 922879f241f70a69a977d292a4790f93e66ca3e2
+Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Best regards,
-Liviu
+drm: Add common drm_user_fence helper
 
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index b4e41556247a..44a44602b8ba 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -1462,8 +1462,8 @@ static int panthor_vm_prepare_unmap_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  	return ret;
->  }
->  
-> -static void panthor_vm_prepare_sync_only_op_ctx(struct panthor_vm_op_ctx *op_ctx,
-> -						struct panthor_vm *vm)
-> +static void
-> +panthor_vm_prepare_sync_only_op_ctx(struct panthor_vm_op_ctx *op_ctx)
->  {
->  	memset(op_ctx, 0, sizeof(*op_ctx));
->  	op_ctx->flags = DRM_PANTHOR_VM_BIND_OP_TYPE_SYNC_ONLY;
-> @@ -3031,7 +3031,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
->  		if (!op->syncs.count)
->  			return -EINVAL;
->  
-> -		panthor_vm_prepare_sync_only_op_ctx(op_ctx, vm);
-> +		panthor_vm_prepare_sync_only_op_ctx(op_ctx);
->  		return 0;
->  
->  	default:
-> 
-> -- 
-> 2.55.0
-> 
+This commit introduces a common DRM user fence helper that provides a
+kref-managed, MM-borrowing dma-fence-callback-to-workqueue pattern. This
+allows drivers to access userspace memory from a kthread context when a
+GPU fence signals.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+> diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_=
+fence.c
+> new file mode 100644
+> index 0000000000000..5e6d4c1071306
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_user_fence.c
+[ ... ]
+> +void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
+> +{
+> +	drm_user_fence_cancel(ufence);
+> +	cancel_work_sync(&ufence->work);
+
+[Severity: High]
+Can ignoring the return value of cancel_work_sync() cause a memory leak
+of the drm_user_fence, mm_struct, and an extra dma_fence reference?
+
+If a user arms a user fence and the hardware signals it, the signal
+callback drm_user_fence_cb() queues the work item. If the user then tears
+down the object before the work item executes, drm_user_fence_cancel_sync()
+is called.
+
+If cancel_work_sync() successfully dequeues the pending work, it returns
+true, and drm_user_fence_work() will never run. This means the call to
+drm_user_fence_put() at the end of drm_user_fence_work() is skipped:
+
+static void drm_user_fence_work(struct work_struct *w)
+{
+    ...
+    drm_user_fence_put(ufence);
+}
+
+Leaking the mm_struct pins memory, and leaking the dma_fence can prevent GPU
+resource cleanup.
+
+Would it be safer to check the return value and drop the reference?
+
+	if (cancel_work_sync(&ufence->work))
+		drm_user_fence_put(ufence);
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827151950.4080=
+674-1-srinivasan.shanmugam@amd.com?part=3D1
