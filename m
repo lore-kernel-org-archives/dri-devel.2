@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA518C61DC6
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 23:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90764C61DB9
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 23:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC25F10F1EB;
-	Thu, 27 Aug 2026 23:34:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5066410F1F0;
+	Thu, 27 Aug 2026 23:38:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hM69mr0i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MHkR0oww";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0ED10F1E9;
- Thu, 27 Aug 2026 23:34:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35DBB10F1EF;
+ Thu, 27 Aug 2026 23:38:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1E6E54133B;
- Thu, 27 Aug 2026 23:34:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE8A1F000E9;
- Thu, 27 Aug 2026 23:34:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2FCD8601F5;
+ Thu, 27 Aug 2026 23:38:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394F61F00A3A;
+ Thu, 27 Aug 2026 23:38:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787873684;
- bh=yV8tXKhYdCqfpWS1ASVchk+1ETm1/RoVJiM23bSsPYQ=;
+ s=k20260515; t=1787873933;
+ bh=/TLEbzpPEgzcZId4pU4zc+ORTkBR6svrLOzaxnqm8d0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hM69mr0iwLzz2dMoZGQNzNU5NcyWirwcLKUYGxE/mZc6teWIcVq5RrQnA9vzWLWB9
- uQY0nLcg28hqXN/1G7UHWV1okKhGS5oIxV4OwTBncgxEoMxKjqRzIJMUaj88bad1v+
- n3KiN05eL5ILDINhH9cNOT4EINOaDUpNjZKM+tY4qhIFI383Jao5U2p7s0rJIN5PWi
- ECJIZfiNKzB6K7xTSvG0W+JnIIGkyh3tzqAYJTQzL60TrYxGn/r30YFuNPBspFE//8
- QX/AgBEP10W2D2FheXwDWXsGZ60MQuCVjTZzwubWMm8BCDjpJgL0mVV4DX9ovnHYoT
- ZHLXSO/CtGmUw==
-Date: Fri, 28 Aug 2026 01:34:41 +0200
+ b=MHkR0owwdq4Qwgq+lH7hGRqZI+w2lzfSNyiyuTrShZC1/i7Ivf+vCnyuP9WWmGVkt
+ pQTvnm2OiwQOcynLLsUpEz7duJ4tmGufiY6LRmWTiHqg9ORb5HWN+O3ASKuuiZ+2vB
+ DvAWXZ4lEb0aHj8ZTZAWXSUMIadFQOiWtDkGTT9l9oSvSQrrbM7dBBqQZi5cPKxgsE
+ 74EuO3b0hpiSM2qnHE5NVoewTAF1vsfc9U06aRiwgFh9PxC3BnMW9F/y79ktKq1Jmt
+ PzlCEUyhCwernajiVB8+xznIDxmIs4O6oybHdWs/ak90f2GRfg4fYSCBwiFeUw/uH1
+ A8V7mp4lNAlbA==
+Date: Fri, 28 Aug 2026 01:38:51 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
 To: Krzysztof Karas <krzysztof.karas@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
@@ -39,15 +39,15 @@ Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v2 4/8] drm/i915/selftests: Use drm_* prints in selftest
- helpers
-Message-ID: <apDJbf8V-HsGfXmN@zenone.zhora.eu>
+Subject: Re: [PATCH v2 5/8] drm/i915/gt/selftests: Use drm_* prints in
+ aggregated gt selftests
+Message-ID: <apDJpcatw9isIKdL@zenone.zhora.eu>
 References: <20260818095624.3254368-1-krzysztof.karas@intel.com>
- <20260818095624.3254368-5-krzysztof.karas@intel.com>
+ <20260818095624.3254368-6-krzysztof.karas@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260818095624.3254368-5-krzysztof.karas@intel.com>
+In-Reply-To: <20260818095624.3254368-6-krzysztof.karas@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,13 +65,28 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Krzysztof,
 
-On Tue, Aug 18, 2026 at 09:56:20AM +0000, Krzysztof Karas wrote:
-> Move away from generic pr prints to device context aware drm
-> versions.
-> 
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+...
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> @@ -400,11 +400,10 @@ static int intel_mmio_bases_check(void *arg)
+>  			u32 base = info->mmio_bases[j].base;
+>  
+>  			if (ver >= prev) {
+> -				pr_err("%s(%s, class:%d, instance:%d): mmio base for graphics ver %u is before the one for ver %u\n",
+> -				       __func__,
+> -				       intel_engine_class_repr(info->class),
+> -				       info->class, info->instance,
+> -				       prev, ver);
+> +				drm_err(NULL,
+> +					"%s(%s, class:%d, instance:%d): mmio base for graphics ver %u is before the one for ver %u\n",
+> +					__func__, intel_engine_class_repr(info->class),
+> +					info->class, info->instance, prev, ver);
+
+yah! drm_err(NULL, ...) is quite pointless. If there is no way
+for retrieving the drm device, then let's just stick to pr_*,
+this is their role.
 
 Thanks,
 Andi
+
+>  				return -EINVAL;
+>  			}
