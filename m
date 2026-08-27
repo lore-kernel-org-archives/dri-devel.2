@@ -4,89 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AC2C61DC2
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 12:35:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 691EDC61DCD
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C78510EFEE;
-	Thu, 27 Aug 2026 12:35:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A6510F001;
+	Thu, 27 Aug 2026 12:49:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="IkWCT2Mu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Krot9wre";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056BC10EFED
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 12:35:23 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49b0eab380eso8315325e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 05:35:23 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F255810F004
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:15 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47db714766aso706821f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1787834122; x=1788438922;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=FqMm8FT0UDvKvnU0PABnBSS+wYbc4aE8U5V+uRrPoww=;
- b=IkWCT2MurZSNnzMBM4RejnY+6rh+AJHDQkIK+xTaTTj8zQ2hyzeHfcDvGwACFqNgSf
- MKyWZSxYfviAEt3UqVdXomWwdMvEcyLcBuE33L7MDbjSY9mWiOZs9bUqGzS3UP6ZNgm7
- wEwcZ50Zc7XZVx4LRvNFgGtXmNJXOvgrnAD9a326VAjt9vqbm7Quxs9sQylsdqsPZVS7
- NHaM/YX+3dT87UwfOMWUyqAA3Jfg3Bz6h2kPVuATvoPqU1bVEgjJpP5z0mM63cvdArHn
- DMtzeGogE5K7ZHrzG43TNyBQrtQ9AboJrVKYXD+wFo6qVLKnCj16hQaEAfdUoh/e9Nkq
- Qu0w==
+ d=gmail.com; s=20251104; t=1787834954; x=1788439754; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ko9Jj2K+jgJ0qKx5UvXg5fzM+bHwcM2e1OfD7QYdNG8=;
+ b=Krot9wreMilnYHi0HEkaifbA2F1WqhiKcb8e4IgFlWPGhoLUuKhsG/68mvZAA9OFLr
+ MFJ4/FGCIxljufSIeUyHxiG9Wkxhcw7lqJGGH0jrodF4mBWBPsmRvFH0WW8ESUn5ZyVT
+ PGDHe42ILhBoP6NlX4LKaT357AeccVSOBAgsXRZzZa19JQOjBhOrpGKhpIm5qFezACjl
+ jS/oTkqr46jrQNRMC51PnpliZlycMJPkDsLGyfiVksHM6pHHbZpPMViczmK3PoNT4EXK
+ 816tpkQkMy+yp44sgAaPYyfJw7ttDGxi3yKkjUDtZB23pkdTgMkvR2OgZYAtN4cY5naD
+ U8Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787834122; x=1788438922;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FqMm8FT0UDvKvnU0PABnBSS+wYbc4aE8U5V+uRrPoww=;
- b=LjlUxanQPs+TL+3u3qAyVbze2vrwkWsyktYQIwLqPTKouQjRtKoE2YYGYCP+KZTUuX
- DJKO/HIPdeYj9toe6isCcjQSEzxGtvfmeh29quJN8aL/McTqPpEf7NzeRFGGBHdZ+jBN
- c6GNJKg4T3dI2m/j9UwbK2GJm9qBKltGKXNrdOI98ThvjcQhZQl9ezqLpWqaxHEdbg5O
- l28RGerdQl5G6gk90Ub438quwpoiuYDs+6IYIkk0IjtwbKxmPCprRjTlGBUVDHzAZeRm
- 9fIu/nVQmeXgRpT7XYEtrczoLNvq24+5ZtGwRhSm85SpY/yels0cY3pqgpaZg0NbwzoA
- lgiA==
-X-Gm-Message-State: AFuF++lz5lxS5RvuPOH2fczeHRhXHFr+kaatbwzxKQDx+fV2E98QykCO
- bQsAUuLiCptwzg699Y5tQSGxjKGRowfqDOiYA0jxXdFZtsLRA5D4K8sxW68PfgsZO/g=
-X-Gm-Gg: AR+sD11ZXXnhq1p3NTBTC2TKADkzyUyhgTNQc6drjKz15+qeLDg+ZVVSGVkfzwI7ghi
- hKVx7puyNKFdLav2gme34SH4Zl5TrLpBBm7Cy71vpZaFXMkV4QwAmE004yG8mxjD8GQODV9U5ep
- PDyEI8ia225UljRz/TxTBgU1xoSOgLh1QCmj+ik+otz5LeBcLzl/2AJAmmEuOmlE/H8+ickB4g0
- Vg03Txg8Oe7hAR5+XY9LGHDY9NEOjUJwTl23qUqhNRsj6k7OkxTEhFHOKccnqTtojzcaYSyxE8L
- nUCn+xyM+qL9Cp0utKZP4+gFeJdJmdjHQTlH+9DANVUjWwOC0ewxwtYUVVVscWy2u822nFE3+oD
- rm2ecpVmaJ3lH9v5ubg3Mw68Eq+uEbj7b/vSYuY8zHICpc6TYUU6aVz0Rg4tsteZ8QfUuNOA8my
- 9Q2eyKBA0CKGfgChqTFoDuFu60o7M1MqffjMWdCM0jYXfd/7WsQ4/zEli5fJQjSrxE3Y7tyNMBf
- u1Z74l5
-X-Received: by 2002:a05:600c:3e8e:b0:499:5f80:83ac with SMTP id
- 5b1f17b1804b1-49b0dfd7d2cmr84639315e9.7.1787834121595; 
- Thu, 27 Aug 2026 05:35:21 -0700 (PDT)
-Received: from localhost ([140.209.217.211]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49b4a940aeasm46658765e9.10.2026.08.27.05.35.20
+ d=1e100.net; s=20251104; t=1787834954; x=1788439754;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=ko9Jj2K+jgJ0qKx5UvXg5fzM+bHwcM2e1OfD7QYdNG8=;
+ b=KaKqtfaHe0ed2/aca3xl2JtTgDDmI8hlUFR8R6TkpqhaP6GmnQQFeGTYi/C8/a0/T2
+ 2U8Ub1s2BxyKFgqRcVxelZvQj94rRtklEw/hYs3UfnD0V8ML7vCjBDF/19fmPE4ipcO4
+ dLOlpZG2coQfXVrSKnBDQmCAZd7Z05NYd5bewTB2cS7VXLBxqJ4LN4Rlx9/5+gTFDERG
+ df0ttLSEgsbYE/JcqUdlyVDJ0ZKXgFUjZkw1mH0bYBPEKMoCsXoG5iT9wj79jOs9wXk1
+ WZUGw33pMolgrZTsdjWbIY2qyzkNMF9qZCNby9xiLh/NTDuJMZiRSw1L2DRk9AijG79m
+ G5dw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpcq01DC937/tJC4rUa2BO63+P4kCKVlKWQ6cKyMIbsEGh6GNng0CIqTKmKIeErxAYkSH1NY8tt6uo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l6vMlY6YRkkdqYqtH68VcSPqfYq5PO+rDpVvK0KIhGooXr1YJq
+ UIB12mYgVM83MsJQlLufoI7VXfhAolm1iIa6jbRCQZvySvsRvNRtkUt8
+X-Gm-Gg: AR+sD10nnpyz+RIAPo1sx2ZyJu4ZCcGtUj9L7vmydvC1Dphrj7LS7px7Mw7upptck2x
+ 9kbGLP/AbHwhxto8QEQmzpwTC31Rq54Hn/TTr+H57758NWU8WlZ0+Em6k8AuZ4RONufGcJ8dbMd
+ 2X8Po+wuwLjQ1aX2fKmoLLU2pwNLiFsE+Fh8BAczLkod9Ti8fqlYqjCv96km06PmRlDx+fh4PXn
+ F45RLWOb6yM8fiLwyzc4p0sTVAKzG/5YcsFfzotC6bX4wd11a7uvRksOPwqC9aAtKC4jA4lMD1O
+ lO7RuN8roFmhToe9lR9kbRuAYm+7oMJZwHTmCzVLucoL66+Nl1K1otgjbaAySHUevEz5Saw2+eZ
+ zG/nTIiwy9bFF6rRc04hHLJHF14Fz8Q95e8OqEFTF7CMxF+FNooAndjic0TJjhoPIyL4o6sXNgh
+ rvxSEeMcfHEL1jTfMCnoGO/DjfDhiPVkPynYkGvIny3W0CR82gUfwpI3kl1dlq3mYtXRf315+sB
+ g==
+X-Received: by 2002:a05:600d:8653:20b0:49b:e22:4ee4 with SMTP id
+ 5b1f17b1804b1-49b0e22505bmr57356065e9.4.1787834953901; 
+ Thu, 27 Aug 2026 05:49:13 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1524:4300:a4b8:720e:f64f:4778])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b465226d8sm52089985e9.0.2026.08.27.05.49.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 05:35:21 -0700 (PDT)
-Date: Thu, 27 Aug 2026 14:35:16 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Konstantin Sinyuk <ksinyuk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Ilia Levi <ilia.levi@intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jhs@mojatatu.com,
- jgg@nvidia.com
-Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
- infrastructure for scale-up accelerator interconnects
-Message-ID: <apAsfOowcG0cTvT8@FV6GYCPJ69>
-References: <cover.1787552412.git.ksinyuk@kernel.org>
+ Thu, 27 Aug 2026 05:49:13 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
+ matthew.brost@intel.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Refcounting dma_resv v2
+Date: Thu, 27 Aug 2026 14:38:48 +0200
+Message-ID: <20260827124910.2245-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1787552412.git.ksinyuk@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,97 +90,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mon, Aug 24, 2026 at 10:09:28AM +0200, ksinyuk@kernel.org wrote:
+Hi everybody,
 
-[..]
+The idea of ref-counting dma_resv or ww_mutex came up multiple times from
+different people, but so far at least I have abandoned that as to
+complicated to implement considering how widely used that object is.
 
->Example queries using the in-tree YNL tool are:
->
->    $ ./tools/net/ynl/pyynl/cli.py \
->          --spec Documentation/netlink/specs/drm_fabric.yaml \
->          --dump fabric-get
->    $ ./tools/net/ynl/pyynl/cli.py \
->          --spec Documentation/netlink/specs/drm_fabric.yaml \
->          --dump endpoint-get --json '{"fabric-id": <id>}'
->    $ ./tools/net/ynl/pyynl/cli.py \
->          --spec Documentation/netlink/specs/drm_fabric.yaml \
->          --do port-get --json '{"endpoint-id": <id>, "port-index": 0}'
+Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4 just
+to check how horrible it would look like.
 
-Using generic netlink instead of sysfs for this makes a lot of sense,
-but it may be a bit odd to use it outside the networking area.
-I've been struggling with the same in another non-networking use-case
-as well. I have been building a framework that keeps the benefits of
-generic netlink, extends it and is fd-based.
-I call it CTLV, here's a link to an early pre-RFC draft:
+Well turns out that this is actually a cleanup we should most likely aim
+for and I'm really wondering why we haven't done it like this in the
+first place.
 
-https://github.com/jpirko/linux_mlxsw/commits/wip_ctlv_pre_rfc_draft1/
+Not only resolves it a bunch of issues with dma_resv instances shared by
+multiple GEM objects (we just recently had a bunch of patches for that on
+the mailing list), but also allows TTM to implement it's delayed delete
+handling without any zombie resurrection or similar hacks and DMA-buf to
+have better contention handling on map/pin in the future.
 
-What are the benefits over generic netlink:
+This patch set here is now the idea full flashed out. I smoke tested it
+with amdgpu, self tests and checked everything with kmemleak and of hand
+it seems to work.
 
-- No networking in the dependency chain. No netlink sockets,
-  no CAP_NET_ADMIN, and no network namespace semantics to reason about
-  for a device that has none.
+Patch #1 introduces an interim allocated flag to allow switching users
+over to the new interface one by one. Patch #10 then removes that flag
+again after everything is done.
 
-- One character device per registered instance, not one global family.
-  Access control is the file: udev rules, ACLs, an fd passed into
-  a container. The open mode decides what is allowed - actions need
-  write, queries need read - so there is no permission model
-  to reinvent per family.
+While AI is an automated tool I distrust it to always generate the same
+code. So better using a defensive approach on changing things.
 
-- Events per open file description, not a multicast group.
-  Each descriptor has its own subscriptions and queue, and an overflow
-  is reported in-band: the next read returns an event-overflow record
-  naming the first and last sequence lost and how many.
+Please review and comment.
 
-- Large payloads are referenced, not copied. A blob attribute carries
-  a user VA, a memfd and offset, or a dma-buf fd. Nothing big travels
-  through the message.
+Cheers,
+Christian.
 
-- One YAML specification, everything generated from it: kernel metadata,
-  UAPI headers, userspace bindings and the reference documentation.
-  Introspectio. is answered out of the same metadata the validator
-  enforces, so a device cannot advertise an operation it will refuse.
-  A checked-in ABI snapshot makes any wire change a reviewable diff.
-
-- Family inheritance. A family inherits another's operations and fills
-  declared extension points. The effective schema is resolved per
-  device and the chain is exposed to user. A shared core with
-  per-driver extensions is declared once, and both attributes and
-  operations can be extended.
-
-- Introspection is per-device and live. The framework answers three
-  queries on every device: the family chain, one entry per published
-  operation, and any operation's full attribute tree with its bounds
-  and limits.
-
-  The answer is what this device accepts right now, including what
-  a vendor extension added to an inherited operation and whether an op
-  is currently disabled, and op-changed events carry the generation
-  ops-dump reports, so a dump can be ordered against a change.
-  GETFAMILY and GETPOLICY describe a family statically - there is
-  no device in that model to ask.
-
-- Fragmented queries are built in, with a consistency check.
-  A continuation carries the generation it started from, and if
-  the answer changed underneath it is refused with ESTALE,
-  reporting the expected and the current generation instead of
-  reassembling a torn reply.
-
-- Attributes are 8-byte aligned. CTLV_ALIGNTO is 8, so
-  a 64-bit payload is naturally aligned and there is no per-family
-  padding to remember - netlink's 4-byte alignment is why
-  nla_put_64bit() needs an explicit NOP pad attribute.
-
-- Cheaper round trip. A one-attribute query measured 2.6x cheaper
-  than a genetlink one in the same guest - a debug kernel.
-
-- Async operations using io_uring are planned as a follow-up extension.
-
-The framework owns validation, schema resolution, blob acquisition,
-reply serialization and the event queues. All getters and putters
-are generated helpers. A family implements semantics only, and
-the aim is to make that hard to get wrong.
-
-Would this make sense to use for you?
-
-[..]
