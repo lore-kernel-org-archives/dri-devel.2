@@ -4,43 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2DA8C61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB225C61DC2
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 14:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1734F10F088;
-	Thu, 27 Aug 2026 14:19:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2282410F08A;
+	Thu, 27 Aug 2026 14:21:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TFT4gYce";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="aJj2hc2a";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73A3B10F088
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:19:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 95EBE600D3;
- Thu, 27 Aug 2026 14:19:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC011F000E9;
- Thu, 27 Aug 2026 14:19:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787840394;
- bh=ESru2GpfcWhRVaYcQLXjsdmf5HAS0fthnsuPNAlGccM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TFT4gYceDU/bshZpBDJyJXnTuHm4jDjB7/p6G61pEY2qfCniji6AhYlAelSo3XpSb
- fqqj2iqG8MPp90aVtKZFw7jdUx6PQ1Y0fi7SIWRYp01QGLt3XMVzy0PY1s7sgIu15v
- QDaeecGWpTQnb+qSZQ+VOfhnxK1SnvJ0WrdcLQw8WnmHByJ8+3T9DW5+a0ETUU5hOj
- TCmB0Lql+1gbsGTyQDBZBPhytxG4HqiWNcy/Wndx5fOQbYJGqZG8rCbsUso25KdJ8N
- 3ycf5ZGticYeT2vFSn5W4S6VP53wxZgFlOLefJOAbBxRMI82HH7pDqMXTYfjcf06wh
- nvpSDEcsryjaQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm/edid: Add drm_edid_get_preferred_size()
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827140726.420734-2-tzimmermann@suse.de>
-References: <20260827140726.420734-1-tzimmermann@suse.de>
- <20260827140726.420734-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022101.outbound.protection.outlook.com [52.101.101.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C0410F08A
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 14:21:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ADoX3vEXD2CYd9xK7Jt03sybK0RBnYW6v5hrDDmGCBHS/B5zHx7O5/wrLJ5YbpQPHCEuz8aX88ql71uUS2uS6h6CO+iHKw6iExHbH+Lr27Ev3+0KQnyLb49GqWyoZmJxTfFUYrwAtb0uUj4RcwOlTQkLmC2z6ZqCfL6keZWJZMNtbLXkIk6eY9j6BGeZZIOiohqoiqFk/WlvlmHXgiFpg0OrVwtJbqJMNLkt+nxTm/44uDeCDvK84/xx/DMy6qEi42Rkh+ETuHTaQne4gZ7l/UyamfeF9U+awLCB6cNgz+ydnvBwLo5FTHy7d4ZTCO6HtsqhiQDAk6eWFwjn8Jyvxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dm+owOf4EdKQ3kT8WDRN6+mJXeIWODeB0oo8MvRo854=;
+ b=W1ZXYXh/cfy+AZOyHKQJswEXOBIsKQ5k/HqeSgipmJqcyYmrjr7ig016xxBV34Z744d3QJMg3JIbmFqwaPj5bYd9n+stVbbSX8MGsSnw4aAP+gk8/hzTveaovmIreOqaALRq2ihcBQ/G63Hl4YRnydwcaL1zSOGBZXEbsjDZxL6xEeqZMSvfIRIJtLED/MozLph7dijKn8X0nbaxF9ON6yh6Ekrn1Umc1pBxM2cVbMYb+ab0fVB7ITUS7rLEcAoVj1cx39Ju16gNzbu0866CoeLDT3fCfkonSwMOQvb47R5R1gggnfq16vLDmjz2tlU0KS+hdW4SlarowhylxSTaZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dm+owOf4EdKQ3kT8WDRN6+mJXeIWODeB0oo8MvRo854=;
+ b=aJj2hc2a+bq47x4kjTnuuK/ZrjZeMDQ70kpXUpvXK+9Cl/vJDTG+03OzR6vOI9RZqMXFRsc1Ob8Ho0mlfNrSteRxXau6lR07IbY2C19FRJkBo0vJVNktTF2LzypmBytm/o3DMyBiv2RsmFTgs+SPLpCY7cPz8Ua10sTRE6d2hqw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO0P265MB5359.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:244::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 14:21:30 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 14:21:30 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 14:19:53 +0000
-Message-Id: <20260827141954.2AC011F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 15:21:29 +0100
+Message-Id: <DKZSK6DW84GM.2EARLBR7IPHQ5@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
+ <DKZJ14NCZ37X.31YOYFWBKZ478@nvidia.com>
+In-Reply-To: <DKZJ14NCZ37X.31YOYFWBKZ478@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0633.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:294::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB5359:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe3b666f-8ab1-4591-3dfb-08df04467d04
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|23010399003|7416014|1800799024|376014|10067099003|18002099003|22082099003|4143699003|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info: aeR7BjO5Trezd8EcwQomPCcSPF91er+dnivG+6fiA2YWQYNNR8jDST4d0xFyA8H4p09he2askVwiblnBdX3CbIZF/zkMzqVljHTdY02nz857UfZW6Gu3TNdJH2KA047Z0iT+W7W7SO50Fe0HiMKCrvEDYnxBxe+j31z3wAvXPye4LKFJbaVdj/50MOxAxvcegRGr/8EJWM196A8tKwkQMtT/exXIyr2kmAXW7EQipBgdxLy9CUKQ0ORM+mr4kru7JxoWumL/xYYxJHzetH+iBWniXDHLju6gWN/8J7+DteJ24j5VGDf/jnK1SYak1AhuxoQXOT8Is0rAR7LmZXIXG0r/UWy5l7c7bpMEhnaKlTSl9DG4thSQzYQB7vNcEGZpLYkAmkJr8ofJ1bRJd6XicYJcDgfKDpw2xsqkAlFOPUYfaSQ1VwJ2rmrLKjmeW8qA2Yqo5HKS/HyvH7QHsAnknSP42cCcn1OSZVOVX5lnxlGnDV559FGUT0daewxxTNatDaDqLNoIPm2spwUw5AKnrUc01b8BYjINzGRO7i6w0s6t81HlhC2kseX5JOKSR2DbtTNOscRi/YT0K1kgKox+o5LCi/EOUzns7htwhEqiwPcVsiNv1shi04gMVimjgYCNcqR4cISV9+jtkXYYTka4Sl86yxmA9aMhYd37bNfKxyY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(23010399003)(7416014)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(4143699003)(5023799004)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkFrbTFFQ280NG5WRE9ibUluUWZqZ3FLRTQ3WjgyTFVadVpIWlZQMGZWdEcz?=
+ =?utf-8?B?TExwZzIwWlNGMzZTZCtKUXRaWmZ6TmN3MkN6cEJobmI0Ykw3RmRLbkRzUHJV?=
+ =?utf-8?B?a3V2bUF4bTlUd1RkRGxvSkh5ZDhTZ2tkRDE1TkNLOE1STEpNNVFlYkRyR0lj?=
+ =?utf-8?B?akJtazlheGQ3SmJ1c2RZcXR6dzBJdG1GelNzY1RNUGoxWTJFVFBKMUVqbUI2?=
+ =?utf-8?B?b2NuTjJac2ZRYk92VkFodVNSK0FDcnZMamhqWTVJVUlSNzl0T2tveEVRZHN5?=
+ =?utf-8?B?ZlZEelJNbmFqVElIa3EybXB0SytUWlQxUmpselRZVTNoc2dCNUV6U2tvcHdH?=
+ =?utf-8?B?UFB2bUI1dGdxWWY1UXZvTEdqbkxVNGorVmprUC9MMmhHaURST216SGF5N1Ry?=
+ =?utf-8?B?T1FQZjBxUjVmc0hZSjNpMys3bFpISUx1SjNNQlBlUFkxYURTaWRuVllZRjdF?=
+ =?utf-8?B?MDhNZ0g4RFNJbkZQYlpESXk3elhmUHJxVmF0bk9ZRDVYaVNOaE5tam80V3Fn?=
+ =?utf-8?B?eWpwL1NJR2szcXpjby91aXRMUlVEbk16V1prUTRvS3h0L3JIQlJFYkpqeCsy?=
+ =?utf-8?B?Skp4N0EyYjRqZ1d1SEdxQm1GQnZjMHNOaWFPcWtEZnZOV0I2bmpSU0RZVWxv?=
+ =?utf-8?B?bTgvQ1ZlZTZjNFRmT0M5VXRFb3kyQWphL0xzVmhlcUNLT0V6d0lWTGo1OWhr?=
+ =?utf-8?B?VXJQWjhNU1N1V0RtSXNpYTVrZWJuaElzdXJvQW5HUDE3R0M4bkdCeitqK09z?=
+ =?utf-8?B?RWdDaE9raUlpOFZnNm1lZXVSMk5La25KdXN2YXZ4K0I4ZXl1c1FmMndmUXhq?=
+ =?utf-8?B?Wm04Q2NnRy9qREljbCtwZzJyVHhCaUV5ZUpUT2FsNDhKckZGRnVoYzJ0SHgz?=
+ =?utf-8?B?cEdiWEg2Yi9PZjBOa2NkNXJ6azNQemI2ZCs2M253dENkeWMzcFVsdzkxYUJx?=
+ =?utf-8?B?OXJ5cHc4Z0haTXVBckdyZWxMK3ZrYUh2clZVendwb3BIWVVqdWZ6VTF2QWdC?=
+ =?utf-8?B?N21XMGhnMDhDeGNrS05pbVNwdWJQV0k4bFV2NjF3eHR5eC9EWmN3cWxKZURI?=
+ =?utf-8?B?cTJycGdpbXNzSVZ5SER4aVlsS28rQjZyTzJRTFZnSXpKSlRXOUVwazJ0bGJV?=
+ =?utf-8?B?N3VpY0xIOTA1WVZIOVFNQmxHZHN1aGRrY0ZiNm9YelkzRWhDRENBYW8wNnJk?=
+ =?utf-8?B?SmpiQmRucUtNRXdwcmNvb0Z0Q0lzVE4zQ3g4RGZRNndqZW81aTBFQnRia1BV?=
+ =?utf-8?B?dGdwY3lRdDB0YVBLcGo3YUhvMFhodTY5ek0zWTJhcTRFd0tFYURVdWlWZ1dU?=
+ =?utf-8?B?TEU5ZnIyWm9FckpOTURYV2FJSERvSzVJM2V5aXJ2VThpMStEK3o5Zkw2dGUv?=
+ =?utf-8?B?RHlicnFVTUI5QzRQUEpCOHJuWVVHTHpKazdsamJpcXJ4MUhqeU5MZC9XOG9T?=
+ =?utf-8?B?aEdvYitKM3FldXp5WEE1ZjZMbW93MUhPbE5RNFZPTnl0L3M1Snk3Z216eWJE?=
+ =?utf-8?B?MHJiZHQwUGY0Uno1ZmZJR3pkV1JQbGpwTFRHTmY0UG5LNDdONm1yZW1kT1ZE?=
+ =?utf-8?B?KzE3L1gvOGIzQWZveDIzUHdMT2VyR2JXMVp2amt3Rk9KbUM0MmtyUHJDRERk?=
+ =?utf-8?B?bzIvdkpPNDNpWnJhTmZ0dEJtNGIrVmJqZVEvZUJtT0RQNXpzVU1zRHh5am5i?=
+ =?utf-8?B?WlE3OXNMRkMyaklZQm5LTWh1b1FxTVpKanY5OTN5TEJCaFhlRkN2cWVGRzVs?=
+ =?utf-8?B?Umh6KzFLb1dxTVoxR2pwbGl0cURMbXdGUnRSYnpxTnJWMDVDN0tBbmxiaUxj?=
+ =?utf-8?B?ZGRXR0FBQVNBT1BRcmp5ME1pdkVHYVJFSEc0Y21GbTNIZk5JckJkWTE4Y3NM?=
+ =?utf-8?B?Mktya1NoK2hMNXN5Z1d1SHc5dk5PVDkzclhKWVQvRWhES0FOMERRa3ZnU1dE?=
+ =?utf-8?B?MFBBK296aXprSXYrc0dCRUIvYmZwWVk4NE9nS0NxWlhHZHhiMGlvRlAvQ0o5?=
+ =?utf-8?B?dGFoMTd6RDV0TWJPNWcxc2lmM2lUSW9hYXYxOVhycmw2aTRsQXZPaWxYODRL?=
+ =?utf-8?B?eDNmdmIwdEp4eHlITzBlYTVOaXFGdXB5YmU3OE5zTGxJWG4yenByN3h3b0s5?=
+ =?utf-8?B?NFBYdVBRcG8zYnAzUkVob0ZCU0MyUnIwOXRKZ1dlNW40eDVMb0lzbEp5SFhG?=
+ =?utf-8?B?Q3g0RUhTNWNHZ29vMk1PZzdJSVJMWHcwOU9KTXYwQXQ5VkxFZGxEQ2JHUkF5?=
+ =?utf-8?B?S3pqZ3BDbkQ4WXhqQXpHTUtjaWF1VGRmTEk4WGxrbDNYOVZJK25JN0xZYnBo?=
+ =?utf-8?B?YnhsbE1LSmZKSExqUEw1enBza29DVG9CRXVYd1AwV012SDhqK1REUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe3b666f-8ab1-4591-3dfb-08df04467d04
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:21:30.2479 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y1R5YqzHg0PU0Fhsi6MI7S8NNvOum+72SRv9qtC9j7FAlgIWgG599wz59u/FfSwK3OIffYmraUP8N1M+y0ZMfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5359
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,108 +145,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Pointer Dereference and Logic Error in drm_edid_get_preferred_size
-- [High] Missing EDID Hardware Validation for Detailed Timing Descriptor
---
+On Thu Aug 27, 2026 at 7:53 AM BST, Alexandre Courbot wrote:
+> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
+>> For types that are layout-compatible with an I/O capable type, we would
+>> want the ability to use them directly for I/O operations. E.g.
+>>
+>>     bitfield! {
+>>         pub struct Foo(u32) {
+>>             ...
+>>         }
+>>     }
+>>
+>>     #[repr(C)]
+>>     struct Bar {
+>>         foo: Foo,
+>>     }
+>>
+>>     let mmio: Mmio<'_, Bar> =3D ...;
+>>     io_read!(mmio, .foo)
+>>
+>> Currently this feature is available from `register!()` macro but not
+>> otherwise available with `io_read!`, `io_write!`. Support this by
+>> performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
+>> trait.
+>>
+>> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
+>> remove them; also convert register methods to use the `read_val` and
+>> `write_val` instead.
+>
+> Nice, the redundancy was bothering me a bit so this is clearly a better
+> design.
+>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  rust/kernel/bitfield.rs    |  10 ++++
+>>  rust/kernel/io.rs          | 135 +++++++++++++++++++++++++-------------=
+-------
+>>  rust/kernel/io/register.rs |  15 -----
+>>  rust/macros/io/register.rs |   2 -
+>>  4 files changed, 86 insertions(+), 76 deletions(-)
+>>
+>> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
+>> index a0d089423f21..619c5e2189d1 100644
+>> --- a/rust/kernel/bitfield.rs
+>> +++ b/rust/kernel/bitfield.rs
+>> @@ -308,6 +308,7 @@ macro_rules! bitfield {
+>>          $(#[$attr])*
+>>          #[repr(transparent)]
+>>          #[derive(Clone, Copy, PartialEq, Eq)]
+>> +        #[derive($crate::prelude::FromBytes, $crate::prelude::IntoBytes=
+)]
+>
+> Do we need `FromBytes`/`IntoBytes` for every single bitfield type? I
+> mean that probably doesn't hurt, but if we need them for registers then
+> we can derive them from the register macro.
 
-commit 2d529ec582fce7d82757afd45c986da44f50ceb6
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: drm/edid: Add drm_edid_get_preferred_size()
+These are not needed now (as `AsRepr` provides sufficient guarantee so
+read_val/write_val use unsafe with them instead); but I kept them as I thin=
+k
+it's useful derive regardless. I suppose these are not needed for `register=
+!` so
+direct user of `bitfield` can derive them manually instead.
 
-This commit adds drm_edid_get_preferred_size() to extract the panel's
-preferred display resolution from a given EDID. This is required for
-DRM's panel orientation quirks.
+Best,
+Gary
 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index df3c25bac761d..650ccd05977be 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-
-[ ... ]
-
-> @@ -2844,6 +2844,46 @@ u32 drm_edid_get_panel_id(const struct drm_edid *d=
-rm_edid)
->  }
->  EXPORT_SYMBOL(drm_edid_get_panel_id);
-> =20
-> +/**
-> + * drm_edid_get_preferred_size - Get a panel's preferred size from EDID
-> + * @drm_edid: EDID that contains panel ID.
-> + * @width: Returns the panel's width in pixels per scanline, if given
-> + * @height: Returns the panel's height in scanlines, if given
-> + *
-> + * This function detects the preferred size of a panel from the given
-> + * EDID. There is no such information stored in the EDID block directly,
-> + * but the preferred mode often corresponds to the panel's native geomet=
-ry.
-> + *
-> + * Return: Zero on success, or a negative errno code otherwise.
-> + */
-> +int drm_edid_get_preferred_size(const struct drm_edid *drm_edid,
-> +				unsigned int *width, unsigned int *height)
-> +{
-> +	const struct edid *edid =3D drm_edid->edid;
-> +	const struct detailed_pixel_timing *pt;
-> +
-> +	if (drm_edid->size < EDID_LENGTH)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Use whatever the Preferred Timing Descriptor tells us. For old
-> +	 * and obscure displays, we might need better heuristics.
-> +	 */
-> +
-> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED=
-_TIMING))
-> +		return -EINVAL; /* no Preferred Timing Descriptor */
-> +
-> +	pt =3D &edid->detailed_timings[0].data.pixel_data;
-
-[Severity: High]
-Does this safely handle non-compliant or corrupted EDIDs where the first
-detailed timing block might be a Display Descriptor rather than a pixel
-timing descriptor?
-
-In the EDID specification, a detailed timing block is only a Detailed Timing
-Descriptor if its pixel clock is non-zero. If the pixel clock is 0, the blo=
-ck
-is a Display Descriptor like an ASCII monitor name. By unconditionally
-accessing it as pixel data without validating it, could we end up reading
-overlapping union fields and returning garbage display geometry data to the
-driver?
-
-> +
-> +	if (*width)
-> +		*width =3D (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
-> +	if (*height)
-> +		*height =3D (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
-
-[Severity: High]
-Does this logic incorrectly dereference the pointers before checking if they
-are valid?
-
-The kernel doc mentions that width and height are optional, which implies
-callers might pass a NULL pointer. If a caller passes NULL for width or
-height, evaluating if (*width) will cause a NULL pointer dereference crash.
-
-Additionally, if a caller passes a valid pointer to a 0-initialized variabl=
-e,
-evaluating if (*width) will result in false, skipping the assignment entire=
-ly
-and leaving the output as 0. Should these conditions check if (width) and
-if (height) instead?
-
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_edid_get_preferred_size);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827140726.4207=
-34-1-tzimmermann@suse.de?part=3D1
