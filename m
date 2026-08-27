@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8B3BC61DC4
-	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:46:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB93AC61DC4
+	for <dri-devel@archiver.kernel.org>; Thu, 27 Aug 2026 20:48:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0613410F1BE;
-	Thu, 27 Aug 2026 20:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEACF10F1BF;
+	Thu, 27 Aug 2026 20:48:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S7Eql4aK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J2KUKI3b";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90BE910F1BE
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:46:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38BCD10F1BF
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:47:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5FFF241A6E
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:46:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234FF1F000E9;
- Thu, 27 Aug 2026 20:46:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5BEAE600D4
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 20:47:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E445A1F000E9;
+ Thu, 27 Aug 2026 20:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787863577;
- bh=my7CA58FhcHQJAfdG3+erMAP+U9Zp04aLzW2/KEt5rI=;
+ s=k20260515; t=1787863678;
+ bh=WEyJ6ZFcaf8oHr1hKyJywt7EofH6eg67rUoSPRe2les=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S7Eql4aKFXtCYbsXutpdtOOUF16KkdEeFvtVW4NvUojB9Tp2wk+zsS3dGbZdhBNRj
- EABYi22MTAgNXXb1/p48E9pzme70R09r51slckgvfR70CLXJ4vQOxQSCq5c6JzSuaK
- jyKF6nrSUeCzI43/psye9RA7+t+UmLlWJUzRA2yhVPNrYgNc//Em5bdJYvlC722dUO
- txfCvyGpAd7q+F3yf24QkiMOoq4iA6z2EN0NrCmHmKsO3Oz7QvbJHEhESbQqDWzfDJ
- ltYgNubz1wRYzuvqBSWuci5HnOR4pkyevfGJeBrjIzgURKgl3fvLtCs24LjXat/zOa
- 29EbdXmLkuivw==
+ b=J2KUKI3bi4gDyubDvuLRIEyM6MFDyu18gVBZagbKh7eCpA3Rd0GIbxfew+WTSqyRS
+ 52Exue00JW4voU0SbtEm7irjhngFTQ2WQGAm1Q63toTFXybQbOXYPd6iDcs97/quHW
+ gJNj6TQ+pO9FlwEPyX3UzjP3TFE01n6zAGDkioY1ldFu5hPpXEiiamCk78nNhuHeOy
+ 3+u17lziLY8noIc5NqUTX0rh3bV0W3HYOolBzA5kEfN0HR8gVI/foB0Dd+R94bU4OJ
+ PXGIODLllB5VFoL4sZHH1S9vuwGhfisHbZNQVv5FZxvFWi9c6ZWt2mamR671J9WS7Q
+ EJwNCqIGVcOvQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/11] accel: ethosu: Fix ethosu_job_open() return value
+Subject: Re: [PATCH 05/11] accel: ethosu: Ensure SRAM region size matches job
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260827-ethosu-fixes-v1-1-346f9ea8791c@kernel.org>
+In-Reply-To: <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
 References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-1-346f9ea8791c@kernel.org>
+ <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 20:46:16 +0000
-Message-Id: <20260827204617.234FF1F000E9@smtp.kernel.org>
+Date: Thu, 27 Aug 2026 20:47:57 +0000
+Message-Id: <20260827204757.E445A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,38 +57,89 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The dynamically allocated `done_fence` is leaked on error paths du=
-ring job submission in `ethosu_ioctl_submit_job`.
-- [High] NULL pointer dereference in `ethosu_ioctl_submit_job` error path d=
-ue to premature cleanup of an uninitialized scheduler job.
+- [Critical] Kernel panic due to NULL pointer dereference in `drm_sched_job=
+_cleanup` on uninitialized job.
+- [High] Memory leak of `done_fence` on error paths controllable by userspa=
+ce.
+- [High] Lockless TOCTOU race in IRQ handler causing premature signaling of=
+ unrelated jobs.
 --
 
-commit f1366d3916a7ec335127047da47dbe3724095b0c
+commit ac51039957292dc327d760628e45a0de5289b27b
 Author: Rob Herring (Arm) <robh@kernel.org>
 
-    accel: ethosu: Fix ethosu_job_open() return value
+    accel: ethosu: Ensure SRAM region size matches job
    =20
-    A WARN_ON() returns a 0 or 1, not the original negative errno. Just drop
-    the WARN_ON() as the FD open will pass the return code to userspace and
-    there's only one possible source of the error (drm_sched_entity_init()).
+    It is possible for userspace to set the job SRAM size to 0, but then st=
+ill
+    have SRAM accesses in the command stream. When the job SRAM size is 0,
+    setting the region base register is skipped and a stale base address fr=
+om
+    a prior job is used.
+   =20
+    Check the region size against the job's SRAM size instead of just the s=
+ize
+    of the SRAM. The job's SRAM size was already checked against the total =
+SRAM
+    size.
 
 > diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
 osu_job.c
-> index 6a038c0384ccd..99c8812691e55 100644
+> index c33f2877b3850..0982722a9195a 100644
 > --- a/drivers/accel/ethosu/ethosu_job.c
 > +++ b/drivers/accel/ethosu/ethosu_job.c
+> @@ -441,13 +441,13 @@ static int ethosu_ioctl_submit_job(struct drm_devic=
+e *dev, struct drm_file *file
+>  			if (!cmd_info->region_size[i])
+>  				continue;
+>  			if (i =3D=3D ETHOSU_SRAM_REGION) {
+> -				if (cmd_info->region_size[i] <=3D edev->npu_info.sram_size)
+> +				if (cmd_info->region_size[i] <=3D ejob->sram_size)
+>  					continue;
+> =20
+>  				dev_err(dev->dev,
+> -					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
+> +					"cmd stream region %d size greater than job SRAM size (%llu > %u)\n=
+",
+>  					i, cmd_info->region_size[i],
+> -					edev->npu_info.sram_size);
+> +					ejob->sram_size);
+>  				ret =3D -EINVAL;
+>  				goto out_cleanup_job;
 
-[ ... ]
+[Severity: High]
+This isn't a bug introduced by this patch, but this newly modified error pa=
+th
+can trigger a memory leak. If the region size validation fails here, we jump
+to out_cleanup_job. Does this leak the dynamically allocated
+ejob->done_fence?
 
-While reviewing this file, I noticed a couple of pre-existing issues in the
-job submission error paths.
+In ethosu_job_err_cleanup(), the job is freed:
 
-If the ejob->done_fence allocation fails, it bypasses job initialization but
-still attempts cleanup:
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_err_cleanup() {
+    ...
+	drm_gem_object_put(job->cmd_bo);
+
+	kfree(job);
+}
+
+But it doesn't appear to free job->done_fence, allowing unprivileged
+userspace to trigger a memory leak by intentionally submitting jobs with
+mismatched SRAM region sizes.
+
+>  			}
+
+[Severity: Critical]
+This is a pre-existing issue, but there is a potential NULL pointer
+dereference in the error handling path for this function.
+
+If kzalloc_obj for ejob->done_fence fails earlier in
+ethosu_ioctl_submit_job(), the code jumps to out_cleanup_job without
+initializing the scheduler job:
 
 drivers/accel/ethosu/ethosu_job.c:ethosu_ioctl_submit_job() {
     ...
@@ -97,54 +148,50 @@ drivers/accel/ethosu/ethosu_job.c:ethosu_ioctl_submit_job() {
 		ret =3D -ENOMEM;
 		goto out_cleanup_job;
 	}
-
-	ret =3D drm_sched_job_init(&ejob->base,
-				 &file_priv->sched_entity,
-				 1, NULL, file->client_id);
     ...
 out_cleanup_job:
 	if (ret)
 		drm_sched_job_cleanup(&ejob->base);
-out_put_job:
-	ethosu_job_err_cleanup(ejob);
-
-	return ret;
 }
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling
-drm_sched_job_cleanup(&ejob->base) cause a NULL pointer dereference here?
+Because drm_sched_job_init() was never called, ejob->base.s_fence is NULL.
+Will this cause a NULL pointer dereference when drm_sched_job_cleanup()
+attempts to read the refcount?
 
-Since drm_sched_job_init() hasn't been called yet, ejob->base.s_fence is
-completely zero-initialized. drm_sched_job_cleanup() unconditionally
-dereferences job->s_fence when checking the reference count, which would
-trigger a panic on this memory allocation failure path.
-
-Additionally, looking at the cleanup function called further down that same
-error path:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_err_cleanup() {
-	unsigned int i;
-
-	ethosu_perfmon_put(job->perfmon);
-
-	for (i =3D 0; i < job->region_cnt; i++)
-		drm_gem_object_put(job->region_bo[i]);
-
-	drm_gem_object_put(job->cmd_bo);
-
-	kfree(job);
+drivers/gpu/drm/scheduler/sched_main.c:drm_sched_job_cleanup() {
+    ...
+	if (kref_read(&job->s_fence->finished.refcount)) {
+    ...
 }
 
-[Severity: High]
-This is a pre-existing issue, but will this leak ejob->done_fence?
 
-If ethosu_ioctl_submit_job() fails later in the function (for example, if
-drm_gem_object_lookup() returns an error), it jumps to out_cleanup_job and
-eventually calls ethosu_job_err_cleanup(). The cleanup function frees the
-job container and BOs, but appears to miss freeing the dynamically allocated
-ejob->done_fence pointer.
+[Severity: High]
+This isn't a bug introduced by this patch, but there appears to be a lockle=
+ss
+TOCTOU race in the IRQ handler that could cause premature signaling of
+unrelated jobs.
+
+In ethosu_job_handle_irq(), the in_flight_job is read and signaled lockless=
+ly:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_handle_irq() {
+    ...
+	job =3D READ_ONCE(dev->in_flight_job);
+	if (job) {
+		WRITE_ONCE(dev->in_flight_job, NULL);
+		dma_fence_signal(job->done_fence);
+	}
+    ...
+}
+
+If the threaded IRQ handler is delayed and a hardware timeout occurs
+concurrently, ethosu_job_timedout() clears in_flight_job and the scheduler
+starts the next job.
+
+When the delayed IRQ thread resumes, could it read the new in_flight_job,
+clear it, and erroneously signal the new job's fence before it has finished
+executing?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-ethosu-fix=
-es-v1-0-346f9ea8791c@kernel.org?part=3D1
+es-v1-0-346f9ea8791c@kernel.org?part=3D5
