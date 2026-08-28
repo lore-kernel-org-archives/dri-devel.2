@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E1CEC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:58:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2170C61DBD
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:59:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B673810F279;
-	Fri, 28 Aug 2026 06:58:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B89E10F27A;
+	Fri, 28 Aug 2026 06:59:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZyUjIbwU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="An1GkoTg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8C110F279
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:58:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25E6C10F27A
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:59:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 49E4543269;
- Fri, 28 Aug 2026 06:58:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7581F000E9;
- Fri, 28 Aug 2026 06:58:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2AF99602D4;
+ Fri, 28 Aug 2026 06:59:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28511F00A3A;
+ Fri, 28 Aug 2026 06:59:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787900303;
- bh=4Uc0TyoUmnQsdPxQii/40BTubyCksCk1HR6dMzwoM1Q=;
+ s=k20260515; t=1787900343;
+ bh=lwzt3rJ2E/k+ILtpA4lEnci1czOa2aliqgfiL1i5RJ8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZyUjIbwU3pVsWl8BATOLOFcIdWulaFuL6ss0AVj40bTVyR/F2iAuZym76mVnyp0/T
- uHeifLNxi/jjUuuO5AeonXDLFnHDjUKUMU2kIRzaPSoh73o2AA8x66n32/z4LbKXH4
- fiVp06MkLVH6hrUiA3GRKTWkFK/3nw9GCfD6ifCJJjeDjZOHQPDUXAoG2zPmYAuVLv
- BsCLgSb6nuaMCylhQKfSXXWujfmGGXaDue10CwTJlxY49hSxOMFUNIZeiL7T0qezzf
- zlGEuzvVQORoYq0Yt70euLniUzmr4PbMipN58gTQwiXPy8eoDikWa8WOdQoaTbbPkl
- OO1uOCKQ8C3Jw==
+ b=An1GkoTgg3ERenlEruh4XAo/BaylFysUKDD9IS3oFhxQvemz5RgiX4XbjPJdphHqg
+ enbHVxP8Y1K2k+qrTDvpxKeuKpTTE0XL0hSoZvmW/aW+1ei23G/GbEgZc9YSP1LeP7
+ Q2Sg6HihMM3co3JoBZKH0Li+GWChspSXhWMRcr6X1MDC18IEScEO/3WhlwId6FkZ9a
+ 7I9TcjZx6j4gH4UFHOIFYfjqFruUAYc1/EerkazA6y4feAdIVAYwD5ojtpGXOhwyrF
+ EnO988OtkTyABhSgw64qtb+Eg2DfWthEeXyTr9ez03mDrNk4avkY+Lo9OQ4FHXDEXn
+ 4UwQMISCnhsHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] accel/rocket: Validate BO handle counts on job
- submission
+Subject: Re: [PATCH v5 3/3] accel/rocket: Propagate job submission errors
 To: "Haoming Gao" <Naixumogu@whut.edu.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260828064152.37822-2-Naixumogu@whut.edu.cn>
+In-Reply-To: <20260828064152.37822-4-Naixumogu@whut.edu.cn>
 References: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
- <20260828064152.37822-2-Naixumogu@whut.edu.cn>
+ <20260828064152.37822-4-Naixumogu@whut.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 06:58:22 +0000
-Message-Id: <20260828065823.0D7581F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 06:59:03 +0000
+Message-Id: <20260828065903.B28511F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,121 +57,61 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The job's completion fence is not attached to input BOs, causing a=
- Write-After-Read data corruption vulnerability.
-- [High] Missing practical upper bound for BO handle counts allows hard loc=
-kups and memory exhaustion.
-- [High] Signed integer overflow in task copy loop leads to out-of-bounds a=
-rray access and memory corruption.
+- [High] Unbounded `job_count` allows memory exhaustion and memcg limit byp=
+ass (Denial of Service).
 --
 
-commit b8a6c0c385bb7b291f18a1ccd50949d83223c9d8
+commit 25d3cd6d4d07a127ac97a2a68ff62409e8f7d1fd
 Author: Haoming Gao <Naixumogu@whut.edu.cn>
 
-accel/rocket: Validate BO handle counts on job submission
+accel/rocket: Propagate job submission errors
 
-This commit validates the input and output BO handle counts during job
-submission to ensure they do not exceed INT_MAX. It also changes the
-type of the combined count in rocket_job_push to prevent silent
-truncation before passing it to GEM reservation helpers.
+This commit modifies rocket_ioctl_submit() to return the first error
+encountered during job submission and stops processing remaining jobs,
+leaving previously queued jobs intact.
 
 > diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
 ket_job.c
-> index 3141f210fcd1b..13f4915c1b07c 100644
 > --- a/drivers/accel/rocket/rocket_job.c
 > +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
->  	struct rocket_device *rdev =3D job->rdev;
->  	struct drm_gem_object **bos;
->  	struct ww_acquire_ctx acquire_ctx;
-> -	u32 bo_count;
-> +	int bo_count;
->  	int ret =3D 0;
+> @@ -647,8 +647,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void=
+ *data, struct drm_file *fil
+>  	}
 > =20
->  	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
+> =20
+> -	for (i =3D 0; i < args->job_count; i++)
+> -		rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +	for (i =3D 0; i < args->job_count; i++) {
+> +		ret =3D rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +		if (ret)
+> +			goto exit;
+> +	}
 
 [Severity: High]
-This is a pre-existing issue, but does rocket_job_push() leave input BOs
-unprotected against concurrent writers?
+This isn't a bug introduced by this patch, but is it possible for an
+unprivileged user to exhaust system memory here?
 
-Later in rocket_job_push(), the completion fence is only attached to output
-BOs:
+The loop iterates based on args->job_count without an apparent upper bound.
+During each iteration, rocket_ioctl_submit_job() allocates struct rocket_jo=
+b,
+task arrays, and DRM scheduler objects.
 
-drivers/accel/rocket/rocket_job.c:rocket_job_push() {
-        ...
-        rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->i=
-nference_done_fence);
-        ...
-}
+Because these are allocated using kzalloc_obj and kvmalloc_objs (which
+default to GFP_KERNEL without __GFP_ACCOUNT), they are not charged to the
+caller's memory cgroup.
 
-Because the completion fence is never recorded on the input BOs with a read
-usage flag, could this lead to a write-after-read data corruption?
-
-If userspace submits a job that reads an input BO, and subsequently a second
-job that writes to the same BO, the scheduler might execute the second job
-immediately without waiting for the first job to finish reading, allowing t=
-he
-input data to be overwritten prematurely.
-
-[ ... ]
-
-> @@ -557,6 +557,11 @@ static int rocket_ioctl_submit_job(struct drm_device=
- *dev, struct drm_file *file
->  	if (job->task_count =3D=3D 0)
->  		return -EINVAL;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does rocket_copy_tasks() have
-an integer overflow in the task copy loop?
-
-In rocket_ioctl_submit_job(), task_count comes from userspace as a u32 and
-is passed to rocket_copy_tasks(). If job->task_count exceeds INT_MAX
-(e.g., 0x80000005) and the array allocation succeeds, the iteration uses a
-signed int:
-
-drivers/accel/rocket/rocket_job.c:rocket_copy_tasks() {
-        ...
-        for (int i =3D 0; i < rjob->task_count; i++) {
-                struct drm_rocket_task task =3D {0};
-                ...
-                rjob->tasks[i].regcmd =3D task.regcmd;
-                rjob->tasks[i].regcmd_count =3D task.regcmd_count;
-        }
-        ...
-}
-
-Because i is compared against the unsigned rjob->task_count, the loop
-continues after i overflows and wraps to negative values. Will this result =
-in
-an out-of-bounds array access and memory corruption when writing to
-rjob->tasks[i] with a negative index?
+Could a user pass a massive job_count to the ioctl via the DRM render node
+to bypass container limits and trigger a system-wide out of memory conditio=
+n?
 
 > =20
-> +	/* GEM lookup takes a signed object count. */
-> +	if (job->in_bo_handle_count > INT_MAX ||
-> +	    job->out_bo_handle_count > INT_MAX)
-> +		return -EINVAL;
-> +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does bounding the BO counts
-to INT_MAX still allow for hard lockups?
-
-If userspace submits a job with in_bo_handle_count set to INT_MAX, the check
-passes and drm_gem_objects_lookup() will allocate massive arrays and iterate
-over 2 billion times inside spin_lock(&filp->table_lock).
-
-Could holding a spinlock for that duration exceed the NMI watchdog timeout
-and cause a system crash due to a hard lockup?
-
->  	rjob =3D kzalloc_obj(*rjob);
->  	if (!rjob)
->  		return -ENOMEM;
+>  exit:
+>  	kvfree(jobs);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828064152.3782=
-2-1-Naixumogu@whut.edu.cn?part=3D1
+2-1-Naixumogu@whut.edu.cn?part=3D3
