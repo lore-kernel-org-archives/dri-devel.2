@@ -4,105 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59321C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 01:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C509C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 01:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88AA510E428;
-	Fri, 28 Aug 2026 01:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F324310E41C;
+	Fri, 28 Aug 2026 01:24:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="GkHj+nuf";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pg4+nc/D";
 	dkim-atps=neutral
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com
- [209.85.216.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D9410E428
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 01:17:24 +0000 (UTC)
-Received: by mail-pj1-f97.google.com with SMTP id
- 98e67ed59e1d1-3964e76d0f4so361503a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 18:17:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787879844; x=1788484644;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=HKFBwDyQOTBtP3LF8rbCVIQqdBEXNYZb1kTqyGwOWOk=;
- b=h9atwAdX+tg0Wi6t/t73VuToP2WgPszVBqKi3oFNqW9VcAGwhORR138SeatNRw4tcJ
- Rog8eZQkuG2gbN26d/r6UZlruSiRAydHYd6+S68c+mcRLIf6uFS8pJUEb7zXfjP5Pkfr
- vL/uVClvTq1KVFp1lItfaVwzCI20mf0zlHxTvDB6LOe9gvznx+jj1snfFh8s9V4n2KAC
- bPY+4l5a63PdWENNxnXAAA8w1B+MY3BS/0faCERov77/aNHNjfOSKYodrSzL7xJhP+0N
- 4aihsnhv7iQJbMhcKESs1AVmZqYMjB7FFlSb7gklWWTM3x85yEJfg+Hq7ZZ+HdzV/MZx
- pxXg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rry8HdkXNvgFsFulJhMLQizE72nkGyf6jxwnpZspUbtrYaudtTB8fWAg2/s3L4fHSjpCRGiKv1CWjI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mpzTyWjPcYj93GqhT89pFmSNJH8o6r8Hcwqw54ORpb8NX/Aajp
- 3ZO93VyV84dSOISsCLn0ftezvqq7oEoytqPNUAYjICPfqLV56MeOZgWaEaovOU3DCbKcDVHapAy
- qiay3ni3yCnXUYPUMT+IJadgcFKdfCFzgEEnfIkqJ/lG0JxK/GTbhZmnqpqlApygx+g9X/WGuOZ
- n8b5fFFJfuBTKlb66RcjsfbDnL3tDxSaoe8fPkcNyDSmaWDIOpl8RVrC8ktKZRDpvPoO/VumdOi
- KsV/kwU5GHGnn0Zu2FdQCdqve/h
-X-Gm-Gg: AR+sD10ovAOn4nz7UwZRKyGMabHOGPDJjAD44MvPvygQxR+klTpBcHE/Js2RQjAgrA0
- 9LYz4hVMIE8iPquKdXRbmKIad2fNZIdZx7cqZx4QxP6Of4yRSg8++8OG0v4VgSlXY72T+KUiEGk
- ixSzH9LwvgeLf5FVnx6sNDRD7MtLnQC9+mGLRVFpDCkKrzPV/r9c5A9OPrsuUmZgy2+BGH6wrT1
- 9/4XAkoRWrbwTk+3BxuDimY4JQT+y8OVcm/NqvpjjiY3Iiqj5lCheUmv3eIsL1+y39i7EqQYh9Z
- fYm/I3Ng2kAVHtw4UzxnLxI3t5L9f7tHrA82gFrqBp5RadkoJ3s0ELf+GPV9M6hoFU5EYhJagKz
- rO6au++RAL0WpFqJjpUrBHIxAlQaB9kZqvW4W2Sq2X5gwwK9jugZG9k3i5LHk/tSBnzv8+L2hZM
- GuWi1/ZkAOHluMKtuQxgknA2+Mvecrpy+0vyIGMlZu
-X-Received: by 2002:a17:90a:e185:b0:37f:eafd:3505 with SMTP id
- 98e67ed59e1d1-396d0ecbdb9mr6806289a91.6.1787879844103; 
- Thu, 27 Aug 2026 18:17:24 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
- by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-396b0d3785csm1628896a91.2.2026.08.27.18.17.23
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 27 Aug 2026 18:17:24 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cc1cb806660so523833a12.3
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 18:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1787879842; x=1788484642;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=HKFBwDyQOTBtP3LF8rbCVIQqdBEXNYZb1kTqyGwOWOk=;
- b=GkHj+nufam1PwgHYj9TKcVfiEldnA/5blGIop9r+UPFKNfdpl/Rwx/lxpXfmc1zPU3
- jmr6l0V6JFfxbqow8akr+/qUN56YiKF5jcZTbON+TEcxF59zETn//1eSL9vpokbkI9WY
- 4h9U8y0OPZFJXzDLs94/AXMrdXw0EotlcYWVM=
-X-Forwarded-Encrypted: i=1;
- AHgh+RrO/9tEdmb9C4Inu9Wqmqt3wDf/bGGfFIy2kW5MvMC4Fbyl8tcr9DubnIueG6CuQnhAhgXagk0MtG8=@lists.freedesktop.org
-X-Received: by 2002:a05:6a21:6b87:b0:3cc:f008:8123 with SMTP id
- adf61e73a8af0-3d266582c55mr6446021637.8.1787879842201; 
- Thu, 27 Aug 2026 18:17:22 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6b87:b0:3cc:f008:8123 with SMTP id
- adf61e73a8af0-3d266582c55mr6445905637.8.1787879841719; 
- Thu, 27 Aug 2026 18:17:21 -0700 (PDT)
-Received: from [10.211.247.235] ([192.19.50.250])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-142e0d4b336sm1055689c88.8.2026.08.27.18.17.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Aug 2026 18:17:21 -0700 (PDT)
-Message-ID: <ef11cc4a-fbaa-415a-bda1-2ac491f3b5e2@broadcom.com>
-Date: Thu, 27 Aug 2026 18:17:28 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION
- as unset
-To: fausten <yunfeng.li.nb@gmail.com>, dri-devel@lists.freedesktop.org,
- zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org
-References: <20260823083211.2654733-1-yunfeng.li.nb@email.com>
- <20260823085916.2707488-1-yunfeng.li.nb@gmail.com>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Content-Language: en-US
-In-Reply-To: <20260823085916.2707488-1-yunfeng.li.nb@gmail.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011066.outbound.protection.outlook.com [52.101.52.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 311B810E41C
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 01:24:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DU+p8PBBPGSaGIX3hXQdO9AA8LtXfeme8jF3iz6xicFl1nOZc1VLah4yufxUYTGVsL/T/NeWCB/wWQRzbPqMKPVAFwyTe10wHutMrpjqKbfVGoC5sZRmqfQ1Z/JBm/gHC/fC6dR7EnFHIiVFkEYdUSsZkp7yVoRqvRK3DxPajVACzf/VrlT6CD5d+sF5poZHjlqfIhNCboQ1h4KDDzskq+6xztJ+UA+MG3eTIKGjCTGjZPZiaqO2JMQIFeB4wFqG5I6NYsOGBOo8gfEk0AmbWJVwimV8W8M4GYylCz0wZf1BbW0/ifWV2WalYKtoTM3lIMygk7CE/ewqv3bFPV5teA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q5ezPP9lEklnxhxCy09eLKQrvigLrH1u/1n1eshQzvM=;
+ b=yPtV2ysy3JCAOz1DrrAOjMM7CwI+UyeEqSjTXXpxsZcZTWTwWYXjsLqoQyj4P12zNkHMnle+A2qsH9x2ZMYz2j98ZPKToUGRccQ+XW7EogvrrEi7aZ42Ol+OcpHeUZadiz29EU6x2G3cQsf0VS3EZa9NaZ7eYQ28BQIabCCqL+eMNP+fQ3UbD15p6KFH/LFKpqAgHXd4U0ZdXCodJYJS2RqxOQrU/MDEBh+m3V+ewnIDiSrcQwA4JEnKy2MIWUqPJiFtYr6xXsKymvA2ehG/u/yNpYcWqPdhhYarX3wSfi+FEKx9+4M2YaI5q9RqTFqc6llz6inKJD92WSyyUASFUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q5ezPP9lEklnxhxCy09eLKQrvigLrH1u/1n1eshQzvM=;
+ b=pg4+nc/Dtsu9LCBzIl9vwb8pGorv9x4YAPDH5xx8B/oV763MnQQxxkg8LUrtbUDmdK2KJAn65pBMhqdtBdUxzHmXaSPgBu6QhpaFb5x1eTUjzdrttXTOektglC1MyeV2mOT3B8RlBDC43bb/y7lj7W2LMZ5aljkwARHOaJSFwy8wv+FFuAABStnB/Y6kS0hrtdCQXyEqD9IibWZuCz6ZZcPzz1Jxrb0Oy6Iu5OH7c9+s5M9LA+dPJWW9Op6138bXUW9B/BEh985ZvCVygObPUJ3WbqUQJ0+VpSeQhDmHEHrPK/KjUIzMm2mJ5GAyUvN7dEN4DGsLC5ZSuEYjA1QMhw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by MW4PR12MB7359.namprd12.prod.outlook.com (2603:10b6:303:222::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Fri, 28 Aug
+ 2026 01:24:36 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Fri, 28 Aug 2026
+ 01:24:35 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Date: Fri, 28 Aug 2026 10:24:33 +0900
+Message-Id: <DL06NUYLYW5K.1T755UK73WYHO@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 12/16] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-12-3699a75fadf1@garyguo.net>
+ <DL068LFDXPM1.7A1482C1UJF@nvidia.com>
+In-Reply-To: <DL068LFDXPM1.7A1482C1UJF@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0100.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37b::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW4PR12MB7359:EE_
+X-MS-Office365-Filtering-Correlation-Id: b49ae92d-e257-4927-647c-08df04a31f02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|23010399003|10070799003|1800799024|366016|10067099003|56012099006|22082099003|18002099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: 3+4mk+sa0paKEHVes51MHeUhY8zKScI7IDuhAVb7KAjVbFH0dm5DRxKc6hZUmHHpdZgyDzSTg0x+MXOdWuM7MjojRVBI/PAfQfPFBzxQTkgB/R8kw8z0OHWS/kepaV7OFgFc78KNAXfKLc12dgdoxNfPyoqlQziTr6XvmBVUu4yKr/hgzyRXBx1KWehEyRV5wyhRtVEPubE/d4t0YRpuR9Hi7WYSMWjrclRLE6uQSQeVmW2kMwwQLGFCNQwI/1DurHO0TX8UQnbahzXrcGsO+Iq2Ib5fVvo6CY6YBJ1j0NCeZJQ7cQHgaFikfDSi8JQW1h3cJly6sMOhTWGdUmgfSn6/8Nd8IGWKhzBUWkeMG6Bq3EXO+x1c+M4TqRWug76XAhMs+2GWA3e2ozRP4pZ8jGEA/SNz8vkx4jM6JsaZkVJi4rn/LkK1sIpcoIYtybLwiE6goBAXJOxuWjDePzcRPu4PxnzlIwUazWRXy+07uJMKGnyDVtfkmRqRJo48iYRRWRboZkJ1wYHinK0/hod8N5LXlH0MGpwgN3zQxG2Mjg6W6LuSwFFlS9Iwrx6pLcD39Z4bwsBFqEHqyy7V+zCpN64Houj9AMpIaYiKhPQCjcfyST2TNH3gYJLRxAy3s04U4C+9q6pAUaV6PnYAHrSRviuja2sroNAk/vRAZzBXcGs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(23010399003)(10070799003)(1800799024)(366016)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzVYMUVPckZSWFh1QTBiR1lyTTVxd3NJZXk3ZnJRM2Iya01ManpBdmowQ3pV?=
+ =?utf-8?B?NTdQV2kySExNVTlWSW56RzBoUzd2QmRUOEtjeE9BWGxjVGdWRjVvZG50NnhK?=
+ =?utf-8?B?QTZHNGVPVHNhdmlYb0tpS3RrTUYrSHRvOW16V3FCbGhNOG15Rnd3QXJCWDdv?=
+ =?utf-8?B?N29QaEx4ci9DV2hZa09mOWFaNytVcHh1bytSWktSelFqTjRSVmljZmxjQzFT?=
+ =?utf-8?B?eWwvM0k0SEloQmhqeEMvVTBZc3YyTkxoQmZ6ckpjbEc4dWxlcXhNeFdEZ2Fq?=
+ =?utf-8?B?VWV2dGRPSWpnNGVZeldXQnJCTVlRUC9XWUFtbDJHOEhYekNzQ295ZVpSTFI5?=
+ =?utf-8?B?RC9TejRHNG03azQ5SHNHRHptV1dwMXhtSWRJcVJ4aGZnbzMydEZaenJRcmxa?=
+ =?utf-8?B?aWpYUVpFYlpZbHNRVzhTQ0NCMHZRRlZnL0JNRWFjVm1GVW4yOHk1VkN5NjBZ?=
+ =?utf-8?B?Lzh4Nk4yOUFRTkV3S25hTTdCblMzazFCUlpKRlpVaG9QUXFabTJ0UWc5VTB5?=
+ =?utf-8?B?Z0VlakhISnJPY1c4OWFYcVRSbndpVFc2VWVQUDgwSkJOVXRUeEN4RkVkR3hl?=
+ =?utf-8?B?Rm5ldkpJV0tMUlZMTTZIdTFGdEdUL25QNTJZc3Zsbk5Hb003clgydVNOME1J?=
+ =?utf-8?B?K1VTNFJWcHhRWWY1SHU4MUlHWS83MzNhUmRLbi9ML3BNTUNwczdYZzNkZXJ0?=
+ =?utf-8?B?d3djbjVjM1ZjY3JJeDhRSGkremgxSlBKSE4xbUp4LzNTUmltL2hHWVN4ZGJa?=
+ =?utf-8?B?MXNmZ1Rlc1djSk55SzE1RzJ2SnZ0c1FIbTFJME9KMnlPbXpLM3Zaa0IveS9G?=
+ =?utf-8?B?eG9saVRvU2FHSFVMOHZncHNyUHg0Rmh2WHU1Mmt0a2ZOSzJUUWNnQzVXekhI?=
+ =?utf-8?B?TjZEcEcrbTVxa3JWL2lVL1BkdXdoZ2ZWb1JwM0FwZmt0aVUxZ2UzM0JlcnJV?=
+ =?utf-8?B?RHZpYTNiSWtJM2pnSkpxZjRRMC9TVzZiMllKMFdKRnhyRWJFSk5rdFZkTnRm?=
+ =?utf-8?B?UUtkWEVpZFEveFdsblhzblRsVVA4bUIyNUFRZnRmY1pjcWdZUm11VHk1b0JI?=
+ =?utf-8?B?V2NLYTk2MzMrR2RjcjlYVHhtUWNWUzRHci9NbDNFMXFBV1FsQWRZUXZ3akZt?=
+ =?utf-8?B?bDNuVUdhUG9vUUp2dndzY28rRVliZ0tmM3lMaGFVRHMxUXY0clVTdEVyaEtz?=
+ =?utf-8?B?N3VkeHZ4TEJOUUN0SjJJbjJqN3lVcnBCMm1NQ0twVFJ0VWJyV1Q1UDRVOXNM?=
+ =?utf-8?B?T3ByM3hvaG1YTW1HcGV4cWM3bGVXdjJBYWFRRkJlY1MxZDJObXF2YzM3WDdL?=
+ =?utf-8?B?VHFSVGpVWmxHK0llMFFJSFpsZnR3RDJpNmRsZlhSSEZ0SU1PR2ZOOHQ5NjFN?=
+ =?utf-8?B?TjlvWkxtQzQ2UnRSUUZNSHp2Vy9rY3VxWStuUXY0eHgzdzJrNmd1bVA4R2xh?=
+ =?utf-8?B?YjB5L3NkRVZNSzNPNWhwbzVud1Jhb2d4cGNuT3JqNXlTc0FHQjRBZTRKaHhU?=
+ =?utf-8?B?VCtXWjl2NktocVJjcVFnZUNKRlRSUUg1MmxVT1V0QU5sSG5yV2JpSHlqbGxa?=
+ =?utf-8?B?OUhMcDVkRFRodFYwbnV1MVBHZFZsSEJVdE9ZTGhQNXBKNXFQdTc2WnM0QXFs?=
+ =?utf-8?B?dFlMRzlxZSt2aWg3bWJLWXhSYXFBaXc3L2RaenRJMEozMzhWZGFydm5sTGty?=
+ =?utf-8?B?aHZCc0p2ZHcrdmlMb3JrOWRiWWRtK1lscmszUzRoYnZmTUcrZ0hVMVVFMnYx?=
+ =?utf-8?B?aWJQY2d0VVVmMGRJUUJtWnlYdUJXMnB5RFQzNHhqV3pkT2JQcVdqOFFkdmxF?=
+ =?utf-8?B?ampHNndXK2ZISVNHeTBJY1M1QnpianNlcS9kU0F2elFOdjRpTlBwREltWHBY?=
+ =?utf-8?B?WUovNWkxNFcyejVMRkhpZVM5ZWpzWVY0b1ZSUkVnUWVMZmtpNGpJazZqQUZy?=
+ =?utf-8?B?eHRlQklYTVBGS1pEOVNneEh0b3l5WkZZemJFS1UvWmhnWE4weUYrN3o3by8x?=
+ =?utf-8?B?dGhrb05QY2Y3eDFOOG1pUkgrRlViSkRvWEtwcm1GMTdSQWNLSXh4UEpJSmZF?=
+ =?utf-8?B?Q0piMi9aWUFFN3RXMUN6RGozc3hDMUxrK2R1OERQVzhHK0wxNHJ3QkZqRmlq?=
+ =?utf-8?B?cCtaUTdzbE5Pekk3OFVNa251TXk4OTJwUTZkZzJJSzBDdktvVEFBZzFXY3pz?=
+ =?utf-8?B?UGtCYVRDVmdSQUpUMlNlOG9lZUZNTklhN0NJYU5BWmN5SERRa0lKS0twb01T?=
+ =?utf-8?B?cjdGTDBXUHVORVFsdkZvOExOQ2Z2bGczZUpmSjBRTlpTZmdSYlNjQ05YU1oy?=
+ =?utf-8?B?RGZKL2M2Y05LcVpVS0tFb0Jqc2MrTkcrR1RjSCtDOTgzazEyL2NjREdUSkNT?=
+ =?utf-8?Q?bVGp9SwIr5DBc+ZjbhP2zVxucQB6gMC675iY3Jzt5BfBl?=
+X-MS-Exchange-AntiSpam-MessageData-1: Dxn7w+7BnaUmcg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b49ae92d-e257-4927-647c-08df04a31f02
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 01:24:35.7576 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aR2c/jfo/apZWwRV1K8vQcplGhebxHjaw7wnkENw6x8ZFju2dwYC4l4yX/KdftlyNS+s839QKUj54B67ETZRpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7359
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,76 +150,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/23/26 1:59 AM, fausten wrote:
-> The cursor plane code validates cursor dimensions against
-> SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
-> rejects the update with -EINVAL if the cursor is larger than the
-> reported maximum.
-> 
-> However, some SVGA implementations do not implement this register
-> and return 0 for it. In that case every cursor update is rejected,
-> and the log is spammed with:
-> 
->   [drm] Cursor dimensions (64, 64) exceed device max 0
-> 
-> The visible symptom is that the hardware cursor never appears at
-> all on VMware Fusion guests (SVGA version 2), making the mouse
-> pointer invisible even though the input devices work fine.
-> 
-> Treat a reported maximum of 0 as "not implemented" and skip the
-> dimension check in that case, restoring the pre-existing behaviour
-> of accepting the cursor.
-> 
-> Tested on VMware Fusion with an SVGA version 2 device where the
-> cursor previously did not show up.
-> 
-> Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
-> Signed-off-by: fausten <yunfeng.li.nb@gmail.com>
-> ---
-> Changes in v2:
-> - Fix author name and email address (v1 was sent with a wrong From).
-> 
->  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> index d1e7df500..fbdd23ecb 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> @@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
->  	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
->  	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
->  
-> -	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
-> -	    vps->base.crtc_h > cursor_max_dim)
-> +	/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
+On Fri Aug 28, 2026 at 10:04 AM JST, Alexandre Courbot wrote:
+> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
+>> Add fixed size region types `PFalconRegisters` and `PFalcon2Registers` a=
+nd
+>> update PFALCON and PFALCON2 registers to be fixed register on them and n=
+ot
+>> relative registers on `NovaRegisters`.
+>>
+>> Update `Falcon` struct to store projected views when constructing and
+>> access with `self.pfalcon` and `self.pfalcon2`.
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>
+>> ---
+>>  drivers/gpu/nova-core/falcon.rs                    | 157 +++++++++-----=
+-------
+>>  drivers/gpu/nova-core/falcon/fsp.rs                |  63 +++++----
+>>  drivers/gpu/nova-core/falcon/gsp.rs                |  51 ++++---
+>>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  62 ++++----
+>>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   9 +-
+>>  drivers/gpu/nova-core/falcon/sec2.rs               |  37 +++--
+>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  18 +--
+>>  drivers/gpu/nova-core/gsp/hal/tu102.rs             |   7 +-
+>>  drivers/gpu/nova-core/regs.rs                      |  92 ++++++------
+>>  9 files changed, 238 insertions(+), 258 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/fal=
+con.rs
+>> index 65cb12d26e2b..119d305e2ea3 100644
+>> --- a/drivers/gpu/nova-core/falcon.rs
+>> +++ b/drivers/gpu/nova-core/falcon.rs
+>> @@ -14,13 +14,12 @@
+>>      io::{
+>>          io_project,
+>>          poll::read_poll_timeout,
+>> -        register::{
+>> -            RegisterBase,
+>> -            WithBase, //
+>> -        },
+>> +        register::Array,
+>>          Io,
+>> +        Mmio, //
+>>      },
+>>      prelude::*,
+>> +    sizes::SZ_4K,
+>>      time::Delta,
+>>  };
+>> =20
+>> @@ -165,18 +164,22 @@ pub(crate) enum FalconFbifMemType with From<Bounde=
+d<u32, 1>> {
+>>      }
+>>  }
+>> =20
+>> -/// Type used to represent the `PFALCON` registers address base for a g=
+iven falcon engine.
+>> -pub(crate) struct PFalconBase(());
+>> +/// Type used to represent the `PFALCON` registers.
+>> +#[repr(align(4))]
+>> +#[derive(FromBytes, IntoBytes)]
+>> +pub(crate) struct PFalconRegisters([u8; SZ_4K]);
+>> =20
+>> -/// Type used to represent the `PFALCON2` registers address base for a =
+given falcon engine.
+>> -pub(crate) struct PFalcon2Base(());
+>> +/// Type used to represent the `PFALCON2` registers.
+>> +#[repr(align(4))]
+>> +#[derive(FromBytes, IntoBytes)]
+>> +pub(crate) struct PFalcon2Registers([u8; SZ_4K]);
 
-The issue here is not with vmware fusion but the hw version, SVGA_REG_CURSOR_MAX_DIMENSION requires cursor mobs,
-which are available only on hw versions 18 and above. Please correct the comment here and below to reflect that.
-
-> +	if (cursor_max_dim &&
-
-Could you instead do cursor_max_dim > 0 here and below.
-
-> +	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
-> +	     vps->base.crtc_h > cursor_max_dim))
->  		return -EINVAL;
->  
->  	if (vps->cursor.mob) {
-> @@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
->  		u32 cursor_max_dim =
->  			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
->  
-> -		if (new_state->crtc_w > cursor_max_dim ||
-> -		    new_state->crtc_h > cursor_max_dim) {
-> +		/* Some SVGA implementations (e.g. VMware Fusion) report 0 here. */
-> +		if (cursor_max_dim &&
-> +		    (new_state->crtc_w > cursor_max_dim ||
-> +		    new_state->crtc_h > cursor_max_dim)) {
->  			drm_warn(&vmw->drm,
->  				 "Cursor dimensions (%d, %d) exceed device max %u\n",
->  				 new_state->crtc_w, new_state->crtc_h,
-
-
--- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Actually one more nit: while `SZ_4K` is correct, these should ideally be
+named constants instead of being hardcoded.
