@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1396C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72463C61DC6
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7693A10F299;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98A8510F29B;
 	Fri, 28 Aug 2026 07:44:57 +0000 (UTC)
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
  [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD0C610E456
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B18B310E45B
  for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:08:24 +0000 (UTC)
 Received: from Mogu.localdomain (unknown [223.73.65.69])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4ba72fe21;
- Fri, 28 Aug 2026 13:08:21 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4ba72fe22;
+ Fri, 28 Aug 2026 13:08:22 +0800 (GMT+08:00)
 From: MoGGuU <Naixumogu@whut.edu.cn>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 Cc: Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
  Sidong Yang <sidong.yang@furiosa.ai>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v3 1/3] accel/rocket: Validate BO handle counts on job
- submission
-Date: Fri, 28 Aug 2026 13:08:03 +0800
-Message-ID: <20260828050805.38548-2-Naixumogu@whut.edu.cn>
+Subject: [PATCH v3 2/3] accel/rocket: Collect job dependencies before arming
+Date: Fri, 28 Aug 2026 13:08:04 +0800
+Message-ID: <20260828050805.38548-3-Naixumogu@whut.edu.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
 References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa046c4dbb403a1kunma5b495348836b
+X-HM-Tid: 0aa046c4de0603a1kunma5b495348836d
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDThgYVh1JT0pPHR9NH0pLGFYeHw
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHxhLVktPGkIYSUsfSE9MSFYeHw
  5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 X-Mailman-Approved-At: Fri, 28 Aug 2026 07:44:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -51,50 +50,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The input and output BO handle counts are __u32, while GEM lookup and
-reservation helpers take int counts. A count above INT_MAX cannot be
-represented safely by the GEM lookup helper.
+rocket_job_push() arms the scheduler job before collecting its implicit
+dependencies. Dependency collection can fail with -ENOMEM, but an armed
+job must be pushed and must not be aborted with drm_sched_job_cleanup().
 
-Reject each count above INT_MAX before looking up the BOs.
-
-rocket_job_push() already uses check_add_overflow() for the combined count,
-but stores the result in u32, so it only detects unsigned wraparound. Store
-the result in int so sums above INT_MAX are rejected before the count is
-passed to the reservation helpers.
+Collect dependencies before taking the scheduler lock and arming the job.
+Only operations that cannot fail remain after drm_sched_job_arm().
 
 Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Cc: stable@vger.kernel.org
 Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
 Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
 ---
- drivers/accel/rocket/rocket_job.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index bb77b6bf0f231..e6052d1973afa 100644
+index e6052d1973afa..b55e12aecfe64 100644
 --- a/drivers/accel/rocket/rocket_job.c
 +++ b/drivers/accel/rocket/rocket_job.c
-@@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
- 	struct rocket_device *rdev = job->rdev;
- 	struct drm_gem_object **bos;
- 	struct ww_acquire_ctx acquire_ctx;
--	u32 bo_count;
-+	int bo_count;
- 	int ret = 0;
+@@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+ 	if (ret)
+ 		goto err;
  
- 	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
-@@ -556,6 +556,11 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- 	if (job->task_count == 0)
- 		return -EINVAL;
- 
-+	/* GEM lookup takes a signed object count. */
-+	if (job->in_bo_handle_count > INT_MAX ||
-+	    job->out_bo_handle_count > INT_MAX)
-+		return -EINVAL;
++	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
++					   &job->base, false);
++	if (ret)
++		goto err_unlock;
 +
- 	rjob = kzalloc_obj(*rjob);
- 	if (!rjob)
- 		return -ENOMEM;
++	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
++					   &job->base, true);
++	if (ret)
++		goto err_unlock;
++
+ 	scoped_guard(mutex, &rdev->sched_lock) {
+ 		drm_sched_job_arm(&job->base);
+ 
+ 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+ 
+-		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+-		if (ret)
+-			goto err_unlock;
+-
+ 		kref_get(&job->refcount); /* put by scheduler job completion */
+ 
+ 		drm_sched_entity_push_job(&job->base);
 -- 
 2.43.0
 
