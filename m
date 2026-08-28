@@ -4,37 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 981C3C61DD4
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:45:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5810FC61DC6
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F50810F2A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7CD910F2A6;
 	Fri, 28 Aug 2026 07:44:58 +0000 (UTC)
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
  [45.254.49.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 797DC10F26C
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:42:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B53F310E45F
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:08:24 +0000 (UTC)
 Received: from Mogu.localdomain (unknown [223.73.65.69])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4baa740d7;
- Fri, 28 Aug 2026 14:42:05 +0800 (GMT+08:00)
-From: Haoming Gao <Naixumogu@whut.edu.cn>
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4ba72fe20;
+ Fri, 28 Aug 2026 13:08:20 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 Cc: Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Sidong Yang <sidong.yang@furiosa.ai>, Greg KH <greg@kroah.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH v5 1/3] accel/rocket: Validate BO handle counts on job
- submission
-Date: Fri, 28 Aug 2026 14:41:50 +0800
-Message-ID: <20260828064152.37822-2-Naixumogu@whut.edu.cn>
+ Sidong Yang <sidong.yang@furiosa.ai>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v3 0/3] accel/rocket: Fix job submit error handling
+Date: Fri, 28 Aug 2026 13:08:02 +0800
+Message-ID: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
-References: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0471aabdd03a1kunmd9ea7a958c2ac
+X-HM-Tid: 0aa046c4d93903a1kunma5b4953488364
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkMZVkxITB8aSRkZQxgZQ1YeHw
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSBoYVkhDH04aH05LGE0fS1YeHw
  5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 X-Mailman-Approved-At: Fri, 28 Aug 2026 07:44:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -52,51 +48,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The input and output BO handle counts are __u32, while GEM lookup and
-reservation helpers take int counts. A count above INT_MAX cannot be
-represented safely by the GEM lookup helper.
+Several independent error paths in the Rocket job submission ioctl can be
+triggered by unprivileged userspace. This series validates userspace BO
+counts before passing them to helpers with signed count parameters, collects
+implicit dependencies before the scheduler job is armed, and propagates the
+first per-job submission error to userspace.
 
-Reject each count above INT_MAX before looking up the BOs.
+The series was tested on RK3588 with zero task counts, invalid task pointers,
+invalid BO handles, and oversized BO counts. The requests returned the
+expected error codes without warnings or errors in the kernel log.
 
-rocket_job_push() already uses check_add_overflow() for the combined count,
-but stores the result in u32, so it only detects unsigned wraparound. Store
-the result in int so sums above INT_MAX are rejected before the count is
-passed to the reservation helpers.
+Changes in v3:
+- Keep the individual count checks before GEM lookup, but change bo_count to
+  int so check_add_overflow() rejects combined counts above INT_MAX, as
+  suggested by Sidong Yang.
 
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Cc: stable@vger.kernel.org
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
-Signed-off-by: Haoming Gao <Naixumogu@whut.edu.cn>
----
- drivers/accel/rocket/rocket_job.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Changes in v2:
+- Split the three independent fixes into separate patches as suggested by
+  Sidong Yang.
+- Rebased onto the current drm-misc-next branch.
+- Dropped incidental blank-line-only changes from the original patch.
+- Added Sidong Yang's Tested-by tag.
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index bb77b6bf0f231..e6052d1973afa 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
- 	struct rocket_device *rdev = job->rdev;
- 	struct drm_gem_object **bos;
- 	struct ww_acquire_ctx acquire_ctx;
--	u32 bo_count;
-+	int bo_count;
- 	int ret = 0;
- 
- 	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
-@@ -556,6 +556,11 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- 	if (job->task_count == 0)
- 		return -EINVAL;
- 
-+	/* GEM lookup takes a signed object count. */
-+	if (job->in_bo_handle_count > INT_MAX ||
-+	    job->out_bo_handle_count > INT_MAX)
-+		return -EINVAL;
-+
- 	rjob = kzalloc_obj(*rjob);
- 	if (!rjob)
- 		return -ENOMEM;
+v2: https://lore.kernel.org/r/20260827170608.39511-1-Naixumogu@whut.edu.cn
+v1: https://lore.kernel.org/r/20260813142059.151644-1-Naixumogu@whut.edu.cn
+
+MoGGuU (3):
+  accel/rocket: Validate BO handle counts on job submission
+  accel/rocket: Collect job dependencies before arming
+  accel/rocket: Propagate job submission errors
+
+ drivers/accel/rocket/rocket_job.c | 32 ++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+
+base-commit: 20331505df9c7d8b29f2f9309231607a41a74120
 -- 
 2.43.0
-
