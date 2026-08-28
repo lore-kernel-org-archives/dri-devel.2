@@ -4,150 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DFBFC61DBD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:46:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9C62C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 10:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40C8D10E02F;
-	Fri, 28 Aug 2026 09:46:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023AD10E487;
+	Fri, 28 Aug 2026 10:04:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Uf/Q2SMr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QBk3qsyC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A58E10E02F;
- Fri, 28 Aug 2026 09:46:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3F210E487;
+ Fri, 28 Aug 2026 10:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787910390; x=1819446390;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=3GJAWa6aCDaRjirC0gXwr0xpSThoGu8WDLWs/bWUitQ=;
- b=Uf/Q2SMr9ZtyUtHun0wYvC7OhNkYRh6PbXBFn3Gv/IHabn8TgPNWqavz
- rcUhSKnqEK0JvT2jMxiX3DF/XxEe/C8WKOMWViwUZkp1cUNit7Bv3shZD
- aCjcWUko8/7DbrwwVZD1ihY/6gCgdamR7rAh6bZKirMSttT5OzkJ1/gYf
- fo79e793Jlxh+mUYqd7VPfmsw+k70jJBm1VljbfwW4gn7rRG6gTYf8R7V
- 98dHRVV5kyUw9eYkUqDMR6/086g3zJVrfZ2iWCHojdsMqTatyqKui8jCh
- /1gb/Tu8/zOrc2FSpkSiA+wrYJFL3tjialT6zIdfe59JdN/JkfwHDATpv g==;
-X-CSE-ConnectionGUID: hFvh/wJUQsmLt6HaqR16+Q==
-X-CSE-MsgGUID: Z5zxpAptQ+emTL1l/UkDEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99016347"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="99016347"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 02:46:29 -0700
-X-CSE-ConnectionGUID: Fe2/O3a/SO2mlm9YoeZE7Q==
-X-CSE-MsgGUID: PnLe2diGSQyulcRDJJMutA==
+ t=1787911444; x=1819447444;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=2mWejYeBEpDTe+C6yoyUp7sF/ccaPX+G6A/HOynOu0I=;
+ b=QBk3qsyCoANBbXgWeeUVLDDJzhYQkXDbN2fDIZMHIlLId3qqPTw5IYKI
+ nWqVGynMvBfz7mj259QjegzgOAq7MUbu5Fu+3PH0wQp/J29G3xE8eMgTu
+ x6oGq9jkbQORCk2hSYq6lYUAYcLJsqFu7/mAqdQfFTRh5WjrJRq8xHlja
+ TAYoy9q3HkNl0IyfXOXcM5XzyR6XMhCImFwYOxItJIT3EQpHBhRUfiUNY
+ fM1OCAO1Or93aO+qSJqC92DeztDTOE9Oo97q/gN/l3TEF6TtR//ypKyzd
+ dJ3nlccXqglcH0v1xIxwdKtod+PPPssTEHkQQGglY8J6CC/m24sMo92Q8 w==;
+X-CSE-ConnectionGUID: 2hYMBpGOR9eUqXrm6rgWxQ==
+X-CSE-MsgGUID: xoBAdnO/STStgkVuvFeBOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92231312"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="92231312"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 03:04:03 -0700
+X-CSE-ConnectionGUID: A58N37XXT82k4DizDIJ5tg==
+X-CSE-MsgGUID: g12C5jxbQlWApKeqHVzzCg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="264865216"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="261973047"
 Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 02:46:28 -0700
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 03:04:02 -0700
 Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
  ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 02:46:28 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ 15.2.2562.46; Fri, 28 Aug 2026 03:04:02 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
  ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 02:46:28 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.23) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 03:04:02 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.32) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 28 Aug 2026 02:46:28 -0700
+ 15.2.2562.46; Fri, 28 Aug 2026 03:04:01 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OY4TATDsP8fKdSr//GpDM0fO0CH/6baxOqu4jzRx6uppWIeU+Ym0mjIggc7UfunAVttaCXtrFu303IgI8f8A0jlzW3lStp4bnHC/dvknml3vwg2KWahuainhUXmF4OGsQTnYHK98USdXAjwI3Av6ZV06mU89zIk3WHem4wkcc3+GDEpw4mCNv1qW8hXwnuy3xa9vS4aRnU9b+zoO5/YMcczncv+HW7pCGKvdTwv5YJu+FXYX25zEb90l5yUuawoPQSns2WnaNa1+7XzAlv1KmqggoljJz+zNmllmnzQzxRbNNHV6ajseXDuvhJq2ybni5SMID7j8QR1WJI40pixkdQ==
+ b=bSjg1lC85oHHIO6Cs9PnNsxZef/WP2s4nAy9CtBQiv83UTHFPL+M8jm1p2q4Ak1Fu6qawN8rCZ0Xpu05nFlmgcF624FN+vdIWxqEsRgR4Ey0juZEEmmiKvI1boVZU8FDDCGJSAtAJNa7+5axDtvQPP232MSEjocg2jqdV2ZGjzAl5ChxvT8heo/1QDTTKQaGzTN7IE/vYyM/Xh3imGFjXGTU0tYbHDO5T5XEtKyNWIJgRtrKJx9lTTdLXwSm0Tn1Z1q87hOLDz5pS+IL7QmZQV2vNRZ4RhCfmqYnWuiDIeRBm6GMT6AoJcm/ImIYL/JV2UFpuH8DEs3gliPP8DR/Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9S7SSfePSCZ2AzlVc+WK5h6/RaTLLDrbXMmtF2eA2jc=;
- b=e045Ldo2cckaw+mBWaOZeCq8hfBVFQP1+JKD7U3w6CE4gIp4+djhlSo/HLhg1gtiQRC428HLA4b8gdIZ3xNX+jNrHhHc4bVTdxIN2vzfuB2C58qA+9X3pPtUy5z9Y/TaAXCcg0BSnSZl0Ei//O6+I5niiVbwpu2h5rHrpmYELbDAMROCvjC+0kZnTcedenXNHcZh8qQOKZlOM5uf4epnGv5qNDe8GHqz8AWrFNEYXQgVcO+8Aq8OMabt+vleckb9mAjro/Mrn12ynmmUF8h/8rOnrTKCdIqeyKI66/GBLhRwqrjOBW2+BPQzfeGRId9/dqxL5KtsQ+rA1Os1HKZWcw==
+ bh=JPyb2mj2eZGqfeNsSp2QIY6egTmkO3RdhScR00dyWXI=;
+ b=EvwKq4ptt7pi32cGz2zEM0dKgpzq6qNr5HkcGqZzR0fR3eOBsRSbT0ZZ3zzyPUjTSoQ3flEwRppPidQieMPohhQgr9+glzTDUEszkWS1sR2NufIdY+hzC+R1dynvwf0agy4kkh1mfdylG/8SKdZyNVou/H7NOGQphgcwjbwurnYKQBny6Y8N3QFtDOZHDzSo7mC0tBHv10yjFJDBLpslJxI8/N3blLcx3w7aA9D+7Uz8KZzqZRm5+33I8q08Id28J8qD+WyD7pAZsr7ykDDf1QBViPI02yK+tnen14xgMNHGp2o3q+rZ8KSPYF7umhpfYCv43nwRC+3/fDbDj905pQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA7PR11MB9541.namprd11.prod.outlook.com (2603:10b6:806:4cf::19)
- by IA3PR11MB9181.namprd11.prod.outlook.com (2603:10b6:208:571::11)
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by SA0PR11MB7160.namprd11.prod.outlook.com (2603:10b6:806:24b::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 09:46:25 +0000
-Received: from SA7PR11MB9541.namprd11.prod.outlook.com
- ([fe80::3346:c49d:542d:ee6b]) by SA7PR11MB9541.namprd11.prod.outlook.com
- ([fe80::3346:c49d:542d:ee6b%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 09:46:25 +0000
-Date: Fri, 28 Aug 2026 11:46:05 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Junhua Shen <Junhua.Shen@amd.com>
-CC: <dri-devel@lists.freedesktop.org>, Matt Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Honglei Huang <Honglei1.Huang@amd.com>, Yiru Ma <Yiru.Ma@amd.com>
-Subject: Re: [PATCH] drm/pagemap: centralize migrate src base-page counting
-Message-ID: <apFY3QDowfV30Xoc@fdugast-desk>
-References: <20260828083652.40855-1-Junhua.Shen@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260828083652.40855-1-Junhua.Shen@amd.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DU7P251CA0003.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:10:551::33) To PH8PR11MB9534.namprd11.prod.outlook.com
- (2603:10b6:510:39f::22)
+ 2026 10:03:59 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 10:03:57 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: <intel-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
+Subject: [PATCH v3 0/8] drm/i915/selftests: Modernize printing in i915
+ selftests
+Date: Fri, 28 Aug 2026 10:03:31 +0000
+Message-ID: <20260828100339.72304-1-krzysztof.karas@intel.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VI6PEPF0000022C.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:808:1::8e5) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA7PR11MB9541:EE_|IA3PR11MB9181:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61f3a086-44d5-4ced-59d7-08df04e933ea
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|SA0PR11MB7160:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fca2a49-f434-46ac-56b0-08df04ebace2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: W1f18dVxnujJRZxtmE45HZ1eUNvoNDsiFk1Ki3LM+phgo89Lhcz+llywxo/dOh8ILwANs/ID43QFcdJzEbk+SwG98d0CYB73i15XiRqpy8Pytab+OJpGl3LBfU39WJVEKa5xnCTucOgbhIUnBuiuPJ9RvZnOPGxFoRuGs4o+A3d3QiNwukV6OMGd6KDtoIBcAxCfWmXdw+syI6ci710Kqy+cs/uyZFwTVirMiUjiNjM8lres4epQ3mtewYyRhH77QVUdcj6AGYbt+xQv4El9fw2amOIKv9zKu1arLH2PUqk9TOGvc+cZbLhahR/cjK1ABYawiScuECZ10CoVy+KTVsFa+UfZG9XNcyDLfpOJlcH5QMY1QvmT97vkdMRro/2IxYeKGz24mJhrp9KyOkdNYSn59iKmUJGecLSaXaToCrrtZzXjGrZZQL1uk+fEBJUlhUQGMflxgp+roTHR0v+HwBqYzTWFcVY1MqwQoMurnKfiwfxsurVXoeIv5viww3eZB6sFCFalVsaaSE0n/INJhtnZTCm53suu198nmU287nzpvPlvxaMZqBqgfwxzXPzsBnUHdP9PqNzEf6bDQqKjEUNo5Eh6df9DrZpvsdixYvneSx/wc1w7viqJ4WYYxSk+x9Q6HvmwODJLhtTqGlV98Q==
+ ARA:13230040|23010399003|376014|366016|1800799024|20046099003|18002099003|56012099006|11063799006|3023799007|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: 7Tv6fe4zJoYUI292C+2lopNzJui1Jp4JgzUNXes/ZhgaQrdoD3/mAmyaIIplVaK8NnU+b/nrkHF5UbWp4BfNZjkKVCjD3GO1ywr4F07iiwKLvpRuwIg8sIKaLPAav1vDA5j9EVAUSdrEd6WhtVSerRak/vMnEfwXzmz6QTikbpeuZ880a4hd2ElF5JWLsitllF8IwxvzHfcS5+tp2HbJhznLo1fCzDbZ+4hyRLQU5W9U9mh+BYRX0/Ao6/2ZtoJkftSVK8rYcdGOWfKf9ngX7jOetmNq6MaIfp887OY6Ju+pv2EWw1OAu/0v8gYkz+OkUcK+PHdFFre4xC0DZpNHr7gzrVrgYmVWZ8NGaPqZMA7WviLjd8Z9HhMk0zw6h5Du99wI8t90/i1h7ZNQl15Moom1RQXY4g0coNhpSYU9YgJU6RJXcCN4BlIOeisXrs8RFUMeQXMLDjYtTyHnrJVMg6OeklZZL0TZWZgZqMKDwkJUVFEK9uzptATXsmAIEGUKKXwwtrAE8vjTAP+FAJh2Dhqcz4CBt8U+my/fqi4FLfluwjBa5M76PYKMouX2SpzR/fT/xiWvI6tTKPG8Bxna2PUFBAMpfYXdE5UzP/8c/eJmvwvFxHc8ZwYHEi6yGC1VgDAoUoilR1qZ5LPan8D5wb+/7iZsWok/GrYN9CL3loU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA7PR11MB9541.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(20046099003)(18002099003)(56012099006)(11063799006)(3023799007)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wIPCvpAYu0wM1j0gMmDXXEFXRJZ+/z5DufEUXnOACbr6bMwEhKzPiNiiUv97?=
- =?us-ascii?Q?7PAKRxydZFJWRDt+iv2iQIbtxIQRj5elg0uZQhqs3PijlgbF+gQRSP/MokJX?=
- =?us-ascii?Q?pF1foN5A9cl6V+esSbxQEGQT1c6gEIrbZMgdXqe0CxtfuLJo6YregxdYMqZ3?=
- =?us-ascii?Q?nN6n4ANiyI7fyxoixNTYe4KRQNuejUKMoWVmhDAfXBN5Gyo7hO1e8hMnaTOg?=
- =?us-ascii?Q?MsvTVtycmxCdXfyqHJiZvWq6NjnXe094QaJBbqdFviFaPoasB1ghJI8JH5a0?=
- =?us-ascii?Q?sa8OlGbLP/8ZDdjhr7bSQ4y5qYz5i4mTgQ09md9VZXCV0w2OdyTLojjJJ6MV?=
- =?us-ascii?Q?tetLmCDBmldTGBAOfKit7bTuiDvTPh1ZamA7LbeYiKIHIiRl2j6iTshy/gJX?=
- =?us-ascii?Q?VSnOdgnJmHmUTimGWmM4e9aFJ4uPT+58xyNQstV29yEiELK2Mx1jBq5HuPpx?=
- =?us-ascii?Q?nQdbRW4Yre4/5t0HVpd6WqrQg5aWPqCrP+Hb6CxLodAESeFgdEV9+DC0gmis?=
- =?us-ascii?Q?nduuceKPGbSzc6oHJag1KA8Mcsjr+f/FMLzi3EFgwqAUqVb+qLXjJwDFZu/g?=
- =?us-ascii?Q?6Fb8Xm8Q1nyo/tz1woz1gzLM/0Fe+1XE0yxrVg4d9WS+Gf7je5YgD3kWsSdv?=
- =?us-ascii?Q?3THY9RNQKC0b7NU0i+PBzDJZh/QykABwnW9CTqAUTHT/sQ/PHtoGldMkorpo?=
- =?us-ascii?Q?pBiKYC6O73vrELe5iLDnont8AYvZUOaSl/bU6EiOHjrquLVqRpUWV37YeeoE?=
- =?us-ascii?Q?B83UAGmdeNWPhujeKVTnlNBbU7WNqkENtz+DepE545onB3Yv+V5AJVMhRfm0?=
- =?us-ascii?Q?IuPGcna2pilWmlvMR9zaWstDg/tuIxYXY8M652CdtbyIc65bywqIoDkEkCZL?=
- =?us-ascii?Q?HFh0gWlnA+KZ0kyTD9KiWDJk1CYtZStlUjEmpe6C+1hCVQs1jiViWbiznZyy?=
- =?us-ascii?Q?opaquFebc1IvXaKINp/lBjHI4yTVFaJ3aEeULRaejEkdix3PP8LizztpIFJk?=
- =?us-ascii?Q?fUWOifFoQUI6hNzkHU0ZARYxQi3JMZ1nU4e/126JhfmDSjG8LM6RxYepn50o?=
- =?us-ascii?Q?LuhEgUbba+1EdFT2hUkG02iUsnP8UmnLm0iS1r2deHdRMstg9gg+M+14HEAV?=
- =?us-ascii?Q?uDtivYKVw6zCmyFX9SUEP77K2IIvjeclHDOxeNnVjgcb39oTdZsaMg2a9+bg?=
- =?us-ascii?Q?gpuTi2oeJbG8gxoX3d3ZdEVFXoAOcwRzcVGlY+nw7u2uqBcC3rO6Q/YyeoEn?=
- =?us-ascii?Q?OvIeTvAThcWyAkkA4wsTE/omUSYtwL4LtPiW8Pq7SMbPk1rsgY18gl2wMTUO?=
- =?us-ascii?Q?1uPTiOdgio7XalALP/TLVrv6dZT1Kk+ubJWKVtMTki9eeU8i1DHPUJUAibtx?=
- =?us-ascii?Q?cxWKLMNxTQOzhuU+kp4Vn9v7zBil2DliZQuKWavp6NCWkvmGCkK5sNIO8e8B?=
- =?us-ascii?Q?PKZWeOUgvwFffG51UJ2K9o4JI+PTJEK2dPWSm0R7VKbV4vYZgzs5gsK1hNkS?=
- =?us-ascii?Q?STDLqbA+Z6ccmb9I8Q0dHOsBetMDiW1XHZRHlI0hvTGKeHYg6wnACMuL42X2?=
- =?us-ascii?Q?qljAtUVbjn8vJnkwQ1tmiILO1LlKe9jkaY+0WoT4n8x3mokfdSQ8IAUs3+Ph?=
- =?us-ascii?Q?GgGJih8f7PQ/cMyOSnVwv2h311qOB3M+jeuQchIOTxm0kfB/q/sKF9tX3C4s?=
- =?us-ascii?Q?bEAck0gISOAsDdJ3xZTlw3k2MnMz+KZ8HyFtHK+GaRDNWSdQcWVBMIRH3nCZ?=
- =?us-ascii?Q?FrcPkcFESNjMX2bIpuGP62DGuvFazYo=3D?=
-X-Exchange-RoutingPolicyChecked: uuzJ1/n/tymbWRB1LwjNroVd6XMZCE4OU3lkA8EcqH4OO1AE2xrY2PPtIM3W92zUaG73WJWj33NPdeHu2ORTgRptH6zPvw0FCOjO7Zq6Yy3S8R6cXXQNBAslgRqSAOOTXVEQocAxDxv0z08cmus9/jzVxjWtv9tLno40/pkMU19HgcyhiHh6fIO2rur0FCTbRNJ9uAcYygADwKIqgDI9XDQAoSqojmk9u29KDCPfc03zwDSiqBanrH/b7cf3Ow304hdbAXiKSiUhgVwa0HWuTx4rptis0j38cH+dTWA7I8XevgTcK3HH+aHP9ClFkP3u4UsAHP1V1YXCOLUY6BWJnw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61f3a086-44d5-4ced-59d7-08df04e933ea
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB9534.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2L2O9W4X5xFnr1ix4fzok9ohY6ZU4iIyklslf1FrBjQ1YKR0xW9DJFZmpFtw?=
+ =?us-ascii?Q?XHAjgos1kWR59sWfX247OJBDPXOJ5qqzcP9JNy8FqEFHS2d8+DzhDLMExyLJ?=
+ =?us-ascii?Q?LK68rPCuMxbWPXTLPbtCFoaB0u5L1dOrhHq8DXgBzjNen80ZaZ9KtHFBddwT?=
+ =?us-ascii?Q?DyefSERCTutLnj+NNjinjtLGG23Vmbr45tRu7wofeZw9TsCFssysvOdmvj1j?=
+ =?us-ascii?Q?ORh0/a6ApOjsiTOJuOL0cUWkgGfmSymNucNOS0fsQ3X7UTYWae0CiI6QAoHd?=
+ =?us-ascii?Q?orUSPhrYRUX8zmxIjrVOxzmZQNMXS3AACPe/6imt/ypz2AW0rXPlCEeGrVaC?=
+ =?us-ascii?Q?CR01sU606tvurSqogMKUHYWScbJ91e8T98wDQqAT0vt40wwsLmXtI6FgvByJ?=
+ =?us-ascii?Q?j8O0GO5dCNHOV5FJ2kPkcRN+ohL3k6u8Jsd+LSNsvdkS5NwqFFLir8gsA+Y6?=
+ =?us-ascii?Q?nAXep/0RwetqJ5+MNKB4RhEdipfz/V76kAZ+tMru2ttCmxSZiFrgzzWsnzgL?=
+ =?us-ascii?Q?5wKrcqC1aGQqif6XJaopgsSUXdKxgCxpSF7PepUHrpjA6/GfRcGygiuVz25Z?=
+ =?us-ascii?Q?S4VHLx5Q1m1Uo5gbrjnWOHiunReERFA7jsrhCZvNDY2ujO3acRWWGBle9jbL?=
+ =?us-ascii?Q?7f4YdIJb06Aij8tm9aXxqclp9eBXKprl22ZwAF4c3dQLJEa2L/Z99OnoYZCH?=
+ =?us-ascii?Q?69FNK5Wwu/nSK9P4YzC8825KdW3xdF3vsWZQIve6dCsC+yBVL/jyE3buF08D?=
+ =?us-ascii?Q?J1KwCJaLY5Wz6QpuS2+4TcjLGhTFnv6gY9JnSBGe6vl5HhYsRaxztK6Y/6t2?=
+ =?us-ascii?Q?/MFVNJ8lA/zJW0LRVEEIeyZaGDtMI2rRdzg08s1b11qSIfjrVqx/fmvYwe+4?=
+ =?us-ascii?Q?/KY+XtIMA1QYzTFLjyjL3eqe0eBREKIapWnhs1LTZ0hKZH9s1Mf6OlyBykip?=
+ =?us-ascii?Q?h1DrIXxeDPUwSSg50Fvk96XWafFzbYyG/z7Rk5zId4YpSvKvxrUEv9lNyUwC?=
+ =?us-ascii?Q?/LJORPZ8JLSkpOkC+pY8Z09VlyhVolYstqFDRCIU45JY4fAVPcRQ1SQ/KAPZ?=
+ =?us-ascii?Q?ya67kkhwwpc61PiqLA3T1mHhusGhKxdNhFQzlZc8cmSJ04oY008+HtV2y7+C?=
+ =?us-ascii?Q?N9LpnpNKnOKtEpJDxFgtDKGs+oyVUtRS+VGX7UHrarCfMTj+PEHDGzE5etIu?=
+ =?us-ascii?Q?cOLkXwVDmqkAO4TtcgDj5/G+UNJH4NPaZXczcHDLDyTMPxgHLj9oZhN0LkAd?=
+ =?us-ascii?Q?arKVvCB2Ia2gRmMx282cAMe2TKuqizmbO+suCRyIMmL22Y8MshCfrfnWPVPx?=
+ =?us-ascii?Q?LG/VNBaTYk+CqJbwKflN+t2f9g5angWGPnA0gsB+SOPixR/H0pnrmK5Me/6I?=
+ =?us-ascii?Q?8iz2N7eh+jemdvBeXDzOHROkduj1WFEeuWXwT2CevrVpFVAyrav+TEX0HZ1m?=
+ =?us-ascii?Q?nR+wr84r7eE2l6gx6ZCRo01b2ooAy7X2qXGBkTH/oGfVUswF1HneQqgxWQN5?=
+ =?us-ascii?Q?wu1HmkSaNchvD93+EMlwA1yHFEMum/ao+k1Uo2H6JWruoeiLP0N6CfkuATek?=
+ =?us-ascii?Q?CWJ3IcfeGO7vY5mSMIoo/RCUAma7ftjiBHQ/nqJY1BuwjOs58lp7g9OwZ5HD?=
+ =?us-ascii?Q?4QdPupOGB/dwB+bgIhtNSK1RCC2nEutpF78T5irzrNQhWKuse+4t3ALgPbC7?=
+ =?us-ascii?Q?m+naStoBIQDkfwQqcAISGr65vxMPy05D87tkw5VjuMHbmRzuNYngtV1Yf1EO?=
+ =?us-ascii?Q?qBTgcoQ8MmNPWjO0+IJcZ3BhfDNxMaQ=3D?=
+X-Exchange-RoutingPolicyChecked: qF/t26+b3/Asy1j+zsiMwMroTYAdwn+KHJhhj/w8QpGqgudN4QczPSk3xebvranMXoFr1Z3X7NSuOQdiwjLX1uGoUWfXyBmb5gXgYRXvAkoGwQWelUZwl7j8u/KLYpMTVJlHbSYWH9EG3Fu0N0JDHC1f09ZFaumayS/u7ru4offhUsC0uStyGS9BdF2QjrTIpdZIbAowuqVQYq2wTFLHUIevaASKiZibwDHwxk9fkpQbdjK7AS5BHNFEYgyvZtKwJBgia2SuS8oWRVptDgZqh0XJvt8sx6ecDtIvM9/+leg5r8LgbgcIojgKKDS5PFOCQEMPDE97MBYgtpapn2EusQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fca2a49-f434-46ac-56b0-08df04ebace2
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:46:25.2026 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 10:03:57.5665 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8JeuXtg7tqaHKkN+/cihuax0Qa8uDZuL+a9XUzY7tqXHvstTq08aFaxtOSklcNjBml7yzuULWwhVOdnMqG/6B12AeqznmBTyRQN/DrtPsKU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9181
+X-MS-Exchange-CrossTenant-UserPrincipalName: KxO16BQijGOYC3fRfA8gpgGYD+fyxpsEe63XYn7ZPStZGRoI8cM8gk73qAKPkcanaC7YvamGOz4RsUJnRRpiomSSIF/SK4ATdpw9Tb6l5MA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB7160
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -164,132 +161,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Currently, in many instances, i915 functions call pr_* macros
+to write a message to the system log. This way of printing
+lacks device context, which could be a valuable source of
+information. Many files in DRM already use drm_* prints to
+include that context, so it would be beneficial to do the same
+for i915 as well. Start small and convert i915 selftests first.
 
-On Fri, Aug 28, 2026 at 04:36:52PM +0800, Junhua Shen wrote:
-> 
-> The base-page count for a migrate.src[] entry was open-coded in several
-> places along the migration path, and these variants handled
-> MIGRATE_PFN_COMPOUND entries inconsistently.
+I do not anticipate this series to pass BAT runs due to
+filtering warnings and error messages in our CI. Since the
+formatting is slightly different, expected messages will be
+detected as new issues.
 
-Nit: not just inconsistently, I would mention the existing undercount issue
-this patch fixes when VALID=0 && COMPOUND=1.
+v3 (Janusz, sashiko):
+- keep pr_* where no device exists;
+- pass struct drm_device explicitly through selftest wrappers
+  instead of casting void *data;
+- fall back to pr_* when device is NULL, to avoid "NULL device"
+  output;
+- keep lines limited to 80 characters where possible;
+- drop unrelated reformatting;
+- introduce local drm_i915_private variable for multiple complex
+  dereferences;
 
-> 
-> Factor it out into drm_pagemap_src_pfn_nr_pages() and use it in
-> drm_pagemap_cpages() and both accounting loops of
-> drm_pagemap_migrate_to_devmem(), so every site agrees on the base-page
-> count and iteration stride.
-> 
-> Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
+Krzysztof Karas (8):
+  drm/i915/selftest: Fix a typo in alloc_workqueue call
+  drm/i915/selftests: Use drm_* prints in live selftests
+  drm/i915/selftests: Use drm_* prints in selftest helpers
+  drm/i915/gt/selftests: Use drm_* prints in aggregated gt selftests
+  drm/i915/gt/selftests: Use drm_* prints in gt standalone tests
+  drm/i915/gt/selftests: Use drm_* prints in gt selftest helpers
+  drm/i915/selftests: Use drm_* prints in selftest headers
+  drm/i915/selftests: Add drm_device to selftest wrappers
 
-Consequently, we need a "Fixes" tag here.
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |   4 +-
+ .../i915/gem/selftests/i915_gem_client_blt.c  |   2 +-
+ .../i915/gem/selftests/i915_gem_coherency.c   |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_context.c |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_migrate.c |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_object.c  |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_phys.c    |   2 +-
+ drivers/gpu/drm/i915/gt/selftest_context.c    |  35 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  12 +-
+ .../drm/i915/gt/selftest_engine_heartbeat.c   |  15 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |  60 +--
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 355 +++++++++++-------
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c      |  36 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  |   2 +-
+ drivers/gpu/drm/i915/gt/selftest_llc.c        |  29 +-
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        |   2 +-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |  69 ++--
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |  14 +-
+ drivers/gpu/drm/i915/gt/selftest_rc6.c        |  59 +--
+ drivers/gpu/drm/i915/gt/selftest_reset.c      |  30 +-
+ drivers/gpu/drm/i915/gt/selftest_ring.c       |   2 +-
+ .../drm/i915/gt/selftest_ring_submission.c    |   2 +-
+ drivers/gpu/drm/i915/gt/selftest_rps.c        | 297 ++++++++-------
+ drivers/gpu/drm/i915/gt/selftest_slpc.c       | 105 ++++--
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   |   4 +-
+ drivers/gpu/drm/i915/gt/selftest_tlb.c        |  41 +-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    | 106 ++++--
+ drivers/gpu/drm/i915/gt/st_shmem_utils.c      |   2 +-
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |   2 +-
+ .../drm/i915/gt/uc/selftest_guc_hangcheck.c   |   2 +-
+ .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |   2 +-
+ drivers/gpu/drm/i915/i915_selftest.h          |  16 +-
+ drivers/gpu/drm/i915/selftests/i915_active.c  |  14 +-
+ drivers/gpu/drm/i915/selftests/i915_gem.c     |   2 +-
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   |  79 ++--
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 227 ++++++-----
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |  31 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c | 307 ++++++++-------
+ .../gpu/drm/i915/selftests/i915_selftest.c    |  71 +++-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |   4 +-
+ drivers/gpu/drm/i915/selftests/i915_syncmap.c |   2 +-
+ drivers/gpu/drm/i915/selftests/i915_vma.c     | 261 ++++++++-----
+ .../gpu/drm/i915/selftests/igt_flush_test.c   |   7 +-
+ .../gpu/drm/i915/selftests/igt_live_test.c    |   6 +-
+ drivers/gpu/drm/i915/selftests/igt_reset.c    |   5 +-
+ .../drm/i915/selftests/intel_memory_region.c  |   6 +-
+ .../i915/selftests/intel_scheduler_helpers.c  |   8 +-
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |  49 +--
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |   4 +-
+ drivers/gpu/drm/i915/selftests/scatterlist.c  |   2 +-
+ 52 files changed, 1455 insertions(+), 955 deletions(-)
 
-With that, the change itself LGTM:
+-- 
+2.34.1
 
-    Reviewed-by: Francois Dugast <francois.dugast@intel.com>
-
-Francois
-
-> ---
->  drivers/gpu/drm/drm_pagemap.c | 60 +++++++++++++++++++++++++----------
->  1 file changed, 43 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index 892b325fa99b..a31cc4f0af68 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -554,6 +554,37 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
->  	return ret;
->  }
->  
-> +/**
-> + * drm_pagemap_src_pfn_nr_pages() - Decode src entry and return base-page count
-> + * @src_pfn: Source migrate entry
-> + * @src_page: Optional decoded source page when MIGRATE_PFN_VALID is set
-> + *
-> + * Decode @src_pfn to compute how many base pages it represents: use folio
-> + * page count for valid entries, HPAGE_PMD_NR for COMPOUND-only entries,
-> + * otherwise 1.
-> + *
-> + * Return: Number of base pages represented by @src_pfn.
-> + */
-> +static unsigned long drm_pagemap_src_pfn_nr_pages(unsigned long src_pfn,
-> +						   struct page **src_page)
-> +{
-> +	struct page *page = NULL;
-> +	unsigned long nr_pages = 1;
-> +
-> +	if (src_pfn & MIGRATE_PFN_VALID) {
-> +		page = migrate_pfn_to_page(src_pfn);
-> +		if (page)
-> +			nr_pages = NR_PAGES(folio_order(page_folio(page)));
-> +	} else if (src_pfn & MIGRATE_PFN_COMPOUND) {
-> +		nr_pages = HPAGE_PMD_NR;
-> +	}
-> +
-> +	if (src_page)
-> +		*src_page = page;
-> +
-> +	return nr_pages;
-> +}
-> +
->  /**
->   * drm_pagemap_cpages() - Count collected pages
->   * @migrate_pfn: Array of migrate_pfn entries to account
-> @@ -570,20 +601,14 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
->  	unsigned long i, cpages = 0;
->  
->  	for (i = 0; i < npages;) {
-> -		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
-> -		struct folio *folio;
-> -		unsigned int order = 0;
-> +		unsigned long src_pfn = migrate_pfn[i];
-> +		struct page *page;
-> +		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &page);
->  
-> -		if (page) {
-> -			folio = page_folio(page);
-> -			order = folio_order(folio);
-> -			cpages += NR_PAGES(order);
-> -		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
-> -			order = HPAGE_PMD_ORDER;
-> -			cpages += NR_PAGES(order);
-> -		}
-> +		if (page || (src_pfn & MIGRATE_PFN_COMPOUND))
-> +			cpages += nr_pages;
->  
-> -		i += NR_PAGES(order);
-> +		i += nr_pages;
->  	}
->  
->  	return cpages;
-> @@ -703,8 +728,9 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
->  
->  	/* Count device-private pages to migrate */
->  	for (i = 0; i < npages;) {
-> -		struct page *src_page = migrate_pfn_to_page(migrate.src[i]);
-> -		unsigned long nr_pages = src_page ? NR_PAGES(folio_order(page_folio(src_page))) : 1;
-> +		unsigned long src_pfn = migrate.src[i];
-> +		struct page *src_page;
-> +		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &src_page);
->  
->  		if (src_page && is_zone_device_page(src_page)) {
->  			if (page_pgmap(src_page) == pagemap)
-> @@ -818,10 +844,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
->  	migrate_vma_pages(&migrate);
->  
->  	for (i = 0; !err && i < npages;) {
-> -		struct page *page = migrate_pfn_to_page(migrate.src[i]);
-> -		unsigned long nr_pages = page ? NR_PAGES(folio_order(page_folio(page))) : 1;
-> +		unsigned long src_pfn = migrate.src[i];
-> +		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, NULL);
->  
-> -		if (migrate.src[i] & MIGRATE_PFN_MIGRATE)
-> +		if (src_pfn & MIGRATE_PFN_MIGRATE)
->  			migrated_pages += nr_pages;
->  
->  		i += nr_pages;
-> -- 
-> 2.34.1
-> 
