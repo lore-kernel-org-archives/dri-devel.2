@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C36C61DCB
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ADE2C61DD7
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 22:28:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2E210F494;
-	Fri, 28 Aug 2026 21:52:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A209A10E07D;
+	Fri, 28 Aug 2026 22:28:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P3tmm2SW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KCZL+uL9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2E810E656;
- Fri, 28 Aug 2026 21:52:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF4E10E07D
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 22:28:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D1B760217;
- Fri, 28 Aug 2026 21:52:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F15951F00A3F;
- Fri, 28 Aug 2026 21:52:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 199744374F;
+ Fri, 28 Aug 2026 22:28:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DC91F00AC4;
+ Fri, 28 Aug 2026 22:28:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787953946;
- bh=xTpwAFM1FIXKRTJKcKM7iTb47OdFg3JFWNtGIHnBj0o=;
+ s=k20260515; t=1787956095;
+ bh=coSrFZG4sQU3Djycv3JnwXtAFMyWPSZl7evMesYYYa0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=P3tmm2SWYDgPvtvhPRQJQ63cLOtpHXiMjtdVvjyrZoC0KJU4Q9o2LdxnE4VQVEElz
- VhtkxpMNCorCdtitiCJYWRgh67PpnSKJpoqrZZhf4jZTgYiAAPxmLl3lLcxuPe3V88
- wVVzRQsb5aSsYSe+tXD1xYRUTibEBzlbhKhdrqhA76jOQUHkT8cAiQbmwaIRXSrMFa
- oioMjku0GOxHlufwoc+aIuPTbO7ComAjfLKJYykuejWqfbsCeOzGDjR0tAaYUL9Nhr
- yVjsO3nt6ZWfghBWw4UnXKdnbDu0XzKPVjzTb5gknKnIhdMdZcBr5B6Juv9poc/ODg
- C4ET+hobWMxKw==
+ b=KCZL+uL9Qe7fPvKpsh1wxCBSObE8Ocz4J4FGSyl8Ay/cSSqgyok40uvZWzPxNWlk2
+ 0Xb8Q+/39V3d+V9izumDe6v8Jol1LJYtynDaoAFBLd4U5mwlmhIhrTTQrhX4P5eCPM
+ 8Gz7YBWIiKhEKN9Oqusbjd5+wjMDqFyC1vrgd2QduVDVRkO1xkIAjSoxwGp5AYzRfd
+ GenU0zfsJ6WQA8M+nAFCBGgd7iSP9/m4LGKcyFCgefzoXaoYPyzJ9XRUVKqMvD4xZI
+ jpxmcUnkShMn0fHCjAjObNgQIn3wJUPpQangoSMgy9k2NCVZ2+4HjgkHsh+f6Y+36x
+ 4+NRRMA4ZCMOw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] perf: Fix null pointer access in
- is_include_guest_event()
-To: "Vinay Belgaumkar" <vinay.belgaumkar@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260828212803.3963976-1-vinay.belgaumkar@intel.com>
-References: <20260828212803.3963976-1-vinay.belgaumkar@intel.com>
+Subject: Re: [PATCH] accel/amdxdna: fix race condition in mailbox send path
+To: "Deniz Aydogan" <denizaydogan1902@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260828221641.10034-1-denizaydogan1902@gmail.com>
+References: <20260828221641.10034-1-denizaydogan1902@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 21:52:25 +0000
-Message-Id: <20260828215225.F15951F00A3F@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 22:28:14 +0000
+Message-Id: <20260828222814.C5DC91F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,70 +60,97 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [Medium] The patch silently alters the behavior of perf_event_read_local(=
-) by explicitly returning -EINVAL for revoked or dead events.
+- [High] Calling a sleeping function (`read_poll_timeout`) while holding a =
+spinlock in atomic context, leading to a kernel BUG.
 
 Pre-existing issues:
-- [High] TOCTOU race in `perf_event_read_local()` allows NULL pointer deref=
-erence or Use-After-Free of `event->pmu` despite the newly added state chec=
-k.
+- [High] An off-by-four bounds check error in message size validation allow=
+s a message to equal the total ring buffer capacity, leading to an out-of-b=
+ounds TOMBSTONE write on the subsequent message.
 --
 
-commit 3c330c9904a35189d22ecaa756a6d8b5458cfb9c
-Author: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+commit 53ca6b8d64c390a01eafa41c7e331865b9a73f9b
+Author: Deniz Aydogan <denizaydogan1902@gmail.com>
 
-perf: Fix null pointer access in is_include_guest_event()
+accel/amdxdna: fix race condition in mailbox send path
 
-A kernel panic is observed when an application has a perf connection open
-and the driver managing the pmu event unbinds. The issue occurs when
-perf_pmu_unregister() is called while there is an active perf session. The
-null pointer error is seen when the event is freed through __free_event()
-and mediated_pmu_unaccount_event is called. There is a missing null check
-inside is_include_guest_event(). Also call mediated_pmu_unaccount_event()
-inside __pmu_detach_event() similar to __free_event().
+This commit introduces a spinlock in mailbox_send_msg() to prevent
+concurrent writers from overwriting messages and writing conflicting
+tail pointers to the hardware ring buffer.
 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index a6c8e38a31104..9809fc10c4f51 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -4917,6 +4917,11 @@ int perf_event_read_local(struct perf_event *event=
-, u64 *value,
->  		goto out;
->  	}
+> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdx=
+dna/amdxdna_mailbox.c
+> index cc8865f4e79c9..bb0cb34b41a7b 100644
+> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
+> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+[ ... ]
+> @@ -203,8 +204,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, s=
+truct mailbox_msg *mb_msg)
+>  	u32 head, tail;
+>  	u32 start_addr;
+>  	u32 tmp_tail;
+> +	unsigned long flags;
+>  	int ret;
 > =20
-> +	if (event->state <=3D PERF_EVENT_STATE_REVOKED) {
-> +		ret =3D -EINVAL;
-> +		goto out;
-> +	}
-> +
-
-[Severity: Medium]
-Does this explicitly change the return value for revoked or dead events to
--EINVAL? The commit message describes fixing a null pointer access in
-is_include_guest_event(), but does not mention altering the behavior of
-perf_event_read_local() for revoked events. Could this be documented in the
-commit message?
+> +	spin_lock_irqsave(&mb_chann->lock, flags);
+>  	head =3D mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
+>  	tail =3D mb_chann->x2i_tail;
 
 [Severity: High]
-This is a pre-existing issue, but does this lockless state check leave a
-time-of-check to time-of-use race window that can still lead to a null
-pointer dereference of event->pmu?
+This is a pre-existing issue, but does the bounds check in
+xdna_mailbox_send_msg() allow a message to equal the total ring buffer
+capacity, leaving no room for the wrap tombstone marker?
 
-If CPU A calls perf_event_read_local(), disables interrupts, and locklessly
-checks event->state, it can pass if the event state is
-PERF_EVENT_STATE_INACTIVE.
+If a message is exactly equal to the maximum ring buffer capacity:
 
-Concurrently, if CPU B calls perf_pmu_unregister() which leads to
-__pmu_detach_event(), it will not send an IPI to synchronize with CPU A
-since the event is inactive. CPU B then sets event->state to
-PERF_EVENT_STATE_REVOKED and clears event->pmu to NULL.
+drivers/accel/amdxdna/amdxdna_mailbox.c:xdna_mailbox_send_msg() {
+    ...
+    if (pkg_size > mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I)) {
+    ...
+}
 
-When CPU A continues and calls __perf_event_read_cpu(event, event->cpu),
-if the event has PERF_EV_CAP_READ_SCOPE, it will dereference
-event->pmu->scope, which was just set to NULL by CPU B, causing a panic.
+During this first send, the tail pointer is advanced to equal the total
+buffer size. On the next send, the wrap-around logic in mailbox_send_msg()
+triggers:
 
-Can this sequence be synchronized safely?
+drivers/accel/amdxdna/amdxdna_mailbox.c:mailbox_send_msg() {
+    ...
+    if (tail >=3D head && tmp_tail > ringbuf_size) {
+        write_addr =3D mb_chann->mb->res.ringbuf_base + start_addr + tail;
+        writel(TOMBSTONE, write_addr);
+    ...
+}
+
+Since the tail is already at the end of the buffer, will this write the
+4-byte TOMBSTONE marker out-of-bounds?
+
+[ ... ]
+> @@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, s=
+truct mailbox_msg *mb_msg)
+>  		ret =3D read_poll_timeout(mailbox_get_headptr, head,
+>  					tmp_tail < head || tail >=3D head,
+>  					1, 100, false, mb_chann, CHAN_RES_X2I);
+
+[Severity: High]
+Does this code call a sleeping function while holding a spinlock in atomic
+context?
+
+mailbox_send_msg() acquires mb_chann->lock via spin_lock_irqsave(),
+disabling interrupts. Inside this critical section, it calls
+read_poll_timeout() with sleep_us =3D 1.
+
+read_poll_timeout() internally calls poll_timeout_us(), which uses
+usleep_range(), a sleeping function.
+
+Could this lead to a scheduling-while-atomic bug when the driver waits for
+ring buffer space?
+
+> -		if (ret)
+> +		if (ret) {
+> +			spin_unlock_irqrestore(&mb_chann->lock, flags);
+>  			return ret;
+> +		}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828212803.3963=
-976-1-vinay.belgaumkar@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828221641.1003=
+4-1-denizaydogan1902@gmail.com?part=3D1
