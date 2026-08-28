@@ -4,53 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B356DC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8400C61DCB
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3AE310F485;
-	Fri, 28 Aug 2026 21:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061DA10F487;
+	Fri, 28 Aug 2026 21:09:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BbS5vcBY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c7b1Gc+/";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAECF10F485;
- Fri, 28 Aug 2026 21:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=gf9LmWXVmFT0+M/yUeeTzCTuBMKywidGwfoi86/cQvg=; b=BbS5vcBYxnV9tZhfeo+lMAiZLB
- XT7mEvWFjaK6684QCfTi9JPPXurx3xAMGLzBJsc1STeoZrbNdDLi57SMMiIVGVyIny206x5PgliMY
- oOSmzPb2+xpS0nd2MLTdtmBlA0rytKsbiYorv8l3ronDYVKCpYdfqyG22QDzZgi9WXbjv5eh0QB+W
- y2r6tFYYd3shoexnXGn4+8IeTfPGaqYgxYvAD/R9iFRnXEsgayN53sinWMQc0x5IjeMkCf+1H2572
- zw+8FvgypGpsonNM8a4KDJbCo7+Xop1an6OTW/wSoEvhfSczJrmikeuO6DvBi4D3M09ZLo7fa7h+Z
- g806xWKg==;
-Received: from 179-125-75-211-dinamico.pombonet.net.br ([179.125.75.211]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x03gI-00B1Zk-Mk; Fri, 28 Aug 2026 23:00:11 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Fri, 28 Aug 2026 17:59:59 -0300
-Subject: [PATCH i-g-t] Revert "lib/igt_kms: Do not treat writeback and
- virtual connectors as connected"
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-vkms_virtual_output_fix-v1-1-789718f4cb00@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAM72kWoC/yXMWwqDMBCF4a3IPDdgp9KO3UqRoOlUpxeVTBIK4
- t6b6uN34PwLKHthhWuxgOckKtOYcTwU4IZ27NnIPRuwxHNJSCa9PmqT+BDbt51imGOwD/kaR4g
- 1XWqsTgT5PXvO81a+Nbs1dk924Z+Ddf0Bs9KuTHsAAAA=
-X-Change-ID: 20260828-vkms_virtual_output_fix-c82298792438
-To: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- louis.chauvet@bootlin.com, hamohammed.sa@gmail.comm, simona@ffwll.ch, 
- melissa.srw@gmail.com, robin.clark@oss.qualcomm.com, 
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run, 
- marijn.suijten@somainline.org, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- "S, Sowmiya" <sowmiya.s@intel.com>, kernel-dev@igalia.com
-Cc: Mark Yacoub <markyacoub@google.com>, Jani Nikula <jani.nikula@intel.com>, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9EA810F487
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 21:09:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EA85160055;
+ Fri, 28 Aug 2026 21:09:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E6A1F000E9;
+ Fri, 28 Aug 2026 21:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787951353;
+ bh=eF4qJAexfNdfN0HsUhHmEa/8frfbG0OLTffL0JOam90=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=c7b1Gc+/Wldarz8BywYvE8RQYjmA4g5MNjsf/PB6Unx47tbpNTAyLkHxeN4lJVnIl
+ K7NNnjGrg/ytOZUiE2FODayE9K0+eI7OaTVbGH2zaLp7FBS1n8ZlNzrNw1y7Rnt+tU
+ 2HA9avFcGjDbNCRJQ2wKIMddNEDk8Ln2osDLlhOQvib/k5HGPh12M3fjFz0GmjQffN
+ W74HPXB7QdLRxWPY0Lp25mTkM6HIcoBDkiSSi8lvlP+qFSEw8xXZzpiDj/xSa8qJe4
+ oRePLMFAfbgE9iVk8+ufPLfh70Laj2sm9BUEp8tUbTQ8wJBRnkiiQpuUYWXmnDrpzs
+ rqw8XffWHkeOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 09/17] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 21:09:13 +0000
+Message-Id: <20260828210913.82E6A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,41 +54,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit 321448df7fc9af29b4c6697dc74e6c5e2100af6c.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-It has broken vkms testing, which has only Virtual connectors.
+New issues:
+- [High] Dropping the PM usage counter before disabling runtime PM in the i=
+nit error path creates a window for unintended device suspend, leading to a=
+ potential crash.
 
-Cc: Mark Yacoub <markyacoub@google.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- lib/igt_kms.h | 4 ----
- 1 file changed, 4 deletions(-)
+Pre-existing issues:
+- [High] panfrost_device_fini() unconditionally accesses hardware registers=
+ even if pm_runtime_get_sync() fails, leading to a potential crash.
+--
 
-diff --git a/lib/igt_kms.h b/lib/igt_kms.h
-index 695f666bacb9..27f8877a9f6a 100644
---- a/lib/igt_kms.h
-+++ b/lib/igt_kms.h
-@@ -669,10 +669,6 @@ static inline bool igt_output_is_connected(igt_output_t *output)
- 	    !output->config.connector->count_modes)
- 		return false;
- 
--	if (output->config.connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK ||
--	    output->config.connector->connector_type == DRM_MODE_CONNECTOR_VIRTUAL)
--		return false;
--
- 	if (output->config.connector->connection == DRM_MODE_CONNECTED)
- 		return true;
- 
+commit 2b42dddf42e663beb9d859051cf7ae5891d997e4
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
----
-base-commit: c0c86b23b316bec7d22bbb95e433a8dc25884a1c
-change-id: 20260828-vkms_virtual_output_fix-c82298792438
+drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+This commit addresses power management reference count and autosuspend
+issues during device probe and removal. It manually adjusts the PM refcount
+and calls the autosuspend or noidle functions at the appropriate times to
+prevent the device from remaining powered on forever or increasing its
+usage count monotonically on module reloads.
 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 99f7da2180f92..70c8109ea6987 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+[ ... ]
+> @@ -334,9 +335,13 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err < 0)
+>  		goto out_devreg;
+> =20
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> +
+>  	return 0;
+> =20
+>  out_devreg:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+
+[Severity: High]
+Does dropping the PM usage counter before disabling runtime PM create a race
+window here?=20
+
+If `pm_runtime_put_noidle()` drops the PM usage count to 0 while PM runtime
+is still active, a concurrent thread (e.g., userspace modifying sysfs power
+controls) could trigger an asynchronous device suspend. This would turn off
+clocks and power domains right before the error path proceeds to call
+`panfrost_device_disable_hw()`, attempting to write to memory-mapped hardwa=
+re
+registers that are now powered off, which can cause a Synchronous External
+Abort.
+
+Should `pm_runtime_disable()` be called before `pm_runtime_put_noidle()` to
+guarantee the device remains active during teardown?
+
+>  	panfrost_device_disable_hw(pfdev);
+>  	panfrost_gem_fini(pfdev);
+[ ... ]
+> @@ -363,7 +368,9 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+> =20
+>  	panfrost_jm_stop_sched_jobs(pfdev);
+>  	panfrost_device_disable_hw(pfdev);
+
+[Severity: High]
+This is a pre-existing issue, but panfrost_device_fini() unconditionally
+accesses hardware registers even if pm_runtime_get_sync() fails.
+
+If `pm_runtime_get_sync()` returns `< 0` (e.g., due to a hardware fault,
+regulator issue, or clock failure), the function continues unconditionally
+to `panfrost_device_disable_hw()`. This attempts to write to GPU/MMU
+registers without power/clocks, which will result in a system crash
+(Synchronous External Abort).
+
+Can we add a check to handle the `pm_runtime_get_sync()` failure and avoid
+accessing the powered-down hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-claude-fix=
+es-v7-0-72a13b2c125d@collabora.com?part=3D9
