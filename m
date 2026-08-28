@@ -4,103 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 433CEC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 04:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC453C61DBD
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 04:18:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66DF310E43D;
-	Fri, 28 Aug 2026 04:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE31D10F23D;
+	Fri, 28 Aug 2026 04:18:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QFjaBCOg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CVM2ga/Y";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6640310E43D
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 04:07:47 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-cc1cb48db3eso50801a12.3
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 21:07:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787890067; cv=none;
- d=google.com; s=arc-20260327;
- b=rODArgdCLSgqMdAFBinO5+63fU0SU5kdgt+Sh0lhiR+ktIqfnzumE9Qi9oISHf77wA
- NLR+RSXj88uUjJoyCrf2FJLy0Nof8mWuUz7a8FqVIJRoAgxjM/XOItEsDWMRMFjZ/jPT
- dlR9Vb24pNRg8xxAABfvEpkIx7WO2VearL2fyMi2lWnzw+vtX+kJMvT3r3yVqX/s1+fd
- jRVWqwurY17B4dDDzYbwmqutA8f2jj+c5MIPyPdmIGcja0Gy1bfouZyWjeEZ6/Vm+XBW
- l8jTGnUBxLsjWo7C/+6PTuNJ8fbzQetFxFCfDl0BA9vNLvcOCAADLsCkNm3Vvf3Hvitv
- e5/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=pjyZxus3uT9pxC3JoEDD54aUS4Cv4NEWFZ73hqH+6Aw=;
- fh=+3XINMFCrMEV8YUJgSzxvv8HpfYpCZbZU11TmWROmtE=;
- b=YC4IgyQswkY+s/eqGyX8yZhS6YZMv9dZuaJicC6wyd/bac80EfjgoTRsXClQBMxJG3
- +YX6ZDixe2/U6JSbD/YJGaCN+7Awf6zbZOmyK3oGdtEXt772zuuV5Vhrfo0IAWLICeDr
- XWfy++qnMkG75/m+axYDYyfUpKcGtMqUXszhO3+plf+Y9kI7jNJPc5fHaHyhBcf/JTGU
- CyzdDqzu9KSbgGfSFxSpZzo6gPta2AstHnMpZuVeTJL5cASBCxM8WQ5zqi7Tr2+vkRu/
- RwlnxvpnJPQ3l/Z1sHeEL2DFfP2Zr2zXPHO9GUd5pZSsy6ReyUPomW5FDGHtViPqqkdM
- m/7A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787890067; x=1788494867; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pjyZxus3uT9pxC3JoEDD54aUS4Cv4NEWFZ73hqH+6Aw=;
- b=QFjaBCOgqB7k7CSjk4BxYOjF9ziaWczMqUaKU+lCAsTNzhY477EZfCtn+ZcQA3NSI2
- C60R7w17UBLftcDFrxCyaht9fpWOCSSpQRcC9jUorUDmG5YG0hnXMkDa/h8hVBqtgh80
- 588RCT5Ec/2USSc1nWe5yzXC/EUPuej+gP5YdJ9y8nLfS4iMhEtTUshSa8hnzhT8EZkX
- b0eswgM7+x0M+f3gxVxWwxV0dVj+20xO8v00O8XDGNYdXhcEo1oyNq97A+avos40uOA3
- tbZwKX6ptr+UV34/MXGRGTE/KaQNwj23ehT69krjf9gqxH2hY9+ma7p+7YUACq3SO7hV
- ZiXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787890067; x=1788494867;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pjyZxus3uT9pxC3JoEDD54aUS4Cv4NEWFZ73hqH+6Aw=;
- b=gztzbCRePNoXYh3TDNN75KdqVU+OwVyxzWQMZbYAMvaD5HNh/YeVe8Z4Htuv6zLkig
- O/zMYQxyZnUWGgOQ2UU17azxLmS1YS/HYzy2Q1UKWQeOwDDqqtHlmg+oyD/rlB5NZBeU
- IcAISlOmZ3D/nmbbDu48m9n/d+BVrKzNClclsUQJZFniyuaItCs+jReAm+hEsUevQRfp
- 7rOR5bbjDiakuqkNmClmPmGvY/sO8L4ljDwsj+iFDa+EArsXnPqfZH6UoXiLgf9IUpAB
- n0uKIjoylWdGdLYh9DZ8+0q2rHnGKKsIa3em0+K+3QbfFltKwkwXsjOCt46CbXeoIMWg
- HtSg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr0Tfn35kbzRum1/6fIROvFmEoN32Beg8mZko+bAApf4xKIS5eimatFAJqXZarcpt291EHPc8cigrw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lXAD/202jCfmnhWqndwELRHv48115Q3JufRml0YThZS64/M5bj
- SicO94Tyo5OW3D045YUjTa0/o+bqp21OGJCo1pttsiRHeHZNTGCoUCjaVpcSPDRYGBT9+KNM6jt
- rpfQanXTIeqxERB/FYdvYmjWrAVWNkjw=
-X-Gm-Gg: AR+sD12n/QoXp5e223IHnrwpdiJIbgK1TBzj/tqKzEATVAMzHYoJ8QCVoWU697Hi7hp
- Hf424ZaqWJaUpHemODEVxfsL5nxtVJ4A2LmjyrPlrXzpC8K+6kjNUbtnB1eaD5WhBdrl1UZ5EjA
- MRO+R3+PoRrOFz7LVhQIByc7/6AFEFM2KN+RMZjdRQieifRstVaMewbLF9kUBLho/uhyGVcy66R
- POWd5q4K4pOHEyr2fxO/jiZlzzODl+aruR18fx/S3h8M7ipcvhwcK55UA7gj7UukMJVO8Au86Ju
- IDmzI/1dBCv4Vo7BGtqXTLZV264e/0m5hFBY5qbVAhyFh0OtZXRl1lsQa2wWPRyRqoMRwPmVE+A
- FdjuYVlG4F18=
-X-Received: by 2002:a05:6a20:2444:b0:3c3:94bb:ceb8 with SMTP id
- adf61e73a8af0-3d267429a52mr3685786637.1.1787890066689; Thu, 27 Aug 2026
- 21:07:46 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF4110E2D9;
+ Fri, 28 Aug 2026 04:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787890728; x=1819426728;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=Qk0Pi4eIHu1ZNAuf0bzI0ycwWUKoPHAvkM7mBtkYjcQ=;
+ b=CVM2ga/YjIIexeG4va/XbNUvpbTWcvQ71lVzWPtDggy+Le3iL4SC5yFU
+ LbfvgsgIymmtmWcIr52Lv9rrTlTDcu0R9oPcv6o173RpxvJmIa2aOzEaP
+ 9hp+Ju5BwNUFUGZ0maXI5p+9AD6lBddZQg2Ek2/PQwYjH7EttRyAbHmD0
+ fHgKm7uv9osNTCYjlGhcwAEPOQBTZMduSRHPbx1osKoUSl551R6OtbiHd
+ 7jM4C/N79gJeGoMl4fbsvEavOdMHWxqJDLORNlEUfqHrZH+N6FKxSBQzX
+ NFsNB/YDbKN01JuVtSzAsMHOyxjZn0t0kf2uQdITspyaB7IwmGLkkubjr g==;
+X-CSE-ConnectionGUID: yEUUseCmRkirdw+ZwVqSkA==
+X-CSE-MsgGUID: ISTuulJRQrmj1IO1WBjHMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99747740"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; d="scan'208";a="99747740"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2026 21:18:47 -0700
+X-CSE-ConnectionGUID: 1U2KDw+ZTVWpJy+dQahZkg==
+X-CSE-MsgGUID: Hp+DVQaISze6auu3pTzJKA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; d="scan'208";a="267460495"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2026 21:18:47 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 27 Aug 2026 21:18:46 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 27 Aug 2026 21:18:46 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.60) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 27 Aug 2026 21:18:45 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pmkRIJqdIdbw7mDhEblhKDvDL0NyKrrIcI6dVw1FuDoKSAeUoWOQoNOTIYC0C5xRXcYQkLKtWpU/Lx+1Pdrh3CZ7+FCw7ojlVFDPNxPp5pTPzuxpM2UloOqBdpuqaD+OYg1pyzOTcL7oCLVtjj/bjuF2Si3dsnx9hJ7CA6AFdHjtPbCJvNdQdG1R5Fkow5Pcb1mkzzrBjph/w1GqyoXCLsRZcpTEON+ECfP9JbYXBMX+76eA03L3zfcGTl7KWKLALNauV7CFiZzzaPqV6OqmZb6nnncPJ0s3etn5W9SEZCPgyR3jc6I8jNdUBzABSR5B6lKQ7ZvAgPN9o5cPATD8Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ob2tGK8UfYbjr841u0559or5imoa4GQcI+O/LsAdC0=;
+ b=gOVjXFjz918ZpGpcXQym08XNjdsmp5CmP1MT9SwSGykpHHZMdIHuNKzMBIWay+ljs9oy3ZnRIG8AxON7WzlNaU4QWBPcdCYS0uhYjAeDnmfQ0B7bhAf73Eypt02LAnuhUtOsbipco0h1uoVHZXSX+tIQbUAsT0cJn6n52tNh88YDY8kwoBlXS7rnIJUlKu5i+jwDRBkSgvim/5QeiNYzX+8zIQk7SjqPZioiYLh7MAo8L+NcFKXLOZlTuQlx80fmeJzURju6IxNzu8nNelksc3mFhoadf7e4q13aryWu7fj6ka1hukqPTVeIQBoeJ0pjEdhtQY7NAFclPVOeEuKxSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DS7PR11MB8781.namprd11.prod.outlook.com (2603:10b6:8:256::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Fri, 28 Aug
+ 2026 04:18:41 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 04:18:41 +0000
+Date: Thu, 27 Aug 2026 21:18:37 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Sashiko
+ <sashiko-bot@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, "Dev
+ Jain" <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
+ <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, "Balbir
+ Singh" <balbirs@nvidia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Francois Dugast
+ <francois.dugast@intel.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
+ the src_pfns array
+Message-ID: <apEMHVQwZc5ONwvM@gsse-cloud1.jf.intel.com>
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+ <20260805231041.3791771-3-matthew.brost@intel.com>
+ <4312740f-2aa2-41f1-8442-d4a80682753d@kernel.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4312740f-2aa2-41f1-8442-d4a80682753d@kernel.org>
+X-ClientProxiedBy: SJ0PR03CA0197.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::22) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
-In-Reply-To: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Fri, 28 Aug 2026 00:07:35 -0400
-X-Gm-Features: AcwNN1XwharkwlC7cSncUV7uNpjfVtyCFXp0PJJugzLcPCDR30LNsSXNbwLuIPg
-Message-ID: <CACu1E7GGdxTOsn+MRDT+7Guhjs-DDkZVx0Yet=RTxgQ4CNCKhw@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: keep the GPU timestamp monotonic across
- power collapse
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS7PR11MB8781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b096eb0-11b0-4eb0-1a7b-08df04bb70ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|7416014|18002099003|56012099006|22082099003|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: RWVo92UCM6gN5OkQWQl3wF9mMWPVwCW4WugIgxXrXqzzaSo2ovgvdpZBdz3yovR0H1Wj9VBkphU5VaPqIg2ejivyAi1ou3csB5t9OpHfxNqqlVrKKkzmOy5zFIVJKxGd9DS25GcYNyC7+1MgNJhq/oPOrzfy8nnqP8b6OQqdcQ9zJgBUbtiIwUXJbUL5ZN2/7PL4fsCr8r6DuZNrrL+PVxDCIXFDC1wtOYlPK5F3iYJSdOt/HC6HligZg4W1ddUfdRhgzmhZUZMzDIYZzFNMgkN4swdM0N1jb0dN5oWQuewtemA7XXvOwulw5CPPkN+pHLV/sqBuj5MhuJ3L0uQyWVvZky5KWvhiMyEbf/o6K2cSggaPUcUsIRUCkli9Iv6TGvuR1vaN0302dNv5KSVyUT9r9pVetsC432d5YItirUS1/0RGCYNJhmj+DxDI3YmISIYj23njUnQvTCsElcUhNhMFc9/PA9H9r5yGjIZq3MjGx304R34AWChZc77LI5zC1rPeAFjeKpwK6Pumwvb/5xvYXmcCJnYWFsWnG7Rp/+LqFjs0fGvFazy1LHgmfIc4px9SmPImZ4FD1UJB+Azrdn9cDEbcaNYca09BTCxZKN4EZqcETFFjgIK4ImjyP4X5
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(18002099003)(56012099006)(22082099003)(11063799006)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?EIygY2CMAWqaLUQdz6Zid2MWm4i+U9Tqoem8rd12cHxmajcUjBAd9GLkBr?=
+ =?iso-8859-1?Q?QRP0YFYtLqCJFvgJIpmyWZvqe12ixum0HUNTaX0Pl+VFDoTxBGD5dPPzco?=
+ =?iso-8859-1?Q?AlW4QpKrwsR/mEQtB2Y5wKAYX4DPBYKBlvarTPBNrmFeLYsAZmXzoc+iTk?=
+ =?iso-8859-1?Q?x+l4hk5YPFOEaBUIfd5DffSMR/tLqjVMt83LMPknpCTM97BM8s5lKQubC0?=
+ =?iso-8859-1?Q?2AAOzZaRBNPXxQF/236QGDoiGpvpFDuof7e1nPdTEQoegU0zMcwN0pKmJk?=
+ =?iso-8859-1?Q?IF3a8x8uBSIlRe1E96QojH/bte1VWjm0TFCcqehFCNEbyBFZ6n9YFhoyq+?=
+ =?iso-8859-1?Q?SMVIml8+gqFMVRQUnB36fHnvs+9gVlqXc0c7I3G1Pgf9gr91/YZTrSm3j0?=
+ =?iso-8859-1?Q?61KCPOCVdVyGofX41fDztTsk2+IKn1EP5UcEqm8JBJrhEv8gmnBfxfLPhi?=
+ =?iso-8859-1?Q?SBFIatqdL6ozwB4ce2GG+g9aGnKraUQZ6i4tcFxj6TJv3ticY8bG729Zqe?=
+ =?iso-8859-1?Q?0CZce/GOcIH1XPaHDLtEgzFmqgfyUYDC48+8DYpg86YBulxr1ba5mnOM11?=
+ =?iso-8859-1?Q?ICdonGm7EdtRPX54dwb2c8VzhumxvaNYPqEk4VaufhdHrTSVWRAPGFuwkZ?=
+ =?iso-8859-1?Q?xrB+Tbnprc50jmgGTrH8335UBgv9c78gMfpsZc+2l/ZUMEfbCGDM5C2UZA?=
+ =?iso-8859-1?Q?PjmZDnoJaRRW5jVs7rsaCCvNRmkgX68b0us7WEKoh280roM6VUpevHFupy?=
+ =?iso-8859-1?Q?6IwuH/M7kXqA8x+JqLuBxInUPz3jB6oP0003Vaxx2IYeENx1FdoYAgOgXB?=
+ =?iso-8859-1?Q?h/0Xfi04dRWc4r4QdK2+E86AmPIc/SNHuaDlC/YEaxCdkUpizjzxkcuoZg?=
+ =?iso-8859-1?Q?ITuYN5cSI++JHq8PN3WZ/XMHVpFtdan48cHyTyxXzAoF/YzuCLy+WR/6i/?=
+ =?iso-8859-1?Q?fSN0c13Kk/EmC1bh+w4u8DkzjzDUFZTX5+tvtpYwKbgh9CFyusllE5MsUQ?=
+ =?iso-8859-1?Q?YFy0v8iAwGpCzw0AdMYHiwlKDM1YmZG2Y6A6S3ReLuTYcD7W8guU5HirN/?=
+ =?iso-8859-1?Q?wi5xWRPGeIqXeUkYO2v/ynHb+I2caLjB9iAVWq0wTJBRhKRCHkMbnm97/p?=
+ =?iso-8859-1?Q?JnlHnJVvSZR3Pmm9s/WH/wzeMCOjXMU29slbKeulpn3IOXK7Sk5T5BdwlX?=
+ =?iso-8859-1?Q?wJZruWnVtESLNbaCh+LalbcuGK7J4jAl0tagTnhZCUyMNtj2oe5DCfzYc8?=
+ =?iso-8859-1?Q?egdAV8Zdo5Uf6j1RyQ6RG38Z+cAY9IOIjId/OnvEmH8YWcxgWFzmH2cXZo?=
+ =?iso-8859-1?Q?qLizCrjyRMvFFp4IPBB8hahI4Q4dxmS9Rzrpi9HhebUPpFknqEL4wmiZse?=
+ =?iso-8859-1?Q?rtPkZT9xt0AXNFWgOIpcbfFNUMqrB0AX44QwFF+1UkdrRv+CT0oAVlLPON?=
+ =?iso-8859-1?Q?inkmgsDo+qweVrLERyFNQ8FS8sH38iSugdU1V0kLVvET0XTmjX7nzs/n/j?=
+ =?iso-8859-1?Q?oEr7UDwRF24oHGqiUC9l3W4qrW7GLNh8HUqgrqSfw7lYgs8WkQ1+k9kU/f?=
+ =?iso-8859-1?Q?nBTOtlVrZftN9f0Q7HipNgvkVSjyg8W7UD30wpeywdKNtOodzY4eC/pfWj?=
+ =?iso-8859-1?Q?+cU3O31ae05dKA2VYN6l1JvCWb10Q7qQt9mLzHkdVpFF98ChuBp4hqdRse?=
+ =?iso-8859-1?Q?HMaNmstF4apXBFwS+pDYaEQF7qUD8sOJs7OqsAmi1/Cl+8XxVN/ERBMsJi?=
+ =?iso-8859-1?Q?CDazBsFu1gkoK2hweextKcjYilVuOmsafsMr+e992ISvtm2PRfQzuDiaDq?=
+ =?iso-8859-1?Q?PRg5oyFvzK9MVgWscXiwxWB49ozQCXc=3D?=
+X-Exchange-RoutingPolicyChecked: MPfuFKj0EU21NRwvzeo6cJFCHFj3+JGby5WZoR7xPXXa7VMRLwX/mAzcuIxUtxeL724SgwguXPVDy/SNNfwKP6ICf0hSPgV0qCvgH7TKjIbNcrFhqLMAEM08OXI4YOE9V+K5oSY1oZtrcLUAGz/ESzlbcf9hdd7PRe51NH3ru/dtK8ouic1q7yfkTK02Q1KPoBa9ry0T6PT4co5FImRMIFqeYX7mhmYeDn99ND2hXa3n1UFyOSJB2I2C9WnkwJB8ENS9TXMVmEIRDq42+iKzagasrRe6aMudvUA0gGLo2WuTeZmVsEDKrjJFGWNGlde6MA7dB9y+dzxn92yCV8lv/g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b096eb0-11b0-4eb0-1a7b-08df04bb70ec
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 04:18:41.2119 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iSHtYCn/xl2zXrNKqNVhqiX6mLzOeiamBrvQBHKNLcLWGNWemthVdPHxzuL9jckcLe9UJw3nYpa/vNAwzTKnng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8781
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,156 +178,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 7:13=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
-> domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from
-> zero whenever the GPU is powered up again and the timestamp reported to
-> userspace jumps backwards. On an a702 six reads three seconds apart all
-> land in the 500..1200 tick range, stepping backwards twice, and on an
-> a530 the OpenCL device timer conformance test fails because
-> clGetDeviceAndHostTimer() returns an end time below the start time.
->
-> Save the counter in the suspend path of the affected generations, while
-> the GPU is still powered, and add the accumulated ticks to the value
-> reported to userspace.
+On Thu, Aug 27, 2026 at 05:05:09PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/6/26 01:10, Matthew Brost wrote:
+> > migrate_device_range() and migrate_device_pfns() zero the tail entries
+> > of a large folio without checking them against @npages:
+> > 
+> > 	for (j = 1; j < nr; j++)
+> > 		src_pfns[i+j] = 0;
+> > 
+> > @nr comes from the folio, not from the array, so a folio that extends
+> > past the end of the range being migrated writes beyond src_pfns[].
+> > Callers size that array for @npages entries, so this corrupts whatever
+> > follows it.
+> > 
+> > Bound the loop by @npages. The subsequent "i += j - 1" still terminates
+> > the outer loop correctly: on a bounded exit j is @npages - i, leaving i
+> > at @npages after the increment.
+> > 
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > Cc: David Hildenbrand <david@kernel.org>
+> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > Cc: Zi Yan <ziy@nvidia.com>
+> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> > Cc: Liam R. Howlett <liam@infradead.org>
+> > Cc: Nico Pache <nico.pache@linux.dev>
+> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > Cc: Dev Jain <dev.jain@arm.com>
+> > Cc: Barry Song <baohua@kernel.org>
+> > Cc: Lance Yang <lance.yang@linux.dev>
+> > Cc: Usama Arif <usama.arif@linux.dev>
+> > Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> > Cc: Rakie Kim <rakie.kim@sk.com>
+> > Cc: Byungchul Park <byungchul@sk.com>
+> > Cc: Gregory Price <gourry@gourry.net>
+> > Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> > Cc: Alistair Popple <apopple@nvidia.com>
+> > Cc: Balbir Singh <balbirs@nvidia.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Cc: Francois Dugast <francois.dugast@intel.com>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-mm@kvack.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: GitHub_Copilot:claude-opus-5
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> >  mm/migrate_device.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> > index 162d29b2807a..ae9027421b80 100644
+> > --- a/mm/migrate_device.c
+> > +++ b/mm/migrate_device.c
+> > @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+> >  		nr = folio_nr_pages(folio);
+> >  		if (nr > 1) {
+> >  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> > -			for (j = 1; j < nr; j++)
+> > +			for (j = 1; j < nr && (i + j) < npages; j++)
+> >  				src_pfns[i+j] = 0;
+> >  			i += j - 1;
+> >  			pfn += j - 1;
+> > @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+> >  		nr = folio_nr_pages(folio);
+> >  		if (nr > 1) {
+> >  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> > -			for (j = 1; j < nr; j++)
+> > +			for (j = 1; j < nr && (i + j) < npages; j++)
+> >  				src_pfns[i+j] = 0;
+> >  			i += j - 1;
+> >  		}
+> 
+> What's the status of this? I assume this is fixed by
+> 
 
-This is useless because the entire point of clGetDeviceAndHostTimer()
-(and the similar thing in Vulkan) is to match what the GPU itself
-returns, and now you've broken that by adding an offset.
+I don't think Andrew has pulled either of core MM patches in this
+series, so we can discuss a bit more. 
 
-Connor
+> 	https://lore.kernel.org/20260817120758.669807-3-sh_def@163.com
 
->
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
-> domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from zer=
-o
-> whenever the GPU is powered up again and the timestamp userspace reads
-> jumps backwards.  Accumulate what the counter reached before each suspend
-> and add it to what is reported afterwards.
->
-> Measured on an a530 and an a702; the GMU parts keep their own counter ali=
-ve
-> and are left alone.
-> ---
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.c   |  2 ++
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  2 ++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  3 +++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 +++++++++-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  3 +++
->  5 files changed, 19 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a4xx_gpu.c
-> index 6392126f48f2..7d9dd9460f5b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a4xx_gpu.c
-> @@ -593,6 +593,8 @@ static int a4xx_pm_suspend(struct msm_gpu *gpu) {
->         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
->         int ret;
->
-> +       adreno_save_timestamp(gpu);
-> +
->         ret =3D msm_gpu_pm_suspend(gpu);
->         if (ret)
->                 return ret;
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a5xx_gpu.c
-> index f1df2514c613..c5552f1085e0 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -1423,6 +1423,8 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
->                 gpu_write(gpu, REG_A5XX_RBBM_BLOCK_SW_RESET_CMD, 0x000000=
-00);
->         }
->
-> +       adreno_save_timestamp(gpu);
-> +
->         ret =3D msm_gpu_pm_suspend(gpu);
->         if (ret)
->                 return ret;
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index f9de9329dee3..106cc2ac55ff 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -2252,6 +2252,9 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
->
->         trace_msm_gpu_suspend(0);
->
-> +       /* only the GMU-less parts come here, and their counter is in the=
- GPU */
-> +       adreno_save_timestamp(gpu);
-> +
->         a6xx_llc_deactivate(a6xx_gpu);
->
->         msm_devfreq_suspend(gpu);
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index 3370cd44382f..f83960b31901 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -226,6 +226,13 @@ adreno_iommu_create_vm(struct msm_gpu *gpu,
->         return vm;
->  }
->
-> +void adreno_save_timestamp(struct msm_gpu *gpu)
-> +{
-> +       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> +
-> +       adreno_gpu->timestamp_offset +=3D adreno_gpu->funcs->get_timestam=
-p(gpu);
-> +}
-> +
->  u64 adreno_private_vm_size(struct msm_gpu *gpu)
->  {
->         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> @@ -398,7 +405,8 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_=
-context *ctx,
->         case MSM_PARAM_TIMESTAMP:
->                 if (adreno_gpu->funcs->get_timestamp) {
->                         pm_runtime_get_sync(&gpu->pdev->dev);
-> -                       *value =3D adreno_gpu->funcs->get_timestamp(gpu);
-> +                       *value =3D adreno_gpu->timestamp_offset +
-> +                                adreno_gpu->funcs->get_timestamp(gpu);
->                         pm_runtime_put_autosuspend(&gpu->pdev->dev);
->
->                         return 0;
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.h
-> index 114a40f79ef3..db080a6d515c 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -207,6 +207,8 @@ struct adreno_gpu {
->         uint16_t speedbin;
->         const struct adreno_gpu_funcs *funcs;
->
-> +       u64 timestamp_offset;
-> +
->         struct completion fault_coredump_done;
->
->         /* interesting register offsets to dump: */
-> @@ -610,6 +612,7 @@ static inline int adreno_is_a840(struct adreno_gpu *g=
-pu)
->  /* Put vm_start above 32b to catch issues with not setting xyz_BASE_HI *=
-/
->  #define ADRENO_VM_START 0x100000000ULL
->  u64 adreno_private_vm_size(struct msm_gpu *gpu);
-> +void adreno_save_timestamp(struct msm_gpu *gpu);
->  int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
->                      uint32_t param, uint64_t *value, uint32_t *len);
->  int adreno_set_param(struct msm_gpu *gpu, struct msm_context *ctx,
->
-> ---
-> base-commit: 140b13475302601368c0cf4e193e66126a49feb3
-> change-id: 20260828-b4-adreno-timestamp-f4c846391b97
->
-> Best regards,
-> --
-> With best wishes
-> Dmitry
->
+I think this version plus your suggestion is probably better here - we
+likely shouldn't hand back compound pfns which don't overflow the
+requested number of pages. Let' continue the discussion there I guess.
+
+Matt
+
+> 
+> instead?
+> 
+> What is the right direction?
+> 
+> -- 
+> Cheers,
+> 
+> David
