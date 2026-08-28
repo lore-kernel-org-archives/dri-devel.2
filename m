@@ -4,103 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4858C61DCB
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 12:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E0AC61DCB
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 12:20:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C809810E3EA;
-	Fri, 28 Aug 2026 12:16:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C8310E4E1;
+	Fri, 28 Aug 2026 12:20:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JOD/tATy";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=freenet.de header.i=@freenet.de header.b="iZSutd/T";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4396810E3EA
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 12:16:22 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2d01548ac96so711455ad.3
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:16:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787919382; cv=none;
- d=google.com; s=arc-20260327;
- b=nniNwDSljZxsHKEg2/7SXTe6RFlFvZfTzMxmTO32VW2z0fQ4k26BC+/c5V/hgfKevk
- SQSrg1bA4qNY5KWhYvNfVLT+Z7d6070vBwcCP6qjXAVEYLIDJK/RpomQJqXW5ZnUGD/n
- 4T8oPPm1ksZiBxfDtFbI7xIuo0KW+Uoj/atPHn+4Px5FWmhbvBYjsVAueZRtCPoTzATx
- MArwCGVY8/1JRZ4cuHTk9CtNqqr0b0E3BNww1c4GzUxkJ6RCYX+Spws3M/Ig/Z9vR0x1
- GCWmX6ckytooueY2DnMYEUJ4i58Ap8dwPHQOd4xMIh5zlHDmi5rSzcH3sDNULDRoccIa
- Cyiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=YJeEPyBPzLxDNEZ0JnLBB6831Z29vJZEqt0XxGqWMq4=;
- fh=vDm1gwEf0d49qcr/focExHrJtyJ15pT3aEUQcBlTDbw=;
- b=DljgNluSTLsuWV2lr3JrjBlL8yy7d0lQ+Vhg5DZdXE0PMgF64YhVnGYCvcZTY7xGxz
- dEaPpdlRP+sK83BT/3eRKsujEPVgKtUtF+gJU7gJ6yOkXDJT5fbtjXmPTFSzsZeSCAcw
- hAfI+gIhOO1rswyTKrxzANkcbxgBgZdO1/Ve0LQhjyr7nPKFxUBorLNYHTbNlnn6kMR8
- r2A9o3BBKlQaNDvLfYOlvwPfLojZ+XIXrPWX/PDUspsGwsKWJE+M4d88N/EI271Yez4n
- NLwgi9turmSnbdodrvgqQIxQXN7VETSefNeWegUnzZ8XThypvaxdCM1Jead1w1VGMGsi
- VisA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787919382; x=1788524182; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=YJeEPyBPzLxDNEZ0JnLBB6831Z29vJZEqt0XxGqWMq4=;
- b=JOD/tATyWddU3StNGT+CLODNFbYBgD5gVgODzlq1yROTQe68Wd5m9xfACpYtr4SOMD
- DvswlDzCAQ135LmOCdr97bAufnEkasERA2tgpKd7rKc9vTPhc6xQ0Cvus/FFDd3aTZkm
- 9BAlbhccSnyzpzIsSeMh6Q2qQEMnjgQ8699YVVuGq6ronuSzlkOR5rwuyb4XUY4Cn8s+
- jGFvpJHk7cMgiuXhLlr2ZmNwyf/+FWsC6e7+z2gWh1xFXdJVeR+QSz4+o72TtcbLGr/a
- WxYTAZUxrU51X/HNfQw+ULv+BwvnJM6uptz6hjnLJXAyJ+v6BqMLYlks+v4R0heZNfuh
- JaZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787919382; x=1788524182;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=YJeEPyBPzLxDNEZ0JnLBB6831Z29vJZEqt0XxGqWMq4=;
- b=S2uojXdxOy2n5f+QcsZQUtwVpMlDO3Nz4G74iXKkkEsDaz8qKcuoD+3zNkW/+RyCLg
- zdb3pEo3q9+GuV+YErAPpSbbpXFsVov8KwZo8Bfgue1c3nXmKY2QtUNDR9PNccUwkb9J
- Nf6FuWQxjEbVlYiM+J4bUI09YgIHA71vEyUcGPCToJaUVGuV+unUpV/mmMjeeDBLRvRB
- sgDNyNuvnvxApxoDrq9JtFDLP6Qe47hk1lluA+Y7MzvLkhvA7AOj9ntY1QReRjZhQ6Iv
- e4Qo+qMK3nPbdr6QKwgrA0SqzDF7EuGUH5IeAsAvBC2lEVjgtPTY3s9jx+JsLqfd5vO5
- z4sQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RppEQROoqVwqMbrRBnCK67HPAoVfTjZv+zmjbYDp+d9bv3/qeazXBj493RwHoUjl5K7IrHZ+aibdUE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kG/gs5Shtu/NfnSGn5MpGJxgsSLB2dtZMt0OGyd4xDuxyz1VLS
- mcpr3ZmyAe1/1zPAw2+IHuoNUfz7cp1d/w1ITJNBCeKeoJt64TS1DY3Rw42jL6ou4DntJOpuRnK
- RAiC+MSFAKWkQxtsKmjS5eztg+armCwg=
-X-Gm-Gg: AR+sD10l9Wwb37wz3QJM+5r5no71iX5aEMyKGbEFIvMkjKRw1JcQmLR8LovXgEAPXG6
- 7W+4gYXCOJggQJwudIqIWnRSI89UPC8UnxIPWeBJaRb+gmk7QVxbfoXsKNPvC7j8hMXMEFcOteL
- dTRg6sBCc0nRf33KXc5Erc4ahm0fobf1eD8Oj8sWXCXQyOS0ik6n3QjFFADVenOi3mQVZTDFv0O
- uA0saFaELZFTVYCPwapT/OxmFN0S6Uxv4g4Nti2R0imGl8NyhvgHqHmtFlg0PcEZUP3ay0dUwjm
- S1eLsm4+XaQmTZ3iEXdgNg8kUeAA+9z/akNDNGME7lRdXBHAV1TmCsQ+e5Sn7rycAadHoixyur9
- iDliAzMEynjr1NajrK3j0lJRz1IMR6ApgUPP0SGu6X8hmlKtAZvg+wAnLjwmj
-X-Received: by 2002:a17:902:e742:b0:2d7:d12:552f with SMTP id
- d9443c01a7336-2d74ce2e25dmr61601145ad.0.1787919381589; Fri, 28 Aug 2026
- 05:16:21 -0700 (PDT)
+X-Greylist: delayed 318 seconds by postgrey-1.36 at gabe;
+ Fri, 28 Aug 2026 12:20:20 UTC
+Received: from mout.freenet.de (mout.freenet.de [194.97.204.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCFF10E3FA;
+ Fri, 28 Aug 2026 12:20:20 +0000 (UTC)
+Received: from [2001:748:400:2319::3] (helo=sub2.mail.fnrz.de)
+ by mout5.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port
+ 25) (Exim 4.98.2 #2) id 1wzvTs-00000008RKJ-2bwl;
+ Fri, 28 Aug 2026 14:14:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de; 
+ s=mjaymdexmjqk;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=W3jS18jhU+PbPJF3OtPf1V1jSHY7+JgKo9ahDNrABJQ=; b=iZSutd/TDl13uYe5llZlM1e/CE
+ nTJ8n2goknxpff3lWQwUJ+fqt+sQzmauMwEBmzsJCgSiy0CpXMTQvSMY9eF33zv/lbgLRX4r9opUJ
+ feMR9z7sdpwrntQ/KWPowUZm6s3p7oavkIiwnFD063I5YH3SPcsk9ZUFjYJghJFBVwk6oES8vN6T6
+ 8c8z18mUWBU4jLcKSnbQOTKX0+RhGF8XwhMRETgz/nPmsJpJ0TZQTEkcZcMLG2q1qfd5ysZCROq6l
+ 49caeFpOb8Qct6sx+saff4HQrSYxGinT+NWsbhFZCUbPjeNyU7+dzj7Y4pQ8arkpiKpKE1YViYa0f
+ OOwdGneA==;
+Authentication-Results: freenet.de;
+ iprev=pass (p200300f9df039f3750a2f981e028cbfd.dip0.t-ipconnect.de)
+ smtp.remote-ip=2003:f9:df03:9f37:50a2:f981:e028:cbfd; 
+ auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
+Received: from p200300f9df039f3750a2f981e028cbfd.dip0.t-ipconnect.de
+ ([2003:f9:df03:9f37:50a2:f981:e028:cbfd]:36680 helo=[127.0.0.1])
+ by sub2.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de)
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim
+ 4.98.2 #2) id 1wzvTs-00000003sEQ-1nN9;
+ Fri, 28 Aug 2026 14:14:48 +0200
+Message-ID: <572f78a8-1b09-4275-bca7-0ae8703776d0@freenet.de>
+Date: Fri, 28 Aug 2026 14:19:18 +0200
 MIME-Version: 1.0
-References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
- <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
- <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
-In-Reply-To: <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 28 Aug 2026 14:16:07 +0200
-X-Gm-Features: AcwNN1XLnWNk0tl21KUKDNYvB86AzsWOBloGy7JyyvYK182UvGVrdB50k0AdYw4
-Message-ID: <CANiq72kBF4xyKpB2oSvq+MgRuT2xk-VYSbtXW8HQaT0wmc3ehg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] gpu: nova-core: use kernel lossless integer
- conversion module
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, ojeda@kernel.org, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
+ warning
+Content-Language: en-US
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Melissa Wen <mwen@igalia.com>, Alex Deucher <alexdeucher@gmail.com>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniels@collabora.com, harry.wentland@amd.com,
+ leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
+ Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
+ kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
+References: <20260826104143.39077-1-mwen@igalia.com>
+ <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
+ <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
+ <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
+ <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
+From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
+ <viktor_jaegerskuepper@freenet.de>
+In-Reply-To: <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-FN-MUUID: 1787919288BFDEC7C3E20FO
+X-Scan-TS: Fri, 28 Aug 2026 14:14:48 +0200
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,15 +92,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 28, 2026 at 2:09=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> But honestly, the former would just be unnecessary noise. If we don't do =
-the
-> latter, let's just keep the nova-core num module until the dust has been
-> settled.
+On 8/28/26 09:22, Thorsten Leemhuis wrote:
+> On 8/27/26 19:14, Melissa Wen wrote:
+>> On 27/08/2026 18:37, Melissa Wen wrote:
+>>> On 27/08/2026 15:34, Alex Deucher wrote:
+>>>> On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
+>>>>> PREMULTI was the default DRM blend mode until 9813e158d13d
+>>>>> ("drm/drm_blend: allow blend mode property without PREMULTI")
+>>>>> introduced
+>>>>> the possibility of exposing the blend mode property without PREMULTI
+>>>>> being supported. However, __drm_atomic_helper_plane_state_init() still
+>>>>> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
+>>>>> mode in this property. In the same series, 860e748bddcc ("drm: ensure
+>>>>> blend mode supported if pixel format with alpha exposed") starts
+>>>>> warning
+>>>>> drivers that supports alpha formats in a given planes but doesn't
+>>>>> support blend mode property, which includes AMD primary and cursor
+>>>>> planes.
+>> [...]
+>>>> I presume you are planning to apply this directly to drm-misc for 7.3?
+>>>
+>>> Right, I'll apply to drm-misc-fixes, just doing it now.
+>>
+>> Or not now. I have to wait for -rc1.
+>> I'll keep it on my radar.
+> Hmmm, that sounds like these fixes will miss -rc1. But wouldn't it be
+> good to get them included there, as they afaik (please correct me if I'm
+> wrong, is easy to mix something up from the outside!) the warnings that
+> Greg described as ""It's not good to boot and have a bunch of warnings
+> already happening, resulting in a "tainted" kernel before I have the
+> chance to break anything manually myself...""[1], as more people then
+> will likely encounter this (and then waste time on bisecting an issue
+> known for weeks for which a fix exists).
+> 
+> Ciao, Thorsten
+> 
+> [1]
+> https://lore.kernel.org/all/2026082651-spinning-cornbread-33ba@gregkh/
 
-Yeah, keeping the nova `num` for a bit sounds fine.
+If I understand correctly, the *actual* fix (for all affected drivers)
+will make it into 7.3-rc1, see this answer to my question:
+https://lore.kernel.org/dri-devel/20260826-brave-nyala-of-elevation-d23aea@houat/
 
-Cheers,
-Miguel
+This fix is queued in drm-next:
+https://gitlab.freedesktop.org/drm/kernel/-/commit/271e90eb5f9ff34951647e5ed33c1775eebcca50
+
+It seems the drm-next branch is used for fixes arriving during the
+merge window, which might be confusing for outsiders.
+
+I hope that clears up the confusion.
+
+Viktor
