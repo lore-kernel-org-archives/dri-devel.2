@@ -4,135 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76464C61DBD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 20:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9911BC61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 20:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A011A10E4BA;
-	Fri, 28 Aug 2026 20:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B7FA10E054;
+	Fri, 28 Aug 2026 20:57:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R2v7mwG9";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="fKiKUdjw";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B5E10E4BA;
- Fri, 28 Aug 2026 20:42:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rlQJd1Uvqt0N4mzp/BWsSlcod5sC2GRFHoNXLYsZmuUyKN8322/tdFlbE3W+tjcRBDhJRC+UTSRgMKmqDHY32oL5GgK5rbiF79lidDb+JkKea85APAotZub5qATBAlK9TDy/2wmrJ+0Zsw/MrLGuqc0UwrAVL3vOUVPGfxMD74ktQOZZ3dF8Dr6MdidNJV+sUkXfN+0DzmIAf8ev0GyAjNx98LkdxLdOz+wIrXWPdir7KkswTE5SIAoG63bLt1TBsIriUn/Ddl8w1PxH9wUFfqXmJka9qIHQU3qwiJhlfi6D2840mvLDTdVh4icAaxs+cfMXB4kmPTCPTQ3lPX3Idw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Erlw/Jz8aIh4gcon3rn+PZuwmalV1u0/5yP3PGJRo3s=;
- b=Rav6OI0TN3MTilAl6D3M3tTjupRazkMnliPDnq5eqDtLNmZwnmJyh3bT+CFgzxRPz/avECaURrgnaiQ9eRVK34I1dBANTWSz11MYyCQDCLVecpJEI+hifrsG89oKXHrRqmLz0w6JTgOoBJOPsKAD41C35MqGy4QXY7DBiO1KdOMel6ps1BGzzWMhIjF55eXyanuP0F1uJ0xjkwOs+IetDKCBoRY2B7gVs+XRQT1m2BOmWAteO+PBvgnU5T7ZjtKqDtIA4IS6oEedD0B+XdxDBIELYZTfIWV/kBPxFEAdolRnkMTit856vg+9fKKoSktn3ymHLc+sgPRe3o0dGvvH9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Erlw/Jz8aIh4gcon3rn+PZuwmalV1u0/5yP3PGJRo3s=;
- b=R2v7mwG9BnsCYSPjhkRMpvDd4gqt2SQcvsmFgXVXXFdQNLZuk8wyazyptFq0C9ULNONbA32pN0JZXYcHfy7Aaaz1yGKMpo9gaN1AiII08142mO3ZD9kUSx+2ckTKIVe2HJ5jJwfjFO/c+1R//euih3JCa8A/qMo0xKd6nkEyZKE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DS0PR12MB7536.namprd12.prod.outlook.com (2603:10b6:8:11c::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Fri, 28 Aug
- 2026 20:41:58 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 20:41:58 +0000
-Message-ID: <2eb3d525-d7fb-44a5-9904-fbb729353c41@amd.com>
-Date: Fri, 28 Aug 2026 14:41:55 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix division by zero in
- get_estimated_bw()
-To: Hari Mishal <harimishal1@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dillon Varone <dillon.varone@amd.com>,
- Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- Cruise Hung <Cruise.Hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Peichen Huang <PeiChen.Huang@amd.com>, Qingqing Zhuo
- <qingqing.zhuo@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- Mustapha Ghaddar <mghaddar@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-References: <20260822145751.42328-1-harimishal1@gmail.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260822145751.42328-1-harimishal1@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0246.namprd04.prod.outlook.com
- (2603:10b6:303:88::11) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63BA110E054
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 20:57:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787950646; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ch/alWSppndJUvTjZTDwbasMuYb8zo738xQ5xsW6q6ZjyrBddLu7m81sEnBucWKoR8lXgxgxqJhmBKRq0SfZl1ON4q4kn0c2lZVNeLJZ5uT73VehbXoIiF5OdMraEZ5+U5djGQfdh/xzWHIaSKUNWIQn7STfTipRczDYjbUXrpM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1787950646;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=VrJsrLIm7maKTEeIIqnV/eQUZRGmYELFGrgHzMNhVU4=; 
+ b=ZL/bkzLhHfSAUsFdJuD0TtOB3WryQtNLdILoUpfNlWwmRwm7Jpim8Ydxle5LR3uALZnLYW7jEMSHYreRRG2s5OxczzFcgU91c1aS45A/W1i/mEOUMOD4X/kLfw3r/8q9DavpCiGPyoaigCN6od5ErY6RMz9Dl2SOjxgGii+Szzs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950646; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=VrJsrLIm7maKTEeIIqnV/eQUZRGmYELFGrgHzMNhVU4=;
+ b=fKiKUdjwGmZqEZMFSbmTsV3Quli+LBeVysE0cQi+u5l36SIIkwtFC8eQpYOjFagr
+ kmkEGw8FroB3fsr9ShicSmi8CPlHojnOgS/1+VCRHWyqowT1f6kDuqdE5F9su4U/nym
+ TRLZwkYyqFj/o9fGLP4NffJCTlUiGB3QM0ggoPKU=
+Received: by mx.zohomail.com with SMTPS id 1787950643707888.8572252814798;
+ Fri, 28 Aug 2026 13:57:23 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v7 00/17] Collection of fixes for Panfrost: Perfcnt, RPM,
+ refactorings
+Date: Fri, 28 Aug 2026 21:56:40 +0100
+Message-Id: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS0PR12MB7536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25b3bff2-41fc-4b93-7665-08df0544cde0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|56012099006|10067099003|11063799006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: yVW/BdrdU7YJILoaJKBtIZFxjXwpF0sRtuTxZau5wrqHGaUzU31LYNhmzBn0mtVJ68O5XJWSQRvyalr4Mv3KLLn+Z4egkScnihmhqwrYh3lFJqBnQup/wBwBmIykJ9tAJebIQDJfzH5uOTwYOZ80Fm5lzujq884cQRiBzp64O3rUehNKFfHaSD9HGw32X84Vdfzv50IfaEKQRA39CjvieAXmQ32Da7TNmUQwyrkaHUKPKnwrX57WVQ+1IuPB+y1/g9Lc2sj3eVj3PgbFhS6K25cDvM+ioHj8OWMXPIlsgQSqT0/Bl0GEXaL9XAPW43muBPvSWZ3YTlZZBxXLLZhP8pBXFvI+1xvdBLxPkeNTpzA3dsAOwJRj/YYfZF33lPjlPYTkE/pfbDN13uhs31sKPXoFpcmPlmtbXO+r8ePMKzhkm+IJpfydX1OsOD1ALbnKrGnTLRYpywZjt1M7hlsewQ1CIcrW4pebSydFcXqE2gzdIA74ahS7N8EL4SaI+Apiwl3VzJD+TW8lwcfJ0E6RWLq2/nAWm8ffmVIUUYfS1H+I2qwTqZAiyLPmuOavrFSknReA+VDIoyWj0VeP+iyPQPErHmYqQ2Lf+rsDm3WkemXxPyaWxy0F3hHy8o8b05jxwzKU1H+2XwIdNfMrSRZ9MpDvi4ooRuVFzIMurLRshks=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGF6NnFCVXlJWTFkSFpIM1hkaEVuNlBMLy96U0FoQnF3T3A4Y0t2MlN3Zzh1?=
- =?utf-8?B?bDR2QU1RVzBFdnM3MHg1czIzUDdpOXg2Qkc4QTUwR0p6ZFFkYXpMQm9zNVFi?=
- =?utf-8?B?b0lwdzRObzRGYlRBR1dYWmZTcnFGTW9yOCt2ckM0S0pEVXFsRjlBR3AxelJR?=
- =?utf-8?B?WXA3c2QzdHo4NGwza1dkcVdsZXFkZkUzdTNLdzJaWG52ajV0R0N3ZXd6YWtJ?=
- =?utf-8?B?WmVLL2daVi9vdzNzbEZ0NVJEc2RMRitrdks2ZFlidWRFdmNva2FWMkZIUFht?=
- =?utf-8?B?UkJLeGFoU2NmbDZXODdOL0hac3FSUXZ6TmZpdDZlcGMvWDFZNHBzZjdsMHRF?=
- =?utf-8?B?aG1UZUsyYkw0bHo3aHJxYzZENFcxL01kNi9IWDBDZlBML3BXTFUvTlpwNW0z?=
- =?utf-8?B?aUMxRFY4Y0xqb0RsQ0hiZTdoSXVnWFZjSldVR1ZkemF6Y1RqNnhQNlV5aDFw?=
- =?utf-8?B?cGhac29yV1g2OUcrUTY0a05kemdOVXpOMVhqMjhMam1aV0ljaUQ1MXdhblI4?=
- =?utf-8?B?Z01TWTJjR3VDb3lpL3F0M252KzA4SGh6NmNjcDJFalEwUVZvYWJyNUpaNThp?=
- =?utf-8?B?Wmc3ZzA4MEVPSkdYOEhMOE5BWGVBSGR5bUt4V2N6QXRhTFo2a2RUK0V2N0Fz?=
- =?utf-8?B?TnQ3QlRUR093UDhQOFpVTHRRcjJjUUpTOTdtdFhnVWVqWVdOQWRMekhQa1dC?=
- =?utf-8?B?cktnVmVjMWlUczl5R1dOYTV2ZnZ6UmhRb3pGd3ArdXRndUFSWVFuS2Y3Vmk0?=
- =?utf-8?B?VHhtN0I4UFJBTnBudHZyYkFlbG1Wb0pVRkhUcWZJZ2ltTWdndnp4bTFRVkZx?=
- =?utf-8?B?UndlY3h0WnZSVHBWSlFZRlI5YkhrYkk4ZGZrczE2emJ6ajFraURHaXJucUFv?=
- =?utf-8?B?VFk5TFh2WU4ycE42MXlBWURJc3FjeGREbXNSMVFxZUYwSlA0aS9FUFhQNmxH?=
- =?utf-8?B?Zm43dnF0NFJIRm1kNW9pV3pLcmp3dmlpNEI3aGNPTXN1aDhMU2pEaStYM3pF?=
- =?utf-8?B?Q0UzLzdmeVRqczVLcGp4aHR0Wm04VXV3SERrc0lkK0RpemlkODhSSDhCZXRn?=
- =?utf-8?B?VWZRV2NwSTdDUHlvVDJXdThWKzVnanMxNU02MGhaQnI4TFlSWVJ3Q0E5OWtJ?=
- =?utf-8?B?KzJ5OVk1SG80QzBoNllZaTZ4K0xncjlJcDEwSDM0cmFVQUxoMDJrb1lFV05P?=
- =?utf-8?B?VGNFMTMrVUNXYUc1YkNwcE9Nd1Q5K1FpKy9ibnRNVGhpc1BEZ3dKOVNDNnpj?=
- =?utf-8?B?OHpvem5UaDNkQVU1czc2R3Bud1R6OWlMNzJoaXFzUWhaRlRMQWQzWi9DZjlT?=
- =?utf-8?B?SnM2c055U01iM2xNR3ZvMUtlcjBPVVV4V1VJVXE4RTFIZExHdXpWeHdjOEtI?=
- =?utf-8?B?UVpMT3Bwd1dTNDBWWHRzdVVYRmxGVUpYTk5RVlRZWVNSaytBWjd1Z2ttZGlI?=
- =?utf-8?B?am1vWVpPWHJnSW56Y1l0emJEVExVRFNuckhuRWlMMGltRUxNUHpkZGRFaDd0?=
- =?utf-8?B?OFRsMDlRYlZMeGx3UE9KOHM2b3BxUlNETmo5RlRRWkQ1Z1NqTmlWcE1nNktT?=
- =?utf-8?B?aTl6akdFeXNtQjV3VnBjTGEwSjRYeE5yR2NiWmVuQlBQTmdzaDBRZ0NKTjF3?=
- =?utf-8?B?bWRHYTB5Rzc1VkZHUVRKVUh4WkgrdExkbXlCQTM0SnU0bHJ4Y1FrMTZtbCtv?=
- =?utf-8?B?TE5RdnpPdkJJMTYvbmZHWmtYVExrTVRYRC8rdXkxNzhCNFVsZkJSQ2FBaHNu?=
- =?utf-8?B?d00xVUdNMjVkNzQ1b0RZdGxFSTcyaUhoSTVoQzRNZnllNVBRbFdZV0NBUElZ?=
- =?utf-8?B?Uk9TY0lSajRTNXNwSjlVd2lieG5OY3Z3dWtGR1Q1Tm04dlUzaG5Sdmx0cTlN?=
- =?utf-8?B?cFBxeDNTd1ZrU0JBeGhxdjVNYzlaT0pmazQyRmN3VXpJWHFEU0hlL0pmRGhL?=
- =?utf-8?B?dHgyRldlaDFVcFZheEQzbnJidUFmTGk2ZmwzaDdubDhCQm5GaE1WT2FxSDhU?=
- =?utf-8?B?V0x0S2ZZZ0lMdDh1YW9zUW82QzFNOGE3TmozVHdMdkI1YXZTMEhWRVlSOWFh?=
- =?utf-8?B?UlI4R0dIZGhtTytVeEdiV1lUQ2hwMEVVYXBMY3FueTJSYllETmxsRWtsY3Aw?=
- =?utf-8?B?Z05kWDVlZEY3b3hOSi8wTW85ek41VnJpbkd0MEZuT1JyQ1ZkSXNmQ00rSnNW?=
- =?utf-8?B?VlAzdHhxVXRzOVJVWCtrejU2dFExaFJuTmhHVjlxVVVveE5DTmIvS2hOdHV0?=
- =?utf-8?B?MG8vcnNIc3NscFJJWkZZUVNYdWlCdnlQNzdDQ1pWMURQM2tXL05sL3hjaGZZ?=
- =?utf-8?Q?wyc38IR3mw3k9tZvOZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25b3bff2-41fc-4b93-7665-08df0544cde0
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 20:41:58.1813 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j5hBh/mJ5HXty336ofbKI4ekWk47ZIEHopvfh9BOoSLMP4s6/yCL3Q31SQvDee+sO4bJyRD9o+mOu1anQeF7bg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7536
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Q3U7DMAwF4FeZck1Q4vw1u+I9pl24rsuCyoqar
+ QJNfXfSIdRRenlkn8+SbyLzkDiL/e4mBh5TTv25hPC0E3TC8yvL1JQsQIFXDoykDq8NyzZ9cpY
+ V1MqgNhYrEqXyMfB9UBqH40/O1/qN6TIb88Yp5Us/fN3vjXre+6X9X3rUUkntOQIj2mjjC/Vdh
+ 3U/4DP172LmR1gAr+wKgAK4QL5uLGnv3BZgFiDAGjAzYAFbr7FuVLsF2EcgrgBbAKWjr1pgCgG
+ 3ALcAldYrwBXAND4CRY4VwRbgH4B/T/QFCMWN2FoVOayBaZq+AQ7THD8DAgAA
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6518;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=yJga2t3AIElWD3nCpLIrVN4YFugp7AYxXlmzcydCMzc=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYsuQWvgoZ4fCg0khT/j3vfk2Wev1O/5oLJM
+ 33DQ8Oy6M2JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LAAKCRAOJn5M7lND
+ PfovDACF2Oc62njNakHCoYEj0Mgr3/ktYtTguePFxxm5BjJizQFFXt8edcGmwHTFplBr98u6lnY
+ 8E78jng5KF7qghjN5QgR1TtVZmZ1U9G6xYfSUFjMNPTGtHs4EQJ8KLq3rIDV5Zsnd4dBPo0qtF3
+ 4cHGAGcN9OdXUvQEkWVojCaSz0fi3eId2rJkLwVInbc0DC04o/fWjPVJtdIx2wlq4E0K37ha3qh
+ qxRTxYcOPyif5nFKnlSA6hZIOul0PIYPjFew/GK18+QBQ0w+QxakMKBqwXBabs/6DQPTU1CwFqj
+ r+XxcMrhYSTxPb/UijwgwsKlp23311BJdLhO3CADMjFzeYXKKp5wwg2HPSdkX/z+AuDbfWPjQB6
+ in7Ly6N8hL/9rnTF7B6BiewKJqq+NEHDK8ediqhiC7FbluPLGQRy4CwW7i7yNOoiQV89KKY0Dvc
+ pGrcCuvVti8aUEzQ7WTir5QFBFI/85DZgSOJPD0VgYCAvfoQyMZD7ybEFmXK0odjH7yf4=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,52 +95,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Weekly promotion tests found no regression.
+This patch series began as an assortment of small fixes for some issues
+uncovered by Claude. Over time, it has evolved to include many other
+fixes for further problems revealed by Sashiko in successive revisions,
+and also refactorings and improvements suggested by maintainer
+discussions.
 
-This patch is
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+A subset of patches submitted in previous revisions was already merged
+after they had been reviewed, to avoid this series growing to unmanageable
+extents.
 
-On 8/22/26 08:57, Hari Mishal wrote:
-> [Some people who received this message don't often get email from harimishal1@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> get_estimated_bw() divides by link->dpia_bw_alloc_config.bw_granularity,
-> which is zeroed by reset_bw_alloc_struct() and only populated once
-> DP_TUNNELING_BW_ALLOC_CAP_CHANGED has been handled.
-> 
-> link_dp_dpia_handle_bw_alloc_status(), the DPCD interrupt handler,
-> calls get_estimated_bw() whenever DP_TUNNELING_ESTIMATED_BW_CHANGED
-> is set, independently of whether DP_TUNNELING_BW_ALLOC_CAP_CHANGED
-> has ever fired for that link. A connected USB4/DPIA tunneling device
-> that reports an estimated-bandwidth change before ever reporting a
-> capability change drives a division by zero in this IRQ path.
-> 
-> link_dpia_send_bw_alloc_request() already guards the same
-> bw_granularity division; add the identical guard here rather than
-> introducing a new pattern.
-> 
-> Fixes: 8e5cfe547bf3 ("drm/amd/display: upstream link_dp_dpia_bw.c")
-> Assisted-by: gkh_clanker_t1000
-> Signed-off-by: Hari Mishal <harimishal1@gmail.com>
-> ---
->   .../gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c  | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-> index dd854d992692..f43fc4b78a8d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-> @@ -103,6 +103,11 @@ static int get_estimated_bw(struct dc_link *link)
->   {
->          uint8_t bw_estimated_bw = 0;
-> 
-> +       if (link->dpia_bw_alloc_config.bw_granularity == 0) {
-> +               DC_LOG_ERROR("%s: BW granularity is zero!\n", __func__);
-> +               return 0;
-> +       }
-> +
->          core_link_read_dpcd(
->                          link,
->                          ESTIMATED_BW,
-> --
-> 2.43.0
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v7:
+- Again fixed some minor issues reported by Sashiko.
+- Made sure the new debugfs reset knob works even when runtime PM isn't enabled.
+- Added new patch that handles job termination at driver teardown time.
+- Link to v6: https://patch.msgid.link/20260826-claude-fixes-v6-0-78119af409e7@collabora.com
+
+Changes in v6:
+- Grafted trivial already-reviwed patches from previous revisions into
+their own series so that they could be merged into drm-misc-next.
+- Added commits with multiple refactorings, code rearrangements and simplifications.
+- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
+- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+
+Changes in v5:
+- Addressed more issues uncovered by Sashiko.
+- Discarded two patches to avoid dealing with too many pre-existing issues at once.
+- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
+- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
+
+Changes in v4:
+- Fixed errors and issues uncovered by Sashiko in the previous revision.
+- Changed the way RPM checks whether the device is initialised when resuming.
+- Simplified perfcnt treatment of potential resets.
+- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
+
+Changes in v3:
+- Applied some minor suggestions for the first couple of patches in the series.
+- Moved shrinker initialisation into gem initialisation.
+- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
+- Added patch for reset sequence fixes and also a userspace knob to trigger it.
+- Reworked perfcnt fix by having the reset sequence restore its initial state.
+- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
+
+Changes in v2:
+- Fixed race conditions introduced by the previous revision, in the RPM and
+HWPerf commits specifically. These can be consulted at [1]
+- Don't attempt to suspend the device unconditionally at the end of
+probe(), and do it through autosuspend instead.
+- Broke the RPM patch into one that fixes PM refcnt proper and another one
+for MMU enablement at device init time.
+- Moved perfcnt GPU disable helper into its own commmit. Same for
+transplating shrinker initialisation and unplug.
+- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
+- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
+- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
+
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: "Marty E. Plummer" <hanetzer@startmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Eric Anholt <eric@anholt.net>
+To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+
+---
+Adrián Larumbe (17):
+      drm/panfrost: Move shrinker initialization and unplug one level down
+      drm/panfrost: Move all DRM device initialisation into device_init()
+      drm/panfrost: Move lock and modparam initialisations into their subsystems
+      drm/panfrost: Move debugfs initialisation to relevant subsystems
+      drm/panfrost: Skip NULL checks for clock enable/disabling
+      drm/panfrost: Consolidate device clock management and reset
+      drm/panfrost: Stop all jobs before commencing device teardown
+      drm/panfrost: Split subsystem init/reset from interrupt enablement
+      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+      drm/panfrost: Add warning messages to fatal error conditions
+      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+      drm/panfrost: Move perfcnt GPU disable sequence into a helper
+      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
+      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
+      drm/panfrost: Introduce a reset lock
+      drm/panfrost: Fix races between perfcnt and reset sequence
+      drm/panfrost: Bump driver minor to reflect new DUMP IOCTL req field
+
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 272 +++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_device.h       |   8 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +----------------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  63 ++++--
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |  21 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.h          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_job.c          | 179 ++++++++++++---
+ drivers/gpu/drm/panfrost/panfrost_job.h          |   5 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  12 +-
+ drivers/gpu/drm/panfrost/panfrost_mmu.h          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 238 +++++++++++++-------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
+ include/uapi/drm/panfrost_drm.h                  |   3 +-
+ 16 files changed, 589 insertions(+), 443 deletions(-)
+---
+base-commit: 8aee06aa4c72e9bdfda81ce720b51fe0fe0f307e
+change-id: 20260523-claude-fixes-82b03a134a8c
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
