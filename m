@@ -4,78 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579EBC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 08:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CC2C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 08:51:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2A2C10F2F4;
-	Fri, 28 Aug 2026 08:49:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3EB10F2F6;
+	Fri, 28 Aug 2026 08:51:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="tg7cmklP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MwwoebXP";
 	dkim-atps=neutral
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6675310F2F4
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 08:49:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1787906886;
- bh=RJlSQp8r350iMwIMlHz6kJOY3IIHWCaiqptCoWQnTWs=;
- h=From:To:Subject:Date:Message-Id;
- b=tg7cmklPEYOt+mqx25lhJ6o2jvzGdCRUvXl+huHhoR8aTpA0R5qa3bMAaP2TeyWnJ
- 5XB/mlSj7fh0WijA/4Tv1ocvXJeMow3ZfecyiObm8aeWV6z/3J8jgsWGvEfwOynvpo
- wUUC18FESG22PyZXAA2VacQXTbN7+a+r2QZDJHKk=
-X-QQ-mid: zesmtpgz6t1787906884t06858467
-X-QQ-Originating-IP: CQgLeaWy6Yzh+F2VVlpNXaKxG2UNi9frWcgW6uV9yfw=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 28 Aug 2026 16:47:57 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17473043343536338628
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFFA10F2F6;
+ Fri, 28 Aug 2026 08:51:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0562860200;
+ Fri, 28 Aug 2026 08:51:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DDB21F000E9;
+ Fri, 28 Aug 2026 08:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787907101;
+ bh=iHBSUDDx1WbolXW0Nyh2IRj9cxuhb4M6H5r9hbv6v5w=;
+ h=From:To:Cc:Subject:Date;
+ b=MwwoebXPHKhkZn8W5TgPtCIHt2/bh0gn5bc3Op2iQ31YgzRxFScemnTxhXARslqi1
+ Yr6FVrT05g5hYx0UTnd8lheht+h9oqNXjqp1uFdgM5hBslha1xIAi3O/pfSCvwaAZG
+ 13tIaTynKi1BrzAbc27OhQ01GK/rWqjFrEHtfJOgUtvDo/bTwLSA8PsZNf0vBlA1JQ
+ lDHEo+YlF66FWIZ0wAMlDVeggU+Fbbvv/ddBithXCM83xLYAjMwytdgVZWB3MgjNtj
+ bM1XyS4iXqTwQB7FsXYefGA4qA1uSKbJlym1Gp+tgtLZGCbJ66dn31s4GB6/ybmfwd
+ c4NC5D8Hafz6g==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: devel@lists.crash-utility.osci.io
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, Gemini <gemini@google.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-phy@lists.infradead.org
-Subject: [PATCH v7 3/7] drm/display: Add soft depend for
- aux-hpd-typec-dp-bridge module
-Date: Fri, 28 Aug 2026 16:47:33 +0800
-Message-Id: <20260828084737.565-4-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260828084737.565-1-kernel@airkyi.com>
-References: <20260828084737.565-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MsL7hwqo9bYsqtOmy7L4wpqq4xMtXJOga7qDApU/Hu6EnmSH5HTiBc4l
- xABnqDS4Q6Mv/H+0OxQXq+Ns3cZjLJ5W0Ao3nOUOjeB+QR6+hFvMBgbgSEHn4Gz8FVttnof
- WQQSb4m1TuXYbA0VIopu2oOqBzVTT3+pz4TUpI3icUEFVrTwfxp6T4vPiY1wWAaJybnooFr
- e/UxV5amN7mHuwPMQxt58uD5okqSOT9zNWe7vSCC/YDdgsXCtyYq2VRkZ/3sXp6bLf5t56D
- Quy0hT/+RqcIzs01FFlFLJSOJLPjrmdh4x3sKQc+HyLebWt5wcOzkv6PN78geHBh4+jgmIL
- r/eNqGeWKHjRPE0C/WqobLe1IxSg4mhuytP1+o8Ecc19QEb0ibEVE0nPARn/tXL+PYjFH3O
- J1gh26XRLBlbVq3XbR1YMM19QHR/vZe2tORtjf+Nv7BhBQ3gcdfbusbc/jyXFEA1bvwfwU1
- fC6AH82+d2igOPRDGQJljWyU78lQyVAuAWOnYfFZ13dtnve1Q6LPpw79wi/dx6GGly9kJAR
- qPVWFQ+GomO6tnEZXKb+LrM3ig4p9TlJQGB/nKft/I0X1u+D2HM2oJ6sWPCi5PJQxyVLZDS
- E3nTVVzvmiNu19EGgs05wzx9o4oWEj+nPDVYbRJy6/jnMYY4CQvYtdpWnLkZM9GQhWoh0xb
- AB8H9Ieu6e2UiNDP8v6OVskTe+WbDRlxJcV3186QRB30Nw6AkadYh7tuBgv4dCO6/wu7txV
- b9XPuHMl1n7SOpDoBoDpFTgVRoUdEl8D/iHm1HZOQRCAnIv2Z9D/0nwbYYwCAjqP5799sII
- Nsu4htAIoUC3n/moSkCqRGxNZIMsmwJWAM2I24b56EvLQsD+3EN1QyZiQ4HIMbaDLkOdXLc
- Bv7G3ljBeNfv2O/V1bBI2VPqY+BXKNwqWCVaKll+h7Wjton4AtwNJpiCBASDWvyobDd1VGx
- 77xwcUIcqJr7+HoaRp1pMZtFrgF1zFhyEY1JksEA63743E+uE0dE4Xz8npHp3hErVra0IaJ
- jENHgl8Nu289gt72z6
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+ Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2] drm/qxl: fix use-after-free and NULL pointer deref
+Date: Fri, 28 Aug 2026 10:51:36 +0200
+Message-ID: <20260828085136.128561-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,37 +64,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+When allocating a `qxl_release` structure with `kmalloc()`, the underlying
+memory contained uninitialized garbage. Specifically, `release->base.flags`
+(part of the embedded `dma_fence`) was not cleared.
 
-The aux-hpd-typec-dp-bridge module serves as a generic TypeC
-DisplayPort HPD bridge and is not required by any other
-module. Therefore, it will not be auto-loaded.
+This garbage in `base.flags` caused helper functions such as
+`dma_fence_was_initialized()` to return true even for releases where the
+fence was never actually initialized (e.g. via `dma_fence_init()`).
 
-Given that the drm_display_helper module houses DisplayPort-related
-helper code, add a MODULE_SOFTDEP() within it to suggest loading the
-aux-hpd-typec-dp-bridge module beforehand.
+Consequently, during release cleanup in `qxl_release_free()`, the driver
+attempted to put/free an uninitialized `dma_fence`, leading to refcount
+underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+pointer dereferences in `dma_fence_signal_timestamp_locked()`.
 
-Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
+`qxl_release_alloc()`, ensuring all fields (including embedded fence
+flags) are properly zero-initialized upon allocation, and remove
+redundant explicit zero-initializations.
+
+The dumps in question:
+ refcount_t: underflow; use-after-free.
+ WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
+ Modules linked in: af_packet nft_fib_inet ...
+ CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
+ ...
+ RIP: 0010:refcount_warn_saturate+0x59/0x90
+ ...
+ Call Trace:
+  <TASK>
+  qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  process_one_work+0x19e/0x3a0
+ ...
+
+And then of course:
+ BUG: kernel NULL pointer dereference, address: 0000000000000028
+ ...
+ RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
+
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Assisted-by: Gemini <gemini@google.com> # only commit log
+Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: stable@vger.kernel.org
 ---
-(no changes since v6)
----
- drivers/gpu/drm/display/drm_display_helper_mod.c | 1 +
- 1 file changed, 1 insertion(+)
+Cc: virtualization@lists.linux.dev
+Cc: spice-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 
-diff --git a/drivers/gpu/drm/display/drm_display_helper_mod.c b/drivers/gpu/drm/display/drm_display_helper_mod.c
-index d8a6e6228773..f0152d6b0b2d 100644
---- a/drivers/gpu/drm/display/drm_display_helper_mod.c
-+++ b/drivers/gpu/drm/display/drm_display_helper_mod.c
-@@ -18,5 +18,6 @@ static void __exit drm_display_helper_module_exit(void)
- 	drm_dp_aux_dev_exit();
- }
+[v2] use kzalloc_obj() instead of bare kzalloc()
+---
+ drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..07dc6eafe6f7 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ {
+ 	struct qxl_release *release;
+ 	int handle;
+-	size_t size = sizeof(*release);
  
-+MODULE_SOFTDEP("pre: aux-hpd-typec-dp-bridge");
- module_init(drm_display_helper_module_init);
- module_exit(drm_display_helper_module_exit);
+-	release = kmalloc(size, GFP_KERNEL);
++	release = kzalloc_obj(*release);
+ 	if (!release) {
+ 		DRM_ERROR("Out of memory\n");
+ 		return -ENOMEM;
+ 	}
+-	release->base.ops = NULL;
+ 	release->type = type;
+-	release->release_offset = 0;
+-	release->surface_release_id = 0;
+ 	INIT_LIST_HEAD(&release->bos);
+ 
+ 	idr_preload(GFP_KERNEL);
 -- 
-2.53.0
+2.55.0
 
