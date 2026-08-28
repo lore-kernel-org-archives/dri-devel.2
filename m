@@ -4,44 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51391C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:49:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0247C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD02810F258;
-	Fri, 28 Aug 2026 05:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 028F810E479;
+	Fri, 28 Aug 2026 05:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KCRQ21/s";
+	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="k7Cf3y3J";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C290B10F25C
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:49:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DFD160A57;
- Fri, 28 Aug 2026 05:49:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936DD1F000E9;
- Fri, 28 Aug 2026 05:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787896157;
- bh=gXqKDGy6bhxeRNNKuC8EXfkl2bPMYEYW4a1ZTgdsxkg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KCRQ21/s0SkUyB8lIQ0q3LnqujPyTp5FJGo2x+4zya/mMIJ8HNU8EFG4YF5ziNYE4
- zZg2oNH1qhvvognO5mN7DsrpAIO1L/QcbYYiNiJMrav/28DBrhJyA4LrbkTVYFBYA3
- uy2HkqZJom7XUniFH1gMrU1vOiFT/E+lgHLfZhu1Cjl9D8D+spyvOg81eCSuEh+H0/
- zJEKZp8kt8hDLWbuN1eJjLOx4onIEyTfMr4UBreHntJob0QuR34i4tiNeajFcafe0g
- TK6h8QZY2zLd7ousl9y6Oa3uBJYTigg7RwjUcVL2KMrijviXLJvtFEGaLl3o1y8OeD
- CfP3E1TMnmMgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] gpu: nova-core: use FromSafeCast wherever possible
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260828-nova_num-v1-2-e21f17ba4127@nvidia.com>
-References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
- <20260828-nova_num-v1-2-e21f17ba4127@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 05:49:17 +0000
-Message-Id: <20260828054917.936DD1F000E9@smtp.kernel.org>
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62E9F10E479
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:50:57 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2d71e253c90so6038765ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 22:50:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=furiosa.ai; s=google; t=1787896257; x=1788501057; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LpkQSACoNhXcxF8SalSGxWUmZp7l1S5RyOE6epy4FMk=;
+ b=k7Cf3y3JjXxpPGU5xqFCYCCZkDKevGpokpzlV85aPq0XrB70bP5YH/jxm6aaMt9rQY
+ h12zE0z26pEckkiaW6Y2VLog/HuYzcpX5GjDRla9P1DZF71SDi+fKEaEn8kPL/Zrn17e
+ ioPVBtFWNEwA/skl3dIgJrXwcDDHrtaNg6E8E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787896257; x=1788501057;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LpkQSACoNhXcxF8SalSGxWUmZp7l1S5RyOE6epy4FMk=;
+ b=bwCTNV7wQSvrICCFp69mDtKtcSbzj26aO4KJNnjsD6950PdaDgTgQgYyzp0PuGf/+v
+ k+s48OZcVB9r6nbUpEhi2EaVns7gG9l90GTfVoHiR0F8NZuEHxemkbbmMid7RK52PRIm
+ I+pRLdE8G7K9fA9Ou75WwAl/74kdXo0PlLve5ERBDJB+JAPjRHTDmukZT5AjgA4YgCFt
+ 3qFQTwa9GmnUdKgdEJDxwX/rzvFPgvjcBoH4s5YsvHjq8m7t5Cw6mzRotCH25nt6Zgwo
+ SU4pdr6XhojIrUzhMpvYhrYRxGDzjXfXcXy3JuD8kMd1mISvSXFp7AEx/GLtLr97JnBs
+ 8Y+Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro84kaVMCtH1JdcoJHYWKQElqlXkZr8wT0OzMfDR0uxQAtE8QiAwlzlzKh+5Q9ydPR4NUhnkc3uo0U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++maGlDr5ADA6eHn6DbYV0sh4Hb0Yx3KA8c/A3HXYRDVnKreje5W
+ ZnZjVCaSDqIuPwuZlvJyPaAqVfSRkAPWP5cqeM4oxpkWfYt/g0S8d6eYKkJaTffEDPc=
+X-Gm-Gg: AR+sD127H4C7dWhaM+xpYR7IdoOLMBkbxPpfCOTGSBJ/ODsdSgI6Uou2dcoG3jVlSjM
+ +32dtlb/B7G1Rhx8cx2PbTasP+J07xuBrExu83nBBWsixtumSwyUSN19bzKGOUv8pIz0o+KXdBv
+ Knqwo5Zx9UDfu4kDR546UR4B9IoSiH3zE6rmfPKeDrkkkp5RnXeOovOLD+ZVZGDcuRJ3ueNVf4n
+ iC81zUwluAJ6nFmVnX9f/vunio7MCUMaso/LuzhDrpcT8W1PHquCu7dE6KeI64jwfsgr8v71nit
+ 1B555WY8+gdsLSQjPfI3xhvvcbUgK/nKor49r8icbeb7kRfFA7fgJwolKcvNaXn8ylWt6GSTEEY
+ ZdlCGj8vgnDSGuEO8JC1aB8dG5yahsfxsOsnsqxUW9aP6J3zXHoNLU2JkOnIJbooZw3ZzFDrLr1
+ 42A9DohmlARA3UXG9WpvGWIO2mmbMEhbFIhsa7rE/t1rrTUY1sRFI8GdWpmaeK0g==
+X-Received: by 2002:a17:90b:3ec1:b0:38e:7168:281 with SMTP id
+ 98e67ed59e1d1-396d0f2dcd8mr6908508a91.10.1787896256905; 
+ Thu, 27 Aug 2026 22:50:56 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-396ddc07777sm1228032a91.12.2026.08.27.22.50.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 22:50:56 -0700 (PDT)
+Date: Fri, 28 Aug 2026 14:50:42 +0900
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] accel/rocket: Collect job dependencies before
+ arming
+Message-ID: <apEhmia-SLEe-39S@rock-5b-plus>
+References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
+ <20260828050805.38548-3-Naixumogu@whut.edu.cn>
+ <apEggyjyM9yCqg4A@rock-5b-plus>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apEggyjyM9yCqg4A@rock-5b-plus>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,106 +87,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, Aug 28, 2026 at 02:46:16PM +0900, Sidong Yang wrote:
+> On Fri, Aug 28, 2026 at 01:08:04PM +0800, MoGGuU wrote:
+> > rocket_job_push() arms the scheduler job before collecting its implicit
+> > dependencies. Dependency collection can fail with -ENOMEM, but an armed
+> > job must be pushed and must not be aborted with drm_sched_job_cleanup().
+> > 
+> > Collect dependencies before taking the scheduler lock and arming the job.
+> > Only operations that cannot fail remain after drm_sched_job_arm().
+> > 
+> > Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> > Cc: stable@vger.kernel.org
+> > Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> > Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+> > ---
+> >  drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+> >  1 file changed, 10 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> > index e6052d1973afa..b55e12aecfe64 100644
+> > --- a/drivers/accel/rocket/rocket_job.c
+> > +++ b/drivers/accel/rocket/rocket_job.c
+> > @@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+> >  	if (ret)
+> >  		goto err;
+> >  
+> > +	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+> > +					   &job->base, false);
+> > +	if (ret)
+> > +		goto err_unlock;
+> > +
+> > +	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
+> > +					   &job->base, true);
+> > +	if (ret)
+> > +		goto err_unlock;
+> > +
+> >  	scoped_guard(mutex, &rdev->sched_lock) {
+> >  		drm_sched_job_arm(&job->base);
+> >  
+> >  		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+> >  
+> > -		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+> > -		if (ret)
+> > -			goto err_unlock;
+> > -
+> > -		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+> > -		if (ret)
+> > -			goto err_unlock;
+> > -
+> >  		kref_get(&job->refcount); /* put by scheduler job completion */
+> >  
+> >  		drm_sched_entity_push_job(&job->base);
+> > -- 
+> > 2.43.0
+> > 
+> 
+> Reviewed-by: Sidong Yang <sidong.ynag@furiosa.ai>
 
-Pre-existing issues:
-- [High] Missing DMA write memory barrier before updating the GSP command q=
-ueue write pointer.
-- [High] Missing DMA read memory barrier after reading the GSP message queu=
-e write pointer.
---
+Sorry, I typo'd my address in the previous mail. It should be:
 
-commit 899e3ba6af7f4cc7e2c28b0f4f3f73db18de1f16
-Author: Alexandre Courbot <acourbot@nvidia.com>
-
-gpu: nova-core: use FromSafeCast wherever possible
-
-Replaces various *_as_* casting functions with FromSafeCast in
-non-const contexts to simplify conversions.
-
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index f85fde09aa6e3..658d0a9b2cfb2 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-
-[ ... ]
-
-> @@ -343,10 +346,10 @@ fn driver_write_area_size(&self) -> usize {
->          unsafe {
->              (
->                  core::slice::from_raw_parts(
-> -                    data.add(casts::u32_as_usize(rx)),
-> -                    casts::u32_as_usize(tail_end - rx),
-> +                    data.add(usize::from_safe_cast(rx)),
-> +                    usize::from_safe_cast(tail_end - rx),
->                  ),
-> -                core::slice::from_raw_parts(data, casts::u32_as_usize(wr=
-ap_end)),
-> +                core::slice::from_raw_parts(data, usize::from_safe_cast(=
-wrap_end)),
->              )
->          }
->      }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this
-file I noticed a potential memory barrier issue in advance_cpu_write_ptr():
-
->     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
->         let tx =3D io_project!(self.0, .cpuq.tx);
->         let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count)=
- % MSGQ_NUM_PAGES;
->         MsgqTxHeader::set_write_ptr(tx, wptr);
->=20
->         // Ensure all command data is visible before triggering the GSP r=
-ead.
->         fence(Ordering::SeqCst);
->     }
-
-Because there is no memory barrier between the payload writes (done prior
-to calling this function) and the write pointer volatile write in
-MsgqTxHeader::set_write_ptr(), the CPU can reorder them.
-
-If the GSP observes the updated write pointer before the payload writes
-are globally visible, could it read stale command data?
-
-[Severity: High]
-This is also a pre-existing issue, but is there a missing read memory
-barrier after reading the message queue write pointer in wait_for_msg()?
-
->     fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
->         // Wait for a message to arrive from the GSP.
->         let (slice_1, slice_2) =3D read_poll_timeout(
->             || Ok(self.gsp_mem.driver_read_area()),
->             |driver_area| !driver_area.0.is_empty(),
->             Delta::from_millis(1),
->             timeout,
->         )
->         .map(|(slice_1, slice_2)| (slice_1.as_flattened(), slice_2.as_fla=
-ttened()))?;
->=20
->         // Extract the `GspMsgElement`.
->         let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice_=
-1).ok_or(EIO)?;
-
-When polling for a new message, read_poll_timeout repeatedly evaluates
-driver_read_area(), which performs a volatile read of the GSP write
-pointer.
-
-Once a new message is indicated, the payload memory slices are immediately
-accessed.
-
-Since there is no read memory barrier between the volatile read of the
-write pointer and the payload access, could modern CPUs speculatively
-execute the data loads before the write pointer read completes, causing
-the driver to read stale payload data?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-nova_num-v=
-1-0-e21f17ba4127@nvidia.com?part=3D2
+Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
