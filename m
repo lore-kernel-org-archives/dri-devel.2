@@ -4,33 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB76C61DCD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA84C61DD4
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:45:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C7410F2A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC83B10F2AC;
 	Fri, 28 Aug 2026 07:44:59 +0000 (UTC)
 Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com
  [101.71.155.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 681D910F25C
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:19:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD64410F26D
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:42:08 +0000 (UTC)
 Received: from Mogu.localdomain (unknown [223.73.65.69])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4ba921c55;
- Fri, 28 Aug 2026 14:19:29 +0800 (GMT+08:00)
-From: MoGGuU <Naixumogu@whut.edu.cn>
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4baa740d9;
+ Fri, 28 Aug 2026 14:42:06 +0800 (GMT+08:00)
+From: Haoming Gao <Naixumogu@whut.edu.cn>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 Cc: Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Sidong Yang <sidong.yang@furiosa.ai>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/3] accel/rocket: Fix job submit error handling
-Date: Fri, 28 Aug 2026 14:19:13 +0800
-Message-ID: <20260828061916.20405-1-Naixumogu@whut.edu.cn>
+ Sidong Yang <sidong.yang@furiosa.ai>, Greg KH <greg@kroah.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH v5 2/3] accel/rocket: Collect job dependencies before arming
+Date: Fri, 28 Aug 2026 14:41:51 +0800
+Message-ID: <20260828064152.37822-3-Naixumogu@whut.edu.cn>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
+References: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa04705fb1f03a1kunmbcc13c968b1e2
+X-HM-Tid: 0aa0471aaec303a1kunmd9ea7a958c2ae
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQk1NVklMSk1CQxlPGB9KTVYeHw
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSU9JVklMHUJOGkpIGUsaSlYeHw
  5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 X-Mailman-Approved-At: Fri, 28 Aug 2026 07:44:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -48,47 +51,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Several independent error paths in the Rocket job submission ioctl can be
-triggered by unprivileged userspace. This series validates userspace BO
-counts before passing them to helpers with signed count parameters, collects
-implicit dependencies before the scheduler job is armed, and propagates the
-first per-job submission error to userspace.
+rocket_job_push() arms the scheduler job before collecting its implicit
+dependencies. Dependency collection can fail with -ENOMEM, but an armed
+job must be pushed and must not be aborted with drm_sched_job_cleanup().
 
-The series was tested on RK3588 with zero task counts, invalid task pointers,
-invalid BO handles, and oversized BO counts. The requests returned the
-expected error codes without warnings or errors in the kernel log.
+Collect dependencies before taking the scheduler lock and arming the job.
+Only operations that cannot fail remain after drm_sched_job_arm().
 
-Changes in v4:
-- Added Sidong Yang's Reviewed-by tags, using the corrected email address.
-- Dropped Cc: stable from patch 3 because propagating submission errors
-  changes userspace-visible ioctl behavior.
-- Rebased onto the current drm-misc-next branch.
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
+Signed-off-by: Haoming Gao <Naixumogu@whut.edu.cn>
+---
+ drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-Changes in v3:
-- Kept the individual count checks before GEM lookup, but changed bo_count to
-  int so check_add_overflow() rejects combined counts above INT_MAX, as
-  suggested by Sidong Yang.
-
-Changes in v2:
-- Split the three independent fixes into separate patches as suggested by
-  Sidong Yang.
-- Rebased onto the then-current drm-misc-next branch.
-- Dropped incidental blank-line-only changes from the original patch.
-- Added Sidong Yang's Tested-by tag.
-
-v3: https://lore.kernel.org/r/20260828050805.38548-1-Naixumogu@whut.edu.cn
-v2: https://lore.kernel.org/r/20260827170608.39511-1-Naixumogu@whut.edu.cn
-v1: https://lore.kernel.org/r/20260813142059.151644-1-Naixumogu@whut.edu.cn
-
-MoGGuU (3):
-  accel/rocket: Validate BO handle counts on job submission
-  accel/rocket: Collect job dependencies before arming
-  accel/rocket: Propagate job submission errors
-
- drivers/accel/rocket/rocket_job.c | 32 ++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
-
-
-base-commit: f9c2f70ee41544717b3c209083073db1e21f919b
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index e6052d1973afa..b55e12aecfe64 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+ 	if (ret)
+ 		goto err;
+ 
++	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
++					   &job->base, false);
++	if (ret)
++		goto err_unlock;
++
++	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
++					   &job->base, true);
++	if (ret)
++		goto err_unlock;
++
+ 	scoped_guard(mutex, &rdev->sched_lock) {
+ 		drm_sched_job_arm(&job->base);
+ 
+ 		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+ 
+-		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+-		if (ret)
+-			goto err_unlock;
+-
+ 		kref_get(&job->refcount); /* put by scheduler job completion */
+ 
+ 		drm_sched_entity_push_job(&job->base);
 -- 
 2.43.0
+
