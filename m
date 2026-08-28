@@ -4,81 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04321C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 02:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77AC3C61DC4
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 02:03:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0AE110E444;
-	Fri, 28 Aug 2026 02:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C7DD10E448;
+	Fri, 28 Aug 2026 02:03:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="STkjJRUW";
+	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="ChTsp/0o";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F74E10E444
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 02:01:08 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-482e1bfcc63so286522f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 19:01:08 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B0E610E448
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 02:03:24 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2caea3f742bso8877665ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 19:03:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787882467; x=1788487267; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=KOcOnSph4R/SK6vbv+B+XNx7SuiY0RM+MECJyRf8erk=;
- b=STkjJRUWdC0XdNbmRXjrAPkAPEauRCcIRreaoizz7QXf8WaYhSABJCCTl2fQTj7fdN
- 8ikIpGAt2CD6dyjJfg+K1oCbFkf1EjvRQ2lpvBQf1rpk89JWRsRKdoUsHQ+ioMe67mgV
- ocNUgTg5mqA98VACJHQQR8VE6Mur+QINawmlxtF8PaUHgBZJ1QyKZENcS4ndT1k3Raiv
- xk/MM1X1H1gRA/1+WFKDEboy5MiHcke45CXq5gcK6xE/SYh7D6gFhekzmfvIXGvuBp/Q
- JTzMaQAKLqCQAdmPW4viSbVk7QJb3B410UJ8Ya7+i/tTdhlLymciNXj7ULs0M42hjeul
- Mz/w==
+ d=furiosa.ai; s=google; t=1787882604; x=1788487404; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pTlKUEzQEa7Rn+0hDVYmAqWQKbByFTTyOUa8CoMUQEQ=;
+ b=ChTsp/0oM0fGygzAc5Nf23m+fgUbZ49aGDA9Yg3wu7KReU9bPxQX8xIu0UcrTjaR+h
+ LZ/lYbTe40pgoGNQ09QecXcvNs9ks1Dk1MPCeG8ePvOBU2huc6c+eH0YEgwcoyRhwKM9
+ Z9myFVkBjIhX1xkc9y6WtmkrJqWqCdAlnbhx8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787882467; x=1788487267;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=KOcOnSph4R/SK6vbv+B+XNx7SuiY0RM+MECJyRf8erk=;
- b=jAaOb+p5492x0+US+84gpbOe/TVB6wi2QM59EKzPlBk38Jt90wgc0DZ/QCkBTVUQoM
- Kbs5CKOEFLH1oQOgA2o2+WA/nybSv2zPQes39MZWyYv7mpw/mNrEtxeWAZhrPeudZXiq
- ZoJ0jlodQm7RP7cWMbiLbabuK+3FSSUYtBAzaYufagfW+5XxRoLFFs62KJUHvwQONS5a
- +ziC+BOAG+KQGXF+zVmOEwtzBuytPeW9PChn0u6Gyj9GGWIQz3ZwpOPJLouClERDcKhd
- FoKP5obsPprBdqXdmXHLq0LNks9BF98vxNkUnzzAmLCcFq4FFaRpm7RfwCb0a0iIUDEP
- 4a7Q==
+ d=1e100.net; s=20251104; t=1787882604; x=1788487404;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=pTlKUEzQEa7Rn+0hDVYmAqWQKbByFTTyOUa8CoMUQEQ=;
+ b=tHJ5RapHfUDST1xc+1oiprdKWHdy+Cv6zwELJLhJWsuvOiNl1l5ULn8oFS5ALEfeUt
+ 9MXKFdFx7DS9/ya0O9kRK9i5JqTMGGfCwcziO3TOmJPyRTwP42WB85YHTGP9uwIG1IJJ
+ ZMxxmZbjjnqJTGr/hILUk3fWmi1ri/zyC1aB5Pt3RcZjXBUuSPXqgV/BJayzEd5/HkRB
+ gJ/VgpvtaVzjlJ33aCWQ7/qgCH6E5M3ONJO5C9JSblY8G5/0MXYHNRxtwc9eY+7ceQQk
+ RNgaYw/oQD1jD+Xu2/3J9WjTdln72CAtG7mahDnc03GsCyHjMOjty+oTYeKk59NzDT9g
+ moCg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqJFtlSSkZmIHn3ScpmT30gs8QsdtBncaJtVinSizAolP1VrxMd/ISgvRRVZyz/GxhSnnuixyWfXWU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kf08VyIcaX+YYUOeep9AKamAJ6uyIUNnHiXvNDEXuqsf6ceC4N
- Cwy0IZfy4EEm5us3y4xjr2oQEsWoaD6o1uO9evUI4jSBEM/UuGeE9al2
-X-Gm-Gg: AR+sD13eK5F0nIcPUDcXORC8dstdo4cXww6LkwxOWvGFsC9+SnyyJEMmRoBw8L0EE9z
- h7iERnuZMMx4KVR3eE4rjch+3TWV69D62DYehhziIP8FHysMQHKLsuBlkMZnzma7E3WlFxw4V3c
- ly58T366Wuyih+tQk/lZtk7cQu/wRvNJegsA3XjXPLyesl5cvVuDyTjOhOBwMqdMW+NZgtFwc8l
- U971nKbqqNedg+VaNyENGSXgJwMCwtlCnBz9pe0KRNLx06jnC4ptYBZLuTMKXxDqidYCZpf7zk7
- K3c4hZCzo4v4LSwbDfRqmGgCCmhtrKfdvRwCgmPHgebjczhjcab2hZcmmfcoVpHsmH488cRtCx7
- YWGud5mELuXfywxxqCgKWeOM3pIktqjLFHIl2cpfd/+nlYE8EthIyEQs9M7s+upTJPf4dg1673j
- 7VIkRL64T+qyWEDLnw2yKd7xqnu/Xx3UEw3P3WK4L3aUMdk1rXC5V2sx/xMQ==
-X-Received: by 2002:a05:6000:2608:b0:482:b823:cc3a with SMTP id
- ffacd0b85a97d-482eaba7efamr16934016f8f.12.1787882466615; 
- Thu, 27 Aug 2026 19:01:06 -0700 (PDT)
-Received: from 192.168.10.52 ([39.41.155.162])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482fbb20122sm362758f8f.20.2026.08.27.19.01.00
+ AHgh+RoYS12/kq2bmigjT7LsuSO+jU7WEvN/Nv4EHwzusijuZ8Uu7hwSb0OsFEZV/Vl17msounhocm3k3SU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kGzNbPOC3waP3o0sdBwpVHyPEOneRGXSCx/3qyLw7LZ3opxsGV
+ mX6WNXM9OMCmIlIU3EROzDFKGH//wIi0G2xqlBE9M4ZK0VJWtzuLwv7yYV8vqYcuRSk=
+X-Gm-Gg: AR+sD11Wq4+/paGo/njXrD8acBhDhkRqmPqd3zhgHsljl73G3NzNQkp16PbUgVvpAto
+ HQos7p55h236+jhFxkRB13aOwOmx+YuYauq0S5cR9RCSqZEsQQUDcKK/P3f6L14XDOPbaixNMsg
+ 1Cb3S9mekeW8tKPsguzBt0IhWO9Be/ckkl9S+4q6RwJhw0d5z6dO/i/mHwG3OkUWvHF1i9YQ3QJ
+ jsHTlpb8A+VhnRNfRU9RvxasNMaePxF7/eOMC6UWsWeJRSQeFZMiT4uycZnCYy4tiXIdtWIkGI8
+ dJIfqvABY+XhtzRE1Bss5WXB1OH9pJxglC4Nq6Lv7/i/ft/or+42+AFhpCBiGdftJuq0eptMiKl
+ 0jZL7nPMX2YlAeU0KzTU4TeDu5Xydxk6mqgiPY0hTn/VtpHKHH+V/v3g9gOWxmQDerDp2v0+fUX
+ xR5ObGua+qEvXRwL7TZ8PyVUVFpUmS95s+6iybPSbiclTIUEZYMVdEPeVXgULIfipME1e3wqL3u
+ g==
+X-Received: by 2002:a17:902:d484:b0:2c9:bf82:dd11 with SMTP id
+ d9443c01a7336-2d74ddddc11mr64753975ad.7.1787882604255; 
+ Thu, 27 Aug 2026 19:03:24 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d7598c1cb4sm813515ad.81.2026.08.27.19.03.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 19:01:05 -0700 (PDT)
-From: Saim Shujah <saimzst@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Paloma Arellano <quic_parellan@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Saim Shujah <saimzst@gmail.com>
-Subject: [PATCH] drm/msm/dpu: clear pending peripheral flush state
-Date: Fri, 28 Aug 2026 11:54:40 +0500
-Message-ID: <20260828065440.140410-1-saimzst@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Thu, 27 Aug 2026 19:03:23 -0700 (PDT)
+Date: Fri, 28 Aug 2026 11:03:02 +0900
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] accel/rocket: Validate BO handle counts on job
+ submission
+Message-ID: <apDpz4j2y2_8_pOd@rock-5b-plus>
+References: <20260827170608.39511-1-Naixumogu@whut.edu.cn>
+ <20260827170608.39511-2-Naixumogu@whut.edu.cn>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827170608.39511-2-Naixumogu@whut.edu.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,36 +91,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dpu_hw_ctl_clear_pending_flush() resets the cached per-block state after a
-flush transaction, but misses pending_periph_flush_mask.
+On Fri, Aug 28, 2026 at 01:06:06AM +0800, MoGGuU wrote:
+> The input and output BO handle counts are __u32, while GEM lookup and
+> reservation helpers take int counts. A count above INT_MAX, or a combined
+> count above INT_MAX, cannot be represented safely at those call sites.
+> 
+> Reject such counts before looking up the BOs.
+> 
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Cc: stable@vger.kernel.org
+> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+> ---
+>  drivers/accel/rocket/rocket_job.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index bb77b6bf0f231..7e3d123afc5ad 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -556,6 +556,12 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+>  	if (job->task_count == 0)
+>  		return -EINVAL;
+>  
+> +	/* GEM lookup and reservation helpers take signed object counts. */
+> +	if (job->in_bo_handle_count > INT_MAX ||
+> +	    job->out_bo_handle_count > INT_MAX ||
+> +	    job->in_bo_handle_count > INT_MAX - job->out_bo_handle_count)
 
-The peripheral flush updater accumulates interface bits in this mask. A
-later transaction which sets the top-level peripheral flush bit can write
-stale interface bits to CTL_PERIPH_FLUSH together with the current state.
+I think checking in/out is okay but the sum of in/out would be checked with check_add_overflow()
+in rocket_job_push(). But it only caches overflow UINT_MAX because bo_count is u32. It seems that it
+would be good to change bo_count to int.
+ㅏ
 
-Peripheral flush support was added after the helper started clearing every
-individual pending flush mask. Clear the peripheral mask together with the
-other cached child masks.
-
-Fixes: 64f7b81f0358 ("drm/msm/dpu: add support of new peripheral flush mechanism")
-Cc: stable@vger.kernel.org
-Signed-off-by: Saim Shujah <saimzst@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index 36a497f1d6c1..e8729fe1cfef 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -118,6 +118,7 @@ static inline void dpu_hw_ctl_clear_pending_flush(struct dpu_hw_ctl *ctx)
- 	ctx->pending_intf_flush_mask = 0;
- 	ctx->pending_wb_flush_mask = 0;
- 	ctx->pending_cwb_flush_mask = 0;
-+	ctx->pending_periph_flush_mask = 0;
- 	ctx->pending_merge_3d_flush_mask = 0;
- 	ctx->pending_dsc_flush_mask = 0;
- 	ctx->pending_cdm_flush_mask = 0;
--- 
-2.55.0
-
+> +		return -EINVAL;
+> +
+>  	rjob = kzalloc_obj(*rjob);
+>  	if (!rjob)
+>  		return -ENOMEM;
+> -- 
+> 2.43.0
+> 
