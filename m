@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314ABC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5BD4C61DBD
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC9310F278;
-	Fri, 28 Aug 2026 06:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F41A210F277;
+	Fri, 28 Aug 2026 06:57:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="J3ln/bxy";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="ByNkXqq/";
 	dkim-atps=neutral
-Received: from mail-m16023653251.xmail.ntesmail.com
- (mail-m16023653251.xmail.ntesmail.com [160.236.53.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7154B10F277
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:57:13 +0000 (UTC)
+Received: from mail-m16023653202.xmail.ntesmail.com
+ (mail-m16023653202.xmail.ntesmail.com [160.236.53.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A3710F277
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:57:14 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5a4;
- Fri, 28 Aug 2026 14:52:05 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5aa;
+ Fri, 28 Aug 2026 14:52:07 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -38,25 +38,26 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v8 2/5] drm/dp: Add helper to validate DP lane counts
-Date: Fri, 28 Aug 2026 14:51:50 +0800
-Message-Id: <20260828065153.590802-3-damon.ding@rock-chips.com>
+ Damon Ding <damon.ding@rock-chips.com>, stable@vger.kernel.org
+Subject: [PATCH v8 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP
+ DT properties
+Date: Fri, 28 Aug 2026 14:51:51 +0800
+Message-Id: <20260828065153.590802-4-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
 References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa04723d5e203a8kunm9cc188d518834a
+X-HM-Tid: 0aa04723dd4503a8kunm9cc188d5188355
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGk4aGlYaSEMdSEsZSU
- IeQ0lWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
- tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+ tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRhLTVYZHkhKHU1PHk
+ 5KQxhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+ tIVUpLSEpKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=J3ln/bxybGTsOfkGBbZzKL9bXT2jZ9+ygl5ZAisrNMxtrVWSl2FG5ZFDMbj6iGPWwecOCgPNJFC+PF3O1qIsbsDr/VcpySVQUJRnOxamoNBrZvltJ9/Duo8jBMIzVAjRuvyhGVnF5/X9fvXA1sjPqaTYubqoh+eUn2HVj5d3WX0=;
+ b=ByNkXqq/v1UABNZl10lnleLwzvhNuRZWIBYWszscHeWdufztyE7+W7VSC+dWoNFk87VgQlRbjZ7o39DSth9TxFS26u3zjhK8+2phaobHx+y6QNuYEyMfiPhQAzY7SWZl0N3BZr/vBJnJD6dxvMH9k/VuNoSNTPalwSLyugZbZN4=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=3D3tCxbxiOqvsJFvLlKoOy9RkGLmHyoV0izPMCA9ZDc=;
+ bh=Qt759fseXk6TL4BSquCkp6QINrVvbZDF08qVXgT34mA=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,42 +74,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a generic helper function drm_dp_lane_count_is_valid() to check
-if a DisplayPort lane count is valid. According to the DP specification,
-only 1, 2, or 4 lanes are supported.
+Revert the change that made samsung,link-rate and samsung,lane-count
+optional for Exynos DP. Add error checking to fail probe early if the
+required DT properties are missing.
 
-This helper avoids duplicating DP lane count validation logic across
-individual DisplayPort drivers.
+If these properties are missing, video_info->max_link_rate and
+video_info->max_lane_count remain zero, and so do link_train.link_rate
+and link_train.lane_count used in the subsequent link training flow,
+resulting in link training failure.
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+There is no way at all a device can work without these properties.
+Here is the code flow when either max_link_rate or max_lane_count is 0:
+
+  analogix_dp_commit()
+    -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
+
+  analogix_dp_full_link_train(max_lanes, max_rate):
+      // Read sink capabilities via DPCD and sanitize them
+      link_rate  = read_dpcd(DP_MAX_LINK_RATE);  // >= 0x06 after fixup
+      lane_count = read_dpcd(DP_MAX_LANE_COUNT); // >= 1 after fixup
+
+      // Clamp by the limits from DT
+      if (link_rate > max_rate)    // 0x06 > 0, always true
+          link_rate = max_rate;    // link_rate = 0
+      if (lane_count > max_lanes)  // 1 > 0, always true
+          lane_count = max_lanes;  // lane_count = 0
+
+      // Configure TX with the zeroed values
+      set_link_bandwidth(link_rate = 0)
+          // writel() is only executed for bwtype == 0x06/0x0a,
+          // so LINK_BW_SET is never written and stays at
+          // reset value; phy_configure() gets link_rate = 0.
+
+      set_lane_count(lane_count = 0)
+          // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
+          // phy_configure() is called with lanes = 0.
+
+      // Program sink for link training
+      drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0/lane_count = 0})
+          // DP spec requires link rate in {0x06, 0x0a, 0x14} and
+          // lane count in {1, 2, 4}. Writing zeros is illegal, so
+          // the sink cannot enter the training state.
+
+      // Training loop
+      for (lane = 0; lane < lane_count /* 0 */; lane++)
+          // loop body never executes; training_lane[] stays
+          // uninitialized and no training register is programmed
+
+Since the sanitized sink values are always non-zero (link_rate >= 0x06,
+lane_count >= 1), the clamping with a zero maximum unconditionally
+forces the training parameters to zero. Clock recovery can never be
+achieved, so link training fails deterministically.
+
+Consequently, making these properties mandatory again cannot break
+any existing device: a DT without them could never have worked in
+the first place. Failing probe early with a clear error message is
+more helpful than a silent link training failure at runtime.
+
+Fixes: 0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane count limit for RK3288")
+Cc: stable@vger.kernel.org
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
-Changes in v6:
+Changes in v8:
+- Expand the commit message with the detailed link training failure
+  analysis,
 - Add Reviewed-by tag.
 ---
- include/drm/display/drm_dp_helper.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index ab16c1be3900..5b05a7fbe174 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -139,6 +139,12 @@ bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_C
- 
- int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
- 
-+static inline bool
-+drm_dp_lane_count_is_valid(int lane_count)
-+{
-+	return lane_count == 1 || lane_count == 2 || lane_count == 4;
-+}
-+
- static inline int
- drm_dp_max_link_rate(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 566f1e5eb8cd..ddb15d6de05f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
  {
+ 	struct device_node *dp_node = dp->dev->of_node;
+ 	struct video_info *video_info = &dp->video_info;
++	u32 val;
+ 
+ 	switch (dp->plat_data->dev_type) {
+ 	case RK3288_DP:
+@@ -1269,10 +1270,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 		 * NOTE: those property parseing code is used for
+ 		 * providing backward compatibility for samsung platform.
+ 		 */
+-		of_property_read_u32(dp_node, "samsung,link-rate",
+-				     &video_info->max_link_rate);
+-		of_property_read_u32(dp_node, "samsung,lane-count",
+-				     &video_info->max_lane_count);
++		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,link-rate\n");
++		video_info->max_link_rate = val;
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,lane-count\n");
++		video_info->max_lane_count = val;
+ 		break;
+ 	}
+ 
 -- 
 2.34.1
 
