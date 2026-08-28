@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B044C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB2DC61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D3110E48C;
-	Fri, 28 Aug 2026 09:02:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A4410F2FD;
+	Fri, 28 Aug 2026 09:03:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="DffHrHIo";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="l0ME8sGb";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD39F10E48C
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:02:16 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B0910F2FD
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:03:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ug
- CMS/t4pT54t04r48wccbBM2NCtY6+PmK6XmdHCxWk=; b=DffHrHIouN45sCIF7v
- h2MUlrcebTPVJwgwcZSh+29Os7TXCk2qZ4K3Dr2COLLe8eAd8qT0mqCOxYYsm2FE
- LxK3NDcDiRs1r9Lc7sRrTkoW8XPhIhx8IO6k8f38jJM5ixoDzhsp/7SMLffNhsBB
- LyZrpLRpzePklLrUjlmcWpD7U=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3I
+ T5xJtBPEVQ7plUVHJExSO9nfjpim50NPTeHEu7G5U=; b=l0ME8sGbFNYz3p8Z/r
+ dLfFnB4xnuyU0y+Df1SvNQ3tX9kZSHOjT8884LGmIzNTfD+awXU+H46F9YZrvl1s
+ NW0/z48TN30/mksjzEfEpk7/IX01qyhx0fVsAloyXoOheKhTHfyIZqkziuuOY6QN
+ V/gMX8MWu3KIelMJSurrV0YD0=
 Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id
- _____wAnB+NlTpFqmR5iSg--.32532S2; 
- Fri, 28 Aug 2026 17:01:27 +0800 (CST)
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgCXEurETpFqfwmqNQ--.25217S2;
+ Fri, 28 Aug 2026 17:03:00 +0800 (CST)
 From: oushixiong1025@163.com
-To: David Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>,
- Ye Liu <liuye@kylinos.cn>
-Subject: [PATCH] drm/virtio: Add pixel blend mode property to cursor plane
-Date: Fri, 28 Aug 2026 17:01:23 +0800
-Message-Id: <20260828090123.784944-1-oushixiong1025@163.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Shixiong Ou <oushixiong@kylinos.cn>, Ye Liu <liuye@kylinos.cn>
+Subject: [PATCH] drm/vkms: Add pixel blend mode property
+Date: Fri, 28 Aug 2026 17:02:57 +0800
+Message-Id: <20260828090257.788076-1-oushixiong1025@163.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wAnB+NlTpFqmR5iSg--.32532S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1UWry7WFyrurW3KFW5trb_yoW5GFWxpF
- 43CFZIyrWrArsrJayxtayj939Ivan3KF4xKry5Zwsagwn0kry7Ar15A34xurW7JrWUGw4f
- Jr1kuF1q9FZ8uw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
+X-CM-TRANSID: PSgvCgCXEurETpFqfwmqNQ--.25217S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8WF1xur4xKFW8KF1fCrg_yoW8Kr48pF
+ W3Aa1FyrW5ArsrX3y5JFWY93yfW3WIgFy8ArW3A3sagrn0yF9rAF1rCF1S9rW5ArWxCw1j
+ yF4DGFWDGFWIkaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j05l8UUUUU=
 X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4QerumqRTmfkigAA3L
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-QTD0mqRTsTXuAAA32
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,73 +63,61 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Shixiong Ou <oushixiong@kylinos.cn>
 
-The cursor plane exposes a format with an alpha channel
-(DRM_FORMAT_ARGB8888) without a pixel blend mode property. Since
+The vkms planes expose formats with an alpha channel but do not
+create the pixel blend mode property. Since
 commit 860e748bddcc ("drm: ensure blend mode supported if pixel
 format with alpha exposed") this triggers a warning during
 drm_mode_config_validate():
 
-[    0.649020] ------------[ cut here ]------------
-[    0.649040] [PLANE:36:plane-1] pixel format with alpha exposed but blend mode not setup
-[    0.649081] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+[  993.538979] ------------[ cut here ]------------
+[  993.539000] [PLANE:35:plane-0] pixel format with alpha exposed but blend mode not setup
+[  993.539063] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
 ......
-[    0.649761] Call trace:
-[    0.649764]  drm_mode_config_validate+0x398/0x558 [drm] (P)
-[    0.649912]  drm_dev_register+0x1cc/0x2a0 [drm]
-[    0.650058]  virtio_gpu_probe+0xd4/0x1c0 [virtio_gpu]
-[    0.650088]  virtio_dev_probe+0x1c8/0x310
+[  993.539578] Call trace:
+[  993.539580]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+[  993.539707]  drm_dev_register+0x1cc/0x2a0 [drm]
+[  993.539832]  vkms_create+0x184/0x1d0 [vkms]
+[  993.539854]  vkms_init+0x78/0xff8 [vkms]
 ......
-[    0.650261] ---[ end trace 0000000000000000 ]---
 
-
-Create the property with the only supported blend mode,
-DRM_MODE_BLEND_PREMULTI, which is also the property's default and
-matches what userspace had to assume before the property existed.
+The vkms composer only blends premultiplied alpha, see
+pre_mul_alpha_blend(), so create the property with
+DRM_MODE_BLEND_PREMULTI as the only supported mode.
 
 Reported-by: Ye Liu <liuye@kylinos.cn>
 Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 ---
- drivers/gpu/drm/virtio/virtgpu_plane.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/vkms/vkms_plane.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 1d1b27ece62a..11771c943ea6 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -24,6 +24,7 @@
-  */
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -588,6 +589,7 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
- 	struct drm_plane *plane;
- 	const uint32_t *formats;
- 	int nformats;
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index 6ee5c3f3207c..c4272f5f0354 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -276,6 +276,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ {
+ 	struct drm_device *dev = &vkmsdev->drm;
+ 	struct vkms_plane *plane;
 +	int ret;
  
- 	if (type == DRM_PLANE_TYPE_CURSOR) {
- 		formats = virtio_gpu_cursor_formats;
-@@ -610,5 +612,17 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
- 	if (type == DRM_PLANE_TYPE_PRIMARY)
- 		drm_plane_enable_fb_damage_clips(plane);
+ 	plane = drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
+ 					   &vkms_plane_funcs,
+@@ -287,6 +288,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
  
-+	if (type == DRM_PLANE_TYPE_CURSOR) {
-+		/*
-+		 * The cursor plane exposes a format with an alpha channel,
-+		 * which requires a blend mode property. The host blends
-+		 * premultiplied alpha, matching the property's default.
-+		 */
-+		ret = drm_plane_create_blend_mode_property(plane,
-+							   BIT(DRM_MODE_BLEND_PREMULTI));
-+		if (ret)
-+			return ERR_PTR(ret);
-+	}
+ 	drm_plane_helper_add(&plane->base, &vkms_plane_helper_funcs);
+ 
++	/*
++	 * The vkms composer only blends premultiplied alpha, see
++	 * pre_mul_alpha_blend(), so that is the only supported mode.
++	 */
++	ret = drm_plane_create_blend_mode_property(&plane->base,
++						   BIT(DRM_MODE_BLEND_PREMULTI));
++	if (ret)
++		return ERR_PTR(ret);
 +
- 	return plane;
- }
+ 	drm_plane_create_rotation_property(&plane->base, DRM_MODE_ROTATE_0,
+ 					   DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
+ 
 -- 
 2.25.1
 
