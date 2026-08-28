@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8EC0C61DCD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5CD9C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA8D10F245;
-	Fri, 28 Aug 2026 05:45:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EABA210E482;
+	Fri, 28 Aug 2026 05:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="XTUjkUob";
+	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="lC2GsjNh";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE9710F245
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:45:14 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-38dc4553f62so1168480a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 22:45:14 -0700 (PDT)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F71B10E482
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:46:24 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-853e2610bb4so1311960b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 22:46:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1787895914; x=1788500714; darn=lists.freedesktop.org;
+ d=furiosa.ai; s=google; t=1787895984; x=1788500784; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=mfUcgIwCJiYcPweMkIb+GXJK0j3pn/tPAjbOK4olTtY=;
- b=XTUjkUobsLxz6MyLLMHk6JneeClJJoH5NtJMC3kyJx5p4xYPGoSGF2RXQfWJVi3S8F
- uAe2jDKUvpbcViLBtBxACMJ7hAGV0/so7GMJANaofAT6SWHI1zy830DFt/KofEiBzRSz
- epIz5BDKAFtSKeGVIFu5HDN7y2AqtaAmt9ZY4=
+ bh=yZvPrH9nbFYHNhZAMmF6wqS3Ks98wuR+oIcktCYDIEA=;
+ b=lC2GsjNhH7LEqCAGntr1IboM3I6OjhttluA69pZwblxAc3RQk/VhI4wUC/YprQlf+y
+ hunK0hdZnxxA3DU+p1XWTstwZJufQLe+hwGP/Wp5LyPsv1LtVid319cvggefZguODCHA
+ 2eLpFIew/gGlJ4cSxTkEyB3CSJWy0Fw/qv00A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787895914; x=1788500714;
+ d=1e100.net; s=20251104; t=1787895984; x=1788500784;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=mfUcgIwCJiYcPweMkIb+GXJK0j3pn/tPAjbOK4olTtY=;
- b=hynbTpse3+A/ipodT9BVa62/mgVPx+PgIWl+UKjO9/xN78Cq/y4Pf6k+4EEsuo/oLR
- Uy1Y/m1D1qF6a9qnuzNY44ji//n424xrdWOqNs2aToGLgJ8+YLqTyhAo0E63mwftXHpx
- J3Dw9GdVuZX8cGTjQ4mbu/g2ZlJAz8jtk26v7XvO6nr3vCJkIUI+klH6OHo3Sjg4VA6e
- 8MTjoc3Xos79DDYyTEL9LQKGxkXb4Dj34mQHw3uL98jfsiErSyi9CwR24pnLnX+I3T9w
- 9C/6/F9m+o3sycsjDk/L7LtNtFSq6UQ3xz7jkzCR9T9y4q9nJzJwCthB52QFbOCjcfc+
- n6iQ==
+ bh=yZvPrH9nbFYHNhZAMmF6wqS3Ks98wuR+oIcktCYDIEA=;
+ b=r0xYhCZIJAEOUT4H+KREggMkzi1maoAHUGdAqaQgIqaX03DJERPOzAFvwfi1Dqdwmi
+ 8mHezNV1TfueLDeLnMUdrS9sMezVwVBZTRj1CeFv9Rm15Hma+F7fda3Yv9k7SFiyYZpB
+ KcrVeZmD+THwBmgtxbR4AKNBeQiiuEm8DjVZFZvH4Z5gNSTv6tXTax17K/Pz7ZUXPsTz
+ 50KsGeRlU0/oUCkhNJw3Pq32b+KsgTAObn1yVGDU1umAAui62Tz73aH7TnFT7Qj3wOdn
+ O/QoeMZRbarlNJ3RqM278uXC1JBZx7Did52IbFwbTyDtXHOzF95rm9P+Qo3T2QxfcTsj
+ Jtlg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro8QLINneUvDvb/GM7QnUZyf9oUlYzgeQXuhgYEa0I1yiDP1o355MVn5l8240ks1ePk4bP3dK4lRsE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nbJpmw/JO2Yww0jidNjXMkuSZp0CJKfcq97k6fDnFZejGyoTL+
- HersmIJYcDb7QaawjZHQa4KXPiHvPXZsn4TEeo8tY4RkrQs0julrSTMcHcllLNwsBtE=
-X-Gm-Gg: AR+sD11HvJoZTODAlyPQh9QZ8fyGL4xP2FfuNLXXYLhL65WePMSXd3V07+taTpcxFyL
- 60K2ky2Xd6XKphRPgGhuOFNvHRmwFdK3RnQPQaIxM2pPKX8PW2QluYowFkkoVYauuY1TNmID5pB
- XOYUeKHTpAU1Zehy7exmUfMi9f5bu30LKlKJQcWfRvjZKA+EYhKZtQIfrYzWJwcxIAth4Oo0xBD
- Fooig6Qk4dauFknxl0gPEVMIBx9KOZY99CW+NMgNcgW9N9AnZAeEFWlys1oM1JleWqSKumokfvp
- ad6krEIWfDDbpdnWCmGWWF5Z4/ujV/eUegkpIu9MCxsqRgeG1IalZFi5Lrl2veqf3IMNMwDGI9d
- eDNq0wjTVdOOVo/YM/yQRV+KPpgGU3DsvG/Dh4zziYChWSMJb5nLhT06wu8V13KxEWDfX9e24Ua
- k5sIfoCvOEOPIsxl7wLEPZESVz+NlstXFgyvJ/xJj/eMgnT7h6Vu8Ggd4qT2opppc=
-X-Received: by 2002:a17:90b:380c:b0:38e:2524:724f with SMTP id
- 98e67ed59e1d1-396d0ef3c2cmr8708512a91.12.1787895913751; 
- Thu, 27 Aug 2026 22:45:13 -0700 (PDT)
+ AHgh+RqZixqbbLJHeMb5TXHm8nOo915salF4PmlB7iwsr/Fci7ibviBc44+7yeyB/hAZqM7bLNoTpVSQZHE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ks+cfHxymnHxIhn17hQC3QTxCVLoG6WlJq+mdFcJZ+zRr2Kdxz
+ qcuFi5okXP8tZ+rzZVQs1La6Mhq3g++P/e4YngR4sKp921Tzh0y7O/+gPPwvdyThc9E=
+X-Gm-Gg: AR+sD12imrmRZhOHcBoInJaj0qxipjCX7MxpQOAAV8gskCIHbC7bT2yIVbQWRnvriQ7
+ 4XVDGhCkefWjor9gfAiEQUtTlSBle8sq0DTdMS6SUKbJV6+t2RUHYAYSgshCaVfPsJqv0Ia5UF0
+ 2ERX7k5gn8WfpcdXZFZVYmasGFU6Tlb0HkLcIMMi1aUn1TyesddMUDkLiMwXIn9DuSEZhM42VB7
+ HNx7/hiSNGP9mJljcL1H9BrZheJ7NsYo7cC9W2DJW/Jf3wkhLjdyUvJ9kzl+PjXcfLDEbqZ4opD
+ jx67Rlho+FrMm9nnJtrngi56IU2V/+OfnaTPygTEqWM4C1JBQJjDm/VzXu82RtEZz193WTZpJmc
+ Ak9zb/mQlAFEad/gf9iRezhY7Fh7XKvQMH2SOQOPOIkIAU4HB/L0TQAxQ7B23W7nw6L3EBwcO+0
+ EST7vSMS9L16jSbGarZgwCIeaSZUS/7MFW8EXPWWuxNraMTe1BwazjoYLEZqrsu/Y=
+X-Received: by 2002:a05:6a20:7fa3:b0:3bf:b7e8:68ab with SMTP id
+ adf61e73a8af0-3d0f43b6581mr14032383637.2.1787895984063; 
+ Thu, 27 Aug 2026 22:46:24 -0700 (PDT)
 Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-396dda368e6sm1107298a91.4.2026.08.27.22.45.11
+ 41be03b00d2f7-cc1f32f656dsm225735a12.5.2026.08.27.22.46.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 22:45:13 -0700 (PDT)
-Date: Fri, 28 Aug 2026 14:44:52 +0900
+ Thu, 27 Aug 2026 22:46:23 -0700 (PDT)
+Date: Fri, 28 Aug 2026 14:46:16 +0900
 From: Sidong Yang <sidong.yang@furiosa.ai>
 To: MoGGuU <Naixumogu@whut.edu.cn>
 Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
  Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] accel/rocket: Validate BO handle counts on job
- submission
-Message-ID: <apEfoHtWdtSkSW3s@rock-5b-plus>
+Subject: Re: [PATCH v3 2/3] accel/rocket: Collect job dependencies before
+ arming
+Message-ID: <apEggyjyM9yCqg4A@rock-5b-plus>
 References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
- <20260828050805.38548-2-Naixumogu@whut.edu.cn>
+ <20260828050805.38548-3-Naixumogu@whut.edu.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828050805.38548-2-Naixumogu@whut.edu.cn>
+In-Reply-To: <20260828050805.38548-3-Naixumogu@whut.edu.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,55 +89,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 28, 2026 at 01:08:03PM +0800, MoGGuU wrote:
-> The input and output BO handle counts are __u32, while GEM lookup and
-> reservation helpers take int counts. A count above INT_MAX cannot be
-> represented safely by the GEM lookup helper.
+On Fri, Aug 28, 2026 at 01:08:04PM +0800, MoGGuU wrote:
+> rocket_job_push() arms the scheduler job before collecting its implicit
+> dependencies. Dependency collection can fail with -ENOMEM, but an armed
+> job must be pushed and must not be aborted with drm_sched_job_cleanup().
 > 
-> Reject each count above INT_MAX before looking up the BOs.
-> 
-> rocket_job_push() already uses check_add_overflow() for the combined count,
-> but stores the result in u32, so it only detects unsigned wraparound. Store
-> the result in int so sums above INT_MAX are rejected before the count is
-> passed to the reservation helpers.
+> Collect dependencies before taking the scheduler lock and arming the job.
+> Only operations that cannot fail remain after drm_sched_job_arm().
 > 
 > Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 > Cc: stable@vger.kernel.org
 > Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
 > Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
 > ---
->  drivers/accel/rocket/rocket_job.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  drivers/accel/rocket/rocket_job.c | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
 > 
 > diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-> index bb77b6bf0f231..e6052d1973afa 100644
+> index e6052d1973afa..b55e12aecfe64 100644
 > --- a/drivers/accel/rocket/rocket_job.c
 > +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
->  	struct rocket_device *rdev = job->rdev;
->  	struct drm_gem_object **bos;
->  	struct ww_acquire_ctx acquire_ctx;
-> -	u32 bo_count;
-> +	int bo_count;
->  	int ret = 0;
+> @@ -206,19 +206,21 @@ static int rocket_job_push(struct rocket_job *job)
+>  	if (ret)
+>  		goto err;
 >  
->  	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
-> @@ -556,6 +556,11 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
->  	if (job->task_count == 0)
->  		return -EINVAL;
->  
-> +	/* GEM lookup takes a signed object count. */
-> +	if (job->in_bo_handle_count > INT_MAX ||
-> +	    job->out_bo_handle_count > INT_MAX)
-> +		return -EINVAL;
+> +	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+> +					   &job->base, false);
+> +	if (ret)
+> +		goto err_unlock;
 > +
->  	rjob = kzalloc_obj(*rjob);
->  	if (!rjob)
->  		return -ENOMEM;
+> +	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
+> +					   &job->base, true);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+>  	scoped_guard(mutex, &rdev->sched_lock) {
+>  		drm_sched_job_arm(&job->base);
+>  
+>  		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+>  
+> -		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+> -		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+>  		kref_get(&job->refcount); /* put by scheduler job completion */
+>  
+>  		drm_sched_entity_push_job(&job->base);
 > -- 
 > 2.43.0
 > 
 
-Looks good now, thanks.
-
-Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
+Reviewed-by: Sidong Yang <sidong.ynag@furiosa.ai>
