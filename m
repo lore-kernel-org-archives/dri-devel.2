@@ -4,142 +4,185 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F16C61DBD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F072C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF0FB10F26B;
-	Fri, 28 Aug 2026 06:41:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9668310F26F;
+	Fri, 28 Aug 2026 06:48:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="UvMznaB3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cYnWkjF5";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sPpwMpe0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="34QDSGoG";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="Ql49Kh/l";
+	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="m40gva1N";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1702010F26C
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:41:30 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 691462201D;
- Fri, 28 Aug 2026 06:41:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787899284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B3gF4iYIHVsjphby6wuvDuD0isK+Kz28/eGxa3pnhPA=;
- b=UvMznaB3AE7rrbNx9iaFV39/A3g8ZAqog54HT1a057s6NcFsrhU1xX6jRos3RWDparjHdR
- qN8b8FN97DNSpHZsT7xTgOPKXLcMG6NqC1sBw0OrzAQ4vJ6u9ABaYEUiizH7BS62QaPlwd
- /yGQZcg/pKUVYLMZ7PiPEDxklmypj4w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787899284;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B3gF4iYIHVsjphby6wuvDuD0isK+Kz28/eGxa3pnhPA=;
- b=cYnWkjF5tf/Eq24pep84hrsOfZmgaYaRkJcRCJa8sYOhUjFU/7Zfa2M2A0ITkbqkCyQzPG
- 8j/9cP3pxOv2/zDg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sPpwMpe0;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=34QDSGoG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787899280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B3gF4iYIHVsjphby6wuvDuD0isK+Kz28/eGxa3pnhPA=;
- b=sPpwMpe0g/70vEXkp7S6B+BwarfhDfsWwlLmZFmBELFGsGZ2NSlCIbqd3AJdOFv6SNNaaE
- eddY+04oPs3W/Z/+PwXfwb4DtGpzzOJm+nKrpKjMXe2PNQkei8uThpBG7druqocZT/Qbf1
- qKZL2o+VgaGFYtlk3nmByu+ynx06H38=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787899280;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B3gF4iYIHVsjphby6wuvDuD0isK+Kz28/eGxa3pnhPA=;
- b=34QDSGoGLRBJaPFRVVWZlZOO3ts0es0e2YDVg8ADaAcgEcffFfjKimjNfd9avDJm6Wbs3Y
- QV3x+F3vVyBSOiCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12FDE13675;
- Fri, 28 Aug 2026 06:41:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id BltMA5AtkWrkUgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 28 Aug 2026 06:41:20 +0000
-Message-ID: <4e284baf-3805-48ad-87cb-73b17a2a3d67@suse.de>
-Date: Fri, 28 Aug 2026 08:41:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [usb?] [dri?] WARNING in drm_mode_config_validate
-To: syzbot <syzbot+901485725495f4729987@syzkaller.appspotmail.com>,
- airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, rubenru09@aol.com,
- simona@ffwll.ch, syzkaller-bugs@googlegroups.com
-References: <6a908732.1d9ded08.62e62.00d7.GAE@google.com>
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F167E10F26F
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:48:16 +0000 (UTC)
+X-UUID: 7057952ea2ac11f18dc8c9802ae25ab1-20260828
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=; 
+ b=Ql49Kh/l1RPHVHUf+1XVSVgsI+doH8GbnSq8vWtTteRtzzrg7la1J67n/WYxktPJeAzM/So4MAXdr4hUw1unsxKMsjH0eIyFmnvpZw9cvrpi5nHbMAHunWdcgFF66wmhbvDSJQyJWLi9MiTMVfUSlLRlZpkV2eIawcRw4rCpmQw=;
+X-CID-CACHE: Type:Local,Time:202608281448+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:65a2b051-5896-4514-9452-3e03715a97a0, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:7db8b62, CLOUDID:b28affd9-399d-4fb2-bf59-1c094fb0e05e,
+ B
+ ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
+ :-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
+ nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
+ :0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7057952ea2ac11f18dc8c9802ae25ab1-20260828
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by
+ mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1167537693; Fri, 28 Aug 2026 14:48:12 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 28 Aug 2026 14:48:11 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 28 Aug 2026 14:48:11 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LHAx2j3mFC37xBafSuy1oJ2tQC0iy7zKlJgqYO4+yGrHoshMS8i0jXfvaFNB7Se52X8y9doSe5SgPGrHzg3vApeQwRFd9aYAQoZfP/ot1YjgABbzzDaV9XFMEjo0NS6G4KV1gPdkZ875QCl/55VvKtu4m5EdiJvPCMzKMgrJDd6LomeryFNHa7LRFpjK2qTDgS0DeB3GK8klBkz8em0yAt7nSKjZ5SeJq7T31tBatNBBKGekviQR1KItVoY+Yn4l8VZOGeOMBaQkpf5A7j4DkbqrdEM2WwjqPoKrvch4IekM6CUkyAZEliKBJ6PsNLnWxCuLeD0zkqRxBvkbgLooeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=;
+ b=e7UeEPMqiA9d1Eoc8qCfSFWILhGYSkYP0GhA8b3cv5p3J7Oj+XEXxsDgJzpqq9LIlb6HmJDf7SL62QiFYTADCM8URaSPH5+NSrXHSEyyAbealmLiHunS3NtigIOLXmsRtt2P1eqsSzvelSYkcCToiUimQybcUZhUb1KPsD8c9azw8ZK6L6eupW/HuZnn+uRPCGhjdYQuvlW5BDFTQPRrToQn84m92sP9kc++5p2LkN3vS+9dxutPZqwF5joDYYJ1umOBNeaSU46B+MdNkXmYWZnQ6kGD7olBY0Bw5MwwyCV6HalPaGMZyylkrNAhmZ+YuKpkO67Nzxs7wVRw/ZsPDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=;
+ b=m40gva1NIVnF7RE/sLdIFWhvZ1lZhPi/DSMkHlN23UYFNgoeejH37UvH2N8IABIVMhTpKIzrWrGwvrTi5ylnXnCkMWky84V9WRwsMi8gszE3TUTxJ02XMjIM1EWcycgM/yEpBo1+VZqVKRysPbaBTc/tp7uhZzAolF0AaHGL6fQ=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by SEYPR03MB6769.apcprd03.prod.outlook.com (2603:1096:101:68::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 06:48:06 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 06:48:05 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
+ <robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
+ <dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+ <jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
+ <granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ =?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
+Subject: Re: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotPlug
+ Detection in DP AUX
+Thread-Topic: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotPlug
+ Detection in DP AUX
+Thread-Index: AQHdD5av2q2OR1TkdkixzewHOFxL0LazUy2A
+Date: Fri, 28 Aug 2026 06:48:05 +0000
+Message-ID: <8cdcf1554c6dcaebf2e10a742deab7a37cdbc858.camel@mediatek.com>
+References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
+ <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <6a908732.1d9ded08.62e62.00d7.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 691462201D
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[];
- URI_HIDDEN_PATH(1.00)[https://syzkaller.appspot.com/x/.config?x=9b0fc292fc5639c];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[aol.com,gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[syzkaller.appspotmail.com,gmail.com,lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,aol.com,ffwll.ch,googlegroups.com];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[10]; REDIRECTOR_URL(0.00)[goo.gl];
- MID_RHS_MATCH_FROM(0.00)[];
- TAGGED_RCPT(0.00)[901485725495f4729987];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- SUBJECT_HAS_QUESTION(0.00)[]
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SEYPR03MB6769:EE_
+x-ms-office365-filtering-correlation-id: 8951e7bd-7550-4aea-37d9-08df04d05045
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|42112799006|366016|23010399003|7416014|376014|1800799024|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: h7gS67Snb/ZFrX5EhDhR6mrTe1xJS7seqMzIbyVAaxp9IU9o0focofDX5DbzrT7j31RHG2cui5Is4JDEhzz8/5/vLP5B7daB8q4ElgrfejscoZPcl2tWYZTlD/Srsq2ZtouPhKsvxE40IQRJJONB/5kYvsD7TeWRepjy+TWwvuT1+BoPGJufqxRxVHHXJ8fYpjiiFArfSr2akPoP/P3a4CFp1IraWqUzHHfhmT9ktkWce9GYpVQSspHTEkV6aJBqnU7qshtU6Eh558dmYv3yy5gh0QiVyQ522/N0a6DhhXg7v3/mF+/qAAsUB3QAGgK5QPUbqdg0lRh606SVwxs3A+u2jJd/AO9i6MQHp34raaLpyq38hFJxpMwsMS1HAHDninX+YdRaVPEu9xnEsPX8lRkFZB+Rz9Ugyj5uCvKS76CB78n6iJmdwEqJ6QDO2YTggyzilZOyUi3sbrtLV14KdqpOoOV6a/XiEr9dSNxgElKPuBZQjIsSfMiweSIrO8i+JlTL9U9IfpRhXsg8OKWGInYT/HcwzuNXsF3rN+ytYbi/Mod9JFUK+Yvpnoz9YIQt4Aqz/lDeoLt6c7+td5hUF0nyIaJgm2tJwdV7H7AEsd0v1d8fYhHN1jESj/bUVxxo7DdCHgggyu8nXkFDrLBWIALDgUe3zIYzgkPDOFu43M7FFD0/s5QNRVg4uZnoc3LNqHPJPjoTgBNaP7/fJke7Ew==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(42112799006)(366016)(23010399003)(7416014)(376014)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RkkvVUsvbnF3YThtWmkrS2xpd1JNT05wcWRTYURqaU5vMjA0TlBOWWh1Z2U1?=
+ =?utf-8?B?YmZpN0pCNUxvR0FQZVF5cEU2eFFtay9kQzRJWktrem93dzNvL05pMHo4TmRH?=
+ =?utf-8?B?NXBrYlh3QVJLeWZzMklpR0l5SnZSTlFSOWFRcjlWYUxpaVRzS2F2VTVweGlE?=
+ =?utf-8?B?akJqN3NTcjJuYUNHREhNSG1ua2x3ZFI5aGVjekppMDZTT3dnNTREUWJ1RWx4?=
+ =?utf-8?B?MTBZSnluaFlrQWtIMzVKanpjaDVoQThXSitodC9BOG9qdEdGSXlKZTdLRXhr?=
+ =?utf-8?B?aUZvVWY1bjhVcDdvS29tdjQ5WXNWTXJVSkhhS3BrbEFGZStGSTlLNngwRzZF?=
+ =?utf-8?B?VzRiTWxSN0pkcDRPbFNpVFZ0Zzc0RkM1cFNiU0w3cUZQYjdYS2VzMm16aTl5?=
+ =?utf-8?B?UWNOMmlSZld1aHlCM21zRWdYUGJVa3Z2QXZHRkU1eFhrQXhZeVpYQ2c5SmlR?=
+ =?utf-8?B?ZTFWOFBVbzZmWCs2aTJ6bklodThkMjUxa0lnekcyVS8xYTFJaDlaRXlYNWdU?=
+ =?utf-8?B?SDdIMDI0UHVSTXIzejdrZ0tzVTg2MTZtSGY3cHBzbk1PUzVwSHBoYWVmTmhZ?=
+ =?utf-8?B?YmlJM1NUVkR1LzBGN0puWFBCOStBUVpHalFsZXRVNHhwZjlJM1dFN1g4ckpu?=
+ =?utf-8?B?SG04MG4zMHFGbmJ3UHBFUnl1TzhZYTdxeHJpdGZldGxXS3JGeDZjU2xjNUFI?=
+ =?utf-8?B?MHE2bzMwRWREOGlLcllSQTVqa1IyZmJNS2RIQjdHVEJTcCtFZ1U0YnNVSFpT?=
+ =?utf-8?B?bjBIM0VoWFRZcUtGMkhEbzNXTGsrbFhWODlzclROM2htSkZpY2M0UmdDdGZ5?=
+ =?utf-8?B?dVhKVlkwdGFGYTlnQWdPaXVKb2NOYVNyY0RwUXhTc3dHVW1GZW5sSlpaeGlw?=
+ =?utf-8?B?ZmtZeWJzem1NbCtqOHpCU0U1Vkt4QmNqM1BRMm4wSVJ0ZE5XSndDL24yNGxm?=
+ =?utf-8?B?L3BuaVg4dDlEK3dLcWtPV09XcGFpd3VPUzFQa2VaRUZvdWZQYkVnaFpJc2Nk?=
+ =?utf-8?B?eFBwT09JcnR3VENMOWNVMW9OeUFMR0ZGNlJOMG5FdkRTYjdia244TG10bmd3?=
+ =?utf-8?B?UldabCtoZGFCRXZDd09OcVRqN0xCdU1oTjE5cmlHM3d3VFpFWTVpRDRFeGpC?=
+ =?utf-8?B?Qm5SRlp5aisvTFhPaXk3WjlQL2pYUFdNM3dhd1UwdGhJa3FqVTVETkhWWGl6?=
+ =?utf-8?B?bEJVNG9zNW9iQXltMWpRZlZ6N0tLa2srRVA1M2Y2ZHp2TWJHRjFlczdSS0xI?=
+ =?utf-8?B?cVRBSDA0UnZKblRmZU05OUNFOGdRTzh1U0pHTCtQRXFoS2VKb0o5Znc2R2hQ?=
+ =?utf-8?B?eUl4Z3FyQnE5Qm1MQUNFMHZ2azlHdW0vNGt2N0hMNHNEUTZRNldCYTlRSFo1?=
+ =?utf-8?B?ZHlNUlJHZEdrbm8zemRpcXB6SDJDbXRqeG50cGdUSlJnanlQY3FUM09McXI2?=
+ =?utf-8?B?ZXdxSUJoUjlRaWVMNmxhWUV4MVZPMkk2N3pIaTRZRi9ZUm9WZVZ6TnlvRU52?=
+ =?utf-8?B?bnFpa3RudGVuSitRMFFrNCs3YWhwNlVzb25aRXFUM3VmcXFGMXB2UzdSVUpB?=
+ =?utf-8?B?Wkp3Nk1FTjZqUkRxaUhCZXNsOWN1Rko1c3l3a1NDRjFoTVlrTklZYzRtZEFC?=
+ =?utf-8?B?enkyOG9KNUtuNlRpYTBLcnJjcXlISkFOanU1WUVRZEhyTW1Kdld5RFkxZkZG?=
+ =?utf-8?B?YVUrelNvYmo4azhJYUQ4WnhhWU81VHVnTmlHemFZVHY3VlJUVGF6UnBabGtx?=
+ =?utf-8?B?MHF5ZkZlMWt5R0dRcU03VDBxZlJyczZ3ck9HanN2TmFlbk52QU5wM3hmekl1?=
+ =?utf-8?B?dWdXYTQ2aFJQUm9kb0h1WHAzRk9vRjFJdXpzQ3lYaUJvMTFXVGsyM2xlRDdn?=
+ =?utf-8?B?ckFyWU5lSVp3VURydGxURlFuTUxsbUdpdGxCK0hvcXdrUFoyckIzNE9xTU9I?=
+ =?utf-8?B?SlFULzAydzZIQ0dmbnEzOVAzUUZoUjRJc3N1YVZqd2kwdU1uQWNaY20vQmZQ?=
+ =?utf-8?B?Wld3dEUzNkZBY1ZBSnkzeXg1c0tvTkhJclUrdHpxRXd6ZksybnlHeC9sR1p1?=
+ =?utf-8?B?TTVZSHdMU0hYc014dTd4V2FPTmczSXhEUmFlM1F5cEVXR3RFU3J5V09uREVw?=
+ =?utf-8?B?N2FzOVFWcElXcVlOcHd1V0E0ZSs1blFqV0U4djRxUVZCb3NUdEJTSXgyU0JW?=
+ =?utf-8?B?ME1VMVU5VzZ5eDhXUkVheEZ1cWZhYlA4eHdmcFVzVFJaNURsc2t5TGRrc3I1?=
+ =?utf-8?B?T3VKaHA3dFRGTFhaQWNKbHFwL3kvUnN0M3dYcnpYSGZJMTBnUnIvZGlsZHVS?=
+ =?utf-8?B?VjZUV29yRTVPQXdqRkFINXkxWkRsczVTVDJBQW1OWTUwdFFOenBhdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F9F48A572A05E34CA9B3593C2AA859F7@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: y1+0yFisCzEcd/FsZf6X+FoKM33qe7yTnqO+SKq7CLV+xOqpjPJeC8N/CI30kFBY+8wGzbqMQUeQWVpw/F8mzHR2kjO17uiM3gKQppAaRTBnsGpFTaaEnV2tL+qyK65n+35ThVr1ewIJN6wNZUqOxwnKCjtMpKFDzFBpovEBuE1bo6ogCvCOpb2d0JESilcy2V99CLpa+tD3gbsXFzqfu2P86lcTZUOCWZvbOog+rbB5xAx/CBvFHryKlKqgEDZ4MsnRZQaCR/aLbMg+E08BuoGnBj7mq6lyH33zR5jCB/xt7kuSUSsc/eJZs5wXEMSp4wYZcH33Dt4LhO2y3Ru+lg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8951e7bd-7550-4aea-37d9-08df04d05045
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 06:48:05.5321 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: aN68o/2ijOz28JaS7/1WRjOkjjggWtFzbUqwQbMBC93fn15Gptd2+DBf3y2pGLdwoJ+1MG0WZjrSDjQt3oazYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6769
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,157 +198,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 27.08.26 um 20:51 schrieb syzbot:
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    45c13f3f9e3b Merge tag 'hwlock-v7.3' of git://git.kernel.o..
-> git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-> console output: https://syzkaller.appspot.com/x/log.txt?x=10ad399e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=9b0fc292fc5639c
-> dashboard link: https://syzkaller.appspot.com/bug?extid=901485725495f4729987
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17af0579580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17639625580000
->
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/ac6556827073/disk-45c13f3f.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/01ff014f18d2/vmlinux-45c13f3f.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/77e9c6302a14/bzImage-45c13f3f.xz
->
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+901485725495f4729987@syzkaller.appspotmail.com
->
-> usb 4-1: config 1 interface 0 altsetting 0 bulk endpoint 0x1 has invalid maxpacket 0
-> usb 4-1: config 1 interface 0 altsetting 0 has 1 endpoint descriptor, different from the interface descriptor's value: 2
-> usb 4-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
-> ------------[ cut here ]------------
-> [PLANE:35:plane-0] pixel format with alpha exposed but blend mode not setup
-> WARNING: drivers/gpu/drm/drm_mode_config.c:872 at validate_blend_mode_for_alpha_formats drivers/gpu/drm/drm_mode_config.c:872 [inline], CPU#1: kworker/1:0/24
-> WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0xfb4/0x1be0 drivers/gpu/drm/drm_mode_config.c:938, CPU#1: kworker/1:0/24
-
-This comes from gud supporting ARGB8888 on it's primary plane.  But the 
-driver does not know the hardware's blend mode without a change to the 
-gud protocol.
-
-I think the easiest solution is to drop support for ARGB from gud.
-
-Best regards
-Thomas
-
-> Modules linked in:
-> CPU: 1 UID: 0 PID: 24 Comm: kworker/1:0 Not tainted syzkaller #0 PREEMPT(lazy)
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-> Workqueue: usb_hub_wq hub_event
-> RIP: 0010:validate_blend_mode_for_alpha_formats drivers/gpu/drm/drm_mode_config.c:872 [inline]
-> RIP: 0010:drm_mode_config_validate+0xfbb/0x1be0 drivers/gpu/drm/drm_mode_config.c:938
-> Code: 00 49 8b 57 18 48 89 f8 48 c1 e8 03 0f b6 04 28 84 c0 74 08 3c 03 0f 8e 00 0b 00 00 48 8d 3d fc 06 ce 07 41 8b b7 c8 00 00 00 <67> 48 0f b9 3a e9 fa fd ff ff 48 8b 5c 24 20 e8 31 3d 68 fe 48 8d
-> RSP: 0018:ffffc9000019edd0 EFLAGS: 00010246
-> RAX: 0000000000000000 RBX: 0000000000000001 RCX: 0000000000000000
-> RDX: ffff888108692dc0 RSI: 0000000000000023 RDI: ffffffff8b1a99a0
-> RBP: dffffc0000000000 R08: 0000000000000001 R09: 0000000000000000
-> R10: 0000000000000001 R11: 0000000000000000 R12: ffffed102175f9ca
-> R13: ffffed102175f9cb R14: 0000000000000001 R15: ffff88810bafcd60
-> FS:  0000000000000000(0000) GS:ffff8882684eb000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 0000200000000000 CR3: 0000000119ed8000 CR4: 00000000003506f0
-> Call Trace:
->   <TASK>
->   drm_dev_register+0x56e/0x7b0 drivers/gpu/drm/drm_drv.c:1077
->   gud_probe+0x17f4/0x1c20 drivers/gpu/drm/gud/gud_drv.c:646
->   usb_probe_interface+0x386/0x9b0 drivers/usb/core/driver.c:399
->   call_driver_probe drivers/base/dd.c:628 [inline]
->   really_probe+0x241/0xa60 drivers/base/dd.c:706
->   __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
->   driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
->   __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
->   bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
->   __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
->   device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
->   bus_probe_device+0x64/0x160 drivers/base/bus.c:620
->   device_add+0x121d/0x1970 drivers/base/core.c:3776
->   usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
->   usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
->   usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:293
->   call_driver_probe drivers/base/dd.c:628 [inline]
->   really_probe+0x241/0xa60 drivers/base/dd.c:706
->   __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
->   driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
->   __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
->   bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
->   __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
->   device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
->   bus_probe_device+0x64/0x160 drivers/base/bus.c:620
->   device_add+0x121d/0x1970 drivers/base/core.c:3776
->   usb_new_device.part.0+0xcc2/0x1686 drivers/usb/core/hub.c:2708
->   usb_new_device drivers/usb/core/hub.c:5833 [inline]
->   hub_port_connect drivers/usb/core/hub.c:5580 [inline]
->   hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
->   port_event drivers/usb/core/hub.c:5884 [inline]
->   hub_event.cold+0x51a/0xe9d drivers/usb/core/hub.c:5966
->   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
->   process_scheduled_works kernel/workqueue.c:3470 [inline]
->   worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
->   kthread+0x373/0x450 kernel/kthread.c:436
->   ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
->   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
->   </TASK>
-> ----------------
-> Code disassembly (best guess):
->     0:	00 49 8b             	add    %cl,-0x75(%rcx)
->     3:	57                   	push   %rdi
->     4:	18 48 89             	sbb    %cl,-0x77(%rax)
->     7:	f8                   	clc
->     8:	48 c1 e8 03          	shr    $0x3,%rax
->     c:	0f b6 04 28          	movzbl (%rax,%rbp,1),%eax
->    10:	84 c0                	test   %al,%al
->    12:	74 08                	je     0x1c
->    14:	3c 03                	cmp    $0x3,%al
->    16:	0f 8e 00 0b 00 00    	jle    0xb1c
->    1c:	48 8d 3d fc 06 ce 07 	lea    0x7ce06fc(%rip),%rdi        # 0x7ce071f
->    23:	41 8b b7 c8 00 00 00 	mov    0xc8(%r15),%esi
-> * 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
->    2f:	e9 fa fd ff ff       	jmp    0xfffffe2e
->    34:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
->    39:	e8 31 3d 68 fe       	call   0xfe683d6f
->    3e:	48                   	rex.W
->    3f:	8d                   	.byte 0x8d
->
->
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
->
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
->
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gTmV3ZXIgTWVkaWFUZWsgRGlzcGxheVBvcnQgSVBzIGNhbiBmaW5hbGx5
+IHVzZSB0aGUgQVVYIHRvIHBlcmZvcm0NCj4gaG90cGx1ZyBkZXRlY3Rpb24gKEhQRCkgd2l0aG91
+dCBoYXZpbmcgdG8gcG93ZXIgdXAgdGhlIGVudGlyZSBlRFANCj4gb3IgRFAgSVAgKHRyYW5zbWl0
+dGVyLCBlbmNvZGVyLCBldGMpLg0KPiANCj4gRW5hYmxlIHN1cHBvcnQgZm9yIGNvbmZpZ3VyaW5n
+IGFuZCBwZXJmb3JtaW5nIEhQRCBpbiBBVVggYW5kIGNoZWNrDQo+IHRoZSBjb3JyZWN0IEhQRCBz
+dHJhdGVneSB3aXRoIGEgbmV3IHBsYXRmb3JtIGRhdGEgdmFyaWFibGUuDQo+IFRoaXMgaXMgZG9u
+ZSBpbiBwcmVwYXJhdGlvbiBmb3IgYWRkaW5nIHN1cHBvcnQgZm9yIHRoZSBlbWJlZGRlZA0KPiBE
+aXNwbGF5UG9ydCAoZURQKSBJUCBmb3VuZCBpbiB0aGUgTVQ4MTk2IFNvQy4NCj4gDQo+IFNpZ25l
+ZC1vZmYtYnk6IEFuZ2Vsb0dpb2FjY2hpbm8gRGVsIFJlZ25vIDxhbmdlbG9naW9hY2NoaW5vLmRl
+bHJlZ25vQGNvbGxhYm9yYS5jb20+DQo+IC0tLQ0KDQpbc25pcF0NCg0KPiAgc3RhdGljIHZvaWQg
+bXRrX2RwX2h3aXJxX2VuYWJsZShzdHJ1Y3QgbXRrX2RwICptdGtfZHAsIGJvb2wgZW5hYmxlKQ0K
+PiAgew0KPiArCXUzMiBtYXNrLCB2YWw7DQo+ICsNCj4gKwkvKiBPbiBTb0NzIHdpdGggd29ya2lu
+ZyBBVVggSFBELCB0aGUgdHJhbnNtaXR0ZXIgSFBEIHJlZ2lzdGVyIGlzIGlnbm9yZWQgYnkgSFcg
+Ki8NCj4gKwlpZiAoZW5hYmxlKSB7DQo+ICsJCW1hc2sgPSBIUERfQ09OTkVDVF9FVkVOVCB8IEhQ
+RF9JTlRFUlJVUFRfRVZFTlQgfCBIUERfRElTQ09OTkVDVF9FVkVOVDsNCj4gKwkJdmFsID0gMDsN
+Cj4gKwl9IGVsc2Ugew0KPiArCQltYXNrID0gRFBfVFhfQVVYX0lOVF9NQVNLOw0KPiArCQl2YWwg
+PSBEUF9UWF9BVVhfSU5UX01BU0s7DQo+ICsJfQ0KPiArCW10a19kcF91cGRhdGVfYml0cyhtdGtf
+ZHAsIE1US19EUF9UWF9BVVhfSU5UX01BU0tJTkcsIHZhbCwgbWFzayk7DQoNCldoeSBub3QgcmVm
+ZXIgdG8gYmVsb3cgY29kaW5nPw0KDQpSZWdhcmRzLA0KQ0sNCg0KPiArDQo+ICAJbXRrX2RwX3Vw
+ZGF0ZV9iaXRzKG10a19kcCwgTVRLX0RQX1RSQU5TX1AwXzM0MTgsDQo+ICAJCQkgICBlbmFibGUg
+PyAwIDoNCj4gIAkJCSAgIElSUV9NQVNLX0RQX1RSQU5TX1AwX0RJU0NfSVJRIHwNCj4gQEAgLTEw
+ODksOSArMTEzMywzNCBAQCBzdGF0aWMgdm9pZCBtdGtfZHBfaW5pdGlhbGl6ZV9zZXR0aW5ncyhz
+dHJ1Y3QgbXRrX2RwICptdGtfZHApDQo+ICAJCQkgICBJUlFfTUFTS19BVVhfVE9QX0lSUSwgSVJR
+X01BU0tfQVVYX1RPUF9JUlEpOw0KPiAgfQ0KPiAgDQoNCj4gIA0KDQo=
