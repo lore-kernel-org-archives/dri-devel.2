@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63F5AC624C2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CBCDC624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3691010E681;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8129D10E687;
 	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F39D010F311
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:14:33 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.241.250])
- by APP-03 (Coremail) with SMTP id rQCowACXnDpxUZFq_zN1Bg--.54465S2;
- Fri, 28 Aug 2026 17:14:26 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/meson: dw-hdmi: Propagate reset failures during
- initialization
-Date: Fri, 28 Aug 2026 17:14:23 +0800
-Message-ID: <20260828091424.6375-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; secure) header.d=sarx-technology.com header.i=narek@sarx-technology.com header.b="aXpNSIpx";
+	dkim-atps=neutral
+X-Greylist: delayed 906 seconds by postgrey-1.36 at gabe;
+ Fri, 28 Aug 2026 19:22:44 UTC
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8E0110E4E6;
+ Fri, 28 Aug 2026 19:22:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787944049; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=aDBlNgI+LxEsuMdiIq+7SapyFjtseiUlLSWJl4vrYExkXrX/2eI9QVU2nPAwQYGeZdnu9l1HOgrebF3zDLPhzp13UKkWLUrSTaOTaZZDI+RPY1Xs346pITR45uQHjt2VZxwflOetzElvzrHo4oDFVLHqr+xyQQLgFlCvYGAxVT8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1787944049;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gUYYdleVR1v9SIJM9KGBpXqJIpkgjBCiNeo1NDaWFWE=; 
+ b=SbwlzIjYqz8hhZ1SDav1mpV2mntpLzKaXFBR8kKkDhLjVs8YebZj+GUQrDmQBSG+D8kH6bLx3khaHBpsaxj5JCNn6Phne1goAHhm4ZTtDVqU9dhcd9Rq5W4eJOj+CGW/0uLNkyJgeP+cD/sGzii2D2huq0k6jjaotg7haiIOj2o=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ dkim=pass  header.i=sarx-technology.com;
+ spf=pass  smtp.mailfrom=narek@sarx-technology.com;
+ dmarc=pass header.from=<narek@sarx-technology.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787944049; 
+ s=zoho; d=sarx-technology.com; i=narek@sarx-technology.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=gUYYdleVR1v9SIJM9KGBpXqJIpkgjBCiNeo1NDaWFWE=;
+ b=aXpNSIpxn/EXKangzcBmZcEl6ovKKBAcgF6l/KGTEFbir64kkizkSz6swoQf7ePA
+ lFHlRmYkGJoHBpYuCw1VzdjIK+1uTi4NDpqomCn3eeVVdiHuN7+ie7OO4L601HZaWvS
+ Y2I24cYq772rcV7IC7Qd08U5qWz2iUJYvEzj4xhw=
+Received: by mx.zoho.eu with SMTPS id 1787944047881609.5959396225994;
+ Fri, 28 Aug 2026 21:07:27 +0200 (CEST)
+From: Narek Sarkissian <narek@sarx-technology.com>
+To: superm1@kernel.org
+Cc: alex.hung@amd.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, kernel-dev@igalia.com, mario.limonciello@amd.com,
+ mpearson-lenovo@squebb.ca, mwen@igalia.com, sunpeng.li@amd.com
+Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
+ available for eDP
+Date: Fri, 28 Aug 2026 20:07:27 +0100
+Message-ID: <20260828190727.58724-1-narek@sarx-technology.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
+References: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXnDpxUZFq_zN1Bg--.54465S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF17Kw45Xw45WFyfury3Jwb_yoW5Zr1fpa
- 18Aa1UKrs8Ar17GrW7Aa1FyFW3K34Ikry7ArWjgws7Cr1xGF45JFy7KFs5try5uryUJ3Za
- qa1fCws8uF1YqrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
- nIWIevJa73UjIFyTuYvjfUFg4SDUUUU
-X-Originating-IP: [111.196.241.250]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,96 +69,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-meson_dw_hdmi_init() resets the APB, controller and PHY domains before
-accessing the HDMI block.  All three reset results are ignored, so bind
-or system resume can continue after a reset controller rejected part of
-the sequence.
+Hi Mario, Alex, Alexander,
 
-Make the helper return an error and propagate it through bind and
-resume.  This RFC intentionally leaves earlier HHI programming and
-successful resets in place on failure; feedback is requested on whether
-these SoCs require an additional rollback sequence.
+Following up on this patch (c6a837088bed) with a regression report on a
+different Lenovo model.
 
-The issue was identified via static analysis and manually reviewed.
+On a ThinkPad T14s Gen 3 (AMD Radeon 680M / Rembrandt, DCN 3.1.2), this
+change causes the internal eDP panel to be capped at 60Hz even though
+the panel natively supports 90Hz. dm_helpers_read_local_edid() finds
+an ACPI-provided EDID via _DDC and uses it unconditionally, but on
+this machine that ACPI blob is a stale/incomplete copy of the panel's
+real EDID: it encodes only a 60Hz detailed timing, while a live DP AUX
+read of the same panel (Samsung Display, ATNA40YK08-0) returns 90Hz as
+the native/preferred timing plus 60Hz as a secondary mode. Both DTDs
+share the same pixel clock and htotal, so the ACPI copy looks like it
+was deliberately downclocked rather than being a different display.
 
-Assisted-by: LLM
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/gpu/drm/meson/meson_dw_hdmi.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+dmesg confirms the code path taken:
 
-diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index fef1702acb14..1b55d1c89f62 100644
---- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -595,9 +595,10 @@ static const struct meson_dw_hdmi_data meson_dw_hdmi_g12a_data = {
- 	.cntl1_init = PHY_CNTL1_INIT,
- };
- 
--static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
-+static int meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
- {
- 	struct meson_drm *priv = meson_dw_hdmi->priv;
-+	int ret;
- 
- 	/* Enable clocks */
- 	regmap_update_bits(priv->hhi, HHI_HDMI_CLK_CNTL, 0xffff, 0x100);
-@@ -606,9 +607,17 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
- 	regmap_update_bits(priv->hhi, HHI_MEM_PD_REG0, 0xff << 8, 0);
- 
- 	/* Reset HDMITX APB & TX & PHY */
--	reset_control_reset(meson_dw_hdmi->hdmitx_apb);
--	reset_control_reset(meson_dw_hdmi->hdmitx_ctrl);
--	reset_control_reset(meson_dw_hdmi->hdmitx_phy);
-+	ret = reset_control_reset(meson_dw_hdmi->hdmitx_apb);
-+	if (ret)
-+		return ret;
-+
-+	ret = reset_control_reset(meson_dw_hdmi->hdmitx_ctrl);
-+	if (ret)
-+		return ret;
-+
-+	ret = reset_control_reset(meson_dw_hdmi->hdmitx_phy);
-+	if (ret)
-+		return ret;
- 
- 	/* Enable APB3 fail on error */
- 	if (!meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A)) {
-@@ -641,6 +650,7 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
- 	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_INTR_MASKN,
- 				       HDMITX_TOP_INTR_CORE);
- 
-+	return 0;
- }
- 
- static void meson_disable_clk(void *data)
-@@ -754,7 +764,9 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
- 		return ret;
- 	}
- 
--	meson_dw_hdmi_init(meson_dw_hdmi);
-+	ret = meson_dw_hdmi_init(meson_dw_hdmi);
-+	if (ret)
-+		return ret;
- 
- 	/* Bridge / Connector */
- 
-@@ -819,11 +831,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
- static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
- {
- 	struct meson_dw_hdmi *meson_dw_hdmi = dev_get_drvdata(dev);
-+	int ret;
- 
- 	if (!meson_dw_hdmi)
- 		return 0;
- 
--	meson_dw_hdmi_init(meson_dw_hdmi);
-+	ret = meson_dw_hdmi_init(meson_dw_hdmi);
-+	if (ret)
-+		return ret;
- 
- 	dw_hdmi_resume(meson_dw_hdmi->hdmi);
- 
--- 
-2.43.0
+  amdgpu 0000:33:00.0: [drm] Using ACPI provided EDID for eDP-1
 
+Booting with amdgpu.dcdebugmask=0x8000 (DC_DISABLE_ACPI_EDID) skips
+the ACPI EDID and forces the live AUX read, which correctly exposes
+90Hz and reports the panel's real vendor (Samsung) instead of Lenovo's
+ACPI-authored EDID (manufacturer/model LEN 16713).
+
+Full writeup with the EDID diff (byte-level comparison of the ACPI
+blob vs. the live-read panel EDID), environment details, and repro
+steps is here:
+
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/5710
+
+Since this same unconditional ACPI-EDID preference apparently fixes
+T14 Gen 4 but regresses T14s Gen 3, an unconditional preference in
+either direction doesn't seem to work for all eDP panels globally.
+Possible directions raised in the issue: fall back to ACPI only when
+the live AUX read fails (inverting current priority), prefer whichever
+source has more/higher-refresh timings, or gate the ACPI-EDID
+preference behind a DMI-based quirk table scoped to the models that
+actually need it.
+
+Thanks,
+Narek
