@@ -4,64 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37526C61DC6
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5275CC61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7724A10F307;
-	Fri, 28 Aug 2026 09:09:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9590010F30F;
+	Fri, 28 Aug 2026 09:09:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mhv/XYcr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="r+MEHXrM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0929D10F307;
- Fri, 28 Aug 2026 09:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787908146; x=1819444146;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=hzoxafoDvKtm30VmfjqOmN6WXzEwAjyeJ19/FBBenGo=;
- b=mhv/XYcrwE3ZGmkIdeX82J3PNRDU5tAonDxp2bt9YTTexVg9jZsW10Tg
- ZP2HsS6jx50dcBtHfEJiJocRm7ShGojsjuyQ0cEquIK/1gQuFp6KJigjJ
- IkC//VZeFdl4sU7GHX8cyKf5zyNYdiyhm/zyECGlYYhvvNnaiIC+p7d+e
- JB206AdWGrwgfjWYISKCpolyJ7L0Sqe8YCp/JTvUMTQGar7KID96mM3ge
- c3I71kBy77KaZ5YoQXw96DCL8X18lfJuuXrhLXwoeN6V1F9rLJAPXgAPQ
- qc8eDWnc2OMI2hEZAmu1yPoC5JpYHxvAXbUb+pV8i+oA7MXsdUenDobWN A==;
-X-CSE-ConnectionGUID: hhY4io+mRcmMEEwnce6aMg==
-X-CSE-MsgGUID: 1+MFhFmDQgGdLogNV9MYGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99575100"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="99575100"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 02:09:05 -0700
-X-CSE-ConnectionGUID: XWJPNHv8SQ2e6kD5m1Scyg==
-X-CSE-MsgGUID: ts8BLPMcSP+EP+Af/BY8DA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="273362163"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.114])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 02:09:02 -0700
-Message-ID: <756222a03760054ffebf187e581c60ce4025c023.camel@linux.intel.com>
-Subject: Re: [PATCH v2 5/8] drm/i915/gt/selftests: Use drm_* prints in
- aggregated gt selftests
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Krzysztof Karas
- <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Jani
- Nikula <jani.nikula@linux.intel.com>, Andi Shyti
- <andi.shyti@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Date: Fri, 28 Aug 2026 11:08:59 +0200
-In-Reply-To: <apDJpcatw9isIKdL@zenone.zhora.eu>
-References: <20260818095624.3254368-1-krzysztof.karas@intel.com>
- <20260818095624.3254368-6-krzysztof.karas@intel.com>
- <apDJpcatw9isIKdL@zenone.zhora.eu>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2540610F309
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:09:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id F2FDB436D6
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:09:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D4FC0C19425
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:09:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1787908152;
+ bh=0XTZh55RIOK3Tb/a542N8gd87bMbMIAlSuYIyzLoeCs=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=r+MEHXrMjLQ/ruSktUMcYF/s0/Ox3fmvtkRXv3x4YyAKuguPi8LIxyoHnrd7EKbXK
+ QtJ971FUsOpzRtWLznmUPgbVYKSXHDO3BwiseYXUcMrCTOXF722dInz7kOJ3adGENW
+ m1pjHYm5Vx742jCgqo5rj8F34jjgF5ANa9mULmje/Zk3VGtLvsOEAOSsYS67feSy8S
+ 6V7XVJ8KAPgIvNFepArz9Kv4SxqCU/n7RoHxU4NK89v8J6mPMsWTHmkbZ0Bmhbpgsa
+ DwZSPIBMAoUmYtuWZLGcUiUfOQDZnu0yCUHvIkqTtQJxdRN9pVUTZTK2yINVFeXubo
+ 1Vh3qXTwYGUwQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id BBE9CC41613; Fri, 28 Aug 2026 09:09:12 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221929] amdgpu flip_done timed out stills at ASUS ROG Strix G17
+ 2022 laptop(G713RM)
+Date: Fri, 28 Aug 2026 09:09:12 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: twyoda@gmail.com
+X-Bugzilla-Status: REOPENED
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-221929-2300-UJQeG7GDPC@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221929-2300@https.bugzilla.kernel.org/>
+References: <bug-221929-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,48 +75,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-08-28 at 01:38 +0200, Andi Shyti wrote:
-> Hi Krzysztof,
->=20
-> ...
->=20
-> > @@ -400,11 +400,10 @@ static int intel_mmio_bases_check(void *arg)
-> >  			u32 base =3D info->mmio_bases[j].base;
-> > =20
-> >  			if (ver >=3D prev) {
-> > -				pr_err("%s(%s, class:%d, instance:%d): mmio base for graphics ver =
-%u is before the one for ver %u\n",
-> > -				       __func__,
-> > -				       intel_engine_class_repr(info->class),
-> > -				       info->class, info->instance,
-> > -				       prev, ver);
-> > +				drm_err(NULL,
-> > +					"%s(%s, class:%d, instance:%d): mmio base for graphics ver %u is =
-before the one for ver %u\n",
-> > +					__func__, intel_engine_class_repr(info->class),
-> > +					info->class, info->instance, prev, ver);
->=20
-> yah! drm_err(NULL, ...) is quite pointless. If there is no way
-> for retrieving the drm device, then let's just stick to pr_*,
-> this is their role.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221929
 
-While I said in one of my comments to 3/5 that I'm not sure if that makes=
-=C2=A0
-sense, maybe it does.  With drm_*(NULL, ...), log messages are still
-tagged=C2=A0with [drm] at least.  So as a minimum, in line with my comment =
-to=C2=A0
-1/5, I=C2=A0think commit message of 1/5 that introduces only drm_*(NULL, ..=
-.)=C2=A0
-could=C2=A0tell us that we want that [drm] tag even without context, unless=
- we=C2=A0
-don't=C2=A0want it, then prefer to keep pr_*().
+Yoda Wu (twyoda@gmail.com) changed:
 
-Thanks,
-Janusz
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|RESOLVED                    |REOPENED
+         Resolution|ANSWERED                    |---
 
->=20
-> Thanks,
-> Andi
->=20
-> >  				return -EINVAL;
-> >  			}
+--- Comment #2 from Yoda Wu (twyoda@gmail.com) ---
+So, which issue in https://gitlab.freedesktop.org/drm/amd/-/issues should I
+read ?
+I read every issue which mentioned "flip_done" , but I didn't see any
+resolution.
+Can you indicate which "Work item" resolve my issue ?
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
