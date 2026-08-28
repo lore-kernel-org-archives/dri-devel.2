@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB9AFC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 11:36:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD366C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 12:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13FBC10E239;
-	Fri, 28 Aug 2026 11:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2C7C10F375;
+	Fri, 28 Aug 2026 12:09:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VwIo53V+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T+IwMLZP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1F710E239;
- Fri, 28 Aug 2026 11:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787917001; x=1819453001;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9YKdcLhe7UZeKAFGuCUob36BW0ql1LLsWaTM6OLyBX8=;
- b=VwIo53V+SSafkJp6mD9C5x2DF8kCR1AHKlLmgdeeAY6sdZ93/h9MNCf0
- J9bv+3pl5ajGFJT6Ykjts/gMmRrbcxsSTEYDsRqpEfwc2ITuhtbcfqc+6
- iA9mbb2ZRYPcJRNM7mPRXWaOOI1HxNqz4b6DhcIi6YGkI+N+6OuPNUyKh
- StGsL9V83Uda9YcMj6eFC85cqdsRb4cn0o2gLc+29N8u6lfGwnZchsVxc
- OoNFZNtL4iFVmzeSqXXXi7BCGhZxC5X7/bpbOf4FkhHHLRkb6KHhKvj01
- /7cCq9pWqiYAJDOxjGWOjUNUxpCPYQFLzMj5arX0JoR866rpOTqeR6zvh Q==;
-X-CSE-ConnectionGUID: RrZ9qhcuQr+Gr34ibF3eXw==
-X-CSE-MsgGUID: qCpxcwYTREmoLAepVKIz2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99090081"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="99090081"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 04:36:41 -0700
-X-CSE-ConnectionGUID: ZQ5n4jfoTXGD3sIQBfq8jA==
-X-CSE-MsgGUID: +VeUM9iLQ1qptEsnfM6oLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="266815115"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 04:36:40 -0700
-Date: Fri, 28 Aug 2026 13:36:36 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Arvind Yadav <arvind.yadav@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- riana.tauro@intel.com
-Subject: Re: [PATCH 2/13] drm/xe: Separate AER reset state from device wedging
-Message-ID: <apFyxAB1BYB0qtRh@black.igk.intel.com>
-References: <20260827101801.1247654-3-arvind.yadav@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827101801.1247654-3-arvind.yadav@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2203610F375
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 12:09:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5492C601FD;
+ Fri, 28 Aug 2026 12:09:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673251F00A3A;
+ Fri, 28 Aug 2026 12:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787918946;
+ bh=twoPQU5vTKg4nfajP+mzb8+VLElzhS+uBF362FjP9Tk=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=T+IwMLZPEyxWNnU+xwFhUJdLWi6w4t3yXBg2lSwbGb0GeNTecwGG6aShfHFxkmzd3
+ o+QGtx2mMIJpF96FE1lasCwwaGCzJ9RsNuRbQZifnuVNa2y/QADtsAGt/h3plt0b8u
+ YNEUfTPwi/zJq1aOxYaWraTG+7+lFu+6JoBMTRmDhtasYtU6tqiWzqb3xqOYWAD7Ct
+ KJEINUykeoeIq5L7og3v8p4Xle4if9salg3nAucVkBygxPuAGgjmQlt/RK5TEGylN/
+ YVtelE+qdM+Pml74FZ6ShD3Z422nQ51FIuF87KztbqMdn+asIKqdvSl8F+X8lJawdb
+ GTwZjbNvm8CbA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 28 Aug 2026 14:09:01 +0200
+Message-Id: <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
+Subject: Re: [PATCH 1/2] gpu: nova-core: use kernel lossless integer
+ conversion module
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, <ojeda@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
+ <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
+In-Reply-To: <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,52 +63,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Cc: Riana
+(Cc: Miguel)
 
-On Thu, Aug 27, 2026 at 03:47:50PM +0530, Arvind Yadav wrote:
-> PCI error recovery currently uses xe->wedged.flag to block driver
-> access. This mixes a temporary AER reset with a permanent device wedge.
-> 
-> If the device wedges during AER recovery, the wedge is not seen as the
-> first transition. The AER resume callback may then clear the flag and
-> make the permanently wedged device appear usable again.
-> 
-> Keep the old device blocked while slot reset removes it, and block the
-> new device until the AER resume callback.
-> 
-> The old AER path took a runtime PM reference to balance
-> xe_device_wedged_fini(), which drops one when wedged.flag is set. AER no
-> longer sets that flag, so keeping the Xe-owned reference would leak it.
-> pcie_do_recovery() holds a PCI-core runtime PM reference across the
-> error_detected, slot_reset and resume callbacks.
+On Fri Aug 28, 2026 at 7:33 AM CEST, Alexandre Courbot wrote:
+> The `kernel` crate now features a replacement for our lossless integer
+> conversion routines. Switch to the kernel version and remove our own.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/falcon.rs                    |  12 +-
+>  drivers/gpu/nova-core/falcon/fsp.rs                |   4 +-
+>  drivers/gpu/nova-core/fb.rs                        |   2 +-
+>  drivers/gpu/nova-core/fb/hal/gb100.rs              |   6 +-
+>  drivers/gpu/nova-core/firmware.rs                  |   4 +-
+>  drivers/gpu/nova-core/firmware/booter.rs           |   4 +-
+>  drivers/gpu/nova-core/firmware/fwsec.rs            |   2 +-
+>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |   4 +-
+>  drivers/gpu/nova-core/firmware/gsp.rs              |   9 +-
+>  drivers/gpu/nova-core/firmware/tlv.rs              |  11 +-
+>  drivers/gpu/nova-core/fsp.rs                       |   8 +-
+>  drivers/gpu/nova-core/gsp.rs                       |   4 +-
+>  drivers/gpu/nova-core/gsp/cmdq.rs                  |  22 +--
+>  drivers/gpu/nova-core/gsp/fw.rs                    |  42 ++--
+>  drivers/gpu/nova-core/gsp/fw/commands.rs           |   4 +-
+>  drivers/gpu/nova-core/gsp/sequencer.rs             |   2 +-
+>  drivers/gpu/nova-core/mctp.rs                      |   8 +-
+>  drivers/gpu/nova-core/num.rs                       | 211 ---------------=
+------
+>  drivers/gpu/nova-core/vbios.rs                     |   2 +-
+>  19 files changed, 78 insertions(+), 283 deletions(-)
 
-...
+Please see the discussion in [1].
 
-> +/*
-> + * Return true when device access must be blocked either permanently because
-> + * the device is wedged or temporarily while PCI error recovery is running.
-> + *
-> + * Do not use this helper for one-way wedged-device decisions such as DMA
-> + * isolation, IRQ resume suppression or recovery-method reporting.
-> + */
-> +static inline bool xe_device_io_blocked(struct xe_device *xe)
-> +{
-> +	return xe_device_wedged(xe) || xe_device_is_in_reset(xe);
-> +}
+If we make this change, then the subsequent conversion to const_as!() would=
+ need
+to go through the Rust tree next cycle, which could be a bit of a mess, as =
+I'd
+expect a bunch of conflicts.
 
-This is already documented below but still FYI:
+Alternatively, we could the the full three cycle dance, or have a signed ta=
+g for
+const_as!() and use it right away.
 
-The long term plan to reuse FLR flow[1] in AER path and move over from
-'reset' states to temporary wedging.
+But honestly, the former would just be unnecessary noise. If we don't do th=
+e
+latter, let's just keep the nova-core num module until the dust has been
+settled.
 
-Raag
-
-[1] https://patchwork.freedesktop.org/series/162055/
-
-> @@ -116,7 +116,6 @@ static pci_ers_result_t xe_pci_error_slot_reset(struct pci_dev *pdev)
->  	 * TODO: optimize by re-initializing only the hardware state and re-creating
->  	 * kernel BOs.
->  	 */
-> -	xe_device_clear_in_reset(xe);
->  	pdev->driver->remove(pdev);
->  	devres_release_group(&pdev->dev, xe->devres_group);
+[1] https://lore.kernel.org/all/CANiq72k+-fNWZCwGuQ=3DFTchxgm-X-f6WR=3DtG=
+=3DErcn19ic1edQg@mail.gmail.com/
