@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18050C61DBD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 14:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E28CC61DBD
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 14:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5CAD10F3E8;
-	Fri, 28 Aug 2026 14:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C980110E032;
+	Fri, 28 Aug 2026 14:55:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kIhGCkkm";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="EDUkg90q";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6008310F3E6;
- Fri, 28 Aug 2026 14:34:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4870860008;
- Fri, 28 Aug 2026 14:34:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7391F000E9;
- Fri, 28 Aug 2026 14:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787927688;
- bh=42IFRTHRgTx5zHer4VK/hV5ApigHwvXB4T1L0ZHIrcU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kIhGCkkmIz2nx2KZKyFou15+PXVKUl3SRmC9b87T5hkJ4mbMIXcIakjHeZ9Bym1zC
- 0zTxfKBWOKbfFEYHEM6kXSkrLjx0RvashzdpoxI8IDLapA/gIcNZzeawb0dBDxprDh
- CVBXmNhQSUIxBg0sDra1xHAC0W0WUEzcTIjRqNveB1uf5Rlsn4HOYlP/GfLIiQFx86
- pG9tRWneNf32rlXANFcCHppv/RQ3cojn1/cm95n87NGgLX8GhjpGiakzd87Y5TCmwg
- m9dZD27yZjPjS0iYhOGD0pHhDD8pLuUAJE6wciVYBSO4zGJje5pQmB1E8DY3MmjsRV
- EWMFBUi+5x/7g==
-Date: Fri, 28 Aug 2026 16:34:45 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v3 2/8] drm/i915/selftests: Use drm_* prints in live
- selftests
-Message-ID: <apGaXnTIuHa5mbti@zenone.zhora.eu>
-References: <20260828100339.72304-1-krzysztof.karas@intel.com>
- <20260828100339.72304-3-krzysztof.karas@intel.com>
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch
+ [185.70.43.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D7910E032
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail; t=1787928952; x=1788188152;
+ bh=V0hb2voKgSJqDmgc2p7cOkarJ7UY6K7MCbTZpq1OfA8=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=EDUkg90q7sYiVD99e5kRcamXugkXAPb7OJCzk3f6XUt8OO4OQkr9khgExN4TPVqGB
+ cJG5cj4F4GqjgZdyg0enFW0VzGhYnZQU/9dk4i+VykNrNgZ3sm2tzGhnKvGaUqZHai
+ +JT6fsMy04hv+GgeZyqlEtXYHmDQRnX4kHYOiFT6AHkd9VcUUN+ilodlmmgQSQTQKH
+ Z/Ntp1lefA88utBtyHfXqoE2ndrsr3+1VxhpegkXKt3jFix4WWyrwLREXT8N1rpE0b
+ rjtqtNDvSJW2eDW5vqAVAz9wUD4y6qFzpnAs6cFilxixubKNblBNdSCs50HQbqC0E8
+ ZIApObSSBRv1A==
+X-Pm-Submission-Id: 4hWhK12291z2Scpm
+From: Esben Haabendal <esben@geanix.com>
+To: "Herve Codina" <herve.codina@bootlin.com>
+Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>,  "Andrzej Hajda"
+ <andrzej.hajda@intel.com>,  "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>,  "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>,  "Maxime Ripard"
+ <mripard@kernel.org>,  "Thomas Zimmermann" <tzimmermann@suse.de>,  "David
+ Airlie" <airlied@gmail.com>,  "Simona Vetter" <simona@ffwll.ch>,  "Linus
+ Walleij" <linusw@kernel.org>,  "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>,  "Marek Vasut" <marex@denx.de>,
+ <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+In-Reply-To: <87cxv2xwz0.fsf@geanix.com> (Esben Haabendal's message of "Fri,
+ 28 Aug 2026 12:15:16 +0000")
+References: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
+ <20260810-ti-sn65dsi83-fixes-v4-1-ae9c95c8d162@geanix.com>
+ <BAolbDDI0aiCzU2P4vC8Ym-ffhydGSVEvFuW-aVRTvqdzKqwFi53nnr3ps6bh1e6B-ioI-Jh9tKY76dHj6kkrw==@protonmail.internalid>
+ <20260819113253.5d602b2d@bootlin.com>
+ <rCL-JIGAxmoKXwK9d57EdKhnA4BEacPZQUCiEpnkDXaA3_MBTYj59kYlKla68QKigl2jMCdFsLA_iUgbc0rN_A==@protonmail.internalid>
+ <87cxv2xwz0.fsf@geanix.com>
+Date: Fri, 28 Aug 2026 16:55:48 +0200
+Message-ID: <874igewayz.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828100339.72304-3-krzysztof.karas@intel.com>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +72,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+"Esben Haabendal" <esben@geanix.com> writes:
 
-...
+> "Herve Codina" <herve.codina@bootlin.com> writes:
+>
+>> Hi Esben,
+>>
+>> On Mon, 10 Aug 2026 09:19:40 +0200
+>> Esben Haabendal <esben@geanix.com> wrote:
+>>
+>>> The error handling of sn65dsi83_reset_pipe() failure in
+>>> sn65dsi83_reset_work() has been a bit strange all the time, missing both
+>>> enable_irq() and drm_bridge_exit() in case of failure. But since
+>>> sn65dsi83_reset_pipe() have never been failing (always returning 0), it has
+>>> not caused any problems.
+>>>
+>>> As we are going to change sn65dsi83_reset_pipe() to return error values in
+>>> case of failure, we need to fix this.
+>>>
+>>> Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>>> ---
+>>>  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
+>>>  1 file changed, 2 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>>> index 42b451432bbb..0ccfff401b2a 100644
+>>> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>>> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>>> @@ -417,10 +417,9 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
+>>>
+>>>  	/* Reset the pipe */
+>>>  	ret = sn65dsi83_reset_pipe(ctx);
+>>> -	if (ret) {
+>>> +	if (ret)
+>>>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+>>> -		return;
+>>> -	}
+>>> +
+>>>  	if (ctx->irq)
+>>>  		enable_irq(ctx->irq);
+>>>
+>>>
+>>
+>> In this v4, enable_irq() is called even if we cannot reset the pipe. I know that
+>> sn65dsi83_reset_pipe() always returns 0 (and this will be change) but we have to
+>> take care here.
+>>
+>> If the pipe cannot be reset, the sn65dsi83 component could be in a state where
+>> it can force the interrupt line. This was the reason the irq is disabled
+>>   https://elixir.bootlin.com/linux/v7.2/source/drivers/gpu/drm/bridge/ti-sn65dsi83.c#L455
+>
+> Do we agree that this patch series (patch 1 and 2 combined) does not
+> change this behavior compared to the current state?
+>
+> Currently, because sn65dsi83_reset_pipe() always returns 0, we call
+> enable_irq() even if we cannot reset the pipe. So I am not changing
+> behavior.
+>
+> I agree, that this might not be the right approach, but it makes more
+> sense to me to address that specifically on top of the change in this
+> patch, so we can all agree on what we are changing and why.
+>
+> Can we keep this commit?
+>
+> Should I add a new patch that makes the change to this series, or is it
+> okay to postpone this to later?
+>
+> Or alternatively, do you want me to drop this patch? And if so, I guess
+> we should at least add some comment to the next patch about the behavior
+> change that it introduces in sn65dsi83_reset_work().
 
->  static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
->  				unsigned int num_ranges,
-> -				bool is_watertight)
-> +				bool is_watertight,
-> +				const struct drm_device *drm)
->  {
->  	unsigned int i;
->  	s32 prev;
-> @@ -36,22 +39,22 @@ static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
->  	for (i = 0, prev = -1; i < num_ranges; i++, ranges++) {
->  		/* Check that the table is watertight */
->  		if (is_watertight && (prev + 1) != (s32)ranges->start) {
-> -			pr_err("%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
-> -			       __func__, i, ranges->start, ranges->end, prev);
-> +			drm_err(drm, "%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
-> +				__func__, i, ranges->start, ranges->end, prev);
->  			return -EINVAL;
->  		}
->  
->  		/* Check that the table never goes backwards */
->  		if (prev >= (s32)ranges->start) {
-> -			pr_err("%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
-> -			       __func__, i, ranges->start, ranges->end, prev);
-> +			drm_err(drm, "%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
-> +				__func__, i, ranges->start, ranges->end, prev);
->  			return -EINVAL;
->  		}
->  
->  		/* Check that the entry is valid */
->  		if (ranges->start >= ranges->end) {
-> -			pr_err("%s: entry[%d]:(%x, %x) has negative length\n",
-> -			       __func__, i, ranges->start, ranges->end);
-> +			drm_err(drm, "%s: entry[%d]:(%x, %x) has negative length\n",
-> +				__func__, i, ranges->start, ranges->end);
->  			return -EINVAL;
->  		}
->  
-> @@ -126,7 +129,8 @@ int intel_uncore_mock_selftests(void)
->  	for (i = 0; i < ARRAY_SIZE(fw); i++) {
->  		err = intel_fw_table_check(fw[i].ranges,
->  					   fw[i].num_ranges,
-> -					   fw[i].is_watertight);
-> +					   fw[i].is_watertight,
-> +					   NULL);
+Scratch that. I will squash the two patches into one, go back to only
+calling enable_irq() when sn65dsi83_reset_pipe() succeeds, but ensure
+that drm_bridge_exit() is always called. Basically what I had in v3,
+which you both (Luca and Herve) seemed fine with.
 
-arrghh! Here we are again at the drm_err(NULL,...) case.
+I try to explain the situation a bit better in the new squashed commit
+message. If nothing else, it helped myself understand what was going on :)
 
-You could eventually do in intel_fw_table_check()
+Is it okay to send v5 with this or do I have to wait a bit longer?
 
-	if (drm)
-		drm_err(drm, ...);
-	else
-		pr_err(...);
-
-but I think it's not worth the effort, just leave pr_err().
-Besides, passing the drm device is quite out of the scope of the
-function itself, it's just odd!
-
-Andi
-
->  		if (err)
->  			return err;
->  	}
+/Esben
