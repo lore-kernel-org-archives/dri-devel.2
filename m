@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8400C61DCB
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:09:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6468FC61DCB
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061DA10F487;
-	Fri, 28 Aug 2026 21:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A27C710F489;
+	Fri, 28 Aug 2026 21:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c7b1Gc+/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gfTBx78O";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9EA810F487
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 21:09:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D522210F489
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 21:10:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EA85160055;
- Fri, 28 Aug 2026 21:09:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E6A1F000E9;
- Fri, 28 Aug 2026 21:09:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7DB8240BA7;
+ Fri, 28 Aug 2026 21:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365C01F000E9;
+ Fri, 28 Aug 2026 21:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787951353;
- bh=eF4qJAexfNdfN0HsUhHmEa/8frfbG0OLTffL0JOam90=;
+ s=k20260515; t=1787951444;
+ bh=af3ANbKbhJHryzL+id7opW2OJuFaW9X5ZAe8tKe74x4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c7b1Gc+/Wldarz8BywYvE8RQYjmA4g5MNjsf/PB6Unx47tbpNTAyLkHxeN4lJVnIl
- K7NNnjGrg/ytOZUiE2FODayE9K0+eI7OaTVbGH2zaLp7FBS1n8ZlNzrNw1y7Rnt+tU
- 2HA9avFcGjDbNCRJQ2wKIMddNEDk8Ln2osDLlhOQvib/k5HGPh12M3fjFz0GmjQffN
- W74HPXB7QdLRxWPY0Lp25mTkM6HIcoBDkiSSi8lvlP+qFSEw8xXZzpiDj/xSa8qJe4
- oRePLMFAfbgE9iVk8+ufPLfh70Laj2sm9BUEp8tUbTQ8wJBRnkiiQpuUYWXmnDrpzs
- rqw8XffWHkeOw==
+ b=gfTBx78ONMgm8h0JkAtYUziBfmEvS5hqjFn45staN0IxfiqiPStB5wiUPwaBptdMb
+ u7bSscBs/fQw68nAzJO2tankcd/g+A+hXr5XwrpjUCs5uYWDfHwSApihE7oaqRrcWG
+ tF+vlcWEx+jK0RuCW6qrafmHe6Cg74PYArQ7eKOQmz6IveaTirotytFvsxAGUv4rim
+ NJN4BgS6oRst2zVFyUkmke3uXz2nlYxJU2cu6W484Oq9MFFAJlsowrPMQmbvt63cMy
+ 8Fg3ynAEIMI1eP8L1Lvfmdado8Jf/Xssn7eK3fmBggBQAnS0srdJJ08wjdeQYDDtDn
+ q5LFzuKYpu1Wg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/17] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
+Subject: Re: [PATCH v7 10/17] drm/panfrost: Add warning messages to fatal
+ error conditions
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
+In-Reply-To: <20260828-claude-fixes-v7-10-72a13b2c125d@collabora.com>
 References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-10-72a13b2c125d@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 21:09:13 +0000
-Message-Id: <20260828210913.82E6A1F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 21:10:43 +0000
+Message-Id: <20260828211044.365C01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,90 +62,88 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Dropping the PM usage counter before disabling runtime PM in the i=
-nit error path creates a window for unintended device suspend, leading to a=
- potential crash.
+- [Medium] Spurious WARN_ON triggered during system suspend when GPU jobs a=
+re active.
 
 Pre-existing issues:
-- [High] panfrost_device_fini() unconditionally accesses hardware registers=
- even if pm_runtime_get_sync() fails, leading to a potential crash.
+- [High] Unconditional hardware access after `pm_runtime_get_sync()` failur=
+e causes kernel panic.
 --
 
-commit 2b42dddf42e663beb9d859051cf7ae5891d997e4
+commit a7ee5ddc6b752f83ff2b60cb2bbc09648f803bce
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+drm/panfrost: Add warning messages to fatal error conditions
 
-This commit addresses power management reference count and autosuspend
-issues during device probe and removal. It manually adjusts the PM refcount
-and calls the autosuspend or noidle functions at the appropriate times to
-prevent the device from remaining powered on forever or increasing its
-usage count monotonically on module reloads.
+This commit adds drm_WARN_ON macros to panfrost_device_fini and
+panfrost_device_runtime_suspend to warn users when PM reference acquisition
+fails or when inflight jobs are reported during the PM suspend path.
 
 > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
 /panfrost/panfrost_device.c
-> index 99f7da2180f92..70c8109ea6987 100644
+> index 70c8109ea6987..d8acae9b8cfac 100644
 > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-[ ... ]
-> @@ -334,9 +335,13 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  	if (err < 0)
->  		goto out_devreg;
-> =20
-> +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> +
->  	return 0;
-> =20
->  out_devreg:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-
-[Severity: High]
-Does dropping the PM usage counter before disabling runtime PM create a race
-window here?=20
-
-If `pm_runtime_put_noidle()` drops the PM usage count to 0 while PM runtime
-is still active, a concurrent thread (e.g., userspace modifying sysfs power
-controls) could trigger an asynchronous device suspend. This would turn off
-clocks and power domains right before the error path proceeds to call
-`panfrost_device_disable_hw()`, attempting to write to memory-mapped hardwa=
-re
-registers that are now powered off, which can cause a Synchronous External
-Abort.
-
-Should `pm_runtime_disable()` be called before `pm_runtime_put_noidle()` to
-guarantee the device remains active during teardown?
-
->  	panfrost_device_disable_hw(pfdev);
->  	panfrost_gem_fini(pfdev);
-[ ... ]
-> @@ -363,7 +368,9 @@ int panfrost_device_init(struct panfrost_device *pfde=
+> @@ -367,7 +368,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
 v)
+> =20
 >  void panfrost_device_fini(struct panfrost_device *pfdev)
 >  {
->  	pm_runtime_get_sync(pfdev->base.dev);
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> -	pm_runtime_get_sync(pfdev->base.dev);
+> +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+>  	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
 >  	pm_runtime_disable(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
-> =20
->  	panfrost_jm_stop_sched_jobs(pfdev);
->  	panfrost_device_disable_hw(pfdev);
+>  	pm_runtime_put_noidle(pfdev->base.dev);
 
 [Severity: High]
-This is a pre-existing issue, but panfrost_device_fini() unconditionally
-accesses hardware registers even if pm_runtime_get_sync() fails.
+This isn't a bug introduced by this patch, but while we are adding a warning
+here, does it make sense to continue execution if pm_runtime_get_sync fails?
 
-If `pm_runtime_get_sync()` returns `< 0` (e.g., due to a hardware fault,
-regulator issue, or clock failure), the function continues unconditionally
-to `panfrost_device_disable_hw()`. This attempts to write to GPU/MMU
-registers without power/clocks, which will result in a system crash
-(Synchronous External Abort).
+If the device fails to power on due to a regulator or clock failure, the
+warning is logged but the function continues and calls:
 
-Can we add a check to handle the `pm_runtime_get_sync()` failure and avoid
-accessing the powered-down hardware?
+panfrost_device_fini()
+    panfrost_jm_stop_sched_jobs()
+    panfrost_device_disable_hw()
+
+Both of these subsequent functions write to GPU registers. Accessing hardwa=
+re
+registers of an unclocked or unpowered device on ARM SoCs triggers a Data
+Abort exception, leading to a hard kernel panic.
+
+Should we abort the teardown or skip the hardware disable steps if the PM
+resume fails?
+
+[ ... ]
+
+> @@ -517,7 +518,7 @@ static int panfrost_device_runtime_suspend(struct dev=
+ice *dev)
+>  {
+>  	struct panfrost_device *pfdev =3D dev_get_drvdata(dev);
+> =20
+> -	if (!panfrost_jm_is_idle(pfdev))
+> +	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
+>  		return -EBUSY;
+> =20
+>  	panfrost_device_disable_hw(pfdev);
+
+[Severity: Medium]
+Will this trigger a spurious warning stack trace if the system is suspended
+while a GPU workload is still executing?
+
+When a user suspends the system with an active GPU workload, the kernel
+freezes userspace tasks but jobs already submitted to the hardware can
+continue running. During the system suspend flow, pm_runtime_force_suspend()
+intentionally bypasses usage counters and forces a call directly to
+panfrost_device_runtime_suspend().
+
+Since the job might still be executing on the hardware, panfrost_jm_is_idle=
+()
+can legitimately return false here. Returning -EBUSY to abort the suspend is
+the expected behavior, but the new warning assumes this state is always a b=
+ug
+and will print a stack trace.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-claude-fix=
-es-v7-0-72a13b2c125d@collabora.com?part=3D9
+es-v7-0-72a13b2c125d@collabora.com?part=3D10
