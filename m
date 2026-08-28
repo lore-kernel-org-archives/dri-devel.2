@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52EC8C61DD3
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 16:18:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FCECC61DCB
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 16:23:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 684D410E2BB;
-	Fri, 28 Aug 2026 16:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6379E10E04F;
+	Fri, 28 Aug 2026 16:23:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Iqf++G6+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G6460aN2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E98510E053;
- Fri, 28 Aug 2026 16:18:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01CAD10E04F;
+ Fri, 28 Aug 2026 16:23:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CBDB042CBF;
- Fri, 28 Aug 2026 16:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD951F000E9;
- Fri, 28 Aug 2026 16:18:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D98B860052;
+ Fri, 28 Aug 2026 16:23:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C09A1F000E9;
+ Fri, 28 Aug 2026 16:23:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787933919;
- bh=BirV+6RY9hMI9hxhDc0eVXi2sWCmx7NDCojQTLO4lUM=;
+ s=k20260515; t=1787934219;
+ bh=blZUOYqg4FebhcA1YNSqubk1MWJ/06+wHJi854XNvP8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Iqf++G6+Upm9Wfb1exWIDg17JiVQUAd6HVNcx3D3JLUc+Jb1NvAG6NxOW7MPs9svT
- zFexjtqFsvtAPKFhah9bjGXJrkRG37GpBFAXgmuyT4cgONhyMhCR7nFK+aQgNNDCIR
- BmMLF++CNv0FTVrFq2WXw4cPl4lYhnYKx6k20kgg7jivn9LkTUg2S7C/wpSsrJzf2U
- ibynO9AXux6fhrCVEFuBJr7pZ/ZWQ1wTDPpw9bnSX50oELUItFUfcDq7CG3mEWkH/z
- 1mwGkQT1q5xW2zSMNjYbU+O2HygBVSwGJkFW6tJT8wOAHhvYydd6ZeYWtN5e/e3UUq
- oBplr9WuWPsjg==
-Date: Fri, 28 Aug 2026 18:18:35 +0200
+ b=G6460aN2TDxPKiSUc7305G+lyOCpCOEURBf0Nk9TEqkWr4zdtHFiwmzHryzLuCLLm
+ 4r/SG5pyhVYuKMDStqrrcPnkRnMmjRIK6iJZpSPuYKpU9/Whwif0LAd9d3xzkh+6Dx
+ PxLklKyvpOJ4jg1jR8PQ6GCD2GquK+qsev07WeE8Bqf+Rh/IsVAHuPfG8+7Qag9jXn
+ /myFFUpWcTZBvBQ4S0iIYxUmPHBuGyrX9f4X7TUyOkkGmsyjlGgwJK6aVs7a2OHf2i
+ CS5aqSp8hCMjX/NHdW1tDcNZ8BoinvX03+ZEv48KgsuS+qHowQr2d1+F9dCjL+CM6N
+ nTNtZ9H5G4pZQ==
+Date: Fri, 28 Aug 2026 18:23:35 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
 To: Krzysztof Karas <krzysztof.karas@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
@@ -39,15 +39,15 @@ Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v3 4/8] drm/i915/gt/selftests: Use drm_* prints in
- aggregated gt selftests
-Message-ID: <apGwueLe3rE7gPLj@zenone.zhora.eu>
+Subject: Re: [PATCH v3 5/8] drm/i915/gt/selftests: Use drm_* prints in gt
+ standalone tests
+Message-ID: <apG1E47gWGa9neSx@zenone.zhora.eu>
 References: <20260828100339.72304-1-krzysztof.karas@intel.com>
- <20260828100339.72304-5-krzysztof.karas@intel.com>
+ <20260828100339.72304-6-krzysztof.karas@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828100339.72304-5-krzysztof.karas@intel.com>
+In-Reply-To: <20260828100339.72304-6-krzysztof.karas@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +63,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
-
-On Fri, Aug 28, 2026 at 10:03:35AM +0000, Krzysztof Karas wrote:
-> Move away from generic pr prints to device context aware drm
-> versions.
-> 
-> Assisted-by: GitHub-Copilot:claude-opus-5
-
-what a ride!
-
-While reviewing everything I was thinking whether it would make
-sense to add an i915_err() like xe and gt.
+Hi krzysztof,
 
 ...
 
-> @@ -540,7 +551,7 @@ static void spinner_kill(struct timer_list *timer)
->  	struct spinner_timer *st = timer_container_of(st, timer, timer);
+> @@ -80,8 +83,9 @@ int live_rc6_manual(void *arg)
+>  	res[1] = rc6_residency(rc6);
+>  	rc0_freq = intel_rps_read_actual_frequency_fw(rps);
+>  	if ((res[1] - res[0]) >> 10) {
+> -		pr_err("RC6 residency increased by %lldus while disabled for 1000ms!\n",
+> -		       (res[1] - res[0]) >> 10);
+> +		drm_err(&i915->drm,
+> +			"RC6 residency increased by %lldus while disabled for 1000ms!\n",
+> +			(res[1] - res[0]) >> 10);
+
+yeah... I think here we should be using gt_err()
+
+>  		err = -EINVAL;
+>  		goto out_unlock;
+>  	}
+> @@ -92,10 +96,12 @@ int live_rc6_manual(void *arg)
 >  
->  	igt_spinner_end(&st->spin);
-> -	pr_info("%s\n", __func__);
-> +	drm_info(st->spin.hws->base.dev, "killing spinner\n");
+>  		if (!rc0_power) {
+>  			if (rc0_freq)
+> -				pr_err("No power measured while in RC0! GPU Freq: %uMHz in RC0\n",
+> -				       rc0_freq);
+> +				drm_dbg(&i915->drm,
+> +					"No power measured while in RC0! GPU Freq: %uMHz in RC0\n",
+> +					rc0_freq);
 
-considering that you kept the __func__ reference everywhere else,
-you could have also kept it here. I like that you have added a
-message, though.
-
-As you are going to resend, anyway, please fix this little nit.
-
->  }
-
-...
-
->  	sort(t, ARRAY_SIZE(t), sizeof(*t), wrap_ktime_compare, NULL);
-> -	pr_info("%s: %zd KiB copy: %lld MiB/s\n",
-> -		ce->engine->name, sz >> 10,
-> -		div64_u64(mul_u32_u32(4 * sz,
-> -				      1000 * 1000 * 1000),
-> -			  t[1] + 2 * t[2] + t[3]) >> 20);
-> +	drm_info(&ce->engine->i915->drm, "%s: %zd KiB copy: %lld MiB/s\n",
-
-Not a binding comment: rq->i915 would have made it a bit shorter.
-
-> +		 ce->engine->name, sz >> 10,
-> +		 div64_u64(mul_u32_u32(4 * sz, 1000 * 1000 * 1000),
-> +			   t[1] + 2 * t[2] + t[3]) >> 20);
->  	return 0;
->  }
-
-...
-
-> @@ -1211,7 +1231,7 @@ live_gpu_reset_workarounds(void *arg)
->  	if (!lists)
->  		return -ENOMEM;
->  
-> -	pr_info("Verifying after GPU reset...\n");
-> +	drm_info(&gt->i915->drm, "Verifying after GPU reset...\n");
-
-I'm thinking whether it's better to use gt_info() when we have
-the gt reference.
+this is moving from _err level to _dbg level.
 
 Andi
 
->  
->  	igt_global_reset_lock(gt);
->  	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
+>  			else
+> -				pr_err("No power and freq measured while in RC0\n");
+> +				drm_err(&i915->drm,
+> +					"No power and freq measured while in RC0\n");
+>  			err = -EINVAL;
+>  			goto out_unlock;
+>  		}
