@@ -4,78 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 765E9C61DCB
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 14:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07028C61DD3
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 14:12:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5A2410F3C3;
-	Fri, 28 Aug 2026 14:12:25 +0000 (UTC)
-X-Greylist: delayed 448 seconds by postgrey-1.36 at gabe;
- Fri, 28 Aug 2026 14:12:24 UTC
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03D6E10F3C3
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:12:23 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.201])
- by APP-05 (Coremail) with SMTP id zQCowACX_zlmlZFqA_PgBg--.2413S2;
- Fri, 28 Aug 2026 22:04:24 +0800 (CST)
-Message-ID: <b41dff8e5f62be2da467e48631a79677c5066422.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 02/15] dt-bindings: display: bridge: Add
- starfive,jh7110-inno-hdmi-controller
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
- Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
- Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
- <maudspierings@gocontroll.com>,  Graham Markall <hello@big-grey.co.uk>
-Date: Fri, 28 Aug 2026 22:04:21 +0800
-In-Reply-To: <20260828-jh7110-clean-send-v2-2-331680c8b9d1@samsung.com>
-References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
- <CGME20260828134817eucas1p2e2756deff8871be4ea8bb5c65f9c179d@eucas1p2.samsung.com>
- <20260828-jh7110-clean-send-v2-2-331680c8b9d1@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: zQCowACX_zlmlZFqA_PgBg--.2413S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKr15Xr1Uury8Xr4UWFWDXFb_yoW7AFW3pF
- 18JrW7JrW8Jr1fXr4Utr1UGFyrJr1kA3Wqqr1xXF1Utr1UWFyjqr1jvF1vgF1UJr4xXr1U
- Jr1UXr43uF17Jw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
- Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6F
- y7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
- Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2
- Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
- Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
- IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UMVCEFcxC0VAYjxAxZFUvcSsGvfC2KfnxnUUI
- 43ZEXa7IUnK0PDUUUUU==
-X-Originating-IP: [120.85.97.201]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6891610F3C8;
+	Fri, 28 Aug 2026 14:12:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z95+DI1k";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6AD010F3C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:12:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DEE9D60200;
+ Fri, 28 Aug 2026 14:12:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF821F000E9;
+ Fri, 28 Aug 2026 14:12:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787926343;
+ bh=ewEW/PbNGvzn1mLO4IM8foHLLqLhEziZuJ945iu1y9o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Z95+DI1kY1t1hEizLC77OsvXF2Y2MZ7xNPwX96xPqJZsokkQKDSoicQqhVRv+5uAr
+ 39N8h5wKR7kAHr9y2b6TLyf4w2RuqBJVGDPJcco6zBG5joE5+cdIAsRNWjxsgxJfwo
+ SdSZIxisppc7eBGDehEe20RZQ4jzvV5Zblxj7bFsgRy1/cPlqyhiFNpuh0Dl6MOabS
+ Pe9lT4u5GAlQXdPbEMwhpemfbjzQr29oO2DHol4Ecc6n6tB57ljpYK6BP2RhfcDnUO
+ CmxK4520PxhL0/ydcXRj82Gxu2zh6tnkUOuDLkf1xBVPFInnWC3cG6OKr8gvqgcVdX
+ TT4c/NToXeTbg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC/DO NOT MERGE 05/12] dt-bindings: display/msm: hdmi:
+ Add Eliza HDMI TX
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org,
+ neil.armstrong@linaro.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org, vkoul@kernel.org
+In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-5-67843277de17@oss.qualcomm.com>
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-5-67843277de17@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 14:12:22 +0000
+Message-Id: <20260828141223.1BF821F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,98 +56,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-5ZyoIDIwMjYtMDgtMjjkupTnmoQgMTU6NDcgKzAyMDDvvIxNaWNoYWwgV2lsY3p5bnNraeWGmemB
-k++8mgo+IEFkZCB0aGUgZHQtYmluZGluZyBmb3IgdGhlIFN0YXJGaXZlIEpINzExMCBJbm5vc2ls
-aWNvbiBIRE1JCj4gY29udHJvbGxlcgo+IChEUk0gYnJpZGdlKS4KPiAKPiBUaGlzIGRldmljZSBp
-cyB0aGUgc2Vjb25kIGNoaWxkIG9mIHRoZSBzdGFyZml2ZSxqaDcxMTAtaGRtaS1zdWJzeXN0ZW0K
-PiBub2RlLgo+IEl0IGNvbnN1bWVzIHJlZ2lzdGVyIGFjY2VzcyBjbG9ja3MgKHN5cywgbWNsaywg
-YmNsaykgZnJvbSB0aGUgdm91dGNyZwo+IGFuZAo+IGJvdGggdGhlIHBpeGVsIGNsb2NrIChwY2xr
-KSBhbmQgdGhlIFBIWSBmcm9tIGl0cyBoZG1pX3BoeSBzaWJsaW5nLgo+IAo+IFNpZ25lZC1vZmYt
-Ynk6IE1pY2hhbCBXaWxjenluc2tpIDxtLndpbGN6eW5za2lAc2Ftc3VuZy5jb20+Cj4gLS0tCj4g
-wqAuLi4vc3RhcmZpdmUsamg3MTEwLWlubm8taGRtaS1jb250cm9sbGVyLnlhbWzCoMKgwqDCoMKg
-IHwgMTA5Cj4gKysrKysrKysrKysrKysrKysrKysrCj4gwqAxIGZpbGUgY2hhbmdlZCwgMTA5IGlu
-c2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0Cj4gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvZGlzcGxheS9icmlkZ2Uvc3RhcmZpdmUsamg3MTEwLQo+IGlubm8taGRtaS1jb250
-cm9sbGVyLnlhbWwKPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5
-L2JyaWRnZS9zdGFyZml2ZSxqaDcxMTAtCj4gaW5uby1oZG1pLWNvbnRyb2xsZXIueWFtbAo+IG5l
-dyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXgKPiAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
-MDAwMDAwMDAwMDAwLi4wZTU4NGU3Yjc1NmUyNGUyZjk5YTYyZGFhYjMKPiAxMTdiYmY0YjQ3MmI2
-Cj4gLS0tIC9kZXYvbnVsbAo+ICsrKwo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL2Rpc3BsYXkvYnJpZGdlL3N0YXJmaXZlLGpoNzExMC0KPiBpbm5vLWhkbWktY29udHJvbGxl
-ci55YW1sCj4gQEAgLTAsMCArMSwxMDkgQEAKPiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-KEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpCj4gKyVZQU1MIDEuMgo+ICstLS0KPiArJGlk
-Ogo+IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL2Rpc3BsYXkvYnJpZGdlL3N0YXJmaXZl
-LGpoNzExMC1pbm5vLWhkbWktY29udHJvbGxlci55YW1sIwo+ICskc2NoZW1hOiBodHRwOi8vZGV2
-aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFtbCMKPiArCj4gK3RpdGxlOiBTdGFyRml2
-ZSBKSDcxMTAgSW5ub3NpbGljb24gSERNSSBDb250cm9sbGVyCj4gKwo+ICttYWludGFpbmVyczoK
-PiArwqAgLSBNaWNoYWwgV2lsY3p5bnNraSA8bS53aWxjenluc2tpQHNhbXN1bmcuY29tPgo+ICsK
-PiArZGVzY3JpcHRpb246Cj4gK8KgIFRoZSBjb250cm9sbGVyIHBvcnRpb24gb2YgdGhlIFN0YXJG
-aXZlIEpINzExMCBJTk5PIEhETUkgSVAuCj4gKwo+ICtwcm9wZXJ0aWVzOgo+ICvCoCBjb21wYXRp
-YmxlOgo+ICvCoMKgwqAgY29uc3Q6IHN0YXJmaXZlLGpoNzExMC1pbm5vLWhkbWktY29udHJvbGxl
-cgo+ICsKPiArwqAgaW50ZXJydXB0czoKPiArwqDCoMKgIG1heEl0ZW1zOiAxCj4gKwo+ICvCoCBj
-bG9ja3M6Cj4gK8KgwqDCoCBpdGVtczoKPiArwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBTeXN0
-ZW0gY2xvY2sgZm9yIHJlZ2lzdGVyIGFjY2Vzcwo+ICvCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246
-IE1vZHVsZSBjbG9jawo+ICvCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IEJ1cyBjbG9jawo+ICvC
-oMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IFBpeGVsIGNsb2NrIGZyb20gUEhZCj4gKwo+ICvCoCBj
-bG9jay1uYW1lczoKPiArwqDCoMKgIGl0ZW1zOgo+ICvCoMKgwqDCoMKgIC0gY29uc3Q6IHN5cwo+
-ICvCoMKgwqDCoMKgIC0gY29uc3Q6IG1jbGsKPiArwqDCoMKgwqDCoCAtIGNvbnN0OiBiY2xrCj4g
-K8KgwqDCoMKgwqAgLSBjb25zdDogcGNsawo+ICsKPiArwqAgcmVzZXRzOgo+ICvCoMKgwqAgbWF4
-SXRlbXM6IDEKPiArCj4gK8KgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqAgY29uc3Q6IGhkbWlfdHgK
-PiArCj4gK8KgIHBoeXM6Cj4gK8KgwqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqAgcGh5LW5hbWVz
-Ogo+ICvCoMKgwqAgY29uc3Q6IGhkbWktcGh5Cj4gKwo+ICvCoCBwb3J0czoKPiArwqDCoMKgICRy
-ZWY6IC9zY2hlbWFzL2dyYXBoLnlhbWwjL3Byb3BlcnRpZXMvcG9ydHMKPiArwqDCoMKgIGRlc2Ny
-aXB0aW9uOgo+ICvCoMKgwqDCoMKgIEEgZ3JhcGggbm9kZSB3aXRoIG9uZSBpbnB1dCBwb3J0IGFu
-ZCBvbmUgb3V0cHV0IHBvcnQuCgpNYXliZSB0aGlzIGRldmljZSBzaG91bGQgaGFuZGxlIHRoZSBk
-aXNwbGF5IG11eCBpbiB0aGUgZG9tX3ZvdXRfc3lzY29uCnBhcnQuIFRoaXMgc3lzY29uIGlzIGRv
-Y3VtZW50ZWQgaW4gdGhlIEpINzExMCBUUk0sIGFuZCB0aGUgYWRkcmVzcyBpcwphdCAweDI5NWIw
-MDAwLgoKQWNjb3JkaW5nIHRvIHRoZSBtYW51YWwsIGJpdCAzMDoyNSBvZiByZWdpc3RlciAweDQg
-YW5kIGJpdCA0IG9mCnJlZ2lzdGVyIDB4OCAod2hpY2ggaXMgbWFya2VkIGFzIHUyX2Rpc3BsYXlf
-cGFuZWxfbXV4X3BhbsKtZWxfc2VsLCBidXQKaW4gdGhlIGJsb2NrIGRpYWdyYW0gb2YgZGlzcGxh
-eSBzdWJzeXN0ZW0sIGl0IGNvdWxkIGJlIHNlZW4gdGhhdCB0aGUKbXV4IGNvbnRyb2xsaW5nIHRo
-ZSBpbnB1dCBvZiBIRE1JX0N0cmwgaXMgdTJfZGlzcGxheV9wYW5lbF9tdXgpIGlzCnJlbGF0ZWQg
-dG8gdGhlIEhETUkgZGlzcGxheSwgd2l0aCB0aGUgc2V0dXAgb2YgOC1iaXQgRFBJMCBjb25uZWN0
-ZWQgdG8KSERNSSBjb250cm9sbGVyIGFzIHRoZSBkZWZhdWx0IHZhbHVlICh1MF9oZG1pX2RhdGFf
-bWFwcGluZ19kwq1waV9kcF9zZWwKPSAwIChEUEkpLCB1MF9oZG1pX2RhdGFfbWFwcGluZ19kwq1w
-aV9iaXRfZGVwdGggPSAwICg4LWJpdCksCnUyX2Rpc3BsYXlfcGFuZWxfbXV4X3BhbsKtZWxfc2Vs
-ID0gMCAoUGFuZWwgMCkpLCBhbmQgdGhpcyBpcyBjdXJyZW50bHkKeW91ciBleGFtcGxlIHNldHVw
-LgoKQXQgbGVhc3QgbGVhdmUgYSBzeXNjb24gcHJvcGVydHkgcG9pbnRpbmcgdG8gdGhlIHN5c2Nv
-biB3b3VsZCBiZSB0aGVuCnVzZWZ1bCwgYW5kIG1heWJlIGl0J3MgYmV0dGVyIHRvIHNldHVwIHRo
-ZSBzeXNjb24gdmFsdWVzIGJhc2VkIG9uIHdoaWNoCkRDODIwMCBvdXRwdXQgaW50ZXJmYWNlIGlz
-IGluIHVzZS4KClRoYW5rcywKSWNlbm93eQoKPiArCj4gK3JlcXVpcmVkOgo+ICvCoCAtIGNvbXBh
-dGlibGUKPiArwqAgLSBpbnRlcnJ1cHRzCj4gK8KgIC0gY2xvY2tzCj4gK8KgIC0gY2xvY2stbmFt
-ZXMKPiArwqAgLSByZXNldHMKPiArwqAgLSByZXNldC1uYW1lcwo+ICvCoCAtIHBoeXMKPiArwqAg
-LSBwaHktbmFtZXMKPiArwqAgLSBwb3J0cwo+ICsKPiArYWRkaXRpb25hbFByb3BlcnRpZXM6IGZh
-bHNlCj4gKwo+ICtleGFtcGxlczoKPiArwqAgIyBTaG93biBhcyBhIGNoaWxkIG9mIHRoZSBIRE1J
-IHN1YnN5c3RlbSBub2RlOyBzZWUKPiArwqAgIyBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbWZkL3N0YXJmaXZlLGpoNzExMC1oZG1pLQo+IHN1YnN5c3RlbS55YW1sCj4gK8KgICMg
-Zm9yIHRoZSBmdWxsIG5vZGUuCj4gK8KgIC0gfAo+ICvCoMKgwqAgI2luY2x1ZGUgPGR0LWJpbmRp
-bmdzL2Nsb2NrL3N0YXJmaXZlLGpoNzExMC1jcmcuaD4KPiArwqDCoMKgICNpbmNsdWRlIDxkdC1i
-aW5kaW5ncy9yZXNldC9zdGFyZml2ZSxqaDcxMTAtY3JnLmg+Cj4gKwo+ICvCoMKgwqAgY29udHJv
-bGxlciB7Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGUgPSAic3RhcmZpdmUsamg3MTEwLWlu
-bm8taGRtaS1jb250cm9sbGVyIjsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzID0gPCZ2b3V0Y3Jn
-IEpINzExMF9WT1VUQ0xLX0hETUlfVFhfU1lTPiwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgPCZ2b3V0Y3JnIEpINzExMF9WT1VUQ0xLX0hETUlfVFhfTUNMSz4sCj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDwmdm91dGNyZyBKSDcxMTBfVk9VVENMS19IRE1J
-X1RYX0JDTEs+LAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8JmhkbWlfcGh5
-PjsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXMgPSAic3lzIiwgIm1jbGsiLCAiYmNsayIs
-ICJwY2xrIjsKPiArwqDCoMKgwqDCoMKgwqAgaW50ZXJydXB0cyA9IDw5OT47Cj4gK8KgwqDCoMKg
-wqDCoMKgIHBoeXMgPSA8JmhkbWlfcGh5PjsKPiArwqDCoMKgwqDCoMKgwqAgcGh5LW5hbWVzID0g
-ImhkbWktcGh5IjsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXRzID0gPCZ2b3V0Y3JnIEpINzExMF9W
-T1VUUlNUX0hETUlfVFhfSERNST47Cj4gK8KgwqDCoMKgwqDCoMKgIHJlc2V0LW5hbWVzID0gImhk
-bWlfdHgiOwo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcG9ydHMgewo+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICNz
-aXplLWNlbGxzID0gPDA+Owo+ICsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb3J0QDAgewo+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDA+Owo+ICsKPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVuZHBvaW50IHsKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZkcHVfb3V0X2RwaTA+Owo+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB9Owo+ICsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb3J0QDEgewo+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDE+Owo+ICsKPiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGVuZHBvaW50IHsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZoZG1pX2Nvbl9pbj47Cj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4g
-K8KgwqDCoMKgwqDCoMKgIH07Cj4gK8KgwqDCoCB9Owo+ICsKPiArLi4uCg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The conditional `if` block for the new Eliza HDMI TX device uses=
+ an incorrect compatible string with a duplicated vendor prefix ('qcom,qcom=
+,eliza-hdmi-tx'), preventing the schema constraints from being applied.
+--
 
+commit 95836f68df5245b7dc121437b6c3df3442b5e4f8
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+dt-bindings: display/msm: hdmi: Add Eliza HDMI TX
+
+Qualcomm Eliza SoC comes with HDMI IP block, built on top of one
+previously present in MSM8998.  There are just a few differences in
+hardware, mostly about handling clock reparenting, but more notable the
+old binding looked incomplete, thus devices could not be considered
+compatible.
+
+> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Do=
+cumentation/devicetree/bindings/display/msm/hdmi.yaml
+> index 02d27ccad0247..6adaa095b7473 100644
+> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+[ ... ]
+> @@ -159,6 +180,44 @@ allOf:
+>              - const: bus
+>              - const: mnoc
+>              - const: iface_mmss
+> +        reg-names:
+> +          minItems: 1
+> +          items:
+> +            - const: core_physical
+> +            - const: qfprom_physical
+> +            - const: hdcp_physical
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,qcom,eliza-hdmi-tx
+
+[Severity: Medium]
+Does this compatible string contain a duplicated "qcom," vendor prefix?
+
+It appears that this should be "qcom,eliza-hdmi-tx" to match the compatible
+string defined in the properties section and the example. With the duplicat=
+ed
+prefix, this conditional block will not match, causing the constraints for =
+the
+clocks, reg, and required properties defined in the "then" block to be
+bypassed during dtbs schema validation.
+
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 6
+> +          maxItems: 6
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-drm-msm-hd=
+mi-eliza-v1-0-67843277de17@oss.qualcomm.com?part=3D5
