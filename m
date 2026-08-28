@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100E5C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 20:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC0BC61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 20:59:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B20210F482;
-	Fri, 28 Aug 2026 20:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D321110F483;
+	Fri, 28 Aug 2026 20:59:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="SSdd/lFR";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="W7yu8tNZ";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9513E10F482
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 20:59:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787950738; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8779D10F483
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 20:59:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787950744; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=khDh1CZMRgYvsjPBghGQ3CM3g4ByHikKRUnT1HUPlHb5U+TcWdAlXH12SfadzjlQdI+LLja+2Z6v0Ym72T4cY1WMS1gKyKT5FCBpCQYuFS/xS66JJrbJn2vZuHKavGcFFC+cf3kOQVvSQrqy3ymJC6TAls9j7Bt5XotFgT1p8AM=
+ b=X9spkr2Ocmtom2DanSSZZhGGQjGWSDPy3nB/g2/k4C7W7XlaZ+19pW6KPIoR+5f99E5ipYdtj4Y283m5Ua6Chs528MNQYQ/jpwNPRMDE5vHZSFWDdeP2h8fVeyl0Nv/Dx0L5xtZrxQ705ZovA7tmY02REF+jak+RUmCV3NmTQeg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787950738;
+ s=zohoarc; t=1787950744;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=C0089doqZECmAmPICp60ZaprNH+w8kGxAX8UP8ImsrA=; 
- b=YjEleLd1WmqSoPzJ+gPxB0i5EfEWvqLcHFX/t0LSioPIfRnX/3PYz+0bzcNpGxWZpXuZa9VaFNNXct5Nu80jgE34beGHPaWN0mOiTLUl+r/zQgJYPE3L58InTVLPBw0AUhMjAu6g7JBLxZQkgR1qDKR8GUd0iWkI8sMRtVR+hMA=
+ bh=1Tq6zEmNykIv8XKjKfzLV2GzV9wqZVjqsPfLMZwAlS4=; 
+ b=VwYFYMjFpc2Y3CYjsVM2laGi2VELJEwfOhNJ1VM1/EHvT8WMrIk7BHtThu9WSCECaI4UP/ynWoi8ZvuyfjJPKVVQT/FmjCGBTU+7EVVH7u8UMQ5Y2gQkmFuXRiBAlrNzDLgLxvmvTOgbPc3b038TArjEcYT/p7DKgsguyJsY1jU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950738; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950744; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=C0089doqZECmAmPICp60ZaprNH+w8kGxAX8UP8ImsrA=;
- b=SSdd/lFR71BsT4nGrPtmZt8KtYUafH48IRGS2YBqKl7zLTGP52yMcy5FwMRz0aab
- qzXZ1eV4e2eQrvcVwbPIXUAnmZiyf+mdNs1jzUoSDajOy3sYEQoXTV8hIVXTKMOK5mr
- 5wVcgr10KrXN1X0luUWaP5QPdP2y6MYJUvvbDLpo=
-Received: by mx.zohomail.com with SMTPS id 1787950736656418.75058282883856;
- Fri, 28 Aug 2026 13:58:56 -0700 (PDT)
+ bh=1Tq6zEmNykIv8XKjKfzLV2GzV9wqZVjqsPfLMZwAlS4=;
+ b=W7yu8tNZ0+Eoj+gfHAaJ1RQoXCQZjzIX5HYt1NMdUVFtaOgjHHwWKYcO8SqBQFZp
+ G/zCf7IDJG+/kz7M+UxAvrjgKHSZzAETmpd2tuy1eoZmk9E+mSj31HBsoJPZWmW6J5D
+ vLzWT5wvfvMYLCKNxkcjafzaHNjvme0qVRpnectE=
+Received: by mx.zohomail.com with SMTPS id 1787950742651206.60696803607289;
+ Fri, 28 Aug 2026 13:59:02 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 28 Aug 2026 21:56:56 +0100
-Subject: [PATCH v7 16/17] drm/panfrost: Fix races between perfcnt and reset
- sequence
+Date: Fri, 28 Aug 2026 21:56:57 +0100
+Subject: [PATCH v7 17/17] drm/panfrost: Bump driver minor to reflect new
+ DUMP IOCTL req field
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-claude-fixes-v7-16-72a13b2c125d@collabora.com>
+Message-Id: <20260828-claude-fixes-v7-17-72a13b2c125d@collabora.com>
 References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 In-Reply-To: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11853;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1178;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=RMq/Pg4qpjXkL7BkHA29/oskcfgm3D0lSXfB4M4bDsQ=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYuSvFu/0talBl30O7I2xDumk1i8qS8RxzfJ
- 01KpI565feJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LgAKCRAOJn5M7lND
- PZ+RDACQEB2bT1uivFf+pZlps4KZA1lGlLQ0u4bYHtlk4xhmVD1jcD3io3tUr1pQwyDLp3TV+Hz
- isjS+otg0pNM1QSOk1Nn3S1zYr1C9eVt0je3hF2742s7dwoZl8HVug8SGpKvAgVcNRKQ/AljZw3
- kEZfHBIXlTLNR0mJmZgTf3FM53mXS6eD557zMjfcRKdRtuC6oIzgpgQBRuS9KL63aOr2OaoUd4q
- JfPnClwAGLyIwZ0dewGTa/lKAagFgOjPhwASQiOMb4lJ7MD7e0Ark2t10WYZOhjgflFcl2yjrpU
- 6eMKDi+txGkePmoqwEKUSLRnjjMFIH2GmjEnnpsZQIq436oJrCf29ZhLLBdKXz+W4Mh+mbi39Ht
- 2Kh4BCJRN65eU3hiAKF4/tRX8U5HOhhyfgqupUAZ9jcsH29e4yQfozCM6jflIVI/SQe8tUH9vIA
- YDHgkpRrmheqL4Wpwq1pVfxYD+bC8xzB3xsUyizl1rG5vNo4CKiF4qq3t9R4GneBsIZ0o=
+ bh=AypLoSBm1KPHQD9f+Zcdy3AMlNPgjcCvidkbs8KFBCQ=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYu/gflAZtsy7HEi7wI9v6QOZYtEPO7MtvfZ
+ VutA2fFM4GJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LgAKCRAOJn5M7lND
+ PRZqDACHXdBfI5pKk0hnkDTJK2w+CfC7JD7ODcaPuxHFr7RMLyIR/z77PoTQvQ7vpeBzAVKPJYM
+ w2wY/CKutk+juwjKzqqX6Tn+XMSdlGqecwMJdpJ3KBSMR2HT37ylgofDc5uLXugvFrxLqhq/KOc
+ qqKPU5++Hflg+VIqtZ0IfKMWAXpNSXXeI2rPz6HnPrug17Iqe+iAV8JzXWHUqVQ89w5MUOZG7gi
+ WHcdR+go5+rCJ3paUX03Ky+Ov6Nsc0SA81si9+B4LlrydLjT9yB2fKBe9xCui9qrsU/JRbVIhFt
+ Bw/EHUG7OSVUXi2WMHW2BR9ljHgWQfElgDh3Hip90m2vBm9iU9/gbS8eA6yy7PNkrcbhyRmeloQ
+ wDgKJubu0R7Z/ioURNG8ALASJY28SZFCkVxBBF7GFXCHfllfu4Qqk73TTthgFcTegWXhCQTNYx8
+ IQ1K+3bEvJMrUCJXlCtEADx00dxnG3PQHzNH9IRz4iGjyvOl495Rej3H0Mg5vcvw2ngMw=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,349 +91,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Formerly, the reset sequence would race with panfrost_mmu_as_put()
-when tearing down a perfcnt session. On top of that, poking GPU
-registers to program a perfcnt session or obtaining a dump might lead to
-undefined behaviour when done at the same time a reset was ongoing.
-
-Use the reset r/w semaphore to govern access to the hardware at reset
-time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
-so that userspace can be made aware of a reset having happened, because
-that means counters will go back to 0 and can no longer be accumulated
-to values previously kept in user space.
-
-The new perfcnt-aware reset sequence also takes care to reestablish
-perfcnt to its original configuration if there was an enabled session.
+Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c  |   1 +
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 189 ++++++++++++++++++++--------
- drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   1 +
- include/uapi/drm/panfrost_drm.h             |   3 +-
- 4 files changed, 140 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index c8c5dc26b03d..471bd4b037e6 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -498,6 +498,7 @@ void panfrost_device_reset(struct panfrost_device *pfdev)
- 	panfrost_gpu_power_on(pfdev);
- 	panfrost_mmu_reset(pfdev);
- 	panfrost_jm_reset_interrupts(pfdev);
-+	panfrost_perfcnt_reset(pfdev);
- }
- 
- static int panfrost_device_runtime_resume(struct device *dev)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index b3f71d7fd82a..0564aa2753f9 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_file.h>
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/panfrost_drm.h>
-+#include <drm/drm_print.h>
- 
- #include "panfrost_device.h"
- #include "panfrost_features.h"
-@@ -25,14 +26,18 @@
- #define BYTES_PER_COUNTER		4
- #define BLOCKS_PER_COREGROUP		8
- #define V4_SHADERS_PER_COREGROUP	4
-+#define PERFCNT_DUMP_MAX_RETRIES	5
- 
- struct panfrost_perfcnt {
- 	struct panfrost_gem_mapping *mapping;
-+	unsigned int counterset;
- 	size_t bosize;
- 	void *buf;
- 	struct panfrost_file_priv *user;
- 	struct mutex lock;
- 	struct completion dump_comp;
-+	bool reset_happened;
-+	bool reset_failed;
- };
- 
- static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
-@@ -58,25 +63,107 @@ void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
- 		complete(&pfdev->perfcnt->dump_comp);
- }
- 
--static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
-+static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
- {
--	u64 gpuva;
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+	u32 cfg, as;
- 	int ret;
- 
--	reinit_completion(&pfdev->perfcnt->dump_comp);
--	gpuva = pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
--	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
--	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
--	gpu_write(pfdev, GPU_INT_CLEAR,
--		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
--		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-+	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
-+	if (ret < 0)
-+		return ret;
-+
-+	as = ret;
-+	cfg = GPU_PERFCNT_CFG_AS(as) |
-+	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
-+
-+	/*
-+	 * Bifrost GPUs have 2 set of counters, but we're only interested by
-+	 * the first one for now.
-+	 */
-+	if (panfrost_model_is_bifrost(pfdev))
-+		cfg |= GPU_PERFCNT_CFG_SETSEL(perfcnt->counterset);
-+
-+	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
-+	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
-+	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
-+
-+	/*
-+	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
-+	 * counters.
-+	 */
-+	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-+		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	else
-+		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+
-+	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
-+
-+	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-+		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+
-+	return 0;
-+}
-+
-+static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev,
-+					u64 *reset_happened)
-+{
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+	u64 gpuva = perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-+	s64 retries = PERFCNT_DUMP_MAX_RETRIES;
-+	bool retry;
-+	int ret;
-+
-+dump_retry:
-+	retry = false;
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		*reset_happened = perfcnt->reset_happened;
-+		perfcnt->reset_happened = false;
-+		if (perfcnt->reset_failed) {
-+			ret = panfrost_perfcnt_hw_enable(pfdev);
-+			if (ret)
-+				return ret;
-+			perfcnt->reset_failed = false;
-+		}
-+
-+		reinit_completion(&pfdev->perfcnt->dump_comp);
-+
-+		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-+		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-+		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
-+						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-+	}
-+
-+	/*
-+	 * Here we release the reset semaphore because perfcnt should not get in the way
-+	 * of a HW reset. The downside is in the gap between the completion is flagged
-+	 * by the GPU IRQ handler and the sempahore taken once again, yet another reset
-+	 * could happen, which would lead to a valid sample being discarded. This is
-+	 * a solution of compromise between ensuring synchronisation with the reset
-+	 * sequence and letting it happen as quickly as possible for jobs to be rerun.
-+	 */
-+
- 	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
- 							msecs_to_jiffies(1000));
--	if (!ret)
--		ret = -ETIMEDOUT;
--	else if (ret > 0)
--		ret = 0;
-+
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		if (ret > 0) {
-+			if (perfcnt->reset_happened) {
-+				if (--retries >= 0)
-+					retry = true;
-+				else
-+					ret = -EBUSY;
-+			} else {
-+				ret = 0;
-+			}
-+		} else if (!ret) {
-+			ret = -ETIMEDOUT;
-+		}
-+	}
-+
-+	if (retry)
-+		goto dump_retry;
- 
- 	return ret;
- }
-@@ -87,9 +174,8 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- {
- 	struct panfrost_file_priv *user = file_priv->driver_priv;
- 	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
--	struct iosys_map map;
- 	struct drm_gem_shmem_object *bo;
--	u32 cfg, as;
-+	struct iosys_map map;
- 	int ret;
- 
- 	if (user == perfcnt->user)
-@@ -122,7 +208,9 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	ret = drm_gem_vmap(&bo->base, &map);
- 	if (ret)
- 		goto err_put_mapping;
-+
- 	perfcnt->buf = map.vaddr;
-+	perfcnt->counterset = counterset;
- 
- 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
- 
-@@ -132,44 +220,19 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
- 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
- 
--	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
--	if (ret < 0)
--		goto err_vunmap;
--
--	as = ret;
--	cfg = GPU_PERFCNT_CFG_AS(as) |
--	      GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_MANUAL);
--
--	/*
--	 * Bifrost GPUs have 2 set of counters, but we're only interested by
--	 * the first one for now.
--	 */
--	if (panfrost_model_is_bifrost(pfdev))
--		cfg |= GPU_PERFCNT_CFG_SETSEL(counterset);
--
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0xffffffff);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0xffffffff);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0xffffffff);
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		ret = panfrost_perfcnt_hw_enable(pfdev);
-+		if (ret)
-+			goto err_vunmap;
- 
--	/*
--	 * Due to PRLAM-8186 we need to disable the Tiler before we enable HW
--	 * counters.
--	 */
--	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
--		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
--	else
--		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
--
--	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
--
--	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
--		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-+		perfcnt->reset_happened = false;
-+		perfcnt->reset_failed = false;
-+		perfcnt->user = user;
-+	}
- 
- 	/* The BO ref is retained by the mapping. */
- 	drm_gem_object_put(&bo->base);
- 
--	perfcnt->user = user;
--
- 	return 0;
- 
- err_vunmap:
-@@ -195,13 +258,16 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
- 	if (user != perfcnt->user)
- 		return -EINVAL;
- 
--	panfrost_perfcnt_hw_disable(pfdev);
-+	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-+		panfrost_perfcnt_hw_disable(pfdev);
-+		if (!perfcnt->reset_failed)
-+			panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
-+		perfcnt->user = NULL;
-+	}
- 
--	perfcnt->user = NULL;
- 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
- 	perfcnt->buf = NULL;
- 	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
--	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
- 	panfrost_gem_mapping_put(perfcnt->mapping);
- 	perfcnt->mapping = NULL;
- 	pm_runtime_put_autosuspend(pfdev->base.dev);
-@@ -255,7 +321,7 @@ int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
- 		goto out;
- 	}
- 
--	ret = panfrost_perfcnt_dump_locked(pfdev);
-+	ret = panfrost_perfcnt_dump_locked(pfdev, &req->hw_reset);
- 	if (ret)
- 		goto out;
- 
-@@ -338,3 +404,20 @@ void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
- 	/* Disable everything before leaving. */
- 	panfrost_perfcnt_hw_disable(pfdev);
- }
-+
-+void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
-+{
-+	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-+
-+	if (drm_WARN_ON(&pfdev->base, !perfcnt))
-+		return;
-+
-+	lockdep_assert_held(&pfdev->reset.lock);
-+
-+	if (!perfcnt->user)
-+		return;
-+
-+	perfcnt->reset_failed = !!panfrost_perfcnt_hw_enable(pfdev);
-+	perfcnt->reset_happened = true;
-+	complete(&perfcnt->dump_comp);
-+}
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-index 8bbcf5f5fb33..8b9bc704b634 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.h
-@@ -14,5 +14,6 @@ int panfrost_ioctl_perfcnt_enable(struct drm_device *dev, void *data,
- 				  struct drm_file *file_priv);
- int panfrost_ioctl_perfcnt_dump(struct drm_device *dev, void *data,
- 				struct drm_file *file_priv);
-+void panfrost_perfcnt_reset(struct panfrost_device *pfdev);
- 
- #endif
-diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_drm.h
-index 50d5337f35ef..3bbf9220103d 100644
---- a/include/uapi/drm/panfrost_drm.h
-+++ b/include/uapi/drm/panfrost_drm.h
-@@ -47,7 +47,7 @@ extern "C" {
-  * them for anything but debugging purpose.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 571a26b84126..7869a0cfc4c3 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
+  * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
+  *	   PANFROST_IOCTL_QUERY_BO_INFO and
+  *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
++ * - 1.7 - adds PERFCNT_DUMP req hw_reset field
   */
- #define DRM_IOCTL_PANFROST_PERFCNT_ENABLE	DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_PERFCNT_ENABLE, struct drm_panfrost_perfcnt_enable)
--#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
-+#define DRM_IOCTL_PANFROST_PERFCNT_DUMP		DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_PERFCNT_DUMP, struct drm_panfrost_perfcnt_dump)
+ static const struct drm_driver panfrost_drm_driver = {
+ 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
+@@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver = {
+ 	.name			= "panfrost",
+ 	.desc			= "panfrost DRM",
+ 	.major			= 1,
+-	.minor			= 6,
++	.minor			= 7,
  
- #define PANFROST_JD_REQ_FS (1 << 0)
- #define PANFROST_JD_REQ_CYCLE_COUNT (1 << 1)
-@@ -272,6 +272,7 @@ struct drm_panfrost_perfcnt_enable {
- 
- struct drm_panfrost_perfcnt_dump {
- 	__u64 buf_ptr;
-+	__u64 hw_reset;
- };
- 
- /* madvise provides a way to tell the kernel in case a buffers contents
+ 	.gem_create_object	= panfrost_gem_create_object,
+ 	.gem_prime_import	= panfrost_gem_prime_import,
 
 -- 
 2.55.0
