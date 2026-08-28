@@ -4,135 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA6EC61DC4
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 01:33:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04321C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 02:01:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A95F10E458;
-	Fri, 28 Aug 2026 01:33:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0AE110E444;
+	Fri, 28 Aug 2026 02:01:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="GCvmFgLL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="STkjJRUW";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D6D910E458
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 01:33:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DY0S9yk+5T7nflLifKha0mmwAkLZBGi0Yf2rKRFV0n6q2dbTmngKlLe15m49I3+u6GVyhwPXEIXIUHOPqFlBcuv3GLvtu7StQx+0xdEVVRjuudEkCWf6qIDF92a9pubDaAQYdA/rZgK2zlsPSlxWIc5oAJXwI3/lKJnAH8jMDAcHzvr7nUShu5yQssBw+nzWO6GNsdps1Zot9hocgbRyajD7gpZooLHMcTsalmSlgYjrRX8MtRne0KBga6rcFy48DmxPTKV/2j4dNdBlhtKsBr2BRDDCKkX7zCZmmQIVh/ZSsrTB2AXDISLYHxANSbB9eXg2qTxzSTL1rB3gE0Gu7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ohFDdh4m5HTyj9rSKKYk+PtZTS27I2ZntPwkMhq3lkM=;
- b=fuSDD72DzevG7lMEiFlmOfDojSqipsY8o2Cnt+C7mqVIpqmDvJVnUHbxq3xlGPgdAIhOLgOJwgkZ4dEqM8GCRJrsjwEKfoPkk1gXwElTkwEYz8WJ+N/lqXXlxv3OVuU3/watz4oWJAsxZigP7BhMWiy1YZDSDL/PRR6mcHtn9QI1Qc/BcSjO8Ani10GA+/8s3JlW+50IVO6HuTRlgghrl4fcpqSKdrPb1LVCS5YGeW3KJ1LNUdjlboqL7gX04B3LTvcEIJT01l4vhqRh3eHvfAr6JyWdEIshXOkvTFzOIDhCUCM8IsN4mK8gkOOn9lOJQrIT0BaDZJh77JY+t/MpWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ohFDdh4m5HTyj9rSKKYk+PtZTS27I2ZntPwkMhq3lkM=;
- b=GCvmFgLLjW49nhrcw3QOsIEeDn3v5HrmoyhXRqlrJ1wx0axxDoIdQqe0i6yDByM+6/3GO2sWmifl4e2OT83Z2NDfSll8jenhTcOWP9dYr27MGUWUMy/U7979KaCgHje4wK1Oe+UHrtx0w1LU8UxNzeJje43bECh7hX0+2r48qUsfVNbSchLeSnnsoKNzK10uENa27e38sAhZBvkxirinTxCWc3bfWVHQzg8QiTj80nWzje2helLcQjErYt7GwzQVRd1ZGdFhXsWKaYYyuxAk115m4PLaCMYjBHcJ0o6d8o5tJ+7MonDYyS8Ys3PLeT1T9gbBOB233EXdNR84jII+Wg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH0PR12MB8776.namprd12.prod.outlook.com (2603:10b6:510:26f::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 01:33:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Fri, 28 Aug 2026
- 01:33:48 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 10:33:45 +0900
-Message-Id: <DL06UWAYHK5E.3GMA2E2HA0AE@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 14/16] rust: io: register: remove relative registers
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-14-3699a75fadf1@garyguo.net>
-In-Reply-To: <20260819-typed_register-v3-14-3699a75fadf1@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0149.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:31b::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F74E10E444
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 02:01:08 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-482e1bfcc63so286522f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 19:01:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787882467; x=1788487267; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=KOcOnSph4R/SK6vbv+B+XNx7SuiY0RM+MECJyRf8erk=;
+ b=STkjJRUWdC0XdNbmRXjrAPkAPEauRCcIRreaoizz7QXf8WaYhSABJCCTl2fQTj7fdN
+ 8ikIpGAt2CD6dyjJfg+K1oCbFkf1EjvRQ2lpvBQf1rpk89JWRsRKdoUsHQ+ioMe67mgV
+ ocNUgTg5mqA98VACJHQQR8VE6Mur+QINawmlxtF8PaUHgBZJ1QyKZENcS4ndT1k3Raiv
+ xk/MM1X1H1gRA/1+WFKDEboy5MiHcke45CXq5gcK6xE/SYh7D6gFhekzmfvIXGvuBp/Q
+ JTzMaQAKLqCQAdmPW4viSbVk7QJb3B410UJ8Ya7+i/tTdhlLymciNXj7ULs0M42hjeul
+ Mz/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787882467; x=1788487267;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=KOcOnSph4R/SK6vbv+B+XNx7SuiY0RM+MECJyRf8erk=;
+ b=jAaOb+p5492x0+US+84gpbOe/TVB6wi2QM59EKzPlBk38Jt90wgc0DZ/QCkBTVUQoM
+ Kbs5CKOEFLH1oQOgA2o2+WA/nybSv2zPQes39MZWyYv7mpw/mNrEtxeWAZhrPeudZXiq
+ ZoJ0jlodQm7RP7cWMbiLbabuK+3FSSUYtBAzaYufagfW+5XxRoLFFs62KJUHvwQONS5a
+ +ziC+BOAG+KQGXF+zVmOEwtzBuytPeW9PChn0u6Gyj9GGWIQz3ZwpOPJLouClERDcKhd
+ FoKP5obsPprBdqXdmXHLq0LNks9BF98vxNkUnzzAmLCcFq4FFaRpm7RfwCb0a0iIUDEP
+ 4a7Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqJFtlSSkZmIHn3ScpmT30gs8QsdtBncaJtVinSizAolP1VrxMd/ISgvRRVZyz/GxhSnnuixyWfXWU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kf08VyIcaX+YYUOeep9AKamAJ6uyIUNnHiXvNDEXuqsf6ceC4N
+ Cwy0IZfy4EEm5us3y4xjr2oQEsWoaD6o1uO9evUI4jSBEM/UuGeE9al2
+X-Gm-Gg: AR+sD13eK5F0nIcPUDcXORC8dstdo4cXww6LkwxOWvGFsC9+SnyyJEMmRoBw8L0EE9z
+ h7iERnuZMMx4KVR3eE4rjch+3TWV69D62DYehhziIP8FHysMQHKLsuBlkMZnzma7E3WlFxw4V3c
+ ly58T366Wuyih+tQk/lZtk7cQu/wRvNJegsA3XjXPLyesl5cvVuDyTjOhOBwMqdMW+NZgtFwc8l
+ U971nKbqqNedg+VaNyENGSXgJwMCwtlCnBz9pe0KRNLx06jnC4ptYBZLuTMKXxDqidYCZpf7zk7
+ K3c4hZCzo4v4LSwbDfRqmGgCCmhtrKfdvRwCgmPHgebjczhjcab2hZcmmfcoVpHsmH488cRtCx7
+ YWGud5mELuXfywxxqCgKWeOM3pIktqjLFHIl2cpfd/+nlYE8EthIyEQs9M7s+upTJPf4dg1673j
+ 7VIkRL64T+qyWEDLnw2yKd7xqnu/Xx3UEw3P3WK4L3aUMdk1rXC5V2sx/xMQ==
+X-Received: by 2002:a05:6000:2608:b0:482:b823:cc3a with SMTP id
+ ffacd0b85a97d-482eaba7efamr16934016f8f.12.1787882466615; 
+ Thu, 27 Aug 2026 19:01:06 -0700 (PDT)
+Received: from 192.168.10.52 ([39.41.155.162])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482fbb20122sm362758f8f.20.2026.08.27.19.01.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 19:01:05 -0700 (PDT)
+From: Saim Shujah <saimzst@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Paloma Arellano <quic_parellan@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Saim Shujah <saimzst@gmail.com>
+Subject: [PATCH] drm/msm/dpu: clear pending peripheral flush state
+Date: Fri, 28 Aug 2026 11:54:40 +0500
+Message-ID: <20260828065440.140410-1-saimzst@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH0PR12MB8776:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a3cca30-ed35-4434-8af6-08df04a4683a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|1800799024|10070799003|366016|376014|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 2wwauoR57ULCk7+EDw7rUS+yu1eJhE1i/9OlpUBYHS4TLL5uogV7KCYxGje55/s3XnRZBdD47ahLvovYO77CtWGNlbnVDWi5rrVaDSKm+I+p0JfjnhYK6DissArivvc5dSPzbzq8eF4wIAgIO+QN01c12Wc6j3jsu4uen01CBlm4Ywu1ezSxKBdd6lS/QDrCu3coJkz5TZNrbm64IZHMsjUhvHEQRYU9T54rC05yIaXOYw7Cpf3AHp24ivK9PW7c3B30au22ufrQeMtwV0Cd57/sdVQVx67+4aZ3CR+VMe7bbpX33jC9XhBlzwCWeKqGOgZLlxGYSMaYAzp6moxgAqeSKYpx6gkxaiYH4WkajtrGHbh8qx5kArKYJfYRpQ4dXGcZfQ4As/pM7RbnArErNMnx6Q7x+1U+eZAYdgU5/K56iSis7N+9tpWcCQcSMQLw3VKOTxkuwyNbpD8ZiDPt48ZnIhb5f+gH8PZPKiAbgd+acD6dr7FMdtnyq/NfeoK21ZCF8+RyBIAiGTyVFCGJcNVHGB89qJWHsYgsib94h2f2jVrcqDbAY0aLSOy9gUgaItJKMPtv6uvTfR8WeESrqzibKCK7Nqat5864V1EuTkvyfaTjryXfAA45BaysRAB/eYLaIcnKFccAyDfZswvty2TDDudGW7BhIoEj6nWv9IY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(1800799024)(10070799003)(366016)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHJiZHdCN292cUlvMkV3TmZVTVZ2RHZwL2JnN05DTFhFVUpYSld2OW1PSFc4?=
- =?utf-8?B?OWZiMExGaE5CQVhzVldiN2ZFcDZyRzcyR2xibTZFZ0JUdFo5V2JOQzlPelFN?=
- =?utf-8?B?M0d4MjlobDJyNlVieGhSaG54QWtzUkNpcVpUMTEwSDh1ZkJwNEVWRlNDRUxi?=
- =?utf-8?B?dzJlcVpSc0ZIYTk3VWtyTUxBQ3hDSUllblNIYjNCSmpwY1J3NHRiSGkrUnZi?=
- =?utf-8?B?M1J3dm81ZVczUjFOWnNLYlo0OWlaVGlzRmROeUgxQmJ6WkJmSDY3WjFJamNi?=
- =?utf-8?B?dE9yaHdnaUZuMWpwQWk1WDJ6L0l4bGU0V2M3UU5HYUdRMFUrOG1ZNkpBWWJq?=
- =?utf-8?B?QW83dWk4b0drc3dDZXVUcmhRTDZjQUsrKzgzZHZadi9UOGh4SjhCVzJsMks0?=
- =?utf-8?B?b01wNlhKTU1Qamg0WFJIZXpQd1VaQmdhb0FBOHZjK1Zvam9KM0w2b3lKTldY?=
- =?utf-8?B?N2hoOFlseW0vVEVBbEFHSzZkYTdKdXluVStYOXMvRTF3SUlINUhNT1NlZGJD?=
- =?utf-8?B?anZDZWx3MlBMNzh4ZmJSTWE0MEZpVTMwRjRvWURoTUVUQ3BURWIvd3RieVlk?=
- =?utf-8?B?WVZ0NE16OWNDcHIyU0cvTytnc0Nvanh2dDdMTktzYWhUVjRGRm9UNnkwRkdo?=
- =?utf-8?B?emZTK2kwSFJXd0h4TjQ3TWRCcXB6elpsMnRPMXVoUEtpcDdXUTBCSUlzcEJZ?=
- =?utf-8?B?a1NYUCtKQ2RRVzB6dWdpWXdUcUJDNWUrOXRXc3hrbzZWdC9tOU9yek8yclpQ?=
- =?utf-8?B?a0NPelNhdjkyazFTQklwV2c3dFd1Z2g2RnYrT0JzcU9oc0Iyd3N4MGN1TXBO?=
- =?utf-8?B?WElSN1RWcmtYMWI2emo5dmUvOFA0QnZLUVNsQlc4dE52bnk3ejdaTDZsWXhJ?=
- =?utf-8?B?bURscUJtSnNSZ0lnM3E5aTBjRm1EODZFMXV5OWp6eVFhdWk4RW5QRXNYSE90?=
- =?utf-8?B?NlVJNE5iclNCc0RCUHlXMzU4cFptWnhOVWpDMzh5RTI3MCtqMXh0bG90aHlC?=
- =?utf-8?B?UmRnc0M2QjhUZVZnNkpoY3pUS2g2OUs3U0lyKzdiMWtUYWxWVXcvUkx3Q3J3?=
- =?utf-8?B?MlIzUlBxYUxSSU1aRWVUaTNPRjNkekgzRXMxNDRrdGtIR1hUcDV2WkowRlkw?=
- =?utf-8?B?cWZkeUpkVGNUSkJUWmdicG5LYlVDZjBQbDBaRUp4THNtMmxmUXIrdG9XeEV0?=
- =?utf-8?B?emZ2bzZsc2R1NzZPOW1pYmVHc3BQWld4MkhERnlHQ00zazNiVjNvcnpETm1j?=
- =?utf-8?B?cE5CNDNWQTNoMnRxNWRlMmJVbGxFRGVvQmlvOVlZUTE0K3E5dnRlSUIxUk42?=
- =?utf-8?B?aVA0bTZyaVk5M1VBL2R4Z25iV2lBNmtnL1gya1c3RjJpaWpjVTY2bTE0S29v?=
- =?utf-8?B?dWJ6MkdlMVU3RHVjUTREWlNTUlRXRytZMURKdjBSanJ0S2pYeHYzUHFtUkFn?=
- =?utf-8?B?eCtjdUxycDlEL0l3bnNPYUxwS0x3S0grb2RHOUN1K09VbXZpdXJvWEhzOVVk?=
- =?utf-8?B?N0lpSEVqS3p6TzBjM3A1dDd6WWhCU3FZRmtnMGlUeURjSXIvTUtCamhianZF?=
- =?utf-8?B?cDFMSnhhd3NEbElXQWhvaGJjVldwbVRYZ3FvckdxeWxmaE9NLzNueklLeXRU?=
- =?utf-8?B?U0p3L3Azc09EdkxWWHUyRFg1SnRTcWwzenZOWWwwK2gzR2hVQ090RUxzRlJ1?=
- =?utf-8?B?K2Y3N3BuQjh1bVB3VW43bmpTYUJPUjlzRHlaNkNaNkFWSFpKNVpDVjVwMUtz?=
- =?utf-8?B?dUJ1cFdyRjRhaEkxTE5HQUlBMitOUkw5UDZjUmdIdmFVdGFzaktySEhTVlhE?=
- =?utf-8?B?WEZZdmkyM3Z1ejFqTnFlNWd5K1ZNZ1dKSFAyUmdmZk1lYktleWxJL3N4YldI?=
- =?utf-8?B?WXBaODdzSFpqWS8zVDQ1ZnEzN29KOWpSUnFRVmZZOHlhSU1BUHF1Rmc5WUZB?=
- =?utf-8?B?Q2tCZVVBbXprMVc3ZXNnWUVieFZrYWdEdFhCUVBrSmUzQ1R1QnF6M1UvT2lq?=
- =?utf-8?B?d1ZJbGRoc2lERmF2RVhsZDFhY011WHNNaFkxYm9MeEZMOTRBVGNUQjVCUFho?=
- =?utf-8?B?U2FQRnMxekpBOE1GcldobW03YUk0Q0hkMFJYa3h3R3BmYUhPa2N5QS95dEo5?=
- =?utf-8?B?blBiTVRVdG1BNGxzbHhZQXU2WnVUQm02SlVibkE1a1o0Y3o2Q3RuejRHdVpk?=
- =?utf-8?B?WVJTeFp3ZU1RcGNBQk5mb1VsT29OalpDd0lucndxbGZZeVdJQVNPOGQzQlAx?=
- =?utf-8?B?QzVHVldPeVBMdlpBN0lGbEZzVy9EbnRHbUc4aVJXWGVkRDAwMEhlb2JKR1FT?=
- =?utf-8?B?aHM0b2dKYU15ZjBZeHU0TjRIL1gvbElkaFNIdXlhenNndFJ6WHFHTGJmU2V1?=
- =?utf-8?Q?nxHCBF+PRxKV8lJKF0NfOSZEOUXMFb8R+cmeU3uE7dhuL?=
-X-MS-Exchange-AntiSpam-MessageData-1: DjUI8N6440ZWKQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3cca30-ed35-4434-8af6-08df04a4683a
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 01:33:48.2161 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WuQf8BTjoL+osAe8lgj6E1+wT05wJ3CfaqZZMQNb6ppcolMc2dZ0iKx4w9x0JBZ0sTalabM1BjEfdUkLPYQ0kg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8776
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,87 +94,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
-> Relative registers can be better served by projection to subregion instea=
-d
-> of ad-hoc handling in register macro. Projection composes better (e.g. it
-> natively allows relative registers of relative registers without needing
-> additional support).
->
-> Remove relative register support, and update the documentation to
-> demonstrate how projection and subregions can be used to achieve this
-> instead.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+dpu_hw_ctl_clear_pending_flush() resets the cached per-block state after a
+flush transaction, but misses pending_periph_flush_mask.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+The peripheral flush updater accumulates interface bits in this mask. A
+later transaction which sets the top-level peripheral flush bit can write
+stale interface bits to CTL_PERIPH_FLUSH together with the current state.
 
-And good riddance!
+Peripheral flush support was added after the helper started clearing every
+individual pending flush mask. Clear the peripheral mask together with the
+other cached child masks.
 
-<...>
-> @@ -763,115 +511,83 @@ pub const fn element_alias_offset<Base: ?Sized, Al=
-ias: RegisterArray<Base =3D Base
->  /// # }
->  /// ```
->  ///
-> -/// ## Relative arrays of registers
-> +/// ## Relative registers
->  ///
-> -/// Combining the two features described in the sections above, arrays o=
-f registers accessible from
-> -/// a base can also be defined:
-> +/// There are cases where a register region is subdivided into small sub=
-regions, and you may wish to
-> +/// have your register definition be relative to these subregions. This =
-may be needed, for example,
-> +/// if these subregions are instantiated several times, or you just want=
- it for encapsulation
-> +/// purpose.
->  ///
-> -/// ```ignore
-> -/// register! {
-> -///     ...
-> -///     pub RELATIVE_REGISTER_ARRAY(u8)[10, stride =3D 4] @ Base + 0x100=
- {
-> -///         ...
-> -///     }
-> -/// }
-> +/// For instance, imagine the following I/O space:
-> +///
-> +/// ```text
-> +///           +-----------------------------+
-> +///           |             ...             |
-> +///           |                             |
-> +///  0x100--->+------------CPU0-------------+
-> +///           |                             |
-> +///  0x110--->+-----------------------------+
-> +///           |           CPU_CTL           |
-> +///           +-----------------------------+
-> +///           |             ...             |
-> +///           |                             |
-> +///           |                             |
-> +///  0x200--->+------------CPU1-------------+
-> +///           |                             |
-> +///  0x210--->+-----------------------------+
-> +///           |           CPU_CTL           |
-> +///           +-----------------------------+
-> +///           |             ...             |
-> +///           +-----------------------------+
->  /// ```
->  ///
-> -/// Like relative registers, they implement the [`WithBase`] trait. Howe=
-ver the return value of
-> -/// [`WithBase::of`] cannot be used directly as a location and must be f=
-urther specified using the
-> -/// [`at`](RelativeRegisterLoc::at) method.
-> +/// `CPU0` and `CPU1` both have a `CPU_CTL` register that starts at offs=
-et `0x10` of their I/O
-> +/// space segment. Since both instances of `CPU_CTL` share the same layo=
-ut, we don't want to define
-> +/// them twice and would prefer a way to select which one to use from a =
-single definition.
-> +///
-> +/// This can be done define a new type for the subregion, and then defin=
-e registers that use the new
+Fixes: 64f7b81f0358 ("drm/msm/dpu: add support of new peripheral flush mechanism")
+Cc: stable@vger.kernel.org
+Signed-off-by: Saim Shujah <saimzst@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-nit: "done by defining ... and then defining registers"
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+index 36a497f1d6c1..e8729fe1cfef 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+@@ -118,6 +118,7 @@ static inline void dpu_hw_ctl_clear_pending_flush(struct dpu_hw_ctl *ctx)
+ 	ctx->pending_intf_flush_mask = 0;
+ 	ctx->pending_wb_flush_mask = 0;
+ 	ctx->pending_cwb_flush_mask = 0;
++	ctx->pending_periph_flush_mask = 0;
+ 	ctx->pending_merge_3d_flush_mask = 0;
+ 	ctx->pending_dsc_flush_mask = 0;
+ 	ctx->pending_cdm_flush_mask = 0;
+-- 
+2.55.0
+
