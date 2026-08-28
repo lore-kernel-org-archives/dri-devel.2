@@ -4,75 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2FF7C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:47:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51391C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C56310F24C;
-	Fri, 28 Aug 2026 05:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD02810F258;
+	Fri, 28 Aug 2026 05:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.b="dNftp+Gv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KCRQ21/s";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D748110F247
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:47:44 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-3856d6fbcb3so786750a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 27 Aug 2026 22:47:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1787896064; x=1788500864; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5Zt5PXljQJqHa8ejgOjMYryQAjVgVBZDMdimKNGAGng=;
- b=dNftp+Gvphtl3wdwHIOvKvFq04tLemvWBK1ZgWky4/aY44vFzs1YhC6LZ5+tA3PMPW
- dtCdZ37raodCLNXjWS7bhXKjobUh+fCE3XlJLUFsc0ZktUUwdCipQzuTGkEkdc2hV9KJ
- b+BSGaxQOe0J0Q9e/GgrP76DRE5mapc0olQGI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787896064; x=1788500864;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5Zt5PXljQJqHa8ejgOjMYryQAjVgVBZDMdimKNGAGng=;
- b=CtevaV1w2UNri2TpKmNOii1nna8oxDFNv0z69n8NhkHmM5uwkbwvX+atSYXFpacJ5K
- TMGGrPjsjiCyrtNyohpOSyw7o9ppHkCcey5m/wP0WeN3UDVFoTiYqYpK0y4x6xGcTy+f
- PV0yoZdvZexGlYse8dXI5uXQuBi3ZNKaEuZCeLresPQsEM98ZC8sVovk/fpXCbvlnb3W
- nF34D7SOd0yZoAb0NNdrvTOg916ccSpk3KSkmjqBrXHEfDXBSnHo0FSz4IKdBCxHH8ny
- ZiaYPfJmb7TpzjEii//RSO0hJLDbEavQiZwyYYRyhnGcuBrqDeYtdVAKtPms8RwkMa9I
- j4/g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoU6J6s3Y5z4z/ue1FUaulI9TTF99UtL2IvoKx2TVz4qoNmCcjMYrkXW8iIuC3Q041RhDr9t+2VZgo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mP3hHXhSK2eAixCpV9kkKxRLn0QopNSHhvQVO239U0jKScI47S
- I7qgUeZRBMEe2KDbaRWM0jTN8oiWwDjNHUPZ6zKD/wjo7+7IRZI9US+geT1iMuKthSY=
-X-Gm-Gg: AR+sD135YsW7OWOXct4fVd9xpo7W+P+5z/UrknBA3sMAZADRmBkry8FaYJjNWTZPC1w
- Fo7hshRPtWDDIWF45TAsTRQ3J1RHNAzk8GCO6vTloTfOemmNA9W2RJyxVC4crcQxLZMItSaNN8r
- WpILXCJ5CUr5uDa6mz+Amfc2WuU6REzCBMLBuUGJwpgq2u0JzKzh37duuJ15KG8UCND4pZiEIQ2
- 8okHX6DO9L/jfk38lgdyVRbkiCBRsMZN/XBqu/eRpsSoRfYG6s8+S9rwJfDssjP+I+lPu4727lR
- wHumiYj/kwG4+9k9CcXuN6B6lPiOBDrKggwKugdtVD5lWIDESUWXsmfYM5O5/6xju3SNEt0KqNp
- 8tgLSwWkLS+IZcM4eKRSUSYCWMLhZ8nTGWMX5cLe4ailCIfkcv9Rues7hRm1KPkMhQZZIAmliPW
- 5YwBbCJm03a/3o3+hz7YxCtr8LEJOKe7AaiDrjGQCVVG/9XvgNd8FB3d7WibxxAmE=
-X-Received: by 2002:a17:90b:37cc:b0:366:10f1:3d91 with SMTP id
- 98e67ed59e1d1-396d0d92d0amr9519889a91.1.1787896064320; 
- Thu, 27 Aug 2026 22:47:44 -0700 (PDT)
-Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-396b1992e05sm5740448a91.15.2026.08.27.22.47.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 22:47:43 -0700 (PDT)
-Date: Fri, 28 Aug 2026 14:47:29 +0900
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: MoGGuU <Naixumogu@whut.edu.cn>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] accel/rocket: Propagate job submission errors
-Message-ID: <apEguR4JBTEvsHds@rock-5b-plus>
-References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
- <20260828050805.38548-4-Naixumogu@whut.edu.cn>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828050805.38548-4-Naixumogu@whut.edu.cn>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C290B10F25C
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:49:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2DFD160A57;
+ Fri, 28 Aug 2026 05:49:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936DD1F000E9;
+ Fri, 28 Aug 2026 05:49:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787896157;
+ bh=gXqKDGy6bhxeRNNKuC8EXfkl2bPMYEYW4a1ZTgdsxkg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KCRQ21/s0SkUyB8lIQ0q3LnqujPyTp5FJGo2x+4zya/mMIJ8HNU8EFG4YF5ziNYE4
+ zZg2oNH1qhvvognO5mN7DsrpAIO1L/QcbYYiNiJMrav/28DBrhJyA4LrbkTVYFBYA3
+ uy2HkqZJom7XUniFH1gMrU1vOiFT/E+lgHLfZhu1Cjl9D8D+spyvOg81eCSuEh+H0/
+ zJEKZp8kt8hDLWbuN1eJjLOx4onIEyTfMr4UBreHntJob0QuR34i4tiNeajFcafe0g
+ TK6h8QZY2zLd7ousl9y6Oa3uBJYTigg7RwjUcVL2KMrijviXLJvtFEGaLl3o1y8OeD
+ CfP3E1TMnmMgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] gpu: nova-core: use FromSafeCast wherever possible
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260828-nova_num-v1-2-e21f17ba4127@nvidia.com>
+References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
+ <20260828-nova_num-v1-2-e21f17ba4127@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 05:49:17 +0000
+Message-Id: <20260828054917.936DD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,50 +54,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 28, 2026 at 01:08:05PM +0800, MoGGuU wrote:
-> rocket_ioctl_submit() discards each job's return value and reports success
-> even when every job fails.
-> 
-> Return the first error and stop submitting the remaining jobs. Jobs queued
-> before an error remain queued, giving the ioctl ordered partial-submit
-> semantics.
-> 
-> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-> Cc: stable@vger.kernel.org
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I'm afraid that this patch changes userspace API. After this patch, userspace
-programs get an error on submit. So it seems that the stable tag should be
-dropped.
+Pre-existing issues:
+- [High] Missing DMA write memory barrier before updating the GSP command q=
+ueue write pointer.
+- [High] Missing DMA read memory barrier after reading the GSP message queu=
+e write pointer.
+--
 
-> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
-> ---
->  drivers/accel/rocket/rocket_job.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-> index b55e12aecfe64..8f1bdf4a57f20 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -646,8 +646,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
->  	}
->  
->  
-> -	for (i = 0; i < args->job_count; i++)
-> -		rocket_ioctl_submit_job(dev, file, &jobs[i]);
-> +	for (i = 0; i < args->job_count; i++) {
-> +		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
-> +		if (ret)
-> +			goto exit;
-> +	}
->  
->  exit:
->  	kvfree(jobs);
-> -- 
-> 2.43.0
-> 
+commit 899e3ba6af7f4cc7e2c28b0f4f3f73db18de1f16
+Author: Alexandre Courbot <acourbot@nvidia.com>
 
-Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
+gpu: nova-core: use FromSafeCast wherever possible
+
+Replaces various *_as_* casting functions with FromSafeCast in
+non-const contexts to simplify conversions.
+
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index f85fde09aa6e3..658d0a9b2cfb2 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+
+[ ... ]
+
+> @@ -343,10 +346,10 @@ fn driver_write_area_size(&self) -> usize {
+>          unsafe {
+>              (
+>                  core::slice::from_raw_parts(
+> -                    data.add(casts::u32_as_usize(rx)),
+> -                    casts::u32_as_usize(tail_end - rx),
+> +                    data.add(usize::from_safe_cast(rx)),
+> +                    usize::from_safe_cast(tail_end - rx),
+>                  ),
+> -                core::slice::from_raw_parts(data, casts::u32_as_usize(wr=
+ap_end)),
+> +                core::slice::from_raw_parts(data, usize::from_safe_cast(=
+wrap_end)),
+>              )
+>          }
+>      }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing this
+file I noticed a potential memory barrier issue in advance_cpu_write_ptr():
+
+>     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
+>         let tx =3D io_project!(self.0, .cpuq.tx);
+>         let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count)=
+ % MSGQ_NUM_PAGES;
+>         MsgqTxHeader::set_write_ptr(tx, wptr);
+>=20
+>         // Ensure all command data is visible before triggering the GSP r=
+ead.
+>         fence(Ordering::SeqCst);
+>     }
+
+Because there is no memory barrier between the payload writes (done prior
+to calling this function) and the write pointer volatile write in
+MsgqTxHeader::set_write_ptr(), the CPU can reorder them.
+
+If the GSP observes the updated write pointer before the payload writes
+are globally visible, could it read stale command data?
+
+[Severity: High]
+This is also a pre-existing issue, but is there a missing read memory
+barrier after reading the message queue write pointer in wait_for_msg()?
+
+>     fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+>         // Wait for a message to arrive from the GSP.
+>         let (slice_1, slice_2) =3D read_poll_timeout(
+>             || Ok(self.gsp_mem.driver_read_area()),
+>             |driver_area| !driver_area.0.is_empty(),
+>             Delta::from_millis(1),
+>             timeout,
+>         )
+>         .map(|(slice_1, slice_2)| (slice_1.as_flattened(), slice_2.as_fla=
+ttened()))?;
+>=20
+>         // Extract the `GspMsgElement`.
+>         let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice_=
+1).ok_or(EIO)?;
+
+When polling for a new message, read_poll_timeout repeatedly evaluates
+driver_read_area(), which performs a volatile read of the GSP write
+pointer.
+
+Once a new message is indicated, the payload memory slices are immediately
+accessed.
+
+Since there is no read memory barrier between the volatile read of the
+write pointer and the payload access, could modern CPUs speculatively
+execute the data loads before the write pointer read completes, causing
+the driver to read stale payload data?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-nova_num-v=
+1-0-e21f17ba4127@nvidia.com?part=3D2
