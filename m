@@ -4,50 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3ABC624C8
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26B74C624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC8B10E68C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F80310E68F;
 	Mon, 31 Aug 2026 07:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="ZKC61E0H";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ajdZag+y";
 	dkim-atps=neutral
-X-Greylist: delayed 513 seconds by postgrey-1.36 at gabe;
- Sun, 30 Aug 2026 04:00:27 UTC
-Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
- [79.135.106.109])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAE1F10E049;
- Sun, 30 Aug 2026 04:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1788061924; x=1788321124;
- bh=jnji4+6IgYi4Ks1u6FUqTfrHf09mB52dg2/DurOipCQ=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=ZKC61E0HlqSWJ/6DatUJJrWJULEPaw7xB/kSMwT+Bnl01LVekS07P5pXxxH3KJmnA
- TLs5O0qHkF1iYlW3gGXEkveaUF6P2t/o9KLAL9mQ/zuNDw0Hn33bQiRE9URPFLEyss
- 40CraMSOPVYFairLWKGdDNCqP19wdalwamb30E5zcjDzGnPhU1t1vtThkOuSpm8C9U
- H1g7VriwxqctPMKF4zaAjFJBiBcROPsl94k3jxLXzYgd2ELp4WO2w2iD2C68EFWbPp
- KIsPa7TIyaQn8PZC/iMhtB4opoZZ6MVaQWfNfwzKcYI36rzwlLbtbsO4yB//EAgyeT
- /FPaW8Fks6jXg==
-Date: Sun, 30 Aug 2026 03:51:58 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Satyajit Roy <edu042sjroy@proton.me>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A89E10E4F6
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:58:05 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2d049069377so12152665ad.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 07:58:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787929085; x=1788533885; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1VfMpdC9MNUgJGJ712gixEQAXWsGGubkbIBW/Kf06N0=;
+ b=ajdZag+ydavOY6qRF3haATDBqlxhiJ9e4jLGzcob7L2A4VPU+7AXeM15rTQ6Jj90La
+ 0n2r+9b7S7eROhaP0zZlMxx++NO2AGZh55gW+lbvs8Jt++bNokH1gHnYbNNdzyvZQ6Du
+ xwgMVzj6xKdZvxZ+03E2P7xk7oYnVa1lpcy3veYW0XnGibloMTh+difrgLH+/ChRmi/j
+ 8Beb9irKDkxXDq2XnGBjHm5EY8w0MZqUN4zfJz9mQ8HlbeMO2hu431GOYyrEs3LDGKDd
+ 0/HXMHvIx/BpS7dPP/A4u61sB9XSAvqQ2HfyDpMc8Rvc75BwY7LiTe68wPHdynu4uH9v
+ nJLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787929085; x=1788533885;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1VfMpdC9MNUgJGJ712gixEQAXWsGGubkbIBW/Kf06N0=;
+ b=g5NnVvghCErxl46hLzjZ2ZMV+8zilQ7fHapAYICY+iIyGy+f5KAr7mYQTKsxZOXhrA
+ FKIp88GbkzGRgm0xckpcvozjwYCMtCEoDTCnYpKopqPJ4aHDQgq6HG24MF05cjAhlPt0
+ +av0IQE+i3XSmxe0yzXV7+ZfMz8J2I2WOM4olQqWDzeoXIjJkXyMzbj5ubGQmly/Ii4Q
+ Zx4BqETEsuPx6XZqCTGDKl3JTccfHqdQ0G/hJp6fiODztUMKB0jm3HYAJ1YIFk/Itjhq
+ wMgBkbTwA94Wp9jkmdEs2E+39NnJo8neiYRF0Nv/vxWHkTwOq7whGdZMHuS+DD2BlZrf
+ 2aZA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrGgaxDPdHipiRkd5W71pq4WVVNS3fjhqxYn7Gccs2IQFXrVM722KFIg0dTUv3uSariwibecO2rtmA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNKHj7/RnTqh0yfPobzj7rACXhBvXz+6ql8YwB74ogmqwHK72q
+ qyKuk6008snaNikD4x3lsv34leqKVxWCyqBxQp1xKW0NkKf0gOH4TzE=
+X-Gm-Gg: AR+sD13yL9olepa7rjtxos2sAdtp6Spvj7fA0O3mlCzqdUhKIWHbVm/wXJ2hJSlqKU1
+ PJSfh+tp+tvJJqDQ2eqZTRn3GFrtgIHRL2r2veT+yoSiGcIRch96HXrdgvQzg6i5rKFi8fwtwg5
+ nQajP8XG334tZAc51NGux2dc9LiCvN8iBwDQ0MjVjVxyT99XyQkNvw+EMK1RZqClT6/Dm+5pddW
+ +KOCUHuiNoYUAnLSP1FGV+Yuegy53noQWgcKSK/XbzoYLqwHTb0I1IIZP57APIbs8EmPKektbXV
+ pZ/jtBDqQ5D9dhc6Eg538JfnuJ0I/lz6phptwTLbI6nMIU2CAJNVAcz7iSBO5skPZd70Tyz7Wsq
+ pyQI53fmXdhmyq3zLWVTRdI2Ek+ZL/KsRanCyAWyMHqDF2SpXzF7lF0zWRWa5h3NlPML91PWVAy
+ bmDPh/jXnNuuKWPcRsZn1VSlrZto0U4g6ZGa63Yo+3q1GgphU/v7kih8V/X3ZGXa1zgtkQROQyd
+ WiNtNDALPbVUxM5J4v2XZC4/OESodYUy5COSA==
+X-Received: by 2002:a17:903:3d06:b0:2d8:d4ce:9f34 with SMTP id
+ d9443c01a7336-2d8d4cea3e9mr8380325ad.18.1787929084834; 
+ Fri, 28 Aug 2026 07:58:04 -0700 (PDT)
+Received: from MalHyuk.localdomain ([211.201.32.99])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d75988b6fcsm6159625ad.56.2026.08.28.07.58.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2026 07:58:04 -0700 (PDT)
+From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Satyajit Roy <sroy14@alum.utk.edu>
-Subject: [PATCH 1/3] drm/amd/display: Propagate HDMI RGB quantization
- selectability
-Message-ID: <20260830035120.937992-2-edu042sjroy@proton.me>
-In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
-References: <20260830035120.937992-1-edu042sjroy@proton.me>
-Feedback-ID: 147615787:user:proton
-X-Pm-Message-ID: f4cf8d134f4afb49c85062f7dec4c0287be81f1e
+ "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+Subject: [PATCH v1 0/2] drm/sched: fix a use-after-free in get_timeline_name()
+Date: Fri, 28 Aug 2026 23:57:55 +0900
+Message-ID: <cover.1787928528.git.malhyuk97@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,65 +90,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+This fixes an unprivileged use-after-free (read) in the DRM GPU scheduler
+core, present in current mainline (v7.2-rc5) and reachable through at least
+three in-tree drivers: amdxdna, nouveau and msm (VM_BIND).
 
-DC uses dc_edid_caps.qs_bit when constructing the HDMI AVI InfoFrame
-quantization-range field. Although DRM parses the sink capability into
-drm_display_info, DM never copies it into the DC EDID capabilities. The
-field therefore remains zero and the AVI quantization range stays at its
-default value.
+drm_sched_fence_get_timeline_name() dereferences fence->sched->name, and
+the fence is not ops-detached on signalling (the ops carry a .release
+callback), so a userspace-held finished fence can outlive a per-context
+drm_gpu_scheduler that a driver frees on context/fd teardown.
+get_timeline_name() is reachable unprivileged via SYNC_IOC_FILE_INFO on an
+exported sync_file, so this is a deterministic UAF read of the freed
+scheduler - a bounded arbitrary kernel read once the slab is reclaimed
+(there is no write primitive on this path).
 
-Copy rgb_quant_range_selectable for HDMI sinks and extend the existing
-EDID-capability KUnit test to cover it.
+It's the same bug class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
+(drm/panthor), which were fixed per-driver; the drivers above never got
+the equivalent fix. Patch 1 fixes it in the core (cache the persistent
+timeline-name pointer at fence init) so any per-context-scheduler driver is
+covered. Patch 2 adds a KUnit regression test on the existing drm_sched
+mock harness that catches the UAF under KASAN with no hardware.
 
-Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property=
-")
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c       | 1 +
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c    | 2 ++
- 2 files changed, 3 insertions(+)
+Since the bug class is already public (the xe/panthor CVEs), I'm sending
+this to the list directly rather than through the security process. It
+looks like a candidate for stable backport.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index ab15ceec4da..e49a8dda512 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -218,6 +218,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- =09edid_caps->edid_hdmi =3D connector->display_info.is_hdmi;
-=20
- =09if (edid_caps->edid_hdmi) {
-+=09=09edid_caps->qs_bit =3D connector->display_info.rgb_quant_range_select=
-able;
- =09=09populate_hdmi_info_from_connector(link->dc->config.enable_frl, &conn=
-ector->display_info.hdmi, edid_caps);
- =09=09drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n"=
-, __func__, connector->name, edid_caps->max_frl_rate);
- =09=09if (edid_caps->frl_dsc_support)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_=
-test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test=
-.c
-index d4232648d8e..b13f258740c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-@@ -412,12 +412,14 @@ static void dm_test_parse_edid_caps_hdmi_frl(struct k=
-unit *test)
-=20
- =09/* Drive the HDMI/FRL branch */
- =09connector->display_info.is_hdmi =3D true;
-+=09connector->display_info.rgb_quant_range_selectable =3D true;
- =09connector->display_info.hdmi.scdc.supported =3D true;
- =09connector->display_info.hdmi.max_lanes =3D 4;
- =09connector->display_info.hdmi.max_frl_rate_per_lane =3D 12;
-=20
- =09KUNIT_EXPECT_EQ(test, dm_helpers_parse_edid_caps(link, dc_edid, edid_ca=
-ps), EDID_OK);
- =09KUNIT_EXPECT_TRUE(test, edid_caps->edid_hdmi);
-+=09KUNIT_EXPECT_EQ(test, edid_caps->qs_bit, 1);
- =09KUNIT_EXPECT_TRUE(test, edid_caps->scdc_present);
- =09/* max_lanes 4 + max_frl_rate_per_lane 12 -> rate index 6 */
- =09KUNIT_EXPECT_EQ(test, edid_caps->max_frl_rate, 6);
---=20
-2.51.1
+The KUnit test was run with:
 
+    ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+        --kunitconfig=<KUNIT + KASAN + DRM_SCHED_KUNIT_TEST> \
+        'drm_sched_fence_uaf_tests*'
+
+- without patch 1: KASAN slab-use-after-free in
+  drm_sched_fence_get_timeline_name
+- with patch 1: test passes, no KASAN report
+
+Jonghyuk Kim(MalHyuk) (2):
+  drm/sched: cache the timeline name to fix a use-after-free
+  drm/sched/tests: add a UAF regression test for get_timeline_name()
+
+ drivers/gpu/drm/scheduler/sched_fence.c       | 16 ++++-
+ drivers/gpu/drm/scheduler/tests/tests_basic.c | 65 ++++++++++++++++++-
+ include/drm/gpu_scheduler.h                   | 11 ++++
+ 3 files changed, 90 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
 
