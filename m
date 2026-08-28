@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA37C61DCB
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 20:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2465EC61DCB
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 20:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 700D410F47E;
-	Fri, 28 Aug 2026 20:58:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4702E10F47F;
+	Fri, 28 Aug 2026 20:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="b2o9D1tK";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Ssh5MOxF";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B5E510F47D
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 20:58:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787950718; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3CED10F47F
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 20:58:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787950724; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=RDJvtmeNxlKAPFz4rgVImrW1gtZA/lvFrwmR2EtmEhxKXAJj4HnUCses+RHI8hkD+Rk3QKHdn6WLqujpe3i37W8gd4lhToU5Pacljh/9XARPCuMD0c1K0Faj1keKWMQ752AlHaWVOAII9eojQb7FEv+h5Z/0LnL1YNvoHIy5Xks=
+ b=ihWMJdXHXG1y75aUd8QUpEOL6mlP7AzM8OV29vVS+wV0gnkkwDP3lT5IZH74LIUe5XYmTld/Mcw3CY+YNgvddx967nhQ4gtZycvSn9Tflnvh205yF27yf74cp7cXPZaPb4iIu+VIhWDLUv6cNGeHPB9n9ktDBsnZeJnZGj0Uv9I=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787950718;
+ s=zohoarc; t=1787950724;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=iTscRufj0y1CuqCTDcg3zlIOONoRR3vZY3r3L1e8kjo=; 
- b=A/EpLmUIq2slPylt6wu9lNNqI3HTUkkptL5oED/D+hvKNUnYDmccOAz6phB3B5xD+NFQPOjVioETdBmR0EpRRL9SVAW9qx7uDUpClmzcdX9i+k4CZOJOMWPLabAfdimhogUMRNp4V2LDqGVGbDLaurtmgbH454GpqphmyDHvtdg=
+ bh=g1FXZ9snXF2f2DkW+ebuDO+prz5XwthtDAwYa3OAmL8=; 
+ b=U0lteSYaY/aN0YXmkG6o+uDUFYmiGFmzagjyEd9ILidHZbzBJZXNH4byeBP868Ahg/Xb027hZv39C5mCRWVbgc/EUgEaagsIXmJs8ALikjGkfiUSw4QgqHaGVowaASzemfn/h+GrOfEo7uxKtzm3h3uY8yJRyO3p39/k3nQiFbc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950718; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787950724; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=iTscRufj0y1CuqCTDcg3zlIOONoRR3vZY3r3L1e8kjo=;
- b=b2o9D1tKTjsmaGBdkS2YzdZOjVzh8QgnGNgzQRwd9LhTbe+Tu1K4SCVf11W0eNoA
- i7QyJolz62uutlFJ3Nj/uEqjNSkkEP1p3WdP/ztdXIX4zqpO/tJDwmRqGYgtyUlxOaT
- 1Z9gA+GnwSs+K++9oRplj38Nu92IXIRpmypaLS1o=
-Received: by mx.zohomail.com with SMTPS id 1787950717289548.8674924881506;
- Fri, 28 Aug 2026 13:58:37 -0700 (PDT)
+ bh=g1FXZ9snXF2f2DkW+ebuDO+prz5XwthtDAwYa3OAmL8=;
+ b=Ssh5MOxFY39U0wYs8YJLyuznYX7UXIg8jcJoC8UcN0vV1QMyWkzqzsOekX/BRk25
+ KRRkQaAdC/tehX/hK/FdNLiT8pXIZYHbNJmlIpWkclpWI1ASLDmfkaZafnE1j7lUAWS
+ fRrU6G9CSlmWhQnLpYg3NJwjjNtJ7l14MV5Gi9fw=
+Received: by mx.zohomail.com with SMTPS id 1787950723708801.2739264428101;
+ Fri, 28 Aug 2026 13:58:43 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 28 Aug 2026 21:56:53 +0100
-Subject: [PATCH v7 13/17] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
+Date: Fri, 28 Aug 2026 21:56:54 +0100
+Subject: [PATCH v7 14/17] drm/panfrost: Avoid cache flush after perfcnt
+ sample in fully coherent systems
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-claude-fixes-v7-13-72a13b2c125d@collabora.com>
+Message-Id: <20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
 References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 In-Reply-To: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1778;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1026;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=x8OlekE2MZnjNXVk39ugXBQV79er9Wj2YPeLWA8TxG4=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYtsFHAf5bx9QnG2RklsUYQV9t1iF439NjgR
- iw8hZQ1RrOJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LQAKCRAOJn5M7lND
- PWrKC/9Zp9VOVZFq1/LWg1dP4mW3Mo1dFCu+V6xVBmcuEPZfqlB4QWREn1FCHnUvbaHGZ0sQBuX
- +Hh96S8vbmHrthSxgAiUHKYfd+qF/6XN2F7h6kTOSpbYkasMeCKxT0dNChhASJlB9rsudPeVM6l
- VFRaHEisuoyjswfdTXYab3KfEJ2jsg+pJ1Ml+qaj1rJJaOHsc1Gv5byUTtHaUfdRW1BKEMWp1VP
- pb+kECVvppfDu/cCaj/CdLIoKO5ODK2m4he80Gkxy5pytIHHT0K9MnFetmLgrHtRO8n9ThZpCq+
- M9+YSNiXpyzf7WNl1cLkCOJE0y8BNvFT8Kdzw99rgWz5N2iXtC+i2r0HL/UNhTESmfGV/MP7wPd
- TR6cxbyLzTuGR/8Y/yW6Ex6xK3ld/xCFEwco+hbCcrgvEWf8RZBpVq4B2WdzgEsluvm12mXyMga
- zSbkfPYpjWVajU4tQzLF7BiwLoi5+K0lj7F/xABGMsoarMnLRg1E3t/qa+QuNVbvUEhkc=
+ bh=1ViKXn5Z9t7QEwpx1D0niBppUD0kk1O7SjFsLfT8ejE=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqkfYujL4JCDuAH0q8gGixNY3cI/Ii54ss93wh/
+ h5FFE+2UI+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCapH2LgAKCRAOJn5M7lND
+ PYLNC/9ofecQOnZNGqSmVHcCSsOsyfB53a8QTHUQZJYMd+T/GTCtIDMQW5Cj4F47gMP0w1a4Xoa
+ eihbfAVFCWTWR3s8moF+qWri4fsRf8O0+EwBNANvPwP7A0e7V7y8WIwvGCvlBkOt9jhA5FrW/CC
+ TtffPgxF8CS/4QVfN8FKhotOGNRAm9dJr5+jlEf/JYNJ01D7+MVKy8A7ZCNIDRXlWaXvW9rfWD2
+ hg1Nv/X592hUZ6CS2Q86em9vWxCuuUrdRSzM/uftOpUEYe6fT+MoIKTkbl/aOMlQj8fkzKu2zOu
+ oqfIL43+JB30aLtRMTudNm9RWuQUq9bW93GvHZKHF8kYT5Yf9OqBUbk2rGz/AN375K0PHxH08Sn
+ EpPsCZtl4d3uHb7m4W6IabzZ379plGqHQBP9Q6WuT6gKLuQUJEpZEEnhfJ0QVbVWoQGjixhU9yt
+ k8WbgQasvZzljMfzhIYsldJI8zVVEJKdY7XgDV0OmLlCaW+XHKcN7bPLRrBe6gc2pcdDs=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,47 +91,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GPU cache flush/invalidate operation is unnecessary, because at present
-all counters are always enabled for all sessions, and there are no plans to
-expand the uAPI so as to let UM select specific counter groups.
-
-If the above was ever implemented, then different counter groups being
-selected between sessions might leave stale data in the GPU caches, so
-the flush/invalidate would have to be reintroduced.
+If the GPU and CPU are fully coherent, then there's no need to flush the
+GPU caches after a perfcnt sample is made available.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index f71534e741b6..ffc77121070e 100644
+index ffc77121070e..b3f71d7fd82a 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+@@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
  
- 	/*
--	 * Invalidate the cache and clear the counters to start from a fresh
--	 * state.
-+	 * Clear the counters to start from a fresh state.
- 	 */
--	reinit_completion(&pfdev->perfcnt->dump_comp);
--	gpu_write(pfdev, GPU_INT_CLEAR,
--		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
--		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
- 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
--	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
--					  msecs_to_jiffies(1000));
--	if (!ret) {
--		ret = -ETIMEDOUT;
--		goto err_vunmap;
--	}
+ void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+ {
+-	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
++	if (pfdev->features.selected_coherency != COHERENCY_ACE)
++		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
++	else
++		complete(&pfdev->perfcnt->dump_comp);
+ }
  
- 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
- 	if (ret < 0)
+ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
 
 -- 
 2.55.0
