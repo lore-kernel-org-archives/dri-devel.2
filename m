@@ -4,51 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 780D4C624C2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE18CC624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66C1410E69B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E4F10E697;
 	Mon, 31 Aug 2026 07:00:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="ck63mK0V";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V6QS1ABw";
 	dkim-atps=neutral
-Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
- [109.224.244.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7CE10E0E8
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 10:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1787999769; x=1788258969;
- bh=9gycK/4wH3LKRRi/ZIX7zEeGMX0rP58XKrd5YTKBKNc=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=ck63mK0VCiSeIDvO6v3PE+XFY6CD4/NQk9XxNNCw7Ckdm0aH7li2c1Pwc+VWUzX5K
- CphLkhRzSnzipU8zJQCyrg5qeRw7NQPy+BKz5jiYS1IP4w0RqQXmZa7wK8JIhN2KJM
- 9hn77mPiJV7NxhXNMGxteckuaN1M/dKv5kmDipUb7Gvj0T4kuGCZWN6FbhyBhQELbr
- yfrjPPNJMX21669OsQhUhSJwVbVqC8G2kA/ypcqfc4ynyI/8NNtPLDkgsS8JYrc53m
- 0ngCcvbdeGZ5ASF0GdcDffGrF03EJRAsnSLX2t1SesyGTsrFSsxQmcRSqR0hR7hp8x
- 8VqgVXD7Xq3lw==
-Date: Sat, 29 Aug 2026 10:36:04 +0000
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-From: nirbhayykumarr@proton.me
-Cc: "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: Re: [BUG] misc/mei: Race between mei_release() disconnect and
- mei_ioctl_connect_vtag() causes CSME reset storm and i915 freeze
-Message-ID: <SWbw2eeUo9ExN9Aw7wAoQuQdmYKIgs4QW6fz-1L8TIVtBowiohgHD7gxkCVeNC_3lT4U20731Kh8LJnrDScvF0-EUj2YxnXMe9yjDto70h0=@proton.me>
-In-Reply-To: <2026082929-bath-idiom-06e7@gregkh>
-References: <HVTY6-E6fK5xolgZqI7bt1JIKctxL4VdcbteGTvPo7PN58iyvU01QXToLr2v9pvJtGTrUHFLuc7xZQtplf6HaZak1JvG3gySDpazMhbHsnE=@proton.me>
- <2026082929-bath-idiom-06e7@gregkh>
-Feedback-ID: 172828574:user:proton
-X-Pm-Message-ID: f92cdf5953adc231a5e2c89b01f1e5ad76ebfa01
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2D3C10E656
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 22:16:46 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47fecbb7000so541792f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 15:16:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787955405; x=1788560205; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
+ b=V6QS1ABwgdB15332deQccVaYXrdVb5G1vmtgNUsVinLNKPRZs+doxRFSun6ULANqlC
+ vMVvJ80VFRBvGIO78RoT/ebnQD5Y+ACEjzJ2ilQ9fdkKm8t7D/82g0vp+0KfQrHeWnna
+ gMGkgvTsMAU2pK0mcy2cKpaF4MDIZLm6iJI24+1LeoDsOnVLz2V1hOA5qwaD9b5YsBjS
+ 4GznEwMCdEP1FkqGZnvfY1nNF336WSz1Scqn9I0Pd5/pCGrhUxenLhlMvXgA29uAb3MI
+ 0pFDVXYjLCLNLGOVr5ZGRXN9k++ETG6+z/CJ5BxMcw1ZoySN90mx38JoFV+FmpYbt/C3
+ jshg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787955405; x=1788560205;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
+ b=FiXmHTNF7GDWCGU7wYLU7vVDap9j5voX04CKggFK3JQ5VsgGPFdhaX7JLQOGRta0Ut
+ teHI5PkrH1wcTv77uz5QfIeWSge5tw0LJ9SLtYal+E4LcAmlD8o60UdXvJSx49lePJVe
+ kLH5YJiAHbI84o/cccgZem/sqk+CuY2ZlHy5sS1yLeeD8bKqTZz2C4xoESy/HgkspF07
+ nRn0/mGUHYkuUMQN0E3xM0OFmMbO4udjAfmfXwGmQI/Mwg6HaQbnpB4rA+rtZkGnifUf
+ wa5hH+fZOrmdyJGn23v2DX3cTZr1PCjQw7uPMpTd39Tc51c+PW7Vb2Sp1DiLrCw7nylm
+ +2Xg==
+X-Gm-Message-State: AFuF++kAn8x2dlna839dSjJY7T7pCN5bgPLmvUxiGNwJElsIwMNNVlsM
+ Sk122vNwJCAYF0zLYuDz8DefX5Iqy2ZybsUXini6BJDKWE3pCJC/7rB8
+X-Gm-Gg: AYBFou1FAOPFOInWD5c7T5wZos2dMIxmkXB3Se0ADvUAjyAo9EAC6JbqLAZ9vAK3YsF
+ EvY5OePriZ9eUz44jDG4J7SzpU7GcNolv7wdUUNNTZfLJMSiKGxFPUYoEbSDAhzaHYSnFIkqKLt
+ 1y++V5qYP/bBg1e9XN2WzFZC6E++SgZdqtdQjqR/3PRjAFVKaZsz2WC+x2HZBH/hDcFQMYHzw2K
+ ruSPQEiAtr0FlOyP/R/dMvmWbTpa3yi5psvrrIQfss+eVRj3xIdmb1ZGzHoeCqsv7HSBwzfC/tv
+ C895CbD+4/P6YJX5ZNTQ4JUPffgSQiYnMozVH6/0K1amy/IIn1RuuE6AAf3JAELlLPf3p7GVlOf
+ IwOVLjYZkbbimj9tPiYhCgQnG/0TJF48rRnIghDpO6Adul9/o/WSjCm3TUZVlzxhGxzd/bq2bSl
+ mpARSREcM/a3mmzgHUe4YQG5cQUnMVCtHlR3l8lvrWVdPJPidtjC+p6KQOI0/aWgiAhxwHMHZQJ
+ 980SmztNxe8hQHET+0To9LvFJoSiDZx4457FIDY6IdJYsQqnvy9PC4BwaSoJOmqOx4cgJAo
+X-Received: by 2002:a05:6000:4a1e:b0:482:e658:bb8e with SMTP id
+ ffacd0b85a97d-482f79bf4f4mr17244716f8f.12.1787955405089; 
+ Fri, 28 Aug 2026 15:16:45 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:ebf3:5500:6828:ce36:77ad:ae8c])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482fbab3f16sm6361576f8f.1.2026.08.28.15.16.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2026 15:16:44 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH] accel/amdxdna: fix race condition in mailbox send path
+Date: Sat, 29 Aug 2026 01:16:41 +0300
+Message-ID: <20260828221641.10034-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,119 +87,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Saturday, August 29th, 2026 at 1:00 PM, gregkh@linuxfoundation.org <greg=
-kh@linuxfoundation.org> wrote:
+xdna_mailbox_send_msg() reads and writes x2i_tail without holding any
+lock. This is problematic because the DRM scheduler thread can submit
+jobs via aie2_execbuf() while the ioctl thread concurrently configures
+the same hardware context via aie2_config_cu().
 
-> On Sat, Aug 29, 2026 at 07:14:10AM +0000, nirbhayykumarr@proton.me wrote:
-> > Hi all,
-> >
-> > This issue was discovered using a custom multi-threaded C fuzzer
-> > designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
-> > multiplexing over /dev/mei0. By concurrently racing rapid vtag
-> > connections against file descriptor closures and streaming I/O, a
-> > race condition is triggered during client teardown.
->=20
-> But that's not a normal use case, right?
+Both paths eventually call xdna_mailbox_send_msg() which does:
 
-Yes, you are right. It is definitely not a normal, everyday
-workload. it is an extreme edge case that I caught unintentionally while
-stress-testing vtag multiplexing during a broader CSME research project.
-But because it results in an unrecoverable full system kernel and
-DRM/i915 display freeze when hit, I thought it was important to document
-and report it.
+    tail = mb_chann->x2i_tail;
+    ...
+    mailbox_set_tailptr(mb_chann, tail + mb_msg->pkg_size);
 
-> > In mei_release(), closing the last file descriptor holding a virtual ta=
-g
-> > invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(), dev->device_=
-lock
-> > is dropped while awaiting the firmware disconnect ACK on cl->wait.
-> >
-> > During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTA=
-G
-> > call on the same UUID (e.g. MKHI) scans dev->file_list, matches the tea=
-ring-
-> > down client 'pos' (in MEI_FILE_DISCONNECTING), repoints file->private_d=
-ata
-> > to pos, and adds its new vtag to pos->vtag_map.
-> >
-> > When the disconnect ACK arrives, __mei_cl_disconnect() calls
-> > mei_cl_set_disconnected(cl), setting cl->me_cl =3D NULL and
-> > cl->state =3D MEI_FILE_DISCONNECTED. Because pos->vtag_map now contains=
- the
-> > second thread's tag, mei_release() skips unlinking/freeing cl. The seco=
-nd
-> > thread then wakes up and attempts to reconnect via mei_ioctl_connect_cl=
-ient().
-> >
-> > Additionally, shared clients lack tag based demuxing on cl->rd_pending =
-in
-> > drivers/misc/mei/interrupt.c:
-> >   cb =3D list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, li=
-st);
-> >
-> > Incoming packets are matched to the head of the FIFO queue regardless o=
-f
-> > vtag, causing -EPROTO errors, dropped packets, and out-of-order HBM com=
-mand
-> > sequences. This triggers continuous CSME hardware link resets:
-> >   mei mei0: FW not ready: resetting: dev_state =3D 3
-> >   mei mei0: unexpected reset: dev_state =3D ENABLED fw status =3D ...
-> >
-> > During each reset, child client drivers (mei_hdcp, mei_pxp) unbind and =
-rebind
-> > with i915 DRM. With resets looping at hundreds of cycles per second (>9=
-,800
-> > events in 27s), mei_cldev_enable() repeatedly fails with -EFAULT / -ENO=
-DEV,
-> > deadlocking i915 display worker mutexes in TASK_UNINTERRUPTIBLE and cau=
-sing
-> > an unrecoverable full system freeze.
-> >
-> > Proposed Fix:
-> > - Prevent vtag reuse during teardown: in mei_ioctl_connect_vtag(),
-> >    ignore existing clients on dev->file_list if they are in
-> >    MEI_FILE_DISCONNECTING or MEI_FILE_DISCONNECTED states or undergoing
-> >    teardown.
-> > - Implement proper reference counting / lifecycle synchronization on
-> >    shared struct mei_cl instances.
-> > - In drivers/misc/mei/interrupt.c, demux cl->rd_pending by matching the
-> >    incoming packet's vtag header to the corresponding callback rather
-> >    than assuming FIFO order.
-> > - Add rate-limiting / backoff to MEI client reprobing during hardware
-> >    link resets to prevent cascading bus storms into DRM / i915.
->=20
-> Please send patches for this if you wish to see these issues addressed.
-> As you have a reproducer, it should be simple for you to do so.
+Without synchronization, concurrent writers can read the same tail value,
+overwrite each other's messages in the ring buffer, and write conflicting
+tail pointers to hardware.
 
-I appreciate the nudge. While the reproducer is straightforward, safely=20
-resolving the cross-subsystem interaction between MEI and i915 without=20
-introducing regressions seemed complex enough that I initially deferred=20
-to the Intel maintainers.=20
+Fix this by protecting the tail pointer manipulation with a spinlock
+that is held for the entire duration of mailbox_send_msg(). The lock
+is initialized in xdna_mailbox_alloc_channel() and acquired/released
+around the critical section in mailbox_send_msg().
 
-However, since I've already mapped out the race in mei_ioctl_connect_vtag()=
-,=20
-I am happy to take a shot at it. I will work on implementing the localized=
-=20
-state checks to prevent vtag reuse during teardown, and I'll submit a=20
-patch for review in the next few days.
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-> And how does this differ from the patch you have already sent but has
-> not yet been merged?
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 271617347..337f89113 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -60,6 +60,7 @@ struct mailbox_channel {
+ 	struct xarray			chan_xa;
+ 	u32				next_msgid;
+ 	u32				x2i_tail;
++	spinlock_t			lock;
+ 
+ 	/* Received msg related fields */
+ 	struct workqueue_struct		*work_q;
+@@ -203,8 +204,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 	u32 head, tail;
+ 	u32 start_addr;
+ 	u32 tmp_tail;
++	unsigned long flags;
+ 	int ret;
+ 
++	spin_lock_irqsave(&mb_chann->lock, flags);
+ 	head = mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
+ 	tail = mb_chann->x2i_tail;
+ 	ringbuf_size = mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I) - sizeof(u32);
+@@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 		ret = read_poll_timeout(mailbox_get_headptr, head,
+ 					tmp_tail < head || tail >= head,
+ 					1, 100, false, mb_chann, CHAN_RES_X2I);
+-		if (ret)
++		if (ret) {
++			spin_unlock_irqrestore(&mb_chann->lock, flags);
+ 			return ret;
++		}
+ 
+ 		if (tail >= head)
+ 			goto check_again;
+@@ -240,6 +245,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 			    mb_msg->pkg.header.opcode,
+ 			    mb_msg->pkg.header.id);
+ 
++	spin_unlock_irqrestore(&mb_chann->lock, flags);
+ 	return 0;
+ }
+ 
+@@ -487,6 +493,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+ 		goto free_chann;
+ 	}
+ 	mb_chann->mb = mb;
++	spin_lock_init(&mb_chann->lock);
+ 
+ 	return mb_chann;
+ 
+-- 
+2.55.0
 
-The previous patch addressed a single-client teardown ordering issue where=
-=20
-incoming IRQ completions populated cl->rd_completed after mei_cl_flush_queu=
-es()=20
-was called, triggering a WARN_ON() in mei_cl_unlink().
-
-This issue is a separate, multi-client race specific to Virtual Tag (vtag)
-multiplexing in mei_ioctl_connect_vtag(). While mei_release() drops
-dev->device_lock to wait for firmware disconnect, a concurrent thread
-requesting a new vtag matches the tearing-down client on dev->file_list.
-When the disconnect finishes, cl->me_cl is cleared/NULL'd while the client
-is actively reused, resulting in CSME hardware reset loops and cascading
-DRM/i915 display freezes.
-
-
-Thanks,
-Nirbhay Kumar
