@@ -4,92 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AABE6C61DBD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 19:26:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 754F3C61DD9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 19:34:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067CB10E42B;
-	Fri, 28 Aug 2026 19:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD42010E51E;
+	Fri, 28 Aug 2026 19:34:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=squebb.ca header.i=@squebb.ca header.b="oy1N6mij";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ox3Ae7/L";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JQa1SnDM";
 	dkim-atps=neutral
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Fri, 28 Aug 2026 19:26:18 UTC
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99A410E42B;
- Fri, 28 Aug 2026 19:26:18 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.phl.internal (Postfix) with ESMTP id B67F11400036;
- Fri, 28 Aug 2026 15:19:34 -0400 (EDT)
-Received: from phl-imap-09 ([10.202.2.99])
- by phl-compute-02.internal (MEProxy); Fri, 28 Aug 2026 15:19:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1787944774;
- x=1788031174; bh=8UrWGTVAYCPbHsFpypcrxdz98q19yOUxOWoIeRYoPPg=; b=
- oy1N6mijDar0IP19gbbnP2pqex/L0lk48IGWfq9sGYitAbZqYDUBelLgxTdrIw6x
- yW0kZS5Wi747KSoOi9xl56bb84E6UYBei3qtEivA/QAEldaBUW5B/nVDGviyQFVG
- DtNMEFG+R3pkmnZxlYkTfFtG2hS9YaIg/mOuBOt9G5hyvl1J0EswQ1BYfi1Hf1Ah
- PeWDliX6KdHFmv/V7T7HWVtewOhN61dzX/F3TaMe0v4iLGpDjTqQlz2JUlid1omx
- Ghsmuj8v5yzHPyK8G582Ry0MTnNSAkH2NYSVQmycMyxIOuhuaPsybaQjEGwTM+An
- cdgVp4W37IZNmPknGvL7KA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787944774; x=
- 1788031174; bh=8UrWGTVAYCPbHsFpypcrxdz98q19yOUxOWoIeRYoPPg=; b=O
- x3Ae7/Lp4V/c/yyErWvgnU7gGpsthtOcqz6LzZWUi2ThMeiWEVn7r1RKXf2AOVH/
- lWLhP++M0d4q4UK6ds/joKGClf4kclAtoHM6wbKgXI6n6JJ8MSMrNEElcMoyye1o
- BeKq1TSE1jEs+owVL+CDyOl4FsOcPe3JSdlesXqu3ebBqjGDrS/R0awrgB5+hR5r
- KDBogeFzDPB4l6MN0FYgqzgjhtHuNS2tVKjtN6Q7tHBF88x2cWTvWWgO1Lfkdw3J
- Wh3QGvvZFeuVE0txSMWQ3O1MaNlKvT9skGBHXY6oA4ri4dasiSIq4Sxpd3YXh76P
- 6Du4N7T+u6dnaM9ln6HhA==
-X-ME-Sender: <xms:Rt-Rao5hrPXJ6hvua06iEkf6KrPhCodnaMFvOcOjMHeIi9MaF8bGbw>
- <xme:Rt-RakvxgWjyeL7JbC7IYlYmMLe-09mzPHMqa_GzGyjmgF0yKmPhe0y4MZQepdNXo
- 8eFj2WckGPLFqf-ovh5KCtqixsDNdUSFeUOxSiRyC0qhM-vxs0uROc>
-X-ME-Proxy-Cause: dmFkZTGUliR0QyWBaMTSf5t4yQCBmBNl0fitsyVb6bxaqJD+aPUq/dkwZ93sRqftcQX/qQ
- aEdRxIfnWayxm6V7AbnJj3HUma/2MGhY8fAJSI9Me7kmz1LUqQWmo9K4FdIcqwUvvVmXSf
- S7iY5soVIGa4I20+jmzS3g35XQ6k+NaNg4IhTSarFBMIw9o858+XmSBe1Hi3kKR2L6NWh6
- HExgG+Wuwqul4PQATWz0hQfg3cnD2SZ6FVLfdz6JoqZxwl3IAGzcE3adSGLWpcu2o/4B/+
- RNS4VInzCGx9bDCrsDTZF8/Mx+s0Wm2pUpOTygksjVn7eTgztdO1c199bLYSmb8s5TjLgZ
- MJiTFUhNMT66lEBQ5vgjtYmvk8E8OuB0EzDWYmSFet5vXT3UqqTdZn+KMWaHNlsaqBsJKa
- tIGogVWokg9DBBFn03Dryd6P9ETXUD3kAcy0O9WsIXMCbqP3VQCkMIpF21Auw+FiYvht90
- do6/1WlNquF+2ECc8/6o1fT+kL2cmYE3QGXlDJAk3W+Tkzvs/LLkehx5O/qPoSsfY85Nq3
- 9dbyZoxS61M4kzB/crzf8FRXzkhyPLkNZ2uolWgw7ZpofKYUjjxdUzM7w2Ojic3dfrwHzt
- UGMYuZBTNgu6wY8cqMNCeOJHgDhoL+fi286GJ9avnE+qgQBe3VR8a40HVutw
-X-ME-Proxy: <xmx:Rt-RaieAvDaRHhoRkKAn1Q5bjaEhXAiezGP2zv06NFoEgZa4_Hd23g>
- <xmx:Rt-RaoFtPpZQJhK0DfyL4Uudsok5Gh-Yw3eTFg4OMA067uInXZXBaw>
- <xmx:Rt-Ragihra9rSuXZKTK-_-_sCdrJk1gDzScYv7LvQUPgFWVxJjEBfg>
- <xmx:Rt-Rak0rLOwTVLH2IKYPjghXmlgjWPMVwJJy-NsiJsS9EWCybvTTBQ>
- <xmx:Rt-RatWkFIQWLLYdvvMOssSuhegLfa7n6V96m--pnqSyePo0VhSPqp29>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 4A7953020086; Fri, 28 Aug 2026 15:19:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4465F10E4E6;
+ Fri, 28 Aug 2026 19:34:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787945679; x=1819481679;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=POfdMBCBEwcVJc/QH9jV0WXa1Y4+3g44/jWVRYSDedw=;
+ b=JQa1SnDMC1bV/bx5QkmbGt7ySzsnHvipv/gMRQ+O1engqOVpvDPfHG1s
+ 9bTO8IYmwgUXQpK1lD+bqrG988jHUT1Io/vP8brBhcY0jDDxlNXzRNtD2
+ DIlHvDqs8wNlqrNgNSdxRSX7XL6VHk2TTYbprPB5FDkoXDcEXK4DpngmD
+ 2HQqKu1y+YZAHsnv0o7S/O03ky/nk/5GtkwV+71TNdwHlq6lr5Jr2bpCb
+ SMiTdPnYPfLkz6xnXyaS6xWPhje/1TLu9qxgOEDwSidgfcI6jrtYoGy5K
+ zcnCsHp7kGRaTWGsQ1Cn20oeTq0CJqEWBEzKn0NGRFDyrT2HsjPtjNc+O w==;
+X-CSE-ConnectionGUID: 5XS8xTXOTDSWwcTsQh1TZQ==
+X-CSE-MsgGUID: 1px8pvAASKWYCBBLZalXJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="111234933"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; d="scan'208";a="111234933"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 12:34:38 -0700
+X-CSE-ConnectionGUID: YJdWm4j6QL6u2bvBbtFDoQ==
+X-CSE-MsgGUID: Pc8CFF6SR4qrvNzuWplrDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; d="scan'208";a="267679049"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 12:34:38 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 12:34:38 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 12:34:38 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.46) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 12:34:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qTZCsPPTC0g8z7ATFMKSt6zUG5Re93AX3mHaLI12gvS+RY6dMS9CecyYRZ74Jik730nwbmdft7v910n+yFPhg8JbVTg/SxQg1ibZo0aZAhJ4vwkM8zeQZVMK/jYdMDJpDoeGh0aWX7hC6UdHj+XlCvhNdII651ljzITeEdRTeLemDJs7kKFiZsq9ZVbCxMwKjvKGvBog+sNNizTBUiF1jo49yjiiYN1oCYcT0+ypmKxTsMfRzXu/llq4a0rhYycOCbowqU2XpZJv5wzwHSgBfBSqZ2zGIwpH6Jt6L4yRqrRz1ohDwhIaLd/ojBhxXS8S97dIYpJWmuEhWBzP2KjjLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7EpNFooops/G4uFROQOCsTfVTdwO5dl03aF5pqPSSuw=;
+ b=J8bN46R9BIOnRNvfHmFIVf11MjB5C+uad2UDNn+GgzZ+buAbWKq5dWgBrBv4WIXR3WB5WZpaH7sMGhRyNH25Ed4WXqA+x2Ii7ym6/f/4MtluplKZur4rVDAPIUu140Uduc+u7Gz1nc1cNsoruy4/UeAapf9JzXCjC908fzRAI6paavPChrnspZxJJCEXwn2MzLGriiTKjucHZL0jsoOOKE3bTZY9dkQNqFj6NEbrAuBToyviWjwM/E8xJemnzxbFCxF9yRfHw/dI8Gp7P1x0+nIKjtI5TNBds1M0vT49YtBnTKI89e/4jG2nOIXfgFEU+U4vUDy6pINhkXdZIJUaaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by PH8PR11MB7142.namprd11.prod.outlook.com (2603:10b6:510:22e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 19:34:30 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 19:34:30 +0000
+Date: Fri, 28 Aug 2026 12:34:27 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Danilo Krummrich <dakr@kernel.org>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ <christian.koenig@amd.com>, <thomas.hellstrom@linux.intel.com>,
+ <ecourtney@nvidia.com>, <nat@pixelcluster.dev>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 01/10] dma-buf: Add reference counting to dma_resv
+Message-ID: <apHiw91fFbKuogDJ@gsse-cloud1.jf.intel.com>
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+ <20260827124910.2245-2-christian.koenig@amd.com>
+ <DL0SABOU2QO9.20AA8OP9CXXA5@kernel.org>
+ <apHe5YcWWiZF4i2Z@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <apHe5YcWWiZF4i2Z@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: MW4PR04CA0363.namprd04.prod.outlook.com
+ (2603:10b6:303:81::8) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-X-ThreadId: AFiiAAqIAeUF
-Date: Fri, 28 Aug 2026 15:19:14 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Narek Sarkissian" <narek@sarx-technology.com>,
- "Mario Limonciello" <superm1@kernel.org>
-Cc: "Alex Hung" <alex.hung@amd.com>,
- "Alexander Deucher" <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, kernel-dev@igalia.com,
- "Limonciello, Mario" <mario.limonciello@amd.com>,
- "Melissa Wen" <mwen@igalia.com>, sunpeng.li@amd.com
-Message-Id: <47be5869-69c3-4066-bcc2-738b838219fc@app.fastmail.com>
-In-Reply-To: <20260828190727.58724-1-narek@sarx-technology.com>
-References: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
- <20260828190727.58724-1-narek@sarx-technology.com>
-Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
- available for eDP
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|PH8PR11MB7142:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9fa386e-958d-4a76-4299-08df053b611c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|7416014|1800799024|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: EPYzuylv6DEQc4EdD8yV+faUHdRCx4J3hGLso0wIsGDlkSaTiwcf0EVNtI8cq0DTsaTlZ3dfHiBwsv/nnorkbJsrofJC7HXDsHItTMtFm+T4rkc+oiJGXzJ6KzTOS+FDQdCDl0w21LRUY0YoRlmTWogkiJiVd+l2BOcWAvKRxsjpSqsMETrBLbuuN2iGgCBb0tORabAi+7Idlefm2xZbzPXb8AqC4Z9EQlYaBetjfFiCRduFXN3Lj+OBkS8DKAXtr3xnef5bc+F8b8wFsnm2FU4P0Kl+aqPhWmv9wW8EWwb96vIhY8AJlkwnowAgmU0qMKpEO4BCg4W+AlYOcMAjp6Znzivb01Mv4Y1q55JPVtWYbGIAawcU4Esjz7YAITl2mukjQySgzFhLjc93t1uRUD/hu3Zo930dRvYkcP/P1GlG7iX0ZF9vWze0pPT6FijXu3LAUTzUDqZ0aAOyLcp0gXyjqNWqULcwG0+Rv6qgn59b2zDtlnV84Pv3XnkLaJ6QuaeRpDN124lXz9eg6uT/vv9jic9hzudwyJsZ4u5ZZ7j+dUpmA3tMvH1NT7BBrH3qVj8C5aaPgnktr94nbFpvLn9bzpLJSavac+31dY4t+zcQQFRUjabNYpdX38Cpeqa8
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(7416014)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ul8RFs1OB4Rm0omm5DuQ3HEtfoLVZd1IWkaeM3HdHGahLLXOGWXOzTw+YuLg?=
+ =?us-ascii?Q?wabW/G/JhyqcaDos9Is91gIN4qzLrJ2TEPMBJdj/wGWOSNvRaGxE5sqiahkO?=
+ =?us-ascii?Q?WSwuLxsQlN+v/7lRA1c3zIz3C9CqDA/BeZ0NxTfMyPVXYV6+VsLoZUoYl8Ag?=
+ =?us-ascii?Q?KhGeK3FBY0XfRnRjzqFirr9I6GYbaCOuR8gI2vgnSV0Xt3z4qtwb1U3oh+SF?=
+ =?us-ascii?Q?XpnfLPATnl21t1Ohui7FqCVeFaNN8BAoThlmTrQ5eqYrvrFfzLqzKhp7SXIY?=
+ =?us-ascii?Q?rRtiVGAM4lZ3dMu7HKh6oU1bwMQxGxU9qSdrzW5HrH/mk86ZKNLcsmgyKBRp?=
+ =?us-ascii?Q?ot1ZWVKb6ZV78xNAf0MHV1pfb9MpAYhONIygSUztJg7yEmixErrnVMoeluvw?=
+ =?us-ascii?Q?J8TXnYEY6CJL+xcCDxGOIYFQR0WJa/NycO3a4dLX6KV6vTXBqxRAWpZATKcB?=
+ =?us-ascii?Q?B64lBo/AQFPWwMeVQ90sL/ImPaUqGUY0iRT6ss5UqMMqH9RmsjDNrTAPGL3B?=
+ =?us-ascii?Q?j3RcjhtF7ZYciWyqqBAJmOuPatfCxxhW9yMWds5p2hxAZPe81ZX2hyRLHKt8?=
+ =?us-ascii?Q?k+nFNXQM3jII4tjCf0veQHfsYz3XKy/mLHgVEoA9kMndxsOsBs7nh4RxdCal?=
+ =?us-ascii?Q?jByMv0GnWtADzQuJjM1+X2XKYAZwclXaaowq1/J9f8AZ3w8Iw9MLCEpaUM7M?=
+ =?us-ascii?Q?tbIC7cdzbI6hQLEtBmp4kCzYl5UDBGFPoztfbIIR7FQklWZf1P8tabstjOCn?=
+ =?us-ascii?Q?CIsyZ5a44xcwgf074pVplwI2iRImnYygu1SCh6U16Z8S6vpD+sIcch6ceKGV?=
+ =?us-ascii?Q?xFwkGgTe7PQbshPVwlbLe20aKWsHB8oNGADrtR26KW1mvZuYjVsVorl/bYVV?=
+ =?us-ascii?Q?FuZaZFXHhewa91ud50hiPRQFDjfkWi/ZknQUwkhUZrRIXvOVqnafYZbCLjjZ?=
+ =?us-ascii?Q?871NtstcVTr6MlKJQEI+L3mi64UgUMq9lkwPuTveAn7eIcFLtQfzQ20CMfqI?=
+ =?us-ascii?Q?qHdQNT81jK9PO+rP0VON7/wcHuDuNtaCC39xG0dCTXeEbZNU91q6i3+iVDFo?=
+ =?us-ascii?Q?ehhUAlIrIsj/Zubd9gdpTLW38Sp49Oju6chUJTqWNjZ5FoDIW4GRIueuvfeb?=
+ =?us-ascii?Q?Wtn21JZF3JaA5tsYF59V+qZoyTOR4aSUzQQyRrr68ekrX/Ew1UKeT+4hsdGd?=
+ =?us-ascii?Q?ukTxIDiPyuS54ZY5eS6RCRIeTNZKA1N2Uydee62J/pFzWf+/rLlbWJr9Ydui?=
+ =?us-ascii?Q?o7q5wLYonSPdYl2N1upIz1PbEY3fmuoys1u5jijgfQrYhLpfUK8zFNDA7hWo?=
+ =?us-ascii?Q?9XdYUEKqo/EXCHomPN6icrS1LSq8x837C0dzaiSb5wzhfXg51gRT8Xjvkt5b?=
+ =?us-ascii?Q?0jfUxHsLpWQD4AzXb2wAGglS006BD1asoqrqWB7FSvsvW8hjjNGFGxBRlbuW?=
+ =?us-ascii?Q?M+SMRHtVW5sbMXGHv+tYP1ZniCZ4BQ4eNeKb1OGEEqpJ37n8vZu5SvvSmfi0?=
+ =?us-ascii?Q?SCXKntRcUzl+EG+bzrbW2GNJkwEJLfnDPN8/DPbd6j0lOme5JOrCtp6FflIz?=
+ =?us-ascii?Q?J3hf+mQg5rhURuz+CXoofdJ0wogbEwuo+nPeJn0Hywm2vYhgBgztAUmxIZ6p?=
+ =?us-ascii?Q?7FDNYnxBjz0eLOoas/8lCGjs26hOH2vVxZUNLZgLg/YzvgG38d4mGErmA4yu?=
+ =?us-ascii?Q?SVvyGmmrUUvCM9BF8Kt9QQee6poGKQwOxGY2mc0rhZ/qhoqwiArpxukUuPKD?=
+ =?us-ascii?Q?+ql7x3oP9YLUcocttjOzVBlrdHzWOO0=3D?=
+X-Exchange-RoutingPolicyChecked: loYhzU7HdOCKI+JMrGka2mxuSdAt0ZMpA0HPFMVuSE1zr8nu6I9qNvkEqoX2vktmA5G9nPxxvhpv366FlT43qaenG5m7G/tu9Wer9uS25vMriRQBDOpgVBS/2YR3Mw6MbhPn5UxHgOOckIS85PpE8fANarGy93raJiHABZj91bgSQbTeJMLmYuJlwjaPBgWj2ipKEg4hKwH5zErLSRMF4sShzQcGGGvS7Y3j+EvToqem6TdN2kqhcX4N46HIim+6G+Efc0TM/GcsF1lja/WrB9rMOcvoKCyFggc8yvw52OMzGsnNzFxzkge7PqSaRfqpLoUg69xlt7mWYbQb0QT8uA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9fa386e-958d-4a76-4299-08df053b611c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 19:34:30.1851 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sPG+qx0FTnXaZJpwrCxd8eaukRZeq6HtsgmYfQywus9wEvna9tLbSjSn/kFH/PaFnPEM9i5RhmKnfhdLEBvycg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7142
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,53 +164,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Narek
+On Fri, Aug 28, 2026 at 12:17:57PM -0700, Matthew Brost wrote:
+> On Fri, Aug 28, 2026 at 08:21:17PM +0200, Danilo Krummrich wrote:
+> > On Thu Aug 27, 2026 at 2:38 PM CEST, =?UTF-8?q?Christian=20K=C3=B6nig?= wrote:
+> > > This provides clearer ownership semantics and makes the code more
+> > > maintainable by removing the embedded allocation hack.
+> > 
+> > Again, fundamentally disagree; please see [1] for details and reasons.
+> > 
+> 
+> I think Christian is doing this incrementally rather than as a single
+> change across the tree. The last patch [2] in the series removes
+> `dma_resv_init` and the `allocated` flag. I believe that was the main
+> concern, and it appears to be addressed now.
+> 
+> I'm taking the series for a spin now, as our CI [3] had trouble applying
+> this patch. I'll let you know what my testing shows.
+> 
 
-On Fri, Aug 28, 2026, at 3:07 PM, Narek Sarkissian wrote:
-> Hi Mario, Alex, Alexander,
->
-> Following up on this patch (c6a837088bed) with a regression report on a
-> different Lenovo model.
->
-> On a ThinkPad T14s Gen 3 (AMD Radeon 680M / Rembrandt, DCN 3.1.2), this
-> change causes the internal eDP panel to be capped at 60Hz even though
-> the panel natively supports 90Hz. dm_helpers_read_local_edid() finds
-> an ACPI-provided EDID via _DDC and uses it unconditionally, but on
-> this machine that ACPI blob is a stale/incomplete copy of the panel's
-> real EDID: it encodes only a 60Hz detailed timing, while a live DP AUX
-> read of the same panel (Samsung Display, ATNA40YK08-0) returns 90Hz as
-> the native/preferred timing plus 60Hz as a secondary mode. Both DTDs
-> share the same pixel clock and htotal, so the ACPI copy looks like it
-> was deliberately downclocked rather than being a different display.
->
-> dmesg confirms the code path taken:
->
->   amdgpu 0000:33:00.0: [drm] Using ACPI provided EDID for eDP-1
->
-> Booting with amdgpu.dcdebugmask=0x8000 (DC_DISABLE_ACPI_EDID) skips
-> the ACPI EDID and forces the live AUX read, which correctly exposes
-> 90Hz and reports the panel's real vendor (Samsung) instead of Lenovo's
-> ACPI-authored EDID (manufacturer/model LEN 16713).
->
-> Full writeup with the EDID diff (byte-level comparison of the ACPI
-> blob vs. the live-read panel EDID), environment details, and repro
-> steps is here:
->
->   https://gitlab.freedesktop.org/drm/amd/-/work_items/5710
->
-> Since this same unconditional ACPI-EDID preference apparently fixes
-> T14 Gen 4 but regresses T14s Gen 3, an unconditional preference in
-> either direction doesn't seem to work for all eDP panels globally.
-> Possible directions raised in the issue: fall back to ACPI only when
-> the live AUX read fails (inverting current priority), prefer whichever
-> source has more/higher-refresh timings, or gate the ACPI-EDID
-> preference behind a DMI-based quirk table scoped to the models that
-> actually need it.
->
-I think this is working as designed.
+I ran our basic CI suite and didn't see any regressions. I also ran some
+eviction and shrinker tests that stress interactions with active fences
+and exercise individualization paths, and those passed as well.
 
-I'll try to find our internal ticket with the details (my memory is a bit rusty and this is a few years old now), but as I recall they saw issues with Windows testing with 90Hz and so limited the panel to 60Hz - using the BIOS EDID to do this. Linux is just following the 'manufacturer recommendation'.
+Matt
 
-If you're not seeing issues, then overriding it to use the panel EDID is fine, but just be aware that the 90Hz did not pass Lenovo QA.
-
-Mark
+> [2] https://patchwork.freedesktop.org/patch/748868/?series=172875&rev=1
+> [3] https://patchwork.freedesktop.org/series/172873/
+> 
+> > Besides that, I don't really know what to expect from the series. The cover
+> > letter says "Refcounting dma_resv v2", yet there's no changelog telling people
+> > what has changed since v1. On the other hand, none of the patches has a v2
+> > prefix, so what is it?
+> 
+> Yes, change logs / cover-letter would help as Danilo likely could have
+> spotted the above change.
+> 
+> Matt
+> 
+> > 
+> > [1] https://lore.kernel.org/all/DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org/
