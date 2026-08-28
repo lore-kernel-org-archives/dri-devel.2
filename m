@@ -4,143 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BAB1C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86B6BC624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E42010E685;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2283510E680;
 	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="Qo6ieQvu";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VPm/7Fhe";
-	dkim-atps=neutral
-Received: from flow-b5-smtp.messagingengine.com
- (flow-b5-smtp.messagingengine.com [202.12.124.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFD910E44C
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 23:10:20 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.stl.internal (Postfix) with ESMTP id E9FB813001B0;
- Sun, 30 Aug 2026 19:10:14 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Sun, 30 Aug 2026 19:10:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:reply-to:subject:subject:to:to; s=fm3; t=
- 1788131414; x=1788138614; bh=zEc5hZJIk8YRnx+J+eo4+Y3sVspDxogbjvE
- EZwuJ7rQ=; b=Qo6ieQvuNCpEAFNGUhEaIGd1tM2qenglCvyZhQAtLYcKgEz5uZv
- VBkmAHxWVjh7GITNYGQRuizAhYS66fu/QSC2e7UCmgPz4kXTk5AkzcfuRQnlVFRP
- obCI4MlwXEShM2SHCHkmDlPo5XISgTzwCrpLP/3SjKxujKlWi9nqvG6db9p/iXJV
- OpWFgdf4BeBSzTD8k+jOmUwdbzP/2FzRQ2JsA+NRYO/Wb8e+aEbOrBj5DJeqKV4F
- mo0lR8bF74G8iO9YI3oa5e0UEi/LrPdRcv9f2BM5MbieoQLkdq9lj0/U9rjqixab
- TWu+hSlLYlUN95axFhjHuP3dfSYVVt6XzGA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788131414; x=
- 1788138614; bh=zEc5hZJIk8YRnx+J+eo4+Y3sVspDxogbjvEEZwuJ7rQ=; b=V
- Pm/7FheSQWTuf0BTxlWwZtt+3pYz2nhduLw4e4y8za/QfTSzRWzNLT9xWYuPmAIc
- u2iScyJLSttTa87WeCPnCZXn/Gl2gPZabiNI/TusdTrg2rxoLAc/VMFiqpkhoR6S
- LQ0iKTcxz3hk+DwmEohzGehsn/5Wh1AzucxvOgw+WnDShRgf/uBTnxZEvQeejUv4
- uiy25ACTvijKoXphHgt82oizR4gYVdqyJePgq/uKO/Q8l7aBEXKtFaecz0P2KuDW
- NPFfEanh10Tr4PIAw9/Ttp6lzVA7Tw5SgfgV5/JqbWCARVUi3EaZbxN01GMjB+kI
- lCRwskirVvl7AMPYTRbWw==
-X-ME-Sender: <xms:UbiUap_MtTSeFpMNORlr4wTWDVh0aA6ScnON58j3rpFyccMpDXHIBQ>
- <xme:UbiUahH2TNeUk63s7BMkgYDKvmxeqjrvmkBoHgCp0p_iRIhMT_WV7fRvdL5DfgV9Z
- xV8KqlrCQaK0hplET15otnZI5BE2coA-O7f7PR3q4bp8VG_>
-X-ME-Received: <xmr:UbiUagJhhsp10jRM39PBdQWH_D435G2njFRNXy8dKyREtIAZmuZC2LqatWjo_-5YIsgSO4CAuvUBwdlLl9RmrRBi5dPRqwg>
-X-ME-Proxy-Cause: dmFkZTFOIUHJLQqborIagOgmNN+pPcupbVotrH4sXk/9BxNtfHYUJG+jOdd9lP23wPqSUQ
- AUFqozauDGsFj2Fcxtj3sABYHvl0ph+0UXejznX6q1Xr1Xg/U0V2IT+Tk94c9p2xCxdGcm
- a9fTqsnIiGGjKyH3aovg7Hbw39SYODzd4xSmoty3roVPn9gC8PR9IGrItxoJJkl5Z9SeqL
- qN1gQzMRLAf1DVi5pqAy+RVGbsxy3biNw6Ht0LFpwq7yHA4P1bo1DCXcT6AbluvZMKn1Ad
- 6oUtTqY8wpxkXvPNqdcZVzXrArQI+dyTirjeQU9xaq2PAci/BLvZmkKdn6HOgCF/wiNDR5
- 9ypjS27kIioFVXtCK3cYVV4EX87YiMJFRv1YmG81V/CBOpPEVGlHijee21VZbsDPuWUWT2
- eIkpdBbOecXlENZwKR/2eekW+LLYVEGcUat3eiQbHa7r5NCiXFUSvoh9n0m66Cfn6MPY8F
- nn+/UAVo+bSz0lZ0FMnWAjcbwosDDLMUFcjHtb2oWyUdokurmOw1uyWf9PuZC23xX1bhno
- M6fmT9hcOCYeC8ptuK39TgThobX4Z06It4CZvTdsheRb100K9ulRUQKwJiTqPv3ZqMrr5g
- wtS1gF+w0PemKcSEjYqBuy5LHyuHib4TgEnaucnWv4jXuwuB92nJE5Nsi6mg
-X-ME-Proxy: <xmx:UbiUah47CBbO19kbrhNmEsPxHAHgpefoYPnpR5z-_ohOrh1cCgC-Dg>
- <xmx:UbiUalPzSFg1nYeOw2R5sG3wTQxx6Y0zUwyNG3X2kHwPHQNKUtVYuw>
- <xmx:UbiUaprYVwmp1o7kh4B5Ol26B9junaQQXQMqO5xX3y2ZMifwxkjWAA>
- <xmx:UbiUaseNryne3JEtbfGoTy-pA0krO1YyMhJ9fCu36NsZC9i9Dd6f2g>
- <xmx:VriUatkHi2UuWhglcFHVNe1ttc7HDvYZlla8FaR0rvxatg4WTOf727px>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 Aug 2026 19:09:27 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2834610E43C
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 08:29:57 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.241.250])
+ by APP-05 (Coremail) with SMTP id zQCowAD3J0LxRpFqlvfbBg--.615S2;
+ Fri, 28 Aug 2026 16:29:38 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm: bridge: adv7511: Stop power-on after cache sync failure
+Date: Fri, 28 Aug 2026 16:29:35 +0800
+Message-ID: <20260828082935.82266-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Byungchul Park" <byungchul@sk.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
- linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
- kernel_team@skhynix.com, torvalds@linux-foundation.org,
- damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
- adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org, mingo@redhat.com,
- peterz@infradead.org, will@kernel.org, tglx@linutronix.de,
- rostedt@goodmis.org, joel@joelfernandes.org, sashal@kernel.org,
- daniel.vetter@ffwll.ch, duyuyang@gmail.com, johannes.berg@intel.com,
- tj@kernel.org, tytso@mit.edu, willy@infradead.org, david@fromorbit.com,
- amir73il@gmail.com, gregkh@linuxfoundation.org, linux-mm@kvack.org,
- akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
- hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
- jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
- rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com, chris.p.wilson@intel.com,
- gwan-gyeong.mun@intel.com, boqun.feng@gmail.com, longman@redhat.com,
- yunseong.kim@ericsson.com, ysk@kzalloc.com, yeoreum.yun@arm.com,
- netdev@vger.kernel.org, matthew.brost@intel.com, her0gyugyu@gmail.com,
- corbet@lwn.net, catalin.marinas@arm.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
- gustavo@padovan.org, christian.koenig@amd.com, andi.shyti@kernel.org,
- arnd@arndb.de,  Liam.Howlett@oracle.com, rppt@kernel.org,
- surenb@google.com, mcgrof@kernel.org, petr.pavlu@suse.com,
- da.gomez@kernel.org, samitolvanen@google.com, paulmck@kernel.org,
- frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
- josh@joshtriplett.org, urezki@gmail.com, mathieu.desnoyers@efficios.com,
- jiangshanlai@gmail.com, qiang.zhang@linux.dev, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, chuck.lever@oracle.com,
- okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
- ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
- wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
- dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org,
- ziy@nvidia.com, yuzhao@google.com, baolin.wang@linux.alibaba.com,
- usamaarif642@gmail.com, joel.granados@kernel.org,
- richard.weiyang@gmail.com, geert+renesas@glider.be,
- tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
- link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
- brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
- mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
- linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-modules@vger.kernel.org, rcu@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
- bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
-In-reply-to: <20260825130843.GB23086@system.software.com>
-References: <20260706061928.66713-1-byungchul@sk.com>
- <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
- <20260821042143.GA40890@system.software.com>
- <825134a8-ceae-430c-b2fc-d1d0c7240f39@kernel.org>
- <178730572084.2852630.7732425311008244683@noble.neil.brown.name>
- <20260825130843.GB23086@system.software.com>
-Date: Mon, 31 Aug 2026 09:09:23 +1000
-Message-id: <178813136354.3510150.4730256876703029797@noble.neil.brown.name>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAD3J0LxRpFqlvfbBg--.615S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF4kZF47Jr4rur1fuw1rZwb_yoW5Zr15p3
+ y7ZFWqk3y8XrnxGFsrJF15Aa45ua95AFy5ZrZ7uw1xuw17Wr1qvrs8JryUXF17CrWkJw1j
+ y3WUJFWDCFnxGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-Originating-IP: [111.196.241.250]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,204 +65,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: NeilBrown <neil@brown.name>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 25 Aug 2026, Byungchul Park wrote:
-> On Fri, Aug 21, 2026 at 07:48:40PM +1000, NeilBrown wrote:
-> > On Fri, 21 Aug 2026, David Hildenbrand (Arm) wrote:
-> > > [...]
-> > >
-> > > > Exactly.  That's why we use classification e.g. lock class - DEPT also
-> > > > makes use of the concept.
-> > > >
-> > > > DEPT doesn't use a full map in each page but uses a minimum space for=
- a
-> > > > timestamp in each to track when each starts to wait so as to use the
-> > > > recorded timestamp when the event occurs e.g. folio_unlock().
-> > >
-> > > Thanks for that information!
-> > >
-> > > >
-> > > >> Given that lockdep is a debug feature, and we will at some point all=
-ocate struct
-> > > >> folio separately, I assume we could just squeeze a "struct lockdep_m=
-ap" in there
-> > > >> in such debug configs and the world would not collapse.
-> > > >
-> > > > That's a good news for lockdep.  (And even for DEPT :)
-> > >
-> > > He :) Where do you currently store the additional per-page information?
-> >=20
-> > lockdep doesn't need to store per-page information.  Possibly DEPT
-> > doesn't either.
->=20
-> Class can be stored in global map, but DEPT needs to keep a timestamp
-> in each page to track when a potential-wait e.g. folio_lock() has been
-> started and to refer to the information on its event e.g. folio_unlock().
+adv7511_power_on() replays the register cache after taking the bridge
+out of power-down.  If that replay fails, the function still powers on
+the DSI side and records the bridge as powered, so hotplug and
+atomic-enable paths can continue with incomplete hardware state.
 
-A timestamp?  What does that do?
-There is a lot of detail in your cover letter, but I think there is a
-lot missing too.  I would like to understand how DEPT works, but I don't
-want to dig too hard.  The document in patch 25/40 helps a bit, but it
-is still a bit vague.
-Where is the document which would explain at a level that would help me
-understand this timestamp?
+Return the replay error, put the bridge back into power-down, leave its
+cache dirty and keep powered clear.  Make the three callers stop their
+follow-on work when restoration fails.
 
->=20
-> > lockdep needs one lockdep_map for each lock class.  It would make sense
-> > for all folio locks to use the same global lockdep_map.
->=20
-> Exactly.  Only considering classes, you are right.
->=20
-> > Each specific lock is known to lockdep as a task which holds the lock, a
-> > lockdep_map which represents the class of locks, and subclass number
-> > which allows a given task to hold multiple locks of the same class
-> > providing it declare (e.g. with spin_lock_nested() etc).
->=20
-> Right, lockdep works that way.
->=20
-> > > >> Doing that today (one "struct lockdep_map" in each "struct page") wo=
-uldn't work
-> > > >> as mm_zero_struct_page() would not expect such large "struct page". =
-But
-> > > >> conceptually, for a debug kernel with a special CONFIG_LOCKDEP_PAGE_=
-LOCK, maybe
-> > > >> that would already be ok and we could just do that (and optimize it =
-as we
-> > > >> allocate folios separately).
-> > > >
-> > > > Sounds great.
-> > > >
-> > > >> Not that it's ideal, but for a debug feature to at least check PG_lo=
-ck, probably
-> > > >> an easier way to achieve it than some completely new infrastructure.
-> > > >
-> > > > I understand what you are going to tell.
-> > > >
-> > > > However, it's worth noting that lockdep tracks dependencies basically
-> > > > based on **lock acqusition orders** in the system.  To make it track
-> > > > even rwlock and general synchronization mechanism as well, lockdep has
-> > > > no choice but to get more complicated.
-> > >
-> > > Well, yes, sure :)
-> > >
-> > > >
-> > > > Focusing on only the dependency checking, the most parts of lockdep a=
-re
-> > > > for the tricky things, so the reusable parts are not that big.
-> > > >
-> > > >> Now, Willy said "locking rules don't really apply to individual foli=
-os", I
-> > > >> wonder if that could just help to also let lockdep check PG_lock wit=
-h less
-> > > >> metadata? (didn't fully wrap my head around the implications)
-> > > >
-> > > > That's what DEPT did and what brought external wgen introduced in DEP=
-T.
-> > > > I was considering the exactly same thing :)
-> > > >
-> > > > Again, lockdep that tracks lock acquisition orders can't do that.
-> > > >
-> > > >> [1]
-> > > >> https://lore.kernel.org/all/aR3WHf9QZ_dizNun@casper.infradead.org/?u=
-tm_source=3Dchatgpt.com
-> > > >>
-> > > >>
-> > > >> It's your guiding example, that's why I mention it. You do mention o=
-ther wait
-> > > >> cases here, I don't know anything about them, but for folios it's re=
-ally just
-> > > >> "we used a single bit so far" AFAIKs.
-> > > >
-> > > > It doesn't matter whether it's implemented using bit or not.  folio l=
-ock
-> > > > is quite special since it's allowed to be released other than the
-> > > > acquisition context that makes lockdep impossible to track them.
-> > >
-> > > Does that really make lockdep *impossible* to track them? IOW, there is=
- no way
-> > > to extend lockdep to support lock release in different context?
-> >=20
-> > Yes and no....
-> >=20
-> > lockdep has no knowledge of control flows moving across threads in the
-> > way that I assume DEPT does.  But it should be possible to tell it.
-> >=20
-> > If you have some code that takes a lock and then hands it off to
-> > another thread, at the hand-off point you call
-> >    lock_map_release(&the_lock_map)
-> >=20
-> > This says "no task owns this lock any more".
-> >=20
-> > maybe you put the folio which is locked on a queue or an lru or
-> > whatever.
-> >=20
-> > There is no way to say "that queue owns this lock".  Maybe that could
-> > usefully be added - assuming coherent semantics can be designed.
->=20
-> It's certainly useful to track who owns the lock, but the essence, when
-> it comes to deadlock detection, lies elsewhere.  DEPT is based on the
-> essence, that is, a deadlock comes from waits that are never awakened.
+The issue was identified via static analysis and manually reviewed.
 
-I disagree.
-The "essence" of deadlock detection involves the interplay of ownership
-and waiting.
-In your cover letter "THE DEPT APPROACH" talks about [S] where and
-event context begins, and [E] where the even occurs.  This S-E section
-is exactly ownership.  During that time something "owns" the event.
-Maybe the terminology is different, but the concept is the same.
+Fixes: 9c8af882bf12 ("drm: Add adv7511 encoder driver")
 
->=20
-> > Somewhere else some other task takes responsibility for that folio and
-> > the lock.  maybe it dequeues a page, or maybe an lru callback gives the
-> > locked page to some code.
-> > That code then calls
-> >    lock_map_acquire_try(&the_lock_map)
-> >=20
-> > This says "this task is now holding this lock" (or more accurately "now
-> > holding a lock of this class").
-> > Note the "_try" - that says that the task didn't have to wait for the
-> > lock, it just got it for free, which in fact it did.
-> >=20
-> > Now if that task takes some other lock, lockdep will see a dependency
-> > between the page lock and the new lock, and will accept or reject it as
-> > you would expect.
->=20
-> It's an interesting approach if your goal is to track the owenership,
-> but if the goal is for tracking dependencies.. well.. I'm not sure.
+Assisted-by: LLM
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 26 ++++++++++++++++----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-I am sure.  Dependencies are between waiters and owners.
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 038b852405b5..c57c566cf0ad 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -341,18 +341,31 @@ static void __adv7511_power_on(struct adv7511 *adv7511)
+ 				   ADV7511_REG_POWER2_HPD_SRC_NONE);
+ }
+ 
+-static void adv7511_power_on(struct adv7511 *adv7511)
++static int adv7511_power_on(struct adv7511 *adv7511)
+ {
++	int ret;
+ 	__adv7511_power_on(adv7511);
+ 
+ 	/*
+ 	 * Most of the registers are reset during power down or when HPD is low.
+ 	 */
+-	regcache_sync(adv7511->regmap);
++	ret = regcache_sync(adv7511->regmap);
++	if (ret) {
++		regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER,
++				   ADV7511_POWER_POWER_DOWN,
++				   ADV7511_POWER_POWER_DOWN);
++		regcache_mark_dirty(adv7511->regmap);
++		adv7511->powered = false;
++		dev_err(&adv7511->i2c_main->dev,
++			"failed to sync register cache: %d\n", ret);
++		return ret;
++	}
+ 
+ 	if (adv7511->info->has_dsi)
+ 		adv7533_dsi_power_on(adv7511);
+ 	adv7511->powered = true;
++
++	return 0;
+ }
+ 
+ static void __adv7511_power_off(struct adv7511 *adv7511)
+@@ -425,7 +438,8 @@ static void adv7511_hpd_work(struct work_struct *work)
+ 	    adv7511->status == connector_status_disconnected &&
+ 	    adv7511->powered) {
+ 		regcache_mark_dirty(adv7511->regmap);
+-		adv7511_power_on(adv7511);
++		if (adv7511_power_on(adv7511))
++			return;
+ 	}
+ 
+ 	if (adv7511->status != status) {
+@@ -634,7 +648,8 @@ adv7511_detect(struct adv7511 *adv7511)
+ 	 * has to be reinitialized. */
+ 	if (status == connector_status_connected && hpd && adv7511->powered) {
+ 		regcache_mark_dirty(adv7511->regmap);
+-		adv7511_power_on(adv7511);
++		if (adv7511_power_on(adv7511))
++			status = connector_status_disconnected;
+ 		if (adv7511->status == connector_status_connected)
+ 			status = connector_status_disconnected;
+ 	} else {
+@@ -788,7 +803,8 @@ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_crtc_state *crtc_state;
+ 
+-	adv7511_power_on(adv);
++	if (adv7511_power_on(adv))
++		return;
+ 
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	if (WARN_ON(!connector))
+-- 
+2.43.0
 
-A strong theme in your cover letter is the need to add comprehensive
-annotation for DEPT to work.
-My position is that most of what we need for LOCKDEP to be able to
-detect exactly the same things is appropriate annotation.
-We need to annotate when ownership is handed off to another thread, and
-when the other thread takes on ownership.
-
-So what does your scheme provide that is clearly better?  Is the
-annotation easier?  Is some of it automatic?  Does if give better error
-reports?=20
-
-I had a look through dept.rst and it seems that if a lock is released by
-a different thread than the one which took the lock, then DEPT can
-detect that and do something useful.  That might be interesting.
-But how does it know when it first took ownership of that lock?  Or you
-use your terminology: how does it know when that lock first entered the
-context in that thread?
-
-Maybe when you see an "unlock", you assume the lock has been owned since
-the last time the context didn't hold hold any locks.  Would that be
-right?=20
-Surely it wouldn't the too hard to teach lockdep about that.
-i.e.  when a lock, which is allowed to migrate across threads, is
-released though it wasn't held - insert this lock at the top of the
-current context and re-assess all the wait points.
-
-How do you decide that a lock that was taken is no longer part of the
-current context?
-
-
-NeilBrown
