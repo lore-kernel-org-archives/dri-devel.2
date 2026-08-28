@@ -4,142 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EEAC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E740C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 05:25:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0E110E453;
-	Fri, 28 Aug 2026 05:23:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 893E110E46E;
+	Fri, 28 Aug 2026 05:25:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gQl/xuB0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mWy/7WvN";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 995DC10E453;
- Fri, 28 Aug 2026 05:23:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wgfQaVM8Y1PWy87xdCh4U8gQh3DUy2IirWjCtCSifPGL0RPeoj1XeJ+UyAonwGcd1dAmvPsRzEhbyKHNoPFubzOdc252ohezl29ah+HWGPcwNRxKKRXt7/NpRjWA/GZuyI3X3g0IbWlD8C34m0uRnV5x0s7uLKIsoQkYAyEkdh4MgbZRdLRLHqJe95gcCPZdnGoRbaMLsT3Utlgsv8EvR0hjhFH2WRgJfLm0oXZGv+ATXit4ClGg5NcaHZOFYLfcozRFhhqvuwW+V5QdPQ/Iz/f88A00Y76gNkGYat2hpKAIKSNevIaOuZx6pgsFkIXFhBjcW73oJsQ/E1ewU0Q8UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ebwKn8K7TDhmoFECHENNKh0j6juhDADpMc+0QEYdPJY=;
- b=yIUfyrg5BS3L8x/8EcuefykXEsQnm9KX9fJZej0srN9CQhW82bYm9S6eoQ+1p30b4b9wZ/DTXsmKa4GMgha8+WdvIvzy7qWftx+nDun5af1easlN10UeXGycLuT4H++5cd6/hfM9Hy/Pv5xQoy6NLAEuKBMQOvEDNcmSpdnAzSLijajazAjK/+tVW50SWnC4zScFQCFUIAZ/T9irMOIauTpj8pEDkEWwNT8N/GlNilq3NhwkJF9y9ZUuaP+Wn+KNLcMjaDSFu05OvR6S359ati3pQc76PWdptN9Cmiw2wjTbl/dE20f0j3uzzPZo7ZLALM5qj8cYx6UmEQsPWnxvIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ebwKn8K7TDhmoFECHENNKh0j6juhDADpMc+0QEYdPJY=;
- b=gQl/xuB03lrBQGQeWntlY6meAjoovyOXLFbtnvHz4xxL349m2QhdJFnn1yiHQHEZv0wysL0eOGUI4VLtIh3c6oy3jbPYvbWQl0PA3EsIL7NX3U0hRua5mBZ0lK1sUvtrhIthf1frNOKGvP1SNOwfzpyB1zebGuhOVDcDRMf+4oXWEOfCeKLp9DV+T3AIva3hafVxkryFfAtaQQFNi+b9mWQycfpSm5uBDIiKnDXyvfU8Kld6M7c1XiopYUJ9HjQKzxSbkBB6mNlDyq9ioHp1BgbmHRpNGr25b+AUWAeHU9odCqnTnUscU4zYXhgKfxjiWc4kgLXzIdEPmWM8CgzVAw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MN2PR12MB4472.namprd12.prod.outlook.com (2603:10b6:208:267::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 05:23:55 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 05:23:54 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1BD10E46E
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 05:25:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 51D1443AC6;
+ Fri, 28 Aug 2026 05:25:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154E51F000E9;
+ Fri, 28 Aug 2026 05:25:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787894720;
+ bh=GOimg6JSPtBOB9lZyzCPT71V7grAnklHs7KfwPoCqd0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mWy/7WvNA/6LDuCgdbrY+14EaYUS+swZtFu5y/fs4wOVJgthptGkxsuxiWlUkPBMT
+ sSlmc52N3/my4tk8Iw/hUmS/xVgYXW7fqrhiIk13E79NiJkkxwoOI8oflWrAq5kgJJ
+ 7STNpebvDGAgsOOWHXaEEdwTgSOzB7Zq7YPl2KlFYgY5jpVjwHsNDV5jTor0R7aYEF
+ rwDrQfOFWgGLb/VkK+kyjAU1hfiab4MzduWyHzwp4rdIrMw6Icu818HKc/IKuPfo15
+ yfDsW9uDID+vFPENZ6DFPJa3a8O/mZ0WuzLuFwggTrUc1QxTBFj8fU6t9M53esfA1z
+ ohPiHkGin7XDA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] accel/rocket: Validate BO handle counts on job
+ submission
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260828050805.38548-2-Naixumogu@whut.edu.cn>
+References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
+ <20260828050805.38548-2-Naixumogu@whut.edu.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 14:23:51 +0900
-Message-Id: <DL0BR314U4Q3.PMFAV27Q6EM8@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v8 07/12] rust: sizes: implement SizeConstants for
- Alignment
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
- <20260827-chid-v8-7-bc74c77d0214@nvidia.com>
- <DL0BIY2CGYQ3.TY18JERIWOUK@nvidia.com>
-In-Reply-To: <DL0BIY2CGYQ3.TY18JERIWOUK@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0092.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:369::8) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MN2PR12MB4472:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87eba84d-ffbf-4c91-50c9-08df04c48db7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ghV2t+3sRUMU+xxssxzzsoRyWJfglmSzqpWckERCZ5TCOqyyDWLFsbPUXXsLBV0/NvLlOhYX+gXBwAdfjnkMahqqrus+rm1cg0M43/scHty7pAOADiO0CSpBFZZH0rHsNo6oeeDBtc/jtkaDL3rBpgJfO9Rj3u41Cb0xZOOdtMuOdgFa1JjM/LFcpBaV0naDog5DejLBseARqlE5BzbVHWXsfgKKubKhHZkOJgdAKpydFhuWWCTDDsY1WJzawRg7RsmZBSJkzwSZLTegtIMspWtV+5XW3MiJEgGqkRjyyLgGqpGQrckgu4oNFszeDNfGWbvB7l4mfHuVls57cyscgdhVF8J3O8FywwrhDJJmjkDXLwQA4HxYfuqvLDt2lPfEz60esQ/HN6J/e9jLv8z6fj1yXkxNw2sJsr32/QDqGVY5mEy9XaamBCoR7h26fMSE1LOeklnEBUH0CT8oXy+LpnM7UQwslsQ3a4g0CwDQeCn9pFLs2OK6n0v+cVbcf0I8WUEZDk51c7doIX2MB6RBoleMpBa7rL7yjwCrB4ref4rnejmkEZ9YjYqGVKTIE+3ebHhK+DyZUQBSiLQTgitAsWVaPQ0rQwHuyTbnCmPnLelzMgjE7mqyjTHxGGRU734pbFqRiqW2XNI8zQzI8au8iyiVO68zxs+/OR6/VtjSpXc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NndyQktsMWhPcXNib2U2Q0h5SUtQVmU0UEJxcUtSTWswZW44NFFBR2o1M3Q4?=
- =?utf-8?B?UWxSZWtTWUduaWJIZklNbE1heG5iNnZNeUJrWFVsdUZQaGh1WnBPVVZzQkN5?=
- =?utf-8?B?c1RYUG1rNS9KL3NTd0ZYMS9MS2pCSzJpS25CTnd2dkQxZ1VwbXJHY29Camhv?=
- =?utf-8?B?NkxIOXkwaExmZEpESG82TVR5Y2poNW9vSHJjdTM1STc1T0hoN0h6ZWtzcXBQ?=
- =?utf-8?B?NXlud3VTVTRiOVV0NCthZWhrVWk4dEhlRDBHeWNqcjRyRGlVNk5ZSDZpWVFq?=
- =?utf-8?B?MlVSajdaQTQvdnc2dzlEWEJoMUVoYlJhNVNOQ2xPOGEvcFIrSTA5dEsyRmJD?=
- =?utf-8?B?OXVaampwVHJ5enlrT3hmUE5EcEplNjg5K0hpUmFURDgyOGY3NEs5OVlGSi9G?=
- =?utf-8?B?eWxHVUZPVjdjTFI0YndWcEY0Z2FrQkY2azRZd2lDQXV2UnFHSTZFSktoV1Bo?=
- =?utf-8?B?NmY1eG1JcUo3d3V5TWpaY2tVOGRyT0k5amtZNGNBLzlkaEl5U2RsMWgxU1d1?=
- =?utf-8?B?NkVKWVpyYUpnanlTYk53TjRZMTlzNkFUUFJ4WmdMZHp1R0poMXBkNW54VVlE?=
- =?utf-8?B?VklvQ1V2SDdJeFdRUDlUZHFvR0Z2YW8wcEM5ZGVPTVIwZGY3aG1udWRsYnor?=
- =?utf-8?B?S0RWMkFiVDcvRkdRRXdiT3kwNFY1MGNQMWFmalFaVjJyR3VpTmhtYTVvZEdO?=
- =?utf-8?B?QlZzNFR2ZFBDZUVzRDdGNWVZbjBRS3dFYUgxMHZnZDhacTBoVExxTVptSjhZ?=
- =?utf-8?B?VmJSQkI1WEd6U0pEVDJlVCs2YlFFZ01QZ2xaRlJXSUlCWGNtcngzVTRaRGFU?=
- =?utf-8?B?Zk1XNjA0eTFDWXN2ZFRjNmV3UGp1OFBGWDFwc1hrZlBNd3pKWmdZSTJ4R3lO?=
- =?utf-8?B?MjNlTWdpaXBkSE11Q1VOSlBpVGFZZzNJN0N1MUN6UHdwcHQyaXBXdUN6V2hC?=
- =?utf-8?B?UmRpbjliMmd5WDNkblQwUjIrV1Rtc0lMdVRRN1FzdGVnc0ZMbnBhdlNpRkV1?=
- =?utf-8?B?RE14WmZVSGlyZmlUNTQ5SnBqQnRaYVlKYkdzSjRyTHZuQjV5VVJkUHlzZUlx?=
- =?utf-8?B?ek9VUmlTdDJNdVJXS1FTSjJ5UkVSVGJSTWZLQXBvR0haUjE4aU1DZWZYZWxS?=
- =?utf-8?B?MUV1QTNCOGtBcHNjY3VTUThMSXhISHZHMmhUTlIwS014WE5nWlVUWGVvelJG?=
- =?utf-8?B?WkdNZVVDODlGT2lZeVN3Z210UlhoaDZKQW5nY01hd0w5QnRBcUtzSTExV3Jx?=
- =?utf-8?B?YU9ZL0FtMU5HeWVFWHQ1V0krNXFnSFRNZDl3NjFHYmoxV2FQRWtnUnlPUjZF?=
- =?utf-8?B?ZUIvMitlQTBoaWgzM3ZUdUdWRTZxYlZtaWhtL2hXOUlxd0FELzR6UHVRR2dL?=
- =?utf-8?B?aFdIaTdYSWpJYXRYNGxKS1pXZGdkOS9xKzZqQjhpSWxGalVnNHlHdWZMZ0RB?=
- =?utf-8?B?bENDVmE5ZFAwR1VLUGpHaUJrOGxmU25wZ0dzQmJQWjlxM2psbUpWTm5oQkdM?=
- =?utf-8?B?bWNYTTFKYlBkTWhRMEg4aVlBakQ4T29CMCtnRlEwZUl6a3VXNG1QdTNTcHFs?=
- =?utf-8?B?dzVKcUtNUzQrQTR1b29ibWRLM0JYZ3pSNTZwRkJJd1lwRTg0cjdscDdhQTBR?=
- =?utf-8?B?Q2NlTUx3NXozTjR1T09DZ2RvZG5IREprN29Kd3ZjZmtReHpVdlZ0cUJRT3kx?=
- =?utf-8?B?anRKRHJQOE5RSHFZUmxkOE9KcnMyYzZGSUJSaDIwSy82QzhyMXNJeldQdDU2?=
- =?utf-8?B?Y1BLdFBEZlBlcXNRMSs5YmRGQjMrUVc5ZXNhMkYvRU5PUnRibjNoOHBpQmtj?=
- =?utf-8?B?TForakRjTkEvdTBrQUZnbFBMYVRDenRSVkEzclQwQ1NJQUlOTjlGU2JZN3Zm?=
- =?utf-8?B?UnpreEVmSDNCRHowaTVrdDZOaG1uc3JpOEF1OWQyeENVQU1hV1FEWUEzQjRp?=
- =?utf-8?B?TjFLSmJzNDBOeTJlT0RMbjd3MGpUekdIS2lOL3RHcVNLTjE4NmJ2QWdFRGtD?=
- =?utf-8?B?L1BZTXZub0piZFp2MDdsNzU1TU9BZjZ4Q3FNRlZVNFliSCsvYldwWWt6Qk9n?=
- =?utf-8?B?NDhUZXNENGlwUWNpQ2FEL0FDcGg1UmsrbENiaERhV0x6SHp3ZTBUTTYwK0lX?=
- =?utf-8?B?aUVlUHZ1eVpVcDhNOEE0ZkEwcElOZVZxK3JjeEtpU0VLTS9jaUNJVVUrOWxh?=
- =?utf-8?B?ZUxoK3FBVmpwQWx1RElhY0VtVHZNdkJWU0xLWXdjZVdyNjk5ZS9IaHRzTlZl?=
- =?utf-8?B?UXc2Vm1OdnFEZjhnZ0hXazUzZEFUNlYrU29md2FyL1pUMldxbTVHN2JHdTdm?=
- =?utf-8?B?Nk9LYWVnMFhvTGFjeFYyYjBPajBaTzVtTno5MkNaU1czSExUd0dmS0k0MlR4?=
- =?utf-8?Q?qoTsaS5oOA0SOuSVm0iwTIYxrrzSQUjLqmVLo/ES6SsE7?=
-X-MS-Exchange-AntiSpam-MessageData-1: smGQE44mHfGXHw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87eba84d-ffbf-4c91-50c9-08df04c48db7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 05:23:54.8923 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t4bVV+f7Is4OYVCDmfkmnhnFw1fuAUtNNV/qHtRPD0TGqdIs3Z3nxZNoVv6Cy6E4QzekzzYapm7Asj5cejVEAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4472
+Date: Fri, 28 Aug 2026 05:25:19 +0000
+Message-Id: <20260828052520.154E51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,28 +54,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 28, 2026 at 2:13 PM JST, Alexandre Courbot wrote:
-> On Thu Aug 27, 2026 at 4:28 PM JST, Eliot Courtney wrote:
->> Currently, constructing an alignment is quite verbose:
->>
->> `Alignment::new::<8>()`
->>
->> It's unfortunate because it disincentivizes using it at interface
->> boundaries. Implement `SizeConstants` for `Alignment` so we can write
->> e.g. `Alignment::SZ_8` instead.
->>
->> Link: https://lore.kernel.org/an4xDp29VX8Am0uR@yury
->
-> What's the context for the link? Is this a `Suggested-by`?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Was trying to show the context for the motivation for this change
-(verbosity). But I can remove this if this is not how you use 'Link:'.
+Pre-existing issues:
+- [High] Integer overflow in the rocket_copy_tasks() loop counter leads to =
+an out-of-bounds write in kernel memory.
+- [High] The execution fence is not attached to input BOs, allowing concurr=
+ent modifications from other execution contexts.
+- [High] rocket_job_handle_irq() leaks an IOMMU group reference on every in=
+terrupt.
+--
 
->
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+commit 47c63098f063d8d22a7ebbc0a4a54fb92597a27b
+Author: MoGGuU <Naixumogu@whut.edu.cn>
+Date:   Fri Aug 28 05:08:03 2026 +0000
 
+    accel/rocket: Validate BO handle counts on job submission
+   =20
+    The input and output BO handle counts are __u32, while GEM lookup and
+    reservation helpers take int counts. A count above INT_MAX cannot be
+    represented safely by the GEM lookup helper.
+   =20
+    Reject each count above INT_MAX before looking up the BOs.
+   =20
+    rocket_job_push() already uses check_add_overflow() for the combined co=
+unt,
+    but stores the result in u32, so it only detects unsigned wraparound. S=
+tore
+    the result in int so sums above INT_MAX are rejected before the count is
+    passed to the reservation helpers.
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index bb77b6bf0f231..e6052d1973afa 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
+>  	struct rocket_device *rdev =3D job->rdev;
+>  	struct drm_gem_object **bos;
+>  	struct ww_acquire_ctx acquire_ctx;
+> -	u32 bo_count;
+> +	int bo_count;
+>  	int ret =3D 0;
+> =20
+>  	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this function miss atta=
+ching
+the execution fence to the input BOs?
+
+Later in rocket_job_push(), the inference_done_fence is attached to the out=
+put
+BOs, but the same is not done for the input BOs:
+
+drivers/accel/rocket/rocket_job.c:rocket_job_push() {
+    ...
+	rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->inferenc=
+e_done_fence);
+    ...
+}
+
+Without attaching a read fence to the input BOs' dma_resv objects, subseque=
+nt
+jobs that attempt to write to these input BOs will not wait for the NPU to
+finish reading. Can this lead to data corruption from concurrent access?
+
+[ ... ]
+
+> @@ -556,6 +556,11 @@ static int rocket_ioctl_submit_job(struct drm_device=
+ *dev, struct drm_file *file
+>  	if (job->task_count =3D=3D 0)
+>  		return -EINVAL;
+> =20
+> +	/* GEM lookup takes a signed object count. */
+> +	if (job->in_bo_handle_count > INT_MAX ||
+> +	    job->out_bo_handle_count > INT_MAX)
+> +		return -EINVAL;
+> +
+
+[Severity: High]
+This is a pre-existing issue, but can the signed loop counter in
+rocket_copy_tasks() overflow and cause an out-of-bounds write?
+
+Since job->task_count is a u32 and not validated against INT_MAX like the BO
+counts above, if a user submits a job with task_count >=3D 0x80000001 (assu=
+ming a
+large enough memory allocation succeeds), the signed integer `i` in the cop=
+y loop
+will overflow when it reaches 0x7FFFFFFF and becomes -2147483648:
+
+drivers/accel/rocket/rocket_job.c:rocket_copy_tasks() {
+    ...
+	for (int i =3D 0; i < rjob->task_count; i++) {
+        ...
+		rjob->tasks[i].regcmd =3D task.regcmd;
+    ...
+}
+
+Because rjob->task_count is unsigned, the comparison `i < rjob->task_count`
+uses unsigned arithmetic. As a result, the negative `i` is treated as a val=
+id
+index, causing `rjob->tasks[i].regcmd` to write out-of-bounds at a negative
+offset in kernel memory.
+
+[Severity: High]
+This is also a pre-existing issue, but does rocket_job_handle_irq() leak an
+IOMMU group reference on every interrupt?
+
+In the interrupt handler, an IOMMU group reference is acquired but never
+released:
+
+drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
+    ...
+			iommu_detach_group(NULL, iommu_group_get(core->dev));
+    ...
+}
+
+Since iommu_group_get() acquires a reference, and iommu_detach_group() does=
+ not
+consume it, the reference is leaked. Should there be a matching
+iommu_group_put() call here to prevent a permanent memory and reference lea=
+k?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828050805.3854=
+8-1-Naixumogu@whut.edu.cn?part=3D1
