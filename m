@@ -4,53 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA50C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E641BC61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4621410F493;
-	Fri, 28 Aug 2026 21:34:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3028B10E052;
+	Fri, 28 Aug 2026 21:42:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JIxKf8XO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h1vLKcB9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F80710E052;
- Fri, 28 Aug 2026 21:34:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787952847; x=1819488847;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=RxqZfaHxvd/J0XUnWZSiVHleC7E1Q72epDLe9aDqxJo=;
- b=JIxKf8XOJ8Cur3OEOiC2fmx6NJtQkI7ni658FynyIvJFFrSigGXyJIhT
- WdEyOyvq5CVgWLCdz9RjEdb4zvBE7rDLtjFFh2CQf5KXtbILOsjIHcFYi
- 9RLBcMjvfjZ0jbQGmynRF05fL6GiEL02AVBeIbemctcnhOtdPYahjsEqd
- em6QZhCEdWeAK7XWJ6M1+ronWAqGZ6Hw7zfNA3BUB8NgVCIAzr9NDUamA
- D5/djHoLiBPGoZDxPChC2HAqOOCyBGzwkSDbrYBCnk0GkwUaBjYTenLLo
- ieQpB1D3w1YK81dq8HQpIPtWEz0Ss9wnbFMoz9x7EQnGKvBoyeSxb9hxB Q==;
-X-CSE-ConnectionGUID: zu/ZwNUERgemwS9lGfjZnw==
-X-CSE-MsgGUID: xH4xT+YUS0Chzf974yj8Ng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99976289"
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; d="scan'208";a="99976289"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 14:34:07 -0700
-X-CSE-ConnectionGUID: bWy8j6U0SaCCenZsYY499g==
-X-CSE-MsgGUID: 5CNDWL8RTkiAtyz26bS/8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; d="scan'208";a="265690913"
-Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.39.16])
- by fmviesa008.fm.intel.com with ESMTP; 28 Aug 2026 14:34:06 -0700
-From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Alexander Kanevskiy <alexander.kanevskiy@intel.com>
-Subject: [PATCH v2] perf: Fix null pointer access in is_include_guest_event()
-Date: Fri, 28 Aug 2026 14:28:03 -0700
-Message-Id: <20260828212803.3963976-1-vinay.belgaumkar@intel.com>
-X-Mailer: git-send-email 2.38.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2698010E052
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 21:42:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1DEE360216;
+ Fri, 28 Aug 2026 21:42:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED281F000E9;
+ Fri, 28 Aug 2026 21:42:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787953320;
+ bh=oD3nkOqh4ywupTNOsqdrKkm7n+eP8YfB0T+MDYD9BYY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h1vLKcB9QIxMUwJbfQEp/56/AXu1RBw3mGJ6XRAJz1QEUy917fqo29KmlmGfO51v7
+ dFFG4RXMiuTAWPP4hmUuWRhsQloQyd64MtcV9+GW0w4tAQhRAMCgXOmAfLICMAPHMT
+ eQR1N7UKpCN/XO2xoU8jUbWnf0WllFhGLiiEKHqFs1lXQNdPGDvgJlSx4ws0vhn7ko
+ wHADDk9yU6H5bXU1ZfH/Bjh6n6v4IxxVmZGdcCpmPtZkXo619YeLltwnXRAc5bClle
+ wcjdbl4EIfLNUnzwYNRiu81+/nLFBloGEqAFuGpqZDOs8WFaCtvAzUKT0rSGkovmDM
+ AR/aW29R7JwgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] accel/amdxdna: fix double-free on mailbox channel stop
+To: "Deniz Aydogan" <denizaydogan1902@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260828212405.13124-1-denizaydogan1902@gmail.com>
+References: <20260828212405.13124-1-denizaydogan1902@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 21:42:00 +0000
+Message-Id: <20260828214200.9ED281F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,61 +52,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A kernel panic is observed when an application has a perf connection open
-and the driver managing the pmu event unbinds. The issue occurs when
-perf_pmu_unregister() is called while there is an active perf session. The
-null pointer error is seen when the event is freed through __free_event()
-and mediated_pmu_unaccount_event is called. There is a missing null check
-inside is_include_guest_event(). Also call mediated_pmu_unaccount_event()
-inside __pmu_detach_event() similar to __free_event().
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-v2: Add another check to prevent null access (sashiko)
+Pre-existing issues:
+- [High] Concurrent execution of `xdna_mailbox_send_msg` by the DRM schedul=
+er thread and the ioctl thread leads to hardware ring buffer corruption.
+--
 
-Fixes: eff95e170275 ("perf: Add APIs to create/release mediated guest vPMUs")
-Cc: Alexander Kanevskiy <alexander.kanevskiy@intel.com>
-Assisted-by: Claude:Claude-Sonnet-5
-Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
----
- kernel/events/core.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+commit f00c302142d5de5c06245223cfbc1a367c1aef38
+Author: Deniz Aydogan <denizaydogan1902@gmail.com>
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 94ca277e0819..88e0d5e476a8 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -4917,6 +4917,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
- 		goto out;
- 	}
- 
-+	if (event->state <= PERF_EVENT_STATE_REVOKED) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	/*
- 	 * Get the event CPU numbers, and adjust them to local if the event is
- 	 * a per-package event that can be read locally
-@@ -6350,6 +6355,9 @@ static DEFINE_MUTEX(perf_mediated_pmu_mutex);
- /* !exclude_guest event of PMU with PERF_PMU_CAP_MEDIATED_VPMU */
- static inline bool is_include_guest_event(struct perf_event *event)
- {
-+	if (!event->pmu)
-+		return false;
-+
- 	if ((event->pmu->capabilities & PERF_PMU_CAP_MEDIATED_VPMU) &&
- 	    !event->attr.exclude_guest)
- 		return true;
-@@ -12977,6 +12985,7 @@ static void __pmu_detach_event(struct pmu *pmu, struct perf_event *event,
- 	exclusive_event_destroy(event);
- 	module_put(pmu->module);
- 
-+	mediated_pmu_unaccount_event(event);
- 	event->pmu = NULL; /* force fault instead of UAF */
- }
- 
--- 
-2.38.1
+accel/amdxdna: fix double-free on mailbox channel stop
 
+This commit fixes a double-free issue when stopping a mailbox channel. The
+previous implementation used two xarray iterators that could overlap and
+release the same message twice. It replaces them with a single iterator to
+ensure each message is freed exactly once.
+
+> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdx=
+dna/amdxdna_mailbox.c
+> index cc8865f4e79c9..27161734753d0 100644
+> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
+> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> @@ -556,9 +556,7 @@ void xdna_mailbox_stop_channel(struct mailbox_channel=
+ *mb_chann)
+>  	drain_workqueue(mb_chann->work_q);
+> =20
+>  	/* We can clean up and release resources */
+> -	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_ms=
+gid)
+> -		mailbox_release_msg(mb_chann, mb_msg);
+> -	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next=
+_msgid - 1)
+> +	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
+>  		mailbox_release_msg(mb_chann, mb_msg);
+>  	xa_destroy(&mb_chann->chan_xa);
+
+[Severity: High]
+This is a pre-existing issue, but while reviewing the mailbox channel code =
+in
+drivers/accel/amdxdna/amdxdna_mailbox.c, I noticed a potential data
+corruption issue with concurrent messages.
+
+Can concurrent execution of xdna_mailbox_send_msg() lead to hardware ring
+buffer corruption?
+
+The DRM scheduler thread can submit jobs without holding the device lock,
+calling:
+drivers/accel/amdxdna/aie2_message.c:aie2_execbuf() -> xdna_mailbox_send_ms=
+g()
+
+Concurrently, the ioctl thread can configure the same hardware context and
+channel while holding the device lock, calling:
+drivers/accel/amdxdna/aie2_message.c:aie2_config_cu() -> xdna_mailbox_send_=
+msg()
+
+Inside mailbox_send_msg() in drivers/accel/amdxdna/amdxdna_mailbox.c, the t=
+ail
+pointer is read locklessly:
+
+    tail =3D mb_chann->x2i_tail;
+
+And it is updated locklessly after the message is written:
+
+    mailbox_set_tailptr(mb_chann, tail + mb_msg->pkg_size);
+
+Since there is no common lock held between the DRM scheduler thread and the
+ioctl thread for the mailbox channel, can they race to read the same tail
+pointer, overwrite each other's messages in the ring buffer, and write
+conflicting tail pointers to the hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828212405.1312=
+4-1-denizaydogan1902@gmail.com?part=3D1
