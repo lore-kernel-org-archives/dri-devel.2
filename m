@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E64C61DCB
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E5B4C61DCB
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 21:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55A2910F486;
-	Fri, 28 Aug 2026 21:11:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F5310F48A;
+	Fri, 28 Aug 2026 21:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g69Bzlcu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OBD2Pv5h";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 469E410F486
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 21:11:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0450B10F48A
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 21:12:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2F54341455;
- Fri, 28 Aug 2026 21:11:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E851E1F000E9;
- Fri, 28 Aug 2026 21:11:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 61B1B60055;
+ Fri, 28 Aug 2026 21:12:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E292F1F000E9;
+ Fri, 28 Aug 2026 21:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787951500;
- bh=HI//bFDlNM51Qdel24eLIbsSlK8G/gDTtkf2Gpt9f3k=;
+ s=k20260515; t=1787951546;
+ bh=h5xqe550BxtxAadb7Cm2LB2rmEsOWpMnMVLSFs3dt4g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g69Bzlcug4HW9YTymlzPr/LvK3n1uvIZmympVtnxgrk71bKq/l0/wDa+1Hc+3X0Np
- W0/ltJc5X6dota8luQb5CYePq0IqZ8yT71D0FCxtaJ16t4BL2/gNQDQnvpVrcnlK3Z
- +QlF6n3dkHhoQoVm9c2okKjDiy5c2EEuyEI+borrr03bFW3srgR/DnMR0Vb92w0I2c
- QZYeVVORE9r/0K8jX1P7Nqatm6XKt0iVzfQQorA3ItWibkZI0k08pXjlQMtVI0HDAS
- X51tbNeN8DsgXN0PnAjB+hLltiXRUCYTWOuEongFNpBPlpZzFQis/KvfiEozwIz632
- XbxWb2gETdL/Q==
+ b=OBD2Pv5howPY5Ksa7r9H99Zw9dmQGT1MuD5y+rpfceTQkTn4hfirDwhIgb0LH4ISN
+ OmBp+p/rzQkkWKlP17fMOoVqOAwiaxlWp2l0oQH9eAgEqJQws07XraRR43SJDTRSi/
+ sdhHkJNmdUSer69xC9v8Vm92w9Is4wqHVkHiXNBGRpIGnXKEjhNBVzNPr7x8j+WGcq
+ dOXm7dLviI4BtMc0o9LBBszTAADfDjgf6ZKvdmafq8B3kUI74R+2McwtvVUeV2Q68j
+ nubB0qgTqALxqJqh0/0e/4AjY8W5f1XTEMEOgJIQm4JJ5s2vIkfpB2qRBD/hOKWWOX
+ RgPO7D0d1ihVQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 08/17] drm/panfrost: Split subsystem init/reset from
- interrupt enablement
+Subject: Re: [PATCH v7 11/17] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260828-claude-fixes-v7-8-72a13b2c125d@collabora.com>
+In-Reply-To: <20260828-claude-fixes-v7-11-72a13b2c125d@collabora.com>
 References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-8-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-11-72a13b2c125d@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 21:11:39 +0000
-Message-Id: <20260828211139.E851E1F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 21:12:25 +0000
+Message-Id: <20260828211225.E292F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,78 +58,87 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Incorrect handling of pm_runtime_get_if_in_use() return value in=
+ reset_set() leading to usage count underflow.
+
 Pre-existing issues:
-- [High] Missing IRQ suspension in device probe error paths causes potentia=
-l bus faults on shared IRQ lines.
+- [High] Incorrect handling of pm_runtime_get_if_in_use() return value in p=
+anfrost_gpu_get_latest_flush_id() causing unsafe MMIO reads and PM underflo=
+w.
 --
 
-commit 57c2c2f2f808cb53bd917f5b98f5700e0bc31b52
+commit 6c0954bdc79e7702d546ce41292da37dbd1a90e1
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Split subsystem init/reset from interrupt enablement
+drm/panfrost: Add debugfs knob for manually triggering a GPU reset
 
-This commit decouples GPU, MMU, and Job Manager initialization and reset
-sequences from interrupt enablement. It ensures subsystems only enable their
-interrupts explicitly and handles IRQ toggling manually during probe, reset,
-and removal.
+This patch adds a debugfs file for manually triggering a GPU reset to aid
+in testing potential races between the reset sequence and hardware register
+access.
 
 > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
 /panfrost/panfrost_device.c
-> index 9e02fb5f73c82..99f7da2180f92 100644
+> index d8acae9b8cfac..b6a48ae0d3a61 100644
 > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
 [ ... ]
-> @@ -315,6 +338,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
-v)
+> @@ -600,9 +601,43 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) =3D {
+>  };
 > =20
->  out_devreg:
->  	pm_runtime_disable(pfdev->base.dev);
-> +	panfrost_device_disable_hw(pfdev);
->  	panfrost_gem_fini(pfdev);
->  out_perfcnt:
->  	panfrost_perfcnt_fini(pfdev);
->  out_job:
->  	panfrost_jm_fini(pfdev);
->  out_mmu:
->  	panfrost_mmu_fini(pfdev);
->  out_gpu:
->  	panfrost_gpu_fini(pfdev);
+>  #ifdef CONFIG_DEBUG_FS
+[ ... ]
+> +static int reset_set(void *data, u64 val)
+> +{
+> +	struct panfrost_device *pfdev =3D
+> +		container_of(data, struct panfrost_device, base);
+> +
+> +	if (pm_runtime_get_if_in_use(pfdev->base.dev)) {
+
+[Severity: Medium]
+When pm_runtime_get_if_in_use() is called while runtime PM is disabled=20
+(such as during driver unbind or system suspend), it returns -EINVAL.
+
+Since -EINVAL evaluates to true in this condition, does this cause the=20
+block to execute without a successful get?
+
+If so, could this regression lead to an unbalanced pm_runtime_put() call=20
+at the end of the block and a PM usage counter underflow?
+
+> +		panfrost_device_schedule_reset(pfdev);
+> +		flush_work(&pfdev->reset.work);
+> +		pm_runtime_put(pfdev->base.dev);
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is there a missing IRQ
-suspension in the earlier error paths?
+This isn't a bug introduced by this patch, but looking at a similar=20
+pre-existing pattern in drivers/gpu/drm/panfrost/panfrost_gpu.c:
 
-If probe fails early (for example, during panfrost_mmu_init() or later), the
-error path jumps to out_mmu or out_gpu, calling panfrost_gpu_fini(),
-panfrost_clk_fini(), etc. This powers off sub-blocks and disables clocks.
-
-However, because panfrost_gpu_suspend_irq() (and its equivalents) are bypas=
-sed
-on these early error paths, the is_suspended state remains 0. The IRQ was
-already requested with devm_request_irq() in panfrost_gpu_init(), and is on=
-ly
-freed later during devres cleanup.
-
-If the IRQ line is shared with another active device (IRQF_SHARED is used by
-the driver), an interrupt in this window could cause panfrost_gpu_irq_handl=
-er()
-to read GPU_FAULT_STATUS from disabled hardware:
-
-drivers/gpu/drm/panfrost/panfrost_gpu.c:panfrost_gpu_irq_handler() {
-    if (test_bit(PANFROST_COMP_BIT_GPU, pfdev->is_suspended))
-        return IRQ_NONE;
-
-    fault_status =3D gpu_read(pfdev, GPU_FAULT_STATUS);
-    ...
+panfrost_gpu_get_latest_flush_id() {
+	if (panfrost_has_hw_feature(pfdev, HW_FEATURE_FLUSH_REDUCTION)) {
+		if (pm_runtime_get_if_in_use(pfdev->base.dev)) {
+			flush_id =3D gpu_read(pfdev, GPU_LATEST_FLUSH_ID);
+			pm_runtime_put(pfdev->base.dev);
+			return flush_id;
+		}
+	}
+	...
 }
 
-Can this lead to a bus fault and kernel panic on systems where the GPU IRQ =
-is
-shared?
+If pm_runtime_get_if_in_use() returns -EINVAL during system suspend or=20
+teardown when disable_depth > 0, does this condition also evaluate to true?=
+ =20
+
+Could this result in an unsafe MMIO read on potentially powered-off=20
+hardware, followed by another unbalanced usage count decrement?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-claude-fix=
-es-v7-0-72a13b2c125d@collabora.com?part=3D8
+es-v7-0-72a13b2c125d@collabora.com?part=3D11
