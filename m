@@ -4,78 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0FA0C61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 08:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6A6C61DC6
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 08:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34DCA10F2EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C81210F2EF;
 	Fri, 28 Aug 2026 08:48:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="b8ePwLWc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oi7MNMj4";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17EF910F2EC
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 08:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1787906892;
- bh=uyMGZMKc5y1SgmgDY/tsuzKbkVlmYjdT8Q636L6W9/0=;
- h=From:To:Subject:Date:Message-Id;
- b=b8ePwLWcWOI+xkIw62G815/sIHuDwlzG+vJi5gr+zMYBTdgS7p1q+N6ebgu8dBQYl
- m3ZF0Cx/kFC3PoNRVWupDibx1mkbEe5bnmTlwfEisqgUeIcSV8MNFh5JQip+cGZFu7
- vA+JPQyxfO6bMh19id16ZkYHl1c3kKUWcu6uHMuU=
-X-QQ-mid: zesmtpgz6t1787906891t1bc82087
-X-QQ-Originating-IP: OxvB8j0RZYuReQ0OYIUUtJayIysb859IsfVqPvUZV9Q=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 28 Aug 2026 16:48:05 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7758792601423077606
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-phy@lists.infradead.org
-Subject: [PATCH v7 4/7] drm/bridge: aux: Add
- drm_aux_bridge_register_from_node()
-Date: Fri, 28 Aug 2026 16:47:34 +0800
-Message-Id: <20260828084737.565-5-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260828084737.565-1-kernel@airkyi.com>
-References: <20260828084737.565-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MmpliBmRb3iCtRt0VXlV8wcWI2CMwokakifYw3R+ZOuAacwlJ5sp6eJO
- sxtYZu/0Ve+vJOsU1YRlwIfSQEp18Thb/WaemH1ITxkAOIVF0CDOmFQoU9V0OaC3CbkHx5R
- WUjN0RyeFNaGMhVCrxQ7R7SaFchrJZGt5MIUNXV8eSd+hH4DOCQvNXdFgxfEoV0LWVuNejI
- 2UjhGXzPtT0ptL3zJOxtWtZBZ2ZWbUmhqVrhBDwdFzaJslSXff3huDhcPMf4W1QpXO498Tb
- njDI4rvDAr/U9XRoCKWr/uLZ+vCQB42L//AStKcIS14x58ONvxFwmpHB427AWVNqePuf4iF
- Fw5vtHfKNONN68fQp2DmX/9qCXv6dBDJNjCDPBRWszyy23gGBzHah0YVHAoGscRyz1aaSou
- TfTZ6IHF0hq4ZaerOSfVuqFjpCeQ26xu9u5GbAVYndSU92q/kW1/qnbMiWVSUeBJWsJvp+A
- cL/a7rN6y8brW65jLP04ST65QE5XpkejlkRyyo+Nylm9sM2ZxWvMMqVf2a32s9FvMkNqldp
- WSJpZcrIA6YNaw4hd+NyNmcOYjM4hcG2hH5SyHehJsXltklX7cenuMMpsJdsT9/eKcC9VhW
- +P3HzvEzRCrmDuoU3FaBqXn1uAOIf0jjzk/y8YilfZxZS8RmRoLn/GPvBS/d52SUy2jFesN
- ZkR+a/hl0NIJJT/MoIqQkor3MwgYYQokSUgBCmJlkUlCMQASZjYXi7nUTEDg44AIAYUgAti
- o1p2Kxno9rRtotrpr4XJVJetEco47Hw3DojTrrVyeuX1U2NgnBUelUWSweOGwK6LffxK3Er
- T3QCm385kdd7LWGRFmCpkweDv2JeYnUlOGySZ5SKYlX/GLdu7jtl8bQPRn24X8Payl30ymr
- qmQgT68ywW0N7T0WoLnA45UXQW8GysSbJSnlyrLt7K18rTPJ9XZVEA9XBJFkeL51RCYDQIH
- mPl16le263xuRdjDqfLip2BggZKjvJkAvl2uoMB0xLn/FSwJxBvwj3Zim4Idgg2pMn9acmQ
- Zfxmipfg==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4F1610F2E9
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 08:48:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2C31560213;
+ Fri, 28 Aug 2026 08:48:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B417B1F000E9;
+ Fri, 28 Aug 2026 08:48:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787906932;
+ bh=Y+1iZhjPLeD65gsIYaD1Vu9TDKgpZClC0hbm6l284b4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Oi7MNMj4TKI0xKEBT9fhO4hzZFpQSPJCE6dFqzNJVrgVQ4g91vtMtrQIebNetSnXr
+ p3cKHHgQwuVdduT6D3QRkmg4UWqZ1guG+d+Lx0am2BoedMaBvAT3HTNueTPY+gFwN6
+ gRLLLsykcm6G1eTyLiW3hLV9XNJBVzx5kRKP4g42pfVzy480DcwNab0rdkMETIgTf0
+ 8a+k9GaHHZfs+q2UO1zK0H6wMBVL+gewAU68sHC6+rswJdEGCr1Y1me4uBUvG8IBPl
+ UKeNzHPJkd45tEL+gscqz3WqWdfU1Xd5221WwUjLX+g0YCjbcjcuLbttmjHXOMhidH
+ 4r7KpgUgQ2+0g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/pagemap: centralize migrate src base-page counting
+To: "Junhua Shen" <Junhua.Shen@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260828083652.40855-1-Junhua.Shen@amd.com>
+References: <20260828083652.40855-1-Junhua.Shen@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 08:48:52 +0000
+Message-Id: <20260828084852.B417B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,112 +52,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-The drm_aux_bridge_register() uses the device->of_node as the
-bridge->of_node.
+Pre-existing issues:
+- [High] Incorrect base-page count calculation for large folios desynchroni=
+zes migration loops and skips valid entries.
+- [High] Permanent device memory leak on migration error path.
+--
 
-This patch adds drm_aux_bridge_register_from_node() to allow
-specifying the of_node corresponding to the bridge.
+commit f9a15fc79a089e7970a0abb86569d6cf4a696964
+Author: Junhua Shen <Junhua.Shen@amd.com>
 
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
-(no changes since v3)
+drm/pagemap: centralize migrate src base-page counting
 
-Changes in v2:
-- Fix incorrect function names in the documentation comments.
----
- drivers/gpu/drm/bridge/aux-bridge.c | 26 +++++++++++++++++++++++---
- include/drm/bridge/aux-bridge.h     |  6 ++++++
- 2 files changed, 29 insertions(+), 3 deletions(-)
+This commit factors out the base-page count calculation for migrate.src
+entries into a new drm_pagemap_src_pfn_nr_pages function. It applies this
+new helper to the accounting loops to consistently handle compound pages.
 
-diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-index 1ed21a8713bf..06a1466f49bd 100644
---- a/drivers/gpu/drm/bridge/aux-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-bridge.c
-@@ -33,8 +33,9 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
- }
- 
- /**
-- * drm_aux_bridge_register - Create a simple bridge device to link the chain
-+ * drm_aux_bridge_register_from_node - Create a simple bridge device to link the chain
-  * @parent: device instance providing this bridge
-+ * @np: device node pointer corresponding to this bridge instance
-  *
-  * Creates a simple DRM bridge that doesn't implement any drm_bridge
-  * operations. Such bridges merely fill a place in the bridge chain linking
-@@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
-  *
-  * Return: zero on success, negative error code on failure
-  */
--int drm_aux_bridge_register(struct device *parent)
-+int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
- {
- 	struct auxiliary_device *adev;
- 	int ret;
-@@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
- 	adev->dev.parent = parent;
- 	adev->dev.release = drm_aux_bridge_release;
- 
--	device_set_of_node_from_dev(&adev->dev, parent);
-+	if (np)
-+		device_set_node(&adev->dev, of_fwnode_handle(np));
-+	else
-+		device_set_of_node_from_dev(&adev->dev, parent);
- 
- 	ret = auxiliary_device_init(adev);
- 	if (ret) {
-@@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
- 
- 	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
- }
-+EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
-+
-+/**
-+ * drm_aux_bridge_register - Create a simple bridge device to link the chain
-+ * @parent: device instance providing this bridge
-+ *
-+ * Creates a simple DRM bridge that doesn't implement any drm_bridge
-+ * operations. Such bridges merely fill a place in the bridge chain linking
-+ * surrounding DRM bridges.
-+ *
-+ * Return: zero on success, negative error code on failure
-+ */
-+int drm_aux_bridge_register(struct device *parent)
-+{
-+	return drm_aux_bridge_register_from_node(parent, NULL);
-+}
- EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
- 
- struct drm_aux_bridge_data {
-diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
-index cca07a8e2d45..67f74ed287d9 100644
---- a/include/drm/bridge/aux-bridge.h
-+++ b/include/drm/bridge/aux-bridge.h
-@@ -13,11 +13,17 @@ struct auxiliary_device;
- 
- #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
- int drm_aux_bridge_register(struct device *parent);
-+int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
- #else
- static inline int drm_aux_bridge_register(struct device *parent)
- {
- 	return 0;
- }
-+
-+static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
-+{
-+	return 0;
-+}
- #endif
- 
- #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index 892b325fa99b8..a31cc4f0af68c 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -554,6 +554,37 @@ static int drm_pagemap_migrate_range(struct drm_page=
+map_devmem *devmem,
+[ ... ]
+> +static unsigned long drm_pagemap_src_pfn_nr_pages(unsigned long src_pfn,
+> +						   struct page **src_page)
+> +{
+> +	struct page *page =3D NULL;
+> +	unsigned long nr_pages =3D 1;
+> +
+> +	if (src_pfn & MIGRATE_PFN_VALID) {
+> +		page =3D migrate_pfn_to_page(src_pfn);
+> +		if (page)
+> +			nr_pages =3D NR_PAGES(folio_order(page_folio(page)));
 
+[Severity: High]
+This is a pre-existing issue, but does computing the stride using the backi=
+ng
+folio's size skip independent PTE entries? If a VMA maps a transparent huge
+page (THP) via PTEs, migrate_vma_setup produces individual base-page entrie=
+s.
+However, using folio_order(page_folio(page)) returns the full compound order
+(e.g., 512). The loops incrementing by this value would then skip the next
+511 valid entries in the migrate.src array.
+
+[Severity: High]
+This is also a pre-existing issue related to the above, but does this create
+a desync between the migration steps?=20
+
+In the central loop in drivers/gpu/drm/drm_pagemap.c:drm_pagemap_migrate_to=
+_devmem():
+
+	for (i =3D 0; i < npages;) {
+		unsigned int order =3D 0;
+		...
+		if (migrate.src[i] & MIGRATE_PFN_COMPOUND) {
+			order =3D HPAGE_PMD_ORDER;
+			...
+		}
+		...
+		i +=3D NR_PAGES(order);
+	}
+
+Because order is 0 for PTE-mapped THPs here (MIGRATE_PFN_COMPOUND is false),
+this central loop correctly strides by 1. However, the accounting loops that
+use the new drm_pagemap_src_pfn_nr_pages() helper will stride by the full
+folio size. Will this result in device pages being allocated and processed
+here, but skipped in the accounting phases?
+
+[Severity: High]
+There is another pre-existing issue on the migration error path. Does
+truncating npages cause device pages to be permanently leaked?=20
+
+drivers/gpu/drm/drm_pagemap.c:drm_pagemap_migrate_to_devmem() {
+	...
+	err =3D ops->populate_devmem_pfn(devmem_allocation, npages, migrate.dst);
+	...
+	for (i =3D 0; i < npages;) {
+		...
+		err =3D drm_pagemap_migrate_range(...);
+		if (err) {
+			npages =3D i + 1;
+			goto err_finalize;
+		}
+		...
+	}
+	...
+err_finalize:
+	if (err) {
+		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+		for (i =3D npages; i < npages_in_range(start, end); ++i)
+			migrate.dst[i] =3D 0;
+	}
+	...
+}
+
+When drm_pagemap_migrate_range() fails, npages is truncated. The cleanup
+code in err_finalize then only handles pages up to this truncated index.
+The loop clearing migrate.dst[i] =3D 0 wipes the only references to the
+remaining device pages originally allocated by ops->populate_devmem_pfn(),
+ensuring they can never be freed. Could we avoid this by unlocking only
+the processed pages while still freeing the remaining unprocessed device
+pages?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828083652.4085=
+5-1-Junhua.Shen@amd.com?part=3D1
