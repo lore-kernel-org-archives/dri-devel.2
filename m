@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5BD4C61DBD
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E1CEC61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 06:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F41A210F277;
-	Fri, 28 Aug 2026 06:57:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B673810F279;
+	Fri, 28 Aug 2026 06:58:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="ByNkXqq/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZyUjIbwU";
 	dkim-atps=neutral
-Received: from mail-m16023653202.xmail.ntesmail.com
- (mail-m16023653202.xmail.ntesmail.com [160.236.53.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30A3710F277
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:57:14 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5aa;
- Fri, 28 Aug 2026 14:52:07 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>, stable@vger.kernel.org
-Subject: [PATCH v8 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP
- DT properties
-Date: Fri, 28 Aug 2026 14:51:51 +0800
-Message-Id: <20260828065153.590802-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
-References: <20260828065153.590802-1-damon.ding@rock-chips.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa04723dd4503a8kunm9cc188d5188355
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRhLTVYZHkhKHU1PHk
- 5KQxhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
- tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=ByNkXqq/v1UABNZl10lnleLwzvhNuRZWIBYWszscHeWdufztyE7+W7VSC+dWoNFk87VgQlRbjZ7o39DSth9TxFS26u3zjhK8+2phaobHx+y6QNuYEyMfiPhQAzY7SWZl0N3BZr/vBJnJD6dxvMH9k/VuNoSNTPalwSLyugZbZN4=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=Qt759fseXk6TL4BSquCkp6QINrVvbZDF08qVXgT34mA=;
- h=date:mime-version:subject:message-id:from;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8C110F279
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 06:58:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 49E4543269;
+ Fri, 28 Aug 2026 06:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7581F000E9;
+ Fri, 28 Aug 2026 06:58:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787900303;
+ bh=4Uc0TyoUmnQsdPxQii/40BTubyCksCk1HR6dMzwoM1Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZyUjIbwU3pVsWl8BATOLOFcIdWulaFuL6ss0AVj40bTVyR/F2iAuZym76mVnyp0/T
+ uHeifLNxi/jjUuuO5AeonXDLFnHDjUKUMU2kIRzaPSoh73o2AA8x66n32/z4LbKXH4
+ fiVp06MkLVH6hrUiA3GRKTWkFK/3nw9GCfD6ifCJJjeDjZOHQPDUXAoG2zPmYAuVLv
+ BsCLgSb6nuaMCylhQKfSXXWujfmGGXaDue10CwTJlxY49hSxOMFUNIZeiL7T0qezzf
+ zlGEuzvVQORoYq0Yt70euLniUzmr4PbMipN58gTQwiXPy8eoDikWa8WOdQoaTbbPkl
+ OO1uOCKQ8C3Jw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/3] accel/rocket: Validate BO handle counts on job
+ submission
+To: "Haoming Gao" <Naixumogu@whut.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260828064152.37822-2-Naixumogu@whut.edu.cn>
+References: <20260828064152.37822-1-Naixumogu@whut.edu.cn>
+ <20260828064152.37822-2-Naixumogu@whut.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 06:58:22 +0000
+Message-Id: <20260828065823.0D7581F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,112 +54,125 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Revert the change that made samsung,link-rate and samsung,lane-count
-optional for Exynos DP. Add error checking to fail probe early if the
-required DT properties are missing.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-If these properties are missing, video_info->max_link_rate and
-video_info->max_lane_count remain zero, and so do link_train.link_rate
-and link_train.lane_count used in the subsequent link training flow,
-resulting in link training failure.
+Pre-existing issues:
+- [High] The job's completion fence is not attached to input BOs, causing a=
+ Write-After-Read data corruption vulnerability.
+- [High] Missing practical upper bound for BO handle counts allows hard loc=
+kups and memory exhaustion.
+- [High] Signed integer overflow in task copy loop leads to out-of-bounds a=
+rray access and memory corruption.
+--
 
-There is no way at all a device can work without these properties.
-Here is the code flow when either max_link_rate or max_lane_count is 0:
+commit b8a6c0c385bb7b291f18a1ccd50949d83223c9d8
+Author: Haoming Gao <Naixumogu@whut.edu.cn>
 
-  analogix_dp_commit()
-    -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
+accel/rocket: Validate BO handle counts on job submission
 
-  analogix_dp_full_link_train(max_lanes, max_rate):
-      // Read sink capabilities via DPCD and sanitize them
-      link_rate  = read_dpcd(DP_MAX_LINK_RATE);  // >= 0x06 after fixup
-      lane_count = read_dpcd(DP_MAX_LANE_COUNT); // >= 1 after fixup
+This commit validates the input and output BO handle counts during job
+submission to ensure they do not exceed INT_MAX. It also changes the
+type of the combined count in rocket_job_push to prevent silent
+truncation before passing it to GEM reservation helpers.
 
-      // Clamp by the limits from DT
-      if (link_rate > max_rate)    // 0x06 > 0, always true
-          link_rate = max_rate;    // link_rate = 0
-      if (lane_count > max_lanes)  // 1 > 0, always true
-          lane_count = max_lanes;  // lane_count = 0
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 3141f210fcd1b..13f4915c1b07c 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
+>  	struct rocket_device *rdev =3D job->rdev;
+>  	struct drm_gem_object **bos;
+>  	struct ww_acquire_ctx acquire_ctx;
+> -	u32 bo_count;
+> +	int bo_count;
+>  	int ret =3D 0;
+> =20
+>  	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
 
-      // Configure TX with the zeroed values
-      set_link_bandwidth(link_rate = 0)
-          // writel() is only executed for bwtype == 0x06/0x0a,
-          // so LINK_BW_SET is never written and stays at
-          // reset value; phy_configure() gets link_rate = 0.
+[Severity: High]
+This is a pre-existing issue, but does rocket_job_push() leave input BOs
+unprotected against concurrent writers?
 
-      set_lane_count(lane_count = 0)
-          // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
-          // phy_configure() is called with lanes = 0.
+Later in rocket_job_push(), the completion fence is only attached to output
+BOs:
 
-      // Program sink for link training
-      drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0/lane_count = 0})
-          // DP spec requires link rate in {0x06, 0x0a, 0x14} and
-          // lane count in {1, 2, 4}. Writing zeros is illegal, so
-          // the sink cannot enter the training state.
+drivers/accel/rocket/rocket_job.c:rocket_job_push() {
+        ...
+        rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->i=
+nference_done_fence);
+        ...
+}
 
-      // Training loop
-      for (lane = 0; lane < lane_count /* 0 */; lane++)
-          // loop body never executes; training_lane[] stays
-          // uninitialized and no training register is programmed
+Because the completion fence is never recorded on the input BOs with a read
+usage flag, could this lead to a write-after-read data corruption?
 
-Since the sanitized sink values are always non-zero (link_rate >= 0x06,
-lane_count >= 1), the clamping with a zero maximum unconditionally
-forces the training parameters to zero. Clock recovery can never be
-achieved, so link training fails deterministically.
+If userspace submits a job that reads an input BO, and subsequently a second
+job that writes to the same BO, the scheduler might execute the second job
+immediately without waiting for the first job to finish reading, allowing t=
+he
+input data to be overwritten prematurely.
 
-Consequently, making these properties mandatory again cannot break
-any existing device: a DT without them could never have worked in
-the first place. Failing probe early with a clear error message is
-more helpful than a silent link training failure at runtime.
+[ ... ]
 
-Fixes: 0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane count limit for RK3288")
-Cc: stable@vger.kernel.org
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> @@ -557,6 +557,11 @@ static int rocket_ioctl_submit_job(struct drm_device=
+ *dev, struct drm_file *file
+>  	if (job->task_count =3D=3D 0)
+>  		return -EINVAL;
 
----
+[Severity: High]
+This isn't a bug introduced by this patch, but does rocket_copy_tasks() have
+an integer overflow in the task copy loop?
 
-Changes in v8:
-- Expand the commit message with the detailed link training failure
-  analysis,
-- Add Reviewed-by tag.
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+In rocket_ioctl_submit_job(), task_count comes from userspace as a u32 and
+is passed to rocket_copy_tasks(). If job->task_count exceeds INT_MAX
+(e.g., 0x80000005) and the array allocation succeeds, the iteration uses a
+signed int:
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 566f1e5eb8cd..ddb15d6de05f 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- {
- 	struct device_node *dp_node = dp->dev->of_node;
- 	struct video_info *video_info = &dp->video_info;
-+	u32 val;
- 
- 	switch (dp->plat_data->dev_type) {
- 	case RK3288_DP:
-@@ -1269,10 +1270,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 		 * NOTE: those property parseing code is used for
- 		 * providing backward compatibility for samsung platform.
- 		 */
--		of_property_read_u32(dp_node, "samsung,link-rate",
--				     &video_info->max_link_rate);
--		of_property_read_u32(dp_node, "samsung,lane-count",
--				     &video_info->max_lane_count);
-+		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
-+			return dev_err_probe(dp->dev, -EINVAL,
-+					     "Failed to get samsung,link-rate\n");
-+		video_info->max_link_rate = val;
-+		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
-+			return dev_err_probe(dp->dev, -EINVAL,
-+					     "Failed to get samsung,lane-count\n");
-+		video_info->max_lane_count = val;
- 		break;
- 	}
- 
--- 
-2.34.1
+drivers/accel/rocket/rocket_job.c:rocket_copy_tasks() {
+        ...
+        for (int i =3D 0; i < rjob->task_count; i++) {
+                struct drm_rocket_task task =3D {0};
+                ...
+                rjob->tasks[i].regcmd =3D task.regcmd;
+                rjob->tasks[i].regcmd_count =3D task.regcmd_count;
+        }
+        ...
+}
 
+Because i is compared against the unsigned rjob->task_count, the loop
+continues after i overflows and wraps to negative values. Will this result =
+in
+an out-of-bounds array access and memory corruption when writing to
+rjob->tasks[i] with a negative index?
+
+> =20
+> +	/* GEM lookup takes a signed object count. */
+> +	if (job->in_bo_handle_count > INT_MAX ||
+> +	    job->out_bo_handle_count > INT_MAX)
+> +		return -EINVAL;
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does bounding the BO counts
+to INT_MAX still allow for hard lockups?
+
+If userspace submits a job with in_bo_handle_count set to INT_MAX, the check
+passes and drm_gem_objects_lookup() will allocate massive arrays and iterate
+over 2 billion times inside spin_lock(&filp->table_lock).
+
+Could holding a spinlock for that duration exceed the NMI watchdog timeout
+and cause a system crash due to a hard lockup?
+
+>  	rjob =3D kzalloc_obj(*rjob);
+>  	if (!rjob)
+>  		return -ENOMEM;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828064152.3782=
+2-1-Naixumogu@whut.edu.cn?part=3D1
