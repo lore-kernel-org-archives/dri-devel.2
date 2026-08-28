@@ -4,45 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24840C61DC6
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37526C61DC6
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 09:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB4810F305;
-	Fri, 28 Aug 2026 09:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7724A10F307;
+	Fri, 28 Aug 2026 09:09:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TFiiHYdl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mhv/XYcr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12FF810F305
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:07:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2A25601FD;
- Fri, 28 Aug 2026 09:07:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACBF1F000E9;
- Fri, 28 Aug 2026 09:07:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787908062;
- bh=W3psK8NkSI21J56PPDr+tj0rYZnIIb3KCy84Jc8T6LQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TFiiHYdljkAWWrJ9EQq9wGSOF56IrD4jU5XCcmBAhLmHMhfrmS1HM7BLLW6QBPiJq
- /aPfw5imvqvjc79altANckn+WX0oKbJ5DaQjW2XbhUkxYtsf4/bRBMVdxHyUiwMbgO
- dUSMsn4KrHkex8eO+fnEfr7TIxMkr0q6HF1KewOl1ex8eesQzd6Q7MyEAS8Manm/S4
- dm+NBJyDq2Um88Z8/QFMboyV2/l9PDEplgoTQkYMRWyk+L+/bBBddUV65AC/flpEAK
- vh6pdR8WvhF5VT/sKdDtZIkdaYqSxSKqvNac7GYOi9ffAcPU88XQ29NWseWVlL+en/
- 0op4hK18LQWrg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/7] drm/rockchip: cdn-dp: Support handle lane info
- without extcon
-To: "Chaoyi Chen" <kernel@airkyi.com>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com,
- neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260828084737.565-7-kernel@airkyi.com>
-References: <20260828084737.565-1-kernel@airkyi.com>
- <20260828084737.565-7-kernel@airkyi.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0929D10F307;
+ Fri, 28 Aug 2026 09:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787908146; x=1819444146;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=hzoxafoDvKtm30VmfjqOmN6WXzEwAjyeJ19/FBBenGo=;
+ b=mhv/XYcrwE3ZGmkIdeX82J3PNRDU5tAonDxp2bt9YTTexVg9jZsW10Tg
+ ZP2HsS6jx50dcBtHfEJiJocRm7ShGojsjuyQ0cEquIK/1gQuFp6KJigjJ
+ IkC//VZeFdl4sU7GHX8cyKf5zyNYdiyhm/zyECGlYYhvvNnaiIC+p7d+e
+ JB206AdWGrwgfjWYISKCpolyJ7L0Sqe8YCp/JTvUMTQGar7KID96mM3ge
+ c3I71kBy77KaZ5YoQXw96DCL8X18lfJuuXrhLXwoeN6V1F9rLJAPXgAPQ
+ qc8eDWnc2OMI2hEZAmu1yPoC5JpYHxvAXbUb+pV8i+oA7MXsdUenDobWN A==;
+X-CSE-ConnectionGUID: hhY4io+mRcmMEEwnce6aMg==
+X-CSE-MsgGUID: 1+MFhFmDQgGdLogNV9MYGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99575100"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="99575100"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 02:09:05 -0700
+X-CSE-ConnectionGUID: XWJPNHv8SQ2e6kD5m1Scyg==
+X-CSE-MsgGUID: ts8BLPMcSP+EP+Af/BY8DA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="273362163"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.114])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 02:09:02 -0700
+Message-ID: <756222a03760054ffebf187e581c60ce4025c023.camel@linux.intel.com>
+Subject: Re: [PATCH v2 5/8] drm/i915/gt/selftests: Use drm_* prints in
+ aggregated gt selftests
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Krzysztof Karas
+ <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Jani
+ Nikula <jani.nikula@linux.intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Date: Fri, 28 Aug 2026 11:08:59 +0200
+In-Reply-To: <apDJpcatw9isIKdL@zenone.zhora.eu>
+References: <20260818095624.3254368-1-krzysztof.karas@intel.com>
+ <20260818095624.3254368-6-krzysztof.karas@intel.com>
+ <apDJpcatw9isIKdL@zenone.zhora.eu>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 09:07:41 +0000
-Message-Id: <20260828090742.5ACBF1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.60.2 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,114 +75,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Fri, 2026-08-28 at 01:38 +0200, Andi Shyti wrote:
+> Hi Krzysztof,
+>=20
+> ...
+>=20
+> > @@ -400,11 +400,10 @@ static int intel_mmio_bases_check(void *arg)
+> >  			u32 base =3D info->mmio_bases[j].base;
+> > =20
+> >  			if (ver >=3D prev) {
+> > -				pr_err("%s(%s, class:%d, instance:%d): mmio base for graphics ver =
+%u is before the one for ver %u\n",
+> > -				       __func__,
+> > -				       intel_engine_class_repr(info->class),
+> > -				       info->class, info->instance,
+> > -				       prev, ver);
+> > +				drm_err(NULL,
+> > +					"%s(%s, class:%d, instance:%d): mmio base for graphics ver %u is =
+before the one for ver %u\n",
+> > +					__func__, intel_engine_class_repr(info->class),
+> > +					info->class, info->instance, prev, ver);
+>=20
+> yah! drm_err(NULL, ...) is quite pointless. If there is no way
+> for retrieving the drm device, then let's just stick to pr_*,
+> this is their role.
 
-New issues:
-- [Critical] The condition `PTR_ERR(extcon) !=3D -ENODEV` incorrectly skips=
- valid extcon pointers during probe, breaking backward compatibility for al=
-l existing devices with an extcon.
+While I said in one of my comments to 3/5 that I'm not sure if that makes=
+=C2=A0
+sense, maybe it does.  With drm_*(NULL, ...), log messages are still
+tagged=C2=A0with [drm] at least.  So as a minimum, in line with my comment =
+to=C2=A0
+1/5, I=C2=A0think commit message of 1/5 that introduces only drm_*(NULL, ..=
+.)=C2=A0
+could=C2=A0tell us that we want that [drm] tag even without context, unless=
+ we=C2=A0
+don't=C2=A0want it, then prefer to keep pr_*().
 
-Pre-existing issues:
-- [High] Extcon notifier registered using devres in component bind is not u=
-nregistered in component unbind, leading to Use-After-Free of released firm=
-ware.
-- [High] Using devm_drm_bridge_add in component bind causes duplicate bridg=
-e registrations and devres corruption upon re-bind.
---
+Thanks,
+Janusz
 
-commit 30782eee380f850a10d083003cae3953c1e3c8d7
-Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
-drm/rockchip: cdn-dp: Support handle lane info without extcon
-
-This commit adds support for retrieving PHY lane information without
-relying on extcon. This is useful for setups where a Type-C controller
-is present and lane info can be acquired directly from the PHY.
-
-> diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/roc=
-kchip/cdn-dp-core.c
-> index 190cce9530c82..74e1f5422a6e2 100644
-> --- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
-> +++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-
-[ ... ]
-
-> @@ -1027,6 +1033,9 @@ static int cdn_dp_bind(struct device *dev, struct d=
-evice *master, void *data)
->  	for (i =3D 0; i < dp->ports; i++) {
->  		port =3D dp->port[i];
-> =20
-> +		if (!port->extcon)
-> +			continue;
-> +
->  		port->event_nb.notifier_call =3D cdn_dp_pd_event;
->  		ret =3D devm_extcon_register_notifier(dp->dev, port->extcon,
->  						    EXTCON_DISP_DP,
-
-[Severity: High]
-This is a pre-existing issue, but does using devres for the notifier here
-cause a use-after-free upon component unbind?
-
-Because devm_extcon_register_notifier() is tied to the platform device's
-remove lifecycle rather than component unbind, the notifier remains active
-after cdn_dp_unbind() completes. Since cdn_dp_unbind() frees the firmware
-via release_firmware(), a subsequent extcon state change could trigger the
-still-active notifier callback.
-
-Could this lead to cdn_dp_pd_event_work() calling cdn_dp_firmware_init(),
-which then dereferences the freed firmware data?
-
-[ ... ]
-
-> @@ -1119,14 +1128,14 @@ static int cdn_dp_probe(struct platform_device *p=
-dev)
->  		    PTR_ERR(phy) =3D=3D -EPROBE_DEFER)
->  			return -EPROBE_DEFER;
-> =20
-> -		if (IS_ERR(extcon) || IS_ERR(phy))
-> +		if (IS_ERR(phy) || PTR_ERR(extcon) !=3D -ENODEV)
->  			continue;
-
-[Severity: Critical]
-Does this condition inadvertently skip valid extcon pointers during probe?
-
-When extcon_get_edev_by_phandle() returns a valid kernel pointer,
-PTR_ERR(extcon) casts that valid address to a long. Since a valid pointer
-will never equal -ENODEV, the condition PTR_ERR(extcon) !=3D -ENODEV will
-evaluate to true.
-
-Will this completely disable port allocation for existing setups with a
-valid extcon, resulting in a loss of display output?
-
-[ ... ]
-
-This is a pre-existing issue, but I also noticed a potential problem in
-cdn_bridge_add():
-
-drivers/gpu/drm/rockchip/cdn-dp-core.c:cdn_bridge_add() {
-        ...
-        ret =3D devm_drm_bridge_add(dev, bridge);
-        if (ret)
-                return ret;
-        ...
-}
-
-[Severity: High]
-Does using devm_drm_bridge_add() in a component bind hook cause duplicate
-bridge registrations?
-
-Because devres actions only execute on full driver remove, unbinding and
-rebinding the DRM component via sysfs appears to queue duplicate devres
-cleanup actions. This adds the exact same bridge structure to the global
-bridge_list repeatedly.=20
-
-Could this corrupt the bridge list and lead to a double-free on removal?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828084737.565-=
-1-kernel@airkyi.com?part=3D6
+>=20
+> Thanks,
+> Andi
+>=20
+> >  				return -EINVAL;
+> >  			}
