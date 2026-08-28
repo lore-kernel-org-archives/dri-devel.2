@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07028C61DD3
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 14:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02F2C61DD3
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 14:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6891610F3C8;
-	Fri, 28 Aug 2026 14:12:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2582810F3DF;
+	Fri, 28 Aug 2026 14:12:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z95+DI1k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bi6hHuRE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6AD010F3C3
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:12:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B16210F3DF
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:12:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DEE9D60200;
- Fri, 28 Aug 2026 14:12:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF821F000E9;
- Fri, 28 Aug 2026 14:12:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DA9E040167;
+ Fri, 28 Aug 2026 14:12:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BE9A1F000E9;
+ Fri, 28 Aug 2026 14:12:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787926343;
- bh=ewEW/PbNGvzn1mLO4IM8foHLLqLhEziZuJ945iu1y9o=;
+ s=k20260515; t=1787926374;
+ bh=aM8XEFJ0qJZcpu0Sj/0mV5jOXotIxwuMFgdJBSFfZxU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z95+DI1kY1t1hEizLC77OsvXF2Y2MZ7xNPwX96xPqJZsokkQKDSoicQqhVRv+5uAr
- 39N8h5wKR7kAHr9y2b6TLyf4w2RuqBJVGDPJcco6zBG5joE5+cdIAsRNWjxsgxJfwo
- SdSZIxisppc7eBGDehEe20RZQ4jzvV5Zblxj7bFsgRy1/cPlqyhiFNpuh0Dl6MOabS
- Pe9lT4u5GAlQXdPbEMwhpemfbjzQr29oO2DHol4Ecc6n6tB57ljpYK6BP2RhfcDnUO
- CmxK4520PxhL0/ydcXRj82Gxu2zh6tnkUOuDLkf1xBVPFInnWC3cG6OKr8gvqgcVdX
- TT4c/NToXeTbg==
+ b=bi6hHuREj6ut9QnGiNpns5g233BYEFbLt820Lwad5fg0Jy0i/npLfrm29W3f+Ul3c
+ 9SyjkY7e3r8JZwcxx3M232iLVWUXckZ+diHlf5ocD0+qYQC4U0Tb3aBtPPSqvJuTBX
+ kand2TtcuwEnvCjdIxGbHYvnecQsOO920tsjFDQHPebnoa90Ras4kjZWPO7o7zMuvV
+ Dr8rIZKgfdzbGy6XvIK/LxEBCgTQ/w08csQEB4QngvhnUpBrTH8vopUgKC2aQNwQmG
+ vNSbUSg1SeHYeUS/gaKPitt0WVoRdf3tvUmSnGqxpzcKfkWp1B3J3mPrrp/1SULGEG
+ 4NLUBjfgOXykg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC/DO NOT MERGE 05/12] dt-bindings: display/msm: hdmi:
- Add Eliza HDMI TX
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org,
- neil.armstrong@linaro.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-5-67843277de17@oss.qualcomm.com>
-References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
- <20260828-drm-msm-hdmi-eliza-v1-5-67843277de17@oss.qualcomm.com>
+Subject: Re: [PATCH v2 12/15] phy: rockchip: inno-hdmi: Use the common
+ Innosilicon PHY helpers
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: lee@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, vkoul@kernel.org,
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260828-jh7110-clean-send-v2-12-331680c8b9d1@samsung.com>
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+ <CGME20260828134835eucas1p27736632121c17e11f554e295994a7d8d@eucas1p2.samsung.com>
+ <20260828-jh7110-clean-send-v2-12-331680c8b9d1@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 14:12:22 +0000
-Message-Id: <20260828141223.1BF821F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 14:12:53 +0000
+Message-Id: <20260828141254.2BE9A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +62,115 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The conditional `if` block for the new Eliza HDMI TX device uses=
- an incorrect compatible string with a duplicated vendor prefix ('qcom,qcom=
-,eliza-hdmi-tx'), preventing the schema constraints from being applied.
+
+Pre-existing issues:
+- [High] Kernel panic or division-by-zero exception due to division by zero=
+ in clock rate recalculation if hardware registers are uninitialized or zer=
+oed.
+- [High] Multiplication of unsigned long values silently overflows on 32-bi=
+t architectures before assignment to a 64-bit variable in VCO rate calculat=
+ion.
 --
 
-commit 95836f68df5245b7dc121437b6c3df3442b5e4f8
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 65afb8fac5b8b08e9749e00354df9fbca4121dd2
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-dt-bindings: display/msm: hdmi: Add Eliza HDMI TX
+phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
 
-Qualcomm Eliza SoC comes with HDMI IP block, built on top of one
-previously present in MSM8998.  There are just a few differences in
-hardware, mostly about handling clock reparenting, but more notable the
-old binding looked incomplete, thus devices could not be considered
-compatible.
+This commit replaces the local RK3328 pre-PLL implementations for calculati=
+ng
+and setting rates with the generic shared Innosilicon helpers. It keeps the
+RK3228 register-level code separate due to different register addresses but
+shares the table lookup.
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Do=
-cumentation/devicetree/bindings/display/msm/hdmi.yaml
-> index 02d27ccad0247..6adaa095b7473 100644
-> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c b/drivers/phy/=
+rockchip/phy-rockchip-inno-hdmi.c
+> index 1483907413faa..fae766607b0ea 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
 [ ... ]
-> @@ -159,6 +180,44 @@ allOf:
->              - const: bus
->              - const: mnoc
->              - const: iface_mmss
-> +        reg-names:
-> +          minItems: 1
-> +          items:
-> +            - const: core_physical
-> +            - const: qfprom_physical
-> +            - const: hdcp_physical
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,qcom,eliza-hdmi-tx
+> @@ -870,39 +850,11 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(=
+struct clk_hw *hw,
+>  						   unsigned long parent_rate)
+>  {
+>  	struct inno_hdmi_phy *inno =3D to_inno_hdmi_phy(hw);
+[ ... ]
+> +	inno->pixclock =3D inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
+> +							   parent_rate);
 
-[Severity: Medium]
-Does this compatible string contain a duplicated "qcom," vendor prefix?
+[Severity: High]
+This is a pre-existing issue, but since we are switching to the shared help=
+er
+inno_hdmi_phy_pre_pll_recalc_rate(), can this code cause a division by zero?
 
-It appears that this should be "qcom,eliza-hdmi-tx" to match the compatible
-string defined in the properties section and the example. With the duplicat=
-ed
-prefix, this conditional block will not match, causing the constraints for =
-the
-clocks, reg, and required properties defined in the "then" block to be
-bypassed during dtbs schema validation.
+If the bootloader has not initialized the PHY, the hardware registers may
+contain their default 0 values. When the clock framework calls recalc_rate
+during registration at boot, would the following logic in the helper result=
+ in
+a division by zero:
 
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 6
-> +          maxItems: 6
+drivers/phy/phy-inno-hdmi.c:inno_hdmi_phy_pre_pll_recalc_rate() {
+    ...
+	nd =3D inno_read(pll, INNO_PRE_PLL_DIV_1) & INNO_PRE_PLL_PRE_DIV_MASK;
+    ...
+	if (inno_read(pll, INNO_PRE_PLL_CONTROL) & INNO_PCLK_VCO_DIV_5_MASK) {
+		do_div(vco, nd * 5);
+	} else {
+		no_a =3D inno_read(pll, INNO_PCLK_DIV_AB) & INNO_PCLK_DIV_A_MASK;
+		no_b =3D FIELD_GET(INNO_PCLK_DIV_B_MASK,
+				 inno_read(pll, INNO_PCLK_DIV_AB)) + 2;
+		no_d =3D inno_read(pll, INNO_PCLK_DIV_CD) & INNO_PCLK_DIV_D_MASK;
+
+		do_div(vco, nd * (no_a =3D=3D 1 ? no_b : no_a) * no_d * 2);
+	}
+    ...
+}
+
+If nd, no_a, or no_d evaluate to 0, the denominator becomes 0, which could
+lead to a kernel panic or exception on some architectures.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the rate recalculation
+silently overflow on 32-bit architectures?
+
+Inside the same helper, the VCO rate is calculated as:
+
+drivers/phy/phy-inno-hdmi.c:inno_hdmi_phy_pre_pll_recalc_rate() {
+    ...
+	vco =3D parent_rate * nf;
+
+	if (!(inno_read(pll, INNO_PRE_PLL_DIV_2) &
+	      INNO_PRE_PLL_FRAC_DIV_DISABLE)) {
+		frac =3D inno_read(pll, INNO_PRE_PLL_FRAC_DIV_7_0) |
+		       (inno_read(pll, INNO_PRE_PLL_FRAC_DIV_15_8) << 8) |
+		       (inno_read(pll, INNO_PRE_PLL_FRAC_DIV_23_16) << 16);
+		vco +=3D DIV_ROUND_CLOSEST(parent_rate * frac,
+					 BIT(INNO_FRAC_DIV_WIDTH));
+	}
+    ...
+}
+
+The parent_rate is typically 24,000,000, while nf can be up to 757 and
+frac up to ~14.6 million. Since parent_rate is an unsigned long and nf is a
+u16, the multiplication is performed as 32-bit unsigned math on 32-bit
+platforms (like RK3228 which uses ARM32).
+
+Would parent_rate * nf and parent_rate * frac wrap around ULONG_MAX before
+being assigned to the 64-bit vco variable or before the division in
+DIV_ROUND_CLOSEST?
+
+> =20
+> -	inno->pixclock =3D DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
+> -
+> -	dev_dbg(inno->dev, "%s rate %lu vco %llu\n",
+> -		__func__, inno->pixclock, vco);
+> +	dev_dbg(inno->dev, "%s rate %lu\n", __func__, inno->pixclock);
+> =20
+>  	return inno->pixclock;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-drm-msm-hd=
-mi-eliza-v1-0-67843277de17@oss.qualcomm.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-jh7110-cle=
+an-send-v2-0-331680c8b9d1@samsung.com?part=3D12
