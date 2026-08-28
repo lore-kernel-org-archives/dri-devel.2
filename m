@@ -4,125 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A9CC61DB9
-	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 864B5C61DB9
+	for <dri-devel@archiver.kernel.org>; Fri, 28 Aug 2026 07:29:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 159B510E476;
-	Fri, 28 Aug 2026 07:24:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B491D10F290;
+	Fri, 28 Aug 2026 07:29:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="QrTx6HTT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qrti8FUH";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.61.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 902C310E476
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 07:24:21 +0000 (UTC)
-Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
- by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hWVHs16M9z8J9s;
- Fri, 28 Aug 2026 09:24:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1787901849;
- bh=rO5R5UP/jGk6AEyOiwT2ew82BVHtvIxLoA7WyXEijhs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QrTx6HTTyzq1NsOjR2EKB5ciQTcpJpH6WMHjAnLB2xokLzb+8vTs1UugSW+czKtMj
- CCiweuAqPinhNwwl02R/QvVjStoAws3FOow8FKlC5CV7BEuccFNIMB0c9PgXSTba3I
- aynixboGifdUu0Qv4aFn8sJHEIPV9ll83yLS+RhCJDoWPYHZqdRpYCOWeazAQFvK05
- gt7T+LauTcMBmxkRJruKUb+Q8sIj2EURoyP9oyAyFXoho2mvKPLdthYfN0Nrb1EoOw
- EihZcCVphIMY6tkMLsbdKPCYdT0O8NLQN+qFq72xeI9rG//yMUo7goa77H62laflHI
- tRd7wvDX5O/JA==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hWVG83r25z86qP;
- Fri, 28 Aug 2026 09:22:40 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hWVG63ns2z8tdm;
- Fri, 28 Aug 2026 09:22:38 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 2158B5FAE4;
- Fri, 28 Aug 2026 09:22:37 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
-Date: Fri, 28 Aug 2026 09:22:36 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDA410F290
+ for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 07:29:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8111B60232;
+ Fri, 28 Aug 2026 07:29:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3BA1F000E9;
+ Fri, 28 Aug 2026 07:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787902144;
+ bh=A/Jz8Y0Yz5GP1+G0umIYMTdct+IMazPBhKMY7ojm5kc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Qrti8FUHw7vzywn6UqPOPUA3eZKxCzdv6Ux2uQgl1Y6oKB87jWyDwZUAT3+9gBq2n
+ KAbpIAgohI72wnfWkDbAP/W35h2cqviJWIXoGmyanu5QMQnXIXzkvDCe4U9M1sjhud
+ BNfUEUPTIDaVAtpdbkW0w1rsLpAaKDu6g6Zv97PpQKWsG0i8SaqQSplVqdHCq+WaD/
+ MDcXq9mz5HVIGF7cLbDnh7HHh6IUN8N2OL3HjuzjMkxg+AyX/LlyudvXS5kl/4Ffj2
+ YlrKnH6LPDMDQ1jc9vkxnjY1U9d9Oh8pPWlMg07hTrfsL657ZlW/seZRqiTDzN+BIt
+ 1nM211/lxoTmA==
+Message-ID: <0df59c80-ae58-47d3-a96b-e878a17766a7@kernel.org>
+Date: Fri, 28 Aug 2026 09:29:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-To: Melissa Wen <mwen@igalia.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
- Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260826104143.39077-1-mwen@igalia.com>
- <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
- <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
- <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-X-Enigmail-Draft-Status: N11222
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, tursulin@ursulin.net,
+ matthew.brost@intel.com, sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260120105655.7134-1-christian.koenig@amd.com>
+ <20260120105655.7134-2-christian.koenig@amd.com>
+ <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
+ <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
+ <9edeaa17aebc284f1f171b1dd4d9ffee4721b750.camel@mailbox.org>
+ <4b5b6dda-43a4-4488-9dbd-b0f92fcead61@kernel.org>
+ <0b84716fa6bec4e38d811dc76926dd81e31e0c81.camel@mailbox.org>
+ <5dd4248bccb446ef390e7149649632657db4aaae.camel@mailbox.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <5dd4248bccb446ef390e7149649632657db4aaae.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178790175820.3352449.9764472671033574481@mxe9fb.netcup.net>
-X-NC-CID: jHqi2LbOopvtK2C+qR73nICtA2K7XQPyOOyqNOiC4CMAQiSTFCo=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,39 +109,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/27/26 19:14, Melissa Wen wrote:
-> On 27/08/2026 18:37, Melissa Wen wrote:
->> On 27/08/2026 15:34, Alex Deucher wrote:
->>> On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
->>>> PREMULTI was the default DRM blend mode until 9813e158d13d
->>>> ("drm/drm_blend: allow blend mode property without PREMULTI")
->>>> introduced
->>>> the possibility of exposing the blend mode property without PREMULTI
->>>> being supported. However, __drm_atomic_helper_plane_state_init() still
->>>> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
->>>> mode in this property. In the same series, 860e748bddcc ("drm: ensure
->>>> blend mode supported if pixel format with alpha exposed") starts
->>>> warning
->>>> drivers that supports alpha formats in a given planes but doesn't
->>>> support blend mode property, which includes AMD primary and cursor
->>>> planes.
-> [...]
->>> I presume you are planning to apply this directly to drm-misc for 7.3?
->>
->> Right, I'll apply to drm-misc-fixes, just doing it now.
+On 19. 08. 26, 14:51, Philipp Stanner wrote:
+> On Wed, 2026-08-19 at 14:33 +0200, Philipp Stanner wrote:
 > 
-> Or not now. I have to wait for -rc1.
-> I'll keep it on my radar.
-Hmmm, that sounds like these fixes will miss -rc1. But wouldn't it be
-good to get them included there, as they afaik (please correct me if I'm
-wrong, is easy to mix something up from the outside!) the warnings that
-Greg described as ""It's not good to boot and have a bunch of warnings
-already happening, resulting in a "tainted" kernel before I have the
-chance to break anything manually myself...""[1], as more people then
-will likely encounter this (and then waste time on bisecting an issue
-known for weeks for which a fix exists).
+> 
+> […]
+> 
+>>
+>> Regardless, looking at the code again, I would say that this might be a
+>> race, but I don't know enough about QXL to say for sure.
+>>
+>> dma_fence_init() is (of course) not ordered:
+>>
+>>
+>> static void
+>> __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>> 	         spinlock_t *lock, u64 context, u64 seqno, unsigned long flags)
+>> {
+>> 	BUG_ON(!ops || !ops->get_driver_name || !ops->get_timeline_name);
+>>
+>> 	kref_init(&fence->refcount);
+>> 	/*
+>> 	 * While it is counter intuitive to protect a constant function pointer
+>> 	 * table by RCU it allows modules to wait for an RCU grace period
+>> 	 * before they unload, to make sure that nobody is executing their
+>> 	 * functions any more.
+>> 	 */
+>> 	RCU_INIT_POINTER(fence->ops, ops);
+>> 	INIT_LIST_HEAD(&fence->cb_list);
+>> 	fence->context = context;
+>> 	fence->seqno = seqno;
+>> 	fence->flags = flags | BIT(DMA_FENCE_FLAG_INITIALIZED_BIT);
+>>
+>> (Should this maybe be set_bit() btw?)
+>>
+>>
+>> The fact that QXL could run into qxl_release_free() with an
+>> uninitialized fence hints at the fact that this might race, so
+>> DMA_FENCE_FLAG_INITIALIZED_BIT could be set / read before kref_init()
+>> ran.
+>>
+>>
+>> Maybe one way to verify / debug that would be to move
+>> spin_unlock(&qdev->release_idr_lock) downwards so it also guards
+>> dma_fence_was_initialized(), and also lock the initialization of the
+>> fence (in qxl_release_fence_buffer_objects() ?) with said lock.
+>>
+>> If that's possible. Just brainstorming a bit for ways how to debug.
+>>
+>> QXL does a few tricky things with the release->base.ops pointer.
+>> qxl_release_alloc() sets it to NULL, and only
+>> qxl_release_fence_buffer_objects() then actually sets it. So this could
+>> be the race? Setting of the ops pointer got replaced by setting of the
+>> fence-flag.
+>>
+>>
+>> P.
+> 
+> Could you test something like this? (not even compile-tested, just an idea)
 
-Ciao, Thorsten
+It makes the system dead during early boot :P.
 
-[1]
-https://lore.kernel.org/all/2026082651-spinning-cornbread-33ba@gregkh/
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 87797bea91cb..df1aa48b2809 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1075,7 +1075,6 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>          INIT_LIST_HEAD(&fence->cb_list);
+>          fence->context = context;
+>          fence->seqno = seqno;
+> -       fence->flags = flags | BIT(DMA_FENCE_FLAG_INITIALIZED_BIT);
+>          if (lock) {
+>                  fence->extern_lock = lock;
+>          } else {
+> @@ -1084,6 +1083,8 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+
+This missing piece was here:
+-               fence->flags |= BIT(DMA_FENCE_FLAG_INLINE_LOCK_BIT);
++               flags |= BIT(DMA_FENCE_FLAG_INLINE_LOCK_BIT);
+
+
+>          }
+>          fence->error = 0;
+>   
+> +       smp_mb();
+> +       fence->flags = flags | BIT(DMA_FENCE_FLAG_INITIALIZED_BIT);
+>          trace_dma_fence_init(fence);
+>   }
+
+But it does not help either...
+
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index b52ab692b22e..40ffdcafaac1 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -292,7 +292,12 @@ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
+>    */
+>   static inline bool dma_fence_was_initialized(struct dma_fence *fence)
+>   {
+> -       return fence && test_bit(DMA_FENCE_FLAG_INITIALIZED_BIT, &fence->flags);
+> +       bool init;
+> +
+> +       init = fence && test_bit(DMA_FENCE_FLAG_INITIALIZED_BIT, &fence->flags);
+> +       smp_mb();
+> +
+> +       return init;
+>   }
+>   
+>   /**
+
+
+-- 
+js
+suse labs
