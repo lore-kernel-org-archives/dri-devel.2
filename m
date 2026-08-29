@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD32FC61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 780D4C624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD5710E69C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C1410E69B;
 	Mon, 31 Aug 2026 07:00:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="qTT5xHib";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="DhqLQLMW";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="ck63mK0V";
 	dkim-atps=neutral
-X-Greylist: delayed 446 seconds by postgrey-1.36 at gabe;
- Sat, 29 Aug 2026 20:16:49 UTC
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656D910E12C
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Subject:Date:From; t=1788034160; bh=pR0fE7oJ788aDLCrtNOmB5V
- AEfVYZ1+UzA4iaBX/Qaw=; b=qTT5xHibHkrMI25DEBId67l09GLzSOJVSmr0uwqDDtdAfa9p0c
- T+2VINnT80bL47wilhiLPJSeiuotXD+qxD4Lanoq4ctgO0T31G+lZPlBuJaVrsfVAMwp16qnPaF
- B4DCEVxUuRhRkNG+yOtj2mlUjGk80ae1ooKwZ0VhWqvhgZ2Zi7s9qTYU8Cqfo55ky71mDOpcZ+f
- 7NIricaf2VPkaqypsKF1xGKiean7vLWdFgm816awyvKlBNROE05swtO3KTeJffjTRtSbvtFoxfT
- 9s/CHvz4tn9wS14w7ygBU4lMASbD4AI+V5BKK9kAb/RB2Q8JldpixW3KqHeJb97i6JQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Subject:Date:From; t=1788034160; bh=pR0fE7oJ788aDLCrtNOmB5V
- AEfVYZ1+UzA4iaBX/Qaw=; b=DhqLQLMWSuaOyAUHpApst32V9v7QE98JM6XXgRcgTjWQeWP/dV
- UpLv/iPFw8Wh2jjoaUjXMo6Z7NiTdoy6yKDw==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Date: Sat, 29 Aug 2026 23:09:13 +0300
-Subject: [PATCH RFC 1/2] dt-bindings: display: panel: Add bindings for
- Novatek NT51021
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7CE10E0E8
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 10:36:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1787999769; x=1788258969;
+ bh=9gycK/4wH3LKRRi/ZIX7zEeGMX0rP58XKrd5YTKBKNc=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=ck63mK0VCiSeIDvO6v3PE+XFY6CD4/NQk9XxNNCw7Ckdm0aH7li2c1Pwc+VWUzX5K
+ CphLkhRzSnzipU8zJQCyrg5qeRw7NQPy+BKz5jiYS1IP4w0RqQXmZa7wK8JIhN2KJM
+ 9hn77mPiJV7NxhXNMGxteckuaN1M/dKv5kmDipUb7Gvj0T4kuGCZWN6FbhyBhQELbr
+ yfrjPPNJMX21669OsQhUhSJwVbVqC8G2kA/ypcqfc4ynyI/8NNtPLDkgsS8JYrc53m
+ 0ngCcvbdeGZ5ASF0GdcDffGrF03EJRAsnSLX2t1SesyGTsrFSsxQmcRSqR0hR7hp8x
+ 8VqgVXD7Xq3lw==
+Date: Sat, 29 Aug 2026 10:36:04 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: nirbhayykumarr@proton.me
+Cc: "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "arnd@arndb.de" <arnd@arndb.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: Re: [BUG] misc/mei: Race between mei_release() disconnect and
+ mei_ioctl_connect_vtag() causes CSME reset storm and i915 freeze
+Message-ID: <SWbw2eeUo9ExN9Aw7wAoQuQdmYKIgs4QW6fz-1L8TIVtBowiohgHD7gxkCVeNC_3lT4U20731Kh8LJnrDScvF0-EUj2YxnXMe9yjDto70h0=@proton.me>
+In-Reply-To: <2026082929-bath-idiom-06e7@gregkh>
+References: <HVTY6-E6fK5xolgZqI7bt1JIKctxL4VdcbteGTvPo7PN58iyvU01QXToLr2v9pvJtGTrUHFLuc7xZQtplf6HaZak1JvG3gySDpazMhbHsnE=@proton.me>
+ <2026082929-bath-idiom-06e7@gregkh>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: f92cdf5953adc231a5e2c89b01f1e5ad76ebfa01
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
-In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nickolay Goppen <setotau@mainlining.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788034158; l=4080;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=ODOd/3ZW32aN4TGSCybwKQ2f2GUK2CdpCDOyC5ojuMg=;
- b=W4FLNpInQe/10sfXGMNaoT0NVTLvlnhte4/VJZqxGZQ6FNHtSs6KJOldITVSnr1Vh3abTclce
- UAW8isqUWFFCgrlKIjD05fJakZz9htCEWofVcqFrsXeVjxki3Q18Mqk
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,135 +65,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Novatek NT51021 is a display driver IC that can drive DSI panel. It
-is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
-panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
-Xiaomi Mi Pad 4 Plus.
+On Saturday, August 29th, 2026 at 1:00 PM, gregkh@linuxfoundation.org <greg=
+kh@linuxfoundation.org> wrote:
 
-This patch adds the bindings for display driver for the IC, with support
-added for this BOE TV101WUM-NX0 WUXGA video mode panel.
+> On Sat, Aug 29, 2026 at 07:14:10AM +0000, nirbhayykumarr@proton.me wrote:
+> > Hi all,
+> >
+> > This issue was discovered using a custom multi-threaded C fuzzer
+> > designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
+> > multiplexing over /dev/mei0. By concurrently racing rapid vtag
+> > connections against file descriptor closures and streaming I/O, a
+> > race condition is triggered during client teardown.
+>=20
+> But that's not a normal use case, right?
 
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
----
- .../bindings/display/panel/novatek,nt51021.yaml    | 93 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 ++
- 2 files changed, 98 insertions(+)
+Yes, you are right. It is definitely not a normal, everyday
+workload. it is an extreme edge case that I caught unintentionally while
+stress-testing vtag multiplexing during a broader CSME research project.
+But because it results in an unrecoverable full system kernel and
+DRM/i915 display freeze when hit, I thought it was important to document
+and report it.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-new file mode 100644
-index 000000000000..a3e4ed10e645
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT51021 based DSI display Panels
-+
-+maintainers:
-+  - Nickolay Goppen <setotau@mainlining.org>
-+
-+description: |
-+  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
-+  panels.
-+  Right now, support is added only for a BOE WUXGA LCD display panels with a
-+  resolution of 1200x1920. They are video mode DSI panels.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - boe,tv101wum-nx0
-+          - boe,tv080wum-nx2
-+      - const: novatek,nt51021
-+    description: This indicates the panel manufacturer of the panel that is
-+      in turn using the NT51021 panel driver. This compatible string
-+      determines how the NT51021 panel driver is configured for the indicated
-+      panel. The novatek,nt51021 compatible shall always be provided as a fallback.
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: phandle of gpio for reset line - This should be 8mA, gpio
-+      can be configured using mux, pinctrl, pinctrl-names (active high)
-+
-+  vdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for digital circuits
-+
-+  avdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for analog circuits
-+
-+  havdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for analog circuits
-+
-+  port: true
-+  backlight: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - avdd-supply
-+  - havdd-supply
-+  - reset-gpios
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |+
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi0 {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "boe,tv101wum-nx0", "novatek,nt51021";
-+            reg = <0>;
-+            vdd-supply = <&lcd_pwr>;
-+            avdd-supply = <&lcd_pwr>;
-+            havdd-supply = <&lcd_pwr>;
-+
-+            backlight = <&i2c_backlight>;
-+            reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi0_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7291238bc09f..6cbf9ee3fa9b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8354,6 +8354,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
- F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
- 
-+DRM DRIVER FOR NOVATEK NT51021 PANELS
-+M:	Nickolay Goppen <setotau@mainlining.org>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-+
- DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
- M:	Lyude Paul <lyude@redhat.com>
- M:	Danilo Krummrich <dakr@kernel.org>
+> > In mei_release(), closing the last file descriptor holding a virtual ta=
+g
+> > invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(), dev->device_=
+lock
+> > is dropped while awaiting the firmware disconnect ACK on cl->wait.
+> >
+> > During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTA=
+G
+> > call on the same UUID (e.g. MKHI) scans dev->file_list, matches the tea=
+ring-
+> > down client 'pos' (in MEI_FILE_DISCONNECTING), repoints file->private_d=
+ata
+> > to pos, and adds its new vtag to pos->vtag_map.
+> >
+> > When the disconnect ACK arrives, __mei_cl_disconnect() calls
+> > mei_cl_set_disconnected(cl), setting cl->me_cl =3D NULL and
+> > cl->state =3D MEI_FILE_DISCONNECTED. Because pos->vtag_map now contains=
+ the
+> > second thread's tag, mei_release() skips unlinking/freeing cl. The seco=
+nd
+> > thread then wakes up and attempts to reconnect via mei_ioctl_connect_cl=
+ient().
+> >
+> > Additionally, shared clients lack tag based demuxing on cl->rd_pending =
+in
+> > drivers/misc/mei/interrupt.c:
+> >   cb =3D list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, li=
+st);
+> >
+> > Incoming packets are matched to the head of the FIFO queue regardless o=
+f
+> > vtag, causing -EPROTO errors, dropped packets, and out-of-order HBM com=
+mand
+> > sequences. This triggers continuous CSME hardware link resets:
+> >   mei mei0: FW not ready: resetting: dev_state =3D 3
+> >   mei mei0: unexpected reset: dev_state =3D ENABLED fw status =3D ...
+> >
+> > During each reset, child client drivers (mei_hdcp, mei_pxp) unbind and =
+rebind
+> > with i915 DRM. With resets looping at hundreds of cycles per second (>9=
+,800
+> > events in 27s), mei_cldev_enable() repeatedly fails with -EFAULT / -ENO=
+DEV,
+> > deadlocking i915 display worker mutexes in TASK_UNINTERRUPTIBLE and cau=
+sing
+> > an unrecoverable full system freeze.
+> >
+> > Proposed Fix:
+> > - Prevent vtag reuse during teardown: in mei_ioctl_connect_vtag(),
+> >    ignore existing clients on dev->file_list if they are in
+> >    MEI_FILE_DISCONNECTING or MEI_FILE_DISCONNECTED states or undergoing
+> >    teardown.
+> > - Implement proper reference counting / lifecycle synchronization on
+> >    shared struct mei_cl instances.
+> > - In drivers/misc/mei/interrupt.c, demux cl->rd_pending by matching the
+> >    incoming packet's vtag header to the corresponding callback rather
+> >    than assuming FIFO order.
+> > - Add rate-limiting / backoff to MEI client reprobing during hardware
+> >    link resets to prevent cascading bus storms into DRM / i915.
+>=20
+> Please send patches for this if you wish to see these issues addressed.
+> As you have a reproducer, it should be simple for you to do so.
 
--- 
-2.55.0
+I appreciate the nudge. While the reproducer is straightforward, safely=20
+resolving the cross-subsystem interaction between MEI and i915 without=20
+introducing regressions seemed complex enough that I initially deferred=20
+to the Intel maintainers.=20
+
+However, since I've already mapped out the race in mei_ioctl_connect_vtag()=
+,=20
+I am happy to take a shot at it. I will work on implementing the localized=
+=20
+state checks to prevent vtag reuse during teardown, and I'll submit a=20
+patch for review in the next few days.
+
+> And how does this differ from the patch you have already sent but has
+> not yet been merged?
+
+The previous patch addressed a single-client teardown ordering issue where=
+=20
+incoming IRQ completions populated cl->rd_completed after mei_cl_flush_queu=
+es()=20
+was called, triggering a WARN_ON() in mei_cl_unlink().
+
+This issue is a separate, multi-client race specific to Virtual Tag (vtag)
+multiplexing in mei_ioctl_connect_vtag(). While mei_release() drops
+dev->device_lock to wait for firmware disconnect, a concurrent thread
+requesting a new vtag matches the tearing-down client on dev->file_list.
+When the disconnect finishes, cl->me_cl is cleared/NULL'd while the client
+is actively reused, resulting in CSME hardware reset loops and cascading
+DRM/i915 display freezes.
+
+
+Thanks,
+Nirbhay Kumar
