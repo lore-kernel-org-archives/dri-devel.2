@@ -4,47 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067C6C624C6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAB0BC61DD3
 	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4691510E678;
-	Mon, 31 Aug 2026 07:00:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1EE710E694;
+	Mon, 31 Aug 2026 07:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="QQeQgUVS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SRgUBjrF";
 	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60F9410E0FE
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 03:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=5jyqa2t64jfz7j3mddw2j2si6q.protonmail; t=1788061929; x=1788321129;
- bh=ZalboOQlaRdM07h0DCHOooTZyMCDymSdS7Ibwrc+ZOA=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=QQeQgUVSbsRZ/Pr60TiLr0vFvhdHoXGuDMyKAvBEEHlFJ2CGnEt1r5+I0//6PrkuP
- xJFZILNCeTjoiqf0wl4sGr8iFeL0v6Q3mz21wgdQLGUbs6LicYDhUImfg1bnSE+PMg
- 8KSzx5Wpb29GADdvpQdlfWvSl/v0ETbYPkb9K433f19pIhF6/AJKuPxhsRruUC3JEh
- IJYMwcXGF+142eFmxwdiPk+g1XmO0kG6qjf/p2PrCx/VK/HUmUozrg9CkynfkUQRnE
- WkGkR8fPS4JB+W5MlbLx1QSalu7JYtHE8CsS+jbJqAbLD1zPRA4cYOtex2jxYsc6oi
- /bk7h1sfbCuqQ==
-Date: Sun, 30 Aug 2026 03:52:06 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Satyajit Roy <edu042sjroy@proton.me>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Satyajit Roy <sroy14@alum.utk.edu>
-Subject: [PATCH 2/3] drm/amd/display: Honor Broadcast RGB for BT.2020 RGB
- output
-Message-ID: <20260830035120.937992-3-edu042sjroy@proton.me>
-In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
-References: <20260830035120.937992-1-edu042sjroy@proton.me>
-Feedback-ID: 147615787:user:proton
-X-Pm-Message-ID: 1a25c08e6bc2c6a214d24d3c36fb934063f828a2
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C8110E0C7
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 08:00:21 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-49556f97a9dso10691435e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 01:00:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787990419; x=1788595219; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=/2eNcAW1tigTpuqgp2s8g1GYZ7f9AJxKWb3CPCC/1rU=;
+ b=SRgUBjrF6jfPzrxsrOk6xHq0wSzeQmboafmehD872eTRnqS6M7igODICRQ1+RwRyZy
+ sfNXbtG587amRXhPGRYn9JvNBr9NhfpeRr8vjFI3a64q451k28LG8Xs2WQjR9Sc6Ry33
+ eFTK+6MA08tjqJ9AAKN1nw+loAblE7FaW6MIqbQ8WfDHfRh/dHRjZjYSJUC2ZvmETG5k
+ rOzbKQnDiHieaMOW8SHcoFIHwEEQU/PjJh1KudnhtklW2huMOcxDoRiak44tzFvDfI97
+ sDMJSsjKw4bzEE3d+pEHM3mYtfsvudoE4toVvsubOm1gj41c89hGq1yXmmCo5jN/EAwb
+ OWCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787990419; x=1788595219;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=/2eNcAW1tigTpuqgp2s8g1GYZ7f9AJxKWb3CPCC/1rU=;
+ b=HjTzdZBQDNWH+BH2iEC7AuRTiFzFJMabJiwRHU35YkKLCVgm2D2jiaQAiu+f+2kqAV
+ ag7T4BMUxrF3VKomldmLI6Dkgg2uNIn4Q+DFd/lnd+le6QoKod9cqeWovdDKSOXzDYcw
+ ZpJRHXnjl8MnlK/kVLEsD0Mfb7iago6DuF4hW1wIF0eiHNBbYKLA/d83EksusD9ldcjG
+ 8d5itoYU3bKi7gfQrPH4eGN9v62RUqbKjokj+l8VCZEb7aG0eqtVAzc9uVDk5Pzwto8s
+ ZRZcxCPD8y+arkOKQkZh6oPUOzbqW094WsNCurncfJiEVuq9prshl5T768zg+T2mBfxB
+ m4MA==
+X-Gm-Message-State: AFuF++mBKigkoA3q8Xh2ytWznmYEvHWFjbE33oXN68e/eXyBpiI4XRiE
+ +E+iHwS3X5sxcakBJOt+WvrftDquEehBp79R/PtxPriNg7sCEGJOs/YN
+X-Gm-Gg: AR+sD10PxoBjAyjgVlfaDKa/BHY86Wjr0IiEooOU3HNcJ38mJYBt7Yd171nHSOO/xG2
+ 7fzh0sRrnD6KrqF3XUPArvaiRe27QffRAD3ZRaoOryKWvWIcAqVcsAiAloM5Z7B6EmwhjU8OcbV
+ BHPBWSNs5z/US+eWzgDbVEkevqaJUesD2kH+LKSyw5FUCxbP9S3i85szBqdhBQJ5AHq8scbgdBW
+ O6dk/SyyWLwXXRRhohahxLL+Bz7NSQFRz+eDJeX1Fg4DKNGg6IwpCaZJg0kYrvJx9wGVUXFdqk/
+ RloVDkIk13X5KRjeZELmdXRFnXWtUZt2kcLScYhM4d/ccrWIiW4cfkNP1fgVvRyUE4NpPl57JgG
+ an1Vy+fnwVoWaY3OaUKySlQqSfyFuEYny/NIHptKGXSfOnlAVV7vzhm17S27SirI8VGcIsLbc/o
+ 6sixpUgw1+YNA2yoqoEeIp0QD89WQxJMlfUM8w9Bsxg2/5Ps2VLXbXpBmkCdSiCDsK38wtqt5VQ
+ 4aF0TewLmESqw8gk3qqxII13qYltSQy4M8LgPc8TsMbjPDt+K2Um5Vwgcqxeqcczf50nX4v0A==
+X-Received: by 2002:a05:600c:620e:b0:49c:c0d4:53d9 with SMTP id
+ 5b1f17b1804b1-49cc0d4545emr106478415e9.14.1787990419277; 
+ Sat, 29 Aug 2026 01:00:19 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:e90c:f900:e29d:3a79:ac40:9edd])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b945816f2sm136345955e9.8.2026.08.29.01.00.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 29 Aug 2026 01:00:18 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH] accel/amdxdna: fix NULL deref and GEM object leak in error
+ paths
+Date: Sat, 29 Aug 2026 11:00:16 +0300
+Message-ID: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,136 +88,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+amdxdna_cmd_submit() does not set job->cmd_bo for internal driver
+commands that pass AMDXDNA_INVALID_BO_HANDLE. If arg BO lookup fails
+after that, the cmd_put cleanup calls amdxdna_gem_put_obj(NULL) which
+dereferences a NULL pointer.
 
-amdgpu_dm_get_output_color_space() applies the Broadcast RGB connector
-property to default RGB output, but always selects full-range output for
-BT.2020 RGB. Consequently, explicitly selecting Limited has no effect on
-the output CSC or AVI InfoFrame when HDR uses BT.2020 RGB.
+Separately, amdxdna_cmd_set_error() acquires a GEM reference via
+amdxdna_gem_get_obj() when handling a chained command, but leaks it
+when the subsequent amdxdna_gem_vmap() returns NULL.
 
-Select COLOR_SPACE_2020_RGB_LIMITEDRANGE when the output encoding is RGB
-and Broadcast RGB is Limited. Keep Automatic and Full at full range, and
-leave YCbCr output unchanged.
+Add a NULL check in the submit cleanup path and release the GEM
+reference on vmap failure.
 
-Add KUnit coverage for limited-range RGB output through both BT.2020
-connector colorspace values.
-
-Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property=
-")
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 10 +++--
- .../tests/amdgpu_dm_connector_test.c          | 37 +++++++++++++++++++
- 2 files changed, 44 insertions(+), 3 deletions(-)
+ drivers/accel/amdxdna/amdxdna_ctx.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 8a35e4df13c..f2f6a2a0db9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -758,10 +758,14 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc=
-_timing *dc_crtc_timing,
- =09=09break;
- =09case DRM_MODE_COLORIMETRY_BT2020_RGB:
- =09case DRM_MODE_COLORIMETRY_BT2020_YCC:
--=09=09if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)
--=09=09=09color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
--=09=09else
-+=09=09if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB) {
-+=09=09=09if (connector_state->hdmi.broadcast_rgb =3D=3D DRM_HDMI_BROADCAST=
-_RGB_LIMITED)
-+=09=09=09=09color_space =3D COLOR_SPACE_2020_RGB_LIMITEDRANGE;
-+=09=09=09else
-+=09=09=09=09color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
-+=09=09} else {
- =09=09=09color_space =3D COLOR_SPACE_2020_YCBCR_LIMITED;
-+=09=09}
- =09=09break;
- =09case DRM_MODE_COLORIMETRY_DEFAULT: /* ITU601 */
- =09default:
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connecto=
-r_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_=
-test.c
-index 76334fb840d..29bbe9f7826 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
-c
-@@ -570,6 +570,23 @@ static void dm_test_output_color_space_bt2020_rgb(stru=
-ct kunit *test)
- =09=09=09(int)COLOR_SPACE_2020_RGB_FULLRANGE);
- }
-=20
-+/**
-+ * dm_test_output_color_space_bt2020_rgb_limited - Test limited BT.2020 RG=
-B
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_output_color_space_bt2020_rgb_limited(struct kunit *te=
-st)
-+{
-+=09struct dc_crtc_timing timing =3D {};
-+=09struct drm_connector_state state =3D {};
-+
-+=09timing.pixel_encoding =3D PIXEL_ENCODING_RGB;
-+=09state.colorspace =3D DRM_MODE_COLORIMETRY_BT2020_RGB;
-+=09state.hdmi.broadcast_rgb =3D DRM_HDMI_BROADCAST_RGB_LIMITED;
-+
-+=09KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &s=
-tate),
-+=09=09=09(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
-+}
-+
- /**
-  * dm_test_output_color_space_bt2020_ycc - Test Output color space bt2020 =
-ycc
-  * @test: The KUnit test context
-@@ -641,6 +658,24 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_=
-encoding(struct kunit *tes
- =09=09=09(int)COLOR_SPACE_2020_RGB_FULLRANGE);
- }
-=20
-+/**
-+ * dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited - Test limit=
-ed
-+ * BT.2020 RGB output selected through the BT.2020 YCC connector colorspac=
-e
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited(str=
-uct kunit *test)
-+{
-+=09struct dc_crtc_timing timing =3D {};
-+=09struct drm_connector_state state =3D {};
-+
-+=09timing.pixel_encoding =3D PIXEL_ENCODING_RGB;
-+=09state.colorspace =3D DRM_MODE_COLORIMETRY_BT2020_YCC;
-+=09state.hdmi.broadcast_rgb =3D DRM_HDMI_BROADCAST_RGB_LIMITED;
-+
-+=09KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &s=
-tate),
-+=09=09=09(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
-+}
-+
- /**
-  * dm_test_output_color_space_bt2020_rgb_ycc_encoding - Test Output color =
-space
-  * bt2020 rgb with non-rgb pixel encoding falls back to limited ycbcr
-@@ -8409,10 +8444,12 @@ static struct kunit_case amdgpu_dm_connector_tests[=
-] =3D {
- =09KUNIT_CASE(dm_test_output_color_space_bt709_y_only),
- =09KUNIT_CASE(dm_test_output_color_space_oprgb),
- =09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb),
-+=09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_limited),
- =09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
- =09KUNIT_CASE(dm_test_output_color_space_default_ycbcr709_y_only),
- =09KUNIT_CASE(dm_test_output_color_space_default_ycbcr601),
- =09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc_rgb_encoding),
-+=09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited),
- =09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_ycc_encoding),
- =09/* Tests for amdgpu_dm_convert_dc_color_depth_into_bpc */
- =09KUNIT_CASE(dm_test_convert_color_depth_bpc_mappings),
---=20
-2.51.1
-
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index 31a414c3f..c0444454a 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+ 		if (!abo)
+ 			return -EINVAL;
+ 		cmd = amdxdna_gem_vmap(abo);
+-		if (!cmd)
++		if (!cmd) {
++			amdxdna_gem_put_obj(abo);
+ 			return -ENOMEM;
++		}
+ 	}
+ 
+ 	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
+@@ -676,7 +678,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
+ put_bos:
+ 	amdxdna_arg_bos_put(job);
+ cmd_put:
+-	amdxdna_gem_put_obj(job->cmd_bo);
++	if (job->cmd_bo)
++		amdxdna_gem_put_obj(job->cmd_bo);
+ free_job:
+ 	if (job->mm)
+ 		mmdrop(job->mm);
+-- 
+2.55.0
 
