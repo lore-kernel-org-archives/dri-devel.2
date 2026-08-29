@@ -4,128 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC6DC61DCB
-	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 07:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB75C61DCB
+	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 08:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0F3910E05B;
-	Sat, 29 Aug 2026 07:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6B7910E069;
+	Sat, 29 Aug 2026 08:09:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lddIhLbb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WJghy8n2";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013013.outbound.protection.outlook.com
- [40.107.201.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0950410E05B
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 07:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PSqtZkdgj2ErPArzhMhGHrvVKON+MJW07Tw9wWq8Nfi56B9RlT2bZR9VyhGAs5DEDLpl5H3vk11ZZIqVacsUaY2T4wldP19s2u+BD1EIzDRg6mZnTNhBI+w4TJ+bVZMCTQ1BBMoXm+ausZVu6o9khLTY/EqtU57WPgJI9D4Eq5RnuCQN5Xw+7QuLEY6KuMKwGgvH+Bd++ZKWU2BUHPxmLwBgzSdiWxzVAqTslvQZTtG7OApVXPYx5CKroPXy3PgEnouxbSjzyh4OJ4qXPcIyqY7ZgurMZbqMimYWo80aEhWu/ErnEX+RQ9uZ0F10dK8aN5mTzhY6WO1HxH6p07ReLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hgVOC3/s5mAHw0OrYm7J9ivEDl7Odqyp36Zy4du+xVQ=;
- b=C5DMgFNc1stJn6akTQwyeurg3WBNx/xwt6aTjVF8wesOner/YVo0KMep3QYCb8Wa4xY7WX9FCkexiySrVhofuzBDYTk2V08zKfZTVvwVFneF71ByR4LzEp2kdhO+YpSuPixJEzOXPAM1pWwfcGf120ZQ4wHXNhYlPoYnfbD5BPrVdfYfcs13hmTPdy1i0xmTC8t3jD2E8Mzu+E6P4vp1O2mQCMryJi7Qfhj5rnXTqNv9Q+3DX+L+M+4JzwARdU5AWmsczq8mK3LQiSqYd2L5l2FHDGdfamOjFPX0Ns6QeZ2UxtkCmctVyjBsLJlHHnuMsbN0GPi3ntM9YdKTv+3IwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hgVOC3/s5mAHw0OrYm7J9ivEDl7Odqyp36Zy4du+xVQ=;
- b=lddIhLbbDozUkUJJxWAC73w2g6vg0ouLuaW9fk7O9R+vfVNGGQZTB74TKaOOtDWw0xyCadb4Oye3eSVQSX5tNeP9WBk205IGZFOTCpJ/GQJeuv6bpX2y2p4uVW5nwjpRRPlbLG6e6suqD6Int0ss7GhJMcjFhqr70dqK/E7KgyQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com (2603:10b6:8:279::16)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
- 2026 07:52:47 +0000
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b]) by DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b%7]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 07:52:46 +0000
-Message-ID: <9c6c08d3-9ec1-481a-8d66-4b0183036c39@amd.com>
-Date: Sat, 29 Aug 2026 13:22:37 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] fpga: add dma-buf based FPGA programming interface
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- mdf@kernel.org, yilun.xu@intel.com, trix@redhat.com, sumit.semwal@linaro.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-fpga@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, git@amd.com, nava.kishore.manne@amd.com
-References: <20260816150734.2092802-1-aravind.thokala@amd.com>
- <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
-Content-Language: en-US
-From: Aravind Thokala <aravind.thokala@amd.com>
-In-Reply-To: <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::15) To DS2PR12MB9566.namprd12.prod.outlook.com
- (2603:10b6:8:279::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9566:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ec8bc26-b0d8-4af3-3b28-08df05a28396
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|22082099003|10067099003|3023799007|6133799003|4143699003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info: gSSSIf/FDXF2ZY54djwV232NQ1js/FlNWaQ3MSv/AMezu3IwDot22jhAKL3tuB8TFqtbbDu3/j3xgi5HjBZfB9j2A4nFYrzAHdjA00EKJeksMakg2wYY/Mj7MWwILrBUi6aP5XX7VDpv+xGqP5Dhhzkzch0Vk4kAtyNwq61HQGIqqf6ILB70S+Ijazsrje9sFO7j1QNKWW5oyP6ZbE1fiJj0mT911aEbBhNVu80PgbqY6PVA1cikq8pdUm/EY8vX+YBFmxXwHdU2B4YmqwQNe0Jyf+D4+on1GCQuNTPbfZ8Cf8ERUSjnrMruK9n+19OOpd+tckA+wIAeTmBjAQ6AwlkIMBRGb0dLmXIyXo/cSFOWCtPxlWtv+VcGNOuGDTIOXq9zh/rag9pv1zQjvVrsfRyP1v1OOsX+9xvI17aFMfrOfmR8Z5Trqmgcr44pkEyI7c3RmpqAaU0aZu2YsdY4DfaBWEJgVCaqbh5Vd3mxcNZiOWU76pO4kLVi8OKJuhdHrpbfH18OE1p9Zx4q+r1iOwr/to+08SjiE0CX0si5aa7hstrZrFv3lUmQGy+moIspOTuKSZdRjfuCpHHFSYDHaD/OTQ1Tb0bvIkzYm4P8EHtvL39hYUAHQnrGP6ppT1L2HU8Os8ynxZGiMTqgvd93a+b6BoONvRLYlf5E9tlhciM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS2PR12MB9566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(3023799007)(6133799003)(4143699003)(56012099006)(11063799006)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WlFCUmt2YkJadEYyOHpKUlNtaXprZURDbkxUaTIyYWxnenl4V3B0VFd6ZWdW?=
- =?utf-8?B?TU9Cb29HUVpRYzd4R2k4NGdXSDNBWVJCVStsckV2TXowNDBkR2VJdzZsSGpm?=
- =?utf-8?B?WEZxNUhQMFdlWEdSZ243dDNWRis2Sm5od1EzMkQ2aWtkWmxHWENSamxmVFZ1?=
- =?utf-8?B?MFZ4dFl4cm02Q1lZd0RtbW96Vm5KUWk3dVFiR2VUR0xnT1JLdlVHeGdDbGpm?=
- =?utf-8?B?ZSsybEV4MnA5a3NPRDJhbHZZWmZYc3JoZTF1c1lnaUoxaW84eDJJVkdOV09y?=
- =?utf-8?B?dmlYVkdydGJpUU8xUWRQbXdFT1U3bWZLR1NnTGVCd3ZFZDNuUWNrV1RCVXB3?=
- =?utf-8?B?RkRIY2laayt6Um9oem5nQU9teW5sRVprYzFRbm5McThlMmpFT3lBRTFxSjZK?=
- =?utf-8?B?VloyOGl6ZjFGNWdvZ2hSKzRWa0lYR1ZvYmEzOGwvZXJVVzg4ZVBTRFgzRlZT?=
- =?utf-8?B?ZXNWRXJmYURYTUtkQzRNME5rQUxqM1R4TTFlQTdUSFdRcUt6UEV4TnN5SXYr?=
- =?utf-8?B?dGxyVzhsMHpnNWFaTXprM0dDQys1YjFFaERYaTc5cTJkOFZvdDNqMTkxdzdz?=
- =?utf-8?B?QUJqK0hWWldjU3JaSVRZWWw2Y2phQnJYZzVUZys1L3NNZEh1eE9EMEZXZW0x?=
- =?utf-8?B?eWxMMW9pOWdva0srVURGWEZxQUZvNWZiUUFVbUxkdTJocUJSMWMzRzROY1Za?=
- =?utf-8?B?d1hpTFZnTlgvcllhZUxLZG9LTnBJNkd2aTg3TFBWeG5TTGczc2ZPamM1M0JY?=
- =?utf-8?B?eTR5OG00UGIrWkpPRkdJbG1kSWdZRnQwM1JaVWZ2NGhPU3hmemh5WExtQllE?=
- =?utf-8?B?akxGLzhSZTdITVZYWnd4OVJhMGFUdzNraUdaUnlibGg4Qk9qL2pBZTBvcDFh?=
- =?utf-8?B?TGdHaWFwd1R0YXUzYzN1VzZFdzJWMUhZc2VNcTFoTEV2bVVhM25Kb2hHVmVG?=
- =?utf-8?B?cklJT3hsSkFyWVRsc2QySmhDUEd6V1FCQjdqTjVvbC9FaksrZnBxUHIzSlhn?=
- =?utf-8?B?eUswdjd1c1BYOHlJVXhFU1hEbVBmbFo5dXVubzhnU0FDOWlrQ3dOMjk0VEJW?=
- =?utf-8?B?d3I0WXJXSHhPYytMU3ZmVmw2K3l3UjE2ckRQUmtGRUNZelBiSENkTHArbE94?=
- =?utf-8?B?WG0rV0M1OHVoWHpmZWJpZjFJbUVXblU1d0p5V0kzNkltK1J0dDRhclB6dVh2?=
- =?utf-8?B?d3d4b1MrSEJRbDRYSVZ3UVB3NExBSnpxeUkwSHFrWnNyYU1pdktLNE14YUtN?=
- =?utf-8?B?UzdJclhqbllreXBnZ210UElzeFpJckZYWlhjajIxdmlpZzA2bGdVSmcyUS9j?=
- =?utf-8?B?eVFqMTZrN2xSenhVeGRtbkVNME1UUThMTHdOenpGbTByWUdmUmNZYU90VHky?=
- =?utf-8?B?TW1MbWFRbitmcXpiRUJLcEZYUnhXNExST2QxdnpXa05LcVBuRjNlb0VHc0NI?=
- =?utf-8?B?TjJLdG5VTmpaMW82ZW54TXEzUnhKUFd3MHA4dHNYd3ovaEZCQ1U4MzNoSDln?=
- =?utf-8?B?Vmdlc2dFQ1ZncU5lcW1kTjZJVVpocmpqa1ZyYVRtV2xEaXppcXJDQ2FvckhX?=
- =?utf-8?B?U3hqTWpzUi8xTTZBR1BWbllsMWRNVElXSjB3ZHlJZlg4aTdKZkluRTAvRk1R?=
- =?utf-8?B?dUxIcVhqd0JKRG11NTBnb1BoeHlXR2tTWnVGb2FwVnRsS0Y5WHo3YkJQMmZj?=
- =?utf-8?B?UEFQSHNoZ0lKbTZjYk5sV2RWNVJna0FUa28zNUVDOFNjMXZvcmRaZ0VtenJX?=
- =?utf-8?B?TlI5SXdpSHNoc0tpM1FRQmU2VVpxM0FRZ2JDNzBFYVFWM0RTeko4VVJkR1Fs?=
- =?utf-8?B?cVo3RkNwVVNHNzR6ZVZKaUVLTlNta28zOTEzWXF0QWxqb3A2dkRJZXlMOXl4?=
- =?utf-8?B?UlhNeDBFTGQyTC9zZXNjdTZBbU5ZVlpyeEp6dzRIMjZrNmRTc3plNlBNdW0r?=
- =?utf-8?B?TnpsR0t0WGNTT2Rob2I1TVlWRG1kVVNLQXAvYlRaZnNicWgzSDJVVFJPRUJl?=
- =?utf-8?B?alcvbnJEancrSHMzdk9aZjZjSzRWbjFZNW1pczUyZkJxcDQ0OEpDamR5Y0gz?=
- =?utf-8?B?UjNvcXZJdDNSRS8wM2x1NmtCZ3lnb2c2ODdnWUtITDBXVkdMNklpSFJDdEVz?=
- =?utf-8?B?QUpaZGtMUE9JaHJyYjZ6emRDbVhuQTZYU2VQbkh2RUxBZFFGOWVuVUlod29q?=
- =?utf-8?B?bm9ybis3NkNyOHQyb3lSK0hzWE1waUtRQnp1ZjdZUzFwU2tPQmFIV0tZdkw2?=
- =?utf-8?B?VjMxakpSTVFhQ0VSZWg4L0w5Z0M0UW9RVWFUM0pzU0Q5NjlSWXIwVURkVU9u?=
- =?utf-8?B?by9GTWVHdHpMSFdlbUtQS056YjZjR1hJOGdJU2VxTWtwWWNwNngxQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec8bc26-b0d8-4af3-3b28-08df05a28396
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 07:52:46.1861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTj6khviDJkZKmqWDmVqcGKfb9IIrTKousxjFZ32zbu4/P8OxY1+NWKr5dmTi5MKTA5gq8OFkXJol+gTgigjPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE17910E069
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 08:09:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9BC62601FE;
+ Sat, 29 Aug 2026 08:09:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA6D1F000E9;
+ Sat, 29 Aug 2026 08:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787990943;
+ bh=BwQM8yNn1KrjQcbMm93ywuioFEYyKpdFTK7iJqwIXng=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WJghy8n2jf0rVJqDdJr0jq+1/bHRoyMoB9obUP2U8oDgw68lrMUHDEYCByD3IKqs9
+ tE5Gl5PPmk04iu3kDhznlB8vPzBNjEwVA/bPL3F/bpf4nXHRi+AhMYywQzKJP5fjhm
+ Xuf14Y0OpEzMEz9+zYlbT9Yb/82HCMpqSaxOB8SqcGwIqBHwCqExx3jL2PLMGu9vSx
+ zIRsR9ZgrTIqCa4wQ8uneu5kwYgGHi684gzpTeWqBh00b7CCOSnFrvi2yPARUCKQnd
+ hjinz46HtVRk/FYFETejMdVC5XQdLmUjpfDiBcFTTd/E2MszKaMdXqVN92FvVDAeXr
+ 1MC9tR0yt8KYw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] accel/amdxdna: fix race condition in mailbox send path
+To: "Deniz Aydogan" <denizaydogan1902@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260829075303.7457-1-denizaydogan1902@gmail.com>
+References: <20260828221641.10034-1-denizaydogan1902@gmail.com>
+ <20260829075303.7457-1-denizaydogan1902@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 29 Aug 2026 08:09:02 +0000
+Message-Id: <20260829080903.1EA6D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,76 +53,136 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-On 8/24/2026 2:20 PM, Christian König wrote:
-> On 8/16/26 17:07, Aravind Thokala wrote:
->> Some systems need to load large FPGA configuration images. The FPGA
->> subsystem allows loading images from the filesystem, but this requires
->> the entire image to be loaded into kernel memory first. For drivers
->> that need a DMA-capable buffer for programming, the data is then
->> copied again into DMA memory. This creates needless memory pressure
->> and delays due to the extra copy.
->>
->> This series adds dma-buf support that allows userspace to allocate a
->> buffer directly from a DMA heap, write the FPGA image into it, and
->> pass the file descriptor to the kernel via ioctl — skipping the
->> intermediate kernel buffer entirely.
-> 
-> Well when you have a device with limited DMA capabilitiesthen DMA buf heaps doesn't allocate DMA-capable memory for that device either.
-> 
-> So the explanation you give above why this interface might be useful is clearly not correct. The DMA subsystem will still do an additional copy when you try to import the DMA-buf allocated from the heap into this device.
-> 
-> Either you need to define a heap with specific allocation restrictions (e.g. GFP_DMA32) or you allocate the DMA-buf through your fpga device so that dma_alloc_attrs() knows that a certain device needs to access the pages beforehand.
-> 
-> Regards,
-> Christian.
-> 
+Pre-existing issues:
+- [Critical] Hardware stall and wait loop timeout due to missing TOMBSTONE =
+notification.
+- [High] Incorrect wait condition when the ring buffer wraps and head =3D=
+=3D 0 leads to unconsumed messages being overwritten.
+- [High] The tx_timeout parameter is ignored, causing premature failures.
+- [High] Out-of-bounds write of TOMBSTONE due to incorrect maximum message =
+size validation.
+--
 
-Thank you for the review. Agreed, the current approach does not 
-guarantee DMA-capable allocations for all devices.
+commit 267903cdb6f1ef0ba02cbd6bf4adfbe91f048bd9
+Author: Deniz Aydogan <denizaydogan1902@gmail.com>
 
-We are looking into the device-owned allocation approach using 
-dma_alloc_attrs() and plan to follow up with an updated series.
+accel/amdxdna: fix race condition in mailbox send path
 
-Kind Regards,
-Aravind.
+mailbox_send_msg() reads and updates x2i_tail without any
+synchronization. The DRM scheduler and ioctl paths can call
+xdna_mailbox_send_msg() concurrently on the same channel, which
+allows two threads to read the same tail value and corrupt the
+hardware ring buffer.
 
+Add a mutex to serialize the entire send path. A mutex is used
+rather than a spinlock because the existing code calls
+read_poll_timeout() with a non-zero sleep, which can reschedule.
 
->>
->> Userspace flow:
->>    1. Allocate buffer from /dev/dma_heap/ (e.g., CMA heap)
->>    2. mmap the buffer and write the FPGA image into it
->>    3. ioctl(/dev/fpgaX, FPGA_IOCTL_LOAD_DMA_BUF, &dmabuf_fd)
->>
->> The dma-buf logic is implemented as a separate layer on top of the
->> FPGA manager, keeping buffer management separate from the write path.
->> Individual FPGA drivers opt in by calling fpga_dmabuf_register().
->> ---
->> This work is based on the approach discussed in [1].
->>
->> [1] https://lore.kernel.org/all/20231122053035.3758124-1-nava.kishore.manne@amd.com/
->> ---
->> Aravind Thokala (2):
->>    fpga: Add dma-buf interface for FPGA programming
->>    fpga: versal: add dma-buf programming support
->>
->>   .../userspace-api/ioctl/ioctl-number.rst      |   1 +
->>   MAINTAINERS                                   |   1 +
->>   drivers/fpga/Kconfig                          |   9 +
->>   drivers/fpga/Makefile                         |   2 +
->>   drivers/fpga/fpga-dmabuf.c                    | 198 ++++++++++++++++++
->>   drivers/fpga/versal-fpga.c                    |  33 ++-
->>   include/linux/fpga/fpga-dmabuf.h              |  22 ++
->>   include/linux/fpga/fpga-mgr.h                 |   1 +
->>   include/uapi/linux/fpga.h                     |  15 ++
->>   9 files changed, 281 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/fpga/fpga-dmabuf.c
->>   create mode 100644 include/linux/fpga/fpga-dmabuf.h
->>   create mode 100644 include/uapi/linux/fpga.h
->>
-> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdx=
+dna/amdxdna_mailbox.c
+> index cc8865f4e79c9..1d554fb943f2a 100644
+> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
+> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+[ ... ]
+> @@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, s=
+truct mailbox_msg *mb_msg)
+>  		ret =3D read_poll_timeout(mailbox_get_headptr, head,
+>  					tmp_tail < head || tail >=3D head,
+>  					1, 100, false, mb_chann, CHAN_RES_X2I);
 
+[Severity: High]
+This is a pre-existing issue, but xdna_mailbox_send_msg() receives a
+tx_timeout parameter that is dropped here.
+
+Does hardcoding a 100-microsecond timeout instead of using the caller's
+requested tx_timeout cause the send path to fail with -ETIMEDOUT prematurely
+under load?
+
+> -		if (ret)
+> +		if (ret) {
+> +			mutex_unlock(&mb_chann->lock);
+>  			return ret;
+> +		}
+> =20
+>  		if (tail >=3D head)
+>  			goto check_again;
+
+I have a few questions about the wait condition and wrapping logic just bef=
+ore
+this wait loop:
+
+drivers/accel/amdxdna/amdxdna_mailbox.c:mailbox_send_msg() {
+	if (tail >=3D head && tmp_tail > ringbuf_size) {
+		write_addr =3D mb_chann->mb->res.ringbuf_base + start_addr + tail;
+		writel(TOMBSTONE, write_addr);
+
+		/* tombstone is set. Write from the start of the ringbuf */
+		tail =3D 0;
+		tmp_tail =3D tail + mb_msg->pkg_size;
+	}
+
+	if (tail < head && tmp_tail >=3D head) {
+		ret =3D read_poll_timeout(...);
+...
+
+[Severity: Critical]
+This is a pre-existing issue, but when the ring buffer wraps and a TOMBSTONE
+is written, does the hardware require a doorbell update before entering the
+wait loop?
+
+Because mailbox_set_tailptr() is not called after writel(TOMBSTONE,
+write_addr), can the hardware stall and the wait loop timeout because it was
+never notified to process the TOMBSTONE?
+
+[Severity: High]
+This is also a pre-existing issue, but if the ring buffer wraps and tail
+resets to 0, does the next condition if (tail < head && tmp_tail >=3D head)
+evaluate incorrectly if head is still 0?
+
+If head is still 0 because the hardware hasn't processed early messages,
+tail < head evaluates to false (0 < 0), completely bypassing the wait loop.
+Can this bypass cause the driver to immediately overwrite unconsumed messag=
+es
+at offset 0?
+
+Finally, regarding the size validation:
+
+drivers/accel/amdxdna/amdxdna_mailbox.c:xdna_mailbox_send_msg() {
+...
+	if (pkg_size > mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I)) {
+		MB_ERR(mb_chann, "Message size larger than ringbuf size");
+		return -EINVAL;
+	}
+...
+
+[Severity: High]
+This is a pre-existing issue, but does the maximum message size validation =
+in
+xdna_mailbox_send_msg() fail to reserve 4 bytes for the TOMBSTONE marker?
+
+If a message size exactly matches the physical ring buffer size, it fills t=
+he
+buffer and tail advances to exactly ringbuf_size.
+
+When the next send wraps and attempts to write the TOMBSTONE:
+
+drivers/accel/amdxdna/amdxdna_mailbox.c:mailbox_send_msg() {
+...
+	if (tail >=3D head && tmp_tail > ringbuf_size) {
+		write_addr =3D mb_chann->mb->res.ringbuf_base + start_addr + tail;
+		writel(TOMBSTONE, write_addr);
+...
+
+Will this write the 4-byte TOMBSTONE entirely out-of-bounds past the end of
+the allocated physical ring buffer, corrupting adjacent device memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829075303.7457=
+-1-denizaydogan1902@gmail.com?part=3D1
