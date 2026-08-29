@@ -4,42 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E6EC61DBE
-	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 04:31:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67AFAC61DD6
+	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 06:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF1E10E090;
-	Sat, 29 Aug 2026 04:31:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90B3510E092;
+	Sat, 29 Aug 2026 06:11:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i8xjMkID";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GASuo+0b";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF54C10E090
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 04:31:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 68E48438EF;
- Sat, 29 Aug 2026 04:31:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162CB1F000E9;
- Sat, 29 Aug 2026 04:31:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787977914;
- bh=yJT5pb4s4gTbng6dFlo/BBcdJi4Fb3eZJvr6JL3JaY0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i8xjMkID/Yws5/jmh5Pv1KQVqIfZppfcVFIKYrEx9bx7lpD9NQkENTlJDw2MqYPVu
- W70StjYr4A++yC7R0Xkey/u4h/cQvMoBM08zIztxj4wk+iwjG3irxB/3+Ly3SBzpzB
- jfBqaMzvhISyh00kWhJHHn5fJDeiugd8z5I8yZSM11ErZ0PQa9WuhZzomuKtkK9lkl
- YjxRaa+MptH1ugDqf7JNb4Gj6+5Kxqiaa7WfS9Tpj8enFoQbpuKC/TR0zCa33Hqbqf
- 1zbOeABFL6H3ai4NSveXzV7Vi/OlsmwkEpoOz36QEiQHR5oVhqe2aDBv0kXWNf+G4h
- 0FcrzvuZr7hdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/tegra: dc: Propagate powergate failures on suspend
-To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260829042030.21346-1-pengpeng@iscas.ac.cn>
-References: <20260829042030.21346-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFB9E10E092
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 06:11:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id AC79A43783
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 06:11:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E74FC2BCF7
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 06:11:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1787983887;
+ bh=CflGm107JU7yOMzaJ2kmhugdwlj1yCwaFjOm1qbNios=;
+ h=From:To:Subject:Date:From;
+ b=GASuo+0biLb4p80TE/awBIO0/Trxa5od3Hu5zEjr2lqtwLOQE1mwvxP4ltIAmjJaL
+ y8TVccAZ3pirI4g9euaXU5Y+hN4diPwjGO68gFKx+HR8kJ1CRKJZ4mdMPT2zSt7xXy
+ UwdVet7VeaS+FZLPKxs5enj0E7S9qV4r/G/rWn6X+XK4qAno45LG5ddO5gMzTTt/Gr
+ uCavsiA69u4/+grm1cz/SXjlHObxSYEF5tpy7mRcRbghndt6Fa2QM6iIk4aLbGdgfk
+ CtkWB2zn3tAJFWmSedhDWANZo7l3a717pHUQVjk1Mhxq5ZEwR6nhoJBLgrLlsM1zGa
+ 5mkhpZptpxVGA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 6EFE5C41613; Sat, 29 Aug 2026 06:11:27 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221933] New: Screen brightness dimmer since kernel 7.2 (amdgpu)
+Date: Sat, 29 Aug 2026 06:11:27 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: 3lefji@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-221933-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 04:31:53 +0000
-Message-Id: <20260829043154.162CB1F000E9@smtp.kernel.org>
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,105 +71,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221933
 
-Pre-existing issues:
-- [High] Returning an error from the suspend callback causes a permanent us=
-ecount desynchronization in host1x and leaks runtime PM and clock resources.
-- [High] Returning early on suspend failure leaves the clock running, but t=
-he caller unconditionally drops the performance state, violating DVFS const=
-raints.
---
+            Bug ID: 221933
+           Summary: Screen brightness dimmer since kernel 7.2 (amdgpu)
+           Product: Drivers
+           Version: 2.5
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: Video(DRI - non Intel)
+          Assignee: drivers_video-dri@kernel-bugs.osdl.org
+          Reporter: 3lefji@gmail.com
+        Regression: No
 
-commit c243459159c6fcb1671762433a70d770456532d9
-Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Hi everyone,
 
-drm/tegra: dc: Propagate powergate failures on suspend
+Follow-up on a brightness issue I've been having since the kernel 7.2 update
+(still present in 7.2.2). Sharing what I found in case it helps others or
+points to the root cause.
 
-A lifecycle transition can continue after a required state restore
-operation fails, leaving software state inconsistent with hardware.
+System info:
+- Laptop: Lenovo IdeaPad Gaming 3
+- CPU: AMD Ryzen 5 5500H (iGPU handles the internal display backlight)
+- GPU: Nvidia RTX 2050 (hybrid AMD/Nvidia, PRIME render offload setup)
+- OS: Fedora 44, GNOME 50, Wayland
+- Kernel: 7.2.2-cachyos
+- Backlight device: amdgpu_bl1
 
-Propagate the failure and unwind state acquired by the transition so
-callers cannot observe a false success.
+Issue: since kernel 7.2, the same brightness percentage looks much dimmer t=
+han
+before. I used to sit around 30% in dim rooms, now I need about 60% for the
+same visual result. Raw values:
+```
+cat /sys/class/backlight/amdgpu_bl1/brightness -> 45755
+cat /sys/class/backlight/amdgpu_bl1/max_brightness -> 65535
+```
+So roughly 70% reported but visually much closer to what used to be ~30-35%.
+Looks like a mapping/curve change in the amdgpu backlight handling, similar=
+ to
+reports I found for other kernel versions affecting amdgpu_bl on AMD laptops
+(both integrated and hybrid setups).
 
-> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> index 0b3fcc7011b35..bac78b57dcffb 100644
-> --- a/drivers/gpu/drm/tegra/dc.c
-> +++ b/drivers/gpu/drm/tegra/dc.c
-> @@ -2878,8 +2878,14 @@ static int tegra_dc_runtime_suspend(struct host1x_=
-client *client)
->  		return err;
->  	}
+I tried the common workaround of adding amdgpu.backlight=3Dvendor to
+GRUB_CMDLINE_LINUX. Brightness mapping did go back to normal after that cha=
+nge,
+BUT it caused severe system instability right after the password screen:
+extreme lag, barely able to move the mouse, a strange fade/scanline artifac=
+t on
+the lock screen, GPU idle at 32=C2=B0C while CPU sat at 13% doing nothing. =
+Had to
+revert the kernel parameter to get a usable system again.
 
-[Severity: High]
-This is a pre-existing issue, but does returning an error from the suspend
-callback cause a permanent usecount desynchronization in host1x?
+So amdgpu.backlight=3Dvendor is not a safe workaround at least on this hybr=
+id
+AMD/Nvidia + Wayland + GNOME 50 combination.
 
-If tegra_dc_runtime_suspend() fails during reset_control_assert() or
-tegra_pmc_powergate_power_off(), it returns an error.
+Has anyone found a fix that doesn't cause this kind of freeze, or is this a
+case where we just need to wait for an upstream amdgpu fix? Happy to test
+patches or provide more logs if useful.
 
-host1x_client_suspend() intercepts this error and skips decrementing
-client->usecount, leaving it at 1.
-
-The caller tegra_crtc_atomic_disable() (which returns void) cannot abort the
-disable process and ignores the error.
-
-Upon the next atomic enable, host1x_client_resume() skips calling the resume
-callback because usecount is 1 (not 0), and increments it to 2.
-
-The subsequent disable drops it to 1, skipping suspend. This permanently
-disables callbacks, leaking clocks, power domains, and runtime PM reference=
-s.
-
-> =20
-> -	if (dc->soc->has_powergate)
-> -		tegra_pmc_powergate_power_off(dc->pmc, dc->powergate);
-> +	if (dc->soc->has_powergate) {
-> +		err =3D tegra_pmc_powergate_power_off(dc->pmc, dc->powergate);
-> +		if (err < 0) {
-> +			dev_err(dev, "failed to powergate partition: %d\n", err);
-> +			reset_control_deassert(dc->rst);
-> +			return err;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does returning early on susp=
-end
-failure leave the clock running, while the caller unconditionally drops the
-performance state?
-
-If tegra_dc_runtime_suspend() returns early on failure, it skips
-clk_disable_unprepare(dc->clk). The hardware clock remains enabled.
-
-However, the caller tegra_crtc_atomic_disable() proceeds to drop the voltag=
-e:
-
-drivers/gpu/drm/tegra/dc.c:tegra_crtc_atomic_disable() {
-    ...
-	err =3D host1x_client_suspend(&dc->client);
-	if (err < 0)
-		dev_err(dc->dev, "failed to suspend: %d\n", err);
-
-	if (dc->has_opp_table) {
-		err =3D dev_pm_genpd_set_performance_state(dc->dev, 0);
-    ...
-}
-
-Operating the hardware at an active frequency with zero voltage violates DV=
-FS
-constraints and can cause hardware brownouts, potentially locking up the
-system bus or hanging the SoC.
-
-> +		}
-> +	}
-> =20
->  	clk_disable_unprepare(dc->clk);
->  	pm_runtime_put_sync(dev);
+Thanks!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829042030.2134=
-6-1-pengpeng@iscas.ac.cn?part=3D1
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
