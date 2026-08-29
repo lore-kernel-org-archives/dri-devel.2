@@ -4,39 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F15C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54791C624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B455810E688;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 404FC10E682;
 	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
-Received: from mail.muc.de (mail.muc.de [193.149.48.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6222B10E0A9
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 14:39:59 +0000 (UTC)
-Received: (qmail 42254 invoked by uid 3782); 29 Aug 2026 16:39:57 +0200
-Received: from muc.de (p4fe15d93.dip0.t-ipconnect.de [79.225.93.147]) (using
- STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
- Sat, 29 Aug 2026 16:39:56 +0200
-Received: (qmail 57602 invoked by uid 1000); 29 Aug 2026 14:39:55 -0000
-Date: Sat, 29 Aug 2026 14:39:55 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: vt: Enlarge the framebuffer glyph size from 16 to 32 bits
-Message-ID: <apLvO-8YJmQG7T0Z@MAC.fritz.box>
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
- <145be2e3-a8c0-4f4f-a701-af2696cec461@suse.de>
- <apGc4y8ApYWh4Yr4@MAC.fritz.box>
- <2026082938-spray-shimmer-9389@gregkh>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="HDqj+Bcf";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TW++Hb4n";
+	dkim-atps=neutral
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9563010E094
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1788035714; bh=D9gR527E+crHrw708MCpBEa
+ Z4Y72U3o4s32o2HAIkWA=; b=HDqj+Bcf+gxvZGfa/NKGolduwSX8HUos7+EQ/JOy9gaY40F20h
+ EnKFYgfeGWqqvdcuhtxF/1Qx+383VhffOSLURYqGdgIXTDdk3hI3GKfswC59HO8Kapv08uCv8CJ
+ 4CTkccCWQfjEJ1kxn2YyHXuuzi9Mf2akzWNqZCl0j9BoNNfzMjXCmsWSbsdhJp0Q7GpD21bZ39x
+ cqbglG2Pnx+3PH0sa9LUnB/X8kt8CmuHTLyD+3DwmU0nAf68qXIwmWI2p9aqZXnZPJ4NzPc14q5
+ 0qlHE3tlTqO6gzXzYsas1ICPmrFtS0D5+M4D0TBVEoQONwp5H7YKEQudF6l1YdEXJNw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1788035714; bh=D9gR527E+crHrw708MCpBEa
+ Z4Y72U3o4s32o2HAIkWA=; b=TW++Hb4ny+BHSbjlsDX2npsNK2m4ErIaD6NPlVl6MvPpreFEbj
+ sjlD2ivRfvPA0fInUecx5/lbrevgpFvDIhCg==;
+Message-ID: <7a48378b-4a5d-4dfc-8bf9-9187b6ca6a0c@mainlining.org>
+Date: Sat, 29 Aug 2026 23:35:14 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026082938-spray-shimmer-9389@gregkh>
-X-Submission-Agent: TMDA/1.3.x (Ph3nix)
-From: Alan Mackenzie <acm@muc.de>
-X-Primary-Address: acm@muc.de
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+ <20260829201932.1BFEB1F000E9@smtp.kernel.org>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260829201932.1BFEB1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,107 +61,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Aug 29, 2026 at 14:09:52 +0200, Greg Kroah-Hartman wrote:
-> On Fri, Aug 28, 2026 at 02:36:19PM +0000, Alan Mackenzie wrote:
-> > On Fri, Aug 28, 2026 at 08:12:16 +0200, Thomas Zimmermann wrote:
-> > > Hi
 
-> > > Am 27.08.26 um 20:38 schrieb Alan Mackenzie:
-> > > > vt: Enlarge the framebuffer glyph size from 16 to 32 bits.
+29.08.2026 23:19, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The panel initialization sequence lacks the DCS 'Set Display On' (0x29) command.
+> - [Medium] Missing reset assertion and stabilization delay during panel preparation.
+> --
+>
+> commit 864f3dccc86bc8a97845ebafd73a7df32e9d6b9e
+> Author: Nickolay Goppen <setotau@mainlining.org>
+>
+> drivers: gpu: drm: panel: Add BOE NT51021 driver
+>
+> This commit adds support for the BOE NT51021-based 8-inch and 10-inch DSI
+> video mode panels used in Xiaomi Mi Pad 4 tablets. It includes panel
+> initialization sequences and content-adaptive brightness control.
+>
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+>> new file mode 100644
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+> [ ... ]
+>> +static void nt51021_boe_reset(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>> +	usleep_range(10000, 11000);
+>> +}
+> [Severity: Medium]
+> Does the panel require an explicit reset assertion pulse before de-asserting
+> the reset line? The current code only de-asserts the reset line here. Without
+> an explicit assertion pulse and delay prior to de-assertion, the hardware
+> might not be guaranteed a valid minimum reset pulse width once power is stable.
+>
+> [ ... ]
 
-> > > > This allows:
-> > > >    o - More than 256/512 distinct half-width glyphs (in fact, up to 2^21).
-> > > >    o - Unicode code points >0xffff (outside the Basic Multilingual Plane).
-> > > >    o - Coloured glyphs (as before).
+Downstream reset sequence is just a deassertion of a reset line [1].
 
-> > > But what is the use case here? We have excellent support for text and 
-> > > font rendering in graphical userspace for I18N and L10N.
+[1] 
+https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/xiaomi/mi/clover/dsi-panel-nt51021-boe-10wu-video.dtsi#L331
 
-> > GUIs are sub-optimal for pure text work.  A full screen terminal is
-> > wanted.  The current preeminent user space terminal, kmscon, appears to
-> > lack the refinements of many decades development of the kernel's
-> > console.
-
-> What is missing from kmscon that the kernel currently supports?
-
-<Alt>-<Fn>, for a start.  Also the facility to enter an arbitrary Unicode
-code point by holding down <AltGr> and typing the hex code on the numeric
-keypad.  There are probably other things, too.
-
-> Why not just make it feature-equal there, and then make these
-> additional changes there as well?
-
-I suspect the politics involved would be more difficult than here, and
-I'm not good at politics.  kmscon is controlled by Redhat, and they have
-a reputation for dismissing third party suggestions and patches rather
-than integrating them.
-
-But it's not just a matter of adding features.  The kernel console is an
-elegant system.  You just have to add entries in /etc/inittab, select a
-keyboard, select a font (all mostly done at system installation) and
-that's it.  kmscon is anything but elegant.  It has something like 75
-command line options, and a configuration file is virtually mandatory.
-
-kmscon has no documentation for its keyboard system, nothing to compare
-with Andries Brouwer's keymaps man page.  It uses xkb.  I remember
-searching for xkb doc around 10 years ago and found nothing systematic.
-Just a very helpful tutorial, which enabled me to  make my changes.
-
-I don't think it's got doc for its various font systems either.  It might
-well be that you need to use a GUI to make font changes.  That is not a
-Good Thing.
-
-> As others have said, we don't want to add new features to the in-kernel
-> console mode due to all of the reasons the patch review has shown on
-> this series already (i.e. complex interactions that end up making the
-> system broken.)  This is best all done in userspace, where a bug there
-> will not cause these same problems, right?
-
-From the user's point of view, a bug in either will render his computer
-unusable.
-
-Have you considered that the code in kmscon might not be any better than
-that in the kernel's console?  I've no evidence either way.
-
-> > Support for blind users exists in the kernel's console.  I don't know
-> > how good it is, as I don't (yet) need to use it.
-
-> But others use it, so we can't break that, and the fact that you ignored
-> those codepaths here makes me very worried.
-
-Hey, give me a chance!  One thing at a time.  I didn't ignore that code,
-I noted (in two Kconfig's) that it would also need attention, and I
-blocked it out safely when CONFIG_FB_GLYPH_21BIT was set.
-
-It may well be (I'm not sure) that these facilities for the blind are an
-integral part of the kernel's console.  That would be a good reason not
-to remove it from the kernel.
-
-> > > In contrast, the kernel's text-mode support is limited and a hotbed for 
-> > > bugs. IMHO we shouldn't add features, but try to simplify that code base.
-
-> > >From a user's point of view, the kernel's console is rock solid and
-> > dependable; it doesn't crash, and its interfaces don't suddenly change
-> > with the latest release of KDE or Gnome or whatever.
-
-> This has nothing to do with KDE or Gnome, if you have issues with those
-> projects, please take it up with them and contribute to them to resolve
-> those issues.  I know they can always use the help.
-
-My point is that the kernel's console is rock solid and dependable.
-Things like kmscon are subject to the vagaries of fashion.
-
-> > As is clear, I think the console's limitations should be eliminated.
-
-> And the rest of us feel the kernel console's code should be eliminated
-> entirely, when ever possible :)
-
-The rest of you don't appear to be console users.  It's easy to advocate
-for removal when you don't use it yourself.
-
-> thanks,
-
-> greg k-h
-
+>> +static int nt51021_boe_8_init(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> [ ... ]
+>> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+>> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+>> +
+>> +	nt51021_cabc_on(&dsi_ctx);
+>> +
+>> +	return dsi_ctx.accum_err;
+>> +}
+> [Severity: Medium]
+> Does this initialization sequence miss a DCS "Set Display On" command?
+> The panel is awakened from sleep mode via mipi_dsi_dcs_exit_sleep_mode_multi(),
+> but it is never explicitly instructed to turn on the display output here in
+> nt51021_boe_8_init(). This could cause the panel to remain blank on some DSI
+> hosts.
+>
+> [ ... ]
+>> +static int nt51021_boe_10wu_init(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> [ ... ]
+>> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+>> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+>> +
+>> +	nt51021_cabc_on(&dsi_ctx);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+>> +
+>> +	return dsi_ctx.accum_err;
+>> +}
+> [Severity: Medium]
+> Similarly to nt51021_boe_8_init(), the 10-inch variant initialization path
+> also appears to omit the mipi_dsi_dcs_set_display_on_multi() command.
+>
+>> +static int nt51021_boe_off(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+>> +
+>> +	nt51021_cabc_off(&dsi_ctx);
+>> +
+>> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
+>> +	mipi_dsi_msleep(&dsi_ctx, 20);
+>> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> [Severity: Medium]
+> The power-off sequence explicitly turns the display off using
+> mipi_dsi_dcs_set_display_off_multi(). Should there be a matching turn-on
+> command in the initialization sequences to ensure the display activates
+> correctly across power cycles?
+>
+> [ ... ]
+>> +static int nt51021_boe_prepare(struct drm_panel *panel)
+>> +{
+>> +	struct boe_nt51021_desc *ctx = to_boe_panel(panel);
+>> +	struct device *dev = &ctx->dsi->dev;
+>> +	int ret;
+>> +
+>> +	ret = regulator_bulk_enable(ARRAY_SIZE(nt51021_boe_supplies), ctx->supplies);
+>> +	if (ret < 0) {
+>> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +	nt51021_boe_reset(ctx);
+> [Severity: Medium]
+> Does the panel require a stabilization delay after enabling the regulators
+> and before de-asserting the reset line? The current code immediately calls
+> nt51021_boe_reset(ctx). Without a delay, the reset logic might execute
+> before the regulators have fully ramped up, potentially leading to unstable
+> hardware initialization.
+>
+> [ ... ]
+>
 -- 
-Alan Mackenzie (Nuremberg, Germany).
+Best regards,
+Nickolay
