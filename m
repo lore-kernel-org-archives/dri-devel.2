@@ -4,76 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72074C624C2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73380C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 227DE10E67F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1CA10E683;
 	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FvFfzHqF";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="NM9dvr28";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TF3Aoo7L";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5574710E1F9
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 16:15:56 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cc891373e0so22557295ad.2
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 09:15:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788106556; x=1788711356; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ftpZeIMiNCY2OcgsJYMYoL7K7phvSKcRMGjOcwR8P9Y=;
- b=FvFfzHqFt6Oj/P8j53CZGd2YTLFT7hyugYWLhLfKKkvK/zII1wKrfjg6/eDMS3ZZmR
- pH1TkP3qceA6+LR+jn6L/QWru2ppsxaRPEhKWfLaOiZXC0LtzXJejWresgxowvrf4fVy
- tqb51qrNcGpsNbBCKYJbnNNWf19fgIPhzkLotk6+lJK8lNdYGPbPir+A5Pmr+TOa981U
- aYwmhT5bT/7R+G4ofcPnVYKC80G9HXrV4esrIeL/VO6OU2xob2Xxrb8pgGxmh5gb0sht
- zB3kVw/Dt6FgJqgVQib+pGXscnw8f5Tr29jRs0i5eViZNo/M0j4RBPVfenuGG2jasLlr
- 7JlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788106556; x=1788711356;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ftpZeIMiNCY2OcgsJYMYoL7K7phvSKcRMGjOcwR8P9Y=;
- b=AtSqkXjaASqfY572q/PHNjFWkImMK45A54M418DhCUTx7GGx5UfpMCpz3P1cJH1qjd
- NulYNR1xZnfHVONEGGy0sH3rXLIzp6VihuD/HInib0VnsXw0Za/JK1xO5J0E9ZR7xTia
- rEH+F8VOqSoh5blB8NXGs00k42l5BuMkoCcXsW/xupbVKoRwP1HswMl4HW0UO2XMAxnG
- ugpEwyxxLgrWk2smvuOZ+TpKg+WaY1Qod180r5PyyMW5MnlPu8uB56SxTF9B/GtISgov
- o6NP2tWD3qxxprnLc1lUIXv2zc0vQNEi+v6HpoD1umLLISFiSnWHojNysF8BtCtZiq0l
- oWKw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzdTbiwIMDxiOWrj4COGMtgP7Y87d/6inuviDU3CEMbmBL4vdH0CT+iEQuYWrF9xJyKNYDJs3UaipY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++meox8EHyNulX8yJ24jzqRwGhAkNurrv2LDfHgKj9fN2CPxSpK7
- p+ZLvfbtI6H5ruUE6Y5swSAxd9+1fdU8b6QvogMtkJw7jy4v6PRRdPo9
-X-Gm-Gg: AYBFou32/RdZmyTzSyj8kA18m34oObUybIcj9QsrzkiRXJ/xi279vZHoSdjsy41AwS+
- FcRqKDLGC7GKIRnwbNAobyOAIKAoK8zT6F41zxLIjh16oCCHC73aQKX44KZWQWqR7gHsC494sMv
- TrJ3axrzbSQ7k1I+t4hYhDMxTJHJ7EO1C4nzuWh60G1gQtLTp54r6xOTF/X9FSa0J2tRqXFRGTD
- 45TK7rixg5icrsUXm3/9KqFHZ9F/peYS21CieaST2/+MDUMo1JrpMlcU3raar8VhVASpNMAvoaD
- AAp7TfZhZQuDWsu6J3pgQUTgfZpBUUg5Muo1cmBULVMFQ6U8Pz7J74Nb5sru6qeYY+5f2l8079A
- v32JN8AeykoOa3RbAqHWvIyhQAR4nbzkDGLcip4P+8OnTiDv98AInUlV6U+BgmXAgAkK7utLb65
- XOj9IVjMETJQdAQHn4D5/eXsDy/Bo58jmXO1wLjp5d7VbpmH+4iT6pSnX9QaGukvXCLExmZYw3f
- g3Yrq6xgzg7EWjRKvY=
-X-Received: by 2002:a17:903:2c9:b0:2d9:6db:9fcb with SMTP id
- d9443c01a7336-2d906dba09cmr88661175ad.11.1788106555702; 
- Sun, 30 Aug 2026 09:15:55 -0700 (PDT)
-Received: from Kalpna.localdomain ([106.194.26.159])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d7598c3da2sm24396095ad.82.2026.08.30.09.15.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 Aug 2026 09:15:55 -0700 (PDT)
-From: anshika <anshikajain196872@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dan Carpenter <error27@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- anshika <anshikajain196872@gmail.com>
-Subject: [PATCH] staging: fbtft: name the no-op endian modifier in
- define_fbtft_write_reg()
-Date: Sun, 30 Aug 2026 21:45:29 +0530
-Message-Id: <20260830161529.14500-1-anshikajain196872@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2881310E094
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:27:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1788035241; bh=58sfb0BO7dzm+sakUhqkmRv
+ jZlXTEsguNitRZcCuRFs=; b=NM9dvr28vPw7iYT4B0y9jM8/OpuCG4jTKIdDDbq4DomYUhlLkp
+ 5oopLSGGPu+m+P37BsC7aJ0x801f4wZ3PkLKCcw28AjZ2rF8vNuUgKAkJRq+5ml8pHkyEcujwJ4
+ bcqBNTIvrA4HKGg1jrMpKOOo7AyvFh6jfMTuUtetK/xHAVrNwEJJhGCJkz2NB8vyHVdDwDaqg5w
+ 5BmnuNqk19nD74xQHjiANczYvNLRHiyh3I7jHGjNhmtt0OHmtAPGo1DF/7cHgosFhDQuP37BKe+
+ mSiXYiOe1jzGn+9FYPkpI20x2/AyUEKbi/u2hoGGQ3cq4ox1EoxSogzRGYNi3MkMxDg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1788035241; bh=58sfb0BO7dzm+sakUhqkmRv
+ jZlXTEsguNitRZcCuRFs=; b=TF3Aoo7Lp4Q84I6vVJcZFoMH+zdlb3FMDRGop4YtTQE1OACrUx
+ GGgz8n874k0hw3Gqxh82/Grj7PFDjO/QsuAQ==;
+Message-ID: <251807b0-9775-4391-b212-22afc9b35792@mainlining.org>
+Date: Sat, 29 Aug 2026 23:27:21 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+ <20260829201932.1BFEB1F000E9@smtp.kernel.org>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260829201932.1BFEB1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,44 +61,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Two of the three define_fbtft_write_reg() instantiations pass an empty
-modifier argument, which checkpatch flags as a fragile empty macro
-argument. Give the no-op case an explicit name instead of leaving it
-blank.
 
-No functional change.
+29.08.2026 23:19, sashiko-bot@kernel.org пишет:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The panel initialization sequence lacks the DCS 'Set Display On' (0x29) command.
+> - [Medium] Missing reset assertion and stabilization delay during panel preparation.
+> --
+>
+> commit 864f3dccc86bc8a97845ebafd73a7df32e9d6b9e
+> Author: Nickolay Goppen <setotau@mainlining.org>
+>
+> drivers: gpu: drm: panel: Add BOE NT51021 driver
+>
+> This commit adds support for the BOE NT51021-based 8-inch and 10-inch DSI
+> video mode panels used in Xiaomi Mi Pad 4 tablets. It includes panel
+> initialization sequences and content-adaptive brightness control.
+>
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+>> new file mode 100644
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+> [ ... ]
+>> +static void nt51021_boe_reset(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>> +	usleep_range(10000, 11000);
+>> +}
+> [Severity: Medium]
+> Does the panel require an explicit reset assertion pulse before de-asserting
+> the reset line? The current code only de-asserts the reset line here. Without
+> an explicit assertion pulse and delay prior to de-assertion, the hardware
+> might not be guaranteed a valid minimum reset pulse width once power is stable.
+>
+> [ ... ]
+>> +static int nt51021_boe_8_init(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> [ ... ]
+>> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+>> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+>> +
+>> +	nt51021_cabc_on(&dsi_ctx);
+>> +
+>> +	return dsi_ctx.accum_err;
+>> +}
+> [Severity: Medium]
+> Does this initialization sequence miss a DCS "Set Display On" command?
+> The panel is awakened from sleep mode via mipi_dsi_dcs_exit_sleep_mode_multi(),
+> but it is never explicitly instructed to turn on the display output here in
+> nt51021_boe_8_init(). This could cause the panel to remain blank on some DSI
+> hosts.
+>
+> [ ... ]
 
-Link: https://lkml.iu.edu/hypermail/linux/kernel/2602.0/01917.html
+The downstream init sequence (that this driver generated from) doesn't 
+contain such command.
 
-Signed-off-by: anshika <anshikajain196872@gmail.com>
----
- drivers/staging/fbtft/fbtft-bus.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
-index 30e436ff1..e03aa251c 100644
---- a/drivers/staging/fbtft/fbtft-bus.c
-+++ b/drivers/staging/fbtft/fbtft-bus.c
-@@ -10,6 +10,7 @@
-  *   void (*write_reg)(struct fbtft_par *par, int len, ...);
-  *
-  *****************************************************************************/
-+#define cpu_to_cpu_endian(x) (x)
- 
- #define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
- void func(struct fbtft_par *par, int len, ...)                                \
-@@ -62,9 +63,9 @@ out:									      \
- }                                                                             \
- EXPORT_SYMBOL(func);
- 
--define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
-+define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, cpu_to_cpu_endian)
- define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
--define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-+define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, cpu_to_cpu_endian)
- 
- void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
- {
+>> +static int nt51021_boe_10wu_init(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> [ ... ]
+>> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+>> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+>> +
+>> +	nt51021_cabc_on(&dsi_ctx);
+>> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+>> +
+>> +	return dsi_ctx.accum_err;
+>> +}
+> [Severity: Medium]
+> Similarly to nt51021_boe_8_init(), the 10-inch variant initialization path
+> also appears to omit the mipi_dsi_dcs_set_display_on_multi() command.
+>
+>> +static int nt51021_boe_off(struct boe_nt51021_desc *ctx)
+>> +{
+>> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+>> +
+>> +	nt51021_cabc_off(&dsi_ctx);
+>> +
+>> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
+>> +	mipi_dsi_msleep(&dsi_ctx, 20);
+>> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> [Severity: Medium]
+> The power-off sequence explicitly turns the display off using
+> mipi_dsi_dcs_set_display_off_multi(). Should there be a matching turn-on
+> command in the initialization sequences to ensure the display activates
+> correctly across power cycles?
+>
+> [ ... ]
+>> +static int nt51021_boe_prepare(struct drm_panel *panel)
+>> +{
+>> +	struct boe_nt51021_desc *ctx = to_boe_panel(panel);
+>> +	struct device *dev = &ctx->dsi->dev;
+>> +	int ret;
+>> +
+>> +	ret = regulator_bulk_enable(ARRAY_SIZE(nt51021_boe_supplies), ctx->supplies);
+>> +	if (ret < 0) {
+>> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +	nt51021_boe_reset(ctx);
+> [Severity: Medium]
+> Does the panel require a stabilization delay after enabling the regulators
+> and before de-asserting the reset line? The current code immediately calls
+> nt51021_boe_reset(ctx). Without a delay, the reset logic might execute
+> before the regulators have fully ramped up, potentially leading to unstable
+> hardware initialization.
+>
+> [ ... ]
+In practice, My xiaomi-clover-plus' panel initializes fine every kernel 
+boot
+>
 -- 
-2.34.1
-
+Best regards,
+Nickolay
