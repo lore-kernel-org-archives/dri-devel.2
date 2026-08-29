@@ -4,53 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29BA7C61DCB
-	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 19:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A39C61DD6
+	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 20:15:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F20F210E1BA;
-	Sat, 29 Aug 2026 19:14:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0919610E085;
+	Sat, 29 Aug 2026 20:15:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SbQWb2JE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X8UMeXiI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416A810E1BA
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 19:14:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2022F10E085
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:15:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1EC6C600AD;
- Sat, 29 Aug 2026 19:14:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B351F000E9;
- Sat, 29 Aug 2026 19:14:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E082141967;
+ Sat, 29 Aug 2026 20:15:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796D31F000E9;
+ Sat, 29 Aug 2026 20:15:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788030877;
- bh=uFSAQBNlSCr6Z8wJaIeKFDqKOuLHcGqGVoKW4G1mPFw=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=SbQWb2JESZH/tzjTxWL774/1DKvZZXGetGKyDmxevJZglvxS4g+ild9AXHt1vHdaG
- KUYitJYwdwqBUzhHWiPpt0pnkWIdikUjMkPjHnsZHUXqwm3M236MEhmKNxNqZjS455
- k842ghknIyIKBqB5rSWaHPXkXquykkgtq+6xiHpKNoZTM1I22NcPGnQCjQsGJUYt0i
- MUAi2a+f5/WSfi1bmKK/5AP1ugbGnPTTR/nPU/bpJ7efQNzmhe4As0zPZvoi/ltws0
- 95uznd6dVM0DqZinWDlA/rl2Qg5G0lhrNwLt3R2tv+p6WGt/zp5bNDMK/zVAL9rKAh
- WUJ2+tKZSD72w==
-Mime-Version: 1.0
+ s=k20260515; t=1788034500;
+ bh=Z9HSNJCOp0EkaUL1Ll5zvr9SQQscvbVTNrjXTlkBLZ8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=X8UMeXiIAxoylA2bji2rjLpVXfzbyue/PJShZBX1wuo6LA/z1OF7FR9AvJm0ArHjQ
+ wtDbPK6UsW63/IdR4DgGkAa3iIbfLV6dl790/lwasOs1Kyj0NCybzJkds1nAvJJFv6
+ piNR0+WbYbEGvFxG/4MwGnn03J+REgo8P4mAL3fM8OR5ehnzdo4qKmw8uEtjIkDMR3
+ swJd3oqEyJbUzEMyyg9C+bJreoW0KVSq7suiaYQGSkTcyV/l9KjU3djJGIMWN4dGFP
+ WwQPVn6JJXN/OsbyZtcGh/mManb7xD2H4nGCiusTg7UPZ/wz+Fp+w0fVDBO/WRlIvp
+ tC2PgzmY3um4A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 1/2] dt-bindings: display: panel: Add bindings for
+ Novatek NT51021
+To: "Nickolay Goppen" <setotau@mainlining.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 29 Aug 2026 21:14:33 +0200
-Message-Id: <DL1O1NFXUX6N.1LFASWF425I4Y@kernel.org>
-Cc: <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 1/2] gpu: nova-core: use kernel lossless integer
- conversion module
-References: <20260828-nova_num-v1-0-e21f17ba4127@nvidia.com>
- <20260828-nova_num-v1-1-e21f17ba4127@nvidia.com>
- <DL0KDAXUZOXD.I8FBZZ51EIIF@kernel.org>
- <DL142442KXHA.3VFWP2DHD7H2E@nvidia.com>
-In-Reply-To: <DL142442KXHA.3VFWP2DHD7H2E@nvidia.com>
+Date: Sat, 29 Aug 2026 20:14:59 +0000
+Message-Id: <20260829201500.796D31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,89 +55,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Aug 29, 2026 at 5:34 AM CEST, Alexandre Courbot wrote:
-> On Fri Aug 28, 2026 at 9:09 PM JST, Danilo Krummrich wrote:
->> (Cc: Miguel)
->>
->> On Fri Aug 28, 2026 at 7:33 AM CEST, Alexandre Courbot wrote:
->>> The `kernel` crate now features a replacement for our lossless integer
->>> conversion routines. Switch to the kernel version and remove our own.
->>>
->>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
->>> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
->>> ---
->>>  drivers/gpu/nova-core/falcon.rs                    |  12 +-
->>>  drivers/gpu/nova-core/falcon/fsp.rs                |   4 +-
->>>  drivers/gpu/nova-core/fb.rs                        |   2 +-
->>>  drivers/gpu/nova-core/fb/hal/gb100.rs              |   6 +-
->>>  drivers/gpu/nova-core/firmware.rs                  |   4 +-
->>>  drivers/gpu/nova-core/firmware/booter.rs           |   4 +-
->>>  drivers/gpu/nova-core/firmware/fwsec.rs            |   2 +-
->>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |   4 +-
->>>  drivers/gpu/nova-core/firmware/gsp.rs              |   9 +-
->>>  drivers/gpu/nova-core/firmware/tlv.rs              |  11 +-
->>>  drivers/gpu/nova-core/fsp.rs                       |   8 +-
->>>  drivers/gpu/nova-core/gsp.rs                       |   4 +-
->>>  drivers/gpu/nova-core/gsp/cmdq.rs                  |  22 +--
->>>  drivers/gpu/nova-core/gsp/fw.rs                    |  42 ++--
->>>  drivers/gpu/nova-core/gsp/fw/commands.rs           |   4 +-
->>>  drivers/gpu/nova-core/gsp/sequencer.rs             |   2 +-
->>>  drivers/gpu/nova-core/mctp.rs                      |   8 +-
->>>  drivers/gpu/nova-core/num.rs                       | 211 -------------=
---------
->>>  drivers/gpu/nova-core/vbios.rs                     |   2 +-
->>>  19 files changed, 78 insertions(+), 283 deletions(-)
->>
->> Please see the discussion in [1].
->>
->> If we make this change, then the subsequent conversion to const_as!() wo=
-uld need
->> to go through the Rust tree next cycle, which could be a bit of a mess, =
-as I'd
->> expect a bunch of conflicts.
->>
->> Alternatively, we could the the full three cycle dance, or have a signed=
- tag for
->> const_as!() and use it right away.
->>
->> But honestly, the former would just be unnecessary noise. If we don't do=
- the
->> latter, let's just keep the nova-core num module until the dust has been
->> settled.
->>
->> [1] https://lore.kernel.org/all/CANiq72k+-fNWZCwGuQ=3DFTchxgm-X-f6WR=3Dt=
-G=3DErcn19ic1edQg@mail.gmail.com/
->
-> Maybe I am missing something, but wouldn't the following work?
->
-> - rc1 gets tagged, `drm-rust-next` gets the `num::casts` module,
-> - This series gets applied to `drm-rust-next`, then `cv!` (without the
->   nova-core conversion patch) in `rust-next`,
-> - We wait one cycle for `cv!` to trickle down to `drm-rust-next` before
->   converting nova-core to use `cv!`.
->
-> Would that work? This series doesn't overlap with the const conversions
-> that `cv!` covers on purpose, and it would have the benefit of getting
-> rid of the local `num` module in nova-core quickly.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Commit message and schema description contradict the schema's co=
+mpatible list by claiming to only support 'boe,tv101wum-nx0' while silently=
+ including 'boe,tv080wum-nx2'.
+- [Medium] The description for `reset-gpios` incorrectly specifies the pola=
+rity as '(active high)', which contradicts the example and typical panel re=
+set semantics.
+--
 
-Take casts::usize_into_u32() for instance, drm-rust-next replaces the usage=
- of
-it next cycle, but rust-next wants to remove the API from
-rust/kernel/num/casts.rs.
+commit 4949971c710c300054975d637c238b42bc5c2c75
+Author: Nickolay Goppen <setotau@mainlining.org>
 
-In this case rust-next would need to get rid of the users (including nova-c=
-ore),
-but drm-rust-next will likely do different changes, so we'd get unnecessary
-merge conflicts.
+dt-bindings: display: panel: Add bindings for Novatek NT51021
 
-You can resolve this either by keeping casts::usize_into_u32 and friends ar=
-ound
-for one additional cycle, so that all users we introduce now are gone. Or, =
-since
-there's no rush anyways, we just wait one cycle and use the real thing righ=
-t
-away.
+This commit introduces device tree bindings for the Novatek NT51021 display
+driver IC. It explicitly states support is added for the BOE TV101WUM-NX0
+WUXGA video mode panel.
+
+> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51=
+021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.=
+yaml
+> new file mode 100644
+> index 0000000000000..a3e4ed10e645d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> @@ -0,0 +1,93 @@
+[ ... ]
+> +description: |
+> +  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
+> +  panels.
+> +  Right now, support is added only for a BOE WUXGA LCD display panels wi=
+th a
+> +  resolution of 1200x1920. They are video mode DSI panels.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - boe,tv101wum-nx0
+> +          - boe,tv080wum-nx2
+
+[Severity: Medium]
+The commit message and the schema description state that support is added
+only for the BOE TV101WUM-NX0 panel, but this adds boe,tv080wum-nx2 to the
+compatible list.
+
+Is this regression intended, or should the description and commit message be
+updated to reflect support for both panels?
+
+[ ... ]
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: phandle of gpio for reset line - This should be 8mA, gp=
+io
+> +      can be configured using mux, pinctrl, pinctrl-names (active high)
+
+[Severity: Medium]
+Could this description cause regressions for users configuring the reset
+line?
+
+The text explicitly specifies (active high) for the reset-gpios polarity,
+but typical panel semantics and the example block further down use active
+low:
+
+            reset-gpios =3D <&tlmm 62 GPIO_ACTIVE_LOW>;
+
+If users follow this text description instead of the example, could they
+drive the physical line incorrectly and prevent the panel from initializing?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829-qcom-novat=
+ek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org?part=3D1
