@@ -4,105 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C52C61DD9
-	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 15:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B26ACC61DD9
+	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 15:54:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2495010E0A9;
-	Sat, 29 Aug 2026 15:25:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E39E810E0AD;
+	Sat, 29 Aug 2026 15:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SPrjbLum";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I38/rcs6";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D59E010E0A9
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:25:43 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-cc1cb472b76so1637499a12.0
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 08:25:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788017143; cv=none;
- d=google.com; s=arc-20260327;
- b=gL4PT2e6yQIWx1SgSG2Q3iyBnBx+FU6jWV73JxC7Py1XqfaFjLXNh+dMlZY1WbO8NL
- AWfqkCKza32jf60It7Khz/E4fd2Q/Mii474Eu9L2aTE7prWf8G9ctRokuzFF2fQes/dx
- rzzEY+cTBVgPg0AiObr9kcloMwkH2AHPGaP3m0yzmedOLfnw3dWjUeqqfCoechO1V9N+
- OFF5YA2KlHoIw/DGQsOrwE2a1M8Q4QG8c2L4te1MS86v3AFEBySHBnWhKikVxHrBHHsE
- n4Hm8A2w5XbVJiXlNwmGhZMtddpDm/Xyjqm9gJ7dUZ7PB393O/Drtf+t0bkP+G2aMuz4
- l/6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+vdXxpOV3BfxzN65NOTLlQ+CtWQCv48GXwA+hHSuHZk=;
- fh=ur2puSAPPDbTHrBis5SKZedQUBC8lii9mhB4RjBiVs8=;
- b=o9BgFZqdEvueBQ3mk0TwMqGifwgyuUknzXoVz812iBtIjIUm7LPkV6FV74Pt/yNQ0S
- 8Ilw36efES2IXuQhVJbCC2UOzyuwB3DPfl8LqdJMlwQ3nEPReXLL+0GEO7cz/yJOi3Ue
- dWQPP4ZeBeVrJAdIXrTohiwpgJN6TB+yFJntYPu0lfqhSPW4TZ80aWo/GpRStztrdqv3
- od8V8iyax++TMvMPcsmqOtnStAG3XCOsZ50UQ4tfLPTTlDf5DvTngNxEUGG0dP8zjOkU
- O+pHLwSVo/zrPXeHfWw/K4TBFqTD8x+lj8gKWa9oxSfHkMWamZ7/VS+Y0hEfc+CG94Dz
- 0Y6A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788017143; x=1788621943; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=+vdXxpOV3BfxzN65NOTLlQ+CtWQCv48GXwA+hHSuHZk=;
- b=SPrjbLumRzSAZjTwHFbdme6HWh+MK5L791jmGTONBJUTO2m2OZTUGeIx6AhvfOYcEW
- t4HRHU1jPh0lbXHNvKvB8KHCQwfmiW5fApimhdft9MZX8ee5kU+I0RF0zUztKPeDcWMR
- o7plS6HHBtHnS1O4SxMw1MVZk183vC5etc1XSQQzNhM89aOLHGgYC/O0hapdtaVxjxv4
- pSJkiTcDlyCPkQeFu1WotdJlFXS2Kt27GrukJu5ECyjhbrGhcbDeJ9GqL82BxJ7bgDS7
- gCkQphbVYch2/fU6zJjomdQwiNIIQ9xSQTCRwwSuXJp86QzgUzN5gJXTy6yE/VjUsOGh
- 4P4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788017143; x=1788621943;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=+vdXxpOV3BfxzN65NOTLlQ+CtWQCv48GXwA+hHSuHZk=;
- b=OOOTWynJwSrq1Yf1GCUMXWNq+SUrqaJa5jbBZ6CnNH+N3q390/9yq2o2ECRM09IjWx
- tW4EGz7qhEtPwfITc+61PchANdnkAHgJIMjXxAy7G+SDzpvNR9yjmWqFh3pra9Sk8vkn
- 2cmhe+dlOyLF4VoUzMqRs1NQrRRtAzv11egf25tobJGbRp50FIlQ/BJJ7Sky+AutiUyq
- NdEjLnD4IROkCBofQReCg/VfyNF2UCiChqXBQQbqHPVlxWxdMTU/2ywlk4llCYHDDg5s
- TB52SPj7QjDnbzQKyZxDbTtnvH4NfySvlGglodmP/Wf4K/4oEy/mPCdwv69Qk8fUY4kC
- o1qg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz2yIXRh9u2RYwlF9jKNMt7cEvJmtuJFUUmCUXERWLJDWsfIW3gjCEQceKcwnFrCmwpWZ6jFhsPZs4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kPUGUChzoiBABw02EC/WQtRNlzqSmdGcm0snL+zVHtHaX92nZF
- reVuTM1XmKPvU2YqiojIubG6y/006oi9eGkhLnLc4PICGDyN3r2BnUPDWutMkX2hVhJpQGCPngb
- PYJbscXFmFBbhDQxkDUwrzitjJQRpjLQ=
-X-Gm-Gg: AYBFou3HB/uPMStZADLB12214O7Pg1bNjOpGYTWIJXdag+RXTfOCLlD8iyIRCnGrGsf
- fob8blVUgz08LhYglbE8BAaQHTY7nD3x66fT3kpxhQmPFWSZFG1g5cDejYjj0STehCSgRg8kRp6
- /b9f1kc0/Q/9MkhSUN34HBjbgdVuIqiHnhN/MB5YmRpfcwzhKMm85M0pv5Fj656uL8Sg5XoNj4V
- P7mlajvFf9zmxYIbObC2qxUfLW65/eUBb5q4RI16JzSYbvKGtZHSTkbdv6CGyW1GHpllLgi4QGG
- lCZ0N6udBUlIZ61dnyoQQ3gC6Nm344r05rTVD2Y8eCM328PwCXKaejVrD+D0mM+kdLTQt5G6gkj
- W3A==
-X-Received: by 2002:a17:90b:1e05:b0:398:9bd5:490c with SMTP id
- 98e67ed59e1d1-3989bd54c4emr9157251a91.19.1788017143287; Sat, 29 Aug 2026
- 08:25:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260625082507.57703-1-clamor95@gmail.com>
- <20260625082507.57703-2-clamor95@gmail.com>
- <DKSTU1V8CI9T.1CILLIDVSCGTQ@bootlin.com>
-In-Reply-To: <DKSTU1V8CI9T.1CILLIDVSCGTQ@bootlin.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 29 Aug 2026 18:25:32 +0300
-X-Gm-Features: AcwNN1UsWEJpZRhqcHwqIRCxBAXEtc7byNpBTuq3vGpQa2odXY3oJraHxfULBuw
-Message-ID: <CAPVz0n0zi8DfbNWa25gut4Uz5UpD2ZuQ_xb--CTThysvGJRTxA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] gpu/drm: bridge: tc358768: Add delay after PLL
- setup
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D183F10E0AD
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:54:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4EC6C600AA
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:54:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 00560C2BCB9
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788018855;
+ bh=mE4dqN/EF0FBsINaGZNj98ikXGigU5bc2d0e03vj8EQ=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=I38/rcs65+aYvV4UGVnjmeDik851x2x74eU5Q0Pd3hzxIgARMCKyjKv0HhJlajgkI
+ EBaA4HqSxrbuLe0AC+AqPo4b1MvguXuQnL9SqJp3nMYPBe1nqe84EGCDyWd8PGv0gf
+ Go6LMu4c2OySLUlxfW5YGhIE4nts1dvLjLMfWXAKtS1tuxjjOO3ZC02Scc36ryUQNm
+ VQCsKhGiNC8fd2Zd5ORaQcu3/6OMz8LGmWefmqL0IsqGx0aHxOvQLvWyrd8u1MiWoH
+ nwCoizkwq+hROeBzDfXKr0FFoGoDA2DYOay/tVUXOVU8uvURzmEORiLXpVNRPjRjrM
+ 91504L/oCz48Q==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id D929EC4160E; Sat, 29 Aug 2026 15:54:14 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221040] AMD Ryzen 5700G (Renoir/Cezanne): Second suspend hangs
+ after "PM: suspend entry (deep)" - xhci_hcd and asus_wmi LPS0 involvement
+Date: Sat, 29 Aug 2026 15:54:14 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: s93nesua@bote.unbox.at
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: resolution
+Message-ID: <bug-221040-2300-6UIfWMA3UI@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221040-2300@https.bugzilla.kernel.org/>
+References: <bug-221040-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,70 +75,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=81=D1=80, 19 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:5=
-3 Luca Ceresoli <luca.ceresoli@bootlin.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hello Svyatoslav,
->
-> On Thu Jun 25, 2026 at 10:25 AM CEST, Svyatoslav Ryhel wrote:
-> > After tc358768_setup_pll() enables PLL_CKEN and the lock indicator come=
-s
-> > up, the DSI register sequence runs near immediately. On TF700T this
->
-> Do you refer to the Asus Transformer Pad TF700T here? Please add the full
-> name of the device.
->
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221040
 
-Yes, I am referring to Asus Transformer Pad TF700T. Sure, my bad.
+Bertram Ganz (s93nesua@bote.unbox.at) changed:
 
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+         Resolution|ANSWERED                    |CODE_FIX
 
-> > results in the bridge claiming PLL lock but producing no DSI video outp=
-ut:
-> > the panel powers up, the backlight comes on, but the framebuffer is nev=
-er
-> > scanned out.
-> >
-> > Insert a small settling delay between PLL setup and the rest of the
-> > attach.
-> >
-> > Suggested-by: Michele Brocco <brocco@perceptos.de>
-> > Tested-by: Michele Brocco <brocco@perceptos.de> # TF700T
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/gpu/drm/bridge/tc358768.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge=
-/tc358768.c
-> > index 0f2820b37302..ea358c8da0e9 100644
-> > --- a/drivers/gpu/drm/bridge/tc358768.c
-> > +++ b/drivers/gpu/drm/bridge/tc358768.c
-> > @@ -824,6 +824,9 @@ static void tc358768_bridge_atomic_pre_enable(struc=
-t drm_bridge *bridge,
-> >               return;
-> >       }
-> >
-> > +     /* Allow the PLL to settle */
-> > +     mdelay(20);
->
-> Why 20 ms, and not another amount? Is it backed by some datasheet? Or jus=
-t
-> "it's what fixed my usecase"?
->
-> The extra delay is a panel requirement maybe, and definitely specific to
-> the specific hardware pipeline of the TF700T. Would it make sense to add =
-a
-> DT property so only hardware needing a delay can add it, and add as much =
-as
-> needed?
->
+--- Comment #5 from Bertram Ganz (s93nesua@bote.unbox.at) ---
+Update: Issue appears resolved (kernel 6.18.42-1-lts / Mesa 26.0)
 
-This is a fair point. Thank you Luca. I will experiment a bit more to
-see how this can be arranged differently.
+After several months of using hibernation (S4) as a workaround, I retested
+suspend/resume (S3) today and completed 3 consecutive cycles successfully
+with no hang - previously the second cycle would reliably hang after
+"PM: suspend entry (deep)" with no further kernel output, requiring a hard
+reset.
 
-> Luca
->
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+Version delta:
+
+My original report was on:
+- Kernel: 6.12.63-1-lts
+- Mesa: 25.3.4
+
+I retested a few months ago on 6.18.17-1-lts and it was still failing at
+that point (see earlier comments). Just retested again on:
+- Kernel: 6.18.42-1-lts
+- Mesa: 26.0
+
+...and suspend/resume now works reliably. So the fix landed somewhere
+between 6.18.17 and 6.18.42 (kernel), or possibly required the Mesa 26.0
+upgrade in combination - I can't pinpoint the exact patch given the size
+of the jump.
+
+Still present (but non-fatal):
+
+These log messages still appear but no longer block suspend/resume:
+  gnome-shell: Cursor update failed: drmModeAtomicCommit: Invalid argument
+  xhci_hcd 0000:01:00.0: xHC error in resume, USBSTS 0x401, Reinit
+  asus_wmi: failed to register LPS0 sleep handler in asus-wmi
+
+Hardware:
+- AMD Ryzen 7 5700G (Renoir/Cezanne)
+- ASUS ROG STRIX B450-I GAMING (BIOS 5901)
+- amdgpu.dcfeaturemask parameter removed, no longer needed
+
+Status:
+
+I'll leave this open for now since I haven't pinpointed the exact fix, and
+the underlying error messages are still present even though non-fatal.
+Feel free to close if this is considered sufficiently resolved, or let me
+know if a bisect would help.
+
+Also posted updates on:
+- AMD GitLab: https://gitlab.freedesktop.org/drm/amd/-/issues/4927
+- EndeavourOS forum:
+https://forum.endeavouros.com/t/amd-ryzen-5700g-renoir-asus-b450-i-second-s=
+uspend-hangs-after-resume-xhci-hcd-asus-wmi-issues/77923
+- r/AMDHelp:
+https://www.reddit.com/r/AMDHelp/comments/1qv40fo/amd_ryzen_5700g_renoir_as=
+us_b450i_second_suspend/
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
