@@ -4,60 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7935C624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8922C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F59110E677;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F1F910E679;
 	Mon, 31 Aug 2026 07:00:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="mEtp9emI";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="aTMLP/LQ";
-	dkim-atps=neutral
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E13610E12C
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:Subject:From; t=1788034159; bh=D1D5yRftzRyJg0Ypyl8P/j6
- WTdLdYr1mjt3rnU2v1tM=; b=mEtp9emIimkvUSHzeMF1s711bfFFu7Sc1MJi7O8tc5SeEWjSUf
- qsQ7ynZ9JRlHrA+6Rr6omcu+e6r4JG9+d/9a+YqKUa9DMEutj8121+YDUHL+4o6BpYzTy+R89fe
- H0co+DfeWvVcpatpjCbePXtRwupI0YMBxhT8n7aaA6ZumuctxKmyVjKh2vKRCwOO07NpJOlr8Z2
- CmdvjnEND9iCJ0JjjbmcJtpR1mhNaLcK/A6G6C7PbIh3xPc7B0H8zd0FdbmEVnk7Sz/5EO/aeoF
- hCucnvzLAhNTtNRkQFwpVDbeOvp9rIjpFCHHao8EKbyW0U5iOK9vo5DxsgDpYmN/t2w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:Subject:From; t=1788034159; bh=D1D5yRftzRyJg0Ypyl8P/j6
- WTdLdYr1mjt3rnU2v1tM=; b=aTMLP/LQvhMu/kQv+5jAZo+vB/HZ4n13sXgy8uYcLmIiCzovTN
- yNEKkyrs6WOuQzj+rjMkQEOE3Bq+yNqsXLCA==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Subject: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
-Date: Sat, 29 Aug 2026 23:09:12 +0300
-Message-Id: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+Received: from mail.muc.de (mail.muc.de [193.149.48.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 509E910E0A9
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 13:34:03 +0000 (UTC)
+Received: (qmail 94718 invoked by uid 3782); 29 Aug 2026 15:34:00 +0200
+Received: from muc.de (p4fe15d93.dip0.t-ipconnect.de [79.225.93.147]) (using
+ STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
+ Sat, 29 Aug 2026 15:34:00 +0200
+Received: (qmail 56993 invoked by uid 1000); 29 Aug 2026 13:33:59 -0000
+Date: Sat, 29 Aug 2026 13:33:59 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [Patch 3/9]: Replace scr_readw/writew by scr_readg/writeg, etc
+Message-ID: <apLfx9oqYaa36oyn@MAC.fritz.box>
+References: <apCEDM2sWv_M354-@MAC.fritz.box> <apCGKUotSUZLvngV@MAC.fritz.box>
+ <2026082934-irrigate-tastiness-c4ff@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQrCMBBA4auUWTuQBFobt4IH6FZcpOlUx5+kZ
- mIRSu9u1OV7i28BocQksKsWSDSzcAwl9KYCf3HhTMhDaTDKNKo1Fp8+PjDE2WW6Yci1Vkbj5AL
- dBcmMdujb2tlmC0WYEo38/ulH6A57OP2nvPor+fx1YV0/UD967oQAAAA=
-X-Change-ID: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nickolay Goppen <setotau@mainlining.org>, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788034158; l=1077;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=5kmSpgALd9GTo3pAxZGgQ31AVpAy1mkPvNU6vZn+7pk=;
- b=kC1ufeMgGc2m9ghrxnRsQs/IbG541xgXBRRFrYDz03UGoqgoWFrFHI4BvPdYbvfpQ+xFE+2yu
- Ii1s0RaaEAoB/Qis/wAGred42z6a9nmhiSLm/Gi7uq5Je6w6mGlEqKP
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026082934-irrigate-tastiness-c4ff@gregkh>
+X-Submission-Agent: TMDA/1.3.x (Ph3nix)
+From: Alan Mackenzie <acm@muc.de>
+X-Primary-Address: acm@muc.de
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,31 +50,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for Novatek NT51021-based panels 
-for upcoming xiaomi-clover submission
+On Sat, Aug 29, 2026 at 14:11:00 +0200, Greg Kroah-Hartman wrote:
+> On Thu, Aug 27, 2026 at 06:47:05PM +0000, Alan Mackenzie wrote:
 
-Although according to datasheet, the IС has three power rails 
-in the use case of xiaomi-clover, all of them are wired to one 
-fixed regulator
+> > vt: 32b glyph: 3. replace scr_readw/writew by scr_readg/writeg, etc.
 
-Maybe I should create a dt option for enabling CABC for panel
+> I don't understand these lines in your patches, where are they from and
+> what are they for?
 
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
----
-Nickolay Goppen (2):
-      dt-bindings: display: panel: Add bindings for Novatek NT51021
-      drivers: gpu: drm: panel: Add BOE NT51021 driver
+scr_readg and scr_writeg read and write an entire glyph, regardless of
+whether that glyph is 16-bit or 32-bit.  The latter is determined by the
+setting of CONFIG_FB_GLYPH_21BIT.
 
- .../bindings/display/panel/novatek,nt51021.yaml    |  93 +++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |   9 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 804 +++++++++++++++++++++
- 5 files changed, 913 insertions(+)
----
-base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
-change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
+This is the main complication in these patches; having to cope with both
+sizes of glyph, for backward compatibility, rather than just switching
+to 32-bit glyphs.
 
-Best regards,
---  
-Nickolay Goppen <setotau@mainlining.org>
+> thanks,
+
+> greg k-h
+
+-- 
+Alan Mackenzie (Nuremberg, Germany).
