@@ -4,53 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F75FC61DD9
-	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 15:56:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFF9C61DD6
+	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 15:57:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBCF510E07A;
-	Sat, 29 Aug 2026 15:56:04 +0000 (UTC)
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E75610E07A
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:56:03 +0000 (UTC)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-4b28db3a47aso3588166b6e.2
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 08:56:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788018962; x=1788623762;
- h=content-type:to:from:subject:message-id:in-reply-to:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=WXXv4xpnt1/RIHcZ+q2gQWeRw9AsLgQNjGhPdDBrae8=;
- b=aeVwDAEqglGok/UC9OLchmRR2uCgh6qqRqxEP5vktOdB3mds31iHmC3hcgmgX+EDBI
- 8BIe+VCb5zO5oXeC0cpcuIgF0i6qmETuIwfSdAgIMcEuyyIQ1+fSu2ofa2fRXZ5QLR2y
- vR3B9DPsCftujFqd8s2sqB0pHGYJr/QT40FQTSOEvtdQMPFK4Aw7PVhlFczDJ+JOVBZH
- RtYWyaQYNnAO4U6tPm+TXCRDvPXUNwJtbFFPXTxXyUHoXRz14wdkw7B8PZfV/jKw/1v3
- BK9aDDB4SqDd8X5EPh/6u89csjlLERNOKyzmnRx8M6TjF9qkYpa1dtAfNVs4VXkfKJgd
- NJ8g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpQPeUJoB2HwVAfgwRpYBj36BpUg4QgPPXEZYCTvHhffbqyXvz/PYYwOFJ6e/rHv6fKk8VnY5pKDQw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kj5JE9GMJtOzilJPSgbM2xGabmF9p4nt57t92LsJxIEJmQz9CQ
- sQB1c3jk51VQCFIAwuo44fWY04PTSICEEvMPANjJ5ltE4Ki3RJf65jpCSfC1ifxVsbS21bNWJNJ
- THhPzzmtyMBm/cnwD8BNQrCENHa2CRFJ0AW2gCv1/h7htRYCs/W329tcY0fo=
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6783:b0:496:11f1:f2ad with SMTP id
- 5614622812f47-4b3980587b6mr16630161b6e.6.1788018962740; Sat, 29 Aug 2026
- 08:56:02 -0700 (PDT)
-Date: Sat, 29 Aug 2026 08:56:02 -0700
-In-Reply-To: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a930112.1d9ded08.62e62.010c.GAE@google.com>
-Subject: Re: [syzbot] [media?] [dri?] WARNING in udmabuf_create
-From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
-To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
- kraxel@redhat.com, linaro-mm-sig-bounces@lists.linaro.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, robert.mader@collabora.com, 
- sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
- vivek.kasireddy@intel.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9804E10E140;
+	Sat, 29 Aug 2026 15:57:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l7fBaKDk";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A71C310E140
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:57:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0F946600AA
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:57:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B69D9C2BCB9
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 15:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788019047;
+ bh=O7vHOdgyYbJ3nPICJubqQawNouP1NHI2RiTsJ6aAw0o=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=l7fBaKDkLU+MLhIRtVOqHQXFNNARfFZFuvbNQIWOnacyf6Ra6iYI002Sq7VIp8Yqs
+ XGmX+SqfuBv9slsPFdDiyzk0o4uZdNxP2bq9NXcA5mUGUw68Qb+R2aANUd/XghOijU
+ mLRdRxgoUmI5DiW673zweaFSVbImhKgyiH6fNwnEUyPnnJGkhyufsoIPie/h9yna5F
+ ENeNjARDh16N8h77hwsYnmzRiR8TaccnGm1TjUOUu+IIyE8dxXswftaPxitbq2Vyir
+ vsBvwhyBBo4FVfTys/YDGKDnDzvAXSaHauQCEQKzft1Q4uFzUb8c4/R+edsgDmyELW
+ rrSxnstSZiEHQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 9A9C3C41612; Sat, 29 Aug 2026 15:57:27 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221040] AMD Ryzen 5700G (Renoir/Cezanne): Second suspend hangs
+ after "PM: suspend entry (deep)" - xhci_hcd and asus_wmi LPS0 involvement
+Date: Sat, 29 Aug 2026 15:57:27 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: s93nesua@bote.unbox.at
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-221040-2300-baC1enXG92@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221040-2300@https.bugzilla.kernel.org/>
+References: <bug-221040-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,24 +75,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-syzbot has bisected this issue to:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221040
 
-commit 44e9eb5a762142a4aa46c0b5da7c39bfeb78910e
-Author: Robert Mader <robert.mader@collabora.com>
-Date:   Wed Jul 22 11:01:45 2026 +0000
+--- Comment #6 from Bertram Ganz (s93nesua@bote.unbox.at) ---
+Update: Issue resolved (kernel 6.18.42-1-lts / Mesa 26.0)
 
-    dma-buf/udmabuf: Disable the size limit by default
+After several months of using hibernation (S4) as a workaround, I retested
+suspend/resume (S3) today and completed 3 consecutive cycles successfully
+with no hang - previously the second cycle would reliably hang after
+"PM: suspend entry (deep)" with no further kernel output, requiring a hard
+reset.
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=17d14379580000
-start commit:   0a0d1d55dad5 Merge tag 'scftorture.2026.08.18a' of git://g..
-git tree:       upstream
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=14314379580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=10314379580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=335632b21d0ce540
-dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16c2719e580000
+Version delta:
 
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+My original report was on:
+- Kernel: 6.12.63-1-lts
+- Mesa: 25.3.4
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+I retested a few months ago on 6.18.17-1-lts and it was still failing at
+that point (see earlier comments). Just retested again on:
+- Kernel: 6.18.42-1-lts
+- Mesa: 26.0
+
+...and suspend/resume now works reliably. So the fix landed somewhere
+between 6.18.17 and 6.18.42 (kernel), or possibly required the Mesa 26.0
+upgrade in combination - I can't pinpoint the exact patch given the size
+of the jump.
+
+Still present (but non-fatal):
+
+These log messages still appear but no longer block suspend/resume:
+  gnome-shell: Cursor update failed: drmModeAtomicCommit: Invalid argument
+  xhci_hcd 0000:01:00.0: xHC error in resume, USBSTS 0x401, Reinit
+  asus_wmi: failed to register LPS0 sleep handler in asus-wmi
+
+Hardware:
+- AMD Ryzen 7 5700G (Renoir/Cezanne)
+- ASUS ROG STRIX B450-I GAMING (BIOS 5901)
+- amdgpu.dcfeaturemask parameter removed, no longer needed
+
+Marking this resolved (CODE_FIX) based on my own testing, since the hang no
+longer occurs. I don't have the exact commit that fixed it - if anyone can
+identify it, feel free to comment. Please reopen if this regresses for me
+or others with similar hardware.
+
+Also posted updates on:
+- AMD GitLab: https://gitlab.freedesktop.org/drm/amd/-/issues/4927
+- EndeavourOS forum:
+https://forum.endeavouros.com/t/amd-ryzen-5700g-renoir-asus-b450-i-second-s=
+uspend-hangs-after-resume-xhci-hcd-asus-wmi-issues/77923
+- r/AMDHelp:
+https://www.reddit.com/r/AMDHelp/comments/1qv40fo/amd_ryzen_5700g_renoir_as=
+us_b450i_second_suspend/
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
