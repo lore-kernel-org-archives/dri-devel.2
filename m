@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23EE7C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F906C624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6217910E68D;
-	Mon, 31 Aug 2026 07:00:06 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 865B610F309
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 09:13:52 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.241.250])
- by APP-03 (Coremail) with SMTP id rQCowACXoD5AUZFqhTF1Bg--.63586S2;
- Fri, 28 Aug 2026 17:13:37 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: analogix: Propagate PHY errors from resume
-Date: Fri, 28 Aug 2026 17:13:34 +0800
-Message-ID: <20260828091334.5793-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5342410E684;
+	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="DMse7pzQ";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="UlG2hGF6";
+	dkim-atps=neutral
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D630510E12C
+ for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:18:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1788034695; bh=99oQqqsmDdYcuU1KZ1BBNtz
+ eXvz/eiQA8iTcrFoXqIQ=; b=DMse7pzQkebE9ELqmn+vxiJj6jWBXBCV+5si2YDBWZEdK+dhgn
+ m1OWgG1o8czZieM+5Qk6arZUiTbW+8+2j5LGv/+/I5yT1DEKrV/VH8HvzlV8QfNwGzg65t03+R9
+ ubaDBpIccNehc9VUPSA5PHUr3APYa7xsbiPgVM+VErO+K8aGBsLfIHEe8jhBh44FwZQe8CVzYQK
+ QJ0pp3Lb4U7PrOrkBq2ZcGg+SJXTDZ3QcEZKGg2RLiNpeUKAE/qSjFWNqCCqp5lc0uPgpGH1pSw
+ biqduohF338vjs1uFJkKbAShvDvcnWGTrIKxyh3QqjNs+WMbGH3+SEPjg3I42yKMJxg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1788034695; bh=99oQqqsmDdYcuU1KZ1BBNtz
+ eXvz/eiQA8iTcrFoXqIQ=; b=UlG2hGF6ZkfucljrhX0AKlQZZojfgmvDL/P0ciu+VPUv7kdO3l
+ u+6HiXxMKHT5D9eq8oPbtI/CjMsi8An3PYDA==;
+Message-ID: <6e0e03f6-8ce9-4c01-9f04-206b163d5664@mainlining.org>
+Date: Sat, 29 Aug 2026 23:18:14 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/2] dt-bindings: display: panel: Add bindings for
+ Novatek NT51021
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
+ <20260829201500.796D31F000E9@smtp.kernel.org>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260829201500.796D31F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXoD5AUZFqhTF1Bg--.63586S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFWUtw45WF45Wryftr4xZwb_yoW8Aw45pr
- Z2gr1Yyrn7G3W3tF4vvFWkAFZ8A34qvayrGw4DCwnrZw12gwnrJr1qy34fXas8tr48C3WF
- vr17JF9ruasxWrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
- nIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-Originating-IP: [111.196.241.250]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,56 +62,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-analogix_dp_resume() enables the controller clock and platform power
-before setting up the DisplayPort PHY.  It currently ignores both PHY
-operation results and initializes the controller even when the PHY is
-unavailable.
 
-Check phy_set_mode() and phy_power_on().  On failure, undo platform
-power and the controller clock before returning the error to the
-platform resume callback.
+29.08.2026 23:14, sashiko-bot@kernel.org пишет:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] Commit message and schema description contradict the schema's compatible list by claiming to only support 'boe,tv101wum-nx0' while silently including 'boe,tv080wum-nx2'.
+> - [Medium] The description for `reset-gpios` incorrectly specifies the polarity as '(active high)', which contradicts the example and typical panel reset semantics.
+> --
+>
+> commit 4949971c710c300054975d637c238b42bc5c2c75
+> Author: Nickolay Goppen <setotau@mainlining.org>
+>
+> dt-bindings: display: panel: Add bindings for Novatek NT51021
+>
+> This commit introduces device tree bindings for the Novatek NT51021 display
+> driver IC. It explicitly states support is added for the BOE TV101WUM-NX0
+> WUXGA video mode panel.
+>
+>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+>> new file mode 100644
+>> index 0000000000000..a3e4ed10e645d
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+>> @@ -0,0 +1,93 @@
+> [ ... ]
+>> +description: |
+>> +  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
+>> +  panels.
+>> +  Right now, support is added only for a BOE WUXGA LCD display panels with a
+>> +  resolution of 1200x1920. They are video mode DSI panels.
+>> +
+>> +allOf:
+>> +  - $ref: panel-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +          - boe,tv101wum-nx0
+>> +          - boe,tv080wum-nx2
+> [Severity: Medium]
+> The commit message and the schema description state that support is added
+> only for the BOE TV101WUM-NX0 panel, but this adds boe,tv080wum-nx2 to the
+> compatible list.
+>
+> Is this regression intended, or should the description and commit message be
+> updated to reflect support for both panels?
+>
+> [ ... ]
+Will be addressed in v2
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  reset-gpios:
+>> +    maxItems: 1
+>> +    description: phandle of gpio for reset line - This should be 8mA, gpio
+>> +      can be configured using mux, pinctrl, pinctrl-names (active high)
+> [Severity: Medium]
+> Could this description cause regressions for users configuring the reset
+> line?
+>
+> The text explicitly specifies (active high) for the reset-gpios polarity,
+> but typical panel semantics and the example block further down use active
+> low:
+>
+>              reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
+>
+> If users follow this text description instead of the example, could they
+> drive the physical line incorrectly and prevent the panel from initializing?
+Will be addressed in v2
 
-The issue was identified via static analysis and manually reviewed.
-
-Fixes: 73f613908eb1 ("drm/bridge: analogix_dp: move platform and PHY power handling into runtime PM")
-Fixes: 2c0883459ed6 ("drm/bridge: analogix_dp: Add support for phy configuration.")
-
-Assisted-by: LLM
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c    | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 30c0c0b41d5a..00844f68d748 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1461,12 +1461,23 @@ int analogix_dp_resume(struct analogix_dp_device *dp)
- 	if (dp->plat_data->power_on)
- 		dp->plat_data->power_on(dp->plat_data);
- 
--	phy_set_mode(dp->phy, PHY_MODE_DP);
--	phy_power_on(dp->phy);
-+	ret = phy_set_mode(dp->phy, PHY_MODE_DP);
-+	if (ret)
-+		goto power_off;
-+
-+	ret = phy_power_on(dp->phy);
-+	if (ret)
-+		goto power_off;
- 
- 	analogix_dp_init_dp(dp);
- 
- 	return 0;
-+
-+power_off:
-+	if (dp->plat_data->power_off)
-+		dp->plat_data->power_off(dp->plat_data);
-+	clk_disable_unprepare(dp->clock);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(analogix_dp_resume);
- 
 -- 
-2.43.0
-
+Best regards,
+Nickolay
