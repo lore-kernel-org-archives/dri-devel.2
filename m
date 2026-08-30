@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B60BC61DB9
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 19:47:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D51C61DE1
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 19:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3D810E1EF;
-	Sun, 30 Aug 2026 19:47:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7F7810E16D;
+	Sun, 30 Aug 2026 19:53:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hze88aWY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EBmHCT9+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474B610E1EF
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 19:47:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEED110E16D
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 19:53:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6B3C7600E2;
- Sun, 30 Aug 2026 19:47:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C7E1F000E9;
- Sun, 30 Aug 2026 19:47:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C0431600E2;
+ Sun, 30 Aug 2026 19:53:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28FE51F000E9;
+ Sun, 30 Aug 2026 19:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788119275;
- bh=tUiHh50G0S71Jiuoozb1JPkjqnd05cCQFxu/1rYgjgo=;
+ s=k20260515; t=1788119607;
+ bh=nD44Pbr1syJLsv/aIKg5wc3DJIhlDLq4slDVzbsoF8Y=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hze88aWYU2jIbZcX73Ehksk4FDLl+NIB5I7WLlQKsNLDz5vV41OyY17VUGQUB6elM
- +sQz786w9fvMIAxi2DWsSUr6hY2xNozYEI/avBEiEkOBo08hVJy1cMgZZvsmz0CNIq
- muyro5IDysGCVKV4SbFvo+h+d5JtqdG0+2DRINtGzn0xixLeOYVzk87oTWURVfZQeC
- rWYN5MEW97kuNooDuVtCPRnFP6oZ07OVcOuMBsAHBtKl63EtQdZX6xcTvmoodqOGKz
- hIbeqhIP4YdTFmbeSIfEGnPzB8mhN4xW+Z/NVRDnq7AJxPIDSkDN7/7MzANmeYj11t
- d17N6N0mTynkg==
+ b=EBmHCT9+gG+TgS/C9M3umwsmJ4H8cNVeb8bupfz6e4BuY6Kyo+mYbETi7Uv9yp+tG
+ laSL6zalOhsDuMVBLIS4r6gmIfhobWYTtVaCZ3F1t8nyTrzMOcavRhXnWCckDDI0nu
+ QbP5yZnN8nDbC2Re0HuiYyI7zvy5oMuKa+4O7tJCEaxdTd1DVsegipeai8BTpjwIbJ
+ oV3iqYBrMhRxDnCTzX71C6q2mUdZCgmH/3vvprmQcSZPHkl2d+dSvK4KedM4YGf1XN
+ caR/LQAbS9RLkB+ItpqYNSee9/ceU3RMBezQ4Dheyt/hqbVpardnNdbWKcHbKBiVdF
+ KwsFd4aeDYVeQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] rust: dma: tie Coherent and CoherentBox to the
- device's bound lifetime
+Subject: Re: [PATCH 1/4] rust: debugfs: drop 'static bound from ScopedDir
+ file creation methods
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260830193824.471089-5-dakr@kernel.org>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260830193824.471089-2-dakr@kernel.org>
 References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-5-dakr@kernel.org>
+ <20260830193824.471089-2-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 19:47:54 +0000
-Message-Id: <20260830194754.C7C7E1F000E9@smtp.kernel.org>
+Date: Sun, 30 Aug 2026 19:53:26 +0000
+Message-Id: <20260830195327.28FE51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,61 +59,144 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Safe constructors of `Coherent` and `CoherentBox` allow leaking =
-DMA allocations (e.g., via `std::mem::forget`), causing device resources li=
-ke IOMMU mappings to outlive the device's bound lifetime, which can lead to=
- Undefined Behavior upon device unbind.
+- [Critical] Unsound transmute in `FileOps::fops` leads to Stack Use-After-=
+Free due to silent constant promotion failure for non-'static types.
+- [High] Unsound reliance on RAII (Drop) to manage C API unregistration for=
+ non-'static types allows a Use-After-Free via `mem::forget`.
+- [Medium] The patch missed dropping the `T: 'static` bound from `ScopedDir=
+`'s callback-based file creation methods.
+- [Low] Missing `#[inline]` annotation on the small abstraction function `f=
+ops`.
 --
 
-commit 6e4d094e50aec8e58639ef61e8619143bb52d532
+commit 7b2fa56e56ab7cdc906ac4f77ac3f200f9ffe65e
 Author: Danilo Krummrich <dakr@kernel.org>
-Subject: rust: dma: tie Coherent and CoherentBox to the device's bound life=
-time
 
-This commit adds a lifetime parameter to Coherent and CoherentBox that ties
-the DMA allocation to the device's bound scope. This helps ensure it is
-freed before the device is unbound.
+rust: debugfs: drop 'static bound from ScopedDir file creation methods
 
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 79f453e9ec0b6..4ce914b7d1dad 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
+This commit drops the T: 'static bound from various ScopedDir file creation
+methods to support registering debugfs files backed by types that contain
+non-'static references. It formalizes a type invariant that FileOps instanc=
+es
+reside in static storage and replaces the Deref implementation with an
+explicit fops() method.
+
+> diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
+> index d7b8014a64746..2beb55d444ca1 100644
+> --- a/rust/kernel/debugfs.rs
+> +++ b/rust/kernel/debugfs.rs
 [ ... ]
-> @@ -663,10 +656,10 @@ pub unsafe fn as_mut(&self) -> &mut T {
+> @@ -550,7 +550,7 @@ fn create_file<T: Sync>(&self, name: &CStr, data: &'d=
+ata T, vtable: &'static Fil
+>      /// This function does not produce an owning handle to the file. The=
+ created
+>      /// file is removed when the [`Scope`] that this directory belongs
+>      /// to is dropped.
+> -    pub fn read_only_file<T: Writer + Send + Sync + 'static>(&self, name=
+: &CStr, data: &'data T) {
+> +    pub fn read_only_file<T: Writer + Send + Sync>(&self, name: &CStr, d=
+ata: &'data T) {
+>          self.create_file(name, data, &T::FILE_OPS)
 >      }
->  }
-> =20
-> -impl<T: AsBytes + FromBytes> Coherent<T> {
-> +impl<'a, T: AsBytes + FromBytes> Coherent<'a, T> {
->      /// Allocates a region of `T` of coherent memory.
->      fn alloc_with_attrs(
-> -        dev: &device::Device<Bound>,
-> +        dev: &'a device::Device<Bound>,
->          gfp_flags: kernel::alloc::Flags,
->          dma_attrs: Attrs,
->      ) -> Result<Self> {
+
+[Severity: High]
+Does removing the 'static bound introduce a potential use-after-free if the
+directory scope is leaked?
+
+If a developer safely leaks a Pin<KBox<Scope<T>>> (e.g., via core::mem::for=
+get)
+where T borrows a local stack variable, the Drop-based unregistration will =
+be
+skipped. The local variables borrowed by T will still expire, but the C VFS=
+ will
+retain a pointer to them, leading to a dangling pointer when the debugfs fi=
+le is
+later accessed.
+
+[ ... ]
+> @@ -596,11 +592,7 @@ pub fn read_callback_file<T, F>(&self, name: &CStr, =
+data: &'data T, _f: &'static
+>      /// This function does not produce an owning handle to the file. The=
+ created
+>      /// file is removed when the [`Scope`] that this directory belongs
+>      /// to is dropped.
+> -    pub fn read_write_file<T: Writer + Reader + Send + Sync + 'static>(
+> -        &self,
+> -        name: &CStr,
+> -        data: &'data T,
+> -    ) {
+> +    pub fn read_write_file<T: Writer + Reader + Send + Sync>(&self, name=
+: &CStr, data: &'data T) {
+>          let vtable =3D &<T as ReadWriteFile<_>>::FILE_OPS;
+>          self.create_file(name, data, vtable)
+>      }
 
 [Severity: Medium]
-Is it safe to expose constructors like alloc_with_attrs() as safe APIs=20
-given that the returned object can be deliberately leaked via safe code?
+Was it intended to leave the T: 'static bound in place for the callback-bas=
+ed
+methods like read_callback_file() and read_write_callback_file()?
 
-The documentation on Coherent notes this is an accepted soundness hole,=20
-but allowing a DMA allocation to be leaked (e.g., via std::mem::forget)=20
-means device resources like IOMMU mappings can outlive the device's bound=20
-lifetime.=20
+The commit states the goal is to drop the 'static bound from ScopedDir's fi=
+le
+creation methods, but looking at the full file, it appears it was retained =
+on
+the callback variants.
 
-If the device unbinds and its structures are torn down, could these leaked=
-=20
-active DMA mappings lead to memory corruption or undefined behavior?
+[ ... ]
+> diff --git a/rust/kernel/debugfs/file_ops.rs b/rust/kernel/debugfs/file_o=
+ps.rs
+> index f15908f71c4a2..7e1dd8c75ad92 100644
+> --- a/rust/kernel/debugfs/file_ops.rs
+> +++ b/rust/kernel/debugfs/file_ops.rs
+[ ... ]
+> @@ -65,11 +67,11 @@ pub(super) const fn adapt(&self) -> &FileOps<T::Inner=
+> {
+>  }
+> =20
+>  #[cfg(CONFIG_DEBUG_FS)]
+> -impl<T> Deref for FileOps<T> {
+> -    type Target =3D bindings::file_operations;
+> -
+> -    fn deref(&self) -> &Self::Target {
+> -        &self.operations
+> +impl<T> FileOps<T> {
+> +    /// Returns a `'static` reference to the inner `file_operations`.
+> +    pub(crate) fn fops(&self) -> &'static bindings::file_operations {
 
-Since exposing a safe API that can trigger undefined behavior through entir=
-ely
-safe code violates standard safety guarantees, would it make sense to mark=
-=20
-alloc_with_attrs() and similar allocation functions as unsafe?
+[Severity: Low]
+Does this small abstraction function need the #[inline] attribute?
+
+The subsystem coding guidelines specify that small functions in the kernel =
+crate
+that forward to a C binding call or wrap basic data access should be annota=
+ted
+with #[inline].
+
+> +        // SAFETY: By the type invariant, `self` resides in static stora=
+ge.
+> +        unsafe { core::mem::transmute(&self.operations) }
+>      }
+>  }
+
+[Severity: Critical]
+Can this transmute cause a stack use-after-free by extending a short-lived
+reference to 'static?
+
+Since the T: 'static bound was dropped from methods like read_only_file(), =
+using
+a non-'static T will cause constant promotion to fail when evaluating
+&T::FILE_OPS. This creates a temporary FileOps<T> on the local stack instea=
+d of
+in static storage.
+
+When fops() is called on this stack temporary, the transmute bypasses the a=
+ctual
+lifetime and returns a 'static reference to stack memory. When the stack fr=
+ame
+pops, the C VFS is left holding a dangling pointer.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830193824.4710=
-89-1-dakr@kernel.org?part=3D4
+89-1-dakr@kernel.org?part=3D1
