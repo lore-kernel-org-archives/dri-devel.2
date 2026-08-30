@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EF72C61DD6
-	for <dri-devel@archiver.kernel.org>; Sat, 29 Aug 2026 20:19:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2FCCC61DB9
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 04:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F49410E19A;
-	Sat, 29 Aug 2026 20:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A3910E049;
+	Sun, 30 Aug 2026 04:06:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oStZnHOF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mwaatOa4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE3FD10E19A
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:19:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B98AA10E049
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 04:06:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C0BB43D43;
- Sat, 29 Aug 2026 20:19:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFEB1F000E9;
- Sat, 29 Aug 2026 20:19:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B2174600AE;
+ Sun, 30 Aug 2026 04:06:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9B01F000E9;
+ Sun, 30 Aug 2026 04:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788034772;
- bh=V9g6jw5gZW5KjCw3iwR4hXwT7Cp6yjG8hnHrPCPDBAM=;
+ s=k20260515; t=1788062794;
+ bh=9Nna3LQOLyyqtOVGUeoSBmpbzPu69BENPdJ/uFtbodY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oStZnHOFNwCwa9ylNl9m3CtdlHahl9O7tv8t/1w27KCBM3d2fGvWtwEvY+NOGwmoB
- pCEyGzpBjgP8/hZV6rWGMUgYewyrtxHhgYknH1PgplcnD90/gLq+ZBEo3ARXHQYnMF
- Ed0GJuMDgGdqlRF5kT16benwSMzlBdut6UNiqKGtwbU3iLtDqvClXB2cKAv926JkTO
- 4gQNCDLkCwAkz9Y5uGrdURYDQXoPh8LCmQ3mEqZwwKdNB0WlG70CxkxWJQlB+59JMA
- YjTuPbs9pGveIQaGj2YBAeUmIzxj8ohrwEj8t5vM2QbCFGxAEFOUO8rdMOrepmaSs0
- OOga8tOy0M99g==
+ b=mwaatOa4P2GYCCpYy4Wt42z4eDCOsl6oWS4QY4EDWVc2OVrNDXiAYXYqyUj50RZ4e
+ vARrSnFwBpywwdGg6USb59X5rP8rDXpdFsk/8eiZrMnk4P8gPwPLYlHee2omJomEXG
+ d5O81AzzuEQ6obj62a+0cKdhdf8aGwQM9NNO2t+e9l2pE2vWxbmp16Q7fgWmvVuuB/
+ 9KK9xYC4JupggcXZFrojHrVhEUYJl5PDMYxhBrW9Nb3b1kHcC5//3Ec7clr/we02Hw
+ SLF/REN6Ocr0nlTEURMgC81qPAs2mG9t33FO5LSFq/hag0t5w7D9XPCWambddn6fj5
+ T6W6aYeWPXcIQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: "Nickolay Goppen" <setotau@mainlining.org>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+Subject: Re: [PATCH 2/3] drm/amd/display: Honor Broadcast RGB for BT.2020
+ RGB output
+To: "Satyajit Roy" <edu042sjroy@proton.me>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260830035120.937992-3-edu042sjroy@proton.me>
+References: <20260830035120.937992-1-edu042sjroy@proton.me>
+ <20260830035120.937992-3-edu042sjroy@proton.me>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 20:19:31 +0000
-Message-Id: <20260829201932.1BFEB1F000E9@smtp.kernel.org>
+Date: Sun, 30 Aug 2026 04:06:33 +0000
+Message-Id: <20260830040634.3E9B01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,126 +58,92 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The panel initialization sequence lacks the DCS 'Set Display On'=
- (0x29) command.
-- [Medium] Missing reset assertion and stabilization delay during panel pre=
-paration.
+
+Pre-existing issues:
+- [Critical] NULL pointer dereference in `amdgpu_dm_atomic_commit_tail` whe=
+n changing the `Broadcast RGB` connector property.
 --
 
-commit 864f3dccc86bc8a97845ebafd73a7df32e9d6b9e
-Author: Nickolay Goppen <setotau@mainlining.org>
+commit 25a82016e5e929302d7c5fe7edf379f4e6cec7a0
+Author: Satyajit Roy <sroy14@alum.utk.edu>
 
-drivers: gpu: drm: panel: Add BOE NT51021 driver
+drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
 
-This commit adds support for the BOE NT51021-based 8-inch and 10-inch DSI
-video mode panels used in Xiaomi Mi Pad 4 tablets. It includes panel
-initialization sequences and content-adaptive brightness control.
+This patch updates amdgpu_dm_get_output_color_space() to apply the Broadcast
+RGB connector property for BT.2020 RGB output. It explicitly selects limited
+range when requested, fixing an issue where it always defaulted to full ran=
+ge.
 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt51021.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-[ ... ]
-> +static void nt51021_boe_reset(struct boe_nt51021_desc *ctx)
-> +{
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index 8a35e4df13cbf..f2f6a2a0db99e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -758,10 +758,14 @@ amdgpu_dm_get_output_color_space(const struct dc_cr=
+tc_timing *dc_crtc_timing,
+>  		break;
+>  	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+>  	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+> -		if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)
+> -			color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
+> -		else
+> +		if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB) {
+> +			if (connector_state->hdmi.broadcast_rgb =3D=3D DRM_HDMI_BROADCAST_RGB=
+_LIMITED)
+> +				color_space =3D COLOR_SPACE_2020_RGB_LIMITEDRANGE;
+> +			else
+> +				color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
+> +		} else {
+>  			color_space =3D COLOR_SPACE_2020_YCBCR_LIMITED;
+> +		}
+>  		break;
+>  	case DRM_MODE_COLORIMETRY_DEFAULT: /* ITU601 */
 
-[Severity: Medium]
-Does the panel require an explicit reset assertion pulse before de-asserting
-the reset line? The current code only de-asserts the reset line here. Witho=
-ut
-an explicit assertion pulse and delay prior to de-assertion, the hardware
-might not be guaranteed a valid minimum reset pulse width once power is sta=
-ble.
+[Severity: Critical]
+This is a pre-existing issue, but does changing the Broadcast RGB property
+crash the kernel via a NULL pointer dereference?
 
-[ ... ]
-> +static int nt51021_boe_8_init(struct boe_nt51021_desc *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-[ ... ]
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
-> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
-> +
-> +	nt51021_cabc_on(&dsi_ctx);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
+When userspace changes the Broadcast RGB property on a connector, DRM core
+creates an atomic commit containing only the updated connector state. The A=
+MD
+driver's amdgpu_dm_atomic_check() does not add the associated CRTC to the
+atomic state for these broadcast_rgb changes.
 
-[Severity: Medium]
-Does this initialization sequence miss a DCS "Set Display On" command?
-The panel is awakened from sleep mode via mipi_dsi_dcs_exit_sleep_mode_mult=
-i(),
-but it is never explicitly instructed to turn on the display output here in
-nt51021_boe_8_init(). This could cause the panel to remain blank on some DSI
-hosts.
+This leads to a crash in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+within amdgpu_dm_atomic_commit_tail(), where drm_atomic_get_new_crtc_state()
+returns NULL:
 
-[ ... ]
-> +static int nt51021_boe_10wu_init(struct boe_nt51021_desc *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-[ ... ]
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
-> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
-> +
-> +	nt51021_cabc_on(&dsi_ctx);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
+	if (acrtc) {
+		new_crtc_state =3D drm_atomic_get_new_crtc_state(state, &acrtc->base);
+		old_crtc_state =3D drm_atomic_get_old_crtc_state(state, &acrtc->base);
+	}
 
-[Severity: Medium]
-Similarly to nt51021_boe_8_init(), the 10-inch variant initialization path
-also appears to omit the mipi_dsi_dcs_set_display_on_multi() command.
+	/* Skip any modesets/resets */
+	if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
+		continue;
 
-> +static int nt51021_boe_off(struct boe_nt51021_desc *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	nt51021_cabc_off(&dsi_ctx);
-> +
-> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+Since new_crtc_state is NULL, drm_atomic_crtc_needs_modeset() unconditional=
+ly
+dereferences it and crashes.
 
-[Severity: Medium]
-The power-off sequence explicitly turns the display off using
-mipi_dsi_dcs_set_display_off_multi(). Should there be a matching turn-on
-command in the initialization sequences to ensure the display activates
-correctly across power cycles?
+Even if this did not crash (for example on a disabled CRTC where modeset
+might evaluate to false), execution proceeds to the fast-update path in
+the same function:
 
-[ ... ]
-> +static int nt51021_boe_prepare(struct drm_panel *panel)
-> +{
-> +	struct boe_nt51021_desc *ctx =3D to_boe_panel(panel);
-> +	struct device *dev =3D &ctx->dsi->dev;
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(nt51021_boe_supplies), ctx->su=
-pplies);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +	nt51021_boe_reset(ctx);
+	if ((new_con_state->hdmi.broadcast_rgb !=3D old_con_state->hdmi.broadcast_=
+rgb) &&
+		(dm_old_crtc_state->stream->output_color_space !=3D
+			amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new=
+_con_state)))
 
-[Severity: Medium]
-Does the panel require a stabilization delay after enabling the regulators
-and before de-asserting the reset line? The current code immediately calls
-nt51021_boe_reset(ctx). Without a delay, the reset logic might execute
-before the regulators have fully ramped up, potentially leading to unstable
-hardware initialization.
+For a disabled CRTC, stream is NULL, which causes dm_new_crtc_state->stream
+and dm_old_crtc_state->stream to trigger a second unavoidable NULL pointer
+dereference.
 
 [ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829-qcom-novat=
-ek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830035120.9379=
+92-1-edu042sjroy@proton.me?part=3D2
