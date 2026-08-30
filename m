@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2FCCC61DB9
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 04:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B1A5C61DE2
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 07:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A3910E049;
-	Sun, 30 Aug 2026 04:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FCCF10E011;
+	Sun, 30 Aug 2026 07:58:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mwaatOa4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZAZD8oED";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B98AA10E049
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 04:06:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A8710E011
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 07:58:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B2174600AE;
- Sun, 30 Aug 2026 04:06:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9B01F000E9;
- Sun, 30 Aug 2026 04:06:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D3DE600AE;
+ Sun, 30 Aug 2026 07:58:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1411F000E9;
+ Sun, 30 Aug 2026 07:58:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788062794;
- bh=9Nna3LQOLyyqtOVGUeoSBmpbzPu69BENPdJ/uFtbodY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mwaatOa4P2GYCCpYy4Wt42z4eDCOsl6oWS4QY4EDWVc2OVrNDXiAYXYqyUj50RZ4e
- vARrSnFwBpywwdGg6USb59X5rP8rDXpdFsk/8eiZrMnk4P8gPwPLYlHee2omJomEXG
- d5O81AzzuEQ6obj62a+0cKdhdf8aGwQM9NNO2t+e9l2pE2vWxbmp16Q7fgWmvVuuB/
- 9KK9xYC4JupggcXZFrojHrVhEUYJl5PDMYxhBrW9Nb3b1kHcC5//3Ec7clr/we02Hw
- SLF/REN6Ocr0nlTEURMgC81qPAs2mG9t33FO5LSFq/hag0t5w7D9XPCWambddn6fj5
- T6W6aYeWPXcIQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/amd/display: Honor Broadcast RGB for BT.2020
- RGB output
-To: "Satyajit Roy" <edu042sjroy@proton.me>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260830035120.937992-3-edu042sjroy@proton.me>
-References: <20260830035120.937992-1-edu042sjroy@proton.me>
- <20260830035120.937992-3-edu042sjroy@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 04:06:33 +0000
-Message-Id: <20260830040634.3E9B01F000E9@smtp.kernel.org>
+ s=k20260515; t=1788076713;
+ bh=HOmmRwqD7gQcSXkQ2l1n56F/y5mkR8//mASfpntUu1A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ZAZD8oEDR0G4EHppVGa9RCnPv3EcH4cHhiWcT5UPvnDBgkW216fwGfVn/Bed3ZDSo
+ pnjQNj55YqMLEirLlYs6Y0NvDTCfCpbJxUphUzQ5P/ywpfe9tK0Oy2d6fqBoTF/ITS
+ l9RabAaOr0mt6n2sZXSEhAWI6cQTAIdnMuEE5GPLNbO5xJwY7xQ/lkcxpMz5uurJPw
+ ngNmXfnBedKQLNyUzayuGUx65bi8T5NCn+Dq5Xa88gjO96H+5CMlKnndxvlJbwk5K1
+ bbGYdkOHxT03bXNMmewBX+uT2P0ip9ZWDNnjMbpInxyzXKPw3RRkkwMLRQ3qHp8aP9
+ wlOuK60yS+79w==
+Date: Sun, 30 Aug 2026 10:58:28 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: Re: [Linaro-mm-sig] [PATCH 2/2] dma-buf: Document how exporters and
+ importers agree on mapping lifetime
+Message-ID: <20260830075828.GA24140@unreal>
+References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
+ <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
+ <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,96 +63,191 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, Aug 27, 2026 at 09:18:29PM +0200, Thomas Hellström wrote:
+> Hi,
+> 
+> Some comments below:
+> 
+> On Tue, 2026-08-25 at 09:28 +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Pinned, revoked and movable mappings are selected by which optional
+> > callbacks each side implements and by whether dma_buf_pin() succeeds,
+> > not by any flag or enum. Nothing in Documentation/ says so, and the
+> > rules are spread over the kdoc of dma_buf_ops.pin,
+> > dma_buf_attach_ops.invalidate_mappings and
+> > dma_buf_invalidate_mappings(),
+> > so a driver author has to know the symbol names before finding them.
+> > 
+> > Name, per flow, the callbacks both sides have to implement to end up
+> > in
+> > it, describe dma_buf_pin() as the runtime negotiation, and record
+> > that
+> > the pin is what tells a revoke from a move.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  Documentation/driver-api/dma-buf.rst |  6 +++
+> >  drivers/dma-buf/dma-buf.c            | 85
+> > +++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 90 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/driver-api/dma-buf.rst
+> > b/Documentation/driver-api/dma-buf.rst
+> > index 2f36c21d9948..39c201f38aa6 100644
+> > --- a/Documentation/driver-api/dma-buf.rst
+> > +++ b/Documentation/driver-api/dma-buf.rst
+> > @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
+> >  .. kernel-doc:: drivers/dma-buf/dma-buf.c
+> >     :doc: dma buf device access
+> >  
+> > +Mapping Lifetime Negotiation
+> > +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > +
+> > +.. kernel-doc:: drivers/dma-buf/dma-buf.c
+> > +   :doc: mapping lifetime negotiation
+> > +
+> >  CPU Access to DMA Buffer Objects
+> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >  
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index d504c636dc29..30afec7365bc 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size,
+> > int flags)
+> >   *    reference acquired with dma_buf_get() by calling
+> > dma_buf_put().
+> >   *
+> >   * For the detailed semantics exporters are expected to implement
+> > see
+> > - * &dma_buf_ops.
+> > + * &dma_buf_ops. Whether the exporter may still move or destroy the
+> > backing
+> > + * storage after step 3 depends on what exporter and importer
+> > implement, see
+> > + * the mapping lifetime negotiation section below.
+> > + */
+> > +
+> > +/**
+> > + * DOC: mapping lifetime negotiation
+> > + *
+> > + * No flag or enum says whether the exporter may move or take away
+> > the backing
+> > + * storage while an importer holds a mapping. Each side implements a
+> > set of
+> > + * optional callbacks, and dma_buf_pin() settles the result at
+> > runtime. Three
+> > + * flows come out of it:
+> > + *
+> > + * - Pinned: the storage never moves and is never taken away.
+> > + * - Revoked: the storage never moves, but the exporter may take it
+> > away.
+> > + * - Movable: the exporter may relocate the storage at any time.
+> 
+> Perhaps add "even temporarily to locations that are not available for
+> DMA".
 
-Pre-existing issues:
-- [Critical] NULL pointer dereference in `amdgpu_dm_atomic_commit_tail` whe=
-n changing the `Broadcast RGB` connector property.
---
+I don't know. "Not available for DMA" defeats the whole purpose of dma-buf,
+which is intended to expose DMA-capable memory to other peers. I imagine
+that "everything is optional dmabuf world" this is possible, but it
+looks to me like a partial version of revoked flow.
 
-commit 25a82016e5e929302d7c5fe7edf379f4e6cec7a0
-Author: Satyajit Roy <sroy14@alum.utk.edu>
+> 
+> > + *
+> > + * Every exporter implements &dma_buf_ops.map_dma_buf,
+> > + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release.
+> > dma_buf_export()
+> > + * rejects an exporter missing any of them.
+> > + *
+> > + * An importer reaches its flow like this:
+> > + *
+> > + * 1. Attach with dma_buf_dynamic_attach(). Leaving
+> > + *    &dma_buf_attach_ops.invalidate_mappings NULL rules out
+> > everything but the
+> > + *    pinned flow, because the importer can then never be told
+> > anything.
+> > + * 2. Call dma_buf_pin() under the reservation lock.
+> > + * 3. On failure run the movable flow, or give up.
+> > + * 4. On success the storage stays put. Whether the exporter may
+> > still take it
+> > + *    away, which makes this the revoked flow instead of the pinned
+> > one, is the
+> > + *    exporter's choice and is not reported back.
+> > + *
+> > + * dma_buf_attach() is the shorthand for an importer which only ever
+> > wants the
+> > + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then
+> > pins around
+> > + * every dma_buf_map_attachment() and waits for the
+> > DMA_RESV_USAGE_KERNEL
+> > + * fences on the importer's behalf. Peer to peer needs
+> > + * dma_buf_dynamic_attach(), because
+> > &dma_buf_attach_ops.allow_peer2peer lives
+> > + * in the attach ops.
+> > + *
+> > + * Pinned flow:
+> > + *
+> > + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to
+> > hold the
+> > + *   storage still on request. An exporter whose storage never moves
+> > implements
+> > + *   neither, and dma_buf_pin() then succeeds on its own. An
+> > exporter which
+> > + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
+> > + * - Importer: nothing more. The mapping stays valid until it
+> > unmaps.
+> > + *
+> > + * Revoked flow:
+> > + *
+> > + * - Exporter: answer dma_buf_pin() as above. Call
+> > + *   dma_buf_invalidate_mappings() when the storage goes away and
+> > fail
+> > + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which
+> > complete a
+> > + *   revocation are described in dma_buf_invalidate_mappings().
+> > + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap
+> > within
+> > + *   bounded time and drop the pin.
+> > + *
+> > + * Movable flow:
+> > + *
+> > + * - Exporter: call dma_buf_invalidate_mappings() before each move,
+> > then wait
+> > + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and
+> > &dma_buf_ops.unpin play
+> > + *   no part here.
+> > + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings
+> > drops the
+> > + *   cached mapping and has to lead to dma_buf_unmap_attachment()
+> > within
+> > + *   bounded time.
+> 
+> Hear I would want to see the exporter being allowed to force unmap the
+> dma mappings and reclaim thestorage when the fences mentioned above
+> have signaled, but the importer has not yet called
+> dma_buf_unmap_attachment(). That would allow importers to call
+> dma_buf_unmap_attachment() lazily, just before the next map_attachment,
+> which would allow simplifying importer implementations. 
 
-drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
+How? It will move one piece of code as is to another place. In addition,
+both exporter and importer need to stop HW access to same region.
 
-This patch updates amdgpu_dm_get_output_color_space() to apply the Broadcast
-RGB connector property for BT.2020 RGB output. It explicitly selects limited
-range when requested, fixing an issue where it always defaulted to full ran=
-ge.
+> More of a related idea than something that needs fixing for this patch.
+> 
+> >  It need not stop the hardware, because access runs until the
+> > + *   importer's &dma_buf.resv fences retire. Map again before the
+> > next DMA.
+> 
+> A successful map will mean the exporter has placed the data in storage
+> compatible with what was agreed during attachment?
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 8a35e4df13cbf..f2f6a2a0db99e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -758,10 +758,14 @@ amdgpu_dm_get_output_color_space(const struct dc_cr=
-tc_timing *dc_crtc_timing,
->  		break;
->  	case DRM_MODE_COLORIMETRY_BT2020_RGB:
->  	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-> -		if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)
-> -			color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
-> -		else
-> +		if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB) {
-> +			if (connector_state->hdmi.broadcast_rgb =3D=3D DRM_HDMI_BROADCAST_RGB=
-_LIMITED)
-> +				color_space =3D COLOR_SPACE_2020_RGB_LIMITEDRANGE;
-> +			else
-> +				color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
-> +		} else {
->  			color_space =3D COLOR_SPACE_2020_YCBCR_LIMITED;
-> +		}
->  		break;
->  	case DRM_MODE_COLORIMETRY_DEFAULT: /* ITU601 */
+Yes.
 
-[Severity: Critical]
-This is a pre-existing issue, but does changing the Broadcast RGB property
-crash the kernel via a NULL pointer dereference?
-
-When userspace changes the Broadcast RGB property on a connector, DRM core
-creates an atomic commit containing only the updated connector state. The A=
-MD
-driver's amdgpu_dm_atomic_check() does not add the associated CRTC to the
-atomic state for these broadcast_rgb changes.
-
-This leads to a crash in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-within amdgpu_dm_atomic_commit_tail(), where drm_atomic_get_new_crtc_state()
-returns NULL:
-
-	if (acrtc) {
-		new_crtc_state =3D drm_atomic_get_new_crtc_state(state, &acrtc->base);
-		old_crtc_state =3D drm_atomic_get_old_crtc_state(state, &acrtc->base);
-	}
-
-	/* Skip any modesets/resets */
-	if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
-		continue;
-
-Since new_crtc_state is NULL, drm_atomic_crtc_needs_modeset() unconditional=
-ly
-dereferences it and crashes.
-
-Even if this did not crash (for example on a disabled CRTC where modeset
-might evaluate to false), execution proceeds to the fast-update path in
-the same function:
-
-	if ((new_con_state->hdmi.broadcast_rgb !=3D old_con_state->hdmi.broadcast_=
-rgb) &&
-		(dm_old_crtc_state->stream->output_color_space !=3D
-			amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new=
-_con_state)))
-
-For a disabled CRTC, stream is NULL, which causes dm_new_crtc_state->stream
-and dm_old_crtc_state->stream to trigger a second unavoidable NULL pointer
-dereference.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830035120.9379=
-92-1-edu042sjroy@proton.me?part=3D2
+> 
+> Thanks,
+> Thomas
+> 
