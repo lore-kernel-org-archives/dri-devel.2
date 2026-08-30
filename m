@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 439A3C624C8
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A80C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C0910E6A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83EB710E696;
 	Mon, 31 Aug 2026 07:00:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TgCr94wX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NgBoCVqk";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF71A10E4F6
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:58:10 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2d715f4a587so15569745ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 07:58:10 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE87B10E1E3
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 15:16:36 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2d91ded8174so2083645ad.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 08:16:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787929090; x=1788533890; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788102996; x=1788707796; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=UpZ9SLDzN6L/jZYPiTPvyIKpc053VdrqfuuoBmjatWk=;
- b=TgCr94wXQSezgpSewmH07rjdhHXRBO/HaVtkPHLkadJmY9B7ecdALPxFkZM8VtXd1e
- lg21P1Cn4W97uL5PnMsQLCyqxdOok+SD5jvcy8KuOz1XH76kMtBNZtPU+jtLqhhUpODn
- +qDi59p0KS0/I1hsVClwjOl/VqtYwT0lm1BEIEjjHB2VHEtvY4XpFIbsr27kAhmPs1LO
- KrJVtIr20JLwRmc65L1BkFx8Y8NkvCDAAB6J9BnQLMSubL6z3aLa/fcLFI1a7Mil2yEc
- /W9gonvREHCSfVY4szHcFrc5COLFVvyPd/UimJva85pX7COeywsY+b1ZKYAPX1D3kCaW
- fINQ==
+ bh=+Y0V8OHugwHV1knNa61KDiXTkjr/SgExhgiHseoKDWc=;
+ b=NgBoCVqkFP6yl5p8ez/uREH/tNn83JO+llQF+GuD2zyFpZm7x/PwTPIh9Fax6arxk/
+ S3Zg77KauwfjZ5PoAKLMZ1sx+bwOiMR3lMIiXBb4p2HzIlXGN3bOSSSW57iPHPgo3aD3
+ eE/Fk8pLfUPFSRpJ8g3I6/SuYACJe0VzS+fYrLJM/VPq/kblGUu2b6V22oRUmwYR01ka
+ Go8sZfRrMeISu9gc7vbzvsFFW96KqLXI+WTLimPYi31zhOiOJDRFHTPgVmYEk8B5qDmf
+ Rb38CSrCQab+qeLUPxYvGui4PfV2l78gsyg/UhPrBom3eorl45FFlFAzMDuq24VIfgo5
+ rJ0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787929090; x=1788533890;
+ d=1e100.net; s=20251104; t=1788102996; x=1788707796;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=UpZ9SLDzN6L/jZYPiTPvyIKpc053VdrqfuuoBmjatWk=;
- b=NcHJj0euIO7dDGJgL8rYSyZy/Xp5w3K8HlbOnUcvqjGHGwJxc11zUeEUt88fD8dIIA
- N6OgZUKzMC4YJ5V5jfceuNzM6pJnMsnkJq8CdQU3WgcXTaS4OP1uJY5E9YKMNmkk7XxN
- hXimjItQ5MZXC9Rt6bfkSqpbLw9e8x4Afn5PtNiAydKwTwgQbBv4Pxr+s0IiNlDNzTSD
- NX9bEw63qITzxN1kZ71h0YLq1/CJoAIwaku09akEWH9UrOl+lP0oapx0LT1Io6yC8B/5
- rLhHerClMEi7kxAhIZt3I7EcaoURGKXbpjP1fFxPH7ohwHcOKGVOWJ2NjuEB3M051TBE
- 9zxg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro7GcmV6b3tm3M9OmUOdEn2CaUOSICnj1+PoQ3gXO3QyjrG6NpeRoT49UEb0WoBiYU/Nn47USUIk5o=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kySvaAKJT+IHdVoObAiQCqWsB5BGg+3J/K8/BJ5g6PrFye3nt+
- taQLpzARXgCNzSWu31Mush2vooRuj8AWHCaqfCCP4iHVHC8x0VFaC14=
-X-Gm-Gg: AR+sD12SrG+7Bq2V2b4P3EENRcd3XutDpCLs257JAMO6vqdL6RnbXfGwR+MHE6uR75e
- uV1/syGAZpWKBo08xGKe2itQnwBnikxonMo1XV7dNrJ6pjisFSY02HQWvraUv5bo2pBy4nWh05k
- tGlt4kIdxd/s9x2HZp2x2+ZdyTUkVlKopa21IIa8kIF+x80Xm3ffuWtY1lpJbYInalb6bmLALOL
- 6PuYKJStLs+NgkbYvRtD8FB90CtrZDzpHO4j73cM6GOSGZ/u45uGzXsSn42WAnCM6cqOBQXVCJG
- sLNOMMnfEuBL8BnXwrTixN7JurWWQnoPCdeElkKHDufBqsUPn7bOXc5uUpPHtAnkGuXcwZDGQv2
- jWNtJ18rK/AatMcpQIUO0ZacGhw5T5op2DgA/HgRiTkjlTiatNaea95tZ2sRq+HHgshJ0jwykd4
- 8lKwnTR9XrC3bg8g3S4rTCLr/ib87OKybRDzZil74IIVk+wti3yL4FEjNVSZDpS3DNfQ5mx0Zr2
- dgCfVtixi0vFj3vvN/vSWxZbX0=
-X-Received: by 2002:a17:903:2342:b0:2d7:414e:f2f with SMTP id
- d9443c01a7336-2d74def676fmr134531005ad.14.1787929090198; 
- Fri, 28 Aug 2026 07:58:10 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
+ bh=+Y0V8OHugwHV1knNa61KDiXTkjr/SgExhgiHseoKDWc=;
+ b=mZlBlhhKx0IjFtHW+m7+mekptzp01Cu07neAqGVlf59oD19PqBuM7eQ3uIOIVDPr23
+ JA2Fu/xuL1Sfks3MBF7DkACdtGngq51XME9+ix9m6eD71HiY3w6AdY7n2s+/A4ROaDWF
+ tJwEWVkjrdhTrI6VGfvMAkphK9PIAyo2x1Z6G14VgLshxQ5PqvnRv8ma56P6G+kTP09c
+ /CN6qH1ygjG7znNZ19qqMBicYUKBM9uOy76D6mk7tyePAXg3BLnAnq1N8W8LEMOgHjse
+ qwztmLGPfS8OaGWZSPFgWyEwzPCl2t9O7g4jNb78yqq36E6TL7Mo9dQKG8Tk2GRhyJBW
+ Svhw==
+X-Gm-Message-State: AFuF++mhRe16R6GZlSZlaLM783EXnRNXgzPB8vSOyK9CtlUfdqnLLQW4
+ PRQwLfQprGvO0MqJ149MkurLpbEis724VKXTbPK73qdvfwwCivQhHqS/nTuEjt57a9Q=
+X-Gm-Gg: AYBFou0azBwuDZFw9owPX6k0PF424mNESf8CqqksuITrP99t7lLZfQDRN4xk7CRyIIm
+ yU0cBX/V5wglWXmXvx8c5yaNtLusKYpdRIdoBAiVEZwhN1yOiEDrDPwifZtGrGn8umwpqOuGRh6
+ txFC2n0MxluQvsagOZbdExuiH4oxzYRry0jT2H1LNiDn4A1x0Ykvt4Nt1VU2/8mSiEfC0F2bEio
+ 55bPiXbexLSec0cZESt5PG5R07FgTPiATjWTzEO+qZt+cxbc0W1ahaHy7YtyZwCqjTF1f/FVAgB
+ g86JgvLniK/qJsvOJo5rZfBulnOeY25Hc3kSVy+ZtDwhQYohyG+4RPBdEdFANH6b7wC6QmP/5zZ
+ Ojfx4rB9kYay8lQEgz46YkJKOrB9TD7SLTDuLzCH6ZCQvbHe2drEp2pnXWbG245MfY1WxtsvH6U
+ BZGdLm7Sf3a684vcG3oNL+TvfUb1T/cvwteIVx+W/q29HYF4kzK8d4y0pmWxgxnDc0QvUBrS1WT
+ S8K1Et8QA==
+X-Received: by 2002:a17:902:d4d0:b0:2d9:efc:f206 with SMTP id
+ d9443c01a7336-2d90efcf77amr54121145ad.13.1788102996267; 
+ Sun, 30 Aug 2026 08:16:36 -0700 (PDT)
+Received: from ebizmis.com.com ([61.136.101.138])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d75988b6fcsm6159625ad.56.2026.08.28.07.58.07
+ d9443c01a7336-2d75963b5c2sm22821015ad.30.2026.08.30.08.16.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 07:58:09 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-Subject: [PATCH v1 2/2] drm/sched/tests: add a UAF regression test for
- get_timeline_name()
-Date: Fri, 28 Aug 2026 23:57:57 +0900
-Message-ID: <83d1cde658ad4c34080398ea89fc17dc1e87d5ae.1787928528.git.malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1787928528.git.malhyuk97@gmail.com>
-References: <cover.1787928528.git.malhyuk97@gmail.com>
+ Sun, 30 Aug 2026 08:16:35 -0700 (PDT)
+From: fausten <yunfeng.li.nb@gmail.com>
+To: dri-devel@lists.freedesktop.org, maaz.mombasawala@broadcom.com,
+ zack.rusin@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ fausten <yunfeng.li.nb@gmail.com>
+Subject: [PATCH v4] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION as
+ unset
+Date: Sun, 30 Aug 2026 23:16:19 +0800
+Message-Id: <20260830151619.2452307-1-yunfeng.li.nb@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <ef11cc4a-fbaa-415a-bda1-2ac491f3b5e2@broadcom.com>
+References: <ef11cc4a-fbaa-415a-bda1-2ac491f3b5e2@broadcom.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
@@ -94,98 +93,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a KUnit test that reproduces the use-after-free fixed by the previous
-patch. It holds a reference on a job's finished drm_sched_fence (standing
-in for a userspace sync_file), frees the mock scheduler, then calls
-get_timeline_name(). Before the fix this triggers a KASAN
-slab-use-after-free read of the freed scheduler; after it the test passes.
+The cursor plane code validates cursor dimensions against
+SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
+rejects the update with -EINVAL if the cursor is larger than the
+reported maximum.
 
-The test needs no hardware - it exercises the drm_sched core through the
-existing mock scheduler under KASAN.
+However, this register is only available on hardware versions 18
+and above, which introduced cursor MOBs. Older hardware (e.g. a
+VMware Fusion guest with SVGA version 2) returns 0 for it.
+In that case every cursor update is rejected,
+and the log is spammed with:
 
-Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+  [drm] Cursor dimensions (64, 64) exceed device max 0
+
+The visible symptom is that the hardware cursor never appears at
+all on VMware Fusion guests (SVGA version 2), making the mouse
+pointer invisible even though the input devices work fine.
+
+Treat a reported maximum of 0 as "not implemented" and skip the
+dimension check in that case, restoring the pre-existing behaviour
+of accepting the cursor.
+
+Tested on VMware Fusion with an SVGA version 2 device where the
+cursor previously did not show up.
+
+Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
+Signed-off-by: Yunfeng Li <yunfeng.li.nb@gmail.com>
 ---
- drivers/gpu/drm/scheduler/tests/tests_basic.c | 65 ++++++++++++++++++-
- 1 file changed, 64 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-index a5a5a35a87b0..2c6744b58f04 100644
---- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
-+++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-@@ -555,9 +555,72 @@ static struct kunit_suite drm_sched_credits = {
- 	.test_cases = drm_sched_credits_tests,
- };
+---
+Changes in v3:
+- Use an explicit cursor_max_dim > 0 comparison (Maaz).
+- Fix the comments: the register requires cursor MOBs which exist
+  only on hw version 18 and above; it is not Fusion-specific
+  (Maaz).
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+index d1e7df500..3d4660684 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+@@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
+ 	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
+ 	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
  
-+/*
-+ * Reproduce the drm_sched_fence get_timeline_name() lifetime bug.
-+ *
-+ * drm_sched_fence_get_timeline_name() dereferences fence->sched->name, and the
-+ * drm_sched_fence ops keep .release set, so the fence is NOT ops-detached on
-+ * signal (unlike stub fences). A driver that frees a per-context
-+ * drm_gpu_scheduler while userspace still holds the exported ->finished fence
-+ * (via sync_file / drm_syncobj) leaves fence->sched dangling; reading the
-+ * timeline name then touches freed slab memory (arbitrary-read once the slab is
-+ * re-sprayed). Confirmed instances: amdxdna, nouveau, msm. Same class as
-+ * CVE-2025-38703 (xe) and CVE-2025-71302 (panthor). KASAN reports a
-+ * slab-use-after-free READ in drm_sched_fence_get_timeline_name.
-+ */
-+static void drm_sched_fence_get_timeline_name_uaf(struct kunit *test)
-+{
-+	struct drm_mock_sched_entity *entity;
-+	struct drm_mock_scheduler *sched;
-+	struct drm_mock_sched_job *job;
-+	struct dma_fence *finished;
-+	const char *name;
-+	bool done;
-+
-+	sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-+	entity = drm_mock_sched_entity_new(test, DRM_SCHED_PRIORITY_NORMAL,
-+					   sched);
-+	job = drm_mock_sched_job_new(test, entity);
-+
-+	/* Arm + submit first; the s_fence is only created by drm_sched_job_arm(). */
-+	drm_mock_sched_job_submit(job);
-+
-+	/* Independent reference on the finished fence == userspace sync_file. */
-+	finished = dma_fence_get(&job->base.s_fence->finished);
-+
-+	/* Let the job get picked up (hw_fence created), then signal + finish. */
-+	done = drm_mock_sched_job_wait_scheduled(job, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+	drm_mock_sched_advance(sched, 1);
-+	done = drm_mock_sched_job_wait_finished(job, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	/* Free the per-context scheduler while the finished fence is held. */
-+	drm_mock_sched_entity_free(entity);
-+	drm_mock_sched_fini(sched);
-+	kunit_kfree(test, sched);
-+
-+	/* UAF read: fence->sched->name is read from the freed scheduler. */
-+	name = finished->ops->get_timeline_name(finished);
-+	kunit_info(test, "get_timeline_name() on stale fence returned %p\n", name);
-+
-+	dma_fence_put(finished);
-+}
-+
-+static struct kunit_case drm_sched_fence_uaf_tests[] = {
-+	KUNIT_CASE(drm_sched_fence_get_timeline_name_uaf),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_fence_uaf = {
-+	.name = "drm_sched_fence_uaf_tests",
-+	.test_cases = drm_sched_fence_uaf_tests,
-+};
-+
- kunit_test_suites(&drm_sched_basic,
- 		  &drm_sched_timeout,
- 		  &drm_sched_cancel,
- 		  &drm_sched_priority,
- 		  &drm_sched_modify_sched,
--		  &drm_sched_credits);
-+		  &drm_sched_credits,
-+		  &drm_sched_fence_uaf);
+-	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
+-	    vps->base.crtc_h > cursor_max_dim)
++	/* Cursor MOBs, and thus this register, exist only on hw version 18+. */
++	if (cursor_max_dim > 0 &&
++	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
++	     vps->base.crtc_h > cursor_max_dim))
+ 		return -EINVAL;
+ 
+ 	if (vps->cursor.mob) {
+@@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
+ 		u32 cursor_max_dim =
+ 			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
+ 
+-		if (new_state->crtc_w > cursor_max_dim ||
+-		    new_state->crtc_h > cursor_max_dim) {
++		/* Cursor MOBs, and thus this register, exist only on hw version 18+. */
++		if (cursor_max_dim > 0 &&
++		    (new_state->crtc_w > cursor_max_dim ||
++		     new_state->crtc_h > cursor_max_dim)) {
+ 			drm_warn(&vmw->drm,
+ 				 "Cursor dimensions (%d, %d) exceed device max %u\n",
+ 				 new_state->crtc_w, new_state->crtc_h,
 -- 
-2.43.0
+2.33.0
 
