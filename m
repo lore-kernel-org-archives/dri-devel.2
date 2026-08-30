@@ -4,50 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30AF8C61DB9
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 11:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C4EC61DB9
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 11:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCF0B10E186;
-	Sun, 30 Aug 2026 11:05:32 +0000 (UTC)
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2473410E186
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 11:05:31 +0000 (UTC)
-Received: by mail-oi2-f4.google.com with SMTP id
- 5614622812f47-4b3880be385so1103680b6e.0
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 04:05:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3BA310E0DE;
+	Sun, 30 Aug 2026 11:43:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WItnuxLa";
+	dkim-atps=neutral
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5234F10E0DE
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 11:43:41 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-49b8687630fso16707975e9.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 04:43:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788090219; x=1788695019; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WlfkYyar9vumibw7mRgIAgoFjQzAhszDTK4deysoT4I=;
+ b=WItnuxLa5OnxSlnb21pnzRGoPCotx/1FeSf4Py8uBXAG8r/r4bwu9EWtszaIBUXiBC
+ eun9wS3tsD+QMXhuDPn9A6m2FuCmYUW82UFc9Q3bLAJGE+MCTFHXpugSBB+juRZWZ1T2
+ 4F6orjb1cHqvfUoV3RfGzTu9e5ZTnyNG8NgBmlR9Im2PAlLRzbo+TQ41JudbLb/WsnHz
+ H9xEq5+RgpubPZ3h5Zwgpf2loxWoQWW6kUFS9+6aTOYE3QOhRN+XGBQ9m7Ns0FIP89FI
+ z4gLi6GpOi+fShY9yOmVsmj7PLOux/3JqyO4mNcG08IC5Llo/wkkiTzoHpPg0TpT4xqa
+ YdGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788087930; x=1788692730;
- h=content-type:to:from:subject:message-id:in-reply-to:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=qttM/mbfeOt4T2qPpTH7zFfPdue3YkmkOeBj+OtO/eY=;
- b=YdOSd+XzbKmTfiMaSiPfEdMYjeo/yKTt3CE6MeoL1lGbV6NFAYpl/EBHwUStVXKEc6
- avFs4HkCQdxuvWCHydyIFLzgUTy/rUB4l2TS4GtsbB79L/k5Fgkow4RCWlEeQQ0Gyj9U
- X7GlG4rb5zaUBTvcPv7yVFkpsRaWtuixtJ2os1wFkoJzNsCbhuD1qhn1eT2vUM+Pe2we
- QKnLRNynX5XMjV4RPfQaOkoZAcNXGOoWXzXdvhmKExQlcD7Ejjb02G6IiPPzbBRoadui
- qxSRIOEKaWrCb0hAqaH7XJ3E0AZPj58YUk2iYGdtVAcVrz1WBiS4n6voFu7WpFTYH4PF
- q+XA==
+ d=1e100.net; s=20251104; t=1788090219; x=1788695019;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=WlfkYyar9vumibw7mRgIAgoFjQzAhszDTK4deysoT4I=;
+ b=fsKUckJfG6Ir4mplD6ep7Thg1CdgBND9u1/gEoaWWosN04wf8JoNdjEpjat/GqCer6
+ MPVn5NlK1fdZYObHPoj3G/jQL9iaXK3wk3JNZkNqNtyzIWsjYpSKbp7HFQO+Zb8eaMEL
+ InxnstwIyZA5QevvbCReA74Mh88MpL9C14DmIDFx/32h3WVtobfB2GVXMOqOR7z7Heds
+ tps/qa37u2TZdbn4782UZf9NXE/exi0cHT6imRX6RCdjwWIo0nLnzrYQXzpd36+4h79R
+ HJyxOwKC6HJvnmMnS93f5emgSha3bjEbPRdrNh+sX49U0Lrse2SihbnjxbUAytWopLvP
+ 1XEg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpXUBaeSoKtoLkP97f1rZgjvOhjDwdQARJV2gttQ1QHv8ep74xzOBrx1bK0zzNWnpc3xcfVPjCkNMI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kE+OxEA3qsRUzIaG8NisIZP9pNUGJx3KNg9p9Pzxo2g4wLkPB5
- btAchdj6teSh9XbNM/+7JP1VDik6pJLDXKm6ptF4dxumvi/j/68es8amS++7eBzjMguMV3qLbXs
- IOKiCL91LGzByZ8JmX2AGeVGLtsbtWxSl4qlS78wm6q9JyrnFFWgJolv778g=
+ AHgh+RrRLAC9jU95sBCh7inMZadYfHvBOxtexvtRQerx5zNZUTbZ7TBBYnQ0aeYuxKPn9QsehB5WTn0YEmY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mDDBUu1oVQsauErIHwgOmf4wOT8n9VJH7Yddd3v516u0RubWzH
+ IT2Q1v6s7UqKDgB7ttL0xW/N6WCOWiTXQ4t/9lXNvr47tKyJIcUievL2
+X-Gm-Gg: AR+sD13cVmh+IfyIFQfSDxW1QEsnc3IDo/XStIdZ/bnDSqZYK1Gor0+eNLFJQaJM2pB
+ 2J+Id+6vKHL5SOh1gHFW4+GauQeR2KbGJ8IytbcQjIe+xX4pWhjq+0yfNYOtoIofixMZEwDMb5M
+ k6dbe7n2iraJwPSRMzP3P38b0193XsxWMECW7hzECTaavLjxUIEWzGoXNFXJIzj2I5n/RbN0ig0
+ e+9vKV4bNI3P48YG/xCa73O60UHWrglAm4E73LlJgQWCgEYIkHdeZhK51u6DpTC8hhYyCrfN/Rm
+ O51iM2JgjPyzeybx2/Z2dJW/xzKj9mZwkV3Vv9Wx7wJ9Szz/WX2Ci46sITM0kGFuQqq8Ml2RIQ5
+ 6aqcs/VCqW/LFWHo4lSiS5tccz80lilLBwKp3TO7aID2zxFM5JPrOFAbxBg0tKGN7Yq8ctkGCv5
+ 9IuVeAFb5LTsVcm7SERCHM/E8gH6ac18ilw5mcleoxj59V5w3CR14xCqm15m7f++AwhyRaTqhVi
+ 9h6MB1XxKH1XgL1SkNKkJy8X7OwpMfU8FS8
+X-Received: by 2002:a05:600c:a016:b0:49c:d60c:74e0 with SMTP id
+ 5b1f17b1804b1-49cd60c74eemr23912455e9.13.1788090219141; 
+ Sun, 30 Aug 2026 04:43:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b94dc1076sm195266535e9.3.2026.08.30.04.43.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Aug 2026 04:43:38 -0700 (PDT)
+Date: Sun, 30 Aug 2026 12:43:34 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: David Gow <david@davidgow.net>
+Cc: Jim Cromie <jim.cromie@gmail.com>, "Maciej W . Rozycki"
+ <macro@orcam.me.uk>, Andrew Morton <akpm@linux-foundation.org>, Matthew
+ Auld <matthew.auld@intel.com>, Arun Pravin
+ <arunpravin.paneerselvam@amd.com>, Joel Fernandes <joelagnelf@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Chris
+ Mason <mason@kernel.org>, David Sterba <dsterba@suse.com>,
+ dri-devel@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] linux/log2.h: Add 64-bit safe variants of
+ power-of-two functions
+Message-ID: <20260830124334.105b84b1@pumpkin>
+In-Reply-To: <20260830103321.2042968-1-david@davidgow.net>
+References: <20260830103321.2042968-1-david@davidgow.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:190f:b0:4b3:74d0:6ef7 with SMTP id
- 5614622812f47-4b398037cdamr18008160b6e.4.1788087930233; Sun, 30 Aug 2026
- 04:05:30 -0700 (PDT)
-Date: Sun, 30 Aug 2026 04:05:30 -0700
-In-Reply-To: <6a6c59a4.77639fcc.3d4fd0.0022.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a940e7a.4d659fcc.734b4.0037.GAE@google.com>
-Subject: Re: [syzbot] [dri?] WARNING in __drm_atomic_helper_set_config
-From: syzbot <syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
- tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,78 +99,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-syzbot has found a reproducer for the following issue on:
+On Sun, 30 Aug 2026 18:33:15 +0800
+David Gow <david@davidgow.net> wrote:
 
-HEAD commit:    08dbfad3f504 Merge tag 'for-linus' of git://git.kernel.org..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=13380349580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17392379580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17380349580000
+> The existing roundup_pow_of_two() and rounddown_pow_of_two() functions work
+> on values of type unsigned long, which is 32-bit on 32-bit systems.
+> Equally, is_power_of_2() operates on an unsigned long.
+> 
+> There are several instances where 64-bit safe versions of these (which
+> operate on a 64-bit value regardless of sizeof(long)) are required. Most
+> particularly, some hardware (especially GPUs) have 64-bit address spaces,
+> and some formats (such as filesystems) use 64-bit offsets. Some of these
+> (such as i915 and btrfs) have already implemented their own 64-bit
+> is_power_of_2() helpers.
+> 
+> Add a version of these which always operate on a 64-bit value. These have
+> the (unimaginative) names:
+> - is_power_of_2_u64()
+> - roundup_pow_of_two_u64(), and
+> - rounddown_pow_of_two_u64()
+> and otherwise work identically to their unsigned long counterparts.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e64f94ffb05c/disk-08dbfad3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/36a861364fe8/vmlinux-08dbfad3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6130bd19ca7f/bzImage-08dbfad3.xz
+Why not just change the definitions (back?) to #defines.
+Then they can be size neutral and you don't have to guess the correct one.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
+You may need to use __builtin_constant_p(x <= ~0u) to select between 32 and
+64 bit versions.
 
-------------[ cut here ]------------
-!set->fb
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at __drm_atomic_helper_set_config+0xa45/0xee0 drivers/gpu/drm/drm_atomic.c:2031, CPU#1: syz-executor419/5624
-Modules linked in:
-CPU: 1 UID: 0 PID: 5624 Comm: syz-executor419 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-RIP: 0010:__drm_atomic_helper_set_config+0xa45/0xee0 drivers/gpu/drm/drm_atomic.c:2031
-Code: 84 c0 74 09 3c 03 7f 05 e8 28 6e b4 fc 45 89 75 38 e9 0e fb ff ff e8 6a 5b 41 fc 90 0f 0b 90 e9 9f f7 ff ff e8 5c 5b 41 fc 90 <0f> 0b 90 e9 47 f7 ff ff 8b 6c 24 28 e8 4a 5b 41 fc 49 8d 7c 24 08
-RSP: 0018:ffffc900036d7890 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff8880349c1000 RCX: 0000000000000000
-RDX: ffff88802f3dcb00 RSI: ffffffff85ca8bd4 RDI: ffff88802f3dcb00
-RBP: ffff8880315d3800 R08: 0000000000000007 R09: fffffffffffff000
-R10: ffff888028212c00 R11: 0000000000000000 R12: ffff88801c14e400
-R13: ffff888028212c00 R14: ffff888028210c00 R15: ffff8880332d5328
-FS:  0000000000000000(0000) GS:ffff888123c64000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffcfbaa06a8 CR3: 0000000033c3a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- drm_client_modeset_commit_atomic+0x53d/0x7e0 drivers/gpu/drm/drm_client_modeset.c:1085
- drm_client_modeset_commit_locked+0x14d/0x580 drivers/gpu/drm/drm_client_modeset.c:1207
- drm_client_modeset_commit+0x4f/0x80 drivers/gpu/drm/drm_client_modeset.c:1233
- __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x137/0x160 drivers/gpu/drm/drm_fb_helper.c:138
- __drm_fb_helper_restore_fbdev_mode_unlocked drivers/gpu/drm/drm_fb_helper.c:126 [inline]
- drm_fb_helper_restore_fbdev_mode_unlocked+0x93/0xc0 drivers/gpu/drm/drm_fb_helper.c:169
- drm_fbdev_client_restore+0x1b/0x30 drivers/gpu/drm/clients/drm_fbdev_client.c:45
- drm_client_dev_restore+0x205/0x2a0 drivers/gpu/drm/drm_client_event.c:118
- drm_lastclose drivers/gpu/drm/drm_file.c:408 [inline]
- drm_release+0x2c6/0x360 drivers/gpu/drm/drm_file.c:441
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x951/0x2ae0 kernel/exit.c:1008
- do_group_exit+0xd5/0x2a0 kernel/exit.c:1151
- __do_sys_exit_group kernel/exit.c:1162 [inline]
- __se_sys_exit_group kernel/exit.c:1160 [inline]
- __x64_sys_exit_group+0x3e/0x50 kernel/exit.c:1160
- x64_sys_call+0x1567/0x1570 arch/x86/include/generated/asm/syscalls_64.h:232
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2694f1eb65
-Code: Unable to access opcode bytes at 0x7f2694f1eb3b.
-RSP: 002b:00007ffcb598ab38 EFLAGS: 00000202 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f2694f1eb65
-RDX: 00000000000000e7 RSI: ffffffffffffffd8 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
-R13: 00007f2694fb7108 R14: 00007f2694fbc648 R15: 00007f2694fbc660
- </TASK>
+It is also worth checking what gcc/clang generate for the 64bit versions
+on 32bit when passed a 32bit variable.
+It might be that they optimise the code and avoid all the 64bit maths.
 
+David
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> 
+> To avoid conflicts, the i915 implementation is also removed here. The btrfs
+> one (which has a different name) is replaced in a separate patch.
+> 
+> Signed-off-by: David Gow <david@davidgow.net>
+> ---
+> 
+> This patch adds u64 helpers, and the following two use them. And v2 also
+> has the i915 change to remove the conflicting implementation.
+> 
+> So I'm not sure who best wants to take these. Ultimately it's an include/linux
+> change, but it touches i915, patch 2 touches GPU/DRM, and patch 3 btrfs.
+> Personally, I'm keen to get patch 2 in, as it fixes a real issue, so if taking
+> 1 and 2 via DRM makes more sense, that's fine by me.
+> 
+> Changes since v1:
+> https://lore.kernel.org/all/20260821091918.1902032-1-david@ingeniumdigital.com/
+> - Include is_power_of_2_u64() as well, and remove the i915 version
+>   (Thanks, Matthew)
+> - Use _u64 as a suffix for the 64-bit versions, not just 64
+>   (This is a much nicer name, and matches what everone else was doing)
+> - Fix some comment typos.
+> - Add a third patch which removes a similar is_power_of_two_u64() helper
+>   from btrfs.
+> 
+> ---
+>  drivers/gpu/drm/i915/i915_utils.h |  5 ---
+>  include/linux/log2.h              | 73 +++++++++++++++++++++++++++++++
+>  2 files changed, 73 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+> index ecc20e0528f4..1cec51984d8c 100644
+> --- a/drivers/gpu/drm/i915/i915_utils.h
+> +++ b/drivers/gpu/drm/i915/i915_utils.h
+> @@ -75,11 +75,6 @@ struct drm_i915_private;
+>  	__idx;								\
+>  })
+>  
+> -static inline bool is_power_of_2_u64(u64 n)
+> -{
+> -	return (n != 0 && ((n & (n - 1)) == 0));
+> -}
+> -
+>  void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint);
+>  static inline void __add_taint_for_CI(unsigned int taint)
+>  {
+> diff --git a/include/linux/log2.h b/include/linux/log2.h
+> index e17ceb32e0c9..fc44e59f5732 100644
+> --- a/include/linux/log2.h
+> +++ b/include/linux/log2.h
+> @@ -47,6 +47,22 @@ bool is_power_of_2(unsigned long n)
+>  	return n - 1 < (n ^ (n - 1));
+>  }
+>  
+> +/**
+> + * is_power_of_2_u64() - check if a 64-bit value is a power of two
+> + * @n: the value to check
+> + *
+> + * Determine whether some value is a power of two, where zero is
+> + * *not* considered a power of two. Unlike is_power_of_2, this version
+> + * always operates on 64-bit values, even on 32-bit architectures where
+> + * long is 32-bit.
+> + * Return: true if @n is a power of 2, otherwise false.
+> + */
+> +static __always_inline __attribute_const__
+> +bool is_power_of_2_u64(u64 n)
+> +{
+> +	return n - 1 < (n ^ (n - 1));
+> +}
+> +
+>  /**
+>   * __roundup_pow_of_two() - round up to nearest power of two
+>   * @n: value to round up
+> @@ -195,6 +211,63 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
+>  	__rounddown_pow_of_two(n)		\
+>   )
+>  
+> +/**
+> + * __rounddown_pow_of_two_64() - round a 64-bit value down to nearest power of two
+> + * @n: value to round down
+> + */
+> +static inline __attribute_const__
+> +u64 __rounddown_pow_of_two_u64(u64 n)
+> +{
+> +	return 1ULL << ilog2(n);
+> +}
+> +
+> +/**
+> + * rounddown_pow_of_two_u64 - round a 64-bit value down to nearest power of two
+> + * @n: parameter
+> + *
+> + * round the given value down to the nearest power of two
+> + * - this always operates on 64-bit values, even on 32-bit systems
+> + * - the result is undefined when n == 0
+> + * - this can be used to initialise global variables from constant data
+> + */
+> +#define rounddown_pow_of_two_u64(n)		\
+> +(						\
+> +	__builtin_constant_p(n) ? (		\
+> +		((n) == 1) ? 1ULL :		\
+> +		(1ULL << ilog2((n)))		\
+> +				   ) :		\
+> +	__rounddown_pow_of_two_u64(n)		\
+> +)
+> +
+> +
+> +/**
+> + * __roundup_pow_of_two_u64() - round a 64-bit value up to nearest power of two
+> + * @n: value to round up
+> + */
+> +static inline __attribute_const__
+> +u64 __roundup_pow_of_two_u64(u64 n)
+> +{
+> +	return 1ULL << (ilog2(n - 1) + 1);
+> +}
+> +
+> +/**
+> + * roundup_pow_of_two_u64 - round a 64-bit value up to nearest power of two
+> + * @n: parameter
+> + *
+> + * round the given value up to the nearest power of two
+> + * - this always operates on 64-bit values, even on 32-bit systems
+> + * - the result is undefined when n == 0
+> + * - this can be used to initialise global variables from constant data
+> + */
+> +#define roundup_pow_of_two_u64(n)		\
+> +(						\
+> +	__builtin_constant_p(n) ? (		\
+> +		((n) == 1) ? 1ULL :		\
+> +		(1ULL << (ilog2((n) - 1) + 1))	\
+> +				   ) :		\
+> +	__roundup_pow_of_two_u64(n)		\
+> +)
+> +
+>  static inline __attribute_const__
+>  int __order_base_2(unsigned long n)
+>  {
+
