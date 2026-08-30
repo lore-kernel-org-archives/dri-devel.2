@@ -4,37 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F23C61DB9
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 10:38:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40FFCC61DD9
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 10:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A501E10E1A2;
-	Sun, 30 Aug 2026 10:38:55 +0000 (UTC)
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C8CA10E18D
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 10:38:45 +0000 (UTC)
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 5F5481EAAF3; Sun, 30 Aug 2026 18:33:34 +0800 (AWST)
-Received: from sparky.lan (unknown [IPv6:2001:8003:8802:7000::9c4])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id ACBF81EAAE6;
- Sun, 30 Aug 2026 18:33:30 +0800 (AWST)
-From: David Gow <david@davidgow.net>
-To: Jim Cromie <jim.cromie@gmail.com>,
- "Maciej W . Rozycki" <macro@orcam.me.uk>,
- Andrew Morton <akpm@linux-foundation.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Mason <mason@kernel.org>,
- David Sterba <dsterba@suse.com>
-Cc: David Gow <david@davidgow.net>, dri-devel@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] linux/log2.h: Add 64-bit safe variants of power-of-two
- functions
-Date: Sun, 30 Aug 2026 18:33:15 +0800
-Message-ID: <20260830103321.2042968-1-david@davidgow.net>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55BC010E1AB;
+	Sun, 30 Aug 2026 10:47:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FK3Iei3P";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 941E410E1AB
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 10:47:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 65FC5600AE;
+ Sun, 30 Aug 2026 10:47:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA221F000E9;
+ Sun, 30 Aug 2026 10:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788086832;
+ bh=3Jzzlc3I7vX9wSrB6NISTYOmr+2YT3G7jwl+9RRxW3k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FK3Iei3P+d3tnoiRS8fFzMcIn5g70+vDrA8oL9t/6/Zyqa1ImdzzjcvJ/u5duluXF
+ /eFafljl9jz7PKq7GAwYhlckOOobCYeOfdQ5fyBji/lVodAeIcOsw8cC0NO25mS7x6
+ jXaRBf1gLstLB+ymp5QCzX6v06ToG0eIW4o/zYRlCdAPJyPAs4D6VAFidNBmQvQdh9
+ HLhUn1CNPS2fUI5eNoNaHHc2FopQW+2ZHQDIRB3rzuBu2rbuItV5GbXHVhKLQoXmtm
+ VGVGEIMWREkR/oDezzfPuJ4kPPaSG1zFscXvREhwDK95g8j57wAVh5q4rfwG7RsAvO
+ s7oxzL7dk0HEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] linux/log2.h: Add 64-bit safe variants of
+ power-of-two functions
+To: "David Gow" <david@davidgow.net>
+Cc: dri-devel@lists.freedesktop.org, dsterba@suse.cz
+In-Reply-To: <20260830103321.2042968-1-david@davidgow.net>
+References: <20260830103321.2042968-1-david@davidgow.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 30 Aug 2026 10:47:11 +0000
+Message-Id: <20260830104711.DBA221F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,163 +53,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing roundup_pow_of_two() and rounddown_pow_of_two() functions work
-on values of type unsigned long, which is 32-bit on 32-bit systems.
-Equally, is_power_of_2() operates on an unsigned long.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] `__roundup_pow_of_two_u64()` computes the wrong value for `n =3D 1=
+` when optimizations propagate the constant, due to misuse of `ilog2(0)`.
+- [Low] Kernel-doc comment for `__rounddown_pow_of_two_u64` incorrectly use=
+s the suffix `_64` instead of `_u64`.
+--
 
-There are several instances where 64-bit safe versions of these (which
-operate on a 64-bit value regardless of sizeof(long)) are required. Most
-particularly, some hardware (especially GPUs) have 64-bit address spaces,
-and some formats (such as filesystems) use 64-bit offsets. Some of these
-(such as i915 and btrfs) have already implemented their own 64-bit
-is_power_of_2() helpers.
+commit 1b2e30cc48e12ee945f73271fbcb60bed282f343
+Author: David Gow <david@davidgow.net>
 
-Add a version of these which always operate on a 64-bit value. These have
-the (unimaginative) names:
-- is_power_of_2_u64()
-- roundup_pow_of_two_u64(), and
-- rounddown_pow_of_two_u64()
-and otherwise work identically to their unsigned long counterparts.
+linux/log2.h: Add 64-bit safe variants of power-of-two functions
 
-To avoid conflicts, the i915 implementation is also removed here. The btrfs
-one (which has a different name) is replaced in a separate patch.
+This commit adds 64-bit safe variants of power-of-two functions which always
+operate on a 64-bit value regardless of sizeof(long). It also removes a
+conflicting implementation from i915.
 
-Signed-off-by: David Gow <david@davidgow.net>
----
+> diff --git a/include/linux/log2.h b/include/linux/log2.h
+> index e17ceb32e0c97..fc44e59f57328 100644
+> --- a/include/linux/log2.h
+> +++ b/include/linux/log2.h
+[ ... ]
+> @@ -195,6 +211,63 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
+>  	__rounddown_pow_of_two(n)		\
+>   )
+> =20
+> +/**
+> + * __rounddown_pow_of_two_64() - round a 64-bit value down to nearest po=
+wer of two
+> + * @n: value to round down
+> + */
+> +static inline __attribute_const__
+> +u64 __rounddown_pow_of_two_u64(u64 n)
 
-This patch adds u64 helpers, and the following two use them. And v2 also
-has the i915 change to remove the conflicting implementation.
+[Severity: Low]
+Is there a typo in the kernel-doc function name?
 
-So I'm not sure who best wants to take these. Ultimately it's an include/linux
-change, but it touches i915, patch 2 touches GPU/DRM, and patch 3 btrfs.
-Personally, I'm keen to get patch 2 in, as it fixes a real issue, so if taking
-1 and 2 via DRM makes more sense, that's fine by me.
+The comment documents __rounddown_pow_of_two_64, but the function is named
+__rounddown_pow_of_two_u64. Will this cause kernel-doc warnings?
 
-Changes since v1:
-https://lore.kernel.org/all/20260821091918.1902032-1-david@ingeniumdigital.com/
-- Include is_power_of_2_u64() as well, and remove the i915 version
-  (Thanks, Matthew)
-- Use _u64 as a suffix for the 64-bit versions, not just 64
-  (This is a much nicer name, and matches what everone else was doing)
-- Fix some comment typos.
-- Add a third patch which removes a similar is_power_of_two_u64() helper
-  from btrfs.
+> +{
+> +	return 1ULL << ilog2(n);
+> +}
+> +
+[ ... ]
+> +/**
+> + * __roundup_pow_of_two_u64() - round a 64-bit value up to nearest power=
+ of two
+> + * @n: value to round up
+> + */
+> +static inline __attribute_const__
+> +u64 __roundup_pow_of_two_u64(u64 n)
+> +{
+> +	return 1ULL << (ilog2(n - 1) + 1);
+> +}
 
----
- drivers/gpu/drm/i915/i915_utils.h |  5 ---
- include/linux/log2.h              | 73 +++++++++++++++++++++++++++++++
- 2 files changed, 73 insertions(+), 5 deletions(-)
+[Severity: High]
+Can this compute the wrong value for n =3D 1 if the compiler propagates the
+constant after macro expansion?
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index ecc20e0528f4..1cec51984d8c 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -75,11 +75,6 @@ struct drm_i915_private;
- 	__idx;								\
- })
- 
--static inline bool is_power_of_2_u64(u64 n)
--{
--	return (n != 0 && ((n & (n - 1)) == 0));
--}
--
- void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint);
- static inline void __add_taint_for_CI(unsigned int taint)
- {
-diff --git a/include/linux/log2.h b/include/linux/log2.h
-index e17ceb32e0c9..fc44e59f5732 100644
---- a/include/linux/log2.h
-+++ b/include/linux/log2.h
-@@ -47,6 +47,22 @@ bool is_power_of_2(unsigned long n)
- 	return n - 1 < (n ^ (n - 1));
- }
- 
-+/**
-+ * is_power_of_2_u64() - check if a 64-bit value is a power of two
-+ * @n: the value to check
-+ *
-+ * Determine whether some value is a power of two, where zero is
-+ * *not* considered a power of two. Unlike is_power_of_2, this version
-+ * always operates on 64-bit values, even on 32-bit architectures where
-+ * long is 32-bit.
-+ * Return: true if @n is a power of 2, otherwise false.
-+ */
-+static __always_inline __attribute_const__
-+bool is_power_of_2_u64(u64 n)
-+{
-+	return n - 1 < (n ^ (n - 1));
-+}
-+
- /**
-  * __roundup_pow_of_two() - round up to nearest power of two
-  * @n: value to round up
-@@ -195,6 +211,63 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__rounddown_pow_of_two(n)		\
-  )
- 
-+/**
-+ * __rounddown_pow_of_two_64() - round a 64-bit value down to nearest power of two
-+ * @n: value to round down
-+ */
-+static inline __attribute_const__
-+u64 __rounddown_pow_of_two_u64(u64 n)
-+{
-+	return 1ULL << ilog2(n);
-+}
-+
-+/**
-+ * rounddown_pow_of_two_u64 - round a 64-bit value down to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value down to the nearest power of two
-+ * - this always operates on 64-bit values, even on 32-bit systems
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define rounddown_pow_of_two_u64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1ULL :		\
-+		(1ULL << ilog2((n)))		\
-+				   ) :		\
-+	__rounddown_pow_of_two_u64(n)		\
-+)
-+
-+
-+/**
-+ * __roundup_pow_of_two_u64() - round a 64-bit value up to nearest power of two
-+ * @n: value to round up
-+ */
-+static inline __attribute_const__
-+u64 __roundup_pow_of_two_u64(u64 n)
-+{
-+	return 1ULL << (ilog2(n - 1) + 1);
-+}
-+
-+/**
-+ * roundup_pow_of_two_u64 - round a 64-bit value up to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value up to the nearest power of two
-+ * - this always operates on 64-bit values, even on 32-bit systems
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define roundup_pow_of_two_u64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1ULL :		\
-+		(1ULL << (ilog2((n) - 1) + 1))	\
-+				   ) :		\
-+	__roundup_pow_of_two_u64(n)		\
-+)
-+
- static inline __attribute_const__
- int __order_base_2(unsigned long n)
- {
--- 
-2.55.0
+If n =3D 1 is passed to roundup_pow_of_two_u64(n) and __builtin_constant_p(=
+n)
+evaluates to false at macro expansion time, it will fall back to calling th=
+is
+inline function.
 
+When the compiler later inlines the function and proves n =3D 1 via constant
+propagation, it will evaluate ilog2(0).
+
+Inside the ilog2(0) macro, __builtin_constant_p(0) evaluates to true, so it
+takes the constant branch (0 < 2 ? 0 : ...), which evaluates to 0.
+
+Would this result in 1ULL << (0 + 1) returning 2 instead of 1?
+
+Should this use fls64(n - 1) instead, similar to how the 32-bit
+__roundup_pow_of_two() uses fls_long(n - 1)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830103321.2042=
+968-1-david@davidgow.net?part=3D1
