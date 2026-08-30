@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54791C624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3ABC624C8
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 404FC10E682;
-	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC8B10E68C;
+	Mon, 31 Aug 2026 07:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="HDqj+Bcf";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TW++Hb4n";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="ZKC61E0H";
 	dkim-atps=neutral
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9563010E094
- for <dri-devel@lists.freedesktop.org>; Sat, 29 Aug 2026 20:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1788035714; bh=D9gR527E+crHrw708MCpBEa
- Z4Y72U3o4s32o2HAIkWA=; b=HDqj+Bcf+gxvZGfa/NKGolduwSX8HUos7+EQ/JOy9gaY40F20h
- EnKFYgfeGWqqvdcuhtxF/1Qx+383VhffOSLURYqGdgIXTDdk3hI3GKfswC59HO8Kapv08uCv8CJ
- 4CTkccCWQfjEJ1kxn2YyHXuuzi9Mf2akzWNqZCl0j9BoNNfzMjXCmsWSbsdhJp0Q7GpD21bZ39x
- cqbglG2Pnx+3PH0sa9LUnB/X8kt8CmuHTLyD+3DwmU0nAf68qXIwmWI2p9aqZXnZPJ4NzPc14q5
- 0qlHE3tlTqO6gzXzYsas1ICPmrFtS0D5+M4D0TBVEoQONwp5H7YKEQudF6l1YdEXJNw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1788035714; bh=D9gR527E+crHrw708MCpBEa
- Z4Y72U3o4s32o2HAIkWA=; b=TW++Hb4ny+BHSbjlsDX2npsNK2m4ErIaD6NPlVl6MvPpreFEbj
- sjlD2ivRfvPA0fInUecx5/lbrevgpFvDIhCg==;
-Message-ID: <7a48378b-4a5d-4dfc-8bf9-9187b6ca6a0c@mainlining.org>
-Date: Sat, 29 Aug 2026 23:35:14 +0300
+X-Greylist: delayed 513 seconds by postgrey-1.36 at gabe;
+ Sun, 30 Aug 2026 04:00:27 UTC
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
+ [79.135.106.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE1F10E049;
+ Sun, 30 Aug 2026 04:00:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1788061924; x=1788321124;
+ bh=jnji4+6IgYi4Ks1u6FUqTfrHf09mB52dg2/DurOipCQ=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=ZKC61E0HlqSWJ/6DatUJJrWJULEPaw7xB/kSMwT+Bnl01LVekS07P5pXxxH3KJmnA
+ TLs5O0qHkF1iYlW3gGXEkveaUF6P2t/o9KLAL9mQ/zuNDw0Hn33bQiRE9URPFLEyss
+ 40CraMSOPVYFairLWKGdDNCqP19wdalwamb30E5zcjDzGnPhU1t1vtThkOuSpm8C9U
+ H1g7VriwxqctPMKF4zaAjFJBiBcROPsl94k3jxLXzYgd2ELp4WO2w2iD2C68EFWbPp
+ KIsPa7TIyaQn8PZC/iMhtB4opoZZ6MVaQWfNfwzKcYI36rzwlLbtbsO4yB//EAgyeT
+ /FPaW8Fks6jXg==
+Date: Sun, 30 Aug 2026 03:51:58 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Satyajit Roy <edu042sjroy@proton.me>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Satyajit Roy <sroy14@alum.utk.edu>
+Subject: [PATCH 1/3] drm/amd/display: Propagate HDMI RGB quantization
+ selectability
+Message-ID: <20260830035120.937992-2-edu042sjroy@proton.me>
+In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
+References: <20260830035120.937992-1-edu042sjroy@proton.me>
+Feedback-ID: 147615787:user:proton
+X-Pm-Message-ID: f4cf8d134f4afb49c85062f7dec4c0287be81f1e
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
- <20260829201932.1BFEB1F000E9@smtp.kernel.org>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <20260829201932.1BFEB1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,121 +64,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Satyajit Roy <sroy14@alum.utk.edu>
 
-29.08.2026 23:19, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] The panel initialization sequence lacks the DCS 'Set Display On' (0x29) command.
-> - [Medium] Missing reset assertion and stabilization delay during panel preparation.
-> --
->
-> commit 864f3dccc86bc8a97845ebafd73a7df32e9d6b9e
-> Author: Nickolay Goppen <setotau@mainlining.org>
->
-> drivers: gpu: drm: panel: Add BOE NT51021 driver
->
-> This commit adds support for the BOE NT51021-based 8-inch and 10-inch DSI
-> video mode panels used in Xiaomi Mi Pad 4 tablets. It includes panel
-> initialization sequences and content-adaptive brightness control.
->
->> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
->> new file mode 100644
->> --- /dev/null
->> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-> [ ... ]
->> +static void nt51021_boe_reset(struct boe_nt51021_desc *ctx)
->> +{
->> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
->> +	usleep_range(10000, 11000);
->> +}
-> [Severity: Medium]
-> Does the panel require an explicit reset assertion pulse before de-asserting
-> the reset line? The current code only de-asserts the reset line here. Without
-> an explicit assertion pulse and delay prior to de-assertion, the hardware
-> might not be guaranteed a valid minimum reset pulse width once power is stable.
->
-> [ ... ]
+DC uses dc_edid_caps.qs_bit when constructing the HDMI AVI InfoFrame
+quantization-range field. Although DRM parses the sink capability into
+drm_display_info, DM never copies it into the DC EDID capabilities. The
+field therefore remains zero and the AVI quantization range stays at its
+default value.
 
-Downstream reset sequence is just a deassertion of a reset line [1].
+Copy rgb_quant_range_selectable for HDMI sinks and extend the existing
+EDID-capability KUnit test to cover it.
 
-[1] 
-https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/xiaomi/mi/clover/dsi-panel-nt51021-boe-10wu-video.dtsi#L331
+Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property=
+")
+Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c       | 1 +
+ .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c    | 2 ++
+ 2 files changed, 3 insertions(+)
 
->> +static int nt51021_boe_8_init(struct boe_nt51021_desc *ctx)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> [ ... ]
->> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
->> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
->> +
->> +	nt51021_cabc_on(&dsi_ctx);
->> +
->> +	return dsi_ctx.accum_err;
->> +}
-> [Severity: Medium]
-> Does this initialization sequence miss a DCS "Set Display On" command?
-> The panel is awakened from sleep mode via mipi_dsi_dcs_exit_sleep_mode_multi(),
-> but it is never explicitly instructed to turn on the display output here in
-> nt51021_boe_8_init(). This could cause the panel to remain blank on some DSI
-> hosts.
->
-> [ ... ]
->> +static int nt51021_boe_10wu_init(struct boe_nt51021_desc *ctx)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> [ ... ]
->> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
->> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
->> +
->> +	nt51021_cabc_on(&dsi_ctx);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
->> +
->> +	return dsi_ctx.accum_err;
->> +}
-> [Severity: Medium]
-> Similarly to nt51021_boe_8_init(), the 10-inch variant initialization path
-> also appears to omit the mipi_dsi_dcs_set_display_on_multi() command.
->
->> +static int nt51021_boe_off(struct boe_nt51021_desc *ctx)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
->> +
->> +	nt51021_cabc_off(&dsi_ctx);
->> +
->> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
->> +	mipi_dsi_msleep(&dsi_ctx, 20);
->> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> [Severity: Medium]
-> The power-off sequence explicitly turns the display off using
-> mipi_dsi_dcs_set_display_off_multi(). Should there be a matching turn-on
-> command in the initialization sequences to ensure the display activates
-> correctly across power cycles?
->
-> [ ... ]
->> +static int nt51021_boe_prepare(struct drm_panel *panel)
->> +{
->> +	struct boe_nt51021_desc *ctx = to_boe_panel(panel);
->> +	struct device *dev = &ctx->dsi->dev;
->> +	int ret;
->> +
->> +	ret = regulator_bulk_enable(ARRAY_SIZE(nt51021_boe_supplies), ctx->supplies);
->> +	if (ret < 0) {
->> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
->> +		return ret;
->> +	}
->> +	nt51021_boe_reset(ctx);
-> [Severity: Medium]
-> Does the panel require a stabilization delay after enabling the regulators
-> and before de-asserting the reset line? The current code immediately calls
-> nt51021_boe_reset(ctx). Without a delay, the reset logic might execute
-> before the regulators have fully ramped up, potentially leading to unstable
-> hardware initialization.
->
-> [ ... ]
->
--- 
-Best regards,
-Nickolay
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index ab15ceec4da..e49a8dda512 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -218,6 +218,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ =09edid_caps->edid_hdmi =3D connector->display_info.is_hdmi;
+=20
+ =09if (edid_caps->edid_hdmi) {
++=09=09edid_caps->qs_bit =3D connector->display_info.rgb_quant_range_select=
+able;
+ =09=09populate_hdmi_info_from_connector(link->dc->config.enable_frl, &conn=
+ector->display_info.hdmi, edid_caps);
+ =09=09drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n"=
+, __func__, connector->name, edid_caps->max_frl_rate);
+ =09=09if (edid_caps->frl_dsc_support)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_=
+test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test=
+.c
+index d4232648d8e..b13f258740c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
+@@ -412,12 +412,14 @@ static void dm_test_parse_edid_caps_hdmi_frl(struct k=
+unit *test)
+=20
+ =09/* Drive the HDMI/FRL branch */
+ =09connector->display_info.is_hdmi =3D true;
++=09connector->display_info.rgb_quant_range_selectable =3D true;
+ =09connector->display_info.hdmi.scdc.supported =3D true;
+ =09connector->display_info.hdmi.max_lanes =3D 4;
+ =09connector->display_info.hdmi.max_frl_rate_per_lane =3D 12;
+=20
+ =09KUNIT_EXPECT_EQ(test, dm_helpers_parse_edid_caps(link, dc_edid, edid_ca=
+ps), EDID_OK);
+ =09KUNIT_EXPECT_TRUE(test, edid_caps->edid_hdmi);
++=09KUNIT_EXPECT_EQ(test, edid_caps->qs_bit, 1);
+ =09KUNIT_EXPECT_TRUE(test, edid_caps->scdc_present);
+ =09/* max_lanes 4 + max_frl_rate_per_lane 12 -> rate index 6 */
+ =09KUNIT_EXPECT_EQ(test, edid_caps->max_frl_rate, 6);
+--=20
+2.51.1
+
+
