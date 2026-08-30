@@ -4,53 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B1A5C61DE2
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 07:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE74AC61DB9
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 09:46:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FCCF10E011;
-	Sun, 30 Aug 2026 07:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBBC910E164;
+	Sun, 30 Aug 2026 09:46:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZAZD8oED";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E3q8NoDm";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A8710E011
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 07:58:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7018410E164
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 09:46:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D3DE600AE;
- Sun, 30 Aug 2026 07:58:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1411F000E9;
- Sun, 30 Aug 2026 07:58:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 22F5743405;
+ Sun, 30 Aug 2026 09:46:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840B51F000E9;
+ Sun, 30 Aug 2026 09:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788076713;
- bh=HOmmRwqD7gQcSXkQ2l1n56F/y5mkR8//mASfpntUu1A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZAZD8oEDR0G4EHppVGa9RCnPv3EcH4cHhiWcT5UPvnDBgkW216fwGfVn/Bed3ZDSo
- pnjQNj55YqMLEirLlYs6Y0NvDTCfCpbJxUphUzQ5P/ywpfe9tK0Oy2d6fqBoTF/ITS
- l9RabAaOr0mt6n2sZXSEhAWI6cQTAIdnMuEE5GPLNbO5xJwY7xQ/lkcxpMz5uurJPw
- ngNmXfnBedKQLNyUzayuGUx65bi8T5NCn+Dq5Xa88gjO96H+5CMlKnndxvlJbwk5K1
- bbGYdkOHxT03bXNMmewBX+uT2P0ip9ZWDNnjMbpInxyzXKPw3RRkkwMLRQ3qHp8aP9
- wlOuK60yS+79w==
-Date: Sun, 30 Aug 2026 10:58:28 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: Re: [Linaro-mm-sig] [PATCH 2/2] dma-buf: Document how exporters and
- importers agree on mapping lifetime
-Message-ID: <20260830075828.GA24140@unreal>
-References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
- <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
- <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
+ s=k20260515; t=1788083206;
+ bh=VRV/PaqAgm1+PUWOMsKMnupda7cAgpIVkDXwvtdmlFU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=E3q8NoDmxjx6ssMpxGCf2DJNGx/tsyKMrAAUwZygN3sXBNMcG+3Pt9YSVqUTa3YG4
+ vAMNyvtC65OpwfL7Y0UPqYrh80hg3FGaxEwXV0aMYRF2Af5CTy76GXeoANWPTsgtkV
+ KwM1wQbit55UjzF5EDvsj9IL7HSSvDAQ6uFPzINGIxlQUXnvRnnFNlbESKwwfHH6eO
+ 8pWzf+ymAMhVa0nRvRMdNktJaNmsfR377eWWVaAtONS3OkaIBa33pQUMyHPnWk2UdV
+ i/S3aJIGdwETgot7mVKkFKFNEenOvkhevmPnAvRhONZTZNHv0jcaJkyvaSlyxgvGO2
+ dlxkt67Roi7sA==
+Message-ID: <3f78536a-2119-4b75-ab80-914c9fd583ae@kernel.org>
+Date: Sun, 30 Aug 2026 11:46:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] arm64: dts: qcom: kaanapali: Add CDSP FastRPC
+ extended context bank
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260826-extended-mapping-v1-0-d046c1cb9a9f@oss.qualcomm.com>
+ <20260826-extended-mapping-v1-3-d046c1cb9a9f@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260826-extended-mapping-v1-3-d046c1cb9a9f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,188 +113,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 09:18:29PM +0200, Thomas Hellström wrote:
-> Hi,
+On 26/08/2026 15:45, Vinayak Katoch wrote:
+> Add a fastrpc_far_region reserved-memory node and link compute-cb@13 to
+> it via memory-region so the driver detects it as the extended mapping
+> bank. Bump #address-cells and #size-cells to <2> on the fastrpc ancestor
+> nodes and update all compute-cb reg values to the 4-cell format to
+> accommodate the 64-bit iommu-addresses values.
 > 
-> Some comments below:
+> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 35 +++++++++++++++++++++------------
+>  1 file changed, 22 insertions(+), 13 deletions(-)
 > 
-> On Tue, 2026-08-25 at 09:28 +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Pinned, revoked and movable mappings are selected by which optional
-> > callbacks each side implements and by whether dma_buf_pin() succeeds,
-> > not by any flag or enum. Nothing in Documentation/ says so, and the
-> > rules are spread over the kdoc of dma_buf_ops.pin,
-> > dma_buf_attach_ops.invalidate_mappings and
-> > dma_buf_invalidate_mappings(),
-> > so a driver author has to know the symbol names before finding them.
-> > 
-> > Name, per flow, the callbacks both sides have to implement to end up
-> > in
-> > it, describe dma_buf_pin() as the runtime negotiation, and record
-> > that
-> > the pin is what tells a revoke from a move.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  Documentation/driver-api/dma-buf.rst |  6 +++
-> >  drivers/dma-buf/dma-buf.c            | 85
-> > +++++++++++++++++++++++++++++++++++-
-> >  2 files changed, 90 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/driver-api/dma-buf.rst
-> > b/Documentation/driver-api/dma-buf.rst
-> > index 2f36c21d9948..39c201f38aa6 100644
-> > --- a/Documentation/driver-api/dma-buf.rst
-> > +++ b/Documentation/driver-api/dma-buf.rst
-> > @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
-> >  .. kernel-doc:: drivers/dma-buf/dma-buf.c
-> >     :doc: dma buf device access
-> >  
-> > +Mapping Lifetime Negotiation
-> > +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > +
-> > +.. kernel-doc:: drivers/dma-buf/dma-buf.c
-> > +   :doc: mapping lifetime negotiation
-> > +
-> >  CPU Access to DMA Buffer Objects
-> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >  
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index d504c636dc29..30afec7365bc 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size,
-> > int flags)
-> >   *    reference acquired with dma_buf_get() by calling
-> > dma_buf_put().
-> >   *
-> >   * For the detailed semantics exporters are expected to implement
-> > see
-> > - * &dma_buf_ops.
-> > + * &dma_buf_ops. Whether the exporter may still move or destroy the
-> > backing
-> > + * storage after step 3 depends on what exporter and importer
-> > implement, see
-> > + * the mapping lifetime negotiation section below.
-> > + */
-> > +
-> > +/**
-> > + * DOC: mapping lifetime negotiation
-> > + *
-> > + * No flag or enum says whether the exporter may move or take away
-> > the backing
-> > + * storage while an importer holds a mapping. Each side implements a
-> > set of
-> > + * optional callbacks, and dma_buf_pin() settles the result at
-> > runtime. Three
-> > + * flows come out of it:
-> > + *
-> > + * - Pinned: the storage never moves and is never taken away.
-> > + * - Revoked: the storage never moves, but the exporter may take it
-> > away.
-> > + * - Movable: the exporter may relocate the storage at any time.
-> 
-> Perhaps add "even temporarily to locations that are not available for
-> DMA".
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> index 131fd2a16c54..0f258eb2a7a9 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -451,6 +451,10 @@ rmtfs_mem: rmtfs@d7c00000 {
+>  			qcom,client-id = <1>;
+>  			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
+>  		};
+> +
+> +		fastrpc_far_region: fastrpc_far_region {
 
-I don't know. "Not available for DMA" defeats the whole purpose of dma-buf,
-which is intended to expose DMA-capable memory to other peers. I imagine
-that "everything is optional dmabuf world" this is possible, but it
-looks to me like a partial version of revoked flow.
+Please follow DTS coding style for naming.
 
-> 
-> > + *
-> > + * Every exporter implements &dma_buf_ops.map_dma_buf,
-> > + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release.
-> > dma_buf_export()
-> > + * rejects an exporter missing any of them.
-> > + *
-> > + * An importer reaches its flow like this:
-> > + *
-> > + * 1. Attach with dma_buf_dynamic_attach(). Leaving
-> > + *    &dma_buf_attach_ops.invalidate_mappings NULL rules out
-> > everything but the
-> > + *    pinned flow, because the importer can then never be told
-> > anything.
-> > + * 2. Call dma_buf_pin() under the reservation lock.
-> > + * 3. On failure run the movable flow, or give up.
-> > + * 4. On success the storage stays put. Whether the exporter may
-> > still take it
-> > + *    away, which makes this the revoked flow instead of the pinned
-> > one, is the
-> > + *    exporter's choice and is not reported back.
-> > + *
-> > + * dma_buf_attach() is the shorthand for an importer which only ever
-> > wants the
-> > + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then
-> > pins around
-> > + * every dma_buf_map_attachment() and waits for the
-> > DMA_RESV_USAGE_KERNEL
-> > + * fences on the importer's behalf. Peer to peer needs
-> > + * dma_buf_dynamic_attach(), because
-> > &dma_buf_attach_ops.allow_peer2peer lives
-> > + * in the attach ops.
-> > + *
-> > + * Pinned flow:
-> > + *
-> > + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to
-> > hold the
-> > + *   storage still on request. An exporter whose storage never moves
-> > implements
-> > + *   neither, and dma_buf_pin() then succeeds on its own. An
-> > exporter which
-> > + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
-> > + * - Importer: nothing more. The mapping stays valid until it
-> > unmaps.
-> > + *
-> > + * Revoked flow:
-> > + *
-> > + * - Exporter: answer dma_buf_pin() as above. Call
-> > + *   dma_buf_invalidate_mappings() when the storage goes away and
-> > fail
-> > + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which
-> > complete a
-> > + *   revocation are described in dma_buf_invalidate_mappings().
-> > + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap
-> > within
-> > + *   bounded time and drop the pin.
-> > + *
-> > + * Movable flow:
-> > + *
-> > + * - Exporter: call dma_buf_invalidate_mappings() before each move,
-> > then wait
-> > + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and
-> > &dma_buf_ops.unpin play
-> > + *   no part here.
-> > + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings
-> > drops the
-> > + *   cached mapping and has to lead to dma_buf_unmap_attachment()
-> > within
-> > + *   bounded time.
-> 
-> Hear I would want to see the exporter being allowed to force unmap the
-> dma mappings and reclaim thestorage when the fences mentioned above
-> have signaled, but the importer has not yet called
-> dma_buf_unmap_attachment(). That would allow importers to call
-> dma_buf_unmap_attachment() lazily, just before the next map_attachment,
-> which would allow simplifying importer implementations. 
-
-How? It will move one piece of code as is to another place. In addition,
-both exporter and importer need to stop HW access to same region.
-
-> More of a related idea than something that needs fixing for this patch.
-> 
-> >  It need not stop the hardware, because access runs until the
-> > + *   importer's &dma_buf.resv fences retire. Map again before the
-> > next DMA.
-> 
-> A successful map will mean the exporter has placed the data in storage
-> compatible with what was agreed during attachment?
-
-Yes.
-
-> 
-> Thanks,
-> Thomas
-> 
+Best regards,
+Krzysztof
