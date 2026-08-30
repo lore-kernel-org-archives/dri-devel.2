@@ -4,80 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C071C624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067C6C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66BE510E686;
-	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4691510E678;
+	Mon, 31 Aug 2026 07:00:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gv+Z4bqG";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="QQeQgUVS";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C0B10E4F6
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 14:58:08 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2d71ae3455aso15484735ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 28 Aug 2026 07:58:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787929087; x=1788533887; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=V+G8BuKyr4mNyS/k4RzS4KN1oeGSViDq6yduxoa5BN8=;
- b=Gv+Z4bqG8cUGbqbhP5kiHn7TKUU/1d7/QwCMn3p4gS78sIp+xEddiLUi3SAbDoM8vm
- xs6toNB63zo5Q+QDizL+ugiWlm7bZr2PK5Uky+5zmgMp6c/ODADNz0BKO+dlYUn9KKRS
- KFdOR/D4yDQORSKIBG1qS1SRUPGQe+6iSSnNnhIarBTIb4KAgkoW3JymLj0FzIk6C+pD
- fV/KABGeWMvlpPC4BOO+3O0qfeR/MlP3jzQxUPyoWT+Frji7ihmfmg+NPWtHBJhZBpTo
- Qev3BgzMUgKrhtwjtl54EsGsyyZB2FjY+TfYve69+5uzI4cuPBVRW4zTdUtH4NbonH+y
- HTkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787929087; x=1788533887;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=V+G8BuKyr4mNyS/k4RzS4KN1oeGSViDq6yduxoa5BN8=;
- b=iFqp746UwwdrC24AHU5jBgR+JhL2wzmDp5ajgkkJdwpSoYYqe3DiTeVDaNfbknCOyh
- Rz03bORW9IVVhTDmR/jVIhWkETJVaL9exO1oZb0gKHWw3wOQOneDlspDtfq4A2Lx6Xd6
- 3ALZZXoHS8KypuPRgdDyUdfN6EnDmgcGqoRxIePx8jZPGwrn/EVbuCjyS+lyU00QeMZC
- 8KGCz5chsFUylg/wVXSMk+0QeOeUqoRUyTG5cVV92nXU7bbs60YCmmVa503RoE9VJupN
- qmfZIR+uDprbgT+DPH/K6Y/+Vi7hfVTA4jVPvDKkKa9nTuC9pil8bVT0285dg4Ok8yuq
- OvMQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqa0v/JykLBPbHQZSnvAeZVJFFzBRN7XkWGsrrhzTjyBFAMW+LKuD+zfpumnN5/baPhaZ/AoEaSFEo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m4FsfYZfE8Rh+sKLICB8cpVEDiX9FB57z+tDw7Szncn5+9dnRL
- SGpqxp9RB+bz2WyqdBIQVsfIqYkV6O5VRxoQi32HfR0hoz80o4Vl+TU=
-X-Gm-Gg: AR+sD13RAIopdxzgNFXzfSGDxol6PincpnnA/IKAnUv40DS0jX8a+AOiJ+9NAUHjX1T
- 1dc8xeEKEDatlDUJJTfYUrtkkhdXQ/d2BukGPkf61hOMhsyfdsvKyd/+e30w9/5apjppb4+DcvH
- r2dIuvA9JwaOh8ad2NA2CPp5aBxDMPTE4cBuXGRqBjIHCkRBNxIN1jgwbCwNH3TuzPq+l39jaPe
- 2amSGyLC42WhsiPWRVPQfY/o/ciopcG16YpmA2L/GLTTWs6iZNuXJrVKWatIZtq+AM4vCreI0k0
- DE8jTd517CbU1fp4jJOQVBoyPSfvuzrUJzHfWF5VGhxda8pRaJkL3ZiJmVzncM2br9LnJXSE7aZ
- 3FCKe15VrKGMUWW6G8gQ9JDJsQTbYG4McV5GbmQ/1+mQ/NkOvhRjUq/0ADQGW9h/Atz3pel9IQO
- iv7R41TUaYevtM4HLGPiN2MRXtm1xSCGklzOqsTqv49dRHLaWlBbrmnhH/PRYtL9qwnsAe2kZL1
- vzZSJaObjmPjxeeM8qNAyJGZtkZN3Pd+4DEEQ==
-X-Received: by 2002:a17:903:3d06:b0:2d8:d4cc:5baf with SMTP id
- d9443c01a7336-2d8d4cc5dcemr8450155ad.15.1787929087521; 
- Fri, 28 Aug 2026 07:58:07 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d75988b6fcsm6159625ad.56.2026.08.28.07.58.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 07:58:06 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F9410E0FE
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 03:54:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=5jyqa2t64jfz7j3mddw2j2si6q.protonmail; t=1788061929; x=1788321129;
+ bh=ZalboOQlaRdM07h0DCHOooTZyMCDymSdS7Ibwrc+ZOA=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=QQeQgUVSbsRZ/Pr60TiLr0vFvhdHoXGuDMyKAvBEEHlFJ2CGnEt1r5+I0//6PrkuP
+ xJFZILNCeTjoiqf0wl4sGr8iFeL0v6Q3mz21wgdQLGUbs6LicYDhUImfg1bnSE+PMg
+ 8KSzx5Wpb29GADdvpQdlfWvSl/v0ETbYPkb9K433f19pIhF6/AJKuPxhsRruUC3JEh
+ IJYMwcXGF+142eFmxwdiPk+g1XmO0kG6qjf/p2PrCx/VK/HUmUozrg9CkynfkUQRnE
+ WkGkR8fPS4JB+W5MlbLx1QSalu7JYtHE8CsS+jbJqAbLD1zPRA4cYOtex2jxYsc6oi
+ /bk7h1sfbCuqQ==
+Date: Sun, 30 Aug 2026 03:52:06 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Satyajit Roy <edu042sjroy@proton.me>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-Subject: [PATCH v1 1/2] drm/sched: cache the timeline name to fix a
- use-after-free
-Date: Fri, 28 Aug 2026 23:57:56 +0900
-Message-ID: <b191f55e53492f95d965407f891fd93b0e74958d.1787928528.git.malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1787928528.git.malhyuk97@gmail.com>
-References: <cover.1787928528.git.malhyuk97@gmail.com>
+ Satyajit Roy <sroy14@alum.utk.edu>
+Subject: [PATCH 2/3] drm/amd/display: Honor Broadcast RGB for BT.2020 RGB
+ output
+Message-ID: <20260830035120.937992-3-edu042sjroy@proton.me>
+In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
+References: <20260830035120.937992-1-edu042sjroy@proton.me>
+Feedback-ID: 147615787:user:proton
+X-Pm-Message-ID: 1a25c08e6bc2c6a214d24d3c36fb934063f828a2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,94 +61,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
-drm_sched_fence ops keep a .release callback, so the fence is not
-ops-detached on signalling (dma_fence_signal_timestamp_locked() only
-clears ->ops for fences without .release/.wait). The callback therefore
-stays reachable on a long-signalled, userspace-held finished fence and
-unconditionally dereferences fence->sched.
+From: Satyajit Roy <sroy14@alum.utk.edu>
 
-A driver that allocates a drm_gpu_scheduler at per-context/per-queue/
-per-VM granularity and frees it on an unprivileged context/fd close, while
-exporting the resulting finished fence to userspace (drm_syncobj /
-sync_file / dma_resv), leaves fence->sched dangling after the free. A
-subsequent SYNC_IOC_FILE_INFO ioctl (which calls get_timeline_name())
-then reads the freed scheduler:
+amdgpu_dm_get_output_color_space() applies the Broadcast RGB connector
+property to default RGB output, but always selects full-range output for
+BT.2020 RGB. Consequently, explicitly selecting Limited has no effect on
+the output CSC or AVI InfoFrame when HDR uses BT.2020 RGB.
 
-  BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name
+Select COLOR_SPACE_2020_RGB_LIMITEDRANGE when the output encoding is RGB
+and Broadcast RGB is Limited. Keep Automatic and Full at full range, and
+leave YCbCr output unchanged.
 
-This is the same class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
-(drm/panthor), which were fixed per-driver. amdxdna, nouveau and msm
-(VM_BIND) are still affected in mainline, so fix it in the core to cover
-any per-context-scheduler driver at once.
+Add KUnit coverage for limited-range RGB output through both BT.2020
+connector colorspace values.
 
-Scheduler names are persistent strings (string literals passed to
-drm_sched_init()), so cache the name pointer in the fence at init time,
-while the scheduler is guaranteed alive, and return the cached value from
-get_timeline_name() without dereferencing fence->sched.
-
-Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property=
+")
+Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
 ---
- drivers/gpu/drm/scheduler/sched_fence.c | 16 +++++++++++++++-
- include/drm/gpu_scheduler.h             | 11 +++++++++++
- 2 files changed, 26 insertions(+), 1 deletion(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 10 +++--
+ .../tests/amdgpu_dm_connector_test.c          | 37 +++++++++++++++++++
+ 2 files changed, 44 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
-index 85ee3d694dc9..280a2d036ffd 100644
---- a/drivers/gpu/drm/scheduler/sched_fence.c
-+++ b/drivers/gpu/drm/scheduler/sched_fence.c
-@@ -92,7 +92,13 @@ static const char *drm_sched_fence_get_driver_name(struct dma_fence *fence)
- static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
- {
- 	struct drm_sched_fence *fence = to_drm_sched_fence(f);
--	return (const char *)fence->sched->name;
-+
-+	/*
-+	 * Do not dereference fence->sched here: a userspace-held finished
-+	 * fence can outlive a per-context scheduler. Return the name cached
-+	 * in drm_sched_fence_init() instead.
-+	 */
-+	return fence->sched_name;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 8a35e4df13c..f2f6a2a0db9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -758,10 +758,14 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc=
+_timing *dc_crtc_timing,
+ =09=09break;
+ =09case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ =09case DRM_MODE_COLORIMETRY_BT2020_YCC:
+-=09=09if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)
+-=09=09=09color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
+-=09=09else
++=09=09if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB) {
++=09=09=09if (connector_state->hdmi.broadcast_rgb =3D=3D DRM_HDMI_BROADCAST=
+_RGB_LIMITED)
++=09=09=09=09color_space =3D COLOR_SPACE_2020_RGB_LIMITEDRANGE;
++=09=09=09else
++=09=09=09=09color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
++=09=09} else {
+ =09=09=09color_space =3D COLOR_SPACE_2020_YCBCR_LIMITED;
++=09=09}
+ =09=09break;
+ =09case DRM_MODE_COLORIMETRY_DEFAULT: /* ITU601 */
+ =09default:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connecto=
+r_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_=
+test.c
+index 76334fb840d..29bbe9f7826 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
+c
+@@ -570,6 +570,23 @@ static void dm_test_output_color_space_bt2020_rgb(stru=
+ct kunit *test)
+ =09=09=09(int)COLOR_SPACE_2020_RGB_FULLRANGE);
  }
- 
- static void drm_sched_fence_free_rcu(struct rcu_head *rcu)
-@@ -228,6 +234,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
- 	unsigned seq;
- 
- 	fence->sched = container_of(entity->rq, typeof(*fence->sched), rq);
-+	/*
-+	 * Cache the scheduler's timeline name: the finished fence may be
-+	 * exported to userspace and outlive @sched (per-context schedulers
-+	 * are freed on context teardown), so get_timeline_name() must not
-+	 * dereference @sched. Scheduler names are persistent (string
-+	 * literals passed to drm_sched_init()).
-+	 */
-+	fence->sched_name = fence->sched->name;
- 	seq = atomic_inc_return(&entity->fence_seq);
- 	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
- 		       &fence->lock, entity->fence_context, seq);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index d61c19e78182..4f780d70acb6 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -305,6 +305,17 @@ struct drm_sched_fence {
-          * belongs to.
-          */
- 	struct drm_gpu_scheduler	*sched;
-+	/**
-+	 * @sched_name: the timeline name of @sched, cached at init time.
-+	 *
-+	 * &drm_sched_fence.finished may be exported to userspace (via a
-+	 * sync_file or drm_syncobj) and can outlive @sched: a driver using a
-+	 * per-context scheduler frees it on context teardown while a
-+	 * userspace-held finished fence still references it. The
-+	 * get_timeline_name() callback must therefore not dereference @sched;
-+	 * it returns this cached name instead.
-+	 */
-+	const char			*sched_name;
-         /**
-          * @lock: the lock used by the scheduled and the finished fences.
-          */
--- 
-2.43.0
+=20
++/**
++ * dm_test_output_color_space_bt2020_rgb_limited - Test limited BT.2020 RG=
+B
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_rgb_limited(struct kunit *te=
+st)
++{
++=09struct dc_crtc_timing timing =3D {};
++=09struct drm_connector_state state =3D {};
++
++=09timing.pixel_encoding =3D PIXEL_ENCODING_RGB;
++=09state.colorspace =3D DRM_MODE_COLORIMETRY_BT2020_RGB;
++=09state.hdmi.broadcast_rgb =3D DRM_HDMI_BROADCAST_RGB_LIMITED;
++
++=09KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &s=
+tate),
++=09=09=09(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
++}
++
+ /**
+  * dm_test_output_color_space_bt2020_ycc - Test Output color space bt2020 =
+ycc
+  * @test: The KUnit test context
+@@ -641,6 +658,24 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_=
+encoding(struct kunit *tes
+ =09=09=09(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+ }
+=20
++/**
++ * dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited - Test limit=
+ed
++ * BT.2020 RGB output selected through the BT.2020 YCC connector colorspac=
+e
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited(str=
+uct kunit *test)
++{
++=09struct dc_crtc_timing timing =3D {};
++=09struct drm_connector_state state =3D {};
++
++=09timing.pixel_encoding =3D PIXEL_ENCODING_RGB;
++=09state.colorspace =3D DRM_MODE_COLORIMETRY_BT2020_YCC;
++=09state.hdmi.broadcast_rgb =3D DRM_HDMI_BROADCAST_RGB_LIMITED;
++
++=09KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &s=
+tate),
++=09=09=09(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
++}
++
+ /**
+  * dm_test_output_color_space_bt2020_rgb_ycc_encoding - Test Output color =
+space
+  * bt2020 rgb with non-rgb pixel encoding falls back to limited ycbcr
+@@ -8409,10 +8444,12 @@ static struct kunit_case amdgpu_dm_connector_tests[=
+] =3D {
+ =09KUNIT_CASE(dm_test_output_color_space_bt709_y_only),
+ =09KUNIT_CASE(dm_test_output_color_space_oprgb),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb),
++=09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_limited),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
+ =09KUNIT_CASE(dm_test_output_color_space_default_ycbcr709_y_only),
+ =09KUNIT_CASE(dm_test_output_color_space_default_ycbcr601),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc_rgb_encoding),
++=09KUNIT_CASE(dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited),
+ =09KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_ycc_encoding),
+ =09/* Tests for amdgpu_dm_convert_dc_color_depth_into_bpc */
+ =09KUNIT_CASE(dm_test_convert_color_depth_bpc_mappings),
+--=20
+2.51.1
+
 
