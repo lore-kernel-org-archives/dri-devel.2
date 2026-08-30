@@ -4,51 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AE5FC61DB9
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 09:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A91DEC61DB9
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 10:38:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CE510E16B;
-	Sun, 30 Aug 2026 09:50:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bgzta3yB";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9574510E16B
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 09:50:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 882F8600AE;
- Sun, 30 Aug 2026 09:50:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7461F000E9;
- Sun, 30 Aug 2026 09:50:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788083437;
- bh=FYIfK3uTkNCT+KVZTnBM/k5ekM0A7fNCMCiGAvjFqVQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Bgzta3yB5Kc4FdjDdpPuSyRmToIgrAt4Cn/vsD2/opxxWp6r17x0Ciz8B96v+yuPn
- 9ttxB9scgLD5vFo+TazrVVI6kZBRtMhhAzcdtEGsXoXadOftOOZCevSHlNMvO32HW2
- /a02G/FsEqsRm/9zTUs7dREtKHpqRtWIGqeBHaYiVQK2AkJ20MsD9Z6vY+vJToLqjh
- mu/matyEEx9hsMR/UrK8vZfS0OKIOQB1SxQbSwRlVij4LSHHXzlBI5Rtzp+5nQb7lB
- 8GmOBpbgrpCRQJD165QpyiTUsNem2oU2JWeaB2C/sbc6OMNIUyAf4HosHJxP8osAv5
- 4LiBgKvz6fupw==
-Date: Sun, 30 Aug 2026 11:50:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/6] misc: fastrpc: Add extended IOVA mapping support
-Message-ID: <20260830-hilarious-controversial-boa-bbcb1d@quoll>
-References: <20260826-extended-mapping-v1-0-d046c1cb9a9f@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 774C610E16E;
+	Sun, 30 Aug 2026 10:38:45 +0000 (UTC)
+X-Greylist: delayed 307 seconds by postgrey-1.36 at gabe;
+ Sun, 30 Aug 2026 10:38:44 UTC
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF46510E16E
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 10:38:44 +0000 (UTC)
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+ id 207DE1EAAFF; Sun, 30 Aug 2026 18:33:38 +0800 (AWST)
+Received: from sparky.lan (unknown [IPv6:2001:8003:8802:7000::9c4])
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id C64071EAAE8;
+ Sun, 30 Aug 2026 18:33:30 +0800 (AWST)
+From: David Gow <david@davidgow.net>
+To: Jim Cromie <jim.cromie@gmail.com>,
+ "Maciej W . Rozycki" <macro@orcam.me.uk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chris Mason <mason@kernel.org>,
+ David Sterba <dsterba@suse.com>
+Cc: David Gow <david@davidgow.net>, dri-devel@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] fs:btrfs: Use the new global is_power_of_2_u64() helper
+Date: Sun, 30 Aug 2026 18:33:17 +0800
+Message-ID: <20260830103321.2042968-3-david@davidgow.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260830103321.2042968-1-david@davidgow.net>
+References: <20260830103321.2042968-1-david@davidgow.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260826-extended-mapping-v1-0-d046c1cb9a9f@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,27 +53,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 07:15:42PM +0530, Vinayak Katoch wrote:
-> 
-> - Two new UAPI flags (FASTRPC_MAP_FD_EXTENDED and
->   FASTRPC_MAP_FD_DELAYED_EXTENDED) allow userspace to request extended
->   mapping. When set, fastrpc_map_attach() iterates cctx->ext_cb[] and
->   retries on -ENOMEM, falling over to the next extended CB if one
->   exhausts its IOVA space. The SID offset is corrected per-CB so the
->   IOVA forwarded to the DSP is valid.
-> 
-> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-> ---
-> Vinayak Katoch (6):
->       dt-bindings: misc: fastrpc: Add memory-region property for context bank
->       misc: fastrpc: Handle multi-cell reg in context bank probe
->       arm64: dts: qcom: kaanapali: Add CDSP FastRPC extended context bank
->       arm64: dts: qcom: glymur: Add CDSP FastRPC extended context bank
->       misc: fastrpc: Add extended context bank support
->       misc: fastrpc: Add UAPI flags for extended IOVA mapping
+btrfs currently provides its own 64-bit safe version of
+is_power_of_2(), in order to handle 64-bit values on 32-bit systems.
 
-DTS must not be part of misc posting. Please always split it.
+Since other subsystems also have similar helpers, a new implementation
+has been added to linux/log2.h. Use this instead of the btrfs-specific
+one.
 
-Best regards,
-Krzysztof
+Signed-off-by: David Gow <david@davidgow.net>
+---
+
+This basically just replaces a btrfs helper with the version in patch 1.
+It probably doesn't make sense for this series to go in via the btrfs
+tree, so it's probably worth either accepting the posssibility for a
+conflict, or sending this patch in separately after the first one lands.
+
+Cheers,
+-- David
+
+[This patch was introduced in v2 of the series.]
+
+---
+ fs/btrfs/misc.h  | 7 +------
+ fs/btrfs/zoned.c | 2 +-
+ 2 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/fs/btrfs/misc.h b/fs/btrfs/misc.h
+index 802060943180..e8be78341dc0 100644
+--- a/fs/btrfs/misc.h
++++ b/fs/btrfs/misc.h
+@@ -110,15 +110,10 @@ static inline u64 mult_perc(u64 num, u32 percent)
+ {
+ 	return div_u64(num * percent, 100);
+ }
+-/* Copy of is_power_of_two that is 64bit safe */
+-static inline bool is_power_of_two_u64(u64 n)
+-{
+-	return n != 0 && (n & (n - 1)) == 0;
+-}
+ 
+ static inline bool has_single_bit_set(u64 n)
+ {
+-	return is_power_of_two_u64(n);
++	return is_power_of_2_u64(n);
+ }
+ 
+ /*
+diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+index a016cb471beb..b90ac4ff71b8 100644
+--- a/fs/btrfs/zoned.c
++++ b/fs/btrfs/zoned.c
+@@ -421,7 +421,7 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
+ 		zone_sectors = bdev_zone_sectors(bdev);
+ 	}
+ 
+-	ASSERT(is_power_of_two_u64(zone_sectors));
++	ASSERT(is_power_of_2_u64(zone_sectors));
+ 	zone_info->zone_size = zone_sectors << SECTOR_SHIFT;
+ 
+ 	/* We reject devices with a zone size larger than 8GB */
+-- 
+2.55.0
 
