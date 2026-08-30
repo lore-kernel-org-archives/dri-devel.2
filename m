@@ -4,55 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CBCDC624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72074C624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8129D10E687;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 227DE10E67F;
 	Mon, 31 Aug 2026 07:00:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=sarx-technology.com header.i=narek@sarx-technology.com header.b="aXpNSIpx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FvFfzHqF";
 	dkim-atps=neutral
-X-Greylist: delayed 906 seconds by postgrey-1.36 at gabe;
- Fri, 28 Aug 2026 19:22:44 UTC
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8E0110E4E6;
- Fri, 28 Aug 2026 19:22:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787944049; cv=none; d=zohomail.eu; s=zohoarc; 
- b=aDBlNgI+LxEsuMdiIq+7SapyFjtseiUlLSWJl4vrYExkXrX/2eI9QVU2nPAwQYGeZdnu9l1HOgrebF3zDLPhzp13UKkWLUrSTaOTaZZDI+RPY1Xs346pITR45uQHjt2VZxwflOetzElvzrHo4oDFVLHqr+xyQQLgFlCvYGAxVT8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1787944049;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gUYYdleVR1v9SIJM9KGBpXqJIpkgjBCiNeo1NDaWFWE=; 
- b=SbwlzIjYqz8hhZ1SDav1mpV2mntpLzKaXFBR8kKkDhLjVs8YebZj+GUQrDmQBSG+D8kH6bLx3khaHBpsaxj5JCNn6Phne1goAHhm4ZTtDVqU9dhcd9Rq5W4eJOj+CGW/0uLNkyJgeP+cD/sGzii2D2huq0k6jjaotg7haiIOj2o=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- dkim=pass  header.i=sarx-technology.com;
- spf=pass  smtp.mailfrom=narek@sarx-technology.com;
- dmarc=pass header.from=<narek@sarx-technology.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787944049; 
- s=zoho; d=sarx-technology.com; i=narek@sarx-technology.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=gUYYdleVR1v9SIJM9KGBpXqJIpkgjBCiNeo1NDaWFWE=;
- b=aXpNSIpxn/EXKangzcBmZcEl6ovKKBAcgF6l/KGTEFbir64kkizkSz6swoQf7ePA
- lFHlRmYkGJoHBpYuCw1VzdjIK+1uTi4NDpqomCn3eeVVdiHuN7+ie7OO4L601HZaWvS
- Y2I24cYq772rcV7IC7Qd08U5qWz2iUJYvEzj4xhw=
-Received: by mx.zoho.eu with SMTPS id 1787944047881609.5959396225994;
- Fri, 28 Aug 2026 21:07:27 +0200 (CEST)
-From: Narek Sarkissian <narek@sarx-technology.com>
-To: superm1@kernel.org
-Cc: alex.hung@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, kernel-dev@igalia.com, mario.limonciello@amd.com,
- mpearson-lenovo@squebb.ca, mwen@igalia.com, sunpeng.li@amd.com
-Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
- available for eDP
-Date: Fri, 28 Aug 2026 20:07:27 +0100
-Message-ID: <20260828190727.58724-1-narek@sarx-technology.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
-References: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5574710E1F9
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 16:15:56 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2cc891373e0so22557295ad.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 09:15:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788106556; x=1788711356; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ftpZeIMiNCY2OcgsJYMYoL7K7phvSKcRMGjOcwR8P9Y=;
+ b=FvFfzHqFt6Oj/P8j53CZGd2YTLFT7hyugYWLhLfKKkvK/zII1wKrfjg6/eDMS3ZZmR
+ pH1TkP3qceA6+LR+jn6L/QWru2ppsxaRPEhKWfLaOiZXC0LtzXJejWresgxowvrf4fVy
+ tqb51qrNcGpsNbBCKYJbnNNWf19fgIPhzkLotk6+lJK8lNdYGPbPir+A5Pmr+TOa981U
+ aYwmhT5bT/7R+G4ofcPnVYKC80G9HXrV4esrIeL/VO6OU2xob2Xxrb8pgGxmh5gb0sht
+ zB3kVw/Dt6FgJqgVQib+pGXscnw8f5Tr29jRs0i5eViZNo/M0j4RBPVfenuGG2jasLlr
+ 7JlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788106556; x=1788711356;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ftpZeIMiNCY2OcgsJYMYoL7K7phvSKcRMGjOcwR8P9Y=;
+ b=AtSqkXjaASqfY572q/PHNjFWkImMK45A54M418DhCUTx7GGx5UfpMCpz3P1cJH1qjd
+ NulYNR1xZnfHVONEGGy0sH3rXLIzp6VihuD/HInib0VnsXw0Za/JK1xO5J0E9ZR7xTia
+ rEH+F8VOqSoh5blB8NXGs00k42l5BuMkoCcXsW/xupbVKoRwP1HswMl4HW0UO2XMAxnG
+ ugpEwyxxLgrWk2smvuOZ+TpKg+WaY1Qod180r5PyyMW5MnlPu8uB56SxTF9B/GtISgov
+ o6NP2tWD3qxxprnLc1lUIXv2zc0vQNEi+v6HpoD1umLLISFiSnWHojNysF8BtCtZiq0l
+ oWKw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzdTbiwIMDxiOWrj4COGMtgP7Y87d/6inuviDU3CEMbmBL4vdH0CT+iEQuYWrF9xJyKNYDJs3UaipY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++meox8EHyNulX8yJ24jzqRwGhAkNurrv2LDfHgKj9fN2CPxSpK7
+ p+ZLvfbtI6H5ruUE6Y5swSAxd9+1fdU8b6QvogMtkJw7jy4v6PRRdPo9
+X-Gm-Gg: AYBFou32/RdZmyTzSyj8kA18m34oObUybIcj9QsrzkiRXJ/xi279vZHoSdjsy41AwS+
+ FcRqKDLGC7GKIRnwbNAobyOAIKAoK8zT6F41zxLIjh16oCCHC73aQKX44KZWQWqR7gHsC494sMv
+ TrJ3axrzbSQ7k1I+t4hYhDMxTJHJ7EO1C4nzuWh60G1gQtLTp54r6xOTF/X9FSa0J2tRqXFRGTD
+ 45TK7rixg5icrsUXm3/9KqFHZ9F/peYS21CieaST2/+MDUMo1JrpMlcU3raar8VhVASpNMAvoaD
+ AAp7TfZhZQuDWsu6J3pgQUTgfZpBUUg5Muo1cmBULVMFQ6U8Pz7J74Nb5sru6qeYY+5f2l8079A
+ v32JN8AeykoOa3RbAqHWvIyhQAR4nbzkDGLcip4P+8OnTiDv98AInUlV6U+BgmXAgAkK7utLb65
+ XOj9IVjMETJQdAQHn4D5/eXsDy/Bo58jmXO1wLjp5d7VbpmH+4iT6pSnX9QaGukvXCLExmZYw3f
+ g3Yrq6xgzg7EWjRKvY=
+X-Received: by 2002:a17:903:2c9:b0:2d9:6db:9fcb with SMTP id
+ d9443c01a7336-2d906dba09cmr88661175ad.11.1788106555702; 
+ Sun, 30 Aug 2026 09:15:55 -0700 (PDT)
+Received: from Kalpna.localdomain ([106.194.26.159])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d7598c3da2sm24396095ad.82.2026.08.30.09.15.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Aug 2026 09:15:55 -0700 (PDT)
+From: anshika <anshikajain196872@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dan Carpenter <error27@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ anshika <anshikajain196872@gmail.com>
+Subject: [PATCH] staging: fbtft: name the no-op endian modifier in
+ define_fbtft_write_reg()
+Date: Sun, 30 Aug 2026 21:45:29 +0530
+Message-Id: <20260830161529.14500-1-anshikajain196872@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,45 +91,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Mario, Alex, Alexander,
+Two of the three define_fbtft_write_reg() instantiations pass an empty
+modifier argument, which checkpatch flags as a fragile empty macro
+argument. Give the no-op case an explicit name instead of leaving it
+blank.
 
-Following up on this patch (c6a837088bed) with a regression report on a
-different Lenovo model.
+No functional change.
 
-On a ThinkPad T14s Gen 3 (AMD Radeon 680M / Rembrandt, DCN 3.1.2), this
-change causes the internal eDP panel to be capped at 60Hz even though
-the panel natively supports 90Hz. dm_helpers_read_local_edid() finds
-an ACPI-provided EDID via _DDC and uses it unconditionally, but on
-this machine that ACPI blob is a stale/incomplete copy of the panel's
-real EDID: it encodes only a 60Hz detailed timing, while a live DP AUX
-read of the same panel (Samsung Display, ATNA40YK08-0) returns 90Hz as
-the native/preferred timing plus 60Hz as a secondary mode. Both DTDs
-share the same pixel clock and htotal, so the ACPI copy looks like it
-was deliberately downclocked rather than being a different display.
+Link: https://lkml.iu.edu/hypermail/linux/kernel/2602.0/01917.html
 
-dmesg confirms the code path taken:
+Signed-off-by: anshika <anshikajain196872@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-bus.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-  amdgpu 0000:33:00.0: [drm] Using ACPI provided EDID for eDP-1
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff1..e03aa251c 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -10,6 +10,7 @@
+  *   void (*write_reg)(struct fbtft_par *par, int len, ...);
+  *
+  *****************************************************************************/
++#define cpu_to_cpu_endian(x) (x)
+ 
+ #define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
+ void func(struct fbtft_par *par, int len, ...)                                \
+@@ -62,9 +63,9 @@ out:									      \
+ }                                                                             \
+ EXPORT_SYMBOL(func);
+ 
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, cpu_to_cpu_endian)
+ define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, cpu_to_cpu_endian)
+ 
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+ {
+-- 
+2.34.1
 
-Booting with amdgpu.dcdebugmask=0x8000 (DC_DISABLE_ACPI_EDID) skips
-the ACPI EDID and forces the live AUX read, which correctly exposes
-90Hz and reports the panel's real vendor (Samsung) instead of Lenovo's
-ACPI-authored EDID (manufacturer/model LEN 16713).
-
-Full writeup with the EDID diff (byte-level comparison of the ACPI
-blob vs. the live-read panel EDID), environment details, and repro
-steps is here:
-
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5710
-
-Since this same unconditional ACPI-EDID preference apparently fixes
-T14 Gen 4 but regresses T14s Gen 3, an unconditional preference in
-either direction doesn't seem to work for all eDP panels globally.
-Possible directions raised in the issue: fall back to ACPI only when
-the live AUX read fails (inverting current priority), prefer whichever
-source has more/higher-refresh timings, or gate the ACPI-EDID
-preference behind a DMI-based quirk table scoped to the models that
-actually need it.
-
-Thanks,
-Narek
