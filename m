@@ -4,45 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D76BC61DE1
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 19:57:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7220EC61DE8
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 22:57:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B5B10E16F;
-	Sun, 30 Aug 2026 19:57:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k9Z+pPyg";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A21710E232;
+	Sun, 30 Aug 2026 22:57:37 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3174C10E16F
- for <dri-devel@lists.freedesktop.org>; Sun, 30 Aug 2026 19:57:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E881E10E228;
+ Sun, 30 Aug 2026 22:57:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D836D43D1F;
- Sun, 30 Aug 2026 19:57:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4F61F000E9;
- Sun, 30 Aug 2026 19:57:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788119859;
- bh=c7Q1bEueBVKo6eLEq4nylVlFjHoFofzqyV6AAXosIVc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k9Z+pPygn2nZvbAlJSTzqj8/W23Aj5cTvq1TZOaUNZ0JyS/mVLC/opvjkBU1YCoT5
- Qlky995gfv/N0+L6pZLJ3pUXvCMx/00aM3bP7Y9m+FxRNHao17z52Eai6i8Iudw1ch
- kmYiOKBGtB3txxFhhUIZLf9Lk3iYaTc5CB4oNOeh8tquSFVrun6N4F9mFLXV6lLLdt
- texgHa7PAi0jNELDtvbx38O84km8EIlnkqpd/okCDeioYon06UBzrIdvLvdQnJPdCc
- kZAh2WxlkZ59kA6BxhTS2HCD6jxXg2rrMskvGIUyzb5lk9AAMirTsSk7dToheZ3b0/
- vtwWdnRaiLmFw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] samples: rust_dma: separate driver type from driver
- data
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260830193824.471089-4-dakr@kernel.org>
-References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-4-dakr@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 19:57:39 +0000
-Message-Id: <20260830195739.6E4F61F000E9@smtp.kernel.org>
+ by sea.source.kernel.org (Postfix) with ESMTP id 8D4CA42B87;
+ Sun, 30 Aug 2026 22:57:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A0D1F000E9;
+ Sun, 30 Aug 2026 22:57:34 +0000 (UTC)
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Shuangpeng Bai <shuangpeng.kernel@gmail.com>, stable@vger.kernel.org,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Subject: [PATCH v2] drm/i915/gt: Fix request use-after-free in heartbeat()
+Date: Mon, 31 Aug 2026 00:57:08 +0200
+Message-ID: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,86 +43,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Missing generic lifetime parameter on Generic Associated Type (GAT)=
- `Self::Data`.
-- [Low] Type mismatch between `&pci::Device<Core<'_>>` and `&pci::Device<Bo=
-und>` in struct field initialization.
---
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-commit e990389a909f2dd12217de05acd654c0fd95ac40
-Author: Danilo Krummrich <dakr@kernel.org>
+heartbeat() detaches engine->heartbeat.systole with xchg() before
+checking whether the request has completed. If the request is complete,
+dropping the detached systole reference may free it. Concurrently,
+idle_pulse() can observe the empty slot and publish a newer request.
 
-samples: rust_dma: separate driver type from driver data
+The worker then sees a non-NULL engine->heartbeat.systole, but continues
+to dereference its stale local rq. The newer request can therefore make
+the shared-slot check succeed after the old request has been freed,
+causing use-after-free accesses to emitted_jiffies, submit, and sched.
 
-This commit splits the DmaSampleDriver into a driver type and a separate
-DmaSampleData struct for device private data. It updates the associated Data
-type to carry a lifetime bound, preparing for future changes to
-dma::Coherent.
+If the detached request is incomplete, heartbeat() can also overwrite a
+newer request published by idle_pulse() when it unconditionally restores
+the old pointer.
 
-> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-> index bd60034ded23a..0fac9d4ae566e 100644
-> --- a/samples/rust/rust_dma.rs
-> +++ b/samples/rust/rust_dma.rs
-[ ... ]
-> @@ -67,13 +71,13 @@ unsafe impl kernel::transmute::FromBytes for MyStruct=
- {}
-> =20
->  impl pci::Driver for DmaSampleDriver {
->      type IdInfo =3D ();
-> -    type Data<'bound> =3D Self;
-> +    type Data<'bound> =3D DmaSampleData<'bound>;
->      const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> =20
->      fn probe<'bound>(
->          pdev: &'bound pci::Device<Core<'_>>,
->          _info: Option<&'bound Self::IdInfo>,
-> -    ) -> impl PinInit<Self, Error> + 'bound {
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
->          pin_init::pin_init_scope(move || {
->              dev_info!(pdev, "Probe DMA test driver.\n");
-> =20
-> @@ -94,8 +98,8 @@ fn probe<'bound>(
-> =20
->              let sgt =3D SGTable::new(pdev.as_ref(), pages, DataDirection=
-::ToDevice, GFP_KERNEL);
-> =20
-> -            Ok(try_pin_init!(Self {
-> -                pdev: pdev.into(),
-> +            Ok(try_pin_init!(Self::Data {
+Use cmpxchg() both when idle_pulse() publishes a request and when
+heartbeat() restores the detached request. Drop the detached reference
+when restoration loses the race, and reload rq from the shared slot
+before dereferencing it.
 
-[Severity: Low]
-Does this code build without explicitly providing the lifetime parameter
-for the Generic Associated Type (GAT)?=20
+A KASAN-enabled i915 mock selftest reproduces the use-after-free before
+this change and completes without a report after the fix.
 
-Rust typically requires explicit generic parameters for GATs used in paths,
-so using Self::Data here might trigger a missing generics build error.
+Fixes: 4c71fd099513 ("drm/i915/gt: fix refcount underflow in intel_engine_park_heartbeat")
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Cc: <stable@vger.kernel.org> # v7.0+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Link: https://patch.msgid.link/20260808184302.1509585-1-shuangpeng.kernel@gmail.com
+---
+Hi,
 
-> +                pdev,
+I'm resending Shuangpeng's patch[*] so that it's tested by CI
 
-[Severity: Low]
-Is there a type mismatch during the struct initialization here?
+Andi
 
-The probe() function receives pdev as &'bound pci::Device<Core<'_>>, but
-the DmaSampleData struct definition expects &'bound pci::Device<Bound>:
+https://patchwork.freedesktop.org/patch/745366/?series=171942&rev=1
 
-struct DmaSampleData<'bound> {
-    pdev: &'bound pci::Device<Bound>,
-    ...
-}
+- Changelog:
+v2: Use the correct fix tag
 
-Since implicit Deref coercions do not apply to struct field initializations,
-this direct assignment could cause a compilation failure.
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 22 ++++++++++++++-----
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
->                  ca,
->                  sgt <- sgt,
->              }))
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index 6424ecce8bcb..fc6c53c93cf5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -81,10 +81,18 @@ heartbeat_create(struct intel_context *ce, gfp_t gfp)
+ 
+ static void idle_pulse(struct intel_engine_cs *engine, struct i915_request *rq)
+ {
++	struct i915_request *systole;
++
+ 	engine->wakeref_serial = READ_ONCE(engine->serial) + 1;
+ 	i915_request_add_active_barriers(rq);
+-	if (!engine->heartbeat.systole && intel_engine_has_heartbeat(engine))
+-		engine->heartbeat.systole = i915_request_get(rq);
++	if (READ_ONCE(engine->heartbeat.systole) ||
++	    !intel_engine_has_heartbeat(engine))
++		return;
++
++	systole = i915_request_get(rq);
++	/* The worker may have restored its detached systole in the meantime. */
++	if (cmpxchg(&engine->heartbeat.systole, NULL, systole))
++		i915_request_put(systole);
+ }
+ 
+ static void heartbeat_commit(struct i915_request *rq,
+@@ -152,9 +160,11 @@ static void heartbeat(struct work_struct *wrk)
+ 	if (rq) {
+ 		if (i915_request_completed(rq))
+ 			i915_request_put(rq);
+-		else
+-			engine->heartbeat.systole = rq;
++		/* Keep a newer pulse that raced with the detached systole. */
++		else if (cmpxchg(&engine->heartbeat.systole, NULL, rq))
++			i915_request_put(rq);
+ 	}
++	rq = READ_ONCE(engine->heartbeat.systole);
+ 
+ 	if (!intel_engine_pm_get_if_awake(engine))
+ 		return;
+@@ -163,11 +173,11 @@ static void heartbeat(struct work_struct *wrk)
+ 		goto out;
+ 
+ 	if (i915_sched_engine_disabled(engine->sched_engine)) {
+-		reset_engine(engine, engine->heartbeat.systole);
++		reset_engine(engine, rq);
+ 		goto out;
+ 	}
+ 
+-	if (engine->heartbeat.systole) {
++	if (rq) {
+ 		long delay = READ_ONCE(engine->props.heartbeat_interval_ms);
+ 
+ 		/* Safeguard against too-fast worker invocations */
+-- 
+2.55.0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830193824.4710=
-89-1-dakr@kernel.org?part=3D3
