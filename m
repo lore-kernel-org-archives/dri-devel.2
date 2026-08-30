@@ -4,33 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7220EC61DE8
-	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 22:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE081C61DD9
+	for <dri-devel@archiver.kernel.org>; Sun, 30 Aug 2026 23:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A21710E232;
-	Sun, 30 Aug 2026 22:57:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E881E10E228;
- Sun, 30 Aug 2026 22:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E22D510E2D3;
+	Sun, 30 Aug 2026 23:08:11 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eMLqMvBw";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 832E810E23C;
+ Sun, 30 Aug 2026 23:08:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D4CA42B87;
- Sun, 30 Aug 2026 22:57:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A0D1F000E9;
- Sun, 30 Aug 2026 22:57:34 +0000 (UTC)
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Andi Shyti <andi.shyti@kernel.org>,
- Shuangpeng Bai <shuangpeng.kernel@gmail.com>, stable@vger.kernel.org,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v2] drm/i915/gt: Fix request use-after-free in heartbeat()
-Date: Mon, 31 Aug 2026 00:57:08 +0200
-Message-ID: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by tor.source.kernel.org (Postfix) with ESMTP id 7077560120;
+ Sun, 30 Aug 2026 23:08:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88131F000E9;
+ Sun, 30 Aug 2026 23:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788131289;
+ bh=b1onlhSrnGqb0z7H3cY4B805Mh41bOrQ9tT2MDdJoJ0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eMLqMvBw5Ujp/wT3C7EIGTt1Exe/pW81jpWcis9erLzM4Skoc2gUvZ9Yaa0XcUUaZ
+ ywjGn2r+BoZU8m26mCkQD8RhfT9EMnBsYfKomEA+WpyGJu9aIRQx+ZIDE/o26RFUIn
+ 258RmMyZMSgRiNrJEFxi2xDTcLRAsQJrRZ68hRQmfMg5LOYn23j54flPMDHKp6TLdz
+ nUybwy38lPhEf+a1frXG5If8TQfPM9HEWCUV4xGiWOCSD0bLopmqQYrJ/OC+wYck82
+ YHl0s79lP3nxHfirChToomZrM+EfrRlTVUNT1tM2RTimm3u68h6hrehRkJx0rb/Rw1
+ V+igCGboLbzDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/i915/gt: Fix request use-after-free in heartbeat()
+To: "Andi Shyti" <andi.shyti@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
+References: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 30 Aug 2026 23:08:08 +0000
+Message-Id: <20260830230808.D88131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,107 +52,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-heartbeat() detaches engine->heartbeat.systole with xchg() before
-checking whether the request has completed. If the request is complete,
-dropping the detached systole reference may free it. Concurrently,
-idle_pulse() can observe the empty slot and publish a newer request.
+Pre-existing issues:
+- [High] heartbeat() dereferences the local pointer `rq` without holding a =
+strong reference, making it vulnerable to a Use-After-Free if intel_engine_=
+park_heartbeat() concurrently clears the shared pointer.
+--
 
-The worker then sees a non-NULL engine->heartbeat.systole, but continues
-to dereference its stale local rq. The newer request can therefore make
-the shared-slot check succeed after the old request has been freed,
-causing use-after-free accesses to emitted_jiffies, submit, and sched.
+commit aa7ae2412e3834bb064c9442f0f96ffd0058a8ae
+Author: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-If the detached request is incomplete, heartbeat() can also overwrite a
-newer request published by idle_pulse() when it unconditionally restores
-the old pointer.
+drm/i915/gt: Fix request use-after-free in heartbeat()
 
-Use cmpxchg() both when idle_pulse() publishes a request and when
-heartbeat() restores the detached request. Drop the detached reference
-when restoration loses the race, and reload rq from the shared slot
-before dereferencing it.
+This commit addresses a request use-after-free in heartbeat() by using cmpx=
+chg=20
+to manage the detached systole reference and replacing direct struct access=
+es=20
+with a local pointer.
 
-A KASAN-enabled i915 mock selftest reproduces the use-after-free before
-this change and completes without a report after the fix.
+Link: https://patch.msgid.link/20260808184302.1509585-1-shuangpeng.kernel@g=
+mail.com
 
-Fixes: 4c71fd099513 ("drm/i915/gt: fix refcount underflow in intel_engine_park_heartbeat")
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Cc: <stable@vger.kernel.org> # v7.0+
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Link: https://patch.msgid.link/20260808184302.1509585-1-shuangpeng.kernel@gmail.com
----
-Hi,
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/g=
+pu/drm/i915/gt/intel_engine_heartbeat.c
+> index 6424ecce8bcbe..fc6c53c93cf57 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+[ ... ]
+> @@ -152,9 +160,11 @@ static void heartbeat(struct work_struct *wrk)
+>  	if (rq) {
+>  		if (i915_request_completed(rq))
+>  			i915_request_put(rq);
+> -		else
+> -			engine->heartbeat.systole =3D rq;
+> +		/* Keep a newer pulse that raced with the detached systole. */
+> +		else if (cmpxchg(&engine->heartbeat.systole, NULL, rq))
+> +			i915_request_put(rq);
+>  	}
+> +	rq =3D READ_ONCE(engine->heartbeat.systole);
 
-I'm resending Shuangpeng's patch[*] so that it's tested by CI
+[Severity: High]
+This is a pre-existing issue, but does heartbeat() safely dereference rq
+without holding a strong reference?
 
-Andi
+If userspace toggles sysfs heartbeat intervals, intel_engine_park_heartbeat=
+()
+can execute concurrently, clearing the shared pointer and dropping the
+reference:
 
-https://patchwork.freedesktop.org/patch/745366/?series=171942&rev=1
+intel_engine_park_heartbeat() {
+    ...
+    rq =3D xchg(&engine->heartbeat.systole, NULL);
+    if (rq)
+        i915_request_put(rq);
+    ...
+}
 
-- Changelog:
-v2: Use the correct fix tag
+Since rq is loaded locklessly here without a reference bump, could this
+result in a Use-After-Free later in heartbeat() when accessing
+rq->emitted_jiffies?
 
- .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 22 ++++++++++++++-----
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-index 6424ecce8bcb..fc6c53c93cf5 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-@@ -81,10 +81,18 @@ heartbeat_create(struct intel_context *ce, gfp_t gfp)
- 
- static void idle_pulse(struct intel_engine_cs *engine, struct i915_request *rq)
- {
-+	struct i915_request *systole;
-+
- 	engine->wakeref_serial = READ_ONCE(engine->serial) + 1;
- 	i915_request_add_active_barriers(rq);
--	if (!engine->heartbeat.systole && intel_engine_has_heartbeat(engine))
--		engine->heartbeat.systole = i915_request_get(rq);
-+	if (READ_ONCE(engine->heartbeat.systole) ||
-+	    !intel_engine_has_heartbeat(engine))
-+		return;
-+
-+	systole = i915_request_get(rq);
-+	/* The worker may have restored its detached systole in the meantime. */
-+	if (cmpxchg(&engine->heartbeat.systole, NULL, systole))
-+		i915_request_put(systole);
- }
- 
- static void heartbeat_commit(struct i915_request *rq,
-@@ -152,9 +160,11 @@ static void heartbeat(struct work_struct *wrk)
- 	if (rq) {
- 		if (i915_request_completed(rq))
- 			i915_request_put(rq);
--		else
--			engine->heartbeat.systole = rq;
-+		/* Keep a newer pulse that raced with the detached systole. */
-+		else if (cmpxchg(&engine->heartbeat.systole, NULL, rq))
-+			i915_request_put(rq);
- 	}
-+	rq = READ_ONCE(engine->heartbeat.systole);
- 
- 	if (!intel_engine_pm_get_if_awake(engine))
- 		return;
-@@ -163,11 +173,11 @@ static void heartbeat(struct work_struct *wrk)
- 		goto out;
- 
- 	if (i915_sched_engine_disabled(engine->sched_engine)) {
--		reset_engine(engine, engine->heartbeat.systole);
-+		reset_engine(engine, rq);
- 		goto out;
- 	}
- 
--	if (engine->heartbeat.systole) {
-+	if (rq) {
- 		long delay = READ_ONCE(engine->props.heartbeat_interval_ms);
- 
- 		/* Safeguard against too-fast worker invocations */
--- 
-2.55.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830225708.3959=
+691-1-andi.shyti@linux.intel.com?part=3D1
