@@ -4,153 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2954C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C88E7C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 047D510E820;
-	Mon, 31 Aug 2026 13:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBF1110E614;
+	Mon, 31 Aug 2026 13:23:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XWYeHXO5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="laZ3y0F2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1C3610E816;
- Mon, 31 Aug 2026 13:14:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3F010E614
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788182051; x=1819718051;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=oPCKw2hHvlTmgO0mIE8Tr0HybCIyDHIoYuL+YCWnEeo=;
- b=XWYeHXO5c0XX9gnHR6V631ImuufDiyQ0WpBRRfD0T648eElu5f7iRFIs
- cTk6CzlnZE9DLQNjJt/m7rqQS8ghC4rWyGstRyyhMc/FiPGGH5tfkopUL
- gTWN8qklIyjGZGulHb+1yl4pU+Xh04GQw4L9O6IhSYkrJUPIkC7co0JI1
- e93j+evLikJ942aoF5j0tUCor5xF2Gomlg+p7PFvRUkWpx2UnJ/vpIBPB
- nR6iqXFr1wtH2mF8YyFcSTfiF0LuDyhB9rZ3yAzrPm+MkG7P8QRETsK7E
- hBE77hwuzelBt7tqU+7mQRvJWPciKjYXCjXVwTvmkJKHPy2yQSFP7RAEw A==;
-X-CSE-ConnectionGUID: 69y82xvyTVSOsJjTcdCqGg==
-X-CSE-MsgGUID: 7sI++zU5Qs6CfFnHzp2UoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92455715"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="92455715"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 06:14:10 -0700
-X-CSE-ConnectionGUID: BRt2BVsUSKeaEam6eFGTcQ==
-X-CSE-MsgGUID: 6TI1wjMoQgaXhaNKk1d2iw==
+ t=1788182595; x=1819718595;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=4/mxgQzTZlYhJ8Uu1WVGnWSEOmeRuUU0XS6quLN8b5s=;
+ b=laZ3y0F2uN+xenYv+2GhG8fGFq9YE9amMAJ9RPKW56eMKX5C08SGXVDZ
+ dRP4h9+gmvjmTrEVpH3UW+SsWCkhTOhn9owhF5rQrr6RrucwIpToIprdn
+ XCeF6jqicqO6d/cqSAfqc+WUuGPqwxDobpH+u6n8J4ejgA6z+Tn66PUhU
+ zHK6XYWO0Qc8/olgZKSgSwcMw/AiJGle2RQ55Cyq1xQbRfAJ5A+gZMP68
+ Pf1zyTVeK9QIcvfbL9cqrvJ9nY9FlceZV0yNbBlKX42hupy2AS2sB1nYe
+ e2ErzlmB1GXM7ui0gusRn5U6JxLkdaREAFzf1TfrLE6egNuKvbJeTVw/2 A==;
+X-CSE-ConnectionGUID: He8wkIdvS0y5TaGEYFbb6g==
+X-CSE-MsgGUID: tuiXwSAtTeO8680cX2Cy0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="105966387"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="105966387"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:23:15 -0700
+X-CSE-ConnectionGUID: lfLZGp65QS6Sh1ZNWZnXIQ==
+X-CSE-MsgGUID: lbd71b/ATBO3Q3hCKs0TkQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="272306453"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 06:14:10 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 06:14:10 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 06:14:10 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.23) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 06:14:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gjREPVJgaFdtOngYWCfF+3okm2Y1CF1For96lb0/6wLcPRhexxBAxh8sdd8XmEz0KoXvxzSSP03lHslxyCA/LhxW4629CMjryPdGEq4z12JstWesR0glbe44+SEjEH/XpEj3k7jCf8z7JoaBphQuZKyxdZaXybMZnjgXf/zdUquIaeeiL0B4Khlv0CFVukHD5emyTtYNM6nPBh+tjz9FMwv/D0anc53jKycXAAV4mbv0PaWoiALYY2B218WxgJhzXlMhO46eQEYPiiHDtD13Ll3Z4HRxBotfCyy4y8eR09ZPBzQzuEtCNQeubwpzOnKjlezKdJ7ZqRYiBYGG0nFMFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hD3hdmoxt9UtbOf7pSEUJOvR0XO1zYwXrFB7TcKBwfY=;
- b=CvdwQZC/lIr7LEVA2zMjIBaXuS8mTKb1+07IBk5rAZPvk523/0N1Aosei56q7zxb8RwPNDQpz8C2ct0ISYe69X+iY99y8jQ5UusfJDxmf1Rh0DsjtRVMzaBgUoYnbe/f3ke5lBGHJMtLllxLY43iVCTeDfNsmLFKG4KGxU3+6a5Z1cB1kR35oxsp7cgEd82ZWM+do26ZE01rDKjsT9UmaA58XRJZq1PyUaQPe4430afCoLXQGUiy8vugsQgeEaACgxRGdWkDx2YDuGdkGcEV8bvFmTMALo3BMlT73oGfFKt1fdSwLrYbZqqd7xRVAcHwXAgt2Jfn1Wk2v79NRJMrcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
- EA8PPF8DD15FF6B.namprd11.prod.outlook.com (2603:10b6:30f:fff5::795)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 13:14:01 +0000
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 13:14:01 +0000
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Subject: RE: [v6 5/9] drm/i915/display: Program CSC on SDR planes based on
- Fixed Matrix Colorop
-Thread-Topic: [v6 5/9] drm/i915/display: Program CSC on SDR planes based on
- Fixed Matrix Colorop
-Thread-Index: AQHdJBCP3uaGEOSzIUCuiB6bFmgut7a4TN7w
-Date: Mon, 31 Aug 2026 13:14:01 +0000
-Message-ID: <DM4PR11MB6360C811A6C06C5505882C15F4A92@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
- <20260804123107.2256124-6-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260804123107.2256124-6-chaitanya.kumar.borah@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|EA8PPF8DD15FF6B:EE_
-x-ms-office365-filtering-correlation-id: 33c6f148-416e-4e20-1309-08df0761b9ab
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|38070700021|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info: TjSVD5fmETE8hCYr8doJSL3J1JiHiUiSE8Z6OztJwYPggpvhaEujjRKl6wE8gy8X6hKswqZ8XtXTigI/+m4jPw7ALakR9UVOOcKx3WT/PEwYp4S0gi7jeD2XcI3BxBTX3WfZgZJ9Fr+yG6pOZsY9j+c5jqPZVgYOZY5umzAM/bD93ZQQmmmG+zvzN1jNWwLepEae5ytFl5tK8F9OZJ+mrgO+5+j7KAoyJK6NAmdRsQDYK/CfPSTG5ZvqQcc3CqjBI/Xg7m1ySLabPu2wgwEwL7t9Ia70YHoe5modTaAHCJINJPb24ktw/3tc2UBCzATrmT5VSOwzMIVUWqHqdeN+8uKFWja0xrLaq5WdRVo5lIEP/uc75buXPwImoG6+o3lgZEstwPHRbcZG7dJfuOa7nRz8/0yqTllSAXMzN1qViyiRqY9e8kltlfwIORcpM1qBRA46zW2KV4n31dXVaN7hrAbw4F5btaoZ+x1h5oOvOtR9PU0xxC5Q6FyVg6hce7aaYp4Y3QVuU3md2Qriff9zzFLpCMoscDU25eLkVbR8Ac73csAIsfVadoLWDliQJbpD4xc04sW+pSZGnETsQZGWHf+PN9T4tr0Ztw8xYRcOczJZZ2GFr5NI73nmdUD8ehp6rlYuB1vIt5nsOmRMRCrgRBWRYHnhl/yTpj4dj8QdPgrd4XQyF74SzuOI8rmzpytsnLs0d+TULkX7YlG4/qLT3QmCqs0/dx9tYmjnQ4UrsHE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(38070700021)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8422DBsWTip8gFWuHMynQu+RgB3+fg8DgbHdxjbq95AIdm/brLkINr+EtZIn?=
- =?us-ascii?Q?DaCkQpUa81+XF0fhIOcfUaPLYqoqQOeSAsnM1bIEw2AhHs9Iw1Se6Ox4hHmu?=
- =?us-ascii?Q?7uUzzZAKHovMc2P5WG2iqe1V/P4iXdI5Em3j0mUAeI8niynpen2kVZRVampi?=
- =?us-ascii?Q?YJIOfrloSeMXYhxovT+Gd+6xwBYmSA9u24IrIr/3HRAwKd/KeIscr0QvaNJJ?=
- =?us-ascii?Q?Do8IkFxcQuZlTQWokHjKFSNS0YHkEPS+eYVwambZVanvUoJ50kPhrBoYk2sh?=
- =?us-ascii?Q?lk/XCt/ngunZM77g2tReaGBFOCicu1uHCK+B8bcf4d9jUDwsuOfcMOx8G+fC?=
- =?us-ascii?Q?GHPsboJPIhZUdgwxnIfHKnb+meAAtt2yKN6vEJuS2eFZ+I0IcqsglRoOLwzk?=
- =?us-ascii?Q?u9LC59nzG67/fmajpcVyX4ZzcIVX5iDX0MgTp8jAvBA0ypB5py2za4DNqtoD?=
- =?us-ascii?Q?GGA0AfsGGfxXuautVhtX6YcUiEp8uRgZav9zJfWg/31SbkDkOS7kpm1RosFr?=
- =?us-ascii?Q?+gGOOV/nJ9Lhp51/wzvuy1vJUYRbYYLfQ3bZpjK0lGW8ulej+cxtgAM/e2l8?=
- =?us-ascii?Q?tl4JzrDh1KuVZj7wunbxiMmrcCuPT8WsTQAiECLH4kSMnA3DkXdXncKNQkQW?=
- =?us-ascii?Q?8arovKuP5/UjkfFrf0Y2EdfOHBcBqU7uFmEwHMm8su5FQfoy/1oojMMSPY9t?=
- =?us-ascii?Q?+GcjsvSIcDLRsCThDtUYmmLBkutIJ0WwiqGRRs6fpLc7Q1Wv+DVnuvov5fBi?=
- =?us-ascii?Q?ThWc4xf0GwQwlAcW6OQ3vhjiENMjJtrm9XSH9DZcqAxRnwoxBEFoLMdH++G0?=
- =?us-ascii?Q?d+hfanWW+0Ai1kssHpvPbGVROV31RJ8DnCBgqMLRCSolcf7Q/zEgoBCCdjOC?=
- =?us-ascii?Q?H48i5zizKCBnObuXBxY/YLMi+rT/bGsKpSPiXfJSg4gRzbrPOsd2wqMIBix+?=
- =?us-ascii?Q?Wy5ib8ZxwiC+Hf3VnBZmTcuuMDGZ5tEfq0R3sZSxuMYIEpTCFhcnbg68+s9W?=
- =?us-ascii?Q?a1rUI1q9Dg8pK/8UqhKNUdj+G55T3sLVAOTl+mzcMkY4ZLb9NP06W5qgWcse?=
- =?us-ascii?Q?XaACsJdF3b/af/AGjxNmLl/xtvAarZ3VL+kxp9rU0tZZITlZl31qA5EEnkKg?=
- =?us-ascii?Q?VYtf5hc9dCCqKQU704t+6eI0Ui0XlnuRWFPVT9VDYwyNI/Fdwqw3G6Ahujd0?=
- =?us-ascii?Q?cACM0JqxIRphKOF9nNn6ZjYgM/h6/efVPvviipNqba7/rLwb/Y5Qoqi47uNA?=
- =?us-ascii?Q?clvDr8uagLH5OAcIpCy/kjzhRMmC3zoEQrimMr2V5mvV6D1L00B0ag3w6z+f?=
- =?us-ascii?Q?k53VujpOrwAeQ96+t2Cd14EQ+aU+K3W3SEq5bZ/Yy0uQZJpGR2mA4IuZ+7uz?=
- =?us-ascii?Q?a+wgFM4UU3D1a097/wVqI27+u5fha4suTe2QsxUcm5zptNd6yh/TdZWbvfrc?=
- =?us-ascii?Q?atSR8Oe2/uvoK2HwNNoMBp1vvMGe1gnQh6Tf15phKVIMa+tTiGh6+8r9FTFO?=
- =?us-ascii?Q?nhKBszMwgXFmfncH1WUc4W35GZIvSnmKPTHt38zNKP+GUcWf0uk3Gt1YYW0J?=
- =?us-ascii?Q?UTjK/V5P6Sx6X4rLIJV8BcD6eIbS+T8aQ0uCgmpqqWQHLrKHRfmB7rphoHIP?=
- =?us-ascii?Q?FmBkGAn7tLrCkOOgKTb9VJ3gULhiecOa/oN8w+VX4ETikA8FR2/kvQzUYVrM?=
- =?us-ascii?Q?fISa5N29JNq/a98NoeW/Vq1cEqRAOIFj2FW8vXbEFHwAqypVhTuSLGNUkZm3?=
- =?us-ascii?Q?IIgjg9KxqQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="292301307"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.22])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:23:12 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ ardb@kernel.org, ilias.apalodimas@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 3/3] drm/sysfb: Use preferred panel size for panel
+ orientation quirks
+In-Reply-To: <20260831093020.494701-4-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260831093020.494701-1-tzimmermann@suse.de>
+ <20260831093020.494701-4-tzimmermann@suse.de>
+Date: Mon, 31 Aug 2026 16:23:09 +0300
+Message-ID: <81d5820013693b38a88084d6818c5809373c16c2@intel.com>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: xG5TmeA2egNiKDFy+JTaQ8dfbYw+dCM8O9hfUaTy/iib9Oy42IuKXt1uMMn4BdoD+BuQ4gbxT3tT8+gNC5YXjYQa0xsaDIHC2nuWOmEc2emB3UJQp1ojS6FMjqEIOuGavGMKEKmeqZJBa/2rbiqd+7StDJsG9yMa3r28FkQWV2Tkq+/+Yhr64Iob35b8bTzqcnBq05ZNeQM25hMhHh8QEe4767c8fFmobR35AL03qmSgnMGzcd3DJyqhrTAdqt1i5QTqgXkT7aCBUBBlP1sSMe0COg+GpBzitqIM06vbg3he94jwEg1dQ8+kXyvcaXpe26KNgyLv2VCBe7xwF3naNQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33c6f148-416e-4e20-1309-08df0761b9ab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 13:14:01.7899 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lbfXbmWvKWElaj75fer1vstN4hU1WJf/U890iRZVAuqxU+00WOxHLMUuu9xubtgpV2uIxh5M3Rpsq5NlbGr/cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA8PPF8DD15FF6B
-X-OriginatorOrg: intel.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,172 +75,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ch=
-aitanya
-> Kumar Borah
-> Sent: Tuesday, August 4, 2026 6:01 PM
-> To: intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; dri-
-> devel@lists.freedesktop.org
-> Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
-> Subject: [v6 5/9] drm/i915/display: Program CSC on SDR planes based on Fi=
-xed
-> Matrix Colorop
->=20
-> When a color pipeline is active, program the SDR plane fixed-function CSC=
- based
-> on the Fixed Matrix Colorop's state. Re-use the existing plane state vari=
-ables for
-> color_range and color_encoding. Track the bypass state explicitly as a bo=
-olean
-> since bypass is managed separately from the FIXED_MATRIX enum value in th=
-e
-> colorop framework. Keep the programming based on color_encoding/color_ran=
-ge
-> legacy properties intact.
-
-Looks Good to me.
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-
-> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Sysfb drivers currently use the given display mode for looking up the
+> panel orientation. But the look-up table stores the native geometry of
+> the panels, so the lookup fails if the current mode sizes differs.
+>
+> Get the panel's native geometry with drm_edid_get_preferred_size() from
+> the EDID and use it for looking up the panel orientation.
+>
+> v2:
+> - ofdrm: validate EDID header before using it (Sashiko)
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Ard Biesheuvel <ardb@kernel.org>
 > ---
->  .../drm/i915/display/intel_display_types.h    |  1 +
->  drivers/gpu/drm/i915/display/intel_plane.c    | 53 ++++++++++++++++++-
->  .../drm/i915/display/skl_universal_plane.c    |  4 +-
->  3 files changed, 55 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h
-> b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index 20a07ea06b5e..beb0169cabef 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -683,6 +683,7 @@ struct intel_plane_state {
->  		enum drm_color_range color_range;
->  		enum drm_scaling_filter scaling_filter;
->  		struct drm_property_blob *ctm, *degamma_lut, *gamma_lut,
-> *lut_3d;
-> +		bool csc_ff_enable;
->  	} hw;
->=20
->  	struct i915_vma *ggtt_vma;
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c
-> b/drivers/gpu/drm/i915/display/intel_plane.c
-> index d0f99a87c42e..25ca049009ef 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
-> @@ -462,6 +462,42 @@ intel_plane_colorop_replace_blob(struct
-> intel_plane_state *plane_state,
->  	return false;
->  }
->=20
-> +static u32
-> +fixedmatrix_colorop_to_encoding(enum drm_colorop_fixed_matrix_type
-> +fm_type) {
-> +	switch (fm_type) {
-> +	case DRM_COLOROP_FM_YCBCR709_FULL_RGB:
-> +	case DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
-> +		return DRM_COLOR_YCBCR_BT709;
+>  drivers/gpu/drm/sysfb/efidrm.c  | 17 ++++++++++++++++-
+>  drivers/gpu/drm/sysfb/ofdrm.c   | 18 ++++++++++++++++--
+>  drivers/gpu/drm/sysfb/vesadrm.c | 17 ++++++++++++++++-
+>  3 files changed, 48 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
+> index 3f9cd5d03efb..7a7d12003304 100644
+> --- a/drivers/gpu/drm/sysfb/efidrm.c
+> +++ b/drivers/gpu/drm/sysfb/efidrm.c
+> @@ -152,6 +152,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>  	const struct screen_info *si;
+>  	const struct drm_format_info *format;
+>  	int width, height, stride;
+> +	unsigned int panel_width, panel_height;
+>  	s64 vsize;
+>  	u64 mem_flags;
+>  	struct resource resbuf;
+> @@ -217,6 +218,20 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>  	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>  		sysfb->edid = dpy->edid.dummy;
+>  #endif
 > +
-> +	case DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
-> +	case DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
-> +		return DRM_COLOR_YCBCR_BT2020;
+> +	panel_width = width;
+> +	panel_height = height;
 > +
-> +	case DRM_COLOROP_FM_YCBCR601_FULL_RGB:
-> +	case DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
-> +	default:
-> +		return DRM_COLOR_YCBCR_BT601;
+> +	if (sysfb->edid) {
+> +		const struct drm_edid *drm_edid;
+> +
+> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+> +		if (drm_edid) {
+> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+> +			drm_edid_free(drm_edid);
+> +		}
 > +	}
-> +}
 > +
-> +static u32
-> +fixedmatrix_colorop_to_range(enum drm_colorop_fixed_matrix_type
-> +fm_type) {
-> +	switch (fm_type) {
-> +	case DRM_COLOROP_FM_YCBCR601_FULL_RGB:
-> +	case DRM_COLOROP_FM_YCBCR709_FULL_RGB:
-> +	case DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
-> +		return DRM_COLOR_YCBCR_FULL_RANGE;
-> +
-> +	case DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
-> +	case DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
-> +	case DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
-> +	default:
-> +		return DRM_COLOR_YCBCR_LIMITED_RANGE;
-> +	}
-> +}
-> +
->  static void
->  intel_plane_color_copy_uapi_to_hw_state(struct intel_atomic_state *state=
-,
->  					struct intel_plane_state *plane_state, @@
-> -474,6 +510,7 @@ intel_plane_color_copy_uapi_to_hw_state(struct
-> intel_atomic_state *state,
->  	struct drm_property_blob *blob;
->  	struct intel_crtc_state *new_crtc_state =3D state ?
->  		intel_atomic_get_new_crtc_state(state, crtc) : NULL;
-> +	enum drm_colorop_fixed_matrix_type fm_type;
->  	bool changed =3D false;
->  	int i =3D 0;
->=20
-> @@ -485,11 +522,23 @@ intel_plane_color_copy_uapi_to_hw_state(struct
-> intel_atomic_state *state,
->  	while (iter_colorop) {
->  		for_each_new_colorop_in_state(&state->base, colorop,
-> new_colorop_state, i) {
->  			if (new_colorop_state->colorop =3D=3D iter_colorop) {
-> -				blob =3D new_colorop_state->bypass ? NULL :
-> new_colorop_state->data;
->  				intel_colorop =3D to_intel_colorop(colorop);
-> -				changed |=3D
-> intel_plane_colorop_replace_blob(plane_state,
-> +				if (intel_colorop->id =3D=3D
-> INTEL_PLANE_CB_CSC_FF) {
-> +					fm_type =3D new_colorop_state-
-> >fixed_matrix_type;
-> +
-> +					plane_state->hw.csc_ff_enable =3D
-> +						!new_colorop_state->bypass;
-> +					plane_state->hw.color_encoding =3D
-> +
-> 	fixedmatrix_colorop_to_encoding(fm_type);
-> +					plane_state->hw.color_range =3D
-> +
-> 	fixedmatrix_colorop_to_range(fm_type);
-> +				} else {
-> +					blob =3D new_colorop_state->bypass ?
-> +						NULL : new_colorop_state->data;
-> +					changed |=3D
-> intel_plane_colorop_replace_blob(plane_state,
->=20
-> intel_colorop,
->  									    blob);
-> +				}
->  			}
->  		}
->  		iter_colorop =3D iter_colorop->next;
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> index 73be4c6ff1d3..222c3b6bbe46 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -1245,9 +1245,11 @@ static u32 glk_plane_color_ctl_input_csc(const str=
-uct
-> intel_plane_state *plane_s
->  	struct intel_display *display =3D to_intel_display(plane_state);
->  	const struct drm_framebuffer *fb =3D plane_state->hw.fb;
->  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
-> +	bool color_pipeline =3D !!plane_state->uapi.color_pipeline;
-> +	bool needs_csc =3D color_pipeline ? plane_state->hw.csc_ff_enable :
-> +fb->format->is_yuv;
->  	u32 ctl =3D 0;
->=20
-> -	if (!fb->format->is_yuv)
-> +	if (!needs_csc)
->  		return 0;
->=20
->  	if (!icl_is_hdr_plane(display, plane->id)) {
-> --
-> 2.50.1
 
+Unrelated to the patch at hand, but does all of this code assume EDID is
+always just one block? Scary. The whole sysfs->edid being a u8 pointer
+without size feels like a footgun.
+
+Here, the above should work, but I've been kind of hoping to eradicate
+EDID_LENGTH assumptions and calculations from everywhere outside of
+drm_edid.c, because it's complicated.
+
+
+BR,
+Jani.
+
+
+>  	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
+>  	sysfb->fb_format = format;
+>  	sysfb->fb_pitch = stride;
+> @@ -340,7 +355,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>  	drm_connector_helper_add(connector, &efidrm_connector_helper_funcs);
+>  	drm_connector_set_panel_orientation_with_quirk(connector,
+>  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+> -						       width, height);
+> +						       panel_width, panel_height);
+>  	if (sysfb->edid)
+>  		drm_connector_attach_edid_property(connector);
+>  
+> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
+> index 9d60db45139c..a0a865aee098 100644
+> --- a/drivers/gpu/drm/sysfb/ofdrm.c
+> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
+> @@ -229,7 +229,7 @@ static const u8 *display_get_edid_of(struct drm_device *dev, struct device_node
+>  {
+>  	int ret = of_property_read_u8_array(of_node, "EDID", buf, EDID_LENGTH);
+>  
+> -	if (ret)
+> +	if (ret || drm_edid_header_is_valid(buf) != 8)
+>  		return NULL;
+>  	return buf;
+>  }
+> @@ -828,6 +828,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>  	enum ofdrm_model model;
+>  	bool big_endian;
+>  	int width, height, depth, linebytes;
+> +	unsigned int panel_width, panel_height;
+>  	const struct drm_format_info *format;
+>  	u64 address;
+>  	const u8 *edid;
+> @@ -998,6 +999,19 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>  		sysfb->fb_gamma_lut_size = OFDRM_GAMMA_LUT_SIZE;
+>  	sysfb->edid = edid;
+>  
+> +	panel_width = width;
+> +	panel_height = height;
+> +
+> +	if (sysfb->edid) {
+> +		const struct drm_edid *drm_edid;
+> +
+> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+> +		if (drm_edid) {
+> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+> +			drm_edid_free(drm_edid);
+> +		}
+> +	}
+> +
+>  	drm_dbg(dev, "display mode={" DRM_MODE_FMT "}\n", DRM_MODE_ARG(&sysfb->fb_mode));
+>  	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, linebytes=%d byte\n",
+>  		&format->format, width, height, linebytes);
+> @@ -1069,7 +1083,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>  	drm_connector_helper_add(connector, &ofdrm_connector_helper_funcs);
+>  	drm_connector_set_panel_orientation_with_quirk(connector,
+>  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+> -						       width, height);
+> +						       panel_width, panel_height);
+>  	if (edid)
+>  		drm_connector_attach_edid_property(connector);
+>  
+> diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
+> index 6a67b2d2e451..8c52bbac6d2f 100644
+> --- a/drivers/gpu/drm/sysfb/vesadrm.c
+> +++ b/drivers/gpu/drm/sysfb/vesadrm.c
+> @@ -402,6 +402,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>  	const struct screen_info *si;
+>  	const struct drm_format_info *format;
+>  	int width, height, stride;
+> +	unsigned int panel_width, panel_height;
+>  	s64 vsize;
+>  	struct resource resbuf;
+>  	struct resource *res;
+> @@ -484,6 +485,20 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>  	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>  		sysfb->edid = dpy->edid.dummy;
+>  #endif
+> +
+> +	panel_width = width;
+> +	panel_height = height;
+> +
+> +	if (sysfb->edid) {
+> +		const struct drm_edid *drm_edid;
+> +
+> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+> +		if (drm_edid) {
+> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+> +			drm_edid_free(drm_edid);
+> +		}
+> +	}
+> +
+>  	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
+>  	sysfb->fb_format = format;
+>  	sysfb->fb_pitch = stride;
+> @@ -585,7 +600,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>  	drm_connector_helper_add(connector, &vesadrm_connector_helper_funcs);
+>  	drm_connector_set_panel_orientation_with_quirk(connector,
+>  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+> -						       width, height);
+> +						       panel_width, panel_height);
+>  	if (sysfb->edid)
+>  		drm_connector_attach_edid_property(connector);
+
+-- 
+Jani Nikula, Intel
