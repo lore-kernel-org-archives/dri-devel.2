@@ -4,128 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A6EFC624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E45CC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C50B10E66B;
-	Mon, 31 Aug 2026 07:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 353E510E6C2;
+	Mon, 31 Aug 2026 07:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nEI6cl5/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PWnBHq8Q";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010069.outbound.protection.outlook.com [52.101.46.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43CD610E66B;
- Mon, 31 Aug 2026 07:37:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ji6GhECikTUI8PGMSZ2dgbSzDwI8KDs3Swr9+pUxhOQwtXtDM4PpKuBpj7lUzw+2z8//UbE1koDTNHXMYkJ9fbGFlJwObwv93fGJsDj+ZJn21urk7t3ILWJDxhovd7dBxL9o7if+Eur1yOlaZHS7UZJ8llNB2hZF5yg32G1QKkGxtDLpjGQGBzW/mdewANckB8bKXdqrkPx6VI9Y80JxiK2iuC7fPd+xaE6S28E4tTQs+RZ2kYJgPI+Vja/mRC0pmd8Fl40tcLZTI27sMok0IRyBXDfDotKO6GFiug48rucfUyN9rBoCUi4aztp+PuZOdpYc1SDm1i+1fFwT3+9EKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=npY1bQO7qbXC1p5nUi+mlLlps32nRVoS0FIWiypX+TI=;
- b=s/lVFQ1YXAFbj0RwwMHFWLAa9RDcfY0/Qt4zNGAQK3QB27n5a0RSjAD8qDi2SrgUQxJdcBDEvyHMe1iMK5ioP5qRfJJxiiuSjADjyfRzLSazAqlBHvhfcXNSvMCF1ArJMdgEnQ64Y/zmZZTiz9bK5SOMtRtijxxkY8lNoiKKkDOF9zMb/LNJLJDTNfdCBVXy2eV+KuydUefUJchA2ssXcl42x6gHRmLxt9VNPBCSz86WgPX0ySk0bKFrSTrEJzcTgt1B9jxhT4rBBkcOMKKvThpaibj27XVc81UaIdFqz+6L11f7AfqsnEBilyr1guVwa0p6uiQbtvJhO7xxplxFXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=npY1bQO7qbXC1p5nUi+mlLlps32nRVoS0FIWiypX+TI=;
- b=nEI6cl5/bB2+vEmwnyjD72IX0ecU6ydu8UAqVQDo5itVvEf77s7pH8XO+kcuo5t3VLz62weXO6Fa8pauvCPsE6UmhJh1FAWZIoeT6Id7NkPomDpQa1L9SCm2duBJfxI5pqTxxuj9VFScWzjDCR7RJcz6y/RGge74oO/jXBnxdQY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8838.namprd12.prod.outlook.com (2603:10b6:208:483::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Mon, 31 Aug
- 2026 07:37:14 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
- 07:37:14 +0000
-Message-ID: <c359b608-c6af-4cb8-a750-a29b5b26180e@amd.com>
-Date: Mon, 31 Aug 2026 09:37:10 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] dma-buf: Add reference counting to dma_resv
-To: Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: christian.koenig@amd.com, thomas.hellstrom@linux.intel.com,
- ecourtney@nvidia.com, nat@pixelcluster.dev, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20260827124910.2245-1-christian.koenig@amd.com>
- <20260827124910.2245-2-christian.koenig@amd.com>
- <DL0SABOU2QO9.20AA8OP9CXXA5@kernel.org>
- <apHe5YcWWiZF4i2Z@gsse-cloud1.jf.intel.com>
- <apHiw91fFbKuogDJ@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <apHiw91fFbKuogDJ@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0006.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::16)
- To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F4810E6C2;
+ Mon, 31 Aug 2026 07:39:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788161968; x=1819697968;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=BSX4JPsTUA1rhCA4YtPNJ8wqYMmJwWqrUrTT6yZORII=;
+ b=PWnBHq8QZSs+1va32XQy+cezqNB7g+c1DaiMqJTrpS1nG37aKKA1gQZu
+ y7D7sttxu5K4xFm77BWIXijVflMH4WlGzKRFThK9wAPiqzW9Kp7iRyTqL
+ X/tb+mT1J6syoygefRXBQcG2fAPtkaQZDAX0+Ukq+E8dMcrsVMmOiT0Wt
+ 1PVzfrmNYL8mZBahIOcOIVGchCEADBQtAWSNJdPLRRT1Agx4y9iDd9inL
+ 17RphW7Jaar9PNoGsIBjxgo7Nd6hBwr9e8CXgoyyJ/0NPDpF1ipxF1016
+ p0uursDUeyP+1GcJLf3izGNjQ8uoAga5M6+F8lwRMyJioUIBIlXzdPcOo w==;
+X-CSE-ConnectionGUID: GDzVLGrsRCyKHwIys32nzw==
+X-CSE-MsgGUID: R96DXOtlQrSukfL5cSXZlA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="114098586"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="114098586"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 00:39:09 -0700
+X-CSE-ConnectionGUID: jC1wsiNNSiGuHFJsHoTFqw==
+X-CSE-MsgGUID: zcC8wP6zRN6l3LDIsV0h4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="306966919"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.22])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 00:39:07 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Eduardo Diaz <iamedu@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Eduardo
+ Diaz <iamedu@gmail.com>
+Subject: Re: [PATCH] drm/i915/cdclk: Don't trust boot readout for per-pipe
+ cdclk/voltage tracking
+In-Reply-To: <20260830161703.11570-1-iamedu@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260830161703.11570-1-iamedu@gmail.com>
+Date: Mon, 31 Aug 2026 10:39:03 +0300
+Message-ID: <c2603413d2af50854a620c5966149495b36dc851@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8838:EE_
-X-MS-Office365-Filtering-Correlation-Id: f947525f-e1b1-4ede-2755-08df0732ad39
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: GIWC3Vl7hC0sSIBPy5I7rR1i/u3XcYwk125E+WkQyDUfa6oPOxdMKopVml98LIWV9bPuVQ7QJvis1bOK9Lt63VwMwkrfRFnX1jtTA8KcyNOQw5ZK8dgL+WzMmQllLI4z9/RyqmaeoWupN8GIBZqhE/EwhNbB1CwR/mw/tE4muBUC0XDomneMBl24rWbFJlxHr5ae4ZfJPErh8QiNRWC8MN3R0ndQ65YqtlhyZHmRPs0L09Me/R06WPZYiTKDwUjutiGMjtwuNfsv6hWiztRALiONQ2CG4Iz5qy9JxsXXZ99djxF+70ylvx9nt+Inx2DGl9tWWLA3Vrh4gynoaD1KSB7iA8I87gXxcf5I084/Msv+RaBNU1US7fELvXuKd7a8eCZwTk59qIulSVwhsDu1mq6M1oikkgz9NoQDfPVQjcqRbIr19gNBk/M9h1psVcHaowxMLIko+YZZXVImdwo5VmWkHI4Tv0VKdxNXTUdmc3syHIxLpQo9iHDUs5QftEHgkfthdyBy4+wcS3qD+Ot61vg5PAfgodbmvkB88GQeaXKHkat7PhPpl30+uXWVphnZ6BOpyJgtbiBC/hUG2uGeFZtXHe4E/SbkY4LIwp6iGJJZmzuCQzJ7wMtXUuFDWkZd
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzY1Z3c3bXlkbWtUeFJPbFA0WXFDc21TSmxHejNuMXdaYm1pSFpFZkhGamRS?=
- =?utf-8?B?dmNRZHNZWEFGY0J4Y3hwMDVpT2MweDZIUnp4ZXFacFArUVc0aFZJNWUyZkZR?=
- =?utf-8?B?VXBKcWQ0dE5jRHFoQ0J6c1pPLzJZTEpVbnRQOWFGdUpaaTNlYTFGYmVSNVZD?=
- =?utf-8?B?NlZHNEZ5TTJyU0d3ZFNaMG9kQ2EzVmlIZFlxWHFLUWg5bG1aaDZBdllsY0ND?=
- =?utf-8?B?dHlZSmROdHFYL2hrbWIxYUNBSUhBV3BTbmhKcmFJVVNjeFZMSS9QMklRYm1P?=
- =?utf-8?B?azErVDJ0R2lsTExDVjVFY05NMHJ3alNxb3M2Nm5nN3ArcTZaVG5DYU9zYXFt?=
- =?utf-8?B?VzVSc2hMTkxQMFBFV0lSM3NQTFhEdmgyanJwWUJKclF3b1VYbmNsVS91NDEx?=
- =?utf-8?B?eVNDS0F4WXh6azlGRm5jUW1nSWhCdmNDdjlqL2lPQ0dVNEhGdTdLRUFTdmwz?=
- =?utf-8?B?M0kwQm5vNVFWNmNpaHVaOS9XYzBKaE11ZS9wSEpUTlpQVmMwZmJDdyszMEIv?=
- =?utf-8?B?ZktueFpJbjN5eGk0OTNnZVk2Qy9iZEFSWFR0Y2dmZHNQK0N4TzlHQkl6M0Nh?=
- =?utf-8?B?QXo2SWtwOW1NQjc0eXJkYWd2ZGV0Y1JETHlHd2VPcUx0MXJaUWg2R3RWZUFa?=
- =?utf-8?B?cWtBRHVhbUJyNnU4Lzg3RStOelRlbFJLSWxLeVFId1RPM1RRZ0FNU1NHTnZ3?=
- =?utf-8?B?c2Nha29EV3NUTlF4OHJMZlhBakNnWXdrdEp1OHdnODZXYUg5cW12UEJDdWVU?=
- =?utf-8?B?RXdZUlFZenZka3N1Nkh4bWZUV29PSGYxSHlld0RzOW5rL0ZEVEZPck1WRVZI?=
- =?utf-8?B?SFY4WWwyWkZuVmMwcXZUcXVrU0xhM0NZNzgvbS9QN2dCZDhvUFhrOVFzMTNO?=
- =?utf-8?B?bGhSWDh0cnZBbkxkeUFTbVpDd3RmMjIyWWluL1VQcHhBUEs2UTJrZU1lNi9H?=
- =?utf-8?B?eFYyNFo5YnNwVWJqN25uSklKaFk5bmM2UlljbjFZZE5QNXNab0locDBCV0Nt?=
- =?utf-8?B?MFlVSVpKakI4RW5IQ2FZMGFhTUZsS2hwS3dLbnpNZHF3K0hkNWg1azFLY2xR?=
- =?utf-8?B?RUZZUTUwMEdIUTY5R0VFM2R1RG80Vkw4elVEMEJ5emRqeU5ZR21ST0hrNTNE?=
- =?utf-8?B?Sjd4VmRJdUd3dlNOK01TRVh3QmFUanJDcnA4QWVsVW5EUWZPL3dvbFhzb29u?=
- =?utf-8?B?emQ4d1pEOVBtdGdCV2hDZlJ4TkVUcnkvRkJYWGFPY2JnMEhMME9NY0xLd1l3?=
- =?utf-8?B?Umxrc2k4Yk5Kdkxjb0hzdFlOMHlGbzM1cm9hK2gwNWh4UjRXcmUyUDNGbTdm?=
- =?utf-8?B?WjFpb0RuU1JkZkhPL2Fva2Fmc2NEWFBpczNKazN3cXpGZ0Jtb050KzRpckcr?=
- =?utf-8?B?SS9FYXUrQ0tRd2d3VEl6TC9kcjZjaFRuWS9zTk9oeUFTd0REVmVja1Rjd0J1?=
- =?utf-8?B?dmtXbTZwYXkxNUl2Q2F3WGgydVMrNDMya2hNT081bnQ0emtRYnVoS0Fqb0ly?=
- =?utf-8?B?SDBNMGh6UDNsWmNteWdBSDlJa0ZJVkdsM1Nqc3hDMlFBaldBSnc0dmhiaWF3?=
- =?utf-8?B?eWpFbnVNM3RoZnhXUzJXTUtLQUZtV0crdDIvWWpacXg3bzg3enJWNUs1UDBN?=
- =?utf-8?B?MzB0L3Flb2prbDhwOTRkWGx3dFN3VzRuRC8vUDZ3VTZYS0hSVW9mREFYNFRz?=
- =?utf-8?B?T1ZJZWVZVUxiS0Y2aXl0WlR4ZkJwSjVNTUlzNlBudWtFOVl4TzZMR1NMOHNL?=
- =?utf-8?B?SkZsS2xpMExYd3dZOC9RRjd4cW1vbC9PcDVJQVAzUjlwVHlJV3hBcFRJbElN?=
- =?utf-8?B?QzFram5tRXpJbHc1K3pNVjAvQnNXeFBDRW9ZeFZUSDQrUU9sZ0h3VVY0aTQr?=
- =?utf-8?B?WFN3VnhzRXFhZkZxb1FmajN2SlQrWndyY096ZkcwRnNwSTFhUGpKVHZEWlIz?=
- =?utf-8?B?ZXJFRUVnRTVQZU4xVXE4UkhVL0MvYjFzbTFTOWF6MGJweGNHYWUzMElJcHB0?=
- =?utf-8?B?TGZIK2tyS3p6dGZqRlUwb3ZnYUo0cjZnbnRwT1AyNmQySThHMXMvL0pObkdq?=
- =?utf-8?B?K254eVJzbmdXY2ErcDRVa3JNU2xSZDFoNWdxZHdnNTRIbFlGTmpyK2NDZTVE?=
- =?utf-8?B?cngrVnZkeE03T3BvWmRlZDdpblRTbWJ0V2VEbXN2TzNZdFdIQXRwVHhmNGhw?=
- =?utf-8?B?Ty93eE0yUkc1UTZFaG15bkVqeEp2dWQ4SVNOMGc1QmxDWnk5UGg0WTBzaDYr?=
- =?utf-8?B?OHN0Rlg2akRWMlB6dWFFZHpxT3hVSzZyM0NNck5sMTJ3MFlZMVhLRHE3YWZW?=
- =?utf-8?Q?bWaLO1iE4WC+RDT02e?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f947525f-e1b1-4ede-2755-08df0732ad39
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 07:37:14.7018 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G8boiKH0yCGCBpPOv5NPwk6QhYoA9eLDcyC3xPLNfmz2a9mGdO0Ze8m5PQPibeya
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8838
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,55 +75,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/28/26 21:34, Matthew Brost wrote:
-> On Fri, Aug 28, 2026 at 12:17:57PM -0700, Matthew Brost wrote:
->> On Fri, Aug 28, 2026 at 08:21:17PM +0200, Danilo Krummrich wrote:
->>> On Thu Aug 27, 2026 at 2:38 PM CEST, =?UTF-8?q?Christian=20K=C3=B6nig?= wrote:
->>>> This provides clearer ownership semantics and makes the code more
->>>> maintainable by removing the embedded allocation hack.
->>>
->>> Again, fundamentally disagree; please see [1] for details and reasons.
->>>
->>
->> I think Christian is doing this incrementally rather than as a single
->> change across the tree. The last patch [2] in the series removes
->> `dma_resv_init` and the `allocated` flag. I believe that was the main
->> concern, and it appears to be addressed now.
->>
->> I'm taking the series for a spin now, as our CI [3] had trouble applying
->> this patch. I'll let you know what my testing shows.
->>
-> 
-> I ran our basic CI suite and didn't see any regressions. I also ran some
-> eviction and shrinker tests that stress interactions with active fences
-> and exercise individualization paths, and those passed as well.
+On Sun, 30 Aug 2026, Eduardo Diaz <iamedu@gmail.com> wrote:
+> On Panther Lake (xe3lpd) laptops, cold boot reliably corrupts the
+> internal eDP panel: pipe A gets a "Selective fetch area calculation
+> failed in pipe A" warning immediately followed by a CPU pipe A FIFO
+> underrun, and the panel stays corrupted for the rest of the session.
+> A subsequent suspend/resume cycle (or any other full re-modeset)
+> "fixes" it, which pointed at cdclk/voltage-level tracking rather than
+> a genuine hardware race.
+>
+> intel_modeset_readout_hw_state() runs once at driver probe (and again
+> on resume) to figure out what firmware/GOP left the display in. For
+> each already-active pipe it calls intel_cdclk_update_hw_state(),
+> which seeds cdclk_state->min_cdclk[]/min_voltage_level[] directly
+> from the freshly read-out crtc_state. That treats "firmware left this
+> pipe active with mode X" as proof that this driver's own cdclk,
+> voltage-level and DBUF setup for mode X is already established in
+> hardware. It isn't -- only firmware's own, entirely separate code
+> path has ever touched those registers.
+>
+> The OS driver's first real modeset for an inherited pipe typically
+> targets the same native panel mode, so the freshly computed
+> crtc_state->min_cdclk/min_voltage_level trivially match this
+> readout-seeded baseline. intel_cdclk_update_crtc_min_cdclk() and
+> intel_cdclk_update_crtc_min_voltage_level() then conclude nothing
+> changed and skip the recalculation, on the one commit where it
+> actually matters: taking a pipe from firmware ownership to being
+> correctly configured by this driver.
+>
+> Fix this in two parts:
+>
+>  - Invalidate the per-pipe min_cdclk[]/min_voltage_level[] tracking
+>    right after boot-time readout, so the first real atomic commit is
+>    guaranteed to see a difference.
+>
+>  - Stop early-returning in intel_cdclk_update_crtc_min_cdclk() and
+>    intel_cdclk_update_crtc_min_voltage_level() based on the crtc_state
+>    comparison alone. That comparison is unreliable for exactly the
+>    same reason (it's derived from the same readout), and skips the
+>    real, tracked-state check below it.
+>
+> Bisected on real hardware (Lenovo Yoga 9i 14IPH11, Panther Lake) down
+> to a narrow window between v6.19.10 (clean on every cold boot) and
+> v7.1.10 (broken on every cold boot); confirmed via live kernel
+> tracing that the skip path fires unconditionally on this platform
+> from the very first post-boot atomic commit onward. This fix
+> eliminates the FIFO underrun across many consecutive cold boots on
+> the same hardware, with no regression observed across suspend/resume.
 
-Thanks, that is exactly what I wanted to know. The whole patch set was AI generated and I still distrust its quality.
+Do you have a regressing commit? Nearly 600 commits were merged to i915
+display alone between 6.19 and 7.1 so it's not really a narrow window.
 
-The interesting thing is that most comments come from Sashiko-bot, so AI is now criticizing the quality of AI generated code ^^.
+Have you filed a bug as described at [1]? With debugs, logs, and
+everything.
 
-> 
-> Matt
-> 
->> [2] https://patchwork.freedesktop.org/patch/748868/?series=172875&rev=1
->> [3] https://patchwork.freedesktop.org/series/172873/
->>
->>> Besides that, I don't really know what to expect from the series. The cover
->>> letter says "Refcounting dma_resv v2", yet there's no changelog telling people
->>> what has changed since v1. On the other hand, none of the patches has a v2
->>> prefix, so what is it?
->>
->> Yes, change logs / cover-letter would help as Danilo likely could have
->> spotted the above change.
+Have you tried with 1786d2688781 ("drm/i915/cdclk: Avoid spurious cdclk
+sanitization on PTL+")?
 
-Mhm, I though I added that in the cover letter.
 
-Regards,
-Christian.
+BR,
+Jani.
 
->>
->> Matt
->>
->>>
->>> [1] https://lore.kernel.org/all/DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org/
 
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+
+
+> The investigation and this fix were developed with the assistance of
+> Claude (Anthropic), driven and verified end to end on the affected
+> hardware by the Signed-off-by below.
+>
+> Signed-off-by: Eduardo Diaz <iamedu@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cdclk.c    | 45 ++++++++++++++-----
+>  drivers/gpu/drm/i915/display/intel_cdclk.h    |  1 +
+>  .../drm/i915/display/intel_modeset_setup.c    |  1 +
+>  3 files changed, 36 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> index a53d887271..209a2373d1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> @@ -2981,11 +2981,14 @@ static int intel_cdclk_update_crtc_min_cdclk(struct intel_atomic_state *state,
+>  	bool allow_cdclk_decrease = intel_any_crtc_needs_modeset(state);
+>  	int ret;
+>  
+> -	if (new_min_cdclk == old_min_cdclk)
+> -		return 0;
+> -
+> -	if (!allow_cdclk_decrease && new_min_cdclk < old_min_cdclk)
+> -		return 0;
+> +	/*
+> +	 * old_min_cdclk comes from the previous crtc_state, which after
+> +	 * boot-time readout reflects whatever firmware/GOP left running,
+> +	 * not what this driver has programmed. For an inherited pipe it
+> +	 * equals new_min_cdclk by construction (same mode, same formula),
+> +	 * so an early return here would skip the recalculation that
+> +	 * matters. Always continue on to the cdclk_state check below.
+> +	 */
+>  
+>  	cdclk_state = intel_atomic_get_cdclk_state(state);
+>  	if (IS_ERR(cdclk_state))
+> @@ -3026,12 +3029,10 @@ static int intel_cdclk_update_crtc_min_voltage_level(struct intel_atomic_state *
+>  	bool allow_voltage_level_decrease = intel_any_crtc_needs_modeset(state);
+>  	int ret;
+>  
+> -	if (new_min_voltage_level == old_min_voltage_level)
+> -		return 0;
+> -
+> -	if (!allow_voltage_level_decrease &&
+> -	    new_min_voltage_level < old_min_voltage_level)
+> -		return 0;
+> +	/*
+> +	 * old_min_voltage_level is unreliable for the same reason; see
+> +	 * intel_cdclk_update_crtc_min_cdclk().
+> +	 */
+>  
+>  	cdclk_state = intel_atomic_get_cdclk_state(state);
+>  	if (IS_ERR(cdclk_state))
+> @@ -3705,6 +3706,28 @@ void intel_cdclk_update_hw_state(struct intel_display *display)
+>  	cdclk_state->dbuf_bw_min_cdclk = intel_dbuf_bw_min_cdclk(display, dbuf_bw_state);
+>  }
+>  
+> +/*
+> + * intel_cdclk_update_hw_state() seeds min_cdclk[]/min_voltage_level[]
+> + * from readout's crtc_state, i.e. from whatever firmware/GOP left
+> + * running, not from anything this driver has programmed. A pipe's
+> + * first real modeset usually targets the same native mode, so the
+> + * freshly computed value matches this seeded baseline and
+> + * intel_cdclk_update_crtc_min_cdclk()/_min_voltage_level() conclude
+> + * nothing changed, skipping the recalculation that matters. Call
+> + * this after readout so the first real commit sees a difference.
+> + */
+> +void intel_cdclk_invalidate_min_tracking(struct intel_display *display)
+> +{
+> +	struct intel_cdclk_state *cdclk_state =
+> +		to_intel_cdclk_state(display->cdclk.obj.state);
+> +	enum pipe pipe;
+> +
+> +	for_each_pipe(display, pipe) {
+> +		cdclk_state->min_cdclk[pipe] = 0;
+> +		cdclk_state->min_voltage_level[pipe] = 0;
+> +	}
+> +}
+> +
+>  void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc)
+>  {
+>  	struct intel_display *display = to_intel_display(crtc);
+> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
+> index a60cbf745e..1517d3605a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cdclk.h
+> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
+> @@ -46,6 +46,7 @@ int intel_cdclk_state_set_joined_mbus(struct intel_atomic_state *state, bool joi
+>  struct intel_cdclk_state *
+>  intel_atomic_get_cdclk_state(struct intel_atomic_state *state);
+>  void intel_cdclk_update_hw_state(struct intel_display *display);
+> +void intel_cdclk_invalidate_min_tracking(struct intel_display *display);
+>  void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc);
+>  int intel_cdclk_update_dbuf_bw_min_cdclk(struct intel_atomic_state *state,
+>  					 int old_min_cdclk, int new_min_cdclk,
+> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> index 6aed881737..c7be6e63e7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> @@ -880,6 +880,7 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+>  	intel_bw_update_hw_state(display);
+>  	intel_dbuf_bw_update_hw_state(display);
+>  	intel_cdclk_update_hw_state(display);
+> +	intel_cdclk_invalidate_min_tracking(display);
+>  
+>  	intel_pmdemand_init_pmdemand_params(display, pmdemand_state);
+>  }
+
+-- 
+Jani Nikula, Intel
