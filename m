@@ -4,52 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E42DC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD74C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8185F10E8E6;
-	Mon, 31 Aug 2026 13:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D03F210E8E0;
+	Mon, 31 Aug 2026 13:50:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oDB0CjZW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="M7nRJRjy";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IFNt5gwY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA7010E8E0;
- Mon, 31 Aug 2026 13:49:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 05F4742A26;
- Mon, 31 Aug 2026 13:49:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE4C1F00A3F;
- Mon, 31 Aug 2026 13:49:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184165;
- bh=l5bO7/FV2QTdlgRTU8o2zG/6Csv1poRfJdScgOkwW3I=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=oDB0CjZWW6onw4IFy90EprLjf5xFmLLHPkfeVEbEzF2Q3oT71zcjQZtm0wCo0FUR2
- eKT/36C4fIjv6Hf3fpTx86YFWuys+wpuad8JlPzVxT92mmrKGGJgy5qypxusw7cMZB
- X7fzo76wn/oUrbNgKuXmwxAONgxfOu24DMaz13Q8qKtuj8tTQfQz0CF9/9fSb+6nAz
- FKVrKT11mAXV2wlwmBeq/X4/nEHzdO2+iUQcujQkRZzhDOY7XOoxz0QVuHVd6F9Bz5
- Rj1higvzn1140L6dDYCO+H3VElvvvXWU5UiGKr2NCZs9hRuIb7yVhVGl0kJ7+ZMek9
- 5EupcbkgbbPxA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Gangliang Xie <ganglxie@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: add first record offset check
-Date: Mon, 31 Aug 2026 09:29:18 -0400
-Message-ID: <20260831133314.4125787-530-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17EA910E8E0
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:50:13 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67VB9wIq3447064
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:50:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=4xP1VcGantMGkeDQEfjGUYkRZUtgcvT9SSc
+ YlM7KIOc=; b=M7nRJRjyahS0S/+msLbdoLSK6N0vu5NcaS087ArgzqY3xSZfiQz
+ f1KVkzGhmFhOkxdNcFYEVRdZtvC/34moxtfC/wAUJXY5hHSsnsJ1xZkUp59P5INg
+ g7BvqJ1x/fm5k8/3nDOSXwb3JMvCQ4xUhNmfZsSpFkhTMnAX4hZj3s7/aaMr3AX0
+ kzvS1HFVm3KHg70094Cp4XnsiZSkqa75nN8LNhEGBGjdrcNzR3yjAQIFs1xLsf9W
+ mbi+h82l8+tbw0xONude+chIgW7qTdgky2K2Rmruuw1cHUhvJVGUE5Ze8aG9toaj
+ qaV2NgPwA4F5Y6K4eYOKAXlA+Dt6O7FBiSw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6rb93k4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:50:12 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-939187562a1so853682285a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 06:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788184211; x=1788789011;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4xP1VcGantMGkeDQEfjGUYkRZUtgcvT9SScYlM7KIOc=;
+ b=IFNt5gwYulJ38kAmEffzLqadj/KKk3IhBNouizg/cvZa3xJsVdAES+JXAMCdHkB8cM
+ KY0EuqN5H52F9lbOkvaXBVX4KGHqPFvaxZU4DHCC00Z0+v9heBbzHEs1zbALHRaBTFuu
+ CzzD0zHns5G9V4rrjppXsrvxNY1OoigEMCCDDaAU2uENzPtN4+ZK62X/KbvVgBs5/A0a
+ vPL7f7j3zjX2mYLRW010aBHvSN4ISzsmBKsJbZfT6DkXH+F8mV0cQ6ea/NGLfgQ6E2Y4
+ p+nhRdIJ7kz32YWlPBQV4Y/k6l9ZjlRwB3YjtF7azoaYgB9nfZUwIo19Hniug9kd/Mec
+ jbKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788184211; x=1788789011;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4xP1VcGantMGkeDQEfjGUYkRZUtgcvT9SScYlM7KIOc=;
+ b=P8Xl/VKK6LNlmGux6avCKR5935wttlDiUCXEl1y3BK1vD5j9L0bpaY/3yWaVb5tgmF
+ 2vLCDGr9duEkzIxkMttdNKGvbX/tK6nw5cgXGefEO0PmEIrXs/BDXzXLWiREXFyFw4lj
+ 5FNwKhCifwyGTMA/AglJyppCe5p5/XeOdlWbCT7griPt1cK/nRSQLFXYMH0CDA9ySXZL
+ gDzFWJTQfKzcvCIJhhWZxp6ecPviOUJfEj3S7VqbtpHWj7ZCU4K+bP2zv9X4M022h1yh
+ a7UG6LCZntFN1kU6k+K976ra1G0GNUWL4+M3l7HRx4/EsovfqKP2deWETJgGcK5/j8MP
+ FAWA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpjNG/8YfMxB2kfYi2O2DErh30XLcGebgk/YPxwxSccWjvK0B3Viys3yZmtujUyK6ApZ8H2CxCywiY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lDKCyI/3eESfPXEA31KLGO1KBfcb702s9N2pne/jT1qQKxGDV0
+ V8jVwNtkHlF50p4chjShan7NUominOa9ONCbRNSeCK9eYKUEwPES4VQPmL0oe38EluR6q7Lq90k
+ gMXb17TwcGr7qTf1MKKmKlWXpQnKUTTTcYi7KXiP7xGnnZvoW5xc+4JOAtiJ/bUDDGRyFQkH+oR
+ 72d0CqXQ==
+X-Gm-Gg: AR+sD10Ab8uroigscN+F/N6xan4S0lIFcOZDQiET+XbtnDU9C86Ztvx2UCGDHEhVGmr
+ MR4LoBSS+R4qzMFX8GgOEDilIuelalj59/lb8mwtAaZCLu8N8wf9GBI0F7Dth4xf6ppk/fVcIan
+ 0shMXOdUjYnuBbj4VvszM0deLCnGb7O+7uafWcJfC7gRnkxtn2Bvh2DfOn/LOhLLXpJ0Xis6ieF
+ i8TjpLAq+y72TJEQNVFT8oSVUl+C1KBx5rzOWJi0gd37DF9EulDlxo094/+H1v5zmzjpWQ1A5CT
+ RzjeenwmBTAxS0PzZohIuHLX2CgRUY0ChyLogPVq4fqxY0DEjh082XgDxSzq/JoWQFoHtIdGCyU
+ ZPiU++gBmu1LKzW1zajEBW/LTXjrWAcv72LEntDeg
+X-Received: by 2002:a05:620a:19a8:b0:939:f89:3688 with SMTP id
+ af79cd13be357-9391397dc88mr2709417085a.42.1788184211424; 
+ Mon, 31 Aug 2026 06:50:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:19a8:b0:939:f89:3688 with SMTP id
+ af79cd13be357-9391397dc88mr2709407385a.42.1788184210744; 
+ Mon, 31 Aug 2026 06:50:10 -0700 (PDT)
+Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c255f1fa3ddsm431674366b.45.2026.08.31.06.50.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2026 06:50:09 -0700 (PDT)
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+To: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
+ troy.hanson@oss.qualcomm.com, zachary.mckevitt@oss.qualcomm.com
+Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sashiko <sashiko-bot@kernel.org>, Troy Hanson <thanson@qti.qualcomm.com>
+Subject: [PATCH v2] accel/qaic: Add support for AI200 virtual functions
+Date: Mon, 31 Aug 2026 15:50:08 +0200
+Message-ID: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: rZIaCVj4zY2jA6r6ZW7FQvBaiOciArCH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX0iIVeYksmSc7
+ 5IjNGqqTB044T1u5BZiZwYHi1lf75l7wYcw1nJbLKfwR6RojBerxkQG8iWxT66LrxhFOfkBf5iH
+ tP9CP0fB/djd/rUdQ/l20bgwFEjnLvrl+XuIvz8tTyid/y1t8IC1719rm/hTUyvOLIuwV/8G+vZ
+ 8HTpeb5RwBz0iChN3zwqksWzKLs+zU2clmeB3Ydjyl0PANYKiMaRxSytRFNZnsFoul+GCPzBUd9
+ c8dnOFI+BaMeJAm3lxSAZnEE0TTcxH5uBBvZwJRtw7uww3lKmewwZah1+ww0I/5G3x66H3QEIOI
+ I6O8BJBa63bG5IubZORZ7oI8qyRmzUT60Mb2dw6LX1DYktpw/gu31bEYQ2UVOFt+2vd1GNgYF+x
+ ZJBMOXY192rMZ/Ba1zTHuz9RDsr40QhLIk6bDvy6O03tV0RYgTYpjlv9w7YEs6fQ0NsucsN7TBi
+ ZA6CkS/b4OzANKhHWrQ==
+X-Proofpoint-GUID: rZIaCVj4zY2jA6r6ZW7FQvBaiOciArCH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX2X+sr+X/193J
+ tcxg2DatVfYp/p1KRUl1XXo0o5oS4+OrucMCELUXnxZSkZN/2lvLC52qnv991b0UzTIK7611Hsj
+ hruak2eF6RLS1LOnZhLvMKbepYH/224=
+X-Authority-Analysis: v=2.4 cv=d/fFDxjE c=1 sm=1 tr=0 ts=6a958694 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=k3vaqPubwSAPkb_bsAoA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310119
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,390 +138,370 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Gangliang Xie <ganglxie@amd.com>
+From: Zack McKevitt <zmckevit@qti.qualcomm.com>
 
-[ Upstream commit 4073cdf6713b7c170e35bf055354580cc52085d6 ]
+Register the qaic_pci_sriov_configure() callback to allow VFs to be
+created through AIC200's sysfs numvfs entry. Additionally, define
+a new MHI family for the 5 channels supported by AIC200 VFs: NNC,
+Telemetry, IPCR, Loopback and SSR.
 
-check the upper and lower limits of first record offset
-
-Signed-off-by: Gangliang Xie <ganglxie@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260814165907.C76841F00A3A@smtp.kernel.org/
+Co-developed-by: Troy Hanson <thanson@qti.qualcomm.com>
+Signed-off-by: Troy Hanson <thanson@qti.qualcomm.com>
+Signed-off-by: Zack McKevitt <zmckevit@qti.qualcomm.com>
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `drm/amdgpu: add first record offset check`
-
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION = 6`,
-`PATCHLEVEL = 18`, `SUBLEVEL = 44`)
-
+Changes in v2:
+- Add the missing AIC200VF PCI ID to qaic_ids
+- Handle teardown of VF in qaic_pci_sriov_configure() and qaic_pci_remove()
+- Take dev_lock in qaic_pci_sriov_configure() before reading qdev->dev_state
+- Link to v1: https://lore.kernel.org/all/20260814164125.3652876-1-youssef.abdulrahman@oss.qualcomm.com/
 ---
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[drm/amdgpu]` `[add]` — validate `first_rec_offset` bounds
-in RAS EEPROM header parsing during init.
-
-### Step 1.2: Tags
-**Record:**
-- `Signed-off-by: Gangliang Xie <ganglxie@amd.com>` — author
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>` — AMD reviewer
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` — amdgpu
-  maintainer
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, or `Tested-by:`
-  tags
-- Notable: maintainer sign-off and internal AMD review, but no external
-  bug report
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug described:** `first_rec_offset` from the RAS EEPROM header is
-  not bounds-checked.
-- **Symptom/failure mode:** Not spelled out in the message; code
-  analysis shows invalid `first_rec_offset` yields an invalid `ras_fri`
-  (first record index), breaking circular-buffer read logic.
-- **Version info:** None in message.
-- **Root cause (from code):** `RAS_OFFSET_TO_INDEX()` does unsigned
-  arithmetic; a `first_rec_offset` below `ras_record_offset` wraps to a
-  huge index, and values above the record region produce `ras_fri >=
-  ras_max_record_count`.
-
-### Step 1.4: Hidden bug fix detection
-**Record:** Yes — despite the neutral “add check” wording, this is a
-defensive bug fix completing RAS header validation started by
-`5df0d6addb7e9` (“Add basic validation for RAS header”). Invalid
-`ras_fri` can cause out-of-bounds EEPROM reads and bad arithmetic in
-`amdgpu_ras_eeprom_read()`.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c` (+8 lines)
-- **Function:** `amdgpu_ras_eeprom_init()`
-- **Scope:** Single-file, surgical validation on an error path
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** After validating `ras_num_recs`, code unconditionally sets
-  `control->ras_fri = RAS_OFFSET_TO_INDEX(control,
-  hdr->first_rec_offset)` and returns success.
-- **After:** Rejects headers where `first_rec_offset <
-  ras_record_offset` or `ras_fri >= ras_max_record_count`, logging an
-  error and returning `-EINVAL`.
-- **Path affected:** GPU probe / RAS EEPROM init (error-handling path
-  for corrupt EEPROM data).
-
-### Step 2.3: Bug mechanism
-**Record:** **Memory safety / logic correctness fix**
-- `RAS_OFFSET_TO_INDEX` is `((offset - ras_record_offset) / 24)` using
-  unsigned math.
-- Corrupt `first_rec_offset` below `ras_record_offset` (e.g. `0` when
-  minimum is `20`) wraps to a huge `ras_fri`.
-- `ras_fri` drives circular-buffer indexing in
-  `amdgpu_ras_eeprom_read()`; with invalid `ras_fri`, `g0`/`g1`
-  arithmetic can produce read counts far larger than the allocated
-  buffer (e.g. buffer sized for `ras_num_recs` but
-  `__amdgpu_ras_eeprom_read()` asked to read underflow-derived huge
-  counts).
-- No validation existed for this field; only `ras_num_recs` was checked
-  (since `5df0d6addb7e9`).
-
-### Step 2.4: Fix quality
-**Record:**
-- **Quality:** Obviously correct — mirrors existing header validation
-  style.
-- **Minimal:** 8 lines, no API changes.
-- **Regression risk:** Very low; only rejects already-invalid headers.
-  On failure, `amdgpu_ras_init_badpage_info()` already sets
-  `is_eeprom_valid = false` and skips EEPROM loading.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:**
-- `ras_fri` assignment and `ras_num_recs` check introduced together in
-  `5df0d6addb7e9` (Lijo Lazar, 2025-03-26) — “Add basic validation for
-  RAS header”.
-- That commit validated record count but not `first_rec_offset`.
-- Bug present since `5df0d6addb7e9` in this tree; `ras_fri` usage is
-  much older.
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Natural follow-up to `5df0d6addb7e9`,
-which is already in this tree.
-
-### Step 3.3: Related file history
-**Record:**
-- `5df0d6addb7e9` — basic RAS header validation (in tree)
-- `660261df61fb7` — checksum validation on unload (in tree)
-- `89232d0db3ca9` — return on checksum error (in tree)
-- `4073cdf6713b7` — this fix (on `master`, **not** in `6.18.y`)
-- `c83e4a45ff9a0` — `tbl_size` validation (on `master`, not in tree;
-  separate issue)
-- Standalone one-commit fix, not part of a multi-patch series.
-
-### Step 3.4: Author context
-**Record:** Gangliang Xie is an active amdgpu contributor (RAS EEPROM
-work: checksum checks, bad-page loading, threshold handling). Alex
-Deucher is amdgpu maintainer.
-
-### Step 3.5: Dependencies
-**Record:**
-- Depends on `amdgpu_ras_eeprom_init()` and fields from `5df0d6addb7e9`
-  — all present in `6.18.y`.
-- `git apply --check` on `4073cdf6713b7` succeeds cleanly against
-  current tree.
-- Applies standalone.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c 4073cdf6713b7` returned no match. Lore search
-blocked (Anubis bot protection). Commit is on `master` as
-`4073cdf6713b7` (committed 2026-05-19).
-
-### Step 4.2: Reviewers
-**Record:** `b4 dig -w` also failed. From commit metadata: Reviewed-by
-Tao Zhou (AMD), Signed-off-by Alex Deucher (maintainer).
-
-### Step 4.3: Bug reports
-**Record:** No `Reported-by:` or `Link:` tags. No syzbot/fuzzer report.
-Bug inferred from code path and prior validation commit rationale
-(“corrupted EEPROM header”).
-
-### Step 4.4: Related patches
-**Record:** Related mainline follow-up `c83e4a45ff9a0` (tbl_size guard)
-is separate; not required for this patch.
-
-### Step 4.5: Stable list discussion
-**Record:** Could not search lore stable list (bot protection). No
-evidence found that this was explicitly rejected for stable.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key functions
-**Record:** `amdgpu_ras_eeprom_init()` (modified); downstream consumers
-of `ras_fri`: `amdgpu_ras_eeprom_read()`, `__amdgpu_ras_eeprom_read()`,
-EEPROM write paths.
-
-### Step 5.2: Callers
-**Record:**
-- `amdgpu_ras_eeprom_init()` ← `amdgpu_ras_init_badpage_info()` ←
-  `amdgpu_ras_recovery_init()` / `amdgpu_xgmi.c`
-- Called during GPU probe/RAS init on AMD hardware with RAS EEPROM
-  support (not VF, not SR-IOV guest).
-
-### Step 5.3: Callees
-**Record:** `amdgpu_eeprom_read()`, `__decode_table_header_from_buf()`,
-`RAS_OFFSET_TO_INDEX` macro.
-
-### Step 5.4: Reachability
-**Record:**
-- Triggered at boot/probe when reading physical GPU EEPROM over I2C.
-- Not directly userspace-triggerable, but affects every boot on affected
-  AMD GPUs with corrupted EEPROM.
-- Corruption can arise from hardware wear, firmware bugs, or prior bad
-  writes.
-
-### Step 5.5: Similar patterns
-**Record:** Same validation pattern as `ras_num_recs >
-ras_max_record_count` check added in `5df0d6addb7e9`. Part of a series
-of RAS EEPROM hardening commits already present in `6.18.y`.
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
-
-### Step 6.1: Buggy code in tree?
-**Record:** **Yes.** At line 1441 in `amdgpu_ras_eeprom.c`, `ras_fri` is
-set without bounds checking. Fix commit `4073cdf6713b7` is not an
-ancestor of HEAD (`git merge-base --is-ancestor` exit 1). Gap introduced
-when `5df0d6addb7e9` landed in this tree (2025-03).
-
-### Step 6.2: Backport complications
-**Record:** Clean apply confirmed (`git apply --check` passes). No
-conflicts expected.
-
-### Step 6.3: Related fixes already present?
-**Record:** Prior validation (`5df0d6addb7e9`, `660261df61fb7`,
-`89232d0db3ca9`) is in tree, but not this `first_rec_offset` check. No
-duplicate fix found (`git log --grep="first record offset" HEAD` empty).
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU
-driver, RAS reliability/memory-error tracking). Not core-kernel-wide,
-but affects production AMD GPU deployments (datacenter, workstation).
-
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; multiple RAS EEPROM validation commits
-in 2025–2026 in this file.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** AMD GPUs with RAS EEPROM support and corrupted/invalid
-`first_rec_offset` in EEPROM header. Config/driver-specific, not
-universal.
-
-### Step 8.2: Trigger conditions
-**Record:** Corrupt EEPROM header on boot/RAS init. Uncommon but
-realistic (EEPROM corruption is exactly why `5df0d6addb7e9` was added).
-Not userspace-exploitable in the usual sense.
-
-### Step 8.3: Failure mode severity
-**Record:** Invalid `ras_fri` breaks circular-buffer arithmetic in
-`amdgpu_ras_eeprom_read()`:
-- Unsigned underflow when `ras_fri > ras_max_record_count` → `g0 =
-  ras_max_record_count - ras_fri` wraps to a huge value
-- `__amdgpu_ras_eeprom_read()` may attempt reads far exceeding the
-  `kcalloc(num, ...)` buffer
-- **Severity: HIGH** — potential buffer overrun, I2C read errors, driver
-  malfunction; graceful `-EINVAL` path exists with the fix
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for affected hardware — prevents invalid EEPROM
-  parsing and dangerous downstream reads
-- **Risk:** VERY LOW — 8-line bounds check, same style as existing
-  validation
-- **Ratio:** Strongly favors backport
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence summary
-
-**FOR backport:**
-- Fixes real gap in RAS EEPROM header validation left by `5df0d6addb7e9`
-- Invalid `ras_fri` can cause dangerous read arithmetic / buffer sizing
-  mismatch
-- Small, surgical, maintainer-reviewed
-- Applies cleanly to `6.18.y`
-- Prerequisites already in tree
-- Consistent with other RAS EEPROM hardening already backported to this
-  tree
-
-**AGAINST backport:**
-- Commit message lacks explicit crash/reproducer description
-- Requires corrupted EEPROM (hardware-specific edge case)
-- No syzbot or user bug report
-
-**Unresolved:** Lore discussion and stable-list nomination could not be
-verified (b4/lore unavailable).
-
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — straightforward bounds
-   check; AMD-reviewed, maintainer-acked (no runtime test cited).
-2. Fixes a real bug? **PASS** — unvalidated `first_rec_offset` yields
-   invalid `ras_fri`.
-3. Important issue? **PASS** — HIGH severity: potential buffer overrun /
-   driver malfunction on corrupt EEPROM.
-4. Small and contained? **PASS** — 8 lines, one function.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — clean apply, prerequisites
-   present.
-
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
-
-### Step 9.4: Decision rationale
-This completes RAS EEPROM header validation already started in this
-`6.18.y` tree. Without it, a corrupt `first_rec_offset` can slip past
-existing checks and produce an invalid `ras_fri`, leading to broken
-circular-buffer read logic and potential memory safety issues during
-bad-page loading. The fix is minimal, obviously correct, low-risk, and
-directly addresses a real failure mode on AMD RAS-capable hardware.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-  and `git show 4073cdf6713b7`
-- **[Phase 2]** Read `amdgpu_ras_eeprom_init()` at lines 1373–1444;
-  analyzed `RAS_OFFSET_TO_INDEX` macro (lines 135–136) and
-  `amdgpu_ras_eeprom_read()` (lines 962–1028)
-- **[Phase 2]** Traced buffer overflow scenario: invalid `ras_fri` → bad
-  `g0`/`g1` in `amdgpu_ras_eeprom_read()`
-- **[Phase 3]** `git blame -L 1434,1444`: `5df0d6addb7e9` introduced
-  unchecked `ras_fri` assignment
-- **[Phase 3]** `git show 5df0d6addb7e9`: prior validation commit
-  rationale (corrupt EEPROM → huge allocation)
-- **[Phase 3]** `git merge-base --is-ancestor 4073cdf6713b7 HEAD` → exit
-  1 (fix not in tree)
-- **[Phase 3]** `git merge-base --is-ancestor 5df0d6addb7e9 HEAD` → in
-  tree; `660261df61fb7` → in tree
-- **[Phase 3]** `git apply --check` on `4073cdf6713b7` → applies cleanly
-- **[Phase 4]** `b4 dig -c 4073cdf6713b7` → no result (exit 1)
-- **[Phase 4]** Lore.kernel.org fetch → blocked by Anubis
-- **[Phase 5]** `grep amdgpu_ras_eeprom_init`: callers in
-  `amdgpu_ras.c:3590`, `amdgpu_xgmi.c:1674`
-- **[Phase 5]** `amdgpu_ras_init_badpage_info()` sets `is_eeprom_valid =
-  !ret` on init failure (line 3591)
-- **[Phase 6]** `git describe HEAD` → `v6.18.44`; tree is
-  `stable/linux-6.18.y`
-- **[Phase 6]** Buggy code confirmed at line 1441 without bounds check
-- **[Phase 6]** `git log --grep="first record offset" HEAD` → empty (fix
-  absent)
-- **[Phase 8]** Constants verified: `RAS_TABLE_HEADER_SIZE=20`,
-  `RAS_RECORD_START=20`, `RAS_TABLE_RECORD_SIZE=24`,
-  `RAS_MAX_RECORD_COUNT≈10922`
-
----
-
-**YES**The background check on `stable/linux-6.18.y` confirmed:
-
-- **Related validation is present:** `5df0d6addb7e9` ("Add basic
-  validation for RAS header") is in the tree.
-- **This fix is not:** no commit matching "first record offset" was
-  found on the stable branch.
-
-That matches the earlier analysis: the gap remains in `6.18.y`, the
-patch applies cleanly, and the backport recommendation stands at
-**YES**.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index dafa46a9656ca..652aa085b6263 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -1439,6 +1439,14 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ drivers/accel/qaic/mhi_controller.c | 192 +++++++++++++++++++++++++++-
+ drivers/accel/qaic/qaic.h           |   1 +
+ drivers/accel/qaic/qaic_drv.c       |  47 +++++++
+ 3 files changed, 238 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/accel/qaic/mhi_controller.c b/drivers/accel/qaic/mhi_controller.c
+index 40e6d262ef21..c720b70b1e0f 100644
+--- a/drivers/accel/qaic/mhi_controller.c
++++ b/drivers/accel/qaic/mhi_controller.c
+@@ -23,6 +23,7 @@ MODULE_PARM_DESC(mhi_timeout_ms, "MHI controller timeout value");
+ static const char *fw_image_paths[FAMILY_MAX] = {
+ 	[FAMILY_AIC100] = "qcom/aic100/sbl.bin",
+ 	[FAMILY_AIC200] = "qcom/aic200/sbl.bin",
++	[FAMILY_AIC200_VF] = NULL,
+ };
+ 
+ static const struct mhi_channel_config aic100_channels[] = {
+@@ -691,6 +692,159 @@ static const struct mhi_channel_config aic200_channels[] = {
+ 	},
+ };
+ 
++static const struct mhi_channel_config aic200vf_channels[] = {
++	{
++		.name = "QAIC_LOOPBACK",
++		.num = 0,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_TO_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_LOOPBACK",
++		.num = 1,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_FROM_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_SSR",
++		.num = 6,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_TO_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_SSR",
++		.num = 7,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_FROM_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_CONTROL",
++		.num = 10,
++		.num_elements = 128,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_TO_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_CONTROL",
++		.num = 11,
++		.num_elements = 128,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_FROM_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_TELEMETRY",
++		.num = 16,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_TO_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "QAIC_TELEMETRY",
++		.num = 17,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_FROM_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "IPCR",
++		.num = 24,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_TO_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++	{
++		.name = "IPCR",
++		.num = 25,
++		.num_elements = 32,
++		.local_elements = 0,
++		.event_ring = 0,
++		.dir = DMA_FROM_DEVICE,
++		.ee_mask = MHI_CH_EE_AMSS,
++		.pollcfg = 0,
++		.doorbell = MHI_DB_BRST_DISABLE,
++		.lpm_notify = false,
++		.offload_channel = false,
++		.doorbell_mode_switch = false,
++		.wake_capable = false,
++	},
++};
++
+ static struct mhi_event_config aic100_events[] = {
+ 	{
+ 		.num_elements = 32,
+@@ -721,6 +875,21 @@ static struct mhi_event_config aic200_events[] = {
+ 	},
+ };
+ 
++static struct mhi_event_config aic200vf_events[] = {
++	{
++		.num_elements = 32,
++		.irq_moderation_ms = 0,
++		.irq = 0,
++		.channel = U32_MAX,
++		.priority = 1,
++		.mode = MHI_DB_BRST_DISABLE,
++		.data_type = MHI_ER_CTRL,
++		.hardware_event = false,
++		.client_managed = false,
++		.offload_channel = false,
++	},
++};
++
+ static struct mhi_controller_config mhi_cntrl_configs[] = {
+ 	[FAMILY_AIC100] = {
+ 		.max_channels = 128,
+@@ -744,6 +913,17 @@ static struct mhi_controller_config mhi_cntrl_configs[] = {
+ 		.use_bounce_buf = false,
+ 		.m2_no_db = false,
+ 	},
++	[FAMILY_AIC200_VF] = {
++		.max_channels = 128,
++		.timeout_ms = 0, /* controlled by mhi_timeout */
++		.buf_len = 0,
++		.num_channels = ARRAY_SIZE(aic200vf_channels),
++		.ch_cfg = aic200vf_channels,
++		.num_events = ARRAY_SIZE(aic200vf_events),
++		.event_cfg = aic200vf_events,
++		.use_bounce_buf = false,
++		.m2_no_db = false,
++	},
+ };
+ 
+ static int mhi_read_reg(struct mhi_controller *mhi_cntrl, void __iomem *addr, u32 *out)
+@@ -864,11 +1044,19 @@ struct mhi_controller *qaic_mhi_register_controller(struct pci_dev *pci_dev, voi
+ 
+ 	mhi_cntrl->fw_image = fw_image_paths[family];
+ 
+-	if (family == FAMILY_AIC200) {
++	switch (family) {
++	case FAMILY_AIC200:
+ 		mhi_cntrl->name = "AIC200";
+ 		mhi_cntrl->seg_len = SZ_512K;
+-	} else {
++		break;
++	case FAMILY_AIC200_VF:
++		mhi_cntrl->name = "AIC200_VF";
++		break;
++	case FAMILY_AIC100:
+ 		mhi_cntrl->name = "AIC100";
++		break;
++	default:
++		mhi_cntrl->name = NULL;
  	}
  
- 	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
-+	if (hdr->first_rec_offset < control->ras_record_offset ||
-+	    control->ras_fri >= control->ras_max_record_count) {
-+		dev_err(adev->dev,
-+			"RAS header invalid, ras_fri: %u, first_rec_offset:0x%x",
-+			control->ras_fri, hdr->first_rec_offset);
-+		return -EINVAL;
+ 	/* use latest configured timeout */
+diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
+index 02ca99000e2a..889fa51da7da 100644
+--- a/drivers/accel/qaic/qaic.h
++++ b/drivers/accel/qaic/qaic.h
+@@ -35,6 +35,7 @@
+ enum aic_families {
+ 	FAMILY_AIC100,
+ 	FAMILY_AIC200,
++	FAMILY_AIC200_VF,
+ 	FAMILY_MAX,
+ };
+ 
+diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+index c1bb6db78d12..9e1e184efe0d 100644
+--- a/drivers/accel/qaic/qaic_drv.c
++++ b/drivers/accel/qaic/qaic_drv.c
+@@ -40,6 +40,7 @@ MODULE_IMPORT_NS("DMA_BUF");
+ #define PCI_DEVICE_ID_QCOM_AIC080	0xa080
+ #define PCI_DEVICE_ID_QCOM_AIC100	0xa100
+ #define PCI_DEVICE_ID_QCOM_AIC200	0xa110
++#define PCI_DEVICE_ID_QCOM_AIC200VF	0xa111
+ #define QAIC_NAME			"qaic"
+ #define QAIC_DESC			"Qualcomm Cloud AI Accelerators"
+ #define CNTL_MAJOR			5
+@@ -78,6 +79,13 @@ static const struct qaic_device_config aic200_config = {
+ 	.dbc_bar_idx = 2,
+ };
+ 
++static const struct qaic_device_config aic200vf_config = {
++	.family = FAMILY_AIC200_VF,
++	.bar_mask = BIT(0) | BIT(1) | BIT(2) | BIT(4),
++	.mhi_bar_idx = 1,
++	.dbc_bar_idx = 2,
++};
++
+ bool datapath_polling;
+ module_param(datapath_polling, bool, 0400);
+ MODULE_PARM_DESC(datapath_polling, "Operate the datapath in polling mode");
+@@ -610,6 +618,8 @@ static void qaic_pci_remove(struct pci_dev *pdev)
+ {
+ 	struct qaic_device *qdev = pci_get_drvdata(pdev);
+ 
++	pci_disable_sriov(pdev);
++
+ 	if (!qdev)
+ 		return;
+ 
+@@ -666,6 +676,7 @@ static const struct pci_device_id qaic_ids[] = {
+ 	{ PCI_DEVICE_DATA(QCOM, AIC080, (kernel_ulong_t)&aic080_config), },
+ 	{ PCI_DEVICE_DATA(QCOM, AIC100, (kernel_ulong_t)&aic100_config), },
+ 	{ PCI_DEVICE_DATA(QCOM, AIC200, (kernel_ulong_t)&aic200_config), },
++	{ PCI_DEVICE_DATA(QCOM, AIC200VF, (kernel_ulong_t)&aic200vf_config), },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, qaic_ids);
+@@ -762,6 +773,41 @@ static const struct dev_pm_ops qaic_pm_ops = {
+ 	SYSTEM_SLEEP_PM_OPS(qaic_pm_suspend, qaic_pm_resume)
+ };
+ 
++static int qaic_pci_sriov_configure(struct pci_dev *pdev, int num_vfs)
++{
++	struct qaic_device *qdev = pci_get_drvdata(pdev);
++	int rcu_id;
++	int ret;
++
++	if (num_vfs == 0) {
++		pci_disable_sriov(pdev);
++		return 0;
 +	}
 +
- 	control->ras_num_mca_recs = 0;
- 	control->ras_num_pa_recs = 0;
- 	return 0;
++	rcu_id = srcu_read_lock(&qdev->dev_lock);
++	/* Qaic device must be online to process VF bringup */
++	if (qdev->dev_state == QAIC_OFFLINE) {
++		ret = -ENODEV;
++		goto unlock_dev_srcu;
++	}
++	if (qdev->dev_state == QAIC_BOOT) {
++		ret = -EBUSY;
++		goto unlock_dev_srcu;
++	}
++
++	ret = pci_enable_sriov(pdev, num_vfs);
++	if (ret) {
++		dev_err(&pdev->dev, "Failed to enable SR-IOV: %d (requested %d VFs, max %d)\n",
++			ret, num_vfs, pci_sriov_get_totalvfs(pdev));
++		goto unlock_dev_srcu;
++	}
++
++	dev_dbg(&pdev->dev, "Successfully enabled %d VFs\n", num_vfs);
++unlock_dev_srcu:
++	srcu_read_unlock(&qdev->dev_lock, rcu_id);
++	return ret ?: num_vfs;
++}
++
+ static struct pci_driver qaic_pci_driver = {
+ 	.name = QAIC_NAME,
+ 	.id_table = qaic_ids,
+@@ -769,6 +815,7 @@ static struct pci_driver qaic_pci_driver = {
+ 	.remove = qaic_pci_remove,
+ 	.shutdown = qaic_pci_shutdown,
+ 	.err_handler = &qaic_pci_err_handler,
++	.sriov_configure = qaic_pci_sriov_configure,
+ 	.driver = {
+ 		.pm = pm_sleep_ptr(&qaic_pm_ops),
+ 	},
 -- 
-2.53.0
+2.43.0
 
