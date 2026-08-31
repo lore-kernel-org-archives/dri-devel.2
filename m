@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C24FC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8536CC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72A6910E8CF;
-	Mon, 31 Aug 2026 13:48:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 718E710E8D0;
+	Mon, 31 Aug 2026 13:48:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gNhSbb0f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="djE6Z8hs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDDDC10E8CC;
- Mon, 31 Aug 2026 13:47:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1C410E8D0;
+ Mon, 31 Aug 2026 13:48:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 540086013A;
- Mon, 31 Aug 2026 13:47:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0181F00ADE;
- Mon, 31 Aug 2026 13:47:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E924140914;
+ Mon, 31 Aug 2026 13:48:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDF81F00A3E;
+ Mon, 31 Aug 2026 13:48:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184079;
- bh=xFBZjdugEu8CzvBss5uPEr5e3VPZag3QiccvE5K6ZvM=;
+ s=k20260515; t=1788184085;
+ bh=0d9n3jwUIqfDYpN8X4JkH/rBGvoUBMz3sO4aQ/1nhGk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=gNhSbb0fprmMFZT3j3n1VigVKR83kSU6/a5L0fOZByTx62DPidtoqj3p3BkH1Kqfj
- bmFe6AwHdKgTWz+We3j8GbHipfl17zztUE0sBR+RL8rM97sjzVG0tbu61vOGe7gsZe
- oWJD1d/rY0frkhAd/nTV29Y8HmSbQHuZIKRuEeE2GtjsqZMeipnXtzelqYfnzSWZ2O
- Jmvzy6l0nHMG/bZDvtQAxR7s4bbhkF/jpwKd8LzZ0ZaCkD7mXbGi0FdX42BMdaza6u
- 1POgWbw5HmiAS8qJlkHmKvrKgwO7NqL8PEGcq8sitApNx+rZslEDCiDsbkSW7OAGkx
- zhvWby72Xz8cA==
+ b=djE6Z8hscfvq+XKrDOKhCtHrEBjGonbShOeWEhY7Ydt+eBqrHWNPt7SvQfm6pyVxD
+ 91vO9krGyGWpeuB/iD+OQgLaRHajJMpOK7pYiIypjm92U+zuROJ8C8MILsxnBb9KaK
+ zVLP0uNQRJJvwii4T7LGxY99GJxsdvmTU7CYWxLjcb3bP/FRltYg0wYWwZCmn/Yd39
+ 4y1qWCGHXnYh+kkN+UhgyUqFuU4XbckZWYdsoZ2sinrwLKDU77Gc4EwGbge+2O/Ad6
+ Wy9MnaoEtGjTbH4JS09ZYytSMEwcaLbANyaovt7Ktj+U2V3iPv/+OqnS50QuAjlD6c
+ x2ycBzvJLR56A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Timur Tabi <ttabi@nvidia.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, Sasha Levin <sashal@kernel.org>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/nouveau/bios: skip the IFR header if
- present
-Date: Mon, 31 Aug 2026 09:28:26 -0400
-Message-ID: <20260831133314.4125787-478-sashal@kernel.org>
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amd/pm: Check SMUv13.0.6/12 metrics
+ integrity
+Date: Mon, 31 Aug 2026 09:28:30 -0400
+Message-ID: <20260831133314.4125787-482-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,76 +66,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Timur Tabi <ttabi@nvidia.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit 4beeac5d2015df1017732ce4c57d634f557dd304 ]
+[ Upstream commit 6fc63d80c01a480e3d2c98620f07d46e5bcfc85a ]
 
-The GPU's ROM may begin with an Init-from-ROM (IFR) header that precedes
-the PCI Expansion ROM images (VBIOS).  When present, the PROM shadow
-method must parse this header to determine the offset where the PCI ROM
-images actually begin, and adjust all subsequent reads accordingly.
+Check if data fetch is proper by matching the first few bytes against
+0xFFs. If 0xFFs, that means data couldn't be read properly.
 
-On most GPUs this is not needed because either the PRAMIN shadow method
-(which reads from VRAM via the display engine) succeeds first, or the IFR
-microcode has already applied the ROM offset so that PROM reads
-transparently skip the header.  However, on GA100 neither of these
-applies: GA100 has no display engine (so PRAMIN is unavailable), and the
-IFR offset is not applied to PROM reads on this GPU.
-
-Signed-off-by: Timur Tabi <ttabi@nvidia.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260430223838.2530778-9-ttabi@nvidia.com
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/nouveau/bios: skip the IFR header if
-present`
+# Stable Backport Analysis: `drm/amd/pm: Check SMUv13.0.6/12 metrics
+integrity`
 
-**Local tree:** `v6.18.44` (kernel 6.18.44)
-**Upstream commit:** `4beeac5d2015df1017732ce4c57d634f557dd304` (not
-merged into this tree; `git merge-base --is-ancestor` returns exit 1)
+**Local tree:** `v6.18.43` (Linux 6.18.43)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[drm/nouveau/bios]` `[skip]` — When a GPU ROM starts with
-an Init-from-ROM (IFR) header, PROM shadow reads must skip it to reach
-the PCI Expansion ROM (VBIOS).
+**Record:** `[drm/amd/pm]` `[Check]` — Add integrity validation for SMU
+v13.0.6/12 metrics table reads.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Timur Tabi `<ttabi@nvidia.com>` (author)
-- **Reviewed-by:** Lyude Paul `<lyude@redhat.com>` (nouveau maintainer)
-- **Link:**
-  https://patch.msgid.link/20260430223838.2530778-9-ttabi@nvidia.com
-- **Signed-off-by:** Danilo Krummrich `<dakr@kernel.org>` (DRM
+- `Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>` (author)
+- `Reviewed-by: Asad Kamal <asad.kamal@amd.com>`
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
   maintainer)
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or syzbot
-  tags
-- Notable: maintainer review present; part of v2 08/10 in the “fix GA100
-  issues” series
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
+  `Tested-by:`
+
+Notable: AMD maintainer review and sign-off, but no public bug report or
+fuzzer report.
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** GA100 ROMs can begin with an IFR header before the PCI ROM
-  (`0xAA55`). PROM shadow reads from offset 0 without skipping IFR read
-  invalid data.
-- **Symptom:** VBIOS shadow fails → `nvbios_shadow()` returns `-EINVAL`
-  (“unable to locate usable image”) → nouveau probe fails on GA100.
-- **Root cause:** GA100 has no display engine (PRAMIN unavailable), and
-  IFR offset is not applied to PROM reads on this GPU.
-- **Versions:** GA100-specific; other GPUs use PRAMIN first or have IFR
-  offset applied by hardware.
+- **Bug:** SMU metrics table fetch can succeed at the SMC-message level
+  while the copied data is invalid (all `0xFF`, meaning unread).
+- **Symptom:** Driver treats poisoned/unread data as valid metrics.
+- **Root cause:** No post-copy validation after `GetMetricsTable` +
+  VRAM/CPU copy.
+- **Fix:** Check first 16 bytes with `memchr_inv()`; if all `0xFF`,
+  return `-EHWPOISON`.
+- No kernel version or hardware list in the message; subject names
+  SMUv13.0.6/12.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes. Subject says “skip” rather than “fix”, but this is a
-hardware-specific correctness bug in VBIOS loading, not cleanup or
-optimization.
+**Record:** Yes. Despite “Check” wording, this is a real correctness bug
+fix: it stops silently consuming invalid SMU metrics that would
+otherwise drive power limits, clock tables, sysfs metrics, and XGMI
+configuration.
 
 ---
 
@@ -143,188 +130,200 @@ optimization.
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c` (+101
-  / -9)
-- **Functions:** `nvbios_prom_read()`, `nvbios_prom_fini()`,
-  `nvbios_prom_init()`
-- **Scope:** Single-file, hardware-specific logic addition
+- **File:** `drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c` (+4
+  lines)
+- **Function:** `smu_v13_0_6_get_metrics_table()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code flow changes
+Note: upstream diff context uses `amdgpu_hdp_invalidate()` +
+`smu_cmn_vram_cpy()`. This tree uses `amdgpu_asic_invalidate_hdp()` +
+`memcpy()` — same logical point, different API names.
+
+### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (`nvbios_prom_read`):** Before: read `0x300000 + offset` with
-  only 1MB window check. After: add `bios->size` bounds check; apply
-  `pci_rom_offset` to all PROM reads.
-- **Hunk 2 (`nvbios_prom_fini`):** Before: `device` pointer passed
-  directly, no free. After: `priv` struct with `kfree(data)` after re-
-  enabling ROM shadow.
-- **Hunk 3 (`nvbios_prom_init`):** Before: disable ROM shadow, return
-  `device`. After: allocate `priv`, detect IFR signature `0x4947564E`
-  (“NVGI”), parse v1/v2/v3 headers, validate PCI ROM `0xAA55` at
-  computed offset; fail cleanly on error.
+- **Before:** After SMC message + copy, metrics are cached and returned
+  unconditionally.
+- **After:** After copy, if first `min(16, table_size)` bytes are all
+  `0xFF`, return `-EHWPOISON` and do not update `metrics_time`.
+- **Path:** Metrics refresh path (cache bypass or >1 ms stale).
 
 ### Step 2.3: Bug mechanism
-**Record:** **Logic / hardware-layout bug.** PROM reads assumed PCI ROM
-at offset 0. On GA100 with IFR header, VBIOS is at a higher offset.
-Wrong data → invalid PCI ROM header/checksum → BIOS shadow scoring
-fails.
+**Record:**
+- **Category:** Memory/hardware data integrity / logic correctness
+- **Mechanism:** Uninitialized or failed VRAM read leaves `0xFF`
+  pattern; driver previously treated it as valid. With all-`0xFF` data,
+  `AccumulationCounter` appears non-zero, so
+  `smu_v13_0_6_setup_driver_pptable()` can exit its retry loop
+  immediately and write garbage into `pptable` (power limits, clock
+  tables, serial numbers). The fix detects poisoned data before
+  caching/propagation.
 
 ### Step 2.4: Fix quality
-**Record:** Fix is logically sound and defensive (signature checks,
-offset bounds, `0xAA55` validation, proper cleanup on failure).
-Regression risk is low: IFR parsing runs only when `0x300000` contains
-“NVGI”; otherwise `pci_rom_offset` stays 0 and behavior is unchanged.
+**Record:**
+- Obviously correct: `0xFF` fill is a standard “unread” sentinel;
+  `memchr_inv()` is used elsewhere in the kernel for this pattern (e.g.
+  `amd_pmf` policy buffer validation).
+- Minimal (4 lines), no API changes.
+- Low regression risk: only triggers on fully-`0xFF` prefix; legitimate
+  metrics are unaffected.
+- `-EHWPOISON` is already used in amdgpu for hardware data integrity
+  failures.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Core PROM logic dates to Ben Skeggs, 2014
-(`ad4a362635353f`). GA100 recognition added 2021 (`3b050680c8415`,
-`a34632482f1ea`). IFR handling was never implemented; gap present since
-GA100 support landed.
+**Record:** `smu_v13_0_6_get_metrics_table()` at lines 750–778 is
+present in this tree; blame points to merge commit `5d324e5159d9e`
+(history is flattened through merges). The vulnerable function exists in
+v6.18.43.
 
 ### Step 3.2: Fixes tag
 **Record:** N/A — no `Fixes:` tag.
 
 ### Step 3.3: Related file history
-**Record:**
-- `340936ebf5aec` — “specify correct display fuse register for Ampere
-  and Ada” **already backported to this 6.18.44 tree** (patch 7/10 in
-  same series)
-- GA100 initial BIOS support: `a34632482f1ea` (2021)
-- No prior IFR parsing commits in this tree
+**Record:** Recent PM commits in this tree include `75849e13e428e` (xgmi
+max speed reporting) and `33c3a4db31719` (invalid energy_accumulator on
+smu v13.0.x). No duplicate integrity-check fix found. This commit is not
+in this tree yet (`git log --grep` returned nothing).
 
 ### Step 3.4: Author context
-**Record:** Timur Tabi (NVIDIA) authored the GA100 fix series. Lyude
-Paul reviewed. Danilo Krummrich applied the full v2 series to drm-misc-
-next (May 2026).
+**Record:** Lijo Lazar is an active AMD PM contributor (`75849e13e428e`
+xgmi fix in this tree). Patch reviewed by fellow AMD engineer Asad Kamal
+and maintainer Alex Deucher.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone in `shadowrom.c`. Uses `kzalloc_obj()` (present
-in `include/linux/slab.h`). References
-`Documentation/gpu/nova/core/vbios.rst` (IFR section not in this tree’s
-doc, but code does not depend on it). Patch applies cleanly (`git apply
---check` passed). Sister patch 7/10 already in this tree.
+**Record:** Standalone. `memchr_inv()` and `-EHWPOISON` are available.
+Backport inserts after the local copy call (`memcpy`), not upstream’s
+`smu_cmn_vram_cpy`.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original discussion
-**Record:**
-- **b4 dig URL:**
-  https://patch.msgid.link/20260430223838.2530778-9-ttabi@nvidia.com
-- **Series:** v1 (6 patches, Apr 7 2026) → v2 (10 patches, Apr 30 2026);
-  committed version is latest v2
-- **Cover letter:** GA100 has VBIOS but no display engine; must use
-  PROM; VBIOS has IFR header that must be parsed
-- No explicit stable nomination in thread; no NAKs found
+**Record:** Patch submitted to amd-gfx on 2026-04-18 by Lijo Lazar.
+Thread: https://lists.freedesktop.org/archives/amd-
+gfx/2026-April/143042.html (also mirrored at yhbt.net). Included in Alex
+Deucher’s drm-next-7.2 pull. `b4 dig -c` could not be run (commit not in
+this checkout). lore.kernel.org direct fetch blocked (bot protection).
 
 ### Step 4.2: Reviewers
-**Record:** CC’d: Lyude Paul, Danilo Krummrich, David Airlie,
-`nouveau@lists.freedesktop.org`. Reviewed-by: Lyude Paul.
+**Record:** CC’d Hawking.Zhang, Alexander.Deucher, Asad.Kamal. Asad
+Kamal replied 2026-04-20 (Reviewed-by in final commit). No NAKs found.
 
-### Step 4.3: Bug reports
-**Record:** No external bug report or syzbot link. Issue identified
-during GA100 enablement work by NVIDIA.
+### Step 4.3: Bug report
+**Record:** No public bug report, syzbot, or Bugzilla link. Likely
+internal AMD testing discovery.
 
 ### Step 4.4: Series context
-**Record:** Part of “drm/nouveau: fix GA100 issues” (10 patches). Other
-patches (GSP-RM, FRTS, MMU_LOCK, etc.) are **not** in this 6.18.44 tree.
-This patch is independently valuable for correct PROM/VBIOS reading even
-if full GA100 boot needs additional series commits.
+**Record:** Standalone 1-patch fix, not part of a multi-patch series.
 
-### Step 4.5: Stable list
-**Record:** No stable-list discussion found. Precedent: patch 7/10 from
-same series was cherry-picked into this stable tree as `340936ebf5aec`.
+### Step 4.5: Stable list discussion
+**Record:** No stable@ discussion found (UNVERIFIED beyond search; no
+stable nomination seen in available sources).
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `nvbios_prom_init()`, `nvbios_prom_read()`,
-`nvbios_prom_fini()`
+**Record:** `smu_v13_0_6_get_metrics_table()` (modified).
 
 ### Step 5.2: Callers
-**Record:** `nvbios_shadow()` in `shadow.c` calls these via
-`shadow_method()` → `shadow_image()`. `nvbios_shadow()` is called from
-`nvkm_bios_new()` in `base.c` during device probe. BIOS loading is on
-the critical probe path.
+**Record:** Direct callers in this tree:
+- `smu_v13_0_6_get_pm_metrics()` — sysfs PM metrics (checks `ret`)
+- `smu_v13_0_6_setup_driver_pptable()` — DPM init, power/clock limits
+  (checks `ret` in retry loop; caller at line 1088 ignores return — pre-
+  existing)
+- `smu_v13_0_6_get_smu_metrics_data()` — clock/power/thermal sysfs
+  (checks `ret`)
+- Partition metrics paths at lines 2657, 2758 (check `ret`)
+- `smu_v13_0_12_ppt.c:258` — XGMI max speed/width fallback (checks
+  `ret`)
 
 ### Step 5.3: Callees
-**Record:** `nvkm_rd32()`, `nvkm_pci_rom_shadow()`, `kzalloc_obj()`,
-`kfree()`, `nvkm_error()`
+**Record:** `smu_cmn_send_smc_msg()`, HDP invalidate, `memcpy()` from
+driver table CPU address.
 
 ### Step 5.4: Reachability
-**Record:** Triggered at nouveau probe on any GPU where PROM shadow is
-attempted. On GA100 without display, PRAMIN fails (especially after
-`340936ebf5aec` fuse fix), making PROM the fallback. Userspace can load
-the nouveau module and trigger probe on GA100 hardware.
+**Record:** Reachable from GPU init (DPM table setup) and runtime
+sysfs/metrics queries on SMU IP 13.0.6 and 13.0.12 hardware (MI300-class
+datacenter GPUs). Not a syscall path, but reachable from normal driver
+operation on affected hardware.
 
 ### Step 5.5: Similar patterns
-**Record:** `shadowramin.c` has GA100-specific handling; `shadowpci.c`
-uses a similar `priv` + bounds-check pattern. No duplicate IFR parsing
-elsewhere in nouveau.
+**Record:** `amd_pmf` uses `memchr_inv(dev->policy_buf, 0xff, ...)` for
+the same invalid-read detection pattern. No existing `memchr_inv` +
+`0xff` check in amdgpu PM code in this tree.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (v6.18.43)
 
 ### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current `shadowrom.c` reads PROM from `0x300000 +
-i` with no IFR handling. GA100 support (`nv170_chipset` in `base.c`,
-`card_type >= GA100` in `shadowramin.c`) is present. Bug has existed
-since GA100 support was added (~2021).
+**Record:** **Yes.** `smu_v13_0_6_get_metrics_table()` at lines 750–778
+lacks integrity check. SMU 13.0.6/12 support is wired in `amdgpu_smu.c`
+(cases `IP_VERSION(13, 0, 6)` and `IP_VERSION(13, 0, 12)`).
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply** verified against upstream patch. No
-structural conflicts. `kzalloc_obj` available. Doc reference is
-informational only.
+### Step 6.2: Backport difficulty
+**Record:** **Clean apply with trivial context adjustment.** Insert
+after:
+
+```768:769:drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+                amdgpu_asic_invalidate_hdp(smu->adev, NULL);
+                memcpy(smu_table->metrics_table, table->cpu_addr,
+table_size);
+```
 
 ### Step 6.3: Related fixes already present?
-**Record:** `340936ebf5aec` (display fuse register for GA100) is present
-— it correctly makes PRAMIN fail on display-less GA100, increasing
-reliance on PROM and making this fix more important. No duplicate IFR
-fix found.
+**Record:** **No.** `grep` found no `memchr_inv` + `0xff` in amdgpu PM.
+Commit not in tree history.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/nouveau` — **IMPORTANT** (GPU driver;
-affects nouveau users on specific hardware, not core kernel paths).
+### Step 7.1: Subsystem and criticality
+**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMDGPU power
+management for datacenter GPUs; affects power/thermal/clock behavior,
+not core kernel).
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; GA100-related work ongoing in 2026.
+### Step 7.2: Activity
+**Record:** Actively maintained; recent stable-relevant PM fixes in this
+tree (xgmi reporting, energy_accumulator invalidation).
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** Users of **NVIDIA GA100 (A100)** with nouveau enabled. Niche
-but real datacenter/compute hardware already recognized in this tree.
+**Record:** Users of AMD GPUs with SMU firmware IP 13.0.6 or 13.0.12
+(MI300/MI325X-class hardware). Config: `CONFIG_DRM_AMDGPU`.
 
 ### Step 8.2: Trigger conditions
-**Record:** GA100 GPU + nouveau probe + PROM BIOS shadow path used
-(typical when PRAMIN unavailable). Not userspace-exploitable;
-hardware/config-specific.
+**Record:** SMU metrics table VRAM read fails or returns uninitialized
+`0xFF` data while SMC message succeeds. Can occur during init or runtime
+metrics refresh. Not user-triggerable from syscalls; hardware/firmware
+timing dependent. Plausible during error recovery or SMU communication
+issues.
 
 ### Step 8.3: Failure mode severity
-**Record:** VBIOS load failure → driver probe failure (`-EINVAL`).
-**Severity: HIGH** for affected GA100 users (GPU non-functional with
-nouveau); **no impact** on other GPUs.
+**Record:** Without fix: corrupt power limits, clock frequency tables,
+thermal/activity metrics, and XGMI parameters derived from `0xFF` data —
+risk of incorrect DPM behavior, bogus sysfs readings, and potential
+hardware stress. **Severity: HIGH** (incorrect power/clock configuration
+from poisoned data). Not a kernel oops, but can cause real hardware
+misbehavior.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH for GA100 nouveau users; enables correct VBIOS
-  reading
-- **Risk:** LOW — gated on IFR signature match; sister patch already in
-  tree; maintainer-reviewed
-- **Ratio:** Favorable for backport
+- **Benefit:** HIGH for affected datacenter deployments — prevents
+  silent use of completely invalid SMU metrics.
+- **Risk:** LOW — 4-line defensive check, AMD-reviewed, established
+  errno pattern.
+- **Ratio:** Strong benefit, minimal risk.
 
 ---
 
@@ -333,244 +332,112 @@ nouveau); **no impact** on other GPUs.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes real probe failure on GA100 (supported hardware in this tree)
-- Hardware-specific workaround (stable exception category)
-- Reviewed by nouveau maintainer (Lyude Paul)
-- Sister patch 7/10 from same series already in 6.18.44
-- Applies cleanly; self-contained in one file
-- Low regression risk on non-IFR GPUs
+- Fixes real bug (silent consumption of unread `0xFF` metrics data)
+- Can corrupt power/clock initialization in `setup_driver_pptable()`
+- Small, surgical, AMD-maintainer-reviewed
+- Code and affected hardware exist in v6.18.43
+- Matches existing kernel/amdgpu integrity-check patterns
+- Clean backport to this tree
 
 **AGAINST backport:**
-- ~100 lines (borderline on “small” criterion)
-- Full GA100 functionality still needs other series patches not in tree
-- Niche hardware population
-- No syzbot/user bug report
+- No public bug report or crash trace
+- Hardware-specific (MI300-class, niche vs consumer GPUs)
+- `setup_driver_pptable()` return still ignored at one call site (pre-
+  existing; fix still prevents writing garbage into `pptable`)
+- Severity is misconfiguration rather than kernel panic
 
-**Unresolved:** None blocking the decision.
+**Unresolved:** Exact production trigger frequency; no syzbot/user
+reports.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reviewed by maintainer;
-   logic validated against IFR spec
-2. Fixes real bug affecting users? **PASS** — VBIOS load failure on
-   GA100
-3. Important issue? **PASS** — driver probe failure on supported
-   hardware
-4. Small and contained? **PASS** (borderline) — one file, no refactor;
-   ~100 lines but focused
-5. No new features/APIs? **PASS** — hardware workaround, no userspace
-   API change
-6. Can apply to local tree? **PASS** — verified clean apply;
-   prerequisites present
+1. Obviously correct and tested? **PASS** — simple sentinel check;
+   Reviewed-by from AMD engineer; maintainer SOB.
+2. Fixes real bug affecting users? **PASS** — invalid metrics used for
+   PM decisions on real hardware.
+3. Important issue? **PASS** — incorrect power/clock limits from
+   poisoned SMU data on datacenter GPUs (HIGH severity
+   misconfiguration).
+4. Small and contained? **PASS** — 4 lines, one function, one file.
+5. No new features/APIs? **PASS** — error-path validation only.
+6. Can apply to local tree? **PASS** — code present; minor context
+   adjustment for `memcpy` vs `smu_cmn_vram_cpy`.
 
-### Step 9.3: Exception category
-**Record:** **Hardware quirk/workaround** — GA100-specific ROM layout
-requiring IFR header parsing before PCI ROM access.
+### Step 9.3: Exception categories
+**Record:** N/A (not device ID, DT, build fix, or docs). Standard bug
+fix.
 
 ### Step 9.4: Decision rationale
-This tree (6.18.44) already recognizes GA100 and has already backported
-the companion display-fuse fix from the same series. Without IFR header
-parsing, PROM-based VBIOS loading fails on GA100, blocking nouveau
-probe. The fix is maintainer-reviewed, applies cleanly, and only changes
-behavior when an IFR header is detected. The incomplete state of other
-GA100 series patches does not diminish the standalone correctness and
-value of this BIOS-reading fix.
+This patch prevents the driver from silently building power-management
+state from completely invalid SMU metrics. On MI300-class hardware in
+the 6.18.y tree, a failed metrics read currently produces `0xFF` data
+that can populate `pptable` power and clock limits. The fix is minimal,
+low-risk, AMD-reviewed, and directly applicable to this checkout.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed Reviewed-by: Lyude Paul; no syzbot/Fixes tags
-- **[Phase 2]** Diff analysis: +101/-9 in `shadowrom.c`; IFR parsing +
-  bounds checks
-- **[Phase 3]** `git describe HEAD`: v6.18.44 / kernel 6.18.44
-- **[Phase 3]** `git blame shadowrom.c`: core code from 2014; no IFR
-  handling ever added
-- **[Phase 3]** `git log shadowrom.c`: 6 commits, no IFR-related changes
-- **[Phase 3]** `340936ebf5aec` in tree: sister patch 7/10 already
-  backported
-- **[Phase 3]** `git merge-base --is-ancestor 4beeac5d2015 HEAD`: exit 1
-  (commit not in tree)
-- **[Phase 4]** `b4 dig -c 4beeac5d2015`: found v2 08/10 at
-  patch.msgid.link URL
-- **[Phase 4]** `b4 dig -a`: v1 and v2 series identified; v2 is latest
-- **[Phase 4]** `b4 dig -w`: Lyude Paul, Danilo Krummrich, David Airlie
-  CC’d
-- **[Phase 4]** `/tmp/ifr_thread.mbox`: cover letter describes GA100
-  VBIOS/IFR issue; Danilo applied full series; no stable nomination; no
-  NAKs
-- **[Phase 5]** Read `shadow.c`: `nvbios_prom` tried after PRAMIN in
-  `nvbios_shadow()`
-- **[Phase 5]** Read `base.c`: `nvkm_bios_new()` calls `nvbios_shadow()`
-  on probe
-- **[Phase 5]** Read `shadowramin.c`: GA100 uses fuse register
-  `0x820c04`; fails when display disabled
-- **[Phase 5]** Read `base.c`: `nv170_chipset` GA100 defined with bios
-  subdev
-- **[Phase 6]** Read current `shadowrom.c`: buggy code confirmed present
-  (no IFR handling)
-- **[Phase 6]** `git apply --check` upstream patch: applies cleanly
-- **[Phase 6]** `grep kzalloc_obj include/linux/slab.h`: macro exists
-- **[Phase 8]** Failure mode traced: `nvbios_shadow()` → “unable to
-  locate usable image” → probe `-EINVAL`
+- **[Phase 1]** Parsed commit message and tags from user-provided diff
+- **[Phase 2]** Read `smu_v13_0_6_get_metrics_table()` at lines 750–778;
+  confirmed missing integrity check
+- **[Phase 2]** Traced `setup_driver_pptable()` lines 873–942; confirmed
+  garbage `0xFF` metrics can populate power/clock limits
+- **[Phase 3]** `git describe HEAD` → `v6.18.43`
+- **[Phase 3]** `git blame -L 750,778` → function present, no integrity
+  check
+- **[Phase 3]** `git log --grep="metrics integrity"` → no match (commit
+  not in tree)
+- **[Phase 3]** `grep memchr_inv.*0xff drivers/gpu/drm/amd/pm` → no
+  matches
+- **[Phase 4]** Web search found amd-gfx submission (2026-04-18) and
+  drm-next-7.2 pull inclusion
+- **[Phase 4]** lore.kernel.org fetch failed (bot protection); Asad
+  Kamal reply noted via search snippet
+- **[Phase 4]** `b4 dig` without commit hash unavailable; commit not in
+  local tree
+- **[Phase 5]** `grep smu_v13_0_6_get_metrics_table` → 6 call sites in
+  `smu_v13_0_6_ppt.c`, 1 in `smu_v13_0_12_ppt.c`
+- **[Phase 5]** Verified callers check `ret` (except
+  `smu_v13_0_6_setup_driver_pptable()` at line 1088)
+- **[Phase 5]** `grep EHWPOISON drivers/gpu/drm/amd` → used in amdgpu
+  core (ras, cs, job, kms, xgmi)
+- **[Phase 5]** Found `memchr_inv(..., 0xff, ...)` pattern in
+  `drivers/platform/x86/amd/pmf/tee-if.c`
+- **[Phase 6]** Confirmed `IP_VERSION(13, 0, 6)` and `IP_VERSION(13, 0,
+  12)` in `amdgpu_smu.c`
+- **[Phase 6]** Confirmed upstream diff context differs
+  (`smu_cmn_vram_cpy` vs local `memcpy`); fix placement is equivalent
+- **[Phase 7]** `git log --oneline -20 -- drivers/gpu/drm/amd/pm/` →
+  active PM maintenance
+- **UNVERIFIED:** Exact hardware SKU list beyond IP version 13.0.6/12;
+  production incident frequency; full Asad Kamal review thread content
 
-**YES**The background searches finished and match what the analysis
-already used:
+**YES****Verdict: YES** — backport to this tree (`v6.18.43`).
 
-- **6.18.44 tree** — IFR header fix is **not** present; buggy
-  `shadowrom.c` code is there
-- **Upstream commit** — `4beeac5d2015` (“skip the IFR header if
-  present”)
-- **GA100 support** — in-tree since 2021; companion patch
-  `340936ebf5aec` (display fuse) is already backported
-- **Patch applies cleanly** to this tree
+The commit adds a 4-line check in `smu_v13_0_6_get_metrics_table()` so
+unread SMU metrics (all `0xFF`) return `-EHWPOISON` instead of being
+used for power limits, clock tables, and sysfs metrics on SMU 13.0.6/12
+hardware (MI300-class). The buggy code is present in this tree; the
+patch applies cleanly after the existing `memcpy()` call.
 
-**Verdict for 6.18.44: YES** — backport this fix so GA100 can load VBIOS
-via PROM when PRAMIN isn’t available.
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- .../drm/nouveau/nvkm/subdev/bios/shadowrom.c  | 110 ++++++++++++++++--
- 1 file changed, 101 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c
-index 39144ceb117b4..9e171b1bad732 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowrom.c
-@@ -24,34 +24,126 @@
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 43965b1135fe7..0d065e4073655 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -768,6 +768,10 @@ int smu_v13_0_6_get_metrics_table(struct smu_context *smu, void *metrics_table,
+ 		amdgpu_asic_invalidate_hdp(smu->adev, NULL);
+ 		memcpy(smu_table->metrics_table, table->cpu_addr, table_size);
  
- #include <subdev/pci.h>
++		if (!memchr_inv(smu_table->metrics_table, 0xff,
++				min(16, table_size)))
++			return -EHWPOISON;
++
+ 		smu_table->metrics_time = jiffies;
+ 	}
  
-+#define NV_PBUS_IFR_FMT_FIXED0_SIGNATURE_VALUE 0x4947564E	/* "NVGI" */
-+#define NV_ROM_DIRECTORY_IDENTIFIER 0x44524652			/* "RFRD" */
-+
-+struct priv {
-+	struct nvkm_device *device;
-+	u32 pci_rom_offset;
-+};
-+
- static u32
- nvbios_prom_read(void *data, u32 offset, u32 length, struct nvkm_bios *bios)
- {
--	struct nvkm_device *device = data;
-+	struct priv *priv = data;
-+	struct nvkm_device *device = priv->device;
- 	u32 i;
--	if (offset + length <= 0x00100000) {
--		for (i = offset; i < offset + length; i += 4)
--			*(u32 *)&bios->data[i] = nvkm_rd32(device, 0x300000 + i);
--		return length;
--	}
--	return 0;
-+
-+	/* Make sure we don't try to read past the end of data[] */
-+	if (offset + length > bios->size)
-+		return 0;
-+
-+	/* Make sure the read falls within the 1MB PROM window */
-+	if (offset + priv->pci_rom_offset + length > 0x00100000)
-+		return 0;
-+
-+	for (i = offset; i < offset + length; i += 4)
-+		*(u32 *)&bios->data[i] = nvkm_rd32(device, 0x300000 + priv->pci_rom_offset + i);
-+	return length;
- }
- 
- static void
- nvbios_prom_fini(void *data)
- {
--	struct nvkm_device *device = data;
-+	struct priv *priv = data;
-+	struct nvkm_device *device = priv->device;
-+
- 	nvkm_pci_rom_shadow(device->pci, true);
-+
-+	kfree(data);
- }
- 
- static void *
- nvbios_prom_init(struct nvkm_bios *bios, const char *name)
- {
- 	struct nvkm_device *device = bios->subdev.device;
-+	struct priv *priv;
-+	u32 fixed0;
-+
-+	/* There is no PROM on NV4x iGPUs */
- 	if (device->card_type == NV_40 && device->chipset >= 0x4c)
- 		return ERR_PTR(-ENODEV);
-+
-+	priv = kzalloc_obj(*priv);
-+	if (!priv)
-+		return ERR_PTR(-ENOMEM);
-+
-+	/* Disable the PCI ROM shadow so that we can read PROM. */
- 	nvkm_pci_rom_shadow(device->pci, false);
--	return device;
-+
-+	/*
-+	 * Check for an IFR header. If present, parse it to find the actual PCI ROM header.
-+	 *
-+	 * The IFR header is documented in Documentation/gpu/nova/core/vbios.rst
-+	 */
-+	fixed0 = nvkm_rd32(device, 0x300000);
-+	if (fixed0 == NV_PBUS_IFR_FMT_FIXED0_SIGNATURE_VALUE) {
-+		u32 fixed1 = nvkm_rd32(device, 0x300004);
-+		u8 version = (fixed1 >> 8) & 0xff;
-+		u32 fixed2, data_size, offset, signature;
-+
-+		switch (version) {
-+		case 1:
-+		case 2:
-+			data_size = (fixed1 >> 16) & 0x7fff;
-+			priv->pci_rom_offset = nvkm_rd32(device, 0x300000 + data_size + 4);
-+			break;
-+		case 3:
-+			fixed2 = nvkm_rd32(device, 0x300008);
-+			data_size = fixed2 & 0x000fffff;
-+
-+			/* ROM directory offset */
-+			offset = nvkm_rd32(device, 0x300000 + data_size) + 4096;
-+
-+			signature = nvkm_rd32(device, 0x300000 + offset);
-+			if (signature != NV_ROM_DIRECTORY_IDENTIFIER) {
-+				nvkm_error(&bios->subdev, "could not find IFR ROM directory\n");
-+				goto fail;
-+			}
-+
-+			priv->pci_rom_offset = nvkm_rd32(device, 0x300000 + offset + 8);
-+
-+			break;
-+		default:
-+			nvkm_error(&bios->subdev, "unsupported IFR header version %u\n",
-+				   version);
-+			goto fail;
-+		}
-+
-+		/* Double-check that the offset is valid */
-+		if (priv->pci_rom_offset >= 0x00100000) {
-+			nvkm_error(&bios->subdev,
-+				   "PCI ROM offset of 0x%x is too large\n", priv->pci_rom_offset);
-+			goto fail;
-+		}
-+
-+		/* If there is an IFR header, there must also be a PCI ROM header. */
-+		signature = nvkm_rd32(device, 0x300000 + priv->pci_rom_offset) & 0xffff;
-+		if (signature != 0xaa55) {
-+			nvkm_error(&bios->subdev,
-+				   "could not find PCI ROM signature at offset 0x%x\n",
-+				   priv->pci_rom_offset);
-+			goto fail;
-+		}
-+	}
-+
-+	priv->device = device;
-+	return priv;
-+
-+fail:
-+	nvkm_pci_rom_shadow(device->pci, true);
-+	kfree(priv);
-+	return ERR_PTR(-ENODEV);
- }
- 
- const struct nvbios_source
 -- 
 2.53.0
 
