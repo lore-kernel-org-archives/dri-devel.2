@@ -4,107 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E73D5C61DE8
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 05:58:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19610C61DE8
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 06:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1702410E25A;
-	Mon, 31 Aug 2026 05:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2966210E5FD;
+	Mon, 31 Aug 2026 06:03:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FzqOKUwn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="avsNAXYY";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACB510E25A;
- Mon, 31 Aug 2026 05:58:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R9ZQBEZkfjuPc24MpEIXKXa9WNg1XcRtrAYifDUPmPVev3+mxNsx/FlNxR1VtMu52s6KjpQ7QDOR4V+Br3maOYrg0sMkwDUPi4SWA4PV6aiV2DhIy+YQlpdjtfUz2VVb5hUqdfJyofZUUmtX2rQgqEen3DwKOKnmWo6uaxEX1bHYCKUHMPm4vW6fUZMli302KQVuPMa2cZ0pNKpx1inzT2CexOjQxHXsCi4X+sEoqVjtFZUVCIDhTE0UG8A4SS6quUeSIenaj0teeJ8GHg/k75GZwEAn5o3+sB2c9cERP9dSJDAoVoOmLahfV4cieUFm3fgoYJJ2atIdlIBOQlrXCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/JX8FrspF9mz5JgNzfe3Zbxj2lHZg73TVdeckQ+msU8=;
- b=DWM86mQjwlkpuK4bvlgN/cVKCZSbRpALHW4SlAs2FhWV52pHEn5JqJuOxqk1pNJvKXGrkHOYE5QDOHL3JF/DJCBp8OrTS0OYnxkzfsXul3JY+SsxC8Q1Jw/91rMf8CaQEIFhsJkxq2P/Y5G4QnMBcAod1193qpgun8BPmG/RC3eo6v7bEuOJ0XwDiJ8J49tpETqfIH/ybQE2iwLD4NcqfkB2LLwBladVxLPdOsLznFxSNyMbvxkXQqs5LM9a4wfl+jSXt+RF9y27EpIzYgJAoNzl7hogH4dOTgECyqUn6CGKXKO8UP2GC2F9+mYqMHv+My2h2lz4PssK0Iyy1Pxd3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/JX8FrspF9mz5JgNzfe3Zbxj2lHZg73TVdeckQ+msU8=;
- b=FzqOKUwnRVvRD1FaNZOIDT0ua6yPjLOTNyt8+uOJ+a6pwIwVz9ZLkEmxLK2bNI4r1GlMvE024EZvRpgbzqluGwOcOgEoj23a1cqBPzjXQfwqA7eDqeGM4gch4km+W/4sYfAv5KWrUROhw0piZdGreduFRRHzQNfQgAgwjDMN/hU=
-Received: from PH5P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::11)
- by LV8PR12MB9335.namprd12.prod.outlook.com (2603:10b6:408:1fc::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 05:58:20 +0000
-Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
- (2603:10b6:510:34b:cafe::86) by PH5P222CA0010.outlook.office365.com
- (2603:10b6:510:34b::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 05:58:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 05:58:19 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 00:58:19 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 00:58:19 -0500
-Received: from junhua-PC (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 00:58:15 -0500
-Date: Mon, 31 Aug 2026 13:58:15 +0800
-From: Junhua Shen <Junhua.Shen@amd.com>
-To: Francois Dugast <francois.dugast@intel.com>
-CC: <dri-devel@lists.freedesktop.org>, Matt Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Honglei Huang <Honglei1.Huang@amd.com>, Yiru Ma <Yiru.Ma@amd.com>
-Subject: Re: [PATCH] drm/pagemap: centralize migrate src base-page counting
-Message-ID: <20260831055815.ixwjr32n7lprwpqw@junhua-PC>
-References: <20260828083652.40855-1-Junhua.Shen@amd.com>
- <apFY3QDowfV30Xoc@fdugast-desk>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F20710E5FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 06:03:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788156180; x=1819692180;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=elDOBsWMxf4fGrhfANpbUh9SxtqQTI60hJLdFDR6D88=;
+ b=avsNAXYYjAoIWhAEyHvOk9lc588782M4kag7H+MQOU2mr4dW5jZM0rrX
+ sLK1M8F9SAP0CW87IjyA2Z9frKlxvEQvLbVpiNL27vt9OElEftDKhJWgk
+ y/JcfCwImdoB7iSyQAASLUmtTnZJTc+JVnw92L5EarMYyz/2h5eGVRfyZ
+ 38HzErUAsM9nUPj7prhCigf3iPTzAUJ4hMA4554xVeodRMk3FnHJ6IozL
+ VnvttzRMdRjWR+/mhcslSy5wTreUqDzoCyIy1+tjhmx3XsKVPzlcfb9il
+ 9s69u+6F7IvWA6d1iNSDQ+FgEyngzDHbSJS9ujg7cQUIGl7MnSqvIpzbm w==;
+X-CSE-ConnectionGUID: r4nuWTFdQw+hzkpqDnnu/g==
+X-CSE-MsgGUID: oDYvPgLgTWmAXF5QG6hTmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88677631"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="88677631"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2026 23:03:00 -0700
+X-CSE-ConnectionGUID: 20sCiIFBTZmJ+TkDz9Wshw==
+X-CSE-MsgGUID: T2c+xq2eTbeiDf/rW74Jgg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="265467732"
+Received: from vkasired-desk2.fm.intel.com ([10.105.128.132])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2026 23:02:59 -0700
+From: Vivek Kasireddy <vivek.kasireddy@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>
+Subject: [PATCH v1 1/2] udmabuf: Do not warn when pages/folios array
+ allocation fails
+Date: Sun, 30 Aug 2026 23:00:30 -0700
+Message-ID: <20260831060210.1713177-2-vivek.kasireddy@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831060210.1713177-1-vivek.kasireddy@intel.com>
+References: <20260831060210.1713177-1-vivek.kasireddy@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <apFY3QDowfV30Xoc@fdugast-desk>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|LV8PR12MB9335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d6a6915-7bf3-4f0b-234f-08df0724dbc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ohbxFUwGpxf2bRd7p/rS9Sz77STYUaRcvvjcygVlHJqrZdC9A5fhGcXLeh8FhsaJ4/q6JONIsEJmxJIdCcnVqCtL72ZAbjNqWzhePH/trM5w+ckphsZhFDZ2cPjM8AneV7DbGxnFDAdZknv9+DZvsGvHNNnJAIRx1xKaRG35G9CHDuQi1y3t8Qann//07b9AjVFRnrdekvs9MbW3bl8rq/Ikf5CS2rh5lFe3P3E33PqypFMY+p0B35RH5O+zXOliVFZsDPsrAokxCtADzxf9QLwKUW1yr5pdOaag3sk0198GaxZ52oQyapDfdEKz7/zw/tv5jUNlUVLlBtydV6CelX+xYt4/aIgAeK+fMN0G+5GFTkw8YXvdt0bFlKSLvSyYKRMXnT8Q87pGtzM50WktvjbL6wslM6+TgwEGB5MRiCSJfm3zW+eTeh+ZANKVihmoQWkays/3ksNhrFsMG3pf1S23DVhhIUC6ic/+hJbd3h94pJrz+DJG9A+5xkLCTO9Su2pV/6pJCrRIAJaqL4YcgSYmVz9NR7n+tOJK3eGTlaM0h964IkLBp7v1bCrOKME1WEyQ5t4OmVkPKnUQ/xLEgqwJhqZaSeL3Idha1tnFQM/ORSUjq4DJsaoNdo0qEKWOlg10GhDv+vvrubwJB/PrCWKkLoT5wrHapeYQdR9avSpk0xMAHC4V/zy77TORWM9le5GbkVOi3aBCoF0OkPgpOQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: biDTzMlFtMdwN0VMzIDsz5CcmE3Zy/O0X5XcB2TgXCmPSCdtBmCCui2FwqbnjIfjn1QCJC8titeposPkqwA2xwndbI2JUbNevPICGpVZQJ+tBqiVNekMQdn9XVzPiFyoDoY5zkOOSS7vll/vH5N5+aKc1dzMpgkh3UsowpNQjng72H2YCdS0oTB71dFWGon2Wq1hm8wHQW67Twu2nllApijeOaytsU4Rz3EKydLZSY4In+1YkMyooNMWir6nXMtX0tWKwtEzTJLAt+uZh2fNlPpjV39BhtGoptwXXiQkYBDllMzRK9FbzcSoXbBV9dnt0IEge3+Q3oLP1WPBXR7ZzPsg0kFIti1OZU4NavM4+2IpU5JIZ/mOullhIRVZwiXFsI+B2d18ZyIX9rkUp7yLjcSxDdNNEAKjeYc3P/2q/Qjme+gVcGgFQE8rQhiwRZJe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 05:58:19.6530 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d6a6915-7bf3-4f0b-234f-08df0724dbc4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9335
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,139 +73,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 28, 2026 at 11:46:05AM +0200, Francois Dugast wrote:
-> Hi,
-> 
-> On Fri, Aug 28, 2026 at 04:36:52PM +0800, Junhua Shen wrote:
-> > 
-> > The base-page count for a migrate.src[] entry was open-coded in several
-> > places along the migration path, and these variants handled
-> > MIGRATE_PFN_COMPOUND entries inconsistently.
-> 
-> Nit: not just inconsistently, I would mention the existing undercount issue
-> this patch fixes when VALID=0 && COMPOUND=1.
->
-> > 
-> > Factor it out into drm_pagemap_src_pfn_nr_pages() and use it in
-> > drm_pagemap_cpages() and both accounting loops of
-> > drm_pagemap_migrate_to_devmem(), so every site agrees on the base-page
-> > count and iteration stride.
-> > 
-> > Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
-> 
-> Consequently, we need a "Fixes" tag here.
-> 
-Agreed. In v2 I'll lead with the bug (VALID=0 && COMPOUND=1 undercounted as
-1 instead of HPAGE_PMD_NR, risking a spurious -EBUSY) and add a Fixes tag.
+When the user is trying to create an extremely large udmabuf, the
+allocation of pages/folios arrays may fail. In that case, there is
+no need to print any warning trace in the log because such a trace,
+although expected, could be considered as evidence of a serious
+problem by some users or tools/fuzzers.
 
-Thanks!
-Junhua
+This warning trace started showing up after commit 44e9eb5a7621
+("dma-buf/udmabuf: Disable the size limit by default") was merged
+as this commit changed the maximum size limit for udmabuf to be
+INT_MAX by default instead of 64 MB. So, fix this issue by passing
+in __GFP_NOWARN flag when allocating pages/folios arrays.
 
-> With that, the change itself LGTM:
-> 
->     Reviewed-by: Francois Dugast <francois.dugast@intel.com>
-> 
-> Francois
-> 
-> > ---
-> >  drivers/gpu/drm/drm_pagemap.c | 60 +++++++++++++++++++++++++----------
-> >  1 file changed, 43 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> > index 892b325fa99b..a31cc4f0af68 100644
-> > --- a/drivers/gpu/drm/drm_pagemap.c
-> > +++ b/drivers/gpu/drm/drm_pagemap.c
-> > @@ -554,6 +554,37 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
-> >  	return ret;
-> >  }
-> >  
-> > +/**
-> > + * drm_pagemap_src_pfn_nr_pages() - Decode src entry and return base-page count
-> > + * @src_pfn: Source migrate entry
-> > + * @src_page: Optional decoded source page when MIGRATE_PFN_VALID is set
-> > + *
-> > + * Decode @src_pfn to compute how many base pages it represents: use folio
-> > + * page count for valid entries, HPAGE_PMD_NR for COMPOUND-only entries,
-> > + * otherwise 1.
-> > + *
-> > + * Return: Number of base pages represented by @src_pfn.
-> > + */
-> > +static unsigned long drm_pagemap_src_pfn_nr_pages(unsigned long src_pfn,
-> > +						   struct page **src_page)
-> > +{
-> > +	struct page *page = NULL;
-> > +	unsigned long nr_pages = 1;
-> > +
-> > +	if (src_pfn & MIGRATE_PFN_VALID) {
-> > +		page = migrate_pfn_to_page(src_pfn);
-> > +		if (page)
-> > +			nr_pages = NR_PAGES(folio_order(page_folio(page)));
-> > +	} else if (src_pfn & MIGRATE_PFN_COMPOUND) {
-> > +		nr_pages = HPAGE_PMD_NR;
-> > +	}
-> > +
-> > +	if (src_page)
-> > +		*src_page = page;
-> > +
-> > +	return nr_pages;
-> > +}
-> > +
-> >  /**
-> >   * drm_pagemap_cpages() - Count collected pages
-> >   * @migrate_pfn: Array of migrate_pfn entries to account
-> > @@ -570,20 +601,14 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
-> >  	unsigned long i, cpages = 0;
-> >  
-> >  	for (i = 0; i < npages;) {
-> > -		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
-> > -		struct folio *folio;
-> > -		unsigned int order = 0;
-> > +		unsigned long src_pfn = migrate_pfn[i];
-> > +		struct page *page;
-> > +		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &page);
-> >  
-> > -		if (page) {
-> > -			folio = page_folio(page);
-> > -			order = folio_order(folio);
-> > -			cpages += NR_PAGES(order);
-> > -		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
-> > -			order = HPAGE_PMD_ORDER;
-> > -			cpages += NR_PAGES(order);
-> > -		}
-> > +		if (page || (src_pfn & MIGRATE_PFN_COMPOUND))
-> > +			cpages += nr_pages;
-> >  
-> > -		i += NR_PAGES(order);
-> > +		i += nr_pages;
-> >  	}
-> >  
-> >  	return cpages;
-> > @@ -703,8 +728,9 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  
-> >  	/* Count device-private pages to migrate */
-> >  	for (i = 0; i < npages;) {
-> > -		struct page *src_page = migrate_pfn_to_page(migrate.src[i]);
-> > -		unsigned long nr_pages = src_page ? NR_PAGES(folio_order(page_folio(src_page))) : 1;
-> > +		unsigned long src_pfn = migrate.src[i];
-> > +		struct page *src_page;
-> > +		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &src_page);
-> >  
-> >  		if (src_page && is_zone_device_page(src_page)) {
-> >  			if (page_pgmap(src_page) == pagemap)
-> > @@ -818,10 +844,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
-> >  	migrate_vma_pages(&migrate);
-> >  
-> >  	for (i = 0; !err && i < npages;) {
-> > -		struct page *page = migrate_pfn_to_page(migrate.src[i]);
-> > -		unsigned long nr_pages = page ? NR_PAGES(folio_order(page_folio(page))) : 1;
-> > +		unsigned long src_pfn = migrate.src[i];
-> > +		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, NULL);
-> >  
-> > -		if (migrate.src[i] & MIGRATE_PFN_MIGRATE)
-> > +		if (src_pfn & MIGRATE_PFN_MIGRATE)
-> >  			migrated_pages += nr_pages;
-> >  
-> >  		i += nr_pages;
-> > -- 
-> > 2.34.1
-> > 
+Syzbot was the first to report this issue by triggering the following
+warning trace:
+	!(flags & __GFP_NOWARN)
+	WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x646/0x9b0
+	mm/slub.c:7013, CPU#2: syz.0.17/5920
+	Modules linked in:
+	CPU: 2 UID: 0 PID: 5920 Comm: syz.0.17 Not tainted syzkaller #0
+	PREEMPT(full)
+	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+	1.16.3-debian-1.16.3-2 04/01/2014
+	RIP: 0010:__kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013
+	Code: c1 e8 2e 07 ff ff 4d 85 f6 0f 85 b6 fd ff ff 48 81 fb ff
+	ff ff 7f 0f 86 4d fd ff ff 41 81 e4 00 20 00 00 0f 85 9c fd ff
+	ff 90 <0f> 0b 90 e9 93 fd ff ff 41 be 10 00 00 00 e9 88 fd ff ff
+	be 42 01
+	RSP: 0018:ffffc90003d8fb50 EFLAGS: 00010246
+	RAX: 0000000000000001 RBX: 0000008000800018 RCX:
+	0000010000000000
+	RDX: 0000000000000000 RSI: ffffffff8c61e200 RDI:
+	ffffffff8e6ad930
+	RBP: 0000000008000800 R08: 00000000000028c0 R09:
+	00000000ffffffff
+	R10: 0000000000000001 R11: 0000000000000000 R12:
+	0000000000000000
+	R13: 00000000000028c0 R14: 0000000000000000 R15:
+	00000000ffffffff
+	FS:  0000000000000000(0000) GS:ffff888096b76000(0063)
+	knlGS:00000000579e1480
+	CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+	CR2: 00000000f7113140 CR3: 00000000542cb000 CR4:
+	0000000000352ef0
+	Call Trace:
+	 <TASK>
+	  init_udmabuf drivers/dma-buf/udmabuf.c:193 [inline]
+	  udmabuf_create+0x2e8/0x12a0 drivers/dma-buf/udmabuf.c:386
+	  udmabuf_ioctl_create_list drivers/dma-buf/udmabuf.c:484
+	  [inline]
+	  udmabuf_ioctl+0x2b2/0x300 drivers/dma-buf/udmabuf.c:499
+	  __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
+	  __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
+	  __ia32_compat_sys_ioctl+0x2cf/0x360 fs/ioctl.c:638
+	  do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79
+	  [inline]
+	  __do_fast_syscall_32+0x13a/0x8b0
+	  arch/x86/entry/syscall_32.c:291
+	  do_fast_syscall_32+0x32/0x70
+	  arch/x86/entry/syscall_32.c:316
+	  entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+	  RIP: 0023:0xf7f03fec
+	  Code: Unable to access opcode bytes at 0xf7f03fc2.
+	  RSP: 002b:00000000ffe2d40c EFLAGS: 00000292
+	  ORIG_RAX: 0000000000000036
+	  RAX: ffffffffffffffda RBX: 0000000000000003 RCX:
+	  0000000040087543
+	  RDX: 0000000080000100 RSI: 0000000000000000 RDI:
+	  0000000000000000
+	  RBP: 0000000000000000 R08: 0000000000000000 R09:
+	  0000000000000000
+	  R10: 0000000000000000 R11: 0000000000000246 R12:
+	  0000000000000000
+	  R13: 0000000000000000 R14: 0000000000000000 R15:
+	  0000000000000000
+	 </TASK>
+
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Robert Mader <robert.mader@collabora.com>
+Cc: Xaver Hugl <xaver.hugl@kde.org>
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+---
+ drivers/dma-buf/udmabuf.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 4a9ab5822ffc..7c4339130eff 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -190,11 +190,13 @@ static void unpin_all_folios(struct udmabuf *ubuf)
+ 
+ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ {
+-	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
++	gfp_t gfp = GFP_KERNEL | __GFP_NOWARN;
++
++	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt, gfp);
+ 	if (!ubuf->pages)
+ 		return -ENOMEM;
+ 
+-	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
++	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt, gfp);
+ 	if (!ubuf->pinned_folios)
+ 		return -ENOMEM;
+ 
+-- 
+2.53.0
+
