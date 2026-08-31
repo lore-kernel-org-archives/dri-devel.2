@@ -4,131 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31284C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:43:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92151C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:43:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2159D10E339;
-	Mon, 31 Aug 2026 20:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD6A010EAFA;
+	Mon, 31 Aug 2026 20:43:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="WIKveXy2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b247uYEe";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022094.outbound.protection.outlook.com [52.101.96.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 306FB10E20B
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:43:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8511A10EAF7;
+ Mon, 31 Aug 2026 20:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788209017; x=1819745017;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=Hqmm50pLxjbfU0t3l8B5pmSVd096syss+WGKJcQJUKM=;
+ b=b247uYEeLX4zb/xUuWkACEdJRSTyqgJsMthzWqqDoDtkEGujA7eKYcLu
+ XCMIrVEG86zcyde5Kmy+uwCAkmHxrw0MAD21eWJYY86xWwEVS+N9JezZj
+ IvH4yGCdNeJOkAPJhbfOaAeOQd4RSPYowtL6JN3MY0r9fiBylL1Y+HElm
+ 3eqaqcBdMP/h/qI90mT4it5eNr5M+FTZa3mBvacWRz7sGdEOwPjjAiHDl
+ yFvUFGog/GeV1VtfcIWI+NL/pl2TSXYQ0ERF9vCpt9tVSIkQE8IDBKwdO
+ tBblR+0WoelMAX5PJcSaFvL901d4OrCZwsfe76Su8iIjuezq5msKYcwbJ w==;
+X-CSE-ConnectionGUID: xfZ4oNZoTCCXB7PQj3bw9A==
+X-CSE-MsgGUID: YiohwXg3Q+S3Tb6ykfhmJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106147002"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="106147002"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 13:43:37 -0700
+X-CSE-ConnectionGUID: SezkmBk6Ttu+vc/dx3Tg8g==
+X-CSE-MsgGUID: GyJHjRk2TqW8qqK4C+4O4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="267092854"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 13:43:37 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 13:43:36 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 13:43:36 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.67) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 13:43:35 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iq//gNpz4Lkri25Ks+J9fhUxaXCdS+j80m0B7ncH+khHynMIXGhk8wH9UsV7a4VFPXyy2YNXFahniNcR0CSStb9J2Av7Bt8kPzzSl0mEeS0dpr07EoDEbyjFtwotsijHkX4jBl3Nz3qHr0C+bHkGAFS1+dnkZfh9A82ku4/vkZtyoEcl7r9X59/aXcucQ03DbZLqnRUbNX5P+KgYJBPLSzYvhvKSABZy0BWBima1xFpDZA3PmSlJVQ6j079raMyH1qtyOD0s7ZTsRPGi6Yh9xeihPTPwQ8aiiWUIXMqjcmTNbGB1F55iD54NuH4KxNKgWsZntBkTlG5B3PlfvSGUMg==
+ b=dljrm6BP7SB7XdYRnyYaxJ5/N4MxsE34/GZkr7BL8dC67tiC5ISn8cGeHnqvV1Daxli8rdrLNkyz2vGJ3TwKpOVWdgjHEp/TrHvXB9to/B8stp3SmK89I5aeXoGdaV8f/rMLMZ7/LOoWYjBLFiXvRqwTcF4qyeJCZEIdsK2DhlNvN/rVdz0EaDpGgc8iDUwbnsnUNOlcOlQAxxrzu4yXc5bb8ODGVTVyqQkmrsiHoHw0eelUNIa6ugUOZdbb+mPWRAGNPRk2BGbTbXTmpRrPp8Viso4gcvxamH/GHNHMR5tx+wNrYT4mhCTfxVE4lSpHFLMW2j0suNc8zLwrl/UzBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tBNOR9CJeplUUoxRXX3rH3i5YybGZO83lhDr3z6Auu4=;
- b=m2EkWlkHRZTkFnHNq0+erZ7jMLfHfCqZ7xWkDCRXjGu4LkmGBITCJPiSv+TmJetDVsYB40CsYEOsqNS1gp0qboRm/bueH6t9fkWUoUTRt3u7FH+yBHNfAwSU61rqpOZe8BFZJ4y0Lns95EP7ACfsmq2xB2FnMqO7p9SW2URUVtc0tsrIp2pE8X6g91VHcsqQqoNy0s4Ujo52oPwmdEAwprFKeRZ8NI3EOm+7aWMGfX+jZUB/hP0pf48WUcyikA3KRt1To+ZkpX4+kq4RnI4LjYQ3wl04Pi3mXQVIUw3dB5iNH5UTCBHACsXmqAgNpL8o6Uextvl7OsmfS49ojITTIg==
+ bh=EFzEUbSDjG6GWF5PsFU1qTQ4N3c8oGU2qRfQ6AXfspI=;
+ b=Qdt38L4BBU/Kl8iBLWJ4n2UwlsggN+/6p2SOIGfPxeHPEW0V1cq8VyIQE6ZWKPGGKBJOluwrJWl4nQWQJCDKfWhgVdKD3VE7rasbTt2GDlnJowc3pZR9PwmddCGcnxGKT7TqpqI+J/6WMkIDwEQGW9pdFlOCBN7NdVtEQ3JPxwgbpG3/a68mpzQcfIYFVRsycNOaKw77sbA491Y9bZlITWfpey22G8cp2sUsFxBranwfkmdZBGaTJeemp6qBkXW4mbjfHy9hOQnWnjJnT5YXNv4pyHrJqxd12EHmILLom0p6L40cdE9jukUGRHLyrlu00aIN/UEw9kja7p+mD5xMJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tBNOR9CJeplUUoxRXX3rH3i5YybGZO83lhDr3z6Auu4=;
- b=WIKveXy2VZjvKI+PlYWdcUpOF6gl9CQJ1I6YpRbyGw6JJzFCNdw9YanWovzYqO24WurwbneGOjhr2V3IVgROSFZbw91wlpa90R6ofxtaRkB4NSP8d6HKQr9TwjLZFHtgWInGswbnwde0V7w6es9cY5vuc+rHgt9Vg3mzHlhkYxc=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO0P265MB6961.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ea::9) with
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by DS0PR11MB8687.namprd11.prod.outlook.com (2603:10b6:8:1be::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 20:42:56 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 20:42:56 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 21:42:55 +0100
-Message-Id: <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
-Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
- nova-core
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alistair Popple"
- <apopple@nvidia.com>
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-2-apopple@nvidia.com>
- <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
-In-Reply-To: <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
-X-ClientProxiedBy: LO4P123CA0557.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:33b::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+ 2026 20:43:33 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 20:43:32 +0000
+Date: Mon, 31 Aug 2026 16:43:27 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Arvind Yadav <arvind.yadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <matthew.brost@intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH 03/13] drm/xe: Drop queued page faults when device I/O is
+ blocked
+Message-ID: <apXnb3_WmpYhPeUo@intel.com>
+References: <20260827101801.1247654-1-arvind.yadav@intel.com>
+ <20260827101801.1247654-4-arvind.yadav@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827101801.1247654-4-arvind.yadav@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0161.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::16) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB6961:EE_
-X-MS-Office365-Filtering-Correlation-Id: d159f670-1640-4e92-9555-08df07a06fbc
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|DS0PR11MB8687:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21483956-c450-4eab-1b63-08df07a08583
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|7416014|376014|10070799003|4143699003|5023799004|10067099003|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: jJjbJJvQkZjksYulZAaMe/6wUsTwneM3rjmTgLNaeDZvWsFsOgKeezO5pgwUgCcr/eb9ipRU30zeOjbtQluZ8ExV4OY4sczUPqFOuEZynymVKV3qchn9NyCgC7DrdZHoLhPKtBPHaXl26UzpxbsaysK0w7Zc3BTrmR2XQfheWKxXNCo/RklgtIs/aAnHpD2jKKZhEE6bQ2BmunK8QuF/t9eXUYwXnIxl1vFjNNNrhTx6hwYvv5OQazf860UWVho/Z1ZdXTCqqQ47WbwLuqBarojW3y7meY/6O5iitURox7VZtRebjNTcsIMV3S5lXZmNduAqnjghHajx7rjGBnP7nJarhqSSUHMHaD+sEgdETPt+DaTPwFetWCQQYNg3ZGp8n6A0FYaZlgOEUSNRopDh7eyGzZDbpYnY5F/jclE3UkAdzbsJGRVAV7OTVE0Ks/corMQKxm7oE0C/ZMIVJ+ElDsCtxE2eMt73g/8FVyfNrWkaQg2JfM31vfSF+fzXCBImMjkY5aevY6V92SDmdOqO2fcqLBAR1RBprO5WgpkCtSoLizNHAn4SiS7QvnSq3KihFbLaPDqZn63co6m4aFSe/qdtQ364SPU4NtjHmXAUxl9MRwHjdhXrNIXbyEjinO3iqZ3xgd+L6Ug9A9Gab7/s9X8NQ1efPnFPb3n87EKvoLQ=
+ ARA:13230040|1800799024|376014|366016|23010399003|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: diWLFYMLTK2awIotpItpu4WXZiwS0sgv1k063MF5U1LJif0P2/p4BMKfxVe1FbREDgQv+ikDfejNXE+ZFQLernybZVOeQyRS24FJXm+zIzpLN2h4WALt8oBLbnpDrQaYXLcAwelh55vK30bcqPo8v0yuTDXJeQHuGTas6TZ9fEPilWlJd4LiE8rFgrRcfc9GXkCgidhpIU3OST+L9sSpYadIKb85u81D697zqYB7yIsZBChJ3kZPxNLWJFG6DAHEXIVkKh8eSUdr1yMyZ5/1yrENguvIVjEYfW9fcLgq8yea9IVODEErdNLZp/HUIscso600E9ucy5F/tm7+L0ZXPuMzPPMDkKpDcqyg5N8oF/miW+NDyGgMoRNgizI8d414mlCFNUZLAKAmk2Ezs9cKJkrm/FTd4Fw8P2nse8RmAEBBTLf5V77PjI7ydCEssvovyEJZEW1Np7I4HqYDbfXREJ3QrZM92YXbJFIZNN0LRjHcIp4sOdkE0qBYj9159++buFuugdWsNDCPMA1/g2Ua0j4GKEeykHdM9975fAI6wmATD3kKBQLaEwnRb7H9m6NdFeUufFZQNxsG0HZPuTXp6k/F1ZGIoLRQYl+ZhIf3nMRNI43RiS4wdyQ9J0dByFPpCwiDBPj2qxZMdZKwfQKSX56WZP2ZxnluppbnAwXn8Ms=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10070799003)(4143699003)(5023799004)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDJVMFJGcG8xZmN4M2tGR2VvNWQ0eGlBN1QzU1RFY3o3b2ErSUhzSmJmTlVP?=
- =?utf-8?B?azc2UzhMZ3dLZWNDSkt3RTA5QS9ONnFyUEFGblBiTXJBYzZwTTlUbHlkSFdS?=
- =?utf-8?B?aSsrZTZUY085M002SVFUckg3aGV0SUZ3MlNXanVUTHZXR3F3d2w5OUZZZTJC?=
- =?utf-8?B?S0Z2RmdMYm1iRzZmT0xHVnFPV3NVUC9VZXBQOVNUdUNWN1ZpQTV4cE52V0hn?=
- =?utf-8?B?bklYNENPZHJJQ2R1dGxvZVhuSmp5WWNuemRXcjJKWnlackdKYUFiSWc0YmFq?=
- =?utf-8?B?b1JDWDhkTmxxS2dob1FtRFI1S0tDU2I0Y0c5ZEt6Mmh3RWtsSnUzcEZyUTF4?=
- =?utf-8?B?cTU4YTNHL3E3T29UMUhhMkVOaW5KQWtPQ1FEaVFkdFlYMGxTaHpzSjd2WUJw?=
- =?utf-8?B?eDV5R2ZlaWRJY20xb1hGVURDcEticElrdU10UG5kNlhjNi8wRHU2OStiSHhu?=
- =?utf-8?B?U0lORE9INTVRMzNEcmZ4bXh6Q1daM0N0Z09KcldxY1NlVG9WWEtvd2lrTS9p?=
- =?utf-8?B?bldQRkRGVUJLTklxSWZSV0F2UDBqY1hLVU9SQzlsM1lnSnVFb0ErZitxR0tr?=
- =?utf-8?B?N0o4TU83bEpBZGdiZ2xYenJ5eFNJS1kzdUhZc2xvT0RpNE1yTU5uQWZEM2lr?=
- =?utf-8?B?enFKK210S2xJenZzeVdkK0g0dlBNY2FoN1dMVGZEd1JXc1dOcVNzR2FabWNo?=
- =?utf-8?B?a3dZVEU2Qmdtb1RlSWg3K3RRZDlMN2ovZ0Z5SFRzVjFFRS9lYVpLdXMzdk5R?=
- =?utf-8?B?QzUybkIrdGNxWUM2T2pvYmpmNCtGRWxBaWtkbGp3K2ZNeUt3WUdZTkVkdXdy?=
- =?utf-8?B?Rm1QTnVadytiVzNwc0tJZDJZeGlIWWxRRmlZMmpTWWc5aVFwVnNwUVpyWnYz?=
- =?utf-8?B?UUF2VHJaSit3TDlBcmlzSXN5TlArRUNMdWtTbXR5QzhSTnJLU2NKanIvMzYv?=
- =?utf-8?B?UTY4T0VNbE9TOUxkWU1ISkY4ZHM5NjNjQmhOdFEraXBWeUNzdWhjNEZuay9h?=
- =?utf-8?B?TFRpYlRCQy9iVlMySHAvTE1FVFByZmNRUjR6b3hiN1d3VjVEQXNVeUc4dlVj?=
- =?utf-8?B?ZmxXZVpLN0h6NkliR3U1M3VVb2xMVFAxZlJwOUVKY3ovbFNodXBIaWdmakFL?=
- =?utf-8?B?SFY0M2w3YkMrTThqcXdqSGNhNHRVVytnSmxySVY2VnRPM3ljNzhQN0tzM3Fw?=
- =?utf-8?B?UFdLVkc5UVp6YWtVUXRsbXE0TWRnVjRYaGxUYmYrcGU3UG5YVnZyL0FjZzFM?=
- =?utf-8?B?MWFFVjZFQm42cXZTanBhMzI1UXhtYXYvcHIwWUZXVDB5ck8wWFErN0lMY0Mz?=
- =?utf-8?B?UTVHelYxZDRENnNDMWF4ZXk1OXZmVFFiR25WT2praDJHWHkzbVpaTkxhTitw?=
- =?utf-8?B?dUwzd2YwUm5GMUFJRERzMXBNaXc2U214SThEOEg1b0hXKzg5enBDYVBPZXl2?=
- =?utf-8?B?MUdxYjRFUnJ1dEI0ampwaEpnNzN5TktWVU4zWnJIZWkzMnlJTU9hb2NBRDY2?=
- =?utf-8?B?R3RHMmJEeW9VdFMyL1A0MUFJaEQ4aVhiUU5xVzMxMFN2bmhVYVdwK1lXZzN0?=
- =?utf-8?B?UjF2Z3lXaENBQ29KMTltM0piUU9RT0p6YmxNbXNNUXVqQ3JRRmdlZ0pYN2Zw?=
- =?utf-8?B?R3F2aHdMekNVWE9yKzFYc0lMNGtqK2xJSGJoNG1nZnFUVnRVRGo2SEJjU1BR?=
- =?utf-8?B?Y295RkxBaCt0SHNQVWFmOE1Cb2tvdFpQMjFLbHJ3WDBrSFk5Z2RTc0YwVEJj?=
- =?utf-8?B?cStnSUZ3Nm9VQmFTT1dHdTA2bkk0ZTZKZXdXK252S3hmOVoxWEdSQUlncHRE?=
- =?utf-8?B?WGR6MmxhbGRvbWtlTExKdmFvaUZJc09KMmF1dEQvZEpra3h4a3ZyeXM3aEtn?=
- =?utf-8?B?cUdHZjFEVStuS3l6TXlLWmduWkxKbWtzZUd5WFFRaDZCRU5PUnBSbmxaTTAy?=
- =?utf-8?B?dTR3Zy95akJVRXFsakNuQVMrbE5SVzluM21xckNteDZJem5FL2QvU0k4RDBC?=
- =?utf-8?B?Y2FjK0hVd1V2bjhOb0w5N3dTL0hUY0VTUlRwRFhHVm9ScEloUmFWUU4rT29Y?=
- =?utf-8?B?bStWRkZLeGJDandtUVFTTTNMTUJYU2RmREsyNGtsZTh6VzhNRVRSWFZKYkpw?=
- =?utf-8?B?UWppSC8wWnhTSDVMTW4xL3RjRXZ1VDI3Zk42SDNFM3lkN0txZHZBQVlTc3M4?=
- =?utf-8?B?c1YyTUNTOHQvamMvWWxWczdBTzVZcnVnTlIyNnNKZ1R6OGZRRlFzVlNuc05p?=
- =?utf-8?B?SDdUYi81WGFUb1hJNHpnYmRNbnMzdGtidkVxM21oRC80Z2ZjRXU0ZWw5L20y?=
- =?utf-8?B?RSs0VGMyY0tSRVRUd2s0UlFocktmejhEY0xrYmpmUzhqNDJMNUt6UT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d159f670-1640-4e92-9555-08df07a06fbc
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?BpWzPZ2Vc3Uxb2f6GKR0QEnkr3eHgptdmceatvJnHZuHB67zovsnqQbOC6?=
+ =?iso-8859-1?Q?4qlJbWSFjAAiOjV+YKjn5JiYQAPKGPiHI4ktO1sA6etab2l3d7z7wLQ4/R?=
+ =?iso-8859-1?Q?AUyYRAPzft7b/lYmJ9YaMUwZFCcHpZyl8jL38j5alaxVtvFIGkVg3SQQnU?=
+ =?iso-8859-1?Q?RydGjTGnqu12c1v5Yq31ZlMoMmBU/uKiSLcVlIfu8TUl65ig6G5P14Caw/?=
+ =?iso-8859-1?Q?z8vsqRRr1iP7k4UliXXKKZCRgCtsgVCVWJvJ+oErEnxERGXXLGdQPJtDXo?=
+ =?iso-8859-1?Q?oEHdBF5XbMRo1FlZ6e2CRmHqLYK9+jHfxIXCLO91rXE2O/0q5URY+7941/?=
+ =?iso-8859-1?Q?0SRSl4cPa3jY3lyQkq70QaXlD6habrFd2LcjsZKmNGYkpqJIG4p9hUUix7?=
+ =?iso-8859-1?Q?dTeysSaggh9S3Kg0MEP+MOYs1jGtWlXR81dASrhGHL1LBBt5S6UwTLyWbe?=
+ =?iso-8859-1?Q?eaabhyMhMT6Kt0t30IeZM0I9h+95mKY/UjjxsiSR0SOPKY5djeQKcgw2o9?=
+ =?iso-8859-1?Q?kPK3QQ8gVHq15c5G3RgbD+TPUtQpHXvqHIEP7ehRStnQ1FClwVSNmN97pT?=
+ =?iso-8859-1?Q?Zt1QYV0kMbM9OMOhjZ8Lj9PEGbSmJ6/QDJjtUT/2cYAiMBiTepykqk8KX/?=
+ =?iso-8859-1?Q?RaJhs6zRRi4NbsJaxmbTe5aEiD5KsCO6tdqjcgstrqq/BHleqoq0eMSL3U?=
+ =?iso-8859-1?Q?lz1hCocD95/di0nsE2Dh9UsUnz2DA9x5usp0GArtwFrBOurp8/+cSOO7RO?=
+ =?iso-8859-1?Q?LTOQYjgoY0PDUp+6dGGHlTZ4OWUU/xA00i6mrRYD9hlXJUbvxeaBnY4Nu5?=
+ =?iso-8859-1?Q?EqhXyw9r9g802yxrqYjeh2s4GK1YXc9MXm2A04/peVJEdWUBrkdzCeJvde?=
+ =?iso-8859-1?Q?BQhZPI49ZC26vJHMXpsJryEIbtnk2AJNzdiFy/yA6INdFo1oS7VcI1jGjS?=
+ =?iso-8859-1?Q?JvSS3T5zo/fcBm94kwBJlPfh4tGr34qO9/E+tgyGxbwN5aEhXyzvmhv4Th?=
+ =?iso-8859-1?Q?0sswBSsNZtnSRKnoNeu9BIqzHZnZ6QbAHX6XTlfuO3uoi5xU4s3VmBPxMT?=
+ =?iso-8859-1?Q?bz2T+usRLMlxYtTLduwgMtUML4+xMlTh0ay94npaJNBK8uTZT07c++1hlB?=
+ =?iso-8859-1?Q?EjSIqI1zgx5E5b10gw3+BNLzdBYYDbC9K8PtR2BiFMgLQG9SlzHO1O0SIO?=
+ =?iso-8859-1?Q?6+ubCf7j+LVm1+op7ImAQNKUMxLrnA3vcrcZwxxPDB2eNGTGZt/Xrg89Vm?=
+ =?iso-8859-1?Q?6gh0Foj1mYV5De2Wq1kgypE5yEQhpbF6F9/cN8jyvjazo+tsjuLbVnD+JA?=
+ =?iso-8859-1?Q?42dbppaDhAi4XJcjFcn3LPUOZ2qvfOfRw51Rrjmb8UVurhSjapjg4OuN+w?=
+ =?iso-8859-1?Q?lncJCfjB0knyGYUg89jktnL7/Wxg0JExd8JZg0IOhLKG3MNOxEvD6qjy3b?=
+ =?iso-8859-1?Q?mmXUrvo7fZyM3TiT3Wy5uZy84Jt0M4wPwDyLPbBpKAYxGFSdcvZr/BysTQ?=
+ =?iso-8859-1?Q?CjB+5YW42tjei56+uswAVaVxxxwUupO3/GqfIksCWKwWRmlKP1DJ1FSwAj?=
+ =?iso-8859-1?Q?3VWU5lSHuAYLLSdr0YR0p25m7uxBdFcyvwykdKqXLDuKmki11Ovbojs62J?=
+ =?iso-8859-1?Q?d/fUOJg774dgQ5eKvAglhO29Eik2U0kM0fH+FTMGLGgJSwG9dNQd/Or1l1?=
+ =?iso-8859-1?Q?Dfv0WGo7Ft5XP+qjIyF/24BoVkQDJDyHqs+0pGIJzv8pQW0wbhF6/taDWQ?=
+ =?iso-8859-1?Q?veZyup2/iJNjbAlBSoNddNOWsnd5/1ngzgG/0o59iMF8Hqt+6fEvtuas5Z?=
+ =?iso-8859-1?Q?dxKNGqtIeA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 30bAK/Gw0lK34wahut83uvkRq5/ofciqajamBPrq91WTIbqFLryx/TgM7ijSMRwj7GGTWj5qeCuXh+fru6CVVC5Yufwop9Pmo3vkPNYCBQioLvJvizXdfGTL2wCs8oqsccT5UE7LJTqxwQm4JJlXwQuVd6Bpl8QYD4oi699GPibUKSF3T+mUPDDBHOn2ve5fxO0DzTpjZ3PjYxWU4v+iXv5yuTCdGvdbt/927ngpiO9u9byq+jqLq/yVyNzZ4qM4mUz4yeo3HNCygXGD20GVW+PIYyzQdufwCPaJEi9y97andwIwF75vemzJ8mL9MiajyVzMf9MVV1CrWy1r7vfA7w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21483956-c450-4eab-1b63-08df07a08583
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 20:42:56.1583 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 20:43:32.8488 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DCdZJ91oQ8B7X4NyNKxg4WkUY7RYdnDAiNa99UdyPRTWKZrIsJ65iyByLmSlTk0zR8ys8PTZA+wxezcqlkoYmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6961
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8ell8D7gZbfHmkqU5aM7+KtAjLAUpZW8fcsqnWFI4nRW562Je4WxMbOHRLxsYnCBvTo8/vx8IKRLqssIcY2Z1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8687
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,164 +163,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 31, 2026 at 9:08 PM BST, Danilo Krummrich wrote:
-> On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
->> +/// API handle for the auxiliary bus child drivers to interact with nov=
-a-core.
->> +pub struct NovaCoreApi<'bound> {
->> +    #[expect(unused)]
->> +    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
->> +}
->> +
->> +impl NovaCoreApi<'_> {
->> +    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device regist=
-ered
->> +    /// by nova-core.
->> +    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreA=
-pi<'_>>> {
->> +        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
->> +    }
->> +}
->
-> CovariantForLt does not hold anymore on latest drm-rust-next, as Cmdq has=
- a
-> Mutex. So, this needs ForLt now and therefore the approach that I shared =
-in [1]
-> a while ago. I applied the changes in [2] to fix it up.
->
-> I think the closure access through api.with(|api| ...) is fine in most ca=
-ses,
-> but there are a few options if we run into cases where we consider it a b=
-it
-> inconvinient.
->
-> I think it should be possible to support projections into T: 'static and
-> covariant fields. The reason I differentiate them is because T: 'static i=
-s very
-> convinient, but non-'static covariant types need an annoying turbofish.
->
-> For T: 'static types it would turn out like this
->
-> 	let spec =3D reg_data.api.project(|api| api.spec());
->
-> such that everything that needs spec does not need to be in the closure a=
-nymore.
->
-> For non-'static covariant fields we could have
->
-> 	let foo =3D reg_data.api.project_lt::<CovariantForLt!(Foo<'_>)>(|api| ap=
-i.foo());
->
-> but as mentioned it unfortunately needs the turbofish. Of course we could=
- invent
-> a macro around it to get rid of the turbofish, but we'd still need to exp=
-licitly
-> mention the type Foo<'_>, so it doesn't buy us a lot.
->
-> This is the implementation I came up with in nova-core
->
-> 	/// Projects a `'static` sub-field out of the registration data.
-> 	///
-> 	/// `T` is fully inferred from the closure. For projected types with a l=
-ifetime parameter,
-> 	/// use [`Self::project_lt`].
-> 	pub fn project<T: 'static>(
-> 	    &self,
-> 	    f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> &'b T,
-> 	) -> &'a T {
-> 	    self.adev
-> 	        .registration_data_field::<ForLt!(NovaCoreApi<'_>), T>(f)
-> 	        .expect("TypeId was validated in NovaCoreApiHandle::of()")
-> 	}
-> =09
-> 	/// Projects a covariant sub-field out of the registration data.
-> 	///
-> 	/// Supports projected types with a lifetime parameter via a
-> 	/// [`CovariantForLt`](trait@CovariantForLt) encoding. Unlike [`Self::pr=
-oject`], `G` cannot
-> 	/// be inferred and must be specified explicitly.
-> 	pub fn project_lt<G: CovariantForLt + 'static>(
-> 	    &self,
-> 	    f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>) -> &'b G::Of<'b>,
-> 	) -> &'a G::Of<'a> {
-> 	    self.adev
-> 	        .registration_data_project::<ForLt!(NovaCoreApi<'_>), G>(f)
-> 	        .expect("TypeId was validated in NovaCoreApiHandle::of()")
-> 	}
->
-> and this is what we'd need in the auxiliary bus
->
-> 	/// Projects a covariant sub-field out of potentially invariant registra=
-tion data.
-> 	///
-> 	/// `F` is the [`ForLt`](trait@ForLt) encoding of the registration data =
-type. `G` is the
-> 	/// [`CovariantForLt`](trait@CovariantForLt) encoding of the projected s=
-ub-field type.
-> 	///
-> 	/// For projected types that are `'static`, prefer [`Self::registration_=
-data_field`] which
-> 	/// does not require a [`CovariantForLt`](trait@CovariantForLt) encoding=
- and fully infers `T`.
-> 	///
-> 	/// Returns [`EINVAL`] if `F` does not match the type used by the parent=
- driver when calling
-> 	/// [`Registration::new()`]. Returns [`ENOENT`] if no registration data =
-has been set.
-> 	#[inline]
-> 	pub fn registration_data_project<F, G>(
-> 	    &self,
-> 	    project: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> &'a G::Of<'a>,
-> 	) -> Result<&G::Of<'_>>
-> 	where
-> 	    F: ForLt + 'static,
-> 	    G: CovariantForLt + 'static,
-> 	{
-> 	    let ptr =3D self.registration_data_with::<F, *const ()>(|data| {
-> 	        core::ptr::from_ref::<G::Of<'_>>(project(data)).cast::<()>()
-> 	    })?;
-> =09
-> 	    // SAFETY:
-> 	    // - The HRTB bound on `project` ensures the returned pointer is der=
-ived from the
-> 	    //   registration data (nothing else lives for universally quantifie=
-d `'a`).
-> 	    // - `G: CovariantForLt` guarantees that shortening the lifetime of =
-`G::Of` is sound.
-> 	    // - The registration data is heap-allocated and outlives the device=
-'s bound state.
-> 	    Ok(unsafe { &*ptr.cast::<G::Of<'_>>() })
-> 	}
+On Thu, Aug 27, 2026 at 03:47:51PM +0530, Arvind Yadav wrote:
+> Page-fault work may still be queued when PCI error recovery starts or
+> the device becomes permanently wedged. Servicing these faults can migrate
+> memory or update page tables after device I/O has been blocked.
+> 
+> Check the device state before and after fault servicing to cover a reset
+> racing with the worker. Drop the active fault and its chained faults
+> without sending a hardware response, and invalidate the cached fault
+> state.
+> 
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> ---
+>  drivers/gpu/drm/xe/xe_pagefault.c | 40 +++++++++++++++++++++++++++++++
+>  1 file changed, 40 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+> index 2e415995f067..f486165f2323 100644
+> --- a/drivers/gpu/drm/xe/xe_pagefault.c
+> +++ b/drivers/gpu/drm/xe/xe_pagefault.c
+> @@ -592,6 +592,38 @@ static void xe_pagefault_save_to_vm(struct xe_device *xe, struct xe_pagefault *p
+>  	xe_vm_put(vm);
+>  }
+>  
+> +static bool
+> +xe_pagefault_drop_if_blocked(struct xe_pagefault_queue *pf_queue,
+> +			     struct xe_pagefault_work *pf_work,
+> +			     struct xe_pagefault *pf,
+> +			     u64 *cache_start)
+> +{
+> +	struct xe_pagefault *next;
+> +
+> +	if (!xe_device_io_blocked(pf_work->xe))
+> +		return false;
+> +
+> +	/*
+> +	 * cache_start is private to this worker invocation. pf_work->cache is
+> +	 * shared with fault producers and must be invalidated under the queue
+> +	 * lock.
+> +	 */
+> +	xe_pagefault_cache_start_invalidate(*cache_start);
+> +
+> +	guard(spinlock_irq)(&pf_queue->lock);
+> +
+> +	xe_pagefault_cache_invalidate(pf_queue, pf_work);
+> +
+> +	while (pf) {
+> +		next = pf->consumer.next;
+> +		pf->consumer.next = NULL;
+> +		pf->consumer.alloc_state = XE_PAGEFAULT_ALLOC_STATE_FREE;
+> +		pf = next;
 
-I think this is a bit complex, you should be able to let Rust figure out th=
-e
-relation between two lifetimes.
+is there some helper we could re-use? I know we cannot use the pop directly,
+because it would deadlock, but perhaps we can unify some code here...
 
-I think if you change the signatue of `registration_data_with` slightly:
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>  static void xe_pagefault_queue_work(struct work_struct *w)
+>  {
+>  	struct xe_pagefault_work *pf_work =
+> @@ -615,6 +647,10 @@ static void xe_pagefault_queue_work(struct work_struct *w)
+>  		int err = 0;
+>  		bool invalidated = false;
+>  
+> +		if (xe_pagefault_drop_if_blocked(pf_queue, pf_work, pf,
+> +						 &cache_start))
+> +			continue;
 
-    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
-        &'this self,
-        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
-                                    ^ note this is changed from 'a to 'this
-    ) -> Result<R>;
+do we really need to loop inside the loop or only check and let this main loop goes?
 
-then there will be an implied bound available inside the callback where 'a
-outlives 'this, and thus the function callback is able to perform coercion =
-of
-any T<'a> to T<'this> provided that `T` is covariant over lifetime `'a`.
+> +
+>  		/* Last fault same address, ack immediately */
+>  		if (xe_pagefault_match(pf, cache_start, cache_end, cache_asid)) {
+>  			xe_gt_stats_incr(gt, XE_GT_STATS_ID_LAST_PAGEFAULT_COUNT, 1);
+> @@ -623,6 +659,10 @@ static void xe_pagefault_queue_work(struct work_struct *w)
+>  
+>  		err = xe_pagefault_service(pf);
+>  
+> +		if (xe_pagefault_drop_if_blocked(pf_queue, pf_work, pf,
+> +						 &cache_start))
 
-[ The coercion won't work when doing abstract `F::Of` on the bus abstractio=
-n
-side, but for any user it is dealing with concrete types so the compiler se=
-es
-specific types and thus can check variance ]
+do we really need to check after?
 
-Then your projection can just be
+> +			continue;
+> +
+>  		if (err) {
 
-    aux.registration_data_project(|x| &x.field)
+now this err far from where it is collected is pretty bad...
 
-I haven't tried it out but I think it should work.
-
-Best,
-Gary
-
+>  			if (!(pf->consumer.access_type & XE_PAGEFAULT_ACCESS_PREFETCH)) {
+>  				xe_pagefault_save_to_vm(gt_to_xe(gt), pf);
+> -- 
+> 2.43.0
+> 
