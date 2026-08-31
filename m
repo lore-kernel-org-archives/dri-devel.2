@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E640C624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:34:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21D7CC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BCF10E949;
-	Mon, 31 Aug 2026 15:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4275E10E94F;
+	Mon, 31 Aug 2026 15:34:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DDlR0tIh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m//OQifc";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F21CA10E949;
- Mon, 31 Aug 2026 15:34:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D396D10E950
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:34:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 741DE601FB;
- Mon, 31 Aug 2026 15:34:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91C871F000E9;
- Mon, 31 Aug 2026 15:34:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 577FF60204;
+ Mon, 31 Aug 2026 15:34:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7730B1F000E9;
+ Mon, 31 Aug 2026 15:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788190477;
- bh=7QPJ1a0uSHGGju3qMuv+Mq0tRypQw9BlcTk/DvPawGY=;
+ s=k20260515; t=1788190481;
+ bh=wwkpWvZ5g1Ce8HhDDAG493tVxULrcqtw7MLNe2t684g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=DDlR0tIh8ILNwyBS2LmyannA0W+XN2FONwGWkS18z6RK6wA9sT6SNciqwRnsYwoiW
- RJS01Qh8cslrRiBs8lpBj45n+uj0m6bkXnwUNjPhWOyF6iH80scNIgYT775hKzRX5p
- FlyZIme9sjROXj9st/WUlxvWi69FFuAt7it6LxNSLbCcFEac5R5ROL2HACzoKRHPzi
- OF/UZQmUYL5DhhNYN0nnGjCzVFh9v8UlDbAVEbvkh06pJMoVahd7UHNlKt3CSSNraX
- X0fguhazjT0rz64h8ZpW9ApMfznfP/4W2iiAornZsdlMAO03FAaVZ2SFXtzJmtgSZr
- ocbrQLpfiSfnw==
+ b=m//OQifcIkjoe7B4BLLQzshGEB31Z+z1qznfSW+qPFN0j70lh1o6E9NTdwlxGvY5v
+ P8YUZrtH1kJVilKaCj+47mNnB7m3xu/Nut1lgwZ479YC94n8XqkJu4zE02tDb0fG2l
+ xYdNBUmUC6MhjVoEPbiy96M2EwYZE/Ob+TGyQ228mj6jpUy+Qn81e6z4ewA4NiCTzW
+ M+GZJGUC5eq6P2F/KhA7/4qcSOmjtLiW1eSUXOfxblJHZKLBxvKRDvmwR+bpWbOBcs
+ 9EE/m3sIzgLndW4Ood35d83X5aTJcN63+gtFF9ztI29x63EEEu9oMsljkt1qXhgjfT
+ r5CWehMVC+wXw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 31 Aug 2026 17:34:15 +0200
-Subject: [PATCH v2 02/13] drm/amdgpu: vkms: Switch to
+Date: Mon, 31 Aug 2026 17:34:16 +0200
+Subject: [PATCH v2 03/13] drm/logicvc: Switch to
  drm_atomic_helper_crtc_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260831-drm-no-more-crtc-reset-v2-2-4500d49a337f@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-drm-no-more-crtc-reset-v2-3-4500d49a337f@kernel.org>
 References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
 In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+ Paul Kocialkowski <paulk@sys-base.io>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1360; i=mripard@kernel.org;
- h=from:subject:message-id; bh=tB9W9rD2KSX3g1sWsvFMesk0h4jhznKPqsIRNFw3TOg=;
- b=kA0DAAkTJ1/OGaI9vnYByyZiAGqVnvyiYkI5HpEGHXJa25f5D3jm7FtaAh2I4GVT0AehxHEg2
- oiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmqVnvwACgkQJ1/OGaI9vnasYwF8CqpK
- DfWcCh8daBWP/dFwkOUMlns8V3T09199xsD/McxX9jiB0HbpVI9g9THwxWfDAYCP649mZCBKjWq
- oLRE/Ycq8UtqG05siAfFoBsd519NFKI2VGM6D1DIBPgg43S0c3Dk=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1412; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=vMk01+zslvO3Gcv8WfZ07UXA+kf3dYsPr4ikdvU8c+I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlT5/35dGnCq4b/Vw5vOurz9lOAlhHL8pk7V1ySsCxus
+ FHdNn1DQMdUFgZhTgZZMUWWJzJhp5e3L65ysF/5A2YOKxPIEAYuTgGYyIbdjA0vC1JMrxb/U578
+ f+qtJVkFxvnvGXQn7fVvbLRu/HR8X/mqmOTXQkWcUelPoxLyqj0uVDHWp+W9b5VKcbp76qOv2er
+ M7odWHL6xiydOXvnQ6NKt9O0hRx9Nf7GcT6hvjcyRwxYStSs8AA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,7 +69,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The amdgpu vkms crtc implementation uses the deprecated
+The logicvc crtc implementation uses the deprecated
 drm_atomic_helper_crtc_reset() as its reset hook.
 
 Switch to drm_atomic_helper_crtc_create_state() instead.
@@ -78,30 +77,31 @@ Switch to drm_atomic_helper_crtc_create_state() instead.
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Paul Kocialkowski <paulk@sys-base.io>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
+ drivers/gpu/drm/logicvc/logicvc_crtc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index c835504fdf2b..592c5c253938 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -45,11 +45,11 @@ static const u32 amdgpu_vkms_formats[] = {
+diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+index 81e5b80736fa..af92a573c3f2 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
++++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+@@ -211,14 +211,14 @@ static void logicvc_crtc_disable_vblank(struct drm_crtc *drm_crtc)
+ 	regmap_write_bits(logicvc->regmap, LOGICVC_INT_MASK_REG,
+ 			  LOGICVC_INT_MASK_V_SYNC, LOGICVC_INT_MASK_V_SYNC);
+ }
  
- static const struct drm_crtc_funcs amdgpu_vkms_crtc_funcs = {
- 	.set_config             = drm_atomic_helper_set_config,
- 	.destroy                = drm_crtc_cleanup,
- 	.page_flip              = drm_atomic_helper_page_flip,
--	.reset                  = drm_atomic_helper_crtc_reset,
-+	.atomic_create_state = drm_atomic_helper_crtc_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
- 	.atomic_destroy_state   = drm_atomic_helper_crtc_destroy_state,
- 	DRM_CRTC_VBLANK_TIMER_FUNCS,
+ static const struct drm_crtc_funcs logicvc_crtc_funcs = {
+-	.reset			= drm_atomic_helper_crtc_reset,
+ 	.destroy		= drm_crtc_cleanup,
+ 	.set_config		= drm_atomic_helper_set_config,
+ 	.page_flip		= drm_atomic_helper_page_flip,
++	.atomic_create_state	= drm_atomic_helper_crtc_create_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
+ 	.enable_vblank		= logicvc_crtc_enable_vblank,
+ 	.disable_vblank		= logicvc_crtc_disable_vblank,
  };
- 
 
 -- 
 2.55.0
