@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2796AC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9591C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:47:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31FE910E8B2;
-	Mon, 31 Aug 2026 13:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B8510E8C6;
+	Mon, 31 Aug 2026 13:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hiRXLC1A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LFHRGN7O";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F6F410E8B2;
- Mon, 31 Aug 2026 13:46:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEEB10E8C0;
+ Mon, 31 Aug 2026 13:47:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 65B0E405FC;
- Mon, 31 Aug 2026 13:46:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AF91F000E9;
- Mon, 31 Aug 2026 13:46:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 012C260210;
+ Mon, 31 Aug 2026 13:47:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EFE1F00ADB;
+ Mon, 31 Aug 2026 13:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184015;
- bh=IIEgoUmF2LYlCcDHCwqtPlT0V5Gt2pb/D+vWri7BqU0=;
+ s=k20260515; t=1788184026;
+ bh=JC+LdObHYChlN/X+C+HSrZCgmLDlu+X4i/jklFPJIMc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=hiRXLC1AtaWRa/w4ksbcB/dPnmCJuM6y9EwrsPlc5YqQcfXFkCTY1XI2CMTFlvB+d
- yAAd1A5RNiF05H8LcHX8lE2JcwlcMaOAN1mh4qMdtpT/Hx7hNo3dtKRWlVFkFAmaNz
- 6Hf3yU2IYe+yhyPkNjHOcZatQxedNLFbxtjmeCEXWWgMNMj+RVPtIBpTzGgLydcBgJ
- pKp7zb2rrshQLBgfT0ERYobEJtZqMl5batTA+sewsotf48pMcpUMAMtx0r4qRGoC05
- H4Re5cFoKBeQyWrhqI84YZUM6j/ubp/OiWx3P9FupJTLw1Az/PZEYOQ+a+m2p13dE+
- aQESmkYHVvG1g==
+ b=LFHRGN7OoCqW+0gP91emMEFKaBFwWBaZOat67U7Ok7vQaZaoX3H6A3wqJThv87RcT
+ lOgeC3GFP6EqHE/2sRjYAbBtBjr4+MvVUtR/t/bKYr+ygG9J7Wy1fPbYhqFSpiTfNK
+ Fn2IjHc/PFEltu+i3dg1qkE74uwZdOkowtbN+tqweGSpQZzuNsHhoWYowdgGbL4kv7
+ Rj4+kZG1zjDC8Q/zbSeuFpno5TLjlMdK5pvTutEg0qrjmaRiFqokeKr1E/s3DaCTfA
+ bP7BY7IqnICB7b3Mi9X+H1/Jqxl2kh2YhJUBrBbh2PvYkortbXzwtyVbMfl8m6asFo
+ 79CjRFaG1s9uQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
+Cc: Alysa Liu <Alysa.Liu@amd.com>, Amir Shetaia <Amir.Shetaia@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: Unwind debug trap enable on
- copy_to_user failure
-Date: Mon, 31 Aug 2026 09:27:47 -0400
-Message-ID: <20260831133314.4125787-439-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: fix UAF race in
+ destroy_queue_cpsch
+Date: Mon, 31 Aug 2026 09:27:54 -0400
+Message-ID: <20260831133314.4125787-446-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,21 +66,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <Yongqiang.Sun@amd.com>
+From: Alysa Liu <Alysa.Liu@amd.com>
 
-[ Upstream commit 01112e241e37f9ac98b6f418d93ce2e0b87b7ee0 ]
+[ Upstream commit ac081deaf16a639ea7dff2f285fe421a33c1ade0 ]
 
-If kfd_dbg_trap_enable() fails while copying runtime_info to userspace,
-it had already activated the trap, set debug_trap_enabled, taken an extra
-process reference, and opened the debug event file. Return -EFAULT without
-unwinding that state, leaving inconsistent trap state and a refcount
-imbalance that could break later DISABLE/ENABLE.
+wait_on_destroy_queue() drops locks to wait for queue resume, allowing
+a concurrent destroy to free the queue. Use is_being_destroyed flag to
+serialize destruction.
 
-On copy_to_user failure, deactivate the trap and undo the rest of the
-enable setup before returning.
-
-Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Amir Shetaia <Amir.Shetaia@amd.com>
+Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -89,232 +84,251 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[drm/amdkfd]` `[Unwind]` — On `copy_to_user` failure in
-`kfd_dbg_trap_enable()`, undo partial debug-trap enable setup that was
-left behind.
+### Step 1.1: Subject Line
+**Record:** `[drm/amdkfd]` `[fix]` — UAF race in `destroy_queue_cpsch`
+during concurrent queue destruction.
 
-### Step 1.2: Parse All Commit Message Tags
+### Step 1.2: Commit Message Tags
 **Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** Alex Deucher `<alexander.deucher@amd.com>` (AMD DRM
+- **Reviewed-by:** Amir Shetaia \<Amir.Shetaia@amd.com\> (AMD reviewer)
+- **Signed-off-by:** Alysa Liu \<Alysa.Liu@amd.com\> (author)
+- **Signed-off-by:** Alex Deucher \<alexander.deucher@amd.com\> (DRM/AMD
   maintainer)
-- **Link:** — none
-- **Cc: stable@vger.kernel.org:** — none (expected for manual review)
-- **Signed-off-by:** Yongqiang Sun `<Yongqiang.Sun@amd.com>` (author);
-  Alex Deucher (committer)
+- **Absent (expected):** Fixes:, Reported-by:, Link:, Tested-by:, Cc:
+  stable@vger.kernel.org
 
-Notable: maintainer **Acked-by** only; no syzbot or user reports.
+Notable: maintainer sign-off and subsystem reviewer present; no syzbot
+or user bug report.
 
-### Step 1.3: Analyze Commit Body
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug:** If `copy_to_user()` fails after `kfd_dbg_trap_enable()` has
-  activated the HW trap, set `debug_trap_enabled`, taken an extra
-  `kref`, and opened `dbg_ev_file`, the function returned `-EFAULT`
-  without undoing that state.
-- **Symptom:** Inconsistent trap state; refcount imbalance; later
-  DISABLE/ENABLE can misbehave.
-- **Root cause:** Error path only called `kfd_dbg_trap_deactivate()` but
-  did not mirror the rest of `kfd_dbg_trap_disable()` cleanup.
-- **Version info:** None in the message.
+- **Bug:** `wait_on_destroy_queue()` drops `dqm` lock and process mutex
+  while waiting for a suspended queue to resume. A concurrent destroy
+  can complete and free the queue while the first caller still holds a
+  pointer to it.
+- **Symptom:** Use-after-free when the first destroy path resumes after
+  the wait.
+- **Root cause:** No serialization of concurrent destruction;
+  `is_being_destroyed` was set but not checked at entry; not cleared on
+  error paths.
+- **Fix:** Check `is_being_destroyed` and return `-EBUSY` for concurrent
+  destroyers; clear the flag on wait failure and on the debug-queue
+  error path.
 
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not disguised — explicitly an error-path unwind / resource-
-leak / state-machine fix.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — explicitly labeled UAF race. The
+`failed_try_destroy_debugged_queue` cleanup also fixes a stuck-flag bug
+(queue permanently marked as being destroyed after `-EBUSY`).
 
 ---
 
 ## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory Changes
+### Step 2.1: Change Inventory
 **Record:**
-- **Files:** `drivers/gpu/drm/amd/amdkfd/kfd_debug.c` (+6 / −0)
-- **Function:** `kfd_dbg_trap_enable()`
-- **Scope:** Single-file, surgical error-path fix
+- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` (+6
+  lines net)
+- **Functions:** `wait_on_destroy_queue()`, `destroy_queue_cpsch()`
+  error path
+- **Scope:** Single-file, surgical fix (3 small hunks)
 
-### Step 2.2: Code Flow Change
-**Record:** On `copy_to_user()` failure in `kfd_dbg_trap_enable()`:
-- **Before:** `kfd_dbg_trap_deactivate(target, false, 0); r = -EFAULT;`
-  — HW trap deactivated, but `dbg_ev_file`, `debug_trap_enabled`, extra
-  `kref`, and `debugged_process_count` left as if enable succeeded.
-- **After:** Same deactivate, then `fput()` + NULL `dbg_ev_file`,
-  `atomic_dec(debugged_process_count)`, `debug_trap_enabled = false`,
-  `kfd_unref_process(target)`, then `-EFAULT`.
+### Step 2.2: Code Flow Changes
+**Record:**
+- **Hunk 1 (wait_on_destroy_queue entry):** Before → unconditionally set
+  `is_being_destroyed = true`. After → if already set, return `-EBUSY`
+  immediately (serialize concurrent destroys).
+- **Hunk 2 (wait_on_destroy_queue exit):** Before → on
+  `wait_event_interruptible()` failure (signal), flag stayed true
+  forever. After → clear `is_being_destroyed` on non-zero `ret` so
+  destroy can be retried.
+- **Hunk 3 (failed_try_destroy_debugged_queue):** Before → returned
+  `-EBUSY` for debug queues but left `is_being_destroyed = true`. After
+  → clears flag before unlock/return.
 
 ### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Error-path resource leak + inconsistent state (reference
-  counting + flag/file leak)
-- **Mechanism:** `kref_get()`, `fget()`, `debug_trap_enabled = true`,
-  and `atomic_inc()` run before `copy_to_user()`. Failure left software
-  state enabled while userspace received `-EFAULT`.
+**Record:** **Category:** Use-after-free / race condition (reference-
+counting-like serialization via flag).
+
+**Mechanism verified in code:**
+1. `kfd_ioctl_destroy_queue()` holds `p->mutex`.
+2. `destroy_queue_cpsch()` → `dqm_lock()` → `wait_on_destroy_queue()`.
+3. When `debug_trap_enabled && is_suspended`, `wait_on_destroy_queue()`
+   calls `dqm_unlock()`, `mutex_unlock(&q->process->mutex)`, then blocks
+   on `wait_event_interruptible(dqm->destroy_wait,
+   !q->properties.is_suspended)`.
+4. With mutex released, a second thread can enter
+   `kfd_ioctl_destroy_queue()` for the same queue.
+5. Without the fix, the second thread proceeds through destruction;
+   `pqm_destroy_queue()` calls `uninit_queue()` and frees resources.
+6. First thread wakes and continues using freed `struct queue` → UAF.
+
+The `is_being_destroyed` flag was already used in
+`suspend_single_queue()` (line 1075) to block suspend during destroy,
+but was never checked at the destroy entry point.
 
 ### Step 2.4: Fix Quality
-**Record:** Mirrors the corresponding cleanup in
-`kfd_dbg_trap_disable()` (lines 682–692). Minimal, obviously correct.
-Low regression risk — only runs on an already-failing path. Does not add
-`cancel_work_sync()` or clear `debugger_process`; same gap as the pre-
-existing partial `kfd_dbg_trap_deactivate()` unwind.
+**Record:** Fix is minimal and obviously correct — standard serialize-
+with-flag pattern. Low regression risk: `-EBUSY` on concurrent destroy
+is consistent with existing error handling in `pqm_destroy_queue()`
+(non-`-ETIME`/non-`-EIO` errors skip freeing). No new APIs or data
+structures.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-### Step 3.1: Blame Changed Lines
-**Record:** Buggy `copy_to_user` error path from Jonathan Kim,
-2022-04-05 (`218895820e6fcc`). `kfd_dbg_trap_enable()` with
-refcount/file/flag setup from `0ab2d7532b05a` (2023-06-09, “prepare per-
-process debug enable and disable”). Bug present since ~v6.5+; definitely
-in this tree.
+### Step 3.1: Blame
+**Record:** `wait_on_destroy_queue()` and `is_being_destroyed` usage
+introduced in commit `a70a93fa568b4` ("drm/amdkfd: add debug suspend and
+resume process queues operation", 2023-06-09, Jonathan Kim). Confirmed
+ancestor of HEAD in this tree. Bug has existed since that commit.
 
-### Step 3.2: Follow Fixes Tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag in commit message.
 
-### Step 3.3: File History
-**Record:** Recent `kfd_debug.c` changes are other debugger fixes (watch
-bounds, MES debug, PASID). Fix commit `a50676d5a72a2` is on `all-next`
-but **not** on `stable/linux-6.18.y`. Standalone one-commit fix.
+### Step 3.3: Related File History
+**Record:** Recent `amdkfd` stable-relevant fixes in this tree include
+NULL deref, overflow, list corruption, and UAF fixes — active
+maintenance area. No prior fix for this specific race found (`git log
+--grep="destroy_queue_cpsch"` and `--grep="is_being_destroyed"` show
+only the introducing commit).
 
-### Step 3.4: Author's Other Commits
-**Record:** Yongqiang Sun has limited amdkfd history in this tree (e.g.
-CWSR overflow fix). Alex Deucher is DRM/AMD maintainer and committed the
-fix.
+### Step 3.4: Author Context
+**Record:** Alysa Liu has other security/reliability fixes in
+amdgpu/amdkfd in this tree (e.g., `7885eb335d8f9` VM acquire UAF). Alex
+Deucher is AMDGPU maintainer.
 
-### Step 3.5: Prerequisites
-**Record:** No series dependencies. `kfd_dbg_trap_enable()`,
-`kfd_dbg_trap_deactivate()`, and `kfd_unref_process()` all exist in this
-tree. Applies standalone.
+### Step 3.5: Dependencies
+**Record:** Standalone — uses existing `is_being_destroyed` field in
+`kfd_priv.h` (line 521), already present since `a70a93fa568b4`. No
+series dependencies.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 dig -c a50676d5a72a2` →
-https://patch.msgid.link/20260602141422.4982-1-Yongqiang.Sun@amd.com.
-Single revision (no `-a` series). Alex Deucher replied with **Acked-by**
-in-thread. No NAKs found in mbox. No explicit `Cc: stable` nomination in
-thread.
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c <commit>` could not be run — commit is not in
+this checkout. Lore.kernel.org search blocked (Anubis bot protection).
+**UNVERIFIED:** full mailing list review thread.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` — CC'd to `amd-gfx@lists.freedesktop.org`. Alex
-Deucher reviewed and acked.
+**Record:** **UNVERIFIED** via b4 dig -w. Commit message shows Reviewed-
+by from AMD and Signed-off-by from maintainer.
 
 ### Step 4.3: Bug Report
-**Record:** N/A — no `Reported-by` or `Link:` tags. Code-review / error-
-path analysis fix.
+**Record:** N/A — no Reported-by or Link tags.
 
-### Step 4.4: Related Patches
-**Record:** Standalone; not part of a multi-patch series.
+### Step 4.4: Related Patches/Series
+**Record:** Appears standalone; not part of a multi-patch series.
 
-### Step 4.5: Stable Mailing List
-**Record:** Not searched separately; no stable nomination found in patch
-thread.
+### Step 4.5: Stable List History
+**Record:** **UNVERIFIED** — could not search lore stable archive.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `kfd_dbg_trap_enable()` (modified); related:
-`kfd_dbg_trap_deactivate()`, `kfd_dbg_trap_disable()`,
-`kfd_unref_process()`.
+**Record:** `wait_on_destroy_queue()`, `destroy_queue_cpsch()`, callers
+`pqm_destroy_queue()`, `kfd_ioctl_destroy_queue()`.
 
 ### Step 5.2: Callers
-**Record:** `kfd_dbg_trap_enable()` called from `kfd_chardev.c` on
-`KFD_IOC_DBG_TRAP_ENABLE` (ioctl path ~line 3029). Reached by ROCm/KFD
-GPU debugger tooling via `/dev/kfd`.
+**Record:**
+- `destroy_queue_cpsch` assigned at line 2953 as
+  `dqm->ops.destroy_queue` (CP scheduling path).
+- Called from `pqm_destroy_queue()` (line 550).
+- `pqm_destroy_queue()` called from `kfd_ioctl_destroy_queue()` (line
+  429) under `p->mutex`.
+- Userspace entry: `KFD_IOC_DESTROY_QUEUE` ioctl on `/dev/kfd`.
 
 ### Step 5.3: Callees
-**Record:** `fget`, `kfd_dbg_trap_activate`, `kref_get`, `atomic_inc`,
-`copy_to_user`, `kfd_dbg_trap_deactivate`, `fput`, `kfd_unref_process`.
+**Record:** `wait_on_destroy_queue()` calls `dqm_unlock/lock`,
+`mutex_unlock/lock`, `wait_event_interruptible()`. On success path,
+`destroy_queue_cpsch()` calls `mqd_mgr->free_mqd()` after unlock — the
+UAF window is between wait return and completion of destroy.
 
-### Step 5.4: Call Chain / Reachability
-**Record:** Userspace debugger → `KFD_IOC_DBG_TRAP` ioctl →
-`kfd_dbg_trap_enable()`. `copy_to_user()` fails on invalid/unmapped
-userspace buffers (buggy debugger, bad pointer, page fault under memory
-pressure). Not a general unprivileged attack surface, but reachable by
-authorized KFD clients.
+### Step 5.4: Reachability
+**Record:** **Userspace-reachable** for processes with KFD access.
+Trigger requires:
+- `debug_trap_enabled` on the process (KFD debugger path)
+- Queue `is_suspended`
+- Concurrent destroy while first destroy waits (mutex dropped during
+  wait)
+
+Narrower than everyday compute, but real for ROCm debugger / debug-trap
+workloads.
 
 ### Step 5.5: Similar Patterns
-**Record:** `kfd_dbg_trap_disable()` already performs the full cleanup
-the fix adds. The error path was an incomplete subset of disable logic.
+**Record:** `suspend_single_queue()` already checks `is_being_destroyed`
+(line 1075) — this fix completes the symmetric protection for the
+destroy side.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
 
-### Step 6.1: Does Buggy Code Exist?
-**Record:** **Yes.** Tree is **Linux 6.18.44** (`git describe HEAD` →
-`v6.18.44`, `VERSION=6 PATCHLEVEL=18 SUBLEVEL=44`). Buggy code at
-`kfd_debug.c:817-819`:
-
-```817:819:drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-        if (copy_to_user(runtime_info, (void *)&target->runtime_info,
-copy_size)) {
-                kfd_dbg_trap_deactivate(target, false, 0);
-                r = -EFAULT;
-```
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Tree is `v6.18.44` (Makefile: 6.18.44). Current
+`wait_on_destroy_queue()` at lines 2480–2506 lacks all three fix hunks.
+`is_being_destroyed` field exists. Introducing commit `a70a93fa568b4` is
+an ancestor of HEAD.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Fix commit diff matches current
-file structure; only 6 lines in one hunk.
+**Record:** **Clean apply.** `git apply --check` succeeded for all three
+hunks against current file (minor 1-line offset on first hunk). No
+structural refactoring conflicts.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** **No.** `git log stable/linux-6.18.y --grep="Unwind debug
-trap"` returns nothing. Fix exists on `all-next` (`a50676d5a72a2`) but
-not in this stable checkout.
+**Record:** **NO** — grep and `git log -S "is_being_destroyed"` show no
+subsequent fix for this race in this tree.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## Phase 7: Subsystem Context
 
 ### Step 7.1: Subsystem Criticality
-**Record:** `drivers/gpu/drm/amd/amdkfd` — **IMPORTANT** (AMD GPU
-compute/ROCm KFD driver). Debug-trap path only; not core kernel, but
-affects production debugger workflows.
+**Record:** `drivers/gpu/drm/amd/amdkfd/` — **IMPORTANT** (AMD GPU
+compute/KFD/ROCm). Not universal like mm/VFS, but affects all KFD users
+on AMDGPU.
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained — recent stable-relevant amdkfd fixes
-(debugger auth, overflows, CRIU, NULL deref).
+### Step 7.2: Activity Level
+**Record:** Actively maintained — multiple recent amdkfd security and
+stability fixes in 6.18.y (NULL deref, overflow, list corruption, CRIU
+fixes).
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of AMD KFD GPU debugging (ROCm debugger,
-`KFD_IOC_DBG_TRAP_ENABLE`). Requires `CONFIG_HSA_AMD` / amdkfd. Not
-universal, but real for that population.
+**Record:** AMD GPU users with `CONFIG_DRM_AMDGPU` + KFD enabled,
+specifically processes using debug-trap with suspended queues.
+Config/driver-specific, not platform-specific.
 
 ### Step 8.2: Trigger Conditions
-**Record:** `copy_to_user()` failure during debug-trap enable — uncommon
-but valid (bad userspace buffer). **Likelihood:** low in normal use,
-easy to hit with a buggy debugger or invalid pointer. **Privilege:** KFD
-device access required.
+**Record:**
+- Process has `debug_trap_enabled`
+- Target queue is `is_suspended`
+- Two concurrent destroy attempts (or destroy during wait after mutex
+  drop)
+- **Likelihood:** Uncommon but realistic in debugger scenarios (multi-
+  threaded teardown, signal interruption + retry)
+- **Privilege:** Requires access to `/dev/kfd` (not arbitrary
+  unprivileged, but reachable by compute users)
 
 ### Step 8.3: Failure Mode Severity
-**Record:**
-- Extra `kref` leak on `kfd_process` → process object retained longer
-  than intended
-- `dbg_ev_file` leak → kernel `struct file` refcount leak
-- `debug_trap_enabled` stuck `true` while ioctl returned error →
-  subsequent enable returns `-EALREADY` (verified: line 779-780)
-- `debugged_process_count` skew → wrong debugger session accounting
-- **Severity:** **MEDIUM-HIGH** for debugger users (broken
-  retry/disable-enable cycle, resource leaks); **LOW** for non-debug
-  workloads
+**Record:** **UAF** on `struct queue` → kernel oops/crash, potential
+memory corruption. **Severity: HIGH** (approaching CRITICAL for
+exploitable UAF, though trigger is somewhat specialized).
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Restores correct error recovery; prevents leaks and stuck
-  debug state
-- **Risk:** Very low — 6 lines on failure-only path, mirrors existing
-  disable logic
-- **Ratio:** Favorable for stable
+- **Benefit:** HIGH — prevents real UAF crash in production KFD debugger
+  paths
+- **Risk:** LOW — 6 lines, uses existing flag, `-EBUSY` is
+  safe/conventional
+- **Ratio:** Strongly favors backport
 
 ---
 
@@ -323,98 +337,124 @@ device access required.
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real bug in error path present since 2023
-- Resource leaks (`kref`, `struct file`)
-- Functional breakage: `-EALREADY` on retry after failed enable
-- Small (6 lines), maintainer-acked
-- Buggy code confirmed in Linux 6.18.44; fix not yet applied
-- Clean backport
+- Explicit UAF race fix with clear mechanism
+- Bug present since 2023 in code that exists in 6.18.44
+- Small, surgical, applies cleanly
+- Userspace-reachable via KFD ioctl
+- Maintainer + reviewer sign-off
+- Matches pattern of other amdkfd stable fixes (UAF, NULL deref, races)
+- Error-path flag cleanup prevents stuck "being destroyed" state
 
 **AGAINST backport:**
-- No user report or syzbot — code-review discovery
-- Affects debugger-only path, not general workloads
-- “Important issue” bar is borderline vs crash/security (no oops/UAF
-  demonstrated)
+- Narrow trigger (debug_trap + suspended queue + concurrency)
+- No syzbot/user report in commit message
+- Mailing list discussion unverified
 
-**Unresolved:** Whether `debugger_process` should also be cleared on
-failure (fix matches partial unwind intent, not full disable).
+**Unresolved:**
+- Full lore review thread (blocked)
+- Whether fix commit hash exists on mainline (not in this tree)
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors
-   `kfd_dbg_trap_disable()`; maintainer acked; no Tested-by
-2. Fixes a real bug? **PASS** — refcount/file leak and stuck
-   `debug_trap_enabled`
-3. Important issue? **PASS (MEDIUM)** — resource leaks + broken debug
-   enable/disable state machine
-4. Small and contained? **PASS** — 6 lines, one function
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — code exists; clean apply
+1. Obviously correct and tested? **PASS** — logic is clear; AMD reviewer
+   + maintainer SOB; no Tested-by but pattern is standard
+2. Fixes a real bug? **PASS** — verified UAF race in code
+3. Important issue? **PASS** — UAF / crash (HIGH severity)
+4. Small and contained? **PASS** — 6 lines, 1 file, 2 functions
+5. No new features/APIs? **PASS** — uses existing `is_being_destroyed`
+   field
+6. Can apply to local tree? **PASS** — verified with `git apply --check`
 
 ### Step 9.3: Exception Categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-error-path bug fix.
+**Record:** N/A — standard bug fix, not a quirk/ID/DT/build/doc
+exception.
 
 ### Step 9.4: Decision Rationale
-
-For **Linux 6.18.y** specifically: the incomplete unwind in
-`kfd_dbg_trap_enable()` is present, the fix is absent, and the patch is
-a minimal error-path correction that prevents reference and file leaks
-and restores consistent debug-trap state after `-EFAULT`. This matches
-the kind of driver error-recovery fixes routinely accepted for stable,
-especially with AMD maintainer acknowledgment.
+This is a textbook stable backport: a real use-after-free in KFD queue
+destruction, introduced years ago, still present in 6.18.44, fixed with
+a minimal flag-based serialization that mirrors existing suspend-side
+logic. The trigger is specialized (debugger + suspended queue) but the
+consequence is a kernel crash. The patch applies cleanly and carries low
+risk.
 
 ---
 
 ## Verification
 
 - **[Phase 1]** Parsed subject, tags, body from provided commit message
-  and `git show a50676d5a72a2`
-- **[Phase 2]** Read diff and current `kfd_debug.c:772-825`,
-  `kfd_dbg_trap_disable()` at 667-694
-- **[Phase 3]** `git blame -L 817,820` → `218895820e6fcc` (2022); `git
-  show 0ab2d7532b05a` → introduced enable setup (2023); `git log
-  stable/linux-6.18.y --grep="Unwind debug trap"` → empty
-- **[Phase 3]** `git log --oneline -5 --
-  drivers/gpu/drm/amd/amdkfd/kfd_debug.c`
-- **[Phase 4]** `b4 dig -c a50676d5a72a2` → lore URL; `b4 dig -m
-  /tmp/kfd_debug_trap.mbx` → Alex Deucher Acked-by in thread; `b4 dig
-  -a` → no revisions
-- **[Phase 5]** `grep kfd_dbg_trap_enable` → caller in
-  `kfd_chardev.c:3029`; `grep debug_trap_enabled` across amdkfd
-- **[Phase 6]** `git describe HEAD` → `v6.18.44`; Makefile `6.18.44`;
-  confirmed buggy lines at 817-819 without fix
-- **[Phase 6]** `git log stable/linux-6.18.y..all-next --
-  drivers/gpu/drm/amd/amdkfd/kfd_debug.c` → fix commit listed, not in
-  stable
-- **[Phase 6]** `git branch --contains a50676d5a72a2` → `all-next` and
-  others, not `stable/linux-6.18.y`
-- **[Phase 7]** `git log --oneline -20 -- drivers/gpu/drm/amd/amdkfd/` →
-  active subsystem
-- **[Phase 8]** Verified `-EALREADY` guard at line 779-780; verified
-  `kfd_dbg_trap_disable()` cleanup pattern at 682-692
+- **[Phase 1]** Confirmed no Fixes:/Reported-by:/Link: tags
+- **[Phase 2]** Read current `wait_on_destroy_queue()` at lines
+  2480–2506: missing all fix hunks
+- **[Phase 2]** Read `destroy_queue_cpsch()` at lines 2508–2601: missing
+  flag cleanup on error path
+- **[Phase 2]** Read `suspend_single_queue()` line 1075: existing
+  `is_being_destroyed` check confirms flag infrastructure
+- **[Phase 2]** Read `kfd_priv.h` line 521: `is_being_destroyed` field
+  exists
+- **[Phase 3]** `git describe HEAD`: v6.18.44
+- **[Phase 3]** `git blame -L 2480,2506`: `wait_on_destroy_queue` from
+  `a70a93fa568b4` (Jonathan Kim, 2023-06-09)
+- **[Phase 3]** `git show a70a93fa568b4f`: introduced debug
+  suspend/resume and `wait_on_destroy_queue`
+- **[Phase 3]** `git merge-base --is-ancestor a70a93fa568b4f HEAD`:
+  buggy commit is in tree
+- **[Phase 3]** `git log -S "is_being_destroyed"`: only introducing
+  commit, no fix
+- **[Phase 3]** `git log --oneline -20 -- kfd_device_queue_manager.c`:
+  recent amdkfd activity confirmed
+- **[Phase 4]** `b4 dig -c`: N/A — commit not in checkout
+- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis (UNVERIFIED)
+- **[Phase 5]** `grep destroy_queue`: traced call chain ioctl →
+  pqm_destroy_queue → destroy_queue_cpsch
+- **[Phase 5]** Read `pqm_destroy_queue()` lines 505–574: frees queue
+  only after successful destroy
+- **[Phase 5]** Read `kfd_ioctl_destroy_queue()` lines 417–433:
+  holds/releases `p->mutex`
+- **[Phase 6]** Confirmed buggy code at lines 2493, 2495–2503 (drops
+  locks during wait)
+- **[Phase 6]** `git apply --check`: patch applies cleanly to 6.18.44
+- **[Phase 6]** `grep "fix UAF race in destroy_queue_cpsch"`: not in
+  tree (fix not yet applied)
+- **[Phase 8]** Race mechanism verified: mutex dropped at line 2497
+  enables concurrent destroy
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index 986cb297de8f8..78e1dfdb27147 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -816,6 +816,12 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index d9f09f25911a7..b02fe5d08c79f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2499,6 +2499,9 @@ static int wait_on_destroy_queue(struct device_queue_manager *dqm,
+ 	if (pdd->qpd.is_debug)
+ 		return ret;
  
- 	if (copy_to_user(runtime_info, (void *)&target->runtime_info, copy_size)) {
- 		kfd_dbg_trap_deactivate(target, false, 0);
-+		fput(target->dbg_ev_file);
-+		target->dbg_ev_file = NULL;
-+		if (target->debugger_process)
-+			atomic_dec(&target->debugger_process->debugged_process_count);
-+		target->debug_trap_enabled = false;
-+		kfd_unref_process(target);
- 		r = -EFAULT;
++	if (q->properties.is_being_destroyed)
++		return -EBUSY;
++
+ 	q->properties.is_being_destroyed = true;
+ 
+ 	if (pdd->process->debug_trap_enabled && q->properties.is_suspended) {
+@@ -2511,6 +2514,9 @@ static int wait_on_destroy_queue(struct device_queue_manager *dqm,
+ 		dqm_lock(dqm);
  	}
  
++	if (ret)
++		q->properties.is_being_destroyed = false;
++
+ 	return ret;
+ }
+ 
+@@ -2604,7 +2610,7 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 	return retval;
+ 
+ failed_try_destroy_debugged_queue:
+-
++	q->properties.is_being_destroyed = false;
+ 	dqm_unlock(dqm);
+ 	return retval;
+ }
 -- 
 2.53.0
 
