@@ -4,104 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D47EC624D3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C3AC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1158C10E8B3;
-	Mon, 31 Aug 2026 13:46:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 211A710E8C2;
+	Mon, 31 Aug 2026 13:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tscEZGEI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FmAO/iXX";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013009.outbound.protection.outlook.com
- [40.107.201.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CEEF10E8B3;
- Mon, 31 Aug 2026 13:46:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OI16HzbTuybMR8KSYMtDOHuiaIUpEpV7hS8iJrkHfrlajGI478USv73cLA5LtPWsZ+1kDYtuMyPdGEi8z0GWQKIn3LQOkOYIgKQPAZSWgQKo2KCMjGcuhN31yF8jhNV5DQXFFRVwQ/RMZaPD9RhfHRoO0THeBjfTW6BhHB/jwLQE7VqdRluKRXz/HfmJPjRyE0h1qPpF3qSCWddbhAPixukivDXjcw+FAjad9k3dpBgqf6XsvYe3wj65J5j8PvJx/q7fQyPDtDP1RA+lTZ1mNYIY69F8qDyYQTvGVIf8YEVVBtGbAQwjmhszuBS4lz2nNtRx4LGU2gsqlhIkrrYbXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s9oAEflEphoDIl6J2aejSrrH8pLOvpq+BMD3rsC5dOQ=;
- b=UBS35qACMNegHQO7oTtlWclAuPE5fnMoT43FcUaXQ37vsdg5bkTFwgZUIPdCJ+4VktLnF3pjwK2tsXljpAryZYva0tr+FQCQD3xaSqK6LPEkVOVs4PbHbC83IPgcOcp6NB5RsOICGM6RAAxMkl9O9HF80idhA9v7jQl/7PAbSTdXgqSXya+3EzypXp7SZwTYQWlnvOxbXpvoNTuzIcpZp0lZeCHu47whpaN7OIXYJxUI5u1A6MIy1oCC7SPgPJIOYMau05nEnkOchI7AOxYGCdMkCzoTJRZ3GbKuqcdHOWzrg/XQCh6jgTR5zANEvmNfoqXRqPllzZAzuCRt7oPDtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s9oAEflEphoDIl6J2aejSrrH8pLOvpq+BMD3rsC5dOQ=;
- b=tscEZGEIvMsuCJkbT5PWmaLDoAoK2jMHinc//W/FwEIMooeHBbE/SvpDmA+L7br8feWrqCtwZI8Eiqh3BesCFJ0Q6jz5k8S3lir3FQgGD6lEkojVmbmkxnJX1Nr0lTaG0C3+CvOgdg4MAqqVvFPBiZFjzHJIE/vGudOdrJZrBaI=
-Received: from SN7P222CA0014.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::8)
- by CY5PR12MB6371.namprd12.prod.outlook.com (2603:10b6:930:f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 13:46:11 +0000
-Received: from SN1PEPF00036F40.namprd05.prod.outlook.com
- (2603:10b6:806:124:cafe::32) by SN7P222CA0014.outlook.office365.com
- (2603:10b6:806:124::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 13:46:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00036F40.mail.protection.outlook.com (10.167.248.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 13:46:10 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 08:46:07 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Mika Kuoppala
- <mika.kuoppala@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>
-Subject: [PATCH v6 3/4] drm/xe: Convert xe_user_fence to drm_user_fence
-Date: Mon, 31 Aug 2026 19:15:38 +0530
-Message-ID: <20260831134539.112690-4-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
-References: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C71F710E8BB;
+ Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A369A41986;
+ Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CA21F01558;
+ Mon, 31 Aug 2026 13:46:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788183983;
+ bh=beFY3W2U/zL1MNuJiPO6R55UvPAKdfIbCF/BE1eerSc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=FmAO/iXX7IfqS9Mta7rjbGcEuRGrMzV8JTDv9tsHQHDbQEMS7ZExgOclOd/ES/iTZ
+ qmwX2JsCa8p97FVGnBRKuEBsqUaaa4MUnHlq0YiUaA+nnM2XGfj+P5PBQ4AbT/z+kj
+ BGDYnTJ9dkwRjNm4Wk0rf8xkkZ3KTnxHG8CoWxZ+ugotMx5gZkGH/Rp9mQbhu9DJFc
+ Dg2/Ee5d3yiU97QhwJrQpWEDcHfNReHaYYvDslxfVtWSI8bcUqnFWnRUe6Ai3NQ8eg
+ A+m8GwLHiyloIH8TSxf3SIFs/DRNjLt5ehySlTvjttUqT46LXgUCObaBMTjQMTrKDl
+ F/0O7ZUl6At6g==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: "Stanley.Yang" <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: harden FRU PIA parsing with
+ bounded helpers
+Date: Mon, 31 Aug 2026 09:27:28 -0400
+Message-ID: <20260831133314.4125787-420-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F40:EE_|CY5PR12MB6371:EE_
-X-MS-Office365-Filtering-Correlation-Id: c319c430-2bee-46c8-e19b-08df07663747
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|6133799003|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: +qOgSYKNfW4GdHXGKV/0hYTZE5ONyx7L20DqTMEZ2TL1lZ2k22hghh2OzwW1wXJluQ2ojjK07KSchJ7fN8Wy7wheotXbGYSoQ612C6Nb01+L+HkciXRIstUyCGj5as2tjmIS4+ofHbQfSlS+ifXPhmeTQkIjtqFLobeEtsvanK5aujg8sQQMDCcoIYt4unUBid0YAg8rIswOlco5md7tgLp9rXoCgnsXMl231MJTGhLR4yPsME4zR5Je3ffr1t8UtZk41jfwv9uY/IQTsYHjZkOUHXheb/kLNbleb2r1q8EVHdRIpRL0d03kG9uEG4YD/tttOm2sZTM+nFaGetSYZM/BXhy8Bw65XpfC2zfDdeQhEkxI6Bmd8gyUcCll7yxYM3WQAM0YXmBR1sWiuqJEgiZ6zS4yO/pX0ir6aTiEfgW//NCAdTWW12eXwSHCZQsopBXcJskuezA1J1+7yLJOKt28+geQtXLItln5XiwIl44Dmh7PabUEX8Zxap8JVGH5bSqdvHQcE4MtKwjs5hYV5mv6igTx9/oLdvXecTg3V0UAS7jHJw+VQT3QUKM/qqmW2G6fXbDKXa+Pc64BwIj6Yrly/Mmof/VaykCNvE6hXdqjrdBC4WhA33uobO3AFe6bMCAO1dyOKnHkmWBj8mZQPEpwRdTu8JCNJS9SyPDjxjQq4uxGeLppp+p1wZ3KXHopOvpmlm6ozoATdG9L8PUpKQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lN9hkozB8KECFFHSHQr4F2p4eN5hmfkOKPwU+w6X6VdXlc8Uap9wer8KHKo5uYxz5KcIgClArhQ7OK3rT01C8JBBFn+6I8OZV+OQDgOxxx5jZD448csuZ0XGV27VplzRhdbPkkZBB9z0r458IlfL3MtztrWymVG3Vr2tD4EGVXjLGzY6uSYglzmLUkAcIFLtJ9MRlXpDIJ0Zm1oAW587Z6Ce5z9rp/CI27Qw6BQrC10VSba1R7KvGXmd3ZZSEEr0dHCT1VtiSuuxp7anQFnHV7njkgpSAv7n7VrZXNXTEUnXUywNFJA5GkkUXHfqdEfwbSrk+UopjcXI9s1lLOYlgBNQeNZ09p1O2PLjHR4Xty2C8I/f94pJ9seG4TU6MevAta5kyHwh1le2JvMClTwHfvStZrWpNOcIUP9oACi/9bU7dBTE/g/fyMDhv2/xbDh9
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:46:10.4731 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c319c430-2bee-46c8-e19b-08df07663747
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F40.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6371
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,288 +66,531 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the open-coded user fence implementation in xe_sync.c with the
-new common drm_user_fence helper.
+From: "Stanley.Yang" <Stanley.Yang@amd.com>
 
-struct xe_user_fence now embeds struct drm_user_fence as its base.
-XE-specific fields (xe_device pointer for the ufence_wq wake-up,
-userspace VA, expected value, signalled flag) remain in the wrapper.
+[ Upstream commit c990c05eb6c74c98d1ff3acf67a19015312820b7 ]
 
-The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
-functions are removed. Their logic moves to xe_ufence_ops.worker and
-xe_ufence_ops.destroy, which are called by drm_user_fence_work().
+Replace the open-coded TLV walk with fru_pia_advance()
+and fru_pia_copy_field() helpers that bound every read
+by the actual EEPROM data length, preventing out-of-bounds
+reads on truncated or malformed FRU data.
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_sync.c       | 149 ++++++++++++++++-------------
- drivers/gpu/drm/xe/xe_sync.h       |   2 +
- drivers/gpu/drm/xe/xe_sync_types.h |   1 -
- drivers/gpu/drm/xe/xe_vm.c         |   1 +
- 4 files changed, 84 insertions(+), 69 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-index 37866768d64c..2d1e07792506 100644
---- a/drivers/gpu/drm/xe/xe_sync.c
-+++ b/drivers/gpu/drm/xe/xe_sync.c
-@@ -6,12 +6,11 @@
- #include "xe_sync.h"
- 
- #include <linux/dma-fence-array.h>
--#include <linux/kthread.h>
--#include <linux/sched/mm.h>
- #include <linux/uaccess.h>
- 
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
-+#include <drm/drm_user_fence.h>
- #include <uapi/drm/xe_drm.h>
- 
- #include "xe_device.h"
-@@ -19,36 +18,60 @@
- #include "xe_macros.h"
- #include "xe_sched_job_types.h"
+LLM Generated explanations, may be completely bogus:
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[drm/amdgpu]` `[harden]` — Harden FRU (Field Replaceable
+Unit) Product Info Area (PIA) parsing by replacing open-coded TLV
+walking with bounded helper functions.
+
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Record:**
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** Tao Zhou \<tao.zhou1@amd.com\>
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org:** — absent (not a negative signal)
+- **Signed-off-by:** Stanley.Yang \<Stanley.Yang@amd.com\>, Alex Deucher
+  \<alexander.deucher@amd.com\> (ignore pipeline SOBs)
+
+Notable: reviewed by AMD developer; no fuzzer or user bug reports cited.
+
+### Step 1.3: ANALYZE COMMIT BODY
+**Record:**
+- **Bug described:** Open-coded TLV walk in FRU PIA parsing does not
+  bound reads against actual EEPROM buffer length; truncated or
+  malformed FRU data can cause out-of-bounds reads.
+- **Symptom/failure mode:** Out-of-bounds kernel memory reads when
+  parsing malformed/truncated FRU EEPROM TLV fields.
+- **Version info:** none stated.
+- **Root cause:** TLV cursor advancement (`addr += 1 + (pia[addr] &
+  0x3F)`) and `memcpy()` use field-length bytes without ensuring the
+  cursor and copy length stay within the allocated `pia` buffer (`len`).
+
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised — this is an explicit memory-safety hardening
+fix. "Harden" and "preventing out-of-bounds reads" clearly describe a
+buffer over-read bug fix, not cosmetic cleanup.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: INVENTORY THE CHANGES
+**Record:**
+- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c` only (~37
+  lines added helpers, ~43 lines changed in parsing loop; net ~+37/-6 in
+  parsing region)
+- **Functions added:** `fru_pia_advance()`, `fru_pia_copy_field()`
+- **Functions modified:** `amdgpu_fru_get_product_info()`
+- **Scope:** single-file, surgical fix within one parsing function
+
+### Step 2.2: CODE FLOW CHANGE (per hunk)
+**Record:**
+
+1. **New helpers (before `amdgpu_fru_get_product_info`):**
+   - *Before:* no shared TLV walking helpers.
+   - *After:* `fru_pia_advance()` checks `*addr >= len` before reading
+     `pia[*addr]`; `fru_pia_copy_field()` validates header presence and
+     uses `min3(field_len, dst_size-1, len-addr-1)` for bounded
+     `memcpy()`.
+
+2. **Manufacturer/product/serial/fru_id field extraction:**
+   - *Before:* `if (addr + 1 >= len) goto Out` then `memcpy(...,
+     min_t(sizeof(dst), pia[addr] & 0x3F))`; advances via `addr += 1 +
+     (pia[addr] & 0x3F)` often without prior bounds check.
+   - *After:* each field uses `fru_pia_copy_field()` (bounded copy) and
+     `fru_pia_advance()` (bounded advance); failure jumps to `Out`.
+
+3. **Skip fields (Product Version, Asset Tag):**
+   - *Before:* unconditional `addr += 1 + (pia[addr] & 0x3F)` with no
+     bounds check (lines 251, 254, 262, 265 in current tree).
+   - *After:* `fru_pia_advance()` returns false on overrun, triggering
+     `goto Out`.
+
+### Step 2.3: BUG MECHANISM
+**Record:** **Category:** buffer over-read / out-of-bounds access.
+
+**Specific mechanisms in current 6.18.44 code:**
+
+1. **Unchecked TLV advance** — e.g. at lines 251–254:
+```250:255:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+        /* Go to the Product Version field. */
+        addr += 1 + (pia[addr] & 0x3F);
+
+        /* Go to the Product Serial Number field. */
+        addr += 1 + (pia[addr] & 0x3F);
+```
+   If `addr` is near `len` or a prior field length is inflated,
+`pia[addr]` reads past the kmalloc buffer.
+
+2. **Unbounded memcpy** — e.g. at lines 227–229:
+```227:229:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+        memcpy(fru_info->manufacturer_name, pia + addr + 1,
+               min_t(size_t, sizeof(fru_info->manufacturer_name),
+                     pia[addr] & 0x3F));
+```
+   Copy length is capped by destination size and TLV length byte, but
+**not** by remaining buffer bytes (`len - addr - 1`). A field claiming
+63 bytes with only a few bytes remaining causes OOB read.
+
+Checksum validation (lines 211–217) does not prevent structurally
+inconsistent TLV lengths within a checksum-valid PIA.
+
+### Step 2.4: FIX QUALITY
+**Record:**
+- Fix is obviously correct: every read/advance is bounded by `len`.
+- Minimal scope: adds two static helpers, replaces inline parsing.
+- Low regression risk: same parsing logic, stricter bounds; failure
+  paths already go to `Out` and return 0.
+- `min3()` exists in this tree (`include/linux/minmax.h`).
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: BLAME THE CHANGED LINES
+**Record:**
+- Buggy TLV walk introduced in `0dbf2c5626253` ("drm/amdgpu: Interpret
+  IPMI data for product information (v2)", 2022-11-17) by Luben Tuikov.
+- Field additions in `ac6b1f275f17b` and `8a2b51392ac4a` (2023-10-04)
+  retained the same unchecked advance pattern.
+- Prior OOB-related FRU fix: `02b865f88b4e4` (2021), `00b14ce075732`
+  (2022) — shows this subsystem has a history of bounds fixes.
+- Bug present since ~6.2; confirmed present in this 6.18.44 tree.
+
+### Step 3.2: FOLLOW Fixes: TAG
+**Record:** No `Fixes:` tag. N/A.
+
+### Step 3.3: FILE HISTORY FOR RELATED CHANGES
+**Record:** Recent FRU commits in tree include `fd0c6bd82d19c` (increase
+FRU File Id buffer), `25907304cfce5` (fetch FRU for smu_v13_0_12),
+`a8558fce7ad0c` (avoid FRU on APU). No existing bounded-TLV fix found.
+Standalone fix, not part of a multi-patch series in this tree.
+
+### Step 3.4: AUTHOR'S OTHER COMMITS
+**Record:** Stanley.Yang has multiple amdgpu commits (RAS, VCN, eeprom
+fixes) but is not the original FRU author. Reviewed by Tao Zhou; signed
+off by Alex Deucher (amdgpu maintainer).
+
+### Step 3.5: DEPENDENT/PREREQUISITE COMMITS
+**Record:** No prerequisites identified. Commit not in this tree
+(candidate only). Diff context shows `kzalloc_obj()` on mainline; local
+tree uses `kzalloc(sizeof(*adev->fru_info), GFP_KERNEL)` — PIA parsing
+portion applies independently. No dependency on missing code structures.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: ORIGINAL PATCH DISCUSSION
+**Record:** Commit hash not in local tree; `b4 dig -c` cannot be run.
+`b4 dig -S` is not supported. Lore.kernel.org search blocked by anti-bot
+page. **UNVERIFIED:** original submission thread, series revisions,
+reviewer stable nominations.
+
+### Step 4.2: REVIEWERS
+**Record:** **UNVERIFIED** via b4 -w. Commit message lists Reviewed-by:
+Tao Zhou, Signed-off-by: Alex Deucher.
+
+### Step 4.3: BUG REPORT
+**Record:** No Reported-by, Link, or syzbot reference. No external bug
+report to follow.
+
+### Step 4.4: RELATED PATCHES/SERIES
+**Record:** Appears standalone. Related historical fixes in same file
+(`02b865f`, `00b14ce`) addressed similar OOB concerns in older FRU
+parsing code.
+
+### Step 4.5: STABLE MAILING LIST
+**Record:** **UNVERIFIED** — lore search unavailable.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: KEY FUNCTIONS
+**Record:** `fru_pia_advance()`, `fru_pia_copy_field()` (new);
+`amdgpu_fru_get_product_info()` (modified).
+
+### Step 5.2: TRACE CALLERS
+**Record:**
+- `amdgpu_fru_get_product_info()` called from `amdgpu_device_init()` at
+  line 3307 of `amdgpu_device.c`.
+- `amdgpu_device_init()` called from `amdgpu_driver_load_kms()` in
+  `amdgpu_kms.c` line 148.
+- **Context:** GPU driver probe/load path during PCI/DRM device
+  initialization.
+- `amdgpu_fru_sysfs_init()` at line 4873 exposes sysfs attributes but
+  does not re-parse FRU data.
+
+### Step 5.3: TRACE CALLEES
+**Record:** `is_fru_eeprom_supported()`, `amdgpu_eeprom_read()`,
+`kzalloc()`, `kfree()`, `memcpy()`, `sprintf()` (default serial),
+`dev_err()`.
+
+### Step 5.4: CALL CHAIN / REACHABILITY
+**Record:** PCI probe → `amdgpu_driver_load_kms()` →
+`amdgpu_device_init()` → `amdgpu_fru_get_product_info()` → PIA TLV
+parse. Triggered on every boot for supported AMD server GPUs with
+accessible FRU EEPROM. Not directly userspace-syscall reachable, but
+runs automatically on driver load when hardware matches (Vega20 server
+SKUs, D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.).
+
+### Step 5.5: SIMILAR PATTERNS
+**Record:** Same unchecked `addr += 1 + (pia[addr] & 0x3F)` pattern
+repeated 6+ times in current code. AMD previously fixed similar FRU OOB
+issues in `02b865f88b4e4` and `00b14ce075732`.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+
+### Step 6.1: DOES BUGGY CODE EXIST?
+**Record:** **YES.** Local tree is **v6.18.44 / 6.18.44**.
+`amdgpu_fru_eeprom.c` lines 220–270 contain the vulnerable unchecked TLV
+walk. Bug introduced November 2022 (`0dbf2c5626253`), well before 6.18
+branch.
+
+### Step 6.2: BACKPORT COMPLICATIONS
+**Record:** Expected **clean apply** for the PIA parsing helpers and
+loop replacement. Minor context difference: mainline diff shows
+`kzalloc_obj()` but local tree uses `kzalloc()` — unrelated to the fix
+hunks. No significant refactoring conflicts in recent file history
+(`a3e510fd69c31` dev_* conversion is already present).
+
+### Step 6.3: RELATED FIXES ALREADY PRESENT?
+**Record:** No `fru_pia_advance`/`fru_pia_copy_field` or "harden FRU
+PIA" commit in tree. `git log --grep='harden FRU'` returned empty. Fix
+not yet applied.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: SUBSYSTEM CRITICALITY
+**Record:** **Subsystem:** `drm/amdgpu` driver — FRU EEPROM parsing for
+AMD server GPUs. **Criticality:** PERIPHERAL (hardware-specific,
+server/datacenter GPUs only), but touches kernel memory safety during
+probe.
+
+### Step 7.2: SUBSYSTEM ACTIVITY
+**Record:** File actively maintained — 20+ commits since 2022, most
+recent in 2025 (dev_* conversion, SMU v13.0.12 support).
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: WHO IS AFFECTED
+**Record:** Users of AMD server GPUs with FRU EEPROM support (Vega20
+D161/D163, Instinct MI D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.). Not
+APUs, not VF, not all consumer cards. Config/hardware-specific, but real
+production datacenter hardware.
+
+### Step 8.2: TRIGGER CONDITIONS
+**Record:** Malformed, truncated, or internally inconsistent FRU Product
+Info Area TLV data in on-card EEPROM. Occurs during driver probe
+(boot/module load). Not userspace-triggerable directly; requires
+corrupt/tampered EEPROM or hardware/firmware fault. Moderately rare but
+plausible (manufacturing errors, EEPROM corruption, physical tampering
+on servers).
+
+### Step 8.3: FAILURE MODE SEVERITY
+**Record:** Out-of-bounds read from kmalloc'd PIA buffer during GPU
+init. Potential KASAN splat, kernel oops during probe, or information
+leak from adjacent heap data. Severity: **HIGH** for affected hardware
+(memory safety during init); **MEDIUM** overall due to narrow
+hardware/trigger scope. Does not cause silent data corruption of user
+files.
+
+### Step 8.4: RISK-BENEFIT
+**Record:**
+- **Benefit:** MEDIUM — closes real OOB read in server GPU probe path;
+  aligns with prior FRU bounds fixes AMD has shipped.
+- **Risk:** LOW — small, reviewed, behavior-preserving with stricter
+  bounds.
+- **Ratio:** Benefit outweighs risk for 6.18.y.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: EVIDENCE COMPILED
+
+**FOR backport:**
+- Real, verifiable OOB read bug in current 6.18.44 code (unchecked TLV
+  advance + unbounded memcpy).
+- Fixes memory safety during GPU driver probe on affected server
+  hardware.
+- Small, single-file, obviously correct bounded helpers.
+- Reviewed by AMD developer; signed off by amdgpu maintainer (Alex
+  Deucher).
+- Same file had prior OOB fixes backported historically.
+- Bug present since 2022; code exists in this tree.
+- `min3()` available; patch should apply cleanly.
+
+**AGAINST backport:**
+- No syzbot report, no user bug report, no CVE cited.
+- Very limited hardware population (AMD server GPUs with FRU EEPROM).
+- Requires malformed EEPROM data — not commonly triggered.
+- Not directly exploitable from userspace.
+- Mailing list review context unverified.
+
+**UNRESOLVED:**
+- Original lore discussion and whether reviewers nominated for stable.
+- Whether any production incident motivated this fix.
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
+   AMD; no Tested-by but mechanism is verifiable by inspection.
+2. Fixes a real bug affecting users? **PASS** — OOB read on server GPU
+   probe with malformed FRU data.
+3. Important issue? **PASS** — kernel memory safety / potential oops
+   during init (HIGH for affected systems).
+4. Small and contained? **PASS** — one file, ~40 lines of meaningful
+   change.
+5. No new features or APIs? **PASS** — parsing hardening only.
+6. Can apply to local tree? **PASS** — buggy code confirmed present;
+   clean apply expected.
+
+### Step 9.3: EXCEPTION CATEGORIES
+**Record:** None directly (not device ID, quirk, DT, build fix, or
+docs). Standard memory-safety bug fix.
+
+### Step 9.4: DECISION RATIONALE
+
+For **linux-6.18.y** (this checkout): the vulnerable FRU PIA parsing
+code is present and has been since the 2022 IPMI rewrite. The fix
+addresses a concrete out-of-bounds read that can occur when TLV length
+fields in FRU EEPROM data are inconsistent with the actual buffer size —
+a scenario checksum validation does not prevent. While the affected
+hardware base is narrow (AMD server GPUs), memory-safety fixes in probe
+paths are appropriate stable material, especially given AMD's prior
+history of backporting similar FRU bounds fixes. The patch is small,
+reviewed, and low-risk.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed subject, tags, body: hardening fix for OOB reads;
+  Reviewed-by Tao Zhou; no Reported-by/syzbot.
+- [Phase 2] Read full diff and current `amdgpu_fru_eeprom.c`: confirmed
+  unchecked advances at lines 251, 254, 262, 265 and unbounded memcpy at
+  227–229, 237–238, etc.
+- [Phase 2] Verified `min3` exists in `include/linux/minmax.h`.
+- [Phase 3] `git blame -L 220,270`: buggy walk from `0dbf2c5626253`
+  (2022-11-17).
+- [Phase 3] `git log --oneline -20 -- amdgpu_fru_eeprom.c`: no existing
+  bounded-helper fix.
+- [Phase 3] `git log --grep='harden FRU'`: empty (commit not in tree).
+- [Phase 3] `git show 00b14ce075732`, `git show 02b865f88b4e4`: prior
+  FRU OOB fixes confirmed.
+- [Phase 4] `b4 dig -c`: **UNVERIFIED** — commit not in tree.
+- [Phase 4] Lore search: **UNVERIFIED** — blocked by anti-bot page.
+- [Phase 5] `grep amdgpu_fru_get_product_info`: callers in
+  `amdgpu_device.c:3307`, init via `amdgpu_kms.c:148`.
+- [Phase 6] `git describe HEAD` → v6.18.44; `make kernelversion` →
+  6.18.44.
+- [Phase 6] Read `amdgpu_fru_eeprom.c` lines 220–270: buggy code
+  confirmed present.
+- [Phase 6] `git merge-base --is-ancestor 0dbf2c5626253 HEAD`: buggy
+  code ancestor in tree.
+- [Phase 8] Failure mode: OOB kernel read during probe; severity HIGH
+  (affected hw) / MEDIUM (overall).
+
+**YES**The background search finished: `git log --grep='harden FRU'`,
+`--grep='bounded helpers'`, and `--grep='fru_pia'` all returned nothing,
+so this fix is not in the local **6.18.44** tree yet.
+
+That matches what we saw in the file — `amdgpu_fru_eeprom.c` still has
+the unchecked TLV walk (e.g. unguarded `addr += 1 + (pia[addr] & 0x3F)`
+around lines 251–265).
+
+**Verdict for linux-6.18.y: YES** — real out-of-bounds read on malformed
+FRU EEPROM data during server GPU probe; small, reviewed hardening fix
+that should apply cleanly.
+
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 95 ++++++++++++-------
+ 1 file changed, 63 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index b0082aa7f3c61..2875627dce8e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -114,6 +114,43 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev, u32 *fru_addr)
+ 	}
+ }
  
 +/*
-+ * xe_user_fence wraps drm_user_fence with XE-specific fields.
-+ * The drm_user_fence base handles MM borrowing and work-item lifetime.
++ * IPMI FRU Product Info Area fields are TLV: one type/length byte
++ * (low 6 bits = data length) followed by that many data bytes. These
++ * helpers walk the cursor and copy a single field while bounding all
++ * accesses to the actual buffer length read from the EEPROM.
 + */
- struct xe_user_fence {
--	struct xe_device *xe;
--	struct kref refcount;
--	struct dma_fence_cb cb;
--	struct work_struct worker;
--	struct mm_struct *mm;
--	u64 __user *addr;
--	u64 value;
--	int signalled;
-+	struct drm_user_fence base;
-+	struct xe_device     *xe;
-+	u64 __user           *addr;
-+	u64                   value;
-+	int                   signalled;
- };
- 
--static void user_fence_destroy(struct kref *kref)
-+static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
- {
--	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
--						 refcount);
-+	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
- 
--	mmdrop(ufence->mm);
--	kfree(ufence);
--}
-+	/*
-+	 * Mark signalled before waking waiters so UMD can safely reuse
-+	 * the same ufence without hitting -EBUSY.
-+	 */
-+	WRITE_ONCE(ufence->signalled, 1);
- 
--static void user_fence_get(struct xe_user_fence *ufence)
--{
--	kref_get(&ufence->refcount);
-+	/*
-+	 * Ensure the signalled store is visible before the user memory write
-+	 * on weakly ordered architectures (e.g. ARM64). Without this barrier
-+	 * the CPU may reorder stores, causing userspace to observe the user
-+	 * memory update before signalled == 1.
-+	 */
-+	smp_wmb();
++#define FRU_FIELD_LEN(p, a)	((p)[a] & 0x3F)
 +
-+	if (mm_ok) {
-+		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-+			drm_dbg(&ufence->xe->drm,
-+				"copy_to_user failed, user fence wasn't signaled\n");
-+	} else {
-+		drm_dbg(&ufence->xe->drm,
-+			"mmget_not_zero() failed, ufence wasn't signaled\n");
-+	}
-+
-+	wake_up_all(&ufence->xe->ufence_wq);
- }
- 
--static void user_fence_put(struct xe_user_fence *ufence)
-+static void xe_ufence_destroy(struct drm_user_fence *base)
- {
--	kref_put(&ufence->refcount, user_fence_destroy);
-+	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
-+
-+	kfree(ufence);
- }
- 
-+static const struct drm_user_fence_ops xe_ufence_ops = {
-+	.worker  = xe_ufence_worker,
-+	.destroy = xe_ufence_destroy,
-+};
-+
- static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
- 					       u64 value)
- {
-@@ -63,51 +86,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
- 	if (!ufence)
- 		return ERR_PTR(-ENOMEM);
- 
--	ufence->xe = xe;
--	kref_init(&ufence->refcount);
--	ufence->addr = ptr;
-+	ufence->xe    = xe;
-+	ufence->addr  = ptr;
- 	ufence->value = value;
--	ufence->mm = current->mm;
--	mmgrab(ufence->mm);
-+	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
- 
- 	return ufence;
- }
- 
--static void user_fence_worker(struct work_struct *w)
--{
--	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
--
--	WRITE_ONCE(ufence->signalled, 1);
--	if (mmget_not_zero(ufence->mm)) {
--		kthread_use_mm(ufence->mm);
--		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
--			XE_WARN_ON("Copy to user failed");
--		kthread_unuse_mm(ufence->mm);
--		mmput(ufence->mm);
--	} else {
--		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
--	}
--
--	/*
--	 * Wake up waiters only after updating the ufence state, allowing the UMD
--	 * to safely reuse the same ufence without encountering -EBUSY errors.
--	 */
--	wake_up_all(&ufence->xe->ufence_wq);
--	user_fence_put(ufence);
--}
--
--static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
-+static void user_fence_get(struct xe_user_fence *ufence)
- {
--	INIT_WORK(&ufence->worker, user_fence_worker);
--	queue_work(ufence->xe->ordered_wq, &ufence->worker);
--	dma_fence_put(fence);
-+	drm_user_fence_get(&ufence->base);
- }
- 
--static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-+static void user_fence_put(struct xe_user_fence *ufence)
- {
--	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
--
--	kick_ufence(ufence, fence);
-+	drm_user_fence_put(&ufence->base);
- }
- 
- int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
-@@ -282,24 +276,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
- 	} else if (sync->syncobj) {
- 		drm_syncobj_replace_fence(sync->syncobj, fence);
- 	} else if (sync->ufence) {
--		int err;
--
- 		drm_syncobj_add_point(sync->ufence_syncobj,
- 				      sync->ufence_chain_fence,
- 				      fence, sync->ufence_timeline_value);
- 		sync->ufence_chain_fence = NULL;
- 
- 		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
--		user_fence_get(sync->ufence);
--		err = dma_fence_add_callback(fence, &sync->ufence->cb,
--					     user_fence_cb);
--		if (err == -ENOENT) {
--			kick_ufence(sync->ufence, fence);
--		} else if (err) {
-+		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
- 			XE_WARN_ON("failed to add user fence");
--			user_fence_put(sync->ufence);
--			dma_fence_put(fence);
--		}
-+		/* fence ref consumed by drm_user_fence_add_callback */
- 	}
- }
- 
-@@ -434,6 +419,34 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
- 	user_fence_put(ufence);
- }
- 
-+/**
-+ * xe_sync_ufence_cancel() - Non-blocking cancel of user fence callback
-+ * @ufence: user fence reference
-+ *
-+ * Attempts to cancel the pending callback without waiting for the worker.
-+ * Safe to call while holding dma_resv_lock or vm->lock. If the callback
-+ * has already fired, the worker runs independently — xe_ufence_worker
-+ * only accesses device-level and userspace resources, both safe after
-+ * VMA teardown.
-+ */
-+void xe_sync_ufence_cancel(struct xe_user_fence *ufence)
++/* Advance cursor past the current TLV. Returns false if no more data. */
++static bool fru_pia_advance(u32 *addr, const unsigned char *pia, int len)
 +{
-+	drm_user_fence_cancel(&ufence->base);
++	if (*addr >= (u32)len)
++		return false;
++	*addr += 1 + FRU_FIELD_LEN(pia, *addr);
++	return true;
 +}
 +
-+/**
-+ * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
-+ * @ufence: user fence reference
-+ *
-+ * Cancels any pending dma-fence callback and waits for the worker to fully
-+ * complete before returning. Must be called during teardown before freeing
-+ * any resources accessed by the worker.
++/*
++ * Copy the current TLV's data into dst (NUL-terminated). Returns false if
++ * the TLV header or data would read past the end of pia.
 + */
-+void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
++static bool fru_pia_copy_field(char *dst, size_t dst_size,
++			       const unsigned char *pia, u32 addr, int len)
 +{
-+	drm_user_fence_cancel_sync(&ufence->base);
++	size_t fl;
++
++	if (addr + 1 >= (u32)len)
++		return false;
++
++	fl = min3((size_t)FRU_FIELD_LEN(pia, addr),
++			  dst_size - 1,
++			  (size_t)(len - addr - 1));
++	memcpy(dst, pia + addr + 1, fl);
++	dst[fl] = '\0';
++	return true;
 +}
 +
- /**
-  * xe_sync_ufence_get_status() - Get user fence status
-  * @ufence: user fence
-diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
-index 6b949194acff..b5ff3387c592 100644
---- a/drivers/gpu/drm/xe/xe_sync.h
-+++ b/drivers/gpu/drm/xe/xe_sync.h
-@@ -44,6 +44,8 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
- struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
- struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
- void xe_sync_ufence_put(struct xe_user_fence *ufence);
-+void xe_sync_ufence_cancel(struct xe_user_fence *ufence);
-+void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
- int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_fru_info *fru_info;
+@@ -222,52 +259,46 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 	 * Read Manufacturer Name field whose length is [3].
+ 	 */
+ 	addr = 3;
+-	if (addr + 1 >= len)
++	if (!fru_pia_copy_field(fru_info->manufacturer_name,
++				sizeof(fru_info->manufacturer_name),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->manufacturer_name, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->manufacturer_name),
+-		     pia[addr] & 0x3F));
+-	fru_info->manufacturer_name[sizeof(fru_info->manufacturer_name) - 1] =
+-		'\0';
  
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
-index b88f1833e28c..67048199b070 100644
---- a/drivers/gpu/drm/xe/xe_sync_types.h
-+++ b/drivers/gpu/drm/xe/xe_sync_types.h
-@@ -12,7 +12,6 @@ struct drm_syncobj;
- struct dma_fence;
- struct dma_fence_chain;
- struct drm_xe_sync;
--struct user_fence;
+ 	/* Read Product Name field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->product_name,
++				sizeof(fru_info->product_name),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->product_name, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->product_name), pia[addr] & 0x3F));
+-	fru_info->product_name[sizeof(fru_info->product_name) - 1] = '\0';
  
- struct xe_sync_entry {
- 	struct drm_syncobj *syncobj;
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index b01f31ed4417..fbd2c28de8a6 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
- 	struct xe_bo *bo = xe_vma_bo(vma);
+ 	/* Go to the Product Part/Model Number field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->product_number,
++				sizeof(fru_info->product_number),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->product_number, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->product_number),
+-		     pia[addr] & 0x3F));
+-	fru_info->product_number[sizeof(fru_info->product_number) - 1] = '\0';
  
- 	if (vma->ufence) {
-+		xe_sync_ufence_cancel(vma->ufence);
- 		xe_sync_ufence_put(vma->ufence);
- 		vma->ufence = NULL;
- 	}
+-	/* Go to the Product Version field. */
+-	addr += 1 + (pia[addr] & 0x3F);
++	/* Skip the Product Version field. */
++	if (!fru_pia_advance(&addr, pia, len))
++		goto Out;
+ 
+-	/* Go to the Product Serial Number field. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if (addr + 1 >= len)
++	/* Read the Product Serial Number field. */
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->serial,
++				sizeof(fru_info->serial),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->serial, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
+-	fru_info->serial[sizeof(fru_info->serial) - 1] = '\0';
+ 
+-	/* Asset Tag field */
+-	addr += 1 + (pia[addr] & 0x3F);
++	/* Skip the Asset Tag field. */
++	if (!fru_pia_advance(&addr, pia, len))
++		goto Out;
+ 
+ 	/* FRU File Id field. This could be 'null'. */
+-	addr += 1 + (pia[addr] & 0x3F);
+-	if ((addr + 1 >= len) || !(pia[addr] & 0x3F))
++	if (!fru_pia_advance(&addr, pia, len) ||
++	    !fru_pia_copy_field(fru_info->fru_id,
++				sizeof(fru_info->fru_id),
++				pia, addr, len))
+ 		goto Out;
+-	memcpy(fru_info->fru_id, pia + addr + 1,
+-	       min_t(size_t, sizeof(fru_info->fru_id), pia[addr] & 0x3F));
+-	fru_info->fru_id[sizeof(fru_info->fru_id) - 1] = '\0';
+ 
+ Out:
+ 	kfree(pia);
 -- 
-2.34.1
+2.53.0
 
