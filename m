@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED94C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 12:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 464A0C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 12:31:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B3B010E040;
-	Mon, 31 Aug 2026 12:27:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 745EF10E240;
+	Mon, 31 Aug 2026 12:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="Yb93gXzi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJsBccD3";
 	dkim-atps=neutral
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch
- [109.224.244.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B994710E040
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 12:27:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1788179268; x=1788438468;
- bh=YfqR/vMRmNS8dD3ZfLMM3JhQFyP64RQ/IUaqphE03xI=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Yb93gXzipfdDHWha8nGItK1Px0Mzkm5blaajgpjlFchKN3X0ROfNENspnpzkXY2vU
- r9GacfgJmbxIv0fp1mOG1huol7Od/lRr2oqXetLnbS7qPBGqf8+LMNetNc2ETVyaq/
- 4vqzopZGFr2hm0mVSHuSZ1sMq8YKzbLEKCabs/bwNxrfDnuFZh8gy8Y9ekhIvDfT8Y
- xDSVvomZH1WjYUljlTbj+ISb3Yd1/s+1VmPDHLEXWL+VVI0Kt6qgzNJ1JUfDDicenR
- iqEn4kk3wdqOGfdRJZf3FevHazqBO+fKVF5C8h3w2oSl+G6SqykOIE7awhucaPI849
- fvLo/FHwQUbMw==
-X-Pm-Submission-Id: 4hYStp0Sxbz2SchS
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 4/5] drm/bridge: nwl-dsi: Add error handling of
- nwl_dsi_mode_set()
-In-Reply-To: <20260810072257.2ABD61F000E9@smtp.kernel.org>
- (sashiko-bot@kernel.org's message of "Mon, 10 Aug 2026 07:22:56
- +0000")
-References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
- <20260810-nwl-dsi-fixes-v3-4-256da9d672e1@geanix.com>
- <5q9c0nOychvLDFd3tAjzhmVICVDZQWFIPqhVqa1FQJGcjJTarKOeTu1dJqvF_NiZXLKlWwb68VedbPjlDsJ8gg==@protonmail.internalid>
- <20260810072257.2ABD61F000E9@smtp.kernel.org>
-Date: Mon, 31 Aug 2026 14:27:45 +0200
-Message-ID: <87v78qv5j2.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2232B10E2BF
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 12:31:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AD6D243B87;
+ Mon, 31 Aug 2026 12:31:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EF71F00A3D;
+ Mon, 31 Aug 2026 12:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788179463;
+ bh=hwDK5Pmg+mRcTcHFYoeK5ij7OUg+pIqlkRaPLDCxMGI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JJsBccD3abuRxBpcQiufulXnAegtixGWDNsc1FHKT8f/Jj3wfKfCkXUu3HMJM1tkO
+ OffubK79ZOVT2XhX7i1Dp29vx0zxJ+jMPpYxaCU+BXeG/5C0b/V2jC305jQkoX4gW2
+ NhPrxx+c/t5FeIj55wGb06qDk+UmH9f9gci1gTZ/Y7BffovJ2yiOgcB2wsZDZJ2dgr
+ QMqxY1t441HW5a8BLoJmV0UhtGI3BzsXnRi0hVvoxohy13cdlgg50SZj4mBdb42+8b
+ 4gGu1vNfgxWxtexwPpkB4ZcDT/4cF4BGmgNSeSV7X50UlkdN8DUECNTd1CKdK43fzn
+ NmwLm18QAraQQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
+References: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
+ <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 12:31:03 +0000
+Message-Id: <20260831123103.70EF71F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,17 +54,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<sashiko-bot@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->
-> Pre-existing issues:
-> - [High] Unbalanced resource teardown and PM runtime underflow in mode_set error path.
+Pre-existing issues:
+- [High] Missing `cancel_work_sync` for `reset_work` leads to a use-after-f=
+ree on driver unbind.
+--
 
-I am preparing a new patch series where this will be adressed. I will
-send it when this series is merged.
+commit 47920da4c643294656a651a954618ec33114a7d9
+Author: Esben Haabendal <esben@geanix.com>
 
-/Esben
+drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
+
+The commit reintroduces a non-zero return value from sn65dsi83_reset_pipe()
+on error to prevent erroneous IRQ re-enabling during failures. It also
+updates sn65dsi83_reset_work() to properly exit the DRM bridge critical
+section by always calling drm_bridge_exit().
+
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
+ge/ti-sn65dsi83.c
+> index 42b451432bbb6..9f530cd05d2f3 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+[ ... ]
+> @@ -419,11 +419,13 @@ static void sn65dsi83_reset_work(struct work_struct=
+ *ws)
+>  	ret =3D sn65dsi83_reset_pipe(ctx);
+>  	if (ret) {
+>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+> -		return;
+> +		goto bridge_exit;
+>  	}
+> +
+>  	if (ctx->irq)
+>  		enable_irq(ctx->irq);
+> =20
+> +bridge_exit:
+>  	drm_bridge_exit(idx);
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential
+use-after-free related to the reset_work structure that is being modified h=
+ere.
+
+During driver unbind (e.g., via sysfs), sn65dsi83_remove() unplugs the brid=
+ge
+but does not explicitly call cancel_work_sync(&ctx->reset_work). After
+sn65dsi83_remove() returns, devres automatically frees the IRQ and the ctx
+structure.
+
+If an interrupt had previously scheduled the work, the work item might rema=
+in
+in the queue and eventually execute sn65dsi83_reset_work(), which will atte=
+mpt
+to access the freed ctx pointer (e.g., when calling
+drm_bridge_enter(&ctx->bridge, &idx)).
+
+Should sn65dsi83_remove() be updated to include a call to
+cancel_work_sync(&ctx->reset_work) to ensure the work is fully cancelled
+before devres tears down the allocated memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-ti-sn65dsi=
+83-fixes-v5-0-e712765d6c4f@geanix.com?part=3D1
