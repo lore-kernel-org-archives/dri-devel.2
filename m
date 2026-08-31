@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA96C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 19:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04025C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A44A10EACC;
-	Mon, 31 Aug 2026 19:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C45710E331;
+	Mon, 31 Aug 2026 20:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yvsm0xZ5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="glVuNcqW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D353610EACC
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 19:52:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A571710E379
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:02:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8FB03401A1;
- Mon, 31 Aug 2026 19:52:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F081F000E9;
- Mon, 31 Aug 2026 19:52:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B3E65601DE
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:02:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC511F000E9;
+ Mon, 31 Aug 2026 20:02:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788205976;
- bh=PBItDgul4QgByQsNEks4ssdEKb5OqYWfqwB8El3unWI=;
+ s=k20260515; t=1788206543;
+ bh=2wZ10qNBSma8cXYCiBz1QJb1ZosXSby94aj/KhCersw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Yvsm0xZ5wFiJdazp3f3U+TY1Xx4/qAY4ywpE1y6ZX9RTu4omQpaOg0B4+LO184sq4
- 4fQamVWexVcNe2G4FMmEZTSe2O9g6gAbf4RO7OfHglU8+4ARLIWHvyR///EnKo0iZz
- jjIRKo8EteQuuJE0AXnSpSClmaKshYdegDDBDqY4hy3hVfEnrYb0rNw/tGC/IyPps8
- lIpSwRFF8I/kcptRiZ6fAnsho4loAzYjmumb2pcgyNDhD7WsjeIdmZL1ujPGqh+X0N
- 8wYnZhG8xUx5TgLHrCfUJwQBR+pepkd4VatklTo1hUUbWlQPCqFwzIDmQ4zKofpYCE
- wGAdiZmxfUs/g==
+ b=glVuNcqW5Li08/PRxxE1zN4ZTTAMUJ4pa7bkHRTfVnR4yeqe61JgnvQim9JP+jqy3
+ fYbhJgeFasTJhGl/04ltj8M4i2lXPJTyXqUWAU9vZSamGBJKOgeKZ0G6kNKsF9QXoy
+ 1f3inDXhj/eBu3p329tqBvEprc3ce0RZy8wPYKeftAvTVMKIBA4Ob6mrqVKY4bg6n1
+ PDriktv6JckBqLwLZ9RW2LuJUwcIy/+VCNuMPd/AVND30pUOpG4g72xv5fPaVvVykq
+ sVywBpbm6ovT94kjPpet3cvPpsbHpCltD3A/962zOLxzhp+HmnMM9nplfz565iQaBq
+ rLeiHkozIkbZQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/gem: Drop ticket arg to lru_scan()
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Subject: Re: [PATCH v2 07/13] drm/amdgpu: dm: Convert to atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
-References: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-7-4500d49a337f@kernel.org>
+References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
+ <20260831-drm-no-more-crtc-reset-v2-7-4500d49a337f@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 19:52:55 +0000
-Message-Id: <20260831195256.52F081F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 20:02:22 +0000
+Message-Id: <20260831200223.4CC511F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,43 +59,72 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Orphaned kernel-doc parameter documentation for @ticket in drm_gem_=
-lru_scan()
+- [High] Use-after-free and list corruption in `amdgpu_dm_crtc_init()` erro=
+r path.
 --
 
-commit 318d69710561d35ea8d576756a021027b6ce9703
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+commit 0347668ca054c8ea5682a0562b13ea3c763f5fc2
+Author: Maxime Ripard <mripard@kernel.org>
 
-    drm/gem: Drop ticket arg to lru_scan()
-   =20
-    Commit 3392291fc509 ("drm/msm: Fix shrinker deadlock") dropped the only
-    use of the ticket arg, but at the time left drm_gem_lru_scan() unchanged
-    to avoid conflicts with in-flight pathor shrinker support.  This commit
-    is the followup to remove the unused arg.
+drm/amdgpu: dm: Convert to atomic_create_state
 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 018df97d590dc..5d724da019124 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1655,8 +1655,7 @@ drm_gem_lru_scan(struct drm_device *dev,
->  		 struct drm_gem_lru *lru,
->  		 unsigned int nr_to_scan,
->  		 unsigned long *remaining,
-> -		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *tic=
-ket),
-> -		 struct ww_acquire_ctx *ticket)
-> +		 bool (*shrink)(struct drm_gem_object *obj))
->  {
+This commit converts the AMDGPU DM CRTC implementation to use the
+atomic_create_state hook rather than a custom reset hook. It initializes
+the state with __drm_atomic_helper_crtc_state_init() and handles the
+newly created state during CRTC initialization.
 
-[Severity: Low]
-Does this code introduce a documentation regression? The ticket parameter is
-removed from the drm_gem_lru_scan() function signature here, but it looks l=
-ike
-the @ticket description is left behind in the kernel-doc comment block right
-above this function. This can cause a kernel-doc warning during documentati=
+[ ... ]
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 62eac6e65334b..cfe1fbfbab8ea 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -781,9 +780,18 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manage=
+r *dm,
+> =20
+>  	drm_crtc_helper_add(&acrtc->base, &amdgpu_dm_crtc_helper_funcs);
+> =20
+> -	/* Create (reset) the plane state */
+> -	if (acrtc->base.funcs->reset)
+> -		acrtc->base.funcs->reset(&acrtc->base);
+> +	/* Create the plane state */
+> +	if (acrtc->base.funcs->atomic_create_state) {
+> +		struct drm_crtc_state *crtc_state;
+> +
+> +		crtc_state =3D acrtc->base.funcs->atomic_create_state(&acrtc->base);
+> +		if (IS_ERR(crtc_state)) {
+> +			res =3D PTR_ERR(crtc_state);
+> +			goto fail;
+
+[Severity: High]
+Does this error path leave dangling pointers in the DRM core lists?
+
+This patch introduces a new failure point that jumps to the fail block after
+the CRTC and plane have already been successfully initialized and linked via
+drm_crtc_init_with_planes() earlier in amdgpu_dm_crtc_init().
+
+Looking at the fail block in amdgpu_dm_crtc_init():
+
+fail:
+        kfree(acrtc);
+        kfree(cursor_plane);
+        return res;
+
+Freeing acrtc and cursor_plane directly without unregistering them via
+drm_crtc_cleanup() and drm_plane_cleanup() leaves freed memory linked in the
+DRM mode configuration lists. Subsequent traversals of these lists will
+dereference the freed memory, which can cause a kernel panic.=20
+
+While the plane cleanup omission existed previously, the CRTC list corrupti=
 on
-builds.
+was newly introduced in this patch.
+
+> +		}
+> +
+> +		acrtc->base.state =3D crtc_state;
+> +	}
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831174409.4651=
-81-1-robin.clark@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-drm-no-mor=
+e-crtc-reset-v2-0-4500d49a337f@kernel.org?part=3D7
