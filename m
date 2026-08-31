@@ -4,53 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C6BC624CF
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7DDC624CF
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F136210E8AC;
-	Mon, 31 Aug 2026 13:46:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23B5C10E8BE;
+	Mon, 31 Aug 2026 13:46:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QunXjefW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uYSrotjQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B87510E8AF;
- Mon, 31 Aug 2026 13:46:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 63DD940219;
- Mon, 31 Aug 2026 13:46:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3981F000E9;
- Mon, 31 Aug 2026 13:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183961;
- bh=Fa8X07+qikM4Fuldd4aQRMXOt6yXY73ZZD6iOkGAo5g=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=QunXjefW/IXf2Lb/hDyQ/8WNJSbqPH2ojCQl+xn8sBfumobCwFRD+tZmdoCkVs5cH
- Bakr7zaXEgKvk3M13mtoxeGFbIS9/DKmI1XOlbZ2QQ1oMM9UA76TxJmBchGMOq4hnQ
- qnSNr2uOG9keUpp24Zi+hc7PhEQTE/fV21YvCu0+QKuocJabZ3V+2f7lsa3W8D0Bsh
- nB3JjhzUl3rRT2NYXcdd/ggVI77mwMYrb0bYS3ZRZmdXDtyiOakhd/y3M7+npo0Ut3
- afQ598oXOWK11h3LkACXeSKlSed41M1BTe0SXHurwG0PsvpIvOkHpmNl0lpqJ8yZw3
- +UZyfk7D4t9Yw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Shiwu Zhang <shiwu.zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: fix buffer overflow during vBIOS
- update
-Date: Mon, 31 Aug 2026 09:27:14 -0400
-Message-ID: <20260831133314.4125787-406-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012032.outbound.protection.outlook.com [40.107.209.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5955C10E097;
+ Mon, 31 Aug 2026 13:46:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YHSEhJ9MAJ3OQ8DhngJ5fJqa9TM+3DSStfnUeCS9dNVnn9SltPNGAnTCMzGXmKSSRoyMM+XFFduDMVH3PDrA8WHBkXiBA5MsFkY8WlEOTMtT5i0MuBmXbt/GhKuFBonZmLTDXce/tO1TLJBVm/z22EJ4MmAYcUNcjGL2wYVkD69gnvNaYyOSWn5GxndlokmuOpl+yjYrNFGMeNpJkYX77wlIic849zipI8kxLtqDTxwvtEqjPLlc6cHp+PCaVFQKkRRsidkjFbfvxMP/FexHGOr58CUL7pb/OxLDMm5gSpn4S5/TRHFii56PrcrvTNvRdQERajeTZEJGzNf89U1tqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f2myMWi3ndMIfrrCbal7NfLRXdf0Fe9xmgj4Eys9KT4=;
+ b=nVxtWafxY8KM/wwgRnfiOREwTpMOGsLA751OeS4fxFKxYxJpNytypsu6GZy9S8u6goiq7VpAnSiRtgBRL3TaqrfZlJkbYA01zm0y23S+24W5e+JHJuns9qlSdJl+2eNFwK80Eg0nVZ/HO2YB1v4EfDEuCSVrhKq9k8ThfcSvorNlylaFBfkYbC5sh8CsoVDnqBh8RJ/JFkb7JTmu6rdCNw7QtKVGQUntcSsVdLV1vdCpQqLy6vddfPbQHoWZkhdvJxFqo+lVt9PM1c1AEnvxmexuMbhuUXWl+sN/9yUPS319vcWGhYwNwlZRysjUfGASj2ph+xnBt4t3xLqkA+YLjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f2myMWi3ndMIfrrCbal7NfLRXdf0Fe9xmgj4Eys9KT4=;
+ b=uYSrotjQsyos05tgITy4eBX07b/0gtFeOBQ+3whoGNDJXTMLXnw9vjFFexg4fDnVUc7rSkAIJ1L6Q//anntgIyQSzNs+FD7v78oAycW8f5eyhIrmZH71QRUR699dVFeznH2H3Pbh1E/OXWEHVtm6ZqojxWLiPz0D4fIaL2ptddE=
+Received: from SJ0PR13CA0121.namprd13.prod.outlook.com (2603:10b6:a03:2c6::6)
+ by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 13:46:02 +0000
+Received: from CO1PEPF00012E82.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::ae) by SJ0PR13CA0121.outlook.office365.com
+ (2603:10b6:a03:2c6::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Mon,
+ 31 Aug 2026 13:46:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E82.mail.protection.outlook.com (10.167.249.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 13:46:01 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 08:45:58 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Mika Kuoppala
+ <mika.kuoppala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>
+Subject: [PATCH v6 0/4] drm: Add common drm_work_fence/drm_user_fence helpers
+ and convert XE
+Date: Mon, 31 Aug 2026 19:15:35 +0530
+Message-ID: <20260831134539.112690-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
+References: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E82:EE_|SA0PR12MB4461:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0653bd99-01be-4e79-e8f0-08df0766320f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: w0QOWUOkZEwJ54iaHxetGrwZR9DHw4uSuyYKS8uKzm7ODVcV1jUTLT9CqYmzRk9frXhAyETskQJAFdh/yip6uuczPJaSbL1jdmeTdTScS6q9NvlB76vHdZeKMlY3j0EvfKFPOQB8yL1zYkwS9jw0CpvalIP9A5S9J+Vi4ggGkEOxexJYgdwHBIeIlErHz2Zmn1mIFPyDXB1HAwaClcZs2jKvdOgzhdVCCVGLfWVflu8zQ8LXr0N7Dz9zjAb+n1tDkaO1TQNDQ3naKeQ8qEstmtNROuD66t3QXcjZ+NwYak0LCdN6myXH3grmSrmmlS5E3DSYc3qp1dpUfdgJQf/jwYGeGv2jtYWaBLPSiVUvumISNDxgIIoIz4VAnqKqmbCJd4mGIWmv6zVuP87NJivDcW4IfUpNPh9qmQ9GW9wkC4iWh9eZ/vbpADDrpaaxn5p+WUG7yI1p7t4KU5WKOyy5DQNlgYycfSpkzRkMJUHxbnS3vKdLsXRJR1fkVJWGNa0KQLJmqVPOxLBswB+qaXRCo2Hl4dSjSYu/roP8LsRMo4E1T7QcfZUfXkhcPnJcTC39TDMN1k6+f8gpvT1UnE01ZOgq+Z0/OZVK9wzManboP0ICrZkl2qShIfl+JreIuQEVe6ZAnhkRI59eor2mmHU+7xdNsLLbp1vQIewE6Po/hLqsOBpFzW8Df51rVRJxUMqCnAXFHyv3pMwKo+h7c/V1kQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wtVp/krre2qKhb0RqVjZfdGxEs7QESm2BcmVW8r79nIlc0ZTxQCwvms8Qc98G2AYg53CoW/7MKiiLXF/0+DSqfk22Ngso/P24Hu2Sj1qoXTwFOitSz86A6p5dspPSjyikE2iJv26id0GAAokyR0C19KcszPNzRJg4emsagaEzbEBffjIU+9WPEq9tOwwogRqgnFrXFgn7tI/PPxjZ9jt8RwzFPPWcR11FBr2u4yJM/dhVyhyYWHov5/BlMz0rEasmCr+aCdQ5v4sZzvf0ZhF+XBWxj6tW8AW4+PMezMTAdZZS9qZ4R5HFNcp0hK395rMZXXNzWU3S73AFr+s9TL2BhaEhh5e9a80KV5PM2O9/tEL6lOLv9OcxFKYFQQQmZsJdOaAHtKPhC4gqTJS7jT7yhwO4PeHT0mZG2uP5i0P4RgxQzhUYWY/mVUfMli/OrLC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:46:01.6521 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0653bd99-01be-4e79-e8f0-08df0766320f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E82.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,343 +117,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shiwu Zhang <shiwu.zhang@amd.com>
+When a GPU dma-fence signals, drivers often need to perform work that
+cannot run in IRQ context. This pattern is currently open-coded in
+multiple drivers.
+
+This series introduces two layered helpers:
+
+Patch 1 introduces drm_work_fence — a generic embeddable base structure
+that handles the dma-fence-callback-to-workqueue pattern. Any driver
+needing deferred fence work can use this directly.
+
+Patch 2 introduces drm_user_fence — a thin layer on top of
+drm_work_fence that adds kthread_use_mm() support for drivers that need
+to access userspace memory when a fence signals.
+
+Patch 3 converts XE to use drm_user_fence. XE continues to write a
+fence completion value to a userspace VA using the new helper.
+
+Patch 4 adds optional per-signal compare functionality to drm_user_fence.
+When cmp_addr is set, the worker is called only if the value at cmp_addr
+satisfies the configured comparison. This enables AMDGPU's EOP eventfd
+per-signal filtering without open-coding the read+compare pattern.
+
+A follow-on patch (not in this series) will wire AMDGPU's render-node
+EOP eventfd signaling path to drm_work_fence.
+
+v6:
+ - Add WARN_ON_ONCE(!IS_ENABLED(CONFIG_64BIT)) in
+   drm_user_fence_set_compare() since get_user() of u64 is not safe
+   on 32-bit systems. Plain WARN_ON_ONCE() is used as drm_user_fence
+   holds no struct drm_device * reference. (Thomas Hellström review)
+
+v5:
+ - Split drm_user_fence into drm_work_fence (generic) and drm_user_fence
+   (MM-borrowing subclass) per Matthew Brost's suggestion.
+ - Add per-signal compare functionality (drm_user_fence_set_compare())
+   per Christian König's suggestion.
+ - Use mmput_async() instead of mmput() to avoid potential deadlock in
+   MMU notifier release path. (Sashiko review)
+ - Use cmp_op != DRM_USER_FENCE_CMP_NONE as gate for compare logic.
+   Add WARN_ON for invalid set_compare() arguments. (Sashiko review)
+
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+
+Srinivasan Shanmugam (4):
+  drm: Add drm_work_fence helper
+  drm: Add drm_user_fence helper
+  drm/xe: Convert xe_user_fence to drm_user_fence
+  drm: Add per-signal compare functionality to drm_user_fence
+
+ drivers/gpu/drm/Makefile           |   2 +
+ drivers/gpu/drm/drm_user_fence.c   | 149 ++++++++++++++++++++++
+ drivers/gpu/drm/drm_work_fence.c   | 195 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sync.c       | 149 ++++++++++++----------
+ drivers/gpu/drm/xe/xe_sync.h       |   2 +
+ drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+ drivers/gpu/drm/xe/xe_vm.c         |   1 +
+ include/drm/drm_user_fence.h       | 115 +++++++++++++++++
+ include/drm/drm_work_fence.h       |  76 +++++++++++
+ 9 files changed, 621 insertions(+), 69 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 drivers/gpu/drm/drm_work_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
+ create mode 100644 include/drm/drm_work_fence.h
 
-[ Upstream commit 6229898d46c0cbc238a6fe9f11c1ea12cf8bb9c5 ]
-
-Clamp the buffer postion to write by setting the bin attribute
-to the maximum buffer size so that VFS layer will block the
-out-of-bounds accessing.
-
-Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu]` `[fix]` — buffer overflow during vBIOS (IFWI)
-update via `psp_vbflash` sysfs interface.
-
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Shiwu Zhang `<shiwu.zhang@amd.com>` (author)
-- **Reviewed-by:** Alex Deucher `<alexander.deucher@amd.com>` (amdgpu
-  maintainer)
-- **Signed-off-by:** Alex Deucher (maintainer ack)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, or `Tested-by:`
-  tags
-- Notable: maintainer review is a strong quality signal; no
-  syzbot/fuzzer report
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** `psp_vbflash` `bin_attribute` has `.size = 0`, so the
-  sysfs/VFS layer does not enforce write bounds;
-  `amdgpu_psp_vbflash_write()` can `memcpy()` past the 16 MiB
-  `kvmalloc()` buffer.
-- **Symptom:** heap buffer overflow on write to
-  `/sys/class/drm/card*/device/psp_vbflash` with out-of-bounds
-  offset/length.
-- **Fix:** set `.size = AMD_VBIOS_FILE_MAX_SIZE_B` (16 MiB) so
-  `sysfs_kf_bin_write()` clamps writes.
-- **Root cause:** missing sysfs size limit; driver-side check only
-  tracks cumulative `vbflash_image_size`, not `pos + count`.
-
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — explicitly labeled as a buffer overflow fix.
-
----
-
-## Phase 2: Diff Analysis
-
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c` (+1/-1)
-- **Function/struct:** `psp_vbflash_bin_attr`
-- **Scope:** single-line surgical fix in one file
-
-### Step 2.2: Code Flow Change
-**Record:**
-- **Before:** `.size = 0` → inode `i_size = 0` → `sysfs_kf_bin_write()`
-  skips bounds check (`if (size)` is false).
-- **After:** `.size = AMD_VBIOS_FILE_MAX_SIZE_B` → sysfs rejects `pos >=
-  size` with `-EFBIG` and clamps `count` to `size - pos`.
-- **Path:** sysfs write to `psp_vbflash` on IFWI-capable AMDGPU
-  (Navi3x+).
-
-### Step 2.3: Bug Mechanism
-**Record:** **Buffer overflow / out-of-bounds write (memory safety).**
-
-Vulnerable write path in this tree:
-
-```4210:4212:drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-        mutex_lock(&adev->psp.mutex);
-        memcpy(adev->psp.vbflash_tmp_buf + pos, buffer, count);
-        adev->psp.vbflash_image_size += count;
-```
-
-Sysfs enforcement when `size == 0`:
-
-```157:161:fs/sysfs/file.c
-        if (size) {
-                if (size <= pos)
-                        return -EFBIG;
-                count = min_t(ssize_t, count, size - pos);
-        }
-```
-
-With `.size = 0`, a user in the device group can seek past 16 MiB and
-overflow the kmalloc'd buffer.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct — `.size` matches the allocation size
-(`AMD_VBIOS_FILE_MAX_SIZE_B`). Minimal, no API change. Very low
-regression risk.
-
----
-
-## Phase 3: Git History Investigation
-
-### Step 3.1: Blame
-**Record:**
-- `.size = 0` introduced in `521289d2a279b2` / `8424f2ccb3c0d`
-  (2022–2023).
-- `psp_vbflash` interface present since `8424f2ccb3c0d` (May 2022).
-- IFWI visibility gated by `sup_ifwi_up` since `e7347f1c73cd2` (Jul
-  2023); expanded in `b3dd2903b09c6`, `c09910b511de0` (2025).
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: Related Changes
-**Record:**
-- Part of a 3-patch series (May 2026): (1) ww_mutex/GEM leaks, **(2)
-  this overflow fix**, (3) concurrent allocation mutex.
-- Patch 2/3 is standalone; patch 3/3 addresses a separate race.
-- Fix **not merged** in this tree (`.size = 0` still at line 4275).
-
-### Step 3.4: Author Context
-**Record:** Shiwu Zhang is an AMD amdgpu contributor; Alex Deucher
-reviewed.
-
-### Step 3.5: Dependencies
-**Record:** None. One-line change; `AMD_VBIOS_FILE_MAX_SIZE_B` already
-defined at line 47.
-
----
-
-## Phase 4: Mailing List and External Research
-
-### Step 4.1: Original Discussion
-**Record:**
-- **URL:** https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144957.html
-- **Series:** PATCH 2/3, May 20, 2026
-- No stable nomination found in the thread snippet; no NAKs observed
-- `b4 dig -c <hash>` not run — commit not in this checkout (no local
-  commitish)
-
-### Step 4.2: Reviewers
-**Record:** Alex Deucher reviewed (maintainer). Full recipient list via
-`b4 dig -w` unavailable without commit hash.
-
-### Step 4.3: Bug Report
-**Record:** No external bug report or syzbot link; vulnerability
-identified by driver author during review.
-
-### Step 4.4: Related Patches
-**Record:** Patches 1/3 and 3/3 are separate issues (leaks, concurrent
-alloc). Not prerequisites for this fix.
-
-### Step 4.5: Stable List
-**Record:** Not searched separately; prior related commit
-`fe56c6ee04570` was nominated with `Cc: stable@vger.kernel.org`.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** `amdgpu_psp_vbflash_write()`, `psp_vbflash_bin_attr`,
-`amdgpu_bin_flash_attr_is_visible()`
-
-### Step 5.2: Callers
-**Record:** sysfs write path → `sysfs_kf_bin_write()` →
-`amdgpu_psp_vbflash_write()`. Triggered by userspace writes to
-`psp_vbflash`.
-
-### Step 5.3: Callees
-**Record:** `kvmalloc(AMD_VBIOS_FILE_MAX_SIZE_B)`, `memcpy()`,
-`mutex_lock/unlock`
-
-### Step 5.4: Reachability
-**Record:**
-- Exposed when `adev->psp.sup_ifwi_up` is true (PSP 13.0.0/7/10/12,
-  14.0.2/3 per `psp_early_init()`).
-- Mode `0660` — root and device group (typically `render`/`video`).
-- Reachable from userspace by privileged/group members on supported
-  dGPUs (Navi3x+ IFWI flashing per
-  `Documentation/gpu/amdgpu/flashing.rst`).
-
-### Step 5.5: Similar Patterns
-**Record:** Related bounds-checking work by Lijo Lazar on VBIOS parsing
-(`atom.c`, Jun 2026) is a separate code path.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** `git describe HEAD` → `v6.18.44`. `.size = 0` at
-line 4275; vulnerable `memcpy()` at line 4211. `vbflash` ancestor commit
-`8424f2ccb3c0d` is in this tree.
-
-### Step 6.2: Backport Complications
-**Record:** Clean one-line apply expected. No structural conflicts
-observed.
-
-### Step 6.3: Fix Already Present?
-**Record:** **No.** `git log --grep="buffer overflow"` on `amdgpu_psp.c`
-returns nothing; `.size = 0` still present.
-
----
-
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem / Criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (GPU driver,
-kernel memory safety on reachable sysfs path).
-
-### Step 7.2: Activity
-**Record:** Actively maintained; recent IFWI support commits in 2025.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who Is Affected
-**Record:** Users of AMDGPU with IFWI update support (Navi3x+ dGPUs with
-supported PSP versions). Not universal, but real production hardware.
-
-### Step 8.2: Trigger Conditions
-**Record:** Write to `psp_vbflash` with `pos + count > 16 MiB` (e.g.,
-`lseek` + `write`). Requires membership in device group or root — not
-fully unprivileged, but still a kernel memory corruption primitive for
-local attackers with GPU access.
-
-### Step 8.3: Failure Mode
-**Record:** Heap buffer overflow in kernel context → potential crash,
-memory corruption, or local privilege escalation. **Severity: HIGH**
-(security-relevant memory safety bug).
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH — closes exploitable overflow on documented flashing
-  interface
-- **Risk:** VERY LOW — one-line, matches existing allocation bound,
-  reviewed by maintainer
-- **Ratio:** Strongly favors backport
-
----
-
-## Phase 9: Final Synthesis
-
-### Step 9.1: Evidence Summary
-
-**FOR:**
-- Real, verifiable buffer overflow (sysfs bypass + unbounded `memcpy`)
-- Security-relevant memory safety fix
-- One-line, maintainer-reviewed, obviously correct
-- Buggy code present and unfixed in v6.18.44
-- Feature is exposed on supported production hardware
-
-**AGAINST:**
-- Requires device-group membership (not arbitrary unprivileged user)
-- Part of a 3-patch series (but this patch is self-contained)
-- No fuzzer report or CVE (yet)
-
-**Unresolved:** Whether patch 3/3 (concurrent alloc race) should also be
-backported — separate issue.
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mechanism verified in
-   `fs/sysfs/file.c`; maintainer reviewed
-2. Fixes a real bug? **PASS** — heap overflow on sysfs write
-3. Important issue? **PASS** — buffer overflow / potential local
-   escalation
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features/APIs? **PASS** — bounds enforcement only
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
-
-### Step 9.3: Exception Category
-**Record:** Security/memory-safety fix (not device ID, quirk, or docs).
-
-### Step 9.4: Decision Rationale
-For **Linux 6.18.44**, the `psp_vbflash` sysfs interface allocates a 16
-MiB buffer but advertises unlimited size to the VFS layer. A group-
-privileged user can trigger a kernel heap overflow with an out-of-bounds
-write. The fix correctly delegates bounds enforcement to sysfs by
-setting `.size` to the allocation limit. It is minimal, maintainer-
-reviewed, and the vulnerable code is present and unfixed in this tree.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body; no syzbot/Fixes tags
-- **[Phase 2]** Read diff and `amdgpu_psp_vbflash_write()` /
-  `psp_vbflash_bin_attr` in tree
-- **[Phase 2]** Verified `sysfs_kf_bin_write()` skips bounds when `size
-  == 0` (`fs/sysfs/file.c:157-161`)
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; Makefile confirms
-  6.18.44
-- **[Phase 3]** `git blame` on line 4275 → `.size = 0` since 2023
-- **[Phase 3]** `git log -S "psp_vbflash_bin_attr"` → introduced
-  `8424f2ccb3c0d` (2022)
-- **[Phase 3]** `git merge-base --is-ancestor 8424f2ccb3c0d HEAD` →
-  ancestor confirmed
-- **[Phase 3]** `git log --grep="buffer overflow"` on `amdgpu_psp.c` →
-  no fix merged
-- **[Phase 4]** WebFetch lore thread:
-  https://lists.freedesktop.org/archives/amd-gfx/2026-May/144957.html —
-  PATCH 2/3 confirmed
-- **[Phase 4]** UNVERIFIED: `b4 dig -c` — commit not in local tree, no
-  commitish available
-- **[Phase 4]** UNVERIFIED: `b4 dig -w` / `-a` — same reason
-- **[Phase 5]** Read `amdgpu_bin_flash_attr_is_visible()` — `0660` when
-  `sup_ifwi_up`
-- **[Phase 5]** Read `psp_early_init()` — `sup_ifwi_up` set for PSP
-  13.0.0/7/10/12, 14.0.2/3
-- **[Phase 5]** Read `Documentation/gpu/amdgpu/flashing.rst` — documents
-  `psp_vbflash` userspace interface
-- **[Phase 6]** Confirmed `.size = 0` at line 4275 (fix not applied)
-- **[Phase 6]** Confirmed `AMD_VBIOS_FILE_MAX_SIZE_B` defined at line 47
-- **[Phase 8]** Assessed severity as HIGH based on verified overflow
-  mechanism
-
-**YES**
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 9f3581ce492f3..346e9c9cde40c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -4290,7 +4290,7 @@ static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
-  */
- static const struct bin_attribute psp_vbflash_bin_attr = {
- 	.attr = {.name = "psp_vbflash", .mode = 0660},
--	.size = 0,
-+	.size = AMD_VBIOS_FILE_MAX_SIZE_B,
- 	.write = amdgpu_psp_vbflash_write,
- 	.read = amdgpu_psp_vbflash_read,
- };
 -- 
-2.53.0
+2.34.1
 
