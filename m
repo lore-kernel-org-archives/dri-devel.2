@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99FF3C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54605C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:51:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BACAD10E8F8;
-	Mon, 31 Aug 2026 13:51:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7192E10E8F9;
+	Mon, 31 Aug 2026 13:51:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mL+Xn4m1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P+rE62eW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DADE10E8F3;
- Mon, 31 Aug 2026 13:51:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E52910E8F9
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:51:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BAAE7416DF;
- Mon, 31 Aug 2026 13:51:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32B11F00ACA;
- Mon, 31 Aug 2026 13:51:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5E6E060232;
+ Mon, 31 Aug 2026 13:51:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2912C1F000E9;
+ Mon, 31 Aug 2026 13:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184271;
- bh=Hh6DQaCHIq2VUuDkhUO0gcrJbuyGoDL/mV794VKwMu4=;
+ s=k20260515; t=1788184295;
+ bh=1YK8RCCxN+JmaqmdcfLeXR05/qFM3jVW1ABh4Q0B8yY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=mL+Xn4m1+gkOd88nkgLpWhrg4UBoifPG28j23XtsoA0qGCa6t69LimlS/2qdyjBuI
- hoxAKOFr4EfTX/JvVfm6R6BBJT9j2i3Nij/MQRdG1aGrA3+S+hOQWAgV7yW0Y+mHF4
- z4FFzyOodsPb4nBuc1SFdar/jH0/Q8MTZT+zCqU6uLJexZMTkggQsSFQhnEa7TqBP6
- 0qeLBL1Pi0XpCyPFZCZv2d0JXRJUto946BDBmY5h4byChVsZYwkAFSRPkMlXu4X2+3
- eul4g9bV6b5yD7OTLxrPznlDmerOLBjhZ1Ep6x9TVkX97EBmEdHiJlz8VSH0FU8niV
- 9AhgAbdh7zhzw==
+ b=P+rE62eW2hD0447YYLHmDvBDJoTNYVSNqNK7aixG6vOQHATSwkjjIzKw1oz7U52vu
+ MwLweMOHy+TvhZWSphifrpNBLgSvM/Mz2ul6r0Ll2gsWQNHTsDkEIxHY3H5Edu/oH4
+ 1dMmqSHprNuwThDEALK5DSHtYcxBPrKQdZLcz3q55hvYaj2hRsGj6BLfL7PVFKQjCw
+ B3915Ysx+P5jIVjL6R73bV5iMNweJ/+B+H5fwiqyPkkbx+etISFqBYm8vlocH2rnuz
+ PV2SHmi8SkcKaE3+ZXvRSfpupNSm/8wD17qur7tYzVtghqL9jDIVBHYR3g1zvtqpfs
+ CHP0S4DMhmFmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: Imre Deak <imre.deak@intel.com>, Lyude Paul <lyude@redhat.com>,
+ Shawn C Lee <shawn.c.lee@intel.com>, Mika Kahola <mika.kahola@intel.com>,
+ Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: use atomic operation to achieve
- lockless serialization
-Date: Mon, 31 Aug 2026 09:30:21 -0400
-Message-ID: <20260831133314.4125787-593-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/dp: Add DSC virtual DPCD quirk for
+ Realtek MST branch device
+Date: Mon, 31 Aug 2026 09:30:35 -0400
+Message-ID: <20260831133314.4125787-607-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,66 +67,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: Imre Deak <imre.deak@intel.com>
 
-[ Upstream commit 4d50a14d346141e03a7c3905e496d91e048bc30c ]
+[ Upstream commit bff2da7aa0020eb72e42d63868dc5adaa0fb85d3 ]
 
-In amdgpu_seq64_alloc there is a possibility that two difference cores
-from two separate NODES can try to and could get the same free slot.
-So this fixes that race here using atomic test_and_set clear operations.
+The ASUS DC301 USB-C dock containing a Realtek MST branch device
+supports the DSC decompression functionality on each of the dock's
+downstream connectors, even though there is no discoverable peer-to-peer
+virtual device in the MST topology (which the DP Standard
+requires/suggests to control the DSC functionality on a per-DFP basis).
+Add the DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD quirk for this branch
+device as well to enable the DSC decompression functionality on all DFP
+connectors of the dock, similarly to how this is done for dock's
+containing older Synaptics branch devices.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Reported-and-tested-by: Shawn C Lee <shawn.c.lee@intel.com>
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patch.msgid.link/20260525125516.2794636-1-imre.deak@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu: use atomic operation to achieve
-lockless serialization`
+# Stable Backport Analysis: drm/dp DSC virtual DPCD quirk for Realtek
+MST
 
-**Local tree:** `v6.18.43` (`VERSION = 6`, `PATCHLEVEL = 18`, `SUBLEVEL
-= 43`)
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[drm/amdgpu]` — action verb implied **fix** (race) — use
-atomic bitops in `amdgpu_seq64_alloc`/`amdgpu_seq64_free` for lockless
-serialization of the seq64 slot bitmap.
+**Record:** `[drm/dp]` `[Add]` — Add DSC virtual DPCD quirk for Realtek
+MST branch device
 
 ### Step 1.2: Tags
 **Record:**
 | Tag | Value |
 |-----|-------|
-| Signed-off-by | Sunil Khatri `<sunil.khatri@amd.com>` |
-| Reviewed-by | Alex Deucher `<alexander.deucher@amd.com>` |
-| Signed-off-by | Alex Deucher `<alexander.deucher@amd.com>` |
+| Cc: | Lyude Paul \<lyude@redhat.com\> |
+| Reported-and-tested-by: | Shawn C Lee \<shawn.c.lee@intel.com\> |
+| Reviewed-by: | Mika Kahola \<mika.kahola@intel.com\> |
+| Reviewed-by: | Lyude Paul \<lyude@redhat.com\> |
+| Signed-off-by: | Imre Deak \<imre.deak@intel.com\> (author SOB; ignore
+pipeline SOBs) |
+| Link: |
+https://patch.msgid.link/20260525125516.2794636-1-imre.deak@intel.com |
 
-**Notable patterns:** Maintainer review from Alex Deucher (amdgpu co-
-maintainer). No `Fixes:`, `Reported-by:`, `Cc: stable`, or syzbot tags
-(expected for manual review).
+**Notable patterns:** Real hardware reporter+tester; two Reviewed-by
+including DRM maintainer Lyude Paul. No syzbot, no Fixes: tag (expected
+for manual review).
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug described:** In `amdgpu_seq64_alloc`, two CPU cores on separate
-  nodes can race and obtain the same free seq64 slot.
-- **Symptom/failure mode:** Duplicate slot assignment → two user-queue
-  fence drivers share the same 64-bit fence memory location → broken GPU
-  synchronization.
-- **Root cause (author):** Non-atomic `find_first_zero_bit` +
-  `__set_bit` is not safe under concurrent access; fix uses
-  `test_and_set_bit` loop and `clear_bit`.
-- **Version info:** None in commit message.
+- **Bug:** ASUS DC301 USB-C dock (Realtek MST branch, OUI `0x00:e0:4c`)
+  supports DSC decompression on downstream connectors but does not
+  expose discoverable peer-to-peer virtual DPCD devices as the DP
+  standard expects for per-DFP DSC control.
+- **Symptom:** DSC decompression cannot be enabled on the dock's
+  downstream display outputs; high-bandwidth modes that require DSC will
+  fail or fall back incorrectly.
+- **Root cause:** Kernel only applies the
+  `DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` workaround to Synaptics
+  (`0x90:CC:24`) MST hubs, not Realtek.
+- **Fix approach:** Add Realtek branch-device quirk entry matching OUI
+  `0x00, 0xe0, 0x4c` and device ID `'Dp1.4'`.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — explicitly a race-condition fix, not cosmetic cleanup.
-Replacing `__set_bit`/`__clear_bit` with atomic
-`test_and_set_bit`/`clear_bit` is the standard kernel pattern for
-concurrently accessed bitmaps (`Documentation/atomic_bitops.txt`).
+**Record:** Yes — described as "Add quirk" but it fixes broken display
+functionality on a specific USB-C dock. This is a hardware
+quirk/workaround, not a cosmetic change.
 
 ---
 
@@ -133,221 +148,198 @@ concurrently accessed bitmaps (`Documentation/atomic_bitops.txt`).
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c` (+8 / −5, 1
-  file)
-- **Functions modified:** `amdgpu_seq64_alloc()`, `amdgpu_seq64_free()`
-- **Scope:** Single-file surgical fix
+- **Files:** `drivers/gpu/drm/display/drm_dp_helper.c` (+2 lines)
+- **Functions modified:** None directly; `dpcd_quirk_list[]` static
+  table only
+- **Scope:** Single-file, surgical quirk-table addition
 
-### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `amdgpu_seq64_alloc`:**
-- **Before:** `find_first_zero_bit` → early `-ENOSPC` → unconditional
-  `__set_bit`
-- **After:** Loop: `find_first_zero_bit` → `-ENOSPC` if full →
-  `test_and_set_bit`; break only if bit was previously clear (successful
-  claim); otherwise retry
-- **Path affected:** Normal allocation path for seq64 fence slots
-
-**Hunk 2 — `amdgpu_seq64_free`:**
-- **Before:** `__clear_bit` (non-atomic)
-- **After:** `clear_bit` (atomic)
-- **Path affected:** Slot release on fence-driver teardown
+### Step 2.2: Code flow change
+**Record:**
+- **Hunk (quirk table):** Before → only Synaptics MST hubs matched
+  `DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD`. After → Realtek DP1.4 MST
+  branch devices (`OUI 0x00:e0:4c`, device ID `Dp1.4`, `is_branch=true`)
+  also get the quirk bit set when `drm_dp_get_quirks()` runs during
+  `drm_dp_read_desc()`.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Category:** Race condition / incorrect non-atomic bitmap
-access.
+**Record:** **Category (h): Hardware workaround**
 
-**Mechanism:** `__set_bit`/`__clear_bit` are explicitly non-atomic per
-`Documentation/atomic_bitops.txt`. Concurrent alloc and free on
-`adev->seq64.used` without atomic ops can corrupt the bitmap or allow a
-TOCTOU between `find_first_zero_bit` and bit claim when another CPU
-concurrently modifies the same bitmap.
+Without the quirk, `drm_dp_mst_dsc_aux_for_port()` in
+`drm_dp_mst_topology.c` does not find a valid DSC aux for Realtek MST
+dock ports:
+
+```6159:6176:drivers/gpu/drm/display/drm_dp_mst_topology.c
+        if (drm_dp_has_quirk(&desc,
+DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
+                // ... reads DSC caps from physical upstream aux ...
+                        return immediate_upstream_aux;
+        }
+```
+
+When this returns `NULL`, i915 sets `connector->dp.dsc_decompression_aux
+= NULL` at MST connector creation, and amdgpu similarly gets no
+`dsc_aux`. DSC decompression is never enabled on dock downstream
+connectors.
 
 ### Step 2.4: Fix quality
-**Record:** Fix is obviously correct — standard `test_and_set_bit`
-allocator loop. Minimal, no API changes. Low regression risk; loop may
-spin under contention but pool has 262144 slots
-(`AMDGPU_MAX_SEQ64_SLOTS`), so retry pressure is low.
+**Record:** Obviously correct — mirrors the proven Synaptics quirk
+(added 2019, commit `5b03f9d8688071`). Uses a specific device ID
+(`'Dp1.4'`) rather than `DEVICE_ID_ANY`, limiting scope. **Regression
+risk:** Very low; only affects devices matching Realtek OUI + exact
+device ID on branch devices.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `amdgpu_seq64_alloc`/`free` bitmap logic introduced in
-commit `a112b91dd6349` (stable-tree import). Buggy
-`__set_bit`/`__clear_bit` pattern present in current `v6.18.43` tree at
-lines 178–182 and 208.
+**Record:** Synaptics `DSC_WITHOUT_VIRTUAL_DPCD` entry introduced by
+Mikita Lipski, 2019-09-20 (`5b03f9d8688071`). Quirk infrastructure and
+`drm_dp_mst_dsc_aux_for_port()` logic are ancestors of HEAD and present
+in 6.18.44. Realtek entry is **not** in this tree.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+**Record:** N/A — no Fixes: tag in commit message.
 
 ### Step 3.3: Related file history
-**Record:** `amdgpu_seq64.c` exists in this tree with the pre-fix code.
-Fix commit is **not yet applied** (no `test_and_set_bit` in local file).
-This stable tree's git history is flattened through bulk imports,
-limiting per-file history granularity.
+**Record:** Recent `drm_dp_helper.c` changes are unrelated (backlight,
+AUX probe address). No competing fix for Realtek DSC. Standalone single-
+patch fix.
 
-### Step 3.4: Author commits
-**Record:** No commits by Sunil Khatri found in this stable checkout's
-`git log`. Author is an AMD developer; patch reviewed by amdgpu
-maintainer Alex Deucher.
+### Step 3.4: Author context
+**Record:** Imre Deak is an active Intel DRM contributor; prior commits
+to this file include Synaptics HBLANK-expansion and MediaTek DSC quirks
+— same subsystem and pattern.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — no series markers, no prerequisite commits.
-Applies directly to existing `amdgpu_seq64.c`.
+**Record:** **No dependencies.** Requires only:
+- `DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` enum (present in
+  `include/drm/display/drm_dp_helper.h`)
+- `drm_dp_mst_dsc_aux_for_port()` quirk handling (present in
+  `drm_dp_mst_topology.c`)
+- `dpcd_quirk_list[]` table (present in `drm_dp_helper.c`)
+
+All verified present in 6.18.44.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144553.html (v1 submission, May 14 2026)
-- **Series revisions:** v1 only (no v2/v3 found)
-- **Reviewer feedback:** Christian König questioned why concurrent calls
-  are possible: *"Why can those functions be called in concurrent from
-  multiple threads?"* (https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144650.html)
-- **Maintainer response:** Alex Deucher gave `Reviewed-by`
-  (https://lists.freedesktop.org/archives/amd-gfx/2026-May/144599.html)
-- **Stable nominations:** None found in thread
-- **NAKs:** None; question raised but patch still reviewed positively by
-  maintainer
+**Record:** `b4 dig -c <commit>` could not run — commit is not in this
+tree (no commitish available). WebFetch of patch link and
+lore.kernel.org blocked by Anubis bot protection. **UNVERIFIED:** full
+mailing-list thread content.
 
-`b4 dig -c <hash>` could not be run — fix commit hash not present in
-this checkout.
-
-### Step 4.2: Reviewers (b4 -w equivalent via lore)
-**Record:** Patch submitted to amd-gfx list; reviewed by Alex Deucher
-(subsystem maintainer). Christian König (also amdgpu maintainer) raised
-concurrency question.
+### Step 4.2: Reviewers
+**Record:** Commit message confirms Lyude Paul (DRM maintainer) and Mika
+Kahola reviewed. Cc'd Lyude Paul.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report, syzbot link, or crash trace.
-Theoretical/concurrency-analysis fix from driver developer.
+**Record:** Reported-and-tested-by Shawn C Lee (Intel) on ASUS DC301
+USB-C dock hardware. No syzbot/CVE.
 
-### Step 4.4: Related patches
-**Record:** Standalone 1/1 patch, not part of a series.
+### Step 4.4: Series context
+**Record:** Standalone 1-patch fix, not part of a series.
 
-### Step 4.5: Stable list
-**Record:** Not searched on lore.kernel.org (blocked by bot protection).
-No stable discussion found on freedesktop amd-gfx thread.
+### Step 4.5: Stable list history
+**Record:** **UNVERIFIED** — could not access lore stable archive due to
+bot protection.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `amdgpu_seq64_alloc()`, `amdgpu_seq64_free()`
+**Record:** Modified indirectly via quirk table lookup in
+`drm_dp_get_quirks()` → consumed by `drm_dp_has_quirk()` → used in
+`drm_dp_mst_dsc_aux_for_port()`.
 
 ### Step 5.2: Callers
-**Record:**
-| Function | Callers | Context |
-|----------|---------|---------|
-| `amdgpu_seq64_alloc` | `amdgpu_userq_fence_driver_alloc()` only |
-Called from `amdgpu_userq_create()` during `AMDGPU_USERQ_OP_CREATE`
-ioctl |
-| `amdgpu_seq64_free` | `amdgpu_userq_fence_driver_alloc()` error path;
-`amdgpu_userq_fence_driver_destroy()` via `kref_put` | Destroy path from
-queue teardown / refcount drop |
+**Record:** `drm_dp_mst_dsc_aux_for_port()` called from:
+- `intel_dp_mst.c` — MST connector probe
+  (`connector->dp.dsc_decompression_aux`)
+- `amdgpu_dm_mst_types.c` — `validate_dsc_caps_on_connector()`
+- `drm_dp_mst_topology.c` — `drm_dp_mst_add_affected_dsc_crtcs()`
 
-`amdgpu_userq_create()` holds `adev->userq_mutex` during alloc (line
-518). `amdgpu_userq_destroy()` holds only per-client
-`uq_mgr->userq_mutex`, **not** `adev->userq_mutex` (lines 394–420).
-Therefore alloc and free **can run concurrently** from different DRM
-clients/processes.
+All are MST hotplug/enumeration and atomic modeset paths — reachable
+when a user plugs in a USB-C dock.
 
 ### Step 5.3: Callees
-**Record:** `find_first_zero_bit`, `test_and_set_bit`/`__set_bit`,
-`clear_bit`/`__clear_bit`, `amdgpu_seq64_get_va_base()`
+**Record:** Quirk path reads DPCD via `drm_dp_read_desc()`,
+`drm_dp_dpcd_read_data()`, `drm_dp_read_dpcd_caps()` — standard AUX
+reads, no new kernel APIs.
 
 ### Step 5.4: Reachability
-**Record:** Reachable from userspace via DRM ioctl
-`AMDGPU_USERQ_OP_CREATE` / destroy on GPUs with user-mode queue support
-(gfx11, gfx12, SDMA v6/v7 in this tree). Multi-process GPU compute
-workloads are a realistic trigger.
+**Record:** Triggered by plugging ASUS DC301 (or other matching Realtek
+MST branch) into a DP MST-capable GPU. Userspace display configuration
+is the entry point. Affects i915 and amdgpu MST users.
 
 ### Step 5.5: Similar patterns
-**Record:** Kernel bitmap allocators universally use `test_and_set_bit`
-loops for concurrent access. Non-atomic `__set_bit` is only valid when
-caller holds exclusive access.
+**Record:** Identical pattern to Synaptics quirk at line 2538–2539. Same
+author added related Synaptics/MediaTek DSC quirks in this file.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
 
 ### Step 6.1: Buggy code exists?
-**Record:** **Yes.** Current `v6.18.43` tree has the buggy code:
-
-```178:182:drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-        bit_pos = find_first_zero_bit(adev->seq64.used,
-adev->seq64.num_sem);
-        if (bit_pos >= adev->seq64.num_sem)
-                return -ENOSPC;
-
-        __set_bit(bit_pos, adev->seq64.used);
-```
-
-```207:208:drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-        if (bit_pos < adev->seq64.num_sem)
-                __clear_bit(bit_pos, adev->seq64.used);
-```
-
-`amdgpu_seq64_init()` is called during GMC hw init; user-mode queues are
-wired on modern ASICs.
+**Record:** **YES.** The quirk table has Synaptics entry but lacks
+Realtek entry. The `DSC_WITHOUT_VIRTUAL_DPCD` handling code exists and
+would work once the table entry is added. Bug affects users of Realtek
+MST docks on kernels ≥6.18.44 (and any earlier kernel with the Synaptics
+quirk but not Realtek).
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — identical file and function
-structure; no conflicts detected. 8-line change.
+**Record:** **Clean apply.** `patch -p1 --dry-run` succeeded with fuzz 1
+(offset 1 line) against current `drm_dp_helper.c`. No structural
+conflicts.
 
 ### Step 6.3: Related fixes already present?
-**Record:** **No** — `test_and_set_bit` not present in `amdgpu_seq64.c`;
-fix not yet in tree.
+**Record:** Synaptics `DSC_WITHOUT_VIRTUAL_DPCD` quirk is present
+(`5b03f9d8688071` is ancestor of HEAD). No Realtek equivalent found
+(`grep` for `0x00, 0xe0, 0x4c` in quirk table: no match).
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU
-driver). Affects user-mode queue fence synchronization on supported
-hardware.
+**Record:** **drivers/gpu/drm/display** — IMPORTANT. Affects display
+output through USB-C/MST docks on Intel and AMD GPUs.
 
-### Step 7.2: Subsystem activity
-**Record:** Actively developed; user-mode queues and seq64 are
-relatively recent features present in this 6.18.y tree.
+### Step 7.2: Activity
+**Record:** Actively maintained; recent commits in `drm_dp_helper.c` and
+`drm_dp_mst_topology.c` within this stable cycle.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Users of AMDGPU user-mode queues on gfx11/gfx12/SDMA-capable
-GPUs running multi-process compute (ROCm, etc.). Config-dependent on
-hardware with `userq_funcs` populated.
+**Record:** Users of Realtek MST branch USB-C docks (specifically
+tested: ASUS DC301) connected via DP MST to Intel/AMD GPUs with DSC-
+capable outputs. Config-dependent: `CONFIG_DRM`, MST, DSC support.
 
 ### Step 8.2: Trigger conditions
-**Record:** Concurrent queue create (alloc under `adev->userq_mutex`)
-and queue destroy/fence-driver teardown (free without
-`adev->userq_mutex`) from different processes, potentially on different
-CPU/NUMA nodes. Realistic in multi-tenant GPU workloads. Unprivileged
-users can trigger via DRM ioctls (subject to device access permissions).
+**Record:** Plug dock into MST-capable port; attempt modes requiring DSC
+decompression on downstream connectors. Not timing-dependent;
+deterministic hardware identification failure. Unprivileged users can
+trigger via normal display hotplug.
 
 ### Step 8.3: Failure mode severity
-**Record:** Duplicate seq64 slot → two fence drivers alias the same
-64-bit memory → **HIGH** severity: GPU synchronization corruption,
-possible compute wrong-results or GPU hangs. Not a typical kernel oops,
-but serious functional corruption.
+**Record:** **MEDIUM** — DSC decompression disabled → high-
+resolution/high-refresh modes through dock may not work or may not use
+optimal compression. Not a kernel crash, oops, or data corruption, but
+real functional breakage on production hardware.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH for affected userq users — prevents fence memory
-  aliasing
-- **Risk:** VERY LOW — 8-line, idiomatic atomic bitmap fix, maintainer-
-  reviewed
-- **Ratio:** Strong benefit, minimal risk
+- **Benefit:** Enables DSC on Realtek MST docks; restores display
+  functionality matching hardware capability. Tested on real hardware.
+- **Risk:** Minimal — 2-line quirk entry, narrowly matched by OUI +
+  device ID + branch flag.
+- **Ratio:** Strong benefit for affected hardware, negligible risk.
 
 ---
 
@@ -356,132 +348,123 @@ but serious functional corruption.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real concurrent alloc/free paths verified (asymmetric mutex coverage)
-- Non-atomic `__set_bit`/`__clear_bit` violate kernel bitmap concurrency
-  rules
-- Standard, obviously-correct fix pattern
-- Small, single-file, no new APIs
-- Reviewed by amdgpu maintainer Alex Deucher
-- Buggy code confirmed present in `v6.18.43`; fix not yet applied
-- User-mode queues active on modern AMD GPUs in this tree
+- Hardware quirk — explicit stable exception category
+- Fixes real, tested bug on ASUS DC301 USB-C dock
+- 2-line, surgical change using existing infrastructure
+- Reviewed by DRM maintainer (Lyude Paul)
+- Mirrors proven Synaptics quirk (in tree since 2019)
+- Applies cleanly to 6.18.44
+- No new APIs, no refactoring
 
 **AGAINST backport:**
-- No crash report or syzbot reproduction
-- Christian König questioned whether concurrency is possible (though
-  code analysis shows alloc/free overlap is real; two simultaneous
-  allocs are mutex-serialized)
-- Affects only user-mode queue users, not all amdgpu users
+- Display functionality issue, not crash/security/corruption
+- Affects narrow hardware population (Realtek MST docks)
+- Mailing-list discussion not independently verified
 
-**Unresolved:** Author's reply to Christian König's thread question not
-found; exact "two nodes both allocating" scenario may be overstated, but
-alloc/free concurrency is verified.
+**UNRESOLVED:**
+- Full lore thread content (bot protection)
+- Whether other Realtek device IDs beyond `'Dp1.4'` need the same quirk
 
 ### Step 9.2: Stable rules checklist
 | Criterion | Result |
 |-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — idiomatic atomic bitmap
-fix; maintainer Reviewed-by; no runtime test cited |
-| 2. Fixes a real bug affecting users? | **PASS** — concurrent bitmap
-access verified in code paths |
-| 3. Important issue? | **PASS** — HIGH: fence memory aliasing, GPU sync
-corruption |
-| 4. Small and contained? | **PASS** — 8 lines, 1 file |
-| 5. No new features/APIs? | **PASS** — internal implementation change
-only |
-| 6. Can apply to local tree? | **PASS** — clean apply to existing
-`amdgpu_seq64.c` |
+| 1. Obviously correct and tested? | **PASS** — mirrors Synaptics;
+Reported-and-tested-by on real hardware; maintainer reviewed |
+| 2. Fixes a real bug affecting users? | **PASS** — DSC broken on
+Realtek MST dock downstream ports |
+| 3. Important issue? | **PASS** (hardware quirk) — display modes broken
+on affected dock; not crash-level but real user impact |
+| 4. Small and contained? | **PASS** — 2 lines, one file |
+| 5. No new features/APIs? | **PASS** — quirk table entry only |
+| 6. Can apply to local tree? | **PASS** — clean apply with fuzz 1 |
 
-### Step 9.3: Exception categories
-**Record:** None (not a device ID, quirk, DT, build, or docs fix).
-Standard race-condition bug fix.
+### Step 9.3: Exception category
+**Record:** **Hardware quirk/workaround** — directly matches the stable
+exception for device-specific quirks that fix real-world hardware
+issues.
 
 ### Step 9.4: Decision rationale
-The commit fixes a genuine race in the seq64 slot allocator. While
-`amdgpu_userq_create()` serializes allocations via `adev->userq_mutex`,
-`amdgpu_seq64_free()` runs from fence-driver destruction without that
-lock — `amdgpu_userq_destroy()` only takes the per-client mutex.
-Concurrent alloc and free on the shared `adev->seq64.used` bitmap with
-non-atomic `__set_bit`/`__clear_bit` is incorrect and can corrupt slot
-tracking. The fix is minimal, maintainer-reviewed, and applies cleanly
-to this `v6.18.43` tree where the buggy code is present and user-mode
-queues are supported.
+
+This commit adds a Realtek MST branch device to the existing
+`DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` quirk table. All handling code
+already exists in 6.18.44 (introduced for Synaptics docks in 2019).
+Without this entry, DSC decompression is silently unavailable on Realtek
+MST USB-C docks such as the ASUS DC301, breaking display functionality
+on downstream connectors.
+
+This is textbook stable material: a small, maintainer-reviewed hardware
+quirk that enables existing functionality on real hardware, with no API
+changes and negligible regression risk.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags (SOB, Reviewed-by Alex Deucher), body;
-  no Fixes/Reported-by/Cc:stable
-- [Phase 2] Diff: 8 insertions, 5 deletions in `amdgpu_seq64_alloc` and
-  `amdgpu_seq64_free`
-- [Phase 3] `git describe HEAD`: `v6.18.43`; blame shows buggy
-  `__set_bit`/`__clear_bit` in current tree
-- [Phase 3] `git log --grep` for commit subject: not found in tree (not
-  yet merged)
-- [Phase 4] Lore: v1 at https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144553.html; Reviewed-by at 144599.html; Christian König
-  question at 144650.html
-- [Phase 4] b4 dig by hash: N/A — commit not in checkout
-- [Phase 5] `grep amdgpu_seq64_alloc`: single caller in
-  `amdgpu_userq_fence.c`
-- [Phase 5] `grep amdgpu_seq64_free`: error path +
-  `amdgpu_userq_fence_driver_destroy`
-- [Phase 5] Read `amdgpu_userq.c`: create holds `adev->userq_mutex`
-  (518); destroy does not (394–420)
-- [Phase 5] Read `amdgpu_userq_fence.c`: destroy → `kref_put` →
-  `amdgpu_seq64_free`
-- [Phase 6] Confirmed buggy code at lines 178–182, 208; no
-  `test_and_set_bit` present
-- [Phase 6] `amdgpu_seq64_init` present in `amdgpu_device.c` GMC init
-  path
-- [Phase 6] Userq support on gfx11/gfx12/SDMA via `userq_funcs`
-  assignment verified
-- [Phase 8] `AMDGPU_MAX_SEQ64_SLOTS` = 2MiB/8 = 262144 slots per
-  `amdgpu_seq64.h`
-- [Phase 8] `Documentation/atomic_bitops.txt`: `__` prefixed bitops are
-  non-atomic
-- UNVERIFIED: Author's reply to Christian König's concurrency question
-  (not found in fetched threads)
-- UNVERIFIED: Whether fix commit SHA exists on mainline (not in this
-  stable checkout)
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message
+- **[Phase 2]** Diff analysis: +2 lines to `dpcd_quirk_list[]` in
+  `drm_dp_helper.c`
+- **[Phase 2]** Read `drm_dp_mst_dsc_aux_for_port()` quirk handling at
+  lines 6159–6176
+- **[Phase 2]** Read `drm_dp_get_quirks()` matching logic at lines
+  2558–2583
+- **[Phase 3]** `git describe HEAD` → `v6.18.44`; Makefile confirms
+  6.18.44
+- **[Phase 3]** `git blame` on lines 2535–2545: Synaptics quirk from
+  `5b03f9d8688071` (2019)
+- **[Phase 3]** `git merge-base --is-ancestor 5b03f9d8688071 HEAD` →
+  prerequisite commit present
+- **[Phase 3]** `git log --grep="DSC virtual DPCD quirk for Realtek"` →
+  no results (commit not in tree)
+- **[Phase 4]** `b4 dig` requires commitish not available in tree —
+  **UNVERIFIED**
+- **[Phase 4]** WebFetch of patch link and lore.kernel.org — blocked by
+  Anubis — **UNVERIFIED**
+- **[Phase 5]** `grep drm_dp_mst_dsc_aux_for_port` → callers in i915,
+  amdgpu, drm_dp_mst_topology.c
+- **[Phase 5]** Read `intel_dp_mst.c:1745` — `dsc_decompression_aux =
+  drm_dp_mst_dsc_aux_for_port(port)`
+- **[Phase 5]** Read `amdgpu_dm_mst_types.c:276` — same pattern
+- **[Phase 6]** `grep "0x00, 0xe0, 0x4c"` in quirk table → no match (bug
+  present, fix absent)
+- **[Phase 6]** `grep DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` → enum and
+  usage confirmed in tree
+- **[Phase 6]** `patch -p1 --dry-run` on constructed patch → succeeds
+  with fuzz 1
+- **[Phase 7]** Subsystem: `drivers/gpu/drm/display` — DRM display
+  helper
+- **[Phase 8]** Failure mode: DSC unavailable on dock ports — MEDIUM
+  severity, real hardware impact
+
+**YES**The background checks finished:
+
+- **Tree:** Linux **6.18.44** (`v6.18.44`)
+- **Commit search:** No match for the Realtek DSC quirk commit in this
+  tree — it isn’t applied here yet
+- **Prerequisites:** The Synaptics `DSC_WITHOUT_VIRTUAL_DPCD` quirk and
+  handling code are present; only the Realtek table entry is missing
+
+That matches the earlier analysis: this is a small hardware quirk that
+should be backported to this tree.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-index a0b479d5fff19..f4be192235889 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-@@ -175,11 +175,14 @@ int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va,
- {
- 	unsigned long bit_pos;
- 
--	bit_pos = find_first_zero_bit(adev->seq64.used, adev->seq64.num_sem);
--	if (bit_pos >= adev->seq64.num_sem)
--		return -ENOSPC;
-+	for (;;) {
-+		bit_pos = find_first_zero_bit(adev->seq64.used, adev->seq64.num_sem);
-+		if (bit_pos >= adev->seq64.num_sem)
-+			return -ENOSPC;
- 
--	__set_bit(bit_pos, adev->seq64.used);
-+		if (!test_and_set_bit(bit_pos, adev->seq64.used))
-+			break;
-+	}
- 
- 	*va = bit_pos * sizeof(u64) + amdgpu_seq64_get_va_base(adev);
- 
-@@ -205,7 +208,7 @@ void amdgpu_seq64_free(struct amdgpu_device *adev, u64 va)
- 
- 	bit_pos = (va - amdgpu_seq64_get_va_base(adev)) / sizeof(u64);
- 	if (bit_pos < adev->seq64.num_sem)
--		__clear_bit(bit_pos, adev->seq64.used);
-+		clear_bit(bit_pos, adev->seq64.used);
- }
- 
- /**
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 8c858ba40c6c6..77336bc3e62c2 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2537,6 +2537,8 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
+ 	{ OUI(0x00, 0x00, 0x00), DEVICE_ID('C', 'H', '7', '5', '1', '1'), false, BIT(DP_DPCD_QUIRK_NO_SINK_COUNT) },
+ 	/* Synaptics DP1.4 MST hubs can support DSC without virtual DPCD */
+ 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
++	/* Realtek DP1.4 MST hubs can support DSC without virtual DPCD */
++	{ OUI(0x00, 0xe0, 0x4c), DEVICE_ID('D', 'p', '1', '.', '4', 0), true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
+ 	/* Synaptics DP1.4 MST hubs require DSC for some modes on which it applies HBLANK expansion. */
+ 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
+ 	/* MediaTek panels (at least in U3224KBA) require DSC for modes with a short HBLANK on UHBR links. */
 -- 
 2.53.0
 
