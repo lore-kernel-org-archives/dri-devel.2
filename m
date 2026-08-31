@@ -4,83 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95939C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 07:36:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CFBAC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 07:36:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 623BF10E3A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832B810EB73;
 	Tue,  1 Sep 2026 07:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XIYV1Jk1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Viq2PF3X";
 	dkim-atps=neutral
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
- [209.85.161.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA87210E9AA
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:38:02 +0000 (UTC)
-Received: by mail-oo1-f54.google.com with SMTP id
- 006d021491bc7-6b127c88220so1389925eaf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:38:02 -0700 (PDT)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 114E010E7A1
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:25:08 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-cc1e1ff659bso2802723a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 02:25:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788194282; x=1788799082; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=KCEcxBXECIK58MqzfUHKxW4lG6L2Egx8+PoUClZnYOs=;
- b=XIYV1Jk1UhAkpX/RLyqATZxeKm5h+id3QqlBJtAtLqpTvIzbbpFALBwKQO88zz4sJS
- xZVPllUQxAiuBe/UAa3KyzMJfyc0Dt/o0glFRKE46Oy1xqvM30mD3BW25v14XLiY1yPT
- rULSXyitfPKYwaLzLhmFMuIrxJgHGLDIgL+JiaTgam2NS42qiINKeT2t1GrBKVSc15xs
- NhL77vJ8a6cupHdIRytIQsinzjVdse+f7FY1ysm78mAtrs2c3sJPhwzkVBx3NWBAi+Mu
- PvR9GxU1OtlVMKSlrXwz0FdT/RkdjqWUs7HjDvaO1/5kpTbs9it0vDiOpG/uHn0kAM0h
- OMjQ==
+ d=gmail.com; s=20251104; t=1788168307; x=1788773107; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=k1IRmhTgtgps2WH28DrYHzZw8IYzte0O10wXaGr0CRE=;
+ b=Viq2PF3XNIBHkCgreXMZ/kcMy4BwCdMufNTjVVQbh7G9cRk8a6GEccoKWQM8fc3CD9
+ eCbBNn/2ffv+QuI5gftZllv3V+lqUc6+egi1c+ZegVLSek7rfOlZdQq5WQc8duKcSox4
+ 8cNNtoCWdjSPtTFzgxR1v1iHMUK7Xr1CkR7t88oifmdUCskEmIX0J7DvCORD86OHdydx
+ +gKuRqRTJJ65Fqx0EpaV1j4eaSunR5PJr2NRkwUMwA6X8bBdAgoUFI7h00VOx3cfWMx3
+ 2yEtHkk8fbDk5YOBLh4fwsqGs8csiawVY1o/tCsLV4FFGGzIIg5eO7YSrSRiPp1JXKT4
+ FL2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788194282; x=1788799082;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=KCEcxBXECIK58MqzfUHKxW4lG6L2Egx8+PoUClZnYOs=;
- b=KDOdSurJU2g8KlrtJ6wuQ3esLDgDiYuVdlsirSuMgWDoUq4ahim9bf0aTJmzItzb33
- DGxFCbK4EBoWwJ3PEUIdgd/lPObpJ0hz1C2ykoRuHkUgZ4MvTjxvf6sa+PLE1c5Oy5gt
- skZ1iLE2RAkIq4XmNDxdy8OdLj/RpyzbA9UsRGSuTD1F/yXkeDtI+9YNHD9r8OXjwxr3
- uBkDlPSQPTRCnL4+j147NY9vxngDAf7d90XAJJkbbtx0aj0k9r6k/mHQ+TgwD7RMVcJO
- NOgfNzn/j9x2/Z/4doDnKLvpSSTgrQDBV3MUuGRMd1x6EnMi2rhfS/o20BLNg30QP5vL
- vjhw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrSFV59ZKjWoV/4KjmWL0yMF/+pJ/IMNJ/zZLl8CzHuPPJTo21pSfQSYaKVnTVdzzk85VUhMxkA+k0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kNG6CFKQIMx4IWy1aMkB+cercykh12jgEHuxjnWOihQxTRKGeH
- PKr1/1KJhYlEIoyD79ufzqJtzvXYoWBlu7mkpzzWrDK9lL/rZ8Iz4+6x
-X-Gm-Gg: AR+sD13lCj44h2FCT7UA7EgjculhnieY6bXwPll2V6eh4hBFjmEecQDdq72YI/7robt
- lziVAwCbbQLQHLOyrArRhOH+uMEhxLq5Qid6q4MwPBZuKzYCIO4SV5LQOXbdn+5J4GSuBMip2jZ
- JVDkwq6V1RB9DTIp5E2i56VFiG/8acwPMmnsjD00lv4/BTvmKymIMjejZpddbeKUr5jT8KY7C+I
- k/h18X70HXnZzCuygcovJHWZ/y+0SARLbBQ+UdS+XqtRP9eVRbU+J8yLbuqMcIye1AFVHdAOc1p
- m8mgu+MceqLJ+nSL5aII8GxdVRBgafy4XfvYgkwb/ZOlmCpLjbNOwwGaZNYPVhVyMmNS1cbcRr9
- ioV5/T4wmob4h/BA5ixjbPSAfNQATJYfX0QD/5ASaHdRQP8wPBFibasqj5QjbpwM7UX1B8lo6T5
- oJFTR73kmANhRMch2nogDrIeMfhJIyyns5/cImOhYGmCUWzTAg45ygDuJxUsT/0HMWhgpH1njfl
- 7WXfHgO+twWnBhiWA==
-X-Received: by 2002:a05:6820:1791:b0:6b1:d18b:4048 with SMTP id
- 006d021491bc7-6b372d21358mr2106016eaf.10.1788194281822; 
- Mon, 31 Aug 2026 09:38:01 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:e::])
+ d=1e100.net; s=20251104; t=1788168307; x=1788773107;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=k1IRmhTgtgps2WH28DrYHzZw8IYzte0O10wXaGr0CRE=;
+ b=sx2V2VMQJZ4CYnHl/2bujl29i63mupkDY4TJ3onf4pk5cUH/aH45AsCIdsjxtD6RMQ
+ qvGiljj2U6qOZMan9DY3fUhNJCbIVTLtgu6C/XIkUKJrnhLZidLGef4v3LLMZz8zeODl
+ u/0QnKPeAnM+RwDoq7jAejlH6jXHzJNxYoYt37ThdSiE+NndO6xkUGuUL4zHry4MjAGM
+ YMQJcMYsPHoLoPbPAsWNPyzH6b37hFOE+0osFHfhDVj24VuN2DhVRth470iGD41DU+Pc
+ 7iscTBUWRlqxXIBo/n2melQAqw+0KhdWsSzJ8HyJGHjMAdI0wS1lxHx6CnXpT/1mk/cc
+ li4g==
+X-Gm-Message-State: AFuF++lM6ggpTxpwgz+oix0qBbmpnTlVbdF5ONBP8IUlrwyLKLisXLvZ
+ 1y7POBAWmnfVxcz/1domFrseMWFi9VR/W+fJUZmBlYHN6yxUj0mW7Af4
+X-Gm-Gg: AYBFou32W2nnN0/f+fvD/NhjivaehgiRwM1SgW387SCek5JKI4NY9yMNrcVl0l/Jla9
+ xLWu2+53fNCUYauxRul+wkgguWGjWKT294ExvLncfcUnw+lOY4VRLY7wExIoZjaDLWQ7SM4UxKg
+ xRfSI3rTzkvhCkBHXfVEvt7UuYoB4+dYtmxtlvLjp132AuR7/rmrNZB4LEmZ8mSl0S4yIYwliK7
+ +1u4jIMay67qawtTeDGJNyuv67m5Jsw8arNiCljJbDJBbKgMp+oFtapc/djt9rA5HhYaUueS6TG
+ 7l7zzzb5Z5iz3k4SRHB4mxiWtyAfYBeMDoU8vezMR8K0ixAwa6RfT9XNCoDWhouufRoGU/c+SsP
+ JXKVjGgjq52gCVyESEquCOkvlQqwjrBas7Yuao/eAK4myyPLi1WKdW2w2sltK85RAET3ILC2J/E
+ TcHC6me2iGhPn/ywwZX4erc1XTXZ0KUQt/FVLEeVFiPojqS0MQzvOYmu48Fb0vFSBYnGIrybENB
+ cHUonGJZJiX/N3V8yQED/BgUx6rwOg7GmBhgEOfMxdaEAnaMRAslPFzTnvDkr/k5vfUwgVoSucb
+ La8ijCdVhisyjjEt18oAfhL4kgfqpOCoW9aLOEesrA7hw5Y=
+X-Received: by 2002:a17:90b:4ccb:b0:398:c0fc:6ea0 with SMTP id
+ 98e67ed59e1d1-398c0fc7b03mr16400154a91.5.1788168307412; 
+ Mon, 31 Aug 2026 02:25:07 -0700 (PDT)
+Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7f4fa7e97d5sm8453832a34.10.2026.08.31.09.38.01
+ a92af1059eb24-142e0dc854dsm26587955c88.10.2026.08.31.02.25.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 09:38:01 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: hannes@cmpxchg.org,
-	shakeel.butt@linux.dev,
-	mhocko@kernel.org
-Cc: roman.gushchin@linux.dev, muchun.song@linux.dev, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, dev@lankhorst.se, mripard@kernel.org,
- nat@pixelcluster.dev, tj@kernel.org, mkoutny@suse.com, osalvador@suse.de,
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel-team@meta.com
-Subject: [PATCH v5 7/7] mm/memcontrol: add stock to the memsw page_counter
-Date: Mon, 31 Aug 2026 09:37:51 -0700
-Message-ID: <20260831163752.2193337-8-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
-References: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
+ Mon, 31 Aug 2026 02:25:07 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Mon, 31 Aug 2026 19:24:28 +1000
+Subject: [PATCH] drm/fourcc: Add Apple Interchange layout format modifier
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-apple-interchange-modifier-v1-1-5d6e27f9f308@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y3MQQqDMBCF4avIrBtIDIp4ldKFTkY7RWOYRBHEu
+ xvbLv/H4zsgkjBFaIsDhDaOvPgc5lEAvjs/kmKXG0pd1rqxWnUhTHn0ieR/mBfHA5Mo7BGtMdj
+ YykEGgtDA+xd/vn4d1/5DmG4RzvMCO3nK/34AAAA=
+X-Change-ID: 20260830-apple-interchange-modifier-cbcc311c835d
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, Oliver Bestmann <oliver.bestmann@googlemail.com>, 
+ sofus <sofus.c@icloud.com>, James Calligeros <jcalligeros99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2012;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=qB8s8hgLiwwzQUS/BjiiGt7iGpPiuwlo6zbKh3mEro0=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFlTPfL+avkx3Lp3UlD4xNInzHP+ep1t2Xy+ZacqK8Ovu
+ ake23786pjIwiDGxWAppsiyoUnIY7YR281+kcq9MHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOsY4RAxenAEz1aTtGhmvcX4O+sO9pyQnYlzOjtWELp0FX/mlX46W/J0yxUPBLOMvwP4j9i8e
+ i1ihlbpvvFgZL3dec0HANYF/Xzfj11ZyXzpbFTAA=
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:36:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,101 +105,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Before this series, each memcg had one stock shared by all its
-page_counters (memory + memsw). Now that the memcg stock was folded
-into the page_counter level, give memsw its own page_counter_stock
-so that it can benefit from caching charges as well.
+Apple Interchange is a tiled and compressed image layout used
+for buffer exchange between Apple hardware blocks. It is
+similar to the already-supported GPU_TILED_COMPRESSED layout.
 
-Note that while the allocation is conditional on do_memsw_account(),
-the freeing is not; the freer will only free non-NULL stocks. This
-matters because do_memsw_account() could have changed in between the
-allocation and the free.
+Add a format modifier for Apple Interchange so that it can be
+used for buffer exchange.
 
-This narrows the memsw skew introduced by the previous patch. memsw is
-now charged in the same batches as memory, so the two no longer diverge
-systematically, but can still see transient drifts since each keeps
-its own per-cpu stock. The drift is bound by
-MEMCG_CHARGE_BATCH * nr_possible_cpus.
-
-In the unlikely scenario that one of the stocks does not get allocated,
-there will be different granularities of charging for the cgroup's
-lifetime (one charging in batch granularity, the other just in
-nr_pages).
-
-Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- mm/memcontrol.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ include/uapi/drm/drm_fourcc.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 5678486cc55b0..33e4ffbd48a8b 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2127,8 +2127,10 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 	if (!mutex_trylock(&percpu_charge_mutex))
- 		return;
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+index a103fdc0b3a3..aa51c116cd7d 100644
+--- a/include/uapi/drm/drm_fourcc.h
++++ b/include/uapi/drm/drm_fourcc.h
+@@ -1626,6 +1626,26 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED fourcc_mod_code(APPLE, 1)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED_COMPRESSED fourcc_mod_code(APPLE, 2)
  
--	for_each_mem_cgroup_tree(memcg, root_memcg)
-+	for_each_mem_cgroup_tree(memcg, root_memcg) {
- 		page_counter_drain_stock_async(&memcg->memory);
-+		page_counter_drain_stock_async(&memcg->memsw);
-+	}
- 
- 	/* Hotplug races are OK; workers only touch their own cpu's obj_stock */
- 	migrate_disable();
-@@ -2159,8 +2161,10 @@ static int memcg_hotplug_cpu_dead(unsigned int cpu)
- 	/* no need for the local lock */
- 	drain_obj_stock(obj_st);
- 
--	for_each_mem_cgroup_tree(memcg, NULL)
-+	for_each_mem_cgroup_tree(memcg, NULL) {
- 		page_counter_drain_cpu_stock(&memcg->memory, cpu);
-+		page_counter_drain_cpu_stock(&memcg->memsw, cpu);
-+	}
- 
- 	/*
- 	 * A drain work queued before the CPU went away is executed by an
-@@ -2467,7 +2471,7 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		goto check_high;
- 
- 	if (do_memsw_account())
--		page_counter_uncharge(&memcg->memsw, nr_pages);
-+		page_counter_refill_stock(&memcg->memsw, nr_pages);
- 	mem_over_limit = mem_cgroup_from_counter(counter, memory);
- 
- reclaim:
-@@ -2926,7 +2930,7 @@ static void obj_cgroup_uncharge_pages(struct obj_cgroup *objcg,
- 	if (!mem_cgroup_is_root(memcg)) {
- 		page_counter_refill_stock(&memcg->memory, nr_pages);
- 		if (do_memsw_account())
--			page_counter_uncharge(&memcg->memsw, nr_pages);
-+			page_counter_refill_stock(&memcg->memsw, nr_pages);
- 	}
- 
- 	css_put(&memcg->css);
-@@ -3930,6 +3934,8 @@ static void __mem_cgroup_free(struct mem_cgroup *memcg)
- static void mem_cgroup_free(struct mem_cgroup *memcg)
- {
- 	page_counter_free_stock(&memcg->memory);
-+	/* memsw and swap are the same counter; only memsw is ever stocked */
-+	page_counter_free_stock(&memcg->memsw);
- 	lru_gen_exit_memcg(memcg);
- 	memcg_wb_domain_exit(memcg);
- 	__mem_cgroup_free(memcg);
-@@ -4098,8 +4104,12 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
- 	css_get(css);
- 
- 	/* stock allocation failure is nonfatal; fall back to direct charges */
--	if (!mem_cgroup_is_root(memcg))
-+	if (!mem_cgroup_is_root(memcg)) {
- 		page_counter_alloc_stock(&memcg->memory, MEMCG_CHARGE_BATCH);
-+		if (do_memsw_account())
-+			page_counter_alloc_stock(&memcg->memsw,
-+						 MEMCG_CHARGE_BATCH);
-+	}
- 
- 	/*
- 	 * Ensure mem_cgroup_from_private_id() works once we're fully online.
--- 
-2.53.0-Meta
++/*
++ * Apple Interchange layout
++ *
++ * Apple Interchange is a compressed framebuffer format used exclusively for
++ * sharing buffers between hardware blocks (GPU, display controller, video
++ * codecs) on Apple platforms. It is similar to and uses the same compression
++ * scheme as GPU_TILED_COMPRESSED. There is no known uncompressed variant
++ * of Apple Interchange.
++ *
++ * Unlinke the GPU layouts, tile size is not dependent on bit depth. RGB
++ * images and the chroma components of YUV images use 16x16 tiles. The
++ * luma component of YUV images uses 32x32 tiles. Compression tiles
++ * are once again 16x16 with 8 bytes of metadata per compression subtile.
++ *
++ * AGX has limited support for Apple Interchange. It cannot be used for Z/S
++ * buffers or array images, for example. It is intended for scanout buffer
++ * sharing only.
++ */
++#define DRM_FORMAT_MOD_APPLE_INTERCHANGE fourcc_mod_code(APPLE, 3)
++
+ /*
+  * AMD modifiers
+  *
+
+---
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+change-id: 20260830-apple-interchange-modifier-cbcc311c835d
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
