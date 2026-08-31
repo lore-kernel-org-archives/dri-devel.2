@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B48BC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BD88C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6FE10E8D5;
-	Mon, 31 Aug 2026 13:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA49E10E8D3;
+	Mon, 31 Aug 2026 13:48:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AGMJhghs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iGukKDDn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A83C010E8D3;
- Mon, 31 Aug 2026 13:48:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D3A10E8D4;
+ Mon, 31 Aug 2026 13:48:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8EEA543851;
- Mon, 31 Aug 2026 13:48:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7BF51F00ACF;
- Mon, 31 Aug 2026 13:48:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D1DC6013A;
+ Mon, 31 Aug 2026 13:48:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56B71F00A3D;
+ Mon, 31 Aug 2026 13:48:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184097;
- bh=nxW0z1+3lAtGBNK9zzpc7iWkVAh9cpA3oZ+ROWhMJrg=;
+ s=k20260515; t=1788184109;
+ bh=h2417QFsNsN7jeVp0HIW7Ec11pPQ0l2ZCCKB+5O68ro=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=AGMJhghsWfASSBWig9eU8tHZdTvB2kyaWwHYyJhxcVQ3TNRRwJUuNqLg0pjtLBGS3
- pgBKZh68Q+xY/APjHLEhrxXDPYdUz0VfgNrLYQDoBHX+/7c5jLyZ7H2j6XLaLt5rwT
- gFuuR3NNXRPeSj2FXNWJe6Sje77hFeL5Tn5g42BlKSYxF6JKjjB0v29Tzhbj+Q1asn
- u+vLOXWPb2Xa6STwnTx36ScLVcvOukZXriGcn0SU/AeZKosjg++Sh7H/nDvsUHxYmE
- HrSwi9qOS7xx7QJR7/56Ez10Kkq7hZSNA1vYDSsYgMkg53Tk9wElpMACaIUl7pOuq/
- MrALPtJKTiqnA==
+ b=iGukKDDnO4NECwKwtR3IjTZDLbW4Z2ZQsS+h6uFBKK1I7PTvv20auvVWIq0ILCsMx
+ EGdL/eAVAfLYPupFjpaeumTSlCfy76K44458zhyiQ/1dv2AS3X5nwswLzlrBpI0FfV
+ 6PEVUtYynOleBJdQiFC24CBKjMcw++XiGBEdX4EdtrCP6XnBSPp9ZeJp6rX4+iBEbE
+ oYTQUyX2E9LBz6AkhkE/zkhy9/sWYMYneTWcPJmMHXYMPEC2/Y+CqYJ/+OhiYHDjla
+ sQfogIWRoEzjVDh4zUx/iAkdH57+kMjv4rw1KFezJOAHklmKlUTc5CU156J1VdCpII
+ HRoSb1RR0Zr6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ce Sun <cesun102@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Asad Kamal <asad.kamal@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: avoid integer overflow in VA range
- check
-Date: Mon, 31 Aug 2026 09:28:37 -0400
-Message-ID: <20260831133314.4125787-489-sashal@kernel.org>
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: bound pp_dpm_set_pp_table()
+ memcpy
+Date: Mon, 31 Aug 2026 09:28:44 -0400
+Message-ID: <20260831133314.4125787-496-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,392 +66,367 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ce Sun <cesun102@amd.com>
+From: Asad Kamal <asad.kamal@amd.com>
 
-[ Upstream commit cc768f4dd0bb9083c813683eeec44fc23921f771 ]
+[ Upstream commit f193e71fa9fab2e68ef85201b106e8f580d3a25b ]
 
-The original addition operation in 64-bit unsigned type may encounter
-overflow situations. To prevent such issues and safely reject invalid
-inputs, the check_add_overflow() function is used.
+The powerplay path allocates hardcode_pp_table once with kmemdup(...,
+soft_pp_table_size). memcpy(..., size) used the sysfs store count (up to
+PAGE_SIZE) with no upper bound, causing heap overflow. Reject
+writes where size exceeds soft_pp_table_size.
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `drm/amd/pm: bound pp_dpm_set_pp_table()
+memcpy`
 
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu]` `[avoid]` — prevent integer overflow in the
-`AMDGPU_GEM_VA` ioctl VA range validation (`amdgpu_gem_va_ioctl`).
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION=6`,
+`PATCHLEVEL=18`, `SUBLEVEL=44`)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[drm/amd/pm]` `[bound]` — bounds-check `memcpy` in
+`pp_dpm_set_pp_table()` to prevent heap overflow when uploading a
+powerplay table via sysfs.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Ce Sun `<cesun102@amd.com>` (author)
-- **Reviewed-by:** Tao Zhou `<tao.zhou1@amd.com>`
+- **Signed-off-by:** Asad Kamal `<asad.kamal@amd.com>` (author)
+- **Reviewed-by:** Yang Wang `<kevinyang.wang@amd.com>` (AMD reviewer)
 - **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
-  (maintainer)
+  (subsystem maintainer)
 - No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`, or `Acked-by:` tags
-- Notable: reviewed by AMD developer and merged by amdgpu maintainer; no
-  fuzzer or user bug report
+  `Tested-by:`, or `Acked-by:`
 
-### Step 1.3: Body Analysis
+Notable: maintainer sign-off and AMD internal review; no syzbot report.
+
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `args->va_address + args->map_size` uses unchecked 64-bit
-  unsigned addition in the top-reserved VA range check.
-- **Symptom/failure mode:** On overflow, the wrapped sum can be `<=
-  vm_size`, so invalid oversized VA ranges are not rejected at the ioctl
-  boundary.
-- **Root cause:** Missing overflow-safe addition before comparing
-  against `vm_size`.
-- **Version info:** None in the commit message.
+- **Bug:** `hardcode_pp_table` is allocated once via `kmemdup(...,
+  soft_pp_table_size)`, but `memcpy(..., size)` uses the sysfs write
+  length (`count`, up to `PAGE_SIZE`) with no upper bound.
+- **Symptom:** Heap buffer overflow in kernel memory.
+- **Trigger:** Writing more bytes than `soft_pp_table_size` to the
+  `pp_table` sysfs attribute on the legacy powerplay DPM path.
+- **Root cause:** Mismatch between allocation size and copy size.
+- **Version info:** None in commit message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Although the subject says “avoid” rather than “fix,”
-this is an input-validation bug in a userspace-reachable DRM ioctl. It
-is not cosmetic cleanup.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes — despite “bound” wording rather than “fix”, this is a
+clear memory-safety bug fix (heap overflow / out-of-bounds write), not
+cleanup or optimization.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
 **Record:**
-- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c` only (+2/-2, 4
-  lines touched)
-- **Functions:** `amdgpu_gem_va_ioctl()`
-- **Scope:** Single-file, surgical ioctl validation fix
+- **File:** `drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` (+3 / -0)
+- **Function:** `pp_dpm_set_pp_table()`
+- **Scope:** Single-file, surgical fix (3 lines)
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change
 **Record:**
-- **Before:** `if (args->va_address + args->map_size > vm_size)` —
-  overflow wraps, check may pass incorrectly.
-- **After:** `if (check_add_overflow(args->va_address, args->map_size,
-  &tmp) || tmp > vm_size)` — overflow is detected and rejected with
-  `-EINVAL`.
-- **Path affected:** Early validation in `amdgpu_gem_va_ioctl()`, before
-  GEM lookup, fence handling, and VM locking.
+- **Before:** After basic `hwmgr`/`pm_en` validation, code allocates (if
+  needed) `hardcode_pp_table` sized to `soft_pp_table_size`, then
+  unconditionally `memcpy(hwmgr->hardcode_pp_table, buf, size)`.
+- **After:** Rejects writes where `size > hwmgr->soft_pp_table_size`
+  with `-EINVAL` before allocation/copy.
+- **Path affected:** Sysfs write → `amdgpu_set_pp_table()` →
+  `amdgpu_dpm_set_pp_table()` → `pp_dpm_set_pp_table()`.
 
-### Step 2.3: Bug Mechanism
+### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Integer overflow / input validation bug
-- **Mechanism:** A malicious or buggy userspace caller can supply
-  `va_address` and `map_size` whose true sum exceeds `UINT64_MAX`.
-  Unchecked addition wraps to a small value, potentially bypassing the
-  reserved-top VA check. The fix uses `check_add_overflow()` to reject
-  such inputs.
+- **Category:** Buffer overflow / out-of-bounds heap write (memory
+  safety).
+- **Mechanism:** `kmemdup` allocates `soft_pp_table_size` bytes;
+  `memcpy` can copy up to `PAGE_SIZE` (4096) bytes from sysfs `count`.
+  When `size > soft_pp_table_size`, writes past the kmalloc buffer. On
+  subsequent writes, the buffer is not reallocated (only allocated once
+  when `!hardcode_pp_table`), so overflow persists.
 
-### Step 2.4: Fix Quality
+### Step 2.4: Fix quality
 **Record:**
-- Fix is minimal, idiomatic, and matches existing kernel/amdgpu style
-  (`check_add_overflow` is already used elsewhere in this file and in
-  `amdgpu_vm.c`).
-- Regression risk is very low.
-- Minor note: the `dev_dbg()` on the error path still prints
-  `args->va_address + args->map_size` without overflow protection; that
-  only affects debug logging on the failure path.
+- Fix is obviously correct and minimal.
+- Mirrors the intent of the SMU-path fix in commit `1abb2648698bf`
+  (“avoid buffer overflow … in `smu_sys_set_pp_table()`”), which added
+  size validation and reallocation logic.
+- Low regression risk: only rejects invalid oversized writes; legitimate
+  writes matching the existing table size continue to work.
+- No API or structural changes.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
 **Record:**
-- Buggy check introduced in `c4aa8dff6091cc` (“drm/amdgpu: don't map BO
-  in reserved region”, Oct 2020).
-- `vm_size -= AMDGPU_VA_RESERVED_TOP` added in `00a11f977beb75` (Jan
-  2024).
-- This commit is an ancestor of the current tree; the buggy code is
-  present in v6.18.44.
+- `pp_dpm_set_pp_table()` introduced in `f3898ea12fc1f` (Eric Huang,
+  2015-12-11).
+- Unbounded `memcpy` introduced in `4dcf9e6f2e33fe` (Eric Huang,
+  2016-06-01): “add uploading pptable and resetting powerplay support”.
+- Bug has existed since mid-2016; present in this 6.18.y tree.
 
-### Step 3.2: Fixes Tag
-**Record:** N/A — no `Fixes:` tag in the commit message.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag in commit message.
 
-### Step 3.3: Related File History
+### Step 3.3: Related file history
 **Record:**
-- Related upstream commits on master: `cc768f4dd0bb9`, cherry-picked as
-  `cd7cfcdb4dd45`.
-- `98856136c485e` (“drm/amdgpu: validate the parameters of bo mapping
-  operations more clearly”, Apr 2024) added
-  `amdgpu_vm_verify_parameters()` with `check_add_overflow(saddr, size)`
-  for `amdgpu_vm_bo_map()`, `amdgpu_vm_bo_replace_map()`, and
-  `amdgpu_vm_bo_clear_mappings()`.
-- `daf5d03ddb8cc` already backported a similar integer-overflow fix in
-  the same file (`amdgpu_gem_align_pitch()`).
-- Standalone one-commit fix; not part of a series.
+- Related stable-worthy fix already in tree: `1abb2648698bf` (Feb 2025)
+  — SMU `smu_sys_set_pp_table()` overflow fix, with `Cc:
+  stable@vger.kernel.org`.
+- Candidate fix (`bound pp_dpm_set_pp_table`) is **not** in this tree;
+  buggy code confirmed at lines 660–676 without the bounds check.
+- Standalone one-patch fix, not part of a series.
 
-### Step 3.4: Author Context
-**Record:** Ce Sun is an AMD contributor with multiple amdgpu stable-
-relevant fixes (reset, leak, PM). Tao Zhou reviewed; Alex Deucher
-merged.
+### Step 3.4: Author context
+**Record:** Asad Kamal is an active AMD contributor (`drm/amdgpu`,
+`drm/amd/pm`). Patch reviewed by Yang Wang and committed by Alex Deucher
+(AMD DRM maintainer).
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. `linux/overflow.h` is already included in
-`amdgpu_gem.c` in this tree. `check_add_overflow()` exists in
-`include/linux/overflow.h`. Patch should apply cleanly.
+**Record:** No prerequisites. Adds a simple validation before existing
+logic. Applies cleanly to current `amd_powerplay.c` in this tree.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
-**Record:** `b4 dig -c cc768f4dd0bb9` and `b4 dig -c cd7cfcdb4dd45` both
-failed — no lore match found. Manual lore search blocked by bot
-protection.
+### Step 4.1: Original discussion
+**Record:**
+- `b4 dig -c 6f5c27bdc1e91` failed (commit not in local object
+  database).
+- Web search found submission: [amd-gfx May
+  2026](https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/145636.html) by Asad Kamal, May 29, 2026.
+- Review reply from Yang Wang referenced in thread index.
+- No explicit stable nomination found in available search results.
+- No NAKs found in available summaries.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w` unavailable due to failed match. From commit
-metadata: Reviewed-by Tao Zhou; Signed-off-by Alex Deucher.
+**Record:** CC list included AMD maintainers (Deucher, Lazar, etc.).
+`Reviewed-by: Yang Wang`; `Signed-off-by: Alex Deucher`.
 
-### Step 4.3: Bug Report
-**Record:** No external bug report, syzbot report, or crash trace
-referenced.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Bug identified by
+code inspection / internal AMD review.
 
-### Step 4.4: Related Patches
-**Record:** Not part of a multi-patch series. Related prior work:
-`98856136c485e` (downstream VA parameter validation).
+### Step 4.4: Related patches
+**Record:** Direct parallel: `1abb2648698bf` for
+`smu_sys_set_pp_table()` — same sysfs interface, same class of overflow,
+already in this tree and nominated for stable.
 
-### Step 4.5: Stable List Discussion
-**Record:** Could not verify stable-list discussion; lore fetch blocked.
+### Step 4.5: Stable list history
+**Record:** lore.kernel.org blocked by bot protection; could not search
+stable@ list directly. SMU sibling fix explicitly had `Cc:
+stable@vger.kernel.org`.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `amdgpu_gem_va_ioctl()` modified.
+### Step 5.1: Key functions
+**Record:** `pp_dpm_set_pp_table()`, callers:
+`amdgpu_dpm_set_pp_table()`, `amdgpu_set_pp_table()`.
 
 ### Step 5.2: Callers
-**Record:** Registered in `amdgpu_drv.c` as:
-`DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl,
-DRM_AUTH|DRM_RENDER_ALLOW)`
-Callable from authenticated DRM render clients — common userspace GPU VA
-management path.
+**Record:**
+- `amdgpu_set_pp_table()` — sysfs store for `pp_table`
+  (`AMDGPU_DEVICE_ATTR_RW(pp_table, ...)`)
+- `amdgpu_dpm_set_pp_table()` — dispatches via `pp_funcs->set_pp_table`
+  under `adev->pm.mutex`
+- Powerplay path: `pp_dpm_funcs.set_pp_table = pp_dpm_set_pp_table`
+  (legacy DPM GPUs)
+- SMU path: `smu_sys_set_pp_table` (Navi+ and newer) — separate code
+  path, already has size checks
 
 ### Step 5.3: Callees
-**Record:** After validation, ioctl may call `drm_gem_object_lookup()`,
-`amdgpu_gem_add_input_fence()`, `drm_exec_*`, `amdgpu_vm_lock_pd()`, and
-depending on operation:
-- `amdgpu_vm_bo_map()`
-- `amdgpu_vm_bo_unmap()`
-- `amdgpu_vm_bo_clear_mappings()`
-- `amdgpu_vm_bo_replace_map()`
+**Record:** `kmemdup()`, `memcpy()`, `amd_powerplay_reset()`, optional
+`avfs_control()`.
 
-### Step 5.4: Reachability / Downstream Mitigation
+### Step 5.4: Reachability
 **Record:**
-- **MAP / REPLACE / CLEAR:** All call `amdgpu_vm_verify_parameters()`,
-  which already rejects `saddr + size` overflow via
-  `check_add_overflow()`.
-- **UNMAP:** Uses only `va_address`; `map_size` is not used in
-  `amdgpu_vm_bo_unmap()`.
-- **Important nuance for this tree:** The downstream overflow check
-  means that for MAP/CLEAR/REPLACE, overflowed inputs would eventually
-  fail at `amdgpu_vm_verify_parameters()` rather than creating a
-  mapping. However, without this ioctl fix they still proceed through
-  GEM lookup, fence setup, and VM locking first.
-- The ioctl-level check also enforces the reserved-top region (`vm_size`
-  subtracts `AMDGPU_VA_RESERVED_TOP`), which is stricter than
-  `verify_parameters()`’s `lpfn >= max_pfn` check. Overflow cannot
-  bypass into the reserved-top region for MAP operations because
-  overflow is rejected downstream.
+- Reachable from userspace via `/sys/class/drm/card*/device/pp_table`
+  write.
+- Requires `amdgpu_pm_get_access()` (device runtime-resumed); sysfs
+  write typically requires root/CAP_SYS_ADMIN.
+- Affects systems using legacy powerplay DPM (pre-SMU path GPUs:
+  Polaris, Vega, older APUs, etc.) — still common in stable/LTS
+  deployments.
 
-### Step 5.5: Similar Patterns
-**Record:** `check_add_overflow()` already used in:
-- `amdgpu_gem.c` (`amdgpu_gem_align_pitch()`)
-- `amdgpu_vm.c` (`amdgpu_vm_verify_parameters()`)
-- Other amdgpu files (vcn, etc.)
+### Step 5.5: Similar patterns
+**Record:** SMU path (`smu_sys_set_pp_table`) validates
+`header->usStructureSize != size` and reallocates when needed
+(`1abb2648698bf`). Powerplay path lacked any size validation —
+inconsistent and vulnerable.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy Code Present?
-**Record:** Yes. Current tree at
-`drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:845` still has:
-`if (args->va_address + args->map_size > vm_size)`
-Bug present since 2020; not introduced after the 6.18 branch.
+### Step 6.1: Buggy code exists?
+**Record:** **Yes.** Current tree at `v6.18.44` has unbounded `memcpy`
+in `pp_dpm_set_pp_table()` (lines 668–676). No `size >
+soft_pp_table_size` check. Bug introduced 2016; long-standing.
 
-### Step 6.2: Backport Complications
-**Record:** Expected clean apply — 4-line change, `overflow.h` already
-included, no structural conflicts observed.
+### Step 6.2: Backport complications
+**Record:** Clean apply expected — 3-line insertion with no surrounding
+churn in the function. Recent file history is handle-pointer refactors
+unrelated to this hunk.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** Downstream mitigation `amdgpu_vm_verify_parameters()` from
-`98856136c485e` is already in this tree. The ioctl-level overflow fix
-itself is **not** yet present. Similar overflow fix `daf5d03ddb8cc` in
-the same file is already backported.
+### Step 6.3: Related fixes already present?
+**Record:** SMU overflow fix (`1abb2648698bf`) is an ancestor of HEAD.
+Powerplay-path equivalent is **not** present.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem / Criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — GPU/DRM driver. **IMPORTANT**
-for AMDGPU users; not universal core-kernel code, but ioctl validation
-is security-sensitive.
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMD GPU driver
+power management). Not universal core kernel, but widely deployed on
+desktop, laptop, and server GPUs.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; recent stable-relevant amdgpu fixes in
-this tree include overflow, lock leak, and NULL-check patches.
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained; recent commits in `amd_powerplay.c` and
+related PM code.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** Users of AMDGPU with `CONFIG_DRM_AMDGPU` and render-node
-access (games, compute, desktop compositors, ML workloads).
+### Step 8.1: Who is affected
+**Record:** Users of AMD GPUs on the legacy powerplay DPM path who write
+custom powerplay tables via `pp_table` sysfs. Config/driver-specific,
+but covers many still-supported Polaris/Vega-era devices.
 
-### Step 8.2: Trigger Conditions
-**Record:** Userspace issues `DRM_IOCTL_AMDGPU_GEM_VA` with `va_address`
-and `map_size` whose sum overflows `uint64_t`. Unprivileged users can
-trigger ioctl validation if they have DRM render access (normal for GPU
-users).
+### Step 8.2: Trigger conditions
+**Record:** Write to `pp_table` with `count > soft_pp_table_size` (and
+`count` up to `PAGE_SIZE`). Requires sysfs write access (typically
+root). Trigger is straightforward for anyone intentionally uploading a
+table.
 
-### Step 8.3: Failure Mode Severity
+### Step 8.3: Failure mode severity
+**Record:** Heap buffer overflow → potential kernel crash, memory
+corruption, possible security impact. **Severity: HIGH** (memory safety;
+kernel integrity).
+
+### Step 8.4: Risk-benefit
 **Record:**
-- **Without fix in this tree:** Overflow can bypass the ioctl reserved-
-  top check; for MAP/CLEAR/REPLACE, operation later fails at
-  `amdgpu_vm_verify_parameters()`. Primary consequence is incorrect
-  early validation and unnecessary work (GEM lookup, fence handling, VM
-  locking) on malformed input.
-- **Severity:** **MEDIUM** for correctness and fail-fast behavior; **not
-  CRITICAL** for crash/corruption in this tree because downstream
-  validation already blocks dangerous MAP/CLEAR/REPLACE outcomes.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** Correct ioctl input validation; fail-fast before
-  expensive locking; consistent with other amdgpu overflow backports
-  already in 6.18.y.
-- **Risk:** Very low — 4 lines, standard helper, no API changes.
-- **Ratio:** Moderate benefit, very low risk. Less urgent than fixes
-  with demonstrated crash/corruption, but appropriate for stable.
+- **Benefit:** HIGH — closes a real, long-standing heap overflow on a
+  reachable sysfs path; aligns powerplay path with already-stable-
+  nominated SMU fix.
+- **Risk:** VERY LOW — 3-line bounds check, rejects only invalid inputs.
+- **Ratio:** Strongly favors backport.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real integer-overflow bug in userspace-reachable ioctl validation
-- Small, obviously correct, self-contained
-- Buggy code present since 2020 in this tree
-- `linux/overflow.h` already included; patch applies cleanly
-- Precedent: similar amdgpu integer-overflow fixes already backported to
-  this tree (`daf5d03ddb8cc` in same file)
-- Reviewed and merged by amdgpu maintainers
+- Real heap overflow bug, present since 2016
+- Reachable via `pp_table` sysfs on legacy powerplay GPUs
+- Small (3 lines), obviously correct, maintainer-reviewed
+- Parallel SMU fix already in this tree with stable nomination
+- Prevents crash/corruption
 
 **AGAINST backport:**
-- No user report, syzbot, or CVE cited
-- Downstream `amdgpu_vm_verify_parameters()` already catches overflow
-  for MAP/CLEAR/REPLACE
-- Practical security/corruption impact in v6.18.44 appears limited to
-  fail-late rather than fail-open mapping
-- No lore/stable discussion found to confirm maintainer intent
+- Only affects legacy powerplay path (not Navi+/SMU GPUs)
+- Sysfs write typically requires elevated privileges
+- No syzbot/CVE report (but bug mechanism is clear from code)
 
-**Unresolved:**
-- No mailing-list thread retrieved (`b4 dig` failed; lore blocked)
+**Unresolved:** Full lore review thread content (bot protection); no
+explicit `Cc: stable` on this specific patch (but sibling fix had it).
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — standard overflow helper;
-   reviewed by AMD engineer; no Tested-by.
-2. Fixes a real bug affecting users? **PASS** — real validation bug on
-   reachable ioctl path.
-3. Important issue? **PASS (moderate)** — input-validation overflow on
-   DRM ioctl; not demonstrated crash/corruption in this tree, but
-   incorrect validation on a security-sensitive path.
-4. Small and contained? **PASS** — 4 lines, one function.
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS**
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — trivial bounds check;
+   `Reviewed-by` AMD engineer; maintainer sign-off.
+2. Fixes a real bug affecting users? **PASS** — heap overflow on sysfs
+   upload path.
+3. Important issue? **PASS** — memory safety / potential crash and
+   corruption (**HIGH**).
+4. Small and contained? **PASS** — 3 lines, one function.
+5. No new features or APIs? **PASS** — validation only.
+6. Can apply to local tree? **PASS** — buggy code present; patch applies
+   cleanly.
 
-### Step 9.3: Exception Category
-**Record:** None of the automatic exception categories (device ID,
-quirk, DT, build fix, docs). This is a runtime input-validation bug fix.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
+as a standard security/stability bug fix.
 
-### Step 9.4: Decision Rationale
-
-For **v6.18.44**, the buggy unchecked addition exists and should be
-fixed. Although `amdgpu_vm_verify_parameters()` already prevents
-overflowed MAP/CLEAR/REPLACE operations from succeeding, the ioctl
-boundary should validate inputs correctly and reject malformed VA ranges
-before acquiring VM locks and doing GEM work. The patch is tiny, low-
-risk, and consistent with other amdgpu overflow fixes already present in
-this stable tree. It does not depend on newer code and does not add
-features.
+### Step 9.4: Decision rationale
+This commit fixes a genuine heap buffer overflow in
+`pp_dpm_set_pp_table()` that has existed in the 6.18.y tree since the
+powerplay table upload feature was added. The fix is minimal, correct,
+and consistent with the already-backported SMU-path overflow fix. For
+stable users running legacy AMD GPUs who use `pp_table` sysfs, this
+prevents kernel memory corruption and potential crashes.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, and body from provided commit message
-  and `git show cd7cfcdb4dd45`
-- [Phase 2] Read diff and current `amdgpu_gem.c` ioctl validation code
-- [Phase 3] `git describe HEAD` → `v6.18.44`
-- [Phase 3] `git blame -L 843,850` → buggy check from `c4aa8dff6091cc`
-  (2020)
-- [Phase 3] `git merge-base --is-ancestor c4aa8dff6091cc HEAD` → buggy
-  code is in tree
-- [Phase 3] `git show 98856136c485e` → downstream
-  `amdgpu_vm_verify_parameters()` with `check_add_overflow`
-- [Phase 3] `git merge-base --is-ancestor 98856136c485e HEAD` →
-  downstream mitigation present
-- [Phase 3] `git log --oneline -20 -- amdgpu_gem.c` → related amdgpu
-  fixes in tree
-- [Phase 3] `git show daf5d03ddb8cc` → similar overflow fix already
-  backported to this tree
-- [Phase 4] `b4 dig -c cc768f4dd0bb9` → no lore match
-- [Phase 4] `b4 dig -c cd7cfcdb4dd45` → no lore match
-- [Phase 4] WebFetch lore search → blocked by bot protection
-- [Phase 5] `grep amdgpu_gem_va_ioctl` → ioctl registered with
-  `DRM_AUTH|DRM_RENDER_ALLOW`
-- [Phase 5] Read `amdgpu_vm_bo_map()`, `amdgpu_vm_bo_replace_map()`,
-  `amdgpu_vm_bo_clear_mappings()`, `amdgpu_vm_bo_unmap()` → verified
-  downstream validation behavior
-- [Phase 5] Read `struct drm_amdgpu_gem_va` → `va_address` and
-  `map_size` are `__u64`
-- [Phase 6] Confirmed current tree still has unchecked addition at line
-  845
-- [Phase 6] Confirmed `#include <linux/overflow.h>` already present at
-  line 30
-- [Phase 6] Confirmed `check_add_overflow` exists in
-  `include/linux/overflow.h`
-- [Phase 8] Assessed failure mode: downstream catches overflow for
-  MAP/CLEAR/REPLACE; primary remaining issue is incorrect early
-  validation / unnecessary work
+- **[Phase 1]** `git describe HEAD` → `v6.18.44`; parsed commit message
+  tags and body from user-provided diff
+- **[Phase 2]** Read `amd_powerplay.c:660-688` — confirmed missing
+  bounds check and unbounded `memcpy`
+- **[Phase 2]** Traced call chain via grep: `amdgpu_set_pp_table` →
+  `amdgpu_dpm_set_pp_table` → `pp_dpm_set_pp_table`
+- **[Phase 3]** `git blame -L 660,690` — function from 2015, `memcpy`
+  from `4dcf9e6f2e33fe` (2016-06-01)
+- **[Phase 3]** `git show 4dcf9e6f2e33fe` — introduced upload/reset
+  support with unbounded copy
+- **[Phase 3]** `git show 1abb2648698bf` — SMU sibling overflow fix with
+  `Cc: stable`; confirmed ancestor of HEAD
+- **[Phase 3]** `git log --grep="bound pp_dpm"` — no match; fix not in
+  tree
+- **[Phase 4]** `b4 dig -c 6f5c27bdc1e91` — failed (commit not in repo)
+- **[Phase 4]** Web search — found amd-gfx submission May 29, 2026;
+  Reviewed-by Yang Wang in thread
+- **[Phase 4]** lore.kernel.org fetch — blocked (bot protection);
+  stable@ search UNVERIFIED
+- **[Phase 5]** Read `amdgpu_pm.c:581-601`, `amdgpu_dpm.c:1717-1733` —
+  sysfs write path confirmed
+- **[Phase 5]** Read `amdgpu_smu.c:633-659` — SMU path has size
+  validation; powerplay path does not
+- **[Phase 5]** Grep `set_pp_table` — two implementations: powerplay and
+  SMU
+- **[Phase 6]** `git describe HEAD` → v6.18.44 on `stable/linux-6.18.y`
+- **[Phase 6]** Confirmed buggy code at lines 668-676 without fix
+- **[Phase 8]** Failure mode: heap OOB write → crash/corruption,
+  severity HIGH
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 5fc9a6b1ec722..71038f4de7f9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -818,7 +818,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	struct dma_fence_chain *timeline_chain = NULL;
- 	struct dma_fence *fence;
- 	struct drm_exec exec;
--	uint64_t vm_size;
-+	uint64_t vm_size, tmp;
- 	int r = 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 554492dfa3c00..ec95faa6edcf8 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -665,6 +665,9 @@ static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
+ 	if (!hwmgr || !hwmgr->pm_en)
+ 		return -EINVAL;
  
- 	/* Validate virtual address range against reserved regions. */
-@@ -842,7 +842,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 
- 	vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
- 	vm_size -= AMDGPU_VA_RESERVED_TOP;
--	if (args->va_address + args->map_size > vm_size) {
-+	if (check_add_overflow(args->va_address, args->map_size, &tmp) || tmp > vm_size) {
- 		dev_dbg(dev->dev,
- 			"va_address 0x%llx is in top reserved area 0x%llx\n",
- 			args->va_address + args->map_size, vm_size);
++	if (size > hwmgr->soft_pp_table_size)
++		return -EINVAL;
++
+ 	if (!hwmgr->hardcode_pp_table) {
+ 		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
+ 						   hwmgr->soft_pp_table_size,
 -- 
 2.53.0
 
