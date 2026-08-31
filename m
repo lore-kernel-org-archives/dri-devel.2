@@ -4,98 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED6ACC624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1122BC624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:20:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2DC10E73A;
-	Mon, 31 Aug 2026 08:19:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D39310E732;
+	Mon, 31 Aug 2026 08:20:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hrnB54V9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AR2mpmSo";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q53QtLwl";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fOIRrtFN";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8EFB10E73C
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:19:52 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06B4010E740
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:19:59 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67V7xjxY2419583
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:19:52 GMT
+ 67V7xeOG2824429
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:19:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6fG6edY2B80yevoZeN3MhpTgETb0AMUhGfbVvl1yPtY=; b=hrnB54V9AY/EhE1a
- 9XqOguZrtqVatrWgxs2i5TZ4VeVTY5yTs2zd/ujJ2RG1PktUbFGFxnlvXRyoHSsf
- nN+XSmkW5rc8S48GcoS8mxYZM0PiuLE2ZnOrWz+NuM/GBRfAjLpI3mHrnFxQW0oH
- t63p8VjsxG0C+y3yj8fa6R7H7P1AUzv4BtjaBHYJWma3bGC9Z3UtEnHy2zoSY9jB
- C2YBCgktlcGA7YPz1cv69x9w/8N34IXzp0T2lqQ+CoPYFonpklTDsTxgoSs5ZT0+
- UjbyiAz/R/qtSvKli/4VH53v56aOte2EKn9fZSBQnMDz9QHaUKzPxDpjsKmz7e8p
- EIzqoQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqt6nc81-1
+ sZCZYdxulAt+REaXNWP3pgTyEN5GhF1cMFMAFW7SEs8=; b=Q53QtLwln5sj/mGi
+ Lrb3HkyZZaP52n3vxdS5mNBam1R0WHHjY148nMAa4ZV+EUTjKSNsbmd2Sd4nVjLD
+ sA5H+XqjpM9btH1a2S4OGGRx/Zvryfhv3cxCDoZOOQ1X1jiWChsAXecTWR221x9r
+ 30BprRmt5U6KpiQC5/ori/n3BpR5ab5+sTq7gw9152N6y9EJq4g4EbixVzmW/HNW
+ 9Q1El3JpaO9xUk7DNxEhAChY5zIxLKy46+/r2E7zLMdlrhZrIPwP6DUbn9EkCRv3
+ xwPgQVLClXvhcUMPJKx+tQD3sactrMPrEyP00GIJpUTPrUFoVfGBrfla/J6Krtrs
+ Eufkxg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqe2ddgj-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:19:51 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-9390a2c895bso705506985a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 01:19:51 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:19:58 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-9375d92d8cdso572589385a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 01:19:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788164391; x=1788769191;
+ d=oss.qualcomm.com; s=google; t=1788164398; x=1788769198;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6fG6edY2B80yevoZeN3MhpTgETb0AMUhGfbVvl1yPtY=;
- b=AR2mpmSo6JBW5Rw+pF+AVVPY72HXVyOqfrHcw6kfF5WgvfmtEnxN8nXtEFOrhC/8TQ
- cCxdiPSPJkK4h9DDCy5cEVV8wJ8WSUBs/EKqQiy0r+0FVMfb9tVZEI8DMoXCCDPIos7X
- 7FBsH243ZkZ8qfzMTVsCC1unY2BnSOcqrzuVyLl/w2iPvkoiWMOX5xdVT/gpTP6wzpmd
- 4TlcQAcPyVndtxxJ9Izr9ku7rSExx8Tevvp10meObadC+PdjSgZQTOfoq1AvUKwdIBI6
- Sl/8KfTk+iLxkRRjiE+Ci3tzFSmG0JfFVnYhRxwfCsBeZZBxAPY3Hfer7iyJzkvNuUMk
- 4Gbg==
+ bh=sZCZYdxulAt+REaXNWP3pgTyEN5GhF1cMFMAFW7SEs8=;
+ b=fOIRrtFNrQomR9M+sKBkyhE3w8ofx2dS3Jyl+GTKSuoggiiXnEbdAhySC81DoN+nyK
+ Y79Dq+yHypskr+K3DPL6vDVdhNY5yZ4B4fECzk6qNKw9zWtSDc5ldh12O99G/tua0Odt
+ CKSmBoQWnx5px7idtC1C9KuLPDMIjru9SbV0pGDdXKE32aSchwDPx1wxU6/bHJ/l2N+y
+ vngtf83L5LGyt0vr246syBS+uqyzsNMeOTMVqD5DTQPT3Dj9EGpR/NqxKx+Cg4XC6+Gi
+ 0AcINItpFU32aI5jGJqRphxu2l46iouY/Wtwulzo+ghdv7P+KkrjCgIQtUG6iFcRyX8L
+ rXng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788164391; x=1788769191;
+ d=1e100.net; s=20251104; t=1788164398; x=1788769198;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6fG6edY2B80yevoZeN3MhpTgETb0AMUhGfbVvl1yPtY=;
- b=UIIasQVPDyVoScnD0c8FGfiBsq9qtcpv7sKrK0liQusFXInmBcLtzfBh4ZEJSMD3h8
- VqvXoKlixQ8UWqjTenjx+plGymX8fn9PYzeBV+xy4yc9sUXeFa4dLfLnu24ZqSWaGKig
- qAryHXNDhWktJoEuUxJDt5/7H4J7gxAReafkf5BbfUW6CDv/F19OWl+SDIDeYX8RMAsW
- ItsK89jkjBIqZfB2HwvTl5mm3sDk+m7Jb7Zd30u3vFito6WCM6I7gISI04Bg7Uu8C5g+
- nXwO1G1/l9CKkqWK502NQ10y4QYECh8fYhRP2os1AgUBh6fRc2D4AHHv2YobWF2cBSvn
- pt0Q==
+ bh=sZCZYdxulAt+REaXNWP3pgTyEN5GhF1cMFMAFW7SEs8=;
+ b=T+BmG33sNLHaPgHCo1EdgcVWZcr0Nlh87ZX0mjoSDtcdtbjywTzXlZ3bS7e2roZdTI
+ sx3FlxcbuRxihiut9ASku/U98OYMugmwBzQ45YQaY4SJnFdEEuVKAdVTpDqGErBe34qB
+ qgTsQftxAEcwvuAE0wDeaKMxZJnqz3rWrS36by26DhqedHZLwcRArjlDXqFcNCKIpaP2
+ AVTHl6AfW7c3jzIjLv4O1Pi4x2elZSDZzdBE9CJ7pOmqwRUgwfe1AYkO6gw/1zE5AZmJ
+ hzvaYkF9PykbPasmyWayl84Z5e6MwXgCj5g9KaZASongIEytfzT8xacHGE0HpHZmF+8s
+ huuA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqK1hv0BiIPFDbe6+j40Rrq+294N0wtxrVkJM2VRhBBSpFDnL+SjJE26wrUlK56cqQAzA0IcBJOqzM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m3gv0gb/vXQ9en64KAUdH0hZdm40Dyr9vmfWAtAfACT/b5ZnyF
- ktyMJdwubCU37Hm0nE7ZnlJ6MRamDORN2xN8Xu9PTzbJ3doXMTV+mM7rcaqaGcQ+wRkVE8YdDRQ
- BU2ykhBFueLdN/vQ6Dy44piK5pw6SD/eAmxQbFuaejICsYoUfAT+YRk4kMPxXrnCV5Q+szg1vI3
- 5IQS5Dqw==
-X-Gm-Gg: AR+sD10NP+QKn7z4cBTYPfvvYZt5loIQFq+6M3Q3W2B1LmkYx+3b0XSqUs3scjJ4Pwa
- jYtmqSjK8qYlS/mG043Ki1TJrE+ga2hkyfCKrtPAKh4eTfxeeJe5S7IiBgcHbhJg+n5cUEGn2TG
- sLMFyhfRNaFzxJimWaISTt1gRhBbg4HnCcp/ehP60Bis+WDuM+RXUPDxfxuKfQMRCtnZLf9RVIx
- YjzrE+VP2NzfUf9ApkbZU56ch+Ti2iUzBTIYeO2vy7ow9ZiFMzmuXQl0mRs/mrk+QO/pVJ7GUIN
- Kf1My+dgsJC3cRa0pnVYIKS9Ikf3DL9Gqq+O0Aws8ejwB2wZjrVkj0TNDH3eYZTPt1ocMgswt0P
- Rv8a1GNJ5GQECl3K3xwWpQUfqa5vC2FaFN1X3K49atXdfYtQs4T1hjBr1Gh35V5I=
-X-Received: by 2002:a05:620a:2b8f:b0:930:f35d:41ba with SMTP id
- af79cd13be357-939139565fbmr2873411185a.36.1788164391204; 
- Mon, 31 Aug 2026 01:19:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b8f:b0:930:f35d:41ba with SMTP id
- af79cd13be357-939139565fbmr2873408885a.36.1788164390771; 
- Mon, 31 Aug 2026 01:19:50 -0700 (PDT)
+ AHgh+RqiuNHPd5Y9HR2LLsDWHnsjAG2IpX28Y6EOuOI0NNs3RuYYsrjYdr4Yajo9WT+dFki4IqZy4ghhAdk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ljRAsODxO1FbdiLWAFI8AgJ61HEc2sXQue+cXlQJ2XqNdUU6Vl
+ 8rCyT0+3rMWWh1AefyEXhbRFvtnTtZNrfCWTnJdV/xed18fyXHK1U2JgmbBtH40ByIsA8Cz82ad
+ DSsctYmGGuuUGBmdq+qpVvWIl+6HMSyV9F4PM/x9IdivbM4Mi8HCH5wrVdI54DjyCv//r+KU=
+X-Gm-Gg: AR+sD12/DJIqoGLpX/rRz8BHmCsa1YenJ1zI3EYtnCrwGWqC1Eqa+4BfqVUOtNwWU5k
+ HgtBoitX+TLF7r+VVtCVr8uMVIeXdQQexlUK2gpxnRKx+6Ljw19pdCU5wiXw36TSAd8YPdBl4zQ
+ LbxHWsHgZGJzQ1x2WhYxCW9ZUJbZlP41/0tqREIE9qEMD7HYGS5Th8N5CFdPNpVJctkiyigh8Yg
+ Ey0FPaWesAwT0VkglHB1ECn960ZpAjJ0Rgcyf+xoe8mlR74jUKdP/HRWdikA4aeDBg7zNfWxqJ6
+ kFEJMM16Q9eZwn+pHOrqNJpv0ByIv9HY3cGor9e+/LKy8q5wi5vePeneyWt/RiB2pfNUBrg3xWv
+ ubasLhR9stynqwXYSRDsZDnZGEs0SdjTz049Jf/jj87qrNt2hY7bhbNg0szXEKng=
+X-Received: by 2002:a05:620a:6886:b0:92e:9d63:a6f6 with SMTP id
+ af79cd13be357-93913808713mr2845147585a.17.1788164398423; 
+ Mon, 31 Aug 2026 01:19:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:6886:b0:92e:9d63:a6f6 with SMTP id
+ af79cd13be357-93913808713mr2845142785a.17.1788164397979; 
+ Mon, 31 Aug 2026 01:19:57 -0700 (PDT)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93917236b86sm735974285a.13.2026.08.31.01.19.46
+ af79cd13be357-93917236b86sm735974285a.13.2026.08.31.01.19.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 01:19:50 -0700 (PDT)
+ Mon, 31 Aug 2026 01:19:57 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 16:17:42 +0800
-Subject: [PATCH v6 25/29] drm/msm/dp: wire MST helpers into atomic check
- and commit paths
+Date: Mon, 31 Aug 2026 16:17:43 +0800
+Subject: [PATCH v6 26/29] drm/msm/dp: mark the SST bridge disconnected when
+ mst is active
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-msm-dp-mst-v6-25-c91d35d6fb9e@oss.qualcomm.com>
+Message-Id: <20260831-msm-dp-mst-v6-26-c91d35d6fb9e@oss.qualcomm.com>
 References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
 In-Reply-To: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -111,38 +110,38 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788164246; l=3337;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788164246; l=1108;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=wMC2YihO4QtFdymka/2UJ8jIACbnk36l94X1rDU6A9s=;
- b=Oivxgd6UPuqqiiOJ5YCme7iDXl+Yq1ae+wyNRNEeQeAkfWKGqSox8YyOSvZ8b1mKENdqI0t3x
- 1Y4jFquGX60CqrGrf+aYe0r0PFKFBqlwuFNtki/GczqoMvTZ9WzsdIq
+ bh=b73mCP5ZBsxlgkNfg3qBRcFP4q1t83IPYmEGlCDuRyU=;
+ b=UGx9/qKyXIjm9cwePvp/w9ztl7xoA2V+jY6pysn1wTUFaxUjitPwpFA+hUJ9wg0bVBiK8LW81
+ kxHoNR7ZyTKDUoduaqZ66Kn1I7SV2rhl6oNElMz1W+EUXm2TYO+WBmr
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-ORIG-GUID: VnIN26Bj4p965AyL5HTIgNdhordL63_n
-X-Proofpoint-GUID: VnIN26Bj4p965AyL5HTIgNdhordL63_n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfXyS4ZuBklgSr9
- DW87uWd67AQQxqvL/xm2o1AXVrv877Fx2KKCfXPTQbYBBaQrnE44wxy4YtAXvnvgVadY4BSdRUf
- DKOWHWC3vwLoFyF6c+x9yCXuUySD4yEot+RFtGlhMYnVPMEhCC85Vgw+2hJ5gdR097olCBM2AVK
- 1XGwAcsMHU+1Uc16x77joKaNemxukDoG9fWg9t143hHBx1LFnOW/b9Sf4Q2nRlEh9YD4ijmv8UB
- 8Ae5TDFxZ2f+jMNKPtm9SpknuRYW2bktzSZQcDXw98hdoKq3z+NOEZ+bFxBeWf+zK8iMotC3UYe
- YtIK0jkhmxvfLG17lHMEYl4AhMXvhAZ3pp/S9GtEol+O2vHK7b1aOXmlDsgnubHT4DHmK8vEcXH
- +pa4NrbdHs5d8Y1PEXKMbfLWvCd95nzISje/zhE83Tcz1EQVD4gPsOU/BQm5WgQYhpkWTbn1J2P
- oeBHCNuA/2CaiPF3NLg==
-X-Authority-Analysis: v=2.4 cv=S8/pBosP c=1 sm=1 tr=0 ts=6a953927 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Authority-Analysis: v=2.4 cv=Iskutr/g c=1 sm=1 tr=0 ts=6a95392f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=rXwVWE6-aGP_zC5-gXEA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX31819I7I2hFa
- IUrMMkcQ6g3xFWokEaSsoMNMR/Tam71yecwFyejisA6SkD0EIV5/oe+DFbbIb88EmrwBWPPBzjm
- xVQWeDYFsuZJd8yliNfdup/zqPZ5nzQ=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=ao9NmXljvuVdf-BuN7wA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: kjeToY33gbACDdLlA3Ov9JHqLH-YqvTV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfX6QYiXwyAw9LJ
+ uJoHz4TNnGUiv7l2mtB6pfU3YjcxaRnsCMZnTi2R9OKqhBe6mbO/sjYqCD5MNh56nAXv3Bv6ra6
+ 5QtR6XBlEh/HePyiEDPIiGYfK+Ol0Jiq7UsqsD0ED2Rj3sjdIGko60LMcB1qkx55YQxrxKcygrF
+ WM/AMlNyUuO3CGw5msRZgTCd/n1fw0TPSmpctuvAMuWoWaSnWwuusbgj2QAGg920OGlS9jLSri5
+ z9f6m6aK4zZVKK3rALxt4Vz4hfIBxFzy7XvUzaJ5WYoVmsd0sulPdJCInrmL5KJQ/SAp/ZAzNuM
+ C5yLYM+4hLNS7YzEt3ITCxuJ6YrbFayxjVcgn/qj8MokxGUaMveCxTNIwQGBxZBXsLC+2vk8iAZ
+ zAavxx/yz22PmDoaMeuoPctztpDwbREva3j2eg0qdtIWfMaux4A1AzifNaTb2QbP9oYKiqXnpvx
+ gxTONnjFhvo2+lJFT2g==
+X-Proofpoint-ORIG-GUID: kjeToY33gbACDdLlA3Ov9JHqLH-YqvTV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3MCBTYWx0ZWRfXxEo4adwQOTgl
+ 1PWLAVdiy5/owXIlj0DTmpdwS3QzsZGaL7Mx5VUqptnTNEtFZfzjAOYTEGBF1Bw/HiXkl7PuXF5
+ D2occDXI6IZJVnSE5TiCkDRjiMFkGBo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310070
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -160,93 +159,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Call drm_dp_mst_atomic_check() from msm_atomic_check() so MST-specific
-state, such as connector and topology changes, is validated as part of
-the atomic check.
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Hook the MST helpers into atomic_commit_setup() and
-atomic_commit_tail() to support non-blocking atomic commits for
-DisplayPort MST, and ensure MST commits properly wait for dependencies.
-
-For SST, non-blocking commits are already handled via commit_tail(),
-which waits for dependencies in the DRM core.
+The bridge detect function is only applicable for SST. In MST mode,
+connector detection is handled by MST bridges. Skip detection for the
+SST bridge when MST is active, matching the behavior of other DP MST
+implementations.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/msm_atomic.c | 14 +++++++++++++-
- drivers/gpu/drm/msm/msm_drv.h    |  1 +
- drivers/gpu/drm/msm/msm_kms.c    |  1 +
- 3 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index a8babf1dbe0d..e70e5088cfe5 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -4,6 +4,7 @@
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 22b925277462..f350c1d03b06 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -959,6 +959,10 @@ enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge,
+ 	priv = container_of(dp, struct msm_dp_display_private, msm_dp_display);
  
-+#include <drm/display/drm_dp_mst_helper.h>
- #include <drm/drm_atomic_uapi.h>
- #include <drm/drm_vblank.h>
- 
-@@ -207,7 +208,11 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
- 	if (ret)
- 		return ret;
- 
--	return drm_atomic_helper_check(dev, state);
-+	ret = drm_atomic_helper_check(dev, state);
-+	if (ret)
-+		return ret;
+ 	guard(mutex)(&priv->plugged_lock);
 +
-+	return drm_dp_mst_atomic_check(state);
- }
- 
- void msm_atomic_commit_tail(struct drm_atomic_commit *state)
-@@ -221,6 +226,8 @@ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
- 
- 	trace_msm_atomic_commit_tail_start(async, crtc_mask);
- 
-+	drm_dp_mst_atomic_wait_for_dependencies(state);
++	if (dp->mst_active)
++		return status;
 +
- 	kms->funcs->enable_commit(kms);
- 
- 	/*
-@@ -322,3 +329,8 @@ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
- 
- 	trace_msm_atomic_commit_tail_finish(async, crtc_mask);
- }
-+
-+int msm_atomic_commit_setup(struct drm_atomic_commit *state)
-+{
-+	return drm_dp_mst_atomic_setup_commit(state);
-+}
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index e9a7c9332707..fd0675797fd1 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -211,6 +211,7 @@ int msm_atomic_init_pending_timer(struct msm_pending_timer *timer,
- 		struct msm_kms *kms, int crtc_idx);
- void msm_atomic_destroy_pending_timer(struct msm_pending_timer *timer);
- void msm_atomic_commit_tail(struct drm_atomic_commit *state);
-+int msm_atomic_commit_setup(struct drm_atomic_commit *state);
- int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state);
- struct drm_atomic_commit *msm_atomic_state_alloc(struct drm_device *dev);
- 
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index e5d0ea629448..33ab30300e16 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -29,6 +29,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
- 
- static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
- 	.atomic_commit_tail = msm_atomic_commit_tail,
-+	.atomic_commit_setup = msm_atomic_commit_setup,
- };
- 
- static irqreturn_t msm_irq(int irq, void *arg)
+ 	ret = pm_runtime_resume_and_get(&dp->pdev->dev);
+ 	if (ret) {
+ 		DRM_ERROR("failed to pm_runtime_resume\n");
 
 -- 
 2.43.0
