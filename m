@@ -4,197 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BF2DC61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:21:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC03C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0B7510E322;
-	Mon, 31 Aug 2026 17:21:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFAE310E323;
+	Mon, 31 Aug 2026 17:25:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="KqQEJCf2";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="IGS6sDdu";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0FE410E322
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:21:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1788196892; x=1788801692; i=deller@gmx.de;
- bh=kPZTsyoSmtIH7Bh6d02s7nJ2LKgDbP77DS7VYIUAFNg=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=KqQEJCf2t6JQEsIK+OqpNlMdPvF99TvtprMZcvSQ8cPkwQd415CMq6SwzTEe/3uT
- HUW/2mRlJh83wiwdDLquFuzLFF7r3rR/Apkl7/HapITH7zcjzWY9dN+TRHlBThhZn
- APB7b2O8BLX++lEdf910Cu+81W5wE5vtZ+pE+9cKmvufp1G141GN6qgqKMqh0FHTW
- OvYRt/lNUR5uuY6bZhAddIphG6D26eZyKxEpc9ixtotgWZM8q0QDXjKitXWdLRt1+
- s2tyiHLRlDKJocbWU6IlCz6s7YmH76Asx1ssiUsPY5r81t352258mjkazNNnR+Rcb
- 3haWZ/Kd6kwJL9ZryA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MSKyI-1xTiPD3VSy-00Vzom; Mon, 31
- Aug 2026 19:21:32 +0200
-Message-ID: <ae1ae01a-677e-4c51-bf9a-ebe7b2e91e4f@gmx.de>
-Date: Mon, 31 Aug 2026 19:21:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: vt: Enlarge the framebuffer glyph size from 16 to 32 bits
-To: Alan Mackenzie <acm@muc.de>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
- <145be2e3-a8c0-4f4f-a701-af2696cec461@suse.de>
- <apGc4y8ApYWh4Yr4@MAC.fritz.box> <2026082938-spray-shimmer-9389@gregkh>
- <apLvO-8YJmQG7T0Z@MAC.fritz.box>
- <7c199c7f-d89b-48ca-a777-85585d2eb624@suse.de>
- <apWTg6mNZrdBm2-D@MAC.fritz.box>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <apWTg6mNZrdBm2-D@MAC.fritz.box>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022126.outbound.protection.outlook.com [52.101.96.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09BB410E323;
+ Mon, 31 Aug 2026 17:25:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iS1pWB9iZn9VaRK7eE34+vaBJwq5WOJicTdBel+xcdftjQXMikwTFyXg015SHrV4BecdEWrx7WSa+0tcsYpo7KPzlbKc1OKhi1+9FjMet9nmVE6OYWgjqjPPj0IWjF74xWdNVCCOcMof+yh+pZTqbPF6+UnsvQTZhtKNboZeDIakNH1niYx2cZr6i4epKc1la49w4fIjxaaK2uDvNzMxziFLqT2X5Nv5xImYqFizcJjUqFohAt4xxbqYWa0wpYKXhypT8pmnSliVwutKaLH37H6n4oN8Ah3MfMrQj9kUpUlUt0reX2m7RAx8vt+KOh6jOgWpaMCyhpPx3df7bsG2sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pKo7jitwcDUuYbyG1EceDSz1K36FdaWCgACR2ncRedY=;
+ b=BBvt9ky9lMECjYSgYpMALQx0H/7onPrM8CINGLkKY5rMQrQ/X54ab6qJXuuMqMqVgrXakDsuXF0W6MlRe4lfwWCXbIyrxFFHyyUCdzorSjVAF7n85vlP/PEYxr+aAU3cED++4AMXW5fLuF9TJ88Oz6zK288vKTMhvjktU/3RuBdMTWzz9H9gpa2fx7LVQW7IPFWe5szEoRrwCZIcMKIUpauR9ZjDzA2Lq1K0PwtnRVkYyKB80bVRw5nwbZy/rMtHTWssDxb8FzizXV2+rw4mwUllIqiqxmP0NXHI5RyZfm0570rBmMvXaWS5kpO8/f6y2kT438fxir9tm5h+Zrvnmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pKo7jitwcDUuYbyG1EceDSz1K36FdaWCgACR2ncRedY=;
+ b=IGS6sDduxuYEzWDIKJgv8BEp5pC5vhR67BinM1DDSi37+OE+KRWDLxfuEXF3zORqfy0ozYN1qMH8HuFs7lGaqwJQcswG3xuz6sQycFCVXLgww1s4hAa0SJs6sG+0ef6irhKH0IF3VaaOjsprDTO+0wI7KoDezXbxSoqFe33N7YM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB2481.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:90::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 17:25:03 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 17:25:02 +0000
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:MCDte+8136bcbBp5B9LwPvLuGJftDptkVyGyOfL4WgqJf2fza7+
- pSbjUXDKGDoN96QndG/fLTN/JoHgiDiOkDl5Vf3ahhZSi8jBz9PfmW0UYvmIYgrg3eRl/RZ
- 9hiAjY1k17cSRg7eNOPy5cneMsFNPt6ZaZpM5VI98DFd8yqGkoQimiUKG2jopb4g5AFtU3z
- PKJojAzfU1HdZsWvYtwhw==
-UI-OutboundReport: notjunk:1;M01:P0:XMfjuN92Y/Q=;B7JNJlqrp7OwOkOhi9MCEL6+t3E
- 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
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 18:25:02 +0100
+Message-Id: <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+X-Mailer: aerc 0.22.0
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+ <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+ <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+In-Reply-To: <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+X-ClientProxiedBy: LO6P123CA0033.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2fe::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB2481:EE_
+X-MS-Office365-Filtering-Correlation-Id: a092d639-4243-4429-865b-08df0784cabd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|22082099003|18002099003|56012099006|6133799003|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: Asm2ahvwIFGwGz9FxaeKVtMbBPdOQISXeRVG92VlJG8ZTQsqe4xQ24sg99H+CjxKtUITvsCRDmm+s2KY56X1NdR00D4L47rzNrzKvL82/XgrloqnpDzSPx8dwbvSt8BlUzARcHt6CRrwl0JaGAij6zJR0HNKQ1xyzJTFKrsCXHVn42Y7ClmThaxbd4sJYZ5q2/fN1G9rRRwd0uqXrkjVt1TGdkLEl4IJggRDIv2X6wLcD8fNPEEAFsG+YT5zd/r52kZ4HqWjbzeNf8Z/rTXp0MAd1vf4ffhFDHPLZfidOYy2Q2LW/4Gecwb9H+WjQ6Bf6KQONMDEebt94eO4+vPv+Aupe6lSnEGN1ukw3qa7Td4G84GT33kvgpy4Jlm3WAzJD/Wtu3qyNxUymvt7nH1REnSNf4ebVDmon+w6c/LiTY4/eARlPJA9XzDEZdz1giScGsnKHINNaq8glEWZD4BNtc9lNqcxBxl2kokY5XZNo54th7h7kA+HESWwU+cUCltTedf3FJqGT95hNIFeLmJCAn/9I5/cRIE15MbtJMo93JCf3JajmvbXJRvSNZpBdXWO8q0h0OPBdd/u/1CXxBcwngkkHuuePGaePT0aT5k8ii/7e2zoqcYeYOqHf3zQEEu0fwLmq5pANIqW4itnyY8wOPgBskjjZySjbgeN3g7pdik=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(6133799003)(4143699003)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Snp4SCtDYlRIVUM2bzRKczluaVZlK3pjMWRaTnFkb3hEL2FRNUVMTlFUZkVr?=
+ =?utf-8?B?dmxpMmRENXc0UWZ4Qi9QdTlzOURObHZJUGFBcnIvb1pacVZUSkU3T2VjTDBN?=
+ =?utf-8?B?ZzQ0R083SThFUHI4cmtqamhzTmxUSXZrY3d6NGVZMW1odmtvS3p1SXlKVE81?=
+ =?utf-8?B?cWsrWGkvMS9hYlp6blpYMGt0aW00QmpjM0h6KzRYNzFsTlpxN3A5T0VqQThM?=
+ =?utf-8?B?U3M0aG01QndXZmVpbTJjMmN4SEw2bmtLSWRPVytkaVZFV1VBdHB2cXpjVEE5?=
+ =?utf-8?B?V2ZSZ1FldGFIVDQrQkl1VVFPbDVPVUtUZ2ZmK1RvZ052WC9qMW9ZLy92SmZO?=
+ =?utf-8?B?MVZ2enVCZktHQ0F4SndJbmNTVzE2SEhIbzl0OUNPUnhHaWNMVnRuV003bzhl?=
+ =?utf-8?B?UkFYKzdpWDQrcnBuZVlYVFdJc3RSQzQyOUxLNFlOeEhYNjRMTWRZTmRFVytG?=
+ =?utf-8?B?UllBL0I1aHNHWkxVLzFXVjFTZVpnc3Ryb0kwZVN1Y2NBeE5KRERka1dsa0VX?=
+ =?utf-8?B?YXFTV1ZRWFNwMko4Y0ozbFZYK05TNUwwbEdYR0FLcFlNVmxiaHJTTmdJZWhq?=
+ =?utf-8?B?NHVyOTVPS0xXcm1BRk9EbytoY1BDcmtzVEZwQUVCQ29MeGQ4SnphWTV4U2p2?=
+ =?utf-8?B?V05PRDRXTVh6SzdzL3UvcE05M1A4b1o4bGFXa0FxUDFZVEI3bFFlUWg2NjNv?=
+ =?utf-8?B?Z25XWTRacy93MjR0NEd6VTgrYWIvWmF6SDZkbEpqV05qRm1QdmU4ODRJZjhq?=
+ =?utf-8?B?QnBSMklSK0hmZnkxeVBHVTZjR1JXOEsxb2xEbnQxcnJtQzNZb05vWmI2NGtn?=
+ =?utf-8?B?ZDdzby9kMDJTM00zbGRaSnFwZ3lXMVNoM2RWSVUrcU9VOUJ2aUNGclZ5V3Fy?=
+ =?utf-8?B?cU5ha1AzRXZKdFJudjBjQXIxTXpvTkVoMEh5eEM4Y1dZcUFwZmEzQjlrMGhW?=
+ =?utf-8?B?WUpzU0hYZHpDeWlFRWJjOVJDbWVoSjJQTGNreEViWis2UkpkSXJ3dXhEc2RU?=
+ =?utf-8?B?akVDS0ZHVDVBTkllcHFaTXBJMkdaVDJvYjVSZmQ3cytvVFUvNmNWcCt0a0RF?=
+ =?utf-8?B?RFNmWVVEcTlIanVzM250QWg5RGZaTXhkSFkxcGtrbVZuVHUvMThqK1A3aFRZ?=
+ =?utf-8?B?WkozRjdaV0xVMXVsSFJzTFRrNzV0U1RBYnhKUFR4RWNOQUdHN3JUZ3F2ZjJn?=
+ =?utf-8?B?bzcyeUFKaTg0eElLRU5BdkI2blFQU0xYSDhScmhUYUZkZkVnaUlicTdteHFC?=
+ =?utf-8?B?Z2hHcC9TendYV3JyOUFma2x3MGliSmRPeXFhU1JwTElPS0VRSVA2OTdUWnlz?=
+ =?utf-8?B?UGZzMDNVNVg2d0pHRXFXdlNWZHB0TU1RdmN4NFVlTHp4Q2cyb0twWThHb2dq?=
+ =?utf-8?B?NXhqS1g5V0Y1UjU2Uno1L1ZtenYrbE95VG5UaWZNS09GNFdSZDl3aTRrUkRy?=
+ =?utf-8?B?dHpGR1Q0VGV3MGdhVll1WGIxamMvbGlnSENmaVdJZWNvS0lFNVdWeWxGN2FB?=
+ =?utf-8?B?L1hFMkthMFdLVVNSU3o0VHBhN2lOSmR2aTRsUk54MkNIWWdsV2tnMXZqelVn?=
+ =?utf-8?B?eVFoQ3NaV1lNZ1hreUp6N1pFOWVzcGh1MGE5Z2VFeGVnd21jYmdadjhmcHBn?=
+ =?utf-8?B?a3ZFV0RkTTc1OVB6b05MYUUxVEJmUHo5SFRyVDQ1c1JjY0JxTmtCWmttVk5j?=
+ =?utf-8?B?UDNMT0Zzb0plTlhRVjQ3OTRCQ1R4V3A1UUtyN2R6dlFGSSs5TVpmWVplMWc2?=
+ =?utf-8?B?YUZVdWw3c1hmRklyMzdEV0E2cGkrckJ6UzJyRXRQR29rNC9OSWpsalB5ODJ5?=
+ =?utf-8?B?aE85SnU5emg1bEJMeDdTVENDMzlNT0NtYm16SVpqWEpqaDBRaTMxVk84SjBm?=
+ =?utf-8?B?QlRhZitMVFg5Wmx2MkpEU0dNMGlvMDEvNG9xS2FqcUdiNHkzUVUrL04xWXE2?=
+ =?utf-8?B?UWJmYXJrczZEN0tIcjdHdmhSTUFUZzh6dVNUdDFvWHVxbVVvbHllTHVsb1di?=
+ =?utf-8?B?ZG9PRFh0R0ZWZlNwRVlzWXY0YTArM3FDNHVCaVdDMFBsMWNtMldJdjROcmxD?=
+ =?utf-8?B?dnZyT0FLeFZ6a2k4STZ4NmJHYWlBcC8xem1GYk1Vc0lKSWZYUEF1VDlyWWxz?=
+ =?utf-8?B?R3ZLWm5qVzNZQW1pL1VqQkNKWENaWXNFU1A0QlFPVGpnN1lyai8rMmJUYzZs?=
+ =?utf-8?B?MFVJeEs5dUcveGZIU2FJeTVlRWFCWjdSRVBmSnM5dDB4b1FkeHhmMWxVWmlV?=
+ =?utf-8?B?Wlc2RmFNSktYdFErMVovcE8zYmlaelVPZjFwOXlMbWxlY2wrMUV6b3BVc1ky?=
+ =?utf-8?B?NXlsYlpsbng3a1ZRbzc4UEJlbmtFN21YQmxkdFg5NmJEMHRFTU45dz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: a092d639-4243-4429-865b-08df0784cabd
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:25:02.9447 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mx12oUHSWgR+WDaMz/k9lZELtfwSfaZas67+fIaY4C3Uq7ZFD22Gj0AbViJiVcPLjL7uDkHurd+nsK+m/WjUVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2481
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -210,69 +146,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/31/26 16:45, Alan Mackenzie wrote:
-> On Mon, Aug 31, 2026 at 08:20:10 +0200, Thomas Zimmermann wrote:
->> Am 29.08.26 um 16:39 schrieb Alan Mackenzie:
->>>> This has nothing to do with KDE or Gnome, if you have issues with tho=
-se
->>>> projects, please take it up with them and contribute to them to resol=
-ve
->>>> those issues.  I know they can always use the help.
->=20
->>> My point is that the kernel's console is rock solid and dependable.
->=20
->> That is a bold statement.
->=20
-> I've been using the console for around 28 years, now.  I don't recall it
-> crashing at all.  My current font and keyboard files are in exactly the
-> same form as they were 28 years ago.  These formats are stable and
-> dependable.
->=20
->> I've spend the last years working on related code (fbcon) and it
->> mostly feels dated and unmaintained. Our prime implementation (again
->> fbcon) has been de-facto unmaintained for years.  We recently had
->> contributors who are pushing the ioctls semantics and found bugs in
->> fbcon for a number of corner cases.
->=20
-> Something like:
->=20
-> commit ef7656e85f1a4400999625cd398b655517368e7e
-> Author: Zizhi Wo <wozizhi@huawei.com>
-> Date:   Wed Jul 29 10:12:04 2026 +0800
->=20
->      fbdev: Fix out-of-bounds access when rotating console after font re=
-size
->=20
->>> Things like kmscon are subject to the vagaries of fashion.
->=20
->>>>> As is clear, I think the console's limitations should be eliminated.
->=20
->>>> And the rest of us feel the kernel console's code should be eliminate=
-d
->>>> entirely, when ever possible :)
->=20
->>> The rest of you don't appear to be console users.  It's easy to advoca=
-te
->>> for removal when you don't use it yourself.
->=20
->> FTR I'm not at all interested in eliminating the kernel's console.
->=20
-> Other people, in particular Greg KH, have said this is the current aim.
-> I'm worried for myself.  It is far from clear that there is a suitable
-> replacement for the kernel's console, and its elimination could easily
-> happen without that replacement.  I suppose I could always (laboriously)
-> maintain the console for myself personally.  Or there's always the BSDs.
-> I just don't know what I'd do.
+On Tue Aug 25, 2026 at 1:38 AM BST, Eliot Courtney wrote:
+> On Mon Aug 24, 2026 at 10:07 PM JST, Gary Guo wrote:
+>> On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+>>> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>>>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<'=
+_>, command: M) -> Result
+>>>>>>              dst.header.length(),
+>>>>>>          );
+>>>>>> =20
+>>>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_wri=
+te_ptr` write after data write.
+>>>>>> +        dma_mb(Write);
+>>>>>> +
+>>>>>
+>>>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>>>>
+>>>> I think it's more clear to consider `advance_cpu_write_ptr` to just be=
+ the
+>>>> pointer increment, and the ordering should be visible in code that per=
+forms both
+>>>> memory ops.
+>>>
+>>> In the second patch, it looks like you're adding the memory barrier
+>>> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly i=
+n
+>>> the code advancing the pointer and one not, which seems asymmetric. I
+>>> think it's less error prone to put the barrier in the function so it
+>>> can't be misused (and we already have evidence the barriers are easy to
+>>> get wrong, since this code was already broken).
+>>
+>> In the second one `message.header.length()` is read, so if I move the ba=
+rrier to
+>> before the advance it'll be incorrect.
+>>
+>> Best,
+>> Gary
+>
+> Yerp I mean move the barrier into `advance_cpu_write_ptr` not move the
+> barrier out of `advance_cpu_read_ptr` - I agree that'd be incorrect. On
+> clearness, it feels very odd to me to have these two functions
+> (advance_cpu_read_ptr, advance_cpu_write_ptr) where one controls the
+> memory barrier and one doesn't, purely based off the structure of the
+> callers. And I still think it's less error prone (for future changes) to
+> do it this way too.
 
-Alan, I really appreciate your efforts to enhance the kernel console code!
-And I'm not interested to eliminate the kernel console either.
+Frankly I don't like the asymmetry that the advancing code does the barrier=
+,
+while the pointer reading code doesn't have the barrier. However, if we mov=
+e the
+barrier to the pointer read function, then the `driver_write_area_size` wou=
+ld
+gain a unnecessary barrier. (Actually, `driver_read_area` code have a simil=
+ar
+issue, a failed pool would execute an unnecessary barrier).
 
->> But there are must-have features and nice-to-have features. IMHO for
->> the kernel console i18n really belongs in the later category.
->=20
-> It's 2026, four decades after VGA was the latest thing, and Unicode
-> support is merely a nice-to-have?
-No. IMHO Unicode support would be great.
+As an alternative to move the barrier into the advancing code, alternativel=
+y we
+can pull the `message.header.length()` to a separate line instead.
 
-Thanks!
-Helge
+I think we should either always have barrier inside the pointer read/update
+code, or always on the user side. Given the former would mean unnecessary
+barriers, I am erring on the latter.
+
+Best,
+Gary
