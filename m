@@ -4,82 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C672C624C2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE273C624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E402E10E6C9;
-	Mon, 31 Aug 2026 08:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9F8210E6DC;
+	Mon, 31 Aug 2026 08:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="i8pDxd1H";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="QlY/tOo5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="egHvMJhs";
 	dkim-atps=neutral
-Received: from flow-a4-smtp.messagingengine.com
- (flow-a4-smtp.messagingengine.com [103.168.172.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58ADD10E6C9
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:04:01 +0000 (UTC)
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
- by mailflow.phl.internal (Postfix) with ESMTP id 92CB913801BC;
- Mon, 31 Aug 2026 04:04:00 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Mon, 31 Aug 2026 04:04:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1788163440; x=
- 1788170640; bh=dsm6f3Hxa7PpHhgY5bQojBV20QvcNEc71Hr3FPczx/I=; b=i
- 8pDxd1H9p4sPqg1LpBCk0Iz+0xp0HKMnWRFpHneiHzFnYA3NCDAzJui98T0Ml6BQ
- benoAGopiekaPlMg4Xgx+CAJ+8aX8lzS7rnylzwUoAx/FgOOrMCVM+tt9q5/sFU3
- mudHRvWr5K+BWIqDH5zy0xWwnHVes1aA41T6LDdnMfmF53f0b4iNBRbn01tGpbMC
- K4jrwXyJBn/odopMUQ/QDX0Jx1yEoC/5goSUeRoCOamvGdebyi5H84nZQn+Br3o2
- ABxyDgeeY5rb+vlbwfQC7wxDAKBL1c5gDJVBU9e8GthZo12u6uZO+an74licoDcS
- Y3jL0UkxANKLQLxMC7mSw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1788163440; x=1788170640; bh=d
- sm6f3Hxa7PpHhgY5bQojBV20QvcNEc71Hr3FPczx/I=; b=QlY/tOo5t3KyH//Ws
- fc6w6Vgo98chiQEhxCvp1kHIzWJz9Cg/DWLHrvpwtphvx6owqSnO/SF4HAGgW1Zx
- tUB4LmstVpsVGw9Fdv8x4jfODvP38FbRdOCgWoPW1z4PRFpoNtNgCoD+XQLuQH2v
- /9jagtf1BHVmjMdfTX0eM+owMvF6gN3UZtER2hM9Ux84hSExjkILE8MOu77ie+Xl
- FGn/x5+5yIuaWmjUsY5tFtt+mh7+vS9Apm0fz0D9wM5HIOFPc6gLIESpv43iXZqh
- K9F9x4ZAnGf6BZ++8WRdeeNGU2nRTnCKOOTWSOxnwzlS6wl/ZFddYD+0qr/Z25YV
- RYQRw==
-X-ME-Sender: <xms:cDWVav3NXM7fMXdFslDuDnS5n5tjYROIrMEflys0hYOo5UARqajlfg>
- <xme:cDWVavkscg-J-nZaIUSGgCfFS-UDvGQ4yUuu_gN9jvJKwHkmBrfh6i7NHdSdqvosn
- mayEoddNDa4nktfmZQ0jM7rqOUIdAJIWyXOh9uuo0cG7vghwKE2_g19>
-X-ME-Received: <xmr:cDWVav-YpsD0b78i10ClPThYDLVTIO7OmzG4LZuvXg093tnRpJpi0hglhS8DGq85sJdISgDDVw>
-X-ME-Proxy-Cause: dmFkZTGwK3R3O+pasDkxiLW1+1sO0SHZLL84GGOeroV06YjTGYyTwjk/GX5FoCR4WIE529
- YYNMm/aeKdHa7ig/EFLlnKNGRRbGtPW+g5WVUxWB47OWDpPu+oupOoLBSW2GysuIx9C7xM
- e+uY1B6gA0ScorGB3Ybd1esKEbEUBBUREQ6BiCEG85SYPu38dLDkfC8i1FkeJuvkfTHoQr
- QmNkkKNwTs4k4uxzYqFCPW0cPiAgcVI29YS9Gxb9iSk2csLJ4ixadk+Ytyk9TC689PySGx
- aIn46hYKQ447LVHHtzJnwe5jsjSlt26Uwkc8WlQ7N/+GDiUndN+ku1G3r2vrcKI7ns9SFL
- rRAIV9idI8m/6Z+WjqRfbG7D13CkIqsqPz74DN2HBuhPzDC7aMBrFfb/pDfR0sbVyJROIj
- vnNjW0PafJrKTfkiwrdQm8EIzGIUxpJQBznrGxIWbgwk/k9PIO/mrAzYVLCB1jCuLiDuGw
- uOe7vI1E64dctkEXUvj5Cv6ncTmdPnneT6PFYRGgYNfDKI04m5HNigJ1j4LqavHky6gBRM
- ngNkzy1NpdqBSvR47cVEjzz1u9wZ3cBkNO61iOyLWNIoLjt0/1f1Y+0iKziCrBUUsMK471
- oMQ0/xUvenSPPJ/zWQpEEhzFTTq0++Rb9/pXlu7POyo3DVW+MGfisld+KOvQ
-X-ME-Proxy: <xmx:cDWVakqYdOWUja6sj_4HFdjPLCOI824KVTdGdwoFSXW8LVjrRDfI7g>
- <xmx:cDWVaomb6FlJzwXzVZKRcqeaFezE9I2mqblQ6DTXH_2rUasE0jNY2w>
- <xmx:cDWVariQhGu70IwKtbN9HBWRQ-cNxFjI59S5YyiUOtE8AUJYj_kUBg>
- <xmx:cDWVagdJ2iOl5RWoVaViCdzJdbxy50yqpluRyhdFwoVW8rAvs7P46w>
- <xmx:cDWVapNG5VDOdD7xZb__4N6jYh_tra-9AqUx7GmJTaICW_TBn74xLvu1>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 04:03:58 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
- tomeu@tomeuvizoso.net
-Subject: Re: [PATCH v2] accel/rocket: request the core clocks by name
-Date: Mon, 31 Aug 2026 20:03:56 +1200
-Message-ID: <20260831080356.80952-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260729130743.128876-1-royalnet026@gmail.com>
-References: <20260729130743.128876-1-royalnet026@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F5A10E6DB;
+ Mon, 31 Aug 2026 08:04:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788163480; x=1819699480;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=Cl5NpPOdLVHO5bVj8nYOLe43QlryP/1zjbbrcAoNYp0=;
+ b=egHvMJhsaPUTUCfsGpl4BSkpKNXqAnze1Z10phc2EsNIFQEpQI9coEOy
+ UoCwOKtW1hHm0qol6sYVWajBZ7m8cJDiZy+Uy3J46Tre71any+mMbE42s
+ /k9pvJ94IFKZratDJkCFux0k+tHOL34YkFpx8LwQrpAKVdPt8vmTpjqng
+ xXf7nWqeaJjHa+HNXicdZYD32LqEYv00hjcMw2bhuG491tDwyhjlYHIE+
+ 8IRCVN8kr6nyGAZfOeWjp/OMbtYyS8/ZlmaAL6Jc+YM5QCSGdfEfXYiAF
+ sjMniRelrR2YT/+jZVlzZ94fgOoN8CpmG+1BrqaxYjCglvnMuFvgGGszh g==;
+X-CSE-ConnectionGUID: BfJEniWISIqBZlIVmVoa0Q==
+X-CSE-MsgGUID: BX0a+lpkQrK5lFhR7bUNCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92251007"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="92251007"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 01:04:39 -0700
+X-CSE-ConnectionGUID: VH6q6OATRrSq7aC9al69eg==
+X-CSE-MsgGUID: mAIosUkXSSavDVXXFTNttQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="268171932"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.22])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 01:04:36 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ krzysztof.karas@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915: Guard against NULL driver_data in
+ i915_pci_probe()
+In-Reply-To: <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260813064902.367504-1-kartikey406@gmail.com>
+ <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
+Date: Mon, 31 Aug 2026 11:04:33 +0300
+Message-ID: <79e8a3d71ca0e2cb7274aa1e5e053f934bc88333@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,19 +78,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+On Sun, 30 Aug 2026, Deepanshu Kartikey <kartikey406@gmail.com> wrote:
+> On Thu, Aug 13, 2026 at 12:19=E2=80=AFPM Deepanshu Kartikey
+> <kartikey406@gmail.com> wrote:
+>>
+>> pci_match_device() can return the dummy pci_device_id_any entry
+>> when a device is force-bound via sysfs driver_override, in which
+>> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+>> struct intel_device_info * unconditionally and dereferences
+>> intel_info->require_force_probe, causing a NULL-ptr-deref.
+>>
+>> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
+>> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+>> ---
+>> v2: Drop Fixes tag, this isn't a regression from a single commit -
+>>     the unconditional dereference of ->driver_data has always assumed
+>>     it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
+>>     broken by the generic driver_override fallback path, not by any
+>>     i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
+>> ---
+>>  drivers/gpu/drm/i915/i915_pci.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915=
+_pci.c
+>> index 82415af47d54..2f03f95945f1 100644
+>> --- a/drivers/gpu/drm/i915/i915_pci.c
+>> +++ b/drivers/gpu/drm/i915/i915_pci.c
+>> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, cons=
+t struct pci_device_id *ent)
+>>                 (struct intel_device_info *) ent->driver_data;
+>>         int err;
+>>
+>> +       if (!intel_info)
+>> +               return -ENODEV;
+>> +
+>>         if (intel_info->require_force_probe && !id_forced(pdev->device))=
+ {
+>>                 dev_info(&pdev->dev,
+>>                          "Your graphics device %04x is not properly supp=
+orted by i915 in this\n"
+>> --
+>> 2.43.0
+>>
+>
+> Gente Reminder. Let me know the status of this patch .
 
-Heads up before you see this patch arrive as 01/14 of my series.
+Sorry about the delay. Thanks for the patch, pushed to drm-intel-next.
 
-Tomeu asked for it on the v10 cover:
+BR,
+Jani.
 
-  "Sashiko is not reviewing this series because it doesn't not understand
-   yet prerequisite-patch-id. Can you please resubmit the series with
-   Igor's (presumably) patches bundled in it?"
+>
+> Thanks
+>
+> Deepanshu
 
-So v11 carries it as 01/14. Unchanged, under your name, your Signed-off-by
-first and mine underneath as the person passing it on, with the four tags
-it has collected.
-
-Regards,
-Jiaxing
+--=20
+Jani Nikula, Intel
