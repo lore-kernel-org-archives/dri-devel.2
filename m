@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB604C61DFD
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 19:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A984FC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 19:51:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08B9C10EAD7;
-	Mon, 31 Aug 2026 19:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9A7710E335;
+	Mon, 31 Aug 2026 19:51:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oj2anrYo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J7dpCfsj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0937110EAD7
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 19:47:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34DDF10E335
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 19:51:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9217640176
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 19:47:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B6541F000E9;
- Mon, 31 Aug 2026 19:47:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F12BE40092;
+ Mon, 31 Aug 2026 19:51:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3EB1F000E9;
+ Mon, 31 Aug 2026 19:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788205620;
- bh=7Nzrz12Dk312Vwut8KJhIVYBVv/rTDzLRKOO6R6+mhM=;
+ s=k20260515; t=1788205904;
+ bh=2QDoFRig95mN7D8YIqFFbYg3cWP3JhPIxfOl693vh/w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Oj2anrYorXLp8JJS0nQXpq1nS8LyzAdh5Ok6LCgtH/x57ybX6HezbfN+AbFpss8GY
- AitMKmSck/ADjfNaKqJ3Piw7SW06S/yqIHL06t2+scAeVPVSSz+6qSO6RVh/yiJxKO
- Q1w7dL2DZR+1e4l8k75TqXeSvs/JyAEkxR1orpVT1L7LLVPme9TvJPfnIJB8wH7Whl
- k0bzN3XlkZaPhZEu8s548KuzeFig77fZK9/kB9xbzlq4NnOpCwJOCrBGjUvBtBahnG
- Xk7k6ZX+syLmhKFLPp9loY3WI12DCNbVfgGFiwARS/u7ZkIHyt+ov2ACl33fHqKGvq
- ppBiJhw6nunYA==
+ b=J7dpCfsj4oz/RqgYdv5eaFAY6NErYBMLceAfD0KiroKznaYnlrX4liG2BYl1nkk11
+ ROXUGH8rLz04x4fl1IUHg9XuF+yUlo1tpN/SiHtsfkZfgbp4CVrjAXDFciywCdJpks
+ eUzZ57clhoTcAk3UBmhMPWwsIl+X/ttlw+3H5qRPun5RnhB7F1iRIoG/bu6KgCprwE
+ 7Kj1h675odXjpdXjOR2cgDF97dyg8o0hQGLGJGXL4cYOjeYipiW0yeTlLFbQlVe2s4
+ ZpgGlExaWlPWyr4wna0a2iZLHtZP0w8Rx7tDkIPm1bM90VcIHPQVZF5PnwaMmi9T7s
+ eP8jPOdtpCEwA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/13] drm/tilcdc: Switch to
- drm_atomic_helper_crtc_create_state
-To: "Maxime Ripard" <mripard@kernel.org>
+Subject: Re: [PATCH v3 10/13] drm/bridge: tc358767: select DRM_PANEL_BRIDGE
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-5-4500d49a337f@kernel.org>
-References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
- <20260831-drm-no-more-crtc-reset-v2-5-4500d49a337f@kernel.org>
+In-Reply-To: <20260831-drm-bridge-drm_panel-cleanup-v3-10-50efd8168b3e@bootlin.com>
+References: <20260831-drm-bridge-drm_panel-cleanup-v3-0-50efd8168b3e@bootlin.com>
+ <20260831-drm-bridge-drm_panel-cleanup-v3-10-50efd8168b3e@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 19:46:59 +0000
-Message-Id: <20260831194700.4B6541F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 19:51:44 +0000
+Message-Id: <20260831195144.BF3EB1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +59,43 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unconditional dereference of potentially NULL crtc->helper_private=
- pointer when checking for the hw_reset hook.
+- [Medium] The commit message inaccurately claims the driver uses `devm_drm=
+_of_get_bridge()`, but it actually uses `devm_drm_panel_bridge_add()`.
 --
 
-commit 64d66423bd9e9cda8a92c70fb8fec4016d121ea0
-Author: Maxime Ripard <mripard@kernel.org>
+commit fba43756aa0937775cb42a2908c1424721d95003
+Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm/tilcdc: Switch to drm_atomic_helper_crtc_create_state
+drm/bridge: tc358767: select DRM_PANEL_BRIDGE
 
-The tilcdc crtc implementation uses the deprecated
-drm_atomic_helper_crtc_reset() as its reset hook.
+This commit adds the DRM_PANEL_BRIDGE select to the DRM_TOSHIBA_TC358767
+Kconfig entry. The commit message justifies this by stating the driver uses
+a specific bridge function.
 
-Switch to drm_atomic_helper_crtc_create_state() instead.
+> This driver uses devm_drm_of_get_bridge(), which is enabled by
+> DRM_PANEL_BRIDGE.
 
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcd=
-c/tilcdc_crtc.c
-> index b299d73ce3856..f619b7a6e70d9 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> @@ -714,7 +714,7 @@ static void tilcdc_crtc_hw_reset(struct drm_crtc *crt=
-c)
->  static const struct drm_crtc_funcs tilcdc_crtc_funcs =3D {
->  	.set_config     =3D drm_atomic_helper_set_config,
->  	.page_flip      =3D drm_atomic_helper_page_flip,
-> -	.reset		=3D drm_atomic_helper_crtc_reset,
-> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
+[Severity: Medium]
+Is the function name in the commit message accurate?
 
-[Severity: High]
-Does this change expose a NULL pointer dereference in the core DRM API?
+Looking at drivers/gpu/drm/bridge/tc358767.c, the driver doesn't seem to
+call devm_drm_of_get_bridge(). Instead, it calls devm_drm_panel_bridge_add()
+in tc_probe_dpi_bridge_endpoint():
 
-By switching to .atomic_create_state, drm_mode_config_reset() will now call
-drm_mode_config_crtc_reset_with_create_state() during driver probe or
-system resume.
+    bridge =3D devm_drm_panel_bridge_add(dev, panel);
 
-Looking at drm_mode_config_crtc_reset_with_create_state() in
-drivers/gpu/drm/drm_mode_config.c:
+And similarly in tc_probe_edp_bridge_endpoint():
 
-drm_mode_config_crtc_reset_with_create_state() {
-	const struct drm_crtc_helper_funcs *crtc_funcs =3D crtc->helper_private;
-	...
-	if (crtc_funcs->hw_reset)
-		crtc_funcs->hw_reset(crtc);
+    panel_bridge =3D devm_drm_panel_bridge_add(dev, panel);
 
-	return 0;
-}
+Since devm_drm_panel_bridge_add() is also provided by CONFIG_DRM_PANEL_BRID=
+GE
+(as defined in include/drm/drm_bridge.h), the Kconfig change itself appears
+correct, but the commit message reasoning might be slightly off.
 
-The crtc_funcs pointer is dereferenced here without a preceding NULL guard.=
-=20
-If a driver does not use CRTC helpers, crtc->helper_private will be NULL.=20
-Wouldn't this unconditional dereference to check for hw_reset lead to a=20
-crash for any driver leaving helper_private unpopulated?
-
->  	.atomic_duplicate_state =3D drm_atomic_helper_crtc_duplicate_state,
->  	.atomic_destroy_state =3D drm_atomic_helper_crtc_destroy_state,
->  	.enable_vblank	=3D tilcdc_crtc_enable_vblank,
->  	.disable_vblank	=3D tilcdc_crtc_disable_vblank,
->  };
+Could the commit message be updated to mention devm_drm_panel_bridge_add()
+instead of devm_drm_of_get_bridge()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-drm-no-mor=
-e-crtc-reset-v2-0-4500d49a337f@kernel.org?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-drm-bridge=
+-drm_panel-cleanup-v3-0-50efd8168b3e@bootlin.com?part=3D10
