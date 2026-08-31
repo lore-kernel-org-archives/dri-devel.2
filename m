@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77701C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:51:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 094A9C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0A27898A4;
-	Mon, 31 Aug 2026 16:51:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31EF810E248;
+	Mon, 31 Aug 2026 16:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DzaOkmhP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eG/8CpB0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0B43898A4
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:51:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5594B10E248
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:54:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C67CA60120
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:51:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2AC1F000E9;
- Mon, 31 Aug 2026 16:51:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 08A6341831
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:54:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB5091F00A3D;
+ Mon, 31 Aug 2026 16:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788195093;
- bh=BJUp6e5sVHJ9iSV7I2ckO+GzS808TS6mrnE4weziDcc=;
+ s=k20260515; t=1788195280;
+ bh=0LLhpWCxBpPg1D5mTW6OFIbv9Qj2mRsv00bLjDLuWHc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DzaOkmhPb+naPiMkU5CVBr4UNPwU2M/vU8+ojfK0uhBNi6a7WYZU/2W1cZm1LA9es
- HGvWPg634ZVJcmsGsMl69ttOme/yql5p8MOK8CUTZn56Jrs+E+r93hRMy3uYKU0dJ7
- ouPNAcuRAAJnvn72fjRsCnElhUECJ20FsOv8BcA0V3HRt1OMCQTj3RnxKkteDKURVM
- m9bWVqEqyQPpCScAFjV4D5Hw21DA5AxHgXKW9EKTdvfTztTKFctsJOm4N2N94CRqsF
- ljcpuHVAbwcj4Y6rwI/l7YtfcE2Ahn2kY5JN3I19CQm/5VWoabj3K+GqUElEZAQ7Pb
- HvpHEsFDoyxFQ==
+ b=eG/8CpB0JymVjT5RhYFri2584CA3/xHsmsyjQjq8/8GgExk2RIR1q7ZHKTAR4IO03
+ 71b2ogVhFEr4mMTj9YaFatEcXIjTCY4+CLUmp9XMFFowkDGnnyK4YI6nH66IcBU8ba
+ bzqrZtYwukTep9XzrjUUJXesSWhtXIznuvhH+xppdOiH/M0tLY7DHypQcxL5aprKTW
+ jRycnxqeSqG7Zb8I7yjeeOI8VPsIojObQ7Kw9JZF850rVMbVx3thb2soVwEBb5uojX
+ aeq/JfzB79Ho/S6pSkfA83MNb3PoQBjszZCEeGnNFPPicWE4QMh8qJdZONdgcdDquC
+ hJqG38aDCe+Cg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/amd/pm: Check SMUv13.0.6/12
- metrics integrity
+Subject: Re: [PATCH AUTOSEL 6.18] drm/amdkfd: fix SMI event cross-process
+ information leak
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-482-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-514-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-482-sashal@kernel.org>
+ <20260831133314.4125787-514-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 16:51:32 +0000
-Message-Id: <20260831165133.5F2AC1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 16:54:40 +0000
+Message-Id: <20260831165440.CB5091F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,103 +61,125 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] The patch corrupts the metrics cache on failure by overwriting it =
-with poisoned data without invalidating the cache timestamp, allowing subse=
-quent callers to read poisoned data as valid.
-
 Pre-existing issues:
-- [High] The return value of `smu_v13_0_6_setup_driver_pptable()` is ignore=
-d, which can lead to zero-initialized clock frequencies being used as valid=
- DPM levels if the metrics table fetch fails.
+- [High] Kernel panic due to NULL pointer dereferences in amdgpu_vm_get_tas=
+k_info_vm() and amdgpu_vm_fini() when vm->task_info allocation fails.
+- [High] Potential Use-After-Free of amdgpu_vm in amdgpu_vm_get_task_info_p=
+asid.
 --
 
-commit 6701a9c70e1205aa9e17d45906aef05c0bfc8e8f
-Author: Lijo Lazar <lijo.lazar@amd.com>
+commit ac56a0fa84d860ce75aeb92f4bc1e57cf68cb0d2
+Author: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
-    drm/amd/pm: Check SMUv13.0.6/12 metrics integrity
-   =20
-    Check if data fetch is proper by matching the first few bytes against
-    0xFFs. If 0xFFs, that means data couldn't be read properly.
-   =20
-    [ Upstream commit 6fc63d80c01a480e3d2c98620f07d46e5bcfc85a ]
+drm/amdkfd: fix SMI event cross-process information leak
 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 285cf79796939..c47beb75377ec 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -768,6 +768,10 @@ int smu_v13_0_6_get_metrics_table(struct smu_context=
- *smu, void *metrics_table,
->  		amdgpu_asic_invalidate_hdp(smu->adev, NULL);
->  		memcpy(smu_table->metrics_table, table->cpu_addr, table_size);
-> =20
-> +		if (!memchr_inv(smu_table->metrics_table, 0xff,
-> +				min(16, table_size)))
-> +			return -EHWPOISON;
-> +
+This commit fixes a cross-process information leak by passing the target
+process PID into kfd_smi_event_add() for system-wide events. This ensures
+that the existing per-client filter properly restricts delivery to the
+owning process instead of bypassing the filter with a PID of 0.
+
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_smi_events.c
+> index a499449fcb068..d6e737ab10076 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *d=
+ev, uint16_t pasid)
+>  	if (task_info) {
 
 [Severity: High]
-Does this error path leave the metrics cache poisoned?
+This isn't a regression introduced by this patch, but can the retrieval of
+task_info just above this line lead to a Use-After-Free of the amdgpu_vm
+pointer?
 
-If a caller (e.g., smu_v13_0_6_get_pm_metrics()) fetches the metrics table =
-with
-bypass_cache =3D true, and the fetch fails this new integrity check, it will
-return -EHWPOISON. However, smu_table->metrics_table will already be overwr=
-itten
-with the poisoned (0xff) data, while smu_table->metrics_time remains unchan=
-ged.
+In the call to amdgpu_vm_get_task_info_pasid(), it retrieves the vm pointer
+from the pasids xarray and immediately drops the lock before passing the ba=
+re
+pointer to amdgpu_vm_get_task_info_vm():
 
-If a subsequent caller (e.g., smu_v13_0_6_get_gpu_metrics()) then requests
-metrics with bypass_cache =3D false within the 1ms window of the old timest=
-amp,
-will it skip the fetch, copy the poisoned data, and return success?
+amdgpu_vm_get_task_info_pasid() {
+    ...
+    return amdgpu_vm_get_task_info_vm(
+                amdgpu_vm_get_vm_from_pasid(adev, pasid));
+}
 
->  		smu_table->metrics_time =3D jiffies;
+If the owning process concurrently exits and amdgpu_vm_fini() is called,
+the vm could be freed between dropping the xarray lock and dereferencing
+the pointer in amdgpu_vm_get_task_info_vm(). This could be triggered via
+concurrent VM fault interrupts and process teardown.
+
+>  		/* Report VM faults from user applications, not retry from kernel */
+>  		if (task_info->task.pid)
+> -			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAUL=
+T(
+> -					  task_info->task.pid, task_info->task.comm));
+> +			kfd_smi_event_add(task_info->tgid, dev,
+> +					  KFD_SMI_EVENT_VMFAULT,
+> +					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
+> +								task_info->task.comm));
+>  		amdgpu_vm_put_task_info(task_info);
 >  	}
-> =20
+>  }
+
+[ ... ]
+
+> @@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device =
+*pdd, bool start)
+>  	task_info =3D amdgpu_vm_get_task_info_vm(avm);
 
 [Severity: High]
-This is a pre-existing issue, but can the ignored return value of
-smu_v13_0_6_setup_driver_pptable() cause zero-initialized clock frequencies=
- to
-be used as valid DPM levels if the metrics table fetch fails?
+This is a pre-existing regression, but can this call result in a kernel pan=
+ic
+due to a NULL pointer dereference?
 
-Looking at smu_v13_0_6_set_default_dpm_table(), the return value of
-smu_v13_0_6_setup_driver_pptable() is ignored:
+Looking at amdgpu_vm_get_task_info_vm(), it checks if the vm pointer is val=
+id
+but unconditionally accesses vm->task_info:
 
-drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c:smu_v13_0_6_set_defaul=
-t_dpm_table() {
+amdgpu_vm_get_task_info_vm() {
     ...
-	smu_v13_0_6_setup_driver_pptable(smu);
+    if (vm) {
+        ti =3D vm->task_info;
+        kref_get(&vm->task_info->refcount);
+    }
+    return ti;
+}
+
+If the memory allocation fails during initialization in amdgpu_vm_init(), t=
+he
+error is logged but execution continues:
+
+amdgpu_vm_init() {
+    ...
+    r =3D amdgpu_vm_create_task_info(vm);
+    if (r)
+        dev_dbg(adev->dev, "Failed to create task info for VM\n");
     ...
 }
 
-If the metrics table fetch fails (e.g., due to the new integrity check retu=
-rning
--EHWPOISON), setup_driver_pptable() returns an error without populating the
-pptable structure.
+This leaves the vm->task_info pointer as NULL, which will cause a crash when
+kref_get() is called here.
 
-Because the return value is ignored, the caller iterates over the
-zero-initialized pptable and populates the DPM clock tables with 0 MHz:
+Additionally, this missing NULL check can cause another dereference during
+VM destruction in amdgpu_vm_fini() when formatting the warning message:
 
-drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c:smu_v13_0_6_set_defaul=
-t_dpm_table() {
+amdgpu_vm_fini() {
     ...
-	for (j =3D 0; j < ARRAY_SIZE(dpm_map); j++) {
-		...
-		dpm_table->count =3D levels;
-		for (i =3D 0; i < dpm_table->count; ++i) {
-			dpm_table->dpm_levels[i].value =3D
-				dpm_map[j].freq_table[i];
-			dpm_table->dpm_levels[i].enabled =3D true;
-
-		}
-		...
-	}
+    dev_warn(adev->dev,
+             "VM memory stats for proc %s(%d) task %s(%d) is non-zero when =
+fini\n",
+             ti->process_name, ti->task.pid, ti->task.comm, ti->tgid);
     ...
 }
+
+> =20
+>  	if (task_info) {
+> -		kfd_smi_event_add(0, pdd->dev,
+> +		kfd_smi_event_add(task_info->tgid, pdd->dev,
+>  				  start ? KFD_SMI_EVENT_PROCESS_START :
+>  				  KFD_SMI_EVENT_PROCESS_END,
+>  				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-482-sashal@kernel.org?part=3D1
+787-514-sashal@kernel.org?part=3D1
