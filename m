@@ -4,51 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DC0C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A89DDC624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C27010E880;
-	Mon, 31 Aug 2026 13:41:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D23E610E883;
+	Mon, 31 Aug 2026 13:41:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kSIXvF4G";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JNHWsGMh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7B010E880
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:41:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 54FF4438D6;
- Mon, 31 Aug 2026 13:41:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0437F1F00A3F;
- Mon, 31 Aug 2026 13:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183700;
- bh=tNvTxfEvxz+PlqY1G7kjoYqpVR3CjRcJQQ/PBkURF5s=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=kSIXvF4GjS8oP6IQONuJQJriQO5I66XUGDaKWsCc0goQ8IxqiSv667v9qTwr14M6a
- CK5XLb//K15nb4uSUzzASAqbib868OfBJf+1i4t8VE+vRnE19g7tutQqQCxbzlyOle
- qUAm5uLmWcH+9fl4ooOv+HzBbvHbhqDQmMUzzWrweDxRC7hy2RiIjT5DY3ZnzcoN/n
- +zgkVIbvt3+SZeFeVnkpECRVNoG2S0Xuwo0yPS8Ue1JLRxeiu4LKDzhCAqRH3R0VK2
- nwXd2egBepYhenA0bVdiluvWp+lVBfZ7dJwoNiD5z5cdjR1cWxwuF9OvDKBYFWMraR
- KobSGAStG4jUQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Lu Yao <yaolu@kylinos.cn>, Helge Deller <deller@gmx.de>,
- Sasha Levin <sashal@kernel.org>, tzimmermann@suse.de, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] fbcon: don't suspend/resume when vc is
- graphics mode
-Date: Mon, 31 Aug 2026 09:24:40 -0400
-Message-ID: <20260831133314.4125787-252-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6D2910E881;
+ Mon, 31 Aug 2026 13:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788183714; x=1819719714;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BZOhiI1URrCeQNUPaPcSzOcAg82q+A2T9Qdz9lpuyMU=;
+ b=JNHWsGMhULEJ+h414IymaNrtljGXjtVVMZUFQeF9xjfKG1uqopcNIEDh
+ fhEOkSwnDLNCA4Tm8jvI7+5r776BTurPZtri/eAecvQi0bAnT4r2iK8Hf
+ dU8rA2NqrsI6+7sPklXFLKqQnIUgdV5IH+Iw8x9a1YTNS4PnX3/ogF8z+
+ 17iZZ0k5mQuz4Zokhqde4qUU3aua9I2g5kmLFO5JKCPNRHLUC8wwdq7yE
+ tZoGAlg6C80Nmp/fJ2GtHE8zalwh4wMv2w7ZV8rW8lbBM/yHVDFlUrhtk
+ sZus9LtP7l61dTMCXudj+T2oM+wUIKDKkTSKrdCbJVo+xNNCJojSZSEkF A==;
+X-CSE-ConnectionGUID: Z8g4l5WLQVmuKA5yWhVMTg==
+X-CSE-MsgGUID: eDS69CIKQua+C1K2b9Kfdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88797240"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88797240"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:41:54 -0700
+X-CSE-ConnectionGUID: qzs8PhKjSt20j7yQ6x2pbg==
+X-CSE-MsgGUID: Wf4ZhFPKRwqsyntGc3gChQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="267001011"
+Received: from aravind-dev.iind.intel.com ([10.190.239.36])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:41:50 -0700
+From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org
+Cc: simona.vetter@ffwll.ch, airlied@gmail.com,
+ Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Riana Tauro <riana.tauro@intel.com>,
+ Raag Jadav <raag.jadav@intel.com>,
+ Joshua Santhosh Ranjan <joshua.santosh.ranjan@intel.com>,
+ Ashwin Kumar Kulkarni <ashwin.kumar.kulkarni@intel.com>,
+ Pratik Bari <pratik.bari@intel.com>
+Subject: [RFC] drm/xe: Expose retired VRAM pages via drm-ras
+Date: Mon, 31 Aug 2026 19:08:43 +0530
+Message-Id: <20260831133843.1076705-1-aravind.iddamsetty@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,407 +73,1044 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lu Yao <yaolu@kylinos.cn>
+The memory page offlining support tracks bad VRAM pages and currently
+only exposes them through debugfs (vram_bad_pages), which is not a
+stable ABI. Add a proper userspace interface on top of it using the
+drm-ras generic netlink family.
 
-[ Upstream commit 70d9d5f5fcd940f627bd403aaa6f65de724eef6b ]
+Introduce a new node type DRM_RAS_NODE_TYPE_RETIRED_RESOURCES which
+enumerates hardware resources that have been permanently taken out of
+service. The node type is designed to be extensible: each entry carries
+a resource-type discriminator plus a type-specific nested attribute, so
+future resource types can be added without touching existing consumers.
+VRAM pages are the first supported type, reported via the vram-page nest
+as {address, size} with a retirement status
+(retired/pending/failed).
 
-Don't need to do suspend/resume for fbcon in graphic mode.
+Two operations are added on the node:
+ - GET_RETIRED_RESOURCES: dump the list of retired resources.
+ - GET_RETIRED_RESOURCES_INFO: dump per-type limits and occupancy
+   (max/offlined/queued counts), e.g. the FW-provided maximum number of
+   pages that can be offlined.
 
-Doing this may cause error, eg:
-  At the beginning, starting the Xorg with single screen and then an
-  external screen was plugged in. After logging out in Xorg, fbdev
-  info may using screen which is connected later on for info always
-  using first connected connector in list in func 'drm_setup_crtcs_fb'.
-  Then, S3 executed, fbcon found that the information did not match
-  and do atomic to switch fb. However, Xorg will not re-bind the crtc
-  fb but continues doing ioctl. At this time, the fb is incorrect.
+Eg:
+$ sudo ./tools/net/ynl/pyynl/cli.py \
+     --spec Documentation/netlink/specs/drm_ras.yaml \
+     --dump list-nodes
 
-With some modifications by Helge Deller.
+[{'device-name': '0000:03:00.0', 'node-id': 0, 'node-name':'correctable-errors', 'node-type': 'error-counter'},
+ {'device-name': '0000:03:00.0', 'node-id': 1, 'node-name':'uncorrectable-errors', 'node-type': 'error-counter'},
+ {'device-name': '0000:03:00.0', 'node-id': 2, 'node-name':'vram-retired-pages', 'node-type': 'retired-resources'}]
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+$ sudo ./tools/net/ynl/pyynl/cli.py --spec \
+Documentation/netlink/specs/drm_ras.yaml  --dump  get-retired-resources \
+--json '{"node-id": 2}'
 
-LLM Generated explanations, may be completely bogus:
+[{'node-id': 2, 'status': 'retired', 'type': 'vram-page', 'vram-page': {'address': 12807041024, 'size': 4096}}]
 
-## Phase 1: Commit Message Forensics
+$ sudo ./tools/net/ynl/pyynl/cli.py --spec \
+Documentation/netlink/specs/drm_ras.yaml  --dump \
+get-retired-resources-info --json '{"node-id": 2}'
 
-### Step 1.1: Subject Line
-**Record:** `[fbcon]` `[don't]` (preventive) — skip suspend/resume fbcon
-work when the virtual console is in graphics mode (`KD_GRAPHICS`).
+[{'max-count': 100, 'node-id': 2, 'offlined-count': 1, 'queued-count': 0, 'type': 'vram-page'}]
 
-### Step 1.2: Commit Tags
-**Record:** Tags present:
-- `Signed-off-by: Lu Yao <yaolu@kylinos.cn>` (author)
-- `Signed-off-by: Helge Deller <deller@gmx.de>` (fbdev maintainer)
+This change is built on top of and depends on the memory page offline
+patch series [1]
 
-Notable absences (expected for manual review):
-- No `Fixes:` tag
-- No `Reported-by:` tag
-- No `Cc: stable@vger.kernel.org`
-- No `Link:` to bug report or syzbot
-- No `Tested-by:` / `Reviewed-by:` / `Acked-by:`
+[1] https://lore.kernel.org/all/20260831064942.315720-17-tejas.upadhyay@intel.com/
 
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** `fbcon_suspended()` / `fbcon_resumed()` run fbcon
-  cursor/screen update logic even when the VC is in graphics mode (Xorg
-  owns the display).
-- **Symptom:** After multi-monitor hotplug + Xorg logout + S3
-  suspend/resume, fbdev metadata can point at the wrong connector; fbcon
-  resume triggers an atomic framebuffer switch while Xorg keeps using
-  the old framebuffer, leaving the display in a broken state.
-- **Root cause (author):** fbcon should not touch the framebuffer in
-  graphics mode; resume path can call into `update_screen()` →
-  `fbcon_switch()` → `fb_set_var()`, provoking DRM atomic
-  reconfiguration.
-- **Version info:** None stated.
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Riana Tauro <riana.tauro@intel.com>
+Cc: Raag Jadav <raag.jadav@intel.com>
+Cc: Joshua Santhosh Ranjan <joshua.santosh.ranjan@intel.com>
+Cc: Ashwin Kumar Kulkarni <ashwin.kumar.kulkarni@intel.com>
+Cc: Pratik Bari <pratik.bari@intel.com>
 
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — despite the short message, this is a real
-suspend/resume correctness fix, not cosmetic cleanup. It aligns
-`fbcon_suspended()` / `fbcon_resumed()` with the `KD_TEXT` guards
-already used in `fbcon_modechanged()`, `fbcon_init()`, and other fbcon
-paths.
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+Assisted-by: Copilot:claude-opus-4.8
 
 ---
+ Documentation/netlink/specs/drm_ras.yaml | 131 +++++++++++++-
+ drivers/gpu/drm/drm_ras.c                | 221 ++++++++++++++++++++++-
+ drivers/gpu/drm/drm_ras_nl.c             |  24 +++
+ drivers/gpu/drm/drm_ras_nl.h             |   4 +
+ drivers/gpu/drm/xe/xe_drm_ras.c          |  81 +++++++++
+ drivers/gpu/drm/xe/xe_drm_ras_types.h    |   3 +
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c     | 134 ++++++++++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.h     |   5 +
+ include/drm/drm_ras.h                    |  87 +++++++++
+ include/uapi/drm/drm_ras.h               |  63 ++++++-
+ 10 files changed, 742 insertions(+), 11 deletions(-)
 
-## Phase 2: Diff Analysis
-
-### Step 2.1: Change Inventory
-**Record:**
-- **File:** `drivers/video/fbdev/core/fbcon.c` (+3 net lines)
-- **Functions:** `fbcon_suspended()`, `fbcon_resumed()`
-- **Scope:** Single-file, surgical fix
-
-### Step 2.2: Code Flow Change
-**Record:**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| `fbcon_suspended()` | Always calls `fbcon_cursor(vc, false)` | Only if
-`vc->vc_mode == KD_TEXT && con_is_visible(vc)` |
-| `fbcon_resumed()` | Always calls `update_screen(vc)` | Only if
-`vc->vc_mode == KD_TEXT && con_is_visible(vc)` |
-
-Affected path: system suspend/resume via `fb_set_suspend()` →
-`fbcon_suspended()` / `fbcon_resumed()`, commonly reached from DRM fbdev
-(`drm_fb_helper_set_suspend()` → `drm_fbdev_client_suspend/resume`).
-
-### Step 2.3: Bug Mechanism
-**Record:** **Logic / correctness fix** in suspend/resume path.
-
-- `update_screen(vc)` expands to `redraw_screen(vc, 0)`
-  (`include/linux/vt_kern.h`).
-- `redraw_screen()` always calls `vc->vc_sw->con_switch(vc)` — for fbcon
-  that is `fbcon_switch()`, which calls `fb_set_var()` and can reprogram
-  the DRM framebuffer.
-- `redraw_screen()` only skips the final `do_update_region()` when
-  `vc->vc_mode == KD_GRAPHICS`; it still runs `con_switch` /
-  `fb_set_var` in graphics mode.
-- `fbcon_modechanged()` already bails out on `vc->vc_mode != KD_TEXT`;
-  `fbcon_suspended/resumed` did not — that inconsistency is the bug.
-
-For `fbcon_suspended()`, `fbcon_cursor()` already returns early when
-`!fbcon_is_active()`, and `fbcon_is_active()` requires `KD_TEXT`. The
-suspend-side change is mostly consistency plus a `con_is_visible()`
-guard; the resume-side `update_screen()` guard is the substantive fix.
-
-### Step 2.4: Fix Quality
-**Record:**
-- **Quality:** High — matches existing pattern at lines 642, 1124, 2074,
-  2686 in the same file.
-- **Regression risk:** Very low — fbcon should not manipulate the
-  framebuffer while X/compositor holds graphics mode.
-- **Red flags:** None.
-
----
-
-## Phase 3: Git History Investigation
-
-### Step 3.1: Blame / Introduction
-**Record:**
-- `fbcon_suspended()` / `fbcon_resumed()` core logic dates to the
-  original fbcon import (`1da177e4c3f4`, 2005).
-- Wrapper path via `fb_set_suspend()` consolidated in `50c5056356340`
-  (2019, "fbdev: directly call fbcon_suspended/resumed").
-- Buggy unconditional `update_screen()` in `fbcon_resumed()` has been
-  present for many years; it only becomes problematic with modern DRM
-  atomic fbdev emulation and multi-connector setups.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag in the commit message.
-
-### Step 3.3: Related File History
-**Record:** Recent `fbcon.c` changes in this tree are unrelated fbcon
-bug fixes (NULL deref, OOB read, type fixes). No prior fix for this
-graphics-mode suspend/resume issue found. Standalone patch, not part of
-a series.
-
-### Step 3.4: Author Context
-**Record:**
-- Lu Yao (Kylin OS) — platform vendor reporting a real multi-monitor +
-  S3 scenario.
-- Helge Deller — active fbdev maintainer with recent fbcon fixes in this
-  tree (e.g. `d78bd6cc68276 fbcon: Fix null-ptr-deref in soft_cursor`).
-
-### Step 3.5: Dependencies
-**Record:** No dependencies. Uses `KD_TEXT`, `con_is_visible()`, and
-existing helpers already in 6.18.44. Applies standalone.
-
----
-
-## Phase 4: Mailing List and External Research
-
-### Step 4.1–4.5: Lore / b4 dig
-**Record:**
-- `b4 dig -c <commit>` could not be run — this commit is not in the
-  checked-out tree (candidate only, no commit hash).
-- Direct lore.kernel.org fetch returned 403 (bot protection).
-- No matching `.mbx` file found in the workspace.
-- **UNVERIFIED:** Full mailing-list review thread, reviewer stable
-  nominations, and patch series evolution.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** `fbcon_suspended()`, `fbcon_resumed()`, callers
-`fb_set_suspend()`, `fbcon_switch()`, `redraw_screen()`.
-
-### Step 5.2: Callers
-**Record:** `fb_set_suspend()` called from:
-- `drm_fb_helper_set_suspend()` / `drm_fbdev_client_suspend/resume()`
-  (DRM fbdev path — relevant to the reported bug)
-- Legacy fbdev drivers (i915 intelfb, nvidia, aty, etc.)
-- `fbsysfs.c` sysfs interface
-
-Suspend/resume is a common system-wide path on laptops/desktops.
-
-### Step 5.3: Callees
-**Record:** `fbcon_cursor()`, `update_screen()` → `redraw_screen()` →
-`hide_cursor()`, `con_switch()` (`fbcon_switch()`), `fb_set_var()`,
-potential `fb_set_par()`.
-
-### Step 5.4: Reachability
-**Record:** Reachable on every S3/hibernate cycle while DRM fbdev
-emulation is active. Trigger requires graphics mode (typical when
-Xorg/Wayland compositor is running, or after logout with VC still in
-graphics mode). Userspace does not need special privileges beyond normal
-suspend.
-
-### Step 5.5: Similar Patterns
-**Record:** Same `con_is_visible(vc) && vc->vc_mode == KD_TEXT` guard
-used elsewhere in `fbcon.c` (lines 642, 1124, 2074).
-`fbcon_modechanged()` uses `vc->vc_mode != KD_TEXT` early return (line
-2686).
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Current tree at
-`drivers/video/fbdev/core/fbcon.c:2651-2674` still has unconditional
-`fbcon_cursor()` and `update_screen()` with no `KD_TEXT` check. Fix is
-not yet applied (`git log -S "Update screen when in text mode only"`
-returned empty).
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected** — 3-line logical change in a stable
-area of `fbcon.c`, no structural conflicts with recent local changes.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent fix found in this tree.
-
----
-
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem / Criticality
-**Record:** `drivers/video/fbdev/core/` — framebuffer console over DRM
-fbdev emulation. **IMPORTANT** for desktop/laptop users relying on fbdev
-+ suspend/resume; not universal core-kernel, but widely used on
-Intel/AMD DRM systems with fbdev client enabled.
-
-### Step 7.2: Activity
-**Record:** fbcon remains actively maintained in 6.18.y (multiple fbcon
-fixes in recent history on this branch).
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who Is Affected
-**Record:** Users of DRM fbdev emulation with:
-- Graphics mode active (`KD_GRAPHICS`, typical under Xorg)
-- Multi-connector hotplug scenarios
-- System suspend (S3) / resume
-
-Config-dependent on `CONFIG_DRM_FBDEV_CLIENT` / fbdev emulation, but
-that is common on desktop distros.
-
-### Step 8.2: Trigger Conditions
-**Record:** Specific but realistic: external monitor hotplug while X
-running, logout, then S3. Not every boot, but reproducible on real
-hardware per commit message. Unprivileged users can trigger via normal
-suspend.
-
-### Step 8.3: Failure Mode Severity
-**Record:** Wrong framebuffer bound after resume; display corruption /
-broken Xorg ioctl path. Not a kernel oops, but a **HIGH** functional
-failure on resume — system may need reboot to recover display.
-Suspend/resume breakage is a common stable backport category.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** Prevents fbcon from disturbing DRM framebuffer state
-  during S3 when graphics mode is active.
-- **Risk:** Very low — only skips work that should never run in graphics
-  mode.
-- **Ratio:** Strong benefit, minimal risk.
-
----
-
-## Phase 9: Final Synthesis
-
-### Step 9.1: Evidence Summary
-
-**FOR backport:**
-- Real, described hardware scenario (multi-monitor + S3 + Xorg/fbdev)
-- Maintainer sign-off (Helge Deller)
-- Tiny, obviously correct fix matching existing fbcon guards
-- Bug mechanism verified in code: `update_screen()` → `fbcon_switch()` →
-  `fb_set_var()` runs even in `KD_GRAPHICS`
-- Buggy code present since early fbcon, still unfixed in v6.18.44
-- Suspend/resume display breakage is user-visible and painful
-
-**AGAINST backport:**
-- No syzbot/KASAN report or `Reported-by:` from upstream
-- Failure mode is display corruption, not kernel crash/panic
-- Suspend-side change is partially redundant (`fbcon_cursor` already
-  inactive in graphics mode)
-- Mailing-list review unverified
-
-**Unresolved:**
-- Full lore review thread not accessible
-- No independent `Tested-by:` confirmation
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic matches established
-   fbcon patterns; maintainer SOB; scenario described (no independent
-   test tag).
-2. Fixes a real bug affecting users? **PASS** — concrete multi-monitor
-   S3 scenario.
-3. Important issue? **PASS** — suspend/resume display corruption on
-   common laptop/desktop setup (**HIGH** severity).
-4. Small and contained? **PASS** — 3 net lines, one file, two functions.
-5. No new features or APIs? **PASS**.
-6. Can apply to local tree? **PASS** — buggy code present, no
-   prerequisites.
-
-### Step 9.3: Exception Categories
-**Record:** None (not a device ID, quirk, DT, build, or docs fix).
-Qualifies on straight bug-fix merits.
-
-### Step 9.4: Decision Rationale
-For **v6.18.44**, this commit closes a long-standing gap where fbcon
-resume can invoke `fb_set_var()` through `update_screen()` while the VC
-is in graphics mode. That is exactly the wrong time for fbcon to
-reprogram the DRM framebuffer. The fix is minimal, consistent with the
-rest of `fbcon.c`, endorsed by the fbdev maintainer, and addresses a
-real suspend/resume regression path on DRM+fbdev systems. The missing
-lore verification does not outweigh the clear code-path analysis.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message and tags manually from user-
-  provided text.
-- **[Phase 2]** Read diff and current `fbcon.c` at lines 2651–2710;
-  confirmed `update_screen` → `redraw_screen` → `con_switch` path in
-  `vt.c:929-987`.
-- **[Phase 2]** Confirmed `fbcon_switch()` calls `fb_set_var()` at
-  `fbcon.c:2134`.
-- **[Phase 2]** Confirmed `fbcon_is_active()` requires `KD_TEXT` at
-  `fbcon.c:287-292`.
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `make kernelversion` →
-  `6.18.44`.
-- **[Phase 3]** `git blame` on `fbcon_suspended/resumed` — original code
-  from 2005, structure unchanged.
-- **[Phase 3]** `git show 50c5056356340` — `fb_set_suspend` → fbcon path
-  since 2019.
-- **[Phase 3]** `git log -S "Update screen when in text mode only"` —
-  fix not in tree.
-- **[Phase 4]** `b4 dig` — cannot run without commit hash (candidate not
-  merged).
-- **[Phase 4]** lore.kernel.org fetch — 403 Forbidden; **UNVERIFIED**
-  mailing-list discussion.
-- **[Phase 5]** `grep fb_set_suspend` — callers include
-  `drm_fbdev_client.c:65-86`, `drm_fb_helper.c:729-737`.
-- **[Phase 5]** Read `drm_fbdev_client_suspend/resume` and
-  `fb_set_suspend` in `fbmem.c:650-661`.
-- **[Phase 5]** Confirmed `KD_TEXT` + `con_is_visible` pattern at
-  `fbcon.c:642,1124,2074`.
-- **[Phase 6]** Buggy unconditional code confirmed present at
-  `fbcon.c:2660-2673`.
-- **[Phase 6]** No duplicate fix found via `git log --grep` / `-S`
-  searches.
-- **[Phase 8]** Failure mode assessed as display corruption after S3,
-  not kernel crash.
-
-**YES**The background searches finished and match what we already
-concluded:
-
-- **Commit lookup:** The fix (`fbcon: don't suspend/resume when vc is
-  graphics mode`) is **not in v6.18.44** yet. A pickaxe search for
-  `vc->vc_mode == KD_TEXT` in `fbcon.c` only turned up older, unrelated
-  commits.
-- **Author / b4 dig:** `git log --author="Lu Yao"` didn’t find this
-  patch in the tree (only unrelated commits). `b4 dig` couldn’t be run
-  without a merged commit hash.
-
-That supports the earlier **YES** for backport: the bug is still present
-in this tree, and the patch is a small, standalone guard around
-`fbcon_suspended()` / `fbcon_resumed()` when the VC is in graphics
-mode.The author-email search (`git log --author="yaolu"`) also didn’t
-find the fbcon patch in this tree — only unrelated amdgpu, btrfs, and
-x86 commits. That further confirms it’s a candidate not yet merged into
-v6.18.44, consistent with the **YES** backport recommendation.
-
- drivers/video/fbdev/core/fbcon.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 35210f2bb7b2b..532522c2aed05 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2657,8 +2657,9 @@ void fbcon_suspended(struct fb_info *info)
- 		return;
- 	vc = vc_cons[par->currcon].d;
+diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+index 8aed3d4515e5..37fe297eeb2e 100644
+--- a/Documentation/netlink/specs/drm_ras.yaml
++++ b/Documentation/netlink/specs/drm_ras.yaml
+@@ -16,11 +16,34 @@ definitions:
+     type: enum
+     name: node-type
+     value-start: 1
+-    entries: [error-counter]
++    entries: [error-counter, retired-resources]
+     doc: >-
+-         Type of the node. Currently, only error-counter nodes are
+-         supported, which expose reliability counters for a hardware/software
+-         component.
++         Type of the node.
++         error-counter nodes expose reliability counters for a
++         hardware/software component. retired-resources nodes enumerate
++         hardware resources (e.g. VRAM pages) that have been permanently
++         taken out of service.
++  -
++    type: enum
++    name: retired-resource-status
++    value-start: 0
++    entries: [retired, pending, failed]
++    doc: >-
++         Status of a retired resource entry. retired means the resource is
++         permanently reserved and out of service; pending means retirement is
++         queued but the reservation is not yet complete; failed means the
++         reservation failed and the resource may still be in use.
++  -
++    type: enum
++    name: retired-resource-type
++    value-start: 1
++    entries: [vram-page]
++    doc: >-
++         Type of a retired resource entry. The type selects which type-specific
++         nested attribute is present. New hardware resource types can be added
++         here, each carrying its own nested attribute set, without affecting
++         existing types. vram-page describes a VRAM page by device address and
++         size.
  
--	/* Clear cursor, restore saved data */
--	fbcon_cursor(vc, false);
-+	/* Clear cursor, restore saved data when in text mode */
-+	if ((vc->vc_mode == KD_TEXT) && con_is_visible(vc))
-+		fbcon_cursor(vc, false);
+ attribute-sets:
+   -
+@@ -96,6 +119,66 @@ attribute-sets:
+         name: error-value
+         type: u32
+         doc: Current value of the error counter.
++  -
++    name: retired-resource-attrs
++    attributes:
++      -
++        name: node-id
++        type: u32
++        doc: Node ID targeted by this retired resource operation.
++      -
++        name: type
++        type: u32
++        doc: Type of the retired resource, selects the type-specific nest.
++        enum: retired-resource-type
++      -
++        name: status
++        type: u32
++        doc: Retirement status of the resource.
++        enum: retired-resource-status
++      -
++        name: vram-page
++        type: nest
++        nested-attributes: vram-page-attrs
++        doc: Type-specific payload present when type is vram-page.
++  -
++    name: vram-page-attrs
++    attributes:
++      -
++        name: address
++        type: u64
++        doc: Device address of the retired VRAM page (e.g. DPA).
++      -
++        name: size
++        type: u64
++        doc: Size of the retired VRAM page in bytes.
++      -
++        name: pad
++        type: pad
++  -
++    name: retired-resource-info-attrs
++    attributes:
++      -
++        name: node-id
++        type: u32
++        doc: Node ID targeted by this retired resource info operation.
++      -
++        name: type
++        type: u32
++        doc: Resource type this info entry describes.
++        enum: retired-resource-type
++      -
++        name: max-count
++        type: u32
++        doc: Maximum resources of this type that can be retired.
++      -
++        name: offlined-count
++        type: u32
++        doc: Resources of this type currently retired and out of service.
++      -
++        name: queued-count
++        type: u32
++        doc: Resources of this type queued for retirement (pending or failed).
+ 
+ operations:
+   list:
+@@ -167,6 +250,46 @@ operations:
+           - error-id
+           - error-name
+           - error-value
++    -
++      name: get-retired-resources
++      doc: >-
++           Enumerate the resources (e.g. VRAM pages) that a retired-resources
++           node has taken out of service. Each entry includes a type, a
++           retirement status and one type-specific nested attribute selected by
++           the type. User space must obtain the node ID from list-nodes first.
++      attribute-set: retired-resource-attrs
++      flags: [admin-perm]
++      dump:
++        request:
++          attributes:
++            - node-id
++        reply:
++          attributes:
++            - node-id
++            - type
++            - status
++            - vram-page
++    -
++      name: get-retired-resources-info
++      doc: >-
++           Enumerate per-type retired resource limits and current occupancy for
++           a retired-resources node: for each resource type the node tracks, the
++           maximum number of resources that can be retired and the current
++           retired and queued counts. User space must obtain the node ID from
++           list-nodes first.
++      attribute-set: retired-resource-info-attrs
++      flags: [admin-perm]
++      dump:
++        request:
++          attributes:
++            - node-id
++        reply:
++          attributes:
++            - node-id
++            - type
++            - max-count
++            - offlined-count
++            - queued-count
+ 
+ mcast-groups:
+   list:
+diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+index 39155fb514de..a708fec7b68f 100644
+--- a/drivers/gpu/drm/drm_ras.c
++++ b/drivers/gpu/drm/drm_ras.c
+@@ -56,7 +56,6 @@
+  * Node type:
+  *
+  * - ERROR_COUNTER:
+- *     + Currently, only error counters are supported.
+  *     + The driver must implement the query_error_counter() callback to provide
+  *       the name and the value of the error counter.
+  *     + The driver must provide a error_counter_range.last value informing the
+@@ -67,6 +66,13 @@
+  *       driver must return -ENOENT to the query_error_counter as an indication
+  *       that the ID should be skipped and not listed in the netlink API.
+  *
++ * - RETIRED_RESOURCES:
++ *     + Enumerates hardware resources (e.g. VRAM pages) permanently taken out
++ *       of service.
++ *     + The driver must implement the query_retired_resource() callback, which
++ *       is called with an incrementing index and returns -ENOENT once the last
++ *       entry has been reported.
++ *
+  * Netlink handlers:
+  *
+  * - drm_ras_nl_list_nodes_dumpit(): Implements the LIST_NODES
+@@ -77,6 +83,9 @@
+  *   operation, fetching a counter value from a specific node.
+  * - drm_ras_nl_clear_error_counter_doit(): Implements the CLEAR_ERROR_COUNTER doit
+  *   operation, clearing a counter value from a specific node.
++ * - drm_ras_nl_get_retired_resources_dumpit(): Implements the
++ *   GET_RETIRED_RESOURCES dumpit operation, enumerating retired resources of a
++ *   specific node.
+  */
+ 
+ static DEFINE_XARRAY_ALLOC(drm_ras_xa);
+@@ -87,6 +96,8 @@ static DEFINE_XARRAY_ALLOC(drm_ras_xa);
+ struct drm_ras_ctx {
+ 	/* Which xarray id to restart the dump from */
+ 	unsigned long restart;
++	/* Ordering-key cursor for retired-resource dumps (inclusive lower bound) */
++	u64 cursor;
+ };
+ 
+ /**
+@@ -456,6 +467,197 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+ 	return node->clear_error_counter(node, error_id);
  }
  
- void fbcon_resumed(struct fb_info *info)
-@@ -2670,7 +2671,9 @@ void fbcon_resumed(struct fb_info *info)
- 		return;
- 	vc = vc_cons[par->currcon].d;
++static int msg_put_retired_resource(struct sk_buff *skb, u32 node_id,
++				    const struct drm_ras_retired_resource *res)
++{
++	struct nlattr *nest;
++
++	if (nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID, node_id) ||
++	    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_TYPE, res->type) ||
++	    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_STATUS, res->status))
++		return -EMSGSIZE;
++
++	switch (res->type) {
++	case DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE:
++		nest = nla_nest_start(skb,
++				      DRM_RAS_A_RETIRED_RESOURCE_ATTRS_VRAM_PAGE);
++		if (!nest)
++			return -EMSGSIZE;
++
++		if (nla_put_u64_64bit(skb, DRM_RAS_A_VRAM_PAGE_ATTRS_ADDRESS,
++				      res->vram_page.address,
++				      DRM_RAS_A_VRAM_PAGE_ATTRS_PAD) ||
++		    nla_put_u64_64bit(skb, DRM_RAS_A_VRAM_PAGE_ATTRS_SIZE,
++				      res->vram_page.size,
++				      DRM_RAS_A_VRAM_PAGE_ATTRS_PAD)) {
++			nla_nest_cancel(skb, nest);
++			return -EMSGSIZE;
++		}
++
++		nla_nest_end(skb, nest);
++		break;
++	default:
++		/* Unknown type: common attributes were still reported. */
++		break;
++	}
++
++	return 0;
++}
++
++/**
++ * drm_ras_nl_get_retired_resources_dumpit() - Dump retired resources of a node
++ * @skb: Netlink message buffer
++ * @cb: Callback context for multi-part dumps
++ *
++ * Iterates over all retired resources of a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES
++ * node and appends their attributes to the given netlink message buffer. Each
++ * entry carries a common type and status, plus one type-specific nested
++ * attribute selected by the type. Uses @cb->ctx to store an ordering-key cursor
++ * so multi-part dumps resume by key rather than position, staying correct if
++ * the list changes concurrently between message parts.
++ *
++ * Return: 0 if all entries fit in @skb, number of bytes added to @skb if
++ *          the buffer filled up (requires multi-part continuation), or
++ *          a negative error code on failure.
++ */
++int drm_ras_nl_get_retired_resources_dumpit(struct sk_buff *skb,
++					    struct netlink_callback *cb)
++{
++	const struct genl_info *info = genl_info_dump(cb);
++	struct drm_ras_ctx *ctx = (void *)cb->ctx;
++	struct drm_ras_retired_resource res;
++	struct drm_ras_node *node;
++	struct nlattr *hdr;
++	u32 node_id;
++	u64 cursor;
++	int ret = 0;
++
++	if (!info->attrs ||
++	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID))
++		return -EINVAL;
++
++	node_id = nla_get_u32(info->attrs[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID]);
++
++	node = xa_load(&drm_ras_xa, node_id);
++	if (!node || node->type != DRM_RAS_NODE_TYPE_RETIRED_RESOURCES ||
++	    !node->query_retired_resource)
++		return -ENOENT;
++
++	cursor = ctx->cursor;
++	for (;;) {
++		memset(&res, 0, sizeof(res));
++		ret = node->query_retired_resource(node, cursor, &res);
++		/* -ENOENT marks the end of the list. */
++		if (ret == -ENOENT) {
++			ret = 0;
++			break;
++		}
++		if (ret)
++			return ret;
++
++		hdr = genlmsg_iput(skb, info);
++		if (!hdr) {
++			ret = -EMSGSIZE;
++			break;
++		}
++
++		ret = msg_put_retired_resource(skb, node_id, &res);
++		if (ret) {
++			genlmsg_cancel(skb, hdr);
++			break;
++		}
++
++		genlmsg_end(skb, hdr);
++		/* Advance past this entry; keys are unique. */
++		cursor = res.key + 1;
++	}
++
++	/* On buffer-full the current entry was not emitted; resume at it. */
++	if (ret == -EMSGSIZE)
++		ctx->cursor = cursor;
++
++	return ret;
++}
++
++/**
++ * drm_ras_nl_get_retired_resources_info_dumpit() - Dump node retired limits
++ * @skb: Netlink message buffer
++ * @cb: Callback context for multi-part dumps
++ *
++ * Reports per-type limits and current occupancy for a
++ * %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node. Each entry carries the resource
++ * type, the maximum number of resources of that type that can be retired, and
++ * the current retired and queued counts. A node that tracks several resource
++ * types reports one entry per type. Uses @cb->ctx to track the next type index
++ * in case the buffer fills up, allowing multi-part dump support.
++ *
++ * Return: 0 if all entries fit in @skb, number of bytes added to @skb if
++ *          the buffer filled up (requires multi-part continuation), or
++ *          a negative error code on failure.
++ */
++int drm_ras_nl_get_retired_resources_info_dumpit(struct sk_buff *skb,
++						 struct netlink_callback *cb)
++{
++	const struct genl_info *info = genl_info_dump(cb);
++	struct drm_ras_ctx *ctx = (void *)cb->ctx;
++	struct drm_ras_retired_info rinfo;
++	struct drm_ras_node *node;
++	struct nlattr *hdr;
++	u32 node_id, index;
++	int ret = 0;
++
++	if (!info->attrs ||
++	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID))
++		return -EINVAL;
++
++	node_id = nla_get_u32(info->attrs[DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID]);
++
++	node = xa_load(&drm_ras_xa, node_id);
++	if (!node || node->type != DRM_RAS_NODE_TYPE_RETIRED_RESOURCES ||
++	    !node->query_retired_info)
++		return -ENOENT;
++
++	for (index = ctx->restart; ; index++) {
++		memset(&rinfo, 0, sizeof(rinfo));
++		ret = node->query_retired_info(node, index, &rinfo);
++		/* -ENOENT marks the end of the type list. */
++		if (ret == -ENOENT) {
++			ret = 0;
++			break;
++		}
++		if (ret)
++			return ret;
++
++		hdr = genlmsg_iput(skb, info);
++		if (!hdr) {
++			ret = -EMSGSIZE;
++			break;
++		}
++
++		if (nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID,
++				node_id) ||
++		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_TYPE,
++				rinfo.type) ||
++		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX_COUNT,
++				rinfo.max_count) ||
++		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_OFFLINED_COUNT,
++				rinfo.offlined_count) ||
++		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_QUEUED_COUNT,
++				rinfo.queued_count)) {
++			genlmsg_cancel(skb, hdr);
++			ret = -EMSGSIZE;
++			break;
++		}
++
++		genlmsg_end(skb, hdr);
++	}
++
++	if (ret == -EMSGSIZE)
++		ctx->restart = index;
++
++	return ret;
++}
++
+ /**
+  * drm_ras_node_register() - Register a new RAS node
+  * @node: Node structure to register
+@@ -470,15 +672,24 @@ int drm_ras_node_register(struct drm_ras_node *node)
+ 	if (!node->device_name || !node->node_name)
+ 		return -EINVAL;
  
--	update_screen(vc);
-+	/* Update screen when in text mode only */
-+	if ((vc->vc_mode == KD_TEXT) && con_is_visible(vc))
-+		update_screen(vc);
+-	/* Currently, only Error Counter Endpoints are supported */
+-	if (node->type != DRM_RAS_NODE_TYPE_ERROR_COUNTER)
+-		return -EINVAL;
+-
+ 	/* Mandatory entries for Error Counter Node */
+ 	if (node->type == DRM_RAS_NODE_TYPE_ERROR_COUNTER &&
+ 	    (!node->error_counter_range.last || !node->query_error_counter))
+ 		return -EINVAL;
+ 
++	/* Mandatory entries for Retired Resources Node */
++	if (node->type == DRM_RAS_NODE_TYPE_RETIRED_RESOURCES &&
++	    !node->query_retired_resource)
++		return -EINVAL;
++
++	switch (node->type) {
++	case DRM_RAS_NODE_TYPE_ERROR_COUNTER:
++	case DRM_RAS_NODE_TYPE_RETIRED_RESOURCES:
++		break;
++	default:
++		return -EINVAL;
++	}
++
+ 	return xa_alloc(&drm_ras_xa, &node->id, node, xa_limit_32b, GFP_KERNEL);
+ }
+ EXPORT_SYMBOL(drm_ras_node_register);
+diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+index 9d3123cc9f9c..b194d065ec48 100644
+--- a/drivers/gpu/drm/drm_ras_nl.c
++++ b/drivers/gpu/drm/drm_ras_nl.c
+@@ -28,6 +28,16 @@ static const struct nla_policy drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_E
+ 	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
+ };
+ 
++/* DRM_RAS_CMD_GET_RETIRED_RESOURCES - dump */
++static const struct nla_policy drm_ras_get_retired_resources_nl_policy[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID + 1] = {
++	[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID] = { .type = NLA_U32, },
++};
++
++/* DRM_RAS_CMD_GET_RETIRED_RESOURCES_INFO - dump */
++static const struct nla_policy drm_ras_get_retired_resources_info_nl_policy[DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID + 1] = {
++	[DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID] = { .type = NLA_U32, },
++};
++
+ /* Ops table for drm_ras */
+ static const struct genl_split_ops drm_ras_nl_ops[] = {
+ 	{
+@@ -56,6 +66,20 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+ 		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
+ 		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
+ 	},
++	{
++		.cmd		= DRM_RAS_CMD_GET_RETIRED_RESOURCES,
++		.dumpit		= drm_ras_nl_get_retired_resources_dumpit,
++		.policy		= drm_ras_get_retired_resources_nl_policy,
++		.maxattr	= DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID,
++		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
++	},
++	{
++		.cmd		= DRM_RAS_CMD_GET_RETIRED_RESOURCES_INFO,
++		.dumpit		= drm_ras_nl_get_retired_resources_info_dumpit,
++		.policy		= drm_ras_get_retired_resources_info_nl_policy,
++		.maxattr	= DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID,
++		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
++	},
+ };
+ 
+ static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
+diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+index 03ec275aca92..c46f2b4a6e8a 100644
+--- a/drivers/gpu/drm/drm_ras_nl.h
++++ b/drivers/gpu/drm/drm_ras_nl.h
+@@ -20,6 +20,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+ 					struct netlink_callback *cb);
+ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+ 					struct genl_info *info);
++int drm_ras_nl_get_retired_resources_dumpit(struct sk_buff *skb,
++					    struct netlink_callback *cb);
++int drm_ras_nl_get_retired_resources_info_dumpit(struct sk_buff *skb,
++						 struct netlink_callback *cb);
+ 
+ enum {
+ 	DRM_RAS_NLGRP_ERROR_REPORT,
+diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
+index 78184b6ea7d4..11ddd12a42e2 100644
+--- a/drivers/gpu/drm/xe/xe_drm_ras.c
++++ b/drivers/gpu/drm/xe/xe_drm_ras.c
+@@ -12,6 +12,7 @@
+ #include "xe_device_types.h"
+ #include "xe_drm_ras.h"
+ #include "xe_ras.h"
++#include "xe_ttm_vram_mgr.h"
+ 
+ static const char * const error_components[] = DRM_XE_RAS_ERROR_COMPONENT_NAMES;
+ static const char * const error_severity[] = DRM_XE_RAS_ERROR_SEVERITY_NAMES;
+@@ -154,6 +155,79 @@ static void cleanup_node(struct drm_device *drm, void *node)
+ 	cleanup_node_param(node);
  }
  
- static void fbcon_modechanged(struct fb_info *info)
++static int query_retired_resource(struct drm_ras_node *node, u64 cursor,
++				  struct drm_ras_retired_resource *res)
++{
++	struct xe_device *xe = node->priv;
++	int ret;
++
++	ret = xe_ttm_vram_get_retired_page(xe, cursor, &res->vram_page.address,
++					   &res->vram_page.size, &res->status);
++	if (ret)
++		return ret;
++
++	res->type = DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE;
++	res->key = res->vram_page.address;
++
++	return 0;
++}
++
++static int query_retired_info(struct drm_ras_node *node, u32 index,
++			      struct drm_ras_retired_info *info)
++{
++	struct xe_device *xe = node->priv;
++
++	/* This node currently tracks a single resource type: VRAM pages. */
++	if (index > 0)
++		return -ENOENT;
++
++	info->type = DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE;
++	xe_ttm_vram_get_retired_info(xe, &info->max_count, &info->offlined_count,
++				     &info->queued_count);
++
++	return 0;
++}
++
++static int register_retired_node(struct xe_device *xe)
++{
++	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
++	struct xe_drm_ras *ras = &xe->ras;
++	struct drm_ras_node *node;
++	const char *device_name;
++	int ret;
++
++	/* Retired VRAM pages are only tracked on platforms with page offline */
++	if (xe->info.platform != XE_CRESCENTISLAND)
++		return 0;
++
++	node = drmm_kzalloc(&xe->drm, sizeof(*node), GFP_KERNEL);
++	if (!node)
++		return -ENOMEM;
++
++	device_name = kasprintf(GFP_KERNEL, "%04x:%02x:%02x.%d",
++				pci_domain_nr(pdev->bus), pdev->bus->number,
++				PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
++	if (!device_name)
++		return -ENOMEM;
++
++	node->device_name = device_name;
++	node->node_name = "vram-retired-pages";
++	node->type = DRM_RAS_NODE_TYPE_RETIRED_RESOURCES;
++	node->query_retired_resource = query_retired_resource;
++	node->query_retired_info = query_retired_info;
++	node->priv = xe;
++
++	ret = drm_ras_node_register(node);
++	if (ret) {
++		cleanup_node_param(node);
++		return ret;
++	}
++
++	ras->retired_node = node;
++
++	return drmm_add_action_or_reset(&xe->drm, cleanup_node, node);
++}
++
+ static int register_nodes(struct xe_device *xe)
+ {
+ 	struct xe_drm_ras *ras = &xe->ras;
+@@ -245,5 +319,12 @@ int xe_drm_ras_init(struct xe_device *xe)
+ 		return err;
+ 	}
+ 
++	err = register_retired_node(xe);
++	if (err) {
++		drm_err(&xe->drm, "Failed to register DRM RAS retired node (%pe)\n",
++			ERR_PTR(err));
++		return err;
++	}
++
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_drm_ras_types.h b/drivers/gpu/drm/xe/xe_drm_ras_types.h
+index 83899cf04793..e1bdb7edd0e1 100644
+--- a/drivers/gpu/drm/xe/xe_drm_ras_types.h
++++ b/drivers/gpu/drm/xe/xe_drm_ras_types.h
+@@ -41,6 +41,9 @@ struct xe_drm_ras {
+ 	/** @node: DRM RAS node */
+ 	struct drm_ras_node *node;
+ 
++	/** @retired_node: DRM RAS retired-resources node for VRAM bad pages */
++	struct drm_ras_node *retired_node;
++
+ 	/** @info: info array for all types of errors */
+ 	struct xe_drm_ras_counter *info[DRM_XE_RAS_ERR_SEV_MAX];
+ 
+diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+index c54ad017725f..bc2fa43009f4 100644
+--- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
++++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+@@ -15,6 +15,8 @@
+ #include <drm/ttm/ttm_placement.h>
+ #include <drm/ttm/ttm_range_manager.h>
+ 
++#include <uapi/drm/drm_ras.h>
++
+ #include "regs/xe_regs.h"
+ #include "xe_bo.h"
+ #include "xe_configfs.h"
+@@ -581,6 +583,138 @@ u64 xe_ttm_vram_get_avail(struct ttm_resource_manager *man)
+ 	return avail;
+ }
+ 
++/**
++ * xe_ttm_vram_get_retired_page - Fetch the next retired VRAM page by address
++ * @xe: xe device instance
++ * @min_addr: inclusive lower bound; return the page with the smallest DPA >=
++ *            this value
++ * @addr: output, device physical address (DPA) of the page
++ * @size: output, size of the page in bytes
++ * @status: output, retirement status (enum drm_ras_retired_resource_status)
++ *
++ * Scans the offlined and queued page lists across all tiles and returns the
++ * entry with the smallest DPA that is >= @min_addr. Because retired pages have
++ * unique addresses, iterating with @min_addr = previous_addr + 1 walks every
++ * entry in a stable address order, which is robust against concurrent
++ * insertion or removal between calls. Intended to back the drm-ras
++ * retired-resources node enumeration.
++ *
++ * Return: 0 on success, -ENOENT when no page has a DPA >= @min_addr.
++ */
++int xe_ttm_vram_get_retired_page(struct xe_device *xe, u64 min_addr,
++				 u64 *addr, u64 *size, u32 *status)
++{
++	struct xe_ttm_vram_offline_resource *pos;
++	struct ttm_resource_manager *man;
++	struct gpu_buddy_block *block;
++	struct xe_ttm_vram_mgr *mgr;
++	u64 best_addr = 0, best_size = 0;
++	struct xe_tile *tile;
++	u32 best_status = 0;
++	bool found = false;
++	u8 id;
++
++	for_each_tile(tile, xe, id) {
++		struct xe_vram_region *vr = tile->mem.vram;
++		u64 a, s;
++
++		man = ttm_manager_type(&xe->ttm, XE_PL_VRAM0 + id);
++		if (!man || !vr)
++			continue;
++		mgr = to_xe_ttm_vram_mgr(man);
++
++		rcu_read_lock();
++
++		list_for_each_entry_rcu(pos, &mgr->offlined_pages, offlined_link) {
++			block = list_first_entry_or_null(&pos->blocks,
++							 struct gpu_buddy_block, link);
++			if (block) {
++				a = gpu_buddy_block_offset(block) + vr->dpa_base;
++				s = gpu_buddy_block_size(&mgr->mm, block);
++			} else {
++				a = pos->addr + vr->dpa_base;
++				s = SZ_4K;
++			}
++
++			if (a >= min_addr && (!found || a < best_addr)) {
++				best_addr = a;
++				best_size = s;
++				best_status = DRM_RAS_RETIRED_RESOURCE_STATUS_RETIRED;
++				found = true;
++			}
++		}
++
++		list_for_each_entry_rcu(pos, &mgr->queued_pages, queued_link) {
++			block = list_first_entry_or_null(&pos->blocks,
++							 struct gpu_buddy_block, link);
++			if (block) {
++				a = gpu_buddy_block_offset(block) + vr->dpa_base;
++				s = gpu_buddy_block_size(&mgr->mm, block);
++			} else {
++				a = pos->addr + vr->dpa_base;
++				s = SZ_4K;
++			}
++
++			if (a >= min_addr && (!found || a < best_addr)) {
++				best_addr = a;
++				best_size = s;
++				best_status = pos->status == XE_PAGE_RESERVE_FAIL ?
++					      DRM_RAS_RETIRED_RESOURCE_STATUS_FAILED :
++					      DRM_RAS_RETIRED_RESOURCE_STATUS_PENDING;
++				found = true;
++			}
++		}
++
++		rcu_read_unlock();
++	}
++
++	if (!found)
++		return -ENOENT;
++
++	*addr = best_addr;
++	*size = best_size;
++	*status = best_status;
++
++	return 0;
++}
++
++/**
++ * xe_ttm_vram_get_retired_info - Fetch device-wide retired page limits/counts
++ * @xe: xe device instance
++ * @max: output, maximum pages that can be offlined (summed across tiles)
++ * @offlined: output, pages currently retired (summed across tiles)
++ * @queued: output, pages queued for retirement (summed across tiles)
++ *
++ * Aggregates the per-tile VRAM offline limits and occupancy. Intended to back
++ * the drm-ras retired-resources info query.
++ */
++void xe_ttm_vram_get_retired_info(struct xe_device *xe, u32 *max,
++				  u32 *offlined, u32 *queued)
++{
++	struct ttm_resource_manager *man;
++	struct xe_ttm_vram_mgr *mgr;
++	struct xe_tile *tile;
++	u32 m = 0, o = 0, q = 0;
++	u8 id;
++
++	for_each_tile(tile, xe, id) {
++		man = ttm_manager_type(&xe->ttm, XE_PL_VRAM0 + id);
++		if (!man || !tile->mem.vram)
++			continue;
++		mgr = to_xe_ttm_vram_mgr(man);
++
++		scoped_guard(mutex, &mgr->lock) {
++			m += mgr->max_pages;
++			o += mgr->n_offlined_pages;
++			q += mgr->n_queued_pages;
++		}
++	}
++
++	*max = m;
++	*offlined = o;
++	*queued = q;
++}
++
+ static int xe_ttm_vram_purge_page(struct xe_device *xe, struct xe_bo *bo)
+ {
+ 	u32	q_flag = DRM_XE_EXEC_QUEUE_BAN_REASON_PAGE_OFFLINE;
+diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h
+index 8878e36292b2..9f849ee40e5b 100644
+--- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h
++++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h
+@@ -35,6 +35,11 @@ void xe_ttm_vram_get_used(struct ttm_resource_manager *man,
+ int xe_ttm_vram_handle_addr_fault(struct xe_device *xe, u64 addr);
+ int xe_ttm_vram_inject_fault(struct xe_device *xe);
+ void xe_ttm_vram_debugfs_init(struct xe_device *xe, struct dentry *root);
++int xe_ttm_vram_get_retired_page(struct xe_device *xe, u64 min_addr,
++				 u64 *addr, u64 *size, u32 *status);
++void xe_ttm_vram_get_retired_info(struct xe_device *xe, u32 *max,
++				  u32 *offlined, u32 *queued);
++
+ static inline struct xe_ttm_vram_mgr_resource *
+ to_xe_ttm_vram_mgr_resource(struct ttm_resource *res)
+ {
+diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+index ee2caa0edc6f..024f6a08c079 100644
+--- a/include/drm/drm_ras.h
++++ b/include/drm/drm_ras.h
+@@ -10,6 +10,54 @@
+ 
+ #include <uapi/drm/drm_ras.h>
+ 
++/**
++ * struct drm_ras_retired_resource - A single retired resource entry
++ *
++ * Describes one hardware resource that has been taken out of service and is
++ * reported by a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node. @type selects which
++ * member of the anonymous union is valid, allowing new hardware resource types
++ * to be added without changing the common fields.
++ */
++struct drm_ras_retired_resource {
++	/** @type: Resource type (enum drm_ras_retired_resource_type). */
++	__u32 type;
++	/** @status: Retirement status (enum drm_ras_retired_resource_status). */
++	__u32 status;
++	/**
++	 * @key: Opaque, driver-assigned ordering key for this entry. drm-ras
++	 * uses it only to advance the dump cursor; entries must be enumerable
++	 * in strictly increasing @key order and keys must be unique.
++	 */
++	__u64 key;
++	union {
++		/** @vram_page: Valid when @type is VRAM_PAGE. */
++		struct {
++			/** @vram_page.address: Device address (e.g. DPA). */
++			__u64 address;
++			/** @vram_page.size: Size in bytes. */
++			__u64 size;
++		} vram_page;
++	};
++};
++
++/**
++ * struct drm_ras_retired_info - Per-type retired resource limits and counts
++ *
++ * Reported by a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node to describe the
++ * capacity and current occupancy of one resource type. A node that tracks
++ * several resource types reports one entry per type.
++ */
++struct drm_ras_retired_info {
++	/** @type: Resource type (enum drm_ras_retired_resource_type). */
++	__u32 type;
++	/** @max_count: Maximum resources of @type that can be retired. */
++	__u32 max_count;
++	/** @offlined_count: Resources of @type currently retired. */
++	__u32 offlined_count;
++	/** @queued_count: Resources of @type queued (pending or failed). */
++	__u32 queued_count;
++};
++
+ /**
+  * struct drm_ras_node - A DRM RAS Node
+  */
+@@ -71,6 +119,45 @@ struct drm_ras_node {
+ 	 */
+ 	int (*clear_error_counter)(struct drm_ras_node *node, u32 error_id);
+ 
++	/**
++	 * @query_retired_resource:
++	 *
++	 * This callback is used by drm-ras to enumerate retired resources of a
++	 * %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node. It is called with @cursor
++	 * and must return the next entry whose ordering key is greater than or
++	 * equal to @cursor, setting @res->key to that entry's key. drm-ras
++	 * resumes multi-part dumps from the returned key, so enumeration stays
++	 * correct across concurrent insertion or removal.
++	 *
++	 * The @query_retired_resource is a mandatory callback for
++	 * retired-resources nodes.
++	 *
++	 * Returns: 0 on success,
++	 *          -ENOENT when no entry has a key >= @cursor, used as an
++	 *                  indication that enumeration is complete.
++	 *          Other negative values on errors that should terminate the
++	 *          netlink query.
++	 */
++	int (*query_retired_resource)(struct drm_ras_node *node, u64 cursor,
++				      struct drm_ras_retired_resource *res);
++
++	/**
++	 * @query_retired_info:
++	 *
++	 * This optional callback is used by drm-ras to report per-type limits
++	 * and current occupancy for a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node.
++	 * It is called with @index starting at 0 and incrementing until the
++	 * driver returns -ENOENT, allowing one entry per resource type.
++	 *
++	 * Returns: 0 on success,
++	 *          -ENOENT when @index is past the last type, used as an
++	 *                  indication that enumeration is complete.
++	 *          Other negative values on errors that should terminate the
++	 *          netlink query.
++	 */
++	int (*query_retired_info)(struct drm_ras_node *node, u32 index,
++				  struct drm_ras_retired_info *info);
++
+ 	/** @priv: Driver private data */
+ 	void *priv;
+ };
+diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+index eab8231aa87c..de6f6dd3ffa9 100644
+--- a/include/uapi/drm/drm_ras.h
++++ b/include/uapi/drm/drm_ras.h
+@@ -11,11 +11,38 @@
+ #define DRM_RAS_FAMILY_VERSION	1
+ 
+ /*
+- * Type of the node. Currently, only error-counter nodes are supported, which
+- * expose reliability counters for a hardware/software component.
++ * Type of the node.
++ *  - error-counter nodes expose reliability counters for a
++ *    hardware/software component.
++ *  - retired-resources nodes enumerate hardware resources (e.g. VRAM pages)
++ *    that have been permanently taken out of service.
+  */
+ enum drm_ras_node_type {
+ 	DRM_RAS_NODE_TYPE_ERROR_COUNTER = 1,
++	DRM_RAS_NODE_TYPE_RETIRED_RESOURCES,
++};
++
++/*
++ * Status of a retired resource entry reported by a retired-resources node.
++ *  - retired: resource is permanently reserved and out of service.
++ *  - pending: retirement is queued but reservation is not yet complete.
++ *  - failed:  reservation of the resource failed and it may still be in use.
++ */
++enum drm_ras_retired_resource_status {
++	DRM_RAS_RETIRED_RESOURCE_STATUS_RETIRED = 0,
++	DRM_RAS_RETIRED_RESOURCE_STATUS_PENDING,
++	DRM_RAS_RETIRED_RESOURCE_STATUS_FAILED,
++};
++
++/*
++ * Type of a retired resource entry. The type selects which type-specific
++ * nested attribute is present in a retired-resource entry. New hardware
++ * resource types can be added here, each carrying its own nested attribute
++ * set, without affecting existing types.
++ *  - vram-page: a VRAM page identified by device address and size.
++ */
++enum drm_ras_retired_resource_type {
++	DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE = 1,
+ };
+ 
+ enum {
+@@ -50,11 +77,43 @@ enum {
+ 	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
+ };
+ 
++enum {
++	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID = 1,
++	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_TYPE,
++	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_STATUS,
++	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_VRAM_PAGE,
++
++	__DRM_RAS_A_RETIRED_RESOURCE_ATTRS_MAX,
++	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_MAX = (__DRM_RAS_A_RETIRED_RESOURCE_ATTRS_MAX - 1)
++};
++
++enum {
++	DRM_RAS_A_VRAM_PAGE_ATTRS_ADDRESS = 1,
++	DRM_RAS_A_VRAM_PAGE_ATTRS_SIZE,
++	DRM_RAS_A_VRAM_PAGE_ATTRS_PAD,
++
++	__DRM_RAS_A_VRAM_PAGE_ATTRS_MAX,
++	DRM_RAS_A_VRAM_PAGE_ATTRS_MAX = (__DRM_RAS_A_VRAM_PAGE_ATTRS_MAX - 1)
++};
++
++enum {
++	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID = 1,
++	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_TYPE,
++	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX_COUNT,
++	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_OFFLINED_COUNT,
++	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_QUEUED_COUNT,
++
++	__DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX,
++	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX = (__DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX - 1)
++};
++
+ enum {
+ 	DRM_RAS_CMD_LIST_NODES = 1,
+ 	DRM_RAS_CMD_GET_ERROR_COUNTER,
+ 	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
+ 	DRM_RAS_CMD_ERROR_EVENT,
++	DRM_RAS_CMD_GET_RETIRED_RESOURCES,
++	DRM_RAS_CMD_GET_RETIRED_RESOURCES_INFO,
+ 
+ 	__DRM_RAS_CMD_MAX,
+ 	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
 -- 
-2.53.0
+2.25.1
 
