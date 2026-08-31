@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E09D1C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 23:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04B2C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 23:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C21C510E361;
-	Mon, 31 Aug 2026 23:24:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07E0F10E37A;
+	Mon, 31 Aug 2026 23:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cZON4xMp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A5T9axmm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1270310E353;
- Mon, 31 Aug 2026 23:24:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7205410E353;
+ Mon, 31 Aug 2026 23:30:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A690440446;
- Mon, 31 Aug 2026 23:24:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42CC91F000E9;
- Mon, 31 Aug 2026 23:24:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A17B0602D4;
+ Mon, 31 Aug 2026 23:30:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12DCC1F00A3D;
+ Mon, 31 Aug 2026 23:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788218661;
- bh=Un61TF2wU7icO/ENvcHa2TKcqzKeJeRU1OFUqRlE/m8=;
+ s=k20260515; t=1788219045;
+ bh=2zO10rBrRpKl0LAWoCRYxG2ZffFXZtrJhPtXIXE0svo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cZON4xMpLnvqIoJ9rwQIehRWs+ZScnmDhsafhrJ/crLw794a/a/7WeR9Hg0IFg1GJ
- yfEB8zwwBCBTvphdu/oCZKRdZBc4/3Ig9+nhlSMROPAfaFwE5+B8rtIs6yOG4TewJu
- GTapLWWy2lDt+nFVrnHycMc9Y9/3LA5WhQxXNYdTYaGjTaxdJYFgyRPU3fmlCHG4yR
- 46AzxqV2rJpQQoyejnfRfuGklmu7QjMYlHeiaABrJKk/5TDVtb8D9CWw1eWB19CHSQ
- IjsrmBsjaO9gVDVRqffKJgfRqeSSuTUHuJzQuz0CnNyCuIttImgg5pEMHxTsNkXbIl
- 3bMDDc1+gbs1A==
+ b=A5T9axmm0+ijeMdvnp7jyCY5QMZI9GekkkoOSFcwGRpOPhxoiQdotr9pV/F4YascR
+ 26yQxxrjZ+VeDPW3k0prSnte1CwI9ABsLlUfN6ghw8s1UDz9tooJQYMtuM/uHN4xwD
+ 0VIgwQRix+tmiCyeVTQoly/GhyoTVFwQP43HDzCDeScAtTGZL74rFDpaDN9BV/FftQ
+ kfTTz+JwwGMrrUQMFuS5/aNE5RKVIlqTt6ZhllXKn/RhW/ZxwHBMU1lWygPvMmj5U9
+ DDNRcSg8WnoEaRCuOFnbl91U4m3FDgwHU4/o/Cae4OhTyWVXDuE+Hq7p5InwQVYeez
+ O1Zm1cXkA+YpQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/12] drm/bridge: auto-link panel backlight in
- bridge connector
+Subject: Re: [PATCH v7 10/12] drm/xe: Indicate support for luminance on the
+ connector
 To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831210531.2334221-10-mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260831210531.2334221-11-mario.limonciello@amd.com>
 References: <20260831210531.2334221-1-mario.limonciello@amd.com>
- <20260831210531.2334221-10-mario.limonciello@amd.com>
+ <20260831210531.2334221-11-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 23:24:20 +0000
-Message-Id: <20260831232421.42CC91F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 23:30:44 +0000
+Message-Id: <20260831233045.12DCC1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,73 +61,68 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing cleanup of `drm_backlight_link()` on probe error paths cau=
-ses a Use-After-Free on a global list and a reference leak.
+- [Medium] The commit silently introduces and enables a new, undocumented D=
+RM feature flag (DRIVER_GEM_GPUVA), which is completely unrelated to connec=
+tor luminance.
 --
 
-commit a0dd986fcfc01d36a6bb91afe25a294e80d0f4e6
+commit 2a9c8dfbbc421c84ac6987dc02eb16939b1f82f5
 Author: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/bridge: auto-link panel backlight in bridge connector
+drm/xe: Indicate support for luminance on the connector
 
-This commit links a panel's backlight_device to the bridge connector so
-luminance-aware clients can drive it through the LUMINANCE property.
+This commit enables the connector to show luminance information for eDP pan=
+els=20
+in the xe driver by setting the DRIVER_CONNECTOR_LUMINANCE driver feature.
 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
-/drm/display/drm_bridge_connector.c
-> index 8b54069fa53a4..d4b4e59cea51c 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-[ ... ]
-> @@ -1082,9 +1084,16 @@ struct drm_connector *drm_bridge_connector_init(st=
-ruct drm_device *drm,
->  		connector->polled =3D DRM_CONNECTOR_POLL_CONNECT
->  				  | DRM_CONNECTOR_POLL_DISCONNECT;
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
+e.c
+> index f9791c850e520..b65bbe8fde0c3 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -397,7 +397,8 @@ static const struct drm_driver regular_driver =3D {
+>  	    XE_DISPLAY_DRIVER_FEATURES |
+>  	    DRIVER_GEM |
+>  	    DRIVER_RENDER | DRIVER_SYNCOBJ |
+> -	    DRIVER_SYNCOBJ_TIMELINE,
+> +	    DRIVER_CONNECTOR_LUMINANCE |
+> +	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
+
+[Severity: Medium]
+Does this code intentionally enable DRIVER_GEM_GPUVA for the xe driver
+in this patch?=20
+
+The commit message only mentions adding support for luminance on the
+connector, which suggests this flag might have been accidentally squashed
+into this patch.
+
+>  	.open =3D xe_file_open,
+>  	.postclose =3D xe_file_close,
 > =20
-> -	if (panel_bridge)
-> +	if (panel_bridge) {
-> +		struct drm_panel *panel;
-> +
->  		drm_panel_bridge_set_orientation(connector, panel_bridge);
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 449160b9863f6..bda0f0bd7b16b 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -125,6 +125,13 @@ enum drm_driver_feature {
+>  	 */
+>  	DRIVER_CONNECTOR_LUMINANCE           =3D BIT(10),
 > =20
-> +		panel =3D drm_panel_bridge_to_panel(panel_bridge);
-> +		if (panel && panel->backlight)
-> +			drm_backlight_link(connector, panel->backlight);
-
-[Severity: High]
-Does this cause a use-after-free and a reference leak on probe error paths?
-
-During early initialization here, drm_backlight_link() links the connector's
-backlight to the global list. If the driver's probe function subsequently
-fails before calling drm_dev_register() (e.g., due to EPROBE_DEFER or
-hardware errors), the device is never registered.
-
-Because drm_connector_unregister() is never called in this error path, the
-backlight is not unlinked. Later, when drmm managed cleanup runs
-drm_connector_cleanup(), it calls drm_backlight_connector_cleanup().
-
-Looking at drm_backlight_connector_cleanup():
-
-void drm_backlight_connector_cleanup(struct drm_connector *connector)
-{
-	struct drm_backlight *b =3D &connector->backlight;
-
-	WARN_ON(__drm_backlight_is_linked(b));
-	WARN_ON(b->funcs);
-	WARN_ON(b->luminance_clients);
-}
-
-This function only warns and does not actually unlink the backlight. The
-connector is then freed, leaving a dangling pointer in the global
-drm_backlight_list. Iterating this global list later (e.g., during backlight
-brightness changes) could dereference the freed connector memory.
-
-> +	}
+> +	/**
+> +	 * @DRIVER_GEM_GPUVA:
+> +	 *
+> +	 * Driver supports GEM GPU virtual addressing.
+> +	 */
+> +	DRIVER_GEM_GPUVA               =3D BIT(11),
 > +
->  	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
->  	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
->  		drm_connector_attach_content_protection_property(connector, true);
+
+[Severity: Medium]
+Is the DRIVER_GEM_GPUVA flag definition meant to be included here?=20
+
+It appears unrelated to the connector luminance changes described in the
+commit message and might belong in a separate, dedicated patch.
+
+>  	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
-221-1-mario.limonciello@amd.com?part=3D9
+221-1-mario.limonciello@amd.com?part=3D10
