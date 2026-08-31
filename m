@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6A3C61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1832FC61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:28:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E87A10E7A1;
-	Mon, 31 Aug 2026 09:26:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F9A10E7A4;
+	Mon, 31 Aug 2026 09:28:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i3tdPs2T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="efjQK8dN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6DC110E7A1
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:26:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA5810E7A2
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:28:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8310543620;
- Mon, 31 Aug 2026 09:26:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441151F000E9;
- Mon, 31 Aug 2026 09:26:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AC81C6013A;
+ Mon, 31 Aug 2026 09:28:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414571F000E9;
+ Mon, 31 Aug 2026 09:28:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788168387;
- bh=F0Lnl1VihcJ6ziAJfN/wXk+p0mktVpoIwDdwyRCOSjE=;
+ s=k20260515; t=1788168533;
+ bh=EEvoIphWXwZQTdbQDECuH3q8RDrmxSuBnzYox3JRWqI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i3tdPs2T6fvfuHselTfCfz9FR2j5lww6uys5u/b0R8krpsjMIR2cy34+MA5LOXHvu
- 50nDaunQg0rxL6cWmkHh4X9gAEMb/dhO1Y4tdF3QPheQKlTNQRPHtmDLNo/K2uMk8m
- X08+v0OHRm6LXSvmybTY9odTE62f/YU85XdthZ+54irHiUg+ofIK6Aw+JkdJ5b3fYc
- pY0mJfVXdqobGY1KuTw3pH47QRbf2PuFsl74eVtgnoN+nrs4sGMh6/MJ98suWYmVyR
- QTXXqUiGeLy3v08neJvRXGu4/nVluErIY05M1ApGsKh170Dj2xgYKezIqixycmqmCu
- ZcrjI2uNOWTHQ==
+ b=efjQK8dNfEneanqsuB4uZ3Dg+fLNZRw0NnymbLyCq0XXRCa8KlHZihZRhAncm27Ac
+ MnFJMbh14rAIte7g24XuzPzVXtDINezBlCyVvX3DGIUGRY/VsIuY7IhvYCeZNpFd0O
+ yIPu7fdjTvSlZST9J43rj7GOhVZqBHluhSGGbSel/Pm1uICcRdyCL/l+tP/S7HwIYd
+ JfAFLstXrCRz6nXaQWJjE6UTjsQQuhBM8GhzTFeme1WeXcgYpy945dUZhtCMNa6+B2
+ jiWHajgwVHk81WGj8CwtldOrB0M3jShhwBckhPSAMCE8saR1bzzrZUAreCaAcW/2Ub
+ YlJjjLHOze83Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 16/29] drm/msm/dp: add link_ready to manage
- link-level operations
+Subject: Re: [PATCH v6 17/29] drm/msm/dp: add msm_dp_display_get_panel() to
+ initialize DP panel
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831-msm-dp-mst-v6-16-c91d35d6fb9e@oss.qualcomm.com>
+In-Reply-To: <20260831-msm-dp-mst-v6-17-c91d35d6fb9e@oss.qualcomm.com>
 References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
- <20260831-msm-dp-mst-v6-16-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-17-c91d35d6fb9e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 09:26:26 +0000
-Message-Id: <20260831092627.441151F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 09:28:52 +0000
+Message-Id: <20260831092853.414571F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,155 +58,90 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] PM runtime reference and PHY state are leaked when msm_dp_display_=
-prepare_link() fails after acquiring resources.
-- [High] active_stream_cnt unconditionally underflows to UINT_MAX when disp=
-lay disable is called after a failed link preparation.
-- [Low] Logically inverted debug message for !link_ready condition.
+- [High] msm_dp_display_get_panel() blindly allocates a duplicate panel str=
+ucture for a given stream ID, leading to desynchronized internal state.
+- [High] Missing NULL pointer check for optional pixel_base resource leads =
+to a kernel panic during stream setup.
 --
 
-commit 229804790247809bb388c425e9b3744dffd08236
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+commit 09c5d687d7add705558b0ff0b93169b01fc6922e
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-    drm/msm/dp: add link_ready to manage link-level operations
-   =20
-    In MST mode, multiple streams share the same DP link. Track a link_ready
-    state so msm_dp_display_prepare_link() runs only once per link and
-    repeated calls are skipped.
+drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
+
+This commit adds the msm_dp_display_get_panel API to initialize and
+return a DP panel structure for use by the DP MST module.
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index 6103fa67f3ee9..90e3d2c4ef478 100644
+> index 90e3d2c4ef478..6952f83db0065 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -638,6 +638,10 @@ int msm_dp_display_prepare_link(struct msm_dp *msm_d=
-p_display)
->  	if (msm_dp_display->is_edp)
->  		msm_dp_hpd_plug_handle(dp);
-> =20
-> +	/* Serialized by modeset lock or mst_lock. */
-> +	if (msm_dp_display->link_ready)
-> +		return 0;
-> +
->  	rc =3D pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
->  	if (rc) {
->  		DRM_ERROR("failed to pm_runtime_resume\n");
-> @@ -659,7 +663,11 @@ int msm_dp_display_prepare_link(struct msm_dp *msm_d=
-p_display)
->  		}
->  	}
-> =20
-> -	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_tr=
-ain);
-> +	rc =3D msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_tr=
-ain);
-> +	if (!rc)
-> +		msm_dp_display->link_ready =3D true;
-> +
-> +	return rc;
+
+[ ... ]
+
+> @@ -529,6 +529,33 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_displ=
+ay_private *dp)
+>  	return rc;
 >  }
-
-[Severity: High]
-Is there a leak of the PM runtime reference here?
-
-If msm_dp_display_prepare_link() fails after acquiring the PM reference
-but before setting link_ready to true:
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_prepare_link() {
-    ...
-	rc =3D pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
-    ...
-	if (dp->link->sink_count =3D=3D 0)
-		return -ENOTCONN;
-    ...
-}
-
-It appears the new early return in msm_dp_display_unprepare() will skip
-dropping the PM reference and exiting the PHY on error paths:
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_unprepare() {
-    ...
-	if (!msm_dp_display->link_ready) {
-		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
-		return;
-	}
-    ...
-	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
-    ...
-}
-
-[ ... ]
-
-> @@ -1493,14 +1501,16 @@ void msm_dp_display_enable_helper(struct msm_dp *=
-msm_dp_display, struct msm_dp_p
 > =20
->  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
+> +struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_disp=
+lay,
+> +					      enum msm_dp_stream_id stream_id)
+> +{
+> +	struct msm_dp_display_private *dp;
+> +	struct msm_dp_panel *dp_panel;
+> +
+> +	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
 dp_display);
-> =20
-> -	rc =3D msm_dp_display_enable(dp, msm_dp_panel);
-> -	if (rc)
-> -		DRM_ERROR("DP display enable failed, rc=3D%d\n", rc);
-> +	if (msm_dp_display->link_ready) {
-> +		rc =3D msm_dp_display_enable(dp, msm_dp_panel);
-> +		if (rc)
-> +			DRM_ERROR("DP display enable failed, rc=3D%d\n", rc);
-> =20
-> -	rc =3D msm_dp_display_post_enable(msm_dp_display);
-> -	if (rc) {
-> -		DRM_ERROR("DP display post enable failed, rc=3D%d\n", rc);
-> -		msm_dp_display_disable(dp, msm_dp_panel);
-> +		rc =3D msm_dp_display_post_enable(msm_dp_display);
-> +		if (rc) {
-> +			DRM_ERROR("DP display post enable failed, rc=3D%d\n", rc);
-> +			msm_dp_display_disable(dp, msm_dp_panel);
-> +		}
->  	}
-> =20
->  	drm_dbg_dp(msm_dp_display->drm_dev, "type=3D%d Done\n", msm_dp_display-=
->connector_type);
-
-[Severity: High]
-Can active_stream_cnt underflow during teardown?
-
-If msm_dp_display_prepare_link() fails, link_ready remains false. The call
-to msm_dp_display_enable() above is skipped, and active_stream_cnt is not
-incremented.
-
-However, during teardown, msm_dp_display_disable() is called without checki=
-ng
-link_ready:
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_disable() {
-    ...
-	msm_dp_display->active_stream_cnt--;
-    ...
-}
-
-Will this decrement an already zero active_stream_cnt, breaking subsequent
-modesets that check if (!msm_dp_display->active_stream_cnt)?
-
-[ ... ]
-
-> @@ -1543,6 +1553,11 @@ void msm_dp_display_unprepare(struct msm_dp *msm_d=
-p_display)
-> =20
->  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
-dp_display);
-> =20
-> +	if (!msm_dp_display->link_ready) {
-> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
-> +		return;
+> +
+> +	if (stream_id >=3D msm_dp_ctrl_get_stream_cnt(dp->ctrl)) {
+> +		DRM_ERROR("invalid stream_id %d\n", stream_id);
+> +		return NULL;
 > +	}
 > +
+> +	dp_panel =3D msm_dp_panel_get(&dp->msm_dp_display.pdev->dev, dp->aux, d=
+p->link,
+> +				    dp->link_base, dp->mst2link_base, dp->mst3link_base,
+> +				    dp->pixel_base[stream_id]);
 
-[Severity: Low]
-Is this debug message logically inverted? It prints "Link already setup, re=
-turn"
-when the condition explicitly checks that the link is NOT ready
-(!msm_dp_display->link_ready).
+[Severity: High]
+Does this inadvertently create a duplicate panel structure that lacks
+initialized state?
+
+When an MST stream is enabled, this dynamically allocates a new panel struct
+where link_info is zeroed. Since the primary panel usually populates dpcd a=
+nd
+link_info (via msm_dp_panel_read_link_caps()), bandwidth calculations in
+msm_dp_panel_get_supported_bpp() will evaluate to 0 for this secondary pane=
+l.
+Will this permanently degrade the display to the minimum 18bpp fallback?
+
+[Severity: High]
+Can dp->pixel_base[stream_id] be NULL here?
+
+The pixel_base memory regions are explicitly handled as optional in
+msm_dp_display_get_io(). If the device tree specifies a pixel clock but
+omits the corresponding register region, passing dp->pixel_base[stream_id]
+as NULL to msm_dp_panel_get() stores a NULL panel->pixel_base.=20
+
+When the display pipeline attempts to configure the panel timings later
+(e.g., via msm_dp_write_pn()), could it dereference this NULL pointer and
+cause a panic?
+
+> +
+> +	if (IS_ERR(dp_panel)) {
+> +		DRM_ERROR("failed to initialize panel\n");
+> +		return NULL;
+> +	}
+> +
+> +	dp_panel->stream_id =3D stream_id;
+> +
+> +	return dp_panel;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-msm-dp-mst=
--v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D16
+-v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D17
