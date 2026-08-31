@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BD88C624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01683C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA49E10E8D3;
-	Mon, 31 Aug 2026 13:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3667710E8D7;
+	Mon, 31 Aug 2026 13:48:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iGukKDDn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E6UnkWmv";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44D3A10E8D4;
- Mon, 31 Aug 2026 13:48:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E70B10E8D6;
+ Mon, 31 Aug 2026 13:48:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D1DC6013A;
- Mon, 31 Aug 2026 13:48:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56B71F00A3D;
- Mon, 31 Aug 2026 13:48:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 75F9E602BA;
+ Mon, 31 Aug 2026 13:48:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51AD1F00ACA;
+ Mon, 31 Aug 2026 13:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184109;
- bh=h2417QFsNsN7jeVp0HIW7Ec11pPQ0l2ZCCKB+5O68ro=;
+ s=k20260515; t=1788184112;
+ bh=fwK88PsV0/tcr1iY8Ix2BUCLb4fJksddhf7T8CmozkY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=iGukKDDnO4NECwKwtR3IjTZDLbW4Z2ZQsS+h6uFBKK1I7PTvv20auvVWIq0ILCsMx
- EGdL/eAVAfLYPupFjpaeumTSlCfy76K44458zhyiQ/1dv2AS3X5nwswLzlrBpI0FfV
- 6PEVUtYynOleBJdQiFC24CBKjMcw++XiGBEdX4EdtrCP6XnBSPp9ZeJp6rX4+iBEbE
- oYTQUyX2E9LBz6AkhkE/zkhy9/sWYMYneTWcPJmMHXYMPEC2/Y+CqYJ/+OhiYHDjla
- sQfogIWRoEzjVDh4zUx/iAkdH57+kMjv4rw1KFezJOAHklmKlUTc5CU156J1VdCpII
- HRoSb1RR0Zr6Q==
+ b=E6UnkWmvVRMh6G0a20rAICgZslT9pUVoH9xsKCOrpXkvp7GgVlA1T0fYgvDH42BGf
+ NYla9Jmu8aSs7k/t4ZbkXhPyQficGnnzfbAFKMUIo+FnBnSx0KqA04AkvPwRl33lK1
+ VsnzxEe3Sdu2w9jqh0349+YFmLmnn/FimLPRUzi2Y6SC4tWzDJBz+V8f0JEzHDPHdy
+ e+PR/cx67K1IRYPvGgp4ZMdmEJag/pssh3yBNx99EFb4mZuXktNOGmrnRBO9nTkXM7
+ eTaAlR645TRGbvMXHW6nRAYomsKdCcBD35M/nIaZChajRF4ltPQFXg08oPc7/YQDI1
+ ZqIAuEfUxuWCw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Asad Kamal <asad.kamal@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: bound pp_dpm_set_pp_table()
- memcpy
-Date: Mon, 31 Aug 2026 09:28:44 -0400
-Message-ID: <20260831133314.4125787-496-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: check find_first_zero_bit before
+ __set_bit on kfd->doorbell_bitmap
+Date: Mon, 31 Aug 2026 09:28:46 -0400
+Message-ID: <20260831133314.4125787-498-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,64 +66,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Asad Kamal <asad.kamal@amd.com>
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-[ Upstream commit f193e71fa9fab2e68ef85201b106e8f580d3a25b ]
+[ Upstream commit 516bf737a5602875f6c28d1028967837c8edf2c0 ]
 
-The powerplay path allocates hardcode_pp_table once with kmemdup(...,
-soft_pp_table_size). memcpy(..., size) used the sysfs store count (up to
-PAGE_SIZE) with no upper bound, causing heap overflow. Reject
-writes where size exceeds soft_pp_table_size.
+If inx from find_first_zero_bit is beyond range not need set doorbell_bitmap.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 2664ce9143d174651a793d96a6a2326050c4f45a)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amd/pm: bound pp_dpm_set_pp_table()
-memcpy`
+# Stable Backport Analysis: `drm/amdkfd: check find_first_zero_bit
+before __set_bit on kfd->doorbell_bitmap`
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION=6`,
-`PATCHLEVEL=18`, `SUBLEVEL=44`)
+**Local tree:** `v6.18.44` (Linux 6.18.44)
+**Fix commit:** `2664ce9143d174651a793d96a6a2326050c4f45a` — **not** in
+this tree; buggy code is still present.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[drm/amd/pm]` `[bound]` — bounds-check `memcpy` in
-`pp_dpm_set_pp_table()` to prevent heap overflow when uploading a
-powerplay table via sysfs.
+**Record:** `[drm/amdkfd]` `[check]` — validate `find_first_zero_bit`
+result before calling `__set_bit` on `kfd->doorbell_bitmap`.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Asad Kamal `<asad.kamal@amd.com>` (author)
-- **Reviewed-by:** Yang Wang `<kevinyang.wang@amd.com>` (AMD reviewer)
+- **Signed-off-by:** Xiaogang Chen `<xiaogang.chen@amd.com>` (author)
+- **Reviewed-by:** Alex Deucher `<alexander.deucher@amd.com>` (AMD DRM
+  maintainer)
 - **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
-  (subsystem maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`, or `Acked-by:`
-
-Notable: maintainer sign-off and AMD internal review; no syzbot report.
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, `Tested-by:`, or
+  `Acked-by:` tags
+- `(cherry picked from commit 2664ce9143d1...)` — pipeline marker;
+  ignored per instructions
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `hardcode_pp_table` is allocated once via `kmemdup(...,
-  soft_pp_table_size)`, but `memcpy(..., size)` uses the sysfs write
-  length (`count`, up to `PAGE_SIZE`) with no upper bound.
-- **Symptom:** Heap buffer overflow in kernel memory.
-- **Trigger:** Writing more bytes than `soft_pp_table_size` to the
-  `pp_table` sysfs attribute on the legacy powerplay DPM path.
-- **Root cause:** Mismatch between allocation size and copy size.
-- **Version info:** None in commit message.
+- **Bug:** When `find_first_zero_bit` finds no free bit, it returns `nb`
+  (the search size). The old code called `__set_bit(inx, ...)` before
+  checking whether `inx` is in range.
+- **Symptom:** Out-of-bounds bitmap write when the bitmap is exhausted;
+  on large-page systems, also leaks bitmap slots on the error path (set
+  bit, then return NULL).
+- **Root cause:** Range check was placed after `__set_bit` instead of
+  before it.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — despite “bound” wording rather than “fix”, this is a
-clear memory-safety bug fix (heap overflow / out-of-bounds write), not
-cleanup or optimization.
+**Record:** Yes. Despite the terse message, this is a memory-safety /
+resource-management fix, not cosmetic cleanup.
 
 ---
 
@@ -131,39 +128,35 @@ cleanup or optimization.
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` (+3 / -0)
-- **Function:** `pp_dpm_set_pp_table()`
-- **Scope:** Single-file, surgical fix (3 lines)
+- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c` (+5 / -3 lines)
+- **Function:** `kfd_get_kernel_doorbell()`
+- **Scope:** Single-file, surgical fix
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Before:** After basic `hwmgr`/`pm_en` validation, code allocates (if
-  needed) `hardcode_pp_table` sized to `soft_pp_table_size`, then
-  unconditionally `memcpy(hwmgr->hardcode_pp_table, buf, size)`.
-- **After:** Rejects writes where `size > hwmgr->soft_pp_table_size`
-  with `-EINVAL` before allocation/copy.
-- **Path affected:** Sysfs write → `amdgpu_set_pp_table()` →
-  `amdgpu_dpm_set_pp_table()` → `pp_dpm_set_pp_table()`.
+- **Before:** lock → `find_first_zero_bit` → `__set_bit` → unlock → if
+  `inx >= 1024` return NULL
+- **After:** lock → `find_first_zero_bit` → if `inx >= 1024` unlock and
+  return NULL → `__set_bit` → unlock
+- **Affected path:** Error path when no kernel doorbell slot is
+  available
 
 ### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Buffer overflow / out-of-bounds heap write (memory
-  safety).
-- **Mechanism:** `kmemdup` allocates `soft_pp_table_size` bytes;
-  `memcpy` can copy up to `PAGE_SIZE` (4096) bytes from sysfs `count`.
-  When `size > soft_pp_table_size`, writes past the kmalloc buffer. On
-  subsequent writes, the buffer is not reallocated (only allocated once
-  when `!hardcode_pp_table`), so overflow persists.
+- **Category:** Out-of-bounds access / bitmap resource leak
+- **Mechanism:** `doorbell_bitmap` is allocated with
+  `bitmap_zalloc(PAGE_SIZE / sizeof(u32))` (1024 bits on 4 KiB pages).
+  `find_first_zero_bit(..., PAGE_SIZE / sizeof(u32))` returns `1024`
+  when full. `__set_bit(1024, ...)` writes past the end of a 1024-bit
+  bitmap. On larger pages, indices 1024..(PAGE_SIZE/4-1) could be set
+  and then discarded via `return NULL`, leaking slots.
 
 ### Step 2.4: Fix quality
 **Record:**
-- Fix is obviously correct and minimal.
-- Mirrors the intent of the SMU-path fix in commit `1abb2648698bf`
-  (“avoid buffer overflow … in `smu_sys_set_pp_table()`”), which added
-  size validation and reallocation logic.
-- Low regression risk: only rejects invalid oversized writes; legitimate
-  writes matching the existing table size continue to work.
-- No API or structural changes.
+- Obviously correct; mirrors the process-doorbell pattern in
+  `kfd_device_queue_manager.c` (check before `set_bit`)
+- Minimal change, no API changes
+- **Regression risk:** Very low — only affects the exhaustion error path
 
 ---
 
@@ -171,32 +164,29 @@ cleanup or optimization.
 
 ### Step 3.1: Blame
 **Record:**
-- `pp_dpm_set_pp_table()` introduced in `f3898ea12fc1f` (Eric Huang,
-  2015-12-11).
-- Unbounded `memcpy` introduced in `4dcf9e6f2e33fe` (Eric Huang,
-  2016-06-01): “add uploading pptable and resetting powerplay support”.
-- Bug has existed since mid-2016; present in this 6.18.y tree.
+- Function dates to 2014 (`19f6d2a660340d`, Oded Gabbay)
+- `find_first_zero_bit` with `PAGE_SIZE / sizeof(u32)` added in
+  `c31866651086fc` (Jul 2023, Shashank Sharma)
+- The check-after-set pattern predates 2023; the 2023 change did not
+  introduce the ordering bug, but kept it
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+**Record:** N/A — no `Fixes:` tag present.
 
 ### Step 3.3: Related file history
 **Record:**
-- Related stable-worthy fix already in tree: `1abb2648698bf` (Feb 2025)
-  — SMU `smu_sys_set_pp_table()` overflow fix, with `Cc:
-  stable@vger.kernel.org`.
-- Candidate fix (`bound pp_dpm_set_pp_table`) is **not** in this tree;
-  buggy code confirmed at lines 660–676 without the bounds check.
-- Standalone one-patch fix, not part of a series.
+- Recent `kfd_doorbell.c` changes are doorbell-manager refactors (2023)
+- No related fix for this issue already in the tree
+- Part of a 3-patch series per b4; patch 1 is unrelated
+  (`AMDKFD_IOC_GET_DMABUF_INFO`)
 
 ### Step 3.4: Author context
-**Record:** Asad Kamal is an active AMD contributor (`drm/amdgpu`,
-`drm/amd/pm`). Patch reviewed by Yang Wang and committed by Alex Deucher
-(AMD DRM maintainer).
+**Record:** Xiaogang Chen is an AMD contributor; Alex Deucher
+(maintainer) reviewed and committed.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. Adds a simple validation before existing
-logic. Applies cleanly to current `amd_powerplay.c` in this tree.
+**Record:** Standalone — no prerequisite commits required. Applies
+cleanly to current `kfd_doorbell.c`.
 
 ---
 
@@ -204,130 +194,130 @@ logic. Applies cleanly to current `amd_powerplay.c` in this tree.
 
 ### Step 4.1: Original discussion
 **Record:**
-- `b4 dig -c 6f5c27bdc1e91` failed (commit not in local object
-  database).
-- Web search found submission: [amd-gfx May
-  2026](https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/145636.html) by Asad Kamal, May 29, 2026.
-- Review reply from Yang Wang referenced in thread index.
-- No explicit stable nomination found in available search results.
-- No NAKs found in available summaries.
+- **b4 dig URL:**
+  https://patch.msgid.link/20260528184656.123149-2-xiaogang.chen@amd.com
+- **Series:** `[PATCH 2/3]` — patch 1 is unrelated ioctl work
+- Lore fetch blocked by bot protection; thread content not directly
+  readable
 
 ### Step 4.2: Reviewers
-**Record:** CC list included AMD maintainers (Deucher, Lazar, etc.).
-`Reviewed-by: Yang Wang`; `Signed-off-by: Alex Deucher`.
+**Record:** CC'd to `amd-gfx@lists.freedesktop.org`; Reviewed-by Alex
+Deucher (maintainer).
 
-### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Bug identified by
-code inspection / internal AMD review.
+### Step 4.3: Bug reports
+**Record:** No external bug report, syzbot report, or crash trace
+referenced.
 
 ### Step 4.4: Related patches
-**Record:** Direct parallel: `1abb2648698bf` for
-`smu_sys_set_pp_table()` — same sysfs interface, same class of overflow,
-already in this tree and nominated for stable.
+**Record:** Patch 2/3 is independent of patches 1 and 3 for this fix's
+correctness.
 
 ### Step 4.5: Stable list history
-**Record:** lore.kernel.org blocked by bot protection; could not search
-stable@ list directly. SMU sibling fix explicitly had `Cc:
-stable@vger.kernel.org`.
+**Record:** Not searched separately; no stable nomination found in
+commit metadata.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `pp_dpm_set_pp_table()`, callers:
-`amdgpu_dpm_set_pp_table()`, `amdgpu_set_pp_table()`.
+**Record:** `kfd_get_kernel_doorbell()`, `kfd_release_kernel_doorbell()`
 
 ### Step 5.2: Callers
 **Record:**
-- `amdgpu_set_pp_table()` — sysfs store for `pp_table`
-  (`AMDGPU_DEVICE_ATTR_RW(pp_table, ...)`)
-- `amdgpu_dpm_set_pp_table()` — dispatches via `pp_funcs->set_pp_table`
-  under `adev->pm.mutex`
-- Powerplay path: `pp_dpm_funcs.set_pp_table = pp_dpm_set_pp_table`
-  (legacy DPM GPUs)
-- SMU path: `smu_sys_set_pp_table` (Navi+ and newer) — separate code
-  path, already has size checks
+- `kfd_kernel_queue.c:76` — `kernel_queue_init()` for HIQ/DIQ queues
+- Typically 1–2 kernel queues per KFD device (HIQ + optional DIQ)
+- Error path at line 78–80 handles NULL return
 
 ### Step 5.3: Callees
-**Record:** `kmemdup()`, `memcpy()`, `amd_powerplay_reset()`, optional
-`avfs_control()`.
+**Record:** `mutex_lock/unlock`, `find_first_zero_bit`, `__set_bit`,
+`amdgpu_doorbell_index_on_bar`
 
 ### Step 5.4: Reachability
 **Record:**
-- Reachable from userspace via `/sys/class/drm/card*/device/pp_table`
-  write.
-- Requires `amdgpu_pm_get_access()` (device runtime-resumed); sysfs
-  write typically requires root/CAP_SYS_ADMIN.
-- Affects systems using legacy powerplay DPM (pre-SMU path GPUs:
-  Polaris, Vega, older APUs, etc.) — still common in stable/LTS
-  deployments.
+- Triggered during KFD device init / debug-queue setup (`CONFIG_HSA_AMD`
+  / AMDGPU KFD)
+- Not directly userspace-syscall reachable, but reachable during GPU
+  compute driver init
+- Exhaustion requires ~1024 allocations without release — unrealistic in
+  normal use (~2 kernel queues), but possible with a doorbell leak
 
 ### Step 5.5: Similar patterns
-**Record:** SMU path (`smu_sys_set_pp_table`) validates
-`header->usStructureSize != size` and reallocates when needed
-(`1abb2648698bf`). Powerplay path lacked any size validation —
-inconsistent and vulnerable.
+**Record:** Process doorbells in `kfd_device_queue_manager.c:484–490`
+already check `found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` **before**
+`set_bit`. This fix aligns kernel doorbells with that correct pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
-### Step 6.1: Buggy code exists?
-**Record:** **Yes.** Current tree at `v6.18.44` has unbounded `memcpy`
-in `pp_dpm_set_pp_table()` (lines 668–676). No `size >
-soft_pp_table_size` check. Bug introduced 2016; long-standing.
+### Step 6.1: Buggy code present?
+**Record:** **Yes.** Current tree at lines 155–162 still has check-
+after-set:
 
-### Step 6.2: Backport complications
-**Record:** Clean apply expected — 3-line insertion with no surrounding
-churn in the function. Recent file history is handle-pointer refactors
-unrelated to this hunk.
+```155:162:drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+        mutex_lock(&kfd->doorbell_mutex);
+        inx = find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE /
+sizeof(u32));
+
+        __set_bit(inx, kfd->doorbell_bitmap);
+        mutex_unlock(&kfd->doorbell_mutex);
+
+        if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
+                return NULL;
+```
+
+Bitmap allocation at line 75: `bitmap_zalloc(PAGE_SIZE / sizeof(u32))` —
+1024 bits on 4 KiB pages. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` = 1024
+(`kfd_priv.h:97`).
+
+### Step 6.2: Backport difficulty
+**Record:** Clean apply expected — 8-line hunk, no conflicts observed.
 
 ### Step 6.3: Related fixes already present?
-**Record:** SMU overflow fix (`1abb2648698bf`) is an ancestor of HEAD.
-Powerplay-path equivalent is **not** present.
+**Record:** None. `git merge-base --is-ancestor 2664ce9143d1 HEAD` →
+NOT_IN_TREE.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMD GPU driver
-power management). Not universal core kernel, but widely deployed on
-desktop, laptop, and server GPUs.
+**Record:** `drivers/gpu/drm/amd/amdkfd` — **PERIPHERAL** (AMD GPU
+compute / ROCm users with `CONFIG_HSA_AMD`)
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; recent commits in `amd_powerplay.c` and
-related PM code.
+### Step 7.2: Activity
+**Record:** Actively maintained; recent doorbell-manager refactoring in
+2023.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Users of AMD GPUs on the legacy powerplay DPM path who write
-custom powerplay tables via `pp_table` sysfs. Config/driver-specific,
-but covers many still-supported Polaris/Vega-era devices.
+**Record:** AMD GPU users with KFD/ROCm enabled — not universal, but
+real production users.
 
 ### Step 8.2: Trigger conditions
-**Record:** Write to `pp_table` with `count > soft_pp_table_size` (and
-`count` up to `PAGE_SIZE`). Requires sysfs write access (typically
-root). Trigger is straightforward for anyone intentionally uploading a
-table.
+**Record:**
+- All doorbell bitmap slots consumed (1024 on 4 KiB pages)
+- Normal operation uses ~2 kernel doorbells per device
+- **Likelihood:** Very low without a resource leak; **possible** with a
+  leak bug
 
 ### Step 8.3: Failure mode severity
-**Record:** Heap buffer overflow → potential kernel crash, memory
-corruption, possible security impact. **Severity: HIGH** (memory safety;
-kernel integrity).
+**Record:**
+- **OOB `__set_bit`:** Memory corruption adjacent to bitmap → potential
+  crash or unpredictable behavior — **HIGH** if triggered
+- **Bitmap leak (large pages):** Gradual exhaustion — **MEDIUM**
+- **Practical impact today:** Low due to unlikely trigger
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH — closes a real, long-standing heap overflow on a
-  reachable sysfs path; aligns powerplay path with already-stable-
-  nominated SMU fix.
-- **Risk:** VERY LOW — 3-line bounds check, rejects only invalid inputs.
-- **Ratio:** Strongly favors backport.
+- **Benefit:** Prevents OOB write and bitmap leaks on error path; aligns
+  with existing correct pattern
+- **Risk:** Minimal — 5-line reorder/addition on error path only
+- **Ratio:** Favorable — near-zero risk, real correctness fix
 
 ---
 
@@ -336,97 +326,109 @@ kernel integrity).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real heap overflow bug, present since 2016
-- Reachable via `pp_table` sysfs on legacy powerplay GPUs
-- Small (3 lines), obviously correct, maintainer-reviewed
-- Parallel SMU fix already in this tree with stable nomination
-- Prevents crash/corruption
+- Real out-of-bounds bitmap write when exhausted
+- Obviously correct; maintainer-reviewed
+- Small, self-contained, clean apply
+- Matches established pattern in same subsystem
+- Buggy code confirmed present in v6.18.44
+- Memory-safety class of fix
 
 **AGAINST backport:**
-- Only affects legacy powerplay path (not Navi+/SMU GPUs)
-- Sysfs write typically requires elevated privileges
-- No syzbot/CVE report (but bug mechanism is clear from code)
+- No user reports or fuzzer findings
+- Trigger extremely unlikely in normal kernel-queue usage (~2 doorbells)
+- Bug present since 2014 without known incidents
+- Config/driver-specific (AMD KFD only)
 
-**Unresolved:** Full lore review thread content (bot protection); no
-explicit `Cc: stable` on this specific patch (but sibling fix had it).
+**Unresolved:** None affecting the decision.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — trivial bounds check;
-   `Reviewed-by` AMD engineer; maintainer sign-off.
-2. Fixes a real bug affecting users? **PASS** — heap overflow on sysfs
-   upload path.
-3. Important issue? **PASS** — memory safety / potential crash and
-   corruption (**HIGH**).
-4. Small and contained? **PASS** — 3 lines, one function.
-5. No new features or APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — buggy code present; patch applies
-   cleanly.
+1. Obviously correct and tested? **PASS** — logic verified; maintainer
+   reviewed (no runtime test cited)
+2. Fixes a real bug? **PASS** — OOB `__set_bit` on exhaustion
+3. Important issue? **PASS** — memory corruption (severity high if
+   triggered; trigger rare)
+4. Small and contained? **PASS** — 8 lines, one function
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — code exists; fix not yet applied
 
 ### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
-as a standard security/stability bug fix.
+**Record:** None (not a quirk, device ID, DT, build, or docs fix).
 
 ### Step 9.4: Decision rationale
-This commit fixes a genuine heap buffer overflow in
-`pp_dpm_set_pp_table()` that has existed in the 6.18.y tree since the
-powerplay table upload feature was added. The fix is minimal, correct,
-and consistent with the already-backported SMU-path overflow fix. For
-stable users running legacy AMD GPUs who use `pp_table` sysfs, this
-prevents kernel memory corruption and potential crashes.
+
+This is a small, maintainer-reviewed memory-safety fix for a genuine
+ordering bug: `__set_bit` was called before validating the index
+returned by `find_first_zero_bit`. When the bitmap is full, that is an
+out-of-bounds write. The trigger is rare for kernel doorbells (only
+HIQ/DIQ, typically ~2 per device), but the fix is trivial, matches the
+correct pattern already used for process doorbells in the same driver,
+and has essentially no regression risk. For the 6.18.y stable tree where
+the buggy code is present and the fix is absent, this meets stable
+kernel criteria.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git describe HEAD` → `v6.18.44`; parsed commit message
-  tags and body from user-provided diff
-- **[Phase 2]** Read `amd_powerplay.c:660-688` — confirmed missing
-  bounds check and unbounded `memcpy`
-- **[Phase 2]** Traced call chain via grep: `amdgpu_set_pp_table` →
-  `amdgpu_dpm_set_pp_table` → `pp_dpm_set_pp_table`
-- **[Phase 3]** `git blame -L 660,690` — function from 2015, `memcpy`
-  from `4dcf9e6f2e33fe` (2016-06-01)
-- **[Phase 3]** `git show 4dcf9e6f2e33fe` — introduced upload/reset
-  support with unbounded copy
-- **[Phase 3]** `git show 1abb2648698bf` — SMU sibling overflow fix with
-  `Cc: stable`; confirmed ancestor of HEAD
-- **[Phase 3]** `git log --grep="bound pp_dpm"` — no match; fix not in
-  tree
-- **[Phase 4]** `b4 dig -c 6f5c27bdc1e91` — failed (commit not in repo)
-- **[Phase 4]** Web search — found amd-gfx submission May 29, 2026;
-  Reviewed-by Yang Wang in thread
-- **[Phase 4]** lore.kernel.org fetch — blocked (bot protection);
-  stable@ search UNVERIFIED
-- **[Phase 5]** Read `amdgpu_pm.c:581-601`, `amdgpu_dpm.c:1717-1733` —
-  sysfs write path confirmed
-- **[Phase 5]** Read `amdgpu_smu.c:633-659` — SMU path has size
-  validation; powerplay path does not
-- **[Phase 5]** Grep `set_pp_table` — two implementations: powerplay and
-  SMU
-- **[Phase 6]** `git describe HEAD` → v6.18.44 on `stable/linux-6.18.y`
-- **[Phase 6]** Confirmed buggy code at lines 668-676 without fix
-- **[Phase 8]** Failure mode: heap OOB write → crash/corruption,
-  severity HIGH
+- **[Phase 1]** `git show 2664ce9143d1` — parsed message and tags
+- **[Phase 2]** Read `kfd_doorbell.c:149–176` — confirmed check-after-
+  set bug; analyzed diff
+- **[Phase 2]** `kfd_priv.h:97` — `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
+  1024
+- **[Phase 2]** `kfd_doorbell.c:75` — bitmap sized `PAGE_SIZE /
+  sizeof(u32)` bits
+- **[Phase 3]** `git blame -L 150,176 kfd_doorbell.c` — function history
+  since 2014
+- **[Phase 3]** `git show c31866651086fc` — 2023 doorbell-mgr refactor
+- **[Phase 3]** `git show 19f6d2a660340d` — original code had same
+  ordering bug
+- **[Phase 3]** `git log --oneline -15 -- kfd_doorbell.c` — no duplicate
+  fix
+- **[Phase 4]** `b4 dig -c 2664ce9143d1` — lore URL found; patch 2/3 of
+  series
+- **[Phase 4]** `b4 dig -w` — amd-gfx list CC'd
+- **[Phase 4]** `b4 dig -a` — v1 series identified
+- **[Phase 5]** `grep kfd_get_kernel_doorbell` — caller in
+  `kfd_kernel_queue.c:76`
+- **[Phase 5]** Read `kfd_kernel_queue.c:76–80, 191, 224` — NULL
+  handled; release on cleanup
+- **[Phase 5]** Read `kfd_device_queue_manager.c:484–490` — correct
+  check-before-set pattern
+- **[Phase 6]** `git describe HEAD` — v6.18.44
+- **[Phase 6]** `git merge-base --is-ancestor 2664ce9143d1 HEAD` —
+  NOT_IN_TREE
+- **[Phase 6]** Read current `kfd_doorbell.c` — buggy code confirmed
+  present
 
 **YES**
 
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 554492dfa3c00..ec95faa6edcf8 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -665,6 +665,9 @@ static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index 05c74887fd6fd..fdcf7f2d1b5b4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -153,14 +153,16 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
+ 	u32 inx;
  
-+	if (size > hwmgr->soft_pp_table_size)
-+		return -EINVAL;
+ 	mutex_lock(&kfd->doorbell_mutex);
 +
- 	if (!hwmgr->hardcode_pp_table) {
- 		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
- 						   hwmgr->soft_pp_table_size,
+ 	inx = find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE / sizeof(u32));
++	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
++		mutex_unlock(&kfd->doorbell_mutex);
++		return NULL;
++	}
+ 
+ 	__set_bit(inx, kfd->doorbell_bitmap);
+ 	mutex_unlock(&kfd->doorbell_mutex);
+ 
+-	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
+-		return NULL;
+-
+ 	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev,
+ 						     kfd->doorbells,
+ 						     inx,
 -- 
 2.53.0
 
