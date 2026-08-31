@@ -4,44 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2361C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3CCC624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0854210E2D7;
-	Mon, 31 Aug 2026 16:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF3A10E9A7;
+	Mon, 31 Aug 2026 16:17:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SijA2f49";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cOufgh6j";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1CA10E2D7
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:16:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F9710E9A4;
+ Mon, 31 Aug 2026 16:17:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BA4A760120
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:16:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6291F000E9;
- Mon, 31 Aug 2026 16:16:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 92D7842ACB;
+ Mon, 31 Aug 2026 16:17:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8771F000E9;
+ Mon, 31 Aug 2026 16:17:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788192982;
- bh=D9zZ204YHlicZLGl88HMBG9nFrN3fXymZHQGXS3Cz6U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SijA2f49MDWI4ZjcJErlKqI0xNFW5Py6kw0DtjkO8WwFNi0Pz3N72dtLhOUTWGHyn
- H04jGinAtRQ16/iSZ/ybIgTQAfs+kTqBVlr5UFcFPcDNyW0xTteK1zkqBtmltnJUPi
- uLT6Pu5rJXYP7/7j5Jb0yAJyGLt6CsO5SNXk1UE+AGWyJeslAKhsI8rIiQQ3/+VeLe
- 1CbIxjiiOXyaK87JbmkzRxKOyHuansBlA7MVtl5lbGMx+TQWLVLBiOmCaXD36u2tZV
- E9WajHpLdx3Lybehm+pDt/F/4TaE2aICX2Su4Wl4Z6ZYZh1g/6bGzc3nrcQCnn9SZl
- K7oPBGfpHrvGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: fix buffer overflow during
- vBIOS update
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-406-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-406-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 16:16:21 +0000
-Message-Id: <20260831161622.0C6291F000E9@smtp.kernel.org>
+ s=k20260515; t=1788193062;
+ bh=P49xYdhz/xjQ7BMYEEzVnSoncIoxJ9kG0EiBOFLfPl4=;
+ h=From:Subject:Date:To:Cc;
+ b=cOufgh6jV1ylZ0/c48mF4elVJ9nF9FeI4rC/0rzzTyoqGjE0HVPGEDABGzgDEV3vI
+ iUozhugXufPr3T01SxkQZ1bmwNK/N/PtzgAd4gWzJai+9/LuDPlU2LBJ/xW2tKRCRp
+ YV2oJJhx3RwbY/9cIKN31dfI9eJeAT6V3WURQ4mBIPEFMmNMnmHUdGosmocGgz54rt
+ /1HtPdFXL254gV2Nd1WChSFm4qhgLXrnZXaXQHxDo0JO1VG2RUr5QTm6UlxinAaQSn
+ VIgK7aCD4ny4wDZofm2VdVYpYghrohClIrrElf29YQtKtfWXRtqfmdZkK7w0CDN0ZT
+ 8bmlzlDnpwnsg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v3 00/40] drm/plane: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Mon, 31 Aug 2026 18:17:16 +0200
+Message-Id: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNPQ7CMAyG4augzBi57j8T90AMFXEgoiSVU0Wgq
+ ncnLQNi6Ph+kh9PKrBYDuq4m5RwtMF6lyLf79T13rkbg9WpFSFVWFELWp7gPDy9MAx95xiEA4+
+ ARVuiKYixNipdD8LGvlb5fEl9t2H08l4fxWxZv2aN22bMACFH0m1TGS4Nnh4sjvuDl5ta0Eg/q
+ MmKbYgS1JCmtsq1zvLiD5rn+QNzj1DiCAEAAA==
+X-Change-ID: 20260629-drm-no-more-plane-reset-04950f42e07f
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ hamohammed.sa@gmail.com, louis.chauvet@bootlin.com, melissa.srw@gmail.com, 
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com, alison.wang@nxp.com, stefan@agner.ch, 
+ jstultz@google.com, sumit.semwal@linaro.org, xinliang.liu@linaro.org, 
+ yongqin.liu@linaro.org, Frank.Li@nxp.com, 
+ Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
+ imx@lists.linux.dev, kernel@pengutronix.de, victor.liu@nxp.com, 
+ anitha.chrisanthus@intel.com, paulk@sys-base.io, chenhuacai@kernel.org, 
+ jeffbai@aosc.io, lvjianmin@loongson.cn, wuqianhai@loongson.cn, 
+ xry111@xry111.site, zhengxingda@iscas.ac.cn, marex@denx.de, 
+ airlied@redhat.com, kraxel@redhat.com, spice-devel@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, andy.yan@rock-chips.com, heiko@sntech.de, 
+ hjc@rock-chips.com, linux-rockchip@lists.infradead.org, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, orsonzhai@gmail.com, 
+ zhang.lyra@gmail.com, alain.volmat@foss.st.com, rgallaispou@gmail.com, 
+ alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com, 
+ philippe.cornu@foss.st.com, raphael.gallais-pou@foss.st.com, 
+ yannick.fertre@foss.st.com, jyri.sarha@iki.fi, 
+ tomi.valkeinen@ideasonboard.com, hansg@kernel.org, 
+ dmitry.osipenko@collabora.com, gurchetansingh@chromium.org, 
+ olvaffe@gmail.com, michal.simek@amd.com, harry.wentland@amd.com, 
+ siqueira@igalia.com, sunpeng.li@amd.com, linux@armlinux.org.uk, 
+ Dharma Balasubiramani <dharma.b@microchip.com>, 
+ Ludovic Desroches <ludovic.desroches@microchip.com>, 
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
+ nicolas.ferre@microchip.com, alim.akhtar@samsung.com, inki.dae@samsung.com, 
+ krzk@kernel.org, kyungmin.park@samsung.com, 
+ linux-samsung-soc@vger.kernel.org, sw0312.kim@samsung.com, 
+ p.zabel@pengutronix.de, angelogioacchino.delregno@collabora.com, 
+ chunkuang.hu@kernel.org, matthias.bgg@gmail.com, 
+ Lyude Paul <lyude@redhat.com>, dakr@kernel.org, 
+ nouveau@lists.freedesktop.org, geert+renesas@glider.be, 
+ kieran.bingham+renesas@ideasonboard.com, 
+ laurent.pinchart+renesas@ideasonboard.com, 
+ linux-renesas-soc@vger.kernel.org, magnus.damm@gmail.com, 
+ tomi.valkeinen+renesas@ideasonboard.com, 
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-sunxi@lists.linux.dev, 
+ samuel@sholland.org, wens@kernel.org, bcm-kernel-feedback-list@broadcom.com, 
+ zack.rusin@broadcom.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7711; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=UQdPVjsSllmbAksMbFCnvGYfKEyx+A8rEA2R4ECxdOM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTVwqc1s2/O5npboPLBs8f9/2OrUnzbD+Zc2d9+p7w2
+ Ps83PWvO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBExPQZ68waZE79Kbj6M+VI
+ eegPpkc7du/3kt3862j2dl4/6RXs09Kv7xAU+7RF4d/B/dw5Mq/9zBgb5j5pltE76RyQyPlA086
+ 951/o/P85k6TUqm2YVp+cIDqz8rjT2TZ2j+xFjPX+fNNa+LUB
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,150 +108,151 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+This is a follow-up to the bridge reset removal series, and part of a
+larger effort to remove the reset hook from all KMS objects.
 
-Pre-existing issues:
-- [High] Incorrect accumulation of vbflash_image_size allows out-of-bounds =
-reads and uninitialized memory disclosure.
-- [High] Missing mutex locking during vbflash_tmp_buf allocation, access, a=
-nd freeing leads to Use-After-Free, double frees, and memory leaks.
-- [High] TOCTOU race condition on vbflash_image_size leads to an out-of-bou=
-nds write into VRAM.
-- [Medium] Unhandled cleanup of vbflash_tmp_buf causes a 16MB memory leak o=
-n driver teardown.
---
+The plane reset hook is overloaded: it is called both at probe time
+to create the initial software state and during suspend/resume to
+reset hardware and software state. These two roles have different
+requirements, and the reset hook is not fallible, making error
+handling difficult for the initial state allocation path.
 
-commit 8e4215e84ef10c9caba9352b46954259d8b626c5
-Author: Shiwu Zhang <shiwu.zhang@amd.com>
+While reset has the semantics to reset both the software and hardware
+state, the vast majority of implementations and all the helpers only
+reset the software state, making them equivalent to
+atomic_create_state in practice. The atomic_create_state hook makes
+this explicit: it only allocates and initializes a pristine state
+without any side effect, and returns the state pointer or an ERR_PTR
+on failure.
 
-drm/amdgpu: fix buffer overflow during vBIOS update
+This series first adds the necessary infrastructure in the simple-kms
+and GEM atomic helpers, then converts all 51 plane drivers tree-wide
+from the reset hook to atomic_create_state. The conversions were done
+using a combination of Coccinelle semantic patches and manual
+adjustments. Once all drivers are converted, the old helpers and the
+reset hook itself are removed from struct drm_plane_funcs.
 
-This commit clamps the buffer position for writing by setting the bin
-attribute to the maximum buffer size. This allows the VFS layer to block
-out-of-bounds access.
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v3:
+- Drop leftover state destruction in sun4i
+- Rebase on current drm-misc-next
+- Link to v2: https://lore.kernel.org/r/20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -4272,7 +4272,7 @@ static ssize_t amdgpu_psp_vbflash_read(struct file =
-*filp, struct kobject *kobj,
->   */
->  static const struct bin_attribute psp_vbflash_bin_attr =3D {
->  	.attr =3D {.name =3D "psp_vbflash", .mode =3D 0660},
-> -	.size =3D 0,
-> +	.size =3D AMD_VBIOS_FILE_MAX_SIZE_B,
->  	.write =3D amdgpu_psp_vbflash_write,
->  	.read =3D amdgpu_psp_vbflash_read,
->  };
+Changes in v2:
+- Rebase on latest drm-misc-next tag
+- Fix sashiko reviews
+- Fix atmel-hlcdc breakage
+- Link to v1: https://lore.kernel.org/r/20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org
 
-While reviewing this fix, I noticed a few pre-existing issues in the functi=
-ons
-referenced by this sysfs attribute.
+---
+Maxime Ripard (40):
+      drm/simple-kms: Remove unused reset_plane hook
+      drm/vkms: Convert to atomic_create_state
+      drm/gem-atomic-helper: Remove __drm_gem_reset_shadow_plane()
+      drm/amdgpu: Convert to atomic_create_state
+      drm/fsl-dcu: Convert to atomic_create_state
+      drm/hisilicon/kirin: Convert to atomic_create_state
+      drm/imx/dc: Convert to atomic_create_state
+      drm/kmb: Convert to atomic_create_state
+      drm/logicvc: Convert to atomic_create_state
+      drm/loongson: Convert to atomic_create_state
+      drm/lcdif: Convert to atomic_create_state
+      drm/mxsfb: Convert to atomic_create_state
+      drm/qxl: Convert to atomic_create_state
+      drm/rockchip: Convert to atomic_create_state
+      drm/sprd: Convert to atomic_create_state
+      drm/sti: Convert to atomic_create_state
+      drm/stm: Convert to atomic_create_state
+      drm/tests: kunit: Convert to atomic_create_state
+      drm/tilcdc: Convert to atomic_create_state
+      drm/vboxvideo: Convert to atomic_create_state
+      drm/verisilicon: Convert to atomic_create_state
+      drm/virtio: Convert to atomic_create_state
+      drm/xlnx: Convert to atomic_create_state
+      drm/atomic-state-helper: Remove drm_atomic_helper_plane_reset()
+      drm/amdgpu_dm: Convert to atomic_create_state
+      drm/armada: Convert to atomic_create_state
+      drm/atmel-hlcdc: Drop spurious csc_init call from reset
+      drm/atmel-hlcdc: Convert to atomic_create_state
+      drm/exynos: Convert to atomic_create_state
+      drm/imx/ipuv3: Convert to atomic_create_state
+      drm/mediatek: Convert to atomic_create_state
+      drm/nouveau: Convert to atomic_create_state
+      drm/omap: Convert to atomic_create_state
+      drm/rcar-du: Convert to atomic_create_state
+      drm/rz-du: Convert to atomic_create_state
+      drm/shmobile: Convert to atomic_create_state
+      drm/sun4i: layer: Convert to atomic_create_state
+      drm/vmwgfx: Convert to atomic_create_state
+      drm/atomic-state-helper: Remove __drm_atomic_helper_plane_reset()
+      drm/plane: Remove reset
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does amdgpu_psp_vbflash_writ=
-e()
-incorrectly accumulate the byte count instead of tracking a high-water mark?
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 28 +++++++++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h    |  2 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c | 30 ++++++----------
+ drivers/gpu/drm/armada/armada_overlay.c            | 39 ++++++++++----------
+ drivers/gpu/drm/armada/armada_plane.c              | 15 ++++----
+ drivers/gpu/drm/armada/armada_plane.h              |  2 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c    | 33 ++++++++---------
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 41 ----------------------
+ drivers/gpu/drm/drm_gem_atomic_helper.c            | 20 -----------
+ drivers/gpu/drm/drm_mode_config.c                  |  4 +--
+ drivers/gpu/drm/exynos/exynos_drm_plane.c          | 22 +++++-------
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c        |  2 +-
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c    |  2 +-
+ drivers/gpu/drm/imx/dc/dc-plane.c                  |  2 +-
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c            | 19 +++++-----
+ drivers/gpu/drm/kmb/kmb_plane.c                    |  2 +-
+ drivers/gpu/drm/logicvc/logicvc_layer.c            |  2 +-
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  2 +-
+ drivers/gpu/drm/mediatek/mtk_plane.c               | 22 +++++-------
+ drivers/gpu/drm/mxsfb/lcdif_kms.c                  |  2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c                  |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c            | 15 ++++----
+ drivers/gpu/drm/omapdrm/omap_plane.c               | 13 ++++---
+ drivers/gpu/drm/qxl/qxl_display.c                  |  4 +--
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c    | 15 ++++----
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c      | 15 ++++----
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c       | 15 ++++----
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c | 15 ++++----
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  2 +-
+ drivers/gpu/drm/sprd/sprd_dpu.c                    |  2 +-
+ drivers/gpu/drm/sti/sti_cursor.c                   |  2 +-
+ drivers/gpu/drm/sti/sti_gdp.c                      |  2 +-
+ drivers/gpu/drm/sti/sti_hqvdp.c                    |  2 +-
+ drivers/gpu/drm/stm/ltdc.c                         |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_layer.c                | 21 +++++------
+ drivers/gpu/drm/tests/drm_kunit_helpers.c          |  2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_plane.c              |  2 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c              |  2 +-
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c      |  2 +-
+ drivers/gpu/drm/verisilicon/vs_plane.c             | 14 +++-----
+ drivers/gpu/drm/verisilicon/vs_plane.h             |  2 +-
+ drivers/gpu/drm/verisilicon/vs_primary_plane.c     |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_plane.c             |  2 +-
+ drivers/gpu/drm/vkms/vkms_plane.c                  | 15 ++++----
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 17 ++++-----
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  4 +--
+ drivers/gpu/drm/xlnx/zynqmp_kms.c                  |  2 +-
+ include/drm/drm_atomic_state_helper.h              |  3 --
+ include/drm/drm_gem_atomic_helper.h                |  2 --
+ include/drm/drm_plane.h                            | 12 -------
+ include/drm/drm_simple_kms_helper.h                |  1 -
+ 56 files changed, 192 insertions(+), 324 deletions(-)
+---
+base-commit: 07c66ce1e6446f5cc6a4ace99a8d46880f45c527
+change-id: 20260629-drm-no-more-plane-reset-04950f42e07f
 
-If a user with access to the sysfs node writes 16MB twice at pos 0, the fir=
-st
-write passes the VFS checks and sets the size to 16MB. The second write also
-passes because 16MB > 16MB is false, setting the accumulated size to 32MB:
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
-amdgpu_psp_vbflash_write() {
-        ...
-        memcpy(adev->psp.vbflash_tmp_buf + pos, buffer, count);
-        adev->psp.vbflash_image_size +=3D count;
-        ...
-}
-
-Later, when reading, it uses this oversized vbflash_image_size:
-
-amdgpu_psp_vbflash_read() {
-        ...
-        memcpy_toio(fw_pri_cpu_addr, adev->psp.vbflash_tmp_buf,
-                    adev->psp.vbflash_image_size);
-        ...
-}
-
-Could this result in a heap out-of-bounds read that copies sensitive kernel
-data into the VRAM buffer?
-
-[Severity: High]
-This is a pre-existing issue, but is there a missing mutex around the buffer
-allocation, access, and freeing?
-
-Sysfs write and read functions can execute concurrently. In
-amdgpu_psp_vbflash_write(), the buffer is allocated and freed outside of
-adev->psp.mutex:
-
-amdgpu_psp_vbflash_write() {
-        if (pos >=3D AMD_VBIOS_FILE_MAX_SIZE_B) {
-                kvfree(adev->psp.vbflash_tmp_buf);
-                ...
-        }
-        ...
-        if (!adev->psp.vbflash_tmp_buf) {
-                adev->psp.vbflash_tmp_buf =3D kvmalloc(...);
-        ...
-}
-
-Meanwhile, concurrent threads might be executing memcpy in write or
-memcpy_toio in read. Could one thread trigger a size-limit error and free t=
-he
-buffer while another is actively copying to or from it, leading to a
-use-after-free?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a TOCTOU race
-condition on vbflash_image_size in amdgpu_psp_vbflash_read()?
-
-The function performs lockless reads of vbflash_image_size. First it sizes
-the VRAM buffer:
-
-amdgpu_psp_vbflash_read() {
-        ...
-        ret =3D amdgpu_bo_create_kernel(adev, adev->psp.vbflash_image_size,
-                                      ... &fw_pri_cpu_addr);
-        ...
-}
-
-And then it uses vbflash_image_size again for the copy:
-
-amdgpu_psp_vbflash_read() {
-        ...
-        memcpy_toio(fw_pri_cpu_addr, adev->psp.vbflash_tmp_buf,
-                    adev->psp.vbflash_image_size);
-        ...
-}
-
-If a concurrent sysfs write increments vbflash_image_size between these two
-reads, will memcpy_toio copy more bytes than the BO can hold and write past
-the end of the allocated VRAM buffer?
-
-[Severity: Medium]
-This is a pre-existing issue, but does this code leak the 16MB buffer on
-driver teardown?
-
-If a user stages a firmware update by writing to the sysfs node but never
-triggers the read, the buffer remains allocated. When the driver is unbound,
-teardown functions like psp_sw_fini() do not appear to check for or free
-vbflash_tmp_buf:
-
-psp_sw_fini() {
-        ...
-        /* missing kvfree(adev->psp.vbflash_tmp_buf) here? */
-        ...
-}
-
-Can this result in a memory leak every time the device is unbound?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-406-sashal@kernel.org?part=3D1
