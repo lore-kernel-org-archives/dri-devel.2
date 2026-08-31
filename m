@@ -4,133 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A87BC61DFD
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C38C0C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 21:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBC510E33B;
-	Mon, 31 Aug 2026 20:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C6910EAF7;
+	Mon, 31 Aug 2026 21:00:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wvr4TpYc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QMjHVEmz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JKb9exBm";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0010610EAF7
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67VIXfGY918284
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=; b=Wvr4TpYcqqNSNW/c
- 7MbI/noBMgaCUGPiX4RNjBSbAAlI6cOG626h8HzDCimzMCq5DR6dyRBuef3EKvWJ
- pmyeItpWbagjmktj0sQR6TmfTyhz4Dz29ufjJuG9MXRO+8V2/zrD4bGQCfC3APBw
- hwOiP1+IW8UwARVGAPJMqbMy2QKLnpPNKMrcQVuTLITjDisdbqmvph7Fm3vAyImW
- e9Vxp5snkUtEuHev9TE+JQA+XS6pKAnAsKEegcI+Hzf/cHJElkii+UrFnGPWRrOh
- gCXzQJj3Zg5Cx7jUdlKC11q5LIuyIRQ7DYidKoga5yvTGmSj/rYaFXi0krGH/xVc
- IKwn2w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdeg38tab-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-9390a2c895bso875254985a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:59:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788209973; x=1788814773;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
- b=QMjHVEmzllHG9ePlZJkwEtyUGkuj2tv8ltNjxwD5V0oQP9BUUckI9Ewj58fiq2iTwW
- ujcZPRk/tsl31thKuBW1QQE9rsQIdPbeEadQtt5288EaZCFrRBD9qS06NYRHPdad6XIR
- y571glQUWGmwEucdnT3F13vHGz90eY249kMBOxff7/ojFmRYauYgDoixT5ZGeDNzsYRs
- 8otHrUwfslkTFbMXNSNf9PDtRMILUHZwvqw235E0sVHS4AWYMQYeCu2KOFHFyQDOnca1
- yiV4rwvSi4wXCasleG7JFnSDE27LZ+JDwaKK9yKUBvPPE0ObsLHhz/Eyz7GFhkqjGAD6
- k2mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788209973; x=1788814773;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
- b=d+dJ016ujJuDFNlz7kCwLf+YxiSwgLYIAjg/13tmEAVEoZqLqLw9z4y2oUJA+9CIOI
- ueVAXoM3eGJkfnBy/eyNcerz/aLQTdmKxUaS9kOKqW/ePLn5J4xbCIijc8xjzv1YzCNs
- UTVX/PuwfsXtwtE6cX11AdC4fcn82MCfHJDwo6+62sSyP7G1/SbXQ7amvU2gWouOWbvx
- UQ2FNRUupz30JBI0qxdYjhdXvX0D5Z9/9GuXPvD3kozSP/OHWXwlu5jXshs7T5NUodH/
- HkXpL0HrQ4cYteFPZRtbDyM5li3zryzgHK9UPBWGt3cwyHWJH53DOOaxdYv0yFeUiiLM
- MDpQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqL13DZjbwJj8XPmZORiKrkJ06ODZEjFMBC1DGLJ5pl5TXRdZNF2td3s93V4axSYzwwooyfB5hu+Os=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++moKybbImlZ4MBNpfKrrxLpL5Jz++ZAhRJ5M6WGwmfZQiQ1vyzw
- X8vhPv14AxdFpFTTEUYsXiIT7ld4f/gfDvungrRiog/DJFvgas5CI6kjbbV15HRTv8/Rrx7NZ4r
- PN0M6Y/GI1CbPr01oy0ovrv9jM0xe3sv2FbPg1lyJPLRGbjgIFcexMtW6kUDVgerY0Y+YHsY=
-X-Gm-Gg: AR+sD13YzSKZOzGr/7V2l7LJn/zt9Rd/b4Qv+lg8YYrPkS+67Sh09ZHpIKJ8eYNh2jT
- eCwwoi0sqQ+3ErfAV84VNY2+9j0R1CUpgsU3UhboXjcIido6sWEY18m/zuFQN3b4d/34wvC7B2O
- aPSU0n6Ji73DKmCtJWCWOuPJ6j0O9s2/5UdI4kxqJFjSS0v6A9Y9c7WUMWDpHMoZnPsEuOtAiS+
- m1z0S3QykzO6C9lSM4Cgnw4UW+e5jqEmkA5+CmFS46+XiPi/nECUI0HEwmARpV/KW9YxMw9i3Y4
- ERlNZLknhK/Cm8DcC+DbwaOYlf5HUe+48qEFuJD16JCudmuvOSSGX1fUrjXTw3NDt0yOfvJBQqu
- dZXbaxYLS2t/9QHX24s30+kQgtex2P+WCMORL5g==
-X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
- af79cd13be357-9391395431fmr3175555685a.32.1788209973197; 
- Mon, 31 Aug 2026 13:59:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
- af79cd13be357-9391395431fmr3175550185a.32.1788209972753; 
- Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
-Received: from [192.168.0.183] ([80.233.33.41])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48442d6eafesm277031f8f.24.2026.08.31.13.59.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
-Message-ID: <da6868f1-1f9c-47a2-ac48-88dd160ae3e3@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 21:59:30 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 288DE10EAF7;
+ Mon, 31 Aug 2026 21:00:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788210015; x=1819746015;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=WVxwP790gIqBEUbZ3UVNvMNHTQP3JW0UU5UhqVVjhW4=;
+ b=JKb9exBmneDAb8wZIANXwKVcsD9xZuHdkPrtKOk2ZIURr72++tBGWwH8
+ Pj6iODTawrecyhe+SZjrNbARHxOeEu/iAOfSNj7Aa/BCso3Y/ZAjmeZNT
+ Xy5e5Q0zQKsYjovmkymDR49p9M+d2uBmmlC2DqS57oiQM3LlMU0pLabMs
+ AETUPp7T7cYeGa3irbpIuwHE494IaTGvDP4q12obNpMLkBLixWVF6ZvSx
+ JNmw7Y5TYRkslvukN54KWV6UjnQUzMwWefZFBdGTxzchKbUibdLRXoVME
+ NPYbuoA3hM7W45Y+0puoPFIeUfrljRpCfOgNMZ3wKD2DrF9guuNfjnS80 Q==;
+X-CSE-ConnectionGUID: mMTZJY+FRhSm5F6oLg4eWg==
+X-CSE-MsgGUID: gQd2sv1FR7a4l2/UdvmBVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88479362"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88479362"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 14:00:14 -0700
+X-CSE-ConnectionGUID: BctxdqxKTO+NvSlTCchDKQ==
+X-CSE-MsgGUID: TyIaeGlGTrO6fQ3Kvlyh1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="268948376"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 14:00:14 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 14:00:12 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 14:00:12 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.4) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 14:00:12 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m/fqFKnJeuq4nnEoDaVBYmVDgguJo3xZBNo0AlQLTWKp8gaJoNhI1k9E0y/azxGj4TdnxbxrWc/2ls8jSgT7KQTNcxNsri6UI5FT8RZnJoPHlujUoNbXmhTvOdXP7phTQDUFVvpzCaCOk37cE3EpD5U7rotvh0v7BdmVP+uI5Xj1QPjxKzHZzOKAoktwy/F5xYnHWiUBhwf3ISW8TX+OV2bRimZm8MPniIe7Ziv0VQqbQGDONe4PUwWaWQhHyq/dWI/oQwjMxfyc0GBjFMluYJTgh5l5CZJm1PNRtmAawungSdvJBr+hGSm0rID5Dya0qsnyEtiLkOn2ohPeoiGnjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vhn2fYHPvXi8OsPF5b1F8BuxEmmRlNRqqdahMZi7eA8=;
+ b=N4bHhlV5Ycs8onWBQn/hnjgziFAgaECB4Y5aql/KV5DWZLy3wm+f+r6dNpFLwEvHAmOSm5bZngRKPmBYvDZ+epI4PciElpUuyo0FX1BNK0LyYRQIXYrsSHcjyx/H8HiHarjH0IrwjZ9n0g8gmU6DZvpYyazgXXLQseWKVgXN+Nzwr6093Raxz0OwGTrgvxrmUDqwVOZHj6DbLYqqngVEYjuEv/uthrW/bGX7TkdiXpD11ONvMjSRnDQC5Q9MYcvhx8A6r4Br4U3NHEwvnZhMs9KqvppO1FSY/0ZTv/YVGBtdcXjaF5XCbt/oEwGHBxEmirAntJ2wZya1BImd3MBP5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by SA0PR11MB4686.namprd11.prod.outlook.com (2603:10b6:806:97::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 21:00:10 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 21:00:09 +0000
+Date: Mon, 31 Aug 2026 17:00:05 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Arvind Yadav <arvind.yadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <matthew.brost@intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH 12/13] drm/xe: Skip PM notifier preparation for wedged
+ devices
+Message-ID: <apXrVcABmFQbBQOX@intel.com>
+References: <20260827101801.1247654-1-arvind.yadav@intel.com>
+ <20260827101801.1247654-13-arvind.yadav@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827101801.1247654-13-arvind.yadav@intel.com>
+X-ClientProxiedBy: BYAPR21CA0004.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::14) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Subject: Re: [PATCH 04/10] drm/gem: Convert drm_gem_private_object_init to
- return error code
-To: christian.koenig@amd.com
-Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
- ecourtney@nvidia.com, nat@pixelcluster.dev,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20260827124910.2245-1-christian.koenig@amd.com>
- <20260827124910.2245-5-christian.koenig@amd.com>
-Content-Language: en-US
-In-Reply-To: <20260827124910.2245-5-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX/+DQ8zr7lOJ0
- fq1VeZTFJfYzooBnKbHQCg3ckHBNUDn8zflh1WrGLMNFu1BDkaE+zaiP+CdJu3P0AyYwh8uFuwW
- amc+HQ7+eldLWkQ0jNIfyCVBjDCEVYHeAkBOT0ywRIVJ+N0qkUs2sbZGlMeup/omugCiB1Zro6F
- 8kT2FZACP4qUWPSFyuI77Hbnhmn7mvE0KAP5zYCUQFZprqWhL+y7npAoKg+6OYa5xEOY1/gtc3w
- BYSMk2sCrHHIjr34zbpjD2y2a8GFgaJ6UJpfxBK/EWbitqcJf41zPF6CKolIvB+XeomNlJS5D/0
- LCfzpHG30JfsMj1OpW85E6S/RFNFCG9RYb4mNP3D5XO6T4UReRV2a8IscG7OxCSAMLMm8a76KJd
- M3x0DeP4Sn203xYsOBj6ck0sZLUWO1lEtkgqNojDPZjeSgRXoGQ6swCrTcVhckIDquqM/Uvwqeb
- bgOZh7BmgdT89PsvnxA==
-X-Proofpoint-GUID: 8LRvrj8pcCVhoabCv6Vlbk5CAfb-IjPu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX7y/Uf0pzpn48
- F7QPHkF3JWixwuRMX7uHiD1b5qaIphH278sbhqC0eE0tAK8j6/XC97OmR7gFifPsOrgfP1d9SND
- 0vHwL4mG/ei8MOwY5rJYTjgl6cykoy4=
-X-Authority-Analysis: v=2.4 cv=NZnWEWD4 c=1 sm=1 tr=0 ts=6a95eb36 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=le/gl0x2G5+ma5yo0zCuxQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=KEyuISjlM5fmf-MbB58A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: 8LRvrj8pcCVhoabCv6Vlbk5CAfb-IjPu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310181
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SA0PR11MB4686:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdd2fb86-c5cc-40d8-a2d5-08df07a2d786
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|10067099003|56012099006|4143699003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: KkAYiWd/7Lks4FhQTBdU/YIX0JbXDxaIureJ37FJIf6YpmTlQiSBThsUF+bqjDAadSVIrO911mE67GXhb0JTmJMhr8gpQuuM0jLEq7XiWKh4dQcfndAXssPF+NpOnAdd6iJIixtoUgVQD2dMrKkHsuXwN07E9pvxvvRDReweYw6zmMpoHrRQrdXjA1BZEBt5ZDKGNizrQMGlv752R7jPVMvAHbjYh715TGjz7r2rmId5xcsUTgrjJ9LB7AE2/ggmuTXujyVwrq9VcPDpRqRGdNHHD+d8AHaE19Gk9MqzTpvmsoOEdSM/4vHL+TWeYGdFMmGuYBPBXTdZxgYLquGA7RtOSwkRfPoFet1QHH2gGV3qRJLNxT+HqNJrjJgoFbHSmiF8EhNexPUxJ5c3bP8y/XW9I7cJ0IWKymm7fDWnZApMKpfoEKtQ5OnWgEsBRllY2WHaNrDax5xvcgKAWMRvzfJ2WJt9nrFpvvq+gxA1xTkuLsNtMvIufF2gYI5Kyze8pYcAKdyrChZv1uyZfbyY4wfw7X4liUienMFgsrgg2E9/ghbTMVudaqiaomkqRljlwvxCnnfYH7XB2PiJLiQ5ewTtW5bR6q5fy8eum6dfSwIpx/4/UaQxf7nLt8QJnJfLCkBrsDmqmPPzBmdDL+HkI7rQHFY1N+SiCKYvGQnkA5A=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?SWfU8p8RGcAY12khp8Ua1xuOXt3AMFp2C8G4vi7Ze5s6hX5PlrMUHiSdjN?=
+ =?iso-8859-1?Q?x2ZCfB2ICzDFOyKcEekIXfprWlYOEZn18hrVF3kbDEC9FoOaVp85LprH+E?=
+ =?iso-8859-1?Q?BiB5eEJPaLJXIiAuv368lsQnUhJvVLlKnYlmTVjSURnAKMQd1Jb+qwup5e?=
+ =?iso-8859-1?Q?GdC5+c0gQYXtsex+tErZe4jcQ6oVUUl2xX6dnJPlwjSwW3RpouuOjOcAWg?=
+ =?iso-8859-1?Q?1pkJQzFeu8e41ojgwEwlxG3Ie8nnAyIj1wQ5beNkNeU/WgS2+hxaygZCls?=
+ =?iso-8859-1?Q?36oewDTvVAFUVv0AvWDBfkuprSrF39fMdJAaW2B0JfiUtsbLbXHmc/Z0W8?=
+ =?iso-8859-1?Q?nqP98h+NtqwEbZTvhyRDJrm9rkq8yZSoZezog+/1539aweQAmQFmjUWEPc?=
+ =?iso-8859-1?Q?PSJ4QByvdArNUJYvmhQ8aCD5WLz/tzUtyBPWxU+uFHpDmYSqPT/NJQcHD1?=
+ =?iso-8859-1?Q?Ukerm6siKReESwCj8gz67383Y2VX5Tpb+rti0NSFqkZBYYaWfRkYtQ/Wie?=
+ =?iso-8859-1?Q?I9q1VOyAqfAVRjncUhYOWx/jj59nQ+oVafJmpFMV0n202iUrmXsKnCAHiZ?=
+ =?iso-8859-1?Q?pZHO/9ZCSYkOuxWH3LKv446SNtKcsqUfT9iMVMNZ4arhc3hW+XeeW95mwe?=
+ =?iso-8859-1?Q?JKVVg6QYMdcOTFpVYEb3soMLDKKFQeHyp6uXjOHX7mdmzU4yJfk1kcJMrZ?=
+ =?iso-8859-1?Q?8obk2um/6LnKzkwtbWnFASEbotXeG/cQCK2pvJhHVL2CCkDPCupJGHT4WE?=
+ =?iso-8859-1?Q?OvmXZiQnaMIJmRDeTY9wPn1BNnaISUmvwGLezd35pvsxcgyMDLIpgwenpH?=
+ =?iso-8859-1?Q?bB65WtKhz7rM53+a1/nONn0GYxg20dQki+tDnxwvJG3TEI0Je95o1omT3L?=
+ =?iso-8859-1?Q?mDdBT1gzP7qEnYopR6UTLc7+0ma9vTOEGcdjhqRMC8oQH6UMiQEDVnkLWu?=
+ =?iso-8859-1?Q?Fwxux0D0NWHqFQWnkg5v9cZu3PoAROJgglUcyNDnPZtP52OVsj0gEMWgIV?=
+ =?iso-8859-1?Q?hFKhreI8TWVpsQvsb9PgK3yrWYi07Zr4ObwySrC34MxPefku3HJwbNfoFu?=
+ =?iso-8859-1?Q?wUZuoxbSoM44C3O4Dxq0munfRHyBtqN7UexRwrokGUtgx1iK1EUZSEhqlQ?=
+ =?iso-8859-1?Q?4mS4FRZSmBE4nTnupm784/ku4GJ9MxnNl2+ONnasoStGTKPzbvQPk06l91?=
+ =?iso-8859-1?Q?dhfQIbymQNf75hshd12+P2Ir3SrpWb+SeqZtJwcniSxlKNHxDQ2fY1PY1a?=
+ =?iso-8859-1?Q?74TO240xVDkQ4KZtaKIy6XWzryXVtQHsGsRLBZPxar2UBj0cJTgaoZv07M?=
+ =?iso-8859-1?Q?52UViPKrTLabwDkzPEhZHzcmRflUfWRdLvbe+QWS/NGW1xmd/vHwChel75?=
+ =?iso-8859-1?Q?tki5qVmaq7aY+jpwbvwpYogb0yWp0AKbGBTAMXrKVGsORj6JxGAN1Nkxo7?=
+ =?iso-8859-1?Q?i0IxdCj16r8El5dSW4KKGNcefZxnhFtNb0t5bDTR11UKkA6AT2rOTycQIZ?=
+ =?iso-8859-1?Q?gJdXnKrl9zX03fAtvr3YPQs4ua5RkYmXx28qtxhCC0SpUhYXcb0yFTERVv?=
+ =?iso-8859-1?Q?+yv9xaILxmQBBXcG7Fjk9INNRgxMHeQ2MPbhA3UnM9Bjv6lNXIbcUWdQMz?=
+ =?iso-8859-1?Q?uR6DGmrjNUc0IfvM3LPsWVqMr4E9FuJFBQqsWzNdh3Y3megdZeJpK/RH1M?=
+ =?iso-8859-1?Q?AuakLxancx7QF583NJ6Iad5IIjFi7AxsamzgrSV8WYpeAxAlJ834p1fjcQ?=
+ =?iso-8859-1?Q?Qf+OhCPS+85PjYv4F2cxD4X5kdMNGduWpChIDQp1jYrjOxnoS06xhSmSja?=
+ =?iso-8859-1?Q?v1edcR4SWA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: kulb4X8tcuEn7c+1mSwKkxaon+tqp7nzwJmp8uoS8jZpMREAQ5gpDiUkwONdUwaUSWLWcNk9gaqxS3c5Enni2Akhi236l9cytL53JxVvQGLFin2GO64vG/KTAAf1+mz4T5Zn3WR67mFJaQDMZdWD1koySFnaCJs/q/qd3/nDw8gigAuA0Y2N3iILrePOMs7hwHBCX2zs2qTX0+/YWFV0dm0rvGHiHNRyh5Mk0YAdm/vVF4kO+kdXCWIRHrEjwq8VBYE3h437BWQwEdacc9phM5f4DcvgtRvnXt1l3IC6xQ1krod9FCeQj9OBjboETRlfjactvKasGsTNyWDEetiChA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdd2fb86-c5cc-40d8-a2d5-08df07a2d786
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:00:09.5358 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w+ICG3vZh/xCZFC7iksmoa6yBv4WRJG6+gqPAFceriVzd3SOtcxy/0FmC3cugeVay5rg+vDhACzTvi9+Tu0IAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4686
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,32 +163,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
-> index 8a1d6c5636c2..5b198162c588 100644
-> --- a/drivers/gpu/drm/i915/gvt/dmabuf.c
-> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
-> @@ -202,13 +202,19 @@ static struct drm_i915_gem_object *vgpu_create_gem(struct drm_device *dev,
->  	static struct lock_class_key lock_class;
->  	struct drm_i915_private *dev_priv = to_i915(dev);
->  	struct drm_i915_gem_object *obj;
-> +	int ret;
+On Thu, Aug 27, 2026 at 03:48:00PM +0530, Arvind Yadav wrote:
+> The system PM notifier runs before the PCI suspend callback and may evict
+> BOs or submit migration work. This work must not start after the device
+> has been declared wedged.
+> 
+> Skip PM preparation for a wedged device. Track whether preparation ran
+> so the post callback only performs matching cleanup and releases the
+> runtime PM reference when needed.
+> 
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> ---
+>  drivers/gpu/drm/xe/xe_device_types.h |  2 ++
+>  drivers/gpu/drm/xe/xe_pm.c           | 10 ++++++++++
+>  2 files changed, 12 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+> index 508ba3872e72..c9dc417878e7 100644
+> --- a/drivers/gpu/drm/xe/xe_device_types.h
+> +++ b/drivers/gpu/drm/xe/xe_device_types.h
+> @@ -471,6 +471,8 @@ struct xe_device {
 >  
->  	obj = i915_gem_object_alloc();
->  	if (obj == NULL)
->  		return NULL;
+>  	/** @pm_notifier: Our PM notifier to perform actions in response to various PM events. */
+>  	struct notifier_block pm_notifier;
+> +	/** @pm_notifier_active: PM notifier prepare work was performed */
+> +	bool pm_notifier_active;
+>  	/** @pm_block: Completion to block validating tasks on suspend / hibernate prepare */
+>  	struct completion pm_block;
+>  	/** @rebind_resume_list: List of wq items to kick on resume. */
+> diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+> index 720e083cd279..dd7fd170bc94 100644
+> --- a/drivers/gpu/drm/xe/xe_pm.c
+> +++ b/drivers/gpu/drm/xe/xe_pm.c
+> @@ -457,9 +457,14 @@ static int xe_pm_notifier_callback(struct notifier_block *nb,
+>  	{
+>  		struct xe_validation_ctx ctx;
 >  
-> -	drm_gem_private_object_init(dev, &obj->base,
-> +	ret = drm_gem_private_object_init(dev, &obj->base,
->  		roundup(info->size, PAGE_SIZE));
-> +	if (ret) {
-> +		i915_gem_object_free(obj);
-Building on v7.2 with DRM_I915_GVT enabled will result in modpost undefined symbol error.
-Exporting i915_gem_object_free() in I915_GVT namespace (drivers/gpu/drm/i915/intel_gvt.c)
-should fix it.
-> +		return NULL;
-> +	}
+> +		/* Do not start PM preparation after a wedge is declared. */
+> +		if (xe_device_wedged(xe))
+> +			break;
+
+perhaps we need to return NOTIFY_BAD ?!
+
 > +
->  	i915_gem_object_init(obj, &intel_vgpu_gem_ops, &lock_class, 0);
->  	i915_gem_object_set_readonly(obj);
-Thanks,
-Youssef
+>  		reinit_completion(&xe->pm_block);
+>  		xe_pm_block_begin_signalling();
+>  		xe_pm_runtime_get(xe);
+> +		xe->pm_notifier_active = true;
+>  		(void)xe_validation_ctx_init(&ctx, &xe->val, NULL,
+>  					     (struct xe_val_flags) {.exclusive = true});
+>  		err = xe_bo_evict_all_user(xe);
+> @@ -480,6 +485,11 @@ static int xe_pm_notifier_callback(struct notifier_block *nb,
+>  	}
+>  	case PM_POST_HIBERNATION:
+>  	case PM_POST_SUSPEND:
+> +		if (!xe->pm_notifier_active)
+> +			break;
+> +
+> +		xe->pm_notifier_active = false;
+> +
+>  		complete_all(&xe->pm_block);
+>  		xe_pm_wake_rebind_workers(xe);
+>  		xe_bo_notifier_unprepare_all_pinned(xe);
+> -- 
+> 2.43.0
+> 
