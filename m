@@ -4,54 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F403DC624CF
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:38:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ABF0C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2231110E864;
-	Mon, 31 Aug 2026 13:38:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F41E10E869;
+	Mon, 31 Aug 2026 13:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E/6V0Gdd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VOT2wlMo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDA3710E864
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:38:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C439C4050A;
- Mon, 31 Aug 2026 13:38:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E1D1F00A3F;
- Mon, 31 Aug 2026 13:38:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183534;
- bh=wOW0ZfBeyWJuYHQLhB25GOFyKp0J9Uk15Hii1aRJ9iU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=E/6V0GddSxBbniGU/HoguwIHYU8MrfoM4pMpIPTq8YsKyW3gYICuClrZExcRDsee1
- EZS7bH84/6MqKk6m5MGPJ9ESLr58kTWyZTqjF4UoRkFsZgSTQ3vYX2gWn4UqyPWw0A
- HujaGm0bwIa0c4WptJA9kaCS6wDInf2azKjAr4BTiRi1gj3n3dx2HMuIHQZ6++VTiu
- cSoeEZlFpiMMW/WeaG0Dea7n0dRqswWfx1VAmmznIMM5m/pXW2A2MDVshqlVjwhtUi
- d/bixS/ixLKw043EDcZDrRckbwyUmFQaYYtu1lLOht3ZEgdJHuXfmz7gbg753rt756
- T9rq/2dqJGcqg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: David Heidelberg <david@ixit.cz>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/panel: Enable GPIOLIB for panels which
- uses functions from it
-Date: Mon, 31 Aug 2026 09:23:02 -0400
-Message-ID: <20260831133314.4125787-154-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4FD810E862;
+ Mon, 31 Aug 2026 13:39:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788183541; x=1819719541;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=LvZ0j5YPxLnZGt9p0hVWUMvlur7V2C9YpJPhz9py760=;
+ b=VOT2wlMo/jQrd+Rr7/s13RcA34yYYz9jd1jHcoKJLXKgURGQX1haDEjm
+ wEmP7dN1hvV+20l9T5jtZ3AZUq6i1gtYom7/BnH+bFnN+bMZizgkZr3xw
+ BQ/YDCcI5YHqYowh/XRzS/+sIOkC4a4olwQiuCJ5pXkPVm7EEzFuvOvx7
+ VKUJdeDDc95KMWRNBGn0HKRhR6wzPdfAqEPrCvLkfts5y5vI1rO6/G4tk
+ StN18NtdKrLPq5ILe7LbgkAjj7N8KfJxMRFWzymesUkjw/K+y8mxVnSMH
+ gX1mrBnODRAStyOkmCFQ2hjfpCb6lH8oXdj5pPQPsaLs/O/B/9n3tpqQB A==;
+X-CSE-ConnectionGUID: bVOoILdMQ56/k/b0cGlpeg==
+X-CSE-MsgGUID: CHy/fcU4TJqIHrQi/vi5kA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="99253919"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="99253919"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:39:00 -0700
+X-CSE-ConnectionGUID: P6iQPOsTRweA+ubuWczIdw==
+X-CSE-MsgGUID: VMIoCDKST5Or6CSn7eiJDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="298717313"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:39:00 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 06:38:59 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 06:38:59 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.63) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 06:38:59 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qNdlUCFeu3gZVUFfLU/sNecTERw0UpnsONGlEfXZrPoefcE7FY93P/8SCX1FTkFnnWKR5OfhjtOOUacTD8KpDbW/QrK8uLNrxtnuovYIIxZy5AptrR04qbrmZTw2KicRyXc8AsejpX5MApGMerTBxgeoOjxd/jYG17AypZ3u1kgFbCbqlm17EZYLFZpnbNcGdaEvFTv9S4SX8iWwDRvaY46XqJJHsJaE+YgDKkAsHYPOhfQ210f8vsu2ElRHcns959Il+iB126oewL0mPHyfvrmly5j/PXXD9txiip8ZkfTIO3EmWllLii6FjkCLD4dqF6MNtyJER/rbMaJ8+2Yucg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qTyVGDdovtjBgqzjSNOsel7up4clvgV+0F33cuugyjk=;
+ b=Syc+N0+1ikQz68TQPK3R0J8VIUc3W1oyfCIt2QWCine9l+vJmOC6AQM8NuaZV5a9EEcWseoupymZ1AZ02KIu2BTU2SMNdokvf51XmpoERxZ0cbThLUypbR5L4DTiRuwm1EYP2jG1E4twQokzYeFnvO9XChftRovJ9dSADxsoN2dudRdIwwjgZ/1HRicA3YxIFtNRpMRCTkPCxIfWMMELquNPdaFIlLXwWT6FzQswK5D/SDpctwYgE/QGtwUalGPFNmfTfONlBVjHPG8yqf+b4DceX0wWNKw+QbAlyTghfr0MkXUapwSMdlfiokjBJLaV3z2kdFO0xJrs8JerKRCw3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
+ IA1PR11MB6537.namprd11.prod.outlook.com (2603:10b6:208:3a3::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 13:38:55 +0000
+Received: from DM4PR11MB6360.namprd11.prod.outlook.com
+ ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
+ ([fe80::22d9:ae03:5db1:680%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:38:53 +0000
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: RE: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
+Thread-Topic: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
+Thread-Index: AQHdJBCGi8jwRvuO10Sjj/hqyyXOq7a4T2pwgAAEM2A=
+Date: Mon, 31 Aug 2026 13:38:53 +0000
+Message-ID: <DM4PR11MB6360FEE47A37F9AB2941BCF8F4A92@DM4PR11MB6360.namprd11.prod.outlook.com>
+References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
+ <20260804123107.2256124-7-chaitanya.kumar.borah@intel.com>
+ <DM4PR11MB63608596E790F45C24DD18C9F4A92@DM4PR11MB6360.namprd11.prod.outlook.com>
+In-Reply-To: <DM4PR11MB63608596E790F45C24DD18C9F4A92@DM4PR11MB6360.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|IA1PR11MB6537:EE_
+x-ms-office365-filtering-correlation-id: c5fdaddf-690c-4f7c-ac3b-08df076532a7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|6133799003|22082099003|18002099003|56012099006|38070700021|11063799006|10067099003|4143699003;
+x-microsoft-antispam-message-info: HFb6Z7CPztUMmEkgNCl1bEjBzn4q56pvdy6z4xE7ZfZ1OptUIQhFBCIC1nRcY3ppVvClHQaGO+2u1FFvfHbn1Z99G+vP9APw6isW/dKvGIBQduSkhjFKy4k0YkTJ9YJU2Y2XfMUVTKISVRplUx1gIC+eLyqCt8tk4PduW5Kc6VYb9QHQV5dWYq0O2YdabNjXBskGulP+SMqkhFBV0BYKu+k4zjO8TBvESqHcvqPP8Ps3lVs209/8kX14RrNQTuPjQMb1t8kW4RsNXE8AAVanfMvaCRLYjPTFaFq7ANlJdbvk2VQA0oEaXo+q6T0cazQBANyHqI9KSiNmg65EiipO5GxdV4Mjzxz4x4Yfsgv4i5dTPhX5JNfKky08grN24w3IXWk6NMtH8mTgnBM80L60qj5OUie2WK1/ht7VWWn9akjns7I9RXboQYFCHsJa9HbTNH807OX/yfsDkh9Rb19IBxwKsHE5GDzwMt1/h1yvrLFO6Wj7SHe+zDGMdNsIu8zWcxe1Wa0ULs6hYU7/fFd+iGZ1EOzo0GLrf5YGZxNsBZopn9v7DYZ49dFGkH8MBodWEyPKQ5gdGnxRga9FsOqGNtre6TdT5xtfqLk9hlbfPxUbVV3Akwq57ACnYQJT3jLp27tUfMrAwQagfSUr3FgpkBFfVPD1PTfbUKgv8UVrFXk3+E7oDy34xTWiZ1CNE2JmKNYSl3MlVjFlN0CLmuzQAMvfGTyfzWk3sNJZO4f2WCA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(6133799003)(22082099003)(18002099003)(56012099006)(38070700021)(11063799006)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EvFU79NQvf7LKDQsnnTR2gr2qOk5ntTe1/wT/xBFwkWYz9fnAHcJBV8T3DrX?=
+ =?us-ascii?Q?b1Q/rJOACio2S3076TZu4+pSZB5qpcesDrba81UJz4WIrPu9LXRTMMlcUCxL?=
+ =?us-ascii?Q?qMFX0p7tSejK3+s2Vv3rsjWmqpjhIvOYaENbffJDbBnsHtYVQYO8jyXF3A4b?=
+ =?us-ascii?Q?70il5KSyhoQZEgzeii9nxp37y8N9hQOz5cN6SyJ2zCXzbJuOzIHOZo+trY7F?=
+ =?us-ascii?Q?0urA98PmJoTxyp5YSFSrmuV0k4vLdQg8YH9JIL2GjQ2O4g9TsSboE7N+0tQw?=
+ =?us-ascii?Q?n2VcD6OouKznPDlA2UWdd9IA6UWQzO7FgCWYNlh3CFhAE7YctUBqndsMcOAm?=
+ =?us-ascii?Q?odloukt0gEwOYiwD0E1buVRVAPEDsfIXSlr+D7PRHY6WHJ40Ie5Iu60UXPoB?=
+ =?us-ascii?Q?umz4dLF+2rsR7P43LU9FvLIc2+lB/QBCj/eC8HAxG8kR8OLnQMdhYjt1kopk?=
+ =?us-ascii?Q?/b7lnaCuEhOl1yTW5rjNGyt2/J164K+XTZdOKZaYtyQs1cdvbbApFiCImjYY?=
+ =?us-ascii?Q?vo4CUWnsAAUokD6FlFt32CSdz2qt4g2Eh/kGyZvH0/BPB3uuRPlvJdRHOEd/?=
+ =?us-ascii?Q?r4UwaGYQSQ73IB5lOK94lRKl9sVxeZfwrKP21s2HnWYGx/+SEimxvzMuGSov?=
+ =?us-ascii?Q?NCu6mcwb7kfx/pSG1g/Y7lFDijw4iJfEZ6uXtmXXFNwQLbspwlDxe/nJIJNI?=
+ =?us-ascii?Q?rWpJJN9SAugj22Nvpv32Vtz3VMhIk2B1SExTU/m3jVrduMP/mWEzX1DC+uet?=
+ =?us-ascii?Q?6s8+5BAjl1Ve8ZxeguBn8Slw9BJ9EpYyKprzYsB41toH69ZGlIIKP9UqbqTN?=
+ =?us-ascii?Q?mZVI8BsxpFFSi06TZ6jGoDn9I/z5ewJZaMHEyFLCWzmGEGBX7NT7ZKIeRfrc?=
+ =?us-ascii?Q?0bnvlNJ6+vvK8ZuOPdxnv2k7jphyYsk2z1qmi+m07pgL+gqX751w0+5Am5es?=
+ =?us-ascii?Q?JPTpZhteId/G/OQAYgvQ5O6/gQosFIhmFTSm8aWCerObUZfMOCBxNZvXEp8h?=
+ =?us-ascii?Q?fuBe/ZNzm9VrniTbupKyQDKfbLmgYqI8RI1OmVi2MJpe01Ik0yEcy0W5C53S?=
+ =?us-ascii?Q?dzCbHeUXS+4NPmjKwoONHKFIsDHR+zEl4ni7zHalVegeFrDhYR5Wf5LRTIlD?=
+ =?us-ascii?Q?D3tLi+bRMP7sHuXkC6nP/Rm11w7tv8XsqLPzpuHfaD4Z5+k/hsKWEEihCB7/?=
+ =?us-ascii?Q?KCf+0DqEhRMuZQrG88L0Blp0NWVnOGBDVTHdFjbVTf6z1EF+zKoKFLp+K3tA?=
+ =?us-ascii?Q?0hs4rJ7g9Zz868W7rPF/1z/B4TPajlAJHj058jJOk5iln01EQFUjGqldOqGG?=
+ =?us-ascii?Q?KgfC5PLuRZMbYeu5Z1JEu0rJZP/BCFAtUxkYWSLi2wpzzoDehpAIrGz2TT4N?=
+ =?us-ascii?Q?vyO5AxkGM8/gX5fgTeyozDsix/Av213xIvFR8//RHudU8URpchbn6ps4vrh2?=
+ =?us-ascii?Q?3uKczWkrwg4KX1rQUd6qC1kwAIQ7WPmgtRUiAv71b+Nx7jA/fGgwrimnlCRJ?=
+ =?us-ascii?Q?DNPzNYbmiztyHeNLv0ZVXebrLi74KS8nwUbJzeCB1FrOOdBZTYPrImB1HnV5?=
+ =?us-ascii?Q?vzMtfFS1egM7p2BuL2Cer3Rvh8Y/SqCok0cklJHfN1+W/Wv2nlg+ou74rzL0?=
+ =?us-ascii?Q?lso+r8wBvfvUIsCoU7ef9n7wMw8+/MB2Ml4qWTKE4ZTlg4/Lg0P4gohqjFhS?=
+ =?us-ascii?Q?wA710wTz6VxU+/LnqlsCu7NzXi+c/GSvXgV4dOY0GCy1Z61U?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: vaAlJZM/NSk2yZAGrlxHScD1+dWuiQbUFnrZnmeliALOW78VmSRhGURVkrgpYnBJAWQxMX73EZgCVs3V8MnYiak5o68BRSmJejb67rurfKAtXqId9bCMMMnwJqzYmJGc9x8nf5blNlTOqb+NDC1nPbSd69dw6NW9YV1Srl1G+Vh7z4OVu3OW3FH8M1g/NS0mGT3iVNTJJg9RZwVzG2FbWc6pp8lTnvPGEqPPOqYaqeMEiKSoZKC3oH+drcizBqdP/H2fc54NOs/DXBLtsjmmGxn630jbUhBO1QnxVEh/400BixaikwyiJ1XbXjaQBrlzZ+GiMZbbCQuz9oyspJOk5w==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5fdaddf-690c-4f7c-ac3b-08df076532a7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 13:38:53.1470 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4LD4e2EOw/GaCee7bQAhN+jxXJjNdurysyAx+hs/Nxln0D1zNDQQhNdX8T4EEG+nSLnA9JU9BGi9t9v6H0DnGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6537
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,434 +163,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
 
-[ Upstream commit ae3aa8cf5fd5ccb428a814e7eb38ae33ad1cfa34 ]
 
-These panels used on sdm845 devices are using GPIOLIB functions,
-ensure it's enabled.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://patch.msgid.link/20260505-panel-clean-up-kconfig-dep-v2-4-9cc31d6e6919@ixit.cz
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `drm/panel: Enable GPIOLIB for panels which
-uses functions from it`
-
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Parse the subject line
-**Record:** `[drm/panel]` `[Enable]` — Add missing `GPIOLIB` Kconfig
-dependencies for DRM panel drivers that call GPIO descriptor APIs.
-
-### Step 1.2: Parse all commit message tags
-**Record:**
-- **Signed-off-by:** David Heidelberg `<david@ixit.cz>` (author)
-- **Reviewed-by:** Neil Armstrong `<neil.armstrong@linaro.org>`
-  (drm/panel maintainer)
-- **Signed-off-by:** Neil Armstrong `<neil.armstrong@linaro.org>`
-- **Link:** https://patch.msgid.link/20260505-panel-clean-up-kconfig-
-  dep-v2-4-9cc31d6e6919@ixit.cz
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or syzbot
-  tags
-- Notable: Reviewed-by from subsystem maintainer; patch 4/4 of a Kconfig
-  cleanup series (v2)
-
-### Step 1.3: Analyze commit body
-**Record:**
-- **Bug:** Five panel Kconfig entries can be enabled without `GPIOLIB`,
-  even though their `.c` drivers call `devm_gpiod_get()` /
-  `gpiod_set_value*()`.
-- **Symptom:** Broken or invalid kernel configuration on SDM845-class
-  devices (Poco F1, etc.); panel drivers selected without GPIO support
-  compiled in.
-- **Root cause:** Missing `depends on GPIOLIB` in Kconfig for drivers
-  that use GPIO consumer APIs.
-- **Version info:** None in commit message.
-
-### Step 1.4: Detect hidden bug fixes
-**Record:** Yes — presented as Kconfig cleanup, but it fixes a real
-configuration correctness bug. Without `GPIOLIB`, `devm_gpiod_get()`
-stubs return `-ENOSYS` and probe fails (verified in `panel-ebbg-
-ft8719.c`). Not a crash, but a broken driver configuration path.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory the changes
-**Record:**
-- **Files:** `drivers/gpu/drm/panel/Kconfig` only (+9 / -2)
-- **Configs modified:** 7 entries
-  - **Adds `depends on GPIOLIB`:** `DRM_PANEL_EBBG_FT8719`,
-    `DRM_PANEL_LG_SW43408`, `DRM_PANEL_NOVATEK_NT36672A`,
-    `DRM_PANEL_NOVATEK_NT36672E`, `DRM_PANEL_VISIONOX_RM69299`
-  - **Reformats only (already had GPIOLIB):**
-    `DRM_PANEL_JDI_LPM102A188A`, `DRM_PANEL_RAYDIUM_RM69380` (`depends
-    on OF && GPIOLIB` → separate lines)
-- **Scope:** Single-file, surgical Kconfig fix
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** Kconfig allows `CONFIG_DRM_PANEL_*=y/m` with
-  `CONFIG_GPIOLIB=n`.
-- **After:** Panel options are only visible/selectable when `GPIOLIB` is
-  enabled, ensuring GPIO infrastructure is present when these drivers
-  are built.
-- **Affected path:** Kernel configuration / module build selection, not
-  runtime hot path.
-
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Kconfig dependency / configuration correctness (related
-  to build-fix exception)
-- **Mechanism:** Drivers include `<linux/gpio/consumer.h>` and call
-  `devm_gpiod_get()` / `gpiod_set_value*()`. Without `depends on
-  GPIOLIB`, Kconfig does not enforce the dependency. With `GPIOLIB=n`,
-  header stubs compile but return `-ENOSYS` at probe time.
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct and minimal. Each affected driver verified
-to use GPIO APIs. No runtime logic changed. Regression risk: very low
-(Kconfig-only). Two entries already had GPIOLIB — only formatting
-changes there.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame changed lines
-**Record:** Affected Kconfig entries trace to `19eef1d98eeda` in this
-tree's history. Drivers have used `devm_gpiod_get` since introduction
-(verified via `git log -S devm_gpiod_get`). Bug present since drivers
-were added without GPIOLIB dependency.
-
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: File history for related changes
-**Record:** Recent `Kconfig` changes in this tree:
-- `3139b806923b1` — `drm/panel: s6e3ha8: fix unmet dependency on
-  DRM_DISPLAY_HELPER` (already backported)
-- `d003d9bb44da1` — `drm/panel: Clean up S6E3HA2 config dependencies` —
-  **patch 3/4 of same series**, adds GPIOLIB to S6E3HA8 (already
-  backported)
-- This commit (patch 4/4) is **not** in HEAD (`ae3aa8cf5fd5` is not an
-  ancestor of HEAD)
-
-### Step 3.4: Author's other commits
-**Record:** David Heidelberg authored `d003d9bb44da1` (patch 3, already
-in 6.18.y). Neil Armstrong reviewed both.
-
-### Step 3.5: Prerequisites
-**Record:** Standalone Kconfig change. Patch 3 of the series is already
-in this tree; patch 1 (S6E3FC2X01) is not present (that config doesn't
-exist here). This patch applies independently for the five panels
-missing GPIOLIB.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original patch discussion
-**Record:** `b4 dig -c ae3aa8cf5fd5 -a` found v1 and v2 series on lore.
-v2 message ID matches commit Link tag. `b4 dig -w` failed (lore fetch
-error). WebFetch of lore blocked by Anubis bot protection. Web search
-confirmed upstream commit `ae3aa8cf5fd5` and series context.
-
-### Step 4.2: Reviewers
-**Record:** Neil Armstrong (drm/panel maintainer) provided `Reviewed-
-by`. Series cover letter (from search) describes Kconfig dependency
-cleanup verified against all driver source files.
-
-### Step 4.3: Bug report
-**Record:** No formal bug report or syzbot link. Issue identified
-through Kconfig dependency audit (same class as `kconfirm`-found s6e3ha8
-fix already in this tree).
-
-### Step 4.4: Related patches
-**Record:** 4-patch series:
-1. S6E3FC2X01 cleanup — not applicable (config absent in 6.18.y)
-2. (unclear numbering in resends)
-3. S6E3HA2 GPIOLIB + help text — **already in tree** (`d003d9bb44da1`)
-4. **This commit** — GPIOLIB for 5 additional panels
-
-### Step 4.5: Stable mailing list
-**Record:** UNVERIFIED — lore stable search blocked. No evidence against
-backport found.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key functions
-**Record:** No C functions modified. Affected probe functions in driver
-`.c` files use GPIO APIs:
-- `panel_ebbg_ft8719_probe()` — `devm_gpiod_get()`,
-  `gpiod_set_value_cansleep()`
-- `panel_lg_sw43408` — `devm_gpiod_get()`, `gpiod_set_value()`
-- `panel_novatek_nt36672a/e` — `devm_gpiod_get()`, `gpiod_set_value()`
-- `panel_visionox_rm69299` — `devm_gpiod_get()`, `gpiod_set_value()`
-
-### Step 5.2: Callers
-**Record:** Probe functions called from module init / device
-registration during boot on platforms with these panels (SDM845 phones,
-Poco F1, etc.).
-
-### Step 5.3: Callees
-**Record:** `devm_gpiod_get()`, `gpiod_set_value()`,
-`gpiod_set_value_cansleep()` from GPIOLIB (or stubs when `GPIOLIB=n`).
-
-### Step 5.4: Reachability
-**Record:** Reachable on ARM64 platforms with these panel device trees
-when the panel driver is enabled. Common on SDM845 devices mentioned in
-the commit message.
-
-### Step 5.5: Similar patterns
-**Record:** Many other panel Kconfig entries in the same file already
-have `depends on GPIOLIB`. S6E3HA8 received the same fix in
-`d003d9bb44da1` already backported here. Consistent with established
-pattern.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Does buggy code exist?
-**Record:** **Yes.** In 6.18.43, these five configs lack `GPIOLIB`:
-- `DRM_PANEL_EBBG_FT8719` (line 110: `depends on OF` only)
-- `DRM_PANEL_LG_SW43408` (line 421)
-- `DRM_PANEL_NOVATEK_NT36672A` (line 525)
-- `DRM_PANEL_NOVATEK_NT36672E` (line 535)
-- `DRM_PANEL_VISIONOX_RM69299` (line 1121)
-
-All five driver `.c` files confirmed to use GPIO APIs.
-
-### Step 6.2: Backport complications
-**Record:** Clean apply expected — single Kconfig file, no conflicts
-with recent changes. Two configs (`JDI_LPM102A188A`, `RAYDIUM_RM69380`)
-already have GPIOLIB; only formatting differs.
-
-### Step 6.3: Related fixes already present?
-**Record:** Patch 3 of same series (`d003d9bb44da1`) and similar unmet-
-dependency fix (`3139b806923b1`) already backported. **This specific fix
-is not yet in the tree.**
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/panel` — **IMPORTANT** (display subsystem,
-mobile/embedded hardware).
-
-### Step 7.2: Subsystem activity
-**Record:** Active — recent Kconfig dependency fixes backported to this
-6.18.y tree in the same subsystem.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Users of SDM845-class mobile devices (Poco F1, etc.) and
-anyone building custom kernels with these panel drivers. Config-
-specific, not universal.
-
-### Step 8.2: Trigger conditions
-**Record:** Triggered when `CONFIG_DRM_PANEL_<name>=y/m` with
-`CONFIG_GPIOLIB=n`. Uncommon on ARM mobile defconfigs (GPIOLIB typically
-enabled), but possible with custom/randconfig builds. Not a security
-issue.
-
-### Step 8.3: Failure mode severity
-**Record:** Panel probe fails with `-ENOSYS` from `devm_gpiod_get()`
-stub; display non-functional. **Severity: MEDIUM** (broken hardware
-support, not crash/corruption). Kconfig tools may also report unmet
-dependencies.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** MEDIUM — correct Kconfig dependencies; prevents broken
-  panel configs; completes a series partially already backported
-- **Risk:** VERY LOW — Kconfig-only, 9 lines, maintainer-reviewed
-- **Ratio:** Favorable for backport, especially given precedent in this
-  tree
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence compile
-
-**FOR backport:**
-- Real Kconfig bug: 5 drivers use GPIOLIB APIs without declaring
-  dependency
-- Verified in source for all 5 drivers
-- Small, surgical, maintainer-reviewed (Neil Armstrong)
-- Patch 3 of same series already backported to 6.18.y
-- Similar Kconfig unmet-dependency fix (`3139b806923b1`) already in this
-  tree
-- Build/config fix exception category
-- Affects real mobile hardware (SDM845 panels)
-- Zero runtime regression risk
-
-**AGAINST backport:**
-- Does not cause compile failure (`gpio/consumer.h` provides stubs when
-  `GPIOLIB=n`)
-- Runtime failure is graceful probe error, not crash/UAF/corruption
-- Typical ARM mobile defconfigs already enable GPIOLIB
-- Low practical impact for most production users
-
-**Unresolved:**
-- Full lore review thread (Anubis blocked WebFetch)
-- Whether randconfig/kconfirm explicitly flagged these five panels
-
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — verified driver/GPIO usage;
-   Reviewed-by from maintainer
-2. Fixes a real bug? **PASS** — Kconfig allows invalid configuration for
-   real hardware
-3. Important issue? **PASS (MEDIUM)** — broken display driver config,
-   not crash/security
-4. Small and contained? **PASS** — 1 file, +9/-2 lines
-5. No new features/APIs? **PASS** — Kconfig dependency only
-6. Can apply to local tree? **PASS** — buggy code present; clean apply
-   expected
-
-### Step 9.3: Exception categories
-**Record:** **Build/config fix** — Kconfig dependency correction (same
-class as `3139b806923b1` and `d003d9bb44da1` already in 6.18.y).
-
-### Step 9.4: Decision rationale
-
-This is not a critical crash fix, but it is a correct, zero-risk Kconfig
-dependency fix for real hardware panel drivers. The 6.18.y tree has
-already accepted two nearly identical drm/panel Kconfig dependency fixes
-from the same author and reviewer, including patch 3 of this very
-series. Leaving patch 4 out leaves five panel drivers with the same
-class of bug that was already fixed for S6E3HA8. The fix is small,
-obviously correct, and completes consistent Kconfig hygiene in a
-subsystem where this tree has established precedent.
-
----
-
-## Verification
-
-- [Phase 1] Parsed subject, tags; found Reviewed-by Neil Armstrong, Link
-  to v2-4 patch
-- [Phase 2] Diff: 1 file, +9/-2; 5 configs gain GPIOLIB, 2 reformat only
-- [Phase 2] Verified `panel-ebbg-ft8719.c` uses `devm_gpiod_get` +
-  `gpiod_set_value_cansleep`
-- [Phase 2] Verified `panel-lg-sw43408.c`, `panel-novatek-nt36672a.c`,
-  `panel-novatek-nt36672e.c`, `panel-visionox-rm69299.c` use GPIO APIs
-- [Phase 2] Read `include/linux/gpio/consumer.h`: stubs provided when
-  `CONFIG_GPIOLIB` disabled (no link error, `-ENOSYS` at probe)
-- [Phase 3] `git describe HEAD`: v6.18.43; `make kernelversion`: 6.18.43
-- [Phase 3] `git merge-base --is-ancestor ae3aa8cf5fd5 HEAD`: NOT IN
-  TREE
-- [Phase 3] `d003d9bb44da1` (patch 3, S6E3HA2 GPIOLIB) confirmed in tree
-- [Phase 3] `3139b806923b1` (s6e3ha8 unmet dependency) confirmed in tree
-- [Phase 4] `b4 dig -c ae3aa8cf5fd5 -a`: found v1/v2 series on lore
-- [Phase 4] UNVERIFIED: `b4 dig -w` failed; lore WebFetch blocked by
-  Anubis
-- [Phase 5] Grep confirmed all 5 drivers in `Makefile` and use GPIO
-  consumer APIs
-- [Phase 6] Grep of `Kconfig`: 5 panels missing GPIOLIB dependency in
-  6.18.43
-- [Phase 6] `JDI_LPM102A188A` and `RAYDIUM_RM69380` already have GPIOLIB
-- [Phase 7] Neil Armstrong is drm/panel maintainer (Reviewed-by)
-- [Phase 8] Failure mode: probe `-ENOSYS`, display broken; severity
-  MEDIUM
-- [Phase 8] Typical ARM defconfigs: GPIOLIB usually enabled; impact
-  lower for default configs
-
-**YES**The background check finished: upstream commit `ae3aa8cf5fd5` is
-**not** in the current 6.18.43 tree, so the GPIOLIB Kconfig fix still
-needs to be backported.
-
-The five affected panel drivers (`EBBG_FT8719`, `LG_SW43408`,
-`NOVATEK_NT36672A/E`, `VISIONOX_RM69299`) are still missing the `depends
-on GPIOLIB` entries in this tree. Verdict from the analysis: **YES** for
-stable backport.
-
- drivers/gpu/drm/panel/Kconfig | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7354dc85a6aa7..967265ed6fc96 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -107,6 +107,7 @@ config DRM_PANEL_BOE_TV101WUM_LL2
- 
- config DRM_PANEL_EBBG_FT8719
- 	tristate "EBBG FT8719 panel driver"
-+	depends on GPIOLIB
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
-@@ -316,7 +317,8 @@ config DRM_PANEL_JADARD_JD9365DA_H3
- 
- config DRM_PANEL_JDI_LPM102A188A
- 	tristate "JDI LPM102A188A DSI panel"
--	depends on OF && GPIOLIB
-+	depends on GPIOLIB
-+	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -418,6 +420,7 @@ config DRM_PANEL_LG_LG4573
- 
- config DRM_PANEL_LG_SW43408
- 	tristate "LG SW43408 panel"
-+	depends on GPIOLIB
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
-@@ -522,6 +525,7 @@ config DRM_PANEL_NOVATEK_NT36523
- 
- config DRM_PANEL_NOVATEK_NT36672A
- 	tristate "Novatek NT36672A DSI panel"
-+	depends on GPIOLIB
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
-@@ -532,6 +536,7 @@ config DRM_PANEL_NOVATEK_NT36672A
- 
- config DRM_PANEL_NOVATEK_NT36672E
- 	tristate "Novatek NT36672E DSI panel"
-+	depends on GPIOLIB
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
-@@ -660,7 +665,8 @@ config DRM_PANEL_RAYDIUM_RM692E5
- 
- config DRM_PANEL_RAYDIUM_RM69380
- 	tristate "Raydium RM69380-based DSI panel"
--	depends on OF && GPIOLIB
-+	depends on GPIOLIB
-+	depends on OF
- 	depends on DRM_MIPI_DSI
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -1118,6 +1124,7 @@ config DRM_PANEL_VISIONOX_R66451
- 
- config DRM_PANEL_VISIONOX_RM69299
- 	tristate "Visionox RM69299"
-+	depends on GPIOLIB
- 	depends on OF
- 	depends on DRM_MIPI_DSI
- 	help
--- 
-2.53.0
+> -----Original Message-----
+> From: Shankar, Uma
+> Sent: Monday, August 31, 2026 6:54 PM
+> To: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>; intel-
+> xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; dri-
+> devel@lists.freedesktop.org
+> Subject: RE: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR plane=
+s
+>=20
+>=20
+>=20
+> > -----Original Message-----
+> > From: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
+> > Sent: Tuesday, August 4, 2026 6:01 PM
+> > To: intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org;
+> > dri- devel@lists.freedesktop.org
+> > Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>; Shankar,
+> > Uma <uma.shankar@intel.com>
+> > Subject: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
+> >
+> > Extend the SDR plane color pipeline to post-CSC 1D LUT block.
+> >
+> > v2:
+> >  - In preparation of a simple pipeline
+> > 	[YUV Full/Limited -> RGB] -> [1D LUT]
+> >    Drop pre-CSC LUT from the pipeline as it has no use in a YUV -> RGB
+> >    pipeline. This makes the pipeline simple since the block lies betwee=
+n
+> >    the YUV range correct block and Fixed function CSC. It can be added =
+back
+> >    when [RGB709 -> RGB2020] capability is added. Then it can be used fo=
+r
+> >    linearization.
+> >
+> > Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> > Reviewed-by: Uma Shankar <uma.shankar@intel.com> #v1
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_color_pipeline.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> > b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> > index efd4375c4331..53e55ce0a5a3 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> > @@ -45,6 +45,7 @@ static const enum intel_color_block
+> > hdr_plane_pipeline[] =3D {
+> >
+> >  static const enum intel_color_block sdr_plane_yuv_pipeline[] =3D {
+> >  	INTEL_PLANE_CB_CSC_FF,
+> > +	INTEL_PLANE_CB_POST_CSC_LUT,
+>=20
+> With this we will expose support for post csc lut but corresponding handl=
+ing in
+> driver is added later in the series. Would be good to move this after pat=
+ch 8.
+
+Please ignore the earlier comment, enabling of SDR planes is done in last p=
+atch
+so this should be fine. We are good.
+
+> >  };
+> >
+> >  static const u64 intel_plane_supported_csc_ff =3D
+> > --
+> > 2.50.1
 
