@@ -4,63 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 785DBC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7874C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF7210E2FA;
-	Mon, 31 Aug 2026 16:56:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="im01zoch";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A0510E2FA
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788195405; x=1819731405;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=F+YjOfzFMf/cGJqzs1nRuvBR83gYIDUgBV6ieH5zoJQ=;
- b=im01zochxGnKy0v40bVw0mPkD/z7hhp6F/OzxAlsH7PWTnSgx8Sn8wvV
- INiAyA+5vLGZilolcnKHzLP11lZWlLUEDkGdDHgY05+5P6d023d7Vjvqg
- txyln3RPEnbKtlYR1ImZWF+55s2KMaiwaXe8XI7DfGzDBA4s+SumQu3ez
- NMe55q4JafALqRHT/MmQs02lvEVke9HnKtiYjo3W4d61m7nVXzJIpRC6S
- htZIQMqERgC+XN1CG+rboTXNDVoJrZi/Qufz5wxKKIlXy1uFhcCZBCC9r
- JTDBWRqPTew6i0P7T69r9jVmlm222emBz8K0jNM3hgN1rGh6yjRE/dwDd g==;
-X-CSE-ConnectionGUID: mX1ztve/TaytkCszhukuwQ==
-X-CSE-MsgGUID: 7GVyOP0USF2XTTYtKZUyIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88631914"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88631914"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 09:56:44 -0700
-X-CSE-ConnectionGUID: SSe1RcJ4TqeY9OtvJLfjPQ==
-X-CSE-MsgGUID: 1DJb7QDxQHCB7ZRFExjuAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="292343217"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 09:56:40 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- ardb@kernel.org, ilias.apalodimas@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v2 2/3] drm/edid: Add drm_edid_get_preferred_size()
-In-Reply-To: <4645113d-3b31-4d92-b392-5d5284225211@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260831093020.494701-1-tzimmermann@suse.de>
- <20260831093020.494701-3-tzimmermann@suse.de>
- <f5f1ab9e6fab9499e49f116369858ee4da626025@intel.com>
- <4645113d-3b31-4d92-b392-5d5284225211@suse.de>
-Date: Mon, 31 Aug 2026 19:56:37 +0300
-Message-ID: <ff8f369ace3f0cb322f2711b88b88b7b65063c6a@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A624610E316;
+	Mon, 31 Aug 2026 17:00:06 +0000 (UTC)
+X-Greylist: delayed 1548 seconds by postgrey-1.36 at gabe;
+ Mon, 31 Aug 2026 17:00:05 UTC
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C6C10E312
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:00:05 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
+ id 1x14xL-000000007ih-0eiy; Mon, 31 Aug 2026 16:33:59 +0000
+Date: Mon, 31 Aug 2026 17:33:55 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Allen Chen <allen.chen@ite.com.tw>, Hermes Wu <hermes.wu@ite.com.tw>,
+ Pin-yen Lin <treapking@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Chen-Yu Tsai <wenst@chromium.org>
+Subject: Re: [PATCH v6 00/13] drm/bridge: it6505: DP audio support +
+ shared-DAI hw_params fix
+Message-ID: <apWs89912pK8qK37@makrotopia.org>
+References: <cover.1784947240.git.daniel@makrotopia.org>
+ <7eebbd9b-3a5e-4d95-bbbb-8ba3a7238383@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7eebbd9b-3a5e-4d95-bbbb-8ba3a7238383@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,48 +60,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Hi
->
-> Am 31.08.26 um 15:13 schrieb Jani Nikula:
->> On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>> +
->>> +	/*
->>> +	 * Use display mode from the Preferred Timing Descriptor. For old
->>> +	 * and obscure displays, we might need better heuristics.
->>> +	 */
->>> +
->>> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING))
->> The preferred timing mode should always be there starting from EDID
->> 1.3. The bit doesn't indicate whether it's there or not. It should be
->> always set for EDID 1.3, and for EDID 1.4 it indicates whether the
->> preferred timing includes the native pixel format and the preferred
->> refresh rate.
->>
->> I think just if (edid->revision < 3) should be enough.
->
-> Ok
+On Mon, Jul 27, 2026 at 01:34:12PM +0200, AngeloGioacchino Del Regno wrote:
+> On 7/25/26 04:57, Daniel Golle wrote:
+> > Revive HDMI/DP audio support for the it6505, originally posted by
+> > Jiaxin Yu [1], rebased onto current -next with the review feedback
+> > addressed: &client->dev is gone (the driver gained it6505->dev) and
+> > "#sound-dai-cells" has since been added by commit 325af1bef5b9
+> > ("dt-bindings: display: bridge: it6505: Add #sound-dai-cells").
+> > 
+> > Patches 1-11 fix pre-existing bugs found during review of earlier
+> > versions of this series; they carry Fixes: tags and are ordered first
+> > so stable trees can pick them.
+> > 
+> > Patch 12 wires up the it6505 audio helpers via hdmi_codec_ops,
+> > unblocking the mt8186-mt6366 sound card which references it6505 as
+> > the I2S3 codec. Patch 13 makes hw_params succeed with no display
+> > attached, needed when the I2S bus is shared with another codec as on
+> > MT8186 "steelix" Chromebooks, where the speaker path must keep
+> > working regardless of the it6505 link state.
+> > 
+> > Tested on a MT8186 (google,steelix) Chromebook: the sound card comes
+> > up, speakers, microphone and headset jack work. HDMI/DP audio output
+> > itself could not be tested for lack of a suitable adapter cable.
+> > 
+> 
+> Whole series is
+> 
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Tested-by: AngeloGioachcino Del Regno
+> <angelogioacchino.delregno@collabora.com> # Steelix Chromebook
 
-I think I may have gotten this one wrong, and your original was correct.
-
-I didn't double check what the EDID spec definition of pixel format is:
-"Native Pixel Format is defined as the number of physical pixels along
-the horizontal axis by the number of physical pixels along the vertical
-axis of the display device."
-
-i.e. exactly what you're looking for. Usually, I would not consider
-"pixel format" to include resolution.
-
-The preferred timing will still be there as I described, and I would
-*guess* preferred most likely equals native, but your original is the
-more cautious approach.
-
-My bad, sorry for the noise.
-
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
+Any chance to get this merged in the new cycle now?
