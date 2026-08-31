@@ -4,134 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 106ABC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6A3C61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C1BB10E7A0;
-	Mon, 31 Aug 2026 09:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E87A10E7A1;
+	Mon, 31 Aug 2026 09:26:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V5ZbgAP2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i3tdPs2T";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010054.outbound.protection.outlook.com
- [40.93.198.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C59E210E79C
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:22:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dt/RbaBBj3z8iZSdUgceeL67JAN64/NFTAu4w9uiTT/vgKHEXrICVjq5iD6SJfM2cxSwEIUjHC4N5Ku/QMbe7ERrs6DnCt/zv0DFXeSACydASEk6QF8vu5mgvbRMGoumq6IzC2NjYcKD4csrD9nsnYQUcHyGeDkPIB4RQRbJzwmqty8y4OZ5Dop42nDxKygiPSnYqxk0sBkabRJDrZrNLLn/sGK4YN2hrbLlNeA/PewwCj9bvFNRqFxFC/feWfQsNDnltZmlzQTj2ElEekF5sSS2wK1A6n1cZpMjZSa4Un4lv5L9hf2P0A2Fj9AD/TKB1IOU7arMRH/YQvGnJirudA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/OQIdWWPE3rXsHQHKv8eHh6tan+5YEF4PAinAfTPPME=;
- b=ipMYj+UgPWwNdRlEeVT2RqxG0CXidDc6QhejRMJyiIeTyp399evzTEcw516vuE02n25Zt+nQ+B1JEYYn82n0c/gKOAOIEJlku1ZxMWolGv6+DSI+9cKAMah1aI8XN0tAO5+6XarCbF9eJBWvq1D2QjqMO/f6IaDIw5/Rc7e2VZqkpt7uAg4V1sEnlc5RGQK4XwlIA1ul16OzG8q6IXhnl2SF7EKUtOvA4F/SyDcqRPcYli19U8duDws3kUTR6VxBeeLLsqx9ZZbWiz2tdEo7nLZUqCUo9mM+qkVILG73isrHAmavq5k6E5/WV3gX+5+jhecuyZL1/oCVVkZlDQ/4RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/OQIdWWPE3rXsHQHKv8eHh6tan+5YEF4PAinAfTPPME=;
- b=V5ZbgAP2IYenjqtQ8b4UdL0evtqyOPty0BZ8cfLxBEe77d7D9NCyD+pDHOX0av6sAieyO2GQ18lf4MNFwmJofs3zWV4pejY+Gyur+qnj9loM4vV/kSH8WYLsyj6eWqjI76HTnkjNRXLckKj1sEL37PfM5Qu2apNB9pWlmaO/O/Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS2PR12MB9711.namprd12.prod.outlook.com (2603:10b6:8:275::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 09:22:29 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
- 09:22:29 +0000
-Message-ID: <783c4c15-b8c6-4e9a-96fe-451d7c3ea302@amd.com>
-Date: Mon, 31 Aug 2026 11:22:24 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dma-buf: Document how exporters and importers agree
- on mapping lifetime
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
- <logang@deltatee.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
- <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
- <2776f9b0-c299-45ff-bf82-89b95e73fd60@amd.com>
- <20260826124341.GD42790@unreal>
- <39dc2f46-08c8-4eff-aa22-a7c67b5c7040@amd.com>
- <20260826140234.GE42790@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260826140234.GE42790@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0255.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f5::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB9711:EE_
-X-MS-Office365-Filtering-Correlation-Id: a329ecdc-faec-4caa-6636-08df07416126
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|7416014|22082099003|18002099003|56012099006|6133799003|11063799006|4143699003|5023799004|10067099003;
-X-Microsoft-Antispam-Message-Info: aGRA1dm8QGwKdJSM6gq5+axDCEMo9V7oWQQWqlC6GSjEFsKl0XNfJINUPnxGPZYOB5SlTANzSpJ7RTK8LX/lvjM5VQlyN00qv9mD8+huJmB4BRrMYddUC9G+UOUt3icNOxbCH0iCs5PvGFcuCMAc2+sJs0ZpeLKv2L8OKn2rU+Glg2jdQhc0zWT9sCOZBL8ukbjH9Y41fY0NF3g+0l1nYhet1zcJ6O9RPyedRe31gWQzLDSr7k7XM+e7HR1xupEveT9HeM1qDXLBP4/Gyntm6C6NcIY8Rv73OWpMK7NY5Ku/sH3uqbnq3yKSSsKKaizFj+KeNKHj7dJh/BnwskMv95+U/Mly/A8euu4MJCJgFvB0u+gSbevPafX3JXnROxAeP1dzJP6o4aqRCyj53Sg62HGmiswO4pvFXjTGXT/gj+6qbWLioAHLtUFLGrtnjq3QCvcqtEUo8IkOX1ZnMS2Xmc0dq1jlkzUwhJR3v1SeAzBwJHKNNEgz2+D7h1Ht9hjfyvW7ckQrz5hZIPil0szuZz4iq8wD6WkIFM7NqCU3pybGV3ySA5pFfUhGoCjp6qOmLrJyAw8rW9eRAAhs50S13a16XIssJd2SNYBcgq96uZQvaAR30b9kW2lqN3rdc4y/NBFQcwVMOpz1V5FabRB4OMRJpOfvl8EdA+duxV3Kd2I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(6133799003)(11063799006)(4143699003)(5023799004)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWMvaWVOa3BXSGhxeG8vdEwwSWdPVGYva0ptWGZ2SGtKV2RLUHV0MmhmdjhN?=
- =?utf-8?B?VFRYMHh4NUk2SzR2blpRSXpXay9FSzcrVG95a3h3czN5N1N1NW1OeDlEOXpQ?=
- =?utf-8?B?NENSZHhvdldXeXozNE45bWRPVDNIL0lKek85VU9ieG9tY282Qm5rS0oxdHB5?=
- =?utf-8?B?VVhGOEVRa3hxRmpxYjFWYmxVVmJUMFNnaHo3bWozSjUvTitLZDU5dUVTRmtV?=
- =?utf-8?B?c01YRHdjM0FhQXlyeU9sNmpQTG5qUUs3ZkZ3cE1tajMwYWRoMUp0eWxvbW0y?=
- =?utf-8?B?SSs5emdyN2xUSUNIcTNTb2pBWVcxcEgwN0NNQVRpRXR0NzZCdUZzTCs0aHpy?=
- =?utf-8?B?NE41QXBxQWhkR1RDNENKRWRycmUzUm1EL3hqY2tEaE5hV2IrZTIyMlBrd0Zj?=
- =?utf-8?B?L3VYTGxXZ0VuTUZtenROY1lMMXdFNWRlYXRkckhXbTdZL3lvZldzblExZlpG?=
- =?utf-8?B?c2drbXArSVpZMlRBeGg0VCt6WUt2cGVRc0xJSmt1YklPR3hpT2krUjIrMlBM?=
- =?utf-8?B?dUFKQzFpZXY2YUtheGcxbmpHT2Vmd08zTXhyWHNqVnNMQTV4SWdCdXpmK245?=
- =?utf-8?B?OGhlbUYvWmJNcWdrbitlZGNzc0FTU3loUnBUdnhsazNIdUNFTm9tMUJoaVVT?=
- =?utf-8?B?MkdxczZBYlNvM0pQa241Q3NOelVXaTFObmpveGExK3NvL3dqNUZsa054LzE2?=
- =?utf-8?B?SjJyeFNyUXlZWDBucUtVQXBmdTZzVGxpU0FpcjBad2grNXdFVVZQaXJRdUxj?=
- =?utf-8?B?WTFDbUlCVld2WmV6TDk3aFI4eFZ2RnN3RDROclY2M1QzL3RMcFVTYllOelY2?=
- =?utf-8?B?cGpUMHQrOVlmMFE2UHlGNFNtellicFRxSjNXVTBNUyttdzJOM1JmRzgvWGpO?=
- =?utf-8?B?ZjFBYVg1eXdtRVRJRHN3UGk1MjJYdmRNMmNVUmNjRDJhelVHcGo4SnBpUDMy?=
- =?utf-8?B?SERzc0duOENSTUlWYTAweW9JelZqTFJ6MUtRMmxRclpTMHlUQ3doS1RmaCtD?=
- =?utf-8?B?WnhKYzU3b3hHRzJPZjlKYjI3Mm9UaEZUa3o0WFZvUEJNOS90dG43ZkplbUZO?=
- =?utf-8?B?Tmh4QzFZNXpaSnVvYWltSGJldUxBamgxeXY3SEtlZkxMMDhoVGJQYXhZN0VV?=
- =?utf-8?B?VHZubExFMUJVTTlIbTJ3aTkwZVVaRVVMZUlabGJMVlNxeXFjbXRtSXcrOXRi?=
- =?utf-8?B?STljZEZQRFFxMjV3SER2V0xYRFNOMGNtcG1IOC80VXJTcHZEVE51OXh5SWs5?=
- =?utf-8?B?R0R5aCtTaXhVZWRzcWx1TTFocSs2RkZ2dHpSWjJ0bmNpbmpTTEZpMi9SV09t?=
- =?utf-8?B?VkZTRHlhMW9wVlIzT1loWVRCL0Z4VEY2a1p0NzJXc01sNkJHM3g4ZTRSRmIr?=
- =?utf-8?B?YlBUVkxyQWQ0SU5aOW02UXZhNVBOUlVxMnJMeW55Nk14K0YzK1pNUmp1RVVk?=
- =?utf-8?B?SjdqK1NBOVhEQ1JLeS9jeWpDUDZWRE9GN0tjQ3ZWei9nTnd6eWhTVUV3VWRC?=
- =?utf-8?B?K3RKUUxmMUtLL2hmODBUNEFvblphVFB2R0w3bHIvdkM2WFRvNVRpeDdJMU1p?=
- =?utf-8?B?dlE1aFJnT0ZPaHlpcWlmWks1aDFYM0hQNVR6MENsTEJ5bHk2OVY1Q285R0Vx?=
- =?utf-8?B?NzVNV3VMbDVDR2hzVXU4UC84UUNhVlhtWWRyWTgyM0FvcGY4R2svODd5Q3FL?=
- =?utf-8?B?Slg3ZllaeEFnUFA1ZnQwNjhjcGViSFNwbWZwa21Jc3BTRHZDTjlhTUdmL3RE?=
- =?utf-8?B?b1ZQSk5EbVY2dGp3Rk56b0t0ZldJSmVIQkJkZjgveE9NOU5GS0R6bnllRmpE?=
- =?utf-8?B?SnFDOWdsVzZDUHh6RmRCT0dESkpLYmthSmVvNFFVQ2NYbkQyS3N0enJ2eWRL?=
- =?utf-8?B?Q2djcS9Ma0VqRTBJRVhXRmdZSU43K3d1TTFpVzl2eWxpS2Y1NTBkOSswRU9k?=
- =?utf-8?B?VGlZM0NRbDFSMUdsaFI0dHJsOGU2S2k3STdzTFlzV3g5OHhFTGpkYVhzNFds?=
- =?utf-8?B?dTdoeWFoR1NBRk51c1d6ZE40UFhwclluK1dma0xmNTdkM0RMdTJDWk5tS0Nt?=
- =?utf-8?B?M3lzMW0xV2xxUjJtNWhXVGd2RXduU1MySW5wdzNwSkdHdTB6YlArL3lKWXBy?=
- =?utf-8?B?WXRFR2tWRXFtd2tMSzNaR3NodVFQMEJQZE8xRVpWKzdzZ2RFRmgvclFpTjZa?=
- =?utf-8?B?dGxoZTl1Mmx3OGVJVVB2NlMrczJ2eStTUkdNblZxRGV4UnQ5U1pPS25nYS9j?=
- =?utf-8?B?SjhGcEF5V1lSZ3A2dmM5eVYxOE1mRnpKTTl1bXp0NkRwNzM1WlBqZFNHZVBW?=
- =?utf-8?Q?qOqosOPDns6q22LmgP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a329ecdc-faec-4caa-6636-08df07416126
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 09:22:29.4980 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cjjc/ltInddXFffwCir+hMuxjVag3hqq4pioyE+jHhDgkMZdJmzvlmEu0/Mj76tX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9711
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6DC110E7A1
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:26:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8310543620;
+ Mon, 31 Aug 2026 09:26:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441151F000E9;
+ Mon, 31 Aug 2026 09:26:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788168387;
+ bh=F0Lnl1VihcJ6ziAJfN/wXk+p0mktVpoIwDdwyRCOSjE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=i3tdPs2T6fvfuHselTfCfz9FR2j5lww6uys5u/b0R8krpsjMIR2cy34+MA5LOXHvu
+ 50nDaunQg0rxL6cWmkHh4X9gAEMb/dhO1Y4tdF3QPheQKlTNQRPHtmDLNo/K2uMk8m
+ X08+v0OHRm6LXSvmybTY9odTE62f/YU85XdthZ+54irHiUg+ofIK6Aw+JkdJ5b3fYc
+ pY0mJfVXdqobGY1KuTw3pH47QRbf2PuFsl74eVtgnoN+nrs4sGMh6/MJ98suWYmVyR
+ QTXXqUiGeLy3v08neJvRXGu4/nVluErIY05M1ApGsKh170Dj2xgYKezIqixycmqmCu
+ ZcrjI2uNOWTHQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 16/29] drm/msm/dp: add link_ready to manage
+ link-level operations
+To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-msm-dp-mst-v6-16-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-16-c91d35d6fb9e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 09:26:26 +0000
+Message-Id: <20260831092627.441151F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,80 +54,159 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/26/26 16:02, Leon Romanovsky wrote:
-...
->>>>> + *
->>>>> + * Pinned flow:
->>>>> + *
->>>>> + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to hold the
->>>>> + *   storage still on request. An exporter whose storage never moves implements
->>>>> + *   neither, and dma_buf_pin() then succeeds on its own. An exporter which
->>>>> + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
->>>>> + * - Importer: nothing more. The mapping stays valid until it unmaps.
->>>>> + *
->>>>> + * Revoked flow:
->>>>> + *
->>>>> + * - Exporter: answer dma_buf_pin() as above. Call
->>>>> + *   dma_buf_invalidate_mappings() when the storage goes away and fail
->>>>> + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which complete a
->>>>> + *   revocation are described in dma_buf_invalidate_mappings().
->>>>> + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap within
->>>>> + *   bounded time and drop the pin.
->>>>> + *
->>>>> + * Movable flow:
->>>>> + *
->>>>> + * - Exporter: call dma_buf_invalidate_mappings() before each move, then wait
->>>>> + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and &dma_buf_ops.unpin play
->>>>> + *   no part here.
->>>>> + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings drops the
->>>>> + *   cached mapping and has to lead to dma_buf_unmap_attachment() within
->>>>> + *   bounded time. It need not stop the hardware, because access runs until the
->>>>> + *   importer's &dma_buf.resv fences retire. Map again before the next DMA.
->>>>
->>>> That is also not really correct. Those flows are not separated like this.
->>>
->>> How will you split them?
->>
->> Well you don't. Exporters and importers can have a much wider variety of use cases.
->>
->> When the importer doesn't give an invalidation callback the framework will call pin/unpin when the attachment is mapped/unmapped. That is just a service of the framework to make importers simpler.
->>
->> But it is perfectly possible that an importer which implements the invalidation callback calls pin/unpin manually later on. This for example happens on display scanout when an invalidation would cause garbage on the screen when the buffer is moved.
->>
->> But even after an importer called pin it is possible that the invalidation callback is called in case of a hot remove. Using our example of display scanout once more it is probably better to stop displaying anything then keeping the resources allocated until userspace realizes that the export is not there any more.
->>
->> The revoke flow is then basically just a special case of hot remove. The only difference is that userspace invokes it instead of an user pulling a cable.
-> 
-> OK, let me add some context on how this split came about and why I am
-> trying to document it.
-> 
-> Several people approached me offline because they need to implement an
-> importer that supports both revoke and movable flows. These require
-> completely different implementations in the driver internals.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] PM runtime reference and PHY state are leaked when msm_dp_display_=
+prepare_link() fails after acquiring resources.
+- [High] active_stream_cnt unconditionally underflows to UINT_MAX when disp=
+lay disable is called after a failed link preparation.
+- [Low] Logically inverted debug message for !link_ready condition.
+--
 
-Thanks, that at least helps me understand the goal.
+commit 229804790247809bb388c425e9b3744dffd08236
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-> So, to answer the question, we need to document how these flows are
-> identified and how they differ.
+    drm/msm/dp: add link_ready to manage link-level operations
+   =20
+    In MST mode, multiple streams share the same DP link. Track a link_ready
+    state so msm_dp_display_prepare_link() runs only once per link and
+    repeated calls are skipped.
 
-Mhm, that's the point I don't think they differ that much.
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 6103fa67f3ee9..90e3d2c4ef478 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -638,6 +638,10 @@ int msm_dp_display_prepare_link(struct msm_dp *msm_d=
+p_display)
+>  	if (msm_dp_display->is_edp)
+>  		msm_dp_hpd_plug_handle(dp);
+> =20
+> +	/* Serialized by modeset lock or mst_lock. */
+> +	if (msm_dp_display->link_ready)
+> +		return 0;
+> +
+>  	rc =3D pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
+>  	if (rc) {
+>  		DRM_ERROR("failed to pm_runtime_resume\n");
+> @@ -659,7 +663,11 @@ int msm_dp_display_prepare_link(struct msm_dp *msm_d=
+p_display)
+>  		}
+>  	}
+> =20
+> -	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_tr=
+ain);
+> +	rc =3D msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_tr=
+ain);
+> +	if (!rc)
+> +		msm_dp_display->link_ready =3D true;
+> +
+> +	return rc;
+>  }
 
-Completely revoking is just a special case of moving the backing store to an inaccessible place and not making it accessible again on the next map call.
+[Severity: High]
+Is there a leak of the PM runtime reference here?
 
-> Naturally, they asked AI first, but all frontier LLMs gave them completely
-> incorrect answers.
-> 
-> With that goal in mind, could you please help document the dma-buf
-> lifetime model? "Everything is optional" sounds great, but is quite
-> misleading.
+If msm_dp_display_prepare_link() fails after acquiring the PM reference
+but before setting link_ready to true:
 
-Oh, good question I have no idea how to approach that.
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_prepare_link() {
+    ...
+	rc =3D pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
+    ...
+	if (dp->link->sink_count =3D=3D 0)
+		return -ENOTCONN;
+    ...
+}
 
-Regards,
-Christian.
+It appears the new early return in msm_dp_display_unprepare() will skip
+dropping the PM reference and exiting the PHY on error paths:
 
-> 
-> Thanks
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_unprepare() {
+    ...
+	if (!msm_dp_display->link_ready) {
+		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+		return;
+	}
+    ...
+	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+    ...
+}
+
+[ ... ]
+
+> @@ -1493,14 +1501,16 @@ void msm_dp_display_enable_helper(struct msm_dp *=
+msm_dp_display, struct msm_dp_p
+> =20
+>  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
+dp_display);
+> =20
+> -	rc =3D msm_dp_display_enable(dp, msm_dp_panel);
+> -	if (rc)
+> -		DRM_ERROR("DP display enable failed, rc=3D%d\n", rc);
+> +	if (msm_dp_display->link_ready) {
+> +		rc =3D msm_dp_display_enable(dp, msm_dp_panel);
+> +		if (rc)
+> +			DRM_ERROR("DP display enable failed, rc=3D%d\n", rc);
+> =20
+> -	rc =3D msm_dp_display_post_enable(msm_dp_display);
+> -	if (rc) {
+> -		DRM_ERROR("DP display post enable failed, rc=3D%d\n", rc);
+> -		msm_dp_display_disable(dp, msm_dp_panel);
+> +		rc =3D msm_dp_display_post_enable(msm_dp_display);
+> +		if (rc) {
+> +			DRM_ERROR("DP display post enable failed, rc=3D%d\n", rc);
+> +			msm_dp_display_disable(dp, msm_dp_panel);
+> +		}
+>  	}
+> =20
+>  	drm_dbg_dp(msm_dp_display->drm_dev, "type=3D%d Done\n", msm_dp_display-=
+>connector_type);
+
+[Severity: High]
+Can active_stream_cnt underflow during teardown?
+
+If msm_dp_display_prepare_link() fails, link_ready remains false. The call
+to msm_dp_display_enable() above is skipped, and active_stream_cnt is not
+incremented.
+
+However, during teardown, msm_dp_display_disable() is called without checki=
+ng
+link_ready:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_disable() {
+    ...
+	msm_dp_display->active_stream_cnt--;
+    ...
+}
+
+Will this decrement an already zero active_stream_cnt, breaking subsequent
+modesets that check if (!msm_dp_display->active_stream_cnt)?
+
+[ ... ]
+
+> @@ -1543,6 +1553,11 @@ void msm_dp_display_unprepare(struct msm_dp *msm_d=
+p_display)
+> =20
+>  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
+dp_display);
+> =20
+> +	if (!msm_dp_display->link_ready) {
+> +		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+> +		return;
+> +	}
+> +
+
+[Severity: Low]
+Is this debug message logically inverted? It prints "Link already setup, re=
+turn"
+when the condition explicitly checks that the link is NOT ready
+(!msm_dp_display->link_ready).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-msm-dp-mst=
+-v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D16
