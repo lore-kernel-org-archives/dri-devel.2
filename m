@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DF6C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77701C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F295F10E9FF;
-	Mon, 31 Aug 2026 16:48:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0A27898A4;
+	Mon, 31 Aug 2026 16:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SgpYdf8q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DzaOkmhP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD12710E9FE
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:48:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B43898A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:51:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2DB360120
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:48:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF1C1F000E9;
- Mon, 31 Aug 2026 16:48:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C67CA60120
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:51:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2AC1F000E9;
+ Mon, 31 Aug 2026 16:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788194892;
- bh=we74B2Kzv9tIG2/B1bQYnkXCNF+IqjdLPvXlxGPeStk=;
+ s=k20260515; t=1788195093;
+ bh=BJUp6e5sVHJ9iSV7I2ckO+GzS808TS6mrnE4weziDcc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SgpYdf8qGIsuCmX2wgUvASd/KAfDOXwaW1vn7BxwVMqQUWsRghYExeO6GjmP/rBsr
- PdfOd+PID+wO7Dv8FHl1sMJuUPgcApt8kpvjivRveQJkK3li+qHvl1BmhN5tANJpvT
- SFEfIp4/hgUCBU/0m/JVG1YVWRKGvdsWYHu9e8c/TM3RroMXpxk9PY9GRr6CRu18UX
- bxF8W4fBD6UFIfCbMwyZ1dcJ0PCRgz6qV/jiPkamNRwiT9s1ik3un9cOjZEQTINmiR
- fJS4p4q/lwJYYCeC0j2J+Hk0QGE9YPxdXO4rwl/nJTHtQuOkrJ0JVYm40wSLHc0aAX
- Y01C2JCpt0Hsw==
+ b=DzaOkmhPb+naPiMkU5CVBr4UNPwU2M/vU8+ojfK0uhBNi6a7WYZU/2W1cZm1LA9es
+ HGvWPg634ZVJcmsGsMl69ttOme/yql5p8MOK8CUTZn56Jrs+E+r93hRMy3uYKU0dJ7
+ ouPNAcuRAAJnvn72fjRsCnElhUECJ20FsOv8BcA0V3HRt1OMCQTj3RnxKkteDKURVM
+ m9bWVqEqyQPpCScAFjV4D5Hw21DA5AxHgXKW9EKTdvfTztTKFctsJOm4N2N94CRqsF
+ ljcpuHVAbwcj4Y6rwI/l7YtfcE2Ahn2kY5JN3I19CQm/5VWoabj3K+GqUElEZAQ7Pb
+ HvpHEsFDoyxFQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: check find_first_zero_bit
- before __set_bit on kfd->doorbell_bitmap
+Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/amd/pm: Check SMUv13.0.6/12
+ metrics integrity
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-498-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-482-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-498-sashal@kernel.org>
+ <20260831133314.4125787-482-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 16:48:12 +0000
-Message-Id: <20260831164812.8BF1C1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 16:51:32 +0000
+Message-Id: <20260831165133.5F2AC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,95 +61,103 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [High] The patch corrupts the metrics cache on failure by overwriting it =
+with poisoned data without invalidating the cache timestamp, allowing subse=
+quent callers to read poisoned data as valid.
+
 Pre-existing issues:
-- [High] kfd_get_kernel_doorbell returns an out-of-bounds memory pointer wh=
-en inx >=3D PAGE_SIZE / 8 (e.g. inx >=3D 512 for 4K pages) despite the newl=
-y added limit check.
-- [High] Unconditional `inx *=3D 2` scaling causes the CPU doorbell mapping=
- to desynchronize from the hardware offset for pre-SOC15 devices where door=
-bell_size is 4 bytes.
+- [High] The return value of `smu_v13_0_6_setup_driver_pptable()` is ignore=
+d, which can lead to zero-initialized clock frequencies being used as valid=
+ DPM levels if the metrics table fetch fails.
 --
 
-commit 894bc38c1ebdc7976cba92108cb9d3988e5b0bcd
-Author: Xiaogang Chen <xiaogang.chen@amd.com>
+commit 6701a9c70e1205aa9e17d45906aef05c0bfc8e8f
+Author: Lijo Lazar <lijo.lazar@amd.com>
 
-drm/amdkfd: check find_first_zero_bit before __set_bit on kfd->doorbell_bit=
-map
+    drm/amd/pm: Check SMUv13.0.6/12 metrics integrity
+   =20
+    Check if data fetch is proper by matching the first few bytes against
+    0xFFs. If 0xFFs, that means data couldn't be read properly.
+   =20
+    [ Upstream commit 6fc63d80c01a480e3d2c98620f07d46e5bcfc85a ]
 
-This commit fixes an issue where the doorbell bitmap could be written
-out-of-bounds by moving the bounds check to occur before the __set_bit
-operation.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/=
-amd/amdkfd/kfd_doorbell.c
-> index 05c74887fd6fd..fdcf7f2d1b5b4 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -153,14 +153,16 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_de=
-v *kfd,
->  	u32 inx;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 285cf79796939..c47beb75377ec 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -768,6 +768,10 @@ int smu_v13_0_6_get_metrics_table(struct smu_context=
+ *smu, void *metrics_table,
+>  		amdgpu_asic_invalidate_hdp(smu->adev, NULL);
+>  		memcpy(smu_table->metrics_table, table->cpu_addr, table_size);
 > =20
->  	mutex_lock(&kfd->doorbell_mutex);
+> +		if (!memchr_inv(smu_table->metrics_table, 0xff,
+> +				min(16, table_size)))
+> +			return -EHWPOISON;
 > +
->  	inx =3D find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE / sizeof(u3=
-2));
-> +	if (inx >=3D KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
 
 [Severity: High]
-This is a pre-existing issue, but does this bounds check adequately protect
-the final pointer calculation from overflowing the allocation?
+Does this error path leave the metrics cache poisoned?
 
-KFD_MAX_NUM_OF_QUEUES_PER_PROCESS is 1024. If we look at how inx is used
-later in kfd_get_kernel_doorbell():
+If a caller (e.g., smu_v13_0_6_get_pm_metrics()) fetches the metrics table =
+with
+bypass_cache =3D true, and the fetch fails this new integrity check, it will
+return -EHWPOISON. However, smu_table->metrics_table will already be overwr=
+itten
+with the poisoned (0xff) data, while smu_table->metrics_time remains unchan=
+ged.
 
-    inx *=3D 2;
+If a subsequent caller (e.g., smu_v13_0_6_get_gpu_metrics()) then requests
+metrics with bypass_cache =3D false within the 1ms window of the old timest=
+amp,
+will it skip the fetch, copy the poisoned data, and return success?
+
+>  		smu_table->metrics_time =3D jiffies;
+>  	}
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but can the ignored return value of
+smu_v13_0_6_setup_driver_pptable() cause zero-initialized clock frequencies=
+ to
+be used as valid DPM levels if the metrics table fetch fails?
+
+Looking at smu_v13_0_6_set_default_dpm_table(), the return value of
+smu_v13_0_6_setup_driver_pptable() is ignored:
+
+drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c:smu_v13_0_6_set_defaul=
+t_dpm_table() {
     ...
-    return kfd->doorbell_kernel_ptr + inx;
+	smu_v13_0_6_setup_driver_pptable(smu);
+    ...
+}
 
-If inx is 512 or greater (but less than 1024), multiplying it by 2 yields an
-index of 1024 or more. Since the doorbell allocation is PAGE_SIZE (4096
-bytes, or 1024 u32 elements), returning kfd->doorbell_kernel_ptr + inx
-results in an out-of-bounds memory pointer and potential memory corruption
-upon write.
+If the metrics table fetch fails (e.g., due to the new integrity check retu=
+rning
+-EHWPOISON), setup_driver_pptable() returns an error without populating the
+pptable structure.
 
-> +		mutex_unlock(&kfd->doorbell_mutex);
-> +		return NULL;
-> +	}
-> =20
->  	__set_bit(inx, kfd->doorbell_bitmap);
->  	mutex_unlock(&kfd->doorbell_mutex);
-> =20
-> -	if (inx >=3D KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
-> -		return NULL;
-> -
->  	*doorbell_off =3D amdgpu_doorbell_index_on_bar(kfd->adev,
->  						     kfd->doorbells,
->  						     inx,
+Because the return value is ignored, the caller iterates over the
+zero-initialized pptable and populates the DPM clock tables with 0 MHz:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the unconditional scali=
-ng
-of inx cause the CPU doorbell mapping to desynchronize from the hardware
-offset for legacy devices?
+drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c:smu_v13_0_6_set_defaul=
+t_dpm_table() {
+    ...
+	for (j =3D 0; j < ARRAY_SIZE(dpm_map); j++) {
+		...
+		dpm_table->count =3D levels;
+		for (i =3D 0; i < dpm_table->count; ++i) {
+			dpm_table->dpm_levels[i].value =3D
+				dpm_map[j].freq_table[i];
+			dpm_table->dpm_levels[i].enabled =3D true;
 
-Immediately following this context in kfd_get_kernel_doorbell():
-
-    *doorbell_off =3D amdgpu_doorbell_index_on_bar(kfd->adev,
-                                                 kfd->doorbells,
-                                                 inx,
-                                                 kfd->device_info.doorbell_=
-size);
-    inx *=3D 2;
-
-The hardware offset calculation via amdgpu_doorbell_index_on_bar() uses
-the device-specific doorbell sizes (e.g. 4 bytes on pre-SOC15 devices).
-
-However, the CPU virtual pointer applies a hardcoded multiplication by 2
-(advancing by 8 bytes unconditionally).=20
-
-Can this lead to hardware functionality loss or device hangs on legacy
-pre-SOC15 devices?
+		}
+		...
+	}
+    ...
+}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-498-sashal@kernel.org?part=3D1
+787-482-sashal@kernel.org?part=3D1
