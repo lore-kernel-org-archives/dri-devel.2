@@ -4,149 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A414C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 21:18:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9907CC624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 21:28:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16DFD10EB0F;
-	Mon, 31 Aug 2026 21:18:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D0710E10E;
+	Mon, 31 Aug 2026 21:28:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HsF4terr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gPFCNXq5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E013910E2B2;
- Mon, 31 Aug 2026 21:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788211130; x=1819747130;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=bZn6yqmt76xjgbEDq/oyDY3jvkWlPb7ZzSoswfGYrUU=;
- b=HsF4terrJ6ncCbn5+hp9H7JGBzgf/XD5EXJOMgQkKBRUh8GwWP4NgSP3
- 40FSIBquBtwRO8dCColJyUZtFAjIWb+Zq9jGPAYNa1bgViPIR3nEUkRyG
- Kz9m9VVTaDkG/6BD5EeVARHP8XvvUtGrlxw4YKKbpH/WJgXdAymC5pNzM
- W4JOc2clrF1o/mv7TnP63v3JHvPgJSgGX+yGIn0IiJQewY+/EZEhAlwed
- NaE7yHhzgK3CXKQpeupkP/M4NDNFatgdA3FNDqLTBY5C21SiPw52hvJUN
- IhFchVUvAYnsaYHWc8njQpVwJbEciov9zpzv9ZBz8LRtBb4cfN1kUMAxL w==;
-X-CSE-ConnectionGUID: /lTPUMwvTxqgRjgj4IobyQ==
-X-CSE-MsgGUID: jDe+ejxmRyGdG+EQp5C6Cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99979375"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="99979375"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 14:18:49 -0700
-X-CSE-ConnectionGUID: nSH5f6tbQXaHM0lwD1Y1/g==
-X-CSE-MsgGUID: twYVGq4+Qd2QkKXi+gYPSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="298794173"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 14:18:49 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 14:18:48 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 14:18:48 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.24) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 14:18:47 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CACBC10E10E;
+ Mon, 31 Aug 2026 21:28:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AMCAou3UhbTWeZaUA/wEiQsbwQPRnOKCuBwqW4WlpvNSMT+zwtruw0bvS4Z9QMCKpDtokFOvzL4nWwK295lQbPM7PvI2UKFjIBVHYjwNJ76lSe0VMWX9NVjJyGu+iKY33w0umnu19RX5yi43Kcpbe5oqW1y4S+I6xNxvfqRmC6qKEAt+CL4U0g5v8NQ6JhFAvv6pllsGBBbUfTYG8uOGxL9XTmKUfMKoZVM5YYtAcBeN4FhUTitlSdQJ/V5M+ERf4LaplYT3DfbLVqOIvFEXR2g+ZzAcMxlqWz+G+2wGFH2Aq4MU9j+mG/PcqsbnXUc4DU2Ur7JxOvn7P4i6oSZx/g==
+ b=c6hLcAhcmDi6iU4QM9pTQbbW6uOtvkteWCrsYIu4HMO6tbILySS1/phzAzXkU9ZwXgbW3bZodN4MLO2Qz03141k/EMmgGCmQx8pN+V7au/Tt8Ab2Hk55P5bXQtlYx/dFE5j5SV5vWSStZWMlJUC6vsn1xpojAgMJhVchC2S3kFo/uWyNWWxb+qO2WybWymjWmWQmcUlV8P5hVMlShphjgoS4oRCskt1g38nt0YAjNw7r+CI9c1WTaGcRjdIP9fX7UmKR3FjPk3dxiCj4IX5lVpFsj8MEDr7nioUSplVR0WuZZVQ+R5XR6MLQc2cC2Skb2cJK1W+1GazjSTFKUoNeDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a7eTbyPMs/BvmF3qPJVOprDRZ0f1Fm46b2BR60Xrsbs=;
- b=Urpie0PyeuocjMDuxrzUq7IbBtYN75LoXk/WjZp+MUKsfFw2Slo5W+AW71S7bUBDsUjv+UkcRUQWJJErYCrThvSstligLkQiqHAGo5xzDyey0gTWi1yTqIr5iF+EZ4mSo8NGExDeBzCZSe4CQyg69MvJtK8iSHQDlovp9Nd5PAZQ4Gjtb7N8coCDNW9i3kPYhIl+ozy0ZKATW6oWZIBhNW8iC0Wpbx0UF4D9FOCpByxMkn9nDfULAABJ1HHH4m9CCQr0bMlki/LlXmqHOVKnJX+IG3/Fq89fJo1N407LMtc8O3mkXAXOaeMI6335WIYq68tHpVwHtdwDiDYkkBUXMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by SJ2PR11MB8514.namprd11.prod.outlook.com (2603:10b6:a03:56b::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=Hkf+tPK1fNZVek09wSlO+cz892FhRoagZwNjMQMFK0g=;
+ b=h77kD4HA7RCAJQOO6X0JIKx29lMRL5CPdbVY1GvnmV834GrrvU+/0q9nXN3iDwO2FAjrRHQ2vVX5cGcGjvTvZFS1QwstDwEO0glG2PXx9RO+kOyhZ0Mrsh0fSi/K69eIZUbzlJXWdBO02bJjXYJfqxyLtbeOyEKlaowuzrR4eA5S7Q/8EQfQU+ONv+KwoBnpg+hkHABLp2/rPGcZ4NlBKVEhnjvOhi7+tTaDLXRYcBR/ugUu1oupIZZMP5FS5tJbc8g49gZkkUgL1q9L3qBxjKcRQxp6HEx2+xgmAOd9XuGcaGEVTWnrFDMThKn4uOzmOZ6LVKEWnyhNXCztvzJuug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hkf+tPK1fNZVek09wSlO+cz892FhRoagZwNjMQMFK0g=;
+ b=gPFCNXq5EcPb+kojA8igA92+XQXnznNLHXbwQBuwatENYncowbqy0Iw2wfm1BUQj96LSzDNDkUoYqCmmUtPozhyD20MZhxY0XtJW5VcNLhlFYfFODw33qW6o++6Y0qKtwc9OZvTvUS/vkrhQxEbEP8lF/pVOEqCh+rT0kzhhCfA=
+Received: from BY1P220CA0050.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::12)
+ by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 21:18:38 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 21:18:38 +0000
-Date: Mon, 31 Aug 2026 17:18:34 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: <yaolu@kylinos.cn>
-CC: <ashutosh.dixit@intel.com>, <dri-devel@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <jose.souza@intel.com>,
- <linux-kernel@vger.kernel.org>, <matthew.brost@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <umesh.nerlige.ramappa@intel.com>
-Subject: Re: [PATCH v2] drm/xe/oa: Remove sysfs entry on idr_alloc failure in
- xe_oa_add_config_ioctl()
-Message-ID: <apXvqnzYi56oQ0L1@intel.com>
-References: <apGuQY7vZRIUZghZ@intel.com>
- <20260831014218.28515-1-yaolu@kylinos.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260831014218.28515-1-yaolu@kylinos.cn>
-X-ClientProxiedBy: BY5PR04CA0021.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::31) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+ 2026 21:28:25 +0000
+Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::3f) by BY1P220CA0050.outlook.office365.com
+ (2603:10b6:a03:59e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
+ 31 Aug 2026 21:28:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 21:28:25 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 16:28:21 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 16:28:22 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 31 Aug 2026 16:28:21 -0500
+Message-ID: <7c533a4d-233f-f884-e79b-59d47c0555da@amd.com>
+Date: Mon, 31 Aug 2026 14:28:15 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: fix double-free on mailbox channel stop
+Content-Language: en-US
+To: Deniz Aydogan <denizaydogan1902@gmail.com>, <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260828212405.13124-1-denizaydogan1902@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260828212405.13124-1-denizaydogan1902@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SJ2PR11MB8514:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fb34ae0-0611-42f1-3d69-08df07a56c6f
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|DS7PR12MB8290:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddc105a0-2620-4ef8-cff2-08df07a6ca78
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: K06a8OIy1d8xUkmOF50IrBGBEkBi33I+UaeNb2lP74c4Z8+bKweYN7+esxf2oUg6yQXT93mMESq8grHwBEkarGh9RvODgG90Btum8mGM9FoxAsdUhikLsD7xB3mAXsG2aD+U2pN4Wyan2kLxs1I99G8S379tWHbFMdIADWgcFp0ptoz/+Kp9Pg6ZYJFK3nMRJ03ps5xaGpcEd1kRt8JbDXM6dQjvdVsuJn+BQEodLbB9triTJ2IIWsUXgQ6oxXAFyjuiuQhkwVhyfMk7VFOSF8WcQ68fIgMlnXRNpzEIFtNxm0RJe6MijxMwr2i/eG8veOIPIJ9gLNEH02bWuifRkVhKXd7wP6qv8H8tG46r7+r30HRaBpLSDVzZwLKK2lJCFbCsNlQjIJDTBY8a+be+k/KIRmm4/+ECFw1TDf44LXNqLPT+2PtPSo6NoR0gMOr95Y317yOxlGXDgaQ5lSodVBXrqekYbIZL0LXsrwnjP21mGXP6Q9YPVP6aMuLnyV0S+3cCyr4FQaSr4J3l8TlHn1+6PFp+d0C38cCVmfgsG8DFWTKl6usWugA194g5WlRGmyMIu7efA1UEzoGqFEFN3ylqg6V/sKtkQpK++pFCu8UYKnYrbDN1xUqThz/4MCPalqJjYsHk52/x1hxzg8aYT+BnIKa2VRBd+KUOSYK7p7c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(10067099003);
+ ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: /cV3kIW011UXOMSXmW5G6lpaHXYWjJAG6QzyWjrerfytLx3uN0d3ZTE2/isHf8DBBTKGCj6PNcd4lfEA1YaavWM206ozB7W+CmWp1NknT6LcjoYvN07+y+3TopXPefkpq6UJZ7pYHswdCAA7w0aX0lCLsZOVlySSJOFT1gHkHcO6QOHplqTIpJWQhLcBaKFQHhFyEqzXUM1CBGUwk1jAHdPVlebL6B5JQhSdJnp8hIOYZC1btdaayqLUDizYocekCZO8/82DjErIj+th9bBZQqO0O1VeWc4ByfzE8PGvknZIBsANsv07cnOi2n+UrJLDdZJFeZfccd79J47EN7tM3i90UZ1Hig1BHH/987pmp6Sbw05r3IFtUAXaKLrl56ANVi/ph32l3TtAt46J0mFXPQ4S76gJUzdJ5POvTffDMUrzhZMIDpY+RA2X61doL6JvYWV4WXBKb8cCEFCALnsJY32ffKWCJA6d2qc1ATaB6VfQjh7XjANePCzcFTFhKBTD01FXB+Flg6K+tb5qeZmkb1ylYlUmIuolGuKjnIJ0y9DFZGCB/TzJIUMHTgUFEHo7Vv3KErRTcw6FLfniNiYxeQZUH9mbpRHNEBmb/gZzf8rmQJf1JnTU0Sfsvxfp+Qskg59Q+a47TfyI9cpRKDMixUaKCLbRmVSXUbxMkA2Z4fnGNIJaGMwewRAbVY9NqUWYpJ0Fi28ypS9HWjFe7RDJOA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TNhL2NXaVgdOg03hiVuK+CY61Yj1AS3swaxEUea/kUpE2mInyXNVp75ldY7p?=
- =?us-ascii?Q?JdQKZRZ3FirDO50Rb1BIPOO+9qDNU5QFW6G942OvWwZsRa4pQiYABO10WAZP?=
- =?us-ascii?Q?gRkPOw25o2Um76x2OOAlJIZ+XR6T7D3gF1OCph3KuOS52XYuiTJezLAJKJqI?=
- =?us-ascii?Q?3vsG4mZ1ozPagd/FExHrhLD6xNK+CwfMxX52IoeX22ZvmWBbaP0GwmGFX9MV?=
- =?us-ascii?Q?e+27h8dCYmVUd/gbWJbOmKY3HCZH99rXM4/R7uhbBbzGRxpSj84BBjQoLHYP?=
- =?us-ascii?Q?Q9iib+AJ0HztC0NeWUFKwET0u3dRPr3ovpXwVpYmtj5AQfdbHbDFqqzRmzYu?=
- =?us-ascii?Q?W6C6me+2FSNMmlxPTh05Cr1VHqgLpfvj7m52YhwFutH1VpvMfyAziF3rL1fs?=
- =?us-ascii?Q?UR2ld2MivZ50hp2qwuQxCqRYkhAGVVk4k/OSW3WSAWZyXwy62S3porom6+7a?=
- =?us-ascii?Q?l5mrUmuRd0SWN5TAwIT6M81tr7fXjQ8XrCMW8R6VLFTL7YzBcB3ogStKKIow?=
- =?us-ascii?Q?YfIEyA1ooFrIwkHqmoGFTB88rKz9T4+YmFaGlzveIMCf8Ny40lgvtuqwTKo6?=
- =?us-ascii?Q?AIADCluaIKNPBYj82mhCs3hrZy7ziAmQTRmTsrBpaTjqzLTS+jLxHHNTRK/5?=
- =?us-ascii?Q?eAKYJ5wzRh+RCrYmIBIu1RlZ83Xxvg+Iw5NqNa+MIAQbV+YI8FhfebfjdMcJ?=
- =?us-ascii?Q?+eJmbv81ybLA132a/1piAWv3GF2v56WrZxQpy7oI2t9Pl88VklZfVcr+8tb5?=
- =?us-ascii?Q?CQZIjjTVQtD2SmwwQbb0rPQDUp/xq79jpTOaLXSDm0AWxSvLHjT3OKmRGWEK?=
- =?us-ascii?Q?N+9bT+Cp4nFmBrCXqXzH+qXc9i0T8xtl4fRJyNbiS4FEujGrO85qqWx3YiGB?=
- =?us-ascii?Q?RrwHNHSWCmRY76aw/jUwToiub9bnmbySjP5yyHYWRmDeHGB61Au3NJBfvzN4?=
- =?us-ascii?Q?Pp4ibmql3HhJ2RTR5xlMry6aZiE59CNOgBwKOzF9PpR60xH7e1CXi9n2ne8f?=
- =?us-ascii?Q?3cX8p2GPvUyEHyrMjp48bWkRExtCDj4p5lZv2513c2qPBTGYD1Ttr1X4hjRB?=
- =?us-ascii?Q?UOSh39d7HxHCAR7Vybu+kKl5CNC2sEaOF+ZMQCVoK4EjVgcWw+OD7mpdia8v?=
- =?us-ascii?Q?1oKUXscECzOorVL23OGNm8M1zguKdkr/KDa15NBlm8vqQuFt9wUOQsYbFOQF?=
- =?us-ascii?Q?1FJ43VKb+CRSsTIWQgaV5hcatIQZcQ/9f8e7KSuzRRKDPwKPyX6x58WFhnt5?=
- =?us-ascii?Q?hsoHxUWJXZ9DQ8ikuS91Dj1/CYpPYPNtHmQ38btGb2/pdKiyXrOXjDP0P4to?=
- =?us-ascii?Q?WYsRgZVhU4KIjYDfeKJBRONpTaUBnz0RsMqbpeQC0evcjUWmQMZSyPBGrquD?=
- =?us-ascii?Q?QzPtCqvPHZM4hHkQU+2L6dMdNaBudAw3xN8rZszfNPdgckqtFpOUjMAA6Lay?=
- =?us-ascii?Q?qPRl2XjhI/ECnv4ZR1JIavv1HFcNIuJlsKMXi8KBee0ZlIWDf86s/qqV6Mz7?=
- =?us-ascii?Q?twlwNQMvm9KmkhM+FD6mrds9pUYbfOdD01rOx7JYCuAFudC6551YjiL/bx11?=
- =?us-ascii?Q?iSPgVfOFnGnSDogmbnLS89sesulbyXY2m35ZEMCiAClUT9ZYTFMfgDWDwWOf?=
- =?us-ascii?Q?KrP5ogPkq9OotXWLofRsFB9F21+mFMf6LYQc+XbQKnbUmNxs1TAi4tB8iQgU?=
- =?us-ascii?Q?N3YmpNzZ4ZrAzy0PnNoXV7YTZ+BCzzd9VBv9h/7/s2FUsaIw++0cKR9+qnyT?=
- =?us-ascii?Q?zZ5N27jVJA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: KImAx023ac5mr0wMU9+iSsGaiaGVmHC/1vV0W2sSzrESjPAdh5OmvGWcXS9U2NbKjMKoeNddydned/F/nnOT7bz0icOCcw5wnfhhzhJYHiM7NK8BQWg1z0IkJXVvwV1PAJkKmla1epaIoja/1y0PuB6++WCEKu3BYlC11qsXkSanWg+TPC1g67cWjcarW/LAdBfPNPZZj5wbnu2/2v9djw/VAVX57dIqfzZ0veBm5VffAGARspQdrMOsDSG8zSfFlAGUdiC7JadMjLwee2YSgTToCbYeJ9uEA9DvmlMlvz0oamFD0EkYoiK2gwdjMrzVSjyW0uqucO8VENBM7yvNxw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fb34ae0-0611-42f1-3d69-08df07a56c6f
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:18:38.2010 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uh6DS4OJN0x073iZ1zMHHG6y4dX0fEYaAnlGIRbRRyxJnNnrSO0GV0B2LeGrtk0JaOPe1bLpucGgOa6Rvarrug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8514
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: FjmsPslrblurJkbpbiTnusaJgKBluBh7wqeNvbKHiPfz0gFpOrin5S//0WedfJciftAtrtTPQxdFxMfVgt4rD+8HnV/44Sz20ECFayTYwE4b0fuF81SOooZbtPQFALdCQmpDqmWh8YKMW5Gp/D/pL7Ihai1cdvIhdeRBPld2Xags1ceodKLD51L+8+0VB5CE9/ST5jkZ65oixK5BDCMMAitgVutsTbwzQBp8+LeegZq+NAgIZLHzITfkVpYzwiPqM2aySH9ZBp8vSTZbZHhAs0KZJRRd8rL0JhJvp6uaotEO2vgiz755RcUptmop4k9T6MlhAQtEHXVy3pS/zqofu9IWBruoNQRgqhkEc4fDb+jhZt7A1ThxmkzqLI/LLcwBN16687FdE0VDTIN8V1EjjMTwZElMiHsEQy9ER70f79tuoIDmoJfvvL6u4l6nrHaG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:28:25.1511 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddc105a0-2620-4ef8-cff2-08df07a6ca78
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002323.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,58 +116,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2026 at 09:42:18AM +0800, yaolu@kylinos.cn wrote:
-> From: Lu Yao <yaolu@kylinos.cn>
-> 
-> If idr_alloc() fails after create_dynamic_oa_sysfs_entry() has
-> succeeded, the error path frees the OA config without removing the
-> metrics sysfs group.
-> 
-> Remove the sysfs group before releasing the config, and fix up the
-> misleading error message copied from the sysfs creation failure path.
-> 
-> Fixes: cdf02fe1a94a ("drm/xe/oa/uapi: Add/remove OA config perf ops")
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+
+On 8/28/26 14:24, Deniz Aydogan wrote:
+> mailbox_release_msg() frees the message with kfree() but does not
+> remove it from the xarray. The stop function uses two loops to walk
+> pending entries in cyclic order, but since released entries remain in
+> the xarray, overlapping ranges cause the same entry to be freed twice.
+>
+> In particular, when next_msgid is 0 (the initial value after kzalloc),
+> xa_for_each_start() covers all entries from index 0 onward, and
+> xa_for_each_range() with max=(u32)(0 - 1) = U32_MAX also covers all
+> entries. Every pending message gets double-freed.
+>
+> Use xa_for_each() to iterate all remaining entries exactly once.
+> At this point the IRQ is already freed and the workqueue is drained,
+> so traversal order does not matter.
+>
+> Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+> Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
 > ---
->  drivers/gpu/drm/xe/xe_oa.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> ---
-> v1->v2: using a new goto suggested by Rodrigo
+>   drivers/accel/amdxdna/amdxdna_mailbox.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> index cc8865f4e..271617347 100644
+> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
+> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> @@ -556,9 +556,7 @@ void xdna_mailbox_stop_channel(struct mailbox_channel *mb_chann)
+>   	drain_workqueue(mb_chann->work_q);
+>   
+>   	/* We can clean up and release resources */
+> -	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_msgid)
+> -		mailbox_release_msg(mb_chann, mb_msg);
+> -	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next_msgid - 1)
+> +	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
 
-Thank you
+The msg need to be released in sequence. And I would suggest to release 
+msgid in mailbox_release_msg()
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+@@ -192,6 +192,7 @@ static void mailbox_release_msg(struct 
+mailbox_channel *mb_chann,
+                mb_msg->pkg.header.id, mb_msg->pkg.header.opcode);
+         if (mb_msg->notify_cb)
+                 mb_msg->notify_cb(mb_msg->handle, NULL, 0);
++       mailbox_release_msgid(mb_chann, mb_msg->pkg.header.id);
+         kfree(mb_msg);
 
-and pushed
+Thanks,
 
->   Link: https://lore.kernel.org/all/apGuQY7vZRIUZghZ@intel.com
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-> index 9c5384b95c63..ab09dcff5860 100644
-> --- a/drivers/gpu/drm/xe/xe_oa.c
-> +++ b/drivers/gpu/drm/xe/xe_oa.c
-> @@ -2435,9 +2435,9 @@ int xe_oa_add_config_ioctl(struct drm_device *dev, u64 data, struct drm_file *fi
->  
->  	oa_config->id = idr_alloc(&oa->metrics_idr, oa_config, 1, 0, GFP_KERNEL);
->  	if (oa_config->id < 0) {
-> -		drm_dbg(&oa->xe->drm, "Failed to create sysfs entry for OA config\n");
-> +		drm_dbg(&oa->xe->drm, "Failed to allocate id for OA config\n");
->  		err = oa_config->id;
-> -		goto sysfs_err;
-> +		goto id_alloc_err;
->  	}
->  
->  	id = oa_config->id;
-> @@ -2448,6 +2448,8 @@ int xe_oa_add_config_ioctl(struct drm_device *dev, u64 data, struct drm_file *fi
->  
->  	return id;
->  
-> +id_alloc_err:
-> +	sysfs_remove_group(oa->metrics_kobj, &oa_config->sysfs_metric);
->  sysfs_err:
->  	mutex_unlock(&oa->metrics_lock);
->  reg_err:
-> -- 
-> 2.25.1
-> 
+Lizhi
+
+>   		mailbox_release_msg(mb_chann, mb_msg);
+>   	xa_destroy(&mb_chann->chan_xa);
+>   
