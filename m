@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C3AC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2796AC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 211A710E8C2;
-	Mon, 31 Aug 2026 13:46:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31FE910E8B2;
+	Mon, 31 Aug 2026 13:46:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FmAO/iXX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hiRXLC1A";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C71F710E8BB;
- Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F6F410E8B2;
+ Mon, 31 Aug 2026 13:46:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A369A41986;
- Mon, 31 Aug 2026 13:46:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CA21F01558;
- Mon, 31 Aug 2026 13:46:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 65B0E405FC;
+ Mon, 31 Aug 2026 13:46:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AF91F000E9;
+ Mon, 31 Aug 2026 13:46:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183983;
- bh=beFY3W2U/zL1MNuJiPO6R55UvPAKdfIbCF/BE1eerSc=;
+ s=k20260515; t=1788184015;
+ bh=IIEgoUmF2LYlCcDHCwqtPlT0V5Gt2pb/D+vWri7BqU0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FmAO/iXX7IfqS9Mta7rjbGcEuRGrMzV8JTDv9tsHQHDbQEMS7ZExgOclOd/ES/iTZ
- qmwX2JsCa8p97FVGnBRKuEBsqUaaa4MUnHlq0YiUaA+nnM2XGfj+P5PBQ4AbT/z+kj
- BGDYnTJ9dkwRjNm4Wk0rf8xkkZ3KTnxHG8CoWxZ+ugotMx5gZkGH/Rp9mQbhu9DJFc
- Dg2/Ee5d3yiU97QhwJrQpWEDcHfNReHaYYvDslxfVtWSI8bcUqnFWnRUe6Ai3NQ8eg
- A+m8GwLHiyloIH8TSxf3SIFs/DRNjLt5ehySlTvjttUqT46LXgUCObaBMTjQMTrKDl
- F/0O7ZUl6At6g==
+ b=hiRXLC1AtaWRa/w4ksbcB/dPnmCJuM6y9EwrsPlc5YqQcfXFkCTY1XI2CMTFlvB+d
+ yAAd1A5RNiF05H8LcHX8lE2JcwlcMaOAN1mh4qMdtpT/Hx7hNo3dtKRWlVFkFAmaNz
+ 6Hf3yU2IYe+yhyPkNjHOcZatQxedNLFbxtjmeCEXWWgMNMj+RVPtIBpTzGgLydcBgJ
+ pKp7zb2rrshQLBgfT0ERYobEJtZqMl5batTA+sewsotf48pMcpUMAMtx0r4qRGoC05
+ H4Re5cFoKBeQyWrhqI84YZUM6j/ubp/OiWx3P9FupJTLw1Az/PZEYOQ+a+m2p13dE+
+ aQESmkYHVvG1g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: harden FRU PIA parsing with
- bounded helpers
-Date: Mon, 31 Aug 2026 09:27:28 -0400
-Message-ID: <20260831133314.4125787-420-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: Unwind debug trap enable on
+ copy_to_user failure
+Date: Mon, 31 Aug 2026 09:27:47 -0400
+Message-ID: <20260831133314.4125787-439-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,531 +66,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: "Stanley.Yang" <Stanley.Yang@amd.com>
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
-[ Upstream commit c990c05eb6c74c98d1ff3acf67a19015312820b7 ]
+[ Upstream commit 01112e241e37f9ac98b6f418d93ce2e0b87b7ee0 ]
 
-Replace the open-coded TLV walk with fru_pia_advance()
-and fru_pia_copy_field() helpers that bound every read
-by the actual EEPROM data length, preventing out-of-bounds
-reads on truncated or malformed FRU data.
+If kfd_dbg_trap_enable() fails while copying runtime_info to userspace,
+it had already activated the trap, set debug_trap_enabled, taken an extra
+process reference, and opened the debug event file. Return -EFAULT without
+unwinding that state, leaving inconsistent trap state and a refcount
+imbalance that could break later DISABLE/ENABLE.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+On copy_to_user failure, deactivate the trap and undo the rest of the
+enable setup before returning.
+
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit Message Forensics
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[drm/amdgpu]` `[harden]` — Harden FRU (Field Replaceable
-Unit) Product Info Area (PIA) parsing by replacing open-coded TLV
-walking with bounded helper functions.
+### Step 1.1: Parse the Subject Line
+**Record:** `[drm/amdkfd]` `[Unwind]` — On `copy_to_user` failure in
+`kfd_dbg_trap_enable()`, undo partial debug-trap enable setup that was
+left behind.
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+### Step 1.2: Parse All Commit Message Tags
 **Record:**
-- **Fixes:** — not present (expected for manual review)
+- **Fixes:** — none
 - **Reported-by:** — none
 - **Tested-by:** — none
-- **Reviewed-by:** Tao Zhou \<tao.zhou1@amd.com\>
-- **Acked-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** Alex Deucher `<alexander.deucher@amd.com>` (AMD DRM
+  maintainer)
 - **Link:** — none
-- **Cc: stable@vger.kernel.org:** — absent (not a negative signal)
-- **Signed-off-by:** Stanley.Yang \<Stanley.Yang@amd.com\>, Alex Deucher
-  \<alexander.deucher@amd.com\> (ignore pipeline SOBs)
+- **Cc: stable@vger.kernel.org:** — none (expected for manual review)
+- **Signed-off-by:** Yongqiang Sun `<Yongqiang.Sun@amd.com>` (author);
+  Alex Deucher (committer)
 
-Notable: reviewed by AMD developer; no fuzzer or user bug reports cited.
+Notable: maintainer **Acked-by** only; no syzbot or user reports.
 
-### Step 1.3: ANALYZE COMMIT BODY
+### Step 1.3: Analyze Commit Body
 **Record:**
-- **Bug described:** Open-coded TLV walk in FRU PIA parsing does not
-  bound reads against actual EEPROM buffer length; truncated or
-  malformed FRU data can cause out-of-bounds reads.
-- **Symptom/failure mode:** Out-of-bounds kernel memory reads when
-  parsing malformed/truncated FRU EEPROM TLV fields.
-- **Version info:** none stated.
-- **Root cause:** TLV cursor advancement (`addr += 1 + (pia[addr] &
-  0x3F)`) and `memcpy()` use field-length bytes without ensuring the
-  cursor and copy length stay within the allocated `pia` buffer (`len`).
+- **Bug:** If `copy_to_user()` fails after `kfd_dbg_trap_enable()` has
+  activated the HW trap, set `debug_trap_enabled`, taken an extra
+  `kref`, and opened `dbg_ev_file`, the function returned `-EFAULT`
+  without undoing that state.
+- **Symptom:** Inconsistent trap state; refcount imbalance; later
+  DISABLE/ENABLE can misbehave.
+- **Root cause:** Error path only called `kfd_dbg_trap_deactivate()` but
+  did not mirror the rest of `kfd_dbg_trap_disable()` cleanup.
+- **Version info:** None in the message.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — this is an explicit memory-safety hardening
-fix. "Harden" and "preventing out-of-bounds reads" clearly describe a
-buffer over-read bug fix, not cosmetic cleanup.
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not disguised — explicitly an error-path unwind / resource-
+leak / state-machine fix.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: INVENTORY THE CHANGES
+### Step 2.1: Inventory Changes
 **Record:**
-- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c` only (~37
-  lines added helpers, ~43 lines changed in parsing loop; net ~+37/-6 in
-  parsing region)
-- **Functions added:** `fru_pia_advance()`, `fru_pia_copy_field()`
-- **Functions modified:** `amdgpu_fru_get_product_info()`
-- **Scope:** single-file, surgical fix within one parsing function
+- **Files:** `drivers/gpu/drm/amd/amdkfd/kfd_debug.c` (+6 / −0)
+- **Function:** `kfd_dbg_trap_enable()`
+- **Scope:** Single-file, surgical error-path fix
 
-### Step 2.2: CODE FLOW CHANGE (per hunk)
+### Step 2.2: Code Flow Change
+**Record:** On `copy_to_user()` failure in `kfd_dbg_trap_enable()`:
+- **Before:** `kfd_dbg_trap_deactivate(target, false, 0); r = -EFAULT;`
+  — HW trap deactivated, but `dbg_ev_file`, `debug_trap_enabled`, extra
+  `kref`, and `debugged_process_count` left as if enable succeeded.
+- **After:** Same deactivate, then `fput()` + NULL `dbg_ev_file`,
+  `atomic_dec(debugged_process_count)`, `debug_trap_enabled = false`,
+  `kfd_unref_process(target)`, then `-EFAULT`.
+
+### Step 2.3: Bug Mechanism
 **Record:**
+- **Category:** Error-path resource leak + inconsistent state (reference
+  counting + flag/file leak)
+- **Mechanism:** `kref_get()`, `fget()`, `debug_trap_enabled = true`,
+  and `atomic_inc()` run before `copy_to_user()`. Failure left software
+  state enabled while userspace received `-EFAULT`.
 
-1. **New helpers (before `amdgpu_fru_get_product_info`):**
-   - *Before:* no shared TLV walking helpers.
-   - *After:* `fru_pia_advance()` checks `*addr >= len` before reading
-     `pia[*addr]`; `fru_pia_copy_field()` validates header presence and
-     uses `min3(field_len, dst_size-1, len-addr-1)` for bounded
-     `memcpy()`.
+### Step 2.4: Fix Quality
+**Record:** Mirrors the corresponding cleanup in
+`kfd_dbg_trap_disable()` (lines 682–692). Minimal, obviously correct.
+Low regression risk — only runs on an already-failing path. Does not add
+`cancel_work_sync()` or clear `debugger_process`; same gap as the pre-
+existing partial `kfd_dbg_trap_deactivate()` unwind.
 
-2. **Manufacturer/product/serial/fru_id field extraction:**
-   - *Before:* `if (addr + 1 >= len) goto Out` then `memcpy(...,
-     min_t(sizeof(dst), pia[addr] & 0x3F))`; advances via `addr += 1 +
-     (pia[addr] & 0x3F)` often without prior bounds check.
-   - *After:* each field uses `fru_pia_copy_field()` (bounded copy) and
-     `fru_pia_advance()` (bounded advance); failure jumps to `Out`.
+---
 
-3. **Skip fields (Product Version, Asset Tag):**
-   - *Before:* unconditional `addr += 1 + (pia[addr] & 0x3F)` with no
-     bounds check (lines 251, 254, 262, 265 in current tree).
-   - *After:* `fru_pia_advance()` returns false on overrun, triggering
-     `goto Out`.
+## Phase 3: Git History Investigation
 
-### Step 2.3: BUG MECHANISM
-**Record:** **Category:** buffer over-read / out-of-bounds access.
+### Step 3.1: Blame Changed Lines
+**Record:** Buggy `copy_to_user` error path from Jonathan Kim,
+2022-04-05 (`218895820e6fcc`). `kfd_dbg_trap_enable()` with
+refcount/file/flag setup from `0ab2d7532b05a` (2023-06-09, “prepare per-
+process debug enable and disable”). Bug present since ~v6.5+; definitely
+in this tree.
 
-**Specific mechanisms in current 6.18.44 code:**
+### Step 3.2: Follow Fixes Tag
+**Record:** N/A — no `Fixes:` tag.
 
-1. **Unchecked TLV advance** — e.g. at lines 251–254:
-```250:255:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-        /* Go to the Product Version field. */
-        addr += 1 + (pia[addr] & 0x3F);
+### Step 3.3: File History
+**Record:** Recent `kfd_debug.c` changes are other debugger fixes (watch
+bounds, MES debug, PASID). Fix commit `a50676d5a72a2` is on `all-next`
+but **not** on `stable/linux-6.18.y`. Standalone one-commit fix.
 
-        /* Go to the Product Serial Number field. */
-        addr += 1 + (pia[addr] & 0x3F);
+### Step 3.4: Author's Other Commits
+**Record:** Yongqiang Sun has limited amdkfd history in this tree (e.g.
+CWSR overflow fix). Alex Deucher is DRM/AMD maintainer and committed the
+fix.
+
+### Step 3.5: Prerequisites
+**Record:** No series dependencies. `kfd_dbg_trap_enable()`,
+`kfd_dbg_trap_deactivate()`, and `kfd_unref_process()` all exist in this
+tree. Applies standalone.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig -c a50676d5a72a2` →
+https://patch.msgid.link/20260602141422.4982-1-Yongqiang.Sun@amd.com.
+Single revision (no `-a` series). Alex Deucher replied with **Acked-by**
+in-thread. No NAKs found in mbox. No explicit `Cc: stable` nomination in
+thread.
+
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` — CC'd to `amd-gfx@lists.freedesktop.org`. Alex
+Deucher reviewed and acked.
+
+### Step 4.3: Bug Report
+**Record:** N/A — no `Reported-by` or `Link:` tags. Code-review / error-
+path analysis fix.
+
+### Step 4.4: Related Patches
+**Record:** Standalone; not part of a multi-patch series.
+
+### Step 4.5: Stable Mailing List
+**Record:** Not searched separately; no stable nomination found in patch
+thread.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+### Step 5.1: Key Functions
+**Record:** `kfd_dbg_trap_enable()` (modified); related:
+`kfd_dbg_trap_deactivate()`, `kfd_dbg_trap_disable()`,
+`kfd_unref_process()`.
+
+### Step 5.2: Callers
+**Record:** `kfd_dbg_trap_enable()` called from `kfd_chardev.c` on
+`KFD_IOC_DBG_TRAP_ENABLE` (ioctl path ~line 3029). Reached by ROCm/KFD
+GPU debugger tooling via `/dev/kfd`.
+
+### Step 5.3: Callees
+**Record:** `fget`, `kfd_dbg_trap_activate`, `kref_get`, `atomic_inc`,
+`copy_to_user`, `kfd_dbg_trap_deactivate`, `fput`, `kfd_unref_process`.
+
+### Step 5.4: Call Chain / Reachability
+**Record:** Userspace debugger → `KFD_IOC_DBG_TRAP` ioctl →
+`kfd_dbg_trap_enable()`. `copy_to_user()` fails on invalid/unmapped
+userspace buffers (buggy debugger, bad pointer, page fault under memory
+pressure). Not a general unprivileged attack surface, but reachable by
+authorized KFD clients.
+
+### Step 5.5: Similar Patterns
+**Record:** `kfd_dbg_trap_disable()` already performs the full cleanup
+the fix adds. The error path was an incomplete subset of disable logic.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+### Step 6.1: Does Buggy Code Exist?
+**Record:** **Yes.** Tree is **Linux 6.18.44** (`git describe HEAD` →
+`v6.18.44`, `VERSION=6 PATCHLEVEL=18 SUBLEVEL=44`). Buggy code at
+`kfd_debug.c:817-819`:
+
+```817:819:drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+        if (copy_to_user(runtime_info, (void *)&target->runtime_info,
+copy_size)) {
+                kfd_dbg_trap_deactivate(target, false, 0);
+                r = -EFAULT;
 ```
-   If `addr` is near `len` or a prior field length is inflated,
-`pia[addr]` reads past the kmalloc buffer.
 
-2. **Unbounded memcpy** — e.g. at lines 227–229:
-```227:229:drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-        memcpy(fru_info->manufacturer_name, pia + addr + 1,
-               min_t(size_t, sizeof(fru_info->manufacturer_name),
-                     pia[addr] & 0x3F));
-```
-   Copy length is capped by destination size and TLV length byte, but
-**not** by remaining buffer bytes (`len - addr - 1`). A field claiming
-63 bytes with only a few bytes remaining causes OOB read.
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected.** Fix commit diff matches current
+file structure; only 6 lines in one hunk.
 
-Checksum validation (lines 211–217) does not prevent structurally
-inconsistent TLV lengths within a checksum-valid PIA.
+### Step 6.3: Related Fixes Already Present?
+**Record:** **No.** `git log stable/linux-6.18.y --grep="Unwind debug
+trap"` returns nothing. Fix exists on `all-next` (`a50676d5a72a2`) but
+not in this stable checkout.
 
-### Step 2.4: FIX QUALITY
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/gpu/drm/amd/amdkfd` — **IMPORTANT** (AMD GPU
+compute/ROCm KFD driver). Debug-trap path only; not core kernel, but
+affects production debugger workflows.
+
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained — recent stable-relevant amdkfd fixes
+(debugger auth, overflows, CRIU, NULL deref).
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users of AMD KFD GPU debugging (ROCm debugger,
+`KFD_IOC_DBG_TRAP_ENABLE`). Requires `CONFIG_HSA_AMD` / amdkfd. Not
+universal, but real for that population.
+
+### Step 8.2: Trigger Conditions
+**Record:** `copy_to_user()` failure during debug-trap enable — uncommon
+but valid (bad userspace buffer). **Likelihood:** low in normal use,
+easy to hit with a buggy debugger or invalid pointer. **Privilege:** KFD
+device access required.
+
+### Step 8.3: Failure Mode Severity
 **Record:**
-- Fix is obviously correct: every read/advance is bounded by `len`.
-- Minimal scope: adds two static helpers, replaces inline parsing.
-- Low regression risk: same parsing logic, stricter bounds; failure
-  paths already go to `Out` and return 0.
-- `min3()` exists in this tree (`include/linux/minmax.h`).
+- Extra `kref` leak on `kfd_process` → process object retained longer
+  than intended
+- `dbg_ev_file` leak → kernel `struct file` refcount leak
+- `debug_trap_enabled` stuck `true` while ioctl returned error →
+  subsequent enable returns `-EALREADY` (verified: line 779-780)
+- `debugged_process_count` skew → wrong debugger session accounting
+- **Severity:** **MEDIUM-HIGH** for debugger users (broken
+  retry/disable-enable cycle, resource leaks); **LOW** for non-debug
+  workloads
 
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
+### Step 8.4: Risk-Benefit
 **Record:**
-- Buggy TLV walk introduced in `0dbf2c5626253` ("drm/amdgpu: Interpret
-  IPMI data for product information (v2)", 2022-11-17) by Luben Tuikov.
-- Field additions in `ac6b1f275f17b` and `8a2b51392ac4a` (2023-10-04)
-  retained the same unchecked advance pattern.
-- Prior OOB-related FRU fix: `02b865f88b4e4` (2021), `00b14ce075732`
-  (2022) — shows this subsystem has a history of bounds fixes.
-- Bug present since ~6.2; confirmed present in this 6.18.44 tree.
-
-### Step 3.2: FOLLOW Fixes: TAG
-**Record:** No `Fixes:` tag. N/A.
-
-### Step 3.3: FILE HISTORY FOR RELATED CHANGES
-**Record:** Recent FRU commits in tree include `fd0c6bd82d19c` (increase
-FRU File Id buffer), `25907304cfce5` (fetch FRU for smu_v13_0_12),
-`a8558fce7ad0c` (avoid FRU on APU). No existing bounded-TLV fix found.
-Standalone fix, not part of a multi-patch series in this tree.
-
-### Step 3.4: AUTHOR'S OTHER COMMITS
-**Record:** Stanley.Yang has multiple amdgpu commits (RAS, VCN, eeprom
-fixes) but is not the original FRU author. Reviewed by Tao Zhou; signed
-off by Alex Deucher (amdgpu maintainer).
-
-### Step 3.5: DEPENDENT/PREREQUISITE COMMITS
-**Record:** No prerequisites identified. Commit not in this tree
-(candidate only). Diff context shows `kzalloc_obj()` on mainline; local
-tree uses `kzalloc(sizeof(*adev->fru_info), GFP_KERNEL)` — PIA parsing
-portion applies independently. No dependency on missing code structures.
+- **Benefit:** Restores correct error recovery; prevents leaks and stuck
+  debug state
+- **Risk:** Very low — 6 lines on failure-only path, mirrors existing
+  disable logic
+- **Ratio:** Favorable for stable
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 9: Final Synthesis
 
-### Step 4.1: ORIGINAL PATCH DISCUSSION
-**Record:** Commit hash not in local tree; `b4 dig -c` cannot be run.
-`b4 dig -S` is not supported. Lore.kernel.org search blocked by anti-bot
-page. **UNVERIFIED:** original submission thread, series revisions,
-reviewer stable nominations.
-
-### Step 4.2: REVIEWERS
-**Record:** **UNVERIFIED** via b4 -w. Commit message lists Reviewed-by:
-Tao Zhou, Signed-off-by: Alex Deucher.
-
-### Step 4.3: BUG REPORT
-**Record:** No Reported-by, Link, or syzbot reference. No external bug
-report to follow.
-
-### Step 4.4: RELATED PATCHES/SERIES
-**Record:** Appears standalone. Related historical fixes in same file
-(`02b865f`, `00b14ce`) addressed similar OOB concerns in older FRU
-parsing code.
-
-### Step 4.5: STABLE MAILING LIST
-**Record:** **UNVERIFIED** — lore search unavailable.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: KEY FUNCTIONS
-**Record:** `fru_pia_advance()`, `fru_pia_copy_field()` (new);
-`amdgpu_fru_get_product_info()` (modified).
-
-### Step 5.2: TRACE CALLERS
-**Record:**
-- `amdgpu_fru_get_product_info()` called from `amdgpu_device_init()` at
-  line 3307 of `amdgpu_device.c`.
-- `amdgpu_device_init()` called from `amdgpu_driver_load_kms()` in
-  `amdgpu_kms.c` line 148.
-- **Context:** GPU driver probe/load path during PCI/DRM device
-  initialization.
-- `amdgpu_fru_sysfs_init()` at line 4873 exposes sysfs attributes but
-  does not re-parse FRU data.
-
-### Step 5.3: TRACE CALLEES
-**Record:** `is_fru_eeprom_supported()`, `amdgpu_eeprom_read()`,
-`kzalloc()`, `kfree()`, `memcpy()`, `sprintf()` (default serial),
-`dev_err()`.
-
-### Step 5.4: CALL CHAIN / REACHABILITY
-**Record:** PCI probe → `amdgpu_driver_load_kms()` →
-`amdgpu_device_init()` → `amdgpu_fru_get_product_info()` → PIA TLV
-parse. Triggered on every boot for supported AMD server GPUs with
-accessible FRU EEPROM. Not directly userspace-syscall reachable, but
-runs automatically on driver load when hardware matches (Vega20 server
-SKUs, D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.).
-
-### Step 5.5: SIMILAR PATTERNS
-**Record:** Same unchecked `addr += 1 + (pia[addr] & 0x3F)` pattern
-repeated 6+ times in current code. AMD previously fixed similar FRU OOB
-issues in `02b865f88b4e4` and `00b14ce075732`.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: DOES BUGGY CODE EXIST?
-**Record:** **YES.** Local tree is **v6.18.44 / 6.18.44**.
-`amdgpu_fru_eeprom.c` lines 220–270 contain the vulnerable unchecked TLV
-walk. Bug introduced November 2022 (`0dbf2c5626253`), well before 6.18
-branch.
-
-### Step 6.2: BACKPORT COMPLICATIONS
-**Record:** Expected **clean apply** for the PIA parsing helpers and
-loop replacement. Minor context difference: mainline diff shows
-`kzalloc_obj()` but local tree uses `kzalloc()` — unrelated to the fix
-hunks. No significant refactoring conflicts in recent file history
-(`a3e510fd69c31` dev_* conversion is already present).
-
-### Step 6.3: RELATED FIXES ALREADY PRESENT?
-**Record:** No `fru_pia_advance`/`fru_pia_copy_field` or "harden FRU
-PIA" commit in tree. `git log --grep='harden FRU'` returned empty. Fix
-not yet applied.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: SUBSYSTEM CRITICALITY
-**Record:** **Subsystem:** `drm/amdgpu` driver — FRU EEPROM parsing for
-AMD server GPUs. **Criticality:** PERIPHERAL (hardware-specific,
-server/datacenter GPUs only), but touches kernel memory safety during
-probe.
-
-### Step 7.2: SUBSYSTEM ACTIVITY
-**Record:** File actively maintained — 20+ commits since 2022, most
-recent in 2025 (dev_* conversion, SMU v13.0.12 support).
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: WHO IS AFFECTED
-**Record:** Users of AMD server GPUs with FRU EEPROM support (Vega20
-D161/D163, Instinct MI D603, Aldebaran, SMU v13.0.6/v13.0.14, etc.). Not
-APUs, not VF, not all consumer cards. Config/hardware-specific, but real
-production datacenter hardware.
-
-### Step 8.2: TRIGGER CONDITIONS
-**Record:** Malformed, truncated, or internally inconsistent FRU Product
-Info Area TLV data in on-card EEPROM. Occurs during driver probe
-(boot/module load). Not userspace-triggerable directly; requires
-corrupt/tampered EEPROM or hardware/firmware fault. Moderately rare but
-plausible (manufacturing errors, EEPROM corruption, physical tampering
-on servers).
-
-### Step 8.3: FAILURE MODE SEVERITY
-**Record:** Out-of-bounds read from kmalloc'd PIA buffer during GPU
-init. Potential KASAN splat, kernel oops during probe, or information
-leak from adjacent heap data. Severity: **HIGH** for affected hardware
-(memory safety during init); **MEDIUM** overall due to narrow
-hardware/trigger scope. Does not cause silent data corruption of user
-files.
-
-### Step 8.4: RISK-BENEFIT
-**Record:**
-- **Benefit:** MEDIUM — closes real OOB read in server GPU probe path;
-  aligns with prior FRU bounds fixes AMD has shipped.
-- **Risk:** LOW — small, reviewed, behavior-preserving with stricter
-  bounds.
-- **Ratio:** Benefit outweighs risk for 6.18.y.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: EVIDENCE COMPILED
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real, verifiable OOB read bug in current 6.18.44 code (unchecked TLV
-  advance + unbounded memcpy).
-- Fixes memory safety during GPU driver probe on affected server
-  hardware.
-- Small, single-file, obviously correct bounded helpers.
-- Reviewed by AMD developer; signed off by amdgpu maintainer (Alex
-  Deucher).
-- Same file had prior OOB fixes backported historically.
-- Bug present since 2022; code exists in this tree.
-- `min3()` available; patch should apply cleanly.
+- Real bug in error path present since 2023
+- Resource leaks (`kref`, `struct file`)
+- Functional breakage: `-EALREADY` on retry after failed enable
+- Small (6 lines), maintainer-acked
+- Buggy code confirmed in Linux 6.18.44; fix not yet applied
+- Clean backport
 
 **AGAINST backport:**
-- No syzbot report, no user bug report, no CVE cited.
-- Very limited hardware population (AMD server GPUs with FRU EEPROM).
-- Requires malformed EEPROM data — not commonly triggered.
-- Not directly exploitable from userspace.
-- Mailing list review context unverified.
+- No user report or syzbot — code-review discovery
+- Affects debugger-only path, not general workloads
+- “Important issue” bar is borderline vs crash/security (no oops/UAF
+  demonstrated)
 
-**UNRESOLVED:**
-- Original lore discussion and whether reviewers nominated for stable.
-- Whether any production incident motivated this fix.
+**Unresolved:** Whether `debugger_process` should also be cleared on
+failure (fix matches partial unwind intent, not full disable).
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
-   AMD; no Tested-by but mechanism is verifiable by inspection.
-2. Fixes a real bug affecting users? **PASS** — OOB read on server GPU
-   probe with malformed FRU data.
-3. Important issue? **PASS** — kernel memory safety / potential oops
-   during init (HIGH for affected systems).
-4. Small and contained? **PASS** — one file, ~40 lines of meaningful
-   change.
-5. No new features or APIs? **PASS** — parsing hardening only.
-6. Can apply to local tree? **PASS** — buggy code confirmed present;
-   clean apply expected.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — mirrors
+   `kfd_dbg_trap_disable()`; maintainer acked; no Tested-by
+2. Fixes a real bug? **PASS** — refcount/file leak and stuck
+   `debug_trap_enabled`
+3. Important issue? **PASS (MEDIUM)** — resource leaks + broken debug
+   enable/disable state machine
+4. Small and contained? **PASS** — 6 lines, one function
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — code exists; clean apply
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None directly (not device ID, quirk, DT, build fix, or
-docs). Standard memory-safety bug fix.
+### Step 9.3: Exception Categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+error-path bug fix.
 
-### Step 9.4: DECISION RATIONALE
+### Step 9.4: Decision Rationale
 
-For **linux-6.18.y** (this checkout): the vulnerable FRU PIA parsing
-code is present and has been since the 2022 IPMI rewrite. The fix
-addresses a concrete out-of-bounds read that can occur when TLV length
-fields in FRU EEPROM data are inconsistent with the actual buffer size —
-a scenario checksum validation does not prevent. While the affected
-hardware base is narrow (AMD server GPUs), memory-safety fixes in probe
-paths are appropriate stable material, especially given AMD's prior
-history of backporting similar FRU bounds fixes. The patch is small,
-reviewed, and low-risk.
+For **Linux 6.18.y** specifically: the incomplete unwind in
+`kfd_dbg_trap_enable()` is present, the fix is absent, and the patch is
+a minimal error-path correction that prevents reference and file leaks
+and restores consistent debug-trap state after `-EFAULT`. This matches
+the kind of driver error-recovery fixes routinely accepted for stable,
+especially with AMD maintainer acknowledgment.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body: hardening fix for OOB reads;
-  Reviewed-by Tao Zhou; no Reported-by/syzbot.
-- [Phase 2] Read full diff and current `amdgpu_fru_eeprom.c`: confirmed
-  unchecked advances at lines 251, 254, 262, 265 and unbounded memcpy at
-  227–229, 237–238, etc.
-- [Phase 2] Verified `min3` exists in `include/linux/minmax.h`.
-- [Phase 3] `git blame -L 220,270`: buggy walk from `0dbf2c5626253`
-  (2022-11-17).
-- [Phase 3] `git log --oneline -20 -- amdgpu_fru_eeprom.c`: no existing
-  bounded-helper fix.
-- [Phase 3] `git log --grep='harden FRU'`: empty (commit not in tree).
-- [Phase 3] `git show 00b14ce075732`, `git show 02b865f88b4e4`: prior
-  FRU OOB fixes confirmed.
-- [Phase 4] `b4 dig -c`: **UNVERIFIED** — commit not in tree.
-- [Phase 4] Lore search: **UNVERIFIED** — blocked by anti-bot page.
-- [Phase 5] `grep amdgpu_fru_get_product_info`: callers in
-  `amdgpu_device.c:3307`, init via `amdgpu_kms.c:148`.
-- [Phase 6] `git describe HEAD` → v6.18.44; `make kernelversion` →
-  6.18.44.
-- [Phase 6] Read `amdgpu_fru_eeprom.c` lines 220–270: buggy code
-  confirmed present.
-- [Phase 6] `git merge-base --is-ancestor 0dbf2c5626253 HEAD`: buggy
-  code ancestor in tree.
-- [Phase 8] Failure mode: OOB kernel read during probe; severity HIGH
-  (affected hw) / MEDIUM (overall).
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and `git show a50676d5a72a2`
+- **[Phase 2]** Read diff and current `kfd_debug.c:772-825`,
+  `kfd_dbg_trap_disable()` at 667-694
+- **[Phase 3]** `git blame -L 817,820` → `218895820e6fcc` (2022); `git
+  show 0ab2d7532b05a` → introduced enable setup (2023); `git log
+  stable/linux-6.18.y --grep="Unwind debug trap"` → empty
+- **[Phase 3]** `git log --oneline -5 --
+  drivers/gpu/drm/amd/amdkfd/kfd_debug.c`
+- **[Phase 4]** `b4 dig -c a50676d5a72a2` → lore URL; `b4 dig -m
+  /tmp/kfd_debug_trap.mbx` → Alex Deucher Acked-by in thread; `b4 dig
+  -a` → no revisions
+- **[Phase 5]** `grep kfd_dbg_trap_enable` → caller in
+  `kfd_chardev.c:3029`; `grep debug_trap_enabled` across amdkfd
+- **[Phase 6]** `git describe HEAD` → `v6.18.44`; Makefile `6.18.44`;
+  confirmed buggy lines at 817-819 without fix
+- **[Phase 6]** `git log stable/linux-6.18.y..all-next --
+  drivers/gpu/drm/amd/amdkfd/kfd_debug.c` → fix commit listed, not in
+  stable
+- **[Phase 6]** `git branch --contains a50676d5a72a2` → `all-next` and
+  others, not `stable/linux-6.18.y`
+- **[Phase 7]** `git log --oneline -20 -- drivers/gpu/drm/amd/amdkfd/` →
+  active subsystem
+- **[Phase 8]** Verified `-EALREADY` guard at line 779-780; verified
+  `kfd_dbg_trap_disable()` cleanup pattern at 682-692
 
-**YES**The background search finished: `git log --grep='harden FRU'`,
-`--grep='bounded helpers'`, and `--grep='fru_pia'` all returned nothing,
-so this fix is not in the local **6.18.44** tree yet.
+**YES**
 
-That matches what we saw in the file — `amdgpu_fru_eeprom.c` still has
-the unchecked TLV walk (e.g. unguarded `addr += 1 + (pia[addr] & 0x3F)`
-around lines 251–265).
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-**Verdict for linux-6.18.y: YES** — real out-of-bounds read on malformed
-FRU EEPROM data during server GPU probe; small, reviewed hardening fix
-that should apply cleanly.
-
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 95 ++++++++++++-------
- 1 file changed, 63 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-index b0082aa7f3c61..2875627dce8e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-@@ -114,6 +114,43 @@ static bool is_fru_eeprom_supported(struct amdgpu_device *adev, u32 *fru_addr)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+index 986cb297de8f8..78e1dfdb27147 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+@@ -816,6 +816,12 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+ 
+ 	if (copy_to_user(runtime_info, (void *)&target->runtime_info, copy_size)) {
+ 		kfd_dbg_trap_deactivate(target, false, 0);
++		fput(target->dbg_ev_file);
++		target->dbg_ev_file = NULL;
++		if (target->debugger_process)
++			atomic_dec(&target->debugger_process->debugged_process_count);
++		target->debug_trap_enabled = false;
++		kfd_unref_process(target);
+ 		r = -EFAULT;
  	}
- }
  
-+/*
-+ * IPMI FRU Product Info Area fields are TLV: one type/length byte
-+ * (low 6 bits = data length) followed by that many data bytes. These
-+ * helpers walk the cursor and copy a single field while bounding all
-+ * accesses to the actual buffer length read from the EEPROM.
-+ */
-+#define FRU_FIELD_LEN(p, a)	((p)[a] & 0x3F)
-+
-+/* Advance cursor past the current TLV. Returns false if no more data. */
-+static bool fru_pia_advance(u32 *addr, const unsigned char *pia, int len)
-+{
-+	if (*addr >= (u32)len)
-+		return false;
-+	*addr += 1 + FRU_FIELD_LEN(pia, *addr);
-+	return true;
-+}
-+
-+/*
-+ * Copy the current TLV's data into dst (NUL-terminated). Returns false if
-+ * the TLV header or data would read past the end of pia.
-+ */
-+static bool fru_pia_copy_field(char *dst, size_t dst_size,
-+			       const unsigned char *pia, u32 addr, int len)
-+{
-+	size_t fl;
-+
-+	if (addr + 1 >= (u32)len)
-+		return false;
-+
-+	fl = min3((size_t)FRU_FIELD_LEN(pia, addr),
-+			  dst_size - 1,
-+			  (size_t)(len - addr - 1));
-+	memcpy(dst, pia + addr + 1, fl);
-+	dst[fl] = '\0';
-+	return true;
-+}
-+
- int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
- {
- 	struct amdgpu_fru_info *fru_info;
-@@ -222,52 +259,46 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
- 	 * Read Manufacturer Name field whose length is [3].
- 	 */
- 	addr = 3;
--	if (addr + 1 >= len)
-+	if (!fru_pia_copy_field(fru_info->manufacturer_name,
-+				sizeof(fru_info->manufacturer_name),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->manufacturer_name, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->manufacturer_name),
--		     pia[addr] & 0x3F));
--	fru_info->manufacturer_name[sizeof(fru_info->manufacturer_name) - 1] =
--		'\0';
- 
- 	/* Read Product Name field. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if (addr + 1 >= len)
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->product_name,
-+				sizeof(fru_info->product_name),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->product_name, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->product_name), pia[addr] & 0x3F));
--	fru_info->product_name[sizeof(fru_info->product_name) - 1] = '\0';
- 
- 	/* Go to the Product Part/Model Number field. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if (addr + 1 >= len)
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->product_number,
-+				sizeof(fru_info->product_number),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->product_number, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->product_number),
--		     pia[addr] & 0x3F));
--	fru_info->product_number[sizeof(fru_info->product_number) - 1] = '\0';
- 
--	/* Go to the Product Version field. */
--	addr += 1 + (pia[addr] & 0x3F);
-+	/* Skip the Product Version field. */
-+	if (!fru_pia_advance(&addr, pia, len))
-+		goto Out;
- 
--	/* Go to the Product Serial Number field. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if (addr + 1 >= len)
-+	/* Read the Product Serial Number field. */
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->serial,
-+				sizeof(fru_info->serial),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->serial, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
--	fru_info->serial[sizeof(fru_info->serial) - 1] = '\0';
- 
--	/* Asset Tag field */
--	addr += 1 + (pia[addr] & 0x3F);
-+	/* Skip the Asset Tag field. */
-+	if (!fru_pia_advance(&addr, pia, len))
-+		goto Out;
- 
- 	/* FRU File Id field. This could be 'null'. */
--	addr += 1 + (pia[addr] & 0x3F);
--	if ((addr + 1 >= len) || !(pia[addr] & 0x3F))
-+	if (!fru_pia_advance(&addr, pia, len) ||
-+	    !fru_pia_copy_field(fru_info->fru_id,
-+				sizeof(fru_info->fru_id),
-+				pia, addr, len))
- 		goto Out;
--	memcpy(fru_info->fru_id, pia + addr + 1,
--	       min_t(size_t, sizeof(fru_info->fru_id), pia[addr] & 0x3F));
--	fru_info->fru_id[sizeof(fru_info->fru_id) - 1] = '\0';
- 
- Out:
- 	kfree(pia);
 -- 
 2.53.0
 
