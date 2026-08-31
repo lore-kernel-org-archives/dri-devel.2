@@ -4,54 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A2CC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DE69C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F4010E87A;
-	Mon, 31 Aug 2026 13:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63EC789CC4;
+	Mon, 31 Aug 2026 13:41:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a7eeazSl";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="L71zR0P9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBD010E87A
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:40:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E526F60200;
- Mon, 31 Aug 2026 13:40:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1841F00A3D;
- Mon, 31 Aug 2026 13:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183647;
- bh=+/y1sOX8N5p80BcczvmryeMXn0Jk9heDEynMivmStSM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=a7eeazSlsPSPIigaq1PL8hVd/NlgapzmEwKn0B/wN7sDukIl/Cz3+Dav8QQNKbgNR
- 9Nyk6kVgr0w+k4x7H8E7C+QikxAZksQN0mr6r9a6MnZavVYEqxr1uHmJdog5L1TeJY
- NVGijFzrnrEkf12OmUGnQqyJxdmz+O/SytEtuHeCjxOmFxYmHoR6HSfQYmt7kmlmWA
- 9ZSYPL7G5I1hcDx+jXzR+E9j/2jxAsRNUZZ7vkM8nqmFgwyj6RjCgnMQox6SsXtKTJ
- jkP5Z4TcEf+hntVD80TGxzw3A1Pr+CDMSgBIVAPoay3sWJG6ATCbAtB3lSXNtYvdAr
- JARmvENwgMCxg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/gma500: return errors from Oaktrail
- HDMI I2C reads
-Date: Mon, 31 Aug 2026 09:24:07 -0400
-Message-ID: <20260831133314.4125787-219-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com
+ [113.46.200.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D0589CC4
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:40:57 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=nmdxjMt3LU7HFnWXf7LaMBxS/Rfo981g3BAv2WLpTmU=;
+ b=L71zR0P9TRUbFW9nAY7EnFbxO0XtyJ6p02J1eYaW4Tt5DIweeOXUWLAt1FtiCa4aepHTBPTBn
+ R+x2oCKOJBtvj9zCMFc3faNLH0THGvnFt3fhJBKQtjCMgTxGEJW55Uz7GWyGmOUkBLl7iniVUz3
+ IzpeY8SeMvaqiBZSK0qm6+0=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+ by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hYVG745XNz1T4K9;
+ Mon, 31 Aug 2026 21:29:35 +0800 (CST)
+Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
+ by mail.maildlp.com (Postfix) with ESMTPS id 864E740561;
+ Mon, 31 Aug 2026 21:40:54 +0800 (CST)
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 31 Aug 2026 21:40:53 +0800
+Message-ID: <c58083c3-ac70-4a67-ac46-632897d58c35@huawei.com>
+Date: Mon, 31 Aug 2026 21:40:53 +0800
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v2 1/2] drm/hisilicon/hibmc: Modify the
+ method of obtaining the hpd_status
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ "dmitry.baryshkov@oss.qualcomm.com" <dmitry.baryshkov@oss.qualcomm.com>,
+ "tiantao (H)" <tiantao6@hisilicon.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "kongxinwei (A)"
+ <kong.kongxinwei@hisilicon.com>
+CC: "Liangjian(Jim,Kunpeng Solution Development Dept)"
+ <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
+ (A)" <fengsheng5@huawei.com>, "helin (T)" <helin52@h-partners.com>, "shenjian
+ (K)" <shenjian15@huawei.com>, shaojijie <shaojijie@huawei.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ <shiyongbang@huawei.com>, <helin52@h-partners.com>
+References: <20260721124324.1885856-1-shiyongbang@huawei.com>
+ <20260721124324.1885856-2-shiyongbang@huawei.com>
+ <6cb7cbda-172e-4a73-9149-1ed48466d5de@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <6cb7cbda-172e-4a73-9149-1ed48466d5de@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200005.china.huawei.com (7.202.194.71)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,451 +77,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-
-[ Upstream commit 9b5ce5c496efd20c1c662cedba88465d39ec1f93 ]
-
-xfer_read() waits for the HDMI I2C transaction to reach
-I2C_TRANSACTION_DONE, but it ignores both timeout and signal returns from
-wait_for_completion_interruptible_timeout().  If the interrupt never
-advances the transaction state, the loop can wait forever.
-
-Return -ETIMEDOUT when the completion wait expires, propagate interrupted
-waits, and make the I2C master_xfer callback return the first transfer
-error instead of reporting a successful message count.
-
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Link: https://patch.msgid.link/20260625003240.6923-1-pengpeng@iscas.ac.cn
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `drm/gma500: return errors from Oaktrail
-HDMI I2C reads`
-
-**Local tree:** `v6.18.44` (`VERSION = 6`, `PATCHLEVEL = 18`, `SUBLEVEL
-= 44`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[drm/gma500]` `[return]` — propagate errors from Oaktrail
-HDMI I2C read transfers instead of ignoring them.
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-**Record:**
-- **Fixes:** — none
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Cc: stable@vger.kernel.org** — none (expected for manual review)
-- **Link:**
-  `https://patch.msgid.link/20260625003240.6923-1-pengpeng@iscas.ac.cn`
-- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>`, Patrik
-  Jakobsson `<patrik.r.jakobsson@gmail.com>` (subsystem maintainer)
-- **Notable:** No syzbot/fuzzer report; maintainer sign-off is a
-  positive quality signal.
-
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-**Record:**
-- **Bug:** `xfer_read()` calls
-  `wait_for_completion_interruptible_timeout()` in a loop but ignores
-  its return value.
-- **Symptom:** On timeout (`ret == 0`) or signal (`ret < 0`), the loop
-  continues while `i2c_dev->status != I2C_TRANSACTION_DONE`, so the
-  thread never exits if the interrupt never advances state.
-- **Failure mode:** Unbounded wait (10-second timeout iterations
-  forever); caller also gets a successful message count instead of an
-  error.
-- **Root cause:** Missing error handling on completion wait;
-  `oaktrail_hdmi_i2c_access()` ignores `xfer_read()` return value.
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised — this is an explicit hang/error-propagation
-fix. The `master_xfer` callback change (return first error instead of
-message count) is standard I2C error semantics.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: INVENTORY THE CHANGES
-**Record:**
-- **File:** `drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c` (+11 net lines,
-  ~20 lines touched)
-- **Functions:** `xfer_read()`, `oaktrail_hdmi_i2c_access()`
-- **Scope:** Single-file surgical fix
-
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-
-**Hunk 1 — `xfer_read()` (lines 109–113 today):**
-
-```109:113:drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
-        while (i2c_dev->status != I2C_TRANSACTION_DONE)
-wait_for_completion_interruptible_timeout(&i2c_dev->complete,
-                                                                10 *
-HZ);
-
-        return 0;
-```
-
-- **Before:** Loop ignores wait return; always returns 0.
-- **After:** On `ret < 0` propagate signal (`-ERESTARTSYS`); on `ret ==
-  0` return `-ETIMEDOUT`; only return 0 when transaction completes.
-
-**Hunk 2 — `oaktrail_hdmi_i2c_access()` (lines 139–154 today):**
-
-- **Before:** Ignores `xfer_read()`/`xfer_write()` return; always
-  returns `i` (message count).
-- **After:** Captures `ret`, breaks on error, returns error to I2C core;
-  only returns `i` on success.
-
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Record:**
-- **Category:** Logic/correctness — infinite wait loop + incorrect
-  success reporting.
-- **Mechanism:** `wait_for_completion_interruptible_timeout()` returns 0
-  on timeout and negative on signal (documented in
-  `kernel/sched/completion.c` lines 237–238). The old loop treated both
-  as "keep waiting." The `i2c_lock` mutex remains held for the duration,
-  blocking all other transfers on adapter 3.
-
-### Step 2.4: ASSESS THE FIX QUALITY
-**Record:**
-- Fix is minimal and matches standard kernel completion-wait patterns.
-- Correct I2C `master_xfer` semantics (negative errno on failure).
-- **Regression risk:** Very low. Only changes error/timeout paths;
-  success path unchanged.
-- Mutex is still released on error via the existing unlock at the end of
-  `oaktrail_hdmi_i2c_access()`.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:** All changed lines blame to `5d324e5159d9e` (Nov 28, 2025
-merge) in this shallow checkout. File copyright header shows original
-authorship by Li Peng / Intel, 2010 — the buggy wait loop has been
-present since initial implementation. Shallow clone limits deeper
-history verification.
-
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** N/A — no `Fixes:` tag in commit message.
-
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:** Recent related stable backports in this tree:
-- `6d835a99474cd` — `drm/gma500/oaktrail_hdmi: fix i2c adapter leak on
-  setup`
-- `ab9256936b58e` — `drm/gma500/oaktrail_lvds: fix hang on init failure`
-- `4e003e2fb6d3f` — `drm/gma500/oaktrail_lvds: fix i2c adapter leaks on
-  init`
-
-Same driver, same maintainer (Patrik Jakobsson), same class of I2C/hang
-fixes already accepted into 6.18.y.
-
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** Pengpeng Hou not found in shallow history for this file.
-Patrik Jakobsson is the gma500 maintainer (signed off on related
-oaktrail stable fixes above).
-
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:** Standalone fix. No series markers, no structural
-dependencies. Diff matches current file content in this tree.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:** `b4 dig -c <commit>` not possible — commit not in this tree.
-Lore.kernel.org and patch.msgid.link blocked by Anubis bot protection.
-**UNVERIFIED:** Full review thread content, stable nominations in
-review.
-
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** **UNVERIFIED** (lore inaccessible). Patrik Jakobsson
-(maintainer) Signed-off-by in commit message.
-
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** No Reported-by, no syzbot link. Proactive code-quality/hang
-fix from author.
-
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** Part of ongoing gma500 oaktrail I2C robustness work (same
-timeframe as Johan Hovold's oaktrail I2C leak/hang fixes). Standalone;
-no multi-patch dependency.
-
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** **UNVERIFIED** (lore inaccessible). Related oaktrail fixes
-were explicitly `Cc: stable@vger.kernel.org` and landed in this 6.18.y
-tree.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** `xfer_read()`, `oaktrail_hdmi_i2c_access()`, indirectly
-`oaktrail_hdmi_i2c_handler()` (IRQ completes the wait).
-
-### Step 5.2: TRACE CALLERS
-**Record:**
-- `oaktrail_hdmi_i2c_access` is the `master_xfer` callback for I2C
-  adapter `.nr = 3` (`oaktrail_hdmi_i2c_adapter`).
-- Registered in `oaktrail_hdmi_i2c_init()` called from `oaktrail_hdmi.c`
-  during HDMI setup.
-- Kernel caller of adapter 3: only `oaktrail_hdmi_get_modes()` via
-  `i2c_get_adapter(3)`, but **`drm_get_edid()` is commented out** — it
-  uses hardcoded `raw_edid` instead.
-- Userspace can access the registered adapter via i2c-dev
-  (`/dev/i2c-3`).
-- LVDS uses `dev_priv->ops->i2c_bus = 1` (from `oaktrail_device.c`), not
-  adapter 3.
-
-### Step 5.3: TRACE CALLEES
-**Record:** `wait_for_completion_interruptible_timeout()`,
-`reinit_completion()`, HDMI register MMIO, `mutex_lock/unlock`,
-`hdmi_i2c_irq_enable/disable`.
-
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:**
-- Init path: `oaktrail_hdmi setup` → `oaktrail_hdmi_i2c_init()` →
-  registers adapter 3 (always on Oaktrail HDMI hardware).
-- Read path: `i2c_transfer()` on adapter 3 →
-  `oaktrail_hdmi_i2c_access()` → `xfer_read()` → wait loop.
-- **Reachability today:** Kernel EDID-over-HDMI-I2C path is disabled
-  (FIXME). Reachable from userspace i2c tools or if `drm_get_edid()` is
-  enabled later.
-- Mutex held during hang blocks all I2C on adapter 3.
-
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** Same driver family recently fixed analogous hang/leak issues
-(`ab9256936b58e` — "deregistration hangs indefinitely"). This patch
-addresses the same class of problem in the HDMI I2C path.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:** **YES.** Buggy code confirmed at lines 109–113 and 139–154
-of `drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c`. Fix commit is **not**
-present in this tree.
-
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** Expected **clean apply** — provided diff matches current
-file content line-for-line. No conflicting recent changes to this file
-in 6.18.y history.
-
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** Related oaktrail I2C leak/hang fixes are present; this
-specific HDMI I2C error-propagation fix is **not**.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** `drivers/gpu/drm/gma500` — DRM driver for Intel
-GMA500/600/3600/3650 (Poulsbo, Moorestown/Oak Trail, Cedar Trail).
-**Criticality: PERIPHERAL** — config-gated (`CONFIG_DRM_GMA500`),
-x86-only, legacy embedded hardware.
-
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** Active in 6.18.y — multiple oaktrail I2C fixes landed May
-2026. Maintainers are actively hardening this code path.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** Users with `CONFIG_DRM_GMA500` on Oak Trail / GMA600
-hardware with HDMI I2C controller. Small but real population (legacy
-netbooks/tablets).
-
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:**
-- **Trigger:** I2C read on adapter 3 when HDMI I2C interrupt never sets
-  `I2C_TRANSACTION_DONE` (hardware fault, missing monitor, IRQ failure).
-- **Likelihood:** Low in default kernel config (EDID read via this
-  adapter disabled), higher if userspace uses i2c-3 or if
-  `drm_get_edid()` is enabled.
-- **Unprivileged trigger:** Userspace i2c access could trigger; not a
-  typical attack surface.
-
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:**
-- **Failure mode:** Infinite wait loop (10s timeout iterations) with
-  `i2c_lock` held; thread hang; I2C adapter permanently blocked.
-- **Severity: HIGH** when triggered (system hang for that context), but
-  **LOW probability** in current default code path.
-
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
-**Record:**
-- **Benefit:** Prevents unbounded hang; correct error propagation to I2C
-  core. Essential if HDMI EDID reading is ever enabled.
-- **Risk:** Very low — ~20 lines, error-path only, no API changes.
-- **Ratio:** Favorable. Same driver already receives similar stable
-  fixes.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: COMPILE THE EVIDENCE
-
-**FOR backport:**
-- Real bug: infinite wait on I2C timeout/signal, mutex held
-- Small, obviously correct, maintainer-signed
-- Buggy code present in 6.18.44 tree; fix not yet applied
-- Same gma500/oaktrail I2C hang/leak fixes already in this stable tree
-- Registered I2C adapter that can hang on read is a driver correctness
-  issue
-- No new APIs or features
-
-**AGAINST backport:**
-- Very niche hardware (`CONFIG_DRM_GMA500`, legacy Oaktrail)
-- Kernel EDID read via this adapter currently disabled (`drm_get_edid`
-  commented out in `oaktrail_hdmi_get_modes`)
-- No user/fuzzer reports
-- Default boot path may not exercise `xfer_read()` today
-
-**UNRESOLVED:**
-- Full lore review thread (bot-blocked)
-- Exact upstream commit hash (not in shallow tree)
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — standard completion-wait
-   pattern; maintainer SOB; no Tested-by.
-2. Fixes a real bug affecting users? **PASS** — real hang in I2C driver
-   code; limited but real hardware population.
-3. Important issue? **PASS** — hang with mutex held (HIGH severity when
-   triggered).
-4. Small and contained? **PASS** — one file, ~20 lines.
-5. No new features or APIs? **PASS**.
-6. Can apply to local tree? **PASS** — code matches; clean apply
-   expected.
-
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** N/A — not a device ID, quirk, DT, build, or docs fix.
-Standard driver bug fix.
-
-### Step 9.4: DECISION RATIONALE
-
-This is a legitimate hang fix in production driver infrastructure. The
-HDMI I2C adapter is registered on every affected system; even though the
-kernel EDID path is currently stubbed out, the I2C read implementation
-is live code that hangs indefinitely on hardware/IRQ failure. The fix is
-minimal, low-risk, and consistent with other oaktrail I2C fixes already
-backported to this 6.18.y tree. The niche hardware and currently-
-disabled EDID path reduce urgency but do not negate the technical merit.
-
----
-
-## Verification
-
-- **[Phase 1]** `git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`;
-  Makefile → 6.18.44
-- **[Phase 1]** Parsed commit message tags from user-provided content
-- **[Phase 2]** Read `drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c` —
-  confirmed buggy wait loop at lines 109–113
-- **[Phase 2]** Read `kernel/sched/completion.c` lines 237–238 —
-  confirmed return semantics (0=timeout, <0=signal, >0=completed)
-- **[Phase 3]** `git blame -L 93,155` — buggy code present in current
-  tree
-- **[Phase 3]** `git log --oneline -20 -- drivers/gpu/drm/gma500/` —
-  found related stable backports (`6d835a99474cd`, `ab9256936b58e`,
-  `4e003e2fb6d3f`)
-- **[Phase 3]** `git log --grep="return errors from Oaktrail"` → empty;
-  fix not in tree
-- **[Phase 3]** `git rev-parse --is-shallow-repository` → `true` (limits
-  history depth)
-- **[Phase 4]** `b4 dig` — commit not in tree; cannot run `-c`
-- **[Phase 4]** Lore/patch.msgid.link fetch — blocked by Anubis
-  (**UNVERIFIED** review thread)
-- **[Phase 5]** `grep` oaktrail_hdmi.c — `drm_get_edid()` commented out
-  at line 581; adapter 3 registered at init
-- **[Phase 5]** `grep i2c_bus` in gma500 — LVDS uses bus 1, not 3
-- **[Phase 6]** Confirmed buggy code exists; fix absent
-- **[Phase 6]** Diff matches current file content (manual comparison)
-- **[Phase 7]** Read `drivers/gpu/drm/gma500/Kconfig` —
-  `CONFIG_DRM_GMA500` details
-- **[Phase 8]** Assessed hang severity and niche hardware scope
-
-**YES**
-
- drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c b/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
-index 6daa6669ed237..4f1d095fc5a81 100644
---- a/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
-+++ b/drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c
-@@ -95,6 +95,7 @@ static int xfer_read(struct i2c_adapter *adap, struct i2c_msg *pmsg)
- 	struct oaktrail_hdmi_dev *hdmi_dev = i2c_get_adapdata(adap);
- 	struct hdmi_i2c_dev *i2c_dev = hdmi_dev->i2c_dev;
- 	u32 temp;
-+	int ret;
- 
- 	i2c_dev->status = I2C_STAT_INIT;
- 	i2c_dev->msg = pmsg;
-@@ -106,9 +107,14 @@ static int xfer_read(struct i2c_adapter *adap, struct i2c_msg *pmsg)
- 	HDMI_WRITE(HDMI_HI2CHCR, temp);
- 	HDMI_READ(HDMI_HI2CHCR);
- 
--	while (i2c_dev->status != I2C_TRANSACTION_DONE)
--		wait_for_completion_interruptible_timeout(&i2c_dev->complete,
-+	while (i2c_dev->status != I2C_TRANSACTION_DONE) {
-+		ret = wait_for_completion_interruptible_timeout(&i2c_dev->complete,
- 								10 * HZ);
-+		if (ret < 0)
-+			return ret;
-+		if (!ret)
-+			return -ETIMEDOUT;
-+	}
- 
- 	return 0;
- }
-@@ -127,7 +133,7 @@ static int oaktrail_hdmi_i2c_access(struct i2c_adapter *adap,
- {
- 	struct oaktrail_hdmi_dev *hdmi_dev = i2c_get_adapdata(adap);
- 	struct hdmi_i2c_dev *i2c_dev = hdmi_dev->i2c_dev;
--	int i;
-+	int i, ret = 0;
- 
- 	mutex_lock(&i2c_dev->i2c_lock);
- 
-@@ -139,9 +145,11 @@ static int oaktrail_hdmi_i2c_access(struct i2c_adapter *adap,
- 	for (i = 0; i < num; i++) {
- 		if (pmsg->len && pmsg->buf) {
- 			if (pmsg->flags & I2C_M_RD)
--				xfer_read(adap, pmsg);
-+				ret = xfer_read(adap, pmsg);
- 			else
--				xfer_write(adap, pmsg);
-+				ret = xfer_write(adap, pmsg);
-+			if (ret)
-+				break;
- 		}
- 		pmsg++;         /* next message */
- 	}
-@@ -151,6 +159,9 @@ static int oaktrail_hdmi_i2c_access(struct i2c_adapter *adap,
- 
- 	mutex_unlock(&i2c_dev->i2c_lock);
- 
-+	if (ret)
-+		return ret;
-+
- 	return i;
- }
- 
--- 
-2.53.0
+> Hi,
+> 
+> you definitely want to go over the Sashiko review for both patches.
+> 
+
+Yes, Sashiko has raised several historical issues that we've been analyzing recently. The feedback
+via email and the v3 patch will be ready very soon.
+
+Sashiko was recently launched, and I'd like to ask: if we want to reject Sashiko's suggestions,
+is it sufficient to simply state the reasons for the rejection in our reply email? How can we
+prevent Sashiko from raising the same issues in the next version's patch?
+
+
+> Am 21.07.26 um 14:43 schrieb Yongbang Shi:
+>> From: Lin He <helin52@huawei.com>
+>>
+>> To more accurately determine whether the current HPD status matches the
+>> interrupt status, the polling mechanism in the lower half of the HPD
+>> interrupt (via hibmc_dp_check_hpd_status) has been replaced with directly
+>> retrieving the interrupt status in the upper half of the interrupt (via
+>> hibmc_dp_get_hpd_status).
+> 
+> The upper half might run a lot if the IRQ is shared with other devices.
+> It's usually better to do as little as possible there and keep things in
+> the handler thread.
+> 
+
+Of course, that's exactly what we did.
+
+Thanks,
+Yongbang.
+
+> Best regards
+> Thomas
+> 
+>>
+>> * Detection and training are not performed if hpd_status is not HPD_IN.
+>>
+>> * Set the initial status of hpd_status to HPD_OUT.
+>>
+>> Fixes: 3906e7a3b26d ("drm/hisilicon/hibmc: fix dp probabilistical detect errors after HPD irq")
+>> Signed-off-by: Lin He <helin52@huawei.com>
+>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+>> ---
+>> ChangeLog:
+>> v1 -> v2:
+>>     - More states in HIBMC_DP_HPD_STATUS are added to the
+>>       'hibmc_dp_get_hpd_status'.
+>> ---
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  1 -
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 32 ++++++++++++-------
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  4 ++-
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 29 ++++++++++-------
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  1 +
+>>    5 files changed, 43 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>> index f53dac256ee0..b0e258b9265e 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>> @@ -43,7 +43,6 @@ struct hibmc_dp_dev {
+>>    	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+>>    	struct drm_dp_desc desc;
+>>    	bool is_branch;
+>> -	int hpd_status;
+>>    	void __iomem *serdes_base;
+>>    };
+>>    
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> index d5bd3c45649b..c9a113a1937d 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> @@ -191,6 +191,10 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
+>>    	writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
+>>    	/* clock enable */
+>>    	writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
+>> +	/* To latch the HPD interrupt, ensuring that DP can support more modes
+>> +	 * within the fbcon framework when connected alone.
+>> +	 */
+>> +	msleep(100);
+>>    
+>>    	return 0;
+>>    }
+>> @@ -322,20 +326,26 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const struct hibmc_dp_cbar_cfg *cfg)
+>>    	writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + HIBMC_DP_TIMING_SYNC_CTRL);
+>>    }
+>>    
+>> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
+>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
+>>    {
+>> +	int ret = HIBMC_HPD_UNKNOWN;
+>>    	u32 status;
+>> -	int ret;
+>>    
+>> -	ret = readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, status,
+>> -				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) == exp_status,
+>> -				 1000, 100000); /* DP spec says 100ms */
+>> -	if (ret) {
+>> -		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
+>> -		return false;
+>> +	status = FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
+>> +			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
+>> +	switch (status) {
+>> +	case 0: /* idle */
+>> +	case 3: /* unplug */
+>> +	case 4: /* unplug intermediate */
+>> +		ret = HIBMC_HPD_OUT;
+>> +		break;
+>> +	case 1: /* plug */
+>> +	case 2: /* plug intermediate */
+>> +		ret = HIBMC_HPD_IN;
+>> +		break;
+>> +	default:
+>> +		break;
+>>    	}
+>>    
+>> -	dp->dp_dev->hpd_status = exp_status;
+>> -
+>> -	return true;
+>> +	return ret;
+>>    }
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>> index 0f3662d8737e..bcd4e9d155c8 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>> @@ -15,6 +15,7 @@
+>>    struct hibmc_dp_dev;
+>>    
+>>    enum hibmc_hpd_status {
+>> +	HIBMC_HPD_UNKNOWN,
+>>    	HIBMC_HPD_OUT,
+>>    	HIBMC_HPD_IN,
+>>    };
+>> @@ -55,6 +56,7 @@ struct hibmc_dp {
+>>    	struct drm_dp_aux aux;
+>>    	struct hibmc_dp_cbar_cfg cfg;
+>>    	u32 irq_status;
+>> +	int hpd_status;
+>>    	int phys_status;
+>>    };
+>>    
+>> @@ -66,7 +68,7 @@ void hibmc_dp_reset_link(struct hibmc_dp *dp);
+>>    void hibmc_dp_hpd_cfg(struct hibmc_dp *dp);
+>>    void hibmc_dp_enable_int(struct hibmc_dp *dp);
+>>    void hibmc_dp_disable_int(struct hibmc_dp *dp);
+>> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status);
+>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp);
+>>    u8 hibmc_dp_get_link_rate(struct hibmc_dp *dp);
+>>    u8 hibmc_dp_get_lanes(struct hibmc_dp *dp);
+>>    
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> index 2e9403b8bf3c..23716d48149f 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> @@ -63,12 +63,8 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+>>    	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+>>    	int ret = connector_status_disconnected;
+>>    
+>> -	if (dp->irq_status) {
+>> -		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
+>> -			ret = connector_status_disconnected;
+>> -			goto exit;
+>> -		}
+>> -	}
+>> +	if (dp->hpd_status != HIBMC_HPD_IN)
+>> +		goto exit;
+>>    
+>>    	if (!hibmc_dp_get_dpcd(dp_dev)) {
+>>    		ret = connector_status_disconnected;
+>> @@ -166,6 +162,9 @@ static void hibmc_dp_encoder_enable(struct drm_encoder *drm_encoder,
+>>    	struct hibmc_dp *dp = container_of(drm_encoder, struct hibmc_dp, encoder);
+>>    	struct drm_display_mode *mode = &drm_encoder->crtc->state->mode;
+>>    
+>> +	if (dp->hpd_status != HIBMC_HPD_IN)
+>> +		return;
+>> +
+>>    	if (hibmc_dp_prepare(dp, mode))
+>>    		return;
+>>    
+>> @@ -189,24 +188,31 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void *arg)
+>>    {
+>>    	struct drm_device *dev = (struct drm_device *)arg;
+>>    	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+>> -	int idx, exp_status;
+>> +	int status = priv->dp.hpd_status;
+>> +	int idx;
+>>    
+>>    	if (!drm_dev_enter(dev, &idx))
+>>    		return -ENODEV;
+>>    
+>>    	if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
+>>    		drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
+>> +		if (status != HIBMC_HPD_IN) {
+>> +			drm_err(&priv->dev, "HPD status (%d) error", status);
+>> +			goto exit;
+>> +		}
+>>    		hibmc_dp_hpd_cfg(&priv->dp);
+>> -		exp_status = HIBMC_HPD_IN;
+>>    	} else {
+>>    		drm_dbg_dp(&priv->dev, "HPD OUT isr occur!\n");
+>> +		if (status != HIBMC_HPD_OUT) {
+>> +			drm_err(&priv->dev, "HPD status (%d) error", status);
+>> +			goto exit;
+>> +		}
+>>    		hibmc_dp_reset_link(&priv->dp);
+>> -		exp_status = HIBMC_HPD_OUT;
+>>    	}
+>>    
+>> -	if (hibmc_dp_check_hpd_status(&priv->dp, exp_status))
+>> -		drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>> +	drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>>    
+>> +exit:
+>>    	drm_dev_exit(idx);
+>>    
+>>    	return IRQ_HANDLED;
+>> @@ -223,6 +229,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>>    
+>>    	dp->mmio = priv->mmio;
+>>    	dp->drm_dev = dev;
+>> +	dp->hpd_status = HIBMC_HPD_OUT;
+>>    
+>>    	ret = hibmc_dp_hw_init(&priv->dp);
+>>    	if (ret) {
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> index 4d85c89f3f88..e5cca7b63b78 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> @@ -63,6 +63,7 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
+>>    	status = readl(priv->mmio + HIBMC_DP_INTSTAT);
+>>    	if (status) {
+>>    		priv->dp.irq_status = status;
+>> +		priv->dp.hpd_status = hibmc_dp_get_hpd_status(&priv->dp);
+>>    		writel(status, priv->mmio + HIBMC_DP_INTCLR);
+>>    		return IRQ_WAKE_THREAD;
+>>    	}
+> 
 
