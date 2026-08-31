@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CD21C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E768C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 773B310E8A5;
-	Mon, 31 Aug 2026 13:45:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7A510E8A8;
+	Mon, 31 Aug 2026 13:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RmVkmSc2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QvWoi8FG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA0F210E8A3;
- Mon, 31 Aug 2026 13:45:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9DF510E8A6
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:45:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 993BC40B56;
- Mon, 31 Aug 2026 13:45:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4641F00ADB;
- Mon, 31 Aug 2026 13:45:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 900AE42B01;
+ Mon, 31 Aug 2026 13:45:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1423C1F000E9;
+ Mon, 31 Aug 2026 13:45:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183904;
- bh=hmK0RXrnJ268dKPF54g8Nt8vjQBqRHmDylIKk4zmaz8=;
+ s=k20260515; t=1788183926;
+ bh=TjMfBZZn7+QO5Fcxtz741lDPmRz3T3sRXBvHnbkWb5k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=RmVkmSc2y6MNai0L9Xbnpp70RYSkFBkSiP9S08H4llqewDTMJ2D8uy9hI3wclsXPE
- 8DiHdvVXVsKZNxmipmiZRvJ6QuVQU/7JBMw+6bFeHR6M3/8jQ+PPnIsbEXZw/U/xSl
- F5hKft9k9sJULaqsaI+vhG2HtXCi6iX0qDxct6000ME3zR6HHtY0wImc+5kGEAO6rH
- 3NbxPmiu9d68wc3gdhhJSaVSCuThF0rlARdz3WNNm142/3M+wu69wzOABXAGhwBZaz
- rW4smGzkli+Skk9Ae1MPcxM7LA0GhmalqrPDoJZTfMPKUwF+tXxnpKO3EyWiz1G5qH
- gfKrBWWhnhY9w==
+ b=QvWoi8FG0sfYwo6+f1KMhRqGGoS2dc5iv9Fv8A0v2N2eOouuZBnqSQndR5SfIuFg4
+ rW395T8Q29uTBuAw/leEg3kIbSrQ+ljSc/X4ztjdwe9K4iP2eKDhAjfplmKbwMdRw0
+ 2dMTcc5Cr6ANl6+X6Asv/4UhWecsRxLJwgd4gbkwtgfRPrk7Qj3woqn8JD2JQIbCRn
+ vqgY7u4dzeDmTWb2wr4Tjmby+mu4yv6xXGH95QSsSXj2O3ov4liOmKktXg+tMScP8K
+ I9mMa0/3Rrc2Xd8P8qIqPTH32huVnVx3TBFe0mjC6309WkqoVIO+OtmbBEMybUYjGF
+ dc7gv6BrPacRw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>,
+ Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: check and drop invalid bad page
- records
-Date: Mon, 31 Aug 2026 09:26:40 -0400
-Message-ID: <20260831133314.4125787-372-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add BOE NT140WHM-N4T,
+ BOE NT140WHM-T05, BOE NV140FHM-N40
+Date: Mon, 31 Aug 2026 09:26:53 -0400
+Message-ID: <20260831133314.4125787-385-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,444 +67,407 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: YiPeng Chai <YiPeng.Chai@amd.com>
+From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
 
-[ Upstream commit 3999aa4a04a04167d70bfe4dc3ba239257e5b5df ]
+[ Upstream commit a58ff7da4835e76a5ffc078ecfd2773de90e5d8c ]
 
-Check and drop invalid bad page records.
+The raw EDIDs for each panel:
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+BOE NT140WHM-N4T
+00 ff ff ff ff ff ff 00 09 e5 0d 09 00 00 00 00
+01 1e 01 04 95 1f 11 78 03 f8 45 96 57 54 92 28
+23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 a9 1d 56 d0 50 00 24 30 30 20
+36 00 35 ae 10 00 00 1a c6 13 56 d0 50 00 24 30
+30 20 36 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 40 ff 0a 3c 7d 11 11 21 7d 00 00 00 00 65
+
+BOE NT140WHM-T05
+00 ff ff ff ff ff ff 00 09 e5 85 0b 00 00 00 00
+01 21 01 04 95 1f 11 78 03 ea a5 93 5c 58 8f 29
+1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 c7 1d 56 e2 50 00 1e 30 30 20
+36 00 35 ae 10 00 00 1a da 13 56 e2 50 00 1e 30
+30 20 36 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 40 ff 0a 3c 7d 11 11 21 7d 00 00 00 00 4e
+
+BOE NV140FHM-N40
+00 ff ff ff ff ff ff 00 09 e5 6f 0c 00 00 00 00
+19 21 01 04 a5 1f 11 78 03 21 35 97 59 57 8f 29
+23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 c2 37 80 cc 70 38 28 40 6c 30
+aa 00 35 ae 10 00 00 1a 2c 25 80 cc 70 38 28 40
+6c 30 aa 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 36 ff 0a 3c 96 09 0a 19 96 00 00 00 01 57
+
+70 20 79 02 00 25 01 09 8c 2d 02 8c 2d 02 28 3c
+80 81 00 10 6f 1a 00 00 03 01 28 3c 00 00 53 4a
+53 4a 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 e4 90
+
+Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260506170607.10813-3-terry_hsiao@compal.corp-partner.google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: drm/panel-edp BOE Panel Additions
 
-**Step 1.1 — Subject line**
-
-Record: `[drm/amdgpu]` `[check]` — validate and discard invalid RAS
-EEPROM bad-page records before they are applied to VRAM reservation /
-in-kernel bad-page tables.
-
-**Step 1.2 — Tags**
-
-Record:
-- Signed-off-by: YiPeng Chai \<YiPeng.Chai@amd.com\> (author)
-- Reviewed-by: Tao Zhou \<tao.zhou1@amd.com\> (AMD RAS reviewer; also
-  author of prior range-check work in this tree)
-- Signed-off-by: Alex Deucher \<alexander.deucher@amd.com\> (amdgpu
-  maintainer)
-- No Fixes:, Reported-by:, Link:, Cc: stable@vger.kernel.org, Tested-
-  by:, or Acked-by:
-
-Notable: reviewed by subsystem expert; no public bug report in the
-commit message.
-
-**Step 1.3 — Body**
-
-Record:
-- Bug description: EEPROM / RAS bad-page records may contain
-  `retired_page` values outside usable VRAM.
-- Symptom/failure mode: not spelled out in the message; code adds
-  `dev_warn()` and refuses to process out-of-range records.
-- Version info: none in message.
-- Root cause (from code): validation used `mc_vram_size` in some paths
-  (commit `2b17c240e8cd9`, already in 6.18.y), but reservation and
-  restore still lacked checks against `real_vram_size`, which can be
-  smaller than `mc_vram_size` when `amdgpu_vram_limit` is set
-  (`amdgpu_gmc_vram_location()` in `amdgpu_gmc.c`).
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** Despite the terse message, this is a defensive
-correctness fix: it prevents out-of-range PFNs from reaching
-`amdgpu_ras_reserve_page()` → `amdgpu_vram_mgr_reserve_range()` and adds
-a batch guard in `__amdgpu_ras_restore_bad_pages()` on EEPROM load.
+**Local tree:** `v6.18.43-1-gc7f0dac02d232` (kernel 6.18.43)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: Subject Line
+**Record:** `[drm/panel-edp]` `[Add]` — Add three BOE eDP panel entries
+(NT140WHM-N4T, NT140WHM-T05, NV140FHM-N40) with power-sequencing delay
+profiles.
 
-Record:
-- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c` (+22 lines net)
-- Functions: new `__check_record_in_range()`; modified
-  `__amdgpu_ras_restore_bad_pages()`, `amdgpu_ras_reserve_page()`
-- Scope: single-file, surgical
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Terry Hsiao `<terry_hsiao@compal.corp-
+  partner.google.com>` (author)
+- **Reviewed-by:** Douglas Anderson `<dianders@chromium.org>`
+  (drm/panel-edp maintainer)
+- **Signed-off-by:** Douglas Anderson `<dianders@chromium.org>`
+  (maintainer merge)
+- **Link:** `https://patch.msgid.link/20260506170607.10813-3-
+  terry_hsiao@compal.corp-partner.google.com`
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
+  syzbot tags
+- Notable: Reviewed and merged by subsystem maintainer; no user bug
+  reports cited
 
-**Step 2.2 — Code flow**
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug description:** None stated. Commit provides raw EDID dumps for
+  three BOE 14" eDP panels and adds matching entries to the
+  `edp_panels[]` timing table.
+- **Symptom/failure mode:** Without entries, panels fall back to
+  conservative (non-optimized) power-sequencing delays with a `WARN_ON`
+  (verified in `generic_edp_panel_probe()`).
+- **Version info:** None in message.
+- **Root cause:** Panels need panel-specific eDP power-sequencing
+  delays; the generic fallback is intentionally conservative and
+  suboptimal.
 
-Record:
-- Hunk 1 (`__check_record_in_range`): before — no upfront validation of
-  EEPROM batch; after — if any `retired_page >= real_vram_size >>
-  page_shift`, warn and return false.
-- Hunk 2 (`__amdgpu_ras_restore_bad_pages`): before — processes all
-  records; after — if batch check fails, return 0 immediately (drop
-  entire batch).
-- Hunk 3 (`amdgpu_ras_reserve_page`): before — only critical-address
-  check, then buddy reservation; after — early return with warning for
-  PFN beyond `real_vram_size`.
-
-**Step 2.3 — Bug mechanism**
-
-Record:
-- Category: **logic / bounds validation** (prevents invalid VRAM
-  reservations and inconsistent bad-page state).
-- Mechanism: corrupt or stale EEPROM entries (or entries beyond
-  `real_vram_size` after VRAM limiting) could reach VRAM buddy allocator
-  reservation. Existing `amdgpu_ras_check_bad_page_unlock()` (6.18.y)
-  validates against `mc_vram_size`, not `real_vram_size`.
-  `amdgpu_ras_reserve_page()` had no upper-bound check at all and is
-  called directly from `umc_v12_0.c` on ECC error paths.
-
-**Step 2.4 — Fix quality**
-
-Record: Fix is minimal and obviously correct for bounds checking.
-Regression risk is low. One nuance: if **any** record in a batch is out
-of range, **all** records are dropped (conservative, not per-record
-filtering). No deadlock or API change.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-
-Record:
-- `amdgpu_ras_reserve_page()` introduced by YiPeng Chai (2024-03-29),
-  present since before 6.18.y.
-- `__amdgpu_ras_restore_bad_pages()` core loop from 2025-02-24; related
-  fixes by Tao Zhou (July 2025).
-- Target commit `3999aa4a04a04` dated 2026-05-12; **not** in current
-  tree (6.18.44).
-
-**Step 3.2 — Fixes: tag**
-
-Record: N/A — no Fixes: tag.
-
-**Step 3.3 — Related commits**
-
-Record:
-- `2b17c240e8cd9` — "add range check for RAS bad page address" — **IN
-  6.18.y**; checks `mc_vram_size` in
-  `amdgpu_ras_check_bad_page_unlock()`.
-- `0b7f78caeffa5` — "Move ras data alloc before bad page check" — **IN
-  6.18.y**; fixed NULL deref in sysfs bad-pages read when EEPROM had
-  only invalid entries.
-- `0028b86b52f76` — "mark invalid records with U64_MAX" — **NOT in
-  6.18.y** (mainline only).
-- `3fc96f60b61ce` — critical-address check in
-  `amdgpu_ras_reserve_page()` — **IN 6.18.y**.
-- This commit is standalone (not part of a numbered series).
-
-**Step 3.4 — Author context**
-
-Record: YiPeng Chai is a regular amdgpu/RAS contributor (reserve_page
-author, critical-address work). Tao Zhou reviewed and authored the prior
-range-check commit.
-
-**Step 3.5 — Dependencies**
-
-Record: No prerequisites. Patch applies cleanly to 6.18.y (`git apply
---check` succeeded). Uses `adev->gmc.real_vram_size` and
-`AMDGPU_GPU_PAGE_SHIFT`, both present in this tree.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is explicit hardware enablement / timing quirk
+data, not a disguised crash or leak fix. Wrong delays can still cause
+flicker or suspend/resume issues on real hardware, but the commit does
+not document a specific failure.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 2: DIFF ANALYSIS
 
-**Step 4.1 — Original discussion**
+### Step 2.1: Inventory
+**Record:**
+- **Files:** `drivers/gpu/drm/panel/panel-edp.c` (+3 lines)
+- **Functions modified:** None; only `edp_panels[]` static table
+- **Scope:** Single-file, surgical hardware-quirk addition
 
-Record: `b4 dig -c 3999aa4a04a04` — **no lore match found**. Phase not
-fully applicable.
+### Step 2.2: Code Flow Change
+**Record:**
+| Hunk | Before | After |
+|------|--------|-------|
+| `0x090d` entry | Unknown BOE panel → conservative timings |
+`NT140WHM-N4T` → `delay_200_500_e50` |
+| `0x0b85` entry | Unknown BOE panel → conservative timings |
+`NT140WHM-T05` → `delay_200_500_e50` |
+| `0x0c6f` entry | Unknown BOE panel → conservative timings |
+`NV140FHM-N40` → `delay_200_500_e50` |
 
-**Step 4.2 — Reviewers**
+Affected path: `generic_edp_panel_probe()` → `find_edp_panel()` →
+`desc->delay` applied during `panel_edp_prepare()` /
+`panel_edp_enable()`.
 
-Record: `b4 dig -w` not run (no thread found). Reviewed-by Tao Zhou and
-Signed-off-by Alex Deucher verified from `git show`.
+### Step 2.3: Bug Mechanism
+**Record:** **Category (h): Hardware workaround / panel timing quirk.**
+Panels are identified by EDID panel ID at probe; missing entries trigger
+`panel_edp_set_conservative_timings()` (`unprepare=2000ms`,
+`enable=200ms`) instead of optimized `delay_200_500_e50`
+(`hpd_absent=200`, `unprepare=500`, `enable=50`).
 
-**Step 4.3 — Bug report**
-
-Record: N/A — no Reported-by/Link tags; no public thread found.
-
-**Step 4.4 — Related series**
-
-Record: Related mainline-only work (`U64_MAX` invalid-record marking)
-not in 6.18.y; this commit is independently useful without it.
-
-**Step 4.5 — Stable list**
-
-Record: Not searched (no lore thread to anchor a stable@ query). Related
-NULL-deref fix (`0b7f78caeffa5`) was already backported to 6.18.y,
-showing this problem class is stable-worthy.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-
-Record: `__check_record_in_range()`, `__amdgpu_ras_restore_bad_pages()`,
-`amdgpu_ras_reserve_page()`.
-
-**Step 5.2 — Callers**
-
-Record:
-- `__amdgpu_ras_restore_bad_pages()` ← `amdgpu_ras_add_bad_pages()` ←
-  `amdgpu_ras_load_bad_pages()` (boot/RAS init EEPROM load) and runtime
-  UMC error paths.
-- `amdgpu_ras_reserve_page()` ← `__amdgpu_ras_restore_bad_pages()` and
-  `umc_v12_0.c` ECC handler (line 609).
-
-**Step 5.3 — Callees**
-
-Record: `amdgpu_vram_mgr_reserve_range()`,
-`amdgpu_vram_mgr_query_page_status()`, `dev_warn()`,
-`amdgpu_ras_check_critical_address()`.
-
-**Step 5.4 — Reachability**
-
-Record: Triggered on boot when RAS EEPROM has records
-(`amdgpu_ras_load_bad_pages()` during RAS init) and at runtime on UMC
-ECC events. Requires `CONFIG_DRM_AMDGPU` + RAS-capable AMD hardware
-(datacenter/workstation GPUs). Not a generic syscall path, but real
-production hardware.
-
-**Step 5.5 — Similar patterns**
-
-Record: `2b17c240e8cd9` added `mc_vram_size` checks in
-`amdgpu_ras_check_bad_page_unlock()`. This commit closes the
-`real_vram_size` gap and protects the direct `amdgpu_ras_reserve_page()`
-entry point. In 6.18.y, `__amdgpu_ras_restore_bad_pages()` still uses
-`if (amdgpu_ras_check_bad_page_unlock(...))` as a boolean despite the
-function returning `int` (-EINVAL/0/1), which can mishandle `-EINVAL`
-(truthy) without adding a record — another reason upfront validation
-helps.
+### Step 2.4: Fix Quality
+**Record:** Obviously correct — EDID product IDs in the commit message
+match the hex IDs in the table (`0x090d`, `0x0b85`, `0x0c6f`). All three
+reuse an existing, widely-used delay profile already used by dozens of
+BOE entries in this tree. Minimal regression risk.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 6.1 — Buggy code present?**
+### Step 3.1: Blame
+**Record:** Insertion points are in the BOE section of `edp_panels[]`,
+last touched in this tree by `b173ba3365ff0` (NV140WUM-T08, Jan 2026)
+and `5d324e5159d9e` (base 6.18 merge, Nov 2025). The table structure and
+`find_edp_panel()` logic are mature.
 
-Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
-`__check_record_in_range()` and the `amdgpu_ras_reserve_page()` bounds
-guard are absent. `amdgpu_ras_reserve_page()` at lines 5366–5383 has
-only the critical-address check, no `real_vram_size` upper bound.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
 
-**Step 6.2 — Backport complications**
+### Step 3.3: Related Changes
+**Record:** Part of Terry Hsiao's v1 4-patch series (`20260507_...mbx`),
+patch 2/4. This patch is standalone — it only adds three table rows and
+does not depend on patches 1, 3, or 4. Similar panel additions already
+in this 6.18.y tree: `0bd968c04acfb`, `6ca4647a74155`, `b173ba3365ff0`.
 
-Record: **Clean apply** verified. No structural conflicts with 6.18.y
-`amdgpu_ras.c`.
+### Step 3.4: Author Context
+**Record:** Terry Hsiao (Compal/Google Chromebook partner). Douglas
+Anderson reviewed and signed off — he is the drm/panel-edp maintainer
+and author of much of this driver.
 
-**Step 6.3 — Related fixes already present?**
-
-Record: Partial coverage from `2b17c240e8cd9` (`mc_vram_size` in
-`amdgpu_ras_check_bad_page_unlock`) and `0b7f78caeffa5` (NULL deref on
-all-invalid EEPROM). This commit's `real_vram_size` checks and
-`amdgpu_ras_reserve_page()` guard are **not** already present.
-
----
-
-## Phase 7: Subsystem Context
-
-**Step 7.1 — Subsystem / criticality**
-
-Record: `drivers/gpu/drm/amd/amdgpu` — RAS (Reliability, Availability,
-Serviceability) / VRAM error handling. **IMPORTANT** for AMD enterprise
-GPU users; not core-kernel-wide.
-
-**Step 7.2 — Activity**
-
-Record: Active subsystem in 6.18.y (multiple RAS fixes in recent history
-on `amdgpu_ras.c`).
+### Step 3.5: Dependencies
+**Record:** None. `delay_200_500_e50` and `EDP_PANEL_ENTRY` macro both
+exist in the local tree. Applies cleanly at sorted insertion points.
 
 ---
 
-## Phase 8: Impact and Risk
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 8.1 — Who is affected**
+### Step 4.1: Original Discussion
+**Record:** Local mbox `20260507_terry_hsiao_drm_panel_edp_add_and_updat
+e_multiple_auo_boe_cmn_and_ivo_panels.mbx` contains the v1 submission.
+`b4 dig -c` could not be run (no upstream commit hash in this checkout).
+Lore URL blocked by bot protection.
 
-Record: Users of AMD GPUs with RAS page retirement enabled, especially
-MI-series / CDNA / Instinct and other ECC-capable cards loading bad-page
-records from EEPROM at boot or on UMC errors.
+### Step 4.2: Reviewers
+**Record:** Reviewed-by and Signed-off-by: Douglas Anderson
+(maintainer). Author domain: `compal.corp-partner.google.com`
+(Chromebook OEM).
 
-**Step 8.2 — Trigger conditions**
+### Step 4.3: Bug Reports
+**Record:** None. No Reported-by, syzbot, or bugzilla links.
 
-Record: Corrupt, migrated, or out-of-date EEPROM bad-page records; or
-`real_vram_size < mc_vram_size` via `amdgpu_vram_limit`. Uncommon but
-plausible on long-lived server GPUs. Not unprivileged-triggerable
-directly; tied to hardware error state / EEPROM content.
+### Step 4.4: Series Context
+**Record:** v1 2/4 of a 4-patch series adding AUO/BOE/CMN/IVO panels
+plus one CMN correction. This commit is independently applicable.
 
-**Step 8.3 — Failure mode severity**
-
-Record: Without fix: attempted reservation of out-of-range VRAM
-(`amdgpu_vram_mgr_reserve_range()` may fail silently in
-`amdgpu_vram_mgr_do_reserve()`), inconsistent bad-page counts (related
-NULL-deref class already hit stable), potential RAS tracking corruption.
-Severity: **MEDIUM-HIGH** for affected hardware (reliability feature
-breakage, possible oops in related paths already seen and fixed
-separately).
-
-**Step 8.4 — Risk/benefit**
-
-Record:
-- Benefit: **MEDIUM-HIGH** for RAS users — prevents invalid VRAM
-  reservations and drops clearly bad EEPROM batches.
-- Risk: **LOW** — ~22 lines, warn-and-skip semantics, reviewed by AMD.
-- Ratio: favorable for backport.
+### Step 4.5: Stable List Discussion
+**Record:** No stable-specific discussion found in the local mbox. No
+stable nomination in patch headers.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 9.1 — Evidence**
+### Step 5.1: Key Functions
+**Record:** `find_edp_panel()`, `generic_edp_panel_probe()`,
+`panel_edp_prepare_once()`, `panel_edp_enable()` — only the table data
+feeding these is changed.
 
-FOR:
-- Real bounds-validation gap in 6.18.y (`real_vram_size` vs
-  `mc_vram_size`).
-- `amdgpu_ras_reserve_page()` unguarded; called from runtime ECC path.
-- EEPROM restore path lacks batch validation.
-- Small, reviewed, applies cleanly.
-- Same RAS/EEPROM invalid-record problem class already warranted stable
-  fixes (NULL deref in `0b7f78caeffa5`).
+### Step 5.2: Callers
+**Record:** `generic_edp_panel_probe()` called from `panel_edp_probe()`
+during device probe. `panel_edp_prepare_once()` / `panel_edp_enable()`
+called on every display power-on/resume via DRM panel ops — common
+laptop/Chromebook path.
 
-AGAINST:
-- Sparse commit message (no explicit crash report).
-- Niche hardware (RAS-enabled AMD GPUs only).
-- Drops entire batch if any record is invalid (conservative).
-- Partial overlap with `2b17c240e8cd9` (but does not fully subsume this
-  fix).
+### Step 5.3: Callees
+**Record:** Timing delays drive `msleep()` / `panel_edp_wait()` in
+prepare/enable/disable paths; `regulator_enable()`, HPD polling.
 
-UNRESOLVED:
-- No lore thread or user bug report found.
-- Exact user-visible failure without this patch on 6.18.y not reproduced
-  here (inferred from code paths and related fixes).
+### Step 5.4: Reachability
+**Record:** Triggered at boot and on every suspend/resume for machines
+using `panel-edp` with these BOE panels. Userspace cannot directly
+trigger, but all display users are affected.
 
-**Step 9.2 — Stable rules checklist**
+### Step 5.5: Similar Patterns
+**Record:** Dozens of identical one-line `EDP_PANEL_ENTRY` additions in
+this file; three recent ones already backported to 6.18.y in this
+checkout.
 
-1. Obviously correct and tested? **PASS** — straightforward bounds
-   checks; Reviewed-by from AMD; no Tested-by.
-2. Fixes a real bug? **PASS** — prevents out-of-range VRAM reservations
-   and invalid EEPROM restore.
-3. Important issue? **PASS** — MEDIUM-HIGH for RAS/enterprise GPU
-   reliability; related crash class already backported.
-4. Small and contained? **PASS** — single file, ~22 lines.
-5. No new features/APIs? **PASS** — validation only.
-6. Can apply to local tree? **PASS** — clean apply verified.
+---
 
-**Step 9.3 — Exception category**
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
-Record: N/A (not device ID, quirk, DT, build, or docs).
+### Step 6.1: Buggy Code Present?
+**Record:** Yes. The three panel IDs (`0x090d`, `0x0b85`, `0x0c6f`) are
+**not** in the local tree (grep returned no matches). Unknown panels
+currently hit the conservative-timing fallback. The driver and full
+`edp_panels[]` table exist.
 
-**Step 9.4 — Decision rationale**
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected.** Insertion points verified against
+current file: after `div class="highlight">0x0849`, after `0x0b66`,
+after `0x0c26` — all in correct sorted order.
 
-For the **6.18.y** tree checked out here, this commit closes a real
-validation hole in amdgpu RAS bad-page handling. The tree already has
-partial protection (`mc_vram_size` checks) and a related NULL-deref fix,
-but still lacks `real_vram_size` validation and an
-`amdgpu_ras_reserve_page()` guard. The fix is small, low-risk, and
-targets production RAS hardware where EEPROM corruption or VRAM limiting
-can produce out-of-range records.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No — these three panel IDs are absent. Other patches from
+the same series (AUO B140HAN07.7, CMN/IVO panels) are also not present.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem
+**Record:** `drivers/gpu/drm/panel` — DRM panel driver. **Criticality:
+IMPORTANT** (display on laptops/Chromebooks; not universal core kernel,
+but affects all users of affected hardware).
+
+### Step 7.2: Activity
+**Record:** Actively maintained — three panel-edp additions backported
+to this 6.18.y tree in recent months.
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who Is Affected
+**Record:** Users of laptops/Chromebooks with BOE NT140WHM-N4T,
+NT140WHM-T05, or NV140FHM-N40 eDP panels using the generic `panel-edp`
+driver.
+
+### Step 8.2: Trigger Conditions
+**Record:** Every boot and resume when these panels are present. Common
+on new Chromebook hardware from Compal/Google ecosystem.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Without fix: `WARN_ON` + conservative timings. Display
+likely still works (driver comment: "highly likely"), but with wrong
+power-sequencing delays that can cause flicker, slow resume, or
+intermittent display failures. **Severity: MEDIUM** (functional
+degradation, not kernel crash or data corruption).
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Correct power sequencing for three real panels;
+  eliminates WARN splat; matches established stable practice for this
+  driver in 6.18.y
+- **Risk:** Very low — 3 lines, existing delay profile, maintainer-
+  reviewed
+- **Ratio:** Favorable for stable
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Stable exception category: hardware quirk / panel timing table entry
+  (analogous to device ID additions)
+- Tiny, obviously correct, maintainer-reviewed
+- Applies cleanly to 6.18.43
+- Identical patch type already backported to this tree (`0bd968c04acfb`,
+  `6ca4647a74155`, `b173ba3365ff0`)
+- Wrong eDP power sequencing can cause real suspend/resume/display
+  issues
+- Standalone within a series
+
+**AGAINST backport:**
+- No documented crash, security issue, or user bug report
+- Fallback conservative timings exist — not a hard failure
+- Arguably "new hardware support" rather than fixing a regression
+- Panels may be on very new Chromebooks not yet widespread on 6.18.y
+
+**Unresolved:** No upstream commit hash in this checkout; lore thread
+inaccessible; no Tested-by on specific hardware models named in commit.
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — EDID IDs verified;
+   maintainer reviewed; delay profile matches sibling BOE panels
+2. Fixes real bug affecting users? **PASS** (borderline) — fixes
+   incorrect power sequencing for known hardware; fallback works but is
+   suboptimal
+3. Important issue? **PASS (MEDIUM)** — display reliability / suspend-
+   resume, not crash/corruption
+4. Small and contained? **PASS** — 3 lines, one file
+5. No new features/APIs? **PASS** — table entries only, no API change
+6. Can apply to local tree? **PASS** — driver and dependencies present;
+   clean apply
+
+### Step 9.3: Exception Category
+**Record:** Hardware quirk / panel timing workaround — the stable-rules
+exception for quirks that fix real-world hardware behavior. Same
+category as the panel-edp additions already in 6.18.y.
+
+### Step 9.4: Decision Rationale
+For 6.18.43, this commit adds three BOE panel timing entries to an
+existing, actively-maintained driver. The pattern is routinely accepted
+for stable in this tree. While not a crash fix, correct eDP power
+sequencing is a hardware quirk fix with low risk and clear benefit for
+affected laptop/Chromebook users. Precedent in this exact tree strongly
+supports backporting.
 
 ---
 
 ## Verification
 
-- [Phase 1] `git show 3999aa4a04a04` — parsed subject, tags, body
-- [Phase 2] Diff from user query + `git show 3999aa4a04a04` — 22-line
-  change in `amdgpu_ras.c`
-- [Phase 3] `git describe HEAD` → v6.18.44; `git merge-base --is-
-  ancestor 3999aa4a04a04 HEAD` → NOT IN TREE; `2b17c240e8cd9` → IN TREE
-- [Phase 3] `git log --oneline -20 --
-  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c` — related RAS history
-- [Phase 3] `git show 2b17c240e8cd9`, `0b7f78caeffa5`, `0028b86b52f76` —
-  related commits examined
-- [Phase 3] `git blame` on restore loop and `amdgpu_ras_reserve_page`
-- [Phase 4] `b4 dig -c 3999aa4a04a04` — no lore match
-- [Phase 5] `Grep` callers of `amdgpu_ras_reserve_page`,
-  `__amdgpu_ras_restore_bad_pages`
-- [Phase 5] Read `umc_v12_0.c:609`, `amdgpu_vram_mgr.c:298-327`,
-  `amdgpu_gmc.c:217-222`
-- [Phase 6] `Grep` for `__check_record_in_range` — not in tree
-- [Phase 6] `git show 3999aa4a04a04 --format= --
-  drivers/.../amdgpu_ras.c | git apply --check` — clean apply
-- [Phase 6] Read current `amdgpu_ras_reserve_page()` at lines 5366–5383
-  — no range guard
-- [Phase 8] Confirmed `real_vram_size` can be reduced below
-  `mc_vram_size` via `amdgpu_vram_limit` in `amdgpu_gmc_vram_location()`
+- [Phase 1] `git describe HEAD` → v6.18.43; parsed subject, tags, body
+  from user-provided commit
+- [Phase 1] No Fixes:/Reported-by:/syzbot tags found
+- [Phase 2] Diff: 3 `EDP_PANEL_ENTRY` lines in `panel-edp.c`
+- [Phase 2] Read `generic_edp_panel_probe()` lines 759–832: unknown
+  panel → `WARN_ON` + conservative timings
+- [Phase 2] Read `panel_edp_set_conservative_timings()` lines 740–754:
+  unprepare=2000, enable=200
+- [Phase 2] Read `delay_200_500_e50` lines 1739–1743: hpd_absent=200,
+  unprepare=500, enable=50
+- [Phase 2] Verified EDID bytes → panel IDs: 0x090d, 0x0b85, 0x0c6f
+- [Phase 3] `git log --oneline -5 -- drivers/gpu/drm/panel/panel-edp.c`
+  → recent panel additions present
+- [Phase 3] `git show 0bd968c04acfb`, `b173ba3365ff0`, `6ca4647a74155` →
+  identical patch type already in 6.18.y
+- [Phase 3] `git blame -L 1981,1983` → insertion context confirmed
+- [Phase 4] Read local mbox/cover files; Reviewed-by: Douglas Anderson
+  confirmed
+- [Phase 4] `b4 dig` failed (no commit hash); lore URL blocked by bot
+  protection
+- [Phase 4] No stable nominations found in mbox
+- [Phase 5] Grep `desc->delay` → delays used in prepare/enable/disable
+  paths
+- [Phase 6] Grep for `0x090d|0x0b85|0x0c6f|NT140WHM-N4T` → **not
+  present** in local tree
+- [Phase 6] Grep for `delay_200_500_e50` → present; `EDP_PANEL_ENTRY`
+  macro present
+- [Phase 6] Verified insertion points at lines 1956, 1981, 1983 match
+  diff context
+- [Phase 7] Three prior panel-edp backports confirmed in `git log
+  --grep`
+- [Phase 8] Failure mode: conservative fallback, WARN_ON — severity
+  MEDIUM, not CRITICAL
 
-**YES**The background git searches finished and matched what we already
-had:
+**YES**
 
-- **`3999aa4a04a04`** — `drm/amdgpu: check and drop invalid bad page
-  records` (the commit under review)
-- **`2b17c240e8cd9`** — earlier related fix, `drm/amdgpu: add range
-  check for RAS bad page address`, already in **6.18.44**
+ drivers/gpu/drm/panel/panel-edp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-That confirms the new commit is on master but not in this stable tree,
-while only partial protection exists today. The backport recommendation
-stands: **YES** for **6.18.y**.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 27 +++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 9df691364a18c..4c1a65fffede7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2884,6 +2884,25 @@ static int amdgpu_ras_mca2pa(struct amdgpu_device *adev,
- 		return  -EINVAL;
- }
- 
-+static bool __check_record_in_range(struct amdgpu_device *adev,
-+			struct eeprom_table_record *bps, int count)
-+{
-+	int i;
-+
-+	for (i = 0; i < count; i++) {
-+		if (bps[i].retired_page >=
-+			(adev->gmc.real_vram_size >> AMDGPU_GPU_PAGE_SHIFT)) {
-+			dev_warn(adev->dev,
-+				"Recorded address out of range: 0x%llx, 0x%llx, 0x%x, 0x%x\n",
-+				bps[i].address, bps[i].retired_page,
-+				bps[i].mem_channel, bps[i].mcumc_id);
-+			return false;
-+		}
-+	}
-+
-+	return true;
-+}
-+
- static int __amdgpu_ras_restore_bad_pages(struct amdgpu_device *adev,
- 					struct eeprom_table_record *bps, int count)
- {
-@@ -2891,6 +2910,9 @@ static int __amdgpu_ras_restore_bad_pages(struct amdgpu_device *adev,
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_err_handler_data *data = con->eh_data;
- 
-+	if (!__check_record_in_range(adev, bps, count))
-+		return 0;
-+
- 	for (j = 0; j < count; j++) {
- 		if (!data->space_left &&
- 		    amdgpu_ras_realloc_eh_data_space(adev, data, 256)) {
-@@ -5370,6 +5392,11 @@ int amdgpu_ras_reserve_page(struct amdgpu_device *adev, uint64_t pfn)
- 	uint64_t start = pfn << AMDGPU_GPU_PAGE_SHIFT;
- 	int ret = 0;
- 
-+	if (pfn >= (adev->gmc.real_vram_size >> AMDGPU_GPU_PAGE_SHIFT)) {
-+		dev_warn(adev->dev, "Ignoring out-of-range bad page 0x%llx", start);
-+		return 0;
-+	}
-+
- 	if (amdgpu_ras_check_critical_address(adev, start))
- 		return 0;
- 
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index c1ea17a0040be..105074d8cf765 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1959,6 +1959,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x08b2, &delay_200_500_e200, "NT140WHM-N49"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0848, &delay_200_500_e200, "Unknown"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0849, &delay_200_500_e200, "Unknown"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x090d, &delay_200_500_e50, "NT140WHM-N4T"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09c3, &delay_200_500_e50, "NT116WHM-N21,836X2"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x094b, &delay_200_500_e50, "NT116WHM-N21"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0951, &delay_200_500_e80, "NV116WHM-N47"),
+@@ -1984,8 +1985,10 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV140FHM-T09"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140FHM-N47"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b66, &delay_200_500_e80, "NE140WUM-N6G"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b85, &delay_200_500_e50, "NT140WHM-T05"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c20, &delay_200_500_e80, "NT140FHM-N47"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c26, &delay_200_500_p2e200, "NV140WUM-T08"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c6f, &delay_200_500_e50, "NV140FHM-N40"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c93, &delay_200_500_e200, "Unknown"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cb6, &delay_200_500_e200, "NT116WHM-N44"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200, "NV140WUM-N64"),
 -- 
 2.53.0
 
