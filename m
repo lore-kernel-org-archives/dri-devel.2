@@ -4,143 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A0CC61DFD
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 18:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17E8C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 18:46:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5817210EA3C;
-	Mon, 31 Aug 2026 18:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA00B10E32F;
+	Mon, 31 Aug 2026 18:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BUwlRdwb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XyDqBM0Y";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="EgqhIPcq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="nC7rEa1U";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="YBeAtZKL";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="juclcREm";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB0C10EA38
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 18:39:36 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67VIXsR01334973
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 18:39:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=QxMgKDaOstJSBOtr31wH2Ju7
- pPTVHzgnyzroxjk5cwQ=; b=BUwlRdwbqPFH9U8TJUQ8Lxi54h6uiWVZfIhEt1Pz
- fpUKCy9WUIbLxL30OgDarf7W0vW6P5vZqFKpX8b1yCPfhNCroNF35AminW+q+ZMV
- oGLc5JLaJgG8Xr7/qDfOV8dq0zaJdlMiP7XLl6D++oPXOj7+zWl/EHz8FFRA+30z
- SRoz2FMYrXvv0pYaqv95ZkK0iN05JQvZtqbuR4KL6BRAqwrHjuz+A3QL6VjiWgvo
- 2nDjq2zm6RWnpn9Ncib/2pW3aCpkcMV+23asLcdR+d93vRn93Dnzs5ZMEiz8lq9n
- eUD1EcMHC/OlaVcm08nh7Y7f0ZSTK9DFGSrraO9IknmhbQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd8cvt524-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 18:39:35 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-396b9ef3070so891020a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 11:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788201575; x=1788806375;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QxMgKDaOstJSBOtr31wH2Ju7pPTVHzgnyzroxjk5cwQ=;
- b=XyDqBM0YSneeCFvaB6BnYUU/+ORnXVpYgqu3t7T9u3tB0dBSn0aWUGSevqP79A4DKO
- A/6pdCPNbtipzIauKNjZTbLIGP+BUBVIlT5meWz8YZPe6w6qGZp7hm01Im4rBwvnyNas
- VUCLDLhxEwY9rGTq8M/YGMRO93V2mkGCTafUXd7dLgSuIukeZP4VmwKY6EygvfdjP1fF
- CjZKHvO3ho4lDeMXoGvMEDUomR5+mx9NmXFRIYI62kKZ2b/C11wya0YRYxiONGK7AXvs
- jpze9vkIzevkF75f6SR9+EMNIoWZTGBD2KjZCcM32xqqGunq9ae4ya7pPCFen36Mm/YA
- h08g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788201575; x=1788806375;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QxMgKDaOstJSBOtr31wH2Ju7pPTVHzgnyzroxjk5cwQ=;
- b=nK+9dgOblRrtPqUhcmJjDLRNPmk8BSQ59P48OCNolCbvcPFWRRmvTq2WXusoYe1gTA
- u+YVtMrdBdzXMN+thQWAKG8YJbWH64/23Xce9g3v4TwoXkRPPvz4e5OH8b6SCsP3Mkmg
- ZnERSLE7+8AI0Zcq5w+3DyWkmiUy6A5fpEKoE06LP2rdK+NvI8O9NIE1eRFt6tUGFcSk
- TDwzmn5NtTA7gdSURk3q7KQzF4lez8DcqXcuNV6AYklHLaZ+XHxTjWoxVwSTZAM7qNFV
- spznI3YimUkkFplt/Zn3hk0c7P2xwMX/ccWRTOa5sCJvAH6M3qygy6KhH/19+pVkUlCp
- HCNg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxAAXR6T3anmszbo/YWPA85WXDqLryP6Y6v7QFxbVtrZd+nb+8WEu3CtimszkVgiM7FwLqRZdwWOUM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l7o3OgIMAnZQkWuy9VmwVtbEb6L7SUFIlb8Aj+d/Wm1DzEsA5U
- I5vlIY07sAkHE58WuV5SL2O83QH6HArGhOCWHM8Wpzfd3Cizcr7FvbrpOXOiC1Mw4XkYqzyh4CD
- XKoQJ3nwjbjztyM1z8WOhhD4bD4AmoAeyqUZggnTA/lXsjVIGG9o5I9UOKrbwnrHUV7g19kE=
-X-Gm-Gg: AYBFou2LgXiIRz+X0Js5kZ87ySQxlZyeFCDXga07zDcuZzPOlVgWcDHx8INEhFACWkv
- 1nh6wTEUwIJFfgSgQl5bOyuo+MoSCELIjFJLETXGNjndDvvvpRThVAiVO0Qf9amPw2+k6L+BZpj
- kp9uEp6T7gzw1V0vzScz66HUnpPR7tLRX+Kp69bIh2fIfrjXAafvN8M0HCB6IeUk8OL3YdzdT6K
- YvVaBvYuLeqOyogsiXxC/TvFb0cfq65FhJXx2D4tUx/3iomnWghWJVivVqAVwEOjbnn6CY4CYxY
- ziHcYNhhvdwpSweI+sfRzE0ooBsZJ1K7Xt3V53aSES6Iq8L0Nde2iQHUD1SdhNQvIHz8t1ihLhi
- kfTynY3php+1bUXXlnoysGfqh4g==
-X-Received: by 2002:a17:90b:4ac9:b0:392:ca3b:370a with SMTP id
- 98e67ed59e1d1-39907aff7acmr2952480a91.2.1788201574762; 
- Mon, 31 Aug 2026 11:39:34 -0700 (PDT)
-X-Received: by 2002:a17:90b:4ac9:b0:392:ca3b:370a with SMTP id
- 98e67ed59e1d1-39907aff7acmr2952407a91.2.1788201574207; 
- Mon, 31 Aug 2026 11:39:34 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-32874498f9esm28349715eec.20.2026.08.31.11.39.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 11:39:33 -0700 (PDT)
-Date: Tue, 1 Sep 2026 00:09:24 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E754E10E32F
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 18:46:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 191091FB39;
+ Mon, 31 Aug 2026 18:46:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1788202005;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=adPvtYMwlgxXQ7Oro16VusI6wUrO/bduGmk63+FTmQ4=;
+ b=EgqhIPcqIK8FOzqYEOSSv9p+T1HfHj5DIjT4niyvTAAnTF8nQlWNP2iGHHzjAW5UobtSUv
+ QizLi6KssgDUVVr7DdgSeUkY347Sn7153mdnh10gj34iRa19Q7iE1QA/km9861Ap9DT/qa
+ tmo3Juclu3TtmOwiAOBLx4Nl1Y228PY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1788202005;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=adPvtYMwlgxXQ7Oro16VusI6wUrO/bduGmk63+FTmQ4=;
+ b=nC7rEa1UZn0b9zKsR6rgGO2TYjJqzecwwlroyp6adoTDGLc+dlcGmG2zz0iEzfce7I+X42
+ SzDZc8CkkL+CF1Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1788202001;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=adPvtYMwlgxXQ7Oro16VusI6wUrO/bduGmk63+FTmQ4=;
+ b=YBeAtZKLYr8NtYYPfHWJQUldf93VyDOEumoXoW+ykPuYyMRlTNdEO5OAd7fXBCeo3l0tON
+ JJgOmRZk1kNYLcTzsSCRpqSy1sqtOhgLMOOG0pCMJXWQkao0iQIQBbfY2kt1ZTRAk+Z68T
+ e5dyDE4gTMRnq49DY18WARNKfUtgO3E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1788202001;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=adPvtYMwlgxXQ7Oro16VusI6wUrO/bduGmk63+FTmQ4=;
+ b=juclcREmfFICsNOJD/esOOaytQBVFtbNrNCbkyV6xizRTEyDrKjjM3op70xyF/5n3qpasZ
+ Rhv6ZjYDoYaEMlCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B4E9913515;
+ Mon, 31 Aug 2026 18:46:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RfE2KxDMlWridQAAD6G6ig
+ (envelope-from <dsterba@suse.cz>); Mon, 31 Aug 2026 18:46:40 +0000
+Date: Mon, 31 Aug 2026 20:46:31 +0200
+From: David Sterba <dsterba@suse.cz>
+To: David Gow <david@davidgow.net>
+Cc: Jim Cromie <jim.cromie@gmail.com>,
+ "Maciej W . Rozycki" <macro@orcam.me.uk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v11 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <apXKXNBPA1slpAXi@hu-mdsor-hyd.qualcomm.com>
-References: <20260824-lt9611c-v7-v11-0-eb4a79cb597c@oss.qualcomm.com>
- <20260824-lt9611c-v7-v11-2-eb4a79cb597c@oss.qualcomm.com>
- <178766696083.117435.16339828039068931624.b4-review@b4>
- <ea3accea-4c20-488a-97a2-7675f54fe401@kernel.org>
+ Chris Mason <mason@kernel.org>, David Sterba <dsterba@suse.com>,
+ dri-devel@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] fs:btrfs: Use the new global is_power_of_2_u64()
+ helper
+Message-ID: <20260831184631.GI9053@twin.jikos.cz>
+References: <20260830103321.2042968-1-david@davidgow.net>
+ <20260830103321.2042968-3-david@davidgow.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ea3accea-4c20-488a-97a2-7675f54fe401@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE1OSBTYWx0ZWRfX7NdhWLjsdOxT
- M5f6z1bMZElCC5ZFzAmMEujXq2SBC09WI69/VR6qAllVH4cTH5cI7+N0RPc14pPC8f8XUP7R8EH
- amLjSZKKZ4rVOeZYZZlmCcOkWrXxFpM=
-X-Authority-Analysis: v=2.4 cv=JtnBas4C c=1 sm=1 tr=0 ts=6a95ca67 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=BWdvLCTEkTRRry6nPpcA:9 a=CjuIK1q_8ugA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE1OSBTYWx0ZWRfX98cLVL32ebPz
- KT448Jw9G8hLZovCXJXEOl5HCx+1Q+4T+4+TUcx8hk16Ee0L1rMN2yl5m6yI4/5hRwmfKpgA0Uz
- U27uU6efEoOgnS7ZwxPUwug/Hs/pKEfk40cPzwtrx8k0IkGFtzRPWzSg49mKlM1iAmb54yv+1wZ
- AcqVff0hMyafl/0Ve7C8TjV8f4EtAftJKH07w3wfBuvCHt90w7f8zZV43hLwtdLcPiKEdgBSJCL
- Am2WaM45AwacNkYdYpbFU06KsXKlHLXjX75LvLYBka5AqyA9e6wH5BvrdXvA1D6osBYHwUGhKJD
- 9CfN0ksKwt6XPcNlOyuMX72MCb8qyeryF8w1BmKP07N8I+4rC3sA2wJANfdn/6DvjzwNYwY7PbG
- GgCxWeWH9S6uuHU5Pq7CBq8AgNsN3jWGOtCR0WZiC+z0UgO28l7yjVdvKTyaW3OxF5SP3Q5v8Xc
- SrwdhiLn/kyKR6JRoMg==
-X-Proofpoint-GUID: rtiSVThbwqEAfFduVJBm9hwKHOKPGfbT
-X-Proofpoint-ORIG-GUID: rtiSVThbwqEAfFduVJBm9hwKHOKPGfbT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 priorityscore=1501
- adultscore=0 spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310159
+In-Reply-To: <20260830103321.2042968-3-david@davidgow.net>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spamd-Result: default: False [-2.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ HAS_REPLYTO(0.30)[dsterba@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ TAGGED_RCPT(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
+ ARC_NA(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,orcam.me.uk,linux-foundation.org,intel.com,amd.com,nvidia.com,ffwll.ch,kernel.org,suse.com,lists.freedesktop.org,vger.kernel.org];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; REPLYTO_ADDR_EQ_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,davidgow.net:email,suse.cz:replyto,twin.jikos.cz:mid,imap1.dmz-prg2.suse.org:helo];
+ RCVD_COUNT_TWO(0.00)[2]; REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,26 +118,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dsterba@suse.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 25, 2026 at 04:29:32PM +0200, Krzysztof Kozlowski wrote:
-> On 25/08/2026 16:09, Luca Ceresoli wrote:
-> > 
-> >> +static struct i2c_device_id lt9611c_id[] = {
-> >> +	{ "lontium,lt9611c",   (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611C]   },
-> >> +	{ "lontium,lt9611ex",  (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611EX]  },
-> >> +	{ "lontium,lt9611uxd", (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611UXD] },
-> > 
-> > AFAIK there should be no vendor prefix for the i2c_device_id. Have a look
-> > at the docs and other drivers for the best practice.
+On Sun, Aug 30, 2026 at 06:33:17PM +0800, David Gow wrote:
+> btrfs currently provides its own 64-bit safe version of
+> is_power_of_2(), in order to handle 64-bit values on 32-bit systems.
 > 
-> This is because of bugs in the driver, which I reported at v6. Code had
-> NULL ptr and to solve it, instead of fixing it, Lontium added such prefixes.
+> Since other subsystems also have similar helpers, a new implementation
+> has been added to linux/log2.h. Use this instead of the btrfs-specific
+> one.
 > 
-> Obviously this is a no-go and they MUST fix the null pointer in the
-> first place.
-Will remove the prefix in v12.
+> Signed-off-by: David Gow <david@davidgow.net>
+> ---
 > 
-> Best regards,
-> Krzysztof
+> This basically just replaces a btrfs helper with the version in patch 1.
+> It probably doesn't make sense for this series to go in via the btrfs
+> tree, so it's probably worth either accepting the posssibility for a
+> conflict, or sending this patch in separately after the first one lands.
+
+Acked-by: David Sterba <dsterba@suse.com>
+
+As this is library API cleanup, feel free to take it with the rest of
+the series.
