@@ -4,49 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50C6FC624C8
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887C7C624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5032F10E6B0;
-	Mon, 31 Aug 2026 07:00:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E9E10E667;
+	Mon, 31 Aug 2026 07:07:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="O6tCfBFl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q8dYKh1+";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C483610E12A;
- Sun, 30 Aug 2026 03:52:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=obbnz4ftq5eldfwuuhgntm2hh4.protonmail; t=1788061937; x=1788321137;
- bh=Z6ToNGq2/V6g07e6vdvuPs3tY5c2LB9Yk47syczf/sw=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=O6tCfBFldD4d+KHBSlPUNzzaMbKmEYe9Eo6bZKuAVRWYeGyCgg+GnhMWCS/nPe5H/
- pbusTXRkHQm+2U1R4QJ/qJJ6fo4KAqfjCQuh4Z2OED9vYgHieZTHJrgXKGfFKG+app
- m50JXJgjIZtIH2Dlzqb4vHLadUbflIss+wl57XwAyPdehc00faG+LYaPx2tSbcQ1Bx
- mRG/GtOvT9cITBkROhRKw16fSdpd5VnKd8G+zuhKHlq0N2sKQrdi8PIMQrRTT5dVe9
- 7SjhFXdbiS4AKP9AQnHUBNRmFGs+3w9eV5o2D+0udqDrynYTkR35bQQwHd/ylowB9u
- uQB+omFI1rJxA==
-Date: Sun, 30 Aug 2026 03:52:13 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Satyajit Roy <edu042sjroy@proton.me>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Satyajit Roy <sroy14@alum.utk.edu>
-Subject: [PATCH 3/3] drm/amd/display: Rebuild InfoFrames on output color space
- changes
-Message-ID: <20260830035120.937992-4-edu042sjroy@proton.me>
-In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
-References: <20260830035120.937992-1-edu042sjroy@proton.me>
-Feedback-ID: 147615787:user:proton
-X-Pm-Message-ID: d40d737c9fe66aa2ef7b3bf277b0b11bc72a8117
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7100A10E174
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:07:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 267EB4012C
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:07:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 094D3C2BCF4
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788160021;
+ bh=I/KUiJUlh/CXyrY2k44Q/8MqUjKbHw8h8KS+ReIh1Dk=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=q8dYKh1+kSeBC5oWiK3wc1hrfhpAQZSe+sqRM+7iFe+kFiWecspR5kpJoFcw0hIdr
+ O39MFvdHgbqh8oNAzsLqZ6hg5LvgH9VClkq9K2TY2pQS4vzAt/jJXqg1po5TphjPbZ
+ Jdkl/lB3arvh6Ak8lUumX+vyVNWE+r+8S3OYo6qK07Wb6ZvW1trLzQ67TJuPlqeybm
+ RuEeRv0Wm7WidvdAkBKlHJr3U+NcukpX6wGQ71ovfsXIHWjUbU9nxQeSggePvrKyO2
+ MUhx7qnebKXtltnDg4b2zqKpgSMosurH7scUlN6i4LjpZdd6LJmPJuVltApyoMNaum
+ W30unMiCeU80A==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id E3DDFC433E1; Mon, 31 Aug 2026 07:07:00 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221933] Screen brightness dimmer since kernel 7.2 (amdgpu)
+Date: Mon, 31 Aug 2026 07:07:00 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: ANSWERED
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-221933-2300-UH5hvHW6Ps@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221933-2300@https.bugzilla.kernel.org/>
+References: <bug-221933-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 31 Aug 2026 07:00:03 +0000
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,66 +74,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221933
 
-resource_build_info_frame() derives colorimetry and RGB quantization from
-stream->output_color_space. A Broadcast RGB-only atomic commit updates
-that field and reprograms the output CSC, but none of the InfoFrame update
-predicates include output_color_space. The sink can therefore retain the
-previous AVI InfoFrame range while the source starts transmitting a
-different pixel range.
+Artem S. Tashkinov (aros@gmx.com) changed:
 
-Treat an output color space change as an InfoFrame change in update
-classification and in both stream programming paths.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+         Resolution|---                         |ANSWERED
 
-Hardware testing on an HDMI 2.1 television confirmed that its automatic
-black-level selection follows Full to Limited and Limited to Full
-transitions in SDR, HDR, and HDR with VRR active, without a modeset or
-visible link blank.
+--- Comment #1 from Artem S. Tashkinov (aros@gmx.com) ---
+Report here:
 
-Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property=
-")
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 3 +++
- 1 file changed, 3 insertions(+)
+https://gitlab.freedesktop.org/drm/amd/-/issues
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd=
-/display/dc/core/dc.c
-index 1b9bcc3f0d2..8844dbc0415 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3201,6 +3201,7 @@ static struct dc_update_descriptor check_update_surfa=
-ces_for_stream(
- =09=09}
-=20
- =09=09if ((stream_update->hdr_static_metadata && !stream_update->stream->u=
-se_dynamic_meta) ||
-+=09=09=09=09stream_update->output_color_space ||
- =09=09=09=09stream_update->vrr_infopacket ||
- =09=09=09=09stream_update->vsc_infopacket ||
- =09=09=09=09stream_update->vsp_infopacket ||
-@@ -4195,6 +4196,7 @@ static void commit_planes_do_stream_update_sequence(s=
-truct dc *dc,
- =09=09=09=09hwss_add_setup_periodic_interrupt(&seq_state, dc, pipe_ctx);
-=20
- =09=09=09if ((stream_update->hdr_static_metadata && !stream->use_dynamic_m=
-eta) ||
-+=09=09=09=09=09stream_update->output_color_space ||
- =09=09=09=09=09stream_update->vrr_infopacket ||
- =09=09=09=09=09stream_update->vsc_infopacket ||
- =09=09=09=09=09stream_update->vsp_infopacket ||
-@@ -4377,6 +4379,7 @@ static void commit_planes_do_stream_update(struct dc =
-*dc,
- =09=09=09=09hwss_setup_periodic_interrupt(dc, pipe_ctx);
-=20
- =09=09=09if ((stream_update->hdr_static_metadata && !stream->use_dynamic_m=
-eta) ||
-+=09=09=09=09=09stream_update->output_color_space ||
- =09=09=09=09=09stream_update->vrr_infopacket ||
- =09=09=09=09=09stream_update->vsc_infopacket ||
- =09=09=09=09=09stream_update->vsp_infopacket ||
 --=20
-2.51.1
+You may reply to this email to add a comment.
 
-
+You are receiving this mail because:
+You are watching the assignee of the bug.=
