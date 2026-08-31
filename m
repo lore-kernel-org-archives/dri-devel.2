@@ -4,47 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7874C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB331C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A624610E316;
-	Mon, 31 Aug 2026 17:00:06 +0000 (UTC)
-X-Greylist: delayed 1548 seconds by postgrey-1.36 at gabe;
- Mon, 31 Aug 2026 17:00:05 UTC
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7C6C10E312
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:00:05 +0000 (UTC)
-Received: from local
- by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
- id 1x14xL-000000007ih-0eiy; Mon, 31 Aug 2026 16:33:59 +0000
-Date: Mon, 31 Aug 2026 17:33:55 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Allen Chen <allen.chen@ite.com.tw>, Hermes Wu <hermes.wu@ite.com.tw>,
- Pin-yen Lin <treapking@chromium.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Chen-Yu Tsai <wenst@chromium.org>
-Subject: Re: [PATCH v6 00/13] drm/bridge: it6505: DP audio support +
- shared-DAI hw_params fix
-Message-ID: <apWs89912pK8qK37@makrotopia.org>
-References: <cover.1784947240.git.daniel@makrotopia.org>
- <7eebbd9b-3a5e-4d95-bbbb-8ba3a7238383@collabora.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7eebbd9b-3a5e-4d95-bbbb-8ba3a7238383@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3237A10E312;
+	Mon, 31 Aug 2026 17:09:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QMZuxQ1e";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53C1610E312
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:09:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6933860120;
+ Mon, 31 Aug 2026 17:09:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94041F000E9;
+ Mon, 31 Aug 2026 17:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788196175;
+ bh=aMXmj/ThRagC+ZN5eJb1jYwcxTLcgdevLpP6+Vgnh7g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QMZuxQ1esB/PdIJ8nahkMnFss+MyZ0EQN/f1lc5HS8yqwyIt9W3YH2PYB0gWqAgTP
+ lmXk3ZpO4/IzsdypSZan3CFhBej8jxTXGoWdW+FB8iy1J+8yxCsrABxNn3B9u30LTK
+ CExjnmNnX3i9/xoLHFmVRV3QNU1ibgUXh61oqtbLUmpa4ibNrKvnVUtVPT+GU0oqKI
+ xNsPgA8/61/niW8SMkXN8htyDcifwbRKY+jXLY7rQilBlthFvUKfnCvkVZ1ma1B3Dt
+ TtmijIfOeQUW1JhGQ6wtmd1PrecwW1Mh4oJ+j5/Q8kjLcb/KO397qZvEWJ2njXxBRi
+ 9quNacdKE7V9Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] accel/qaic: Add support for AI200 virtual functions
+To: "Youssef Samir" <youssef.abdulrahman@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
+References: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 17:09:34 +0000
+Message-Id: <20260831170934.E94041F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,37 +52,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 27, 2026 at 01:34:12PM +0200, AngeloGioacchino Del Regno wrote:
-> On 7/25/26 04:57, Daniel Golle wrote:
-> > Revive HDMI/DP audio support for the it6505, originally posted by
-> > Jiaxin Yu [1], rebased onto current -next with the review feedback
-> > addressed: &client->dev is gone (the driver gained it6505->dev) and
-> > "#sound-dai-cells" has since been added by commit 325af1bef5b9
-> > ("dt-bindings: display: bridge: it6505: Add #sound-dai-cells").
-> > 
-> > Patches 1-11 fix pre-existing bugs found during review of earlier
-> > versions of this series; they carry Fixes: tags and are ordered first
-> > so stable trees can pick them.
-> > 
-> > Patch 12 wires up the it6505 audio helpers via hdmi_codec_ops,
-> > unblocking the mt8186-mt6366 sound card which references it6505 as
-> > the I2S3 codec. Patch 13 makes hw_params succeed with no display
-> > attached, needed when the I2S bus is shared with another codec as on
-> > MT8186 "steelix" Chromebooks, where the speaker path must keep
-> > working regardless of the it6505 link state.
-> > 
-> > Tested on a MT8186 (google,steelix) Chromebook: the sound card comes
-> > up, speakers, microphone and headset jack work. HDMI/DP audio output
-> > itself could not be tested for lack of a suitable adapter cable.
-> > 
-> 
-> Whole series is
-> 
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Tested-by: AngeloGioachcino Del Regno
-> <angelogioacchino.delregno@collabora.com> # Steelix Chromebook
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Any chance to get this merged in the new cycle now?
+Pre-existing issues:
+- [High] System crash on VF suspend due to unconditional NULL pointer deref=
+erence of qdev->mqts_ch.
+--
+
+commit 136267f1b302748ae2c7ab124a5490ff5bbea19a
+Author: Zack McKevitt <zmckevit@qti.qualcomm.com>
+
+accel/qaic: Add support for AI200 virtual functions
+
+This patch registers the qaic_pci_sriov_configure() callback to allow
+virtual functions to be created through the AIC200's sysfs numvfs entry.
+It also defines a new MHI family for the channels supported by AIC200 VFs.
+
+Link: https://lore.kernel.org/all/20260814165907.C76841F00A3A@smtp.kernel.o=
+rg/
+
+> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+> index 0acf6cdd44f81..6427105ebdf75 100644
+> --- a/drivers/accel/qaic/qaic_drv.c
+> +++ b/drivers/accel/qaic/qaic_drv.c
+[ ... ]
+> @@ -768,6 +814,7 @@ static struct pci_driver qaic_pci_driver =3D {
+>  	.remove =3D qaic_pci_remove,
+>  	.shutdown =3D qaic_pci_shutdown,
+>  	.err_handler =3D &qaic_pci_err_handler,
+> +	.sriov_configure =3D qaic_pci_sriov_configure,
+>  	.driver =3D {
+>  		.pm =3D pm_sleep_ptr(&qaic_pm_ops),
+
+[Severity: High]
+This is a pre-existing issue, but since this patch introduces virtual
+functions that can be suspended, will this cause a system crash on VF suspe=
+nd?
+
+When the system suspends a QAIC virtual function, qaic_pm_suspend() is call=
+ed
+via the qaic_pm_ops struct. This function unconditionally calls into the
+timesync code:
+
+drivers/accel/qaic/qaic_drv.c:qaic_pm_suspend() {
+        ...
+        qaic_mqts_ch_stop_timer(qdev->mqts_ch);
+        ...
+}
+
+However, since VFs do not support or initialize the QAIC_TIMESYNC_PERIODIC
+channel, qdev->mqts_ch is always NULL for them. This leads to an unconditio=
+nal
+NULL pointer dereference when stopping the timer:
+
+drivers/accel/qaic/qaic_timesync.c:qaic_mqts_ch_stop_timer() {
+        struct mqts_dev *mqtsdev =3D dev_get_drvdata(&mhi_dev->dev);
+        ...
+}
+
+Because dev_get_drvdata accesses dev->driver_data, passing the evaluated
+address of the NULL pointer's dev struct will trigger a kernel panic. Should
+qaic_pm_suspend() or qaic_mqts_ch_stop_timer() check for a NULL channel
+before attempting to stop the timer?
+
+>  	},
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831135008.1418=
+190-1-youssef.abdulrahman@oss.qualcomm.com?part=3D1
