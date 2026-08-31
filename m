@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D40DC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC0AC624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:36:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43E510E855;
-	Mon, 31 Aug 2026 13:35:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEB7410E856;
+	Mon, 31 Aug 2026 13:35:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ipncZ0eF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dFbThb0B";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3F910E851;
- Mon, 31 Aug 2026 13:35:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B2510E853;
+ Mon, 31 Aug 2026 13:35:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D26BA60215;
- Mon, 31 Aug 2026 13:35:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2938A1F00A3D;
- Mon, 31 Aug 2026 13:35:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DC9A84006B;
+ Mon, 31 Aug 2026 13:35:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E5B1F00A3D;
+ Mon, 31 Aug 2026 13:35:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183305;
- bh=001UyezUgqzBgR+joQcEPUm7bTKh8njlpvoggf2sAd0=;
+ s=k20260515; t=1788183357;
+ bh=NN7rC/PhgdwP3YFrA5lqFCbYg474YP6A3Jrw20xnmco=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ipncZ0eF45ZkS6hZ41WTwFVBfPGhYcl8HoedRWmuhL0EIQTwLIny7Uv1ohup2IvvL
- pSv8VBzOHhzx3J6H/dsZf8Ys5azdqz2jRz5+bzy2K3cBmyoVdDXHPP9MifzMNpTHei
- 98bmruotPjIwVMolYvTaU4rUgPoxtFFd2cdvDpd1pv2q5Z0eOPR2HSFRKlUakLcX2C
- v0yhCYNjrYVH4Br2YNyRlBB3fGWIqsJB2N9V6lBn1879qjkXV7zjxUeVhjkFURTNQ4
- QwY5pdu3bob1iMb3w6xqVDNYLWuRQ6QXPxX2UQgogq5vql0o/RX8IPvhpvgb8aBnE0
- Y0HtoSBaH/T9g==
+ b=dFbThb0BzNbtfwLP4RvGl5sW6ilc7qfsgetg3xEgtTBiGbkPzYdgSWpH/QCzOqcxM
+ bGru6krumtnj6jFwypEksxOsYFSEKfT2SA6A8+OQQ+fgb5w7xGwVP6H6rPUugxhP/5
+ as5DR7vIFLbX5A9FjcC8f1lzZQOcdrk3e2JnHexBkRVE04i5MF6poFokLPRgtGWNUp
+ Ca3YoRtfEXphxTSI7kPDgOW+WweenF8y3iqaajxeqw08fr0Buuw/PC46xmr2HTd/uo
+ lQOxVDdd31m8HV1TjqJHuIciytMde5l+DfPjwJzhemo5z9dIhOF1U0naGVAF0DX2Pt
+ rtuJlyP4VtEHg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Xiang Liu <xiang.liu@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: validate RAS EEPROM tbl_size before
- record count
-Date: Mon, 31 Aug 2026 09:21:37 -0400
-Message-ID: <20260831133314.4125787-69-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amd/ras: Fix CPER ring debugfs read overflow
+Date: Mon, 31 Aug 2026 09:22:08 -0400
+Message-ID: <20260831133314.4125787-100-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,409 +65,432 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Candice Li <candice.li@amd.com>
+From: Xiang Liu <xiang.liu@amd.com>
 
-[ Upstream commit c83e4a45ff9a0b7aa1c48246102009a99ccef11b ]
+[ Upstream commit 1e40ef87ffdc291e05ccdade8b9170cc9c1c4249 ]
 
-Corrupt EEPROM data can set tbl_size below the table header size.
-Guard the RAS_NUM_RECS macros against undersized tbl_size and reset
-the table during init when tbl_size is below the minimum for the table
-version instead of trusting the header.
+The legacy CPER debugfs reader can reach the payload path without a
+valid pointer snapshot. The remaining user byte count is also treated as
+the ring occupancy in dwords, so reads past the header can copy more than
+requested.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Take the CPER lock before sampling pointers. Resample rptr/wptr for
+payload reads, bound the payload copy by available dwords and the
+remaining user size, and advance the file position for each dword copied.
+
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: drm/amd/ras: Fix CPER ring debugfs read
+overflow
 
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu]` `[validate]` — Validate RAS EEPROM `tbl_size`
-before computing record count from the EEPROM table header.
+**Local tree:** Linux 6.18.43 (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`, Makefile `6.18.43`)
 
-### Step 1.2: Commit Message Tags
-**Record:**
-- **Signed-off-by:** Candice Li `<candice.li@amd.com>` (author)
-- **Reviewed-by:** Hawking Zhang `<Hawking.Zhang@amd.com>`
-- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
-  (drm/amdgpu maintainer)
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+**Step 1.1 — Subject line**
+Record: `[drm/amd/ras]` `[Fix]` — fixes a buffer-overflow / bounds bug
+in the legacy CPER ring debugfs reader (`amdgpu_debugfs_ring_read`).
+
+**Step 1.2 — Tags**
+Record:
+- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
+- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (drm/amdgpu
+  maintainer)
 - No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`, or syzbot tags
-- Notable absence: no fuzzer or user bug report; maintainer-reviewed
-  driver fix only
+  `Tested-by:`
+- Cherry-pick object in repo notes `(cherry picked from commit
+  1e40ef87ffdc291e05ccdade8b9170cc9c1c4249)`
 
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** Corrupt EEPROM can set `tbl_size` below the minimum size for
-  the table version (20 bytes for V1, 276 bytes for V2.1/V3).
-- **Symptom:** `RAS_NUM_RECS` / `RAS_NUM_RECS_V2_1` perform unsigned
-  subtraction on undersized `tbl_size`, producing incorrect record
-  counts; driver should not trust the header.
-- **Fix approach:** Guard macros to return 0 on undersized `tbl_size`;
-  during `amdgpu_ras_eeprom_init()`, detect undersized `tbl_size` and
-  reset the table via `amdgpu_ras_eeprom_reset_table()` instead of
-  proceeding.
-- **Root cause:** Missing minimum-size validation before using
-  `tbl_size` in record-count arithmetic.
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** Legacy CPER debugfs reader can enter the payload path without
+  a valid rptr/wptr snapshot; user byte count (`size`) is overwritten
+  with ring occupancy in dwords, so reads past the 12-byte header can
+  copy more data than the user requested.
+- **Symptom:** User buffer overflow on `read()` of
+  `/sys/kernel/debug/dri/*/amdgpu_ring_cper`; also uninitialized pointer
+  use and missing lock coverage on payload-only reads (`*pos >= 12`).
+- **Root cause (author):** Lock taken only inside `if (*pos < 12)`;
+  `early[]` not populated when skipping header; `size` repurposed as
+  dword count; wrong wrap size (`ring_size` bytes vs dword indices);
+  `*pos` not advanced in CPER payload loop.
 
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — described as validation, but it is a real correctness
-bug fix. Undersized `tbl_size` causes unsigned underflow in
-`RAS_NUM_RECS*` macros. The init-path change converts a permanent init
-failure (`-EINVAL`, EEPROM marked invalid) into self-healing table
-reset, matching the existing invalid-header recovery pattern.
+**Step 1.4 — Hidden bug fix?**
+Record: No — explicitly labeled and described as an overflow fix.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Change Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c` only
-- **Scope:** ~20 lines changed (macro guards + two init checks)
-- **Functions/macros modified:** `RAS_NUM_RECS`, `RAS_NUM_RECS_V2_1`,
-  `amdgpu_ras_eeprom_init()`
-- **Classification:** Single-file surgical fix
+**Step 2.1 — Inventory**
+Record:
+- 1 file: `drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c` (+21 / −8 in the
+  cherry-pick object `6bbede02dc62`)
+- Function modified: `amdgpu_debugfs_ring_read()`
+- Scope: single-file surgical fix (the user-provided diff also shows
+  `amdgpu_ras_cper_debugfs_read` changes, but those are **not** in
+  commit `6bbede02dc62` nor in this tree)
 
-### Step 2.2: Code Flow Change
-**Record:**
-- **Macro hunks:** Before — unconditional `(tbl_size - header_size) /
-  record_size` (unsigned underflow when `tbl_size` too small). After —
-  return `0u` if below minimum, else compute normally.
-- **V2.1/V3 init hunk:** Before — compute `ras_num_recs` immediately.
-  After — if `tbl_size < 276`, log error and reset table.
-- **V1 init hunk:** Before — compute immediately. After — if `tbl_size <
-  20`, log error and reset table.
-- **Path affected:** Driver init on GPUs with RAS EEPROM support (probe-
-  time `amdgpu_ras_eeprom_init()`).
+**Step 2.2 — Code flow changes**
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Memory safety / logic correctness (unsigned arithmetic
-  on corrupt data)
-- **Mechanism:** `tbl_size` is `uint32_t`. When `tbl_size <
-  RAS_TABLE_HEADER_SIZE` (V1) or `< RAS_TABLE_HEADER_SIZE +
-  RAS_TABLE_V2_1_INFO_SIZE` (V2.1/V3), subtraction wraps to a very large
-  value. Commit 5df0d6addb7e9’s `ras_num_recs > ras_max_record_count`
-  check catches this and returns `-EINVAL`, but EEPROM stays permanently
-  disabled. This commit adds explicit minimum-size validation and auto-
-  recovery.
+| Hunk | Before | After |
+|------|--------|-------|
+| Lock scope | `mutex_lock` only inside `if (*pos < 12)` | Lock held for
+entire CPER read path |
+| Payload entry with `*pos >= 12` | `early[0/1]` never set; unlock
+without lock | Resample rptr/wptr under lock |
+| Copy bound | `size = ring occupancy` (dwords), ignoring user request |
+`read_dw = min(avail_dw, size >> 2)` |
+| Wrap calc | `ring->ring_size` (bytes) | `ring->buf_mask + 1` (dwords)
+|
+| Position | `*pos` not updated in CPER payload loop | `*pos += 4` per
+dword |
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct and minimal. Mirrors `6ffc6e056febb`
-(“Reset RAS table if header is invalid”). Low regression risk: only
-triggers on already-corrupt EEPROM headers; reset path is well-tested.
-No API changes.
+**Step 2.3 — Bug mechanism**
+Record: **Buffer overflow / out-of-bounds user copy** + **uninitialized
+stack data** + **mutex imbalance** + **logic error** (wrong units,
+missing file position advance).
 
----
+Verified in current HEAD (`amdgpu_ring.c` lines 511–568):
 
-## Phase 3: Git History Investigation
+```511:568:drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+        if (*pos < 12) {
+                if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
+                        mutex_lock(&ring->adev->cper.ring_lock);
+                // early[0..2] populated here only
+                ...
+        }
+        ...
+        } else {
+                p = early[0];   // uninitialized if *pos >= 12 at entry
+                ...
+                        size = (early[1] - early[0]);  // overwrites
+user's byte count
+                ...
+                while (size) {   // may copy far more than user
+requested
+                        ...
+                        size--;
+                        // *pos not advanced
+                }
+        }
+out:
+        if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
+                mutex_unlock(...);  // unlock even when lock was never
+taken
+```
 
-### Step 3.1: Blame
-**Record:**
-- `RAS_NUM_RECS` introduced in `63d4c081a556a` (2021-04-06, “Optimize
-  EEPROM RAS table I/O”)
-- `RAS_NUM_RECS_V2_1` introduced in `65183faec89f3e` (2023-05-30, “Add
-  RAS table v2.1 macro definition”)
-- Buggy unsigned arithmetic present since those commits; this tree is
-  **v6.18.44**
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag in commit message.
-
-### Step 3.3: Related File History
-**Record:** Related validation commits already in this tree:
-- `5df0d6addb7e9` — “Add basic validation for RAS header” (max record
-  count check)
-- `6ffc6e056febb` — “Reset RAS table if header is invalid”
-- `660261df61fb7` — “refine eeprom data check” (checksum on unload)
-- `89232d0db3ca9` — “return when ras table checksum is error”
-Standalone fix; not part of a numbered series.
-
-### Step 3.4: Author Context
-**Record:** Candice Li is an AMD contributor. Related validation work by
-Lijo Lazar and ganglxie in the same file. Alex Deucher (maintainer)
-signed off.
-
-### Step 3.5: Dependencies
-**Record:** Requires `RAS_NUM_RECS_V2_1`,
-`amdgpu_ras_eeprom_reset_table()`, and the version switch in init — all
-present in v6.18.44. User diff shows HBM3E context from newer mainline;
-that block is **not** in this tree and is **not** part of the patch
-hunks. Applies standalone to 6.18.44 init switch.
+**Step 2.4 — Fix quality**
+Record: Obviously correct, minimal, no API changes. Low regression risk
+— only affects CPER ring debugfs reads. Reviewed by AMD RAS engineer and
+merged by amdgpu maintainer.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 4.1: Original Discussion
-**Record:** Commit hash not in this checkout; `b4 dig -c` could not
-match. Lore search blocked by Anubis bot protection. **UNVERIFIED:**
-full mailing-list review thread.
+**Step 3.1 — Blame**
+Record: Current buggy function attributed to merge `5d324e5159d9e`
+(6.18-rc8 era). Shallow stable history prevents tracing the original
+CPER introduction commit; `amdgpu_cper.c` and CPER ring debugfs support
+are present in this tree.
 
-### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** via b4. Commit message shows Reviewed-by
-Hawking Zhang (AMD) and Signed-off-by Alex Deucher (maintainer).
+**Step 3.2 — Fixes: tag**
+Record: N/A — no `Fixes:` tag.
 
-### Step 4.3: Bug Reports
-**Record:** N/A — no `Reported-by:` or `Link:` tags.
+**Step 3.3 — Related file history**
+Record: `git log --oneline -20 --
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c` shows only merge commit in
+this shallow tree. AUTOSel nomination exists: `[PATCH AUTOSEL 7.0-6.18]
+drm/amd/ras: Fix CPER ring debugfs read overflow`.
 
-### Step 4.4: Related Patches
-**Record:** Part of ongoing amdgpu RAS EEPROM validation hardening;
-prior related commits are already in v6.18.44.
+**Step 3.4 — Author context**
+Record: Xiang Liu (AMD). Reviewed by Tao Zhou (AMD RAS). Acked by Alex
+Deucher (amdgpu maintainer).
 
-### Step 4.5: Stable List History
-**Record:** **UNVERIFIED** — could not search lore stable archive.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** `RAS_NUM_RECS`, `RAS_NUM_RECS_V2_1`,
-`amdgpu_ras_eeprom_init()`
-
-### Step 5.2: Callers
-**Record:** `amdgpu_ras_eeprom_init()` called from
-`amdgpu_ras_init_badpage_info()` in `amdgpu_ras.c:3590`, which runs
-during GPU RAS initialization at probe. Affects VEGA20, Arcturus, Sienna
-Cichlid, Aldebaran, and other RAS-EEPROM-capable dGPUs per
-`__is_ras_eeprom_supported()`.
-
-### Step 5.3: Callees
-**Record:** On undersized `tbl_size`, calls
-`amdgpu_ras_eeprom_reset_table()` which rewrites a valid header to
-EEPROM via I2C.
-
-### Step 5.4: Reachability
-**Record:** Triggered at every boot on affected hardware when EEPROM
-`tbl_size` is corrupt. Not userspace-triggerable directly, but affects
-all boots on affected systems. Corrupt EEPROM is a realistic
-hardware/partial-write scenario on datacenter GPUs.
-
-### Step 5.5: Similar Patterns
-**Record:** Same recovery pattern as `6ffc6e056febb` for invalid header
-magic. Complements `5df0d6addb7e9` max-record validation.
+**Step 3.5 — Dependencies**
+Record: Standalone. `git cherry-pick --no-commit 6bbede02dc62` auto-
+merges cleanly on HEAD (21 insertions, 8 deletions, 1 file only). No
+prerequisite commits required.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Current tree at lines 145–150 has unguarded
-`RAS_NUM_RECS` macros; `amdgpu_ras_eeprom_init()` at lines 1415–1432
-lacks `tbl_size` minimum checks. Bug present since 2021/2023; partial
-mitigation since `5df0d6addb7e9` (Mar 2025).
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c 6bbede02dc62` →
+https://patch.msgid.link/20260507140004.244348-1-xiang.liu@amd.com
+Single v1 patch, no NAKs found. Tao Zhou replied with `Reviewed-by`.
 
-### Step 6.2: Backport Complications
-**Record:** Expected **clean apply** — init switch structure matches; no
-HBM3E block in 6.18.44 that would conflict. Only line-number offset
-differs; context-based apply should work.
+**Step 4.2 — Reviewers**
+Record: `b4 dig -w`: To/Cc included `amd-gfx@lists.freedesktop.org`,
+Hawking Zhang, Tao Zhou (AMD).
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** Max record count validation (`5df0d6addb7e9`) and invalid-
-header reset (`6ffc6e056febb`) are present. **This specific `tbl_size`
-minimum validation is NOT present.**
+**Step 4.3 — Bug reports**
+Record: No syzbot, bugzilla, or user crash reports. Issue identified by
+code review / internal analysis.
 
----
+**Step 4.4 — Series context**
+Record: Standalone 1-patch series. AUTOSel 6.18 nomination confirms
+stable relevance for this series.
 
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem and Criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD
-datacenter/enterprise GPU RAS reliability; not universal but critical
-for affected hardware).
-
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained — 4 EEPROM-related commits in recent
-file history on this tree.
+**Step 4.5 — Stable list**
+Record: AUTOSel 7.0-6.18 patch explicitly targets this stable series
+(web search confirmed).
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 8.1: Who Is Affected
-**Record:** Users of AMD GPUs with RAS EEPROM support (VEGA20, Arcturus,
-MI-series, RDNA/CDNA dGPUs with HBM RAS). Config: `CONFIG_DRM_AMDGPU`
-with supported ASICs.
+**Step 5.1 — Key functions**
+Record: `amdgpu_debugfs_ring_read()`, called from debugfs
+`file_operations.read`.
 
-### Step 8.2: Trigger Conditions
-**Record:** Corrupt EEPROM `tbl_size` field on boot. Uncommon but
-realistic (wear, partial write, hardware glitch). Not unprivileged-
-triggerable; hardware/firmware corruption path.
+**Step 5.2 — Callers**
+Record: `amdgpu_debugfs_ring_fops.read` → debugfs file
+`amdgpu_ring_<name>` created in `amdgpu_debugfs_ring_init()`. CPER ring
+named `"cper"` → `/sys/kernel/debug/dri/<card>/amdgpu_ring_cper`.
 
-### Step 8.3: Failure Mode Severity
-**Record:**
-- **Without fix:** Undersized `tbl_size` → unsigned underflow →
-  `ras_num_recs > ras_max_record_count` → `-EINVAL` → `is_eeprom_valid =
-  false` every boot. GPU runs but RAS EEPROM bad-page tracking is
-  permanently disabled until manual intervention. Verified: all
-  `tbl_size < 20` (V1) and `tbl_size < 276` (V2.1) underflow cases
-  produce record counts above max (Python verification).
-- **With fix:** Table auto-reset; RAS EEPROM functionality restored.
-- **Severity:** **MEDIUM-HIGH** for affected datacenter hardware
-  (operational RAS degradation, not kernel crash). No OOM path because
-  `amdgpu_ras_load_bad_pages()` is gated on `is_eeprom_valid` (line
-  3600).
+**Step 5.3 — Callees**
+Record: `mutex_lock/unlock`, `amdgpu_ring_get_rptr/wptr`, `put_user`,
+ring buffer indexing.
 
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** Self-healing corrupt EEPROM; defense-in-depth on macros;
-  consistent with existing reset-on-corruption policy.
-- **Risk:** Very low — ~20 lines, only error/corruption path, uses
-  existing reset function.
-- **Ratio:** Moderate benefit, very low risk. Worth backporting given
-  prior similar fixes already in 6.18.y.
+**Step 5.4 — Reachability**
+Record: Reachable via `read()` syscall on debugfs (requires
+`CONFIG_DEBUG_FS`, debugfs mounted, typically `CAP_SYS_ADMIN`).
+Triggered on any CPER ring read where `*pos >= 12` (normal after first
+12-byte header) or partial reads.
+
+**Step 5.5 — Similar patterns**
+Record: Non-CPER ring path in same function correctly bounds by
+`ring->ring_size + 12` and advances `*pos`; CPER path was the outlier.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 9.1: Evidence Summary
+**Step 6.1 — Buggy code present?**
+Record: **YES** — verified in HEAD at `amdgpu_ring.c:497–576`. CPER
+subsystem present (`amdgpu_cper.c`, `amdgpu_cper_init()` in
+`amdgpu_device.c:3310`). Fix commit `6bbede02dc62` is **not** an
+ancestor of HEAD.
 
-**FOR backport:**
-- Fixes real corrupt-EEPROM bug (unsigned underflow + incorrect trust of
-  header)
-- Auto-recovery instead of permanent EEPROM disable on every boot
-- Small, surgical, maintainer-reviewed
-- Prerequisites present in v6.18.44
-- Consistent with already-backported validation series (`5df0d6`,
-  `6ffc6e`, `660261`, `89232d`)
-- Affects production RAS-capable AMD GPUs
+**Step 6.2 — Backport complications**
+Record: **Clean apply** — cherry-pick test succeeded with no conflicts.
 
-**AGAINST backport:**
-- Existing max-record check already prevents huge `kcalloc` / OOM (since
-  Mar 2025)
-- No crash, deadlock, or security exploit demonstrated
-- No user/syzbot report
-- Primary improvement is operational recovery, not crash prevention
-- Lore review unverified
+**Step 6.3 — Related fixes already present?**
+Record: **No** — `git diff HEAD 6bbede02dc62 --
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c` shows only the intended fix
+hunks when cherry-picked; HEAD still has buggy code.
 
-**UNRESOLVED:** Mailing-list discussion and stable-list nomination
-history.
+---
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   reviewed by AMD engineer and maintainer (no runtime test tag).
-2. Fixes real bug affecting users? **PASS** — corrupt EEPROM leaves RAS
-   tracking disabled on every boot on affected hardware.
-3. Important issue? **PASS (MEDIUM-HIGH)** — datacenter RAS reliability
-   degradation on supported GPUs; not a kernel crash but materially
-   impacts production GPU health tracking.
-4. Small and contained? **PASS** — one file, ~20 lines.
-5. No new features/APIs? **PASS** — validation and recovery only.
-6. Can apply to local tree? **PASS** — code exists; patch should apply
-   cleanly to v6.18.44.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 9.3: Exception Categories
-**Record:** Hardware workaround for corrupt EEPROM data on existing RAS-
-EEPROM driver — analogous to quirk/validation exception category.
+**Step 7.1 — Subsystem**
+Record: `drivers/gpu/drm/amd/amdgpu` — GPU driver, RAS/CPER debug path.
+Criticality: **PERIPHERAL** (AMD GPU + debugfs + CPER/RAS enabled).
 
-### Step 9.4: Decision Rationale
+**Step 7.2 — Activity**
+Record: Active development; CPER support is relatively recent (mainline
+~6.15+ per external references).
 
-This commit completes the RAS EEPROM validation work already present in
-v6.18.44. While the max-record check added in `5df0d6addb7e9` prevents
-the worst outcome (huge allocation), corrupt undersized `tbl_size` still
-causes permanent EEPROM init failure on every boot. The fix follows the
-established pattern of resetting corrupt tables rather than leaving the
-driver in a degraded state. It is small, obviously correct, low-risk,
-and relevant to this tree’s existing amdgpu RAS EEPROM code.
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1 — Who is affected**
+Record: Systems with AMDGPU, `CONFIG_DEBUG_FS`, CPER ring initialized
+(ACA or SR-IOV RAS CPER enabled), and a privileged user reading the CPER
+ring debugfs file.
+
+**Step 8.2 — Trigger conditions**
+Record: Common on second/subsequent `read()` calls (after 12-byte
+header). Requires debugfs access (typically root). Not triggerable by
+unprivileged users under default permissions (debugfs `0444` but debugfs
+mount is root-only on most distros).
+
+**Step 8.3 — Failure mode severity**
+Record:
+- User buffer overflow via `put_user` beyond requested `size` → **HIGH**
+  (memory safety)
+- `mutex_unlock` without `mutex_lock` when `*pos >= 12` → **HIGH**
+  (lockdep WARN / potential corruption in debug builds)
+- Uninitialized `early[]` → **MEDIUM-HIGH** (undefined behavior,
+  possible kernel data leak to userspace)
+- Overall: **HIGH** for memory safety; practical exploitability reduced
+  by privileged-only access
+
+**Step 8.4 — Risk vs benefit**
+Record:
+- **Benefit:** Prevents user buffer overflow, fixes mutex imbalance,
+  corrects CPER debugfs semantics — **moderate** (narrow audience but
+  real bugs)
+- **Risk:** Very low — 21-line surgical change, reviewed, clean apply
+- **Ratio:** Benefit outweighs risk
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1 — Evidence summary**
+
+| FOR | AGAINST |
+|-----|---------|
+| Real user buffer overflow | Debugfs-only path |
+| Mutex unlock-without-lock bug | Requires `CONFIG_DEBUG_FS` |
+| Uninitialized stack variable use | Admin/privileged access typically
+required |
+| Small, reviewed, maintainer-acked fix | No syzbot/user crash reports |
+| Applies cleanly to 6.18.43 | Affects narrow hardware/config subset |
+| AUTOSel nominated for 6.18.y | |
+| Buggy code confirmed in this tree | |
+
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — reviewed by AMD engineer +
+   amdgpu maintainer; logic verified against buggy code
+2. Fixes a real bug? **PASS** — confirmed overflow, mutex bug,
+   uninitialized data
+3. Important issue? **PASS** — memory safety / buffer overflow (severity
+   tempered by privileged-only access)
+4. Small and contained? **PASS** — 1 file, ~29 lines
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — cherry-pick tested clean
+
+**Step 9.3 — Exception category**
+Record: N/A (not device ID, quirk, DT, build, or docs fix — standard bug
+fix).
+
+**Step 9.4 — Decision rationale**
+This fix addresses a genuine memory-safety bug in the CPER ring debugfs
+reader that exists in Linux 6.18.43. The overflow is reachable on
+ordinary multi-read patterns once the 12-byte header has been consumed.
+While the path requires debugfs and typically root access, stable trees
+routinely accept such fixes when they prevent kernel-to-userspace buffer
+overruns and mutex imbalances. The patch is minimal, reviewed, applies
+cleanly, and has been AUTOSel-nominated for 6.18.y.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message: subject, tags (SOB, Reviewed-by,
-  no Fixes/Reported-by/Link)
-- **[Phase 2]** Diff analysis: 1 file, macro guards + 2 init checks in
-  `amdgpu_ras_eeprom_init()`
-- **[Phase 3]** `git describe HEAD`: v6.18.44
-- **[Phase 3]** `git blame` lines 145–150: macros from 63d4c081a556a
-  (2021), 65183faec89f3e (2023)
-- **[Phase 3]** `git log -15 -- amdgpu_ras_eeprom.c`: related validation
-  commits present
-- **[Phase 3]** `git show 5df0d6addb7e9`: added max record count
-  validation
-- **[Phase 3]** `git show 6ffc6e056febb`: reset on invalid header magic
-- **[Phase 3]** `git merge-base --is-ancestor`: 5df0d6 and 65183fa both
-  in tree
-- **[Phase 4]** `b4 dig`: no commit hash available in tree — no match
-- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis —
-  **UNVERIFIED**
-- **[Phase 5]** `grep amdgpu_ras_eeprom_init`: caller at
-  `amdgpu_ras.c:3590`
-- **[Phase 5]** `grep RAS_NUM_RECS`: only used in
-  `amdgpu_ras_eeprom_init()`
-- **[Phase 5]** `grep is_eeprom_valid`: gates
-  `amdgpu_ras_load_bad_pages` at line 3600
-- **[Phase 6]** Read current `amdgpu_ras_eeprom.c` lines 145–150,
-  1415–1444: buggy code confirmed present
-- **[Phase 6]** Python verification: all `tbl_size < 20` (V1) and
-  `tbl_size < 276` (V2.1) underflow cases produce record counts > max —
-  existing check returns `-EINVAL`
-- **[Phase 8]** Read `amdgpu_ras_init_badpage_info()`: `is_eeprom_valid
-  = !ret`; load gated on validity
-- **[Phase 8]** `tbl_size` type confirmed `uint32_t` in
-  `amdgpu_ras_eeprom.h:51`
+- [Phase 1] Parsed subject, tags (Reviewed-by Tao Zhou, SOB Alex
+  Deucher); no Fixes/Reported-by/Link
+- [Phase 1] Identified overflow, uninitialized pointers, lock scope as
+  described bugs
+- [Phase 2] Read `amdgpu_ring.c:497–576` — confirmed all four bug
+  mechanisms in HEAD
+- [Phase 2] Cherry-pick object `6bbede02dc62` changes only
+  `amdgpu_debugfs_ring_read` (+21/−8)
+- [Phase 3] `git describe HEAD` → v6.18.43; `make kernelversion`
+  equivalent → 6.18.43
+- [Phase 3] `git merge-base --is-ancestor 6bbede02dc62 HEAD` → NOT
+  ancestor (fix not yet applied)
+- [Phase 3] `git cherry-pick --no-commit 6bbede02dc62` → clean auto-
+  merge on `amdgpu_ring.c`
+- [Phase 3] `git show 5d324e5159d9e:...amdgpu_ring.c` lines 545–575 →
+  buggy CPER path present at 6.18 base
+- [Phase 4] `b4 dig -c 6bbede02dc62` →
+  https://patch.msgid.link/20260507140004.244348-1-xiang.liu@amd.com
+- [Phase 4] `b4 dig -a` → single v1 revision only
+- [Phase 4] `b4 dig -w` → amd-gfx list, Hawking Zhang, Tao Zhou CC'd
+- [Phase 4] Freedesktop archive — Tao Zhou Reviewed-by, no NAKs
+- [Phase 4] Web search — AUTOSel 7.0-6.18 nomination found
+- [Phase 5] `grep amdgpu_debugfs_ring_fops` → debugfs read entry point
+  at `amdgpu_ring.c:592–595`
+- [Phase 5] `amdgpu_debugfs_ring_init()` creates `amdgpu_ring_cper`
+  debugfs file at line 648–656
+- [Phase 6] `amdgpu_cper_init` present in `amdgpu_device.c:3310`;
+  `amdgpu_cper.c` exists
+- [Phase 6] No `amdgpu_uniras_enabled` or `amdgpu_ras_cper_debugfs_read`
+  in this tree (not needed for fix)
+- [Phase 8] Failure modes verified by code inspection: overflow, mutex
+  imbalance, uninitialized `early[]`
 
 **YES**
 
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 26 +++++++++++++++----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 29 +++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 652aa085b6263..51382d604b1f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -142,12 +142,15 @@
- #define RAS_RI_TO_AI(_C, _I) (((_I) + (_C)->ras_fri) % \
- 			      (_C)->ras_max_record_count)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 304564ec2f59a..431cc39ea0178 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -498,8 +498,9 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
+ 					size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_ring *ring = file_inode(f)->i_private;
+-	uint32_t value, result, early[3];
++	u32 value, result, early[3] = { 0 };
+ 	uint64_t p;
++	u32 avail_dw, start_dw, read_dw;
+ 	loff_t i;
+ 	int r;
  
--#define RAS_NUM_RECS(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
--				  RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE)
-+#define RAS_NUM_RECS(_tbl_hdr) \
-+	(((_tbl_hdr)->tbl_size < RAS_TABLE_HEADER_SIZE) ? 0u : \
-+	 (((_tbl_hdr)->tbl_size - RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE))
+@@ -508,10 +509,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
  
--#define RAS_NUM_RECS_V2_1(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
--				       RAS_TABLE_HEADER_SIZE - \
--				       RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE)
-+#define RAS_NUM_RECS_V2_1(_tbl_hdr) \
-+	(((_tbl_hdr)->tbl_size < RAS_TABLE_HEADER_SIZE + \
-+	  RAS_TABLE_V2_1_INFO_SIZE) ? 0u : \
-+	 (((_tbl_hdr)->tbl_size - RAS_TABLE_HEADER_SIZE - \
-+	   RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE))
+ 	result = 0;
  
- #define to_amdgpu_device(x) ((container_of(x, struct amdgpu_ras, eeprom_control))->adev)
+-	if (*pos < 12) {
+-		if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
+-			mutex_lock(&ring->adev->cper.ring_lock);
++	if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
++		mutex_lock(&ring->adev->cper.ring_lock);
  
-@@ -1415,11 +1418,24 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
- 	switch (hdr->version) {
- 	case RAS_TABLE_VER_V2_1:
- 	case RAS_TABLE_VER_V3:
-+		if (hdr->tbl_size < RAS_TABLE_HEADER_SIZE + RAS_TABLE_V2_1_INFO_SIZE) {
-+			dev_err(adev->dev,
-+				"RAS header invalid, tbl_size %u smaller than minimum %u, resetting table\n",
-+				hdr->tbl_size,
-+				RAS_TABLE_HEADER_SIZE + RAS_TABLE_V2_1_INFO_SIZE);
-+			return amdgpu_ras_eeprom_reset_table(control);
-+		}
- 		control->ras_num_recs = RAS_NUM_RECS_V2_1(hdr);
- 		control->ras_record_offset = RAS_RECORD_START_V2_1;
- 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT_V2_1;
- 		break;
- 	case RAS_TABLE_VER_V1:
-+		if (hdr->tbl_size < RAS_TABLE_HEADER_SIZE) {
-+			dev_err(adev->dev,
-+				"RAS header invalid, tbl_size %u smaller than minimum %u, resetting table\n",
-+				hdr->tbl_size, RAS_TABLE_HEADER_SIZE);
-+			return amdgpu_ras_eeprom_reset_table(control);
-+		}
- 		control->ras_num_recs = RAS_NUM_RECS(hdr);
- 		control->ras_record_offset = RAS_RECORD_START;
- 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT;
++	if (*pos < 12) {
+ 		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
+ 		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
+ 		early[2] = ring->wptr & ring->buf_mask;
+@@ -543,13 +544,24 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
+ 			*pos += 4;
+ 		}
+ 	} else {
++		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
++		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
++
+ 		p = early[0];
+ 		if (early[0] <= early[1])
+-			size = (early[1] - early[0]);
++			avail_dw = early[1] - early[0];
+ 		else
+-			size = ring->ring_size - (early[0] - early[1]);
++			avail_dw = ring->buf_mask + 1 - (early[0] - early[1]);
+ 
+-		while (size) {
++		start_dw = (*pos > 12) ? ((*pos - 12) >> 2) : 0;
++		if (start_dw >= avail_dw)
++			goto out;
++
++		p = (p + start_dw) & ring->ptr_mask;
++		avail_dw -= start_dw;
++		read_dw = min_t(u32, avail_dw, size >> 2);
++
++		while (read_dw) {
+ 			if (p == early[1])
+ 				goto out;
+ 
+@@ -562,9 +574,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
+ 
+ 			buf += 4;
+ 			result += 4;
+-			size--;
++			read_dw--;
+ 			p++;
+ 			p &= ring->ptr_mask;
++			*pos += 4;
+ 		}
+ 	}
+ 
 -- 
 2.53.0
 
