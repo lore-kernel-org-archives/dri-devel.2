@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AC14C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D29AC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1941B10E8D8;
-	Mon, 31 Aug 2026 13:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C6510E8DE;
+	Mon, 31 Aug 2026 13:48:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HrQRVHJy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VN1j4fm4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D17910E8D8;
- Mon, 31 Aug 2026 13:48:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94F2E10E8DE;
+ Mon, 31 Aug 2026 13:48:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2615040496;
- Mon, 31 Aug 2026 13:48:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A9B1F00ACA;
- Mon, 31 Aug 2026 13:48:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 097236013A;
+ Mon, 31 Aug 2026 13:48:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B781F00A3E;
+ Mon, 31 Aug 2026 13:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184129;
- bh=4XpzPWRoQGI3w2t017OesPnubq7Sn2y171fQixsOjZE=;
+ s=k20260515; t=1788184137;
+ bh=CBWdldcJE8xPdqsaPFZXxeaY6tXuX3vHWPhS0ty9szg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HrQRVHJyzY9YgtSfeTNq05FH2Zeqq4fniuB8E8FMDYbcXRFNlldeItVxO4G6FQ2lq
- ndOdgYcG5IL40zYvozlGRYIDVZy9N/1kuNVIEyl5v8UVvnn1pZ1Um+tJy3NYkQyNzL
- tdz+xzFa+FMx1HXG6dohxPop0IpH4qfcpdQxpmcloY/6Nsndc7vMxbbE80tTKjQy5+
- /IRSikofYTJ9IaOkfYvX6lamJtN4gWpJmhDFaFGqGXiJJO8/uK7ioAbOR0JxCjP6hy
- pXu/rjBz1U2Vda59rANLLHJNohhIpZt9VIWlg1wUTeI0T9iDthPVZ1WfLEmvwgXOKw
- gRgRghuBP1VRg==
+ b=VN1j4fm4/DWVdV0vyIyeTHUL1iiUyLT72F896UCjcoQxlq55FK00YmNvBE1pHH18Z
+ yPjuu9pDVbAhkcQxi8eMRpq1bLUPhFqcy7yVIzXmPQWuEM7KZBNa8vM7bGWQM9Elc7
+ P1s0ZtvAQW3dOLoPBxTW6i5Y0hrsvkrWjOTyvSuKfq0oAvLjFWCih+mjPfJPy6SKVz
+ RkJVcSqlCX2u4BpKwJwby8/JZztWqRani+YNv5ol2K2iFEkLRqAkSt/j6azevSRUAB
+ JW8UIIhGgzx9G+PG2507qz1FRMCofzCzeLgYj4AQKtr67Cs7uGad0K4n3XSi+VZNXr
+ hskj+33uQdSfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yunxiang Li <Yunxiang.Li@amd.com>,
+Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/ras: add ras_suspend callback and use
- it for cp_ecc_error_irq
-Date: Mon, 31 Aug 2026 09:28:57 -0400
-Message-ID: <20260831133314.4125787-509-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: fix SMI event cross-process
+ information leak
+Date: Mon, 31 Aug 2026 09:29:02 -0400
+Message-ID: <20260831133314.4125787-514-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,31 +66,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yunxiang Li <Yunxiang.Li@amd.com>
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
-[ Upstream commit e3829992dd9fa0a82511af4f01733fc854cd15a5 ]
+[ Upstream commit 92a8dba246d371fe268280e5fd74b0955688e6df ]
 
-cp_ecc_error_irq is acquired in amdgpu_gfx_ras_late_init() but
-released in gfx_v9_0_hw_fini(), so the put site has to query
-amdgpu_irq_enabled() because the get is skipped on SR-IOV VF.
+kfd_smi_ev_enabled() skips the suser privilege check when pid=0.
+PROCESS_START, PROCESS_END, and VMFAULT events are emitted with
+pid=0 while carrying another process's PID and command name, so any
+/dev/kfd user in the render group can monitor all GPU workloads.
 
-ras_late_init / ras_fini have no suspend counterpart, so move the
-put to amdgpu_gfx_ras_suspend() / amdgpu_gfx_ras_fini() and add a
-matching ras_suspend callback that is invoked from
-amdgpu_ras_suspend() before disable_all_features().  The get and
-put now sit in the same place and check the same condition (not
-VF, funcs registered), no refcount querying needed.
+Pass the target process PID into kfd_smi_event_add() for these events
+so the existing per-client filter restricts delivery to the owning
+process or CAP_SYS_ADMIN subscribers.
 
-An active flag gates ras_fini so the
-suspend-then-unload-without-resume path falls into
-amdgpu_ras_block_late_fini_default() instead of double-releasing
-what ras_suspend already cleaned up.
-
-Drop the cp_ecc_error_irq put from gfx_v9_0_hw_fini().  gfx_v8_0
-manages cp_ecc_error_irq locally and is unaffected; no other GFX
-generation has this IRQ.
-
-Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
@@ -98,526 +87,385 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu/ras: add ras_suspend callback
-and use it for cp_ecc_error_irq`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
-**Upstream commit:** `e3829992dd9fa` (not present in this tree; cherry-
-pick applies cleanly)
+**Step 1.1 — Subject line**
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1 — Subject parse**
-Record: `[drm/amdgpu/ras]` — **add** (lifecycle fix disguised as
-infrastructure) — add `ras_suspend` callback and relocate
-`cp_ecc_error_irq` put to match its get site.
+Record: `[drm/amdkfd] [fix] SMI event cross-process information leak`
 
 **Step 1.2 — Tags**
+
 Record:
-- `Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>` (author)
-- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (subsystem
+- `Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>` (author)
+- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
   maintainer)
 - `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`, or `Reviewed-by:`
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc:
+  stable@vger.kernel.org`
 
-Notable: maintainer Ack from Alex Deucher is a strong quality signal.
+Notable: maintainer Acked-by; no syzbot or user bug report tags.
 
 **Step 1.3 — Body analysis**
+
 Record:
-- **Bug:** `cp_ecc_error_irq` is acquired in
-  `amdgpu_gfx_ras_late_init()` but released in `gfx_v9_0_hw_fini()`,
-  with mismatched conditions (get skipped on SR-IOV VF; put uses broader
-  RAS-support check).
-- **Symptom:** `amdgpu_irq_put()` called when IRQ was never acquired →
-  `WARN_ON(!amdgpu_irq_enabled())` in `amdgpu_irq.c:637`.
-- **Root cause:** No suspend counterpart to `ras_late_init`/`ras_fini`;
-  get/put live in different subsystems with different guards.
-- **Fix approach:** Add `ras_suspend` callback, move put to
-  `amdgpu_gfx_ras_suspend()`/`amdgpu_gfx_ras_fini()` with matching `!VF
-  && funcs` condition; add `active` flag to avoid double-release on
-  suspend-then-unload path.
+- **Bug:** `kfd_smi_ev_enabled()` does not apply per-client PID
+  filtering when the filter PID argument is `0`. `PROCESS_START`,
+  `PROCESS_END`, and `VMFAULT` events are emitted with filter PID `0`
+  but carry another process's PID and command name in the event payload.
+- **Symptom:** Any `/dev/kfd` user in the render group can monitor all
+  GPU workloads (other processes' PIDs and command names).
+- **Root cause:** `kfd_smi_event_add(0, ...)` bypasses the `if (pid &&
+  ...)` guard in `kfd_smi_ev_enabled()`.
+- **Fix:** Pass `task_info->tgid` into `kfd_smi_event_add()` so the
+  existing filter restricts delivery to the owning process or
+  `CAP_SYS_ADMIN` subscribers (`client->suser`).
 
 **Step 1.4 — Hidden bug fix?**
-Record: **Yes.** Despite "add callback" wording, this is a reference-
-counting / lifecycle bug fix. It corrects asymmetric IRQ get/put that
-can trigger kernel warnings and incorrect teardown ordering.
+
+Record: No — this is an explicit security/privacy bug fix, not disguised
+cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 **Step 2.1 — Inventory**
+
 Record:
-| File | Change |
-|------|--------|
-| `amdgpu_gfx.c` | +26/-4 |
-| `amdgpu_gfx.h` | +3/-1 |
-| `amdgpu_ras.c` | +32/-4 |
-| `amdgpu_ras.h` | +1 |
-| `gfx_v9_0.c` | -2 |
-| **Total** | +53/-11, 5 files |
+- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c` (+5 / -3
+  lines)
+- **Functions modified:** `kfd_smi_event_update_vmfault()`,
+  `kfd_smi_event_process()`
+- **Scope:** Single-file surgical fix
 
-Functions modified: `amdgpu_gfx_ras_late_init`, new
-`amdgpu_gfx_ras_suspend`, new `amdgpu_gfx_ras_fini`,
-`amdgpu_gfx_ras_sw_init`, `amdgpu_ras_suspend`, `amdgpu_ras_late_init`,
-`amdgpu_ras_fini`, `gfx_v9_0_hw_fini`.
+**Step 2.2 — Code flow changes**
 
-Scope: **single-subsystem, surgical** (amdgpu RAS/GFX9).
-
-**Step 2.2 — Code flow per hunk**
-
-| Hunk | Before → After |
-|------|----------------|
-| `amdgpu_gfx_ras_late_init` | VF early-return then separate `irq_get` →
-combined `!VF && funcs` guard for `irq_get` |
-| New `amdgpu_gfx_ras_suspend` | No suspend cleanup → `irq_put` with
-same guard as get |
-| New `amdgpu_gfx_ras_fini` | No gfx-specific fini (header-only orphan
-declaration) → `irq_put` + `amdgpu_ras_block_late_fini` |
-| `amdgpu_gfx_ras_sw_init` | Only sets `ras_late_init` → also sets
-default `ras_suspend` and `ras_fini` |
-| `amdgpu_ras_suspend` | Only disables RAS features → iterates blocks,
-calls `ras_suspend`, clears `active` |
-| `amdgpu_ras_late_init` | No tracking → sets `node->active = true`
-after successful late_init |
-| `amdgpu_ras_fini` | Always calls custom `ras_fini` if supported →
-gated by `ras_node->active` to avoid double-cleanup after suspend |
-| `gfx_v9_0_hw_fini` | `irq_put(cp_ecc_error_irq)` if RAS supported →
-removed (now handled in RAS layer) |
+Record:
+- **Hunk 1 (`kfd_smi_event_update_vmfault`):** Before:
+  `kfd_smi_event_add(0, dev, VMFAULT, ...)` → all subscribed clients
+  receive VM fault events with other processes' PID/comm. After:
+  `kfd_smi_event_add(task_info->tgid, dev, VMFAULT, ...)` → only
+  matching client or admin receives it.
+- **Hunk 2 (`kfd_smi_event_process`):** Before: `kfd_smi_event_add(0,
+  pdd->dev, PROCESS_START/END, ...)` → broadcast. After:
+  `kfd_smi_event_add(task_info->tgid, pdd->dev, ...)` → per-process
+  filtering.
 
 **Step 2.3 — Bug mechanism**
-Record: **Reference counting / resource lifecycle bug.**
-- Get: `amdgpu_irq_get()` in `amdgpu_gfx_ras_late_init()` — only when
-  `!amdgpu_sriov_vf(adev) && cp_ecc_error_irq.funcs`.
-- Put (current tree): `amdgpu_irq_put()` in `gfx_v9_0_hw_fini()` — when
-  `amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX)` only.
-- On SR-IOV VF with RAS telemetry enabled, late_init runs (see
-  `amdgpu_ras_late_init` VF check) but gfx `irq_get` is skipped; hw_fini
-  still calls `irq_put` before the VF early-return → `WARN_ON` in
-  `amdgpu_irq_put()`.
+
+Record: **Information leak / missing access control.** Category (d)
+memory-safety adjacent — logic/correctness in security filtering.
+`pid=0` is intentional for system-wide events (GPU reset, thermal
+throttle); using it for per-process events defeats isolation.
 
 **Step 2.4 — Fix quality**
-Record: Fix is **obviously correct** — symmetric get/put with identical
-conditions, proper suspend hook, `active` flag prevents double-release.
-Minimal regression risk: no blocks currently register custom `ras_fini`
-in this tree (verified via grep), so the `active` flag behavior only
-affects the newly registered gfx callbacks.
+
+Record: Obviously correct — uses `task_info->tgid`, which matches
+`client->pid = current->tgid` set in `kfd_smi_event_open()`. Minimal
+change. Low regression risk; system-wide events still use `pid=0`.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 **Step 3.1 — Blame**
+
 Record:
-- `gfx_v9_0_hw_fini` put lines: `d97b02bb9c7aa` (May 2023) — prior fix
-  for put-without-get when legacy GFX RAS disabled; did not fix VF
-  condition mismatch.
-- `irq_get` in `amdgpu_gfx_ras_late_init`: `6caeee7a708c0` (Sep 2019).
-- Buggy asymmetric lifecycle present since **v5.x** era; still present
-  in **6.18.44**.
+- `kfd_smi_ev_enabled()` filter: Philip Yang, 2022-01-13
+  (`163a5a58437062`); superuser logic simplified by Eric Huang,
+  2025-04-14 (`6b9d26089f56f`).
+- VMFAULT with `pid=0`: since at least Shashank Sharma refactor,
+  2024-01-18 (`b8f67b9ddf4f8`); format-only change in 2024-02-16
+  (`663b0f1e141dc`).
+- PROCESS_START/END with `pid=0`: introduced 2025-04-07
+  (`4172b556fd5bd`).
 
 **Step 3.2 — Fixes: tag**
-Record: Not applicable (no `Fixes:` tag). Related prior fix
-`d97b02bb9c7aa` is in this tree but incomplete for the VF/get-put
-mismatch.
 
-**Step 3.3 — File history**
-Record: Part of 2-patch series `[PATCH 0/2] drm/amdgpu: balance GFX IRQ
-get/put across init/suspend/fini`. This commit is **patch 1/2** and is
-**self-contained** for `cp_ecc_error_irq`. Patch 2/2 (`9117d8be850ba` on
-master) addresses fault/EOP IRQs separately and is **not a
-prerequisite**.
+Record: Not applicable — no `Fixes:` tag. Buggy PROCESS events
+introduced by `4172b556fd5bd`; VMFAULT leak predates that.
+
+**Step 3.3 — Related file history**
+
+Record: Recent related commits in this tree:
+- `6b9d26089f56f` — superuser SMI filter fix (present)
+- `4172b556fd5bd` — process start/end events (present, introduced leak)
+- `9315860d05aa2` — NULL check fix for process SMI event
+- `9fd86747daa6c` — queue restore string fix
+- On master but not in 6.18.44: `92a8dba246d37` / `3b347d011773d` (this
+  fix), `1142738572ef3` (container PID reporting — separate, larger
+  change)
 
 **Step 3.4 — Author context**
-Record: Yunxiang Li is an AMD contributor. Alex Deucher (maintainer)
-Acked and committed.
+
+Record: Yongqiang Sun has at least one other amdkfd fix in history. Alex
+Deucher (maintainer) Acked and committed the fix.
 
 **Step 3.5 — Dependencies**
-Record: **Standalone.** Cherry-pick to 6.18.44 applies cleanly with
-auto-merge. No prerequisite commits required.
+
+Record: Standalone — uses `task_info->tgid` already present in `struct
+amdgpu_task_info` since 2018 (`2aa37bf58838f`). No series prerequisites.
+`git apply --check` passes cleanly on 6.18.44.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
 **Step 4.1 — Original discussion**
-Record:
-- URL:
-  https://patch.msgid.link/20260527233504.1830940-2-Yunxiang.Li@amd.com
-- Series: v1 only (no v2/v3 revisions found)
-- Patch 1/2 of 2-patch series
+
+Record: `b4 dig -c 3b347d011773d` found v1 only at
+https://patch.msgid.link/20260527141014.567441-1-Yongqiang.Sun@amd.com.
+Lore fetch blocked by Anubis bot protection; no thread replies
+retrieved.
 
 **Step 4.2 — Reviewers**
-Record: CC'd to `amd-gfx@lists.freedesktop.org`, Alex Deucher, Christian
-König. Alex Deucher Acked.
+
+Record: `b4 dig -w` — sent to Yongqiang Sun and `amd-
+gfx@lists.freedesktop.org`. Alex Deucher Acked in commit.
 
 **Step 4.3 — Bug report**
-Record: No external bug report or syzbot link. Mechanism is documented
-in commit message; similar prior bug (`d97b02bb9c7aa`) had stack trace
-from `gfx_v9_0_hw_fini` → `amdgpu_irq_put` during suspend.
+
+Record: Not applicable — no `Reported-by:` or `Link:` tags. Bug
+identified by code review / internal AMD analysis per commit message.
 
 **Step 4.4 — Related patches**
-Record: Patch 2/2 (`drm/amdgpu/gfx: move fault and EOP IRQ get/put to
-hw_init/hw_fini`) is independent. Not required for this fix.
 
-**Step 4.5 — Stable list history**
-Record: No `Cc: stable` nomination found in thread. Not a negative
-signal per instructions.
+Record: Container PID fix (`1142738572ef3`) is a separate follow-up on
+master; not required for this security fix to function on non-container
+or host-PID setups.
+
+**Step 4.5 — Stable list**
+
+Record: Not searched (lore blocked). No stable nomination found in
+available sources.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 **Step 5.1 — Key functions**
-Record: `amdgpu_gfx_ras_late_init`, `amdgpu_gfx_ras_suspend`,
-`amdgpu_gfx_ras_fini`, `amdgpu_ras_suspend`, `amdgpu_ras_late_init`,
-`amdgpu_ras_fini`, `gfx_v9_0_hw_fini`, `amdgpu_irq_get`,
-`amdgpu_irq_put`.
+
+Record: `kfd_smi_ev_enabled()`, `kfd_smi_event_add()`,
+`kfd_smi_event_update_vmfault()`, `kfd_smi_event_process()`,
+`kfd_smi_event_open()`
 
 **Step 5.2 — Callers**
-Record:
-- `amdgpu_ras_suspend` ← `amdgpu_device_suspend()` (line 5261) —
-  **system suspend path**
-- `gfx_v9_0_hw_fini` ← `gfx_v9_0_suspend` ← `amdgpu_ip_block_suspend` ←
-  `amdgpu_device_ip_suspend_phase2` — **suspend and driver unload**
-- `amdgpu_ras_late_init` ← `amdgpu_device_ip_late_init` — boot and
-  **resume** (line 5365)
-- `amdgpu_ras_fini` ← `amdgpu_device_ip_fini` — driver unload
 
-**Step 5.3 — Key callees**
-Record: `amdgpu_irq_get/put` (atomic refcount on `enabled_types`),
-`amdgpu_ras_block_late_fini`, `amdgpu_ras_disable_all_features`.
+Record:
+- `kfd_smi_event_update_vmfault()` ← `kfd_int_process_v9.c`,
+  `kfd_int_process_v11.c`, `cik_event_interrupt.c` (GPU fault interrupt
+  paths)
+- `kfd_smi_event_process()` ← `kfd_process.c` (process start at line
+  ~1727, end at ~1059)
+- `kfd_smi_event_open()` ← `kfd_chardev.c` via `kfd_ioctl_smi_events()`
+  (userspace ioctl)
+
+**Step 5.3 — Callees**
+
+Record: `amdgpu_vm_get_task_info_pasid()`,
+`amdgpu_vm_get_task_info_vm()`, `add_event_to_kfifo()` → iterates all
+SMI clients and checks `kfd_smi_ev_enabled()`.
 
 **Step 5.4 — Reachability**
-Record: **Yes, reachable from normal operations:**
-- System suspend/resume (laptop, server)
-- SR-IOV VF with RAS telemetry
-- Driver unload after suspend (no resume)
-- Config: `CONFIG_DRM_AMDGPU` + GFX9 hardware + RAS enabled
+
+Record: Userspace opens SMI event fd via KFD ioctl (`/dev/kfd`, render
+group). GPU faults and process lifecycle events are triggered by normal
+KFD compute workloads. **Reachable by unprivileged render-group users**
+who can subscribe to SMI events and receive other users' process
+metadata.
 
 **Step 5.5 — Similar patterns**
-Record: Prior fix `d97b02bb9c7aa` addressed same `amdgpu_irq_put` WARN
-class for different condition (`amdgpu_ras_is_supported` vs actually
-enabled). Patch 2/2 in the series addresses similar get/put split for
-other GFX IRQs.
+
+Record: Other per-process events (`page_fault`, `migration`,
+`queue_eviction`, etc.) already pass non-zero PID and are correctly
+filtered. Only VMFAULT and PROCESS_START/END incorrectly used `pid=0`.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
 
-**Step 6.1 — Buggy code exists?**
-Record: **Yes.** Current 6.18.44 tree has:
-- `irq_get` in `amdgpu_gfx_ras_late_init` with VF skip (lines 937-943)
-- `irq_put` in `gfx_v9_0_hw_fini` with only `amdgpu_ras_is_supported`
-  guard (lines 4087-4088)
-- No `ras_suspend` callback infrastructure
-- Orphan `amdgpu_gfx_ras_fini` declaration in header with no
-  implementation
+**Step 6.1 — Buggy code present?**
+
+Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
+Verified:
+- Line 257: `kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, ...)`
+- Line 359: `kfd_smi_event_add(0, pdd->dev, PROCESS_START/END, ...)`
+- Filter at lines 168-169 skips all PID checks when `pid==0`
+- Fix commit `3b347d011773d` is **not** an ancestor of HEAD (`merge-
+  base` exit 1)
 
 **Step 6.2 — Backport complications**
-Record: **Clean apply** — tested via `git cherry-pick --no-commit
-e3829992dd9fa`, auto-merged all 5 files.
+
+Record: **Clean apply** — `git show 3b347d011773d -p | git apply
+--check` succeeded with no conflicts.
 
 **Step 6.3 — Related fixes already present?**
-Record: `d97b02bb9c7aa` (partial fix) is in tree. This commit is not
-duplicated; it completes the lifecycle fix.
+
+Record: Superuser filter fix (`6b9d26089f56f`) is present but does not
+address `pid=0` bypass. This specific information-leak fix is absent.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem Context
 
-**Step 7.1 — Subsystem criticality**
-Record: `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU driver,
-widely deployed on desktops, laptops, servers, cloud VF).
+**Step 7.1 — Subsystem**
+
+Record: `drivers/gpu/drm/amd/amdkfd` — AMD KFD (ROCm/HSA GPU compute).
+Criticality: **IMPORTANT** for AMD GPU compute users; config-dependent
+(`CONFIG_HSA_AMD`).
 
 **Step 7.2 — Activity**
-Record: Actively maintained; RAS subsystem receives regular fixes in
-6.18.y.
+
+Record: Actively maintained — multiple SMI event commits in 2024-2026 in
+this file.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk Assessment
 
 **Step 8.1 — Who is affected**
-Record: Users of **AMD GFX9 GPUs** with **RAS enabled** — especially
-**SR-IOV virtual functions** with RAS telemetry, and any system using
-suspend/resume with RAS.
+
+Record: Multi-user systems with AMD GPUs and KFD/ROCm enabled; any user
+in the render group with `/dev/kfd` access.
 
 **Step 8.2 — Trigger conditions**
-Record:
-- SR-IOV VF + RAS telemetry + suspend → **high likelihood** of
-  `amdgpu_irq_put` WARN
-- Suspend → unload without resume with new `ras_fini` → potential double
-  `irq_put` without `active` flag
-- Non-VF suspend/resume works today but has architectural fragility
+
+Record: Another user's KFD process starts/ends or triggers a VM fault
+while a malicious/co-resident user has an SMI event fd subscribed.
+Common on shared GPU servers, HPC clusters, and multi-tenant
+workstations.
 
 **Step 8.3 — Failure mode severity**
-Record: `WARN_ON` in `amdgpu_irq_put` during suspend — **MEDIUM**
-(kernel warning, incorrect IRQ state; not typically a panic but
-indicates broken refcounting). Suspend-then-unload double-release —
-**MEDIUM-HIGH** (refcount underflow / further WARNs).
 
-**Step 8.4 — Risk-benefit**
+Record: **Cross-process information disclosure** — other processes' PIDs
+and command names exposed. Severity: **HIGH** (security/privacy; not
+crash/corruption, but violates process isolation). Unprivileged render-
+group users can trigger it.
+
+**Step 8.4 — Risk vs benefit**
+
 Record:
-- **Benefit:** HIGH for enterprise VF/cloud; MEDIUM for general amdgpu
-  suspend users
-- **Risk:** LOW — 53 lines, localized, maintainer-acked, applies
-  cleanly, no custom `ras_fini` handlers exist in tree to be disrupted
-- **Ratio:** Favorable
+- **Benefit:** HIGH — closes a real cross-process monitoring hole on
+  shared GPU systems
+- **Risk:** VERY LOW — 8-line change, uses existing fields and filtering
+  logic, maintainer-acked
+- **Ratio:** Strongly favors backport
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 **Step 9.1 — Evidence summary**
 
-| FOR backport | AGAINST backport |
-|---|---|
-| Fixes real refcounting/lifecycle bug | Part of 2-patch series (but
-patch 1 is self-contained) |
-| Triggerable on suspend (common path) | No syzbot/user report attached
-|
-| SR-IOV VF path clearly broken in current code | WARN severity, not
-panic |
-| Maintainer Acked-by Alex Deucher | |
-| Applies cleanly to 6.18.44 | |
-| Small, contained (53 lines) | |
-| Similar prior fix (`d97b02`) was stable material | |
-| Resume path re-acquires via `amdgpu_ras_late_init` in
-`amdgpu_device_resume` | |
+**FOR:**
+- Real security/privacy bug (cross-process PID/comm leak)
+- Small, surgical, maintainer-acked fix
+- Applies cleanly to 6.18.44
+- Buggy code confirmed present in this tree
+- Unprivileged users in render group can exploit
+- Aligns with stable policy for security fixes
+
+**AGAINST:**
+- Affects only AMD KFD users (not universal)
+- No external bug report or syzbot confirmation
+- Container PID correctness is a separate follow-up on master (not a
+  reason to reject this fix)
+
+**UNRESOLVED:**
+- Full lore thread discussion (Anubis blocked fetch)
+- No explicit stable-list nomination found
 
 **Step 9.2 — Stable rules checklist**
 
 | Criterion | Result |
 |-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — symmetric lifecycle,
-maintainer ack; no explicit Tested-by |
-| 2. Fixes real bug affecting users? | **PASS** — VF suspend WARN,
-suspend/unload edge case |
-| 3. Important issue? | **PASS** — MEDIUM severity (WARN, IRQ refcount
-corruption class) |
-| 4. Small and contained? | **PASS** — 5 files, 53 insertions |
-| 5. No new features/APIs? | **PASS** — internal driver callback only |
-| 6. Can apply to local tree? | **PASS** — clean cherry-pick verified |
+| 1. Obviously correct and tested? | **PASS** — logic clear; Acked-by
+maintainer |
+| 2. Fixes real bug affecting users? | **PASS** — cross-process info
+leak on shared GPUs |
+| 3. Important issue? | **PASS** — security information disclosure
+(HIGH) |
+| 4. Small and contained? | **PASS** — 8 lines, 1 file |
+| 5. No new features/APIs? | **PASS** — corrects existing event delivery
+only |
+| 6. Can apply to this tree? | **PASS** — clean apply verified |
 
 **Step 9.3 — Exception categories**
-Record: None (not device ID, quirk, DT, build fix, or docs).
+
+Record: None (not a quirk/DT/build/doc fix) — qualifies on security bug-
+fix merits.
 
 **Step 9.4 — Decision rationale**
-This commit fixes a longstanding asymmetric IRQ lifecycle in the amdgpu
-RAS/GFX9 path that can trigger `WARN_ON` during system suspend on SR-IOV
-VFs and creates fragile teardown on suspend-then-unload. The fix is
-small, maintainer-reviewed, applies cleanly to 6.18.44, and the affected
-code is present in this tree. The benefit outweighs the low regression
-risk.
+
+This commit fixes a genuine cross-process information leak in AMD KFD
+SMI events. The buggy code is present in Linux 6.18.44, the fix is
+minimal and obviously correct, and it restores the intended per-process
+isolation that `kfd_smi_ev_enabled()` was designed to provide. Shared-
+GPU and multi-user ROCm deployments on stable kernels should receive
+this security fix.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified hidden refcounting
-  bug
-- [Phase 2] Analyzed all 5 file diffs; classified as reference-
-  counting/lifecycle fix
-- [Phase 3] `git blame` on `gfx_v9_0.c:4087-4088` → `d97b02bb9c7aa`
-  (2023); `irq_get` introduced `6caeee7a708c0` (2019); both ancestors in
-  tree
-- [Phase 3] `git log --grep` found commit `e3829992dd9fa` on
-  `origin/master`; not ancestor of HEAD (not in 6.18.44)
-- [Phase 3] Confirmed patch 1/2 is standalone; patch 2/2
-  (`9117d8be850ba`) is separate
-- [Phase 4] `b4 dig -c e3829992dd9fa` →
-  https://patch.msgid.link/20260527233504.1830940-2-Yunxiang.Li@amd.com
-- [Phase 4] `b4 dig -a` → v1 only
-- [Phase 4] `b4 dig -w` → CC: amd-gfx, Alex Deucher, Christian König
-- [Phase 4] No stable nomination in thread
-- [Phase 5] Traced callers: `amdgpu_device_suspend` →
-  `amdgpu_ras_suspend`; `gfx_v9_0_suspend` → `gfx_v9_0_hw_fini`
-- [Phase 5] Read `amdgpu_irq_put` at `amdgpu_irq.c:637` —
-  `WARN_ON(!amdgpu_irq_enabled())`
-- [Phase 5] Grep: no `.ras_fini =` assignments in tree (no custom
-  ras_fini handlers)
-- [Phase 6] `git describe HEAD` → v6.18.44; buggy code confirmed at
-  `amdgpu_gfx.c:937-943`, `gfx_v9_0.c:4087-4088`
-- [Phase 6] `git cherry-pick --no-commit e3829992dd9fa` → clean auto-
-  merge on all 5 files
-- [Phase 6] `amdgpu_device_resume` calls `amdgpu_device_ip_late_init` →
-  `amdgpu_ras_late_init` (re-acquires IRQ on resume)
-- [Phase 8] Failure mode: WARN_ON during VF suspend — MEDIUM severity
+- [Phase 1] Parsed commit message and tags from user query and `git show
+  3b347d011773d`
+- [Phase 2] Read current `kfd_smi_events.c` lines 163-366; confirmed
+  diff changes only VMFAULT and PROCESS paths
+- [Phase 3] `git blame` on filter and event functions; identified
+  introducing commits `4172b556fd5bd`, `b8f67b9ddf4f8`, `6b9d26089f56f`,
+  `163a5a58437062`
+- [Phase 3] `git merge-base --is-ancestor`: PROCESS events and superuser
+  fix present; info-leak fix absent
+- [Phase 3] `git show 3b347d011773d -p | git apply --check`: clean apply
+- [Phase 4] `b4 dig -c 3b347d011773d`: found lore URL; v1 only
+- [Phase 4] `b4 dig -w`: amd-gfx list CC'd
+- [Phase 4] `b4 dig -a`: single v1 revision
+- [Phase 4] WebFetch lore URL: blocked by Anubis (no thread content)
+- [Phase 5] `grep` callers of `kfd_smi_event_update_vmfault` and
+  `kfd_smi_event_process`
+- [Phase 5] Read `kfd_smi_event_open()`: `client->pid = current->tgid`,
+  `client->suser = capable(CAP_SYS_ADMIN)`
+- [Phase 5] Verified `task_info->tgid` populated in `amdgpu_vm.c:2543`
+- [Phase 6] `git describe HEAD`: v6.18.44
+- [Phase 6] Confirmed buggy `kfd_smi_event_add(0, ...)` at lines 257 and
+  359 in current tree
+- [Phase 6] `git log stable/linux-6.18.y..master -- kfd_smi_events.c`:
+  fix on master, not in stable
+- [Phase 8] Assessed severity as cross-process information disclosure
+  via render-group `/dev/kfd` access
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 26 ++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 32 +++++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  2 --
- 5 files changed, 53 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 40e7482980692..46c0b986db51d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -934,10 +934,7 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
- 		if (r)
- 			return r;
- 
--		if (amdgpu_sriov_vf(adev))
--			return r;
--
--		if (adev->gfx.cp_ecc_error_irq.funcs) {
-+		if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs) {
- 			r = amdgpu_irq_get(adev, &adev->gfx.cp_ecc_error_irq, 0);
- 			if (r)
- 				goto late_fini;
-@@ -952,6 +949,21 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
- 	return r;
- }
- 
-+void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev,
-+			    struct ras_common_if *ras_block)
-+{
-+	if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs)
-+		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-+}
-+
-+void amdgpu_gfx_ras_fini(struct amdgpu_device *adev,
-+			 struct ras_common_if *ras_block)
-+{
-+	if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs)
-+		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-+	amdgpu_ras_block_late_fini(adev, ras_block);
-+}
-+
- int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
- {
- 	int err = 0;
-@@ -980,6 +992,12 @@ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
- 	if (!ras->ras_block.ras_late_init)
- 		ras->ras_block.ras_late_init = amdgpu_gfx_ras_late_init;
- 
-+	if (!ras->ras_block.ras_suspend)
-+		ras->ras_block.ras_suspend = amdgpu_gfx_ras_suspend;
-+
-+	if (!ras->ras_block.ras_fini)
-+		ras->ras_block.ras_fini = amdgpu_gfx_ras_fini;
-+
- 	/* If not defined special ras_cb function, use default ras_cb */
- 	if (!ras->ras_block.ras_cb)
- 		ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index fb5f7a0ee029f..8949037b62a43 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -603,7 +603,8 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
- void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
- int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
--void amdgpu_gfx_ras_fini(struct amdgpu_device *adev);
-+void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-+void amdgpu_gfx_ras_fini(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- int amdgpu_get_gfx_off_entrycount(struct amdgpu_device *adev, u64 *value);
- int amdgpu_get_gfx_off_residency(struct amdgpu_device *adev, u32 *residency);
- int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 4c1a65fffede7..16ae44e131ad4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -92,6 +92,9 @@ struct amdgpu_ras_block_list {
- 	struct list_head node;
- 
- 	struct amdgpu_ras_block_object *ras_obj;
-+
-+	/* set by ras_late_init, cleared by ras_suspend/ras_fini */
-+	bool active;
- };
- 
- const char *get_ras_block_str(struct ras_common_if *ras_block)
-@@ -4392,10 +4395,23 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
- void amdgpu_ras_suspend(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	struct amdgpu_ras_block_list *node;
-+	struct amdgpu_ras_block_object *obj;
- 
- 	if (!adev->ras_enabled || !con)
- 		return;
- 
-+	/* run per-block ras_suspend before tearing down the RAS context */
-+	list_for_each_entry(node, &adev->ras_list, node) {
-+		if (!node->active)
-+			continue;
-+
-+		obj = node->ras_obj;
-+		if (obj && obj->ras_suspend)
-+			obj->ras_suspend(adev, &obj->ras_comm);
-+		node->active = false;
-+	}
-+
- 	amdgpu_ras_disable_all_features(adev, 0);
- 	/* Make sure all ras objects are disabled. */
- 	if (AMDGPU_RAS_GET_FEATURES(con->features))
-@@ -4449,8 +4465,15 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
- 					obj->ras_comm.name, r);
- 				return r;
- 			}
--		} else
--			amdgpu_ras_block_late_init_default(adev, &obj->ras_comm);
-+		} else {
-+			r = amdgpu_ras_block_late_init_default(adev, &obj->ras_comm);
-+			if (r) {
-+				dev_err(adev->dev, "%s failed to execute ras_block_late_init_default! ret:%d\n",
-+					obj->ras_comm.name, r);
-+				return r;
-+			}
-+		}
-+		node->active = true;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index d2bc169e84b0b..fe4b936923854 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
+ 	if (task_info) {
+ 		/* Report VM faults from user applications, not retry from kernel */
+ 		if (task_info->task.pid)
+-			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
+-					  task_info->task.pid, task_info->task.comm));
++			kfd_smi_event_add(task_info->tgid, dev,
++					  KFD_SMI_EVENT_VMFAULT,
++					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
++								task_info->task.comm));
+ 		amdgpu_vm_put_task_info(task_info);
  	}
+ }
+@@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
+ 	task_info = amdgpu_vm_get_task_info_vm(avm);
  
- 	return 0;
-@@ -4487,11 +4510,12 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 	list_for_each_entry_safe(ras_node, tmp, &adev->ras_list, node) {
- 		if (ras_node->ras_obj) {
- 			obj = ras_node->ras_obj;
--			if (amdgpu_ras_is_supported(adev, obj->ras_comm.block) &&
--			    obj->ras_fini)
-+			/* fall back to default cleanup if ras_suspend already ran */
-+			if (ras_node->active && obj->ras_fini)
- 				obj->ras_fini(adev, &obj->ras_comm);
- 			else
- 				amdgpu_ras_block_late_fini_default(adev, &obj->ras_comm);
-+			ras_node->active = false;
- 		}
- 
- 		/* Clear ras blocks from ras_list and free ras block list node */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 6cf0dfd38be8b..8160c4d598543 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -731,6 +731,7 @@ struct amdgpu_ras_block_object {
- 	int (*ras_block_match)(struct amdgpu_ras_block_object *block_obj,
- 				enum amdgpu_ras_block block, uint32_t sub_block_index);
- 	int (*ras_late_init)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-+	void (*ras_suspend)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- 	void (*ras_fini)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- 	ras_ih_cb ras_cb;
- 	const struct amdgpu_ras_block_hw_ops *hw_ops;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index c5549a5abcd43..9d7214bcaadb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4084,8 +4084,6 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 
--	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
--		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
+ 	if (task_info) {
+-		kfd_smi_event_add(0, pdd->dev,
++		kfd_smi_event_add(task_info->tgid, pdd->dev,
+ 				  start ? KFD_SMI_EVENT_PROCESS_START :
+ 				  KFD_SMI_EVENT_PROCESS_END,
+ 				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
 -- 
 2.53.0
 
