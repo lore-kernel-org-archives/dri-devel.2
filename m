@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D29AC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E42DC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:49:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7C6510E8DE;
-	Mon, 31 Aug 2026 13:48:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8185F10E8E6;
+	Mon, 31 Aug 2026 13:49:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VN1j4fm4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oDB0CjZW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F2E10E8DE;
- Mon, 31 Aug 2026 13:48:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA7010E8E0;
+ Mon, 31 Aug 2026 13:49:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 097236013A;
- Mon, 31 Aug 2026 13:48:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B781F00A3E;
- Mon, 31 Aug 2026 13:48:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 05F4742A26;
+ Mon, 31 Aug 2026 13:49:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE4C1F00A3F;
+ Mon, 31 Aug 2026 13:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184137;
- bh=CBWdldcJE8xPdqsaPFZXxeaY6tXuX3vHWPhS0ty9szg=;
+ s=k20260515; t=1788184165;
+ bh=l5bO7/FV2QTdlgRTU8o2zG/6Csv1poRfJdScgOkwW3I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=VN1j4fm4/DWVdV0vyIyeTHUL1iiUyLT72F896UCjcoQxlq55FK00YmNvBE1pHH18Z
- yPjuu9pDVbAhkcQxi8eMRpq1bLUPhFqcy7yVIzXmPQWuEM7KZBNa8vM7bGWQM9Elc7
- P1s0ZtvAQW3dOLoPBxTW6i5Y0hrsvkrWjOTyvSuKfq0oAvLjFWCih+mjPfJPy6SKVz
- RkJVcSqlCX2u4BpKwJwby8/JZztWqRani+YNv5ol2K2iFEkLRqAkSt/j6azevSRUAB
- JW8UIIhGgzx9G+PG2507qz1FRMCofzCzeLgYj4AQKtr67Cs7uGad0K4n3XSi+VZNXr
- hskj+33uQdSfQ==
+ b=oDB0CjZWW6onw4IFy90EprLjf5xFmLLHPkfeVEbEzF2Q3oT71zcjQZtm0wCo0FUR2
+ eKT/36C4fIjv6Hf3fpTx86YFWuys+wpuad8JlPzVxT92mmrKGGJgy5qypxusw7cMZB
+ X7fzo76wn/oUrbNgKuXmwxAONgxfOu24DMaz13Q8qKtuj8tTQfQz0CF9/9fSb+6nAz
+ FKVrKT11mAXV2wlwmBeq/X4/nEHzdO2+iUQcujQkRZzhDOY7XOoxz0QVuHVd6F9Bz5
+ Rj1higvzn1140L6dDYCO+H3VElvvvXWU5UiGKr2NCZs9hRuIb7yVhVGl0kJ7+ZMek9
+ 5EupcbkgbbPxA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yongqiang Sun <Yongqiang.Sun@amd.com>,
+Cc: Gangliang Xie <ganglxie@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdkfd: fix SMI event cross-process
- information leak
-Date: Mon, 31 Aug 2026 09:29:02 -0400
-Message-ID: <20260831133314.4125787-514-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: add first record offset check
+Date: Mon, 31 Aug 2026 09:29:18 -0400
+Message-ID: <20260831133314.4125787-530-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,406 +65,390 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <Yongqiang.Sun@amd.com>
+From: Gangliang Xie <ganglxie@amd.com>
 
-[ Upstream commit 92a8dba246d371fe268280e5fd74b0955688e6df ]
+[ Upstream commit 4073cdf6713b7c170e35bf055354580cc52085d6 ]
 
-kfd_smi_ev_enabled() skips the suser privilege check when pid=0.
-PROCESS_START, PROCESS_END, and VMFAULT events are emitted with
-pid=0 while carrying another process's PID and command name, so any
-/dev/kfd user in the render group can monitor all GPU workloads.
+check the upper and lower limits of first record offset
 
-Pass the target process PID into kfd_smi_event_add() for these events
-so the existing per-client filter restricts delivery to the owning
-process or CAP_SYS_ADMIN subscribers.
-
-Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Gangliang Xie <ganglxie@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `drm/amdgpu: add first record offset check`
 
-**Step 1.1 — Subject line**
-
-Record: `[drm/amdkfd] [fix] SMI event cross-process information leak`
-
-**Step 1.2 — Tags**
-
-Record:
-- `Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>` (author)
-- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
-  maintainer)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc:
-  stable@vger.kernel.org`
-
-Notable: maintainer Acked-by; no syzbot or user bug report tags.
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** `kfd_smi_ev_enabled()` does not apply per-client PID
-  filtering when the filter PID argument is `0`. `PROCESS_START`,
-  `PROCESS_END`, and `VMFAULT` events are emitted with filter PID `0`
-  but carry another process's PID and command name in the event payload.
-- **Symptom:** Any `/dev/kfd` user in the render group can monitor all
-  GPU workloads (other processes' PIDs and command names).
-- **Root cause:** `kfd_smi_event_add(0, ...)` bypasses the `if (pid &&
-  ...)` guard in `kfd_smi_ev_enabled()`.
-- **Fix:** Pass `task_info->tgid` into `kfd_smi_event_add()` so the
-  existing filter restricts delivery to the owning process or
-  `CAP_SYS_ADMIN` subscribers (`client->suser`).
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: No — this is an explicit security/privacy bug fix, not disguised
-cleanup.
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `VERSION = 6`,
+`PATCHLEVEL = 18`, `SUBLEVEL = 44`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: Subject line
+**Record:** `[drm/amdgpu]` `[add]` — validate `first_rec_offset` bounds
+in RAS EEPROM header parsing during init.
 
-Record:
-- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c` (+5 / -3
-  lines)
-- **Functions modified:** `kfd_smi_event_update_vmfault()`,
-  `kfd_smi_event_process()`
-- **Scope:** Single-file surgical fix
+### Step 1.2: Tags
+**Record:**
+- `Signed-off-by: Gangliang Xie <ganglxie@amd.com>` — author
+- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>` — AMD reviewer
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` — amdgpu
+  maintainer
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, or `Tested-by:`
+  tags
+- Notable: maintainer sign-off and internal AMD review, but no external
+  bug report
 
-**Step 2.2 — Code flow changes**
+### Step 1.3: Body analysis
+**Record:**
+- **Bug described:** `first_rec_offset` from the RAS EEPROM header is
+  not bounds-checked.
+- **Symptom/failure mode:** Not spelled out in the message; code
+  analysis shows invalid `first_rec_offset` yields an invalid `ras_fri`
+  (first record index), breaking circular-buffer read logic.
+- **Version info:** None in message.
+- **Root cause (from code):** `RAS_OFFSET_TO_INDEX()` does unsigned
+  arithmetic; a `first_rec_offset` below `ras_record_offset` wraps to a
+  huge index, and values above the record region produce `ras_fri >=
+  ras_max_record_count`.
 
-Record:
-- **Hunk 1 (`kfd_smi_event_update_vmfault`):** Before:
-  `kfd_smi_event_add(0, dev, VMFAULT, ...)` → all subscribed clients
-  receive VM fault events with other processes' PID/comm. After:
-  `kfd_smi_event_add(task_info->tgid, dev, VMFAULT, ...)` → only
-  matching client or admin receives it.
-- **Hunk 2 (`kfd_smi_event_process`):** Before: `kfd_smi_event_add(0,
-  pdd->dev, PROCESS_START/END, ...)` → broadcast. After:
-  `kfd_smi_event_add(task_info->tgid, pdd->dev, ...)` → per-process
-  filtering.
-
-**Step 2.3 — Bug mechanism**
-
-Record: **Information leak / missing access control.** Category (d)
-memory-safety adjacent — logic/correctness in security filtering.
-`pid=0` is intentional for system-wide events (GPU reset, thermal
-throttle); using it for per-process events defeats isolation.
-
-**Step 2.4 — Fix quality**
-
-Record: Obviously correct — uses `task_info->tgid`, which matches
-`client->pid = current->tgid` set in `kfd_smi_event_open()`. Minimal
-change. Low regression risk; system-wide events still use `pid=0`.
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-
-Record:
-- `kfd_smi_ev_enabled()` filter: Philip Yang, 2022-01-13
-  (`163a5a58437062`); superuser logic simplified by Eric Huang,
-  2025-04-14 (`6b9d26089f56f`).
-- VMFAULT with `pid=0`: since at least Shashank Sharma refactor,
-  2024-01-18 (`b8f67b9ddf4f8`); format-only change in 2024-02-16
-  (`663b0f1e141dc`).
-- PROCESS_START/END with `pid=0`: introduced 2025-04-07
-  (`4172b556fd5bd`).
-
-**Step 3.2 — Fixes: tag**
-
-Record: Not applicable — no `Fixes:` tag. Buggy PROCESS events
-introduced by `4172b556fd5bd`; VMFAULT leak predates that.
-
-**Step 3.3 — Related file history**
-
-Record: Recent related commits in this tree:
-- `6b9d26089f56f` — superuser SMI filter fix (present)
-- `4172b556fd5bd` — process start/end events (present, introduced leak)
-- `9315860d05aa2` — NULL check fix for process SMI event
-- `9fd86747daa6c` — queue restore string fix
-- On master but not in 6.18.44: `92a8dba246d37` / `3b347d011773d` (this
-  fix), `1142738572ef3` (container PID reporting — separate, larger
-  change)
-
-**Step 3.4 — Author context**
-
-Record: Yongqiang Sun has at least one other amdkfd fix in history. Alex
-Deucher (maintainer) Acked and committed the fix.
-
-**Step 3.5 — Dependencies**
-
-Record: Standalone — uses `task_info->tgid` already present in `struct
-amdgpu_task_info` since 2018 (`2aa37bf58838f`). No series prerequisites.
-`git apply --check` passes cleanly on 6.18.44.
+### Step 1.4: Hidden bug fix detection
+**Record:** Yes — despite the neutral “add check” wording, this is a
+defensive bug fix completing RAS header validation started by
+`5df0d6addb7e9` (“Add basic validation for RAS header”). Invalid
+`ras_fri` can cause out-of-bounds EEPROM reads and bad arithmetic in
+`amdgpu_ras_eeprom_read()`.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 2: DIFF ANALYSIS
 
-**Step 4.1 — Original discussion**
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c` (+8 lines)
+- **Function:** `amdgpu_ras_eeprom_init()`
+- **Scope:** Single-file, surgical validation on an error path
 
-Record: `b4 dig -c 3b347d011773d` found v1 only at
-https://patch.msgid.link/20260527141014.567441-1-Yongqiang.Sun@amd.com.
-Lore fetch blocked by Anubis bot protection; no thread replies
-retrieved.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** After validating `ras_num_recs`, code unconditionally sets
+  `control->ras_fri = RAS_OFFSET_TO_INDEX(control,
+  hdr->first_rec_offset)` and returns success.
+- **After:** Rejects headers where `first_rec_offset <
+  ras_record_offset` or `ras_fri >= ras_max_record_count`, logging an
+  error and returning `-EINVAL`.
+- **Path affected:** GPU probe / RAS EEPROM init (error-handling path
+  for corrupt EEPROM data).
 
-**Step 4.2 — Reviewers**
+### Step 2.3: Bug mechanism
+**Record:** **Memory safety / logic correctness fix**
+- `RAS_OFFSET_TO_INDEX` is `((offset - ras_record_offset) / 24)` using
+  unsigned math.
+- Corrupt `first_rec_offset` below `ras_record_offset` (e.g. `0` when
+  minimum is `20`) wraps to a huge `ras_fri`.
+- `ras_fri` drives circular-buffer indexing in
+  `amdgpu_ras_eeprom_read()`; with invalid `ras_fri`, `g0`/`g1`
+  arithmetic can produce read counts far larger than the allocated
+  buffer (e.g. buffer sized for `ras_num_recs` but
+  `__amdgpu_ras_eeprom_read()` asked to read underflow-derived huge
+  counts).
+- No validation existed for this field; only `ras_num_recs` was checked
+  (since `5df0d6addb7e9`).
 
-Record: `b4 dig -w` — sent to Yongqiang Sun and `amd-
-gfx@lists.freedesktop.org`. Alex Deucher Acked in commit.
-
-**Step 4.3 — Bug report**
-
-Record: Not applicable — no `Reported-by:` or `Link:` tags. Bug
-identified by code review / internal AMD analysis per commit message.
-
-**Step 4.4 — Related patches**
-
-Record: Container PID fix (`1142738572ef3`) is a separate follow-up on
-master; not required for this security fix to function on non-container
-or host-PID setups.
-
-**Step 4.5 — Stable list**
-
-Record: Not searched (lore blocked). No stable nomination found in
-available sources.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-
-Record: `kfd_smi_ev_enabled()`, `kfd_smi_event_add()`,
-`kfd_smi_event_update_vmfault()`, `kfd_smi_event_process()`,
-`kfd_smi_event_open()`
-
-**Step 5.2 — Callers**
-
-Record:
-- `kfd_smi_event_update_vmfault()` ← `kfd_int_process_v9.c`,
-  `kfd_int_process_v11.c`, `cik_event_interrupt.c` (GPU fault interrupt
-  paths)
-- `kfd_smi_event_process()` ← `kfd_process.c` (process start at line
-  ~1727, end at ~1059)
-- `kfd_smi_event_open()` ← `kfd_chardev.c` via `kfd_ioctl_smi_events()`
-  (userspace ioctl)
-
-**Step 5.3 — Callees**
-
-Record: `amdgpu_vm_get_task_info_pasid()`,
-`amdgpu_vm_get_task_info_vm()`, `add_event_to_kfifo()` → iterates all
-SMI clients and checks `kfd_smi_ev_enabled()`.
-
-**Step 5.4 — Reachability**
-
-Record: Userspace opens SMI event fd via KFD ioctl (`/dev/kfd`, render
-group). GPU faults and process lifecycle events are triggered by normal
-KFD compute workloads. **Reachable by unprivileged render-group users**
-who can subscribe to SMI events and receive other users' process
-metadata.
-
-**Step 5.5 — Similar patterns**
-
-Record: Other per-process events (`page_fault`, `migration`,
-`queue_eviction`, etc.) already pass non-zero PID and are correctly
-filtered. Only VMFAULT and PROCESS_START/END incorrectly used `pid=0`.
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** Obviously correct — mirrors existing header validation
+  style.
+- **Minimal:** 8 lines, no API changes.
+- **Regression risk:** Very low; only rejects already-invalid headers.
+  On failure, `amdgpu_ras_init_badpage_info()` already sets
+  `is_eeprom_valid = false` and skips EEPROM loading.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 6.1 — Buggy code present?**
+### Step 3.1: Blame
+**Record:**
+- `ras_fri` assignment and `ras_num_recs` check introduced together in
+  `5df0d6addb7e9` (Lijo Lazar, 2025-03-26) — “Add basic validation for
+  RAS header”.
+- That commit validated record count but not `first_rec_offset`.
+- Bug present since `5df0d6addb7e9` in this tree; `ras_fri` usage is
+  much older.
 
-Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
-Verified:
-- Line 257: `kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, ...)`
-- Line 359: `kfd_smi_event_add(0, pdd->dev, PROCESS_START/END, ...)`
-- Filter at lines 168-169 skips all PID checks when `pid==0`
-- Fix commit `3b347d011773d` is **not** an ancestor of HEAD (`merge-
-  base` exit 1)
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag. Natural follow-up to `5df0d6addb7e9`,
+which is already in this tree.
 
-**Step 6.2 — Backport complications**
+### Step 3.3: Related file history
+**Record:**
+- `5df0d6addb7e9` — basic RAS header validation (in tree)
+- `660261df61fb7` — checksum validation on unload (in tree)
+- `89232d0db3ca9` — return on checksum error (in tree)
+- `4073cdf6713b7` — this fix (on `master`, **not** in `6.18.y`)
+- `c83e4a45ff9a0` — `tbl_size` validation (on `master`, not in tree;
+  separate issue)
+- Standalone one-commit fix, not part of a multi-patch series.
 
-Record: **Clean apply** — `git show 3b347d011773d -p | git apply
---check` succeeded with no conflicts.
+### Step 3.4: Author context
+**Record:** Gangliang Xie is an active amdgpu contributor (RAS EEPROM
+work: checksum checks, bad-page loading, threshold handling). Alex
+Deucher is amdgpu maintainer.
 
-**Step 6.3 — Related fixes already present?**
-
-Record: Superuser filter fix (`6b9d26089f56f`) is present but does not
-address `pid=0` bypass. This specific information-leak fix is absent.
+### Step 3.5: Dependencies
+**Record:**
+- Depends on `amdgpu_ras_eeprom_init()` and fields from `5df0d6addb7e9`
+  — all present in `6.18.y`.
+- `git apply --check` on `4073cdf6713b7` succeeds cleanly against
+  current tree.
+- Applies standalone.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 7.1 — Subsystem**
+### Step 4.1: Original discussion
+**Record:** `b4 dig -c 4073cdf6713b7` returned no match. Lore search
+blocked (Anubis bot protection). Commit is on `master` as
+`4073cdf6713b7` (committed 2026-05-19).
 
-Record: `drivers/gpu/drm/amd/amdkfd` — AMD KFD (ROCm/HSA GPU compute).
-Criticality: **IMPORTANT** for AMD GPU compute users; config-dependent
-(`CONFIG_HSA_AMD`).
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` also failed. From commit metadata: Reviewed-by
+Tao Zhou (AMD), Signed-off-by Alex Deucher (maintainer).
 
-**Step 7.2 — Activity**
+### Step 4.3: Bug reports
+**Record:** No `Reported-by:` or `Link:` tags. No syzbot/fuzzer report.
+Bug inferred from code path and prior validation commit rationale
+(“corrupted EEPROM header”).
 
-Record: Actively maintained — multiple SMI event commits in 2024-2026 in
-this file.
+### Step 4.4: Related patches
+**Record:** Related mainline follow-up `c83e4a45ff9a0` (tbl_size guard)
+is separate; not required for this patch.
+
+### Step 4.5: Stable list discussion
+**Record:** Could not search lore stable list (bot protection). No
+evidence found that this was explicitly rejected for stable.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 8.1 — Who is affected**
+### Step 5.1: Key functions
+**Record:** `amdgpu_ras_eeprom_init()` (modified); downstream consumers
+of `ras_fri`: `amdgpu_ras_eeprom_read()`, `__amdgpu_ras_eeprom_read()`,
+EEPROM write paths.
 
-Record: Multi-user systems with AMD GPUs and KFD/ROCm enabled; any user
-in the render group with `/dev/kfd` access.
+### Step 5.2: Callers
+**Record:**
+- `amdgpu_ras_eeprom_init()` ← `amdgpu_ras_init_badpage_info()` ←
+  `amdgpu_ras_recovery_init()` / `amdgpu_xgmi.c`
+- Called during GPU probe/RAS init on AMD hardware with RAS EEPROM
+  support (not VF, not SR-IOV guest).
 
-**Step 8.2 — Trigger conditions**
+### Step 5.3: Callees
+**Record:** `amdgpu_eeprom_read()`, `__decode_table_header_from_buf()`,
+`RAS_OFFSET_TO_INDEX` macro.
 
-Record: Another user's KFD process starts/ends or triggers a VM fault
-while a malicious/co-resident user has an SMI event fd subscribed.
-Common on shared GPU servers, HPC clusters, and multi-tenant
-workstations.
+### Step 5.4: Reachability
+**Record:**
+- Triggered at boot/probe when reading physical GPU EEPROM over I2C.
+- Not directly userspace-triggerable, but affects every boot on affected
+  AMD GPUs with corrupted EEPROM.
+- Corruption can arise from hardware wear, firmware bugs, or prior bad
+  writes.
 
-**Step 8.3 — Failure mode severity**
+### Step 5.5: Similar patterns
+**Record:** Same validation pattern as `ras_num_recs >
+ras_max_record_count` check added in `5df0d6addb7e9`. Part of a series
+of RAS EEPROM hardening commits already present in `6.18.y`.
 
-Record: **Cross-process information disclosure** — other processes' PIDs
-and command names exposed. Severity: **HIGH** (security/privacy; not
-crash/corruption, but violates process isolation). Unprivileged render-
-group users can trigger it.
+---
 
-**Step 8.4 — Risk vs benefit**
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
-Record:
-- **Benefit:** HIGH — closes a real cross-process monitoring hole on
-  shared GPU systems
-- **Risk:** VERY LOW — 8-line change, uses existing fields and filtering
-  logic, maintainer-acked
+### Step 6.1: Buggy code in tree?
+**Record:** **Yes.** At line 1441 in `amdgpu_ras_eeprom.c`, `ras_fri` is
+set without bounds checking. Fix commit `4073cdf6713b7` is not an
+ancestor of HEAD (`git merge-base --is-ancestor` exit 1). Gap introduced
+when `5df0d6addb7e9` landed in this tree (2025-03).
+
+### Step 6.2: Backport complications
+**Record:** Clean apply confirmed (`git apply --check` passes). No
+conflicts expected.
+
+### Step 6.3: Related fixes already present?
+**Record:** Prior validation (`5df0d6addb7e9`, `660261df61fb7`,
+`89232d0db3ca9`) is in tree, but not this `first_rec_offset` check. No
+duplicate fix found (`git log --grep="first record offset" HEAD` empty).
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU
+driver, RAS reliability/memory-error tracking). Not core-kernel-wide,
+but affects production AMD GPU deployments (datacenter, workstation).
+
+### Step 7.2: Subsystem activity
+**Record:** Actively maintained; multiple RAS EEPROM validation commits
+in 2025–2026 in this file.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** AMD GPUs with RAS EEPROM support and corrupted/invalid
+`first_rec_offset` in EEPROM header. Config/driver-specific, not
+universal.
+
+### Step 8.2: Trigger conditions
+**Record:** Corrupt EEPROM header on boot/RAS init. Uncommon but
+realistic (EEPROM corruption is exactly why `5df0d6addb7e9` was added).
+Not userspace-exploitable in the usual sense.
+
+### Step 8.3: Failure mode severity
+**Record:** Invalid `ras_fri` breaks circular-buffer arithmetic in
+`amdgpu_ras_eeprom_read()`:
+- Unsigned underflow when `ras_fri > ras_max_record_count` → `g0 =
+  ras_max_record_count - ras_fri` wraps to a huge value
+- `__amdgpu_ras_eeprom_read()` may attempt reads far exceeding the
+  `kcalloc(num, ...)` buffer
+- **Severity: HIGH** — potential buffer overrun, I2C read errors, driver
+  malfunction; graceful `-EINVAL` path exists with the fix
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected hardware — prevents invalid EEPROM
+  parsing and dangerous downstream reads
+- **Risk:** VERY LOW — 8-line bounds check, same style as existing
+  validation
 - **Ratio:** Strongly favors backport
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 — Evidence summary**
+### Step 9.1: Evidence summary
 
-**FOR:**
-- Real security/privacy bug (cross-process PID/comm leak)
-- Small, surgical, maintainer-acked fix
-- Applies cleanly to 6.18.44
-- Buggy code confirmed present in this tree
-- Unprivileged users in render group can exploit
-- Aligns with stable policy for security fixes
+**FOR backport:**
+- Fixes real gap in RAS EEPROM header validation left by `5df0d6addb7e9`
+- Invalid `ras_fri` can cause dangerous read arithmetic / buffer sizing
+  mismatch
+- Small, surgical, maintainer-reviewed
+- Applies cleanly to `6.18.y`
+- Prerequisites already in tree
+- Consistent with other RAS EEPROM hardening already backported to this
+  tree
 
-**AGAINST:**
-- Affects only AMD KFD users (not universal)
-- No external bug report or syzbot confirmation
-- Container PID correctness is a separate follow-up on master (not a
-  reason to reject this fix)
+**AGAINST backport:**
+- Commit message lacks explicit crash/reproducer description
+- Requires corrupted EEPROM (hardware-specific edge case)
+- No syzbot or user bug report
 
-**UNRESOLVED:**
-- Full lore thread discussion (Anubis blocked fetch)
-- No explicit stable-list nomination found
+**Unresolved:** Lore discussion and stable-list nomination could not be
+verified (b4/lore unavailable).
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — straightforward bounds
+   check; AMD-reviewed, maintainer-acked (no runtime test cited).
+2. Fixes a real bug? **PASS** — unvalidated `first_rec_offset` yields
+   invalid `ras_fri`.
+3. Important issue? **PASS** — HIGH severity: potential buffer overrun /
+   driver malfunction on corrupt EEPROM.
+4. Small and contained? **PASS** — 8 lines, one function.
+5. No new features/APIs? **PASS** — validation only.
+6. Can apply to local tree? **PASS** — clean apply, prerequisites
+   present.
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — logic clear; Acked-by
-maintainer |
-| 2. Fixes real bug affecting users? | **PASS** — cross-process info
-leak on shared GPUs |
-| 3. Important issue? | **PASS** — security information disclosure
-(HIGH) |
-| 4. Small and contained? | **PASS** — 8 lines, 1 file |
-| 5. No new features/APIs? | **PASS** — corrects existing event delivery
-only |
-| 6. Can apply to this tree? | **PASS** — clean apply verified |
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug fix.
 
-**Step 9.3 — Exception categories**
-
-Record: None (not a quirk/DT/build/doc fix) — qualifies on security bug-
-fix merits.
-
-**Step 9.4 — Decision rationale**
-
-This commit fixes a genuine cross-process information leak in AMD KFD
-SMI events. The buggy code is present in Linux 6.18.44, the fix is
-minimal and obviously correct, and it restores the intended per-process
-isolation that `kfd_smi_ev_enabled()` was designed to provide. Shared-
-GPU and multi-user ROCm deployments on stable kernels should receive
-this security fix.
+### Step 9.4: Decision rationale
+This completes RAS EEPROM header validation already started in this
+`6.18.y` tree. Without it, a corrupt `first_rec_offset` can slip past
+existing checks and produce an invalid `ras_fri`, leading to broken
+circular-buffer read logic and potential memory safety issues during
+bad-page loading. The fix is minimal, obviously correct, low-risk, and
+directly addresses a real failure mode on AMD RAS-capable hardware.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user query and `git show
-  3b347d011773d`
-- [Phase 2] Read current `kfd_smi_events.c` lines 163-366; confirmed
-  diff changes only VMFAULT and PROCESS paths
-- [Phase 3] `git blame` on filter and event functions; identified
-  introducing commits `4172b556fd5bd`, `b8f67b9ddf4f8`, `6b9d26089f56f`,
-  `163a5a58437062`
-- [Phase 3] `git merge-base --is-ancestor`: PROCESS events and superuser
-  fix present; info-leak fix absent
-- [Phase 3] `git show 3b347d011773d -p | git apply --check`: clean apply
-- [Phase 4] `b4 dig -c 3b347d011773d`: found lore URL; v1 only
-- [Phase 4] `b4 dig -w`: amd-gfx list CC'd
-- [Phase 4] `b4 dig -a`: single v1 revision
-- [Phase 4] WebFetch lore URL: blocked by Anubis (no thread content)
-- [Phase 5] `grep` callers of `kfd_smi_event_update_vmfault` and
-  `kfd_smi_event_process`
-- [Phase 5] Read `kfd_smi_event_open()`: `client->pid = current->tgid`,
-  `client->suser = capable(CAP_SYS_ADMIN)`
-- [Phase 5] Verified `task_info->tgid` populated in `amdgpu_vm.c:2543`
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] Confirmed buggy `kfd_smi_event_add(0, ...)` at lines 257 and
-  359 in current tree
-- [Phase 6] `git log stable/linux-6.18.y..master -- kfd_smi_events.c`:
-  fix on master, not in stable
-- [Phase 8] Assessed severity as cross-process information disclosure
-  via render-group `/dev/kfd` access
+- **[Phase 1]** Parsed commit message and tags from user-provided diff
+  and `git show 4073cdf6713b7`
+- **[Phase 2]** Read `amdgpu_ras_eeprom_init()` at lines 1373–1444;
+  analyzed `RAS_OFFSET_TO_INDEX` macro (lines 135–136) and
+  `amdgpu_ras_eeprom_read()` (lines 962–1028)
+- **[Phase 2]** Traced buffer overflow scenario: invalid `ras_fri` → bad
+  `g0`/`g1` in `amdgpu_ras_eeprom_read()`
+- **[Phase 3]** `git blame -L 1434,1444`: `5df0d6addb7e9` introduced
+  unchecked `ras_fri` assignment
+- **[Phase 3]** `git show 5df0d6addb7e9`: prior validation commit
+  rationale (corrupt EEPROM → huge allocation)
+- **[Phase 3]** `git merge-base --is-ancestor 4073cdf6713b7 HEAD` → exit
+  1 (fix not in tree)
+- **[Phase 3]** `git merge-base --is-ancestor 5df0d6addb7e9 HEAD` → in
+  tree; `660261df61fb7` → in tree
+- **[Phase 3]** `git apply --check` on `4073cdf6713b7` → applies cleanly
+- **[Phase 4]** `b4 dig -c 4073cdf6713b7` → no result (exit 1)
+- **[Phase 4]** Lore.kernel.org fetch → blocked by Anubis
+- **[Phase 5]** `grep amdgpu_ras_eeprom_init`: callers in
+  `amdgpu_ras.c:3590`, `amdgpu_xgmi.c:1674`
+- **[Phase 5]** `amdgpu_ras_init_badpage_info()` sets `is_eeprom_valid =
+  !ret` on init failure (line 3591)
+- **[Phase 6]** `git describe HEAD` → `v6.18.44`; tree is
+  `stable/linux-6.18.y`
+- **[Phase 6]** Buggy code confirmed at line 1441 without bounds check
+- **[Phase 6]** `git log --grep="first record offset" HEAD` → empty (fix
+  absent)
+- **[Phase 8]** Constants verified: `RAS_TABLE_HEADER_SIZE=20`,
+  `RAS_RECORD_START=20`, `RAS_TABLE_RECORD_SIZE=24`,
+  `RAS_MAX_RECORD_COUNT≈10922`
 
-**YES**
+---
 
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+**YES**The background check on `stable/linux-6.18.y` confirmed:
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-index d2bc169e84b0b..fe4b936923854 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
- 	if (task_info) {
- 		/* Report VM faults from user applications, not retry from kernel */
- 		if (task_info->task.pid)
--			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
--					  task_info->task.pid, task_info->task.comm));
-+			kfd_smi_event_add(task_info->tgid, dev,
-+					  KFD_SMI_EVENT_VMFAULT,
-+					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
-+								task_info->task.comm));
- 		amdgpu_vm_put_task_info(task_info);
+- **Related validation is present:** `5df0d6addb7e9` ("Add basic
+  validation for RAS header") is in the tree.
+- **This fix is not:** no commit matching "first record offset" was
+  found on the stable branch.
+
+That matches the earlier analysis: the gap remains in `6.18.y`, the
+patch applies cleanly, and the backport recommendation stands at
+**YES**.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index dafa46a9656ca..652aa085b6263 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -1439,6 +1439,14 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
  	}
- }
-@@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
- 	task_info = amdgpu_vm_get_task_info_vm(avm);
  
- 	if (task_info) {
--		kfd_smi_event_add(0, pdd->dev,
-+		kfd_smi_event_add(task_info->tgid, pdd->dev,
- 				  start ? KFD_SMI_EVENT_PROCESS_START :
- 				  KFD_SMI_EVENT_PROCESS_END,
- 				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
+ 	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
++	if (hdr->first_rec_offset < control->ras_record_offset ||
++	    control->ras_fri >= control->ras_max_record_count) {
++		dev_err(adev->dev,
++			"RAS header invalid, ras_fri: %u, first_rec_offset:0x%x",
++			control->ras_fri, hdr->first_rec_offset);
++		return -EINVAL;
++	}
++
+ 	control->ras_num_mca_recs = 0;
+ 	control->ras_num_pa_recs = 0;
+ 	return 0;
 -- 
 2.53.0
 
