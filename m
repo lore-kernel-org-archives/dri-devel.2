@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E09AEC624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:13:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE25C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:13:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1171310E7D3;
-	Mon, 31 Aug 2026 15:13:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DAE710E2BE;
+	Mon, 31 Aug 2026 15:13:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GQlUcTZO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G5rTkYA/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92FEE10E944
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:13:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE8ED10E2BE
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:13:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A19D400DF
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:13:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBC1A1F00A3D;
- Mon, 31 Aug 2026 15:13:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1156460120
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:13:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E8A1F000E9;
+ Mon, 31 Aug 2026 15:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788189195;
- bh=R9IfOjR4DweFy8yleMafqpLFDScM6so9xsAKss8RoBU=;
+ s=k20260515; t=1788189210;
+ bh=okarqFUbUbiWadm6W5M//SRV2qp4IPk4Rv7GPm/L0dU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GQlUcTZOa7bedJ3gC4oCxGoiiVyFll3RuIAe6zxF8UQySjFPh7wuWikqt703uNQyy
- ZI0+M46Zfz3TnstqWlWqgxnXtsVE2F33omysKcD7fQcCB01CYe9IEmCFSHUE6TP0C+
- iSKpesuhCU+bGDpu0nlYVGcVyrAoh4UiS17GydUEBlgOpoXHCQ9FR1UdazdYfqQTcc
- hWcs392xSOVWelZKqdv/ySwAFb1983rHj/J915RyaYg+oyDr/SoWLccBzg1w3STK8k
- 962Jeb0ntQ31Z0R7hUMakbwGGyDL2SdFC1ROzRoOzH6V+dhaYiQaghZ7AovAMk3+Mj
- Hl/XwQJA9m+5g==
+ b=G5rTkYA/Ck7ZI2ycbk3o9XC3rXbu4vHUAMhn3U6fxvlBw56PN02NKKg8v86iUDGIq
+ 2U/SranZTRdwRKBcaho/6uXOkBpccdh77eXHrrHqS20ONTbtP2NyyGRXxZBiiemIjJ
+ Is3+VjXh76DbRUa0t6nnqbC/Uc2Y8xv2AeuY/Yz8MuyO3cE98N3qNvi+FZRrtVm8xZ
+ kTLdjg+q0gzEWkrCz/DS5Vf74ztqF0zoCCBiJKlhiInOKqz5UxRmHpty7LG9Tic1pL
+ NhFXLDgKIdYRPaJXdpzt8Q0FncUmwjl8zAXgrOl0wty40ESgJ3O1ZMhvyvh4Y37b22
+ hIdD8Xbu39Dqg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] drm/imagination: Don't timeout job if its
- fence has been signaled
+Subject: Re: [PATCH AUTOSEL 6.18-5.15] host1x: bus: Fix missing ops null
+ check in error teardown
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-239-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-242-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-239-sashal@kernel.org>
+ <20260831133314.4125787-242-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 15:13:14 +0000
-Message-Id: <20260831151314.EBC1A1F00A3D@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 15:13:30 +0000
+Message-Id: <20260831151330.90E8A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,56 +60,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Calling `dma_fence_is_signaled(s_job->s_fence->parent)` can result=
- in a NULL pointer dereference because the parent fence may not be initiali=
-zed when the timeout handler is invoked.
+
+Pre-existing issues:
+- [High] host1x_device_exit() aborts traversal on first error, leaving rema=
+ining clients initialized and leaking resources.
 --
 
-commit 3504f98145fc1193c182b77188d8026b264fe31f
-Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
-drm/imagination: Don't timeout job if its fence has been signaled
+commit 341e3b2b98688fedc7268fa3fee081e01848b232
+Author: shayderrr <darknessshayder@gmail.com>
 
-This commit adds a check in the timeout handler to verify if the job's
-fence has been signaled. This prevents unnecessary hang recovery when the
-job has already completed.
+host1x: bus: Fix missing ops null check in error teardown
 
-Link: https://patch.msgid.link/20260519-b4-context_reset-v2-2-931018a7131d@=
-imgtec.com
+In host1x_device_init(), the error teardown paths do not check client->ops
+before dereferencing it, which can result in a null pointer dereference.
+This patch adds the missing client->ops check in both the teardown and
+teardown_late labels.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
-agination/pvr_queue.c
-> index fc415dd0d7a73..8d5629ea3e520 100644
-> --- a/drivers/gpu/drm/imagination/pvr_queue.c
-> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
-[ ... ]
-> @@ -814,6 +816,9 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
->  	struct pvr_job *job;
->  	u32 job_count =3D 0;
+Link: https://patch.msgid.link/20260517170456.84927-1-darknessshayder@gmail=
+.com
+
+> diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
+> index 344cc9e741c13..ffbf0ba4d602f 100644
+> --- a/drivers/gpu/host1x/bus.c
+> +++ b/drivers/gpu/host1x/bus.c
+> @@ -221,7 +221,7 @@ int host1x_device_init(struct host1x_device *device)
 > =20
-> +	if (dma_fence_is_signaled(s_job->s_fence->parent))
-> +		return DRM_GPU_SCHED_STAT_NO_HANG;
-> +
+>  teardown:
+>  	list_for_each_entry_continue_reverse(client, &device->clients, list)
+> -		if (client->ops->exit)
+> +		if (client->ops && client->ops->exit)
+>  			client->ops->exit(client);
+> =20
+>  	/* reset client to end of list for late teardown */
+> @@ -229,7 +229,7 @@ int host1x_device_init(struct host1x_device *device)
+> =20
+>  teardown_late:
+>  	list_for_each_entry_continue_reverse(client, &device->clients, list)
+> -		if (client->ops->late_exit)
+> +		if (client->ops && client->ops->late_exit)
+>  			client->ops->late_exit(client);
+> =20
+>  	mutex_unlock(&device->clients_lock);
+
+This is a pre-existing issue, but I noticed a potential problem in the clos=
+ely
+related host1x_device_exit() function while reviewing this patch:
+
+drivers/gpu/host1x/bus.c:host1x_device_exit() {
+	...
+	list_for_each_entry_reverse(client, &device->clients, list) {
+		if (client->ops && client->ops->exit) {
+			err =3D client->ops->exit(client);
+			if (err < 0) {
+				dev_err(&device->dev,
+					"failed to cleanup %s: %d\n",
+					dev_name(client->dev), err);
+				mutex_unlock(&device->clients_lock);
+				return err;
+			}
+		}
+	}
+	...
+}
 
 [Severity: High]
-Can this result in a NULL pointer dereference?=20
+If any client's exit() callback returns an error, this early return inside =
+the
+loop skips the teardown for all remaining clients. Does this leave hardware
+active, leak syncpts, and leave iommu mappings dangling, which could crash =
+the
+system upon further teardown?
 
-In drivers/gpu/drm/imagination/pvr_queue.c:pvr_queue_timedout_job(), if the
-timeout worker executes concurrently while the driver's run_job() callback =
-is
-still blocked (e.g., due to power management or firmware delays),
-drm_sched_fence_scheduled() will not have executed yet.
+A similar issue exists a few lines lower in the late_exit() loop:
 
-In that scenario, s_job->s_fence->parent is uninitialized and remains NULL.
-Passing this uninitialized parent pointer directly to dma_fence_is_signaled=
-()
-would unconditionally dereference it, which could cause a regression if a
-timeout fires before job submission completes.
+drivers/gpu/host1x/bus.c:host1x_device_exit() {
+	...
+	list_for_each_entry_reverse(client, &device->clients, list) {
+		if (client->ops && client->ops->late_exit) {
+			err =3D client->ops->late_exit(client);
+			if (err < 0) {
+				dev_err(&device->dev, "failed to late cleanup %s: %d\n",
+					dev_name(client->dev), err);
+				mutex_unlock(&device->clients_lock);
+				return err;
+			}
+		}
+	}
+	...
+}
 
->  	dev_err(sched->dev, "Job timeout\n");
-> =20
->  	/* Before we stop the scheduler, make sure the queue is out of any list=
-, so
+[Severity: High]
+Similarly, does this early return inside the late_exit() loop abort the
+traversal and leak resources for remaining clients?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-239-sashal@kernel.org?part=3D1
+787-242-sashal@kernel.org?part=3D1
