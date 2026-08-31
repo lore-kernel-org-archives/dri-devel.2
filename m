@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93567C624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA124C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA6EF10E8EF;
-	Mon, 31 Aug 2026 13:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A1910E8F0;
+	Mon, 31 Aug 2026 13:50:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FSRDZkSZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UVDyH7S4";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF54310E8E2;
- Mon, 31 Aug 2026 13:50:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A568310E8F0;
+ Mon, 31 Aug 2026 13:50:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B518341202;
- Mon, 31 Aug 2026 13:50:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A14A1F00ACA;
- Mon, 31 Aug 2026 13:50:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8CDEE41202;
+ Mon, 31 Aug 2026 13:50:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD341F000E9;
+ Mon, 31 Aug 2026 13:50:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184216;
- bh=z1mN8Wwr8AifXzMeBKomArG90ftuqMTyG0a2XRVDaKM=;
+ s=k20260515; t=1788184230;
+ bh=sjVdUiYm/8x5tYlhDT8FvYcN+SUMyrkrpfK0H0O87Pg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FSRDZkSZPvRmN+HiFZtwfYFdk18Z9dGphWd4WZ9cmIL8SXe/fpHZ7ABeiyYvf4VbM
- Dxqf4SgzdxSwwX3Wr4i5JtQATAkqkYOFOUMdxC2KdFGhkTSMkI7RkA2LIZLlSFfhNB
- pXAbrnK6tATGPRASymedde8GYpviD652+JOrEdHnT7xAS0u1nJr7vPS6VHjKM0bYBe
- eW0KyRKjjgyfuMu5GS7fjeNjUctwtS40kCn6dqnogjQOabc4BEkzo0/WDyz1IUdsHz
- xJ7O2s3ZHK9gI7nKb0WDpCMw7DE9aaKByMoUD+eS5PqfHwDZicMSBrvXvZm7Sb4kDi
- 9Fd+y+ULzjA8g==
+ b=UVDyH7S4HimQgAMFQ647ux6SXxlYFlO8kw/avMXXasP1ZSG9jpohq27rFQ4y3UtVa
+ d8vl+p7q+zRn852aevtEMGEYjjxoWOndCfPLmUJ5G69GLFG2FkaNcXizv51eTChJXs
+ MOddhp+OG4D3/TjdjAhLZJRcnDLg+pXBNdmfY0ruYO9Q8oXcduitwyeCUp/pBuyTZf
+ QNR9iwiKdM1YcqQGeOwkf741MfqCNBvjxV3X4LBKq4ButYtgSjpSPL/VlbVZaqH4oZ
+ C1GVp7tbPDp3BknhQqGDow+iCMqmrJo1vyvrAvr/OjZswA1+zFx+sRLb1eOSLrGbJN
+ 7kxIeP/w3RXvw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Candice Li <candice.li@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/pm: fix SmartShift bias sysfs store
- PM refcount on parse error
-Date: Mon, 31 Aug 2026 09:29:49 -0400
-Message-ID: <20260831133314.4125787-561-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: Bound GPIO I2C table entry count
+ from VBIOS
+Date: Mon, 31 Aug 2026 09:29:57 -0400
+Message-ID: <20260831133314.4125787-569-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -68,448 +68,478 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Candice Li <candice.li@amd.com>
 
-[ Upstream commit a4b0c3f5d2287997876d8f711a40d3c0418458d8 ]
+[ Upstream commit a99cd231cd924b7160fecb9fb3a94b801522323b ]
 
-Return the parse error before acquiring PM access.
+Reject undersized tables and cap the derived entry count
+to AMDGPU_MAX_I2C_BUS so we do not overrun adev->i2c_bus[]
+or walk an absurd number of entries on corrupt size fields.
 
 Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/amdgpu/pm: fix SmartShift bias sysfs
-store PM refcount on parse error
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `stable/linux-6.18.y` at **v6.18.44** (`make
-kernelversion` = 6.18.44)
+**Step 1.1 — Subject line**
 
----
+Record: `[drm/amdgpu]` `[Bound]` — Bound/cap GPIO I2C table entry count
+parsed from VBIOS atom data tables.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu/pm]` `[fix]` — Corrects SmartShift bias sysfs
-store handler so PM runtime refcount is not touched on `kstrtoint()`
-parse failure.
+Record:
+- `Signed-off-by: Candice Li <candice.li@amd.com>` (author)
+- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+  maintainer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
+  `Tested-by:` tags
+- Notable: maintainer sign-off and AMD review, but no fuzzer/user report
 
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Candice Li \<candice.li@amd.com\> (author)
-- **Reviewed-by:** Hawking Zhang \<Hawking.Zhang@amd.com\> (AMD
-  reviewer)
-- **Signed-off-by:** Alex Deucher \<alexander.deucher@amd.com\>
-  (drm/amdgpu maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable tags
-- Notable: maintainer-reviewed AMD driver fix; no syzbot/fuzzer report
+**Step 1.3 — Body analysis**
 
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** On invalid sysfs input, `amdgpu_set_smartshift_bias()` calls
-  `amdgpu_pm_put_access()` without a matching `amdgpu_pm_get_access()`.
-- **Symptom:** Runtime PM usage-count underflow; kernel emits `Runtime
-  PM usage count underflow!` via `dev_warn()`.
-- **Root cause (author):** Parse error should be returned before
-  acquiring PM access.
-- **Version info:** None in message; bug introduced in this tree by
-  commit `55aa33c3fe3876` (Feb 2025 refactor).
+Record:
+- **Bug:** VBIOS-reported GPIO I2C table `size` is trusted without
+  validation; entry count is derived unchecked.
+- **Symptoms:** Can overrun `adev->i2c_bus[]` (fixed size 16) and walk
+  an excessive number of entries on corrupt/undersized size fields.
+- **Root cause:** `num_indices = (size - header) / entry_size` with no
+  lower/upper bound; `amdgpu_atom_parse_data_header()` only reads a
+  16-bit size from the BIOS image and does not validate it.
+- **Version info:** None in the message.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — this is an explicit refcount/PM pairing bug fix, not
-disguised cleanup.
+**Step 1.4 — Hidden bug fix?**
+
+Record: **Yes.** Despite no “fix” in the subject, this is a defensive
+bounds-check fix for out-of-bounds array indexing and unbounded
+iteration on corrupt VBIOS metadata.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Change Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/pm/amdgpu_pm.c` (+3 / −5)
-- **Function:** `amdgpu_set_smartshift_bias()` only
-- **Scope:** Single-file, surgical fix in one sysfs store handler
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code Flow Change
+Record:
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c` (+18 / -6)
+- **Functions modified:** new helper
+  `amdgpu_atombios_gpio_i2c_num_entries()`; callers
+  `amdgpu_atombios_lookup_i2c_gpio()`, `amdgpu_atombios_i2c_init()`,
+  `amdgpu_atombios_oem_i2c_init()`
+- **Scope:** Single-file, surgical fix
 
-**Before (buggy code in v6.18.44):**
+**Step 2.2 — Code flow per hunk**
 
-```1865:1886:drivers/gpu/drm/amd/pm/amdgpu_pm.c
-        r = kstrtoint(buf, 10, &bias);
-        if (r)
-                goto out;
+Record:
+- **New helper:** If `size < sizeof(ATOM_COMMON_TABLE_HEADER)` → return
+  0; else compute `bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT)` capped at
+  `AMDGPU_MAX_I2C_BUS` (16).
+- **Before:** Three sites computed `num_indices` directly from unchecked
+  `size`.
+- **After:** All three use the bounded helper.
+- **Paths affected:**
+  - `amdgpu_atombios_i2c_init()` — probe-time I2C bus creation; indexes
+    `adev->i2c_bus[i]`
+  - `amdgpu_atombios_oem_i2c_init()` — Polaris OEM I2C path; same
+    indexing
+  - `amdgpu_atombios_lookup_i2c_gpio()` — encoder/router DDC lookup;
+    walks GPIO entries by pointer
 
-        r = amdgpu_pm_get_access(adev);
-        if (r < 0)
-                return r;
-        // ... clamp bias, set amdgpu_smartshift_bias ...
-out:
-        amdgpu_pm_put_access(adev);
+**Step 2.3 — Bug mechanism**
 
-        return r;
-```
+Record: **Buffer overflow / out-of-bounds access + unbounded loop**
 
-**After (fixed):**
-- Parse error → `return r` immediately (no PM access)
-- Success path → `get_access` → work → `put_access` → `return count`
+1. **Undersized `size` (< 4 bytes):** `(uint16_t)size - sizeof(header)`
+   underflows in unsigned arithmetic → enormous `num_indices` (e.g.
+   65534/entry_size ≈ thousands).
+2. **Oversized/corrupt `size`:** `num_indices` can exceed
+   `AMDGPU_MAX_I2C_BUS` (16). In `amdgpu_atombios_i2c_init()` /
+   `oem_i2c_init()`, loop index `i` is used as `adev->i2c_bus[i]` →
+   **write past end of 16-element pointer array**.
+3. **GPIO pointer walk:** Uncapped iteration reads past the actual VBIOS
+   table region.
 
-**Record:**
-- **Hunk 1:** `kstrtoint` failure: `goto out` + spurious `put_access` →
-  early `return r`
-- **Hunk 2:** Success path: remove `out:` label; always `return count`
-  after balanced get/put
-- **Affected path:** Sysfs store error path on invalid input; normal
-  path unchanged
+**Step 2.4 — Fix quality**
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Reference counting / resource management bug
-- **Mechanism:** Commit `55aa33c3fe3876` moved `kstrtoint()` before
-  `amdgpu_pm_get_access()` but kept the `out:` label that
-  unconditionally calls `amdgpu_pm_put_access()`. On parse failure,
-  `pm_runtime_put_autosuspend()` runs without a prior
-  `pm_runtime_resume_and_get()`, triggering `rpm_drop_usage_count()`
-  underflow handling:
-
-```1079:1095:drivers/base/power/runtime.c
-static int rpm_drop_usage_count(struct device *dev)
-{
-        int ret;
-
-        ret = atomic_sub_return(1, &dev->power.usage_count);
-        if (ret >= 0)
-                return ret;
-        // ...
-        atomic_inc(&dev->power.usage_count);
-        dev_warn(dev, "Runtime PM usage count underflow!\n");
-        return -EINVAL;
-}
-```
-
-### Step 2.4: Fix Quality
-**Record:**
-- Obviously correct: matches the pattern used by other sysfs stores in
-  the same file (e.g. `amdgpu_set_pp_force_performance_level()` at lines
-  388–408)
-- Minimal, no unrelated changes
-- Regression risk: very low; only reorders error handling on the parse-
-  failure path
-- No API or behavior change on the success path
+Record:
+- Fix is minimal, obviously correct, and matches driver limits
+  (`AMDGPU_MAX_I2C_BUS == 16`, `ATOM_MAX_SUPPORTED_DEVICE == 16`).
+- Does not validate `size` against total BIOS image length (unlike the
+  related `drm/amd/display` fix), but still eliminates the array overrun
+  and caps iteration.
+- **Regression risk:** Very low. Legitimate tables with ≤16 entries
+  behave identically; undersized tables fail closed (0 entries) instead
+  of crashing.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:**
-- `amdgpu_set_smartshift_bias()` introduced in `30d95a37f46d1`
-  (2021-05-30, v5.13 era)
-- Original code called `pm_runtime_get_sync()` **before** `kstrtoint()`,
-  so `goto out` + `put` was correct
-- Bug introduced in `55aa33c3fe3876` (2025-02-04, Lijo Lazar) — "Add
-  APIs for device access checks"
-- Blame confirms lines 1865–1867 (`kstrtoint` + `goto out`) from
-  original commit; lines 1869–1871, 1884 (`get_access`/`put_access`)
-  from refactor commit
+**Step 3.1 — Blame**
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag present.
+Record: Buggy `num_indices` calculation introduced in `d38ceaf99ed01`
+(“drm/amdgpu: add core driver (v4)”, Alex Deucher, 2015-04-20). Present
+throughout the life of amdgpu in this tree.
 
-### Step 3.3: Related File History
-**Record:**
-- `55aa33c3fe3876` — large PM access API refactor (616-line change in
-  this file)
-- `494c1432542b3` — earlier SmartShift consistency work
-- Fix is standalone; not part of a required multi-commit dependency for
-  this function
-- Patch submitted as **[PATCH 2/8]** in a series, but this hunk is self-
-  contained
+**Step 3.2 — Fixes: tag**
 
-### Step 3.4: Author Context
-**Record:**
-- Candice Li: AMD engineer, regular amdgpu contributor
-- Lijo Lazar: authored the refactor that introduced the bug
-- Alex Deucher (maintainer) signed off on the fix
+Record: N/A — no `Fixes:` tag in commit message.
 
-### Step 3.5: Dependencies
-**Record:** No prerequisites. Fix applies cleanly to current v6.18.44
-code; `amdgpu_pm_get_access()`/`amdgpu_pm_put_access()` already exist in
-this tree.
+**Step 3.3 — Related file history**
+
+Record:
+- `20f48be63d1ad` added `amdgpu_atombios_oem_i2c_init()` with the same
+  unchecked pattern.
+- No prior bounds-check fix for GPIO I2C tables in this tree.
+- Fix commit `a99cd231cd92` is **not** present locally
+  (`amdgpu_atombios_gpio_i2c_num_entries` not found).
+
+**Step 3.4 — Author context**
+
+Record: Candice Li has other amdgpu commits in this tree (RAS, SMU,
+etc.). Patch reviewed by Tao Zhou and signed off by Alex Deucher.
+
+**Step 3.5 — Dependencies**
+
+Record: Mailing-list submission is **[PATCH 3/4]** in a hardening
+series, but this patch is **standalone**:
+- Patch 1/4: RAS CPER buffer bounds (different files)
+- Patch 2/4: ATOM command table nesting depth (different code)
+- Patch 4/4: PSP fw_pri_buf validation (different code)
+
+No prerequisite commits needed for this hunk to apply and function.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Discussion
-**Record:**
-- `b4 dig -c a4b0c3f5d2287`: **no match** (patch on freedesktop.org amd-
-  gfx, not lore.kernel.org)
-- Fetched: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/145516.html
-- Part of 8-patch series by Candice Li (2026-05-28)
-- No explicit stable nomination found in thread
+**Step 4.1 — Original discussion**
+
+Record:
+- `b4 dig -c a99cd231cd924b7160fecb9fb3a94b801522323b` → no lore match
+  (thread on freedesktop.org, not lore).
+- Verified at https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/144648.html
+- Series: [PATCH 3/4], May 18 2026
+- No stable nomination found in the thread
 - No NAKs observed in fetched content
 
-### Step 4.2: Reviewers
-**Record:** CC'd Hawking Zhang, Tao Zhou, Stanley Yang, Thomas Chai;
-Reviewed-by Hawking Zhang; Signed-off-by Alex Deucher
+**Step 4.2 — Reviewers**
 
-### Step 4.3: Bug Report
-**Record:** No external bug report, syzbot link, or user Reported-by.
-Bug identified by code inspection during related PM cleanup work.
+Record: CC list includes Hawking Zhang, Tao Zhou, Stanley Yang, Thomas
+Chai. `Reviewed-by: Tao Zhou`. `Signed-off-by: Alex Deucher`.
 
-### Step 4.4: Series Context
-**Record:** Patch 2/8 in series covering OD index validation, this
-refcount fix, RAS EEPROM validation, etc. This fix is independent of
-patches 1 and 3–8.
+**Step 4.3 — Bug reports**
 
-### Step 4.5: Stable List History
-**Record:** lore.kernel.org/stable search blocked (bot protection). No
-stable-list discussion found via other sources.
+Record: None. No syzbot, bugzilla, or user crash reports referenced.
 
----
+**Step 4.4 — Related patches**
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+Record: Related hardening in same series (RAS, ATOM nesting, PSP).
+Separate mainline commit `86d2b20644b` (“drm/amd/display: Validate GPIO
+pin LUT table size before iterating”) addresses the same class of VBIOS
+table parsing bug in the display BIOS parser and was nominated with `Cc:
+stable@vger.kernel.org`.
 
-### Step 5.1: Key Functions
-**Record:** `amdgpu_set_smartshift_bias()`, `amdgpu_pm_get_access()`,
-`amdgpu_pm_put_access()`
+**Step 4.5 — Stable list**
 
-### Step 5.2: Callers
-**Record:** `amdgpu_set_smartshift_bias` is registered as the `.store`
-callback for `smartshift_bias` via
-`AMDGPU_DEVICE_ATTR_RW(smartshift_bias, ...)` at line 2544. Invoked when
-root (or privileged user) writes to
-`/sys/class/drm/card*/device/smartshift_bias`.
-
-### Step 5.3: Callees
-**Record:**
-- `kstrtoint()` — input parsing
-- `amdgpu_pm_get_access()` → `amdgpu_pm_dev_state_check()` +
-  `pm_runtime_resume_and_get()`
-- `amdgpu_pm_put_access()` → `pm_runtime_mark_last_busy()` +
-  `pm_runtime_put_autosuspend()`
-
-### Step 5.4: Reachability
-**Record:**
-- Reachable from userspace via sysfs write (requires root/privileged
-  access)
-- Only exposed on SmartShift-capable hardware (`ss_bias_attr_update()`
-  gates visibility)
-- Trigger: writing non-integer value, e.g. `echo abc >
-  .../smartshift_bias`
-
-### Step 5.5: Similar Patterns
-**Record:** `amdgpu_set_smartshift_bias` is the **only** sysfs store in
-this file that parses input (`kstrtoint`) before `get_access` while
-retaining a `goto out` that unconditionally calls `put_access`. Other
-`goto out` usages (gpu metrics, temp metrics, fan control) all occur
-**after** successful `get_access`.
+Record: No stable-list discussion found for this specific patch (lore
+blocked by bot protection; freedesktop thread has no stable CC).
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+## Phase 5: Code Semantic Analysis
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Buggy code confirmed at lines 1865–1886 in
-v6.18.44. Introduced by `55aa33c3fe3876`, present since v6.18-rc1.
+**Step 5.1 — Key functions**
 
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected. Current tree matches the diff base
-exactly. No conflicting changes in this function since the refactor.
+Record: `amdgpu_atombios_gpio_i2c_num_entries()`,
+`amdgpu_atombios_lookup_i2c_gpio()`, `amdgpu_atombios_i2c_init()`,
+`amdgpu_atombios_oem_i2c_init()`.
 
-### Step 6.3: Fix Already Present?
-**Record:** **NO.** Fix commit `a4b0c3f5d2287` exists in the repo object
-database but is **not** an ancestor of HEAD (v6.18.44).
+**Step 5.2 — Callers**
 
----
+Record:
+- `amdgpu_atombios_i2c_init()` ← `amdgpu_i2c_init()` in `amdgpu_i2c.c`
+- `amdgpu_atombios_oem_i2c_init()` ← `amdgpu_i2c_init()` (Polaris chips
+  with DC)
+- `amdgpu_i2c_init()` ← `amdgpu_device.c` during device init when
+  `adev->bios` present and `!adev->is_atom_fw`
+- `amdgpu_atombios_lookup_i2c_gpio()` ← `amdgpu_atombios.c`
+  encoder/router parsing (DDC/I2C routing during display setup)
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 5.3 — Callees**
 
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMD GPU power
-management; affects laptop SmartShift systems)
+Record: `amdgpu_atom_parse_data_header()`,
+`amdgpu_atombios_get_bus_rec_for_i2c_gpio()`, `amdgpu_i2c_create()`,
+`min_t()`.
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained; recent stable commits in this file
-include torn gpu metrics reads, scpm read-only attrs, sysfs cleanup
-fixes.
+**Step 5.4 — Reachability**
 
----
+Record:
+- **Probe path:** `amdgpu_i2c_init()` runs during GPU driver
+  initialization for legacy atombios (non-atom-fw) GPUs — common on pre-
+  GCN/older hardware and Polaris OEM path.
+- **Display path:** `amdgpu_atombios_lookup_i2c_gpio()` runs during
+  encoder/connector parsing — broader reach on atom-bios GPUs.
+- **Userspace trigger:** Not a direct syscall path; triggered by GPU
+  probe with VBIOS present. Corrupt/malicious VBIOS (flash corruption or
+  reflashing) can trigger it at module load / GPU init. Unprivileged
+  users cannot typically rewrite GPU VBIOS without root/hardware access.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+**Step 5.5 — Similar patterns**
 
-### Step 8.1: Who Is Affected
-**Record:** AMD SmartShift 2.0 laptop users (APU + dGPU power sharing)
-who write to `smartshift_bias` sysfs. Narrow hardware scope, but real
-production systems.
-
-### Step 8.2: Trigger Conditions
-**Record:**
-- Invalid integer written to `smartshift_bias` sysfs
-- Requires root/privileged sysfs write access
-- Unlikely in normal use; plausible via scripting error or manual
-  experimentation
-- Not security-relevant (privileged access required)
-
-### Step 8.3: Failure Mode Severity
-**Record:**
-- **Failure:** Runtime PM usage-count underflow warning;
-  `pm_runtime_mark_last_busy()` called spuriously
-- **Severity:** **MEDIUM** — no crash, panic, or data corruption; kernel
-  catches underflow and restores counter, but PM accounting is briefly
-  wrong and a `dev_warn` is emitted. Repeated triggers could affect
-  suspend/resume behavior.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** MEDIUM — fixes real refcount bug on an error path in
-  production driver code present since 6.18.0
-- **Risk:** VERY LOW — 3-line logic change, maintainer-reviewed, matches
-  established patterns in the same file
-- **Ratio:** Benefit outweighs risk
+Record: Same unchecked `(size - header) / struct_size` pattern exists
+elsewhere in `amdgpu_atombios.c` (e.g. spread-spectrum tables at lines
+929+), but this commit does not touch those — scoped to GPIO I2C only. A
+related display-side GPIO LUT bounds fix exists upstream.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
-### Step 9.1: Evidence Summary
+**Step 6.1 — Buggy code present?**
+
+Record: **Yes.** Local tree is `v6.18.44` (Makefile: 6.18.44). All three
+unchecked `num_indices` calculations exist at lines 99–100, 130–131, and
+161–162 of `amdgpu_atombios.c`. `adev->i2c_bus[AMDGPU_MAX_I2C_BUS]` is
+defined in `amdgpu.h` with `AMDGPU_MAX_I2C_BUS = 16`. Bug dates to
+original amdgpu import (2015).
+
+**Step 6.2 — Backport complications**
+
+Record: **Clean apply expected.** File structure and includes match the
+patch context (`bif/bif_4_1_d.h` present, same three call sites). No
+conflicting fix already applied.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: **None** for GPIO I2C table bounding.
+`amdgpu_atombios_gpio_i2c_num_entries` does not exist in tree.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 — Subsystem**
+
+Record: `drm/amdgpu` display/GPU driver — **IMPORTANT** subsystem
+(widely deployed AMD GPU driver).
+
+**Step 7.2 — Activity**
+
+Record: File actively maintained; recent commits include OEM I2C
+support, vbios interfaces, PM cleanups.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: AMD GPU users on the legacy atombios path (`!adev->is_atom_fw`)
+during I2C init; additionally any GPU using atom-bios encoder routing
+that calls `amdgpu_atombios_lookup_i2c_gpio()`. Config-specific to
+`CONFIG_DRM_AMDGPU` with affected hardware.
+
+**Step 8.2 — Trigger conditions**
+
+Record:
+- Corrupt or malicious VBIOS with invalid GPIO I2C table `size` field
+- Undersized table (`size < 4`) or oversized entry count (`> 16`)
+- **Likelihood:** Low for legitimate factory VBIOS; non-zero for flash
+  corruption, bad flashing, or adversarial VBIOS
+- **Unprivileged direct trigger:** Unlikely without ability to modify
+  GPU VBIOS
+
+**Step 8.3 — Failure mode severity**
+
+Record:
+- `amdgpu_atombios_i2c_init()` / `oem_i2c_init()`: **out-of-bounds
+  write** to `adev->i2c_bus[]` → heap corruption, kernel oops, possible
+  security impact — **CRITICAL/HIGH**
+- All three functions: **out-of-bounds read** past VBIOS mapping, very
+  long loops → probe hang/oops — **HIGH**
+- Undersized table: previously could loop thousands of times instead of
+  zero — **HIGH** (boot hang)
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** Prevents kernel crash/corruption during GPU probe on
+  corrupt VBIOS; aligns with AMD’s own hardening series and similar
+  stable-nominated display fix.
+- **Risk:** Minimal — 15-line helper, caps at existing hardware limit of
+  16 buses.
+- **Ratio:** High benefit, very low risk.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence compile**
 
 **FOR backport:**
-- Real refcount bug introduced by `55aa33c3fe3876` refactor, present in
-  v6.18.44
-- Obviously correct, minimal fix (3 insertions, 5 deletions)
-- Maintainer-reviewed and signed off by Alex Deucher
-- Matches error-handling pattern used elsewhere in `amdgpu_pm.c`
-- Reference counting bugs in PM paths are standard stable material
+- Real OOB write to `adev->i2c_bus[i]` when `i >= 16`
+- Real OOB read / unbounded loop on corrupt `size`
+- Small, maintainer-reviewed, obviously correct
+- Bug present since 2015 in this tree
+- Same vulnerability class as a related fix already nominated for stable
+  (display GPIO LUT)
+- Applies cleanly to v6.18.44
 
 **AGAINST backport:**
-- Only triggered by invalid sysfs input (root-only)
-- Limited to SmartShift-capable AMD hardware
-- Failure mode is WARN + counter correction, not crash/corruption
-- No user reports or fuzzer findings
+- No user bug report or syzbot reproduction
+- Requires corrupt/malicious VBIOS — uncommon trigger
+- Fix does not validate `size` against total BIOS image length (partial
+  mitigation only)
+- Part of a 4-patch hardening series (though this patch is independent)
 
-**Unresolved:** No stable-list nomination found; no user-reported
-instances.
+**Unresolved:** No runtime crash report confirming field failure on
+production systems.
 
-### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — logic is clear;
-Reviewed-by from AMD; no Tested-by |
-| 2. Fixes a real bug affecting users? | **PASS** — refcount imbalance
-on parse-error path |
-| 3. Important issue? | **PASS** (borderline) — runtime PM underflow;
-MEDIUM severity |
-| 4. Small and contained? | **PASS** — 8 lines net, one function |
-| 5. No new features/APIs? | **PASS** |
-| 6. Can apply to local tree? | **PASS** — buggy code present; clean
-apply |
+**Step 9.2 — Stable rules checklist**
 
-### Step 9.3: Exception Categories
-**Record:** None applicable (not device ID, quirk, DT, build, or docs
-fix).
+1. Obviously correct and tested? **PASS** — logic is straightforward;
+   reviewed by AMD engineer and maintainer. No runtime test tag.
+2. Fixes a real bug? **PASS** — verified OOB array indexing and
+   unbounded iteration in source.
+3. Important issue? **PASS** — OOB write during driver probe
+   (crash/corruption potential).
+4. Small and contained? **PASS** — 18 lines added, one file, three call
+   sites.
+5. No new features/APIs? **PASS** — defensive bounds only.
+6. Can apply to local tree? **PASS** — buggy code confirmed present;
+   patch not yet applied; clean apply expected.
 
-### Step 9.4: Decision Rationale
+**Step 9.3 — Exception category**
 
-This is a clear bug introduced in v6.18 by the PM access API refactor
-(`55aa33c3fe3876`). The original SmartShift bias handler correctly
-acquired runtime PM before parsing; the refactor inverted that order but
-left the unconditional `out:` cleanup, breaking get/put pairing. The fix
-restores correct refcount semantics with zero functional change on the
-success path.
+Record: Not a device-ID/quirk/DT/build/docs exception — standard bug-
+fix/hardening.
 
-While the trigger is narrow (invalid sysfs write on SmartShift hardware)
-and the failure mode is a caught underflow warning rather than a crash,
-reference-count bugs in GPU runtime PM are appropriate for stable
-backport: the fix is trivial, obviously correct, maintainer-approved,
-and the buggy code is present throughout the 6.18.y series.
+**Step 9.4 — Decision rationale**
+
+For **this** tree (v6.18.44), the unchecked VBIOS size parsing is a
+long-standing defect that can cause out-of-bounds writes to a kernel
+array during GPU initialization. The fix is minimal, self-contained,
+maintainer-approved, and matches established stable practice for amdgpu
+VBIOS table hardening. The lack of a user report is outweighed by the
+severity of the failure mode and the negligible regression risk.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user-provided diff and
-  mailing list
-- [Phase 2] Read current `amdgpu_set_smartshift_bias()` at lines
-  1856–1887 in v6.18.44; confirmed buggy get/put pairing
-- [Phase 2] Read `rpm_drop_usage_count()` at lines 1079–1095; confirmed
-  underflow warning behavior
-- [Phase 3] `git blame -L 1856,1887`: bug introduced by
-  `55aa33c3fe3876`, original function by `30d95a37f46d1`
-- [Phase 3] `git show 55aa33c3fe3876`: confirmed refactor moved
-  `kstrtoint` before `get_access` while keeping `goto out`
-- [Phase 3] `git show 30d95a37f46d1`: original code had
-  `pm_runtime_get_sync` before `kstrtoint` (correct pairing)
-- [Phase 3] `git merge-base --is-ancestor 55aa33c3fe3876 HEAD`: buggy
-  commit IS in v6.18.44
-- [Phase 3] `git tag --contains 55aa33c3fe3876`: present since v6.18-rc1
-- [Phase 4] `b4 dig -c a4b0c3f5d2287`: no lore match (patch on
-  freedesktop.org)
-- [Phase 4] Fetched https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/145516.html: confirmed patch content and series context
-- [Phase 5] Grep for `goto out` in `amdgpu_pm.c`: only smartshift_bias
-  has parse-before-get with unconditional put at `out`
-- [Phase 5] Confirmed `AMDGPU_DEVICE_ATTR_RW(smartshift_bias)`
-  registration at line 2544
-- [Phase 6] `git describe HEAD` = v6.18.44; `make kernelversion` =
-  6.18.44
-- [Phase 6] `git merge-base --is-ancestor a4b0c3f5d2287 HEAD`: fix NOT
-  in current tree
-- [Phase 6] Compared current code to provided diff: exact match, clean
-  apply expected
-- [Phase 8] Confirmed failure mode via `rpm_drop_usage_count` underflow
-  path
-- [UNVERIFIED] No runtime test of actual sysfs write triggering the
-  warning
+- [Phase 1] Parsed subject, tags, body from provided commit message
+- [Phase 2] Diff analysis: verified +18/-6 in `amdgpu_atombios.c`, three
+  call sites, new helper function
+- [Phase 2] Read current `amdgpu_atombios.c` lines 82–175: confirmed
+  unchecked `num_indices` pattern
+- [Phase 2] Read `amdgpu.h`: `i2c_bus[AMDGPU_MAX_I2C_BUS]` with
+  `AMDGPU_MAX_I2C_BUS = 16`
+- [Phase 2] Read `atom.c` `amdgpu_atom_parse_data_header()`: `size` from
+  `CU16(idx)`, no bounds validation
+- [Phase 3] `git blame`: buggy lines from `d38ceaf99ed01` (2015-04-20)
+- [Phase 3] `git show d38ceaf99ed01`: original amdgpu core driver import
+- [Phase 3] `grep amdgpu_atombios_gpio_i2c_num_entries`: not in tree
+  (fix absent)
+- [Phase 3] Verified patch 3/4 is standalone; patches 1–2 are unrelated
+  subsystems (freedesktop.org)
+- [Phase 4] `b4 dig -c a99cd23...`: no lore match
+- [Phase 4] WebFetch freedesktop.org amd-gfx May 2026: confirmed [PATCH
+  3/4] content
+- [Phase 4] Web search: mainline SHA
+  `a99cd231cd924b7160fecb9fb3a94b801522323b`; related display fix
+  `86d2b20` with `Cc: stable`
+- [Phase 5] `grep` callers: `amdgpu_i2c_init` → `amdgpu_device.c:4771`;
+  lookup used in encoder parsing
+- [Phase 5] Read `amdgpu_i2c.c:218–235`: init paths for legacy and
+  Polaris OEM
+- [Phase 5] Read `amdgpu_device.c:4753–4772`: called when `adev->bios &&
+  !adev->is_atom_fw`
+- [Phase 6] `git describe HEAD`: `v6.18.44`; Makefile confirms 6.18.44
+- [Phase 6] Buggy code confirmed at lines 99, 130, 161 in local tree
+- [Phase 6] `ATOM_MAX_SUPPORTED_DEVICE` = 16 (`atombios.h`), matches
+  `AMDGPU_MAX_I2C_BUS`
+- [Phase 7/8] Assessed subsystem criticality and failure modes from
+  verified call paths
+- UNVERIFIED: No end-user crash report for this specific GPIO I2C issue
+- UNVERIFIED: Whether undersized-table underflow has been observed in
+  the field
 
-**YES**The background searches finished and match the earlier analysis:
+**YES**The background search finished: the **Bound GPIO I2C** fix is
+**not** in this tree (`v6.18.44`). Candice Li’s other amdgpu work is
+present, but `amdgpu_atombios_gpio_i2c_num_entries()` is missing and the
+unchecked `num_indices` logic is still at lines 99, 130, and 161 of
+`amdgpu_atombios.c`.
 
-- The fix exists in the repo as `a4b0c3f5d2287` / `b9dcdc6fd5e2d`, but
-  it is **not** in the current `stable/linux-6.18.y` checkout at
-  v6.18.44.
-- The buggy code from `55aa33c3fe3876` **is** present in this tree.
+**Verdict from the analysis:** backport **YES** — small, standalone
+bounds-check fix that prevents OOB writes to `adev->i2c_bus[]` and
+unbounded VBIOS table walks on corrupt GPIO I2C table sizes during GPU
+init.
 
-Verdict remains **YES** for backporting to this 6.18.y tree.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 24 +++++++++++++++-----
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 94c534c1d0bed..d253b974223c6 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -1859,12 +1859,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 763f2b8dcf13a..b8f7e3a18d324 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -36,6 +36,21 @@
+ #include "atombios_encoders.h"
+ #include "bif/bif_4_1_d.h"
+ 
++/* VBIOS-reported table size is unchecked against the image; cap iterations and
++ * adev->i2c_bus[] indexing to AMDGPU_MAX_I2C_BUS.
++ */
++static int amdgpu_atombios_gpio_i2c_num_entries(uint16_t size)
++{
++	u32 bytes;
++
++	if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
++		return 0;
++
++	bytes = size - sizeof(ATOM_COMMON_TABLE_HEADER);
++	return (int)min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
++			  AMDGPU_MAX_I2C_BUS);
++}
++
+ static struct amdgpu_i2c_bus_rec amdgpu_atombios_get_bus_rec_for_i2c_gpio(ATOM_GPIO_I2C_ASSIGMENT *gpio)
  {
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
--	int r = 0;
-+	int r;
- 	int bias = 0;
+ 	struct amdgpu_i2c_bus_rec i2c;
+@@ -96,8 +111,7 @@ struct amdgpu_i2c_bus_rec amdgpu_atombios_lookup_i2c_gpio(struct amdgpu_device *
+ 	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
+ 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
  
- 	r = kstrtoint(buf, 10, &bias);
- 	if (r)
--		goto out;
-+		return r;
+-		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+-			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
++		num_indices = amdgpu_atombios_gpio_i2c_num_entries(size);
  
- 	r = amdgpu_pm_get_access(adev);
- 	if (r < 0)
-@@ -1876,14 +1876,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
- 		bias = AMDGPU_SMARTSHIFT_MIN_BIAS;
+ 		gpio = &i2c_info->asGPIO_Info[0];
+ 		for (i = 0; i < num_indices; i++) {
+@@ -127,8 +141,7 @@ void amdgpu_atombios_i2c_init(struct amdgpu_device *adev)
+ 	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
+ 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
  
- 	amdgpu_smartshift_bias = bias;
--	r = count;
+-		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+-			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
++		num_indices = amdgpu_atombios_gpio_i2c_num_entries(size);
  
- 	/* TODO: update bias level with SMU message */
+ 		gpio = &i2c_info->asGPIO_Info[0];
+ 		for (i = 0; i < num_indices; i++) {
+@@ -158,8 +171,7 @@ void amdgpu_atombios_oem_i2c_init(struct amdgpu_device *adev, u8 i2c_id)
+ 	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
+ 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
  
--out:
- 	amdgpu_pm_put_access(adev);
+-		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+-			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
++		num_indices = amdgpu_atombios_gpio_i2c_num_entries(size);
  
--	return r;
-+	return count;
- }
- 
- static int ss_power_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
+ 		gpio = &i2c_info->asGPIO_Info[0];
+ 		for (i = 0; i < num_indices; i++) {
 -- 
 2.53.0
 
