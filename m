@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E31C624C8
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:20:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED493C624C2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C2810E74A;
-	Mon, 31 Aug 2026 08:20:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 103EC10E748;
+	Mon, 31 Aug 2026 08:20:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="tRQmTI60";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="exEIEtKO";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="f7H7XXRw";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="c19MCD0x";
 	dkim-atps=neutral
 Received: from flow-a4-smtp.messagingengine.com
  (flow-a4-smtp.messagingengine.com [103.168.172.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35E0310E748
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:20:19 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.phl.internal (Postfix) with ESMTP id A27F013800E9;
- Mon, 31 Aug 2026 04:20:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Mon, 31 Aug 2026 04:20:18 -0400
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05C0010E748
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:20:38 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id 7240E1380074;
+ Mon, 31 Aug 2026 04:20:37 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Mon, 31 Aug 2026 04:20:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1788164418; x=
- 1788171618; bh=mBpU3Op3r4JDPeCWNFWPI1BaBuK91a9+fdBYmwtcAeI=; b=t
- RQmTI60W9XwmBoHzH5DW0CYxtcPfC6TxBa31AAWWwrub3Zv0Wb5a3KPboRgT16X3
- EnNUadFOymS3t7xrEuzgdn2619Sp4d8WMMWKICvTWWAK0+CUdHMD46ZJ+7LMCK1A
- licFPuo0eRVvH4gqpA0N5PZ1u+9DeCh5OeBLj/Y6fMmDWh01WqZ6sve4zThmbZJU
- +wy+E5XdWiGWSpIpin6IXQaGrHMS/+MEXDKYm5cI6Z5Jy65lTplJq3kSdcYsbKX3
- KOoi12Z45f52+/fB0DbLn7b0IcXSaYyrjAaqCaMv+4kbewQdFxazPpiW5b23r/eN
- 5mdIwzW7nU2oId7t680+g==
+ :reply-to:subject:subject:to:to; s=fm2; t=1788164437; x=
+ 1788171637; bh=AsPhvud3azvo0r2BrkdCIsXDLM/tUzAdsviQlX0O/e8=; b=f
+ 7H7XXRw2WskfLXnNQQjlE0X/A8JbiuMdh5Sb24A0nQoqHes1rZQ5ssNSoWZS9t/b
+ 50HB7m6jVyKS9wFSkRTqU6jh7gdriWO7xIDZ7ujPjuRCuuop3rFnV5QDWUpBiO0v
+ n7BAhNNHJQIR68v0vtY++neYGaMLwl5sq3US/MHsq3qDm9TKs/HGuF0QOwt0U/ub
+ cSw6b71Rd/ikwvVKl/wMfM+V6ZB3dRn3RFCKXkQDR2uJ6ICP/NmqEC9mmi9J0PKN
+ p3PsTJ26aZ4rtOUsWQ9kSF4msCvEajkL1XfMjrgCWJjq/m3DsxBlumLZ2M5Jzoim
+ acItKbHejyyseivD/49ug==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1788164418; x=1788171618; bh=m
- BpU3Op3r4JDPeCWNFWPI1BaBuK91a9+fdBYmwtcAeI=; b=exEIEtKO175hhr46o
- stOgpFoP2ju2zWl3Cm938ErxptBTLcWozObm6hy2I8StS7KsdkU+mvKzxQi6b4+E
- bayzdzcWnEHTe8mERvemzoGiAYcY8t1Ehophm2hQEB3x3LsjCiyZFn5Bi+DvJktq
- M5nkFed/HgyosWPSPW8b08eSsSkw1tsmX+NE47JAbdnSwx2gVOun99ZReknPzuM6
- kIbY+5RTj8JhWpGiBpO8rQzgp4Z4YFHfcAXeLNnS52FwWq05Ir9BXPHfitSfTVb9
- Uex+0lSCP/gndl4HKLaDgymKjffVw+l9x1peAlKk14Xhvdb7lxO8ss86X5l2JTYc
- pCTMQ==
-X-ME-Sender: <xms:QTmVajdQwR_w4oxu_2DRF-xA5FNa5DGe-RsRqt7niKgn1fAHGTG6hg>
- <xme:QTmVagvpC5DmGwolyAVc13aofNL2uvuWeOwhnLvaOxPLgWEBSjVw4GGRDHA_HoOmc
- 95iEjv1prIH5cklHkULL-CgZsch0PK6g_GrO634VufOkEUyJIKheg>
-X-ME-Received: <xmr:QTmVaikyOvJj6To1U1RNPQty8Ei1R1zd-mcJzeY1jx7HFDhJBpHuSjW9Cktn_cmp9MTbHYeI3w>
-X-ME-Proxy-Cause: dmFkZTGGv45yNZEVAFcnckiDzpTtShgB5u7mCs5YP5orSJ890J7bGUFahPSU03RmgLiAtr
- Jw4l31ghUGxCrG3APtLbl3i8GBubnvSq6gl6HKO8aHRUp5ikWaIvYCsJEGeV3tML7pOPXs
- CzEWC4pDFu+WHpAxNESshJYienY6rRqnAUfknBAVdHfefUILJ2XaoNpfTOvKv++FVGciMC
- B2ncF57mixOvt8aQehNcPNzuhLHc0b8pEmUA7/vQ2/jGpxr0FfbPNP2unmeFFHN2HVJZoV
- SLAAmz+ZYwpapuC6rFgs88iyyqWIh5rltqj2sRnN8oNbNaCk4EkbW41/vBKDpfaD74T7Do
- O/hEpNU8ZFEQ1F8xb5+orO0vAHY/Z7MdGJzBD9o7p9A+6bQuOPKDaMfbXREYsX9MO7W6JK
- ofXFSeW0HvTtXSTimAxb9+UYBAubavQMZYe5tGXrvQvRoNQ1uIycyq9N6cBq8peWhO5AmH
- ON8D9haiotqLqx3eAHHVTHQK8qjdd0a7Cqfb1V0/khWI+Cag77QcnyFriIEWDZmoLHWLKO
- +qepF3mCvnd1RdqjANo0z1o0BAEQ0Wd0iwjy/0jAiRX9hmXhMRf6t11d9m7cWfPAeiTNBB
- VqKv0wUaQAnNalA6H1aZg3GnKmylHU/7Qxnc91QDAlhNw7SI9rp4RKuDRB6w
-X-ME-Proxy: <xmx:QTmVajA7VYedTH_XjIv8F-2hID_2bh2C0cEohR-fH3gApZNUkALTAA>
- <xmx:QTmVaqw0ZWDI-xZfU435OfjTx5kxRFvw2Tbi2QXE_LPyhJblc5lClQ>
- <xmx:QTmVandIHey5I0q7DZtun35Fz3Iu1-OwMxJSE9KTQV5isqL-65sGSw>
- <xmx:QTmVasyuAbxc9FtNgCXkb19WOhPd7MGFPFRhPvnJ2ZOBj7jpGfxHbA>
- <xmx:QjmVahKdlki_dRXT6iWjpdC_UJIJKVbOM3cbpaSQqqE95O_8CoPBncOl>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1788164437; x=1788171637; bh=A
+ sPhvud3azvo0r2BrkdCIsXDLM/tUzAdsviQlX0O/e8=; b=c19MCD0xNppLdqjSo
+ 8UMZaMV9pHgM3SgXS+9AgAoVVD1l3WqvIe6PrAls/sXKPYAfI/xeghxioyDYDX+U
+ vkmKYRi7IxYmXx2XeozDHo5N6qHuua0eKPJoctlVDC7bXo5E/nBwHIFJdhehyMes
+ wHUu0f6ahrP4LDSfcVK3Gzm8eamGMGO4DAUM7M8OeeI8FlhVjd0eODg1ik6teDiE
+ RG0CO4Hnxz2jduC1N995yur26RxDr0CYA444xoJhxwmvUK6FH+JwYSv+i1euhA1z
+ iAUkXAeExVYPb4IKDy+rS8qRjLEWKq+DnbQ9z4TEfBse5wEGo+pSzhwMzs9Kvzdb
+ gECIg==
+X-ME-Sender: <xms:VDmVahZtXj5apsH-ttGZOQEHFRxMQWDAa5auR8rWG8XVF8ORHdMfaQ>
+ <xme:VDmVaoS1YCk-MKH9C7p8Ce8s_QTql71yJ_hfeuYR42TDqKO7NSHc0QDCKMl1ZKvoQ
+ 4I-kEqJanQ7ZVrTIcrwJVK3ddVC63XR_cPBr-gUy81p99tEyrMiybU>
+X-ME-Received: <xmr:VDmVahToyaVO7tcLsgbUabnuiYPXOzLXu9eZ_ELcFeEY7uWInO0jr7NU9oy7nCdUhtAN2qcnvw>
+X-ME-Proxy-Cause: dmFkZTGIFgHn697QN77LvkxTVd0HUgqc7dtgfWAXvrJnzjyYk/1E0GgI5UhaHEirT/WT1x
+ b+qszzNdMAzVFopaNRs2dxhnDg09r1jPoC9MEUtixnInykmU3Pw0l3hwtCEJ1ad3c93Xay
+ bd+l5sHxlTS6v/5iZXzAZK/4u27Ei0nAwXdeaVFF7kRMXjXXfW3iRGTZonBhmmpTvqhV+z
+ V8Wknu+rEOyAMoGvxP8cZTL5kJKYkaLJxiSkeTXi9Trr4J2M5YjykmqP7kv72jWCs8a19h
+ BukMvHNfzyzCVsSYvDh2T5LUAPpVgmVJhTbdZLaOSzh+ILq3lNXn5p+T2rNKefe0YsrRTV
+ GXWCy4Nc6Xg5c2VMDpArm7CB7Jqsiy342MSwQWT5trhAiWCV8fd4ssQLpHBERMjS/r/glS
+ tRymfWbA3D3Yt5lxoQ5UaT2AV0P28HX+apnpEw55tFUre7Tt+fGkBMVrtfXBoodKUEWMjI
+ XuUtixBqv45vv8lvC2OufSPVaM/B5A9Uqx7UnYGUsFjnrZPzvENdV4bak+YnxayLUEO0K1
+ DAar6K7DjAS88jNJmUPbRA0I4ePZk6y1yTKI3C+K+uOZXdCB/uWLrnW+ffqtCNUVs7e9se
+ 50HHvYlzHgomOP2xboIJ6k5N7368PMaMav6EX1v0PDmFfFxbt66E6scp7FDg
+X-ME-Proxy: <xmx:VDmVar1_mi-RIIdLoQTHhnMVg-IH5gyZvocUq0dCFH6kKyi_lRCSSQ>
+ <xmx:VDmVapwGUPIvrKJDz7vCncUY0ums_nLImfqlRzGJxr5GVDslW2sVug>
+ <xmx:VDmVams-rcTd1IUxOvI9GYY0equBPAK9QxMIRLEZWo6dhYwWVlY_LA>
+ <xmx:VDmVajRxzNb1ztgdZdt8EOnvZNtO1dA3k5ZF86XQDvKesisSyhM2MQ>
+ <xmx:VTmVatexhp4WoEhUgP5fljTk2HU0_i6Agl7OClrY7gdjswjzkmfXgVEB>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 04:20:09 -0400 (EDT)
+ 31 Aug 2026 04:20:29 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -78,12 +78,11 @@ Cc: royalnet026@gmail.com, u.kleine-koenig@baylibre.com,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Sidong Yang <sidong.yang@furiosa.ai>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v11 01/14] accel/rocket: request the core clocks by name
-Date: Mon, 31 Aug 2026 20:19:43 +1200
-Message-ID: <20260831081956.84871-2-gahing@gahingwoo.com>
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v11 03/14] accel/rocket: wait for a running IRQ handler before
+ resetting a core
+Date: Mon, 31 Aug 2026 20:19:45 +1200
+Message-ID: <20260831081956.84871-4-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831081956.84871-1-gahing@gahingwoo.com>
 References: <20260831081956.84871-1-gahing@gahingwoo.com>
@@ -104,83 +103,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Igor Paunovic <royalnet026@gmail.com>
+rocket_reset() calls drm_sched_stop(), which stops the scheduler and
+returns. It does not wait for a threaded handler that is already
+running, so the comment that follows, "Remaining interrupts have been
+handled", states an assumption rather than something the code arranges.
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+Call synchronize_irq(core->irq) after drm_sched_stop() and reword the
+comment to say what holds afterwards.
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed,
-so the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+It has to go before the scoped_guard(mutex, &core->job_lock) rather than
+inside it. rocket_job_handle_irq() takes job_lock, so waiting for the
+handler while holding that lock would be waiting for a handler that is
+waiting for us. Nothing is held at that point, and both callers,
+rocket_job_timedout() and rocket_reset_work(), run in process context,
+so sleeping there is allowed.
 
-The consequence is that rocket_device_runtime_resume() prepares and
-enables the AXI clock four times, while hclk, pclk and - most
-importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-never prepared or enabled by this driver at all. The NPU still works
-only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-its attach_dev() callback walks the device node with of_clk_get() and
-adds every clock to the pm_clk list, so genpd happens to keep the
-remaining clocks running. The bug is therefore latent today, but it
-means the driver holds no reference to the clock that actually feeds the
-NPU, which stands in the way of any future frequency scaling
-(OPP/devfreq) work.
+This does not stop a handler that has already read in_flight_job from
+finishing its work on the job the reset is about to drop. That window
+needs the check and the register writes to be one step under the lock,
+which is what the previous patch does; the two are complementary.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via
-of_clk_get().
+Mask the block before the sync as well. INTERRUPT_MASK is armed by
+hw_submit() on every submit and cleared only by the hardirq, so on an
+ordinary timeout it is still live and a completion can arrive after
+synchronize_irq() returns. Nothing is lost by clearing it, since the next
+submit arms it again.
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+That write is the first register access this function has ever made, and
+it is guarded, because the function holds no runtime PM reference of its
+own. The only reference in the window belongs to in_flight_job, and the
+completion path can have put it and cleared the pointer before the
+timeout worker arrives: drm_sched_stop() sits in between and can block on
+cancel_work_sync() and on a dma_fence_wait(), and it subtracts every
+pending job's credits, so rocket_job_is_idle() is true and
+rocket_device_runtime_suspend() will not refuse. With the autosuspend
+delay elapsed the clocks are off and both NPU domains are down. A
+register access in that state takes an async SError on this hardware,
+which is the failure two later patches in this series describe from the
+power-on side.
 
-Note that this is a user-visible tightening for out-of-tree DTs: the
-old NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with
--ENOENT when one of the four names is missing. That is the right
-outcome for in-tree users - the binding requires exactly these four
-clock-names and rk3588-base.dtsi carries them on all three cores - but
-a DT that relied on the permissive lookup goes from silently running on
-the wrong clock handles to not probing at all, so record the change
-here where git log will find it.
+pm_runtime_get_if_active() resumes nothing and allocates nothing; if the
+core is already down there is no live interrupt to mask and the following
+synchronize_irq() is all that is needed. Igor Paunovic asked the general
+form of this on v8 -- whether rocket_reset() should hold a reference --
+and it was deferred then because nothing in the path touched a register.
+This patch is what makes it matter.
 
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
+The deadlock this placement avoids would not have been reported. The wait
+is on desc->wait_for_threads rather than on a lock, so lockdep does not
+model it and it would have hung silently.
+
+Suggested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, differential base, JOB_TIMEOUT_MS=2
 ---
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/accel/rocket/rocket_job.c | 34 ++++++++++++++++++++++++++++---
+ 1 file changed, 31 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba..5dd260bac 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 5f0f9682e..3c0ed4605 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -377,9 +377,37 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
+ 	drm_sched_stop(&core->sched, bad);
  
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
+ 	/*
+-	 * Remaining interrupts have been handled, but we might still have
+-	 * stuck jobs. Let's make sure the PM counters stay balanced by
+-	 * manually calling pm_runtime_put_noidle().
++	 * Mask the block before waiting. hw_submit() arms INTERRUPT_MASK on
++	 * every submit and only the hardirq clears it, so on an ordinary
++	 * timeout it is still live and a completion can arrive after the sync
++	 * returns. The next submit re-arms it, so nothing is lost here.
++	 *
++	 * Only when the device is already awake, though. This function holds no
++	 * runtime PM reference of its own: the only one in the window belongs to
++	 * in_flight_job, and the completion path may have put it and cleared the
++	 * pointer before the timeout worker got here. drm_sched_stop() above can
++	 * block for a long time, and it drops every pending job's credits, so
++	 * rocket_job_is_idle() is true and nothing keeps the core resumed. On
++	 * this hardware a register access with the domain down takes an async
++	 * SError, so a reset must not be the thing that causes one.
++	 */
++	if (pm_runtime_get_if_active(core->dev) > 0) {
++		rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
++		pm_runtime_put_autosuspend(core->dev);
++	}
++
++	/*
++	 * drm_sched_stop() returns without waiting for a threaded handler that
++	 * is already running, so wait for one here. This has to stay outside
++	 * job_lock: the handler takes that lock, so waiting for it while
++	 * holding it would deadlock instead of fencing anything.
++	 */
++	synchronize_irq(core->irq);
++
++	/*
++	 * No handler is running now, but we might still have stuck jobs. Let's
++	 * make sure the PM counters stay balanced by manually calling
++	 * pm_runtime_put_noidle().
+ 	 */
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		if (core->in_flight_job)
 -- 
 2.43.0
 
