@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1355C624CF
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E004EC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEBA610E9E3;
-	Mon, 31 Aug 2026 16:20:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39C5110E9E5;
+	Mon, 31 Aug 2026 16:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MS8tEcFI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YXsOYy0p";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF3210E9DF
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:20:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7BF410E9DF
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:19:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CECAC601DE;
- Mon, 31 Aug 2026 16:20:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7BF1F00A3D;
- Mon, 31 Aug 2026 16:20:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5CEB1601DE;
+ Mon, 31 Aug 2026 16:19:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864701F000E9;
+ Mon, 31 Aug 2026 16:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788193205;
- bh=AIl8kApfwY+PuNIQ0bDGRHbZMl/F8Fxkf58n8ZSsscI=;
+ s=k20260515; t=1788193190;
+ bh=nXeLnzB6TJTMrsQqNrbpW/cT5h2V1RM9cQkOIJpjCKg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=MS8tEcFIRh5/aRKCbXbrQcojR4CtLsMBx2CQDsk8tD45jbMETjmqDIZOAlQn4F4dL
- rVKhDeI0AI4s2+La+IQdpPdY6kghflMy6LQLl9sEZFML/JLb+ttmzun/f0R/8DGkIx
- 0h2lxKXPsXBq52C9Gc+HUSohjbqYTokOjX6lOKrWOTB9pfNDcu2VA6VCM7Sn6zqE7k
- vu7Hr1p+gXpc+AxrugP5LbNwMJzjSvbU77Fh8XBgFoTJMDVic4R2Ye2O5IGvW8Omzo
- Od/wObvt+xgdVQdb9O+p+d0MJJaCJFrvFOIlWmTLVQDUtZ1bJbbWTAkdS5YdMmry+w
- +byACqCZN+fOw==
+ b=YXsOYy0pmlYNNzY7cUpotIS2AamFMzr4kzsGg1pwWBJ9p8R2V1lHtm43Ijh/dKyTC
+ GTOookAZ2fOLaNgcv8VcOhKO2VhCM0xwGJp56Pc5DItwrh0It5gi2VYBbePZyv6MZt
+ Glendv4mS738zCk/TYwtwKRzzORQ96Lr/szo1niQxd48JRcaMbsfgCPj4rRWbFknq4
+ TbuMC8+Pm+d3LcExfF9Y0PvfJwuF4L5hRsmC0TnAAb8bwzyVHVEeLpCStJ8+U5fZLT
+ X/oHjXfbDB3S0OUZNBmVPfeeC2Zgr+wcH+ZUcHFs1EHnUvRWgAxUH31rbgQbdMCy+X
+ k9L3IMk/BovSg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 31 Aug 2026 18:17:53 +0200
-Subject: [PATCH v3 37/40] drm/sun4i: layer: Convert to atomic_create_state
+Date: Mon, 31 Aug 2026 18:17:49 +0200
+Subject: [PATCH v3 33/40] drm/omap: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-drm-no-more-plane-reset-v3-37-1877c7aa57b3@kernel.org>
+Message-Id: <20260831-drm-no-more-plane-reset-v3-33-1877c7aa57b3@kernel.org>
 References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 In-Reply-To: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- linux-sunxi@lists.linux.dev, samuel@sholland.org, wens@kernel.org
+ tomi.valkeinen@ideasonboard.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6982; i=mripard@kernel.org;
- h=from:subject:message-id; bh=a9d7GCveTjYpNRIq2WMAfA2b9JIVG5W2l1O1/6gTPp4=;
- b=kA0DAAkTJ1/OGaI9vnYByyZiAGqVqSDIv2dQ303Kptv5DSY7AMbNbqqQFNU9cbVFH30hFibtL
- YiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmqVqSAACgkQJ1/OGaI9vnbeTQGAluz9
- jtilaffBkv/mwRDM+Tif8nArYtR8YCy6xmbcDFZTtJVX7uHLSIDsZ0/z1Gi8AX984N1zn1mwy4d
- +UZiMJ0On364bJ0RLv/LIYcQJX7wBKAuZaW7FpvPQqV7JIEt6Ad4=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6818; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=FzTvm+eptc21Be9J8vogxw0f1EezLUi53tXCSsJNEbI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTV8qbyLx7d3xR/Zrf+xY57pwnmMblY/hetFt8toO0S
+ Jy32S3XjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRB1yM1ezHj1xgM7H6Hvpx
+ fkDwqWrNf72Ou/akRuX6v9RkaHXgNWZmOlB9rvn8SpbUNzfv53w7w9jwqvxhcVXjMa9V11ofdlc
+ LSs6ar6thpdmy7amJalp761OBGV3ST49MXHv/GovNyQnHHmsDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,64 +335,56 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: linux-sunxi@lists.linux.dev
-Cc: samuel@sholland.org
-Cc: wens@kernel.org
+Cc: tomi.valkeinen@ideasonboard.com
 ---
- drivers/gpu/drm/sun4i/sun4i_layer.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_plane.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_layer.c b/drivers/gpu/drm/sun4i/sun4i_layer.c
-index d65587d96d9e..7ec6d8131908 100644
---- a/drivers/gpu/drm/sun4i/sun4i_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_layer.c
-@@ -14,26 +14,21 @@
- #include "sun4i_backend.h"
- #include "sun4i_frontend.h"
- #include "sun4i_layer.h"
- #include "sunxi_engine.h"
+diff --git a/drivers/gpu/drm/omapdrm/omap_plane.c b/drivers/gpu/drm/omapdrm/omap_plane.c
+index c024cdbbd87a..e3f60046afcc 100644
+--- a/drivers/gpu/drm/omapdrm/omap_plane.c
++++ b/drivers/gpu/drm/omapdrm/omap_plane.c
+@@ -401,22 +401,21 @@ void omap_plane_install_properties(struct drm_plane *plane,
+ 	}
  
--static void sun4i_backend_layer_reset(struct drm_plane *plane)
-+static struct drm_plane_state *sun4i_backend_layer_create_state(struct drm_plane *plane)
+ 	drm_object_attach_property(obj, priv->zorder_prop, 0);
+ }
+ 
+-static void omap_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *omap_plane_create_state(struct drm_plane *plane)
  {
- 	struct sun4i_layer_state *state;
+ 	struct omap_plane_state *omap_state;
  
--	if (plane->state) {
--		state = state_to_sun4i_layer_state(plane->state);
+-	if (plane->state)
+-		drm_atomic_helper_plane_destroy_state(plane, plane->state);
 -
--		__drm_atomic_helper_plane_destroy_state(&state->state);
--
--		kfree(state);
--		plane->state = NULL;
--	}
--
- 	state = kzalloc_obj(*state);
--	if (state)
--		__drm_atomic_helper_plane_reset(plane, &state->state);
-+	if (!state)
+ 	omap_state = kzalloc_obj(*omap_state);
+ 	if (!omap_state)
+-		return;
 +		return ERR_PTR(-ENOMEM);
+ 
+-	__drm_atomic_helper_plane_reset(plane, &omap_state->base);
++	__drm_atomic_helper_plane_state_init(&omap_state->base, plane);
 +
-+	__drm_atomic_helper_plane_state_init(&state->state, plane);
-+
-+	return &state->state;
++	return &omap_state->base;
  }
  
  static struct drm_plane_state *
- sun4i_backend_layer_duplicate_state(struct drm_plane *plane)
+ omap_plane_atomic_duplicate_state(struct drm_plane *plane)
  {
-@@ -131,11 +126,11 @@ static const struct drm_plane_helper_funcs sun4i_backend_layer_helper_funcs = {
- static const struct drm_plane_funcs sun4i_backend_layer_funcs = {
- 	.atomic_destroy_state	= sun4i_backend_layer_destroy_state,
- 	.atomic_duplicate_state	= sun4i_backend_layer_duplicate_state,
- 	.destroy		= drm_plane_cleanup,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.reset			= sun4i_backend_layer_reset,
-+	.atomic_create_state	= sun4i_backend_layer_create_state,
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.format_mod_supported	= sun4i_layer_format_mod_supported,
- };
+@@ -489,11 +488,11 @@ static int omap_plane_atomic_get_property(struct drm_plane *plane,
+ }
  
- static const uint32_t sun4i_layer_formats[] = {
+ static const struct drm_plane_funcs omap_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = omap_plane_reset,
++	.atomic_create_state = omap_plane_create_state,
+ 	.destroy = omap_plane_destroy,
+ 	.atomic_duplicate_state = omap_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.atomic_set_property = omap_plane_atomic_set_property,
+ 	.atomic_get_property = omap_plane_atomic_get_property,
 
 -- 
 2.55.0
