@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF435C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 22:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1921BC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 22:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BEFA10E340;
-	Mon, 31 Aug 2026 22:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2387610E34C;
+	Mon, 31 Aug 2026 22:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mhwwJTz4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nPcV39Wd";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A02D210E340
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 22:39:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9BE10E332;
+ Mon, 31 Aug 2026 22:49:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5A44340350;
- Mon, 31 Aug 2026 22:39:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049AE1F000E9;
- Mon, 31 Aug 2026 22:39:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F281F602D3;
+ Mon, 31 Aug 2026 22:49:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E7A1F000E9;
+ Mon, 31 Aug 2026 22:49:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788215976;
- bh=Hsy9qGm17h6phI4jhB7PGMVQJlssPMud6DVlvMPsKSA=;
+ s=k20260515; t=1788216573;
+ bh=VWZNea7qcUcIQpyjNbtHBngrLsSTJsiaD5bV+VNRqM4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mhwwJTz4rZ8gQh9H0yQEXw01Ejqf8J75mXtMVhuStNis/C1QLaQRdZ6ZGXPfK9NAJ
- XeHFcwusvCuWHeqQ2DeganuqbnbtIM7OwzP8h9/6B5zRiLBAfab5E9dB1EFHYpqSo1
- 4sxKeU737pU+uf0WY1jM9CGm4m4TGKfPVp8C2H5SWbAYdNp8C1CTWYlp1XHWibTl3f
- WhpuKe8aJy6YvgZLefi2VMZGHg5DcB5EjKzYosEbPuNUfqq0VFJZTYBIQ0SkESLeCR
- xysPPRIF6St4ZKcYZDXwHNpoxN8DD0JMcx0UavmkNl2/FYR9cI+HiGqc2rKqLPgm0i
- WSapHcFo2bFlQ==
+ b=nPcV39WdkFXBTmqMkCkGnhAZZyJiWY6hKxTf1OLTZ0bPNBsXs+VfShSInXofN7983
+ 2DiRPwWgmKsMVh82mnWgV44uFAb3gYysO4bBcpN3umIBNVQ5PAl9RbTJ35sJFz3WOx
+ jEZey/wsdOI6h1lwLMnZ1qX/1iXLPVj7kDsc/NDcMAnX/GeXfeXCE7OHrJSkhSm1ct
+ nAaX44Ziqvxriy7/F/408XE+Jn2Ncy+nBsKz7nPDLd2Xb13Bu6+Dqpe7G6IssoLQCW
+ ucb6AGPOr+EP/8VUrr8WuBd8Aps3pAlPNpYz6kaSJe+R2AJ4rSi+bmiXYINT8oRc+l
+ 0ITdPZguQQ98w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 35/40] drm/rz-du: Convert to atomic_create_state
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: wsa+renesas@sang-engineering.com, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831-drm-no-more-plane-reset-v3-35-1877c7aa57b3@kernel.org>
-References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
- <20260831-drm-no-more-plane-reset-v3-35-1877c7aa57b3@kernel.org>
+Subject: Re: [PATCH v7 06/12] drm/amd/display: Pass up errors reading actual
+ brightness
+To: "Mario Limonciello" <mario.limonciello@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260831210531.2334221-7-mario.limonciello@amd.com>
+References: <20260831210531.2334221-1-mario.limonciello@amd.com>
+ <20260831210531.2334221-7-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 22:39:35 +0000
-Message-Id: <20260831223936.049AE1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 22:49:32 +0000
+Message-Id: <20260831224933.65E7A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,75 +61,75 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Invalid pointer dereference on initialization error path due to in=
-correct list iterator usage.
+- [Medium] Incomplete refactoring of PWM error path causes KUnit test failu=
+re.
 --
 
-commit 3bffdb77add6a2ca9d3e5bb1dea2bfe6e12b39b0
-Author: Maxime Ripard <mripard@kernel.org>
-Subject: drm/rz-du: Convert to atomic_create_state
+commit 51bad29849babac3047c98c959ac850e269def79
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-This commit converts the plane reset implementation to use atomic_create_st=
-ate
-by creating a pristine state without resetting hardware. The conversion was
-done using a Coccinelle semantic patch.
+drm/amd/display: Pass up errors reading actual brightness
 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/d=
-rm/renesas/rz-du/rzg2l_du_vsp.c
-> index 1efa0f0451fe9..944bc9ac9589d 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> @@ -266,26 +266,23 @@ static void rzg2l_du_vsp_plane_atomic_destroy_state=
-(struct drm_plane *plane,
+This patch changes the return type of amdgpu_dm_backlight_get_level() from
+an unsigned integer to a signed integer. It also updates the caller and KUn=
+it
+tests to handle negative error codes like -EINVAL on backlight read failure.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index b66ca60e697dc..ed1f85650e280 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+[ ... ]
+> @@ -376,7 +376,7 @@ u32 amdgpu_dm_backlight_get_level(struct amdgpu_displ=
+ay_manager *dm, int bl_idx)
+>  		u32 avg, peak;
+> =20
+>  		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
+> -			return dm->brightness[bl_idx];
+> +			return -EINVAL;
+>  		return convert_brightness_to_user(&caps, avg);
+>  	}
+> =20
+
+[Severity: Medium]
+Was the legacy PWM error path missed during this refactoring?
+
+A few lines down in amdgpu_dm_backlight_get_level(), there is another error
+path:
+
+	ret =3D dc_link_get_backlight_level(link);
+	if (ret =3D=3D DC_ERROR_UNEXPECTED)
+		return dm->brightness[bl_idx];
+
+Since this still returns the cached fallback brightness instead of -EINVAL,
+could this cause unexpected behavior for the updated KUnit test?
 
 [ ... ]
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backli=
+ght_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c
+> index 7ca17f803f9d7..e03173d4e5bd8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
+t.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
+t.c
+> @@ -382,7 +382,7 @@ static void dm_test_backlight_get_level_pwm_error(str=
+uct kunit *test)
+>  	dm->brightness[0] =3D 4321;
+>  	dm->backlight_link[0] =3D link;
+> =20
+> -	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 4321U);
+> +	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
 
->  static const struct drm_plane_funcs rzg2l_du_vsp_plane_funcs =3D {
->  	.update_plane =3D drm_atomic_helper_update_plane,
->  	.disable_plane =3D drm_atomic_helper_disable_plane,
-> -	.reset =3D rzg2l_du_vsp_plane_reset,
-> +	.atomic_create_state =3D rzg2l_du_vsp_plane_create_state,
->  	.atomic_duplicate_state =3D rzg2l_du_vsp_plane_atomic_duplicate_state,
->  	.atomic_destroy_state =3D rzg2l_du_vsp_plane_atomic_destroy_state,
->  };
+[Severity: Medium]
+Will this test unconditionally fail?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this file I
-noticed a pre-existing issue in rzg2l_du_vsp_get_drm_plane():
-
-drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:rzg2l_du_vsp_get_drm_plane() {
-	...
-	struct drm_plane *plane =3D NULL;
-
-	drm_for_each_plane(plane, &rcdu->ddev) {
-		struct rzg2l_du_vsp_plane *vsp_plane =3D to_rzg2l_vsp_plane(plane);
-
-		if (vsp_plane->index =3D=3D pipe_index)
-			break;
-	}
-
-	return plane ? plane : ERR_PTR(-EINVAL);
-}
-
-Is it possible for drm_for_each_plane() to finish without finding a match?
-
-Since drm_for_each_plane() is a wrapper around list_for_each_entry(), the l=
-oop
-iterator "plane" is not set to NULL when the list is exhausted. If no match
-is found (e.g., if vsp_plane->index =3D=3D pipe_index is never true), the l=
-oop
-terminates without a break, leaving "plane" containing an invalid pointer
-derived from the list head offset.
-
-The ternary check "plane ? plane : ERR_PTR(-EINVAL)" will then evaluate to
-true and return this invalid pointer instead of the error. This invalid poi=
-nter
-could then be dereferenced during initialization on the error path by
-drmm_crtc_init_with_planes(), leading to memory corruption or a kernel cras=
-h.
+Because the legacy error path in amdgpu_dm_backlight_get_level() wasn't
+updated to return -EINVAL, it seems the function will still return the cach=
+ed
+fallback value (4321) when the mock function returns DC_ERROR_UNEXPECTED.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-drm-no-mor=
-e-plane-reset-v3-0-1877c7aa57b3@kernel.org?part=3D35
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
+221-1-mario.limonciello@amd.com?part=3D6
