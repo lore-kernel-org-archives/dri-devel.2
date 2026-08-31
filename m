@@ -4,64 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3554DC61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA17C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8D210E720;
-	Mon, 31 Aug 2026 08:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F68010E267;
+	Mon, 31 Aug 2026 08:36:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YxqFYfcb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ROIVb2TM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D22610E707;
- Mon, 31 Aug 2026 08:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788165330; x=1819701330;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=KONziSVWIVwvs3RiyygREUQiZGGQWT8Eas/ziempUzo=;
- b=YxqFYfcbm2QzQWyokMs7v3KelLbj34rAwnfURQENkVq75FbL7oHVDom+
- 0+ya03LRhS4j9OvuEcZI+UQgvvHOVlRHccpRiXx4EvQ/z0uW3Lu2xT2HM
- rAWiESbThzldg3lCk04vcOnNr5Xp6F0YeF5N/v6iyQxzFn8oz2Jbc1r9x
- B+6G3qJeq6Fu+RRbksxRn9S1uIaLN7vwEbE/xH4m830z2tRJzm/IFxxHS
- aoZ3GSUnkvx1dArRm7MfE4ta+MMak/f16E2f0+lbRrqBrzuYjQ9Cmn6j0
- +xBKWU9Ni2apyBrUQOmXUJx86t0bK0mil2nflzZMLTCsaInko2Wm8QVDW g==;
-X-CSE-ConnectionGUID: U2eXNCQER1eL+y4r9VVv9Q==
-X-CSE-MsgGUID: l5c1Byl7Rh+DjppRXLXzzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92376715"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="92376715"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:35:30 -0700
-X-CSE-ConnectionGUID: SrTUOPGLTjiuOymxSMLcQQ==
-X-CSE-MsgGUID: /sQ6RjObQmmlN9I0LIbpwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="274007191"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:35:28 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Krzysztof Karas
- <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andi
- Shyti <andi.shyti@linux.intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v3 2/8] drm/i915/selftests: Use drm_* prints in live
- selftests
-In-Reply-To: <apGaXnTIuHa5mbti@zenone.zhora.eu>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260828100339.72304-1-krzysztof.karas@intel.com>
- <20260828100339.72304-3-krzysztof.karas@intel.com>
- <apGaXnTIuHa5mbti@zenone.zhora.eu>
-Date: Mon, 31 Aug 2026 11:35:25 +0300
-Message-ID: <c037c57d1176cdf182208dc8228b8afd3d8f8838@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A2510E267
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:36:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D0C06601DB;
+ Mon, 31 Aug 2026 08:36:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5201F000E9;
+ Mon, 31 Aug 2026 08:36:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788165371;
+ bh=Nanm5Kl/1gdYtqG57ufN+8po6zLupNy0m7XNPH4j5Jg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ROIVb2TMWyUcqq1dgyrs8qHHkSBC2wX7nC8qJRJHaCLCcpoRqhkyd990Ew1PrPfzc
+ LM5zC4LnRtfKSlItyJOuIxlL3Fo1gH6rnRiRtJa0FeZDruN+Kc1VsQf+2CH5V0aYaY
+ UNtTMESu7uIDCFnCEaYVL4tHoFRSlOl/nk+cRyjAlY4LGMqjYC6i8I0j9R75sxnFNB
+ D6VM0BfhJzZabtsEH2vJAdzJwt/x4+L1cs9jKyZnhuN4uoaxK3nj+x+PmBtaxt6OSi
+ qJSGYzYdt8tAtmqNa2XlpijifWoRM8YeID0WeomAfauhMd5vRCJUAx4SkKo+ZchVvO
+ Jox4Q5GB3TnBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 01/14] accel/rocket: request the core clocks by name
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260831081956.84871-2-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-2-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 08:36:10 +0000
+Message-Id: <20260831083611.4A5201F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,93 +54,191 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026, Andi Shyti <andi.shyti@kernel.org> wrote:
-> Hi Krzysztof,
->
-> ...
->
->>  static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
->>  				unsigned int num_ranges,
->> -				bool is_watertight)
->> +				bool is_watertight,
->> +				const struct drm_device *drm)
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
-First, we generally don't pass around struct drm_device *, it's struct
-drm_i915_private * in i915.
+Pre-existing issues:
+- [High] rocket_remove() decrements rdev->num_cores without shifting array =
+elements, making subsequent cores inaccessible.
+- [High] IOMMU group reference count leak on every job completion in rocket=
+_job_handle_irq().
+- [High] Double free / invalid cleanup when drm_sched_init() fails.
+- [High] Unbounded memory leak of rdev and rdev->cores arrays on probe defe=
+rral.
+- [High] Shared IRQ handler unconditionally accesses hardware registers whe=
+n clocks and power domains might be disabled.
+- [High] Global rdev static variable is left containing an error pointer if=
+ rocket_device_init() fails, causing a kernel panic on subsequent probes.
+- [High] Registers are accessed while the device might still be held in res=
+et, leading to bus hangs.
+--
 
-Second, the highest level context parameters should be first. This one
-looks like an afterthought.
+commit 31505652560107069dc219815082a4ea6f173762
+Author: Igor Paunovic <royalnet026@gmail.com>
 
->>  {
->>  	unsigned int i;
->>  	s32 prev;
->> @@ -36,22 +39,22 @@ static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
->>  	for (i = 0, prev = -1; i < num_ranges; i++, ranges++) {
->>  		/* Check that the table is watertight */
->>  		if (is_watertight && (prev + 1) != (s32)ranges->start) {
->> -			pr_err("%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
->> -			       __func__, i, ranges->start, ranges->end, prev);
->> +			drm_err(drm, "%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
->> +				__func__, i, ranges->start, ranges->end, prev);
->>  			return -EINVAL;
->>  		}
->>  
->>  		/* Check that the table never goes backwards */
->>  		if (prev >= (s32)ranges->start) {
->> -			pr_err("%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
->> -			       __func__, i, ranges->start, ranges->end, prev);
->> +			drm_err(drm, "%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
->> +				__func__, i, ranges->start, ranges->end, prev);
->>  			return -EINVAL;
->>  		}
->>  
->>  		/* Check that the entry is valid */
->>  		if (ranges->start >= ranges->end) {
->> -			pr_err("%s: entry[%d]:(%x, %x) has negative length\n",
->> -			       __func__, i, ranges->start, ranges->end);
->> +			drm_err(drm, "%s: entry[%d]:(%x, %x) has negative length\n",
->> +				__func__, i, ranges->start, ranges->end);
->>  			return -EINVAL;
->>  		}
->>  
->> @@ -126,7 +129,8 @@ int intel_uncore_mock_selftests(void)
->>  	for (i = 0; i < ARRAY_SIZE(fw); i++) {
->>  		err = intel_fw_table_check(fw[i].ranges,
->>  					   fw[i].num_ranges,
->> -					   fw[i].is_watertight);
->> +					   fw[i].is_watertight,
->> +					   NULL);
->
-> arrghh! Here we are again at the drm_err(NULL,...) case.
->
-> You could eventually do in intel_fw_table_check()
->
-> 	if (drm)
-> 		drm_err(drm, ...);
-> 	else
-> 		pr_err(...);
+accel/rocket: request the core clocks by name
 
-drm_err() handles NULL drm_device just fine.
+This commit fixes a clock handling bug where devm_clk_bulk_get() was
+called with uninitialized clock IDs, resulting in the driver repeatedly
+requesting the first clock from the device tree and ignoring the others.
+The clock IDs are now explicitly set to "aclk", "hclk", "npu", and
+"pclk" before requesting them, ensuring the correct clocks are prepared
+and enabled.
 
->
-> but I think it's not worth the effort, just leave pr_err().
-> Besides, passing the drm device is quite out of the scope of the
-> function itself, it's just odd!
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index b3b2fa9ba645a..5dd260bacbff6 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
+ore->index);
+> =20
+> +	core->clks[0].id =3D "aclk";
+> +	core->clks[1].id =3D "hclk";
+> +	core->clks[2].id =3D "npu";
+> +	core->clks[3].id =3D "pclk";
+>  	err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
+ore->index);
 
-But agreed.
+[Severity: High]
+This is a pre-existing issue, but later in this same function:
 
-BR,
-Jani.
+drivers/accel/rocket/rocket_core.c:rocket_core_init() {
+    ...
+	version =3D rocket_pc_readl(core, VERSION);
+    ...
+}
 
->
-> Andi
->
->>  		if (err)
->>  			return err;
->>  	}
+Are these registers accessed while the device might still be held in reset?
+Since devm_reset_control_bulk_get_exclusive() is called earlier, shouldn't
+the resets be explicitly deasserted before this first memory-mapped read to
+prevent bus hangs?
 
--- 
-Jani Nikula, Intel
+
+[Severity: High]
+This is a pre-existing issue, but in rocket_drv.c:rocket_remove():
+
+drivers/accel/rocket/rocket_drv.c:rocket_remove() {
+    ...
+	rocket_core_fini(&rdev->cores[core]);
+	rdev->num_cores--;
+    ...
+}
+
+Does decrementing rdev->num_cores without shifting array elements make
+subsequent cores inaccessible? Since find_core_for_dev() loops up to
+rdev->num_cores, if an earlier core is removed, wouldn't the highest
+index core fall outside the loop bounds?
+
+
+[Severity: High]
+This is a pre-existing issue, but in rocket_job.c:rocket_job_handle_irq():
+
+drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
+    ...
+			iommu_detach_group(NULL, iommu_group_get(core->dev));
+    ...
+}
+
+Does this code leak the IOMMU group reference count? iommu_group_get()
+increments the reference count, but iommu_detach_group() consumes the
+pointer without decrementing it, which could prevent the group from ever
+being freed on driver unbind.
+
+
+[Severity: High]
+This is a pre-existing issue, but in rocket_job.c:rocket_job_init():
+
+drivers/accel/rocket/rocket_job.c:rocket_job_init() {
+    ...
+	ret =3D drm_sched_init(&core->sched, &args);
+	if (ret) {
+		dev_err(core->dev, "Failed to create scheduler: %d.", ret);
+		goto err_sched;
+	}
+
+	return 0;
+
+err_sched:
+	drm_sched_fini(&core->sched);
+    ...
+}
+
+Can this lead to a double free or NULL pointer dereference? If
+drm_sched_init() fails, it internally frees its resources and returns an
+error. Calling drm_sched_fini() in the error path could attempt to stop
+uninitialized workqueues and free resources again.
+
+
+[Severity: High]
+This is a pre-existing issue, but in rocket_drv.c:rocket_probe():
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+    ...
+	if (rdev =3D=3D NULL) {
+		/* First core probing, initialize DRM device. */
+		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+    ...
+}
+
+Does this cause an unbounded memory leak on probe deferral?
+rocket_device_init() allocates devres tied to the global drm_dev,
+which outlives the probe failure. Since rdev is then reset to NULL
+during probe teardown, would a subsequent probe retry allocate an
+entirely new set of structures without freeing the old ones?
+
+
+[Severity: High]
+This is a pre-existing issue, but in rocket_job.c:rocket_job_init():
+
+drivers/accel/rocket/rocket_job.c:rocket_job_init() {
+    ...
+	ret =3D devm_request_threaded_irq(core->dev, core->irq,
+					rocket_job_irq_handler,
+					rocket_job_irq_handler_thread,
+					IRQF_SHARED, dev_name(core->dev),
+					core);
+    ...
+}
+
+Does this shared IRQ handler unconditionally access hardware registers
+when clocks and power domains might be disabled? If another device
+sharing the IRQ line fires before pm_runtime_resume_and_get() is
+called, could rocket_job_irq_handler() immediately execute a
+memory-mapped read and cause a kernel panic?
+
+
+[Severity: High]
+This is a pre-existing issue, but in rocket_drv.c:rocket_probe():
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+    ...
+	if (rdev =3D=3D NULL) {
+		/* First core probing, initialize DRM device. */
+		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+		if (IS_ERR(rdev)) {
+			dev_err(&pdev->dev, "failed to initialize rocket device\n");
+			return PTR_ERR(rdev);
+		}
+	}
+
+	unsigned int core =3D rdev->num_cores;
+    ...
+}
+
+Is the global rdev static variable left containing an error pointer
+if rocket_device_init() fails? On a subsequent probe retry, rdev
+would no longer evaluate to NULL, leading directly to a dereference of
+the error pointer when accessing rdev->num_cores.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D1
