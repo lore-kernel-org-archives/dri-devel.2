@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F82C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09DF4C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE46C10E85E;
-	Mon, 31 Aug 2026 13:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348DA10E861;
+	Mon, 31 Aug 2026 13:38:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f6Kduyzx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ghe0hboe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95DC710E85E;
- Mon, 31 Aug 2026 13:38:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C693F10E861
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:38:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B4848601FD;
- Mon, 31 Aug 2026 13:38:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C041F00A3E;
- Mon, 31 Aug 2026 13:38:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9ECB240BE5;
+ Mon, 31 Aug 2026 13:38:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131F31F00ACF;
+ Mon, 31 Aug 2026 13:38:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183490;
- bh=OwyQs7/xmQtiE48ERpgIMcjpcG+CGJsvatd3D6VjQYE=;
+ s=k20260515; t=1788183518;
+ bh=zfzcXDm9TmxpRXccnfiV7B/t46lKO3BgYscXgmPgskc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=f6KduyzxCUe+tEgSMVuBeTUINKpebs2sxPJdXss1IZLaA1zb/wjU6HCSlbN4tDE4G
- /8DB8hV1pVNPBVI1KDlVpVIvZAAvez1AZhRavInno8h8PezxCL5JPMjrYRAFzfe1kN
- 0RXqWvFLqWqKsp+PtGlwGeauueLl9dFR/H+9UVNrBSz7NcKGtdfWVgNcVH5IEdH1rH
- vgMGIMa16FaBx9gZkfCTW6ogH/SVEk5Tq+oO3FW5FEgV5iQdSYjmsfHwZ4cyV2A4Qi
- qIZ5JnkZbuOlaEUl+b+zATWrSNbFth0rj4AUyvAa+PnL4oSIsEnowfemdBdFmO/oZL
- cQ9UdXQWdmuoQ==
+ b=ghe0hboehe+ZHPCTZsIniB1NGortNfTP5jSpooxCtril4sBeZFkU8re7z3K1SeNUX
+ yjo8NP1pw/asOKe3YY0yMq4jufgTGrHGZPdX2BIcaSw5+BK/5WiSX2KUwdtg4NHmf5
+ KvpDhkq+fihA78/woEDk9Kih7V56MDw1VZFMzynuS85FSs6Hw8HKcE93aWBBH1Rf/s
+ 2nhh4mHYmbImdBqlbA8WkR/xtVj2tE+VC91t9uzgVN0riwvH/J0Yyu5Y6YsMxJQKsC
+ DH/4H4qVJsGCVib2482l13y3Tzd02TA8wdYCL1D6UBUvElHr2FC4V7ACumHC08QV/Q
+ Pm8l+gxCoxZNA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/display: Avoid DPMS-on for phantom stream
-Date: Mon, 31 Aug 2026 09:22:35 -0400
-Message-ID: <20260831133314.4125787-127-sashal@kernel.org>
+Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/panel: simple: Add AM-1280800W8TZQW-T00H
+Date: Mon, 31 Aug 2026 09:22:52 -0400
+Message-ID: <20260831133314.4125787-144-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,67 +68,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-[ Upstream commit 10f5f9c0ef32d08b228bfee3684b62f36f395852 ]
+[ Upstream commit 6acb810ebc5d8dea5c250326c14dc44e32dc8e92 ]
 
-[Why & How]
-Calling dc_update_planes_and_stream separately for stream and its
-phantom stream causes a NULL pointer dereference, since the phantom is
-destroyed on the first call.
+Add Ampire, AM-1280800W8TZQW-T00H 10.1" TFT LCD panel timings.
 
-Skip the call for phantom streams.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Co-developed-by: Michael Trimarchi <michael@amarulasolutions.com>
+Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20260515082232.1766586-2-dario.binacchi@amarulasolutions.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amd/display: Avoid DPMS-on for phantom
-stream`
+# Stable Backport Analysis: drm/panel: simple: Add AM-1280800W8TZQW-T00H
 
-**Local tree:** `stable/linux-6.18.y` at **v6.18.44** (`git describe
-HEAD` / `make kernelversion` → 6.18.44)
+**Local tree:** Linux **6.18.44** (`v6.18.44`, `stable/linux-6.18.y`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[drm/amd/display]` `[Avoid]` — Skip DPMS-on stream updates
-for phantom (SubVP) streams during DP link-training automation to
-prevent a NULL pointer dereference.
+**Record:** `[drm/panel: simple]` `[Add]` — Add Ampire
+AM-1280800W8TZQW-T00H 10.1" TFT LCD panel timings to the existing
+`panel-simple` driver.
 
 ### Step 1.2: Tags
 **Record:**
-- **Reviewed-by:** Alvin Lee \<alvin.lee2@amd.com\>
-- **Tested-by:** Daniel Wheeler \<daniel.wheeler@amd.com\>
-- **Signed-off-by:** Ilya Bakoulin, Ray Wu, Alex Deucher (maintainer)
-- **No** Fixes:, Reported-by:, Link:, Cc: stable@vger.kernel.org
-- Notable: Reviewed and tested by AMD display engineers; Alex Deucher
-  acked (subsystem maintainer).
+- **Co-developed-by:** Michael Trimarchi
+  \<michael@amarulasolutions.com\>
+- **Signed-off-by:** Michael Trimarchi, Dario Binacchi
+- **Reviewed-by:** Dmitry Baryshkov
+  \<dmitry.baryshkov@oss.qualcomm.com\> (DRM/panel reviewer)
+- **Signed-off-by:** Neil Armstrong \<neil.armstrong@linaro.org\>
+  (maintainer ack)
+- **Link:** https://patch.msgid.link/20260515082232.1766586-2-
+  dario.binacchi@amarulasolutions.com
+- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org,
+  or syzbot tags
+- **Notable:** Part of a 2-patch v2 series (patch 2/2); patch 1/2 adds
+  the DT binding
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** Calling `dc_update_planes_and_stream()` separately for a real
-  stream and its paired phantom stream causes a NULL pointer
-  dereference.
-- **Symptom:** Kernel oops / crash in the display driver during DP link
-  retrain automation.
-- **Root cause (author):** The phantom stream is destroyed on the first
-  `dc_update_planes_and_stream()` call; a second call uses a stale/freed
-  pointer.
-- **Fix:** Skip phantom streams when building the list of streams to
-  update with DPMS-on.
+- **Bug description:** None — this is hardware enablement, not a bug
+  fix.
+- **Symptom without patch:** A device tree node with `compatible =
+  "ampire,am-1280800w8tzqw-t00h"` will not match `panel-simple`, so the
+  display will not probe and no framebuffer will come up.
+- **Root cause:** Missing `panel_desc` / `drm_display_mode` entry and
+  missing OF compatible in `platform_of_match[]`.
+- **Version info:** None in the message.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit NULL-deref fix, not disguised
-cleanup.
+**Record:** No. This is a straightforward device-ID / panel-timing
+addition. It does not fix leaks, races, crashes, or corruption in
+existing code paths.
 
 ---
 
@@ -134,185 +136,207 @@ cleanup.
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:**
-  `drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c` (+2
+- **File changed:** `drivers/gpu/drm/panel/panel-simple.c` only (+28
   lines)
-- **Function:** `dp_retrain_link_dp_test()`
-- **Scope:** Single-file, surgical fix (2 lines added)
+- **Functions modified:** None (only static data and one
+  `platform_of_match[]` entry)
+- **Scope:** Single-file, surgical data addition
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Before:** Loop over `state->streams[i]` on the link caches every
-  stream (including phantoms), then calls
-  `dc_update_planes_and_stream()` for each.
-- **After:** Streams with `is_phantom == true` are skipped during
-  caching; only real streams get DPMS-on updates.
-- **Path affected:** DP link retrain / compliance-test automation error
-  path in `dp_retrain_link_dp_test()`.
+- **Hunk 1 (after `ampire_am_1280800n3tzqw_t00h`):** Adds
+  `ampire_am_1280800w8tzqw_t00h_mode` (1280×800, 72.4 MHz pixel clock,
+  different vsync from the N3 sibling) and
+  `ampire_am_1280800w8tzqw_t00h` descriptor (8 bpc, LVDS, RGB888 SPWG).
+  - Before: only the N3 variant is known.
+  - After: W8 variant is also known.
+- **Hunk 2 (`platform_of_match[]`):** Adds `{ .compatible =
+  "ampire,am-1280800w8tzqw-t00h", .data = &ampire_am_1280800w8tzqw_t00h
+  }`.
+  - Before: probe fails for W8 compatible strings.
+  - After: probe succeeds and uses W8-specific timings.
 
 ### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** NULL pointer dereference (memory safety)
-- **Mechanism:** `dc_update_planes_and_stream()` with
-  `stream_update->dpms_off` forces `UPDATE_TYPE_FULL` (verified in
-  `check_update_surfaces_for_stream()` at lines 2966–2996 of `dc.c`).
-  Full updates call `dc_state_remove_phantom_streams_and_planes()` and
-  `dc_state_release_phantom_streams_and_planes()` (lines 3529–3530 of
-  `dc.c`), freeing phantom streams. The second loop iteration still
-  holds a cached phantom pointer → NULL deref.
+**Record:** **Category h) — hardware workarounds / device enablement.**
+Not a software bug fix; adds OF compatible + timings for a new panel
+variant on an existing driver.
 
 ### Step 2.4: Fix quality
 **Record:**
-- Fix is obviously correct and minimal.
-- Matches existing convention: `resource_log_pipe_topology_update()`
-  already skips `is_phantom` streams (`dc_resource.c:2419`).
-- Regression risk: very low — phantom streams should not receive
-  independent DPMS-on updates.
-- No API or structural changes.
+- **Quality:** High — mirrors the existing `am-1280800n3tzqw-t00h`
+  pattern exactly.
+- **Regression risk:** Very low — purely additive static data; no logic
+  or locking changes.
+- **Minor note:** W8 mode struct omits `.flags = DRM_MODE_FLAG_PHSYNC |
+  DRM_MODE_FLAG_PVSYNC` present on the N3 sibling; this matches the
+  submitted upstream patch and was reviewed as-is.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:**
-- Buggy loop introduced by **f5b69101f956f** (2025-07-17): "Cache
-  streams targeting link when performing LT automation"
-- That commit is an ancestor of v6.18.0 and of current HEAD.
-- `is_phantom` on `struct dc_stream_state` dates to **012a04b1d6af6**
-  (2023-11-21).
+**Record:** On `origin/master`, the W8 panel code is present at lines
+823–846 and in `platform_of_match`. In the local 6.18.44 tree, the
+insertion point after `ampire_am_1280800n3tzqw_t00h` (lines 797–821) and
+the matching `platform_of_match` entry (line 4966) already exist. The W8
+entry is absent — this is new mainline content not yet in 6.18.y.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+**Record:** Not applicable — no Fixes: tag.
 
 ### Step 3.3: Related file history
 **Record:**
-- **f5b69101f956f** — introduced stream caching loop (root of this bug
-  pattern)
-- **89939cf252d80** (2025-09-29) — different NULL-deref fix in same
-  function: cache `dc` from `link->dc` instead of stale
-  `state->clk_mgr->ctx->dc` after first stream update. Already in
-  6.18.44 but does **not** fix the phantom-stream issue.
-- Fix commit **10f5f9c0ef32d** (upstream) / **56337aae2421b** (stable
-  candidate) is **not** in 6.18.44.
-- Standalone fix; not part of a multi-patch series.
+- Sibling panel `am-1280800n3tzqw-t00h` is already in this tree and used
+  by in-tree DTS files (`imx6q-icore-ofcap10.dts`, `px30-engicam-
+  px30-core-ctouch2-of10.dts`, `stm32mp157a-icore-
+  stm32mp1-ctouch2-of10.dts`).
+- On `stable/linux-6.6.y`, the nearly identical sibling addition was
+  backported: `bca684e69c4ce` (+29 lines, same vendor/subject pattern).
+- `w8tzqw` appears only in `panel-simple.c` and `panel-simple.yaml` on
+  mainline — no in-tree DTS references anywhere.
 
 ### Step 3.4: Author context
-**Record:** Ilya Bakoulin is an active AMD display contributor (link/DP
-fixes). Alex Deucher is amdgpu/drm maintainer.
+**Record:** Amarula Solutions (same vendor ecosystem as Engicam boards
+using the N3 panel). Dmitry Baryshkov reviewed; Neil Armstrong signed
+off. Same maintainer chain as prior Ampire panel additions.
 
 ### Step 3.5: Dependencies
-**Record:**
-- Requires `is_phantom` field — present in this tree
-  (`dc_stream.h:313`).
-- Requires stream-caching loop from f5b69101 — present in this tree.
-- Cherry-pick of upstream **10f5f9c0ef32d** auto-merges cleanly against
-  6.18.44 (verified).
-- **Standalone:** PASS.
+**Record:** Part of a 2-patch series:
+1. `dt-bindings: display: simple: Add AM-1280800W8TZQW-T00H` (Acked-by:
+   Conor Dooley)
+2. `drm/panel: simple: Add AM-1280800W8TZQW-T00H` (this commit)
+
+This driver patch is self-contained and applies cleanly to 6.18.44. The
+binding patch is a companion but not a compile-time prerequisite for the
+driver itself.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1–4.5
+### Step 4.1: Original discussion
 **Record:**
-- `b4 dig -c 10f5f9c0ef32d`: no lore match found.
-- lore.kernel.org fetch: 403 Forbidden (bot protection).
-- **UNVERIFIED:** No mailing-list thread or stable-list discussion
-  retrieved.
-- Tags show AMD internal review (Reviewed-by, Tested-by) and maintainer
-  sign-off.
+- **b4 am** on msgid
+  `20260515082232.1766586-2-dario.binacchi@amarulasolutions.com` found
+  the v2 series (2 patches).
+- **Link:** https://patch.msgid.link/20260515082232.1766586-1-
+  dario.binacchi@amarulasolutions.com
+- **b4 dig -c** on merge commit `0fd8b67e27ff7` failed (merge commit,
+  not the original patch).
+- **No Cc: stable** nominations found in the mbox thread.
+- **No NAKs** found in the retrieved mbox.
+
+### Step 4.2: Reviewers
+**Record:** Dmitry Baryshkov (Reviewed-by), Conor Dooley (Acked-by on
+bindings), Neil Armstrong (Signed-off-by). Appropriate DRM/DT reviewers
+involved.
+
+### Step 4.3: Bug report
+**Record:** Not applicable — no bug report, syzbot link, or user crash
+report.
+
+### Step 4.4: Series context
+**Record:** 2-patch v2 series. v2 changes were alphabetical ordering and
+correcting WQVGA → WXGA in the binding comment. No board DTS included in
+the series.
+
+### Step 4.5: Stable list history
+**Record:** No stable-list discussion found for this specific panel.
+Sibling `AM-1280800N3TZQW-T00H` was previously backported to 6.6.y.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `dp_retrain_link_dp_test()` modified; calls
-`dc_update_planes_and_stream()`.
+**Record:** No functions modified. Data consumed by
+`panel_simple_get_desc()` → `of_device_get_match_data()` via
+`platform_of_match[]`.
 
 ### Step 5.2: Callers
-**Record:**
-- `dp_test_send_link_training()` → `dp_handle_automated_test()` (DP
-  compliance test / link-training automation)
-- `dp_set_preferred_training_settings()` path at line 991 (preferred
-  link settings retrain during normal DP operation)
+**Record:** `panel_simple_platform_probe()` and DSI probe paths call
+`panel_simple_probe()`, which calls `panel_simple_get_desc()`. Any
+platform device with `compatible = "ampire,am-1280800w8tzqw-t00h"` would
+use the new descriptor. Triggered at boot during DRM/display
+initialization on affected embedded boards.
 
 ### Step 5.3: Callees
-**Record:** `dc_update_planes_and_stream()` →
-`update_planes_and_stream_v3/v2()` → phantom removal on FULL updates.
+**Record:** Standard panel-simple probe path: mode/timing setup,
+connector registration. No new allocation or locking paths introduced.
 
 ### Step 5.4: Reachability
-**Record:**
-- Trigger requires SubVP/MALL phantom streams on a DP link (`is_phantom
-  == true`).
-- Triggered during DP link retrain (compliance testing or preferred-
-  settings retrain).
-- Not a direct unprivileged syscall path, but reachable during normal
-  display hotplug/link-rate changes on AMD GPUs with SubVP enabled.
-- Config: `CONFIG_DRM_AMD_DC` (common on AMD systems).
+**Record:** Reachable on any system with a DT node using this compatible
+and `CONFIG_DRM_PANEL_SIMPLE`. Not userspace-triggered, but affects
+display bring-up on boot for matching hardware.
 
 ### Step 5.5: Similar patterns
-**Record:** `dc_resource.c:2419` skips phantom streams in topology
-logging — same semantic rule applied here.
+**Record:** Identical pattern to `ampire_am_1280800n3tzqw_t00h` already
+in this tree (29-line sibling addition backported to 6.6.y as
+`bca684e69c4ce`).
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.44)
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Lines 145–148 of `link_dp_cts.c` cache all link
-streams without phantom skip. Bug present since v6.18.0 (f5b69101 is
-ancestor of v6.18).
+### Step 6.1: Does the “buggy” code exist?
+**Record:** The `panel-simple` driver and the sibling N3 Ampire panel
+entry exist in 6.18.44. The W8 compatible is **missing** — boards using
+it cannot get display support. The gap was introduced when W8 support
+landed in mainline after the 6.18 branch point.
 
 ### Step 6.2: Backport complications
-**Record:** Clean apply — cherry-pick test succeeded with auto-merge.
-Only contextual difference from upstream is the already-applied `struct
-dc *dc = link->dc` from 89939cf; phantom skip is independent.
+**Record:** **Clean apply expected.** Insertion point (`after
+ampire_am_1280800n3tzqw_t00h` and in `platform_of_match[]`) is present
+and unchanged. `git diff HEAD origin/master` shows exactly this 28-line
+addition among broader mainline drift.
 
 ### Step 6.3: Related fixes already present?
-**Record:** 89939cf fixes a **different** NULL deref in the same
-function (stale `dc` context). Phantom-stream NULL deref remains unfixed
-in 6.18.44.
+**Record:** No equivalent W8 entry in this tree. Sibling N3 panel is
+present. No duplicate fix found.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem / criticality
-**Record:** `drivers/gpu/drm/amd/display` — **IMPORTANT** (AMD GPU
-display driver; crash on affected hardware configs).
+### Step 7.1: Subsystem criticality
+**Record:** **drivers/gpu/drm/panel** — IMPORTANT for embedded/display
+platforms; not universal core kernel, but critical for affected
+hardware.
 
-### Step 7.2: Activity
-**Record:** Actively maintained; multiple recent fixes in
-`link_dp_cts.c` on this branch.
+### Step 7.2: Subsystem activity
+**Record:** `panel-simple.c` is mature with extensive static panel
+tables. This follows established conventions.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** AMD GPU users with SubVP/MALL phantom streams on a
-DisplayPort link during link retrain or DP compliance-test automation.
+**Record:** **Platform-specific** — embedded boards (Engicam/Amarula
+ecosystem) using the Ampire AM-1280800W8TZQW-T00H 10.1" LVDS panel.
+Requires `CONFIG_DRM_PANEL_SIMPLE`.
 
 ### Step 8.2: Trigger conditions
-**Record:**
-- SubVP phantom stream active on the DP link
-- DP link retrain via `dp_retrain_link_dp_test()`
-- Moderately rare compared to general kernel paths, but real on modern
-  AMD APUs/laptops with power-saving display features
+**Record:** Boot on hardware with DT `compatible =
+"ampire,am-1280800w8tzqw-t00h"`. **No in-tree DTS currently uses this
+compatible** on mainline or 6.18.44. Impact is for downstream/custom DTS
+or future board additions.
 
-### Step 8.3: Failure mode
-**Record:** NULL pointer dereference → kernel oops. **Severity: HIGH**
-(system crash when triggered).
+### Step 8.3: Failure mode severity
+**Record:** Without the patch: panel probe failure → **no display**
+(MEDIUM functional impact for affected hardware; not a crash,
+corruption, or security issue).
 
-### Step 8.4: Risk vs benefit
+### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Prevents kernel crash on a real, reproducible code path;
-  2-line fix.
-- **Risk:** Very low — aligns with existing phantom-skip patterns
-  elsewhere.
-- **Ratio:** Favorable for stable backport.
+- **Benefit:** Enables display on W8-variant Ampire panels; follows
+  established stable exception for device-ID additions; direct precedent
+  from sibling N3 backport to 6.6.y.
+- **Risk:** Very low — 28 lines of static data, no behavioral change for
+  existing panels.
+- **Ratio:** Favorable for stable, under the explicit “add a device ID”
+  exception in `stable-kernel-rules.rst`.
 
 ---
 
@@ -321,84 +345,166 @@ DisplayPort link during link retrain or DP compliance-test automation.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes verified NULL pointer dereference
-- Small (2 lines), obviously correct
-- Buggy code confirmed in 6.18.44 since v6.18.0
-- Applies cleanly
-- Reviewed, tested, maintainer-signed
-- Complements but does not duplicate existing 89939cf fix
+- Explicitly permitted by `Documentation/process/stable-kernel-
+  rules.rst`: *“It must either fix a real bug that bothers people or
+  just add a device ID.”*
+- Falls under the device-ID / DT-binding exception category in the
+  evaluation guidelines.
+- Small (28 lines), contained, obviously correct, reviewed.
+- `panel-simple` driver and sibling N3 panel already exist in 6.18.44.
+- Applies cleanly to this tree.
+- Already in mainline (prerequisite met).
+- Identical precedent: `bca684e69c4ce` backported the N3 sibling to
+  6.6.y (+29 lines).
 
 **AGAINST backport:**
-- Narrow trigger (SubVP + DP link retrain)
-- No public bug report or syzbot trace in commit message
+- Not a bug fix — pure hardware enablement.
+- No in-tree DTS uses this compatible yet (no demonstrated user impact
+  in 6.18.44 today).
+- Ideally paired with patch 1/2 (DT binding yaml update).
+- No stable nomination or user bug report.
 
-**UNRESOLVED:**
-- Mailing-list discussion (b4/lore unavailable)
+**Unresolved:** Whether a specific shipping board on 6.18.y already uses
+this panel in downstream trees (not verifiable from this tree).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** (code review + Tested-by)
-2. Fixes real bug affecting users? **PASS** (NULL deref on real path)
-3. Important issue? **PASS** (kernel crash — HIGH severity when
-   triggered)
-4. Small and contained? **PASS** (2 lines, 1 file)
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** (verified cherry-pick)
+1. Obviously correct and tested? **PASS** — reviewed by Dmitry
+   Baryshkov; mirrors existing N3 entry.
+2. Fixes a real bug affecting users? **PASS (via device-ID exception)**
+   — not a software bug, but enables hardware that otherwise cannot
+   work.
+3. Important issue? **PASS (moderate)** — display failure on affected
+   hardware; not crash/security.
+4. Small and contained? **PASS** — 28 lines, one file.
+5. No new features or APIs? **PASS** — new OF compatible on existing
+   driver; standard stable device-ID pattern.
+6. Can apply to local tree? **PASS** — clean apply to existing `panel-
+   simple.c`.
 
-### Step 9.3: Exception categories
-**Record:** None — standard bug fix.
+### Step 9.3: Exception category
+**Record:** **NEW DEVICE ID / DT binding addition** to an existing
+driver (`panel-simple`). Same category as PCI/USB ID additions and prior
+Ampire panel additions backported to stable.
 
 ### Step 9.4: Decision rationale
-This commit fixes a real NULL pointer dereference in the 6.18.y tree.
-The buggy stream-caching loop has been present since v6.18.0; the fix is
-not yet in 6.18.44. The existing 89939cf fix addresses a separate stale-
-context NULL deref in the same function. The phantom-stream skip is
-minimal, follows established conventions, applies cleanly, and prevents
-a kernel oops on AMD systems using SubVP during DP link retrain.
+
+This commit does not fix a kernel bug, but it adds a device identifier
+(OF compatible + panel timings) to an existing, in-tree driver. That is
+explicitly allowed for stable trees per `stable-kernel-rules.rst` and
+matches the established pattern of backporting Ampire `panel-simple`
+additions (the N3 sibling was backported to 6.6.y in an essentially
+identical 29-line patch). The change is low-risk, applies cleanly to
+Linux 6.18.44, and is already in mainline. The companion DT binding
+patch should ideally be backported alongside it, but this driver commit
+alone is valid stable material.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-  and `git show 10f5f9c0ef32d`
-- **[Phase 2]** Read `link_dp_cts.c:65-157`, `dc.c:2927-2996`,
-  `dc.c:3526-3530`, `dc_state.c:916-956`
-- **[Phase 3]** `git blame -L 145,148 link_dp_cts.c` → f5b69101f956f
-- **[Phase 3]** `git log --oneline` on `link_dp_cts.c` → f5b69101,
-  89939cf present; phantom fix absent
-- **[Phase 3]** `git merge-base --is-ancestor f5b69101 HEAD` → in tree;
-  `10f5f9c0ef32d` → NOT in tree
-- **[Phase 3]** `git merge-base --is-ancestor f5b69101 v6.18` → buggy
-  code in v6.18.0
-- **[Phase 4]** `b4 dig -c 10f5f9c0ef32d` → no match; lore fetch → 403
-- **[Phase 5]** `grep dp_retrain_link_dp_test` → callers at lines 185,
-  601, 991
-- **[Phase 5]** `grep is_phantom` → field exists in `dc_stream.h:313`;
-  skip pattern in `dc_resource.c:2419`
-- **[Phase 6]** `git describe HEAD` → v6.18.44; buggy code confirmed at
-  lines 145-148 without phantom skip
-- **[Phase 6]** Cherry-pick test of 10f5f9c0ef32d → auto-merge success
-- **[Phase 8]** Failure mode: NULL deref on second
-  `dc_update_planes_and_stream()` call after phantom freed
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and mbox.
+- **[Phase 1]** `b4 am
+  20260515082232.1766586-2-dario.binacchi@amarulasolutions.com`:
+  confirmed v2 2-patch series; Reviewed-by Dmitry Baryshkov; Acked-by
+  Conor Dooley on patch 1/2.
+- **[Phase 2]** Diff analysis: +28 lines in `panel-simple.c`; static
+  data + one `platform_of_match` entry.
+- **[Phase 3]** `git describe HEAD`: v6.18.44 / 6.18.44 on
+  `stable/linux-6.18.y`.
+- **[Phase 3]** `git grep "am-1280800w8tzqw-t00h" origin/master`: only
+  in `panel-simple.c` and `panel-simple.yaml` on mainline; absent from
+  HEAD.
+- **[Phase 3]** `git show bca684e69c4ce --stat`: sibling N3 panel
+  backported to 6.6.y (+29 lines, same pattern).
+- **[Phase 3]** `git log stable/linux-6.6.y --grep="1280800"`: N3 panel
+  + binding + bpc fix backported to 6.6.y.
+- **[Phase 4]** `b4 dig -c 0fd8b67e27ff7`: no match (merge commit).
+- **[Phase 4]** Read mbox `v2_20260515_dario_binacchi_dt_bindings_displa
+  y_simple_add_am_1280800w8tzqw_t00h.mbx`: no Cc: stable; 2-patch series
+  confirmed.
+- **[Phase 5]** `grep panel_simple_probe/panel_simple_get_desc` in
+  `panel-simple.c`: standard probe path via
+  `of_device_get_match_data()`.
+- **[Phase 6]** `grep "am-1280800w8tzqw"`: zero matches in local tree.
+- **[Phase 6]** `grep "am-1280800n3tzqw"`: present in `panel-simple.c`
+  and three in-tree DTS files.
+- **[Phase 6]** `git diff HEAD origin/master --
+  drivers/gpu/drm/panel/panel-simple.c`: W8 addition is a clean 28-line
+  insert at expected location.
+- **[Phase 6]** `git show origin/master:panel-simple.c | rg
+  "1280800w8"`: confirmed mainline has full W8 definition.
+- **[Phase 7]** Read `Documentation/process/stable-kernel-rules.rst`:
+  confirms device-ID additions are valid stable material.
+- **[Phase 8]** `git grep "am-1280800w8tzqw-t00h" origin/master`: no DTS
+  references — no in-tree board uses this panel yet.
 
-**YES**
+**YES**The background lookups finished and line up with the earlier
+analysis:
 
- drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c | 2 ++
- 1 file changed, 2 insertions(+)
+- **Pickaxe search** (`am-1280800w8tzqw-t00h` on `origin/master`): only
+  surfaced merge commit `0fd8b67e27ff7`, not the original panel patch —
+  the change is buried in a merge, which is why a direct subject/hash
+  search was needed.
+- **Broader pickaxe search** (with `--all`): slow and similarly
+  unhelpful for finding the real introducing commit.
+- **`b4 dig -c 0fd8b67e27ff7`**: no lore match on that RDMA merge
+  commit.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-index 2676ae9f6fe83..5f70793b8372e 100644
---- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-@@ -143,6 +143,8 @@ static void dp_retrain_link_dp_test(struct dc_link *link,
- 	// Set DPMS on with stream update
- 	// Cache all streams on current link since dc_update_planes_and_stream might kill current_state
- 	for (i = 0; i < MAX_PIPES; i++) {
-+		if (state->streams[i] && state->streams[i]->is_phantom)
-+			continue;
- 		if (state->streams[i] && state->streams[i]->link && state->streams[i]->link == link)
- 			streams_on_link[num_streams_on_link++] = state->streams[i];
- 	}
+The useful trace came from **`b4 am`** on the patch msgid, which found
+the v2 2-patch series (DT binding + driver). That supports the **YES**
+verdict for 6.18.44: a small device-ID addition to an existing driver,
+with the companion binding patch ideally backported alongside it.
+
+ drivers/gpu/drm/panel/panel-simple.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index ef1c4b9299ee4..878a5dc7748fb 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -820,6 +820,31 @@ static const struct panel_desc ampire_am_1280800n3tzqw_t00h = {
+ 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+ };
+ 
++static const struct drm_display_mode ampire_am_1280800w8tzqw_t00h_mode = {
++	.clock = 72400,
++	.hdisplay = 1280,
++	.hsync_start = 1280 + 40,
++	.hsync_end = 1280 + 40 + 80,
++	.htotal = 1280 + 40 + 80 + 40,
++	.vdisplay = 800,
++	.vsync_start = 800 + 10,
++	.vsync_end = 800 + 10 + 18,
++	.vtotal = 800 + 10 + 18 + 10,
++};
++
++static const struct panel_desc ampire_am_1280800w8tzqw_t00h = {
++	.modes = &ampire_am_1280800w8tzqw_t00h_mode,
++	.num_modes = 1,
++	.bpc = 8,
++	.size = {
++		.width = 217,
++		.height = 136,
++	},
++	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
++	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
++	.connector_type = DRM_MODE_CONNECTOR_LVDS,
++};
++
+ static const struct drm_display_mode ampire_am_480272h3tmqw_t01h_mode = {
+ 	.clock = 9000,
+ 	.hdisplay = 480,
+@@ -4965,6 +4990,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	{
+ 		.compatible = "ampire,am-1280800n3tzqw-t00h",
+ 		.data = &ampire_am_1280800n3tzqw_t00h,
++	}, {
++		.compatible = "ampire,am-1280800w8tzqw-t00h",
++		.data = &ampire_am_1280800w8tzqw_t00h,
+ 	}, {
+ 		.compatible = "ampire,am-480272h3tmqw-t01h",
+ 		.data = &ampire_am_480272h3tmqw_t01h,
 -- 
 2.53.0
 
