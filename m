@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00911C61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4032C61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 07:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6517F8935C;
-	Mon, 31 Aug 2026 07:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF3A10E59D;
+	Mon, 31 Aug 2026 07:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G396cGz3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A31N9rn6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22C58935C
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:11:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD1010E59D
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:12:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 822D6429E6
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:11:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 649A4C2BCB8
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:11:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 06D286013A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:12:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AF107C2BCF4
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788160266;
- bh=aT2iuYf19synuRZNYCQByy97s39mh1xhDQtRY/ZlEPs=;
+ s=k20201202; t=1788160345;
+ bh=JbGtkRrEYFHatCvAgcyh5esUGZ2Ntq3j3uxM7h61XRo=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=G396cGz3ROE5RGsO7jmSf2mo7qCBv29tvgzqp9tSe+MdFbvM43t4l3ESDVeRR46mr
- oO4tR3hSEvJHESEh2HAc4HweA8W4g/pu+IR6Nu/hbObt3qPK/DqkzeTckC0jEPqHnT
- VbfW/FREvVOzSx2TSumpsPTr6WxPtZ/Zm9ulM84C8j9ZdRFWC1QZG1kL7VgOtn1CwD
- j2yXGtUWNfJ6uZXfJ2O0ABlGLLSnSLU8hosDfYPcQAFjgCxjuHbQtoX3XTwdDKsIY0
- 0iJ7vs/BqImTPqirLuehoIyY6u709BjhmrEeQtXC9Fqet9Wr2pv4mhu/cicvtd1vSJ
- eU58OznD2yqDg==
+ b=A31N9rn6lUxZay9iT08ceXHgpgnJR5uHENc0ktVBWeCr6/iy2HkXMu2WOOGx8Mjf2
+ lyNARchpH25dbM9XCDswWa3KFwz0j8cUTmbEsS5Sw/TuYdVLYQWvAceg/jXnTgUs2U
+ UgGw/woeTJi+i+1O0qgOudhJWM054cus8CKT63CSrXZU8sqgOtxgMoKOQOH7gLSBTx
+ dzyGrdNyE5Qu75+R3YkyEWO/d+s40duyz+iEtCUyw8wSDC25sUY2hhjJzmPQC0MeOd
+ naCzn6KpkNDdKFVMbl4SqWFLnHBlr4zpKhl6DwsFA9uN96SfO0VIPSUSYFHK+HNiZJ
+ P8cg3y11UFv7g==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 4583BC433E1; Mon, 31 Aug 2026 07:11:06 +0000 (UTC)
+ from userid 48) id 9FFE5C41613; Mon, 31 Aug 2026 07:12:25 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: dri-devel@lists.freedesktop.org
 Subject: [Bug 221929] amdgpu flip_done timed out stills at ASUS ROG Strix G17
  2022 laptop(G713RM)
-Date: Mon, 31 Aug 2026 07:11:06 +0000
+Date: Mon, 31 Aug 2026 07:12:25 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
@@ -51,8 +51,8 @@ X-Bugzilla-Resolution: ANSWERED
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_status resolution
-Message-ID: <bug-221929-2300-76y0IyKaRk@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-221929-2300-JrHt0cl9iF@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-221929-2300@https.bugzilla.kernel.org/>
 References: <bug-221929-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -77,17 +77,10 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D221929
 
-Artem S. Tashkinov (aros@gmx.com) changed:
+--- Comment #4 from Artem S. Tashkinov (aros@gmx.com) ---
+This symbol "->" meant that you were asked to refile the bug report there.
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-             Status|REOPENED                    |RESOLVED
-         Resolution|---                         |ANSWERED
-
---- Comment #3 from Artem S. Tashkinov (aros@gmx.com) ---
-Reopen it over there.
-
-This bug tracker is NOT for AMD/Intel GPU bugs.
+Next time I'll write it in full.
 
 --=20
 You may reply to this email to add a comment.
