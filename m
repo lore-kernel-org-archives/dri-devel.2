@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8EC8C61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDB65C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFC010E785;
-	Mon, 31 Aug 2026 09:11:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 047BF10E78E;
+	Mon, 31 Aug 2026 09:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B+VZSEGO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jOj4KZYV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4E210E785
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:11:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0586110E78E
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:12:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 35D8143E5E;
- Mon, 31 Aug 2026 09:11:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51B61F000E9;
- Mon, 31 Aug 2026 09:11:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 337B560120;
+ Mon, 31 Aug 2026 09:12:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C751F000E9;
+ Mon, 31 Aug 2026 09:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788167514;
- bh=dFkIgamocZ5YZRlrVpt65lGeGmrtq4l95mIhklfkei0=;
+ s=k20260515; t=1788167554;
+ bh=LKqFLlC+Ey75pRx+cP5QjXhnvgu76qQWsGgjFCe4wu8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B+VZSEGO6oEiMCmt+P/CjLjC+XL1D/aUrCtaewkvxgX/9lqDATQfxFoC+khOpVwtS
- 6jxu5upohJbHtK/OmVQblGRkKtPyhZeOwnf17kFRrzdrZVR48KbZIUaLS2a5mSSy9G
- 6Hqm7hxjAQzOJjY5qLy20FEQq4pM2oQ7Q94adQwnyvQFXU4fWlez2r/e6KZZvMAU+T
- +2Qki1DR35/VpFajlhZdqhAxz8jhBdUETpOuGv7RTs+Uod0uBbpI1Zhkg+D6gLwGHD
- Z0NDxNYkrj0Q+4Gh6KWiMnZoUzRcTY00zgIJ0khomRcUYVaSgjtes4QgqyNcoFlJ+T
- B6ov7XpVMjKcw==
+ b=jOj4KZYV2Q+EDai5yulSEBzLHwSTiTYz4QN+5SLDyeeH9xIwcjYt5BYw5z5w3qwMD
+ Zy7tGCLRKNEO7Vyh3xz5lFsBnKNZJzweZtgfiZsLislo1Xp98bDd4eBoEWJO/EAoQV
+ 9xAwoYbJ+8Fr2RZ+kFMehRHvjpm/YUposchqbxGIphAnbnF9s2j4Mly3r+iii6S0eE
+ BK9yrpGC6JU8LF9CcY9tJ1dpZGe0z8QzUjdDdLbar358A/aE/EeUqJ+y24/CvOI6ey
+ cpZvyus8vWTeOgc0Wh+iklozi68NIyQ0gKqwMggD80CiNBNRz2nUMgiu6y+NvxA+cY
+ vIpZZqZFDKYog==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 12/14] accel/rocket: add RK3576 NPU (RKNN) support
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831081956.84871-13-gahing@gahingwoo.com>
-References: <20260831081956.84871-1-gahing@gahingwoo.com>
- <20260831081956.84871-13-gahing@gahingwoo.com>
+Subject: Re: [PATCH v6 12/29] drm/msm/dp: add support for sending VCPF
+ packets in DP controller
+To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-msm-dp-mst-v6-12-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-12-c91d35d6fb9e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 09:11:53 +0000
-Message-Id: <20260831091153.C51B61F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 09:12:34 +0000
+Message-Id: <20260831091234.B9C751F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,204 +58,103 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Deterministic timeout during VCPF push for MST streams 2 and 3 d=
+ue to unhandled interrupts.
+
 Pre-existing issues:
-- [High] Shared IRQ handler accesses hardware registers without checking PM=
- state, and runtime suspend lacks synchronize_irq().
-- [High] Reference leak of iommu_group in job completion path.
-- [High] Array bounds mismatch and logic error in `find_core_for_dev` and c=
-ore registration due to naive decrement on device removal.
-- [High] Concurrent probe of multiple NPU cores causes data races in global=
- rdev initialization and array management.
-- [High] Leaking devm resources on unbound pseudo-device across rebinds or =
-`-EPROBE_DEFER`.
-- [High] A 64-bit DMA address is truncated to 32 bits when written to the h=
-ardware, leading to IOMMU faults if the address exceeds 4GB.
+- [High] `msm_dp_ctrl_push_vcpf` calls a sleeping function (`wait_for_compl=
+etion_timeout`) from the atomic disable path.
 --
 
-commit da7c000fc37b3b36196f66187168ddef41f790b6
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+commit 507d49b6852332d2246a4d09ccd9c56c895bd874
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-    accel/rocket: add RK3576 NPU (RKNN) support
-   =20
-    The RK3576 has two cores of the same RKNN block and a few platform
-    differences:
+drm/msm/dp: add support for sending VCPF packets in DP controller
 
-[ ... ]
+The VC Payload Fill (VCPF) sequence is inserted by the DP controller
+when stream symbols are absent, typically before a stream is disabled.
+Add support for triggering the VCPF sequence in the MSM DP controller.
 
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
-rocket_device.c
-> index 46e6ee1e72c5f..923add5bdc87e 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-> @@ -9,6 +9,7 @@
->  #include <linux/of.h>
-> =20
->  #include "rocket_device.h"
-> +#include "rocket_drv.h"
-> =20
->  struct rocket_device *rocket_device_init(struct platform_device *pdev,
->  					 const struct drm_driver *rocket_drm_driver)
-> @@ -27,7 +28,11 @@ struct rocket_device *rocket_device_init(struct platfo=
-rm_device *pdev,
->  	ddev =3D &rdev->ddev;
->  	dev_set_drvdata(dev, rdev);
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does rocket_device_init() leak devm
-resources if probe defers or unbinds?
-
-It appears that devm_drm_dev_alloc() is called earlier in this function
-and binds the allocation to the persistent global drm_dev instead of the
-pdev being probed. If probe defers, or if the cores are unbound,
-rocket_remove() simply clears the rdev pointer without freeing the memory
-bound to drm_dev, leading to memory leaks on successive probe deferrals.
-
-> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
-> +	/*
-> +	 * Count over the same match table the platform driver binds with, so
-> +	 * that a core added there is counted here without a second edit.
-> +	 */
-> +	for_each_matching_node(core_node, rocket_dt_match)
->  		if (of_device_is_available(core_node))
->  			num_cores++;
-> =20
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+> index 9a0c9737e6d00..109a841675997 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
 
 [ ... ]
 
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 6e7dc91c5faac..e469629499fdb 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -217,13 +217,23 @@ static void rocket_remove(struct platform_device *p=
-dev)
-
-[Severity: High]
-This is a pre-existing issue, but are there concurrent probe data races her=
-e?
-
-In rocket_probe(), the global rdev pointer is checked and assigned without
-synchronization, and rdev->num_cores is used as an array index concurrently.
-If multiple NPU cores are probed concurrently, could this lead to double
-initialization or out-of-bounds array accesses?
-
-Additionally, when rocket_remove() executes:
-
-drivers/accel/rocket/rocket_drv.c:rocket_remove() {
-    ...
-    rdev->num_cores--;
-    ...
-}
-
-It decrements the active core count without compacting the array.
-Could a subsequent bind overwrite active devices and truncate search
-boundaries in find_core_for_dev()?
-
->  static const struct rocket_soc_data rk3588_soc_data =3D {
->  	.num_clks =3D 4,
->  	.num_resets =3D 2,
-> +	.multi_power_domain =3D false,
-> +	.task_con_16bit =3D false,
->  };
+> @@ -478,6 +500,34 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_d=
+p_ctrl)
+>  	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
+>  }
 > =20
-
-[ ... ]
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 69e29f40f27a0..2a272c2ef6bed 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does this driver safely handle shared IRQs
-during runtime suspend?
-
-In rocket_job_irq_handler(), the code unconditionally reads from
-INTERRUPT_RAW_STATUS:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
-
-However, rocket_device_runtime_suspend() disables clocks without calling
-synchronize_irq(). Because this uses a shared IRQ line (IRQF_SHARED), if
-another device on the same line triggers an interrupt while the NPU is
-suspended, could reading these unpowered hardware registers cause a system
-hang or external abort?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a reference leak of
-the IOMMU group in the job completion path?
-
-In rocket_job_next_locked():
-
-drivers/accel/rocket/rocket_job.c:rocket_job_next_locked() {
-    ...
-    iommu_detach_group(NULL, iommu_group_get(core->dev));
-    ...
-}
-
-This calls iommu_group_get() inline, which increments the reference count,
-but there appears to be no corresponding iommu_group_put(), meaning the
-reference is leaked on every job completion.
-
-> @@ -142,10 +165,17 @@ static void rocket_job_hw_submit(struct rocket_core=
- *core, struct rocket_job *jo
->  	rocket_pc_writel(core, INTERRUPT_MASK, PC_INTERRUPT_MASK_DPU_0 | PC_INT=
-ERRUPT_MASK_DPU_1);
->  	rocket_pc_writel(core, INTERRUPT_CLEAR, PC_INTERRUPT_CLEAR_DPU_0 | PC_I=
-NTERRUPT_CLEAR_DPU_1);
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but could the DMA address get truncated here?
-
-The driver explicitly asks the IOMMU for up to 40-bit IOVAs via
-dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40)) in rocket_core_init().
-
-However, the hardware submission path writes the command buffer address
-using a 32-bit register write:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_hw_submit() {
-    ...
-    rocket_pc_writel(core, BASE_ADDRESS, task->regcmd);
-    ...
-}
-
-Since task->regcmd is written to a 32-bit hardware register, and userspace
-may pass a truncated IOVA, will this cause IOMMU faults if the address exce=
-eds
-4GB?
-
-> -	rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-> -					 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-> -					 PC_TASK_CON_TASK_NUMBER(1) |
-> -					 PC_TASK_CON_TASK_PP_EN(1));
-> +	if (core->soc->task_con_16bit)
-> +		rocket_pc_writel(core, TASK_CON,
-> +				 RK3576_PC_TASK_CON_LAST_LAYER_CLEAR |
-> +				 RK3576_PC_TASK_CON_COUNT_CLEAR |
-> +				 RK3576_PC_TASK_CON_PP_EN |
-> +				 RK3576_PC_TASK_CON_TASK_NUMBER(1));
+> +/* Must be called with msm_dp_mst::mst_lock held */
+> +void msm_dp_ctrl_push_vcpf(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_d=
+p_panel *msm_dp_panel)
+> +{
+> +	struct msm_dp_ctrl_private *ctrl;
+> +	u32 state =3D 0x0;
+> +
+> +	ctrl =3D container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, msm_dp_c=
+trl);
+> +
+> +	if (!ctrl->mst_active)
+> +		state |=3D DP_STATE_CTRL_PUSH_IDLE;
+> +	else if (msm_dp_panel->stream_id =3D=3D DP_STREAM_0)
+> +		state |=3D DP_STATE_CTRL_DP0_PUSH_VCPF;
+> +	else if (msm_dp_panel->stream_id =3D=3D DP_STREAM_1)
+> +		state |=3D DP_STATE_CTRL_DP1_PUSH_VCPF;
 > +	else
-> +		rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-> +						 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-> +						 PC_TASK_CON_TASK_NUMBER(1) |
-> +						 PC_TASK_CON_TASK_PP_EN(1));
-> =20
->  	rocket_pc_writel(core, TASK_DMA_BASE_ADDR, PC_TASK_DMA_BASE_ADDR_DMA_BA=
-SE_ADDR(0x0));
->
+> +		state |=3D DP_MSTLINK_PUSH_VCPF;
+> +
+> +	reinit_completion(&ctrl->idle_comp);
+> +
+> +	msm_dp_write_stream_link(ctrl, msm_dp_panel->stream_id, REG_DP_STATE_CT=
+RL, state);
+> +
+> +	if (!wait_for_completion_timeout(&ctrl->idle_comp,
+> +			IDLE_PATTERN_COMPLETION_TIMEOUT_JIFFIES))
+> +		pr_warn("PUSH_VCPF pattern timedout\n");
+
+[Severity: High]
+This is a pre-existing issue, but wait_for_completion_timeout() is a
+sleeping function, and it is being invoked from an atomic context.
+
+The DRM atomic commit tail framework calls the bridge's atomic_disable
+callback (msm_dp_display_atomic_disable()), which directly calls this
+function. Since the atomic_disable callback is an atomic context path
+where sleeping is strictly forbidden, could this cause kernel warnings
+or potential deadlocks during display teardown?
+
+[Severity: Medium]
+Will this wait result in a deterministic timeout for MST streams 2 and 3?
+
+When the stream is assigned to DP_STREAM_2 or DP_STREAM_3, the hardware is
+triggered to send VCPF via DP_MSTLINK_PUSH_VCPF, and the code blocks here.
+
+However, looking at the interrupt handler in this patch:
+
+    isr =3D msm_dp_ctrl_get_mst_interrupt(ctrl);
+    if (isr & (DP_INTR_DP0_VCPF_SENT | DP_INTR_DP1_VCPF_SENT)) {
+        drm_dbg_dp(ctrl->drm_dev, "vcpf sent\n");
+        complete(&ctrl->idle_comp);
+        ret =3D IRQ_HANDLED;
+    }
+
+The ISR only checks for stream 0 and 1 completion events. DP2 and DP3
+are ignored. Since the interrupt for DP2/DP3 is neither unmasked in
+DP_INTERRUPT_STATUS5_MASK nor handled in msm_dp_ctrl_isr(), the
+completion won't happen.
+
+Does this cause an unnecessary 30ms delay and a timeout warning every time
+a secondary MST stream is disabled?
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
-1-1-gahing@gahingwoo.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-msm-dp-mst=
+-v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D12
