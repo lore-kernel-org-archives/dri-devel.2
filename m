@@ -4,44 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76AEEC61DE4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 03:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B55C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 04:08:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 758AE10E1B4;
-	Mon, 31 Aug 2026 03:19:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2836810E042;
+	Mon, 31 Aug 2026 04:08:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="ZGPoTm7v";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="FxvcElIL";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VCwRcP2T";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDCA910E1B4
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 03:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=KURj71ZYjBbTCMiCfw2Oo07gKLQA9zu3iI3ERtxukf4=; b=ZGPoTm7vZH2PsKgf+bZ2XXvxFW
- PWhaeL8r1qRisw0FfG091LDSnTdIwurCq/pp3ojWXU+8ZC90r7og1rncBbwp4RSR66BwRVrngsI3K
- n8I+neOd23H8M9wC87nI3pycUAfr6477nmPiVfDZcEiF7yhhiwEMXlM725NYHmlis7EWGvBrsD/p7
- igWgQBMNgmHgYejYucXUAWQzRLG437YyZqmAmclhcPfQnTvUufmBDtz9iDJ5aqsgqwGJdneGJ8+Qk
- sQ1P2OmmWnsKqqlVTWhEowgtnrorNyu/cthM3XRQVOMmWPqzMOxO7b1OB0rMLa6o1JpOPNwHuOQ9p
- vonzEDSg==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1x0sYu-00000008OhA-3pqG; Mon, 31 Aug 2026 03:19:56 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- stable@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2] dma-buf: fix some kernel-doc warnings
-Date: Sun, 30 Aug 2026 20:19:53 -0700
-Message-ID: <20260831031956.3410813-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+Received: from fhigh-b1-smtp.messagingengine.com
+ (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4E210E042
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 04:08:00 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 60D0D7A0014;
+ Mon, 31 Aug 2026 00:07:59 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Mon, 31 Aug 2026 00:07:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm2; t=1788149279; x=
+ 1788235679; bh=nCvYqPO99y74Wq8smxzqgF8poznAskkO7JFIhISADHk=; b=F
+ xvcElILi9aH8PA9SROfzJ/HOamKfUS8hTca7zweOM82Iq1NX+VYKQrdPnqCLDBwy
+ 9RwY5vmtWaErbrQ2LiPRyIJ/7rdMXpHdVDbue2NWbmN0p6g5aELGOeudFtVwUoSR
+ U2KJp0Tz6VXui0qg+kI5i56bIJpsdpO5+Vlxvt9/6IL6suWJUAW16zTM866PGNyJ
+ 8jGfrewekXE/+TWE788/QL/GCL/mpKuLSdDWMKiVnEXPH9jX77stiGvn27TKK7H+
+ 6uu6NeaVID9M9R0EnCtEILDZ1o+zzaBANRUAucRwE8G5LALzfQDrCBV4Q6QEqiTN
+ a/cYFwwrQFfgQ3sLP5slw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1788149279; x=1788235679; bh=n
+ CvYqPO99y74Wq8smxzqgF8poznAskkO7JFIhISADHk=; b=VCwRcP2Tg5BKcq5vi
+ LQcspSwMMzXqimGBoeEymYo5z/vwgCP1x7RvahEF+65mI3ncf3tvcg2Cp4wLhQrh
+ IMCFE6QUGyUdmhK4WUe4wfvxRARuD2OeeULW/UP+77tWqxkVhqe3g6TqU0FM9tBy
+ 4fPEsBgsdrQfL8fVddED5KNsJoEw7eEu2AyD5rnToaGbmDAPE8Z6+LKYUZ7COHzO
+ PPfGPs+4Z2SGrv+/acZquDi2dT4umccUK9P4hbN0XUXb5j4Z9JsLBnIuWkMQx5MU
+ 9gET3DGqhlD/Y0ZqSldovwgurrUZQFoyLBf2qAlr6K/r1JuF0p63S6o3PRz4JpeO
+ WvgXQ==
+X-ME-Sender: <xms:Hv6UalnLL-IAhNZsX3RdrW79GwOrNma3pliJqs2bCRxE9MCDSLoR-w>
+ <xme:Hv6UauqYN7z-ECIpW4WYA_XlOoLmWMDpVhUN5kHYkbhssL0uydN6nAn9I5XcB5gqV
+ tkWGTfzj9p3Was_q99pLD5CcsuKcSTBgbzkN5FvuROT94E6dQcsTYQh>
+X-ME-Received: <xmr:Hv6UamGNB6j7u0kJpb4hQNTclwaq1eHhr3gNs_QltIkv5vKGSHJVmoJ01ZLIYoNXh9ZChnElPw>
+X-ME-Proxy-Cause: dmFkZTGgZgR+VcPfe+PhAzOLd0oIFeQYFsXhiZHiqFEfJLX+Zh5ZMdMCmp7DSb14qyqV39
+ jp/P4WoX1+fWMg7xKNkg19erm52kJxQUcTYbC3fhf7J3kTCWp177f4eiTLGImcgm9FlW/K
+ 919HsGQiniAe1IB7e9jl0y2Y9dxEodpqsZNpi/Wh8/Y0aGqz1kZ0NysbtBSq+wCn4J8DOp
+ NMVeqNR7AEscaSespCcNi1Tsf5l8QtvZS5D7uic9GEJ8sDuUqjUvTw65giXWj5Lizkd8mk
+ k6Wvf2Wg5sOErrVa3i9eyoCaEv0ghglB6LbcQ07PYZ4WQgjzQYOd+k7ebFmJtNV5tyGOnT
+ lla2aARMyhqKrj9TufHDA1dMJJanIqByqD5cfb56K1VMRq0NMR6GFnnryvrZYPEpCiSDFX
+ NdOyZPWZ4Oe2GZ0fa5Yt90Epw42RPAovNIbLLR30jdRil5/SS/079EFie6B/7dDjeGkxUi
+ GNQvR3mHeFpy4F5EbPef63hm/sW4CE14CZ/iLQD/JCzYE/ahD7NCTj9uwZsLNQSzUsNvZg
+ mnPft4YAd9muycGqCDcbTmNWLyBgUmTuFzmhH31EG3OyTTj8wG5ITXg2+0qzfIU0s/7g5h
+ oDO0US3uhFZwVEb4gfst6venJci+bux91+FEZylfp8MCI1KLnpcaGlTBstuA
+X-ME-Proxy: <xmx:Hv6UaiymPhbbcFTWeZrwIXP4ck8taTgmo0YVEQQanTmtfhvYR29M9Q>
+ <xmx:Hv6Uajpcc6Jb_ilsT228S-aqqjx5sDBxPcWIXazc4pwgVQQpMCqFsw>
+ <xmx:Hv6UakhHnzymDm-4C3MqiorNcAYN9k4jKiJsdMVoqq3le4vEZRShdg>
+ <xmx:Hv6UaoicTrOb6z1e8slKhizApuO-N5Ek7NI7kUihm03z_uk4q-zsbg>
+ <xmx:H_6Uai3BhdVYlfWAYvZx2gmPvgjpbIR3x9lk6_oOs3zjQEojBD1eBJCf>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 31 Aug 2026 00:07:55 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: royalnet026@gmail.com
+Cc: linux-rockchip@lists.infradead.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v9 05/13] dt-bindings: npu: rockchip: add rockchip,
+ rk3576-rknn-core
+Date: Mon, 31 Aug 2026 16:07:51 +1200
+Message-ID: <20260831040751.24030-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAEWPSH5_PmfUCEm5O53=32NQjPKMd4vm--Y2R=4ErMoehtt=tA@mail.gmail.com>
+References: <CAEWPSH5_PmfUCEm5O53=32NQjPKMd4vm--Y2R=4ErMoehtt=tA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,72 +96,484 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-- drop Excess description of @lock from kernel-doc
-- add missing function/macro short descriptions
+Hi Igor,
 
-WARNING: include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
-WARNING: include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
-Warning: include/linux/dma-fence-chain.h:82 missing initial short description on line:
- * dma_fence_chain_alloc
-Warning: include/linux/dma-fence-chain.h:94 missing initial short description on line:
- * dma_fence_chain_free
+Here is the table. It does not say what I told you it said, so the
+retraction comes first.
 
-Fixes: 5943243914b9 ("dma-buf: use inline lock for the dma-fence-array")
-Fixes: a408c0ca0c41 ("dma-buf: use inline lock for the dma-fence-chain")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: rebase & resend; add Andrew to Cc: list
+I wrote that RESERVED_0 "follows the model series rather than the
+geometry". You read that as a toolkit setting and said the table was the
+way to corner it. It cornered my own claim instead.
 
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: Christian König <christian.koenig@amd.com>
-Cc: stable@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>
+It is not the model series. All 94 files carry the same toolkit build
+string, 2.3.2 (@2025-04-03T08:26:16), so there is no version difference
+to hang it on. Worse for my sentence: g_pw24 carries BOTH values in one
+compile of one model -- the 512 to 1024 pointwise reads 34 and the one
+pixel 16x16 op the compiler adds for itself reads 66. Ten of the dwbig_*
+files do the same. A per-model constant cannot be right.
 
- include/linux/dma-fence-array.h |    1 -
- include/linux/dma-fence-chain.h |    9 ++++-----
- 2 files changed, 4 insertions(+), 6 deletions(-)
+It is not the geometry either, and that half I had tested too weakly. I
+had checked oc, ic, spatial size, kernel and stride one at a time. Fixing
+the WHOLE CNA geometry gives 116 classes over the 364 regular dispatches
+and twelve of them carry both values. The cleanest pair is g_cal against
+bias_k5: one ONNX Conv each, ic 16, oc 128, 80x80 in, k = 5, stride 2,
+same toolkit, and the two .onnx sources are the same 205601 bytes. Their
+register streams are 138 words each and differ in five: 0x4044, 0x4050,
+0x40ac, 0x40b0 and 0x501c. Three of those five are the output zero point
+and the requant pair, which differ between any two models with different
+weights. What is left is 0x4044, 0x4050 and 0x501c, and it is the same
+three in every conflicting pair.
 
---- linux-next-20260828.orig/include/linux/dma-fence-array.h
-+++ linux-next-20260828/include/linux/dma-fence-array.h
-@@ -28,7 +28,6 @@ struct dma_fence_array_cb {
- /**
-  * struct dma_fence_array - fence to represent an array of fences
-  * @base: fence base class
-- * @lock: spinlock for fence handling
-  * @num_fences: number of fences in the array
-  * @num_pending: fences in the array still pending
-  * @fences: array of the fences
---- linux-next-20260828.orig/include/linux/dma-fence-chain.h
-+++ linux-next-20260828/include/linux/dma-fence-chain.h
-@@ -20,7 +20,6 @@
-  * @prev: previous fence of the chain
-  * @prev_seqno: original previous seqno before garbage collection
-  * @fence: encapsulated fence
-- * @lock: spinlock for fence handling
-  */
- struct dma_fence_chain {
- 	struct dma_fence base;
-@@ -81,9 +80,8 @@ dma_fence_chain_contained(struct dma_fen
- }
- 
- /**
-- * dma_fence_chain_alloc
-- *
-- * Returns a new struct dma_fence_chain object or NULL on failure.
-+ * dma_fence_chain_alloc - Returns a new &struct dma_fence_chain object or
-+ * %NULL on failure.
-  *
-  * This specialized allocator has to be a macro for its allocations to be
-  * accounted separately (to have a separate alloc_tag). The typecast is
-@@ -93,7 +91,8 @@ dma_fence_chain_contained(struct dma_fen
- 		kmalloc_obj(struct dma_fence_chain)
- 
- /**
-- * dma_fence_chain_free
-+ * dma_fence_chain_free - Frees an allocated but not used
-+ * &struct dma_fence_chain object.
-  * @chain: chain node to free
-  *
-  * Frees up an allocated but not used struct dma_fence_chain object. This
+What it does follow is DPU 0x4044, exactly:
+
+    RESERVED_0 34   <->  0x4044 = 1     260 dispatches
+    RESERVED_0 66   <->  0x4044 = 0     104 dispatches
+
+364 of 364, no exceptions, and 0x501c moves with them (0x710 against
+0x14/0x114). Sweeping every register in the stream, 0x4044 is the only
+one that partitions the two groups one to one. So it is not a loose
+constant with no company: it is one third of a single per-op decision in
+the bias and scale path of the output stage. What selects that arm I
+still cannot tell you.
+
+Two more things the old claim got wrong. There is a THIRD value: 38, on
+all 58 depthwise dispatches, which my "34 against 66" never mentioned. 38
+is 34 with one more field bit, so on the 16-against-17 word bit axis
+depthwise sits with the 34 group while its 0x4044 reads 0 -- which breaks
+the lockstep above, and is why I state it as a regular datapath result
+only. And the RK3576 encoder has no depthwise path at all
+(rkt_ml_operation_supported declines it), so the driver never emits the
+38 word: that row is about the vendor and about upstream's RK3588
+encoder, not about ours.
+
+For what we ship: rkt_regcmd.c emits 0x4044 = 1, RESERVED_0 = 34 and
+0x501c = 0x710 -- the 34 arm in all three at once, never mixed. That is
+consistent, and it is the arm 260 of the 364 vendor dispatches take.
+
+Nothing below was run on hardware. It is decoding of files already on
+this disk, one op per register run, 0 of the 422 dispatches undecodable.
+The script that produces every number in it is small enough to send if
+you want to re-run it against your own corpus.
+
+DPU 0x4050 RESERVED_0 across 94 vendor-compiled .rknn on this disk
+====================================================================
+
+Regenerate with reserved0-build.py, which reads only the files in
+vendor-capture/geom and prints this whole page, numbers included.
+
+How the value is obtained
+-------------------------
+
+A .rknn carries the register command stream the vendor runtime
+submits, as little-endian u64 words
+
+    [63:48] target   [47:16] value   [15:0] register
+
+with target 0x0201 CNA, 0x0801 CORE, 0x1001 DPU, 0x2001 DPU_RDMA. A
+maximal run of such words is one dispatch. In this corpus every run of
+20 words or more carries exactly one CNA block and exactly one write
+of DPU 0x4050, so a value and the geometry it is tested against always
+come from the same op and there is no matching to guess at.
+
+The word is BS_OW_CFG. Split as upstream's registers.xml splits it:
+
+    RGP_CNTER  31:28   TP_ORG_EN  27   RESERVED_0  26:11
+    SIZE_E_2   10:8    SIZE_E_1   7:5  SIZE_E_0     4:2
+    OD_BYPASS  1       OW_SRC     0
+
+So RESERVED_0 is bits 26:11, and the two values in question are
+
+    0x80011111 -> RESERVED_0 = 34 = field bits 5 and 1 = word bits 16, 12
+    0x80021111 -> RESERVED_0 = 66 = field bits 6 and 1 = word bits 17, 12
+
+One word bit apart, 16 against 17, over a constant word bit 12. The
+geometry columns come from the CNA registers of the same run:
+
+    ic  = (0x1028 & 0xffff) + 1     oc = (0x1024 & 0xffff) + 1
+    k   = sqrt(0x1020 / ic)         stride from 0x1014, which is (s<<3)|s
+
+Three notes on reading those columns honestly.
+
+  * The oc register holds the count rounded up to 2, so a 41 channel
+    output reads 42. pq_ic and pq_oc are the two rows where that shows.
+  * On the depthwise path, CORE 0x3018 mode 0x0a, the oc register reads
+    2 and the channel count is in the ic register. Those rows carry the
+    ic one and are marked dw in the path column.
+  * On the first convolution path, CORE 0x3018 mode 0x81, three input
+    channels are packed and the ic register reads 12, so the ic and k
+    columns on those seven rows are the packed form and not the source
+    shape. They are marked 1st. All seven read 34 either way.
+
+Nothing here was run on hardware. These are numbers read out of files
+the vendor toolkit produced, and what the bits mean was arrived at by
+trial and error against those files and against the board.
+
+
+The table
+---------
+
+One row per file, for the first dispatch in the file. The last column
+is what the file records about itself, input>output with the batch
+dropped. A + on the name means the file holds more than one distinct
+RESERVED_0 across its dispatches; those are broken out below.
+
+model           0x4050     R_0 path    ic    oc  k  s  file says
+----------------------------------------------------------------
+
+  RESERVED_0 = 34   (regular convolutions)   61 files
+a_lin           0x80011111  34 reg     64    64  1  1  64x8x8>64x8x8
+a_lin2          0x80011111  34 reg     64    64  1  1  64x8x8>64x8x8
+a_lin_m1        0x80011111  34 reg     64    64  1  1  64x1x1>64x1x1
+a_relu          0x80011111  34 reg     64    64  1  1  64x8x8>64x8x8
+c_32            0x80011011  34 reg     32    16  3  1  32x80x80>16x80x80
+c_48            0x80011011  34 reg     48    16  3  1  48x80x80>16x80x80
+c_64            0x80011011  34 reg     64    16  3  1  64x80x80>16x80x80
+fc_224          0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+fc_cal127       0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+fc_cal250       0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+fc_cal255       0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+fc_x1           0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+fc_x16          0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+fc_x4           0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
+g_cal           0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+g_cal_k1        0x80011111  34 reg     16   128  1  2  16x80x80>128x40x40
+g_cal_k3        0x80011111  34 reg     16   128  3  2  16x80x80>128x40x40
+g_cal_oc16      0x80011011  34 reg     16    16  5  2  16x80x80>16x40x40
+g_cal_s1        0x80011111  34 reg     16   128  5  1  16x80x80>128x80x80
+g_k3s1          0x80011011  34 reg     16    16  3  1  16x80x80>16x80x80
+g_md003         0x80011011  34 reg     16    16  1  1  16x160x160>16x160x160
+g_md003_80      0x80011011  34 reg     16    16  1  1  16x80x80>16x80x80
+g_md003_oc128   0x80011111  34 reg     16   128  1  1  16x80x80>128x80x80
+g_md003s2       0x80011011  34 reg     16    16  1  2  16x160x160>16x80x80
+g_oc112         0x80011011  34 reg     16   112  5  2  16x80x80>112x40x40
+g_oc144         0x80011011  34 reg     16   144  5  2  16x80x80>144x40x40
+g_oc160         0x80011111  34 reg     16   160  5  2  16x80x80>160x40x40
+g_oc32          0x80011111  34 reg     16    32  5  2  16x80x80>32x40x40
+g_oc48          0x80011011  34 reg     16    48  5  2  16x80x80>48x40x40
+g_oc64          0x80011111  34 reg     16    64  5  2  16x80x80>64x40x40
+g_oc80          0x80011011  34 reg     16    80  5  2  16x80x80>80x40x40
+g_oc96          0x80011111  34 reg     16    96  5  2  16x80x80>96x40x40
+g_pw2           0x80011111  34 reg     32    64  1  1  32x112x112>64x112x112
+g_pw24+         0x80011111  34 reg    512  1024  1  1  512x7x7>1024x7x7
+p0_k1           0x80011011  34 reg     16    16  1  1  16x80x80>16x80x80
+p0_k5           0x80011011  34 reg     16    16  5  1  16x80x80>16x76x76
+p1_k3           0x80011011  34 reg     16    16  3  1  16x80x80>16x80x80
+p1_k5           0x80011011  34 reg     16    16  5  1  16x80x80>16x78x78
+p2_k5           0x80011011  34 reg     16    16  5  1  16x80x80>16x80x80
+sv_k3           0x80011111  34 reg     16   128  3  2  16x80x80>128x40x40
+sv_k5           0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_null_a       0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_null_b       0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_oc128        0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_oc64         0x80011111  34 reg     16    64  5  2  16x80x80>64x40x40
+sv_rg           0x80011111  34 reg     32    32  3  1  32x112x112>32x112x112
+sv_rgu          0x80011111  34 reg     32    32  3  1  32x112x112>32x112x112
+sv_sc_base      0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_sc_moved     0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_wt_a         0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+sv_wt_b         0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
+w_112           0x80011011  34 reg     16    16  3  1  16x112x112>16x112x112
+w_120           0x80011011  34 reg     16    16  3  1  16x120x120>16x120x120
+w_128           0x80011011  34 reg     16    16  3  1  16x128x128>16x128x128
+w_144           0x80011011  34 reg     16    16  3  1  16x144x144>16x144x144
+w_160           0x80011011  34 reg     16    16  3  1  16x160x160>16x160x160
+w_40            0x80011011  34 reg     16    16  3  1  16x40x40>16x40x40
+w_56            0x80011011  34 reg     16    16  3  1  16x56x56>16x56x56
+w_64            0x80011011  34 reg     16    16  3  1  16x64x64>16x64x64
+w_80            0x80011011  34 reg     16    16  3  1  16x80x80>16x80x80
+w_96            0x80011011  34 reg     16    16  3  1  16x96x96>16x96x96
+
+  RESERVED_0 = 66   (regular convolutions)   20 files
+bias_k3         0x80021111  66 reg     16   128  3  2  16x80x80>128x40x40
+bias_k5         0x80021111  66 reg     16   128  5  2  16x80x80>128x40x40
+bias_ramp       0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
+lane_ic         0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
+lane_oc         0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
+ocp34           0x80021011  66 reg     64    34  1  1  64x56x56>34x56x56
+ocp40           0x80021011  66 reg     64    40  1  1  64x56x56>40x56x56
+ocp56           0x80021111  66 reg     64    56  1  1  64x56x56>56x56x56
+pp_k3           0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
+pp_k3b          0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
+pp_oc64         0x80021111  66 reg     16    64  3  1  16x80x80>64x80x80
+pp_p1           0x80021011  66 reg     16    16  1  1  16x80x80>16x80x80
+pp_p3           0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
+pp_p5           0x80021011  66 reg     16    16  5  1  16x80x80>16x80x80
+pp_pw           0x80021011  66 reg     64     4  1  1  64x80x80>4x80x80
+pq_ic           0x80021011  66 reg     64    42  1  1  64x56x56>41x56x56
+pq_oc           0x80021011  66 reg     64    42  1  1  64x56x56>41x56x56
+pw48x64w56      0x80021111  66 reg     48    64  1  1  48x56x56>64x56x56
+tq_ic           0x80021011  66 reg     48    40  1  1  48x40x40>40x40x40
+tq_oc           0x80021011  66 reg     48    40  1  1  48x40x40>40x40x40
+
+  RESERVED_0 = 38   (depthwise; a third value, see below)   13 files
+dwbig_1024+     0x00013333  38 dw    1024     2  3  1  1024x7x7>1024x7x7
+dwbig_112+      0x00013233  38 dw     112     2  3  1  112x7x7>112x7x7
+dwbig_128+      0x00013333  38 dw     128     2  3  1  128x7x7>128x7x7
+dwbig_16+       0x00013033  38 dw      16     2  3  1  16x7x7>16x7x7
+dwbig_256+      0x00013333  38 dw     256     2  3  1  256x7x7>256x7x7
+dwbig_32+       0x00013133  38 dw      32     2  3  1  32x7x7>32x7x7
+dwbig_48+       0x00013233  38 dw      48     2  3  1  48x7x7>48x7x7
+dwbig_64+       0x00013333  38 dw      64     2  3  1  64x7x7>64x7x7
+dwbig_80+       0x00013033  38 dw      80     2  3  1  80x7x7>80x7x7
+dwbig_96+       0x00013133  38 dw      96     2  3  1  96x7x7>96x7x7
+g_dw1           0x00013133  38 dw      32     2  3  1  32x112x112>32x112x112
+sv_dw           0x00013133  38 dw      32     2  3  1  32x112x112>32x112x112
+sv_dwu          0x00013133  38 dw      32     2  3  1  32x112x112>32x112x112
+
+
+The counts
+----------
+
+  files                                  94
+  dispatches in them                     422
+  dispatches that could not be decoded   0
+  regular dispatches                     364
+  depthwise dispatches                   58
+
+  by dispatch, RESERVED_0
+    34    260
+    38     58
+    66    104
+
+  by file, first dispatch
+    34     61
+    38     13
+    66     20
+
+  distinct 0x4050 words, 8 of them
+    word         count  RGP  R_0  S_E2 S_E1 S_E0 OD   OW
+    0x80011111   140  8    34   1    0    4    0    1
+    0x80011011   120  8    34   0    0    4    0    1
+    0x80021011    84  8    66   0    0    4    0    1
+    0x00013133    26  0    38   1    1    4    1    1
+    0x80021111    20  8    66   1    0    4    0    1
+    0x00013333    16  0    38   3    1    4    1    1
+    0x00013233     8  0    38   2    1    4    1    1
+    0x00013033     8  0    38   0    1    4    1    1
+
+  the other fields, for completeness
+    RGP_CNTER  regular {8: 364}
+               dw      {0: 58}
+    TP_ORG_EN  regular {0: 364}
+               dw      {0: 58}
+    SIZE_E_0   regular {4: 364}
+               dw      {4: 58}
+    SIZE_E_1   regular {0: 364}
+               dw      {1: 58}
+    SIZE_E_2   regular {0: 204, 1: 160}
+               dw      {0: 8, 1: 26, 2: 8, 3: 16}
+    OD_BYPASS  regular {0: 364}
+               dw      {1: 58}
+    OW_SRC     regular {1: 364}
+               dw      {1: 58}
+
+
+Does it follow the geometry?
+----------------------------
+
+No. Grouping the 364 regular dispatches by their full CNA geometry --
+ic, oc, kernel, stride, input width, rows, output width, pixels and
+surface -- gives 116 distinct classes, and 12 of them contain both
+values. Read that as 5 facts and not 12: a model appears in several
+classes because the compiler splits it into CBUF windows of different
+heights, and each window is its own class here. Same geometry,
+different RESERVED_0, in the same corpus:
+
+  ic 16  oc 128  k 5  stride 2  80x80 in, 1600 pixels out
+    34: g_cal, sv_k5, sv_null_a, sv_null_b, sv_oc128, sv_sc_base,
+        sv_sc_moved, sv_wt_a, sv_wt_b
+    66: bias_k5
+  ic 16  oc 16  k 3  stride 1  80x80 in, 6400 pixels out
+    34: g_k3s1, p1_k3, w_80
+    66: bias_ramp, lane_ic, lane_oc, pp_k3, pp_k3b, pp_p3
+  ic 16  oc 16  k 3  stride 1  80x41 in, 3200 pixels out
+    34: g_k3s1, p1_k3, w_80
+    66: bias_ramp, lane_ic, lane_oc, pp_k3, pp_k3b, pp_p3
+  ic 16  oc 128  k 5  stride 2  80x41 in, 800 pixels out
+    34: g_cal, sv_k5, sv_null_a, sv_null_b, sv_oc128, sv_sc_base,
+        sv_sc_moved, sv_wt_a, sv_wt_b
+    66: bias_k5
+  ic 16  oc 128  k 5  stride 2  80x42 in, 800 pixels out
+    34: g_cal, sv_k5, sv_null_a, sv_null_b, sv_oc128, sv_sc_base,
+        sv_sc_moved, sv_wt_a, sv_wt_b
+    66: bias_k5
+  ic 16  oc 128  k 3  stride 2  80x80 in, 1600 pixels out
+    34: g_cal_k3, sv_k3
+    66: bias_k3
+  ic 16  oc 16  k 1  stride 1  80x80 in, 6400 pixels out
+    34: g_md003_80, p0_k1
+    66: pp_p1
+  ic 16  oc 16  k 1  stride 1  80x40 in, 3200 pixels out
+    34: g_md003_80, p0_k1
+    66: pp_p1
+  ic 16  oc 16  k 5  stride 1  80x80 in, 6400 pixels out
+    34: p2_k5
+    66: pp_p5
+  ic 16  oc 16  k 5  stride 1  80x42 in, 3200 pixels out
+    34: p2_k5
+    66: pp_p5
+  ic 16  oc 128  k 3  stride 2  80x40 in, 800 pixels out
+    34: g_cal_k3, sv_k3
+    66: bias_k3
+  ic 16  oc 128  k 3  stride 2  80x41 in, 800 pixels out
+    34: g_cal_k3, sv_k3
+    66: bias_k3
+
+The cleanest single pair is g_cal against bias_k5. Both are one ONNX
+Conv, ic 16, oc 128, 80x80 input, k = 5, stride 2, compiled by the
+same toolkit build, and the two .onnx sources are the same 205601
+bytes -- they differ in the weight and bias VALUES and in nothing
+else. Their first dispatches are 138 registers each and differ in
+five of them:
+    t=1001 r=4044   g_cal 00000001   bias_k5 00000000
+    t=1001 r=4050   g_cal 80011111   bias_k5 80021111
+    t=1001 r=40ac   g_cal fffffff8   bias_k5 fffffff5
+    t=1001 r=40b0   g_cal 000064f9   bias_k5 00006f37
+    t=2001 r=501c   g_cal 00000710   bias_k5 00000114
+
+Three more same-geometry pairs, one from each of the other groups:
+
+  g_k3s1 against pp_k3: 6 registers differ, 4044 4050 40ac 40b0 40b4 501c
+  g_cal_k3 against bias_k3: 6 registers differ, 4044 4050 40ac 40b0 40b4 501c
+  p2_k5 against pp_p5: 6 registers differ, 4044 4050 40ac 40b0 40b4 501c
+
+0x40ac, 0x40b0 and 0x40b4 are the output zero point, the requant
+multiplier and the requant shift. Those differ between any two models
+with different weights and say nothing here. What is left in every
+pair is 0x4044, 0x4050 and 0x501c, the same three every time.
+
+
+Does it follow the model series?
+--------------------------------
+
+Not that either, and one form of the guess dies immediately: all 94
+files carry the same toolkit build string,
+
+    2.3.2 (@2025-04-03T08:26:16)   94 files
+
+so it is not a toolkit version difference.
+
+And a per-model constant cannot be right, because 11 files hold more
+than one value inside a single compile:
+
+  g_pw24, 512x7x7>1024x7x7, one Conv in the source graph.
+  Its dispatches, by byte offset in the file:
+    0x4980   0x80011111  R_0 34      ic 512   oc 1024  k 1  49 px
+    0x4e00   0x80011111  R_0 34      ic 512   oc 1024  k 1  49 px
+    0x5280   0x80011111  R_0 34      ic 512   oc 1024  k 1  28 px
+    0x5700   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
+    0x5b80   0x80011111  R_0 34      ic 512   oc 1024  k 1  21 px
+    0x6000   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
+
+  and the same shape in the other 10, all of them dwbig_*:
+  dwbig_1024, 1024x7x7>1024x7x7, one Conv in the source graph.
+  Its dispatches, by byte offset in the file:
+    0x6d80   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  49 px
+    0x7200   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  49 px
+    0x7680   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  28 px
+    0x7b00   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
+    0x7f80   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  21 px
+    0x8400   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
+    ... and the same pattern in dwbig_112, dwbig_128, dwbig_16, ...
+
+g_pw24 is the one that settles it. One Conv in the source graph, one
+compile, one file, and its two REGULAR dispatches disagree: the 512 to
+1024 pointwise reads 34 and the one-pixel 16 by 16 op the compiler
+adds for itself reads 66. Whatever selects the value is decided per
+dispatch, not per model and not per batch of models.
+
+
+What it does follow
+-------------------
+
+DPU 0x4044, exactly, on every regular dispatch in the corpus:
+
+    RESERVED_0 34   <->  0x4044 = 0x00000001    260 dispatches
+    RESERVED_0 66   <->  0x4044 = 0x00000000    104 dispatches
+
+364 of 364, no exceptions. 0x2001/0x501c moves with them:
+
+    RESERVED_0 34   ->  0x501c 0x710 (260)
+    RESERVED_0 66   ->  0x501c 0x14 (22), 0x114 (82)
+
+Sweeping every register in the stream, 0x4044 is the ONLY one whose
+value partitions the two RESERVED_0 groups one-to-one, and 0x501c the
+only other whose value sets are disjoint between them. So the bit is
+not a loose constant with no company: it is one third of a single
+per-op decision in the bias-and-scale path of the output stage.
+
+The depthwise dispatches are the honest limit on that. They read
+    RESERVED_0 38, 0x4044 = 0x0, 0x501c = 0x510, 58 dispatches
+38 is 34 with field bit 2 -- word bit 13 -- added, so on the word-bit
+16-against-17 axis depthwise sits with the 34 group while its 0x4044
+sits with the 66 group. The lockstep is a statement about the regular
+datapath only, and I am not claiming more than that.
+
+What selects the arm in the first place is still open. It is not the
+shape, not the file, not the toolkit build, and not the day the file
+was compiled: 2026-08-08 and 2026-08-09 each produced both arms.
+
+
+What this means for the driver
+------------------------------
+
+rkt_regcmd.c emits, for a regular convolution,
+
+    0x4044 = 0x00000001
+    0x4050 = 0x80011011 or 0x80011111   (RESERVED_0 = 34)
+    0x501c = 0x00000710
+
+which is the 34 arm in all three registers at once. It is the arm the
+vendor takes on 260 of its 364 regular dispatches, and the driver never
+mixes an 0x4044 from one arm with a 0x4050 from the other. That is
+the part I could not say in the earlier mail and can say now.
+
+The RK3576 encoder has no depthwise path at all -- fill_regcmd_rk3576
+covers a regular convolution and rkt_ml_operation_supported declines
+depthwise before it is reached -- so the driver never emits the 38
+word. That is an observation about the vendor's depthwise datapath
+and about upstream's RK3588 encoder, not about this one.
+
+The field is also not free: moved on its own to upstream's 0, on a 5x5
+at 128 output channels and a pointwise at 88, the output stayed
+identical to the baseline and the job timed out. So it is a completion
+field, and 34 is the value that completes.
+
+
+What of the claim I sent
+------------------------
+
+The counting half stands. 34 and 66 are the only two RESERVED_0 values
+on regular convolutions, 34 is the common one, 260 dispatches against
+104, and 61 files against 20 by first dispatch.
+
+Three things in it were wrong or too small, and I would rather correct
+them here than let them stand.
+
+1. "It does not correlate with oc, ic, spatial size, kernel size or
+   stride" is true but it was the weak version of the test. The strong
+   version is the one you asked for: hold the WHOLE geometry fixed.
+   12 geometry classes then carry both values, 5 of them once the CBUF
+   windows of one model are folded together, and g_cal against bias_k5
+   is two files identical in every register but five.
+
+2. "What it does track is which batch of models it came from, which
+   makes a toolkit setting more likely" does not survive as written.
+   The batches are uniform, but the batch is not what decides:
+   g_pw24 carries both values in one compile of one Conv, and the
+   toolkit build string is identical across all 94 files. Why a whole
+   batch lands on one arm I still cannot say.
+
+3. It only ever mentioned two values. There is a third, 38, on all 58
+   depthwise dispatches. The RK3576 encoder declines depthwise so it
+   never emits that word, but the corpus has it and the table should
+   have said so.
+
+The one thing the earlier mail did not have is the answer to your
+question. It is not a toolkit setting sitting on its own; it is a bit
+of a three-register per-op choice, and the driver takes one side of
+that choice consistently.
+
+
+Regards,
+Jiaxing
