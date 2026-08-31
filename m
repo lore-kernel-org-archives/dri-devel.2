@@ -4,139 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD57AC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFBEC624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D71A710E823;
-	Mon, 31 Aug 2026 13:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC6D10E82C;
+	Mon, 31 Aug 2026 13:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nDUKDu6N";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="25K9tZOi";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vh5uzUZd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EyYF7WXn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZlzIWYgg";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB16010E823
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:24:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1700B21B1C;
- Mon, 31 Aug 2026 13:24:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788182644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qr1OOG3pV3cPnqTGHd6czCB+q6fXVL6kJmDhZjfC1cA=;
- b=nDUKDu6Ne+tRRgKlGxV3rsTZDBM/9YssDD9aej91NZtgfvOSiPupZOHJ9D3isOndYpxcFp
- gOC0uqsYtB5aQaQkls2YCvT0TxadYwWcVByEQIH2H9m1xm/AVr24Yv/2opztxNUhNTDRtl
- INYVFNdbzCSy8WxjrJN95d7rCxJXhHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788182644;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qr1OOG3pV3cPnqTGHd6czCB+q6fXVL6kJmDhZjfC1cA=;
- b=25K9tZOiMseCp9Mt4BmAB1D+erChwE+jM9s9okFsUBhEsxoZ3HiTWhe+wKN6u2OdoAw+fa
- FFrTzbjssNGf01Dw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vh5uzUZd;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EyYF7WXn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788182640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qr1OOG3pV3cPnqTGHd6czCB+q6fXVL6kJmDhZjfC1cA=;
- b=vh5uzUZd8hYQo1Y6q1dn0/GzSNn9Fz/9N5xD62s+siWitSEMDBv67Nk1ad7kAlZK4lpTfG
- xfNxPFN/222v8ImOwcYw8+tkERTqdEbUohpCjclTZTjCG0Zz8ZtuGpSQ6e6XtNFgz0R5yT
- OmgMco0h3/45AYCypaZUqCeDoicQfDI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788182640;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qr1OOG3pV3cPnqTGHd6czCB+q6fXVL6kJmDhZjfC1cA=;
- b=EyYF7WXn+WgRLjUaVrRSfJ1sdpdV6le7Eu4NU3yIy/5aCPwgVbxmyf/U89OjK7nkBOKYiV
- AvbL4prE0jgv1YCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A96BF13515;
- Mon, 31 Aug 2026 13:23:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mSQJKG+AlWoSPAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 31 Aug 2026 13:23:59 +0000
-Message-ID: <88e53706-d237-46e3-afc3-deff5e372725@suse.de>
-Date: Mon, 31 Aug 2026 15:23:59 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] firmware/sysfb: Remove rotation quirk for Lenovo
- D330
-To: Jani Nikula <jani.nikula@linux.intel.com>, javierm@redhat.com,
- ardb@kernel.org, ilias.apalodimas@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20260831093020.494701-1-tzimmermann@suse.de>
- <20260831093020.494701-2-tzimmermann@suse.de>
- <5f8aceb5b36607877509995550d6dbbfad675ba7@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B465210E824;
+ Mon, 31 Aug 2026 13:24:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788182652; x=1819718652;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=nWkJdNEj/ujrQAzLZAn02belUUvT+CUPl5d113Y1Jdw=;
+ b=ZlzIWYggRUp4nQ9zTHpCr6Hgnqkucg+ThLftQ+oQ5WYR40Vih9WrjZ6D
+ sA6THuIAD1E7Uy+1nNJff1htyYtcIS+B3QJOBWowP5DI6DobcWjnQaELc
+ 0LAPSxLQsEMZLA2qWUMuknkmlQLcAuKL35yl1lx5N076fe4UX+pwX+gzh
+ OlqRmCnXZrl4QESz6fID/aeHFgcV5UrP+wQ5nhFBRMwU2zIwM3a4zZliK
+ rwF5WJ0Ml5AkQmT1dHaFY6ccdxFtgp0Z2RsLIJnLBEIePoXX4JYSg+8rZ
+ lrr2AEw0kKbpuCmktj8ZjbBF5rbZ/RPc/0P5004W5N2kK5K1BFH9cb+pZ Q==;
+X-CSE-ConnectionGUID: hJo4/GOqTIGrtcsrtoopcQ==
+X-CSE-MsgGUID: mdy78GEcTM6mqaYuiLHIhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="87535596"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="87535596"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:24:12 -0700
+X-CSE-ConnectionGUID: JxPNbFluSoe9VAfxO7QXIg==
+X-CSE-MsgGUID: Pvo5zRnmR5ugg3h+YW0erw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="274062899"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 06:24:12 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 06:24:11 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 06:24:11 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.1) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 06:24:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BfDr0B3Baf7hndbl2cIDwF3+nUZ/X69YwBi+8WNclRAgIB5JSpiVLBrzxm0cbeOBCvsovdfR2bBswb+MEbNvch4pFQ8RPScoqQXkJtzLVEhk/Il3N05e2+1dj8Vd2pm9vl5cbReIAlpd5m9PcuGMoagEU0AI54wb2lgHe4ji6s5tssXhL0OF9oNhgC+IuG4ah1aNGfO9rEWXECRafB3BN3X3dNi9NrsZYwmfvfN4oNeG794u4BOo9KM2TN6U73OKziSQTReVeFtdgCxJKqVuLHDit62ZmDSnDs8xgWu7YGyBp0B/z6X9pBzGix8EQe/mDWt8DK6hxDpN+2CTzKuE0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OP0D/bmM0aBlx4T0ou5Hc+mt/OFr6t9OVeTEsMLoR6U=;
+ b=UeZ9UJMFwwJbRc1bER9fUCadfBhxX3sdD4dMYFFOqIrOvS4CGGz5gODeOIdByS93nRGbmiXXSFWO940NST2h1qdpnlCeV5jHdK/Ql/DQft5ktTR/vJGXkJl+XYBRnQ+KHTaUzZKDjxz4oImD2b4Lv7rVL5P7kDNcEzGxpuZfVhnoW6YMYKBDbGbasjVRtDOWfbfQXqVWZqVTVQor0p6QD2/SclxlEtp6/PvuO8h9UaI7XfeL/1K4QOwZHTUYA6fK3LOs9drpZAeFV2432n/sPLZPJxHTqmJekRWrKidilJ27sxFnAB/h7bMkG2tp+y59EGNcYAUyRAFiH8WgKAhyCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
+ SA1PR11MB8575.namprd11.prod.outlook.com (2603:10b6:806:3a9::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Mon, 31 Aug 2026 13:24:07 +0000
+Received: from DM4PR11MB6360.namprd11.prod.outlook.com
+ ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
+ ([fe80::22d9:ae03:5db1:680%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 13:24:07 +0000
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: RE: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
+Thread-Topic: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
+Thread-Index: AQHdJBCGi8jwRvuO10Sjj/hqyyXOq7a4T2pw
+Date: Mon, 31 Aug 2026 13:24:07 +0000
+Message-ID: <DM4PR11MB63608596E790F45C24DD18C9F4A92@DM4PR11MB6360.namprd11.prod.outlook.com>
+References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
+ <20260804123107.2256124-7-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260804123107.2256124-7-chaitanya.kumar.borah@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <5f8aceb5b36607877509995550d6dbbfad675ba7@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1700B21B1C
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[linux.intel.com,redhat.com,kernel.org,linaro.org,ffwll.ch,gmail.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[11];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|SA1PR11MB8575:EE_
+x-ms-office365-filtering-correlation-id: 56c610ba-2190-4533-7c7d-08df07632297
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|38070700021|6133799003|56012099006|10067099003|4143699003|11063799006|22082099003|18002099003;
+x-microsoft-antispam-message-info: 0DtipjS4U6ex8zxRFeVVh18IfIWKw4oWCnKC7keRoK9LLtzgMwM6ixLXSH0z3NVYF11Xfo9NgKFdOTfAoWwkfBVzQyC+xCf3kXxrXjFNL6OhzXCoPYI0LEl7fiRm0XavFRCHJoOAKJRHc1VEFpK2PbPM4le/PuOfOogWiaCwoGBKJvc8au8i2P7NyH2jER+h9yeg44gMYu/2kjKgpaOIE+rc2n6iQx6Q3YYPRPj44aLuQJ1JUcB9Zp0HCQsFFZ29U9xtV6AgcATf2c3WfCvjq+6WO5N1grxE1RVIBfG7SzgG8/OIcHtDvN/mN7Na2beZX4sllIn1dN07MaRDjymKZJMHHlr/EfqPgiGEiKROnsHoFoxwtX0Yj/1/JuqRdCcsas85kSmP4uOBEfRvKVdsmJp0yXKCz4Ap+DZ5s1YVUZjRnONDnimAaMWBaozMEmFO165ex7yh6FfItZoDneC9Y44tLObmZEziG/5v3QjLmnivimc9zIuon4CRLuPUfFxDMhyh53B8qlxeTvqXq0nogxv1CUEOkBcRzMLAKmnUDvYflrYX+3H3oUMZp8tLi5eDICew+bPkibciqgMC1rJCqBpHNgKTQtU3BQ6JD3lEiaoJ7E/9xJFMd5/pZoYoSO1BmsQSEAcKx8ko7kWs07FoK5pPz+U3yfkSrcOWZeCH0H6jCOTPPPdmSwrdsv+uCJBtI4eBX/dCik/BVXXiy9E4ZdG/no52VchmxavjHnQDP3Y=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SqsUTqEbHw1yRaR7SDAZQX7KjjbmUwBx9aF3MqH6nWen84dSf9GDlMqTCbp3?=
+ =?us-ascii?Q?0FmLFFq7y6eb/2Ze9NFSc1zOC1izTz54JjyAGeMlvSG4hohEltfKRxgCqICK?=
+ =?us-ascii?Q?1ad19N61GuyTkHvKe/qSckKDHiWRAQNk3oExTGw1ZGcecMBFkNO6L2Lsy4r+?=
+ =?us-ascii?Q?dk7vCpe6vKGoAIhhVyMhT6ilj4whr7/NT+YeGfctAhNZnHje6h2t2V8Ldfab?=
+ =?us-ascii?Q?ZeY0D4h3LKdL+gaP1jbQzuatS00Vcg87LqyPKHKHDjuMiSfsyMdvZpGCw8xb?=
+ =?us-ascii?Q?s9fC/OoqhSDm8B3LOoHu5OeKthMlNvIu8sm6zgGmKAHqWQuEpozlXHex7D3H?=
+ =?us-ascii?Q?tvgWqSyaE3pUaP8jQpfAvUcHb97/Z5m+tFehO2MVsoZfBui9iTDVwJotBdGi?=
+ =?us-ascii?Q?GwobA09OwQSDntGw9IxNeRaCmDQkQTf4LUhTdsbq+gZGvZ3+12ihckC6CCvg?=
+ =?us-ascii?Q?PArtqJUBcAlTBzrQnqnLJf5PouIMSqjW8gcjSNN8IhIZKwwi6zN6cNKP8iW/?=
+ =?us-ascii?Q?oDrC7FThRT3VgSX/mNqYJUf0R8rUIrx9jtXJFGu2mkaRQGMx46kGElO7BHGE?=
+ =?us-ascii?Q?e7Q+Kun088PJyk9Mr7AjBjsTc7kd3tl8tSI6pBMJBunpB8qlUM+Ed/liBGUD?=
+ =?us-ascii?Q?7uRcQawY/SRaY/f5nA/yj3tfU4PcEHgH1mIXXXDpyBSlgr7dw7dI12Uo5f+d?=
+ =?us-ascii?Q?b9BF11in0DZBXV/InNWrxlDbEvj/RGwE0XmRUdmNtOJUqQieynY8/uZcjyBw?=
+ =?us-ascii?Q?pkmJ4vYMk27XfBVoHUVHDveYNNkMUVb8MC+TPlZco7+XAcwpl8xMlRZ+fb4c?=
+ =?us-ascii?Q?1IcKsC9D1xucOiH/wnAb+byp4jExiABq7pHl6pdERJB8/heEtO/WXUK8l2gi?=
+ =?us-ascii?Q?7uhbcbyY5MURvjX2ILLUkUHYnnrsailtCU1bvl3jCvBnBHZIQBze8PK5W9r/?=
+ =?us-ascii?Q?R3FODrPttKUAcwRPRk6w65/y+Bva7cWeOQpgWYbaFgiHWp7l25NjUuOpRL0W?=
+ =?us-ascii?Q?5G2cO+VfTF5xNYqsGIPaOmPcBgaj0alr2hi6iWbLlSiHWzxqi0liP7bLztXu?=
+ =?us-ascii?Q?jPzY3Yf4FKVMKiK4yS5M6EszQi4I3H67xPhH4WVM5Lsrw3+xISACEDIQgp6e?=
+ =?us-ascii?Q?+c3KjomdKw1V0CZa7nGvCrumkjP+d8aJ1Jnj/HSpjJnf7WDp2+HM76Ld14gA?=
+ =?us-ascii?Q?hjs4QpXxcsW+fqScmhSXNnCyq4UBo8zVLNdKpQe9uK1lm3nWLeO3NFMrP28a?=
+ =?us-ascii?Q?qTBTfrlSurG3Jks40Z/13pfFRhRHnkzG1LgMJ/1Vkq6ltxsUQTHdU6D2jj7q?=
+ =?us-ascii?Q?goUULD9oSz4BDkIEqDKDk1jZUM9aQX5pV149aZOPA5FFj8CcEqPQfKvk/HT3?=
+ =?us-ascii?Q?b+O6zXqztDtwkrg0pQklNfN91R93wCvFkAnlMbzBOgmHXJMG/T0+imh2rrRL?=
+ =?us-ascii?Q?QBlZSiEBKWCycfcWjJtXaxLALalUuYec3N05ru1lnQMp1s6P1qKujAErAO0s?=
+ =?us-ascii?Q?AisiMb3gcu0MfPC8+g5gnNkUUVFW+mzJlAtdH2FQZjNSwFmwhJfhxSXHtuzW?=
+ =?us-ascii?Q?SaJwDOBieQaDjZXmJNPPbwW6a2vDCzWhKHnrgnS63VDPW12lFN2dCtxRPeDk?=
+ =?us-ascii?Q?v2hoix3XVzgxUQPE3akz062pmiyf2qMS2Vswns/HFrL/GCk4zPD5LvOTbxeX?=
+ =?us-ascii?Q?DQwhkojlAowz0Z5m3U9QFMtlxIr9VSz83s+a2Tm+zziMBn4Y?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: Fh3lOUabKVXrMV2j2cSMcQrTx3M5TTVp+ZJbXAMJ7sJn2VFgXqI0L82ZrkAdkRS9k/Qbw/HsnmaOPeZzASreIkSvVoTJtt9/EjAxRJ9q7ZPr1MiNAlBJaJe3aoQ4q7C9AOidwPUxRDwOu6CcW7nsZdqktGpZMpEiDJSWUuWGIwd2odVyJC26bOZ235xLoJit3Tj/lNAiw5K1h9WYehfhaj6WhydsripMl+YceQ9ZefK2ZXVvJ5XPwcMedOlORSnBk8prnDryrDGEt/ak7w1zxBkfkTmEpahNfFHHdAoRI9GteUBZW1w6TKXu3m7rFixKAZNAthm06NbN4OIwo0Kebg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56c610ba-2190-4533-7c7d-08df07632297
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 13:24:07.3038 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jNd9Xb2oEimHMalVtEMsTmZqzijAZu1sBH1+rv83ryI3nRjsXcqBTEe1oCh07yY+S6G96rRtSF0XKHuuh7XDig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8575
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,65 +164,53 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 31.08.26 um 14:49 schrieb Jani Nikula:
-> On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> The Lenovo D330 is a notebook with unmountable display. The display
-> Please elaborate on what you mean by "unmountable display".
->
-> No comments on the patch itself, I just haven't heard that before.
+> -----Original Message-----
+> From: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
+> Sent: Tuesday, August 4, 2026 6:01 PM
+> To: intel-xe@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; dri-
+> devel@lists.freedesktop.org
+> Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>; Shankar, Um=
+a
+> <uma.shankar@intel.com>
+> Subject: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
+>=20
+> Extend the SDR plane color pipeline to post-CSC 1D LUT block.
+>=20
+> v2:
+>  - In preparation of a simple pipeline
+> 	[YUV Full/Limited -> RGB] -> [1D LUT]
+>    Drop pre-CSC LUT from the pipeline as it has no use in a YUV -> RGB
+>    pipeline. This makes the pipeline simple since the block lies between
+>    the YUV range correct block and Fixed function CSC. It can be added ba=
+ck
+>    when [RGB709 -> RGB2020] capability is added. Then it can be used for
+>    linearization.
+>=20
+> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com> #v1
+> ---
+>  drivers/gpu/drm/i915/display/intel_color_pipeline.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> index efd4375c4331..53e55ce0a5a3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> @@ -45,6 +45,7 @@ static const enum intel_color_block hdr_plane_pipeline[=
+] =3D {
+>=20
+>  static const enum intel_color_block sdr_plane_yuv_pipeline[] =3D {
+>  	INTEL_PLANE_CB_CSC_FF,
+> +	INTEL_PLANE_CB_POST_CSC_LUT,
 
-Sorry, that word doesn't exist; maybe "mountable".  I think "detachable" 
-is the correct word.  The notebook's display can be removed from the 
-keyboard to act like a tablet.
+With this we will expose support for post csc lut but corresponding handlin=
+g in driver is added later in the
+series. Would be good to move this after patch 8.
 
-Best regards
-Thomas
-
->
->> is installed in landscape orientation, but the display mode is in
->> portrait orientation. By default, the display output is rotated to
->> the left by 90°.
->>
->> The sysfb quirk breaks the display by swapping display width and
->> height; and thus mixing up the display geometry. Fix this by keeping
->> the display as-is. The sysfb DRM drivers, usually efidrm, will pick
->> the correct panel orientation for the display.
->>
->> Tested on a Lenovo D330-10IGM IdeaPad.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: Ard Biesheuvel <ardb@kernel.org>
->> ---
->>   drivers/firmware/efi/sysfb_efi.c | 9 ---------
->>   1 file changed, 9 deletions(-)
->>
->> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
->> index 685283bb7327..2338de73c62c 100644
->> --- a/drivers/firmware/efi/sysfb_efi.c
->> +++ b/drivers/firmware/efi/sysfb_efi.c
->> @@ -301,15 +301,6 @@ static const struct dmi_system_id efifb_dmi_swap_width_height[] __initconst = {
->>   		},
->>   		.callback = efifb_swap_width_height,
->>   	},
->> -	{
->> -		/* Lenovo D330 with 800x1280 or 1200x1920 portrait screen */
->> -		.matches = {
->> -			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
->> -			DMI_EXACT_MATCH(DMI_PRODUCT_VERSION,
->> -					"Lenovo ideapad D330-10IGM"),
->> -		},
->> -		.callback = efifb_swap_width_height,
->> -	},
->>   	{
->>   		/*
->>   		 * Lenovo IdeaPad Duet 3 10IGL5 and 10IGL5-LTE with
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+>  };
+>=20
+>  static const u64 intel_plane_supported_csc_ff =3D
+> --
+> 2.50.1
 
