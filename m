@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 094A9C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 785DBC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31EF810E248;
-	Mon, 31 Aug 2026 16:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CF7210E2FA;
+	Mon, 31 Aug 2026 16:56:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eG/8CpB0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="im01zoch";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5594B10E248
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:54:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 08A6341831
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:54:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB5091F00A3D;
- Mon, 31 Aug 2026 16:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788195280;
- bh=0LLhpWCxBpPg1D5mTW6OFIbv9Qj2mRsv00bLjDLuWHc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eG/8CpB0JymVjT5RhYFri2584CA3/xHsmsyjQjq8/8GgExk2RIR1q7ZHKTAR4IO03
- 71b2ogVhFEr4mMTj9YaFatEcXIjTCY4+CLUmp9XMFFowkDGnnyK4YI6nH66IcBU8ba
- bzqrZtYwukTep9XzrjUUJXesSWhtXIznuvhH+xppdOiH/M0tLY7DHypQcxL5aprKTW
- jRycnxqeSqG7Zb8I7yjeeOI8VPsIojObQ7Kw9JZF850rVMbVx3thb2soVwEBb5uojX
- aeq/JfzB79Ho/S6pSkfA83MNb3PoQBjszZCEeGnNFPPicWE4QMh8qJdZONdgcdDquC
- hJqG38aDCe+Cg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] drm/amdkfd: fix SMI event cross-process
- information leak
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-514-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-514-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 16:54:40 +0000
-Message-Id: <20260831165440.CB5091F00A3D@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A0510E2FA
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788195405; x=1819731405;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=F+YjOfzFMf/cGJqzs1nRuvBR83gYIDUgBV6ieH5zoJQ=;
+ b=im01zochxGnKy0v40bVw0mPkD/z7hhp6F/OzxAlsH7PWTnSgx8Sn8wvV
+ INiAyA+5vLGZilolcnKHzLP11lZWlLUEDkGdDHgY05+5P6d023d7Vjvqg
+ txyln3RPEnbKtlYR1ImZWF+55s2KMaiwaXe8XI7DfGzDBA4s+SumQu3ez
+ NMe55q4JafALqRHT/MmQs02lvEVke9HnKtiYjo3W4d61m7nVXzJIpRC6S
+ htZIQMqERgC+XN1CG+rboTXNDVoJrZi/Qufz5wxKKIlXy1uFhcCZBCC9r
+ JTDBWRqPTew6i0P7T69r9jVmlm222emBz8K0jNM3hgN1rGh6yjRE/dwDd g==;
+X-CSE-ConnectionGUID: mX1ztve/TaytkCszhukuwQ==
+X-CSE-MsgGUID: 7GVyOP0USF2XTTYtKZUyIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88631914"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88631914"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 09:56:44 -0700
+X-CSE-ConnectionGUID: SSe1RcJ4TqeY9OtvJLfjPQ==
+X-CSE-MsgGUID: 1DJb7QDxQHCB7ZRFExjuAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="292343217"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.22])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 09:56:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ ardb@kernel.org, ilias.apalodimas@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v2 2/3] drm/edid: Add drm_edid_get_preferred_size()
+In-Reply-To: <4645113d-3b31-4d92-b392-5d5284225211@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260831093020.494701-1-tzimmermann@suse.de>
+ <20260831093020.494701-3-tzimmermann@suse.de>
+ <f5f1ab9e6fab9499e49f116369858ee4da626025@intel.com>
+ <4645113d-3b31-4d92-b392-5d5284225211@suse.de>
+Date: Mon, 31 Aug 2026 19:56:37 +0300
+Message-ID: <ff8f369ace3f0cb322f2711b88b88b7b65063c6a@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,132 +73,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Hi
+>
+> Am 31.08.26 um 15:13 schrieb Jani Nikula:
+>> On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>> +
+>>> +	/*
+>>> +	 * Use display mode from the Preferred Timing Descriptor. For old
+>>> +	 * and obscure displays, we might need better heuristics.
+>>> +	 */
+>>> +
+>>> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING))
+>> The preferred timing mode should always be there starting from EDID
+>> 1.3. The bit doesn't indicate whether it's there or not. It should be
+>> always set for EDID 1.3, and for EDID 1.4 it indicates whether the
+>> preferred timing includes the native pixel format and the preferred
+>> refresh rate.
+>>
+>> I think just if (edid->revision < 3) should be enough.
+>
+> Ok
 
-Pre-existing issues:
-- [High] Kernel panic due to NULL pointer dereferences in amdgpu_vm_get_tas=
-k_info_vm() and amdgpu_vm_fini() when vm->task_info allocation fails.
-- [High] Potential Use-After-Free of amdgpu_vm in amdgpu_vm_get_task_info_p=
-asid.
---
+I think I may have gotten this one wrong, and your original was correct.
 
-commit ac56a0fa84d860ce75aeb92f4bc1e57cf68cb0d2
-Author: Yongqiang Sun <Yongqiang.Sun@amd.com>
+I didn't double check what the EDID spec definition of pixel format is:
+"Native Pixel Format is defined as the number of physical pixels along
+the horizontal axis by the number of physical pixels along the vertical
+axis of the display device."
 
-drm/amdkfd: fix SMI event cross-process information leak
+i.e. exactly what you're looking for. Usually, I would not consider
+"pixel format" to include resolution.
 
-This commit fixes a cross-process information leak by passing the target
-process PID into kfd_smi_event_add() for system-wide events. This ensures
-that the existing per-client filter properly restricts delivery to the
-owning process instead of bypassing the filter with a PID of 0.
+The preferred timing will still be there as I described, and I would
+*guess* preferred most likely equals native, but your original is the
+more cautious approach.
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_smi_events.c
-> index a499449fcb068..d6e737ab10076 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *d=
-ev, uint16_t pasid)
->  	if (task_info) {
+My bad, sorry for the noise.
 
-[Severity: High]
-This isn't a regression introduced by this patch, but can the retrieval of
-task_info just above this line lead to a Use-After-Free of the amdgpu_vm
-pointer?
 
-In the call to amdgpu_vm_get_task_info_pasid(), it retrieves the vm pointer
-from the pasids xarray and immediately drops the lock before passing the ba=
-re
-pointer to amdgpu_vm_get_task_info_vm():
+BR,
+Jani.
 
-amdgpu_vm_get_task_info_pasid() {
-    ...
-    return amdgpu_vm_get_task_info_vm(
-                amdgpu_vm_get_vm_from_pasid(adev, pasid));
-}
 
-If the owning process concurrently exits and amdgpu_vm_fini() is called,
-the vm could be freed between dropping the xarray lock and dereferencing
-the pointer in amdgpu_vm_get_task_info_vm(). This could be triggered via
-concurrent VM fault interrupts and process teardown.
-
->  		/* Report VM faults from user applications, not retry from kernel */
->  		if (task_info->task.pid)
-> -			kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAUL=
-T(
-> -					  task_info->task.pid, task_info->task.comm));
-> +			kfd_smi_event_add(task_info->tgid, dev,
-> +					  KFD_SMI_EVENT_VMFAULT,
-> +					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
-> +								task_info->task.comm));
->  		amdgpu_vm_put_task_info(task_info);
->  	}
->  }
-
-[ ... ]
-
-> @@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device =
-*pdd, bool start)
->  	task_info =3D amdgpu_vm_get_task_info_vm(avm);
-
-[Severity: High]
-This is a pre-existing regression, but can this call result in a kernel pan=
-ic
-due to a NULL pointer dereference?
-
-Looking at amdgpu_vm_get_task_info_vm(), it checks if the vm pointer is val=
-id
-but unconditionally accesses vm->task_info:
-
-amdgpu_vm_get_task_info_vm() {
-    ...
-    if (vm) {
-        ti =3D vm->task_info;
-        kref_get(&vm->task_info->refcount);
-    }
-    return ti;
-}
-
-If the memory allocation fails during initialization in amdgpu_vm_init(), t=
-he
-error is logged but execution continues:
-
-amdgpu_vm_init() {
-    ...
-    r =3D amdgpu_vm_create_task_info(vm);
-    if (r)
-        dev_dbg(adev->dev, "Failed to create task info for VM\n");
-    ...
-}
-
-This leaves the vm->task_info pointer as NULL, which will cause a crash when
-kref_get() is called here.
-
-Additionally, this missing NULL check can cause another dereference during
-VM destruction in amdgpu_vm_fini() when formatting the warning message:
-
-amdgpu_vm_fini() {
-    ...
-    dev_warn(adev->dev,
-             "VM memory stats for proc %s(%d) task %s(%d) is non-zero when =
-fini\n",
-             ti->process_name, ti->task.pid, ti->task.comm, ti->tgid);
-    ...
-}
-
-> =20
->  	if (task_info) {
-> -		kfd_smi_event_add(0, pdd->dev,
-> +		kfd_smi_event_add(task_info->tgid, pdd->dev,
->  				  start ? KFD_SMI_EVENT_PROCESS_START :
->  				  KFD_SMI_EVENT_PROCESS_END,
->  				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-514-sashal@kernel.org?part=3D1
+-- 
+Jani Nikula, Intel
