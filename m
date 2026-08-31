@@ -4,123 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDFABC61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A7AC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF1410E776;
-	Mon, 31 Aug 2026 09:01:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0D6A10E777;
+	Mon, 31 Aug 2026 09:04:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5PvTI2V3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B4COrrsK";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011017.outbound.protection.outlook.com [40.107.208.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA2710E776
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:01:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W3ve05jTKhn1AxKToH7hoaH4PiiG8O2lPyV6KTjyytG/7WaHxGdj272eRcBTEuUVLEfRy2V7W+JCOV3mshWfv7HOVOqpzfEhJkzDLh8UPyrdcf1DNEXoJUHQUVuZp2w9POtYBaVrDyl1jFYadPsDmNDhtckUeoAV82T6CMay2ZdNyX9WTYytDCsZV1avTRzGpQ1sKyqZc25hle2vG6rjqSh3C3vHoUTbOqdqT5gItYi1uNyk8LCCqa/9q4qnQNdmjr4z3L94ElOl2MQj8iDLVEhHfUcWEsruv72j70s2781B6GvqGP94X1Bir0vfInTpyAnqami5p4Dh0KXI3oyC6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PapCkqc8r64UqJJmvHzUJECWkknjTTpiJblKoGoSiYE=;
- b=JnrJH7e8CmcxTNJLBwKqrU3dz0xPBAvuTADBDYjlEV9d2m0Q7HGgIdhregEaWFzpRPNuD/WKOJl52yiklwpZEsdxvLez0cl9SyFZHzuGMizNOPAsOWyDoK/Y/jhe6WOBS399unmqd4Tbw96KG7vFM1B9wpyvyfmWK5h6Rq86K2GP9KUu310n/OFhzZIX7h5SIrkSoIbI4/9kmMVK5yzSPHEnvS4hQ96RXurc4XU1gvj4nnUuEWAoHMO9kNWIINkfpBdd/d3dXfN+p1jrUTwjaCyGwZExcSczYwlZoknGde4XUrYGM9KjN29FOreRQm8JP6VEbAxOZSnRSxp6Cn4vEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PapCkqc8r64UqJJmvHzUJECWkknjTTpiJblKoGoSiYE=;
- b=5PvTI2V372TAfaC78u1dU5ML47GqlQX3ZHugR3L0dMr7xxwVelyKbu/7CtZY5ySBZXcIgBlv0/PgtF6exZW8OPPmUo2DmMohSSF+MmDrMqkSesKx9wJYlAWXmX7oEjXrF56riypkP85suQXkouTbD0qB/t61AmH9zywItYeCnrY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6175.namprd12.prod.outlook.com (2603:10b6:208:3c4::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 09:01:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
- 09:01:35 +0000
-Message-ID: <3abb966d-6a9a-4c00-9c51-687c8601fa5c@amd.com>
-Date: Mon, 31 Aug 2026 11:01:31 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf: fix some kernel-doc warnings
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>
-References: <20260831031956.3410813-1-rdunlap@infradead.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260831031956.3410813-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0070.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ce::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6175:EE_
-X-MS-Office365-Filtering-Correlation-Id: 537a22f7-71b3-4024-7de6-08df073e7578
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: GTNEEdewXZg0OB0uB4BXsX+ZN5Q38H7iFrB7sn+AMscofbefJJ6IMzHfa/oravD9oa2tMGaXkLP9prMKBy+JVGWgKfIh9gRN0OTUvPqMCLr2xIUBDnXQuAqBpx+069ffM1kWoARiXPPX6N2Bu6zv2SNQi8yL3UiPWzlfK0oIeJiZSCvfWvHFJMiDZJ96VMyKGeaa457L2aM7ciCye/roI4GeEAwckZgXlDfu1b3VfeeyoeXmJPuyq4al7yI36fyiMBY+cAfd8q+ylxR6KoBTmrwJlf+fiaicsAQB3ZOMVSPtfMtonTgabltTLPzJv6F/Xn+PHQvL6UMcNgldr6Q1KHTgyHFij2tduqUepBgBdzlYbSbiUzL52T228E0B2MJ0sj5CDJFqeWsAuOUiWNgxxGFL5f+DiiYjexcH0mDQklSGMFOAlUl2ivcAxLBK3uqqplLI6/smPXxFR8y4hMLMuHoJOXKzExZzaVhNs1Rsr8CH2mk00TGE9AM51gvvoAUNHvPfpXTym8emEqSuG8s/N8O3X87S8iSS8voi339isjnrVc5n65USbVWnIxqOpxxSfVHKVviR/mD0KNzAOsvbZs6MVRfQ1NF0Q3yLHWIw2FtQfZbG0F5p+5ULS/mu1Zqv
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1lkbzRDNzBkaW1oSDlqSytWTHpTWHJEbCtUdzZuOUFjZHN0bzJ3L1pIbXlu?=
- =?utf-8?B?b25NTWxrMlA3bnJSRlVtZDdhemh4L2dFRGhqczE1QmcyUjZobGg1U1loR0Vm?=
- =?utf-8?B?U2p6ZnVrWnd0N0FPMS94Ry82Zks3ekJJWFo3UmYxQzFtSUxCbE8xSnkrMTJv?=
- =?utf-8?B?YzFoUDJmeC9yNHhEQndwY09oQVpjb0JIeWsrTzRHb0NLSmIrbEhJck5jUUVk?=
- =?utf-8?B?UzB6b2ExUlllWlNkNk5Ib2NZcXd6bnBESkhwci9xaWNjMXhZY1NZUFRjeVR0?=
- =?utf-8?B?TFN6ZHY0SjVRU0FSZW1iYU84ekRCcHE2bUJ6UytOWWZobXZhaE9WNm9VWEJj?=
- =?utf-8?B?WHpES3RETnA4RkdSdkV2MGRucTVJNVJ3T2RqeGRhMk1Fa1JxSG5FVFRpdGt1?=
- =?utf-8?B?RVhJelgxTWk2V1BKRmpUSFZ1SVZFWHlnQWwrM0xxalFKemwzWk9JYjA3Y0gz?=
- =?utf-8?B?WlQ0dlFDclUvUFRoV2krT0U2YkJMUXh2YmtyOVp2SytVQXUxUjVuaVMrajQr?=
- =?utf-8?B?dEZLVkRWa2R1RjNaRWtFUlhlT2hzamgrbFEyNG5hNGUwaUtVdkdESmNkeGRK?=
- =?utf-8?B?MHIxdC9SUFkrYXVRN1NyUW1qcDFWRldLaytYUnFpTUluaUJDclN5MUFlQVJ6?=
- =?utf-8?B?VytCRkJjT2RBRitjYU9mQ2pNbWFZWDRTa3d0Y0pycHBhZHB0ZEEyUFRNVlI3?=
- =?utf-8?B?L2lQanh4cVU3dk9YQ0lqamE4R3JJV1BtdG9IU1hUdXJ4b0dhQVRXSVA2KzJW?=
- =?utf-8?B?b08yRWI0bmhzT1dzSWNMTnY1N1I4dVFGLzhQUGF3d2tPSHFRME5kZE1xakVN?=
- =?utf-8?B?bC9zWWxJRENEUVcvOTdreUM0Rk0rbmxjZFNraDJCUEtOS1RPaHlldyt2WVhM?=
- =?utf-8?B?QlN6c01VRGlRejZaNmlaMFF5cG0wUHNuTGNkUDBlRm9Lb3U1RVJ3Z3dETEJ4?=
- =?utf-8?B?cGlJT2lDYkZBaWluUXh3RXdJdXZBY011UjI1TnNidUtLenpPZTlnOUNyeTRT?=
- =?utf-8?B?VnZvR2cvZzBwVmoyRDFWeWRnZFB6L3U1clhqTGZWRWNCQ2o2Z1RrOUIxc2wv?=
- =?utf-8?B?R2tWUkxlUVhCSDRpLzJKM1gzUStIM240eEVRZURGbmhjT0t0cUp3MU9QMjh0?=
- =?utf-8?B?RFQ5WHhtMTlnT044UWpsaTRqVXVlakZ3d0RyeDFyMElIMGtnUkpiNmpTR0w5?=
- =?utf-8?B?YnlkR2ZGSm9Cckt3S1BPUDdKckl5cVZMSmk5NVFsYUl2UGFTRXJaMkZMRVd2?=
- =?utf-8?B?Vlg1L0RQemtSZzUreThiWndGY1hpSEQ1RWprdkhEc0c2eURKYnVLLzJadlNY?=
- =?utf-8?B?R3Q1RUw0bzdPanc3NHUrUXBmdnJHTDBiVHJRYjFuTTJyTkNScTFjZ0JWTzN0?=
- =?utf-8?B?MjRmTEsvRjJnUVBLelFPem1LNHcwNnhWNkZ3aEJJNEJaeDVYc05RTmNJSjVZ?=
- =?utf-8?B?L1c5MWdMem9rY3ppOFRaVjlvblRjdzVFeGpGMHBKSFJyYURVSUhXclZMTFlF?=
- =?utf-8?B?OXJtY0QvaStYRzJ6Um4yTUlUNlZpUXpHMmFhMHMwb0Z5UER3MGNhWGdxZHJG?=
- =?utf-8?B?dUt6aTNBTWpCYklkVkNNYVBQRVFJejQrYjludEM2RGo0SFBrWUtBWjlKa0pP?=
- =?utf-8?B?N29ObUFxTVp3OExlM3VLRlh0WC91czV6VzZuRjNqVXAxamYxZ05KbDhjakxr?=
- =?utf-8?B?ZDNMUldLQXIvMXBQSlZURGR5eGJ4MnQrdXRIbWVFL3FDUUNycTFxS1M4c0M0?=
- =?utf-8?B?MHEwOWhLT3EySk5yTENuSFVta0xCNlBHcnVud0laN3NUV1Z5UlAvbWpOaXdY?=
- =?utf-8?B?bEc5Y3N0TnErVVlFTFpsM3JJMVRQZ2hIK3lBdTRua0FsWDg1OGJ4TVFURkIy?=
- =?utf-8?B?ekhNR0N2Nm5mc1hqNjg2a0VoOW05S092TlJxcFhoT0ozRkRuQW9NZEUxaDZz?=
- =?utf-8?B?ajNxVCtmejgxeWphQTdueUpkUE9peEJ5WktEUHMrYVdKb1BrbUZpQ1llRjU2?=
- =?utf-8?B?Z0lrSmc5ZXc3eUVjY3pmYVR0M3JldURRV1k0UWRqa0ZlVlpRaTBhOGxiRU9H?=
- =?utf-8?B?OVZrajF6NVRiUy9vZE55c0xjUEpkOGZnU1Jnd2hBSGF3TzExNUMyYzdYQ0l2?=
- =?utf-8?B?QkhTMHlmd2xXUGpGbHc1MlVaQUFtUC8rSzNVem5Oc0YzSVZaa1lkcVhadEk3?=
- =?utf-8?B?Vkt1QXZKRWtsaXlRditYdnZwWkoxNFlxNFhoN3VPYStXNHZHVkRiM1U4cUVX?=
- =?utf-8?B?OWVhbjlGcVUyUE9HWTdCTHRkVFF4Y1BpemlMcUwyRHhFRGg3L2N3U0FaVjVk?=
- =?utf-8?Q?x8nbccuP1Zfhxc5Dpj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 537a22f7-71b3-4024-7de6-08df073e7578
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 09:01:35.2872 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FeHUJahwiV+8VMt97JrTduOVH7JEfW0g40NylgJzVEdgokTfnHE4MtGAmyV3H6mu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6175
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9530B10E777
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:04:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C028860120;
+ Mon, 31 Aug 2026 09:04:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE9A1F000E9;
+ Mon, 31 Aug 2026 09:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788167049;
+ bh=wat78JNkyz0OER2vscKBUuvp5of4hCaGOp4QHI3cFzY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=B4COrrsKLCsidzfvcVD5spF9oOvGnfCMb+5XWnhMLz/4CTc2vanvOGSmispdKh1Xs
+ pAwSwGMxX+0F/eHV0dVJwWgPjsL7Y8SclPSow45W5gLwVldGx/2JW6Qxv2UGAQZrRh
+ unDz5qiRNAMberxLe0vcKvTUxrAX6S6pFRg8hLPMMce5raaO+Qg2ImC98xkAya3FMY
+ hYnKb+4gMiu+wtbcfzC68NOWXaeZIyvyd5A7S72owbiBmgQfLtSBKs0amIZ5Atcydl
+ xY5rbcdpMVYpFDueg01n1iA5HeRHIZAzFn3xlNEf35tgNod/bm88pkdx02hZSRzwCx
+ qtMZZ102Sq5Yg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 11/14] accel/rocket: select the per-core clock and
+ reset counts from match data
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260831081956.84871-12-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-12-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 09:04:08 +0000
+Message-Id: <20260831090409.2DE9A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,83 +55,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/31/26 05:19, Randy Dunlap wrote:
-> - drop Excess description of @lock from kernel-doc
-> - add missing function/macro short descriptions
-> 
-> WARNING: include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
-> WARNING: include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
-> Warning: include/linux/dma-fence-chain.h:82 missing initial short description on line:
->  * dma_fence_chain_alloc
-> Warning: include/linux/dma-fence-chain.h:94 missing initial short description on line:
->  * dma_fence_chain_free
-> 
-> Fixes: 5943243914b9 ("dma-buf: use inline lock for the dma-fence-array")
-> Fixes: a408c0ca0c41 ("dma-buf: use inline lock for the dma-fence-chain")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Reviewed and pushed to drm-misc-fixes.
+New issues:
+- [High] Missing NULL check for the return value of of_device_get_match_dat=
+a(), leading to a guaranteed kernel panic on manual sysfs bind.
 
-Thanks,
-Christian.
+Pre-existing issues:
+- [High] The driver tracks cores in an array using `num_cores` as both the =
+array length and the probe index, causing resource leaks and array slot ove=
+rwrites on out-of-order unbinds.
+- [High] Devres memory leak of `struct rocket_device` and its children on p=
+robe deferral and manual unbind.
+--
 
-> ---
-> v2: rebase & resend; add Andrew to Cc: list
-> 
-> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> Cc: linux-media@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: stable@vger.kernel.org
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> 
->  include/linux/dma-fence-array.h |    1 -
->  include/linux/dma-fence-chain.h |    9 ++++-----
->  2 files changed, 4 insertions(+), 6 deletions(-)
-> 
-> --- linux-next-20260828.orig/include/linux/dma-fence-array.h
-> +++ linux-next-20260828/include/linux/dma-fence-array.h
-> @@ -28,7 +28,6 @@ struct dma_fence_array_cb {
->  /**
->   * struct dma_fence_array - fence to represent an array of fences
->   * @base: fence base class
-> - * @lock: spinlock for fence handling
->   * @num_fences: number of fences in the array
->   * @num_pending: fences in the array still pending
->   * @fences: array of the fences
-> --- linux-next-20260828.orig/include/linux/dma-fence-chain.h
-> +++ linux-next-20260828/include/linux/dma-fence-chain.h
-> @@ -20,7 +20,6 @@
->   * @prev: previous fence of the chain
->   * @prev_seqno: original previous seqno before garbage collection
->   * @fence: encapsulated fence
-> - * @lock: spinlock for fence handling
->   */
->  struct dma_fence_chain {
->  	struct dma_fence base;
-> @@ -81,9 +80,8 @@ dma_fence_chain_contained(struct dma_fen
->  }
->  
->  /**
-> - * dma_fence_chain_alloc
-> - *
-> - * Returns a new struct dma_fence_chain object or NULL on failure.
-> + * dma_fence_chain_alloc - Returns a new &struct dma_fence_chain object or
-> + * %NULL on failure.
->   *
->   * This specialized allocator has to be a macro for its allocations to be
->   * accounted separately (to have a separate alloc_tag). The typecast is
-> @@ -93,7 +91,8 @@ dma_fence_chain_contained(struct dma_fen
->  		kmalloc_obj(struct dma_fence_chain)
->  
->  /**
-> - * dma_fence_chain_free
-> + * dma_fence_chain_free - Frees an allocated but not used
-> + * &struct dma_fence_chain object.
->   * @chain: chain node to free
->   *
->   * Frees up an allocated but not used struct dma_fence_chain object. This
+commit d68f29f9366dd1f885e0585ee67c1b358bda44b6
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
+accel/rocket: select the per-core clock and reset counts from match data
+
+This patch introduces a soc_data structure to provide per-SoC clock and
+reset counts from the device match data. This enables supporting the
+RK3576, which has different counts compared to the RK3588.
+
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index 5dd260bacbff6..b202d15816a39 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
+> =20
+>  	core->resets[0].id =3D "srst_a";
+>  	core->resets[1].id =3D "srst_h";
+> -	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(co=
+re->resets),
+> +	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->nu=
+m_resets,
+>  						    core->resets);
+
+[Severity: High]
+Does this code crash with a NULL pointer dereference if a user with root
+privileges force-binds the driver to a device using the sysfs bind interfac=
+e?
+
+The sysfs interface bypasses the device tree match, causing
+of_device_get_match_data() (called in rocket_probe()) to return NULL, which
+is then unconditionally dereferenced here as core->soc->num_resets.
+
+[ ... ]
+
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 8bbbce594883e..6e7dc91c5faac 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -176,6 +176,7 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+>  	rdev->cores[core].dev =3D &pdev->dev;
+> +	rdev->cores[core].soc =3D of_device_get_match_data(&pdev->dev);
+>  	rdev->cores[core].index =3D core;
+> =20
+>  	rdev->num_cores++;
+
+[Severity: High]
+This is a pre-existing issue, but does decrementing rdev->num_cores during
+an out-of-order unbind in rocket_remove() leak resources and corrupt memory?
+
+If a system has multiple cores (e.g., RK3588 has 3 RKNN cores) and a user
+manually unbinds a lower-indexed core via sysfs before a higher-indexed
+core, rdev->num_cores is decremented.
+
+When the higher-indexed core is later unbound, find_core_for_dev() fails to
+find it because the search space core < rdev->num_cores shrank, skipping
+its teardown. A subsequent bind will then overwrite the active core's slot
+at rdev->cores[rdev->num_cores].
+
+[Severity: High]
+This is also a pre-existing issue, but does probe deferral or manual unbind
+permanently leak the struct rocket_device and its children?
+
+During the first core probe, rocket_device_init() allocates rdev using
+devm_drm_dev_alloc() tied to the global drm_dev.
+
+If the core probe subsequently fails (e.g., -EPROBE_DEFER) or is manually
+unbound, rocket_device_fini() unregisters the DRM device and rdev is set to
+NULL. However, the devres allocations remain bound to the long-lived drm_dev
+and persist indefinitely, leaking memory on every cycle.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D11
