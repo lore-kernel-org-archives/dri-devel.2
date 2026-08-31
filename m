@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D1DBC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBA1C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA21610E9B8;
-	Mon, 31 Aug 2026 16:18:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 999D410E9BB;
+	Mon, 31 Aug 2026 16:18:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZjwE27Z2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="igMS66dB";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03EA010E9B1
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:18:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F25A10E9BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:18:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C37760120;
- Mon, 31 Aug 2026 16:18:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E3E1F000E9;
- Mon, 31 Aug 2026 16:18:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2280A60214;
+ Mon, 31 Aug 2026 16:18:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6E11F000E9;
+ Mon, 31 Aug 2026 16:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788193097;
- bh=hZOz635FpRFueJ8vpjQ1tvj25AorcZJOJy3wCfSXsgM=;
+ s=k20260515; t=1788193104;
+ bh=ECY9z8OMVwSntWtogdSW4iJOh98bgl+qLv60Ql/+f7I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZjwE27Z2Xg2UBeEpiFEtmLnqhuxHD8cunbcCToNru1M8yePcKX+cACRFBl1nSTkiM
- qgb2XOwgLBcdDoALkJ8w+KfeHlWhS/Bort449W2UzP8FN64DqapoG6ajUkbDa4O0gx
- yLDiSfBErqz4i3UbE+H9WfZ0e9B8f1tQkjbAUllzW9+T5xnwQ331wGGsffvDp6m+Xk
- GJae9hKA85FXej8/uM5HZgkRjmofdc/MYqelj+DVA0b6NdlfavOxfP1KgxTR7d448n
- uSig8rAR/WFity5EACZyeAz1Q4n4oWy116f+XVcw61rVscInIF2+PBIqZ+kT4aXNfD
- 4ec1vpAHgKIxg==
+ b=igMS66dBJ/i2g+EZRbMfV3Qac+92sRw1gUoNuxtcTRoEIL1cohH6fSdgoZTlpoS80
+ XFrA+ToVG6zFeiPeZ3f3/V6zRLFkM38vSydG8aWWi2CR5NhN3w/qqb2otxWRcgxCzP
+ kv1SmPxDbubG2vFAKNOhIPjOdvqjN6tBoGEOYFwyBSvdJnKhIjQtAp75NZJCbzHrRw
+ TRVJmy6hurC2LPJUhhWBG0c+16r4Izd39mhBgMGGB/Xb1Q7oIQiHLR8+3Y/57rVhEA
+ Memnx1QO6iOdtd7aQtGMscRxAM9UbZJzYIuroXBQG7wzy/apX6bkNUjWejzWh0npjF
+ aUh6WTfG94fuQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 31 Aug 2026 18:17:25 +0200
-Subject: [PATCH v3 09/40] drm/logicvc: Convert to atomic_create_state
+Date: Mon, 31 Aug 2026 18:17:27 +0200
+Subject: [PATCH v3 11/40] drm/lcdif: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-drm-no-more-plane-reset-v3-9-1877c7aa57b3@kernel.org>
+Message-Id: <20260831-drm-no-more-plane-reset-v3-11-1877c7aa57b3@kernel.org>
 References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 In-Reply-To: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- paulk@sys-base.io
+ Frank.Li@nxp.com, Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
+ imx@lists.linux.dev, kernel@pengutronix.de, marex@denx.de, stefan@agner.ch
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5965; i=mripard@kernel.org;
- h=from:subject:message-id; bh=8p12zpZ9zfmp51eV3qp3OFIOiWR9HMnoyrCUlmg/nNQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTV4r4iYp2hbVGNtZydKwO7bAqduPpPj1R6IRuQ4e9B
- sPEL90dU1kYhDkZZMUUWZ7IhJ1e3r64ysF+5Q+YOaxMIEMYuDgFYCKCPoz1UepP+l/FxkRpb7Q/
- zqL16955Ge0KQ7+dHK1Wp73vnq2Q0Kuf+8Boos0RcSHHLMaF+icYGx5G3C9cLdW2QlVvYT+T660
- 315WXdhi4XNXa/Z3P9rh2udilfbd0v9mm3xA/Mr9g1tFfvwE=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6141; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Z2pkX1ugEMJ+R2ckj2e922g81fn6IyGPyKnPWp5snA8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTV4ruTv1S5ach4Xa/Q1w6Ov7yqbzHRy/OePOb2U7Rz
+ SyRQ29Px1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI/hXGGp6Sb38MrnHozjps
+ pxDeYs+ds0fBmD/73hU2Ydsn0/hD874vO+0p+UDoEQeD9I4nzAo/GRtm6LysNZuuLDmpaqWMSpl
+ 0/oXaz1HJnD9Xz7XeVrFrX8b5m0qshxJtP/JZMc1KOssoaAMA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -334,28 +335,34 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: paulk@sys-base.io
+Cc: Frank.Li@nxp.com
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: festevam@gmail.com
+Cc: imx@lists.linux.dev
+Cc: kernel@pengutronix.de
+Cc: marex@denx.de
+Cc: stefan@agner.ch
 ---
- drivers/gpu/drm/logicvc/logicvc_layer.c | 2 +-
+ drivers/gpu/drm/mxsfb/lcdif_kms.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
-index 7f5ba000188a..947416856381 100644
---- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-@@ -249,11 +249,11 @@ static struct drm_plane_helper_funcs logicvc_plane_helper_funcs = {
- 
- static const struct drm_plane_funcs logicvc_plane_funcs = {
+diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+index 5f0fbec3a390..c67f58a408d0 100644
+--- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
++++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+@@ -721,11 +721,11 @@ static const struct drm_plane_helper_funcs lcdif_plane_primary_helper_funcs = {
+ static const struct drm_plane_funcs lcdif_plane_funcs = {
+ 	.format_mod_supported	= lcdif_format_mod_supported,
  	.update_plane		= drm_atomic_helper_update_plane,
  	.disable_plane		= drm_atomic_helper_disable_plane,
  	.destroy		= drm_plane_cleanup,
 -	.reset			= drm_atomic_helper_plane_reset,
-+	.atomic_create_state	= drm_atomic_helper_plane_create_state,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
  	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
  	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
  };
  
- int logicvc_layer_buffer_find_setup(struct logicvc_drm *logicvc,
+ static const u32 lcdif_primary_plane_formats[] = {
 
 -- 
 2.55.0
