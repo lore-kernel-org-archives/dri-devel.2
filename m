@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC146C624A5
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB5BC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0138A10E917;
-	Mon, 31 Aug 2026 14:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADA8210E942;
+	Mon, 31 Aug 2026 14:35:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bMoStvfv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Et776gXV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 945B310E917
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:33:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5481210E91A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:35:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 58FDB40655;
- Mon, 31 Aug 2026 14:33:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B011C1F000E9;
- Mon, 31 Aug 2026 14:33:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A47160214
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:35:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3F51F000E9;
+ Mon, 31 Aug 2026 14:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788186824;
- bh=ZL5bFu7CsTNzqvus3MEa0m6EG4X7lg8HsHo2/a5DEMQ=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=bMoStvfvvwN006vdgROgnRCHVv5olC01N//krxZXlxBtjZ7hc7zAOU0H96VgzAYhu
- Obh0HeH6W2ufSd2LuhWYA7aJU0JL4OYJeFOiWPCYnYUP8blGdS0fJ5rIu0H+YFf5dc
- aXAgoGsZYrEA3r4o+QnuZ/1MpcDijZd+UzhaKTFtZ/wUlFP61NzunD3pjPyzIZwALj
- qqzAEVKLn/WQh+qwM8vn4vD5k954/rlJx1uxjeDFFqwJN9LR5wp8yumC+mNO1JBAEe
- BchC3FAatMdskNmzumUMnYcKRo7tS6FW2sSQRju/pNkYMRc9gJRtr7s91Qlq6gfXfD
- wDqolbfbwZLog==
-Mime-Version: 1.0
+ s=k20260515; t=1788186905;
+ bh=w8I/uxUkrx9kbZEDYoyJNba5uWjbWc/AQuxAoOEAp30=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Et776gXVtHN802WU45Zn3ycJ8DGBFakfWiPkrrfmtkBViuMdqHI1QWWNumlu6XdFF
+ p2ss8M+dLciCSbFROw1zNtKC5XU37xWkJihCZ3p+CDnWOOil/7n0v+k/Aoto/VZBS/
+ /ASLkHxNB4N4fBrMvgUBHMCb+hhVw6clFKdOtcG1gO37YOfoLhaslmm8AOv8ntPNUC
+ eMxflwY3fkDkR4AJPlhQmh5Ny9MOzrUwpXY2nh6tFjgOkaAJHeW2pAoPKKc8Zgp/29
+ 1O6+M91SFYXjNPobG8GzWl7Yc7/C4+QmYhw24QcTDNx0z131OzwyiysPT/lGMr7Dfq
+ yklyeOCaCjHOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18] drm/amd/display: Avoid DPMS-on for phantom
+ stream
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831133314.4125787-127-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-127-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 16:33:40 +0200
-Message-Id: <DL37BOJC2I73.1BK0RELPBUPY2@kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 09/11] drm: nova: Report GPU name in GPU info
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-10-apopple@nvidia.com>
-In-Reply-To: <20260828033531.1117754-10-apopple@nvidia.com>
+Date: Mon, 31 Aug 2026 14:35:04 +0000
+Message-Id: <20260831143504.EA3F51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,56 +54,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
->  impl NovaCoreApi<'_> {
-> +    /// Returns the NUL-terminated full GPU name supplied by GSP-RM.
-> +    pub fn gpu_name(&self) -> [u8; 64] {
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I don't really like that we have two separate accessors for this, can't we =
-just
-use the one we already have, which also does all the validation already?
+Pre-existing issues:
+- [High] Type confusion between array of pointers and array of structs caus=
+es incorrect pipe updates for multi-pipe links.
+--
 
-The constructor of GpuInfo could look like this:
+commit 2b93ced29eb3c89bb083129e3d48fc9f319bc125
+Author: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Subject: drm/amd/display: Avoid DPMS-on for phantom stream
 
-	fn new(reg_data: &DrmRegData<'_>) -> Result<Self> {
-	    let mut info =3D uapi::drm_nova_gpu_info {
-	        architecture: reg_data.api.architecture(),
-	        implementation: reg_data.api.implementation(),
-	        ..Default::default()
-	    };
-	    let bytes =3D reg_data.api.gpu_name()?.as_bytes();
-	    info.gpu_name[..bytes.len()].copy_from_slice(bytes);
-	    Ok(Self(info))
-	}
+This commit fixes a NULL pointer dereference in the DP link training
+code path. It skips phantom streams during stream caching for updates,
+as phantom streams are destroyed during the first update call.
 
-Could also be infallible if we want to go with a fallback name, given that =
-we
-consider the firmware not providing something useful as non-fatal so far.
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.=
+c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+> index 2676ae9f6fe83..5f70793b8372e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+> @@ -143,6 +143,8 @@ static void dp_retrain_link_dp_test(struct dc_link *l=
+ink,
+>  	// Set DPMS on with stream update
+>  	// Cache all streams on current link since dc_update_planes_and_stream =
+might kill current_state
+>  	for (i =3D 0; i < MAX_PIPES; i++) {
+> +		if (state->streams[i] && state->streams[i]->is_phantom)
+> +			continue;
+>  		if (state->streams[i] && state->streams[i]->link && state->streams[i]-=
+>link =3D=3D link)
+>  			streams_on_link[num_streams_on_link++] =3D state->streams[i];
+>  	}
 
-> +        *self.gpu.gsp_static_info.gpu_name_bytes()
-> +    }
-> +
->      /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registe=
-red
->      /// by nova-core.
->      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreAp=
-i<'_>>> {
-> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
-e/gsp/commands.rs
-> index 6453184af55b..b8dc64808620 100644
-> --- a/drivers/gpu/nova-core/gsp/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/commands.rs
-> @@ -251,6 +251,11 @@ pub(crate) enum GpuNameError {
->  }
-> =20
->  impl GetGspStaticInfoReply {
-> +    /// Returns the full GPU name as a NUL-terminated byte string.
-> +    pub(crate) fn gpu_name_bytes(&self) -> &[u8; 64] {
-> +        &self.gpu_name
-> +    }
+[Severity: High]
+This isn't a bug introduced by this patch, but looking earlier in
+dp_retrain_link_dp_test(), does this code pass an array of pointers to a
+function expecting a contiguous array of structs?
 
-AFAICS there's nothing ensuring that this is actually NULL terminated? The
-existing gpu_name() method already does this.
+dp_retrain_link_dp_test() populates pipes as an array of pointers to active
+master pipes:
+
+drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c:dp_retrain_li=
+nk_dp_test() {
+    ...
+    struct pipe_ctx *pipes[MAX_PIPES];
+    ...
+    link_get_master_pipes_with_dpms_on(link, state, &count, pipes);
+    ...
+    if (needs_divider_update && link->dc->res_pool->funcs->update_dc_state_=
+for_encoder_switch) {
+        link->dc->res_pool->funcs->update_dc_state_for_encoder_switch(link,
+                link_setting, count,
+                *pipes, &audio_output[0]);
+    ...
+}
+
+It passes *pipes (the first pointer). However, the callee expects a pointer
+to an array of contiguous struct pipe_ctx objects:
+
+drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c:dcn31_update=
+_dc_state_for_encoder_switch() {
+    ...
+    for (i =3D 0; i < pipe_count; i++) {
+        link->dc->res_pool->funcs->build_pipe_pix_clk_params(&pipes[i]);
+    ...
+}
+
+Because pipes are collected from active master pipes, they may not be
+contiguous in the state->res_ctx.pipe_ctx array for multi-pipe links
+(e.g. MST). Using pointer arithmetic (&pipes[i]) here will incorrectly
+modify adjacent memory that might belong to unrelated active displays, while
+failing to update the actual target pipes.
+
+Can this lead to state corruption and display malfunction during display
+hotplug, mode set, or automated DP compliance testing?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
+787-127-sashal@kernel.org?part=3D1
