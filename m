@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB331C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A22BBC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3237A10E312;
-	Mon, 31 Aug 2026 17:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93C110E2CF;
+	Mon, 31 Aug 2026 17:11:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QMZuxQ1e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lMZfuRAR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53C1610E312
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:09:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA83210E2CF
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:11:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6933860120;
- Mon, 31 Aug 2026 17:09:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94041F000E9;
- Mon, 31 Aug 2026 17:09:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C7FC42A04
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:11:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CC41F000E9;
+ Mon, 31 Aug 2026 17:11:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788196175;
- bh=aMXmj/ThRagC+ZN5eJb1jYwcxTLcgdevLpP6+Vgnh7g=;
+ s=k20260515; t=1788196312;
+ bh=atsXagGq2H3PHDrmqg2sH5Kc6OO1zapBnI1CB5SSi5A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QMZuxQ1esB/PdIJ8nahkMnFss+MyZ0EQN/f1lc5HS8yqwyIt9W3YH2PYB0gWqAgTP
- lmXk3ZpO4/IzsdypSZan3CFhBej8jxTXGoWdW+FB8iy1J+8yxCsrABxNn3B9u30LTK
- CExjnmNnX3i9/xoLHFmVRV3QNU1ibgUXh61oqtbLUmpa4ibNrKvnVUtVPT+GU0oqKI
- xNsPgA8/61/niW8SMkXN8htyDcifwbRKY+jXLY7rQilBlthFvUKfnCvkVZ1ma1B3Dt
- TtmijIfOeQUW1JhGQ6wtmd1PrecwW1Mh4oJ+j5/Q8kjLcb/KO397qZvEWJ2njXxBRi
- 9quNacdKE7V9Q==
+ b=lMZfuRARSnZSpLjWXXpmf5Piit9BUrhtp9eEi+A9APWlBpzH0WrnQXVklh0ZsW5AN
+ 80IrmmuDlsJIxQTZlm3Knyr+LRQ06lLOVt7lqDYFHOP9IupNXYLTG2FzBI59HGLx8h
+ IDoJ/oQQJidm0+7TEdjJ7uM+Wsz26GCheTTcExKj0EkVW+6r2G7DfQN0bGBPlQdYD8
+ BxtVqRwI4pqQG/xj68i8TNLQFGzmLt3DZkvvWdlAgW6kk+rkNqQIXBrilpYN17hlPu
+ IwRj1DKpfpYKUYoMp2KgfD2XgAtQV1zlvrRSl7wWL6ZWyKQaqj/vjLgbuWhYCP/gqo
+ TaeachOy8uT4A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] accel/qaic: Add support for AI200 virtual functions
-To: "Youssef Samir" <youssef.abdulrahman@oss.qualcomm.com>
+Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/panel: jadard-jd9365da-h3: set
+ prepare_prev_first
+To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
-References: <20260831135008.1418190-1-youssef.abdulrahman@oss.qualcomm.com>
+In-Reply-To: <20260831133314.4125787-577-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-577-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 17:09:34 +0000
-Message-Id: <20260831170934.E94041F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 17:11:51 +0000
+Message-Id: <20260831171152.41CC41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,73 +58,80 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Setting `prepare_prev_first` reverses the bridge enable/disable or=
+der, causing the DSI host to drive data lanes high (LP-11) before the panel=
+ is powered on, which violates hardware power sequences.
+
 Pre-existing issues:
-- [High] System crash on VF suspend due to unconditional NULL pointer deref=
-erence of qdev->mqts_ch.
+- [High] The panel is published to the system via `drm_panel_add()` before =
+critical internal state is initialized.
 --
 
-commit 136267f1b302748ae2c7ab124a5490ff5bbea19a
-Author: Zack McKevitt <zmckevit@qti.qualcomm.com>
+commit a792999b217c12abcec671639b930a3ece58774e
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-accel/qaic: Add support for AI200 virtual functions
+drm/panel: jadard-jd9365da-h3: set prepare_prev_first
 
-This patch registers the qaic_pci_sriov_configure() callback to allow
-virtual functions to be created through the AIC200's sysfs numvfs entry.
-It also defines a new MHI family for the channels supported by AIC200 VFs.
+Sending DSI commands from the prepare() callback requires DSI link to be
+up at that point. Set the .prepare_prev_first flag to let these panels work
+with the DSI hosts which don't power on the link in their .mode_set callbac=
+k.
 
-Link: https://lore.kernel.org/all/20260814165907.C76841F00A3A@smtp.kernel.o=
-rg/
+Link: https://patch.msgid.link/20260413-waveshare-dsi-touch-v3-13-3aeb53022=
+c32@oss.qualcomm.com
 
-> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-> index 0acf6cdd44f81..6427105ebdf75 100644
-> --- a/drivers/accel/qaic/qaic_drv.c
-> +++ b/drivers/accel/qaic/qaic_drv.c
-[ ... ]
-> @@ -768,6 +814,7 @@ static struct pci_driver qaic_pci_driver =3D {
->  	.remove =3D qaic_pci_remove,
->  	.shutdown =3D qaic_pci_shutdown,
->  	.err_handler =3D &qaic_pci_err_handler,
-> +	.sriov_configure =3D qaic_pci_sriov_configure,
->  	.driver =3D {
->  		.pm =3D pm_sleep_ptr(&qaic_pm_ops),
+> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/g=
+pu/drm/panel/panel-jadard-jd9365da-h3.c
+> index 5c2530598ddb9..9e5287829b952 100644
+> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> @@ -1157,6 +1157,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device =
+*dsi)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	jadard->panel.prepare_prev_first =3D true;
+> +
 
 [Severity: High]
-This is a pre-existing issue, but since this patch introduces virtual
-functions that can be suspended, will this cause a system crash on VF suspe=
-nd?
+Does setting this flag reverse the expected hardware power sequences?
 
-When the system suspends a QAIC virtual function, qaic_pm_suspend() is call=
-ed
-via the qaic_pm_ops struct. This function unconditionally calls into the
-timesync code:
+When the display is enabled, the DRM bridge core will respect this flag by
+calling the host's pre_enable before the panel's prepare. This forces the
+host PHY to power up and drive the DSI lanes to LP-11. Then jadard_prepare()
+enables the vccio and vdd regulators.=20
 
-drivers/accel/qaic/qaic_drv.c:qaic_pm_suspend() {
-        ...
-        qaic_mqts_ch_stop_timer(qdev->mqts_ch);
-        ...
-}
+This sequence is reversed during disable, with jadard_unprepare() disabling
+regulators while the host is still driving LP-11.
 
-However, since VFs do not support or initialize the QAIC_TIMESYNC_PERIODIC
-channel, qdev->mqts_ch is always NULL for them. This leads to an unconditio=
-nal
-NULL pointer dereference when stopping the timer:
+Could driving I/O pins on unpowered silicon cause hardware latch-up and
+potential permanent damage to the panel?
 
-drivers/accel/qaic/qaic_timesync.c:qaic_mqts_ch_stop_timer() {
-        struct mqts_dev *mqtsdev =3D dev_get_drvdata(&mhi_dev->dev);
-        ...
-}
+>  	drm_panel_add(&jadard->panel);
 
-Because dev_get_drvdata accesses dev->driver_data, passing the evaluated
-address of the NULL pointer's dev struct will trigger a kernel panic. Should
-qaic_pm_suspend() or qaic_mqts_ch_stop_timer() check for a NULL channel
-before attempting to stop the timer?
+[Severity: High]
+This is a pre-existing issue, but does calling drm_panel_add() here publish
+the panel before critical internal state is initialized?
 
->  	},
->  };
+drm_panel_add() makes the panel visible globally. A concurrent thread (e.g.=
+, a
+display controller driver probe in another workqueue or returning from
+EPROBE_DEFER) can immediately acquire the panel and call its callbacks.
+
+If a callback like jadard_get_modes() is invoked, it unconditionally
+dereferences jadard->desc. Since jadard->desc is initialized in the lines
+following this drm_panel_add() call, could this lead to a NULL pointer
+dereference and kernel panic?
+
+> =20
+>  	mipi_dsi_set_drvdata(dsi, jadard);
+>  	jadard->dsi =3D dsi;
+>  	jadard->desc =3D desc;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831135008.1418=
-190-1-youssef.abdulrahman@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
+787-577-sashal@kernel.org?part=3D1
