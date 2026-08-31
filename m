@@ -4,67 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E63D4C61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F7DC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:01:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F252210E214;
-	Mon, 31 Aug 2026 09:01:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1943010E772;
+	Mon, 31 Aug 2026 09:01:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="y8DDw05V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZOstk24V";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75A4B10E214
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:01:15 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 049A64E41464;
- Mon, 31 Aug 2026 09:01:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C1D2A60231;
- Mon, 31 Aug 2026 09:01:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6B0C311C78388; 
- Mon, 31 Aug 2026 11:01:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788166868; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=T6oxC/12nbIyG/hWKvWHljzUeneLjy2WW6xRew8IQUw=;
- b=y8DDw05VRpqx6+EBYe8Kh0paGC4OlXEQn85iwNSnK6ozkBH8WL71eThmTB1aYF1yaZQ5az
- kde5NzGrZ9ZbFiP3PUTT40AAJlnEcuK8sX08rnulqazFr3bKAiuy7jUZcCV0/cu8znSHH0
- QUMv0uMuFhMNvWVLttVcDIpkjgRHkC6bF7J6bG7W7melvug4gfcB65hQHgVyQ9ArN498qE
- cCrdK6ofajyojrYumICdfGukAz55XBLYsklNukBtBdrlXbXWAJfX0Kn2pgXmhSzRGFJdQA
- j8Gso1ao1Fos2IGJym5rizTP9Fy6dYdsqyw1BQsuFEXuPOpAgfh5gxVWT5nE5w==
-Mime-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD1510E772
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:01:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B097643B6E;
+ Mon, 31 Aug 2026 09:01:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6F31F000E9;
+ Mon, 31 Aug 2026 09:01:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788166883;
+ bh=AsLvywh97tWoMLE1dP3LcmrqBMHLohFtKWi6BDw+w2w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZOstk24VMDYiLcr1tryqBNnsxtMsOA+g468k/bTS0IhuPvtOZ2rCuSepVDQuYLzx6
+ EKx7T3nOcqxXbEqfP7I4DHmMmeKzxjgC1FN3M8mL9cwYmzVoJub1MqwSstx3/AbiFb
+ PG6vFcfCGJXgtQlVEac2l97oRtMYJp5S/Z3cf8+qw5TTofIQy8TrUUcplORSpHU5cd
+ k0zz3hSyBCGCghGV3Kr9UaoG70ktbgxD4Zi4YCUCTV3SKZ/KdZjXBI0ld/KEwAXwpl
+ 4wp51ByAn4QfW96L3SQiB/aBiwXIIe/OSSH8mz/3+hQEtTRMJR314cATdFMm9mqugP
+ 8B816yYtjBufQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 09/29] drm/msm/dp: add support to enable MST in
+ mainlink control
+To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-msm-dp-mst-v6-9-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-9-c91d35d6fb9e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 11:01:00 +0200
-Message-Id: <DL308Z0JXJ31.2V3H29DTG4MSM@bootlin.com>
-Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select
- DRM_PANEL_BRIDGE
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Matthias
- Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, "Jitao Shi" <jitao.shi@mediatek.com>,
- "CK Hu" <ck.hu@mediatek.com>, "Pin-yen Lin" <treapking@chromium.org>,
- "Enric Balletbo i Serra" <eballetbo@kernel.org>
-To: "Doug Anderson" <dianders@chromium.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
- <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
- <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-In-Reply-To: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Date: Mon, 31 Aug 2026 09:01:22 +0000
+Message-Id: <20260831090123.5B6F31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,45 +54,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On Thu Aug 27, 2026 at 6:23 PM CEST, Doug Anderson wrote:
-> Hi,
->
-> On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
-lin.com> wrote:
->>
->> This driver uses the drm_panel_bridge API and not the drm_panel API so i=
-t
->> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
->
-> Which exact "drm_panel_bridge" API does it use? I don't see any...
-
-It calls devm_drm_of_get_bridge() [0], which is in bridge/panel.c [1],
-which is enabled by CONFIG_DRM_PANEL_BRIDGE [2].
-
-[0] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridge/p=
-arade-ps8640.c#L636
-[1] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/bridge/p=
-anel.c#L483-L515
-[2] https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/Makefile=
-#L159
-
-> Certainly it's highly likely that the next bridge in the chain is a
-> panel, but there are no API calls that I see. Maybe the scripts got
-> confused because the variable name didn't get updated in commit
-
-No script, just this humble human got confused X-)
-
-> 5486eac81004 ("drm/bridge: parade-ps8640: switch to
-> devm_drm_of_get_bridge") ?
-
-Luca
-
+Pre-existing issues:
+- [High] Sleeping function msleep() is called in an atomic commit context v=
+ia msm_dp_ctrl_mst_send_act().
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+commit 10a0de5e53b18299bcdd23065b77d3e1f1d02df3
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+drm/msm/dp: add support to enable MST in mainlink control
+
+This commit adds support to program the MST enable bit in the mainlink cont=
+rol=20
+register when an MST session is active or being disabled.
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+> index 65d22505c2b67..cd6ae0d5372c9 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -276,6 +276,19 @@ int msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm=
+_dp_ctrl,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it is a pre-existing High
+severity issue that persists through the end of the series.
+
+Does this code call a sleeping function from an atomic context?
+
+Looking at msm_dp_ctrl_mst_send_act(), it executes a sleeping delay:
+
+int msm_dp_ctrl_mst_send_act(...)
+{
+    ...
+    msleep(frame_time_ms);
+    ...
+}
+
+Calling a sleeping function like msleep() from an atomic context causes ker=
+nel
+warnings (might_sleep()), system instability, and potential deadlocks on hot
+paths.
+
+This appears to be triggered on an atomic commit path:
+msm_dp_display_atomic_enable() (an encoder/bridge atomic enable callback)
+calls msm_dp_display_enable(), which calls msm_dp_ctrl_on_stream(), which in
+turn calls msm_dp_ctrl_mst_send_act().
+
+A similar path exists during disable:
+msm_dp_display_atomic_disable() -> msm_dp_ctrl_mst_send_act().
+
+The DRM Subsystem Details explicitly define encoder atomic enable/disable
+callbacks as atomic context paths where sleeping is strictly forbidden. Only
+non-sleeping delays (udelay, ndelay) are safe.
+
+Checking the final state of the series (commit 48ec7f7903ee) confirms this =
+bug
+is not resolved later; dpu_encoder_mst_atomic_disable() still calls
+msm_dp_mst_stream_disable(), which reaches msm_dp_ctrl_mst_send_act() and
+sleeps.
+
+>  	return 0;
+>  }
+> =20
+> +static void msm_dp_ctrl_mst_config(struct msm_dp_ctrl_private *ctrl, boo=
+l enable)
+> +{
+> +	u32 mainlink_ctrl;
+> +
+> +	mainlink_ctrl =3D msm_dp_read_link(ctrl, REG_DP_MAINLINK_CTRL);
+> +	if (enable)
+> +		mainlink_ctrl |=3D DP_MAINLINK_CTRL_MST_EN;
+> +	else
+> +		mainlink_ctrl &=3D ~DP_MAINLINK_CTRL_MST_EN;
+> +
+> +	msm_dp_write_link(ctrl, REG_DP_MAINLINK_CTRL, mainlink_ctrl);
+> +}
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-msm-dp-mst=
+-v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D9
