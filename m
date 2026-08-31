@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01683C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AC14C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3667710E8D7;
-	Mon, 31 Aug 2026 13:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1941B10E8D8;
+	Mon, 31 Aug 2026 13:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E6UnkWmv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HrQRVHJy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E70B10E8D6;
- Mon, 31 Aug 2026 13:48:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D17910E8D8;
+ Mon, 31 Aug 2026 13:48:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 75F9E602BA;
- Mon, 31 Aug 2026 13:48:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51AD1F00ACA;
- Mon, 31 Aug 2026 13:48:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2615040496;
+ Mon, 31 Aug 2026 13:48:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A9B1F00ACA;
+ Mon, 31 Aug 2026 13:48:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184112;
- bh=fwK88PsV0/tcr1iY8Ix2BUCLb4fJksddhf7T8CmozkY=;
+ s=k20260515; t=1788184129;
+ bh=4XpzPWRoQGI3w2t017OesPnubq7Sn2y171fQixsOjZE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=E6UnkWmvVRMh6G0a20rAICgZslT9pUVoH9xsKCOrpXkvp7GgVlA1T0fYgvDH42BGf
- NYla9Jmu8aSs7k/t4ZbkXhPyQficGnnzfbAFKMUIo+FnBnSx0KqA04AkvPwRl33lK1
- VsnzxEe3Sdu2w9jqh0349+YFmLmnn/FimLPRUzi2Y6SC4tWzDJBz+V8f0JEzHDPHdy
- e+PR/cx67K1IRYPvGgp4ZMdmEJag/pssh3yBNx99EFb4mZuXktNOGmrnRBO9nTkXM7
- eTaAlR645TRGbvMXHW6nRAYomsKdCcBD35M/nIaZChajRF4ltPQFXg08oPc7/YQDI1
- ZqIAuEfUxuWCw==
+ b=HrQRVHJyzY9YgtSfeTNq05FH2Zeqq4fniuB8E8FMDYbcXRFNlldeItVxO4G6FQ2lq
+ ndOdgYcG5IL40zYvozlGRYIDVZy9N/1kuNVIEyl5v8UVvnn1pZ1Um+tJy3NYkQyNzL
+ tdz+xzFa+FMx1HXG6dohxPop0IpH4qfcpdQxpmcloY/6Nsndc7vMxbbE80tTKjQy5+
+ /IRSikofYTJ9IaOkfYvX6lamJtN4gWpJmhDFaFGqGXiJJO8/uK7ioAbOR0JxCjP6hy
+ pXu/rjBz1U2Vda59rANLLHJNohhIpZt9VIWlg1wUTeI0T9iDthPVZ1WfLEmvwgXOKw
+ gRgRghuBP1VRg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
+Cc: Yunxiang Li <Yunxiang.Li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: check find_first_zero_bit before
- __set_bit on kfd->doorbell_bitmap
-Date: Mon, 31 Aug 2026 09:28:46 -0400
-Message-ID: <20260831133314.4125787-498-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/ras: add ras_suspend callback and use
+ it for cp_ecc_error_irq
+Date: Mon, 31 Aug 2026 09:28:57 -0400
+Message-ID: <20260831133314.4125787-509-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,369 +66,558 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+From: Yunxiang Li <Yunxiang.Li@amd.com>
 
-[ Upstream commit 516bf737a5602875f6c28d1028967837c8edf2c0 ]
+[ Upstream commit e3829992dd9fa0a82511af4f01733fc854cd15a5 ]
 
-If inx from find_first_zero_bit is beyond range not need set doorbell_bitmap.
+cp_ecc_error_irq is acquired in amdgpu_gfx_ras_late_init() but
+released in gfx_v9_0_hw_fini(), so the put site has to query
+amdgpu_irq_enabled() because the get is skipped on SR-IOV VF.
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+ras_late_init / ras_fini have no suspend counterpart, so move the
+put to amdgpu_gfx_ras_suspend() / amdgpu_gfx_ras_fini() and add a
+matching ras_suspend callback that is invoked from
+amdgpu_ras_suspend() before disable_all_features().  The get and
+put now sit in the same place and check the same condition (not
+VF, funcs registered), no refcount querying needed.
+
+An active flag gates ras_fini so the
+suspend-then-unload-without-resume path falls into
+amdgpu_ras_block_late_fini_default() instead of double-releasing
+what ras_suspend already cleaned up.
+
+Drop the cp_ecc_error_irq put from gfx_v9_0_hw_fini().  gfx_v8_0
+manages cp_ecc_error_irq locally and is unaffected; no other GFX
+generation has this IRQ.
+
+Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 2664ce9143d174651a793d96a6a2326050c4f45a)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdkfd: check find_first_zero_bit
-before __set_bit on kfd->doorbell_bitmap`
+# Stable Backport Analysis: `drm/amdgpu/ras: add ras_suspend callback
+and use it for cp_ecc_error_irq`
 
-**Local tree:** `v6.18.44` (Linux 6.18.44)
-**Fix commit:** `2664ce9143d174651a793d96a6a2326050c4f45a` — **not** in
-this tree; buggy code is still present.
+**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
+**Upstream commit:** `e3829992dd9fa` (not present in this tree; cherry-
+pick applies cleanly)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/amdkfd]` `[check]` — validate `find_first_zero_bit`
-result before calling `__set_bit` on `kfd->doorbell_bitmap`.
+**Step 1.1 — Subject parse**
+Record: `[drm/amdgpu/ras]` — **add** (lifecycle fix disguised as
+infrastructure) — add `ras_suspend` callback and relocate
+`cp_ecc_error_irq` put to match its get site.
 
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Xiaogang Chen `<xiaogang.chen@amd.com>` (author)
-- **Reviewed-by:** Alex Deucher `<alexander.deucher@amd.com>` (AMD DRM
+**Step 1.2 — Tags**
+Record:
+- `Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>` (author)
+- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (subsystem
   maintainer)
-- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable`, `Tested-by:`, or
-  `Acked-by:` tags
-- `(cherry picked from commit 2664ce9143d1...)` — pipeline marker;
-  ignored per instructions
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`, or `Reviewed-by:`
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** When `find_first_zero_bit` finds no free bit, it returns `nb`
-  (the search size). The old code called `__set_bit(inx, ...)` before
-  checking whether `inx` is in range.
-- **Symptom:** Out-of-bounds bitmap write when the bitmap is exhausted;
-  on large-page systems, also leaks bitmap slots on the error path (set
-  bit, then return NULL).
-- **Root cause:** Range check was placed after `__set_bit` instead of
-  before it.
+Notable: maintainer Ack from Alex Deucher is a strong quality signal.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite the terse message, this is a memory-safety /
-resource-management fix, not cosmetic cleanup.
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** `cp_ecc_error_irq` is acquired in
+  `amdgpu_gfx_ras_late_init()` but released in `gfx_v9_0_hw_fini()`,
+  with mismatched conditions (get skipped on SR-IOV VF; put uses broader
+  RAS-support check).
+- **Symptom:** `amdgpu_irq_put()` called when IRQ was never acquired →
+  `WARN_ON(!amdgpu_irq_enabled())` in `amdgpu_irq.c:637`.
+- **Root cause:** No suspend counterpart to `ras_late_init`/`ras_fini`;
+  get/put live in different subsystems with different guards.
+- **Fix approach:** Add `ras_suspend` callback, move put to
+  `amdgpu_gfx_ras_suspend()`/`amdgpu_gfx_ras_fini()` with matching `!VF
+  && funcs` condition; add `active` flag to avoid double-release on
+  suspend-then-unload path.
+
+**Step 1.4 — Hidden bug fix?**
+Record: **Yes.** Despite "add callback" wording, this is a reference-
+counting / lifecycle bug fix. It corrects asymmetric IRQ get/put that
+can trigger kernel warnings and incorrect teardown ordering.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c` (+5 / -3 lines)
-- **Function:** `kfd_get_kernel_doorbell()`
-- **Scope:** Single-file, surgical fix
+**Step 2.1 — Inventory**
+Record:
+| File | Change |
+|------|--------|
+| `amdgpu_gfx.c` | +26/-4 |
+| `amdgpu_gfx.h` | +3/-1 |
+| `amdgpu_ras.c` | +32/-4 |
+| `amdgpu_ras.h` | +1 |
+| `gfx_v9_0.c` | -2 |
+| **Total** | +53/-11, 5 files |
 
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** lock → `find_first_zero_bit` → `__set_bit` → unlock → if
-  `inx >= 1024` return NULL
-- **After:** lock → `find_first_zero_bit` → if `inx >= 1024` unlock and
-  return NULL → `__set_bit` → unlock
-- **Affected path:** Error path when no kernel doorbell slot is
-  available
+Functions modified: `amdgpu_gfx_ras_late_init`, new
+`amdgpu_gfx_ras_suspend`, new `amdgpu_gfx_ras_fini`,
+`amdgpu_gfx_ras_sw_init`, `amdgpu_ras_suspend`, `amdgpu_ras_late_init`,
+`amdgpu_ras_fini`, `gfx_v9_0_hw_fini`.
 
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Out-of-bounds access / bitmap resource leak
-- **Mechanism:** `doorbell_bitmap` is allocated with
-  `bitmap_zalloc(PAGE_SIZE / sizeof(u32))` (1024 bits on 4 KiB pages).
-  `find_first_zero_bit(..., PAGE_SIZE / sizeof(u32))` returns `1024`
-  when full. `__set_bit(1024, ...)` writes past the end of a 1024-bit
-  bitmap. On larger pages, indices 1024..(PAGE_SIZE/4-1) could be set
-  and then discarded via `return NULL`, leaking slots.
+Scope: **single-subsystem, surgical** (amdgpu RAS/GFX9).
 
-### Step 2.4: Fix quality
-**Record:**
-- Obviously correct; mirrors the process-doorbell pattern in
-  `kfd_device_queue_manager.c` (check before `set_bit`)
-- Minimal change, no API changes
-- **Regression risk:** Very low — only affects the exhaustion error path
+**Step 2.2 — Code flow per hunk**
+
+| Hunk | Before → After |
+|------|----------------|
+| `amdgpu_gfx_ras_late_init` | VF early-return then separate `irq_get` →
+combined `!VF && funcs` guard for `irq_get` |
+| New `amdgpu_gfx_ras_suspend` | No suspend cleanup → `irq_put` with
+same guard as get |
+| New `amdgpu_gfx_ras_fini` | No gfx-specific fini (header-only orphan
+declaration) → `irq_put` + `amdgpu_ras_block_late_fini` |
+| `amdgpu_gfx_ras_sw_init` | Only sets `ras_late_init` → also sets
+default `ras_suspend` and `ras_fini` |
+| `amdgpu_ras_suspend` | Only disables RAS features → iterates blocks,
+calls `ras_suspend`, clears `active` |
+| `amdgpu_ras_late_init` | No tracking → sets `node->active = true`
+after successful late_init |
+| `amdgpu_ras_fini` | Always calls custom `ras_fini` if supported →
+gated by `ras_node->active` to avoid double-cleanup after suspend |
+| `gfx_v9_0_hw_fini` | `irq_put(cp_ecc_error_irq)` if RAS supported →
+removed (now handled in RAS layer) |
+
+**Step 2.3 — Bug mechanism**
+Record: **Reference counting / resource lifecycle bug.**
+- Get: `amdgpu_irq_get()` in `amdgpu_gfx_ras_late_init()` — only when
+  `!amdgpu_sriov_vf(adev) && cp_ecc_error_irq.funcs`.
+- Put (current tree): `amdgpu_irq_put()` in `gfx_v9_0_hw_fini()` — when
+  `amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX)` only.
+- On SR-IOV VF with RAS telemetry enabled, late_init runs (see
+  `amdgpu_ras_late_init` VF check) but gfx `irq_get` is skipped; hw_fini
+  still calls `irq_put` before the VF early-return → `WARN_ON` in
+  `amdgpu_irq_put()`.
+
+**Step 2.4 — Fix quality**
+Record: Fix is **obviously correct** — symmetric get/put with identical
+conditions, proper suspend hook, `active` flag prevents double-release.
+Minimal regression risk: no blocks currently register custom `ras_fini`
+in this tree (verified via grep), so the `active` flag behavior only
+affects the newly registered gfx callbacks.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-**Record:**
-- Function dates to 2014 (`19f6d2a660340d`, Oded Gabbay)
-- `find_first_zero_bit` with `PAGE_SIZE / sizeof(u32)` added in
-  `c31866651086fc` (Jul 2023, Shashank Sharma)
-- The check-after-set pattern predates 2023; the 2023 change did not
-  introduce the ordering bug, but kept it
+**Step 3.1 — Blame**
+Record:
+- `gfx_v9_0_hw_fini` put lines: `d97b02bb9c7aa` (May 2023) — prior fix
+  for put-without-get when legacy GFX RAS disabled; did not fix VF
+  condition mismatch.
+- `irq_get` in `amdgpu_gfx_ras_late_init`: `6caeee7a708c0` (Sep 2019).
+- Buggy asymmetric lifecycle present since **v5.x** era; still present
+  in **6.18.44**.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag present.
+**Step 3.2 — Fixes: tag**
+Record: Not applicable (no `Fixes:` tag). Related prior fix
+`d97b02bb9c7aa` is in this tree but incomplete for the VF/get-put
+mismatch.
 
-### Step 3.3: Related file history
-**Record:**
-- Recent `kfd_doorbell.c` changes are doorbell-manager refactors (2023)
-- No related fix for this issue already in the tree
-- Part of a 3-patch series per b4; patch 1 is unrelated
-  (`AMDKFD_IOC_GET_DMABUF_INFO`)
+**Step 3.3 — File history**
+Record: Part of 2-patch series `[PATCH 0/2] drm/amdgpu: balance GFX IRQ
+get/put across init/suspend/fini`. This commit is **patch 1/2** and is
+**self-contained** for `cp_ecc_error_irq`. Patch 2/2 (`9117d8be850ba` on
+master) addresses fault/EOP IRQs separately and is **not a
+prerequisite**.
 
-### Step 3.4: Author context
-**Record:** Xiaogang Chen is an AMD contributor; Alex Deucher
-(maintainer) reviewed and committed.
+**Step 3.4 — Author context**
+Record: Yunxiang Li is an AMD contributor. Alex Deucher (maintainer)
+Acked and committed.
 
-### Step 3.5: Dependencies
-**Record:** Standalone — no prerequisite commits required. Applies
-cleanly to current `kfd_doorbell.c`.
+**Step 3.5 — Dependencies**
+Record: **Standalone.** Cherry-pick to 6.18.44 applies cleanly with
+auto-merge. No prerequisite commits required.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:**
-- **b4 dig URL:**
-  https://patch.msgid.link/20260528184656.123149-2-xiaogang.chen@amd.com
-- **Series:** `[PATCH 2/3]` — patch 1 is unrelated ioctl work
-- Lore fetch blocked by bot protection; thread content not directly
-  readable
+**Step 4.1 — Original discussion**
+Record:
+- URL:
+  https://patch.msgid.link/20260527233504.1830940-2-Yunxiang.Li@amd.com
+- Series: v1 only (no v2/v3 revisions found)
+- Patch 1/2 of 2-patch series
 
-### Step 4.2: Reviewers
-**Record:** CC'd to `amd-gfx@lists.freedesktop.org`; Reviewed-by Alex
-Deucher (maintainer).
+**Step 4.2 — Reviewers**
+Record: CC'd to `amd-gfx@lists.freedesktop.org`, Alex Deucher, Christian
+König. Alex Deucher Acked.
 
-### Step 4.3: Bug reports
-**Record:** No external bug report, syzbot report, or crash trace
-referenced.
+**Step 4.3 — Bug report**
+Record: No external bug report or syzbot link. Mechanism is documented
+in commit message; similar prior bug (`d97b02bb9c7aa`) had stack trace
+from `gfx_v9_0_hw_fini` → `amdgpu_irq_put` during suspend.
 
-### Step 4.4: Related patches
-**Record:** Patch 2/3 is independent of patches 1 and 3 for this fix's
-correctness.
+**Step 4.4 — Related patches**
+Record: Patch 2/2 (`drm/amdgpu/gfx: move fault and EOP IRQ get/put to
+hw_init/hw_fini`) is independent. Not required for this fix.
 
-### Step 4.5: Stable list history
-**Record:** Not searched separately; no stable nomination found in
-commit metadata.
+**Step 4.5 — Stable list history**
+Record: No `Cc: stable` nomination found in thread. Not a negative
+signal per instructions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `kfd_get_kernel_doorbell()`, `kfd_release_kernel_doorbell()`
+**Step 5.1 — Key functions**
+Record: `amdgpu_gfx_ras_late_init`, `amdgpu_gfx_ras_suspend`,
+`amdgpu_gfx_ras_fini`, `amdgpu_ras_suspend`, `amdgpu_ras_late_init`,
+`amdgpu_ras_fini`, `gfx_v9_0_hw_fini`, `amdgpu_irq_get`,
+`amdgpu_irq_put`.
 
-### Step 5.2: Callers
-**Record:**
-- `kfd_kernel_queue.c:76` — `kernel_queue_init()` for HIQ/DIQ queues
-- Typically 1–2 kernel queues per KFD device (HIQ + optional DIQ)
-- Error path at line 78–80 handles NULL return
+**Step 5.2 — Callers**
+Record:
+- `amdgpu_ras_suspend` ← `amdgpu_device_suspend()` (line 5261) —
+  **system suspend path**
+- `gfx_v9_0_hw_fini` ← `gfx_v9_0_suspend` ← `amdgpu_ip_block_suspend` ←
+  `amdgpu_device_ip_suspend_phase2` — **suspend and driver unload**
+- `amdgpu_ras_late_init` ← `amdgpu_device_ip_late_init` — boot and
+  **resume** (line 5365)
+- `amdgpu_ras_fini` ← `amdgpu_device_ip_fini` — driver unload
 
-### Step 5.3: Callees
-**Record:** `mutex_lock/unlock`, `find_first_zero_bit`, `__set_bit`,
-`amdgpu_doorbell_index_on_bar`
+**Step 5.3 — Key callees**
+Record: `amdgpu_irq_get/put` (atomic refcount on `enabled_types`),
+`amdgpu_ras_block_late_fini`, `amdgpu_ras_disable_all_features`.
 
-### Step 5.4: Reachability
-**Record:**
-- Triggered during KFD device init / debug-queue setup (`CONFIG_HSA_AMD`
-  / AMDGPU KFD)
-- Not directly userspace-syscall reachable, but reachable during GPU
-  compute driver init
-- Exhaustion requires ~1024 allocations without release — unrealistic in
-  normal use (~2 kernel queues), but possible with a doorbell leak
+**Step 5.4 — Reachability**
+Record: **Yes, reachable from normal operations:**
+- System suspend/resume (laptop, server)
+- SR-IOV VF with RAS telemetry
+- Driver unload after suspend (no resume)
+- Config: `CONFIG_DRM_AMDGPU` + GFX9 hardware + RAS enabled
 
-### Step 5.5: Similar patterns
-**Record:** Process doorbells in `kfd_device_queue_manager.c:484–490`
-already check `found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` **before**
-`set_bit`. This fix aligns kernel doorbells with that correct pattern.
-
----
-
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
-
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Current tree at lines 155–162 still has check-
-after-set:
-
-```155:162:drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-        mutex_lock(&kfd->doorbell_mutex);
-        inx = find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE /
-sizeof(u32));
-
-        __set_bit(inx, kfd->doorbell_bitmap);
-        mutex_unlock(&kfd->doorbell_mutex);
-
-        if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
-                return NULL;
-```
-
-Bitmap allocation at line 75: `bitmap_zalloc(PAGE_SIZE / sizeof(u32))` —
-1024 bits on 4 KiB pages. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` = 1024
-(`kfd_priv.h:97`).
-
-### Step 6.2: Backport difficulty
-**Record:** Clean apply expected — 8-line hunk, no conflicts observed.
-
-### Step 6.3: Related fixes already present?
-**Record:** None. `git merge-base --is-ancestor 2664ce9143d1 HEAD` →
-NOT_IN_TREE.
+**Step 5.5 — Similar patterns**
+Record: Prior fix `d97b02bb9c7aa` addressed same `amdgpu_irq_put` WARN
+class for different condition (`amdgpu_ras_is_supported` vs actually
+enabled). Patch 2/2 in the series addresses similar get/put split for
+other GFX IRQs.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/amd/amdkfd` — **PERIPHERAL** (AMD GPU
-compute / ROCm users with `CONFIG_HSA_AMD`)
+**Step 6.1 — Buggy code exists?**
+Record: **Yes.** Current 6.18.44 tree has:
+- `irq_get` in `amdgpu_gfx_ras_late_init` with VF skip (lines 937-943)
+- `irq_put` in `gfx_v9_0_hw_fini` with only `amdgpu_ras_is_supported`
+  guard (lines 4087-4088)
+- No `ras_suspend` callback infrastructure
+- Orphan `amdgpu_gfx_ras_fini` declaration in header with no
+  implementation
 
-### Step 7.2: Activity
-**Record:** Actively maintained; recent doorbell-manager refactoring in
-2023.
+**Step 6.2 — Backport complications**
+Record: **Clean apply** — tested via `git cherry-pick --no-commit
+e3829992dd9fa`, auto-merged all 5 files.
+
+**Step 6.3 — Related fixes already present?**
+Record: `d97b02bb9c7aa` (partial fix) is in tree. This commit is not
+duplicated; it completes the lifecycle fix.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1 — Subsystem criticality**
+Record: `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU driver,
+widely deployed on desktops, laptops, servers, cloud VF).
+
+**Step 7.2 — Activity**
+Record: Actively maintained; RAS subsystem receives regular fixes in
+6.18.y.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** AMD GPU users with KFD/ROCm enabled — not universal, but
-real production users.
+**Step 8.1 — Who is affected**
+Record: Users of **AMD GFX9 GPUs** with **RAS enabled** — especially
+**SR-IOV virtual functions** with RAS telemetry, and any system using
+suspend/resume with RAS.
 
-### Step 8.2: Trigger conditions
-**Record:**
-- All doorbell bitmap slots consumed (1024 on 4 KiB pages)
-- Normal operation uses ~2 kernel doorbells per device
-- **Likelihood:** Very low without a resource leak; **possible** with a
-  leak bug
+**Step 8.2 — Trigger conditions**
+Record:
+- SR-IOV VF + RAS telemetry + suspend → **high likelihood** of
+  `amdgpu_irq_put` WARN
+- Suspend → unload without resume with new `ras_fini` → potential double
+  `irq_put` without `active` flag
+- Non-VF suspend/resume works today but has architectural fragility
 
-### Step 8.3: Failure mode severity
-**Record:**
-- **OOB `__set_bit`:** Memory corruption adjacent to bitmap → potential
-  crash or unpredictable behavior — **HIGH** if triggered
-- **Bitmap leak (large pages):** Gradual exhaustion — **MEDIUM**
-- **Practical impact today:** Low due to unlikely trigger
+**Step 8.3 — Failure mode severity**
+Record: `WARN_ON` in `amdgpu_irq_put` during suspend — **MEDIUM**
+(kernel warning, incorrect IRQ state; not typically a panic but
+indicates broken refcounting). Suspend-then-unload double-release —
+**MEDIUM-HIGH** (refcount underflow / further WARNs).
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Prevents OOB write and bitmap leaks on error path; aligns
-  with existing correct pattern
-- **Risk:** Minimal — 5-line reorder/addition on error path only
-- **Ratio:** Favorable — near-zero risk, real correctness fix
+**Step 8.4 — Risk-benefit**
+Record:
+- **Benefit:** HIGH for enterprise VF/cloud; MEDIUM for general amdgpu
+  suspend users
+- **Risk:** LOW — 53 lines, localized, maintainer-acked, applies
+  cleanly, no custom `ras_fini` handlers exist in tree to be disrupted
+- **Ratio:** Favorable
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+**Step 9.1 — Evidence summary**
 
-**FOR backport:**
-- Real out-of-bounds bitmap write when exhausted
-- Obviously correct; maintainer-reviewed
-- Small, self-contained, clean apply
-- Matches established pattern in same subsystem
-- Buggy code confirmed present in v6.18.44
-- Memory-safety class of fix
+| FOR backport | AGAINST backport |
+|---|---|
+| Fixes real refcounting/lifecycle bug | Part of 2-patch series (but
+patch 1 is self-contained) |
+| Triggerable on suspend (common path) | No syzbot/user report attached
+|
+| SR-IOV VF path clearly broken in current code | WARN severity, not
+panic |
+| Maintainer Acked-by Alex Deucher | |
+| Applies cleanly to 6.18.44 | |
+| Small, contained (53 lines) | |
+| Similar prior fix (`d97b02`) was stable material | |
+| Resume path re-acquires via `amdgpu_ras_late_init` in
+`amdgpu_device_resume` | |
 
-**AGAINST backport:**
-- No user reports or fuzzer findings
-- Trigger extremely unlikely in normal kernel-queue usage (~2 doorbells)
-- Bug present since 2014 without known incidents
-- Config/driver-specific (AMD KFD only)
+**Step 9.2 — Stable rules checklist**
 
-**Unresolved:** None affecting the decision.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — symmetric lifecycle,
+maintainer ack; no explicit Tested-by |
+| 2. Fixes real bug affecting users? | **PASS** — VF suspend WARN,
+suspend/unload edge case |
+| 3. Important issue? | **PASS** — MEDIUM severity (WARN, IRQ refcount
+corruption class) |
+| 4. Small and contained? | **PASS** — 5 files, 53 insertions |
+| 5. No new features/APIs? | **PASS** — internal driver callback only |
+| 6. Can apply to local tree? | **PASS** — clean cherry-pick verified |
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — logic verified; maintainer
-   reviewed (no runtime test cited)
-2. Fixes a real bug? **PASS** — OOB `__set_bit` on exhaustion
-3. Important issue? **PASS** — memory corruption (severity high if
-   triggered; trigger rare)
-4. Small and contained? **PASS** — 8 lines, one function
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — code exists; fix not yet applied
+**Step 9.3 — Exception categories**
+Record: None (not device ID, quirk, DT, build fix, or docs).
 
-### Step 9.3: Exception categories
-**Record:** None (not a quirk, device ID, DT, build, or docs fix).
-
-### Step 9.4: Decision rationale
-
-This is a small, maintainer-reviewed memory-safety fix for a genuine
-ordering bug: `__set_bit` was called before validating the index
-returned by `find_first_zero_bit`. When the bitmap is full, that is an
-out-of-bounds write. The trigger is rare for kernel doorbells (only
-HIQ/DIQ, typically ~2 per device), but the fix is trivial, matches the
-correct pattern already used for process doorbells in the same driver,
-and has essentially no regression risk. For the 6.18.y stable tree where
-the buggy code is present and the fix is absent, this meets stable
-kernel criteria.
+**Step 9.4 — Decision rationale**
+This commit fixes a longstanding asymmetric IRQ lifecycle in the amdgpu
+RAS/GFX9 path that can trigger `WARN_ON` during system suspend on SR-IOV
+VFs and creates fragile teardown on suspend-then-unload. The fix is
+small, maintainer-reviewed, applies cleanly to 6.18.44, and the affected
+code is present in this tree. The benefit outweighs the low regression
+risk.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** `git show 2664ce9143d1` — parsed message and tags
-- **[Phase 2]** Read `kfd_doorbell.c:149–176` — confirmed check-after-
-  set bug; analyzed diff
-- **[Phase 2]** `kfd_priv.h:97` — `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
-  1024
-- **[Phase 2]** `kfd_doorbell.c:75` — bitmap sized `PAGE_SIZE /
-  sizeof(u32)` bits
-- **[Phase 3]** `git blame -L 150,176 kfd_doorbell.c` — function history
-  since 2014
-- **[Phase 3]** `git show c31866651086fc` — 2023 doorbell-mgr refactor
-- **[Phase 3]** `git show 19f6d2a660340d` — original code had same
-  ordering bug
-- **[Phase 3]** `git log --oneline -15 -- kfd_doorbell.c` — no duplicate
-  fix
-- **[Phase 4]** `b4 dig -c 2664ce9143d1` — lore URL found; patch 2/3 of
-  series
-- **[Phase 4]** `b4 dig -w` — amd-gfx list CC'd
-- **[Phase 4]** `b4 dig -a` — v1 series identified
-- **[Phase 5]** `grep kfd_get_kernel_doorbell` — caller in
-  `kfd_kernel_queue.c:76`
-- **[Phase 5]** Read `kfd_kernel_queue.c:76–80, 191, 224` — NULL
-  handled; release on cleanup
-- **[Phase 5]** Read `kfd_device_queue_manager.c:484–490` — correct
-  check-before-set pattern
-- **[Phase 6]** `git describe HEAD` — v6.18.44
-- **[Phase 6]** `git merge-base --is-ancestor 2664ce9143d1 HEAD` —
-  NOT_IN_TREE
-- **[Phase 6]** Read current `kfd_doorbell.c` — buggy code confirmed
-  present
+- [Phase 1] Parsed subject, tags, body; identified hidden refcounting
+  bug
+- [Phase 2] Analyzed all 5 file diffs; classified as reference-
+  counting/lifecycle fix
+- [Phase 3] `git blame` on `gfx_v9_0.c:4087-4088` → `d97b02bb9c7aa`
+  (2023); `irq_get` introduced `6caeee7a708c0` (2019); both ancestors in
+  tree
+- [Phase 3] `git log --grep` found commit `e3829992dd9fa` on
+  `origin/master`; not ancestor of HEAD (not in 6.18.44)
+- [Phase 3] Confirmed patch 1/2 is standalone; patch 2/2
+  (`9117d8be850ba`) is separate
+- [Phase 4] `b4 dig -c e3829992dd9fa` →
+  https://patch.msgid.link/20260527233504.1830940-2-Yunxiang.Li@amd.com
+- [Phase 4] `b4 dig -a` → v1 only
+- [Phase 4] `b4 dig -w` → CC: amd-gfx, Alex Deucher, Christian König
+- [Phase 4] No stable nomination in thread
+- [Phase 5] Traced callers: `amdgpu_device_suspend` →
+  `amdgpu_ras_suspend`; `gfx_v9_0_suspend` → `gfx_v9_0_hw_fini`
+- [Phase 5] Read `amdgpu_irq_put` at `amdgpu_irq.c:637` —
+  `WARN_ON(!amdgpu_irq_enabled())`
+- [Phase 5] Grep: no `.ras_fini =` assignments in tree (no custom
+  ras_fini handlers)
+- [Phase 6] `git describe HEAD` → v6.18.44; buggy code confirmed at
+  `amdgpu_gfx.c:937-943`, `gfx_v9_0.c:4087-4088`
+- [Phase 6] `git cherry-pick --no-commit e3829992dd9fa` → clean auto-
+  merge on all 5 files
+- [Phase 6] `amdgpu_device_resume` calls `amdgpu_device_ip_late_init` →
+  `amdgpu_ras_late_init` (re-acquires IRQ on resume)
+- [Phase 8] Failure mode: WARN_ON during VF suspend — MEDIUM severity
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 26 ++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 32 +++++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  2 --
+ 5 files changed, 53 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 05c74887fd6fd..fdcf7f2d1b5b4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -153,14 +153,16 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
- 	u32 inx;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 40e7482980692..46c0b986db51d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -934,10 +934,7 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
+ 		if (r)
+ 			return r;
  
- 	mutex_lock(&kfd->doorbell_mutex);
-+
- 	inx = find_first_zero_bit(kfd->doorbell_bitmap, PAGE_SIZE / sizeof(u32));
-+	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
-+		mutex_unlock(&kfd->doorbell_mutex);
-+		return NULL;
-+	}
- 
- 	__set_bit(inx, kfd->doorbell_bitmap);
- 	mutex_unlock(&kfd->doorbell_mutex);
- 
--	if (inx >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
--		return NULL;
+-		if (amdgpu_sriov_vf(adev))
+-			return r;
 -
- 	*doorbell_off = amdgpu_doorbell_index_on_bar(kfd->adev,
- 						     kfd->doorbells,
- 						     inx,
+-		if (adev->gfx.cp_ecc_error_irq.funcs) {
++		if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs) {
+ 			r = amdgpu_irq_get(adev, &adev->gfx.cp_ecc_error_irq, 0);
+ 			if (r)
+ 				goto late_fini;
+@@ -952,6 +949,21 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
+ 	return r;
+ }
+ 
++void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev,
++			    struct ras_common_if *ras_block)
++{
++	if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs)
++		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
++}
++
++void amdgpu_gfx_ras_fini(struct amdgpu_device *adev,
++			 struct ras_common_if *ras_block)
++{
++	if (!amdgpu_sriov_vf(adev) && adev->gfx.cp_ecc_error_irq.funcs)
++		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
++	amdgpu_ras_block_late_fini(adev, ras_block);
++}
++
+ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
+ {
+ 	int err = 0;
+@@ -980,6 +992,12 @@ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
+ 	if (!ras->ras_block.ras_late_init)
+ 		ras->ras_block.ras_late_init = amdgpu_gfx_ras_late_init;
+ 
++	if (!ras->ras_block.ras_suspend)
++		ras->ras_block.ras_suspend = amdgpu_gfx_ras_suspend;
++
++	if (!ras->ras_block.ras_fini)
++		ras->ras_block.ras_fini = amdgpu_gfx_ras_fini;
++
+ 	/* If not defined special ras_cb function, use default ras_cb */
+ 	if (!ras->ras_block.ras_cb)
+ 		ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index fb5f7a0ee029f..8949037b62a43 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -603,7 +603,8 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
+ int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+-void amdgpu_gfx_ras_fini(struct amdgpu_device *adev);
++void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
++void amdgpu_gfx_ras_fini(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+ int amdgpu_get_gfx_off_entrycount(struct amdgpu_device *adev, u64 *value);
+ int amdgpu_get_gfx_off_residency(struct amdgpu_device *adev, u32 *residency);
+ int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 4c1a65fffede7..16ae44e131ad4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -92,6 +92,9 @@ struct amdgpu_ras_block_list {
+ 	struct list_head node;
+ 
+ 	struct amdgpu_ras_block_object *ras_obj;
++
++	/* set by ras_late_init, cleared by ras_suspend/ras_fini */
++	bool active;
+ };
+ 
+ const char *get_ras_block_str(struct ras_common_if *ras_block)
+@@ -4392,10 +4395,23 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
+ void amdgpu_ras_suspend(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct amdgpu_ras_block_list *node;
++	struct amdgpu_ras_block_object *obj;
+ 
+ 	if (!adev->ras_enabled || !con)
+ 		return;
+ 
++	/* run per-block ras_suspend before tearing down the RAS context */
++	list_for_each_entry(node, &adev->ras_list, node) {
++		if (!node->active)
++			continue;
++
++		obj = node->ras_obj;
++		if (obj && obj->ras_suspend)
++			obj->ras_suspend(adev, &obj->ras_comm);
++		node->active = false;
++	}
++
+ 	amdgpu_ras_disable_all_features(adev, 0);
+ 	/* Make sure all ras objects are disabled. */
+ 	if (AMDGPU_RAS_GET_FEATURES(con->features))
+@@ -4449,8 +4465,15 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
+ 					obj->ras_comm.name, r);
+ 				return r;
+ 			}
+-		} else
+-			amdgpu_ras_block_late_init_default(adev, &obj->ras_comm);
++		} else {
++			r = amdgpu_ras_block_late_init_default(adev, &obj->ras_comm);
++			if (r) {
++				dev_err(adev->dev, "%s failed to execute ras_block_late_init_default! ret:%d\n",
++					obj->ras_comm.name, r);
++				return r;
++			}
++		}
++		node->active = true;
+ 	}
+ 
+ 	return 0;
+@@ -4487,11 +4510,12 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+ 	list_for_each_entry_safe(ras_node, tmp, &adev->ras_list, node) {
+ 		if (ras_node->ras_obj) {
+ 			obj = ras_node->ras_obj;
+-			if (amdgpu_ras_is_supported(adev, obj->ras_comm.block) &&
+-			    obj->ras_fini)
++			/* fall back to default cleanup if ras_suspend already ran */
++			if (ras_node->active && obj->ras_fini)
+ 				obj->ras_fini(adev, &obj->ras_comm);
+ 			else
+ 				amdgpu_ras_block_late_fini_default(adev, &obj->ras_comm);
++			ras_node->active = false;
+ 		}
+ 
+ 		/* Clear ras blocks from ras_list and free ras block list node */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 6cf0dfd38be8b..8160c4d598543 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -731,6 +731,7 @@ struct amdgpu_ras_block_object {
+ 	int (*ras_block_match)(struct amdgpu_ras_block_object *block_obj,
+ 				enum amdgpu_ras_block block, uint32_t sub_block_index);
+ 	int (*ras_late_init)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
++	void (*ras_suspend)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+ 	void (*ras_fini)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+ 	ras_ih_cb ras_cb;
+ 	const struct amdgpu_ras_block_hw_ops *hw_ops;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index c5549a5abcd43..9d7214bcaadb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -4084,8 +4084,6 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+-	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
+-		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
+ 	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+ 	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+ 	amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
 -- 
 2.53.0
 
