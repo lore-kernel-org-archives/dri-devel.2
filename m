@@ -4,53 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE18C624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8723CC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8D610E894;
-	Mon, 31 Aug 2026 13:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF2B710E898;
+	Mon, 31 Aug 2026 13:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bf6xtnwA";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ypPd5Cbg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+mpBXmlM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Z4EiA1w2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cJ5vZl/K";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8816710E894;
- Mon, 31 Aug 2026 13:43:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2B0360238;
- Mon, 31 Aug 2026 13:43:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524111F00ACA;
- Mon, 31 Aug 2026 13:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183808;
- bh=psClh4hrb8WRXaHOA+7YUWMNqjmF3EMw8eZUp8Sw7rg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Bf6xtnwAnfmYBHQ5hL9567+brZWCaeyYC0j+PVuJPOnA3SYNUFSE6mwDpP+cuZJlE
- SY/1q8wiJUf+8boJ7QZLiLMWC9AA1DXFzE7tbCUyTXk2SgbS9e7b2O7DEEdvp9O8Ly
- 9/55sUZ2KZziCaiUomJ14iqyqkQbYYYcAiIAUz1WTJ4EPoHDjj3UMVnTqJhFu23uBa
- O6QuuX2WUDDaQR9bN1aHctZuEm+mBUlx++/rsWNMl03/ka5VrwPYNmwrPyGMXxaGB6
- 59F/hQWOk2+lvcmN/051wwmshK3Z2h2Ecu5EKih5MfIko6rEXaCSLTAoa1yL1iHypm
- KRtsyCYezrmYA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Xiang Liu <xiang.liu@amd.com>, "Stanley.Yang" <Stanley.Yang@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/ras: reset CPER ring on corrupt entry
- size
-Date: Mon, 31 Aug 2026 09:25:45 -0400
-Message-ID: <20260831133314.4125787-317-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4C3910E898
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:43:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 550E61FD3D;
+ Mon, 31 Aug 2026 13:43:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788183798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pvDe9DXy2/YFgDABCJ+VWyiyngHjo5GiNuW8ZNScJnQ=;
+ b=ypPd5CbgZnCvj3WOTcXl7aANQQY2pGOfla8mevfXX8F4xKeTXSrXHLHHOacYOSfQWgi0/H
+ cWw0ETWG13tXyR9nztW35wUS0ROrPOwQ94GagF+b/OlNxOt4lfhffJZI6JaUgntygIGh7Y
+ VfMHMTVCeadxgl/dYaIE/zqV/SbNbOQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788183798;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pvDe9DXy2/YFgDABCJ+VWyiyngHjo5GiNuW8ZNScJnQ=;
+ b=+mpBXmlMJpxH5Fwf52L9vhiOPlnxzu+cpLQNBfI8Xrc4Ti5UGsyllJqrfByyQ5aaSIgrCz
+ AII7/8CI2iXhlTAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788183794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pvDe9DXy2/YFgDABCJ+VWyiyngHjo5GiNuW8ZNScJnQ=;
+ b=Z4EiA1w2Bd8XibPMFbxMAs1tTVRYS+BypiCGRonbLf54PvaPnr0iHIjlqFYnlckWWsqf+Y
+ lfY3SQTJYPfJXuzNCGd+RTILmrjchf3TOPq8/uk8zzV8oRKJ7+Z2TTdPqEZ57GVhaqQbCd
+ 8Z1lHIo/FDd2ts0TMPzC2zTNmy5c33c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788183794;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=pvDe9DXy2/YFgDABCJ+VWyiyngHjo5GiNuW8ZNScJnQ=;
+ b=cJ5vZl/K2RC6WB15rabjyfsmcqpxRGOx14DFFj8ogJbjbx+NsYbdVJFVL43bFrrjRF+WMG
+ FkvVbI1P505POUDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E22E413515;
+ Mon, 31 Aug 2026 13:43:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id p/baNfGElWrQTwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 31 Aug 2026 13:43:13 +0000
+Message-ID: <abe7ae7c-9df7-44d2-8760-2378fc72cf38@suse.de>
+Date: Mon, 31 Aug 2026 15:43:13 +0200
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/sysfb: Use preferred panel size for panel
+ orientation quirks
+To: Jani Nikula <jani.nikula@linux.intel.com>, javierm@redhat.com,
+ ardb@kernel.org, ilias.apalodimas@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <20260831093020.494701-1-tzimmermann@suse.de>
+ <20260831093020.494701-4-tzimmermann@suse.de>
+ <81d5820013693b38a88084d6818c5809373c16c2@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <81d5820013693b38a88084d6818c5809373c16c2@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[linux.intel.com,redhat.com,kernel.org,linaro.org,ffwll.ch,gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
+ bootlin.com:url, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,409 +143,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Xiang Liu <xiang.liu@amd.com>
+Hi
+
+Am 31.08.26 um 15:23 schrieb Jani Nikula:
+> On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Sysfb drivers currently use the given display mode for looking up the
+>> panel orientation. But the look-up table stores the native geometry of
+>> the panels, so the lookup fails if the current mode sizes differs.
+>>
+>> Get the panel's native geometry with drm_edid_get_preferred_size() from
+>> the EDID and use it for looking up the panel orientation.
+>>
+>> v2:
+>> - ofdrm: validate EDID header before using it (Sashiko)
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+>> ---
+>>   drivers/gpu/drm/sysfb/efidrm.c  | 17 ++++++++++++++++-
+>>   drivers/gpu/drm/sysfb/ofdrm.c   | 18 ++++++++++++++++--
+>>   drivers/gpu/drm/sysfb/vesadrm.c | 17 ++++++++++++++++-
+>>   3 files changed, 48 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
+>> index 3f9cd5d03efb..7a7d12003304 100644
+>> --- a/drivers/gpu/drm/sysfb/efidrm.c
+>> +++ b/drivers/gpu/drm/sysfb/efidrm.c
+>> @@ -152,6 +152,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>>   	const struct screen_info *si;
+>>   	const struct drm_format_info *format;
+>>   	int width, height, stride;
+>> +	unsigned int panel_width, panel_height;
+>>   	s64 vsize;
+>>   	u64 mem_flags;
+>>   	struct resource resbuf;
+>> @@ -217,6 +218,20 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>>   	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>>   		sysfb->edid = dpy->edid.dummy;
+>>   #endif
+>> +
+>> +	panel_width = width;
+>> +	panel_height = height;
+>> +
+>> +	if (sysfb->edid) {
+>> +		const struct drm_edid *drm_edid;
+>> +
+>> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+>> +		if (drm_edid) {
+>> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+>> +			drm_edid_free(drm_edid);
+>> +		}
+>> +	}
+>> +
+> Unrelated to the patch at hand, but does all of this code assume EDID is
+> always just one block? Scary. The whole sysfs->edid being a u8 pointer
+> without size feels like a footgun.
+
+For UEFI and VESA it's always one block of 128 bytes in size. The boot 
+parameters hard-code this value and there's no space for additional 
+blocks. [1]  On OpenFirmware, ofdrm checks the size to be EDID_LENGTH. 
+[2] I guess there could more blocks there, but AFAIK the DT property 
+only exists on ancient PPC MACs. I have no means of testing, but the 
+test file I obtained from such a system is 128 bytes.
+
+[1] 
+https://elixir.bootlin.com/linux/v7.2.2/source/arch/x86/include/uapi/asm/bootparam.h#L133
+[2] 
+https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/sysfb/ofdrm.c#L229
+
+
+>
+> Here, the above should work, but I've been kind of hoping to eradicate
+> EDID_LENGTH assumptions and calculations from everywhere outside of
+> drm_edid.c, because it's complicated.
+
+We need some way of importing the raw data block into drm_edid.c, which 
+in turn needs the buffer size. The drivers could do this without 
+EDID_LENGTH if that helps. Note that the drivers use the regular 
+machinery from drm_edid.c for dissecting the EDID block. See [3].
+
+[3] 
+https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c#L594
+
+Best regards
+Thomas
+
+
+>
+>
+> BR,
+> Jani.
+>
+>
+>>   	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
+>>   	sysfb->fb_format = format;
+>>   	sysfb->fb_pitch = stride;
+>> @@ -340,7 +355,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>>   	drm_connector_helper_add(connector, &efidrm_connector_helper_funcs);
+>>   	drm_connector_set_panel_orientation_with_quirk(connector,
+>>   						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+>> -						       width, height);
+>> +						       panel_width, panel_height);
+>>   	if (sysfb->edid)
+>>   		drm_connector_attach_edid_property(connector);
+>>   
+>> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
+>> index 9d60db45139c..a0a865aee098 100644
+>> --- a/drivers/gpu/drm/sysfb/ofdrm.c
+>> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
+>> @@ -229,7 +229,7 @@ static const u8 *display_get_edid_of(struct drm_device *dev, struct device_node
+>>   {
+>>   	int ret = of_property_read_u8_array(of_node, "EDID", buf, EDID_LENGTH);
+>>   
+>> -	if (ret)
+>> +	if (ret || drm_edid_header_is_valid(buf) != 8)
+>>   		return NULL;
+>>   	return buf;
+>>   }
+>> @@ -828,6 +828,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>>   	enum ofdrm_model model;
+>>   	bool big_endian;
+>>   	int width, height, depth, linebytes;
+>> +	unsigned int panel_width, panel_height;
+>>   	const struct drm_format_info *format;
+>>   	u64 address;
+>>   	const u8 *edid;
+>> @@ -998,6 +999,19 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>>   		sysfb->fb_gamma_lut_size = OFDRM_GAMMA_LUT_SIZE;
+>>   	sysfb->edid = edid;
+>>   
+>> +	panel_width = width;
+>> +	panel_height = height;
+>> +
+>> +	if (sysfb->edid) {
+>> +		const struct drm_edid *drm_edid;
+>> +
+>> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+>> +		if (drm_edid) {
+>> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+>> +			drm_edid_free(drm_edid);
+>> +		}
+>> +	}
+>> +
+>>   	drm_dbg(dev, "display mode={" DRM_MODE_FMT "}\n", DRM_MODE_ARG(&sysfb->fb_mode));
+>>   	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, linebytes=%d byte\n",
+>>   		&format->format, width, height, linebytes);
+>> @@ -1069,7 +1083,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>>   	drm_connector_helper_add(connector, &ofdrm_connector_helper_funcs);
+>>   	drm_connector_set_panel_orientation_with_quirk(connector,
+>>   						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+>> -						       width, height);
+>> +						       panel_width, panel_height);
+>>   	if (edid)
+>>   		drm_connector_attach_edid_property(connector);
+>>   
+>> diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
+>> index 6a67b2d2e451..8c52bbac6d2f 100644
+>> --- a/drivers/gpu/drm/sysfb/vesadrm.c
+>> +++ b/drivers/gpu/drm/sysfb/vesadrm.c
+>> @@ -402,6 +402,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>>   	const struct screen_info *si;
+>>   	const struct drm_format_info *format;
+>>   	int width, height, stride;
+>> +	unsigned int panel_width, panel_height;
+>>   	s64 vsize;
+>>   	struct resource resbuf;
+>>   	struct resource *res;
+>> @@ -484,6 +485,20 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>>   	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>>   		sysfb->edid = dpy->edid.dummy;
+>>   #endif
+>> +
+>> +	panel_width = width;
+>> +	panel_height = height;
+>> +
+>> +	if (sysfb->edid) {
+>> +		const struct drm_edid *drm_edid;
+>> +
+>> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+>> +		if (drm_edid) {
+>> +			drm_edid_get_preferred_size(drm_edid, &panel_width, &panel_height);
+>> +			drm_edid_free(drm_edid);
+>> +		}
+>> +	}
+>> +
+>>   	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
+>>   	sysfb->fb_format = format;
+>>   	sysfb->fb_pitch = stride;
+>> @@ -585,7 +600,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>>   	drm_connector_helper_add(connector, &vesadrm_connector_helper_funcs);
+>>   	drm_connector_set_panel_orientation_with_quirk(connector,
+>>   						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+>> -						       width, height);
+>> +						       panel_width, panel_height);
+>>   	if (sysfb->edid)
+>>   		drm_connector_attach_edid_property(connector);
 
-[ Upstream commit 4d695e66d7027a0c78302e47ac76293675fbbb4d ]
-
-When CPER ring overflow handling advances the read pointer, it trusts the
-parsed entry size from the current ring contents. Corrupt CPER data can
-produce an entry size that does not advance rptr after dword conversion
-and pointer masking.
-
-In that case the recovery loop keeps testing the same location while
-holding the CPER ring mutex. This can hang the worker that is writing the
-next CPER record.
-
-Detect a no-progress rptr update and reset the CPER ring to an empty
-state instead. This drops the corrupt contents and lets the writer leave
-the recovery path without spinning.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-
-**Step 1.1 — Subject line**
-Record: `[drm/amd/ras] [reset] reset CPER ring on corrupt entry size` —
-subsystem is AMDGPU RAS/CPER; action is a defensive recovery/reset in
-response to corrupt data.
-
-**Step 1.2 — Tags**
-Record:
-- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
-- `Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>`
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
-  `Tested-by:` tags
-- Notable: AMD subsystem reviewers and maintainer sign-off; no syzbot or
-  user bug report
-
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** On CPER ring overflow, the recovery loop advances `rptr`
-  using parsed entry sizes from ring contents. Corrupt CPER data can
-  yield an entry size that does not advance `rptr` after dword
-  conversion and masking.
-- **Symptom:** Recovery loop spins forever at the same location while
-  holding `cper.ring_lock`, hanging the worker writing the next CPER
-  record.
-- **Fix:** Detect no-progress `rptr` updates and reset the ring to empty
-  rather than spinning.
-- **Root cause:** Trusting corrupt in-ring metadata during overflow
-  recovery.
-
-**Step 1.4 — Hidden bug fix?**
-Record: Yes. Despite “reset” wording, this is a hang/deadlock-class bug
-fix in error-recovery code, not a feature addition.
-
----
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 — Inventory**
-Record:
-- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c` (+12 net lines)
-- Function modified: `amdgpu_cper_ring_write()`
-- Scope: single-file, surgical fix in overflow recovery path
-
-**Step 2.2 — Code flow per hunk**
-Record:
-- **Before:** `rptr += (ent_sz >> 2); rptr &= ring->ptr_mask;` always
-  runs; if `ent_sz` is 0, <4, or a multiple of ring circumference,
-  `rptr` may not move.
-- **After:** Compute `next_rptr` only when `ent_sz >= sizeof(u32)`; if
-  `next_rptr == rptr`, reset ring (`rptr = wptr`, update `count_dw`,
-  `goto out_unlock`); otherwise advance normally.
-- **Path affected:** CPER ring overflow recovery inside
-  `amdgpu_cper_ring_write()`, while `ring_lock` is held.
-
-**Step 2.3 — Bug mechanism**
-Record:
-- Category: logic/correctness bug → infinite loop with mutex held (soft
-  hang)
-- Mechanism: corrupt `record_length` or garbage between headers can make
-  `(rptr + (ent_sz >> 2)) & ptr_mask == rptr`; old code never exits the
-  `do { ... } while (!amdgpu_cper_is_hdr(...))` loop
-
-**Step 2.4 — Fix quality**
-Record:
-- Fix is minimal and obviously correct: no-progress detection is
-  standard for ring-buffer parsers
-- Recovery (drop corrupt contents, reset pointers) is preferable to
-  infinite spin
-- Low regression risk: only triggers on already-corrupt overflow state
-- Trade-off: loses corrupt CPER records, but that is acceptable vs.
-  permanent hang
-
----
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 — Blame**
-Record: Overflow recovery loop introduced in `a6d9d192903ea`
-(“drm/amdgpu: add data write function for CPER ring”, 2025-01-22).
-Present in this tree at lines 507–515. First appeared in tag `v6.15`.
-
-**Step 3.2 — Fixes: tag**
-Record: Not applicable — no `Fixes:` tag in commit message.
-
-**Step 3.3 — Related file history**
-Record: Related prior fix `d6f9bbce18762` (“Fix computation for remain
-size of CPER ring”) already in this tree; it fixed a *different*
-infinite-loop cause in the same function. `8e0d1edb5c167` added missing
-lock protection and was nominated for stable (`Cc:
-stable@vger.kernel.org`). CPER subsystem landed starting `92d5d2a09de16`
-in v6.15.
-
-**Step 3.4 — Author context**
-Record: Xiang Liu authored multiple CPER fixes including `d6f9bbce18762`
-(same infinite-loop class). Reviews from AMD RAS engineers and
-maintainer Alex Deucher.
-
-**Step 3.5 — Dependencies**
-Record: Standalone fix; no series markers, no prerequisite commits
-referenced. Assumes existing `amdgpu_cper_ring_write()` overflow path —
-present in this tree.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c d5e59c24d907d` failed (commit not in local history).
-`b4 shazam` found no matching message-id. lore.kernel.org search blocked
-by bot protection. **UNVERIFIED:** full review-thread content.
-
-**Step 4.2 — Reviewers**
-Record: **UNVERIFIED** via `b4 dig -w` (commit hash unavailable
-locally). Commit message lists Stanley.Yang, Tao Zhou, Alex Deucher.
-
-**Step 4.3 — Bug report**
-Record: Not applicable — no `Reported-by:` or `Link:` tags.
-
-**Step 4.4 — Related patches**
-Record: Complements `d6f9bbce18762` (already in tree) which fixed
-another overflow infinite-loop cause. This patch addresses corrupt-
-entry-size no-progress separately.
-
-**Step 4.5 — Stable list history**
-Record: **UNVERIFIED** — lore stable search inaccessible. Prior CPER
-lock fix `8e0d1edb5c167` was explicitly CC'd to stable.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-Record: `amdgpu_cper_ring_write()` (modified); uses
-`amdgpu_cper_ring_get_ent_sz()`, `amdgpu_cper_is_hdr()`.
-
-**Step 5.2 — Callers**
-Record: `amdgpu_cper_ring_write()` called from:
-- `amdgpu_cper_generate_ue_record()` — uncorrectable GPU errors
-- `amdgpu_cper_generate_bp_threshold_record()` — bad-page threshold
-  (also from `amdgpu_ras_eeprom.c`)
-- `amdgpu_cper_generate_ce_records()` — corrected errors
-- `amdgpu_virt.c` — SR-IOV guest CPER dump path
-
-All are RAS/error-reporting paths on ACA-enabled or SR-IOV CPER-enabled
-devices.
-
-**Step 5.3 — Callees**
-Record: `mutex_lock/unlock(&ring->adev->cper.ring_lock)`,
-`amdgpu_cper_ring_get_ent_sz()`, `memcpy()`, pointer masking.
-
-**Step 5.4 — Reachability**
-Record: Triggered when CPER ring overflows during error-record writes.
-Call chain: ACA bank update (`aca_banks_update` →
-`aca_banks_generate_cper` → `amdgpu_cper_generate_*` →
-`amdgpu_cper_ring_write`). Reachable during real GPU RAS events — the
-same conditions that fill the CPER ring. Not a syscall path, but
-triggered by hardware error handling that must not hang.
-
-**Step 5.5 — Similar patterns**
-Record: Prior fix `d6f9bbce18762` explicitly described “unbreakable
-while cycle when CPER ring overflow” in the same function — same bug
-class, different root cause.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree
-
-**Step 6.1 — Buggy code present?**
-Record: **Yes.** Local tree is `v6.18.44` (Makefile: 6.18.44). Buggy
-code at `amdgpu_cper.c:510-511` (`rptr += (ent_sz >> 2)` without no-
-progress check). CPER code is an ancestor of HEAD; first CPER commits
-tagged `v6.15`.
-
-**Step 6.2 — Backport complications**
-Record: Expected **clean apply with possible minor fuzz** — the
-`amdgpu_cper_ring_write()` hunk matches this tree exactly; upstream diff
-context in `amdgpu_cper_ring_get_ent_sz()` differs slightly (local uses
-inline `chdr` check vs. `amdgpu_cper_is_hdr()` in upstream diff), but
-the fix hunk is independent.
-
-**Step 6.3 — Related fixes already present?**
-Record: `d6f9bbce18762` (different overflow loop fix) and
-`8e0d1edb5c167` (lock fix) are in tree. This specific corrupt-entry-size
-hang is **not** yet fixed.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem criticality**
-Record: `drivers/gpu/drm/amd/amdgpu` — IMPORTANT (AMD GPU RAS/CPER error
-reporting). Not universal like mm/net, but critical for affected AMD GPU
-users with ACA/RAS enabled.
-
-**Step 7.2 — Activity**
-Record: CPER code is actively developed (20 commits on `amdgpu_cper.c`);
-subsystem is new (v6.15+) and still receiving bug fixes.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-Record: AMD GPU systems with CPER enabled (`amdgpu_aca_is_enabled()` or
-`amdgpu_sriov_ras_cper_en()`). Config/driver-specific, but includes
-production RAS workloads and SR-IOV hosts.
-
-**Step 8.2 — Trigger conditions**
-Record: CPER ring overflow **and** corrupt/non-advancing entry size in
-ring buffer. Plausible when the ring already contains damaged data from
-hardware errors or partial overwrites. Not everyday, but realistic in
-the exact failure mode CPER exists to handle.
-
-**Step 8.3 — Failure mode severity**
-Record: **CRITICAL** — infinite loop with `cper.ring_lock` held; CPER
-writer thread/worker hangs permanently; subsequent CPER records cannot
-be written; RAS error logging stalls during hardware fault scenarios.
-
-**Step 8.4 — Risk/benefit**
-Record:
-- **Benefit:** HIGH — prevents permanent hang in RAS error path during
-  overflow recovery
-- **Risk:** LOW — ~15 lines, defensive reset only on detected no-
-  progress, reviewed by AMD maintainers
-- **Ratio:** Strong benefit, minimal risk
-
----
-
-## Phase 9: Final Synthesis
-
-**Step 9.1 — Evidence compile**
-
-FOR backport:
-- Real infinite-loop hang with mutex held
-- Affects RAS error reporting on AMD GPUs with CPER
-- Small, surgical, obviously correct fix
-- Buggy code present since v6.15, present in this v6.18.44 tree
-- Prior related infinite-loop fix already backported-worthy and in tree
-- AMD reviewer + maintainer sign-off
-
-AGAINST backport:
-- No syzbot/user bug report (weaker impact evidence, but mechanism is
-  clear)
-- Only affects CPER-enabled AMD GPUs (narrower audience)
-- Lore review thread not verified
-
-UNRESOLVED:
-- Full mailing-list review discussion
-- Whether any reviewer explicitly nominated for stable
-
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
-   AMD engineers; no Tested-by
-2. Fixes a real bug? **PASS** — infinite loop on corrupt overflow
-   recovery
-3. Important issue? **PASS** — worker hang during RAS error handling
-   (CRITICAL)
-4. Small and contained? **PASS** — one file, ~15 lines
-5. No new features/APIs? **PASS** — defensive recovery only
-6. Can apply to local tree? **PASS** — target code exists; fix hunk
-   matches
-
-**Step 9.3 — Exception categories**
-Record: Not a device-ID/quirk/DT/docs/build fix. Qualifies as a critical
-bug fix on its own merits.
-
-**Step 9.4 — Decision rationale**
-For this **v6.18.44** tree, the AMDGPU CPER ring overflow recovery code
-exists and contains the described infinite-loop bug. The fix prevents a
-permanent hang in RAS error logging when corrupt ring data prevents
-`rptr` advancement — exactly the scenario CPER is meant to survive. The
-patch is small, self-contained, and follows the same pattern as the
-already-merged `d6f9bbce18762` overflow-loop fix.
-
----
-
-## Verification
-
-- [Phase 1] Parsed commit message and tags from user-provided diff
-- [Phase 2] Analyzed diff: `amdgpu_cper_ring_write()` overflow loop
-  change
-- [Phase 3] `git describe HEAD` → `v6.18.44`; Makefile confirms 6.18.44
-- [Phase 3] `git blame -L 507,516` → buggy loop from `a6d9d192903ea`
-  (2025-01-22)
-- [Phase 3] `git tag --contains 92d5d2a09de16` → CPER introduced in
-  `v6.15`
-- [Phase 3] `git show d6f9bbce18762` → related prior infinite-loop fix
-  in same function, already in tree
-- [Phase 3] `git log --oneline -20 -- amdgpu_cper.c` → CPER subsystem
-  history reviewed
-- [Phase 4] `b4 dig -c d5e59c24d907d` → no match (commit not in local
-  repo)
-- [Phase 4] `b4 shazam -s 'reset CPER ring on corrupt entry size'` →
-  message-id not known
-- [Phase 4] lore.kernel.org fetch → blocked by Anubis bot protection
-- [Phase 4] Workspace `*.mbx` grep → no matching thread found
-- [Phase 5] `grep amdgpu_cper_ring_write` → 4 call sites in
-  `amdgpu_cper.c`, `amdgpu_virt.c`
-- [Phase 5] Traced `aca_banks_update` → `aca_banks_generate_cper` →
-  `amdgpu_cper_generate_*` → `amdgpu_cper_ring_write`
-- [Phase 6] Read `amdgpu_cper.c:466-521` → buggy code confirmed present,
-  fix absent
-- [Phase 6] `git merge-base --is-ancestor 4d614ce8ffd75 HEAD` → CPER
-  ring code is in this tree
-- [Phase 6] Patch apply via `git apply --check` → failed on upstream
-  context mismatch in unrelated hunk; target `amdgpu_cper_ring_write()`
-  hunk verified identical by direct file read
-- [Phase 7] `amdgpu_cper_init()` requires `amdgpu_aca_is_enabled()` or
-  `amdgpu_sriov_ras_cper_en()` — verified in source
-- [Phase 8] Confirmed mutex held across infinite loop (`mutex_lock` at
-  line 481, loop at 507-515, `mutex_unlock` at 520)
-
-**YES**The background search finished: the fix commit **is not in this
-tree** (`v6.18.44`). `git log --grep='reset CPER ring'` and
-`--grep='corrupt entry size'` found nothing; Xiang Liu’s other CPER
-commits (including `d6f9bbce18762`, a related overflow infinite-loop
-fix) are present, but not this one.
-
-The buggy overflow-recovery loop is still in `amdgpu_cper.c` at lines
-510–511. This patch should be backported here: it prevents an infinite
-spin with `cper.ring_lock` held when corrupt CPER ring data doesn’t
-advance `rptr` during overflow recovery — a hang in the RAS error-
-reporting path on ACA/SR-IOV CPER-enabled AMD GPUs.
-
-**YES**
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-index 425a3e5643608..2694facb06c73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -465,7 +465,7 @@ static u32 amdgpu_cper_ring_get_ent_sz(struct amdgpu_ring *ring, u64 pos)
- 
- void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
- {
--	u64 pos, wptr_old, rptr;
-+	u64 pos, wptr_old, rptr, next_rptr;
- 	int rec_cnt_dw = count >> 2;
- 	u32 chunk, ent_sz;
- 	u8 *s = (u8 *)src;
-@@ -506,9 +506,19 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
- 
- 		do {
- 			ent_sz = amdgpu_cper_ring_get_ent_sz(ring, pos);
--
--			rptr += (ent_sz >> 2);
--			rptr &= ring->ptr_mask;
-+			next_rptr = rptr;
-+			if (ent_sz >= sizeof(u32))
-+				next_rptr = (rptr + (ent_sz >> 2)) & ring->ptr_mask;
-+
-+			if (next_rptr == rptr) {
-+				/* Corrupt entry size, reset the ring to avoid an infinite loop. */
-+				rptr = ring->wptr;
-+				*ring->rptr_cpu_addr = rptr;
-+				ring->count_dw = (ring->ring_size - 4) >> 2;
-+				goto out_unlock;
-+			}
-+
-+			rptr = next_rptr;
- 			*ring->rptr_cpu_addr = rptr;
- 
- 			pos = rptr;
-@@ -517,6 +527,8 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
- 
- 	if (ring->count_dw >= rec_cnt_dw)
- 		ring->count_dw -= rec_cnt_dw;
-+
-+out_unlock:
- 	mutex_unlock(&ring->adev->cper.ring_lock);
- }
- 
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
