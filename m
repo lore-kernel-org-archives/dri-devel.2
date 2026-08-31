@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04B2C624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 23:30:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3409C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 23:55:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07E0F10E37A;
-	Mon, 31 Aug 2026 23:30:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 432B510E383;
+	Mon, 31 Aug 2026 23:55:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A5T9axmm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jw5zq+mT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7205410E353;
- Mon, 31 Aug 2026 23:30:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F80510E285;
+ Mon, 31 Aug 2026 23:55:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A17B0602D4;
- Mon, 31 Aug 2026 23:30:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12DCC1F00A3D;
- Mon, 31 Aug 2026 23:30:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 73E24601DE;
+ Mon, 31 Aug 2026 23:55:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F641F000E9;
+ Mon, 31 Aug 2026 23:55:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788219045;
- bh=2zO10rBrRpKl0LAWoCRYxG2ZffFXZtrJhPtXIXE0svo=;
+ s=k20260515; t=1788220539;
+ bh=NEQIaboQMPbpmXNkbp/hqCXRStAUMmc/5DpYJeoJy8E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A5T9axmm0+ijeMdvnp7jyCY5QMZI9GekkkoOSFcwGRpOPhxoiQdotr9pV/F4YascR
- 26yQxxrjZ+VeDPW3k0prSnte1CwI9ABsLlUfN6ghw8s1UDz9tooJQYMtuM/uHN4xwD
- 0VIgwQRix+tmiCyeVTQoly/GhyoTVFwQP43HDzCDeScAtTGZL74rFDpaDN9BV/FftQ
- kfTTz+JwwGMrrUQMFuS5/aNE5RKVIlqTt6ZhllXKn/RhW/ZxwHBMU1lWygPvMmj5U9
- DDNRcSg8WnoEaRCuOFnbl91U4m3FDgwHU4/o/Cae4OhTyWVXDuE+Hq7p5InwQVYeez
- O1Zm1cXkA+YpQ==
+ b=Jw5zq+mTcSVhrFCpLZSuqVw5QJjnSyIlsVoh1nRDR9jo6Auxtj3bjuO0Cl2p8SEJY
+ cdLj+3XWClAfLrnDolU9VHKE3Gh4WnW0YCF799+Nn9EE7E2T4Ct0ULmxcc0kiARXx2
+ OmJtOdPfLJJ6gjkmMX//7kLKmVYWdgfTzbzkNhseERhMmoBK0QSK5/Bf/UbTOwoutM
+ dvrsGFSnkmMRwjKh6hiVT2buA1NbCZIIGWmqf2JMI8OLj7lti7QOIh2V0YoDMaloNa
+ ThNe7zBe/LFHL3FtTjmeFQE6Ymo0WRh1TI2qALJqo7BTEMlvokXPkmVN1wJoekAMh6
+ ONLZecnhbXr3w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/12] drm/xe: Indicate support for luminance on the
- connector
+Subject: Re: [PATCH v7 12/12] drm/i915/display: use drm backlight
 To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260831210531.2334221-11-mario.limonciello@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831210531.2334221-13-mario.limonciello@amd.com>
 References: <20260831210531.2334221-1-mario.limonciello@amd.com>
- <20260831210531.2334221-11-mario.limonciello@amd.com>
+ <20260831210531.2334221-13-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 23:30:44 +0000
-Message-Id: <20260831233045.12DCC1F00A3D@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 23:55:38 +0000
+Message-Id: <20260831235538.E3F641F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +58,111 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The commit silently introduces and enables a new, undocumented D=
-RM feature flag (DRIVER_GEM_GPUVA), which is completely unrelated to connec=
-tor luminance.
+
+New issues:
+- [Low] Unused include `<drm/drm_backlight.h>` in `intel_dp.c`
+
+Pre-existing issues:
+- [High] TOCTOU race in sysfs backlight update leading to NULL pointer dere=
+ference during non-blocking display disable
 --
 
-commit 2a9c8dfbbc421c84ac6987dc02eb16939b1f82f5
+commit 6982034de97212a1664f3db93710a699b08ecdab
 Author: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/xe: Indicate support for luminance on the connector
+drm/i915/display: use drm backlight
 
-This commit enables the connector to show luminance information for eDP pan=
-els=20
-in the xe driver by setting the DRIVER_CONNECTOR_LUMINANCE driver feature.
+This commit converts the Intel display drivers (i915 and xe) to use the DRM
+backlight infrastructure, allowing brightness control via the connector
+LUMINANCE property. It links the backlight device to the eDP connector on
+registration and unlinks it on unregistration.
 
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> index f9791c850e520..b65bbe8fde0c3 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -397,7 +397,8 @@ static const struct drm_driver regular_driver =3D {
->  	    XE_DISPLAY_DRIVER_FEATURES |
->  	    DRIVER_GEM |
->  	    DRIVER_RENDER | DRIVER_SYNCOBJ |
-> -	    DRIVER_SYNCOBJ_TIMELINE,
-> +	    DRIVER_CONNECTOR_LUMINANCE |
-> +	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu=
+/drm/i915/display/intel_backlight.c
+> index b128896cb1c2d..b0cd4dc3adc00 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
 
-[Severity: Medium]
-Does this code intentionally enable DRIVER_GEM_GPUVA for the xe driver
-in this patch?=20
+[ ... ]
 
-The commit message only mentions adding support for luminance on the
-connector, which suggests this flag might have been accidentally squashed
-into this patch.
-
->  	.open =3D xe_file_open,
->  	.postclose =3D xe_file_close,
+> @@ -1015,6 +1018,7 @@ void intel_backlight_device_unregister(struct intel=
+_connector *connector)
+>  	struct intel_panel *panel =3D &connector->panel;
 > =20
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index 449160b9863f6..bda0f0bd7b16b 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -125,6 +125,13 @@ enum drm_driver_feature {
->  	 */
->  	DRIVER_CONNECTOR_LUMINANCE           =3D BIT(10),
-> =20
-> +	/**
-> +	 * @DRIVER_GEM_GPUVA:
-> +	 *
-> +	 * Driver supports GEM GPU virtual addressing.
-> +	 */
-> +	DRIVER_GEM_GPUVA               =3D BIT(11),
-> +
+>  	if (panel->backlight.device) {
+> +		drm_backlight_link(&connector->base, NULL);
+>  		backlight_device_unregister(panel->backlight.device);
+>  		panel->backlight.device =3D NULL;
+>  	}
 
-[Severity: Medium]
-Is the DRIVER_GEM_GPUVA flag definition meant to be included here?=20
+[Severity: High]
+This is a pre-existing issue, but could this cause a NULL pointer dereferen=
+ce
+during a non-blocking display disable?
 
-It appears unrelated to the connector luminance changes described in the
-commit message and might belong in a separate, dedicated patch.
+If there is a concurrent userspace write to the legacy sysfs brightness file
+during a non-blocking display disable on VLV/CHV hardware, we might hit a r=
+ace.
+During the non-blocking commit, connection_mutex is dropped before the hard=
+ware
+is disabled, allowing intel_backlight_device_update_status() to execute.
 
->  	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
+It uses the newly swapped connector->base.state (where crtc =3D NULL), but
+panel->backlight.enabled remains true until the asynchronous commit tail
+disables it.
+
+This seems to lead to intel_panel_set_backlight() passing the state directly
+to the backend without checking if conn_state->crtc is NULL:
+
+drivers/gpu/drm/i915/display/intel_backlight.c:intel_panel_set_backlight() {
+    ...
+    if (panel->backlight.enabled)
+        intel_panel_actually_set_backlight(conn_state, hw_level);
+    ...
+}
+
+Which then calls into vlv_set_backlight() where the NULL crtc is dereferenc=
+ed:
+
+drivers/gpu/drm/i915/display/intel_backlight.c:vlv_set_backlight() {
+    ...
+    enum pipe pipe =3D to_intel_crtc(conn_state->crtc)->pipe;
+    u32 tmp;
+
+    tmp =3D intel_de_read(display, VLV_BLC_PWM_CTL(pipe)) & ~BACKLIGHT_DUTY=
+_CYCLE_MASK;
+    intel_de_write(display, VLV_BLC_PWM_CTL(pipe), tmp | level);
+    ...
+}
+
+Does this require a check for conn_state->crtc being NULL before passing the
+state, similar to how other backlight functions handle it?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 113d767e62e9c..2381a80a4e671 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -43,6 +43,7 @@
+>  #include <drm/display/drm_dsc_helper.h>
+>  #include <drm/display/drm_hdmi_helper.h>
+>  #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_backlight.h>
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_edid.h>
+>  #include <drm/drm_fixed.h>
+
+[Severity: Low]
+Is this include used anywhere in this file?
+
+It looks like <drm/drm_backlight.h> is added to intel_dp.c but no symbols f=
+rom
+it are utilized in this file, resulting in a dead include.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
-221-1-mario.limonciello@amd.com?part=3D10
+221-1-mario.limonciello@amd.com?part=3D12
