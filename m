@@ -4,61 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EAFEC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 12:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B23B6C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B8F910E80F;
-	Mon, 31 Aug 2026 12:59:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C966910E27D;
+	Mon, 31 Aug 2026 13:12:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="AHXOh1dX";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="PiP6A4d1";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02A6210E80F
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 12:59:18 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 64DE34E41475;
- Mon, 31 Aug 2026 12:59:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 363C160231;
- Mon, 31 Aug 2026 12:59:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EFA6A11C78B96; 
- Mon, 31 Aug 2026 14:59:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788181152; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=DvoFRyhjcm47mL/nWaDF/hyrkQJFbxdaBV/oadudDZg=;
- b=AHXOh1dXUwQD7BFxAzoGpwkblevqTwsMQhwEnatvi7qExftuK6WWzn3JCrM4VSp26Ja/3V
- 07TamZcXjHxysACS4EFW1pnsauqiU9KgM0HKuAX3LdiMyhp5Be3O2yZKE2YhUgm7fgkPmz
- lD5Pfeg9CsiyZBlc+XzqOHvLOV7LuYMP5ruryktxihQwvhgpim/6wDd3z+RU9WAyZRnF/+
- nXfjT/zDW35EdRPTjsWWaHH9x4aXyHpy85Qptk4JicGlYnu2IuBBotx0cCQJhH2Ighl6H9
- 1X9m0622sNgz2E+wbsnmaCNHB11qzXUtptONA8sgNq7g5xfU+nnZ3ODle1RAnw==
-Date: Mon, 31 Aug 2026 14:59:02 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Linus Walleij <linusw@kernel.org>, Frieder
- Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, Dmitry
- Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] drm/bridge: ti-sn65dsi83: Fix error handling in
- sn65dsi83_reset_work()
-Message-ID: <20260831145902.5177d91d@bootlin.com>
-In-Reply-To: <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
-References: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
- <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch
+ [185.70.43.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED54810E27D
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail; t=1788181970; x=1788441170;
+ bh=PD8ylREOH/STTl+VwOLFllFTP2Iaf1nif5PoLXQ6+Vc=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=PiP6A4d1/z+qvt0uLv4MtLU0qiID2lWEb/rgc4fbWrWRLXUlffQTr2NfPgJRTnrCd
+ 4daaTdp1642C3ffqU73I8PXQ2XqhRBAvVgLzCjSrdSnc5bsLWiASnzUA8htQ0Yuvh/
+ M6AqwPUQFV5V5JbUA/HvXNbVqqYz058O/mtzaC6/WBq0zcaucPlu+xrvgcDh02O4Kw
+ sgQ0GyU7DU0hWxos77KbznvJisxIoe4rJO5JMrSi6cu/bpFdmW+pBZikQyFdngGwHi
+ 7cT4cwd8dZdPjVpt9wiLpw54ghQ+qu25dv8f2uicDVxkE5AqtRGCsFT5FQaRr3tNN0
+ J0PDU9bXpcz3g==
+X-Pm-Submission-Id: 4hYTtl3ZLjz2ScWc
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 5/5] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal
+ sync timing
+In-Reply-To: <20260810072653.515921F00A3A@smtp.kernel.org>
+ (sashiko-bot@kernel.org's message of "Mon, 10 Aug 2026 07:26:52
+ +0000")
+References: <20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com>
+ <20260810-nwl-dsi-fixes-v3-5-256da9d672e1@geanix.com>
+ <mcSGy7EoSsDpaVsJfV5nJkv5f6NekcgqWjEc2a3y2pu4msCAOuHkbW_dOtdeGcj9_RY7DxBTu8Q1UxmtQYxR9w==@protonmail.internalid>
+ <20260810072653.515921F00A3A@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 15:12:46 +0200
+Message-ID: <87qzjev3g1.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,46 +60,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Esben,
+<sashiko-bot@kernel.org> writes:
 
-On Mon, 31 Aug 2026 14:21:32 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] Implicit 64-bit division using the `/` operator causes link errors on 32-bit architectures.
+> - [Low] Integer overflow in `dsi->mode.clock * 1000` for high pixel clocks.
+> - [Low] Redundant picosecond period conversion introduces precision loss and forces 64-bit math.
+> --
+>
+> --- Patch [5]: [PATCH v3 5/5] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing ---
+> commit 54cf1e5377e7b6795c12c78939b18d1607d54031
+> Author: Esben Haabendal <esben@geanix.com>
+>
+> drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
+>
+> The commit updates the NWL MIPI Host controller's horizontal sync timing
+> calculations. It converts hfp, hsa, and hbp to DSI packet bytes and
+> subtracts the packet header size. This aligns the timing configuration
+> with the i.MX 8M reference manual.
+>
+>> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+>> index e90588299c5ea..87d22b3bd79c7 100644
+>> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+>> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+> [ ... ]
+>> @@ -317,9 +322,62 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+>>  			      dsi->mode.hdisplay);
+>>  	}
+>>
+>> -	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
+>> -	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
+>> -	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
+>> +	pclk_period = DIV_ROUND_UP_ULL(PSEC_PER_SEC, dsi->mode.clock * 1000);
+>
+> [Severity: Low]
+> Could this multiplication overflow on high pixel clocks? dsi->mode.clock is a
+> signed 32-bit integer, so multiplying by 1000 could overflow if the clock
+> exceeds roughly 2.147 GHz. The resulting negative number would then be
+> sign-extended into a large unsigned long long for DIV_ROUND_UP_ULL(). Perhaps
+> casting to 1000ULL would avoid this?
 
-> The error handling of sn65dsi83_reset_pipe() in sn65dsi83_reset_work() has
-> seen a couple of changes that seems to cause a bit of confusion.
-> 
-> While sn65dsi83_reset_work() has implemented an early exit if
-> sn65dsi83_reset_pipe() fails since it was added, when a commit from Maxime
-> Ripard switched to use drm_bridge_helper_reset_crtc() [1] the
-> sn65dsi83_reset_pipe() function would no longer return an error code, so
-> the early exit was then a no-op, and even on sn65dsi83_reset_pipe()
-> failure, enable_irq() has been called.
-> 
-> When drm_bridge_enter()/drm_bridge_exit() resource protection was added,
-> the drm_bridge_exit() incidentally was always called, which is the correct
-> approach. But only because the early exit in sn65dsi83_reset_pipe() was
-> never hit because sn65dsi83_reset_pipe() always returns 0.
-> 
-> In order get back to a situation where enable_irq() is not called on
-> sn65dsi83_reset_pipe() failure, which should help protect against irq
-> storms, we need to reintroduce a non-zero return value from
-> sn65dsi83_reset_pipe() on error, and fix sn65dsi83_reset_work() so that we
-> always exit the DRM bridge critical section with drm_bridge_exit().
-> 
-> [1] commit e17fadff7ab9 ("drm/bridge: ti-sn65dsi83: Switch to drm_bridge_helper_reset_crtc")
-> [2] commit d2e8d1bc840b ("drm/bridge: ti-sn65dsi83: protect device resources on unplug")
-> 
-> Fixes: e17fadff7ab9 ("drm/bridge: ti-sn65dsi83: Switch to drm_bridge_helper_reset_crtc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> ---
->  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
+There is no 32-bit platform using this driver. Should/could we mark this
+driver in some way to make it clear for sashiko-bot and others that it
+is not relevant to consider 32-bit integer calculations for this driver?
 
-LGTM.
+>> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "pclk_period: %llu\n", pclk_period);
+>> +
+>> +	hs_period = DIV_ROUND_UP_ULL(PSEC_PER_SEC, dsi->phy_cfg.mipi_dphy.hs_clk_rate);
+>> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_period: %llu\n", hs_period);
+>> +
+>> +	/*
+>> +	 * Calculate the bytes needed, according to the RM formula:
+>> +	 * Time of DPI event = time to transmit x number of bytes on the DSI
+>> +	 * interface
+>> +	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period /
+>> +	 * num_lanes
+>> +	 * ===>
+>> +	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes /
+>> +	 * (8 * hs_bit_period)
+>> +	 */
+>> +	hfp = hfront_porch * pclk_period * dsi->lanes / (8 * hs_period);
+>> +	hbp = hback_porch * pclk_period * dsi->lanes / (8 * hs_period);
+>> +	hsa = hsync_len * pclk_period * dsi->lanes / (8 * hs_period);
+>
+> [Severity: Low]
+> Does calculating the period in picoseconds introduce unnecessary precision loss?
+> By calculating pclk_period and hs_period first and then dividing them, the
+> math effectively does (10^12 / pclk) / (10^12 / hs_clk). For example, 148.5MHz
+> becomes 6735ps instead of 6734.0067ps. Using the raw clock rates directly
+> might eliminate intermediate rounding errors.
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+I change the calculation to use the raw clock rates directly for next version.
 
-Best regards,
-Hervé
+> [Severity: High]
+> Will this standard division operator cause build failures on 32-bit platforms?
+> pclk_period and hs_period are 64-bit variables, so using the / operator here
+> will result in undefined reference to __udivdi3 during linking on 32-bit
+> architectures. Using div64_u64() or refactoring to use a 32-bit denominator
+> would prevent this link error.
+
+As mentioned above, there is no use of this driver on 32-bit platforms.
+
+/Esben
