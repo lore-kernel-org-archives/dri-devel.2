@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15034C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:16:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C58EAC624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35E2510E0A5;
-	Mon, 31 Aug 2026 15:16:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A5A10E2E6;
+	Mon, 31 Aug 2026 15:22:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UO2l57F0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lQoP0mpv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7770E10E2A0
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:16:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2052210E2E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:22:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BEA1D60120
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:16:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48BD11F00A3D;
- Mon, 31 Aug 2026 15:16:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CFA8343E7A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:22:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0C31F00A3D;
+ Mon, 31 Aug 2026 15:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788189407;
- bh=bBeRLYDPb4rcQg0WUGf64Drd3zUlco/Nzm2X7X8kJQg=;
+ s=k20260515; t=1788189729;
+ bh=7s0MmjjtxnUsyD0rzcrp8TJjOjpF8QTuVEuVqsquE+A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UO2l57F08bCcCo35jRM6GNVrRNJtRv3HpYZgZnDWZzTknKC3jUNoK4juztjaLoB+Z
- CYJqX+qK5Zn1bk1IrVIHvI2MIsD+uTROWlsmvnFysB+NyFMTX96TaGxYl89SpIk3vO
- e2vi1ZeunjeHnus6YEZKQ73iEvsNMmqYq9JnoSc/QGxa9aXsrZLQ+D9+2Guh1+w26A
- F5Ae+YyJY8j8mXS6MQ3l2i4Nfrq8ZfTYft85qkC1usf2kg0xF3u4VGzbfhbsAKdjhM
- /HcyG64mQlEmAUhuqcHExj5hyGDxzVD6/lHmJyNR66gV7Qd2l/1Ob+86FXwp6rZINE
- OtudjjiIuovEQ==
+ b=lQoP0mpv8qfM1hOgZMLTE5DFfNFEPMd2jc5fM2eoiPU4Q+craYNrKkRkvQx2h+1Dy
+ aRa19frDjqXj5AfXeG7CFF9o4afsyUGXXzgjRIytEMX7HgT0WqlXznMF5AvO9kF1pl
+ /6l8EQZqwdc3Bq9opHGGxe/2VZh1Xq0q6KLxCNrzctUk8lC8Uqz3rvtet5eald3zNV
+ I/XT2bFoAqLcnQX82o7txpJ9jMpvLHp8m0tnI0Zejbe10D4DM4orAnXySBWEZY/dY8
+ LnZ45r4OiJLF7sHy/u+smgNzAsiGVhT8chKgSIpqCAhscxATIzQE1a6Orl8QhNYOuF
+ C7564WJ31QrjA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm/si: Don't schedule thermal
- work when queue isn't initialized
+Subject: Re: [PATCH AUTOSEL 6.18-6.12] drm/mediatek: dsi: Add compatible for
+ mt8167-dsi
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-251-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-262-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-251-sashal@kernel.org>
+ <20260831133314.4125787-262-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 15:16:46 +0000
-Message-Id: <20260831151647.48BD11F00A3D@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 15:22:09 +0000
+Message-Id: <20260831152209.9D0C31F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,86 +62,109 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Scheduling an uninitialized thermal workqueue in kv_dpm_process_in=
-terrupt triggers a kernel panic when amdgpu.dpm=3D0.
-- [High] Scheduling an uninitialized thermal workqueue in cik_irq_process t=
-riggers a kernel panic when radeon.dpm=3D0.
+- [High] Uninitialized wait queue usage leads to NULL pointer dereference.
+- [High] Missing drvdata initialization before component bind leads to NULL=
+ pointer dereference.
 --
 
-commit 8aa1c10862ca264ac27db63ef5b31d5ef1328d80
-Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+commit 1c9b9cfe82b003fd952c66b9a2f9e8fa689477ee
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-drm/amd/pm/si: Don't schedule thermal work when queue isn't initialized
+drm/mediatek: dsi: Add compatible for mt8167-dsi
 
-When DPM is turned off with the amdgpu.dpm=3D0 module parameter, the thermal
-work queue isn't initialized so we shouldn't schedule any work on it.
+This commit adds the mediatek,mt8167-dsi compatible string to the MediaTek
+DSI controller driver. It allows the driver to probe on MT8167 hardware usi=
+ng
+the existing MT2701 driver data.
 
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm=
-/amd/pm/legacy-dpm/si_dpm.c
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -7659,7 +7659,7 @@ static int si_dpm_process_interrupt(struct amdgpu_d=
-evice *adev,
->  		break;
->  	}
+Link: https://patchwork.kernel.org/project/dri-devel/patch/20260505214541.3=
+33657-3-l.scorcia@gmail.com/
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 0e2bcd5f67b76..b04936d4511b4 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -1307,6 +1307,7 @@ static const struct mtk_dsi_driver_data mt8188_dsi_=
+driver_data =3D {
 > =20
-> -	if (queue_thermal)
-> +	if (queue_thermal && amdgpu_dpm)
->  		schedule_work(&adev->pm.dpm.thermal.work);
+>  static const struct of_device_id mtk_dsi_of_match[] =3D {
+>  	{ .compatible =3D "mediatek,mt2701-dsi", .data =3D &mt2701_dsi_driver_d=
+ata },
+> +	{ .compatible =3D "mediatek,mt8167-dsi", .data =3D &mt2701_dsi_driver_d=
+ata },
 
 [Severity: High]
-This is a pre-existing issue, and not a bug introduced by this patch, but
-does the same uninitialized workqueue crash also happen in kv_dpm.c?
+This is a pre-existing issue, but enabling this driver on new hardware might
+expose an uninitialized wait queue usage in drivers/gpu/drm/mediatek/mtk_ds=
+i.c
+that leads to a NULL pointer dereference.
 
-Looking at kv_dpm_process_interrupt() in
-drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c, it still has the unguarded
-schedule_work call:
+In mtk_dsi_probe(), mipi_dsi_host_register() and devm_request_irq() are cal=
+led
+before the wait queue is initialized:
 
-    if (queue_thermal)
-        schedule_work(&adev->pm.dpm.thermal.work);
+	ret =3D devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq, ...);
+	if (ret) {
+	    ...
+	}
 
-And similar to the issue you fixed in si_dpm.c, kv_dpm_sw_init() skips the
-INIT_WORK call when DPM is disabled:
+	init_waitqueue_head(&dsi->irq_wait_queue);
 
-    if (amdgpu_dpm =3D=3D 0)
-        return 0;
+If a child panel driver probes synchronously when mipi_dsi_host_register() =
+is
+called and sends a DSI command (for instance, to read the panel ID), it
+triggers mtk_dsi_host_transfer(). This calls mtk_dsi_wait_for_irq_done(),
+which uses wait_event_interruptible_timeout() on the zero-initialized wait
+queue. This dereferences the NULL next pointer of the wait queue head, caus=
+ing
+a crash.
 
-    INIT_WORK(&adev->pm.dpm.thermal.work, amdgpu_dpm_thermal_work_handler);
+Alternatively, if an interrupt fires early, mtk_dsi_irq() calls
+wake_up_interruptible() on the same uninitialized wait queue.
 
-If a thermal interrupt fires on KV/CI hardware while booted with
-amdgpu.dpm=3D0, wouldn't this queue a zero-initialized work struct and atte=
-mpt
-to execute a NULL function pointer? Should the same amdgpu_dpm guard be
-added to kv_dpm_process_interrupt()?
-
+Could the initialization of dsi->irq_wait_queue be moved before
+mipi_dsi_host_register() and devm_request_irq() to prevent this?
 
 [Severity: High]
-This is also a pre-existing issue, but it looks like the radeon driver
-might share the exact same vulnerability in cik.c.
+This isn't a bug introduced by this patch, but missing drvdata initializati=
+on
+before the component bind can also lead to a NULL pointer dereference.
 
-In drivers/gpu/drm/radeon/radeon_pm.c, radeon_pm_init() skips INIT_WORK
-when DPM is disabled, falling back to the old method:
+In mtk_dsi_probe(), the DSI host is registered before drvdata is set:
 
-    if (rdev->pm.pm_method =3D=3D PM_METHOD_DPM)
-        return radeon_pm_init_dpm(rdev);
-    else
-        return radeon_pm_init_old(rdev);
+	ret =3D mipi_dsi_host_register(&dsi->host);
+	...
+	platform_set_drvdata(pdev, dsi);
 
-But cik_irq_process() in drivers/gpu/drm/radeon/cik.c unconditionally
-schedules the work if a thermal interrupt arrives:
+Registering the DSI host causes child devices to be probed synchronously. T=
+he
+child's probe function calls mipi_dsi_attach(), which invokes
+mtk_dsi_host_attach(). This function calls component_add(). If mtk_dsi is t=
+he
+last component to register, it triggers the DRM master to bind all componen=
+ts,
+invoking mtk_dsi_bind().
 
-    if (queue_thermal)
-        schedule_work(&rdev->pm.dpm.thermal.work);
+However, mtk_dsi_bind() tries to use drvdata:
 
-If a user boots with radeon.dpm=3D0 on CIK hardware and a thermal interrupt
-triggers, could this result in the same workqueue panic? Does
-cik_irq_process() need a rdev->pm.dpm_enabled guard added to its
-schedule_work call?
+	struct mtk_dsi *dsi =3D dev_get_drvdata(dev);
 
-> =20
->  	return 0;
->  }
+	ret =3D mtk_dsi_encoder_init(drm, dsi);
+
+Because platform_set_drvdata() hasn't been called yet, dev_get_drvdata()
+returns NULL, leading to a crash in mtk_dsi_encoder_init().
+
+Would it be possible to call platform_set_drvdata() before
+mipi_dsi_host_register() to avoid this race?
+
+>  	{ .compatible =3D "mediatek,mt8173-dsi", .data =3D &mt8173_dsi_driver_d=
+ata },
+>  	{ .compatible =3D "mediatek,mt8183-dsi", .data =3D &mt8183_dsi_driver_d=
+ata },
+>  	{ .compatible =3D "mediatek,mt8186-dsi", .data =3D &mt8186_dsi_driver_d=
+ata },
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-251-sashal@kernel.org?part=3D1
+787-262-sashal@kernel.org?part=3D1
