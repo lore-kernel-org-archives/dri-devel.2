@@ -4,89 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3244C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3554DC61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3068510E758;
-	Mon, 31 Aug 2026 08:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8D210E720;
+	Mon, 31 Aug 2026 08:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="P5vqeOw3";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VZ1NMvm9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YxqFYfcb";
 	dkim-atps=neutral
-Received: from flow-a4-smtp.messagingengine.com
- (flow-a4-smtp.messagingengine.com [103.168.172.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0F110E758
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:22:27 +0000 (UTC)
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
- by mailflow.phl.internal (Postfix) with ESMTP id 7AC0E1380045;
- Mon, 31 Aug 2026 04:22:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Mon, 31 Aug 2026 04:22:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1788164546; x=
- 1788171746; bh=yyAlnjllRJoc8EnuoheqRfmGGLiMMzIInITnv3UMbRQ=; b=P
- 5vqeOw3ShNwcVBCo0k+wdZQceJK5uqFU/EnL4qZRbrjVznhH5r/SdRUCKEqhIDpP
- y1h3ZY4Sm1jwrGe7p3Lsabi+MnMnhQ73tiQcRNC3FmJoJCrdADhfikvkLq5gYpZy
- HG87BJPuMPrHUEPOALX0FOjWhS14GrDssJp6xZPrNuiwA/obU966sk1+zMk08ulF
- YM7g50Ptv39ILyEs9AREsWIxRlung84TzctmEhAYEi3FGewxS+csk39JRVHdbzaW
- 6M+kj45fhtsDMZ8IBWZam8TvwLMuqE9c/VPSKoItahq630nSb100GJ+TvjxDI10e
- E/yopNWFLbk+NkYhfdHVw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1788164546; x=1788171746; bh=y
- yAlnjllRJoc8EnuoheqRfmGGLiMMzIInITnv3UMbRQ=; b=VZ1NMvm9ufm+ap+8t
- SuJlH6aAjIyhx4gM+mcBuqtMaHkNbpB2nYr+BrYV56iwqCpFB1VUwS3rBezMP3hP
- 1hjUSZEj8B6uqdfdG+TcpgPIzp8RTUp/U+5SBe7QrZDeILnzn6uZteItf2vaZSCH
- EYG5OxRla/e8bb+AnqDA4yMYHqSxRNm+d6AXbqxgnOb5oG+7aE6Kkkpq+QDAS6c3
- mP5+2S3h9IYhy2ohBwHQxzsA66zmUyTusjdjzjtPV652oCr22bL25HKVL8w/4myI
- t4hary/SDcsS2Jcv7bavfTe2BNUJ3CTuStrRAbVnTPfX1Ns3CtJekefeC8mSeqo4
- 4+Hdg==
-X-ME-Sender: <xms:wjmVat0bqC9i3Gc4GDM9cMyiIiw1mRJRyP4ucpYpYZt-lZE_pfm7hA>
- <xme:wjmVavlxMABW87ynYLKCF9HzH90_l0JdTvD8SrFCMSepAraK1Gggnu8b9lFyqegd2
- gOevkZ3opUYXpVLMaQk89if2OPw5eifrmB59bDfSXJP1RY6qpeRXYkH>
-X-ME-Received: <xmr:wjmVaj70QoKrX8_AkeGr-LVL5dS68i4zPWrhSlK-xRxjUKikZ4Xu7sCEPMsi2ZgVr63YgKmCaQ>
-X-ME-Proxy-Cause: dmFkZTGO980Yn8uMbt0j2BdcD4QX/iOl9tUTFXCQ903aZIrMv7Tc6fuat3dY7duyg1xULb
- yz10ob59tw/e4mxHxusC7Au1N4yhmt1yaDLIz0vcL8AJV9F7KQx+2+AsVtAkp8ss8MY4Kn
- JM/nREETieohMZYv4RIh7Ygrpu4ZhAjUJQvWYoB8T1YSEXSwyUcny6aAbDZsJTqMdR5hRt
- YbkWmcbdFOkc3c+lkICatwo6JMUCVpLlTOLedKImNWzhQDajBwqfhQjyXd8NbiMRLpQrNO
- vpYClpYhFWPE/Y0sKG5xjf/eaGk7Zjv8nlP0Vq5z/Uo/jONQQ3T8oIPx3LprFSjLy2zQIk
- hDBNgVO1mJx4GPGpisLvnD+Rzrr663mMdvMu22MeP6cfBXkMxCEJZNAHoQ/XlY0/PPOs1S
- JDmj/dMRdpjl/TpDdpzwRbCTSdz8Vq16CRR2y1PCRdCNo20v24Kt9rdjDzTdINn2cB/0dg
- OxQhrJEJtwez/a31NOTkjaKktqc4zh9EOj1uY0cHFxXLel43FBPKheMPj0xHWxa2nCfkRH
- TExXjedslOHuXQKdJj0MTUHSw78E5y7IzQdV+VYcO0gqF74uxkEmE8vxl+/DlHyOhlT+EX
- miAYGYwV+EjxcFrWe1AWjjplN6NrfjBzfiLI6yt/gjvzy1X66z1qKJpW2JYA
-X-ME-Proxy: <xmx:wjmVaomHocHTofk4WSBKAtZXW_qWOCe4y1jDdl2tNHRBmQ1v83YG8Q>
- <xmx:wjmValQRsqTKowvptCS_erMnfJti375Byf39Og1a-w6BWubEAnb_nA>
- <xmx:wjmVammUIwsRCv287vwzNlzce58Wg9tAHOixMKwAGGGZMMCOWu1ewA>
- <xmx:wjmVamMfjf4re-Bgv4zaaoy_gmrlhVwLJo7ejzIgHDrUot5qW-gE4Q>
- <xmx:wjmVapjs23DSJ9eGdOqiwgdw25xCWfQtfslQzI6LoFvcbMP9P9chJj3_>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 04:22:19 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, u.kleine-koenig@baylibre.com,
- chaoyi.chen@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v11 14/14] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Mon, 31 Aug 2026 20:19:56 +1200
-Message-ID: <20260831081956.84871-15-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831081956.84871-1-gahing@gahingwoo.com>
-References: <20260831081956.84871-1-gahing@gahingwoo.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D22610E707;
+ Mon, 31 Aug 2026 08:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788165330; x=1819701330;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=KONziSVWIVwvs3RiyygREUQiZGGQWT8Eas/ziempUzo=;
+ b=YxqFYfcbm2QzQWyokMs7v3KelLbj34rAwnfURQENkVq75FbL7oHVDom+
+ 0+ya03LRhS4j9OvuEcZI+UQgvvHOVlRHccpRiXx4EvQ/z0uW3Lu2xT2HM
+ rAWiESbThzldg3lCk04vcOnNr5Xp6F0YeF5N/v6iyQxzFn8oz2Jbc1r9x
+ B+6G3qJeq6Fu+RRbksxRn9S1uIaLN7vwEbE/xH4m830z2tRJzm/IFxxHS
+ aoZ3GSUnkvx1dArRm7MfE4ta+MMak/f16E2f0+lbRrqBrzuYjQ9Cmn6j0
+ +xBKWU9Ni2apyBrUQOmXUJx86t0bK0mil2nflzZMLTCsaInko2Wm8QVDW g==;
+X-CSE-ConnectionGUID: U2eXNCQER1eL+y4r9VVv9Q==
+X-CSE-MsgGUID: l5c1Byl7Rh+DjppRXLXzzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92376715"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="92376715"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 01:35:30 -0700
+X-CSE-ConnectionGUID: SrTUOPGLTjiuOymxSMLcQQ==
+X-CSE-MsgGUID: /sQ6RjObQmmlN9I0LIbpwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="274007191"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.22])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 01:35:28 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Krzysztof Karas
+ <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andi
+ Shyti <andi.shyti@linux.intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v3 2/8] drm/i915/selftests: Use drm_* prints in live
+ selftests
+In-Reply-To: <apGaXnTIuHa5mbti@zenone.zhora.eu>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260828100339.72304-1-krzysztof.karas@intel.com>
+ <20260828100339.72304-3-krzysztof.karas@intel.com>
+ <apGaXnTIuHa5mbti@zenone.zhora.eu>
+Date: Mon, 31 Aug 2026 11:35:25 +0300
+Message-ID: <c037c57d1176cdf182208dc8228b8afd3d8f8838@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,59 +77,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D, and hand
-vdd_npu_s0 to the NPU power domain as its domain-supply, so the rail is
-switched by the domain that gates the block.
+On Fri, 28 Aug 2026, Andi Shyti <andi.shyti@kernel.org> wrote:
+> Hi Krzysztof,
+>
+> ...
+>
+>>  static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
+>>  				unsigned int num_ranges,
+>> -				bool is_watertight)
+>> +				bool is_watertight,
+>> +				const struct drm_device *drm)
 
-Measured on a ROCK 4D with this in place. The rail's regulator debugfs
-reports open_count 1, so the domain is the consumer that took it. A
-sampler running beside an inference caught use_count at 1, and three
-reads at rest report use_count 0 with the rail disabled, so it follows
-the domain rather than staying on. Over the same run the genpd
-active_time of all four NPU domains rises by roughly 60ms per inference,
-and the inferences either side of that are 128 of 128 channels against
-the CPU reference.
+First, we generally don't pass around struct drm_device *, it's struct
+drm_i915_private * in i915.
 
-rknn_core_0 keeps npu-supply on the same rail, which the binding
-requires. Only rknn_core_0 is enabled: the driver binds one core per
-node and the second core is left to whoever can test it.
+Second, the highest level context parameters should be first. This one
+looks like an afterthought.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+>>  {
+>>  	unsigned int i;
+>>  	s32 prev;
+>> @@ -36,22 +39,22 @@ static int intel_fw_table_check(const struct intel_forcewake_range *ranges,
+>>  	for (i = 0, prev = -1; i < num_ranges; i++, ranges++) {
+>>  		/* Check that the table is watertight */
+>>  		if (is_watertight && (prev + 1) != (s32)ranges->start) {
+>> -			pr_err("%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
+>> -			       __func__, i, ranges->start, ranges->end, prev);
+>> +			drm_err(drm, "%s: entry[%d]:(%x, %x) is not watertight to previous (%x)\n",
+>> +				__func__, i, ranges->start, ranges->end, prev);
+>>  			return -EINVAL;
+>>  		}
+>>  
+>>  		/* Check that the table never goes backwards */
+>>  		if (prev >= (s32)ranges->start) {
+>> -			pr_err("%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
+>> -			       __func__, i, ranges->start, ranges->end, prev);
+>> +			drm_err(drm, "%s: entry[%d]:(%x, %x) is less than the previous (%x)\n",
+>> +				__func__, i, ranges->start, ranges->end, prev);
+>>  			return -EINVAL;
+>>  		}
+>>  
+>>  		/* Check that the entry is valid */
+>>  		if (ranges->start >= ranges->end) {
+>> -			pr_err("%s: entry[%d]:(%x, %x) has negative length\n",
+>> -			       __func__, i, ranges->start, ranges->end);
+>> +			drm_err(drm, "%s: entry[%d]:(%x, %x) has negative length\n",
+>> +				__func__, i, ranges->start, ranges->end);
+>>  			return -EINVAL;
+>>  		}
+>>  
+>> @@ -126,7 +129,8 @@ int intel_uncore_mock_selftests(void)
+>>  	for (i = 0; i < ARRAY_SIZE(fw); i++) {
+>>  		err = intel_fw_table_check(fw[i].ranges,
+>>  					   fw[i].num_ranges,
+>> -					   fw[i].is_watertight);
+>> +					   fw[i].is_watertight,
+>> +					   NULL);
+>
+> arrghh! Here we are again at the drm_err(NULL,...) case.
+>
+> You could eventually do in intel_fw_table_check()
+>
+> 	if (drm)
+> 		drm_err(drm, ...);
+> 	else
+> 		pr_err(...);
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..79e039bee 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -722,6 +722,10 @@ &pcie0 {
- 	status = "okay";
- };
- 
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pinctrl {
- 	hdmi {
- 		hdmi_tx_on_h: hdmi-tx-on-h {
-@@ -779,6 +783,15 @@ wifi_en_h: wifi-en-h {
- 	};
- };
- 
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
- &sai6 {
- 	status = "okay";
- };
+drm_err() handles NULL drm_device just fine.
+
+>
+> but I think it's not worth the effort, just leave pr_err().
+> Besides, passing the drm device is quite out of the scope of the
+> function itself, it's just odd!
+
+But agreed.
+
+BR,
+Jani.
+
+>
+> Andi
+>
+>>  		if (err)
+>>  			return err;
+>>  	}
+
 -- 
-2.43.0
-
+Jani Nikula, Intel
