@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10C5EC624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:43:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE18C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:43:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 294E910E893;
-	Mon, 31 Aug 2026 13:43:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8D610E894;
+	Mon, 31 Aug 2026 13:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oJt7A5f7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bf6xtnwA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA51710E891;
- Mon, 31 Aug 2026 13:43:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8816710E894;
+ Mon, 31 Aug 2026 13:43:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 42D93602BA;
- Mon, 31 Aug 2026 13:43:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87C11F00ACF;
- Mon, 31 Aug 2026 13:43:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F2B0360238;
+ Mon, 31 Aug 2026 13:43:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524111F00ACA;
+ Mon, 31 Aug 2026 13:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183789;
- bh=x1bHfkancCaYMe6fYy0BgP6DOqXkqyCpu8H08GO/7m0=;
- h=Date:From:To:Cc:Subject;
- b=oJt7A5f7zk/IITbfzbAC29sPWk0z1Ou5oNpC7kEBPCXkWI4v2icggrzemLXgL3vLK
- dVS3grw+uQ7kwIVsOnwBLmGna1tAwt35u/UJq9nO5kdAILvManqmABxxoqUM9EExuL
- YuNDB58cZqh5ynYNrdYcskZYmDozyMQiwSu/VCLOd+JtXyrlvSoxnpvQjQ2hc1t/u8
- dbfsjDSwX5s9kDJvevNswOubc2AN+Kqj4/X45X2rZM0q7cXRnW3pKiNSXJwKJP8Vou
- KviptT2emZhirbVi/Z2pa4V8rU974u36rdUiD/F7za00/C14LSBPMeZM02TL/3FDO6
- VWDBeAu3t0iEA==
-Date: Mon, 31 Aug 2026 14:43:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Subject: linux-next: manual merge of the drm-intel tree with the
- drm-intel-fixes tree
-Message-ID: <apWE6M_eFoMoNV7T@sirena.org.uk>
+ s=k20260515; t=1788183808;
+ bh=psClh4hrb8WRXaHOA+7YUWMNqjmF3EMw8eZUp8Sw7rg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Bf6xtnwAnfmYBHQ5hL9567+brZWCaeyYC0j+PVuJPOnA3SYNUFSE6mwDpP+cuZJlE
+ SY/1q8wiJUf+8boJ7QZLiLMWC9AA1DXFzE7tbCUyTXk2SgbS9e7b2O7DEEdvp9O8Ly
+ 9/55sUZ2KZziCaiUomJ14iqyqkQbYYYcAiIAUz1WTJ4EPoHDjj3UMVnTqJhFu23uBa
+ O6QuuX2WUDDaQR9bN1aHctZuEm+mBUlx++/rsWNMl03/ka5VrwPYNmwrPyGMXxaGB6
+ 59F/hQWOk2+lvcmN/051wwmshK3Z2h2Ecu5EKih5MfIko6rEXaCSLTAoa1yL1iHypm
+ KRtsyCYezrmYA==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Xiang Liu <xiang.liu@amd.com>, "Stanley.Yang" <Stanley.Yang@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amd/ras: reset CPER ring on corrupt entry
+ size
+Date: Mon, 31 Aug 2026 09:25:45 -0400
+Message-ID: <20260831133314.4125787-317-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="P8RMu5SLb3HNCuTg"
-Content-Disposition: inline
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,735 +66,409 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Xiang Liu <xiang.liu@amd.com>
 
---P8RMu5SLb3HNCuTg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+[ Upstream commit 4d695e66d7027a0c78302e47ac76293675fbbb4d ]
 
-Hi all,
+When CPER ring overflow handling advances the read pointer, it trusts the
+parsed entry size from the current ring contents. Corrupt CPER data can
+produce an entry size that does not advance rptr after dword conversion
+and pointer masking.
 
-Today's linux-next merge of the drm-intel tree got a conflict in:
+In that case the recovery loop keeps testing the same location while
+holding the CPER ring mutex. This can hang the worker that is writing the
+next CPER record.
 
-  drivers/gpu/drm/i915/display/intel_cdclk.c
+Detect a no-progress rptr update and reset the CPER ring to an empty
+state instead. This drops the corrupt contents and lets the writer leave
+the recovery path without spinning.
 
-between commits:
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-  aad969968824e ("drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+=
-")
-  a154f2ae8eecb ("drm/i915/cdclk: Fix dg2_power_well_count() return type")
+LLM Generated explanations, may be completely bogus:
 
-=66rom the drm-intel-fixes tree and commits:
+## Phase 1: Commit Message Forensics
 
-  050e8067dcb8f ("drm/i915/cdclk: Hoist intel_cdclk_{pre,post}_notify() cal=
-ls upwards")
-  22d664affc438 ("drm/i915/cdclk: Introduce CDCLK .{pre,post}_notify() vfun=
-cs")
-  6dc9d09567047 ("drm/i915/cdclk: Extract bxt_cdclk_pcode_{pre,post}_notify=
-()")
-  14890a802ea4d ("drm/i915/cdclk: Extract skl_cdclk_pcode_{pre,post}_notify=
-()")
-  1098a94f822d2 ("drm/i915/cdclk: Extract bdw_cdclk_pcode_{pre,post}_notify=
-()")
-  e2760d76d1a20 ("drm/i915/cdclk: Unify pcode related debugs")
-  9131fd68a86ba ("drm/i915/cdclk: Unify the pcode pre/post notify in bxt_se=
-t_cdclk()")
-  8961ea13bec45 ("drm/i915/cdclk: s/intel_/dg2_/ for DG2 specific stuff")
-  cd4cd31960608 ("drm/i915/cdclk: Drop pointless platform check from bxt_se=
-t_cdclk()")
-  934b9973f7124 ("drm/i915/cdclk: Stop forcing voltage level to 3 all the t=
-ime on DG2")
-  e68e1b80d1639 ("drm/i915/cdclk: Notify DG2 pcode about pipe power wells r=
-egardless of CDCLK")
-  3f8c7b2fdd0e8 ("drm/i915/cdclk: Do the DG2 CDCLK/pipe power well notify p=
-roperly")
-  dc2a960b64354 ("drm/i915/cdclk: Pass CDCLK in MHz to pcode on DG2")
-  bed6347ae41b0 ("drm/i915/cdclk: Don't bail if pcode post nofify fails")
-  dcf423710d025 ("drm/i915/cdclk: Fix dg2_power_well_count() return type")
-  1ceb1ef81c32e ("drm/i915/cdclk: Introduce has_cd2x_pipe_select()")
-  1786d26887817 ("drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+=
-")
+**Step 1.1 — Subject line**
+Record: `[drm/amd/ras] [reset] reset CPER ring on corrupt entry size` —
+subsystem is AMDGPU RAS/CPER; action is a defensive recovery/reset in
+response to corrupt data.
 
-=66rom the drm-intel tree.
+**Step 1.2 — Tags**
+Record:
+- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
+- `Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>`
+- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (maintainer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
+  `Tested-by:` tags
+- Notable: AMD subsystem reviewers and maintainer sign-off; no syzbot or
+  user bug report
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** On CPER ring overflow, the recovery loop advances `rptr`
+  using parsed entry sizes from ring contents. Corrupt CPER data can
+  yield an entry size that does not advance `rptr` after dword
+  conversion and masking.
+- **Symptom:** Recovery loop spins forever at the same location while
+  holding `cper.ring_lock`, hanging the worker writing the next CPER
+  record.
+- **Fix:** Detect no-progress `rptr` updates and reset the ring to empty
+  rather than spinning.
+- **Root cause:** Trusting corrupt in-ring metadata during overflow
+  recovery.
 
-diff --combined drivers/gpu/drm/i915/display/intel_cdclk.c
-index a1a5720996b70,92e6fca861f64..0000000000000
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@@ -163,6 -163,9 +163,9 @@@ struct intel_cdclk_funcs=20
-  	void (*set_cdclk)(struct intel_display *display,
-  			  const struct intel_cdclk_config *cdclk_config,
-  			  enum pipe pipe);
-+ 	int (*pre_notify)(struct intel_display *display);
-+ 	int (*post_notify)(struct intel_display *display,
-+ 			   const struct intel_cdclk_config *cdclk_config);
-  	int (*modeset_calc_cdclk)(struct intel_atomic_state *state);
-  	u8 (*calc_voltage_level)(int cdclk);
-  };
-@@@ -173,11 -176,45 +176,45 @@@ void intel_cdclk_get_cdclk(struct intel
-  	display->cdclk.funcs->get_cdclk(display, cdclk_config);
-  }
- =20
-+ static int intel_cdclk_pre_notify(struct intel_display *display)
-+ {
-+ 	int ret;
-+=20
-+ 	if (!display->cdclk.funcs->pre_notify)
-+ 		return 0;
-+=20
-+ 	ret =3D display->cdclk.funcs->pre_notify(display);
-+ 	if (ret)
-+ 		drm_err(display->drm,
-+ 			"Failed to inform system about start of CDCLK change (%d)\n", ret);
-+=20
-+ 	return ret;
-+ }
-+=20
-+ static void intel_cdclk_post_notify(struct intel_display *display,
-+ 				    const struct intel_cdclk_config *cdclk_config)
-+ {
-+ 	int ret;
-+=20
-+ 	if (!display->cdclk.funcs->post_notify)
-+ 		return;
-+=20
-+ 	ret =3D display->cdclk.funcs->post_notify(display, cdclk_config);
-+ 	if (ret)
-+ 		drm_err(display->drm,
-+ 			"Failed to inform system about end of CDCLK change (%d)\n", ret);
-+ }
-+=20
-  static void intel_cdclk_set_cdclk(struct intel_display *display,
-  				  const struct intel_cdclk_config *cdclk_config,
-  				  enum pipe pipe)
-  {
-+ 	if (intel_cdclk_pre_notify(display))
-+ 		return;
-+=20
-  	display->cdclk.funcs->set_cdclk(display, cdclk_config, pipe);
-+=20
-+ 	intel_cdclk_post_notify(display, cdclk_config);
-  }
- =20
-  static int intel_cdclk_modeset_calc_cdclk(struct intel_atomic_state *stat=
-e)
-@@@ -872,6 -909,19 +909,19 @@@ static u32 bdw_cdclk_freq_sel(int cdclk
-  	}
-  }
- =20
-+ static int bdw_cdclk_pcode_pre_notify(struct intel_display *display)
-+ {
-+ 	return intel_parent_pcode_write(display, BDW_PCODE_DISPLAY_FREQ_CHANGE_R=
-EQ,
-+ 					0x0);
-+ }
-+=20
-+ static int bdw_cdclk_pcode_post_notify(struct intel_display *display,
-+ 				       const struct intel_cdclk_config *cdclk_config)
-+ {
-+ 	return intel_parent_pcode_write(display, HSW_PCODE_DE_WRITE_FREQ_REQ,
-+ 					cdclk_config->voltage_level);
-+ }
-+=20
-  static void bdw_set_cdclk(struct intel_display *display,
-  			  const struct intel_cdclk_config *cdclk_config,
-  			  enum pipe pipe)
-@@@ -888,13 -938,6 +938,6 @@@
-  		     "trying to change cdclk frequency with cdclk not enabled\n"))
-  		return;
- =20
-- 	ret =3D intel_parent_pcode_write(display, BDW_PCODE_DISPLAY_FREQ_CHANGE_=
-REQ, 0x0);
-- 	if (ret) {
-- 		drm_err(display->drm,
-- 			"failed to inform pcode about cdclk change\n");
-- 		return;
-- 	}
--=20
-  	intel_de_rmw(display, LCPLL_CTL,
-  		     0, LCPLL_CD_SOURCE_FCLK);
- =20
-@@@ -918,9 -961,6 +961,6 @@@
-  	if (ret)
-  		drm_err(display->drm, "Switching back to LCPLL failed\n");
- =20
-- 	intel_parent_pcode_write(display, HSW_PCODE_DE_WRITE_FREQ_REQ,
-- 				 cdclk_config->voltage_level);
--=20
-  	intel_de_write(display, CDCLK_FREQ,
-  		       DIV_ROUND_CLOSEST(cdclk, 1000) - 1);
- =20
-@@@ -1155,6 -1195,21 +1195,21 @@@ static u32 skl_cdclk_freq_sel(struct in
-  	}
-  }
- =20
-+ static int skl_cdclk_pcode_pre_notify(struct intel_display *display)
-+ {
-+ 	return intel_parent_pcode_request(display, SKL_PCODE_CDCLK_CONTROL,
-+ 					  SKL_CDCLK_PREPARE_FOR_CHANGE,
-+ 					  SKL_CDCLK_READY_FOR_CHANGE,
-+ 					  SKL_CDCLK_READY_FOR_CHANGE, 3);
-+ }
-+=20
-+ static int skl_cdclk_pcode_post_notify(struct intel_display *display,
-+ 				       const struct intel_cdclk_config *cdclk_config)
-+ {
-+ 	return intel_parent_pcode_write(display, SKL_PCODE_CDCLK_CONTROL,
-+ 					cdclk_config->voltage_level);
-+ }
-+=20
-  static void skl_set_cdclk(struct intel_display *display,
-  			  const struct intel_cdclk_config *cdclk_config,
-  			  enum pipe pipe)
-@@@ -1162,7 -1217,6 +1217,6 @@@
-  	int cdclk =3D cdclk_config->cdclk;
-  	int vco =3D cdclk_config->vco;
-  	u32 freq_select, cdclk_ctl;
-- 	int ret;
- =20
-  	/*
-  	 * Based on WA#1183 CDCLK rates 308 and 617MHz CDCLK rates are
-@@@ -1175,16 -1229,6 +1229,6 @@@
-  	drm_WARN_ON_ONCE(display->drm,
-  			 display->platform.skylake && vco =3D=3D 8640000);
- =20
-- 	ret =3D intel_parent_pcode_request(display, SKL_PCODE_CDCLK_CONTROL,
-- 					 SKL_CDCLK_PREPARE_FOR_CHANGE,
-- 					 SKL_CDCLK_READY_FOR_CHANGE,
-- 					 SKL_CDCLK_READY_FOR_CHANGE, 3);
-- 	if (ret) {
-- 		drm_err(display->drm,
-- 			"Failed to inform PCU about cdclk change (%d)\n", ret);
-- 		return;
-- 	}
--=20
-  	freq_select =3D skl_cdclk_freq_sel(display, cdclk, vco);
- =20
-  	if (display->cdclk.hw.vco !=3D 0 &&
-@@@ -1220,10 -1264,6 +1264,6 @@@
-  	intel_de_write(display, CDCLK_CTL, cdclk_ctl);
-  	intel_de_posting_read(display, CDCLK_CTL);
- =20
-- 	/* inform PCU of the change */
-- 	intel_parent_pcode_write(display, SKL_PCODE_CDCLK_CONTROL,
-- 				 cdclk_config->voltage_level);
--=20
-  	intel_update_cdclk(display);
-  }
- =20
-@@@ -1314,7 -1354,7 +1354,7 @@@ static void skl_cdclk_init_hw(struct in
-  	cdclk_config.cdclk =3D skl_calc_cdclk(0, cdclk_config.vco);
-  	cdclk_config.voltage_level =3D skl_calc_voltage_level(cdclk_config.cdclk=
-);
- =20
-- 	skl_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-+ 	intel_cdclk_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-  }
- =20
-  static void skl_cdclk_uninit_hw(struct intel_display *display)
-@@@ -1325,7 -1365,7 +1365,7 @@@
-  	cdclk_config.vco =3D 0;
-  	cdclk_config.voltage_level =3D skl_calc_voltage_level(cdclk_config.cdclk=
-);
- =20
-- 	skl_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-+ 	intel_cdclk_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-  }
- =20
-  struct intel_cdclk_vals {
-@@@ -2177,6 -2217,11 +2217,11 @@@ static bool pll_enable_wa_needed(struc
-  		display->cdclk.hw.vco > 0;
-  }
- =20
-+ static bool has_cd2x_pipe_select(struct intel_display *display)
-+ {
-+ 	return IS_DISPLAY_VER(display, 10, 20) || display->platform.broxton;
-+ }
-+=20
-  static u32 bxt_cdclk_ctl(struct intel_display *display,
-  			 const struct intel_cdclk_config *cdclk_config,
-  			 enum pipe pipe)
-@@@ -2190,7 -2235,7 +2235,7 @@@
- =20
-  	val =3D bxt_cdclk_cd2x_div_sel(display, cdclk, vco, waveform);
- =20
-- 	if (DISPLAY_VER(display) < 30)
-+ 	if (has_cd2x_pipe_select(display))
-  		val |=3D bxt_cdclk_cd2x_pipe(display, pipe);
- =20
-  	/*
-@@@ -2220,6 -2265,29 +2265,29 @@@
-  	return val;
-  }
- =20
-+ static int bxt_cdclk_pcode_pre_notify(struct intel_display *display)
-+ {
-+ 	/*
-+ 	 * BSpec requires us to wait up to 150usec, but that leads to
-+ 	 * timeouts; the 2ms used here is based on experiment.
-+ 	 */
-+ 	return intel_parent_pcode_write_timeout(display, HSW_PCODE_DE_WRITE_FREQ=
-_REQ,
-+ 						0x80000000, 2);
-+ }
-+=20
-+ static int bxt_cdclk_pcode_post_notify(struct intel_display *display,
-+ 				       const struct intel_cdclk_config *cdclk_config)
-+ {
-+ 	/*
-+ 	 * The timeout isn't specified, the 2ms used here is based on
-+ 	 * experiment.
-+ 	 * FIXME: Waiting for the request completion could be delayed
-+ 	 * until the next PCODE request based on BSpec.
-+ 	 */
-+ 	return intel_parent_pcode_write_timeout(display, HSW_PCODE_DE_WRITE_FREQ=
-_REQ,
-+ 						cdclk_config->voltage_level, 2);
-+ }
-+=20
-  static void _bxt_set_cdclk(struct intel_display *display,
-  			   const struct intel_cdclk_config *cdclk_config,
-  			   enum pipe pipe)
-@@@ -2259,36 -2327,6 +2327,6 @@@ static void bxt_set_cdclk(struct intel_
-  {
-  	struct intel_cdclk_config mid_cdclk_config;
-  	int cdclk =3D cdclk_config->cdclk;
-- 	int ret =3D 0;
--=20
-- 	/*
-- 	 * Inform power controller of upcoming frequency change.
-- 	 * Display versions 14 and beyond do not follow the PUnit
-- 	 * mailbox communication, skip
-- 	 * this step.
-- 	 */
-- 	if (DISPLAY_VER(display) >=3D 14 || display->platform.dg2)
-- 		; /* NOOP */
-- 	else if (DISPLAY_VER(display) >=3D 11)
-- 		ret =3D intel_parent_pcode_request(display, SKL_PCODE_CDCLK_CONTROL,
-- 						 SKL_CDCLK_PREPARE_FOR_CHANGE,
-- 						 SKL_CDCLK_READY_FOR_CHANGE,
-- 						 SKL_CDCLK_READY_FOR_CHANGE, 3);
-- 	else
-- 		/*
-- 		 * BSpec requires us to wait up to 150usec, but that leads to
-- 		 * timeouts; the 2ms used here is based on experiment.
-- 		 */
-- 		ret =3D intel_parent_pcode_write_timeout(display,
-- 						       HSW_PCODE_DE_WRITE_FREQ_REQ,
-- 						       0x80000000, 2);
--=20
-- 	if (ret) {
-- 		drm_err(display->drm,
-- 			"Failed to inform PCU about cdclk change (err %d, freq %d)\n",
-- 			ret, cdclk);
-- 		return;
-- 	}
- =20
-  	if (DISPLAY_VER(display) >=3D 20 && cdclk < display->cdclk.hw.cdclk)
-  		xe2lpd_mdclk_cdclk_ratio_program(display, cdclk_config);
-@@@ -2304,40 -2342,13 +2342,13 @@@
-  	if (DISPLAY_VER(display) >=3D 20 && cdclk > display->cdclk.hw.cdclk)
-  		xe2lpd_mdclk_cdclk_ratio_program(display, cdclk_config);
- =20
-- 	if (DISPLAY_VER(display) >=3D 14)
-- 		/*
-- 		 * NOOP - No Pcode communication needed for
-- 		 * Display versions 14 and beyond
-- 		 */;
-- 	else if (DISPLAY_VER(display) >=3D 11 && !display->platform.dg2)
-- 		ret =3D intel_parent_pcode_write(display, SKL_PCODE_CDCLK_CONTROL,
-- 					       cdclk_config->voltage_level);
-- 	if (DISPLAY_VER(display) < 11) {
-- 		/*
-- 		 * The timeout isn't specified, the 2ms used here is based on
-- 		 * experiment.
-- 		 * FIXME: Waiting for the request completion could be delayed
-- 		 * until the next PCODE request based on BSpec.
-- 		 */
-- 		ret =3D intel_parent_pcode_write_timeout(display,
-- 						       HSW_PCODE_DE_WRITE_FREQ_REQ,
-- 						       cdclk_config->voltage_level, 2);
-- 	}
-- 	if (ret) {
-- 		drm_err(display->drm,
-- 			"PCode CDCLK freq set failed, (err %d, freq %d)\n",
-- 			ret, cdclk);
-- 		return;
-- 	}
--=20
-  	intel_update_cdclk(display);
- =20
-- 	if (DISPLAY_VER(display) >=3D 11)
-- 		/*
-- 		 * Can't read out the voltage level :(
-- 		 * Let's just assume everything is as expected.
-- 		 */
-- 		display->cdclk.hw.voltage_level =3D cdclk_config->voltage_level;
-+ 	/*
-+ 	 * Can't read out the voltage level :(
-+ 	 * Let's just assume everything is as expected.
-+ 	 */
-+ 	display->cdclk.hw.voltage_level =3D cdclk_config->voltage_level;
-  }
- =20
-  static void bxt_sanitize_cdclk(struct intel_display *display)
-@@@ -2381,7 -2392,7 +2392,7 @@@
-  	 * dividers both syncing to an active pipe, or asynchronously
-  	 * (PIPE_NONE).
-  	 */
-- 	if (DISPLAY_VER(display) < 30) {
-+ 	if (has_cd2x_pipe_select(display)) {
-  		cdctl &=3D ~bxt_cdclk_cd2x_pipe_mask(display);
-  		cdctl |=3D bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-  	}
-@@@ -2437,7 -2448,7 +2448,7 @@@ static void bxt_cdclk_init_hw(struct in
-  	cdclk_config.voltage_level =3D
-  		intel_cdclk_calc_voltage_level(display, cdclk_config.cdclk);
- =20
-- 	bxt_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-+ 	intel_cdclk_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-  }
- =20
-  static void bxt_cdclk_uninit_hw(struct intel_display *display)
-@@@ -2449,7 -2460,7 +2460,7 @@@
-  	cdclk_config.voltage_level =3D
-  		intel_cdclk_calc_voltage_level(display, cdclk_config.cdclk);
- =20
-- 	bxt_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-+ 	intel_cdclk_set_cdclk(display, &cdclk_config, INVALID_PIPE);
-  }
- =20
-  /**
-@@@ -2579,8 -2590,7 +2590,7 @@@ static bool intel_cdclk_can_cd2x_update
-  					const struct intel_cdclk_config *a,
-  					const struct intel_cdclk_config *b)
-  {
-- 	/* Older hw doesn't have the capability */
-- 	if (DISPLAY_VER(display) < 10 && !display->platform.broxton)
-+ 	if (!has_cd2x_pipe_select(display))
-  		return false;
- =20
-  	/*
-@@@ -2623,19 -2633,15 +2633,15 @@@ void intel_cdclk_dump_config(struct int
-  		    cdclk_config->voltage_level);
-  }
- =20
-- static void intel_pcode_notify(struct intel_display *display,
-- 			       u8 voltage_level,
-- 			       u8 active_pipe_count,
-- 			       u16 cdclk,
-- 			       bool cdclk_update_valid,
-- 			       bool pipe_count_update_valid)
-+ static int dg2_cdclk_pcode_notify(struct intel_display *display,
-+ 				  u8 voltage_level,
-+ 				  u8 active_pipe_count,
-+ 				  u16 cdclk,
-+ 				  bool cdclk_update_valid,
-+ 				  bool pipe_count_update_valid)
-  {
-- 	int ret;
-  	u32 update_mask =3D 0;
- =20
-- 	if (!display->platform.dg2)
-- 		return;
--=20
-  	update_mask =3D DISPLAY_TO_PCODE_UPDATE_MASK(cdclk, active_pipe_count, v=
-oltage_level);
- =20
-  	if (cdclk_update_valid)
-@@@ -2644,15 -2650,10 +2650,10 @@@
-  	if (pipe_count_update_valid)
-  		update_mask |=3D DISPLAY_TO_PCODE_PIPE_COUNT_VALID;
- =20
-- 	ret =3D intel_parent_pcode_request(display, SKL_PCODE_CDCLK_CONTROL,
-- 					 SKL_CDCLK_PREPARE_FOR_CHANGE |
-- 					 update_mask,
-- 					 SKL_CDCLK_READY_FOR_CHANGE,
-- 					 SKL_CDCLK_READY_FOR_CHANGE, 3);
-- 	if (ret)
-- 		drm_err(display->drm,
-- 			"Failed to inform PCU about display config (err %d)\n",
-- 			ret);
-+ 	return intel_parent_pcode_request(display, SKL_PCODE_CDCLK_CONTROL,
-+ 					  update_mask,
-+ 					  SKL_CDCLK_READY_FOR_CHANGE,
-+ 					  SKL_CDCLK_READY_FOR_CHANGE, 3);
-  }
- =20
-  static void intel_set_cdclk(struct intel_display *display,
-@@@ -2721,15 -2722,17 +2722,17 @@@ static int dg2_power_well_count(struct=
-=20
-  	return display->platform.dg2 ? hweight8(cdclk_state->active_pipes) : 0;
-  }
- =20
-- static void intel_cdclk_pcode_pre_notify(struct intel_atomic_state *state)
-+ static void dg2_cdclk_pcode_pre_notify(struct intel_atomic_state *state)
-  {
-  	struct intel_display *display =3D to_intel_display(state);
-  	const struct intel_cdclk_state *old_cdclk_state =3D
-  		intel_atomic_get_old_cdclk_state(state);
-  	const struct intel_cdclk_state *new_cdclk_state =3D
-  		intel_atomic_get_new_cdclk_state(state);
-- 	unsigned int cdclk =3D 0; u8 voltage_level, num_active_pipes =3D 0;
-+ 	u8 voltage_level, num_active_pipes =3D 0;
-  	bool change_cdclk, update_pipe_count;
-+ 	unsigned int cdclk_mhz =3D 0;
-+ 	int ret;
- =20
-  	if (!intel_cdclk_changed(&old_cdclk_state->actual,
-  				 &new_cdclk_state->actual) &&
-@@@ -2750,8 -2753,12 +2753,12 @@@
-  	 * if CDCLK is decreasing or not changing, set bits 25:16 to current CDC=
-LK,
-  	 * which basically means we choose the maximum of old and new CDCLK, if =
-we know both
-  	 */
-- 	if (change_cdclk)
-- 		cdclk =3D max(new_cdclk_state->actual.cdclk, old_cdclk_state->actual.cd=
-clk);
-+ 	if (change_cdclk) {
-+ 		unsigned int cdclk =3D max(new_cdclk_state->actual.cdclk,
-+ 					 old_cdclk_state->actual.cdclk);
-+=20
-+ 		cdclk_mhz =3D DIV_ROUND_UP(cdclk, 1000);
-+ 	}
- =20
-  	/*
-  	 * According to "Sequence For Pipe Count Change",
-@@@ -2762,19 -2769,24 +2769,24 @@@
-  	if (update_pipe_count)
-  		num_active_pipes =3D dg2_power_well_count(display, new_cdclk_state);
- =20
-- 	intel_pcode_notify(display, voltage_level, num_active_pipes, cdclk,
-- 			   change_cdclk, update_pipe_count);
-+ 	ret =3D dg2_cdclk_pcode_notify(display, voltage_level, num_active_pipes,=
- cdclk_mhz,
-+ 				     change_cdclk, update_pipe_count);
-+ 	if (ret)
-+ 		drm_err(display->drm,
-+ 			"Failed to inform PCODE about start of CDCLK change (%d)\n", ret);
-  }
- =20
-- static void intel_cdclk_pcode_post_notify(struct intel_atomic_state *stat=
-e)
-+ static void dg2_cdclk_pcode_post_notify(struct intel_atomic_state *state)
-  {
-  	struct intel_display *display =3D to_intel_display(state);
-  	const struct intel_cdclk_state *new_cdclk_state =3D
-  		intel_atomic_get_new_cdclk_state(state);
-  	const struct intel_cdclk_state *old_cdclk_state =3D
-  		intel_atomic_get_old_cdclk_state(state);
-- 	unsigned int cdclk =3D 0; u8 voltage_level, num_active_pipes =3D 0;
-+ 	u8 voltage_level, num_active_pipes =3D 0;
-  	bool update_cdclk, update_pipe_count;
-+ 	unsigned int cdclk_mhz =3D 0;
-+ 	int ret;
- =20
-  	/* According to "Sequence After Frequency Change", set voltage to used l=
-evel */
-  	voltage_level =3D new_cdclk_state->actual.voltage_level;
-@@@ -2787,8 -2799,11 +2799,11 @@@
-  	 * According to "Sequence After Frequency Change",
-  	 * set bits 25:16 to current CDCLK
-  	 */
-- 	if (update_cdclk)
-- 		cdclk =3D new_cdclk_state->actual.cdclk;
-+ 	if (update_cdclk) {
-+ 		unsigned int cdclk =3D new_cdclk_state->actual.cdclk;
-+=20
-+ 		cdclk_mhz =3D DIV_ROUND_UP(cdclk, 1000);
-+ 	}
- =20
-  	/*
-  	 * According to "Sequence For Pipe Count Change",
-@@@ -2799,8 -2814,11 +2814,11 @@@
-  	if (update_pipe_count)
-  		num_active_pipes =3D dg2_power_well_count(display, new_cdclk_state);
- =20
-- 	intel_pcode_notify(display, voltage_level, num_active_pipes, cdclk,
-- 			   update_cdclk, update_pipe_count);
-+ 	ret =3D dg2_cdclk_pcode_notify(display, voltage_level, num_active_pipes,=
- cdclk_mhz,
-+ 				     update_cdclk, update_pipe_count);
-+ 	if (ret)
-+ 		drm_err(display->drm,
-+ 			"Failed to inform PCODE about end of CDCLK change (%d)\n", ret);
-  }
- =20
-  bool intel_cdclk_is_decreasing_later(struct intel_atomic_state *state)
-@@@ -2836,12 -2854,11 +2854,11 @@@ intel_set_cdclk_pre_plane_update(struc
-  		return;
- =20
-  	if (!intel_cdclk_changed(&old_cdclk_state->actual,
-- 				 &new_cdclk_state->actual))
-+ 				 &new_cdclk_state->actual) &&
-+ 	    dg2_power_well_count(display, old_cdclk_state) =3D=3D
-+ 	    dg2_power_well_count(display, new_cdclk_state))
-  		return;
- =20
-- 	if (display->platform.dg2)
-- 		intel_cdclk_pcode_pre_notify(state);
--=20
-  	if (new_cdclk_state->disable_pipes) {
-  		cdclk_config =3D new_cdclk_state->actual;
-  		pipe =3D INVALID_PIPE;
-@@@ -2866,6 -2883,9 +2883,9 @@@
- =20
-  	drm_WARN_ON(display->drm, !new_cdclk_state->base.changed);
- =20
-+ 	if (display->platform.dg2)
-+ 		dg2_cdclk_pcode_pre_notify(state);
-+=20
-  	intel_set_cdclk(display, &cdclk_config, pipe,
-  			"Pre changing CDCLK to");
-  }
-@@@ -2891,12 -2911,11 +2911,11 @@@ intel_set_cdclk_post_plane_update(struc
-  		return;
- =20
-  	if (!intel_cdclk_changed(&old_cdclk_state->actual,
-- 				 &new_cdclk_state->actual))
-+ 				 &new_cdclk_state->actual) &&
-+ 	    dg2_power_well_count(display, old_cdclk_state) =3D=3D
-+ 	    dg2_power_well_count(display, new_cdclk_state))
-  		return;
- =20
-- 	if (display->platform.dg2)
-- 		intel_cdclk_pcode_post_notify(state);
--=20
-  	if (!new_cdclk_state->disable_pipes &&
-  	    new_cdclk_state->actual.cdclk < old_cdclk_state->actual.cdclk)
-  		pipe =3D new_cdclk_state->pipe;
-@@@ -2907,6 -2926,9 +2926,9 @@@
- =20
-  	intel_set_cdclk(display, &new_cdclk_state->actual, pipe,
-  			"Post changing CDCLK to");
-+=20
-+ 	if (display->platform.dg2)
-+ 		dg2_cdclk_pcode_post_notify(state);
-  }
- =20
-  /* pixels per CDCLK */
-@@@ -3942,9 -3964,25 +3964,25 @@@ static const struct intel_cdclk_funcs x
-  	.calc_voltage_level =3D xe3lpd_calc_voltage_level,
-  };
- =20
-+ static const struct intel_cdclk_funcs mtl_cdclk_funcs =3D {
-+ 	.get_cdclk =3D bxt_get_cdclk,
-+ 	.set_cdclk =3D bxt_set_cdclk,
-+ 	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-+ 	.calc_voltage_level =3D rplu_calc_voltage_level,
-+ };
-+=20
-+ static const struct intel_cdclk_funcs dg2_cdclk_funcs =3D {
-+ 	.get_cdclk =3D bxt_get_cdclk,
-+ 	.set_cdclk =3D bxt_set_cdclk,
-+ 	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-+ 	.calc_voltage_level =3D tgl_calc_voltage_level,
-+ };
-+=20
-  static const struct intel_cdclk_funcs rplu_cdclk_funcs =3D {
-  	.get_cdclk =3D bxt_get_cdclk,
-  	.set_cdclk =3D bxt_set_cdclk,
-+ 	.pre_notify =3D skl_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D skl_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-  	.calc_voltage_level =3D rplu_calc_voltage_level,
-  };
-@@@ -3952,6 -3990,8 +3990,8 @@@
-  static const struct intel_cdclk_funcs tgl_cdclk_funcs =3D {
-  	.get_cdclk =3D bxt_get_cdclk,
-  	.set_cdclk =3D bxt_set_cdclk,
-+ 	.pre_notify =3D skl_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D skl_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-  	.calc_voltage_level =3D tgl_calc_voltage_level,
-  };
-@@@ -3959,6 -3999,8 +3999,8 @@@
-  static const struct intel_cdclk_funcs ehl_cdclk_funcs =3D {
-  	.get_cdclk =3D bxt_get_cdclk,
-  	.set_cdclk =3D bxt_set_cdclk,
-+ 	.pre_notify =3D skl_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D skl_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-  	.calc_voltage_level =3D ehl_calc_voltage_level,
-  };
-@@@ -3966,6 -4008,8 +4008,8 @@@
-  static const struct intel_cdclk_funcs icl_cdclk_funcs =3D {
-  	.get_cdclk =3D bxt_get_cdclk,
-  	.set_cdclk =3D bxt_set_cdclk,
-+ 	.pre_notify =3D skl_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D skl_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-  	.calc_voltage_level =3D icl_calc_voltage_level,
-  };
-@@@ -3973,6 -4017,8 +4017,8 @@@
-  static const struct intel_cdclk_funcs bxt_cdclk_funcs =3D {
-  	.get_cdclk =3D bxt_get_cdclk,
-  	.set_cdclk =3D bxt_set_cdclk,
-+ 	.pre_notify =3D bxt_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D bxt_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D bxt_modeset_calc_cdclk,
-  	.calc_voltage_level =3D bxt_calc_voltage_level,
-  };
-@@@ -3980,12 -4026,16 +4026,16 @@@
-  static const struct intel_cdclk_funcs skl_cdclk_funcs =3D {
-  	.get_cdclk =3D skl_get_cdclk,
-  	.set_cdclk =3D skl_set_cdclk,
-+ 	.pre_notify =3D skl_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D skl_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D skl_modeset_calc_cdclk,
-  };
- =20
-  static const struct intel_cdclk_funcs bdw_cdclk_funcs =3D {
-  	.get_cdclk =3D bdw_get_cdclk,
-  	.set_cdclk =3D bdw_set_cdclk,
-+ 	.pre_notify =3D bdw_cdclk_pcode_pre_notify,
-+ 	.post_notify =3D bdw_cdclk_pcode_post_notify,
-  	.modeset_calc_cdclk =3D bdw_modeset_calc_cdclk,
-  };
- =20
-@@@ -4091,16 -4141,16 +4141,16 @@@ void intel_init_cdclk_hooks(struct inte
-  		display->cdclk.funcs =3D &xe3lpd_cdclk_funcs;
-  		display->cdclk.table =3D xe3lpd_cdclk_table;
-  	} else if (DISPLAY_VER(display) >=3D 20) {
-- 		display->cdclk.funcs =3D &rplu_cdclk_funcs;
-+ 		display->cdclk.funcs =3D &mtl_cdclk_funcs;
-  		display->cdclk.table =3D xe2lpd_cdclk_table;
-  	} else if (DISPLAY_VERx100(display) >=3D 1401) {
-- 		display->cdclk.funcs =3D &rplu_cdclk_funcs;
-+ 		display->cdclk.funcs =3D &mtl_cdclk_funcs;
-  		display->cdclk.table =3D xe2hpd_cdclk_table;
-  	} else if (DISPLAY_VER(display) >=3D 14) {
-- 		display->cdclk.funcs =3D &rplu_cdclk_funcs;
-+ 		display->cdclk.funcs =3D &mtl_cdclk_funcs;
-  		display->cdclk.table =3D mtl_cdclk_table;
-  	} else if (display->platform.dg2) {
-- 		display->cdclk.funcs =3D &tgl_cdclk_funcs;
-+ 		display->cdclk.funcs =3D &dg2_cdclk_funcs;
-  		display->cdclk.table =3D dg2_cdclk_table;
-  	} else if (display->platform.alderlake_p) {
-  		/* Wa_22011320316:adl-p[a0] */
+**Step 1.4 — Hidden bug fix?**
+Record: Yes. Despite “reset” wording, this is a hang/deadlock-class bug
+fix in error-recovery code, not a feature addition.
 
---P8RMu5SLb3HNCuTg
-Content-Type: application/pgp-signature; name="signature.asc"
+---
 
------BEGIN PGP SIGNATURE-----
+## Phase 2: Diff Analysis
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqVhOcACgkQJNaLcl1U
-h9BKZAf7BbCs+146vd6sLlVAS4+UK63GyiBbqM3Ujn8I4EBnWGna/7yJZtUN6o1K
-+ApZytIzakezrdZhRT28tbexP7JzCRGNaib4vxUtyZr7o6GfvYS3P/3OUzLDVFpP
-5r3UuTyCMIvS1nOamzbvWMH2PB/RiyXNUUDZvcXhc/bXTWJ0wuovlctLWVy+pFS1
-ykVnrX7gSvH8cUzPS46ppqP6b1ofZ7DTSm8IkMEtKUuZWBIOUDLz9vjqDAz5tzme
-IK/SaYjEGHW60pEcB3eubbjsLCMmnYcHSmBXv7LxcmXL9e0pLEx39ZngWHOKUYWQ
-zmYFLAXlBWHDF9bRP8G2pUsf4f83ZQ==
-=l9Ku
------END PGP SIGNATURE-----
+**Step 2.1 — Inventory**
+Record:
+- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c` (+12 net lines)
+- Function modified: `amdgpu_cper_ring_write()`
+- Scope: single-file, surgical fix in overflow recovery path
 
---P8RMu5SLb3HNCuTg--
+**Step 2.2 — Code flow per hunk**
+Record:
+- **Before:** `rptr += (ent_sz >> 2); rptr &= ring->ptr_mask;` always
+  runs; if `ent_sz` is 0, <4, or a multiple of ring circumference,
+  `rptr` may not move.
+- **After:** Compute `next_rptr` only when `ent_sz >= sizeof(u32)`; if
+  `next_rptr == rptr`, reset ring (`rptr = wptr`, update `count_dw`,
+  `goto out_unlock`); otherwise advance normally.
+- **Path affected:** CPER ring overflow recovery inside
+  `amdgpu_cper_ring_write()`, while `ring_lock` is held.
+
+**Step 2.3 — Bug mechanism**
+Record:
+- Category: logic/correctness bug → infinite loop with mutex held (soft
+  hang)
+- Mechanism: corrupt `record_length` or garbage between headers can make
+  `(rptr + (ent_sz >> 2)) & ptr_mask == rptr`; old code never exits the
+  `do { ... } while (!amdgpu_cper_is_hdr(...))` loop
+
+**Step 2.4 — Fix quality**
+Record:
+- Fix is minimal and obviously correct: no-progress detection is
+  standard for ring-buffer parsers
+- Recovery (drop corrupt contents, reset pointers) is preferable to
+  infinite spin
+- Low regression risk: only triggers on already-corrupt overflow state
+- Trade-off: loses corrupt CPER records, but that is acceptable vs.
+  permanent hang
+
+---
+
+## Phase 3: Git History Investigation
+
+**Step 3.1 — Blame**
+Record: Overflow recovery loop introduced in `a6d9d192903ea`
+(“drm/amdgpu: add data write function for CPER ring”, 2025-01-22).
+Present in this tree at lines 507–515. First appeared in tag `v6.15`.
+
+**Step 3.2 — Fixes: tag**
+Record: Not applicable — no `Fixes:` tag in commit message.
+
+**Step 3.3 — Related file history**
+Record: Related prior fix `d6f9bbce18762` (“Fix computation for remain
+size of CPER ring”) already in this tree; it fixed a *different*
+infinite-loop cause in the same function. `8e0d1edb5c167` added missing
+lock protection and was nominated for stable (`Cc:
+stable@vger.kernel.org`). CPER subsystem landed starting `92d5d2a09de16`
+in v6.15.
+
+**Step 3.4 — Author context**
+Record: Xiang Liu authored multiple CPER fixes including `d6f9bbce18762`
+(same infinite-loop class). Reviews from AMD RAS engineers and
+maintainer Alex Deucher.
+
+**Step 3.5 — Dependencies**
+Record: Standalone fix; no series markers, no prerequisite commits
+referenced. Assumes existing `amdgpu_cper_ring_write()` overflow path —
+present in this tree.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c d5e59c24d907d` failed (commit not in local history).
+`b4 shazam` found no matching message-id. lore.kernel.org search blocked
+by bot protection. **UNVERIFIED:** full review-thread content.
+
+**Step 4.2 — Reviewers**
+Record: **UNVERIFIED** via `b4 dig -w` (commit hash unavailable
+locally). Commit message lists Stanley.Yang, Tao Zhou, Alex Deucher.
+
+**Step 4.3 — Bug report**
+Record: Not applicable — no `Reported-by:` or `Link:` tags.
+
+**Step 4.4 — Related patches**
+Record: Complements `d6f9bbce18762` (already in tree) which fixed
+another overflow infinite-loop cause. This patch addresses corrupt-
+entry-size no-progress separately.
+
+**Step 4.5 — Stable list history**
+Record: **UNVERIFIED** — lore stable search inaccessible. Prior CPER
+lock fix `8e0d1edb5c167` was explicitly CC'd to stable.
+
+---
+
+## Phase 5: Code Semantic Analysis
+
+**Step 5.1 — Key functions**
+Record: `amdgpu_cper_ring_write()` (modified); uses
+`amdgpu_cper_ring_get_ent_sz()`, `amdgpu_cper_is_hdr()`.
+
+**Step 5.2 — Callers**
+Record: `amdgpu_cper_ring_write()` called from:
+- `amdgpu_cper_generate_ue_record()` — uncorrectable GPU errors
+- `amdgpu_cper_generate_bp_threshold_record()` — bad-page threshold
+  (also from `amdgpu_ras_eeprom.c`)
+- `amdgpu_cper_generate_ce_records()` — corrected errors
+- `amdgpu_virt.c` — SR-IOV guest CPER dump path
+
+All are RAS/error-reporting paths on ACA-enabled or SR-IOV CPER-enabled
+devices.
+
+**Step 5.3 — Callees**
+Record: `mutex_lock/unlock(&ring->adev->cper.ring_lock)`,
+`amdgpu_cper_ring_get_ent_sz()`, `memcpy()`, pointer masking.
+
+**Step 5.4 — Reachability**
+Record: Triggered when CPER ring overflows during error-record writes.
+Call chain: ACA bank update (`aca_banks_update` →
+`aca_banks_generate_cper` → `amdgpu_cper_generate_*` →
+`amdgpu_cper_ring_write`). Reachable during real GPU RAS events — the
+same conditions that fill the CPER ring. Not a syscall path, but
+triggered by hardware error handling that must not hang.
+
+**Step 5.5 — Similar patterns**
+Record: Prior fix `d6f9bbce18762` explicitly described “unbreakable
+while cycle when CPER ring overflow” in the same function — same bug
+class, different root cause.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+**Step 6.1 — Buggy code present?**
+Record: **Yes.** Local tree is `v6.18.44` (Makefile: 6.18.44). Buggy
+code at `amdgpu_cper.c:510-511` (`rptr += (ent_sz >> 2)` without no-
+progress check). CPER code is an ancestor of HEAD; first CPER commits
+tagged `v6.15`.
+
+**Step 6.2 — Backport complications**
+Record: Expected **clean apply with possible minor fuzz** — the
+`amdgpu_cper_ring_write()` hunk matches this tree exactly; upstream diff
+context in `amdgpu_cper_ring_get_ent_sz()` differs slightly (local uses
+inline `chdr` check vs. `amdgpu_cper_is_hdr()` in upstream diff), but
+the fix hunk is independent.
+
+**Step 6.3 — Related fixes already present?**
+Record: `d6f9bbce18762` (different overflow loop fix) and
+`8e0d1edb5c167` (lock fix) are in tree. This specific corrupt-entry-size
+hang is **not** yet fixed.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 — Subsystem criticality**
+Record: `drivers/gpu/drm/amd/amdgpu` — IMPORTANT (AMD GPU RAS/CPER error
+reporting). Not universal like mm/net, but critical for affected AMD GPU
+users with ACA/RAS enabled.
+
+**Step 7.2 — Activity**
+Record: CPER code is actively developed (20 commits on `amdgpu_cper.c`);
+subsystem is new (v6.15+) and still receiving bug fixes.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+Record: AMD GPU systems with CPER enabled (`amdgpu_aca_is_enabled()` or
+`amdgpu_sriov_ras_cper_en()`). Config/driver-specific, but includes
+production RAS workloads and SR-IOV hosts.
+
+**Step 8.2 — Trigger conditions**
+Record: CPER ring overflow **and** corrupt/non-advancing entry size in
+ring buffer. Plausible when the ring already contains damaged data from
+hardware errors or partial overwrites. Not everyday, but realistic in
+the exact failure mode CPER exists to handle.
+
+**Step 8.3 — Failure mode severity**
+Record: **CRITICAL** — infinite loop with `cper.ring_lock` held; CPER
+writer thread/worker hangs permanently; subsequent CPER records cannot
+be written; RAS error logging stalls during hardware fault scenarios.
+
+**Step 8.4 — Risk/benefit**
+Record:
+- **Benefit:** HIGH — prevents permanent hang in RAS error path during
+  overflow recovery
+- **Risk:** LOW — ~15 lines, defensive reset only on detected no-
+  progress, reviewed by AMD maintainers
+- **Ratio:** Strong benefit, minimal risk
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence compile**
+
+FOR backport:
+- Real infinite-loop hang with mutex held
+- Affects RAS error reporting on AMD GPUs with CPER
+- Small, surgical, obviously correct fix
+- Buggy code present since v6.15, present in this v6.18.44 tree
+- Prior related infinite-loop fix already backported-worthy and in tree
+- AMD reviewer + maintainer sign-off
+
+AGAINST backport:
+- No syzbot/user bug report (weaker impact evidence, but mechanism is
+  clear)
+- Only affects CPER-enabled AMD GPUs (narrower audience)
+- Lore review thread not verified
+
+UNRESOLVED:
+- Full mailing-list review discussion
+- Whether any reviewer explicitly nominated for stable
+
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
+   AMD engineers; no Tested-by
+2. Fixes a real bug? **PASS** — infinite loop on corrupt overflow
+   recovery
+3. Important issue? **PASS** — worker hang during RAS error handling
+   (CRITICAL)
+4. Small and contained? **PASS** — one file, ~15 lines
+5. No new features/APIs? **PASS** — defensive recovery only
+6. Can apply to local tree? **PASS** — target code exists; fix hunk
+   matches
+
+**Step 9.3 — Exception categories**
+Record: Not a device-ID/quirk/DT/docs/build fix. Qualifies as a critical
+bug fix on its own merits.
+
+**Step 9.4 — Decision rationale**
+For this **v6.18.44** tree, the AMDGPU CPER ring overflow recovery code
+exists and contains the described infinite-loop bug. The fix prevents a
+permanent hang in RAS error logging when corrupt ring data prevents
+`rptr` advancement — exactly the scenario CPER is meant to survive. The
+patch is small, self-contained, and follows the same pattern as the
+already-merged `d6f9bbce18762` overflow-loop fix.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed commit message and tags from user-provided diff
+- [Phase 2] Analyzed diff: `amdgpu_cper_ring_write()` overflow loop
+  change
+- [Phase 3] `git describe HEAD` → `v6.18.44`; Makefile confirms 6.18.44
+- [Phase 3] `git blame -L 507,516` → buggy loop from `a6d9d192903ea`
+  (2025-01-22)
+- [Phase 3] `git tag --contains 92d5d2a09de16` → CPER introduced in
+  `v6.15`
+- [Phase 3] `git show d6f9bbce18762` → related prior infinite-loop fix
+  in same function, already in tree
+- [Phase 3] `git log --oneline -20 -- amdgpu_cper.c` → CPER subsystem
+  history reviewed
+- [Phase 4] `b4 dig -c d5e59c24d907d` → no match (commit not in local
+  repo)
+- [Phase 4] `b4 shazam -s 'reset CPER ring on corrupt entry size'` →
+  message-id not known
+- [Phase 4] lore.kernel.org fetch → blocked by Anubis bot protection
+- [Phase 4] Workspace `*.mbx` grep → no matching thread found
+- [Phase 5] `grep amdgpu_cper_ring_write` → 4 call sites in
+  `amdgpu_cper.c`, `amdgpu_virt.c`
+- [Phase 5] Traced `aca_banks_update` → `aca_banks_generate_cper` →
+  `amdgpu_cper_generate_*` → `amdgpu_cper_ring_write`
+- [Phase 6] Read `amdgpu_cper.c:466-521` → buggy code confirmed present,
+  fix absent
+- [Phase 6] `git merge-base --is-ancestor 4d614ce8ffd75 HEAD` → CPER
+  ring code is in this tree
+- [Phase 6] Patch apply via `git apply --check` → failed on upstream
+  context mismatch in unrelated hunk; target `amdgpu_cper_ring_write()`
+  hunk verified identical by direct file read
+- [Phase 7] `amdgpu_cper_init()` requires `amdgpu_aca_is_enabled()` or
+  `amdgpu_sriov_ras_cper_en()` — verified in source
+- [Phase 8] Confirmed mutex held across infinite loop (`mutex_lock` at
+  line 481, loop at 507-515, `mutex_unlock` at 520)
+
+**YES**The background search finished: the fix commit **is not in this
+tree** (`v6.18.44`). `git log --grep='reset CPER ring'` and
+`--grep='corrupt entry size'` found nothing; Xiang Liu’s other CPER
+commits (including `d6f9bbce18762`, a related overflow infinite-loop
+fix) are present, but not this one.
+
+The buggy overflow-recovery loop is still in `amdgpu_cper.c` at lines
+510–511. This patch should be backported here: it prevents an infinite
+spin with `cper.ring_lock` held when corrupt CPER ring data doesn’t
+advance `rptr` during overflow recovery — a hang in the RAS error-
+reporting path on ACA/SR-IOV CPER-enabled AMD GPUs.
+
+**YES**
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+index 425a3e5643608..2694facb06c73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+@@ -465,7 +465,7 @@ static u32 amdgpu_cper_ring_get_ent_sz(struct amdgpu_ring *ring, u64 pos)
+ 
+ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
+ {
+-	u64 pos, wptr_old, rptr;
++	u64 pos, wptr_old, rptr, next_rptr;
+ 	int rec_cnt_dw = count >> 2;
+ 	u32 chunk, ent_sz;
+ 	u8 *s = (u8 *)src;
+@@ -506,9 +506,19 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
+ 
+ 		do {
+ 			ent_sz = amdgpu_cper_ring_get_ent_sz(ring, pos);
+-
+-			rptr += (ent_sz >> 2);
+-			rptr &= ring->ptr_mask;
++			next_rptr = rptr;
++			if (ent_sz >= sizeof(u32))
++				next_rptr = (rptr + (ent_sz >> 2)) & ring->ptr_mask;
++
++			if (next_rptr == rptr) {
++				/* Corrupt entry size, reset the ring to avoid an infinite loop. */
++				rptr = ring->wptr;
++				*ring->rptr_cpu_addr = rptr;
++				ring->count_dw = (ring->ring_size - 4) >> 2;
++				goto out_unlock;
++			}
++
++			rptr = next_rptr;
+ 			*ring->rptr_cpu_addr = rptr;
+ 
+ 			pos = rptr;
+@@ -517,6 +527,8 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
+ 
+ 	if (ring->count_dw >= rec_cnt_dw)
+ 		ring->count_dw -= rec_cnt_dw;
++
++out_unlock:
+ 	mutex_unlock(&ring->adev->cper.ring_lock);
+ }
+ 
+-- 
+2.53.0
+
