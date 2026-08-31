@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6888C61DE8
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 05:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3066C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 05:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE6D410E60B;
-	Mon, 31 Aug 2026 05:48:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F00C510E60F;
+	Mon, 31 Aug 2026 05:51:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lr+BFI9P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nP7Pj3E3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7A210E605
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 05:48:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62F8210E602
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 05:51:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C3F6840283;
- Mon, 31 Aug 2026 05:48:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254AC1F000E9;
- Mon, 31 Aug 2026 05:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788155325;
- bh=2IzguYBaGHJrEbcQ6FGsHCrrRCuT3Z1+IowBs9KVDCE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Lr+BFI9P67qwYhc3fFJ+jIztr9OijPdIY52YidjuKz0yARTC20RhwsgLG0sZllZsi
- lGaG4lZZLGNMZcM+FtRZIStBqDGoyNMFDHyo8weEhZme2JGMrLgWtyKbHlGCpCrkW9
- 3ZCN/kyCyEwiMQ5rCqIFbLnPKmjpvNPB+Cg5RRxA=
-Date: Mon, 31 Aug 2026 07:47:02 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: anshika <anshikajain196872@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Dan Carpenter <error27@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev
-Subject: Re: [PATCH] staging: fbtft: name the no-op endian modifier in
- define_fbtft_write_reg()
-Message-ID: <2026083121-suspend-constable-9e1a@gregkh>
-References: <20260830161529.14500-1-anshikajain196872@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830161529.14500-1-anshikajain196872@gmail.com>
+ by sea.source.kernel.org (Postfix) with ESMTP id 207A842DBD;
+ Mon, 31 Aug 2026 05:51:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3CF71F000E9;
+ Mon, 31 Aug 2026 05:51:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788155465;
+ bh=A1jHxH1MhMyINxh+jZocV7LCYQuCYj2eZGq2PaaWQy8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nP7Pj3E3tsk+g85fHAMYHqfGEW050hQQd0irB14dfh0bOJDlUbdhxo27kybNyS9GB
+ Tvi5NmOtrTcfQs2Ovrqi4txNiPB1UPaLBLV5tJqAjtq/T1t8cymSayaFu6zhCvGyJT
+ 6wvEmefvDDADGoL2PUG/fepWOQ0H5aTi4Ld7DyiTJRMXgfvjNTqIuir5s/fUDW4u1j
+ xXFNlW1criS2/9sjVM/hk58e5SDbIfJVoZMVaHs1ow8BztrRE28jQyii4cJMSdC19R
+ KOsLl7d5HDYuMOn6ETM6UJzRGHvLypS9t1qAnUkT9FV1sPLam/yj369NLAStgnDWyn
+ lElIODFyKEIQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/4] drm: Add per-signal compare functionality to
+ drm_user_fence
+To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831054154.107602-5-srinivasan.shanmugam@amd.com>
+References: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
+ <20260831054154.107602-5-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 05:51:04 +0000
+Message-Id: <20260831055104.E3CF71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,27 +54,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Aug 30, 2026 at 09:45:29PM +0530, anshika wrote:
-> Two of the three define_fbtft_write_reg() instantiations pass an empty
-> modifier argument, which checkpatch flags as a fragile empty macro
-> argument. Give the no-op case an explicit name instead of leaving it
-> blank.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Blocking workqueue threads indefinitely via get_user() and userfau=
+ltfd/FUSE.
+--
 
-Checkpatch is wrong.
+commit ca21d7e20dc2d16871f1fee93d9a731a24dbe2fa
+Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+drm: Add per-signal compare functionality to drm_user_fence
 
-> No functional change.
-> 
-> Link: https://lkml.iu.edu/hypermail/linux/kernel/2602.0/01917.html
-> 
-> Signed-off-by: anshika <anshikajain196872@gmail.com>
+This commit adds optional compare fields to drm_user_fence and a helper
+function to configure them. When configured, the worker reads a value from
+userspace via get_user() upon fence signaling, and executes the callback
+only if the comparison passes.
 
-We would need a full name anyway.
+> diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_=
+fence.c
+> index 664178e2d74cf..9e141533622e7 100644
+> --- a/drivers/gpu/drm/drm_user_fence.c
+> +++ b/drivers/gpu/drm/drm_user_fence.c
+[ ... ]
+> @@ -12,21 +12,68 @@
+[ ... ]
+>  static void drm_user_fence_do_work(struct drm_work_fence *wfence)
+>  {
+[ ... ]
+> +	if (ufence->cmp_op !=3D DRM_USER_FENCE_CMP_NONE) {
+> +		if (!mm_ok) {
+> +			call_worker =3D false;
+> +		} else {
+> +			u64 cur_val;
+> +
+> +			if (get_user(cur_val, ufence->cmp_addr) ||
 
-Just leave this as-is please, it's fine.
+[Severity: High]
+Can a malicious userspace application configure cmp_addr to point to a memo=
+ry
+region monitored by userfaultfd or a slow FUSE filesystem, and intentionally
+never resolve the page fault?
 
-thanks,
+Since drm_user_fence_do_work() runs on a kernel workqueue thread, blocking
+indefinitely in get_user() without pagefault protections could stall the
+workqueue. If this workqueue is shared, ordered, or thread-pool constrained,
+this could prevent other kernel tasks from executing and lead to a denial of
+service.
 
-greg k-h
+> +			    !drm_user_fence_cmp_match(cur_val,
+> +						      ufence->cmp_value,
+> +						      ufence->cmp_op))
+> +				call_worker =3D false;
+> +		}
+> +	}
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827062142.4038=
+272-1-srinivasan.shanmugam@amd.com?part=3D4
