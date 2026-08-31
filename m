@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B349C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC146C624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2A810E913;
-	Mon, 31 Aug 2026 14:33:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0138A10E917;
+	Mon, 31 Aug 2026 14:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZS7/594q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bMoStvfv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72CBD10E913
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:33:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 945B310E917
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:33:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7DEE06013A
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:33:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07DDF1F000E9;
- Mon, 31 Aug 2026 14:33:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 58FDB40655;
+ Mon, 31 Aug 2026 14:33:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B011C1F000E9;
+ Mon, 31 Aug 2026 14:33:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788186819;
- bh=MFtKHsncj1QEZ3NhaQOPB0YkU0McOneGQFPmQZ0wFj8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZS7/594qFe63gYZNgLVhGfjN66LekBQ6+rdVZltw+/BpLpEuI6AxKv2nTdIYQRWOn
- w1WL3o9nbvHGJjOL8MC1fAcllBnBrhzebBidS96od5/LKDASIGWsYYPf6hXM0nu/9N
- N1wrJEXBZbCSVPaZUdhc8u9g35YjH++um0ubqpE08zkKGuzLtDiZtJb6cGd4IJt6Pt
- H0fK1zViE2jlv28uoi/+R9IFhh9a2NDlivaehIZEs5fekUaQiw+IbZRHNW+z/wNY1y
- 3QcKRXafNWLpkD0yurmxSMH1B9nd4W6gXJTe6hK14NSQYSz5H1v0yw7DV3AfewIIhL
- D1vILtPhki7IQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/arm/malidp: use clk_bulk API in
- runtime PM resume and suspend
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-108-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-108-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1788186824;
+ bh=ZL5bFu7CsTNzqvus3MEa0m6EG4X7lg8HsHo2/a5DEMQ=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=bMoStvfvvwN006vdgROgnRCHVv5olC01N//krxZXlxBtjZ7hc7zAOU0H96VgzAYhu
+ Obh0HeH6W2ufSd2LuhWYA7aJU0JL4OYJeFOiWPCYnYUP8blGdS0fJ5rIu0H+YFf5dc
+ aXAgoGsZYrEA3r4o+QnuZ/1MpcDijZd+UzhaKTFtZ/wUlFP61NzunD3pjPyzIZwALj
+ qqzAEVKLn/WQh+qwM8vn4vD5k954/rlJx1uxjeDFFqwJN9LR5wp8yumC+mNO1JBAEe
+ BchC3FAatMdskNmzumUMnYcKRo7tS6FW2sSQRju/pNkYMRc9gJRtr7s91Qlq6gfXfD
+ wDqolbfbwZLog==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 14:33:38 +0000
-Message-Id: <20260831143339.07DDF1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 16:33:40 +0200
+Message-Id: <DL37BOJC2I73.1BK0RELPBUPY2@kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v5 09/11] drm: nova: Report GPU name in GPU info
+Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
+ <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-10-apopple@nvidia.com>
+In-Reply-To: <20260828033531.1117754-10-apopple@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,147 +60,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+>  impl NovaCoreApi<'_> {
+> +    /// Returns the NUL-terminated full GPU name supplied by GSP-RM.
+> +    pub fn gpu_name(&self) -> [u8; 64] {
 
-New issues:
-- [Low] Final Result: The clock framework logs '(null)' during enablement f=
-ailures because the .id fields in the clk_bulk_data array are not initializ=
-ed.
+I don't really like that we have two separate accessors for this, can't we =
+just
+use the one we already have, which also does all the validation already?
 
-Pre-existing issues:
-- [High] Final Result: Hardware accesses on explicitly disabled clocks trig=
-ger synchronous external aborts. Ignored return values from pm_runtime_get_=
-sync() and malidp_runtime_pm_resume() combine with the new clock rollback t=
-o guarantee an APB bus hang.
-- [High] Final Result: Missing synchronize_irq() in the runtime suspend pat=
-h allows active shared IRQ handlers to crash the system by accessing powere=
-d-down hardware.
---
+The constructor of GpuInfo could look like this:
 
-commit 049d634e1eb44e14ba4f4fc2612f50ff9b67236e
-Author: Gustavo Kenji Mendon=C3=A7a Kaneko <kaneko.dev@pm.me>
+	fn new(reg_data: &DrmRegData<'_>) -> Result<Self> {
+	    let mut info =3D uapi::drm_nova_gpu_info {
+	        architecture: reg_data.api.architecture(),
+	        implementation: reg_data.api.implementation(),
+	        ..Default::default()
+	    };
+	    let bytes =3D reg_data.api.gpu_name()?.as_bytes();
+	    info.gpu_name[..bytes.len()].copy_from_slice(bytes);
+	    Ok(Self(info))
+	}
 
-drm/arm/malidp: use clk_bulk API in runtime PM resume and suspend
+Could also be infallible if we want to go with a fallback name, given that =
+we
+consider the firmware not providing something useful as non-fatal so far.
 
-This commit converts the Mali DP driver's runtime PM resume and suspend
-paths to use the clk_bulk API. It ensures that clk_bulk_prepare_enable()
-return values are checked during resume, rolling back any successfully
-enabled clocks if a failure occurs.
-
-Link: https://patch.msgid.link/20260609130812.1065699-1-kaneko.dev@pm.me
-
-> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malid=
-p_drv.c
-> index bc5f5e9798c32..2bf4a647e4b28 100644
-> --- a/drivers/gpu/drm/arm/malidp_drv.c
-> +++ b/drivers/gpu/drm/arm/malidp_drv.c
-> @@ -669,6 +669,11 @@ static int malidp_runtime_pm_suspend(struct device *=
-dev)
->  	struct drm_device *drm =3D dev_get_drvdata(dev);
->  	struct malidp_drm *malidp =3D drm_to_malidp(drm);
->  	struct malidp_hw_device *hwdev =3D malidp->dev;
-> +	struct clk_bulk_data clks[] =3D {
-> +		{ .clk =3D hwdev->pclk },
-> +		{ .clk =3D hwdev->aclk },
-> +		{ .clk =3D hwdev->mclk },
-> +	};
-> =20
->  	/* we can only suspend if the hardware is in config mode */
->  	WARN_ON(!hwdev->hw->in_config_mode(hwdev));
-> @@ -676,9 +681,7 @@ static int malidp_runtime_pm_suspend(struct device *d=
-ev)
->  	malidp_se_irq_fini(hwdev);
->  	malidp_de_irq_fini(hwdev);
->  	hwdev->pm_suspended =3D true;
-> -	clk_disable_unprepare(hwdev->mclk);
-> -	clk_disable_unprepare(hwdev->aclk);
-> -	clk_disable_unprepare(hwdev->pclk);
-> +	clk_bulk_disable_unprepare(ARRAY_SIZE(clks), clks);
-
-[Severity: High]
-This is a pre-existing issue, but is there a risk of a shared interrupt
-firing exactly as the device enters runtime suspend?
-
-The omission of synchronize_irq() before clk_bulk_disable_unprepare() allows
-concurrently executing handlers to read unclocked registers. For example, in
-drivers/gpu/drm/arm/malidp_hw.c:
-
-malidp_de_irq() {
-    if (hwdev->pm_suspended)
-        return IRQ_NONE;
-    ...
-}
-
-Could we add a call to synchronize_irq() before disabling the clocks so
-active shared IRQ handlers do not crash the system by accessing powered-down
-hardware?
-
-> =20
->  	return 0;
->  }
-> @@ -688,10 +691,17 @@ static int malidp_runtime_pm_resume(struct device *=
-dev)
->  	struct drm_device *drm =3D dev_get_drvdata(dev);
->  	struct malidp_drm *malidp =3D drm_to_malidp(drm);
->  	struct malidp_hw_device *hwdev =3D malidp->dev;
-> +	struct clk_bulk_data clks[] =3D {
-> +		{ .clk =3D hwdev->pclk },
-> +		{ .clk =3D hwdev->aclk },
-> +		{ .clk =3D hwdev->mclk },
-> +	};
-
-[Severity: Low]
-Does this array initialization cause the clock framework to log (null)
-during enablement failures?
-
-If a clock fails to enable during PM resume, the uninitialized .id fields
-in the local clk_bulk_data array are used by pr_err(), which results in
-useless error logging instead of the clock name.
-
-Should we add the corresponding .id string values to this array?
-
-> +	int err;
+> +        *self.gpu.gsp_static_info.gpu_name_bytes()
+> +    }
 > +
-> +	err =3D clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
-> +	if (err)
-> +		return err;
-
-[Severity: High]
-This is a pre-existing issue, but can the new clock rollback here cause an
-APB bus hang on failure?
-
-If a clock enablement fails during malidp_runtime_pm_resume(), the newly
-introduced clk_bulk_prepare_enable() rolls back and disables all clocks on
-partial failure.
-
-However, callers blindly proceed and ignore the return values from
-pm_runtime_get_sync() and malidp_runtime_pm_resume(), meaning they will
-read and write unclocked MMIO registers. For example, in
-drivers/gpu/drm/arm/malidp_drv.c:
-
-malidp_atomic_commit_tail() {
-    pm_runtime_get_sync(drm->dev);
-    ...
-    atomic_set(&malidp->config_valid, MALIDP_CONFIG_START);
-    malidp->dev->hw->set_config_valid(malidp->dev, 0);
-}
-
-Are we able to check the return value of pm_runtime_get_sync() in these
-callers to prevent a synchronous external abort when the resume path fails?
-
+>      /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registe=
+red
+>      /// by nova-core.
+>      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreAp=
+i<'_>>> {
+> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
+e/gsp/commands.rs
+> index 6453184af55b..b8dc64808620 100644
+> --- a/drivers/gpu/nova-core/gsp/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/commands.rs
+> @@ -251,6 +251,11 @@ pub(crate) enum GpuNameError {
+>  }
 > =20
-> -	clk_prepare_enable(hwdev->pclk);
-> -	clk_prepare_enable(hwdev->aclk);
-> -	clk_prepare_enable(hwdev->mclk);
->  	hwdev->pm_suspended =3D false;
->  	malidp_de_irq_hw_init(hwdev);
->  	malidp_se_irq_hw_init(hwdev);
+>  impl GetGspStaticInfoReply {
+> +    /// Returns the full GPU name as a NUL-terminated byte string.
+> +    pub(crate) fn gpu_name_bytes(&self) -> &[u8; 64] {
+> +        &self.gpu_name
+> +    }
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-108-sashal@kernel.org?part=3D1
+AFAICS there's nothing ensuring that this is actually NULL terminated? The
+existing gpu_name() method already does this.
