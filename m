@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39D15C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:54:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92628C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5282E10E2AA;
-	Mon, 31 Aug 2026 14:54:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3E6210E29F;
+	Mon, 31 Aug 2026 14:56:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tcp77cZU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DKSOjRKS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8CD10E29F;
- Mon, 31 Aug 2026 14:54:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73FB310E29F
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:56:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2A2860120;
- Mon, 31 Aug 2026 14:54:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0EB1F000E9;
- Mon, 31 Aug 2026 14:54:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1A0BE43B0B
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:56:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED4B1F000E9;
+ Mon, 31 Aug 2026 14:56:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788188066;
- bh=Z8y2MKYpXb55BMe0iCdawN7MmYc9BaYZAV4pa/Ar9/0=;
+ s=k20260515; t=1788188178;
+ bh=fAx+yNbEJWs3UA8H9YGE3IbiFvXd/Ib0XLbel6EOyvo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Tcp77cZUyLx8TOMOSmv3teKf92P5DCgTcSOw+jIv8jLi6cl+xBwjTtt4I8R6dhf7E
- 9QzVXjbtKVFGfFlVSmML59kNncd7AIijEyX34GN0PUbLM6ez84BHMLcfAUWtRFdG+Q
- t3/BG9EYMXWcG2lCmkgmf8GWNMW1sh1imeiRUObty2JhFbk3ZPCpHqcquRVr8er41G
- 6X7OiAjD1yLxcKOAgHX/YEqBvcD4V6OYLvf8ol7gjoosxkEzTU6yVT0GOx3QdBuIT7
- 59LtKefm6JY7yvuYNzH8njexAJD+qeBuCyH2oJN1vMWofd+buIVpTnMWvDmeWBMrgd
- XnXj2jB86bppA==
+ b=DKSOjRKSQv+WlujWmOUA65sxHSwheKUj4JQBwJpqPE+ivIsmqTByCE/Oos5Y/xxsA
+ +F01A93vPvbAeJFimJrxIbPNjOoi/D4KB/8cOr9PV1CvwX7VeQloNoDwkYNfqCby3h
+ QR8K+kmYXlFN0keTTxu1FP/yuzoeUlbCBrGUDaWC6WOgRCvZSK6l1QoLoEMFmgGJAV
+ NspguotlCgnjsYgbsgjYUAHcTgk0B5/KdR56rfFWTWhos+Yk5oANGnRRMtMyfAUB5z
+ NqCyLbFT2hBoCwLkUIfdwL+BL90f09svnZjdBL8G2K0dcqMXhWnF6VkEN+jLCZxfqO
+ KBzN9aTufz6JQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] drm/xe: Fix null pointer dereference in
- devcoredump cleanup
+Subject: Re: [PATCH AUTOSEL 6.18-6.12] drm/amdkfd: Properly acquire queue
+ buffers in CRIU restore
 To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-170-sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831133314.4125787-183-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-170-sashal@kernel.org>
+ <20260831133314.4125787-183-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 14:54:26 +0000
-Message-Id: <20260831145426.8B0EB1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 14:56:17 +0000
+Message-Id: <20260831145617.CED4B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,104 +58,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Missing cancellation of deferred snapshot work during driver u=
-nload leads to a use-after-free.
-- [High] Calling cancel_work_sync() from within the work item itself causes=
- a self-deadlock on the dev_coredumpm_timeout() error path.
-- [High] dev_coredumpm_timeout() synchronous error path clears the snapshot=
- memory, causing a NULL pointer dereference in the worker thread.
+- [Critical] Asymmetric SVM range refcounting leading to potential GPU Use-=
+After-Free via SDMA queues.
+- [High] The gang_ctx_bo and wptr_bo_gart allocations in init_user_queue() =
+are leaked when pqm_create_queue() fails during dev->dqm->ops.create_queue(=
+).
 --
 
-commit 9607c0ac0490954ce494b7fd2f2026e574352b10
-Author: Zhanjun Dong <zhanjun.dong@intel.com>
-Subject: drm/xe: Fix null pointer dereference in devcoredump cleanup
+commit d34532449fcac18c405929eee012b2621c7a7eec
+Author: David Francis <David.Francis@amd.com>
 
-In xe_devcoredump_snapshot_free(), ss->gt may be NULL when the snapshot
-was never fully populated. Guard the xe_guc_capture_put_matched_nodes()
-call with IS_ERR_OR_NULL() to prevent a null dereference.
+drm/amdkfd: Properly acquire queue buffers in CRIU restore
 
-Link: https://patch.msgid.link/20260326181017.2060209-1-zhanjun.dong@intel.=
-com
+When kfd_queue_acquire_buffers() was split off from
+set_queue_properties_from_user(), set_queue_properties_from_criu()
+was missed. Thus, set_queue_properties_from_criu() is not
+filling out the buffer fields of queue_properties, which
+can come up when subsequent code expects them to be non-null.
 
-> diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_=
-devcoredump.c
-> index 203e3038cc817..26a294f79e79f 100644
-> --- a/drivers/gpu/drm/xe/xe_devcoredump.c
-> +++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 7fbb5c274ccc4..b32bd79e0d41f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
 [ ... ]
-> @@ -255,7 +256,8 @@ static void xe_devcoredump_free(void *data)
->  	if (!data || !coredump_to_xe(coredump))
->  		return;
+> @@ -1053,10 +1053,18 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+>  	memset(&qp, 0, sizeof(qp));
+>  	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->adev->gfx=
+.xcc_mask));
 > =20
-> -	cancel_work_sync(&coredump->snapshot.work);
-> +	if (coredump->captured)
-> +		cancel_work_sync(&coredump->snapshot.work);
-
-[Severity: High]
-This is a pre-existing issue, but does calling cancel_work_sync() from with=
-in
-the work item itself cause a self-deadlock?
-
-In xe_devcoredump_deferred_snap_work(), which executes on the workqueue, th=
-ere
-is a call to dev_coredumpm_timeout(). If dev_coredumpm_timeout() fails (for
-example, if devcoredump is disabled via sysfs or memory allocation fails), =
-it
-synchronously invokes the free callback, xe_devcoredump_free().
-
-Because coredump->captured is true while this work is executing,
-xe_devcoredump_free() calls cancel_work_sync() on the same work item. Since
-this executes in the context of the work item itself, it blocks forever
-waiting for the work to complete, deadlocking the system_unbound_wq worker.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can the synchronous error pa=
-th
-described above also result in a null pointer dereference within the worker
-thread?
-
-Assuming the deadlock in cancel_work_sync() is bypassed, xe_devcoredump_fre=
-e()
-will clear the snapshot memory:
-
-	/* To prevent stale data on next snapshot, clear everything */
-	memset(&coredump->snapshot, 0, sizeof(coredump->snapshot));
-
-Once dev_coredumpm_timeout() returns control to
-xe_devcoredump_deferred_snap_work(), the worker thread immediately attempts
-to evaluate gt_to_fw(ss->gt). Since ss->gt was just zeroed out, this results
-in an invalid pointer offset, which is then dereferenced by
-xe_force_wake_get(), crashing the kernel.
+> +	ret =3D kfd_queue_acquire_buffers(pdd, &qp);
 
 [Severity: Critical]
-This is another pre-existing issue in the devcoredump lifecycle, but is the=
-re
-a risk of a use-after-free here due to missing cancellation of deferred
-snapshot work during driver unload?
+This is a pre-existing issue, but does the SVM range refcounting asymmetry =
+in
+kfd_queue_acquire_buffers() and kfd_queue_release_buffers() lead to a
+potential use-after-free for SDMA queues?
 
-When the driver is unloaded or unbound, xe_driver_devcoredump_fini() execut=
-es:
+If a local user creates a COMPUTE queue using an SVM range as the CWSR area,
+it increments the queue_refcount. If the user then creates an SDMA queue
+passing the same SVM range address, kfd_queue_acquire_buffers() skips
+kfd_queue_buffer_svm_get() because it's not a compute queue:
 
-static void xe_driver_devcoredump_fini(void *arg)
-{
-	struct drm_device *drm =3D arg;
-
-	dev_coredump_put(drm->dev);
+drivers/gpu/drm/amd/amdkfd/kfd_queue.c:kfd_queue_acquire_buffers() {
+    ...
+    /* only compute queue requires EOP buffer and CWSR area */
+    if (properties->type !=3D KFD_QUEUE_TYPE_COMPUTE)
+        goto out_unreserve;
+    ...
 }
 
-If a GPU hang recently queued xe_devcoredump_deferred_snap_work() on the
-system workqueue, and the driver is unloaded before this work executes,
-dev_coredumpm_timeout() hasn't been called yet. This means the devcd device
-does not exist, so dev_coredump_put() does nothing.
+However, when the SDMA queue is destroyed, kfd_queue_release_buffers()
+unconditionally drops the refcount:
 
-The driver teardown completes and frees the xe_device memory. The workqueue
-subsequently executes the pending work, dereferencing the freed coredump
-structure.
+drivers/gpu/drm/amd/amdkfd/kfd_queue.c:kfd_queue_release_buffers() {
+    ...
+    kfd_queue_buffer_svm_put(pdd,
+                             properties->ctx_save_restore_area_address,
+                             total_cwsr_size);
+    return 0;
+}
+
+When the memory is unmapped, svm_range_unmap_from_gpus() will see a refcount
+of 0 and skip quiescing the COMPUTE queue, potentially allowing it to conti=
+nue
+writing to physical pages after they are returned to the OS.
+
+> +	if (ret) {
+> +		pr_debug("failed to acquire user queue buffers for CRIU\n");
+> +		goto exit;
+> +	}
+> +
+>  	print_queue_properties(&qp);
+> =20
+>  	ret =3D pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data, mqd=
+, ctl_stack, NULL);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does pqm_create_queue() leak
+the gang_ctx_bo and wptr_bo_gart allocations if dev->dqm->ops.create_queue()
+fails?
+
+In the error handling path:
+
+drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c:pqm_create_queue() {
+    ...
+err_create_queue:
+    uninit_queue(q);
+    if (kq)
+        kernel_queue_uninit(kq);
+    kfree(pqn);
+    ...
+}
+
+The err_create_queue path calls uninit_queue(q), which kfrees the queue
+structure, but it fails to call pqm_clean_queue_resource(). This leaks the
+GTT allocations made earlier in init_user_queue(). A local user could
+repeatedly exhaust the queue limit to trigger this error path and cause a G=
+TT
+memory leak.
+
+>  	if (ret) {
+> +		kfd_queue_unref_bo_vas(pdd, &qp);
+> +		kfd_queue_release_buffers(pdd, &qp);
+>  		pr_err("Failed to create new queue err:%d\n", ret);
+>  		goto exit;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-170-sashal@kernel.org?part=3D1
+787-183-sashal@kernel.org?part=3D1
