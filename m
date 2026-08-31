@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CADA9C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81661C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:42:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0240C10E88C;
-	Mon, 31 Aug 2026 13:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B28E710E88E;
+	Mon, 31 Aug 2026 13:42:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mY0IXbVR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GTX+CCBG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 102FD10E88A;
- Mon, 31 Aug 2026 13:42:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F40E10E88D;
+ Mon, 31 Aug 2026 13:42:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7939B60200;
- Mon, 31 Aug 2026 13:42:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93E71F00ADB;
- Mon, 31 Aug 2026 13:42:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 567B543657;
+ Mon, 31 Aug 2026 13:42:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3F41F00ADB;
+ Mon, 31 Aug 2026 13:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183738;
- bh=hO5fpXgZeak/GWVwQhbEEiS8z/bv3eh4dMt91Ymz94A=;
+ s=k20260515; t=1788183746;
+ bh=2snaxlnwBvKp12KEOFcIunRxCJsX0dN+U8uJnsJGq24=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=mY0IXbVR0zUm5kJ3b6/V78AhMEU9cOxuyWpTmY7KDX1qZtju7UPa55GiGTKj257ir
- TBl+gKchiNvjkIvj8VllYc65x6/tvxeA+jcx22NloJFflKqbEmIVmTFgfMytHGrOUf
- 7Y5Elcd+sZ+WZdKpkngjgUBRNOinOYD3+It5Ze/QW8/C/s8ECqJ0RB22TM3xHNMfPd
- qFoFIXIbXservVVO4L3Hev2gLcswDmYLojFik5GcZ0Vpc69n6+75KfrrmwCUjkM2Bk
- yy9BFAxF37uI4L+4+QVaG0jc9Y7ZIvunBoXQPOnrtDXvcsj2S30LBlLcSoYBcnmJTU
- VFzeE6ltA+gSA==
+ b=GTX+CCBGJfC0nd7+9Yh/Uk/zdncAbPegIVEcoRMFQVmI4jVC1I0LG0ZLvdnlmDMXD
+ XJ77kwFYqqqJ9T42tYBQdGc0+Ae1YNwCOSCgj0sHljf/RK12XNQA78Je17xXJmNdzH
+ dhC0bR0WM631hKw6uNNjOfqOhFYt/600GGrNdXyt7Lbb4A9BmxKMz/jTDSA4zPoCW9
+ bV4u9hwJw+H9B6JZ2hYNcKpBt28ei+KZTYdlJcHoT5T4L5D8v9S+AsJe/yyj/7MqiX
+ 8tfaIDmW3bi/RKbIeGBy1ubhTNOhffrRZZfmwZHdF/t6LNeS5gmk9cHVOzHlziZmxw
+ BI2ssSaL+CNOw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: cap ATOM command table nesting depth
-Date: Mon, 31 Aug 2026 09:25:02 -0400
-Message-ID: <20260831133314.4125787-274-sashal@kernel.org>
+Cc: Timur Tabi <ttabi@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
+ Sasha Levin <sashal@kernel.org>, lyude@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/nouveau/gsp: add SEC2 to GA100 chip table
+Date: Mon, 31 Aug 2026 09:25:07 -0400
+Message-ID: <20260831133314.4125787-279-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -65,60 +65,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Candice Li <candice.li@amd.com>
+From: Timur Tabi <ttabi@nvidia.com>
 
-[ Upstream commit 27ef1795bc4e47cae838e0a3ced531c549f9b23d ]
+[ Upstream commit 604d0efb17cc0dd197e089134736ac2698d5fca7 ]
 
-Cap nesting at 32 levels with execute_depth and
-return -ELOOP when exceeded.
+The booter-load and booter-unload firmware run on the SEC2 falcon.
+During tu102_gsp_oneinit(), the booter constructor needs device->sec2
+to access the SEC2 falcon.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Without the .sec2 entry, device->sec2 is NULL and this dereference
+crashes during GSP-RM boot.
+
+Signed-off-by: Timur Tabi <ttabi@nvidia.com>
+Link: https://patch.msgid.link/20260430223838.2530778-3-ttabi@nvidia.com
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu: cap ATOM command table nesting
-depth`
+# Stable Backport Analysis: `drm/nouveau/gsp: add SEC2 to GA100 chip
+table`
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Local tree:** `v6.18.44` (stable/linux-6.18.y)
+**Commit under review:** `604d0efb17cc0` (on `origin/master`, not yet in
+this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[drm/amdgpu]` `[cap]` — Limit ATOM BIOS command-table
-recursion depth to prevent unbounded `ATOM_OP_CALLTABLE` nesting.
+**Record:** `[drm/nouveau/gsp]` `[add]` — Add missing SEC2 engine entry
+to the GA100 (`nv170`) chipset table so GSP-RM boot can access the SEC2
+falcon.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Candice Li `<candice.li@amd.com>` (author)
-- **Reviewed-by:** Tao Zhou `<tao.zhou1@amd.com>` (AMD reviewer)
-- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>` (amdgpu
-  maintainer)
-- **No** Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable tags
-- **Notable:** Patch is labeled `[PATCH 2/4]` on amd-gfx (May 2026
-  security-hardening series); this hunk is self-contained in
-  `atom.c`/`atom.h`
+- **Signed-off-by:** Timur Tabi `<ttabi@nvidia.com>` (author)
+- **Signed-off-by:** Danilo Krummrich `<dakr@kernel.org>` (DRM
+  maintainer committer)
+- **Link:**
+  https://patch.msgid.link/20260430223838.2530778-3-ttabi@nvidia.com
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, or `Tested-
+  by:`
+
+Notable: part of **PATCH v2 02/10** in series “drm/nouveau: fix GA100
+issues”. Absence of stable tag is expected for manual review.
 
 ### Step 1.3: Body analysis
 **Record:**
-- **Bug:** Unbounded recursion via `ATOM_OP_CALLTABLE` →
-  `amdgpu_atom_execute_table_locked()` can exhaust the kernel stack.
-- **Symptom:** Kernel stack overflow (oops/panic) when VBIOS command
-  tables nest deeply or cycle.
-- **Fix:** Track `execute_depth` in `atom_context`, cap at 32, return
-  `-ELOOP` when exceeded.
-- **Root cause:** `atom_op_calltable()` recursively calls
-  `amdgpu_atom_execute_table_locked()` with no depth limit; present
-  since amdgpu’s initial atom interpreter (2015).
+- **Bug:** `device->sec2` is NULL on GA100 because `nv170_chipset` lacks
+  a `.sec2` entry.
+- **Symptom:** NULL pointer dereference during GSP-RM boot in
+  `tu102_gsp_oneinit()`.
+- **Mechanism:** Booter-load/unload firmware runs on the SEC2 falcon;
+  booter constructor needs `device->sec2->falcon`.
+- **Root cause:** Oversight when GSP was wired into the GA100 chip table
+  without the matching SEC2 entry.
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — despite “cap” wording, this is a defensive bug fix
-preventing kernel stack overflow, not a feature or refactor.
+**Record:** No — this is an explicit crash fix (NULL deref), not
+disguised cleanup.
 
 ---
 
@@ -126,50 +134,51 @@ preventing kernel stack overflow, not a feature or refactor.
 
 ### Step 2.1: Inventory
 **Record:**
-- `drivers/gpu/drm/amd/amdgpu/atom.c`: +11 lines
-- `drivers/gpu/drm/amd/amdgpu/atom.h`: +3 lines
-- **Total:** 14 lines added, 0 removed
-- **Functions:** `amdgpu_atom_execute_table_locked()`; `struct
-  atom_context` extended
-- **Scope:** Single-subsystem, surgical, two-file fix
+- **Files:** `drivers/gpu/drm/nouveau/nvkm/engine/device/base.c` (+1
+  line)
+- **Function/structure:** `nv170_chipset` static chip table
+- **Scope:** Single-file, surgical one-liner
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (define):** Adds `ATOM_EXECUTE_MAX_DEPTH 32` with comment
-  explaining stack-overflow prevention.
-- **Hunk 2 (entry):** Before table execution, checks `ctx->execute_depth
-  >= 32`, logs `DRM_ERROR`, returns `-ELOOP`; otherwise increments
-  depth.
-- **Hunk 3 (exit):** On all normal/error exits through `free:`,
-  decrements `execute_depth`.
-- **Hunk 4 (struct):** Adds `unsigned int execute_depth` to
-  `atom_context`.
-- **Before:** Unlimited recursive `calltable` op → stack growth until
-  overflow.
-- **After:** Depth-limited recursion; excess nesting returns error that
-  propagates via existing `ctx->abort` handling.
+- **Before:** GA100 chip table has `.gsp = ga100_gsp_new` but no
+  `.sec2`; `device->sec2` stays NULL after device construction.
+- **After:** `.sec2 = { 0x00000001, tu102_sec2_new }` is added; SEC2 is
+  instantiated like other Turing/Ampere GSP-RM platforms.
+- **Path affected:** Device probe → subdev construction → GSP `oneinit`
+  → booter constructor.
 
 ### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Memory safety / kernel crash prevention (unbounded stack
-  recursion)
-- **Mechanism:** `atom_op_calltable()` at line 642 calls
-  `amdgpu_atom_execute_table_locked()` recursively. A malicious,
-  corrupt, or cyclic VBIOS can nest arbitrarily deep. Each frame
-  allocates locals and may call further atom ops on the stack. No prior
-  limit existed (`debug_depth` is debug-print-only).
+**Record:** **Category:** NULL pointer dereference
+**Mechanism:** `tu102_gsp_oneinit()` unconditionally dereferences
+`device->sec2->falcon`:
+
+```307:313:drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
+        ret = gsp->func->booter.ctor(gsp, "booter-load",
+gsp->fws.booter.load,
+                                     &device->sec2->falcon,
+&gsp->booter.load);
+        if (ret)
+                return ret;
+
+        ret = gsp->func->booter.ctor(gsp, "booter-unload",
+gsp->fws.booter.unload,
+                                     &device->sec2->falcon,
+&gsp->booter.unload);
+```
+
+`ga100_gsp` uses this same `oneinit` handler:
+
+```53:54:drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
+        .dtor = r535_gsp_dtor,
+        .oneinit = tu102_gsp_oneinit,
+```
 
 ### Step 2.4: Fix quality
-**Record:**
-- **Quality:** High — standard recursion-depth counter pattern;
-  increment on entry, decrement on all `free:` paths.
-- **Regression risk:** Very low. Real VBIOS tables do not nest anywhere
-  near 32 levels. On limit hit, `-ELOOP` → `ctx->abort = true` →
-  controlled `-EINVAL` exit (existing path), not panic.
-- **Note:** `execute_depth` is not reset in
-  `amdgpu_atom_execute_table()`, but mutex serialization and balanced
-  inc/dec within each execution keep it at 0 between top-level calls.
-  `atom_context` is `kzalloc()`’d, so field starts at 0.
+**Record:** Obviously correct — mirrors every other GSP-RM-capable
+Turing chipset (e.g. `nv164_chipset` at line 2508 uses
+`tu102_sec2_new`). Minimal risk; no API or behavioral change beyond
+enabling a subdev that was always required.
 
 ---
 
@@ -177,160 +186,145 @@ preventing kernel stack overflow, not a feature or refactor.
 
 ### Step 3.1: Blame
 **Record:**
-- `atom_op_calltable()` introduced in `d38ceaf99ed01` (“drm/amdgpu: add
-  core driver (v4)”, 2015-04-20).
-- Recursive call to `amdgpu_atom_execute_table_locked()` added in
-  `4630d5031cd87` (“drm/amdgpu: check PS, WS index”, 2024-01-11).
-- Unbounded recursion bug present throughout amdgpu’s lifetime in this
-  tree.
+- `nv170_chipset` introduced in `3b050680c8415` (Jan 2021, “recognise
+  GA10[024]”).
+- `.gsp = ga100_gsp_new` added in `015ef6187f69e` (Sep 2023, “prepare
+  for GSP-RM”) — **this is when the bug was introduced**.
+- `.sec2` never added to `nv170_chipset` until `604d0efb17cc0`.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+**Record:** N/A — no `Fixes:` tag. Bug introduced by `015ef6187f69e`,
+which is present in this stable tree.
 
 ### Step 3.3: Related file history
-**Record:** Recent `atom.c` fixes in this tree include:
-- `cc9a8e238e42c` — kcalloc NULL check for WS buffer (OOM path)
-- `e5f7e4e0a445f` — vbios NULL offset workaround
-- `7bfd16d0ec374` — `last_jump_jiffies` initialization
-- No prior nesting-depth or recursion-limit fix found.
+**Record:** Related GA100 work on master (not in 6.18.44):
+`20e0c197802c5` (add GA100 GSP support), `0094a7a95d52b` (WPR
+placement), `f0de0f89cc1e0` (require GSP-RM), `61de054a772a1` (formally
+support GA100). This SEC2 commit is patch 2/10 of v2 series but is
+**standalone** for the NULL-deref it fixes.
 
 ### Step 3.4: Author context
-**Record:** Candice Li is an active AMD amdgpu contributor. Alex Deucher
-(maintainer) signed off. Part of a 4-patch May 2026 hardening series
-(RAS bounds, atom depth cap, PSP fw validation).
+**Record:** Timur Tabi (NVIDIA) authored the GA100 fix series. Reviewed
+on list by Lyude Paul (nouveau maintainer). Committed by Danilo
+Krummrich (DRM maintainer).
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — patch 2/4 needs no other series members. No new
-APIs, no prerequisite commits. `git apply --check` confirms clean apply
-to this tree.
+**Record:** No hard dependencies. `tu102_sec2_new` exists in this tree
+since `8d2c1e337604f` (2019). Patch applies cleanly (`git apply --check`
+passes). Self-contained.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144646.html
-- **Series:** Patches 1/4 (RAS CPER bounds), 2/4 (this commit), 4/4 (PSP
-  fw_pri_buf validation); patches are independent.
-- **Review feedback:** No NAKs or stable nominations found in fetched
-  thread; patch is minimal with maintainer sign-off.
-- **b4 dig:** Failed to match commit `27ef1795bc4e` on lore (amd-gfx
-  list, not lore.kernel.org).
+**Record:** `b4 dig -c 604d0efb17cc0` found thread: [PATCH v2 02/10] at
+https://patch.msgid.link/20260430223838.2530778-3-ttabi@nvidia.com.
+Series: v1 (6 patches, Apr 7) → v2 (10 patches, Apr 30).
 
 ### Step 4.2: Reviewers
-**Record:** Reviewed-by Tao Zhou (AMD); Signed-off-by Alex Deucher
-(amdgpu maintainer). Submitted to amd-gfx@lists.freedesktop.org.
+**Record:** `b4 dig -w` — CC'd: Lyude Paul, Danilo Krummrich, David
+Airlie, nouveau@lists.freedesktop.org. **Reviewed-by: Lyude Paul** found
+in mbox for the series.
 
-### Step 4.3: Bug reports
-**Record:** No Reported-by:, syzbot, or bugzilla links. Issue identified
-proactively as part of security hardening (comment explicitly cites
-stack overflow).
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Bug identified by
+code analysis during GA100 bring-up.
 
 ### Step 4.4: Related patches
-**Record:** Sibling patches address separate bounds-check issues
-(userspace RAS ioctl, PSP firmware copy size). Not required for this
-fix.
+**Record:** Part of “fix GA100 issues” series. Other patches improve WPR
+placement, FRTS handling, and formal GA100 enablement. This commit fixes
+a crash independent of those follow-ups.
 
-### Step 4.5: Stable list
-**Record:** lore.kernel.org/stable search blocked (bot protection). No
-stable-list discussion verified.
+### Step 4.5: Stable list discussion
+**Record:** No explicit `Cc: stable` nomination found in saved mbox. Not
+a negative signal.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `amdgpu_atom_execute_table_locked()`, `atom_op_calltable()`,
-`amdgpu_atom_execute_table()`.
+**Record:** `nv170_chipset` (chip table), `tu102_sec2_new`,
+`tu102_gsp_oneinit`, `ga100_gsp_new`.
 
 ### Step 5.2: Callers
-**Record:** `amdgpu_atom_execute_table()` is widely used across amdgpu:
-- Display: `atombios_encoders.c`, `atombios_crtc.c`, `atombios_dp.c`,
-  `command_table.c`
-- PM: `ppatomctrl.c`, `ppatomfwctrl.c`, `smu_v11_0.c`, `smu_v12_0.c`
-- Init: `amdgpu_atombios.c`, `amdgpu_atomfirmware.c`, `atom.c`
-  (`ATOM_CMD_INIT`)
-- Called during GPU probe, mode set, power management, and display
-  hotplug — common operational paths.
+**Record:** Chip table entries drive `NVKM_LAYOUT_ONCE` macros in
+`nvkm_device_ctor()` (`base.c` ~3412). `tu102_gsp_oneinit` called via
+`nvkm_gsp_oneinit` during `nvkm_device_init()` subdev init loop.
 
 ### Step 5.3: Callees
-**Record:** Recursive path: `atom_op_calltable()` →
-`amdgpu_atom_execute_table_locked()`. Uses `kcalloc()` for workspace
-(heap), but each stack frame still carries locals and interpreter state.
+**Record:** `tu102_sec2_new` → `r535_sec2_new` when GSP-RM is active
+(`nvkm_gsp_rm(device->gsp)`). Booter constructor uses SEC2 falcon
+registers.
 
 ### Step 5.4: Reachability
-**Record:** Triggered when amdgpu parses/executes VBIOS ATOM command
-tables during normal driver operation (probe, display, PM). VBIOS
-content comes from GPU ROM; can also be attacker-influenced via VFIO GPU
-passthrough (guest-supplied VBIOS) or root-level VBIOS flashing. Not a
-direct unprivileged-syscall path, but runs in kernel context on widely
-used hardware.
+**Record:** Triggered on GA100 probe when:
+1. `NvEnableUnsupportedChipsets=1` (required in 6.18.44 — case `0x170`
+   only in unsupported path at line 3362–3364)
+2. GSP-RM firmware loads (default `NvGspRm=true` in `tu102_gsp_load_rm`)
+
+Driver load / module init path — reachable by root loading `nouveau` on
+A100 hardware.
 
 ### Step 5.5: Similar patterns
-**Record:** No equivalent `execute_depth` / `ATOM_EXECUTE_MAX_DEPTH` in
-radeon or other drm atom interpreters in this tree. `debug_depth` in
-`atom.c` is unrelated (SDEBUG formatting only).
+**Record:** All TU10x chipsets (`nv164`–`nv168`) and GA102+ have `.sec2`
+entries. GA100 is the sole GSP-enabled chipset missing it.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (v6.18.44)
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
 
 ### Step 6.1: Buggy code present?
-**Record:** **Yes.** `atom_op_calltable()` at lines 632–646 recursively
-calls `amdgpu_atom_execute_table_locked()` with no depth check.
-`execute_depth` / `ATOM_EXECUTE_MAX_DEPTH` absent (`grep` returns no
-matches).
+**Record:** **YES.** `nv170_chipset` at lines 2512–2532 has `.gsp` but
+no `.sec2`. Commit `604d0efb17cc0` is on master but not in `v6.18.44`.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** `git apply --check` succeeded with
-no conflicts. File structure matches patch context.
+**Record:** **Clean apply** — verified with `git apply --check`. No
+conflicts expected.
 
 ### Step 6.3: Related fixes already present?
-**Record:** **No.** `git log -S "execute_depth"` on amdgpu returns
-empty. Fix not already in tree.
+**Record:** No alternate fix for this issue in 6.18.44. Grep shows no
+`.sec2` in `nv170_chipset`.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT. Affects all
-amdgpu GPU users on probe, display, and PM paths.
+**Record:** `drivers/gpu/drm/nouveau` — **IMPORTANT** (GPU driver,
+affects GA100/A100 users).
 
-### Step 7.2: Subsystem activity
-**Record:** Actively maintained; recent atom.c fixes (2024–2025) show
-ongoing hardening of the interpreter.
+### Step 7.2: Activity
+**Record:** GSP subsystem actively maintained; multiple GSP fixes in
+6.18.y history.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** All systems with `CONFIG_DRM_AMDGPU` and amdgpu-loaded AMD
-GPUs. Config-specific but affects a large user base (desktops, servers,
-laptops, cloud GPUs).
+**Record:** GA100 (NVIDIA A100) users running nouveau with GSP-RM.
+Narrow hardware population but high-value datacenter GPUs. In 6.18.44,
+requires `NvEnableUnsupportedChipsets=1`.
 
 ### Step 8.2: Trigger conditions
-**Record:** VBIOS ATOM command table with `calltable` nesting >32 (or
-infinite cycle). Uncommon with legitimate AMD VBIOS, but possible with
-corrupt ROM, malicious passthrough VBIOS, or pathological tables.
-Requires GPU present and atom table execution.
+**Record:** GA100 hardware + nouveau module load + GSP-RM path. GSP-RM
+is default-on (`nvkm_boolopt(..., "NvGspRm", true)`). Trigger is
+deterministic on affected config, not a race.
 
 ### Step 8.3: Failure mode severity
-**Record:** **CRITICAL** without fix — kernel stack overflow →
-oops/panic, potential security implications. **MEDIUM** with fix —
-controlled error return, display/PM operation may fail but system stays
-up.
+**Record:** **CRITICAL** — kernel oops / NULL pointer dereference during
+driver initialization. GPU completely non-functional; potential system
+instability.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH — prevents kernel crash from unbounded recursion in
-  widely-used code path.
-- **Risk:** VERY LOW — 14-line defensive bound, maintainer-reviewed, no
-  API changes.
-- **Ratio:** Strongly favors backport.
+- **Benefit:** HIGH for GA100 users — prevents guaranteed crash on GSP-
+  RM boot
+- **Risk:** VERY LOW — one line, matches established pattern, no new
+  APIs
+- **Ratio:** Strongly favorable
 
 ---
 
@@ -339,152 +333,109 @@ up.
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes real unbounded-recursion bug present since amdgpu inception
-- Prevents kernel stack overflow (crash-class issue)
-- Small (14 lines), obviously correct, maintainer-signed
-- Applies cleanly to v6.18.44
-- Standalone — no series dependencies
-- Graceful degradation on limit hit (existing abort path)
+- Real, reproducible NULL pointer dereference
+- Kernel crash on driver init (CRITICAL severity)
+- One-line, obviously correct fix
+- Bug introduced in-tree by `015ef6187f69e` (Sep 2023) and present since
+- Applies cleanly to 6.18.44
+- Reviewed by nouveau maintainer (Lyude Paul)
+- Matches how all sibling GSP-RM chipsets are configured
 
 **AGAINST backport:**
-- No user/syzbot report in commit message
-- Trigger requires pathological VBIOS (uncommon on bare metal)
-- Not directly reachable from unprivileged userspace without GPU
-  passthrough or root
+- GA100 still requires `NvEnableUnsupportedChipsets` in 6.18.44 (limited
+  exposure)
+- Full GA100 support series not yet in stable (other patches may also be
+  needed for complete GA100 functionality, but not for this specific
+  crash fix)
 
-**Unresolved:** Whether any legitimate production VBIOS exceeds 32
-nesting levels (unverified; considered very unlikely given AMD’s own
-32-level cap choice).
+**Unresolved:** No user crash reports or syzbot reproduction found (bug
+found during development).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — standard depth counter;
-   Reviewed-by + maintainer SOB; logic verifiable by inspection.
-2. Fixes a real bug? **PASS** — unbounded recursion can overflow kernel
-   stack.
-3. Important issue? **PASS** — kernel crash / potential security impact
-   (CRITICAL severity).
-4. Small and contained? **PASS** — 14 lines, 2 files.
-5. No new features/APIs? **PASS** — internal defensive bound only.
-6. Can apply to local tree? **PASS** — buggy code present, patch applies
-   cleanly.
+1. Obviously correct and tested? **PASS** — mirrors TU10x pattern;
+   reviewed on list
+2. Fixes a real bug? **PASS** — NULL deref with clear code path
+3. Important issue? **PASS** — kernel oops on GPU probe/init
+4. Small and contained? **PASS** — 1 line, 1 file
+5. No new features/APIs? **PASS** — enables existing subdev constructor
+   already used elsewhere
+6. Can apply to local tree? **PASS** — clean apply verified
 
 ### Step 9.3: Exception categories
-**Record:** N/A (not device ID, quirk, DT, build, or docs). Qualifies as
-a critical bug-fix.
+**Record:** Hardware enablement fix for existing driver — analogous to
+missing chip-table entry quirk. Not a new driver.
 
 ### Step 9.4: Decision rationale
-For **v6.18.44**, the vulnerable unbounded-recursion code is present and
-the fix is absent. The patch is minimal, self-contained, maintainer-
-approved, and prevents a kernel stack overflow in a core amdgpu code
-path used during normal GPU operation. Trigger rarity does not outweigh
-crash severity for stable trees.
+
+When GSP-RM support was added to the GA100 chip table in September 2023,
+the matching SEC2 entry was omitted. Because `ga100_gsp` uses
+`tu102_gsp_oneinit()`, which unconditionally accesses
+`device->sec2->falcon`, any attempt to boot GSP-RM on GA100 in this tree
+crashes. The fix is a single missing table entry — the same
+`tu102_sec2_new` used by all Turing GSP-RM platforms — and it applies
+cleanly to v6.18.44.
+
+Even though GA100 remains behind `NvEnableUnsupportedChipsets` in this
+stable release, users who enable it for A100 testing will hit this crash
+deterministically. The fix is minimal, low-risk, and prevents a serious
+initialization failure.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified as stack-overflow
-  prevention fix
-- [Phase 1] Confirmed patch is `[PATCH 2/4]` but self-contained
-- [Phase 2] Diff analysis: +14 lines in `atom.c`/`atom.h`; depth check
-  at entry, decrement at `free:`
-- [Phase 2] Verified `atom_op_calltable()` recursive call at line 642
-- [Phase 2] Verified `debug_depth` is debug-only (lines 95, 1259, 1282),
-  not a safety limit
-- [Phase 3] `git blame`: `atom_op_calltable` from 2015 (`d38ceaf99ed01`)
-- [Phase 3] `git log -S "execute_depth"`: empty — fix not in tree
-- [Phase 3] `git log --oneline -20 -- atom.c`: recent hardening commits,
-  no depth cap
-- [Phase 3] `git apply --check`: patch applies cleanly
-- [Phase 4] WebFetch amd-gfx/144646.html: original submission found
-- [Phase 4] WebFetch amd-gfx/144645.html: patch 1/4 is independent RAS
-  fix
-- [Phase 4] `b4 dig -c 27ef1795bc4e`: no lore match (amd-gfx list)
-- [Phase 4] lore.kernel.org/stable: blocked by bot protection —
-  UNVERIFIED
-- [Phase 5] `grep amdgpu_atom_execute_table`: 30+ call sites across
-  display/PM/init
-- [Phase 5] Traced recursion: `atom_op_calltable` →
-  `amdgpu_atom_execute_table_locked`
-- [Phase 5] Verified `-ELOOP` propagates via `ctx->abort = true` (lines
-  643–645)
-- [Phase 6] `git describe HEAD`: v6.18.44
-- [Phase 6] `grep execute_depth|ATOM_EXECUTE_MAX_DEPTH`: no matches —
-  bug present, fix absent
-- [Phase 6] `amdgpu_atom_parse` uses `kzalloc` (line 1527) —
-  `execute_depth` starts at 0
-- [Phase 6] `mutex_lock` in `amdgpu_atom_execute_table` (line 1295) —
-  serializes execution
-- [Phase 8] Failure mode: stack overflow without fix = CRITICAL; with
-  fix = controlled error
+- [Phase 1] Parsed subject, tags, body; identified NULL-deref crash
+  during GSP-RM boot
+- [Phase 2] Read diff (+1 line to `nv170_chipset`); traced
+  `tu102_gsp_oneinit()` NULL deref at lines 307–313
+- [Phase 3] `git describe HEAD` → v6.18.44; `git blame` → GSP added to
+  GA100 in `015ef6187f69e`, sec2 never added
+- [Phase 3] `git show 015ef6187f69e` confirmed GSP added without SEC2;
+  bug commit is in this tree
+- [Phase 3] `git log v6.18.44..origin/master` → commit `604d0efb17cc0`
+  on master, not in stable
+- [Phase 4] `b4 dig -c 604d0efb17cc0` → lore URL found; v2 02/10 of
+  10-patch series
+- [Phase 4] `b4 dig -a` → v1 and v2 series revisions listed
+- [Phase 4] `b4 dig -w` → Lyude Paul, Danilo Krummrich, Airlie CC'd
+- [Phase 4] mbox grep → Reviewed-by: Lyude Paul; no stable nomination
+- [Phase 5] Confirmed `ga100_gsp.oneinit = tu102_gsp_oneinit` in
+  `ga100.c`
+- [Phase 5] Confirmed `tu102_sec2_new` exists and handles GSP-RM via
+  `r535_sec2_new`
+- [Phase 5] Confirmed GA100 only enabled with
+  `NvEnableUnsupportedChipsets` at `base.c:3362`
+- [Phase 6] Confirmed `nv170_chipset` lacks `.sec2` in current tree
+  (lines 2512–2532)
+- [Phase 6] `git apply --check` on commit patch → applies cleanly
+- [Phase 8] Failure mode: NULL deref → kernel oops, severity CRITICAL
 
-**YES**The background checks finished and match the earlier analysis:
+**YES****Verdict: YES** — backport to this tree (v6.18.44).
 
-- **Related-commit search** — No amdgpu fix for ATOM nesting depth or
-  `ATOM_EXECUTE` in this tree; only unrelated “stack overflow” hits
-  elsewhere.
-- **Fix-already-present check** — `execute_depth` /
-  `ATOM_EXECUTE_MAX_DEPTH` never appear in amdgpu history here; the
-  vulnerable recursive `atom_op_calltable()` path is still present on
-  **v6.18.44**.
+The background checks confirmed `604d0efb17cc0` ("add SEC2 to GA100 chip
+table") is on `origin/master` but not in stable/linux-6.18.y. In the
+current tree, `nv170_chipset` has GSP support but no `.sec2` entry, so
+`tu102_gsp_oneinit()` will NULL-deref `device->sec2` during GSP-RM boot
+on GA100.
 
-That supports the **YES** backport verdict: the bug exists locally, the
-fix is missing, and the patch should apply cleanly.
+The fix is a one-line addition (`.sec2 = { 0x00000001, tu102_sec2_new
+}`) that matches other Turing GSP-RM chipsets and applies cleanly.
 
- drivers/gpu/drm/amd/amdgpu/atom.c | 11 +++++++++++
- drivers/gpu/drm/amd/amdgpu/atom.h |  3 +++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/nouveau/nvkm/engine/device/base.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index 7a063e44d4298..639649ef6dd03 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -59,6 +59,9 @@
- 
- #define ATOM_CMD_TIMEOUT_SEC	20
- 
-+/* Limit ATOM command table recursion (calltable) to avoid kernel stack overflow. */
-+#define ATOM_EXECUTE_MAX_DEPTH	32
-+
- typedef struct {
- 	struct atom_context *ctx;
- 	uint32_t *ps, *ws;
-@@ -1229,6 +1232,13 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- 	if (!base)
- 		return -EINVAL;
- 
-+	if (ctx->execute_depth >= ATOM_EXECUTE_MAX_DEPTH) {
-+		DRM_ERROR("atombios command table nesting exceeded limit (%u)\n",
-+			  ATOM_EXECUTE_MAX_DEPTH);
-+		return -ELOOP;
-+	}
-+	ctx->execute_depth++;
-+
- 	len = CU16(base + ATOM_CT_SIZE_PTR);
- 	ws = CU8(base + ATOM_CT_WS_PTR);
- 	ps = CU8(base + ATOM_CT_PS_PTR) & ATOM_CT_PS_MASK;
-@@ -1285,6 +1295,7 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- free:
- 	if (ws)
- 		kfree(ectx.ws);
-+	ctx->execute_depth--;
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdgpu/atom.h
-index 825ff28731f52..bb3d9eb7eb6b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.h
-@@ -153,6 +153,9 @@ struct atom_context {
- 	uint8_t vbios_ver_str[STRLEN_NORMAL];
- 	uint8_t date[STRLEN_NORMAL];
- 	uint8_t build_num[STRLEN_NORMAL];
-+
-+	/* Nesting depth for ATOM_OP_CALLTABLE */
-+	unsigned int execute_depth;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index a965914f1c2fb..0dab8b6cbf9f3 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -2529,6 +2529,7 @@ nv170_chipset = {
+ 	.vfn      = { 0x00000001, ga100_vfn_new },
+ 	.ce       = { 0x000003ff, ga100_ce_new },
+ 	.fifo     = { 0x00000001, ga100_fifo_new },
++	.sec2     = { 0x00000001, tu102_sec2_new },
  };
  
- extern int amdgpu_atom_debug;
+ static const struct nvkm_device_chip
 -- 
 2.53.0
 
