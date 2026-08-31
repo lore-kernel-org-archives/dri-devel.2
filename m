@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA01C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 18:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F6A2C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 18:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F67B10E637;
-	Mon, 31 Aug 2026 18:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31BE10E78D;
+	Mon, 31 Aug 2026 18:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sZ5AWEwR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="i1R1egZe";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012028.outbound.protection.outlook.com [40.107.209.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4875F10E637;
- Mon, 31 Aug 2026 18:33:25 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012031.outbound.protection.outlook.com
+ [40.107.200.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C65310E984;
+ Mon, 31 Aug 2026 18:33:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DLVikBq/c6d3ggeg0KKK3T8/qTD0TxY8Id5ySO4tS591S2j3WZFnicydg+zvtIXFuXAMk4yiHCfA9ljXae/NZugqPMIKdQTHECfRp+8C2jxj/ijBgiqMBB4drdbtQ+M8w1EI68HMO8yQUBwhG3KwkVBQeYzMpCaQBAQHuK3qcGU6GwzjhpygiuWHe73X11RXod/VgPTKKNOdwBpwK0sFPa7VYpkfRo5oOgSHUe3nuOMd256H0g8VGZ8AhOp7ua2Qs6O2kYj0ApsmGes8aZatwt69N4rN8Yn6U7qIxq2mzaBqf5E5Zp2YrUjVNT2adX0LozERb6V/m03adLmu4jTRaA==
+ b=LLTisobSWhG8q46ZIjvGbMWFi5x3euAai6oYBca5OYfzitrSZf9bFbOntEKQN88PadJ74sxj4L3EqTjRtOeSmw1IxnYrzM9NxQTNSzeuUbndg6gVxBv5fLMxF/qyuT4fDT6Or3Qy5PoFl6jYrxWCPKdmNpd/l7srUyQrnruqMqj2j9Uv74qNhkPaVlm2n1H+LjC8EwNp90sDKn/xCcPDZEwJGaUWTIQ1hvKOGK86ktAwUw8Xtculcl8x0ahLxfbvZJXc3A1TzBps/d3q+nMBK7xfnPJwSs3fpMIWlWK8aF1SzfIt04uF7Ka+nSK5mrV168qfJTqXBIV+0IlujIa+Dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xf8ti99MPE6UjTpniv8xse7AWQYmiQkQwvcOmgB9Nag=;
- b=JHd54ZjXin67Es42KZAdUMJtXJ3JX6lGYw5EV36V84x1onSmjRL8S3f3PSHXpVyne8JzqIEmzYhPF3eFVPgfXjR0I2qD0lnj75hQajlB92yRvA7F/ZBmPm2L/CC2m7v52HJDPUkWYJ2uztiY9xJbywxbV1QhwKtweKQPJLc9kIouAc1xTushlh13p/UzE4mjR2iCXJe1D112C+4KXzJUEya40Eu17CpJM8xK2QWkb+p2noGujtZWkBjicw0zOTu4DCkaNYaTnW6VMnliEme0Vk4zzNLKzX/FITbX5nfxtFc+37CxTV0A/83k8jR6+9elAA+kK9rp4yjBrnfdkrr/Rg==
+ bh=l8Dmm4FyCV4bRDNVnieY+xRGOlmS6+nt3F4a5ByUdJ8=;
+ b=YeOnKaTiqrdGR5kCOy3MwNFKrKoYAkAdpd6rw1m3K0cdBpQOXS68psn7Z8nvKEufc6bZeyjIurEzJrGdJpUwJgproENCB/PsRgyV+2pqtzmv1sgFM+1ESjnF/+icU8l8o3H6L+KGzyemOVh/cHncOHjUF1aQwgmKdq+6hu6o9AXppifcVvYBhlJga8HE2vbnU5y8PZl0NmrUWwf6Tyb2bMzgfdfa/pvxJyz0QusakkgtwtmVS62NoiaRjauPHomG7SDjpMXhsp6+xRMW83JyC/Dq7OeagUBNr6W7jadhG+qKoTYz6gWjUzbYOJLNP7F+KDVK+e3kTFyby9fw23Odjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xf8ti99MPE6UjTpniv8xse7AWQYmiQkQwvcOmgB9Nag=;
- b=sZ5AWEwRRnABrpKZs/iTP2jjIw79sSAxcNNLjuHYj+UdkdfTTgSBKgKR2nI3W4TlLzxUbGcxPYQNhVFVnFvA5LIBg82BVaBo5UWypyMTiT/7wOts5gVKGORnTYl17FekcHAwiQK0dyqiwAbgfe8oGXEXEGNlTqFMOhAdU1asRc8=
-Received: from BN1PR14CA0021.namprd14.prod.outlook.com (2603:10b6:408:e3::26)
- by SA1PR12MB5672.namprd12.prod.outlook.com (2603:10b6:806:23c::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.9; Mon, 31 Aug
- 2026 18:33:21 +0000
-Received: from BN7PEPF0000009F.namprd04.prod.outlook.com
- (2603:10b6:408:e3:cafe::7a) by BN1PR14CA0021.outlook.office365.com
- (2603:10b6:408:e3::26) with Microsoft SMTP Server (version=TLS1_3,
+ bh=l8Dmm4FyCV4bRDNVnieY+xRGOlmS6+nt3F4a5ByUdJ8=;
+ b=i1R1egZeZTVDBQjIEevdNL6wFfycZ/NAO/EglLRjSbqqBx4tUCFjQZExnoIeBiDM2jT8D5fRmT0ZWT1CFFm0QisRDDwAJIT49F/w6Pq1Epl7Yr45Z8KE8Nwyf5038M6rKQi+1+9qjH08R1GWyV/hyjS3BQp2TxBvIdn3tQ+xLQg=
+Received: from BN9PR03CA0465.namprd03.prod.outlook.com (2603:10b6:408:139::20)
+ by DS2PR12MB9711.namprd12.prod.outlook.com (2603:10b6:8:275::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 18:33:26 +0000
+Received: from BN7PEPF0000009C.namprd04.prod.outlook.com
+ (2603:10b6:408:139:cafe::1f) by BN9PR03CA0465.outlook.office365.com
+ (2603:10b6:408:139::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 18:33:20 +0000
+ 31 Aug 2026 18:33:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,56 +49,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF0000009F.mail.protection.outlook.com (10.167.248.151) with Microsoft
+ BN7PEPF0000009C.mail.protection.outlook.com (10.167.248.148) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:33:20 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:33:25 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:33:19 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:33:20 -0500
+ 2026 13:33:25 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
  Transport; Mon, 31 Aug 2026 13:33:19 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <Felix.Kuehling@amd.com>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH V2 0/3] Add UALink infrastructure series 2
-Date: Mon, 31 Aug 2026 14:33:08 -0400
-Message-ID: <20260831183311.1090131-1-alexander.deucher@amd.com>
+CC: Mukul Joshi <mukul.joshi@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
+Date: Mon, 31 Aug 2026 14:33:09 -0400
+Message-ID: <20260831183311.1090131-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831183311.1090131-1-alexander.deucher@amd.com>
+References: <20260831183311.1090131-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009F:EE_|SA1PR12MB5672:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bc72cf6-a8e4-4bf2-b207-08df078e5534
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|DS2PR12MB9711:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8cf03cc-fad3-4432-5808-08df078e582a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|376014|36860700016|6133799003|56012099006|5023799004|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: +MNgNN/EAPmufqvQd+aFcSwkSYTr9BobWO7dOP1oFPsGQmprrkVWnVOkIQrsNVVXG8pIw0xQVr7jR6Hi/2Y9GiOgYa0CRXHFaQ0b9e16du4I31vMfW6aQ2SSA94yUUx6IKjndrciRTWj36Yi3KnC5pXjBQ3+QPW46SHOlzE58j77LM/t3GXbXlGI+S4FVNOiMhJf37Tc3mICOU2UNKrkDDRVSiX8d95CFUMLqbJM+i6z5GPmh7TlprYeZtw98A5p32D0VtOtYmA4F3rlgVdoF1LkkKB6/n8fXtupRB3jXB6e4qAoJhxpv6EwIdgfC1/3ztvVjCm8ZS8p2aXN5Dm1gq6qp//43IMAC7NLDgJ15jWG3Z0DKuGLFGnlxTw4g3/tN+xqBSiFvIy7ae7hrd3rltO/QvuErvYlodhgqyPoHLYCtoDWTSO7wqqBDG53qy1o0jm3PWF5bTZQ/6GXYlfNeR6tMNXEyPmDZM9czczU0u9yqPWAyaF9QxSno6SOOZs8Bs1tBwvam0iThjUQTvCOrI1DqdrdipjQhOewiKpzhRdiL944cY6DiHOOXBxJjg4kUODpSen4ALqXQKTLUclcSXnbohdOEOstf39xdSpCprKxMhgYj8RCB55o9Y52ZRPm2xytMDM1rwpJPrzKxp7baxz+Q2brOTsGEAjWgP4uTbk=
+ ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: jppH94C8CSmIfMvZjZsP4o3W3o+wCsBQ/NHdtxC7CuRUsBSan/s5G42dex49KK3yReHzNCUq//qcrIerm0bZ/tuDxxXLOejGabZm5EDKlkA6vFWZeSPAlJ7GxwYeUqsGt9y/IT6INJvAKUIu7S95gjGPUx1rOH+nTzcjs2AdKW4B6SCODIS81qVJQSHpliUe9m1ZuWCUwavZSZu80yUVqLcmnRfd574SI9l15jqDNMpwaGdbA6jyrDUuAukpXyHA1TNye3lCt5WoaQbI4NVVkqxf8kV2Ck2C5KdcYoLOFZSh1VayPmX4kQKBarqBTo63e2vzKAQN/l3if+2r9B9AU6l1Sf3u4aNk5NJ/DsDVQZxBfpC20KoW36aFsuQvdtykrVeNUqmU6rDYcH3ClD50nqSHe/kF2dpIwd/ySn4qaOSEKbQ1FrA9tIgbYbvLUpuJFE3DHvA5T8zcuv/jBmxTAa5ohxIln2vtQ5C9tBb9zbmCgotOFacBIpqKx4KJz21Xe6LFu1krojD57VB2AZ0je4H0WhmaZprvLT1AWlpGSIQ+WK7zNf0J3yKq+MvP5Bg2iW8jr6q4iHos8/eNxKpY6+SI/9J8F04csXWNyjJMJKQ0jQNuV7/3cJ/xHNZfs+rC0/jSVRM7E6iSOfXYhiTjSCpGH97T/ro7CkF/aA+leEQNvZjy23Hn0UuH6D9gvvmXe3nahG/pYcOEGkCCM8WlSQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(6133799003)(56012099006)(5023799004)(10067099003)(11063799006)(18002099003);
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: s1V3S4fYejc5H5pefNts9KF1YBh1n0UrTlNGVibv3HgJ84+RGCtuG557HxzzaQxdSNdTjfUM1R/L8irY44kaQel9GohB+idjm+kOAJWN0ZKRZ+mpFfbEl4k0ajg6NHCnbj4raPi+jTaCN3bIhXd3Q8In/cbQK06mI6i61CLst0zRnRLtGUUwSdKNkdseJ6E75GsrytQgsflr7G6BS4tuEU8tbnp+qvzG+E7dC+Up1VC6aSQyVirPRcePG+foS/n7wUv8yXeuPQuze+KRtVeTo/kSE0qyGFT4eZyma2Q7ujwTUYkN3OCltcAKeT9OMkBbz3eILRtMvhmn/kvn0jVofN9AwJ9hLwJUd81QW2KhrWxNmeE/zDk9CYbir20RJVom4x3FoXJEmFK+0hHw7a1KhrWtm3lsECY1d7Hdu78IqoxZpx3sZcQbjAD0iardEdMo
+X-MS-Exchange-AntiSpam-MessageData-0: 5hRA9b7qbnWXL2bVDtpuiJPsqgTKwKFX/WyEJCoK1JGV+lDVKaiS15csAZWJQdw01znlDr5BB7A5AIGdodoKIq4wgs4/6T0tcOWLLPJMS0wdfPKQNC4P87YZvcfCmVfwv+zVzVjjO1skzPm9Nm+Dit5UaIvl2m6aqLuAm6PmxtbNmpKKyqaI1MkiTOT675KvJyP8/TteNQ019IaByNBAttrPua2hBlW4FF2o77nCXVgwo/XiduWdNvjMR4s5TXk+QeHr9D5zpDejYkUh4yofrKm+8S5FXV4bZLnlBalvzIQQp6xXjCLuUBZiwa0gxFLiijQwbxsXzJH2hhXK2jYvtZYS3OvzTIofwDEXt0RsyubG1WSE36TAxW/JQri0a8LpGHwT+/DYFXM1ifeFg7b0HuGVjoTS+qqmTmsmBlS4l1QyXhBSrgD5QG/RggTABuCq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:33:20.5724 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bc72cf6-a8e4-4bf2-b207-08df078e5534
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:33:25.5396 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8cf03cc-fad3-4432-5808-08df078e582a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5672
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9711
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,93 +114,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This adds the core infrastructure for supporting UALink (Ultra Accelerator Link)
-connected scale up pods. I've split this into two series, one to add the core
-infrastructure, and one to expose the new IOCTL interface and add the
-documentation to avoid spamming the larger audience with the implemenation
-defails.  This is the second series.
+From: Mukul Joshi <mukul.joshi@amd.com>
 
-The first series can be found here:
-V2: https://lists.freedesktop.org/archives/amd-gfx/2026-August/151914.html
-V1: https://lists.freedesktop.org/archives/amd-gfx/2026-August/151200.html
+Add an optional callback for driver-specific cleanup when the GEM
+handle of an object is freed. This will be used by AMDGPU to enable
+freeing of memory exported to other nodes in a UALink pod once all
+user mode references are gone.
 
-Both series can be accessed via this git branch:
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/ualink?ref_type=heads
+The callback is called outside the object_name_lock and before
+releasing the reference count on the GEM object
 
-This implements UALoE (UALink over Ethernet). An overview of the complete
-solution can be found here:
-https://www.amd.com/en/products/rackscale-solutions/helios.html
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  9 +++++++++
+ drivers/gpu/drm/drm_gem.c               |  5 ++++-
+ include/drm/drm_gem.h                   | 11 +++++++++++
+ 3 files changed, 24 insertions(+), 1 deletion(-)
 
-Overview
-
-Connected GPUs in a pod can directly access the remove memory on another
-GPU over UALink.  Unlike RMDA, there is no copy involved; it is direct
-loads/stores over the fabric.  Shared memory can only be accessed by
-a remote GPU if the memory was exported and the importer has been authorized.
-For the memory to be shared, it must be part of a unified physical
-address space shared between nodes.  This address space is called NPA (Nework
-Physical Address) space.  This address space is partitioned between
-the GPUs so that each GPU has it's own segment of the address space in which
-to export its memory.  Each GPU maintains a dedicated set of page tables
-for their NPA space similar to GPUVM.
-
-Exported memory is pinned.  This is similar to how dma-bufs in VRAM are pinned
-for P2P access.  Remote TLB shootdowns from the exporter are used when the
-exported memory is freed in order to remove access by remote GPUs
-
-To access remote memory, the driver can map NPA addresses into its per
-process GPUVM page tables just like local memory.  Applications use
-opaque handles to represent remote memory.  GPUs in a pod communicate
-with eachother directly to exchange NPA addresses between importers
-and exporters.  If a node goes offline or is reset, their peers will
-clean up any remaining refrences that are lost when that happens.
-
-User interface
-
-Export Memory
-
-To export memory, a handle must be created for an allocation
-that can be shared with another node in the pod.  To do this
-the exporter calls the GEM UALink IOCTL with the GEM handle
-to the buffer it wants to export.  The IOCTL returns a
-unique handle which can be shared with the remote host.
-
-Import Memory
-
-To import the memory, the handle from the remote node must be converted
-from a unique handle to a local GEM object which represents the local reference
-to the NPA space on the importer.  If the memory has already been
-imported, it just returns a new reference to the existing object.  If not,
-the importer queries the exporter to get the NPA address.  Once it has that
-the importer can create a dma-buf to represent the NPA space used by the
-allocation and that is returned to the application.
-
-Proposed Userspace
-https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L971
-https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L1036
-
-v2:
-- Update the Documentation based on review feedback
-
-Alex Deucher (1):
-  Documentation: add initial UALink Documentation
-
-Mukul Joshi (2):
-  drm/gem: Add callback for when handle count goes to 0
-  drm/amdgpu: Add ioctl infra for exporting/importing UALink handles
-
- Documentation/gpu/amdgpu/index.rst         |  1 +
- Documentation/gpu/amdgpu/ualink.rst        | 75 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  9 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 44 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  2 +
- drivers/gpu/drm/drm_gem.c                  |  5 +-
- include/drm/drm_gem.h                      | 11 ++++
- include/uapi/drm/amdgpu_drm.h              | 30 +++++++++
- 9 files changed, 178 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/gpu/amdgpu/ualink.rst
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index f754a4a3a1c22..0d579517c03ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -386,6 +386,14 @@ static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_str
+ 	return drm_gem_ttm_mmap(obj, vma);
+ }
+ 
++static void amdgpu_gem_object_handle_free(struct drm_gem_object *gobj)
++{
++	struct amdgpu_bo *aobj = gem_to_amdgpu_bo(gobj);
++
++	amdgpu_ualink_revoke_exported_memory(aobj);
++
++}
++
+ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+ 	.free = amdgpu_gem_object_free,
+ 	.open = amdgpu_gem_object_open,
+@@ -395,6 +403,7 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+ 	.vunmap = drm_gem_ttm_vunmap,
+ 	.mmap = amdgpu_gem_object_mmap,
+ 	.vm_ops = &amdgpu_gem_vm_ops,
++	.handle_free = amdgpu_gem_object_handle_free
+ };
+ 
+ static bool amdgpu_gem_are_domains_valid(u32 domains)
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index e3ed684ddcf29..6a86bd2a0343e 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -354,8 +354,11 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+ 	}
+ 	mutex_unlock(&dev->object_name_lock);
+ 
+-	if (final)
++	if (final) {
++		if (obj->funcs->handle_free)
++			obj->funcs->handle_free(obj);
+ 		drm_gem_object_put(obj);
++	}
+ }
+ 
+ /*
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 8a704f6a65c15..95d8ae6f85df7 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -227,6 +227,17 @@ struct drm_gem_object_funcs {
+ 	 */
+ 	size_t (*rss)(struct drm_gem_object *obj);
+ 
++	/**
++	 * @handle_free:
++	 *
++	 * This callback is called when the GEM handle count goes down to 0.
++	 * It is currently used by AMDGPU driver to release their exported BO
++	 * handles.
++	 *
++	 * This callback is optional.
++	 */
++	void (*handle_free)(struct drm_gem_object *obj);
++
+ 	/**
+ 	 * @vm_ops:
+ 	 *
 -- 
 2.55.0
 
