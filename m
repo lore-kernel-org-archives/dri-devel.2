@@ -4,160 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E2C6C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:36:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B2F1C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBEE10EAEB;
-	Mon, 31 Aug 2026 20:36:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BD910EAEE;
+	Mon, 31 Aug 2026 20:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L0La43ZQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YnafyvRi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A26610E6A8;
- Mon, 31 Aug 2026 20:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788208583; x=1819744583;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=Bs5MxDnjMPRKofj8IFN4usfH0+wkJaOWqstwWNE0APo=;
- b=L0La43ZQFbc3Wi2mUl3lIH9kRMShWgIZUA+aUy5y4HCsT0Nlw6mCsxkH
- W4zDVDtMnv1h5sZ4pE7GxcvNCf2pDSO/JvV/luNryt3qfSqBUpVeoMXBH
- iRTjQIs0y8EZy9V6jpsaZCznXKAOCvQFk/ANKqPVbtphN6iFAgpeA1vWN
- 3v4vCtOCgNP9MtkGDrOBe3KiIn9mFj8EkGVY2CvF0LTSxzBescrQ9Bj3u
- 3vpyQ+KFajILAgYwta/TO5ndlQYbWep2XSXDx9VYyWyL6U15vfebrggiP
- tR2hUkSe0OaYtLdd+5OgBh45PeyxDLudsBCGuhCF0OaprMYgYCwI5o/ar A==;
-X-CSE-ConnectionGUID: CFNtYoPjSU6hX2LRZ703Ug==
-X-CSE-MsgGUID: gwucIYT+QiyuP1AgcAHvlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106146341"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="106146341"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 13:36:23 -0700
-X-CSE-ConnectionGUID: x1mDtvvPRPOMOwGwcYDP9g==
-X-CSE-MsgGUID: GKfpAkngTpO/Yx5AxhCcog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="267091986"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 13:36:22 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 13:36:21 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 13:36:21 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.6) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 13:36:19 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013068.outbound.protection.outlook.com
+ [40.107.201.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03C4210EAEE;
+ Mon, 31 Aug 2026 20:38:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CDULuLXrlZ6EsZJJ9Qd7ceAIyq1Bpltnqx9MMuArNJraRvT/Ynap2UNcdoPHd3g837cU9wuIm1gDcg8xZb/jMEwfrzpd2nANOEIO4elDjTkfyD/m36+n9RFKQoOXEcKjKVkXbOJBHDbMQaQsqE/WN/iSRR+krMxFRMP5WW0/xFwPh8uvAr/UbG9TLLYW+oy7mSO+i1YhH94O2PUuh2oesxqElGDtBBmcdVmbz/nKJZT0yQ2eopQObW9H8ZURyzpDodXWRK+F8tP9I64kYOqXnbX02eFje8Igje0Ex5SGNikss+D9plnI77ABP11YwiPcWX1EGrNacIsMp6x+7TWrVw==
+ b=or0gt6R5lANH1Q66KDqxs3QGVyY4q0197CtGJrJ3lGsM+d6medZnCpok8kay4CAdVRtQUI/GNX88NiYfQmG1L5VtRcO2/rHBKFUH9GHVKKgUjM1hNfXHQXfVrIROBwAmCctmHtQGrzeFCN/X/2c/Iv992iISLDJW7XmGxgtJw625f+kcsHqunBM9w90NNH3RcHIYGiF4XNfPzMrPJ+OH1rlkRbAZz7gCRTLwogpjt2cbWhJGGezJErhmugmk/lpubYC2gj+yqeAIMPLmkMh7hggpbhNSMvByIEzUNn4wqRy/mW/Fbe4l+KKni5DStZSZbCHwzrEdB+SSXi8r3DYdzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qVXGdyfVUhYUpu59jHmx1BOmmf8VJXIvtCRDb0dFWM4=;
- b=iuOyJe3DdaiHo6CK7rz3ehXkdedC0tG3Jl3HAKxOR0GVFwjULkfX1hqQuDEoGFIGvXb7jkCNO0ClnOeUXmMwcDIlOTtnlz7kIc5kVDmDRYAmjF98IAKXeApw4T8fOrK+uPy4hZWyXmlP4HTL8GIlAqqgqS3nk4BvWngV1Y7vblolQFJTvR7askL5a16ewr1pMipcWoK/FBJ4yC9gxw0iBAZlJsXWvRIJAQ1gv3mtNvp/Al4ePt+1ntYCugokSk5ItC+XJBBvkmJvDoDybhAuK87Dz/WROB8shNnTbGNo6HN211VwWS6vPUtkYTWRB5KmU8nLQ9HMXW1M/kipNxMSZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by DM4PR11MB6214.namprd11.prod.outlook.com (2603:10b6:8:ac::7) with
- Microsoft
+ bh=ZiBLbDYuOddXr8BPQj1XByb5doocaLWPpHCBpF7zqxQ=;
+ b=l2CugGPv2xKOJktBywhPc/ID5J7jY3MbdK1X2Fu0eMKoNbP0ssgsUQTdg6uePau/p4L3tnMR7N7bSxUezHMq1ojQoabM5HwYH0WCs56avf5TKfYZR5JsUt6aqoYwJGx4cX/nCYv2LD7LvoQZJ9s2WS/14wl7hDF6uGtPMRhcxe7n7L0ZrP4Jr/R+8kiq7SWoSfxs4XgjfOpgfQ2aNQJuZmBZ4bPFuqcvAzBTxq8DzzVcOKEswnLVbsdByr8dlYIOUoX5y+vl1UM0S0li0jdDWdMaV5yVLJNCJ8DIg40j5j4qEXUjvtJxXZJL/m2vRa3PdX06RVKB0rl61cAtTpq/1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZiBLbDYuOddXr8BPQj1XByb5doocaLWPpHCBpF7zqxQ=;
+ b=YnafyvRiROOytFGHkdklyM1m6/3o4J57N2biSqJj0XSPd2oqiJo44XdyUnuG9FPEMluWTUIXm5wIhV8iEmK/Pl6IEl1SJuUlAHWhTyJzYwl1ynO37xBn0d06sMep5CRnsEsADTj/LRTwx1rAsyHmLapQPT3IedqruD0hn+8LvQc=
+Received: from BL1PR13CA0384.namprd13.prod.outlook.com (2603:10b6:208:2c0::29)
+ by PH7PR12MB6737.namprd12.prod.outlook.com (2603:10b6:510:1a8::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 20:38:06 +0000
+Received: from BN2PEPF000055E1.namprd21.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::9b) by BL1PR13CA0384.outlook.office365.com
+ (2603:10b6:208:2c0::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.9 via Frontend Transport; Mon, 31
+ Aug 2026 20:38:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF000055E1.mail.protection.outlook.com (10.167.245.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Mon, 31 Aug 2026 20:36:16 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 20:36:16 +0000
-Date: Mon, 31 Aug 2026 13:36:14 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-CC: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v6 2/4] drm: Add drm_user_fence helper
-Message-ID: <apXlvgjIwe+lj6hb@gsse-cloud1.jf.intel.com>
-References: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
- <20260831134539.112690-3-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831134539.112690-3-srinivasan.shanmugam@amd.com>
-X-ClientProxiedBy: SJ0PR03CA0033.namprd03.prod.outlook.com
- (2603:10b6:a03:33e::8) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ 15.21.382.0 via Frontend Transport; Mon, 31 Aug 2026 20:38:04 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 15:38:04 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 31 Aug 2026 15:38:03 -0500
+Message-ID: <44919809-5a71-70b9-84dc-1c4cac3eac46@amd.com>
+Date: Mon, 31 Aug 2026 13:38:03 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] accel/amdxdna: fix NULL deref and GEM object leak in
+ error paths
+Content-Language: en-US
+To: Deniz Aydogan <denizaydogan1902@gmail.com>, <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+ <20260829085644.38103-1-denizaydogan1902@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260829085644.38103-1-denizaydogan1902@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DM4PR11MB6214:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf54265c-555a-49d6-8204-08df079f8182
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E1:EE_|PH7PR12MB6737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ecb6f82-523b-4135-36f7-08df079fc1f5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: pyZ1rWGhT0OL+M/39tMX7KCscjBvdXtFTObUeJf46hk4DLJb+iQROcaJus034G9nFWzIZ3RZzXnEg+yLbX7pilKIVd9K/e1yl5royARcXN6ttd8WmH31BbfFEW/YJ3BL56ucfvgc2e3ybmEvNvbkv5sLNu8Icc4yu4vQ2/ZPJnzxEEaZzP6aYq/QuG695K1PuMmpiwVYd4tIIgN26B684Sp456vHdOSixQn3TZFpf/Qik38wJ9WsmkO7TYKHTZB2PM2I2fUD4et2Lw2goFNl0eKvjQPRRM29aNI/tC9U2zsAlYVZ21BFSPjE/5HNJupsM07ePt+w09QhrdiB1mXXntZ1QsTyrCi8rf47AAomnlOyjHhusTVFzfKKCdSGrj9qwWCWIWA3GS1MMvEhlMz+8EBORsS43xDQwaXOQslAe2kODR30+ftsOxtNYmTcYZ9h125P+XVtoZQ/lR+lu3xMQPXi2bEPDhkAq+inIRLUJMIo59HaOMxAPdSNKkZs8mMJaJ0dJAas7ccJki8aEK9W9XwvyLYazV8mDCcO594Ajj8W84RzVYe5EOxR1UZIG6xgH85Dj8xsa6hBoD72o/zgpkaY70sYonOogYkuR7oB8r9hMkmUE4jLh7kAcTj4FiltD8JoHp+slXqMjbT+nMkDeDKpW3Z+MMKeeyxum3ekrao=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
+ ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|10067099003|3023799007|18002099003|22082099003|56012099006|11063799006|4143699003|13003099007;
+X-Microsoft-Antispam-Message-Info: ZUx5j65QqhDMIayjDEs+TFb47N25wCvXthgivExsk4ROUAvlF3z+SwZXBdW9HxETUEgzvIfalTwhg13DzXTYERN4EUNUmKJBJFUUKlvS7ECu0C04cp0FRvIlM46qLa0h6sHZB0tDN3X/SZwuKuLQz9fXQ37wYZxcgBaeILisA6ylvYX0TIzMHsAAnh6sTehH01NCKDOx+qHo6ZR2/zhL4ishrNXXN6pZhBFVVgYisGGyzdataUtMkJXg80vR8xdlphjc3TaQsvrvu1Ht3FTew3w0Og7ZAKVLwSd/8xk0Nh6j9Jks8Lxy55ge5NHz32P5DilaBGrVVkdASIa2uwlJncWl7hYLf7tA2P7LrtRa/fELxIElg5INdxRUXBEqMjvaiFd8eFTmfMDtXyDHNqpheuHf4dR52trS21mDYFRg54t6YV7AVfGkdyfNYmf/XbVCQnfufZIZu11/dUJweshHri7PC28glH/M8nKp3KUyzI9/axSpI9oCIz4d3MZTC6ZkJGR2hagfk+6s1F7BtVfVXXr+Kt1zWFqW8fBThOrqP85h4lqK/UqNwzWiglmsXzjzlqbF8S2gf5smbauStf3elk5o4xQUrTv1Cfs649841TPuLNzy+GkTRsZjXHDB61sZO+DcOxg3tXQk/q/kKW95R+XUFVBqv0RgEL9hZbDgrlrM6PRkxWPiZehacp2+5qGr4CFRwdZCw/mNLTuS2TKfhA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(13003099007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDIwNVBQbWhOYlBDNktaY2ZJS3hVUU5rVjVJeFJHb29Oc0RCNldHN25DQVlF?=
- =?utf-8?B?VlFLWFVISEZKOUtxTDRVbEErWEJxekYwV3FEeGJJeVRWajJyTjcraWN2QjZU?=
- =?utf-8?B?N0tFMFRseWZlSGJlTlVVbGdBbklNajE3ZlNrQ2MrMEhEdXV6Q1Axc1NzUXdT?=
- =?utf-8?B?ckZ4WEtPbHdYZTQ2VWFBc1BmNUIrQ2gzWTlVRDc2TFVJNTBBVGJYZ1FsWk5J?=
- =?utf-8?B?Q29VaUdUc3FqY2NzUG1wL0tUMk5oWlZpQXJ5VktnMEJocUp1VDg3YnEwUHJR?=
- =?utf-8?B?eUN6azRlaVVQbjF1dkpBSmZnR0hlZlFxKzNNeXMyODVIVHJUc2tZTlNtSXlE?=
- =?utf-8?B?b3lhWGFMeWpUYTdqL3F0LzhyNmR1Q3UySlNmVnBHUkFtSEZ5bldFdG5WVkZH?=
- =?utf-8?B?TlhWQStQZjN0S3A1UnRVWnF2cmFBajV6Y0o4VEQ5SG8wVThSb3A1aXBNWjJp?=
- =?utf-8?B?bnVMUW5mRWhuSDhQUUZ4bG12UVVUN2tyOHRsM05xclkzQ2NlbktScHNYM0pn?=
- =?utf-8?B?em1TTWJFakJQWG5aVERMay9ESGRsUE9VVmpXeEFFckZxRjdMNXVPcFVSVkxi?=
- =?utf-8?B?ZHJadjdFQzQyeUJzd1NlK1JndGRVazljR3E3RUtCVTNva2l1UWU5TFloSTA3?=
- =?utf-8?B?eW1XYm9PNko1V2o2TE9Oejl0azYzT2lyNWlRTitnMmk1Z1BJWHAwak9vdHl0?=
- =?utf-8?B?dlI2bEVSeDFLVDVVMW9hL2dmWm1CVzdkK0xrTm1MZVJTZzFUQng2MDVqTzlV?=
- =?utf-8?B?d1Z5dnJLRFZrSDdnVmlSYnVFa2VWTEV2eWpUd2IybFZIbEZXOTRURXFPVzdr?=
- =?utf-8?B?Qm42QWdncUl6dVZnTzJkbXBBSUpjU3BLbFRBSjFwWFd0bXZSSUZkSlFqa0xQ?=
- =?utf-8?B?WGpoQ3FtVkFUeWxDWk43elJXYk1SSmFjeVYzMTFBWW16cVJ6VHgxNlBhTzFm?=
- =?utf-8?B?OUZTWG9MY3BQRzZreklkcDM0Mld4c0hVRHdXTzRUVWl2WmlnWCtyNWtSN3Rt?=
- =?utf-8?B?S2JhMm5abktEUXdqdGNaeU95OUk0eFlFZlBPNkcvd1BQbGNnOFMwVUtHdmM2?=
- =?utf-8?B?djB4RzQ1eXlVV0RRd2JlcjdyOGNEd3NDOWZaKzRidGFEb2lySVRqdXFjcGcz?=
- =?utf-8?B?eUhkN3pqNVBidFh3ZTZMME9DZmtFb2ljcEUzZ21ZMHREQnZjcWpSUllQR1Bz?=
- =?utf-8?B?ZlZpSXpSVm1XL1d5L3hlUXU5aTBOM3ptd1ZaekhuNWFrbUlBT1dicUJlakFE?=
- =?utf-8?B?Wjd5UzhyazVYVzlOU1dLNkFDZWpUVzhpZ1FzdHpza25UQ0RDSkFCLzJabjZV?=
- =?utf-8?B?Y2RhMHRCbDFWc1JpUXI3SjZpMSt6NU91NUhUanJGMklyTjEvNkV0Y2hqTGha?=
- =?utf-8?B?UFIvUURDdXRKQXF6KzVPNERTTFJlRWt4a0dLcUNmTUhYYkV6ckRGUDE3NTF1?=
- =?utf-8?B?RnZVWnRQem5xeE92VWI2WkhVUitzVTI4ZDdld1Vpd0dqQlFodnE1dzUvVWNj?=
- =?utf-8?B?bHJGRlVWNE96TW1qclBseGxwTjRtOHBzalY3SjVETE0xRGNxYkR2cEFBaGRa?=
- =?utf-8?B?d1BPSlNBa2VPSk9UL3l4akxWUmUzN2Q1NENIWWxtSHowdGdwaXlWZGwrb0VF?=
- =?utf-8?B?VG01VGMveUIzT3MvVk9BQzVpZW9yNEJWTmRmWmh5bkpmYlNrVHMzT1NlazZj?=
- =?utf-8?B?ZzFwSUpCSHJ0ejdYSm43c1hpRjUrQWZZYXRub1FSWkRQY3BwT3NlenJqK0Rz?=
- =?utf-8?B?YndLTDl1Z0F4V293eUFDdnJzQ2NpT3Yzb25MNkh0c1U1WVF1aU1rNTJsem5u?=
- =?utf-8?B?K3hucWh6VHVqVERrdm1EenVscmlYNXNMcE96RVdjR3E5REJnTUExTXpYM094?=
- =?utf-8?B?Z3lNOG96anI5azRZdm12SG16bC9OeFA0Mmp5MTU2OTEyTHJ3MjdsRzkyUmJU?=
- =?utf-8?B?dHljSW1ZL1I4bnBiNXZrRVY5M2FwYy9TdXVhMUtPNXY3aDRCY2tDa0JHVnBv?=
- =?utf-8?B?N0xyQ2hEeUM1MkNJS0I0blU4Y1NaazFwcjE0WGFadGpFbGwxZCtpc1lCKzlW?=
- =?utf-8?B?cVhZUitVRnF6cVp4TUphOHlZTkdBV2MrNUR2OEtrOVZnMHlHWEwxb1c1RlB3?=
- =?utf-8?B?TStRL0JMUTd0UFA2ZzFtTlVmcEFjWElwYXppM0ZDSEhKTlFXSWRBa2VCMktr?=
- =?utf-8?B?dXJkbkQ0ZHA4b2Q4VlpYUXBiVWUwcnN2RmlSMzExditPSitKRG1jSGhBYXdM?=
- =?utf-8?B?eDZzQ2RUQ2VQTzd0K0VLbDBqbnBhY3l2ZUlkNmgya2tnc1Q1elQ0QkhKSWlk?=
- =?utf-8?B?RXVROFp2VkcvcitveXdjYXBmRG1Ia3pvdFNTaDNiRnl0Q3hvdml5Nmo1ZEFx?=
- =?utf-8?Q?0Nw2zzIelgd7nibA=3D?=
-X-Exchange-RoutingPolicyChecked: p/qv6+jIixPzOf/flNTJ2dh8o6djgf/2kPLDf6gOLsCDKU6OZga9TGVnONtdVsMyWuD383h7sYQzLC5csCBI8nZ1VbMPo5mjaBx9mmGFRrKvSXSRYSLToCdA7+aWaeb3YVLm0iBxXnRRrgbvJf10SR/BYI07CxjjSp7BwJa4rbtcpbrwDQhvjMg1WKIfrUYNLz9xYWiXI0VLFi9zMQSKCOT3KDNZhOkFACEP5nwuriQThia9Tf4ESE1+y2/E653qZI0CMvTghA5IRpYzvsYncMbYP1tVXF01lKyTvoPtNY4Z4pN31A9kPcIfN+rV2aCTla/7DAunu9DCUZ++Yx35yw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf54265c-555a-49d6-8204-08df079f8182
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 20:36:16.5007 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p1UAzwzjBwu1cwIdG4KHJITp4ADF0bMpMyHjXR70DNRVGf56jCRHXEPAv4dJ6eSLubTJRUeaiiJjynoT3EGPNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6214
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: ymvl/Nv2EZ9PSi4/cX6So594ZXCVQYdTn/0BpGsg+p97o3iuUFvGXpjIUHM9XcjnpF2/5vMYE0S5eY+Q6S/UMr1YngkkcEYIRg7e7YtdfjRa5SEiyiaPBL1jA3jwx8ZfWHQOJu4aRd5LuiQTGVx0v+iAobz5+7nioxtANMoBt3erl3sry2FI8xwjqja4u1k4cslHJS9E11TQZLuSlImzkJOMPi+MIxeHoi2uDHfXFRGbXOOtw6/qo3HO1Hyi5eoTyB/QlxSaag6QJbcpMt62W9wL9GdS4H4hyfyFW+3kI9Al37e6KM2iKhsmXlP5Kp6BloHs0Cx75MMj5fmRa9Rx116hCttw/0s4tYGqIjZ5bMosgoJulBqblOdEKYpNf50hjo3tSqQ3/k14zcoD/56IxgqlhdGezNTQk8d8aUXfWdWWapm+mZYzVN5RXIjvE7UM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 20:38:04.4744 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ecb6f82-523b-4135-36f7-08df079fc1f5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055E1.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6737
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,261 +115,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2026 at 07:15:37PM +0530, Srinivasan Shanmugam wrote:
-> Introduce a common DRM user fence helper providing the kref-managed,
-> MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
-> that must access userspace memory from a kthread context when a GPU
-> fence signals.
-> 
-> XE uses this pattern (xe_sync.c) to write a fence completion value
-> to a userspace VA. AMDGPU will use the same pattern to signal a
-> per-queue eventfd from a user-queue EOP fence callback.
-> 
-> The helper provides:
->  - struct drm_user_fence: embeddable base structure
->  - struct drm_user_fence_ops: worker/destroy callbacks
->  - drm_user_fence_init(): initialize and grab the process MM
->  - drm_user_fence_get/put(): reference counting
->  - drm_user_fence_add_callback(): attach to a dma-fence
-> 
-> The worker callback receives a bool indicating whether the process
-> MM was successfully obtained, allowing drivers to handle the
-> unavailable-MM case (log, skip the userspace write, etc.) without
-> duplicating the mmget/kthread_use_mm/mmput boilerplate.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+
+On 8/29/26 01:56, Deniz Aydogan wrote:
+> amdxdna_cmd_submit() does not set job->cmd_bo for internal driver
+> commands that pass AMDXDNA_INVALID_BO_HANDLE. When such a job hits
+> an error or completes normally, both the submit error path and
+> amdxdna_sched_job_cleanup() call amdxdna_gem_put_obj(job->cmd_bo)
+> unconditionally, dereferencing NULL.
+>
+> Separately, amdxdna_cmd_set_error() acquires a GEM reference via
+> amdxdna_gem_get_obj() when handling a chained command, but leaks it
+> when the subsequent amdxdna_gem_vmap() returns NULL.
+>
+> Guard all three amdxdna_gem_put_obj(job->cmd_bo) call sites with a
+> NULL check and release the GEM reference on vmap failure.
+>
+> Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+> Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
 > ---
->  drivers/gpu/drm/Makefile         |  1 +
->  drivers/gpu/drm/drm_user_fence.c | 69 +++++++++++++++++++++++++
->  include/drm/drm_user_fence.h     | 86 ++++++++++++++++++++++++++++++++
->  3 files changed, 156 insertions(+)
->  create mode 100644 drivers/gpu/drm/drm_user_fence.c
->  create mode 100644 include/drm/drm_user_fence.h
-> 
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index c5be8e80d0c8..ddb770738992 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -69,6 +69,7 @@ drm-y := \
->  	drm_syncobj.o \
->  	drm_sysfs.o \
->  	drm_trace_points.o \
-> +	drm_user_fence.o \
->  	drm_vblank.o \
->  	drm_vblank_work.o \
->  	drm_vma_manager.o \
-> diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
-> new file mode 100644
-> index 000000000000..664178e2d74c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/drm_user_fence.c
-> @@ -0,0 +1,69 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright © 2024 The Linux Foundation
-> + *
-> + * DRM user fence — extends drm_work_fence with kthread_use_mm() support.
-> + *
-> + * Use this when a GPU fence signals and work needs to access userspace
-> + * memory (copy_to_user, fault-able operations) from a kthread context.
-> + * For work that does not require userspace memory access, use
-> + * drm_work_fence directly.
-> + */
-> +
-> +#include <linux/kthread.h>
-> +#include <linux/sched/mm.h>
-> +
-> +#include <drm/drm_user_fence.h>
-> +
-> +static void drm_user_fence_do_work(struct drm_work_fence *wfence)
-> +{
-> +	struct drm_user_fence *ufence =
-> +		container_of(wfence, struct drm_user_fence, base);
-> +	bool mm_ok = false;
-> +
-> +	if (mmget_not_zero(ufence->mm)) {
-> +		kthread_use_mm(ufence->mm);
-> +		mm_ok = true;
-> +	}
-> +
-> +	ufence->ops->worker(ufence, mm_ok);
-> +
-> +	if (mm_ok) {
-> +		kthread_unuse_mm(ufence->mm);
-> +		mmput_async(ufence->mm);
+>   drivers/accel/amdxdna/amdxdna_ctx.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+> index 31a414c3f..a806702ec 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+>   		if (!abo)
+>   			return -EINVAL;
+>   		cmd = amdxdna_gem_vmap(abo);
+> -		if (!cmd)
+> +		if (!cmd) {
+> +			amdxdna_gem_put_obj(abo);
+>   			return -ENOMEM;
+This is fixed by: 
+https://lore.kernel.org/all/17811ffc-f33b-b3ac-865b-18138239e0dd@amd.com/
+> +		}
+>   	}
+>   
+>   	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
+> @@ -575,7 +577,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
+>   	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
+>   	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
+>   	amdxdna_arg_bos_put(job);
+> -	amdxdna_gem_put_obj(job->cmd_bo);
+> +	if (job->cmd_bo)
+> +		amdxdna_gem_put_obj(job->cmd_bo);
 
-Xe does this incorrectly, but ufence shouldn't be looked after 'worker'.
+The current code will not crash because drm_gem_object_put will check 
+the if the obj pointer is NULL.
 
-Also mm_ok probably isn't needed either. I'd write this like:
+And I agree it is more robuster to check job->cmd_bo. Could you remove 
+the "Fixes" tag and previous leak fix?
 
-struct mm_struct *mm = NULL;
+Thanks
 
-if (mmget_not_zero(ufence->mm)) {
-	mm = ufence->mm;
-	kthread_use_mm(mm);
-}
+Lizhi
 
-ufence->ops->worker(ufence, !!mm); /* Or just pass in 'mm' */
-
-if (mm) {
-	kthread_unuse_mm(mm);
-	mmput_async(mm);
-}
-
-> +	}
-> +}
-> +
-> +static void drm_user_fence_do_destroy(struct drm_work_fence *wfence)
-> +{
-> +	struct drm_user_fence *ufence =
-> +		container_of(wfence, struct drm_user_fence, base);
-> +
-> +	mmdrop(ufence->mm);
-> +	ufence->ops->destroy(ufence);
-
-I'd invert this:
-
-struct mm_struct *mm = ufence->mm;
-
-ufence->ops->destroy(ufence);
-mmdrop(mm);
-
-> +}
-> +
-> +static const struct drm_work_fence_ops drm_user_fence_wf_ops = {
-> +	.work    = drm_user_fence_do_work,
-
-I wouldn't use the name 'work' here. I think writeback is more apporiate.
-
-> +	.destroy = drm_user_fence_do_destroy,
-> +};
-> +
-> +/**
-> + * drm_user_fence_init - Initialize a user fence
-> + * @ufence: user fence to initialize
-> + * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
-> + * @ops: driver operations
-> + *
-> + * Must be called from process context with a valid current->mm.
-> + * Grabs a reference to current->mm via mmgrab().
-> + */
-> +void drm_user_fence_init(struct drm_user_fence *ufence,
-> +			 struct workqueue_struct *wq,
-> +			 const struct drm_user_fence_ops *ops)
-> +{
-> +	drm_work_fence_init(&ufence->base, wq, &drm_user_fence_wf_ops);
-> +	ufence->mm = current->mm;
-> +	mmgrab(ufence->mm);
-> +	ufence->ops = ops;
-> +}
-> +EXPORT_SYMBOL_GPL(drm_user_fence_init);
-> diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
-> new file mode 100644
-> index 000000000000..2b2b640f510f
-> --- /dev/null
-> +++ b/include/drm/drm_user_fence.h
-> @@ -0,0 +1,86 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright © 2024 The Linux Foundation
-> + */
-> +
-> +#ifndef __DRM_USER_FENCE_H__
-> +#define __DRM_USER_FENCE_H__
-> +
-> +#include <drm/drm_work_fence.h>
-> +
-> +struct drm_user_fence;
-> +
-> +/**
-> + * struct drm_user_fence_ops - driver callbacks for a DRM user fence
-> + */
-> +struct drm_user_fence_ops {
-> +	/**
-> +	 * @worker: Called from workqueue context with the process MM active.
-> +	 *
-> +	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
-> +	 * (copy_to_user, etc.) may be accessed safely.
-> +	 * If @mm_ok is false, the process MM was already gone; the driver
-> +	 * should log a warning and skip the userspace write.
-
-I'd wouldn't dicate if caller should log a warning - rather just say if
-should skip the userspace write.
-
-> +	 *
-> +	 * wake_up() or other post-signal housekeeping should also happen here.
-> +	 */
-> +	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
-> +
-> +	/**
-> +	 * @destroy: Called when the last reference is dropped.
-> +	 * Free the containing structure here.
-> +	 */
-> +	void (*destroy)(struct drm_user_fence *ufence);
-> +};
-> +
-> +/**
-> + * struct drm_user_fence - DRM user fence with MM borrowing
-> + *
-> + * Extends drm_work_fence with kthread_use_mm() support for drivers
-> + * that need to access userspace memory when a GPU fence signals.
-> + * For work that does not need userspace memory access, use
-> + * drm_work_fence directly.
-> + *
-> + * Call drm_user_fence_init() at creation and drm_user_fence_add_callback()
-> + * to arm on a dma-fence. Call drm_user_fence_cancel_sync() before teardown.
-> + */
-> +struct drm_user_fence {
-> +	/** @base: Base work fence. Must be first. */
-> +	struct drm_work_fence base;
-> +	/** @mm: Process MM grabbed at init time. */
-> +	struct mm_struct *mm;
-> +	/** @ops: Driver operations. */
-> +	const struct drm_user_fence_ops *ops;
-> +};
-> +
-> +void drm_user_fence_init(struct drm_user_fence *ufence,
-> +			 struct workqueue_struct *wq,
-> +			 const struct drm_user_fence_ops *ops);
-> +
-
-Kernel doc for all the inlines.
-
-Matt
-
-> +static inline void drm_user_fence_get(struct drm_user_fence *ufence)
-> +{
-> +	drm_work_fence_get(&ufence->base);
-> +}
-> +
-> +static inline void drm_user_fence_put(struct drm_user_fence *ufence)
-> +{
-> +	drm_work_fence_put(&ufence->base);
-> +}
-> +
-> +static inline int drm_user_fence_add_callback(struct drm_user_fence *ufence,
-> +					      struct dma_fence *fence)
-> +{
-> +	return drm_work_fence_add_callback(&ufence->base, fence);
-> +}
-> +
-> +static inline bool drm_user_fence_cancel(struct drm_user_fence *ufence)
-> +{
-> +	return drm_work_fence_cancel(&ufence->base);
-> +}
-> +
-> +static inline void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
-> +{
-> +	drm_work_fence_cancel_sync(&ufence->base);
-> +}
-> +
-> +#endif /* __DRM_USER_FENCE_H__ */
-> -- 
-> 2.34.1
-> 
+>   	dma_fence_put(job->fence);
+>   	mmdrop(job->mm);
+>   }
+> @@ -676,7 +679,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
+>   put_bos:
+>   	amdxdna_arg_bos_put(job);
+>   cmd_put:
+> -	amdxdna_gem_put_obj(job->cmd_bo);
+> +	if (job->cmd_bo)
+> +		amdxdna_gem_put_obj(job->cmd_bo);
+>   free_job:
+>   	if (job->mm)
+>   		mmdrop(job->mm);
