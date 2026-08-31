@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC40C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1519C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:44:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0023510E89B;
-	Mon, 31 Aug 2026 13:44:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B4A10E8A0;
+	Mon, 31 Aug 2026 13:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bx+aaz9n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RrNnvBr5";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D934D10E89B;
- Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC3810E89D;
+ Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 94A60408A9;
- Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CCC1F00ADE;
- Mon, 31 Aug 2026 13:44:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 276B343F11;
+ Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABDCA1F00A3E;
+ Mon, 31 Aug 2026 13:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183868;
- bh=pf4ekvd+NEY5JRo6Eblbsd81JMP2cKd6vW/zi5iBGsQ=;
+ s=k20260515; t=1788183872;
+ bh=XrswinvKlteXXsU1UUGMT4NTv9PprhYDQw1IswwUcS8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Bx+aaz9nHhkBpGa5xWfv3n7LQ7ysIEkP0sOVQagFKPcxUNiAXHJSWoZvBCZ/cEqe7
- N5ebTjqc3ODCICDFVpp+D8Wc/Ktqzzp3XgHUFU5A54rlSLvSSuhWyYs5w6ZSPA3B31
- SLWQs4LXM2ZRq9vRUzcPM+q/QE+7v8Cv3qD0Mpo4FRti3TrTLJmvBydu3A6RFSb6Og
- ff78H6GmJLhKuP397owtGivchW753jAIiyWwwfxCtI6a2/vhltSCurnGSiLodh5NfI
- UzIJtLc07vJhgLg4LAhnwbJyORK1JJeGajJy8j9kZKjToiTx6ZrCNBkB+lO/IjFCt5
- 2UwGg1zWOlI5g==
+ b=RrNnvBr5mEbzF9Q50Kvr3k9rdeRmQ30PtmQzo2LSicvP00T5TAgCnoCH1cCxV6afp
+ LHWdsGnZgcDkjXHRHjW8acaqMF3t8OzMrdZMtsIhSUIeukJO4GTmsROw2YWM8BYUxV
+ JJrEbn/hkpL841z26ZM8XJDFxT6rze2pNG96wFWUX/uylmDU7ZiFLdEhpyA5JSJgtQ
+ w9joExCQvynGEiYXK0XOK60UnnSnJOuOpBeiTH85KERO1TvIBg5bqwGaVcuIcl7v9i
+ 3xOW+DaaTRqjVu20sBOu4Qyl+96wyXZzMpadOCb0gdGaO7e7BmyjG5KOKOLOrGk3l1
+ aslU7tliKmYPw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: Use system unbound workqueue for
- soft IH ring
-Date: Mon, 31 Aug 2026 09:26:19 -0400
-Message-ID: <20260831133314.4125787-351-sashal@kernel.org>
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/userq: pin mqd and fw object bo to
+ avoid eviction
+Date: Mon, 31 Aug 2026 09:26:21 -0400
+Message-ID: <20260831133314.4125787-353-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,308 +66,300 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit ba2977dcce72127986fbad76c4c67f134e2f69ae ]
+[ Upstream commit a3bbf32a336939a1d21b9561f8e53333b684b7ef ]
 
-Allow the kernel to dispatch the soft IH work on other CPUs.
+mqd and fw objects are queue core objects which should remain
+valid and never be unmapped and evicted for user queues to work
+properly.
 
-Otherwise it can happen that the soft IH ring fills up
-before it actually starts processing anything, which
-can easily happen with retry page faults, in which case
-the CP repeatedly spams the CPU with a lot of interrupts.
+During eviction if these buffers are evicted the hw continue to
+use the invalid addresses and caused page faults and system hung.
 
-This significantly improves retry page fault handling on
-GPUs that don't have the filter CAM and must rely on
-software based filtering.
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 3cdff3c8b93c2834977224d9c2b201fc334dd184)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/amdgpu: Use system unbound workqueue for
-soft IH ring
+# Stable Backport Analysis: `drm/amdgpu/userq: pin mqd and fw object bo
+to avoid eviction`
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
-**Fix commit:** `3cdff3c8b93c` (on `linux-next/master`, **not** an
-ancestor of current HEAD — bug still present locally)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`)
+
+**Upstream commit:** `a3bbf32a336939a1d21b9561f8e53333b684b7ef` (not
+present in this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Parse subject line
-**Record:** `[drm/amdgpu]` — no explicit verb; implied **fix/improve** —
-**Use system unbound workqueue for soft IH ring**
+### Step 1.1: Parse the subject line
+**Record:** `[drm/amdgpu/userq]` — implicit **fix** (prevent eviction) —
+**pin MQD and firmware-object BOs so they are not evicted while user
+queues are active**.
 
-### Step 1.2: Parse commit message tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Reviewed-by:** Tvrtko Ursulin \<tvrtko.ursulin@igalia.com\>
-- **Signed-off-by:** Timur Kristóf, Alex Deucher
-- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, Link:, Cc:
-  stable@vger.kernel.org
-- Notable: Reviewed-by from Igalia amdgpu contributor; no syzbot/user
-  bug report
+- **Fixes:** — none (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** Christian König `<christian.koenig@amd.com>`
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org:** — none (not a negative signal)
+- **Signed-off-by:** Sunil Khatri (author), Alex Deucher (maintainer
+  merge)
+- **Notable:** Reviewed-by from AMDGPU subsystem maintainer; no
+  syzbot/reporter tags
 
 ### Step 1.3: Analyze commit body
 **Record:**
-- **Bug:** Soft IH ring can fill before its work item runs; CP floods
-  the CPU with interrupts during retry page faults.
-- **Symptom:** Soft IH ring overflow / interrupt storm; degraded or
-  broken retry page fault handling on GPUs without hardware filter CAM
-  (software filtering only).
-- **Root cause (author):** `schedule_work()` dispatches on a CPU-bound
-  workqueue; work stays pinned on the IRQ CPU and cannot run while that
-  CPU is saturated with interrupts.
-- **Fix:** `queue_work(system_unbound_wq, ...)` allows processing on
-  another CPU.
-- **Version info:** None in message.
+- **Bug:** MQD and firmware context objects are core user-queue state;
+  they must stay mapped and valid for the lifetime of an active queue.
+- **Symptom:** Under eviction (memory pressure), these BOs can be
+  evicted while hardware still references their GPU addresses → GPU page
+  faults → **system hang**.
+- **Root cause (author):** Objects were created as kernel BOs in GTT but
+  were not pinned, unlike other queue-critical objects.
+- **Version info:** None in the message.
 
 ### Step 1.4: Detect hidden bug fixes
-**Record:** **Yes — functional bug fix disguised as scheduling
-improvement.** Ring fill-up before processing means dropped interrupt
-vectors and failed page-fault handling, not merely slower performance.
+**Record:** Not disguised as cleanup — this is an explicit stability
+fix. Pinning prevents TTM eviction of BOs the GPU firmware still uses.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory changes
+### Step 2.1: Inventory the changes
 **Record:**
-- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c` (+1 / −1)
-- **Function:** `amdgpu_irq_delegate()`
-- **Scope:** Single-file, single-line surgical fix
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c` (+10 / −3)
+- **Functions modified:** `amdgpu_userq_create_object()`,
+  `amdgpu_userq_destroy_object()`
+- **Scope:** Single-file surgical fix
 
-### Step 2.2: Code flow change
+### Step 2.2: Code flow change (per hunk)
 **Record:**
-- **Before:** `schedule_work(&adev->irq.ih_soft_work)` → queues on
-  `system_wq` (CPU-bound).
-- **After:** `queue_work(system_unbound_wq, &adev->irq.ih_soft_work)` →
-  can run on any CPU.
-- **Path:** Called from `amdgpu_irq_delegate()` after writing an IV to
-  the soft IH ring; triggered during retry page faults on GPUs using
-  software filtering (gmc_v9/v10/v11/v12).
+- **Hunk 1 (`create_object`):** Before → reserve BO, alloc GART, kmap.
+  After → **pin BO first**, then GART/kmap; error paths goto `unpin_bo`
+  before `unresv`.
+- **Hunk 2 (`destroy_object`):** Before → kunmap + unref. After → kunmap
+  + **unpin** + unref.
+- **Paths affected:** Queue object creation/destruction for MQD and
+  firmware context objects.
 
 ### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Logic / scheduling deadlock (interrupt storm + work
-  starvation).
-- **Mechanism:** IRQ handler delegates to soft IH ring and schedules
-  bound work on the same CPU. Under retry page-fault storms, IRQs keep
-  arriving before work runs; `amdgpu_ih_ring_write()` can reach `wptr ==
-  rptr` and stop advancing the write pointer — IVs are written but not
-  committed/processed.
+**Record:** **Memory safety / resource lifetime bug.** MQD
+(`queue->mqd`) and firmware context (`queue->fw_obj`) BOs created via
+`amdgpu_userq_create_object()` were evictable. Doorbell objects in the
+same file were already pinned (`amdgpu_bo_pin(...,
+AMDGPU_GEM_DOMAIN_DOORBELL)` at line 331). MQD/fw objects were an
+oversight.
 
 ### Step 2.4: Fix quality
 **Record:**
-- **Quality:** Obviously correct; mirrors existing amdgpu usage of
-  `system_unbound_wq` in `amdgpu_reset.c`, `amdgpu_device.c`,
-  `aldebaran.c`.
-- **Regression risk:** Very low. `queue_work()` deduplicates already-
-  queued work; same `work_struct` and handler unchanged.
-- **No API, lock-order, or structural changes.**
+- **Obviously correct:** Mirrors existing doorbell pinning pattern in
+  the same file.
+- **Minimal:** 10 lines, proper error-path cleanup (`unpin_bo` label).
+- **Regression risk:** Low — pinning is standard for BOs hardware must
+  keep resident; unpin on destroy balances pin on create.
+- **Reviewer note:** Christian König suggested eviction-fence
+  association as a future improvement but gave **Reviewed-by** for
+  pinning as an immediate fix.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame changed lines
-**Record:**
-- `amdgpu_irq_delegate()` introduced in `26f32a377eedd` (Oct 2020,
-  Christian König) — soft IH infrastructure.
-- `schedule_work()` line dates to that same commit; present in this tree
-  since 6.18 base.
-- Bug has existed since soft IH ring was added (~5.10+ era).
+**Record:** `amdgpu_userq_create_object()` / `destroy_object()` present
+in `7b923c78b50d2` (v6.18.43 tag) **without** pinning. `amdgpu_userq.c`
+also exists in `v6.17` and `v6.18` tags. Bug predates the fix commit.
 
 ### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no Fixes: tag.
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related file history
-**Record:**
-- Related: `bf80d34b6c58a` "Increase soft IH ring size" (symptom
-  mitigation, not root cause).
-- `318e431b306e9` "Enable IH retry CAM on GFX9" — hardware path; this
-  fix targets GPUs **without** retry CAM.
-- Part of series `[PATCH 3/3]` but **standalone** — patches 1/3 and 2/3
-  touch different concerns (ih6.1 version, HW register access).
+### Step 3.3: File history for related changes
+**Record:** Patch is **v2 2/2** in series with `drm/amdgpu/userq: use
+drm_exec in amdgpu_userq_fence_read_wptr` (patch 1/2, different file:
+`amdgpu_userq_fence.c`). **This patch is standalone** — no dependency on
+patch 1/2.
 
-### Step 3.4: Author context
-**Record:** Timur Kristóf — active amdgpu contributor; Alex Deucher
-merged. Tvrtko Ursulin reviewed.
+### Step 3.4: Author's other commits
+**Record:** Sunil Khatri is an active AMDGPU userq contributor (multiple
+userq fixes in drm tree). Alex Deucher merged; Christian König reviewed.
 
-### Step 3.5: Dependencies
-**Record:** **No dependencies.** One-line change; `system_unbound_wq` is
-a core kernel symbol. Applies cleanly to current `amdgpu_irq.c`.
+### Step 3.5: Prerequisites
+**Record:** No prerequisites. `amdgpu_bo_pin()` / `amdgpu_bo_unpin()`
+exist in this tree (`amdgpu_object.c`). `git show a3bbf32... | git apply
+--check` succeeds on current checkout.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
+### Step 4.1: Original patch discussion
 **Record:**
-- **b4 dig URL:** https://patch.msgid.link/20260513170849.27061-4-
-  timur.kristof@gmail.com
-- **Series:** v1 only (May 13, 2026); committed version matches
-  submission.
-- **Review:** Reviewed-by: Tvrtko Ursulin in thread.
-- **No** stable@vger nomination, NAKs, or objections found in mbox.
+- **b4 dig -c a3bbf32a336939a1d21b9561f8e53333b684b7ef:**
+  https://patch.msgid.link/20260508103910.2442183-2-sunil.khatri@amd.com
+- **b4 dig -a:** v1 single patch, v2 two-patch series; committed version
+  matches v2 2/2
+- **Reviewer feedback:** Christian König: "We should probably use the
+  eviction fence instead of pinning, but that can come in a later patch
+  set." → **Reviewed-by for now.** Author agreed pinning is acceptable
+  interim fix.
 
 ### Step 4.2: Reviewers
-**Record:** CC'd: amd-gfx, Alex Deucher, Christian König, Marek Olšák,
-Natalie Vock, Melissa Wen, amir.shetaia@amd.com.
+**Record:** **b4 dig -w:** To/CC: Sunil Khatri, Alex Deucher, Christian
+König, amd-gfx@lists.freedesktop.org — appropriate maintainer coverage.
 
 ### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Issue identified by
-developer from retry page-fault behavior.
+**Record:** No external bug report or syzbot link. Hang described in
+commit message and patch submission; no stack trace provided.
 
 ### Step 4.4: Related patches
-**Record:** Same series includes patch 2/3 "Don't perturb HW registers
-when accessing soft IH ring" — separate fix, not required for this one.
+**Record:** Patch 1/2 (drm_exec locking in fence read) is independent.
+Not required for this fix.
 
-### Step 4.5: Stable list history
-**Record:** Not searched separately; no stable nomination in patch
-thread. Not a negative signal per instructions.
+### Step 4.5: Stable mailing list
+**Record:** Not searched on lore stable (Anubis blocked direct lore
+fetch). No explicit stable nomination found in accessible amd-gfx
+thread.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `amdgpu_irq_delegate()`, `amdgpu_irq_handle_ih_soft()`,
-`amdgpu_ih_ring_write()`, `amdgpu_ih_process()`
+**Record:** `amdgpu_userq_create_object()`,
+`amdgpu_userq_destroy_object()`
 
-### Step 5.2: Callers of `amdgpu_irq_delegate()`
-**Record:** Called from retry-fault paths in:
-- `gmc_v9_0.c` (lines 589, 611)
-- `gmc_v10_0.c` (line 128)
-- `gmc_v11_0.c` (line 127)
-- `gmc_v12_0.c` (line 120)
-
-Triggered when `entry->ih == &adev->irq.ih` during retry page faults.
+### Step 5.2: Callers
+**Record:** `mes_userqueue.c`:
+- `mes_userq_create_ctx_space()` → `amdgpu_userq_create_object(uq_mgr,
+  &queue->fw_obj, ...)` (fw context)
+- MQD setup → `amdgpu_userq_create_object(uq_mgr, &queue->mqd, ...)`
+  (line 266)
+- Destroy paths call `amdgpu_userq_destroy_object()` for both objects
 
 ### Step 5.3: Callees
-**Record:** `amdgpu_ih_ring_write()` writes IV to soft ring; work
-handler calls `amdgpu_ih_process()` → `amdgpu_irq_dispatch()` → GMC
-fault handler → `amdgpu_vm_handle_fault()`.
+**Record:** `amdgpu_bo_create`, `amdgpu_bo_reserve`,
+**`amdgpu_bo_pin`**, `amdgpu_ttm_alloc_gart`, `amdgpu_bo_kmap`,
+`amdgpu_bo_kunmap`, **`amdgpu_bo_unpin`**, `amdgpu_bo_unref`
 
-### Step 5.4: Reachability
+### Step 5.4: Call chain / reachability
 **Record:**
-- **Call chain:** HW IRQ → `amdgpu_irq_handler` → IH processing → GMC
-  fault handler → `amdgpu_irq_delegate` → work scheduling.
-- **Reachable:** Yes — normal GPU compute/HMM/SVM page-fault path on
-  Navi/Vega/GFX9+ without hardware retry CAM.
-- Only `vega20_ih.c` sets `retry_cam_enabled = true`; all other soft-IH
-  GPUs use software filtering path.
+`userspace DRM_IOCTL_AMDGPU_USERQ (CREATE)` → `amdgpu_userq_ioctl()` →
+`amdgpu_userq_create()` → MES userq setup →
+`amdgpu_userq_create_object()` for MQD/fw_obj.
+
+**Reachable from userspace** by processes with DRM render access on
+supported AMDGPU hardware (GFX11+ with MES userq support). Trigger
+requires active user queues plus memory eviction pressure.
 
 ### Step 5.5: Similar patterns
-**Record:** amdgpu already uses `queue_work(system_unbound_wq, ...)` for
-reset/XGMI work to avoid CPU pinning — same rationale.
+**Record:** Doorbell pinning already done in
+`amdgpu_userq_get_doorbell_index()` (line 331). Fix aligns MQD/fw_obj
+with that established pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 6.1: Buggy code in tree?
-**Record:** **Yes.** `amdgpu_irq.c:515` still has
-`schedule_work(&adev->irq.ih_soft_work)`. Soft IH infrastructure present
-since 2020; retry page-fault delegation paths present in
-gmc_v9/v10/v11/v12.
+### Step 6.1: Does buggy code exist?
+**Record:** **YES.** At `7b923c78b50d2` and current HEAD,
+`amdgpu_userq_create_object()` has no `amdgpu_bo_pin()`; only doorbell
+path pins. Fix commit `a3bbf32` is **not** an ancestor of HEAD (`merge-
+base --is-ancestor` returned 1).
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — identical one-line substitution
-at same location. No structural divergence in this function vs. linux-
-next.
+**Record:** **Clean apply** — `git apply --check` passes with no
+conflicts. Line numbers differ slightly from upstream diff (487 vs 243)
+but context matches.
 
 ### Step 6.3: Related fixes already present?
-**Record:** `bf80d34b6c58a` (increase soft IH ring size) is present —
-mitigates but does not fix scheduling starvation. This fix is **not**
-yet in 6.18.44.
+**Record:** No equivalent pinning for MQD/fw_obj found. Doorbell pinning
+present; this fix completes the pattern.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT. Affects AMD GPU
-users on compute and graphics workloads with recoverable page faults.
+**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT (AMD GPU users;
+not universal core kernel, but affects all userq users on supported
+hardware).
 
 ### Step 7.2: Subsystem activity
-**Record:** Actively developed; interrupt and page-fault paths receive
-frequent fixes in this tree.
+**Record:** Userq subsystem actively developed in 6.18.y (multiple
+userq-related stable fixes in drm-fixes stream). Feature is present and
+enabled via existing IOCTL path.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** AMD GPU users on ASICs with soft IH ring and **without**
-hardware retry CAM (most Navi, Vega10, GFX9, etc. — everything except
-Vega20 in this tree). Config: `CONFIG_DRM_AMDGPU`.
+**Record:** Users of **AMDGPU user mode queues** on hardware where
+`userq_funcs` is registered (GFX11/GFX12, SDMA v6/v7, etc.). Config:
+`CONFIG_DRM_AMDGPU` with userq-capable ASIC.
 
 ### Step 8.2: Trigger conditions
-**Record:**
-- **When:** Retry page-fault storms (GPU compute, HMM, large sparse
-  mappings).
-- **Likelihood:** Can occur under normal heavy GPU workloads, not exotic
-  edge case.
-- **Unprivileged trigger:** Indirectly yes — userspace GPU workloads
-  trigger page faults.
+**Record:** Create user queues via `DRM_AMDGPU_USERQ`, then
+**VRAM/memory pressure triggers TTM eviction** while queues are active.
+Not every boot — requires memory pressure plus active userq workloads.
+Triggerable by unprivileged render-capable processes.
 
 ### Step 8.3: Failure mode severity
-**Record:**
-- Soft IH ring overflow → dropped interrupt vectors → page faults not
-  handled.
-- Interrupt storm → CPU saturation, possible soft lockup.
-- GPU hang / application failure on affected workloads.
-- **Severity: HIGH** (functional breakage + system responsiveness
-  impact; not proven kernel panic but can cause hangs).
+**Record:** GPU page faults from stale MQD/fw addresses → **system
+hang**. Severity: **CRITICAL**.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** HIGH for affected AMD GPU users — restores correct retry
-  page-fault handling.
-- **Risk:** VERY LOW — one-line, established pattern, reviewed.
-- **Ratio:** Strong benefit, minimal risk.
+- **Benefit:** HIGH for userq users — prevents GPU hangs under memory
+  pressure
+- **Risk:** LOW — 10-line change, established pin/unpin API, reviewed by
+  maintainer
+- **Ratio:** Strong benefit, minimal risk
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence compile
 
 **FOR backport:**
-- Fixes real scheduling starvation bug causing soft IH ring overflow.
-- Affects common AMD GPUs (Navi, Vega10, GFX9, etc.) on retry page
-  faults.
-- Can cause interrupt storms and broken page-fault recovery.
-- One-line, obviously correct, reviewed.
-- Bug present since 2020; code exists in 6.18.44.
-- Standalone, no dependencies.
+- Fixes real system hang (page faults → hang) under eviction
+- Small, surgical, reviewed by Christian König, merged by Alex Deucher
+- Mirrors existing doorbell pinning in same file
+- Applies cleanly to 6.18.43
+- Buggy code confirmed present in this tree
+- Standalone — no series dependency
 
 **AGAINST backport:**
-- No user bug report or syzbot confirmation (developer-found).
-- Patch 3/3 of a series (but functionally independent).
-- Framed as "improves" handling — but mechanism is ring overflow /
-  dropped IVs.
+- Userq is a relatively new feature (not all stable users enable it)
+- Pinning is acknowledged as interim; eviction-fence integration
+  preferred long-term
+- No syzbot/reporter — harder to quantify frequency
+- Affects driver-specific path, not core kernel
 
-**Unresolved:** No quantitative data on how often users hit this in
-production.
+**Unresolved:** Exact reproduction rate in production; no public CVE or
+bugzilla reference.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reviewed, logical fix,
-   established amdgpu pattern.
-2. Fixes real bug affecting users? **PASS** — ring overflow and
-   interrupt storm on retry page faults.
-3. Important issue? **PASS** — HIGH: GPU hangs, CPU saturation, dropped
-   fault handling.
-4. Small and contained? **PASS** — 1 line, 1 file.
-5. No new features/APIs? **PASS**.
-6. Can apply to local tree? **PASS** — buggy code present; clean apply.
+1. Obviously correct and tested? **PASS** — pattern matches doorbell
+   pinning; reviewed by maintainer
+2. Fixes real bug affecting users? **PASS** — hang under eviction with
+   active user queues
+3. Important issue? **PASS** — CRITICAL (system hang)
+4. Small and contained? **PASS** — 1 file, +10/−3
+5. No new features/APIs? **PASS** — lifecycle fix only
+6. Can apply to local tree? **PASS** — clean apply verified
 
 ### Step 9.3: Exception categories
 **Record:** None (not device ID, quirk, DT, build, or docs). Standard
@@ -376,62 +367,105 @@ bug fix.
 
 ### Step 9.4: Decision rationale
 
-For **6.18.y**, the soft IH ring and retry page-fault delegation code
-are present and still use CPU-bound `schedule_work()`. Under retry page-
-fault load on GPUs without hardware filter CAM, the soft IH work cannot
-run on the IRQ-saturated CPU, the ring fills, IVs are dropped, and the
-system can be flooded with interrupts. Switching to `system_unbound_wq`
-is a minimal, reviewed fix already used elsewhere in amdgpu. This meets
-stable criteria: real bug, important user impact, tiny contained change,
-no new APIs.
+For **Linux 6.18.y**, the userq infrastructure is present and the bug is
+real: MQD and firmware context BOs can be evicted while hardware still
+references them, causing hangs. The fix is minimal, maintainer-reviewed,
+follows an existing pattern in the same file, and applies cleanly. While
+userq affects a subset of AMDGPU users, a system hang under memory
+pressure meets stable criteria for important fixes.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body; no Fixes:/Reported-
-  by:/syzbot.
-- **[Phase 2]** Diff: 1-line change in `amdgpu_irq_delegate()`; read
-  `amdgpu_ih_ring_write()` overflow behavior (lines 162–169).
-- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` →
-  `26f32a377eedd` (2020); `git merge-base --is-ancestor` → fix NOT in
-  HEAD.
-- **[Phase 3]** Related commits: `bf80d34b6c58a`, `318e431b306e9`,
-  `26f32a377eedd`.
-- **[Phase 4]** `b4 dig -c 3cdff3c` → lore URL; `b4 dig -a` → v1 series;
-  `b4 dig -w` → maintainers CC'd; mbox → Reviewed-by Tvrtko Ursulin, no
-  stable/NAK.
-- **[Phase 5]** `grep amdgpu_irq_delegate` → 4 GMC files; `grep
-  retry_cam_enabled` → only `vega20_ih.c` sets true.
-- **[Phase 5]** Read `gmc_v9_0.c:583–621`, `gmc_v10_0.c:115–137`,
-  `amdgpu_ih.c:150–169`, `amdgpu_irq.c:510–516`.
-- **[Phase 5]** `grep system_unbound_wq` in amdgpu → prior usage in
-  reset/device code.
-- **[Phase 6]** Confirmed `schedule_work` at `amdgpu_irq.c:515` in
-  current tree.
-- **[Phase 6]** Fix commit only on `linux-next/master`, not ancestor of
-  HEAD.
-- **[Phase 8]** Assessed severity from ring-overflow + interrupt-storm
-  mechanism in code.
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+  and `git show a3bbf32`
+- **[Phase 1]** Reviewed-by: Christian König; Signed-off-by: Sunil
+  Khatri, Alex Deucher
+- **[Phase 2]** Diff: +10/−3 in `amdgpu_userq.c`;
+  `create_object`/`destroy_object` modified
+- **[Phase 2]** Confirmed doorbell already pinned at line 331 in local
+  tree
+- **[Phase 3]** `git describe` / `make kernelversion`: 6.18.43
+- **[Phase 3]** `git merge-base --is-ancestor a3bbf32 7b923c78b50d2`:
+  NOT in tree (exit 1)
+- **[Phase 3]** `git show 7b923c78b50d2:...amdgpu_userq.c`:
+  create_object lacks pin
+- **[Phase 3]** `git apply --check` on upstream patch: clean apply
+- **[Phase 3]** `git show v6.18:...amdgpu_userq.c | grep amdgpu_bo_pin`:
+  only doorbell pin
+- **[Phase 3]** `git show v6.17:...amdgpu_userq.c`: file exists (982
+  lines)
+- **[Phase 4]** `b4 dig -c a3bbf32`: lore URL found
+- **[Phase 4]** `b4 dig -a`: v1/v2 series; v2 2/2 is committed version
+- **[Phase 4]** `b4 dig -w`: Alex Deucher, Christian König CC'd
+- **[Phase 4]** spinics.net msg143086: König Reviewed-by; eviction-fence
+  noted as future work
+- **[Phase 5]** Grep callers: `mes_userqueue.c` uses create_object for
+  `fw_obj` and `mqd`
+- **[Phase 5]** IOCTL path: `DRM_IOCTL_AMDGPU_USERQ` in `amdgpu_drv.c`
+- **[Phase 6]** Buggy code at HEAD lines 243–303: no pin in
+  create_object
+- **[Phase 6]** Eviction path: `amdgpu_eviction_fence.c` →
+  `amdgpu_userq_evict()` exists but does not pin MQD/fw BOs
+- **[Phase 8]** Failure mode: page faults + system hang per commit
+  message
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 8d7f97eed5a90..ccc378233bc5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -512,7 +512,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
- 			 unsigned int num_dw)
- {
- 	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
--	schedule_work(&adev->irq.ih_soft_work);
-+	queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 7e3175f82a20d..0f4281c9aea2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -270,16 +270,20 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
+ 		goto free_obj;
+ 	}
+ 
++	r = amdgpu_bo_pin(userq_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
++	if (r)
++		goto unresv;
++
+ 	r = amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to alloc GART for userqueue object (%d)", r);
+-		goto unresv;
++		goto unpin_bo;
+ 	}
+ 
+ 	r = amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to map BO for userqueue (%d)", r);
+-		goto unresv;
++		goto unpin_bo;
+ 	}
+ 
+ 	userq_obj->gpu_addr = amdgpu_bo_gpu_offset(userq_obj->obj);
+@@ -287,11 +291,13 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
+ 	memset(userq_obj->cpu_ptr, 0, size);
+ 	return 0;
+ 
++unpin_bo:
++	amdgpu_bo_unpin(userq_obj->obj);
+ unresv:
+ 	amdgpu_bo_unreserve(userq_obj->obj);
+-
+ free_obj:
+ 	amdgpu_bo_unref(&userq_obj->obj);
++
+ 	return r;
  }
  
- /**
+@@ -299,6 +305,7 @@ void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
+ 				 struct amdgpu_userq_obj *userq_obj)
+ {
+ 	amdgpu_bo_kunmap(userq_obj->obj);
++	amdgpu_bo_unpin(userq_obj->obj);
+ 	amdgpu_bo_unref(&userq_obj->obj);
+ }
+ 
 -- 
 2.53.0
 
