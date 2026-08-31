@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29FA6C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:54:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3DAFC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:59:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8525A10E2D4;
-	Mon, 31 Aug 2026 15:54:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5560D10E2B8;
+	Mon, 31 Aug 2026 15:59:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UEkOX7h4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B4SGTFWC";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB9F10E97A
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:54:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09E3610E2B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:59:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 293C943D72
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:54:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9CB1F000E9;
- Mon, 31 Aug 2026 15:54:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 77C6243D46
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:59:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263E11F000E9;
+ Mon, 31 Aug 2026 15:59:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788191690;
- bh=eaktLATO7nNalE6k5BAINH9uRmCUNttkUWLEYD69Mnk=;
+ s=k20260515; t=1788191957;
+ bh=oOLWruVPTTP7uahjoEb5eJZJMNQ3e+6BT7n+JnBh3KQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UEkOX7h4Nod1PE2P/K972jyAoJChJ6iFeHMa1LCBMcABrdiLmlFzq//xV3Ji3XTw6
- MoD+10j7Qxlj5cxjUXO8yJcJHJz9+oVMjwTa5A4e4/pxVnXmVQE39MGOqx3sd2mHub
- AAfo/j5g1Nsaznx3Q/HC0ZdgUVEzG7NpqTpxbOJzL4bSohA5Jtd8IQMoR0sozFoXLX
- Rv2uoNnSZ1I6FKjMHvyBrJT8SLeOPtosiI3XDRa0Yy7aWXNOVJlzf139qXaatCfX5S
- vkOYs0sV+uaC90zmO2ZHxYXj6e97bP/26A2V9kVt93T42u6LVaQhp8AtEEtr1mLHZP
- Ul+NVFawM4rDA==
+ b=B4SGTFWCyMoGN5wTWwgvIphpl6nsGoQQ9CuT6aMwney8EcjQIaulfCdutxrrXiWND
+ ZSimkbitjfJTXfsUEwz3W4zU5QixMq+UekYisXNUp2HUne35M4C6xN6i6I43Et3kw2
+ FSf5xcjLhr2+t2o+SCEH1w1or83hvpFEkvkGq6mmexrXy2vNiHA7urXp/UpgvkZElU
+ dxf8p51L2hcwttwwuKUPo4dvyox+AW1SSO8KpILSUmddKQtWGCavx2KLOSIFY2AGlX
+ d8oUQlzzEtiVHPPFObwoSGbnB9/rL95MVGoD8tIKI9KWT1+Kf4wqTXJPCc68xQTOYS
+ d0ZFM3QSSZ5nQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] fbdev: Wrap user-invoked calls to
- fb_set_var() in helper
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] drm/gem: Consider GEM object
+ reclaimable if shrinking fails
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-356-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-357-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-356-sashal@kernel.org>
+ <20260831133314.4125787-357-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 15:54:49 +0000
-Message-Id: <20260831155449.DE9CB1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 15:59:16 +0000
+Message-Id: <20260831155917.263E11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,205 +58,82 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] sh_mobile_lcdcfb updates only the active console instead of all co=
-nsoles during display reconfig, dropping the background VCs update.
-
 Pre-existing issues:
-- [High] fbcon_modechange_possible() validation can be bypassed because it =
-is performed before fb_check_var() bounds the user-provided resolution.
-- [High] Potential AB-BA deadlock between console_lock and lock_fb_info acr=
-oss core and driver callbacks.
-- [High] The font size validation can be bypassed by spoofing `var->rotate`=
-, causing an out-of-bounds memory access in fbcon.
+- [High] msm_gem_shrinker_scan loses freed count by returning SHRINK_STOP w=
+hen remaining is 0.
+- [High] drm_gem_lru_scan fails to account for unscanned objects in the rem=
+aining counter, causing catastrophic early aborts.
 --
 
-commit 156965fbba8946918db59885f218ac2448bb25e8
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-fbdev: Wrap user-invoked calls to fb_set_var() in helper
+commit 9ce73904f0ad62a66be5eff7808ac4a6af7edc46
+Author: Boris Brezillon <boris.brezillon@collabora.com>
 
-Handle fbcon during display updates in fb_set_var_from_user(). Check
-with fbcon if the mode change is possible, update hardware state and
-finally update fbcon. Update all callers.
+drm/gem: Consider GEM object reclaimable if shrinking fails
 
-> diff --git a/drivers/video/fbdev/core/fb_chrdev.c b/drivers/video/fbdev/c=
-ore/fb_chrdev.c
-> index 4ebd16b7e3b8d..54f926fb411bd 100644
-> --- a/drivers/video/fbdev/core/fb_chrdev.c
-> +++ b/drivers/video/fbdev/core/fb_chrdev.c
-> @@ -85,11 +85,7 @@ static long do_fb_ioctl(struct fb_info *info, unsigned=
- int cmd,
->  		var.activate &=3D ~FB_ACTIVATE_KD_TEXT;
->  		console_lock();
->  		lock_fb_info(info);
-> -		ret =3D fbcon_modechange_possible(info, &var);
-> -		if (!ret)
-> -			ret =3D fb_set_var(info, &var);
-> -		if (!ret)
-> -			fbcon_update_vcs(info, var.activate & FB_ACTIVATE_ALL);
-> +		ret =3D fb_set_var_from_user(info, &var);
+If the object wasn't moved to a different LRU after the shrink callback
+returns, it means the buffer is still reclaimable. Update the remaining
+counter to reflect that.
 
-[Severity: High]
-This is a pre-existing issue, but does this lock order cause an AB-BA deadl=
-ock
-between console_lock and lock_fb_info?
+Link: https://patch.msgid.link/20260401134854.2275433-2-boris.brezillon@col=
+labora.com
 
-do_fb_ioctl() establishes the canonical lock acquisition order:
-
-do_fb_ioctl()
-  console_lock();
-  lock_fb_info(info);
-
-However, when do_fb_ioctl() routes to a driver's fb_ioctl hook (like
-ps3fb_ioctl), lock_fb_info() is already held:
-
-do_fb_ioctl()
-  lock_fb_info(info);
-  ret =3D fb->fb_ioctl(info, cmd, arg);
-
-ps3fb_ioctl()
-  console_lock();
-
-Similarly, closing the device triggers fb_release(), holding lock_fb_info()
-while calling sh_mobile_lcdc_release(), which acquires console_lock().
-
-Can concurrent ioctl or release operations trigger a system freeze here?
-
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
-fbcon.c
-> index e7e07eb2142eb..e594a69163489 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-[ ... ]
-> @@ -2784,7 +2783,6 @@ int fbcon_modechange_possible(struct fb_info *info,=
- struct fb_var_screeninfo *va
-> =20
->  	return 0;
->  }
-> -EXPORT_SYMBOL_GPL(fbcon_modechange_possible);
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index f884d155a832a..6e778939acae4 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1574,6 +1574,16 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+>  			 */
+>  			WARN_ON(obj->lru =3D=3D &still_in_lru);
+>  			WARN_ON(obj->lru =3D=3D lru);
+> +		} else if (obj->lru =3D=3D &still_in_lru) {
+> +			/*
+> +			 * If the object wasn't moved and wasn't shrunk either,
+> +			 * it's still remaining as reclaimable. Note that
+> +			 * obj->lru is supposed to be checked with the LRU lock
+> +			 * held for an accurate result, but we don't care about
+> +			 * accuracy here. Worst thing that could happen is an
+> +			 * extra scan.
+> +			 */
+> +			*remaining +=3D obj->size >> PAGE_SHIFT;
 
 [Severity: High]
-This is a pre-existing issue, but can the font size validation in
-fbcon_modechange_possible() be bypassed by spoofing var->rotate?
+This isn't a bug introduced by this patch, but does this manual accumulation
+fully fix the remaining counter?
 
-fbcon_modechange_possible() uses the user-controlled var->rotate to swap
-width and height when verifying the resolution against the font size:
+In drivers/gpu/drm/drm_gem.c:drm_gem_lru_scan(), when the shrinker
+successfully frees enough objects to satisfy nr_to_scan, the loop
+terminates early:
 
-    if (vc->vc_font.width  > FBCON_SWAP(var->rotate, var->xres, var->yres) =
-||
-        vc->vc_font.height > FBCON_SWAP(var->rotate, var->yres, var->xres))
+	while (freed < nr_to_scan) {
+		...
+	}
 
-However, the actual execution logic in fbcon_modechanged() uses the interna=
-l,
-trusted ops->rotate state:
+The objects still left in lru->list are never scanned, and their sizes are
+not added to *remaining. If no objects failed to shrink before the loop
+terminated, *remaining stays 0.
 
-    cols =3D FBCON_SWAP(ops->rotate, info->var.xres, info->var.yres);
-    rows =3D FBCON_SWAP(ops->rotate, info->var.yres, info->var.xres);
+This missing count triggers a severe pre-existing issue in=20
+drivers/gpu/drm/msm/msm_gem_shrinker.c:msm_gem_shrinker_scan():
 
-If a user intentionally sets var->rotate to mismatch ops->rotate, passing a
-heavily undersized xres (e.g., 4) alongside a large yres, the validation
-logic swaps them and approves the mode. But execution does not swap them,
-resulting in 0 columns and out-of-bounds memory writes during text renderin=
-g.
+	return (freed > 0 && remaining > 0) ? freed : SHRINK_STOP;
 
-> diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/=
-fbmem.c
-> index eff757ebbed14..8950a6ba26d7d 100644
-> --- a/drivers/video/fbdev/core/fbmem.c
-> +++ b/drivers/video/fbdev/core/fbmem.c
-[ ... ]
-> @@ -346,6 +346,19 @@ fb_set_var(struct fb_info *info, struct fb_var_scree=
-ninfo *var)
->  }
->  EXPORT_SYMBOL(fb_set_var);
-> =20
-> +int fb_set_var_from_user(struct fb_info *info, struct fb_var_screeninfo =
-*var)
-> +{
-> +	int ret =3D fbcon_modechange_possible(info, var);
-> +
-> +	if (!ret)
-> +		ret =3D fb_set_var(info, var);
+When remaining is incorrectly 0, this logic swallows the freed count by
+returning SHRINK_STOP. The core VM shrinker then drops the count of freed
+pages, causing under-reporting of reclaimed memory which can mislead
+kswapd and trigger premature OOM.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can fbcon_modechange_possibl=
-e()
-validation be bypassed because it is performed before fb_check_var() bounds
-the user-provided resolution?
-
-Validation happens here on the unmutated user input, before hardware
-constraints are applied. However, inside fb_set_var():
-
-    ret =3D info->fbops->fb_check_var(var, info);
-
-The driver may mutate var bounds downwards to fit hardware constraints,
-invalidating the previous font size checks.
-
-If a user issues an ioctl with a resolution that is initially larger than t=
-he
-font size, it passes validation. If the driver then rounds it down below the
-font size, the undersized resolution is applied to the hardware and passed
-to fbcon_update_vcs(), completely bypassing the validation and resulting in
-out-of-bounds memory access in fbcon rendering.
-
-> +	if (!ret)
-> +		fbcon_update_vcs(info, var->activate & FB_ACTIVATE_ALL);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL(fb_set_var_from_user);
-
-> diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev=
-/sh_mobile_lcdcfb.c
-> index dd950e4ab5ceb..6038f217ab427 100644
-> --- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
-> +++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-[ ... ]
-> @@ -1765,11 +1764,9 @@ static void sh_mobile_fb_reconfig(struct fb_info *=
-info)
->  	var.height =3D ch->display.height;
->  	var.activate =3D FB_ACTIVATE_NOW;
-> =20
-> -	if (fb_set_var(info, &var) < 0)
-> +	if (fb_set_var_from_user(info, &var) < 0)
->  		/* Couldn't reconfigure, hopefully, can continue as before */
->  		return;
-> -
-> -	fbcon_update_vcs(info, true);
->  }
-
-[Severity: High]
-Does this change unintentionally drop the update for background consoles du=
-ring
-display reconfig?
-
-Previously, sh_mobile_fb_reconfig() explicitly updated all consoles by pass=
+Should lru->count + still_in_lru.count be added to *remaining before return=
 ing
-true to fbcon_update_vcs():
+from drm_gem_lru_scan(), rather than manually accumulating sizes inside the
+loop?
 
-    fbcon_update_vcs(info, true);
-
-By switching to fb_set_var_from_user(), the update scope relies on
-var.activate & FB_ACTIVATE_ALL:
-
-    fbcon_update_vcs(info, var->activate & FB_ACTIVATE_ALL);
-
-Since sh_mobile_fb_reconfig() hardcodes var.activate =3D FB_ACTIVATE_NOW (0=
-),
-the bitwise check results in false, downgrading the console update scope fr=
-om
-all VCs to just the foreground VC.
-
-If the display was replaced with a smaller one via a hotplug event, backgro=
-und
-virtual consoles will retain dimensions corresponding to the old display
-resolution. Switching to a background VC later could cause fbcon to render
-past the new, smaller framebuffer bounds, leading to an out-of-bounds memory
-access.
+>  		}
+> =20
+>  		dma_resv_unlock(obj->resv);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-356-sashal@kernel.org?part=3D1
+787-357-sashal@kernel.org?part=3D1
