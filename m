@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74951C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C69C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABAA810E872;
-	Mon, 31 Aug 2026 13:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2199510E875;
+	Mon, 31 Aug 2026 13:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HU29c2xl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GuBlutvf";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD1410E875;
- Mon, 31 Aug 2026 13:39:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D749310E875
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:40:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 31408439DD;
- Mon, 31 Aug 2026 13:39:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15B81F00A3E;
- Mon, 31 Aug 2026 13:39:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BF520409F7;
+ Mon, 31 Aug 2026 13:40:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD9F1F00ADF;
+ Mon, 31 Aug 2026 13:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183590;
- bh=YygtfXTan2nafBKTj0tGgsUYKB05+ycgPkoAs9yo+rY=;
+ s=k20260515; t=1788183616;
+ bh=qUcjZ5+YMNO1PHUGhauPMhWUrZrLi8iHa+h+leRfEGE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HU29c2xlP36UIbxDd2+x9HNYeaYHseBG3P+QszYJC5oSIQqIUCycQ+R6YlXld/ycZ
- 669RzG37pxQmm+Y90sa/BGJGSDqX31v32v4loD+c/AIx+FEyuYJPYOHeU4X62cwMmq
- kPNRm7eLYyrECMKBlCCYk6k18SxyiqiDDf/Zb4ALsgB7kqfft9SlZn+A0ze3jaRvZO
- EmbAPr0q43qJ+henJWmUfKpCZVRs6buEvFCq9IJp0DsuMiWIRHX/Q4IRLD3Rf/vnLY
- YUkEUIX3aP+sZJ2Q54HUPfOznJAohuncgKHTE1ZKFrSgXnCskA+hZfTZHFaZqScgFM
- 78DYdcGCwoFAg==
+ b=GuBlutvfT5gXF/DzJKCYlVDadTaINa/qBmZtovCQcpsuhK/NIF42lNaaxkAzGCUYR
+ 77hdoU6EUWkX+mznWvHUjmAbqVwaDzDalJLAb+HX3xCZ1OwlMfTzFVt6JjkOPsApei
+ GJK9R9DhZMOifSFFQLkcOXDaRPeAhc4LNMDK0tKqVJO4SJ0SgTokVDTLbll56SEp+V
+ f0DO4bDWkZe/PpKnYv+0ZvRtq1czP80BBbFza2XnYy0OaMzOCIwauD+8UfEji0vWMO
+ 2+8lAlamxgEITaiqfMSuvJJ2BLiPUVsdgusMnydlpMXQVE+BzTWn+3CC1WqlNulDwt
+ 4MtDfASIk9FpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Perry Yuan <perry.yuan@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: flush pending RCU callbacks on
- module unload
-Date: Mon, 31 Aug 2026 09:23:33 -0400
-Message-ID: <20260831133314.4125787-185-sashal@kernel.org>
+Cc: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>,
+ Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add CSW PNB601LS1-2 and LGD
+ LP116WHA-SPB1
+Date: Mon, 31 Aug 2026 09:23:48 -0400
+Message-ID: <20260831133314.4125787-200-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,89 +67,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Perry Yuan <perry.yuan@amd.com>
+From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
 
-[ Upstream commit 67a654b41cfa73c3b83402c4a01b2689cad5b9bc ]
+[ Upstream commit e88b5cc6d6e5b1ba257f00e5c186ba137e6e8bc3 ]
 
-Call rcu_barrier() in module exit to wait for outstanding call_rcu() callbacks
-before freeing module text, preventing late callback execution in freed memory.
+The raw EDIDs for each panel:
 
-BUG: unable to handle page fault for address: ffffffffc1d59c40
-PGD 6a12067 P4D 6a12067 PUD 6a14067 PMD 13698b067 PTE 0
-Oops: 0010 [#1] SMP NOPTI
-RIP: 0010:0xffffffffc1d59c40
-Code: Unable to access opcode bytes at RIP 0xffffffffc1d59c16.
-RSP: 0018:ffffc900198c0f28 EFLAGS: 00010286
-RAX: ffffffffc1d59c40 RBX: ffff897c7d6b61c0 RCX: ffff88826aff4590
-RDX: ffff8884d8b35490 RSI: ffffc900198c0f30 RDI: ffff88812af67290
-RBP: 000000000000000a (DONE segment entries) R08: 0000000000000000 R09: 0000000000000100
-R10: 0000000000000000 R11: ffffffff82a06100 R12: ffff88811a4e3700
-R13: 0000000000000000 R14: ffff897c7d6b6270 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff897c7d680000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffffffc1d59c16 CR3: 00000104a980a001 CR4: 0000000002770ee0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-PKRU: 55555554
-Call Trace:
- <IRQ>
- ? rcu_do_batch+0x163/0x450
- ? rcu_core+0x177/0x1c0
- ? __do_softirq+0xc1/0x280
- ? asm_call_irq_on_stack+0xf/0x20
- </IRQ>
- ? do_softirq_own_stack+0x37/0x50
- ? irq_exit_rcu+0xc4/0x100
- ? sysvec_apic_timer_interrupt+0x36/0x80
- ? asm_sysvec_apic_timer_interrupt+0x12/0x20
- ? cpuidle_enter_state+0xd4/0x360
- ? cpuidle_enter+0x29/0x40
- ? cpuidle_idle_call+0x108/0x1a0
- ? do_idle+0x77/0xf0
- ? cpu_startup_entry+0x19/0x20
- ? secondary_startup_64_no_verify+0xbf/0xcb
+CSW
+- PNB601LS1-2
+00 ff ff ff ff ff ff 00 0e 77 0a 11 00 00 00 00
+30 23 01 04 a5 1a 0e 78 03 a1 35 9b 5e 58 91 25
+1c 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 09 1e 56 dc 50 00 28 30 30 20
+36 00 00 90 10 00 00 1a 06 14 56 dc 50 00 28 30
+30 20 36 00 00 90 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0c 3d ff 0c 3c 7d 0e 0b 17 7d 00 00 00 00 e8
 
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit feaa5039f6c12acc9aa934c2d45dcd251a12c69f)
+LGD
+- LP116WHA-SPB1
+00 ff ff ff ff ff ff 00 30 e4 fe 07 01 01 00 00
+00 24 01 04 a5 1a 0e 78 03 72 e5 9c 5e 5b 94 27
+19 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 d5 21 56 a0 50 00 b2 30 30 20
+f8 0c 00 90 10 00 00 1a 8e 16 56 a0 50 00 b2 30
+30 20 f8 0c 00 90 10 00 00 1a 00 00 00 fd 00 28
+3c 39 39 09 01 0a 20 20 20 20 20 20 00 00 00 02
+00 0f 3d ff 0f 3c 7d 0d 0a 15 7d 00 00 00 01 da
+
+70 20 79 02 00 25 00 09 57 52 01 57 52 01 28 3c
+80 81 00 15 74 1a 00 00 03 01 28 3c 00 00 4a 5a
+4a 5a 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 ef 90
+
+Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260324061444.242917-1-terry_hsiao@compal.corp-partner.google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The background check finished: `feaa5039f6c12` is on mainline but not in
-`stable/linux-6.18.y` (about 1.37M commits ahead of the stable branch
-tip). A grep for "flush pending RCU" on the stable branch returned
-nothing, so this fix still needs to be backported.
+The background searches finished and match the earlier analysis:
 
-That matches the earlier analysis: the bug is present in v6.18.44, the
-patch should apply cleanly at the end of `amdgpu_exit()`, and the
-backport recommendation remains **YES**.
+- **Git history:** No commit for `PNB601LS1-2` or `LP116WHA-SPB1` in
+  this tree. Related CSW entries (`MNB601LS1-3`, `MNB601LS1-4`) are
+  present, so the missing panels are a gap, not a duplicate fix.
+- **b4 dig:** Returned nothing — the commit isn’t in this checkout, so
+  the lore thread couldn’t be resolved that way.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+That doesn’t change the verdict: for **6.18.43**, this is a small,
+reviewed panel-ID addition that applies cleanly and is appropriate for
+stable.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 99f22633abf53..20e614db485cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3217,6 +3217,14 @@ static void __exit amdgpu_exit(void)
- 	amdgpu_userq_fence_slab_fini();
- 	mmu_notifier_synchronize();
- 	amdgpu_xcp_drv_release();
-+
-+	/*
-+	 * Flush outstanding call_rcu() callbacks before the
-+	 * module text is freed.  Otherwise a grace period elapsing after
-+	 * unload invokes a callback in already-freed module memory and
-+	 * faults in rcu_do_batch().
-+	 */
-+	rcu_barrier();
- }
+**YES**
+
+ drivers/gpu/drm/panel/panel-edp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index d1e68c464e308..be827729c4fb7 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2029,6 +2029,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1100, &delay_200_500_e80_d50, "MNB601LS1-1"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1103, &delay_200_500_e80_d50, "MNB601LS1-3"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1104, &delay_200_500_e50_d100, "MNB601LS1-4"),
++	EDP_PANEL_ENTRY('C', 'S', 'W', 0x110a, &delay_200_500_e50, "PNB601LS1-2"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x143f, &delay_200_500_e50, "MNE007QS3-6"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1448, &delay_200_500_e50, "MNE007QS3-7"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1457, &delay_80_500_e80_p2e200, "MNE007QS3-8"),
+@@ -2070,6 +2071,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05af, &delay_200_500_e200_d200, "Unknown"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05f1, &delay_200_500_e200_d200, "Unknown"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, "134WT1"),
++	EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, "LP116WHA-SPB1"),
  
- module_init(amdgpu_init);
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1511, &delay_200_500_e50, "LQ140M1JW48"),
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1523, &delay_80_500_e50, "LQ140M1JW46"),
 -- 
 2.53.0
 
