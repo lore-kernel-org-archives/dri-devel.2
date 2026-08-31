@@ -4,149 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A33ABC61DFD
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A87BC61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 20:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC7E10E33D;
-	Mon, 31 Aug 2026 20:55:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBC510E33B;
+	Mon, 31 Aug 2026 20:59:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fXeFMV6l";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wvr4TpYc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QMjHVEmz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF8510E33B;
- Mon, 31 Aug 2026 20:55:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788209748; x=1819745748;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=RnoZrruk7fDNNXofrA0/rTOPnzxMPFM4Xck2+cTHfdE=;
- b=fXeFMV6l2guxFhbuMI+xtMO+VSaj6FxYDEDi4WjP8yy3+2INhZ6sFr3W
- vqBPUNxb/6+AVmg4E7zY5LoODIQvsV90PqMjQLSPlDbRW8IA+GAthnMt6
- AFYSt5QB/08kRw2aCo6rLeBWA9oBGA5fh2gXOcQ8UaVf/Vq+mdz2OmO0a
- V6TIi99e1pBlG/f1ZrapKt5fOZB3m5U7dxPJd8zNBpzU0gRcU0aveTf7T
- ORtFye8yJfEDcoYPZyTNnFF4s2LOgPltxFaEW7FFqpZCyJRkPHqRPO4F9
- TK7Vw2toHkEpM9/rlmuKYk9VXeHEyBjV6fIYEyzV0+FAP6xGGqMzgMJuF g==;
-X-CSE-ConnectionGUID: BxRUMePIRUCa9ZstabYgIw==
-X-CSE-MsgGUID: bcL+0ZFbTQqrph5Y77Zwag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88636623"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88636623"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 13:55:48 -0700
-X-CSE-ConnectionGUID: xZdG0yo3S1+4Oj8ja1zfDQ==
-X-CSE-MsgGUID: j0eJaCEaS7WpLsqxJVnCoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="262761332"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 13:55:47 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 13:55:47 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 13:55:47 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.40) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 13:55:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C9ShgJCOyyihJ+0NxxzUdnqS6IFk1K7RwNMl+SjsOfwBKv3zbwbiCO7uGH4kOHmPXk2u4kMpz2as1O6ZKYcfuVOO6gEabpNgCwYBkgRNDjzDUrBikx+N5C2zRKyXWmfvi4YzIWG+5EMXqgPdTRdrdwXSCQ6CWlZK5UVYm/vAdbCHCbmAfpxUI8GbyFONL96gT8Q/SfMgiKp2AQGbDExNDMCXinIqoRhoIkIDTiUaDhnn4UM3gaH//iqvRYkD1Ir+0d0yTv6tdaYeyqCG+1udedcEf8ZTEIJn3DbiDMRAMh21+OaJnxjB7BSnfpqIHMvdVx9Z+uX2C/2Y91vrMJFsHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JErdb4ZoJQUs6oxKvA96MugGZG4kYmUhLYYe6fedJPg=;
- b=dcFv6r2rjQsxseozKRhlinOC4OROUE7TFV2ArJY6fRObO4vNOaX+798Ioz4umPAHXmwGrxrWb7OUumb9bhkQxAfyldhxxRzRbwvkQvaf9sBAP0E0RTmr89CiEnafYqZmE46fyRj7V7KNAOEgieqeiEWy88yuC5ngYOMqYzrar8/x8YlfsVA5I3C1teJ6XFvgmjS55bDCgwY83Zbwp9tK8DRXG9A6ngDBQTDL6a7DEaaEUaBT0K2d6pgv8qmS1z18hbGnpmT3GKPw94YbuZIhw0WOTATZGrPH6ULp9d66lT9TWmP2FEmVtLupQxLuU+jGcu/K4wzOErdwEMnMdAqdAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by SA3PR11MB168349.namprd11.prod.outlook.com (2603:10b6:806:530::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 20:55:38 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 20:55:38 +0000
-Date: Mon, 31 Aug 2026 16:55:33 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Arvind Yadav <arvind.yadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <matthew.brost@intel.com>, <himal.prasad.ghimiray@intel.com>,
- <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH 04/13] drm/xe: Stop VM work when device I/O is blocked
-Message-ID: <apXqRXClcZThJovR@intel.com>
-References: <20260827101801.1247654-1-arvind.yadav@intel.com>
- <20260827101801.1247654-5-arvind.yadav@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827101801.1247654-5-arvind.yadav@intel.com>
-X-ClientProxiedBy: SJ0PR03CA0102.namprd03.prod.outlook.com
- (2603:10b6:a03:333::17) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0010610EAF7
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67VIXfGY918284
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=; b=Wvr4TpYcqqNSNW/c
+ 7MbI/noBMgaCUGPiX4RNjBSbAAlI6cOG626h8HzDCimzMCq5DR6dyRBuef3EKvWJ
+ pmyeItpWbagjmktj0sQR6TmfTyhz4Dz29ufjJuG9MXRO+8V2/zrD4bGQCfC3APBw
+ hwOiP1+IW8UwARVGAPJMqbMy2QKLnpPNKMrcQVuTLITjDisdbqmvph7Fm3vAyImW
+ e9Vxp5snkUtEuHev9TE+JQA+XS6pKAnAsKEegcI+Hzf/cHJElkii+UrFnGPWRrOh
+ gCXzQJj3Zg5Cx7jUdlKC11q5LIuyIRQ7DYidKoga5yvTGmSj/rYaFXi0krGH/xVc
+ IKwn2w==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdeg38tab-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-9390a2c895bso875254985a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:59:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788209973; x=1788814773;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
+ b=QMjHVEmzllHG9ePlZJkwEtyUGkuj2tv8ltNjxwD5V0oQP9BUUckI9Ewj58fiq2iTwW
+ ujcZPRk/tsl31thKuBW1QQE9rsQIdPbeEadQtt5288EaZCFrRBD9qS06NYRHPdad6XIR
+ y571glQUWGmwEucdnT3F13vHGz90eY249kMBOxff7/ojFmRYauYgDoixT5ZGeDNzsYRs
+ 8otHrUwfslkTFbMXNSNf9PDtRMILUHZwvqw235E0sVHS4AWYMQYeCu2KOFHFyQDOnca1
+ yiV4rwvSi4wXCasleG7JFnSDE27LZ+JDwaKK9yKUBvPPE0ObsLHhz/Eyz7GFhkqjGAD6
+ k2mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788209973; x=1788814773;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:from:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
+ b=d+dJ016ujJuDFNlz7kCwLf+YxiSwgLYIAjg/13tmEAVEoZqLqLw9z4y2oUJA+9CIOI
+ ueVAXoM3eGJkfnBy/eyNcerz/aLQTdmKxUaS9kOKqW/ePLn5J4xbCIijc8xjzv1YzCNs
+ UTVX/PuwfsXtwtE6cX11AdC4fcn82MCfHJDwo6+62sSyP7G1/SbXQ7amvU2gWouOWbvx
+ UQ2FNRUupz30JBI0qxdYjhdXvX0D5Z9/9GuXPvD3kozSP/OHWXwlu5jXshs7T5NUodH/
+ HkXpL0HrQ4cYteFPZRtbDyM5li3zryzgHK9UPBWGt3cwyHWJH53DOOaxdYv0yFeUiiLM
+ MDpQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqL13DZjbwJj8XPmZORiKrkJ06ODZEjFMBC1DGLJ5pl5TXRdZNF2td3s93V4axSYzwwooyfB5hu+Os=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++moKybbImlZ4MBNpfKrrxLpL5Jz++ZAhRJ5M6WGwmfZQiQ1vyzw
+ X8vhPv14AxdFpFTTEUYsXiIT7ld4f/gfDvungrRiog/DJFvgas5CI6kjbbV15HRTv8/Rrx7NZ4r
+ PN0M6Y/GI1CbPr01oy0ovrv9jM0xe3sv2FbPg1lyJPLRGbjgIFcexMtW6kUDVgerY0Y+YHsY=
+X-Gm-Gg: AR+sD13YzSKZOzGr/7V2l7LJn/zt9Rd/b4Qv+lg8YYrPkS+67Sh09ZHpIKJ8eYNh2jT
+ eCwwoi0sqQ+3ErfAV84VNY2+9j0R1CUpgsU3UhboXjcIido6sWEY18m/zuFQN3b4d/34wvC7B2O
+ aPSU0n6Ji73DKmCtJWCWOuPJ6j0O9s2/5UdI4kxqJFjSS0v6A9Y9c7WUMWDpHMoZnPsEuOtAiS+
+ m1z0S3QykzO6C9lSM4Cgnw4UW+e5jqEmkA5+CmFS46+XiPi/nECUI0HEwmARpV/KW9YxMw9i3Y4
+ ERlNZLknhK/Cm8DcC+DbwaOYlf5HUe+48qEFuJD16JCudmuvOSSGX1fUrjXTw3NDt0yOfvJBQqu
+ dZXbaxYLS2t/9QHX24s30+kQgtex2P+WCMORL5g==
+X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
+ af79cd13be357-9391395431fmr3175555685a.32.1788209973197; 
+ Mon, 31 Aug 2026 13:59:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
+ af79cd13be357-9391395431fmr3175550185a.32.1788209972753; 
+ Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
+Received: from [192.168.0.183] ([80.233.33.41])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48442d6eafesm277031f8f.24.2026.08.31.13.59.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
+Message-ID: <da6868f1-1f9c-47a2-ac48-88dd160ae3e3@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 21:59:30 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SA3PR11MB168349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 880efdac-d286-4ffc-3455-08df07a2360f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: tymTZc/Pl0citHPpGpEreenj0sIGIbyQKe/V7iRwIAtz4/MWxz3q40s7t9SwSJH9CZZN7otrGT4BLyLAP9IqOS4zbVjjrTjepFqJNzhK6ZTnyvT0ccjE3Phe4W+5v4IupyClPXS2ulbOQS7HrxBrwYXKN5+OIlIS9B+8W2xuclYm0r97oApyYttQfglsqbtI0Sx7LJ4KUjMVR50f5UfZLeGZUzL5vI+pcCK/bkflKIrcpk8jz6w+AFw9wjJjxH7CDRFeZ+Ane4KebA6+aWTKk1ud+6+os0f7gJvyf1HICEbwve/dKlmp0sB0nY8t1ga5o6j2KphA/75zA79unBUNf9CT0nJ/D39IOsZJAVQc0bsgp2skQ7+X9kVzNj/bu9iBaEP7gmomFJ17+NV61I7ppP2e6apvD22IuknkdPTtawvEEhC/gD2PMGdsB+ZvJuljTUIF3bbmDsSbYzlpjqV1fNqpUnPGF4MVXVVYGxv8P/f3MXfzapK+OwsWE5Eu73BKfhVmDTO6bxj4W09twkUhl8Huy36dWdcu93p7RvgvZu0gTo2XMluqkFGj/zMQW4nMm9EAlD2XbQMJZeeofhAk0TAQgwhGgCEtWXAMWvizNIsT0hZiMP7JAxEswaaC4a1ITWfCEX6M0sNgcczY2OvBg/mwrQNfOUHIOrB/mTHtDyI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?/YzbWMykEvarsB94sZR0+gcQgIqLmoz3tHtvNPvA2Nw/cT7V8iF0561H0Z?=
- =?iso-8859-1?Q?gZfn32AmJQw81EKlo306Ci+h2J0Ecj8AzuVMTYPP9GxY3e03s/GLytnL11?=
- =?iso-8859-1?Q?CF1c3APvX4XWDRlhPydaiOUFU1CR3vQ1Ty1OYP/MQus0BPKirp0CY0Buea?=
- =?iso-8859-1?Q?cu5hd0IuPRU3kdYXke0b5UOab7fnjdl8mYqXZXbpez9f/n66ETwSbip1ol?=
- =?iso-8859-1?Q?coK3MclT2HQNfWy065kT2oj72HvbrSn6O5S9Sz6ODU9uJIRysI4OAbd/k6?=
- =?iso-8859-1?Q?FJsyM4gkoH17bO8K1ayqNoDG52KA9yv/4V3qi5r5iPu0QE753GFFYpYjMH?=
- =?iso-8859-1?Q?dA90AoEWz8Us2UCrxRsEf5Jpy6ID8vHrhOgiMcSK/yW66cMOOLlD3Ldnn5?=
- =?iso-8859-1?Q?SOroEgRe8WpxKDlrNHVcDgPgmlQFK4tviXZLc7C7VgV+un+6X3L6HrsuE8?=
- =?iso-8859-1?Q?McHq1u47Qbd/u+fwEvXjt4AwcmnQ4BorRH4GFaxxMEeZHZ2JlMNcex7zvK?=
- =?iso-8859-1?Q?XeNWRQNnM0LgRubCKaH249BMewlDSXFi0kVVHKEsQFFVLkuHWDHrTJkQNo?=
- =?iso-8859-1?Q?AeHSJ15coQIiPZPohUYnqNOVS/xFhCRlidI92/uqxJw047FkLRwK+236n+?=
- =?iso-8859-1?Q?lYJzcrJPFmPGJ1n4ct7imHYjvbOAaNx0sQF2/bKy0NQiZm59WLGh0JUVsO?=
- =?iso-8859-1?Q?yO437v7RIkz1EotdmiqmR/Uve1Jnm6I3qkRC97XXoaEZENa9M8Vb5ySHz5?=
- =?iso-8859-1?Q?cFcvT2V1zLvOz2Zg/VMbFx/BFa34+Lg7vNTjTxTYbigRQA0MkTv+7Ra7e5?=
- =?iso-8859-1?Q?zOVuKI04cJOwRgQGMyu663IBygrS+iaWeSv2BQqSqK1bu8b7cfRGrKA91z?=
- =?iso-8859-1?Q?VqgpdJhej36L4+7T/ihV6XNyjXoFnjpT8yzKp3CJRnEXeWrlyEtJLCpTJH?=
- =?iso-8859-1?Q?spWn8DlF4GRpzLlic0qZD3E0oe5/gRISQ0qvaYmmxqKgMS1YOm8BPzI7OV?=
- =?iso-8859-1?Q?8Yu+jaTyc9LWwB155v/7Vg+BRjaKG4axCv6ePFi1XtfcmW6FwjsukNRJNf?=
- =?iso-8859-1?Q?Pgl50tdcWbTLA6aOfgQOoSNZSYOuhBNGXrvLpJgeWQCekSNeT2z1mG+KUa?=
- =?iso-8859-1?Q?Uc2Q7UcQRh3FGT9FiIL14hjB4Wu1p64VkdPnJrh3nR4plyIQgbRMFJLd5F?=
- =?iso-8859-1?Q?qzIM20NF7SEneluBCEGxVrm46Abw/Wn4RWMm9zYY93YHOp0InWGjRJkQLZ?=
- =?iso-8859-1?Q?xW+p/d6tDVFehvJvZEVS+mzD0+tncAf4+HBW2LyZ5K0o8O81W7E8z6glwX?=
- =?iso-8859-1?Q?2SuqDLRoUnjKCioVZnzjKlp6vHFfOBGXZ1ZZC0OiSqJUQ1ed+fYslc/QE1?=
- =?iso-8859-1?Q?HA0ULy+tpfpuGuh2KRuJiKqosUYmrNsbF3cRbl4F0gF6IL1utu8D2mn2UC?=
- =?iso-8859-1?Q?g1wzwzS99fThFr5PSVM/bL02qivPODEUx2BnmBKHNkA65vY9gakMbQJGNd?=
- =?iso-8859-1?Q?lkewjxsKo5fr6TdXDpeRVOW3jCxngGdZsbLm6EKMeObKY92Kf2P5Mrp2ku?=
- =?iso-8859-1?Q?N/TfRtug0sR3fdwJrxem0/jLIACebEoAcrWN+AkSXZc7mqKuAQDKiOW7lp?=
- =?iso-8859-1?Q?NaI7zkMaJAyBbddjpc6GRU2C5oLq6OxTi/4azvHGX+Q8WaoLxM8PMn+SbT?=
- =?iso-8859-1?Q?6t23trZPvShauroIzCASeJYC6UQYiRyb8Sq0Zw95xiIhw1UGGh+Dem79Ka?=
- =?iso-8859-1?Q?iEiYF57J4AD0uSeUw4AhBl3n3nPAsm2gs4aNtz7Kh50SKHbPTugbTqTB+K?=
- =?iso-8859-1?Q?ud4HYWvx5w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: 0MlLnfTvKLi0g6mkqGzt4d+FhCmkvKpkDNpbd5tod9aBCtNZ4x7yqidFVUzjQMQ4Vary8b861rNyP+CeYC8wNfxzn+cN+POZ1meQ7L7L9wUe7YEh+BhhulNG4tnoEkNlLtw3hXQSeJUEfU73CwKf3hg3sEv4al4aXUJ0iAEw82U3Xu8EWxyH6lk6Cgo2Jd9QZytQcQgMzeXlKVTkSfOZF0DrpHY7WL3DOQ+X2+2j/wK29x/J09zyOO+8Nq9CiLasKvlB3eF09iJiHdtnfupIuxamdjo2voI53ctiN9Kjn/CCu5lB/8tz/NfP5er2qh2Cl/GbOV7rUyeW/d1C6kOEKg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 880efdac-d286-4ffc-3455-08df07a2360f
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 20:55:38.6022 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FHwFEl1rbe8DEmkAAKhKyM97F4mZr+WjgPcIWdiYEKOr99oj5kY1KMamVL/f458M2xvNESB6Q+015j4zLktqsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB168349
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Subject: Re: [PATCH 04/10] drm/gem: Convert drm_gem_private_object_init to
+ return error code
+To: christian.koenig@amd.com
+Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
+ ecourtney@nvidia.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+ <20260827124910.2245-5-christian.koenig@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260827124910.2245-5-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX/+DQ8zr7lOJ0
+ fq1VeZTFJfYzooBnKbHQCg3ckHBNUDn8zflh1WrGLMNFu1BDkaE+zaiP+CdJu3P0AyYwh8uFuwW
+ amc+HQ7+eldLWkQ0jNIfyCVBjDCEVYHeAkBOT0ywRIVJ+N0qkUs2sbZGlMeup/omugCiB1Zro6F
+ 8kT2FZACP4qUWPSFyuI77Hbnhmn7mvE0KAP5zYCUQFZprqWhL+y7npAoKg+6OYa5xEOY1/gtc3w
+ BYSMk2sCrHHIjr34zbpjD2y2a8GFgaJ6UJpfxBK/EWbitqcJf41zPF6CKolIvB+XeomNlJS5D/0
+ LCfzpHG30JfsMj1OpW85E6S/RFNFCG9RYb4mNP3D5XO6T4UReRV2a8IscG7OxCSAMLMm8a76KJd
+ M3x0DeP4Sn203xYsOBj6ck0sZLUWO1lEtkgqNojDPZjeSgRXoGQ6swCrTcVhckIDquqM/Uvwqeb
+ bgOZh7BmgdT89PsvnxA==
+X-Proofpoint-GUID: 8LRvrj8pcCVhoabCv6Vlbk5CAfb-IjPu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX7y/Uf0pzpn48
+ F7QPHkF3JWixwuRMX7uHiD1b5qaIphH278sbhqC0eE0tAK8j6/XC97OmR7gFifPsOrgfP1d9SND
+ 0vHwL4mG/ei8MOwY5rJYTjgl6cykoy4=
+X-Authority-Analysis: v=2.4 cv=NZnWEWD4 c=1 sm=1 tr=0 ts=6a95eb36 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=le/gl0x2G5+ma5yo0zCuxQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=KEyuISjlM5fmf-MbB58A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 8LRvrj8pcCVhoabCv6Vlbk5CAfb-IjPu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310181
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,145 +146,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 03:47:52PM +0530, Arvind Yadav wrote:
-> SVM fault handling and VM rebind work may still run when PCI error
-> recovery starts or the device becomes permanently wedged. This work can
-> validate BOs, update page tables or submit migration work after device
-> I/O has been blocked.
-> 
-> Stop SVM fault handling, pagemap population, device-memory copies and
-> preempt rebind work when device I/O is blocked.
-> 
-> SVM invalidation still performs its software cleanup. Do not warn when
-> TLB invalidation returns -ECANCELED because hardware access is blocked.
-> 
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_svm.c | 21 ++++++++++++++++++++-
->  drivers/gpu/drm/xe/xe_vm.c  | 16 ++++++++++++++++
->  2 files changed, 36 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-> index 627a741293d5..9e78131bfa39 100644
-> --- a/drivers/gpu/drm/xe/xe_svm.c
-> +++ b/drivers/gpu/drm/xe/xe_svm.c
-> @@ -11,6 +11,7 @@
->  #include <drm/drm_pagemap_util.h>
+> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> index 8a1d6c5636c2..5b198162c588 100644
+> --- a/drivers/gpu/drm/i915/gvt/dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> @@ -202,13 +202,19 @@ static struct drm_i915_gem_object *vgpu_create_gem(struct drm_device *dev,
+>  	static struct lock_class_key lock_class;
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+>  	struct drm_i915_gem_object *obj;
+> +	int ret;
 >  
->  #include "xe_bo.h"
-> +#include "xe_device.h"
->  #include "xe_exec_queue_types.h"
->  #include "xe_gt_stats.h"
->  #include "xe_migrate.h"
-> @@ -288,8 +289,11 @@ static void xe_svm_invalidate(struct drm_gpusvm *gpusvm,
+>  	obj = i915_gem_object_alloc();
+>  	if (obj == NULL)
+>  		return NULL;
 >  
->  	err = xe_tlb_inval_range_tilemask_submit(xe, vm->usm.asid, adj_start, adj_end,
->  						 tile_mask, &batch);
-> -	if (!WARN_ON_ONCE(err))
-> +	if (!err)
->  		xe_tlb_inval_batch_wait(&batch);
-> +	else if (!(err == -ECANCELED &&
-> +		   xe_device_io_blocked(xe)))
-> +		WARN_ON_ONCE(err);
-
-if (!err)
-        xe_tlb_inval_batch_wait(&batch);
-else
-        WARN_ON_ONCE(err != -ECANCELED ||
-                     !xe_device_io_blocked(xe));
-
->  
->  range_notifier_event_end:
->  	r = first;
-> @@ -631,6 +635,11 @@ static int xe_svm_copy(struct page **pages,
->  		}
->  		XE_WARN_ON(spage && xe_page_to_vr(spage) != vr);
->  
-> +		if (vr && xe_device_io_blocked(xe)) {
-> +			err = -ECANCELED;
-> +			goto err_out;
-> +		}
-> +
->  		/*
->  		 * CPU page and device page valid, capture physical address on
->  		 * first device page, check if physical contiguous on subsequent
-> @@ -1125,6 +1134,11 @@ static int xe_drm_pagemap_populate_mm(struct drm_pagemap *dpagemap,
->  	if (!drm_dev_enter(&xe->drm, &idx))
->  		return -ENODEV;
->  
-> +	if (xe_device_io_blocked(xe)) {
-> +		err = -ECANCELED;
-> +		goto out_drm;
+> -	drm_gem_private_object_init(dev, &obj->base,
+> +	ret = drm_gem_private_object_init(dev, &obj->base,
+>  		roundup(info->size, PAGE_SIZE));
+> +	if (ret) {
+> +		i915_gem_object_free(obj);
+Building on v7.2 with DRM_I915_GVT enabled will result in modpost undefined symbol error.
+Exporting i915_gem_object_free() in I915_GVT namespace (drivers/gpu/drm/i915/intel_gvt.c)
+should fix it.
+> +		return NULL;
 > +	}
 > +
->  	xe_pm_runtime_get(xe);
->  
->  	xe_validation_guard(&vctx, &xe->val, &exec, (struct xe_val_flags) {}, err) {
-> @@ -1165,6 +1179,8 @@ static int xe_drm_pagemap_populate_mm(struct drm_pagemap *dpagemap,
->  		xe_bo_put(bo);
->  	}
->  	xe_pm_runtime_put(xe);
-> +
-> +out_drm:
->  	drm_dev_exit(idx);
->  
->  	return err;
-> @@ -1301,6 +1317,9 @@ static int __xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
->  		drm_gpusvm_range_put(&range->base);
->  	}
->  
-> +	if (xe_device_io_blocked(vm->xe))
-> +		return -ECANCELED;
-> +
->  	/* Always process UNMAPs first so view SVM ranges is current */
->  	err = xe_svm_garbage_collector(vm);
->  	if (err)
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index 19b3d0be7928..0cee5306fb9c 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -497,6 +497,11 @@ static void preempt_rebind_work_func(struct work_struct *w)
->  	}
->  
->  retry:
-> +	if (xe_device_io_blocked(vm->xe)) {
-> +		err = 0;
-> +		goto out_unlock_outer;
-> +	}
-> +
->  	if (!try_wait_for_completion(&vm->xe->pm_block) && vm_suspend_rebind_worker(vm)) {
->  		up_write(&vm->lock);
->  		/* We don't actually block but don't make progress. */
-> @@ -518,6 +523,12 @@ static void preempt_rebind_work_func(struct work_struct *w)
->  	drm_exec_until_all_locked(&exec) {
->  		bool done = false;
->  
-> +		if (xe_device_io_blocked(vm->xe)) {
-> +			xe_validation_ctx_fini(&ctx);
-> +			err = 0;
-> +			goto out_unlock_outer;
-> +		}
-> +
->  		err = xe_preempt_work_begin(&exec, vm, &done);
->  		drm_exec_retry_on_contention(&exec);
->  		xe_validation_retry_on_oom(&ctx, &err);
-> @@ -531,6 +542,11 @@ static void preempt_rebind_work_func(struct work_struct *w)
->  	if (err)
->  		goto out_unlock;
->  
-> +	if (xe_device_io_blocked(vm->xe)) {
-> +		err = 0;
-> +		goto out_unlock;
-> +	}
-> +
->  	xe_vm_set_validation_exec(vm, &exec);
->  	err = xe_vm_rebind(vm, true);
->  	xe_vm_set_validation_exec(vm, NULL);
-> -- 
-> 2.43.0
-> 
+>  	i915_gem_object_init(obj, &intel_vgpu_gem_ops, &lock_class, 0);
+>  	i915_gem_object_set_readonly(obj);
+Thanks,
+Youssef
