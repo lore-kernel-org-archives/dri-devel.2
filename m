@@ -4,61 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C9FC624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE13C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C05B410E284;
-	Mon, 31 Aug 2026 13:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F33890EB;
+	Mon, 31 Aug 2026 13:31:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="CMLcfY9L";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="x1yoRMDe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y/3CfRAl";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="V7shmypE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VFEyb77a";
 	dkim-atps=neutral
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch
- [185.70.43.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7850810E834
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1788182888; x=1788442088;
- bh=3fdS3EZrph4HPHI4SWA+jBFn4XLmDsXX2TCBKNHGKYY=;
- h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=CMLcfY9LMqElBerz4Y0gbbLazZXPBSBZdl0dTTKpUV/lc3HJaSca8he9IjoHfBibw
- QUUYhsdcaLRdk4Kir3R4e9Qrl4/LZmE3vwT5aZGuJpVyy/hfVj5hyAvm9+5//xKQMH
- tDof5RSTyxK5wRDIvDhixY9WPbi7lw6kZ/buAbIGv5Se+HkR7AubplOtmIOR13FExE
- GzhJQHv7DKCvk9OzX3WbKRVjF6dLBjGn4YxeBug6Y8OvWtAYqzFGIQTMIBwoPqXy1H
- KG5rP0qQtzZauMnj1T50lKnCV6IS2Xruk5hP4C6XRtzr0vOUYHEFAUPGDaKRfIH4dK
- p/FaToipswH0w==
-X-Pm-Submission-Id: 4hYVDQ0gLBz2Schm
-From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 31 Aug 2026 15:27:46 +0200
-Subject: [PATCH v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal
- sync timing
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B860A890EB
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:31:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 135F721ABC;
+ Mon, 31 Aug 2026 13:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788183067; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NOMBgcLmNkBzpWIcVR1RbS+oZh+lwqeib1q4qSeu3nQ=;
+ b=x1yoRMDeN5OAhvSucXGLLhqM4ZHs8dtbQo7jT3FoeMhsBaeXr8fgboKmoYHZX3I1mSjfgJ
+ ex4M59ds3rgEkOU4r8dwerFnbMMHtNWrX4w18omCxSdxH9SuVEBeouNun5a33D3UBsL6am
+ YuQ9QN6nWeRRTxd4XgsJzZ+TBsuGaQg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788183067;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NOMBgcLmNkBzpWIcVR1RbS+oZh+lwqeib1q4qSeu3nQ=;
+ b=Y/3CfRAlmKxSZWb+d9L6IijQ6m6T5c4XipJVcNsdTsBsa4L1iws5knT6ZFTLrX9tO7fwS6
+ dsuQAi5hx7iem7Ag==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788183063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NOMBgcLmNkBzpWIcVR1RbS+oZh+lwqeib1q4qSeu3nQ=;
+ b=V7shmypE5mW7yFs3Zw2hTzw2T2PjuplphBd31Vt9pYOPcnDaBph4as87RKqeiQJ1m1H5hv
+ xnGBIn1fhnXMNWKY0IA0GcL1QeC82ku5Zr5QMw7RGp2rycsJxgRbQMo/Bwk1X2DgF92mwD
+ 2oyJ55EJBDeyna2uXj3oCiEYHzI2id8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788183063;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NOMBgcLmNkBzpWIcVR1RbS+oZh+lwqeib1q4qSeu3nQ=;
+ b=VFEyb77anAFIGFJPudPEEvOYifvGJ7qFmRQZkaVLVAD3IR0BsyrQyvbw/65mv8IWRRX4cj
+ QYzA/fJryyJv4RBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA7D3136B2;
+ Mon, 31 Aug 2026 13:31:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id //BwKBaClWp+QwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 31 Aug 2026 13:31:02 +0000
+Message-ID: <4645113d-3b31-4d92-b392-5d5284225211@suse.de>
+Date: Mon, 31 Aug 2026 15:31:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-nwl-dsi-fixes-v4-4-6a2a1cb23910@geanix.com>
-References: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
-In-Reply-To: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>
-Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, "Oliver F. Brown" <oliver.brown@oss.nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=4295;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=64K2cghv9Pu2xpnXUBYhri9wjrzdmxCfnbz+dJ+v7CA=;
- b=YLqsr0ZSDA2TJ+CpZrx6XWdrlH2XyAh4K5+wi1c98Erjem/qUGO+Q4MF61X2YPRl5dky0V533
- +05wNbV9QW3BJaTdchwTc/YmIC3Y97qeheTxN+xOm5QAjliWl0Xap0k
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] drm/edid: Add drm_edid_get_preferred_size()
+To: Jani Nikula <jani.nikula@linux.intel.com>, javierm@redhat.com,
+ ardb@kernel.org, ilias.apalodimas@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <20260831093020.494701-1-tzimmermann@suse.de>
+ <20260831093020.494701-3-tzimmermann@suse.de>
+ <f5f1ab9e6fab9499e49f116369858ee4da626025@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <f5f1ab9e6fab9499e49f116369858ee4da626025@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[linux.intel.com,redhat.com,kernel.org,linaro.org,ffwll.ch,gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,117 +142,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The NWL MIPI Host controller registers specifies the horizontal front
-porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
-not in pixel clocks).
+Hi
 
-The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
-the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
-Manual (rev. 3.1). The formula shown there does not take packet header size
-into account though.
+Am 31.08.26 um 15:13 schrieb Jani Nikula:
+> On Mon, 31 Aug 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Add drm_edid_get_preferred_size() to extract the panel's preferred
+>> display resolution from a given EDID. Required for DRM's panel
+>> orientation quirks.
+>>
+>> v2:
+>> - handle EDID without pixel timing descriptor (Sashiko)
+>> - fix checks for width and height pointers
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+>> ---
+>>   drivers/gpu/drm/drm_edid.c | 46 ++++++++++++++++++++++++++++++++++++++
+>>   include/drm/drm_edid.h     |  2 ++
+>>   2 files changed, 48 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>> index 9990a836d0b6..53c7eed7a73e 100644
+>> --- a/drivers/gpu/drm/drm_edid.c
+>> +++ b/drivers/gpu/drm/drm_edid.c
+>> @@ -2872,6 +2872,52 @@ u32 drm_edid_get_panel_id(const struct drm_edid *drm_edid)
+>>   }
+>>   EXPORT_SYMBOL(drm_edid_get_panel_id);
+>>   
+>> +/**
+>> + * drm_edid_get_preferred_size - Get a panel's preferred size from EDID
+>> + * @drm_edid: EDID that contains panel ID.
+>> + * @width: Returns the panel's width in pixels per scanline, if given
+>> + * @height: Returns the panel's height in scanlines, if given
+>> + *
+>> + * This function detects the preferred size of a panel from the given
+>> + * EDID. There is no such information stored in the EDID block directly,
+>> + * but the preferred mode often corresponds to the panel's native geometry.
+> I think the special use case for this function should be mentioned. In
+> the regular EDID parsing case, the connector will include the modes, one
+> of them will be preferred, and that should be, uh, preferred.
+>
+> I dislike adding multiple functions for parsing the same thing, but
+> looks like it can't be helped here. Let's at least avoid adding users
+> for this in the paths that can use the normal stuff?
 
-The formula implemented here converts the hfp, hsa, and hbp to DSI packet
-bytes and then subtracts the number of packet header bytes.
+Absolutely.  The only reason I added this helper is that the driver 
+needs the size for setting up the display pipeline before the connector 
+exists. I looked into using the existing code without the connector, but 
+that refactoring seemed to do more harm than good. Hence the new helper.
 
-It is worth noting that these values only needs to match approximately,
-according to the reference manual.
+Should the new function be named drm_edid_detect_panel_size() to signal 
+the use case?
 
-Based on commit in NXP vendor tree
-commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
----
- drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 57 insertions(+), 3 deletions(-)
+>
+>> + *
+>> + * Return: Zero on success, or a negative errno code otherwise.
+>> + */
+>> +int drm_edid_get_preferred_size(const struct drm_edid *drm_edid,
+>> +				unsigned int *width, unsigned int *height)
+>> +{
+>> +	const struct edid *edid = drm_edid->edid;
+>> +	const struct detailed_timing *dt;
+>> +	const struct detailed_pixel_timing *pt;
+>> +
+>> +	if (drm_edid->size < EDID_LENGTH)
+>> +		return -EINVAL;
+> This is guaranteed. drm_edid_alloc() intentionally won't hand you out a
+> struct drm_edid with size smaller than EDID_LENGTH. Maybe check for
+> !drm_edid instead.
 
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index f3f4334136c0..eb604733eea0 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -22,6 +22,7 @@
- #include <linux/reset.h>
- #include <linux/sys_soc.h>
- #include <linux/time64.h>
-+#include <linux/math64.h>
- 
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
-@@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
- 	bool burst_mode;
- 	int hfront_porch, hback_porch, vfront_porch, vback_porch;
- 	int hsync_len, vsync_len;
-+	int hfp, hbp, hsa;
-+	u64 hs_clk_rate, pclk_rate;
-+	int h_blank, pkt_hdr_len, pkt_len;
- 
- 	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
- 	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
-@@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
- 			      dsi->mode.hdisplay);
- 	}
- 
--	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
--	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
--	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
-+	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
-+	pclk_rate = (u64)dsi->mode.clock * 1000;
-+	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
-+
-+	/*
-+	 * Calculate the bytes needed, according to the RM formula:
-+	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
-+	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
-+	 * ===>
-+	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
-+	 * ===> (substituting period = 1 / rate)
-+	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
-+	 */
-+	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+
-+	/* Make sure horizontal blankins are even numbers */
-+	hfp = roundup(hfp, 2);
-+	hbp = roundup(hbp, 2);
-+	hsa = roundup(hsa, 2);
-+
-+	/*
-+	 * We need to subtract the packet header length: 32
-+	 * In order to make sure we don't get negative values,
-+	 * subtract a proportional value to the total length of the
-+	 * horizontal blanking duration.
-+	 */
-+	h_blank = hfp + hbp + hsa;
-+
-+	if (h_blank) {
-+		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
-+		pkt_hdr_len = pkt_len;
-+		hfp -= pkt_len;
-+
-+		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
-+		pkt_hdr_len += pkt_len;
-+		hbp -= pkt_len;
-+
-+		pkt_len = min(hsa, 32 - pkt_hdr_len);
-+		pkt_hdr_len += pkt_len;
-+		hsa -= pkt_len;
-+		if (pkt_hdr_len != 32)
-+			dev_warn(dsi->dev,
-+				 "Unable to subtract packet header length fully: %d left\n",
-+				 32 - pkt_hdr_len);
-+	}
-+
-+	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
-+
-+	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
-+	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
-+	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
- 
- 	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
- 	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
+Ok.
+
+>
+>> +
+>> +	/*
+>> +	 * Use display mode from the Preferred Timing Descriptor. For old
+>> +	 * and obscure displays, we might need better heuristics.
+>> +	 */
+>> +
+>> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING))
+> The preferred timing mode should always be there starting from EDID
+> 1.3. The bit doesn't indicate whether it's there or not. It should be
+> always set for EDID 1.3, and for EDID 1.4 it indicates whether the
+> preferred timing includes the native pixel format and the preferred
+> refresh rate.
+>
+> I think just if (edid->revision < 3) should be enough.
+
+Ok
+
+>
+>> +		return -EINVAL; /* no Preferred Timing Descriptor */
+>> +
+>> +	dt = &edid->detailed_timings[0];
+>> +
+>> +	if (!le16_to_cpu(dt->pixel_clock))
+> There's is_detailed_timing_descriptor() for this.
+
+Great!
+
+Best regards
+Thomas
+
+>
+>> +		return -EINVAL;
+>> +
+>> +	pt = &dt->data.pixel_data;
+>> +
+>> +	if (width)
+>> +		*width = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
+>> +	if (height)
+>> +		*height = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_edid_get_preferred_size);
+>> +
+>>   /**
+>>    * drm_edid_read_base_block - Get a panel's EDID base block
+>>    * @adapter: I2C adapter to use for DDC
+>> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+>> index 04f7a7f1f108..981aeeb6ddf9 100644
+>> --- a/include/drm/drm_edid.h
+>> +++ b/include/drm/drm_edid.h
+>> @@ -487,6 +487,8 @@ void drm_edid_get_product_id(const struct drm_edid *drm_edid,
+>>   void drm_edid_print_product_id(struct drm_printer *p,
+>>   			       const struct drm_edid_product_id *id, bool raw);
+>>   u32 drm_edid_get_panel_id(const struct drm_edid *drm_edid);
+>> +int drm_edid_get_preferred_size(const struct drm_edid *drm_edid,
+>> +				unsigned int *width, unsigned int *height);
+>>   bool drm_edid_match(const struct drm_edid *drm_edid,
+>>   		    const struct drm_edid_ident *ident);
+>>   bool drm_edid_has_quirk(struct drm_connector *connector, enum drm_edid_quirk quirk);
 
 -- 
-2.55.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
