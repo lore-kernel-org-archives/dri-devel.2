@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D1CC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:23:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44FD1C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:24:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2509910E296;
-	Mon, 31 Aug 2026 14:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C5210E2A5;
+	Mon, 31 Aug 2026 14:24:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M4f0BJfA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Um5YuA6x";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 825AC10E296
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:23:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043F610E2A5
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:24:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4AB6A43470;
- Mon, 31 Aug 2026 14:23:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92D0C1F000E9;
- Mon, 31 Aug 2026 14:23:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D3267436EF
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:24:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B701F000E9;
+ Mon, 31 Aug 2026 14:24:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788186186;
- bh=ZfhCnlNwaOt0kHN3M0pPLUZxE3ygK6m+vGelvT+G1+0=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=M4f0BJfA/Apjjv5W54jmYEjD2CgRVcStQsuC4B5ShDTGdj3m1zpbb0XeTo0GCQhmO
- sv/oTnGIzML+mcXQR/H/QH5SKjgvrUarpyqsiDnJOx9xQ/6XdEFrLNAesdWRNhAD0M
- dUVv4dsgcOXoidnB1VrNe7zY5qkc7M57vJJPC0Qq8EG2dwSpE4oxGFm5C80a+lJdcm
- 7puoA12SfC+OAQl7C+ytIjwGP1MUS5v4mM5l4/XLFEi/rZBRh1aDf7YdUBJPuttO3X
- 2n3O4INPUmYVrsBdnUbSETvVeVFYUY0Fhfj5Ke9HYsqe9fJjmnKoXaajdIMCsPnHjT
- RduguPWE1vl8A==
-Mime-Version: 1.0
+ s=k20260515; t=1788186272;
+ bh=bitNRGXd5XudoKar5XvUjrbISkJJO6GDvfAPq8Qubww=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Um5YuA6xRrVFUohT/Cdzy7W+6G00HE0lVsdHTOMPx+erh3qq8Pr/wWUOzkRptrfTR
+ oDjRav4n6GIWrTnGBAdwf42s7au1oJbuX7lpRyKRpAmIRXy4inETF9O7mUf+QFBOps
+ fPSAmWqSSY63a6lVpkmes/higsy7lW/OPAsebjcGjytQo7dt3x+USDvFvlFEdW04Bm
+ iHzwW9aauBt7FxasjEO5GBuYFDOFnfZcdKE/ldPUbXGm8/eTF4OPZ6msp+fPHYdJGR
+ m4eK+kJratWYPWnfl6jZ2umednns1iVcdixepC4MAizECBnN4bZtSCT5SCD9Vpzeg2
+ q+I9dojmF+hPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18] drm/amd/ras: Fix CPER ring debugfs read
+ overflow
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831133314.4125787-100-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-100-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 31 Aug 2026 16:23:01 +0200
-Message-Id: <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org>
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
-In-Reply-To: <20260828033531.1117754-6-apopple@nvidia.com>
+Date: Mon, 31 Aug 2026 14:24:32 +0000
+Message-Id: <20260831142432.A0B701F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,147 +54,140 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
-> +/// GPU information returned to userspace.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The layout of this type is identical to `struct drm_nova_gpu_info`=
-.
-> +/// - All bytes in the value are initialized.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-I don't think we need those invariants. The first one is covered by
-#[repr(transparent)] and the second invariant is trivally satisfied by the =
-fact
-that we create a value of that type.
+New issues:
+- [Medium] start_dw calculation truncates loff_t offset to u32.
 
-Maybe you meant to say that we explicitly initialized everything despite
-uapi::drm_nova_gpu_info being FromBytes (i.e. no "random" values)? But I th=
-ink
-even that wouldn't need an invariant.
+Pre-existing issues:
+- [High] Return of large positive value on put_user() failure due to u32 ca=
+st.
+- [High] Out-of-bounds read and logic failure in CPER header parsing due to=
+ strcmp on non-null-terminated string.
+--
 
-> +#[repr(transparent)]
-> +struct GpuInfo(uapi::drm_nova_gpu_info);
-> +
-> +impl GpuInfo {
-> +    fn new(reg_data: &DrmRegData<'_>) -> Self {
-> +        Self(uapi::drm_nova_gpu_info {
-> +            architecture: reg_data.api.architecture(),
-> +            implementation: reg_data.api.implementation(),
-> +        })
-> +    }
-> +}
-> +
-> +// SAFETY: `GpuInfo` has no implicit padding, kernel pointers, or interi=
-or
-> +// mutability, and all of its fields are initialized before it is writte=
-n to
-> +// userspace.
-> +unsafe impl AsBytes for GpuInfo {}
-> +
-> +fn write_info<T: AsBytes>(info: &mut uapi::drm_nova_info, value: &T) -> =
-Result {
+commit d9222ea52dbe9a1b917e7fed4e52fd495f722397
+Author: Xiang Liu <xiang.liu@amd.com>
 
-We could take T by value I guess? We don't need it anymore after it has bee=
-n
-written to the user buffer.
+drm/amd/ras: Fix CPER ring debugfs read overflow
 
-> +    let mut writer =3D
-> +        UserSlice::new(UserPtr::from_addr(info.data as usize), info.size=
- as usize).writer();
+The legacy CPER debugfs reader can reach the payload path without a valid
+pointer snapshot, and treats user byte count as ring occupancy in dwords.
+This commit fixes the overflow by taking the CPER lock before sampling
+pointers, properly bounding the payload copy, and advancing the file positi=
+on.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.c
+> index 5ec5c3ff22bb0..f3a891124250a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+
+[ ... ]
+
+> @@ -546,13 +547,24 @@ static ssize_t amdgpu_debugfs_ring_read(struct file=
+ *f, char __user *buf,
+>  			*pos +=3D 4;
+>  		}
+>  	} else {
+> +		early[0] =3D amdgpu_ring_get_rptr(ring) & ring->buf_mask;
+> +		early[1] =3D amdgpu_ring_get_wptr(ring) & ring->buf_mask;
 > +
-> +    info.size =3D writer.write_truncated(value)? as u32;
-> +
-> +    Ok(())
-> +}
-> +
->  impl drm::file::DriverFile for File {
->      type Driver =3D NovaDriver;
+>  		p =3D early[0];
+>  		if (early[0] <=3D early[1])
+> -			size =3D (early[1] - early[0]);
+> +			avail_dw =3D early[1] - early[0];
+>  		else
+> -			size =3D ring->ring_size - (early[0] - early[1]);
+> +			avail_dw =3D ring->buf_mask + 1 - (early[0] - early[1]);
 > =20
-> @@ -78,4 +112,27 @@ pub(crate) fn gem_info(
+> -		while (size) {
+> +		start_dw =3D (*pos > 12) ? ((*pos - 12) >> 2) : 0;
+> +		if (start_dw >=3D avail_dw)
+> +			goto out;
+
+[Severity: Medium]
+Does this code truncate the 64-bit file position into a 32-bit variable?
+
+When start_dw is calculated, pos is a pointer to loff_t, but the offset is
+assigned to a u32 variable. If a user calls pread() on the debugfs file
+with an offset exceeding ~17GB (0x400000000 bytes), start_dw could
+overflow. This would lead to incorrect EOF evaluation, wrapping around and
+returning cyclic data instead of returning 0 for EOF.
+
+> +
+> +		p =3D (p + start_dw) & ring->ptr_mask;
+> +		avail_dw -=3D start_dw;
+> +		read_dw =3D min_t(u32, avail_dw, size >> 2);
+> +
+> +		while (read_dw) {
+>  			if (p =3D=3D early[1])
+>  				goto out;
 > =20
->          Ok(0)
->      }
-> +
-> +    /// IOCTL: info: Query device information.
-> +    pub(crate) fn info(
-> +        _dev: &NovaDevice<Registered>,
-> +        reg_data: &DrmRegData<'_>,
-> +        info: &mut uapi::drm_nova_info,
-> +        _file: &drm::File<File>,
-> +    ) -> Result<u32> {
-> +        if info.data =3D=3D 0 {
-> +            info.size =3D match info.id {
-> +                uapi::DRM_NOVA_INFO_GPU =3D> size_of::<GpuInfo>() as u32=
-,
-> +                _ =3D> return Err(EINVAL),
-> +            };
-> +            return Ok(0);
-> +        }
-
-I think this check can go into write_info(), so we don't have to repeat thi=
-s for
-every info. I.e. we can just add
-
-	if info.data =3D=3D 0 {
-	    info.size =3D size_of::<T>() as u32;
-	    return Ok(());
-	}
-
-at the beginning of write_info(). It may construct the value even if
-info.data =3D=3D 0, but I don't think we care. :)
-
-> +
-> +        match info.id {
-> +            uapi::DRM_NOVA_INFO_GPU =3D> write_info(info, &GpuInfo::new(=
-reg_data))?,
-> +            _ =3D> return Err(EINVAL),
-> +        }
-> +
-> +        Ok(0)
-> +    }
->  }
-> diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-> index 610cfc01111e..cff730a38c1d 100644
-> --- a/drivers/gpu/nova-core/api.rs
-> +++ b/drivers/gpu/nova-core/api.rs
-> @@ -12,11 +12,12 @@
->      types::CovariantForLt, //
->  };
+> @@ -565,9 +577,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file =
+*f, char __user *buf,
 > =20
-> -use crate::gpu::Gpu;
-> +use crate::gpu::{
-> +    Gpu, //
-> +};
-> =20
->  /// API handle for the auxiliary bus child drivers to interact with nova=
--core.
->  pub struct NovaCoreApi<'bound> {
-> -    #[expect(unused)]
->      pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
->  }
-> =20
-> @@ -26,4 +27,14 @@ impl NovaCoreApi<'_> {
->      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreAp=
-i<'_>>> {
->          adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
->      }
-> +
-> +    /// Returns the architecture identifier of this GPU.
-> +    pub fn architecture(&self) -> u32 {
-> +        self.gpu.spec.chipset.arch() as u32
-> +    }
-> +
-> +    /// Returns the implementation identifier of this GPU.
-> +    pub fn implementation(&self) -> u32 {
-> +        self.gpu.spec.chipset.implementation()
-> +    }
+>  			buf +=3D 4;
+>  			result +=3D 4;
+> -			size--;
+> +			read_dw--;
+>  			p++;
+>  			p &=3D ring->ptr_mask;
+> +			*pos +=3D 4;
+>  		}
 
-We should make the NovaCoreApi just provide an accessor for &Spec and make =
-every
-subsequent method we need public. Otherwise we end up with endless forwardi=
-ng
-methods. We can also add as_raw() methods to the specific types as needed.
+[Severity: High]
+This is a pre-existing issue, but can a put_user() failure result in a large
+positive return value being sent to userspace here?
+
+Looking at the unquoted code just above this in amdgpu_debugfs_ring_read():
+
+    r =3D put_user(value, (uint32_t *)buf);
+    if (r) {
+        result =3D r;
+        goto out;
+    }
+
+Because result is declared as a u32 variable, assigning a negative error
+code (like -EFAULT) casts it to a huge positive integer. When this is
+returned as ssize_t to userspace, it hides the actual error and breaks
+the read() syscall contract by falsely reporting ~4GB of data read.
+
+[Severity: High]
+This is another pre-existing issue, but does the CPER header parsing have an
+out-of-bounds read and logic failure?
+
+Looking at amdgpu_cper_ring_get_ent_sz() and amdgpu_cper_is_hdr() in
+drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c, they both use strcmp() on a 4-byte
+non-null-terminated character array:
+
+amdgpu_cper.c:amdgpu_cper_ring_get_ent_sz() {
+    ...
+    if (!strcmp(chdr->signature, "CPER")) {
+        rec_len =3D chdr->record_length;
+    ...
+}
+
+amdgpu_cper.c:amdgpu_cper_is_hdr() {
+    ...
+    return strcmp(chdr->signature, "CPER") ? false : true;
+}
+
+Because the signature field is only 4 bytes and the 5th byte in the struct
+is the non-zero revision field, strcmp() will always return non-zero,
+breaking CPER header detection entirely. This also causes an out-of-bounds
+read that could cross a page boundary at the end of the ring buffer
+allocation.
+
+Additionally, if pos is near the end of the buffer mask, accessing
+chdr->record_length also reads 20 bytes past the end of the ring buffer
+allocation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
+787-100-sashal@kernel.org?part=3D1
