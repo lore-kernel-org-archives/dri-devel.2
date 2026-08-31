@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E8BC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D40DC624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8596E10E854;
-	Mon, 31 Aug 2026 13:35:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B43E510E855;
+	Mon, 31 Aug 2026 13:35:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZIiwXdfn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ipncZ0eF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C77210E84D;
- Mon, 31 Aug 2026 13:35:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3F910E851;
+ Mon, 31 Aug 2026 13:35:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 41F7B43CA3;
- Mon, 31 Aug 2026 13:35:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4754D1F00A3F;
- Mon, 31 Aug 2026 13:35:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D26BA60215;
+ Mon, 31 Aug 2026 13:35:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2938A1F00A3D;
+ Mon, 31 Aug 2026 13:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183302;
- bh=+rzxmqvMLiTzDYyaBHgsvbWHJ8M1I8wwtkBuvaPp0EA=;
+ s=k20260515; t=1788183305;
+ bh=001UyezUgqzBgR+joQcEPUm7bTKh8njlpvoggf2sAd0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZIiwXdfnJ3FQlD0c+xAVLwF3PThDPtTBlU+2MDAcppTUMJP+t+by+tS26cZGSCRGM
- g/fi6GySKPS8Jynb+yfc8W5WM0p6ODlA5o/AXVz44Z1l+Cgj1IWOR9akKdb/KxU5w8
- y9mbj6V+SWvITjUrR0OW8TLP0I88RppUt5h0xIrssAAw2Rc/DsYn0DYSkNA+oGhA64
- 1nNIMjYf/drR2t40bSj4vUNaRvKdCcd9DO91SNE0K+EIr28OSxosbM/UPqECelVsOC
- sz4j4dGsfh+VtfJgaocGlXbdt74xXHAxp2PwCwZKK6kUEE+XRzZ7Ypous1B8RjAotW
- vOEq6X2R3FuXQ==
+ b=ipncZ0eF45ZkS6hZ41WTwFVBfPGhYcl8HoedRWmuhL0EIQTwLIny7Uv1ohup2IvvL
+ pSv8VBzOHhzx3J6H/dsZf8Ys5azdqz2jRz5+bzy2K3cBmyoVdDXHPP9MifzMNpTHei
+ 98bmruotPjIwVMolYvTaU4rUgPoxtFFd2cdvDpd1pv2q5Z0eOPR2HSFRKlUakLcX2C
+ v0yhCYNjrYVH4Br2YNyRlBB3fGWIqsJB2N9V6lBn1879qjkXV7zjxUeVhjkFURTNQ4
+ QwY5pdu3bob1iMb3w6xqVDNYLWuRQ6QXPxX2UQgogq5vql0o/RX8IPvhpvgb8aBnE0
+ Y0HtoSBaH/T9g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Samson Tam <Samson.Tam@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/amd/display: Check for sharpening case
- when calculating max vtaps for scaler
-Date: Mon, 31 Aug 2026 09:21:35 -0400
-Message-ID: <20260831133314.4125787-67-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: validate RAS EEPROM tbl_size before
+ record count
+Date: Mon, 31 Aug 2026 09:21:37 -0400
+Message-ID: <20260831133314.4125787-69-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,23 +66,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Candice Li <candice.li@amd.com>
 
-[ Upstream commit 4d8cfd570386eb0b6cb8aa0ca9e9db60a0404337 ]
+[ Upstream commit c83e4a45ff9a0b7aa1c48246102009a99ccef11b ]
 
-[Why & How]
-- calc_lb_num_partitions has check when scaler is not enabled to use
- larger LB in calculations for max vtaps based on viewport being 1:1
-- however, scaler is forced on when sharpening is enabled, so need
- to consider this in check
-- taps is predetermined in spl_get_optimal_number_of_taps prior to
- calc_lb_num_partitions.  Add check for taps not 1 to handle
- sharpening case
+Corrupt EEPROM data can set tbl_size below the table header size.
+Guard the RAS_NUM_RECS macros against undersized tbl_size and reset
+the table during init when tbl_size is below the minimum for the table
+version instead of trusting the header.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Candice Li <candice.li@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -92,322 +85,390 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1 — Subject line**
-Record: `[drm/amd/display]` `[Check]` — verify sharpening when computing
-max vertical taps for the DCN401 scaler line-buffer partition
-calculation.
+### Step 1.1: Subject Line
+**Record:** `[drm/amdgpu]` `[validate]` — Validate RAS EEPROM `tbl_size`
+before computing record count from the EEPROM table header.
 
-**Step 1.2 — Tags**
-Record:
-- `Reviewed-by: Charlene Liu <charlene.liu@amd.com>`
-- `Signed-off-by: Samson Tam <Samson.Tam@amd.com>`
-- `Signed-off-by: Ray Wu <ray.wu@amd.com>`
-- `Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`
-- No `Fixes:`, `Reported-by:`, `Link:`, or `Cc: stable@vger.kernel.org`
-  (expected for manual review)
-- Notable: AMD internal review + `Tested-by` from AMD QA; no syzbot or
-  public bug report
+### Step 1.2: Commit Message Tags
+**Record:**
+- **Signed-off-by:** Candice Li `<candice.li@amd.com>` (author)
+- **Reviewed-by:** Hawking Zhang `<Hawking.Zhang@amd.com>`
+- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
+  (drm/amdgpu maintainer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`, or syzbot tags
+- Notable absence: no fuzzer or user bug report; maintainer-reviewed
+  driver fix only
 
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** `dscl401_spl_calc_lb_num_partitions()` treats a 1:1 viewport
-  as “scaler disabled” and uses an inflated line-buffer (LB) size for
-  max-vtap math, but sharpening forces the scaler on at 1:1.
-- **Symptom:** Overestimated max vertical taps → scaler programmed
-  beyond real LB capacity → display corruption/underflow risk on DCN401
-  with sharpening at native resolution.
-- **Root cause:** `spl_get_optimal_number_of_taps()` sets `taps > 1`
-  before calling `spl_calc_lb_num_partitions()`, but the LB-size branch
-  only checked viewport 1:1, not taps.
-- **Version info:** None in the message.
+### Step 1.3: Commit Body Analysis
+**Record:**
+- **Bug:** Corrupt EEPROM can set `tbl_size` below the minimum size for
+  the table version (20 bytes for V1, 276 bytes for V2.1/V3).
+- **Symptom:** `RAS_NUM_RECS` / `RAS_NUM_RECS_V2_1` perform unsigned
+  subtraction on undersized `tbl_size`, producing incorrect record
+  counts; driver should not trust the header.
+- **Fix approach:** Guard macros to return 0 on undersized `tbl_size`;
+  during `amdgpu_ras_eeprom_init()`, detect undersized `tbl_size` and
+  reset the table via `amdgpu_ras_eeprom_reset_table()` instead of
+  proceeding.
+- **Root cause:** Missing minimum-size validation before using
+  `tbl_size` in record-count arithmetic.
 
-**Step 1.4 — Hidden bug fix?**
-Record: Yes. Despite no “fix” in the subject, this is a hardware-
-programming correctness bug in the display scaler path, not a cleanup.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Yes — described as validation, but it is a real correctness
+bug fix. Undersized `tbl_size` causes unsigned underflow in
+`RAS_NUM_RECS*` macros. The init-path change converts a permanent init
+failure (`-EINVAL`, EEPROM marked invalid) into self-healing table
+reset, matching the existing invalid-header recovery pattern.
 
 ---
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1 — Inventory**
-Record:
-- 1 file: `drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c` (+6 /
-  −2)
-- Function: `dscl401_spl_calc_lb_num_partitions()`
-- Scope: single-file, surgical (two conditionals in two `lb_config`
-  branches)
+### Step 2.1: Change Inventory
+**Record:**
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c` only
+- **Scope:** ~20 lines changed (macro guards + two init checks)
+- **Functions/macros modified:** `RAS_NUM_RECS`, `RAS_NUM_RECS_V2_1`,
+  `amdgpu_ras_eeprom_init()`
+- **Classification:** Single-file surgical fix
 
-**Step 2.2 — Code flow change**
-Record:
-- **Before:** `viewport.width == h_active && viewport.height ==
-  v_active` → use enlarged LB constants (e.g. `970+1290+1170` vs
-  `970+1290+484`).
-- **After:** Same enlarged LB only when viewport is 1:1 **and** `h_taps
-  == 1 && v_taps == 1` (scaler truly off).
-- **Path:** `spl_get_optimal_number_of_taps()` →
-  `spl_calc_lb_num_partitions()` →
-  `dscl401_spl_calc_lb_num_partitions()` during mode/plane setup on
-  DCN401.
+### Step 2.2: Code Flow Change
+**Record:**
+- **Macro hunks:** Before — unconditional `(tbl_size - header_size) /
+  record_size` (unsigned underflow when `tbl_size` too small). After —
+  return `0u` if below minimum, else compute normally.
+- **V2.1/V3 init hunk:** Before — compute `ras_num_recs` immediately.
+  After — if `tbl_size < 276`, log error and reset table.
+- **V1 init hunk:** Before — compute immediately. After — if `tbl_size <
+  20`, log error and reset table.
+- **Path affected:** Driver init on GPUs with RAS EEPROM support (probe-
+  time `amdgpu_ras_eeprom_init()`).
 
-**Step 2.3 — Bug mechanism**
-Record: **Logic / hardware correctness fix.**
-When sharpening is enabled at 1:1, taps are already 6 (EASF path) before
-LB calculation, but the old code still assumed scaler-off and inflated
-LB size by ~25% (RGB) or ~55% (YUV420), inflating `num_part_y` and
-`max_taps_y`.
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Memory safety / logic correctness (unsigned arithmetic
+  on corrupt data)
+- **Mechanism:** `tbl_size` is `uint32_t`. When `tbl_size <
+  RAS_TABLE_HEADER_SIZE` (V1) or `< RAS_TABLE_HEADER_SIZE +
+  RAS_TABLE_V2_1_INFO_SIZE` (V2.1/V3), subtraction wraps to a very large
+  value. Commit 5df0d6addb7e9’s `ras_num_recs > ras_max_record_count`
+  check catches this and returns `-EINVAL`, but EEPROM stays permanently
+  disabled. This commit adds explicit minimum-size validation and auto-
+  recovery.
 
-**Step 2.4 — Fix quality**
-Record: Obviously correct and minimal. Uses taps already set before the
-LB call as the scaler-enabled indicator. Low regression risk; only
-narrows the enlarged-LB fast path.
+### Step 2.4: Fix Quality
+**Record:** Obviously correct and minimal. Mirrors `6ffc6e056febb`
+(“Reset RAS table if header is invalid”). Low regression risk: only
+triggers on already-corrupt EEPROM headers; reset path is well-tested.
+No API changes.
 
 ---
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1 — Blame**
-Record: Buggy viewport-only check introduced in `70839da636050` (“Add
-new DCN401 sources”, 2024-04-26). Present in v6.18.44.
+### Step 3.1: Blame
+**Record:**
+- `RAS_NUM_RECS` introduced in `63d4c081a556a` (2021-04-06, “Optimize
+  EEPROM RAS table I/O”)
+- `RAS_NUM_RECS_V2_1` introduced in `65183faec89f3e` (2023-05-30, “Add
+  RAS table v2.1 macro definition”)
+- Buggy unsigned arithmetic present since those commits; this tree is
+  **v6.18.44**
 
-**Step 3.2 — Fixes: tag**
-Record: N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no `Fixes:` tag in commit message.
 
-**Step 3.3 — Related file history**
-Record: DCN401 added in `70839da636050`; ISHARP for DCN401 in
-`2998bccfa4197` (2024-05-29). Related DCN401 corruption fix:
-`5d74be8c3a941` (YUV color corruption). Standalone one-commit fix.
+### Step 3.3: Related File History
+**Record:** Related validation commits already in this tree:
+- `5df0d6addb7e9` — “Add basic validation for RAS header” (max record
+  count check)
+- `6ffc6e056febb` — “Reset RAS table if header is invalid”
+- `660261df61fb7` — “refine eeprom data check” (checksum on unload)
+- `89232d0db3ca9` — “return when ras table checksum is error”
+Standalone fix; not part of a numbered series.
 
-**Step 3.4 — Author context**
-Record: Samson Tam is an active AMD display contributor; same author as
-`5d74be8c3a941`.
+### Step 3.4: Author Context
+**Record:** Candice Li is an AMD contributor. Related validation work by
+Lijo Lazar and ganglxie in the same file. Alex Deucher (maintainer)
+signed off.
 
-**Step 3.5 — Dependencies**
-Record: None. Only needs `scl_data->taps` fields already used in this
-tree. `git apply --check` on mainline commit `4d8cfd570386e` succeeds
-cleanly.
+### Step 3.5: Dependencies
+**Record:** Requires `RAS_NUM_RECS_V2_1`,
+`amdgpu_ras_eeprom_reset_table()`, and the version switch in init — all
+present in v6.18.44. User diff shows HBM3E context from newer mainline;
+that block is **not** in this tree and is **not** part of the patch
+hunks. Applies standalone to 6.18.44 init switch.
 
 ---
 
 ## Phase 4: Mailing List and External Research
 
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c 4d8cfd570386e` found no lore.kernel.org match (likely
-direct AMD/DRM tree path). lore.kernel.org search blocked by Anubis.
+### Step 4.1: Original Discussion
+**Record:** Commit hash not in this checkout; `b4 dig -c` could not
+match. Lore search blocked by Anubis bot protection. **UNVERIFIED:**
+full mailing-list review thread.
 
-**Step 4.2 — Reviewers**
-Record: `b4 dig -w` also found nothing. Commit has `Reviewed-by`
-(Charlene Liu), `Tested-by` (Daniel Wheeler), and Alex Deucher as
-committer.
+### Step 4.2: Reviewers
+**Record:** **UNVERIFIED** via b4. Commit message shows Reviewed-by
+Hawking Zhang (AMD) and Signed-off-by Alex Deucher (maintainer).
 
-**Step 4.3 — Bug report**
-Record: N/A — no `Reported-by:` or `Link:` tags.
+### Step 4.3: Bug Reports
+**Record:** N/A — no `Reported-by:` or `Link:` tags.
 
-**Step 4.4 — Series context**
-Record: Standalone; not part of a multi-patch series.
+### Step 4.4: Related Patches
+**Record:** Part of ongoing amdgpu RAS EEPROM validation hardening;
+prior related commits are already in v6.18.44.
 
-**Step 4.5 — Stable list history**
-Record: Not searched successfully on lore (bot protection). No evidence
-of prior stable rejection.
+### Step 4.5: Stable List History
+**Record:** **UNVERIFIED** — could not search lore stable archive.
 
 ---
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1 — Key functions**
-Record: `dscl401_spl_calc_lb_num_partitions()`, called via SPL callbacks
-from `spl_get_optimal_number_of_taps()`.
+### Step 5.1: Key Functions
+**Record:** `RAS_NUM_RECS`, `RAS_NUM_RECS_V2_1`,
+`amdgpu_ras_eeprom_init()`
 
-**Step 5.2 — Callers**
-Record:
-- `spl_get_optimal_number_of_taps()` (dc_spl.c:1033)
-- `spl_calculate_number_of_taps()` → `spl_calculate_scaler_params()` —
-  display mode/plane configuration on DCN401
+### Step 5.2: Callers
+**Record:** `amdgpu_ras_eeprom_init()` called from
+`amdgpu_ras_init_badpage_info()` in `amdgpu_ras.c:3590`, which runs
+during GPU RAS initialization at probe. Affects VEGA20, Arcturus, Sienna
+Cichlid, Aldebaran, and other RAS-EEPROM-capable dGPUs per
+`__is_ras_eeprom_supported()`.
 
-**Step 5.3 — Callees**
-Record: Arithmetic on LB memory constants; sets `num_part_y` /
-`num_part_c` used to derive `max_taps_y` / `max_taps_c`.
+### Step 5.3: Callees
+**Record:** On undersized `tbl_size`, calls
+`amdgpu_ras_eeprom_reset_table()` which rewrites a valid header to
+EEPROM via I2C.
 
-**Step 5.4 — Reachability**
-Record: Reachable on normal display use when DCN401 + adaptive
-sharpening (ISHARP) at 1:1 scaling. Userspace can enable sharpening via
-amdgpu display stack; not an obscure debug-only path.
+### Step 5.4: Reachability
+**Record:** Triggered at every boot on affected hardware when EEPROM
+`tbl_size` is corrupt. Not userspace-triggerable directly, but affects
+all boots on affected systems. Corrupt EEPROM is a realistic
+hardware/partial-write scenario on datacenter GPUs.
 
-**Step 5.5 — Similar patterns**
-Record: `dscl32_spl_calc_lb_num_partitions()` has the same viewport-only
-check without taps check, but this commit targets DCN401 only.
-`dscl401_calc_lb_num_partitions()` (non-SPL) unchanged; SPL path is the
-sharpening path (`use_spl`).
+### Step 5.5: Similar Patterns
+**Record:** Same recovery pattern as `6ffc6e056febb` for invalid header
+magic. Complements `5df0d6addb7e9` max-record validation.
 
 ---
 
 ## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
-**Step 6.1 — Buggy code present?**
-Record: **Yes.**
-`drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c` lines 391–406
-lack the taps check. Fix commit `4d8cfd570386e` is **not** in this tree
-(`git merge-base --is-ancestor` fails).
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Current tree at lines 145–150 has unguarded
+`RAS_NUM_RECS` macros; `amdgpu_ras_eeprom_init()` at lines 1415–1432
+lacks `tbl_size` minimum checks. Bug present since 2021/2023; partial
+mitigation since `5df0d6addb7e9` (Mar 2025).
 
-**Step 6.2 — Backport complications**
-Record: Clean apply verified (`git show 4d8cfd570386e | git apply
---check`). No conflicts expected.
+### Step 6.2: Backport Complications
+**Record:** Expected **clean apply** — init switch structure matches; no
+HBM3E block in 6.18.44 that would conflict. Only line-number offset
+differs; context-based apply should work.
 
-**Step 6.3 — Related fixes already present?**
-Record: No equivalent taps check. DCN401 and ISHARP support are both
-present.
+### Step 6.3: Related Fixes Already Present?
+**Record:** Max record count validation (`5df0d6addb7e9`) and invalid-
+header reset (`6ffc6e056febb`) are present. **This specific `tbl_size`
+minimum validation is NOT present.**
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## Phase 7: Subsystem Context
 
-**Step 7.1 — Subsystem**
-Record: `drivers/gpu/drm/amd/display` — AMDGPU display (DCN401 DPP
-scaler). Criticality: **IMPORTANT** (display output for DCN401 hardware
-users).
+### Step 7.1: Subsystem and Criticality
+**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD
+datacenter/enterprise GPU RAS reliability; not universal but critical
+for affected hardware).
 
-**Step 7.2 — Activity**
-Record: Actively maintained; multiple DCN401 fixes in this tree (NULL
-deref, color corruption, signal checks).
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained — 4 EEPROM-related commits in recent
+file history on this tree.
 
 ---
 
 ## Phase 8: Impact and Risk Assessment
 
-**Step 8.1 — Who is affected**
-Record: Users of DCN401-based AMD GPUs (discrete/APU) on 6.18.y with
-adaptive sharpening at native (1:1) resolution. Driver-specific, not
-universal.
+### Step 8.1: Who Is Affected
+**Record:** Users of AMD GPUs with RAS EEPROM support (VEGA20, Arcturus,
+MI-series, RDNA/CDNA dGPUs with HBM RAS). Config: `CONFIG_DRM_AMDGPU`
+with supported ASICs.
 
-**Step 8.2 — Trigger conditions**
-Record: DCN401 + sharpening enabled + 1:1 viewport. Common for desktop
-use at native panel resolution with sharpening on. Unprivileged users
-can trigger via normal display configuration.
+### Step 8.2: Trigger Conditions
+**Record:** Corrupt EEPROM `tbl_size` field on boot. Uncommon but
+realistic (wear, partial write, hardware glitch). Not unprivileged-
+triggerable; hardware/firmware corruption path.
 
-**Step 8.3 — Failure mode severity**
-Record: Incorrect max-vtap calculation → scaler programmed beyond LB
-capacity → **display corruption / underflow** (MEDIUM–HIGH for affected
-hardware; not a kernel oops, but user-visible and similar to accepted
-DCN401 corruption fixes).
+### Step 8.3: Failure Mode Severity
+**Record:**
+- **Without fix:** Undersized `tbl_size` → unsigned underflow →
+  `ras_num_recs > ras_max_record_count` → `-EINVAL` → `is_eeprom_valid =
+  false` every boot. GPU runs but RAS EEPROM bad-page tracking is
+  permanently disabled until manual intervention. Verified: all
+  `tbl_size < 20` (V1) and `tbl_size < 276` (V2.1) underflow cases
+  produce record counts above max (Python verification).
+- **With fix:** Table auto-reset; RAS EEPROM functionality restored.
+- **Severity:** **MEDIUM-HIGH** for affected datacenter hardware
+  (operational RAS degradation, not kernel crash). No OOM path because
+  `amdgpu_ras_load_bad_pages()` is gated on `is_eeprom_valid` (line
+  3600).
 
-**Step 8.4 — Risk/benefit**
-Record:
-- **Benefit:** MEDIUM–HIGH for DCN401 + sharpening users
-- **Risk:** VERY LOW (8-line logic fix, tested, reviewed)
-- **Ratio:** Favorable for backport
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Self-healing corrupt EEPROM; defense-in-depth on macros;
+  consistent with existing reset-on-corruption policy.
+- **Risk:** Very low — ~20 lines, only error/corruption path, uses
+  existing reset function.
+- **Ratio:** Moderate benefit, very low risk. Worth backporting given
+  prior similar fixes already in 6.18.y.
 
 ---
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1 — Evidence**
+### Step 9.1: Evidence Summary
 
-*For backport:*
-- Real bug in v6.18.44 DCN401 SPL scaler LB calculation
-- Causes overestimated max vtaps when sharpening forces scaler at 1:1
-- Small, reviewed, tested, applies cleanly
-- Precedent: `5d74be8c3a941` (DCN401 display corruption) is already in
-  this tree
-- DCN401 + ISHARP both present since 2024
+**FOR backport:**
+- Fixes real corrupt-EEPROM bug (unsigned underflow + incorrect trust of
+  header)
+- Auto-recovery instead of permanent EEPROM disable on every boot
+- Small, surgical, maintainer-reviewed
+- Prerequisites present in v6.18.44
+- Consistent with already-backported validation series (`5df0d6`,
+  `6ffc6e`, `660261`, `89232d`)
+- Affects production RAS-capable AMD GPUs
 
-*Against backport:*
-- No public bug report or syzbot finding
-- Narrow hardware/feature scope (DCN401 + sharpening at 1:1)
-- Display corruption, not documented kernel crash
-- No lore discussion found
+**AGAINST backport:**
+- Existing max-record check already prevents huge `kcalloc` / OOM (since
+  Mar 2025)
+- No crash, deadlock, or security exploit demonstrated
+- No user/syzbot report
+- Primary improvement is operational recovery, not crash prevention
+- Lore review unverified
 
-*Unresolved:*
-- No public user reports found
-- Exact visual failure modes not documented in the commit message
+**UNRESOLVED:** Mailing-list discussion and stable-list nomination
+history.
 
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic matches commit
-   explanation; `Tested-by` + `Reviewed-by`
-2. Fixes a real user-affecting bug? **PASS** — incorrect HW scaler
-   config on reachable path
-3. Important issue? **PASS** — display corruption on affected hardware
-   (same class as prior DCN401 stable fix)
-4. Small and contained? **PASS** — 8 lines, one function, one file
-5. No new features/APIs? **PASS** — correctness fix only
-6. Can apply to local tree? **PASS** — verified clean apply
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — logic is straightforward;
+   reviewed by AMD engineer and maintainer (no runtime test tag).
+2. Fixes real bug affecting users? **PASS** — corrupt EEPROM leaves RAS
+   tracking disabled on every boot on affected hardware.
+3. Important issue? **PASS (MEDIUM-HIGH)** — datacenter RAS reliability
+   degradation on supported GPUs; not a kernel crash but materially
+   impacts production GPU health tracking.
+4. Small and contained? **PASS** — one file, ~20 lines.
+5. No new features/APIs? **PASS** — validation and recovery only.
+6. Can apply to local tree? **PASS** — code exists; patch should apply
+   cleanly to v6.18.44.
 
-**Step 9.3 — Exception category**
-Record: Hardware workaround / driver correctness fix for existing DCN401
-hardware support (not a new device ID).
+### Step 9.3: Exception Categories
+**Record:** Hardware workaround for corrupt EEPROM data on existing RAS-
+EEPROM driver — analogous to quirk/validation exception category.
 
-**Step 9.4 — Decision rationale**
-For **linux-6.18.y (v6.18.44)**: the buggy code exists, prerequisites
-(DCN401, ISHARP, SPL) are present, the fix is minimal and low-risk, and
-it prevents display corruption on a real use case (sharpening at native
-resolution). This matches the class of AMDGPU display corruption fixes
-already carried in this stable tree.
+### Step 9.4: Decision Rationale
+
+This commit completes the RAS EEPROM validation work already present in
+v6.18.44. While the max-record check added in `5df0d6addb7e9` prevents
+the worst outcome (huge allocation), corrupt undersized `tbl_size` still
+causes permanent EEPROM init failure on every boot. The fix follows the
+established pattern of resetting corrupt tables rather than leaving the
+driver in a degraded state. It is small, obviously correct, low-risk,
+and relevant to this tree’s existing amdgpu RAS EEPROM code.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `4d8cfd570386e` message and tags from `git
-  show`
-- [Phase 2] Read diff and current `dcn401_dpp.c` lines 357–428;
-  confirmed missing taps check
-- [Phase 2] Traced `spl_get_optimal_number_of_taps()` at
-  dc_spl.c:1006–1034 — taps set before LB calc
-- [Phase 2] Read sharpening logic at dc_spl.c:1121–1140 and
-  dml21_translation_helper.c:558–563
-- [Phase 3] `git blame` lines 390–416 → `70839da636050` (2024-04-26)
-- [Phase 3] `git log -S "use increased LB size..."` → introduced with
-  DCN401
-- [Phase 3] `2998bccfa4197` ISHARP support confirmed ancestor of HEAD
-- [Phase 3] `git show 4d8cfd570386e | git apply --check` → clean apply
-- [Phase 4] `b4 dig -c 4d8cfd570386e` → no lore match
-- [Phase 4] `b4 dig -c 4d8cfd570386e -w` and `-a` → no results
-- [Phase 4] lore.kernel.org WebFetch → blocked by Anubis
-- [Phase 5] Grep callers: `spl_get_optimal_number_of_taps` →
-  `spl_calculate_number_of_taps` → display setup
-- [Phase 6] `git describe HEAD` → v6.18.44
-- [Phase 6] `git merge-base --is-ancestor 4d8cfd570386e HEAD` → fix NOT
+- **[Phase 1]** Parsed commit message: subject, tags (SOB, Reviewed-by,
+  no Fixes/Reported-by/Link)
+- **[Phase 2]** Diff analysis: 1 file, macro guards + 2 init checks in
+  `amdgpu_ras_eeprom_init()`
+- **[Phase 3]** `git describe HEAD`: v6.18.44
+- **[Phase 3]** `git blame` lines 145–150: macros from 63d4c081a556a
+  (2021), 65183faec89f3e (2023)
+- **[Phase 3]** `git log -15 -- amdgpu_ras_eeprom.c`: related validation
+  commits present
+- **[Phase 3]** `git show 5df0d6addb7e9`: added max record count
+  validation
+- **[Phase 3]** `git show 6ffc6e056febb`: reset on invalid header magic
+- **[Phase 3]** `git merge-base --is-ancestor`: 5df0d6 and 65183fa both
   in tree
-- [Phase 6] Buggy viewport-only conditions confirmed at lines 391–392
-  and 405–406
-- [Phase 7] `git log --grep=dcn401` shows active DCN401 maintenance
-  including `5d74be8c3a941`
-- [Phase 8] Quantified LB overestimate: 3430 vs 2744 (RGB), 5770 vs 3712
-  (YUV420)
+- **[Phase 4]** `b4 dig`: no commit hash available in tree — no match
+- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis —
+  **UNVERIFIED**
+- **[Phase 5]** `grep amdgpu_ras_eeprom_init`: caller at
+  `amdgpu_ras.c:3590`
+- **[Phase 5]** `grep RAS_NUM_RECS`: only used in
+  `amdgpu_ras_eeprom_init()`
+- **[Phase 5]** `grep is_eeprom_valid`: gates
+  `amdgpu_ras_load_bad_pages` at line 3600
+- **[Phase 6]** Read current `amdgpu_ras_eeprom.c` lines 145–150,
+  1415–1444: buggy code confirmed present
+- **[Phase 6]** Python verification: all `tbl_size < 20` (V1) and
+  `tbl_size < 276` (V2.1) underflow cases produce record counts > max —
+  existing check returns `-EINVAL`
+- **[Phase 8]** Read `amdgpu_ras_init_badpage_info()`: `is_eeprom_valid
+  = !ret`; load gated on validity
+- **[Phase 8]** `tbl_size` type confirmed `uint32_t` in
+  `amdgpu_ras_eeprom.h:51`
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 26 +++++++++++++++----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
-index b62bbadb0d440..029f59a58c780 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
-@@ -389,9 +389,11 @@ void dscl401_spl_calc_lb_num_partitions(
- 		lb_memory_size_a = 1290;
- 	} else if (lb_config == LB_MEMORY_CONFIG_3) {
- 		if (scl_data->viewport.width  == scl_data->h_active &&
--			scl_data->viewport.height == scl_data->v_active) {
-+			scl_data->viewport.height == scl_data->v_active &&
-+			scl_data->taps.h_taps == 1 && scl_data->taps.v_taps == 1) {
- 			/* 420 mode: luma using all 3 mem from Y, plus 3rd mem from Cr and Cb */
- 			/* use increased LB size for calculation only if Scaler not enabled */
-+			/* Scaler is forced on when sharpening is on. Add check for taps = 1 */
- 			lb_memory_size = 970 + 1290 + 1170 + 1170 + 1170;
- 			lb_memory_size_c = 970 + 1290;
- 			lb_memory_size_a = 970 + 1290 + 1170;
-@@ -403,8 +405,10 @@ void dscl401_spl_calc_lb_num_partitions(
- 		}
- 	} else {
- 		if (scl_data->viewport.width  == scl_data->h_active &&
--			scl_data->viewport.height == scl_data->v_active) {
-+			scl_data->viewport.height == scl_data->v_active &&
-+			scl_data->taps.h_taps == 1 && scl_data->taps.v_taps == 1) {
- 			/* use increased LB size for calculation only if Scaler not enabled */
-+			/* Scaler is forced on when sharpening is on. Add check for taps = 1 */
- 			lb_memory_size = 970 + 1290 + 1170;
- 			lb_memory_size_c = 970 + 1290 + 1170;
- 			lb_memory_size_a = 970 + 1290 + 1170;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 652aa085b6263..51382d604b1f0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -142,12 +142,15 @@
+ #define RAS_RI_TO_AI(_C, _I) (((_I) + (_C)->ras_fri) % \
+ 			      (_C)->ras_max_record_count)
+ 
+-#define RAS_NUM_RECS(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
+-				  RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE)
++#define RAS_NUM_RECS(_tbl_hdr) \
++	(((_tbl_hdr)->tbl_size < RAS_TABLE_HEADER_SIZE) ? 0u : \
++	 (((_tbl_hdr)->tbl_size - RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE))
+ 
+-#define RAS_NUM_RECS_V2_1(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
+-				       RAS_TABLE_HEADER_SIZE - \
+-				       RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE)
++#define RAS_NUM_RECS_V2_1(_tbl_hdr) \
++	(((_tbl_hdr)->tbl_size < RAS_TABLE_HEADER_SIZE + \
++	  RAS_TABLE_V2_1_INFO_SIZE) ? 0u : \
++	 (((_tbl_hdr)->tbl_size - RAS_TABLE_HEADER_SIZE - \
++	   RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE))
+ 
+ #define to_amdgpu_device(x) ((container_of(x, struct amdgpu_ras, eeprom_control))->adev)
+ 
+@@ -1415,11 +1418,24 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ 	switch (hdr->version) {
+ 	case RAS_TABLE_VER_V2_1:
+ 	case RAS_TABLE_VER_V3:
++		if (hdr->tbl_size < RAS_TABLE_HEADER_SIZE + RAS_TABLE_V2_1_INFO_SIZE) {
++			dev_err(adev->dev,
++				"RAS header invalid, tbl_size %u smaller than minimum %u, resetting table\n",
++				hdr->tbl_size,
++				RAS_TABLE_HEADER_SIZE + RAS_TABLE_V2_1_INFO_SIZE);
++			return amdgpu_ras_eeprom_reset_table(control);
++		}
+ 		control->ras_num_recs = RAS_NUM_RECS_V2_1(hdr);
+ 		control->ras_record_offset = RAS_RECORD_START_V2_1;
+ 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT_V2_1;
+ 		break;
+ 	case RAS_TABLE_VER_V1:
++		if (hdr->tbl_size < RAS_TABLE_HEADER_SIZE) {
++			dev_err(adev->dev,
++				"RAS header invalid, tbl_size %u smaller than minimum %u, resetting table\n",
++				hdr->tbl_size, RAS_TABLE_HEADER_SIZE);
++			return amdgpu_ras_eeprom_reset_table(control);
++		}
+ 		control->ras_num_recs = RAS_NUM_RECS(hdr);
+ 		control->ras_record_offset = RAS_RECORD_START;
+ 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT;
 -- 
 2.53.0
 
