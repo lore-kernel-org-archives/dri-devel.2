@@ -4,45 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB25CC61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D261C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:55:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1124510E26A;
-	Mon, 31 Aug 2026 08:52:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3EB810E766;
+	Mon, 31 Aug 2026 08:55:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J7djhWba";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="t61caDuS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0048610E26A
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:52:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 107BA60120;
- Mon, 31 Aug 2026 08:52:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684F51F000E9;
- Mon, 31 Aug 2026 08:52:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788166344;
- bh=+3sxOVzytdtY94KnE2X2O2vvNv3vIC2ucrD/KO9EwrY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J7djhWbawMJ3yG9xeayXV8ihMdAOt6yIRYR2Y/ZNztWr5N6MBKQZh0B4XTj6KraMw
- R73ww5iHruZ0HIdYfLyvB7jAjg4UeyzpvKIa1gpXH9KbZ+ViX4H5VuRiyj/DLzMILV
- uzt5oxzLdwxpqrES66hEwFU3ncyKhHJeZFsxaEOa9AoToJrSPjvuEbZUQvehSfDLi8
- /A2LVrSi7E3sus7UKoflH51f8/gkdZjpLf47K3QBQ5IeHIDGO/qM/0payDMeKOjFQ1
- P4z3YsvceLiewge39k0B/Nq9TExogp7ZhJ55EX+UHnsi46KAn18WMd5OBmM0gG2HEf
- 9AMMC63Hryj7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 05/14] accel/rocket: factor the completion tail out
- of the IRQ handler
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260831081956.84871-6-gahing@gahingwoo.com>
-References: <20260831081956.84871-1-gahing@gahingwoo.com>
- <20260831081956.84871-6-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB1610E64A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:55:38 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id B99A04E41465;
+ Mon, 31 Aug 2026 08:55:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 828D960231;
+ Mon, 31 Aug 2026 08:55:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E612411C78388; 
+ Mon, 31 Aug 2026 10:55:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1788166531; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=IH3+ta8Jzlfe9YfifDoY6Fp8kEL/fycLY3rWU7L5qew=;
+ b=t61caDuSF2irF6DNux1IMZxVTw2aJtxSkCDUvMTvvKIgWTYP/CUgZT90GJDTUMXVxgTA72
+ L0MrzWTPPVI/7As/5c+SAlmYDsATfKkMXUql+Q7ADipsRnCYTkVAUgFma8Lz/IUtx6I+GF
+ CaC4LTGkeq5u+oDyN+BK2ITp6KNabqs9V9u0EMDkMl6MXNPHJShb0c24FMcWer2CLHEHet
+ pMYW5zn5jvAouPnbCJ584CP19xNFM6sQDFl79L1tDP5JgTh8ZODYPMVdGIV0vaQ6pWnKeE
+ 1lMTWpUAKULoUNw+OR/4cIEES1WicZhLbhDBbihZ7cwSS7PFd3CbzAckKme4dA==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 08:52:23 +0000
-Message-Id: <20260831085224.684F51F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 10:55:20 +0200
+Message-Id: <DL304N0GO2Z1.34O1XQZZ4HSHK@bootlin.com>
+Subject: Re: [PATCH v2 04/12] drm/bridge: ti-sn65dsi86: don't select unused
+ DRM_PANEL
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Matthias
+ Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-mediatek@lists.infradead.org>, "Sandeep Panda"
+ <spanda@codeaurora.org>, "Franz Schnyder" <franz.schnyder@toradex.com>,
+ "John Ripple" <john.ripple@keysight.com>, "Michael Walle"
+ <mwalle@kernel.org>
+To: "Doug Anderson" <dianders@chromium.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
+ <20260825-drm-bridge-drm_panel-cleanup-v2-4-c6c88ba7ffd2@bootlin.com>
+ <CAD=FV=VtDHWX5yXDE_CSMEZY9nTAd9372kkUAuti1K09zLywig@mail.gmail.com>
+In-Reply-To: <CAD=FV=VtDHWX5yXDE_CSMEZY9nTAd9372kkUAuti1K09zLywig@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,152 +78,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi Doug,
 
-Pre-existing issues:
-- [High] Leak of IOMMU group reference in job completion path due to missin=
-g iommu_group_put().
-- [High] Shared IRQ handler accesses hardware registers without checking if=
- the device is active, risking crashes or spurious interrupts on suspended =
-devices.
-- [High] Missing synchronize_irq() in runtime suspend callback allows races=
- with shared interrupts.
+On Thu Aug 27, 2026 at 6:24 PM CEST, Doug Anderson wrote:
+> Hi,
+>
+> On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
+lin.com> wrote:
+>>
+>> This driver does not use the drm_panel APIs at all, so no need to select
+>> DRM_PANEL.
+>>
+>> Cc: Douglas Anderson <dianders@chromium.org>
+>> Cc: Sandeep Panda <spanda@codeaurora.org>
+>> Cc: Franz Schnyder <franz.schnyder@toradex.com>
+>> Cc: John Ripple <john.ripple@keysight.com>
+>> Cc: Michael Walle <mwalle@kernel.org>
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> ---
+>>  drivers/gpu/drm/bridge/Kconfig | 1 -
+>>  1 file changed, 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kco=
+nfig
+>> index 043596801a65..d46aa2eb01b5 100644
+>> --- a/drivers/gpu/drm/bridge/Kconfig
+>> +++ b/drivers/gpu/drm/bridge/Kconfig
+>> @@ -474,7 +474,6 @@ config DRM_TI_SN65DSI86
+>>         select DRM_BRIDGE_CONNECTOR
+>>         select DRM_KMS_HELPER
+>>         select REGMAP_I2C
+>> -       select DRM_PANEL
+>>         select DRM_MIPI_DSI
+>>         select AUXILIARY_BUS
+>>         select DRM_DISPLAY_DP_AUX_BUS
+>
+> Looks right to me. Ages ago it used panel APIs directly, but not today.
+>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+Thanks!
+
+> I assume you have a plan for landing the series. If you want me to
+> land this patch on its own to drm-misc-next, please yell.
+
+I have commit rights, so I'll apply the series as soon as I have the needed
+R-by/A-bys.
+
+I am also sending a v3, unchanged, but with an additional patch as
+suggested by Sashiko:
+https://lore.kernel.org/all/20260825103234.3F2B71F000E9@smtp.kernel.org/
+
+Luca
+
 --
-
-commit 3949b3388a0eed37353941f6527bafda9857fb01
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-
-accel/rocket: factor the completion tail out of the IRQ handler
-
-This commit factors out the completion and task advancement logic from
-rocket_job_handle_irq() into a new helper function rocket_job_next_locked().
-This clarifies the code structure after previous locking changes and isolat=
-es
-the logic for easier bisection. There are no intended functional changes.
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index a89ab49e17e52..69e29f40f27a0 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
-ched_job *sched_job)
->  	return ERR_PTR(ret);
->  }
-> =20
-> +/* Start the job's next task, or retire it. Caller holds job_lock. */
-> +static void rocket_job_next_locked(struct rocket_core *core)
-> +{
-> +	lockdep_assert_held(&core->job_lock);
-> +
-> +	if (!core->in_flight_job)
-> +		return;
-> +
-> +	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_coun=
-t) {
-> +		rocket_job_hw_submit(core, core->in_flight_job);
-> +		return;
-> +	}
-> +
-> +	iommu_detach_group(NULL, iommu_group_get(core->dev));
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this code permanently
-leak the IOMMU group reference?
-
-iommu_group_get() increments the reference count of the IOMMU group, but
-the returned pointer is passed directly to iommu_detach_group() which does
-not take ownership. I don't see a matching iommu_group_put() anywhere.
-
-Since this happens on every job completion, won't this continuously leak
-kobject references until the refcount_t saturates and warns? Could this
-use core->iommu_group directly without taking a new reference?
-
-> +	dma_fence_signal(core->in_flight_job->done_fence);
-> +	pm_runtime_put_autosuspend(core->dev);
-> +	core->in_flight_job =3D NULL;
-> +}
-> +
->  static void rocket_job_handle_irq(struct rocket_core *core)
->  {
->  	pm_runtime_mark_last_busy(core->dev);
-> @@ -354,17 +373,7 @@ static void rocket_job_handle_irq(struct rocket_core=
- *core)
->  		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
->  		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-
-[Severity: High]
-This is a pre-existing issue, but do these unconditional hardware register
-accesses risk a system crash if the device is runtime suspended?
-
-The interrupt handler doesn't check if the device is active before accessing
-hardware:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
-
-Because the driver registers this as a shared IRQ (IRQF_SHARED), if another
-device on the line triggers an interrupt while the NPU is suspended, this r=
-ead
-typically returns 0xffffffff.
-
-This satisfies the interrupt mask (e.g. PC_INTERRUPT_RAW_STATUS_DPU_0),
-causing the handler to wake the thread and execute rocket_job_handle_irq()
-here, which writes to powered-off registers like OPERATION_ENABLE, causing
-an asynchronous SError or bus fault.
-
-Should the hardirq handler use pm_runtime_get_if_active() to check the
-power state before reading INTERRUPT_RAW_STATUS?
-
-> -		if (core->in_flight_job) {
-> -			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_co=
-unt) {
-> -				rocket_job_hw_submit(core, core->in_flight_job);
-> -				return;
-> -			}
-> -
-> -			iommu_detach_group(NULL, iommu_group_get(core->dev));
-> -			dma_fence_signal(core->in_flight_job->done_fence);
-> -			pm_runtime_put_autosuspend(core->dev);
-> -			core->in_flight_job =3D NULL;
-> -		}
-> +		rocket_job_next_locked(core);
->  	}
->  }
-
-While reviewing this, I noticed another pre-existing issue related to the
-shared IRQ handling in the driver's runtime PM suspend path:
-
-drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
-    ...
-    if (!rocket_job_is_idle(&rdev->cores[core]))
-        return -EBUSY;
-
-    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
-                               rdev->cores[core].clks);
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does this function pull hardware power
-before ensuring all interrupt handlers have finished executing?
-
-Subsystem rules state that drivers using IRQF_SHARED must call
-synchronize_irq() in their runtime suspend callback before powering down
-hardware. Since the IRQ is shared, rocket_job_irq_handler() could be
-executing concurrently on another CPU when the clock is disabled, which
-would cause a system crash.
-
-Could a call to synchronize_irq() be added here before disabling clocks?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
-1-1-gahing@gahingwoo.com?part=3D5
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
