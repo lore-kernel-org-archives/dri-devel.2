@@ -4,85 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 371A3C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B349C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 14:33:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 770A010E910;
-	Mon, 31 Aug 2026 14:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2A810E913;
+	Mon, 31 Aug 2026 14:33:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b76LD9bh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZS7/594q";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9988310E912
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:29:27 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4995b0343c1so35704035e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 07:29:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1788186566; x=1788791366; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6E89hI6dDsHxKquITrLVBigGlAGgfkia7MnsBoaZjOA=;
- b=b76LD9bh7B52KVCn+AOxYVq1oCEXM+zdPxUZdL2QdkPx2E+qPdlvQbvS9ULqHPkbrB
- D4iSiP8Jhma39SnidsWE2axLh+WLgRSEp7YceKM9l3vcfpRM0qS/gx5Xsz0L4ANMngyG
- Wh4RAcdKWhOxdk6mSVue9sN4mUW1+Hbv3tK5E+7uTXxhuOYft5dgkjR27kaYjsm3ORO8
- vt5XzuC/9vBZwT4J+oAuuI6uauZ/1Es2zCyyre/xYAkYJmHa/p2lC8YNvBxjuSy4Fv03
- Dsj1vrc9e0OPjIg3QWvnCh/JhWXKQPcMHZEBNDPUJ68Ahv+56wvNqPDcEgwqmOPJPDu5
- 9aIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788186566; x=1788791366;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6E89hI6dDsHxKquITrLVBigGlAGgfkia7MnsBoaZjOA=;
- b=ooYFoo4hKVe1SLQljvCqXlQWgYkX/RmJf4mrppo2stmOPsZEstT949pLeG3jYfO0Ej
- uYX+NVmidY1PhQ2n53E7UIm7d+C28g/mcdrCkjHrRvf8h7Z6n55OSeID6ARmKPa/ZxUL
- okZ/Azb9RvtByBdNHWa3UMlux2jnMt3zAPsWAi1xqOne/2dQFrzfJxWyqAvhEYH5GZ+5
- Z85T/jslaMuTP5VDNXEsucVL0f4EA+nLbbz2uDJt/QhPawT8fSUVO6x0qKP7+WNnScpq
- 64plIqaeZMLOQhAnPA851aOa3u8LL34EdBGC1WIYuUUD++Y4Y6J4pSInRbEtkjNHs/Cb
- f8zA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpegOpPIaHWb5U/KKD4TrGSSLwLTwwY6lY2cQNdrFCFPN4y+rawUDVu2KBCky/4RE4/lni0BruHkew=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mEaCzSaM7QJmcnndEWCjnVhhXexbjdOAsPyetbgf8w0uypGb8t
- wC6fuWYbAU2fAoMC086uxLAtQm4wnNPG2c/gi1zge3+yFVqZLqSvIGFQqvs+gU3Rnrk=
-X-Gm-Gg: AR+sD13cw2q5SaxyX+co64z4nqX2451Vep7Y7hpGFevT1X0a0eNSpnhb9pejeNyTgus
- 4mE7UJyKYwfOl1e3Ak0LwnqU28l1bq8YHiuh3lvUhapu4VoNszapdCdwAujEYRX4Dgx3+rHc8tF
- u0WLsBtXQO+SZbKyVNZ3BMns8MGBkQOu52xQ8YjoY53Tr4owzzr5cMFFUC5btpTEDqV9zKvhbjF
- ecQEw0yJNA1HhykQekgUIfKfOCZHmJcG2rzVR92yConJtvdyPzjapknAD31Iq39oWsJoGiObI8s
- d9hJgBv4RJDIldozNhOgCfFDl6tmSdsnYDO/u5u07ADXMkm3f4kMLJtLZeqYuGqXdSuTv7RKI2w
- eEegXUxoONEpZwqK+GBdWQk2Bc23EK97RZTlbV534Tpi8U+70P3R0zNthx9neT+iQ82SqrwydN4
- J9OdlXjBFWSeDQ2v3o8OkbbOJBhcHxvgZswPtOgvQBtR/2+G1wtlNp0+fyzmzamnMPAtWUcFHUh
- cg=
-X-Received: by 2002:a05:600c:1d11:b0:496:c1f3:e8f8 with SMTP id
- 5b1f17b1804b1-49b91c25414mr366990155e9.7.1788186565847; 
- Mon, 31 Aug 2026 07:29:25 -0700 (PDT)
-Received: from arrakeen-2.home ([2a01:e0e:1005:fa8b:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ccea87e1asm145266605e9.2.2026.08.31.07.29.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 07:29:25 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- Junjie Cao <junjie.cao@linux.dev>
-Cc: dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, 
- mitltlatltl@gmail.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260804073419.84727-1-junjie.cao@linux.dev>
-References: <20260804073419.84727-1-junjie.cao@linux.dev>
-Subject: Re: [PATCH v3 0/2] drm/panel: Add support for Novatek NT36532
- panel
-Message-Id: <178818656440.2615924.7721380988384497454.b4-ty@b4>
-Date: Mon, 31 Aug 2026 16:29:24 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72CBD10E913
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:33:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7DEE06013A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 14:33:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07DDF1F000E9;
+ Mon, 31 Aug 2026 14:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788186819;
+ bh=MFtKHsncj1QEZ3NhaQOPB0YkU0McOneGQFPmQZ0wFj8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZS7/594qFe63gYZNgLVhGfjN66LekBQ6+rdVZltw+/BpLpEuI6AxKv2nTdIYQRWOn
+ w1WL3o9nbvHGJjOL8MC1fAcllBnBrhzebBidS96od5/LKDASIGWsYYPf6hXM0nu/9N
+ N1wrJEXBZbCSVPaZUdhc8u9g35YjH++um0ubqpE08zkKGuzLtDiZtJb6cGd4IJt6Pt
+ H0fK1zViE2jlv28uoi/+R9IFhh9a2NDlivaehIZEs5fekUaQiw+IbZRHNW+z/wNY1y
+ 3QcKRXafNWLpkD0yurmxSMH1B9nd4W6gXJTe6hK14NSQYSz5H1v0yw7DV3AfewIIhL
+ D1vILtPhki7IQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-5.10] drm/arm/malidp: use clk_bulk API in
+ runtime PM resume and suspend
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831133314.4125787-108-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-108-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 14:33:38 +0000
+Message-Id: <20260831143339.07DDF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,29 +54,147 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On Tue, 04 Aug 2026 00:34:17 -0700, Junjie Cao wrote:
-> This series adds support for panels using the Novatek NT36532 Display
-> Driver IC, a dual-DSI, dual-DSC controller that requires DPU support
-> for MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT.
-> 
-> The first user is the CSOT PPC100HB1-1 panel found in the OnePlus Pad 2
-> (OnePlus Pad Pro in China) tablet: 3000x2120, dual-DSI in bonded mode,
-> DSC 1.2 with two slices per line.
-> 
-> [...]
+New issues:
+- [Low] Final Result: The clock framework logs '(null)' during enablement f=
+ailures because the .id fields in the clk_bulk_data array are not initializ=
+ed.
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+Pre-existing issues:
+- [High] Final Result: Hardware accesses on explicitly disabled clocks trig=
+ger synchronous external aborts. Ignored return values from pm_runtime_get_=
+sync() and malidp_runtime_pm_resume() combine with the new clock rollback t=
+o guarantee an APB bus hang.
+- [High] Final Result: Missing synchronize_irq() in the runtime suspend pat=
+h allows active shared IRQ handlers to crash the system by accessing powere=
+d-down hardware.
+--
 
-[1/2] dt-bindings: display: panel: Add Novatek NT36532
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/1c523f0a930107191c95d96340c69a295a086e5a
-[2/2] drm/panel: Add Novatek NT36532 panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/47b823940e38607dad180eb2f82094ae65565a4b
+commit 049d634e1eb44e14ba4f4fc2612f50ff9b67236e
+Author: Gustavo Kenji Mendon=C3=A7a Kaneko <kaneko.dev@pm.me>
 
--- 
-Neil
+drm/arm/malidp: use clk_bulk API in runtime PM resume and suspend
 
+This commit converts the Mali DP driver's runtime PM resume and suspend
+paths to use the clk_bulk API. It ensures that clk_bulk_prepare_enable()
+return values are checked during resume, rolling back any successfully
+enabled clocks if a failure occurs.
+
+Link: https://patch.msgid.link/20260609130812.1065699-1-kaneko.dev@pm.me
+
+> diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malid=
+p_drv.c
+> index bc5f5e9798c32..2bf4a647e4b28 100644
+> --- a/drivers/gpu/drm/arm/malidp_drv.c
+> +++ b/drivers/gpu/drm/arm/malidp_drv.c
+> @@ -669,6 +669,11 @@ static int malidp_runtime_pm_suspend(struct device *=
+dev)
+>  	struct drm_device *drm =3D dev_get_drvdata(dev);
+>  	struct malidp_drm *malidp =3D drm_to_malidp(drm);
+>  	struct malidp_hw_device *hwdev =3D malidp->dev;
+> +	struct clk_bulk_data clks[] =3D {
+> +		{ .clk =3D hwdev->pclk },
+> +		{ .clk =3D hwdev->aclk },
+> +		{ .clk =3D hwdev->mclk },
+> +	};
+> =20
+>  	/* we can only suspend if the hardware is in config mode */
+>  	WARN_ON(!hwdev->hw->in_config_mode(hwdev));
+> @@ -676,9 +681,7 @@ static int malidp_runtime_pm_suspend(struct device *d=
+ev)
+>  	malidp_se_irq_fini(hwdev);
+>  	malidp_de_irq_fini(hwdev);
+>  	hwdev->pm_suspended =3D true;
+> -	clk_disable_unprepare(hwdev->mclk);
+> -	clk_disable_unprepare(hwdev->aclk);
+> -	clk_disable_unprepare(hwdev->pclk);
+> +	clk_bulk_disable_unprepare(ARRAY_SIZE(clks), clks);
+
+[Severity: High]
+This is a pre-existing issue, but is there a risk of a shared interrupt
+firing exactly as the device enters runtime suspend?
+
+The omission of synchronize_irq() before clk_bulk_disable_unprepare() allows
+concurrently executing handlers to read unclocked registers. For example, in
+drivers/gpu/drm/arm/malidp_hw.c:
+
+malidp_de_irq() {
+    if (hwdev->pm_suspended)
+        return IRQ_NONE;
+    ...
+}
+
+Could we add a call to synchronize_irq() before disabling the clocks so
+active shared IRQ handlers do not crash the system by accessing powered-down
+hardware?
+
+> =20
+>  	return 0;
+>  }
+> @@ -688,10 +691,17 @@ static int malidp_runtime_pm_resume(struct device *=
+dev)
+>  	struct drm_device *drm =3D dev_get_drvdata(dev);
+>  	struct malidp_drm *malidp =3D drm_to_malidp(drm);
+>  	struct malidp_hw_device *hwdev =3D malidp->dev;
+> +	struct clk_bulk_data clks[] =3D {
+> +		{ .clk =3D hwdev->pclk },
+> +		{ .clk =3D hwdev->aclk },
+> +		{ .clk =3D hwdev->mclk },
+> +	};
+
+[Severity: Low]
+Does this array initialization cause the clock framework to log (null)
+during enablement failures?
+
+If a clock fails to enable during PM resume, the uninitialized .id fields
+in the local clk_bulk_data array are used by pr_err(), which results in
+useless error logging instead of the clock name.
+
+Should we add the corresponding .id string values to this array?
+
+> +	int err;
+> +
+> +	err =3D clk_bulk_prepare_enable(ARRAY_SIZE(clks), clks);
+> +	if (err)
+> +		return err;
+
+[Severity: High]
+This is a pre-existing issue, but can the new clock rollback here cause an
+APB bus hang on failure?
+
+If a clock enablement fails during malidp_runtime_pm_resume(), the newly
+introduced clk_bulk_prepare_enable() rolls back and disables all clocks on
+partial failure.
+
+However, callers blindly proceed and ignore the return values from
+pm_runtime_get_sync() and malidp_runtime_pm_resume(), meaning they will
+read and write unclocked MMIO registers. For example, in
+drivers/gpu/drm/arm/malidp_drv.c:
+
+malidp_atomic_commit_tail() {
+    pm_runtime_get_sync(drm->dev);
+    ...
+    atomic_set(&malidp->config_valid, MALIDP_CONFIG_START);
+    malidp->dev->hw->set_config_valid(malidp->dev, 0);
+}
+
+Are we able to check the return value of pm_runtime_get_sync() in these
+callers to prevent a synchronous external abort when the resume path fails?
+
+> =20
+> -	clk_prepare_enable(hwdev->pclk);
+> -	clk_prepare_enable(hwdev->aclk);
+> -	clk_prepare_enable(hwdev->mclk);
+>  	hwdev->pm_suspended =3D false;
+>  	malidp_de_irq_hw_init(hwdev);
+>  	malidp_se_irq_hw_init(hwdev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
+787-108-sashal@kernel.org?part=3D1
