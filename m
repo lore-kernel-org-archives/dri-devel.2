@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A22BBC61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 940EBC624CF
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 17:14:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A93C110E2CF;
-	Mon, 31 Aug 2026 17:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB18E10E31E;
+	Mon, 31 Aug 2026 17:14:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lMZfuRAR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MOZYmt12";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA83210E2CF
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:11:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7136610E31E
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:14:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C7FC42A04
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:11:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CC41F000E9;
- Mon, 31 Aug 2026 17:11:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 410ED40A76
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 17:14:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030701F000E9;
+ Mon, 31 Aug 2026 17:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788196312;
- bh=atsXagGq2H3PHDrmqg2sH5Kc6OO1zapBnI1CB5SSi5A=;
+ s=k20260515; t=1788196486;
+ bh=6mb2JLvoKARx25MU9XBg/DIH6cnzAwsWsk4I1TsXUi0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lMZfuRARSnZSpLjWXXpmf5Piit9BUrhtp9eEi+A9APWlBpzH0WrnQXVklh0ZsW5AN
- 80IrmmuDlsJIxQTZlm3Knyr+LRQ06lLOVt7lqDYFHOP9IupNXYLTG2FzBI59HGLx8h
- IDoJ/oQQJidm0+7TEdjJ7uM+Wsz26GCheTTcExKj0EkVW+6r2G7DfQN0bGBPlQdYD8
- BxtVqRwI4pqQG/xj68i8TNLQFGzmLt3DZkvvWdlAgW6kk+rkNqQIXBrilpYN17hlPu
- IwRj1DKpfpYKUYoMp2KgfD2XgAtQV1zlvrRSl7wWL6ZWyKQaqj/vjLgbuWhYCP/gqo
- TaeachOy8uT4A==
+ b=MOZYmt128h2yBPC/+HatiEWRCc60N7cbFhlUHoErSjjHMwmQaQUoJmeBHVyH1VCPB
+ F05E9yTcVGcylwkSAObbIf3jDp90U2FxGTTVMIllv7YW/VZ5wGJwdnAUTEnGQ+MB6W
+ KtZU1eE8I0C4cYRRI7yT4vNN97s6qcTJ9vJeuymce3pgtI1ffAn/fXJqOHN8FDIONW
+ 0QlHmXYhfi6QEETAidsA+Yfmv17imeIOm7XrHZRAupN1RnemAnyzLszc+AWmlDC/FR
+ hAZpZI39Qdl52a3YYCmsV+Y4qhdaxuGwrh6Ca88CSYxTpPC/UZ+q0KVgl3uOaHbbcd
+ god3+cxfdSMhg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/panel: jadard-jd9365da-h3: set
- prepare_prev_first
+Subject: Re: [PATCH AUTOSEL 6.18] drm/amdgpu: Bound GPIO I2C table entry
+ count from VBIOS
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-577-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-569-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-577-sashal@kernel.org>
+ <20260831133314.4125787-569-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 17:11:51 +0000
-Message-Id: <20260831171152.41CC41F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 17:14:45 +0000
+Message-Id: <20260831171446.030701F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,80 +58,125 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Setting `prepare_prev_first` reverses the bridge enable/disable or=
-der, causing the DSI host to drive data lanes high (LP-11) before the panel=
- is powered on, which violates hardware power sequences.
-
 Pre-existing issues:
-- [High] The panel is published to the system via `drm_panel_add()` before =
-critical internal state is initialized.
+- [High] Out-of-bounds read in VBIOS parsing due to missing bounds checks o=
+n `data_offset` against `bios_size`.
+- [High] Memory and resource leak of `struct amdgpu_i2c_chan` objects and I=
+2C adapters during driver teardown.
+- [High] Unchecked VBIOS size subtraction causes unsigned underflow and unc=
+onstrained loops in other ATOM parser functions.
 --
 
-commit a792999b217c12abcec671639b930a3ece58774e
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit 07534aa5f05a4ba05838a80933016849ebced1e1
+Author: Candice Li <candice.li@amd.com>
 
-drm/panel: jadard-jd9365da-h3: set prepare_prev_first
+drm/amdgpu: Bound GPIO I2C table entry count from VBIOS
+   =20
+This commit caps the parsed GPIO I2C table entry count to AMDGPU_MAX_I2C_BUS
+to prevent array overruns and unbounded iteration on corrupt VBIOS metadata.
 
-Sending DSI commands from the prepare() callback requires DSI link to be
-up at that point. Set the .prepare_prev_first flag to let these panels work
-with the DSI hosts which don't power on the link in their .mode_set callbac=
-k.
+[ Upstream commit a99cd231cd924b7160fecb9fb3a94b801522323b ]
 
-Link: https://patch.msgid.link/20260413-waveshare-dsi-touch-v3-13-3aeb53022=
-c32@oss.qualcomm.com
-
-> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/g=
-pu/drm/panel/panel-jadard-jd9365da-h3.c
-> index 5c2530598ddb9..9e5287829b952 100644
-> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -1157,6 +1157,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device =
-*dsi)
->  	if (ret)
->  		return ret;
-> =20
-> +	jadard->panel.prepare_prev_first =3D true;
-> +
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_atombios.c
+> index 763f2b8dcf13a..b8f7e3a18d324 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+[ ... ]
+> @@ -127,8 +141,7 @@ void amdgpu_atombios_i2c_init(struct amdgpu_device *a=
+dev)
+>  	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_=
+offset)) {
+>  		i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
 
 [Severity: High]
-Does setting this flag reverse the expected hardware power sequences?
+This isn't a bug introduced by this patch, but does this code potentially
+dereference an out-of-bounds pointer if the parsed data_offset exceeds the
+size of the VBIOS allocation?
 
-When the display is enabled, the DRM bridge core will respect this flag by
-calling the host's pre_enable before the panel's prepare. This forces the
-host PHY to power up and drive the DSI lanes to LP-11. Then jadard_prepare()
-enables the vccio and vdd regulators.=20
+If the VBIOS data is malformed and data_offset is larger than the actual
+allocation, ctx->bios + data_offset could result in an out-of-bounds read
+when i2c_info is dereferenced.
 
-This sequence is reversed during disable, with jadard_unprepare() disabling
-regulators while the host is still driving LP-11.
+The unvalidated data_offset originates from:
 
-Could driving I/O pins on unpowered silicon cause hardware latch-up and
-potential permanent damage to the panel?
+drivers/gpu/drm/amd/amdgpu/atom.c:amdgpu_atom_parse_data_header() {
+	...
+	int offset =3D index * 2 + 4;
+	int idx =3D CU16(ctx->data_table + offset);
+	...
+	*data_start =3D idx;
+	return true;
+}
 
->  	drm_panel_add(&jadard->panel);
+> -		num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+> -			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
+> +		num_indices =3D amdgpu_atombios_gpio_i2c_num_entries(size);
+
+[ ... ]
+
+I also noticed a pre-existing resource management issue during driver teard=
+own:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c:amdgpu_i2c_create() {
+	...
+	i2c =3D kzalloc(sizeof(struct amdgpu_i2c_chan), GFP_KERNEL);
+	if (i2c =3D=3D NULL)
+		return NULL;
+	...
+	ret =3D i2c_bit_add_bus(&i2c->adapter);
+	...
+}
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c:amdgpu_i2c_fini() {
+	int i;
+
+	for (i =3D 0; i < AMDGPU_MAX_I2C_BUS; i++)
+		if (adev->i2c_bus[i])
+			adev->i2c_bus[i] =3D NULL;
+}
 
 [Severity: High]
-This is a pre-existing issue, but does calling drm_panel_add() here publish
-the panel before critical internal state is initialized?
+This is a pre-existing issue, but does this code leak the struct
+amdgpu_i2c_chan object and the bit-banging I2C adapter registration?
 
-drm_panel_add() makes the panel visible globally. A concurrent thread (e.g.=
-, a
-display controller driver probe in another workqueue or returning from
-EPROBE_DEFER) can immediately acquire the panel and call its callbacks.
+When amdgpu_i2c_fini() cleans up the I2C buses, it sets adev->i2c_bus[i] to
+NULL but does not appear to call kfree() on the struct amdgpu_i2c_chan, nor
+does it call i2c_del_adapter() for the adapters registered with
+i2c_bit_add_bus(), which aren't managed by devres.
 
-If a callback like jadard_get_modes() is invoked, it unconditionally
-dereferences jadard->desc. Since jadard->desc is initialized in the lines
-following this drm_panel_add() call, could this lead to a NULL pointer
-dereference and kernel panic?
+Could this leave dangling I2C adapters and permanently leak the kzalloc'd
+memory?
 
-> =20
->  	mipi_dsi_set_drvdata(dsi, jadard);
->  	jadard->dsi =3D dsi;
->  	jadard->desc =3D desc;
+
+Another pre-existing issue in the same file involves a similar underflow:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c:amdgpu_atombios_lookup_gpio() {
+	...
+	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_off=
+set)) {
+		gpio_info =3D (struct _ATOM_GPIO_PIN_LUT *)(ctx->bios + data_offset);
+
+		num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
+			sizeof(ATOM_GPIO_PIN_ASSIGNMENT);
+	...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code overflow
+num_indices if size is less than 4 bytes?
+
+Since size is a u16 and sizeof(ATOM_COMMON_TABLE_HEADER) is 4, a size small=
+er
+than 4 will cause the subtraction to underflow in an unsigned context.
+
+Could this result in a massive num_indices value, causing the subsequent lo=
+op
+to read far beyond the bounds of the VBIOS allocation?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-577-sashal@kernel.org?part=3D1
+787-569-sashal@kernel.org?part=3D1
