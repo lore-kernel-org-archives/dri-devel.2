@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D4F7C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0AF3C61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:49:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9891210E768;
-	Mon, 31 Aug 2026 08:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3426810E75A;
+	Mon, 31 Aug 2026 08:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gbDHipVr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DiQJ30f/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150A610E768;
- Mon, 31 Aug 2026 08:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788165570; x=1819701570;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=0KKqHFw8XK+ve5kQMHK/088YUDcnJVKDJLDld/gQpi0=;
- b=gbDHipVry2PvNsrdPHjVohCAOLTPZawOKcGuVJdUQdAY8dz19uTF6cNQ
- I5HHfvnHO4TqZTx5/j1rU+CSLX6QgFT1dd/eQOLXr7X4tZk4ugLlxbIWH
- u6GuMxmdTKjPHgTtrwnQ6cHo3l5QpAvh23cUJv/mwNrjsbgzROJ+L6hV0
- TeM9Rr+fSoVxF3pcmnCS9si9qMi8yFbFbGNuKqMSZgHn2kgPlXOEPSllE
- OsitkY5zuR7lvq6aRsEcVFCeaSELsThRG1bs++RL1iwKsrq49fdatRFRA
- /aWjMbmp33HbJ9K6OioNVm05lw063s3jM+OcdCD1/Ti0XsdCpJYJoMO5d Q==;
-X-CSE-ConnectionGUID: H34opy+lQgaEtObDriXdcw==
-X-CSE-MsgGUID: eZlRBiRpSKW1rfwEHfQItA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88771513"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="88771513"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:39:16 -0700
-X-CSE-ConnectionGUID: YyVaJv3jQL6YcIPxuStXAw==
-X-CSE-MsgGUID: MHQc5K9fTgC+UYEt9WH6IQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="306977554"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:39:14 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>, Krzysztof Karas
- <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andi
- Shyti <andi.shyti@linux.intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>
-Subject: Re: [PATCH v3 2/8] drm/i915/selftests: Use drm_* prints in live
- selftests
-In-Reply-To: <apGtyDcru1fptbcX@kniemiec-mobl1>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260828100339.72304-1-krzysztof.karas@intel.com>
- <20260828100339.72304-3-krzysztof.karas@intel.com>
- <apGtyDcru1fptbcX@kniemiec-mobl1>
-Date: Mon, 31 Aug 2026 11:39:10 +0300
-Message-ID: <c554f44ecd6c481a7b061f6b729d22d62f5f8f7c@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60BE110E75A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:49:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 20DAA41AAD;
+ Mon, 31 Aug 2026 08:49:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADED01F000E9;
+ Mon, 31 Aug 2026 08:49:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788166142;
+ bh=ijAzzobdrK9v1uftPq1rk2JJGtUzAPqOY3nwGtZR9bk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DiQJ30f/TI50Bw7BCJBQPxHCpRMr1RgruBmdM4/u6cMfuEifceJPjUHTi3GXo9VR9
+ vgi6WLDO9dQTGCqvraKvYQ5wwtSVmXeYtfxEPxlu6uWsb/SgetZHFWoZbEmaeO3LpG
+ EArRhS7XSJnmd3LYW9PxwMEU0z3NNA/do0lGdhe7luCx23OEDQaksA01DBP+hyj7Es
+ +usNI74QWp6hRIR0sNXaGPRxqsmpt9gP5hFDos3rWOMP42cBbnTnrVv08Mf4L81HVo
+ i1WB58Hfls+Y31gJo/HuaD1mIrfa+Mrfn9pYbD02HyC/lZPKz/z03SSIgRC1Xngepz
+ TLsZRLKqbsnxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 04/14] accel/rocket: let the core suspend after a reset
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260831081956.84871-5-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-5-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 08:49:01 +0000
+Message-Id: <20260831084901.ADED01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +54,139 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026, Krzysztof Niemiec <krzysztof.niemiec@intel.com> wrote:
->> @@ -34,6 +36,7 @@
->>  #include "gt/intel_gpu_commands.h"
->>  #include "gt/intel_gtt.h"
->>  
->> +#include "../i915_drv.h"
->
-> Is the ../ really necessary here? It builds for me if i just switch to
-> #include "i915_drv.h", other includes treat driver/gpu/drm/i915 as the
-> working dir. I've seen both styles used in the selftests but it just
-> looks a bit out of place here.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Using ../ is generally just the plain wrong thing to do.
+New issues:
+- [High] Using asynchronous pm_runtime_put_autosuspend() instead of a synch=
+ronous suspend in the reset path prevents the required power domain cycle i=
+f the next job is submitted immediately.
 
->> diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
->> index e9469e27f42a..d2a1a901d47b 100644
->> --- a/drivers/gpu/drm/i915/selftests/i915_perf.c
->> +++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
->> @@ -14,6 +14,8 @@
->>  #include "igt_flush_test.h"
->>  #include "lib_sw_fence.h"
->>  
->> +#include <drm/drm_print.h>
->> +
->
-> Giga nit, but should this be before the "" includes?
+Pre-existing issues:
+- [High] The shared IRQ handler accesses hardware registers without verifyi=
+ng if the device is active, and the runtime suspend callback powers down ha=
+rdware without synchronizing with in-flight shared IRQs.
+- [High] Reference count leak of the IOMMU group on every job completion in=
+ rocket_job_next_locked().
+- [High] Detaching the IOMMU before halting the hardware during reset cause=
+s SMMU translation faults if the hardware is still active.
+--
 
-It's not even a nit. That's the style that should be adhered to in the
-driver.
+commit b4995381e41020bdb1af33ec4a432209b68f8226
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
+accel/rocket: let the core suspend after a reset
 
-BR,
-Jani.
+This patch modifies rocket_reset to drop the PM reference using
+pm_runtime_put_autosuspend, allowing the core to suspend and trigger
+a bus interface reset upon resuming.
 
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
+om/
 
--- 
-Jani Nikula, Intel
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 3c0ed46050669..a89ab49e17e52 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -406,12 +406,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
+ched_job *bad)
+> =20
+>  	/*
+>  	 * No handler is running now, but we might still have stuck jobs. Let's
+> -	 * make sure the PM counters stay balanced by manually calling
+> -	 * pm_runtime_put_noidle().
+> +	 * make sure the PM counters stay balanced by putting the reference the
+> +	 * job took, and request idle while doing it so the core can suspend.
+>  	 */
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		if (core->in_flight_job)
+> -			pm_runtime_put_noidle(core->dev);
+> +			pm_runtime_put_autosuspend(core->dev);
+
+[Severity: High]
+Does using the asynchronous pm_runtime_put_autosuspend() here prevent the
+required power domain cycle?
+
+If a queued job is submitted immediately after reset, couldn't the autosusp=
+end
+timer be canceled before the core actually suspends?
+
+rocket_reset() finishes by restarting the scheduler:
+
+    /* Restart the scheduler */
+    drm_sched_start(&core->sched, 0);
+
+If the scheduler restarts and the next job runs immediately, it will take a
+PM reference and cancel the autosuspend timer before the suspend happens.
+Would using a synchronous suspend instead guarantee the hardware ordering
+constraints are met?
+
+> =20
+>  		iommu_detach_group(NULL, core->iommu_group);
+
+[Severity: High]
+This is a pre-existing issue, but does detaching the IOMMU here before halt=
+ing
+the hardware risk SMMU translation faults?
+
+If a hung job leaves the hardware actively attempting DMA transactions,
+detaching the IOMMU unmaps the device's DMA domain while the transactions a=
+re
+still in flight.
+
+The hardware is reset and halted after the IOMMU group is already detached:
+
+    iommu_detach_group(NULL, core->iommu_group);
+    ...
+    /* Proceed with reset now. */
+    rocket_core_reset(core);
+
+Should the hardware be halted prior to revoking its DMA mappings?
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the shared IRQ handler
+access hardware registers without verifying the device's PM state?
+
+In rocket_job_irq_handler(), the handler reads a hardware register on a sha=
+red
+IRQ line:
+
+    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+
+If an interrupt fires for another device sharing the same IRQ line while the
+NPU is runtime suspended, won't this read unclocked hardware registers and
+potentially cause an asynchronous SError panic?
+
+Additionally, in rocket_device_runtime_suspend(), the hardware is powered d=
+own
+without synchronizing with in-flight shared IRQs:
+
+    clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks,=20
+                               rdev->cores[core].clks);
+
+Could this crash the kernel if the handler is executing mid-flight while the
+clocks are disabled?
+
+[Severity: High]
+This is a pre-existing issue, but does rocket_job_next_locked() leak an IOM=
+MU
+group reference on every normal job completion?
+
+The group reference count is incremented but not decremented when detaching:
+
+    iommu_detach_group(NULL, iommu_group_get(core->dev));
+
+Because jobs execute continuously, won't this eventually saturate the refco=
+unt
+and permanently leak the IOMMU group object on teardown?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D4
