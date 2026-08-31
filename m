@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84CAFC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D764C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC98110E871;
-	Mon, 31 Aug 2026 13:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2B1F10E867;
+	Mon, 31 Aug 2026 13:39:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KMemD5QT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TU0deoEd";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7CC010E86E;
- Mon, 31 Aug 2026 13:39:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93A4510E872
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:39:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E3E46013A;
- Mon, 31 Aug 2026 13:39:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496451F00A3E;
- Mon, 31 Aug 2026 13:39:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 09A1F60234;
+ Mon, 31 Aug 2026 13:39:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA7C31F00A3E;
+ Mon, 31 Aug 2026 13:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183569;
- bh=EDqKTx3gOSoZfRW9jHc0bsmOKn93TJJmzcehz6G2TuQ=;
+ s=k20260515; t=1788183574;
+ bh=iZdEIvs0YPkL9TaMhVLdj8d4VxnHIDPlVGUIzvCCD40=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=KMemD5QTv+Rk3X2B+FindAtp/oRdui2eWTZ2anrhonvt6vRXXOG37ceX/CVslsp33
- tDNjhtaQUzEhRE3PjndIY1BkzMwCnCRNojdOvqYIT+LWWDVbqVUTJGFERo5lGKYLNH
- Ik5ka3Z/3jKkUE8LKjdeSFKBEjEj75SACqkUC+y0cI8L9wyiX3QLOWHSzqrpQmHEXS
- xYnoZsP2AX0jnE73QjVy2Wm5On4rcB/3HOcOu/hDggeYgDifAExO7A4GrJuFsFOPDP
- t2PHhfWSjZ6yQ2DCSZjJPD+7xFU7DXdZZbg08B2sl9z/kg15XL4nHFhNLKcyTx4UEm
- 67vygMDNY50xQ==
+ b=TU0deoEd2dvSc2hhifpfCKSGESTA3qMsgZ3IC35yYtjxzAXDlcr73vzS0F5WBAmLo
+ OyJMsEJVvm+JLdrsFKBh66goz/MiP32Oqt08WiA9BUzmHwDhW+hn4tbqFXgeNx0FTP
+ /t+wpAjXeEio34Xi0wHmcCXEJRVquWVRHbZGmUlH30ExbelZtjq7jVZDP0373huXVZ
+ rAvgWMxVmIbSaUrfSkXRw28VH3we+YXHjpsIf8n4pcURKJstp64MyTc/8pFSi+pAra
+ xajD/cuoNSTqMTTZQ0mxAmDKtf/dUlep/D84QvkbNe446TC1UnperYEwdW0pCJhUtp
+ nParl5zl0KKyw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Brajesh Gupta <brajesh.gupta@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>, Sasha Levin <sashal@kernel.org>,
- alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, imagination@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/imagination: Populate FW common context
- ID before passing to the FW
-Date: Mon, 31 Aug 2026 09:23:22 -0400
-Message-ID: <20260831133314.4125787-174-sashal@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm: renesas: rzg2l_mipi_dsi: Fix
+ deassert/assert of CMN_RSTB signal
+Date: Mon, 31 Aug 2026 09:23:25 -0400
+Message-ID: <20260831133314.4125787-177-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,281 +67,274 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-[ Upstream commit de1e8a590f4ed48b6b7902fc3aafc878262f8278 ]
+[ Upstream commit 8065890f5cda3f8a503f3b9d326aab0e9cca39e7 ]
 
-Initialise the context ID for the FW common context correctly by moving
-the context allocation earlier.
+The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
+requires deasserting the CMN_RSTB signal after setting the Link registers.
+Move the reset_control_deassert() call from rzg2l_mipi_dsi_dphy_init() to
+rzg2l_mipi_dsi_startup(), placing it after the Link register writes. This
+reset signal is optional for RZ/V2H SoCs, so add a NULL check. Drop the
+unused ret variable from rzg2l_mipi_dsi_dphy_init().
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Reviewed-by: Matt Coster <matt.coster@imgtec.com>
-Link: https://patch.msgid.link/20260519-b4-context_reset-v2-1-931018a7131d@imgtec.com
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+The CMN_RSTB signal is not required for reading PHY registers in the
+probe. Move reset_control_assert() from rzg2l_mipi_dsi_dphy_exit() to
+rzg2l_mipi_dsi_stop(), placing it before the dphy_exit() call. Since this
+reset signal is optional for RZ/V2H, the call is a no-op on that SoC.
+
+Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Link: https://patch.msgid.link/20260330104450.128512-4-biju.das.jz@bp.renesas.com
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/imagination — Populate FW common context
-ID
+# Stable Backport Analysis: `drm: renesas: rzg2l_mipi_dsi: Fix
+deassert/assert of CMN_RSTB signal`
 
-**Local tree:** v6.18.44 (`make kernelversion` → 6.18.44)
+**Local tree:** Linux **6.18.43** (`v6.18.43`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject line
-**Record:** `[drm/imagination]` `[Populate]` — Initialise/populate the
-firmware common context’s `server_common_context_id` before firmware
-structures are built and copied to the GPU.
+- **Record:** `[drm: renesas: rzg2l_mipi_dsi]` **`Fix`** — correct
+  CMN_RSTB reset deassert/assert timing per RZ/G2L hardware manual.
 
 ### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Brajesh Gupta `<brajesh.gupta@imgtec.com>` (author)
-- **Reviewed-by:** Matt Coster `<matt.coster@imgtec.com>`
-- **Link:** https://patch.msgid.link/20260519-b4-context_reset-v2-1-
-  931018a7131d@imgtec.com (suggests patch 1 of a “context_reset” v2
-  series)
-- **Signed-off-by:** Matt Coster (maintainer SOB)
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable, syzbot, or Acked-by
-  tags
+- **Fixes:** — none
+- **Reported-by:** — none
+- **Tested-by:** Tommaso Merciai `<tommaso.merciai.xr@bp.renesas.com>`
+- **Reviewed-by:** Tommaso Merciai `<tommaso.merciai.xr@bp.renesas.com>`
+- **Link:** https://patch.msgid.link/20260330104450.128512-4-
+  biju.das.jz@bp.renesas.com
+- **Cc: stable:** — not in the committed message (patches 1–2 of the
+  same series did include it)
+- **Signed-off-by:** Biju Das (ignore pipeline SOB markers)
+
+**Record:** Hardware-tested and reviewed by a Renesas engineer; part of
+v3 series “Improvements on RZ/G2L MIPI DSI driver”. No syzbot/crash
+tags.
 
 ### Step 1.3: Body analysis
-**Record:**
-- **Bug:** `ctx->ctx_id` is not allocated before firmware common-context
-  structures are initialised.
-- **Symptom:** `server_common_context_id` written into the FW context
-  image is 0 (uninitialised) instead of the real kernel-assigned ID.
-- **Root cause:** `xa_alloc(&pvr_dev->ctx_ids, …)` happens after
-  `pvr_context_create_queues()` / `pvr_fw_object_create()`, but
-  `init_fw_context()` in the queue path already does
-  `cctx_fw->server_common_context_id = ctx->ctx_id`.
-- **Fix approach:** Move `ctx_id` allocation earlier; add
-  `err_free_ctx_id` cleanup; simplify the `ctx_handles` allocation
-  failure path.
+- **Bug:** CMN_RSTB is deasserted in `rzg2l_mipi_dsi_dphy_init()` before
+  Link-layer registers are programmed in `rzg2l_mipi_dsi_startup()`.
+  RZ/G2L HW manual §34.4.2.1 requires deassert **after** Link register
+  writes.
+- **Symptom:** Incorrect DSI hardware bring-up sequence; display may
+  fail or behave unreliably on RZ/G2L SoCs with the `rst` reset line.
+- **Root cause:** Reset sequencing does not match hardware manual
+  ordering.
+- **Shutdown side:** `reset_control_assert()` moved from `dphy_exit()`
+  to `stop()` (before PHY teardown), since CMN_RSTB is not needed for
+  PHY register access during exit.
+
+**Record:** Hardware-init correctness bug on Renesas RZ/G2L MIPI DSI;
+optional on RZ/V2H (`rstc` may be NULL).
 
 ### Step 1.4: Hidden bug fix?
-**Record:** Yes — despite “Populate” wording, this is a real
-initialization-order bug: wrong ID is baked into firmware context data
-for every context created.
+- **Record:** No — this is an explicit hardware-sequence fix, not
+  disguised cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/imagination/pvr_context.c` only
-- **Scope:** ~+10 / -8 lines (small, single-file)
-- **Function modified:** `pvr_context_create()`
-- **Classification:** Surgical initialization-order fix in one function
+- **Files:** `drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c` — 9
+  insertions, 9 deletions
+- **Functions:** `rzg2l_mipi_dsi_dphy_init()`,
+  `rzg2l_mipi_dsi_dphy_exit()`, `rzg2l_mipi_dsi_startup()`,
+  `rzg2l_mipi_dsi_stop()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code flow change
-**Record:**
-
+### Step 2.2: Code flow changes
 | Hunk | Before | After |
 |------|--------|-------|
-| Allocation order | `create_queues` → `init_fw_objs` →
-`fw_object_create` → `xa_alloc(ctx_id)` | `xa_alloc(ctx_id)` →
-`create_queues` → `init_fw_objs` → `fw_object_create` |
-| `init_fw_context()` | `ctx->ctx_id == 0` (from `kzalloc`) |
-`ctx->ctx_id` is the real xarray ID |
-| `ctx_fw_data_init` memcpy | Copies FW image with
-`server_common_context_id = 0` | Copies FW image with correct ID |
-| Error path | `pvr_fw_object_create` failure → `err_free_ctx_data`
-(skipped queue teardown) | → `err_destroy_queues` (correct) |
-| New label | N/A | `err_free_ctx_id` with `xa_erase()` when creation
-fails before userspace handle exists |
-| `ctx_handles` failure | Special `pvr_context_put()` return | Normal
-`goto err_destroy_fw_obj` |
+| `dphy_init()` | Deassert CMN_RSTB + 1 ms sleep after PHY timing writes
+| PHY timing only; no reset |
+| `dphy_exit()` | Assert CMN_RSTB after PHY power-down | PHY power-down
+only |
+| `startup()` | Link register writes, then return | Link writes, then
+deassert CMN_RSTB + 1 ms sleep (with NULL check) |
+| `stop()` | Call `dphy_exit()` only | Assert CMN_RSTB, then
+`dphy_exit()` |
+
+**Record:** Normal display enable/disable path (`atomic_pre_enable` →
+`startup`; `atomic_post_disable` → `stop`).
 
 ### Step 2.3: Bug mechanism
-**Record:** **Initialization / logic correctness bug.** Category:
-uninitialized/wrong field passed to firmware.
-
-Execution path (verified in tree):
-1. `pvr_context_create()` → `kzalloc()` → `ctx->ctx_id = 0`
-2. `pvr_context_create_queues()` → `pvr_queue_create()` →
-   `init_fw_context()` sets `cctx_fw->server_common_context_id =
-   ctx->ctx_id` (still 0) into `ctx->data`
-3. `pvr_fw_object_create()` → `ctx_fw_data_init()` memcpy’s `ctx->data`
-   to device FW memory — wrong ID permanently stored
-4. Only then `xa_alloc(&pvr_dev->ctx_ids, …)` assigns real ID (≥1 with
-   `XA_FLAGS_ALLOC1`)
+- **Category:** Hardware initialization sequence / workaround
+- **Mechanism:** CMN_RSTB released before Link-layer configuration
+  completes, violating required reset sequence.
 
 ### Step 2.4: Fix quality
-**Record:** Obviously correct — allocate ID before use. Minimal reorder
-plus proper `xa_erase` on early failure. Low regression risk; error-path
-cleanup is improved (fw_object failure now tears down queues).
+- **Record:** Minimal, matches manual, uses existing `err_phy` path on
+  deassert failure, NULL-safe for RZ/V2H. Low regression risk.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## PHASE 3: GIT HISTORY
 
 ### Step 3.1: Blame
-**Record:**
-- Buggy ordering from `d2d79d29bb98a` (Nov 2023, “Implement context
-  creation/destruction ioctls”)
-- `init_fw_context()` writing `ctx->ctx_id` from `eaf01ee5ba28b` (Nov
-  2023, “Implement job submission and scheduling”)
-- Both commits are ancestors of HEAD — bug present since job-submission
-  support landed
+- Buggy reset code introduced in `a4871e6201c46` (May 2025, Thomas
+  Zimmermann) when driver was added.
+- Delay tuning in `aa8ad3e0d1fe9` (already in 6.18.43).
+
+**Record:** Bug present since driver introduction; long-standing on
+RZ/G2L platforms.
 
 ### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+- **Record:** N/A — no Fixes: tag in this commit.
 
-### Step 3.3: Related file history
-**Record:** Recent `pvr_context.c` changes in this tree:
-- `c45fafa69fe3f` — fix `pvr_vm_context_lookup()` error checking (minor
-  context around patch hunks)
-- `c88fdbf3da26e` — fix double `drm_sched_entity_fini()`
-- `b0ef514bc6bbd` — per-file context list
-- Standalone fix; not marked as part of a multi-patch dependency in the
-  commit itself
+### Step 3.3: Related commits
+- `300a2d970a535` — Move `set_display_timing()` — **present in tree**
+- `aa8ad3e0d1fe9` — Increase reset deassertion delay — **present in
+  tree**
+- `8065890f5cda3` — This CMN_RSTB fix — **NOT present in tree**
+- `79f42487ed60d` — Kernel panic on reboot fix — **present in tree**
+
+**Record:** Patch 3/3 of a v3 series; prerequisites 1/3 and 2/3 already
+backported to 6.18.43.
 
 ### Step 3.4: Author context
-**Record:** Brajesh Gupta has prior imagination fixes in-tree
-(`c88fdbf3da26e`, `902fd1026ca42`). Reviewed by Imagination colleague
-Matt Coster.
+- Biju Das is active Renesas maintainer for rz-du/MIPI DSI.
+- **Record:** Subsystem maintainer fix with hardware validation.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisite commits required. Patch only reorders
-existing calls in `pvr_context_create()`. Link suggests it’s patch 1 of
-a context-reset series, but the ID bug exists independently in current
-code.
+- **Record:** Standalone relative to master-only RZ/V2H CPG work.
+  Depends on patches 1–2 of the same series, which are already in this
+  tree. Cherry-pick applies cleanly (verified).
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## PHASE 4: MAILING LIST RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c HEAD` did not match this commit (not in tree).
-Link points to `context_reset-v2-1`. Lore/patch.msgid.link blocked by
-bot protection — **could not read thread content**.
+### Step 4.1: Discussion
+- **b4 dig -c 8065890f5cda3:** https://patch.msgid.link/20260330104450.1
+  28512-4-biju.das.jz@bp.renesas.com
+- **Series:** v1 → v2 → v3; committed version is v3 3/3 (latest).
+- **Review:** Tommaso Merciai — “Looks good to me”; Reviewed-by +
+  Tested-by on RZ/G3E.
+- **NAKs:** None found.
+- **Stable:** Patches 1/3 and 2/3 submitted with `Cc:
+  stable@vger.kernel.org`; patch 3/3 did not include it in the email,
+  but cover letter describes HW-manual compliance series.
 
 ### Step 4.2: Reviewers
-**Record:** UNVERIFIED via b4 -w (commit not in tree). Commit lists
-Reviewed-by: Matt Coster (Imagination).
+- CC'd: dri-devel, linux-renesas-soc, DRM maintainers (Lankhorst,
+  Ripard, Zimmermann, Airlie, Vetter), Laurent Pinchart.
+- **Record:** Appropriate subsystem review chain.
 
-### Step 4.3: Bug reports
-**Record:** No Reported-by or bugzilla/syzbot links. No user crash
-reports in commit message.
+### Step 4.3: Bug report
+- **Record:** No external bugzilla/syzbot report. Validation is hardware
+  testing on RZ/G3E per lore thread.
 
-### Step 4.4: Related series
-**Record:** Link name implies a context-reset v2 series.
-`pvr_context_lookup_id()` exists in `pvr_context.h` but has **no
-callers** in this tree yet — context-reset host handling appears not
-merged. The ID bug still affects FW context creation today.
+### Step 4.4: Series context
+- Cover letter (v3 0/3): manual requires PHY timing + Link register
+  writes **before** CMN_RSTB deassert; v2→v3 merged patches 2+3 “to
+  avoid breakage.”
+- **Record:** Incomplete without this patch if delay fix (patch 2) is
+  already applied.
 
-### Step 4.5: Stable list history
-**Record:** UNVERIFIED — lore.kernel.org inaccessible.
+### Step 4.5: Stable list
+- Patches 1–2 explicitly CC'd stable and were backported to 6.18.y.
+- **Record:** Strong implicit stable intent for the full series.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `pvr_context_create()`, `pvr_context_create_queues()`,
-`init_fw_context()` (in `pvr_queue.c`), `ctx_fw_data_init()`
+- `rzg2l_mipi_dsi_dphy_init`, `rzg2l_mipi_dsi_startup`,
+  `rzg2l_mipi_dsi_stop`, `rzg2l_mipi_dsi_dphy_exit`
 
 ### Step 5.2: Callers
-**Record:** `pvr_context_create()` called from `pvr_drv.c` via
-`DRM_IOCTL_PVR_CREATE_CONTEXT` — userspace-reachable when
-`CONFIG_DRM_POWERVR` is enabled.
+- `rzg2l_mipi_dsi_startup()` ← `rzg2l_mipi_dsi_atomic_pre_enable()`
+  (display enable)
+- `rzg2l_mipi_dsi_stop()` ← `rzg2l_mipi_dsi_atomic_enable()` error path
+  and `rzg2l_mipi_dsi_atomic_post_disable()` (display disable)
+
+**Record:** Standard DRM atomic display enable/disable path on every
+MIPI DSI panel attach.
 
 ### Step 5.3: Callees
-**Record:** `xa_alloc()` (with `XA_FLAGS_ALLOC1`, IDs start at 1),
-`pvr_context_create_queues()` → `init_fw_context()`,
-`pvr_fw_object_create()` → `ctx_fw_data_init()` memcpy.
+- `reset_control_deassert/assert`, `rzg2l_mipi_dsi_link_write`,
+  `rzg2l_mipi_dsi_phy_write`, `fsleep(1000)`
 
 ### Step 5.4: Reachability
-**Record:** Every GPU context creation from userspace hits this path.
-Trigger: normal driver use on PowerVR hardware (ARM64/RISC-V).
+- Triggered whenever a connected MIPI DSI panel is enabled on
+  `renesas,rzg2l-mipi-dsi` hardware.
+- **Record:** Reachable from normal display operations; not obscure
+  debug path.
 
 ### Step 5.5: Similar patterns
-**Record:** `server_common_context_id` also appears in
-`rogue_fwif_fwccb_cmd_context_reset_data` (FW→host notifications).
-`pvr_context_lookup_id()` is the intended host lookup helper but is
-unused in this tree so far.
+- Same manual section addressed by already-backported delay fix
+  (`aa8ad3e0d1fe9`).
+- **Record:** This completes the reset-sequence work started in that
+  commit.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
 ### Step 6.1: Buggy code present?
-**Record:** **YES.** Current `pvr_context.c` lines 323–336 still
-allocate `ctx_id` after queue/FW init:
+- **Yes.** Lines 271–275 (`reset_control_deassert` in `dphy_init`) and
+  line 289 (`reset_control_assert` in `dphy_exit`) confirmed in 6.18.43.
 
-```323:336:drivers/gpu/drm/imagination/pvr_context.c
-        err = pvr_context_create_queues(ctx, args, ctx->data);
-        // ...
-        err = pvr_fw_object_create(pvr_dev, ctx_size,
-PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-                                   ctx_fw_data_init, ctx, &ctx->fw_obj);
-        // ...
-        err = xa_alloc(&pvr_dev->ctx_ids, &ctx->ctx_id, ctx,
-xa_limit_32b, GFP_KERNEL);
-```
-
-`init_fw_context()` at line 1063 still reads `ctx->ctx_id` during queue
-creation.
-
-### Step 6.2: Backport complications
-**Record:** Expected **clean apply** with at most trivial context drift
-(`c45fafa` changed `pvr_vm_context_lookup` check from `IS_ERR` to
-`!ctx->vm_ctx` — outside the reordered block).
+### Step 6.2: Backport difficulty
+- **Clean apply.** `git cherry-pick --no-commit 8065890f5cda3` succeeded
+  with auto-merge only.
 
 ### Step 6.3: Related fixes already present?
-**Record:** No duplicate fix found. `git log --grep` for
-subject/context-reset in imagination returned nothing relevant.
+- Patches 1/3 and 2/3 of series present; this fix is the missing third
+  piece.
+- **Record:** Tree is in intermediate state — delay fixed but ordering
+  still wrong.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem / criticality
-**Record:** `drivers/gpu/drm/imagination` — GPU DRM driver.
-**IMPORTANT** for PowerVR users; **PERIPHERAL** globally (niche
-hardware: ARM64/RISC-V, `CONFIG_DRM_POWERVR`).
+### Step 7.1: Subsystem
+- **drivers/gpu/drm/renesas/rz-du** — Renesas embedded display (MIPI
+  DSI)
+- **Criticality:** PERIPHERAL (platform-specific), but display is
+  primary output on affected boards.
 
 ### Step 7.2: Activity
-**Record:** Actively maintained — multiple imagination fixes in recent
-6.18 history.
+- Active development: panic fix, runtime PM, reset timing, display
+  timing ordering all landed recently in 6.18.y.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who is affected
-**Record:** Users of Imagination PowerVR GPUs with the in-tree driver.
-Config-dependent (`CONFIG_DRM_POWERVR`).
+- Users of Renesas RZ/G2L SoCs with MIPI DSI displays
+  (`renesas,rzg2l-mipi-dsi`).
+- RZ/V2H unaffected (optional `rst` line; `reset_control_*` is NULL-
+  safe).
 
 ### Step 8.2: Trigger conditions
-**Record:** Every successful `DRM_IOCTL_PVR_CREATE_CONTEXT` call. Common
-during normal GPU use; requires DRM device access (typically equivalent
-to GPU client privileges).
+- Every display enable/disable on RZ/G2L with CMN_RSTB wired.
+- **Likelihood:** Common on affected hardware.
 
-### Step 8.3: Failure mode / severity
-**Record:**
-- **Failure mode:** All FW common contexts get `server_common_context_id
-  = 0` while kernel tracks IDs ≥1. Firmware cannot correctly map FW
-  contexts back to host contexts. With multiple contexts, IDs collide at
-  0 in firmware.
-- **Severity:** **HIGH** for correctness of FW-host communication;
-  **MEDIUM-HIGH** for user impact — can break context identification on
-  GPU faults/resets and potentially cause mis-targeted recovery, hangs,
-  or failed job recovery. Not a guaranteed boot-time crash, but a
-  systematic data error on a hot path.
+### Step 8.3: Failure mode
+- Incorrect DSI bring-up per hardware manual → display may not work or
+  may be unreliable.
+- **Severity:** HIGH for affected users (no display); not a kernel
+  crash/oops.
 
-### Step 8.4: Risk vs benefit
-**Record:**
-- **Benefit:** Correct firmware metadata for every context; enables
-  reliable FW-host context correlation; prerequisite for context-reset
-  handling.
-- **Risk:** Very low — pure reorder + cleanup, no API changes.
-- **Ratio:** Favorable for backport.
+### Step 8.4: Risk-benefit
+- **Benefit:** Correct hardware init; completes already-partially-
+  backported series; tested on RZ/G3E.
+- **Risk:** Very low — 18-line reorder, no API changes, NULL-safe.
+- **Ratio:** Strong benefit, minimal risk for RZ/G2L users.
 
 ---
 
@@ -350,172 +343,135 @@ to GPU client privileges).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, verifiable initialization-order bug present since 2023
-- Buggy code confirmed in v6.18.44
-- Every context creation passes wrong ID to firmware
-- Small, obviously correct, single-file fix
-- Reviewed by driver developer
-- Improves error-path cleanup
-- Userspace-reachable via standard DRM ioctl
+- Real hardware-init bug per official RZ/G2L manual
+- Small, surgical, tested on hardware
+- Prerequisites already in 6.18.43
+- Applies cleanly
+- Completes v3 series whose first two patches were already backported
+- Reviewed by Renesas engineer with Tested-by on RZ/G3E
+- Same driver already receives stable fixes (panic on reboot, delay,
+  timing order)
 
 **AGAINST backport:**
-- No syzbot/user crash reports in commit message
-- Driver is niche (limited hardware base)
-- Context-reset consumer code not yet in tree (mitigates immediate crash
-  evidence, not the underlying wrong FW data)
-- Lore review thread not accessible for stable nomination check
+- Platform-specific peripheral driver
+- No crash/security/data-corruption report
+- Patch 3/3 lacks explicit `Cc: stable` in commit message
 
-**Unresolved:** Full mailing-list review discussion; whether users have
-filed external bug reports.
+**Unresolved:** Exact failure modes on all RZ/G2L boards without the fix
+(manual violation vs. observed “display broken”).
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reorder is self-evident;
-   Reviewed-by present; no Tested-by
-2. Fixes a real bug affecting users? **PASS** — wrong FW context ID on
-   every context create
-3. Important issue? **PASS** — GPU driver correctness / fault-recovery
-   integrity (HIGH correctness, MEDIUM-HIGH user impact)
-4. Small and contained? **PASS** — one file, ~20 lines
-5. No new features or APIs? **PASS**
-6. Can apply to local tree? **PASS** — bug and code present; clean apply
-   expected
+1. Obviously correct and tested? **PASS** — manual compliance + Tested-
+   by on RZ/G3E
+2. Fixes real bug? **PASS** — incorrect reset sequencing
+3. Important issue? **PASS** — display failure on affected embedded
+   platforms
+4. Small and contained? **PASS** — 1 file, ~18 lines
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — cherry-picks cleanly;
+   prerequisites present
 
-### Step 9.3: Exception categories
-**Record:** None (not a quirk/DT/build/doc-only change).
+### Step 9.3: Exception category
+- **Hardware workaround / init quirk** — correcting reset sequence per
+  SoC manual.
 
 ### Step 9.4: Decision rationale
-
-This commit fixes a longstanding ordering bug: `init_fw_context()`
-stamps `server_common_context_id` from `ctx->ctx_id` before `xa_alloc()`
-runs, so firmware always receives 0 (invalid with `XA_FLAGS_ALLOC1`)
-instead of the real ID. That wrong value is permanently copied into the
-FW object. For PowerVR users on 6.18.y, this is a real correctness fix
-with minimal risk and clear technical merit under stable rules.
+This tree (6.18.43) already carries patches 1/3 and 2/3 of the same
+hardware-manual compliance series but not the final ordering fix.
+Without it, CMN_RSTB is still deasserted before Link register
+programming, which the RZ/G2L manual explicitly forbids. The fix is
+small, tested, low-risk, and completes work stable maintainers already
+started for this driver.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message
-- **[Phase 2]** Diff analysis: reorder `xa_alloc(ctx_id)` before
-  `pvr_context_create_queues()`; new `err_free_ctx_id`; error-path fix
-  confirmed
-- **[Phase 3]** `git describe HEAD` → v6.18.44; `make kernelversion` →
-  6.18.44
-- **[Phase 3]** `git blame` on `pvr_context.c:323-340` → ordering from
-  `d2d79d29bb98a`/`eaf01ee5ba28b`
-- **[Phase 3]** `git blame` on `pvr_queue.c:1063` →
-  `server_common_context_id = ctx->ctx_id` since `eaf01ee5ba28b`
-- **[Phase 3]** `git merge-base --is-ancestor eaf01ee5ba28b HEAD` →
-  buggy code in tree
-- **[Phase 3]** `git log --oneline -20 --
-  drivers/gpu/drm/imagination/pvr_context.c` → recent related fixes
-  listed
-- **[Phase 4]** `b4 dig -c HEAD` → no match (commit not in tree)
-- **[Phase 4]** WebFetch lore/patch.msgid.link → blocked (bot
-  protection); thread content UNVERIFIED
-- **[Phase 4]** No matching `.mbx` in workspace for this patch
-- **[Phase 5]** Read `pvr_context.c`, `pvr_queue.c` `init_fw_context()`
-  — confirmed write-before-alloc
-- **[Phase 5]** `grep pvr_context_lookup_id` → only definition in
-  header, no callers
-- **[Phase 5]** `grep server_common_context_id` → used in FW structures
-  and `init_fw_context()`
-- **[Phase 5]** `pvr_drv.c` → `DRM_IOCTL_PVR_CREATE_CONTEXT` calls
-  `pvr_context_create()`
-- **[Phase 6]** Read current `pvr_context.c:323-336` — buggy order
-  confirmed
-- **[Phase 6]** `git merge-base --is-ancestor 4babef0708656 HEAD` →
-  imagination driver in tree
-- **[Phase 6]** `XA_FLAGS_ALLOC1` in `pvr_context_device_init()` — IDs
-  start at 1, 0 is invalid
-- **[Phase 7]** `Kconfig DRM_POWERVR` — ARM64/RISC-V only
-- **[Phase 8]** Failure mode derived from verified code flow, not
-  speculation
-
-**YES**The background searches finished:
-
-- **Commit search** (`git log --grep='Populate FW common context'` /
-  `context ID`): no match in this tree — the patch isn’t applied here
-  yet, which matches the earlier finding that v6.18.44 still has the
-  buggy allocation order.
-- **Author history** (`Brajesh Gupta` in
-  `drivers/gpu/drm/imagination/`): two prior commits — `c88fdbf3da26e`
-  (fix double `drm_sched_entity_fini()`) and `902fd1026ca42` (wait for
-  FW trace update completion).
-
-Nothing in those results changes the analysis: this is a real
-initialization-order bug in `pvr_context_create()`, the fix is small and
-low-risk, and it should be backported to this 6.18.y tree.
+- [Phase 1] `git describe HEAD` → v6.18.43; parsed commit message and
+  tags
+- [Phase 2] Read current `rzg2l_mipi_dsi.c`; confirmed reset calls at
+  lines 271–275 and 289
+- [Phase 3] `git blame` → reset code from `a4871e6201c46`; `git log --
+  drivers/.../rzg2l_mipi_dsi.c` → series history
+- [Phase 3] `git merge-base --is-ancestor` → patches 1/3 and 2/3
+  present; 8065890f5cda3 absent
+- [Phase 4] `b4 dig -c 8065890f5cda3` → lore URL found
+- [Phase 4] `b4 dig -a` → v1/v2/v3 series; v3 is latest
+- [Phase 4] `b4 dig -w` → DRM/Renesas maintainers CC'd
+- [Phase 4] `/tmp/cmn_rstb_thread.mbox` → Reviewed-by, Tested-by on
+  RZ/G3E; no NAKs; cover letter describes manual requirements
+- [Phase 5] `grep rzg2l_mipi_dsi_startup/stop` → called from
+  atomic_pre_enable/post_disable
+- [Phase 5] `drivers/reset/core.c` →
+  `reset_control_assert/deassert(NULL)` returns 0 (no-op)
+- [Phase 6] Buggy code confirmed in 6.18.43 tree
+- [Phase 6] `git cherry-pick --no-commit 8065890f5cda3` → exit 0, auto-
+  merge only
+- [Phase 8] Driver supports `renesas,rzg2l-mipi-dsi` compatible string
+  in local tree
 
 **YES**
 
- drivers/gpu/drm/imagination/pvr_context.c | 30 ++++++++++++-----------
- 1 file changed, 16 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/imagination/pvr_context.c
-index d9066a4fefcf3..5befaed562ac6 100644
---- a/drivers/gpu/drm/imagination/pvr_context.c
-+++ b/drivers/gpu/drm/imagination/pvr_context.c
-@@ -320,10 +320,14 @@ int pvr_context_create(struct pvr_file *pvr_file, struct drm_pvr_ioctl_create_co
- 		goto err_put_vm;
- 	}
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 04a24ff9dde15..1c6f29c285b65 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -228,7 +228,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	u32 dphytim1;
+ 	u32 dphytim2;
+ 	u32 dphytim3;
+-	int ret;
  
--	err = pvr_context_create_queues(ctx, args, ctx->data);
-+	err = xa_alloc(&pvr_dev->ctx_ids, &ctx->ctx_id, ctx, xa_limit_32b, GFP_KERNEL);
- 	if (err)
- 		goto err_free_ctx_data;
+ 	/* All DSI global operation timings are set with recommended setting */
+ 	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
+@@ -268,12 +267,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM2, dphytim2);
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM3, dphytim3);
  
-+	err = pvr_context_create_queues(ctx, args, ctx->data);
-+	if (err)
-+		goto err_free_ctx_id;
-+
- 	err = init_fw_objs(ctx, args, ctx->data);
- 	if (err)
- 		goto err_destroy_queues;
-@@ -331,23 +335,12 @@ int pvr_context_create(struct pvr_file *pvr_file, struct drm_pvr_ioctl_create_co
- 	err = pvr_fw_object_create(pvr_dev, ctx_size, PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
- 				   ctx_fw_data_init, ctx, &ctx->fw_obj);
- 	if (err)
--		goto err_free_ctx_data;
-+		goto err_destroy_queues;
- 
--	err = xa_alloc(&pvr_dev->ctx_ids, &ctx->ctx_id, ctx, xa_limit_32b, GFP_KERNEL);
-+	err = xa_alloc(&pvr_file->ctx_handles, &args->handle, ctx, xa_limit_32b, GFP_KERNEL);
- 	if (err)
- 		goto err_destroy_fw_obj;
- 
--	err = xa_alloc(&pvr_file->ctx_handles, &args->handle, ctx, xa_limit_32b, GFP_KERNEL);
--	if (err) {
--		/*
--		 * It's possible that another thread could have taken a reference on the context at
--		 * this point as it is in the ctx_ids xarray. Therefore instead of directly
--		 * destroying the context, drop a reference instead.
--		 */
--		pvr_context_put(ctx);
--		return err;
--	}
+-	ret = reset_control_deassert(dsi->rstc);
+-	if (ret < 0)
+-		return ret;
 -
- 	spin_lock(&pvr_dev->ctx_list_lock);
- 	list_add_tail(&ctx->file_link, &pvr_file->contexts);
- 	spin_unlock(&pvr_dev->ctx_list_lock);
-@@ -360,6 +353,15 @@ int pvr_context_create(struct pvr_file *pvr_file, struct drm_pvr_ioctl_create_co
- err_destroy_queues:
- 	pvr_context_destroy_queues(ctx, true);
+-	fsleep(1000);
+-
+ 	return 0;
+ }
  
-+err_free_ctx_id:
-+	/*
-+	 * Ctx_id is not exposed to userspace and not visible yet within
-+	 * the kernel/FW, plus a matching context handle (exposed to userspace)
-+	 * hasn't been allocated yet, so it is safe to remove ctx_id
-+	 * from the ctx_ids xarray.
-+	 */
-+	xa_erase(&pvr_dev->ctx_ids, ctx->ctx_id);
+@@ -285,8 +278,6 @@ static void rzg2l_mipi_dsi_dphy_exit(struct rzg2l_mipi_dsi *dsi)
+ 
+ 	dphyctrl0 &= ~(DSIDPHYCTRL0_EN_LDO1200 | DSIDPHYCTRL0_EN_BGR);
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
+-
+-	reset_control_assert(dsi->rstc);
+ }
+ 
+ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_freq,
+@@ -393,6 +384,14 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
+ 	dsisetr |= FIELD_PREP(DSISETR_MRPSZ, RZG2L_DCS_BUF_SIZE);
+ 	rzg2l_mipi_dsi_link_write(dsi, DSISETR, dsisetr);
+ 
++	if (dsi->rstc) {
++		ret = reset_control_deassert(dsi->rstc);
++		if (ret < 0)
++			goto err_phy;
 +
- err_free_ctx_data:
- 	kfree(ctx->data);
++		fsleep(1000);
++	}
++
+ 	return 0;
  
+ err_phy:
+@@ -404,6 +403,7 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
+ 
+ static void rzg2l_mipi_dsi_stop(struct rzg2l_mipi_dsi *dsi)
+ {
++	reset_control_assert(dsi->rstc);
+ 	dsi->info->dphy_exit(dsi);
+ 	pm_runtime_put(dsi->dev);
+ }
 -- 
 2.53.0
 
