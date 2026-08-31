@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED7C0C61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2014C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A5410E742;
-	Mon, 31 Aug 2026 08:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B77A210E773;
+	Mon, 31 Aug 2026 08:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QSesg+oN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ULykyjJ9";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE8D610E72D
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:37:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D71110E72D
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:39:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 72BDA60120;
- Mon, 31 Aug 2026 08:37:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F901F000E9;
- Mon, 31 Aug 2026 08:37:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 916E460120;
+ Mon, 31 Aug 2026 08:39:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B751F000E9;
+ Mon, 31 Aug 2026 08:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788165469;
- bh=zPK7G2skHSMGvmLHpUDRvOBrUyC5UZqXT8/pjHHg2MQ=;
+ s=k20260515; t=1788165560;
+ bh=Z1nC9s45kUS9SCI3PfxOqPFRVuW1eHwrjGF6MCvT4w8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QSesg+oNEZ7FU0A+t44evcvdpgOn4MLH3LrwKCP+3GuaUml8sowd1NKnV7tbsKBgA
- H0eM5Bxfcb8VLhYEsom1BoHzIAJedfFO+BgL4oE/4qFK2uR3v2t+Ln96M20wltK0bt
- lMry+n8+Gu5ww1scqrGdGFARgjCCkZhRRdeWygtvqaXmzmAweVA4/Ka6Y8dvh1szdF
- 20LSpoV6Buj4qqO/Vo0RJ6ritBBz9GO8YUVnlyRM1xGe4NG4atcAD+JDgdASJfKghx
- X/jgiuqf2OJSIzAVkdUIhpb5O18W5yqzzxRYgY6FlJfmCDA7q0pTpPT4g6L2iE/F/h
- tYwbVjE4b/dDQ==
+ b=ULykyjJ9wctejrNvAFFoZpzaNSsXrxgemwh+gMW4Ro07or9nX72Wi0OBqMi1bL8gb
+ ff8Es9Vp4SQcQY5TdsMDPX6/e+ztFyHQYdrIJifBeq/D8YYIWhCG1T6tKkTot7yAvb
+ KBzyO+Jm+iaDPRVu2NyMpk2yLvL8OSjG6px1NrpyLlmoc65G2wOuPxqgLu75c8YRIx
+ 9eaWzEP+HVjGpuollS1DuvvkVzSKsePVe/4k/JUXAZHaHW95Be3+ckUms5f83z0YgY
+ 5KAcxWVuiu8uHrVqs/m9AdR1ocsqKDj9jJ4kgvGBRiJkx8IdX1fkNA5gcnoQGB7X2S
+ FljhqLJ0RJyjA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 03/14] accel/rocket: wait for a running IRQ handler
- before resetting a core
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260831081956.84871-4-gahing@gahingwoo.com>
-References: <20260831081956.84871-1-gahing@gahingwoo.com>
- <20260831081956.84871-4-gahing@gahingwoo.com>
+Subject: Re: [PATCH v6 05/29] drm/msm/dp: add support for programming
+ p1/p2/p3 register blocks
+To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-msm-dp-mst-v6-5-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-5-c91d35d6fb9e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 08:37:48 +0000
-Message-Id: <20260831083748.C8F901F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 08:39:19 +0000
+Message-Id: <20260831083920.24B751F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,149 +58,119 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Lockless modification of INTERRUPT_MASK in rocket_reset() races wi=
-th concurrent task submission in the IRQ handler, potentially leaving inter=
-rupts enabled.
-- [Medium] Fails to mask interrupts when Runtime PM is disabled, incorrectl=
-y treating -EINVAL as an inactive state.
-
-Pre-existing issues:
-- [High] Missing iommu_group_put() leaks the IOMMU group reference on every=
- completed job.
-- [High] The threaded IRQ handler unconditionally accesses hardware registe=
-rs without ensuring the device is active, causing an async SError on spurio=
-us or delayed interrupts.
+- [High] NULL pointer dereference when an optional pixel register block is =
+missing from the device tree.
 --
 
-commit dafaccb47666f525ef9a0018c8357108f3591b85
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+commit 8cc66577964ef75238881b3b8e6ae294ad3ae4f2
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+drm/msm/dp: add support for programming p1/p2/p3 register blocks
 
-accel/rocket: wait for a running IRQ handler before resetting a core
+Add support for additional pixel register blocks (p1, p2, p3) to enable
+4-stream MST pixel clocks. Introduce the helper functions msm_dp_read_pn
+and msm_dp_write_pn for pixel register programming.
 
-rocket_reset() calls drm_sched_stop(), which stops the scheduler and
-returns. It does not wait for a threaded handler that is already
-running, so the comment that follows, "Remaining interrupts have been
-handled", states an assumption rather than something the code arranges.
-
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index fb6607f65dedc..3dce9334d0c25 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
 [ ... ]
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 5f0f9682e57ca..3c0ed46050669 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -377,9 +377,37 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
-hed_job *bad)
->  	drm_sched_stop(&core->sched, bad);
-> =20
->  	/*
-> -	 * Remaining interrupts have been handled, but we might still have
-> -	 * stuck jobs. Let's make sure the PM counters stay balanced by
-> -	 * manually calling pm_runtime_put_noidle().
-> +	 * Mask the block before waiting. hw_submit() arms INTERRUPT_MASK on
-> +	 * every submit and only the hardirq clears it, so on an ordinary
-> +	 * timeout it is still live and a completion can arrive after the sync
-> +	 * returns. The next submit re-arms it, so nothing is lost here.
-> +	 *
-> +	 * Only when the device is already awake, though. This function holds no
-> +	 * runtime PM reference of its own: the only one in the window belongs =
-to
-> +	 * in_flight_job, and the completion path may have put it and cleared t=
-he
-> +	 * pointer before the timeout worker got here. drm_sched_stop() above c=
-an
-> +	 * block for a long time, and it drops every pending job's credits, so
-> +	 * rocket_job_is_idle() is true and nothing keeps the core resumed. On
-> +	 * this hardware a register access with the domain down takes an async
-> +	 * SError, so a reset must not be the thing that causes one.
-> +	 */
-> +	if (pm_runtime_get_if_active(core->dev) > 0) {
-
-[Severity: Medium]
-Does this condition fail to account for the -EINVAL return value when
-Runtime PM is disabled?
-
-pm_runtime_get_if_active() returns -EINVAL when Runtime PM is disabled.
-The condition > 0 evaluates to false, causing the interrupt masking to
-be skipped. Even though the device is always awake when PM is disabled,
-the mask is still required to prevent concurrent access during reset.
-
-[Severity: High]
-Does this lockless register write race with the IRQ handler's hardware
-submission?
-
-If rocket_reset() checks pm_runtime_get_if_active() and writes 0x0 to
-INTERRUPT_MASK concurrently while the threaded IRQ handler calls
-rocket_job_hw_submit() (holding core->job_lock) after reading
-reset.pending =3D=3D 0:
-
-IRQ Handler:
-rocket_job_hw_submit()
-    rocket_pc_writel(core, INTERRUPT_MASK, PC_INTERRUPT_MASK_DPU_0 | PC_INT=
-ERRUPT_MASK_DPU_1);
-
-If this write occurs after rocket_reset()'s write, the interrupt is left
-enabled. This could allow the IRQ handler to execute while the device is
-suspended, triggering an async SError.
-
-> +		rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-> +		pm_runtime_put_autosuspend(core->dev);
-> +	}
+> @@ -843,8 +843,13 @@ void msm_dp_snapshot(struct msm_disp_state *disp_sta=
+te, struct msm_dp *dp)
+>  				    msm_dp_display->aux_base, "dp_aux");
+>  	msm_disp_snapshot_add_block(disp_state, msm_dp_display->link_len,
+>  				    msm_dp_display->link_base, "dp_link");
+> -	msm_disp_snapshot_add_block(disp_state, msm_dp_display->p0_len,
+> -				    msm_dp_display->p0_base, "dp_p0");
 > +
-> +	/*
-> +	 * drm_sched_stop() returns without waiting for a threaded handler that
-> +	 * is already running, so wait for one here. This has to stay outside
-> +	 * job_lock: the handler takes that lock, so waiting for it while
-> +	 * holding it would deadlock instead of fencing anything.
-> +	 */
-> +	synchronize_irq(core->irq);
+> +	for (int i =3D 0; i < DP_STREAM_MAX; i++) {
+> +		if (!msm_dp_ctrl_stream_clks_on(msm_dp_display->ctrl, i))
+> +			continue;
+> +		msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
+> +					    msm_dp_display->pixel_base[i], "dp_p%d", i);
 
+[Severity: High]
+Can this dereference a NULL pointer? If a device tree defines an MST stream=
+'s
+pixel clock but omits its memory region (e.g., p1), msm_dp_display_get_io()
+catches the -EINVAL and explicitly sets msm_dp_display->pixel_base[i] =3D N=
+ULL.
+
+However, the driver later successfully discovers the clock in msm_dp_ctrl_g=
+et(),
+meaning msm_dp_ctrl_stream_clks_on() will return true for the stream.
+
+When this happens, this block passes the NULL pixel_base[i] to
+msm_disp_snapshot_add_block(), which unconditionally dereferences it during
+readl_relaxed().
+
+> +	}
+>  }
+> =20
+>  void msm_dp_display_set_psr(struct msm_dp *msm_dp_display, bool enter)
 [ ... ]
+> @@ -1165,10 +1171,22 @@ static int msm_dp_display_get_io(struct msm_dp_di=
+splay_private *display)
+>  		return PTR_ERR(display->link_base);
+>  	}
+> =20
+> -	display->p0_base =3D msm_dp_ioremap(pdev, 3, &display->p0_len);
+> -	if (IS_ERR(display->p0_base)) {
+> -		DRM_ERROR("unable to remap p0 region: %pe\n", display->p0_base);
+> -		return PTR_ERR(display->p0_base);
+> +	display->pixel_base[0] =3D msm_dp_ioremap(pdev, 3, &display->pixel_len);
+> +	if (IS_ERR(display->pixel_base[0]))
+> +		return PTR_ERR(display->pixel_base[0]);
+> +
+> +	for (i =3D DP_STREAM_1; i < DP_STREAM_MAX; i++) {
+> +		display->pixel_base[i] =3D msm_dp_ioremap(pdev, i + 3, &display->pixel=
+_len);
+> +		if (IS_ERR(display->pixel_base[i])) {
+> +			int ret =3D PTR_ERR(display->pixel_base[i]);
+> +
+> +			if (ret =3D=3D -EINVAL) {
+> +				/* optional resource not present in DT */
+> +				display->pixel_base[i] =3D NULL;
+> +				break;
+> +			}
+> +			return ret;
+> +		}
+>  	}
+> =20
+>  	return 0;
+[ ... ]
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/d=
+p_panel.c
+> index 745ee69768979..7b5fc5bb16def 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+[ ... ]
+> -static inline void msm_dp_write_p0(struct msm_dp_panel_private *panel,
+> -			       u32 offset, u32 data)
+> +static inline void msm_dp_write_pn(struct msm_dp_panel_private *panel,
+> +				   u32 offset, u32 data)
+>  {
+>  	/*
+> -	 * To make sure interface reg writes happens before any other operation,
+> -	 * this function uses writel() instread of writel_relaxed()
+> +	 * Use writel() instead of writel_relaxed() to ensure the interface
+> +	 * register write reaches the hardware before subsequent operations.
+>  	 */
+> -	writel(data, panel->p0_base + offset);
+> +	writel(data, panel->pixel_base + offset);
 
 [Severity: High]
-This is a pre-existing issue, but does this code leak the IOMMU group refer=
-ence
-on every completed job?
+Does this code also cause a NULL pointer dereference? As noted above, if an
+optional pixel register block is missing from the device tree, pixel_base c=
+an
+be NULL, which would cause this unconditional writel() to crash upon stream
+enablement.
 
-drivers/accel/rocket/rocket_job.c:rocket_job_next_locked() {
-    ...
-	iommu_detach_group(NULL, iommu_group_get(core->dev));
-    ...
-}
-
-iommu_group_get() increments the kobject reference counter, but
-iommu_detach_group() does not consume the reference. Without a matching
-call to iommu_group_put(), this causes a permanent resource leak that
-could prevent device unbinding.
-
-[Severity: High]
-This is a pre-existing issue, but does this unconditional register access r=
-isk
-an async SError on spurious or delayed interrupts?
-
-drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
-    ...
-	scoped_guard(mutex, &core->job_lock) {
-		/*
-		 * Stopping the block belongs under the lock. hw_submit() writes
-		 * OPERATION_ENABLE too, and outside the lock this zero can land
-		 * after that one and stop a task that has only just started.
-		 */
-		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-    ...
-}
-
-The threaded IRQ handler unconditionally accesses hardware registers without
-verifying if the device is active (e.g., using pm_runtime_get_if_active()).
-If a spurious or delayed interrupt runs after the device has suspended,
-writing to powered-off hardware will trigger an async SError and kernel
-panic.
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
-1-1-gahing@gahingwoo.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-msm-dp-mst=
+-v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D5
