@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C671C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:52:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7741C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7494D10E8FC;
-	Mon, 31 Aug 2026 13:52:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDB8A10E8FF;
+	Mon, 31 Aug 2026 13:52:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jqOYAdeX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/AIbJ83";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0119910E8FA;
- Mon, 31 Aug 2026 13:52:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B6510E8FD;
+ Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B013441970;
- Mon, 31 Aug 2026 13:52:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD0D1F00A3E;
- Mon, 31 Aug 2026 13:52:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 57FD1434A6;
+ Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA921F00A3D;
+ Mon, 31 Aug 2026 13:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184331;
- bh=KlS/P84QSh8TJgklCQ5BAZQdOWGMmdpiND2aQ7OWxRs=;
+ s=k20260515; t=1788184339;
+ bh=QQjJUuwqF3dl/BsR9mTs4/kOQd2wo43GQXcvfc26Dc8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jqOYAdeXyzskRVFUYm+h97hGAGGcpxwFV0ejZccXzh3Wajbni3UB09ARLIQ2MnLDL
- xhEzHzVBDYt05FZOQXgIom/PInBu85XpfGtbmYLRyF2xzyXSJFHsPujHOJwk+uhWYR
- KX2Hn9ADv55Vgj/7Y8HfRQRa/g8WHOnftIjDxWVB9SSIuX4eqs3KEw/zrf42DaB4c3
- XVIpbx70ozBosblmRdMQUcHAhofZF+nfg0jVcqDgD7xgcmfQMhw31tWmDcHuj3SOvW
- 3CsvRv0T21fZY39HXZY+tB3hDIYzckpJxrnTFEDijeIvN5KZadQWC17wfsEQwlDAHo
- KsJRb67aM88ag==
+ b=j/AIbJ83WoxEzQsG+uHKBnqX7EmB84bQrNan1Ni9YU+/3HbXlycJpafC/5dRJQXwo
+ zIByS93zfUNf27JjTMHKWh2xcJy6sFQxNnC7AZLx7bfhgZawkeqlukwRQy1oPv4obS
+ G/zNLMoX1RVLzfPM5ZaIEF558e4aKZaH4o38+iM7ROCeNBPBwXRdEyKQ3bZf2lqvmI
+ kgHHs3G+1CzUNlJGkyLlfQYGNDifDeP3SxPdSChjmfSZ3aL6Z1ewx7meHg3dyoOsfG
+ Rsl4Y58Yr8aB4eghvVropM7ykRpxDxCEroSMM1L3lTx7bJlb/WZVtnkvz/2GGC2pb3
+ ZhdF7oskK5lpA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Sasha Levin <sashal@kernel.org>, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
+Cc: David Francis <David.Francis@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/xe/guc: Add support for NO_RESPONSE_BUSY in
- CTB
-Date: Mon, 31 Aug 2026 09:30:58 -0400
-Message-ID: <20260831133314.4125787-630-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: Check bounds on allocate_doorbell
+Date: Mon, 31 Aug 2026 09:31:03 -0400
+Message-ID: <20260831133314.4125787-635-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,511 +66,380 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+From: David Francis <David.Francis@amd.com>
 
-[ Upstream commit 4d33314decfeac8b82d771a1bd083a59f4ac6fae ]
+[ Upstream commit 1f087bb8cf9e8797633da35c85435e557ef74d06 ]
 
-We only have support for G2H NO_RESPONSE_BUSY messages over MMIO,
-but it turned out that GuC also uses that type of messages in CTB.
+allocated_doorbell has an option to set the doorbell id
+to a specific value (used by CRIU). This value was not
+bounds checked.
 
-The following error was recently observed on BMG after adding VGT
-policy updates to the GT restart sequence:
+Check to confirm it's less than KFD_MAX_NUM_OF_QUEUES_PER_PROCESS.
 
- [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: G2H channel broken on read, type=3, reset required
- [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: CT dequeue failed: -95
- ...
- [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: Timed out wait for G2H, fence 21965, action 5502, done no
- [] xe 0000:03:00.0: [drm] PF: Tile0: GT1: Failed to push 1 policy KLV (-ETIME)
- [] xe 0000:03:00.0: [drm] Tile0: GT1: { key 0x8004 : no value } # engine_group_config
-
-where type=3 was this unrecognized NO_RESPONSE_BUSY message.
-
-Note that GuC might send the real RESPONSE message right after
-the BUSY message, so we must be prepared to update our g2h_fence
-data twice before sender actually wakes up and clears the flags.
-
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Link: https://patch.msgid.link/20260410110457.573-1-michal.wajdeczko@intel.com
+Signed-off-by: David Francis <David.Francis@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `drm/amdkfd: Check bounds on
+allocate_doorbell`
 
-### Step 1.1: Subject Line
-**Record:** `[drm/xe/guc]` `[Add support for]` — Extend GuC CTB (Command
-Transport Buffer) handling to recognize `GUC_HXG_TYPE_NO_RESPONSE_BUSY`
-messages, mirroring existing MMIO-path support.
-
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Michal Wajdeczko \<michal.wajdeczko@intel.com\>
-- **Cc:** Daniele Ceraolo Spurio \<daniele.ceraolospurio@intel.com\>
-- **Reviewed-by:** Daniele Ceraolo Spurio
-  \<daniele.ceraolospurio@intel.com\>
-- **Link:** https://patch.msgid.link/20260410110457.573-1-
-  michal.wajdeczko@intel.com
-- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, or Cc:
-  stable@vger.kernel.org
-- Notable: Reviewed-by from a co-developer; no syzbot/fuzzer report;
-  real hardware log in commit body
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** GuC can send `NO_RESPONSE_BUSY` (HXG type 3) over the CTB G2H
-  channel, but the CT path only handled it over MMIO. CT treats type 3
-  as unknown and marks the channel broken.
-- **Symptom:** `G2H channel broken on read, type=3, reset required` →
-  `CT dequeue failed: -95` → `Timed out wait for G2H` → `Failed to push
-  1 policy KLV (-ETIME)` with action `0x5502`
-  (`GUC_ACTION_PF2GUC_UPDATE_VGT_POLICY`)
-- **Trigger context:** Observed on BMG (Battlemage) during VGT policy
-  updates in the GT restart sequence
-- **Root cause:** Missing CTB handler for an existing GuC protocol
-  message type; a final response may follow the BUSY message on the same
-  fence
-
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Despite "Add support" wording, this is a protocol-
-handling bug fix. The driver already handles `NO_RESPONSE_BUSY` on MMIO
-(`xe_guc.c`) and in the relay path (`xe_guc_relay.c`); only the CT
-blocking-send path was missing it.
+**Local tree:** Linux 6.18.43 (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/xe/xe_guc_ct.c` — +36 / −2 lines
-- **Functions modified:** `struct g2h_fence`, `g2h_fence_init` area,
-  `guc_ct_send_recv()`, `parse_g2h_response()`, `parse_g2h_msg()`
-- **New:** `g2h_fence_reinit()`
-- **Scope:** Single-file, surgical fix
+### Step 1.1: Subject Line
+**Record:** `[drm/amdkfd]` `[Check]` — Add bounds validation on doorbell
+ID during CRIU restore allocation in `allocate_doorbell()`.
 
-### Step 2.2: Code Flow Changes
+### Step 1.2: Commit Tags
 **Record:**
-- **`g2h_fence`:** Adds `counter` and `wait` fields for BUSY state
-- **`g2h_fence_reinit()`:** Clears response-side fields via
-  `memset_after()` while preserving `seqno` and `response_buffer`
-- **`parse_g2h_msg()`:** Routes `GUC_HXG_TYPE_NO_RESPONSE_BUSY` to
-  `parse_g2h_response()` instead of the `default` broken-channel path
-- **`parse_g2h_response()`:** On BUSY, uses `xa_load()` instead of
-  `xa_erase()` (fence stays registered); reinitializes fence state; sets
-  `wait=true` and `counter`; skips buffer space release for intermediate
-  messages
-- **`guc_ct_send_recv()`:** On `g2h_fence.wait`, reinitializes fence and
-  loops back to `wait_event_timeout()` for the final response
+| Tag | Value |
+|-----|-------|
+| Signed-off-by | David Francis \<David.Francis@amd.com\> |
+| Reviewed-by | Harish Kasiviswanathan
+\<Harish.Kasiviswanathan@amd.com\> |
+| Signed-off-by | Alex Deucher \<alexander.deucher@amd.com\>
+(committer/maintainer) |
+| Fixes: | None |
+| Reported-by: | None |
+| Cc: stable | None (expected for manual review) |
+| Link: | None |
+
+Notable: Reviewed by AMD colleague; committed by subsystem maintainer.
+No syzbot or user bug reports.
+
+### Step 1.3: Commit Body Analysis
+**Record:**
+- **Bug:** `allocate_doorbell()` accepts a user-specified doorbell ID
+  via `restore_id` (CRIU restore path) without validating it is within
+  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS`.
+- **Symptom:** Out-of-bounds `__test_and_set_bit()` on
+  `qpd->doorbell_bitmap` → kernel memory corruption or crash.
+- **Root cause:** CRIU restore copies `doorbell_id` from userspace
+  (`kfd_criu_queue_priv_data`) and passes it directly to
+  `allocate_doorbell()` with no upper-bound check.
+- **Version info:** None in commit message.
+
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — explicitly a missing bounds check. Same
+class of bug as the parallel event-restore fix in `kfd_events.c` (`if
+(*restore_id >= KFD_SIGNAL_EVENT_LIMIT)`).
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Change Inventory
+**Record:**
+| File | Changes |
+|------|---------|
+| `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` | +3 lines |
+
+- **Function modified:** `allocate_doorbell()`
+- **Scope:** Single-file, surgical fix (3 lines added)
+
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk (CP queues on SOC15, `restore_id` path):**
+  - **Before:** `__test_and_set_bit(*restore_id, qpd->doorbell_bitmap)`
+    called with no validation.
+  - **After:** Return `-EINVAL` if `*restore_id >=
+    KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024) before the bit operation.
+- **Affected path:** CRIU queue restore on SOC15+ compute (CP) queues
+  only.
 
 ### Step 2.3: Bug Mechanism
 **Record:**
-- **Category:** Logic / protocol correctness — missing handler for a
-  valid GuC message type
-- **Mechanism:** When GuC sends type 3 over CTB, `parse_g2h_msg()` hits
-  `default`, logs "channel broken", calls `CT_DEAD()`, returns
-  `-EOPNOTSUPP` (−95). The waiting `guc_ct_send_recv()` then times out.
-  The CT channel is left in a broken state requiring GT reset.
+- **Category:** Buffer out-of-bounds / memory safety.
+- **Mechanism:** `qpd->doorbell_bitmap` is allocated with
+  `bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS, GFP_KERNEL)` (1024
+  bits). An out-of-range `restore_id` causes `__test_and_set_bit()` to
+  write beyond the allocation.
 
 ### Step 2.4: Fix Quality
 **Record:**
-- Fix is obviously correct: mirrors the existing MMIO `NO_RESPONSE_BUSY`
-  pattern and the established `NO_RESPONSE_RETRY` CT handling
-- Minimal, self-contained, no API changes
-- Low regression risk: only affects the BUSY message path; fence lookup
-  semantics are carefully preserved for intermediate vs. final responses
+- Obviously correct; mirrors existing pattern in
+  `allocate_event_notification_slot()`.
+- Minimal, no unrelated changes.
+- Low regression risk: only rejects invalid IDs that should never
+  succeed.
+- No API or behavioral changes for valid inputs.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** The `parse_g2h_msg()` switch (lines 1411–1427) dates to
-commit `308dc9b27874d` (initial xe driver import, Jul 2025). It has
-handled `NO_RESPONSE_RETRY` since import but never `NO_RESPONSE_BUSY`.
-MMIO BUSY handling was added in `1d087cb7d81f9` (Nov 2023) and is
-present in this tree.
+**Record:** Buggy `restore_id` path is present in this tree at lines
+474–479. Git blame in this stable checkout is unreliable (squashed
+history), but the vulnerable code is confirmed present.
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag.
+**Record:** N/A — no `Fixes:` tag.
 
 ### Step 3.3: Related File History
 **Record:**
-- `1d087cb7d81f9` — MMIO `NO_RESPONSE_BUSY` fix (in tree)
-- `3c01e01214026` — MMIO follow-up for unexpected messages after BUSY
-  (in tree)
-- `4d33314decfea` — this CTB fix (NOT in tree; `git merge-base --is-
-  ancestor` returns 1)
-- Recent `xe_guc_ct.c` changes are unrelated CT state/retry fixes
+- Commit on `master`: `a1d4b228e3dc5` (May 19, 2026), cherry-picked from
+  `1f087bb8cf9e`.
+- Part of a 2-patch series; patch 2/2 (`6dc2c49a70519` on master) fixes
+  the same class of bug for `allocate_sdma_queue()` — separate,
+  standalone fix.
+- Fix is **not** in the local 6.18.43 tree.
 
 ### Step 3.4: Author Context
-**Record:** Michal Wajdeczko is an active Intel xe/GuC contributor
-(`159afd92bae81`, `2506af5f8109a`, etc. on `xe_guc_ct.c`). Reviewed by
-Daniele Ceraolo Spurio (co-developer).
+**Record:** David Francis (AMD). Reviewed by Harish Kasiviswanathan;
+committed by Alex Deucher (amdgpu/amdkfd maintainer).
 
 ### Step 3.5: Dependencies
-**Record:** Standalone. Uses `memset_after()` (present in
-`include/linux/string.h`), `GUC_HXG_TYPE_NO_RESPONSE_BUSY` and
-`GUC_HXG_BUSY_MSG_0_COUNTER` (present in `abi/guc_messages_abi.h`). No
-prerequisite commits required. Cherry-pick to HEAD applies cleanly
-(+36/−2, auto-merge, no conflicts).
+**Record:** Standalone. No prerequisite commits. Applies cleanly to the
+local tree.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original Discussion
 **Record:**
-- **b4 dig -c 4d33314decfea:** https://patch.msgid.link/20260410110457.5
-  73-1-michal.wajdeczko@intel.com
-- **Series:** v1 (Apr 3) → v2 (Apr 8) → v3 (Apr 10); committed version
-  is v3
-- **Review:** Reviewed-by Daniele Ceraolo Spurio in v3
-- **CI:** Patchwork CI reported failure, but for unrelated IGT test
-  changes — not a functional objection to the patch logic
-- **Stable nomination:** None found in mbox thread
+- **URL:** https://patch.msgid.link/20260512192824.3682569-1-
+  David.Francis@amd.com
+- **Series:** v1 only (no further revisions via `b4 dig -a`)
+- **Review feedback:** No stable nominations, NAKs, or substantive
+  objections found in the mbox thread.
 
 ### Step 4.2: Reviewers
-**Record:** CC'd to `intel-xe@lists.freedesktop.org` and Daniele Ceraolo
-Spurio. Reviewed-by from co-developer.
+**Record:** CC'd to `amd-gfx@lists.freedesktop.org`. Reviewed-by on
+commit.
 
-### Step 4.3: Bug Report
-**Record:** No external bug tracker link. Reproducible failure described
-in commit message with full dmesg on BMG hardware.
+### Step 4.3: Bug Reports
+**Record:** N/A — no external bug report or syzbot link.
 
 ### Step 4.4: Related Patches
-**Record:** Part of a single-patch series (not multi-patch). Related
-MMIO fixes (`1d087cb7d81f9`, `3c01e01214026`) are already in this tree.
+**Record:** Patch 2/2 bounds-checks `restore_sdma_id` in
+`allocate_sdma_queue()`. Same bug class; also missing in this tree.
+Independent backport candidate.
 
-### Step 4.5: Stable List
-**Record:** No stable-list discussion found.
+### Step 4.5: Stable List History
+**Record:** Not searched; no stable-list discussion found in mbox.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** `guc_ct_send_recv()`, `parse_g2h_response()`,
-`parse_g2h_msg()`, `g2h_fence_reinit()`
+**Record:** `allocate_doorbell()` — only function modified.
 
 ### Step 5.2: Callers
-**Record:** `xe_guc_ct_send_recv()` is reached via
-`xe_guc_ct_send_block()` from many subsystems:
-- `xe_gt_sriov_pf_policy.c` — VGT policy (action 0x5502, the reported
-  failure)
-- `xe_gt_sriov_pf_config.c`, `xe_gt_sriov_pf_control.c`,
-  `xe_gt_sriov_pf_migration.c`
-- `xe_guc.c`, `xe_guc_pc.c`, `xe_guc_submit.c`,
-  `xe_guc_engine_activity.c`, `xe_guc_relay.c`
+**Record:**
+- `create_queue_nocpsch()` → `allocate_doorbell(qpd, q, qd ?
+  &qd->doorbell_id : NULL)` (line 670)
+- `create_queue_cpsch()` → same pattern (line 1991)
+- Both reached from `pqm_create_queue()` → `kfd_criu_restore_queue()`
+  during CRIU restore
 
 ### Step 5.3: Callees
-**Record:** `wait_event_timeout()`, `xa_load()`/`xa_erase()`,
-`g2h_release_space()`, `wake_up_all()`, `memset_after()`
+**Record:** `__test_and_set_bit()`, `find_first_zero_bit()`,
+`set_bit()`, `amdgpu_doorbell_index_on_bar()`.
 
-### Step 5.4: Reachability
-**Record:** Triggered during normal GuC CT blocking operations — GT
-reset recovery, SR-IOV PF policy/config pushes, GuC init/load, engine
-activity queries. These run during device operation and GT reset paths
-on systems with `CONFIG_DRM_XE`.
+### Step 5.4: Call Chain / Reachability
+**Record:**
+```
+userspace AMDKFD_IOC_CRIU_OP (restore)
+  → criu_restore() → criu_restore_objects()
+  → kfd_criu_restore_queue() [copy_from_user q_data including
+doorbell_id]
+  → pqm_create_queue(..., q_data, ...)
+  → create_queue_*() → allocate_doorbell(..., &qd->doorbell_id)
+```
+Reachable from userspace via CRIU restore ioctl. Requires
+`CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN` (see `kfd_chardev.c` lines
+3332–3337).
 
 ### Step 5.5: Similar Patterns
-**Record:** MMIO path in `xe_guc.c:1458–1486` already waits through BUSY
-for final response. Relay path in `xe_guc_relay.c:839–841` handles BUSY.
-CT path had `NO_RESPONSE_RETRY` but not BUSY — clear inconsistency.
+**Record:** `kfd_events.c:110` already bounds-checks `*restore_id >=
+KFD_SIGNAL_EVENT_LIMIT` for CRIU event restore. This commit closes the
+same gap for doorbells.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.43)
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
 ### Step 6.1: Buggy Code Present?
-**Record:** Yes. At `parse_g2h_msg()` lines 1416–1426, type 3 falls
-through to `default` and marks the G2H channel broken.
-`parse_g2h_response()` has no BUSY branch. Confirmed: `git merge-base
---is-ancestor 4d33314decfea HEAD` returns 1 (fix not present).
+**Record:** **Yes.** Lines 474–479 in `kfd_device_queue_manager.c` lack
+the bounds check. CRIU support (`kfd_criu_restore_queue`,
+`AMDKFD_IOC_CRIU_OP`) is present. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` is
+1024.
 
 ### Step 6.2: Backport Complications
-**Record:** Clean apply verified: `git cherry-pick --no-commit
-4d33314decfea` auto-merges with no conflicts (+36/−2). No structural
-refactoring conflicts in `xe_guc_ct.c`.
+**Record:** Clean apply expected — 3-line addition with no conflicts.
+File structure matches mainline.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** MMIO BUSY handling (`1d087cb7d81f9`) and relay BUSY handling
-are present. CT BUSY handling is the remaining gap — no duplicate fix in
-tree.
+**Record:** No. `git show master:a1d4b228e3dc5` has the fix; local HEAD
+does not. SDMA bounds fix (patch 2/2) is also absent.
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem and Criticality
-**Record:** `drivers/gpu/drm/xe/` — Intel Xe GPU driver. **IMPORTANT**
-for Intel discrete/integrated GPU users. BMG (Battlemage) platform
-support is present (`xe_pci.c` `bmg_desc`, `xe_vsec.c`, GuC firmware
-defs in `xe_uc_fw.c`).
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/gpu/drm/amd/amdkfd` — AMDGPU KFD compute driver.
+**IMPORTANT** (GPU compute users; not core kernel, but widely deployed
+on AMD hardware).
 
-### Step 7.2: Activity
-**Record:** Actively maintained — recent commits on `xe_guc_ct.c`
-include CT state management, fence synchronization, and resource-leak
-fixes.
+### Step 7.2: Subsystem Activity
+**Record:** Active — CRIU support and related hardening commits exist on
+master for this subsystem.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of Intel Xe GPUs with GuC CT communication —
-especially BMG with SR-IOV PF enabled, but any platform where GuC sends
-`NO_RESPONSE_BUSY` over CTB during blocking operations.
+**Record:** Users of AMDGPU KFD with CRIU checkpoint/restore on SOC15+
+hardware (CP compute queues). Narrow feature set, but real production
+use (containers, HPC migration).
 
 ### Step 8.2: Trigger Conditions
-**Record:** GuC sends `NO_RESPONSE_BUSY` (type 3) on the CTB G2H channel
-while the host is blocked in `guc_ct_send_recv()`. Observed during VGT
-policy push (action 0x5502) on BMG; can affect any
-`xe_guc_ct_send_block()` caller when GuC is temporarily busy. Requires
-`CONFIG_DRM_XE` and functioning GuC CT.
+**Record:**
+- CRIU restore with `doorbell_id >= 1024` in checkpoint private data.
+- Requires privileged capability (`CAP_CHECKPOINT_RESTORE` or
+  `CAP_SYS_ADMIN`).
+- Corrupted or malicious checkpoint image during restore can trigger it.
+- Not triggerable by unprivileged users directly.
 
-### Step 8.3: Failure Severity
-**Record:** **CRITICAL** — CT G2H channel marked broken (`CT_DEAD`),
-operations fail with `-ETIME`/`-EOPNOTSUPP`, SR-IOV policy/config
-provisioning fails, GT reset required. GPU functionality degrades or
-becomes unusable until reset.
+### Step 8.3: Failure Mode Severity
+**Record:** Out-of-bounds kernel heap write via `__test_and_set_bit()` →
+memory corruption, potential kernel oops/panic. **Severity: HIGH**
+(memory corruption); mitigated by privileged-only ioctl path.
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH — prevents CT channel corruption and cascading
-  failures on a widely used communication path
-- **Risk:** LOW — 36 lines, one file, follows established patterns,
-  verified clean cherry-pick
-- **Ratio:** Strongly favors backport
+| | Assessment |
+|--|------------|
+| **Benefit** | Prevents kernel memory corruption on CRIU restore;
+defense-in-depth for untrusted checkpoint data |
+| **Risk** | Very low — 3-line bounds check, no behavior change for
+valid IDs |
+| **Ratio** | Favorable |
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Fixes a real, observed hardware failure on BMG
-- Causes CT channel breakage and GPU reset requirement — serious
-  stability impact
-- Small, surgical, reviewed fix following existing MMIO/relay patterns
-- Buggy code confirmed present in v6.18.43; fix not yet applied
-- Cherry-picks cleanly
-- Affects many callers of blocking CT send (SR-IOV, GuC init, engine
-  activity, etc.)
+- Real out-of-bounds bitmap access bug
+- Kernel memory corruption possible
+- Fix is minimal, obviously correct, maintainer-reviewed
+- Buggy code and CRIU infrastructure exist in 6.18.43
+- Matches existing bounds-check pattern in `kfd_events.c`
+- Standalone, clean apply
 
 **AGAINST backport:**
-- Commit message trigger (VGT policy in GT restart sequence) may be a
-  newer mainline integration; however, VGT policy push via
-  `xe_guc_ct_send_block()` already exists in 6.18.43, and the bug is
-  protocol-general, not restart-specific
-- No explicit stable nomination or wide user reports beyond Intel
-  internal testing
-- CI reported unrelated test failures (not a functional NAK)
+- CRIU is a niche feature
+- Requires privileged capability (not unprivileged attack surface)
+- No user reports or syzbot findings
+- Patch 2/2 (SDMA) addresses a related gap but is separate
 
-**Unresolved:** Whether the exact "VGT policy during GT restart" call
-path from mainline is already in 6.18.43 — but this does not affect the
-verdict because the underlying CT BUSY bug is present and reachable via
-existing policy push paths.
+**Unresolved:** None affecting the decision.
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors MMIO handling;
-   Reviewed-by; observed fix on BMG
-2. Fixes a real bug affecting users? **PASS** — documented dmesg on real
-   hardware
-3. Important issue? **PASS** — CRITICAL: CT channel broken, GPU reset,
-   operation failures
-4. Small and contained? **PASS** — 36 lines, 1 file
-5. No new features or APIs? **PASS** — protocol parity fix, no userspace
-   changes
-6. Can apply to local tree? **PASS** — verified clean cherry-pick
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — trivial bounds check;
+Reviewed-by present |
+| 2. Fixes a real bug? | **PASS** — OOB `__test_and_set_bit()` on
+1024-bit bitmap |
+| 3. Important issue? | **PASS** — memory corruption (HIGH, privileged
+path) |
+| 4. Small and contained? | **PASS** — 3 lines, one function |
+| 5. No new features/APIs? | **PASS** |
+| 6. Can apply to local tree? | **PASS** — code present, fix absent |
 
 ### Step 9.3: Exception Categories
-**Record:** Hardware quirk/workaround category does not apply. This is a
-driver protocol-handling bug fix.
+**Record:** None (not a device ID, quirk, DT, build, or docs fix).
+Qualifies as a standard memory-safety bug fix.
 
 ### Step 9.4: Decision Rationale
-This commit closes a longstanding gap where the xe driver's GuC CT
-blocking-send path did not handle `NO_RESPONSE_BUSY`, a message type the
-GuC firmware legitimately sends and that the MMIO and relay paths
-already handle. In v6.18.43, receiving type 3 on CTB corrupts the G2H
-channel and causes timeouts and failures across SR-IOV policy, config,
-and other GuC operations. The fix is small, reviewed, self-contained,
-and applies cleanly to this tree.
+
+For Linux **6.18.43**, the vulnerable CRIU restore path exists, the fix
+is absent, and the patch prevents out-of-bounds kernel memory writes
+from userspace-supplied `doorbell_id` values. Although CRIU restore
+requires elevated privileges, stable trees routinely take such defense-
+in-depth fixes — especially when they mirror an existing pattern
+(`kfd_events.c`) and are three lines with no regression risk for valid
+inputs.
+
+**Note:** Patch 2/2 (`Check bounds for allocate_sdma_queue
+restore_sdma_id`) fixes the same bug class for SDMA queues and is also
+absent from this tree; it should be evaluated separately.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from `git show 4d33314decfea`
-- [Phase 1] Confirmed action 0x5502 =
-  `GUC_ACTION_PF2GUC_UPDATE_VGT_POLICY` in `guc_actions_sriov_abi.h`
-- [Phase 1] Confirmed type 3 = `GUC_HXG_TYPE_NO_RESPONSE_BUSY` in
-  `guc_messages_abi.h`
-- [Phase 2] Full diff reviewed via `git show 4d33314decfea`
-- [Phase 2] Read current buggy code at `xe_guc_ct.c:1411–1427` and
-  `1357–1380`
-- [Phase 3] `git describe HEAD` → v6.18.43
-- [Phase 3] `git merge-base --is-ancestor 4d33314decfea HEAD` → exit 1
-  (not in tree)
-- [Phase 3] `git merge-base --is-ancestor 1d087cb7d81f9 HEAD` → exit 0
-  (MMIO fix in tree)
-- [Phase 3] `git merge-base --is-ancestor 3c01e01214026 HEAD` → exit 0
-- [Phase 3] `git blame` on `parse_g2h_msg` switch → `308dc9b27874d`
-- [Phase 4] `b4 dig -c 4d33314decfea` → lore URL found
-- [Phase 4] `b4 dig -c 4d33314decfea -a` → v1/v2/v3 series, v3 committed
-- [Phase 4] `b4 dig -c 4d33314decfea -w` → CC intel-xe, Daniele Ceraolo
-  Spurio
-- [Phase 4] `b4 dig -m /tmp/no_response_busy.mbx` → Reviewed-by
-  confirmed, no stable Cc
-- [Phase 5] Grep `xe_guc_ct_send_block` → 10+ call sites across xe
-  driver
-- [Phase 5] Read MMIO BUSY handler at `xe_guc.c:1458–1486`
-- [Phase 5] Read relay BUSY handler at `xe_guc_relay.c:839–841`
-- [Phase 6] Confirmed `GUC_HXG_TYPE_NO_RESPONSE_BUSY` absent from
-  `xe_guc_ct.c` grep
-- [Phase 6] Cherry-pick test: clean auto-merge, +36/−2
-- [Phase 6] Confirmed `memset_after` in `include/linux/string.h:508`
-- [Phase 6] Confirmed BMG platform in `xe_pci.c`, `xe_vsec.c`,
-  `xe_uc_fw.c`
-- [Phase 7] Confirmed `xe_gt_sriov_pf_policy.c` uses
-  `xe_guc_ct_send_block` for action 0x5502
-- [Phase 8] Failure mode verified from commit message dmesg and code
-  path analysis
+- **[Phase 1]** Parsed commit message and tags from user query and `git
+  show a1d4b228e3dc5`
+- **[Phase 1]** No Fixes:/Reported-by:/Cc: stable tags
+- **[Phase 2]** Diff analysis: +3 lines in `allocate_doorbell()` before
+  `__test_and_set_bit()`
+- **[Phase 3]** `git describe HEAD`: v6.18.43; `make kernelversion`
+  equivalent from Makefile: 6.18.43
+- **[Phase 3]** `git show a1d4b228e3dc5`: commit exists on master, not
+  in HEAD
+- **[Phase 3]** `b4 dig -c a1d4b228e3dc5`: found lore thread at
+  patch.msgid.link/20260512192824.3682569-1
+- **[Phase 3]** `b4 dig -a`: v1 only, no further revisions
+- **[Phase 3]** `b4 dig -w`: CC'd amd-gfx@lists.freedesktop.org
+- **[Phase 4]** `b4 dig -m /tmp/doorbell_thread.mbox`: patch 2/2 content
+  retrieved; no stable Cc in thread
+- **[Phase 5]** Grep callers: `allocate_doorbell` called from
+  `create_queue_nocpsch` and `create_queue_cpsch` with
+  `&qd->doorbell_id`
+- **[Phase 5]** Traced CRIU path: `kfd_criu_restore_queue` →
+  `pqm_create_queue` → `allocate_doorbell`
+- **[Phase 5]** `kfd_events.c:110`: confirmed analogous bounds check
+  exists for event restore
+- **[Phase 6]** Read local `kfd_device_queue_manager.c:474-479`: bounds
+  check **missing**
+- **[Phase 6]** `kfd_doorbell.c:259`: `doorbell_bitmap` allocated with
+  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024)
+- **[Phase 6]** `kfd_priv.h:97`: `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
+  1024
+- **[Phase 6]** `kfd_chardev.c:3332-3337`: CRIU ioctl requires
+  `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`
+- **[Phase 6]** CRIU infrastructure confirmed present
+  (`kfd_criu_restore_queue`, `AMDKFD_IOC_CRIU_OP`)
+- **[Phase 8]** Failure mode: OOB bit operation → memory corruption;
+  privileged ioctl mitigates unprivileged exploitability
 
-**YES**The background search finished and confirmed the commit: upstream
-`4d33314decfea` (stable-prepared as `a405c6d35e5cc`), plus related MMIO-
-side fixes already in this tree.
+**YES**
 
-**Verdict for Linux 6.18.43: YES**
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-The CT blocking-send path in `xe_guc_ct.c` doesn't handle GuC
-`NO_RESPONSE_BUSY` (type 3) messages, so it marks the G2H channel broken
-and causes timeouts/failures (seen on BMG during VGT policy pushes).
-MMIO and relay paths already handle this message type. The fix is small
-(36 lines, one file), reviewed, and cherry-picks cleanly onto
-v6.18.43.The ancestry check finished: `4d33314decfea` is **not** in
-v6.18.43 (`merge-base --is-ancestor` returned exit 1). That matches the
-earlier finding — the CTB `NO_RESPONSE_BUSY` fix still needs to be
-backported to this tree.
-
- drivers/gpu/drm/xe/xe_guc_ct.c | 38 ++++++++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
-index 4158e8af13908..b9d265ad06a0e 100644
---- a/drivers/gpu/drm/xe/xe_guc_ct.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-@@ -82,13 +82,16 @@ static void ct_dead_capture(struct xe_guc_ct *ct, struct guc_ctb *ctb, u32 reaso
- struct g2h_fence {
- 	u32 *response_buffer;
- 	u32 seqno;
-+	/* fields below this point are setup based on the response */
- 	u32 response_data;
- 	u16 response_len;
- 	u16 error;
- 	u16 hint;
- 	u16 reason;
-+	u32 counter;
- 	bool cancel;
- 	bool retry;
-+	bool wait;
- 	bool fail;
- 	bool done;
- };
-@@ -102,6 +105,11 @@ static void g2h_fence_init(struct g2h_fence *g2h_fence, u32 *response_buffer)
- 	g2h_fence->seqno = ~0x0;
- }
- 
-+static void g2h_fence_reinit(struct g2h_fence *g2h_fence)
-+{
-+	memset_after(g2h_fence, 0, seqno);
-+}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 2f8df95382bc3..d9f09f25911a7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -472,6 +472,9 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
+ 	} else {
+ 		/* For CP queues on SOC15 */
+ 		if (restore_id) {
++			if (*restore_id >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
++				return -EINVAL;
 +
- static void g2h_fence_cancel(struct g2h_fence *g2h_fence)
- {
- 	g2h_fence->cancel = true;
-@@ -1134,6 +1142,7 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
- 	/* READ_ONCEs pairs with WRITE_ONCEs in parse_g2h_response
- 	 * and g2h_fence_cancel.
- 	 */
-+wait_again:
- 	ret = wait_event_timeout(ct->g2h_fence_wq, READ_ONCE(g2h_fence.done), HZ);
- 	if (!ret) {
- 		LNL_FLUSH_WORK(&ct->g2h_worker);
-@@ -1159,6 +1168,14 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
- 		return -ETIME;
- 	}
- 
-+	if (g2h_fence.wait) {
-+		xe_gt_dbg(gt, "H2G action %#x busy: counter %u\n",
-+			  action[0], g2h_fence.counter);
-+		/* we can't leave any response data if we want to wait again */
-+		g2h_fence_reinit(&g2h_fence);
-+		mutex_unlock(&ct->lock);
-+		goto wait_again;
-+	}
- 	if (g2h_fence.retry) {
- 		xe_gt_dbg(gt, "H2G action %#x retrying: reason %#x\n",
- 			  action[0], g2h_fence.reason);
-@@ -1354,7 +1371,12 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
- 		return -EPROTO;
- 	}
- 
--	g2h_fence = xa_erase(&ct->fence_lookup, fence);
-+	/* don't erase as we still expect a final response with the same fence */
-+	if (type == GUC_HXG_TYPE_NO_RESPONSE_BUSY)
-+		g2h_fence = xa_load(&ct->fence_lookup, fence);
-+	else
-+		g2h_fence = xa_erase(&ct->fence_lookup, fence);
-+
- 	if (unlikely(!g2h_fence)) {
- 		/* Don't tear down channel, as send could've timed out */
- 		/* CT_DEAD(ct, NULL, PARSE_G2H_UNKNOWN); */
-@@ -1365,6 +1387,12 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
- 
- 	xe_gt_assert(gt, fence == g2h_fence->seqno);
- 
-+	/*
-+	 * reinit as we might have already process this g2h_fence before
-+	 * if we received a NO_RESPONSE_BUSY reply
-+	 */
-+	g2h_fence_reinit(g2h_fence);
-+
- 	if (type == GUC_HXG_TYPE_RESPONSE_FAILURE) {
- 		g2h_fence->fail = true;
- 		g2h_fence->error = FIELD_GET(GUC_HXG_FAILURE_MSG_0_ERROR, hxg[0]);
-@@ -1372,6 +1400,9 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
- 	} else if (type == GUC_HXG_TYPE_NO_RESPONSE_RETRY) {
- 		g2h_fence->retry = true;
- 		g2h_fence->reason = FIELD_GET(GUC_HXG_RETRY_MSG_0_REASON, hxg[0]);
-+	} else if (type == GUC_HXG_TYPE_NO_RESPONSE_BUSY) {
-+		g2h_fence->wait = true;
-+		g2h_fence->counter = FIELD_GET(GUC_HXG_BUSY_MSG_0_COUNTER, hxg[0]);
- 	} else if (g2h_fence->response_buffer) {
- 		g2h_fence->response_len = hxg_len;
- 		memcpy(g2h_fence->response_buffer, hxg, hxg_len * sizeof(u32));
-@@ -1379,7 +1410,9 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
- 		g2h_fence->response_data = FIELD_GET(GUC_HXG_RESPONSE_MSG_0_DATA0, hxg[0]);
- 	}
- 
--	g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
-+	/* don't release any space if it was an intermediate message */
-+	if (!g2h_fence->wait)
-+		g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
- 
- 	/* WRITE_ONCE pairs with READ_ONCEs in guc_ct_send_recv. */
- 	WRITE_ONCE(g2h_fence->done, true);
-@@ -1416,6 +1449,7 @@ static int parse_g2h_msg(struct xe_guc_ct *ct, u32 *msg, u32 len)
- 	case GUC_HXG_TYPE_RESPONSE_SUCCESS:
- 	case GUC_HXG_TYPE_RESPONSE_FAILURE:
- 	case GUC_HXG_TYPE_NO_RESPONSE_RETRY:
-+	case GUC_HXG_TYPE_NO_RESPONSE_BUSY:
- 		ret = parse_g2h_response(ct, msg, len);
- 		break;
- 	default:
+ 			/* make sure that ID is free  */
+ 			if (__test_and_set_bit(*restore_id, qpd->doorbell_bitmap))
+ 				return -EINVAL;
 -- 
 2.53.0
 
