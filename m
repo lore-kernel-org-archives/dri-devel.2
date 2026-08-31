@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54605C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C671C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7192E10E8F9;
-	Mon, 31 Aug 2026 13:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7494D10E8FC;
+	Mon, 31 Aug 2026 13:52:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P+rE62eW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jqOYAdeX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E52910E8F9
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:51:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0119910E8FA;
+ Mon, 31 Aug 2026 13:52:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5E6E060232;
- Mon, 31 Aug 2026 13:51:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2912C1F000E9;
- Mon, 31 Aug 2026 13:51:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B013441970;
+ Mon, 31 Aug 2026 13:52:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD0D1F00A3E;
+ Mon, 31 Aug 2026 13:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184295;
- bh=1YK8RCCxN+JmaqmdcfLeXR05/qFM3jVW1ABh4Q0B8yY=;
+ s=k20260515; t=1788184331;
+ bh=KlS/P84QSh8TJgklCQ5BAZQdOWGMmdpiND2aQ7OWxRs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=P+rE62eW2hD0447YYLHmDvBDJoTNYVSNqNK7aixG6vOQHATSwkjjIzKw1oz7U52vu
- MwLweMOHy+TvhZWSphifrpNBLgSvM/Mz2ul6r0Ll2gsWQNHTsDkEIxHY3H5Edu/oH4
- 1dMmqSHprNuwThDEALK5DSHtYcxBPrKQdZLcz3q55hvYaj2hRsGj6BLfL7PVFKQjCw
- B3915Ysx+P5jIVjL6R73bV5iMNweJ/+B+H5fwiqyPkkbx+etISFqBYm8vlocH2rnuz
- PV2SHmi8SkcKaE3+ZXvRSfpupNSm/8wD17qur7tYzVtghqL9jDIVBHYR3g1zvtqpfs
- CHP0S4DMhmFmQ==
+ b=jqOYAdeXyzskRVFUYm+h97hGAGGcpxwFV0ejZccXzh3Wajbni3UB09ARLIQ2MnLDL
+ xhEzHzVBDYt05FZOQXgIom/PInBu85XpfGtbmYLRyF2xzyXSJFHsPujHOJwk+uhWYR
+ KX2Hn9ADv55Vgj/7Y8HfRQRa/g8WHOnftIjDxWVB9SSIuX4eqs3KEw/zrf42DaB4c3
+ XVIpbx70ozBosblmRdMQUcHAhofZF+nfg0jVcqDgD7xgcmfQMhw31tWmDcHuj3SOvW
+ 3CsvRv0T21fZY39HXZY+tB3hDIYzckpJxrnTFEDijeIvN5KZadQWC17wfsEQwlDAHo
+ KsJRb67aM88ag==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Imre Deak <imre.deak@intel.com>, Lyude Paul <lyude@redhat.com>,
- Shawn C Lee <shawn.c.lee@intel.com>, Mika Kahola <mika.kahola@intel.com>,
- Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/dp: Add DSC virtual DPCD quirk for
- Realtek MST branch device
-Date: Mon, 31 Aug 2026 09:30:35 -0400
-Message-ID: <20260831133314.4125787-607-sashal@kernel.org>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Sasha Levin <sashal@kernel.org>, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/xe/guc: Add support for NO_RESPONSE_BUSY in
+ CTB
+Date: Mon, 31 Aug 2026 09:30:58 -0400
+Message-ID: <20260831133314.4125787-630-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,404 +67,511 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-[ Upstream commit bff2da7aa0020eb72e42d63868dc5adaa0fb85d3 ]
+[ Upstream commit 4d33314decfeac8b82d771a1bd083a59f4ac6fae ]
 
-The ASUS DC301 USB-C dock containing a Realtek MST branch device
-supports the DSC decompression functionality on each of the dock's
-downstream connectors, even though there is no discoverable peer-to-peer
-virtual device in the MST topology (which the DP Standard
-requires/suggests to control the DSC functionality on a per-DFP basis).
-Add the DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD quirk for this branch
-device as well to enable the DSC decompression functionality on all DFP
-connectors of the dock, similarly to how this is done for dock's
-containing older Synaptics branch devices.
+We only have support for G2H NO_RESPONSE_BUSY messages over MMIO,
+but it turned out that GuC also uses that type of messages in CTB.
 
-Cc: Lyude Paul <lyude@redhat.com>
-Reported-and-tested-by: Shawn C Lee <shawn.c.lee@intel.com>
-Reviewed-by: Mika Kahola <mika.kahola@intel.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260525125516.2794636-1-imre.deak@intel.com
+The following error was recently observed on BMG after adding VGT
+policy updates to the GT restart sequence:
+
+ [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: G2H channel broken on read, type=3, reset required
+ [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: CT dequeue failed: -95
+ ...
+ [] xe 0000:03:00.0: [drm] *ERROR* Tile0: GT1: Timed out wait for G2H, fence 21965, action 5502, done no
+ [] xe 0000:03:00.0: [drm] PF: Tile0: GT1: Failed to push 1 policy KLV (-ETIME)
+ [] xe 0000:03:00.0: [drm] Tile0: GT1: { key 0x8004 : no value } # engine_group_config
+
+where type=3 was this unrecognized NO_RESPONSE_BUSY message.
+
+Note that GuC might send the real RESPONSE message right after
+the BUSY message, so we must be prepared to update our g2h_fence
+data twice before sender actually wakes up and clears the flags.
+
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Link: https://patch.msgid.link/20260410110457.573-1-michal.wajdeczko@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/dp DSC virtual DPCD quirk for Realtek
-MST
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.44** (`git describe HEAD` → `v6.18.44`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[drm/dp]` `[Add]` — Add DSC virtual DPCD quirk for Realtek
-MST branch device
+### Step 1.1: Subject Line
+**Record:** `[drm/xe/guc]` `[Add support for]` — Extend GuC CTB (Command
+Transport Buffer) handling to recognize `GUC_HXG_TYPE_NO_RESPONSE_BUSY`
+messages, mirroring existing MMIO-path support.
 
 ### Step 1.2: Tags
 **Record:**
-| Tag | Value |
-|-----|-------|
-| Cc: | Lyude Paul \<lyude@redhat.com\> |
-| Reported-and-tested-by: | Shawn C Lee \<shawn.c.lee@intel.com\> |
-| Reviewed-by: | Mika Kahola \<mika.kahola@intel.com\> |
-| Reviewed-by: | Lyude Paul \<lyude@redhat.com\> |
-| Signed-off-by: | Imre Deak \<imre.deak@intel.com\> (author SOB; ignore
-pipeline SOBs) |
-| Link: |
-https://patch.msgid.link/20260525125516.2794636-1-imre.deak@intel.com |
+- **Signed-off-by:** Michal Wajdeczko \<michal.wajdeczko@intel.com\>
+- **Cc:** Daniele Ceraolo Spurio \<daniele.ceraolospurio@intel.com\>
+- **Reviewed-by:** Daniele Ceraolo Spurio
+  \<daniele.ceraolospurio@intel.com\>
+- **Link:** https://patch.msgid.link/20260410110457.573-1-
+  michal.wajdeczko@intel.com
+- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, or Cc:
+  stable@vger.kernel.org
+- Notable: Reviewed-by from a co-developer; no syzbot/fuzzer report;
+  real hardware log in commit body
 
-**Notable patterns:** Real hardware reporter+tester; two Reviewed-by
-including DRM maintainer Lyude Paul. No syzbot, no Fixes: tag (expected
-for manual review).
-
-### Step 1.3: Body analysis
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** ASUS DC301 USB-C dock (Realtek MST branch, OUI `0x00:e0:4c`)
-  supports DSC decompression on downstream connectors but does not
-  expose discoverable peer-to-peer virtual DPCD devices as the DP
-  standard expects for per-DFP DSC control.
-- **Symptom:** DSC decompression cannot be enabled on the dock's
-  downstream display outputs; high-bandwidth modes that require DSC will
-  fail or fall back incorrectly.
-- **Root cause:** Kernel only applies the
-  `DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` workaround to Synaptics
-  (`0x90:CC:24`) MST hubs, not Realtek.
-- **Fix approach:** Add Realtek branch-device quirk entry matching OUI
-  `0x00, 0xe0, 0x4c` and device ID `'Dp1.4'`.
+- **Bug:** GuC can send `NO_RESPONSE_BUSY` (HXG type 3) over the CTB G2H
+  channel, but the CT path only handled it over MMIO. CT treats type 3
+  as unknown and marks the channel broken.
+- **Symptom:** `G2H channel broken on read, type=3, reset required` →
+  `CT dequeue failed: -95` → `Timed out wait for G2H` → `Failed to push
+  1 policy KLV (-ETIME)` with action `0x5502`
+  (`GUC_ACTION_PF2GUC_UPDATE_VGT_POLICY`)
+- **Trigger context:** Observed on BMG (Battlemage) during VGT policy
+  updates in the GT restart sequence
+- **Root cause:** Missing CTB handler for an existing GuC protocol
+  message type; a final response may follow the BUSY message on the same
+  fence
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes — described as "Add quirk" but it fixes broken display
-functionality on a specific USB-C dock. This is a hardware
-quirk/workaround, not a cosmetic change.
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Despite "Add support" wording, this is a protocol-
+handling bug fix. The driver already handles `NO_RESPONSE_BUSY` on MMIO
+(`xe_guc.c`) and in the relay path (`xe_guc_relay.c`); only the CT
+blocking-send path was missing it.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 ### Step 2.1: Inventory
 **Record:**
-- **Files:** `drivers/gpu/drm/display/drm_dp_helper.c` (+2 lines)
-- **Functions modified:** None directly; `dpcd_quirk_list[]` static
-  table only
-- **Scope:** Single-file, surgical quirk-table addition
+- **File:** `drivers/gpu/drm/xe/xe_guc_ct.c` — +36 / −2 lines
+- **Functions modified:** `struct g2h_fence`, `g2h_fence_init` area,
+  `guc_ct_send_recv()`, `parse_g2h_response()`, `parse_g2h_msg()`
+- **New:** `g2h_fence_reinit()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code flow change
+### Step 2.2: Code Flow Changes
 **Record:**
-- **Hunk (quirk table):** Before → only Synaptics MST hubs matched
-  `DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD`. After → Realtek DP1.4 MST
-  branch devices (`OUI 0x00:e0:4c`, device ID `Dp1.4`, `is_branch=true`)
-  also get the quirk bit set when `drm_dp_get_quirks()` runs during
-  `drm_dp_read_desc()`.
+- **`g2h_fence`:** Adds `counter` and `wait` fields for BUSY state
+- **`g2h_fence_reinit()`:** Clears response-side fields via
+  `memset_after()` while preserving `seqno` and `response_buffer`
+- **`parse_g2h_msg()`:** Routes `GUC_HXG_TYPE_NO_RESPONSE_BUSY` to
+  `parse_g2h_response()` instead of the `default` broken-channel path
+- **`parse_g2h_response()`:** On BUSY, uses `xa_load()` instead of
+  `xa_erase()` (fence stays registered); reinitializes fence state; sets
+  `wait=true` and `counter`; skips buffer space release for intermediate
+  messages
+- **`guc_ct_send_recv()`:** On `g2h_fence.wait`, reinitializes fence and
+  loops back to `wait_event_timeout()` for the final response
 
-### Step 2.3: Bug mechanism
-**Record:** **Category (h): Hardware workaround**
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Logic / protocol correctness — missing handler for a
+  valid GuC message type
+- **Mechanism:** When GuC sends type 3 over CTB, `parse_g2h_msg()` hits
+  `default`, logs "channel broken", calls `CT_DEAD()`, returns
+  `-EOPNOTSUPP` (−95). The waiting `guc_ct_send_recv()` then times out.
+  The CT channel is left in a broken state requiring GT reset.
 
-Without the quirk, `drm_dp_mst_dsc_aux_for_port()` in
-`drm_dp_mst_topology.c` does not find a valid DSC aux for Realtek MST
-dock ports:
-
-```6159:6176:drivers/gpu/drm/display/drm_dp_mst_topology.c
-        if (drm_dp_has_quirk(&desc,
-DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
-                // ... reads DSC caps from physical upstream aux ...
-                        return immediate_upstream_aux;
-        }
-```
-
-When this returns `NULL`, i915 sets `connector->dp.dsc_decompression_aux
-= NULL` at MST connector creation, and amdgpu similarly gets no
-`dsc_aux`. DSC decompression is never enabled on dock downstream
-connectors.
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct — mirrors the proven Synaptics quirk
-(added 2019, commit `5b03f9d8688071`). Uses a specific device ID
-(`'Dp1.4'`) rather than `DEVICE_ID_ANY`, limiting scope. **Regression
-risk:** Very low; only affects devices matching Realtek OUI + exact
-device ID on branch devices.
+### Step 2.4: Fix Quality
+**Record:**
+- Fix is obviously correct: mirrors the existing MMIO `NO_RESPONSE_BUSY`
+  pattern and the established `NO_RESPONSE_RETRY` CT handling
+- Minimal, self-contained, no API changes
+- Low regression risk: only affects the BUSY message path; fence lookup
+  semantics are carefully preserved for intermediate vs. final responses
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** Synaptics `DSC_WITHOUT_VIRTUAL_DPCD` entry introduced by
-Mikita Lipski, 2019-09-20 (`5b03f9d8688071`). Quirk infrastructure and
-`drm_dp_mst_dsc_aux_for_port()` logic are ancestors of HEAD and present
-in 6.18.44. Realtek entry is **not** in this tree.
+**Record:** The `parse_g2h_msg()` switch (lines 1411–1427) dates to
+commit `308dc9b27874d` (initial xe driver import, Jul 2025). It has
+handled `NO_RESPONSE_RETRY` since import but never `NO_RESPONSE_BUSY`.
+MMIO BUSY handling was added in `1d087cb7d81f9` (Nov 2023) and is
+present in this tree.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
 
-### Step 3.3: Related file history
-**Record:** Recent `drm_dp_helper.c` changes are unrelated (backlight,
-AUX probe address). No competing fix for Realtek DSC. Standalone single-
-patch fix.
+### Step 3.3: Related File History
+**Record:**
+- `1d087cb7d81f9` — MMIO `NO_RESPONSE_BUSY` fix (in tree)
+- `3c01e01214026` — MMIO follow-up for unexpected messages after BUSY
+  (in tree)
+- `4d33314decfea` — this CTB fix (NOT in tree; `git merge-base --is-
+  ancestor` returns 1)
+- Recent `xe_guc_ct.c` changes are unrelated CT state/retry fixes
 
-### Step 3.4: Author context
-**Record:** Imre Deak is an active Intel DRM contributor; prior commits
-to this file include Synaptics HBLANK-expansion and MediaTek DSC quirks
-— same subsystem and pattern.
+### Step 3.4: Author Context
+**Record:** Michal Wajdeczko is an active Intel xe/GuC contributor
+(`159afd92bae81`, `2506af5f8109a`, etc. on `xe_guc_ct.c`). Reviewed by
+Daniele Ceraolo Spurio (co-developer).
 
 ### Step 3.5: Dependencies
-**Record:** **No dependencies.** Requires only:
-- `DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` enum (present in
-  `include/drm/display/drm_dp_helper.h`)
-- `drm_dp_mst_dsc_aux_for_port()` quirk handling (present in
-  `drm_dp_mst_topology.c`)
-- `dpcd_quirk_list[]` table (present in `drm_dp_helper.c`)
-
-All verified present in 6.18.44.
+**Record:** Standalone. Uses `memset_after()` (present in
+`include/linux/string.h`), `GUC_HXG_TYPE_NO_RESPONSE_BUSY` and
+`GUC_HXG_BUSY_MSG_0_COUNTER` (present in `abi/guc_messages_abi.h`). No
+prerequisite commits required. Cherry-pick to HEAD applies cleanly
+(+36/−2, auto-merge, no conflicts).
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original discussion
-**Record:** `b4 dig -c <commit>` could not run — commit is not in this
-tree (no commitish available). WebFetch of patch link and
-lore.kernel.org blocked by Anubis bot protection. **UNVERIFIED:** full
-mailing-list thread content.
+### Step 4.1: Original Discussion
+**Record:**
+- **b4 dig -c 4d33314decfea:** https://patch.msgid.link/20260410110457.5
+  73-1-michal.wajdeczko@intel.com
+- **Series:** v1 (Apr 3) → v2 (Apr 8) → v3 (Apr 10); committed version
+  is v3
+- **Review:** Reviewed-by Daniele Ceraolo Spurio in v3
+- **CI:** Patchwork CI reported failure, but for unrelated IGT test
+  changes — not a functional objection to the patch logic
+- **Stable nomination:** None found in mbox thread
 
 ### Step 4.2: Reviewers
-**Record:** Commit message confirms Lyude Paul (DRM maintainer) and Mika
-Kahola reviewed. Cc'd Lyude Paul.
+**Record:** CC'd to `intel-xe@lists.freedesktop.org` and Daniele Ceraolo
+Spurio. Reviewed-by from co-developer.
 
-### Step 4.3: Bug report
-**Record:** Reported-and-tested-by Shawn C Lee (Intel) on ASUS DC301
-USB-C dock hardware. No syzbot/CVE.
+### Step 4.3: Bug Report
+**Record:** No external bug tracker link. Reproducible failure described
+in commit message with full dmesg on BMG hardware.
 
-### Step 4.4: Series context
-**Record:** Standalone 1-patch fix, not part of a series.
+### Step 4.4: Related Patches
+**Record:** Part of a single-patch series (not multi-patch). Related
+MMIO fixes (`1d087cb7d81f9`, `3c01e01214026`) are already in this tree.
 
-### Step 4.5: Stable list history
-**Record:** **UNVERIFIED** — could not access lore stable archive due to
-bot protection.
+### Step 4.5: Stable List
+**Record:** No stable-list discussion found.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** Modified indirectly via quirk table lookup in
-`drm_dp_get_quirks()` → consumed by `drm_dp_has_quirk()` → used in
-`drm_dp_mst_dsc_aux_for_port()`.
+### Step 5.1: Key Functions
+**Record:** `guc_ct_send_recv()`, `parse_g2h_response()`,
+`parse_g2h_msg()`, `g2h_fence_reinit()`
 
 ### Step 5.2: Callers
-**Record:** `drm_dp_mst_dsc_aux_for_port()` called from:
-- `intel_dp_mst.c` — MST connector probe
-  (`connector->dp.dsc_decompression_aux`)
-- `amdgpu_dm_mst_types.c` — `validate_dsc_caps_on_connector()`
-- `drm_dp_mst_topology.c` — `drm_dp_mst_add_affected_dsc_crtcs()`
-
-All are MST hotplug/enumeration and atomic modeset paths — reachable
-when a user plugs in a USB-C dock.
+**Record:** `xe_guc_ct_send_recv()` is reached via
+`xe_guc_ct_send_block()` from many subsystems:
+- `xe_gt_sriov_pf_policy.c` — VGT policy (action 0x5502, the reported
+  failure)
+- `xe_gt_sriov_pf_config.c`, `xe_gt_sriov_pf_control.c`,
+  `xe_gt_sriov_pf_migration.c`
+- `xe_guc.c`, `xe_guc_pc.c`, `xe_guc_submit.c`,
+  `xe_guc_engine_activity.c`, `xe_guc_relay.c`
 
 ### Step 5.3: Callees
-**Record:** Quirk path reads DPCD via `drm_dp_read_desc()`,
-`drm_dp_dpcd_read_data()`, `drm_dp_read_dpcd_caps()` — standard AUX
-reads, no new kernel APIs.
+**Record:** `wait_event_timeout()`, `xa_load()`/`xa_erase()`,
+`g2h_release_space()`, `wake_up_all()`, `memset_after()`
 
 ### Step 5.4: Reachability
-**Record:** Triggered by plugging ASUS DC301 (or other matching Realtek
-MST branch) into a DP MST-capable GPU. Userspace display configuration
-is the entry point. Affects i915 and amdgpu MST users.
+**Record:** Triggered during normal GuC CT blocking operations — GT
+reset recovery, SR-IOV PF policy/config pushes, GuC init/load, engine
+activity queries. These run during device operation and GT reset paths
+on systems with `CONFIG_DRM_XE`.
 
-### Step 5.5: Similar patterns
-**Record:** Identical pattern to Synaptics quirk at line 2538–2539. Same
-author added related Synaptics/MediaTek DSC quirks in this file.
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
-
-### Step 6.1: Buggy code exists?
-**Record:** **YES.** The quirk table has Synaptics entry but lacks
-Realtek entry. The `DSC_WITHOUT_VIRTUAL_DPCD` handling code exists and
-would work once the table entry is added. Bug affects users of Realtek
-MST docks on kernels ≥6.18.44 (and any earlier kernel with the Synaptics
-quirk but not Realtek).
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply.** `patch -p1 --dry-run` succeeded with fuzz 1
-(offset 1 line) against current `drm_dp_helper.c`. No structural
-conflicts.
-
-### Step 6.3: Related fixes already present?
-**Record:** Synaptics `DSC_WITHOUT_VIRTUAL_DPCD` quirk is present
-(`5b03f9d8688071` is ancestor of HEAD). No Realtek equivalent found
-(`grep` for `0x00, 0xe0, 0x4c` in quirk table: no match).
+### Step 5.5: Similar Patterns
+**Record:** MMIO path in `xe_guc.c:1458–1486` already waits through BUSY
+for final response. Relay path in `xe_guc_relay.c:839–841` handles BUSY.
+CT path had `NO_RESPONSE_RETRY` but not BUSY — clear inconsistency.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 6: Cross-Reference Against Local Tree (v6.18.43)
 
-### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/display** — IMPORTANT. Affects display
-output through USB-C/MST docks on Intel and AMD GPUs.
+### Step 6.1: Buggy Code Present?
+**Record:** Yes. At `parse_g2h_msg()` lines 1416–1426, type 3 falls
+through to `default` and marks the G2H channel broken.
+`parse_g2h_response()` has no BUSY branch. Confirmed: `git merge-base
+--is-ancestor 4d33314decfea HEAD` returns 1 (fix not present).
+
+### Step 6.2: Backport Complications
+**Record:** Clean apply verified: `git cherry-pick --no-commit
+4d33314decfea` auto-merges with no conflicts (+36/−2). No structural
+refactoring conflicts in `xe_guc_ct.c`.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** MMIO BUSY handling (`1d087cb7d81f9`) and relay BUSY handling
+are present. CT BUSY handling is the remaining gap — no duplicate fix in
+tree.
+
+---
+
+## Phase 7: Subsystem Context
+
+### Step 7.1: Subsystem and Criticality
+**Record:** `drivers/gpu/drm/xe/` — Intel Xe GPU driver. **IMPORTANT**
+for Intel discrete/integrated GPU users. BMG (Battlemage) platform
+support is present (`xe_pci.c` `bmg_desc`, `xe_vsec.c`, GuC firmware
+defs in `xe_uc_fw.c`).
 
 ### Step 7.2: Activity
-**Record:** Actively maintained; recent commits in `drm_dp_helper.c` and
-`drm_dp_mst_topology.c` within this stable cycle.
+**Record:** Actively maintained — recent commits on `xe_guc_ct.c`
+include CT state management, fence synchronization, and resource-leak
+fixes.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk Assessment
 
-### Step 8.1: Who is affected
-**Record:** Users of Realtek MST branch USB-C docks (specifically
-tested: ASUS DC301) connected via DP MST to Intel/AMD GPUs with DSC-
-capable outputs. Config-dependent: `CONFIG_DRM`, MST, DSC support.
+### Step 8.1: Who Is Affected
+**Record:** Users of Intel Xe GPUs with GuC CT communication —
+especially BMG with SR-IOV PF enabled, but any platform where GuC sends
+`NO_RESPONSE_BUSY` over CTB during blocking operations.
 
-### Step 8.2: Trigger conditions
-**Record:** Plug dock into MST-capable port; attempt modes requiring DSC
-decompression on downstream connectors. Not timing-dependent;
-deterministic hardware identification failure. Unprivileged users can
-trigger via normal display hotplug.
+### Step 8.2: Trigger Conditions
+**Record:** GuC sends `NO_RESPONSE_BUSY` (type 3) on the CTB G2H channel
+while the host is blocked in `guc_ct_send_recv()`. Observed during VGT
+policy push (action 0x5502) on BMG; can affect any
+`xe_guc_ct_send_block()` caller when GuC is temporarily busy. Requires
+`CONFIG_DRM_XE` and functioning GuC CT.
 
-### Step 8.3: Failure mode severity
-**Record:** **MEDIUM** — DSC decompression disabled → high-
-resolution/high-refresh modes through dock may not work or may not use
-optimal compression. Not a kernel crash, oops, or data corruption, but
-real functional breakage on production hardware.
+### Step 8.3: Failure Severity
+**Record:** **CRITICAL** — CT G2H channel marked broken (`CT_DEAD`),
+operations fail with `-ETIME`/`-EOPNOTSUPP`, SR-IOV policy/config
+provisioning fails, GT reset required. GPU functionality degrades or
+becomes unusable until reset.
 
-### Step 8.4: Risk-benefit
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Enables DSC on Realtek MST docks; restores display
-  functionality matching hardware capability. Tested on real hardware.
-- **Risk:** Minimal — 2-line quirk entry, narrowly matched by OUI +
-  device ID + branch flag.
-- **Ratio:** Strong benefit for affected hardware, negligible risk.
+- **Benefit:** HIGH — prevents CT channel corruption and cascading
+  failures on a widely used communication path
+- **Risk:** LOW — 36 lines, one file, follows established patterns,
+  verified clean cherry-pick
+- **Ratio:** Strongly favors backport
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Hardware quirk — explicit stable exception category
-- Fixes real, tested bug on ASUS DC301 USB-C dock
-- 2-line, surgical change using existing infrastructure
-- Reviewed by DRM maintainer (Lyude Paul)
-- Mirrors proven Synaptics quirk (in tree since 2019)
-- Applies cleanly to 6.18.44
-- No new APIs, no refactoring
+- Fixes a real, observed hardware failure on BMG
+- Causes CT channel breakage and GPU reset requirement — serious
+  stability impact
+- Small, surgical, reviewed fix following existing MMIO/relay patterns
+- Buggy code confirmed present in v6.18.43; fix not yet applied
+- Cherry-picks cleanly
+- Affects many callers of blocking CT send (SR-IOV, GuC init, engine
+  activity, etc.)
 
 **AGAINST backport:**
-- Display functionality issue, not crash/security/corruption
-- Affects narrow hardware population (Realtek MST docks)
-- Mailing-list discussion not independently verified
+- Commit message trigger (VGT policy in GT restart sequence) may be a
+  newer mainline integration; however, VGT policy push via
+  `xe_guc_ct_send_block()` already exists in 6.18.43, and the bug is
+  protocol-general, not restart-specific
+- No explicit stable nomination or wide user reports beyond Intel
+  internal testing
+- CI reported unrelated test failures (not a functional NAK)
 
-**UNRESOLVED:**
-- Full lore thread content (bot protection)
-- Whether other Realtek device IDs beyond `'Dp1.4'` need the same quirk
+**Unresolved:** Whether the exact "VGT policy during GT restart" call
+path from mainline is already in 6.18.43 — but this does not affect the
+verdict because the underlying CT BUSY bug is present and reachable via
+existing policy push paths.
 
-### Step 9.2: Stable rules checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — mirrors Synaptics;
-Reported-and-tested-by on real hardware; maintainer reviewed |
-| 2. Fixes a real bug affecting users? | **PASS** — DSC broken on
-Realtek MST dock downstream ports |
-| 3. Important issue? | **PASS** (hardware quirk) — display modes broken
-on affected dock; not crash-level but real user impact |
-| 4. Small and contained? | **PASS** — 2 lines, one file |
-| 5. No new features/APIs? | **PASS** — quirk table entry only |
-| 6. Can apply to local tree? | **PASS** — clean apply with fuzz 1 |
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — mirrors MMIO handling;
+   Reviewed-by; observed fix on BMG
+2. Fixes a real bug affecting users? **PASS** — documented dmesg on real
+   hardware
+3. Important issue? **PASS** — CRITICAL: CT channel broken, GPU reset,
+   operation failures
+4. Small and contained? **PASS** — 36 lines, 1 file
+5. No new features or APIs? **PASS** — protocol parity fix, no userspace
+   changes
+6. Can apply to local tree? **PASS** — verified clean cherry-pick
 
-### Step 9.3: Exception category
-**Record:** **Hardware quirk/workaround** — directly matches the stable
-exception for device-specific quirks that fix real-world hardware
-issues.
+### Step 9.3: Exception Categories
+**Record:** Hardware quirk/workaround category does not apply. This is a
+driver protocol-handling bug fix.
 
-### Step 9.4: Decision rationale
-
-This commit adds a Realtek MST branch device to the existing
-`DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` quirk table. All handling code
-already exists in 6.18.44 (introduced for Synaptics docks in 2019).
-Without this entry, DSC decompression is silently unavailable on Realtek
-MST USB-C docks such as the ASUS DC301, breaking display functionality
-on downstream connectors.
-
-This is textbook stable material: a small, maintainer-reviewed hardware
-quirk that enables existing functionality on real hardware, with no API
-changes and negligible regression risk.
+### Step 9.4: Decision Rationale
+This commit closes a longstanding gap where the xe driver's GuC CT
+blocking-send path did not handle `NO_RESPONSE_BUSY`, a message type the
+GuC firmware legitimately sends and that the MMIO and relay paths
+already handle. In v6.18.43, receiving type 3 on CTB corrupts the G2H
+channel and causes timeouts and failures across SR-IOV policy, config,
+and other GuC operations. The fix is small, reviewed, self-contained,
+and applies cleanly to this tree.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from user-provided commit
-  message
-- **[Phase 2]** Diff analysis: +2 lines to `dpcd_quirk_list[]` in
-  `drm_dp_helper.c`
-- **[Phase 2]** Read `drm_dp_mst_dsc_aux_for_port()` quirk handling at
-  lines 6159–6176
-- **[Phase 2]** Read `drm_dp_get_quirks()` matching logic at lines
-  2558–2583
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; Makefile confirms
-  6.18.44
-- **[Phase 3]** `git blame` on lines 2535–2545: Synaptics quirk from
-  `5b03f9d8688071` (2019)
-- **[Phase 3]** `git merge-base --is-ancestor 5b03f9d8688071 HEAD` →
-  prerequisite commit present
-- **[Phase 3]** `git log --grep="DSC virtual DPCD quirk for Realtek"` →
-  no results (commit not in tree)
-- **[Phase 4]** `b4 dig` requires commitish not available in tree —
-  **UNVERIFIED**
-- **[Phase 4]** WebFetch of patch link and lore.kernel.org — blocked by
-  Anubis — **UNVERIFIED**
-- **[Phase 5]** `grep drm_dp_mst_dsc_aux_for_port` → callers in i915,
-  amdgpu, drm_dp_mst_topology.c
-- **[Phase 5]** Read `intel_dp_mst.c:1745` — `dsc_decompression_aux =
-  drm_dp_mst_dsc_aux_for_port(port)`
-- **[Phase 5]** Read `amdgpu_dm_mst_types.c:276` — same pattern
-- **[Phase 6]** `grep "0x00, 0xe0, 0x4c"` in quirk table → no match (bug
-  present, fix absent)
-- **[Phase 6]** `grep DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD` → enum and
-  usage confirmed in tree
-- **[Phase 6]** `patch -p1 --dry-run` on constructed patch → succeeds
-  with fuzz 1
-- **[Phase 7]** Subsystem: `drivers/gpu/drm/display` — DRM display
-  helper
-- **[Phase 8]** Failure mode: DSC unavailable on dock ports — MEDIUM
-  severity, real hardware impact
+- [Phase 1] Parsed commit message and tags from `git show 4d33314decfea`
+- [Phase 1] Confirmed action 0x5502 =
+  `GUC_ACTION_PF2GUC_UPDATE_VGT_POLICY` in `guc_actions_sriov_abi.h`
+- [Phase 1] Confirmed type 3 = `GUC_HXG_TYPE_NO_RESPONSE_BUSY` in
+  `guc_messages_abi.h`
+- [Phase 2] Full diff reviewed via `git show 4d33314decfea`
+- [Phase 2] Read current buggy code at `xe_guc_ct.c:1411–1427` and
+  `1357–1380`
+- [Phase 3] `git describe HEAD` → v6.18.43
+- [Phase 3] `git merge-base --is-ancestor 4d33314decfea HEAD` → exit 1
+  (not in tree)
+- [Phase 3] `git merge-base --is-ancestor 1d087cb7d81f9 HEAD` → exit 0
+  (MMIO fix in tree)
+- [Phase 3] `git merge-base --is-ancestor 3c01e01214026 HEAD` → exit 0
+- [Phase 3] `git blame` on `parse_g2h_msg` switch → `308dc9b27874d`
+- [Phase 4] `b4 dig -c 4d33314decfea` → lore URL found
+- [Phase 4] `b4 dig -c 4d33314decfea -a` → v1/v2/v3 series, v3 committed
+- [Phase 4] `b4 dig -c 4d33314decfea -w` → CC intel-xe, Daniele Ceraolo
+  Spurio
+- [Phase 4] `b4 dig -m /tmp/no_response_busy.mbx` → Reviewed-by
+  confirmed, no stable Cc
+- [Phase 5] Grep `xe_guc_ct_send_block` → 10+ call sites across xe
+  driver
+- [Phase 5] Read MMIO BUSY handler at `xe_guc.c:1458–1486`
+- [Phase 5] Read relay BUSY handler at `xe_guc_relay.c:839–841`
+- [Phase 6] Confirmed `GUC_HXG_TYPE_NO_RESPONSE_BUSY` absent from
+  `xe_guc_ct.c` grep
+- [Phase 6] Cherry-pick test: clean auto-merge, +36/−2
+- [Phase 6] Confirmed `memset_after` in `include/linux/string.h:508`
+- [Phase 6] Confirmed BMG platform in `xe_pci.c`, `xe_vsec.c`,
+  `xe_uc_fw.c`
+- [Phase 7] Confirmed `xe_gt_sriov_pf_policy.c` uses
+  `xe_guc_ct_send_block` for action 0x5502
+- [Phase 8] Failure mode verified from commit message dmesg and code
+  path analysis
 
-**YES**The background checks finished:
+**YES**The background search finished and confirmed the commit: upstream
+`4d33314decfea` (stable-prepared as `a405c6d35e5cc`), plus related MMIO-
+side fixes already in this tree.
 
-- **Tree:** Linux **6.18.44** (`v6.18.44`)
-- **Commit search:** No match for the Realtek DSC quirk commit in this
-  tree — it isn’t applied here yet
-- **Prerequisites:** The Synaptics `DSC_WITHOUT_VIRTUAL_DPCD` quirk and
-  handling code are present; only the Realtek table entry is missing
+**Verdict for Linux 6.18.43: YES**
 
-That matches the earlier analysis: this is a small hardware quirk that
-should be backported to this tree.
+The CT blocking-send path in `xe_guc_ct.c` doesn't handle GuC
+`NO_RESPONSE_BUSY` (type 3) messages, so it marks the G2H channel broken
+and causes timeouts/failures (seen on BMG during VGT policy pushes).
+MMIO and relay paths already handle this message type. The fix is small
+(36 lines, one file), reviewed, and cherry-picks cleanly onto
+v6.18.43.The ancestry check finished: `4d33314decfea` is **not** in
+v6.18.43 (`merge-base --is-ancestor` returned exit 1). That matches the
+earlier finding — the CTB `NO_RESPONSE_BUSY` fix still needs to be
+backported to this tree.
 
-**YES**
+ drivers/gpu/drm/xe/xe_guc_ct.c | 38 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 36 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 8c858ba40c6c6..77336bc3e62c2 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2537,6 +2537,8 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
- 	{ OUI(0x00, 0x00, 0x00), DEVICE_ID('C', 'H', '7', '5', '1', '1'), false, BIT(DP_DPCD_QUIRK_NO_SINK_COUNT) },
- 	/* Synaptics DP1.4 MST hubs can support DSC without virtual DPCD */
- 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
-+	/* Realtek DP1.4 MST hubs can support DSC without virtual DPCD */
-+	{ OUI(0x00, 0xe0, 0x4c), DEVICE_ID('D', 'p', '1', '.', '4', 0), true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
- 	/* Synaptics DP1.4 MST hubs require DSC for some modes on which it applies HBLANK expansion. */
- 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
- 	/* MediaTek panels (at least in U3224KBA) require DSC for modes with a short HBLANK on UHBR links. */
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index 4158e8af13908..b9d265ad06a0e 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -82,13 +82,16 @@ static void ct_dead_capture(struct xe_guc_ct *ct, struct guc_ctb *ctb, u32 reaso
+ struct g2h_fence {
+ 	u32 *response_buffer;
+ 	u32 seqno;
++	/* fields below this point are setup based on the response */
+ 	u32 response_data;
+ 	u16 response_len;
+ 	u16 error;
+ 	u16 hint;
+ 	u16 reason;
++	u32 counter;
+ 	bool cancel;
+ 	bool retry;
++	bool wait;
+ 	bool fail;
+ 	bool done;
+ };
+@@ -102,6 +105,11 @@ static void g2h_fence_init(struct g2h_fence *g2h_fence, u32 *response_buffer)
+ 	g2h_fence->seqno = ~0x0;
+ }
+ 
++static void g2h_fence_reinit(struct g2h_fence *g2h_fence)
++{
++	memset_after(g2h_fence, 0, seqno);
++}
++
+ static void g2h_fence_cancel(struct g2h_fence *g2h_fence)
+ {
+ 	g2h_fence->cancel = true;
+@@ -1134,6 +1142,7 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
+ 	/* READ_ONCEs pairs with WRITE_ONCEs in parse_g2h_response
+ 	 * and g2h_fence_cancel.
+ 	 */
++wait_again:
+ 	ret = wait_event_timeout(ct->g2h_fence_wq, READ_ONCE(g2h_fence.done), HZ);
+ 	if (!ret) {
+ 		LNL_FLUSH_WORK(&ct->g2h_worker);
+@@ -1159,6 +1168,14 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
+ 		return -ETIME;
+ 	}
+ 
++	if (g2h_fence.wait) {
++		xe_gt_dbg(gt, "H2G action %#x busy: counter %u\n",
++			  action[0], g2h_fence.counter);
++		/* we can't leave any response data if we want to wait again */
++		g2h_fence_reinit(&g2h_fence);
++		mutex_unlock(&ct->lock);
++		goto wait_again;
++	}
+ 	if (g2h_fence.retry) {
+ 		xe_gt_dbg(gt, "H2G action %#x retrying: reason %#x\n",
+ 			  action[0], g2h_fence.reason);
+@@ -1354,7 +1371,12 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 		return -EPROTO;
+ 	}
+ 
+-	g2h_fence = xa_erase(&ct->fence_lookup, fence);
++	/* don't erase as we still expect a final response with the same fence */
++	if (type == GUC_HXG_TYPE_NO_RESPONSE_BUSY)
++		g2h_fence = xa_load(&ct->fence_lookup, fence);
++	else
++		g2h_fence = xa_erase(&ct->fence_lookup, fence);
++
+ 	if (unlikely(!g2h_fence)) {
+ 		/* Don't tear down channel, as send could've timed out */
+ 		/* CT_DEAD(ct, NULL, PARSE_G2H_UNKNOWN); */
+@@ -1365,6 +1387,12 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 
+ 	xe_gt_assert(gt, fence == g2h_fence->seqno);
+ 
++	/*
++	 * reinit as we might have already process this g2h_fence before
++	 * if we received a NO_RESPONSE_BUSY reply
++	 */
++	g2h_fence_reinit(g2h_fence);
++
+ 	if (type == GUC_HXG_TYPE_RESPONSE_FAILURE) {
+ 		g2h_fence->fail = true;
+ 		g2h_fence->error = FIELD_GET(GUC_HXG_FAILURE_MSG_0_ERROR, hxg[0]);
+@@ -1372,6 +1400,9 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 	} else if (type == GUC_HXG_TYPE_NO_RESPONSE_RETRY) {
+ 		g2h_fence->retry = true;
+ 		g2h_fence->reason = FIELD_GET(GUC_HXG_RETRY_MSG_0_REASON, hxg[0]);
++	} else if (type == GUC_HXG_TYPE_NO_RESPONSE_BUSY) {
++		g2h_fence->wait = true;
++		g2h_fence->counter = FIELD_GET(GUC_HXG_BUSY_MSG_0_COUNTER, hxg[0]);
+ 	} else if (g2h_fence->response_buffer) {
+ 		g2h_fence->response_len = hxg_len;
+ 		memcpy(g2h_fence->response_buffer, hxg, hxg_len * sizeof(u32));
+@@ -1379,7 +1410,9 @@ static int parse_g2h_response(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 		g2h_fence->response_data = FIELD_GET(GUC_HXG_RESPONSE_MSG_0_DATA0, hxg[0]);
+ 	}
+ 
+-	g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
++	/* don't release any space if it was an intermediate message */
++	if (!g2h_fence->wait)
++		g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
+ 
+ 	/* WRITE_ONCE pairs with READ_ONCEs in guc_ct_send_recv. */
+ 	WRITE_ONCE(g2h_fence->done, true);
+@@ -1416,6 +1449,7 @@ static int parse_g2h_msg(struct xe_guc_ct *ct, u32 *msg, u32 len)
+ 	case GUC_HXG_TYPE_RESPONSE_SUCCESS:
+ 	case GUC_HXG_TYPE_RESPONSE_FAILURE:
+ 	case GUC_HXG_TYPE_NO_RESPONSE_RETRY:
++	case GUC_HXG_TYPE_NO_RESPONSE_BUSY:
+ 		ret = parse_g2h_response(ct, msg, len);
+ 		break;
+ 	default:
 -- 
 2.53.0
 
