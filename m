@@ -4,44 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3409C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 23:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83FE2C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 23:56:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432B510E383;
-	Mon, 31 Aug 2026 23:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40F510E500;
+	Mon, 31 Aug 2026 23:56:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jw5zq+mT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ngBospwR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F80510E285;
- Mon, 31 Aug 2026 23:55:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 73E24601DE;
- Mon, 31 Aug 2026 23:55:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F641F000E9;
- Mon, 31 Aug 2026 23:55:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788220539;
- bh=NEQIaboQMPbpmXNkbp/hqCXRStAUMmc/5DpYJeoJy8E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Jw5zq+mTcSVhrFCpLZSuqVw5QJjnSyIlsVoh1nRDR9jo6Auxtj3bjuO0Cl2p8SEJY
- cdLj+3XWClAfLrnDolU9VHKE3Gh4WnW0YCF799+Nn9EE7E2T4Ct0ULmxcc0kiARXx2
- OmJtOdPfLJJ6gjkmMX//7kLKmVYWdgfTzbzkNhseERhMmoBK0QSK5/Bf/UbTOwoutM
- dvrsGFSnkmMRwjKh6hiVT2buA1NbCZIIGWmqf2JMI8OLj7lti7QOIh2V0YoDMaloNa
- ThNe7zBe/LFHL3FtTjmeFQE6Ymo0WRh1TI2qALJqo7BTEMlvokXPkmVN1wJoekAMh6
- ONLZecnhbXr3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/12] drm/i915/display: use drm backlight
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831210531.2334221-13-mario.limonciello@amd.com>
-References: <20260831210531.2334221-1-mario.limonciello@amd.com>
- <20260831210531.2334221-13-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 23:55:38 +0000
-Message-Id: <20260831235538.E3F641F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7746B10E359;
+ Mon, 31 Aug 2026 23:56:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788220571; x=1819756571;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IT0MgmzH63lkRBAMrOABZz5j1Y48Ap35yV6zMizmneg=;
+ b=ngBospwR6IbDX8KHcW6JCNyE7UR9/dq9Ip3UXfGGeyXYzJrmqS2x0ZSP
+ i6d+Iuq2Y8mDfNH+znF/67hkNq2peQGCQTPTXmMCCEfZ9ezejs4Yll82R
+ Nk0oKepAss0DsKueA1ia7HdxtJskM7E3jlmtvprZzOXXyjXA0tFsOrpVg
+ t8J/4chfMqLImHEvLrEmcNoMXjeUcgATIHxymZsyP7d6hBJYL4UgwWHqd
+ 3qtOEwAOos7RrwO+ueyEJJG9E837n3lfRfa31FxsMWGeW1IM+IgMXj+GB
+ Wb5CRN3sekmMBzFqP+gVooyykqAPlSaGexUl283hh7Z5UGE0w6G1mJAgB Q==;
+X-CSE-ConnectionGUID: +MWMO8s5QSSGpDdcX1iNig==
+X-CSE-MsgGUID: uroAv8vhQ1eP+vt/1NlPVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88646656"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88646656"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 16:56:09 -0700
+X-CSE-ConnectionGUID: glvfOatIRCK0ADskbkG2TQ==
+X-CSE-MsgGUID: OrUUCLWRRn6z2UekMvP9GQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="262796753"
+Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.39.16])
+ by fmviesa009.fm.intel.com with ESMTP; 31 Aug 2026 16:56:09 -0700
+From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
+ Alexander Kanevskiy <alexander.kanevskiy@intel.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [PATCH v4] perf: Fix null pointer access in is_include_guest_event()
+Date: Mon, 31 Aug 2026 16:50:30 -0700
+Message-Id: <20260831235030.6737-1-vinay.belgaumkar@intel.com>
+X-Mailer: git-send-email 2.38.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,115 +64,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+A kernel panic is observed when an application has a perf connection open
+and the driver managing the pmu event unbinds. The issue occurs when
+perf_pmu_unregister() is called while there is an active perf session. The
+null pointer error is seen when the event is freed through __free_event()
+and mediated_pmu_unaccount_event is called. There is a missing null check
+inside is_include_guest_event(). Also call mediated_pmu_unaccount_event()
+inside __pmu_detach_event() similar to __free_event().
 
-New issues:
-- [Low] Unused include `<drm/drm_backlight.h>` in `intel_dp.c`
+Signature of the failure:
 
-Pre-existing issues:
-- [High] TOCTOU race in sysfs backlight update leading to NULL pointer dere=
-ference during non-blocking display disable
---
+ Oops: general protection fault, kernel NULL pointer dereference
+ ...
+ RIP: 0010:_free_event+0x3e/0x370
+ ...
+ Call Trace:
+ ...
+ perf_event_release_kernel+0x260/0x2d0
+ perf_release+0x12/0x20
 
-commit 6982034de97212a1664f3db93710a699b08ecdab
-Author: Mario Limonciello <mario.limonciello@amd.com>
+While here, also add a null check inside perf_event_read_local() which can
+cause a similar crash. Sashiko pointed out a possible race between when we
+check for revoked state here and then actually access event-pmu inside
+__perf_event_read_cpu(). So, add another null check there.
 
-drm/i915/display: use drm backlight
+v2: Add another check to prevent null access (sashiko)
+v3: Use READ_ONCE for checking pmu state (sashiko)
+v4: READ_ONCE for the pmu check as well (sashiko)
 
-This commit converts the Intel display drivers (i915 and xe) to use the DRM
-backlight infrastructure, allowing brightness control via the connector
-LUMINANCE property. It links the backlight device to the eDP connector on
-registration and unlinks it on unregistration.
+Fixes: eff95e170275 ("perf: Add APIs to create/release mediated guest vPMUs")
+Cc: Alexander Kanevskiy <alexander.kanevskiy@intel.com>
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Assisted-by: Claude:Claude-Sonnet-5
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ kernel/events/core.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu=
-/drm/i915/display/intel_backlight.c
-> index b128896cb1c2d..b0cd4dc3adc00 100644
-> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 94ca277e0819..4f8c5191ef2c 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -4794,6 +4794,9 @@ static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
+ 	if ((unsigned)event_cpu >= nr_cpu_ids)
+ 		return event_cpu;
+ 
++	if (!READ_ONCE(event->pmu))
++		return -ENODEV;
++
+ 	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+ 		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
+ 
+@@ -4917,6 +4920,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
+ 		goto out;
+ 	}
+ 
++	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
++		ret = -ENODEV;
++		goto out;
++	}
++
+ 	/*
+ 	 * Get the event CPU numbers, and adjust them to local if the event is
+ 	 * a per-package event that can be read locally
+@@ -6350,6 +6358,9 @@ static DEFINE_MUTEX(perf_mediated_pmu_mutex);
+ /* !exclude_guest event of PMU with PERF_PMU_CAP_MEDIATED_VPMU */
+ static inline bool is_include_guest_event(struct perf_event *event)
+ {
++	if (!event->pmu)
++		return false;
++
+ 	if ((event->pmu->capabilities & PERF_PMU_CAP_MEDIATED_VPMU) &&
+ 	    !event->attr.exclude_guest)
+ 		return true;
+@@ -12977,6 +12988,7 @@ static void __pmu_detach_event(struct pmu *pmu, struct perf_event *event,
+ 	exclusive_event_destroy(event);
+ 	module_put(pmu->module);
+ 
++	mediated_pmu_unaccount_event(event);
+ 	event->pmu = NULL; /* force fault instead of UAF */
+ }
+ 
+-- 
+2.38.1
 
-[ ... ]
-
-> @@ -1015,6 +1018,7 @@ void intel_backlight_device_unregister(struct intel=
-_connector *connector)
->  	struct intel_panel *panel =3D &connector->panel;
-> =20
->  	if (panel->backlight.device) {
-> +		drm_backlight_link(&connector->base, NULL);
->  		backlight_device_unregister(panel->backlight.device);
->  		panel->backlight.device =3D NULL;
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but could this cause a NULL pointer dereferen=
-ce
-during a non-blocking display disable?
-
-If there is a concurrent userspace write to the legacy sysfs brightness file
-during a non-blocking display disable on VLV/CHV hardware, we might hit a r=
-ace.
-During the non-blocking commit, connection_mutex is dropped before the hard=
-ware
-is disabled, allowing intel_backlight_device_update_status() to execute.
-
-It uses the newly swapped connector->base.state (where crtc =3D NULL), but
-panel->backlight.enabled remains true until the asynchronous commit tail
-disables it.
-
-This seems to lead to intel_panel_set_backlight() passing the state directly
-to the backend without checking if conn_state->crtc is NULL:
-
-drivers/gpu/drm/i915/display/intel_backlight.c:intel_panel_set_backlight() {
-    ...
-    if (panel->backlight.enabled)
-        intel_panel_actually_set_backlight(conn_state, hw_level);
-    ...
-}
-
-Which then calls into vlv_set_backlight() where the NULL crtc is dereferenc=
-ed:
-
-drivers/gpu/drm/i915/display/intel_backlight.c:vlv_set_backlight() {
-    ...
-    enum pipe pipe =3D to_intel_crtc(conn_state->crtc)->pipe;
-    u32 tmp;
-
-    tmp =3D intel_de_read(display, VLV_BLC_PWM_CTL(pipe)) & ~BACKLIGHT_DUTY=
-_CYCLE_MASK;
-    intel_de_write(display, VLV_BLC_PWM_CTL(pipe), tmp | level);
-    ...
-}
-
-Does this require a check for conn_state->crtc being NULL before passing the
-state, similar to how other backlight functions handle it?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 113d767e62e9c..2381a80a4e671 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -43,6 +43,7 @@
->  #include <drm/display/drm_dsc_helper.h>
->  #include <drm/display/drm_hdmi_helper.h>
->  #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_backlight.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_fixed.h>
-
-[Severity: Low]
-Is this include used anywhere in this file?
-
-It looks like <drm/drm_backlight.h> is added to intel_dp.c but no symbols f=
-rom
-it are utilized in this file, resulting in a dead include.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
-221-1-mario.limonciello@amd.com?part=3D12
