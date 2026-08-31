@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D46CC624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93567C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 463D210E8ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA6EF10E8EF;
 	Mon, 31 Aug 2026 13:50:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R/ehLg/c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FSRDZkSZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 650A210E8E0;
- Mon, 31 Aug 2026 13:50:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF54310E8E2;
+ Mon, 31 Aug 2026 13:50:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1F24A40130;
- Mon, 31 Aug 2026 13:50:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694B81F000E9;
- Mon, 31 Aug 2026 13:50:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B518341202;
+ Mon, 31 Aug 2026 13:50:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A14A1F00ACA;
+ Mon, 31 Aug 2026 13:50:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184213;
- bh=fk5hVOIDrn15yQGOza9z7T9PpSYIbdA5T28sdCLMpMI=;
+ s=k20260515; t=1788184216;
+ bh=z1mN8Wwr8AifXzMeBKomArG90ftuqMTyG0a2XRVDaKM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=R/ehLg/cS1IXx6e4+xeRmAAnCw4YEMUiPP48s8DxPwH0jmAy2BQkCvRAudD8JKvlp
- Y4CNxo0kQqLeOOjgPm4e7X4R3cv8OpXErZOjdKIRrHtbLoZzJTSR3lseN/yHf6UFfw
- EL9EkQZgujD5Jh2+4bUBqdrC0vrhJtjl2Qv5KBM49Z7MfDg9nQ6ntm2ehH1mt0RX0j
- mLHecwsXRWy1m7YyXsZiC2XAkJCQbL24wo+Oy0lJn++2v+0TYWr6GsaqUy0+Q46aC5
- dOr750i3Uul6r7hjKCPjO4GoLW8Wl5CeaBVjBqqBrcRCMwsFxGW45GQMHxmWAhkG3h
- QcWLdwj7WsKiw==
+ b=FSRDZkSZPvRmN+HiFZtwfYFdk18Z9dGphWd4WZ9cmIL8SXe/fpHZ7ABeiyYvf4VbM
+ Dxqf4SgzdxSwwX3Wr4i5JtQATAkqkYOFOUMdxC2KdFGhkTSMkI7RkA2LIZLlSFfhNB
+ pXAbrnK6tATGPRASymedde8GYpviD652+JOrEdHnT7xAS0u1nJr7vPS6VHjKM0bYBe
+ eW0KyRKjjgyfuMu5GS7fjeNjUctwtS40kCn6dqnogjQOabc4BEkzo0/WDyz1IUdsHz
+ xJ7O2s3ZHK9gI7nKb0WDpCMw7DE9aaKByMoUD+eS5PqfHwDZicMSBrvXvZm7Sb4kDi
+ 9Fd+y+ULzjA8g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dominik Kaszewski <dominik.kaszewski@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+Cc: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] drm/amd/display: Fix DPMS using partially
- updated pipe context
-Date: Mon, 31 Aug 2026 09:29:47 -0400
-Message-ID: <20260831133314.4125787-559-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/pm: fix SmartShift bias sysfs store
+ PM refcount on parse error
+Date: Mon, 31 Aug 2026 09:29:49 -0400
+Message-ID: <20260831133314.4125787-561-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,282 +66,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Dominik Kaszewski <dominik.kaszewski@amd.com>
+From: Candice Li <candice.li@amd.com>
 
-[ Upstream commit 6fd45b5d8955bbc362ac3dfe181529f7b1cfd224 ]
+[ Upstream commit a4b0c3f5d2287997876d8f711a40d3c0418458d8 ]
 
-[Why & How]
-DPMS functions should not use partially updated pipe context passed
-as argument of commit_planes_do_stream_update, and instead use the
-one in current_state, which is guaranteed to be the most recently
-programmed HW config.
+Return the parse error before acquiring PM access.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
-Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+Signed-off-by: Candice Li <candice.li@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amd/display: Fix DPMS using partially
-updated pipe context`
+# Stable Backport Analysis: drm/amdgpu/pm: fix SmartShift bias sysfs
+store PM refcount on parse error
 
-**Local tree:** `v6.18.43` (Makefile: 6.18.43, `DC_VER` "3.2.351")
+**Local tree:** `stable/linux-6.18.y` at **v6.18.44** (`make
+kernelversion` = 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-**Record:** `[drm/amd/display]` `[Fix]` — DPMS operations must not use a
-partially updated `pipe_ctx` from the in-flight commit `context`; they
-should use the pipe context from `current_state` (last programmed HW
-config).
+**Record:** `[drm/amdgpu/pm]` `[fix]` — Corrects SmartShift bias sysfs
+store handler so PM runtime refcount is not touched on `kstrtoint()`
+parse failure.
 
 ### Step 1.2: Tags
 **Record:**
-| Tag | Value |
-|-----|-------|
-| Reviewed-by | Wenjing Liu \<wenjing.liu@amd.com\> |
-| Signed-off-by | Dominik Kaszewski, Chenyu Chen, Alex Deucher |
-| Fixes: | **Not present** (expected for candidate review) |
-| Reported-by: | **Not present** |
-| Cc: stable | **Not present** (not a negative signal) |
-| Link: | **Not present** |
-
-Notable: AMD display reviewer sign-off; no syzbot/user bug report.
+- **Signed-off-by:** Candice Li \<candice.li@amd.com\> (author)
+- **Reviewed-by:** Hawking Zhang \<Hawking.Zhang@amd.com\> (AMD
+  reviewer)
+- **Signed-off-by:** Alex Deucher \<alexander.deucher@amd.com\>
+  (drm/amdgpu maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable tags
+- Notable: maintainer-reviewed AMD driver fix; no syzbot/fuzzer report
 
 ### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** `commit_planes_do_stream_update()` receives `context`
-  (new/partial state). DPMS handlers were passed `pipe_ctx` from that
-  partial state instead of the HW-backed state.
-- **Symptom:** DPMS off/on and related link blanking can target wrong or
-  unprogrammed hardware resources during commits that also update stream
-  state.
-- **Root cause:** DPMS manipulates live hardware (blank stream, disable
-  audio, link training) but was using a pipe context that may not yet
-  reflect programmed HW — the same class of problem the adjacent test-
-  pattern comment already documents.
-- **Version info:** Patch submitted April 15, 2026 as part of "DC
-  Patches Apr 20 2026" (patch 17/19).
+- **Bug:** On invalid sysfs input, `amdgpu_set_smartshift_bias()` calls
+  `amdgpu_pm_put_access()` without a matching `amdgpu_pm_get_access()`.
+- **Symptom:** Runtime PM usage-count underflow; kernel emits `Runtime
+  PM usage count underflow!` via `dev_warn()`.
+- **Root cause (author):** Parse error should be returned before
+  acquiring PM access.
+- **Version info:** None in message; bug introduced in this tree by
+  commit `55aa33c3fe3876` (Feb 2025 refactor).
 
 ### Step 1.4: Hidden Bug Fix?
-**Record:** No — explicitly labeled a fix. Correctness bug in display
-power-management path, not cosmetic cleanup.
+**Record:** No — this is an explicit refcount/PM pairing bug fix, not
+disguised cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/amd/display/dc/core/dc.c` (+14 / −7)
-- **Function:** `commit_planes_do_stream_update()`
-- **Scope:** Single-file, surgical fix in one function
+- **File:** `drivers/gpu/drm/amd/pm/amdgpu_pm.c` (+3 / −5)
+- **Function:** `amdgpu_set_smartshift_bias()` only
+- **Scope:** Single-file, surgical fix in one sysfs store handler
 
 ### Step 2.2: Code Flow Change
+
+**Before (buggy code in v6.18.44):**
+
+```1865:1886:drivers/gpu/drm/amd/pm/amdgpu_pm.c
+        r = kstrtoint(buf, 10, &bias);
+        if (r)
+                goto out;
+
+        r = amdgpu_pm_get_access(adev);
+        if (r < 0)
+                return r;
+        // ... clamp bias, set amdgpu_smartshift_bias ...
+out:
+        amdgpu_pm_put_access(adev);
+
+        return r;
+```
+
+**After (fixed):**
+- Parse error → `return r` immediately (no PM access)
+- Success path → `get_access` → work → `put_access` → `return count`
+
 **Record:**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| DPMS off | `set_dpms_off(pipe_ctx)` from `context` |
-`set_dpms_off(dpms_pipe_ctx)` from `dc->current_state` |
-| Audio disable | `az_disable` via `context` pipe_ctx | via
-`current_state` pipe_ctx (with local `audio` pointer) |
-| DPMS on | `set_dpms_on(dc->current_state, pipe_ctx)` |
-`set_dpms_on(dc->current_state, dpms_pipe_ctx)` |
-| OCS workaround | `set_dpms_on` + link checks on `context` pipe_ctx |
-same operations on `current_state` pipe_ctx |
-
-**Execution path:** Stream update commits where
-`stream_update->dpms_off` is set, or the `blank_stream_on_ocs_change` DP
-workaround fires — during `commit_planes_for_stream()` before front-end
-programming completes.
+- **Hunk 1:** `kstrtoint` failure: `goto out` + spurious `put_access` →
+  early `return r`
+- **Hunk 2:** Success path: remove `out:` label; always `return count`
+  after balanced get/put
+- **Affected path:** Sysfs store error path on invalid input; normal
+  path unchanged
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Logic / correctness fix** — wrong data source for hardware
-operations.
+**Record:**
+- **Category:** Reference counting / resource management bug
+- **Mechanism:** Commit `55aa33c3fe3876` moved `kstrtoint()` before
+  `amdgpu_pm_get_access()` but kept the `out:` label that
+  unconditionally calls `amdgpu_pm_put_access()`. On parse failure,
+  `pm_runtime_put_autosuspend()` runs without a prior
+  `pm_runtime_resume_and_get()`, triggering `rpm_drop_usage_count()`
+  underflow handling:
 
-`link_set_dpms_off()` and `link_set_dpms_on()` dereference
-`pipe_ctx->stream_res` (stream encoders, timing generator),
-`pipe_ctx->link_res`, and `pipe_ctx->link_config` to blank streams,
-disable audio, and manage DP links. When `context` is only partially
-built, those fields may not match what's actually programmed. The test-
-pattern block immediately above already states front-end changes are not
-yet applied at this stage.
+```1079:1095:drivers/base/power/runtime.c
+static int rpm_drop_usage_count(struct device *dev)
+{
+        int ret;
+
+        ret = atomic_sub_return(1, &dev->power.usage_count);
+        if (ret >= 0)
+                return ret;
+        // ...
+        atomic_inc(&dev->power.usage_count);
+        dev_warn(dev, "Runtime PM usage count underflow!\n");
+        return -EINVAL;
+}
+```
 
 ### Step 2.4: Fix Quality
 **Record:**
-- **Obviously correct:** Yes — `set_dpms_on()` already takes
-  `dc->current_state`; only the `pipe_ctx` argument was wrong. Fix
-  aligns DPMS with that intent.
-- **Minimal:** Yes — one new pointer, no API changes.
-- **Regression risk:** Very low — uses the same pipe index `j` already
-  being iterated; reviewed by AMD display engineer.
+- Obviously correct: matches the pattern used by other sysfs stores in
+  the same file (e.g. `amdgpu_set_pp_force_performance_level()` at lines
+  388–408)
+- Minimal, no unrelated changes
+- Regression risk: very low; only reorders error handling on the parse-
+  failure path
+- No API or behavior change on the success path
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy DPMS lines (3693–3714) blame to `5d324e5159d9e`
-(shallow tree limits deeper history). Function and buggy pattern are
-present in this checkout.
+**Record:**
+- `amdgpu_set_smartshift_bias()` introduced in `30d95a37f46d1`
+  (2021-05-30, v5.13 era)
+- Original code called `pm_runtime_get_sync()` **before** `kstrtoint()`,
+  so `goto out` + `put` was correct
+- Bug introduced in `55aa33c3fe3876` (2025-02-04, Lijo Lazar) — "Add
+  APIs for device access checks"
+- Blame confirms lines 1865–1867 (`kstrtoint` + `goto out`) from
+  original commit; lines 1869–1871, 1884 (`get_access`/`put_access`)
+  from refactor commit
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
+**Record:** N/A — no Fixes: tag present.
 
 ### Step 3.3: Related File History
-**Record:** Repo is shallow (~11,547 commits). `dc.c` shows only two
-recent commits in this clone. Patch is **17/19** in "DC Patches Apr 20
-2026" but this specific change only touches the DPMS block in `dc.c` and
-does not depend on other series entries (dcn42 clock gating, power
-module, etc.).
+**Record:**
+- `55aa33c3fe3876` — large PM access API refactor (616-line change in
+  this file)
+- `494c1432542b3` — earlier SmartShift consistency work
+- Fix is standalone; not part of a required multi-commit dependency for
+  this function
+- Patch submitted as **[PATCH 2/8]** in a series, but this hunk is self-
+  contained
 
 ### Step 3.4: Author Context
-**Record:** Dominik Kaszewski (AMD display). Reviewed by Wenjing Liu
-(AMD). Signed off by Alex Deucher (AMD DRM maintainer). Author has other
-DC display work in the broader ecosystem.
+**Record:**
+- Candice Li: AMD engineer, regular amdgpu contributor
+- Lijo Lazar: authored the refactor that introduced the bug
+- Alex Deucher (maintainer) signed off on the fix
 
 ### Step 3.5: Dependencies
-**Record:** **Standalone.** No prerequisite commits required; only
-changes which `pipe_ctx` pointer DPMS uses. Applies cleanly against
-current `dc.c` at lines 3693–3714.
+**Record:** No prerequisites. Fix applies cleanly to current v6.18.44
+code; `amdgpu_pm_get_access()`/`amdgpu_pm_put_access()` already exist in
+this tree.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original Discussion
-**Record:** Found at https://lists.freedesktop.org/archives/amd-
-gfx/2026-April/142846.html (patch 17/19). No replies on that page; no
-explicit stable nomination found.
+**Record:**
+- `b4 dig -c a4b0c3f5d2287`: **no match** (patch on freedesktop.org amd-
+  gfx, not lore.kernel.org)
+- Fetched: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/145516.html
+- Part of 8-patch series by Candice Li (2026-05-28)
+- No explicit stable nomination found in thread
+- No NAKs observed in fetched content
 
 ### Step 4.2: Reviewers
-**Record:** Cover letter CC'd AMD display maintainers (Harry Wentland,
-Leo Li, Aurabindo Pillai, Roman Li, etc.). Patch has `Reviewed-by:
-Wenjing Liu`.
+**Record:** CC'd Hawking Zhang, Tao Zhou, Stanley Yang, Thomas Chai;
+Reviewed-by Hawking Zhang; Signed-off-by Alex Deucher
 
-### Step 4.3: Bug Reports
-**Record:** No external bug report, syzbot, or KASAN report. Internal
-AMD correctness fix.
+### Step 4.3: Bug Report
+**Record:** No external bug report, syzbot link, or user Reported-by.
+Bug identified by code inspection during related PM cleanup work.
 
 ### Step 4.4: Series Context
-**Record:** Part of 19-patch DC drop (Apr 2026). This patch is
-independent — other series items (power module, dcn42 changes, double-
-free fix) are separate. Patch 5 ("Align HWSS fast commit path with
-legacy path") may increase exposure but is not a prerequisite for this
-fix's correctness.
+**Record:** Patch 2/8 in series covering OD index validation, this
+refcount fix, RAS EEPROM validation, etc. This fix is independent of
+patches 1 and 3–8.
 
-### Step 4.5: Stable List
-**Record:** lore.kernel.org stable search blocked (bot protection). No
-stable discussion found via cover letter or patch page.
+### Step 4.5: Stable List History
+**Record:** lore.kernel.org/stable search blocked (bot protection). No
+stable-list discussion found via other sources.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** `commit_planes_do_stream_update()` — modified. Calls
-`link_set_dpms_off()` / `link_set_dpms_on()` via `dc->link_srv`.
+**Record:** `amdgpu_set_smartshift_bias()`, `amdgpu_pm_get_access()`,
+`amdgpu_pm_put_access()`
 
 ### Step 5.2: Callers
-**Record:** `commit_planes_do_stream_update()` called from
-`commit_planes_for_stream()` (line 4201), which is invoked from
-`update_planes_and_stream_v2()` / v3 commit paths — the standard display
-commit pipeline used by `dc_commit_updates_for_stream()`.
+**Record:** `amdgpu_set_smartshift_bias` is registered as the `.store`
+callback for `smartshift_bias` via
+`AMDGPU_DEVICE_ATTR_RW(smartshift_bias, ...)` at line 2544. Invoked when
+root (or privileged user) writes to
+`/sys/class/drm/card*/device/smartshift_bias`.
 
 ### Step 5.3: Callees
-**Record:** `set_dpms_off` → `link_set_dpms_off()` (blanks stream,
-disables audio, DP link teardown). `set_dpms_on` → `link_set_dpms_on()`
-(link enable, infoframes, stream attribute setup). Both require valid
-`stream_res` and `link_res` from programmed HW.
+**Record:**
+- `kstrtoint()` — input parsing
+- `amdgpu_pm_get_access()` → `amdgpu_pm_dev_state_check()` +
+  `pm_runtime_resume_and_get()`
+- `amdgpu_pm_put_access()` → `pm_runtime_mark_last_busy()` +
+  `pm_runtime_put_autosuspend()`
 
 ### Step 5.4: Reachability
 **Record:**
-- `link_set_all_streams_dpms_off_for_link()` →
-  `dc_commit_updates_for_stream()` with `stream_update.dpms_off` (link
-  hotplug/detection paths)
-- DPMS during atomic commits when stream updates include power-state
-  changes
-- `blank_stream_on_ocs_change` workaround for DP output color-space
-  changes
-
-**Userspace reachable:** Yes — display blank/unblank, suspend/resume,
-hotplug, and mode commits on AMDGPU systems with `CONFIG_DRM_AMD_DC`.
+- Reachable from userspace via sysfs write (requires root/privileged
+  access)
+- Only exposed on SmartShift-capable hardware (`ss_bias_attr_update()`
+  gates visibility)
+- Trigger: writing non-integer value, e.g. `echo abc >
+  .../smartshift_bias`
 
 ### Step 5.5: Similar Patterns
-**Record:** Test-pattern handling in the same function (lines 3670–3690)
-explicitly documents that only `current_state` can be used for HW
-operations at this commit stage. DPMS was inconsistent with that
-established pattern.
+**Record:** `amdgpu_set_smartshift_bias` is the **only** sysfs store in
+this file that parses input (`kstrtoint`) before `get_access` while
+retaining a `goto out` that unconditionally calls `put_access`. Other
+`goto out` usages (gpu metrics, temp metrics, fan control) all occur
+**after** successful `get_access`.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (v6.18.43)
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
 ### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Lines 3693–3714 in
-`drivers/gpu/drm/amd/display/dc/core/dc.c` use `pipe_ctx` from `context`
-for all DPMS operations. The fix is **not** yet applied in this tree.
+**Record:** **YES.** Buggy code confirmed at lines 1865–1886 in
+v6.18.44. Introduced by `55aa33c3fe3876`, present since v6.18-rc1.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply expected** — single hunk, no structural
-conflicts visible. Line numbers differ slightly from lore patch (3898 vs
-3693) but code matches.
+**Record:** Clean apply expected. Current tree matches the diff base
+exactly. No conflicting changes in this function since the refactor.
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent fix found via grep or log search in this tree.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem & Criticality
-**Record:** `drivers/gpu/drm/amd/display` — **IMPORTANT** (AMD GPU
-display stack; affects all AMDGPU users with DC enabled, not core
-kernel).
-
-### Step 7.2: Activity
-**Record:** Actively maintained; recent commit in tree is DMUB aux
-validation fix (`1ecde19bfce65`).
+### Step 6.3: Fix Already Present?
+**Record:** **NO.** Fix commit `a4b0c3f5d2287` exists in the repo object
+database but is **not** an ancestor of HEAD (v6.18.44).
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMD GPU power
+management; affects laptop SmartShift systems)
+
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent stable commits in this file
+include torn gpu metrics reads, scpm read-only attrs, sysfs cleanup
+fixes.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** AMDGPU users with `CONFIG_DRM_AMD_DC` — laptops/desktops
-with AMD GPUs using the modern display core (DCN2+).
+**Record:** AMD SmartShift 2.0 laptop users (APU + dGPU power sharing)
+who write to `smartshift_bias` sysfs. Narrow hardware scope, but real
+production systems.
 
 ### Step 8.2: Trigger Conditions
-**Record:** Any commit that includes a `stream_update` with `dpms_off`
-(or OCS color-space workaround) while `context` has partially updated
-pipe state. Common during screen blank/unblank, link power events, and
-combined stream updates.
+**Record:**
+- Invalid integer written to `smartshift_bias` sysfs
+- Requires root/privileged sysfs write access
+- Unlikely in normal use; plausible via scripting error or manual
+  experimentation
+- Not security-relevant (privileged access required)
 
 ### Step 8.3: Failure Mode Severity
 **Record:**
-- Display fails to blank or wake correctly
-- Wrong encoder/link programmed → black screen, flicker
-- Audio endpoint disable on wrong resource
-- Potential NULL/invalid `stream_res` dereference if partial context
-  lacks populated resources
-
-**Severity: HIGH** (user-visible display failures; possible oops on bad
-pointers — not confirmed by report but plausible from code inspection of
-`link_set_dpms_off()`).
+- **Failure:** Runtime PM usage-count underflow warning;
+  `pm_runtime_mark_last_busy()` called spuriously
+- **Severity:** **MEDIUM** — no crash, panic, or data corruption; kernel
+  catches underflow and restores counter, but PM accounting is briefly
+  wrong and a `dev_warn` is emitted. Repeated triggers could affect
+  suspend/resume behavior.
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH — fixes real DPMS correctness on a widely used
-  driver path
-- **Risk:** VERY LOW — 7-line logical change, AMD-reviewed, mirrors
-  existing in-function pattern
-- **Ratio:** Strongly favors backport
+- **Benefit:** MEDIUM — fixes real refcount bug on an error path in
+  production driver code present since 6.18.0
+- **Risk:** VERY LOW — 3-line logic change, maintainer-reviewed, matches
+  established patterns in the same file
+- **Ratio:** Benefit outweighs risk
 
 ---
 
@@ -351,131 +376,140 @@ pointers — not confirmed by report but plausible from code inspection of
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real correctness bug in DPMS HW programming path
-- User-visible impact (screen power, suspend/resume, hotplug)
-- Small, surgical, AMD-reviewed fix
-- Buggy code confirmed present in v6.18.43
-- Standalone — no series dependencies
-- Consistent with documented constraint in adjacent test-pattern code
+- Real refcount bug introduced by `55aa33c3fe3876` refactor, present in
+  v6.18.44
+- Obviously correct, minimal fix (3 insertions, 5 deletions)
+- Maintainer-reviewed and signed off by Alex Deucher
+- Matches error-handling pattern used elsewhere in `amdgpu_pm.c`
+- Reference counting bugs in PM paths are standard stable material
 
 **AGAINST backport:**
-- No user/syzbot report (internal discovery)
-- Part of larger DC patchset (but this hunk is independent)
-- AMDGPU-specific, not universal kernel path
+- Only triggered by invalid sysfs input (root-only)
+- Limited to SmartShift-capable AMD hardware
+- Failure mode is WARN + counter correction, not crash/corruption
+- No user reports or fuzzer findings
 
-**Unresolved:** Exact kernel version that introduced the buggy DPMS-
-in-`commit_planes_do_stream_update` pattern (shallow history). Does not
-affect the decision for this tree where the bug exists.
+**Unresolved:** No stable-list nomination found; no user-reported
+instances.
 
 ### Step 9.2: Stable Rules Checklist
-
 | Criterion | Result |
 |-----------|--------|
 | 1. Obviously correct and tested? | **PASS** — logic is clear;
-Reviewed-by from AMD display |
-| 2. Fixes a real user-affecting bug? | **PASS** — DPMS uses wrong pipe
-context during commits |
-| 3. Important issue? | **PASS** — display blank/wake failures, possible
-crash |
-| 4. Small and contained? | **PASS** — 1 file, ~14 lines |
+Reviewed-by from AMD; no Tested-by |
+| 2. Fixes a real bug affecting users? | **PASS** — refcount imbalance
+on parse-error path |
+| 3. Important issue? | **PASS** (borderline) — runtime PM underflow;
+MEDIUM severity |
+| 4. Small and contained? | **PASS** — 8 lines net, one function |
 | 5. No new features/APIs? | **PASS** |
-| 6. Applies to local tree? | **PASS** — buggy code present, clean apply
-expected |
+| 6. Can apply to local tree? | **PASS** — buggy code present; clean
+apply |
 
 ### Step 9.3: Exception Categories
-**Record:** None (not a device ID, quirk, DT, build, or docs fix) —
-standard bug fix.
+**Record:** None applicable (not device ID, quirk, DT, build, or docs
+fix).
 
 ### Step 9.4: Decision Rationale
-For **v6.18.43**, the buggy DPMS path exists and the fix is a minimal,
-obviously correct correction that ensures display power-management
-operations use the hardware-backed `current_state` pipe context rather
-than a partially built commit context. This prevents incorrect blanking,
-wake failures, and potential resource dereference on a common AMDGPU
-commit path. The fix is self-contained and low-risk.
+
+This is a clear bug introduced in v6.18 by the PM access API refactor
+(`55aa33c3fe3876`). The original SmartShift bias handler correctly
+acquired runtime PM before parsing; the refactor inverted that order but
+left the unconditional `out:` cleanup, breaking get/put pairing. The fix
+restores correct refcount semantics with zero functional change on the
+success path.
+
+While the trigger is narrow (invalid sysfs write on SmartShift hardware)
+and the failure mode is a caught underflow warning rather than a crash,
+reference-count bugs in GPU runtime PM are appropriate for stable
+backport: the fix is trivial, obviously correct, maintainer-approved,
+and the buggy code is present throughout the 6.18.y series.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-  and lore page
-- **[Phase 2]** Read diff hunks; verified `link_set_dpms_off/on` use
-  `pipe_ctx->stream_res` and `link_res` in `link_dpms.c`
-- **[Phase 3]** `git describe HEAD` → v6.18.43; `git blame -L 3690,3715`
-  → buggy lines present; shallow repo confirmed
-- **[Phase 3]** `git log -S "set_dpms_off(pipe_ctx)" -- dc.c` → only
-  merge commit (limited by shallow history)
-- **[Phase 4]** WebFetch lore patch 17/19 at
-  https://lists.freedesktop.org/archives/amd-gfx/2026-April/142846.html
-- **[Phase 4]** WebFetch cover letter 00/19 — series context, no stable
-  nomination
-- **[Phase 4]** lore.kernel.org stable search — blocked by bot
-  protection (UNVERIFIED for stable-list discussion)
-- **[Phase 5]** `grep commit_planes_do_stream_update` — one call site at
-  line 4201 in `commit_planes_for_stream()`
-- **[Phase 5]** Traced `dc_commit_updates_for_stream()` →
-  `update_planes_and_stream_v2/v3` → `commit_planes_for_stream()`
-- **[Phase 5]** Read `link_set_all_streams_dpms_off_for_link()` — calls
-  `dc_commit_updates_for_stream` with `dpms_off`
-- **[Phase 6]** Read `dc.c` lines 3587–3735 — confirmed buggy code
-  without fix
-- **[Phase 6]** `DC_VER` in `dc.h` → "3.2.351"; fix not present
-- **[Phase 7]** Subsystem path confirmed: `drivers/gpu/drm/amd/display`
-- **[Phase 8]** Analyzed `link_set_dpms_off()` at line 2346 — uses
-  stream_enc, blank_stream, audio disable on pipe_ctx resources
+- [Phase 1] Parsed commit message and tags from user-provided diff and
+  mailing list
+- [Phase 2] Read current `amdgpu_set_smartshift_bias()` at lines
+  1856–1887 in v6.18.44; confirmed buggy get/put pairing
+- [Phase 2] Read `rpm_drop_usage_count()` at lines 1079–1095; confirmed
+  underflow warning behavior
+- [Phase 3] `git blame -L 1856,1887`: bug introduced by
+  `55aa33c3fe3876`, original function by `30d95a37f46d1`
+- [Phase 3] `git show 55aa33c3fe3876`: confirmed refactor moved
+  `kstrtoint` before `get_access` while keeping `goto out`
+- [Phase 3] `git show 30d95a37f46d1`: original code had
+  `pm_runtime_get_sync` before `kstrtoint` (correct pairing)
+- [Phase 3] `git merge-base --is-ancestor 55aa33c3fe3876 HEAD`: buggy
+  commit IS in v6.18.44
+- [Phase 3] `git tag --contains 55aa33c3fe3876`: present since v6.18-rc1
+- [Phase 4] `b4 dig -c a4b0c3f5d2287`: no lore match (patch on
+  freedesktop.org)
+- [Phase 4] Fetched https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/145516.html: confirmed patch content and series context
+- [Phase 5] Grep for `goto out` in `amdgpu_pm.c`: only smartshift_bias
+  has parse-before-get with unconditional put at `out`
+- [Phase 5] Confirmed `AMDGPU_DEVICE_ATTR_RW(smartshift_bias)`
+  registration at line 2544
+- [Phase 6] `git describe HEAD` = v6.18.44; `make kernelversion` =
+  6.18.44
+- [Phase 6] `git merge-base --is-ancestor a4b0c3f5d2287 HEAD`: fix NOT
+  in current tree
+- [Phase 6] Compared current code to provided diff: exact match, clean
+  apply expected
+- [Phase 8] Confirmed failure mode via `rpm_drop_usage_count` underflow
+  path
+- [UNVERIFIED] No runtime test of actual sysfs write triggering the
+  warning
 
-**YES**
+**YES**The background searches finished and match the earlier analysis:
 
- drivers/gpu/drm/amd/display/dc/core/dc.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+- The fix exists in the repo as `a4b0c3f5d2287` / `b9dcdc6fd5e2d`, but
+  it is **not** in the current `stable/linux-6.18.y` checkout at
+  v6.18.44.
+- The buggy code from `55aa33c3fe3876` **is** present in this tree.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 927837249479f..627a9fb4c551e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3690,27 +3690,34 @@ static void commit_planes_do_stream_update(struct dc *dc,
- 				resource_build_test_pattern_params(&context->res_ctx, pipe_ctx);
- 			}
+Verdict remains **YES** for backporting to this 6.18.y tree.
+
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 94c534c1d0bed..d253b974223c6 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1859,12 +1859,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	int r = 0;
++	int r;
+ 	int bias = 0;
  
-+			// DPMS should not use partially updated pipe context
-+			struct pipe_ctx *dpms_pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[j];
-+
- 			if (stream_update->dpms_off) {
- 				if (*stream_update->dpms_off) {
--					dc->link_srv->set_dpms_off(pipe_ctx);
-+					dc->link_srv->set_dpms_off(dpms_pipe_ctx);
- 					/* for dpms, keep acquired resources*/
--					if (pipe_ctx->stream_res.audio && !dc->debug.az_endpoint_mute_only)
--						pipe_ctx->stream_res.audio->funcs->az_disable(pipe_ctx->stream_res.audio);
-+					if (dpms_pipe_ctx->stream_res.audio && !dc->debug.az_endpoint_mute_only) {
-+						struct audio *audio = dpms_pipe_ctx->stream_res.audio;
-+
-+						audio->funcs->az_disable(audio);
-+					}
+ 	r = kstrtoint(buf, 10, &bias);
+ 	if (r)
+-		goto out;
++		return r;
  
- 					dc->optimized_required = true;
+ 	r = amdgpu_pm_get_access(adev);
+ 	if (r < 0)
+@@ -1876,14 +1876,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
+ 		bias = AMDGPU_SMARTSHIFT_MIN_BIAS;
  
- 				} else {
- 					if (get_seamless_boot_stream_count(context) == 0)
- 						dc->hwss.prepare_bandwidth(dc, dc->current_state);
--					dc->link_srv->set_dpms_on(dc->current_state, pipe_ctx);
-+					dc->link_srv->set_dpms_on(dc->current_state, dpms_pipe_ctx);
- 				}
--			} else if (pipe_ctx->stream->link->wa_flags.blank_stream_on_ocs_change && stream_update->output_color_space
--					&& !stream->dpms_off && dc_is_dp_signal(pipe_ctx->stream->signal)) {
-+			} else if (dpms_pipe_ctx->stream->link->wa_flags.blank_stream_on_ocs_change &&
-+					stream_update->output_color_space &&
-+					!stream->dpms_off && dc_is_dp_signal(dpms_pipe_ctx->stream->signal)) {
- 				/*
- 				 * Workaround for firmware issue in some receivers where they don't pick up
- 				 * correct output color space unless DP link is disabled/re-enabled
- 				 */
--				dc->link_srv->set_dpms_on(dc->current_state, pipe_ctx);
-+				dc->link_srv->set_dpms_on(dc->current_state, dpms_pipe_ctx);
- 			}
+ 	amdgpu_smartshift_bias = bias;
+-	r = count;
  
- 			if (stream_update->abm_level && pipe_ctx->stream_res.abm) {
+ 	/* TODO: update bias level with SMU message */
+ 
+-out:
+ 	amdgpu_pm_put_access(adev);
+ 
+-	return r;
++	return count;
+ }
+ 
+ static int ss_power_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
 -- 
 2.53.0
 
