@@ -4,53 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7741C624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2BC9C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:53:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDB8A10E8FF;
-	Mon, 31 Aug 2026 13:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F28D10E900;
+	Mon, 31 Aug 2026 13:53:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/AIbJ83";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="C1gvb/DH";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X8AYkrVc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B6510E8FD;
- Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 57FD1434A6;
- Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA921F00A3D;
- Mon, 31 Aug 2026 13:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184339;
- bh=QQjJUuwqF3dl/BsR9mTs4/kOQd2wo43GQXcvfc26Dc8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=j/AIbJ83WoxEzQsG+uHKBnqX7EmB84bQrNan1Ni9YU+/3HbXlycJpafC/5dRJQXwo
- zIByS93zfUNf27JjTMHKWh2xcJy6sFQxNnC7AZLx7bfhgZawkeqlukwRQy1oPv4obS
- G/zNLMoX1RVLzfPM5ZaIEF558e4aKZaH4o38+iM7ROCeNBPBwXRdEyKQ3bZf2lqvmI
- kgHHs3G+1CzUNlJGkyLlfQYGNDifDeP3SxPdSChjmfSZ3aL6Z1ewx7meHg3dyoOsfG
- Rsl4Y58Yr8aB4eghvVropM7ykRpxDxCEroSMM1L3lTx7bJlb/WZVtnkvz/2GGC2pb3
- ZhdF7oskK5lpA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: David Francis <David.Francis@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: Check bounds on allocate_doorbell
-Date: Mon, 31 Aug 2026 09:31:03 -0400
-Message-ID: <20260831133314.4125787-635-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954C810E900
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:53:53 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67VBADsp4099258
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:53:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ AUqh2X9awgVdQ5KkHdaoibkAOyLtmCtEGhzRBJfqysY=; b=C1gvb/DH6TlLc1AZ
+ iAepWOve9Aa2BzSBpYQW9XFNuQbQIzzOgtB2ZiHWIyY/ZKKySSR0Eiz/u0pb4BM+
+ 638PgobIVBl4w+kud3x+1X4kg+BFSPzu0VVMRfDGQz4PPyHo13LLLbKFdEQcNgkK
+ Pgz/rG4DswvK1euBuk+EDrYdrFCUB/HRZHz98q+cxUPKwAfEVuCCWnw0RppaMUJr
+ o1ioTrh9XWqoize9uODLrJmPPNI+a/hwKPh1DG4ijNeczR8lgJE7y0jB7ZRqzNzM
+ KZ0WmH7S1A49B3yGLPEXovTGoIq2pzUleAvV54CnC2E29N4KiiDYX3BxPy9X4KH7
+ gnbe9w==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd4x09pe1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:53:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-92ef13b61bcso715122685a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 06:53:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788184432; x=1788789232;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=AUqh2X9awgVdQ5KkHdaoibkAOyLtmCtEGhzRBJfqysY=;
+ b=X8AYkrVcCFcdPReoZ5XMe8WWaXhTIRuvXPTwd4wgHjPm0wbdmSB6KPCYLCS2w7ae7m
+ hUPawmjaHghm5w/CjjpbXjScVhOiyrnA+bgEzqQcrgXq66ZCTJd3yKmjByjwmafedH2G
+ fm3qaUTqsF4tsdRF6zpZ65rgbfE6I3S+3GYOwTvNEig7WkyQlYYgefzA1jB9YXbNo9gs
+ l2X8sWnUNudY2UKoR4u6evCryuZKCxHqKkLrnH72d8yyhVguGPGcP9hpNsL1M0iHBxJ3
+ U/3p/GCjnErECKag+q5uI2vSGI3CLEzoE9I2qgqD/Qc6WkdWV+meAXpoHbCzNsQM5uH+
+ UCUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788184432; x=1788789232;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AUqh2X9awgVdQ5KkHdaoibkAOyLtmCtEGhzRBJfqysY=;
+ b=l6JhxeXGnK+n5WcbShPiVUyIYt54+j7xaUWc2dElVfTFu0CCHN06rSwvF/pOd+LarI
+ DfI3Fzc4JK6bp1sVU9KT81DnVk7jh8pE0u/toQOt6wNoghL7QzWPWbzf0q9J0OBcEBlH
+ MxuAg+mtDmvmhXQ9aXn83cFcUFOqUntbKNYw3qkxDWBI+UudqRQ5WwaEslvIi/YxeFCO
+ +8eLqgnqfwW1M9xni+Oh/69YeQ/BGdNwOdFljbNve596Pzu+P9ZJaRE4KAsythXf34fO
+ +d9UTUVGRs3BP8BUEHvG7WlcwR2Y8uNRn7y0ZOhBTMZFr4pS0dUirE7MavMJVJmYGrMn
+ tH5w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrtW8O5psEB4JSkj985F4a9cCCNCKZWlBz1FK5vUXCSf5b1uUgp5xW/b3DkFfIN2/KL1viVi2tgnf4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nF2bDExsiTa4Bnb5dQTXleG1Ia8LMQUQchMLiZI/VrCwI5yDA0
+ 0XP78ExcI55lD+DolwBPGJkWLqtbrRvUXZ9cfBUWOTvlnY47ZxQcblKpEqB1pcOT93lKUKgY/E9
+ QonSPD7Mto4qMW95JxTO8/ELgu3N3+GooXlMpUNp40GE0WVH+KVELif+panb8sdbOahFx3w4=
+X-Gm-Gg: AR+sD108LsOFHUG8Os7C0OVfhnAPnQ0lBAX2AanNrP9uXMqD2xsemQsIId7cgW+1lBJ
+ QdLAtkA724+QzMmNlpvoTSBA799AQ75KMJu28Q8d6c1gSND9Ac5hAKog8EWvt6ZAL/qq1Np9DBo
+ H4Hxl6SYD0KUU98y2h25XHgHlVbIF/YRRZ36Bb/bj6oCjGjp4mQHnKmJl97Vfd+lvIXoxOH1ZJB
+ HB6GpXhEfhA0MTNY8foUHDR4NslS34JxJFrKKsFMxLskaEV91Fpuvz/m4OF0a59rffaW4pgPmdR
+ 0+reewlVwYVAwbrskn7d3RCAVU61kFeDCwkWJBu1F46CXQsewLDSZgdOa0xK4oMJ8gRQHyhHsXE
+ LUtODkENtx8ZxOeQDraRLtxsn99RC
+X-Received: by 2002:a05:620a:19a8:b0:939:f89:3688 with SMTP id
+ af79cd13be357-9391397dc88mr2712198885a.42.1788184432056; 
+ Mon, 31 Aug 2026 06:53:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:19a8:b0:939:f89:3688 with SMTP id
+ af79cd13be357-9391397dc88mr2712194585a.42.1788184431596; 
+ Mon, 31 Aug 2026 06:53:51 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49c5a903eebsm181458645e9.4.2026.08.31.06.53.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Aug 2026 06:53:50 -0700 (PDT)
+Message-ID: <4c9c442c-b1d5-45d4-9a0e-5ae7c10945e1@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 15:53:47 +0200
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC/DO NOT MERGE 05/12] dt-bindings: display/msm: hdmi:
+ Add Eliza HDMI TX
+To: sashiko-reviews@lists.linux.dev
+Cc: olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org,
+ neil.armstrong@linaro.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org, vkoul@kernel.org
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-5-67843277de17@oss.qualcomm.com>
+ <20260828141223.1BF821F000E9@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260828141223.1BF821F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyMCBTYWx0ZWRfX85yubYXwNZAe
+ 5ZeBCMyvWgxmik3yRLi+TsbC0+69wulK1g824/FQy94hsRAw/YFgLYoQAC3te7d8sw/g92KqhID
+ KEkRmCcPTh/wHodZQdy3Q2WwHeZ7P6w=
+X-Proofpoint-ORIG-GUID: X9SAgXWusSLtUZmce96AM0SVIvyZPFTR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyMCBTYWx0ZWRfX6UTUMCykpriu
+ eUe5EByWvqfCFSNybHikNbHeiDVEabORKeh76huCX88g66ih80C7OL2J7+9+JSCNnVmA0clsxS1
+ LjIQl9HFCbpm5HZSwZs1snFqG+o2YFwv4tHz7ChbAIbEZtMU2IEKCpMOJwYx5k/+6f6BYIdcPDV
+ uo/7mEiqBjH8Cbl/1AQ3Nxwl0uQPZB7yMbk0zCFmKGEZ+0mxtkHWuSnSNzACNazy62iHnZC1lR7
+ lym90IIPyZFd46qSx95ZBS1i52rVGGqM7VzL06rNbhOJySUkr6HlSynqhlBu7Vgnx9JFAx3Ctig
+ 3yf+ewvovkZNm9FcexWXsTj442zkZycxPfJsTJqk7afWzF6myRG8h4AeXYNpwo6C04gST8Z+IC0
+ +/fFQ2fVXfXrLBkDSaj16hOF5lNTzwRvpUuFUhiIdAaIHMqjcyXfPD1BCEn6CIwjXOB3YCRMUje
+ jh2CvG+UhveN/J+c37A==
+X-Authority-Analysis: v=2.4 cv=Iqsutr/g c=1 sm=1 tr=0 ts=6a958771 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=ryD-1BP75uk3LzTGFywA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: X9SAgXWusSLtUZmce96AM0SVIvyZPFTR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310120
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,380 +147,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Francis <David.Francis@amd.com>
+On 28/08/2026 16:12, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The conditional `if` block for the new Eliza HDMI TX device uses an incorrect compatible string with a duplicated vendor prefix ('qcom,qcom,eliza-hdmi-tx'), preventing the schema constraints from being applied.
 
-[ Upstream commit 1f087bb8cf9e8797633da35c85435e557ef74d06 ]
+Ack
 
-allocated_doorbell has an option to set the doorbell id
-to a specific value (used by CRIU). This value was not
-bounds checked.
-
-Check to confirm it's less than KFD_MAX_NUM_OF_QUEUES_PER_PROCESS.
-
-Signed-off-by: David Francis <David.Francis@amd.com>
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `drm/amdkfd: Check bounds on
-allocate_doorbell`
-
-**Local tree:** Linux 6.18.43 (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject Line
-**Record:** `[drm/amdkfd]` `[Check]` — Add bounds validation on doorbell
-ID during CRIU restore allocation in `allocate_doorbell()`.
-
-### Step 1.2: Commit Tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Signed-off-by | David Francis \<David.Francis@amd.com\> |
-| Reviewed-by | Harish Kasiviswanathan
-\<Harish.Kasiviswanathan@amd.com\> |
-| Signed-off-by | Alex Deucher \<alexander.deucher@amd.com\>
-(committer/maintainer) |
-| Fixes: | None |
-| Reported-by: | None |
-| Cc: stable | None (expected for manual review) |
-| Link: | None |
-
-Notable: Reviewed by AMD colleague; committed by subsystem maintainer.
-No syzbot or user bug reports.
-
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** `allocate_doorbell()` accepts a user-specified doorbell ID
-  via `restore_id` (CRIU restore path) without validating it is within
-  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS`.
-- **Symptom:** Out-of-bounds `__test_and_set_bit()` on
-  `qpd->doorbell_bitmap` → kernel memory corruption or crash.
-- **Root cause:** CRIU restore copies `doorbell_id` from userspace
-  (`kfd_criu_queue_priv_data`) and passes it directly to
-  `allocate_doorbell()` with no upper-bound check.
-- **Version info:** None in commit message.
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not disguised — explicitly a missing bounds check. Same
-class of bug as the parallel event-restore fix in `kfd_events.c` (`if
-(*restore_id >= KFD_SIGNAL_EVENT_LIMIT)`).
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Change Inventory
-**Record:**
-| File | Changes |
-|------|---------|
-| `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` | +3 lines |
-
-- **Function modified:** `allocate_doorbell()`
-- **Scope:** Single-file, surgical fix (3 lines added)
-
-### Step 2.2: Code Flow Change
-**Record:**
-- **Hunk (CP queues on SOC15, `restore_id` path):**
-  - **Before:** `__test_and_set_bit(*restore_id, qpd->doorbell_bitmap)`
-    called with no validation.
-  - **After:** Return `-EINVAL` if `*restore_id >=
-    KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024) before the bit operation.
-- **Affected path:** CRIU queue restore on SOC15+ compute (CP) queues
-  only.
-
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Buffer out-of-bounds / memory safety.
-- **Mechanism:** `qpd->doorbell_bitmap` is allocated with
-  `bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS, GFP_KERNEL)` (1024
-  bits). An out-of-range `restore_id` causes `__test_and_set_bit()` to
-  write beyond the allocation.
-
-### Step 2.4: Fix Quality
-**Record:**
-- Obviously correct; mirrors existing pattern in
-  `allocate_event_notification_slot()`.
-- Minimal, no unrelated changes.
-- Low regression risk: only rejects invalid IDs that should never
-  succeed.
-- No API or behavioral changes for valid inputs.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:** Buggy `restore_id` path is present in this tree at lines
-474–479. Git blame in this stable checkout is unreliable (squashed
-history), but the vulnerable code is confirmed present.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: Related File History
-**Record:**
-- Commit on `master`: `a1d4b228e3dc5` (May 19, 2026), cherry-picked from
-  `1f087bb8cf9e`.
-- Part of a 2-patch series; patch 2/2 (`6dc2c49a70519` on master) fixes
-  the same class of bug for `allocate_sdma_queue()` — separate,
-  standalone fix.
-- Fix is **not** in the local 6.18.43 tree.
-
-### Step 3.4: Author Context
-**Record:** David Francis (AMD). Reviewed by Harish Kasiviswanathan;
-committed by Alex Deucher (amdgpu/amdkfd maintainer).
-
-### Step 3.5: Dependencies
-**Record:** Standalone. No prerequisite commits. Applies cleanly to the
-local tree.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original Discussion
-**Record:**
-- **URL:** https://patch.msgid.link/20260512192824.3682569-1-
-  David.Francis@amd.com
-- **Series:** v1 only (no further revisions via `b4 dig -a`)
-- **Review feedback:** No stable nominations, NAKs, or substantive
-  objections found in the mbox thread.
-
-### Step 4.2: Reviewers
-**Record:** CC'd to `amd-gfx@lists.freedesktop.org`. Reviewed-by on
-commit.
-
-### Step 4.3: Bug Reports
-**Record:** N/A — no external bug report or syzbot link.
-
-### Step 4.4: Related Patches
-**Record:** Patch 2/2 bounds-checks `restore_sdma_id` in
-`allocate_sdma_queue()`. Same bug class; also missing in this tree.
-Independent backport candidate.
-
-### Step 4.5: Stable List History
-**Record:** Not searched; no stable-list discussion found in mbox.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-**Record:** `allocate_doorbell()` — only function modified.
-
-### Step 5.2: Callers
-**Record:**
-- `create_queue_nocpsch()` → `allocate_doorbell(qpd, q, qd ?
-  &qd->doorbell_id : NULL)` (line 670)
-- `create_queue_cpsch()` → same pattern (line 1991)
-- Both reached from `pqm_create_queue()` → `kfd_criu_restore_queue()`
-  during CRIU restore
-
-### Step 5.3: Callees
-**Record:** `__test_and_set_bit()`, `find_first_zero_bit()`,
-`set_bit()`, `amdgpu_doorbell_index_on_bar()`.
-
-### Step 5.4: Call Chain / Reachability
-**Record:**
-```
-userspace AMDKFD_IOC_CRIU_OP (restore)
-  → criu_restore() → criu_restore_objects()
-  → kfd_criu_restore_queue() [copy_from_user q_data including
-doorbell_id]
-  → pqm_create_queue(..., q_data, ...)
-  → create_queue_*() → allocate_doorbell(..., &qd->doorbell_id)
-```
-Reachable from userspace via CRIU restore ioctl. Requires
-`CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN` (see `kfd_chardev.c` lines
-3332–3337).
-
-### Step 5.5: Similar Patterns
-**Record:** `kfd_events.c:110` already bounds-checks `*restore_id >=
-KFD_SIGNAL_EVENT_LIMIT` for CRIU event restore. This commit closes the
-same gap for doorbells.
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Lines 474–479 in `kfd_device_queue_manager.c` lack
-the bounds check. CRIU support (`kfd_criu_restore_queue`,
-`AMDKFD_IOC_CRIU_OP`) is present. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` is
-1024.
-
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected — 3-line addition with no conflicts.
-File structure matches mainline.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No. `git show master:a1d4b228e3dc5` has the fix; local HEAD
-does not. SDMA bounds fix (patch 2/2) is also absent.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/gpu/drm/amd/amdkfd` — AMDGPU KFD compute driver.
-**IMPORTANT** (GPU compute users; not core kernel, but widely deployed
-on AMD hardware).
-
-### Step 7.2: Subsystem Activity
-**Record:** Active — CRIU support and related hardening commits exist on
-master for this subsystem.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who Is Affected
-**Record:** Users of AMDGPU KFD with CRIU checkpoint/restore on SOC15+
-hardware (CP compute queues). Narrow feature set, but real production
-use (containers, HPC migration).
-
-### Step 8.2: Trigger Conditions
-**Record:**
-- CRIU restore with `doorbell_id >= 1024` in checkpoint private data.
-- Requires privileged capability (`CAP_CHECKPOINT_RESTORE` or
-  `CAP_SYS_ADMIN`).
-- Corrupted or malicious checkpoint image during restore can trigger it.
-- Not triggerable by unprivileged users directly.
-
-### Step 8.3: Failure Mode Severity
-**Record:** Out-of-bounds kernel heap write via `__test_and_set_bit()` →
-memory corruption, potential kernel oops/panic. **Severity: HIGH**
-(memory corruption); mitigated by privileged-only ioctl path.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-| | Assessment |
-|--|------------|
-| **Benefit** | Prevents kernel memory corruption on CRIU restore;
-defense-in-depth for untrusted checkpoint data |
-| **Risk** | Very low — 3-line bounds check, no behavior change for
-valid IDs |
-| **Ratio** | Favorable |
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence Summary
-
-**FOR backport:**
-- Real out-of-bounds bitmap access bug
-- Kernel memory corruption possible
-- Fix is minimal, obviously correct, maintainer-reviewed
-- Buggy code and CRIU infrastructure exist in 6.18.43
-- Matches existing bounds-check pattern in `kfd_events.c`
-- Standalone, clean apply
-
-**AGAINST backport:**
-- CRIU is a niche feature
-- Requires privileged capability (not unprivileged attack surface)
-- No user reports or syzbot findings
-- Patch 2/2 (SDMA) addresses a related gap but is separate
-
-**Unresolved:** None affecting the decision.
-
-### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — trivial bounds check;
-Reviewed-by present |
-| 2. Fixes a real bug? | **PASS** — OOB `__test_and_set_bit()` on
-1024-bit bitmap |
-| 3. Important issue? | **PASS** — memory corruption (HIGH, privileged
-path) |
-| 4. Small and contained? | **PASS** — 3 lines, one function |
-| 5. No new features/APIs? | **PASS** |
-| 6. Can apply to local tree? | **PASS** — code present, fix absent |
-
-### Step 9.3: Exception Categories
-**Record:** None (not a device ID, quirk, DT, build, or docs fix).
-Qualifies as a standard memory-safety bug fix.
-
-### Step 9.4: Decision Rationale
-
-For Linux **6.18.43**, the vulnerable CRIU restore path exists, the fix
-is absent, and the patch prevents out-of-bounds kernel memory writes
-from userspace-supplied `doorbell_id` values. Although CRIU restore
-requires elevated privileges, stable trees routinely take such defense-
-in-depth fixes — especially when they mirror an existing pattern
-(`kfd_events.c`) and are three lines with no regression risk for valid
-inputs.
-
-**Note:** Patch 2/2 (`Check bounds for allocate_sdma_queue
-restore_sdma_id`) fixes the same bug class for SDMA queues and is also
-absent from this tree; it should be evaluated separately.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message and tags from user query and `git
-  show a1d4b228e3dc5`
-- **[Phase 1]** No Fixes:/Reported-by:/Cc: stable tags
-- **[Phase 2]** Diff analysis: +3 lines in `allocate_doorbell()` before
-  `__test_and_set_bit()`
-- **[Phase 3]** `git describe HEAD`: v6.18.43; `make kernelversion`
-  equivalent from Makefile: 6.18.43
-- **[Phase 3]** `git show a1d4b228e3dc5`: commit exists on master, not
-  in HEAD
-- **[Phase 3]** `b4 dig -c a1d4b228e3dc5`: found lore thread at
-  patch.msgid.link/20260512192824.3682569-1
-- **[Phase 3]** `b4 dig -a`: v1 only, no further revisions
-- **[Phase 3]** `b4 dig -w`: CC'd amd-gfx@lists.freedesktop.org
-- **[Phase 4]** `b4 dig -m /tmp/doorbell_thread.mbox`: patch 2/2 content
-  retrieved; no stable Cc in thread
-- **[Phase 5]** Grep callers: `allocate_doorbell` called from
-  `create_queue_nocpsch` and `create_queue_cpsch` with
-  `&qd->doorbell_id`
-- **[Phase 5]** Traced CRIU path: `kfd_criu_restore_queue` →
-  `pqm_create_queue` → `allocate_doorbell`
-- **[Phase 5]** `kfd_events.c:110`: confirmed analogous bounds check
-  exists for event restore
-- **[Phase 6]** Read local `kfd_device_queue_manager.c:474-479`: bounds
-  check **missing**
-- **[Phase 6]** `kfd_doorbell.c:259`: `doorbell_bitmap` allocated with
-  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024)
-- **[Phase 6]** `kfd_priv.h:97`: `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
-  1024
-- **[Phase 6]** `kfd_chardev.c:3332-3337`: CRIU ioctl requires
-  `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`
-- **[Phase 6]** CRIU infrastructure confirmed present
-  (`kfd_criu_restore_queue`, `AMDKFD_IOC_CRIU_OP`)
-- **[Phase 8]** Failure mode: OOB bit operation → memory corruption;
-  privileged ioctl mitigates unprivileged exploitability
-
-**YES**
-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 2f8df95382bc3..d9f09f25911a7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -472,6 +472,9 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
- 	} else {
- 		/* For CP queues on SOC15 */
- 		if (restore_id) {
-+			if (*restore_id >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
-+				return -EINVAL;
-+
- 			/* make sure that ID is free  */
- 			if (__test_and_set_bit(*restore_id, qpd->doorbell_bitmap))
- 				return -EINVAL;
--- 
-2.53.0
-
+Best regards,
+Krzysztof
