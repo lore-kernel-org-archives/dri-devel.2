@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3DAFC624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 15:59:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC5A2C624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5560D10E2B8;
-	Mon, 31 Aug 2026 15:59:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B4SGTFWC";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09E3610E2B8
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:59:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 77C6243D46
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 15:59:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263E11F000E9;
- Mon, 31 Aug 2026 15:59:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788191957;
- bh=oOLWruVPTTP7uahjoEb5eJZJMNQ3e+6BT7n+JnBh3KQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B4SGTFWCyMoGN5wTWwgvIphpl6nsGoQQ9CuT6aMwney8EcjQIaulfCdutxrrXiWND
- ZSimkbitjfJTXfsUEwz3W4zU5QixMq+UekYisXNUp2HUne35M4C6xN6i6I43Et3kw2
- FSf5xcjLhr2+t2o+SCEH1w1or83hvpFEkvkGq6mmexrXy2vNiHA7urXp/UpgvkZElU
- dxf8p51L2hcwttwwuKUPo4dvyox+AW1SSO8KpILSUmddKQtWGCavx2KLOSIFY2AGlX
- d8oUQlzzEtiVHPPFObwoSGbnB9/rL95MVGoD8tIKI9KWT1+Kf4wqTXJPCc68xQTOYS
- d0ZFM3QSSZ5nQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] drm/gem: Consider GEM object
- reclaimable if shrinking fails
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-357-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-357-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A59E10E2E1;
+	Mon, 31 Aug 2026 16:09:01 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 125AD10E2E1
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:08:59 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
+ by APP-01 (Coremail) with SMTP id qwCowAC3iu4Lp5Vqlfb0Bg--.4195S2;
+ Tue, 01 Sep 2026 00:08:45 +0800 (CST)
+Message-ID: <c2fb145e17b0a1e03904005b13f83884225cd680.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 08/13] drm/loongson: Move hardware reset to CRTC
+ creation
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>, 
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>, Qianhai
+ Wu <wuqianhai@loongson.cn>,  Xi Ruoyao <xry111@xry111.site>
+Date: Tue, 01 Sep 2026 00:08:42 +0800
+In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-8-4500d49a337f@kernel.org>
+References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
+ <20260831-drm-no-more-crtc-reset-v2-8-4500d49a337f@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 15:59:16 +0000
-Message-Id: <20260831155917.263E11F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: qwCowAC3iu4Lp5Vqlfb0Bg--.4195S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCry7Aw18Ary7CF4rCFykXwb_yoW5uF15pF
+ s3Ar17Krs8ZFn5K39rJa1qka45Ga1Fy347tr4rJ34furyvqr15XF18ZrZrua17WFWxG343
+ trnFkrn09F129aUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxU2wIDUUUUU
+X-Originating-IP: [120.85.96.74]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,86 +65,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+=E5=9C=A8 2026-08-31=E4=B8=80=E7=9A=84 17:34 +0200=EF=BC=8CMaxime Ripard=E5=
+=86=99=E9=81=93=EF=BC=9A
+> The loongson crtc reset hook performs both atomic state
+> initialization
+> using __drm_atomic_helper_crtc_reset() and hardware-level register
+> writes to reset the CRTC.
+>=20
+> The hardware reset is not related to atomic state initialization, and
+> the reset hook is being converted to atomic_create_state which only
+> deals with state allocation. Move the hardware reset to the CRTC
+> creation path instead.
+>=20
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Cc: Jianmin Lv <lvjianmin@loongson.cn>
+> Cc: Mingcong Bai <jeffbai@aosc.io>
+> Cc: Qianhai Wu <wuqianhai@loongson.cn>
+> Cc: Xi Ruoyao <xry111@xry111.site>
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_crtc.c | 15 ++++++++++-----
+> =C2=A01 file changed, 10 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> index 16b8f36a4071..7cca574e3b6a 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> @@ -388,12 +388,10 @@ static const struct lsdc_crtc_hw_ops
+> ls7a2000_crtc_hw_ops[2] =3D {
+> =C2=A0	},
+> =C2=A0};
+> =C2=A0
+> =C2=A0static void lsdc_crtc_reset(struct drm_crtc *crtc)
+> =C2=A0{
+> -	struct lsdc_crtc *lcrtc =3D to_lsdc_crtc(crtc);
+> -	const struct lsdc_crtc_hw_ops *ops =3D lcrtc->hw_ops;
+> =C2=A0	struct lsdc_crtc_state *priv_crtc_state;
+> =C2=A0
+> =C2=A0	if (crtc->state)
+> =C2=A0		crtc->funcs->atomic_destroy_state(crtc, crtc-
+> >state);
+> =C2=A0
+> @@ -401,13 +399,10 @@ static void lsdc_crtc_reset(struct drm_crtc
+> *crtc)
+> =C2=A0
+> =C2=A0	if (!priv_crtc_state)
+> =C2=A0		__drm_atomic_helper_crtc_reset(crtc, NULL);
+> =C2=A0	else
+> =C2=A0		__drm_atomic_helper_crtc_reset(crtc,
+> &priv_crtc_state->base);
+> -
+> -	/* Reset the CRTC hardware, this is required for S3 support
+> */
+> -	ops->reset(lcrtc);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void lsdc_crtc_atomic_destroy_state(struct drm_crtc *crtc,
+> =C2=A0					=C2=A0=C2=A0 struct drm_crtc_state
+> *state)
+> =C2=A0{
+> @@ -935,18 +930,28 @@ static bool
+> lsdc_crtc_get_scanout_position(struct drm_crtc *crtc,
+> =C2=A0		*etime =3D ktime_get();
+> =C2=A0
+> =C2=A0	return true;
+> =C2=A0}
+> =C2=A0
+> +static void lsdc_crtc_hw_reset(struct drm_crtc *crtc)
+> +{
+> +	struct lsdc_crtc *lcrtc =3D to_lsdc_crtc(crtc);
+> +
+> +	/* Reset the CRTC hardware, this is required for S3 support
+> */
+> +	if (lcrtc->hw_ops->reset)
+> +		lcrtc->hw_ops->reset(lcrtc);
+> +}
+> +
+> =C2=A0static const struct drm_crtc_helper_funcs lsdc_crtc_helper_funcs =
+=3D {
+> =C2=A0	.mode_valid =3D lsdc_crtc_mode_valid,
+> =C2=A0	.mode_set_nofb =3D lsdc_crtc_mode_set_nofb,
+> =C2=A0	.atomic_enable =3D lsdc_crtc_atomic_enable,
+> =C2=A0	.atomic_disable =3D lsdc_crtc_atomic_disable,
+> =C2=A0	.atomic_check =3D lsdc_crtc_helper_atomic_check,
+> =C2=A0	.atomic_flush =3D lsdc_crtc_atomic_flush,
+> =C2=A0	.get_scanout_position =3D lsdc_crtc_get_scanout_position,
+> +	.hw_reset =3D lsdc_crtc_hw_reset,
 
-Pre-existing issues:
-- [High] msm_gem_shrinker_scan loses freed count by returning SHRINK_STOP w=
-hen remaining is 0.
-- [High] drm_gem_lru_scan fails to account for unscanned objects in the rem=
-aining counter, causing catastrophic early aborts.
---
+This seems good but I don't know whether I have a device to test this -
+- I don't know whether MIPS-based Loongson devices can do S3 on the
+mainline kernel.
 
-commit 9ce73904f0ad62a66be5eff7808ac4a6af7edc46
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+Thanks,
+Icenowy
 
-drm/gem: Consider GEM object reclaimable if shrinking fails
+> =C2=A0};
+> =C2=A0
+> =C2=A0int ls7a1000_crtc_init(struct drm_device *ddev,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_crtc *crtc,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *primary,
 
-If the object wasn't moved to a different LRU after the shrink callback
-returns, it means the buffer is still reclaimable. Update the remaining
-counter to reflect that.
-
-Link: https://patch.msgid.link/20260401134854.2275433-2-boris.brezillon@col=
-labora.com
-
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index f884d155a832a..6e778939acae4 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1574,6 +1574,16 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->  			 */
->  			WARN_ON(obj->lru =3D=3D &still_in_lru);
->  			WARN_ON(obj->lru =3D=3D lru);
-> +		} else if (obj->lru =3D=3D &still_in_lru) {
-> +			/*
-> +			 * If the object wasn't moved and wasn't shrunk either,
-> +			 * it's still remaining as reclaimable. Note that
-> +			 * obj->lru is supposed to be checked with the LRU lock
-> +			 * held for an accurate result, but we don't care about
-> +			 * accuracy here. Worst thing that could happen is an
-> +			 * extra scan.
-> +			 */
-> +			*remaining +=3D obj->size >> PAGE_SHIFT;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this manual accumulation
-fully fix the remaining counter?
-
-In drivers/gpu/drm/drm_gem.c:drm_gem_lru_scan(), when the shrinker
-successfully frees enough objects to satisfy nr_to_scan, the loop
-terminates early:
-
-	while (freed < nr_to_scan) {
-		...
-	}
-
-The objects still left in lru->list are never scanned, and their sizes are
-not added to *remaining. If no objects failed to shrink before the loop
-terminated, *remaining stays 0.
-
-This missing count triggers a severe pre-existing issue in=20
-drivers/gpu/drm/msm/msm_gem_shrinker.c:msm_gem_shrinker_scan():
-
-	return (freed > 0 && remaining > 0) ? freed : SHRINK_STOP;
-
-When remaining is incorrectly 0, this logic swallows the freed count by
-returning SHRINK_STOP. The core VM shrinker then drops the count of freed
-pages, causing under-reporting of reclaimed memory which can mislead
-kswapd and trigger premature OOM.
-
-Should lru->count + still_in_lru.count be added to *remaining before return=
-ing
-from drm_gem_lru_scan(), rather than manually accumulating sizes inside the
-loop?
-
->  		}
-> =20
->  		dma_resv_unlock(obj->resv);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-357-sashal@kernel.org?part=3D1
