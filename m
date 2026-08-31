@@ -4,65 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10119C61DE2
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:51:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB25CC61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 08:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDFF89B46;
-	Mon, 31 Aug 2026 08:51:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1124510E26A;
+	Mon, 31 Aug 2026 08:52:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iNu2nwuU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J7djhWba";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48A1089B46;
- Mon, 31 Aug 2026 08:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788166291; x=1819702291;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=H8AGgaN0fxCVZaDd147b/BPVaKt5rLGLX8Ilies60dg=;
- b=iNu2nwuUzGnQPy/CeG20dVcUHckLhk93nPiQyctzm1oIqiTtqwzda6MH
- e6ttBPT2ZxHivJy+junXstDj1HBGzvxVZKkyMOcT2cD6xcbMHeRVAzVAG
- 6y30C+seJSt4HA79QQ0qK/8KHc866PEUQoyeQfrgFDt1ncLW/gMTTA5Xw
- sjYw9FPcpuf9m+MvUQQQpF1LL7jpMuZU5T1PNsKUrOC/tYHRCr8RKy55s
- GhOM90iUceSxYR2UjUEHbxUKhTCazWOrOubywOCxBpK004cr2wYhxFb19
- a9iVpDPnR2PYORzUe1FWOT0a8ktNRKdYDfabjE0OY6K9iaNgrWpASVDiQ A==;
-X-CSE-ConnectionGUID: 1bLWhvBGQp6Mm8QUwT0uQw==
-X-CSE-MsgGUID: K9OInS+bTKehrK7oaB2BEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88421998"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="88421998"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:51:30 -0700
-X-CSE-ConnectionGUID: M7+Z3B/rTHWK0RuyBvKpUQ==
-X-CSE-MsgGUID: 6VxY7c5KTFGR+/9FwbFMGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="265499026"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:51:25 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- louis.chauvet@bootlin.com, hamohammed.sa@gmail.comm, simona@ffwll.ch,
- melissa.srw@gmail.com, robin.clark@oss.qualcomm.com,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, Kamil Konieczny
- <kamil.konieczny@linux.intel.com>, "S, Sowmiya" <sowmiya.s@intel.com>,
- kernel-dev@igalia.com
-Cc: Mark Yacoub <markyacoub@google.com>, Thadeu Lima de Souza Cascardo
- <cascardo@igalia.com>
-Subject: Re: [PATCH i-g-t] Revert "lib/igt_kms: Do not treat writeback and
- virtual connectors as connected"
-In-Reply-To: <20260828-vkms_virtual_output_fix-v1-1-789718f4cb00@igalia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260828-vkms_virtual_output_fix-v1-1-789718f4cb00@igalia.com>
-Date: Mon, 31 Aug 2026 11:51:23 +0300
-Message-ID: <5443fa9f99309b0ec0afdd98319619a63d5467a3@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0048610E26A
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 08:52:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 107BA60120;
+ Mon, 31 Aug 2026 08:52:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684F51F000E9;
+ Mon, 31 Aug 2026 08:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788166344;
+ bh=+3sxOVzytdtY94KnE2X2O2vvNv3vIC2ucrD/KO9EwrY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=J7djhWbawMJ3yG9xeayXV8ihMdAOt6yIRYR2Y/ZNztWr5N6MBKQZh0B4XTj6KraMw
+ R73ww5iHruZ0HIdYfLyvB7jAjg4UeyzpvKIa1gpXH9KbZ+ViX4H5VuRiyj/DLzMILV
+ uzt5oxzLdwxpqrES66hEwFU3ncyKhHJeZFsxaEOa9AoToJrSPjvuEbZUQvehSfDLi8
+ /A2LVrSi7E3sus7UKoflH51f8/gkdZjpLf47K3QBQ5IeHIDGO/qM/0payDMeKOjFQ1
+ P4z3YsvceLiewge39k0B/Nq9TExogp7ZhJ55EX+UHnsi46KAn18WMd5OBmM0gG2HEf
+ 9AMMC63Hryj7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 05/14] accel/rocket: factor the completion tail out
+ of the IRQ handler
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260831081956.84871-6-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-6-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 08:52:23 +0000
+Message-Id: <20260831085224.684F51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,55 +55,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
-> This reverts commit 321448df7fc9af29b4c6697dc74e6c5e2100af6c.
->
-> It has broken vkms testing, which has only Virtual connectors.
->
-> Cc: Mark Yacoub <markyacoub@google.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-FWIW,
+Pre-existing issues:
+- [High] Leak of IOMMU group reference in job completion path due to missin=
+g iommu_group_put().
+- [High] Shared IRQ handler accesses hardware registers without checking if=
+ the device is active, risking crashes or spurious interrupts on suspended =
+devices.
+- [High] Missing synchronize_irq() in runtime suspend callback allows races=
+ with shared interrupts.
+--
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+commit 3949b3388a0eed37353941f6527bafda9857fb01
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-But you should solicit feedback from the author, reviewer, and committer
-of 321448df7fc9 ("lib/igt_kms: Do not treat writeback and virtual
-connectors as connected").
+accel/rocket: factor the completion tail out of the IRQ handler
 
+This commit factors out the completion and task advancement logic from
+rocket_job_handle_irq() into a new helper function rocket_job_next_locked().
+This clarifies the code structure after previous locking changes and isolat=
+es
+the logic for easier bisection. There are no intended functional changes.
 
-> ---
->  lib/igt_kms.h | 4 ----
->  1 file changed, 4 deletions(-)
->
-> diff --git a/lib/igt_kms.h b/lib/igt_kms.h
-> index 695f666bacb9..27f8877a9f6a 100644
-> --- a/lib/igt_kms.h
-> +++ b/lib/igt_kms.h
-> @@ -669,10 +669,6 @@ static inline bool igt_output_is_connected(igt_output_t *output)
->  	    !output->config.connector->count_modes)
->  		return false;
->  
-> -	if (output->config.connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK ||
-> -	    output->config.connector->connector_type == DRM_MODE_CONNECTOR_VIRTUAL)
-> -		return false;
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index a89ab49e17e52..69e29f40f27a0 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -341,6 +341,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
+ched_job *sched_job)
+>  	return ERR_PTR(ret);
+>  }
+> =20
+> +/* Start the job's next task, or retire it. Caller holds job_lock. */
+> +static void rocket_job_next_locked(struct rocket_core *core)
+> +{
+> +	lockdep_assert_held(&core->job_lock);
+> +
+> +	if (!core->in_flight_job)
+> +		return;
+> +
+> +	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_coun=
+t) {
+> +		rocket_job_hw_submit(core, core->in_flight_job);
+> +		return;
+> +	}
+> +
+> +	iommu_detach_group(NULL, iommu_group_get(core->dev));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code permanently
+leak the IOMMU group reference?
+
+iommu_group_get() increments the reference count of the IOMMU group, but
+the returned pointer is passed directly to iommu_detach_group() which does
+not take ownership. I don't see a matching iommu_group_put() anywhere.
+
+Since this happens on every job completion, won't this continuously leak
+kobject references until the refcount_t saturates and warns? Could this
+use core->iommu_group directly without taking a new reference?
+
+> +	dma_fence_signal(core->in_flight_job->done_fence);
+> +	pm_runtime_put_autosuspend(core->dev);
+> +	core->in_flight_job =3D NULL;
+> +}
+> +
+>  static void rocket_job_handle_irq(struct rocket_core *core)
+>  {
+>  	pm_runtime_mark_last_busy(core->dev);
+> @@ -354,17 +373,7 @@ static void rocket_job_handle_irq(struct rocket_core=
+ *core)
+>  		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+>  		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+
+[Severity: High]
+This is a pre-existing issue, but do these unconditional hardware register
+accesses risk a system crash if the device is runtime suspended?
+
+The interrupt handler doesn't check if the device is active before accessing
+hardware:
+
+drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
+    ...
+    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+    ...
+}
+
+Because the driver registers this as a shared IRQ (IRQF_SHARED), if another
+device on the line triggers an interrupt while the NPU is suspended, this r=
+ead
+typically returns 0xffffffff.
+
+This satisfies the interrupt mask (e.g. PC_INTERRUPT_RAW_STATUS_DPU_0),
+causing the handler to wake the thread and execute rocket_job_handle_irq()
+here, which writes to powered-off registers like OPERATION_ENABLE, causing
+an asynchronous SError or bus fault.
+
+Should the hardirq handler use pm_runtime_get_if_active() to check the
+power state before reading INTERRUPT_RAW_STATUS?
+
+> -		if (core->in_flight_job) {
+> -			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_co=
+unt) {
+> -				rocket_job_hw_submit(core, core->in_flight_job);
+> -				return;
+> -			}
 > -
->  	if (output->config.connector->connection == DRM_MODE_CONNECTED)
->  		return true;
->  
->
-> ---
-> base-commit: c0c86b23b316bec7d22bbb95e433a8dc25884a1c
-> change-id: 20260828-vkms_virtual_output_fix-c82298792438
->
-> Best regards,
-> --  
-> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->
+> -			iommu_detach_group(NULL, iommu_group_get(core->dev));
+> -			dma_fence_signal(core->in_flight_job->done_fence);
+> -			pm_runtime_put_autosuspend(core->dev);
+> -			core->in_flight_job =3D NULL;
+> -		}
+> +		rocket_job_next_locked(core);
+>  	}
+>  }
 
--- 
-Jani Nikula, Intel
+While reviewing this, I noticed another pre-existing issue related to the
+shared IRQ handling in the driver's runtime PM suspend path:
+
+drivers/accel/rocket/rocket_drv.c:rocket_device_runtime_suspend() {
+    ...
+    if (!rocket_job_is_idle(&rdev->cores[core]))
+        return -EBUSY;
+
+    clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks),
+                               rdev->cores[core].clks);
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but does this function pull hardware power
+before ensuring all interrupt handlers have finished executing?
+
+Subsystem rules state that drivers using IRQF_SHARED must call
+synchronize_irq() in their runtime suspend callback before powering down
+hardware. Since the IRQ is shared, rocket_job_irq_handler() could be
+executing concurrently on another CPU when the clock is disabled, which
+would cause a system crash.
+
+Could a call to synchronize_irq() be added here before disabling clocks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D5
