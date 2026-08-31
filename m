@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E768C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 727F2C624C6
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:45:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7A510E8A8;
-	Mon, 31 Aug 2026 13:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6BF10E8AA;
+	Mon, 31 Aug 2026 13:45:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QvWoi8FG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mb0NIH7j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9DF510E8A6
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:45:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D64E110E8AA;
+ Mon, 31 Aug 2026 13:45:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 900AE42B01;
- Mon, 31 Aug 2026 13:45:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1423C1F000E9;
- Mon, 31 Aug 2026 13:45:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B9E86013A;
+ Mon, 31 Aug 2026 13:45:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E643C1F000E9;
+ Mon, 31 Aug 2026 13:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183926;
- bh=TjMfBZZn7+QO5Fcxtz741lDPmRz3T3sRXBvHnbkWb5k=;
+ s=k20260515; t=1788183938;
+ bh=To1z/W0cY9na/zl6r+yTzM85id3mcrKlPbBi1jyEGeY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=QvWoi8FG0sfYwo6+f1KMhRqGGoS2dc5iv9Fv8A0v2N2eOouuZBnqSQndR5SfIuFg4
- rW395T8Q29uTBuAw/leEg3kIbSrQ+ljSc/X4ztjdwe9K4iP2eKDhAjfplmKbwMdRw0
- 2dMTcc5Cr6ANl6+X6Asv/4UhWecsRxLJwgd4gbkwtgfRPrk7Qj3woqn8JD2JQIbCRn
- vqgY7u4dzeDmTWb2wr4Tjmby+mu4yv6xXGH95QSsSXj2O3ov4liOmKktXg+tMScP8K
- I9mMa0/3Rrc2Xd8P8qIqPTH32huVnVx3TBFe0mjC6309WkqoVIO+OtmbBEMybUYjGF
- dc7gv6BrPacRw==
+ b=Mb0NIH7j9ibywgk2Xz2qfoL+4sSvVQXjcrgLjXJbgBt+BI7XmFwSgB++USgPjWZ7m
+ XKc3RhRyZm60VhcfiR5EE82bUuIL/5MT5sHjYvtBLCKGpo7kDjGvec7VfsNfaUhCBg
+ AmpW6HGwGIqsHSv5xpq14kfF3O8/c2cD64nK/seouBMKtVNp+znVoyKPoaX5Ho8c8M
+ GcF0UViketY7zyd18Ccv0ivX8SUUtr0vZeatgdTk05AUiKc6P9mtccwGMC5HMM2ifI
+ jPo7eWoB9SlE69mRkSpY+jLbWt5zHezZi0TiIWy5qQGEikLcsH/ORE2vj25B+N2wLh
+ VuHggp44m8UeA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add BOE NT140WHM-N4T,
- BOE NT140WHM-T05, BOE NV140FHM-N40
-Date: Mon, 31 Aug 2026 09:26:53 -0400
-Message-ID: <20260831133314.4125787-385-sashal@kernel.org>
+Cc: Sunday Clement <Sunday.Clement@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: Fix OOB memory exposure in
+ get_wave_state()
+Date: Mon, 31 Aug 2026 09:27:00 -0400
+Message-ID: <20260831133314.4125787-392-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,288 +66,333 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+From: Sunday Clement <Sunday.Clement@amd.com>
 
-[ Upstream commit a58ff7da4835e76a5ffc078ecfd2773de90e5d8c ]
+[ Upstream commit 7ef144458f48d5589e36f1b3d83e83db2e5c5ba5 ]
 
-The raw EDIDs for each panel:
+The get_wave_state() function for v9 trusts cp_hqd_cntl_stack_size and
+cp_hqd_cntl_stack_offset values read directly from the MQD, which are
+written by GPU microcode and fully attacker-controlled on the
+CRIU-restore path (via AMDKFD_IOC_RESTORE_PROCESS with H3).
 
-BOE NT140WHM-N4T
-00 ff ff ff ff ff ff 00 09 e5 0d 09 00 00 00 00
-01 1e 01 04 95 1f 11 78 03 f8 45 96 57 54 92 28
-23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 a9 1d 56 d0 50 00 24 30 30 20
-36 00 35 ae 10 00 00 1a c6 13 56 d0 50 00 24 30
-30 20 36 00 35 ae 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 40 ff 0a 3c 7d 11 11 21 7d 00 00 00 00 65
+this leads to an unbounded copy_to_user() that can leak adjacent
+GTT/kernel memory. If offset > size, integer underflow produces a ~4 GiB
+read length, if size is set to 1 MiB against a 4 KiB allocation, we leak
+1 MiB of adjacent kernel memory (other queues' MQDs, ring buffers, KASLR
+pointers).
 
-BOE NT140WHM-T05
-00 ff ff ff ff ff ff 00 09 e5 85 0b 00 00 00 00
-01 21 01 04 95 1f 11 78 03 ea a5 93 5c 58 8f 29
-1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 c7 1d 56 e2 50 00 1e 30 30 20
-36 00 35 ae 10 00 00 1a da 13 56 e2 50 00 1e 30
-30 20 36 00 35 ae 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 40 ff 0a 3c 7d 11 11 21 7d 00 00 00 00 4e
+Fix by clamping both cp_hqd_cntl_stack_size to the actual allocated
+buffer size (q->ctl_stack_size) and cp_hqd_cntl_stack_offset to the
+clamped size before performing arithmetic and copy_to_user().
 
-BOE NV140FHM-N40
-00 ff ff ff ff ff ff 00 09 e5 6f 0c 00 00 00 00
-19 21 01 04 a5 1f 11 78 03 21 35 97 59 57 8f 29
-23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 c2 37 80 cc 70 38 28 40 6c 30
-aa 00 35 ae 10 00 00 1a 2c 25 80 cc 70 38 28 40
-6c 30 aa 00 35 ae 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0d 36 ff 0a 3c 96 09 0a 19 96 00 00 00 01 57
+This ensures we never read beyond the allocated kernel BO regardless of
+attacker-supplied MQD field values.
 
-70 20 79 02 00 25 01 09 8c 2d 02 8c 2d 02 28 3c
-80 81 00 10 6f 1a 00 00 03 01 28 3c 00 00 53 4a
-53 4a 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 e4 90
-
-Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260506170607.10813-3-terry_hsiao@compal.corp-partner.google.com
+Signed-off-by: Sunday Clement <Sunday.Clement@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/panel-edp BOE Panel Additions
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+# Stable Backport Analysis: `drm/amdkfd: Fix OOB memory exposure in
+get_wave_state()`
 
-**Local tree:** `v6.18.43-1-gc7f0dac02d232` (kernel 6.18.43)
+**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-**Record:** `[drm/panel-edp]` `[Add]` — Add three BOE eDP panel entries
-(NT140WHM-N4T, NT140WHM-T05, NV140FHM-N40) with power-sequencing delay
-profiles.
+**Record:** `[drm/amdkfd]` `[Fix]` — Fix out-of-bounds kernel memory
+exposure in `get_wave_state()` for GFX9 (v9 MQD manager).
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Terry Hsiao `<terry_hsiao@compal.corp-
-  partner.google.com>` (author)
-- **Reviewed-by:** Douglas Anderson `<dianders@chromium.org>`
-  (drm/panel-edp maintainer)
-- **Signed-off-by:** Douglas Anderson `<dianders@chromium.org>`
-  (maintainer merge)
-- **Link:** `https://patch.msgid.link/20260506170607.10813-3-
-  terry_hsiao@compal.corp-partner.google.com`
-- No Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org, or
-  syzbot tags
-- Notable: Reviewed and merged by subsystem maintainer; no user bug
-  reports cited
+| Tag | Value |
+|-----|-------|
+| Signed-off-by | Sunday Clement `<Sunday.Clement@amd.com>` (author) |
+| Acked-by | Alex Deucher `<alexander.deucher@amd.com>` |
+| Signed-off-by | Alex Deucher `<alexander.deucher@amd.com>` (committer)
+|
+| Fixes: | **Absent** (expected for candidate review) |
+| Cc: stable | **Absent** (expected) |
+| Reported-by: | **Absent** |
+| Link: | **Absent** |
+
+Notable: Acked-by from AMDGPU/KFD maintainer Alex Deucher is a strong
+quality signal.
 
 ### Step 1.3: Body Analysis
 **Record:**
-- **Bug description:** None stated. Commit provides raw EDID dumps for
-  three BOE 14" eDP panels and adds matching entries to the
-  `edp_panels[]` timing table.
-- **Symptom/failure mode:** Without entries, panels fall back to
-  conservative (non-optimized) power-sequencing delays with a `WARN_ON`
-  (verified in `generic_edp_panel_probe()`).
-- **Version info:** None in message.
-- **Root cause:** Panels need panel-specific eDP power-sequencing
-  delays; the generic fallback is intentionally conservative and
-  suboptimal.
+- **Bug:** `get_wave_state()` in `kfd_mqd_manager_v9.c` trusts
+  `cp_hqd_cntl_stack_size` and `cp_hqd_cntl_stack_offset` from the MQD
+  without bounds checking.
+- **Attack vector:** On the CRIU-restore path (`AMDKFD_IOC_CRIU_OP` /
+  `KFD_CRIU_OP_RESTORE`), the full MQD is copied from userspace via
+  `restore_mqd()` → `memcpy(m, mqd_src, sizeof(*m))`, making those
+  fields attacker-controlled.
+- **Symptoms:** Unbounded `copy_to_user()` reads beyond the allocated
+  control-stack BO, leaking adjacent GTT/kernel memory (other MQDs, ring
+  buffers, KASLR pointers). If `offset > size`, unsigned subtraction
+  underflows to ~4 GiB copy length.
+- **Root cause:** MQD fields used directly for pointer arithmetic and
+  copy size without clamping to `q->ctl_stack_size` (the actual
+  allocation size).
+- **Version info:** Not specified; affects GFX9 v9 MQD path with CWSR
+  enabled.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — this is explicit hardware enablement / timing quirk
-data, not a disguised crash or leak fix. Wrong delays can still cause
-flicker or suspend/resume issues on real hardware, but the commit does
-not document a specific failure.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — explicitly labeled as a security/memory-
+safety fix. Clear OOB read → info-leak vulnerability.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **Files:** `drivers/gpu/drm/panel/panel-edp.c` (+3 lines)
-- **Functions modified:** None; only `edp_panels[]` static table
-- **Scope:** Single-file, surgical hardware-quirk addition
+- **File:** `drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c` (+7/−3
+  net, ~10 lines touched)
+- **Function:** `get_wave_state()` (static, v9 MQD manager)
+- **Scope:** Single-file, surgical fix
 
 ### Step 2.2: Code Flow Change
 **Record:**
+
 | Hunk | Before | After |
 |------|--------|-------|
-| `0x090d` entry | Unknown BOE panel → conservative timings |
-`NT140WHM-N4T` → `delay_200_500_e50` |
-| `0x0b85` entry | Unknown BOE panel → conservative timings |
-`NT140WHM-T05` → `delay_200_500_e50` |
-| `0x0c6f` entry | Unknown BOE panel → conservative timings |
-`NV140FHM-N40` → `delay_200_500_e50` |
+| Variable setup | Used raw MQD fields | Declares `cntl_stack_size`,
+`cntl_stack_offset`; clamps to `q->ctl_stack_size` |
+| Size calculation for copy | `*ctl_stack_used_size =
+m->cp_hqd_cntl_stack_size - m->cp_hqd_cntl_stack_offset` (used directly
+for copy) | Recalculated as `cntl_stack_size - cntl_stack_offset` after
+clamping |
+| `copy_to_user` of stack data | `ctl_stack +
+m->cp_hqd_cntl_stack_offset`, length `*ctl_stack_used_size` | `ctl_stack
++ cntl_stack_offset`, length clamped `*ctl_stack_used_size` |
 
-Affected path: `generic_edp_panel_probe()` → `find_edp_panel()` →
-`desc->delay` applied during `panel_edp_prepare()` /
-`panel_edp_enable()`.
+Header fields are still populated from unclamped MQD values before the
+clamp (pre-existing behavior); the security-critical kernel read is what
+gets fixed.
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Category (h): Hardware workaround / panel timing quirk.**
-Panels are identified by EDID panel ID at probe; missing entries trigger
-`panel_edp_set_conservative_timings()` (`unprepare=2000ms`,
-`enable=200ms`) instead of optimized `delay_200_500_e50`
-(`hpd_absent=200`, `unprepare=500`, `enable=50`).
+**Record:**
+- **Category:** Buffer overflow / out-of-bounds read → kernel
+  information disclosure
+- **Mechanism:** Attacker-supplied MQD
+  `cp_hqd_cntl_stack_size`/`cp_hqd_cntl_stack_offset` drive
+  `copy_to_user()` source pointer (`mqd_ctl_stack + offset`) and length
+  (`size - offset`) without validation against the BO allocated as
+  `ALIGN(q->ctl_stack_size, PAGE_SIZE)` at MQD creation time.
 
 ### Step 2.4: Fix Quality
-**Record:** Obviously correct — EDID product IDs in the commit message
-match the hex IDs in the table (`0x090d`, `0x0b85`, `0x0c6f`). All three
-reuse an existing, widely-used delay profile already used by dozens of
-BOE entries in this tree. Minimal regression risk.
+**Record:**
+- Fix is obviously correct: `min_t()` clamping to known allocation bound
+  is standard kernel practice.
+- Minimal, no API changes, no new features.
+- Low regression risk: only affects the data-copy path; worst case
+  slightly truncates data returned to userspace when MQD fields are
+  corrupt/malicious (correct behavior).
+- Alex Deucher noted C89 mixed-declaration issue in v1 (variables after
+  statements); the candidate diff moves declarations to function top,
+  addressing that.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Insertion points are in the BOE section of `edp_panels[]`,
-last touched in this tree by `b173ba3365ff0` (NV140WUM-T08, Jan 2026)
-and `5d324e5159d9e` (base 6.18 merge, Nov 2025). The table structure and
-`find_edp_panel()` logic are mature.
+**Record:** `git blame` on lines 336–370 attributes all lines to
+`a112b91dd6349` (sunrpc backport marker commit) — this stable tree has
+flattened/squashed history, so blame is not reliable for dating the
+original code. The `get_wave_state()` function and vulnerable
+`copy_to_user` pattern are **present in the current tree**.
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag.
+**Record:** No `Fixes:` tag present. N/A.
 
-### Step 3.3: Related Changes
-**Record:** Part of Terry Hsiao's v1 4-patch series (`20260507_...mbx`),
-patch 2/4. This patch is standalone — it only adds three table rows and
-does not depend on patches 1, 3, or 4. Similar panel additions already
-in this 6.18.y tree: `0bd968c04acfb`, `6ca4647a74155`, `b173ba3365ff0`.
+### Step 3.3: Related File History
+**Record:** `git log --oneline --
+drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c` returns only one commit
+in this tree (history squashed). Cannot trace intermediate fixes from
+local git alone.
 
 ### Step 3.4: Author Context
-**Record:** Terry Hsiao (Compal/Google Chromebook partner). Douglas
-Anderson reviewed and signed off — he is the drm/panel-edp maintainer
-and author of much of this driver.
+**Record:** Sunday Clement (AMD). Alex Deucher Acked and committed. No
+other Sunday Clement commits found in this tree's amdkfd history
+(squashed tree).
 
 ### Step 3.5: Dependencies
-**Record:** None. `delay_200_500_e50` and `EDP_PANEL_ENTRY` macro both
-exist in the local tree. Applies cleanly at sorted insertion points.
+**Record:**
+- **Standalone fix** — no series dependency, no prerequisite commits
+  referenced.
+- Requires existing code: `get_wave_state()` v9 copy path, CRIU restore,
+  `q->ctl_stack_size` in `queue_properties`. All verified present in
+  6.18.43 tree.
+- **v9-specific:** v10+ `get_wave_state()` does not copy control stack
+  to userspace (only header metadata), so this bug is unique to the v9
+  path.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 ### Step 4.1: Original Discussion
-**Record:** Local mbox `20260507_terry_hsiao_drm_panel_edp_add_and_updat
-e_multiple_auo_boe_cmn_and_ivo_panels.mbx` contains the v1 submission.
-`b4 dig -c` could not be run (no upstream commit hash in this checkout).
-Lore URL blocked by bot protection.
+**Record:**
+- `b4 dig` failed in this environment.
+- Web search found thread: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/144498.html
+- Submitted May 13, 2026 by Sunday Clement; Alex Deucher replied same
+  day with **Acked-by** (after noting C89 declaration placement).
+- Single-patch submission, not part of a series.
 
 ### Step 4.2: Reviewers
-**Record:** Reviewed-by and Signed-off-by: Douglas Anderson
-(maintainer). Author domain: `compal.corp-partner.google.com`
-(Chromebook OEM).
+**Record:** Alex Deucher (AMDGPU maintainer) reviewed and Acked.
+Appropriate subsystem maintainer involvement confirmed.
 
-### Step 4.3: Bug Reports
-**Record:** None. No Reported-by, syzbot, or bugzilla links.
+### Step 4.3: Bug Report
+**Record:** No external bug report, syzbot, or CVE referenced. Security
+impact described in commit message and review thread.
 
-### Step 4.4: Series Context
-**Record:** v1 2/4 of a 4-patch series adding AUO/BOE/CMN/IVO panels
-plus one CMN correction. This commit is independently applicable.
+### Step 4.4: Related Patches
+**Record:** No related patches in a series. v10+ not affected (no stack
+copy). No other GFX versions need this exact fix.
 
 ### Step 4.5: Stable List Discussion
-**Record:** No stable-specific discussion found in the local mbox. No
-stable nomination in patch headers.
+**Record:** No stable@vger.kernel.org nomination found in the thread.
+Not a negative signal per instructions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** `find_edp_panel()`, `generic_edp_panel_probe()`,
-`panel_edp_prepare_once()`, `panel_edp_enable()` — only the table data
-feeding these is changed.
+**Record:** `get_wave_state()` (v9), called via
+`get_wave_state_v9_4_3()` for multi-XCC GFX9.4.3+.
 
 ### Step 5.2: Callers
-**Record:** `generic_edp_panel_probe()` called from `panel_edp_probe()`
-during device probe. `panel_edp_prepare_once()` / `panel_edp_enable()`
-called on every display power-on/resume via DRM panel ops — common
-laptop/Chromebook path.
+**Record:**
+```
+kfd_ioctl_get_queue_wave_state()          [kfd_chardev.c:541]
+  → pqm_get_wave_state()
+[kfd_process_queue_manager.c:685]
+    → dqm->ops.get_wave_state()
+[kfd_device_queue_manager.c:2690]
+      → mqd_mgr->get_wave_state()         [kfd_mqd_manager_v9.c:336]
+```
+`AMDKFD_IOC_GET_QUEUE_WAVE_STATE` has ioctl flag `0` (no special
+capability beyond KFD device access).
 
 ### Step 5.3: Callees
-**Record:** Timing delays drive `msleep()` / `panel_edp_wait()` in
-prepare/enable/disable paths; `regulator_enable()`, HPD polling.
+**Record:** `get_mqd()`, `copy_to_user()` — the vulnerable path copies
+from `mqd_ctl_stack` (kernel BO at `mqd + PAGE_SIZE`).
 
-### Step 5.4: Reachability
-**Record:** Triggered at boot and on every suspend/resume for machines
-using `panel-edp` with these BOE panels. Userspace cannot directly
-trigger, but all display users are affected.
+### Step 5.4: Attack Chain (Reachability)
+**Record:**
+1. Attacker with `CAP_CHECKPOINT_RESTORE` calls `AMDKFD_IOC_CRIU_OP`
+   with `KFD_CRIU_OP_RESTORE` (`kfd_ioctl_criu`, flag
+   `KFD_IOC_FLAG_CHECKPOINT_RESTORE`).
+2. `kfd_criu_restore_queue()` → `copy_from_user()` of MQD →
+   `pqm_create_queue()` → `restore_mqd()` → `memcpy(m, mqd_src,
+   sizeof(*m))` — **full MQD including malicious stack size/offset
+   fields**.
+3. Attacker calls `AMDKFD_IOC_GET_QUEUE_WAVE_STATE` on the restored
+   queue (queue must be inactive, `cwsr_enabled`).
+4. `get_wave_state()` performs OOB `copy_to_user()`, leaking kernel
+   memory.
+
+Reachable from userspace ioctl path. Poisoning requires
+`CHECKPOINT_RESTORE` capability; the leak ioctl itself does not.
 
 ### Step 5.5: Similar Patterns
-**Record:** Dozens of identical one-line `EDP_PANEL_ENTRY` additions in
-this file; three recent ones already backported to 6.18.y in this
-checkout.
+**Record:** `checkpoint_mqd()` also uses `m->cp_hqd_cntl_stack_size` for
+`memcpy` (line 388) — potentially a separate concern on restore, but not
+addressed by this commit and not the `get_wave_state` leak path under
+review. v10/v11/v12 `get_wave_state()` do not perform the vulnerable
+stack copy.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.43)
 
-### Step 6.1: Buggy Code Present?
-**Record:** Yes. The three panel IDs (`0x090d`, `0x0b85`, `0x0c6f`) are
-**not** in the local tree (grep returned no matches). Unknown panels
-currently hit the conservative-timing fallback. The driver and full
-`edp_panels[]` table exist.
+### Step 6.1: Buggy Code Exists?
+**Record:** **YES.** Current tree at `kfd_mqd_manager_v9.c:350-366`:
+
+```350:366:drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+        *ctl_stack_used_size = m->cp_hqd_cntl_stack_size -
+                m->cp_hqd_cntl_stack_offset;
+        // ...
+        if (copy_to_user(ctl_stack + m->cp_hqd_cntl_stack_offset,
+                                mqd_ctl_stack +
+m->cp_hqd_cntl_stack_offset,
+                                *ctl_stack_used_size))
+```
+
+CRIU restore infrastructure (`kfd_criu_restore_queue`, `restore_mqd`,
+`AMDKFD_IOC_CRIU_OP`) all present. Control stack BO allocated at
+`ALIGN(q->ctl_stack_size, PAGE_SIZE)` in `alloc_mqd()` (line 139).
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Insertion points verified against
-current file: after `div class="highlight">0x0849`, after `0x0b66`,
-after `0x0c26` — all in correct sorted order.
+**Record:** **Clean apply expected.** Single hunk in one file. No
+structural conflicts observed. Candidate diff uses top-of-function
+variable declarations (addresses maintainer C89 feedback).
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No — these three panel IDs are absent. Other patches from
-the same series (AUO B140HAN07.7, CMN/IVO panels) are also not present.
+**Record:** `git log --grep="OOB"` and `--grep="get_wave_state"` in
+amdkfd returned no results. Fix is **not** already in this tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem
-**Record:** `drivers/gpu/drm/panel` — DRM panel driver. **Criticality:
-IMPORTANT** (display on laptops/Chromebooks; not universal core kernel,
-but affects all users of affected hardware).
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/gpu/drm/amd/amdkfd` — AMDGPU KFD (HSA compute).
+**IMPORTANT** subsystem: affects AMD GPU compute users (ROCm, HPC, ML
+workloads). Security-relevant ioctl path.
 
-### Step 7.2: Activity
-**Record:** Actively maintained — three panel-edp additions backported
-to this 6.18.y tree in recent months.
+### Step 7.2: Subsystem Activity
+**Record:** Active development (CRIU, MES, multi-XCC support visible in
+tree). CRIU restore is a relatively newer code path where insufficient
+validation is plausible.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of laptops/Chromebooks with BOE NT140WHM-N4T,
-NT140WHM-T05, or NV140FHM-N40 eDP panels using the generic `panel-edp`
-driver.
+**Record:** Users of AMD GFX9 GPUs (Vega20, MI50, MI100, etc.) with:
+- `CONFIG_HSA_AMD`/amdkfd enabled
+- CWSR (`cwsr_enabled`) enabled
+- CRIU checkpoint/restore used (containers, migration)
 
 ### Step 8.2: Trigger Conditions
-**Record:** Every boot and resume when these panels are present. Common
-on new Chromebook hardware from Compal/Google ecosystem.
+**Record:**
+- Requires `CAP_CHECKPOINT_RESTORE` to poison MQD via CRIU restore
+- Then `AMDKFD_IOC_GET_QUEUE_WAVE_STATE` on inactive queue
+- Not every boot path — specific to CRIU restore + wave state query
+- Unprivileged direct trigger: **No** (needs CHECKPOINT_RESTORE for
+  poisoning step)
 
 ### Step 8.3: Failure Mode Severity
-**Record:** Without fix: `WARN_ON` + conservative timings. Display
-likely still works (driver comment: "highly likely"), but with wrong
-power-sequencing delays that can cause flicker, slow resume, or
-intermittent display failures. **Severity: MEDIUM** (functional
-degradation, not kernel crash or data corruption).
+**Record:**
+- **Failure mode:** Kernel memory information disclosure to userspace
+  (KASLR pointers, adjacent BO contents)
+- **Secondary:** Integer underflow could attempt multi-GB copy
+  (potential crash/hang)
+- **Severity: HIGH** (security — info leak, KASLR bypass aid)
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Correct power sequencing for three real panels;
-  eliminates WARN splat; matches established stable practice for this
-  driver in 6.18.y
-- **Risk:** Very low — 3 lines, existing delay profile, maintainer-
-  reviewed
-- **Ratio:** Favorable for stable
+- **Benefit: HIGH** — closes a real kernel memory leak on a security-
+  sensitive ioctl path
+- **Risk: VERY LOW** — 7 lines, bounds clamping only, maintainer-Acked
+- **Ratio:** Strongly favors backport
 
 ---
 
@@ -357,117 +401,126 @@ degradation, not kernel crash or data corruption).
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Stable exception category: hardware quirk / panel timing table entry
-  (analogous to device ID additions)
-- Tiny, obviously correct, maintainer-reviewed
-- Applies cleanly to 6.18.43
-- Identical patch type already backported to this tree (`0bd968c04acfb`,
-  `6ca4647a74155`, `b173ba3365ff0`)
-- Wrong eDP power sequencing can cause real suspend/resume/display
-  issues
-- Standalone within a series
+- Real security bug: OOB kernel read → info leak (KASLR, adjacent BOs)
+- Small, surgical, maintainer-Acked fix
+- Buggy code and CRIU infrastructure exist in 6.18.43
+- v9-specific `copy_to_user` of control stack is the vulnerable
+  operation
+- Integer underflow can produce ~4 GiB copy attempt
+- Defense-in-depth: kernel must not trust MQD fields without validation
 
 **AGAINST backport:**
-- No documented crash, security issue, or user bug report
-- Fallback conservative timings exist — not a hard failure
-- Arguably "new hardware support" rather than fixing a regression
-- Panels may be on very new Chromebooks not yet widespread on 6.18.y
+- Requires `CAP_CHECKPOINT_RESTORE` for the poisoning step (limits
+  attack surface to CRIU-capable contexts)
+- Only affects GFX9 (v9 MQD manager), not GFX10+
+- Header metadata still uses unclamped values (minor, not the security
+  issue)
 
-**Unresolved:** No upstream commit hash in this checkout; lore thread
-inaccessible; no Tested-by on specific hardware models named in commit.
+**Unresolved:** Exact mainline commit SHA not available in this tree;
+original introduction date of vulnerable code not determinable due to
+squashed stable history.
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — EDID IDs verified;
-   maintainer reviewed; delay profile matches sibling BOE panels
-2. Fixes real bug affecting users? **PASS** (borderline) — fixes
-   incorrect power sequencing for known hardware; fallback works but is
-   suboptimal
-3. Important issue? **PASS (MEDIUM)** — display reliability / suspend-
-   resume, not crash/corruption
-4. Small and contained? **PASS** — 3 lines, one file
-5. No new features/APIs? **PASS** — table entries only, no API change
-6. Can apply to local tree? **PASS** — driver and dependencies present;
-   clean apply
 
-### Step 9.3: Exception Category
-**Record:** Hardware quirk / panel timing workaround — the stable-rules
-exception for quirks that fix real-world hardware behavior. Same
-category as the panel-edp additions already in 6.18.y.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — `min_t()` clamping is
+standard; Acked by maintainer |
+| 2. Fixes real bug affecting users? | **PASS** — kernel memory info
+leak via ioctl |
+| 3. Important issue? | **PASS** — security (info disclosure, KASLR
+leak) |
+| 4. Small and contained? | **PASS** — 1 file, ~10 lines |
+| 5. No new features/APIs? | **PASS** — validation only |
+| 6. Can apply to local tree? | **PASS** — buggy code present, clean
+apply expected |
+
+### Step 9.3: Exception Categories
+**Record:** None of the hardware-quirk/DT/device-ID exceptions apply.
+This is a security bug fix.
 
 ### Step 9.4: Decision Rationale
-For 6.18.43, this commit adds three BOE panel timing entries to an
-existing, actively-maintained driver. The pattern is routinely accepted
-for stable in this tree. While not a crash fix, correct eDP power
-sequencing is a hardware quirk fix with low risk and clear benefit for
-affected laptop/Chromebook users. Precedent in this exact tree strongly
-supports backporting.
+
+For **Linux 6.18.43**, the vulnerable `get_wave_state()` code exists,
+the CRIU restore attack path is present, and the fix is a minimal
+bounds-check that closes a kernel memory information disclosure. This
+meets all stable kernel criteria for a security fix. The
+`CAP_CHECKPOINT_RESTORE` requirement limits who can trigger it, but
+container/CRIU environments are exactly where stable kernels with AMDGPU
+compute are deployed, and leaking KASLR/kernel pointers is a meaningful
+security impact.
 
 ---
 
 ## Verification
 
-- [Phase 1] `git describe HEAD` → v6.18.43; parsed subject, tags, body
-  from user-provided commit
-- [Phase 1] No Fixes:/Reported-by:/syzbot tags found
-- [Phase 2] Diff: 3 `EDP_PANEL_ENTRY` lines in `panel-edp.c`
-- [Phase 2] Read `generic_edp_panel_probe()` lines 759–832: unknown
-  panel → `WARN_ON` + conservative timings
-- [Phase 2] Read `panel_edp_set_conservative_timings()` lines 740–754:
-  unprepare=2000, enable=200
-- [Phase 2] Read `delay_200_500_e50` lines 1739–1743: hpd_absent=200,
-  unprepare=500, enable=50
-- [Phase 2] Verified EDID bytes → panel IDs: 0x090d, 0x0b85, 0x0c6f
-- [Phase 3] `git log --oneline -5 -- drivers/gpu/drm/panel/panel-edp.c`
-  → recent panel additions present
-- [Phase 3] `git show 0bd968c04acfb`, `b173ba3365ff0`, `6ca4647a74155` →
-  identical patch type already in 6.18.y
-- [Phase 3] `git blame -L 1981,1983` → insertion context confirmed
-- [Phase 4] Read local mbox/cover files; Reviewed-by: Douglas Anderson
-  confirmed
-- [Phase 4] `b4 dig` failed (no commit hash); lore URL blocked by bot
-  protection
-- [Phase 4] No stable nominations found in mbox
-- [Phase 5] Grep `desc->delay` → delays used in prepare/enable/disable
-  paths
-- [Phase 6] Grep for `0x090d|0x0b85|0x0c6f|NT140WHM-N4T` → **not
-  present** in local tree
-- [Phase 6] Grep for `delay_200_500_e50` → present; `EDP_PANEL_ENTRY`
-  macro present
-- [Phase 6] Verified insertion points at lines 1956, 1981, 1983 match
-  diff context
-- [Phase 7] Three prior panel-edp backports confirmed in `git log
-  --grep`
-- [Phase 8] Failure mode: conservative fallback, WARN_ON — severity
-  MEDIUM, not CRITICAL
+- **[Phase 1]** Parsed commit message and tags from user query;
+  confirmed Acked-by Alex Deucher
+- **[Phase 1]** No Fixes:/Reported-by:/Cc: stable tags (expected)
+- **[Phase 2]** Read diff and current `kfd_mqd_manager_v9.c:336-370` —
+  vulnerable `copy_to_user` confirmed
+- **[Phase 2]** Verified BO allocation size uses `q->ctl_stack_size` at
+  `kfd_mqd_manager_v9.c:139`
+- **[Phase 3]** `git blame -L 336,370` — squashed history, unreliable
+  for dating
+- **[Phase 3]** `git log --oneline -- kfd_mqd_manager_v9.c` — single
+  commit (squashed tree)
+- **[Phase 3]** No Fixes: tag to follow
+- **[Phase 4]** `b4 dig` — **failed** (tool unavailable)
+- **[Phase 4]** WebFetch lore thread — Alex Deucher Acked-by confirmed
+  at https://lists.freedesktop.org/archives/amd-gfx/2026-May/144498.html
+- **[Phase 4]** No stable list nomination found
+- **[Phase 5]** Traced call chain: `kfd_ioctl_get_queue_wave_state` →
+  `pqm_get_wave_state` → `get_wave_state` (v9)
+- **[Phase 5]** Verified CRIU restore path: `kfd_criu_restore_queue` →
+  `restore_mqd` → `memcpy(m, mqd_src, sizeof(*m))` at line 422
+- **[Phase 5]** Verified v10 `get_wave_state` does NOT copy stack data
+  (only header) — bug v9-specific
+- **[Phase 6]** `git describe HEAD` → v6.18.43; `Makefile` → 6.18.43
+- **[Phase 6]** Buggy code present; fix not yet applied
+- **[Phase 6]** CRIU ioctl `KFD_CRIU_OP_RESTORE` present with
+  `KFD_IOC_FLAG_CHECKPOINT_RESTORE`
+- **[Phase 8]** Failure mode: kernel info leak, severity HIGH
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index c1ea17a0040be..105074d8cf765 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1959,6 +1959,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x08b2, &delay_200_500_e200, "NT140WHM-N49"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0848, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0849, &delay_200_500_e200, "Unknown"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x090d, &delay_200_500_e50, "NT140WHM-N4T"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x09c3, &delay_200_500_e50, "NT116WHM-N21,836X2"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x094b, &delay_200_500_e50, "NT116WHM-N21"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0951, &delay_200_500_e80, "NV116WHM-N47"),
-@@ -1984,8 +1985,10 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV140FHM-T09"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140FHM-N47"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b66, &delay_200_500_e80, "NE140WUM-N6G"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b85, &delay_200_500_e50, "NT140WHM-T05"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c20, &delay_200_500_e80, "NT140FHM-N47"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c26, &delay_200_500_p2e200, "NV140WUM-T08"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c6f, &delay_200_500_e50, "NV140FHM-N40"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c93, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cb6, &delay_200_500_e200, "NT116WHM-N44"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200, "NV140WUM-N64"),
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index f2dee320fada4..e3a33a92b1799 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -341,11 +341,15 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ {
+ 	struct v9_mqd *m;
+ 	struct kfd_context_save_area_header header;
++	u32 cntl_stack_size;
++	u32 cntl_stack_offset;
+ 
+ 	/* Control stack is located one page after MQD. */
+ 	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
+ 
+ 	m = get_mqd(mqd);
++	cntl_stack_size = min_t(u32, m->cp_hqd_cntl_stack_size,   q->ctl_stack_size);
++	cntl_stack_offset = min_t(u32, m->cp_hqd_cntl_stack_offset, cntl_stack_size);
+ 
+ 	*ctl_stack_used_size = m->cp_hqd_cntl_stack_size -
+ 		m->cp_hqd_cntl_stack_offset;
+@@ -361,9 +365,10 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	if (copy_to_user(ctl_stack, &header, sizeof(header.wave_state)))
+ 		return -EFAULT;
+ 
+-	if (copy_to_user(ctl_stack + m->cp_hqd_cntl_stack_offset,
+-				mqd_ctl_stack + m->cp_hqd_cntl_stack_offset,
+-				*ctl_stack_used_size))
++	*ctl_stack_used_size = cntl_stack_size - cntl_stack_offset;
++
++	if (copy_to_user(ctl_stack + cntl_stack_offset, mqd_ctl_stack + cntl_stack_offset,
++					*ctl_stack_used_size))
+ 		return -EFAULT;
+ 
+ 	return 0;
 -- 
 2.53.0
 
