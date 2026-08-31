@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B58C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E16C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE3110E9F3;
-	Mon, 31 Aug 2026 16:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9A3510E1BC;
+	Mon, 31 Aug 2026 16:36:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AqRYz27K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dzeg4mg4";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 351A410E9F3
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:30:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D641210E1BC
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:36:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C57AC4058B
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:30:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948A81F000E9;
- Mon, 31 Aug 2026 16:30:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 98E4C40912
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:36:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526341F000E9;
+ Mon, 31 Aug 2026 16:36:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788193804;
- bh=5vnGB+/gD/xveV+EJ82CQFimFFuTevTUyp5p5/KtGNs=;
+ s=k20260515; t=1788194210;
+ bh=CohAYkJHzTvR8uFGT55oq/Di5kCASlsrWan64H8DtBY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AqRYz27KeZZMcB3bgGOubeyXXxwOirpGlESYbTfkYXYpIxR9afkNXRn4RBNsoz1cl
- 0Gg+0WNjnv5uGIX27ugETHnyPAAz5ABvLkDiY9/Urqdgv5HeGX/b3/eSlSg3IALWCY
- 5b3rz2L0Fw301F3Cpv9t6CPnT4VrKt0PzyKknMdMC2M8mCZNMq8vo0PSV0rjWdhUkM
- XGZ6IETtoU+P1A1B0s7GvmjtndNgOO2USNSjl3fluX3o17Ixurbr7WbHgif9JHkBqd
- +MFbPSMclx96n+2aHzIZE3kUxb/GdJKJHXBQTR8wwMy0HRNlK99c54k9gA8I2Jukxu
- xk793wVzL61EQ==
+ b=dzeg4mg4/JyXCCcs3cMFlnpaE2BX1fNTHypNHyfmb5bgUi7Ep8VobrTW9GOadmbM8
+ /3T/dwGtjyqv1zojVVuVMaIvGevyFBZc8sjsPenps1LoYhZN8AWpms8MIDDnidZA2y
+ WbC+LKdVQdzW1/Ugz9kWAk+9XpCToFh8zlHHkBThdFS2vteTMkBPMv79+XyRtxdmk+
+ uRkyi5uFUAlyCras0fWkOf6Pi6d7aFL3qY/97XCrdftTF4nDtYju4IAPiKqJHoVTY9
+ DksfoKePDdv7MogXVkyGujYxrdrNMjt6LEQa7G/oEgzRK275ohejXDOsjo6zI/bG9b
+ ti3/vWBzbJViw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: Unwind debug trap enable
- on copy_to_user failure
+Subject: Re: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: fix UAF race in
+ destroy_queue_cpsch
 To: "Sasha Levin" <sashal@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831133314.4125787-439-sashal@kernel.org>
+In-Reply-To: <20260831133314.4125787-446-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-439-sashal@kernel.org>
+ <20260831133314.4125787-446-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 16:30:04 +0000
-Message-Id: <20260831163004.948A81F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 16:36:49 +0000
+Message-Id: <20260831163650.526341F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,118 +62,95 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [Critical] The patch introduces a Use-After-Free vulnerability by failing=
- to set `target->debugger_process =3D NULL` during error unwind, leaving a =
-dangling pointer.
+- [High] Bypassing the is_being_destroyed check allows a concurrent thread =
+to improperly clear the flag, reopening the use-after-free window.
 
 Pre-existing issues:
-- [High] Permanent reference leak of a `kfd_process` due to a race conditio=
-n between `KFD_IOC_DBG_TRAP_ENABLE` and target process termination.
+- [High] q->mqd is unconditionally freed in destroy_queue_cpsch() even if t=
+he function fails with a non-timeout error, leading to a UAF in subsequent =
+operations like update_queue, and permanent memory leaks of the queue struc=
+ture.
 --
 
-commit 8dd55ae921073df4d72c79c03882687ae0f9c626
-Author: Yongqiang Sun <Yongqiang.Sun@amd.com>
+commit ea1b656c30dda08f56333e614c63a751ee2e05bd
+Author: Alysa Liu <Alysa.Liu@amd.com>
+Date:   Mon Aug 31 13:27:54 2026 +0000
 
-drm/amdkfd: Unwind debug trap enable on copy_to_user failure
+    drm/amdkfd: fix UAF race in destroy_queue_cpsch
+   =20
+    wait_on_destroy_queue() drops locks to wait for queue resume, allowing
+    a concurrent destroy to free the queue. Use is_being_destroyed flag to
+    serialize destruction.
 
-This patch adds cleanup logic to the copy_to_user failure path in
-kfd_dbg_trap_enable() to undo partial setup, including releasing the
-debug event file and decrementing the debugged process count.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_debug.c
-> index ba99e0f258aee..5a9435dcd839b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -812,6 +812,12 @@ int kfd_dbg_trap_enable(struct kfd_process *target, =
-uint32_t fd,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 6e7bc983fc0b6..910722be71000 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -2500,6 +2500,9 @@ static int wait_on_destroy_queue(struct device_queu=
+e_manager *dqm,
+>  	if (pdd->qpd.is_debug)
+>  		return ret;
 > =20
->  	if (copy_to_user(runtime_info, (void *)&target->runtime_info, copy_size=
-)) {
->  		kfd_dbg_trap_deactivate(target, false, 0);
-> +		fput(target->dbg_ev_file);
-> +		target->dbg_ev_file =3D NULL;
-> +		if (target->debugger_process)
-> +			atomic_dec(&target->debugger_process->debugged_process_count);
-
-[Severity: Critical]
-Does this error path leave target->debugger_process as a dangling pointer?
-
-In kfd_chardev.c:kfd_ioc_dbg_trap(), the target's debugger_process is set
-before calling kfd_dbg_trap_enable():
-
-		if (target !=3D p)
-			target->debugger_process =3D p;
-
-		r =3D kfd_dbg_trap_enable(target, ...);
-
-When kfd_dbg_trap_enable() fails and unwinds, it decrements the
-debugged_process_count but does not set target->debugger_process to NULL.
-
-If the debugger process then exits, its cleanup routine will skip this targ=
-et
-(because debugged_process_count is 0), and the debugger's kfd_process struct
-will be freed.
-
-If the target process later attempts to self-debug by calling
-KFD_IOC_DBG_TRAP_ENABLE on itself, kfd_ioc_dbg_trap() will bypass overwriti=
-ng
-the dangling pointer because target =3D=3D p:
-
-		if (target !=3D p)
-			target->debugger_process =3D p;=20
-
-Then kfd_dbg_trap_enable() will execute:
-
-	if (target->debugger_process)
-		atomic_inc(&target->debugger_process->debugged_process_count);
-
-Could this sequence lead to a use-after-free and memory corruption?
-Should target->debugger_process be set to NULL on this error path?
-
-> +		target->debug_trap_enabled =3D false;
-> +		kfd_unref_process(target);
->  		r =3D -EFAULT;
->  	}
-> =20
+> +	if (q->properties.is_being_destroyed)
+> +		return -EBUSY;
+> +
 
 [Severity: High]
-This is a pre-existing issue, but does kfd_ioc_dbg_trap() have a race condi=
-tion
-with target process termination that can leak a kfd_process reference?
+Is it possible for a concurrent thread to bypass the is_being_destroyed
+check if is_debug becomes true?
 
-If KFD_IOC_DBG_TRAP_ENABLE starts and blocks on mutex_lock(&target->mutex),
-and the target process simultaneously terminates, the target's mmu_notifier
-release triggers and removes it from the global hash table:
+If Thread A drops locks to wait in wait_event_interruptible(),
+is_being_destroyed remains true. If a debugger attaches and is_debug becomes
+true, Thread B calling wait_on_destroy_queue() will return early here and
+skip the is_being_destroyed check.
 
-kfd_process_notifier_release()
-	hash_del_rcu(&p->kfd_processes);
+>  	q->properties.is_being_destroyed =3D true;
+> =20
+>  	if (pdd->process->debug_trap_enabled && q->properties.is_suspended) {
+[ ... ]
+> @@ -2605,7 +2611,7 @@ static int destroy_queue_cpsch(struct device_queue_=
+manager *dqm,
+>  	return retval;
 
-Then it calls kfd_dbg_trap_disable() without holding target->mutex:
+[Severity: High]
+This is a pre-existing issue, but does this unconditionally free q->mqd even
+if an error is returned earlier in this function?
 
-kfd_process_notifier_release_internal()
-	p->mm =3D NULL;
-	kfd_dbg_trap_disable(p);
+If hardware unmap fails (e.g., -ENOMEM from execute_queues_cpsch or -EINVAL
+from remove_queue_mes), destroy_queue_cpsch() still calls free_mqd() and
+returns the error.
 
-Since ENABLE hasn't completed, debug_trap_enabled is false, and disable
-returns immediately.
+pqm_destroy_queue() receives this error and skips uninit_queue(), leaving t=
+he
+queue in the active list with a dangling q->mqd pointer. A subsequent
+KFD_IOC_UPDATE_QUEUE ioctl will then dereference the freed q->mqd in
+update_queue():
 
-When ENABLE finally acquires the mutex, it succeeds, sets
-debug_trap_enabled =3D true, and takes an extra kref on the target:
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:update_queue() {
+    ...
+    mqd_mgr->update_mqd(mqd_mgr, q->mqd, &q->properties, minfo);
+    ...
+}
 
-kfd_chardev.c:kfd_ioc_dbg_trap()
-	r =3D kfd_dbg_trap_enable(target, ...);
+> =20
+>  failed_try_destroy_debugged_queue:
+> -
+> +	q->properties.is_being_destroyed =3D false;
 
-When the debugger process eventually exits, its cleanup iterates over
-kfd_processes_table to detach targets. Because the target was already remov=
-ed
-via hash_del_rcu(), the debugger fails to find it.
+[Severity: High]
+Will unconditionally clearing the flag here re-introduce the use-after-free
+race?
 
-Since kfd_dbg_trap_disable() is never called for this target again, does th=
-is
-permanently leak the extra kref taken by ENABLE, along with all associated
-GPU resources?
+If Thread B bypassed the is_being_destroyed check in wait_on_destroy_queue()
+due to is_debug becoming true, it will take this error path and clear the
+flag. Thread A is still waiting, but its protection is now lost, allowing
+Thread C to free the queue before Thread A wakes up.
+
+>  	dqm_unlock(dqm);
+>  	return retval;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831133314.4125=
-787-439-sashal@kernel.org?part=3D1
+787-446-sashal@kernel.org?part=3D1
