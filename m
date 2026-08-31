@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3C6C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C9FC624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE22D10E128;
-	Mon, 31 Aug 2026 13:28:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C05B410E284;
+	Mon, 31 Aug 2026 13:28:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="K9Zzub1Z";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="CMLcfY9L";
 	dkim-atps=neutral
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch
- [109.224.244.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90B4910E843
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:28:07 +0000 (UTC)
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch
+ [185.70.43.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7850810E834
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1788182885; x=1788442085;
- bh=tHnO0TtSJZT3uwTmNJnMjCsYgQ5eOEaHFXCtJEWympU=;
+ s=protonmail; t=1788182888; x=1788442088;
+ bh=3fdS3EZrph4HPHI4SWA+jBFn4XLmDsXX2TCBKNHGKYY=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=K9Zzub1Zv7IOGRfiJhTGBQ17DTzjIBPXUQNAr7NY1lAofHTvNfuq63F+pAm0tGslJ
- 3zRBAYGioljz+tzjdbRNL3ewWRDZrxNVn+HZ4uY3yRXbvwXHE+uMeQ+DPqpfFeF10e
- yzfOyUYT+AixfJzCBn4B4HXhuLPOzrpQJrP8/E+oyntf+UZuCHPPWcfs1rV8j7rSTy
- PCiHn7+1hmu0qLBAo6Ozxgrz4BZJRQuXmC65wQ4diPFH9maxaBXXzp3golHOLb/LDm
- NhW/vWp0C7ykkcD47e3BByZxRZSn0ObXhG0kkGKw3WPuk7EtlwyWyUqTxXawOG9TqN
- FmeoVmNIkTGSA==
-X-Pm-Submission-Id: 4hYVDN0s33z2ScWl
+ b=CMLcfY9LMqElBerz4Y0gbbLazZXPBSBZdl0dTTKpUV/lc3HJaSca8he9IjoHfBibw
+ QUUYhsdcaLRdk4Kir3R4e9Qrl4/LZmE3vwT5aZGuJpVyy/hfVj5hyAvm9+5//xKQMH
+ tDof5RSTyxK5wRDIvDhixY9WPbi7lw6kZ/buAbIGv5Se+HkR7AubplOtmIOR13FExE
+ GzhJQHv7DKCvk9OzX3WbKRVjF6dLBjGn4YxeBug6Y8OvWtAYqzFGIQTMIBwoPqXy1H
+ KG5rP0qQtzZauMnj1T50lKnCV6IS2Xruk5hP4C6XRtzr0vOUYHEFAUPGDaKRfIH4dK
+ p/FaToipswH0w==
+X-Pm-Submission-Id: 4hYVDQ0gLBz2Schm
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 31 Aug 2026 15:27:45 +0200
-Subject: [PATCH v4 3/4] drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
+Date: Mon, 31 Aug 2026 15:27:46 +0200
+Subject: [PATCH v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal
+ sync timing
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-nwl-dsi-fixes-v4-3-6a2a1cb23910@geanix.com>
+Message-Id: <20260831-nwl-dsi-fixes-v4-4-6a2a1cb23910@geanix.com>
 References: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
 In-Reply-To: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,14 +50,13 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
  Sam Ravnborg <sam@ravnborg.org>
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+ linux-kernel@vger.kernel.org, "Oliver F. Brown" <oliver.brown@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=1534;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=4295;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=kKsffolI3Qs7QhM0aRcvOCyPsNNcZdkiD1A5b8xHohA=;
- b=J4LsSxC5aITLgDQB/KpUb10mwQ9+TU75DNKgkf9gtJnRagL/g2POMbhlVmoQqvkvItbnynqH2
- i5az424w6E/DhIa1tfFb3tBZQqNqn10NIkJGysG1ivPL90VWoiN3f+5
+ bh=64K2cghv9Pu2xpnXUBYhri9wjrzdmxCfnbz+dJ+v7CA=;
+ b=YLqsr0ZSDA2TJ+CpZrx6XWdrlH2XyAh4K5+wi1c98Erjem/qUGO+Q4MF61X2YPRl5dky0V533
+ +05wNbV9QW3BJaTdchwTc/YmIC3Y97qeheTxN+xOm5QAjliWl0Xap0k
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,45 +74,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Robert Chiras <robert.chiras@nxp.com>
+The NWL MIPI Host controller registers specifies the horizontal front
+porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
+not in pixel clocks).
 
-In order to respect the DSI protocol, make sure that auto-insert EOTP is
-enabled according to the NO_EOT_PACKET flag instead of the
-CLOCK_NON_CONTINUOUS flag.
+The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
+the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
+Manual (rev. 3.1). The formula shown there does not take packet header size
+into account though.
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
-Cc: stable@vger.kernel.org
+The formula implemented here converts the hfp, hsa, and hbp to DSI packet
+bytes and then subtracts the number of packet header bytes.
+
+It is worth noting that these values only needs to match approximately,
+according to the reference manual.
+
+Based on commit in NXP vendor tree
+commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
+
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 57 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 1aab46e1a168..f3f4334136c0 100644
+index f3f4334136c0..eb604733eea0 100644
 --- a/drivers/gpu/drm/bridge/nwl-dsi.c
 +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
- 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
- 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
+@@ -22,6 +22,7 @@
+ #include <linux/reset.h>
+ #include <linux/sys_soc.h>
+ #include <linux/time64.h>
++#include <linux/math64.h>
  
--	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-+	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
--		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
--	} else {
-+	else
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+@@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+ 	bool burst_mode;
+ 	int hfront_porch, hback_porch, vfront_porch, vback_porch;
+ 	int hsync_len, vsync_len;
++	int hfp, hbp, hsa;
++	u64 hs_clk_rate, pclk_rate;
++	int h_blank, pkt_hdr_len, pkt_len;
+ 
+ 	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
+ 	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
+@@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+ 			      dsi->mode.hdisplay);
+ 	}
+ 
+-	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
+-	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
+-	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
++	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
++	pclk_rate = (u64)dsi->mode.clock * 1000;
++	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
 +
-+	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
--	}
-+	else
-+		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
++	/*
++	 * Calculate the bytes needed, according to the RM formula:
++	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
++	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
++	 * ===>
++	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
++	 * ===> (substituting period = 1 / rate)
++	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
++	 */
++	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
++	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
++	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
++
++	/* Make sure horizontal blankins are even numbers */
++	hfp = roundup(hfp, 2);
++	hbp = roundup(hbp, 2);
++	hsa = roundup(hsa, 2);
++
++	/*
++	 * We need to subtract the packet header length: 32
++	 * In order to make sure we don't get negative values,
++	 * subtract a proportional value to the total length of the
++	 * horizontal blanking duration.
++	 */
++	h_blank = hfp + hbp + hsa;
++
++	if (h_blank) {
++		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
++		pkt_hdr_len = pkt_len;
++		hfp -= pkt_len;
++
++		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
++		pkt_hdr_len += pkt_len;
++		hbp -= pkt_len;
++
++		pkt_len = min(hsa, 32 - pkt_hdr_len);
++		pkt_hdr_len += pkt_len;
++		hsa -= pkt_len;
++		if (pkt_hdr_len != 32)
++			dev_warn(dsi->dev,
++				 "Unable to subtract packet header length fully: %d left\n",
++				 32 - pkt_hdr_len);
++	}
++
++	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
++
++	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
++	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
++	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
  
- 	/* values in byte clock cycles */
- 	cycles = ui2bc(cfg->clk_pre);
+ 	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
+ 	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
 
 -- 
 2.55.0
