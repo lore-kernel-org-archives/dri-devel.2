@@ -4,94 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81CA3C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:31:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4012EC61DE2
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:37:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4A4A10E7A2;
-	Mon, 31 Aug 2026 09:31:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8167B10E7A9;
+	Mon, 31 Aug 2026 09:37:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ximaWWVM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FrBdVoAy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sK2AdpeJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qVWsAH8E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KcBtwXFq";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E333510E7A2
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:31:56 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 65A2E1FCCB;
- Mon, 31 Aug 2026 09:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788168630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=gndYjH18gEh5OBYMLuYabw0N1W6HMuDvq88x3yx3aBQ=;
- b=ximaWWVMO4wGi237uQ4g6p7n3w6x6wjzplVgTZ9QeByqI2+Wq9PWZHnMNlhaQIYR3CGHRN
- G+QOEsXzic2cOvhMkaFI0xoFJZPHRM+eM1rfm9bkpE8wwfX2AvxTbG+ONbUWQgGotBW1fh
- CmLOPEiclXtOpHph7+WheibQ4DEPdso=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788168630;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=gndYjH18gEh5OBYMLuYabw0N1W6HMuDvq88x3yx3aBQ=;
- b=FrBdVoAygZjKOsTwiCRmylQ14uJt7aV6Tok/wPAlPEp9xehoh/3durhtPfEq3/OIP5yzcI
- OZKyWbCzA++CFFDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788168626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=gndYjH18gEh5OBYMLuYabw0N1W6HMuDvq88x3yx3aBQ=;
- b=sK2AdpeJgv8pSxFTDzSkxkHpX/BQh7nuPkZ7gYNoTekPa8BNBAUHsi+X6rGlnvGssm8935
- dkIYGa68gibhBx6OEoMQGpRhzjxUf0jUGRqExAJjcFuIO4yApF7EHwyHW0qyXfhaBqeeli
- fWw33yeB09p+zBI7fbtzPsXGeiyEaaM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788168626;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=gndYjH18gEh5OBYMLuYabw0N1W6HMuDvq88x3yx3aBQ=;
- b=qVWsAH8EbqJU03Ff1nIOrRO14p8Di9MOyLcnh13m1mYLU3mQeoETljNXn4fVDYveIW4cPU
- MYsSotdUw/G46PDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF2DC13685;
- Mon, 31 Aug 2026 09:30:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id HfktObFJlWoFUwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 31 Aug 2026 09:30:25 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: javierm@redhat.com, ardb@kernel.org, ilias.apalodimas@linaro.org,
- jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 0/3] sysfb: Fix display output on Lenovo D330 (and others)
-Date: Mon, 31 Aug 2026 11:27:47 +0200
-Message-ID: <20260831093020.494701-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[redhat.com,kernel.org,linaro.org,linux.intel.com,ffwll.ch,gmail.com];
- RCPT_COUNT_TWELVE(0.00)[12]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF18210E7A9
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:37:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 650B242B94;
+ Mon, 31 Aug 2026 09:37:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7E21F000E9;
+ Mon, 31 Aug 2026 09:37:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788169054;
+ bh=6eYFTLXV5iCkECEXMV16V438S1S8bj0C/GTR/1INfBA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KcBtwXFqa4f6l9M1yT2vN35GtCRGTUJg9QW996KYMCrgJC2JedAswC8N5zfd4wavM
+ DzkxVuhjyO7GOiJkp+9etB7REZ7wR2z65l4kiCvSHnksslIAUwW2tEQYo5EooZg3dd
+ 7iO7A7FzTJyak02w4epFDmKZ+WVFGSCmCytAWpXwChkjWvmdyTYbBytl+4FDOT80KT
+ 56iMxadmiAqr75/8MWEca3fW0NkZHgjRQbmG0IctwWKuXqEvNDy6aQQdXUt/trBCh2
+ guOBY2+1eYyahSRAPFey7K96neYthIE2Wxc19FZSeHbaaCwb0OhFd0T5LD/lbBkAId
+ 1xF1ezz61HVSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 18/29] drm/msm/dp: introduce dp_mst_drm module
+To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-msm-dp-mst-v6-18-c91d35d6fb9e@oss.qualcomm.com>
+References: <20260831-msm-dp-mst-v6-0-c91d35d6fb9e@oss.qualcomm.com>
+ <20260831-msm-dp-mst-v6-18-c91d35d6fb9e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 09:37:33 +0000
+Message-Id: <20260831093734.1C7E21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,41 +53,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The kernel mis-interprets the display geometry given by the Lenovo
-D330 as incorrect. The values are correct, but the display output
-is rotated by 90°. With the kernel's firmware quirk applied the output
-is garbled.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing teardown for DRM MST topology manager via drm_dp_mst_topol=
+ogy_mgr_destroy(), leading to leaked internal resources (workqueues, mutexe=
+s, payload arrays) and a Use-After-Free vulnerability.
+--
 
-Remove the firmware quirk for the Lenovo D330 and let DRM's sysfb
-drivers set the correct panel orientation instead. To make this work
-for any display mode, use the panel size for looking up the correct
-orientation.
+commit 27699c490812d953e1c2e18da505fffee4442084
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-Tested on a Lenovo D330-10IGM IdeaPad.
+drm/msm/dp: introduce dp_mst_drm module
 
-v2:
-- reorder patches to have the immediate fix first
-- detect and handle broken EDID better (Sashiko)
-- fix width/height pointer check (Sashiko)
+This commit introduces the core MST manager data structures and the
+initialization path for creating a DRM MST topology manager associated
+with a DP controller. It also adds the registration hooks used to
+initialize the MST manager during DP device setup.
 
-Thomas Zimmermann (3):
-  firmware/sysfb: Remove rotation quirk for Lenovo D330
-  drm/edid: Add drm_edid_get_preferred_size()
-  drm/sysfb: Use preferred panel size for panel orientation quirks
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/ms=
+m/disp/dpu1/dpu_kms.c
+[ ... ]
+> @@ -678,6 +678,16 @@ static int _dpu_kms_initialize_displayport(struct dr=
+m_device *dev,
+>  			DPU_ERROR("modeset_init failed for DP, rc =3D %d\n", rc);
+>  			return rc;
+>  		}
+> +
+> +		stream_cnt =3D msm_dp_get_mst_max_stream(priv->kms->dp[i]);
+> +
+> +		if (stream_cnt > 1) {
+> +			rc =3D msm_dp_mst_register(priv->kms->dp[i]);
+> +			if (rc) {
+> +				DPU_ERROR("dp_mst_init failed for DP, rc =3D %d\n", rc);
+> +				return rc;
 
- drivers/firmware/efi/sysfb_efi.c |  9 -------
- drivers/gpu/drm/drm_edid.c       | 46 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/sysfb/efidrm.c   | 17 +++++++++++-
- drivers/gpu/drm/sysfb/ofdrm.c    | 18 +++++++++++--
- drivers/gpu/drm/sysfb/vesadrm.c  | 17 +++++++++++-
- include/drm/drm_edid.h           |  2 ++
- 6 files changed, 96 insertions(+), 13 deletions(-)
+[Severity: High]
+If `msm_dp_mst_register()` fails on a subsequent DP port after successfully
+registering a prior one in this loop, does returning early here leak the
+successfully initialized MST managers from the previous iterations?
 
+> +			}
+> +		}
+>  	}
+> =20
+>  	return 0;
 
-base-commit: edb0a89a038079d0d86e768b30a72d053d3e39e0
--- 
-2.55.0
+[ ... ]
+> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp=
+/dp_mst_drm.c
+[ ... ]
+> @@ -0,0 +1,54 @@
+[ ... ]
+> +int msm_dp_mst_mgr_init(struct msm_dp *dp_display, u32 max_streams, stru=
+ct drm_dp_aux *drm_aux)
+> +{
+> +	struct drm_device *dev =3D dp_display->drm_dev;
+> +	struct msm_dp_mst *mst;
+> +	int ret;
+> +
+> +	mst =3D devm_kzalloc(dev->dev, sizeof(*mst), GFP_KERNEL);
+> +	if (!mst)
+> +		return -ENOMEM;
+> +
+> +	mst->msm_dp =3D dp_display;
+> +	mst->max_streams =3D max_streams;
+> +	mst->dp_aux =3D drm_aux;
+> +
+> +	ret =3D drm_dp_mst_topology_mgr_init(&mst->mst_mgr, dev,
+> +					   drm_aux,
+> +					   16,
+> +					   max_streams,
+> +					   dp_display->connector->base.id);
 
+[Severity: High]
+Does this leak the MST topology manager resources?
+
+`drm_dp_mst_topology_mgr_init()` creates non-devres-managed resources like
+workqueues (`delayed_destroy_wq`) and background worker threads. Since `mst`
+is allocated with `devm_kzalloc()`, it will be freed automatically upon
+device unbind or probe failure.
+
+Without a paired teardown action (e.g. via `devm_add_action_or_reset()`
+calling `drm_dp_mst_topology_mgr_destroy()`), won't the active workqueues
+and threads be left running?
+
+Can this lead to a Use-After-Free when those background threads later
+dereference the freed `mst` memory?
+
+> +	if (ret) {
+> +		drm_err(dev, "[MST] topology manager init failed\n");
+> +		return ret;
+> +	}
+> +
+> +	dp_display->msm_dp_mst =3D mst;
+> +	return 0;
+> +}
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-msm-dp-mst=
+-v6-0-c91d35d6fb9e@oss.qualcomm.com?part=3D18
