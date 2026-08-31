@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1921BC61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 22:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EFB7C61DFD
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 22:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2387610E34C;
-	Mon, 31 Aug 2026 22:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 957E010E1A0;
+	Mon, 31 Aug 2026 22:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nPcV39Wd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DAIx9Q/3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9BE10E332;
- Mon, 31 Aug 2026 22:49:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA8C010E1A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 22:58:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F281F602D3;
- Mon, 31 Aug 2026 22:49:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E7A1F000E9;
- Mon, 31 Aug 2026 22:49:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EFC0D601DE
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 22:58:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 779DC1F000E9;
+ Mon, 31 Aug 2026 22:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788216573;
- bh=VWZNea7qcUcIQpyjNbtHBngrLsSTJsiaD5bV+VNRqM4=;
+ s=k20260515; t=1788217135;
+ bh=TN+AjySWejZuT6KKSaAfH4juJOGwzz3fL1eJ5016p2k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nPcV39WdkFXBTmqMkCkGnhAZZyJiWY6hKxTf1OLTZ0bPNBsXs+VfShSInXofN7983
- 2DiRPwWgmKsMVh82mnWgV44uFAb3gYysO4bBcpN3umIBNVQ5PAl9RbTJ35sJFz3WOx
- jEZey/wsdOI6h1lwLMnZ1qX/1iXLPVj7kDsc/NDcMAnX/GeXfeXCE7OHrJSkhSm1ct
- nAaX44Ziqvxriy7/F/408XE+Jn2Ncy+nBsKz7nPDLd2Xb13Bu6+Dqpe7G6IssoLQCW
- ucb6AGPOr+EP/8VUrr8WuBd8Aps3pAlPNpYz6kaSJe+R2AJ4rSi+bmiXYINT8oRc+l
- 0ITdPZguQQ98w==
+ b=DAIx9Q/30cBtHxQaRFsEnt3R7mY08akPuxiagii8xV7VVy9oAzLMscPAcJk/aRtka
+ a2IG99CsWAeOHB3L+zNi49KuIb5GQu4m36ZstcNWHYP+mC6H6I4AmYNFcAdeoH6ate
+ 3oddLrXp1swlH08swxghm0saDnTW3uEs3Y4R8qiyBZ6M01AzpCPyapBGWWuBdL5sxq
+ KxEvgd+kS0jnL1q5wNQs68FLEWZs4rGwoi6ROLOPBgREp1IM23OEsCUIEgSeu3JfXh
+ cqW3K14+3iImU+uKsyEeDep5VW+pvuBcWdBf/WAA+BmE4PuNZDllCgHapFMO8YqjWO
+ 1UrGUX9WdIEGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 06/12] drm/amd/display: Pass up errors reading actual
- brightness
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20260831210531.2334221-7-mario.limonciello@amd.com>
-References: <20260831210531.2334221-1-mario.limonciello@amd.com>
- <20260831210531.2334221-7-mario.limonciello@amd.com>
+Subject: Re: [PATCH v3 38/40] drm/vmwgfx: Convert to atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-drm-no-more-plane-reset-v3-38-1877c7aa57b3@kernel.org>
+References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
+ <20260831-drm-no-more-plane-reset-v3-38-1877c7aa57b3@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 22:49:32 +0000
-Message-Id: <20260831224933.65E7A1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 22:58:55 +0000
+Message-Id: <20260831225855.779DC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,75 +59,86 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incomplete refactoring of PWM error path causes KUnit test failu=
-re.
+
+Pre-existing issues:
+- [High] Dangling pointer leading to Use-After-Free in vmw_du_connector_res=
+et when kzalloc_obj fails.
 --
 
-commit 51bad29849babac3047c98c959ac850e269def79
-Author: Mario Limonciello <mario.limonciello@amd.com>
+commit 0910404d300f75561678f127f981fe7f17dcd288
+Author: Maxime Ripard <mripard@kernel.org>
 
-drm/amd/display: Pass up errors reading actual brightness
+drm/vmwgfx: Convert to atomic_create_state
 
-This patch changes the return type of amdgpu_dm_backlight_get_level() from
-an unsigned integer to a signed integer. It also updates the caller and KUn=
-it
-tests to handle negative error codes like -EINVAL on backlight read failure.
+The plane reset implementation creates a custom state
+subclass, but only initializes a pristine state without resetting any
+hardware. This is equivalent to what atomic_create_state expects.
+Convert to it.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index b66ca60e697dc..ed1f85650e280 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-[ ... ]
-> @@ -376,7 +376,7 @@ u32 amdgpu_dm_backlight_get_level(struct amdgpu_displ=
-ay_manager *dm, int bl_idx)
->  		u32 avg, peak;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_kms.c
+> index 0b470809661c7..9031dccad31d7 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+> @@ -279,27 +279,24 @@ vmw_du_plane_duplicate_state(struct drm_plane *plan=
+e)
 > =20
->  		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
-> -			return dm->brightness[bl_idx];
-> +			return -EINVAL;
->  		return convert_brightness_to_user(&caps, avg);
+> =20
+>  /**
+> - * vmw_du_plane_reset - creates a blank vmw plane state
+> + * vmw_du_plane_create_state - creates a blank vmw plane state
+>   * @plane: drm plane
+>   *
+> - * Resets the atomic state for @plane by freeing the state pointer (whic=
+h might
+> - * be NULL, e.g. at driver load time) and allocating a new empty state o=
+bject.
+> + * Allocates a new empty state object.
+>   */
+> -void vmw_du_plane_reset(struct drm_plane *plane)
+> +struct drm_plane_state *vmw_du_plane_create_state(struct drm_plane *plan=
+e)
+>  {
+>  	struct vmw_plane_state *vps;
+> =20
+> -	if (plane->state)
+> -		vmw_du_plane_destroy_state(plane, plane->state);
+> -
+>  	vps =3D kzalloc_obj(*vps);
+> -
+>  	if (!vps) {
+>  		DRM_ERROR("Cannot allocate vmw_plane_state\n");
+> -		return;
+> +		return ERR_PTR(-ENOMEM);
 >  	}
-> =20
 
-[Severity: Medium]
-Was the legacy PWM error path missed during this refactoring?
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing this change I
+noticed a similar pre-existing issue remains in vmw_du_connector_reset().
 
-A few lines down in amdgpu_dm_backlight_get_level(), there is another error
-path:
+When kzalloc_obj() fails during memory pressure (e.g., during device probe,
+modeset, or hotplug handling), connector->state is left dangling as a point=
+er
+to the previously freed memory:
 
-	ret =3D dc_link_get_backlight_level(link);
-	if (ret =3D=3D DC_ERROR_UNEXPECTED)
-		return dm->brightness[bl_idx];
+drivers/gpu/drm/vmwgfx/vmwgfx_kms.c:vmw_du_connector_reset() {
+	if (connector->state) {
+		__drm_atomic_helper_connector_destroy_state(connector->state);
+		kfree(vmw_connector_state_to_vcs(connector->state));
+	}
 
-Since this still returns the cached fallback brightness instead of -EINVAL,
-could this cause unexpected behavior for the updated KUnit test?
+	vcs =3D kzalloc_obj(*vcs);
 
-[ ... ]
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backli=
-ght_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c
-> index 7ca17f803f9d7..e03173d4e5bd8 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
-t.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
-t.c
-> @@ -382,7 +382,7 @@ static void dm_test_backlight_get_level_pwm_error(str=
-uct kunit *test)
->  	dm->brightness[0] =3D 4321;
->  	dm->backlight_link[0] =3D link;
-> =20
-> -	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 4321U);
-> +	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
+	if (!vcs) {
+		DRM_ERROR("Cannot allocate vmw_connector_state\n");
+		return;
+	}
+	...
+}
 
-[Severity: Medium]
-Will this test unconditionally fail?
-
-Because the legacy error path in amdgpu_dm_backlight_get_level() wasn't
-updated to return -EINVAL, it seems the function will still return the cach=
-ed
-fallback value (4321) when the mock function returns DC_ERROR_UNEXPECTED.
+Does this leave connector->state pointing to freed memory, leading to a
+use-after-free when the DRM core later accesses it?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
-221-1-mario.limonciello@amd.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-drm-no-mor=
+e-plane-reset-v3-0-1877c7aa57b3@kernel.org?part=3D38
