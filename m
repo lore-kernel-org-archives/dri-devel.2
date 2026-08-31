@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45A93C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9F87C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C55C10E87B;
-	Mon, 31 Aug 2026 13:41:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7B710E87C;
+	Mon, 31 Aug 2026 13:41:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZaUXyegc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0wRlrKE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8090910E29E;
- Mon, 31 Aug 2026 13:41:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C16E010E87C
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:41:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 479AA41610;
- Mon, 31 Aug 2026 13:41:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7282D1F00A3E;
- Mon, 31 Aug 2026 13:41:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AA21443DAB;
+ Mon, 31 Aug 2026 13:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497B51F00A3F;
+ Mon, 31 Aug 2026 13:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183679;
- bh=0EYoE+iucVhU+9I9SD8X8rbvJ6Xg9Z+L6r01HOtL3/M=;
+ s=k20260515; t=1788183683;
+ bh=t9NjzSVvUiK3gayp1XaXxHEpLml92T0c2xxi6CPFnHk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZaUXyegcmCbH1FdnmJLs+DaYjfT+TbcZG0BPJGENIPPHQkQow39MvGwwWo4qKugHb
- N+xJTmDeUGK5WL03g7Gz8kuX/c+X7KeP7MRUN5JoA5OR8RdnmfGAlwLg+Zwhr77XOd
- bBj+lZUlG9RlofH//s6teNGV1ZRLqd3uCZ4z71eoB6i9dYjJkuU0ctA3LMtk/84ipP
- 8jh64vnFMT3KVmTVn//vNIRa/bTd2JPdHHMmU8Ls0TeL+WVuxwU0ku3KZuSGqo9CGX
- ASn0Z1VtWmFmYTBkxuTUoNXVO6Yu0MZjtbngur5mT2KvTH4jzzQIyOrQ/NYmUVhLM2
- c0ZprL33f8cDw==
+ b=e0wRlrKErUVDJTAUuxmDF+qkwIgNWTtkYZSb/XVEpOJEiKoamOkdq/FZi5K5vUY/a
+ fU3+G1q8E2Hiq02mHCLEi6HTn24OVCAs8FJY1M5m20l93YY9Md+iXq6ecr10MTzptF
+ LV0BhieFqvztq5TEX2pmpX9u3Ae2LQ1ymMWfoV031HWXCLSjFDYfnDwp51wYKAMeR/
+ C5nc7GZN6x5Je7xDJAXGTjvfQ4xCE0x366xDDIMZgURRuuh+fiz/qexjbAbavznSFR
+ LRG8juTiYLQyRB4IFVxAW6X5c1k2FFegP/UghbXiuLVdEsQdf2+CvX6sQm6uCGhLdF
+ k6Gym0z8QKOsw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Brajesh Gupta <brajesh.gupta@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>, Sasha Levin <sashal@kernel.org>,
- alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, imagination@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/imagination: Don't timeout job if its fence
- has been signaled
-Date: Mon, 31 Aug 2026 09:24:27 -0400
-Message-ID: <20260831133314.4125787-239-sashal@kernel.org>
+Cc: shayderrr <darknessshayder@gmail.com>, Thierry Reding <treding@nvidia.com>,
+ Sasha Levin <sashal@kernel.org>, thierry.reding@kernel.org,
+ mperttunen@nvidia.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.15] host1x: bus: Fix missing ops null check in
+ error teardown
+Date: Mon, 31 Aug 2026 09:24:30 -0400
+Message-ID: <20260831133314.4125787-242-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,417 +66,357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+From: shayderrr <darknessshayder@gmail.com>
 
-[ Upstream commit ee7cb742531432ec1bb29b996e3363aacd860054 ]
+[ Upstream commit 71d25f668bc5c0f36ea843462e12307dea45aaa3 ]
 
-Verify the job’s fence in the timeout handler; if the firmware has since
-signaled completion, then report NO HANG.
+In host1x_device_init(), the error teardown paths do not check
+client->ops before dereferencing it, unlike the forward init paths
+which correctly guard with 'client->ops &&'. This can result in a
+NULL pointer dereference if client->ops is NULL.
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Reviewed-by: Matt Coster <matt.coster@imgtec.com>
-Link: https://patch.msgid.link/20260519-b4-context_reset-v2-2-931018a7131d@imgtec.com
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+Fix by adding the missing client->ops check in both the teardown
+and teardown_late labels.
+
+Signed-off-by: shayderrr <darknessshayder@gmail.com>
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260517170456.84927-1-darknessshayder@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/imagination: Don't timeout job if its
-fence has been signaled
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.43` (`6.18.43`, Makefile VERSION=6 PATCHLEVEL=18
-SUBLEVEL=43)
+### Step 1.1: Subject Line
+**Record:** `[host1x: bus]` `[Fix]` — Add missing `client->ops` NULL
+checks in `host1x_device_init()` error teardown paths.
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[drm/imagination]` `[Don't]` (preventive fix) — Don't treat
-a completed job as a GPU hang when its fence has already been signaled.
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Brajesh Gupta \<brajesh.gupta@imgtec.com\> (author)
-- **Reviewed-by:** Matt Coster \<matt.coster@imgtec.com\> (IMG reviewer)
-- **Link:** https://patch.msgid.link/20260519-b4-context_reset-v2-2-
-  931018a7131d@imgtec.com (patch 2 of a `context_reset` v2 series)
-- **Signed-off-by:** Matt Coster \<matt.coster@imgtec.com\>
-- No Fixes:, Reported-by:, Tested-by:, Acked-by:, or Cc: stable tags
-- Notable: Reviewed-by from driver vendor; no syzbot/user bug report
-  tags
+- **Signed-off-by:** shayderrr \<darknessshayder@gmail.com\> (author)
+- **Signed-off-by:** Thierry Reding \<treding@nvidia.com\> (host1x/Tegra
+  maintainer)
+- **Link:** https://patch.msgid.link/20260517170456.84927-1-
+  darknessshayder@gmail.com
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable tags
+- Notable: maintainer sign-off is a strong quality signal; no
+  syzbot/user bug report
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug description:** The timeout handler does not verify whether the
-  job's fence was already signaled before treating the event as a hang.
-- **Symptom/failure mode:** Spurious "Job timeout" handling and
-  unnecessary scheduler reset even though the firmware already completed
-  the job.
-- **Version information:** None stated.
-- **Root cause:** Race between job completion (fence signaled) and the
-  drm_sched timeout worker running before the free-job worker cleans up
-  the completed job.
+- **Bug:** `host1x_device_init()` teardown (`teardown`, `teardown_late`)
+  dereferences `client->ops` without a NULL guard; forward init paths
+  already use `client->ops &&`.
+- **Symptom:** NULL pointer dereference during error recovery when
+  initialization fails.
+- **Root cause:** Oversight when teardown was added (2017) and when
+  `teardown_late` was added (2021); `host1x_device_exit()` and other
+  paths in the same file already guard correctly.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Yes — despite the subject not using "fix", this is a real
-bug fix. It prevents false-positive GPU hang recovery, matching the
-established pattern used by panfrost, etnaviv, v3d, and xe drivers.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is an explicit NULL-deref fix on an error path,
+not disguised cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: INVENTORY THE CHANGES
+### Step 2.1: Inventory
 **Record:**
-- **Files:** `drivers/gpu/drm/imagination/pvr_queue.c` (+5 lines,
-  comment update)
-- **Functions modified:** `pvr_queue_timedout_job()`
-- **Scope:** Single-file surgical fix in timeout error path
+- **File:** `drivers/gpu/host1x/bus.c` (+2 / -2 lines)
+- **Function:** `host1x_device_init()`
+- **Scope:** Single-file, surgical (2-line change)
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+### Step 2.2: Code Flow Change
 **Record:**
-- **Hunk 1 (early return):** BEFORE: timeout handler always proceeds to
-  `dev_err`, `drm_sched_stop()`, fence reassignment, and scheduler
-  restart. AFTER: if `s_job->s_fence->parent` is already signaled,
-  return `DRM_GPU_SCHED_STAT_NO_HANG` immediately and skip all reset
-  logic.
-- **Hunk 2 (comment):** Documents the new possible return value.
+- **Hunk 1 (`teardown`):** `if (client->ops->exit)` → `if (client->ops
+  && client->ops->exit)`
+- **Hunk 2 (`teardown_late`):** `if (client->ops->late_exit)` → `if
+  (client->ops && client->ops->late_exit)`
+- **Before:** Error teardown could dereference NULL `client->ops`.
+- **After:** Clients without `ops` are skipped, matching forward init
+  and `host1x_device_exit()`.
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** NULL pointer dereference (memory safety).
+**Mechanism:** On `early_init`/`init` failure, reverse iteration calls
+`client->ops->exit` / `client->ops->late_exit` even when `client->ops`
+is NULL — a client skipped in the forward path can still be visited in
+teardown.
+
+### Step 2.4: Fix Quality
+**Record:** Obviously correct; mirrors existing patterns at lines
+196–207, 257–271, and 815–836 in the same file. Minimal regression risk.
+
+---
+
+## Phase 3: Git History Investigation
+
+### Step 3.1: Blame
 **Record:**
-- **Bug category:** Race condition / logic correctness in timeout
-  handler
-- **Mechanism:** `pvr_queue_run_job()` returns `job->done_fence` as the
-  sched fence parent. When the GPU completes the job, that fence is
-  signaled. If the drm_sched timeout fires before the free-job worker
-  runs, the old code incorrectly enters full hang-recovery:
-  `drm_sched_stop()`, queue list manipulation, parent-fence
-  reassignment, and potentially `atomic_set(&queue->ctx->faulty, 1)` for
-  other pending jobs. The fix detects completion and returns
-  `DRM_GPU_SCHED_STAT_NO_HANG`, which causes
-  `drm_sched_job_reinsert_on_false_timeout()` in the scheduler core to
-  properly reinsert the job for cleanup.
+- `teardown` without NULL check: introduced in `8f7da1578e90b` (Thierry
+  Reding, 2017-11-08) — "gpu: host1x: Cleanup on initialization failure"
+- `teardown_late` without NULL check: introduced in `933deb8c7b8e3f`
+  (Thierry Reding, 2021-03-26) — "gpu: host1x: Add early init and late
+  exit callbacks"
+- Forward paths have had `client->ops &&` since original
+  `host1x_device_init()` (2013)
 
-### Step 2.4: ASSESS THE FIX QUALITY
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
+
+### Step 3.3: Related File History
+**Record:** Recent host1x stable-style fixes in this tree include UAF
+(`5f4de3c717d34`), reference leak (`c4d6442ac3ed0`), and syncpt race
+(`79197c6007f2a`). Standalone fix; not part of a series.
+
+### Step 3.4: Author Context
+**Record:** shayderrr is a contributor; Thierry Reding (maintainer)
+signed off. Author is not the subsystem maintainer but patch was
+accepted by one.
+
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Applies to code present since 2017/2021.
+Self-contained.
+
+---
+
+## Phase 4: Mailing List and External Research
+
+### Step 4.1–4.5
 **Record:**
-- **Fix quality:** Obviously correct; identical pattern to panfrost
-  (`dma_fence_is_signaled` → `DRM_GPU_SCHED_STAT_NO_HANG`).
-- **Regression risk:** Very low. Only affects the spurious-timeout path;
-  real hangs still proceed to reset. Must not call `drm_sched_stop()`
-  when returning `NO_HANG` — the fix correctly returns before that call,
-  per scheduler documentation.
+- `b4 dig` by commit hash and subject: no match (commit not in this
+  checkout)
+- Lore/patch.msgid.link: blocked by Anubis bot protection — could not
+  read thread
+- **UNVERIFIED:** Reviewer feedback, stable nominations, series
+  revisions
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 5: Code Semantic Analysis
 
-### Step 3.1: BLAME THE CHANGED LINES
-**Record:** `pvr_queue_timedout_job()` introduced in `eaf01ee5ba28b`
-(Sarah Walker, 2023-11-22, "drm/imagination: Implement job submission
-and scheduling"). The missing fence check has been present since driver
-inception. Confirmed ancestor of HEAD.
+### Step 5.1: Key Functions
+**Record:** `host1x_device_init()` — only function modified.
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-**Record:** N/A — no Fixes: tag in commit message.
+### Step 5.2: Callers
+**Record:** `host1x_device_init()` is called from:
+- `drivers/gpu/drm/tegra/drm.c` (Tegra DRM probe)
+- `drivers/crypto/tegra/tegra-se-main.c` (Tegra SE)
+- `drivers/staging/media/tegra-video/video.c` (staging Tegra video)
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-**Record:** Recent `pvr_queue.c` changes include fence/dependency fixes
-(`943fa73ea0efa`, `68c3de7f707e8`, `df1a1ed5e1bdd`) but none address
-this timeout race. The `DRM_GPU_SCHED_STAT_NO_HANG` infrastructure was
-added earlier (`0b1217bfdfddf`) and adopted by panfrost, xe, etnaviv,
-v3d — imagination was never updated. Standalone fix, not part of an
-applied series in this tree.
+All are device-probe initialization paths on Tegra (or COMPILE_TEST).
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-**Record:** Brajesh Gupta has two imagination commits in this tree:
-`c88fdbf3da26e` (double `drm_sched_entity_fini` fix) and `902fd1026ca42`
-(FW trace wait). Regular IMG contributor, not subsystem maintainer.
+### Step 5.3: Callees
+**Record:** `client->ops->exit`, `client->ops->late_exit`,
+`mutex_lock/unlock`, list iteration macros.
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-**Record:** Link suggests patch 2 of `context_reset-v2` series, but the
-diff is self-contained — no new structures, APIs, or prior-patch
-symbols. Uses only existing `dma_fence_is_signaled()` and
-`DRM_GPU_SCHED_STAT_NO_HANG`. Can apply standalone.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-**Record:** `b4 dig -c` failed (commit not in this tree). `b4 shazam`
-did not find the message. WebFetch of lore.kernel.org and
-patch.msgid.link blocked by Anubis bot protection. Link tag indicates
-submission as patch 2 of `context_reset-v2` series to dri-devel, with
-Reviewed-by from IMG engineer.
-
-### Step 4.2: CHECK WHO REVIEWED THE PATCH
-**Record:** Reviewed-by: Matt Coster (IMG). Full recipient list
-unavailable due to lore access failure.
-
-### Step 4.3: SEARCH FOR THE BUG REPORT
-**Record:** No Reported-by or bugzilla/syzbot links. Bug mechanism is
-well-established from identical panfrost/etnaviv fixes with explicit
-comments about "timeout fired before free-job worker."
-
-### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-**Record:** Part of `context_reset-v2` series (patch 2 per message-id).
-This specific change is independent — only adds an early-return guard in
-`pvr_queue_timedout_job()`.
-
-### Step 4.5: CHECK STABLE MAILING LIST HISTORY
-**Record:** Could not search lore stable list (bot protection). No
-stable nomination found in commit tags.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-**Record:** `pvr_queue_timedout_job()` (modified), called via
-`pvr_queue_sched_ops.timedout_job`.
-
-### Step 5.2: TRACE CALLERS
-**Record:** `pvr_queue_timedout_job` → registered in
-`pvr_queue_sched_ops` → called from `drm_sched_job_timedout()` work item
-when scheduler timeout fires on a pending job. Triggered during normal
-GPU rendering under load or slow interrupt handling.
-
-### Step 5.3: TRACE CALLEES
-**Record:** Without fix: `dev_err`, `mutex_lock`, `list_del_init`,
-`drm_sched_stop`, fence reassignment loop, `drm_sched_start`. With fix:
-only `dma_fence_is_signaled()` then early return.
-
-### Step 5.4: FOLLOW THE CALL CHAIN
-**Record:** Userspace Mesa/OpenGL/Vulkan → DRM ioctl job submission →
-`pvr_queue_job_init/push` → drm_sched → `pvr_queue_run_job` → firmware →
-fence signal → (race) timeout worker. Reachable from normal graphics
-workloads on PowerVR/IMG hardware.
-
-### Step 5.5: SEARCH FOR SIMILAR PATTERNS
-**Record:** Identical pattern in:
-- `panfrost_job_timedout()` — checks `job->done_fence`, returns
-  `NO_HANG` with comment "timeout has fired before free-job worker"
-- `etnaviv_sched_timedout_job()` — same comment and pattern
-- `v3d`, `xe` — also use `DRM_GPU_SCHED_STAT_NO_HANG`
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-**Record:** YES. `pvr_queue_timedout_job()` at line 824 in
-`drivers/gpu/drm/imagination/pvr_queue.c` lacks the fence check and
-proceeds directly to `dev_err("Job timeout")` and reset logic. Driver
-present since `eaf01ee5ba28b` (Nov 2023).
-
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-**Record:** Expected clean apply — 5 lines added at function entry,
-comment update. No conflicting recent changes to this function.
-`DRM_GPU_SCHED_STAT_NO_HANG` and
-`drm_sched_job_reinsert_on_false_timeout()` exist in this tree's
-scheduler.
-
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-**Record:** No equivalent fix present. `git log --grep` found no "Don't
-timeout job" commit. Panfrost/etnaviv/v3d/xe already have this pattern;
-imagination does not.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-**Record:** `drivers/gpu/drm/imagination/` — DRM GPU driver
-(CONFIG_DRM_POWERVR). **IMPORTANT** for users with Imagination
-PowerVR/IMG GPUs on ARM64/RISC-V; not universal but critical for those
-platforms.
-
-### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-**Record:** Actively developed — recent commits include fence dependency
-fixes, paired-job handling, and `drm_sched_entity_fini` double-call fix.
-Mature enough for real hardware deployments.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: DETERMINE WHO IS AFFECTED
-**Record:** Users with `CONFIG_DRM_POWERVR` on ARM64 or RISC-V systems
-with Imagination GPUs. Driver-specific but affects all GPU workloads on
-that hardware.
-
-### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-**Record:** Job completes and fence is signaled, but drm_sched timeout
-fires before the free-job worker processes it. Can occur under IRQ
-latency, system load, or near-timeout job durations. Triggerable during
-normal rendering; no special privileges needed beyond GPU access.
-
-### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-**Record:** Without fix: spurious hang recovery — unnecessary
-`drm_sched_stop()`/`drm_sched_start()`, erroneous "Job timeout" log,
-potential `atomic_set(&queue->ctx->faulty, 1)` marking context
-permanently unusable (blocks all future job submission via
-`pvr_queue_job_init` returning `-EIO`). **Severity: HIGH** — can break
-GPU rendering until process/driver restart.
-
-### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+### Step 5.4: Reachability
 **Record:**
-- **Benefit:** HIGH for affected hardware — prevents spurious GPU resets
-  and permanent context faulting
-- **Risk:** VERY LOW — 5-line early return, proven pattern across
-  multiple DRM drivers
-- **Ratio:** Strongly favors backport
+1. Tegra clients register via `host1x_client_register()` /
+   `__host1x_client_register()`.
+2. `host1x_device_init()` runs when the composite host1x device driver
+   probes.
+3. If any client's `init`/`early_init` fails, teardown runs.
+4. Forward path skips clients with `client->ops == NULL`; teardown does
+   not — inconsistent and unsafe.
+5. In-tree drivers set `ops` before register, but the API explicitly
+   allows NULL `ops` (forward guards prove intent). A client with NULL
+   `ops` on `device->clients` plus a later init failure triggers the
+   bug.
+
+**Userspace trigger:** Indirect — probe failure during boot/driver load
+on Tegra systems with `CONFIG_TEGRA_HOST1X` and dependent drivers.
+
+### Step 5.5: Similar Patterns
+**Record:** Same `client->ops &&` pattern used in
+`host1x_device_exit()`, `host1x_client_suspend()`, and
+`host1x_client_resume()` in the same file. Teardown paths are the
+outlier.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 9.1: COMPILE THE EVIDENCE
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Local tree is **v6.18.44** (Makefile: 6.18.44).
+Buggy code at lines 224 and 232 in `drivers/gpu/host1x/bus.c` — fix not
+yet applied.
 
-**FOR backporting:**
-- Fixes a real race causing spurious GPU hang recovery
-- Can permanently fault a GPU context (`ctx->faulty`), breaking all
-  subsequent rendering
-- Small, surgical, obviously correct fix
-- Identical pattern already in panfrost, etnaviv, v3d, xe in this tree
-- Bug present since imagination driver's initial scheduling code (2023)
-- Reviewed-by from IMG engineer
-- `DRM_GPU_SCHED_STAT_NO_HANG` infrastructure already in 6.18.43
-- Applies cleanly to this tree
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected** — two identical one-line changes.
+No conflicting recent churn in this function.
 
-**AGAINST backporting:**
-- Limited to Imagination GPU users (smaller population)
-- No explicit user bug report or syzbot finding in commit message
-- Part of a larger series (though this patch is standalone)
+### Step 6.3: Related Fixes Already Present?
+**Record:** No existing fix for this issue in this tree.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+### Step 7.1: Subsystem
+**Record:** `drivers/gpu/host1x/` — Tegra display/multimedia bus
+infrastructure. **Criticality:** IMPORTANT for Tegra/embedded;
+PERIPHERAL globally (requires `CONFIG_TEGRA_HOST1X`, `ARCH_TEGRA` or
+`COMPILE_TEST`).
+
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple bugfix commits in recent
+history on this subsystem.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Tegra platform users with host1x clients (DRM, crypto,
+staging video). Not universal x86/ARM server impact.
+
+### Step 8.2: Trigger Conditions
+**Record:**
+- `host1x_device_init()` called during probe
+- A client `init`/`early_init` fails
+- Teardown visits a client with `client->ops == NULL` (skipped during
+  forward init)
+- **Likelihood:** Low-to-medium on error paths; requires init failure
+  plus NULL-ops client on the list
+
+### Step 8.3: Failure Mode Severity
+**Record:** Kernel oops (NULL dereference) during error recovery instead
+of clean `-errno` return. **Severity: HIGH** for affected path (turns
+recoverable probe failure into crash).
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Prevents crash on init-failure teardown; makes error
+  recovery robust
+- **Risk:** Very low — 2-line change matching established pattern
+- **Ratio:** Favorable for Tegra stable users
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real NULL-deref bug on error path
+- Trivial, obviously correct 2-line fix
+- Matches existing code in same function/file
+- Maintainer (Thierry Reding) signed off
+- Bug present since 2017/2021; affects this v6.18.44 tree
+- Error-path crash is worse than the original init failure
+
+**AGAINST backport:**
+- Platform-specific (Tegra only)
+- Requires init failure (uncommon)
+- No user/syzbot report documented
+- In-tree drivers appear to always set `ops` before register (trigger
+  may be rare in practice)
 
 **UNRESOLVED:**
-- Full lore review thread inaccessible (Anubis bot protection)
-- Whether patch 1 of `context_reset-v2` series is also needed for stable
-  (this patch appears independent)
+- Mailing list review thread (Anubis blocked)
+- No confirmed in-tree reproduction with current drivers
 
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — matches proven
-   panfrost/etnaviv pattern; Reviewed-by present
-2. Fixes a real bug affecting users? **PASS** — spurious timeout on
-   completed jobs
-3. Important issue? **PASS** — spurious GPU reset, context permanent
-   fault, rendering failure (HIGH)
-4. Small and contained? **PASS** — 5 lines, 1 file, 1 function
-5. No new features or APIs? **PASS** — uses existing
-   `DRM_GPU_SCHED_STAT_NO_HANG`
-6. Can apply to the local tree? **PASS** — buggy code present,
-   infrastructure exists, clean apply expected
+The unresolved items do not outweigh the clear correctness fix: forward
+paths already treat NULL `ops` as valid; teardown must match.
 
-### Step 9.3: EXCEPTION CATEGORIES
-**Record:** None (not device ID, quirk, DT, build fix, or docs).
-Standard driver bug fix.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — mirrors existing guards;
+   maintainer SOB; no logic change beyond NULL safety
+2. Fixes a real bug? **PASS** — NULL deref on error teardown
+3. Important issue? **PASS** — kernel oops on probe error recovery (HIGH
+   for affected users)
+4. Small and contained? **PASS** — 2 lines, 1 file
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — buggy code confirmed in v6.18.44
 
-### Step 9.4: DECISION RATIONALE
+### Step 9.3: Exception Categories
+**Record:** None (standard bug fix).
 
-This commit fixes a well-understood race in the drm_sched timeout path
-that the imagination driver has had since its introduction. Without the
-fix, a completed job can trigger full hang-recovery logic including
-scheduler stop/start and potentially marking the GPU context as
-permanently faulty — a serious, user-visible failure for anyone running
-graphics on PowerVR/IMG hardware. The fix is minimal, follows an
-established pattern already present in four other DRM drivers in this
-tree, and applies cleanly to the 6.18.43 checkout where the buggy code
-is confirmed present.
+### Step 9.4: Decision Rationale
+This is a conservative, surgical fix for an inconsistent NULL check that
+can kernel-oops during `host1x_device_init()` error recovery on Tegra
+systems. The fix aligns teardown with forward init and
+`host1x_device_exit()`, carries negligible regression risk, and the
+buggy code is present in this v6.18.44 tree.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; identified preventive timeout
-  fix
-- [Phase 1] No Fixes:/Reported-by:/syzbot tags; Reviewed-by: Matt Coster
-  present
-- [Phase 2] Diff: +5 lines in `pvr_queue_timedout_job()`, early
-  `dma_fence_is_signaled` check
-- [Phase 2] Read `drm_sched_job_timedout()` — `NO_HANG` triggers
-  `drm_sched_job_reinsert_on_false_timeout()`
-- [Phase 2] Read scheduler doc: must NOT call `drm_sched_stop()` when
-  returning `NO_HANG`
-- [Phase 3] `git blame`: `pvr_queue_timedout_job` from `eaf01ee5ba28b`
-  (2023-11-22)
-- [Phase 3] `git merge-base --is-ancestor`: driver commit is ancestor of
-  HEAD
-- [Phase 3] `git log -20 -- pvr_queue.c`: no prior timeout-fence fix
-- [Phase 3] Author commits: `c88fdbf3da26e`, `902fd1026ca42` in
-  imagination driver
-- [Phase 4] `b4 dig -c`: failed (commit not in tree)
-- [Phase 4] `b4 shazam`: message not found on lore
-- [Phase 4] WebFetch lore.kernel.org: blocked by Anubis
-- [Phase 4] WebFetch patch.msgid.link: blocked by Anubis
-- [Phase 5] `pvr_queue_timedout_job` registered at
-  `pvr_queue_sched_ops.timedout_job` line 895
-- [Phase 5] `pvr_queue_run_job` returns `dma_fence_get(job->done_fence)`
-  as sched parent
-- [Phase 5] panfrost/etnaviv: identical `dma_fence_is_signaled` →
-  `NO_HANG` pattern confirmed
-- [Phase 6] `git describe HEAD`: v6.18.43
-- [Phase 6] Buggy code confirmed at lines 824-872 without fence check
-- [Phase 6] `DRM_GPU_SCHED_STAT_NO_HANG` exists in
-  `include/drm/gpu_scheduler.h`
-- [Phase 6] `drm_sched_job_reinsert_on_false_timeout` exists in
-  `sched_main.c`
-- [Phase 7] CONFIG_DRM_POWERVR depends on ARM64 or RISC-V 64-bit
-- [Phase 8] `pvr_context.h`: `faulty` flag makes context permanently
-  unusable
-- [Phase 8] `pvr_queue_job_init` line 1108: returns `-EIO` if
-  `ctx->faulty` is set
-- [Phase 8] Without fix: `pvr_queue_start` sets `ctx->faulty` for
-  unfinished pending jobs during reset
+- **[Phase 1]** Parsed commit message and tags from user query
+- **[Phase 2]** Confirmed diff: 2 lines in `host1x_device_init()`
+  teardown paths
+- **[Phase 3]** `git describe HEAD`: v6.18.44; Makefile confirms 6.18.44
+- **[Phase 3]** `git blame -L 222,236`: teardown from 2017
+  (`8f7da1578e90b`), teardown_late from 2021 (`933deb8c7b8e3f`)
+- **[Phase 3]** `git show 8f7da1578e90bf`: original teardown added
+  without NULL check while forward path had one
+- **[Phase 3]** `git log -p -S 'if (client->ops->exit)'`: confirmed 2017
+  introduction of unguarded teardown
+- **[Phase 3]** `git log --oneline -15 -- drivers/gpu/host1x/bus.c`:
+  recent related fixes; no duplicate fix
+- **[Phase 4]** `b4 dig`: no results (commit not in tree)
+- **[Phase 4]** WebFetch lore/patch.msgid.link: blocked by Anubis —
+  **UNVERIFIED** review discussion
+- **[Phase 5]** `grep host1x_device_init`: callers in tegra drm, tegra-
+  se, tegra-video
+- **[Phase 5]** Read `host1x_device_init()`, `host1x_device_exit()`,
+  suspend/resume: confirmed `client->ops &&` pattern elsewhere
+- **[Phase 5]** Read tegra driver probes (dc.c, gr3d.c, sor.c, tegra-
+  se): ops set before register
+- **[Phase 6]** Read current `bus.c` lines 224, 232: buggy code present
+  (no NULL check)
+- **[Phase 6]** Kconfig: `CONFIG_TEGRA_HOST1X` depends on `ARCH_TEGRA ||
+  COMPILE_TEST`
+- **[Phase 8]** Failure mode: NULL deref → oops on init-failure teardown
 
-**YES**Those background lookups are done and line up with the earlier
-analysis:
+**YES**The backport analysis is done.
 
-- **Commit search / b4 dig:** The patch isn’t in this `v6.18.43` tree
-  yet, so `git log --grep` and `b4 dig -c` couldn’t resolve it by hash.
-- **Related history:** `pvr_queue_timedout_job()` dates to the original
-  imagination scheduling commit (`eaf01ee5ba28b`, Nov 2023); recent
-  nearby fixes are fence/dependency work, not this timeout race.
-- **Prior art:** `DRM_GPU_SCHED_STAT_NO_HANG` is already used the same
-  way in panfrost, xe, etnaviv, and v3d in this tree; imagination is the
-  outlier.
-- **Author context:** Brajesh Gupta has two other imagination fixes here
-  (`drm_sched_entity_fini` double-call, FW trace wait).
+**Commit:** `host1x: bus: Fix missing ops null check in error teardown`
+**Tree:** v6.18.44 — the bug is still present (unguarded `client->ops`
+derefs at lines 224 and 232 in `drivers/gpu/host1x/bus.c`).
 
-That reinforces the earlier call: small, standalone fix for a real
-spurious-timeout bug on PowerVR/IMG hardware.
+**Summary:** On Tegra, if `host1x_device_init()` fails partway through,
+the teardown paths can NULL-deref `client->ops` while forward init and
+`host1x_device_exit()` already guard against that. The fix is two lines,
+matches existing patterns, and is signed off by host1x maintainer
+Thierry Reding.
 
-**YES**
+**Verdict: YES** — backport to this tree.
 
- drivers/gpu/drm/imagination/pvr_queue.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+A background `git log --grep` search timed out; it wasn’t needed for the
+decision since the buggy code and history were already confirmed
+directly.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index bb5835ede6660..7497bca2e7e83 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -818,7 +818,9 @@ static void pvr_queue_start(struct pvr_queue *queue)
-  * the scheduler, and re-assign parent fences in the middle.
-  *
-  * Return:
-- *  * DRM_GPU_SCHED_STAT_RESET.
-+ *  *%DRM_GPU_SCHED_STAT_NO_HANG if the job fence has already been
-+ *   signaled, or
-+ *  *%DRM_GPU_SCHED_STAT_RESET otherwise.
-  */
- static enum drm_gpu_sched_stat
- pvr_queue_timedout_job(struct drm_sched_job *s_job)
-@@ -829,6 +831,9 @@ pvr_queue_timedout_job(struct drm_sched_job *s_job)
- 	struct pvr_job *job;
- 	u32 job_count = 0;
+ drivers/gpu/host1x/bus.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
+index 3313ead8bfcc2..06aa7fcd367e1 100644
+--- a/drivers/gpu/host1x/bus.c
++++ b/drivers/gpu/host1x/bus.c
+@@ -221,7 +221,7 @@ int host1x_device_init(struct host1x_device *device)
  
-+	if (dma_fence_is_signaled(s_job->s_fence->parent))
-+		return DRM_GPU_SCHED_STAT_NO_HANG;
-+
- 	dev_err(sched->dev, "Job timeout\n");
+ teardown:
+ 	list_for_each_entry_continue_reverse(client, &device->clients, list)
+-		if (client->ops->exit)
++		if (client->ops && client->ops->exit)
+ 			client->ops->exit(client);
  
- 	/* Before we stop the scheduler, make sure the queue is out of any list, so
+ 	/* reset client to end of list for late teardown */
+@@ -229,7 +229,7 @@ int host1x_device_init(struct host1x_device *device)
+ 
+ teardown_late:
+ 	list_for_each_entry_continue_reverse(client, &device->clients, list)
+-		if (client->ops->late_exit)
++		if (client->ops && client->ops->late_exit)
+ 			client->ops->late_exit(client);
+ 
+ 	mutex_unlock(&device->clients_lock);
 -- 
 2.53.0
 
