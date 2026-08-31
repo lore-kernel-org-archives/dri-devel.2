@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A7AC61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:04:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04A89C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 09:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D6A10E777;
-	Mon, 31 Aug 2026 09:04:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0D510E77E;
+	Mon, 31 Aug 2026 09:05:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B4COrrsK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FIvfOYOD";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9530B10E777
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:04:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7911F10E77E
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:05:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C028860120;
- Mon, 31 Aug 2026 09:04:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE9A1F000E9;
- Mon, 31 Aug 2026 09:04:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E7CF360120;
+ Mon, 31 Aug 2026 09:05:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F3D1F000E9;
+ Mon, 31 Aug 2026 09:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788167049;
- bh=wat78JNkyz0OER2vscKBUuvp5of4hCaGOp4QHI3cFzY=;
+ s=k20260515; t=1788167107;
+ bh=OJToWJXDrlRzzZ3w1YKtccTy6w5Wwc5hNTuNv2S2OQI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B4COrrsKLCsidzfvcVD5spF9oOvGnfCMb+5XWnhMLz/4CTc2vanvOGSmispdKh1Xs
- pAwSwGMxX+0F/eHV0dVJwWgPjsL7Y8SclPSow45W5gLwVldGx/2JW6Qxv2UGAQZrRh
- unDz5qiRNAMberxLe0vcKvTUxrAX6S6pFRg8hLPMMce5raaO+Qg2ImC98xkAya3FMY
- hYnKb+4gMiu+wtbcfzC68NOWXaeZIyvyd5A7S72owbiBmgQfLtSBKs0amIZ5Atcydl
- xY5rbcdpMVYpFDueg01n1iA5HeRHIZAzFn3xlNEf35tgNod/bm88pkdx02hZSRzwCx
- qtMZZ102Sq5Yg==
+ b=FIvfOYOD19D6gYwLQHob1S3C81JmhGNJJHJRCb+nLLYaMCZBOimsiBlafTTUoL4Tr
+ 0FGMwyCkMK+lAgi269Nzcu9DdKvzdR+oKCQkyYrnBuT7PVsuAUAATAtiSjPYLcruFF
+ aLh3pG3HY0ohU9DZVyR3WZeDyuIK0PsOIbB2mmi0qCtLyl3xNtmOt3LA5SiYUU+FoS
+ 9sLKZRqd1VJw5EMuQoxm3xOKKteoBMgRaQQ5uOTc74HCEbMRYLpmcqOg1jGwDzT7uW
+ 93XDXhISbnL+r1fEtgpDGF2OZZImDqT/zLOB9uuZJtuc3DJcutyZ5Walo7edpHwq7f
+ dR1kTeiREnY7g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 11/14] accel/rocket: select the per-core clock and
- reset counts from match data
+Subject: Re: [PATCH v11 10/14] pmdomain/rockchip: cycle optional
+ power-domain resets on power-on
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260831081956.84871-12-gahing@gahingwoo.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260831081956.84871-11-gahing@gahingwoo.com>
 References: <20260831081956.84871-1-gahing@gahingwoo.com>
- <20260831081956.84871-12-gahing@gahingwoo.com>
+ <20260831081956.84871-11-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 09:04:08 +0000
-Message-Id: <20260831090409.2DE9A1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 09:05:06 +0000
+Message-Id: <20260831090507.54F3D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,95 +59,116 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Missing NULL check for the return value of of_device_get_match_dat=
-a(), leading to a guaranteed kernel panic on manual sysfs bind.
-
 Pre-existing issues:
-- [High] The driver tracks cores in an array using `num_cores` as both the =
-array length and the probe index, causing resource leaks and array slot ove=
-rwrites on out-of-order unbinds.
-- [High] Devres memory leak of `struct rocket_device` and its children on p=
-robe deferral and manual unbind.
+- [High] Resource leak of clock references on of_clk_get failure
+- [High] Use-after-free when pm_genpd_remove fails during probe error clean=
+up
 --
 
-commit d68f29f9366dd1f885e0585ee67c1b358bda44b6
+commit c4349e9db6c9eecdba71ab60966e3312c6588638
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-accel/rocket: select the per-core clock and reset counts from match data
+pmdomain/rockchip: cycle optional power-domain resets on power-on
 
-This patch introduces a soc_data structure to provide per-SoC clock and
-reset counts from the device match data. This enables supporting the
-RK3576, which has different counts compared to the RK3588.
+Some Rockchip domains come out of power-on with their bus interface in
+an undefined state. On the RK3576 NPU this shows up as a hang on the
+first register access after the domain is switched on, and pulsing the
+domain's resets at this point clears it.
 
-> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
-cket_core.c
-> index 5dd260bacbff6..b202d15816a39 100644
-> --- a/drivers/accel/rocket/rocket_core.c
-> +++ b/drivers/accel/rocket/rocket_core.c
-> @@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
-> =20
->  	core->resets[0].id =3D "srst_a";
->  	core->resets[1].id =3D "srst_h";
-> -	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(co=
-re->resets),
-> +	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->nu=
-m_resets,
->  						    core->resets);
+Take the domain node's resets if it has any, and pulse them between
+releasing idle and restoring QoS. The resets are optional, so domains
+that do not list any are unaffected.
 
-[Severity: High]
-Does this code crash with a NULL pointer dereference if a user with root
-privileges force-binds the driver to a device using the sysfs bind interfac=
-e?
-
-The sysfs interface bypasses the device tree match, causing
-of_device_get_match_data() (called in rocket_probe()) to return NULL, which
-is then unconditionally dereferenced here as core->soc->num_resets.
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 39988efd86aaa..8f2fd8a83e8e9 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
 [ ... ]
 
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 8bbbce594883e..6e7dc91c5faac 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -176,6 +176,7 @@ static int rocket_probe(struct platform_device *pdev)
-> =20
->  	rdev->cores[core].rdev =3D rdev;
->  	rdev->cores[core].dev =3D &pdev->dev;
-> +	rdev->cores[core].soc =3D of_device_get_match_data(&pdev->dev);
->  	rdev->cores[core].index =3D core;
-> =20
->  	rdev->num_cores++;
+> @@ -861,6 +870,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
+p_pmu *pmu,
+>  	if (error)
+>  		goto err_put_clocks;
 
 [Severity: High]
-This is a pre-existing issue, but does decrementing rdev->num_cores during
-an out-of-order unbind in rocket_remove() leak resources and corrupt memory?
+This isn't a bug introduced by this patch, but does this code leak the
+clocks on of_clk_get() failure?
 
-If a system has multiple cores (e.g., RK3588 has 3 RKNN cores) and a user
-manually unbinds a lower-indexed core via sysfs before a higher-indexed
-core, rdev->num_cores is decremented.
+Looking at rockchip_pm_add_one_domain(), just above this code:
 
-When the higher-indexed core is later unbound, find_core_for_dev() fails to
-find it because the search space core < rdev->num_cores shrank, skipping
-its teardown. A subsequent bind will then overwrite the active core's slot
-at rdev->cores[rdev->num_cores].
+	for (i =3D 0; i < pd->num_clks; i++) {
+		pd->clks[i].clk =3D of_clk_get(node, i);
+		if (IS_ERR(pd->clks[i].clk)) {
+			error =3D PTR_ERR(pd->clks[i].clk);
+			dev_err(pmu->dev,
+				"%pOFn: failed to get clk at index %d: %d\n",
+				node, i, error);
+			return error;
+		}
+	}
+
+If a PM domain has multiple clocks defined in its device tree node, and
+of_clk_get() succeeds for the first clock(s) but fails for a subsequent
+clock (e.g., returning -EPROBE_DEFER), the function returns the error
+directly without calling clk_put() on the successfully acquired clocks.
+
+Could this direct return bypass the err_put_clocks cleanup path and leak
+the clocks acquired in previous loop iterations?
+
+> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
+> +	if (IS_ERR(pd->resets)) {
+> +		error =3D dev_err_probe(pmu->dev, PTR_ERR(pd->resets),
+> +				      "%pOFn: failed to get resets\n", node);
+> +		pd->resets =3D NULL;
+> +		goto err_unprepare_clocks;
+> +	}
+> +
+>  	pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
+>  						 NULL);
+
+[ ... ]
+
+> @@ -949,6 +967,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
+chip_pm_domain *pd)
+> =20
+>  	clk_bulk_unprepare(pd->num_clks, pd->clks);
+>  	clk_bulk_put(pd->num_clks, pd->clks);
 
 [Severity: High]
-This is also a pre-existing issue, but does probe deferral or manual unbind
-permanently leak the struct rocket_device and its children?
+This is a pre-existing issue, but can this lead to a use-after-free when
+pm_genpd_remove() fails during probe error cleanup?
 
-During the first core probe, rocket_device_init() allocates rdev using
-devm_drm_dev_alloc() tied to the global drm_dev.
+In rockchip_pm_remove_one_domain(), right before this code:
 
-If the core probe subsequently fails (e.g., -EPROBE_DEFER) or is manually
-unbound, rocket_device_fini() unregisters the DRM device and rdev is set to
-NULL. However, the devres allocations remain bound to the long-lived drm_dev
-and persist indefinitely, leaking memory on every cycle.
+	ret =3D pm_genpd_remove(&pd->genpd);
+	if (ret < 0)
+		dev_err(pd->pmu->dev, "failed to remove domain '%s' : %d - state may be i=
+nconsistent\n",
+			pd->genpd.name, ret);
+
+If rockchip_pm_add_subdomain() or pm_genpd_provider_add_of() fails,
+rockchip_pm_domain_cleanup() iterates over all domains in reg ID order.
+If a child domain has a smaller ID than its parent, the child is removed
+first. Because its parent link still exists, pm_genpd_remove() returns
+-EBUSY and fails to remove the child from the global gpd_list.
+
+Despite the failure, rockchip_pm_remove_one_domain() returns and the
+rockchip_pm_domain structure is freed by devm when the probe fails.
+
+Does this leave a pointer to freed memory in the global gpd_list, leading
+to a use-after-free when the list is next accessed (e.g., by
+genpd_power_off_unused())?
+
+> +	reset_control_put(pd->resets);
+> =20
+>  	/* protect the zeroing of pm->num_clks */
+>  	mutex_lock(&pd->pmu->mutex);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
-1-1-gahing@gahingwoo.com?part=3D11
+1-1-gahing@gahingwoo.com?part=3D10
