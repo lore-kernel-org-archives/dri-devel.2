@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B4E2C624C6
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D0BC624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:47:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A614B10E8C9;
-	Mon, 31 Aug 2026 13:47:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A219310E8CE;
+	Mon, 31 Aug 2026 13:47:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OPZj4yKZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j5ZEvXuB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAAB810E8C9
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:47:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3E8410E8CC;
+ Mon, 31 Aug 2026 13:47:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A90A341141;
+ by sea.source.kernel.org (Postfix) with ESMTP id 9952340C34;
+ Mon, 31 Aug 2026 13:47:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6B01F00A3E;
  Mon, 31 Aug 2026 13:47:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182AA1F01558;
- Mon, 31 Aug 2026 13:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184068;
- bh=oOn+Hi3zVKHz6uhWiJTCswABnSbvQCFUZOJ78CHASiU=;
+ s=k20260515; t=1788184070;
+ bh=M0qEMiwmP+nSe1O8FvNVwlw9fe6ZqScjcV3zg50zqgU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=OPZj4yKZy7Wpg8Kp3C+soVtbKzgVQSrdqLSOGOxTOXKJP3oClKmOSXoy9/ClbRuMj
- 6/xfB5zOvwgJJW6Uh4rK1CLEjxMLGk3lzaU10e02y1Dwo43lZzVxJ06/ZfyMWr56mE
- NxYVwaBZJW9O59Ch+3J4xsg3mkQXiblgmH4WoQ/YEwnMb1dYEsN+N3WqKx9Hb2RNcX
- 03FsTAoSAFNyAtt6KsobaPUOvXEvjNibas+ZC1UjXtSt0XxgWSC6Cy3+urz67pAb0a
- hvIMMh3V5O9EEqisf14hvy88/uGssYT7Giq19zuql4afav9Yrw6Q9ipTZ4/YSciJJV
- qwCDPEm2zVn+A==
+ b=j5ZEvXuBrqYzQ3Qwy/AufXWVJ0qxfVxqjkjtLb1YYymyq8D1rlDWh2+SW7x744WNP
+ Emr0WqKZPAM9unU3EFI9/Wv+XvpXgLqDVynJgfkN+QKw52DnF2I0yVRxuJa6+9Ttwk
+ TVVnVt8Lo86n5ifGsRYl+3FdvOoLYcJL+cKXW8xsRqBTFkXuyfrxwbUYYNMGTS5V4C
+ qTSjYLne2CH2+2gKUF8FHQO81Pnmc76pJW6tXUBh8QhO7pLDhaar41d5AOQMu7PtVN
+ 6V53RWpWifumLn8xFSSwBFhuViMaAbfTNTNhIz1MKXHfMSfnPeP4JYokdRaeAVrRHx
+ ALZJaueKhKU2g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/panel-edp: Add AUO B140XTN07.5,
- AUO B140HAK03.5, AUO B116XTN02.3, AUO B140XTK02.4, AUO B140HAN07.7
-Date: Mon, 31 Aug 2026 09:28:20 -0400
-Message-ID: <20260831133314.4125787-472-sashal@kernel.org>
+Cc: David Francis <David.Francis@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: Check bounds for
+ allocate_sdma_queue restore_sdma_id
+Date: Mon, 31 Aug 2026 09:28:21 -0400
+Message-ID: <20260831133314.4125787-473-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -67,483 +67,749 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+From: David Francis <David.Francis@amd.com>
 
-[ Upstream commit 4c34cdb93ea187b46d287a77a8946268a7d24286 ]
+[ Upstream commit bfe9a7545b2a7be1c543f1741e16f2d5ec4116ae ]
 
-The raw EDIDs for each panel:
+allocate_sdma_queue has an option where the sdma queue id can be
+specified (used by CRIU). We weren't bounds-checking that
+value.
 
-AUO B140XTN07.5
-00 ff ff ff ff ff ff 00 06 af 90 02 00 00 00 00
-00 1e 01 04 95 1f 11 78 03 c0 d5 8f 56 58 93 29
-20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 ce 1d 56 e2 50 00 1e 30 26 16
-36 00 35 ad 10 00 00 18 df 13 56 e2 50 00 1e 30
-26 16 36 00 35 ad 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 48 ff 0f 3c 7d 48 0f 1b 7d 20 20 20 00 09
+Confirm it's less than the maximum number of queues.
 
-AUO B140HAK03.5
-00 ff ff ff ff ff ff 00 06 af 9f 3c 00 00 00 00
-00 1f 01 04 95 1f 11 78 03 f5 65 8f 55 5a 93 2a
-1f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 b0 36 80 a0 70 38 24 40 10 10
-3e 00 35 ae 10 00 00 18 75 24 80 a0 70 38 24 40
-10 10 3e 00 35 ae 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 48 ff 0f 3c 7d 14 0e 1e 7d 20 20 20 01 02
-
-70 20 79 02 00 22 00 14 df 22 02 84 7f 07 9f 00
-0f 80 0f 00 37 04 23 00 02 00 0d 00 25 00 09 df
-22 02 df 22 02 28 3c 80 81 00 10 72 1a 00 00 03
-01 28 3c 00 00 60 50 60 50 3c 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 3f 90
-
-AUO B116XTN02.3
-00 ff ff ff ff ff ff 00 06 af ba 49 00 00 00 00
-00 23 01 04 95 1a 0e 78 02 6b f5 91 55 54 91 27
-22 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 ce 1d 56 e2 50 00 1e 30 26 16
-36 00 00 90 10 00 00 18 df 13 56 e2 50 00 1e 30
-26 16 36 00 00 90 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 48 ff 0f 3c 7d 50 05 18 7d 20 20 20 00 7f
-
-AUO B140XTK02.4
-00 ff ff ff ff ff ff 00 06 af a8 67 00 00 00 00
-28 20 01 04 95 1f 11 78 03 c0 d5 8f 56 58 93 29
-20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 ce 1d 56 e2 50 00 1e 30 26 16
-36 00 35 ad 10 00 00 18 df 13 56 e2 50 00 1e 30
-26 16 36 00 35 ad 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 48 ff 0f 3c 7d 11 23 21 6e 20 20 20 00 8e
-
-AUO B140HAN07.7
-00 ff ff ff ff ff ff 00 06 af ad c7 00 00 00 00
-21 21 01 04 a5 1f 11 78 03 fa 95 92 56 5a 92 2a
-20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 56 37 80 bc 70 38 28 40 10 10
-3e 00 35 ae 10 00 00 18 e4 24 80 bc 70 38 28 40
-10 10 3e 00 35 ae 10 00 00 18 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 10 3c ff 0f 3c 96 23 10 28 96 20 20 20 01 66
-
-70 20 79 02 00 22 00 14 5b 29 02 84 7f 07 bb 00
-0f 80 0f 00 37 04 27 00 02 00 0d 00 25 01 09 5b
-29 02 5b 29 02 28 3c 80 81 00 10 6f 1a 00 00 03
-01 28 3c 00 00 8b 11 8b 11 3c 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 c0 90
-
-Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260506170607.10813-2-terry_hsiao@compal.corp-partner.google.com
+Signed-off-by: David Francis <David.Francis@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/panel-edp AUO Panel Entries
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 2)...
+Retry attempt 2...
+# Stable Backport Analysis: `drm/amdkfd: Check bounds for
+allocate_sdma_queue restore_sdma_id`
 
-**Local tree:** `v6.18.43` (Linux 6.18.43)
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`)
+
+**Commit under review:** `bfe9a7545b2a7be1c543f1741e16f2d5ec4116ae` (not
+present in this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-**Record:** `[drm/panel-edp]` `[Add]` — Add five AUO eDP panel IDs
-(B140XTN07.5, B140HAK03.5, B116XTN02.3, B140XTK02.4, B140HAN07.7) to the
-panel lookup table.
+**Step 1.1 – Subject line**
 
-### Step 1.2: Commit Tags
-**Record:**
-- **Signed-off-by:** Terry Hsiao `<terry_hsiao@compal.corp-
-  partner.google.com>` (author)
-- **Reviewed-by:** Douglas Anderson `<dianders@chromium.org>`
-  (Chromium/DRM maintainer)
-- **Signed-off-by:** Douglas Anderson `<dianders@chromium.org>`
-- **Link:** https://patch.msgid.link/20260506170607.10813-2-
-  terry_hsiao@compal.corp-partner.google.com
-- **No** Fixes:, Reported-by:, Tested-by:, Cc: stable@vger.kernel.org,
-  or syzbot tags
-- Notable: Reviewed by Chromium DRM maintainer; author is a
-  Compal/Google partner engineer (Chromebook hardware context)
+Record: `[drm/amdkfd]` `[Check]` – add bounds validation for user-
+specified `restore_sdma_id` in `allocate_sdma_queue()` during CRIU queue
+restore.
 
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug description:** Not explicitly stated. The commit documents raw
-  EDID dumps for five AUO panels and adds them to `edp_panels[]`.
-- **Symptom/failure mode:** Implicit — without table entries,
-  `generic_edp_panel_probe()` cannot match these panel IDs and falls
-  back to conservative power-sequencing delays with a `WARN_ON`.
-- **Version info:** None in the message.
-- **Root cause:** These AUO panel EDID product IDs are absent from the
-  `edp_panels[]` lookup table, so the driver cannot apply the correct
-  `delay_200_500_e50` power-sequencing profile.
+**Step 1.2 – Tags**
 
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — disguised as "Add" but functionally a **hardware quirk
-fix**. The `panel-edp` driver maps EDID panel IDs to power-sequencing
-delays (`hpd_absent`, `unprepare`, `enable`). Missing entries cause
-wrong delays and a `WARN_ON` at probe. This is the same class of fix as
-other panel-edp entries already backported to this tree.
+| Tag | Value |
+|-----|-------|
+| Signed-off-by | David Francis \<David.Francis@amd.com\> |
+| Reviewed-by | Harish Kasiviswanathan
+\<Harish.Kasiviswanathan@amd.com\> |
+| Signed-off-by | Alex Deucher \<alexander.deucher@amd.com\>
+(maintainer) |
+
+Notable absences (expected for manual review): no `Fixes:`, `Reported-
+by:`, `Cc: stable@vger.kernel.org`, `Link:`.
+
+Record: AMD maintainer-reviewed fix; no fuzzer or user bug report tags.
+Part of a 2-patch series (patch 1/2 fixes `allocate_doorbell` bounds).
+
+**Step 1.3 – Body**
+
+Record:
+- **Bug:** `allocate_sdma_queue()` accepts a caller-specified SDMA queue
+  ID for CRIU restore but never validates it is within the number of
+  available queues.
+- **Symptom:** Out-of-bounds `test_bit()` / `clear_bit()` on
+  `sdma_bitmap` / `xgmi_sdma_bitmap` when a restored `sdma_id` is too
+  large; kernel memory safety issue.
+- **Root cause:** CRIU restore path passes `q_data->sdma_id` (copied
+  from userspace) straight into `allocate_sdma_queue()` without
+  validation.
+
+**Step 1.4 – Hidden bug fix?**
+
+Record: **Yes.** Although the subject says "Check bounds," this is a
+genuine memory-safety bug fix, not cosmetic cleanup. The companion
+`deallocate_sdma_queue()` already bounds-checks `sdma_id`; the allocate-
+restore path was inconsistent.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Change Inventory
+**Step 2.1 – Inventory**
+
+| File | Change |
+|------|--------|
+| `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` | +6 lines |
+
+Functions modified: `allocate_sdma_queue()` only. Scope: single-file,
+surgical fix.
+
+**Step 2.2 – Code flow (per hunk)**
+
+**Hunk 1 – `KFD_QUEUE_TYPE_SDMA` restore path:**
+- Before: if `restore_sdma_id` is non-NULL, immediately
+  `test_bit(*restore_sdma_id, dqm->sdma_bitmap)`.
+- After: reject `*restore_sdma_id >= get_num_sdma_queues(dqm)` with
+  `-EINVAL` before touching the bitmap.
+
+**Hunk 2 – `KFD_QUEUE_TYPE_SDMA_XGMI` restore path:**
+- Same pattern using `get_num_xgmi_sdma_queues(dqm)`.
+
+Record: Both hunks guard the CRIU-restore branch only; normal allocation
+(`find_first_bit`) is unchanged.
+
+**Step 2.3 – Bug mechanism**
+
+Record: **Memory safety / bounds validation bug (d).**
+- `sdma_bitmap` is `DECLARE_BITMAP(sdma_bitmap, KFD_MAX_SDMA_QUEUES)`
+  where `KFD_MAX_SDMA_QUEUES = 128`.
+- `get_num_sdma_queues()` is typically much smaller (e.g., engines ×
+  queues_per_engine, often single digits to low tens).
+- `kfd_criu_restore_queue()` copies `q_data->sdma_id` (`uint32_t`) from
+  userspace with no validation.
+- Without the fix, `sdma_id >= 128` causes out-of-bounds bitmap access
+  in `test_bit()` / `clear_bit()`.
+- For `sdma_id` in `[get_num_sdma_queues(), 127)`, bits are zero →
+  misleading `-EBUSY` rather than crash, but still incorrect.
+
+**Step 2.4 – Fix quality**
+
+Record: Fix is **obviously correct**, minimal (6 lines), mirrors
+existing `deallocate_sdma_queue()` bounds checks at lines 1686–1691.
+Regression risk is very low: only rejects previously invalid inputs
+earlier with `-EINVAL`.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1 – Blame**
+
+Record: `restore_sdma_id` logic in `allocate_sdma_queue()` is present in
+this tree (lines 1588–1621). `git blame` attributes the block to commit
+`a112b91dd6349` (history in this tree is squashed/limited). The restore
+path and CRIU infrastructure are present in 6.18.43.
+
+**Step 3.2 – Fixes: tag**
+
+Record: N/A – no `Fixes:` tag in commit message.
+
+**Step 3.3 – Related file history**
+
+Record: `git log --oneline --
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` returns only one
+commit in this tree (limited history). CRIU queue restore code
+(`kfd_criu_restore_queue`, `create_queue_cpsch` with `qd->sdma_id`) is
+present and active.
+
+**Step 3.4 – Author context**
+
+Record: David Francis (AMD). Reviewed by Harish Kasiviswanathan;
+committed by Alex Deucher (amdkfd maintainer). Part of v1 series
+submitted 2026-05-12.
+
+**Step 3.5 – Dependencies**
+
+Record: **Standalone.** Patch 1/2 (`allocate_doorbell` bounds) is a
+separate, related hardening fix. This patch does not depend on it. `git
+merge-base --is-ancestor bfe9a75 HEAD` → exit 1 (fix not yet in tree).
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+**Step 4.1 – Original discussion**
+
+Record:
+- `b4 dig -c bfe9a7545b2a7be1c543f1741e16f2d5ec4116ae` → https://patch.m
+  sgid.link/20260512192824.3682569-2-David.Francis@amd.com
+- `b4 dig -a`: v1 series, 2 patches, dated 2026-05-12.
+- v1 initially had a bug (`restore_sdma_id >= ...` instead of
+  `*restore_sdma_id`); author self-corrected in follow-up. The
+  committed/applied version uses `*restore_sdma_id` (matches the diff
+  under review).
+
+**Step 4.2 – Reviewers**
+
+Record: `b4 dig -w` → To/Cc: David Francis, amd-
+gfx@lists.freedesktop.org. Reviewed-by from AMD colleague; Signed-off-by
+maintainer Alex Deucher.
+
+**Step 4.3 – Bug report**
+
+Record: No external bug report, syzbot link, or crash trace. Bug
+identified by code inspection during CRIU hardening (paired with
+doorbell bounds patch).
+
+**Step 4.4 – Series context**
+
+Record: `[PATCH 1/2] drm/amdkfd: Check bounds on allocate_doorbell` is
+independent. Both are CRIU ioctl-input validation fixes.
+
+**Step 4.5 – Stable list**
+
+Record: Could not search lore stable archive (Anubis bot protection). No
+evidence of prior stable rejection found.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1 – Key functions**
+
+Record: `allocate_sdma_queue()` (modified); callers unchanged.
+
+**Step 5.2 – Callers**
+
+Record:
+- `create_queue_nocpsch()` line 664: `allocate_sdma_queue(dqm, q, qd ?
+  &qd->sdma_id : NULL)`
+- `create_queue_cpsch()` line 1985: same pattern
+
+Both reached from `pqm_create_queue()` → `kfd_criu_restore_queue()` when
+`q_data` is non-NULL.
+
+**Step 5.3 – Callees**
+
+Record: `get_num_sdma_queues()`, `get_num_xgmi_sdma_queues()`,
+`test_bit()`, `clear_bit()`, `find_first_bit()`, `bitmap_empty()`.
+
+**Step 5.4 – Reachability**
+
+Call chain:
+```
+kfd_ioctl_criu (KFD_CRIU_OP_RESTORE)
+  → criu_restore()
+    → criu_restore_objects()
+      → kfd_criu_restore_queue()  [copy_from_user q_data->sdma_id]
+        → pqm_create_queue(..., q_data, ...)
+          → dqm->ops.create_queue(..., qd, ...)
+            → allocate_sdma_queue(dqm, q, &qd->sdma_id)
+```
+
+Record: **Reachable from userspace** via `KFD_IOC_CRIU` restore ioctl.
+Requires `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN` (verified in
+`kfd_chardev.c` lines 3332–3337). Not unprivileged, but still a
+privileged ioctl input-validation bug.
+
+**Step 5.5 – Similar patterns**
+
+Record: `deallocate_sdma_queue()` already bounds-checks before
+`set_bit()`:
+
+```1685:1692:drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+        if (q->properties.type == KFD_QUEUE_TYPE_SDMA) {
+                if (q->sdma_id >= get_num_sdma_queues(dqm))
+                        return;
+                set_bit(q->sdma_id, dqm->sdma_bitmap);
+        } else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
+                if (q->sdma_id >= get_num_xgmi_sdma_queues(dqm))
+                        return;
+```
+
+The allocate-restore path was the missing symmetric check.
+
+---
+
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (6.18.43)
+
+**Step 6.1 – Buggy code present?**
+
+Record: **YES.** `allocate_sdma_queue()` at lines 1588–1621 lacks bounds
+checks. CRIU infrastructure (`kfd_criu_queue_priv_data.sdma_id`,
+`kfd_criu_restore_queue`) is fully present. `KFD_MAX_SDMA_QUEUES = 128`.
+
+**Step 6.2 – Backport complications**
+
+Record: **Clean apply expected.** The target lines match the mainline
+diff context. No conflicting changes observed. Fix commit is not in tree
+(`git merge-base --is-ancestor` → not ancestor).
+
+**Step 6.3 – Related fixes already present?**
+
+Record: `deallocate_sdma_queue()` bounds checks exist. No equivalent
+allocate-side check. `git log --grep="bounds.*sdma"` → no matches. Fix
+not yet applied.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1 – Subsystem**
+
+Record: `drivers/gpu/drm/amd/amdkfd` – AMDGPU HSA/KFD compute driver.
+**IMPORTANT** (not core kernel, but widely deployed on AMD GPU systems
+with ROCm/compute workloads).
+
+**Step 7.2 – Activity**
+
+Record: amdkfd is actively maintained; CRIU checkpoint/restore support
+is a relatively newer feature in this area.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1 – Who is affected**
+
+Record: Users of **AMD GPU compute (amdkfd)** with **CRIU
+checkpoint/restore** enabled. Config-dependent
+(`CONFIG_HSA_AMD`/amdkfd). Not universal, but real for containerized GPU
+workload migration.
+
+**Step 8.2 – Trigger conditions**
+
+Record:
+- Malformed or adversarial CRIU checkpoint with `sdma_id >=
+  get_num_sdma_queues()` (especially `>= 128`).
+- Triggered during `KFD_CRIU_OP_RESTORE` on SDMA or SDMA_XGMI queue
+  objects.
+- Requires `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`.
+- Likelihood: low in normal use; realistic with corrupted checkpoints or
+  malicious privileged actor.
+
+**Step 8.3 – Failure mode severity**
+
+Record:
+- `sdma_id >= 128`: **out-of-bounds bitmap access** → potential kernel
+  oops, memory corruption. **Severity: HIGH** (memory safety).
+- `sdma_id` in valid bitmap range but above queue count: incorrect
+  `-EBUSY`, no crash. **Severity: LOW**.
+
+**Step 8.4 – Risk/benefit**
+
+| | Assessment |
+|--|------------|
+| **Benefit** | Prevents OOB kernel memory access on a privileged ioctl
+path; aligns allocate/deallocate safety |
+| **Risk** | Very low – 6 lines, only rejects invalid input |
+| **Ratio** | Favorable for backport |
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1 – Evidence summary**
+
+**FOR backport:**
+- Real bounds-check omission with OOB potential (`sdma_id >= 128` on
+  128-bit bitmap)
+- Userspace-controlled value via CRIU restore ioctl
+- Small, surgical, maintainer-reviewed fix
+- Buggy code confirmed present in 6.18.43
+- Consistent with existing `deallocate_sdma_queue()` pattern
+- Standalone (no dependencies)
+
+**AGAINST backport:**
+- Requires elevated capability (not unprivileged attack)
+- CRIU/amdkfd is a niche code path
+- No syzbot or user crash report
+- Patch 1/2 (doorbell bounds) is a separate fix not included here
+
+**Unresolved:** No runtime crash report; exact introduction commit of
+`restore_sdma_id` path not traceable in this tree's limited git history.
+
+**Step 9.2 – Stable rules checklist# Stable Backport Analysis:
+`drm/amdkfd: Check bounds for allocate_sdma_queue restore_sdma_id`
+
+**Local tree:** Linux **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`)
+
+**Commit under review:** `bfe9a7545b2a7be1c543f1741e16f2d5ec4116ae` (not
+present in this tree)
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[drm/amdkfd]` `[Check]` — Add bounds validation for
+`restore_sdma_id` in `allocate_sdma_queue()` during CRIU queue restore.
+
+### Step 1.2: Tags
 **Record:**
-- **Files:** `drivers/gpu/drm/panel/panel-edp.c` only (+5 lines)
-- **Functions modified:** None — only the `edp_panels[]` static table
-- **Scope:** Single-file, surgical table additions
+- **Signed-off-by:** David Francis `<David.Francis@amd.com>` (author)
+- **Reviewed-by:** Harish Kasiviswanathan
+  `<Harish.Kasiviswanathan@amd.com>`
+- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
+  (maintainer)
+- **No** Fixes:, Reported-by:, Link:, Cc: stable@vger.kernel.org,
+  Tested-by:, Acked-by:
+- Notable: Part of a 2-patch series (`[PATCH 2/2]`); patch 1/2 is a
+  separate `allocate_doorbell` bounds fix.
 
-| Panel ID | Product ID | Delay Profile |
-|----------|-----------|---------------|
-| B140XTN07.5 | 0x0290 | delay_200_500_e50 |
-| B140HAK03.5 | 0x3c9f | delay_200_500_e50 |
-| B116XTN02.3 | 0x49ba | delay_200_500_e50 |
-| B140XTK02.4 | 0x67a8 | delay_200_500_e50 |
-| B140HAN07.7 | 0xc7ad | delay_200_500_e50 |
-
-### Step 2.2: Code Flow Change
+### Step 1.3: Body analysis
 **Record:**
-- **Before:** `find_edp_panel()` returns NULL for these five EDID
-  product IDs → `WARN_ON` + conservative timings (`unprepare=2000`,
-  `enable=200`).
-- **After:** `find_edp_panel()` matches the panel → correct
-  `delay_200_500_e50` applied (`hpd_absent=200`, `unprepare=500`,
-  `enable=50`).
-- **Path affected:** `generic_edp_panel_probe()` during device probe
-  (boot and resume).
+- **Bug:** `allocate_sdma_queue()` accepts a user-specified SDMA queue
+  ID for CRIU restore but never validates it is within the number of
+  available queues.
+- **Symptom:** Out-of-range `sdma_id` reaches `test_bit()` /
+  `clear_bit()` on the SDMA bitmap without validation.
+- **Root cause:** The CRIU restore path passes `q_data->sdma_id` from
+  userspace straight into `allocate_sdma_queue()` with no bounds check
+  on the allocate path (unlike the deallocate path).
+- **Version info:** None in the commit message.
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category (h): Hardware workaround / panel quirk.** Missing
-EDID-to-delay mapping causes incorrect power-sequencing timings during
-panel prepare/enable/unprepare. The driver explicitly documents that
-unknown panels get suboptimal conservative delays and a `WARN_ON` to
-flag the gap.
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit bounds-check bug fix, not disguised
+cleanup.
 
-### Step 2.4: Fix Quality
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
 **Record:**
-- **Quality:** Obviously correct — same `delay_200_500_e50` used for all
-  other AUO panels in the table; entries inserted in sorted
-  vendor/product-ID order.
-- **Regression risk:** Very low — five new table rows, no logic changes.
-- **Red flags:** None.
+- **Files:** `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` (+6
+  / −0)
+- **Function:** `allocate_sdma_queue()`
+- **Scope:** Single-file, surgical fix in two CRIU-restore branches
+  (SDMA and XGMI SDMA).
+
+### Step 2.2: Code flow change
+**Record:**
+- **Hunk 1 (KFD_QUEUE_TYPE_SDMA):** Before → `restore_sdma_id` used
+  directly in `test_bit(*restore_sdma_id, dqm->sdma_bitmap)`. After →
+  reject with `-EINVAL` if `*restore_sdma_id >=
+  get_num_sdma_queues(dqm)`.
+- **Hunk 2 (KFD_QUEUE_TYPE_SDMA_XGMI):** Same pattern using
+  `get_num_xgmi_sdma_queues(dqm)`.
+- **Path affected:** CRIU queue restore only (when `restore_sdma_id` is
+  non-NULL).
+
+### Step 2.3: Bug mechanism
+**Record:** **Memory safety / bounds validation bug (d).**
+- `sdma_bitmap` is `DECLARE_BITMAP(sdma_bitmap, KFD_MAX_SDMA_QUEUES)`
+  where `KFD_MAX_SDMA_QUEUES` is **128**.
+- `get_num_sdma_queues()` is typically much smaller (e.g. engines ×
+  queues_per_engine, often single digits to low tens).
+- Without the check, a `sdma_id >= 128` from userspace causes
+  `test_bit()` / `clear_bit()` to operate outside the 128-bit bitmap →
+  out-of-bounds kernel memory access.
+- For `get_num_sdma_queues() <= sdma_id < 128`, bits are zero and the
+  code returns `-EBUSY` (no crash, but still invalid input that should
+  be rejected earlier).
+
+### Step 2.4: Fix quality
+**Record:**
+- Fix is minimal and mirrors the existing pattern in
+  `deallocate_sdma_queue()` (lines 1686–1691), which already bounds-
+  checks `q->sdma_id`.
+- Low regression risk: only affects the CRIU-restore path with an out-
+  of-range ID.
+- No API or structural changes.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** The `edp_panels[]` table was introduced in `5d324e5159d9e`
-(Linux 6.18-rc8 merge, Nov 2025). The five product IDs from this commit
-are **not present** in the current tree. Similar AUO entries (e.g.,
-B140QAX01.H at `0bd968c04acfb`, B140HAN06.4 at `6ca4647a74155`) were
-added via stable backports.
+**Record:** `restore_sdma_id` logic in `allocate_sdma_queue()` is
+present in this tree at lines 1588–1621. Git blame attributes these
+lines to `a112b91dd6349` (history in this checkout is shallow/squashed
+and not reliable for dating the original feature). The vulnerable
+pattern is confirmed present in 6.18.43.
 
-### Step 3.2: Fixes: Tag
-**Record:** Not applicable — no Fixes: tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag in the commit message.
 
-### Step 3.3: Related Commits
-**Record:**
-- Part of v1 4-patch series by Terry Hsiao (cover letter in local mbox:
-  `20260507_terry_hsiao_...mbx`)
-- This patch (1/4) is **standalone** — only adds AUO entries; no
-  dependency on patches 2–4
-- Precedent in this tree: `0bd968c04acfb` (AUO B140QAX01.H),
-  `6ca4647a74155` (AUO B140HAN06.4), `b173ba3365ff0` (BOE panel)
+### Step 3.3: Related file history
+**Record:** `git log --oneline -20 -- kfd_device_queue_manager.c` shows
+only one commit in this tree’s history for that file. The CRIU restore
+infrastructure (`kfd_criu_restore_queue`, `create_queue_cpsch`,
+`create_queue_nocpsch`) is fully present in 6.18.43. This patch is
+**standalone** within its series; patch 1/2 (`allocate_doorbell` bounds)
+is a separate fix.
 
-### Step 3.4: Author Context
-**Record:** Terry Hsiao has no prior commits in this tree's
-`drivers/gpu/drm/panel/` history. Douglas Anderson (reviewer) is the
-Chromium/DRM maintainer who has reviewed and signed off on prior panel-
-edp stable backports in this tree.
+### Step 3.4: Author context
+**Record:** David Francis (AMD). Alex Deucher signed off. Harish
+Kasiviswanathan reviewed. No other amdkfd commits from this author
+visible in this tree’s limited history.
 
 ### Step 3.5: Dependencies
-**Record:** No dependencies. The `panel-edp` driver, `EDP_PANEL_ENTRY`
-macro, `delay_200_500_e50`, and `edp_panels[]` table all exist in
-v6.18.43. Patch applies cleanly at five sorted insertion points.
+**Record:** No functional dependency on patch 1/2. The `restore_sdma_id`
+pointer parameter and CRIU call sites already exist in this tree. `git
+merge-base --is-ancestor bfe9a75 HEAD` → **not an ancestor** (fix not
+yet applied).
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Discussion
+### Step 4.1: Original discussion
 **Record:**
-- Lore URL blocked by bot protection (WebFetch failed)
-- Local mbox `20260507_terry_hsiao_drm_panel_edp_add_and_update_multiple
-  _auo_boe_cmn_and_ivo_panels.mbx` confirms v1 submission, patch 1/4
-- Cover letter: "add support for new panels from AUO, BOE, CMN, and IVO
-  to the panel-edp driver"
-- No stable nomination or NAK found in available local mbox content
+- `b4 dig -c bfe9a7545b2a7be1c543f1741e16f2d5ec4116ae` → https://patch.m
+  sgid.link/20260512192824.3682569-2-David.Francis@amd.com
+- Series: v1 only (`b4 dig -a`); patch 2/2 of 2.
+- v1 initially had a typo (`restore_sdma_id >=` instead of
+  `*restore_sdma_id >=`); the committed/applied version (and the diff
+  under review) correctly dereferences the pointer.
 
 ### Step 4.2: Reviewers
-**Record:** Reviewed-by and Signed-off-by Douglas Anderson (Chromium DRM
-maintainer). Author domain (`compal.corp-partner.google.com`) indicates
-Chromebook OEM context.
+**Record:** `b4 dig -w` — sent to David Francis and `amd-
+gfx@lists.freedesktop.org`. Harish Kasiviswanathan reviewed; Alex
+Deucher committed.
 
-### Step 4.3: Bug Reports
-**Record:** No external bug reports, syzbot links, or user crash
-reports. Impact inferred from driver behavior when panel IDs are
-missing.
+### Step 4.3: Bug report
+**Record:** No external bug report, syzbot report, or crash log.
+Internal code-review discovery.
 
-### Step 4.4: Series Context
-**Record:** 4-patch series; this commit is patch 1/4 and is self-
-contained. Other patches add BOE/CMN/IVO entries and fix a CMN panel
-name — not required for this fix.
+### Step 4.4: Series context
+**Record:** 2-patch series:
+1. `drm/amdkfd: Check bounds on allocate_doorbell`
+2. This commit (SDMA queue ID bounds)
 
-### Step 4.5: Stable List History
-**Record:** Not searched (lore blocked). Precedent established locally
-by prior panel-edp backports in this 6.18.y tree.
+Each patch addresses a separate CRIU-restore validation gap. This one is
+independently applicable.
+
+### Step 4.5: Stable list history
+**Record:** Could not search lore stable list (Anubis bot protection).
+No stable nomination found via b4.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** No functions modified. Affected data: `edp_panels[]` table,
-consumed by `find_edp_panel()`.
+### Step 5.1: Key functions
+**Record:** `allocate_sdma_queue()` (modified); callers unchanged.
 
 ### Step 5.2: Callers
-**Record:** `find_edp_panel()` called from `generic_edp_panel_probe()`
-(line 805), which is called from `panel_edp_probe()` during platform
-device probe — standard display initialization at boot and resume.
+**Record:**
+- `create_queue_nocpsch()` — line 664: `allocate_sdma_queue(dqm, q, qd ?
+  &qd->sdma_id : NULL)`
+- `create_queue_cpsch()` — line 1985: same pattern
+- Both reached from `pqm_create_queue()` → `kfd_criu_restore_queue()`
+  when `q_data` is non-NULL.
 
 ### Step 5.3: Callees
-**Record:** `find_edp_panel()` iterates `edp_panels[]`, matching via
-`drm_edid_match()` then `panel_id`. Matched entry's `delay` pointer is
-copied into `desc->delay`.
+**Record:** `get_num_sdma_queues()`, `get_num_xgmi_sdma_queues()`,
+`test_bit()`, `clear_bit()`, `bitmap_empty()`, `find_first_bit()`.
 
 ### Step 5.4: Reachability
-**Record:** Triggered on any system using the generic `panel-edp` driver
-with one of these five AUO panels. Common on Chromebooks and laptops.
-Not userspace-triggerable directly, but affects every boot/resume on
-affected hardware.
+**Record:**
+```
+userspace ioctl (KFD_IOC_CRIU, KFD_CRIU_OP_RESTORE)
+  → criu_restore() → criu_restore_objects()
+  → kfd_criu_restore_queue() [copy_from_user q_data->sdma_id]
+  → pqm_create_queue(..., q_data, ...)
+  → create_queue_{nocpsch,cpsch}(..., qd, ...)
+  → allocate_sdma_queue(dqm, q, &qd->sdma_id)
+```
+- Requires `CONFIG_HSA_AMD` / amdgpu KFD.
+- CRIU ioctl gated on `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`
+  (kfd_chardev.c:3332–3337).
+- Reachable from userspace with elevated privileges, not from
+  unprivileged users.
 
-### Step 5.5: Similar Patterns
-**Record:** Multiple AUO entries already exist (e.g., 0x235c and 0x73aa
-both named "B116XTN02.3" — AUO reuses product IDs). Adding 0x49ba as
-another "B116XTN02.3" entry follows the established pattern for handling
-AUO ID reuse.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE (v6.18.43)
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** The `panel-edp` driver and `edp_panels[]` table
-exist (since 6.18-rc8). The five product IDs (0x0290, 0x3c9f, 0x49ba,
-0x67a8, 0xc7ad) are **absent** — confirmed by grep. Panels with these
-IDs currently hit the unknown-panel fallback path.
-
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** All five insertion anchor points
-verified in the local table:
-- 0x0290 before 0x04a4
-- 0x3c9f after 0x30ed, before 0x403d
-- 0x49ba after 0x435c, before 0x52b0
-- 0x67a8 after 0x643d, before 0x723c
-- 0xc7ad after 0xc4b4, before 0xc9a8
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No fix for these five panel IDs. Related AUO panel entries
-(B140QAX01.H, B140HAN06.4) were already backported separately.
+### Step 5.5: Similar patterns
+**Record:** `deallocate_sdma_queue()` already bounds-checks before
+`set_bit()`:
+```1686:1691:drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+                if (q->sdma_id >= get_num_sdma_queues(dqm))
+                        return;
+                set_bit(q->sdma_id, dqm->sdma_bitmap);
+```
+The allocate path was missing the symmetric check. `allocate_doorbell()`
+CP-queue restore path (patch 1/2) has a similar gap but is out of scope
+for this commit.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem Criticality
-**Record:** **drivers/gpu/drm/panel** — IMPORTANT (display subsystem).
-Affects users of specific eDP panel hardware on ARM/Chromebook platforms
-using the generic panel-edp driver.
+### Step 6.1: Buggy code exists?
+**Record:** **Yes.** Lines 1588–1621 in this tree use `*restore_sdma_id`
+in `test_bit()` / `clear_bit()` without prior bounds validation.
+`KFD_MAX_SDMA_QUEUES` is 128 (`kfd_priv.h:123`). CRIU restore and
+`kfd_criu_queue_priv_data.sdma_id` exist in 6.18.43.
 
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained — three panel-edp commits in this 6.18.y
-tree since the driver landed.
+### Step 6.2: Backport complications
+**Record:** Expected **clean apply** — 6 lines added in two well-defined
+locations; no structural conflicts observed.
+
+### Step 6.3: Related fixes already present?
+**Record:** **No.** `git merge-base --is-ancestor bfe9a75 HEAD` failed
+(fix not in tree). No grep hits for the bounds-check pattern in the
+allocate path.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/amd/amdkfd` — **IMPORTANT** (AMD GPU
+compute / ROCm KFD). Not core kernel, but widely deployed on AMD GPU
+servers and workstations.
+
+### Step 7.2: Activity
+**Record:** Limited git history in this checkout; amdkfd CRIU support is
+mature enough to be present in 6.18.43.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who Is Affected
-**Record:** Users of laptops/Chromebooks with these five AUO eDP panels
-using the `panel-edp` generic driver. Platform-specific, not universal.
+### Step 8.1: Who is affected
+**Record:** Users of AMD KFD with CRIU checkpoint/restore (container
+migration, HPC job migration). Requires amdgpu + HSA_AMD + privileged
+CRIU ioctl access.
 
-### Step 8.2: Trigger Conditions
-**Record:** Every boot and display resume on affected hardware. Common
-operational path, not a rare edge case. Not a security vector.
-
-### Step 8.3: Failure Mode Severity
+### Step 8.2: Trigger conditions
 **Record:**
-- **Without fix:** `WARN_ON` at probe; conservative delays
-  (`unprepare=2000ms`, `enable=200ms`) instead of correct
-  (`unprepare=500ms`, `enable=50ms`). Driver comment says conservative
-  timings "highly likely" to work, but wrong power sequencing can cause
-  blank display, flicker, or suspend/resume failures on some panels.
-- **Severity:** MEDIUM — hardware enablement / display reliability, not
-  kernel crash or data corruption.
+- CRIU restore of an SDMA or XGMI SDMA queue with `sdma_id >=
+  get_num_sdma_queues()` (or `>= 128` for definite OOB).
+- Triggered by malicious/corrupt checkpoint data or a buggy userspace
+  restorer.
+- **Not** triggerable by unprivileged users.
+- Moderately rare in practice (CRIU + AMD GPU), but straightforward to
+  trigger with crafted input once privileges are held.
 
-### Step 8.4: Risk-Benefit
+### Step 8.3: Failure mode severity
 **Record:**
-- **Benefit:** MEDIUM — enables correct power sequencing on shipping
-  Chromebook/laptop hardware; eliminates WARN_ON spam.
-- **Risk:** VERY LOW — five table rows, no logic changes, same delay
-  profile as dozens of existing AUO entries.
-- **Ratio:** Favorable — minimal risk, real hardware benefit,
-  established backport pattern in this tree.
+- `sdma_id >= 128`: **HIGH** — out-of-bounds `test_bit()` /
+  `clear_bit()` on a 128-bit bitmap → potential kernel memory corruption
+  or crash.
+- `get_num_sdma_queues() <= sdma_id < 128`: **LOW** — returns `-EBUSY`,
+  no memory corruption.
+- Overall: **HIGH** for the OOB case; privilege requirement lowers
+  practical exploitability but not correctness importance.
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** MEDIUM — closes a kernel memory-safety hole on a
+  privileged ioctl path; aligns allocate/deallocate symmetry.
+- **Risk:** VERY LOW — 6-line validation, reviewed by AMD maintainers.
+- **Ratio:** Benefit outweighs risk.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
-**FOR backporting:**
-- Hardware quirk / panel ID addition to existing driver (explicit stable
-  exception)
-- Same pattern as `0bd968c04acfb` and `6ca4647a74155` already backported
-  to this 6.18.y tree
-- Five-line, obviously correct change reviewed by Chromium DRM
-  maintainer
-- Driver and infrastructure fully present in v6.18.43
-- Wrong power sequencing can cause display failures on affected hardware
-- Clean apply with no dependencies
+**FOR backport:**
+- Real missing bounds check on userspace-supplied `sdma_id` in CRIU
+  restore.
+- Can cause OOB bitmap access when `sdma_id >= 128`.
+- Small (6 lines), obviously correct, AMD-reviewed.
+- Buggy code confirmed in 6.18.43; fix not yet applied.
+- Symmetric with existing `deallocate_sdma_queue()` bounds checks.
 
-**AGAINST backporting:**
-- No explicit bug report or crash description in commit message
-- Conservative fallback exists (display may work without the fix)
-- Not a security, corruption, or crash fix — display reliability only
-- Affects specific hardware, not all users
+**AGAINST backport:**
+- Requires `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN` — not
+  unprivileged attack surface.
+- CRIU + AMD GPU is a niche configuration.
+- No syzbot/user crash report.
+- Companion patch 1/2 (doorbell bounds) is separate; ideally both go in,
+  but this patch stands alone.
 
-**Unresolved:** Lore thread content unavailable (bot protection). No
-independent user bug reports found.
+**Unresolved:** Exact kernel version when CRIU `restore_sdma_id` was
+introduced (shallow history in this checkout).
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — same delay as other AUO
-   panels; Reviewed-by maintainer
-2. Fixes a real bug affecting users? **PASS** — missing panel ID causes
-   wrong power-sequencing delays
-3. Important issue? **PASS (MEDIUM)** — display reliability on shipping
-   hardware; hardware quirk category
-4. Small and contained? **PASS** — 5 lines, one file
-5. No new features or APIs? **PASS** — panel ID entries to existing
-   driver (allowed exception)
-6. Can apply to local tree? **PASS** — driver present, clean apply at
-   verified anchor points
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — trivial validation;
+   Reviewed-by from AMD; no Tested-by.
+2. Fixes a real bug? **PASS** — missing input validation on ioctl-fed
+   data.
+3. Important issue? **PASS** — OOB kernel memory access (HIGH when
+   `sdma_id >= 128`).
+4. Small and contained? **PASS** — 6 lines, one file, one function.
+5. No new features or APIs? **PASS** — validation only.
+6. Can apply to local tree? **PASS** — code exists; clean apply
+   expected.
 
-### Step 9.3: Exception Category
-**Record:** **Hardware quirk/workaround** — panel-specific power-
-sequencing delay mapping, analogous to USB/PCI quirk table entries. Same
-category as prior panel-edp backports in this tree.
+### Step 9.3: Exception categories
+**Record:** None (not a device ID, quirk, DT, build, or docs fix).
+Qualifies as a standard security/correctness bug fix.
 
-### Step 9.4: Decision Rationale
-
-This commit adds five AUO eDP panel entries to the existing `panel-edp`
-driver's lookup table so the correct power-sequencing delays are applied
-at probe. Without these entries, affected panels on Chromebooks and
-laptops fall back to conservative timings with a `WARN_ON`, which can
-cause display initialization or suspend/resume issues.
-
-The change is trivial (5 lines), obviously correct (reuses the standard
-AUO `delay_200_500_e50` profile), reviewed by the Chromium DRM
-maintainer, and follows the exact pattern of panel-edp entries already
-backported to this 6.18.y tree. It falls squarely in the hardware quirk
-exception category for stable kernels.
+### Step 9.4: Decision rationale
+For **Linux 6.18.43**, the vulnerable CRIU-restore path exists and the
+fix is a minimal, maintainer-reviewed bounds check that prevents out-of-
+bounds bitmap access on a userspace-controlled value. The privilege
+requirement reduces attack surface but does not eliminate the bug:
+privileged container/orchestration stacks using KFD CRIU are exactly the
+affected users, and kernel memory safety fixes on ioctl paths are
+appropriate stable material. The fix is self-contained and does not
+depend on patch 1/2.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user query and local
-  mbox
-- **[Phase 1]** Confirmed Reviewed-by: Douglas Anderson; no
-  Fixes:/Reported-by:/syzbot tags
-- **[Phase 2]** Diff analysis: 5 `EDP_PANEL_ENTRY` lines added to
-  `edp_panels[]` in `panel-edp.c`
-- **[Phase 2]** Read `delay_200_500_e50` definition: hpd_absent=200,
-  unprepare=500, enable=50
-- **[Phase 2]** Read `panel_edp_set_conservative_timings()`:
-  unprepare=2000, enable=200
-- **[Phase 2]** Read `generic_edp_panel_probe()` lines 805–825: unknown
-  panel → WARN_ON + conservative fallback
-- **[Phase 3]** `git describe HEAD`: v6.18.43-1-gc7f0dac02d232 (Linux
-  6.18.43)
-- **[Phase 3]** `git blame` on edp_panels[]: table from 5d324e5159d9e
-  (6.18-rc8); no entries for the five new IDs
-- **[Phase 3]** `git log --grep`: found prior panel-edp backports
-  0bd968c04acfb, 6ca4647a74155, b173ba3365ff0
-- **[Phase 3]** Grep for 0x0290/0x3c9f/0x49ba/0x67a8/0xc7ad: no matches
-  — IDs absent from tree
-- **[Phase 4]** Read local mbox `20260507_terry_hsiao_...mbx`: confirmed
-  v1 patch 1/4, cover letter context
-- **[Phase 4]** WebFetch lore URL: blocked by bot protection — thread
-  content unavailable
-- **[Phase 5]** Traced call chain: `panel_edp_probe` →
-  `generic_edp_panel_probe` → `find_edp_panel`
-- **[Phase 6]** Verified all five insertion anchor points exist in local
-  `edp_panels[]` table (lines 1887–1924)
-- **[Phase 6]** Confirmed `panel-edp.c` driver exists in v6.18.43 with
-  full table infrastructure
-- **[Phase 8]** Assessed failure mode: wrong power sequencing, MEDIUM
-  severity, no crash/corruption
+- **[Phase 1]** Parsed subject, tags, body from provided commit message.
+- **[Phase 2]** Diff analysis: +6 lines, two bounds checks with
+  `*restore_sdma_id` dereference.
+- **[Phase 3]** `git describe HEAD` / `make kernelversion` → 6.18.43.
+- **[Phase 3]** `git blame -L 1588,1621` → restore_sdma_id code present.
+- **[Phase 3]** `git merge-base --is-ancestor bfe9a75 HEAD` → exit 1
+  (fix not in tree).
+- **[Phase 4]** `b4 dig -c bfe9a75` → lore URL found.
+- **[Phase 4]** `b4 dig -a` → v1, 2-patch series.
+- **[Phase 4]** `b4 dig -w` → amd-gfx@lists.freedesktop.org CC'd.
+- **[Phase 4]** Web search confirmed commit
+  `bfe9a7545b2a7be1c543f1741e16f2d5ec4116ae` and v1 pointer-deref fix in
+  review.
+- **[Phase 5]** `grep allocate_sdma_queue` → callers at lines 664, 1985.
+- **[Phase 5]** Read `kfd_criu_restore_queue()` →
+  `copy_from_user(q_data)` includes `sdma_id`, no validation.
+- **[Phase 5]** Read `kfd_chardev.c:3332-3337` → CAP_CHECKPOINT_RESTORE
+  or CAP_SYS_ADMIN required.
+- **[Phase 5]** `KFD_MAX_SDMA_QUEUES` = 128 (`kfd_priv.h:123`).
+- **[Phase 5]** `deallocate_sdma_queue()` bounds checks at lines
+  1686–1691 confirmed.
+- **[Phase 6]** Current code at lines 1588–1621 lacks bounds check
+  (verified by read + grep).
+- **[Phase 6]** CRIU infrastructure present: `kfd_criu_restore_queue`,
+  `kfd_criu_queue_priv_data.sdma_id`.
+- **[Phase 8]** Failure mode: OOB when `sdma_id >= 128`; privilege-gated
+  trigger confirmed.
+- **UNVERIFIED:** Exact upstream commit that introduced
+  `restore_sdma_id` (shallow git history in this checkout).
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index be827729c4fb7..c1ea17a0040be 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1885,6 +1885,7 @@ static const struct panel_delay delay_80_500_e50_d50 = {
-  * Sort first by vendor, then by product ID.
-  */
- static const struct edp_panel_entry edp_panels[] = {
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x0290, &delay_200_500_e50, "B140XTN07.5"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x04a4, &delay_200_500_e50, "B122UAN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x0ba4, &delay_200_500_e50, "B140QAX01.H"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x105c, &delay_200_500_e50, "B116XTN01.0"),
-@@ -1900,17 +1901,20 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x239b, &delay_200_500_e50, "B116XAN06.1"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x255c, &delay_200_500_e50, "B116XTN02.5"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x30ed, &delay_200_500_e50, "G156HAN03.0"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x3c9f, &delay_200_500_e50, "B140HAK03.5"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x403d, &delay_200_500_e50, "B140HAN04.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x405c, &auo_b116xak01.delay, "B116XAN04.0"),
- 	EDP_PANEL_ENTRY2('A', 'U', 'O', 0x405c, &auo_b116xak01.delay, "B116XAK01.0",
- 			 &auo_b116xa3_mode),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x435c, &delay_200_500_e50, "Unknown"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x49ba, &delay_200_500_e50, "B116XTN02.3"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x52b0, &delay_200_500_e50, "B116XAK02.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x582d, &delay_200_500_e50, "B133UAN01.0"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x615c, &delay_200_500_e50, "B116XAN06.1"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x635c, &delay_200_500_e50, "B116XAN06.3"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x639c, &delay_200_500_e50, "B140HAK02.7"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x643d, &delay_200_500_e50, "B140HAN06.4"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0x67a8, &delay_200_500_e50, "B140XTK02.4"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x723c, &delay_200_500_e50, "B140XTN07.2"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x73aa, &delay_200_500_e50, "B116XTN02.3"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0x8594, &delay_200_500_e50, "B133UAN01.0"),
-@@ -1918,6 +1922,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xa199, &delay_200_500_e50, "B116XAN06.1"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xa7b3, &delay_200_500_e50, "B140UAN04.4"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc4b4, &delay_200_500_e50, "B116XAT04.1"),
-+	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc7ad, &delay_200_500_e50, "B140HAN07.7"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xc9a8, &delay_200_500_e50, "B140QAN08.H"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xcdba, &delay_200_500_e50, "B140UAX01.2"),
- 	EDP_PANEL_ENTRY('A', 'U', 'O', 0xd497, &delay_200_500_e50, "B120XAN01.0"),
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index c650ffc3e66e8..2f8df95382bc3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1586,6 +1586,9 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
+ 		}
+ 
+ 		if (restore_sdma_id) {
++			if (*restore_sdma_id >= get_num_sdma_queues(dqm))
++				return -EINVAL;
++
+ 			/* Re-use existing sdma_id */
+ 			if (!test_bit(*restore_sdma_id, dqm->sdma_bitmap)) {
+ 				dev_err(dev, "SDMA queue already in use\n");
+@@ -1612,6 +1615,9 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
+ 			return -ENOMEM;
+ 		}
+ 		if (restore_sdma_id) {
++			if (*restore_sdma_id >= get_num_xgmi_sdma_queues(dqm))
++				return -EINVAL;
++
+ 			/* Re-use existing sdma_id */
+ 			if (!test_bit(*restore_sdma_id, dqm->xgmi_sdma_bitmap)) {
+ 				dev_err(dev, "SDMA queue already in use\n");
 -- 
 2.53.0
 
