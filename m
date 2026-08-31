@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 464A0C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 12:31:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F4BBC61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 12:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 745EF10E240;
-	Mon, 31 Aug 2026 12:31:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F64610E4CC;
+	Mon, 31 Aug 2026 12:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJsBccD3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jHt15kCz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2232B10E2BF
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 12:31:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB3410E4CC
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 12:33:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AD6D243B87;
- Mon, 31 Aug 2026 12:31:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EF71F00A3D;
- Mon, 31 Aug 2026 12:31:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A83943D3A;
+ Mon, 31 Aug 2026 12:33:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110C91F00A3D;
+ Mon, 31 Aug 2026 12:33:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788179463;
- bh=hwDK5Pmg+mRcTcHFYoeK5ij7OUg+pIqlkRaPLDCxMGI=;
+ s=k20260515; t=1788179607;
+ bh=cNOsp31OGBXEdQPcnDWbmzK7ZwDCBTeskUMUM2pFRFo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JJsBccD3abuRxBpcQiufulXnAegtixGWDNsc1FHKT8f/Jj3wfKfCkXUu3HMJM1tkO
- OffubK79ZOVT2XhX7i1Dp29vx0zxJ+jMPpYxaCU+BXeG/5C0b/V2jC305jQkoX4gW2
- NhPrxx+c/t5FeIj55wGb06qDk+UmH9f9gci1gTZ/Y7BffovJ2yiOgcB2wsZDZJ2dgr
- QMqxY1t441HW5a8BLoJmV0UhtGI3BzsXnRi0hVvoxohy13cdlgg50SZj4mBdb42+8b
- 4gGu1vNfgxWxtexwPpkB4ZcDT/4cF4BGmgNSeSV7X50UlkdN8DUECNTd1CKdK43fzn
- NmwLm18QAraQQ==
+ b=jHt15kCzRptfbH5HZuIyJLFrX1mGlOYmuONfnBVX/WU6EY5mJfW1xeT6UnPNj7mxv
+ e7I2ZRD15dZKWyoTYYF7FUZzJ7yCnfObfoSrTey+AdejZYx/ZPuXRJFiLlYXFMQfUU
+ bJc1rk4jrf/r0+9sECzksJE0ZWwZ+vVeRiWmc+jCrkGe693qDec7mjD/nQhwfmi4nw
+ 6CdJ6o3gLE3Mtk6VUI837sa1Uw2Q1T2pHv6fCkJKUOvhGjIvEKLxaBFzi4nLPJbbeU
+ gRDUE1iVyWDLkbfM+g194euihh9b0yXVw8MP1D7l5cgggUoOLdEkvDiSf87O8igirl
+ n+rTfJcMxIIbg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/2] drm/bridge: ti-sn65dsi83: Fix error handling in
- sn65dsi83_reset_work()
-To: "Esben Haabendal" <esben@geanix.com>
+Subject: Re: [PATCH] accel/ivpu: Add support for getting and setting command
+ queue priority
+To: "Andrzej Kacprowski" <andrzej.kacprowski@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
-References: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
- <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
+In-Reply-To: <20260831121617.395523-1-andrzej.kacprowski@linux.intel.com>
+References: <20260831121617.395523-1-andrzej.kacprowski@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 12:31:03 +0000
-Message-Id: <20260831123103.70EF71F00A3D@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 12:33:26 +0000
+Message-Id: <20260831123327.110C91F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +61,72 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing `cancel_work_sync` for `reset_work` leads to a use-after-f=
-ree on driver unbind.
+- [High] Missing CAP_SYS_NICE or DRM_MASTER check for elevated job prioriti=
+es (REALTIME / FOCUS), allowing unprivileged users to monopolize the NPU.
 --
 
-commit 47920da4c643294656a651a954618ec33114a7d9
-Author: Esben Haabendal <esben@geanix.com>
+commit 57cf0d7005a7761ad6193ea568802164b7fac6db
+Author: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
 
-drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
+accel/ivpu: Add support for getting and setting command queue priority
 
-The commit reintroduces a non-zero return value from sn65dsi83_reset_pipe()
-on error to prevent erroneous IRQ re-enabling during failures. It also
-updates sn65dsi83_reset_work() to properly exit the DRM bridge critical
-section by always calling drm_bridge_exit().
+This commit adds a new DRM_IVPU_PARAM_CMDQ_PRIORITY parameter to query and
+update the scheduling priority of an existing command queue. The priority
+can be changed on a queue that already has pending jobs, propagating the
+change to firmware in hardware scheduling mode.
 
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi83.c
-> index 42b451432bbb6..9f530cd05d2f3 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
+> index ebb2c865b09a0..b3de5dd29d1e8 100644
+> --- a/drivers/accel/ivpu/ivpu_job.c
+> +++ b/drivers/accel/ivpu/ivpu_job.c
+
 [ ... ]
-> @@ -419,11 +419,13 @@ static void sn65dsi83_reset_work(struct work_struct=
- *ws)
->  	ret =3D sn65dsi83_reset_pipe(ctx);
->  	if (ret) {
->  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
-> -		return;
-> +		goto bridge_exit;
->  	}
-> +
->  	if (ctx->irq)
->  		enable_irq(ctx->irq);
-> =20
-> +bridge_exit:
->  	drm_bridge_exit(idx);
+
+> @@ -1127,6 +1132,86 @@ int ivpu_cmdq_destroy_ioctl(struct drm_device *dev=
+, void *data, struct drm_file
+>  	return ret;
 >  }
+> =20
+> +static int ivpu_cmdq_priority_args_check(struct ivpu_device *vdev, u32 c=
+mdq_id, u64 priority)
+> +{
+> +	if (!ivpu_is_capable(vdev, DRM_IVPU_CAP_CMDQ_SET_PRIORITY)) {
+> +		ivpu_dbg(vdev, IOCTL, "Command queue priority not supported\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	if (cmdq_id < IVPU_CMDQ_MIN_ID || cmdq_id > IVPU_CMDQ_MAX_ID) {
+> +		ivpu_dbg(vdev, IOCTL, "Invalid command queue ID %u\n", cmdq_id);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (priority > DRM_IVPU_JOB_PRIORITY_REALTIME)
+> +		return -EINVAL;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential
-use-after-free related to the reset_work structure that is being modified h=
-ere.
+This is a pre-existing issue, but is there a missing capability check for
+elevated priorities here?
 
-During driver unbind (e.g., via sysfs), sn65dsi83_remove() unplugs the brid=
-ge
-but does not explicitly call cancel_work_sync(&ctx->reset_work). After
-sn65dsi83_remove() returns, devres automatically frees the IRQ and the ctx
-structure.
+An unprivileged user who opens the NPU device can call the IVPU_SET_PARAM
+ioctl with DRM_IVPU_PARAM_CMDQ_PRIORITY and set the priority to
+DRM_IVPU_JOB_PRIORITY_REALTIME. Without a CAP_SYS_NICE or DRM_MASTER check,
+could a malicious or buggy application elevate its command queue priority to
+monopolize the hardware and starve other processes?
 
-If an interrupt had previously scheduled the work, the work item might rema=
-in
-in the queue and eventually execute sn65dsi83_reset_work(), which will atte=
-mpt
-to access the freed ctx pointer (e.g., when calling
-drm_bridge_enter(&ctx->bridge, &idx)).
+I notice this same behavior appears to be pre-existing in
+ivpu_cmdq_create_ioctl() as well, where queues can be created with realtime
+priority by any user. Should these priority levels be restricted?
 
-Should sn65dsi83_remove() be updated to include a call to
-cancel_work_sync(&ctx->reset_work) to ensure the work is fully cancelled
-before devres tears down the allocated memory?
+> +
+> +	return 0;
+> +}
+> +
+> +int ivpu_cmdq_get_priority(struct ivpu_file_priv *file_priv, u32 cmdq_id=
+, u64 *priority)
+> +{
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-ti-sn65dsi=
-83-fixes-v5-0-e712765d6c4f@geanix.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831121617.3955=
+23-1-andrzej.kacprowski@linux.intel.com?part=3D1
