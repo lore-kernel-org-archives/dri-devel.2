@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69718C624CE
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 22:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF435C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 22:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFB210E348;
-	Mon, 31 Aug 2026 22:37:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BEFA10E340;
+	Mon, 31 Aug 2026 22:39:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PuYa19At";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mhwwJTz4";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E508510E32B;
- Mon, 31 Aug 2026 22:37:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A02D210E340
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 22:39:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B4C464034F;
- Mon, 31 Aug 2026 22:37:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67D11F000E9;
- Mon, 31 Aug 2026 22:37:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A44340350;
+ Mon, 31 Aug 2026 22:39:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049AE1F000E9;
+ Mon, 31 Aug 2026 22:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788215832;
- bh=x4hbSekisOOofZcqpcuNGlFq1xlmf9njDQ3dRiRKnag=;
+ s=k20260515; t=1788215976;
+ bh=Hsy9qGm17h6phI4jhB7PGMVQJlssPMud6DVlvMPsKSA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PuYa19At8qjbk74q7Y4cWBuOzw7w6loxpQzG7soreYdongWvuipUbBbLbaKcy4g9r
- Rc7lEDMHytSghPqbJAilbZ4RyjDiXFTdG7tqTava/Oix6W6D6FPWlPbwyYSDp1N4Pq
- I0J38v5Xrv79oYMpqG+atCspEyDYCQooNHcAuDYK6DyIbRo6b01SZSG8wnFBo5YQgU
- nEwrAyEoZP4YVSZj+yBEWWTgSgKRi9Q5d/JlupOccQSZCcWRSGwqpvXdcWo/x3r6Ov
- ySmhjZGS61x9TGt6fo7rGSxcvVGcUMb9JlyD66eThPNyHgARFvHXt8/p1NWqv5+EWb
- qYF9RPczyYQhg==
+ b=mhwwJTz4rZ8gQh9H0yQEXw01Ejqf8J75mXtMVhuStNis/C1QLaQRdZ6ZGXPfK9NAJ
+ XeHFcwusvCuWHeqQ2DeganuqbnbtIM7OwzP8h9/6B5zRiLBAfab5E9dB1EFHYpqSo1
+ 4sxKeU737pU+uf0WY1jM9CGm4m4TGKfPVp8C2H5SWbAYdNp8C1CTWYlp1XHWibTl3f
+ WhpuKe8aJy6YvgZLefi2VMZGHg5DcB5EjKzYosEbPuNUfqq0VFJZTYBIQ0SkESLeCR
+ xysPPRIF6St4ZKcYZDXwHNpoxN8DD0JMcx0UavmkNl2/FYR9cI+HiGqc2rKqLPgm0i
+ WSapHcFo2bFlQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/12] drm: add DRM_CLIENT_CAP_LUMINANCE
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260831210531.2334221-6-mario.limonciello@amd.com>
-References: <20260831210531.2334221-1-mario.limonciello@amd.com>
- <20260831210531.2334221-6-mario.limonciello@amd.com>
+Subject: Re: [PATCH v3 35/40] drm/rz-du: Convert to atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: wsa+renesas@sang-engineering.com, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260831-drm-no-more-plane-reset-v3-35-1877c7aa57b3@kernel.org>
+References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
+ <20260831-drm-no-more-plane-reset-v3-35-1877c7aa57b3@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 22:37:11 +0000
-Message-Id: <20260831223711.A67D11F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 22:39:35 +0000
+Message-Id: <20260831223936.049AE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,102 +57,77 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Connector hotplugging or unplugging while DRM_CLIENT_CAP_LUMINANCE=
- is active causes state desynchronization and triggers kernel warnings.
-- [High] Concurrent calls to DRM_IOCTL_SET_CLIENT_CAP can leak `luminance_c=
-lients` reference counts, permanently inhibiting legacy sysfs backlight con=
-trol (DoS).
+
+Pre-existing issues:
+- [High] Invalid pointer dereference on initialization error path due to in=
+correct list iterator usage.
 --
 
-commit d72da18676683e0c9579165708469f0cf974aa5b
-Author: Mario Limonciello <mario.limonciello@amd.com>
+commit 3bffdb77add6a2ca9d3e5bb1dea2bfe6e12b39b0
+Author: Maxime Ripard <mripard@kernel.org>
+Subject: drm/rz-du: Convert to atomic_create_state
 
-drm: add DRM_CLIENT_CAP_LUMINANCE
+This commit converts the plane reset implementation to use atomic_create_st=
+ate
+by creating a pristine state without resetting hardware. The conversion was
+done using a Coccinelle semantic patch.
 
-This commit adds a DRIVER_CONNECTOR_LUMINANCE feature and a
-DRM_CLIENT_CAP_LUMINANCE client capability. When a client enables this
-capability, the kernel inhibits legacy sysfs backlight control by taking
-over the backlight devices.
-
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-
-[ ... ]
-
-> @@ -252,6 +253,10 @@ void drm_file_free(struct drm_file *file)
->  	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->  		drm_fb_release(file);
->  		drm_property_destroy_user_blobs(dev, file);
-> +		if (file->supports_luminance_control) {
-> +			drm_backlight_uninhibit_legacy_all(dev);
-> +			file->supports_luminance_control =3D false;
-> +		}
->  	}
-
-[Severity: High]
-Will this correctly handle connectors that are hotplugged or unplugged
-after the compositor sets DRM_CLIENT_CAP_LUMINANCE?
-
-drm_backlight_uninhibit_legacy_all() iterates over the list of currently
-present connectors. If a compositor enables DRM_CLIENT_CAP_LUMINANCE and a
-monitor is later hotplugged via DP MST, the new connector will not have
-its legacy sysfs backlight control inhibited.
-
-When the compositor exits and drm_file_free() runs:
-
-For newly hotplugged connectors, it will try to uninhibit them even though
-they were never inhibited, triggering WARN_ON(b->luminance_clients =3D=3D 0)
-in drm_backlight_uninhibit_legacy().
-
-Conversely, for connectors unplugged before the compositor exits,
-drm_backlight_connector_cleanup() will fire WARN_ON(b->luminance_clients)
-because the connector is destroyed while its luminance_clients count is
-still 1.
-
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/d=
+rm/renesas/rz-du/rzg2l_du_vsp.c
+> index 1efa0f0451fe9..944bc9ac9589d 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> @@ -266,26 +266,23 @@ static void rzg2l_du_vsp_plane_atomic_destroy_state=
+(struct drm_plane *plane,
 
 [ ... ]
 
-> @@ -392,6 +394,21 @@ drm_setclientcap(struct drm_device *dev, void *data,=
- struct drm_file *file_priv)
->  		file_priv->plane_color_pipeline =3D req->value;
->  		break;
->  	}
-> +	case DRM_CLIENT_CAP_LUMINANCE:
-> +		if (!drm_core_check_feature(dev, DRIVER_CONNECTOR_LUMINANCE))
-> +			return -EOPNOTSUPP;
-> +		if (!file_priv->atomic)
-> +			return -EINVAL;
-> +		if (req->value > 1)
-> +			return -EINVAL;
-> +		if (req->value =3D=3D file_priv->supports_luminance_control)
-> +			break;
-> +		if (req->value)
-> +			drm_backlight_inhibit_legacy_all(dev);
-> +		else
-> +			drm_backlight_uninhibit_legacy_all(dev);
-> +		file_priv->supports_luminance_control =3D req->value;
-> +		break;
+>  static const struct drm_plane_funcs rzg2l_du_vsp_plane_funcs =3D {
+>  	.update_plane =3D drm_atomic_helper_update_plane,
+>  	.disable_plane =3D drm_atomic_helper_disable_plane,
+> -	.reset =3D rzg2l_du_vsp_plane_reset,
+> +	.atomic_create_state =3D rzg2l_du_vsp_plane_create_state,
+>  	.atomic_duplicate_state =3D rzg2l_du_vsp_plane_atomic_duplicate_state,
+>  	.atomic_destroy_state =3D rzg2l_du_vsp_plane_atomic_destroy_state,
+>  };
 
 [Severity: High]
-Does this check-then-act sequence lack synchronization?
+This isn't a bug introduced by this patch, but while reviewing this file I
+noticed a pre-existing issue in rzg2l_du_vsp_get_drm_plane():
 
-If two threads share a single DRM file descriptor and concurrently invoke
-DRM_IOCTL_SET_CLIENT_CAP with DRM_CLIENT_CAP_LUMINANCE=3D1, both threads
-could evaluate the supports_luminance_control condition as false before
-either updates it.
+drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c:rzg2l_du_vsp_get_drm_plane() {
+	...
+	struct drm_plane *plane =3D NULL;
 
-Both threads would then call drm_backlight_inhibit_legacy_all(dev), causing
-a double-increment of the luminance_clients reference count. When the file
-descriptor is closed, drm_file_free() will only call
-drm_backlight_uninhibit_legacy_all() once, permanently leaving the legacy
-sysfs backlight interface inhibited and returning -EBUSY.
+	drm_for_each_plane(plane, &rcdu->ddev) {
+		struct rzg2l_du_vsp_plane *vsp_plane =3D to_rzg2l_vsp_plane(plane);
+
+		if (vsp_plane->index =3D=3D pipe_index)
+			break;
+	}
+
+	return plane ? plane : ERR_PTR(-EINVAL);
+}
+
+Is it possible for drm_for_each_plane() to finish without finding a match?
+
+Since drm_for_each_plane() is a wrapper around list_for_each_entry(), the l=
+oop
+iterator "plane" is not set to NULL when the list is exhausted. If no match
+is found (e.g., if vsp_plane->index =3D=3D pipe_index is never true), the l=
+oop
+terminates without a break, leaving "plane" containing an invalid pointer
+derived from the list head offset.
+
+The ternary check "plane ? plane : ERR_PTR(-EINVAL)" will then evaluate to
+true and return this invalid pointer instead of the error. This invalid poi=
+nter
+could then be dereferenced during initialization on the error path by
+drmm_crtc_init_with_planes(), leading to memory corruption or a kernel cras=
+h.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
-221-1-mario.limonciello@amd.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-drm-no-mor=
+e-plane-reset-v3-0-1877c7aa57b3@kernel.org?part=3D35
