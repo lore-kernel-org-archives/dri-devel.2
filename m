@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8E29C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1C66C624A5
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C1510E9D3;
-	Mon, 31 Aug 2026 16:18:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F24410E9B7;
+	Mon, 31 Aug 2026 16:18:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g+Xlw9xz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bgoTPOgH";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F40310E9B1
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:18:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3028410E9B1
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:18:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B522960200;
- Mon, 31 Aug 2026 16:18:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96351F000E9;
- Mon, 31 Aug 2026 16:18:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A77BB601FD;
+ Mon, 31 Aug 2026 16:18:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41581F00A3D;
+ Mon, 31 Aug 2026 16:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788193085;
- bh=5gQDsHKSTy7fpNBd5Cqng2QrZXq2nH6/YStUbr+at+s=;
+ s=k20260515; t=1788193089;
+ bh=gzVLwTCHuP++6QcNQelcf00q3Lkr9GeOem8rE5qsOUc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=g+Xlw9xzRmwOXse5M9w4DPNVH4+DMwotGkvRsk0vsX3gcjfYD0rhcdBmWs2KjXvDP
- wMWL0+SLDXGSVlnZ8kyKLKNeJhzi3dRxJJ1iLEx2P9jzDSqATZj7sgUFsTSqCWGd2d
- oD9tW92vyIoxvPFBNPzoHgzmNWtktmZVq+S0LUJMOfzWQqiEIgGv8+dch6APfeBa3r
- pYmKLXJR/Jw9TlEY3xka7VoCR4IgZySMLW1ML0PKSQz16xW4qpILNjagpPETlETQVd
- r8X3EkwX9cu61WA9g9IsyY/9ofXbwrSLcb1lSSU8fPrwol1NrwZd4n8wOT6qomzzcC
- 8PIwqwgkhqWzw==
+ b=bgoTPOgHpKEmrt3d5pyrmFDigWf1NHGMhLew8R2wuBY1MuyQTiftLAOI/yMoND4IY
+ dltODlqfpwvUS8wz/AI3KUrvOhr/ByjfZfq6efy7BMlue4+DaHkzmEDbiRCeOKnMga
+ pHvjJgjMbL94Ezj1DW/PgGNmutM204mgkvGi/GxBjOsd9WSH0AMwzl/1LzMRCqdN9V
+ ByZg4m142ajgjpDqTzDTi6JAx1QGrif4I2wnQxJJGGF6YiUI/B/ZziM3kPaSFiVh0L
+ Gb2XPrY/ukhReD9sAYymg6JSNXD+Eo03mMejwrgztw0VqoX9pvNU41C/6dvvza3eBw
+ gTfRfNYKMlfVQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 31 Aug 2026 18:17:22 +0200
-Subject: [PATCH v3 06/40] drm/hisilicon/kirin: Convert to atomic_create_state
+Date: Mon, 31 Aug 2026 18:17:23 +0200
+Subject: [PATCH v3 07/40] drm/imx/dc: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-drm-no-more-plane-reset-v3-6-1877c7aa57b3@kernel.org>
+Message-Id: <20260831-drm-no-more-plane-reset-v3-7-1877c7aa57b3@kernel.org>
 References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 In-Reply-To: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- jstultz@google.com, sumit.semwal@linaro.org, xinliang.liu@linaro.org, 
- yongqin.liu@linaro.org
+ Frank.Li@nxp.com, Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
+ imx@lists.linux.dev, kernel@pengutronix.de, victor.liu@nxp.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6074; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ewiBZwTE7vjER9hGHWix4RTQBWuo/hClGc4IMkyHkwE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTVwrL3u7iM63dkXH56RG5R9IH/PQ4VrY1BCRpNp+e/
- Y5VZVpzx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI2ALGOjPHVSu/sQbwmHKn
- Pjr/90mrm8cBWZb3Wqohbteuf8p7FFD5atfNFUt+7t72dvb/77uXzmZsOOq6LTXgeevhNGb5huM
- l3m97P1pasl9g/WBdHf84OImbM/jWnIoTa4UcFX6XC2/TLJwKAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6050; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=nR2kjaRNPcmr98uoaFn6RVYS5o+8ynln8f+m3N8r7X8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTVwo3yVg3XFjJmWug+3K1Ut6Ue87b8wxytk/VrJrp5
+ iYeOUugYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzEy4+xvkwmbNP3yvk3gnLd
+ T5Q9EOqQX8/cmNq/YrnMDUX7Y8f2Snc/+q7XuOW+bIHyb/15oQGFjHUGmfuUFqycpKRaxZDWEX6
+ CJTyqQJkpve6IYoXQi4s9ewsmaQo3N3X+O7Mk7TAX16dltQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,31 +335,33 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: jstultz@google.com
-Cc: sumit.semwal@linaro.org
-Cc: xinliang.liu@linaro.org
-Cc: yongqin.liu@linaro.org
+Cc: Frank.Li@nxp.com
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: festevam@gmail.com
+Cc: imx@lists.linux.dev
+Cc: kernel@pengutronix.de
+Cc: victor.liu@nxp.com
 ---
- drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c | 2 +-
+ drivers/gpu/drm/imx/dc/dc-plane.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
-index 5f4e738bc94e..bca839dd600b 100644
---- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
-+++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
-@@ -835,11 +835,11 @@ static const struct drm_plane_helper_funcs ade_plane_helper_funcs = {
+diff --git a/drivers/gpu/drm/imx/dc/dc-plane.c b/drivers/gpu/drm/imx/dc/dc-plane.c
+index dea7404fe659..62dd0576fadc 100644
+--- a/drivers/gpu/drm/imx/dc/dc-plane.c
++++ b/drivers/gpu/drm/imx/dc/dc-plane.c
+@@ -37,11 +37,11 @@ static const uint32_t dc_plane_formats[] = {
  
- static struct drm_plane_funcs ade_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy = drm_plane_cleanup,
--	.reset = drm_atomic_helper_plane_reset,
+ static const struct drm_plane_funcs dc_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+ 	.destroy		= drm_plane_cleanup,
+-	.reset			= drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
  };
  
- static void *ade_hw_ctx_alloc(struct platform_device *pdev,
+ static inline struct dc_plane *to_dc_plane(struct drm_plane *plane)
 
 -- 
 2.55.0
