@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4762C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC40C624A4
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:44:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1368010E89A;
-	Mon, 31 Aug 2026 13:44:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0023510E89B;
+	Mon, 31 Aug 2026 13:44:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lg4qFprw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bx+aaz9n";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 277FE10E89A
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:44:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D934D10E89B;
+ Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7A5F16025F;
- Mon, 31 Aug 2026 13:44:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DE41F00A3E;
- Mon, 31 Aug 2026 13:44:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 94A60408A9;
+ Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CCC1F00ADE;
+ Mon, 31 Aug 2026 13:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183861;
- bh=BCUcAlchfVkJ6CooKk/wH8zMbjYepLYVbdrAMkbfdaw=;
+ s=k20260515; t=1788183868;
+ bh=pf4ekvd+NEY5JRo6Eblbsd81JMP2cKd6vW/zi5iBGsQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Lg4qFprwRYqFRESe+s3dK2JNk4HjWODdINGyDaTh49ut60lnzf5C6lV7U5IX83uus
- mQmVbegVS2ilGDcta5O7txbOCB46VHSLSvjdLHyaprSQ/NYI/YnbHUeNYdg49Begnv
- Xe77O97RLwV/B20qLXlW3ZYoBPVq+NaJ2DdL6KlpijIscXy74qKxgv9oxq54VhP4ct
- U9Hae2d6lAYUpZkg0Ysc2rHidRbEg3XmOTIa9OVebszR2I/h/jdXS4qRrvy6YPB6qn
- lpQfB78l1CLZAzCMTaWV/vLM4cNitJwOeOHJXDjxElKpGpXwkUgDjxxm69gHFPxTLF
- MNMWJXwZzgC9Q==
+ b=Bx+aaz9nHhkBpGa5xWfv3n7LQ7ysIEkP0sOVQagFKPcxUNiAXHJSWoZvBCZ/cEqe7
+ N5ebTjqc3ODCICDFVpp+D8Wc/Ktqzzp3XgHUFU5A54rlSLvSSuhWyYs5w6ZSPA3B31
+ SLWQs4LXM2ZRq9vRUzcPM+q/QE+7v8Cv3qD0Mpo4FRti3TrTLJmvBydu3A6RFSb6Og
+ ff78H6GmJLhKuP397owtGivchW753jAIiyWwwfxCtI6a2/vhltSCurnGSiLodh5NfI
+ UzIJtLc07vJhgLg4LAhnwbJyORK1JJeGajJy8j9kZKjToiTx6ZrCNBkB+lO/IjFCt5
+ 2UwGg1zWOlI5g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>, Helge Deller <deller@gmx.de>,
- Sasha Levin <sashal@kernel.org>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] fbdev: pm2fb: unwind WC setup on probe
- failure
-Date: Mon, 31 Aug 2026 09:26:16 -0400
-Message-ID: <20260831133314.4125787-348-sashal@kernel.org>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: Use system unbound workqueue for
+ soft IH ring
+Date: Mon, 31 Aug 2026 09:26:19 -0400
+Message-ID: <20260831133314.4125787-351-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,131 +67,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 16eb19f0c90af03bda6ba66586d7bb0e9cf85b43 ]
+[ Upstream commit ba2977dcce72127986fbad76c4c67f134e2f69ae ]
 
-Add arch_phys_wc_del() on error path to keep the
-write-combining setup balanced when later probe
-steps fail.
+Allow the kernel to dispatch the soft IH work on other CPUs.
 
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Otherwise it can happen that the soft IH ring fills up
+before it actually starts processing anything, which
+can easily happen with retry page faults, in which case
+the CP repeatedly spams the CPU with a lot of interrupts.
+
+This significantly improves retry page fault handling on
+GPUs that don't have the filter CAM and must rely on
+software based filtering.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 3cdff3c8b93c2834977224d9c2b201fc334dd184)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `fbdev: pm2fb: unwind WC setup on probe
-failure`
+# Stable Backport Analysis: drm/amdgpu: Use system unbound workqueue for
+soft IH ring
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`, `HEAD` detached)
-**Candidate commit:** `16eb19f0c90af03bda6ba66586d7bb0e9cf85b43`
-(mainline only; **not** in this tree)
+**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Fix commit:** `3cdff3c8b93c` (on `linux-next/master`, **not** an
+ancestor of current HEAD — bug still present locally)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[fbdev: pm2fb]` `[unwind]` — Add missing write-combining
-teardown when `pm2fb_probe()` fails after WC setup.
+### Step 1.1: Parse subject line
+**Record:** `[drm/amdgpu]` — no explicit verb; implied **fix/improve** —
+**Use system unbound workqueue for soft IH ring**
 
-### Step 1.2: Tags
+### Step 1.2: Parse commit message tags
 **Record:**
-- `Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>` (author)
-- `Signed-off-by: Helge Deller <deller@gmx.de>` (fbdev maintainer,
-  applied the patch)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`, or `Link:` tags
-- Notable: maintainer ack via application; no user/fuzzer reports
+- **Reviewed-by:** Tvrtko Ursulin \<tvrtko.ursulin@igalia.com\>
+- **Signed-off-by:** Timur Kristóf, Alex Deucher
+- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, Link:, Cc:
+  stable@vger.kernel.org
+- Notable: Reviewed-by from Igalia amdgpu contributor; no syzbot/user
+  bug report
 
-### Step 1.3: Body analysis
+### Step 1.3: Analyze commit body
 **Record:**
-- **Bug:** `arch_phys_wc_add()` is called during probe, but later probe
-  failures skip `arch_phys_wc_del()`.
-- **Symptom:** Leaked MTRR/WC mapping on x86 systems where
-  `arch_phys_wc_add()` actually allocates an MTRR (PAT disabled, MTRR
-  enabled, `nomtrr` unset).
-- **Root cause:** Missing symmetric cleanup on `err_exit_pixmap` and
-  downstream error labels (`err_exit_both`, `err_exit_all`).
-- **Version info:** None in the message.
+- **Bug:** Soft IH ring can fill before its work item runs; CP floods
+  the CPU with interrupts during retry page faults.
+- **Symptom:** Soft IH ring overflow / interrupt storm; degraded or
+  broken retry page fault handling on GPUs without hardware filter CAM
+  (software filtering only).
+- **Root cause (author):** `schedule_work()` dispatches on a CPU-bound
+  workqueue; work stays pinned on the IRQ CPU and cannot run while that
+  CPU is saturated with interrupts.
+- **Fix:** `queue_work(system_unbound_wq, ...)` allows processing on
+  another CPU.
+- **Version info:** None in message.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Although titled “unwind WC setup,” this is a probe
-error-path **resource leak** fix, not cosmetic cleanup.
+### Step 1.4: Detect hidden bug fixes
+**Record:** **Yes — functional bug fix disguised as scheduling
+improvement.** Ring fill-up before processing means dropped interrupt
+vectors and failed page-fault handling, not merely slower performance.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory changes
 **Record:**
-- **Files:** `drivers/video/fbdev/pm2fb.c` (+1 / −0)
-- **Functions:** `pm2fb_probe()` error path only
-- **Scope:** Single-file, surgical one-liner
+- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c` (+1 / −1)
+- **Function:** `amdgpu_irq_delegate()`
+- **Scope:** Single-file, single-line surgical fix
 
 ### Step 2.2: Code flow change
 **Record:**
-- **Before:** After `arch_phys_wc_add()` at lines 1655–1657, failures at
-  pixmap alloc (`err_exit_pixmap`), cmap alloc (`err_exit_both`), or
-  `register_framebuffer()` (`err_exit_all`) skipped WC teardown.
-- **After:** `err_exit_pixmap` calls
-  `arch_phys_wc_del(default_par->wc_cookie)` before unmapping smem —
-  matching `pm2fb_remove()` at line 1738.
-- **Affected paths:** Error paths only (not the success path).
+- **Before:** `schedule_work(&adev->irq.ih_soft_work)` → queues on
+  `system_wq` (CPU-bound).
+- **After:** `queue_work(system_unbound_wq, &adev->irq.ih_soft_work)` →
+  can run on any CPU.
+- **Path:** Called from `amdgpu_irq_delegate()` after writing an IV to
+  the soft IH ring; triggered during retry page faults on GPUs using
+  software filtering (gmc_v9/v10/v11/v12).
 
 ### Step 2.3: Bug mechanism
 **Record:**
-- **Category:** Error-path resource leak
-- **Mechanism:** `arch_phys_wc_add()` may consume an MTRR slot on PAT-
-  less x86; without `arch_phys_wc_del()`, that slot stays allocated
-  after failed probe. On PAT-enabled or non-x86 systems,
-  `arch_phys_wc_add()` is effectively a no-op and `arch_phys_wc_del(0)`
-  is also a no-op.
+- **Category:** Logic / scheduling deadlock (interrupt storm + work
+  starvation).
+- **Mechanism:** IRQ handler delegates to soft IH ring and schedules
+  bound work on the same CPU. Under retry page-fault storms, IRQs keep
+  arriving before work runs; `amdgpu_ih_ring_write()` can reach `wptr ==
+  rptr` and stop advancing the write pointer — IVs are written but not
+  committed/processed.
 
 ### Step 2.4: Fix quality
 **Record:**
-- Obviously correct; mirrors `pm2fb_remove()` and the pattern in
-  `tdfxfb.c` (line 1556).
-- Minimal, no API changes.
-- **Regression risk:** Very low — `arch_phys_wc_del()` is documented to
-  be safe for handle `0` and error returns.
+- **Quality:** Obviously correct; mirrors existing amdgpu usage of
+  `system_unbound_wq` in `amdgpu_reset.c`, `amdgpu_device.c`,
+  `aldebaran.c`.
+- **Regression risk:** Very low. `queue_work()` deduplicates already-
+  queued work; same `work_struct` and handler unchanged.
+- **No API, lock-order, or structural changes.**
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
+### Step 3.1: Blame changed lines
 **Record:**
-- `arch_phys_wc_add()` introduced in `f8f05cdc767fa` (Apr 2015, “use
-  arch_phys_wc_add() and ioremap_wc()”).
-- `f8f05cdc767fa` **is** an ancestor of this tree (`merge-base` exit 0).
-- Error-path labels date to 2005–2008; WC cleanup on error was never
-  added when MTRR code was converted in 2015.
+- `amdgpu_irq_delegate()` introduced in `26f32a377eedd` (Oct 2020,
+  Christian König) — soft IH infrastructure.
+- `schedule_work()` line dates to that same commit; present in this tree
+  since 6.18 base.
+- Bug has existed since soft IH ring was added (~5.10+ era).
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Bug introduced by `f8f05cdc767fa`,
-which is present in 6.18.y.
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
 ### Step 3.3: Related file history
 **Record:**
-- `a943710407120` — identical fix for `uvesafb_probe()` error path,
-  **already in 6.18.y**
-- `ed359a464846b` — `pm2fb` missing `pci_disable_device()` on probe
-  error path, **already in 6.18.y**
-- `tdfxfb.c` already has `arch_phys_wc_del()` on probe error path (line
-  1556)
-- Standalone patch; not part of a series
+- Related: `bf80d34b6c58a` "Increase soft IH ring size" (symptom
+  mitigation, not root cause).
+- `318e431b306e9` "Enable IH retry CAM on GFX9" — hardware path; this
+  fix targets GPUs **without** retry CAM.
+- Part of series `[PATCH 3/3]` but **standalone** — patches 1/3 and 2/3
+  touch different concerns (ih6.1 version, HW register access).
 
 ### Step 3.4: Author context
-**Record:** Haoxiang Li submits probe error-path leak fixes across
-subsystems; Helge Deller (fbdev maintainer) applied this patch.
+**Record:** Timur Kristóf — active amdgpu contributor; Alex Deucher
+merged. Tvrtko Ursulin reviewed.
 
 ### Step 3.5: Dependencies
-**Record:** None. Requires only
-`arch_phys_wc_add()`/`arch_phys_wc_del()` and `wc_cookie` in `struct
-pm2fb_par`, all present since `f8f05cdc767fa`. Applies cleanly.
+**Record:** **No dependencies.** One-line change; `system_unbound_wq` is
+a core kernel symbol. Applies cleanly to current `amdgpu_irq.c`.
 
 ---
 
@@ -196,129 +211,129 @@ pm2fb_par`, all present since `f8f05cdc767fa`. Applies cleanly.
 
 ### Step 4.1: Original discussion
 **Record:**
-- `b4 dig -c 16eb19f0c90af`: https://patch.msgid.link/20260621071935.380
-  2673-1-haoxiang_li2024@163.com
-- Single-patch submission; Helge Deller replied “applied. Thanks!”
-- No series revisions (`-a` not needed; single patch)
-- No stable nomination in thread
-- No NAKs or concerns
+- **b4 dig URL:** https://patch.msgid.link/20260513170849.27061-4-
+  timur.kristof@gmail.com
+- **Series:** v1 only (May 13, 2026); committed version matches
+  submission.
+- **Review:** Reviewed-by: Tvrtko Ursulin in thread.
+- **No** stable@vger nomination, NAKs, or objections found in mbox.
 
 ### Step 4.2: Reviewers
-**Record:** `b4 dig -w`: To/Cc — Haoxiang Li, Helge Deller, `linux-
-fbdev@vger.kernel.org`, `linux-kernel@vger.kernel.org`
+**Record:** CC'd: amd-gfx, Alex Deucher, Christian König, Marek Olšák,
+Natalie Vock, Melissa Wen, amir.shetaia@amd.com.
 
-### Step 4.3: Bug reports
-**Record:** N/A — no `Reported-by:` or `Link:` tags; no syzbot/fuzzer
-involvement.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Issue identified by
+developer from retry page-fault behavior.
 
 ### Step 4.4: Related patches
-**Record:** Direct analogue: `a943710407120` (uvesafb, same maintainer,
-same pattern).
+**Record:** Same series includes patch 2/3 "Don't perturb HW registers
+when accessing soft IH ring" — separate fix, not required for this one.
 
 ### Step 4.5: Stable list history
-**Record:** Lore fetch blocked by bot protection; no stable-list
-discussion found via `b4`. Precedent established in-tree via uvesafb
-backport.
+**Record:** Not searched separately; no stable nomination in patch
+thread. Not a negative signal per instructions.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key functions
-**Record:** `pm2fb_probe()`, `arch_phys_wc_add()`, `arch_phys_wc_del()`
+**Record:** `amdgpu_irq_delegate()`, `amdgpu_irq_handle_ih_soft()`,
+`amdgpu_ih_ring_write()`, `amdgpu_ih_process()`
 
-### Step 5.2: Callers
-**Record:** `pm2fb_probe()` registered as `.probe` in `pm2fb_driver`
-(PCI core during device enumeration/module load). Not a hot path; runs
-once per device attach attempt.
+### Step 5.2: Callers of `amdgpu_irq_delegate()`
+**Record:** Called from retry-fault paths in:
+- `gmc_v9_0.c` (lines 589, 611)
+- `gmc_v10_0.c` (line 128)
+- `gmc_v11_0.c` (line 127)
+- `gmc_v12_0.c` (line 120)
+
+Triggered when `entry->ih == &adev->irq.ih` during retry page faults.
 
 ### Step 5.3: Callees
-**Record:** On failure after WC setup: `kfree()`, `fb_dealloc_cmap()`,
-`iounmap()`, `release_mem_region()`, `framebuffer_release()`,
-`pci_disable_device()`. WC teardown was the missing piece.
+**Record:** `amdgpu_ih_ring_write()` writes IV to soft ring; work
+handler calls `amdgpu_ih_process()` → `amdgpu_irq_dispatch()` → GMC
+fault handler → `amdgpu_vm_handle_fault()`.
 
 ### Step 5.4: Reachability
-**Record:** Trigger requires `CONFIG_FB_PM2` built/loaded, Permedia2
-hardware present, probe progressing past smem ioremap + WC add, then
-failing at:
-1. `kmalloc(PM2_PIXMAP_SIZE)` → `-ENOMEM`
-2. `fb_alloc_cmap()` failure
-3. `register_framebuffer()` failure
-
-Reachable from module load / PCI hotplug; no userspace syscall needed
-beyond normal device binding.
+**Record:**
+- **Call chain:** HW IRQ → `amdgpu_irq_handler` → IH processing → GMC
+  fault handler → `amdgpu_irq_delegate` → work scheduling.
+- **Reachable:** Yes — normal GPU compute/HMM/SVM page-fault path on
+  Navi/Vega/GFX9+ without hardware retry CAM.
+- Only `vega20_ih.c` sets `retry_cam_enabled = true`; all other soft-IH
+  GPUs use software filtering path.
 
 ### Step 5.5: Similar patterns
-**Record:**
-- `tdfxfb.c`: has probe-error `arch_phys_wc_del()` ✓
-- `uvesafb.c`: fixed in `a943710407120` (in this tree) ✓
-- `s3fb.c`, `i740fb.c`: WC add after success point or missing probe-
-  error del (latent issues elsewhere; out of scope)
+**Record:** amdgpu already uses `queue_work(system_unbound_wq, ...)` for
+reset/XGMI work to avoid CPU pinning — same rationale.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
-### Step 6.1: Buggy code present?
-**Record:** **Yes.** Lines 1655–1657 call `arch_phys_wc_add()`; lines
-1713–1715 (`err_exit_pixmap`) lack `arch_phys_wc_del()`. Bug present
-since `f8f05cdc767fa` (2015).
+### Step 6.1: Buggy code in tree?
+**Record:** **Yes.** `amdgpu_irq.c:515` still has
+`schedule_work(&adev->irq.ih_soft_work)`. Soft IH infrastructure present
+since 2020; retry page-fault delegation paths present in
+gmc_v9/v10/v11/v12.
 
 ### Step 6.2: Backport complications
-**Record:** Clean apply expected — one line at `err_exit_pixmap`,
-identical context to mainline diff.
+**Record:** **Clean apply expected** — identical one-line substitution
+at same location. No structural divergence in this function vs. linux-
+next.
 
 ### Step 6.3: Related fixes already present?
-**Record:**
-- `a943710407120` (uvesafb WC probe-error fix) — **present**
-- `ed359a464846b` (pm2fb `pci_disable_device` probe fix) — **present**
-- `16eb19f0c90af` (this fix) — **absent** (`merge-base --is-ancestor`
-  exit 1)
+**Record:** `bf80d34b6c58a` (increase soft IH ring size) is present —
+mitigates but does not fix scheduling starvation. This fix is **not**
+yet in 6.18.44.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 ### Step 7.1: Subsystem criticality
-**Record:** `drivers/video/fbdev/pm2fb.c` — legacy framebuffer driver
-(`CONFIG_FB_PM2`, tristate). **PERIPHERAL** — affects users of 1990s-era
-Permedia2 hardware (PCI/SPARC).
+**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT. Affects AMD GPU
+users on compute and graphics workloads with recoverable page faults.
 
-### Step 7.2: Activity
-**Record:** Low churn; occasional maintenance fixes from Helge Deller’s
-fbdev tree.
+### Step 7.2: Subsystem activity
+**Record:** Actively developed; interrupt and page-fault paths receive
+frequent fixes in this tree.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 ### Step 8.1: Who is affected
-**Record:** Users with Permedia2 hardware, `CONFIG_FB_PM2` enabled,
-probe failing after WC setup. Narrow population.
+**Record:** AMD GPU users on ASICs with soft IH ring and **without**
+hardware retry CAM (most Navi, Vega10, GFX9, etc. — everything except
+Vega20 in this tree). Config: `CONFIG_DRM_AMDGPU`.
 
 ### Step 8.2: Trigger conditions
 **Record:**
-- **Real leak only on:** x86, PAT disabled, MTRR enabled, `nomtrr=0`
-- **Failure modes:** ENOMEM or framebuffer registration failure after WC
-  add
-- **Likelihood:** Low (legacy hardware + rare probe failure)
-- **Unprivileged trigger:** Indirectly via module load / device
-  presence; not a typical attack vector
+- **When:** Retry page-fault storms (GPU compute, HMM, large sparse
+  mappings).
+- **Likelihood:** Can occur under normal heavy GPU workloads, not exotic
+  edge case.
+- **Unprivileged trigger:** Indirectly yes — userspace GPU workloads
+  trigger page faults.
 
-### Step 8.3: Failure severity
-**Record:** Leaked MTRR slot (finite resource, typically ~8–10 entries).
-Can degrade performance or block other drivers needing MTRR on PAT-less
-systems. **Not** a crash, deadlock, or data corruption. **Severity:
-LOW–MEDIUM** (resource leak, not security).
-
-### Step 8.4: Risk–benefit
+### Step 8.3: Failure mode severity
 **Record:**
-- **Benefit:** Correct probe teardown; consistency with uvesafb/tdfxfb;
-  prevents MTRR exhaustion on affected configs
-- **Risk:** Negligible — one line, symmetric with remove path, no-op on
-  modern PAT-enabled systems
-- **Ratio:** Low benefit magnitude, but also near-zero risk; established
-  fbdev stable pattern
+- Soft IH ring overflow → dropped interrupt vectors → page faults not
+  handled.
+- Interrupt storm → CPU saturation, possible soft lockup.
+- GPU hang / application failure on affected workloads.
+- **Severity: HIGH** (functional breakage + system responsiveness
+  impact; not proven kernel panic but can cause hangs).
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected AMD GPU users — restores correct retry
+  page-fault handling.
+- **Risk:** VERY LOW — one-line, established pattern, reviewed.
+- **Ratio:** Strong benefit, minimal risk.
 
 ---
 
@@ -327,109 +342,96 @@ LOW–MEDIUM** (resource leak, not security).
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real, verifiable resource leak since 2015 WC conversion
-- One-line, obviously correct fix
-- Identical pattern already backported in this tree (`a943710407120`
-  uvesafb)
-- Same maintainer (Helge Deller) applied both uvesafb and pm2fb fixes
-- Buggy code confirmed present in 6.18.y; fix not yet applied
-- Matches `tdfxfb` probe-error pattern already in tree
+- Fixes real scheduling starvation bug causing soft IH ring overflow.
+- Affects common AMD GPUs (Navi, Vega10, GFX9, etc.) on retry page
+  faults.
+- Can cause interrupt storms and broken page-fault recovery.
+- One-line, obviously correct, reviewed.
+- Bug present since 2020; code exists in 6.18.44.
+- Standalone, no dependencies.
 
 **AGAINST backport:**
-- Very obscure hardware (Permedia2)
-- No user reports, syzbot, or security angle
-- Effective only on PAT-less x86 with MTRR (rare on 6.18 deployments)
-- Impact is resource leak, not crash/corruption
-- “Important issue” bar is borderline for severity
+- No user bug report or syzbot confirmation (developer-found).
+- Patch 3/3 of a series (but functionally independent).
+- Framed as "improves" handling — but mechanism is ring overflow /
+  dropped IVs.
 
-**Unresolved:** None material to the decision.
+**Unresolved:** No quantitative data on how often users hit this in
+production.
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — mirrors remove path;
-   maintainer applied; no objections
-2. Fixes a real bug? **PASS** — MTRR leak on probe failure (on affected
-   configs)
-3. Important issue? **PASS (borderline)** — resource leak, not
-   crash/security; but same class already accepted for uvesafb in this
-   tree
-4. Small and contained? **PASS** — 1 line, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — prerequisite code present; clean
-   apply
+1. Obviously correct and tested? **PASS** — reviewed, logical fix,
+   established amdgpu pattern.
+2. Fixes real bug affecting users? **PASS** — ring overflow and
+   interrupt storm on retry page faults.
+3. Important issue? **PASS** — HIGH: GPU hangs, CPU saturation, dropped
+   fault handling.
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features/APIs? **PASS**.
+6. Can apply to local tree? **PASS** — buggy code present; clean apply.
 
 ### Step 9.3: Exception categories
 **Record:** None (not device ID, quirk, DT, build, or docs). Standard
-probe error-path resource cleanup.
+bug fix.
 
 ### Step 9.4: Decision rationale
 
-For **linux-6.18.y**, this is a legitimate probe error-path resource
-leak fix. Severity is low and the hardware is legacy, but the patch is
-trivial, zero-risk, and the **same tree already carries the identical
-uvesafb fix** (`a943710407120`). Backporting maintains consistency in
-fbdev probe teardown and closes a gap that has existed since the 2015
-`arch_phys_wc_add()` conversion.
+For **6.18.y**, the soft IH ring and retry page-fault delegation code
+are present and still use CPU-bound `schedule_work()`. Under retry page-
+fault load on GPUs without hardware filter CAM, the soft IH work cannot
+run on the IRQ-saturated CPU, the ring fills, IVs are dropped, and the
+system can be flooded with interrupts. Switching to `system_unbound_wq`
+is a minimal, reviewed fix already used elsewhere in amdgpu. This meets
+stable criteria: real bug, important user impact, tiny contained change,
+no new APIs.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body; no Reported-by/syzbot
-- **[Phase 2]** Diff: +1 line `arch_phys_wc_del()` at `err_exit_pixmap`
-  in `pm2fb_probe()`
-- **[Phase 3]** `git describe HEAD` → `v6.18.44`; `git blame` → WC add
-  from `f8f05cdc767fa` (2015)
-- **[Phase 3]** `git merge-base --is-ancestor f8f05cdc767fa HEAD` → exit
-  0 (bug source in tree)
-- **[Phase 3]** `git merge-base --is-ancestor 16eb19f0c90af HEAD` → exit
-  1 (fix not in tree)
-- **[Phase 3]** `git log stable/linux-6.18.y..master -- pm2fb.c` → only
-  `16eb19f` and unrelated pci_device_id change
-- **[Phase 3]** Related: `a943710407120` (uvesafb), `ed359a464846b`
-  (pm2fb pci_disable) in tree
-- **[Phase 4]** `b4 dig -c 16eb19f` → lore URL found; maintainer
-  “applied”
-- **[Phase 4]** `b4 dig -w` → fbdev maintainers CC’d
-- **[Phase 5]** Read `arch_phys_wc_add/del` in
-  `arch/x86/kernel/cpu/mtrr/mtrr.c` and stubs in `include/linux/io.h`
-- **[Phase 5]** Compared `tdfxfb.c:1556` (has probe-error del) and
-  `pm2fb.c:1738` (remove-path del)
-- **[Phase 6]** Confirmed missing `arch_phys_wc_del` at lines 1713–1715
-  in current tree
-- **[Phase 6]** `git show a943710407120` — identical uvesafb probe-error
-  fix already in 6.18.y
-- **[Phase 8]** Assessed impact: MTRR leak on PAT-less x86 only;
-  LOW–MEDIUM severity
+- **[Phase 1]** Parsed subject, tags, body; no Fixes:/Reported-
+  by:/syzbot.
+- **[Phase 2]** Diff: 1-line change in `amdgpu_irq_delegate()`; read
+  `amdgpu_ih_ring_write()` overflow behavior (lines 162–169).
+- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` →
+  `26f32a377eedd` (2020); `git merge-base --is-ancestor` → fix NOT in
+  HEAD.
+- **[Phase 3]** Related commits: `bf80d34b6c58a`, `318e431b306e9`,
+  `26f32a377eedd`.
+- **[Phase 4]** `b4 dig -c 3cdff3c` → lore URL; `b4 dig -a` → v1 series;
+  `b4 dig -w` → maintainers CC'd; mbox → Reviewed-by Tvrtko Ursulin, no
+  stable/NAK.
+- **[Phase 5]** `grep amdgpu_irq_delegate` → 4 GMC files; `grep
+  retry_cam_enabled` → only `vega20_ih.c` sets true.
+- **[Phase 5]** Read `gmc_v9_0.c:583–621`, `gmc_v10_0.c:115–137`,
+  `amdgpu_ih.c:150–169`, `amdgpu_irq.c:510–516`.
+- **[Phase 5]** `grep system_unbound_wq` in amdgpu → prior usage in
+  reset/device code.
+- **[Phase 6]** Confirmed `schedule_work` at `amdgpu_irq.c:515` in
+  current tree.
+- **[Phase 6]** Fix commit only on `linux-next/master`, not ancestor of
+  HEAD.
+- **[Phase 8]** Assessed severity from ring-overflow + interrupt-storm
+  mechanism in code.
 
-**YES**The background lookups finished and matched what the analysis
-used:
+**YES**
 
-- **pm2fb history:** The commit isn’t in this `v6.18.44` tree yet;
-  recent `pm2fb.c` history shows maintenance fixes like the
-  `pci_disable_device()` probe cleanup.
-- **Candidate hash:** Mainline commit is `16eb19f0c90af` (“fbdev: pm2fb:
-  unwind WC setup on probe failure”).
-- **Stable precedent:** `6.18.y` already has the same pattern for
-  uvesafb (`a943710407120`); this pm2fb fix is not in stable yet.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-**Verdict for 6.18.y: YES** — one-line probe error-path MTRR/WC cleanup,
-same class of fix already accepted in this tree.
-
- drivers/video/fbdev/pm2fb.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/video/fbdev/pm2fb.c b/drivers/video/fbdev/pm2fb.c
-index f34429829b7d7..82408503c2812 100644
---- a/drivers/video/fbdev/pm2fb.c
-+++ b/drivers/video/fbdev/pm2fb.c
-@@ -1711,6 +1711,7 @@ static int pm2fb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-  err_exit_both:
- 	kfree(info->pixmap.addr);
-  err_exit_pixmap:
-+	arch_phys_wc_del(default_par->wc_cookie);
- 	iounmap(info->screen_base);
- 	release_mem_region(pm2fb_fix.smem_start, pm2fb_fix.smem_len);
-  err_exit_mmio:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index 8d7f97eed5a90..ccc378233bc5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -512,7 +512,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
+ 			 unsigned int num_dw)
+ {
+ 	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
+-	schedule_work(&adev->irq.ih_soft_work);
++	queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
+ }
+ 
+ /**
 -- 
 2.53.0
 
