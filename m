@@ -4,81 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B55C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 04:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42507C61DD3
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 04:08:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2836810E042;
-	Mon, 31 Aug 2026 04:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 599D710E244;
+	Mon, 31 Aug 2026 04:08:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="FxvcElIL";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VCwRcP2T";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="UaVntlbu";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="KMYVmn9i";
 	dkim-atps=neutral
-Received: from fhigh-b1-smtp.messagingengine.com
- (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4E210E042
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 04:08:00 +0000 (UTC)
+Received: from fout-b2-smtp.messagingengine.com
+ (fout-b2-smtp.messagingengine.com [202.12.124.145])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F0710E244
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 04:08:18 +0000 (UTC)
 Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 60D0D7A0014;
- Mon, 31 Aug 2026 00:07:59 -0400 (EDT)
+ by mailfout.stl.internal (Postfix) with ESMTP id 05C0B1D000E1;
+ Mon, 31 Aug 2026 00:08:16 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Mon, 31 Aug 2026 00:07:59 -0400
+ by phl-compute-01.internal (MEProxy); Mon, 31 Aug 2026 00:08:17 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm2; t=1788149279; x=
- 1788235679; bh=nCvYqPO99y74Wq8smxzqgF8poznAskkO7JFIhISADHk=; b=F
- xvcElILi9aH8PA9SROfzJ/HOamKfUS8hTca7zweOM82Iq1NX+VYKQrdPnqCLDBwy
- 9RwY5vmtWaErbrQ2LiPRyIJ/7rdMXpHdVDbue2NWbmN0p6g5aELGOeudFtVwUoSR
- U2KJp0Tz6VXui0qg+kI5i56bIJpsdpO5+Vlxvt9/6IL6suWJUAW16zTM866PGNyJ
- 8jGfrewekXE/+TWE788/QL/GCL/mpKuLSdDWMKiVnEXPH9jX77stiGvn27TKK7H+
- 6uu6NeaVID9M9R0EnCtEILDZ1o+zzaBANRUAucRwE8G5LALzfQDrCBV4Q6QEqiTN
- a/cYFwwrQFfgQ3sLP5slw==
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm2; t=1788149296; x=1788235696; bh=Ok0yODTO4p
+ p190CYF+CpkqDcLLLFQuDigTuF57O5j1c=; b=UaVntlbulI8kKGZL0r6kgetPb+
+ B+X7YUuvZ2mvhFUGZZdP3pT5Fh/lEByEvEuShgifz5VQFJ/0F6R3LOvWgLGcZ0bK
+ 7maK8Gfayr1Eu9HQ2eK28vEXQDHzDOQy3I9TNV16YdQ/UAFop7f1C+3MDd1ZNALw
+ RevfIj03ZKz1Ym/gy2c/eoZZsSlupDUrG3FDCdV1wBSa3T4Iklwmr7n0/CJQrEAy
+ Eyj76xasq9rHGZ3lh27uyZ9OgTt2J54NUTvYwgb2evQD/RAG/CKI+7rpbilOG1X8
+ RKrZ18Rc6pRqMyvkCMFOXpKmwjAyfpQpkKM8HSl/kR9Q4xcCQGzjvcE28Qgw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1788149279; x=1788235679; bh=n
- CvYqPO99y74Wq8smxzqgF8poznAskkO7JFIhISADHk=; b=VCwRcP2Tg5BKcq5vi
- LQcspSwMMzXqimGBoeEymYo5z/vwgCP1x7RvahEF+65mI3ncf3tvcg2Cp4wLhQrh
- IMCFE6QUGyUdmhK4WUe4wfvxRARuD2OeeULW/UP+77tWqxkVhqe3g6TqU0FM9tBy
- 4fPEsBgsdrQfL8fVddED5KNsJoEw7eEu2AyD5rnToaGbmDAPE8Z6+LKYUZ7COHzO
- PPfGPs+4Z2SGrv+/acZquDi2dT4umccUK9P4hbN0XUXb5j4Z9JsLBnIuWkMQx5MU
- 9gET3DGqhlD/Y0ZqSldovwgurrUZQFoyLBf2qAlr6K/r1JuF0p63S6o3PRz4JpeO
- WvgXQ==
-X-ME-Sender: <xms:Hv6UalnLL-IAhNZsX3RdrW79GwOrNma3pliJqs2bCRxE9MCDSLoR-w>
- <xme:Hv6UauqYN7z-ECIpW4WYA_XlOoLmWMDpVhUN5kHYkbhssL0uydN6nAn9I5XcB5gqV
- tkWGTfzj9p3Was_q99pLD5CcsuKcSTBgbzkN5FvuROT94E6dQcsTYQh>
-X-ME-Received: <xmr:Hv6UamGNB6j7u0kJpb4hQNTclwaq1eHhr3gNs_QltIkv5vKGSHJVmoJ01ZLIYoNXh9ZChnElPw>
-X-ME-Proxy-Cause: dmFkZTGgZgR+VcPfe+PhAzOLd0oIFeQYFsXhiZHiqFEfJLX+Zh5ZMdMCmp7DSb14qyqV39
- jp/P4WoX1+fWMg7xKNkg19erm52kJxQUcTYbC3fhf7J3kTCWp177f4eiTLGImcgm9FlW/K
- 919HsGQiniAe1IB7e9jl0y2Y9dxEodpqsZNpi/Wh8/Y0aGqz1kZ0NysbtBSq+wCn4J8DOp
- NMVeqNR7AEscaSespCcNi1Tsf5l8QtvZS5D7uic9GEJ8sDuUqjUvTw65giXWj5Lizkd8mk
- k6Wvf2Wg5sOErrVa3i9eyoCaEv0ghglB6LbcQ07PYZ4WQgjzQYOd+k7ebFmJtNV5tyGOnT
- lla2aARMyhqKrj9TufHDA1dMJJanIqByqD5cfb56K1VMRq0NMR6GFnnryvrZYPEpCiSDFX
- NdOyZPWZ4Oe2GZ0fa5Yt90Epw42RPAovNIbLLR30jdRil5/SS/079EFie6B/7dDjeGkxUi
- GNQvR3mHeFpy4F5EbPef63hm/sW4CE14CZ/iLQD/JCzYE/ahD7NCTj9uwZsLNQSzUsNvZg
- mnPft4YAd9muycGqCDcbTmNWLyBgUmTuFzmhH31EG3OyTTj8wG5ITXg2+0qzfIU0s/7g5h
- oDO0US3uhFZwVEb4gfst6venJci+bux91+FEZylfp8MCI1KLnpcaGlTBstuA
-X-ME-Proxy: <xmx:Hv6UaiymPhbbcFTWeZrwIXP4ck8taTgmo0YVEQQanTmtfhvYR29M9Q>
- <xmx:Hv6Uajpcc6Jb_ilsT228S-aqqjx5sDBxPcWIXazc4pwgVQQpMCqFsw>
- <xmx:Hv6UakhHnzymDm-4C3MqiorNcAYN9k4jKiJsdMVoqq3le4vEZRShdg>
- <xmx:Hv6UaoicTrOb6z1e8slKhizApuO-N5Ek7NI7kUihm03z_uk4q-zsbg>
- <xmx:H_6Uai3BhdVYlfWAYvZx2gmPvgjpbIR3x9lk6_oOs3zjQEojBD1eBJCf>
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1788149296; x=1788235696; bh=Ok0yODTO4pp190CYF+CpkqDcLLLFQuDigTu
+ F57O5j1c=; b=KMYVmn9iYbLJcHhYuJVyvUevt2z111Gp/LJD1GlG5UWXFV/HuZ8
+ MpP1n4l9bAFyN/AwNXLY+fgT8naaRc1WYDEASQCYsu7RDQhQcxQjz+eqYn68LPis
+ PkrASqkUc04MBmBaX3D0H+D3Hok9/lZ5qOtS5WAQo46S0E1BkdxXr+KQsp7CBM1O
+ WhqyPeNtKCNZUsPwDgLdxjAOVJSKR1rAkbIt1cCD29DM+B2v7Adju4mocFi4ZeM5
+ NnazD26tMmz0+FPDM2KS9R9mJNBzKhZun9Zj+lW7RiTqnAtd6yCup4zJhRJin4S/
+ B7ok1gEvPsTRvpJG+kKRJ38uEzBUZA11tjQ==
+X-ME-Sender: <xms:Lv6Uan-vxpMbTkQQ98dj2JZOTxeDJUR9GMhLAtRG_NKSG0IJ9mJQPA>
+ <xme:Lv6UajlSO3lX-KWCKnf1-B98vJFO5jBCJy3SsGjTvdtkl-J2KDqAXTTU26H8NDblD
+ _GycqzREecai3Nn6MMwfqfYF5z5EimNYowso0z_vWbWUO8cxBwD5dY>
+X-ME-Received: <xmr:Lv6UaiU_hXumVbcoUMpzj3KqHGpPK4J1lmRMD5zjuNwj7J7LRWRFVdrHehjCat-3L2A6WBkZWg>
+X-ME-Proxy-Cause: dmFkZTFjleNt2D8nndZWhJ5yvo5C5ZHXbBkeSZNG7NPUTS2r4A2tYWuhETcsy1iq9ecouS
+ NTWTuiFZMm0mh8Tx08qUgC+f7xB5R5AehVGN1A2ReNz3EOOWEPtVYJXnypdubgAJRZskGD
+ PwIj0uY1HnyfWY50Yn3UL2054TwJ81UcJOpYlo7Ej+yjUm8Unb6TpIv25S4PndyjmIpxO1
+ LWwZAu+Bf8PZcZicZPqovp8OPkYuDp+cjDqbx4lCaXdAf0FjbOSjTJrwS/PvFaS+FzScn/
+ +ZyIRnE8CG0D0Qh39Q+qe5BbVOxGNcnmp8nxexkyoBvNSjYO6OzNG93/Gpi/bpKDguWELy
+ 9K7z+WWBiz70ojFi+MDPzTQwpNy7rSdTVJtRFlZdHuGwcfvV5Z8h44jNzwReerwjYr6ZD1
+ 1SavmOPLul9j9uZEAakNRqRfXlWKbLDyYQ+BxG03Sw3tZ9qICEg18zZfYV0+zBoqkKKIs8
+ FUjbe3PXkVYhOeISni8VeQDz2wTtIQZh1pFGiljzqCazFy5wP/TnCFNIOcwkTWfkyL53GH
+ +5y2jrg/vnQRWxU7EnRTxsYP4/qfza0l7+b/zColpd2ohtygEZkl2ixhCtHAUXc+gLmUGF
+ +TC+VPRHHa3kNZRdP21NYaA4dCaJD+80BEL0hlwEj7oloBY8cVTgKdeX3ksQ
+X-ME-Proxy: <xmx:Lv6UavrXQ4I-eRcpGmKji1ETWbXs2YrFM_v0-nSJPLUpKNmNR9tD7A>
+ <xmx:Lv6UapVm7YfmydsV-zFrsElXmoBH512m89j5DyAzG3IGneMsuULXLA>
+ <xmx:Lv6UanDRdESKZsSUBakXd9xJWxuyAs1OrJdXssLNa3EGIE-bJXX46Q>
+ <xmx:Lv6UalWIeGs4Bi7Wv8me_u0-lE2fHpGL5GhRaZu1TDcdXKUkZK14Hg>
+ <xmx:MP6UaqGp2Hc2oQX0vPfAK-WxGGk3bJzDqE-EVdOSdYhW4C__71EnOwKM>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 00:07:55 -0400 (EDT)
+ 31 Aug 2026 00:08:07 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: linux-rockchip@lists.infradead.org,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v9 05/13] dt-bindings: npu: rockchip: add rockchip,
- rk3576-rknn-core
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, u.kleine-koenig@baylibre.com,
+ chaoyi.chen@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
 Date: Mon, 31 Aug 2026 16:07:51 +1200
-Message-ID: <20260831040751.24030-1-gahing@gahingwoo.com>
+Message-ID: <20260831040804.24111-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAEWPSH5_PmfUCEm5O53=32NQjPKMd4vm--Y2R=4ErMoehtt=tA@mail.gmail.com>
-References: <CAEWPSH5_PmfUCEm5O53=32NQjPKMd4vm--Y2R=4ErMoehtt=tA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,484 +98,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
-
-Here is the table. It does not say what I told you it said, so the
-retraction comes first.
-
-I wrote that RESERVED_0 "follows the model series rather than the
-geometry". You read that as a toolkit setting and said the table was the
-way to corner it. It cornered my own claim instead.
-
-It is not the model series. All 94 files carry the same toolkit build
-string, 2.3.2 (@2025-04-03T08:26:16), so there is no version difference
-to hang it on. Worse for my sentence: g_pw24 carries BOTH values in one
-compile of one model -- the 512 to 1024 pointwise reads 34 and the one
-pixel 16x16 op the compiler adds for itself reads 66. Ten of the dwbig_*
-files do the same. A per-model constant cannot be right.
-
-It is not the geometry either, and that half I had tested too weakly. I
-had checked oc, ic, spatial size, kernel and stride one at a time. Fixing
-the WHOLE CNA geometry gives 116 classes over the 364 regular dispatches
-and twelve of them carry both values. The cleanest pair is g_cal against
-bias_k5: one ONNX Conv each, ic 16, oc 128, 80x80 in, k = 5, stride 2,
-same toolkit, and the two .onnx sources are the same 205601 bytes. Their
-register streams are 138 words each and differ in five: 0x4044, 0x4050,
-0x40ac, 0x40b0 and 0x501c. Three of those five are the output zero point
-and the requant pair, which differ between any two models with different
-weights. What is left is 0x4044, 0x4050 and 0x501c, and it is the same
-three in every conflicting pair.
-
-What it does follow is DPU 0x4044, exactly:
-
-    RESERVED_0 34   <->  0x4044 = 1     260 dispatches
-    RESERVED_0 66   <->  0x4044 = 0     104 dispatches
-
-364 of 364, no exceptions, and 0x501c moves with them (0x710 against
-0x14/0x114). Sweeping every register in the stream, 0x4044 is the only
-one that partitions the two groups one to one. So it is not a loose
-constant with no company: it is one third of a single per-op decision in
-the bias and scale path of the output stage. What selects that arm I
-still cannot tell you.
-
-Two more things the old claim got wrong. There is a THIRD value: 38, on
-all 58 depthwise dispatches, which my "34 against 66" never mentioned. 38
-is 34 with one more field bit, so on the 16-against-17 word bit axis
-depthwise sits with the 34 group while its 0x4044 reads 0 -- which breaks
-the lockstep above, and is why I state it as a regular datapath result
-only. And the RK3576 encoder has no depthwise path at all
-(rkt_ml_operation_supported declines it), so the driver never emits the
-38 word: that row is about the vendor and about upstream's RK3588
-encoder, not about ours.
-
-For what we ship: rkt_regcmd.c emits 0x4044 = 1, RESERVED_0 = 34 and
-0x501c = 0x710 -- the 34 arm in all three at once, never mixed. That is
-consistent, and it is the arm 260 of the 364 vendor dispatches take.
-
-Nothing below was run on hardware. It is decoding of files already on
-this disk, one op per register run, 0 of the 422 dispatches undecodable.
-The script that produces every number in it is small enough to send if
-you want to re-run it against your own corpus.
-
-DPU 0x4050 RESERVED_0 across 94 vendor-compiled .rknn on this disk
-====================================================================
-
-Regenerate with reserved0-build.py, which reads only the files in
-vendor-capture/geom and prints this whole page, numbers included.
-
-How the value is obtained
--------------------------
-
-A .rknn carries the register command stream the vendor runtime
-submits, as little-endian u64 words
-
-    [63:48] target   [47:16] value   [15:0] register
-
-with target 0x0201 CNA, 0x0801 CORE, 0x1001 DPU, 0x2001 DPU_RDMA. A
-maximal run of such words is one dispatch. In this corpus every run of
-20 words or more carries exactly one CNA block and exactly one write
-of DPU 0x4050, so a value and the geometry it is tested against always
-come from the same op and there is no matching to guess at.
-
-The word is BS_OW_CFG. Split as upstream's registers.xml splits it:
-
-    RGP_CNTER  31:28   TP_ORG_EN  27   RESERVED_0  26:11
-    SIZE_E_2   10:8    SIZE_E_1   7:5  SIZE_E_0     4:2
-    OD_BYPASS  1       OW_SRC     0
-
-So RESERVED_0 is bits 26:11, and the two values in question are
-
-    0x80011111 -> RESERVED_0 = 34 = field bits 5 and 1 = word bits 16, 12
-    0x80021111 -> RESERVED_0 = 66 = field bits 6 and 1 = word bits 17, 12
-
-One word bit apart, 16 against 17, over a constant word bit 12. The
-geometry columns come from the CNA registers of the same run:
-
-    ic  = (0x1028 & 0xffff) + 1     oc = (0x1024 & 0xffff) + 1
-    k   = sqrt(0x1020 / ic)         stride from 0x1014, which is (s<<3)|s
-
-Three notes on reading those columns honestly.
-
-  * The oc register holds the count rounded up to 2, so a 41 channel
-    output reads 42. pq_ic and pq_oc are the two rows where that shows.
-  * On the depthwise path, CORE 0x3018 mode 0x0a, the oc register reads
-    2 and the channel count is in the ic register. Those rows carry the
-    ic one and are marked dw in the path column.
-  * On the first convolution path, CORE 0x3018 mode 0x81, three input
-    channels are packed and the ic register reads 12, so the ic and k
-    columns on those seven rows are the packed form and not the source
-    shape. They are marked 1st. All seven read 34 either way.
-
-Nothing here was run on hardware. These are numbers read out of files
-the vendor toolkit produced, and what the bits mean was arrived at by
-trial and error against those files and against the board.
-
-
-The table
----------
-
-One row per file, for the first dispatch in the file. The last column
-is what the file records about itself, input>output with the batch
-dropped. A + on the name means the file holds more than one distinct
-RESERVED_0 across its dispatches; those are broken out below.
-
-model           0x4050     R_0 path    ic    oc  k  s  file says
-----------------------------------------------------------------
-
-  RESERVED_0 = 34   (regular convolutions)   61 files
-a_lin           0x80011111  34 reg     64    64  1  1  64x8x8>64x8x8
-a_lin2          0x80011111  34 reg     64    64  1  1  64x8x8>64x8x8
-a_lin_m1        0x80011111  34 reg     64    64  1  1  64x1x1>64x1x1
-a_relu          0x80011111  34 reg     64    64  1  1  64x8x8>64x8x8
-c_32            0x80011011  34 reg     32    16  3  1  32x80x80>16x80x80
-c_48            0x80011011  34 reg     48    16  3  1  48x80x80>16x80x80
-c_64            0x80011011  34 reg     64    16  3  1  64x80x80>16x80x80
-fc_224          0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-fc_cal127       0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-fc_cal250       0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-fc_cal255       0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-fc_x1           0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-fc_x16          0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-fc_x4           0x80011111  34 1st     12    32  2  2  3x224x224>32x112x112
-g_cal           0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-g_cal_k1        0x80011111  34 reg     16   128  1  2  16x80x80>128x40x40
-g_cal_k3        0x80011111  34 reg     16   128  3  2  16x80x80>128x40x40
-g_cal_oc16      0x80011011  34 reg     16    16  5  2  16x80x80>16x40x40
-g_cal_s1        0x80011111  34 reg     16   128  5  1  16x80x80>128x80x80
-g_k3s1          0x80011011  34 reg     16    16  3  1  16x80x80>16x80x80
-g_md003         0x80011011  34 reg     16    16  1  1  16x160x160>16x160x160
-g_md003_80      0x80011011  34 reg     16    16  1  1  16x80x80>16x80x80
-g_md003_oc128   0x80011111  34 reg     16   128  1  1  16x80x80>128x80x80
-g_md003s2       0x80011011  34 reg     16    16  1  2  16x160x160>16x80x80
-g_oc112         0x80011011  34 reg     16   112  5  2  16x80x80>112x40x40
-g_oc144         0x80011011  34 reg     16   144  5  2  16x80x80>144x40x40
-g_oc160         0x80011111  34 reg     16   160  5  2  16x80x80>160x40x40
-g_oc32          0x80011111  34 reg     16    32  5  2  16x80x80>32x40x40
-g_oc48          0x80011011  34 reg     16    48  5  2  16x80x80>48x40x40
-g_oc64          0x80011111  34 reg     16    64  5  2  16x80x80>64x40x40
-g_oc80          0x80011011  34 reg     16    80  5  2  16x80x80>80x40x40
-g_oc96          0x80011111  34 reg     16    96  5  2  16x80x80>96x40x40
-g_pw2           0x80011111  34 reg     32    64  1  1  32x112x112>64x112x112
-g_pw24+         0x80011111  34 reg    512  1024  1  1  512x7x7>1024x7x7
-p0_k1           0x80011011  34 reg     16    16  1  1  16x80x80>16x80x80
-p0_k5           0x80011011  34 reg     16    16  5  1  16x80x80>16x76x76
-p1_k3           0x80011011  34 reg     16    16  3  1  16x80x80>16x80x80
-p1_k5           0x80011011  34 reg     16    16  5  1  16x80x80>16x78x78
-p2_k5           0x80011011  34 reg     16    16  5  1  16x80x80>16x80x80
-sv_k3           0x80011111  34 reg     16   128  3  2  16x80x80>128x40x40
-sv_k5           0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_null_a       0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_null_b       0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_oc128        0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_oc64         0x80011111  34 reg     16    64  5  2  16x80x80>64x40x40
-sv_rg           0x80011111  34 reg     32    32  3  1  32x112x112>32x112x112
-sv_rgu          0x80011111  34 reg     32    32  3  1  32x112x112>32x112x112
-sv_sc_base      0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_sc_moved     0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_wt_a         0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-sv_wt_b         0x80011111  34 reg     16   128  5  2  16x80x80>128x40x40
-w_112           0x80011011  34 reg     16    16  3  1  16x112x112>16x112x112
-w_120           0x80011011  34 reg     16    16  3  1  16x120x120>16x120x120
-w_128           0x80011011  34 reg     16    16  3  1  16x128x128>16x128x128
-w_144           0x80011011  34 reg     16    16  3  1  16x144x144>16x144x144
-w_160           0x80011011  34 reg     16    16  3  1  16x160x160>16x160x160
-w_40            0x80011011  34 reg     16    16  3  1  16x40x40>16x40x40
-w_56            0x80011011  34 reg     16    16  3  1  16x56x56>16x56x56
-w_64            0x80011011  34 reg     16    16  3  1  16x64x64>16x64x64
-w_80            0x80011011  34 reg     16    16  3  1  16x80x80>16x80x80
-w_96            0x80011011  34 reg     16    16  3  1  16x96x96>16x96x96
-
-  RESERVED_0 = 66   (regular convolutions)   20 files
-bias_k3         0x80021111  66 reg     16   128  3  2  16x80x80>128x40x40
-bias_k5         0x80021111  66 reg     16   128  5  2  16x80x80>128x40x40
-bias_ramp       0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
-lane_ic         0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
-lane_oc         0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
-ocp34           0x80021011  66 reg     64    34  1  1  64x56x56>34x56x56
-ocp40           0x80021011  66 reg     64    40  1  1  64x56x56>40x56x56
-ocp56           0x80021111  66 reg     64    56  1  1  64x56x56>56x56x56
-pp_k3           0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
-pp_k3b          0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
-pp_oc64         0x80021111  66 reg     16    64  3  1  16x80x80>64x80x80
-pp_p1           0x80021011  66 reg     16    16  1  1  16x80x80>16x80x80
-pp_p3           0x80021011  66 reg     16    16  3  1  16x80x80>16x80x80
-pp_p5           0x80021011  66 reg     16    16  5  1  16x80x80>16x80x80
-pp_pw           0x80021011  66 reg     64     4  1  1  64x80x80>4x80x80
-pq_ic           0x80021011  66 reg     64    42  1  1  64x56x56>41x56x56
-pq_oc           0x80021011  66 reg     64    42  1  1  64x56x56>41x56x56
-pw48x64w56      0x80021111  66 reg     48    64  1  1  48x56x56>64x56x56
-tq_ic           0x80021011  66 reg     48    40  1  1  48x40x40>40x40x40
-tq_oc           0x80021011  66 reg     48    40  1  1  48x40x40>40x40x40
-
-  RESERVED_0 = 38   (depthwise; a third value, see below)   13 files
-dwbig_1024+     0x00013333  38 dw    1024     2  3  1  1024x7x7>1024x7x7
-dwbig_112+      0x00013233  38 dw     112     2  3  1  112x7x7>112x7x7
-dwbig_128+      0x00013333  38 dw     128     2  3  1  128x7x7>128x7x7
-dwbig_16+       0x00013033  38 dw      16     2  3  1  16x7x7>16x7x7
-dwbig_256+      0x00013333  38 dw     256     2  3  1  256x7x7>256x7x7
-dwbig_32+       0x00013133  38 dw      32     2  3  1  32x7x7>32x7x7
-dwbig_48+       0x00013233  38 dw      48     2  3  1  48x7x7>48x7x7
-dwbig_64+       0x00013333  38 dw      64     2  3  1  64x7x7>64x7x7
-dwbig_80+       0x00013033  38 dw      80     2  3  1  80x7x7>80x7x7
-dwbig_96+       0x00013133  38 dw      96     2  3  1  96x7x7>96x7x7
-g_dw1           0x00013133  38 dw      32     2  3  1  32x112x112>32x112x112
-sv_dw           0x00013133  38 dw      32     2  3  1  32x112x112>32x112x112
-sv_dwu          0x00013133  38 dw      32     2  3  1  32x112x112>32x112x112
-
-
-The counts
-----------
-
-  files                                  94
-  dispatches in them                     422
-  dispatches that could not be decoded   0
-  regular dispatches                     364
-  depthwise dispatches                   58
-
-  by dispatch, RESERVED_0
-    34    260
-    38     58
-    66    104
-
-  by file, first dispatch
-    34     61
-    38     13
-    66     20
-
-  distinct 0x4050 words, 8 of them
-    word         count  RGP  R_0  S_E2 S_E1 S_E0 OD   OW
-    0x80011111   140  8    34   1    0    4    0    1
-    0x80011011   120  8    34   0    0    4    0    1
-    0x80021011    84  8    66   0    0    4    0    1
-    0x00013133    26  0    38   1    1    4    1    1
-    0x80021111    20  8    66   1    0    4    0    1
-    0x00013333    16  0    38   3    1    4    1    1
-    0x00013233     8  0    38   2    1    4    1    1
-    0x00013033     8  0    38   0    1    4    1    1
-
-  the other fields, for completeness
-    RGP_CNTER  regular {8: 364}
-               dw      {0: 58}
-    TP_ORG_EN  regular {0: 364}
-               dw      {0: 58}
-    SIZE_E_0   regular {4: 364}
-               dw      {4: 58}
-    SIZE_E_1   regular {0: 364}
-               dw      {1: 58}
-    SIZE_E_2   regular {0: 204, 1: 160}
-               dw      {0: 8, 1: 26, 2: 8, 3: 16}
-    OD_BYPASS  regular {0: 364}
-               dw      {1: 58}
-    OW_SRC     regular {1: 364}
-               dw      {1: 58}
-
-
-Does it follow the geometry?
-----------------------------
-
-No. Grouping the 364 regular dispatches by their full CNA geometry --
-ic, oc, kernel, stride, input width, rows, output width, pixels and
-surface -- gives 116 distinct classes, and 12 of them contain both
-values. Read that as 5 facts and not 12: a model appears in several
-classes because the compiler splits it into CBUF windows of different
-heights, and each window is its own class here. Same geometry,
-different RESERVED_0, in the same corpus:
-
-  ic 16  oc 128  k 5  stride 2  80x80 in, 1600 pixels out
-    34: g_cal, sv_k5, sv_null_a, sv_null_b, sv_oc128, sv_sc_base,
-        sv_sc_moved, sv_wt_a, sv_wt_b
-    66: bias_k5
-  ic 16  oc 16  k 3  stride 1  80x80 in, 6400 pixels out
-    34: g_k3s1, p1_k3, w_80
-    66: bias_ramp, lane_ic, lane_oc, pp_k3, pp_k3b, pp_p3
-  ic 16  oc 16  k 3  stride 1  80x41 in, 3200 pixels out
-    34: g_k3s1, p1_k3, w_80
-    66: bias_ramp, lane_ic, lane_oc, pp_k3, pp_k3b, pp_p3
-  ic 16  oc 128  k 5  stride 2  80x41 in, 800 pixels out
-    34: g_cal, sv_k5, sv_null_a, sv_null_b, sv_oc128, sv_sc_base,
-        sv_sc_moved, sv_wt_a, sv_wt_b
-    66: bias_k5
-  ic 16  oc 128  k 5  stride 2  80x42 in, 800 pixels out
-    34: g_cal, sv_k5, sv_null_a, sv_null_b, sv_oc128, sv_sc_base,
-        sv_sc_moved, sv_wt_a, sv_wt_b
-    66: bias_k5
-  ic 16  oc 128  k 3  stride 2  80x80 in, 1600 pixels out
-    34: g_cal_k3, sv_k3
-    66: bias_k3
-  ic 16  oc 16  k 1  stride 1  80x80 in, 6400 pixels out
-    34: g_md003_80, p0_k1
-    66: pp_p1
-  ic 16  oc 16  k 1  stride 1  80x40 in, 3200 pixels out
-    34: g_md003_80, p0_k1
-    66: pp_p1
-  ic 16  oc 16  k 5  stride 1  80x80 in, 6400 pixels out
-    34: p2_k5
-    66: pp_p5
-  ic 16  oc 16  k 5  stride 1  80x42 in, 3200 pixels out
-    34: p2_k5
-    66: pp_p5
-  ic 16  oc 128  k 3  stride 2  80x40 in, 800 pixels out
-    34: g_cal_k3, sv_k3
-    66: bias_k3
-  ic 16  oc 128  k 3  stride 2  80x41 in, 800 pixels out
-    34: g_cal_k3, sv_k3
-    66: bias_k3
-
-The cleanest single pair is g_cal against bias_k5. Both are one ONNX
-Conv, ic 16, oc 128, 80x80 input, k = 5, stride 2, compiled by the
-same toolkit build, and the two .onnx sources are the same 205601
-bytes -- they differ in the weight and bias VALUES and in nothing
-else. Their first dispatches are 138 registers each and differ in
-five of them:
-    t=1001 r=4044   g_cal 00000001   bias_k5 00000000
-    t=1001 r=4050   g_cal 80011111   bias_k5 80021111
-    t=1001 r=40ac   g_cal fffffff8   bias_k5 fffffff5
-    t=1001 r=40b0   g_cal 000064f9   bias_k5 00006f37
-    t=2001 r=501c   g_cal 00000710   bias_k5 00000114
-
-Three more same-geometry pairs, one from each of the other groups:
-
-  g_k3s1 against pp_k3: 6 registers differ, 4044 4050 40ac 40b0 40b4 501c
-  g_cal_k3 against bias_k3: 6 registers differ, 4044 4050 40ac 40b0 40b4 501c
-  p2_k5 against pp_p5: 6 registers differ, 4044 4050 40ac 40b0 40b4 501c
-
-0x40ac, 0x40b0 and 0x40b4 are the output zero point, the requant
-multiplier and the requant shift. Those differ between any two models
-with different weights and say nothing here. What is left in every
-pair is 0x4044, 0x4050 and 0x501c, the same three every time.
-
-
-Does it follow the model series?
---------------------------------
-
-Not that either, and one form of the guess dies immediately: all 94
-files carry the same toolkit build string,
-
-    2.3.2 (@2025-04-03T08:26:16)   94 files
-
-so it is not a toolkit version difference.
-
-And a per-model constant cannot be right, because 11 files hold more
-than one value inside a single compile:
-
-  g_pw24, 512x7x7>1024x7x7, one Conv in the source graph.
-  Its dispatches, by byte offset in the file:
-    0x4980   0x80011111  R_0 34      ic 512   oc 1024  k 1  49 px
-    0x4e00   0x80011111  R_0 34      ic 512   oc 1024  k 1  49 px
-    0x5280   0x80011111  R_0 34      ic 512   oc 1024  k 1  28 px
-    0x5700   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
-    0x5b80   0x80011111  R_0 34      ic 512   oc 1024  k 1  21 px
-    0x6000   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
-
-  and the same shape in the other 10, all of them dwbig_*:
-  dwbig_1024, 1024x7x7>1024x7x7, one Conv in the source graph.
-  Its dispatches, by byte offset in the file:
-    0x6d80   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  49 px
-    0x7200   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  49 px
-    0x7680   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  28 px
-    0x7b00   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
-    0x7f80   0x00013333  R_0 38  dw  ic 1024  oc 2     k 3  21 px
-    0x8400   0x80021011  R_0 66      ic 16    oc 16    k 1  1 px
-    ... and the same pattern in dwbig_112, dwbig_128, dwbig_16, ...
-
-g_pw24 is the one that settles it. One Conv in the source graph, one
-compile, one file, and its two REGULAR dispatches disagree: the 512 to
-1024 pointwise reads 34 and the one-pixel 16 by 16 op the compiler
-adds for itself reads 66. Whatever selects the value is decided per
-dispatch, not per model and not per batch of models.
-
-
-What it does follow
--------------------
-
-DPU 0x4044, exactly, on every regular dispatch in the corpus:
-
-    RESERVED_0 34   <->  0x4044 = 0x00000001    260 dispatches
-    RESERVED_0 66   <->  0x4044 = 0x00000000    104 dispatches
-
-364 of 364, no exceptions. 0x2001/0x501c moves with them:
-
-    RESERVED_0 34   ->  0x501c 0x710 (260)
-    RESERVED_0 66   ->  0x501c 0x14 (22), 0x114 (82)
-
-Sweeping every register in the stream, 0x4044 is the ONLY one whose
-value partitions the two RESERVED_0 groups one-to-one, and 0x501c the
-only other whose value sets are disjoint between them. So the bit is
-not a loose constant with no company: it is one third of a single
-per-op decision in the bias-and-scale path of the output stage.
-
-The depthwise dispatches are the honest limit on that. They read
-    RESERVED_0 38, 0x4044 = 0x0, 0x501c = 0x510, 58 dispatches
-38 is 34 with field bit 2 -- word bit 13 -- added, so on the word-bit
-16-against-17 axis depthwise sits with the 34 group while its 0x4044
-sits with the 66 group. The lockstep is a statement about the regular
-datapath only, and I am not claiming more than that.
-
-What selects the arm in the first place is still open. It is not the
-shape, not the file, not the toolkit build, and not the day the file
-was compiled: 2026-08-08 and 2026-08-09 each produced both arms.
-
-
-What this means for the driver
-------------------------------
-
-rkt_regcmd.c emits, for a regular convolution,
-
-    0x4044 = 0x00000001
-    0x4050 = 0x80011011 or 0x80011111   (RESERVED_0 = 34)
-    0x501c = 0x00000710
-
-which is the 34 arm in all three registers at once. It is the arm the
-vendor takes on 260 of its 364 regular dispatches, and the driver never
-mixes an 0x4044 from one arm with a 0x4050 from the other. That is
-the part I could not say in the earlier mail and can say now.
-
-The RK3576 encoder has no depthwise path at all -- fill_regcmd_rk3576
-covers a regular convolution and rkt_ml_operation_supported declines
-depthwise before it is reached -- so the driver never emits the 38
-word. That is an observation about the vendor's depthwise datapath
-and about upstream's RK3588 encoder, not about this one.
-
-The field is also not free: moved on its own to upstream's 0, on a 5x5
-at 128 output channels and a pointwise at 88, the output stayed
-identical to the baseline and the job timed out. So it is a completion
-field, and 34 is the value that completes.
-
-
-What of the claim I sent
-------------------------
-
-The counting half stands. 34 and 66 are the only two RESERVED_0 values
-on regular convolutions, 34 is the common one, 260 dispatches against
-104, and 61 files against 20 by first dispatch.
-
-Three things in it were wrong or too small, and I would rather correct
-them here than let them stand.
-
-1. "It does not correlate with oc, ic, spatial size, kernel size or
-   stride" is true but it was the weak version of the test. The strong
-   version is the one you asked for: hold the WHOLE geometry fixed.
-   12 geometry classes then carry both values, 5 of them once the CBUF
-   windows of one model are folded together, and g_cal against bias_k5
-   is two files identical in every register but five.
-
-2. "What it does track is which batch of models it came from, which
-   makes a toolkit setting more likely" does not survive as written.
-   The batches are uniform, but the batch is not what decides:
-   g_pw24 carries both values in one compile of one Conv, and the
-   toolkit build string is identical across all 94 files. Why a whole
-   batch lands on one arm I still cannot say.
-
-3. It only ever mentioned two values. There is a third, 38, on all 58
-   depthwise dispatches. The RK3576 encoder declines depthwise so it
-   never emits that word, but the corpus has it and the table should
-   have said so.
-
-The one thing the earlier mail did not have is the answer to your
-question. It is not a toolkit setting sitting on its own; it is a bit
-of a three-register per-op choice, and the driver takes one side of
-that choice consistently.
-
-
-Regards,
-Jiaxing
+Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
+clocks by name", as v6 through v9 were.
+
+  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
+
+Tested on a Radxa ROCK 4D, on next-20260814. The tree is byte identical
+to v9, so that is the same test rather than a new one.
+
+This adds the RK3576 NPU to accel/rocket, which today supports RK3588
+only. The RK3576 carries two cores of the same RKNN block, wired up
+differently. Two extra convolution buffer clocks, two power domains per
+core, one reset rather than two, no NPU SRAM rail, and a PC_TASK_CON
+that packs the task number into sixteen bits rather than twelve.
+
+What changed since v9
+
+No code. Every patch's diff is byte identical to its v9 counterpart, and
+below the --- the only change anywhere is 5/13's git note. Above it, six
+commit messages each gained one trailer line and nothing else. Six tags,
+that note, and the base-commit trailers back where v8 had them.
+
+The note first, because v9's cover letter said 5/13 carried it and the
+posted mail did not. Rob Herring's bot asked on v8 for the dependency to
+be recorded in the patch rather than only in the letter, v9 said it was
+there, and it was not: my send script never passed --notes. Igor
+Paunovic noticed while applying the series and said so before v10 rather
+than after, and he had the cause right. Nothing was lost in a rebase;
+the flag was missing. The script now regenerates with --notes and
+refuses to send unless exactly one patch carries a Notes block.
+
+Igor also ran the 19 August protocol again on v9 as posted, on RK3588,
+an Orange Pi 5 Plus with all three cores bound, PROVE_LOCKING=y and
+DEBUG_ATOMIC_SLEEP=y, and a local test-only patch lowering
+JOB_TIMEOUT_MS to 2 ms so healthy jobs cross the timeout. Two passes per
+kernel at console loglevel 8 and 4, serial captured on a second machine.
+
+  v9, two passes         12 and 11 induced resets, all recovered,
+                         48 of 48 within 1 on both, including the
+                         inference after a forced autosuspend and
+                         resume. No MMU faults, no lockdep hits,
+                         nothing on the console.
+
+  without 1 and 2/13,    8, 10, 12, 8 and 15 induced resets, all
+  five runs in the       recovered. Four runs clean. In the
+  same session           remaining one the inference after autosuspend
+                         reported success and returned a constant
+                         buffer, all 48 output channels at 0x80,
+                         which is not this model's output zero
+                         point, while the CPU reference varied
+                         normally. Zero kernel messages, zero
+                         lockdep hits, nothing on the console.
+
+  1, 2 and 3/13 only,    13 and 13 induced resets, all recovered,
+  two passes             oracle 48 of 48 throughout, including after a
+                         forced autosuspend and resume. On the 1+2 arm
+                         a round that ends in a timeout leaves the
+                         affected core runtime-active even through a
+                         forced autosuspend; with 3/13 applied the same
+                         sequence leaves all three cores suspended.
+                         That arm is where 3/13's Tested-by comes from.
+
+A job that signals completion while its output buffer is never written
+is the silent form of the race 1/13 and 2/13 close, and across 102
+induced resets in nine runs that day it appeared only on the arm without
+them. It is a better statement of what those two patches are for than
+anything my own logs have caught, which has always been the loud form:
+a message, a wrong answer, something to look at.
+
+The tags, and where each came from:
+
+  02/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+                                    # reset, differential base,
+                                    # JOB_TIMEOUT_MS=2
+  03/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+                                    # reset, JOB_TIMEOUT_MS=2
+  06/13  Acked-by: Conor Dooley
+  07/13  Acked-by: Conor Dooley
+  08/13  Reviewed-by: Abel Vesa
+  09/13  Reviewed-by: Abel Vesa
+
+The two Tested-by comments are not the same string, and that is how they
+were given. 1/13, 4/13 and 5/13 keep the tags they had; Igor checked before
+testing that 1/13 is byte identical to v8 1/12 up to the base-commit
+trailer and 4/13 identical to v8 3/12, so those tags still describe what
+was tested.
+
+The bindings are unchanged since v9, where dt_binding_check was clean on
+all three with dtschema 2026.6 and yamllint 1.38.0, and CHECK_DTBS was
+clean on all 13 rk3576 and all 48 rk3588 dtbs.
+
+Two things I raised in v9 and would still rather hear about than guess
+at. 8/13 does three things: it adds the settle delay, renames a macro,
+and gives RK3576_PD_NPU a regulator, which also makes every RK3576 board
+force that domain off at probe. I asked whether it wants splitting;
+Abel Vesa's Reviewed-by may be the answer, but nobody has said so, and I
+would rather split it than have it merged on my silence. And 12/13 gives
+each core both NPU domains, which is the description that has been
+tested here rather than the topology; if it should be one domain per
+core, 5/13's minItems has to change with it. That one has had no reply
+at all.
+
+Nothing else moved.
+
+Jiaxing Hu (13):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../bindings/iommu/rockchip,iommu.yaml        |  28 +++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  47 ++++++-
+ .../power/rockchip,power-controller.yaml      |   8 ++
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  13 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  82 +++++++++++-
+ drivers/accel/rocket/rocket_core.c            |  28 ++++-
+ drivers/accel/rocket/rocket_core.h            |  11 +-
+ drivers/accel/rocket/rocket_device.c          |   7 +-
+ drivers/accel/rocket/rocket_drv.c             |  28 ++++-
+ drivers/accel/rocket/rocket_drv.h             |   2 +
+ drivers/accel/rocket/rocket_job.c             | 119 ++++++++++++++----
+ drivers/pmdomain/rockchip/pm-domains.c        |  75 +++++++----
+ 12 files changed, 385 insertions(+), 63 deletions(-)
+
+
+base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
+prerequisite-patch-id: 46ebb679e93d3d25393e8cbf8fc3c955bcc01bd4
+-- 
+2.43.0
+
