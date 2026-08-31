@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA4A5C61DD3
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06CFC624D1
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 16:19:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE15810E9D4;
-	Mon, 31 Aug 2026 16:19:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F7D10E9DA;
+	Mon, 31 Aug 2026 16:19:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kFzV8jXO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dU+9J0rT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A67510E9D1
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:19:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE71010E9D2
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:19:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 02673404A2;
- Mon, 31 Aug 2026 16:19:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F561F000E9;
- Mon, 31 Aug 2026 16:19:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C7DA240D75;
+ Mon, 31 Aug 2026 16:19:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239461F000E9;
+ Mon, 31 Aug 2026 16:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788193170;
- bh=zdQYcnn2A7evVZkhQgl/K+KL+bcJzQObIJuJPFnBFkM=;
+ s=k20260515; t=1788193174;
+ bh=mfBNsgF3zidzgFiNnSm7qaGCxvi2ZdL05Ik1cbGf/so=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=kFzV8jXO7n0ddmV1e60aKA4mbYcYjVVA/aydDOC20YsZkA2BZmYnHKu8cUP0jDnM0
- Y7fZ4pjYQFSyUd6iQNv7GToDPe0BxW98ELTQvdm9DZl3hRFnXzMLrw9QGHEYaRehWt
- HjhV6XMWBu6onDP3JJJ0wpFp1w86xZUG/YGFeWrpfTcEyGQCkZF8Lo8Ht9HKu8tZVe
- h1HJb5IW7TP66meYzBlmjmmkwJ9KEhpIe2qZWOCWi+fAB4T/BasMz5NRmv4I4QTJCE
- 5NN1FAQmE3//pxGav1nKEvlEvCFJQtsUmVgLOgqQ67mNxz24JxPSvNcUXQkj1F/Yl1
- p31XF97aTX2UQ==
+ b=dU+9J0rT1matZ2h9jFghwVb3YD7p/ZO9kSd/Dd4r398fbG/eEv0eC83ek6f9kJ7+7
+ JkUeLrx9xunJyKQ6dAhR+Lp/PSqP/3CLXDi2zpULfwx6LjXZZBTH0q0TdZh/Sm9heL
+ O45COJ0AriZEHRbdxQXWbt7YTZPgrdj0RlqmM0NOahnNeLvVZEpJ73O+Drag3Tmy9x
+ wPtTF6fTFyNorHPf18Dg6v5ARVCahUGw7ZLnqtif6ydKyj2V9JVFC+WT/P788OGUyF
+ 0yYvfm/aPwdy+vuibBiCbctX6cq/3nNMxHWcLFtDm+yLWxclF22giuUp3uY/gu+HmH
+ JSWqbpYbUxgQw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 31 Aug 2026 18:17:44 +0200
-Subject: [PATCH v3 28/40] drm/atmel-hlcdc: Convert to atomic_create_state
+Date: Mon, 31 Aug 2026 18:17:45 +0200
+Subject: [PATCH v3 29/40] drm/exynos: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-drm-no-more-plane-reset-v3-28-1877c7aa57b3@kernel.org>
+Message-Id: <20260831-drm-no-more-plane-reset-v3-29-1877c7aa57b3@kernel.org>
 References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 In-Reply-To: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
- dharma.b@microchip.com, manikandan.m@microchip.com, 
- nicolas.ferre@microchip.com
+ alim.akhtar@samsung.com, inki.dae@samsung.com, krzk@kernel.org, 
+ kyungmin.park@samsung.com, linux-samsung-soc@vger.kernel.org, 
+ sw0312.kim@samsung.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7180; i=mripard@kernel.org;
- h=from:subject:message-id; bh=mE9QJtSX1ZYIKIYFMD5NkF08HlyTW/7xdvp58Luzap8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTV8qELnkkfUv07ftNon+nzlfR6Vr2dH7dxH2P597Y2
- 7tnrnTIw46pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwkc3ejFXMnJ7i7/sst4n/
- nX+s+KaincA14e07suI+RH6eKyNRt1jvQSvzNqGNFSd/nwwK6LyVps/YcMCc0X/mq+9bZsae3D/
- nn+0eZrtGvaP/E4+4H5phwvUu7tW2mPqb1279ETD2mbBGb035dgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7338; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=lawd9I8Vl3BnH0N/nvmouxRrGEsKUsKUHnpMfVrUYC0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTV8paNnS6r5fWagtx/jbnz5sJUfceeZz+lLDvhdmCz
+ iun34ls6ZjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATSdrJ2DDt8TSbJuv4/kcC
+ h/Qk7vR8XqQdf8d25v9rp8zW7HsUeGE1l/SxzG+cyy7tOnSFjV9/3l3GOtP4p0saPCqv9SU7N3x
+ v/mT+VuqQ/zLjqBUVPhsKf7wVL2HLCrYIuWloeLZUVCLj1cvDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -336,73 +335,71 @@ expression PS;
 +	return &PS->base;
 }
 
-Tested-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: alexandre.belloni@bootlin.com
-Cc: claudiu.beznea@tuxon.dev
-Cc: dharma.b@microchip.com
-Cc: manikandan.m@microchip.com
-Cc: nicolas.ferre@microchip.com
+Cc: alim.akhtar@samsung.com
+Cc: inki.dae@samsung.com
+Cc: krzk@kernel.org
+Cc: kyungmin.park@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: sw0312.kim@samsung.com
 ---
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c | 30 ++++++++++++-------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_plane.c | 22 +++++++++-------------
+ 1 file changed, 9 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-index 70a1cef24388..e09ce6342085 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-@@ -1181,35 +1181,35 @@ static void atmel_hlcdc_plane_atomic_destroy_state(struct drm_plane *p,
- 	__drm_atomic_helper_plane_destroy_state(s);
- 
- 	kfree(state);
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_plane.c b/drivers/gpu/drm/exynos/exynos_drm_plane.c
+index 5c04ef87e400..020e8c9cf7de 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_plane.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_plane.c
+@@ -120,27 +120,23 @@ static void exynos_plane_mode_set(struct exynos_drm_plane_state *exynos_state)
+ 			  "plane : offset_x/y(%d,%d), width/height(%d,%d)",
+ 			  exynos_state->crtc.x, exynos_state->crtc.y,
+ 			  exynos_state->crtc.w, exynos_state->crtc.h);
  }
  
--static void atmel_hlcdc_plane_reset(struct drm_plane *p)
-+static struct drm_plane_state *atmel_hlcdc_plane_create_state(struct drm_plane *p)
+-static void exynos_drm_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *exynos_drm_plane_create_state(struct drm_plane *plane)
  {
- 	struct atmel_hlcdc_plane_state *state;
--
--	if (p->state) {
--		atmel_hlcdc_plane_atomic_destroy_state(p, p->state);
--		p->state = NULL;
--	}
-+	int ret;
+ 	struct exynos_drm_plane *exynos_plane = to_exynos_plane(plane);
+ 	struct exynos_drm_plane_state *exynos_state;
  
- 	state = kzalloc_obj(*state);
--	if (state) {
--		if (atmel_hlcdc_plane_alloc_dscrs(p, state)) {
--			kfree(state);
--			drm_err(p->dev,
--				"Failed to allocate initial plane state\n");
--			return;
--		}
--		__drm_atomic_helper_plane_reset(p, &state->base);
-+	if (!state)
+-	if (plane->state) {
+-		exynos_state = to_exynos_plane_state(plane->state);
+-		__drm_atomic_helper_plane_destroy_state(plane->state);
+-		kfree(exynos_state);
+-		plane->state = NULL;
+-	}
+-
+ 	exynos_state = kzalloc_obj(*exynos_state);
+-	if (exynos_state) {
+-		__drm_atomic_helper_plane_reset(plane, &exynos_state->base);
+-		plane->state->zpos = exynos_plane->config->zpos;
+-	}
++	if (!exynos_state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	ret = atmel_hlcdc_plane_alloc_dscrs(p, state);
-+	if (ret) {
-+		kfree(state);
-+		drm_err(p->dev, "Failed to allocate initial plane state\n");
-+		return ERR_PTR(ret);
- 	}
++	__drm_atomic_helper_plane_state_init(&exynos_state->base, plane);
++	exynos_state->base.zpos = exynos_plane->config->zpos;
 +
-+	__drm_atomic_helper_plane_state_init(&state->base, p);
-+
-+	return &state->base;
++	return &exynos_state->base;
  }
  
- static const struct drm_plane_funcs layer_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = atmel_hlcdc_plane_reset,
-+	.atomic_create_state = atmel_hlcdc_plane_create_state,
- 	.atomic_duplicate_state = atmel_hlcdc_plane_atomic_duplicate_state,
- 	.atomic_destroy_state = atmel_hlcdc_plane_atomic_destroy_state,
+ static struct drm_plane_state *
+ exynos_drm_plane_duplicate_state(struct drm_plane *plane)
+ {
+@@ -167,11 +163,11 @@ static void exynos_drm_plane_destroy_state(struct drm_plane *plane,
+ 
+ static struct drm_plane_funcs exynos_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy	= drm_plane_cleanup,
+-	.reset		= exynos_drm_plane_reset,
++	.atomic_create_state = exynos_drm_plane_create_state,
+ 	.atomic_duplicate_state = exynos_drm_plane_duplicate_state,
+ 	.atomic_destroy_state = exynos_drm_plane_destroy_state,
  };
  
- static int atmel_hlcdc_plane_create(struct drm_device *dev,
+ static int
 
 -- 
 2.55.0
