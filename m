@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98409C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C72C624CF
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B905510E838;
-	Mon, 31 Aug 2026 13:34:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D358210E83D;
+	Mon, 31 Aug 2026 13:34:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ohChnuKv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ooD4djly";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0075910E838
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:34:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9047B10E83D;
+ Mon, 31 Aug 2026 13:34:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6A3D460239;
- Mon, 31 Aug 2026 13:34:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8FC1F000E9;
- Mon, 31 Aug 2026 13:34:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2C0BD4179B;
+ Mon, 31 Aug 2026 13:34:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EFD1F00ACA;
+ Mon, 31 Aug 2026 13:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183248;
- bh=zeHrhVztDTg2l1DwUE5J1tlsgorWbl/Rkj3/n7D97Sg=;
+ s=k20260515; t=1788183254;
+ bh=/Q79X5Xn+tg1UZxAIgYhgAna65OpGpoajZyd4LCaADw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ohChnuKvriNvttD+e4hRkLocsaM3+Sc8sVJnHm5u7wbJSOs0AiqCRpHUaKAXP2Hq2
- 0OV53LJccFmqhQVY3kKHHM6UJ9q8nsnCYsnRlRcLSxwpL9kEtgcTNdOH0lviNmIq+P
- EP4YmFIjXjW5dZikSSTw8A87NnsLsLNxm3bhZfVDbsS7w0uyY8ps7cwja4VIY8onc8
- 7MuUpBHv0cFJLSWNfdZHlCQWQJ7orWaZC3a+GeFJlBeewyaaCJnQfjsj3TAvEc3NCJ
- pxLibouymYvePhfKhQUyh9KrZk71P8G/6ivMZoQIelvQXhpwTLHGG5b/g6a/o04yeF
- TcOOwJPaDvBIw==
+ b=ooD4djlyqAt3nWkmqMgPM8/He6nbwvRxTQU0Kg1273mJ2IFfO26pa4h74ESML1v+I
+ OtpBVb1leIQHgGlcbFJMpQdzyT0MmfLvpnXN05Zk8X9vCfb41eDmp4rI4XieyHvh3C
+ F29fVMEPNqJGL4FRBXFYrsCGDLtz7KUxS72wnVN5HTHwqlL8V1roSDDpvHXcybYlvi
+ F5HJexi8RDTBBbENo/DmRrcIYmxeHnQuQlFUxOgfADtzcwW+Khf0nB0DtTKksypwzl
+ 6vIojdr2zIlcJ+xJCHLum/+ED34l+SBznclQSWcjV7O/edPCSE/DjZ246T+6oi+CoE
+ aRU+vkDFVSzig==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Gustavo=20Kenji=20Mendon=C3=A7a=20Kaneko?= <kaneko.dev@pm.me>,
- Liviu Dudau <liviu.dudau@arm.com>, Sasha Levin <sashal@kernel.org>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+Cc: Candice Li <candice.li@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] drm/arm/komeda: fix error handling for
- clk_prepare_enable() and callers
-Date: Mon, 31 Aug 2026 09:21:02 -0400
-Message-ID: <20260831133314.4125787-34-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: validate and share PSP
+ fw_pri_buf copies via psp_copy_fw
+Date: Mon, 31 Aug 2026 09:21:06 -0400
+Message-ID: <20260831133314.4125787-38-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,84 +66,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
+From: Candice Li <candice.li@amd.com>
 
-[ Upstream commit 6502eb8cfcd6f7bc5f1f8b73ee524112bd93319d ]
+[ Upstream commit d1f9f5839bd785a3a06335a01d53282e80f8e5fa ]
 
-komeda_dev_resume() calls clk_prepare_enable() without checking the
-return value. If the clock fails to enable, the function returns 0
-(success) while IRQs are enabled and IOMMU is connected on potentially
-unclocked hardware, causing undefined behavior on resume.
+Change psp_copy_fw from void to int: return -ENODEV when drm_dev_enter
+fails, and -EINVAL when the image size is zero or larger than the
+1 MiB PSP private buffer.
 
-Propagate the error from clk_prepare_enable() and fix all call sites
-in komeda_drv.c that previously ignored the return value of
-komeda_dev_resume():
+Replace open-coded memset/memcpy into fw_pri_buf with psp_copy_fw.
 
-- komeda_platform_probe(): if resume fails, jump to err_destroy_mdev
-  (skipping the suspend call, since the clock was never enabled)
-- komeda_pm_resume(): propagate the error and skip
-  drm_mode_config_helper_resume() on failure
-
-This issue was found by code review without access to Komeda hardware.
-
-Signed-off-by: Gustavo Kenji Mendonça Kaneko <kaneko.dev@pm.me>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-Link: https://patch.msgid.link/20260609130828.1066038-1-kaneko.dev@pm.me
-Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
+Signed-off-by: Candice Li <candice.li@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/arm/komeda: fix error handling for
-clk_prepare_enable() and callers`
+# Stable Backport Analysis: `drm/amdgpu: validate and share PSP
+fw_pri_buf copies via psp_copy_fw`
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Local tree:** `v6.18.44` (`stable/linux-6.18.y`)
+**Upstream commit:** `d1f9f5839bd78` (not yet in this tree)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/arm/komeda]` `[fix]` — Correct error handling for
-`clk_prepare_enable()` and propagate errors to all callers.
+### Step 1.1: Subject Line
+**Record:** `[drm/amdgpu]` `[validate]` — Add size validation and error
+propagation to `psp_copy_fw`, consolidating open-coded `fw_pri_buf`
+copies.
 
 ### Step 1.2: Tags
 **Record:**
-- **Fixes:** — absent (expected for manual review)
-- **Reported-by:** — absent
-- **Tested-by:** — absent
-- **Reviewed-by:** Liviu Dudau `<liviu.dudau@arm.com>` (Komeda/ARM DRM
+- `Signed-off-by: Candice Li <candice.li@amd.com>` (author)
+- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (subsystem
   maintainer)
-- **Acked-by:** — absent
-- **Link:**
-  https://patch.msgid.link/20260609130828.1066038-1-kaneko.dev@pm.me
-- **Cc: stable:** — absent (not a negative signal)
-- **Signed-off-by:** Gustavo Kenji Mendonça Kaneko (author); Liviu Dudau
-  (maintainer); ignore pipeline-added Sasha Levin SOB
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`
 
-**Notable:** Reviewed by subsystem maintainer. No syzbot/user crash
-report.
+Notable: AMD maintainer review and merge; no fuzzer or user bug report.
 
-### Step 1.3: Body analysis
+### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** `komeda_dev_resume()` calls `clk_prepare_enable()` without
-  checking its return value.
-- **Symptom:** On clock-enable failure, function returns 0 (success)
-  while IRQs are enabled and IOMMU is connected on potentially unclocked
-  hardware.
-- **Failure mode:** Undefined behavior — MMIO to display blocks without
-  a running clock.
-- **Affected paths:** System suspend/resume (`komeda_pm_resume`), probe
-  when runtime PM is disabled, and the core resume helper itself.
-- **Root cause:** Missing error propagation from `clk_prepare_enable()`
-  through resume call chain.
-- **Version info:** None stated.
-- **Discovery:** Code review only; author had no Komeda hardware.
+- **Bug:** `psp_copy_fw()` silently returns on `drm_dev_enter()`
+  failure; `memcpy()` into `fw_pri_buf` has no bounds check against the
+  1 MiB (`PSP_1_MEG`) buffer.
+- **Symptom:** Callers proceed as if the copy succeeded — PSP commands
+  may run with stale/empty buffer data, or a heap buffer overflow occurs
+  if `bin_size > PSP_1_MEG`.
+- **Root cause:** `psp_copy_fw` was `void` with no size validation;
+  several PSP version files duplicated `memset`/`memcpy` without checks.
+- **Fix:** Return `-ENODEV` / `-EINVAL`; propagate errors to all
+  callers; route all copies through `psp_copy_fw`.
 
-### Step 1.4: Hidden bug fix detection
-**Record:** Explicit bug fix, not disguised cleanup. Classic missing-
-return-value-check pattern in a PM/resume path.
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Despite "validate and share" wording, this is a real
+memory-safety and error-handling bug fix, not cosmetic cleanup.
 
 ---
 
@@ -151,366 +133,551 @@ return-value-check pattern in a PM/resume path.
 
 ### Step 2.1: Inventory
 **Record:**
-| File | Changes |
-|------|---------|
-| `komeda_dev.c` | +4 / -1 (check `clk_prepare_enable` return) |
-| `komeda_drv.c` | +10 / -4 (propagate errors in probe and system PM
-resume) |
+- 8 files: `amdgpu_psp.c` (+32/-7 net), `amdgpu_psp.h` (+1/-1),
+  `psp_v3_1.c`, `psp_v11_0.c`, `psp_v12_0.c`, `psp_v13_0.c`,
+  `psp_v13_0_4.c`, `psp_v14_0.c`
+- Total: +62 / -38 lines
+- Functions: `psp_copy_fw`, `psp_load_toc`, `psp_rl_load`,
+  `psp_ta_load`, plus bootloader load helpers in PSP version files
+- **Scope:** Multi-file but mechanical; single-subsystem surgical fix
 
-**Functions modified:** `komeda_dev_resume()`,
-`komeda_platform_probe()`, `komeda_pm_resume()`
-**Scope:** Single-driver, surgical fix (~15 net lines). Two files, one
-subsystem.
-
-### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `komeda_dev_resume()`:**
-- **Before:** `clk_prepare_enable()` return ignored; always proceeds to
-  `enable_irq()` and `connect_iommu()`, returns 0.
-- **After:** On clock failure, return error immediately; skip IRQ/IOMMU
-  setup.
-- **Path:** Resume / probe-init path.
-
-**Hunk 2 — `komeda_platform_probe()`:**
-- **Before:** `komeda_dev_resume()` called with ignored return; probe
-  continues to KMS attach on failure.
-- **After:** On failure, `goto err_destroy_mdev` (skips
-  `komeda_dev_suspend()` since clock was never enabled).
-- **Path:** Probe error path when runtime PM is not enabled.
-
-**Hunk 3 — `komeda_pm_resume()`:**
-- **Before:** `komeda_dev_resume()` failure ignored;
-  `drm_mode_config_helper_resume()` always runs.
-- **After:** Propagate resume error; skip DRM mode-config resume on
-  hardware failure.
-- **Path:** System sleep resume.
-
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Error-path / logic correctness fix.
-**Mechanism:** Ignored `clk_prepare_enable()` error allows subsequent
-MMIO (`d71_enable_irq()` → `malidp_write32_mask()` on GCU/CU/LPU/DOU
-blocks; `d71_connect_iommu()` → GCU/LPU register writes) on unclocked
-hardware, while callers believe resume succeeded.
-
-### Step 2.4: Fix quality
+### Step 2.2: Code Flow Changes
 **Record:**
-- Fix is minimal and follows standard kernel error-propagation patterns.
-- `err_destroy_mdev` correctly avoids calling `komeda_dev_suspend()`
-  when resume never enabled the clock.
-- `komeda_rt_pm_resume()` already returned `komeda_dev_resume()`'s
-  value; this patch completes coverage for probe and system PM.
-- **Regression risk:** Low. Only adds early error returns on failure
-  paths.
-- **Note:** `enable_irq()` and `connect_iommu()` return values remain
-  ignored (pre-existing; out of scope).
+| Hunk | Before | After |
+|------|--------|-------|
+| `psp_copy_fw` | `void`; silent return on `drm_dev_enter` fail;
+unchecked `memcpy` | `int`; returns `-ENODEV`/`-EINVAL`; validates `0 <
+bin_size <= PSP_1_MEG` |
+| `psp_load_toc`, `psp_rl_load`, `psp_ta_load` | Ignored `psp_copy_fw`
+result | Check return; release cmd buf and abort on error |
+| `psp_v11_0`–`psp_v14_0` bootloader paths | Open-coded
+`memset`/`memcpy` or ignored `psp_copy_fw` return | Use `psp_copy_fw`
+with error propagation |
+
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Memory safety (buffer overflow) + logic bug (ignored
+  error path)
+- **Mechanism:** `fw_pri_buf` is allocated at exactly `PSP_1_MEG`
+  (verified at `amdgpu_psp.c:508`). `is_psp_fw_valid()` only checks
+  `size_bytes != 0` (`amdgpu_psp.c:4179-4181`). `memcpy(psp->fw_pri_buf,
+  start_addr, bin_size)` with `bin_size > PSP_1_MEG` overflows the 1 MiB
+  kernel buffer. On `drm_dev_enter` failure, callers previously
+  submitted PSP commands believing the copy succeeded.
+
+### Step 2.4: Fix Quality
+**Record:** Obviously correct. Mirrors existing TA validation
+(`ta_bin_len > PSP_1_MEG` in `amdgpu_psp_ta.c:169`). Minimal regression
+risk; error paths properly release acquired resources.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** Buggy `clk_prepare_enable()` without check introduced in
-`2ebb6701654e0d` ("drm/komeda: Adds power management support",
-2019-09-26). IRQ/IOMMU code added in `efb46508851874` (2019-12-12). Bug
-has existed since Komeda PM support landed.
+**Record:** `psp_copy_fw` introduced in `f89f8c6bafd06` (May 2021,
+"Guard against write accesses after device removal"). `drm_dev_enter`
+guard added then; silent `return` on failure is the latent bug. Code
+present in 6.18.44.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+### Step 3.2: Fixes Tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related file history
-**Record:** Recent komeda changes in this tree are unrelated (FB
-creation, AFBC overflow fix, DRM client setup). No prior fix for this
-clk error-handling issue. Standalone patch, not part of a series.
+### Step 3.3: Related File History
+**Record:** Related prior fix `c99769bceab4e` ("Validate TA binary
+size", 2023) is already in 6.18.44 — validates userspace TA loads
+against `PSP_1_MEG`. This commit extends the same constraint to kernel
+firmware copy paths. Standalone; not part of a multi-patch series.
 
-### Step 3.4: Author commits
-**Record:** No prior komeda commits from Kaneko in this tree. Fix
-reviewed/committed by maintainer Liviu Dudau.
+### Step 3.4: Author Context
+**Record:** Candice Li is an active AMD amdgpu contributor. Alex Deucher
+(maintainer) committed the merge.
 
 ### Step 3.5: Dependencies
-**Record:** No dependencies. No prerequisite commits. Self-contained.
+**Record:** No prerequisites. All touched files and `psp_copy_fw` exist
+in 6.18.44. Cherry-pick test: applies cleanly (exit 0).
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:** Link from commit message (`patch.msgid.link`) blocked by
-Anubis bot protection. `b4 dig` requires a commit hash; commit is not in
-this tree, so `b4 dig -c` could not be used. Lore.kernel.org search also
-blocked. **Could not retrieve mailing list thread content.**
+### Step 4.1: Patch Discussion
+**Record:** `b4 dig -c d1f9f5839bd78` — no lore match found. Patch
+likely merged via GitLab/Freedesktop rather than public lore thread.
 
 ### Step 4.2: Reviewers
-**Record:** UNVERIFIED via b4 `-w`. Commit message confirms **Reviewed-
-by: Liviu Dudau** (ARM Komeda maintainer).
+**Record:** `b4 dig -w` not run (no lore match). Commit message confirms
+`Reviewed-by: Tao Zhou` and `Signed-off-by: Alex Deucher`.
 
-### Step 4.3: Bug report
-**Record:** No external bug report. Author states issue found by code
-review without hardware access.
+### Step 4.3: Bug Report
+**Record:** N/A — no `Reported-by:` or `Link:` tags. No syzbot report.
 
-### Step 4.4: Related patches / series
-**Record:** Standalone 1-patch fix. No series dependencies identified.
+### Step 4.4: Related Patches
+**Record:** `c99769bceab4e` (TA size validation) is the directly related
+prior fix, already in this tree.
 
-### Step 4.5: Stable list history
-**Record:** UNVERIFIED — lore stable search blocked.
+### Step 4.5: Stable List History
+**Record:** lore.kernel.org search blocked (Anubis bot protection). No
+stable-list discussion found.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `komeda_dev_resume()`, `komeda_platform_probe()`,
-`komeda_pm_resume()`.
+### Step 5.1: Key Functions
+**Record:** `psp_copy_fw`, `psp_load_toc`, `psp_rl_load`, `psp_ta_load`,
+`psp_v*_bootloader_load_*`
 
 ### Step 5.2: Callers
-**Record:**
-| Caller | Context |
-|--------|---------|
-| `komeda_platform_probe()` | Device probe, when
-`!pm_runtime_enabled(dev)` |
-| `komeda_rt_pm_resume()` | Runtime PM resume (already propagated
-return) |
-| `komeda_pm_resume()` | System sleep resume |
-
-Komeda supports `arm,mali-d71` and `arm,mali-d32` (local tree; mainline
-also has `armchina,linlon-d6`).
+**Record:** `psp_copy_fw` called from PSP init/bootloader paths
+(`psp_v3_1`, `psp_v11_0`, `psp_v12_0`, `psp_v13_0`, `psp_v13_0_4`,
+`psp_v14_0`) and from `psp_load_toc`, `psp_ta_load` during GPU
+probe/initialization. All AMD GPU users with PSP enabled hit these paths
+at driver load.
 
 ### Step 5.3: Callees
-**Record:** `clk_prepare_enable()` → on success,
-`mdev->funcs->enable_irq()` (MMIO mask writes) and optional
-`connect_iommu()` (MMIO + timeout polling).
+**Record:** `drm_dev_enter/exit`, `memset`, `memcpy`, `dev_err` —
+operates on `psp->fw_pri_buf` (1 MiB BO-mapped buffer).
 
 ### Step 5.4: Reachability
-**Record:** Triggered on every system resume and probe (when runtime PM
-disabled) for Komeda hardware. `CONFIG_DRM_KOMEDA` tristate driver for
-ARM SoCs with Mali-D71/D32 display. Reachable from kernel PM resume —
-not a userspace syscall path, but affects all suspend/resume cycles on
-affected hardware.
+**Record:** Triggered during GPU probe/init (every boot with amdgpu).
+Not a direct syscall path, but universal for amdgpu hardware. Overflow
+requires `size_bytes > PSP_1_MEG` from firmware header parsing;
+`drm_dev_enter` failure occurs during device teardown concurrent with
+PSP operations.
 
-### Step 5.5: Similar patterns
-**Record:** Other DRM drivers in this tree have received clk error-
-handling fixes (e.g., mediatek, rockchip, cdns-mhdp). Same class of bug.
+### Step 5.5: Similar Patterns
+**Record:** Userspace TA path already validates `ta_bin_len > PSP_1_MEG`
+(`amdgpu_psp_ta.c:169`). Kernel paths in `psp_v13_0.c`, `psp_v14_0.c`,
+`psp_v13_0_4.c`, and `psp_rl_load` still use unchecked `memcpy` —
+exactly what this fix addresses.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.y)
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree at `komeda_dev.c:316` has unchecked
-`clk_prepare_enable(mdev->aclk)`. Callers at `komeda_drv.c:78` and
-`:144` ignore the return value. Bug present since 2019, well before 6.18
-branch.
+### Step 6.1: Buggy Code Present?
+**Record:** Yes. In 6.18.44, `psp_copy_fw` is still `void` with
+unchecked `memcpy` (`amdgpu_psp.c:4157-4168`). Open-coded unchecked
+copies exist in `psp_v13_0.c:268-271`, `psp_v14_0.c:143-146`,
+`psp_v13_0_4.c`, and `psp_rl_load` (`amdgpu_psp.c:1162-1163`). Bug
+present since 2021.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected.** Local
-`komeda_drv.c`/`komeda_dev.c` match the patch's "before" state at all
-change sites. Only cosmetic difference: mainline `of_match` includes
-`armchina,linlon-d6`; that entry is outside the fix hunks and does not
-affect applicability.
+### Step 6.2: Backport Complications
+**Record:** Clean apply confirmed via test cherry-pick. No conflicts
+expected.
 
-### Step 6.3: Related fixes already present?
-**Record:** **No.** `git log --grep` found no prior komeda clk error-
-handling fix in this tree.
+### Step 6.3: Related Fixes Already Present?
+**Record:** TA userspace validation (`c99769bceab4e`) is in tree. The
+kernel-path validation this commit adds is not.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/arm/komeda** — PERIPHERAL (ARM Mali
-display IP, embedded/SoC). Important for platforms using Komeda, not
-universal.
+### Step 7.1: Subsystem
+**Record:** `drivers/gpu/drm/amd/amdgpu` — GPU driver (IMPORTANT).
+Affects all AMD GPU users with PSP firmware loading.
 
-### Step 7.2: Subsystem activity
-**Record:** Moderately active in 6.18.y (client setup, DMA mask, AFBC
-fixes). Mature driver with ongoing maintenance.
+### Step 7.2: Activity
+**Record:** Actively maintained; PSP v13/v14 support added in recent
+6.18 development.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-### Step 8.1: Who is affected
-**Record:** Users of `CONFIG_DRM_KOMEDA` on ARM SoCs with Mali-D71/D32
-(and linlon-d6 on newer trees). Platform-specific, not all kernel users.
+### Step 8.1: Who Is Affected
+**Record:** All amdgpu users during GPU initialization (driver-specific,
+but broad within AMD GPU deployments).
 
-### Step 8.2: Trigger conditions
-**Record:** `clk_prepare_enable(mdev->aclk)` returns an error — clock
-provider failure, DT misconfiguration, resume ordering issue, power-
-domain not ready. Uncommon on healthy systems, more plausible during
-suspend/resume or probe on misconfigured/problematic platforms. Not
-userspace-triggerable directly.
-
-### Step 8.3: Failure mode severity
-**Record:** MMIO to display controller blocks without clock → bus hang,
-kernel oops, or unpredictable hardware behavior. Function returns
-success, so PM stack and DRM resume continue on broken hardware.
-**Severity: HIGH** (potential crash/hang on resume); not CRITICAL (no
-demonstrated exploit, rare trigger, no user reports).
-
-### Step 8.4: Risk-benefit
+### Step 8.2: Trigger Conditions
 **Record:**
-- **Benefit:** Prevents undefined hardware access and false-success
-  resume on clock failure; correct probe teardown on init failure.
-- **Risk:** Very low — ~15 lines, error-path only, maintainer-reviewed.
-- **Ratio:** Favorable for stable. Conservative error handling with
-  minimal regression surface.
+- **Overflow:** Corrupt/malformed firmware header with `size_bytes >
+  0x100000`, or internal bug setting oversized `size_bytes`.
+  Unprivileged users cannot directly trigger kernel firmware path;
+  requires bad firmware on disk.
+- **drm_dev_enter failure:** Device removal/teardown racing with PSP
+  firmware load (uncommon but realistic).
+
+### Step 8.3: Failure Mode Severity
+**Record:**
+- Buffer overflow → heap corruption, kernel oops/panic — **CRITICAL**
+- Silent copy failure → PSP commands with stale data, init failure or
+  hardware hang — **HIGH**
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH — closes a real overflow window; consistent with
+  existing TA validation; proper error propagation
+- **Risk:** LOW — small, mechanical, reviewed by AMD maintainer, applies
+  cleanly
+- **Ratio:** Strongly favors backport
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
-**FOR backport:**
-- Real, verifiable bug: ignored `clk_prepare_enable()` return since 2019
-- Subsequent code performs MMIO (`enable_irq`, `connect_iommu`)
-  requiring clock
-- Fix propagates errors through probe and system PM resume
-- Small, surgical, maintainer-reviewed (Liviu Dudau)
-- Bug exists in this 6.18.y tree; patch applies at all change sites
-- PM/resume error-handling fixes are standard stable material
+**FOR:**
+- Fixes potential heap buffer overflow (memory safety)
+- Fixes silent error on `drm_dev_enter` failure
+- Extends validation already applied to userspace TA path
+  (`c99769bceab4e`, in tree)
+- Small (+62/-38), obviously correct, AMD-reviewed
+- Applies cleanly to 6.18.44
+- All affected code exists in this tree
 
-**AGAINST backport:**
-- No user report, syzbot report, or hardware reproduction
-- Trigger (clock enable failure) likely rare on production systems
-- Driver affects a limited hardware population
-- Could not verify mailing list discussion (lore blocked)
+**AGAINST:**
+- No user report, syzbot, or CVE
+- Normal AMD firmware sizes are well under 1 MiB; overflow requires
+  corrupt firmware or parsing bug
+- Primarily defense-in-depth on init path
 
-**Unresolved:**
-- Full review thread content unavailable
-- No confirmation of explicit stable nomination in review
+**UNRESOLVED:**
+- No public lore discussion found
+- No production crash report documented
 
-### Step 9.2: Stable rules checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — Standard pattern;
-maintainer reviewed; no hardware test claimed |
-| 2. Fixes a real bug? | **PASS** — Ignored error + false success is a
-real logic bug |
-| 3. Important issue? | **PASS** — HIGH: potential crash/hang on resume
-via unclocked MMIO |
-| 4. Small and contained? | **PASS** — ~15 lines, 2 files, one driver |
-| 5. No new features/APIs? | **PASS** — Error propagation only |
-| 6. Applies to local tree? | **PASS** — Buggy code confirmed in
-v6.18.44 |
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — simple bounds check; AMD
+   internal review
+2. Fixes a real bug? **PASS** — unchecked `memcpy` into fixed 1 MiB
+   buffer
+3. Important issue? **PASS** — buffer overflow (CRITICAL class)
+4. Small and contained? **PASS** — 8 files, ~100 lines, single subsystem
+5. No new features/APIs? **PASS** — validation and error propagation
+   only
+6. Can apply to local tree? **PASS** — clean cherry-pick confirmed
 
-### Step 9.3: Exception categories
-**Record:** N/A — not a device ID, quirk, DT, build, or docs fix.
-Qualifies on bug-fix merits.
+### Step 9.3: Exception Category
+**Record:** None of the automatic exception categories apply; this is a
+standard memory-safety bug fix.
 
-### Step 9.4: Decision rationale
+### Step 9.4: Decision Rationale
 
-For **this 6.18.y tree**, the Komeda driver is present and has carried
-this resume error-handling bug since 2019. When `clk_prepare_enable()`
-fails, the driver enables IRQs and connects IOMMU via MMIO on unclocked
-hardware while reporting success — a legitimate PM correctness bug with
-crash/hang potential. The fix is minimal, reviewed by the subsystem
-maintainer, and should apply cleanly. The lack of a user report lowers
-urgency but does not negate the technical merit; stable trees routinely
-take ignored-return-value fixes in driver PM paths.
+This commit closes a genuine memory-safety hole: `fw_pri_buf` is exactly
+1 MiB, but multiple kernel firmware copy paths perform unchecked
+`memcpy` based on `size_bytes` from firmware headers, with
+`is_psp_fw_valid()` only rejecting zero size. The driver already
+validates the same 1 MiB limit for userspace-loaded TA binaries — this
+brings kernel paths to the same standard. The `drm_dev_enter` error
+propagation fix prevents PSP command submission after a failed copy
+during device teardown.
+
+While no crash has been reported, buffer overflow fixes are explicitly
+stable-worthy, the change is small and low-risk, and it applies cleanly
+to 6.18.44.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed Reviewed-by: Liviu Dudau; no Reported-
-  by/syzbot/Fixes tags
-- **[Phase 2]** Diff analysis: 2 files, 3 functions, error-propagation
-  pattern verified
-- **[Phase 2]** Read `d71_enable_irq()` and `d71_connect_iommu()` — both
-  perform MMIO requiring clock
-- **[Phase 3]** `git blame -L 314,325 komeda_dev.c`: bug since
-  `2ebb6701654e0d` (2019-09-26)
-- **[Phase 3]** `git show 2ebb6701654e0d`: original PM support commit
-- **[Phase 3]** `git log -20 -- komeda_dev.c komeda_drv.c`: no related
-  prior fix
-- **[Phase 4]** WebFetch patch.msgid.link: **BLOCKED** (Anubis)
-- **[Phase 4]** WebFetch lore.kernel.org: **BLOCKED** (Anubis)
-- **[Phase 4]** `b4 dig -c`: not usable — commit not in local tree
-- **[Phase 5]** Grep callers: probe (line 78), rt_pm_resume (123),
-  pm_resume (144)
-- **[Phase 5]** Verified `komeda_rt_pm_resume` already returns resume
-  error; probe/pm_resume did not
-- **[Phase 6]** `git describe HEAD`: v6.18.44
-- **[Phase 6]** Read current `komeda_dev.c:314-325` and
-  `komeda_drv.c:76-146`: buggy code confirmed present
-- **[Phase 6]** Line-by-line comparison: patch hunks match local file
-  structure
-- **[Phase 6]** `git log --grep`: no duplicate fix in tree
-- **[Phase 7]** Read `drivers/gpu/drm/arm/display/Kconfig`:
-  `CONFIG_DRM_KOMEDA` tristate, depends on DRM+OF+COMMON_CLK
-- **[Phase 8]** Assessed severity from verified MMIO-after-clk-failure
-  code path
-- **UNVERIFIED:** Mailing list review discussion content
-- **UNVERIFIED:** Explicit stable nomination in review thread
-- **UNVERIFIED:** Formal `git apply --check` (test patch malformed;
-  manual hunk comparison confirms applicability)
+- [Phase 1] Parsed commit `d1f9f5839bd78` message and tags from `git
+  show`
+- [Phase 2] Analyzed full diff; confirmed `PSP_1_MEG = 0x100000` in
+  `amdgpu_psp.h:37`
+- [Phase 2] Verified `fw_pri_buf` allocated at `PSP_1_MEG`
+  (`amdgpu_psp.c:508-513`)
+- [Phase 2] Verified `is_psp_fw_valid()` only checks non-zero
+  (`amdgpu_psp.c:4179-4181`)
+- [Phase 2] Found unchecked `memcpy` in `psp_v13_0.c:271`,
+  `psp_v14_0.c:146`, `psp_rl_load` (`amdgpu_psp.c:1162-1163`)
+- [Phase 3] `git blame`: `psp_copy_fw` from `f89f8c6bafd06` (May 2021)
+- [Phase 3] Related fix `c99769bceab4e` confirmed in tree via `git
+  merge-base --is-ancestor`
+- [Phase 3] Cherry-pick test: `git cherry-pick --no-commit
+  d1f9f5839bd78` — clean apply (exit 0)
+- [Phase 4] `b4 dig -c d1f9f5839bd78` — no lore match
+- [Phase 4] lore.kernel.org fetch — blocked by Anubis
+- [Phase 5] `grep psp_copy_fw`: 14 call sites across 7 files in tree
+- [Phase 5] TA validation at `amdgpu_psp_ta.c:169` confirmed
+- [Phase 6] `git describe HEAD` → `v6.18.44`
+- [Phase 6] Buggy `void psp_copy_fw` confirmed present at
+  `amdgpu_psp.c:4157`
+- [Phase 6] Commit not in tree: present on `origin/master`, absent from
+  `stable/linux-6.18.y`
+- [Phase 8] Failure modes assessed from code flow analysis
 
-**YES**
+**YES**The background `git log` search for `psp_copy_fw` and "validate
+and share PSP fw_pri_buf" finished with no matches in this tree —
+expected, since `d1f9f5839bd78` is on mainline but not in `v6.18.44`
+yet.
 
- drivers/gpu/drm/arm/display/komeda/komeda_dev.c |  6 +++++-
- drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 14 +++++++++-----
- 2 files changed, 14 insertions(+), 6 deletions(-)
+That lines up with the earlier analysis: the unchecked `memcpy` paths
+are still present here, and the fix applies cleanly. Verdict remains
+**YES** for backport.
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_dev.c b/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
-index 5ba62e637a616..9aad1d1d28ec0 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_dev.c
-@@ -313,7 +313,11 @@ void komeda_dev_destroy(struct komeda_dev *mdev)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 32 ++++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c   |  8 ++++--
+ drivers/gpu/drm/amd/amdgpu/psp_v12_0.c   |  8 ++++--
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c   | 14 +++++------
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c | 14 +++++------
+ drivers/gpu/drm/amd/amdgpu/psp_v14_0.c   | 14 +++++------
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c    |  8 ++++--
+ 8 files changed, 62 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 5f7aa840b2151..9f3581ce492f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -832,7 +832,11 @@ static int psp_load_toc(struct psp_context *psp,
+ 	struct psp_gfx_cmd_resp *cmd = acquire_psp_cmd_buf(psp);
  
- int komeda_dev_resume(struct komeda_dev *mdev)
- {
--	clk_prepare_enable(mdev->aclk);
-+	int err;
-+
-+	err = clk_prepare_enable(mdev->aclk);
-+	if (err)
-+		return err;
- 
- 	mdev->funcs->enable_irq(mdev);
- 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
-index 358c1512b0879..fc1816c634087 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
-@@ -74,8 +74,11 @@ static int komeda_platform_probe(struct platform_device *pdev)
- 	}
- 
- 	pm_runtime_enable(dev);
--	if (!pm_runtime_enabled(dev))
--		komeda_dev_resume(mdrv->mdev);
-+	if (!pm_runtime_enabled(dev)) {
-+		err = komeda_dev_resume(mdrv->mdev);
-+		if (err)
-+			goto err_destroy_mdev;
+ 	/* Copy toc to psp firmware private buffer */
+-	psp_copy_fw(psp, psp->toc.start_addr, psp->toc.size_bytes);
++	ret = psp_copy_fw(psp, psp->toc.start_addr, psp->toc.size_bytes);
++	if (ret) {
++		release_psp_cmd_buf(psp);
++		return ret;
 +	}
  
- 	mdrv->kms = komeda_kms_attach(mdrv->mdev);
- 	if (IS_ERR(mdrv->kms)) {
-@@ -93,7 +96,7 @@ static int komeda_platform_probe(struct platform_device *pdev)
- 		pm_runtime_disable(dev);
- 	else
- 		komeda_dev_suspend(mdrv->mdev);
--
-+err_destroy_mdev:
- 	komeda_dev_destroy(mdrv->mdev);
+ 	psp_prep_load_toc_cmd_buf(cmd, psp->fw_pri_mc_addr, psp->toc.size_bytes);
  
- free_mdrv:
-@@ -139,11 +142,12 @@ static int __maybe_unused komeda_pm_suspend(struct device *dev)
- static int __maybe_unused komeda_pm_resume(struct device *dev)
- {
- 	struct komeda_drv *mdrv = dev_get_drvdata(dev);
-+	int err = 0;
+@@ -1159,8 +1163,11 @@ static int psp_rl_load(struct amdgpu_device *adev)
  
- 	if (!pm_runtime_status_suspended(dev))
--		komeda_dev_resume(mdrv->mdev);
-+		err = komeda_dev_resume(mdrv->mdev);
+ 	cmd = acquire_psp_cmd_buf(psp);
  
--	return drm_mode_config_helper_resume(&mdrv->kms->base);
-+	return err ? err : drm_mode_config_helper_resume(&mdrv->kms->base);
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-	memcpy(psp->fw_pri_buf, psp->rl.start_addr, psp->rl.size_bytes);
++	ret = psp_copy_fw(psp, psp->rl.start_addr, psp->rl.size_bytes);
++	if (ret) {
++		release_psp_cmd_buf(psp);
++		return ret;
++	}
+ 
+ 	cmd->cmd_id = GFX_CMD_ID_LOAD_IP_FW;
+ 	cmd->cmd.cmd_load_ip_fw.fw_phy_addr_lo = lower_32_bits(psp->fw_pri_mc_addr);
+@@ -1383,8 +1390,12 @@ int psp_ta_load(struct psp_context *psp, struct ta_context *context)
+ 
+ 	cmd = acquire_psp_cmd_buf(psp);
+ 
+-	psp_copy_fw(psp, context->bin_desc.start_addr,
+-		    context->bin_desc.size_bytes);
++	ret = psp_copy_fw(psp, context->bin_desc.start_addr,
++			  context->bin_desc.size_bytes);
++	if (ret) {
++		release_psp_cmd_buf(psp);
++		return ret;
++	}
+ 
+ 	if (amdgpu_virt_xgmi_migrate_enabled(psp->adev) &&
+ 		context->mem_context.shared_bo)
+@@ -4154,17 +4165,24 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
+ 	return count;
  }
  
- static const struct dev_pm_ops komeda_pm_ops = {
+-void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
++int psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
+ {
+ 	int idx;
+ 
+ 	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
+-		return;
++		return -ENODEV;
++
++	if (!bin_size || bin_size > PSP_1_MEG) {
++		dev_err(psp->adev->dev, "PSP firmware is invalid\n");
++		drm_dev_exit(idx);
++		return -EINVAL;
++	}
+ 
+ 	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+ 	memcpy(psp->fw_pri_buf, start_addr, bin_size);
+ 
+ 	drm_dev_exit(idx);
++	return 0;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 237b624aa51ca..c3a5940e311aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -605,7 +605,7 @@ int psp_get_fw_attestation_records_addr(struct psp_context *psp,
+ int psp_update_fw_reservation(struct psp_context *psp);
+ int psp_load_fw_list(struct psp_context *psp,
+ 		     struct amdgpu_firmware_info **ucode_list, int ucode_count);
+-void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
++int psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
+ 
+ int psp_spatial_partition(struct psp_context *psp, int mode);
+ int psp_memory_partition(struct psp_context *psp, int mode);
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index 27d883fda5fa9..6f131f4b81134 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -217,7 +217,9 @@ static int psp_v11_0_bootloader_load_component(struct psp_context  	*psp,
+ 		return ret;
+ 
+ 	/* Copy PSP System Driver binary to memory */
+-	psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
++	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the sys driver to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -263,7 +265,9 @@ static int psp_v11_0_bootloader_load_sos(struct psp_context *psp)
+ 		return ret;
+ 
+ 	/* Copy Secure OS binary to PSP memory */
+-	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+index 4c6450d62299a..80ba57cce3916 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+@@ -87,7 +87,9 @@ static int psp_v12_0_bootloader_load_sysdrv(struct psp_context *psp)
+ 		return ret;
+ 
+ 	/* Copy PSP System Driver binary to memory */
+-	psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
++	ret = psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the sys driver to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -123,7 +125,9 @@ static int psp_v12_0_bootloader_load_sos(struct psp_context *psp)
+ 		return ret;
+ 
+ 	/* Copy Secure OS binary to PSP memory */
+-	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index af4a7d7c4abd8..8100930e47eb1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -265,10 +265,9 @@ static int psp_v13_0_bootloader_load_component(struct psp_context  	*psp,
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+-	/* Copy PSP KDB binary to memory */
+-	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
++	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP KDB to bootloader */
+ 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
+@@ -347,10 +346,9 @@ static int psp_v13_0_bootloader_load_sos(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+-	/* Copy Secure OS binary to PSP memory */
+-	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
++	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
+index 5f39a2edcc956..3d5e26b3fa00a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
+@@ -105,10 +105,9 @@ static int psp_v13_0_4_bootloader_load_component(struct psp_context  	*psp,
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+-	/* Copy PSP KDB binary to memory */
+-	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
++	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP KDB to bootloader */
+ 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
+@@ -168,10 +167,9 @@ static int psp_v13_0_4_bootloader_load_sos(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+-	/* Copy Secure OS binary to PSP memory */
+-	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
++	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+index 38dfc5c19f2a7..040a61aefa866 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
+@@ -140,10 +140,9 @@ static int psp_v14_0_bootloader_load_component(struct psp_context  	*psp,
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+-	/* Copy PSP KDB binary to memory */
+-	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
++	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP KDB to bootloader */
+ 	WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_36,
+@@ -214,10 +213,9 @@ static int psp_v14_0_bootloader_load_sos(struct psp_context *psp)
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
+-
+-	/* Copy Secure OS binary to PSP memory */
+-	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
++	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+index 833830bc3e2e3..409f097f4c524 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+@@ -96,7 +96,9 @@ static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
+ 		return ret;
+ 
+ 	/* Copy PSP System Driver binary to memory */
+-	psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
++	ret = psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the sys driver to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+@@ -135,7 +137,9 @@ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
+ 		return ret;
+ 
+ 	/* Copy Secure OS binary to PSP memory */
+-	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
++	if (ret)
++		return ret;
+ 
+ 	/* Provide the PSP secure OS to bootloader */
+ 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
 -- 
 2.53.0
 
