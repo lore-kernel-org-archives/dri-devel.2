@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9F87C624A4
-	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D65C624CE
+	for <dri-devel@archiver.kernel.org>; Mon, 31 Aug 2026 13:41:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED7B710E87C;
-	Mon, 31 Aug 2026 13:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23DCE10E87F;
+	Mon, 31 Aug 2026 13:41:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0wRlrKE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ktj73pen";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C16E010E87C
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 13:41:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF71210E87D;
+ Mon, 31 Aug 2026 13:41:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AA21443DAB;
- Mon, 31 Aug 2026 13:41:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497B51F00A3F;
- Mon, 31 Aug 2026 13:41:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5BC940214;
+ Mon, 31 Aug 2026 13:41:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D24D1F000E9;
+ Mon, 31 Aug 2026 13:41:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183683;
- bh=t9NjzSVvUiK3gayp1XaXxHEpLml92T0c2xxi6CPFnHk=;
+ s=k20260515; t=1788183698;
+ bh=4m9C3WtV+4kie0OyMCII7hdpMBWXDh77eQPrzfE9Aac=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=e0wRlrKErUVDJTAUuxmDF+qkwIgNWTtkYZSb/XVEpOJEiKoamOkdq/FZi5K5vUY/a
- fU3+G1q8E2Hiq02mHCLEi6HTn24OVCAs8FJY1M5m20l93YY9Md+iXq6ecr10MTzptF
- LV0BhieFqvztq5TEX2pmpX9u3Ae2LQ1ymMWfoV031HWXCLSjFDYfnDwp51wYKAMeR/
- C5nc7GZN6x5Je7xDJAXGTjvfQ4xCE0x366xDDIMZgURRuuh+fiz/qexjbAbavznSFR
- LRG8juTiYLQyRB4IFVxAW6X5c1k2FFegP/UghbXiuLVdEsQdf2+CvX6sQm6uCGhLdF
- k6Gym0z8QKOsw==
+ b=ktj73pen5Qlsl68TqZRLRwWOn+tHbJuuyHnViqEF+YL3NqRmT/4m2vX+nqhCnJqFB
+ 4Vn+wpGDYw2r1XmV7LLfSpYWul2qZgIwqktXldPndHbohL/XEQt/ZXtRk89Gzqosxj
+ lZu2f38+T3AV7e5zWsFJwqrZ/2SOc2Bs1czWiRPIm4jNnXY1djvL/k0PuH8iAG3fNS
+ umwNiYir5iaGKN7LPcvw3P3GvxlSeHAvuwz3wGc5lNd67ABiJWutB+YqY/DM6tk1HW
+ RAQRZy6ffOe84Io0Iup3mlkXtUG1dnL6lvR2LIYpGl+RqxKd1ICD9m3rYq6qj/jLNX
+ Zd6NUJHcQxTsA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: shayderrr <darknessshayder@gmail.com>, Thierry Reding <treding@nvidia.com>,
- Sasha Levin <sashal@kernel.org>, thierry.reding@kernel.org,
- mperttunen@nvidia.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] host1x: bus: Fix missing ops null check in
- error teardown
-Date: Mon, 31 Aug 2026 09:24:30 -0400
-Message-ID: <20260831133314.4125787-242-sashal@kernel.org>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.10] drm/amd/pm/si: Don't schedule thermal work
+ when queue isn't initialized
+Date: Mon, 31 Aug 2026 09:24:39 -0400
+Message-ID: <20260831133314.4125787-251-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,357 +66,371 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: shayderrr <darknessshayder@gmail.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 71d25f668bc5c0f36ea843462e12307dea45aaa3 ]
+[ Upstream commit f8922d5a946699fc2bdc7660e6778bd6726bf8b8 ]
 
-In host1x_device_init(), the error teardown paths do not check
-client->ops before dereferencing it, unlike the forward init paths
-which correctly guard with 'client->ops &&'. This can result in a
-NULL pointer dereference if client->ops is NULL.
+When DPM is turned off with the amdgpu.dpm=0 module parameter,
+the thermal work queue isn't initialized so we shouldn't
+schedule any work on it.
 
-Fix by adding the missing client->ops check in both the teardown
-and teardown_late labels.
-
-Signed-off-by: shayderrr <darknessshayder@gmail.com>
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260517170456.84927-1-darknessshayder@gmail.com
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit bd018d36171a695952c6d391471c279c9e05c8b2)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `drm/amd/pm/si: Don't schedule thermal work
+when queue isn't initialized`
 
-### Step 1.1: Subject Line
-**Record:** `[host1x: bus]` `[Fix]` — Add missing `client->ops` NULL
-checks in `host1x_device_init()` error teardown paths.
+**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Upstream commit:** `bd018d36171a695952c6d391471c279c9e05c8b2` — **not
+present** in this checkout.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject line
+**Record:** `[drm/amd/pm/si]` `[Don't schedule]` — prevent scheduling
+thermal work on an uninitialized workqueue when DPM is disabled.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** shayderrr \<darknessshayder@gmail.com\> (author)
-- **Signed-off-by:** Thierry Reding \<treding@nvidia.com\> (host1x/Tegra
+- `Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>` (author)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
   maintainer)
-- **Link:** https://patch.msgid.link/20260517170456.84927-1-
-  darknessshayder@gmail.com
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
-  stable tags
-- Notable: maintainer sign-off is a strong quality signal; no
-  syzbot/user bug report
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Link:`,
+  `Tested-by:`, or `Reviewed-by:` tags
+- Notable: maintainer sign-off; no syzbot/user crash report in message
 
-### Step 1.3: Body Analysis
+### Step 1.3: Body analysis
 **Record:**
-- **Bug:** `host1x_device_init()` teardown (`teardown`, `teardown_late`)
-  dereferences `client->ops` without a NULL guard; forward init paths
-  already use `client->ops &&`.
-- **Symptom:** NULL pointer dereference during error recovery when
-  initialization fails.
-- **Root cause:** Oversight when teardown was added (2017) and when
-  `teardown_late` was added (2021); `host1x_device_exit()` and other
-  paths in the same file already guard correctly.
+- **Bug:** With `amdgpu.dpm=0`, thermal `struct work_struct` is never
+  initialized via `INIT_WORK()`, but thermal IRQ handling can still call
+  `schedule_work()` on it.
+- **Symptom:** Undefined behavior / kernel crash when a thermal
+  interrupt fires under `dpm=0`.
+- **Root cause (author):** Thermal IRQ IDs are registered before the
+  `amdgpu_dpm == 0` early-return in `si_dpm_sw_init()`, but
+  `INIT_WORK()` is skipped on that path.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** No — this is an explicit NULL-deref fix on an error path,
-not disguised cleanup.
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit bug fix, not disguised cleanup.
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
 **Record:**
-- **File:** `drivers/gpu/host1x/bus.c` (+2 / -2 lines)
-- **Function:** `host1x_device_init()`
-- **Scope:** Single-file, surgical (2-line change)
+- **File:** `drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c` (+1/-1, net 0
+  lines)
+- **Function:** `si_dpm_process_interrupt()`
+- **Scope:** Single-file, single-line surgical fix
 
-### Step 2.2: Code Flow Change
+### Step 2.2: Code flow change
 **Record:**
-- **Hunk 1 (`teardown`):** `if (client->ops->exit)` → `if (client->ops
-  && client->ops->exit)`
-- **Hunk 2 (`teardown_late`):** `if (client->ops->late_exit)` → `if
-  (client->ops && client->ops->late_exit)`
-- **Before:** Error teardown could dereference NULL `client->ops`.
-- **After:** Clients without `ops` are skipped, matching forward init
-  and `host1x_device_exit()`.
+- **Before:** Any thermal IRQ (src_id 230/231) →
+  `schedule_work(&adev->pm.dpm.thermal.work)` unconditionally.
+- **After:** Same path, but only if `amdgpu_dpm` is non-zero.
+- **Path affected:** Interrupt handler path (can run in interrupt
+  context; work is deferred).
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** NULL pointer dereference (memory safety).
-**Mechanism:** On `early_init`/`init` failure, reverse iteration calls
-`client->ops->exit` / `client->ops->late_exit` even when `client->ops`
-is NULL — a client skipped in the forward path can still be visited in
-teardown.
+### Step 2.3: Bug mechanism
+**Record:** **Memory safety / logic correctness** — use of uninitialized
+workqueue.
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct; mirrors existing patterns at lines
-196–207, 257–271, and 815–836 in the same file. Minimal regression risk.
+In `si_dpm_sw_init()`:
+
+```7783:7808:drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+        ret = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 230,
+&adev->pm.dpm.thermal.irq);
+        // ...
+        ret = amdgpu_irq_add_id(adev, AMDGPU_IRQ_CLIENTID_LEGACY, 231,
+&adev->pm.dpm.thermal.irq);
+        // ...
+        if (amdgpu_dpm == 0)
+                return 0;
+        // ...
+        INIT_WORK(&adev->pm.dpm.thermal.work,
+amdgpu_dpm_thermal_work_handler);
+```
+
+With `amdgpu.dpm=0`, IRQ handlers are registered but `INIT_WORK()` is
+skipped. A thermal interrupt reaching `si_dpm_process_interrupt()` calls
+`schedule_work()` on a zeroed but uninitialized work struct (device
+allocated via `devm_drm_dev_alloc()`). The work function pointer is
+NULL; queueing or executing such work can WARN or oops.
+
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** High — mirrors existing `amdgpu_dpm` guards in the same
+  file (`si_dpm_hw_init`, `si_dpm_sw_init`).
+- **Regression risk:** Very low — only suppresses work scheduling in the
+  exact case where work was never initialized.
+- **Note:** `kv_dpm.c` has the same pattern unfixed; this commit only
+  addresses SI.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:**
-- `teardown` without NULL check: introduced in `8f7da1578e90b` (Thierry
-  Reding, 2017-11-08) — "gpu: host1x: Cleanup on initialization failure"
-- `teardown_late` without NULL check: introduced in `933deb8c7b8e3f`
-  (Thierry Reding, 2021-03-26) — "gpu: host1x: Add early init and late
-  exit callbacks"
-- Forward paths have had `client->ops &&` since original
-  `host1x_device_init()` (2013)
+**Record:** `si_dpm_process_interrupt()` and the unguarded
+`schedule_work()` line blame to `^5d324e5159d9e` (predates reachable
+history in this tree). Bug is long-standing, not a recent regression.
 
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related File History
-**Record:** Recent host1x stable-style fixes in this tree include UAF
-(`5f4de3c717d34`), reference leak (`c4d6442ac3ed0`), and syncpt race
-(`79197c6007f2a`). Standalone fix; not part of a series.
+### Step 3.3: Related file history
+**Record:** Recent `si_dpm.c` changes are unrelated powertune/HAINAN
+fixes. No duplicate fix for this issue in this tree. Commit
+`bd018d36171a` is **not** an ancestor of HEAD.
 
-### Step 3.4: Author Context
-**Record:** shayderrr is a contributor; Thierry Reding (maintainer)
-signed off. Author is not the subsystem maintainer but patch was
-accepted by one.
+### Step 3.4: Author context
+**Record:** Timur Kristóf is an active `drm/amd/pm` contributor
+(multiple recent SI/CI/SMU7 fixes). Alex Deucher committed the fix.
 
 ### Step 3.5: Dependencies
-**Record:** No prerequisites. Applies to code present since 2017/2021.
-Self-contained.
+**Record:** Standalone one-hunk change. `amdgpu_dpm` is already declared
+in `amdgpu.h` (included by `si_dpm.c`). No prerequisite commits
+required. Listed as patch 1/3 on the mailing list, but this hunk is
+self-contained for SI.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1–4.5
+### Step 4.1: Original discussion
 **Record:**
-- `b4 dig` by commit hash and subject: no match (commit not in this
-  checkout)
-- Lore/patch.msgid.link: blocked by Anubis bot protection — could not
-  read thread
-- **UNVERIFIED:** Reviewer feedback, stable nominations, series
-  revisions
+- `b4 dig -c bd018d36171a`: https://patch.msgid.link/20260712173928.2597
+  01-1-timur.kristof@gmail.com
+- `b4 dig -a`: v1 only; `[PATCH 1/3]` (series has 2 more patches, likely
+  KV/CI siblings)
+- Lore/patch.msgid.link content blocked by bot protection — **could not
+  read thread replies, stable nominations, or NAKs**
+
+### Step 4.2: Reviewers
+**Record:** `b4 dig -w` CC'd `amd-gfx@lists.freedesktop.org`, Alex
+Deucher, Natalie Vock, Mario Limonciello (AMD), Tvrtko Ursulin.
+
+### Step 4.3: Bug report
+**Record:** N/A — no external bug report linked.
+
+### Step 4.4: Related patches
+**Record:** Part of a 3-patch series; patches 2/3 and 3/3 not verified
+in this tree. This commit does not depend on them.
+
+### Step 4.5: Stable list
+**Record:** UNVERIFIED — could not search lore stable archive due to bot
+protection.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-**Record:** `host1x_device_init()` — only function modified.
+### Step 5.1: Key functions
+**Record:** `si_dpm_process_interrupt()`, `si_dpm_sw_init()`,
+`amdgpu_dpm_thermal_work_handler()`
 
 ### Step 5.2: Callers
-**Record:** `host1x_device_init()` is called from:
-- `drivers/gpu/drm/tegra/drm.c` (Tegra DRM probe)
-- `drivers/crypto/tegra/tegra-se-main.c` (Tegra SE)
-- `drivers/staging/media/tegra-video/video.c` (staging Tegra video)
-
-All are device-probe initialization paths on Tegra (or COMPILE_TEST).
+**Record:** `si_dpm_process_interrupt` is the `.process` callback in
+`si_dpm_irq_funcs`, wired via `si_dpm_set_irq_funcs()`. Invoked by the
+amdgpu IRQ layer on thermal IH events (src_id 230/231).
 
 ### Step 5.3: Callees
-**Record:** `client->ops->exit`, `client->ops->late_exit`,
-`mutex_lock/unlock`, list iteration macros.
+**Record:** `schedule_work()` → workqueue; handler
+`amdgpu_dpm_thermal_work_handler()` (which itself checks
+`adev->pm.dpm_enabled`, but that does not help if work was never
+initialized).
 
 ### Step 5.4: Reachability
 **Record:**
-1. Tegra clients register via `host1x_client_register()` /
-   `__host1x_client_register()`.
-2. `host1x_device_init()` runs when the composite host1x device driver
-   probes.
-3. If any client's `init`/`early_init` fails, teardown runs.
-4. Forward path skips clients with `client->ops == NULL`; teardown does
-   not — inconsistent and unsafe.
-5. In-tree drivers set `ops` before register, but the API explicitly
-   allows NULL `ops` (forward guards prove intent). A client with NULL
-   `ops` on `device->clients` plus a later init failure triggers the
-   bug.
+- Requires `CONFIG_DRM_AMDGPU_SI` + `amdgpu.si_support=1` (SI support is
+  experimental, off by default)
+- Requires `amdgpu.dpm=0` module parameter
+- Requires thermal IRQ delivery (src_id 230 or 231)
+- Not directly userspace-triggerable, but hardware thermal events under
+  load are realistic
 
-**Userspace trigger:** Indirect — probe failure during boot/driver load
-on Tegra systems with `CONFIG_TEGRA_HOST1X` and dependent drivers.
-
-### Step 5.5: Similar Patterns
-**Record:** Same `client->ops &&` pattern used in
-`host1x_device_exit()`, `host1x_client_suspend()`, and
-`host1x_client_resume()` in the same file. Teardown paths are the
-outlier.
+### Step 5.5: Similar patterns
+**Record:** Identical unguarded pattern in `kv_dpm_process_interrupt()`
+at line 3189–3190 of `kv_dpm.c` — same `amdgpu_dpm == 0` early-return /
+`INIT_WORK` split in `kv_dpm_sw_init()`.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE (6.18.44)
 
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Local tree is **v6.18.44** (Makefile: 6.18.44).
-Buggy code at lines 224 and 232 in `drivers/gpu/host1x/bus.c` — fix not
-yet applied.
+### Step 6.1: Buggy code present?
+**Record:** **YES.** Lines 7674–7675 still have the unguarded
+`schedule_work()`:
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected** — two identical one-line changes.
-No conflicting recent churn in this function.
+```7674:7675:drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+        if (queue_thermal)
+                schedule_work(&adev->pm.dpm.thermal.work);
+```
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** No existing fix for this issue in this tree.
+### Step 6.2: Backport complications
+**Record:** Clean apply expected — single-line change, no structural
+conflicts. File has had minor unrelated churn but this hunk is
+untouched.
+
+### Step 6.3: Fix already present?
+**Record:** **NO.** `git merge-base --is-ancestor bd018d36171a HEAD`
+fails; grep shows no `queue_thermal && amdgpu_dpm` in tree.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem
-**Record:** `drivers/gpu/host1x/` — Tegra display/multimedia bus
-infrastructure. **Criticality:** IMPORTANT for Tegra/embedded;
-PERIPHERAL globally (requires `CONFIG_TEGRA_HOST1X`, `ARCH_TEGRA` or
-`COMPILE_TEST`).
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (GPU driver / power
+management). Affects SI ASIC users on amdgpu, not core kernel.
 
 ### Step 7.2: Activity
-**Record:** Actively maintained; multiple bugfix commits in recent
-history on this subsystem.
+**Record:** Actively maintained; recent SI powertune and display-timing
+fixes in this tree.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK
 
-### Step 8.1: Who Is Affected
-**Record:** Tegra platform users with host1x clients (DRM, crypto,
-staging video). Not universal x86/ARM server impact.
+### Step 8.1: Who is affected
+**Record:** Users of Southern Islands GPUs with experimental amdgpu SI
+support enabled and `amdgpu.dpm=0`. Narrow but real population
+(debugging, workarounds).
 
-### Step 8.2: Trigger Conditions
+### Step 8.2: Trigger conditions
+**Record:** `amdgpu.dpm=0` at module load + thermal IRQ from GPU.
+Uncommon parameter combo, but thermal events are normal under GPU load.
+
+### Step 8.3: Failure severity
+**Record:** Kernel WARN/oops from scheduling or executing uninitialized
+work — **HIGH** (system crash). Not data corruption or security
+escalation.
+
+### Step 8.4: Risk-benefit
 **Record:**
-- `host1x_device_init()` called during probe
-- A client `init`/`early_init` fails
-- Teardown visits a client with `client->ops == NULL` (skipped during
-  forward init)
-- **Likelihood:** Low-to-medium on error paths; requires init failure
-  plus NULL-ops client on the list
-
-### Step 8.3: Failure Mode Severity
-**Record:** Kernel oops (NULL dereference) during error recovery instead
-of clean `-errno` return. **Severity: HIGH** for affected path (turns
-recoverable probe failure into crash).
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** Prevents crash on init-failure teardown; makes error
-  recovery robust
-- **Risk:** Very low — 2-line change matching established pattern
-- **Ratio:** Favorable for Tegra stable users
+- **Benefit:** Prevents crash on a valid module-parameter configuration
+- **Risk:** Minimal (one boolean guard matching existing conventions)
+- **Ratio:** Favorable for stable
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real NULL-deref bug on error path
-- Trivial, obviously correct 2-line fix
-- Matches existing code in same function/file
-- Maintainer (Thierry Reding) signed off
-- Bug present since 2017/2021; affects this v6.18.44 tree
-- Error-path crash is worse than the original init failure
+- Real bug with clear mechanism (uninitialized work + `schedule_work()`)
+- Can cause kernel crash
+- One-line, obviously correct fix
+- AMDGPU maintainer sign-off
+- Buggy code confirmed in v6.18.44; fix not yet applied
+- Matches existing `amdgpu_dpm` guards in same file
 
 **AGAINST backport:**
-- Platform-specific (Tegra only)
-- Requires init failure (uncommon)
-- No user/syzbot report documented
-- In-tree drivers appear to always set `ops` before register (trigger
-  may be rare in practice)
+- Narrow trigger: experimental SI support + `dpm=0` + thermal IRQ
+- `CONFIG_DRM_AMDGPU_SI` off by default
+- No user/syzbot report in commit message
+- Sibling `kv_dpm.c` has same bug (out of scope for this commit)
 
-**UNRESOLVED:**
-- Mailing list review thread (Anubis blocked)
-- No confirmed in-tree reproduction with current drivers
+**Unresolved:**
+- Full mailing-list review thread (bot-blocked)
+- Whether patches 2/3 fix KV/CI separately
 
-The unresolved items do not outweigh the clear correctness fix: forward
-paths already treat NULL `ops` as valid; teardown must match.
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors existing guards;
-   maintainer SOB; no logic change beyond NULL safety
-2. Fixes a real bug? **PASS** — NULL deref on error teardown
-3. Important issue? **PASS** — kernel oops on probe error recovery (HIGH
-   for affected users)
-4. Small and contained? **PASS** — 2 lines, 1 file
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — logic is clear; maintainer
+   SOB; no Tested-by
+2. Fixes a real bug? **PASS** — uninitialized work scheduling
+3. Important issue? **PASS** — kernel crash (HIGH, narrow audience)
+4. Small and contained? **PASS** — 1 line, 1 file
 5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code confirmed in v6.18.44
+6. Can apply to local tree? **PASS** — code exists, clean apply expected
 
-### Step 9.3: Exception Categories
-**Record:** None (standard bug fix).
+### Step 9.3: Exception categories
+**Record:** N/A — standard bug fix, not device-ID/quirk/DT/build/doc
+exception.
 
-### Step 9.4: Decision Rationale
-This is a conservative, surgical fix for an inconsistent NULL check that
-can kernel-oops during `host1x_device_init()` error recovery on Tegra
-systems. The fix aligns teardown with forward init and
-`host1x_device_exit()`, carries negligible regression risk, and the
-buggy code is present in this v6.18.44 tree.
+### Step 9.4: Decision rationale
+This is a small, surgical crash fix for a valid `amdgpu.dpm=0`
+configuration on SI hardware. The audience is narrow (legacy SI +
+experimental amdgpu support), but stable trees routinely take such
+driver crash fixes when the change is minimal and clearly correct. The
+bug exists in this 6.18.44 tree and the fix applies cleanly.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user query
-- **[Phase 2]** Confirmed diff: 2 lines in `host1x_device_init()`
-  teardown paths
-- **[Phase 3]** `git describe HEAD`: v6.18.44; Makefile confirms 6.18.44
-- **[Phase 3]** `git blame -L 222,236`: teardown from 2017
-  (`8f7da1578e90b`), teardown_late from 2021 (`933deb8c7b8e3f`)
-- **[Phase 3]** `git show 8f7da1578e90bf`: original teardown added
-  without NULL check while forward path had one
-- **[Phase 3]** `git log -p -S 'if (client->ops->exit)'`: confirmed 2017
-  introduction of unguarded teardown
-- **[Phase 3]** `git log --oneline -15 -- drivers/gpu/host1x/bus.c`:
-  recent related fixes; no duplicate fix
-- **[Phase 4]** `b4 dig`: no results (commit not in tree)
-- **[Phase 4]** WebFetch lore/patch.msgid.link: blocked by Anubis —
-  **UNVERIFIED** review discussion
-- **[Phase 5]** `grep host1x_device_init`: callers in tegra drm, tegra-
-  se, tegra-video
-- **[Phase 5]** Read `host1x_device_init()`, `host1x_device_exit()`,
-  suspend/resume: confirmed `client->ops &&` pattern elsewhere
-- **[Phase 5]** Read tegra driver probes (dc.c, gr3d.c, sor.c, tegra-
-  se): ops set before register
-- **[Phase 6]** Read current `bus.c` lines 224, 232: buggy code present
-  (no NULL check)
-- **[Phase 6]** Kconfig: `CONFIG_TEGRA_HOST1X` depends on `ARCH_TEGRA ||
-  COMPILE_TEST`
-- **[Phase 8]** Failure mode: NULL deref → oops on init-failure teardown
+- [Phase 1] Parsed commit `bd018d36171a`: subject, body, SOBs from Timur
+  Kristóf and Alex Deucher; no Fixes/Reported-by/Link tags
+- [Phase 2] Diff: 1-line guard `queue_thermal && amdgpu_dpm` before
+  `schedule_work()` in `si_dpm_process_interrupt()`
+- [Phase 2] Read `si_dpm_sw_init()`: IRQ registered at 7783–7788, early
+  return at 7801–7802 skips `INIT_WORK()` at 7808
+- [Phase 2] Read `amdgpu_drv.c`: `amdgpu_dpm` module param at lines 162,
+  382 (`module_param_named(dpm, ...)`)
+- [Phase 3] `git blame -L 7674,7675`: lines present since pre-history
+  (`^5d324e5159d9e`)
+- [Phase 3] `git merge-base --is-ancestor bd018d36171a HEAD`: commit
+  **NOT** in tree
+- [Phase 3] `git log --oneline -20 -- si_dpm.c`: no duplicate fix
+- [Phase 3] `git log --author="Timur Kristóf" -10 --
+  drivers/gpu/drm/amd/pm/`: author active in subsystem
+- [Phase 4] `b4 dig -c bd018d36171a`: found v1 at https://patch.msgid.li
+  nk/20260712173928.259701-1-timur.kristof@gmail.com
+- [Phase 4] `b4 dig -a`: patch 1/3 in series
+- [Phase 4] `b4 dig -w`: CC'd amd-gfx, Alex Deucher, Mario Limonciello
+- [Phase 4] UNVERIFIED: lore/patch.msgid.link thread content (bot
+  protection)
+- [Phase 5] `si_dpm_process_interrupt` wired via
+  `si_dpm_irq_funcs.process` at line 8155
+- [Phase 5] `kv_dpm.c` has identical unguarded pattern at 3189–3190
+- [Phase 5] `amdgpu_dpm_thermal_work_handler()` checks `dpm_enabled` but
+  does not prevent uninitialized-work bug
+- [Phase 6] `git describe HEAD`: v6.18.44-2-g1b9e1abadee04; Makefile
+  6.18.44
+- [Phase 6] Buggy code confirmed at si_dpm.c:7674–7675 in working tree
+- [Phase 6] `si_dpm.c` includes `amdgpu.h` with `extern int amdgpu_dpm`
+  — fix compiles
+- [Phase 7] `CONFIG_DRM_AMDGPU_SI` in Kconfig: experimental SI support,
+  off by default
+- [Phase 8] Failure mode: crash from uninitialized `schedule_work()` —
+  severity HIGH, trigger narrow
 
-**YES**The backport analysis is done.
+**YES****Result:** The fix commit `bd018d36171a` is **not** in this tree
+(`v6.18.44`), and the bug is still present in `si_dpm.c`.
 
-**Commit:** `host1x: bus: Fix missing ops null check in error teardown`
-**Tree:** v6.18.44 — the bug is still present (unguarded `client->ops`
-derefs at lines 224 and 232 in `drivers/gpu/host1x/bus.c`).
+**Verdict:** **YES** — backport recommended.
 
-**Summary:** On Tegra, if `host1x_device_init()` fails partway through,
-the teardown paths can NULL-deref `client->ops` while forward init and
-`host1x_device_exit()` already guard against that. The fix is two lines,
-matches existing patterns, and is signed off by host1x maintainer
-Thierry Reding.
+With `amdgpu.dpm=0`, thermal IRQ handlers are registered but
+`INIT_WORK()` is skipped, so a thermal interrupt can call
+`schedule_work()` on an uninitialized work struct and crash the kernel.
+The one-line guard (`queue_thermal && amdgpu_dpm`) matches existing
+checks in the same file and should apply cleanly to 6.18.y.
 
-**Verdict: YES** — backport to this tree.
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-A background `git log --grep` search timed out; it wasn’t needed for the
-decision since the buggy code and history were already confirmed
-directly.
-
- drivers/gpu/host1x/bus.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
-index 3313ead8bfcc2..06aa7fcd367e1 100644
---- a/drivers/gpu/host1x/bus.c
-+++ b/drivers/gpu/host1x/bus.c
-@@ -221,7 +221,7 @@ int host1x_device_init(struct host1x_device *device)
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index ea97276358c0a..39928eb71d669 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7690,7 +7690,7 @@ static int si_dpm_process_interrupt(struct amdgpu_device *adev,
+ 		break;
+ 	}
  
- teardown:
- 	list_for_each_entry_continue_reverse(client, &device->clients, list)
--		if (client->ops->exit)
-+		if (client->ops && client->ops->exit)
- 			client->ops->exit(client);
+-	if (queue_thermal)
++	if (queue_thermal && amdgpu_dpm)
+ 		schedule_work(&adev->pm.dpm.thermal.work);
  
- 	/* reset client to end of list for late teardown */
-@@ -229,7 +229,7 @@ int host1x_device_init(struct host1x_device *device)
- 
- teardown_late:
- 	list_for_each_entry_continue_reverse(client, &device->clients, list)
--		if (client->ops->late_exit)
-+		if (client->ops && client->ops->late_exit)
- 			client->ops->late_exit(client);
- 
- 	mutex_unlock(&device->clients_lock);
+ 	return 0;
 -- 
 2.53.0
 
