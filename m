@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC1BCC624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD64AC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9551910EE66;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7AAA10EE68;
 	Tue,  1 Sep 2026 18:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aO7gjjj6";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Y+QXInC0";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2067110EE5C
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F1410EE5D
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288664;
- bh=BCFJ3gchupj/9avFxr4weEfiesajDGa7RfU7qo/IoNY=;
+ s=mail; t=1788288670;
+ bh=rOcaPyCXPILsJJZu+k8FKv3RjoMz7iu1oJUoZ0ESuBw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=aO7gjjj6twE0Kl/4SOBOapcQBhg1gHxsfUFmqolGMK1acUYb4KVYHZ2XBG/nsu+zN
- tmX2e4Cz+00l4yJ5ZaVXbnLJMpcryvxCUfT/KpUe8NkY965pog7y5Mw8/9Ngk57NLW
- b7stdpZXVJUMBzFAH4U3mjqwgcsHkTdxFfxPUJXyEF7CxsyQLcbDrCJG9k3wI4pNSZ
- GGzD8XwFoiPEJD3t9ImrDIIF1B7FBKeRxQoMC8CX9iHPy0m3YFDg2pnXUMjWP8VUbx
- YSuUTzUr650hCr/+0JJIkDXo4zJ//YB0VXu/iOhD9os1FPjHca26z0pSq8AFRB9OU8
- 3rJBGyYi1PT+Q==
+ b=Y+QXInC086neqovXgnrBC3GMAfT2ZBiM+bzOv0uaLbFUcaeFsvxsreIkG8iZb9sT/
+ s3XuuzOGV/DrKoyPAc6m9O5Ij5UEkSibG+sF6vbFENSbQiyFt9D0HksUQ8W68v2mlq
+ zIuBSVnkETwGx+Vqxc7O8HW1h6IGRZxI55QlNWRRNX1KqJR/osQrkUPsGHicE1kIhq
+ 2LmzWHipxXfuPb/aQjaVL0UDcQYUYdOfT1NQdAUFGKx6i2Ooqbi6aj+6Y14+cyr24p
+ QDiiWStAaXj5k/AeZ87I812LpqdCg+RZWqIScv5glMgaFra9b9x2liQTYvr6lGyV4J
+ UBraW0+S1k1Ig==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B05AF17E3B2D;
- Tue, 01 Sep 2026 20:51:04 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9411C17E3C5D;
+ Tue, 01 Sep 2026 20:51:10 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:56 +0300
-Subject: [PATCH v11 32/74] drm/rockchip: dw_hdmi_qp: Cancel pending HPD
- work on suspend
+Date: Tue, 01 Sep 2026 21:51:04 +0300
+Subject: [PATCH v11 40/74] drm/rockchip: dw_hdmi_qp: Use
+ dw_hdmi_qp_hpd_notify() for HPD reports
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-32-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-40-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,7 +65,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-fbdev@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ linux-fbdev@vger.kernel.org, Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,48 +83,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HPD threaded handler debounces hotplug events by delaying
-hdmi->hpd_work for 150 ms.  Nothing discards that work when the system
-goes to sleep: drm_kms_helper_poll_disable() only disables the HPD IRQ
-line via the bridge .hpd_disable() op, and disable_irq() merely waits
-for the threaded handler, which has already returned after arming the
-timer.
+Notify only the affected connector instead of polling all of them, and
+ensure .detect_ctx() runs on reconnect to recover SCDC state.
 
-If the debounce expires during suspend, its non-freezable work may probe
-the connector and read the EDID over DDC.  Since genpd powers off the
-HDMI controller's power domain in ->suspend_noirq(), this access may
-hit unpowered hardware and hang the system.
-
-Cancel the work in the suspend callback.  The DRM device is registered
-as a consumer of the HDMI device, so it always suspends first and the
-HPD IRQ is already disabled by that point, meaning nothing can re-arm
-the work behind our back.  No counterpart is needed on resume, as the
-work gets scheduled again on the next hotplug interrupt.
-
-Fixes: 128a9bf8ace2 ("drm/rockchip: Add basic RK3588 HDMI output support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260723015909.7F79A1F000E9@smtp.kernel.org/
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 646a4cb96830..42f2627e1a05 100644
+index 1c547016ee00..f2a1ea8dfefa 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -728,8 +728,12 @@ static int __maybe_unused dw_hdmi_qp_rockchip_suspend(struct device *dev)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
+@@ -24,7 +24,6 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_probe_helper.h>
  
--	if (hdmi)
--		dw_hdmi_qp_suspend(dev, hdmi->hdmi);
-+	if (!hdmi)
-+		return 0;
-+
-+	cancel_delayed_work_sync(&hdmi->hpd_work);
-+
-+	dw_hdmi_qp_suspend(dev, hdmi->hdmi);
+ #include "rockchip_drm_drv.h"
+ 
+@@ -398,14 +397,8 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
+ 	struct rockchip_hdmi_qp *hdmi = container_of(work,
+ 						     struct rockchip_hdmi_qp,
+ 						     hpd_work.work);
+-	struct drm_device *drm = hdmi->encoder.encoder.dev;
+-	bool changed;
+ 
+-	if (drm) {
+-		changed = drm_helper_hpd_irq_event(drm);
+-		if (changed)
+-			dev_dbg(hdmi->dev, "connector status changed\n");
+-	}
++	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
+ }
+ 
+ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
+@@ -792,8 +785,7 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
+ 
+ 	dw_hdmi_qp_resume(dev, hdmi->hdmi);
+ 
+-	if (hdmi->encoder.encoder.dev)
+-		drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
++	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
  
  	return 0;
  }
