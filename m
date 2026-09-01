@@ -4,44 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4387AC61DD6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 20:17:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC541C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 20:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C78610EF1F;
-	Tue,  1 Sep 2026 20:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1882510EF22;
+	Tue,  1 Sep 2026 20:17:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wbf4crxE";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="mj9p7yQy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1894710EF1F
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 20:17:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5EDAB6022E;
- Tue,  1 Sep 2026 20:17:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E6B1F000E9;
- Tue,  1 Sep 2026 20:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788293845;
- bh=smhDEfC12MEZA/NJarLx2eOIC5aQwJ+j6eKrLuBuhF8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Wbf4crxEE9V29tm/pVv6spK/ZrsLU/1oKuy2ECjmvB0F7C3h9vX3yQpOl5nRsSmo5
- boX6kmfz6t6/F/IPZDjNwZcVSAfc1ZSuqgI2IrwTzD5AOsJjSOQeQje+kNRs+Bg0NY
- IaAdczOtHCrv6IOogN4/hX8Zs/LZyBiKl5e+62pE8xFB2oxnbMk9XcD5A7LUQ5rD6b
- Ggawy+9SEc6dRui2SqG0QpxX0AiC3Ms+bfVB8VBnROoeCKGrbFd03ywIiuHdOhILPG
- +IGuM/tl/Ex1RxYqsrIt5pkNRgA6szzHD0ck/Jm64/PHfUAX7lRl4hDpJY1Xe8x1PQ
- Gzwp1k1u5wZqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 50/74] drm/bridge: adv7511: Advertise HDMI 1.2
- capabilities
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-50-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-50-bc12954a0688@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 20:17:24 +0000
-Message-Id: <20260901201724.D2E6B1F000E9@smtp.kernel.org>
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2C6F10EF25;
+ Tue,  1 Sep 2026 20:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1788293829; x=1788898629; i=w_armin@gmx.de;
+ bh=IRLzIGQOx3j8Mi3K5fvWiB4pCdNw/VSm3iOpLnxmtJ4=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
+ Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=mj9p7yQy0+NYf/VYpd59T2Hw6YqXLmmO6B4fKSbclc+qZDm+ejblpTW0Wg1td4VT
+ bqtyr+OfeSuZF3VKB5qMGxUFD+7KfcKcLpZgRDJ4u/FoHk3KzC3PnGPyMnJNbriGx
+ V+IDxiHuJJmfvQAJx8cA/hYCbGD02QKvmm1GCJPmGVcY/rdABk3x60HrhDMBil6Zp
+ EHm/F7foMGF77mDMiETR4yqeVTiXsQ/YXChmE7Rcvc1Ehroj5E7HXnakrKBBtpFr4
+ zORpulAgUz65SXkF8apkXFwXZ+vPz2jshX+4WdI98IkLsC4DDoltf3iSBbMWll1k/
+ 0CbYUfK87/5Jld4G+Q==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M6DWi-1wzHzw3bVQ-0026uF; Tue, 01
+ Sep 2026 22:17:09 +0200
+Message-ID: <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
+Date: Tue, 1 Sep 2026 22:17:06 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] platform/wmi: Add aarch64 support
+From: Armin Wolf <W_Armin@gmx.de>
+To: hansg@kernel.org, ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux@weissschuh.net, rafael@kernel.org, lenb@kernel.org,
+ linux-acpi@vger.kernel.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ intel-xe@lists.freedesktop.org
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de>
+Content-Language: en-US
+In-Reply-To: <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+X-Provags-ID: V03:K1:vRWd8GydExAIqb57XpoElqUKiszcy8Dqtp1pVOQm5La/WhTL+Bd
+ ukKhG6RCNOaJemAyel1FCmok3xXoQCtsLDqFEpMEfTHGdtYhlDnQZxM81EcpG2ywrJ/PWAr
+ H9PEXtwb2oW8qlFWworyySb1LLKVh1wEIsQZYlieblTxFhhwoznOhKh37iV7Tgj7Jo4DaE+
+ cpZsBhT34T2S1VU1e6YyA==
+UI-OutboundReport: notjunk:1;M01:P0:u2kwYh1ReWo=;Oe8qU3gHmkkuHd82Fscx2MJR6T7
+ 3X9eH1avbB02tdELYyTFJr9XdSyFjTtPpKjvekgN3wNVJ5gn7whskK78KLuGeMzXh7RSMuzgr
+ IvVSYAxteinuwEJefgd8gZdn8i77/RIitfor3KfA14ZcuVwcFbyjw28yVJ9ed4XFkI+LQcH92
+ H1otPP4YYRr6w7Q8XGufWlnzWEN8jztimRDaPnqP8WR2VfJQmJh6Vgn9JTRSa5gICCRRHw6uQ
+ CEpZfI4SnOUIl/YCe14LiYcVKNKKG2G66Q5Jo5+1yYigOOlVqjoCRM7hZBr6E2rm9PHO+6qaI
+ /9FrQ1MHhjsFHs3ADQSxvIx241aMeT2XRkOQpk3oWngSd79NQb/dX7NzgLmT28JcSSBb0g/LZ
+ d6TpPvWrUSZcC5CDV5Kd0t/STAUsOViD1er8ycS2rOpMuD2IdY2JIGoJm5IgZOOqa7gRWJbRk
+ MSWzdLDEgEDYUdt2FkmTv35ulKhPVEgDfSPd5ptG9H6wFF0KnWcENc+X2E3TNnjG6Jaqipb9Z
+ Xl3bQZedqs0lo1dL6PZUBFkUsiYTdYJuv6wkqwnvu9xpznEci1qkixtDj6WFFxECB8MPnuaow
+ xV7kRfGVvNNXJQ1HY9R0jwapZvn0C/Y41meMIouyA6VryrgpW8Mbq+zMzbNmk4IrxqjnV0ALB
+ KIGgGaHIk6cdG04DQWxpbq78gDlgmgcw/0imhxKKSEawLV6kng3ondXBpbMw+tRWgx5LtSXwM
+ Mnc18X/xnPe+HLzydd2nf8yi6w6L+An5x98NW4Y1GtSSxHrMkz1ThyKJgcqolxsJVGbBn+kF1
+ LzKi0zQtF2qEJKkb3uanwnK3wEHw8j/CY6jBC67XcAJ/EfNbDsCUZ+kCjprhMWwuwE5KdsKIl
+ fmBXK9zUZJQKaGhWAoSKdFsppAGBn0YRXeif6k7tr0a5Rk9JaDVWpPKJd6YKe19JHwKciPArD
+ N0VLG+2pwYEaGBeoqGwrbXXUilbF8OzSI9izZlePCjhoy7RPlI1t8ThwNfiCoN5ng0erOmVgP
+ KEMZO8Fi77uw+audP8GuWhiecP+d/KBwp143lhEqnp2gNpGCcHKgmjherw4N9329pvCZW8DmV
+ 9E54LNQCF2kcm+KqDYdVgd9U0QYOnRI5uH/3BrHtCFNNoON3pkMaZm2Ub+6fmmJKN2P2NJtVA
+ VgFWX8nU8YAqkV1SLaABGxVmHpVom/a7lTX/m9veljnpYL/2tTQH8a9lecOeO/9A2WmVyvZWV
+ mNo45EbmAaDF0kzn5cHIegfpei/pZCOyxijf7Www4mnwYRdpPSxZ5dTxQMrz4rmu9jY2puamJ
+ S/Pe6UbK4Ri5I3dhnWdyxz1Gv12GxuYUURvMdjN+L4ibJBfGXYwQ+ISPK25mFAiWJJ4LNkSpq
+ pjv3wrUtjSaY6XyDyHMff4WTXaBCxKUrLvwvMBsSbXsOokN6tQzRnPcIipzfl5UCR2THHJmvR
+ Dz2pBqDI8O3t7Ftt1LBLubWIinzWjyYXpzpJfAsmcKr2grAEn02TL/NJeAdULJf/PE107OnMh
+ QRX6/pi6zScfy6ZTFHavz+Uv+4PSupGs5tTYQwBTidRes9cACK88mvf6M/RPYByHPOm3i3Krq
+ kh1mXEs5b0dnShkJfRlI2nq7RrrmeyP29ThLTW2698xbYe4bzJBodC+9ZSMHiAFK94gjGSZhA
+ g+4A9Ks9DHyO4FnQ+faNYbyM0iHHV/cSTOP8dpOo09ryjvP38cWB+MpP8Ti+wP/BP3OpF1yD9
+ 9gmgtnU0/JOXErFRLqhPaQijAh0gCQ0dBDiRqvU/YUBmrvrHFJqhXs2Ob/lK+IXIKi8CByllD
+ 3XlmdKKFZb8Z0HtPQWszza5D2h+04pYxXMxws6IE8NBMmqJSMHGElizaxlL/LZiAvxi2mT+cB
+ SFCd5mQZdwIcWljbahikbCbj72kREj/plusOA2IF8ZBLlkC9D10Gu9uqJIkcr0olWp8cC72dc
+ aJMsunYSrLjXCmeRTDq8qouI/rPHAWOvnWsHoCwWS0OR7aQY+erXABgl3TrFL+URsBYef+4eA
+ ZoRH6n7e2VQKtUQACI7E4Yle2/mP4qOo3fO+Ap6wbdfShRsoLt3T4/61bboh1cxQVEV2tmCJR
+ kK/g7BHMFOeQkbAXkqBs5xqkveyH6NpZ5SEdve65OBjGWl9lftnMYYN1OfnyPEhYJ1SdKMPna
+ Ao1KUm90I+uwV/TCi4C1HAX1ddnZNFHuQAdAZ4ptm5GXM5vzDgWUylarB0x5ngci9FAawIPSq
+ vIhisei9SM/xTtTJ/14NKX5LyeJgN1m8lAVsVTfdRfTXsDFXdDxNozxTvTfh9OB5N80eMKlX+
+ /dTzLnFev1QCUtyjSXJD34V/wR7law9QIB4DPQYLu2MF3EXxqOZ2QbjbBCZ+X9JpdKMsxBoXf
+ MHoH8hWPJkwWF9oiuG21azglPRMEr45FjJSFsDWDjFNwGgW7gVWy0VBaIX36Ohk8rhof6JdjX
+ tpkIalSZCz6osA6VZ4EgA7fujzdkaid42TmIWizUm59tSTZvnib1S+r1QLs0nWkPYrMjMfc/n
+ AnhCVcdISEkAd34ILg/OIY/3jwroXWUsA45jFUFVzpUGMKxo1w2CpXtNReT0W7ssVk2J+92Wp
+ utawIODaSM07LPgDtCSnF/QR8PMn518WyZ4dkCR7Qyin6yOOPkfO7drPlqv9x3/8Rd9pYV/YY
+ CWWaVFM0YuspJNf5fxCSwd5PfDLm7hy2g3GrT5msz+EHBCu+mvCbiuuqbwg4gm9d9EHTn2Loh
+ TteW6trIHoxC+TzLv8eEpW5nH9rwG4yynLTthRf4d1hcwkF7dQbWeutlRqUZh0fJlLT9VAbgn
+ ZWklLzcOVAGrrCP+nMl+XxARp/xaKliBIiAmsXqNSDMMoRx+hPRJx+Xiw4BpVPyN6cStUFNzu
+ 7EjxIQKlUUBjI3alIOSrEi4KmNr4uElVXlm117LjqYd116PZYJE/z1f1lPAjBj37Ch6p6HuPD
+ ujajNRf+nJFHmWlb4HoO6gjkbzC7gimIJQJtQ+KNFtqztW0rvrQYwExCfKYZMR+/J5F5h9tE0
+ y+1seTXoOnatiHBmolcjF9yUs768cXACyKpqptWaLNWKwFT5tskELiqJAjexNo/4Tmua5A4lC
+ g5nP2zoSAEur5w1lGPBGDBOiykcrsSeokmKUxvw74pI4/vRw6mpx9Z2yhMhyqAd2bFlkA2eR3
+ B20NhglVVcgV+NfaCGxw7WgGdaZyfCKvQUf8kHKDKk5g6xDP+EZU6wvMUpQkn4CshzpNg1uqH
+ HZKAcl91rJb1lXn7lPk1qwvwcjUUVwx+485TX0XLJ5sZkEZVI5VQIUljVZxZ8uYf2FzpNg/JC
+ I+wjmdNnD1ITKzF7JPLfo3HzXQ2ekHzKlDPJv8gKgcIU5avLQbMI4KuSph7M+R3B4g04OSnZi
+ WmFvxYkzitzM7IWqxnB2MmYlgDIypanOObEyH8XK0nGlD0qmRIJNYulXCWfP8mePFVaZoczDi
+ 9XFLgQlM/TOLB2OD9Hx0aoViyKcdBgGNDdL3JDqmDZfPWYQgBHi5i40dHFmVLBu9LdExZ4yLN
+ 7CKa9/hyj5CxWPb6JRccKAL6RVi9SP233UN/5w9q3Y5aRffs85etiy/baUU8qOq2DuUSpNcMi
+ 27Qxf2A/GFr7iw52x1MJjBwhUXB54E5DFQ7IBbvP+PX4K2kEesEX9u7QDPC7v078aYQGbcnsb
+ dheQB+nFwJ+EO0WASSRoTjD9oBN6XepPHvEhMLWSfzJ6QsQ6g3u4pijqggpbiiDTab4V+Z8Rw
+ X/X+9JODk0sfij5Yy0jfjU6KfN28LBZiQq1+fFDGU53w6GvjGX7IhHRZf+peOYCIhYxBmzP1J
+ GD7hhZv8urW8K2wgV+UErf9GsXJsW4Mi9j3pO0hwCWRF/hD7De94VPior68o3S6q7x0vrH5Mo
+ 8UblrEXwNvgat/lhL72DZiCcfnK1rNHvsmidQ0WCinJ8c6/M2hqkDoGVVWI4/obMK8WpiFnk1
+ fmUoFobXfdYfw2FOTyzjhjPi+8X3bItxNeF1rFzNQ/yV041asVhlhRMoPdvbIr38AfW3JsNiK
+ mQysELs7ZDubKtrs0HTLEE6yxhmb2Y05UPtywIxgygvJOFEUus7COm1mdj3yJ3X0k0F8INJmB
+ eayXGACRUwO+v/rIae6N3jBwzQjRESjXAFjJxSFCanKtYalDvr6mbNCSN3Q0cTb1W7hW6FQTM
+ Udy12wJ1A3WEhvPD8+JR5dJw3WT5T6hPUsxRAsnj3bin6Pn6BrcEPf2e6llfLq6bmn2F5co/N
+ It0Mu+L0rvHUcxFvr/38C8PwndXCwOTGoBqSPwQTNLe4kJZmNc3eWqnY5jEWX6IpE7SjUv6N/
+ 144wMe/rrvriXGVdoab0jp+v+umztPjqHSZYFseCGdMe+1y0UeVPZUaKfkOEkNJ3LXP5Md0+j
+ 60bVmtmI7mkovVTto6gl+2lD5Y8u+aKiaCvOsJz6XCLnlbW1SmcZoPiccJR0y/cqdEiGoCY+V
+ OixYqTv1P4I2GhtB1fjHZWzXUGlNDB+bd9C82tH9JuBFxC3qLR7KxE7N7tJgEMLdbsfGX1l7Q
+ M+ijS6agBHkBT08jhBOZ/F8ZVDKCzMamZbmUCe6pgW/mMJ6JAJ3WwUwbgxDC0EitAo1nPKMMm
+ SHjClQeae/gnrX/V1efU4yGpaQXPAM6mugSSX/7fFPyTw+jrXk7AA7vpuzYm88Az71u73pykX
+ LAvfS/bZ/KHTMR8VgjBuLWqHLGtNMkInCxJSltRIFCRmf/USHs9xspcDxhVb8igBChtS75y+L
+ MhLMF5gzXvRRrPSlyUX5jcdhbS0qzLweeodZ7hEBISCHmWHYBeYna24NemKfS47mQc6w6mQo8
+ ONksmyEj4UH4j3DSDhNiyg7jLVauct09EmuYmOjzh56QYzF+ZCH3JrrXg/vOQUfTMB4h7dW/l
+ Ze7Hy1pqMza43f1ZWR6qf8rxDTgzG6NG9sfL+sq/T2GoqH1SY6PKV+vmVdZZqxaDbDpqHs09d
+ qCqRdNvEwCZZ54Ek/jMGQnoJ9wCYAYmipoCs6MYwrISjSRzsloJIhujKcXPx4L+eD3WY8eroC
+ 1K/E7K9hnA9QXBW2mrSt/LzJtT3xeyesi25djm3b+9sssUG0d6ObHrVjzwReVhE2aFysX09qx
+ rlavJtL3XpZy2kW0ZYuhtt6HjM8kPPFiO9ENGy/aksSxJ/qIeOP+PaVm/rm9CrQEJFSvZtYst
+ A0JOXKxINpOyc5opYu0grc3woWsQZqf1/klFUZJhkoYozL6JUs9qgnv97WBDU2UsGmzkOpIpQ
+ WFWBKo+tSF6iGlINGZ4StwJYjBBojbS1yyBQ6aGVd8uJci8VtPw05wXKUScjEYOnGg86UOeuI
+ YL2oJz4ntIafscQ+X4clvlrXK0qUXK/vB52p6Id3T04kRzsmWBUfWxzeY9XUa671gdafBLmXW
+ cGefa07nAVi/0pdb6BW1f5loT7Gino3IaS82GMME9M3gdemXXstFGJ/RTE9pcefLsoq1n0r+y
+ MDmi8uB/MdU+IF8IZDucJGGeOEWDmNvejWtdt3nLFyMgz7BCM6oiAwU5e8Nv0I5aISa72Hv3q
+ yT4EDMmcKQRr4i6GP095GrTs51gJjNYqpcgbPSms5TYRFSmIKJpsL57JAtctgTEJRcVlP+Cu3
+ 9AVV4wxS82EXE/nfGi2EmiZcp195u/j4b2mKCRwly9ZvcH+WSk+HUqRAPtE5pPXH8eXKgcrOw
+ tK1k0WK+AMBXYyYJLlabAy2xOYPTvgeoQBXygafUbcu4h4mb/GnmTOBFSenegqxMJWEvLgbRs
+ ZgLpYWoxaHGVthaW2AL9c4eQottasO8FmzQXBOz1QVct8kfw30WtG2WDspDQ6qmH6Gy6O9oJk
+ 1zDxqgiAkG34MNRfteUgkiv3CYrE+n9O2bZsne//JYcM9DJaV9q5DP8QLH07MbrljHMyz6Ejk
+ tZ2QBJEHOY+XqjiP6OQxiq3OG8tv9sKZ8Hf7q01+d1LT3jolHYsXYmJQS+qPOZgEMTIpqhy6Y
+ iHlnEGD4iU5edfPlRS1VU4I2RPBjbcwjuZ/JDafp9SG7BAsTwmJ80Xf7cRtkI2lZ/exi/hKt3
+ PCxsACRiVwGcJW36/dGmbzsUk26TBJvsosYTvpLgcrIn4cvPmU4ENeFsvlvyk5O193vJacKo4
+ Gw8DSp8WMxnTFch/UVsZD2Fxfg8RWZQBlcFXnbScjAshvhgXoKC6cqd3+tozNQoD9lgJWyIJY
+ ZdBziSdf0iuwv8gzLf9dKjYjcgCjY3mjUVigA+w5wH8Km1cB/LCo0VdM/JJ9XpwsTnppz3nOX
+ H24CcshIxBLPQ0mB+4V9fsHG/hUEGkiRlT17EBQuVq/SRDF79cd/SYcU/1UesWSfv9eesVRj5
+ hSaZA5+xWE+qR+2YdFxwPcEOnvZpwnuhN8PVmVse7uM7kZaUU4ZSONJj5w0iQIb+Dk4qk+kY8
+ h0s6IEhJjD+R/vjXLAqBxVqvXpjAM2g7/LRyPi8Aa/dbZ2L5Z2OqBYBfgz+Hd8y0GAsYmgLBo
+ gyTItJGXxcvKLhYqLHPglBALs5WKlDfWSQIMKoXGdUnZdBU0ZpcYc1GgyuF
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +164,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Missing IRQ disablement and workqueue cancellation in driver remov=
-al and probe error paths.
---
-
-commit e3d22519d26e84f17c45f704d4c2a1fc871e1036
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
-
-Bridges using DRM_BRIDGE_OP_HDMI are now expected to provide a supported
-HDMI version. This commit advertises HDMI 1.2 as the supported version
-and sets the bridge's max_tmds_char_rate. It also drops the redundant
-adv7511_bridge_hdmi_tmds_char_rate_valid() hook.
-
-> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/d=
-rm/bridge/adv7511/adv7511_drv.c
-> index 038b852405b54..c3ef44074477b 100644
-> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-
-[ ... ]
-
-> @@ -1359,6 +1341,8 @@ static int adv7511_probe(struct i2c_client *i2c)
-> =20
->  	adv7511->bridge.vendor =3D "Analog";
->  	adv7511->bridge.product =3D adv7511->info->name;
-> +	adv7511->bridge.supported_hdmi_ver =3D HDMI_VERSION_1_2;
-> +	adv7511->bridge.max_tmds_char_rate =3D 1000ULL * adv7511->info->max_mod=
-e_clock_khz;
-> =20
->  #ifdef CONFIG_DRM_I2C_ADV7511_AUDIO
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential
-use-after-free in the error handling and driver removal paths of this drive=
-r.
-
-In adv7511_probe(), the driver registers a shared interrupt via
-devm_request_threaded_irq() and initializes adv7511->hpd_work.
-However, in the err_unregister_audio probe error path, the devm-managed
-IRQ can still fire because the resources are manually freed before the
-devm cleanup runs:
-
-adv7511_probe() {
-    ...
-err_unregister_audio:
-	drm_bridge_remove(&adv7511->bridge);
-	i2c_unregister_device(adv7511->i2c_cec);
-	clk_disable_unprepare(adv7511->cec_clk);
-err_i2c_unregister_packet:
-	i2c_unregister_device(adv7511->i2c_packet);
-    ...
-}
-
-Similarly, adv7511_remove() manually unregisters I2C devices while the
-devm-managed IRQ remains active until devres cleanup:
-
-adv7511_remove() {
-    ...
-	i2c_unregister_device(adv7511->i2c_cec);
-	clk_disable_unprepare(adv7511->cec_clk);
-
-	i2c_unregister_device(adv7511->i2c_packet);
-	i2c_unregister_device(adv7511->i2c_edid);
-    ...
-}
-
-Could a hotplug or CEC interrupt firing during or just after these
-cleanup paths attempt to access the freed I2C clients?
-
-Furthermore, since cancel_work_sync() is never called for hpd_work, could
-any scheduled work execute after the adv7511 structure has been freed by
-devres, leading to memory corruption or a kernel panic?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dw-hdmi-qp=
--scramb-v11-0-bc12954a0688@collabora.com?part=3D50
+QW0gMDcuMDguMjYgdW0gMjM6MDMgc2NocmllYiBBcm1pbiBXb2xmOg0KDQo+IEFtIDI0LjA3LjI2
+IHVtIDA0OjU5IHNjaHJpZWIgQXJtaW4gV29sZjoNCj4NCj4+IFRoZSBhYXJjaDY0LWxhcHRvcHMg
+cHJvamVjdCBmb3VuZCBvdXQgdGhhdCBzb21lIFdpbmRvd3Mtb24tQXJtDQo+PiBub3RlYm9va3Mg
+Y29udGFpbiBXTUktQUNQSSBtYXBwaW5nIGRldmljZXMgKFBOUDBDMTQpIHRoYXQgd29yaw0KPj4g
+ZXhhY3RseSBsaWtlIG9uIHg4Ni4gVGhvc2UgZGV2aWNlcyBob3dldmVyIGFyZSBjdXJyZW50bHkg
+bm90DQo+PiBzdXBwb3J0ZWQgYnkgdGhlIFdNSSBkcml2ZXIgY29yZSBkdWUgdG8gb25seSBzdXBw
+b3J0aW5nIHg4Ni4NCj4+DQo+PiBUaGUgZmlyc3QgcGF0Y2ggcmVtb3ZlcyB0aGlzIHJlc3RyaWN0
+aW9uIGFuZCBhbGxvd3MgdGhlIFdNSQ0KPj4gZHJpdmVyIGNvcmUgdG8gcnVuIG9uIGFsbCBhcmNo
+aXRlY3R1cmVzIHRoYXQgc3VwcG9ydCBBQ1BJLg0KPj4gVGhlIHNlY29uZCBwYXRjaCB1cGRhdGVz
+IHRoZSBhY3BpLXZpZGVvIGRyaXZlciB0byB0YWtlIGFkdmFudGFnZQ0KPj4gb2YgdGhlIGltcHJv
+dmVkIHN1cHBvcnQgZm9yIGFyY2hpdGVjdHVyZXMgb3RoZXIgdGhhbiB4ODYsIGFuZA0KPj4gdGhl
+IGxhc3QgcGF0Y2ggZW5hYmxlcyB0aGUgZ2VuZXJpYyBXTUkgQk1PRiBkcml2ZXIgdG8gc3VwcG9y
+dA0KPj4gYWFyY2g2NCBhcyB3ZWxsLg0KPj4NCj4+IEFsbCBwYXRjaGVzIGhhdmUgYmVlbiB0ZXN0
+ZWQgb24gYSBBQ1BJLWJhc2VkIGFhcmNoNjQgVk0gYW5kDQo+PiB3b3JrIGp1c3QgZmluZS4NCj4N
+Cj4gQW55IHRob3VnaHRzIGFib3V0IHRoaXMgc2VyaWVzIGZyb20gdGhlIEdQVSBkcml2ZXIgcGVv
+cGxlPw0KPg0KPiBUaGFua3MsDQo+IEFybWluIFdvbGYgDQoNCkNhbiBpIGFzc3VtZSB0aGF0IHRo
+ZSBzaWxlbmNlIG1lYW5zICJsb29rcyBmaW5lIHRvIG1lIj8NCg0KVGhhbmtzLA0KQXJtaW4gV29s
+Zg0KDQo+Pg0KPj4gQ2hhbmdlcyBzaW5jZSB2MjoNCj4+IC0gZml4IEtjb25maWcgaXNzdWUgZm9y
+IHRoZSBsb29uZ3Nvbi1sYXB0b3AgZHJpdmVyDQo+Pg0KPj4gQ2hhbmdlc8KgIHNpbmNlIHYxOg0K
+Pj4gLSBhZGQgYWRkaXRpb25hbCB0YWdzDQo+Pg0KPj4gQXJtaW4gV29sZiAoMyk6DQo+PiDCoMKg
+IHBsYXRmb3JtL3dtaTogUmVtb3ZlIGRlcGVuZGVuY3kgb24gQ09ORklHX1g4Ng0KPj4gwqDCoCBB
+Q1BJOiB2aWRlbzogUmVtb3ZlIENPTkZJR19YODYgaGFuZGxpbmcgZnJvbSANCj4+IG52aWRpYV93
+bWlfZWNfc3VwcG9ydGVkKCkNCj4+IMKgwqAgcGxhdGZvcm0veDg2OiB3bWktYm1vZjogTW92ZSB0
+byBnZW5lcmljIFdNSSBjb2RlDQo+Pg0KPj4gwqAgTUFJTlRBSU5FUlPCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+fMKgIDIgKy0NCj4+IMKgIGRyaXZlcnMvYWNwaS9LY29uZmlnwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstDQo+PiDCoCBkcml2ZXJz
+L2FjcGkvdmlkZW9fZGV0ZWN0LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHzCoCA4IC0tLS0tLS0tDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29u
+ZmlnwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDQgKy0tLQ0KPj4gwqAgZHJpdmVycy9n
+cHUvZHJtL2dtYTUwMC9LY29uZmlnwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+wqAgMSAtDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vaTkxNS9LY29uZmlnwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEgLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9LY29uZmlnwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLS0t
+DQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0veGUvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNSArKy0tLQ0KPj4gwqAgZHJpdmVycy9wbGF0Zm9ybS9s
+b29uZ2FyY2gvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxICsNCj4+IMKg
+IGRyaXZlcnMvcGxhdGZvcm0vd21pL0tjb25maWfCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB8IDE0ICsrKysrKysrKysrKystDQo+PiDCoCBkcml2ZXJzL3BsYXRmb3JtL3dt
+aS9NYWtlZmlsZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArKysr
+DQo+PiDCoCBkcml2ZXJzL3BsYXRmb3JtL3t4ODYvd21pLWJtb2YuYyA9PiB3bWkvYm1vZi5jfSB8
+wqAgMA0KPj4gwqAgZHJpdmVycy9wbGF0Zm9ybS94ODYvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMTIgLS0tLS0tLS0tLS0tDQo+PiDCoCBkcml2ZXJzL3Bs
+YXRmb3JtL3g4Ni9NYWtlZmlsZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+wqAgMyAtLS0NCj4+IMKgIDE0IGZpbGVzIGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKyksIDM3IGRl
+bGV0aW9ucygtKQ0KPj4gwqAgcmVuYW1lIGRyaXZlcnMvcGxhdGZvcm0ve3g4Ni93bWktYm1vZi5j
+ID0+IHdtaS9ibW9mLmN9ICgxMDAlKQ0KPj4NCg==
