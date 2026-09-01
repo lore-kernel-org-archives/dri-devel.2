@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2FB1C624D6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C2AC624D0
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06F7110EE69;
-	Tue,  1 Sep 2026 18:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B45710EE64;
+	Tue,  1 Sep 2026 18:51:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FrYbnX5U";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="or31Z5EU";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9225010EE50
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7204310EE63
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288666;
- bh=RmShGeYnI8zP6IM1PGow4KEAeMfnyW3OHRPHZXwWmVI=;
+ s=mail; t=1788288672;
+ bh=ccpopn9Y9LAmIjVmaGfBkmnfpoFJvMf4XBoclWEOsYY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=FrYbnX5URaaTgTkWIWaeaUacri61SY/Xrq4NUpARZW3Ajo7z6EHT9D+15FEn6kyaX
- 9RWC7pGgwanHo2VVFGcOVGFsemOw7IYfXEuhaGf2dZ8XwDPUJS1MZBdcv4RAjyvxDd
- s21RYlWk+frgZ+vELmCXvJfU26SpzgwBfUTDRwLIRn3BAKXRAuUnE8fEhCKe9YT6Qo
- siFe1Q67d6dTPIi0L8rhAzhz5VLXRny6ipUellNG38xLhwRIXhRT5Uhri3mCphtsYZ
- UiZ3aGm4oWKZNkvSQkWzc5toHk1drRULrqoej482nC0u2juJGUsTqXhOM/OgnTGHB7
- HXuMMScOv+DCA==
+ b=or31Z5EUeZLCJula8ZWphT2psnkVcg3ge7j7ls0ppZDZEfHuqYGkSgHro5wyprUoD
+ CeamCOxipccUTP7uxW2igWT1HzaWshSAsECscsDJRRhmG9CgRkn+8mwWa1tAFjp7Sp
+ s+WkePbzoglvsZ9yomgP4Cp0SA4paobvZ55/ZzkuBciC2xplPCsohtu2XA4IRJ+f2K
+ /f724833b8cY6mZoL9RFBgxfBYm05JfastzCNNbMBinTHUDiAnGVqskITFwolnOWt6
+ +C0twwnt4Lw7EExFisL5lIZpkp51vFU1sV72rWhW9NPxp4o3PcgaNBb3dvboOdw8pw
+ tDwby70I392nw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3561E17E3BAD;
- Tue, 01 Sep 2026 20:51:06 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 15AD617E3C61;
+ Tue, 01 Sep 2026 20:51:12 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:58 +0300
-Subject: [PATCH v11 34/74] drm/rockchip: dw_hdmi_qp: Use local dev variable
- consistently in bind()
+Date: Tue, 01 Sep 2026 21:51:06 +0300
+Subject: [PATCH v11 42/74] drm/vc4: hdmi: Use common TMDS char rate constants
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-34-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-42-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,8 +64,7 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-fbdev@vger.kernel.org, Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ linux-fbdev@vger.kernel.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,125 +81,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace indirect struct device accesses via hdmi->dev and pdev->dev with
-the local dev parameter already available in dw_hdmi_qp_rockchip_bind(),
-for consistency and readability.
+Replace HDMI_14_MAX_TMDS_CLK defined locally with
+HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ provided by linux/hdmi.h.  Note this
+incorrectly referenced HDMI 1.4, as the 340 MHz maximum TMDS character
+rate was actually introduced in HDMI 1.3.
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Similarly, use HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ instead of the 600000000
+magic number.
+
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 33 +++++++++++++-------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index df0e2bb1eedc..456bf2f194d7 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -563,7 +563,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	struct clk *ref_clk;
- 	int ret, irq, i;
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 3a90dbb61f4e..8e4623ccc4f8 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -45,6 +45,7 @@
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+@@ -113,8 +114,6 @@
+ #define HSM_MIN_CLOCK_FREQ	120000000
+ #define CEC_CLOCK_FREQ 40000
  
--	if (!pdev->dev.of_node)
-+	if (!dev->of_node)
- 		return -ENODEV;
+-#define HDMI_14_MAX_TMDS_CLK   (340 * 1000 * 1000)
+-
+ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+ {
+ 	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
+@@ -137,7 +136,7 @@ static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
+ {
+ 	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
  
- 	hdmi = drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
-@@ -583,7 +583,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(dev, -ENODEV, "Missing platform ctrl ops\n");
+-	return clock > HDMI_14_MAX_TMDS_CLK;
++	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+ }
  
- 	hdmi->ctrl_ops = cfg->ctrl_ops;
--	hdmi->dev = &pdev->dev;
-+	hdmi->dev = dev;
- 	hdmi->port_id = -ENODEV;
+ static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+@@ -1728,7 +1727,7 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	if (clock > vc4_hdmi->variant->max_pixel_clock)
+ 		return MODE_CLOCK_HIGH;
  
- 	/* Identify port ID by matching base IO address */
-@@ -594,7 +594,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		}
- 	}
- 	if (hdmi->port_id < 0)
--		return dev_err_probe(hdmi->dev, hdmi->port_id,
-+		return dev_err_probe(dev, hdmi->port_id,
- 				     "Failed to match HDMI port ID\n");
+-	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_14_MAX_TMDS_CLK)
++	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		return MODE_CLOCK_HIGH;
  
- 	plat_data.phy_ops = cfg->phy_ops;
-@@ -622,37 +622,36 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	hdmi->regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
- 						       "rockchip,grf");
- 	if (IS_ERR(hdmi->regmap))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->regmap),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->regmap),
- 				     "Unable to get rockchip,grf\n");
+ 	/* 4096x2160@60 is not reliable without overclocking core */
+@@ -3254,7 +3253,7 @@ static int vc4_hdmi_bind(struct device *dev, struct device *master, void *data)
+ 	 * vc4_hdmi_disable_scrambling() will thus run at boot, make
+ 	 * sure it's disabled, and avoid any inconsistency.
+ 	 */
+-	if (variant->max_pixel_clock > HDMI_14_MAX_TMDS_CLK)
++	if (variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		vc4_hdmi->scdc_enabled = true;
  
- 	hdmi->vo_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
- 							  "rockchip,vo-grf");
- 	if (IS_ERR(hdmi->vo_regmap))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->vo_regmap),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->vo_regmap),
- 				     "Unable to get rockchip,vo-grf\n");
- 
--	ret = devm_clk_bulk_get_all_enabled(hdmi->dev, &clks);
-+	ret = devm_clk_bulk_get_all_enabled(dev, &clks);
- 	if (ret < 0)
--		return dev_err_probe(hdmi->dev, ret, "Failed to get clocks\n");
-+		return dev_err_probe(dev, ret, "Failed to get clocks\n");
- 
--	ref_clk = clk_get(hdmi->dev, "ref");
-+	ref_clk = clk_get(dev, "ref");
- 	if (IS_ERR(ref_clk))
--		return dev_err_probe(hdmi->dev, PTR_ERR(ref_clk),
-+		return dev_err_probe(dev, PTR_ERR(ref_clk),
- 				     "Failed to get ref clock\n");
- 
- 	plat_data.ref_clk_rate = clk_get_rate(ref_clk);
- 	clk_put(ref_clk);
- 
--	hdmi->frl_enable_gpio = devm_gpiod_get_optional(hdmi->dev, "frl-enable",
-+	hdmi->frl_enable_gpio = devm_gpiod_get_optional(dev, "frl-enable",
- 							GPIOD_OUT_LOW);
- 	if (IS_ERR(hdmi->frl_enable_gpio))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->frl_enable_gpio),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->frl_enable_gpio),
- 				     "Failed to request FRL enable GPIO\n");
- 
- 	hdmi->phy = devm_of_phy_get_by_index(dev, dev->of_node, 0);
- 	if (IS_ERR(hdmi->phy))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->phy),
--				     "Failed to get phy\n");
-+		return dev_err_probe(dev, PTR_ERR(hdmi->phy), "Failed to get phy\n");
- 
- 	cfg->ctrl_ops->io_init(hdmi);
- 
-@@ -670,7 +669,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	if (irq < 0)
- 		return irq;
- 
--	ret = devm_request_threaded_irq(hdmi->dev, irq,
-+	ret = devm_request_threaded_irq(dev, irq,
- 					cfg->ctrl_ops->hardirq_callback,
- 					cfg->ctrl_ops->irq_callback,
- 					IRQF_SHARED, "dw-hdmi-qp-hpd",
-@@ -681,16 +680,16 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
- 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
--		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
-+		return dev_err_probe(dev, ret, "Failed to init encoder\n");
- 
- 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
- 	if (IS_ERR(hdmi->hdmi))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->hdmi),
- 				     "Failed to bind dw-hdmi-qp\n");
- 
- 	connector = drm_bridge_connector_init(drm, encoder);
- 	if (IS_ERR(connector))
--		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
-+		return dev_err_probe(dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
- 
- 	platform_set_drvdata(pdev, hdmi);
+ 	ret = variant->init_resources(drm, vc4_hdmi);
+@@ -3384,7 +3383,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi0_regs",
+ 	.card_name		= "vc4-hdmi-0",
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc5_hdmi_hdmi0_fields,
+ 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
+ 	.phy_lane_mapping	= {
+@@ -3413,7 +3412,7 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
+ 	.debugfs_name		= "hdmi1_regs",
+ 	.card_name		= "vc4-hdmi-1",
+-	.max_pixel_clock	= HDMI_14_MAX_TMDS_CLK,
++	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc5_hdmi_hdmi1_fields,
+ 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
+ 	.phy_lane_mapping	= {
+@@ -3442,7 +3441,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi0_regs",
+ 	.card_name		= "vc4-hdmi-0",
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc6_hdmi_hdmi0_fields,
+ 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
+ 	.phy_lane_mapping	= {
+@@ -3469,7 +3468,7 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
+ 	.debugfs_name		= "hdmi1_regs",
+ 	.card_name		= "vc4-hdmi-1",
+-	.max_pixel_clock	= 600000000,
++	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc6_hdmi_hdmi1_fields,
+ 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
+ 	.phy_lane_mapping	= {
 
 -- 
 2.55.0
