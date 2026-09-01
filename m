@@ -4,44 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFE52C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 425A0C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:55:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1290510EEDD;
-	Tue,  1 Sep 2026 19:52:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D18410EED2;
+	Tue,  1 Sep 2026 19:55:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ue9n8YQO";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cY6WgTNe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01AA910EEDD
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:52:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 39B0060237;
- Tue,  1 Sep 2026 19:52:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0B41F000E9;
- Tue,  1 Sep 2026 19:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788292332;
- bh=iaYJDbXi4I4S7jT5zCYYzd19qIHJSVpYpgv1VwePJHs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ue9n8YQO5CN/6QehGHh3wvczV9u1SOOMvPE4uzad1XbP1F9rvAv4qER78j1zpCqJ7
- fBYMB0KRKYaEsF8n1XKO15ryHcC1Diorb1BGLROPIbOMeAjfQomkuZKbnhxebYjOpj
- IQYHt0N7SHmwbjno2fPhIcmHw6nmyB8YzxP4XbOSN/+Y15S2c0DTm5TuLYLr/vwMFB
- bd7SBuQsjghCaxvT/sAb/VTOSYAltav6uUh5RQaioBfrr3bibooKIKHD2ob5yfq51r
- 13W5xFj230dEoSGEBJ7GxUjBqw/uNa98MT4zxAulxmj4qu4DTfEQVfLr/uqaC97U0t
- +kyCssKh0Oo4A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 33/74] drm/rockchip: dw_hdmi_qp: Add missing
- newlines in dev_err_probe() messages
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-33-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-33-bc12954a0688@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552B510EED2
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1788292516;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2777MRqkHHDOXl9YhBOlEzmHGlKVDToTlF462SeCB8Q=;
+ b=cY6WgTNey+oAjL/R5Oh/dnKgzyE84uArNch0M5M0ltdQOQO7/UjqpFqgYiV+KITj/3jgH5
+ B3gW3BVn6andYLsMD8wqmqH4rPTc16ywgeoQ3MHPa4sLUBWEqvZl1RgzV/79elEkiMlM5c
+ s/SfSbDhAl19Gwi7m3OVvBPlNzjLrfE=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-669-NlifdjvFMy2uxp15V2AefQ-1; Tue, 01 Sept 2026 15:55:15 -0400
+X-MC-Unique: NlifdjvFMy2uxp15V2AefQ-1
+X-Mimecast-MFC-AGG-ID: NlifdjvFMy2uxp15V2AefQ_1788292514
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-9394ad7f64aso61530085a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 12:55:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788292514; x=1788897314;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2777MRqkHHDOXl9YhBOlEzmHGlKVDToTlF462SeCB8Q=;
+ b=bhqdKUtK9MQB0W6QSdKRShoAyEjx5ZFRvhW0aXyzTVrGwKisXd3VvG9I047Nmg2+33
+ 5d8EmR4EATHNUp9BuDgd9dk/1ldug+xfUyLeKF/bLHAM4AWDMAv7ePdcqvj/SEnhb70A
+ 2tuXiFb/d2Askmp2PunsBATJrHq7luXvwvyz6wRKANJCs5l+b4EhNzj4+7uXfpr6YHyc
+ VqLPYcOGXP1TMJzlNDuu0zc2/66y027xNtoZWs87G5gLKQ5Ju3E5/C+62Rxolh6BcWZs
+ osCoplZCDCh3JtX43VA7RpW2oEpu8qakXvHOIyYU96KdmrieMu6C5Q2IodS5muh8iG69
+ Q3Fg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqApC+trSn3l2BEcqhBssAM8I9tEwsHfPQ1rCSt3sY3ypDSB/ikGm7Q6Sao6mN9QtZHaB0ZIHkc178=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++laprdpu1wM0iKaACdf+D9vXGUfyDp0mCFDm0rljbNhrtHTCWFR
+ nZsLn8LQuw7fzIlgB+KiibstUEeDZLJkp5XUNhfTSKZaPzrUDhc9tdtbKEkYf5/KuYx6fMobUoK
+ KtXY6U+4BhUXflQAFLyxIdq2MYaHLKdR9ESKXoGFSeA+31SdT1ZRw+ViYlntc3OAdwxPzsQ==
+X-Gm-Gg: AR+sD13Zf/DtTqhaWScTAgrw1VM8DeQabTcmVMJhOYd3q1n5/X/dBhTe1dsAg39P4UX
+ h6EbsnWs9AvHayYYQs0yk3utPVhK812KtDGOajHt9g8ywehi7HcVdYLqiaQRjr1qX9vq3+9Myn2
+ Efqjza3bmLzHqENJWH8lJ+AyXtWHqbIz0kUz7JLHcH4sy2DwH2EOlhKWJrW/UL0Ku/WQvrWBk4o
+ wumyyGK8MzCv7KrMpPn2WWYMZzojfsuZETqyjYVKsjrU2zoB2ZKEfT0vCwYvU+4Xfkb1tu3j4+v
+ XZcUYFLvsROnE0gxKN9qVkAU+cF4txrAStEkVpHml7C/iI+yzseqKavTPI0En62fMTER3rXY
+X-Received: by 2002:a05:620a:2b88:b0:92e:71bb:d1c0 with SMTP id
+ af79cd13be357-93948012fadmr1557893885a.15.1788292514232; 
+ Tue, 01 Sep 2026 12:55:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b88:b0:92e:71bb:d1c0 with SMTP id
+ af79cd13be357-93948012fadmr1557887785a.15.1788292513678; 
+ Tue, 01 Sep 2026 12:55:13 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9395f361042sm19286085a.26.2026.09.01.12.55.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 12:55:13 -0700 (PDT)
+Message-ID: <27200b7e13ecc99d57c41da4e25fad690fca68d7.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/nouveau: Use write-combined maps for coherent
+From: lyude@redhat.com
+To: Aaron Kling <webgeek1234@gmail.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Faith Ekstrand <faith.ekstrand@collabora.com>
+Date: Tue, 01 Sep 2026 15:55:11 -0400
+In-Reply-To: <CALHNRZ-JmYx-PhruhDZ3L8aPVu51cJrqP_FeNtGTyMHCH_esgg@mail.gmail.com>
+References: <20260821-tegra-coherent-wc-v2-1-2b1ddb67bf18@gmail.com>
+ <8cb96c08-2d1e-459e-b356-c6fd97ef869e@kernel.org>
+ <CALHNRZ-JmYx-PhruhDZ3L8aPVu51cJrqP_FeNtGTyMHCH_esgg@mail.gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 4AbuiJzF1sSWxZnH3MD4Iu1LRjXdrso5u7iC44SIF_A_1788292514
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 19:52:12 +0000
-Message-Id: <20260901195212.AD0B41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,72 +101,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, 2026-09-01 at 13:03 -0500, Aaron Kling wrote:
+>=20
+> Looks like the tag is:
+>=20
+> Fixes: 1b4ea4c5980f ("drm/ttm: set the tt caching state at creation
+> time")
+>=20
+> Should I send another revision just to add this, or can the subsystem
+> maintainer add it when picking the change up? For stable, I would
+> like
+> to see this picked to 6.18 at least, since I primarily work with LTS
+> forks.
+>=20
+> Aaron
 
-Pre-existing issues:
-- [High] Component bind callback incorrectly uses devm_* allocations tied t=
-o the platform device, leading to resource leaks and -EBUSY errors on re-bi=
-nd.
---
+I would send out a respin with the tag
 
-commit a9c58c506cb77b47eb22437fb1825e8599bab1dc
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
-
-This commit adds missing trailing newlines to a couple of dev_err_probe()
-calls in dw_hdmi_qp_rockchip_bind().
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 42f2627e1a052..df0e2bb1eedc6 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -681,12 +681,12 @@ static int dw_hdmi_qp_rockchip_bind(struct device *=
-dev, struct device *master,
->  	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_fun=
-cs);
->  	ret =3D drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NU=
-LL);
->  	if (ret)
-> -		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
-> +		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
-> =20
->  	hdmi->hdmi =3D dw_hdmi_qp_bind(pdev, encoder, &plat_data);
->  	if (IS_ERR(hdmi->hdmi))
->  		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-> -				     "Failed to bind dw-hdmi-qp");
-> +				     "Failed to bind dw-hdmi-qp\n");
-> =20
->  	connector =3D drm_bridge_connector_init(drm, encoder);
->  	if (IS_ERR(connector))
-
-[Severity: High]
-This is a pre-existing issue, but looking at dw_hdmi_qp_rockchip_bind(),
-several resource allocations are made against the component's platform
-device (dev or hdmi->dev) rather than the DRM aggregate device (master):
-
-    ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
-    ...
-    hdmi->frl_enable_gpio =3D devm_gpiod_get_optional(dev, "frl-enable", ..=
-.);
-    ...
-    ret =3D devm_request_threaded_irq(dev, hdmi->hpd_irq, ...);
-
-If dw_hdmi_qp_bind() or drm_bridge_connector_init() fails and returns an
-error (such as -EPROBE_DEFER), the component framework aborts the bind.
-Because these devm_ allocations are tied to the platform device and not the
-DRM aggregate device, they are not cleaned up upon bind failure.
-
-When the master DRM device later retries binding, will
-devm_request_threaded_irq() fail with -EBUSY since the IRQ and other
-resources remain claimed from the previous attempt?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dw-hdmi-qp=
--scramb-v11-0-bc12954a0688@collabora.com?part=3D33
