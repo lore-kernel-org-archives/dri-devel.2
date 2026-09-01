@@ -4,135 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0178FC624D4
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04516C624D4
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:15:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5672C10ED1C;
-	Tue,  1 Sep 2026 14:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE4810E3E8;
+	Tue,  1 Sep 2026 14:15:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BIHTLNb5";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="FI9HGXNV";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013049.outbound.protection.outlook.com
- [40.93.201.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C049610ED16
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:08:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WMG+Z2DEefeUil+2BrR5oWbRe8ILF9dIAaIz5C02hAtrSWDIHHFtX0UlBhQTIh9D3UIgLeQKh74+Wz9qEyETMDYOpYG6LLKHEh3lPx/KngVaZ4uXpXSu1jkU1j8J4EsxAiHytdYUzP2f9UnjginMXS6Zq4I/T0o5Mr6wWZuKdBXXDqSFax12QxVNRUodK7rns+bzXJZD2uEIb6AvGRzR/pknf8aLDOyd0zpk+FFeBsWJbE3Lbj8hLLHWZ4g+3QRYpvdvwRvL0gSlh4LgZ9XJrYwfU98qWChqoN3LcnhF64hwoIHSiea+OZM8p0Hq/tiEeN1dqOpcbqrxNdHvMTzxMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TgrY5Kf70FgUzkruc+NCFx1pniQ+EAq48xb20iaJW6o=;
- b=zGZ+LpftNrz0+swPmZfT7jQo0Bn92sY6NhVOv5Q5yU5genKeSQNAjYHApVll6JExgMci6/FweQhXJms8G7EljdN0IsGEw85kA+f+c0TFkc3lXecJuHyfxbAXCeRxXiGQDN0h/YFymh+ZC2FniKjeacQKUlVEZedCptiCVeXvd7CSMfB9BgJgR1dtX3sVNyR3c3lKqLdPh/uYMz38B61vx+HMcfech/+t/sugBM9fl07eBmvwJmAzRaT5YfXQQUEpOItRcD1uTaoTV7t43ilzqZQi/uZkaBtjwk+tFXZlw0IuyLu2PVOyte26Tm3zpzMoubatGxuso9EzYThIfpKHGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TgrY5Kf70FgUzkruc+NCFx1pniQ+EAq48xb20iaJW6o=;
- b=BIHTLNb5e57BLe3EFqpz52fIShDGqbVxZOVRF3UuWs8AkMKiutcRTAzHl5hqPROkh134PVgh31T+zODquiU+7vi3ci/DqYQBgdfDF3YFPiTNQOfKgCl5VKSGDAyCAJChMqCfLoLgqVCKkgkaq6WLKUXaBq1X9Wx1PmF8iAsRLkKIL6wRXlzL/P409BKoAXxLJX+KR17KwoBGx/6z4+QsXtP7F+z2xNbiYRd1sY5ijPrpxPrbVXYrSXUEQS3HZBZ1b4JFztq8XUOvhwONsceeEmguS/r7UakyKAfKP8aVjQyWakLrVm1m+87bedWU4jQbn3YDCyh97rA44sAG/ZMGgg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by DM6PR12MB4483.namprd12.prod.outlook.com (2603:10b6:5:2a2::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 14:08:53 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 14:08:53 +0000
-Date: Tue, 1 Sep 2026 11:08:51 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH 2/2] dma-buf: Document how exporters and importers agree
- on mapping lifetime
-Message-ID: <20260901140851.GA2771412@nvidia.com>
-References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
- <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
- <2776f9b0-c299-45ff-bf82-89b95e73fd60@amd.com>
- <20260826124341.GD42790@unreal>
- <39dc2f46-08c8-4eff-aa22-a7c67b5c7040@amd.com>
- <20260826140234.GE42790@unreal>
- <783c4c15-b8c6-4e9a-96fe-451d7c3ea302@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <783c4c15-b8c6-4e9a-96fe-451d7c3ea302@amd.com>
-X-ClientProxiedBy: YT3PR01CA0087.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::29) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDF210ED2D
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:15:09 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260901141504euoutp02f8cf59604fcc0bb3e97ba307ffda0a3a~ROAEy4Y3I1223512235euoutp02b;
+ Tue,  1 Sep 2026 14:15:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260901141504euoutp02f8cf59604fcc0bb3e97ba307ffda0a3a~ROAEy4Y3I1223512235euoutp02b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1788272104;
+ bh=2nW3DmaEwtQqmdcgqJ0ClmdaBE1cGoZ7pcvRuf3Yst4=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=FI9HGXNVyamhN2zlQXR4CDPmMvub+hQK2T7ZBv5DkCgQPnby1w+gTVZUh41hlg+KR
+ 5ny8AyyOmQlmxO76627Rk1f6+fa9NHdeszWgDcCUqsh3yBThzUR5IsBAQipbYRojBC
+ INCm0GUIqJFBdpcJ/FMR+S//fjPKiXb3VraxvlOY=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260901141504eucas1p156346e8510ccf68f19fc29333c31cfe7~ROAEgxzXG3199331993eucas1p12;
+ Tue,  1 Sep 2026 14:15:04 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260901141502eusmtip277e141767fe1c923ccc834fdf6eb451f~ROACyv4-D1277812778eusmtip20;
+ Tue,  1 Sep 2026 14:15:02 +0000 (GMT)
+Message-ID: <b41f260d-2308-4853-8d3b-22cba534e4e2@samsung.com>
+Date: Tue, 1 Sep 2026 16:15:02 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DM6PR12MB4483:EE_
-X-MS-Office365-Filtering-Correlation-Id: b585852b-ada2-4c15-1208-08df08328d88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|7416014|366016|11063799006|4143699003|10067099003|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 2pZjn2G+gEaB5jz2UUud5BSl2AL99Pot2HzXOCxWVSiNCTRwJHzNiY21NKfE7h3/ygKxaBXT5+Hw9ee0BkmekbRkJb6hQF+PWI9mrPq0lnLz9LBNDRgh6mDwM+aMR093RlhI+eB2Foqxp17bJvc4Hl88+4PCbB3o5n1VXVdkWF+tDMZszd0/SrUri9dOz10ZKecyCQIpOq+t6RGh2QcznmuGO6zmLvuBgfydu3lk7089AtkR1Ecio5FT9xa1fsdZctyW3JJ7DbvMGjuzocbYbWuPCyS/Vm6+XSNKwo8v+vXuplyp59WSpIosQc8G880lyNncZSiaSp2IX/m4hehjJNNPqIvTiP73dMf6W7AMpUsDjUIgGvwMx+P/OOOybxdUaKAydYpbiAAzdE0R2V+84OpOXevbsLiJyli6ivJm25GK0WhG7tpLLph56MS/BVPP2CUjrq4fl6GeCkg7MmEaQGJfp3TbBZcTKL2mO9ocf66dHPGC/NPqbiqRi79k51IXgTEFDFYv/hkU/xUSWPOKimOF6JSBbrk2XPds4gompYeISuo2v0xBg5ObWy7e+FgBlijqiOCV+8N8OysjcmywAFDi3AHBOQrdgHPfsomJUZNhCrozLNLzbJVbjNwNgYHMYhn5g8wNMQkoZhi361m6hbm6df4iDFukeV94I06msSE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(11063799006)(4143699003)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlJGcTRDMmRlV2FHeTBXdFE3VUZhMzYwRldEY0dkdG41MUFsWXpvVHpSQVhD?=
- =?utf-8?B?WmhSVjAvNWwxV2JzdGFqb09sTjIxZWtldGt6Y1JyWUpseXY2T3VDUG1XM1lm?=
- =?utf-8?B?NXhVaHVkK1dOenFEdG9pN2tYMWQwMkxpbGVObW4vbG0wSDBYQ0k4OXlCa0lT?=
- =?utf-8?B?VkgwMFcrVHlWclUyYy9WY2NiZGJwUWU3Z2hWeEtaaXlOdTdXZ2h3MERobklh?=
- =?utf-8?B?ejl4Vko3ODZvVlF2UmRCRXFpRHdVQnBTQzljQUlsNk9jbTZhdlZnVzhQRFkz?=
- =?utf-8?B?eWVtNGNBSDI5dWM1MXp6SXVndE9VUkhQVHdvZkdJN1pSSW5Jd2p0Q0VlaGJV?=
- =?utf-8?B?YytrczZMNVNBTWRBcXJ4Nnk4UEt3UHJPZ1IzZ0w0VXE2RUozVkxlOEI0WWVi?=
- =?utf-8?B?MVU4U04wejlrOWtZSms1WUVZMHNHUnVrSGFOblVtZHVWMjVpR3hkcVJkdzhF?=
- =?utf-8?B?dkRSL2xWc2pzczRsSk5mZFZUajZjZlhZN2JzTGxXak5UVEpWR283ZGF0M2M3?=
- =?utf-8?B?QkxOaGZwQ1NTZmViekM3ZnArUkNmT2U3QnBjdkNVU2ppMlprY0FXTzgzendn?=
- =?utf-8?B?Z3FDWWpFSjFJWlkyaEM3aCsvWkZncWhkWWdaTC9pck05UGVqQ3dpc2laYVBP?=
- =?utf-8?B?dzdYMlpxOEt1eXlTZXhhRmwyRThRN3BWRjJpUGk1aFQ2cUFacmtDT1dyQlRn?=
- =?utf-8?B?SllyV21USjAvMXlKNXhIQ1ZPRE9sY2ZmOFRJaHIwaUdPMzFIUUFDb0hKc3li?=
- =?utf-8?B?WjYrV1kwWUZ1cVd6R3psWTRmcXp4azZQd3IrT0piRHV5SHJhcWdQWGZLOVFu?=
- =?utf-8?B?RWdHUUNudjZtalEyUk5taTk1TkVZK2d2REkvMVBTVmc3SEcwSzBGVDYyaGNF?=
- =?utf-8?B?WlRib3FoMy9xbEg4SGxibXRPZy9mMGd0dnJRc3ZXWGp0WldtK25HYmIzbVFr?=
- =?utf-8?B?Y0JrclUzZzBSYkdZM2tFY0hURXNmSVozRjRWcEs0NTZ0WkhOZVBqU0NXUDc5?=
- =?utf-8?B?WXNwd0RMMGYzSjdTdHd6Y0RueU14VldjeXFVcDVpWnJoODZ0bkt3dW04WExX?=
- =?utf-8?B?YVhmWkxuYlNrWUNSTk4yc0ZhNGMvMXdzL0V1R09GWTVXakNGeFVxWmV0SUxU?=
- =?utf-8?B?QjIraVJzMkxUR21CalY1TkRuTlhyaVhTZzRjN3NTSFpvTWJUMlErZ1RYSENq?=
- =?utf-8?B?TUdnTVZtODZMSDRJY3FHdHpIQ29Tb2xQemdyNUJjREx5R0VqOWxPWGNMMVVl?=
- =?utf-8?B?Q3J0SitKMGFVekx5OEpaY25wc3NsNkxkYXJJN0NlajdkUWZNaERvZllwUjFq?=
- =?utf-8?B?cDBnK0UwTnNKTEQ2N3BTeUVvWnZyalhHV1lrVXFLNVlyc1BDcHhkNmhVTThF?=
- =?utf-8?B?amdjT1I5cVdYdlJCR0UvcWxZSXdISWYzOHZsNDJwSlhoVVBCY1RWYy9GQ0NH?=
- =?utf-8?B?OW1wNy8yUW00T3ArRU1UU3k1NVJKSVd0bUZERzB6N1VsNjMrajF4SWFzZHho?=
- =?utf-8?B?dWQzTWt6dHkrTEJkTmxkMnNFY2drd2xGeFNOamVxVGt2Z1I4c3VJd0ZDYjBw?=
- =?utf-8?B?ZDdRbytubjdCZW5TcGRpSmZkbUFvT2tNM3FiZlg5TGhkajd3dU42UVM2b1Mv?=
- =?utf-8?B?SjMxVVFJZmlocDAyL2wyTXY3STBJTWppZWpaWC9XK2UvODhiYi80cTlRSlND?=
- =?utf-8?B?RG5ZRS9EOWExcEpGcU8xYlBhL1IySEp3TmFpUVQ3cTRHeUl2NjNYRko5dkV4?=
- =?utf-8?B?Uk44VEtuWkpEbzFDcjgxWGczUHN1VjRoSHMzbURXL1djaGpxdkRlTUFZOW5S?=
- =?utf-8?B?bkltMGtudS92eWUrQjlNU1JFeEZwTGkzam10blZ1TTlmZ2pmNHcwY2JwSnhB?=
- =?utf-8?B?UFZmQUF2ZUhiS21hZHU1WXJSZ2pKTGY0MmloQVBFSlNwK2krcWZNeHFJZmV6?=
- =?utf-8?B?bmd0bnp0bzkxUmJFU29Dc0pGUXRDZjhOejdzdlltRU02RjJ6UHBneThxRXRU?=
- =?utf-8?B?eklWcTVmSmNGZDg4R3c3cXBrZnl1Y3dQTllySDdPOHpFVzQ3NEMwc0lUdGtZ?=
- =?utf-8?B?c0tKc3hTbDBoWmc0bDU2Z0hNV0JvdG1Pb2FmZzA3aTNMZlo5ZkJHZE1jZzJO?=
- =?utf-8?B?UUIyZTFmeDBXTG9iZ3VrU2ExNFBEYlg1UXAyQXl5OXFXcEJrUkY0TlBLRnBv?=
- =?utf-8?B?eUMrSDVVbENkdk5wMW4xOFdlUHY5OWtZNFlnSjljdnZtZlNpcFA3Z0pSSmxF?=
- =?utf-8?B?VXdMOGxkdGdJZmdFaWpWRkxOSS90V2lrNlI2QTlZQTdTZkE0cC9McytoMVoy?=
- =?utf-8?Q?SJPMxtHLI3VBFO20pg?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b585852b-ada2-4c15-1208-08df08328d88
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 14:08:52.7022 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +hQgY+oFKAv0jZns3l9iKCYftm1ECqoajFdk7ptgvvzON7b5s29JTfgQGkTBR+vZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4483
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 14/15] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+To: Icenowy Zheng <uwu@icenowy.me>, Vinod Koul <vkoul@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+ <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+ Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko Stuebner
+ <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maudspierings@gocontroll.com>, Graham Markall <hello@big-grey.co.uk>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <e0e0c41c4c6b0b674c4cfc3b6927d60c40fbf733.camel@icenowy.me>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260901141504eucas1p156346e8510ccf68f19fc29333c31cfe7
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa
+X-EPHeader: CA
+X-CMS-RootMailID: 20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+ <CGME20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa@eucas1p2.samsung.com>
+ <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
+ <e0e0c41c4c6b0b674c4cfc3b6927d60c40fbf733.camel@icenowy.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,37 +97,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2026 at 11:22:24AM +0200, Christian König wrote:
 
-> > So, to answer the question, we need to document how these flows are
-> > identified and how they differ.
+
+On 8/28/26 16:06, Icenowy Zheng wrote:
+> 在 2026-08-28五的 15:47 +0200，Michal Wilczynski写道：
+>> Activate the display subsystem by adding the dc8200, hdmi and voutcrg
+>> nodes as direct soc children. Each references the PD_VOUT power
+>> domain
+>> through power-domains, so genpd powers the domain on demand, and the
+>> HDMI-PHY -> voutcrg -> HDMI-controller probe order is resolved by
+>> deferred probe.
+>>
+>> The monolithic hdmi node is modelled as a container with hdmi_phy
+>> and hdmi_controller children. This lets the PHY (clock provider,
+>> depending only on xin24m) and the controller (clock consumer) probe
+>> independently, breaking the circular clock dependency with voutcrg.
+>>
+>> voutcrg consumes the pixel clock from the &hdmi_phy node instead of
+>> the
+>> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's
+>> MUXes
+>> and is marked dma-noncoherent for framebuffer DMA. The old, incorrect
+>> hdmitx0-pixel-clock fixed-clock node is removed.
+>>
+>> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+>> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> +		compatible = "fixed-clock";
+>> +		#clock-cells = <0>;
+>> +		clock-frequency = <24000000>;
+>> +		clock-output-names = "xin24m";
+>> +	};
+>> +
+>>  	soc {
+>>  		compatible = "simple-bus";
+>>  		interrupt-parent = <&plic>;
+>> @@ -1199,22 +1200,92 @@ csi_phy: phy@19820000 {
+>>  			#phy-cells = <0>;
+>>  		};
+>>  
+>> +		dc8200: display@29400000 {
+>> +			compatible = "verisilicon,dc";
+>> +			reg = <0x0 0x29400000 0x0 0x2800>;
+>> +			interrupts = <95>;
+>> +			dma-noncoherent;
+>> +
+>> +			power-domains = <&pwrc JH7110_PD_VOUT>;
+>> +
+>> +			clocks = <&voutcrg
+>> JH7110_VOUTCLK_DC8200_CORE>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_AXI>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_AHB>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_PIX0>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_PIX1>;
+>> +			clock-names = "core", "axi", "ahb", "pix0",
+>> "pix1";
+>> +
+>> +			resets = <&voutcrg
+>> JH7110_VOUTRST_DC8200_CORE>,
+>> +				 <&voutcrg
+>> JH7110_VOUTRST_DC8200_AXI>,
+>> +				 <&voutcrg
+>> JH7110_VOUTRST_DC8200_AHB>;
+>> +			reset-names = "core", "axi", "ahb";
+>> +		};
+>> +
+>> +		hdmi_subsystem: hdmi@29590000 {
+>> +			compatible = "starfive,jh7110-hdmi-
+>> subsystem";
+>> +			reg = <0x0 0x29590000 0x0 0x4000>;
+>> +
+>> +			/*
+>> +			 * This MFD's PHY child is the first device
+>> in the vout
+>> +			 * region to touch registers, so it owns the
+>> NoC display
+>> +			 * bus clock + reset that gate access to the
+>> region.
+>> +			 * PD_VOUT is powered on by genpd via power-
+>> domains.
+>> +			 */
+>> +			power-domains = <&pwrc JH7110_PD_VOUT>;
+>> +			clocks = <&syscrg
+>> JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
+>> +			resets = <&syscrg
+>> JH7110_SYSRST_NOC_BUS_DISP_AXI>;
 > 
-> Mhm, that's the point I don't think they differ that much.
+> I think the NOC clocks/resets should be also needed by the DC8200
+> either?
+> 
+> Although patching the DC8200 driver to add support for these
+> clocks/resets looks a little dirty...
+> 
+> Maybe it's still good to have a vout subsys instead of a hdmi subsys...
 
-For the importer there are clearly different things that imply
-different HW capabilities:
+Yeah that was the idea as it was modeling hardware correctly, however
+indirectly it works thanks to the probing order. The problem with the
+extra vout subsys as shown in the RFC was that an extra driver and extra
+dt-binding were needed which seemed to complicate things a bit. But it
+does seem more correct in a sense that it's modeling the relationship
+correctly so I'll bring it back for v3.
 
- pinned means the importer doesn't provide any way to stop DMA
 
- revocable means the importer must be able to stop DMA and
- possibly suffer user visble errors in the process
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
 
- movable means the importer must be able to pause DMA and never suffer
- errors while the memory location is moving.
+> 
+> Thanks,
+> Icenowy
+> 
 
-The whole reason we have these levels is because they reflect very
-real levels of HW support on the importer side. I think it is worth
-documenting it at least for the sake of people implementing importer
-HW to understand the rules
 
-Yes you can use the APIs more flexilby, but not beyound the HW
-enforced limits above.
-
-> Completely revoking is just a special case of moving the backing
-> store to an inaccessible place and not making it accessible again on
-> the next map call.
-
-In a very general abstract sense maybe, but that model doesn't match
-how the importer HW implementations work.
-
-Jason
