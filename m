@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D799C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 13:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61631C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 13:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7695D10ECE1;
-	Tue,  1 Sep 2026 13:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFCB10ECE4;
+	Tue,  1 Sep 2026 13:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XddVYdRY";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="PXbAy1Ni";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDA7010ECE1
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 13:37:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788269858;
- bh=zDlfCbDH5Ho3SI3QsSZnX/Jgy1GCPpw11VZy6Ij11kU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=XddVYdRYJFykaXV1kzy0zskkljn/S2TIWbGpeDB9MDz9vQI51T7aVCbMRVOBxwwSL
- VGVDE1qg/fM5Q6lhvbzPJJicorRPSo6VT6Dzj+snvZ0w5K7fKeWFieTx7kWkm8P6xS
- NYH5EY0X5Iuon++Kdz1YwfQ4yaLWo/T9xB0q/m/5ExVvjwTfRklCf9TXmcOEhWRtuo
- A6ZyRJ0OkRFrboem8IUzWQjvBeTE8TewmVLRdcju37OKDp/O5Fp2NhIVxmYDZNdvLE
- MnsAf6JrHZdBBLtU0RcSQAtWAhiGi+SJUH1DWGBKggrMRICybaWcElo/ZZfkmoPCPZ
- v1o+2eoZsphnw==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BBA1917E006A;
- Tue, 01 Sep 2026 15:37:37 +0200 (CEST)
-Date: Tue, 1 Sep 2026 15:37:32 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 14/17] drm/panfrost: Avoid cache flush after perfcnt
- sample in fully coherent systems
-Message-ID: <20260901153732.7c4def61@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456FD10ECE4
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 13:40:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788269992; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=nry4ugQOl/Iu/E673t76DZXpR0nhQujHqDzcSOCFgv9O6ay9n4UMKegSg/zbZlIqMUxqOCB9DwyuhfMjrUr1pCo3ZMG+O+KOTyMj4N+AyaF518TVL9/Evl/VqlGaAjFXkdmkZrzflOQ8wwphv8sgyOpg+0zeFf57tjVpGubfhJY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788269992;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=UuLBKWOVqpuqjOy5jkxqd2Ih1GKAPwy4tleGufy6v/o=; 
+ b=dzIMoZCDyW2KYaYk8Ei7a8DN1wnDIMwNRyDG5DBGf5vEarZxdebrJ3qjlsHvtNc34AksVy8MF5RkwnFMtkAMTrghT4++7w4nwJ/ZIo8b+z0vDYS77dPkUbSohjLqgDfWxrsi7/QMxgsmQYEpIISVnSUegEjqWwNLRB4UNTfTHGA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788269992; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=UuLBKWOVqpuqjOy5jkxqd2Ih1GKAPwy4tleGufy6v/o=;
+ b=PXbAy1NiGOaiMI/0E8brgr/lVSX77r4o2IxcjtUYCagrkqDIdUczP233hY6XJ1kW
+ FnCbI9T2Q5iCMlJCv/k2Gt7zvG3NSBX/2Mgn5F/2E4OpbAQuvObfyDodMTbAk8x+KTr
+ lBm9rVEZpxXAnU2W935EFqDoA9Eryg1iBeeDj+rE=
+Received: by mx.zohomail.com with SMTPS id 178826998951974.78285142484401;
+ Tue, 1 Sep 2026 06:39:49 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Tue, 01 Sep 2026 15:39:27 +0200
+Subject: [PATCH] drm/panfrost: Rename "panthor" prefixes in debugfs identifiers
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-panfrost-prefix-whoopsie-v1-1-138fb4c5a9f4@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNyw6CMBBFf4XM2omlJiTwK4YFlEHGpA87RUkI/
+ 261ursn97WDUGQS6KodIj1Z2LsM9akCswzuRshTZtBKN6pVNYbBzdFLwhBp5g1fi/dBmFA3F6X
+ GWU+GWsj14n+nr31hWcc7mfTZ+yUiPdb8mUoMxkEIjbeWU1dN0aJlMee/QEdbgv443shdrGq2A
+ AAA
+X-Change-ID: 20260901-panfrost-prefix-whoopsie-26300bf2dce9
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,39 +73,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:54 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+When gems debugfs support was copied over from panthor to panfrost, the
+function and struct names were not adjusted to carry the panfrost
+prefix instead of the panthor prefix.
 
-> If the GPU and CPU are fully coherent, then there's no need to flush the
-> GPU caches after a perfcnt sample is made available.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index ffc77121070e..b3f71d7fd82a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost=
-_device *pfdev)
-> =20
->  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
->  {
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE)
+Rectify this by renaming them. No functional change.
 
-I think ACE_LITE would allow us to skip the flush to, so
+Fixes: e48ade5e23ba ("drm/panfrost: show device-wide list of DRM GEM objects over DebugFS")
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-	if (pfdev->features.selected_coherency =3D=3D COHERENCY_NONE)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 96a66d673ba6..f5f11ad5f9b3 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -794,7 +794,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
+ };
+ 
+ #ifdef CONFIG_DEBUG_FS
+-static int panthor_gems_show(struct seq_file *m, void *data)
++static int panfrost_gems_show(struct seq_file *m, void *data)
+ {
+ 	struct drm_info_node *node = m->private;
+ 	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
+@@ -845,15 +845,15 @@ static int show_file_jm_ctxs(struct panfrost_file_priv *pfile,
+ 	return 0;
+ }
+ 
+-static struct drm_info_list panthor_debugfs_list[] = {
++static struct drm_info_list panfrost_debugfs_list[] = {
+ 	{"gems",
+-	 panthor_gems_show, 0, NULL},
++	 panfrost_gems_show, 0, NULL},
+ };
+ 
+-static int panthor_gems_debugfs_init(struct drm_minor *minor)
++static int panfrost_gems_debugfs_init(struct drm_minor *minor)
+ {
+-	drm_debugfs_create_files(panthor_debugfs_list,
+-				 ARRAY_SIZE(panthor_debugfs_list),
++	drm_debugfs_create_files(panfrost_debugfs_list,
++				 ARRAY_SIZE(panfrost_debugfs_list),
+ 				 minor->debugfs_root, minor);
+ 
+ 	return 0;
+@@ -915,7 +915,7 @@ static void panfrost_sched_debugfs_init(struct drm_minor *minor)
+ 
+ static void panfrost_debugfs_init(struct drm_minor *minor)
+ {
+-	panthor_gems_debugfs_init(minor);
++	panfrost_gems_debugfs_init(minor);
+ 	panfrost_sched_debugfs_init(minor);
+ }
+ #endif
 
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	else
-> +		complete(&pfdev->perfcnt->dump_comp);
->  }
-> =20
->  static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
->=20
+---
+base-commit: 0116f19db5931348c937eafa1f76a9a19bf82c81
+change-id: 20260901-panfrost-prefix-whoopsie-26300bf2dce9
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
