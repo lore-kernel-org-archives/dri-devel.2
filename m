@@ -4,84 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6621DC624C6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 07:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A4B5C624D3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 07:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAA4710EBB4;
-	Tue,  1 Sep 2026 07:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA2910EBB9;
+	Tue,  1 Sep 2026 07:37:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M1RZuSEi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ETTlguVq";
 	dkim-atps=neutral
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
- [209.85.161.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B714A10E305
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 16:38:02 +0000 (UTC)
-Received: by mail-oo1-f42.google.com with SMTP id
- 006d021491bc7-6b12942ed04so1371789eaf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 09:38:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788194281; x=1788799081; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eQZlJ7zrV8AgxyRHbYvN1myWpv2l0XNczJpzFDxqb6c=;
- b=M1RZuSEiJm83tmsVMFixR1eVFuznEhU2nUfKLOWLwaiW8bxjC1hLHvl22l7YZPFLEy
- F4jYyro1XjH2UCGeqvziGn4etgUhVlpY3B4V0Mhnlq9ZWLF/0EGfoGBzXZvY8XBF/7oA
- TlnNvDNNms23IB311m9bI1ipaVUOXVyYOzWxKz7y/KPn+0H2c3h2xINGK/s3aICyeWCL
- Xhi5Wl0/wqDJ1/5zajDpMm/pRdvcPn42wxnNGXgKjb4r7q7jqnTwjE9LyxiDbKfYIKA/
- wShqfFypuCYlNcOYR5bx3L2qjD+G7PL3yzKUoZ6EPRhM+I9QLj1w88UWWLqjklwGx5DU
- AoqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788194281; x=1788799081;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=eQZlJ7zrV8AgxyRHbYvN1myWpv2l0XNczJpzFDxqb6c=;
- b=K1WdleqCS/uK8FBJ/M8D0/t5bm2Xartl3u6Sl93+sCS11whld39utdIorAn+VHvu/A
- PhzllLeiETfW02VGm8bS0pqYylycStx7vUdkTdL6vtyCyMGoO8C8HApPb/BdkuFE8a5D
- E3dFvVS7gF45j750FEkQijKiz25pdBJGLZVqMnwilZNfb5QmlNcXCIJbZ/LEMBtvjqy1
- X4UED2U6/zr3PtKutL/LPkfexrcaHHwIoAAfQ1JpeGf2X+DaCjIO5ifw/oyIWvQ6pyT3
- vbkP4uOTupBEzcfU47x7bQxl+IuZ6FnfCiGkovPyXxzt5s0PFX/nkEdktPa8o5Kp/u/p
- XdkQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrCsejgzZLI/FeU+MUt7ApMq54MficheGkPLcgh1KjnnzqAAFOYfla58uAMi6jg2bc/SNRgT5w7xgY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mIaYeanJI73dBsOs1w+YpdRZyhJQHrTj55kCi682gSjfhBRbR3
- eJFOs4aG18OFEwnNQ7j38Uq6GtzvxVX0vdTNmoRF7O26/Z1Rzxg0M7/b
-X-Gm-Gg: AR+sD13WKkzm38OGhtorL8LceyyoPwSKIoDPfoVIy5s2q+ZqNjdmdc0bzmGW+naGSAY
- Pw8g/HTLCDjAMX/otxKI49ftp3rn6xfdE3lpiDsyQNXt/pzy0WFmE6oALU/KRLmbcud31U3VBFb
- lwD+vrkzIoIGkJk/rY3slyBIenGEH6weK3sdf9lo3EziEOpA+DP8EfaJcT+kI4BQnQmb8M0eLy+
- 3Mr0grh/H3qvZVf3hOjM9vnJDiH8WblKANJvQinzxhhhnleRpdnZNQG8dq8w/Jn20Y7j6KCubrG
- plGhc96zW+K9WcHyQ4eHrzyLmZBml47aALsLpmi0jWq2nS7QD7zhEIhkZeRGs8VyZ1Sf49UcSsT
- fFYEsSPY3v9erFQAFo9HvPaaVy/QoaG+vOMfVT5FeLCPp6zHxE17/y+YgIRV2H6g4Brbpx45Ik7
- LMpiaUHdMsgSaKkSn7Df8sQ6R9mBbVQYkmq1Wl6uJMMdC711JvyrTJ4zgRhfTeduLA48BZTP8uR
- dK7NcYWyjbJsh62EAo=
-X-Received: by 2002:a05:6820:4d04:b0:6b1:7289:fc89 with SMTP id
- 006d021491bc7-6b1c659cf28mr24365399eaf.8.1788194280716; 
- Mon, 31 Aug 2026 09:38:00 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:25::])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-468a4effec0sm10484590fac.12.2026.08.31.09.38.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 09:38:00 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: hannes@cmpxchg.org,
-	shakeel.butt@linux.dev,
-	mhocko@kernel.org
-Cc: roman.gushchin@linux.dev, muchun.song@linux.dev, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, dev@lankhorst.se, mripard@kernel.org,
- nat@pixelcluster.dev, tj@kernel.org, mkoutny@suse.com, osalvador@suse.de,
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel-team@meta.com
-Subject: [PATCH v5 6/7] mm/memcontrol: convert memcg to use page_counter_stock
-Date: Mon, 31 Aug 2026 09:37:50 -0700
-Message-ID: <20260831163752.2193337-7-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
-References: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BAD410EBA5;
+ Tue,  1 Sep 2026 07:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788248230; x=1819784230;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=xRqPPTOziNVLosuFusdfJrz80y8wl43SAlhsvhyOvUE=;
+ b=ETTlguVqqZ8bG/Q+rsTZsDJ+dp7VH5c3J7iBSrTJkGgQejqGuhEVuHVd
+ eg41KysoJdooB/9D0eYx0T0hoYhn1OqaEFnfgYn8UcYrmqCRJqvB0tiZ8
+ lt2DF2R8UnmoN4Bwlw/ReZW3JAj8Y45IBCOthvC54ctvxJ8UrJWrLcKTN
+ AitoAyAs7TBy7Vp/UOEKzHT1s8vfgAebggB5u/HOy3cEctFtiLmd/KWFf
+ 8UrcV/Qb3XTmsDsONktpf/VRI8XUit88KjMdg37d1FW4j9FYjVzvGEFQh
+ +df5vWT3zdY4B6wwzGaGhLRoAJzIn9i9JIe6BRZRbgMYZ0PcHDAIqRdJC w==;
+X-CSE-ConnectionGUID: hNaiqNU8QmGRGDmw67Oo3Q==
+X-CSE-MsgGUID: cgxrRAONRpyDj6WnICBeLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99267877"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="99267877"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 00:37:10 -0700
+X-CSE-ConnectionGUID: KN7BsqOARs6UGTJKX860UA==
+X-CSE-MsgGUID: qC+XALJrQj2SCAklUE1c0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="272803928"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 00:37:10 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 00:37:09 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 1 Sep 2026 00:37:09 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.33) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 00:37:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xAq3+5cqFHu4e5kKNsH1v6xBMg3NVlwspVXr4HzxrMjtkTKZQcnCxpzwcUM0jNxdTtXW/hCN7Fb73CgDWe1hPtaFDgRJgAVvk7kxc0yWdf+Md8+EoGRKzSg4jQt/GxbKYtst8SrwqE6nd+QGK+rCSsie8wslD/+lidCkEE68J0Qztr5d0QlEkNdOr6OGFnylg5Zqz6rSuujqlgCGctEGqlOvkTHpbRCuudN9JYVkLP6b5UlzPFI7pLfiw4Qlw8qNmDboWavFna6PXeHzTpaAaK+EeWiJfAg3AO0nkFCWS4uz65YCyIlFtoBn0x5zUCEMpYZTnRzpZ7nNutsOrCywjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Vq3Cts4R6llfw0HNrfdLWOl4c8WdZ+oeXzloHAOEBA=;
+ b=lJw6EHfUFDnLZCHzovS5UUb/W5OkPbc8TaXPau9thmh8eKZDC/KNMIhjoFgZUu5v1rNrv6+7/QtpbC9gB82wF6+1sexHrmP51/fZnnayJjm5gc62ueNzT2mIdBXcA5rgp1gkyOX9ExFkiIXajualvui7V3HErpKHF9TNgUItRT0tfOTrGtVzLzufHQBKxrQvPWR3DVIeKLm/0e+dODKcIJ7dnx1u8MBX5R8tOptkpDgclRXuSPvdr/Ldh7P8wpS6MLckBMGWIUytjz1noaubfqzHLkHhUdL4ZpGYW/8AMc1WejzGZ/0LPkDdxe7aDn3LJMXUOn7h3w3ZUIAmPajVFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
+ by DS4PPFFCBF1B4C7.namprd11.prod.outlook.com (2603:10b6:f:fc02::62)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 07:37:07 +0000
+Received: from PH0PR11MB7636.namprd11.prod.outlook.com
+ ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
+ ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
+ 07:37:07 +0000
+Message-ID: <316de557-a3d2-42a6-aa2a-0428d72e13f3@intel.com>
+Date: Tue, 1 Sep 2026 13:06:56 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [v6 2/9] drm/i915/color: Add CSC on SDR plane color pipeline
+To: <intel-xe@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+CC: Uma Shankar <uma.shankar@intel.com>
+References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
+ <20260804123107.2256124-3-chaitanya.kumar.borah@intel.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260804123107.2256124-3-chaitanya.kumar.borah@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0072.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b7::9) To PH0PR11MB7636.namprd11.prod.outlook.com
+ (2603:10b6:510:26f::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 01 Sep 2026 07:36:10 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|DS4PPFFCBF1B4C7:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba885720-e05e-45a2-a696-08df07fbd12a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|11063799006|56012099006|10067099003|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: LUh/cBhBbvis0RIiZIm7Dk2VfQ2zOv4VslZq8k4TOxlE63Oc8Dcb8gI9pz5m/lxZtMDioMc3bvHoZ0dNagWK3tQyuB+xUBbpubw2FDT6HPFZdYPxEG6BSvmVIVd2bGAwcbHJdDPfNRQqc3dxyRGFA0AGn5hYsKIf091pgh2tMzXxn3gHGf+TV1E856rQ1kBvAu5iGOhsK5hiCToTtOxYeAck1agK41FD2l7rc/IL3borbHuxMGf8vPGI8Yd5DALmC4UnEzHvZTNr+FrFL3T3bW4AI3wWZDgEOhnaiP4Bo0fYu5sbrUvmuDa+fUbeXau5yKzb5WjIqTcJvcFKWXOY2LDrNxCGcATKi0tbjF0qw5mWVLDbKkjP0w+zDuBSGQjHD4a0O+b4rrD5y300ZQWcC2OBGRrlpLs0vp3YYjlNZ5Tn35HsapqOOeMKLxpE00CH+RBlLtCr/vcBIsq59TjW4nVm7zini43NimgbIwX6iLT/w7lIYAotNWIVcwqI7PMF/jS8K/lKwZVcZ8zGVj3+H1hTcNiO+gR8ZJYcp31msUWkV+wtdkNbIXCZgGdbUCE2lNbEj94tP2dsgp2Df2GfbE44f1R7YlcUEEZh7PvQQXhW9Nb3ZuJji3/xYB7lZodVoX46GqEIF16RZ7mUBQiNcW6q9Vm568ItW0WdaYBzigg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzJhSm9xQ3NKa3lxUWZJTTRJMFc2Q2NERi8rZnN4Q0NzbXZ5OForOGxmTmo5?=
+ =?utf-8?B?VGpyb3lSZXh6ZGh2VEJMQ016WlcvOUtqZTl6Y2NvNzFQOTY4WG1QTVRuNmFn?=
+ =?utf-8?B?cXByK2RJVlUxNFZlcXBUZWpRVUZCWWNudXVlNEdLdVM4MjV3QWtnVU9jU3h2?=
+ =?utf-8?B?d0JyN2prbnJHamNnUGZzeU5SNkRjTVBkajd6aXNuR3oxa1piRUt5ZUYrL0dq?=
+ =?utf-8?B?TGJwY0Y4Y0Q1RWNCcklsanpmSm91L00zd3VBSzFlUHpjS1ZwMFZxUW1pZGVX?=
+ =?utf-8?B?OTlDODdIcFUrYUVsc3Rkb0xsRThlVlNQM21RRzd2dTdDSkpCRVBKbzdJeE1R?=
+ =?utf-8?B?UlVudjcrdmhRTE1PdHkzQmpKMktQcW8vTlltZ042SlIzc1IwZnJRUzBkWlFQ?=
+ =?utf-8?B?MUZxeWpoN0dEdmJVOGhiWkpvMS9wUTFzT2JKWURTaVp5SllZdTdiNDE3a3FX?=
+ =?utf-8?B?bFR2RUozajZ6UDY5M1VacmNOQTZIcEhKcElkUm5QangwMmUxMzdKV3dNWWp5?=
+ =?utf-8?B?V2pXSFRMU0J6cytGODFmWVI4czFhczJ6UWUrRGxsd2R1RTkycm9BcE1QKzV0?=
+ =?utf-8?B?ME14NUxFQWtHWjFSdGJTaUFrUXR3VG1JNzR3UWxscTQ2dUQ4L1NFcUJUemhD?=
+ =?utf-8?B?WTNmNE4xY0VvM1RvR2hMSmNwc3FPcjNTcTBQeEtwY3M5blBLbDZ3bHpuamVS?=
+ =?utf-8?B?c3BXc3ZrYmZTYllXL1IwMXVBYlpsUFljQUt6dmlqK21DdnZPNU5VYUxSZ1V1?=
+ =?utf-8?B?RGdHUnRaa2hSTUx0Qnh0NFRibjdwNjB6Rm96M3ZuQ2svK041azF2MzBjMGRB?=
+ =?utf-8?B?TXh3Z3VRRkdFZDFPZERyZGQ3USszbmk1Y0NTOVV3b2lScUlyMWFYRTZNVy94?=
+ =?utf-8?B?VTFyaGNXNHNHbkRJMU1FVXhpeG5YcmFvbE1QQ01pMnJwYnI3L2JaU0pKZS9x?=
+ =?utf-8?B?dEQ5a1VNdUJqZTVJSEpGR1NNNVBMcFh6SnQ1ZWxBV1JBb2xVZVVSQ1pCUTVG?=
+ =?utf-8?B?Yi9CV3ltdUZIbHRxaGNHQmpsQ1JINkhVdUhQeC9rd1RCMFVEZTNHVjVEWGRy?=
+ =?utf-8?B?MG5POFNmMi9kVDlqbElxbG10SjBVL0FuOWxFdFkzcEYvUGlHUDJ5ZUxFZkdz?=
+ =?utf-8?B?TjJOWFhCU3lrTVp6dUl4RE4rNEw2T3pEalV2QU1nbkc3bkFOMHRldWFTZVpQ?=
+ =?utf-8?B?SktpNmV4VU9zaEovNGk5Z0VZTHhTK2FRVFZJYjhoVlhlbTVQUlBwSnVQbnZy?=
+ =?utf-8?B?eVdLWmhJeXhjWENoODB0dC9TZmsrVjdrYk4ySDBoVE5UTnlXb2N5a3VJZFRk?=
+ =?utf-8?B?NjFsTUlzVVFma3U0cklSTnlYTkp4VTh6MWdUUi9WUksrb1JLekVrZVpQa2I2?=
+ =?utf-8?B?alZob1pnM2tTRFE0dWtLM3c4ZndUOTRxTjB1ZnFYTm5uTkZqUWdQY2IrMk5Q?=
+ =?utf-8?B?Q2NYOWtQZzNvbTNJZ2JkejdUZWRvMVVNdEVMSkRYT2w4aERTM2FKOTNjQXRI?=
+ =?utf-8?B?V0J3SXJ0bWdiVlJKVGE5eTBUUnM3Z2w0NEczeFpQcUJvWG1MS3Q0R0tZMlVI?=
+ =?utf-8?B?NjJtc2J4ZzMyZUJiVEppUGRwWGU2clRMbE5UNUc4VnB4TVNYb3ROWWJMYmpM?=
+ =?utf-8?B?cm1nYTBkdFNvM1VyVEZ6ekNJbGJUWFRqdTlvdDJ0UmFoNVhlUE5MNllTbjlS?=
+ =?utf-8?B?LytTb0NZV292dVlpVGNTaCtvSGhGSSticTRwWmI0dVhKald2Wm1LalBERktG?=
+ =?utf-8?B?NmFwNEhLZzNhSC8rVVdycElNa2JJRWxjbWtXL0wvZjJqcVh4Nml0WnlmU3Bi?=
+ =?utf-8?B?cS9ZUFkyM1J0bUtjaEg3ejVnNWxrYS9DMlNhdjlPS1NKaW5QN2dGSk5NRXIr?=
+ =?utf-8?B?RVRoaXVxMGtVZzlBY3VYU1dQVTYwNnJKTlRUTk0yZXAxYlVaTUl1a2pkSXYw?=
+ =?utf-8?B?MVFTc0N6VlkrdEM3V3U1a0xzQXJTVUdMeUt3SHdLZlpabkJGT3NJT1k3cjF5?=
+ =?utf-8?B?L1ZYRmZ2MUlld0t4ZnBhMkNSOFh0U0VXYnpmUkoxZkJvVXNlNEtZYVR3eFMx?=
+ =?utf-8?B?RUtPT2tOR1dqTmpScWdodCtrMkNnT2tmNnhPcm1zblFicUt5bVhPejM0S1pR?=
+ =?utf-8?B?ZUx4NlNjZ1dhMmxTOXo4MzRoVVVFa3ZIcGNneWNxK0QrbStYYTFJMFRJRTNn?=
+ =?utf-8?B?c2VYRjBwWnJ0TlRnY2dVcDhDWUdzN3BCVklFZTNNVm1uTk9HSHUwUW1qTjBI?=
+ =?utf-8?B?c29UQ0VGVDdYNXlleXBjKzhhd2RlOUw3YU9qbGJaRHlSaXBkQmpzQ1V1UFE0?=
+ =?utf-8?B?eGRZQ0tzc3dYSkdwdE5jYUM1WVpXZitKZFlDdXlyNGplb2xKTHozTndyUXpH?=
+ =?utf-8?Q?iGyA/zKlp4WjVH0I=3D?=
+X-Exchange-RoutingPolicyChecked: d6kb2FaGjmBWbrXz8rXICfGqbGt+W9SnQM0IKOjupeYPUijl85HpbxQm+tQgC4itiHanw+NsVHmYb8KIPrc3EqG5KUX0aEUT9uziij/Q7Zgw/LNAdCjj6JLX3rmBLyBTSksvP918PG9LEc1tXcuoDDrA972YfTHScQ0lBp7yzJj8wmC/Sukc9yLl9Ja68Ubjl/8Q5jKS6oz9p0aMi8p3n4X64qbcZkb9Ftk2nxaEVvu2prr3JpTLubrIU2qQeJgmyEcTrFI5Ek7xPpT05oD+n4C0fXRj4+Rjc6SAa3Gb4gNLriRh9KPdRtImm7EkK4pCh7Ejt7l0H5jNKB8azfOcVw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba885720-e05e-45a2-a696-08df07fbd12a
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:37:07.4184 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5vUYMtfmEAWOSHsNX7n0pmWjveSl3XbC5JEOBrmmMqUkvwPLl3kMJGrggwS9o1lZ2QOLAhpDgX3BTnMXH/WdOtNOueKbJu+rVi793Gv2WnM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFFCBF1B4C7
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,461 +171,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that page_counter transparently handles stock usage and refills,
-switch memcg to use page_counter_stock. stock is allocated per-CPU for
-every non-root memcg, which is 16 bytes per-cpu per-memcg and allocated
-with GFP_KERNEL_ACCOUNT.
+Hello Uma,
 
-The !allow_spinning special case in try_charge_memcg goes away. It
-clamped batch to nr_pages so a charge would not have to refill the stock
-and potentially do an expensive flush. We now refill with a trylock
-and retry the exact size if the greedy charge fails, so a non-spinning
-caller is never made to wait or fail early.
+On 8/4/2026 6:01 PM, Chaitanya Kumar Borah wrote:
+> Add the fixed-function CSC block to color pipeline in SDR planes
+> as a DRM_COLOROP_FIXED_MATRIX colorop.
+> 
+> v2:
+> - s/DRM_COLOROP_FM_YCBCR2020_FULL_RGB_NC/
+> 	DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB
+> - Inline icl_is_hdr_plane() instead of storing in local variable
+> 
+> v3:
+> - In preparation of a simple pipeline
+> 	[YUV Full/Limited -> RGB]
+>    Make the Fixed Matrix ColorOp support Limited Range enums
+>    (DRM_COLOROP_FM_YCBCRXXX_LIMITED_RGB) too.
+> - Therefore s/sdr_plane_pipeline/sdr_plane_yuv_pipeline
+> 
+> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com> #v2
 
-Also, while we no longer have a 7-memcg cap, it also means that each CPU
-can now cache an unbounded number of pages. System-wide, pre-charged but
-unused memory goes from NR_MEMCG_STOCK * batch * ncpus to nr_memcgs *
-batch * ncpus.
+Can I consider your RB for v3 too?
 
-We can also now drain stock on isolated CPUs as well, since draining is
-no longer a per-cpu local operation.
+==
+Chaitanya
 
-This leaves one user-visible change for legacy cgroup v1 (memsw).
-Because the stock becomes private to the memory page_counter rather than
-shared by memory and memsw, memsw.usage - memory.usage no longer equals
-swap usage. Userspace programs using the legacy cgroup and deriving swap
-usage using this method can underflow. The next patch gives memsw its
-own stock, narrowing this to a transient drift.
-
-With all of these changes made, also remove all newly unused memcg code.
-obj_stock is untouched and is still needed. FLUSHING_CACHED_CHARGE and
-the memcg_wq are preserved so obj_stock can use them as well.
-
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
----
- mm/memcontrol.c | 285 +++++-------------------------------------------
- 1 file changed, 30 insertions(+), 255 deletions(-)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 71410084fa7fc..5678486cc55b0 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2027,35 +2027,7 @@ void mem_cgroup_print_oom_group(struct mem_cgroup *memcg)
- 	pr_cont(" are going to be killed due to memory.oom.group set\n");
- }
- 
--/*
-- * The value of NR_MEMCG_STOCK is selected to keep the cached memcgs and their
-- * nr_pages in a single cacheline. This may change in future.
-- */
--#define NR_MEMCG_STOCK 7
--
--/*
-- * Watermarks for a charge stock slot, in the spirit of pcp->high and
-- * pcp->batch: MEMCG_STOCK_HIGH is the high watermark at which a slot is
-- * trimmed, and it is trimmed down to MEMCG_STOCK_LOW rather than emptied.
-- */
--#define MEMCG_STOCK_LOW		(MEMCG_CHARGE_BATCH / 2)
--#define MEMCG_STOCK_HIGH	(MEMCG_CHARGE_BATCH)
--
- #define FLUSHING_CACHED_CHARGE	0
--struct memcg_stock_pcp {
--	local_trylock_t lock;
--	uint8_t nr_pages[NR_MEMCG_STOCK];
--	struct mem_cgroup *cached[NR_MEMCG_STOCK];
--
--	struct work_struct work;
--	unsigned long flags;
--	uint8_t drain_idx;
--};
--
--static DEFINE_PER_CPU_ALIGNED(struct memcg_stock_pcp, memcg_stock) = {
--	.lock = INIT_LOCAL_TRYLOCK(lock),
--};
--
- /*
-  * NR_OBJ_STOCK is sized so the entire hot path of obj_stock_pcp
-  * (lock, accounting metadata, nr_bytes[] and cached[]) fits within a
-@@ -2103,52 +2075,6 @@ static void drain_obj_stock(struct obj_stock_pcp *stock);
- static bool obj_stock_flush_required(struct obj_stock_pcp *stock,
- 				     struct mem_cgroup *root_memcg);
- 
--/**
-- * consume_stock: Try to consume stocked charge on this cpu.
-- * @memcg: memcg to consume from.
-- * @nr_pages: how many pages to charge.
-- *
-- * Consume the cached charge if enough nr_pages are present otherwise return
-- * failure. Also return failure for charge request larger than
-- * MEMCG_CHARGE_BATCH or if the local lock is already taken.
-- *
-- * returns true if successful, false otherwise.
-- */
--static bool consume_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
--{
--	struct memcg_stock_pcp *stock;
--	uint8_t stock_pages;
--	bool ret = false;
--	int i;
--
--	if (nr_pages > MEMCG_CHARGE_BATCH ||
--	    !local_trylock(&memcg_stock.lock))
--		return ret;
--
--	stock = this_cpu_ptr(&memcg_stock);
--
--	for (i = 0; i < NR_MEMCG_STOCK; ++i) {
--		if (memcg != READ_ONCE(stock->cached[i]))
--			continue;
--
--		stock_pages = READ_ONCE(stock->nr_pages[i]);
--		if (stock_pages >= nr_pages) {
--			stock_pages -= nr_pages;
--			WRITE_ONCE(stock->nr_pages[i], stock_pages);
--			if (!stock_pages) {
--				css_put(&memcg->css);
--				WRITE_ONCE(stock->cached[i], NULL);
--			}
--			ret = true;
--		}
--		break;
--	}
--
--	local_unlock(&memcg_stock.lock);
--
--	return ret;
--}
--
- static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages)
- {
- 	page_counter_uncharge(&memcg->memory, nr_pages);
-@@ -2156,51 +2082,6 @@ static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages)
- 		page_counter_uncharge(&memcg->memsw, nr_pages);
- }
- 
--/*
-- * Returns stocks cached in percpu and reset cached information.
-- */
--static void drain_stock(struct memcg_stock_pcp *stock, int i)
--{
--	struct mem_cgroup *old = READ_ONCE(stock->cached[i]);
--	uint8_t stock_pages;
--
--	if (!old)
--		return;
--
--	stock_pages = READ_ONCE(stock->nr_pages[i]);
--	if (stock_pages) {
--		memcg_uncharge(old, stock_pages);
--		WRITE_ONCE(stock->nr_pages[i], 0);
--	}
--
--	css_put(&old->css);
--	WRITE_ONCE(stock->cached[i], NULL);
--}
--
--static void drain_stock_fully(struct memcg_stock_pcp *stock)
--{
--	int i;
--
--	for (i = 0; i < NR_MEMCG_STOCK; ++i)
--		drain_stock(stock, i);
--}
--
--static void drain_local_memcg_stock(struct work_struct *dummy)
--{
--	struct memcg_stock_pcp *stock;
--
--	if (WARN_ONCE(!in_task(), "drain in non-task context"))
--		return;
--
--	local_lock(&memcg_stock.lock);
--
--	stock = this_cpu_ptr(&memcg_stock);
--	drain_stock_fully(stock);
--	clear_bit(FLUSHING_CACHED_CHARGE, &stock->flags);
--
--	local_unlock(&memcg_stock.lock);
--}
--
- static void drain_local_obj_stock(struct work_struct *dummy)
- {
- 	struct obj_stock_pcp *stock;
-@@ -2217,92 +2098,6 @@ static void drain_local_obj_stock(struct work_struct *dummy)
- 	local_unlock(&obj_stock.lock);
- }
- 
--static void refill_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
--{
--	struct memcg_stock_pcp *stock;
--	struct mem_cgroup *cached;
--	unsigned int stock_pages;
--	bool success = false;
--	int empty_slot = -1;
--	int i;
--
--	/*
--	 * nr_pages[] is a uint8_t and a slot's count is capped at
--	 * MEMCG_STOCK_HIGH. Raising MEMCG_CHARGE_BATCH beyond 127 would need
--	 * more careful handling of nr_pages[] in struct memcg_stock_pcp.
--	 */
--	BUILD_BUG_ON(MEMCG_CHARGE_BATCH > S8_MAX);
--	BUILD_BUG_ON(MEMCG_STOCK_HIGH > U8_MAX);
--
--	VM_WARN_ON_ONCE(mem_cgroup_is_root(memcg));
--
--	if (nr_pages > MEMCG_CHARGE_BATCH ||
--	    !local_trylock(&memcg_stock.lock)) {
--		/*
--		 * In case of larger than batch refill or unlikely failure to
--		 * lock the percpu memcg_stock.lock, uncharge memcg directly.
--		 */
--		memcg_uncharge(memcg, nr_pages);
--		return;
--	}
--
--	stock = this_cpu_ptr(&memcg_stock);
--	for (i = 0; i < NR_MEMCG_STOCK; ++i) {
--		cached = READ_ONCE(stock->cached[i]);
--		if (!cached && empty_slot == -1)
--			empty_slot = i;
--		if (memcg == READ_ONCE(stock->cached[i])) {
--			stock_pages = READ_ONCE(stock->nr_pages[i]) + nr_pages;
--			if (stock_pages > MEMCG_STOCK_HIGH) {
--				memcg_uncharge(memcg,
--					       stock_pages - MEMCG_STOCK_LOW);
--				stock_pages = MEMCG_STOCK_LOW;
--			}
--			WRITE_ONCE(stock->nr_pages[i], stock_pages);
--			success = true;
--			break;
--		}
--	}
--
--	if (!success) {
--		i = empty_slot;
--		if (i == -1) {
--			i = stock->drain_idx++;
--			if (stock->drain_idx == NR_MEMCG_STOCK)
--				stock->drain_idx = 0;
--			drain_stock(stock, i);
--		}
--		css_get(&memcg->css);
--		WRITE_ONCE(stock->cached[i], memcg);
--		WRITE_ONCE(stock->nr_pages[i], nr_pages);
--	}
--
--	local_unlock(&memcg_stock.lock);
--}
--
--static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
--				  struct mem_cgroup *root_memcg)
--{
--	struct mem_cgroup *memcg;
--	bool flush = false;
--	int i;
--
--	rcu_read_lock();
--	for (i = 0; i < NR_MEMCG_STOCK; ++i) {
--		memcg = READ_ONCE(stock->cached[i]);
--		if (!memcg)
--			continue;
--
--		if (READ_ONCE(stock->nr_pages[i]) &&
--		    mem_cgroup_is_descendant(memcg, root_memcg)) {
--			flush = true;
--			break;
--		}
--	}
--	rcu_read_unlock();
--	return flush;
--}
--
- static bool schedule_drain_work(int cpu, struct work_struct *work)
- {
- 	/*
-@@ -2325,34 +2120,22 @@ static bool schedule_drain_work(int cpu, struct work_struct *work)
-  */
- void drain_all_stock(struct mem_cgroup *root_memcg)
- {
-+	struct mem_cgroup *memcg;
- 	int cpu, curcpu;
- 
- 	/* If someone's already draining, avoid adding running more workers. */
- 	if (!mutex_trylock(&percpu_charge_mutex))
- 		return;
--	/*
--	 * Notify other cpus that system-wide "drain" is running
--	 * We do not care about races with the cpu hotplug because cpu down
--	 * as well as workers from this path always operate on the local
--	 * per-cpu data. CPU up doesn't touch memcg_stock at all.
--	 */
-+
-+	for_each_mem_cgroup_tree(memcg, root_memcg)
-+		page_counter_drain_stock_async(&memcg->memory);
-+
-+	/* Hotplug races are OK; workers only touch their own cpu's obj_stock */
- 	migrate_disable();
- 	curcpu = smp_processor_id();
- 	for_each_online_cpu(cpu) {
--		struct memcg_stock_pcp *memcg_st = &per_cpu(memcg_stock, cpu);
- 		struct obj_stock_pcp *obj_st = &per_cpu(obj_stock, cpu);
- 
--		if (!test_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags) &&
--		    is_memcg_drain_needed(memcg_st, root_memcg) &&
--		    !test_and_set_bit(FLUSHING_CACHED_CHARGE,
--				      &memcg_st->flags)) {
--			if (cpu == curcpu)
--				drain_local_memcg_stock(&memcg_st->work);
--			else if (!schedule_drain_work(cpu, &memcg_st->work))
--				clear_bit(FLUSHING_CACHED_CHARGE,
--					  &memcg_st->flags);
--		}
--
- 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
- 		    obj_stock_flush_required(obj_st, root_memcg) &&
- 		    !test_and_set_bit(FLUSHING_CACHED_CHARGE,
-@@ -2370,20 +2153,21 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 
- static int memcg_hotplug_cpu_dead(unsigned int cpu)
- {
--	struct memcg_stock_pcp *memcg_st = &per_cpu(memcg_stock, cpu);
-+	struct mem_cgroup *memcg;
- 	struct obj_stock_pcp *obj_st = &per_cpu(obj_stock, cpu);
- 
- 	/* no need for the local lock */
- 	drain_obj_stock(obj_st);
--	drain_stock_fully(memcg_st);
-+
-+	for_each_mem_cgroup_tree(memcg, NULL)
-+		page_counter_drain_cpu_stock(&memcg->memory, cpu);
- 
- 	/*
- 	 * A drain work queued before the CPU went away is executed by an
- 	 * unbound worker on some other CPU and clears that CPU's flag, so
--	 * clear the flags here to make these stocks drainable again once
--	 * the CPU comes back online.
-+	 * clear the flag here to make this stock drainable again once the CPU
-+	 * comes back online.
- 	 */
--	clear_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags);
- 	clear_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags);
- 
- 	return 0;
-@@ -2658,7 +2442,6 @@ void __mem_cgroup_handle_over_high(gfp_t gfp_mask)
- static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 			    unsigned int nr_pages)
- {
--	unsigned int batch = max(MEMCG_CHARGE_BATCH, nr_pages);
- 	int nr_retries = MAX_RECLAIM_RETRIES;
- 	struct mem_cgroup *mem_over_limit;
- 	struct page_counter *counter;
-@@ -2672,35 +2455,22 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
- 
- retry:
--	if (consume_stock(memcg, nr_pages))
--		return 0;
--
--	if (!allow_spinning)
--		/* Avoid the refill and flush of the older stock */
--		batch = nr_pages;
--
- 	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
- 	if (do_memsw_account() &&
--	    !page_counter_try_charge(&memcg->memsw, batch, &counter, NULL)) {
-+	    !page_counter_try_charge(&memcg->memsw, nr_pages, &counter, NULL)) {
- 		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
- 		reclaim_options &= ~MEMCG_RECLAIM_MAY_SWAP;
- 		goto reclaim;
- 	}
- 
--	if (page_counter_try_charge(&memcg->memory, batch, &counter,
--				    &nr_charged))
--		goto done_restock;
-+	if (page_counter_try_charge(&memcg->memory, nr_pages, &counter, &nr_charged))
-+		goto check_high;
- 
- 	if (do_memsw_account())
--		page_counter_uncharge(&memcg->memsw, batch);
-+		page_counter_uncharge(&memcg->memsw, nr_pages);
- 	mem_over_limit = mem_cgroup_from_counter(counter, memory);
- 
- reclaim:
--	if (batch > nr_pages) {
--		batch = nr_pages;
--		goto retry;
--	}
--
- 	/*
- 	 * Prevent unbounded recursion when reclaim operations need to
- 	 * allocate memory. This might exceed the limits temporarily,
-@@ -2809,10 +2579,9 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 
- 	return 0;
- 
--done_restock:
--	if (batch > nr_pages)
--		refill_stock(memcg, batch - nr_pages);
--
-+check_high:
-+	if (!nr_charged)
-+		return 0;
- 	/*
- 	 * If the hierarchy is above the normal consumption range, schedule
- 	 * reclaim on returning to userland.  We can perform reclaim here
-@@ -3154,8 +2923,11 @@ static void obj_cgroup_uncharge_pages(struct obj_cgroup *objcg,
- 
- 	account_kmem_nmi_safe(memcg, -nr_pages);
- 	memcg1_account_kmem(memcg, -nr_pages);
--	if (!mem_cgroup_is_root(memcg))
--		refill_stock(memcg, nr_pages);
-+	if (!mem_cgroup_is_root(memcg)) {
-+		page_counter_refill_stock(&memcg->memory, nr_pages);
-+		if (do_memsw_account())
-+			page_counter_uncharge(&memcg->memsw, nr_pages);
-+	}
- 
- 	css_put(&memcg->css);
- }
-@@ -4157,6 +3929,7 @@ static void __mem_cgroup_free(struct mem_cgroup *memcg)
- 
- static void mem_cgroup_free(struct mem_cgroup *memcg)
- {
-+	page_counter_free_stock(&memcg->memory);
- 	lru_gen_exit_memcg(memcg);
- 	memcg_wb_domain_exit(memcg);
- 	__mem_cgroup_free(memcg);
-@@ -4324,6 +4097,10 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
- 	refcount_set(&memcg->id.ref, 1);
- 	css_get(css);
- 
-+	/* stock allocation failure is nonfatal; fall back to direct charges */
-+	if (!mem_cgroup_is_root(memcg))
-+		page_counter_alloc_stock(&memcg->memory, MEMCG_CHARGE_BATCH);
-+
- 	/*
- 	 * Ensure mem_cgroup_from_private_id() works once we're fully online.
- 	 *
-@@ -5665,7 +5442,7 @@ void mem_cgroup_sk_uncharge(const struct sock *sk, unsigned int nr_pages)
- 
- 	mod_memcg_state(memcg, MEMCG_SOCK, -nr_pages);
- 
--	refill_stock(memcg, nr_pages);
-+	page_counter_refill_stock(&memcg->memory, nr_pages);
- }
- 
- void mem_cgroup_flush_workqueue(void)
-@@ -5719,8 +5496,6 @@ int __init mem_cgroup_init(void)
- 	WARN_ON(!memcg_wq);
- 
- 	for_each_possible_cpu(cpu) {
--		INIT_WORK(&per_cpu_ptr(&memcg_stock, cpu)->work,
--			  drain_local_memcg_stock);
- 		INIT_WORK(&per_cpu_ptr(&obj_stock, cpu)->work,
- 			  drain_local_obj_stock);
- 	}
--- 
-2.53.0-Meta
+> ---
+>   .../drm/i915/display/intel_color_pipeline.c   | 23 ++++++++++++++++++-
+>   .../drm/i915/display/intel_display_limits.h   |  1 +
+>   2 files changed, 23 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> index 6cf8080ee800..efd4375c4331 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> @@ -43,6 +43,18 @@ static const enum intel_color_block hdr_plane_pipeline[] = {
+>   	INTEL_PLANE_CB_POST_CSC_LUT,
+>   };
+>   
+> +static const enum intel_color_block sdr_plane_yuv_pipeline[] = {
+> +	INTEL_PLANE_CB_CSC_FF,
+> +};
+> +
+> +static const u64 intel_plane_supported_csc_ff =
+> +		BIT(DRM_COLOROP_FM_YCBCR601_FULL_RGB) |
+> +		BIT(DRM_COLOROP_FM_YCBCR601_LIMITED_RGB) |
+> +		BIT(DRM_COLOROP_FM_YCBCR709_FULL_RGB) |
+> +		BIT(DRM_COLOROP_FM_YCBCR709_LIMITED_RGB) |
+> +		BIT(DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB) |
+> +		BIT(DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB);
+> +
+>   static bool plane_has_3dlut(struct intel_display *display, enum pipe pipe,
+>   			    struct drm_plane *plane)
+>   {
+> @@ -92,6 +104,12 @@ struct intel_colorop *intel_color_pipeline_plane_add_colorop(struct drm_plane *p
+>   							  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
+>   							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>   		break;
+> +	case INTEL_PLANE_CB_CSC_FF:
+> +		ret = drm_plane_colorop_fixed_matrix_init(dev, &colorop->base, plane,
+> +							  &intel_colorop_funcs,
+> +							  intel_plane_supported_csc_ff,
+> +							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +		break;
+>   	default:
+>   		drm_err(plane->dev, "Invalid colorop id [%d]", id);
+>   		ret = -EINVAL;
+> @@ -126,9 +144,12 @@ int _intel_color_pipeline_plane_init(struct drm_plane *plane, struct drm_prop_en
+>   	if (plane_has_3dlut(display, pipe, plane)) {
+>   		pipeline = xe3plpd_primary_plane_pipeline;
+>   		pipeline_len = ARRAY_SIZE(xe3plpd_primary_plane_pipeline);
+> -	} else {
+> +	} else if (icl_is_hdr_plane(display, to_intel_plane(plane)->id)) {
+>   		pipeline = hdr_plane_pipeline;
+>   		pipeline_len = ARRAY_SIZE(hdr_plane_pipeline);
+> +	} else {
+> +		pipeline = sdr_plane_yuv_pipeline;
+> +		pipeline_len = ARRAY_SIZE(sdr_plane_yuv_pipeline);
+>   	}
+>   
+>   	for (i = 0; i < pipeline_len; i++) {
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_limits.h b/drivers/gpu/drm/i915/display/intel_display_limits.h
+> index ea89473c177f..7ba7360c574e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_limits.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_limits.h
+> @@ -169,6 +169,7 @@ enum aux_ch {
+>   enum intel_color_block {
+>   	INTEL_PLANE_CB_PRE_CSC_LUT,
+>   	INTEL_PLANE_CB_CSC,
+> +	INTEL_PLANE_CB_CSC_FF,
+>   	INTEL_PLANE_CB_POST_CSC_LUT,
+>   	INTEL_PLANE_CB_3DLUT,
+>   
 
