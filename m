@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B73C624D6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119BEC624D9
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16CD510EE3D;
-	Tue,  1 Sep 2026 18:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC7DB10EE44;
+	Tue,  1 Sep 2026 18:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RVeepdB0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eyvBQ953";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFD8410EE38
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:50:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27EDD10EE38
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:50:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288642;
- bh=eu1KlSlWXqhbiSpgzVzFIDL33AEwWbq34A898vzWv2U=;
+ s=mail; t=1788288650;
+ bh=FBzckI23H5DYUC2fgN1hQr/tvawmRAaCLybpPifECK0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=RVeepdB0Bcueu2yR6HxUoRZoMXRJ6Wle8Ow5IFxiJnxIwLz75sII6M0a0TUCrYZ7b
- bOR8K5WmFYV6wb0TIAmyZhGrTEDaKVpDjYCK5VaaNpwaFqEHhgts7SetkZ5cZb0hjA
- WFZzDxQkpoE+8BIxH+Guem+EVr6+aO8dfmUWfcyM7Wj62odW40iFHqCYdkStdsK4Wq
- hXCgWTAoNK8OgoeHtZusz0Ns4lAvfKf12e6WXy5tKTyDGRAh5BPk1t5oORQ0G0h1eZ
- T/l9T8qtD9uRUJs5oskv5BSW/3NNrJvMhls8bVNzmnRGpBttx9M9i8dIWUfILO6nGt
- rT+hRBkU4rmrA==
+ b=eyvBQ9535XiqSaP4elS2GOEHVT/+FqLzgiskBu5/HBmeAUIMgOv7E+9Bby5tkaTyD
+ Q7rszzADi6sIb9zgk6zZ+qEWROy8HGNSeA9Pv59D8AR6PlFnU0OJz/sNeQvr+eWseP
+ IJWFcfvBtMbEYta4hXAdRkTfFNLeQT4o/6lBN8e4rEUPwC97Q87+vrXVlBqFaqTIS6
+ ndHWnz8C5RdC9ZmJIZ7UCejiycN/dt+gMa4GD/BeuMzQ0UvkGTj5rrao7fIT9pCIW8
+ t0zqw1uXbnzMUQ6Q+doegX5ROwh37bdK2+lsLQwSMUsdBfX9KwFRgHlalOv04V0HFT
+ gazA6jd2ofOGQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 92CA817E0934;
- Tue, 01 Sep 2026 20:50:42 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EE58317E3606;
+ Tue, 01 Sep 2026 20:50:49 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:26 +0300
-Subject: [PATCH v11 02/74] drm/connector: hdmi: Handle reset() state
- allocation failure
+Date: Tue, 01 Sep 2026 21:50:36 +0300
+Subject: [PATCH v11 12/74] drm/bridge: Fix unlocked list_del in
+ drm_bridge_add()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-2-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-12-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,38 +82,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In drmm_connector_hdmi_init(), if the reset callback fails to allocate
-memory, e.g. inside drm_atomic_helper_connector_reset(),
-connector->state will remain NULL.  This is unconditionally passed to
-drm_connector_attach_max_bpc_property(), leading to a NULL pointer
-dereference.
+When re-adding a bridge that was previously removed, drm_bridge_add()
+drops it from bridge_lingering_list without holding bridge_lock.
 
-Bail out with -ENOMEM if the reset callback leaves connector->state
-unset.
+Both bridge_list and bridge_lingering_list are protected by bridge_lock,
+as they are concurrently modified by drm_bridge_remove() and
+__drm_bridge_free(), and walked by the debugfs 'bridges' file.  Running
+the list_empty() test and the list_del_init() outside of the lock may
+therefore corrupt either list.
 
-Fixes: aadb3e16b8f3 ("drm/connector: hdmi: Add output BPC to the connector state")
+Perform both under bridge_lock.
+
+Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260723015306.C94241F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260723015306.C94241F000E9@smtp.kernel.org/
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Closes: https://lore.kernel.org/all/20260723015004.1F5711F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 2 ++
+ drivers/gpu/drm/drm_bridge.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 8b4baed060f3..0e39431e85b2 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -628,6 +628,8 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 		connector->state = state;
- 	} else if (connector->funcs->reset) {
- 		connector->funcs->reset(connector);
-+		if (!connector->state)
-+			return -ENOMEM;
- 	}
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index afaae272347c..2c457ad74f3b 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -454,8 +454,10 @@ void drm_bridge_add(struct drm_bridge *bridge)
+ 	 * in bridge_lingering_list. Remove it or bridge_lingering_list will be
+ 	 * corrupted when adding this bridge to bridge_list below.
+ 	 */
++	mutex_lock(&bridge_lock);
+ 	if (!list_empty(&bridge->list))
+ 		list_del_init(&bridge->list);
++	mutex_unlock(&bridge_lock);
  
- 	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
+ 	mutex_init(&bridge->hpd_state_mutex);
+ 	mutex_init(&bridge->hpd_mutex);
 
 -- 
 2.55.0
