@@ -4,60 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73DC5C624D4
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 289B4C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 13:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF46C10E3F6;
-	Tue,  1 Sep 2026 12:58:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 450BF10ECD6;
+	Tue,  1 Sep 2026 13:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="k/ZqZCHs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EGsAXSXE";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 018AB10E3F6
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:58:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788267533;
- bh=HeFf1h/TleEc8dsAQ2uxWCJ/EFaBsCk3gj0/fOEmgXw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=k/ZqZCHsgE1W+X4jw/ernZFJZlPs4KiBkX+GhOVp0vYRWntKEO+l0yaj0zS2THjXX
- AkdtwZ9NfDRqZ+Hjc/lhz+BBpE/d8EbLvq9v3hmy6bWoRmYUZUD1VdpPYUTMiem8z9
- NL9bXjLhHf0vxIS8Ry+h3p98taMjBo+vHWlDvo8OFytMJgu+qbLucbTOnFDMT6SiP4
- 6IgPxgKFTWf7RvOsj/DABL3/boEg3u1k7i3yR+w/cGE3HnjO0VEKUvs0kbujVPmw0A
- Mgnaf/o22zvUZgDSfhv1Z9CYk/Zp0yylOhm2jXP2r8nLI4bdxhFA7FfI97aUxZD1es
- gOKdpSNsjhh+w==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E3B9B17E0472;
- Tue, 01 Sep 2026 14:58:52 +0200 (CEST)
-Date: Tue, 1 Sep 2026 14:58:47 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 07/17] drm/panfrost: Stop all jobs before commencing
- device teardown
-Message-ID: <20260901145847.779f9eb0@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-7-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-7-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4633610ECF0
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 13:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788267811; x=1819803811;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Q6Qx68lTAXz2Os5wDBHdNW81pA3UYxxQOdQeKpc2SJ4=;
+ b=EGsAXSXEEsnkjaMglPdT9GnwXe5J58F9YX+uANftoiLkzLeLa97uqt0m
+ Nz2xmJaqcnfoPe2E/tJR7LXqLai1b3pIWGyP0BrVIn10uwNVgZZ4FW5nU
+ X2oSmqiMn8rpQS7psyvizLySmBSSXPog9ViPBb5smaSv8pneUGwi5IH9/
+ LKqDNxKpbKM7XMp819Ngh1XvexbCMA7y6MGvoUf3KdH/WVEkp2zhEuQ7S
+ nIQMpE99jd+ALFODJQ5OdNUa8RLsD1Pqq2YbtszUXy4qRortysLz/gR5t
+ sUANv/KmEjOnxhE1g64uLst2o8/oYC+/rn7FbcLw3qcbNChsUPRLcA0IJ Q==;
+X-CSE-ConnectionGUID: UBvjcTTVTCWL5pHzJIqTAg==
+X-CSE-MsgGUID: t0dSA1v2QaeBzzt5JONlvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88706256"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="88706256"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 06:03:31 -0700
+X-CSE-ConnectionGUID: 0To7jvPwTJOJ9IIdd8TfoQ==
+X-CSE-MsgGUID: J8mrclAOS7uZbJwyXAc2vA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="271029674"
+Received: from try2-8594.igk.intel.com ([10.91.220.58])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 06:03:29 -0700
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
+ karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com
+Subject: [PATCH v2 0/3] accel/ivpu: Harden parsing of firmware-shared buffers
+Date: Tue,  1 Sep 2026 14:57:46 +0200
+Message-ID: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-31
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,159 +69,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:47 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+The IPC and firmware tracing buffers live in memory shared with the NPU
+firmware, so every field the host reads from them is untrusted input.
+This series fixes places where the host trusted such input and could
+end up dereferencing addresses outside the underlying BO.
 
-> We should make sure there are no inflight jobs at the time we finish driv=
-er
-> structures and synchronise their IRQs, and even more so by the time clocks
-> and power domains are disabled.
->=20
-> To that end, stop submissions from existing scheduler entities and force =
-HW
-> to stop all running jobs.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c |  2 +
->  drivers/gpu/drm/panfrost/panfrost_job.c    | 71 ++++++++++++++++++------=
-------
->  drivers/gpu/drm/panfrost/panfrost_job.h    |  1 +
->  3 files changed, 46 insertions(+), 28 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 9549ddb7854a..9e02fb5f73c8 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -341,6 +341,8 @@ void panfrost_device_fini(struct panfrost_device *pfd=
-ev)
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-> =20
-> +	panfrost_jm_stop_sched_jobs(pfdev);
+All patches are tagged for stable.
 
-Do we really want to do the SOFT_STOP+HARD_STOP dance in that case?
-Can't we just SOFT_RESET the GPU and collect the pieces in the
-panfrost_<component>_fini() functions?
+Changes since v1:
+ - Added a new patch ("accel/ivpu: Limit firmware log name prints to
+   field size") after Sashiko pointed out that log->name was still being
+   printed with an unbounded "%s" conversion. The field is fixed-size
+   and expected to be NUL-terminated, but a firmware bug could drop the
+   terminator; harden the host against that case.
+ - No changes to the other two patches.
 
-> +
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index 5016d2d53da2..630298b7ea8a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -655,39 +655,12 @@ static u32 panfrost_active_slots(struct panfrost_de=
-vice *pfdev,
->  	return js_state & *js_state_mask;
->  }
-> =20
-> -static void
-> -panfrost_reset(struct panfrost_device *pfdev,
-> -	       struct drm_sched_job *bad)
-> +static void panfrost_stop_jobs(struct panfrost_device *pfdev)
->  {
->  	u32 js_state, js_state_mask =3D 0xffffffff;
->  	unsigned int i, j;
-> -	bool cookie;
->  	int ret;
-> =20
-> -	if (!atomic_read(&pfdev->reset.pending))
-> -		return;
-> -
-> -	/* Stop the schedulers.
-> -	 *
-> -	 * FIXME: We temporarily get out of the dma_fence_signalling section
-> -	 * because the cleanup path generate lockdep splats when taking locks
-> -	 * to release job resources. We should rework the code to follow this
-> -	 * pattern:
-> -	 *
-> -	 *	try_lock
-> -	 *	if (locked)
-> -	 *		release
-> -	 *	else
-> -	 *		schedule_work_to_release_later
-> -	 */
-> -	for (i =3D 0; i < NUM_JOB_SLOTS; i++)
-> -		drm_sched_stop(&pfdev->js->queue[i].sched, bad);
-> -
-> -	cookie =3D dma_fence_begin_signalling();
-> -
-> -	if (bad)
-> -		drm_sched_increase_karma(bad);
-> -
->  	/* Mask job interrupts and synchronize to make sure we won't be
->  	 * interrupted during our reset.
->  	 */
-> @@ -730,6 +703,48 @@ panfrost_reset(struct panfrost_device *pfdev,
->  	}
->  	memset(pfdev->jobs, 0, sizeof(pfdev->jobs));
->  	spin_unlock(&pfdev->js->job_lock);
-> +}
-> +
-> +void panfrost_jm_stop_sched_jobs(struct panfrost_device *pfdev)
-> +{
-> +	for (u32 i =3D 0; i < NUM_JOB_SLOTS; i++)
-> +		drm_sched_wqueue_stop(&pfdev->js->queue[i].sched);
+Dawid Osuchowski (1):
+  accel/ivpu: Limit firmware log name prints to field size
 
-Do we have something cleaning up the pending list if this is stopped
-while jobs are in-flight? If not, we probably need a ::cancel_job()
-implementation.
+Magdalena Schulfer (2):
+  accel/ivpu: Validate full buffer range in ivpu_to_cpu_addr
+  accel/ivpu: Validate firmware log buffer metadata
 
-> +
-> +	panfrost_stop_jobs(pfdev);
-> +}
-> +
-> +static void
-> +panfrost_reset(struct panfrost_device *pfdev,
-> +	       struct drm_sched_job *bad)
-> +{
-> +	unsigned int i;
-> +	bool cookie;
-> +
-> +	if (!atomic_read(&pfdev->reset.pending))
-> +		return;
-> +
-> +	/* Stop the schedulers.
-> +	 *
-> +	 * FIXME: We temporarily get out of the dma_fence_signalling section
-> +	 * because the cleanup path generate lockdep splats when taking locks
-> +	 * to release job resources. We should rework the code to follow this
-> +	 * pattern:
-> +	 *
-> +	 *	try_lock
-> +	 *	if (locked)
-> +	 *		release
-> +	 *	else
-> +	 *		schedule_work_to_release_later
-> +	 */
-> +	for (i =3D 0; i < NUM_JOB_SLOTS; i++)
-> +		drm_sched_stop(&pfdev->js->queue[i].sched, bad);
-> +
-> +	cookie =3D dma_fence_begin_signalling();
-> +
-> +	if (bad)
-> +		drm_sched_increase_karma(bad);
-> +
-> +	panfrost_stop_jobs(pfdev);
-> =20
->  	/* Proceed with reset now. */
->  	panfrost_device_reset(pfdev, false);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.h
-> index 3e3b9717838f..dc9d3c9dc67b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.h
-> @@ -73,6 +73,7 @@ int panfrost_jm_is_idle(struct panfrost_device *pfdev);
->  int panfrost_job_get_slot(struct panfrost_job *job);
->  int panfrost_job_push(struct panfrost_job *job);
->  void panfrost_job_put(struct panfrost_job *job);
-> +void panfrost_jm_stop_sched_jobs(struct panfrost_device *pfdev);
-> =20
->  #ifdef CONFIG_DEBUG_FS
->  void panfrost_sched_debugfs_init(struct drm_minor *minor);
->=20
+ drivers/accel/ivpu/ivpu_fw_log.c | 87 +++++++++++++++++++-------------
+ drivers/accel/ivpu/ivpu_gem.h    | 14 +++--
+ drivers/accel/ivpu/ivpu_ipc.c    |  7 +--
+ 3 files changed, 67 insertions(+), 41 deletions(-)
+
+-- 
+2.43.0
 
