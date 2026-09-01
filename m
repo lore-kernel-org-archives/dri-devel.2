@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 202E5C624D0
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE03C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48CA610EEB2;
-	Tue,  1 Sep 2026 19:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB38D10EEB5;
+	Tue,  1 Sep 2026 19:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AemKn9Ni";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PMpdYJWx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B8510EEB2
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:16:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F71910EEB5
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:17:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2299D41904;
- Tue,  1 Sep 2026 19:16:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59A31F000E9;
- Tue,  1 Sep 2026 19:16:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5EA6C43C43;
+ Tue,  1 Sep 2026 19:17:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD4F1F000E9;
+ Tue,  1 Sep 2026 19:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788290182;
- bh=sK8MxF/Bh9pZ54G0aGZ0bMqmuQjXPIjpgAgb8VVtQVg=;
+ s=k20260515; t=1788290278;
+ bh=t7PpiHPyWNWJXO2Tebracjvk2rfu94fPfn9VgN9yj70=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AemKn9Nip10IP09UHG7dPK04Mi4FSz1mMq5Q0/rfyg4542uSEZDa9HY0Gq+CjVIuP
- z8kmR8JqyNYCDRjLoLfPZ1GHRze4AkvV4q0cIqsMDjL11LoDhJUxxIl007tr26PfUe
- faqfAO0cit3n2D8E7NE/+9s8VSJEza7q4lO/GLssAOszJcv7nb/+2rZbetiAuZ/dkQ
- lm8S3j6K4ph9UJqPUKCr2rel/YPwmqAW9NyOQ69AOHNFnQvN0QBuCKdu7E/myy7C5n
- 6FzRAaqHBsB+m6nALpIISFrxme7C1ueTBLSCNcTBi/2G6gphcGoRD0dvYUg1QY3D7w
- Z4P45sjMxs/OQ==
+ b=PMpdYJWx9BYFbeDOJsO7knPUdHAsQIrexUas8LpPkTkPnFhbO1n5kXg/GzGVKX4vm
+ lEyr5VzGJTeOnIWPW+LBOrQLGY3GRQdK2xh6BpZfa56xPlZNAnUtMFgjw59zdrxAwi
+ s6sUQUW/BKFIjpE16rLwn1v+EH7HmeM5ybXoCYhrULz6EGe0yPmHNUXZ3UKGW/Mm6a
+ m3M2pPHBAHQ8vGuTuU99Qd0FAmF/CM4FkutnHnYxutZQDPvjC2UqK+yeRwFigmg8OY
+ DOHS3oQRbw62JMJgBjeTUYEQXKeTEmawmpNsDxIgEFcvDEZJSYYa+PMlVdJ8NzQej6
+ GP3IxKuGoQUdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 14/74] drm/bridge: Fix unlocked list access in
- drm_bridge_attach()
+Subject: Re: [PATCH v11 12/74] drm/bridge: Fix unlocked list_del in
+ drm_bridge_add()
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-14-bc12954a0688@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-12-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-14-bc12954a0688@collabora.com>
+ <20260901-dw-hdmi-qp-scramb-v11-12-bc12954a0688@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 19:16:21 +0000
-Message-Id: <20260901191621.C59A31F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 19:17:57 +0000
+Message-Id: <20260901191758.0BD4F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +60,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Mixing goto-based error handling with scope-based cleanup helpers (=
-`scoped_guard`) in the same function.
+
+Pre-existing issues:
+- [High] drm_bridge_remove() destroys mutexes while the bridge is still ref=
+counted, risking a use-after-destroy.
 --
 
-commit a312843839f1a20e85a81d94af26656e4dacb18f
+commit 7791e5cbe69e4f164e69cc2e98832df9a6224dd4
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/bridge: Fix unlocked list access in drm_bridge_attach()
+drm/bridge: Fix unlocked list_del in drm_bridge_add()
 
-This patch fixes an unlocked read of bridge->list in drm_bridge_attach()
-by performing the check under bridge_lock. It uses the scoped_guard()
-cleanup helper to manage the lock.
+When re-adding a bridge that was previously removed, drm_bridge_add() drops=
+ it
+from bridge_lingering_list without holding bridge_lock. This commit ensures=
+ both
+the list_empty() test and list_del_init() are performed under bridge_lock to
+prevent list corruption.
+
+Closes: https://lore.kernel.org/all/20260723015004.1F5711F000E9@smtp.kernel=
+.org/
 
 > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index a8b6df5c13eaf..10dde3600c70a 100644
+> index afaae272347c0..2c457ad74f3b3 100644
 > --- a/drivers/gpu/drm/drm_bridge.c
 > +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -606,8 +606,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, s=
-truct drm_bridge *bridge,
->  	if (!bridge->container)
->  		DRM_WARN("DRM bridge corrupted or not allocated by devm_drm_bridge_all=
-oc()\n");
+> @@ -454,8 +454,10 @@ void drm_bridge_add(struct drm_bridge *bridge)
+>  	 * in bridge_lingering_list. Remove it or bridge_lingering_list will be
+>  	 * corrupted when adding this bridge to bridge_list below.
+>  	 */
+> +	mutex_lock(&bridge_lock);
+>  	if (!list_empty(&bridge->list))
+>  		list_del_init(&bridge->list);
+> +	mutex_unlock(&bridge_lock);
 > =20
-> -	if (list_empty(&bridge->list))
-> -		DRM_WARN("Missing drm_bridge_add() before attach\n");
-> +	scoped_guard(mutex, &bridge_lock) {
-> +		if (list_empty(&bridge->list))
-> +			DRM_WARN("Missing drm_bridge_add() before attach\n");
-> +	}
+>  	mutex_init(&bridge->hpd_state_mutex);
+>  	mutex_init(&bridge->hpd_mutex);
+[Severity: High]
+This is a pre-existing issue, but since we are modifying the bridge locking
+here, is it safe for drm_bridge_remove() to unconditionally destroy these
+mutexes while the bridge might still be refcounted?
 
-[Severity: Low]
-Does introducing scoped_guard() here conflict with the existing goto-based
-error handling later in drm_bridge_attach()?
+When a bridge driver is unbound, drm_bridge_remove() calls:
 
-The kernel's cleanup.h guidelines forbid mixing goto-based cleanup and
-scope-based cleanup helpers in the same function. drm_bridge_attach()
-currently uses goto labels for resource unwinding:
+	mutex_destroy(&bridge->hpd_mutex);
+	mutex_destroy(&bridge->hpd_state_mutex);
 
-    if (bridge->funcs->attach) {
-        ret =3D bridge->funcs->attach(bridge, encoder, flags);
-        if (ret < 0)
-            goto err_reset_bridge;
-    }
+If the DRM device still holds a reference to the bridge via drm_bridge_get(=
+),
+and subsequently attempts to call functions like drm_bridge_hpd_enable(), it
+will lock a destroyed mutex:
 
-While this specific change doesn't cause a direct runtime leak since the
-goto statements don't jump into or out of the scoped_guard block scope,
-could this structural mixing cause issues later? Would it be safer to use
-standard locking (mutex_lock and mutex_unlock) here to avoid mixing the
-two paradigms?
+	mutex_lock(&bridge->hpd_state_mutex);
+	mutex_lock(&bridge->hpd_mutex);
 
-> =20
->  	drm_bridge_get(bridge);
+Could this result in memory corruption or lockdep splats if the display
+controller retains a reference after the bridge is removed?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dw-hdmi-qp=
--scramb-v11-0-bc12954a0688@collabora.com?part=3D14
+-scramb-v11-0-bc12954a0688@collabora.com?part=3D12
