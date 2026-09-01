@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2440C61DD6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 04:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA6E4C61DD6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 04:54:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDA4A10E38D;
-	Tue,  1 Sep 2026 04:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94E6B10E3A4;
+	Tue,  1 Sep 2026 04:54:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YDrV4kOc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ui2iAm1q";
 	dkim-atps=neutral
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
- [209.85.219.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A2810E38D
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 04:50:44 +0000 (UTC)
-Received: by mail-qv1-f48.google.com with SMTP id
- 6a1803df08f44-90e8535619bso23657876d6.2
- for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 21:50:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788238243; cv=none;
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
+ [209.85.219.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D022F10E389
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 04:54:06 +0000 (UTC)
+Received: by mail-qv1-f41.google.com with SMTP id
+ 6a1803df08f44-90cc64570deso7840506d6.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 31 Aug 2026 21:54:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788238446; cv=none;
  d=google.com; s=arc-20260327;
- b=E07poh/RL3RHwX0t2B4KJjafXPeKodHpisvGkD8UkA9sNWzlQgjF82bjETu0kfhGn4
- 22FbqrhOzHZS6Z8MLKQYPdWNFg/qE1jv75IVR8kc/idGA6aqKvfeDyZZl/GWZOHc830X
- 5lvoxWYTjKyrBWQU/sIOWIw2EhPqH6Z65eD3PVukW+H0SVPkKHgRijmh5BgsdCkUjgRb
- MjFlOd+Z5IIyP2YRmfkbahpuOH4oWCv12YWoeN/pIQhs6aUtXa4eFoP0yD9sUt1knYFo
- tDVyI0LGdEkdkEt6KYwd+rCCiagedCfNZkmFcuA/QuaWXAyRZxbBCs9DdAHfPlVHEkJp
- Mb5g==
+ b=VsI/kQROICn+NT16ZBhol5dPymAX27FeGiufE/A1ZRG8VzfNEmdbe3pK3my2gqoyze
+ KhsagkR13DoXq64b2U5iHnX3xCl78TAwAF0boAyS7SR9lYUggLLwD/nMxG9G9gFWI0ZM
+ vixbbLTkywnCxbLkvo0a+ny2xauq71qGmGQzs0v3a8nAckifW7VLTJ8D9H3SKmWtpqzF
+ SqEqwTYP94W5g24ODZKyXVEcy6gJ4oNU2Oam0pmgXQ62pm8sOS+IMOLmCgnlTkbbus7l
+ VXjiHc7LRfVqDttPFAcwF2TOYizNMrECtio2FqJlc17kS3lQjF3IjL2xBgXx3wEz3ZeQ
+ YXag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
- fh=4gqI6t5d4PZz23CjjtIdhJqK4wIPwLkncv7y0vCQ6Rg=;
- b=FHxtjN6CRq5Ir6sICeR07xM9cZeoABalC5RV7D/p42Cj4gb6V6dzrC95BRfxD/c3FY
- rA0QOqjZsPjJtF3y8J0TesREGGuBFK+1iMn8yb27sD3+7KyHGNBAnUTqH97bixXwZjDB
- LaYqYZy/2RmVslVEVJt1PHm3jfE9HP37MVa3xmjlTp4K30L68mUbSJJzJ1qR4XEV+e2I
- 3maLSs4pzDJy5ut7gq4orz72bDIwJKpUzc1Xcn50p/yu5zDyyyWNOu5itfwoU7zfXnvP
- 74oFg5qAdbiSZSpn/sOHwpWEaDTLMgPHR/gw86v8IYoWLLRMVaUHz4UCmvkaX6s1AQE8
- J6DQ==; darn=lists.freedesktop.org
+ bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
+ fh=2aSMCMlIN0CNynYZ/X1hga1kG6RtVewrrsMT/BOBp/A=;
+ b=XZ9N3y7D5DyNMKW3kMDpXwfU7mSZx9XSdc+EHWxO/8vrCB1Ja2mzy8IhPhCpA5biRO
+ 23coWHCkD2tcOYt9eACWIbkYny76RbXe9fRAkf+OPx+Sb+MOMwR+li+va4Bf0hAtAGWG
+ Hdb1wdcDCb9SmEPEgGFhpnTn5VFOXc4uuKeQOrDLSECROJ0foaizH68GzppW75vjBdtJ
+ +qenetQVzW9rZ3MTwDnYlJ0wSp1+9+GoX8m952DQqbW6L96w3YhGhzbPANmdrfndbLj0
+ QF3hKyEfI6meTTxoEouwfqUjVuqOjzNZmU2RVKYL4heflyEtBh7H0u0+iNGDx4I5MHP/
+ w4Qw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788238243; x=1788843043; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788238446; x=1788843246; darn=lists.freedesktop.org;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
- b=YDrV4kOc4zBwNKrasUT3kJ6ALKpwB2ynCii2uiHE9wmTOCHJ6awpEPYKvFMN3fff0u
- Q+VJHPQHgBQsc5d1aF5T6xLi59frOiSKW/LyXWzDXxaJ6O0O9tfs3mCNaVrRwSpmZL+S
- F85sVOcrUc29vMuJ1tm5GzHYQHdw/d7+c5jWzl7586HKxzQHQvFIfXaYAPOo79M9W+kt
- 66CeGr01XzU409pUgrBuuUpU6ImXqZ/o67Ur4v49Wl4msmxhnj+hVoEiB4ElFDwUFKX8
- LMVrsNUYOyMeRS6nCZfHcaa5Mfps1tPeZaJ6jS/AVWZTqpLwdw3iZsuDDZrRBRcnB5ng
- QC/g==
+ :content-type; bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
+ b=Ui2iAm1qh9GHZ5hwu+zBctQiOSfOjiSOIv28jjOHvAdjewlXrDg+budKfnuZhbaOqb
+ CvjUBR9Acq559WYbWd1znLr3gO5lPik722jQYGMAsj8cdlqr4V1LiC42283UgAcE71kl
+ Cw7A8o2prUj2anMS4xeToCReD0lFeV+UpbqG1fxGrdu4T8d/QVAKShEndY6smUGMs34b
+ t83rBGUTFaNbJSvIMeHu3kvwBpa0F4px9Wxxaz161w8d7oN9bDncIp8qNlOBlecRJwj2
+ a5IGqdmY4Ri9BpEdCwqD6Deasn51AwERa3SwGtBcPfwV1rxoECv5cGcUUUbyS0iL2z7t
+ J3rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788238243; x=1788843043;
+ d=1e100.net; s=20251104; t=1788238446; x=1788843246;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=xQOAFB2GujcBxNli5xeMXaMaXjpMEs7ZhLyYYxFWIos=;
- b=pf7nbJ1q/kBLYgb+2tHjJZHczcKbLSrPLi2CCxtmEsE/503pZVkRuciI0NM0XNdaub
- JPO8qHHpLcPDUpVNbA1WfJE5FEcxFRkdDj25aKQfAx30ZqDUhVqHwNG9/D2Cre08lYJp
- Th5zBb+IB9nsCklND17jTfVM8zTBfnLnC3giZPDuNPY63lRM+uFoVqHRjxcb/OPctNyd
- 8No7CdRFUWZyiYUZJ7iBCD93HaciojAaItE0Dtdn/xka0+dRuA4gxbPT7MWli+Opyy7W
- KyHTDSTmQFEXxeRXkPuBV8E//Es3DGAGCLKqla3S7AY84d3zQa33vHyRREP/Nx9hJZce
- GaUA==
+ bh=8SuycrJ6e1WFHR/TNYgsJOBfzYu56DYt41F/4NfeqAU=;
+ b=mK+ECuHpv7En71xtueFuPlwh1QaYaT4x0gTP/L4AZsTseRLnpivmj7rpBPhGug/ujM
+ gAArBo+yX6D3JooCL6XE04m/L2c+N/eQPwLTK4mbAvk+5SItftEcyBiRrg/poEHwrPV8
+ Xjxvtzkciyskl/ZbzrvOFKCor+FawoNwAULJbu6ztGaTjYFi6YqQgDckVzs7WPZhbu98
+ 3ds1kVeC7ZnX28X1L0G03bilWPXidbTSlo7la/HIUSJfkqFsqLY8E/fu0Y3H2OTW2uBV
+ WPqPTgFDhhgkbVU66/03hkBQvh7WqGe5UXJrAPj7Esuq+AkyDXkpNWTvCf5OOazmE+vB
+ faSA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByQxPlMWKfiLieveD64bx0NV6/Fz41cmPKQRkbI2lp2M0xIUzKiujbNR2jYfRHR4cBcxHO5cBDtFM0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n9nLvPX2TAD6JzXlV13iQYqe7iEn/7QETT+uuVGcAbkj1gSAWi
- oXSIbEIyMbGEAPNYNpdGNwD7EWgdDhlj8PUJqRi8Y9EfpXWu/SSgTea8ccOd4/oHgxCXBJzaDMM
- Z8dI/F0iEj4quhntV9VGgzVwaZiQ8dHY=
-X-Gm-Gg: AYBFou09Ixt3kdtgI8Qns47VEzne35PeTZUj00WesXs4OJE8VPyj7At0u9ro9m22DKu
- D1ulWL84p1182HsuL5baGLvoD9mVdfTq6sT1GoWA525umRIHUgJa84zOHN+GRoffRBtc5dHIxkN
- RqYYFaYQATOUP8aF/30/HrlP30qk9ComPxF+GBZ9c+FyipSee3ixanFbP1RErj0jlowt6DK3oGg
- TApbl+DorRBsCHJ0Jp1WWxLB3wzQF5mwXhPzcnDkmID4vVGoVYoWrMg0+TdMKzJzPVjsTYzblRJ
- B01lMfTy0ez6vkWprqokV6FxHvVHr6ajW+0hzI8PaY0Kjr5lNSHz0tkAMyJZOiMwmgM72vqy5TJ
- 7UK7OsZPeRI9CkNLalt7TP9ThMtnQvQ==
-X-Received: by 2002:ad4:596e:0:b0:90c:c53c:a032 with SMTP id
- 6a1803df08f44-90e9299d230mr66652406d6.25.1788238242750; Mon, 31 Aug 2026
- 21:50:42 -0700 (PDT)
+ AKwUvBz+qp0Ryq3K19ugvVoXTHBMrD6wuNdVC7nNQAqH4+DyjK5nN2YDYopH5NjYSSC/b6sZWxFC9QNqq9M=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lvuyIXHu9yF1pT2rqpul5gZnk+DqPiwCTFcZiVg6DbsQnOEsXk
+ akzydSrFdE7OEotHcYvXuqGKTQZL12poMcco345yWX5UMtDZ81J4eLw7FDnc6z4MmfVdkMfAgs5
+ JqIUM8QnKiemWcL/BbIqXGmQ/AcNh3qA=
+X-Gm-Gg: AYBFou0i08jLgYy3XN/M82jhulWAtlBsKKwfrLT0bPtpqxqfkLNniODYG4rSsuUdO0c
+ 3F9iRuSlCqPYVTsBV6Mr/u7DPYYGpXnRUrA7AMJXREh4nu/zLmLbh81QzSw89O2t1A8QUn3gfLd
+ nST3hh4DSYZbieBSqLC2dESVnoUN8UwsLEubyhPJ8V85mjh1lU7W573zlHCOjdJY5xdD1oHAMQb
+ IHQLCkkpVcy1tXpUfcsEVP4F014nQFduVJ6x+p8NZxHeLO/LiUNRLIQY23w3qoQtlkh95SL47/E
+ xBqa8wkwGUgvDQFp3nnmI75XQghpTJdMPOiYI7Bbkba8SOHRvaNIjLv7OatFNY6nXALjM4oiI11
+ Kb9M8m3M6zeruMlmbNIvuPd0K47fwIEX1L8tOqNPY
+X-Received: by 2002:a05:6214:5d87:b0:90a:7f98:15f3 with SMTP id
+ 6a1803df08f44-90e956e7aefmr37476106d6.2.1788238445773; Mon, 31 Aug 2026
+ 21:54:05 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260828033531.1117754-1-apopple@nvidia.com>
  <20260828033531.1117754-6-apopple@nvidia.com>
- <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org> <apZCTUYiN5FHCkCm@nvdebian.thelocal>
-In-Reply-To: <apZCTUYiN5FHCkCm@nvdebian.thelocal>
+In-Reply-To: <20260828033531.1117754-6-apopple@nvidia.com>
 From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 1 Sep 2026 14:50:30 +1000
-X-Gm-Features: AcwNN1XIuYNBe-g3Y3LazWrOuydw4Epc379VZwO4H3KcbFvHD9yFkSuEhDJtL5I
-Message-ID: <CAPM=9twQxnx5DDkjwXWi-vXM4kqUQQdPaL+=1ASS0tpf2GmnYw@mail.gmail.com>
+Date: Tue, 1 Sep 2026 14:53:53 +1000
+X-Gm-Features: AcwNN1Ud4VFQrRun_tYvFTt-qwucbEEO3S9gIfzjiQyf2D1HVIdudvpKJIZc7pw
+Message-ID: <CAPM=9tw6nv7UbMvKOGSsZKKwoZwCG2hvwGk=JjmsxQcH=wGfqw@mail.gmail.com>
 Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
 To: Alistair Popple <apopple@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, nova-gpu <nova-gpu@lists.linux.dev>, 
- M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>,
+Cc: nova-gpu <nova-gpu@lists.linux.dev>,
+ M Henning <mhenning@darkrefraction.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>,
  Gary Guo <gary@garyguo.net>, 
  Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
@@ -111,26 +111,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> >
-> > We should make the NovaCoreApi just provide an accessor for &Spec and make every
-> > subsequent method we need public. Otherwise we end up with endless forwarding
-> > methods. We can also add as_raw() methods to the specific types as needed.
+On Fri, 28 Aug 2026 at 13:36, Alistair Popple <apopple@nvidia.com> wrote:
 >
-> Ok. This is where I don't have a good instinct for what we think should be an
-> accessor/forwarding method vs. where we should just expose the underlying data
-> structure and required methods to API users.
+> Add an extensible info ioctl and use it to report basic GPU information.
+> One of the first things userspace needs to know about a GPU is its
+> architecture and implementation, so add that as the first field in the
+> GPU info result.
 >
-> In the past it seems there's been some resistance to exposing nova-core or gsp
-> data structures like this which is why I added the forwarding methods. In future
-> we're going to have other data-structures that NovaCoreApi will need to access
-> so it would be good to understand what we should do here so we can keep things
-> somewhat consistent.
+> The ioctl selects an information type by ID and writes the result through
+> a sized userspace buffer. The kernel truncates results to the supplied
+> size, allowing information structures to grow and new logical information
+> groups to be added without introducing new ioctls.
+>
+>
 
-We can expose structure defined in nova-core, we cannot expose
-structures defined in gsp bindings or firmware.
+This is a higher level for the future, I think we have two paths for
+getparam type ioctl.
 
-In theory we can internally between core/drm but I'd really really
-like to keep that boundary as the limits of GSP for auditability
-purposes.
+Either we expose a big struct full of values with a add to the end
+mentality or we keep a long list of value pairs, and userspace passes
+in a list of value keys, and we return a list of the values.
+
+I'm trying to think ahead towards native virtio context support, and I
+think having the sequence,
+
+open
+get_all_infos
+create vm/channel
+
+might have the most optimal ioctl count but also let power management
+avoid booting the GPU on every open if we never create a vm/channel.
 
 Dave.
