@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332F0C624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 17:30:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2888DC624D3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 17:30:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB9F310EDF6;
-	Tue,  1 Sep 2026 17:30:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 441E210EDF8;
+	Tue,  1 Sep 2026 17:30:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XDSSkggD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cp/EXw/t";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5175F10EDF6
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:30:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E205510EDF8
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:30:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6ADE96020D;
- Tue,  1 Sep 2026 17:30:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFE801F000E9;
- Tue,  1 Sep 2026 17:30:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6612F602C4;
+ Tue,  1 Sep 2026 17:30:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9F081F00A3E;
+ Tue,  1 Sep 2026 17:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788283809;
- bh=BR++alfaW7QLjijU+jW4Nd3dtt8RFWzyHTZGPyEdXn4=;
+ s=k20260515; t=1788283816;
+ bh=Yirw2pKMxdvOkW1hnXJxWzXgfd4LhifB1fQ520fOC6s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XDSSkggDpAqQsQso2ApXcZSJfABPRpqBJa2WnhjkBarlSyRREq258jmpdE+PXcidg
- dFnEZN2vtgT6xjwTnHxYqXdmkjUaJLolZVeokeFy+JpetGhZ+3qRVQP/TeY420vAzU
- XNbXpBASPsgsDVN5oEuEkXVz4QkwPOxzB5rZrQA2yMgG1jwgNeh0rzkd31Z2DdWhwH
- JL3vHlokahOU4v1SqpHuJvfFhCrDFbGrhm3uSOQlsEQTZdI1fO5OWfa/Z1jXXKZEiX
- +CSkf7ZLLkfHRZsIm3TzH2Yez6nl/UvY1jneTsO5jlkNyGVihgCLPv2hU48Cb5YEQH
- 3gEZrZfSpgZig==
+ b=Cp/EXw/tpy2Aa6v3jyrg65zksV6/PRcmxpVkwXopAKrqEGKsjXTpXZGcoWxA/NqNQ
+ 7M3r4MIDUcEnRC8ApLY/0/eCBHy0YW9H3v1d3Evy//lMZuWWBm3ah7+ijLS3otvmlA
+ kzZ631SBaP++dpKBDSujICAxnjlwvCwxDMEVOBJ/2Z5ie9Xs82oUNOqvHmsctzXiB/
+ 1zT/qrreJvtSblBbsE7pb2NP1Y2EhDrJ0QptCwgbsFOgqli8K8sUaJdrP8eR4PZ5o5
+ QCh1+Ob8uSldt0z78o04yrZ62Q6DJcq0o0OgS1ZSIxm7CeHu0Tex8wDODf+zZGAhby
+ tPvZjtmVajvBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
+Subject: Re: [PATCH v8 1/2] dma-buf: Fix silent overflow for phys vec to sgt
 To: "David Hu" <dhu@x6u.co>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901170849.4052816-3-dhu@x6u.co>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260901170849.4052816-2-dhu@x6u.co>
 References: <20260901170849.4052816-1-dhu@x6u.co>
- <20260901170849.4052816-3-dhu@x6u.co>
+ <20260901170849.4052816-2-dhu@x6u.co>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 17:30:08 +0000
-Message-Id: <20260901173008.DFE801F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 17:30:15 +0000
+Message-Id: <20260901173015.D9F081F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,155 +57,178 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
 
-New issues:
-- [Critical] Deterministic NULL pointer dereference on 32-bit architectures=
- due to mismatch between scatterlist allocation and iteration count.
-
 Pre-existing issues:
-- [High] Piecewise unmapping of chunked DMA regions violates DMA API rules.
-- [High] Error handling path shadows the loop counter and unmaps uninitiali=
-zed scatterlist entries.
+- [Critical] Incorrect offset parameter passed to dma_iova_link() causes al=
+l physical vectors to overwrite each other at the same IOVA address.
+- [Critical] Partial unmapping of DMA mappings via segmented scatterlist en=
+tries violates the DMA API.
+- [High] DIV_ROUND_UP macro wraps around on 32-bit platforms, causing calc_=
+sg_nents to evaluate to 0 and failing the mapping.
+- [High] Setting sgt.orig_nents =3D 0 breaks sg_free_table, causing a silen=
+t memory leak of the scatterlist.
+- [High] Error path unmaps all uninitialized scatterlist entries due to an =
+incorrect loop iterator macro shadowing the index.
+- [High] IOVA space allocated by dma_iova_try_alloc() is leaked on multiple=
+ error paths.
 --
 
-commit 352582e0a7698d4a99b7c620ded07fa0a65602c3
+commit 3ea75e22b2b7ea7287fcbeb0fa39a0b99a722743
 Author: David Hu <xuehaohu@google.com>
 
-dma-buf: Split sgl by largest page-aligned chunk
-
-This commit changes fill_sg_entry() to split scatterlists by
-ALIGN_DOWN(UINT_MAX, PAGE_SIZE) rather than UINT_MAX to ensure entries
-remain page-aligned. Page-aligned entries prevent failures in hardware
-DMA engines that require explicit address alignment and avoid edge cases
-in ib_umem_find_best_pgsz().
-
-Link: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.o=
-rg/
+dma-buf: Fix silent overflow for phys vec to sgt
+   =20
+This commit changes mapped_len to a 64-bit size_t to prevent silent wrap-ar=
+ound
+during length accumulation for MMIO greater than 4G. It also introduces
+check_add_overflow() in calc_sg_nents() for safer scatterlist entry
+accumulation.
 
 > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-=
 mapping.c
-> index 80f6ab2f4809d..833be519e1e6a 100644
+> index 794acff2546a3..80f6ab2f4809d 100644
 > --- a/drivers/dma-buf/dma-buf-mapping.c
 > +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -6,16 +6,17 @@
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/dma-resv.h>
->  #include <linux/overflow.h>
-> +#include <linux/align.h>
-> +
-> +#define MAX_SG_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
-> =20
->  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t=
- length,
->  					 dma_addr_t addr)
->  {
-> -	unsigned int len, nents;
-> -	unsigned int i;
-> +	size_t len;
-> =20
-> -	nents =3D DIV_ROUND_UP(length, UINT_MAX);
-> -	for (i =3D 0; i < nents; i++) {
-> -		len =3D min_t(size_t, length, UINT_MAX);
-> +	while (length) {
-> +		len =3D min(length, MAX_SG_ENT_SZ);
 
-[Severity: High]
-This is a pre-existing issue, but does chunking the mapped physical region =
-into
-smaller pieces here cause a violation of the DMA API during teardown?
+[ ... ]
 
-During dma_buf_free_sgt() or the err_unmap_dma path, the code iterates over=
- this
-scatterlist and calls dma_unmap_phys() on each split chunk individually:
-
-drivers/dma-buf/dma-buf-mapping.c:dma_buf_free_sgt() {
-    ...
-		for_each_sgtable_dma_sg(sgt, sgl, i)
-			dma_unmap_phys(attach->dev, sg_dma_address(sgl),
-				       sg_dma_len(sgl), dir, DMA_ATTR_MMIO);
-    ...
-}
-
-The DMA API mandates that unmapping must use the exact identical start addr=
-ess
-and length that was originally passed to dma_map_phys().
-
->  		length -=3D len;
->  		/*
->  		 * DMABUF abuses scatterlist to create a scatterlist
-> @@ -25,8 +26,10 @@ static struct scatterlist *fill_sg_entry(struct scatte=
-rlist *sgl, size_t length,
->  		 * does not require the CPU list for mapping or unmapping.
->  		 */
->  		sg_set_page(sgl, NULL, 0, 0);
-
-[Severity: Critical]
-Since calc_sg_nents() calculates too few entries for lengths > 4096 on 32-b=
-it
-architectures due to integer wrapping, does this sg_set_page() unconditiona=
-lly
-dereference the NULL pointer returned by sg_next() when the undersized
-scatterlist allocation is exhausted?
-
-> -		sg_dma_address(sgl) =3D addr + (dma_addr_t)i * UINT_MAX;
-> +		sg_dma_address(sgl) =3D addr;
->  		sg_dma_len(sgl) =3D len;
-> +		addr +=3D len;
-> +		/* Unconditionally advance. On last segment, this becomes NULL */
->  		sgl =3D sg_next(sgl);
->  	}
-> =20
-> @@ -42,7 +45,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state=
- *state,
+> @@ -40,8 +41,12 @@ static unsigned int calc_sg_nents(struct dma_iova_stat=
+e *state,
+>  	size_t i;
 > =20
 >  	if (!state || !dma_use_iova(state)) {
->  		for (i =3D 0; i < nr_ranges; i++) {
-> -			unsigned int added =3D DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
-> +			unsigned int added =3D DIV_ROUND_UP(phys_vec[i].len, MAX_SG_ENT_SZ);
-
-[Severity: Critical]
-Does this calculation severely under-calculate or return 0 for the number of
-required SG entries on 32-bit architectures?
-
-On 32-bit architectures, MAX_SG_ENT_SZ expands to 0xFFFFF000. For lengths
-greater than 4096, DIV_ROUND_UP() expands to (len + 0xFFFFF000 - 1) / 0xFFF=
-FF000,
-which will wrap around the 32-bit addition and yield an artificially low or=
- zero
-number of entries.
+> -		for (i =3D 0; i < nr_ranges; i++)
+> -			nents +=3D DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
+> +		for (i =3D 0; i < nr_ranges; i++) {
+> +			unsigned int added =3D DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
 
 [Severity: High]
-This is a pre-existing issue, but does the error handling path following th=
-is
-allocation unmap uninitialized scatterlist entries if dma_map_phys() fails?
+This is a pre-existing issue, but could DIV_ROUND_UP wrap around on 32-bit
+platforms here?
 
-When dma_map_phys() fails, the err_unmap_dma path in dma_buf_phys_vec_to_sg=
-t()
-attempts cleanup:
+Since size_t is 32-bit on those architectures, phys_vec[i].len + UINT_MAX -=
+ 1
+wraps around the maximum 32-bit value. For any chunk length larger than a p=
+age,
+added will evaluate to 0, completely failing the DMA mapping.
 
-drivers/dma-buf/dma-buf-mapping.c:dma_buf_phys_vec_to_sgt() {
-    ...
+> +
+> +			if (check_add_overflow(nents, added, &nents))
+> +				return 0;
+> +		}
+
+[ ... ]
+
+> @@ -133,6 +139,8 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_b=
+uf_attachment *attach,
+>  	}
+> =20
+>  	nents =3D calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
+> +
+> +	/* sg_alloc_table will cleanly fail and return -EINVAL if nents =3D=3D =
+0 */
+>  	ret =3D sg_alloc_table(&dma->sgt, nents, GFP_KERNEL | __GFP_ZERO);
+>  	if (ret)
+>  		goto err_free_state;
+
+[Severity: High]
+This is a pre-existing issue, but is it possible this jump leaks the alloca=
+ted
+IOVA space?
+
+If sg_alloc_table fails, the jump to err_free_state frees dma->state, but
+doesn't call dma_iova_destroy().
+
+Also, since this patch updates this function, I noticed a few other
+pre-existing issues further down in dma_buf_phys_vec_to_sgt():
+
+[Severity: Critical]
+This is a pre-existing issue, but will the hardcoded zero offset overwrite
+mappings at the start of the IOVA space?
+
+In the loop later in this function:
+
+    } else if (dma_use_iova(dma->state)) {
+        ret =3D dma_iova_link(attach->dev, dma->state,
+                            phys_vec[i].paddr, 0,
+                            phys_vec[i].len, dir,
+                            DMA_ATTR_MMIO);
+
+Passing the literal 0 as the offset for every vector causes all physical
+vectors to be mapped to the exact same starting IOVA address. Should this u=
+se
+the accumulated mapped_len instead?
+
+[Severity: Critical]
+This is a pre-existing issue, but does this chunk-by-chunk unmap violate the
+DMA API?
+
+The code maps contiguous physical memory as a single chunk:
+
+    addr =3D dma_map_phys(attach->dev, phys_vec[i].paddr,
+                        phys_vec[i].len, dir, DMA_ATTR_MMIO);
+
+But then in fill_sg_entry(), it splits this mapping into multiple scatterli=
+st
+entries. During teardown in dma_buf_free_sgt() and err_unmap_dma, it unmaps
+these segmented pieces:
+
+    for_each_sgtable_dma_sg(&dma->sgt, sgl, i)
+        dma_unmap_phys(attach->dev, sg_dma_address(sgl),
+                       sg_dma_len(sgl), dir, DMA_ATTR_MMIO);
+
+Can this partial unmapping of a single mapped region corrupt IOMMU state
+or cause undefined behavior?
+
+[Severity: High]
+This is a pre-existing issue, but does the error path iterate over
+uninitialized scatterlist entries and leak IOVA space?
+
+Looking at err_unmap_dma:
+
 err_unmap_dma:
-    ...
-	} else {
-		for_each_sgtable_dma_sg(&dma->sgt, sgl, i)
-			dma_unmap_phys(attach->dev, sg_dma_address(sgl),
-				       sg_dma_len(sgl), dir, DMA_ATTR_MMIO);
-	}
-    ...
-}
+    if (!i || !dma->state) {
+        ; /* Do nothing */
 
-The for_each_sgtable_dma_sg macro internally shadows the outer failure inde=
-x i
-and initializes its own counter to 0. It then unconditionally iterates thro=
-ugh
-all sgt->nents allocated entries. Because the failure occurred early, trail=
-ing
-entries remain zero-initialized, causing dma_unmap_phys() to be invoked on
-addresses of 0.
+If an error occurs on the first loop iteration, the !i check safely returns=
+ but
+skips dma_iova_destroy(), leaking the IOVA space here as well.
+
+Furthermore, the loop down in that error path shadows the index variable:
+
+    } else {
+        for_each_sgtable_dma_sg(&dma->sgt, sgl, i)
+            dma_unmap_phys(...)
+    }
+
+Because for_each_sgtable_dma_sg uses i as its internal iterator (iterating
+up to dma->sgt.nents), it resets i to 0 and processes all entries, including
+uninitialized zero-elements, rather than stopping at the count of successfu=
+lly
+mapped segments.
+
+[Severity: High]
+This is a pre-existing issue, but would clearing orig_nents cause a silent
+memory leak?
+
+At the end of dma_buf_phys_vec_to_sgt():
+
+    /*
+     * No CPU list included =E2=80=94 set orig_nents =3D 0 so others can de=
+tect
+     * this via SG table (use nents only).
+     */
+    dma->sgt.orig_nents =3D 0;
+
+When dma_buf_free_sgt() eventually calls sg_free_table(), the underlying
+__sg_free_table() uses table->orig_nents to determine how many chunks to fr=
+ee.
+Since it is 0, won't the free loop terminate immediately and silently leak =
+the
+entire scatterlist memory allocation?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901170849.4052=
-816-1-dhu@x6u.co?part=3D2
+816-1-dhu@x6u.co?part=3D1
