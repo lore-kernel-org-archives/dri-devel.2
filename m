@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 370FEC624D9
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20FE2C624D6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2206710EE7E;
-	Tue,  1 Sep 2026 18:51:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1F8210EE7F;
+	Tue,  1 Sep 2026 18:51:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VZlo1zzx";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="F6VFv0Ym";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA9210EE77
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4FCF10EE7C
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288683;
- bh=L/eUqdDm7UuQMmbOXx6a5bJ0OkNkDIn5Lw3Or7I74pU=;
+ s=mail; t=1788288687;
+ bh=wy7odb4Bzb//d8gJuSExcEjuuO+HCRVariqZb2J3yPk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=VZlo1zzxfDRd3eEQGL8699EG8LFruC2GOajqi2RPfwLihseqxluHkk0nUWocaDv2d
- 0ApUtiAI69Lgs1pvmGmd9WuIu1STkNGRIqSUlmTT61/Gf2/15r5GvPr2nLw6o552vQ
- fSmLosCJCJphAUzEVz9N4Hk0Mg1AaDy8NYRtRACR6d2LSMel+QfHs9ICOTBzSPV/YK
- 0zWX9miJRbUWdgDZXY8rZ3Sy90JwxFfZdJGSe0Qb0L2HkRbRYlnQNWp20IKnO2/IeD
- fe22aSO+NpMqUPVGglsPWcHO+piHM8cE62j26EcnJpQmbiVr+aabpSdwW02yKtqfg0
- nrJQ8eUOtavBA==
+ b=F6VFv0YmuePKkcY3481GeflZG7GBxty8bPfGbnzRU7USpkJuPzSCybDWCnlxQQKQR
+ 3LCiXJwDwnUas7sfby6XfSawNTmF1UOHospBfUHFRJSJ4FhFRKn+5yP5LRbdYbmaOs
+ GfUYobJ+rYpPqdpHcmLDzVaW4nBg4hwoR3vu3gzgi/PoK0ytM0V6seztFGmyUSTag9
+ wc8kBmLLmq62Un5Y3w9XeV8pdzwn+577m9j2CH+q7Vujkc6WlTgJpotBa/cojkX7Yu
+ j9L3Mf3ywqkfE2zwuavxQmKVIZmVeIOq7me88Az7oyCmYIPA7kq35r6TGNhITM7GGg
+ BDmm7v9EC9LjQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C08B317E3C89;
- Tue, 01 Sep 2026 20:51:23 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 62B3817E3C93;
+ Tue, 01 Sep 2026 20:51:27 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:22 +0300
-Subject: [PATCH v11 58/74] drm/tests: edid: Add 4K@60Hz EDID with 600MHz TMDS
+Date: Tue, 01 Sep 2026 21:51:27 +0300
+Subject: [PATCH v11 63/74] drm/tests: connector: Add HDMI
+ max_tmds_char_rate init coverage
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-58-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-63-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -81,199 +82,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new test EDID advertising the following capabilities:
+Add KUnit tests for the new drmm_connector_hdmi_init() extension, which
+infers the connector's max_tmds_char_rate from the HDMI specification
+version advertised by the driver.  Also validate a driver-capped
+max_tmds_char_rate against the version-inferred limit: override below,
+accept at, reject above, reject when no version is advertised.
 
-Max resolution: 3840x2160@60Hz with RGB, YUV444, YUV422, YUV420
-Max BPC:        16
-Max TMDS clock: 600 MHz
-
-This is needed to exercise the new HDMI infrastructure that decides
-whether scrambling needs to be enabled for a given display mode and
-to validate that high-rate modes are properly rejected/accepted
-depending on the source/sink scrambling capability.
-
-The EDID is derived from test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz
-with the following changes:
-
-- Upgraded the first DTD from 3840x2160@30 (297 MHz) to 3840x2160@60
-  (594 MHz).  The H/V totals (4400x2250) and porches already match the
-  HDMI 2.0 4K@60Hz standard timing, so only the pixel clock had to be
-  bumped.
-- Widened Display Range Limits descriptor to cover the new timing, i.e.
-  24-140 kHz H, max dotclock 600 MHz.
-- Updated CTA-861 Video Data Block to advertise VIC 97 (4K@60Hz) instead
-  of VIC 95 (4k30).
-- Bumped HF-VSDB Max TMDS Character Rate to 600 MHz, keeping
-  SCDC_Present set so that the sink advertises scrambling support.
-- Cleared HDMI VSDB Max TMDS clock byte, as required by HDMI 2.0 when
-  the HF-VSDB declares a Max TMDS Character Rate above 340 MHz.
-- Provided a Video Capability Data Block advertising selectable RGB and
-  YCC quantization range plus underscan for IT/CE formats; also set the
-  'IT Video Formats Underscanned' bit in the CTA-861 extension header to
-  match.
-- Aligned base block image size with the DTD (160x90 cm) and replaced
-  the bogus 'Week of Manufacture = 0xff' with the Model Year code, both
-  fixing inherited EDID conformity warnings.
-- Dropped the empty YCbCr 4:2:0 Video Data Block inherited from the
-  parent EDID, which is flagged as a failure by edid-decode v1.33.0
+Since HDMI_VERSION_2_0 requires scrambler callbacks to be provided, add
+a dummy_hdmi_funcs_scrambler instance for tests that initialize HDMI 2.0
+connectors.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_kunit_edid.c | 129 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tests/drm_kunit_edid.h |   1 +
- 2 files changed, 130 insertions(+)
+ drivers/gpu/drm/tests/drm_connector_test.c | 179 +++++++++++++++++++++++++++++
+ 1 file changed, 179 insertions(+)
 
-diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.c b/drivers/gpu/drm/tests/drm_kunit_edid.c
-index c807ae0d9faa..673a0ea8c2ae 100644
---- a/drivers/gpu/drm/tests/drm_kunit_edid.c
-+++ b/drivers/gpu/drm/tests/drm_kunit_edid.c
-@@ -990,6 +990,135 @@ const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index c53ccce21a42..17242d1c1b16 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -54,6 +54,34 @@ static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs = {
+ 	},
  };
- EXPORT_SYMBOL(test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
+ 
++static int accept_scrambler_enable(struct drm_connector *connector)
++{
++	return 0;
++}
++
++static int accept_scrambler_disable(struct drm_connector *connector)
++{
++	return 0;
++}
++
++static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs_scrambler = {
++	.vendor = "Vendor",
++	.product = "Product",
++	.supported_hdmi_ver = HDMI_VERSION_2_0,
++	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++	.max_bpc = 8,
++	.scrambler_enable = accept_scrambler_enable,
++	.scrambler_disable = accept_scrambler_disable,
++	.avi = {
++		.clear_infoframe = accept_infoframe_clear_infoframe,
++		.write_infoframe = accept_infoframe_write_infoframe,
++	},
++	.hdmi = {
++		.clear_infoframe = accept_infoframe_clear_infoframe,
++		.write_infoframe = accept_infoframe_write_infoframe,
++	},
++};
++
+ static const struct drm_connector_funcs dummy_funcs = {
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+@@ -1244,6 +1272,151 @@ KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_type_invalid,
+ 		  drm_connector_hdmi_init_type_invalid_tests,
+ 		  drm_connector_hdmi_init_type_desc);
  
 +/*
-+ * Max resolution: 3840x2160@60Hz with RGB, YUV444, YUV422, YUV420
-+ * Max BPC:        16 for all modes
-+ * Max TMDS clock: 600 MHz
-+ *
-+ * edid-decode (hex):
-+ *
-+ * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
-+ * 00 23 01 03 80 a0 5a 78 0f ee 91 a3 54 4c 99 26
-+ * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
-+ * 01 01 01 01 01 01 08 e8 00 30 f2 70 5a 80 b0 58
-+ * 8a 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
-+ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
-+ * 55 18 8c 3c 00 0a 20 20 20 20 20 20 00 00 00 10
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 a9
-+ *
-+ * 02 03 28 b1 41 61 6c 03 0c 00 10 00 78 00 20 00
-+ * 00 01 03 6d d8 5d c4 01 78 80 07 00 00 00 00 00
-+ * 00 e2 00 ca e3 0f 01 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 54
-+ *
-+ * ----------------
-+ *
-+ * Block 0, Base EDID:
-+ *   EDID Structure Version & Revision: 1.3
-+ *   Vendor & Product Identification:
-+ *     Manufacturer: LNX
-+ *     Model: 52
-+ *     Made in: 2025
-+ *   Basic Display Parameters & Features:
-+ *     Digital display
-+ *     Maximum image size: 160 cm x 90 cm
-+ *     Gamma: 2.20
-+ *     RGB color display
-+ *     Default (sRGB) color space is primary color space
-+ *     First detailed timing is the preferred timing
-+ *     Supports GTF timings within operating range
-+ *   Color Characteristics:
-+ *     Red  : 0.6396, 0.3300
-+ *     Green: 0.2998, 0.5996
-+ *     Blue : 0.1503, 0.0595
-+ *     White: 0.3125, 0.3291
-+ *   Established Timings I & II:
-+ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
-+ *   Standard Timings: none
-+ *   Detailed Timing Descriptors:
-+ *     DTD 1:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz (1600 mm x 900 mm)
-+ *                  Hfront  176 Hsync  88 Hback  296 Hpol P
-+ *                  Vfront    8 Vsync  10 Vback   72 Vpol P
-+ *     Display Product Name: 'Test EDID'
-+ *     Display Range Limits:
-+ *       Monitor ranges (GTF): 24-85 Hz V, 24-140 kHz H, max dotclock 600 MHz
-+ *     Dummy Descriptor:
-+ *   Extension blocks: 1
-+ * Checksum: 0xa9
-+ *
-+ * ----------------
-+ *
-+ * Block 1, CTA-861 Extension Block:
-+ *   Revision: 3
-+ *   Underscans IT Video Formats by default
-+ *   Supports YCbCr 4:4:4
-+ *   Supports YCbCr 4:2:2
-+ *   Native detailed modes: 1
-+ *   Video Data Block:
-+ *     VIC  97:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz
-+ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-+ *     Source physical address: 1.0.0.0
-+ *     DC_48bit
-+ *     DC_36bit
-+ *     DC_30bit
-+ *     DC_Y444
-+ *     Maximum TMDS clock: 0 MHz
-+ *     Extended HDMI video details:
-+ *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
-+ *     Version: 1
-+ *     Maximum TMDS Character Rate: 600 MHz
-+ *     SCDC Present
-+ *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     VRRmin: 0 Hz
-+ *     VRRmax: 0 Hz
-+ *   Video Capability Data Block:
-+ *     YCbCr quantization: Selectable (via AVI YQ)
-+ *     RGB quantization: Selectable (via AVI Q)
-+ *     PT scan behavior: No Data
-+ *     IT scan behavior: Always Underscanned
-+ *     CE scan behavior: Always Underscanned
-+ *   YCbCr 4:2:0 Capability Map Data Block:
-+ *     VIC  97:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz
-+ * Checksum: 0x54  Unused space in Extension Block: 87 bytes
-+ *
-+ * ----------------
-+ *
-+ * edid-decode 1.33.0
-+ *
-+ * EDID conformity: PASS
++ * Test that the registration of an HDMI connector without an explicit max TMDS
++ * character rate being provided succeeds, and the connector limit is inferred
++ * from the advertised HDMI specification version.
 + */
-+const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz[] = {
-+	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x23, 0x01, 0x03, 0x80, 0xa0, 0x5a, 0x78,
-+	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
-+	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x08, 0xe8, 0x00, 0x30, 0xf2, 0x70,
-+	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
-+	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
-+	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
-+	0x55, 0x18, 0x8c, 0x3c, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-+	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xa9, 0x02, 0x03, 0x28, 0xb1,
-+	0x41, 0x61, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x00, 0x20, 0x00,
-+	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x78, 0x80, 0x07, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0xe2, 0x00, 0xca, 0xe3, 0x0f, 0x01, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x54,
++struct drm_connector_hdmi_init_max_tmds_rate_inferred_case {
++	const char *desc;
++	enum hdmi_version ver;
++	unsigned long long expected;
 +};
-+EXPORT_SYMBOL(test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz);
 +
- MODULE_AUTHOR("Maxime Ripard <mripard@kernel.org>");
- MODULE_DESCRIPTION("EDID Definitions for KUnit tests");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.h b/drivers/gpu/drm/tests/drm_kunit_edid.h
-index 28b4df93a555..fb5b0295e35e 100644
---- a/drivers/gpu/drm/tests/drm_kunit_edid.h
-+++ b/drivers/gpu/drm/tests/drm_kunit_edid.h
-@@ -12,5 +12,6 @@ extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[256];
- extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[256];
- extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[256];
- extern const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[256];
-+extern const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz[256];
++static void drm_test_connector_hdmi_init_max_tmds_rate_inferred(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *params =
++		test->param_value;
++	int ret;
++
++	priv->hdmi_funcs = params->ver < HDMI_VERSION_2_0 ?
++				dummy_hdmi_funcs : dummy_hdmi_funcs_scrambler;
++	priv->hdmi_funcs.supported_hdmi_ver = params->ver;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			params->expected);
++}
++
++static const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case
++drm_connector_hdmi_init_max_tmds_rate_inferred_tests[] = {
++	{ "unknown",	HDMI_VERSION_UNKNOWN,	0 },
++	{ "1.0",	HDMI_VERSION_1_0,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.2",	HDMI_VERSION_1_2,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.3",	HDMI_VERSION_1_3,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.4",	HDMI_VERSION_1_4,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "2.0",	HDMI_VERSION_2_0,	HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ },
++};
++
++static void drm_connector_hdmi_init_max_tmds_rate_inferred_desc(
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *t,
++	char *desc)
++{
++	strscpy(desc, t->desc, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_max_tmds_rate_inferred,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_tests,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_desc);
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate strictly below the version-inferred limit succeeds, and
++ * the connector limit is overridden.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_override(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_4;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate equal to the version-inferred limit succeeds.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_at_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_2;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate that exceeds the limit inferred from the advertised HDMI
++ * specification version fails.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_off_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_2;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a non-zero max
++ * TMDS character rate without an HDMI specification version fails, as the
++ * version-inferred limit defaults to zero and any positive override would
++ * exceed it.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_no_version(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_UNKNOWN;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
+ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_valid),
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_bpc_8),
+@@ -1268,6 +1441,12 @@ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 			 drm_connector_hdmi_init_type_valid_gen_params),
+ 	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_type_invalid,
+ 			 drm_connector_hdmi_init_type_invalid_gen_params),
++	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_max_tmds_rate_inferred,
++			 drm_connector_hdmi_init_max_tmds_rate_inferred_gen_params),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_override),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_at_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_off_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_no_version),
+ 	{ }
+ };
  
- #endif // DRM_KUNIT_EDID_H_
 
 -- 
 2.55.0
