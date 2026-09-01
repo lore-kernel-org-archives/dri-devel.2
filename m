@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C41EC624D0
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FD6C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BEE610EE7A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C8010EE78;
 	Tue,  1 Sep 2026 18:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ls9nlQpn";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dIctpRAQ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACC5A10EE75
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E22610EE70
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288682;
- bh=lZUSDt3QSXeFHF6VV6Oc9j8qitYrzw5Nsf6oI2hLSn0=;
+ s=mail; t=1788288680;
+ bh=9ULxXAJ8Lgf9TVfLmpWCFcvW40GpvaJh+iJkfEerDYw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Ls9nlQpnLqPTXQcg89AYQ6rxTbLiRLtJ1kMmTqWladWfS/RbOyvkx5a45wiBHVx5I
- fBRmwnL802tyz1RaJMscAzZiax/5HvDoGiWQT4KCx+3aFpg4avHTyQjI2NlkWD0LKE
- K2r+W3ltMnRJHVTJ+x4ZHX8WBwqYdPscWBS9VU6xrcIm4ooqWZApU/kHsTGxYiYUB0
- seefaTRZA9lNnydjbM1jDOR5KyOG9hVNSFPUc14+HLWBvXlsqeWdRn1veFNZ3iFP0B
- NN4KQZx1Whw78XCY4vOEBMtlXcbsh9LqNgrJCqimMhH9ZEvef6Sb2bYZGo0zORo3TP
- wZTa0xJOj/DPw==
+ b=dIctpRAQoiG69X0o4pnh6hUlZznNakZMsVMx/PQqn7QpfOIcvUjBYXGqq9map+tAC
+ 0a8IGYPL4TM8X4P9TM5cyqswNhCPELserhcjhAW3rEr2j+F/ls/pIsu6qNtTLAdzIW
+ yKwxGICO/4gamiPdsn7s9YXyiFsqtnfmb1gzzkBczuBvgOWTbMwWzVM6GEBTwRHQBv
+ W4sZGv4JfqLcx1V0p3RqXaaecmm/aNFvQ8eexM9nml4FBM4m3G2RQYvqU89BHc6yNw
+ fzzUP0lctPRzfYQN6Li37q2DtWjcQtxUFf2GRKrWRE9UWNj4amM69x+b9zgiuDkeMX
+ NgqMUBbawukSw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E34D17E3C85;
- Tue, 01 Sep 2026 20:51:22 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1E37F17E3C79;
+ Tue, 01 Sep 2026 20:51:20 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:20 +0300
-Subject: [PATCH v11 56/74] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4
+Date: Tue, 01 Sep 2026 21:51:17 +0300
+Subject: [PATCH v11 53/74] drm/bridge: ite-it6263: Advertise HDMI 1.3
  capabilities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-56-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-53-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,46 +82,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-supported HDMI version.  This is not yet enforced, but will become
-mandatory once the migration to the new caps-based HDMI connector
-initialization API is completed.
+Bridges using DRM_BRIDGE_OP_HDMI are expected to provide the supported
+HDMI version.  This is not enforced yet, but will become mandatory once
+the migration to the caps-based HDMI connector initialization API is
+complete.
 
-The RK3066 HDMI TX supports HDMI 1.4a, as described in commit
-f84d3d37b7fb ("drm: rockchip: introduce rk3066 hdmi").  However, the
-driver does not currently enforce a maximum TMDS character rate, it only
-filters non-CEA modes and excludes VIC 1 (640x480) via the .mode_valid
-callback.
+Advertise HDMI 1.3 support for IT6263, covering the 225 MHz TMDS
+character rate currently documented by the driver, which is within the
+HDMI 1.3 limit of 340 MHz.  Additionally, keep the stricter 150 MHz
+effective mode limit by setting max_tmds_char_rate from
+MAX_PIXEL_CLOCK_KHZ.
 
-Advertise HDMI 1.4 support for now so that modes exceeding the 340 MHz
-TMDS limit are rejected by the core.
+The existing .hdmi_tmds_char_rate_valid() hook checks both the pixel
+clock and TMDS character rate.  Since the bridge only supports 8 bpc
+RGB444, these are equivalent for supported modes, making the 225 MHz
+TMDS rate check unreachable once the 150 MHz pixel-clock limit is
+applied.
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+drm_bridge_connector_atomic_check() invokes
+drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
+computed TMDS character rate exceeds the connector's max_tmds_char_rate
+before invoking the driver's .tmds_char_rate_valid hook.  Since
+max_tmds_char_rate now carries the existing effective limit,
+it6263_hdmi_tmds_char_rate_valid() is redundant.  Drop it.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rk3066_hdmi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/bridge/ite-it6263.c | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-index f28d6a883e09..f748700b0ba6 100644
---- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-+++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
-@@ -14,6 +14,7 @@
- #include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
+index 550999491086..e8e0197171e1 100644
+--- a/drivers/gpu/drm/bridge/ite-it6263.c
++++ b/drivers/gpu/drm/bridge/ite-it6263.c
+@@ -738,20 +738,6 @@ it6263_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ 	return input_fmts;
+ }
  
- #include <linux/clk.h>
-+#include <linux/hdmi.h>
- #include <linux/mfd/syscon.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-@@ -712,6 +713,7 @@ rk3066_hdmi_register(struct drm_device *drm, struct rk3066_hdmi *hdmi)
- 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 	hdmi->bridge.vendor = "Rockchip";
- 	hdmi->bridge.product = "RK3066 HDMI";
-+	hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
+-static enum drm_mode_status
+-it6263_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+-				 const struct drm_display_mode *mode,
+-				 unsigned long long tmds_rate)
+-{
+-	if (mode->clock > MAX_PIXEL_CLOCK_KHZ)
+-		return MODE_CLOCK_HIGH;
+-
+-	if (tmds_rate > MAX_HDMI_TMDS_CHAR_RATE_HZ)
+-		return MODE_CLOCK_HIGH;
+-
+-	return MODE_OK;
+-}
+-
+ static int it6263_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
+ {
+ 	struct it6263 *it = bridge_to_it6263(bridge);
+@@ -821,7 +807,6 @@ static const struct drm_bridge_funcs it6263_bridge_funcs = {
+ 	.detect = it6263_bridge_detect,
+ 	.edid_read = it6263_bridge_edid_read,
+ 	.atomic_get_input_bus_fmts = it6263_bridge_atomic_get_input_bus_fmts,
+-	.hdmi_tmds_char_rate_valid = it6263_hdmi_tmds_char_rate_valid,
+ 	.hdmi_clear_avi_infoframe = it6263_hdmi_clear_avi_infoframe,
+ 	.hdmi_write_avi_infoframe = it6263_hdmi_write_avi_infoframe,
+ 	.hdmi_clear_hdmi_infoframe = it6263_hdmi_clear_hdmi_infoframe,
+@@ -883,6 +868,8 @@ static int it6263_probe(struct i2c_client *client)
+ 	it->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+ 	it->bridge.vendor = "ITE";
+ 	it->bridge.product = "IT6263";
++	it->bridge.supported_hdmi_ver = HDMI_VERSION_1_3;
++	it->bridge.max_tmds_char_rate = 1000ULL * MAX_PIXEL_CLOCK_KHZ;
  
- 	hdmi->bridge.ddc = rk3066_hdmi_i2c_adapter(hdmi);
- 	if (IS_ERR(hdmi->bridge.ddc))
+ 	return devm_drm_bridge_add(dev, &it->bridge);
+ }
 
 -- 
 2.55.0
