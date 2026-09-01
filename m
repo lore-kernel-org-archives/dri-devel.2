@@ -4,108 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB1FFC79F81
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8B52C624DE
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0258A10F3D7;
-	Thu,  3 Sep 2026 07:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF4810F3D3;
+	Thu,  3 Sep 2026 07:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=axis.com header.i=@axis.com header.b="L75OBKVA";
+	dkim=pass (2048-bit key; unprotected) header.d=x6u.co header.i=@x6u.co header.b="OAKDrtxa";
 	dkim-atps=neutral
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012070.outbound.protection.outlook.com [52.101.66.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC8E10ECA4
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:54:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iICdu8dsGybhoDIX9ux18lWW5SHq1uK1vxOLgLIbL7ExMDhXJjS4qEKLz9emqEajd1CQk7wZ+K9DiN8f5AhrE47RLqgw38KwbATiVrMAniGF1NlV7UoSWv78YmQ3Inq7cYr1RYwFx951l8BsNbt9Io2xHCb9sGnKIcdoIE50nDaHq1e6PePQbfXxHdGGAMUNfphMiqDz0pb8E6lazxKsQWn5OdaX77XgsqBveR6hJIChgfmiHj7XwNIn6Rc48j3MMdHytIzU65OMTVh1jgfNQ5pkuvZelLXv2tmJgbi7uhDBmkGBcoUUbjvhPLEGCu3PQZCrtPhQFE2iaQIzay5ZCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ktsc41aARCSkkLRkAvQ1RTaErJazSSAIy4STJje0WNA=;
- b=qR2PJIn7ivRO4nMr0c/9/M4+ThBb9h7y5FKONOJOEJA+m0oElQ4UZcMQ51hHswRhbgEcZdzox65a6iHaJsN45t3J0NOMCDzi0TH+Bruwn5BM3xR0oSS8ACZnrFCJR6JA5qKLDN3YtMnaw/9PSl9bJ5OlDD8AnzFgS5JZGCHr9Oiu1VCGrAxp5KxfVy4y300btukeT52CkrjWm25Tq0PszRJQfPfQFpW2NCTZJhFtMI4T/LEavCdsryvm3jsOCFOxR3yMsFKyfyL8KX0hvBqNc+fytlw2/iysoNrtayMXcCyeyDlGofBBS/a7vOrw8DmZpoQFe6bHviZ0P9lpJHNhtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=baylibre.com smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ktsc41aARCSkkLRkAvQ1RTaErJazSSAIy4STJje0WNA=;
- b=L75OBKVAkoHbytPesCSxgiNnkrMl1eh//xdDoMTfGdA1iqHwu+ZFfmhnd4Kmdb8DVs3H9/gE5hmP0L+kEvgxrQEABeXix+CGPeO/YeBW75B+I3mmWjObJSOAdASvW4qSp849N7N39pSD4agOpCKe8p1Lo6UZVmU7KLKMYRQznPQ=
-Received: from MM0P280CA0091.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:9::29) by
- DU2PR02MB10208.eurprd02.prod.outlook.com (2603:10a6:10:46f::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Tue, 1 Sep 2026 11:54:28 +0000
-Received: from CPH1EPF0000051F.eurprd04.prod.outlook.com
- (2603:10a6:190:9:cafe::3a) by MM0P280CA0091.outlook.office365.com
- (2603:10a6:190:9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
- Sep 2026 11:54:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- CPH1EPF0000051F.mail.protection.outlook.com (10.167.241.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 11:54:28 +0000
-Received: from se-mail11w.axis.com (10.20.40.11) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 1 Sep
- 2026 13:54:26 +0200
-Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Tue, 1 Sep 2026 13:54:26 +0200
-Received: from pc63130-2524.se.axis.com (pc63130-2524.se.axis.com
- [10.92.173.61])
- by se-intmail01x.se.axis.com (Postfix) with ESMTP id 301FC18C6;
- Tue,  1 Sep 2026 13:54:26 +0200 (CEST)
-Received: by pc63130-2524.se.axis.com (Postfix, from userid 18369)
- id 2BAAE60867D7; Tue,  1 Sep 2026 13:54:26 +0200 (CEST)
-From: Tobias Johansson <tobias.johansson@axis.com>
-Subject: [PATCH RESEND 0/2] drm/tiny: sharp-memory: fix TX buffer
- corruption on partial update
-Date: Tue, 1 Sep 2026 13:53:22 +0200
-Message-ID: <20260901-flickering-v1-0-eaf7bbf9c000@axis.com>
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6211E10EDF7
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:09:02 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-85aeb506b78so3217217b3.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 10:09:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=x6u.co; s=google; t=1788282541; x=1788887341; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=b1WtM+yGxMA6nGtYPUfHvkwWZoT/FUK2b2ZzSHby/Yo=;
+ b=OAKDrtxaa6wwVVNiw5j1b0HiQfzT9HL+EMXipxeVyrRbkiSuqgmJMTF0h16pDp3b1c
+ 6lLMvHKGv/xE8+HU2lp2Yf6aX4QJ0AZGnMY/7D67FY7jrJdzEA1JRVOpYV3A7EbuavoH
+ aEg4YRXkXh7DhcUGNoIud7Xb7WYCH3GFlM/Y3OFQx6WNNnwWX1GdlXtJjVkb9tLfFtwj
+ /QbGPUlvddXKy1zXnyrgtrQhxz2GL5vDM6BFQiik+bzXODFsah3algjp9ZoBnL5NkOmR
+ D+DbqFIuZyfRtGZkRs15am6uM5NfruZDuiqOjyLvaasREEj8Xj6NeeBpwoSGpWYuP0fN
+ c2UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788282541; x=1788887341;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=b1WtM+yGxMA6nGtYPUfHvkwWZoT/FUK2b2ZzSHby/Yo=;
+ b=IXfM8m2YC30sVE7KGZ6wDMOVj3g9HE9uefMWjktlK1ExRI6vpZDfO1BZTFk2HqHP8X
+ IlnxcbHPXMo0KiYOZS9/cZA7RDnOugKWGc8ppk7bLW3zoQTHFpmgGm/JY4AIDunHRaKZ
+ 0HIFcOhmJLLewtqk4cA4JHufeUDrKISaFtfU8Nj4OGe1oMeObO8jpL3d1oF2BgoAYhMa
+ qXZSSqcOTo1hVFIme8GXgzvuLtlAwoEzVcHNfRI1pXrEmDkABk9o1XCrbHLMOH5rOJkT
+ F+z84aqPnnYBIfSpLLE7ZJMJLweQVl1aD1aciP+4+iSnZemNdSo6+Tzkhw3Cs+0X9Ld5
+ mh9w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwhS8+8J/9I+S6Hg5oewFdgxw4KRC7CsDusKPtaRVYg0kiFCm+987mIcEhial6qZyw6ngcATj1txBs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mB1FjUkHy5XYFmVhq5DttWyaTjQ2Fm8sMTY6Trfdir70lJ0DWW
+ kU7/jSG9xi2PH9mfNmmGIdLIPQ4FduoiichpHYy4hHq8hqlNt6u5Qqsi+zWSI5oF6orG
+X-Gm-Gg: AYBFou1pCELj6p6PAIa5Ru1QORGxBWJvS9/gOeyOCOuB0QT4hzO24xujevnLgcAzfsu
+ +yMJleGIQuTLkyXc4dH4TMEZe0VF2GAXG7yDABqRuxyjJT/0XHAxDn+34/uC6kdYfyaktLp87Va
+ cVR6j51iwt30cwcPAg4ZW4HSI0WSPmTCgiXf44DdMCblS/Rl21n5qxsmGyK4g4QG/eMhaBvdV8C
+ zu9SxRAAc8tThIM74Dnxoaj0uFnEPS6kyRLhuRxqb/Y1rUTOi/P382UOIAbFzoA9MBoTEGiniJh
+ nMw7dFE6k8YRB02D6OCJU1O8KoVLlPYY0fTJqQtPHYy3LcER1gYXv12Fnu7p4+fCYwa3X/daHcm
+ hd4awUMeOtfL7EXtPO7Icwx0l3j7+xNaoZILfDDN8YzFakHrP1mrfQycQLPE29CFY+cyoyrq0tW
+ xH46MBYx9KCjhD1ytB8IxwMZzSvwc0joCjQ49T5tcSLOphhRH4miBJjipyuhRstiKwWoDUfIrZe
+ dkLXBKfX7N4bOmprz0KJLRqu/6uQ441CPqi8P6g8nCMZazyc+r4Pxq+gYc8Pa/W/MXAoJ72e3k8
+ ig==
+X-Received: by 2002:a05:690c:c3f1:b0:81e:98d3:cac7 with SMTP id
+ 00721157ae682-8686f52fe19mr38821267b3.12.1788282539975; 
+ Tue, 01 Sep 2026 10:08:59 -0700 (PDT)
+Received: from worldpeace10.c.googlers.com.com
+ (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-85e65f146edsm79761867b3.32.2026.09.01.10.08.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 10:08:59 -0700 (PDT)
+From: David Hu <dhu@x6u.co>
+To: sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: alex@shazbot.org, ankita@nvidia.com, chriscli@google.com,
+ david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+ kevin.tian@intel.com, kpberry@google.com, leon@kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+ sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
+ xuehaohu@google.com
+Subject: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Date: Tue,  1 Sep 2026 17:08:47 +0000
+Message-ID: <20260901170849.4052816-1-dhu@x6u.co>
+X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-To: Alex Lanzano <lanzano.alex@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, "Mehdi
- Djait" <mehdi.djait@bootlin.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Tobias
- Johansson" <tobias.johansson@axis.com>, <kernel@axis.com>
-X-Mailer: b4 0.14.3
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF0000051F:EE_|DU2PR02MB10208:EE_
-X-MS-Office365-Filtering-Correlation-Id: c65681f6-0b4b-472e-e5d3-08df081fc6ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|23010399003|82310400026|376014|36860700016|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: /qgFMQH5BAqsJz7jws+WK7Z1F+jg72TPi9824Y/YbP2ojUCDbJqOMxJTphtDUZ7Ppghmq6CyGzyqfeOSWXgAlml5Z4OGLImGnAInjJhCasRevEbZubV3s1b72s5tUNtjxWy8pecLde/NMYBsKyGlvjKXO0At+vHr/UneJAUTPklXJCA+gvDx2JvpuwfdGrME4kxKZWcm2BZWhJIZ9XC1JYLanYQ8YOba3PZGa3U2ycItYJ+2jhHm/A9P1E4p08zbwzAxx1b70NOs+BBMv3FUgr3TYqxaA0s+Sr+W3i1Fqu8Rpccshezf4YZb4+9iJhX1sOnCUI7iWGRs0brgCFPb181flsjSGNCoWIim0iGO/VhAN2N9jEA9eg9HNGfnP5BVFHZCqYx2V0imI3tUhxUD1ZjO+P69XPAdWThM1bX0WfFxcx+1N9LwCRYDLWaDeeVKFFL09AfUKeCKuDd0RZrgfAIOybpZRxYrOOXzge7faXAqhwX7vQ9SmC5hlIgmDaovxI5HGgjbt6NNhPnyq1wBZdxrFfQMlhJL7UM5SxJ4RoAYbDjSsR0k9dfXEcqGJwqhEGbjrYk00OxJzTvuaANB/1hMvx+kLKMy3NI/Mm5Sb0kJsL9vvKWn7jZH34OCuSE68nDk+rfTHygQvL+4wiEvIwenj17rIMHmp/9ZbuWU6qjS00jHvvli5cVnsGVu0eDD5nPM3YFzbYbKy0sns+X8+A==
-X-Forefront-Antispam-Report: CIP:195.60.68.100; CTRY:SE; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.axis.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(23010399003)(82310400026)(376014)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yr1Q6dZ5P6SPAovGemHjE/IJXSPk955pE6Gw29AoxWCVOXP+7wX1ag3BT9FepkhSJ1DNqdw7juMcUKNjZOqTe6Yzct416lpgidax9QyL8uxSnntbsbeISeFCUc+sqxyPt2yvcig5t1dpcLgJf7e+vcbdyv28o1AQi9ezrdGmReQYApRp6Uzg0lAH/xDcFJ0uIdWCdn780Z2cxlFQaYUXYYoWFl8XEXwty4885yqwrfFdEClCM0Zx5kmLAJFmwItFOpQopUrn3fEFDOnQNS/L7rmxBuF5zE9SzDe6i7jJ28/D6cLr1G6uPaqJLX808KGGbvfmo3mYkTg95wDSRKOywsWSRg2y1gNyVVDwsskzrGMON2nY8SZxgtenF7gJp6hXfUF130QDLeYEdVI5ZxuIJWLRDekpNTb+30sLkcdeIgS4UyKRnbK2r88jBT+tTUEL
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:54:28.0862 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c65681f6-0b4b-472e-e5d3-08df081fc6ba
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af; Ip=[195.60.68.100];
- Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource: CPH1EPF0000051F.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR02MB10208
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -122,30 +97,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Users running applications that submit partial framebuffer updates
-(such as LVGL with dirty-region tracking) can observe persistent
-flickering on the display when using animations.
+From: David Hu <xuehaohu@google.com>
 
-The flickering is caused by two bugs that corrupt the TX buffer on
-partial updates. The first patch fixes incorrect line address
-assignment in sharp_memory_set_tx_buffer_addresses(). The second
-patch fixes stale data transmission in
-sharp_memory_update_display(). Both patches are needed to fully
-eliminate the flickering.
+This series address two related issues in scatter-gather mapping,
+specifically for the MMIO based dma-buf mapping. The fixes ensure
+sgt mapping is correct, and proper for large MMIO regions.
 
-Signed-off-by: Tobias Johansson <tobias.johansson@axis.com>
----
-Tobias Johansson (2):
-      drm/tiny: sharp-memory: fix line address assignment on partial update
-      drm/tiny: sharp-memory: avoid transmitting stale TX buffer data
+Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+(Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+phys vec to sgt)
+https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
 
- drivers/gpu/drm/tiny/sharp-memory.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
----
-base-commit: ba683f774299d89d17cde03bb1bdb13f3513cd20
-change-id: 20260316-flickering-f9df09243d2f
+Patch 2 Splits sgl by largest page aligned chunk
+(Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
 
-Best regards,
+Changes in v8:
+ - Combined the two patches into one unified series to avoid merge
+   conflicts.
+ - Collected Reviewed-by tag from Leon Romanovsky for Patch 2.
+
+David Hu (2):
+  dma-buf: Fix silent overflow for phys vec to sgt
+  dma-buf: Split sgl by largest page-aligned chunk
+
+ drivers/dma-buf/dma-buf-mapping.c | 31 +++++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
+
 -- 
-Tobias Johansson <tobias.johansson@axis.com>
+2.55.0.897.gb25b4bd76c-goog
 
