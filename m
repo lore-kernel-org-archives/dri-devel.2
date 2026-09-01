@@ -4,81 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8B52C624DE
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9309AC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF4810F3D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCE7910F3D5;
 	Thu,  3 Sep 2026 07:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=x6u.co header.i=@x6u.co header.b="OAKDrtxa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ASNYJgSu";
 	dkim-atps=neutral
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6211E10EDF7
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:09:02 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-85aeb506b78so3217217b3.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 10:09:02 -0700 (PDT)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C02B10EF2B
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 20:19:54 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-8485b358552so251287b3a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 13:19:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=x6u.co; s=google; t=1788282541; x=1788887341; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788293993; x=1788898793; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=b1WtM+yGxMA6nGtYPUfHvkwWZoT/FUK2b2ZzSHby/Yo=;
- b=OAKDrtxaa6wwVVNiw5j1b0HiQfzT9HL+EMXipxeVyrRbkiSuqgmJMTF0h16pDp3b1c
- 6lLMvHKGv/xE8+HU2lp2Yf6aX4QJ0AZGnMY/7D67FY7jrJdzEA1JRVOpYV3A7EbuavoH
- aEg4YRXkXh7DhcUGNoIud7Xb7WYCH3GFlM/Y3OFQx6WNNnwWX1GdlXtJjVkb9tLfFtwj
- /QbGPUlvddXKy1zXnyrgtrQhxz2GL5vDM6BFQiik+bzXODFsah3algjp9ZoBnL5NkOmR
- D+DbqFIuZyfRtGZkRs15am6uM5NfruZDuiqOjyLvaasREEj8Xj6NeeBpwoSGpWYuP0fN
- c2UQ==
+ bh=0PiVP95ao7yXW/OZhxmQ9Mbj44WmjmsyxLnkqleNrz8=;
+ b=ASNYJgSuneDr/P42OnU+V7Y4QzDi8Xk4wRqwtpJhliSiHiyPYSU/4WkA+Awq0MB3sm
+ M58zAlyQziL1jU/skziyDazjJWZ/1iyRa1x+Smu4R3fiKv7rMry2E+PMMZQwCgclRgSv
+ 90r76miFBPi1Bfr/NqiwX/qnr+wNXQXbgMw1sb2i9/Ph3I32gtwJ8wnA2pDXAxnKF5tQ
+ CLo8acKn7Hc27fckFOS3fHkeQB3FNWPV6cyyvGWaUIltDyIcd2jAzzydoP5n7OE8g5qZ
+ 4kEKCltHYvF+nN2jsRl7YT/+j2Zh9q+eDgDUsdYpzcLGd4rFfWE9s1Q3JyEvLQvp5XXI
+ 4Tqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788282541; x=1788887341;
+ d=1e100.net; s=20251104; t=1788293993; x=1788898793;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=b1WtM+yGxMA6nGtYPUfHvkwWZoT/FUK2b2ZzSHby/Yo=;
- b=IXfM8m2YC30sVE7KGZ6wDMOVj3g9HE9uefMWjktlK1ExRI6vpZDfO1BZTFk2HqHP8X
- IlnxcbHPXMo0KiYOZS9/cZA7RDnOugKWGc8ppk7bLW3zoQTHFpmgGm/JY4AIDunHRaKZ
- 0HIFcOhmJLLewtqk4cA4JHufeUDrKISaFtfU8Nj4OGe1oMeObO8jpL3d1oF2BgoAYhMa
- qXZSSqcOTo1hVFIme8GXgzvuLtlAwoEzVcHNfRI1pXrEmDkABk9o1XCrbHLMOH5rOJkT
- F+z84aqPnnYBIfSpLLE7ZJMJLweQVl1aD1aciP+4+iSnZemNdSo6+Tzkhw3Cs+0X9Ld5
- mh9w==
+ bh=0PiVP95ao7yXW/OZhxmQ9Mbj44WmjmsyxLnkqleNrz8=;
+ b=q5X1pklYXMVF+WH6dAkf0vxFdJMCX8YaI615Fo58k0YSQemi1iIWk1xK/HEGlq4+Bi
+ AXCiG2WNLE2+YStZxZmlFLANmfmn4QVHBIqP8CNTyoR3CbXspabqUMs4JECHOv0qrGIC
+ CipTydOPyjNxi/sx+alfi1pm3n92dFtbXwHVA1t/vCdhHYzPgnWnB1Wc2LNV3IndobSR
+ APvS5bkOVUSr2ZsDdF7qgrEfD0cXnnMXyHEBvvXdOCq+CfJhT9vtO8lyBgyn4ivj4RYs
+ JrGj4IK6hv5s8gV7PrEnrlTX4DC43pSLDPmq+AG5l9IyxPFl2mp3a+Wbt0hUgQVDfvly
+ 2sxQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwhS8+8J/9I+S6Hg5oewFdgxw4KRC7CsDusKPtaRVYg0kiFCm+987mIcEhial6qZyw6ngcATj1txBs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mB1FjUkHy5XYFmVhq5DttWyaTjQ2Fm8sMTY6Trfdir70lJ0DWW
- kU7/jSG9xi2PH9mfNmmGIdLIPQ4FduoiichpHYy4hHq8hqlNt6u5Qqsi+zWSI5oF6orG
-X-Gm-Gg: AYBFou1pCELj6p6PAIa5Ru1QORGxBWJvS9/gOeyOCOuB0QT4hzO24xujevnLgcAzfsu
- +yMJleGIQuTLkyXc4dH4TMEZe0VF2GAXG7yDABqRuxyjJT/0XHAxDn+34/uC6kdYfyaktLp87Va
- cVR6j51iwt30cwcPAg4ZW4HSI0WSPmTCgiXf44DdMCblS/Rl21n5qxsmGyK4g4QG/eMhaBvdV8C
- zu9SxRAAc8tThIM74Dnxoaj0uFnEPS6kyRLhuRxqb/Y1rUTOi/P382UOIAbFzoA9MBoTEGiniJh
- nMw7dFE6k8YRB02D6OCJU1O8KoVLlPYY0fTJqQtPHYy3LcER1gYXv12Fnu7p4+fCYwa3X/daHcm
- hd4awUMeOtfL7EXtPO7Icwx0l3j7+xNaoZILfDDN8YzFakHrP1mrfQycQLPE29CFY+cyoyrq0tW
- xH46MBYx9KCjhD1ytB8IxwMZzSvwc0joCjQ49T5tcSLOphhRH4miBJjipyuhRstiKwWoDUfIrZe
- dkLXBKfX7N4bOmprz0KJLRqu/6uQ441CPqi8P6g8nCMZazyc+r4Pxq+gYc8Pa/W/MXAoJ72e3k8
- ig==
-X-Received: by 2002:a05:690c:c3f1:b0:81e:98d3:cac7 with SMTP id
- 00721157ae682-8686f52fe19mr38821267b3.12.1788282539975; 
- Tue, 01 Sep 2026 10:08:59 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com
- (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
+ AHgh+RoV+PJz50l1Z8f9ROYDysUyt52Mvp+43crpQENiWBsZZLihj73/6DzkXJCsTocf29JzA4hnKgRPEIg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kpGgrrlHsLCiFcBlgf2TiVqdnkJtG/ChuUq7QP5GUzJLlnBB+o
+ 9NHbv3VWBaEX1RV+WKGShOgsKueixPTQY1WeT7XwcVyysBobhvHMF592
+X-Gm-Gg: AR+sD12MS5dO1zFMUgFX2DdMixi7oGQp/KGTPrIaTnkrKX5pNZgAOqOqVz/qGF1Zkin
+ dXKc1OTB5ZEYYhJM23kKr4n/X63pfywfmAjwr30c+o8iuhX6gBI5BvZf66Z0QTHTwQZoyphv/gq
+ atq5JRWZF+fgSXFijxPTAP/T9wOOPXAuAixA2t6D4TsDdH8JehIHgrnb4bYpRnHCKl/NkDmMJUt
+ P3lss6Cqs+jcYoHtDCA5JYd3PdbHyuzsEj0XZuA2ApD/BCJbqNnQ8a4x6qpE4lCK8zuITYK1f0O
+ pov8iAOEiF6fCqr2wIVAT8USTXJbIwXaTK7jPNliCUU4YNXBp2/tOFUxOaHNv1XpSciqxNtM88H
+ gzdGTN9mvsWb8kTxgXOrH1onxbNtJblaXW0wg6ryDsnP/d3I8gcGZu683CtfRwEgmZAlEKnT89B
+ 6D91sitUNjVHDhjFIn2g1c3us3hgR/p1MhWpk2yPAxufvevgYwmumezjQVxZ3qGLsNQesWLr/Xb
+ 1A5pWKj8md0cWSvIsp+VcuHtuQFYDeuk9y0lSUgEn2m9EHn+j6Dt5cYmoOjmJjiIM/gA6ThoTqJ
+ lU7q0QDMoIAzzGarterQxMI0sulETkkMmMs6Mq4Mgvw=
+X-Received: by 2002:a05:6a00:a25c:b0:855:1590:ba2b with SMTP id
+ d2e1a72fcca58-85ed1d076bamr647630b3a.5.1788293993438; 
+ Tue, 01 Sep 2026 13:19:53 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net
+ (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-85e65f146edsm79761867b3.32.2026.09.01.10.08.58
+ d2e1a72fcca58-85dc003aee2sm331139b3a.30.2026.09.01.13.19.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 10:08:59 -0700 (PDT)
-From: David Hu <dhu@x6u.co>
+ Tue, 01 Sep 2026 13:19:53 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
 To: sumit.semwal@linaro.org,
 	christian.koenig@amd.com
-Cc: alex@shazbot.org, ankita@nvidia.com, chriscli@google.com,
- david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
- kevin.tian@intel.com, kpberry@google.com, leon@kernel.org,
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
- xuehaohu@google.com
-Subject: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Date: Tue,  1 Sep 2026 17:08:47 +0000
-Message-ID: <20260901170849.4052816-1-dhu@x6u.co>
-X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+ Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Subject: [PATCH v2] dma-buf: fix stale return value documentation for
+ dma_buf_set_name()
+Date: Wed,  2 Sep 2026 04:19:49 +0800
+Message-ID: <20260901201950.3503739-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
@@ -97,33 +93,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Hu <xuehaohu@google.com>
+The kernel-doc for dma_buf_set_name() still promises that the function
+returns -EBUSY when the dma-buf is already attached to devices:
 
-This series address two related issues in scatter-gather mapping,
-specifically for the MMIO based dma-buf mapping. The fixes ensure
-sgt mapping is correct, and proper for large MMIO regions.
+  Returns 0 on success. If the dma-buf buffer is already attached to
+  devices, return -EBUSY.
 
-Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-(Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-phys vec to sgt)
-https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+That has not been true since commit e73c317efbf9 ("dma-buf: remove
+restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
+dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
+produced -EBUSY. That commit rewrote the first paragraph of the comment
+to match, but left the return value description behind.
 
-Patch 2 Splits sgl by largest page aligned chunk
-(Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+The only failure the function can report now comes from strndup_user(),
+which is propagated via PTR_ERR(); every other path returns 0. Describe
+that instead, using a Return: section so kernel-doc picks it up:
+scripts/kernel-doc -none -Wall drivers/dma-buf/dma-buf.c reports "No
+description found for return value of 'dma_buf_set_name'" before this
+change and is quiet after it.
 
-Changes in v8:
- - Combined the two patches into one unified series to avoid merge
-   conflicts.
- - Collected Reviewed-by tag from Leon Romanovsky for Patch 2.
+No functional change.
 
-David Hu (2):
-  dma-buf: Fix silent overflow for phys vec to sgt
-  dma-buf: Split sgl by largest page-aligned chunk
+Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
+Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+---
+v1 was sent on 2026-07-29 and did not get any review comments.
 
- drivers/dma-buf/dma-buf-mapping.c | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+v1 -> v2:
+ - Use a "Return:" section instead of a plain "Returns ..." sentence, so
+   kernel-doc actually parses the description (fixes a -Wall warning).
+ - Add a Fixes: tag pointing at the commit that removed the -EBUSY path.
+ - Widen the Cc list to the dma-buf maintainers, linux-media and
+   dri-devel; v1 only went to LKML, which is most likely why it was
+   missed.
 
+ drivers/dma-buf/dma-buf.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc..6ee3c254d7 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+  * @buf:    [in]     A piece of userspace memory that contains the name of
+  *                   the dma-buf.
+  *
+- * Returns 0 on success. If the dma-buf buffer is already attached to
+- * devices, return -EBUSY.
+- *
++ * Return: 0 on success, or a negative error code from strndup_user() on
++ * failure.
+  */
+ static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+ {
 -- 
-2.55.0.897.gb25b4bd76c-goog
+2.43.0
 
