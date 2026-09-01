@@ -4,60 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA9BC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E657C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C5B10E809;
-	Tue,  1 Sep 2026 12:10:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8426C10E7D7;
+	Tue,  1 Sep 2026 12:27:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="d93X6zqT";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="U6jOc/Vg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zLFlewVl";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="w4DMk6j/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0RDXPt/J";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C0210E7D7
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:10:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788264639;
- bh=taMfC/9JYWrQ3KY+WcFyZyTpGxZrggOfQV71kp6IMqA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=d93X6zqT1Le2ZWfD65NkY89al4GXaS3q/nttcYMfSPOpT14ILPVh/8co/5zAnSj9t
- depeBihHbhR0MNv5N2CY2paH/UpgZWM4ajenFbAiU5YOchVuzp1zn49PRnIRHID4m2
- CCZU60M9NtVVGB5BNqUg5Bc7MNVrLiRhFKH0uTh74oxsIeeUdnlQmxoYsU/TK+7ggx
- d3qkJ7jBtUIEZmcxc527EMOwIe+r1ve4ZOq1ZlvHfB70bosQHsWxFDi1el99FQze/z
- rfhEa2DbIBk7n425FmgRl7SOLxis16Yfvf3tdkDzSGrbSbyftqfcz3Ffcg6zUrkEj5
- OHC+VL+bn0Eiw==
-Received: from fedora-21.home (unknown [100.64.0.11])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2986F10E7D7
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:27:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2CB0017E0180;
- Tue, 01 Sep 2026 14:10:39 +0200 (CEST)
-Date: Tue, 1 Sep 2026 14:10:35 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 03/17] drm/panfrost: Move lock and modparam
- initialisations into their subsystems
-Message-ID: <20260901141035.69b3ec92@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-3-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-3-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6882822780;
+ Tue,  1 Sep 2026 12:27:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788265660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=DEuLE0BgQA8LZ20x0JkYmbROZW9RhG/RMzIm2/7GesQ=;
+ b=U6jOc/VgE3cHi6Z80nxckF1JXjV4p2AzrBaJKHcEoYVGhn5K03ogrwDviweAd/Ll+kCZqj
+ ysLIlhheZP40xRlLzHQU7m3Dz27y23IYY1j+6OltXy/fghTaJlq5ZDcmdofLZi7wffhjJl
+ KQOTPuCUSi1FrqIPgRgd8nmr42PdcWk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788265660;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=DEuLE0BgQA8LZ20x0JkYmbROZW9RhG/RMzIm2/7GesQ=;
+ b=zLFlewVleg3IVEXDRJjWsKtRo2DGwrOfWvo5zaqzlngA0gzf4tPanZH8Y5umU/ZrVcG0Pp
+ SOqb+60MeofuwkBA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="w4DMk6j/";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="0RDXPt/J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788265656; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=DEuLE0BgQA8LZ20x0JkYmbROZW9RhG/RMzIm2/7GesQ=;
+ b=w4DMk6j/9xdV5uiGKoBopU/CLkKZmAvi2blcq/eZHHos/vmw8NaSPhdChm9jx/BtbGuSJo
+ oVqNN7u+EFJF5uei1/oS2prpGxkShnOHBDMfw+NBHYz4D2AsbTBNDx6aSYmCYYnYxN0wZ6
+ mBTB7UBZrF53W240eKQOV7UjWcoHsrw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788265656;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=DEuLE0BgQA8LZ20x0JkYmbROZW9RhG/RMzIm2/7GesQ=;
+ b=0RDXPt/JzZbW/218XCXeh15YyQ1hZDxARBEuRFort4fL10dZbGy6xmqokbFcsKkD7YpX0g
+ e3xnnmLpzuCWimAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 07CA7136A2;
+ Tue,  1 Sep 2026 12:27:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id xOqkALjElmq2dgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 01 Sep 2026 12:27:36 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, daniels@collabora.com, leandro.ribeiro@collabora.com,
+ pekka.paalanen@collabora.com, lowry.li@arm.com
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/atomic: Set plane-state pixel_blend_mode to default
+Date: Tue,  1 Sep 2026 14:25:26 +0200
+Message-ID: <20260901122731.83854-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 6882822780
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,collabora.com,arm.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:email,suse.de:dkim,suse.de:email,suse.de:mid,intel.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,190 +114,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:43 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+Initialize the plane state's pixel_blend_mode value to the plane
+property's default value. Resolves an inconsistency on planes that
+do not support PREMULTI.
 
-> The device init function feels a bit cluttered with things that should be
-> done in the specific subsystems where those locks and lists are being
-> used. Same goes for module parameters, it's best to limit them to the
-> subsystems where they're relevant.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Cc: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+---
+It's not clear what Fixes should point to, so I picked the commit that
+introduced the stricter validation of the blend-mode property.
+---
+ drivers/gpu/drm/drm_atomic_state_helper.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-It would also be good to have opaque structs for sub-components instead
-stuffing everything in panthor_device, but that can wait.
-
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c       | 10 ----------
->  drivers/gpu/drm/panfrost/panfrost_drv.c          |  7 -------
->  drivers/gpu/drm/panfrost/panfrost_drv.h          | 13 -------------
->  drivers/gpu/drm/panfrost/panfrost_gem.c          |  9 ++++++++-
->  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  3 +++
->  drivers/gpu/drm/panfrost/panfrost_gpu.c          |  2 ++
->  drivers/gpu/drm/panfrost/panfrost_job.c          |  1 +
->  drivers/gpu/drm/panfrost/panfrost_mmu.c          |  3 +++
->  8 files changed, 17 insertions(+), 31 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index d2d2830f11a7..7daa2143f3c4 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -223,16 +223,6 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
-> =20
->  	pfdev->coherent =3D device_get_dma_attr(pfdev->base.dev) =3D=3D DEV_DMA=
-_COHERENT;
-> =20
-> -	mutex_init(&pfdev->shrinker_lock);
-> -	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> -
-> -	mutex_init(&pfdev->sched_lock);
-> -	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> -
-> -	spin_lock_init(&pfdev->as_lock);
-> -
-> -	spin_lock_init(&pfdev->cycle_counter.lock);
-> -
->  #ifdef CONFIG_DEBUG_FS
->  	mutex_init(&pfdev->debugfs.gems_lock);
->  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 80996e311a9d..ec8c1c08e147 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -21,7 +21,6 @@
->  #include <drm/drm_utils.h>
-> =20
->  #include "panfrost_device.h"
-> -#include "panfrost_drv.h"
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
->  #include "panfrost_job.h"
-> @@ -955,12 +954,6 @@ static const struct drm_driver panfrost_drm_driver =
-=3D {
->  #endif
->  };
-> =20
-> -#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> -bool panfrost_transparent_hugepage =3D true;
-> -module_param_named(transparent_hugepage, panfrost_transparent_hugepage, =
-bool, 0400);
-> -MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount poin=
-t with Transparent Hugepage enabled (true =3D default)");
-> -#endif
-> -
->  static int panfrost_probe(struct platform_device *pdev)
->  {
->  	struct panfrost_device *pfdev;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.h
-> deleted file mode 100644
-> index bac0c415d4da..000000000000
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
-> +++ /dev/null
-> @@ -1,13 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> -/* Copyright 2025 Amazon.com, Inc. or its affiliates */
-> -
-> -#ifndef __PANFROST_DRV_H__
-> -#define __PANFROST_DRV_H__
-> -
-> -#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
-> -extern bool panfrost_transparent_hugepage;
-> -#else
-> -#define panfrost_transparent_hugepage false
-> -#endif
-> -
-> -#endif
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_gem.c
-> index 7b993a089af2..15105b7f954b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -11,10 +11,17 @@
->  #include <drm/panfrost_drm.h>
->  #include <drm/drm_print.h>
->  #include "panfrost_device.h"
-> -#include "panfrost_drv.h"
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
-> =20
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> +bool panfrost_transparent_hugepage =3D true;
-> +module_param_named(transparent_hugepage, panfrost_transparent_hugepage, =
-bool, 0400);
-> +MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount poin=
-t with Transparent Hugepage enabled (true =3D default)");
-> +#else
-> +#define panfrost_transparent_hugepage false
-> +#endif
-> +
->  int panfrost_gem_init(struct panfrost_device *pfdev)
->  {
->  	int err;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/g=
-pu/drm/panfrost/panfrost_gem_shrinker.c
-> index fefae87535d6..72cd7a165e6d 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> @@ -97,6 +97,9 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, s=
-truct shrink_control *sc)
->   */
->  int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
->  {
-> +	mutex_init(&pfdev->shrinker_lock);
-> +	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> +
->  	pfdev->shrinker =3D shrinker_alloc(0, "drm-panfrost");
->  	if (!pfdev->shrinker)
->  		return -ENOMEM;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_gpu.c
-> index 7d555e63e21a..8a15ccce08e9 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> @@ -516,6 +516,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
->  {
->  	int err;
-> =20
-> +	spin_lock_init(&pfdev->cycle_counter.lock);
-> +
->  	err =3D panfrost_gpu_soft_reset(pfdev);
->  	if (err)
->  		return err;
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> index 2d12b83e900a..6f920fd0fc4e 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -873,6 +873,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
-> =20
->  	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
->  	spin_lock_init(&js->job_lock);
-> +	mutex_init(&pfdev->sched_lock);
-> =20
->  	js->irq =3D platform_get_irq_byname(to_platform_device(pfdev->base.dev)=
-, "job");
->  	if (js->irq < 0)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_mmu.c
-> index 4a3162c3b659..5c393ed6e310 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> @@ -955,6 +955,9 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
->  {
->  	int err;
-> =20
-> +	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> +	spin_lock_init(&pfdev->as_lock);
-> +
->  	pfdev->mmu_irq =3D platform_get_irq_byname(to_platform_device(pfdev->ba=
-se.dev), "mmu");
->  	if (pfdev->mmu_irq < 0)
->  		return pfdev->mmu_irq;
->=20
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index d90d1d7c9cf9..0325caee528a 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -278,7 +278,13 @@ void __drm_atomic_helper_plane_state_init(struct drm_plane_state *plane_state,
+ 	plane_state->rotation = DRM_MODE_ROTATE_0;
+ 
+ 	plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
+-	plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
++
++	if (plane->blend_mode_property) {
++		if (!drm_object_property_get_default_value(&plane->base,
++							   plane->blend_mode_property,
++							   &val))
++			plane_state->pixel_blend_mode = val;
++	}
+ 
+ 	if (plane->color_encoding_property) {
+ 		if (!drm_object_property_get_default_value(&plane->base,
+-- 
+2.55.0
 
