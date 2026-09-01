@@ -4,93 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C22BC624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D4DC61DD6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C74610E088;
-	Tue,  1 Sep 2026 16:02:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B38E10E346;
+	Tue,  1 Sep 2026 16:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lZFiH7+7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YL6q35Mf";
 	dkim-atps=neutral
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 696D010E088
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:02:27 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-3a33307ecd9so10850461fa.2
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 09:02:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788278545; x=1788883345; darn=lists.freedesktop.org;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=gaYk0M7nFh1XVdlzCHJZ1XzCsQtcpg7BjAPV4F6vU1c=;
- b=lZFiH7+7irylb3eJd8uzMntXu0ZUobTtGpEF+0DAPnlfEqDAJEvQzt9/RB4GBxfyJt
- zLT1BUqGLjvhAqUNB4HS5kITD/ReGOv+nTX+g/iZqq6rLxGK3R3bjnkjFlo/J8HKFP40
- Q5fZHEslKfAufcuWd6HJs4uFBCPfEmP9qw2vTVz/4v31H2Ed0to17LHunbDtMGDdG95D
- lOQSGcfA7HZCQdk2HgqGyaS7FLqrdPkDPpaUpNo2PhfqA3vGbGK4pyOqsGxFBH3O8G5S
- qO206re8bsaREpu62Cmb+29sgbit10sE1UH4WFyazxA8l2jrIwZFhxv5h2JmcSiguscY
- JjSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788278545; x=1788883345;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gaYk0M7nFh1XVdlzCHJZ1XzCsQtcpg7BjAPV4F6vU1c=;
- b=hKA8j/OS5KOl2Ej+iunBWkJ22wSyZH2aZ77pzm4vvWjwDLYcsHRhXRZTervcW6r2uY
- bWbAVmz6xkgTR9rFbWR+dFbdmtG0ZlgHpmWXaKFAZ6LoG/truu9jZkyn9rD0UwEpN3ow
- mFj73tYX+b+UzFCT75MWXaOH5JnXvI/1s9CKyhrmlBzNIdiqPPv+j1Yf45RdlYt6DoIR
- gow5XicB4R8pAkQP4wBf2rIivKhJ5BI2DQ5eE7bdw80RKVgRTKKtdrGhJHYFTcCpz2O2
- r5oX43SJ1N5Neq4dH/bYOaNDzEOUHmdW2JpHVmGrjESG2ZLPFvMWUk43I7KBXb4jnIJT
- IxMw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzXPzvfIg3s/g2hENuaCCmaz7KV2in6AYya+h0dZ0zyImimkGhaDrPqU63UvK7MI97x8YQYvaRJqd0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ls3WJhb1QVoC4YqBH74tojrCiFrW0gaspV9frjw0X/9awbTNbw
- i97Lia102+nYGVtUfu5iczY5+mLWEtYNOWgpKncZK9DGmiQLJnoEAssE
-X-Gm-Gg: AYBFou2rACJG7vmvSg8zh7gGfbLiCTdht8nhFBw06Eb6k9Me+gN9T8JW7TFri5FFmV/
- h3RO/yepeejgK1ZId2ZhFnQ+w1x2zq+Nl8wgyiqDrqU3TMgAkS79XzLwGF3cw8RBRNC7tLWuFdJ
- IoZ/6095r40oNxsko93UQos95uVdYou+iILdLbCB3FeLrxX9kbDpszYTC32tC0/cnlH6Mpqk31x
- /xNAwORenXVTSLDZCqPs7C8RZj7bMazCEBqZNRY4IQQY+HXRuQaSD0SesnO/N2l0du5mOEfRQys
- s4Z41Q9kd+hvv3ulabjm3dMVurvwSP8c7aYBDdAiVXLOPeErTdh2tNPSHj4fT7kJTp/d+xyz1l3
- ZpPW51DRpCpUMNY4qGjDjISciw9UiQ2OZ89TIPJYLpNfGJggrXPH8Xo9MqTST+Va799dJ5YQvIJ
- 7kaxD3jHwj/Ole912yVsHAiw0ppI5ye/fvMLpYQaoQDbvFQErxuSxV+Jj1WKuypjWfSD6WK4fav
- hyYta57Aa1x0eis4Q==
-X-Received: by 2002:a05:651c:249:b0:3a2:feaf:6f9b with SMTP id
- 38308e7fff4ca-3a301b3f563mr71991631fa.7.1788278543702; 
- Tue, 01 Sep 2026 09:02:23 -0700 (PDT)
-Received: from smtpclient.apple ([87.200.95.144])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a34ad24618sm439901fa.32.2026.09.01.09.02.19
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 01 Sep 2026 09:02:23 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v3] drm/bridge: dw-hdmi-qp: use drm_hdmi_acr_get_n_cts()
- helper for audio N/CTS
-From: Christian Hewitt <christianshewitt@gmail.com>
-In-Reply-To: <86fcf349-0a7a-4618-9001-612371b0f71b@symple.nz>
-Date: Tue, 1 Sep 2026 20:02:06 +0400
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Algea Cao <algea.cao@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E90466E4-C36C-4276-AA44-E40D90E48B2D@gmail.com>
-References: <86fcf349-0a7a-4618-9001-612371b0f71b@symple.nz>
-To: Simon Wright <simon@symple.nz>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012056.outbound.protection.outlook.com
+ [40.107.200.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7B7510E346
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:02:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rI89I2v28jNmS4pBpgvn0KGDh/A2fn42gVgT5fV0jeB4QIbNCERg7o+Wlyw3C6lZ2nO6BxFtZ6N5XCCbiKYFAa/0zvEtUUNQ9H6oWEAa0FtRxgr85ujIK1kvNBqwiur5OZEmodtgztHfc8iWYoxpl4yWJx8t526I6Cn6SoZdxjUF6YWZQqqHgZIdSQuZNkGDe/6GNgVrK2HqijJm9sViCO1I7ZLIJkg+chmqcL5dDNKt34Ye2X1E3bZkRjExrco3lp2X6GCt2h+b0DypnhZLXAaQnFq4aal5d0wFa/vrVvAAsgs9vO+T7i0WXjcJIkZtH250y7IQ+Irz6FsoprwbQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OPfbLs8bjGOlRc+jeHD6ZVjpJMI3kyIVBrtA6RAi4S4=;
+ b=sn/ifHHkQZ0NbVlgjiNqYjbFlQMXn73Q7VkYjC7zWl32Ne1CLr0zlvVgPX6rxd67rXJzretpJVtt3Q6gYklXXao6HD9tItRte3Hz4p7l2+xw2uiqYA6bBYc7NXFX35CB2ps+fWZ2JH5YCuRC2S6AyrHCLJT6T/5rPn+EDQKV6n/lcxXfb5q9ILFlWJal2vg9uwcAi6DIoKOW6sHkKzntRkpDfV2ijOYESSoch+b0/6L9bNEMEV9VfxZRm6qJP8sG8pSAk+9DK67xyX4FKbntLXaEIV1NSvmtQbhUZN8gVuhyztkG0DywdqcptEAjiJ0omq5QgPjTdHbImop/cDhNMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OPfbLs8bjGOlRc+jeHD6ZVjpJMI3kyIVBrtA6RAi4S4=;
+ b=YL6q35MfB4s2g7e3lXj8DNRytdKcCzd7khVQNFwPuZIVRIvCXjzT1rh/S7Qs5zaEhR7hDYORR9L8Q3six6sQyBjWfV3EF4RBjhQQ071GvUq8JPwMyEoiJ8FTMQoCKcJtLIlHN8HXfbYZwPdaqjfxoRy5F524KSXGFzKM5mytUtY=
+Received: from SJ0PR03CA0011.namprd03.prod.outlook.com (2603:10b6:a03:33a::16)
+ by DM6PR12MB4451.namprd12.prod.outlook.com (2603:10b6:5:2ab::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Tue, 1 Sep
+ 2026 16:02:18 +0000
+Received: from BY1PEPF0002695A.namprd05.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::5a) by SJ0PR03CA0011.outlook.office365.com
+ (2603:10b6:a03:33a::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
+ Sep 2026 16:02:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BY1PEPF0002695A.mail.protection.outlook.com (10.167.244.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 16:02:18 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 11:02:16 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 11:01:32 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Tue, 1 Sep 2026 11:01:31 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Fix possible use-after-free when freeing
+ device BO
+Date: Tue, 1 Sep 2026 09:01:29 -0700
+Message-ID: <20260901160129.3812405-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0002695A:EE_|DM6PR12MB4451:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13a62f66-9ffb-4dde-7344-08df0842663c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: ZbIHVm3xK9lCb0+v1ql8I083V9yQN6znTT1khDcOGaX7cyxHXvfg0sHUqvGGUX8rzA7Ku1ggPhS4RLriMmK28dZ/nrGZyggQ14iWjCrbMcdLgq2oLJ3E75kNJ4MH2P7IPMHkAC96k1eROdBgoz5FtkzeX/LsQ1tN6BcYQK+8n+pa9BQfBsTQ/a7GfFbauBCgVCKbcpktObkyemVrdF6HhqevRqBD89QdWy0jR6OCBWaZ9vSNdkQGsKunPA8iUz/N+AiHi/K0k5KJ6Fn1M8wT+rWtYfWqUo+b4KSJT9hSJvSNe6Jc0aLf5dcyDcfkjjcV0M8iTRfwVmpW6MWFDmiBu3tNCmOdXIHCxwNxGp1sYcE/gQl3OzcyASq1IQojnuuCd4npgRiUrPIaB11HyvlGAcsjLxLNYBkrI8cd99q7WGRnhIhMYWYGJk0kfwqhzh8yiIq5V1fdUf6mzGbvTEs5pPsaC0VIqI1g5n58XifxA9aKE+K10f9AiunaX8YlkGMHhETAQwjINzodhmiewSn0lMsBuWpvb/gQSMfdKlq21RtQYcLpVsdrBX+68MXenxkbqe8ORWJ9SC4/CKdal41+HroWwLf1ne4MMaOKFW3BfCeM23JZ0k17maIUlyNU42Oys+HS7q/Xp6Bh2k1HJtoH5yNCTRvYXVbeBZiSzLZi4wDcnjPvzLtWXmbEa6z5wlE+ldsBOQ5ILjVNUpezOl6kqw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: s8Qw3BhuU8XkmZCuLq9tdFXWDTvYxMaOg20st6jffV3DiT/T95AdzLgYJgCJm/9mTJDKNh4e5pW8ir8pk8JG8hxOcW8r3LiQ3GutVpapo1KgjD8LzUZdzEF3klMzZnHcbscE4QRNbQCx+qLlZtCctMWPNif69XPtSqhm/noPmoKFYto7oURM9zAy5u4sB8x3ohr+rvSj/bFZLFMWGQpl+xzKtnBmtrwBEiGnDQ/psAz0VdHtk24VE07+vElYlYcKFoadNbBRzUHIz6FJ0d0OAzRJaIHZk1aotoW3v9aKhftpTUPqk0WUURpnRRuk/MeDpmzGFQEj/f3B9iezwmvjdMD97240QQTrusRrHsX1/+sgD88xMb+hMoVxp4DX0LhF7dbPkq5YSSaHYBMS8aPJx4J9HbII1iyyEX69bQSfOPAmNS/cnyA86wpxeFsvXEQA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:02:18.4686 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13a62f66-9ffb-4dde-7344-08df0842663c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0002695A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4451
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,413 +117,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> On 21 May 2026, at 11:36=E2=80=AFam, Simon Wright <simon@symple.nz> =
-wrote:
->=20
-> dw_hdmi_qp_set_sample_rate() open-coded its own N and CTS lookup
-> tables and search/compute helpers, but it lacked the out-of-table
-> CTS fallback needed by strict HDMI sinks at TMDS rates not in the
-> table.  The original LG G3 OLED audio mute (linux-rockchip 070633)
-> was caused by dw_hdmi_qp_find_cts() returning 0 at 185.625 MHz,
-> leaving AUDPKT_ACR_CTS_OVR_EN clear and falling back to the
-> controller's internal CTS auto-measurement, which produces incorrect
-> timing on the wire at out-of-table rates.
->=20
-> The shared drm_hdmi_acr_get_n_cts() helper in
-> drivers/gpu/drm/display/drm_hdmi_helper.c already implements the
-> correct behaviour: it has the HDMI 1.4b spec N/CTS tables, and for
-> TMDS rates not in the table it computes CTS =3D (TMDS * N) / (128 * =
-Fs)
-> inline (the canonical HDMI spec formula).  It is already used by
-> drivers/gpu/drm/msm/hdmi/hdmi_audio.c.
->=20
-> Convert dw_hdmi_qp_set_sample_rate() to call the helper.  This
-> removes ~200 lines of open-coded tables and search functions
-> (dw_hdmi_qp_find_n, _compute_n, _find_cts, _audio_math_diff,
-> _match_tmds_n_table, common_tmds_n_table[], common_tmds_cts_table[])
-> and fixes the strict-sink audio mute as a side effect of using the
-> helper's complete N+CTS path.
->=20
-> Tested on R76S (RK3576) running Linux 7.0.1, against the LG G3 OLED
-> (the sink that originally reported the mute in linux-rockchip
-> 070633) at four TMDS rates spanning HDMI 1.4 and HDMI 2.0:
->=20
->  TMDS         Mode              Audio with v3
->  148.5 MHz    1080p60   8-bit   plays
->  185.625 MHz  1080p60  10-bit   plays
->  297 MHz      1080p100  8-bit   plays
->  594 MHz      3840p60   8-bit   plays
->=20
-> Without this change, the LG G3 mutes audio at 185.625, 297, and
-> 594 MHz (every rate outside dw-hdmi-qp's open-coded CTS table,
-> which contained only 148.5 MHz and below).  With this change,
-> drm_hdmi_acr_get_n_cts() supplies the correct CTS at every rate --
-> table-canonical at 148.5 / 297 / 594 MHz, and computed via the
-> HDMI 1.4b formula at 185.625 MHz.  The 148.5 MHz row is a
-> regression check confirming the in-table path is unchanged.
->=20
-> The Kogan KALED43XU9210STA (a permissive HDMI 2.0 sink that plays
-> audio at all rates with or without this change) was used as a
-> no-regression control: audio plays at 594 MHz with v3 loaded.
->=20
-> The open-coded N table in dw-hdmi-qp included optimised N values
-> for some TMDS rates that are not in the helper's table (e.g.
-> various non-CEA rates between 28-162 MHz).  For those rates the
-> helper's fallback returns N =3D 128 * Fs / 1000, which is the same
-> value dw_hdmi_qp_compute_n() returned when no table optimisation
-> was needed; no audio regression has been observed at the rates
-> tested above.
->=20
-> Reported-by: Simon Wright <simon@symple.nz>
-> Closes: =
-https://lore.kernel.org/linux-rockchip/ME3P282MB21960D9D68BFF520316BDFCEA8=
-3E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM/
-> Suggested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> Suggested-by: Jonas Karlman <jonas@kwiboo.se>
-> Tested-by: Simon Wright <simon@symple.nz>
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Simon Wright <simon@symple.nz>
-> Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> Tested-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+When the DRM file descriptor is closed, amdxdna_client_cleanup() frees
+the client structure. If device BOs are still alive, freeing them may
+access abo->client and result in a use-after-free.
 
-This resolved no HDMI audio on a Radxa Rock4D (RK3576) board using
-Linux 7.2.1 while connected to an LG 64B7V (via Marantz AVR), so:
+Move amdxdna_gem_heap_free(), which accesses abo->client, before clearing
+abo->client in the BO close callback. Also track the heap BOs referenced
+by device BOs so they can be accessed without dereferencing abo->client.
 
-Tested-by: Christian Hewitt <christianshewitt@gmail.com>
+Fixes: dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap
+support")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_ctx.c    |   9 +-
+ drivers/accel/amdxdna/amdxdna_gem.c | 128 ++++++++++++++++++++--------
+ drivers/accel/amdxdna/amdxdna_gem.h |   4 +-
+ 3 files changed, 104 insertions(+), 37 deletions(-)
 
-> ---
-> Changes in v3:
->  - Switch to drm_hdmi_acr_get_n_cts() helper as suggested by Jonas
->    Karlman, instead of adding the cts-from-N fallback inline.
->    Removes ~200 lines of open-coded N/CTS tables and search code,
->    and brings dw-hdmi-qp in line with msm/hdmi.
->  - Re-tested on the LG G3 OLED (the sink that originally reported
->    the mute) at all four TMDS rates (148.5 / 185.625 / 297 / 594
->    MHz); audio plays at every rate.  v3 has not been re-tested on
->    the LG C4 OLED or TCL 75P7K QLED that v2 included; those sinks
->    are expected to behave the same as G3 since the helper returns
->    spec-canonical HDMI 1.4b values.
->  - Also addresses a do_div() divisor-type style issue flagged by
->    sashiko's automated review of v2 (the offending line is removed
->    by the helper switch).
->  - Add Suggested-by: Jonas Karlman.
->  - Rebased onto current drm-misc-next.
->=20
-> Changes in v2:
->  - Resend after v1 was mailer-mangled and unapplyable (reported by
->    Luca Ceresoli).
->  - Body split into shorter paragraphs for readability per Luca's
->    review.
->  - Original LG G3 report (linux-rockchip 070633) moved from inline
->    prose to a Closes: trailer paired with Reported-by:, per
->    Documentation/process/submitting-patches.rst.
->  - Add Assisted-by: trailer per
->    Documentation/process/coding-assistants.rst.
->=20
-> v2: =
-https://lore.kernel.org/linux-rockchip/00a34a82-213b-4b03-801c-3c10b163d64=
-3@symple.nz/
-> v1: =
-https://lore.kernel.org/linux-rockchip/92aa4191-2a2a-41e3-badb-c0a5b1fbb95=
-7@symple.nz/
->=20
-> drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 209 +------------------
-> 1 file changed, 1 insertion(+), 208 deletions(-)
->=20
->=20
-> base-commit: a48bbcc7ac739e93562d6148c6fa504c2e9f22f8
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c =
-b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> index 0dbb1274360..4e745e2c97b 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -42,88 +42,6 @@
->=20
-> #define SCRAMB_POLL_DELAY_MS 3000
->=20
-> -/*
-> - * Unless otherwise noted, entries in this table are 100% =
-optimization.
-> - * Values can be obtained from dw_hdmi_qp_compute_n() but that =
-function is
-> - * slow so we pre-compute values we expect to see.
-> - *
-> - * The values for TMDS 25175, 25200, 27000, 54000, 74250 and 148500 =
-kHz are
-> - * the recommended N values specified in the Audio chapter of the =
-HDMI
-> - * specification.
-> - */
-> -static const struct dw_hdmi_audio_tmds_n {
-> - unsigned long tmds;
-> - unsigned int n_32k;
-> - unsigned int n_44k1;
-> - unsigned int n_48k;
-> -} common_tmds_n_table[] =3D {
-> - { .tmds =3D 25175000,  .n_32k =3D 4576,  .n_44k1 =3D 7007,  .n_48k =3D=
- 6864, },
-> - { .tmds =3D 25200000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 27000000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 28320000,  .n_32k =3D 4096,  .n_44k1 =3D 5586,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 30240000,  .n_32k =3D 4096,  .n_44k1 =3D 5642,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 31500000,  .n_32k =3D 4096,  .n_44k1 =3D 5600,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 32000000,  .n_32k =3D 4096,  .n_44k1 =3D 5733,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 33750000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 36000000,  .n_32k =3D 4096,  .n_44k1 =3D 5684,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 40000000,  .n_32k =3D 4096,  .n_44k1 =3D 5733,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 49500000,  .n_32k =3D 4096,  .n_44k1 =3D 5488,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 50000000,  .n_32k =3D 4096,  .n_44k1 =3D 5292,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 54000000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 65000000,  .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 68250000,  .n_32k =3D 4096,  .n_44k1 =3D 5376,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 71000000,  .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 72000000,  .n_32k =3D 4096,  .n_44k1 =3D 5635,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 73250000,  .n_32k =3D 11648, .n_44k1 =3D 14112, .n_48k =3D=
- 6144, },
-> - { .tmds =3D 74250000,  .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 75000000,  .n_32k =3D 4096,  .n_44k1 =3D 5880,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 78750000,  .n_32k =3D 4096,  .n_44k1 =3D 5600,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 78800000,  .n_32k =3D 4096,  .n_44k1 =3D 5292,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 79500000,  .n_32k =3D 4096,  .n_44k1 =3D 4704,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 83500000,  .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 85500000,  .n_32k =3D 4096,  .n_44k1 =3D 5488,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 88750000,  .n_32k =3D 4096,  .n_44k1 =3D 14112, .n_48k =3D=
- 6144, },
-> - { .tmds =3D 97750000,  .n_32k =3D 4096,  .n_44k1 =3D 14112, .n_48k =3D=
- 6144, },
-> - { .tmds =3D 101000000, .n_32k =3D 4096,  .n_44k1 =3D 7056,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 106500000, .n_32k =3D 4096,  .n_44k1 =3D 4704,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 108000000, .n_32k =3D 4096,  .n_44k1 =3D 5684,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 115500000, .n_32k =3D 4096,  .n_44k1 =3D 5712,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 119000000, .n_32k =3D 4096,  .n_44k1 =3D 5544,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 135000000, .n_32k =3D 4096,  .n_44k1 =3D 5488,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 146250000, .n_32k =3D 11648, .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 148500000, .n_32k =3D 4096,  .n_44k1 =3D 6272,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 154000000, .n_32k =3D 4096,  .n_44k1 =3D 5544,  .n_48k =3D=
- 6144, },
-> - { .tmds =3D 162000000, .n_32k =3D 4096,  .n_44k1 =3D 5684,  .n_48k =3D=
- 6144, },
-> -
-> - /* For 297 MHz+ HDMI spec have some other rule for setting N */
-> - { .tmds =3D 297000000, .n_32k =3D 3073,  .n_44k1 =3D 4704,  .n_48k =3D=
- 5120, },
-> - { .tmds =3D 594000000, .n_32k =3D 3073,  .n_44k1 =3D 9408,  .n_48k =3D=
- 10240,},
-> -
-> - /* End of table */
-> - { .tmds =3D 0,         .n_32k =3D 0,     .n_44k1 =3D 0,     .n_48k =3D=
- 0,    },
-> -};
-> -
-> -/*
-> - * These are the CTS values as recommended in the Audio chapter of =
-the HDMI
-> - * specification.
-> - */
-> -static const struct dw_hdmi_audio_tmds_cts {
-> - unsigned long tmds;
-> - unsigned int cts_32k;
-> - unsigned int cts_44k1;
-> - unsigned int cts_48k;
-> -} common_tmds_cts_table[] =3D {
-> - { .tmds =3D 25175000,  .cts_32k =3D 28125,  .cts_44k1 =3D 31250,  =
-.cts_48k =3D 28125,  },
-> - { .tmds =3D 25200000,  .cts_32k =3D 25200,  .cts_44k1 =3D 28000,  =
-.cts_48k =3D 25200,  },
-> - { .tmds =3D 27000000,  .cts_32k =3D 27000,  .cts_44k1 =3D 30000,  =
-.cts_48k =3D 27000,  },
-> - { .tmds =3D 54000000,  .cts_32k =3D 54000,  .cts_44k1 =3D 60000,  =
-.cts_48k =3D 54000,  },
-> - { .tmds =3D 74250000,  .cts_32k =3D 74250,  .cts_44k1 =3D 82500,  =
-.cts_48k =3D 74250,  },
-> - { .tmds =3D 148500000, .cts_32k =3D 148500, .cts_44k1 =3D 165000, =
-.cts_48k =3D 148500, },
-> -
-> - /* End of table */
-> - { .tmds =3D 0,         .cts_32k =3D 0,      .cts_44k1 =3D 0,      =
-.cts_48k =3D 0,      },
-> -};
-> -
-> struct dw_hdmi_qp_i2c {
-> struct i2c_adapter adap;
->=20
-> @@ -215,130 +133,6 @@ static void dw_hdmi_qp_set_cts_n(struct =
-dw_hdmi_qp *hdmi, unsigned int cts,
->       AUDPKT_ACR_CONTROL1);
-> }
->=20
-> -static int dw_hdmi_qp_match_tmds_n_table(struct dw_hdmi_qp *hdmi,
-> - unsigned long pixel_clk,
-> - unsigned long freq)
-> -{
-> - const struct dw_hdmi_audio_tmds_n *tmds_n =3D NULL;
-> - int i;
-> -
-> - for (i =3D 0; common_tmds_n_table[i].tmds !=3D 0; i++) {
-> - if (pixel_clk =3D=3D common_tmds_n_table[i].tmds) {
-> - tmds_n =3D &common_tmds_n_table[i];
-> - break;
-> - }
-> - }
-> -
-> - if (!tmds_n)
-> - return -ENOENT;
-> -
-> - switch (freq) {
-> - case 32000:
-> - return tmds_n->n_32k;
-> - case 44100:
-> - case 88200:
-> - case 176400:
-> - return (freq / 44100) * tmds_n->n_44k1;
-> - case 48000:
-> - case 96000:
-> - case 192000:
-> - return (freq / 48000) * tmds_n->n_48k;
-> - default:
-> - return -ENOENT;
-> - }
-> -}
-> -
-> -static u32 dw_hdmi_qp_audio_math_diff(unsigned int freq, unsigned int =
-n,
-> -      unsigned int pixel_clk)
-> -{
-> - u64 cts =3D mul_u32_u32(pixel_clk, n);
-> -
-> - return do_div(cts, 128 * freq);
-> -}
-> -
-> -static unsigned int dw_hdmi_qp_compute_n(struct dw_hdmi_qp *hdmi,
-> - unsigned long pixel_clk,
-> - unsigned long freq)
-> -{
-> - unsigned int min_n =3D DIV_ROUND_UP((128 * freq), 1500);
-> - unsigned int max_n =3D (128 * freq) / 300;
-> - unsigned int ideal_n =3D (128 * freq) / 1000;
-> - unsigned int best_n_distance =3D ideal_n;
-> - unsigned int best_n =3D 0;
-> - u64 best_diff =3D U64_MAX;
-> - int n;
-> -
-> - /* If the ideal N could satisfy the audio math, then just take it */
-> - if (dw_hdmi_qp_audio_math_diff(freq, ideal_n, pixel_clk) =3D=3D 0)
-> - return ideal_n;
-> -
-> - for (n =3D min_n; n <=3D max_n; n++) {
-> - u64 diff =3D dw_hdmi_qp_audio_math_diff(freq, n, pixel_clk);
-> -
-> - if (diff < best_diff ||
-> -    (diff =3D=3D best_diff && abs(n - ideal_n) < best_n_distance)) {
-> - best_n =3D n;
-> - best_diff =3D diff;
-> - best_n_distance =3D abs(best_n - ideal_n);
-> - }
-> -
-> - /*
-> - * The best N already satisfy the audio math, and also be
-> - * the closest value to ideal N, so just cut the loop.
-> - */
-> - if (best_diff =3D=3D 0 && (abs(n - ideal_n) > best_n_distance))
-> - break;
-> - }
-> -
-> - return best_n;
-> -}
-> -
-> -static unsigned int dw_hdmi_qp_find_n(struct dw_hdmi_qp *hdmi, =
-unsigned long pixel_clk,
-> -      unsigned long sample_rate)
-> -{
-> - int n =3D dw_hdmi_qp_match_tmds_n_table(hdmi, pixel_clk, =
-sample_rate);
-> -
-> - if (n > 0)
-> - return n;
-> -
-> - dev_warn(hdmi->dev, "Rate %lu missing; compute N dynamically\n",
-> - pixel_clk);
-> -
-> - return dw_hdmi_qp_compute_n(hdmi, pixel_clk, sample_rate);
-> -}
-> -
-> -static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, =
-unsigned long pixel_clk,
-> - unsigned long sample_rate)
-> -{
-> - const struct dw_hdmi_audio_tmds_cts *tmds_cts =3D NULL;
-> - int i;
-> -
-> - for (i =3D 0; common_tmds_cts_table[i].tmds !=3D 0; i++) {
-> - if (pixel_clk =3D=3D common_tmds_cts_table[i].tmds) {
-> - tmds_cts =3D &common_tmds_cts_table[i];
-> - break;
-> - }
-> - }
-> -
-> - if (!tmds_cts)
-> - return 0;
-> -
-> - switch (sample_rate) {
-> - case 32000:
-> - return tmds_cts->cts_32k;
-> - case 44100:
-> - case 88200:
-> - case 176400:
-> - return tmds_cts->cts_44k1;
-> - case 48000:
-> - case 96000:
-> - case 192000:
-> - return tmds_cts->cts_48k;
-> - default:
-> - return -ENOENT;
-> - }
-> -}
-> -
-> static void dw_hdmi_qp_set_audio_interface(struct dw_hdmi_qp *hdmi,
->   struct hdmi_codec_daifmt *fmt,
->   struct hdmi_codec_params *hparms)
-> @@ -458,8 +252,7 @@ static void dw_hdmi_qp_set_sample_rate(struct =
-dw_hdmi_qp *hdmi, unsigned long lo
-> {
-> unsigned int n, cts;
->=20
-> - n =3D dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
-> - cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
-> + drm_hdmi_acr_get_n_cts(tmds_char_rate, sample_rate, &n, &cts);
->=20
-> dw_hdmi_qp_set_cts_n(hdmi, cts, n);
-> }
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index baf9a8b90a4d..164441e43940 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -799,6 +799,7 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
+ 	for (i = 0; i < ARRAY_SIZE(priv->cmd_buf); i++) {
+ 		if (!priv->cmd_buf[i])
+ 			continue;
++		amdxdna_gem_heap_free(client, priv->cmd_buf[i]);
+ 		drm_gem_object_put(to_gobj(priv->cmd_buf[i]));
+ 	}
+ 	amdxdna_gem_unpin(heap);
+@@ -836,8 +837,14 @@ void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
+ 	drm_sched_fini(&hwctx->priv->sched);
+ 	aie2_ctx_syncobj_destroy(hwctx);
+ 
+-	for (idx = 0; idx < ARRAY_SIZE(hwctx->priv->cmd_buf); idx++)
++	for (idx = 0; idx < ARRAY_SIZE(hwctx->priv->cmd_buf); idx++) {
++		/*
++		 * The open/close will never be called for driver allocated
++		 * dev bo. Call amdxdna_gem_heap_free explicitly.
++		 */
++		amdxdna_gem_heap_free(hwctx->client, hwctx->priv->cmd_buf[idx]);
+ 		drm_gem_object_put(to_gobj(hwctx->priv->cmd_buf[idx]));
++	}
+ 	amdxdna_gem_unpin(hwctx->priv->heap);
+ 	drm_gem_object_put(to_gobj(hwctx->priv->heap));
+ 
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index b089ee76b647..476649685e5a 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -37,6 +37,7 @@ amdxdna_init_dev_bo(struct amdxdna_gem_obj *dev_bo)
+ 	struct amdxdna_gem_obj *heap;
+ 	u64 heap_addr, exp_heap_uva;
+ 	u32 heap_id;
++	int ret;
+ 
+ 	if (xa_empty(&client->dev_heap_xa)) {
+ 		XDNA_DBG(xdna, "Empty heap xa");
+@@ -58,24 +59,32 @@ amdxdna_init_dev_bo(struct amdxdna_gem_obj *dev_bo)
+ 	heap = xa_load(&client->dev_heap_xa, heap_id);
+ 	exp_heap_uva = amdxdna_gem_uva(heap);
+ 	heap_addr = amdxdna_gem_dev_addr(heap);
+-	dev_bo->heap_start_id = heap_id;
+ 	dev_bo->mem.uva = dev_bo->mm_node.start - heap_addr + exp_heap_uva;
+ 
+ 	for (; heap_id < client->dev_heap_nid; heap_id++) {
+ 		heap = xa_load(&client->dev_heap_xa, heap_id);
+ 		if (!heap) {
+ 			XDNA_ERR(xdna, "Failed to load heap %d", heap_id);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto cleanup_heap_xa;
+ 		}
+ 		heap_addr = amdxdna_gem_uva(heap);
+ 		if (heap_addr == AMDXDNA_INVALID_ADDR) {
+ 			XDNA_ERR(xdna, "Heap %d is not mapped", heap_id);
+-			return -EAGAIN;
++			ret = -EAGAIN;
++			goto cleanup_heap_xa;
+ 		}
+ 
+ 		if (heap_addr != exp_heap_uva) {
+ 			XDNA_ERR(xdna, "Heap %d uva is not contiguous", heap_id);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto cleanup_heap_xa;
++		}
++
++		ret = xa_insert(&dev_bo->heap_xa, heap_id, heap, GFP_KERNEL);
++		if (ret) {
++			ret = -ENOMEM;
++			goto cleanup_heap_xa;
+ 		}
+ 
+ 		if (heap->dev_addr + heap->mem.size >=
+@@ -87,12 +96,15 @@ amdxdna_init_dev_bo(struct amdxdna_gem_obj *dev_bo)
+ 
+ 	if (heap_id == client->dev_heap_nid) {
+ 		XDNA_DBG(xdna, "Can not find heap end");
+-		return -EAGAIN;
++		ret = -EAGAIN;
++		goto cleanup_heap_xa;
+ 	}
+ 
+-	dev_bo->heap_end_id = heap_id;
+-
+ 	return 0;
++
++cleanup_heap_xa:
++	xa_destroy(&dev_bo->heap_xa);
++	return ret;
+ }
+ 
+ static int
+@@ -132,8 +144,7 @@ amdxdna_gem_heap_alloc(struct amdxdna_gem_obj *abo)
+ 	}
+ 
+ 	client->heap_usage += mem->size;
+-	xa_for_each_range(&client->dev_heap_xa, heap_id, heap,
+-			  abo->heap_start_id, abo->heap_end_id)
++	xa_for_each(&abo->heap_xa, heap_id, heap)
+ 		drm_gem_object_get(to_gobj(heap));
+ 
+ unlock_out:
+@@ -142,22 +153,13 @@ amdxdna_gem_heap_alloc(struct amdxdna_gem_obj *abo)
+ 	return ret;
+ }
+ 
+-static void
+-amdxdna_gem_heap_free(struct amdxdna_gem_obj *abo)
++void amdxdna_gem_heap_free(struct amdxdna_client *client, struct amdxdna_gem_obj *abo)
+ {
+-	struct amdxdna_client *client = abo->client;
+-	struct amdxdna_gem_obj *heap;
+-	unsigned long heap_id;
+-
+ 	mutex_lock(&client->mm_lock);
+ 
+ 	drm_mm_remove_node(&abo->mm_node);
+ 	client->heap_usage -= abo->mem.size;
+ 
+-	xa_for_each_range(&client->dev_heap_xa, heap_id, heap,
+-			  abo->heap_start_id, abo->heap_end_id)
+-		drm_gem_object_put(to_gobj(heap));
+-
+ 	mutex_unlock(&client->mm_lock);
+ }
+ 
+@@ -180,6 +182,7 @@ amdxdna_gem_create_obj(struct drm_device *dev, size_t size)
+ 	abo->open_ref = 0;
+ 	abo->internal = false;
+ 	INIT_LIST_HEAD(&abo->mem.umap_list);
++	xa_init_flags(&abo->heap_xa, XA_FLAGS_ALLOC);
+ 
+ 	return abo;
+ }
+@@ -449,13 +452,18 @@ static void amdxdna_gem_dev_obj_free(struct drm_gem_object *gobj)
+ {
+ 	struct amdxdna_dev *xdna = to_xdna_dev(gobj->dev);
+ 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
++	struct amdxdna_gem_obj *heap;
++	unsigned long heap_id;
+ 
+ 	XDNA_DBG(xdna, "BO type %d xdna_addr 0x%llx", abo->type, amdxdna_gem_dev_addr(abo));
+ 	if (abo->pinned)
+ 		amdxdna_gem_unpin(abo);
+ 
+ 	amdxdna_gem_vunmap(abo);
+-	amdxdna_gem_heap_free(abo);
++	xa_for_each(&abo->heap_xa, heap_id, heap)
++		drm_gem_object_put(to_gobj(heap));
++	xa_destroy(&abo->heap_xa);
++
+ 	drm_gem_object_release(gobj);
+ 	amdxdna_gem_destroy_obj(abo);
+ }
+@@ -757,19 +765,72 @@ static void amdxdna_gem_obj_vunmap(struct drm_gem_object *obj, struct iosys_map
+ 		drm_gem_shmem_object_vunmap(obj, map);
+ }
+ 
++static int amdxdna_gem_dev_obj_open(struct drm_gem_object *gobj, struct drm_file *filp)
++{
++	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
++
++	guard(mutex)(&abo->lock);
++	if (filp->driver_priv != abo->client)
++		return -EPERM;
++	abo->open_ref++;
++
++	return 0;
++}
++
++static void amdxdna_gem_dev_obj_close(struct drm_gem_object *gobj, struct drm_file *filp)
++{
++	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
++	struct amdxdna_client *client = NULL;
++
++	mutex_lock(&abo->lock);
++	abo->open_ref--;
++
++	/*
++	 * Freeing the heap allocation here, when the handle is closed, is
++	 * intentional.  DEV BOs are carved out of a per-client drm_mm heap;
++	 * any subsequent allocation that lands on the same device address will
++	 * also belong to the same client.  If the user closes the handle while
++	 * a job is still in flight the only consequence is self-inflicted
++	 * corruption within their own context -- it cannot affect other
++	 * processes.  The GEM reference held by the in-flight job keeps the
++	 * amdxdna_gem_obj struct alive until the job completes; it does not
++	 * prevent the device address from being reclaimed by the allocator.
++	 *
++	 * Cross-process handle creation for DEV BOs is rejected in
++	 * amdxdna_gem_dev_obj_open(), which prevents the following UAF:
++	 * if a second process shared the handle via GEM flink and the
++	 * original creator exited (freeing client), the importer would later
++	 * reach open_ref == 0 here and call amdxdna_gem_heap_free() with a
++	 * dangling abo->client pointer.  Because cross-process opens are
++	 * rejected, the process arriving here is always the owning client,
++	 * which is still alive.  abo->client is nulled out afterwards so that
++	 * any code path running on a lingering GEM reference (e.g. an
++	 * in-flight job) cannot silently dereference a stale pointer.
++	 */
++	if (abo->open_ref == 0) {
++		client = abo->client;
++		abo->client = NULL;
++	}
++	mutex_unlock(&abo->lock);
++
++	if (client)
++		amdxdna_gem_heap_free(client, abo);
++}
++
+ static int amdxdna_gem_dev_obj_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+ {
+ 	struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
+ 	struct amdxdna_gem_obj *heap;
++	unsigned long index = 0;
+ 	void *base;
+ 	u64 offset;
+ 
+-	/* vmap dev bo which is across more than 1 heap is not allowed */
+-	if (abo->heap_start_id != abo->heap_end_id)
++	heap = xa_find(&abo->heap_xa, &index, ULONG_MAX, XA_PRESENT);
++	if (!heap)
+ 		return -ENOMEM;
+ 
+-	heap = xa_load(&abo->client->dev_heap_xa, abo->heap_start_id);
+-	if (!heap)
++	/* vmap dev bo which is across more than 1 heap is not allowed */
++	if (xa_find_after(&abo->heap_xa, &index, ULONG_MAX, XA_PRESENT))
+ 		return -ENOMEM;
+ 
+ 	base = amdxdna_gem_vmap(heap);
+@@ -788,6 +849,8 @@ static struct dma_buf *amdxdna_gem_dev_obj_export(struct drm_gem_object *gobj, i
+ 
+ static const struct drm_gem_object_funcs amdxdna_gem_dev_obj_funcs = {
+ 	.free = amdxdna_gem_dev_obj_free,
++	.open = amdxdna_gem_dev_obj_open,
++	.close = amdxdna_gem_dev_obj_close,
+ 	.vmap = amdxdna_gem_dev_obj_vmap,
+ 	.export = amdxdna_gem_dev_obj_export,
+ };
+@@ -1126,6 +1189,8 @@ int amdxdna_drm_create_bo_ioctl(struct drm_device *dev, void *data, struct drm_f
+ 		 args->handle, args->type, amdxdna_gem_uva(abo),
+ 		 amdxdna_gem_dev_addr(abo), abo->mem.size);
+ put_obj:
++	if (ret && abo->type == AMDXDNA_BO_DEV)
++		amdxdna_gem_heap_free(client, abo);
+ 	/* Dereference object reference. Handle holds it now. */
+ 	drm_gem_object_put(to_gobj(abo));
+ 	return ret;
+@@ -1159,7 +1224,6 @@ static void amdxdna_bo_unpin(struct amdxdna_gem_obj *abo)
+ 
+ int amdxdna_gem_pin_nolock(struct amdxdna_gem_obj *abo)
+ {
+-	struct amdxdna_client *client = abo->client;
+ 	struct amdxdna_gem_obj *heap;
+ 	unsigned long heap_id, last = ULONG_MAX;
+ 	int ret = 0;
+@@ -1167,17 +1231,15 @@ int amdxdna_gem_pin_nolock(struct amdxdna_gem_obj *abo)
+ 	if (abo->type != AMDXDNA_BO_DEV)
+ 		return amdxdna_bo_pin(abo);
+ 
+-	xa_for_each_range(&client->dev_heap_xa, heap_id, heap,
+-			  abo->heap_start_id, abo->heap_end_id) {
++	xa_for_each(&abo->heap_xa, heap_id, heap) {
+ 		ret = amdxdna_bo_pin(heap);
+ 		if (ret)
+ 			break;
+ 		last = heap_id;
+ 	}
+ 
+-	if (ret && last <= abo->heap_end_id) {
+-		xa_for_each_range(&client->dev_heap_xa, heap_id, heap,
+-				  abo->heap_start_id, last)
++	if (ret && last != ULONG_MAX) {
++		xa_for_each_range(&abo->heap_xa, heap_id, heap, 0, last)
+ 			amdxdna_bo_unpin(heap);
+ 	}
+ 
+@@ -1202,8 +1264,7 @@ void amdxdna_gem_unpin(struct amdxdna_gem_obj *abo)
+ 		struct amdxdna_gem_obj *heap;
+ 		unsigned long heap_id;
+ 
+-		xa_for_each_range(&abo->client->dev_heap_xa, heap_id, heap,
+-				  abo->heap_start_id, abo->heap_end_id)
++		xa_for_each(&abo->heap_xa, heap_id, heap)
+ 			amdxdna_bo_unpin(heap);
+ 	} else {
+ 		amdxdna_bo_unpin(abo);
+@@ -1319,8 +1380,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+ 		u64 flush_start = bo_start + args->offset;
+ 		u64 flush_end = flush_start + args->size;
+ 
+-		xa_for_each_range(&client->dev_heap_xa, heap_id, heap,
+-				  abo->heap_start_id, abo->heap_end_id) {
++		xa_for_each(&abo->heap_xa, heap_id, heap) {
+ 			u64 heap_start = amdxdna_gem_dev_addr(heap);
+ 			u64 heap_end = heap_start + heap->mem.size;
+ 			u64 start = max(flush_start, heap_start);
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+index fb033ced1045..5dfefdcf1356 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.h
++++ b/drivers/accel/amdxdna/amdxdna_gem.h
+@@ -47,8 +47,7 @@ struct amdxdna_gem_obj {
+ 
+ 	/* Below members are initialized when needed */
+ 	struct drm_mm_node		mm_node; /* For AMDXDNA_BO_DEV */
+-	u32				heap_start_id;
+-	u32				heap_end_id;
++	struct xarray			heap_xa;
+ 	u64				dev_addr; /* For heap bo */
+ 	u32				assigned_hwctx;
+ 	struct dma_buf			*dma_buf;
+@@ -105,6 +104,7 @@ static inline u64 amdxdna_obj_dma_addr(struct amdxdna_gem_obj *abo)
+ }
+ 
+ void amdxdna_umap_put(struct amdxdna_umap *mapp);
++void amdxdna_gem_heap_free(struct amdxdna_client *client, struct amdxdna_gem_obj *abo);
+ 
+ struct drm_gem_object *
+ amdxdna_gem_create_shmem_object_cb(struct drm_device *dev, size_t size);
+-- 
+2.34.1
 
