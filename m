@@ -4,60 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A27DC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54416C624D2
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3371210ECB0;
-	Tue,  1 Sep 2026 12:31:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Z8ehe+g7";
-	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1189510ECB0
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788265904;
- bh=/Wb6SqiUPoyaZWp0PGQZ8gTdNyjVlU7i/WGEMdK8aCo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Z8ehe+g7pNu/dCR8w/jiV30Us9iXbBUUTuhjM8LaHdHHrY0O6I5eN02G6vZ29jKPY
- FlSP5c2pL7AUFiggWf8FLml5l5E+/eBTH0gsRjRMsJKhH6BAPnvRpST0eYbMRu3IWt
- 5Dzb63vuwacT+efnN7xQgdQIyLZUOfTRkCusxIucZgKDUIIfb0wDZzW573muzkwgjS
- n2L9u2qdJ61msE4bA48mloT4zh7cphIBmZcdkRxjYaOV+Ap339sK2cCMeTkJEgitkc
- 4FQJe/2BtE8R0XtKCFdYlqHhYl9NHrvaeFtaYGD3JiFlt73MKyGb0Dk1enKFE3cilo
- B8JPiFfO2sFCg==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1146517E063E;
- Tue, 01 Sep 2026 14:31:44 +0200 (CEST)
-Date: Tue, 1 Sep 2026 14:31:37 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 05/17] drm/panfrost: Skip NULL checks for clock
- enable/disabling
-Message-ID: <20260901143137.054dfe79@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-5-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-5-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4AC10ECB3;
+	Tue,  1 Sep 2026 12:33:34 +0000 (UTC)
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FE210ECB3
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:33:33 +0000 (UTC)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-4b1bc2e44e0so7358913b6e.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 05:33:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788266012; x=1788870812;
+ h=content-type:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=O31KF1bx9pdjUZkEEGUWR4q75msQ5Y234D7nSHmhi/0=;
+ b=MJIH21D/TnGwmOnbXkVigkAOi+yTOouno7tDqMnSseEPTZUb7iJOYAkoEqQ9rsfLqL
+ FJ4IKDktT3MFqsU6UBRJjRt/c4ZaGauoHR9OHL12JNxcOUqtLE+uEG4z/8O0lvyJm7vd
+ wVnvri7aJm4j/yYNHXWFvtC9tPrMt7Dh/hF4dkm3wnVEnZe1jhKHiKQl3j88JX5HIhVr
+ XOHfpQeLEjDvk7kK1V2OLIXUD5y8LEKMo6aWyrte7elCBXSDDi8C2xQ3zhyP0PJTTBhQ
+ LZcXNd9bi9hqINWufl2AWzNOEPWBs9lpAievDODTrehZzkGRFpIYhTiPzeGlzqDIbIEX
+ dYMA==
+X-Gm-Message-State: AFuF++ktq3k7Vjuv2R+c1Sy6C344fwFRjfUQbYYBVRa1I3CxYS53O8fq
+ Cyeh5yARxGXczl7X0QT8YIxUIVHOK70HK+MwTmXn8u/E7b1v87WUGlBPsOUeH8N8XqByQIfui97
+ fcqTKVhuaYn3e13X5DMWF3nbd4l/ygb3GJAPIMrPo3n5woVwTiyOTOtHJTPA=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6808:4fe9:b0:4b3:8ae8:7a47 with SMTP id
+ 5614622812f47-4b5b82d6323mr8554597b6e.16.1788266012510; Tue, 01 Sep 2026
+ 05:33:32 -0700 (PDT)
+Date: Tue, 01 Sep 2026 05:33:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a96c61c.04428c52.29b18.0004.GAE@google.com>
+Subject: [syzbot] Monthly dri report (Sep 2026)
+From: syzbot <syzbot+listd3be96098b5843b34a80@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +59,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:45 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+Hello dri maintainers/developers,
 
-> The clk_* API can deal with NULL clock objects, so we can do away with NU=
-LL
-> checks in client code.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+This is a 31-day syzbot report for the dri subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dri
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+During the period, 3 new issues were detected and 0 were fixed.
+In total, 11 issues are still open and 38 have already been fixed.
+There are also 9 low-priority issues.
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 14 +++++---------
->  1 file changed, 5 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 6e3fcd53b690..a9d9669912e0 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -540,11 +540,9 @@ static int panfrost_device_resume(struct device *dev)
->  		if (ret)
->  			goto err_clk;
-> =20
-> -		if (pfdev->bus_clock) {
-> -			ret =3D clk_enable(pfdev->bus_clock);
-> -			if (ret)
-> -				goto err_bus_clk;
-> -		}
-> +		ret =3D clk_enable(pfdev->bus_clock);
-> +		if (ret)
-> +			goto err_bus_clk;
->  	}
-> =20
->  	ret =3D pm_runtime_force_resume(dev);
-> @@ -554,7 +552,7 @@ static int panfrost_device_resume(struct device *dev)
->  	return 0;
-> =20
->  err_resume:
-> -	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
-> +	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
->  		clk_disable(pfdev->bus_clock);
->  err_bus_clk:
->  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
-> @@ -575,9 +573,7 @@ static int panfrost_device_suspend(struct device *dev)
->  		return ret;
-> =20
->  	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
-> -		if (pfdev->bus_clock)
-> -			clk_disable(pfdev->bus_clock);
-> -
-> +		clk_disable(pfdev->bus_clock);
->  		clk_disable(pfdev->clock);
->  	}
-> =20
->=20
+Some of the still happening issues:
 
+Ref Crashes Repro Title
+<1> 2279    Yes   WARNING in drm_mm_takedown
+                  https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+<2> 167     Yes   WARNING in virtio_gpu_alloc_vbufs
+                  https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+<3> 65      Yes   KASAN: slab-use-after-free Read in drm_atomic_helper_wait_for_vblanks (2)
+                  https://syzkaller.appspot.com/bug?extid=0f999d26a4fd79c3a23b
+<4> 60      No    upstream test error: WARNING in drm_mode_config_validate
+                  https://syzkaller.appspot.com/bug?extid=5caf8faef4fa32603577
+<5> 3       Yes   memory leak in drm_mode_atomic_ioctl
+                  https://syzkaller.appspot.com/bug?extid=3fc9eecaf97147282c87
+<6> 29      Yes   general protection fault in drm_object_attach_property
+                  https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
+<7> 7       Yes   WARNING in __drm_atomic_helper_set_config
+                  https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
