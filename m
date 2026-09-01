@@ -4,71 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F682C624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EA8CC624D7
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4306510F406;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3B410F410;
 	Thu,  3 Sep 2026 07:33:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HiIkbqTf";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="fI7c+mPx";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9429A10E32A
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 01:27:18 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-3966791a6eeso590261a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 18:27:18 -0700 (PDT)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC35510E325
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 20:36:37 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-936dfd009d1so188890185a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 13:36:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788312438; x=1788917238; darn=lists.freedesktop.org;
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788294997;
+ x=1788899797; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=BrgdRCCQy4wk9/bV+rhJB1ZWew/obSOSpX6szpMZY4E=;
- b=HiIkbqTfzLFfnSz8Tf7SnChtePa11ZM25TyzXR0rkWzZzzOmtpQSPdu5IzTMTdHCtr
- ZKdmr7X5BWy0SZphwgENqzd3SHXMrGULT7tXOBzD7QtA/sqW5ZFMLZGsHupIp9RcCoUJ
- miNyqhnR1vZQ4wBAjZjnX3Sp50WPU7d5N3+K2toXse+u6+BI0bcwuO/HXLQPJmv0Yome
- U5PpcVbsfJLs0krg/RadZZ7h0bydfQ3Xx0weUZbFxVj1rk7H3EpXczcxUy4sMU218ebo
- MkdrIIOuYru1Y3U5p2Gx/sIRAsLFfBbw54EGDoO8JuEkYLuf+FbLJs7aGhKPJoQCfT1I
- QZpw==
+ bh=EyAYuLXXzVtKL+Vc2WL6tPFoU1yZSAFLWXRw34l4tAk=;
+ b=fI7c+mPxnGqiJ0k3b/RT7p2k3C3aQkYdY6AlBR0CbV/sJgspfrVe3wYIJDMVopSfWL
+ fsnjNxGc5sblv0DoWhidTdPik5YH+h3xuCiqyEkd4iRwrH8zYA0sR/3//TlRccfM+MS0
+ 7VBBtlco4UpUGL+zWHH3ZkTZoq8yr+gCXL6Gd0axNxN8lptlJVqnioTjVhDsA+JcXFYN
+ cxFziVmH82UTTNEejpwJ3zuM1JMh8xng8EqgO/YWkQCz7JO7jjrG3kuJ+1tsICQndMkR
+ Y1JCWserUsIfVzafDA+GomGF9p4LyZLUeJGYRhDRfGFaes/4n9/ZGk64DFAAMNz/axOw
+ SvMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788312438; x=1788917238;
+ d=1e100.net; s=20251104; t=1788294997; x=1788899797;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=BrgdRCCQy4wk9/bV+rhJB1ZWew/obSOSpX6szpMZY4E=;
- b=BQbfSkbcjRPyaCJQY3J0HUajBnJruKuBt6EvYv8ekLnsN9FELIbzKbA+EJnlCW2zP/
- H5I5ekUZKcGn9cXEAKzE5k20qD1EF1cyGWEHr0FmfOwyAvpNim4Q+1xpMA3gsYVuniUz
- DLUE3WH4AquqOvuPhYPyK7bI+Sprts55R5vlG9+5DsWkUrMb8/2qxUo06oUEnpundOMk
- hs6AimkV+c2G31vYiKBSa/+zk70wmN8LpWNUEOWVHWW90zvvWEHbURwjYbk7ibpQoTeV
- be/6sU0h6mI5jiSHhG/c5lDQGg8fpHzZ+rO9O6nSZ8b1pO4oNkES+2m10liKW1iM4X1I
- UlsA==
-X-Gm-Message-State: AFuF++mzl9QLf2aHHua/PDOw2p7TOr2AW595bjIZgFEz5z9zFMPnUsNh
- PwAYLhPtGLgqIlvlAcORj8iXZbHqdtMXmcDkgiH1aksrv3QGdPbqAl0=
-X-Gm-Gg: AYBFou0+46KLNKaIrkHCD7I8Hd+J+K4Vt7y89urpcdbMrW9wmFBcfb0wnMdsDh9diBm
- 1ig4moLRe86e5KQgpyNHDPRRoDLmEyddRSSCvCqSrsS2nw7nAM735UPIt7Fy0TI74iXMx7XwA19
- Gk7uptMHDwpOBsP4ltcotEnft1UWNBYhuydaVMUoBTcDLO+g2WIH4aig2pt1KUkpb+syYvCD/Or
- FgBwZHw/fIDNjay546u938gcGxY3yQHFjUM314qHyed6oyeY3HTDxDb2MV5razYmEffUzonD9CP
- BKHICzWi7rMnYSu6PR8cpumTCkSI4vRbOglH3x3vFGKKvq5xp097NQY+8qFxihP7UDulMCw9XdW
- 2erToRBiXpAUqPBzoxtpLl4zyRThXq5lATznBtEc7dgIwB3xCgDiZ/UlEs6P4QlFrNGpFvgZbWI
- CBdNeaIaxvpBQLdMLQcgD/arS3vrnvMep12lD0v65yrRwbUk7CE6UPl1A9r5QQE8OLzbtfj+dRo
- VFrVRItfhucxHVgXv39T2Ng4/0=
-X-Received: by 2002:a17:90b:4c52:b0:38e:6aa7:68ad with SMTP id
- 98e67ed59e1d1-39aedf7c6aemr1567465a91.5.1788312437952; 
- Tue, 01 Sep 2026 18:27:17 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39ae0f2a315sm2443563a91.8.2026.09.01.18.27.15
+ bh=EyAYuLXXzVtKL+Vc2WL6tPFoU1yZSAFLWXRw34l4tAk=;
+ b=YvAMGKHzo6yL+BvzFcWRpjrH/1x/6NXiF8g6mbDt7DULyccWXLa3Pa6RgWbQA4VCMc
+ QUHm5yj2OoBbTLG3p0wwtwdbDsT4GhTeGl5mXyorCqBNqfFuqWs37bfOkdW7hsrDfjSc
+ v1Y10HLpmy3vU0hd7nkZBIy+8VrmlhcsBq+2szgV0QkKQvOqcR2+4ULdb1M/GzQyrYDQ
+ igg0Bblaw+JYWCuheT09+uf+VjYPI1bHtw1EnJq/TfsmJ5Mdit2W3qkk4wakRbpsc+x8
+ f1Wu2GROh476P+TI7IR46abx1EmuM1oeGAi3SZLTSKidyKTkoNNX+7GXL3Y9l5ucVFSH
+ /fkw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqEBuuyOBPeg/CK2qlpcyCUOQ8waWWyjBvrBGT5s7cUFjecmBQ0eedbgq/YIodVEfUGM2kFHvOZtRM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l8V2dIyyuEK3JGoQ3Ay0n8a9OTg1+w+sX/RGMNgHLTJ6Y+v3NN
+ BNj1wSmFt8Dx6gUXdMVb6FsQ3w6xSxULzaQBgn83FHRjAZ45QSZ2K5lshBIotbAvqdg=
+X-Gm-Gg: AR+sD13NVxvjCS5hnGxbM3JTNb6rDyNb/iBYa9YhjZVKAgSSdqPe6gzLiX/LjigufYm
+ HiZC9VayB38W8vXJ2ppBZjGcaTEOJ3fxa8bLhkTOj1SQb3eLXNF523xWOLp1NNoHi9cwFVAtbaI
+ xW7diR4/xkU+qoR+6I0nrUHvIuz1otenvi4LKmQF0p/xZJUROvS9HHNpiFwpqgrbO2MBnPi4cp6
+ G9YsHrwQAvSDt3evU4uvRPH3GCPfHDatZPbh3NSuIKTt7gV83oY+sTlPZdbQvu7M+un1T/+2VRH
+ NML4X0jZz2+QMoZlntco8WxIWKcfQpY0ZzCYN1u/rHdHz37zFqpDEJLuOSzFWi+hFOUo45soj8R
+ S8viTde+m4lcm6ytA/KHbrONOsyUSG2ola3nCRLHkM4xEG7AhofBDrnCkWXyjjLtiAbFlSWaFh7
+ toJE1GB2uC/Bv/iLptrrkW+zIwocp+QdFF7JAxD+0XniowMVlhNCujR2OaRuxnTgwIQfeI0iaqc
+ uw0XUT3YQmHgvgpCexhbtoEuZLe+gIuyZNH/8duLu1TlqAWDnyMIEwy0mU9LREUktbKyhP0KIbt
+ jFKNZS7NIiz/MyoDiiqh/m/GjktrO5cKwbuXsFF83kxpIPoR2vYWSymTUw==
+X-Received: by 2002:a05:620a:a411:10b0:936:ce17:7792 with SMTP id
+ af79cd13be357-9394bbfcd67mr879893085a.8.1788294996544; 
+ Tue, 01 Sep 2026 13:36:36 -0700 (PDT)
+Received: from jake-laptop ([153.67.1.208]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9395f35a3f3sm27146285a.27.2026.09.01.13.36.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 18:27:17 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] accel/amdxdna: RCU-free the scheduler-containing hwctx private
-Date: Wed,  2 Sep 2026 10:27:12 +0900
-Message-ID: <20260902012712.880520-1-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Tue, 01 Sep 2026 13:36:36 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: jouni.hogander@intel.com, mika.kahola@intel.com,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/psr: clear the Panel Replay error status register
+Date: Tue,  1 Sep 2026 16:36:33 -0400
+Message-ID: <20260901203633.92628-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
@@ -87,62 +91,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-struct amdxdna_hwctx_priv embeds a struct drm_gpu_scheduler (priv->sched).
-aie2_hwctx_fini() calls drm_sched_fini(&priv->sched) and then frees the whole
-object with plain kfree(hwctx->priv).
+psr_get_status_and_error_status() selects the DPCD offset to read the error
+status from based on whether Panel Replay is enabled:
 
-Every drm_sched_fence produced by that scheduler stores fence->sched =
-&priv->sched, and drm_sched_fence_get_timeline_name() returns
-fence->sched->name.  The scheduler fence ops keep a .release callback, so the
-fence is not ops-detached on signalling: a finished fence that userspace still
-holds (exported via drm_syncobj / sync_file) keeps pointing at priv->sched
-after the hwctx is torn down.  A later get_timeline_name() -- reachable
-unprivileged through SYNC_IOC_FILE_INFO on the exported sync_file -- then
-dereferences priv->sched->name in freed slab memory (KASAN
-slab-use-after-free read).
+	offset = intel_dp->psr.panel_replay_enabled ?
+		 DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS;
 
-This is the amdxdna instance of the dma-fence lifetime contract: the exporter
-must keep the driver data backing a fence alive for an RCU grace period after
-the fence is signalled, so a concurrent rcu_read_lock'd dma_fence_timeline_name()
-cannot observe freed memory.  aie2_hwctx_fini() already waits for all submitted
-jobs to complete/cancel, so the fences are signalled by teardown time; only the
-teardown race window remains, which an RCU-delayed free closes.
+but intel_psr_short_pulse() acknowledges it unconditionally to the PSR
+register:
 
-Free the scheduler-containing private with kfree_rcu() instead of kfree().  The
-init-failure unwind keeps plain kfree(): no job has been submitted there, so no
-drm_sched_fence has been exported.
+	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
 
-Fixes: be462c97b7df ("accel/amdxdna: Add hardware context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+Under Panel Replay the error is therefore read from DP_PANEL_REPLAY_ERROR_STATUS
+(0x2020) and the acknowledgement written to DP_PSR_ERROR_STATUS (0x2006).
+DP_PANEL_REPLAY_ERROR_STATUS is never written anywhere in the tree; it appears
+only in the read above and in its own #define.
+
+The sink's Panel Replay error latch can consequently never be cleared. Once it
+latches, every subsequent short pulse re-reads the same errors, so PSR is
+disabled with sink_not_reliable set permanently, and until a short pulse
+arrives the driver keeps Panel Replay enabled while the sink is reporting
+errors it cannot see.
+
+Observed on a Dell XPS 16 DA16260 (Panther Lake, Arc B390, display version
+30.00) with the eDP Panel Replay quirk from commit cb8d155b0806 removed
+locally so the feature could be exercised. The sink reports a persistently
+latched error:
+
+	Sink PANEL-REPLAY status: 0x2 [active, display from RFB]
+	Sink PANEL-REPLAY error status: 0x1:
+		PANEL-REPLAY Link CRC error
+
+which survives across reads indefinitely, while dmesg stays silent and Panel
+Replay Selective Update remains enabled.
+
+Use the same conditional offset when clearing.
+
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
 ---
- drivers/accel/amdxdna/aie2_ctx.c | 2 +-
- drivers/accel/amdxdna/aie2_pci.h | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 4b3a62aa8798..26bd6e001792 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -842,7 +842,7 @@ void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3885,7 +3885,10 @@ void intel_psr_short_pulse(struct intel_dp *intel_dp)
+ 			"PSR_ERROR_STATUS unhandled errors %x\n",
+ 			error_status & ~errors);
+ 	/* clear status register */
+-	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
++	drm_dp_dpcd_writeb(&intel_dp->aux,
++			   psr->panel_replay_enabled ?
++			   DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS,
++			   error_status);
  
- 	mutex_destroy(&hwctx->priv->io_lock);
- 	kfree(hwctx->col_list);
--	kfree(hwctx->priv);
-+	kfree_rcu(hwctx->priv, rcu);
- 	kfree(hwctx->cus);
- }
- 
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index ea1dac106400..e08b8f64328c 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -107,6 +107,8 @@ struct amdxdna_hwctx_priv {
- 	struct amdxdna_gem_obj		*heap;
- 	void				*mbox_chann;
- 
-+	struct rcu_head			rcu;
-+
- 	struct drm_gpu_scheduler	sched;
- 	struct drm_sched_entity		entity;
- 
+ 	if (!psr->panel_replay_enabled) {
+ 		psr_alpm_check(intel_dp);
