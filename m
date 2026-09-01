@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E8EC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:13:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A996C624D0
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:14:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFD8C10EE9A;
-	Tue,  1 Sep 2026 19:13:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86EC410E324;
+	Tue,  1 Sep 2026 19:13:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="09iheZ4k";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ipo9foAx";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013055.outbound.protection.outlook.com
- [40.93.201.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCB0F10E324;
- Tue,  1 Sep 2026 19:13:53 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 730BE10E324;
+ Tue,  1 Sep 2026 19:13:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f8Z1+wh9NnYQsN2Nw39X19mMGkEpfKXNOp/EaYSWeV++LFc79I8w729OtRqBbp+S2Wo2ifk4WwZZPXSDm9ivFdVvkZS23e9wHlsAMqCRGYie7FnEOqdCNpLzPZYgkhyABarzRiDVOA1o0/gu/fATW97uxp4FXI/Sa9m7W30DI10hvJ/kx0UrEJk+gVQqI24ZnE8mqfptECRi91TjSGovVcjJS1jhBTo5zubZdZ/dpFFEV+E8VhLhugHYSSK2UinXfQGqUogjnxfJmCPUQi1G1lRRMhYORXWmV9zS3V8SmkaFA8x5Goyb7bzAfWUUVw3DSFPWad73rTrsQ+Xurm4FyQ==
+ b=WEegqX9BeLjNi5ltqtdZ0sGvPI3HBx8XY0YcGLvUDorKCURlc3O96iOaSwVz2MCgEn3U84CsacDD+XHFLXwvDs3PFSNxJCvodRV1D+TuLGO2vFtk1pKCJC84Y7Nk+ugc3ccBnvcflInUAHIhEWT4wsc2YA8EdnP+W9HefUOnXDcZbc48Ljw2oOG4xpf35SkZAuJNASvMU+1+9BYlSgTFknmG0feHOjgTw+7aFC24LRtTq5l+6eVN6rYdD0d4QakzUSW1xIMp/eEJp6T1SyPqU3XAQ3zJG4rxwdh5z6SkE1XKzsxbTwLHGEJ3ubMXmvIjBxS78CkyvVZgn4Jfr/cDcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w78hUy6vtKbm38h5LfmUXrJQj1WNdQpeU7PCbhSCD/w=;
- b=oHCkdLdsOlegHbt1mxzBl9OYhIOR36vpgfdsS0K8DhUbsa16kSFpgimUOEHEyLbinwxkKT/pOg161FWvJ++b/41qwTyAznhsKcLRRnaXa0j3+zur0ja3/r4hDi2X8zFYN78TSqXr8SMWFphZZxsBZmnEfwy2DFAIWBetLL0cWePnkFfC7lzYpz93YeCowd23mDNc9zoZK0IW7tS3UH6i5sFvPCV2dd91wJQEsghg/b45qPuMXkGg8K6cJtChAEpNOyluW4nQAQLLOFKA1DSc1vuv2OFWy630dJKpZEkYJZx+NUb9l44+xssniIWWhUq/PAZ+6ns6nEEySLE3rVyY6w==
+ bh=EMVgTJ2+aZtYIBsd67YYyrMp/iiBpw9D33VTjrOVZQc=;
+ b=cikf2zKR3i/76lwbPrnuALNe1JmCxqwnghkpKvNPv5IlVzKzybIkP20UrU9xtB271UvcxyR/ew1ScRABOmuvkfOxiy/c/geRjx2hbl6Lu2jw1FjR5fUDpW/DiI9yDb57Etp/eddztdfxW6pZE+SPerCfAiJt0kIHGcSId9hKgtA1nfnHHt5yMW96dnHeLz5WE9WeBSJD9kXXnb3vQSD1yGoYwtI3LnOS1G+amVI0vkp13QXlP1r7kCEf8Ge4+OeGwiG5tPlWcbhAJ2EsSp/SMDXDCzlXia6ryycC6Jr4WY9aoGKNsI3Cu+haH8u/2Pj4UfDFso/k/21MkAW/l4Q9bQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w78hUy6vtKbm38h5LfmUXrJQj1WNdQpeU7PCbhSCD/w=;
- b=09iheZ4kbnQCkBj09K+THTck8Zg3vKP1G5ViccrluQnNL9W768ei7NORG2cAOxJwCgSd1AWCwT2fcu4P/nhY63qJkwUJA1zUtaeMuC3tgzaLJlBF+NLWewbP6QcUggdPFliD7mEKzft21+CGLEePpkvoBfyRGK7yQH7jUj9hvP4=
-Received: from DM6PR03CA0094.namprd03.prod.outlook.com (2603:10b6:5:333::27)
- by SA3PR12MB9179.namprd12.prod.outlook.com (2603:10b6:806:3a1::12) with
+ bh=EMVgTJ2+aZtYIBsd67YYyrMp/iiBpw9D33VTjrOVZQc=;
+ b=ipo9foAxPL17oLc8p5M3dLpUlMCtOFgDU8Sg3YozJxnjb2pmEX1AuUl/gipiHlJIxCJnMUI2ivGBu4gEXcttZFzUvipa3NssHjxvPEOm8RWPhDFbPCQjsUt/wylzE69DMjcLkDiwb0Jm9oAdD2fSlwn0m77mHaVfNPOai/+511M=
+Received: from DM6PR03CA0082.namprd03.prod.outlook.com (2603:10b6:5:333::15)
+ by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
  2026 19:13:48 +0000
 Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
- (2603:10b6:5:333:cafe::20) by DM6PR03CA0094.outlook.office365.com
- (2603:10b6:5:333::27) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:5:333:cafe::3b) by DM6PR03CA0082.outlook.office365.com
+ (2603:10b6:5:333::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 19:13:48 +0000
+ Sep 2026 19:13:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,7 +50,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:13:48 +0000
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:13:45 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
@@ -61,9 +60,9 @@ To: <adolfotregosa@gmail.com>, <harry.wentland@amd.com>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Tomasz=20Paku=C5=82a?=
  <tomasz.pakula.oficjalny@gmail.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: [PATCH v1 2/3] drm/amd/display: Use passive_vrr properties in amdgpu
-Date: Tue, 1 Sep 2026 15:12:50 -0400
-Message-ID: <20260901191251.2653684-3-jerry.zuo@amd.com>
+Subject: [PATCH v1 1/3] drm: Add passive_vrr properties for passive/desktop VRR
+Date: Tue, 1 Sep 2026 15:12:49 -0400
+Message-ID: <20260901191251.2653684-2-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260901191251.2653684-1-jerry.zuo@amd.com>
 References: <20260901191251.2653684-1-jerry.zuo@amd.com>
@@ -75,29 +74,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|SA3PR12MB9179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e7521d6-292b-4d6a-6edc-08df085d26c9
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|CY8PR12MB7754:EE_
+X-MS-Office365-Filtering-Correlation-Id: 266d0963-2944-485d-95aa-08df085d252d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|10067099003|11063799006|5023799004|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: RZzR+MqBnaVtqSDUssUZExBmE0cVQtbo4cK71kP0vhAZ8wE4UiMn2SauJT1WfV/M4JQXUTGEpFWZKj8ROX5aA9RSRKmtTs/+OEIUk3zfEhiy9uBEh5StiQndJP8c8kD3wlnJCYby3YC2V8lXDfcUP/BPKLoPTICulaXxEZ0sinUI2ojWdxGaBbtSj5+tN9OXSp5nIRt8bblV2bTcK2tJNyH7jyM5rQLui6on7HzQmu7H70sXLv1CQD+Scv2rMxQJkcPpqUnr3Y+befsl+kgbQVZSftXpkf45SiNBLYqil3onoxM5uPnFKy6T/cg0ldBI73TmfsSf2+9zUZxjm164lZn8K3hRLmHwV60X2z78IAjtwktySVbgbMh4FiZ4jy737A14yR2idC8STnE77t1ByGtEpttP6Ht75GncRqtxX6Fzps6dS43dkxU+V3YBSiCBcmAmXFTyfTeY0UVPg8ue7RgHsAX4VvlZmypFgQdxtCBdKfCv5f+wmDb6kn/uEGwZSA1/CPwgF+RGGqiJjV5tSBjS/ku8741qYoeRifPs0ZxtcdiDXu94DpXE48tXnoIWF/bg7OwncO/b30n4Qs3/1wzmuBVXkSWtgk4lSxUVhRbWeOPm+Jz+PeLGP/eIouBEirZ9f5pFZsyYMZbFgae3oJtilUbUUFpUT30l9WU1x+bczgnQbDbMQRVJhfWBSyiajcx1DRN+sMKuFlRGvOrzHQ==
+ ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|18002099003|22082099003|56012099006|3023799007|5023799004|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: XZiBmDiRrTOYowhQ1pIOhOXytHSzNSSbN+QbQqG6XbqeLkrVzKS5/jZIBFX5yKSFCQJ+yAF4PBGyfMNufpW9A95YetmxQAw8gel/G2PRrDLc+HsmeVOc/8GzRoddEn8XAfPZqwkf6gE2IJiFXlfO0EgPXdpUUwsq0LbmytwZEZ+NrLGPXtOfKiMbhQQncb9nCnwe8acqgzGllW1+QMb/RHUKpGQi67EoMnVfOmLIbmFvNoV5O7TBLhlfg4p+Gg8QxatMMIy+l1egpolt+6V4k1z9Bdk/5TERRLatr5Ew2sk74KjilXjhUmv9NQcuk/7OSXxiJALvwZUc1jjvlrErOzW9AY6nXKBOo/kqQb+GJwdODaBXEz5tL2vgC/DzgQn81w9ORT/JdbFIujso2qZxaGKy7jQL4JcvZrNwfyZWjSxl676f456H3V/mP3vKUDl/bGOdOAsUawXd09ETc8T3axm76GH+PjZh4UPhdCb2YmPDerp0O/kZ9Djm0aQahFqlJntD/Ncbs0theX8zTc2bkzT2FHM4LQIyriR3V+wjuYruANE1Rvvu052pMrz1PKzlejG08LxVCk3T0CiF/SQd5RUfXbZCvetu2W9TlwVZ4V6hJaA79MVSFb6+mRkfa4+7IqZnbeFK4YP2cKo9syeAwV02NRTN7Yu19taB6Rt0rZAblq1WXiKXv20mGNR7PTTMcD5fzZ93p9SfK029xHDfog==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(10067099003)(11063799006)(5023799004)(3023799007)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(3023799007)(5023799004)(10067099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UPIkozR9Ww4523xX0G1/fjya8c2jye/jLbrgZnN8iE5hzLgKnuCfE28IM62ejLNFUJ49oWF8zPBW6kjpYBA5gw6xSHmFnEgT9AoEM0KriCd+KQEuB4fdu9HV6syUhtj48n/+xkqN1zy2D1QaQYia70ukUvTDUVX/BjBqJSIWKC5XITnVLnQvpuHSzB6zI6NVKdrpqkwdPPgkNRMqTWTh2UhJv7ablAObdcCsml6zCVEvTpKfQ2OvFAPk1HJTxCJqL6qV1QJGUfYyLF7481oKDrTe1I9pUtGbaVO77bAokU6t2wBKvNsWbbG2C5P7IsUibAhb2ul5hi5377/gFzoqUEwCPWHPKyequBn6D+x+BhLPYuREbnzc40gz/6EDjAkl9GoBNah8MAw6fvB/0yHMiERbzIMUA75CM0OlvitiHOTRcuJwT8uv81NgEsbgQUuX
+X-MS-Exchange-AntiSpam-MessageData-0: WWwra9fCwsQKBdsBajCUi3BuTTLQzP5vte8HZu8xblfWI6I3b4ZgU4NpIHzg2/6ppk+p92anLWlfplFzFI3NXVeraxDxCHyR+1xhq8UYqP9Ec3zZS2p4XzROVwUuG9ok4hoTlmKarPE9tMjRB+YZxC8m7vu7toXf/t4fb9TTTjKHC3SsJEfWyK5qUuEJ6F3bEyO5fC5L+tkmlwTD30/KYVTIOWO2XOKqnRtZYfeBONrUuZLIqT6S0IcJbDOYQWyfN9SgLXQH9xwq2smsphYVK5PU0ZNZnTC8ZtspVUyoHkQJtzY5+xom3Q6PrGdijIBSQR31y46M8WXY9Ak8ozAuZF5UYN0J21vDOM1ne7IQ46j/fKiDtkrWXWYBDHtC26z7eq5AjUehZmGM2X2bZNVPwyv/xM7tTCXMBGV19ud9pNtH5c9S0g0mFMTjMoaWKvp6
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:13:48.4834 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e7521d6-292b-4d6a-6edc-08df085d26c9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:13:45.7831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 266d0963-2944-485d-95aa-08df085d252d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9179
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,111 +114,267 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 
-Backport of upstream (Tomasz Pakula) amd-gfx v4 27-patch series patch
-26/27, adapted to the split amdgpu_dm sources on amd-staging-drm-next.
+Backport of upstream (Tomasz Pakula) amd-gfx v4 series patches 23/27 and
+24/27, squashed into the drm-core change required for passive_vrr_capable.
 
-Wire the passive_vrr DRM properties into amdgpu for HDMI/DP/eDP sinks:
-- Add dm_connector_state.freesync_on_desktop_capable and copy it in
-  amdgpu_dm_connector_atomic_duplicate_state().
-- Attach the passive_vrr_capable connector property alongside
-  vrr_capable for non-MST connectors.
-- In amdgpu_dm_update_freesync_caps(), record freesync_on_desktop_capable
-  and update the passive_vrr_capable property from freesync_capable.
-- In amdgpu_dm_get_freesync_config_for_crtc(), drive
-  stream->freesync_on_desktop from the inverse of passive_vrr_disabled
-  when capable, hooking into the existing DC freesync_on_desktop logic
-  that keeps the FreeSync-Active bit set during fixed-refresh (desktop)
-  use.
+Add the PASSIVE_VRR_DISABLED atomic CRTC property (drm_crtc_state.
+passive_vrr_disabled) and the immutable passive_vrr_capable connector
+property, together with drm_connector_attach_passive_vrr_capable_property()
+and drm_connector_set_passive_vrr_capable_property() helpers.
+
+Passive VRR keeps a sink in its variable-refresh state during fixed
+refresh (desktop) use, avoiding blanking/flicker on VRR entry/exit for
+HDMI sinks that lack seamless VRR transitions. The property is opt-out
+(default enabled where the connector advertises passive_vrr_capable);
+lacking hardware support is not treated as failure. Not useful for
+DP/eDP where seamless VRR transitions are enforced by the standard.
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  1 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 12 ++++++++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c   |  7 +++++++
- 3 files changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c |  4 ++
+ drivers/gpu/drm/drm_connector.c   | 73 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_crtc.c        |  2 +
+ drivers/gpu/drm/drm_mode_config.c |  6 +++
+ include/drm/drm_connector.h       | 15 +++++++
+ include/drm/drm_crtc.h            |  9 ++++
+ include/drm/drm_mode_config.h     |  6 +++
+ 7 files changed, 115 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 089741ba0619..0b0ab7b2aa43 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1064,6 +1064,7 @@ struct dm_connector_state {
- 	uint8_t underscan_hborder;
- 	bool underscan_enable;
- 	bool freesync_capable;
-+	bool freesync_on_desktop_capable;
- 	bool update_hdcp;
- 	bool abm_sysfs_forbidden;
- 	uint8_t abm_level;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0e71ba498e8a..8b2eec1a683d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1982,6 +1982,7 @@ amdgpu_dm_connector_atomic_duplicate_state(struct drm_connector *connector)
- 	__drm_atomic_helper_connector_duplicate_state(connector, &new_state->base);
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index e997917819e8..c50c83360ba2 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -420,6 +420,8 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		return ret;
+ 	} else if (property == config->prop_vrr_enabled) {
+ 		state->vrr_enabled = val;
++	} else if (property == config->prop_passive_vrr_disabled) {
++		state->passive_vrr_disabled = val;
+ 	} else if (property == config->degamma_lut_property) {
+ 		const size_t elem_size = sizeof(struct drm_color_lut);
+ 		u64 lut_size;
+@@ -505,6 +507,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ 		*val = (state->mode_blob) ? state->mode_blob->base.id : 0;
+ 	else if (property == config->prop_vrr_enabled)
+ 		*val = state->vrr_enabled;
++	else if (property == config->prop_passive_vrr_disabled)
++		*val = state->passive_vrr_disabled;
+ 	else if (property == config->degamma_lut_property)
+ 		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
+ 	else if (property == config->ctm_property)
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 9d820a2a87ce..c429105172b0 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2368,6 +2368,16 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
+  *
+  *	Absence of the property should indicate absence of support.
+  *
++ * "passive_vrr_capable":
++ *	Optional &drm_connector boolean property that drivers should attach
++ *	with drm_connector_attach_passive_vrr_capable_property() on
++ *	connectors that could support keeping variable refresh rate signalling
++ *	in fixed-refresh rate scenarios like desktop work. Drivers should update
++ *	the property value by calling
++ *	drm_connector_set_passive_vrr_capable_property().
++ *
++ *	Absence of the property should indicate absence of support.
++ *
+  * "VRR_ENABLED":
+  *	Default &drm_crtc boolean property that notifies the driver that the
+  *	content on the CRTC is suitable for variable refresh rate presentation.
+@@ -2386,6 +2396,17 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
+  *
+  *	The driver may place further restrictions within these minimum
+  *	and maximum bounds.
++ *
++ * "PASSIVE_VRR_DISABLED":
++ *	Default &drm_crtc boolean property that notifies the driver that the
++ *	VRR singalling should be disabled in fixed refresh rate scenarios.
++ *	Functionally, psssive vrr works the same as VRR_ENABLED == false
++ *	but works around displays blanking (mainly HDMI) that do not support
++ *	seamless VRR transitions. Also helps with brightness flickering during
++ *	VRR transitions.
++ *
++ *	Passive VRR mode is not that useful for DP/eDP sinks where seamless VRR
++ *	transitions are enforced by the standard.
+  */
  
- 	new_state->freesync_capable = state->freesync_capable;
-+	new_state->freesync_on_desktop_capable = state->freesync_on_desktop_capable;
- 	new_state->abm_level = state->abm_level;
- 	new_state->scaling = state->scaling;
- 	new_state->underscan_enable = state->underscan_enable;
-@@ -3241,8 +3242,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	    connector_type == DRM_MODE_CONNECTOR_eDP) {
- 		drm_connector_attach_hdr_output_metadata_property(&aconnector->base);
- 
--		if (!aconnector->mst_root)
-+		if (!aconnector->mst_root) {
- 			drm_connector_attach_vrr_capable_property(&aconnector->base);
-+			drm_connector_attach_passive_vrr_capable_property(&aconnector->base);
-+		}
- 
- 
- 		if (adev->dm.hdcp_workqueue)
-@@ -3978,8 +3981,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 		dm_helpers_mccs_vcp_set(adev->dm.dc->ctx, amdgpu_dm_connector->dc_link, sink);
- 
- update:
--	if (dm_con_state)
-+	if (dm_con_state) {
- 		dm_con_state->freesync_capable = freesync_capable;
-+		dm_con_state->freesync_on_desktop_capable = freesync_capable;
-+	}
- 
- 	drm_dbg_driver(adev_to_drm(adev),
- 		       "VRR: caps result: freesync_capable=%d min_vfreq=%d max_vfreq=%d\n",
-@@ -3995,4 +4000,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (connector->vrr_capable_property)
- 		drm_connector_set_vrr_capable_property(connector,
- 						       freesync_capable);
-+
-+	if (connector->passive_vrr_capable_property)
-+		drm_connector_set_passive_vrr_capable_property(connector, freesync_capable);
+ /**
+@@ -2419,6 +2440,37 @@ int drm_connector_attach_vrr_capable_property(
  }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 281c6cec9f4b..903d5ab387d4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -138,6 +138,12 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 		config.vsif_supported = true;
- 		config.btr = true;
+ EXPORT_SYMBOL(drm_connector_attach_vrr_capable_property);
  
-+		if (new_con_state->freesync_on_desktop_capable)
-+			new_crtc_state->stream->freesync_on_desktop =
-+				!new_crtc_state->base.passive_vrr_disabled;
-+		else
-+			new_crtc_state->stream->freesync_on_desktop = false;
++/**
++ * drm_connector_attach_passive_vrr_capable_property - creates the
++ * passive_vrr_capable property
++ * @connector: connector to create the passive_vrr_capable property on.
++ *
++ * This is used by atomic drivers to add support for querying
++ * variable refresh rate on desktop capability for a connector.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
++ */
++int drm_connector_attach_passive_vrr_capable_property(
++	struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_property *prop;
 +
- 		if (fs_vid_mode) {
- 			config.state = VRR_STATE_ACTIVE_FIXED;
- 			config.fixed_refresh_in_uhz = new_crtc_state->freesync_config.fixed_refresh_in_uhz;
-@@ -149,6 +155,7 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 		}
- 	} else {
- 		config.state = VRR_STATE_UNSUPPORTED;
-+		new_crtc_state->stream->freesync_on_desktop = false;
++	if (!connector->passive_vrr_capable_property) {
++		prop = drm_property_create_bool(dev, DRM_MODE_PROP_IMMUTABLE,
++			"passive_vrr_capable");
++		if (!prop)
++			return -ENOMEM;
++
++		connector->passive_vrr_capable_property = prop;
++		drm_object_attach_property(&connector->base, prop, 0);
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_connector_attach_passive_vrr_capable_property);
++
+ /**
+  * drm_connector_attach_scaling_mode_property - attach atomic scaling mode property
+  * @connector: connector to attach scaling mode property on.
+@@ -2985,6 +3037,27 @@ void drm_connector_set_vrr_capable_property(
+ }
+ EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
+ 
++/**
++ * drm_connector_set_passive_vrr_capable_property - sets the variable refresh
++ * rate on desktop capable property for a connector
++ * @connector: drm connector
++ * @capable: True if the connector is variable refresh rate on desktop capable
++ *
++ * Should be used by atomic drivers to update the indicated support for
++ * variable refresh rate on desktop over a connector.
++ */
++void drm_connector_set_passive_vrr_capable_property(
++		struct drm_connector *connector, bool capable)
++{
++	if (!connector->passive_vrr_capable_property)
++		return;
++
++	drm_object_property_set_value(&connector->base,
++				      connector->passive_vrr_capable_property,
++				      capable);
++}
++EXPORT_SYMBOL(drm_connector_set_passive_vrr_capable_property);
++
+ /**
+  * drm_connector_set_panel_orientation - sets the connector's panel_orientation
+  * @connector: connector for which to set the panel-orientation property.
+diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+index 63ead8ba6756..bd666dbc30f2 100644
+--- a/drivers/gpu/drm/drm_crtc.c
++++ b/drivers/gpu/drm/drm_crtc.c
+@@ -322,6 +322,8 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
+ 					   config->prop_out_fence_ptr, 0);
+ 		drm_object_attach_property(&crtc->base,
+ 					   config->prop_vrr_enabled, 0);
++		drm_object_attach_property(&crtc->base,
++					   config->prop_passive_vrr_disabled, 0);
  	}
- out:
- 	new_crtc_state->freesync_config = config;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 66f7dc37b597..dc1ca08655ca 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -345,6 +345,12 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
+ 		return -ENOMEM;
+ 	dev->mode_config.prop_vrr_enabled = prop;
+ 
++	prop = drm_property_create_bool(dev, 0,
++			"PASSIVE_VRR_DISABLED");
++	if (!prop)
++		return -ENOMEM;
++	dev->mode_config.prop_passive_vrr_disabled = prop;
++
+ 	prop = drm_property_create(dev,
+ 			DRM_MODE_PROP_BLOB,
+ 			"DEGAMMA_LUT", 0);
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 9f8f109c2dd1..fd370ecfc6a2 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2212,6 +2212,17 @@ struct drm_connector {
+ 	 */
+ 	struct drm_property *vrr_capable_property;
+ 
++	/**
++	 * @passive_vrr_capable_property: Optional property to help userspace
++	 * query hardware support for passive variable refresh rate on a
++	 * connector. Drivers can add the property to a connector by
++	 * calling drm_connector_attach_passive_vrr_capable_property().
++	 *
++	 * This should be updated only by calling
++	 * drm_connector_set_passive_vrr_capable_property().
++	 */
++	struct drm_property *passive_vrr_capable_property;
++
+ 	/**
+ 	 * @colorspace_property: Connector property to set the suitable
+ 	 * colorspace supported by the sink.
+@@ -2606,6 +2617,8 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
+ 					       u32 scaling_mode_mask);
+ int drm_connector_attach_vrr_capable_property(
+ 		struct drm_connector *connector);
++int drm_connector_attach_passive_vrr_capable_property(
++		struct drm_connector *connector);
+ void drm_connector_attach_panel_type_property(struct drm_connector *connector);
+ int drm_connector_attach_broadcast_rgb_property(struct drm_connector *connector);
+ int drm_connector_attach_colorspace_property(struct drm_connector *connector);
+@@ -2629,6 +2642,8 @@ void drm_connector_set_link_status_property(struct drm_connector *connector,
+ 					    uint64_t link_status);
+ void drm_connector_set_vrr_capable_property(
+ 		struct drm_connector *connector, bool capable);
++void drm_connector_set_passive_vrr_capable_property(
++		struct drm_connector *connector, bool capable);
+ int drm_connector_set_panel_orientation(
+ 	struct drm_connector *connector,
+ 	enum drm_panel_orientation panel_orientation);
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index c6dbe8b7db9e..642a374f403e 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -311,6 +311,15 @@ struct drm_crtc_state {
+ 	 */
+ 	bool vrr_enabled;
+ 
++	/**
++	 * @passive_vrr_disabled:
++	 *
++	 * Indicates if variable refresh rate on desktop should be enabled for
++	 * the CRTC. Support for the requested state will depend on driver and
++	 * hardware capabiltiy - lacking support is not treated as failure.
++	 */
++	bool passive_vrr_disabled;
++
+ 	/**
+ 	 * @self_refresh_active:
+ 	 *
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index e584652ddf67..e312e6ae4d7e 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -701,6 +701,12 @@ struct drm_mode_config {
+ 	 * whether variable refresh rate should be enabled on the CRTC.
+ 	 */
+ 	struct drm_property *prop_vrr_enabled;
++	/**
++	 * @prop_passive_vrr_disabled: Default atomic CRTC property to indicate
++	 * whether passive variable refresh rate should be disabled
++	 * on the CRTC.
++	 */
++	struct drm_property *prop_passive_vrr_disabled;
+ 
+ 	/**
+ 	 * @dvi_i_subconnector_property: Optional DVI-I property to
 -- 
 2.53.0
 
