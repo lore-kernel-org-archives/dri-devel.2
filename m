@@ -4,53 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEF4AC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 10:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A3FC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 10:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D588E10E636;
-	Tue,  1 Sep 2026 10:27:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3F610EC53;
+	Tue,  1 Sep 2026 10:29:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZnLVANCZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E9pvZ9mw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA82310E636
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 10:27:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 385BE405A8;
- Tue,  1 Sep 2026 10:27:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597521F000E9;
- Tue,  1 Sep 2026 10:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788258461;
- bh=BxpNmtosXBLcejVvVlsO0MWlW4PxIZtHHw+hJL+JV3k=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=ZnLVANCZ8CZoCqBMfmsgwuXdtcB011s0hQrurqb+Ef81pWLP++1DIcwVCQLbZGsOo
- eWYSIgnGLejrN//AequtxdK7KhQ+Hll8osCsrZGGag/2l7LnC0HUm3VlC/JVAjM3Km
- sq3WCc5QWCPBARwbPh1uSmpu3Jm/AhDY4Vuj/r1xhNp6eMaAGEpKGpOgbhCY70jERK
- jDKISlZHgKBLOjYD62HFFHjW4mAo2KmzAuyldqCuoWHPIk7KNg23wsnZtM24eogw/p
- glSqqzId01li2r/SA2O0g6T6QsPwqX73S2KSCPgbuo36Cv70p/Xp/TP4eX6d5wJn5W
- AMJRRKPLs5ptw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 12:27:36 +0200
-Message-Id: <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
-Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
- nova-core
-Cc: "Alistair Popple" <apopple@nvidia.com>, "nova-gpu"
- <nova-gpu@lists.linux.dev>, "M Henning" <mhenning@darkrefraction.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-2-apopple@nvidia.com>
- <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
- <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
-In-Reply-To: <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED3F10E3B6;
+ Tue,  1 Sep 2026 10:29:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788258561; x=1819794561;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=6VL+2jTpoIlB/ex9UG+2bXV0ukx5HvT53gO1KHXzF7s=;
+ b=E9pvZ9mwi8ZrVkv5csb/Uk0ypU4IcpDvDZtfuF9bWpREAAxyFLTJbigI
+ jQETGNFstCSadwBDcTagtXzD352o6PWWTAb5pvfGSYX0wXGoJpSvKEHJS
+ KvAzdS8K+Fguki5Ybm8nImrkjaA9Xk/czx4EfMz1A/6bYAkMzszWgbEAZ
+ DOV4406YLoiMexenyAE7hM/gPa8OunSsf69u01P5UWL+h/sMm7M6fY5YU
+ lEnwQGxupC+UoeW4JOhjAvGbsB/y41oJHk7WCChLBuWsF58EWFFLmfKH9
+ 70vvdyoX0vM8Xe0n863dLTjALqAoBoCzWlSd1rfrkqgkYGNklZtHQCR7u w==;
+X-CSE-ConnectionGUID: 7Iv3i9wyQv+ofpCwOvx0Pg==
+X-CSE-MsgGUID: KgBFtCVsTsuqEGSCnYQquw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88609367"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="88609367"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 03:29:20 -0700
+X-CSE-ConnectionGUID: 6sWl4nocQYCB4W25KjLY1g==
+X-CSE-MsgGUID: VR0nG1OeSIWlgl4powKc8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="272842924"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.213])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 03:29:18 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: David Laight <david.laight.linux@gmail.com>, Hrushiraj Gandhi
+ <hrushirajg23@gmail.com>
+Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/gvt: use strscpy() instead of strcpy() in
+ virt_vbt_generation()
+In-Reply-To: <20260901101225.3aa0f0cf@pumpkin>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260901050241.359490-1-hrushirajg23@gmail.com>
+ <20260901101225.3aa0f0cf@pumpkin>
+Date: Tue, 01 Sep 2026 13:29:15 +0300
+Message-ID: <198aae087325b563c87d6335ffe3b46bd5fb56ba@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,229 +74,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 31, 2026 at 10:42 PM CEST, Gary Guo wrote:
-> I think if you change the signatue of `registration_data_with` slightly:
+On Tue, 01 Sep 2026, David Laight <david.laight.linux@gmail.com> wrote:
+> On Tue,  1 Sep 2026 10:32:41 +0530
+> Hrushiraj Gandhi <hrushirajg23@gmail.com> wrote:
 >
->     pub fn registration_data_with<'this, F: ForLt + 'static, R>(
->         &'this self,
->         f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
->                                     ^ note this is changed from 'a to 'th=
-is
->     ) -> Result<R>;
+>> strcpy() has no bound on the destination buffer, so convert this to
+>> the bounded, always-NUL-terminating strscpy() instead. The literal
+>> "BIOS_DATA_BLOCK" (15 chars + NUL) fits the 16-byte signature field
+>> exactly, so this is a no-op change in behaviour.
+>> 
+>> No functional change.
+>> 
+>> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+>> ---
+>>  drivers/gpu/drm/i915/gvt/opregion.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
+>> index d6e76ba31d60..f2527e26cd1e 100644
+>> --- a/drivers/gpu/drm/i915/gvt/opregion.c
+>> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
+>> @@ -151,7 +151,8 @@ static void virt_vbt_generation(struct vbt *v)
+>>  	v->header.vbt_size = sizeof(struct vbt);
+>>  	v->header.bdb_offset = offsetof(struct vbt, bdb_header);
+>>  
+>> -	strcpy(&v->bdb_header.signature[0], "BIOS_DATA_BLOCK");
+>> +	strscpy(v->bdb_header.signature, "BIOS_DATA_BLOCK",
+>> +		sizeof(v->bdb_header.signature));
 >
-> then there will be an implied bound available inside the callback where '=
-a
-> outlives 'this, and thus the function callback is able to perform coercio=
-n of
-> any T<'a> to T<'this> provided that `T` is covariant over lifetime `'a`.
+> Pointless and potentially wrong.
+> Both normally reduce to the same memcpy() call.
+> If the fixed string is too long strcpy() generates a compile error
+> whereas strscpy() will silently truncate.
+
+Moreover, there's no provision that the signature must be NUL
+terminated. All consumers must treat it as a 16-byte block which may or
+may not be NUL terminated. In fact, it is usually padded with space
+rather than NUL terminated, and one could argue the NUL termination is
+wrong here.
+
+
+BR,
+Jani.
+
 >
-> [ The coercion won't work when doing abstract `F::Of` on the bus abstract=
-ion
-> side, but for any user it is dealing with concrete types so the compiler =
-sees
-> specific types and thus can check variance ]
+> (The '&' and '[0]' might need removing.)
 >
-> Then your projection can just be
+> David
 >
->     aux.registration_data_project(|x| &x.field)
+>>  	v->bdb_header.version = 186; /* child_dev_size = 33 */
+>>  	v->bdb_header.header_size = sizeof(v->bdb_header);
+>>  
+>> 
 >
-> I haven't tried it out but I think it should work.
 
-I gave this a shot and it seems to work out, it's a good simplification. I =
-think
-we don't even need a dedicated project method in this case. We could add an
-alias for with() just to clarify the intent, but not sure that's worth.
-
-@Alistair: Here's the diff I tested this with:
-
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 798b14f33e20..9babaa0b9a5f 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -13,6 +13,7 @@
-         gem::BaseObject,
-         Registered, //
-     },
-+    num::Bounded,
-     prelude::*,
-     transmute::AsBytes,
-     uaccess::UserSlice,
-@@ -32,10 +33,12 @@
-
- impl GpuInfo {
-     fn new(reg_data: &DrmRegData<'_>) -> Self {
-+        let spec =3D reg_data.api.with(|api| api.get_ref().spec());
-+
-         reg_data.api.with(|api| {
-             Self(uapi::drm_nova_gpu_info {
--                architecture: api.architecture(),
--                implementation: api.implementation(),
-+                architecture: u32::from(Bounded::from(spec.chipset.arch())=
-),
-+                implementation: spec.chipset.implementation(),
-                 vram_size: api.vram_size(),
-                 gpu_name: api.gpu_name(),
-                 gpu_short_name: api.gpu_short_name(),
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-index c9ae48d278af..6825d3562d56 100644
---- a/drivers/gpu/nova-core/api.rs
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -13,6 +13,8 @@
-     types::ForLt, //
- };
-
-+pub use crate::gpu::Spec;
-+
- use crate::gpu::{
-     Gpu, //
- };
-@@ -44,14 +46,9 @@ pub fn handle(adev: &auxiliary::Device<Bound>) -> Result=
-<NovaCoreApiHandle<'_>>
-         NovaCoreApiHandle::of(adev)
-     }
-
--    /// Returns the architecture identifier of this GPU.
--    pub fn architecture(&self) -> u32 {
--        self.gpu.spec.chipset.arch() as u32
--    }
--
--    /// Returns the implementation identifier of this GPU.
--    pub fn implementation(&self) -> u32 {
--        self.gpu.spec.chipset.implementation()
-+    /// Returns the GPU [`Spec`].
-+    pub fn spec(&self) -> &Spec {
-+        &self.gpu.spec
-     }
-
-     /// Returns the size of the PCIe BAR used for accessing VRAM, typicall=
-y
-@@ -78,7 +75,9 @@ fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self>=
- {
-     }
-
-     /// Access the [`NovaCoreApi`] through a closure.
--    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>)=
- -> R) -> R {
-+    ///
-+    /// References to covariant sub-fields can be returned from the closur=
-e directly.
-+    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'a NovaCoreApi<'b>>)=
- -> R) -> R {
-         self.adev
-             .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
-             .expect("TypeId was validated in NovaCoreApiHandle::of()")
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 166f4bb55752..04b97b0f89f4 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -42,7 +42,8 @@ macro_rules! define_chipset {
-         ::kernel::macros::paste!(
-         /// Enum representation of the GPU chipset.
-         #[derive(fmt::Debug, Copy, Clone, PartialOrd, Ord, PartialEq, Eq)]
--        pub(crate) enum Chipset {
-+        #[allow(missing_docs)]
-+        pub enum Chipset {
-             $($variant =3D $value),*,
-         }
-
-@@ -119,7 +120,8 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
- });
-
- impl Chipset {
--    pub(crate) const fn arch(self) -> Architecture {
-+    /// Returns the [`Architecture`] generation of this chipset.
-+    pub const fn arch(self) -> Architecture {
-         match self {
-             Self::TU102 | Self::TU104 | Self::TU106 | Self::TU117 | Self::=
-TU116 =3D> {
-                 Architecture::Turing
-@@ -138,8 +140,8 @@ pub(crate) const fn arch(self) -> Architecture {
-         }
-     }
-
--    /// Returns the implementation identifier of this chipset.
--    pub(crate) const fn implementation(self) -> u32 {
-+    /// Returns the implementation identifier of this chipset within its a=
-rchitecture.
-+    pub const fn implementation(self) -> u32 {
-         self as u32 & 0xf
-     }
-
-@@ -167,7 +169,8 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Resul=
-t {
-     /// Enum representation of the GPU generation.
-     #[derive(fmt::Debug, Copy, Clone)]
-     #[repr(u32)]
--    pub(crate) enum Architecture with TryFrom<Bounded<u32, 6>> {
-+    #[allow(missing_docs)]
-+    pub enum Architecture with TryFrom<Bounded<u32, 6>> {
-         Turing =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_TURIN=
-G,
-         Ampere =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_AMPER=
-E,
-         Hopper =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_HOPPE=
-R,
-@@ -202,8 +205,9 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Resul=
-t {
-
- /// Structure holding a basic description of the GPU: `Chipset` and `Revis=
-ion`.
- #[derive(Clone, Copy)]
--pub(crate) struct Spec {
--    pub(crate) chipset: Chipset,
-+pub struct Spec {
-+    /// The GPU chipset.
-+    pub chipset: Chipset,
-     revision: Revision,
- }
-
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 60dfbec8f330..06f816420790 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'static>=
-(&self) -> Result<Pin<&F::
-     /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The c=
-losure receives a pinned
-     /// reference to the registration data.
-     ///
-+    /// The outer reference carries the `&self` lifetime while the inner t=
-ype carries the HRTB
-+    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the clo=
-sure to coerce covariant
-+    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return them=
- directly in `R`.
-+    ///
-     /// For covariant types that implement [`trait@CovariantForLt`], prefe=
-r
-     /// [`registration_data`](Self::registration_data) which returns a dir=
-ect reference.
-     ///
-@@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'static=
->(&self) -> Result<Pin<&F::
-     /// Returns [`ENOENT`] if no registration data has been set, e.g. when=
- the device was
-     /// registered by a C driver.
-     #[inline]
--    pub fn registration_data_with<F: ForLt + 'static, R>(
--        &self,
--        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
-+    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
-+        &'this self,
-+        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
-     ) -> Result<R> {
--        // SAFETY: The HRTB closure prevents the caller from smuggling in =
-references with a
--        // concrete short lifetime, making the round-trip from `'static` s=
-ound regardless of
--        // variance.
-+        // SAFETY: The HRTB on the inner type prevents the caller from exp=
-loiting a specific
-+        // choice of `'a`. Covariant sub-fields can be safely coerced to `=
-'this`, while
-+        // invariant fields cannot be coerced and thus cannot escape with =
-an incorrect
-+        // lifetime.
-         let pinned =3D unsafe { self.registration_data_pinned::<F>()? };
-
-         Ok(f(pinned))
+-- 
+Jani Nikula, Intel
