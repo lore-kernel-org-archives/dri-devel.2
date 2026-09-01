@@ -4,129 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD80C61DD6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 07:04:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C927C624C6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 07:07:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86E4410EB62;
-	Tue,  1 Sep 2026 07:04:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB15E10E3AC;
+	Tue,  1 Sep 2026 07:07:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xqR8JdwG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="crgFdlX5";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="awCk+lje";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2muTxAt7";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uLki1hZr";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02BAF10E981;
- Tue,  1 Sep 2026 07:04:05 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 68BFF1FDB4;
- Tue,  1 Sep 2026 07:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788246240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=i06vhsjdS6vu5HmtxbpDFhDoej8+icpoSmAxer8tKuc=;
- b=xqR8JdwGKFmeyOmoBjwXFQ2FyoKVz4B7vtaTCQeKysuKFl7OZM2xZBT0ThDh13tKRGl7O1
- z3O4g0JLmHKKLgS7YbKSCBJ1CuB+d+1JaqmGdl5A9shruOCwZKe6fKopXosszqBhUdbO3H
- Ytw6NQWtIdkMp2nzFpjJRHrFOgNbptw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788246240;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=i06vhsjdS6vu5HmtxbpDFhDoej8+icpoSmAxer8tKuc=;
- b=crgFdlX5lADtBLV9eIia4vHZP8RWhw8A3sxrS5czY9EtkY070eqb0xzCAbbKsahotFrC2d
- NVkdnARDPQ3oDPCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788246236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=i06vhsjdS6vu5HmtxbpDFhDoej8+icpoSmAxer8tKuc=;
- b=awCk+ljeowxedso4DVu5YyJOe7XQRnbmJRTx6Y4IhP3WoRe6dgW7FPF6+oMcBxBixAVMCZ
- zF4EEM1qFGjKb5Q+vKLCTm9yJVNlJv6eHLOI30M0YFzsNtswR4lZbmXcrh3ek4N420mfQ1
- jZsSOt2+wOj4n1u0ZzaFaa5EtHlEHKE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788246236;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=i06vhsjdS6vu5HmtxbpDFhDoej8+icpoSmAxer8tKuc=;
- b=2muTxAt76udgQwCFaZOS/FqeC0VYBQ/Ljp49jdEYzJPb7aji03cEbPKOS+VdliMVt2YTFP
- bO2ID2c7ym5etkAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B4B081369E;
- Tue,  1 Sep 2026 07:03:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Im8YKtt4lmp1MAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 01 Sep 2026 07:03:55 +0000
-Message-ID: <3dcac5c3-cdb1-438b-9ba9-789ad9777ad4@suse.de>
-Date: Tue, 1 Sep 2026 09:03:55 +0200
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011054.outbound.protection.outlook.com
+ [40.93.194.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFAB510E3AC
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 07:07:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KXgBphJ+dpdwKi5PniswMj24zFmrPPdzoQwptG0BIkxauOuOhZeVhs5UWrise/yWyfamZvfaPiMUJ0eJUCfgPs9HXzHB7/JROVkL3Kb2+SHRB2MjuKFKBZ5Izn9XQCzcdBQDP2yutjfqvfc59FOKKdad1DYwbysryg2kFRUYJiwL8CgzMEaqf16A1DMhc5qz/5Cr4WyAHWB8pJoxf65dv7XJXGXu9r7QgcZ8tiGnwD4LlPrwPqIIAFQnpJnzMPyO4rhqUJJnoUTBEAyLuIFOgLK44iL2ahjSHOE/wNdV3aIQQBNzxDP87SQJTCmM9GAbS2+bn9wOXPhJdNMZTEMlQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/IhxJv3UQhVhoCs1CNN1/R5gEO/t96Kes+lr+AEPbo0=;
+ b=Sa5OMtl4XsBYpXAT17uSbOXmyu+NVG92KQvdqaMwHPmIaVeAZIPfzoeUgxvfSnMQmIhZtOG0sYV/Eadn20e/AOzu/ote+cP6yh1ahfwMAVUYNSks42/PLKAtYVWJDurZj/t5a7+tmqs7ljZcLD6u607d33SNGdTfNzAZOU/KQc+e3Eu9HNpBnnCS9bLOr5EmYqW3lBWuzVyi3ovwOQ0Rxc2eV+GAT3N78anP2BIYISM7gn2XOFZSHONzwfnvTf+BuzBIVzPIh7ja3AeFYEJg+45TfARxd0BDLa20QWMRvFRlVx+7JJ6fL/RoEbd7jbFeNUPGYpL9znBXOoLeGRuzvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/IhxJv3UQhVhoCs1CNN1/R5gEO/t96Kes+lr+AEPbo0=;
+ b=uLki1hZrhzl3U72X23b2aP/QcCtf7BGnigw27AAdSEjhMAp5SfrRXskzgg7WWw81FC8KqYo8sQitOvFtfM8peQZO04RrSXOFBchhrcX1XQxQAiwunzgsv7wxt9k+h57w2cXuUCLcP9ztK2A7fe8NaF3kQD6bqQZc3JD9KP1KnqaLyW0KRgDmtUH/45KnYH0XvGL2sOFDVekarUGby/HnGUJexCy8iZJjYMNik58MZNa4SnrfJBfN+nCA+hcfWjkh+WYlEo/5WwMxM04wcnyaQZbHkcUgnE8RCjDALXwfcRarQ8qq1FnlZCgeIDHKkRi/DXsTBGSQX+sUX/xSzkGcBg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by PH7PR12MB8825.namprd12.prod.outlook.com (2603:10b6:510:26a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 1 Sep 2026
+ 07:07:46 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 07:07:46 +0000
+Date: Tue, 1 Sep 2026 17:07:40 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, 
+ nova-gpu <nova-gpu@lists.linux.dev>, M Henning <mhenning@darkrefraction.com>, 
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, 
+ Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
+ nova-core
+Message-ID: <apZ3_o8hxlMr6SoP@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-2-apopple@nvidia.com>
+ <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
+ <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+X-ClientProxiedBy: SY5P282CA0130.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:209::10) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/ast: create blend mode property on cursor plane
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>, dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
- dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901065045.1152136-1-qinyuntan@linux.alibaba.com>
- <20260901065045.1152136-2-qinyuntan@linux.alibaba.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260901065045.1152136-2-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[16]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[alibaba.com:email,suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:mid];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid, alibaba.com:email]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|PH7PR12MB8825:EE_
+X-MS-Office365-Filtering-Correlation-Id: c64aabcf-faea-4e11-74a6-08df07f7b99a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|23010399003|1800799024|366016|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: bM2LeWlJBB9k1bdV+Co59vLZDrl5dG528d96SEg+a3KPIFw3UlzpkocW2+pmack1ABKv60kb4RPT62Wy0XFIgcCSZnsSKY89LnWXcyLYRDjC5Zc6z+NcDp8SWQhd4UCUEtI9BJxfGjHKgwHsLK1TKlgRbEzu5eH6pPvqzYvyRdS2ekiDdr3CblqlzaLEUORRuBu6QsIyIrMhRj22jhvk4EtLv9b/RXJL9xpUZyBeI/k78oCjaSUq0KPujK72nkKsBjs1+sP6b0esaSfwJhauf6pGXkYpM8MEBUOk3q/gZUr539PZnZtP+sNhmq2xS9Y/vYC10FL4HdrvTlT2ELo9YKIAFh2/+GmHWQetcuJWemNeTJacCrTKTGyV46H7B4Kl2KD7yynIp582SCJGeZc2ItV+WGBjOUQsDDvvjfoO1cvnn0mKenT1h+64QiY7PUDgeTuicl8/MzhdJg9bEggZs/cUsMcBt4/PeTKKjr6ifZaIVgCHa7fWBghj2O+bYTvIJOasXW8qOliBS37QJuFSakZWfyPII930106OCeh9E2OBESyPfWz6xMKToAKcz4fi7BuuUkeTspFISb9VpSZPS4rD7kOWvJCNc1kskOC4PwZUZLvDudURqImUtqqGF6WKgEIIJim7zZlCoY9W5kJhuJHuvMm6dQCJWCkTt6rRAWU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB5977.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tVk1sA8GibnNBGct7Qb5zGdjLpTEeg+rIt2kpovZk2J8TGd3XqM7M+vlmVCL?=
+ =?us-ascii?Q?r1lZWJ8IaqXBwtvFlCk3GC4y4PWuBXIhs1sE76IB9g+5TzLMQP3ixKEhYn52?=
+ =?us-ascii?Q?T7kt3J1syN/kf0K8T6gtGqnYqRGG7Bds+96vfJzohDcjxYM7hCDxl3es1Ikp?=
+ =?us-ascii?Q?h3AxPU3QeBnefBzCvbaCVANz37+tT7rCIsuH1jCnRCXfiOC4SVgVpKgUSLtT?=
+ =?us-ascii?Q?jHIs1Wl1QRF+AKftXrlwiD7MS/B+gno+6qOqgVWv7mBiO3RVzmPSWNYvcMGU?=
+ =?us-ascii?Q?uKiu0Ja5pDREYctwbC5gGBp54oRLut+EIM0MJZK3v1SAKgr7cV6wHzG/lfQ6?=
+ =?us-ascii?Q?E27Rm/lTKVoLaVjVTZG/fUmOLJJUBn/BxSSi/kxYkDNLl7e+in+PwkPzQmna?=
+ =?us-ascii?Q?eL82zqe/POv3wL9ZJFcAwKp8gtw8pnisrcVSaEDukskK5nct3QHtxxxBUo1O?=
+ =?us-ascii?Q?A3Pc+4tDD0sY2fD+glVERG6Zr5rAsK0XUyJBsKMFrHjrD1GL/JCzSFxvi5SF?=
+ =?us-ascii?Q?IwgLUSY5Q2Wmhloy0lfRHxgA9WUH3EJx+5Puf9NsEiAjcDLS33RPIaRkkFcE?=
+ =?us-ascii?Q?xbPEx7vA+bH9B3WMGbyUxUHE+L7mzTt9pwatv8dS109r+UW7M9YNnaMXFEMx?=
+ =?us-ascii?Q?8+x1B27gWh0QrrKBErxGrqx2BxGsT+4/rkaZ1ujuk1W6I+dMJi21Bav5p7EY?=
+ =?us-ascii?Q?U3FLLSRiGYjEttKa1fKq2/gm4LZMoy7nTHG8B3GMVHr1EjGuRMVz7ZA9U4Bg?=
+ =?us-ascii?Q?EcA9e4dQDXS+16EE1Ckkbx1qjnkEW2ArInAoMQ7gt3J4Ds/vOc3RavaS8b7A?=
+ =?us-ascii?Q?lnmS5dXuh9s8GChN45F3+BdXid3y1IJi4nxQmFWi4WfoD2U+28MwPGzEma4U?=
+ =?us-ascii?Q?zsO+l5nHCnWPldowPl3Ez3cY9ghZFe6ZZ7n1H/UuIhQUaEE5PrYmWcbEXACe?=
+ =?us-ascii?Q?M/Eys89Xzd7UvXjFWoneeZNQy/PPloW339KdzDxnUn7kwoLi32D8i3neeg2O?=
+ =?us-ascii?Q?5OnTDwkD/s9TqNBo8VZwuMR6knHgw87d14+pU/dyj+hCjK6SKXlbvjLerkeC?=
+ =?us-ascii?Q?G0Y+PWVmM/6U0rAd6hjfmnxF7sv/pUGHE2N2sph4YAe+h1eW1DeauD0Sn6mg?=
+ =?us-ascii?Q?1JseTn98DZMSaLE1a3ZDkCueyv4T0UmTNo6NLpPnoIR3wIIXwNhOTMXZ54O8?=
+ =?us-ascii?Q?Wut4NPz2HHFFevMw2WB0UKo2VAelHpN9y6i76a0BjDfg/YyxfYsl2qOfN+HR?=
+ =?us-ascii?Q?4ZA6Imd1pfYmycLvldFVT2+qVYBwHExOu6YLcTkmeTbgd+zOzp8gz2l9AFk1?=
+ =?us-ascii?Q?Wm0nCVnAUObPe2i3jsjmVS3Df7KQbemboy1uRXCv1KdYOSIkYJ6x21zmlycb?=
+ =?us-ascii?Q?oZunTgPf54wzTL6ttHDvGS4Lr23pH+4JlYrYfjZfWtbMKEfpEdBVt9XT7ksL?=
+ =?us-ascii?Q?b4ImUc2c8bhqdIDs7NLdKxe4uAN202+DEdv2dE1H+kn4Nysz3DVBXRrrkMFR?=
+ =?us-ascii?Q?pDwQRTXNcrXZr2Jl53thwKAcwj6zGdPxhX3nv8V3Glc/hQbMFA2HD0KjHLwp?=
+ =?us-ascii?Q?iTkffGDXFLhmwmjHvx9WGatqRiQr3cdQkZVWGZ9a2HLycRwajjy1VIDe2aAd?=
+ =?us-ascii?Q?qxESabAv19VkmdMgDlnR2/6Ovc09TvUwROpzhbOfDihgc0/AEpxVXLJf75lu?=
+ =?us-ascii?Q?1NdSfiWItSZFAo0Uu0ke7hPe1zpvq4CpJsbWRv0szZ9Vk1hbf3gD4x582MLk?=
+ =?us-ascii?Q?kT3RyeM69g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c64aabcf-faea-4e11-74a6-08df07f7b99a
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:07:46.3597 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2+1Se3Jx+0ax9wfcGee655QSSjpJZKblrfh4oAtnUuYOI90UBxWcv5grZtMKf5+5f8AfeqpxENwdrM7IUFTYuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8825
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,70 +135,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 2026-09-01 at 06:42 +1000, Gary Guo <gary@garyguo.net> wrote...
+> On Mon Aug 31, 2026 at 9:08 PM BST, Danilo Krummrich wrote:
+> > On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+> >> +/// API handle for the auxiliary bus child drivers to interact with nova-core.
+> >> +pub struct NovaCoreApi<'bound> {
+> >> +    #[expect(unused)]
+> >> +    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
+> >> +}
+> >> +
+> >> +impl NovaCoreApi<'_> {
+> >> +    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
+> >> +    /// by nova-core.
+> >> +    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
+> >> +        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
+> >> +    }
+> >> +}
+> >
+> > CovariantForLt does not hold anymore on latest drm-rust-next, as Cmdq has a
+> > Mutex. So, this needs ForLt now and therefore the approach that I shared in [1]
+> > a while ago. I applied the changes in [2] to fix it up.
 
-Am 01.09.26 um 08:50 schrieb Qinyun Tan:
-> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-> format with alpha exposed"), drm_mode_config_validate() warns when a
-> plane exposes an alpha pixel format but not the "pixel blend mode"
-> property. The ast cursor plane (ARGB4444, ARGB8888) trips this on
-> driver load:
->
->    [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
->    WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x48f/0x510 [drm]
->    ...
->    Call Trace:
->     drm_dev_register+0x1ce/0x290 [drm]
->     ast_pci_probe+0x19d/0x3f0 [ast]
->     local_pci_probe+0x41/0x90
->
-> The hardware cursor has always blended with pre-multiplied alpha and
-> userspace assumes that blend mode when the property is not attached.
-> Expose a "pixel blend mode" property advertising only
-> DRM_MODE_BLEND_PREMULTI to make the existing semantics explicit and
-> silence the warning. No functional change.
->
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> ---
->   drivers/gpu/drm/ast/ast_cursor.c | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
-> index fd19c45f2abe2..08d93ac7f7cb8 100644
-> --- a/drivers/gpu/drm/ast/ast_cursor.c
-> +++ b/drivers/gpu/drm/ast/ast_cursor.c
-> @@ -25,6 +25,7 @@
->   #include <linux/sizes.h>
->   
->   #include <drm/drm_atomic.h>
-> +#include <drm/drm_blend.h>
->   #include <drm/drm_damage_helper.h>
->   #include <drm/drm_format_helper.h>
->   #include <drm/drm_gem_atomic_helper.h>
-> @@ -355,6 +356,8 @@ int ast_cursor_plane_init(struct ast_device *ast)
->   	}
->   	drm_plane_helper_add(cursor_plane, &ast_cursor_plane_helper_funcs);
->   	drm_plane_enable_fb_damage_clips(cursor_plane);
-> +	drm_plane_create_blend_mode_property(cursor_plane,
-> +					     BIT(DRM_MODE_BLEND_PREMULTI));
+I can see why the mutex means covariance no longer holds, but I would kind
+of also expect it to not compile given it surely can't be safe here to treat
+an invariant type as covariant. Is this just a limitation of the current
+CovariantForLt implementation not being able to prove covariance or am I missing
+something else? Thanks.
 
-AFAIU the available documentation, AST hardware corresponds to 
-DRM_MODE_BLEND_COVERAGE.
-
-Best regards
-Thomas
-
->   
->   	return 0;
->   }
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+ - Alistair
