@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C895AC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 20:04:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E72CC61DD6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 20:05:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 146E010EF04;
-	Tue,  1 Sep 2026 20:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1DB10EEEA;
+	Tue,  1 Sep 2026 20:05:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JTSb/fYa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h4wy0lSx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F95310EEF5
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 20:04:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7B710EEEA
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 20:05:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 95119600D9;
- Tue,  1 Sep 2026 20:04:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4701F000E9;
- Tue,  1 Sep 2026 20:04:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E6A4443774;
+ Tue,  1 Sep 2026 20:05:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9081B1F000E9;
+ Tue,  1 Sep 2026 20:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788293082;
- bh=cJloyuWHKcw/HNGDuggL0oxneerXzgLVXBr2u6wjswM=;
+ s=k20260515; t=1788293133;
+ bh=SUKt+SUuV54NYqXuS4/Co5XK8uh/SiR7pbQUU7xi8pI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JTSb/fYaGDQVrD8G9CtwtsW5Y/Ost95PLHAZT08c1CZAwSBDVthLDNrac622ePvfk
- qbYVVq6vpwRhRBBGnoB/MYtXXIIjbxW++V2Nuykn/+wUOH/2jHKnemG+2N4dEgiwfw
- aSUm7IikkcXcPY2q7I5jdv6J5rGRM5ZUtsXT2sAdTfSL7AnzuIqKu9DwZXm28r5X17
- 41oC70As2XUhTf03HsCpz33L3S7RRYCwqnv9Ku32PtSaxmbXGdVSoANa0LvYDdQf8z
- pmi/Ntrjf1sLk0eZHXjxDTly3jpHEeAQrrKXAMKqJu99QSwrOeyExmyRqBZGMBWldY
- ThkSgtetWYXJQ==
+ b=h4wy0lSxpuKS6oNCixPc8hHzYUqkPgzW4woF7/KioH1vTBIAguavh9xi6N/Q3DNOJ
+ /HVwFhGnI9M9q44sCMn8yquHe1y3rTS+XKL3bU9goymTRuKreAsnzIxhBj8FFBwS2Z
+ +lWfLI9IjQBH7Is9reo9bYXHfdp1P0sU2VErzPZVL1niV3cBoxffirD2EcaJN0WuEn
+ cefqIpnY9GcQLLAHmjY8DUP6f1Y8CJIUSyF8yx/YYGUabcWTUAza9+MojSNXO/dOUc
+ pb9fMw8PNxgfs7/fvLfrQuwaNBwNwoTXenh1kiztMrmmnIrOEzmFF0xK7GrOkQYzyH
+ GxQcqHUaNJbfg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/rockchip: analogix_dp: bound endpoint name formatting
-To: "Yudi Yang" <2000jedi@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901195511.2761251-1-2000jedi@gmail.com>
-References: <20260901195511.2761251-1-2000jedi@gmail.com>
+Subject: Re: [PATCH v11 40/74] drm/rockchip: dw_hdmi_qp: Use
+ dw_hdmi_qp_hpd_notify() for HPD reports
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-40-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+ <20260901-dw-hdmi-qp-scramb-v11-40-bc12954a0688@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 20:04:41 +0000
-Message-Id: <20260901200442.1F4701F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 20:05:33 +0000
+Message-Id: <20260901200533.9081B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +62,82 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Potential Use-After-Free when accessing `endpoint.local_node` afte=
-r its reference count has been dropped.
+- [High] Lifetime mismatch between drmm_ allocated state and devm_ managed =
+resources causes Use-After-Free and resource leaks.
 --
 
-commit fc6c7cf47483df3837bf09097a92c40c4a5aed65
-Author: Yudi Yang <2000jedi@gmail.com>
+commit 4f79590505cad08e229d9cf38e2f40905ce2991c
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: analogix_dp: bound endpoint name formatting
+drm/rockchip: dw_hdmi_qp: Use dw_hdmi_qp_hpd_notify() for HPD reports
+   =20
+Notify only the affected connector instead of polling all of them, and
+ensure .detect_ctx() runs on reconnect to recover SCDC state.
 
-This commit modifies rockchip_dp_drm_encoder_enable() to use snprintf()
-instead of sprintf() when formatting a device tree path into a stack
-buffer. This prevents potential buffer overflows from sufficiently long
-device tree paths.
-
-> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gp=
-u/drm/rockchip/analogix_dp-rockchip.c
-> index 587e60232ec7c..efd5a98e80bd2 100644
-> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> @@ -241,10 +241,11 @@ static void rockchip_dp_drm_encoder_enable(struct d=
-rm_encoder *encoder,
->  				of_graph_get_remote_port(endpoint.local_node);
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 1c547016ee009..f2a1ea8dfefa5 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+[ ... ]
+> @@ -398,14 +397,8 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_s=
+truct *work)
+>  	struct rockchip_hdmi_qp *hdmi =3D container_of(work,
+>  						     struct rockchip_hdmi_qp,
+>  						     hpd_work.work);
+> -	struct drm_device *drm =3D hdmi->encoder.encoder.dev;
+> -	bool changed;
+> =20
+> -	if (drm) {
+> -		changed =3D drm_helper_hpd_irq_event(drm);
+> -		if (changed)
+> -			dev_dbg(hdmi->dev, "connector status changed\n");
+> -	}
+> +	dw_hdmi_qp_hpd_notify(hdmi->hdmi);
+>  }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this code use
-endpoint.local_node after its reference count has been dropped?
+This is a pre-existing issue, but can the hpd_work or IRQ handler outlive t=
+he
+hdmi structure, leading to a use-after-free here?
 
-In rockchip_dp_drm_encoder_enable(), drm_of_encoder_active_endpoint() is
-called, which internally calls of_graph_parse_endpoint(). This sets
-endpoint->local_node without acquiring a reference and then explicitly
-drops its reference by calling of_node_put(ep) before returning.
+The hdmi structure is allocated with DRM device lifetime in
+dw_hdmi_qp_rockchip_bind():
 
-This leaves endpoint.local_node as a dangling pointer, which is then
-passed to of_graph_get_remote_port() here (and earlier to
-of_graph_get_remote_port_parent()).=20
+	hdmi =3D drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
 
-Could this result in a Use-After-Free if the device tree node is dynamically
-freed?
+However, the IRQ is registered with platform device lifetime:
 
-> =20
->  			of_property_read_u32(remote_port, "reg", &port_id);
-> -			sprintf(name, "%s vp%d", remote_port_parent->full_name, port_id);
-> +			snprintf(name, sizeof(name), "%s vp%d",
-> +				 remote_port_parent->full_name, port_id);
->  		} else {
-> -			sprintf(name, "%s %s",
-> -				remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
-> +			snprintf(name, sizeof(name), "%s %s",
-> +				 remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
->  		}
+	ret =3D devm_request_threaded_irq(dev, hdmi->hpd_irq,
+					cfg->ctrl_ops->hardirq_callback,
+					cfg->ctrl_ops->irq_callback,
+					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
+					hdmi);
+
+During a component unbind (e.g. via sysfs or EPROBE_DEFER),
+dw_hdmi_qp_rockchip_unbind() does not explicitly disable the IRQ or unregis=
+ter
+the bridge:
+
+static void dw_hdmi_qp_rockchip_unbind(struct device *dev,
+				       struct device *master,
+				       void *data)
+{
+	struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
+
+	dev_set_drvdata(dev, NULL);
+
+	cancel_delayed_work_sync(&hdmi->hpd_work);
+}
+
+If the DRM device is freed, the hdmi structure is also freed. But because d=
+evm_
+resources are tied to the platform device (which isn't removed during a
+component unbind), the IRQ remains active.
+
+If a hotplug event fires afterwards, won't it dereference the freed hdmi
+pointer and cause a panic?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901195511.2761=
-251-1-2000jedi@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dw-hdmi-qp=
+-scramb-v11-0-bc12954a0688@collabora.com?part=3D40
