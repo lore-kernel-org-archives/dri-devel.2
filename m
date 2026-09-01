@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1F8C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEAD1C624D3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:55:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7618D10ED8F;
-	Tue,  1 Sep 2026 16:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E359A10E417;
+	Tue,  1 Sep 2026 16:55:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BC7zs/B/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bXZkravo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D500B10ED8F
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:55:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 196A310E417
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:55:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B512741995;
- Tue,  1 Sep 2026 16:55:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D831F000E9;
- Tue,  1 Sep 2026 16:55:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E5D706013A;
+ Tue,  1 Sep 2026 16:55:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E41C1F000E9;
+ Tue,  1 Sep 2026 16:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788281730;
- bh=9gYJjWt1RaZrk3Ek06aGjK4JGzvbLvHWqNCWx85TfvM=;
+ s=k20260515; t=1788281736;
+ bh=Dc6bwf/GahXGIO5yuZtsjqF/kfFRrgzsaVcAvEKcbA4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BC7zs/B/LZlPx89BEp4n3RT+MfViHOfKrR4+/QcVUo6T5wzTT0fw8ErPapABB3udZ
- i4UYGAiEdZ1Oc3W+TfdCrlABX7vsd75h2cwTNhLkPQLREdEI3Ty829GA2920KaVaHW
- pGSdSq5ppJ8y24+/vVnURSLo2tUPbOMn1zYyd+aeMARxo5T8c7amnQmUMxqwTJX4cH
- qIZKZNngEdg8DBQGHAo4wDAnjjcwIowdUGUC5AenWt78kmwf+WcE9CJMSxiwg3bcoU
- GWy53IXV/tvh9vA8drHuCv/YkU8+qGzaQ2km/I5t8eLxauJBTJH+WFT8WxQCKvW5l7
- 1woMZvbDxIFeA==
+ b=bXZkravoMfMs3pgiGI3OCsoOhvEsnCm7ItbD5hUx5frHCOkaiArc9u+iPqndaM89T
+ OokUOnMLalieKVxOzBZTYaBjUm7PX+I5XIf17OUdXB9EV7/tXQYE4gmGJxTCyTs1pS
+ mRbYnjBY2sLAZDaXY67FRe6IOJp0YG8Df9Vu1TwT1D0+3fdby8/QLSL6Sn77k0NKYC
+ s2jcYOL/oLO19I3PYPTOF01TVDSaZQtIm9APCIM3+j1DniIbbwgtjGGjzGi0GEegQM
+ 4cHmNFz8IGonqCPobqBERqFjilnq7Hhry/8gE6bCj6jO67Md94/ke0n+/FlPJc+Wdb
+ N7reCvh0h7pXg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 06/16] rust: io: register: allow explicit base type
- specification
+Subject: Re: [PATCH v4 07/16] gpu: nova-core: specify base type for registers
 To: "Gary Guo" <gary@garyguo.net>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, "Danilo
- Krummrich" <dakr@kernel.org>, ojeda@kernel.org,
- "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260901-typed_register-v4-6-5552b1d59525@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
+ linux-pci@vger.kernel.org, ojeda@kernel.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260901-typed_register-v4-7-5552b1d59525@garyguo.net>
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-6-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-7-5552b1d59525@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 16:55:29 +0000
-Message-Id: <20260901165530.43D831F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 16:55:35 +0000
+Message-Id: <20260901165536.3E41C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,22 +59,16 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Currently registers work for all untyped I/O regions, which is not ideal.
-> It allows registers defined for device A to work for another device B and
-> there is no safeguarding at all.
+> All registers use the same base type, which is `<Bar0 as IO>::Target`. Th=
+us
+> add the base parameter to `register!` invocation.
 >=20
-> All users of the `register!` macro know what type it will be operating on,
-> and that type is consistent across the driver. Therefore, add a `base`
-> parameter to `register!`.
->=20
-> Currently this parameter is unused in the generated code; it will be used
-> when all users of `register!` is converted to gain the parameter.
->=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 > Signed-off-by: Gary Guo <gary@garyguo.net>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-typed_regi=
-ster-v4-0-5552b1d59525@garyguo.net?part=3D6
+ster-v4-0-5552b1d59525@garyguo.net?part=3D7
 
