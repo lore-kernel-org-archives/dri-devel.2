@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB18EC624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4669AC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D38010EDDE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF49410EDDB;
 	Tue,  1 Sep 2026 16:59:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UE2l5IJS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nhqCVzJJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1664610EDCA
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54F0510EDDB
  for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:59:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8EF92602BA;
+ by sea.source.kernel.org (Postfix) with ESMTP id 3DC13437CD;
+ Tue,  1 Sep 2026 16:59:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DA71F00A3A;
  Tue,  1 Sep 2026 16:59:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B239B1F00A3D;
- Tue,  1 Sep 2026 16:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788281943;
- bh=cchq70ZENhU1nnYN9GEBzStZcJtso6S7bxU+vicxzA4=;
+ s=k20260515; t=1788281944;
+ bh=e3UlQvfsBCgYPhIPS4h5GwPnyntILhUACVh/wBzK3ho=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UE2l5IJSJDE8cKdqn/zyggr9wXOT+ojkCZrlX0PdFPkW4GH83rgjgzeXgPPOBGME3
- R7JVRO7Ggx9c7/VUk9hlp2MQjdJQk8Ik24HA8VnuViIkEkOZFGbCvjdtPwORIq4Gk0
- rRHOByANN1EysZ6EZdTUFIjVFKOug/pcLCR09xjvbNaaB5Wh0L4+9jxdFYxUiwOqp1
- WN58WUlYDrfI1cV0jC0zDKNZuylKsaibcfmCKL6Df5zT2VdcPOWgO9lRHi6UmJ0Sh2
- eUgmChrermENGndxsIdWM3U7tJOD4R6g5SS4x7ckMm7lxsKeaOIF5xyM0QFdeFglL5
- rW/yMqa118r7g==
+ b=nhqCVzJJubcl/KHRw30/pIjxBkIvr4Zd75H/z3mE9SZcps4PtoTGFpqES5mzx1XEB
+ nxKiFJAcD+3Z8Alwh3BG+KVgRmuBOJTZbM/GV1D6vXZu3wbSmi04Rz3wM/5DvdT/ak
+ xZc02/Q0WPg2OZwh/mmsJmCGz0Y1akzWF/rebtLr0zLsVt7GSsouDPLONP4zBPze99
+ tcdcowxs/DYXcr4Ra+bg/8Lx7gCNrYNznHPqB71EIEBVbs7IV4ln3ILsLMvP7DHtPm
+ pxijb6YOe6l4xjFQAcP//jgD9AOiC5zFuvFuRgkd0UsDNJjzYyQ43u5OkA2SEme8WA
+ ezysGObTw3SgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/16] rust: io: register: make register have a typed
- base
+Subject: Re: [PATCH v4 02/16] rust: mem: add `transmute` with deferred size
+ check
 To: "Gary Guo" <gary@garyguo.net>
-Cc: linux-pci@vger.kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, "Alexandre
- Courbot" <acourbot@nvidia.com>, ojeda@kernel.org
-In-Reply-To: <20260901-typed_register-v4-10-5552b1d59525@garyguo.net>
+Cc: linux-pci@vger.kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-10-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 16:59:02 +0000
-Message-Id: <20260901165902.B239B1F00A3D@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 16:59:03 +0000
+Message-Id: <20260901165903.C5DA71F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,12 +60,18 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Previously `register!` defined registers can be used on any untyped I/O
-> regions. With all users specifying their desired register type now,
-> propagate the specified type and restrict I/O access only when type
-> matches.
+> Implement a `transmute/safe_transmute` that checks size at
+> monomorphization time instead of type-checking time. This allows more cas=
+es
+> where we know that the size matches but this is not generically checkable.
 >=20
-> Also, add an `io_project!` example which is enabled by this change.
+> The signature is equivalent to the unstable `transmute_neo` function in t=
+he
+> standard library. A safe variant is provided to use with types implementi=
+ng
+> `FromBytes` and `IntoBytes`.
+>=20
+> Existing users of `transmute_copy` to bypass size checks are converted.
 >=20
 > Signed-off-by: Gary Guo <gary@garyguo.net>
 
@@ -73,5 +79,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-typed_regi=
-ster-v4-0-5552b1d59525@garyguo.net?part=3D10
+ster-v4-0-5552b1d59525@garyguo.net?part=3D2
 
