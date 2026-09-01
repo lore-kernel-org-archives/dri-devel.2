@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC3BC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 09:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E47C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 09:07:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61D9810EC2B;
-	Tue,  1 Sep 2026 09:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDD510EC15;
+	Tue,  1 Sep 2026 09:07:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G2Suoa56";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZLv9z5Oz";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B82610EC2B
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 09:05:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA03B10EC15;
+ Tue,  1 Sep 2026 09:07:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AEAA560202;
- Tue,  1 Sep 2026 09:05:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CD21F000E9;
- Tue,  1 Sep 2026 09:05:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D6D29601DE;
+ Tue,  1 Sep 2026 09:07:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE701F000E9;
+ Tue,  1 Sep 2026 09:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788253554;
- bh=KuVUUMiVWKPGBNQcqJbw1KvuVeRdOIBJTa4lJGyOfAA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G2Suoa56LmItPitqcrgmvFckWKptoO4z7yocRcIxj937eqUwo0x/iJoOn0K2tNBQN
- KQWZb8Z2HdW799daWVCNCaeAeYd8/ZevbFQPRHLQs3mK7wW4m01g8dcxDu+8jBi4rm
- lhLcct79lWraRpaExVCi5ymsfcNRxzuBKlkyMJIylakx9dhlkQxHgv9QgmTWM40sbJ
- uQ1pPpX7uvrxyVjMDGJyYje6/IhnUDj8hDIXlcUsGvYq4MZSALW+/yLwEEDwauR3kY
- ZpItviWB7+X4FXrvYg+MrLDz65rGBk6BXLu6grOsdfd0aCBCuIBZIUrYBLsvFwGIjg
- wvZ0C2C8wOiFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
-To: "Xilin Wu" <sophon@radxa.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901-q8b-dts-v1-6-7de0b6a73d08@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-6-7de0b6a73d08@radxa.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 09:05:52 +0000
-Message-Id: <20260901090553.74CD21F000E9@smtp.kernel.org>
+ s=k20260515; t=1788253625;
+ bh=m/wEGTF4f7C70SB4/q9aIKOMg+2fN6lt/IMX6OVr2GE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=ZLv9z5OzoD0fx0iYaQYmDawsSdPZZbIEG6BC3Nio+WgHgZj2R8fnHzPnvWo4SiKZY
+ /Of7JDUDx8RQZgRNlPu0NMl+oU0rov2ViyfmzazCwUqbQpeZo69AS03Xjy9Nemwvue
+ 1yd5pahrTxqSacJKWqYwwBEhvHuyLxN4szUq6g1IGkgOBQQ2rRzpZlMNZqSA3pMN7y
+ 9oKHA4EG0gWAE+gdrMw9AHbwa86VqFfe4W3IbtjZzYeugQGBgYYg7s5d8PTa6YVPqS
+ ghMwkdjf4ELQY+uSeA09R38BT4sRW+FX7EN5XYlSdHAo2SkFeBA2pRMj6C8CVEc4vT
+ L1yofrhBrittQ==
+Message-ID: <2e433e8d-a71e-49e4-8dea-659a94c8143f@kernel.org>
+Date: Tue, 1 Sep 2026 11:07:01 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/nouveau: bound sync and op counts in EXEC and
+ VM_BIND
+To: Dave Airlie <airlied@gmail.com>, Junrui Luo <moonafterrain@outlook.com>
+Cc: David Airlie <airlied@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yuhao Jiang <danisjiang@gmail.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260808-nouveau-fixes-v1-0-c3ebdc17a89c@outlook.com>
+ <20260808-nouveau-fixes-v1-1-c3ebdc17a89c@outlook.com>
+ <CAMwc25qozGSRw8KKNzVhakH1jCNWsFS_z=mFn9hswxjdNNX0GA@mail.gmail.com>
+ <55965C34-9026-4EE7-B2F0-1D5D9807D682@outlook.com>
+ <CAPM=9txG6wEwx_L5RsB+3gEuT6dYJQvrPpQnHHF4V1gFZpWNFQ@mail.gmail.com>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <CAPM=9txG6wEwx_L5RsB+3gEuT6dYJQvrPpQnHHF4V1gFZpWNFQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,53 +68,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Swapped voltage regulators for the DP2 PHY.
---
+On 8/11/26 6:05 AM, Dave Airlie wrote:
+> On Tue, 11 Aug 2026 at 14:00, Junrui Luo <moonafterrain@outlook.com> wrote:
+>>
+>> On Mon, Aug 10, 2026 at 08:43:50AM +1000, David Airlie wrote:
+>>> Have you run a complete Vulkan CTS with NVK across this with no regressions?
+>>>
+>>> I'm weary of those limits being too low, but I think the only app that
+>>> might push them beyond CTS would be Forza Horizon 5 or 6.
+>>
+>> No, I have not. I don't currently have the hardware to run NVK, so I can't
+>> offer a CTS run or any other regression test for this.
+>>
+>> Is there a better guard that avoids a hard limit here, or does this need
+>> a test before it can go in?
+> 
+> Looking at xe it also has 1024 limit on number of syncs, but it
+> doesn't have any limit on number of binds,
+> 
+>                 *bind_ops = kvmalloc_objs(struct drm_xe_vm_bind_op,
+>                                           args->num_binds,
+>                                           GFP_KERNEL | __GFP_ACCOUNT |
+> __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+> 
+> Maybe nouveau could do the same.
+SGTM, I'd also be hesitant to put a hard limit on VM_BIND.
 
-commit be4c87024201f57f02fd6174d5602a08840ba63a
-Author: Xilin Wu <sophon@radxa.com>
-
-arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
-
-This commit adds initial device tree support for the Radxa Dragon Q8B, based
-on the Qualcomm Snapdragon 8cx Gen 3 SC8280XP platform. It describes various
-hardware components including storage, PCIe interfaces, USB, HDMI output, a=
-nd
-audio.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
-> new file mode 100644
-> index 0000000000000..1c0e94bba4d7d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
-
-[ ... ]
-
-> +&mdss0_dp2_phy {
-> +	vdda-phy-supply =3D <&vreg_l3b>;
-> +	vdda-pll-supply =3D <&vreg_l6b>;
-
-[Severity: High]
-Are these voltage regulators swapped for the DP2 PHY? vreg_l3b provides
-1.2V and vreg_l6b provides 0.88V, but the PHY requires ~0.88V and the PLL
-requires 1.2V.
-
-If vdda-phy-supply receives 1.2V, it violates the physical hardware
-configuration which expects ~0.88V. This could cause the DP PHY to fail,
-preventing DisplayPort output, and potentially risk hardware damage due to
-overvoltage on the PHY rail.
-
-> +
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-q8b-dts-v1=
--0-7de0b6a73d08@radxa.com?part=3D6
+@Junrui: Can you please resend?
