@@ -4,96 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2501C624D0
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB09C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F287010E3E9;
-	Tue,  1 Sep 2026 11:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A03910EC7E;
+	Tue,  1 Sep 2026 11:25:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EEfSPCOM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IXzrdKdy";
 	dkim-atps=neutral
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
- [74.125.224.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEF0510EC73
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:05:18 +0000 (UTC)
-Received: by mail-yx1-f49.google.com with SMTP id
- 956f58d0204a3-66c744a00edso734596d50.2
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 04:05:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788260717; cv=none;
- d=google.com; s=arc-20260327;
- b=sVuDIjLIUhP4ogWm9ZuR3WyIKMCkvbL+DGBCJOnW0TQpVzXNtbRsLShas2cQBYgS4n
- /bRjSUUTmL/nsRUjdUmwMaML5uiKkv123E/I+/td/DLsFUSEtChW5T9dJARIvATw4OBN
- GVkCRMbWGI8i4mL2KTFX35BXa1VT3VSaknViA2mDMKLwUK7P3mMbOtGkJ2dSttdDhcIU
- a3yc6F0rq3UfUfpjyRFdzPU91O3yJ+MxRS51KgSRKPfmTd8cHvkXIWI4aBO9aJivg+In
- 852aBovlmOpxzXCCzYFQPb9RA6lZlVaYN046Lm9UXK2fo8aa8FmFUrvUtrLuKokGW3zS
- sSfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bx9TfPLmGc3whJzHzCGMQ6dldmPsKUJ1o8MScKqAu9g=;
- fh=rYB+4BAXhNG3eCNIvvN/h372aNfwY/sOE81X9WLiHrA=;
- b=MX24wdYI08jBedWc8IlJoS1JdJpM+piUdVY8cpl+DraM0D2vesWDCXRijK9HP68n2h
- 2ZPzo9ySWY5WvW0ff8tUibDyzmShrrJWOHOFlhd8fMh06xv2c1X7VeXDZ9KVPAPJqg9+
- R6cEuhiT7JwGckX0WG0DKVd7MpHzqweP1CqX8Bihksnu8gYdJEqQoFLeOzDhDVsc7ZwD
- xrqmmheGdhlTmF1f2vnWnU9NOGnMYvZElsms22SGRP4DOA4doDr/HMYzkmfCToo1edpz
- /+S+P+Fs0iT5a0jYBs8uIUXIg6phYxiNSa8HAyntpxcH34mIBABdEir2WOBRH0fDVLeN
- IElQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F54910E3DB
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:25:49 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-482e2fdf6ebso3845901f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 04:25:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788260717; x=1788865517; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bx9TfPLmGc3whJzHzCGMQ6dldmPsKUJ1o8MScKqAu9g=;
- b=EEfSPCOMzlq1Z+SsA+BKgNBTcmh9GUA+Jg8YUB2rksshT3XEqbOCFsnuuE9OXQ/JkR
- u/jdKiz2gsHwdr2YwcmHVH51RjcZVeuvZT25SHzEvNBjKwtrMEPboQeG7x4i4WOOaZAn
- E8czeuPa9JRUqgpzkVf/OvS5//kz2F+R2khmL23Od0OdeGaKwMo1lB0QkR9kbhhwyqJn
- rARM+somf0HCPt9dyU7gANBYPmF68Vr+LSAtqIkgnUNkT+OALZxFDnG8ci3F8impADEf
- BwUUj52JKYqkf5WplMhkycLxTU17zdTbJKLmJPG8ZxksjLef4tFjUsZkQZ5gADXpWx0w
- S41g==
+ d=gmail.com; s=20251104; t=1788261947; x=1788866747; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=O15Reb8K9UpgINjG0MBTMyi3oJTA2sKCTZI1fZ2J21s=;
+ b=IXzrdKdys7ATESW9NFuDyu0XVLbj2ReNYF+wiBJkPn8mFtjc0iKPk1NGk3E+RmgedD
+ 1V0ZB5xQRHIWVvh0bzvfHn9oNPa5MpIpRqMgUIB1grRE9hgz7D0aMcv4xt214IzNwHwG
+ cAn0fqOHVpdbp0HcgW7Pim/3n7LyYtBt6dqVvUVQotQm/1GMU9b+IbnX8yQ4FWAhpqIj
+ 380Z5Sg3F/VzIcfKd4kmE4BmTK+bGdIBlAAgDt8cnyvUJpsAGBWjI+P9Kj49jQHX4jo5
+ JQLkEVWlg1h23BvbBm+afZ5WMa1c7zMPgcPoE6hVAvH6MCxqlNmnp/X2AgKHqcRSQWSH
+ Ap0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788260717; x=1788865517;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bx9TfPLmGc3whJzHzCGMQ6dldmPsKUJ1o8MScKqAu9g=;
- b=cNcH/PqbgdeHJm7a6CGKzbaHUBkvMyWJt5JZuqQXMdBaV2ByWg6BZyEQnkS2Kax4gQ
- geskUChoW9c4aRyXoP2FvDCBpoPfAvnoDTaElyo6hIhppnTbb3RKXRgOI++YmZPsotlZ
- +cOPwqOqgdQ+mFHTJ6cbqiW2taF5Jz656KOdOJACZMbs5nB3QdvH/rFGCpwwUmKRPRVq
- 8kHwOhLeUIgo5vOhgDd1f9eR4+G0AT4kXGhvpOWGTh25TVIutZV4RNetA3i2pmR5vno/
- DstKOrOvGuOFRaucFrWsu7NYnY+i+05MptrVO/iiwAyKBODhCknbRkGUMu2aypoTTeTZ
- MVYg==
+ d=1e100.net; s=20251104; t=1788261947; x=1788866747;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=O15Reb8K9UpgINjG0MBTMyi3oJTA2sKCTZI1fZ2J21s=;
+ b=p9CcgmD8nRWcFgAJcrZXJi9Vcsveox9gJ1V1yYhQbcVF/g49qSIHO7GerLSwAxpOOk
+ RlKHHnxJRnxV8N8cWyIs0yB/JOicxb4BA4uiS1MC8Qs1AwuKDcZNK1Im9HAR2RLo1HQ5
+ cG5qzC1iuin0SIFUWaGYXD5wqKBmzM77VAQh6YcwmWBBhP9YIeYUCrkE2L/bZ8iPGbAk
+ dWG+WhfXYM1lDIWrjig7IjAzeZQ2K+M5Xi453T1+1X5ELt8ZP1fnjH+ZnID3Ts3m1rWy
+ 9hysIv5TbS8KDcFHbzQLwgfaSpMXtCRYrpZtLVhnbOHs9f+p4YM7l7tP0cOFrUHHicu9
+ d9Qg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwRFr87Q3L9BT6JaqupzH/4zwzd9wbZpOWHAfKUd5u2+EliCJYL7Lxl1B8ya+MHlF7y8RhnT7r94fM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lso+r1xcu5svFvvUHHNgBjNKdSPgE/FoZrVHH+Ny9Icrp6sXlN
- E6p53NddzMvuwjPg5goMoEDUmV/o2c+PUfk0xgS8MVcjT9AOfglq7JIB8xFhxVZGuGK1+995mEf
- k57G7MiVUydKEkYfQFiNarDF1HJWnp/A=
-X-Gm-Gg: AYBFou0zwB2s7k2vdw1bFDddCwNsVbXkqqv/cUxIQlGfnXAAZaBElZQAZfUKzbCsczD
- xRCgM7EG1ZawckwEybr7HDiJ3qdHEMuncxfDB04YAkj39rBdzgagoZZ5EfJLNwzoBzO4rSRiADg
- L9aTUnCe7cL/btgEfcFQOXsopc0joNk4pFkyKbUWXvFTNrLepgpbv5PlCaagRbiUW2NeGuAu0wb
- YX1Ytzn0AHNMHl/MV0Von9qY6/uXtT67hRS8LdnxnUQVBXDU3tto+m/MoYKlx3ku8D1/pD81Az7
- qoP0vNNd0Dfa5liCmUzJ7bRvWwC7AxwTFbTbvaWK0kjO7z8X0W8rEV8=
-X-Received: by 2002:a05:690e:4553:10b0:667:b645:5303 with SMTP id
- 956f58d0204a3-66e55e1b9d6mr5809845d50.33.1788260717515; Tue, 01 Sep 2026
- 04:05:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
- <20260831-drm-no-more-crtc-reset-v2-11-4500d49a337f@kernel.org>
-In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-11-4500d49a337f@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Tue, 1 Sep 2026 13:05:06 +0200
-X-Gm-Features: AcwNN1VgY8cJid3XIkXmopo5LxCNbJCtH2z23zFIfWTr7goHy60IGU_6_zLdFyE
-Message-ID: <CABdCQ=Neak+dO8tPTxk++AZhjL1tUbo2ygHhJhU3AeK6qqRfUQ@mail.gmail.com>
-Subject: Re: [PATCH v2 11/13] drm/sitronix: st7920: Convert to
- atomic_create_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ AHgh+RrB6+YYdAx8+UhiwHS63iWmQ3UOJwMP2uc8VTpGMIxrQ/A/kUqZNJeHFYEJv3GZ9z/ujFqGcDUXToE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nJ12pcK5iQix8PI6jJ9ohnFfVFWliosE7KfFjOb7sG+Z9Ap+Ri
+ GvaLWKoaY9qxMZNH35PfoVTo+ftXY301CM2HIp81DjpHzbRAZSOWnQ/Y
+X-Gm-Gg: AR+sD11y4cjaN1gYry3q6q8GHx0DgWWgtcPljE79Vwq4GaI2vdnh5MMnaZYYvYh2aNY
+ dQ/p45XbJROpNwMj5sgnKqZRwQYuMLE+CmSomMwY32cHQPhm2Gs7RUaHqgjsJn6eE30JxBlkmzZ
+ IKBLeeJuyHqIQlG5c6WSfR/SqC5besoVsZOaiWXxeaNyb+FYE2/L7cz55rvAhI71VCR3H/ZXCm1
+ nzxkEwuM2ld2PexeI2shbEjU6XEYGp0Gb5SOuJ6gAneZTfmNaWKIwy++WFVRLFBa4ot4vsRy2z0
+ MnEbu1Fj2T8jY4LZ5+piQIZQlvnANrHO46MWmU8LI+eBkRo7kMQKMHsV3bLY8+sx4uN7oXee/Yu
+ RTvBbxGPiMcNxYlrdpnGKB043aGjpbnmxxUoKUJbdPcN/1V5z15/cyIz1uezm89ZStGMO3zBzIK
+ 4Vj5LKKJPhx1rKyPXNyJvV6cMzfzC58nEdurqXSCa9AISXiT72Huv2VfoY5og5GNu2
+X-Received: by 2002:a05:600c:8011:b0:496:bbce:fc with SMTP id
+ 5b1f17b1804b1-49cdc5660bamr148450025e9.12.1788261947024; 
+ Tue, 01 Sep 2026 04:25:47 -0700 (PDT)
+Received: from toolbox.. ([87.200.95.144]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b91c510c9sm226325455e9.0.2026.09.01.04.25.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 04:25:46 -0700 (PDT)
+From: Christian Hewitt <christianshewitt@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted TMDS
+ rates
+Date: Tue,  1 Sep 2026 11:25:41 +0000
+Message-ID: <20260901112541.84588-1-christianshewitt@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,83 +101,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+common_tmds_cts_table[] holds only six TMDS character rates (25.175,
+25.2, 27, 54, 74.25 and 148.5 MHz), so dw_hdmi_qp_find_cts() returns 0
+for everything else. dw_hdmi_qp_set_cts_n() then clears the CTS override
+enable and programs a value of 0, leaving the sink with no CTS to
+regenerate the audio clock from.
 
-The ST7920 driver changes look correct to me.
+Any deep colour link falls into this gap: a 10 bpc RK3576 HDMI output
+runs at 185625000 Hz (148.5 MHz * 1.25), which is absent from both
+tables. N is computed dynamically and comes out correct at 6144, but
+AUDPKT_ACR_CONTROL1 reads back as 0.
 
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+Give CTS the same dynamic fallback that N already has, using the formula
+from the Audio chapter of the HDMI specification, and drop the -ENOENT
+returned into an unsigned int for the unlisted sample rates.
 
-El lun, 31 ago 2026 a las 17:35, Maxime Ripard (<mripard@kernel.org>) escri=
-bi=C3=B3:
->
-> The st7920 crtc implementation provides a custom reset hook. However,
-> this hook only allocates the state, initializes it with
-> __drm_atomic_helper_crtc_reset(), and warns if there's a previous state.
-> It does not perform any hardware reset.
->
-> Since this is exactly what the atomic_create_state hook is meant to
-> do, minus the old state cleanup which the caller handles, convert the
-> implementation to use atomic_create_state with
-> __drm_atomic_helper_crtc_state_init() instead.
->
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: Iker Pedrosa <ikerpedrosam@gmail.com>
-> ---
->  drivers/gpu/drm/sitronix/st7920.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix=
-/st7920.c
-> index 0a75e9319080..9887ed746ceb 100644
-> --- a/drivers/gpu/drm/sitronix/st7920.c
-> +++ b/drivers/gpu/drm/sitronix/st7920.c
-> @@ -573,21 +573,21 @@ static void st7920_crtc_atomic_disable(struct drm_c=
-rtc *crtc,
->
->         drm_dev_exit(idx);
->  }
->
->  /* Called during init to allocate the CRTC's atomic state. */
-> -static void st7920_crtc_reset(struct drm_crtc *crtc)
-> +static struct drm_crtc_state *st7920_crtc_create_state(struct drm_crtc *=
-crtc)
->  {
->         struct st7920_crtc_state *st7920_state;
->
-> -       drm_WARN_ON_ONCE(crtc->dev, crtc->state);
-> -
->         st7920_state =3D kzalloc_obj(*st7920_state);
->         if (!st7920_state)
-> -               return;
-> +               return ERR_PTR(-ENOMEM);
->
-> -       __drm_atomic_helper_crtc_reset(crtc, &st7920_state->base);
-> +       __drm_atomic_helper_crtc_state_init(&st7920_state->base, crtc);
-> +
-> +       return &st7920_state->base;
->  }
->
->  static struct drm_crtc_state *st7920_crtc_duplicate_state(struct drm_crt=
-c *crtc)
->  {
->         struct st7920_crtc_state *st7920_state;
-> @@ -627,11 +627,11 @@ static const struct drm_crtc_helper_funcs st7920_cr=
-tc_helper_funcs =3D {
->         .atomic_enable =3D st7920_crtc_atomic_enable,
->         .atomic_disable =3D st7920_crtc_atomic_disable,
->  };
->
->  static const struct drm_crtc_funcs st7920_crtc_funcs =3D {
-> -       .reset =3D st7920_crtc_reset,
-> +       .atomic_create_state =3D st7920_crtc_create_state,
->         .destroy =3D drm_crtc_cleanup,
->         .set_config =3D drm_atomic_helper_set_config,
->         .page_flip =3D drm_atomic_helper_page_flip,
->         .atomic_duplicate_state =3D st7920_crtc_duplicate_state,
->         .atomic_destroy_state =3D st7920_crtc_destroy_state,
->
-> --
-> 2.55.0
->
+Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+---
+This was found after testing unrelated patches from DetlevC that rename
+the RK audio cards to see the impact in Kodi. RK3588 had audio output,
+while RK3576 did not. I'd not used an RK3576 board for a while so tasked
+Claude to help triage the problem, and this was the finding. The problem
+appears to have been exposed since Kodi reworked plane selection logic
+and support for 10bpc planes; earlier Kodi/LibreELEC images were using
+8bpc planes thus avoiding the problem.
+
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 45 ++++++++++++--------
+ 1 file changed, 27 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 5f4718c3b9db..7cf327de0249 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -12,6 +12,7 @@
+ #include <linux/export.h>
+ #include <linux/i2c.h>
+ #include <linux/irq.h>
++#include <linux/math64.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+@@ -307,8 +308,15 @@ static unsigned int dw_hdmi_qp_find_n(struct dw_hdmi_qp *hdmi, unsigned long pix
+ 	return dw_hdmi_qp_compute_n(hdmi, pixel_clk, sample_rate);
+ }
+ 
++static unsigned int dw_hdmi_qp_compute_cts(unsigned long pixel_clk,
++					   unsigned long sample_rate,
++					   unsigned int n)
++{
++	return div64_u64((u64)pixel_clk * n, 128ULL * sample_rate);
++}
++
+ static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, unsigned long pixel_clk,
+-					unsigned long sample_rate)
++					unsigned long sample_rate, unsigned int n)
+ {
+ 	const struct dw_hdmi_audio_tmds_cts *tmds_cts = NULL;
+ 	int i;
+@@ -320,23 +328,24 @@ static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, unsigned long p
+ 		}
+ 	}
+ 
+-	if (!tmds_cts)
+-		return 0;
+-
+-	switch (sample_rate) {
+-	case 32000:
+-		return tmds_cts->cts_32k;
+-	case 44100:
+-	case 88200:
+-	case 176400:
+-		return tmds_cts->cts_44k1;
+-	case 48000:
+-	case 96000:
+-	case 192000:
+-		return tmds_cts->cts_48k;
+-	default:
+-		return -ENOENT;
++	if (tmds_cts) {
++		switch (sample_rate) {
++		case 32000:
++			return tmds_cts->cts_32k;
++		case 44100:
++		case 88200:
++		case 176400:
++			return tmds_cts->cts_44k1;
++		case 48000:
++		case 96000:
++		case 192000:
++			return tmds_cts->cts_48k;
++		}
+ 	}
++
++	dev_dbg(hdmi->dev, "Rate %lu missing; compute CTS dynamically\n", pixel_clk);
++
++	return dw_hdmi_qp_compute_cts(pixel_clk, sample_rate, n);
+ }
+ 
+ static void dw_hdmi_qp_set_audio_interface(struct dw_hdmi_qp *hdmi,
+@@ -471,7 +480,7 @@ static void dw_hdmi_qp_set_sample_rate(struct dw_hdmi_qp *hdmi, unsigned long lo
+ 	unsigned int n, cts;
+ 
+ 	n = dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
+-	cts = dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
++	cts = dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate, n);
+ 
+ 	dw_hdmi_qp_set_cts_n(hdmi, cts, n);
+ }
+-- 
+2.43.0
+
