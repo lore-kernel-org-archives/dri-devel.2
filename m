@@ -4,51 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14A61C624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 15:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8673FC61DD6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 15:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40BD910ED54;
-	Tue,  1 Sep 2026 15:29:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB4410E0D0;
+	Tue,  1 Sep 2026 15:50:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jzX7DXbx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dab5XZTe";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1166010ED54
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 15:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788276594; x=1819812594; h=date:from:cc:subject:message-id;
- bh=hQLT7NYZJDMYPagK5Smpz8D9yCExQDzLK6IUT3XCwp8=;
- b=jzX7DXbx6hOSezrIntT2Bxq+T+jLjERhatp3xkznsACDbL8DPfgVZeDJ
- 3dXa8T+4kLCuBbrYhOq/5V3ovYVXz8az4o5jOOrhElIWWnKquTCvqxadm
- HDuHWFP0jL/OV/Ly0/JllJHyr/USXyKYBkFWH0S28+IByU8KiUS/kpItR
- +OzRRUor4UGyqUvI8xMocNT2rmLvYZHJ8AM5cwLPcS/yz4Kewwd8BFWCT
- Wb6jms1PYRkDyr/uQoIMmyXUhyrmGk2jhCDSKsEsN49DIVSbnMR8iJ++o
- /jOSdFLboEQQXQftqDiClXEam12QbKNB9YLC+zGIfvuz2vI69TFFflJXz A==;
-X-CSE-ConnectionGUID: lrEv3zbEQ32o2sY06ZtXLQ==
-X-CSE-MsgGUID: fQz1F02cS4mij0b97k+7pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99871489"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="99871489"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 08:29:49 -0700
-X-CSE-ConnectionGUID: EJNYPOWYTSGOf+Y0ma85FA==
-X-CSE-MsgGUID: 1Y2P2GAyQ2eGM9RHK2Ed1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; d="scan'208";a="262991286"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 01 Sep 2026 08:29:45 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1x1QQg-0000000013E-0nJv;
- Tue, 01 Sep 2026 15:29:42 +0000
-Date: Tue, 01 Sep 2026 23:29:16 +0800
-From: kernel test robot <lkp@intel.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [drm-misc:drm-misc-next 1/4] sound/soc/ti/omap-hdmi.c:408:6:
- error: no member named 'card' in 'struct hdmi_audio_data'
-Message-ID: <202609012352.GcRJ83AM-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1A6410E0D0
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 15:50:49 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-3a2b4743936so8446051fa.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 08:50:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788277848; x=1788882648; darn=lists.freedesktop.org;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=sIycX/93dP8h/wj5U80nNU52ZrbLgXUgk65pU9prnfM=;
+ b=Dab5XZTe9cRb0mILFjZq99cSeDpXKbWrdsTabeLiabABBniQ/jhdHrF5M13dubLR1F
+ J3LV3xrwtrX7PDhudW78VMDaYWhwlukMyoBt9iCgmOV0FKGzy56RlzFLBa2C2+rXDrjz
+ xw7MfZ3NDC/0v+cGegszqpq5OIGkSFBJ2K6eukjCRz7DtdhmIh/iFbNsXK8q+PJz2dU5
+ oAA0/uUwK2sOGibBE0wJj5RT1wuhmraNkiOMv5etz/+cEKFA4DZDjc7Gf7IHBdRSKqpm
+ SuJk9cKrSTWxREVR5DpWfkowJLZH1MG5Kk2x2fWv5W7wcV5+ZGEGDDbH1edHC5u8wYCV
+ Cjvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788277848; x=1788882648;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=sIycX/93dP8h/wj5U80nNU52ZrbLgXUgk65pU9prnfM=;
+ b=CloON63NOE9SmiHxrRG/5IDzeFA+uYlk7LKxmtlaP2Kn/mdhRIMN+UE7xLQaTPcGKo
+ s2esGQECIXuveearJfMhwbDW05QytRn9vQnwY7C+3nh8FujkyK4OgKDU0OIlzlSthKyj
+ snG/DWZtSB36D/XwH3MEuy6PUkWPBbeW6fIWqfqM8qUTnE+K0z2gNO3McFIhj55F/Y2N
+ Zbxs0nxYmyhP0LgMQpavSNmkR8Vx3lIR1duOe0eT7REjBINapc5kOB7+oUzVkGCUwy1J
+ VaTNDM+wXZ9MqXvKSz5rdveT0hdP/uh6UUvTMLG3qdp0u0M+g3vqKwP7SekLAt4ldRA5
+ bNPg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBysARONalxrXeMJ8DBXiJqzrSB1z3gswQYauUssgqXqR5YrDsQdNZa9O84LIqeNTEy+yJP7e6YaiNE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mCrtYIY+KBKanPczjQS9TuYtjAtY+YGe+n/hcoBXuDxyYAxHJl
+ KgYF+vw8fMreZaFqSj/LBxqWhzH45zQTPDvt30RugzlI1vKjTtBZChUD
+X-Gm-Gg: AYBFou0lvaiq2ENlvXFhIz7FrEw6qFwEGbSuxOU32F2e+kFnKuEKTzWfLogyNHoJG+Y
+ aIzOQmhGSw4DtxgqcYIv2kw4Yl6et10OgMzAGe42MKg4vDJ2wAOXqb0A6xQvf+E4rlYDeo80aRC
+ pxwqfDji7DYDdaXmruPQXK2ScC60VJy2B/Qq6icTj1bRrIL9UsYpObuSrgUJ5d6ja6VLcNWgbWR
+ 57sDGJmzR7HqenK85J9uSW04BcjqVktrQ6yUHiqjAGDdzvnhwrahezwPSUaADAE0SFiEaP0Dvcq
+ rgSyoNYMk8uRGfDKveQS6eGRgtwcogVAC3RmLcvofA0xc0GzrZZZl4Z/AjzR2WbSQs01F+14Vs5
+ Pp8SfIwxCjp4uesRPATia812ioVH5N8eAonPRh3gYgpl0PAAf2rPmnmi5sOLNRkNvUAFyAOFsJw
+ 8oavQUDBUSsSKSFdIUvMZa9/N/506X6y7E9cXUUAPKv3QxTVdf1yUHj8T4ZbEOoz8s1wVJuB3Fx
+ FLhxe9U1rIIHROTkg==
+X-Received: by 2002:a05:651c:2117:b0:3a3:4526:e8f4 with SMTP id
+ 38308e7fff4ca-3a345270387mr8689181fa.6.1788277847338; 
+ Tue, 01 Sep 2026 08:50:47 -0700 (PDT)
+Received: from smtpclient.apple ([87.200.95.144])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a34ad010efsm326091fa.21.2026.09.01.08.50.42
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 01 Sep 2026 08:50:46 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted TMDS
+ rates
+From: Christian Hewitt <christianshewitt@gmail.com>
+In-Reply-To: <apbgp2h_tSZQzbdV@venus>
+Date: Tue, 1 Sep 2026 19:50:28 +0400
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Sugar Zhang <sugar.zhang@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1035B0DB-D4B0-4E24-A23B-48854B49A3FA@gmail.com>
+References: <20260901112541.84588-1-christianshewitt@gmail.com>
+ <apbgp2h_tSZQzbdV@venus>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,125 +111,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-head:   0116f19db5931348c937eafa1f76a9a19bf82c81
-commit: 1ae7fe832c2d3ecc75815eed037a07290586b6be [1/4] Merge drm/drm-next into drm-misc-next
-config: powerpc-randconfig-r071-20260901 (https://download.01.org/0day-ci/archive/20260901/202609012352.GcRJ83AM-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-smatch: v0.5.0-9187-g5189e3fb
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260901/202609012352.GcRJ83AM-lkp@intel.com/reproduce)
+> On 1 Sep 2026, at 6:28=E2=80=AFpm, Sebastian Reichel =
+<sebastian.reichel@collabora.com> wrote:
+>=20
+> Hi,
+>=20
+> On Tue, Sep 01, 2026 at 11:25:41AM +0000, Christian Hewitt wrote:
+>> common_tmds_cts_table[] holds only six TMDS character rates (25.175,
+>> 25.2, 27, 54, 74.25 and 148.5 MHz), so dw_hdmi_qp_find_cts() returns =
+0
+>> for everything else. dw_hdmi_qp_set_cts_n() then clears the CTS =
+override
+>> enable and programs a value of 0, leaving the sink with no CTS to
+>> regenerate the audio clock from.
+>>=20
+>> Any deep colour link falls into this gap: a 10 bpc RK3576 HDMI output
+>> runs at 185625000 Hz (148.5 MHz * 1.25), which is absent from both
+>> tables. N is computed dynamically and comes out correct at 6144, but
+>> AUDPKT_ACR_CONTROL1 reads back as 0.
+>>=20
+>> Give CTS the same dynamic fallback that N already has, using the =
+formula
+>> from the Audio chapter of the HDMI specification, and drop the =
+-ENOENT
+>> returned into an unsigned int for the unlisted sample rates.
+>>=20
+>> Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for =
+dw-hdmi-qp")
+>> Assisted-by: Claude:claude-opus-5
+>> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+>> ---
+>> This was found after testing unrelated patches from DetlevC that =
+rename
+>> the RK audio cards to see the impact in Kodi. RK3588 had audio =
+output,
+>> while RK3576 did not. I'd not used an RK3576 board for a while so =
+tasked
+>> Claude to help triage the problem, and this was the finding. The =
+problem
+>> appears to have been exposed since Kodi reworked plane selection =
+logic
+>> and support for 10bpc planes; earlier Kodi/LibreELEC images were =
+using
+>> 8bpc planes thus avoiding the problem.
+>=20
+> You are looking for this series:
+>=20
+> =
+https://lore.kernel.org/linux-rockchip/86fcf349-0a7a-4618-9001-612371b0f71=
+b@symple.nz/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609012352.GcRJ83AM-lkp@intel.com/
+Ahh, I missed that. I have now tested that patch (and will reply
+to it with a TB) so please ignore this patch. Thanks!
 
-All errors (new ones prefixed by >>):
+Christian
 
->> sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
-     408 |         ad->card = card;
-         |         ~~  ^
-   1 error generated.
-
-
-vim +408 sound/soc/ti/omap-hdmi.c
-
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  333  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  334  static int omap_hdmi_audio_probe(struct platform_device *pdev)
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  335  {
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  336  	struct omap_hdmi_audio_pdata *ha = pdev->dev.platform_data;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  337  	struct device *dev = &pdev->dev;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  338  	struct hdmi_audio_data *ad;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  339  	struct snd_soc_dai_driver *dai_drv;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  340  	struct snd_soc_card *card;
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  341  	struct snd_soc_dai_link_component *compnent;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  342  	int ret;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  343  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  344  	if (!ha) {
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  345  		dev_err(dev, "No platform data\n");
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  346  		return -EINVAL;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  347  	}
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  348  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  349  	ad = devm_kzalloc(dev, sizeof(*ad), GFP_KERNEL);
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  350  	if (!ad)
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  351  		return -ENOMEM;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  352  	ad->dssdev = ha->dev;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  353  	ad->ops = ha->ops;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  354  	ad->dma_data.addr = ha->audio_dma_addr;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  355  	ad->dma_data.filter_data = "audio_tx";
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  356  	ad->dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  357  	mutex_init(&ad->current_stream_lock);
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  358  
-d20fa5a06d7bddb sound/soc/omap/omap-hdmi-audio.c Laurent Pinchart  2017-08-11  359  	switch (ha->version) {
-d20fa5a06d7bddb sound/soc/omap/omap-hdmi-audio.c Laurent Pinchart  2017-08-11  360  	case 4:
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  361  		dai_drv = &omap4_hdmi_dai;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  362  		break;
-d20fa5a06d7bddb sound/soc/omap/omap-hdmi-audio.c Laurent Pinchart  2017-08-11  363  	case 5:
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  364  		dai_drv = &omap5_hdmi_dai;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  365  		break;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  366  	default:
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  367  		return -EINVAL;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  368  	}
-642a722d3116fbd sound/soc/omap/omap-hdmi-audio.c Kuninori Morimoto 2018-09-07  369  	ret = devm_snd_soc_register_component(ad->dssdev, &omap_hdmi_component,
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  370  					 dai_drv, 1);
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  371  	if (ret)
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  372  		return ret;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  373  
-b1a549c6be09243 sound/soc/omap/omap-hdmi-audio.c Peter Ujfalusi    2018-05-07  374  	ret = sdma_pcm_platform_register(ad->dssdev, "audio_tx", NULL);
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  375  	if (ret)
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  376  		return ret;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  377  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  378  	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
-fb5ab7296a2bea1 sound/soc/omap/omap-hdmi-audio.c Kiran Padwal      2015-02-12  379  	if (!card)
-fb5ab7296a2bea1 sound/soc/omap/omap-hdmi-audio.c Kiran Padwal      2015-02-12  380  		return -ENOMEM;
-fb5ab7296a2bea1 sound/soc/omap/omap-hdmi-audio.c Kiran Padwal      2015-02-12  381  
-524d3f126362b60 sound/soc/ti/omap-hdmi.c         Primoz Fiser      2024-06-10  382  	card->name = "HDMI";
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  383  	card->owner = THIS_MODULE;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  384  	card->dai_link =
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  385  		devm_kzalloc(dev, sizeof(*(card->dai_link)), GFP_KERNEL);
-18c94a043d6a466 sound/soc/omap/omap-hdmi-audio.c Julia Lawall      2015-12-20  386  	if (!card->dai_link)
-18c94a043d6a466 sound/soc/omap/omap-hdmi-audio.c Julia Lawall      2015-12-20  387  		return -ENOMEM;
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  388  
-bae071aa7bcd034 sound/soc/ti/omap-hdmi.c         Yuuki NAGAO       2025-05-31  389  	compnent = devm_kzalloc(dev, 2 * sizeof(*compnent), GFP_KERNEL);
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  390  	if (!compnent)
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  391  		return -ENOMEM;
-bae071aa7bcd034 sound/soc/ti/omap-hdmi.c         Yuuki NAGAO       2025-05-31  392  	card->dai_link->cpus		= &compnent[0];
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  393  	card->dai_link->num_cpus	= 1;
-1af529320d56e99 sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2023-09-11  394  	card->dai_link->codecs		= &snd_soc_dummy_dlc;
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  395  	card->dai_link->num_codecs	= 1;
-bae071aa7bcd034 sound/soc/ti/omap-hdmi.c         Yuuki NAGAO       2025-05-31  396  	card->dai_link->platforms	= &compnent[1];
-bae071aa7bcd034 sound/soc/ti/omap-hdmi.c         Yuuki NAGAO       2025-05-31  397  	card->dai_link->num_platforms	= 1;
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  398  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  399  	card->dai_link->name = card->name;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  400  	card->dai_link->stream_name = card->name;
-3b785a63ee3d2bc sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2019-06-06  401  	card->dai_link->cpus->dai_name = dev_name(ad->dssdev);
-bae071aa7bcd034 sound/soc/ti/omap-hdmi.c         Yuuki NAGAO       2025-05-31  402  	card->dai_link->platforms->name = dev_name(ad->dssdev);
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19  403  	card->dai_link->init = hdmi_audio_dai_init;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  404  	card->num_links = 1;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  405  	card->dev = dev;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  406  
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19  407  	atomic_set(&ad->jack_state, -1);
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19 @408  	ad->card = card;
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19  409  
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19  410  	snd_soc_card_set_drvdata(card, ad);
-98e9645a35993f8 sound/soc/ti/omap-hdmi.c         Kuninori Morimoto 2024-01-11  411  	ret = devm_snd_soc_register_card(dev, card);
-492a53506ab27d5 sound/soc/ti/omap-hdmi.c         bui duc phuc      2026-07-16  412  	if (ret)
-492a53506ab27d5 sound/soc/ti/omap-hdmi.c         bui duc phuc      2026-07-16  413  		return dev_err_probe(dev, ret, "snd_soc_register_card() failed\n");
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  414  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  415  	dev_set_drvdata(dev, ad);
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  416  
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19  417  	ha->audio_hpd = hdmi_audio_hpd;
-699e5975e2a5382 sound/soc/ti/omap-hdmi.c         Ivaylo Dimitrov   2026-08-19  418  
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  419  	return 0;
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  420  }
-50211be80290b06 sound/soc/omap/omap-hdmi-audio.c Jyri Sarha        2014-08-15  421  
-
-:::::: The code at line 408 was first introduced by commit
-:::::: 699e5975e2a53820d8248e4e69e3645d8fa3eff8 drm/omap: Report HDMI hotplug events to the ASoC HDMI codec
-
-:::::: TO: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-:::::: CC: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
