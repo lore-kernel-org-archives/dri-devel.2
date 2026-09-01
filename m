@@ -4,81 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 819D8C624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A64CC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACFAF10F3F1;
-	Thu,  3 Sep 2026 07:33:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18C5810F3F5;
+	Thu,  3 Sep 2026 07:33:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AEmAPqmF";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="r2jB+JYt";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 170FD10EEE3
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:55:29 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-6b37782d003so194320eaf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 12:55:28 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED38810E401
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:48:14 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-49b8be0409fso307205e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 10:48:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788292528; x=1788897328; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=jE7YeOTH+Slgx2JFrDNEXYntxMlmYaSvMdCwqmpupuI=;
- b=AEmAPqmFAne5r+D0ZLbR4f8Maw7nla6hlt/dwPgLG/Par0LF6WlDFi5El3bIRIHKLC
- 1pwMPlJCZS7MH9sykfIAcVGQeMmC+pjk4P3TFcE9i4f7gxfAWsu2v7USQj8nb6DmbsEn
- 14u27y8ATsN/10vHNjQJeus+PD/lWHdaJjtsY1ZyVpKK5O+xda48/c+YFG0ZnzBgaJtj
- /KiF90aUwmrxz47zAmBXttPGrogF9+SfLf3OKfwhRfVenfbzywa9Z44zV73Kb9WjthuP
- 4yLHTTWNOh3QOifVqNhZumqHQ6bsW3Xr9gBXGhJ/GNG+ELX8/ZUmyVmLzWOQdb79J/Cv
- UDfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788292528; x=1788897328;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1788284893;
+ x=1788889693; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=jE7YeOTH+Slgx2JFrDNEXYntxMlmYaSvMdCwqmpupuI=;
- b=Qkasvscpf7zHLPsbS1zNexi6orsdYPis6MUO+mZWE7Ekvqbrp79BoouaD+mWNhrrI2
- e30CFxvbNMkH7CMeEEAmyBbcv6yz9DqT1Yuo67OiZLv492fYmuQc2W94zHIMPXT/DmOK
- 42PwidllR7dzB1iv69E7n+gLlXXhui00ONYyO7IyiG/yOTmb21LS4lKXw6h7gCTUN5VP
- iiW1c/9ct3Fww9jpHkE4d8thjKlleL712HY1LerqMWv/YIG2AP/Nn3BhVd0g7SM3nUiq
- pGcxiVouy8eBFKT2VOmAjZNUYHyoH8sK66M0qaAew448Tt2tIeMG9NtlxGqDSb93ZJz8
- YM7w==
+ bh=0l43AVlC6vAtGNyUJOGdQyBhYz3ewWV5F6wFrMVKpks=;
+ b=r2jB+JYt+ffFAIOK20Gl/NNRGhou681FXkd4lCwc/6d0HMcW7vpx5mBcq7yQZY6ZdW
+ BqS515OCx2bGhHuZOczy2gfBhM84VUqj0yvCPhxJ+fBIjPMxzULyDVpuXBp32Xiv+LV1
+ xsr+AhgPY7E7cMttr5KobSspbxnjRDHxlt/UBle3BJ2slzzMA38e8u7QjsC2zMyPf4Ci
+ nSRO3kYwQhQ+x4tBkHeKg6yPDI/JCbT7bNbVYS3m+4wtH0+tK6iZJ/HF3PrZRho/P51C
+ ZK4j840IcNt1KQrssP1OvqAQNOTo7lY1gKZnXjYthI/DhXJFEXQcVbS60+FL7koKuS06
+ NJIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788284893; x=1788889693;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0l43AVlC6vAtGNyUJOGdQyBhYz3ewWV5F6wFrMVKpks=;
+ b=QmvJXgpGmBGz3+1JlYrNhAmxyuVt3lR+XXXaRniLBCeTN1s23Nww6ssulqE9CiYHtA
+ fylMvUUyiMI9R63lgLNio/pe8U4As+2woz49s+qT7WNSLMDA5s1J619PI7dEe/06np1r
+ nAf1rCbsxbxsrsfrhW9MgvPToPhurOqxChoJlHoQHCG84V2qKHaHu2XtlzkQakrO2o82
+ 3vYFiSfTjZWfDjcs/B2CRoAcaipFmAdZwweFyAdCcq2Hk785RzBP9da/381/m42mPy+R
+ FHaib2BgcjN/D5yy457imsuEPd12N91x55u1zmZnu3WFl3fIx4QFe2O2Y8pQIogpaU3A
+ 7hNg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpr/JIOsupWu/1X054PsCoGtz2CAIFB7wZw7xXYwgFgaxJDl5sz4jABC8J7okPlLqdIrHmDpgLBeOg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kfe8eaTL547F3imvG1WPEbVTKqokuPVv3zH/I7FFRo0NaXDEzc
- eRxoATtxwzKztcbmGIN2zdmyXBvk3EYJzd3wPta0K9OM25hl/OVRGploSXvbYrnj
-X-Gm-Gg: AR+sD11I049frIgAc7q/3ar+jbl5zf2cN4TMkUtyH05g5CRW8wWh0HrPrxgprjwCpiT
- CWJWgbLEuQtTY84GTFq2eHFsaJ0SkRrOvo1jP+iCrpF800pYrd7WIkKuLWDjYjO8pi8GZ5ZBLfn
- KmYSuuW2Fo8F2Y1Erm1kwqajwn16/+OVwAUMBq8DwZxZDA9+9UKuOzD1+4N5eo7fqmUgSFR0Azh
- Eotad7TR5LXHo1ASeCjYY0SwO8r6qZIey36knR+WB8TiZOOOa+0IZK8gBu8tZzR2azATsfZy0eD
- RLWIiVEZtdgjhb3ehFTk/OqgvOCz4bWBePIS0TkKfjSZu0u95Ew8r/gYwugw/ZvKuxgi7yLojYh
- 5PHjZZxEIiDFODhZRG+NLK0V+AJmUQFf84VE6gq8amkEMdY9q3rgQJ4VWA4wVnlmrJcgvQyPSeM
- DTMGeBt2it2V64Ar1y+DHEO+9jC1gTkqQ4LyTlBnFYzPE3GyyhsdT86GBwmyvMXOHhxmbJXMQBH
- Bhmcfv1jnZGL5GhGPc3xO/jv/NzONVFi1H42/3iK2byUCg=
-X-Received: by 2002:a05:6820:823:b0:6aa:cce3:ab61 with SMTP id
- 006d021491bc7-6b372d20e4fmr8604105eaf.9.1788292528131; 
- Tue, 01 Sep 2026 12:55:28 -0700 (PDT)
-Received: from memorizer.localdomain
- (47-163-111-11.bng01.bytw.tx.frontiernet.net. [47.163.111.11])
- by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6b40f81f374sm868636eaf.14.2026.09.01.12.55.26
+ AHgh+Rqb7WskQDlsiF/KpNEbHThKdp8g9D/5wx67Plu1659XHHhgjZMw/DyfFcwqlCkzqwG4VXz1RYWnMIQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lxYy2AZjqQkOjdSxAlDfPKIBD+zEJ6TEKVz5g+7jnXCGx1IUew
+ 641xp5GhWGJWax8Ukgbkjt5FiKJaYIZRt6FK0PxIyTz1+GF9kJ9GxUaT/s7d/Ixp4Q==
+X-Gm-Gg: AR+sD10RgAR0HtiPmM/7/lpW1wKjD1j9HHCrbo9a0K3tLRVwWPlMXb+gM35RqTeCAAm
+ SEMlVWz85Q7aMTvynDriVySPZxIGU6lNuzZT9R0xDLJDmrrjBoIWrMkrBtfHDOUh+lvtNqd+5cn
+ Pi09PlWlhQLAoYmPdPRFt/kGhNVUJ7wYjlwS+tOCLJNXuXGyxoE53HUlIiLXei7qHktn/IwLix3
+ PEjdLYVgJY7NYs4LySXqD81J1kQZ08gpT568H4cQyEzyWRYAQpAP0iGlqHRCj+REycR74d2616+
+ n/xJtZWel3j/Gz7bz9L/UcQLuxdFEi8PGrer1jjjDfeoO9vrSFGB6yi5MHoijcdyJymxQinvROH
+ FWCZEQdmcjBpcy7KakMTpnnqlB2JJs6FNC1w0ceBZ4yr17SHDYvVdvUnf19M4s299GkBCDYoZff
+ 5eJruQeONmvdCVuhOZlTu6bCidMi9xDdL7jPEYmEg2sVJqEK9vdb+wgX7Sh6OK68e+5wMt/0lK0
+ QeYlaH3P6T2yBA=
+X-Received: by 2002:a05:600c:4512:b0:49c:dc14:d681 with SMTP id
+ 5b1f17b1804b1-49cdc14d69dmr178611345e9.3.1788284893038; 
+ Tue, 01 Sep 2026 10:48:13 -0700 (PDT)
+Received: from horizon ([217.155.46.38]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49ce47885b1sm2369225e9.14.2026.09.01.10.48.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 12:55:27 -0700 (PDT)
-From: Yudi Yang <2000jedi@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Yudi Yang <2000jedi@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/rockchip: analogix_dp: bound endpoint name formatting
-Date: Tue,  1 Sep 2026 14:55:11 -0500
-Message-ID: <20260901195511.2761251-1-2000jedi@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Tue, 01 Sep 2026 10:48:12 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: linux-kernel@vger.kernel.org
+Cc: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>, Will Deacon <will@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Sean Rhodes <sean@starlabs.systems>, Huacai Chen <chenhuacai@kernel.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com,
+ Tzung-Bi Shih <tzungbi@kernel.org>,
+ Brian Norris <briannorris@chromium.org>,
+ Julius Werner <jwerner@chromium.org>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+ Yidi Lin <yidilin@google.com>, Kees Cook <kees@kernel.org>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ chrome-platform@lists.linux.dev,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
+ Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
+Subject: [PATCH v14 3/5] drm/sysfb: Update coreboot framebuffer Kconfig symbol
+Date: Tue,  1 Sep 2026 18:48:04 +0100
+Message-ID: <1748b8899ec772cc435dc57dc55f76c15da95f0a.1788284852.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1788284852.git.sean@starlabs.systems>
+References: <cover.1788284852.git.sean@starlabs.systems>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
@@ -97,39 +126,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rockchip_dp_drm_encoder_enable() uses sprintf() to format a device tree
-path into a 32-byte stack buffer. Device tree paths are not limited to
-this size, so a sufficiently long path can overflow the buffer.
+The coreboot firmware directory rename introduces COREBOOT_FRAMEBUFFER as
+the user-facing symbol while retaining GOOGLE_FRAMEBUFFER_COREBOOT as a
+transitional compatibility symbol.
 
-Use snprintf() with the destination size to truncate the generated name
-and keep the writes within bounds.
+Make DRM_COREBOOTDRM depend on the new symbol. This keeps the DRM
+dependency aligned with the renamed firmware option without changing
+runtime behavior.
 
-Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yudi Yang <2000jedi@gmail.com>
+Signed-off-by: Sean Rhodes <sean@starlabs.systems>
 ---
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/sysfb/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index 587e60232ec7..efd5a98e80bd 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -241,10 +241,11 @@ static void rockchip_dp_drm_encoder_enable(struct drm_encoder *encoder,
- 				of_graph_get_remote_port(endpoint.local_node);
- 
- 			of_property_read_u32(remote_port, "reg", &port_id);
--			sprintf(name, "%s vp%d", remote_port_parent->full_name, port_id);
-+			snprintf(name, sizeof(name), "%s vp%d",
-+				 remote_port_parent->full_name, port_id);
- 		} else {
--			sprintf(name, "%s %s",
--				remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
-+			snprintf(name, sizeof(name), "%s %s",
-+				 remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
- 		}
- 
- 		DRM_DEV_DEBUG(dp->dev, "vop %s output to dp\n", (ret) ? "LIT" : "BIG");
--- 
-2.43.0
-
+diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
+index f7e48178885e..2bfcd59bfe6d 100644
+--- a/drivers/gpu/drm/sysfb/Kconfig
++++ b/drivers/gpu/drm/sysfb/Kconfig
+@@ -10,7 +10,7 @@ config DRM_SYSFB_HELPER
+ config DRM_COREBOOTDRM
+ 	tristate "Coreboot framebuffer driver"
+ 	depends on DRM && MMU
+-	depends on GOOGLE_FRAMEBUFFER_COREBOOT
++	depends on COREBOOT_FRAMEBUFFER
+ 	select APERTURE_HELPERS
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_GEM_SHMEM_HELPER
