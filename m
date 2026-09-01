@@ -4,72 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47703C624DD
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27600C624DE
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 929D710F3E6;
-	Thu,  3 Sep 2026 07:33:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DCEC10F3E8;
+	Thu,  3 Sep 2026 07:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e/KiSgrG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tIAjhwtk";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 301D210F1A1
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:33:37 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-38ec1402b05so906366a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 05:33:37 -0700 (PDT)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B865010E3E8
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:11:39 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7e9fc3de7ceso2511017a34.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 07:11:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788352417; x=1788957217; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=khFd/jDnlTA/XKPvSSegUBessMbx5oK9ggDT+W0TX84=;
- b=e/KiSgrGQ4lL3/2XOcN0SlyXDSaua0167Qk71AaKZMjQYavvlfvea6wqX5Fh3rTf8n
- cIPaCE8+ch+i2dhG9+3mjzLxBt87uX0qKeCERxapOymARBjTXmQWtHgp5s1u22HhDbvO
- jK5xJZzIi4H0+2KK/F1LNSie3ePxf7c3/g5VT6s/lCm+iKrdMMVfMbBhhHi5IQVGeG5z
- c4lbNtosnweIgv6+GFEYFrHoXAkb8OXI8ftgKwJjX6+q2ghXYTTNJUd+FhSOGwuou5yP
- j9tWBaVPcBBzIi/XvM7RT/FaZ+dMjb1i811SgS0+F7IkXFO6XMyNyOEjUFwRrhfErM3v
- Om9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788352417; x=1788957217;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1788271899; x=1788876699; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=khFd/jDnlTA/XKPvSSegUBessMbx5oK9ggDT+W0TX84=;
- b=B/FLDO6iWWHKqpDYRePKobMvcAUc3ipMvDo6TJjSqBwUto4sjr8Q1VDbO9yG4YAQIM
- MTLCKVJZctPdAz5aamIY5nxQLZS2CJMN32dj5IhpLpTZfnuc6seobcXA8oG3D91YO0nZ
- KbLChkPSubQyIlt2D472UfCvhfjblrPr+eE/lEedgVn3ILP1qgJMYN3rThRgXRPHaGlV
- gDtKtHshzme3ALY8Ik9OCjlmdvHyRJAeoTc22Mo9gGCIknq77f0Ja8Drak8E0pXSJ7vc
- MxNTiiBUbZRF9hWNaS1Vztfp5aUi+Ybk7RJYPt1FAx/H9paIo5PXAKzRj+VBUX/VYpay
- xnpg==
+ bh=LHkkshZ3PVxOZzqbwKcqNzDLof8u7Tm/vxYAm4UhRQc=;
+ b=tIAjhwtk7j6tTVNQK4YaM0Z5g27ZiNPd5uOlWxhfAktI2p7NnfIQxORtdU1aiAGy+W
+ J/Syp2ckejpSwa3zbHq20I84C9ZpXwWVi0Z740U/BCqMO5Z86v156IGxUAPyXVyL+YUM
+ AYIzzXaZI5h/jXg7FUzSUQTBkOaHunL8Z/twutcGl2pTRz8OmmKLLmPL2YDzN0iZqQ9a
+ o6f/l7/g9Tiv4jguFOe1GfQd5ZUuxSaPkW0h+UO+3HjMokReUGOd2MsOIS8D/MrxmP80
+ SyPZzSnRpbR36rTrASI6pw96SuC1/2NOqEXNPUVNrXtqkdWEUm7n78rhjXuwLTckxJK8
+ 561w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788271899; x=1788876699;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LHkkshZ3PVxOZzqbwKcqNzDLof8u7Tm/vxYAm4UhRQc=;
+ b=FJHp1t+80m8dN6BgJIuUBgRd69x2vEmAuuLVKWLgymtz2pA5hXkoQYYsYvXHeSZ+wC
+ VZqi7WrxbrGFPNjdJH/J/10vGKuu23Spuj3w8a2TBXLZfgO5gTMjM6FmhH42Ru8s8qsx
+ ArjPL3jGK16BbZBKuM9XkYUF7OKzeOGlWp1TYHXt8zatRRvotIjNA1aHs5kCC1Vyhc0m
+ HD5IylxeVB5eSAAwAo7wIZUas9V3+LL31Q2HQtn5NqPz0kkPNyPpEcvBViIBRhkmkDrZ
+ 6c8EH5cNaxjSUh3iwkXqLXXPmTlAlSQgiL+2kC5Xwuegqzd+DMXZTNaFYcnZY2oWEV3O
+ trBw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxBqUyqm6Z3mHuuW+pHVyUeyvhHJqoI5aDZEPT8XLrFGTiwLrENjERk4mZFKe20P/oJE9bzK9cN4+U=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kKhjVKIUvu/KNNZgUoxMfeOavmdpswcc+f7dW8iMADC8oF50Xx
- lgoRIkIePOUabQBb8saIcaJQYY2vVWvwfYAK4ouUrYECntnm6cEDrWNQ
-X-Gm-Gg: AYBFou11sB716DeAMfxa6LVyEwPrIMEySVHJ2fXMR9CsX/gzGwIDNge273cke0b27DO
- LrRnCkZcm1arjCDmyYTVemSBCm0827r8MG6WdCdTucUIhh9F88C5s5lODRitJHnK0xd5H7i5Fo7
- Zv/LWS1GW3/dH4BKbAo1WBXqUx9E6BoT2J/A7ddBK9pFFFd1vJy0yLZG6wTHEO6Y+8QGYFfLEih
- 8oo/5ayRL0QR4qBVdxt1c6WfkGodWSmmctoEYvaEvf36fGeALmaPYMLseU7QKHHIxbJ1hX+PIFK
- CpqRtn6A/UXZI8PdDpAXurTPoARIqnaDhpBaeQEe0BEB5oSPPb0/0atPEZHaqolVyt7pyEFdMsP
- NhTAEwQnaKUh4M1MS+Zfj4fYejcU8yziCYzbh1bQJBwx4XBKEECvlwQm121eTVwfmUOp2em63LV
- upPhs1cvQzCJJctK1wjE/c5cB6Qj2BbOa7oaKZ9haE3V6D7xWx40qdg1RB9UixHg==
-X-Received: by 2002:a17:90b:390e:b0:398:9be9:ab8e with SMTP id
- 98e67ed59e1d1-39aee124474mr5272135a91.19.1788352416561; 
- Wed, 02 Sep 2026 05:33:36 -0700 (PDT)
-Received: from fedora ([223.184.183.166]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3990d4a1732sm11343190a91.7.2026.09.02.05.33.31
+ AHgh+RoMRRkW6/UhvtkcigpD4s05I1OjHgFYY/zdjPHk0zdW79veWzCJyYvq7G3gjQ9Tp+m7l9bcnLpuTIA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mCZ7I8zCYKzFmcnG46Wyy7RbOMvMWcXYKVRo2zloaFxyH/Aa0E
+ GPiHRCFl8T2VQ0rrpZ841ZmErQfOJfealkkrlbF8kzuq0ScxWxL9h9yd
+X-Gm-Gg: AR+sD12H1/lNb12cI1iItkbeDuT8V1Lp6FXwgyfn1X6i4lqKdpDhIs+3PkVPQexYcG0
+ f762/KU/RCw8gVFT2qkYGxe7AUiGn993YCQvAlDxx7LLZ921rcslIBTe4lp8pNpfh0+/EhG4mjL
+ F5sUrn04BzfBFeiMbTRTWZ00H73VGbg/5nxaAw0zjribsuFfBAfxcj5nVv3Kru/kBs3UJlb3sJW
+ Grq112C/FW+ijClJvRJufTO9adyVSagMRTdofm8iyzrOfnr/dutIgq72gQMVhTGO0ljAWcLbs23
+ xL8aaMvrIoXbPBb3vw7nn4A6UwXMwS4hncEgikFfqEnsW6VaHmykicK+gF8slTrJDnVMTgS+sO7
+ 0Sdnd1L4nyhcp4V6SW368TjlkPY93h42QAgwwuA14wdo22rPV9Lf7Aei5TH1J/vl92D7CY5C4Uw
+ kbAoR/ce74TJi+qWDcXw3hNRIwyp3em1lCthwFcqUxD/LE3ekxyiSG6I3GazkYEuwmSslThVY7o
+ c9On9cX6a0//CY+l/g=
+X-Received: by 2002:a05:6820:160e:b0:6b1:464d:4d1d with SMTP id
+ 006d021491bc7-6b1c65bfcd0mr34936183eaf.11.1788271898644; 
+ Tue, 01 Sep 2026 07:11:38 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:49::])
+ by smtp.gmail.com with ESMTPSA id
+ 006d021491bc7-6b1ce359f82sm13402124eaf.14.2026.09.01.07.11.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 05:33:36 -0700 (PDT)
-From: Sajal Gupta <sajal2005gupta@gmail.com>
-To: rubenru09@aol.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, noralf@tronnes.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sajal Gupta <sajal2005gupta@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/gud: fix out-of-bounds write in gud_plane_atomic_check()
-Date: Wed,  2 Sep 2026 18:00:57 +0530
-Message-ID: <20260902123254.36987-1-sajal2005gupta@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Tue, 01 Sep 2026 07:11:38 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: hannes@cmpxchg.org, shakeel.butt@linux.dev, mhocko@kernel.org,
+ roman.gushchin@linux.dev, muchun.song@linux.dev, akpm@linux-foundation.org,
+ david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, dev@lankhorst.se, mripard@kernel.org,
+ nat@pixelcluster.dev, tj@kernel.org, osalvador@suse.de,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kernel-team@meta.com
+Subject: Re: [PATCH v5 7/7] mm/memcontrol: add stock to the memsw page_counter
+Date: Tue,  1 Sep 2026 07:11:35 -0700
+Message-ID: <20260901141136.1871423-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <apaZdbM_l3kJIiyK@localhost.localdomain>
+References: 
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -89,71 +98,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plane property loop uses req->properties[num_properties + i] as write
-index while simultaneously incrementing `num_properties` inside the loop.
-At iteration i, num_properties has also incremented by i, so the write
-is done at `initial_num_properties + 2*i`, skipping every other index and
-advancing by 2 per iteration.
+On Tue, 1 Sep 2026 11:40:31 +0200 Michal Koutný <mkoutny@suse.com> wrote:
 
-With just 2 connector and 32 plane properties the last write happens at
-index 64, one slot past the end of the 64-slot (indices 0–63)
-allocation. A USB device can trigger OOB by advertising the maximum
-number of properties.
+> Hello Joshua.
+> 
+> On Mon, Aug 31, 2026 at 09:37:51AM -0700, Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
+> > Before this series, each memcg had one stock shared by all its
+> > page_counters (memory + memsw). Now that the memcg stock was folded
+> > into the page_counter level, give memsw its own page_counter_stock
+> > so that it can benefit from caching charges as well.
+> > 
+> > Note that while the allocation is conditional on do_memsw_account(),
+> > the freeing is not; the freer will only free non-NULL stocks. This
+> > matters because do_memsw_account() could have changed in between the
+> > allocation and the free.
+> 
+> (Just a passerby comment, I have no remarks to the overhaul.)
 
-Fix by dropping the redundant `+ i`; num_properties is already the correct
-running index, as gud_connector_fill_properties() fills the preceding
-slots.
+Hi Michal! Thanks for taking a look at the series.
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260821071812.16500-1-sajal2005gupta%40gmail.com?part=1
-Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
----
+> The change of do_memsw_account() is because of re-attaching the memory
+> controller between v1 and v2 trees. That's not so common operation (but
+> not ruled out), pre-condition for that is that there's only a single
+> online memcg, namely the root memcg. So it needs treatment especially at
+> memcg offlining (which is what drain_all_stock() (also) does).
 
-Verified with KASAN using a raw-gadget fake GUD device reporting 2
-connector properties and 32 plane properties:
+Wow, that's good to know. To be completely honest I dont have much
+experience with cgroup v1. I didn't realize it wasn't a "switch whenever
+you want" type of operation. Good to know that there is some more
+guarding there.
 
-  BUG: KASAN: slab-out-of-bounds in gud_plane_atomic_check+0x1352/0x1ba0
-  Write of size 2 at addr ffff88800d029a9a by task temm/270
+> I don't know how expensive page_counter_drain_stock_async() is going to
+> be [1] but the v1 parts here could could be guarded with
+> !cgroup_on_dfl(memcg->css.cgroup).
 
-  Call Trace:
-   <TASK>
-   kasan_report+0xfa/0x120
-   gud_plane_atomic_check+0x1352/0x1ba0
-   drm_atomic_helper_check_planes+0x2f2/0x9b0
-   drm_atomic_helper_check+0x72/0x140
-   drm_atomic_check_only+0x127b/0x3420
-   drm_atomic_commit+0x124/0x2e0
-   drm_atomic_helper_set_config+0xd9/0x130
-   drm_mode_setcrtc+0xcfd/0x1b20
-   drm_ioctl_kernel+0x167/0x2d0
-   drm_ioctl+0x53f/0xbe0
-   __x64_sys_ioctl+0x137/0x1c0
-   do_syscall_64+0xde/0x4b0
-   </TASK>
+The function itself should be pretty quick. It just frees one CPU's
+stock, but the rest is just scheduling a job item.
 
-  The buggy address is located 0 bytes to the right of
-  allocated 666-byte region [ffff88800d029800, ffff88800d029a9a)
+> Regards,
+> Michal
+> 
+> [1] Now, I see in 5/7 that there's the counter->stock check which should
+>     be quick bailout on v2 (maybe quicker than the cgroup_on_dfl()
+>     I proposed above).
 
+I'm not entirely sure, it's probably similar : -)
+I think they should achieve the same goal, and hopefully it wasn't too
+difficult to understand why we don't have the cgroup_on_dfl() there.
 
- drivers/gpu/drm/gud/gud_pipe.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index 5ef887d8485a..54adc401bc1b 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -562,8 +562,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
- 			goto out;
- 		}
-
--		req->properties[num_properties + i].prop = cpu_to_le16(prop);
--		req->properties[num_properties + i].val = cpu_to_le64(val);
-+		req->properties[num_properties].prop = cpu_to_le16(prop);
-+		req->properties[num_properties].val = cpu_to_le64(val);
- 		num_properties++;
- 	}
-
---
-2.55.0
-
+Hopefully the rest of the code looks good to you too. Thanks again for
+taking a look Michal, I hope you have a great day!
+Joshua
