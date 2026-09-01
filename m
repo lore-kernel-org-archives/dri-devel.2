@@ -4,132 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB6FC624CF
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:35:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1668EC624CF
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7892810E63D;
-	Tue,  1 Sep 2026 11:35:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 131D510EC86;
+	Tue,  1 Sep 2026 11:43:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="w3JysBQo";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="x7Ni6JUQ";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021106.outbound.protection.outlook.com [52.101.100.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4939610E63D
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:35:24 +0000 (UTC)
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021127.outbound.protection.outlook.com [52.101.95.127])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDAB910EC82;
+ Tue,  1 Sep 2026 11:43:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xs/daYLpMztpMUetYfdfkdyNpvJAPsScG4jabicxLkmCiQaN49GGyZl14FD8ljDLEnxbTW9oQeQphf3PDnmNOEAduJQ3ltHNTBP7O1P5SN/GSJNXUst+Z9rKE/r8NSwUJABNONoOUMV2GaAjOe9Gmf1nIrfGZ/5EpwpUoHgtyo4he9fYW7vGeF6JHqqMi1r/qmIy0WSfgcxqT91hL/pIu1f4SNOguuuM8s6lGAXaXXAi+JgFOIGOJNCd/2kmaQQAeyF/vGnROXkn+UY1cfJZoSNB4Kivc5yumcMiVNocovb1RunTX0jwFPq2HyEFWzt2u0wMNpcc42bSGosN8bGM4A==
+ b=JTbaFDrWWznUUHD4+smt5grUes5dt7RZewqDkRp7VeFit3YYvL7mOAOmJsna+lqDz6ILQ9zYEbDNP8Sy1xEi/OmVm3IxGivELIZ9p+3zv3dM5pOMhmbFGW2i08wKV840eEOy+IgXTxKqPJPzTOJu143zVVBydugu3aawB4sAEbCs5gaj/Tq+QYgFyDOkUgMAktAHFBOHP7wvfb37uAo/+4Bd41w0m2D0FTNagBsuPsI4dh6QCpp2YKLce45/IuGydkGkxlMKvmUUxF8ahVWVS3yEdi6d6TttlqGYYFD/tuZwI4geUgphYjmveYGs2b6s+MIbYMpzGvBFbwzxGmcI3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SxbXMap4DLhYPj8OK4PiFVb7S4Gs3APifNRqevZFZ3k=;
- b=hanR3uwVdAf2moOAwJLSELaJQ34hcF3nTH4011WlqYqUskfAfiq/uRh+QPSl4YmjxSHHMId/rJfIHm/+dfx9hjMrmqLAjTScNQfRUOFbWQpnWQgDSZM2F38+UqSwuGwvlmM3FRcg8p3RSr4NyIOroeVAmHIEnzRRtw8bVs2G0CGW2WZ6FcEbg4X77n1T5O9PmUYdUJ6ls9+oGHBYM1pdcqUw9OZDBbaUxUvTgFzw1ODbbhsN+NklsVx1/m6V8jteKCpJ+EuO5lCyTBbDkRtjyVJ0qCTFj9RqAjYPOS8WWDdrWalM16WilPEjnnKilCLboCg+DVRzNsmttd6U3pDJdw==
+ bh=VaKSf9Q4DqUd1LGU1SuYL6ztMMTRGVUZtO+0x1CGnQs=;
+ b=OU2M6XeOkRdc+crPdW2ev/E4ygvG66S5DdNxKG7YXHukip2XpeTVtyQhO6qUITWHnLIlD/Wa2gxec9ENUAMAJm2PtT6wDjDC/mQNUnQ7qIWTQahGjshCqdMrbRKXGB4lfnSMyZiSlF3fuyV/XN1veWl4hZFdC1bIoFE6BGZkc04hOoL3iLtXU0VtP3fJXBjKZ/xPdJB15U1sf+iW4RbaxUY1ZNiyp2VEjwX2Gc06AllmqMc5+hSteBU90lZeXtWIFmgaJFcyDCehs4qG8z414ZTJBgh3UEscj1Mcl8/Oa0BG+ulOLupdbleAzxzgpqN8DKqKpBtFx8Fh31VJTHKcgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SxbXMap4DLhYPj8OK4PiFVb7S4Gs3APifNRqevZFZ3k=;
- b=w3JysBQokRKVKC5hbhpDf8KJGXtlYeFD+mzgKQXPVN6QnN/mQrq915Iz1843PCJ7oOL6Vv90zRohovuIfgmDrOUIwz+Hv9CPoixtImGLSKFnaRsevqb28d5xtsAZDEpJEuGwBPZw2QYNi4SIpQy4Uxofn5bAbebI6pIQXCGt9cA=
+ bh=VaKSf9Q4DqUd1LGU1SuYL6ztMMTRGVUZtO+0x1CGnQs=;
+ b=x7Ni6JUQAQjoT/lqmmy8Bwnb+RPfc2OCt6wIVosh5u+f8uCjB9FZketYfOCFG2MWH9ZqNXiQcecd3ey7cQ29JkXrJ8Q1y3/AMYEvATXgkUVWKPf5JMA0WokEp85uHGT+mDWt28Nk5WyNszRmAHgtzdr/L6/8TmxNeYW+CKE6bBA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB9200.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:276::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 11:35:19 +0000
+ by CW1P265MB7769.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d9::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 1 Sep
+ 2026 11:43:18 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 11:35:18 +0000
+ 11:43:18 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 12:35:17 +0100
-Message-Id: <DL3Y5NJRKISV.20KKTKSXWPKVW@garyguo.net>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "nova-gpu"
- <nova-gpu@lists.linux.dev>, "M Henning" <mhenning@darkrefraction.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
- nova-core
+Date: Tue, 01 Sep 2026 12:43:17 +0100
+Message-Id: <DL3YBS0UXYMC.1KJEZ9KWV52O8@garyguo.net>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
 From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
 X-Mailer: aerc 0.22.0
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-2-apopple@nvidia.com>
- <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
- <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
- <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
-In-Reply-To: <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
-X-ClientProxiedBy: LO4P302CA0014.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c2::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+ <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+ <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+ <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+ <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+In-Reply-To: <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0427.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18b::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB9200:EE_
-X-MS-Office365-Filtering-Correlation-Id: db924f0f-6e93-496f-10cd-08df081d1983
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7769:EE_
+X-MS-Office365-Filtering-Correlation-Id: f06b6882-a0b4-4439-2f9b-08df081e377c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|366016|1800799024|376014|10070799003|10067099003|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: W/7xmZ9RWzmSIyavI8Tadm38UV3slAWqwwvzQ3c8B3y6n2Wrw1bQ5nh7DOr7NZ0FVyxVD8W2mi6skzyuFbrwb1JasSIznyzQAM3vlUVQw8A3hKCgP/RhYXY8+fvClC8kDt7brKYLgy3E87s1z3vbL5L3p03v+WsAOBwWslcY6oo4+xt3vD3ZS14KbcNx6XFAdrQx7Xl7FSAxUvubzfqdjpEA1Aw54O4q2+orQipVktxzvk6Vt8rYpa246qYm6SnzheV0QonHkqdT76cgw7X3JnTVTHJ485eNY/PT5MQ77laLQD+gRLdKRRQB0g2uZprA50jZzHhmHcJmp8EUJnB8E83+PsCelqzoULxQLvhGqG6WJOwc6RfQ+8YNfP5/rdxLLitkvPus4NqxV5Kvhv1jRosVW/NRCtRv1oM2fDA7f7wxHl9wiZNa6Dtu49AXWqjpVhjI5og06AaiezVZeqLWx9QnoIr9/7qZxl+hxQYzBn1bz0Qg/uWfdezlGP1FFeOHtvHqYw4n1C0ahtee9FlbRNSClAH6/pO90KnTvHJaRB2bjMGt+FgNJagvZSqkaZ0BZDCXsx9nwtLfbtsmJNiK9/bUjrbadc6zqf23F0xwILO/GTAQ+FZ7MWmIjSN89lCiwFAV0qli72F2sbAYzQVkKI4FwwOCWHUtJ0noDf3d/y0=
+ ARA:13230040|376014|7416014|23010399003|10070799003|1800799024|366016|6133799003|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 8SDPfb8WTsV3rT21QC4G2y0Ywop/dsxuXaBg1KrQPebltLnmG4zwaQex06b9pT3qJcYfnW7JAgdVEN8934Cklfk2fVTe+e5/4WdoR9HLk69DpJICMGq6NILGwZoElM8NCs5nmk8oOlDWIU6GrsOvvnPzJU+vYq1VpE/WtzNy4dyd7h6BvXc+i+ag4AAov7Vx11AnIAv7w4RRrfn0/LMVV8b9yqlt6w7nQD/hvo2oD2NzCZVqJ6MfspErApsx3bsZx7v2mhTiX7HVJN1OiV7ekecH4HCBf0crkRiP0Es9QM7j6V62Hx0t2tcWmOB7l/UoSsQaSzDp8AcFYRpYEDV6eyXBuSRjksAwbKeQKS2wDU5Grskgx8QObgSv+T1ICqDj+z8w/MM7DTAGjDHkv9wzd8NFRbUgJKwfjrP/J+Ba4o6nf45yxaDya9dJeZ6gyhGNRRrgjZodEQO/kxN72I9dUSwqU8uKc0pj5A6QH9JEXd3xGqn1zrT6DBxAVYARmSKx8Lyg8xDPuCgveUrNybnq/GTelD6e5I2Hx5XgKq10BMjWg6KkuQ+TUxsKjfuqsBQbd2NNctZIVLDaPAMi7rU/v51HLZ6bq8rcTH6X8prLue9ZB/AK9tOemZoHKhaFMamMIQgSxMXN2/8jrDGdjKPoQRjKPn5qiyh3skjMS4zrQRA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(366016)(1800799024)(376014)(10070799003)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);
+ SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(1800799024)(366016)(6133799003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M21vR05ZSm5JTWZkc3g4dlZobklRaVROS3E4aDJCWVFNK0ZQYk5pYUpBZ0h1?=
- =?utf-8?B?QVhxNFplc0w0T09YVEJXVWd5YXFCb2crbmdVUDVRcW5abnc3MUtXTUFiNFg0?=
- =?utf-8?B?eU1FalhDWU0xWnE5aDY0dmt3QUtmL3g1azlib1pjT3RoNHlMeUpOb01UVjRW?=
- =?utf-8?B?WHgyN1BJSS90QSs4c0kyMmxqblFkSi9IZ3ZlZXcvUDc1T2tQNDZ6VWZ1UkN5?=
- =?utf-8?B?c0dicm1CcnJuSDlUb3ZiOWd6clV6eGFMZnhlYVhOd3c4SnBmMHZwOXFIcWIr?=
- =?utf-8?B?NlZoN01hdHBIV2ZjemEyQnFjOVpPczRKeW5pUEdNWjNJNmw1U2dFKys5Wm9l?=
- =?utf-8?B?dzhtS0xqeVFQbnltUlVJMUpVRUU4Z0NuL1dZekJMK2N5TW40bTl5eWUvS3Rt?=
- =?utf-8?B?TElxbS9ZYmNPaDdSSnFiMTloNVJBM0lmang3cXREWWw1QUIxcWtxbzMvSWZ6?=
- =?utf-8?B?Rk13SWs4blhnVEQrUVpZNCtGOFJxZVhxNHNMcnZGVzhzTzU1RmJhajNlSVBX?=
- =?utf-8?B?Y2NER3pPYTB2ejh4NXZKMnFqVEZTOGJTSEcwcC93OHBQZ3JnU0JrejQ3Q0JK?=
- =?utf-8?B?TnAvaThQa2NEaW9mVFIyQVp2d2daYUQwTmEwWEJ2OXVETTVqSWU3YmRjSnZz?=
- =?utf-8?B?bWdoVEJlNlliOFZneUw0bGpuZXZHK3kzVFV0cjBVdXpXWUsrb1FIZTQrQjNO?=
- =?utf-8?B?QkhKSTM3Vjkvc2ExcmNqcTVjTERwMWFvaU16TFc4ZTNDMjFjWmpSbUs3MStx?=
- =?utf-8?B?b21Hd25DUXNNQVJxZURVSFpMU1BteVd4d2ZNY3ZWd05pVkpIenh6RUMraTht?=
- =?utf-8?B?RjcwK3dRNjNhWGN2K2ltU2Rodk0xZ05SV0lLMVREUURPYVNEUXZGd3Y0MlA3?=
- =?utf-8?B?WmJ6L0VZN0kwQ29pVlNXdENYRlZWa2VBNWVjeFRHVWRhUUtNQnl2Z1J1dUo5?=
- =?utf-8?B?OVN1MWtEZ3lNSXJXOFJnb1pIb3ByZGs2TEpMZDRuRlBoRmJiQndzemxET0pG?=
- =?utf-8?B?QUhtdi9oeDVjOUJZZnRqNjBCWUxMWW82Tmk1L0EvSm1URWxGVmFydHlwL2k5?=
- =?utf-8?B?VTRuTGtHelA3eTVIdXlic1Q0V1c4TEhsM2NwTndseS9rcE5Zc09SeWJwQW94?=
- =?utf-8?B?amdTY2I3ZFQzTjlKM0xCNEo3ZlZybHZwZzZXWVdOMGFPYlc4ZlhIWlErT1BR?=
- =?utf-8?B?L0ZEOWJTcDdkc3FlM0lqQnJtUnpGRVk4c3FkbDBNOHVkN0hLZE1ESEkxSk9z?=
- =?utf-8?B?NVFtMFQzSzJyZGpLLzc2Qzd0VEVPa05yWWh6ME9wVWRiSnl3bGJnREJtQitn?=
- =?utf-8?B?YlB2YlFXYkZreFpSWVVKNXhJbnNTZmFRd0FwTXhVTUNQTWZUeUtnYklwV1hv?=
- =?utf-8?B?ZENsNktmN3hWekE5RzlBdmdaTUhmNUF3Ujd4YWVRbnR3czdrelNvNzZ6aXdn?=
- =?utf-8?B?SmlxVytCSG9NbzVjZ2NuY21tcE5yVE8waXVxUURkM2x0MzJoQjhGcVFQMWhH?=
- =?utf-8?B?YlF5YjZtdlZ6UU5BNWk5dFJqTGpGOTFDT3lnb3BHeGlQNlVxRzlUc3BUSmJ2?=
- =?utf-8?B?ZnJWdE9LMTRJT3lKdG4wOGdBbm9Yak9QUTZnR0tIUU1sc1JVZ0p4Y1RwQWNo?=
- =?utf-8?B?MEt0OHd5a3JOTDBqaFlXYWxoS2ZuSnZxYWlvL0N6dTY2SEw0SFlnLzBZWUlS?=
- =?utf-8?B?NUJ6bzA5ZnRZY1JvbkdIaG50UEJIdlJnYkJSZ3lya3M2NiszOTFuYW5nSEEy?=
- =?utf-8?B?NllBTUV1VytYc0dySWNYc2x3enJlUm9BYUpZaUhmOHBpRGZGNExnamxoNG0r?=
- =?utf-8?B?UDV5Mm9Kand1T3JmWFZXZ3liN0RqWUtOMGEwbVhkMHhYREw1OE1CSVFObTRS?=
- =?utf-8?B?dmk0QkFhRHBaVjhtS1JDVVlJb1dRdkt5SnNWUUFiNC9rUk1aS1QxNjF4NklQ?=
- =?utf-8?B?bFEzN2Y1UlJIZjQxVUZmMC83cFZMbXRHNlNZdnFtbnN1YXR6ZFc3Z3Yrajd3?=
- =?utf-8?B?aGZ5L0w0TG5mejJ3VFFrYnZpZ0Z2THNaN1YrQ1h3Zk4xNE9OVVdoU2lpMEhP?=
- =?utf-8?B?MGcyd0k5TVR0QlE0Ti9HR3l6V0JKNDd4Y2ZqUytSeFdZUmdPZGU2RFNRZFB0?=
- =?utf-8?B?ekNnT3d3cGRMYk1Tb0phK0wzMVA1NEYvM1VoaE9NTEpTMUwyQVhRR2kvT0pM?=
- =?utf-8?B?b1BDeXhXcHY5d2M1NllhdjZaVnRsWUtobjBBMFg4cGtjaE45N29mUHkzUlBQ?=
- =?utf-8?B?c3p2bFllSnVHd1JIWGRtNkg5WmEzNzJITTdpdUZjbXE4MTBpbmFBd1k4MVBk?=
- =?utf-8?B?Q056L1NrbmQrcStrelVUMWRnN2VjMUg4SzB3RzU4RUtlV3pwT2ZJUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUhDV1pkb0lTU2Y0NjN2dmQvSVRZSnh6YVRTYlNlaFM2QlJYSi9WWXNLbmFB?=
+ =?utf-8?B?KzBZbWpzdCtBVzcySU1PVk12OTcwVmFHTXBqQThXQUtZM2tZaTZicXpsN0JV?=
+ =?utf-8?B?akpOanRaTlAwalRWYnByMmQxL2hacWNYNTYrdnJ4bXMvMzN6ODM5RUVxQWV3?=
+ =?utf-8?B?MlVCaUVYK1BNVSt5SnBCS2Uwc0pFZE1iZUVJVEFhdUZHR1FmWWNNYTZBbTRY?=
+ =?utf-8?B?cFdKR0I4VDhDY3JaOWlpZXYrbWEzdHcxMHNLNDBkQ1pzTEJFSUxIdmQ5YzBV?=
+ =?utf-8?B?WmhLRS82SzVSQzB1Y01RbUZVeUxXd2hlcmdBZElpWlRXb3l5N01TcXV1eTIy?=
+ =?utf-8?B?Y1dKeVYrZ3E2amwyandwVlAva1lYZDgxTjZpUTAyNjVHN3krdTJjdWtRbllr?=
+ =?utf-8?B?UEkwNHdZNlo5Tk9vN1hTaTRhSmo2VWNoSThPV2htclpqRzUxTUhpdWFzeGpH?=
+ =?utf-8?B?OW9sbFNYcWdGNEpOQ09sVS9Kb1FZWkNqQUsxNmRIYUJhdVpTeUdJajlocFIz?=
+ =?utf-8?B?VEZhTlRPVG8rdlZZMHBQRWxMY3B1R0NKZStSNkorbzJXck52RHNkVlRXMGI0?=
+ =?utf-8?B?a2Jtb1JzNGJIS1ZvcEV5MWliMEd6cDVWNXIrWW85NjJ0UTdPc2x2YnFKSHhw?=
+ =?utf-8?B?eWpmMHVEbjV6Q241cmFtOTI1MmlCYlpjdEFHY3JaeEM3R3piK1hxMFVaemZV?=
+ =?utf-8?B?TjBIUEhqcXpwZ3RmS2hyV3NXNGxCV3JEVGhWcHVHeHh0Y2R1ODE1UUpFQU1B?=
+ =?utf-8?B?bVZVRnpENmZFSUZKQjVPVDh5SGJndVZqRnliSWVaVEo3Q2Fsb2cxZWk5TklK?=
+ =?utf-8?B?TkZVaE9vUWN1aWtyWldwS0dxMjI2Tk5sY1Z4NDNwOG5kVTR4SjE5dklKeDkw?=
+ =?utf-8?B?RnRyQmxMeW9oZVBzVUN3SnV2akFMTjR2RUttZzBjeVI0WjEwT1ZoditaRzJw?=
+ =?utf-8?B?REpUWFlBOHgzRzR3eDhBWktXTFYrK1FyZVhpZkg5dVc0WWZtVmF1WFhoSGJM?=
+ =?utf-8?B?RkxXMVpKUFBsR0RKRlU5S1I1YlVyUlFWV1ZlN1F5SU5EbkUyNVFJakZZMG5P?=
+ =?utf-8?B?YWJwMUpEK042VTdwMVI2R212eWQ1WFZPeXAwR3Q0ZTFyTU5helhDTUVuVENM?=
+ =?utf-8?B?T0twN0xnM2VZKzdTSnlHemhYODZKTW8rWWs4Y2ZXSTlaQW5iMUpQbjdFeHRp?=
+ =?utf-8?B?MTNjWlRRYmxRelFtbE1DTGZYSEErYUkzSE1rbkVqN2RidWhZaGFKUGZtOUoz?=
+ =?utf-8?B?NmozbE5ITXdGRTVsNDZSU3UzS2N3TTNxQmRkaktuamFNak84RUsweU5Sdnl1?=
+ =?utf-8?B?WVFtSXY4OGlpMnhzenNEaVk5NWRYVGNvLzNwZWU1M2RXRUxGUExBZW5kNkVq?=
+ =?utf-8?B?WkVlZU40aVB5M0RFSzlFdlhEWlV6ZXIrNXBldHNteU0raUJKMkRRWG11STB0?=
+ =?utf-8?B?d2tIQWVRK3lEbUtWcHRNSy9LNE5ta3ZNazNuekFTeis1di9VQjdlaDhYcEtW?=
+ =?utf-8?B?WCtHRmtmTFNpcjlYcXZZNFk2cVNsbSswS2k5WFVwTExlMEcrQlVvdnoweGRG?=
+ =?utf-8?B?bnpUWlhYOXo0Um5IMjBJQmJUWC9zbHNOY2JSdE80QXpJWnZocVI0bnA3S0xK?=
+ =?utf-8?B?OWhvZkhBUUlEQ1g3d2duWTJZNFp2TGRic2t4NmFYRjFlZVJjcDlVNmtENlhn?=
+ =?utf-8?B?UXRrMDZReG5ORUJjVVpRMzFRUTJXMmdxb1BvUDB2cHlIclEvMS9ZcVByWE5P?=
+ =?utf-8?B?dUwrbkcrajVUOXdjak1xdysydHA2T1JmRjN0aGFZSVQxaFZuNXl0eWh6NXdP?=
+ =?utf-8?B?a1diRlRsbjBQT0NIcG9BRDYraUptZXQyRXV2ZWlGZjRZL0srQVFGclFNZzVl?=
+ =?utf-8?B?YjV1YWZZZ1dSSnlRS2VSWG5LRTByS0JCeDY4V0Q0RSt0amt3eDRtQ2FsaXhn?=
+ =?utf-8?B?UWs2YlJIeUs4RkZXdCtCV1p5ZHdNcVRBWEt4QVRqUzZjSEppMDZaVThPZ3pN?=
+ =?utf-8?B?UUQybjViaGFmdmxoTXRKUEl5ZTFCbU5YYUgrcS8xWVFLRERKZ1NNY1YwRVU2?=
+ =?utf-8?B?QkdCVnlDeitXblJMWW5Da3p6c2MwMmdhczhzc0FPYmZqR1JhS3B2T2EzQkVr?=
+ =?utf-8?B?Z3N2VXV2VXI3WjlKeUZISFVOZmNON2NwV1dCV3EwNzFObjhBQmVwNnZwMlE1?=
+ =?utf-8?B?aEN2TkwzQ2hHZS9oV0JWTmo4TzRGbWhlRzJwelUvZi92Mlp5Q3ZRdEJjLzdM?=
+ =?utf-8?B?TEMwL3JEdmtnTUZPaFFodmxaa0V6RlpxTmFNY3ZHdWF4RlVmZm9MTWRyQkdk?=
+ =?utf-8?B?dXBFQ1JaRkZ0cFNHQVd3SXgycVBMaEF5UVhNb3d0QmxSQ2pBdjNSZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: db924f0f-6e93-496f-10cd-08df081d1983
+X-MS-Exchange-CrossTenant-Network-Message-Id: f06b6882-a0b4-4439-2f9b-08df081e377c
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:35:18.6481 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:43:18.3712 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kKKbEXt5eJh2gdkvqDPaz7nG9Xceg6nXyM5T0ybuyuwdUKKKQymLCeVlGp6tQpE9P1QU6e3UXwLv7sOvYsXI8w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9200
+X-MS-Exchange-CrossTenant-UserPrincipalName: FocDriy0S7c5gcpJyacuxxasGLc07wUutpBpkWcSxBjPKMs5sXUFvGCKQ5BKua5cHEcogL5/oR42c6FQa+TKzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7769
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,50 +148,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 1, 2026 at 11:27 AM BST, Danilo Krummrich wrote:
-> On Mon Aug 31, 2026 at 10:42 PM CEST, Gary Guo wrote:
->> I think if you change the signatue of `registration_data_with` slightly:
+On Tue Sep 1, 2026 at 3:47 AM BST, Eliot Courtney wrote:
+> On Tue Sep 1, 2026 at 2:25 AM JST, Gary Guo wrote:
+>> On Tue Aug 25, 2026 at 1:38 AM BST, Eliot Courtney wrote:
+>>> On Mon Aug 24, 2026 at 10:07 PM JST, Gary Guo wrote:
+>>>> On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+>>>>> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>>>>>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0=
+<'_>, command: M) -> Result
+>>>>>>>>              dst.header.length(),
+>>>>>>>>          );
+>>>>>>>> =20
+>>>>>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_w=
+rite_ptr` write after data write.
+>>>>>>>> +        dma_mb(Write);
+>>>>>>>> +
+>>>>>>>
+>>>>>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>>>>>>
+>>>>>> I think it's more clear to consider `advance_cpu_write_ptr` to just =
+be the
+>>>>>> pointer increment, and the ordering should be visible in code that p=
+erforms both
+>>>>>> memory ops.
+>>>>>
+>>>>> In the second patch, it looks like you're adding the memory barrier
+>>>>> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly=
+ in
+>>>>> the code advancing the pointer and one not, which seems asymmetric. I
+>>>>> think it's less error prone to put the barrier in the function so it
+>>>>> can't be misused (and we already have evidence the barriers are easy =
+to
+>>>>> get wrong, since this code was already broken).
+>>>>
+>>>> In the second one `message.header.length()` is read, so if I move the =
+barrier to
+>>>> before the advance it'll be incorrect.
+>>>>
+>>>> Best,
+>>>> Gary
+>>>
+>>> Yerp I mean move the barrier into `advance_cpu_write_ptr` not move the
+>>> barrier out of `advance_cpu_read_ptr` - I agree that'd be incorrect. On
+>>> clearness, it feels very odd to me to have these two functions
+>>> (advance_cpu_read_ptr, advance_cpu_write_ptr) where one controls the
+>>> memory barrier and one doesn't, purely based off the structure of the
+>>> callers. And I still think it's less error prone (for future changes) t=
+o
+>>> do it this way too.
 >>
->>     pub fn registration_data_with<'this, F: ForLt + 'static, R>(
->>         &'this self,
->>         f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
->>                                     ^ note this is changed from 'a to 't=
-his
->>     ) -> Result<R>;
+>> Frankly I don't like the asymmetry that the advancing code does the barr=
+ier,
+>> while the pointer reading code doesn't have the barrier. However, if we =
+move the
+>> barrier to the pointer read function, then the `driver_write_area_size` =
+would
+>> gain a unnecessary barrier. (Actually, `driver_read_area` code have a si=
+milar
+>> issue, a failed pool would execute an unnecessary barrier).
 >>
->> then there will be an implied bound available inside the callback where =
-'a
->> outlives 'this, and thus the function callback is able to perform coerci=
-on of
->> any T<'a> to T<'this> provided that `T` is covariant over lifetime `'a`.
+>> As an alternative to move the barrier into the advancing code, alternati=
+vely we
+>> can pull the `message.header.length()` to a separate line instead.
 >>
->> [ The coercion won't work when doing abstract `F::Of` on the bus abstrac=
-tion
->> side, but for any user it is dealing with concrete types so the compiler=
- sees
->> specific types and thus can check variance ]
+>> I think we should either always have barrier inside the pointer read/upd=
+ate
+>> code, or always on the user side. Given the former would mean unnecessar=
+y
+>> barriers, I am erring on the latter.
 >>
->> Then your projection can just be
->>
->>     aux.registration_data_project(|x| &x.field)
->>
->> I haven't tried it out but I think it should work.
+>> Best,
+>> Gary
 >
-> I gave this a shot and it seems to work out, it's a good simplification. =
-I think
-> we don't even need a dedicated project method in this case. We could add =
-an
-> alias for with() just to clarify the intent, but not sure that's worth.
+> I see - so you're saying that one side of the maximally consistent
+> position is to put the memory barriers in additionally `gsp_read_ptr`
+> and `gsp_write_ptr`, but those don't always need a barrier e.g.
+> driver_write_area_size because they are not necessarily followed by an
+> access that needs ordering, and the alternative is to have callers of
+> those functions handle that responsibility.
+>
+> I think the differrence is that `advance_cpu_read_ptr` and
+> `advance_cpu_write_ptr` definitely need barriers, so why push up that
+> one level? Having barriers in `advance_cpu_read_ptr`,
+> `advance_cpu_write_ptr`, `driver_read_area`, and `driver_write_area` is
+> sufficiently consistent since it's the deepest set of functions that
+> can't avoid memory barriers.
 
-Right, I don't think it's needed. It's just a typo in the example given tha=
-t I
-write "_project" instead of "_with". Unless you have a case where it actual=
-ly
-needs `&'a F::Of<'a>` instead of `&'this F::Of<'a>` (which I think is not v=
-ery
-likely, changing signatures of existing users should be sufficient), I thin=
-k we
-should just modify the signature of `registration_data_with`.
+To me conceptually it's best to place memory barriers in places in between =
+two
+operations so it's very clear that it provides ordering between two operati=
+ons.
+Hiding memory barrier inside a plain access can be confusing.
+
+Alternatively, we can specifiy that the pointer updater have release semant=
+ics
+and the pointer reader have acquire semantics. This way it's also very clea=
+r,
+but does introduce unneeded barrier for the polling case as I mentioned. Th=
+at
+said, given that the polling interval is once a millisecond, extra barrier =
+is
+okay (full barrier is ~100ns). I do wish we have acquire/release barriers f=
+or
+these cases, which would be quite much cheaper!
+
+So unless there's an objection, I'll take the second approach by moving bar=
+rrier
+to pointer accessors/updaters and mark these methods to have acq/rel semant=
+ics.
 
 Best,
 Gary
+
+>
+> If we want to remove unnecessary memory barriers on polling
+> `driver_read_area`, we could add an analogous `driver_read_area_size` or
+> move the memory barrier for driver_read_area up one level. The poll is
+> only once every millisecond though, so I doubt it makes a difference for
+> performance. But if we were to change it imo `driver_read_area_size` is
+> most consistent.
+
+
