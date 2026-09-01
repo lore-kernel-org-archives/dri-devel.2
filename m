@@ -4,42 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA53DC624D4
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71F5BC624D4
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E08DC10E3C1;
-	Tue,  1 Sep 2026 14:23:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AOVCwMSL";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C560C10E3C1
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:23:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 62BEB40F89;
- Tue,  1 Sep 2026 14:23:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 255B21F000E9;
- Tue,  1 Sep 2026 14:23:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788272587;
- bh=JuV5nrZ31qXqLxwRP4sRV2gbfpCRqD1YBqmVr32CtQU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AOVCwMSLlymQWpds9zrYs7BtcljBp5aCsPjDB2KGld1mXjrnJLxMCbniPNIr9hvL3
- mtsV8xBekTJB7385dABMno0h87uKcz1SMoIEgkye0piaKHlCRzepVxBmUR4ki9sgsv
- KPU1YcUKkALqSzVdtxte8RHDIeRoBhHdiel2UGqhQL3zJIO8wNFqxibrcuzHSk/BUY
- NL+YdjT8CJ0PCWnI9NYmvZepy54tm1APv2I3cCuSz9Tb3fJAB1kqiNTIGfa4cBiItV
- Y03FBLqR27S5e/F6JQ53uVTUKVqeEZsbyZlmzvQ44IIF01+wm+j5ObA8tda25QiGKI
- yzXak88Me9Scg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: use linear backlight curve on Linux
-To: "Aarav Kumar" <aarav.240604@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B898A10E520;
+	Tue,  1 Sep 2026 14:26:43 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E4710E520
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:26:42 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
+ by APP-03 (Coremail) with SMTP id rQCowABHTTua4JZqQxq4Bg--.40614S2;
+ Tue, 01 Sep 2026 22:26:34 +0800 (CST)
+Message-ID: <2968d3399ccb56784e63939e88566ba6fd2b0bef.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm/loongson: Create blend mode property for cursor plane
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
+ Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai
+ <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901140155.19129-1-aarav.240604@gmail.com>
-References: <20260901140155.19129-1-aarav.240604@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Date: Tue, 01 Sep 2026 22:26:34 +0800
+In-Reply-To: <0d915332db93ac6affae218a35a35e79f8396fab.camel@iscas.ac.cn>
+References: <20260901095924.2839059-1-chenhuacai@loongson.cn>
+ <0d915332db93ac6affae218a35a35e79f8396fab.camel@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 14:23:06 +0000
-Message-Id: <20260901142307.255B21F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: rQCowABHTTua4JZqQxq4Bg--.40614S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr13try7ZF1Uuw4fJw1kXwb_yoW5KFWDpF
+ 4vyFW0krWYka92kry7tr1kCayfXw4fK3s2qryrJay29r4jyrnFvF1xWr9I9FWUJr48Gw1Y
+ qrnrArnruF4kGF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-Originating-IP: [120.85.96.74]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,89 +64,118 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+=E5=9C=A8 2026-09-01=E4=BA=8C=E7=9A=84 18:10 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-09-01=E4=BA=8C=E7=9A=84 17:59 +0800=EF=BC=8CHuacai Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > After commit 860e748bddcc929 ("drm: ensure blend mode supported if
+> > pixel
+> > format with alpha exposed") we get warnings at boot:
+> >=20
+> > loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
+> > format with alpha exposed but blend mode not setup. Please fix.
+> > loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
+> > format with alpha exposed but blend mode not setup. Please fix.
+> >=20
+> > The reason is the cursor plane supports color formats with alpha
+> > but
+> > the
+> > driver doesn't create blend mode property, which triggers the
+> > warning
+> > in
+> > validate_blend_mode_for_alpha_formats().
+> >=20
+> > The loongson DC only supports DRM_MODE_BLEND_PIXEL_NONE, so create
+> > blend
+>=20
+> I think this means alpha is ignored, which isn't the expected
+> behavior
+> for a cursor plane.
+>=20
+> I assume PREMULTI is more reasonable, although this would need some
+> experiment.
 
-New issues:
-- [High] Enabling use_linear_backlight_curve creates an asymmetry between t=
-he backlight set and get operations, breaking readbacks.
+I hacked modetest to generate a cursor plane filled with r=3Dg=3D0, b=3D0xf=
+f,
+a=3D0x40, and this cursor is quite visible on a white background -- which
+seems to mean the blending mode is COVERAGE.
 
-Pre-existing issues:
-- [High] Incorrect millipercent calculation adds the minimum brightness off=
-set twice, artificially doubling the minimum backlight level.
---
+(Tested on 7A1000)
 
-commit d81c87ee8304f9423dd46886dacd5118c129a998
-Author: Aarav Kumar <aarav.240604@gmail.com>
+Thanks,
+Icenowy
 
-drm/amd/display: use linear backlight curve on Linux
+>=20
+> Thanks,
+> Icenowy
+>=20
+> > mode property with DRM_MODE_BLEND_PIXEL_NONE for cursor planes.
+> >=20
+> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> > ---
+> > =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 11 +++++++----
+> > =C2=A01 file changed, 7 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+> > b/drivers/gpu/drm/loongson/lsdc_plane.c
+> > index bea42215796d..efef25eaa659 100644
+> > --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+> > +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+> > @@ -7,6 +7,7 @@
+> > =C2=A0
+> > =C2=A0#include <drm/drm_atomic.h>
+> > =C2=A0#include <drm/drm_atomic_helper.h>
+> > +#include <drm/drm_blend.h>
+> > =C2=A0#include <drm/drm_framebuffer.h>
+> > =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> > =C2=A0#include <drm/drm_print.h>
+> > @@ -747,8 +748,9 @@ int ls7a1000_cursor_plane_init(struct
+> > drm_device
+> > *ddev,
+> > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *plane,
+> > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int index)
+> > =C2=A0{
+> > -	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> > =C2=A0	int ret;
+> > +	unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE);
+> > +	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> > =C2=A0
+> > =C2=A0	ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
+> > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lsdc_plane_funcs,
+> > @@ -765,15 +767,16 @@ int ls7a1000_cursor_plane_init(struct
+> > drm_device *ddev,
+> > =C2=A0
+> > =C2=A0	drm_plane_helper_add(plane,
+> > &ls7a1000_cursor_plane_helper_funcs);
+> > =C2=A0
+> > -	return 0;
+> > +	return drm_plane_create_blend_mode_property(plane,
+> > blend_caps);
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0int ls7a2000_cursor_plane_init(struct drm_device *ddev,
+> > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *plane,
+> > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int index)
+> > =C2=A0{
+> > -	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> > =C2=A0	int ret;
+> > +	unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE);
+> > +	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> > =C2=A0
+> > =C2=A0	ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
+> > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lsdc_plane_funcs,
+> > @@ -790,5 +793,5 @@ int ls7a2000_cursor_plane_init(struct
+> > drm_device
+> > *ddev,
+> > =C2=A0
+> > =C2=A0	drm_plane_helper_add(plane,
+> > &ls7a2000_cursor_plane_helper_funcs);
+> > =C2=A0
+> > -	return 0;
+> > +	return drm_plane_create_blend_mode_property(plane,
+> > blend_caps);
+> > =C2=A0}
 
-This commit switches the power module to use a linear backlight curve
-on Linux to preserve the existing brightness-to-PWM mapping. This fixes
-incorrect brightness levels observed on affected systems.
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5723
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index eb00c62c6f724..1ba74924859dc 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -418,7 +418,7 @@ static int amdgpu_dm_init_power_module(struct amdgpu_=
-display_manager *dm)
->  			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
->  		init_data[i].use_custom_backlight_caps =3D false;
->  		init_data[i].custom_backlight_caps_config_no =3D 0;
-> -		init_data[i].use_linear_backlight_curve =3D false;
-> +		init_data[i].use_linear_backlight_curve =3D true;
-
-[Severity: High]
-Does enabling this flag create an asymmetry between the backlight set and g=
-et
-operations?
-
-When the write path uses the linear curve, the read path in
-backlight_pwm_to_millipercent_legacy() in power_abm.c lacks support for this
-flag and unconditionally performs a binary search on the non-linear ACPI LU=
-T.
-
-Can this cause sysfs readbacks to return incorrect values?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but using the linear curve stric=
-tly
-exposes an issue in the millipercent calculation in
-amdgpu_dm_backlight_set_level() in amdgpu_dm_backlight.c.
-
-In amdgpu_dm_backlight_set_level():
-
-	brightness =3D convert_brightness_from_user(caps, dm->brightness[bl_idx]);
-	...
-	get_brightness_range(caps, &min, &max);
-	brightness =3D DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
-
-Since convert_brightness_from_user() returns an absolute value scaled betwe=
-en
-min and max, computing the percentage without subtracting min first causes =
-the
-millipercent value to already contain the minimum offset.
-
-When this is passed to backlight_millipercent_to_pwm_legacy(), which comput=
-es:
-
-	min_backlight_pwm + (millipercent * range)
-
-Does this artificially double the minimum backlight level and prevent the
-screen from dimming properly?
-
->  		init_data[i].def_varibright_enable =3D 0;
->  		init_data[i].varibright_level =3D 0;
->  		/*
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901140155.1912=
-9-1-aarav.240604@gmail.com?part=3D1
