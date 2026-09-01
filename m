@@ -4,59 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 892E6C624CF
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:01:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2091AC624CF
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C16DC10E23B;
-	Tue,  1 Sep 2026 11:01:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBE010E3D0;
+	Tue,  1 Sep 2026 11:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ObR1Hbvx";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CW83/wQb";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X1duk9Br";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA93110E23B
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:01:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2F0CB42A61;
- Tue,  1 Sep 2026 11:01:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9801F000E9;
- Tue,  1 Sep 2026 11:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788260484;
- bh=aHxVERBew5CgbQQj/MuD9uQI515uVkBhK5soxUtArlo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ObR1Hbvx8mIlygu/0Q7wQ04cJeYLdBrCbKqhDMcBy15MfEa0QWJ2LL2T+loGt/Qiy
- Erp5toxkW16/RHLQfLOnF8d7SBfPNX8x/b8ZGpzKQf9EUUi2POwKavf/485oXpqyge
- bX4S1WxYPzWsSCuptkwjYSKznjido5rft1Kf8VHaYdz/gmnvGqc6XrM4YdIUepo6Q9
- wxT59x27V95hx3ZnqXhUaXXYOEqRR6GcJYxOjlNoShRw2HBX+vsLW6Fz4PzS97Rc1r
- uUiLKfhTB8B6Ri+fsU4TE6+Lrc/MrgBdtbGuHZ3H7cL0wvSkDW7/pbkRy18dBMYsqd
- +mVzweO6p72Aw==
-Date: Tue, 1 Sep 2026 14:01:20 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Konstantin Sinyuk <ksinyuk@kernel.org>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
- infrastructure for scale-up accelerator interconnects
-Message-ID: <20260901110120.GJ24140@unreal>
-References: <cover.1787552412.git.ksinyuk@kernel.org>
- <20260826093222.GC42790@unreal>
- <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
- <20260827170911.GG42790@unreal> <apGzqP6cEZ1miNmR@intel.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1EE10E3DF
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:01:30 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 681AJjov2752225
+ for <dri-devel@lists.freedesktop.org>; Tue, 1 Sep 2026 11:01:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=; b=CW83/wQb1Y2K6z+G
+ 0dyFxJoDvzG7dR2702RceUiMPF8VFNuTNnJ6J2A28NyzdnTMriZNJnfYIwzvcraY
+ VSfzLNiBLOn0MTSucE7A6S0FPP2m9hmQUXmAP7XD6hZMlL1kBS2g1pUS4xfL02NU
+ sSowKQX9+f/ZWkf7JHo26vnDLo0sc03R42ERljW6qoVRho3NI37/DEbThiLYCwQZ
+ 25yzSE1uJylfQJj8TWRbLsWcnCYIKJwBW2CC9LYUOhvii0W4SNq6IRZBU1wCK0Rs
+ zISEzek6R9Hmyf/0LK7ugjLWZxSiISeP73/ct1g/wTdzf4tdP4OXhcJIcmHWf4YF
+ sKPXlA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdfchbjx5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 11:01:29 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2d959904658so12552145ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 04:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788260488; x=1788865288;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=;
+ b=X1duk9BrwqLLI8F9RJ3vhLswULImPcXkkg4cxc/aCKiOCoPanSK4xe/90fmst+B0CF
+ yVUwSKN2yy/ute9UBba9em6I8gZ5lBDdt5caOBgFG3g3sXp9+bWhV93LFMFF5OKYUfak
+ MhhK4W/6Uhmnax01eoVqhqvLbYXXdAXu260ba6JBOux4TupljUqP3FW1HkTj8CAfLHMR
+ g2KpoQUBHDbtJsR+HHdh7rEn745YRkKvZ4TIIOdlS/I3Wryrhbme1ZT5sNqJEQ+luMoS
+ 9PY5na3ynb056Hyj5dwddBmLr3Ixh33BPYrfEaEynYD0aDH+a42zC4wHEJa36vFJliki
+ V4QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788260488; x=1788865288;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=;
+ b=gNi6+k9rLA8pRSm1b+kKVqc2teGZdvAXOZTnixjnRq17UYgfmzgiHXzXgv0+KWFEWO
+ OR3OCOz+K6BxTmDg8e/PhDqwfaFZrbmBUU7ZCYgGXrfOwsDwneEmZYhlyg5DyxFrMe1f
+ tptWmLVh+tLqH53F0kjc3/1zLkAp2R/0YKIxtERPzzwW6NX8c2AEvDlqgM6kL6iRT6WH
+ /8qsUuMDy6Cnhy8I1wu1BAAg1mYRpJDFKaSMTB5N3iQR8DwCMjOb6XSVSgX6CkXAnzp+
+ 1UEJYAj9F497rfa+PM753OlSCCK+DNNGrQBwsYi8WFbZYGkMpSAHaLTI5UqQNChFXUV7
+ tDQA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByFhWacDCrO6ZTCqsYDtP6p9zO4+NL+DgbbVXz2CmEQrVbGaAVq3BJOjwew7eE3rDgMHDyAVlEYaoc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++no4/JPdA6HdTiOaINXgVKY90FKJBWH/8bj4Ns9q9vf/6cB/oKJ
+ tMJu46hvjVFx6G8T2TUu4HWzOCaXW41a2nranqaUhduDcn9DN7oY0r3SUKx7LUOUkLXYvCXTw+r
+ rTAuAQejp7X0uZnkaisOC0Q6ufNOvhDk0xoDxhEhEM9BVzdQb+X6dOkDjD6dvCvP0bWkl0wQ=
+X-Gm-Gg: AYBFou2YGe7aHpwCGB8Fec0I3QN3QWBoh8y8dQ/AXfcFBBSU97hNZpRZKNLfdk2CYA1
+ h0vnHjAtg9wSXHaQevIXt8ga9+MIWkUOcWAYAs3DWqqUxcFGPHr3KHRKnCZ0pbN77vyTYyd/fDp
+ 7D//GXEqP/J/+k1vrM8kq33/d6NPvvZzD2m7UPHyAWrDpj+Rv0f77IVxev5Xb/ZVT7wgMzxliUR
+ jjzTjyZGVIieXTD1f8BIAqJZLq0YSg+lX2DBW4s4cwVJOjJOW6N8rbGrOvXZGKU9oRO83YGNpUf
+ PZ3OqqSIUPK3yFp+ZN/7Kgjt+Nc7Ng5rmvZfE3kbC/ImHtal5F1g2h156fErcRZ6vIS+8hHvbLT
+ cSOlTaMaFYbwaKn52U/yy0bgjn3xW3A==
+X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id
+ d9443c01a7336-2d94a904ffcmr110370465ad.17.1788260485733; 
+ Tue, 01 Sep 2026 04:01:25 -0700 (PDT)
+X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id
+ d9443c01a7336-2d94a904ffcmr110365825ad.17.1788260484072; 
+ Tue, 01 Sep 2026 04:01:24 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d7596412c2sm49707335ad.37.2026.09.01.04.01.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Sep 2026 04:01:23 -0700 (PDT)
+Message-ID: <5c91768f-b8b0-48f8-aac3-b08b76605e1d@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 16:31:19 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apGzqP6cEZ1miNmR@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ quic_chennak@quicinc.com, stable@kernel.org
+References: <20260826033803.475-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260826033803.475-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: CmXIM9tNNZnxTpNZYDdYOJyoqDCViiPI
+X-Authority-Analysis: v=2.4 cv=G9Ms1dk5 c=1 sm=1 tr=0 ts=6a96b089 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MOthyIZreOk6ictk8Y8A:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: CmXIM9tNNZnxTpNZYDdYOJyoqDCViiPI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5NyBTYWx0ZWRfXwwtN16LERWpC
+ hnjsIh8bccRdtSL6JQ68b+cb7jC8pP5RDTX8QIc6lpL9eFW+hLkBOvVHWxfbZKzuHRE5fOFQ/yb
+ UpYdgkmUaE7zqTINnpyQbVeDmrTJg/g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5NyBTYWx0ZWRfXzbujh5Rcvv99
+ KZO7f1aVO4f8rUauKCChdrYTOdlezIwAZtFmlQJLszqW2GzrlW1rLiJ5wjVjU6dIlWCOP/mNXf8
+ nRqqLWBLo88w5HgBmcIA1nJGBuEA5BYHUNuRZi00XcoY5JkgSxoyawjg8PcVPKv4lJOvTrL+pDG
+ K3snqD2yRjf7fFjxVdHw4dCkiFHx4/p1ng5amCn9F2k0M0Ne66wokTCIPwHzA74JvN/3zgYiBmv
+ 4mrR3CFvYfP2/59OGVSj2y0/1YRfbT2c7WHt3y+F9dEL1voxsbGxeQiqtzLGSCwz2Qq61ZzrZXT
+ iGCfxW2Gx2HKGFm7dovHyhZ+rQehLs1uAUucsLwiRhNUsWn0PFwWBmFFtL2y02PXou4ZhV8Fuim
+ NQN4/BHcmCOwU0s1xmCnG8JW+zB4R4iVJlZA15ZYz15/CdcSc8mBeEjmEz45SCckcg1lmAr59Za
+ Kk7aN1b8DvbBeiAoGzw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ impostorscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010097
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,58 +148,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 28, 2026 at 12:13:28PM -0400, Rodrigo Vivi wrote:
-> On Thu, Aug 27, 2026 at 08:09:11PM +0300, Leon Romanovsky wrote:
-> > On Wed, Aug 26, 2026 at 06:38:58PM +0300, Konstantin Sinyuk wrote:
-> > > On Wed, Aug 26, 2026 at 12:32:22PM +0300, Leon Romanovsky wrote:
-
-<...>
-
-> > The wording alone is not sufficient. Your proposal should be backed by
-> > real devices representing different architectures from different
-> > vendors.
+On 26-08-2026 09:08, Jianping Li wrote:
+> Allocating and freeing Audio PD memory from userspace is unsafe because
+> the kernel cannot reliably determine when the DSP has finished using the
+> memory. Userspace may free buffers while they are still in use by the DSP,
+> and remote free requests cannot be safely trusted.
 > 
-> Future Intel (and other vendors) hardware will include UALink.
-
-I guess that, like most of us, you are not authorized to discuss or
-comment on Intel's non-public roadmap. Can you point to any public
-commitment from Intel to implement UALink in its devices?
-
-I couldn't find one.
-
-<...>
-
-> > The current proposal is based on a single implementation, which is
-> > unlikely to be ported to this new framework in the foreseeable future.
-> > The amdgpu xGMI implementation already exposes the required UAPI through
-> > sysfs and would need very strong incentives to abandon its "legacy"
-> > users in favor of this new netlink interface.
-> > 
-> > The last new subsystem I am aware of was introduced with implementations
-> > from three different vendors to demonstrate its robustness. You should
-> > probably aim for a similar level of coverage here.
+> Additionally, the current implementation allows userspace to repeatedly
+> grow the Audio PD heap, but does not support shrinking it. This can lead
+> to unbounded memory usage over time, effectively causing a memory leak.
 > 
-> If we wait 3 different devices to show-up before we can start discussing
-> a common API, then it might be way too late.
+> Fix this by allocating the entire Audio PD reserved-memory region during
+> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+> userspace-controlled alloc/free and ensures that memory is reclaimed only
+> when the DSP process is torn down.
 > 
-> But of course, we can definitely move this netlink as is to inside
-> drivers/gpu/drm/xe and call it xe_fabric and if someone else is interested
-> in join effort we move that outside.
-
-We are not talking about "waiting for", but about "being backed by".
-The general kernel rule is that the second implementation is responsible
-for consolidating the code. XE appears to be that second implementation.
-
-Thanks
-
-
+> The reserved-memory region is now mandatory for the Audio PD domain.
+> Rather than failing rpmsg probe when it is missing, validate it in
+> fastrpc_init_create_static_process() and reject only the static-process
+> creation. This keeps the fastrpc device probing for all other domains
+> even on a misconfigured device tree.
 > 
-> Thanks,
-> Rodrigo.
-> 
-> > 
-> > Thanks
-> > 
-> > > 
-> > > Thanks,
-> > >  Konstantin.
+> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
