@@ -4,76 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C56EC624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7631C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFD9B10F419;
-	Thu,  3 Sep 2026 07:34:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lGnx8X78";
-	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBA810F22C
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 14:42:12 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-84eb992a881so1053272b3a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 07:42:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788360132; x=1788964932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=rKM/PPFy7W4wICYY4yvWsIe6e1r+fY7pf2VDor/H3i8=;
- b=lGnx8X78ij2PC4j8a0sAcRf2aeW///S/dQ9xZ+7AVNFRup2xAnhxmtEyVbjZzIF84K
- QCwhPH/IBdD+u07ypaJ/v+Jm2fdcUvAhsoT9QDmvORVAyWOPdimB1aPAuztNiXjEQXas
- nwTdbt/Oev8DMAPiM9fAsh9tIswd5MUiiWKtkPw65JaRLkLIx1uJP18897ua6rlPx+lG
- 19HqxM0kjxMjZG0XQWaZowM4d+hyZJJvCzWKAg4oUdwVqOrvZ0Zrwc7u8bnypoVLICTM
- 8lXzOVGicQYDJ2JAHBiHHcudLfZuYJxA/HLbGokn8+7ML0y6NwhhS3fTWDrPWQlwIwU0
- Urrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788360132; x=1788964932;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=rKM/PPFy7W4wICYY4yvWsIe6e1r+fY7pf2VDor/H3i8=;
- b=k81F9JKxPqlTNDjFSX6XmlLcgPsnD600UWpg6VanHc9RaZsytZtNILm15oV3dH/q5o
- EYiDQ3SMFkejpQJLUYW1TozYqCDLfJj85/Kn7oCXPFZ7HTmZLTXFMdk57YsP/YGGFwXV
- H4fWM5cGtDWoD7H5yGF9kHPB35GVLqpKtZa4hNFXxws0RaOrsvWH64qEsuJSmLcmMG9k
- OgA977xZIig6Yc/VMQipmlHoqGjl8t3bV6SqMwnwTBda7Qcnqx+jZr0ROUYnoRQSKAS/
- Z7CFLY9+ZBAimN/nTff04lR9PR+IH5pmnhS4kqv2blgu5CieFAETMoZrQKOfK+XjJIGg
- RaOQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzJy6hK11LbVCGw+bcQ4g/F4tPsd2Tdqe5/NGXm5081FiztU5hYBlK56N47wWZO1Jq9g5A2Y4NE5no=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lDwpNC8eRnaVPIynddlbkQCjXkl6PLMhc6YZsfzSv6oCzupwb+
- KSQ8b4EjCbkukh9gtwxfJoc7NXsoepDW/6wYqhVXyDULzthIO6pqatM=
-X-Gm-Gg: AYBFou0FF3lPuLddPA0uidE6YVS8CqVBqVpVfDMK5W8D9BIRoarQUjAoRBzV4c3vfRA
- Z+3jXyFZ5RsiJshnbdVit5woHz+ztCQuxCxUTMwQ5L5xzy6GWPG5mdbgPNiDfZuMJqiQI+z3duk
- WCgZTxIwid/ue3c7PrLfY6RUFkNy/kgxV7ZpUahE4CJc3+pHnQAaG4bv7nis6WvK1QRCsBtecnE
- ssm4OMYAsknU0TseZ3A3RqZOox+WJG+StP6amQ8uE5qMiNekfL28Tue/g4Vt74N6KuLBaHc3aXC
- te6uibYKWRJFkFwGX4PRkcgahUQIFUNLAdNa63tyDfU0IRYxig/66M0HmtXPGbDV/UWEHJK/sRz
- Zam4J0LfKWj3prZjEYVsED1xa2OR+XE6hOg8cN09NaQg14HSqk1TTsfTAAq1YmAOV8UOnJPToin
- zqAV6p0REVoGYm67R3hiNLQCLX5mfvfLQtfZ6OwV0GMW5BKt415/EjR5BWVb0+ZNr/Afs7I0+6t
- //vOJ4E1/NALAwmDI5Zg1TKSuc=
-X-Received: by 2002:a05:6a00:368c:b0:851:c1d2:c48d with SMTP id
- d2e1a72fcca58-85ed25e0713mr8399867b3a.8.1788360131651; 
- Wed, 02 Sep 2026 07:42:11 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-85db23f8d8asm1655776b3a.12.2026.09.02.07.42.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 07:42:11 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: tursulin@ursulin.net, phasta@kernel.org, matthew.brost@intel.com,
- dakr@kernel.org
-Cc: christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-Subject: [PATCH v3 0/2] drm/sched: fix use-after-free of the fence timeline
- name
-Date: Wed,  2 Sep 2026 23:42:02 +0900
-Message-ID: <20260902144204.1843670-1-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1033D10F41F;
+	Thu,  3 Sep 2026 07:34:05 +0000 (UTC)
+Received: from mail.muc.de (mail.muc.de [193.149.48.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 664DB10E3DF
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:14:47 +0000 (UTC)
+Received: (qmail 81104 invoked by uid 3782); 1 Sep 2026 13:14:45 +0200
+Received: from muc.de (p4fe15c70.dip0.t-ipconnect.de [79.225.92.112]) (using
+ STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
+ Tue, 01 Sep 2026 13:14:44 +0200
+Received: (qmail 6890 invoked by uid 1000); 1 Sep 2026 11:14:43 -0000
+Date: Tue, 1 Sep 2026 11:14:43 +0000
+To: Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: vt: Enlarge the framebuffer glyph size from 16 to 32 bits
+Message-ID: <apazo2RIHiEAtpNN@MAC.fritz.box>
+References: <apCEDM2sWv_M354-@MAC.fritz.box>
+ <145be2e3-a8c0-4f4f-a701-af2696cec461@suse.de>
+ <apGc4y8ApYWh4Yr4@MAC.fritz.box>
+ <2026082938-spray-shimmer-9389@gregkh>
+ <apLvO-8YJmQG7T0Z@MAC.fritz.box>
+ <7c199c7f-d89b-48ca-a777-85585d2eb624@suse.de>
+ <apWTg6mNZrdBm2-D@MAC.fritz.box>
+ <ae1ae01a-677e-4c51-bf9a-ebe7b2e91e4f@gmx.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ae1ae01a-677e-4c51-bf9a-ebe7b2e91e4f@gmx.de>
+X-Submission-Agent: TMDA/1.3.x (Ph3nix)
+From: Alan Mackenzie <acm@muc.de>
+X-Primary-Address: acm@muc.de
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,91 +57,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_sched_fence_get_timeline_name() dereferences fence->sched->name. A
-driver that allocates a drm_gpu_scheduler per context, queue or VM frees
-that scheduler on context teardown, but the finished fence can outlive it:
-unprivileged userspace holds the exported fence via a sync_file or
-drm_syncobj and later queries its timeline name (e.g. SYNC_IOC_FILE_INFO),
-reading the freed scheduler. Same class as CVE-2025-38703 (drm/xe) and
-CVE-2025-71302 (drm/panthor); amdxdna, nouveau and msm (VM_BIND) are still
-affected in mainline.
+On Mon, Aug 31, 2026 at 19:21:30 +0200, Helge Deller wrote:
+> On 8/31/26 16:45, Alan Mackenzie wrote:
+> > On Mon, Aug 31, 2026 at 08:20:10 +0200, Thomas Zimmermann wrote:
+> >> Am 29.08.26 um 16:39 schrieb Alan Mackenzie:
 
-This series fixes it in the core rather than per driver.
+[ .... ]
 
-v1 and v2 took the approach of caching the name at fence init. Review showed
-that is the wrong fix:
+> > I've been using the console for around 28 years, now.  I don't recall it
+> > crashing at all.  My current font and keyboard files are in exactly the
+> > same form as they were 28 years ago.  These formats are stable and
+> > dependable.
 
- - Tvrtko pointed out the documented contract does not require the name
-   passed to drm_sched_init() to outlive the scheduler, so caching the bare
-   pointer only narrows the window; and
+> >> I've spend the last years working on related code (fbcon) and it
+> >> mostly feels dated and unmaintained. Our prime implementation (again
+> >> fbcon) has been de-facto unmaintained for years.  We recently had
+> >> contributors who are pushing the ioctls semantics and found bugs in
+> >> fbcon for a number of corner cases.
 
- - the sashiko review bot pointed out that caching does not help drivers
-   whose timeline name is dynamically allocated and freed with the queue
-   (drm/panthor, drm/xe) - it just moves the UAF to the string's lifetime.
+[ .... ]
 
-Philipp suggested dropping the finished fence's ->release callback instead.
-That is what this series does. dma_fence detaches a fence's ops on signalling
-when it has neither .release nor .wait (dma_fence_signal_timestamp_locked()),
-and dma_fence_timeline_name() returns a static string once the ops are gone.
-So with the callback removed, get_timeline_name() is simply never reached on
-a signalled finished fence - no ->sched dereference at all, for static and
-dynamically-allocated names alike. The finished fence's only job in that
-callback was to drop the scheduled fence's reference, which patch 1 moves
-elsewhere.
+> >> FTR I'm not at all interested in eliminating the kernel's console.
 
-Link to v2 (name caching):
-https://lore.kernel.org/dri-devel/20260902105808.1541063-1-malhyuk97@gmail.com/
+> > Other people, in particular Greg KH, have said this is the current aim.
+> > I'm worried for myself.  It is far from clear that there is a suitable
+> > replacement for the kernel's console, and its elimination could easily
+> > happen without that replacement.  I suppose I could always (laboriously)
+> > maintain the console for myself personally.  Or there's always the BSDs.
+> > I just don't know what I'd do.
 
-Note: detaching the finished fence's ops on signalling also makes
-to_drm_sched_fence() return NULL for a signalled finished fence. Callers
-already handle NULL (the normal foreign-fence result), a signalled fence is
-an already-satisfied dependency so the scheduler's dependency collapsing is
-unaffected, and it avoids the container_of() on a possibly-freed foreign
-scheduler that amdgpu_sync_same_dev() and pvr_queue_fence_is_native() would
-otherwise do. Flagging it explicitly since it touches an exported helper.
+> Alan, I really appreciate your efforts to enhance the kernel console code!
+> And I'm not interested to eliminate the kernel console either.
 
-I did not add Fixes:/Cc: stable tags: the ->sched->name deref dates back to
-1b1f42d8fde4 ("drm: move amd_gpu_scheduler into common location") but only
-became reachable once drivers began allocating per-context schedulers, so
-the right attribution is unclear to me. This is stable material as the
-driver instances are live - happy to add whatever tags you prefer.
+> >> But there are must-have features and nice-to-have features. IMHO for
+> >> the kernel console i18n really belongs in the later category.
 
-Tested with KUnit under KASAN (kunit.py --arch=x86_64), matched pair:
+> > It's 2026, four decades after VGA was the latest thing, and Unicode
+> > support is merely a nice-to-have?
 
-  - unfixed (finished fence keeps .release):
-      [FAILED] drm_sched_dma_fence_uaf
-      BUG: KASAN: slab-use-after-free in
-          drm_sched_fence_get_timeline_name+0x9c/0xb0
-      Read of size 8 ...
-  - fixed (this series):
-      [PASSED] drm_sched_dma_fence_uaf
-      Testing complete. Ran 47 tests: passed: 47
+> No. IMHO Unicode support would be great.
 
-(The whole drm_sched suite passes with the series, no regressions.)
+Thank you, indeed!  That's cheering to hear.
 
-v3:
- - Switch from caching the timeline name (v1/v2) to dropping the finished
-   fence's ->release so the ops are detached on signalling (per Philipp);
-   also fixes the dynamically-allocated-name drivers caching could not.
- - Rework the scheduled/finished fence lifetime: the scheduled fence now
-   holds a reference on the finished fence, which is released last and freed
-   from dma_fence_free(); @finished moved to offset 0. drm_sched_job_cleanup()
-   drops the scheduled fence's initial reference.
- - Move the regression test to a new tests_integration.c and query via
-   dma_fence_timeline_name() (per Tvrtko's review of v2).
+> Thanks!
+> Helge
 
-Jonghyuk Kim(MalHyuk) (2):
-  drm/sched: fix use-after-free of the fence timeline name
-  drm/sched/tests: add a UAF regression test for the timeline name
-
- drivers/gpu/drm/scheduler/sched_fence.c       | 46 +++++-----
- drivers/gpu/drm/scheduler/sched_main.c        |  9 ++
- drivers/gpu/drm/scheduler/tests/Makefile      |  1 +
- .../drm/scheduler/tests/tests_integration.c   | 92 +++++++++++++++++++
- include/drm/gpu_scheduler.h                   | 22 +++--
- 5 files changed, 139 insertions(+), 31 deletions(-)
- create mode 100644 drivers/gpu/drm/scheduler/tests/tests_integration.c
-
---
-2.43.0
-
+-- 
+Alan Mackenzie (Nuremberg, Germany).
