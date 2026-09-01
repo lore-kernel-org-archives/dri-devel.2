@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A88A6C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C394BC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB47E10E2FD;
-	Tue,  1 Sep 2026 14:41:42 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8225110ED35
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:41:40 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
- by APP-03 (Coremail) with SMTP id rQCowACnrjwe5JZqfz64Bg--.3833S2;
- Tue, 01 Sep 2026 22:41:34 +0800 (CST)
-Message-ID: <a547078c91dd575e76952c70fcc112539f0dfc75.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/loongson: Create blend mode property for cursor plane
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
- Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai
- <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
-Cc: dri-devel@lists.freedesktop.org
-Date: Tue, 01 Sep 2026 22:41:34 +0800
-In-Reply-To: <2968d3399ccb56784e63939e88566ba6fd2b0bef.camel@iscas.ac.cn>
-References: <20260901095924.2839059-1-chenhuacai@loongson.cn>
- <0d915332db93ac6affae218a35a35e79f8396fab.camel@iscas.ac.cn>
- <2968d3399ccb56784e63939e88566ba6fd2b0bef.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06C1510ED1F;
+	Tue,  1 Sep 2026 14:46:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CWdx8qAt";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33BEE10ED1F;
+ Tue,  1 Sep 2026 14:46:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EACDC417CB;
+ Tue,  1 Sep 2026 14:46:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958E11F000E9;
+ Tue,  1 Sep 2026 14:45:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788273960;
+ bh=Rg41YJ2nUOvWEs6t32nKYpxXPPh9axGRgKO3wyA/ZR4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=CWdx8qAtwzJhZbKule/ym3WqnzXSgCSwIIP0F2bWcHJctnhgFsci/iB0FaP0wch8x
+ RGGz2osnsh3b0KhhtVMOz4U9OdXaKuZTynnF+Fn9VpklEW+FWuQs4wU4OfIBa/DWMQ
+ 5fQJG9GP0sejfdGdjk9thlqylxFXca6B+L13D9JfNmywzUCz2LLz6ow45rGRXo19Ia
+ 0YtLE+ZgKeRc6MXmcqdauxdfkNfUOGvIvITNg83H9GoblEiCI0EXZp+pjIjfxJ4m93
+ 0NxsDtzUvMQfsRC+O3g+lBxNDhRq+tlEO85sNfqcDbcpY85fDU5Yr0jqRqJ7W+kwFF
+ ZJQuzrTZyGH2g==
+Message-ID: <b36db634-725b-44f7-bd8c-813d13e9bc81@kernel.org>
+Date: Tue, 1 Sep 2026 16:45:56 +0200
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowACnrjwe5JZqfz64Bg--.3833S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr13tryrZr1ktr48Kr17Jrb_yoWrXw1DpF
- Wvya40krWUCan2yry2v3s5KaySqw4fK34vqryrJa4IqrsFyFnF9F18Wr9I9rWDJr48G34Y
- qrnxCr9xZF4kGF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
- 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
- C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
- wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
- v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
- jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
- ZFpf9x07betCcUUUUU=
-X-Originating-IP: [120.85.96.74]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+To: Gary Guo <gary@garyguo.net>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+ <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+ <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+ <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+ <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+ <DL3YBS0UXYMC.1KJEZ9KWV52O8@garyguo.net>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <DL3YBS0UXYMC.1KJEZ9KWV52O8@garyguo.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,132 +72,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-01=E4=BA=8C=E7=9A=84 22:26 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-09-01=E4=BA=8C=E7=9A=84 18:10 +0800=EF=BC=8CIcenowy Zheng=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > =E5=9C=A8 2026-09-01=E4=BA=8C=E7=9A=84 17:59 +0800=EF=BC=8CHuacai Chen=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > After commit 860e748bddcc929 ("drm: ensure blend mode supported
-> > > if
-> > > pixel
-> > > format with alpha exposed") we get warnings at boot:
-> > >=20
-> > > loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
-> > > format with alpha exposed but blend mode not setup. Please fix.
-> > > loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
-> > > format with alpha exposed but blend mode not setup. Please fix.
-> > >=20
-> > > The reason is the cursor plane supports color formats with alpha
-> > > but
-> > > the
-> > > driver doesn't create blend mode property, which triggers the
-> > > warning
-> > > in
-> > > validate_blend_mode_for_alpha_formats().
-> > >=20
-> > > The loongson DC only supports DRM_MODE_BLEND_PIXEL_NONE, so
-> > > create
-> > > blend
-> >=20
-> > I think this means alpha is ignored, which isn't the expected
-> > behavior
-> > for a cursor plane.
-> >=20
-> > I assume PREMULTI is more reasonable, although this would need some
-> > experiment.
->=20
-> I hacked modetest to generate a cursor plane filled with r=3Dg=3D0,
-> b=3D0xff,
-> a=3D0x40, and this cursor is quite visible on a white background --
-> which
-> seems to mean the blending mode is COVERAGE.
-
-BTW with a cursor filled with r=3Dg=3Db=3D0xff, a=3D0x40, the pattern below=
- is
-still visible, which means the cursor plane isn't premultiplied either.
+On 9/1/26 1:43 PM, Gary Guo wrote:
+> So unless there's an objection, I'll take the second approach by moving barrrier
+> to pointer accessors/updaters and mark these methods to have acq/rel semantics.
+Much in favor of that.
 
 Thanks,
-Icenowy
-
->=20
-> (Tested on 7A1000)
->=20
-> Thanks,
-> Icenowy
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > mode property with DRM_MODE_BLEND_PIXEL_NONE for cursor planes.
-> > >=20
-> > > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> > > ---
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 11 +++++++----
-> > > =C2=A01 file changed, 7 insertions(+), 4 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
-> > > b/drivers/gpu/drm/loongson/lsdc_plane.c
-> > > index bea42215796d..efef25eaa659 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> > > @@ -7,6 +7,7 @@
-> > > =C2=A0
-> > > =C2=A0#include <drm/drm_atomic.h>
-> > > =C2=A0#include <drm/drm_atomic_helper.h>
-> > > +#include <drm/drm_blend.h>
-> > > =C2=A0#include <drm/drm_framebuffer.h>
-> > > =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> > > =C2=A0#include <drm/drm_print.h>
-> > > @@ -747,8 +748,9 @@ int ls7a1000_cursor_plane_init(struct
-> > > drm_device
-> > > *ddev,
-> > > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *plane=
-,
-> > > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int index)
-> > > =C2=A0{
-> > > -	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> > > =C2=A0	int ret;
-> > > +	unsigned int blend_caps =3D
-> > > BIT(DRM_MODE_BLEND_PIXEL_NONE);
-> > > +	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> > > =C2=A0
-> > > =C2=A0	ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
-> > > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lsdc_plane_funcs,
-> > > @@ -765,15 +767,16 @@ int ls7a1000_cursor_plane_init(struct
-> > > drm_device *ddev,
-> > > =C2=A0
-> > > =C2=A0	drm_plane_helper_add(plane,
-> > > &ls7a1000_cursor_plane_helper_funcs);
-> > > =C2=A0
-> > > -	return 0;
-> > > +	return drm_plane_create_blend_mode_property(plane,
-> > > blend_caps);
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0int ls7a2000_cursor_plane_init(struct drm_device *ddev,
-> > > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *plane=
-,
-> > > =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int index)
-> > > =C2=A0{
-> > > -	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> > > =C2=A0	int ret;
-> > > +	unsigned int blend_caps =3D
-> > > BIT(DRM_MODE_BLEND_PIXEL_NONE);
-> > > +	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> > > =C2=A0
-> > > =C2=A0	ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
-> > > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lsdc_plane_funcs,
-> > > @@ -790,5 +793,5 @@ int ls7a2000_cursor_plane_init(struct
-> > > drm_device
-> > > *ddev,
-> > > =C2=A0
-> > > =C2=A0	drm_plane_helper_add(plane,
-> > > &ls7a2000_cursor_plane_helper_funcs);
-> > > =C2=A0
-> > > -	return 0;
-> > > +	return drm_plane_create_blend_mode_property(plane,
-> > > blend_caps);
-> > > =C2=A0}
-
+Danilo
