@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFD4C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7640CC624D5
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAF3C10E405;
-	Tue,  1 Sep 2026 16:50:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0733010ED76;
+	Tue,  1 Sep 2026 16:50:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="e5SnFC16";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="C1Su3NhW";
 	dkim-atps=neutral
 Received: from LO2P265CU024.outbound.protection.outlook.com
  (mail-uksouthazon11021123.outbound.protection.outlook.com [52.101.95.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA7DE10E405
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:50:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7E810E405
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:50:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PQLedsB1gkJDYx7NZv+wXCAqCgaF0wPYiQostUud/6Yljgwc4QCnCuwN4e93/1MUX7N/2ANm8G+Aau6RZQrOA1XH8AbpUuygQb+iRwAe54pSrD4ZuvvSGXrnKZZx8hc2ZXvV9CxMJKfJWTXc47zOzmcJs4VGAheDhoeSdOSp7e87jNN1fXYiQa0ogcXBCF+m06A/vxxIsEKjZu4VFJr538pPcjCo3onKmoX5iytp1r9FlzMWUCArPUu86zsz322KM/i4VMWiPAc91iEsyULNGB5apBzJgkrLhIilYPEtFHHG7CzmWVhgIVzqD/QX5qXicTITp1a1Vji9Vs2XguxUCQ==
+ b=mvBRYlj9+UnNLp7MN92pEmYbVNJ4DyQHXYBOU80QSXWSfc/T/Vp1NowW4GVztK1NJ7muzibfGFZVb6JUwO8FwBa/bWcQxZIO536kvNoW6BOIftUsvg+SjMIBIJ7mmpKWGUNneXajlhR7edYNaU+HV6vwUUY/wG1nvB9NOCtDISVg37DOqXIEAasZ6M/Fxtg76eYjWAY/hMWzeY4GGYxSZE9P1S7ZwOnB9zxnRavRwqGlELh6wUdWAyuahIeK5Aq9X8asGzfoaKU6yaWjHdzsKLX0f01c+f8zb97YW/lA5CIopH/n9RrRie3FiUZ5l0qbZ0UCSPeROSOztLmrxP9IZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l61BiUTycE5b/rJHGCJOA270/LuiPPdk9n7KTr72HlM=;
- b=aC0jTHLb5LIpbX2xb63Yr7c9wsXaJKPux2zjRUEU7ajx4QOCGjTmmebmjSH4qL2CaziwK/M16p+euwtsiLC6N0AKF/ERlND+PmVyZ+yZgK4wB7bE5pPNFYJQG9mwAY/v5c/2bztxY7z9ASNFD/c5XUE72YhBRwPrM6eEmqYpLulowGhGVNEYgu4Wm/4ZuSAH81UsMeti6U8eiabVk9vYMVhWXzyzl7xfWr/o0ebdlKWdrn1fQyFPMX41XCPsPnONmWrssEhNIFTFke1Qi7zTl6Eont3VgQawxJ1udir4kyNejvpbd9TVa0xEWKTYJyRnElnmN4XhIcqoMFew2O8Rnw==
+ bh=xMMf2NaTFafdLzX6/WyXaRTQYT3NlqItnQqMVq4Dwvg=;
+ b=VXTEOua/tBAS/YX6993XaizAxvvgjRHkXPgl8MpCWFSo2Qpj1AdO42ADcv7CKYLzqbaUDVIiH+Nkn3AkfDNHqwiqYjtSzxYEePPhZhJ8O63jNgYQpRn/KZk5oQxxS6lDuAMWbe7TuwSHM+TFSp7/KoROiNfF8nJ0jzB73SPTOxfiSq5l/0ysAkcogSLcvuXoDmMBM1vSIR0GK9VHkqWv+dZfvGyA0hkpiX0GiSGp10dkldILgWyNCbLaFChy+6Hh4d21E0qONhzXCOEUF8OM5SolYFCbU5aa7VrzVipda9Ur2o+YDd5E9F6d+OyyFDZjFcURhPXWvaGrkjSGa4srmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l61BiUTycE5b/rJHGCJOA270/LuiPPdk9n7KTr72HlM=;
- b=e5SnFC169tqNYMYezOJ/eSihjA3p31BM5c/g1VKLgNwc/+0ytt7lfvVSAPhAB8hQ9xTopNIOfWIFqDgQ3Q3F9uFPwLRy+7bWo58HuwupyS4dnMuc2kYUD2vh+zUj2MlVdbp9/Qln1XRZOfkxG3YWtDm8ZuHPYNMvedlA+uXrUEs=
+ bh=xMMf2NaTFafdLzX6/WyXaRTQYT3NlqItnQqMVq4Dwvg=;
+ b=C1Su3NhWls1cgGfiCswyLszrAwzeA/CcddbszuJoQGnMX3gJFuWXmOLQ5E+fI5HvBxXBZoN1HV52fJivTVODCIKuKmwS7Kda/c6Uv+TiYtmJjMjBTRNVQV0II2JnAYPRPq0kD5eS5mVPPJ3aM8zaKu4A2/GyRFCPgxgfrs/yNMg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by LO0P265MB7316.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ef::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 16:50:33 +0000
+ 2026 16:50:34 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 16:50:33 +0000
+ 16:50:34 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 01 Sep 2026 17:50:25 +0100
-Subject: [PATCH v4 01/16] rust: io: register: reimplement as proc macro
+Date: Tue, 01 Sep 2026 17:50:26 +0100
+Subject: [PATCH v4 02/16] rust: mem: add `transmute` with deferred size check
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-typed_register-v4-1-5552b1d59525@garyguo.net>
+Message-Id: <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -66,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=21718;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=6609;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=Zx7heSsk8DCn4lZE4dws+jTnWJOl/ZnhN4v8+izAFmw=;
- b=AJXGj8Aysc3ywlPvPtWMYTRL655UGTuKSuxb58gJg2uGREdKt+wlxII41ZD9YlMp7UovD6ojW
- Ct0a1v0IHbRDvsB4HHxW8FI86KFCaZBHq4O7Y6z+Cq4cvutms+RqMie
+ bh=NeZrH9hBHB4zTmEF8ZFX2YA8HrTA9PebDOQbzpjmQYI=;
+ b=j/l/DCuKl7OcUMWnABSd13Ln6Fy+sgUce64a4JM/Fv1++hzQ/scyRJ3WUVFZzh30cwCxzsxp/
+ PBML7zc8eWiAqx0Ok9yR6YV5SMTEWp86+A/0E56M3l62qTqP+wHTIit
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: PAZP264CA0173.FRAP264.PROD.OUTLOOK.COM
@@ -79,65 +79,65 @@ X-ClientProxiedBy: PAZP264CA0173.FRAP264.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB7316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9358661a-65f9-48db-debc-08df0849235c
+X-MS-Office365-Filtering-Correlation-Id: 4df27b02-bd79-4c24-ec51-08df084923d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|3023799007|22082099003|56012099006|5023799004|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: czpw+6aGODEBR/yNlIEJLG7gXruWkrEJwOsjoUAM4W8pwveDEHiHAX8y2Qp0bkjq2yyvn/xY6yeEkAneJ8IVHuh6V14dqpgcbk/87wR9wuSRU9vj1RIAkl9Prh9TwLX6JcUJaH3sySCyrSTX/mbFdzLk+IP+krEUvzGTOzi9Y6O2HdBcznVy0KkSo/N7Mo+10a8TYK0ELvye294/qv0pqlxtHfjZ1m/6OEe7LkZKB11jH7u9ifTEOZUxyf8UhSWrYQ/Np4jEPXNEMfYgZzGZDU18F495wWVf5I5Ba+xhUt5XC2+Mq6FJr3PnyQzdfPVbO0RAcG2AhoDpw2vUSpoIPsul14tTDxti7ASZkzUdencbTdWbAEE0lvMU26xAKhT8q3ZkF9b0fcdorrCdaEiPioFn4F/wUeveO1JNHcQODWHD+CJ6SFFlBYLSgCtz7z49yA3hes3CPZt8jBEl1gfMOm4CVHbFX1GCURjSdCfUsZdBwUupoKw0N8rNr3nHx0nE58uhpYuovC5HC3mF8l8J8T3IMnK1pci4HkbILxYUFx6cXmMXA+vhf518gFD+1MQBW7MiWQlkqwGzglzohObDqyfINartBfJr3Uf+m+4ZVDOKUfc9LX1g1qoKyzoYMEwW2uIBp3NcMUtWu/37crB7xOg9JXNh/byPa/s0ZTOQ0oUnp10THftSfM+zFf1VURoAa8WzUAQK+5wOEdh6OwxJ8g==
+ ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|6133799003|22082099003|56012099006|5023799004|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: wdeW5+VFB3fEIr5zcZjfsAtrjANdTlIT9ykQVoW/pdfzlddMezmLHFmGv4F8vk9vbC4GI8C8w5m++kkTpncHDomh0pUG1hkMCxZYRcFHU8wYFzjhUA/t5svLcAUoXDFkNUjcOOloMBg/Nq1Pkm7hGtkB71ZGaYWcymf9uf5hDLtREL4LsL78uZGZzKQBESfgB7DwvcVDGF9uakzPu+qx7WkYuFkokhOUDj0vFVpydRH45SbIfmq4cIm1Zb5gMj81JqdkCcvit5RVKTto6wbGrW862bQT9tBDgqXUxbtzIL6K/DA8s99httLyj+3hhVR8KxDcXshHjrVN8PdnW11dk2K6R0/BRwTsq7xoLTGi5F4kNscGb3ummVuTudESjePcZW4U6zZHDJHs+OtAyv6UjzCD4g5/DHGIxiJ/c2BGxklojNdUz8OaqFBMtG4tKg66kWT7btBsvOUQgHq88iOyFjnB78wSXyNveDNxZINW6eo2eA+YdQKcn5lU8DUxOkTIiI+JoaHyDSYOkLZUVyktJJhsnVSmpmA2+WKLMW+XUa3v+NobWdTCh7JOW+W+mKKgOJKxUtwudzDsNzaL7L+R8rmddTkj1Z3Oy+bSM6QPfEQfXXLNBzP1BzB0qEQ2DRYUw5AUD7/94zpQ0H4AWZWqTNZP5lTErAwCoPPcGBh3OEuSEDCT4ZM8qIrcfZJx+J3FjJHP8hn9Lne2PidQoThmYA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(3023799007)(22082099003)(56012099006)(5023799004)(18002099003)(921020);
+ SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(6133799003)(22082099003)(56012099006)(5023799004)(18002099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUVQN3dKVkRxRGJ1THlHVEVqNG1NZHNzYk10R010Ynd2VU5GdDExZ1J3dmZY?=
- =?utf-8?B?Z2lUTmh4dDdGVklzcHVIajdEWjlta0RRTjduQjYxNXdCTGkvZkw3SCtEOWdi?=
- =?utf-8?B?U1hZVU93MEoyS0VmbW94R1kzOEFwMHl1aW4zS21iSGc3NC9MNUVWWTA3NkFT?=
- =?utf-8?B?WW5JaTBGVW9NTVZzTm5pTEprL1FtRzFWS0pRUnUzUXlyZDlXVGNhazdkSnNy?=
- =?utf-8?B?N3hZOW9BNDVvK056SElHTEJMZUtlVm05cklMVWxOYXB1MjBZdTQ3SzJENFhM?=
- =?utf-8?B?STQzN0JCbzFvWmZOaWVsUGRvMnZaUW51YUxMSWllcWR6eG5uRWgyYjlBbXlM?=
- =?utf-8?B?a0tra2Ryd0x0N2poR1dOVU5LVUJ5Y254Smg5QlZQMUpPNVdTekhYUFc2SHZy?=
- =?utf-8?B?UkJjN3dGYXI2N1djTGoxYTRJQTAzZ3VncUU5a1l6bU9hTnpNWWNxTkJXZTly?=
- =?utf-8?B?SlF3L21UUURFblpGTkdlajBVRlBUVjhEUXo2SDJ0TEt1bXlHVXlDbWF5Nndz?=
- =?utf-8?B?UzdhcTB3b2w5SmxvbEdIRS8vb25aVUlNMlB3Sms1MGRtUFlTWVIxejd2aXVu?=
- =?utf-8?B?RW43UEtXQW9mUUV1VGFlMUk5Z0tOclpiZnRTZGhMSXA5aXljV0N4NVdBTnU2?=
- =?utf-8?B?Ynpza3EySUU0dENMazZJUHZJc3p4aU1SRUs1NnBjU2hsbGlJTUVxTkF2R0RI?=
- =?utf-8?B?Yjd5OTBYQnRQcE9XU2lSZUh3UDYvN1JQOGQ3QmxtR3JyUGFPMUsrMjE4WEZS?=
- =?utf-8?B?UzdlYmk4Qk1BbVp5eVREcDdmTlV4aSs2ZXJkTkxiOHJJREwzTDgyWElHQ3E1?=
- =?utf-8?B?R0M2SEdJZHA2NG0yRitWRFA4OHNWNHFhWHJTZHZoU3JiRU5LSkJzem1TSVZV?=
- =?utf-8?B?bnMvc2pBVjFEWGUzWDlidDRHWXFnamRUVXNGdUpMcko5QWlkM1hqcEZXZVJF?=
- =?utf-8?B?eC9aYU1jUFRwOGgwQUJhSTZ2TzRibjM5SGV2VGh5RkU1OEE3VmxQZ29makZB?=
- =?utf-8?B?T3p5YkViL04rQzFGc1crRzMyQ0gzOU9FRkFsWW11N0M0SkQ2WHNxd2RYZndX?=
- =?utf-8?B?YzRSQ25pVUlaQm9CbVRnemlPaE1aUjFHUStCTzBLbytqUkdrNEtFc2sybi93?=
- =?utf-8?B?Ukh5NDZnVituamRmZDhRQk8yVU1FbmkrYTRQR0dXVUJhYnJJT3lqRjdFWTZW?=
- =?utf-8?B?YXhTSWhtZWpGdml1aDFsaVEwOEdNZzZnY3VwN0JDNnJGZE9PY0dXVm5BU2lh?=
- =?utf-8?B?ZnY3K2crVXRHL3VNclBwNE5tTmYrUzA3ZUJRNmdWMHlSdk5ucUhBTWMrK1pL?=
- =?utf-8?B?TE5XUVNSdElxUVRzWDN2VFZZZFZxRkM5eFBZaEpXNWxoTFo4eVJZQkczZ0xO?=
- =?utf-8?B?blZJa1BYbXZCVVBWQ2Y2MHlGUkpiK3lLalNnSlV0VW0rcGJndXRRakFoUldM?=
- =?utf-8?B?bVJBVEh2a3V4Z28yOFRsc25uZjZTelA5ZTQzY1dJamJQM3VCZkpwbGF4YnFS?=
- =?utf-8?B?Wmd3dnlYVDgxWlZKV0ZqcXVob1BMTVRKRGYrcHJCWkhnU3RSL0xTSVkvb0tr?=
- =?utf-8?B?ampmeTNhYVQyZ2ZMVm11SlUxa1MzQklXdmFVSngxRGZ4SUhoQmEwSHQ0clBw?=
- =?utf-8?B?YkQvWlY4c1RWaUtwZytWQUNJNWFCR2tJNHhPZm5YcEhuZmJvd0x4cDRiVUhl?=
- =?utf-8?B?M2lQUTh3QVlIWDY0L1RlQU8wU3FjdUVRaXhUTlRXODFmb3k1cFpMMUtZekZr?=
- =?utf-8?B?Wk01cnVzOWIzOG1vRGhjbnZuWGtCbU1EOWFiRjRkdFN6MUFuZW9DWkVtVUdD?=
- =?utf-8?B?V2VuYUJFVkRZZVQ2T2hSbGVyVnR6d2xLNkh6RDhPWGkzTllzMDFxQWp1VzRx?=
- =?utf-8?B?NEF3ZHVBdVQ1UzQyYkpGTHUyam5VbDA0Wk5qM2NDS0p6TXBPZVFhMjZOeENK?=
- =?utf-8?B?bE1lSVZXV3hsd2h4U0E2YnpxY1JLRzlVWUk4enNlclNSVjR2SThVbEVFVTVl?=
- =?utf-8?B?VU5sRzFkR3RzODQ4R3VxMnRvUnZ1K3A4Y3kxckU4NGhOMHRNM0orcWlpZWVx?=
- =?utf-8?B?Qmx0ZTRTMklxdEdQL3Z0RExnYm9LaVJtMFhXZFNaaS8wZ25sdzhwR3dvR1Bz?=
- =?utf-8?B?emZuQXlNUi9MQm9NS0xGM0tmYWtMUGp2Q1ZSTXByN3cyVW9OSVV6ZUFFWmxp?=
- =?utf-8?B?Z1BtUGVpVXluVW9DLzRqVlZSTVgzWDBtbkZzQ04wT3hUNzVvQkdiR29zaDdE?=
- =?utf-8?B?ZEYrM0s0dDJnQ3BPdlo5UWE5WmxkcEhiT0JUSTdoTDdyck41QWtkRU80OUZM?=
- =?utf-8?B?RzhiekVYaDQ1Z3ZLUlNwNE4yWjlsU2FRbnA1YjlrQXFQdWRqMDJrdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHhlYVJ4K0FmZFFtOEROb256Ym9SUEVkU25FdXIwVWR6M3JaQkRReFZpd1lM?=
+ =?utf-8?B?RVJ4TU9DazNIdFdjSittOG5aVnV2YkxVSXBWU1FzUUE2b1BBbXJrSnErWGRv?=
+ =?utf-8?B?RjZoM2FDcGx3eUYrYXBOZUtFUjFBQXBHV0p0V3d3eFdjQ1lZeEkrMHUvYndL?=
+ =?utf-8?B?bXRHVW5mWW9uaTJJRU9qbnFoQ09GemcyaGZXZVp3MWo5VGpFY2NNNDI3U0I0?=
+ =?utf-8?B?Z1FYb2pxNzYvV0hQZ0J2SkhLaDdTaWhmdHJWYnNoY3BQYy93b05oTTdsclIw?=
+ =?utf-8?B?V1dXT1FONExYRFZNZ0N2TkpkTTZqUGt1REM1Z1NUM3RoWHVodlB6UWp3Vi9y?=
+ =?utf-8?B?SjhmTWdlZHFmdzRkcCt3aElaQzFndkxUOGJmVjVYb2RxMmI2WXh5REV1TEdp?=
+ =?utf-8?B?alptb1JwaWtnbEZjS0M0TGQ4akc1Q2JlUGtGOGFIWFR3ZUQxZ3ozb2xmUmpo?=
+ =?utf-8?B?VmNUbCs5TkRkY2dkUlBoNXhMazNCRXo1MWJUdjVFMDhTaUthbHErM3FZZVpS?=
+ =?utf-8?B?a3VRdHdGbVBjV0RGZXd0QnE0K29EWk94QmJoY002TUx5L3g1QmFieGFrNGxT?=
+ =?utf-8?B?TU84REx2NUJjS2hDMzBZcUg0UG9CL1IwV2RvNXBLS1hwM0hFKy95K0d2dEtW?=
+ =?utf-8?B?S1JwRnpYejU1dFduV1NuK09PV0htTzFZZktmaURGUHBXSW5kTTdpRUdLRHg3?=
+ =?utf-8?B?MWFBVmpwaE00T1luRG1JdmVDZEoybFRZU0dqa2tiampUeERrM1I1ZWRHcHdY?=
+ =?utf-8?B?MTdNTVROZnpJT0lrclVtaS9FYXg5b0xJeGZRb1BoWWRneHo5R09jaHd3MXdS?=
+ =?utf-8?B?eUlpWDhWelRZNlB6NTVKbWdhL1k5UEQxWTh5dUFBcWY5SXNodTR1U1JlNkRm?=
+ =?utf-8?B?a21jb2FuM0N4NFFibS82eG41ci9zMlovZmxsNG5CcFR6QUtXV3habStwZVpJ?=
+ =?utf-8?B?NUtXaERUZmlqMUhWUHlFWXNPak9JSWgrNnkyZCtYNkNXbXAvMUJXVHNDN0ZC?=
+ =?utf-8?B?ZUUrMG1lWmgvWFdZNzQ1TFlwTGthRzdTa3Zqa1ZtV25NV2xJWG1BSVVuaXpP?=
+ =?utf-8?B?UzJSdFd5Q1RTQ21aOWhXYW1tYTdMSnhaQmVyWVBoMkRTb2JXZVJpa2lWVzZ5?=
+ =?utf-8?B?elJFSnVkdTMwdlRqOXVTN0taYm1FS25Ncmt1eEVNTGI3ejdpRHhMUytjdVFz?=
+ =?utf-8?B?anBEa3A0N3R3Vmk2Rnk5Rm9rNmhoNGFKYlcvRjFLL0dsMHJiN25YRG5qTmli?=
+ =?utf-8?B?Y2YyU1VQeDd0bFdYVWxNZTMvSld3UUJwVTVvelNnL1ZTYTBlY21SNS8rdS8r?=
+ =?utf-8?B?MGdGSlcxdDNTb3dyeTNxYXY2Mi9hQ09JNVQ4TlpjUjlRVUlKd1lnekRwVWpq?=
+ =?utf-8?B?RVByVjJxQURQd0JZMTAxM1JiT3Zsd1RFa2tTa05NRXZOaHJpRUdHdkxTeUs3?=
+ =?utf-8?B?WUwzbmh3c050b3YzeTFJS25vQ3J2RFR2amlZeDJtU1BSSEZoS0l3eVpHUUx1?=
+ =?utf-8?B?dHdjbnZiQy9oelloOVh0ZE83MTFoU0N2bS96K1RUOG5VamN2SnErK2k1WEFr?=
+ =?utf-8?B?ai82TDNHb3JjZGMyb2dMQkowNnZTb3dkSzlUZlRlYVR5RmN1WmFzWU9VK3Yz?=
+ =?utf-8?B?UjIzbW83K05vd0VLR0FmQzBYZWhCbUozeWpqQ0lNQWhkbHFGVFk2NXZvQlhp?=
+ =?utf-8?B?eldxWTVXTWgyVm5CSHVpdkFqdEJIMnp1VUdLREVUNmlFeGtQWkc4UjR1a3V5?=
+ =?utf-8?B?RzJ4cTZoQnNweG4vR244aU9lR1ZUQlFOWS9jaHM2MXI3RVE3czAzTlYxcndm?=
+ =?utf-8?B?ZVQ3OTJCNFBiL0NONmQvWDJ0cXZpSGlzVUY1c0dOL2pCbEIrTzBiYmc0UXgy?=
+ =?utf-8?B?TnM4ZDJkQXBVa1NuVU1zTmh5L2x2eXhMSkI5clhjRzlLMElwQ1lKSytRMVpJ?=
+ =?utf-8?B?UGtRSUEwS1JQNGhRM1lGYWdqN3ZtbFRlYnE5dW0wYmdaVFM1T0V1cTd0NE5q?=
+ =?utf-8?B?Rzl5OXp5ekZLMmxmTGlpZFV1UmYxc0NsOUpxOXBLY21xTnBxUFpTUW9hVUxK?=
+ =?utf-8?B?M1IzS0NjY0dTdG5TYUdvWTRha0NydVRLZzVNZ0hXdllMZXp2NEhhdFIzbHpr?=
+ =?utf-8?B?emMrdlNhUWIyWTlGb0NMaWQ1c3I0R3VUWFVYelQxbUEwU0dIaGM0cXAwVGhJ?=
+ =?utf-8?B?cnFaNkpia3Q5cXFpM1ljU1UzR3I3Q0NMTnZvVkUwcURiSEovcGVlQW1nQTlj?=
+ =?utf-8?B?c01naHFsUGdKcFhIc2VYVVRMWUVDcDBqTjlqbEZsSVIyVjNUb3hCZWpXcVRC?=
+ =?utf-8?B?azV1QzVSWXB6OUlkNkpia2xsQnMxTHU3bVowL1Vjb1ZRZ29QeTd4dz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9358661a-65f9-48db-debc-08df0849235c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4df27b02-bd79-4c24-ec51-08df084923d7
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:32.9752 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:33.9775 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tnn9+mRSOkes6ewPJpb/z/5tmiyVv6KwnQoWyHPVAx+qOKVSVwLssq0sfrPdIbPbW+slEVJ8TjekwBjVSnlZOQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: vbOqz92+XyPONSHxNyvYRGl/7acWbGhSNq1BlHY/8GrGj5wx+Lc2gpTv6U3qxuIXaRaxxfkKr25WzOEFerEK4g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB7316
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,621 +154,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing `register!` macro is implemented as a declarative macro.
-Reimplement it as proc macro instead, with no functional changes intended.
+Implement a `transmute/safe_transmute` that checks size at
+monomorphization time instead of type-checking time. This allows more cases
+where we know that the size matches but this is not generically checkable.
 
-The old implementation produces unhelpful diagnostics when things go wrong.
-For example, for code like
+The signature is equivalent to the unstable `transmute_neo` function in the
+standard library. A safe variant is provided to use with types implementing
+`FromBytes` and `IntoBytes`.
 
-    register! {
-        pub(crate) TESTREG(u32) {
-            31:0    data;
-        }
-    }
-
-which misses out the "@ offset" part of the specification, and the
-following error is produced:
-
-error: no rules expected `{`
-   --> test.rs:42:5
-    |
- 42 | /     register! {
- 43 | |         pub(crate) TESTREG(u32) {
- 44 | |             31:0    data;
-...   |
-100 | |     }
-    | |_____^ no rules expected this token in macro call
-
-which isn't very helpful. With the proc macro implementation, the following
-error is produced:
-
-error: expected `@` or `=>`
-  --> tests.rs:43:33
-   |
-43 |         pub(crate) TESTREG(u32) {
-   |                                 ^
-
-which is much more helpful. Apart from diagnostics, proc macro also has a
-benefit of not having follow-set restrictions, which makes syntax like
-
-    register!(name: ty @ offset);
-
-possible; declarative macro will reject this as `@` is not in the
-follow-set of "ty" metavariable kind.
+Existing users of `transmute_copy` to bypass size checks are converted.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- MAINTAINERS                |   1 +
- rust/kernel/io/register.rs | 224 +-----------------------------------
- rust/macros/io/mod.rs      |   3 +
- rust/macros/io/register.rs | 276 +++++++++++++++++++++++++++++++++++++++++++++
- rust/macros/lib.rs         |   9 ++
- 5 files changed, 291 insertions(+), 222 deletions(-)
+Changes since v3:
+- Renamed the methods to `transmute` and `safe_transmute`, so the name
+  `transmute_unchecked` is for the completely unchecked variant instead,
+  matching that of Rust intrinsics.
+---
+ rust/kernel/device_id.rs   |  3 +-
+ rust/kernel/lib.rs         |  1 +
+ rust/kernel/mem.rs         | 99 ++++++++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/sync/atomic.rs |  4 +-
+ 4 files changed, 103 insertions(+), 4 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..d92c7d834693 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7494,6 +7494,7 @@ F:	rust/kernel/io.rs
- F:	rust/kernel/io/
- F:	rust/kernel/irq.rs
- F:	rust/kernel/irq/
-+F:	rust/macros/io/
+diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
+index c81fca5b4986..f0b9cb84e58e 100644
+--- a/rust/kernel/device_id.rs
++++ b/rust/kernel/device_id.rs
+@@ -146,8 +146,7 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
+     /// If the device implements [`RawDeviceIdIndex`], consider using [`IdArray::new`] instead.
+     pub const fn new_without_index(ids: [T; N]) -> Self {
+         // SAFETY: `T` is layout-wise compatible with `T::RawType`, so is the array of them.
+-        let raw_ids: [MaybeUninit<T::RawType>; N] = unsafe { core::mem::transmute_copy(&ids) };
+-        core::mem::forget(ids);
++        let raw_ids: [MaybeUninit<T::RawType>; N] = unsafe { crate::mem::transmute(ids) };
  
- DEVICE RESOURCE MANAGEMENT HELPERS
- M:	Hans de Goede <hansg@kernel.org>
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 03dfd2ff48c7..6a19552ffb95 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -801,227 +801,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// ```
- #[macro_export]
- macro_rules! register {
--    // Entry point for the macro, allowing multiple registers to be defined in one call.
--    // It matches all possible register declaration patterns to dispatch them to corresponding
--    // `@reg` rule that defines a single register.
--    //
--    // TODO: change `alias:ident` to `alias:path` once relative registers are replaced by I/O
--    // projections.
--    (
--        $(
--            $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--                $([ $size:expr $(, stride = $stride:expr)? ])?
--                $(@ $($base:ident +)? $offset:literal)?
--                $(=> $alias:ident $(+ $alias_offset:ident)? $([$alias_idx:expr])? )?
--            { $($fields:tt)* }
--        )*
--    ) => {
--        $(
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name ($storage) $([$size $(, stride = $stride)?])?
--                $(@ $($base +)? $offset)?
--                $(=> $alias $(+ $alias_offset)? $([$alias_idx])? )?
--            { $($fields)* }
--        );
--        )*
--    };
--
--    // All the rules below are private helpers.
--
--    // Creates a register at a fixed offset of the MMIO space.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $offset:literal
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
--    };
--
--    // Creates an alias register of fixed offset register `alias` with its own fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:path
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @
--            <$alias as $crate::io::register::Register>::OFFSET
--        );
--        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
--    };
--
--    // Creates a register at a relative offset from a base address provider.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_relative $name @ $base);
--    };
--
--    // Creates an alias register of relative offset register `alias` with its own fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @ <$alias as $crate::io::register::Register>::OFFSET
--        );
--        $crate::register!(@io_relative $name @ $base);
--    };
--
--    // Creates an array of registers at a fixed offset of the MMIO space.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            [ $size:expr, stride = $stride:expr ] @ $offset:literal { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_array $name [ $size, stride = $stride ]);
--    };
--
--    // Shortcut for contiguous array of registers (stride == size of element).
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ] @ $offset:literal
--            { $($fields:tt)* }
--    ) => {
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name($storage)
--                [ $size, stride = ::core::mem::size_of::<$storage>() ]
--                @ $offset { $($fields)* }
--        );
--    };
--
--    // Creates an alias of register `idx` of array of registers `alias` with its own fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $alias:path [ $idx:expr ]
--            { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(
--            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
--        );
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @
--            <$alias as $crate::io::register::Register>::OFFSET
--                + $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
--        );
--        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
--    };
--
--    // Creates an array of registers at a relative offset from a base address provider.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            [ $size:expr, stride = $stride:expr ]
--            @ $base:ident + $offset:literal { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(::core::mem::size_of::<$storage>() <= $stride);
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $name($storage) @ $offset);
--        $crate::register!(@io_relative_array $name [ $size, stride = $stride ] @ $base);
--    };
--
--    // Shortcut for contiguous array of relative registers (stride == size of element).
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) [ $size:expr ]
--            @ $base:ident + $offset:literal { $($fields:tt)* }
--    ) => {
--        $crate::register!(
--            @reg $(#[$attr])* $vis $name($storage)
--                [ $size, stride = ::core::mem::size_of::<$storage>() ]
--                @ $base + $offset { $($fields)* }
--        );
--    };
--
--    // Creates an alias of register `idx` of relative array of registers `alias` with its own
--    // fields.
--    (
--        @reg $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
--    ) => {
--        $crate::build_assert::static_assert!(
--            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
--        );
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(
--            @io_base $name($storage) @
--                <$alias as $crate::io::register::Register>::OFFSET +
--                $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
--        );
--        $crate::register!(@io_relative $name @ $base);
--    };
--
--    // Generates the bitfield for the register.
--    //
--    // `#[allow(non_camel_case_types)]` is added since register names typically use
--    // `SCREAMING_CASE`.
--    (
--        @bitfield $(#[$attr:meta])* $vis:vis struct $name:ident($storage:ty) { $($fields:tt)* }
--    ) => {
--        $crate::bitfield!(
--            #[allow(non_camel_case_types)]
--            $(#[$attr])* $vis struct $name($storage) { $($fields)* }
--        );
--    };
--
--    // Implementations shared by all registers types.
--    (@io_base $name:ident($storage:ty) @ $offset:expr) => {
--        impl $crate::io::register::Register for $name {
--            type Storage = $storage;
--
--            const OFFSET: usize = $offset;
--        }
--    };
--
--    // Implementations of fixed registers.
--    (@io_fixed $(#[$attr:meta])* $vis:vis $name:ident) => {
--        impl $crate::io::register::FixedRegister for $name {}
--
--        $(#[$attr])*
--        $vis const $name: $crate::io::register::FixedRegisterLoc<$name> =
--            $crate::io::register::FixedRegisterLoc::<$name>::new();
--    };
--
--    // Implementations of relative registers.
--    (@io_relative $name:ident @ $base:ident) => {
--        impl $crate::io::register::WithBase for $name {
--            type BaseFamily = $base;
--        }
--
--        impl $crate::io::register::RelativeRegister for $name {}
--    };
--
--    // Implementations of register arrays.
--    (@io_array $name:ident [ $size:expr, stride = $stride:expr ]) => {
--        impl $crate::io::register::Array for $name {}
--
--        impl $crate::io::register::RegisterArray for $name {
--            const SIZE: usize = $size;
--            const STRIDE: usize = $stride;
--        }
--    };
--
--    // Implementations of relative array registers.
--    (
--        @io_relative_array $name:ident [ $size:expr, stride = $stride:expr ] @ $base:ident
--    ) => {
--        impl $crate::io::register::WithBase for $name {
--            type BaseFamily = $base;
--        }
--
--        impl $crate::io::register::RegisterArray for $name {
--            const SIZE: usize = $size;
--            const STRIDE: usize = $stride;
--        }
--
--        impl $crate::io::register::RelativeRegisterArray for $name {}
-+    ($($tt:tt)*) => {
-+        $crate::macros::register!($($tt)*);
-     };
- }
-diff --git a/rust/macros/io/mod.rs b/rust/macros/io/mod.rs
+         Self {
+             ids: raw_ids,
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 4d5c96ddc49c..7225abc64084 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -98,6 +98,7 @@
+ pub mod kunit;
+ pub mod list;
+ pub mod maple_tree;
++pub mod mem;
+ pub mod miscdevice;
+ pub mod mm;
+ pub mod module;
+diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
 new file mode 100644
-index 000000000000..87f7742f4619
+index 000000000000..958e43bbcc3a
 --- /dev/null
-+++ b/rust/macros/io/mod.rs
-@@ -0,0 +1,3 @@
++++ b/rust/kernel/mem.rs
+@@ -0,0 +1,99 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+pub(crate) mod register;
-diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-new file mode 100644
-index 000000000000..83ba4dd75ab3
---- /dev/null
-+++ b/rust/macros/io/register.rs
-@@ -0,0 +1,276 @@
-+// SPDX-License-Identifier: GPL-2.0
++//! Basic utilities for dealing with memory, values, and types.
 +
-+//! Documention and usage example of the macro can be found at `rust/kernel/io/register.rs`.
++use crate::prelude::*;
 +
-+use proc_macro2::{
-+    Group,
-+    Literal,
-+    Span,
-+    TokenStream, //
-+};
-+use quote::{
-+    quote,
-+    quote_spanned, //
-+};
-+use syn::{
-+    bracketed,
-+    parenthesized,
-+    parse::Parse,
-+    spanned::Spanned,
-+    token,
-+    Attribute,
-+    Expr,
-+    Ident,
-+    Path,
-+    Result,
-+    Token,
-+    Type,
-+    Visibility, //
-+};
-+
-+mod kw {
-+    syn::custom_keyword!(stride);
-+}
-+
-+/// Definition of a register array.
++/// Transmute between two types.
 +///
-+/// Specify a size, and optionally a stride. Syntax is of form `[size: EXPR, $(stride = EXPR)?]`.
-+struct RegArrayDef {
-+    size: Expr,
-+    stride: Option<Expr>,
-+}
-+
-+/// Offset of a register.
++/// Use this instead of [`core::mem::transmute`] when it is known that sizes are identical but this
++/// cannot be proven by the compiler.
 +///
-+/// Can be either of form
-+/// * `@ offset` for fixed offset
-+/// * `=> alias` for alias of register `alias`.
-+/// * `=> alias[idx]` for alias of register array `alias`'s `idx`-th element.
-+enum RegOffset {
-+    /// Register is located at fixed address.
-+    Fixed { offset: Literal },
-+    /// Register is an alias of a fixed register.
-+    Alias { alias: Path },
-+    /// Register is an alias of an element of a register array.
-+    ElementAlias { alias: Path, idx: Expr },
++/// This is equivalent to Rust's `transmute_unchecked` intrinsics.
++///
++/// # Safety
++///
++/// All safety requirements of [`core::mem::transmute`] apply, plus that the size `Src` and `Dst`
++/// must match.
++///
++/// # Example
++///
++/// This can be used when types are known to have the same size, but only at runtime.
++/// ```no_run
++/// # use core::any::TypeId;
++/// fn to_u32<T: 'static>(v: T) -> Option<u32> {
++///     if TypeId::of::<T>() != TypeId::of::<u32>() {
++///         return None;
++///     }
++///
++///     // `core::mem::transmute` won't work here.
++///     // SAFETY: We've checked that `T` is u32!
++///     Some(unsafe { kernel::mem::transmute_unchecked(v) })
++/// }
++///
++/// to_u32(1u32);
++#[inline(always)]
++pub const unsafe fn transmute_unchecked<Src, Dst>(val: Src) -> Dst {
++    // SAFETY: This is identical to `transmute` except that we bypassed the size check; which is
++    // true per safety requirement.
++    unsafe { core::mem::transmute_copy(&core::mem::ManuallyDrop::new(val)) }
 +}
 +
-+/// Definition of a single register.
-+struct Reg {
-+    attrs: Vec<Attribute>,
-+    vis: Visibility,
-+    name: Ident,
-+    storage: Type,
-+    array: Option<RegArrayDef>,
-+    relative_base: Option<Path>,
-+    offset: RegOffset,
-+    bitfield_args: Group,
++/// Version of `transmute` that performs size check at monomorphization-time.
++///
++/// Use this instead of [`core::mem::transmute`] when it is known that sizes are identical but this
++/// cannot be proven by the compiler during type checking and can be proven during monomorphization.
++///
++/// The signature is equivalent to Rust standard library's unstable `transmute_neo` and that of
++/// [RFC 3844](https://github.com/rust-lang/rfcs/pull/3844).
++///
++/// # Safety
++///
++/// Same as [`core::mem::transmute`].
++///
++/// # Examples
++///
++/// This is typically used in generic code where it's known that type will have the same size, but
++/// the compiler cannot prove it generically.
++/// ```no_run
++/// trait IsU32 {}
++/// impl IsU32 for u32 {}
++///
++/// fn to_u32<T: IsU32>(v: T) -> u32 {
++///     // `core::mem::transmute` won't work here.
++///     // SAFETY: We know that `v` is u32!
++///     unsafe { kernel::mem::transmute(v) }
++/// }
++///
++/// to_u32(1u32);
++/// ```
++#[inline(always)]
++pub const unsafe fn transmute<Src, Dst>(val: Src) -> Dst {
++    const_assert!(size_of::<Src>() == size_of::<Dst>());
++
++    // SAFETY: Size is checked above. Other safety requirements follow those of the function.
++    unsafe { transmute_unchecked(val) }
 +}
 +
-+impl Parse for Reg {
-+    fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-+        let attrs = input.call(Attribute::parse_outer)?;
-+        let vis = input.parse()?;
-+        let name = input.parse()?;
-+        let storage = {
-+            let content;
-+            parenthesized!(content in input);
-+            content.parse()?
-+        };
-+        let array = if input.peek(token::Bracket) {
-+            let content;
-+            bracketed!(content in input);
-+            let size = content.parse()?;
-+            let stride = if content.peek(Token![,]) {
-+                let _: Token![,] = content.parse()?;
-+                let _: kw::stride = content.parse()?;
-+                let _: Token![=] = content.parse()?;
-+                Some(content.parse()?)
-+            } else {
-+                None
-+            };
-+            Some(RegArrayDef { size, stride })
-+        } else {
-+            None
-+        };
-+
-+        // Parse offset and the base it's relative to.
-+        let lh = input.lookahead1();
-+        let mut relative_base = None;
-+        let offset = if lh.peek(Token![@]) {
-+            let _: Token![@] = input.parse()?;
-+
-+            if input.peek(Ident) {
-+                relative_base = Some(input.parse()?);
-+                let _: Token![+] = input.parse()?;
-+            }
-+
-+            RegOffset::Fixed {
-+                offset: input.parse()?,
-+            }
-+        } else if lh.peek(Token![=>]) {
-+            let _: Token![=>] = input.parse()?;
-+            let mut alias: Path = input.parse()?;
-+            if input.peek(Token![+]) {
-+                let _: Token![+] = input.parse()?;
-+                relative_base = Some(alias);
-+                alias = input.parse()?;
-+            }
-+
-+            if input.peek(token::Bracket) {
-+                let content;
-+                bracketed!(content in input);
-+                RegOffset::ElementAlias {
-+                    alias,
-+                    idx: content.parse()?,
-+                }
-+            } else {
-+                RegOffset::Alias { alias }
-+            }
-+        } else {
-+            Err(lh.error())?
-+        };
-+
-+        let lh = input.lookahead1();
-+        let bitfield_args = if lh.peek(token::Brace) {
-+            input.parse()?
-+        } else {
-+            Err(lh.error())?
-+        };
-+
-+        Ok(Self {
-+            attrs,
-+            vis,
-+            name,
-+            storage,
-+            array,
-+            relative_base,
-+            offset,
-+            bitfield_args,
-+        })
-+    }
++/// Safely transmutes a value of one type to a value of another type of the same size.
++///
++/// The sizes are checked during monomorphization.
++///
++/// This can be considered as generic version of [`zerocopy::transmute!`] macro that defers the size
++/// check and thus can be used in more cases.
++///
++/// # Examples
++///
++/// ```no_run
++/// fn to_u32<T: FromBytes + IntoBytes>(v: T) -> u32 {
++///     // `zerocopy::transmute!` won't work here.
++///     kernel::mem::safe_transmute(v)
++/// }
++///
++/// to_u32(1i32);
++/// ```
++#[inline(always)]
++pub const fn safe_transmute<Src: IntoBytes, Dst: FromBytes>(val: Src) -> Dst {
++    // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds.
++    unsafe { transmute(val) }
 +}
-+
-+pub(crate) struct RegDef {
-+    regs: Vec<Reg>,
-+}
-+
-+impl Parse for RegDef {
-+    fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-+        let mut regs = Vec::new();
-+        while !input.is_empty() {
-+            regs.push(input.parse()?);
-+        }
-+        Ok(RegDef { regs })
-+    }
-+}
-+
-+pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-+    let mut outputs = TokenStream::new();
-+
-+    for reg in def.regs {
-+        let Reg {
-+            attrs,
-+            vis,
-+            name,
-+            storage,
-+            array,
-+            relative_base,
-+            offset,
-+            bitfield_args,
-+        } = reg;
-+
-+        // Use register name's span for generated code, so error messages (if any) can point to it
-+        // instead of the entire register allocation.
-+        let span = name.span().resolved_at(Span::mixed_site());
-+
-+        let offset = match offset {
-+            RegOffset::Fixed { offset } => quote!(#offset),
-+            RegOffset::Alias { alias } => {
-+                quote_spanned!(alias.span().resolved_at(span) =>
-+                    <#alias as ::kernel::io::register::Register>::OFFSET
-+                )
-+            }
-+            RegOffset::ElementAlias { alias, idx } => {
-+                outputs.extend(quote_spanned!(idx.span().resolved_at(span) =>
-+                    ::kernel::build_assert::static_assert!(
-+                        (#idx) < <#alias as ::kernel::io::register::RegisterArray>::SIZE
-+                    );
-+                ));
-+                quote_spanned!(alias.span().resolved_at(span) =>
-+                    <#alias as ::kernel::io::register::Register>::OFFSET
-+                        + (#idx) * <#alias as ::kernel::io::register::RegisterArray>::STRIDE
-+                )
-+            }
-+        };
-+
-+        outputs.extend(quote_spanned!(span =>
-+            ::kernel::bitfield!(
-+                // `#[allow(non_camel_case_types)]` is added since register names typically use
-+                // `SCREAMING_CASE`.
-+                #[allow(non_camel_case_types)]
-+                #(#attrs)* #vis struct #name(#storage) #bitfield_args
-+            );
-+
-+            impl ::kernel::io::register::Register for #name {
-+                type Storage = #storage;
-+
-+                const OFFSET: usize = #offset;
-+            }
-+        ));
-+
-+        match array {
-+            None => match relative_base {
-+                None => outputs.extend(quote_spanned!(span =>
-+                    impl ::kernel::io::register::FixedRegister for #name {}
-+
-+                    #(#attrs)* #vis const #name: ::kernel::io::register::FixedRegisterLoc<#name> =
-+                        ::kernel::io::register::FixedRegisterLoc::<#name>::new();
-+                )),
-+                Some(relative_base) => outputs.extend(quote_spanned!(span =>
-+                    impl ::kernel::io::register::WithBase for #name {
-+                        type BaseFamily = #relative_base;
-+                    }
-+
-+                    impl ::kernel::io::register::RelativeRegister for #name {}
-+                )),
-+            },
-+
-+            Some(def) => {
-+                let size = &def.size;
-+                let stride = if let Some(stride) = &def.stride {
-+                    outputs.extend(quote_spanned!(stride.span().resolved_at(span) =>
-+                        ::kernel::build_assert::static_assert!(
-+                            ::core::mem::size_of::<#storage>() <= #stride
-+                        );
-+                    ));
-+                    quote!(#stride)
-+                } else {
-+                    quote_spanned!(span => ::core::mem::size_of::<#storage>())
-+                };
-+
-+                outputs.extend(quote_spanned!(span =>
-+                    impl ::kernel::io::register::RegisterArray for #name {
-+                        const SIZE: usize = #size;
-+                        const STRIDE: usize = #stride;
-+                    }
-+                ));
-+
-+                match relative_base {
-+                    None => outputs.extend(quote_spanned!(span =>
-+                        impl ::kernel::io::register::Array for #name {}
-+                    )),
-+                    Some(relative_base) => outputs.extend(quote_spanned!(span =>
-+                        impl ::kernel::io::register::WithBase for #name {
-+                            type BaseFamily = #relative_base;
-+                        }
-+
-+                        impl ::kernel::io::register::RelativeRegisterArray for #name {}
-+                    )),
-+                }
-+            }
-+        };
-+    }
-+
-+    Ok(outputs)
-+}
-diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index 24f96feaeb34..9b76efe1476f 100644
---- a/rust/macros/lib.rs
-+++ b/rust/macros/lib.rs
-@@ -19,6 +19,7 @@
- mod fmt;
- mod for_lt;
- mod helpers;
-+mod io;
- mod kunit;
- mod module;
- mod paste;
-@@ -481,6 +482,14 @@ pub fn paste(input: TokenStream) -> TokenStream {
-         .into()
+diff --git a/rust/kernel/sync/atomic.rs b/rust/kernel/sync/atomic.rs
+index 9cd009d57e35..6d27898add42 100644
+--- a/rust/kernel/sync/atomic.rs
++++ b/rust/kernel/sync/atomic.rs
+@@ -140,7 +140,7 @@ pub unsafe trait AtomicAdd<Rhs = Self>: AtomicType {
+ const fn into_repr<T: AtomicType>(v: T) -> T::Repr {
+     // SAFETY: Per the safety requirement of `AtomicType`, `T` is round-trip transmutable to
+     // `T::Repr`, therefore the transmute operation is sound.
+-    unsafe { core::mem::transmute_copy(&v) }
++    unsafe { crate::mem::transmute(v) }
  }
  
-+#[doc(hidden)] // Documented in `kernel` crate.
-+#[proc_macro]
-+pub fn register(input: TokenStream) -> TokenStream {
-+    io::register::register(parse_macro_input!(input))
-+        .unwrap_or_else(|e| e.into_compile_error())
-+        .into()
-+}
-+
- /// Registers a KUnit test suite and its test cases using a user-space like syntax.
- ///
- /// This macro should be used on modules. If `CONFIG_KUNIT` (in `.config`) is `n`, the target module
+ /// # Safety
+@@ -149,7 +149,7 @@ const fn into_repr<T: AtomicType>(v: T) -> T::Repr {
+ #[inline(always)]
+ const unsafe fn from_repr<T: AtomicType>(r: T::Repr) -> T {
+     // SAFETY: Per the safety requirement of the function, the transmute operation is sound.
+-    unsafe { core::mem::transmute_copy(&r) }
++    unsafe { crate::mem::transmute(r) }
+ }
+ 
+ impl<T: AtomicType> Atomic<T> {
 
 -- 
 2.54.0
