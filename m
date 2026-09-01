@@ -4,74 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB36EC624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:29:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A876C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6D3810ED1B;
-	Tue,  1 Sep 2026 14:29:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D14810ED19;
+	Tue,  1 Sep 2026 14:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="GEX78Z8/";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NLej3Sc/";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2DF10ED19
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:29:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788272940; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OE3sMsHGHt+41DVvmLQdFJAlRMi7hLs3HHscY3Ihr6W9OGDbi7H6MB3dGdj9lUocE3NPea0wxNmwZwABOGjF/1vpY0rtdIyvJdvKlXg+EasTyUzzowUzyM9Jn542JzL/OmwFru2YXyuLEO4LjZYBG5qfNN/VFA7IfiMr4nIU7SA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788272940;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=nibbihiNwTxPtB/Zw0Nqer23SKfgJLqxeJF8NhrvMSg=; 
- b=gRd+XxzWO0vaHlwcxo29Njy5cgr3XzpTsA81J699eOUFC73RSUNhpUdjZlTzOC3Thxg6d6gbauJu1TUJHtw9vXdRTFHWpivqNKcUd83rBAj5+gGG/q4ekwG2i57ltRk1WOLeSBKbbO7qMDz0Yn2tqlM2bwjaI2/QXm0Zhy4qk3I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788272940; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=nibbihiNwTxPtB/Zw0Nqer23SKfgJLqxeJF8NhrvMSg=;
- b=GEX78Z8/TxVCUZ1uHZCye50DQCx+0mIUo5Nyn5oWYrJLQNE/lRXVnCEZtPHkZoNR
- Hw603To04nIZB9ESBD6b2hFPVoqMbrwz+s6LoKxHeH7okLjsFRgHPaU4SzLN53PP+6H
- e/E7j7fpTgCJHqK8+nKAJ8NvuX7X1o1uplnkVvwE=
-Received: by mx.zohomail.com with SMTPS id 1788272938687853.5577781362773;
- Tue, 1 Sep 2026 07:28:58 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id 49F6C181B0C; Tue, 01 Sep 2026 16:28:52 +0200 (CEST)
-Date: Tue, 1 Sep 2026 16:28:52 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Christian Hewitt <christianshewitt@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Daniel Stone <daniel@fooishbar.org>,
- Detlev Casanova <detlev.casanova@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Douglas Anderson <dianders@chromium.org>, 
- Andy Yan <andy.yan@rock-chips.com>, Sugar Zhang <sugar.zhang@rock-chips.com>, 
- Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted
- TMDS rates
-Message-ID: <apbgp2h_tSZQzbdV@venus>
-References: <20260901112541.84588-1-christianshewitt@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lydbo5pwj5izjpxk"
-Content-Disposition: inline
-In-Reply-To: <20260901112541.84588-1-christianshewitt@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.256.78
-X-ZohoMailClient: External
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD2710ED19
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:30:57 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 262F04E414A3;
+ Tue,  1 Sep 2026 14:30:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E35136053C;
+ Tue,  1 Sep 2026 14:30:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 62D2C11C79234; 
+ Tue,  1 Sep 2026 16:30:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1788273049; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=+SEPBPnaaE0LCIqhjI7PwprpKGHWB+21uuj8eFSigLY=;
+ b=NLej3Sc/QvZOoqlMcpCbBhdu5MPiAZEiyD32wu0ObWi0RpuObX21Vsd+l4pT/MZyPt+oP2
+ Z4G04eoXzCCZPj1TRg0ksHctT86m2HlV6QVDNQJRPqmIfJ3lU/weh8mGvWh63h2aKl0csK
+ a26N1WniKpNa9fmjKC2PWCE2o5VtihHZ0dFChrTd089WE3Xta6cU/A8IS+VJm9h3nsqPSQ
+ XhYw7jUZjjFKiOJoa95TEPjjSPRUrrPYllTwVq8X5Oe6HGJ7HEILUlMqqefqNCGHAaXDXg
+ nyXhnza+eg2J+ut0k6cAW+1JnmnmVNgv/RQdyiGsIDDZ9pxe+e5SoL2aL1Erog==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 16:30:40 +0200
+Message-Id: <DL41VXI6IT94.CXUS4CYX1WJO@bootlin.com>
+Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
+ the drm module
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maxime Ripard"
+ <mripard@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
+ <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
+ <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com> <apBGjqt9GI5egQW6@houat>
+ <DL3ZJBN3TALE.XBW7KL51XGBO@bootlin.com>
+In-Reply-To: <DL3ZJBN3TALE.XBW7KL51XGBO@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,165 +79,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue Sep 1, 2026 at 2:40 PM CEST, Luca Ceresoli wrote:
 
---lydbo5pwj5izjpxk
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted
- TMDS rates
-MIME-Version: 1.0
+[...]
 
-Hi,
+>>> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, and m=
+ake it
+>>> >> > private.
+>>> >>
+>>> >> Yes in theory, but the panel_bridge code uses other parts of the
+>>> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, maybe=
+ more,
+>>> >> so we'd have to move them into the drm module too.
+>>> >
+>>> > Ah, right. What would happen if we were doing it the other way around
+>>> > then? Move drm_panel out of the main drm module?
+>>>
+>>> Into the drm_kms_helper module?
+>>>
+>>> I had a look and did some experiments and I found at least one user in =
+the drm
+>>> module calling a drm_panel API, and guess who:
+>>>
+>>>  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
+>>>     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper module)
+>>>
+>>> Based on our discussion after patch 3, I'm not sure
+>>> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, I gue=
+ss
+>>> we can try to move drm_of_find_panel_or_bridge() into bridge/panel.c wh=
+ich
+>>> is in the drm_kms_helper module (and from drm_of.h info
+>>> drm_bridge.h?). That however might trigger build failures for drivers w=
+hich
+>>> currently don't select DRM_KMS_HELPER and which would have to select it=
+.
+>>>
+>>> I'll give it a try, and if I see major drawbacks I will get back to mov=
+ing
+>>> all the drm_kms_helper code into the main drm module.
+>>
+>> No, I meant into its own module.
+>
+> Looks like a good idea indeed, making the design more modular and
+> dependencies cleaner.
+>
+>> Do we have any dependency from the main
+>> drm module into drm_panel?
+>
+> As far as I can see there is only the one mentioned above:
+>
+>   drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
+>      -> calls of_drm_find_panel (in drm_panel.c, would-be the new drm_pan=
+el module)
+>
+> And while drm_of_find_panel_or_bridge() is possibly going to disappear at
+> the end of my series, moving drm_panel.c to its own module would make the
+> series non-build-bisectable, which would be very annoying.
+>
+> However there seem to be no calls from the drm module to
+> drm_of_find_panel_or_bridge(), so we could move it out as well. What abou=
+t
+> a series doing, in this order:
+>
+>  - move drm_of_find_panel_or_bridge() from the drm module to the
+>    drm_kms_helper module
+>  - move drm_panel.c to a new drm_panel module
+>  - Main change: embed a drm_bridge into every panel
+>  - convert drivers to stop using the panel_bridge, hopefully removing all
+>    calls to drm_of_find_panel_or_bridge()
+>  - remove drm_of_find_panel_or_bridge()
 
-On Tue, Sep 01, 2026 at 11:25:41AM +0000, Christian Hewitt wrote:
-> common_tmds_cts_table[] holds only six TMDS character rates (25.175,
-> 25.2, 27, 54, 74.25 and 148.5 MHz), so dw_hdmi_qp_find_cts() returns 0
-> for everything else. dw_hdmi_qp_set_cts_n() then clears the CTS override
-> enable and programs a value of 0, leaving the sink with no CTS to
-> regenerate the audio clock from.
->=20
-> Any deep colour link falls into this gap: a 10 bpc RK3576 HDMI output
-> runs at 185625000 Hz (148.5 MHz * 1.25), which is absent from both
-> tables. N is computed dynamically and comes out correct at 6144, but
-> AUDPKT_ACR_CONTROL1 reads back as 0.
->=20
-> Give CTS the same dynamic fallback that N already has, using the formula
-> from the Audio chapter of the HDMI specification, and drop the -ENOENT
-> returned into an unsigned int for the unlisted sample rates.
->=20
-> Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for dw-hdm=
-i-qp")
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
-> ---
-> This was found after testing unrelated patches from DetlevC that rename
-> the RK audio cards to see the impact in Kodi. RK3588 had audio output,
-> while RK3576 did not. I'd not used an RK3576 board for a while so tasked
-> Claude to help triage the problem, and this was the finding. The problem
-> appears to have been exposed since Kodi reworked plane selection logic
-> and support for 10bpc planes; earlier Kodi/LibreELEC images were using
-> 8bpc planes thus avoiding the problem.
+Ah, no, that won't work. There would be a circular module dependency loop
+later on when we embed a drm_bridge into evern drm_panel: indeed at that
+point drm_panel will use the atomic and probe helpers to implement the
+embedded drm_bridge, resulting in:
 
-You are looking for this series:
+ * the panel_bridge code in bridge/panel.c [drm_kms_helper module]
+   already depends on the drm_panel.c code (it manipulates a drm_panel, OK)
+ * additionally, the drm_panel.c code, in order to create a drm_bridge,
+   will depend on the helpers in drm_atomic_helper and drm_probe_helper
+   code [drm_kms_helper module]
 
-https://lore.kernel.org/linux-rockchip/86fcf349-0a7a-4618-9001-612371b0f71b=
-@symple.nz/
+The loop is only between kernel modules (.ko), not in actual code. So I
+think this revised plan should work (the 2nd bullet is key):
 
-Greetings,
+ - move drm_of_find_panel_or_bridge() from the drm module to
+   bridge/panel.c [currently drm_kms_helper module]
+ - move bridge/panel.o to a new drm_panel_bridge module (NEW)
+ - move drm_panel.c to a new drm_panel module
+ - Main change: embed a drm_bridge into every panel
+ - convert drivers to stop using the panel_bridge, hopefully removing all
+   calls to drm_of_find_panel_or_bridge()
+ - remove drm_of_find_panel_or_bridge() and all the drm_panel_bridge module
 
--- Sebastian
+What do you think about it?
 
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 45 ++++++++++++--------
->  1 file changed, 27 insertions(+), 18 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
-rm/bridge/synopsys/dw-hdmi-qp.c
-> index 5f4718c3b9db..7cf327de0249 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -12,6 +12,7 @@
->  #include <linux/export.h>
->  #include <linux/i2c.h>
->  #include <linux/irq.h>
-> +#include <linux/math64.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> @@ -307,8 +308,15 @@ static unsigned int dw_hdmi_qp_find_n(struct dw_hdmi=
-_qp *hdmi, unsigned long pix
->  	return dw_hdmi_qp_compute_n(hdmi, pixel_clk, sample_rate);
->  }
-> =20
-> +static unsigned int dw_hdmi_qp_compute_cts(unsigned long pixel_clk,
-> +					   unsigned long sample_rate,
-> +					   unsigned int n)
-> +{
-> +	return div64_u64((u64)pixel_clk * n, 128ULL * sample_rate);
-> +}
-> +
->  static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, unsigne=
-d long pixel_clk,
-> -					unsigned long sample_rate)
-> +					unsigned long sample_rate, unsigned int n)
->  {
->  	const struct dw_hdmi_audio_tmds_cts *tmds_cts =3D NULL;
->  	int i;
-> @@ -320,23 +328,24 @@ static unsigned int dw_hdmi_qp_find_cts(struct dw_h=
-dmi_qp *hdmi, unsigned long p
->  		}
->  	}
-> =20
-> -	if (!tmds_cts)
-> -		return 0;
-> -
-> -	switch (sample_rate) {
-> -	case 32000:
-> -		return tmds_cts->cts_32k;
-> -	case 44100:
-> -	case 88200:
-> -	case 176400:
-> -		return tmds_cts->cts_44k1;
-> -	case 48000:
-> -	case 96000:
-> -	case 192000:
-> -		return tmds_cts->cts_48k;
-> -	default:
-> -		return -ENOENT;
-> +	if (tmds_cts) {
-> +		switch (sample_rate) {
-> +		case 32000:
-> +			return tmds_cts->cts_32k;
-> +		case 44100:
-> +		case 88200:
-> +		case 176400:
-> +			return tmds_cts->cts_44k1;
-> +		case 48000:
-> +		case 96000:
-> +		case 192000:
-> +			return tmds_cts->cts_48k;
-> +		}
->  	}
-> +
-> +	dev_dbg(hdmi->dev, "Rate %lu missing; compute CTS dynamically\n", pixel=
-_clk);
-> +
-> +	return dw_hdmi_qp_compute_cts(pixel_clk, sample_rate, n);
->  }
-> =20
->  static void dw_hdmi_qp_set_audio_interface(struct dw_hdmi_qp *hdmi,
-> @@ -471,7 +480,7 @@ static void dw_hdmi_qp_set_sample_rate(struct dw_hdmi=
-_qp *hdmi, unsigned long lo
->  	unsigned int n, cts;
-> =20
->  	n =3D dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
-> -	cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
-> +	cts =3D dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate, n);
-> =20
->  	dw_hdmi_qp_set_cts_n(hdmi, cts, n);
->  }
-> --=20
-> 2.43.0
->=20
+Luca
 
---lydbo5pwj5izjpxk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqW4R0ACgkQ2O7X88g7
-+poXfQ/+LDpMXaTNcjSRBdF7rpSOyIoT6KZHOa3awhqdJI9OjPWkqnMgtXC820Tn
-Qpadkaoae0eEaL0DgwK++3m08U0ZSchWttGJWDcxUMnULEwtxuGh0y5wa9MotUOr
-iUmSahIbDW7M9CnpLWvOFIn0na5s5m1NdiWSO57cwMhRJaO2dg+tB2+b7wkaE3ak
-fZVQPlcwx7RpQpKe1Q8Gio9gxZVSPKdGAsbbdxCqsi+AjcDuPe+OVe0FEr12y1LI
-/SjQaTQ8Nb8eFdZ8bqBKWcHlNQ4RPaeA64eKE+hoqy7zgUMM4chfFI8WaksU+1oP
-VdFHkORrU1e6OU4bvDP0zCM3sOyEA7z0O0DSqNAzRquQ4MkoliSwKVTx2NDDY2Sv
-n9iGmeixpIweQWsZJBS1q+3+H1sue3CiaeKlkhKVrXs8wngTbo7gMFF/G+BBRfGs
-cW/hwCzOE+x7H4C2kWKly5YJcl3mt1QNPk++xw5/mafYV9PUwWMlOnu/d4i7FnOo
-I+ZUZ73uAe+KnvKI7lDAlE/bdwtmIRYYbnDHJYVOLFa2BOx/Qwz5kiyvD9Y0NB1S
-n0NJJWqXZjtkDrvF/0E8DqJar54sn5i/9viWWwR1gkpfp6K/J/pNhbt5Tq6Y7+Pd
-DXc6TQE4r8KhDhtsDiY1XW9EVa/zad82OwedhecxHnwUWvFefdY=
-=udif
------END PGP SIGNATURE-----
-
---lydbo5pwj5izjpxk--
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
