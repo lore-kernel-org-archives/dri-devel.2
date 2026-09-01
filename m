@@ -4,43 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31738C61DD6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 20:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4D72C61DD6
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 20:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4779910E1E5;
-	Tue,  1 Sep 2026 20:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF00C10E1F8;
+	Tue,  1 Sep 2026 20:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zoud6/QI";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Gwv/dvHt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 943B110E65E;
- Tue,  1 Sep 2026 20:48:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D01E600D9;
- Tue,  1 Sep 2026 20:48:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5ED11F000E9;
- Tue,  1 Sep 2026 20:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788295710;
- bh=FhCklhuhjBYALNQ61jeRR8SR37l2RaEJpAjPuo2Wn+I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Zoud6/QIfjp+bAKAe1vbDqAwO8duJdtLyjMK3g9U78EfGXtUeh4nk9A8HnAs1SkII
- Hhlk2xnDjxYQLRUPCFjk2UkLiVhou4rEVOYa8WRFJRdGKykoN/A3+tdVMLF4OjnpSr
- y3uNmq49tdXIwWIHAapmf7PovK9g7WBSMVCyPlTGZF5OfsDa7sIZbloZa3QmHh7o1F
- bbyF3I9BSgbNt6YB6h2HzwZhKwKO9kwydGDoFPsAEMZW7DMUB396z2OrSBREzhYByC
- JuK5FqdhkyPGfJptHi07sPBHveT8u2JMuh1Nw05L4MY4fk6XYlXO19q3KQeiaxMXkz
- M8glaRyYQ/PVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/psr: clear the Panel Replay error status register
-To: "Jake Steinman" <j@metarealtyinc.ca>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20260901203633.92628-1-j@metarealtyinc.ca>
-References: <20260901203633.92628-1-j@metarealtyinc.ca>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 20:48:29 +0000
-Message-Id: <20260901204829.D5ED11F000E9@smtp.kernel.org>
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022079.outbound.protection.outlook.com [52.101.101.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFDB710E1F8
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 20:59:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZQ/qrxTuIM6tHyQpPGma9w5I6XD+MwOCY6MZ3Ol+IViRsuH4FIJ6CvgcnVRWxfymor8SD20LCZyhdWr3NadjJYWC2BFgvsTqYxhxXMBGxgrEo31kcJy0bUdzQADDAt1/XM6NRXReh4h1xRnqmgwo4lkOaXUpGnl0JAhZ34vXVQThTLVvrkKs5uxP7BR3OCkPhz71TfpPldQJPeFIlr3kMR2rixOi9cLBuGIOp9bARTwf8ao0td9+pu6uNxlmvwqJXmknEWiNx9v4trGp30CyWwSlYpl7QZocDQQBAesHhdUQelEiQQv1G4NP1bdtGx9fjuyEWXU9MIZQ5lT6SI9xcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SsvlVDFUdJYwvMgMfdTdIdxFrUrLrMHmdQZtAPaxbHw=;
+ b=JpVHqegtL6ic8f2F+UxyGhR9XngLS+Wb6AukoyWqjAtVrxQ3MMstmZ2aMxHtYVJjvR+wg0/XLflZkdCHgOUQL68UkjSa3LiCthdUrWw6UTtRHJ3/50Qy+4sk4Ahd4oV1N2ke1QHopHkEUiXwH345fI6TaBvyFGBb18mPALcnaJEDRMGp8g09m40QGqsgItjY2rdMSuWhwp1gFAk59fWrWAzuzaZ2oqRdNN1pXTgbKsOC31GGCWuWp8MTFCTLoG+oOWRHy01gkLucBb3ThLnxGIqyfwr95o5ALUQUAmZlqmJQCWklWPam196Wgo0pQbroHEqEGthnoE9eMtHbdz4e+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SsvlVDFUdJYwvMgMfdTdIdxFrUrLrMHmdQZtAPaxbHw=;
+ b=Gwv/dvHtpKyaep5YiQN9zhePT6vczCo1SQf3Apbxmilewn20vNM6YS5t6FhGBnU+gYSEld6HxHA2KNbko1F57ld6TkKjAj9bGU5/+ju7QehMCQPKkf60YBn4Pta3fx8LhJVq4ZeoTVLfWckyvq+qMp/vlTDJpCj/Q73Gw1Aep5U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO2P265MB2624.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:146::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 20:59:42 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 20:59:42 +0000
+From: Gary Guo <gary@garyguo.net>
+Subject: [PATCH v4 0/2] gpu: nova: fix incorrect GSP barrier usage
+Date: Tue, 01 Sep 2026 21:59:31 +0100
+Message-Id: <20260901-rust-barrier-v4-0-94427f445310@garyguo.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALM8l2oC/2WOy26DMBBFfyXyukP9wpCu8h9VF7aZgNvEVGODi
+ CL+vTgsorbLO7rn3LmzhBQwsbfDnRHOIYUxbkG/HJgfbOwRQrdlJrk03PAj0JQyOEsbRWAUb1q
+ 0jZHCsA35JjyH5aF7/9hzmtwn+lwcpeFsQnBkox/K6RLitEDEJb9ebcpIpTOElEe6PX6aRXHt8
+ 5pLUUutVSV4fTRKg4Te0u30hRTxUo3Us7I6yyfz7+VZAgfFz97rFoXv+Kko+mmsIuYdV0+8FX9
+ xteFd7RrXNWiM1L/xdV1/AGLWCZhTAQAA
+X-Change-ID: 20260609-rust-barrier-63078ea76216
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788296382; l=2084;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=io0ZKK+rnZdyI/30pLtmX3v8r1ge2YBcKOM6o/CP9Yo=;
+ b=cyPfpf/9Uzj9HDOALiI39DuW3VH8No7/42tbDhjqUdb5mFnR+HMnj1vxXdVUENiqCYU/hnj8u
+ LRerm7qGUWnA2TwCS2X228VZFh9n0/SNjWhlEfLxQC8MLzmsWerTtkq
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P265CA0251.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:350::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2624:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21b9e96d-adbd-4ffd-2c1d-08df086bf20b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|376014|23010399003|1800799024|18002099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: fm75aIXnlWOvsdSrFxuSzEQTIRZHuusH3AjPkpyb6cZ1vOta9NpP7cNlS6nxFBchXPdYd3MCwbDLC3B7t3lZz6E3Cu6sHDqJCfHFLiIQxgt2zicqXjEVtJGZDqMeAIwjlgPeedTwV1F/lv0dzBLCKSDuRVgRAcrk2kBamjF0/6Pg0kQe9hXYs9P7ztRjenOakM8bqYKap9OUb5CBHfEJrgPn2V15cAO+qoK16rWaie9EkjB5qYuOxHm/glCKSVZz/fGeM4HX6GQiay1I1U+4+OMDuNnlNS15/s9luerPOvUA0TaGlXZw4kDCrn2sLxRi09aiG23d8vjdOmuJaQyEHQAJB0LtPYKAj7IqU9esFQC7oWeYjEH+U7clG6cknahXU5jwftM04dkfdg4AVi+bmMXGrlh0Dj+GIHby9pJOFSeRtH/ZWjNl/5hFrZhqF3CGwv/iBcrq4LiqBhhT6Evl+GmBaBmy2vS+YnOpS99UADqP5hV6Glls0NEu2n+eXTz7JnPk/o3VIc65kdiKm7DuIFKkKb8mhBtPLKxJ+W8QB7a39FQPlR56Et9VzfnpzZbt1tLwN3S0W/NAOo0jPy5ClYlj7lxj4JI6Nn0GD79XETlvlFTf3K8XUodgDmq4LFBh
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3BSRElQYjdBRWxZeXJ5WGdsRElNTUZLSW1wWC90QUFiVncwcHNaRjc1ZzJm?=
+ =?utf-8?B?UzRkTnVUUkplOW5GdFY4dmF5blZQU1l3a3VtRjlaMXRLcHZxcU82UXdIRjZZ?=
+ =?utf-8?B?dUJHMUY5MlpKdkpPck8yeVJadlpKcCtzVTVWMVdrdkx0VXNtOVl4cTRqU2hH?=
+ =?utf-8?B?V0I0blVBeU10dUQ4WUlBTjdSanN5YlFYMVpFRXdTSEpHOU0za1NyMHMyZUwx?=
+ =?utf-8?B?YndoZFdEQWRnOUNyZzBHTGVkMEdTUTVrVVEwZXpjeGp4WmxuZmp0U3lpWU5o?=
+ =?utf-8?B?ZHF5WWlGQlIyZ0hseVlCYTJBMi93RUdQN2lzR0pQUG1sM1dmaWRvQi9KQVgx?=
+ =?utf-8?B?SzBOWjhPcWd4ZFRrYm51b2o4S3pXMGdKdkpubXZuK0JJWmFCVnd1Z2Y0RXFU?=
+ =?utf-8?B?Skt3MTlHTmhHM242Z1BBNENMQTRBY2F0SHNqWFArUS8vSDNNN0UvM2xWTmxW?=
+ =?utf-8?B?SjRGY2FYQk83MGVmbXFZSlU4aVpWWCtrdFJjdVBRTEVzaTEyMFNucmk1V3Y5?=
+ =?utf-8?B?MGtJelNqWnFYNmI4RkZmTWNiZndpUm1tQmtvYWF4YzdLUnNmODdlYVRKb1Bu?=
+ =?utf-8?B?OU9ack9KNjZkK1kzWTkzZnQ4eGJqNS94UmQ5VWROVy9UalhuMXlUbHlBT29w?=
+ =?utf-8?B?VzQvUTJlNnpLUk5hN0tqbm03eUFSU3U3Q0Y2U01hdWZLNTF0OFhpd1JFRVFE?=
+ =?utf-8?B?SmJzSDNXV1NwRTdFWUQrTnhNanRmbFF5MXRWN1VELzlEdW1nV21vTTVHWFVQ?=
+ =?utf-8?B?ck05MjRzMHYxQXN6aDJTSExmZEhObWphcjdNNDNBcTVTSDZ3U1FtTHRiZnJ1?=
+ =?utf-8?B?bS9zNVdHYnlORkpPNHZEbnhXU09qcUFGaEFacGt2OWQzN2NDR2tTMG50UTFR?=
+ =?utf-8?B?UE9XbFUzL2pXa0hLZ0Z2a2k2UFUxK0VvSkxiMUhHb1pxclc2L2ZiN3BjekpB?=
+ =?utf-8?B?ZXRndWNTNXNYTUZRbkRrUGM5cm5Ka2dFN0tvNDJTa2ROQWFQZWNjNHp3dHdU?=
+ =?utf-8?B?TTVNOUlTTVhwcmFhTmhWK1VveFdudHpJYlFLZzY0TW1mWnAxR3lNYS9RNEpO?=
+ =?utf-8?B?SWx3RkVaL25rT2dVUDR1TmQ2d1NFMDdHRUhtV1pwMlJnUmVYaHVJM1VHVTFQ?=
+ =?utf-8?B?OWhvbVNoZnI1czQ2UHNaYlZSTFAvUVZKT2swelRmTnZEWG1ZNW5XcHpxVFFC?=
+ =?utf-8?B?dDk3dUVtdVBnVGdBUnJkNkN5TXprNXRZTi9JRnRobm1lKytyYnV0WnFMQ1hx?=
+ =?utf-8?B?OWhzZ3VVSEcyanpYa2MybnlQMDVCUzA2aUNabmRuclBUNk5CZGdFV2ptUE82?=
+ =?utf-8?B?dnQxR3dIWU4zeGNwcGQ5cGw3ZEtmUkNQOWR5OWlIM2hVcmRCVEU1VnlTQS91?=
+ =?utf-8?B?OTBPSEVCdHlqdS9IYXFMamJNYXdmRTNWRTlaUTlTNFlGamhGVkhieUxiN2VY?=
+ =?utf-8?B?RTMwNXVtNlRWbGhiT0JSQzNSTmIxZ1RTUFBoM1ROc2NBdG5tZngwNkV1K3ZG?=
+ =?utf-8?B?MWNaYUdkc2M2WE54NDlLMmJYR2dzMmI5M3dDSFlJb2p6SWJkNjJLVXNQU2Ry?=
+ =?utf-8?B?UGxNKzh0cExNS3lDYWhhQk1kT0NxRnAzdXB2RXh0WHE0R1hGcFZTNXRoeW9F?=
+ =?utf-8?B?Q0JpZjhVdG1Hb1ZBOTY4VWZ6V3hCZklFU0hodFN6Z1ZXSWVXYUdVOS91Q1NL?=
+ =?utf-8?B?cjFLcDhuNGY4WmhPMWhTZ2NyOWZMSmZZYUI3WWtpRDh2VWREbFE2SDByd3RR?=
+ =?utf-8?B?Tlp6ZGEvMjA4TWhVTFE0Mmh4YnFFcEluZE5Tb0tBTEJYN2EycXNmeFZ2NHVt?=
+ =?utf-8?B?ZUNNSW9EM3Jqbm5Fb0pGZEtQMVRlSVFOMzk3b2N6OGw0L29CekpRLzdmZE1l?=
+ =?utf-8?B?MEgrZ0IvbGlOdkxGL0NwUWk1cjNOQnBxTkNCRFF6N2hDQkkzUVZKU0pXbjJ6?=
+ =?utf-8?B?QVIvRmFMOHdlalZyR3RVUEtVKzkra0JRc21iaFlJa0pYaVhYMUsxblpLZm9u?=
+ =?utf-8?B?SHhJSUVWYTJQWnF2TjV5b2k2aDd4bUUwUTlrYkNLMmNoaFdpYXFOK3hqTmF6?=
+ =?utf-8?B?YWRKbG1ZVWtwT1F6SjdPL0pCTzJ4YjNucFhHOUc0eU01NU9QRzh1eFdFL0V5?=
+ =?utf-8?B?RHRQRnROK3NmbFEram1nNU12UGRTQlI0SjN3TkIzWGRJc0tJT0RHcXRXOUxs?=
+ =?utf-8?B?VmpHYVdrNldwZTFCNDFBWXFxRXQweWZ2QXd1a3NkRjVxckJkYXYwcmRLMGR5?=
+ =?utf-8?B?V0s2ZjdKa2kxVXBZQUxMS2xiUm5CNUZLblgvWnN6bjZkaGxXWmRqdVltNGFQ?=
+ =?utf-8?B?V3dGNnhVd2RLQVh1Wm5KODU3cEVYcTAyaXhRRzV0MnZvSHo2aG54dz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21b9e96d-adbd-4ffd-2c1d-08df086bf20b
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:59:42.6765 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DpFlDM9ygammHR6nagn/pLBFwNsGaaT9AmJIHTSOCJBvudJuKsDCzJUz3vqaKkiVxCEZvHFpgBc9JzUwqRFD7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2624
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +145,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Currently Nova GSP code uses Rust barriers, which equivalent to LKMM SMP
+barriers. This does not provide sufficient ordering for DMA operations on
+AArch64. Fix this to be using the newly introduced `dma_mb(Ordering)` API.
 
-New issues:
-- [High] The patch fails to clear the Panel Replay error status because it =
-evaluates a state variable (`psr->panel_replay_enabled`) that has already b=
-een cleared upon error detection.
+Also, there is an incorrect placement of barrier, which is also fixed.
 
-Pre-existing issues:
-- [High] If `drm_dp_dpcd_readb` reads 0 bytes, the driver falsely assumes s=
-uccess and uses uninitialized stack variables.
---
+---
+Changes in v4:
+- Moved barriers to pointer accessor/updater. This does mean unnecessary
+  barrier in failed polling path but the code path is not critical.
+  I mentioned about providing full acq/rel semantics, but ended up not
+  doing it because LOAD->LOAD barrier is sufficient for the GSP->CPU
+  messaging path, so it's best to still mention about the actually needed
+  ordering only.
+- Link to v3: https://patch.msgid.link/20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net
 
-commit 1da2d4e9ad55e4f8b758998afbe0f6630bae226f
-Author: Jake Steinman <j@metarealtyinc.ca>
-drm/i915/psr: clear the Panel Replay error status register
+Changes in v3:
+- Drop abstraction changes which are already picked.
+- Improve ordering comment messages.
+- Replace control dependency reliance with explicit barrier.
+- Link to v2: https://patch.msgid.link/20260609-rust-barrier-v2-0-30fcc48e1cd0@garyguo.net
 
-This commit aims to fix an issue where the Panel Replay error status regist=
-er
-is never cleared on the sink. It updates intel_psr_short_pulse() to use
-the same conditional offset for clearing the error as is used for reading i=
-t.
+Changes in v2:
+- Dropped `Acquire` and `Release` aliases of `Full` (Joel)
+- Use macros to implement most `MemoryBarrier`
+- Split Nova change to GSP->CPU commit and CPU->GSP commit (Joel)
+- Link to v1: https://patch.msgid.link/20260402152443.1059634-2-gary@kernel.org
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
-915/display/intel_psr.c
-> index 52836496040ff..1d0372c5f895f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -3891,7 +3891,10 @@ void intel_psr_short_pulse(struct intel_dp *intel_=
-dp)
->  			"PSR_ERROR_STATUS unhandled errors %x\n",
->  			error_status & ~errors);
+To: Danilo Krummrich <dakr@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: nova-gpu@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 
-[Severity: High]
-This is a pre-existing issue, but if drm_dp_dpcd_readb() reads 0 bytes, it
-returns 0.
+---
+Gary Guo (2):
+      gpu: nova-core: fix barrier usage in CPU->GSP messaging path
+      gpu: nova-core: fix barrier usage in GSP->CPU messaging path
 
-In psr_get_status_and_error_status(), the check if (ret !=3D 1) return ret;=
- will
-then return 0.
+ drivers/gpu/nova-core/gsp/cmdq.rs | 41 ++++++++++++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 16 deletions(-)
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260609-rust-barrier-63078ea76216
 
-Does this cause intel_psr_short_pulse() to wrongly treat the read as a succ=
-ess
-and proceed to use uninitialized stack variables status and error_status?
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
 
->  	/* clear status register */
-> -	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
-> +	drm_dp_dpcd_writeb(&intel_dp->aux,
-> +			   psr->panel_replay_enabled ?
-> +			   DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS,
-> +			   error_status);
-
-[Severity: High]
-Does this code still write to the wrong register during an error condition?
-
-If an error is detected, the earlier check in intel_psr_short_pulse() calls
-intel_psr_disable_locked():
-
-intel_psr_short_pulse()
-  if ((!psr->panel_replay_enabled && status =3D=3D DP_PSR_SINK_INTERNAL_ERR=
-OR) ||
-      (error_status & errors)) {
-      intel_psr_disable_locked(intel_dp);
-      ...
-  }
-
-intel_psr_disable_locked() unconditionally clears the flag:
-  intel_dp->psr.panel_replay_enabled =3D false;
-
-When we later attempt to clear the status register, psr->panel_replay_enabl=
-ed
-will evaluate to false, causing the error status to be incorrectly written =
-to
-DP_PSR_ERROR_STATUS instead of DP_PANEL_REPLAY_ERROR_STATUS.
-
-> =20
->  	if (!psr->panel_replay_enabled) {
->  		psr_alpm_check(intel_dp);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901203633.9262=
-8-1-j@metarealtyinc.ca?part=3D1
