@@ -4,141 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E603C624CF
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB7AC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1E0510EC8A;
-	Tue,  1 Sep 2026 11:46:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E66E210E3E2;
+	Tue,  1 Sep 2026 11:49:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oQ4OXuf/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jD78iQRc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j7lsJgJ/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FD4DGu3O";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZK598TJX";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 298E010E3FF;
- Tue,  1 Sep 2026 11:46:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0AF510E3E2
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:49:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1788263396;
+ bh=oUnrp8ysBuwENujtdD7jLGfLIH0ghO1LVYxn7MRpQIk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ZK598TJXSPGNs3w7kwg2h7coXz1WX3VkO4rpseemoX7K3ZYmd+xdVDq/7Z21nDNho
+ Wh4UZo69Tatfulhw661tni36g78yHZvN7YivzgIa8WlV6r3ZIMXb6296sjDITdLNAE
+ 2FJplwVTqz3CeeCKD4iwk0C8y0Lo2fDReSK5dF+tAy8kA+pAEiym4fZZiLdRbeJviu
+ DQM3AaK7Hec3aRG1McrWsSQ06B+UbGDmVrOMh5XrFpgErgiqRB+puNsXYMJhhAICoH
+ 9lHD9aVDmk5l2H41WKrWNLz7xGFe5YUiFsJeakdHpmAWxFfaZw8gI2AOGcp5kSFPnn
+ 0/76hqXGVcgbA==
+Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 86FBB1FB3B;
- Tue,  1 Sep 2026 11:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788263165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UNR1ZtUXqeFxjl7a4LYkrTsdWlDZ1XMW3bvG4buQpuw=;
- b=oQ4OXuf/OAKY75Hfp76dYovN7xlJPfnY4Cv9I71KQooWtYatmiHxfTxlJrQGQOPkbWOePu
- oik5U5TgtU1hlhQ0c7nwsSsiNu4zt5Iw5GxmKScS7O3n0E5jy1e3BOwERlocb0csyyC+ib
- DQA+h0RlDM2C+9A77Rz+q9bdA2y2t1w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788263165;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UNR1ZtUXqeFxjl7a4LYkrTsdWlDZ1XMW3bvG4buQpuw=;
- b=jD78iQRcRdtfLZVz8gJo/sPR/D3JSWecLODqaNdHZOw05vrivzxaj3pe6RkvsHI6OkddB/
- VD2pg5xuB4t9SsAQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="j7lsJgJ/";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=FD4DGu3O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788263161; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UNR1ZtUXqeFxjl7a4LYkrTsdWlDZ1XMW3bvG4buQpuw=;
- b=j7lsJgJ/ibzxcGc0Zk+nc6sIXpGLZ+BnCG71/C4XqNDQ/+YlgapM3VgLPd0wBgjGJVTM9E
- PPE4X7nGWIhJgm8PMi7DLhk4uUv3gwqJbrfzXDKoyHGNucw9BN4dtIbjH/s9OHVwjY1lhu
- 0U/jIiabYGEFnLAzCBHy8n8csNU70TM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788263161;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=UNR1ZtUXqeFxjl7a4LYkrTsdWlDZ1XMW3bvG4buQpuw=;
- b=FD4DGu3OSkPCc9LXIviTh/R3QhMU/Lh3e7/ygKBScncuBBF5J8caJBAGMHF98iN6CG2RNz
- q/s94ChwbXh5gGCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F03301369E;
- Tue,  1 Sep 2026 11:46:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MMI8Ofi6lmqQTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 01 Sep 2026 11:46:00 +0000
-Message-ID: <00e6bf78-aff7-422e-8ec9-024d9f10e4d0@suse.de>
-Date: Tue, 1 Sep 2026 13:46:00 +0200
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6AA3317E006A;
+ Tue, 01 Sep 2026 13:49:55 +0200 (CEST)
+Date: Tue, 1 Sep 2026 13:49:51 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 02/17] drm/panfrost: Move all DRM device
+ initialisation into device_init()
+Message-ID: <20260901134951.1e1d7fda@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/virtio: create blend mode property on cursor
- plane
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>, dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
- dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
- <20260901083234.1828755-4-qinyuntan@linux.alibaba.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260901083234.1828755-4-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 86FBB1FB3B
-X-Spamd-Result: default: False [-5.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[16]; MIME_TRACE(0.00)[0:+];
- FROM_HAS_DN(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.com:url, alibaba.com:email, suse.de:dkim,
- suse.de:email, suse.de:mid]
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,66 +73,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 28 Aug 2026 21:56:42 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-
-Am 01.09.26 um 10:32 schrieb Qinyun Tan:
-> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-> format with alpha exposed"), drm_mode_config_validate() warns when a
-> plane exposes an alpha pixel format but not the "pixel blend mode"
-> property. The virtio-gpu cursor plane (HOST_ARGB8888) trips this.
->
-> The virtio-gpu specification does not define the cursor alpha
-> semantics. The host forwards the cursor pixels verbatim to its display
-> frontends, and the remote cursor protocols among them (SPICE alpha
-> cursors, the VNC "Cursor With Alpha" encoding) both define
-> pre-multiplied alpha, matching what userspace has always assumed when
-> the property is not attached. Expose a "pixel blend mode" property
-> advertising only DRM_MODE_BLEND_PREMULTI to make these semantics
-> explicit and silence the warning. The primary plane only exposes
-> HOST_XRGB8888, so the call is gated to the cursor. No functional
-> change.
->
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
+> Ideally the probe() function will do as little as possible, and all device
+> initialisation and registration should happen inside the panfrost device
+> subsystem, just like it's done in Panthor. This also simplifies resource
+> unwinding in the error path.
+>=20
+> Do the same thing for DRM driver remove, as in, sweep most of the action
+> into panfrost_device_fini(), just like we did for device probe.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
-> v2: no code change; explain the protocol-level justification for
-> PREMULTI in the commit message.
->
->   drivers/gpu/drm/virtio/virtgpu_plane.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-> index 1d1b27ece62a7..640815af40980 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-> @@ -24,6 +24,7 @@
->    */
->   
->   #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
->   #include <drm/drm_damage_helper.h>
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_gem_atomic_helper.h>
-> @@ -609,6 +610,9 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
->   
->   	if (type == DRM_PLANE_TYPE_PRIMARY)
->   		drm_plane_enable_fb_damage_clips(plane);
-> +	else if (type == DRM_PLANE_TYPE_CURSOR)
-> +		drm_plane_create_blend_mode_property(plane,
-> +						     BIT(DRM_MODE_BLEND_PREMULTI));
->   
->   	return plane;
->   }
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 33 ++++++++++++++++++++++
+>  drivers/gpu/drm/panfrost/panfrost_drv.c    | 44 +-----------------------=
+------
+>  2 files changed, 34 insertions(+), 43 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 05c40d5a20b5..d2d2830f11a7 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/pm_domain.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <drm/drm_drv.h>
+> =20
+>  #include "panfrost_device.h"
+>  #include "panfrost_devfreq.h"
+> @@ -216,6 +217,15 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  {
+>  	int err;
+> =20
+> +	pfdev->comp =3D of_device_get_match_data(pfdev->base.dev);
+> +	if (!pfdev->comp)
+> +		return -ENODEV;
+> +
+> +	pfdev->coherent =3D device_get_dma_attr(pfdev->base.dev) =3D=3D DEV_DMA=
+_COHERENT;
+> +
+> +	mutex_init(&pfdev->shrinker_lock);
+> +	INIT_LIST_HEAD(&pfdev->shrinker_list);
+> +
+>  	mutex_init(&pfdev->sched_lock);
+>  	INIT_LIST_HEAD(&pfdev->as_lru_list);
+> =20
+> @@ -284,8 +294,25 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err)
+>  		goto out_perfcnt;
+> =20
+> +	pm_runtime_set_active(pfdev->base.dev);
+> +	pm_runtime_mark_last_busy(pfdev->base.dev);
+> +	pm_runtime_enable(pfdev->base.dev);
+> +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> +	pm_runtime_use_autosuspend(pfdev->base.dev);
+> +
+> +	/*
+> +	 * Register the DRM device with the core and the connectors with
+> +	 * sysfs
+> +	 */
+> +	err =3D drm_dev_register(&pfdev->base, 0);
+> +	if (err < 0)
+> +		goto out_devreg;
+> +
+>  	return 0;
+> =20
+> +out_devreg:
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+Not a huge fan of labels that describe where this is jumped from instead
+of what is done under the label (that gets particularly confusing when
+you start multiple locations jumping to the same label). So I'd suggest
+renaming that one err_disable_rpm.
 
+> +	pm_runtime_disable(pfdev->base.dev);
+
+I think you need a pm_runtime_dont_use_autosuspend() call before
+pm_runtime_disable().
+
+> +	panfrost_gem_fini(pfdev);
+>  out_perfcnt:
+>  	panfrost_perfcnt_fini(pfdev);
+>  out_job:
+> @@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device *pf=
+dev)
+>  	panfrost_reset_fini(pfdev);
+>  out_pm_domain:
+>  	panfrost_pm_domain_fini(pfdev);
+> +	pm_runtime_set_suspended(pfdev->base.dev);
+
+Do we have a good reason for not flagging the device suspended just
+after the pm_runtime_disable() call in the error path? I mean, sure
+it's not truly suspended until the clks/regulators have been turned
+off, but it also wasn't suspended the before the initial
+pm_runtime_set_active() call, and I like the idea of undoing things in
+reverse init order.
+
+>  	return err;
+>  }
+> =20
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+> +	pm_runtime_get_sync(pfdev->base.dev);
+
+	pm_runtime_dont_use_autosuspend();
+
+I see it fixed in patch 9, just like a few other issues that are made
+more apparent by this code motion change. I guess it's fine but it
+confused me, so it might be worth mentioning in the commit message.
+
+
+> +	pm_runtime_disable(pfdev->base.dev);
+> +
+>  	panfrost_gem_fini(pfdev);
+>  	panfrost_perfcnt_fini(pfdev);
+>  	panfrost_jm_fini(pfdev);
+> @@ -319,6 +350,8 @@ void panfrost_device_fini(struct panfrost_device *pfd=
+ev)
+>  	panfrost_clk_fini(pfdev);
+>  	panfrost_reset_fini(pfdev);
+>  	panfrost_pm_domain_fini(pfdev);
+> +
+> +	pm_runtime_set_suspended(pfdev->base.dev);
+
+Fixed in patch 9, but the RPM ref you acquire at the beginning of the
+function is never returned, so you end up with an unbalanced get/put.
+This is a pre-existing issue, I know, this catches the eye of the
+reviewer so we better mention that existing issues around PM are
+preserved and will be fixed later.
+
+>  }
+> =20
+>  #define PANFROST_EXCEPTION(id) \
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 9882a3ede75f..80996e311a9d 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -964,7 +964,6 @@ MODULE_PARM_DESC(transparent_hugepage, "Use a dedicat=
+ed tmpfs mount point with T
+>  static int panfrost_probe(struct platform_device *pdev)
+>  {
+>  	struct panfrost_device *pfdev;
+> -	int err;
+> =20
+>  	pfdev =3D devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
+>  				   struct panfrost_device, base);
+> @@ -973,45 +972,7 @@ static int panfrost_probe(struct platform_device *pd=
+ev)
+> =20
+>  	platform_set_drvdata(pdev, pfdev);
+> =20
+> -	pfdev->comp =3D of_device_get_match_data(&pdev->dev);
+> -	if (!pfdev->comp)
+> -		return -ENODEV;
+> -
+> -	pfdev->coherent =3D device_get_dma_attr(&pdev->dev) =3D=3D DEV_DMA_COHE=
+RENT;
+> -
+> -	mutex_init(&pfdev->shrinker_lock);
+> -	INIT_LIST_HEAD(&pfdev->shrinker_list);
+> -
+> -	err =3D panfrost_device_init(pfdev);
+> -	if (err) {
+> -		if (err !=3D -EPROBE_DEFER)
+> -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
+> -		goto err_out0;
+> -	}
+> -
+> -	pm_runtime_set_active(pfdev->base.dev);
+> -	pm_runtime_mark_last_busy(pfdev->base.dev);
+> -	pm_runtime_enable(pfdev->base.dev);
+> -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> -	pm_runtime_use_autosuspend(pfdev->base.dev);
+> -
+> -	/*
+> -	 * Register the DRM device with the core and the connectors with
+> -	 * sysfs
+> -	 */
+> -	err =3D drm_dev_register(&pfdev->base, 0);
+> -	if (err < 0)
+> -		goto err_out1;
+> -
+> -
+> -	return 0;
+> -
+> -err_out1:
+> -	pm_runtime_disable(pfdev->base.dev);
+> -	panfrost_device_fini(pfdev);
+> -	pm_runtime_set_suspended(pfdev->base.dev);
+> -err_out0:
+> -	return err;
+> +	return panfrost_device_init(pfdev);
+>  }
+> =20
+>  static void panfrost_remove(struct platform_device *pdev)
+> @@ -1020,10 +981,7 @@ static void panfrost_remove(struct platform_device =
+*pdev)
+> =20
+>  	drm_dev_unregister(&pfdev->base);
+> =20
+> -	pm_runtime_get_sync(pfdev->base.dev);
+> -	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+> -	pm_runtime_set_suspended(pfdev->base.dev);
+>  }
+> =20
+>  static ssize_t profiling_show(struct device *dev,
+>=20
 
