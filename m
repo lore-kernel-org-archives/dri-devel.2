@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81557C624D6
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E2DDC624D0
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D74010EE53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E02A010EE54;
 	Tue,  1 Sep 2026 18:51:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="e57Wp8BC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nehOE6mA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0904810EE4C
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29F3410EE44
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:50:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288659;
- bh=RkfCwo+2xh2eA4ByQWj+OR0E04K3cBjBCK6HYgdmnC4=;
+ s=mail; t=1788288653;
+ bh=Zn+3yeN9Rme+fj1mMWRS/y1YS+3AEJGqzPP55xPQzUk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=e57Wp8BCxkaI3grdmHvLeFEzL34bcRhsPmJS/VLQ6NSOsAK5su60nB3bcl5H0C/fk
- nh31JaIO157gB+AJ5utw8azvVZ5H4berfJoT3IUd2a3v7Chnu7ZMBRbxoskadxEYXZ
- GalLCIzLFoE6OA7dpRgi1vEuhqNXj2ATFnSekxYS0yx7l9Fjy5my1w3hMTHXa+vJU9
- 0OBPLJZftdnFTMixnWZ+d4ardebC+7dO30nd2PrUieKTL0U6w6aszH3ZaXsrrIm4FB
- LbeJ3wThzHrLRbw4lSnx7bkhUypGR4F/sIwgeraRhoXNzFA2C9QnlPwVbIBeZfec7s
- dLg4LSiPPdg2w==
+ b=nehOE6mARkUsJttmQXp7DeJKRFQBJQTd0hcxP94Q/Kv459JsOVp5TamWIdkp0Pv2K
+ Xv3awKZHLGFGpX7u8M+ypuIQv5jK9hR8TPutGQfF5I1qMusRqmdOsYpBf1lImOPymj
+ WbiME8lphrkk8QqTpBaTnE42Ia2VQBleSakU+5Ei+hm2TSqQ2TjniLCO8akWLyNL5h
+ 80aWUcAcIUr61ctJc7Ld4kLFlkbi+MVcpAi9bAmTDJ1eI6kz0PY5QJvqMl3EDkyN7p
+ pfDbJ2n6X0NHMOEuoGR8ukqNrW57ozmKb72km7Lax3jptpOg5OKtvrkJH1g6H7MdYU
+ t4jrdVn+CeoyA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9D9B417E38F9;
- Tue, 01 Sep 2026 20:50:59 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B77D417E373E;
+ Tue, 01 Sep 2026 20:50:53 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:49 +0300
-Subject: [PATCH v11 25/74] drm/display: bridge_connector: Switch to
- .force_ctx() connector helper
+Date: Tue, 01 Sep 2026 21:50:41 +0300
+Subject: [PATCH v11 17/74] drm/display: bridge_connector: Use cached
+ connector status in .get_modes()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-25-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-17-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,7 +65,10 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-fbdev@vger.kernel.org
+ linux-fbdev@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,77 +85,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Turn drm_bridge_connector_force() into a .force_ctx() implementation and
-hand the acquire context over to
-drm_atomic_helper_connector_hdmi_force_ctx(), so that the HDMI connector
-framework can reset the CRTC to recover the SCDC state when the sink
-reconnects while the display pipeline is active.
+Replace the active drm_bridge_connector_detect() call in get_modes()
+with a read of the already-cached connector->status.
 
-No functional change for non-HDMI bridge connectors, which keep behaving
-as a no-op.
+The .get_modes() callback is only invoked from
+drm_helper_probe_single_connector_modes(), which has already retrieved
+the connector status.  Calling detect again is redundant and triggers a
+duplicate hotplug event.  This is also a prerequisite for switching to
+the .detect_ctx() hook, which requires a drm_modeset_acquire_ctx not
+available in the .get_modes() path.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index b5a6e2e8bcd5..707d7143e475 100644
+index 63cdc6eab132..a73c177a3c10 100644
 --- a/drivers/gpu/drm/display/drm_bridge_connector.c
 +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -208,16 +208,6 @@ static void drm_bridge_connector_disable_hpd(struct drm_connector *connector)
-  * Bridge Connector Functions
-  */
- 
--static void drm_bridge_connector_force(struct drm_connector *connector)
--{
--	struct drm_bridge_connector *bridge_connector =
--		to_drm_bridge_connector(connector);
--	struct drm_bridge *hdmi = bridge_connector->bridge_hdmi;
--
--	if (hdmi)
--		drm_atomic_helper_connector_hdmi_force(connector);
--}
--
- static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
- 					      struct dentry *root)
- {
-@@ -277,7 +267,6 @@ drm_bridge_connector_color_format(const struct drm_connector_state *conn_state)
- }
- 
- static const struct drm_connector_funcs drm_bridge_connector_funcs = {
--	.force = drm_bridge_connector_force,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.atomic_create_state = drm_bridge_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-@@ -329,6 +318,19 @@ static int drm_bridge_connector_detect_ctx(struct drm_connector *connector,
- 	return status;
- }
- 
-+static int drm_bridge_connector_force_ctx(struct drm_connector *connector,
-+					  struct drm_modeset_acquire_ctx *ctx)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *hdmi = bridge_connector->bridge_hdmi;
-+
-+	if (hdmi)
-+		return drm_atomic_helper_connector_hdmi_force_ctx(connector, ctx);
-+
-+	return 0;
-+}
-+
+@@ -328,12 +328,10 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
  static int drm_bridge_connector_get_modes_edid(struct drm_connector *connector,
  					       struct drm_bridge *bridge)
  {
-@@ -421,6 +423,7 @@ static int drm_bridge_connector_atomic_check(struct drm_connector *connector,
- static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs = {
- 	.get_modes = drm_bridge_connector_get_modes,
- 	.detect_ctx = drm_bridge_connector_detect_ctx,
-+	.force_ctx = drm_bridge_connector_force_ctx,
- 	.mode_valid = drm_bridge_connector_mode_valid,
- 	.enable_hpd = drm_bridge_connector_enable_hpd,
- 	.disable_hpd = drm_bridge_connector_disable_hpd,
+-	enum drm_connector_status status;
+ 	const struct drm_edid *drm_edid;
+ 	int n;
+ 
+-	status = drm_bridge_connector_detect(connector, false);
+-	if (status != connector_status_connected)
++	if (connector->status != connector_status_connected)
+ 		goto no_edid;
+ 
+ 	drm_edid = drm_bridge_edid_read(bridge, connector);
 
 -- 
 2.55.0
