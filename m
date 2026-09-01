@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2A6C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE6AEC624D7
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65FE110EE6A;
-	Tue,  1 Sep 2026 18:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC23C10EE63;
+	Tue,  1 Sep 2026 18:51:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qcD+10/r";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="afu5ZwY+";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 366A810EE63
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAD5E10EE63
  for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1788288673;
- bh=VZ3TAZNBxqqfdza/aL8Ylg5fv5lsNNMVwLTvIMhkWZw=;
+ bh=W2m7Jca/rq/QUZdEC4unu3AGFLZj7t3LTmYrZHCk2pg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=qcD+10/r0UuvqVqRHglY0RuNr1dzpkzdZ95Fh0cholGcvIpQDSJSl0KMQUj2kxO/K
- nRYZfaVC83gU6nCZTbaXYUWSDrCI/umS86tz6NXTkCHey66K130TW5cy7Pq+okeKND
- MfaE/I4jfJkLzewe15GZf9FuKDhLiibfoWTLkNB2zkmhr8Hwf1qlZEvqisbul8kmDC
- 3NLDgzlz2UBMxwbr7Hov6bk0umHglIUCdF6huaAu7sBQ1/UMJAFdrC4WIfDD6CB/g4
- sVnnMg6bMKVjNAmkSqWlMW40fM0jAOCrZYGAKaI0w/ZW4JrgSU470BHvdY8UmHRBHJ
- cP4XTpVB7Xalw==
+ b=afu5ZwY++6AHuXAeUdfaaE/k7fwjw8A8eIfYHhGq7PeQ+VHPmh4saZg+PA64M/JqD
+ 2p2DwtaA0vTxkk9RDdWGRfXI98CLxoFeKLSm5EwthG03ieYp/hibN/eQnpkLJ8KF9h
+ KBELgAwrYEAM5lg5ECHCJeYZVA1+I1OOHh2QWxAjpQF2I50ujMSSwiV5kOgW0IaJKS
+ TlrWTSD5KN80eSnqezCcBa2hOC51EdIfTrytXVVt0UPppj/FeeJz++u8HR8J22ZL+w
+ k2Obj7ScS1Ald/9H2dhEN17rDV1iiV9/NSI2lIzLyqD8SVvyMxazzaMat+gqLCfuao
+ 3TqTRfg7WBo0w==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CA0BF17E3C63;
- Tue, 01 Sep 2026 20:51:12 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 87A8517E3C64;
+ Tue, 01 Sep 2026 20:51:13 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:07 +0300
-Subject: [PATCH v11 43/74] drm/vc4: hdmi: Switch to
- drm_hdmi_mode_needs_scrambling()
+Date: Tue, 01 Sep 2026 21:51:08 +0300
+Subject: [PATCH v11 44/74] drm/vc4: hdmi: Switch to .force_ctx() connector
+ helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-43-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-44-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,66 +82,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VC4 HDMI driver has a local helper to check whether a mode requires
-scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
-use the common helper instead.
+Use drm_atomic_helper_connector_hdmi_force_ctx() as the .force_ctx()
+implementation, so that the acquire context created by the probe helper
+reaches the HDMI connector framework.
 
-No functional change intended.
+This is a prerequisite for converting the driver to the common HDMI 2.0
+scrambling infrastructure, which implicitly handles SCDC state recovery
+through a CRTC reset when the sink reconnects while the display pipeline
+is active.  Note that this does not interfere with the local SCDC
+state-management implementation, since the driver's scrambler capability
+has not yet been exposed through the common helpers.
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 8e4623ccc4f8..26c63ce2dc2f 100644
+index 26c63ce2dc2f..7c921a444e98 100644
 --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
- 	return true;
- }
+@@ -505,7 +505,6 @@ static void vc4_hdmi_connector_reset(struct drm_connector *connector)
  
--static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
--					   unsigned int bpc,
--					   enum drm_output_color_format fmt)
--{
--	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
--
--	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
--}
--
- static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
- {
- 	struct drm_debugfs_entry *entry = m->private;
-@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
- 		return 0;
- 	}
+ static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
+ 	.debugfs_init = drm_hdmi_connector_debugfs_init,
+-	.force = drm_atomic_helper_connector_hdmi_force,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.reset = vc4_hdmi_connector_reset,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+@@ -514,6 +513,7 @@ static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
  
--	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
-+	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
- 							   vc4_hdmi->output_bpc,
- 							   vc4_hdmi->output_format);
- 	if (!scrambling_needed) {
-@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
- 		const struct drm_display_mode *mode;
- 
- 		list_for_each_entry(mode, &connector->probed_modes, head) {
--			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
-+			if (drm_hdmi_mode_needs_scrambling(mode, 8,
-+							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
- 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
- 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
- 			}
-@@ -803,7 +795,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
- 		return;
- 
--	if (!vc4_hdmi_mode_needs_scrambling(mode,
-+	if (!drm_hdmi_mode_needs_scrambling(mode,
- 					    vc4_hdmi->output_bpc,
- 					    vc4_hdmi->output_format))
- 		return;
+ static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs = {
+ 	.detect_ctx = vc4_hdmi_connector_detect_ctx,
++	.force_ctx = drm_atomic_helper_connector_hdmi_force_ctx,
+ 	.get_modes = vc4_hdmi_connector_get_modes,
+ 	.atomic_check = vc4_hdmi_connector_atomic_check,
+ 	.mode_valid = drm_hdmi_connector_mode_valid,
 
 -- 
 2.55.0
