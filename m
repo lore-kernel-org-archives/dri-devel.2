@@ -4,60 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43681C61DFD
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 01:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CDEAC624A4
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 02:48:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D30210E01F;
-	Tue,  1 Sep 2026 01:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF2A10E023;
+	Tue,  1 Sep 2026 02:48:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P/NVNpfN";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Rayd8+Lq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D43A910E01F;
- Tue,  1 Sep 2026 01:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788227684; x=1819763684;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=8j3yKBNCNYtJNjNV4QzVd1BUyQ4mtd8C/5g9FVd6us0=;
- b=P/NVNpfN/v3AxYdyi79Wf9eYKo2VXC8Zb6I7ECjybi5ACV4be77V6D/d
- gbQmue3ceCxgvCBpKmyVsHXKroSolOwLAjnbSz/k14EhxKBaJTTu1dJke
- wlUWfx36NqCpIeLgI7R6oyVzd73cB0WD4+qG2L5cxQEqkhhDV4ed0kDg/
- X+q4AuHfWSX9JwigVkOc371+Bl2RlvR8ms8/B70tvU6yuA5KeMq/8NbKf
- MxdeDz/h3bBUaBh0Jj/VA1eWFoDvFHuFjJHTfUPMeIm9so2kF8NfADqX+
- 01dC4YIx/jdwHsOHPMtHVEXehXcqdXZhBeZ8CYfVF8G83XnUT5gwSmMVU Q==;
-X-CSE-ConnectionGUID: C2oywbrYQHyHcuE93iQo4g==
-X-CSE-MsgGUID: OjHbc564Q1mTmIOrkBAPDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88768507"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="88768507"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 18:54:43 -0700
-X-CSE-ConnectionGUID: bXhHWCv4So2yLTu58moeiw==
-X-CSE-MsgGUID: Q9rcCi5rSGuWhAy+fOUhbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="268416299"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239])
- ([10.124.241.239])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 18:54:42 -0700
-Message-ID: <bc3efbe7-440f-480e-9bff-8efa65227fff@linux.intel.com>
-Date: Tue, 1 Sep 2026 09:54:39 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] perf: Fix null pointer access in
- is_include_guest_event()
-To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Alexander Kanevskiy <alexander.kanevskiy@intel.com>
-References: <20260831235030.6737-1-vinay.belgaumkar@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260831235030.6737-1-vinay.belgaumkar@intel.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012040.outbound.protection.outlook.com
+ [40.107.200.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5087B10E023;
+ Tue,  1 Sep 2026 02:48:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=piFwv6l6GYC38FyY/iwUurzUmT1g4TUCBpXLLLlL5QB5Ix8zYLxwuy30nDqaZzNG6/QDzfiAzR7IaSiL/K12UWJ3+CFlWfiuyKiSLUaK8vksjSNf2N0eKuG1SeA6/Oxm3azPA70Nabt0WKkvdwuYPB/bUUmfV8pCKN/aU5g2bfS7koH4EiE+IAUQ5SV+AF2wUk+LnQDmacdoTE63Jkc5t+wl9ajcOq7bQ6L4k9AQpSZpIwDOukTEOQW/o3wTbu+K45HdbM4Bl4sVAKDuUWETP9abj5EQQWPIEQx78ktNNhTsVk9Iv1eus6ZFSVu57Q1D/zxvMXBYJkrJ1UDVeh/Jlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MOsvOtQ6syE9JzaIWjQv1n0XOB3s2aHDthskbiri1to=;
+ b=pZPUhiAewgxHO4RFHeJwObG88zlmsW0QVr24l6CcGBWIRoXujxctz1A+XXcJk+oXouSnolb5iN9/2k6GlA8jMcHvZqab1tweMovO1+PUPGhTMeHpI6MnA3Bt6s2Nv1Li+yTizFQmi4DN8bRmieJeDFLg8LoBMW2tqPawR6Rdr0dqhH0+V01c2Jj/+Bx9b4IAodtyFsRuGaUy+Q3LCrzV7nohfl8SsNveIvP/A7YxJJvH1YHrcNo0BFdOVzEcHigICu+ioDHrKrEI94qc7Lfx06P6YTe81TX/X54SlGpddeMU6vADPR2/kCP6LDyyx6sZB1MivzFuiVljZx/YJTCFog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MOsvOtQ6syE9JzaIWjQv1n0XOB3s2aHDthskbiri1to=;
+ b=Rayd8+LqKgRVqnpIA5SNO67B+aPGrUgBK8uHxtSmu4t92E8PiN10Qv0HB3i56EQO9CW7Jt6NDZc+WTD9PTgLNMjY63xDVaBcS9TiCQioc87UWqwk8bJegHLTPOmYp+vKTBSiDOoToauhIhRfQ7iipxLUfjz0xWz8AZUI26N/g3fpMJgiC2bkgptbZsjThEvchaDHWUAFdQUjJ52Xz4meTDj5isYsXENJ2pVg0v03t3js+wAFmL4QdLEZaFe+Y5GKU8FZkesX2cww3pyrkMOyVcABLVOKNjEd1i6LItysRJeCOWjWhAA8OIaBtuHqkNV6eevvPhmTdc6Hh8Bd4C6GXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CH3PR12MB8971.namprd12.prod.outlook.com (2603:10b6:610:177::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 1 Sep
+ 2026 02:48:00 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 02:47:59 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 01 Sep 2026 11:47:53 +0900
+Message-Id: <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+ <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+ <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+ <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+In-Reply-To: <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+X-ClientProxiedBy: PAZP264CA0015.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:21::20) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB8971:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82f0b6dc-8e80-41dd-782e-08df07d36edd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|10070799003|366016|376014|10067099003|6133799003|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 5/FttQpBGKMH7Pm9Vfr2+K9T4a31oKYSWmjygSXVF+v5ZZEEQlCUMSoIT0gB+ddcstHYhqXpWQACElWmE2GThsNHJT4i1LZBgafFmAnJb0ZKs2J6PVG7C/1Y2fbmJnK36NOewOlTzOGPpx7tKAuxYbdLYoCYKZ3mnIIXNq+hLQC4BfidyThZtz5XHkzVpPQWCwNnfHeFSQARj82btGO9V4xv4GHXnbp9DfCLyq2/Td912+EuAXmL3NE3kO8QY/cSDqP1lnSo2GPevALubJm4d6mjw2emdPqusmjhZLELDX+vVvtjAQjC59Eo5aU6GDtiGt6N7N9C7RaUeIm3fT7zZrLtJPdMOwPRe5ZjwRgYjKE1xE5vFW9y+4Vo9kGzz9J3tO+b+qRIJE0z1Nq72odRL/rYNPxmjvy4/kr/8DEuIr/UxUqLfDqhPPebthJYvczGDmzrJ/4gVrNnCavQt/lhMCaTfGmxWB960jwB+Q3odaOThdh1KJwS6nACEgIsncRmgczrk2jJrnbN1aChznN/ZZGLleDYJbUn7XskYpz69Wl9r1DNHGtcXKgs15yLvQLBghzwRtDM2T9an7MqK421+ho9IzZi+kwdHbTTKVis+vBqCNxEz9xbZHnX+c0hjFHm9+DOWy4tssYkj3IHkWyY5sse7h5dk1bGcPPJKD8Kn5Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(10070799003)(366016)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U21XUVlMa0VxNnFGSGxUdlY4cXlNUTlIT3NLMHJzMjBMd0NCRE96TUx4YjJs?=
+ =?utf-8?B?Z0lGODUzaFlJUWRHODV5cWxnYWtWSGtUYm9HRmswNDdvWExHYXVPUThqQWZT?=
+ =?utf-8?B?ODQzckJ6ME54Tmt2QTBQNHIrQnhlQ3ErMVZlUnZUekdyNEdjQXBrdTBKQUoy?=
+ =?utf-8?B?SUhEcTExVkp2dTA3YVUreGZmcllsZWJud0VWRmN2bGM0RUNEUUxYZGk1eFhj?=
+ =?utf-8?B?ZXFaUzNhMFZvcGlxK3BIT0JoQWsxZHlNcEpnMyt6QVRNVk9aaGx5UURJWGZN?=
+ =?utf-8?B?WGxINGZ2SWlvQ3ZXeFAweW9KYkx0ajNaaUk3Sm9nNHNhWGxESHBFY09hY3lU?=
+ =?utf-8?B?UDdEQ2Q1cjJITy9aeXE5eTVLc1E1VzFJYXN5OVBrSm9qZzEzRXhEMHFLYjRE?=
+ =?utf-8?B?ekJXSXdKbnU0RWM2T1lnZEViSVJTc0RqcUZkczN2QnBmUGx1K0puZmtQUmVt?=
+ =?utf-8?B?TXhqbWx0VmlXdkU1TEFlWnV1NWpXT29DdG5DQTA5cWo0bUVEeHR2VzRJUmtG?=
+ =?utf-8?B?aHRBQVhmbzFuSFFhWnRVZWx5S1lHWVNNYU5VU2V0R0V3bEJkZ093RkZ6NW9U?=
+ =?utf-8?B?TnF5azk5N09KREFmOW1vTVNqMUVXZmI2aFBEQWdhZk4ra3NGVmQyZGd0R040?=
+ =?utf-8?B?UHRzQk5od0NLQW92VFNoWE9oKzNGS3lJOXA5ajUwSjNJL093T3ovYjAzNjZi?=
+ =?utf-8?B?bnF3c0dManU1eVNodG1xMTc0VU4yalJ3YlJSSkpvblZQcTlCTWJ4TWJIWGNE?=
+ =?utf-8?B?b3p1ME8rZkJoMVB3ZlE0TEtGQjBQcFErQktuNjV3ZWxUQzRIbUdXVFBDQzdN?=
+ =?utf-8?B?V2FNOFE5Ukt5cmhZZUc0Y3hRWjJ6U0x0MXQ3TE52bGJuQUhyZGlUV0diN0dr?=
+ =?utf-8?B?R1N3RVlDSnB1QXlVWU04ekppY2ZTSGRkK0ZpM3BYYk9QdTdqb2lUYjZzampJ?=
+ =?utf-8?B?VlQ4RCtQV1E4R3pjVGw1RkRzR29MTy9ibmVyMlJKakpyWEdpQkxNb1Rrc04y?=
+ =?utf-8?B?YjlzQkFNdVBnRm5FUE4yczhSNGhJTUNucnk4RDZCZXJGY0tIbHZTc1NPWlNH?=
+ =?utf-8?B?UnJGa3o5NE9pWmhENW5hRlgvVVIwbURJY3haR3B2L1VUK3RneGVsRlkwcDdr?=
+ =?utf-8?B?Z015UTB6RzRMWWczTDVSSGhCT0twekl2TzgyL3d4T3dEVHI3dms2SGZHZEdL?=
+ =?utf-8?B?b2VCRnJyVE9uSTZDSDJNL0hNbzlkYW03MWt0bXdVcUl5K3NvdVlkNHJzQzhj?=
+ =?utf-8?B?TFovcVNjRGk4dDErZDNvZWlRbnlVMVdWaERGc1hjdW4rQXJMMmdVWmw0MXFT?=
+ =?utf-8?B?KyszbG9SQkdaYmJYQVNTTWhRQnNNQzhRM1pyT2FYSEx2dXVvajNTWFJVUVBX?=
+ =?utf-8?B?enNtQzh0MUhIVEZaK20zbGtzcWtTSFNyeFN2cXNEOFdqYTliUklPQmVZcklk?=
+ =?utf-8?B?aWpVNFJ2SGptZkNmdXBMcUlldWlhL0Jtc05sL2N3U2ZJYlhzbE9OTlVPRkNT?=
+ =?utf-8?B?c0lzZCs3d0xTSWRHRzRZSGtYN2ZQczAvWk9VcDBpcWVZSzZHcVhodG0rNElX?=
+ =?utf-8?B?VFB0aTZYZG0xRFVENEJwVGI1NmtyS3lQdVBtcXVtSVdSYzB1MStLWkVHYnQv?=
+ =?utf-8?B?SlZrWmhZNWE1bTZhUjZEd0NMeVc4NEF4cFBaRGpCU2o0cUFLQjZNLzlqb2VH?=
+ =?utf-8?B?dXlzWU5zamE4RUVmN2dBUlhteEFad1l0MW56clZKY09ZaWFXb3hEdUFFSFBh?=
+ =?utf-8?B?TUdhZnJ6S2F6MWVKbzlFYjhqaXg0T3pEOE9TL1hIMFduVnNkeG91TUlxZ1Fs?=
+ =?utf-8?B?dE9xSEJvVnRYMWZwSW9TUy9Ia2ZrWml3Y3Fva0JqcXl6YmZVNDNaWXZiTmJ5?=
+ =?utf-8?B?clZkOTZHemxhaE02TDNFVlBLVUNZeDlmdWpGUklxMytkd3pPNWkyNW5nQ1Fa?=
+ =?utf-8?B?VC9LZkhZM3FTaWJUTzJ2a2k4cjA1UW1xT1ZYU2dJdjFaS25Jb2duamhaZW83?=
+ =?utf-8?B?ajExSXo3aUxpQzl5NURDbXpBNldyMkJoZzhjRm1Ma3Z4WXh2d1pNZEF6Q1Bw?=
+ =?utf-8?B?N2FQSXlSQUltZldlVkZwNFdMakNBQ2s4b2RwK2diaXh1ZmJNU3hwRXhFZTZK?=
+ =?utf-8?B?bm5hTzRJOSs4YnJidk10UVNEdmN0c0cwdTdrejkxMDlOZHZjR3lKTWp0UXB0?=
+ =?utf-8?B?dWVGQTNPSC8zYU9MOHVhbEVQTkxuZzRhYWQzclJYT2tMaFpMSHZRMmFxaHVH?=
+ =?utf-8?B?MDVlOGkxSnlzMWRWRDFhREhKQ1VjQXgvV3VEYmVRTXpoaWplUHZwMjc2NFJw?=
+ =?utf-8?B?aDYrL0t1THJjRGdQNXM1WjhrekdNZEJiQU5RV2tqZGZLZWlleW9NV1hnSXRt?=
+ =?utf-8?Q?VMX0UgXlDo1JOjna458AEz4NTuGpAB5hRArG4MFoCsvDb?=
+X-MS-Exchange-AntiSpam-MessageData-1: XBCNv6lZPPxiSQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82f0b6dc-8e80-41dd-782e-08df07d36edd
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 02:47:59.0864 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9jX8H3N+Yklt+EEnoQf45jfQ+VXGwP2v+Sy6I7nUhsrP0OE2BXa4+MDM0ecX+kS1JmftWI6Q0KMKxTSwpeXi0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8971
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,102 +150,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 9/1/2026 7:50 AM, Vinay Belgaumkar wrote:
-> A kernel panic is observed when an application has a perf connection open
-> and the driver managing the pmu event unbinds. The issue occurs when
-> perf_pmu_unregister() is called while there is an active perf session. The
-> null pointer error is seen when the event is freed through __free_event()
-> and mediated_pmu_unaccount_event is called. There is a missing null check
-> inside is_include_guest_event(). Also call mediated_pmu_unaccount_event()
-> inside __pmu_detach_event() similar to __free_event().
+On Tue Sep 1, 2026 at 2:25 AM JST, Gary Guo wrote:
+> On Tue Aug 25, 2026 at 1:38 AM BST, Eliot Courtney wrote:
+>> On Mon Aug 24, 2026 at 10:07 PM JST, Gary Guo wrote:
+>>> On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+>>>> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>>>>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0<=
+'_>, command: M) -> Result
+>>>>>>>              dst.header.length(),
+>>>>>>>          );
+>>>>>>> =20
+>>>>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_wr=
+ite_ptr` write after data write.
+>>>>>>> +        dma_mb(Write);
+>>>>>>> +
+>>>>>>
+>>>>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>>>>>
+>>>>> I think it's more clear to consider `advance_cpu_write_ptr` to just b=
+e the
+>>>>> pointer increment, and the ordering should be visible in code that pe=
+rforms both
+>>>>> memory ops.
+>>>>
+>>>> In the second patch, it looks like you're adding the memory barrier
+>>>> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly =
+in
+>>>> the code advancing the pointer and one not, which seems asymmetric. I
+>>>> think it's less error prone to put the barrier in the function so it
+>>>> can't be misused (and we already have evidence the barriers are easy t=
+o
+>>>> get wrong, since this code was already broken).
+>>>
+>>> In the second one `message.header.length()` is read, so if I move the b=
+arrier to
+>>> before the advance it'll be incorrect.
+>>>
+>>> Best,
+>>> Gary
+>>
+>> Yerp I mean move the barrier into `advance_cpu_write_ptr` not move the
+>> barrier out of `advance_cpu_read_ptr` - I agree that'd be incorrect. On
+>> clearness, it feels very odd to me to have these two functions
+>> (advance_cpu_read_ptr, advance_cpu_write_ptr) where one controls the
+>> memory barrier and one doesn't, purely based off the structure of the
+>> callers. And I still think it's less error prone (for future changes) to
+>> do it this way too.
 >
-> Signature of the failure:
+> Frankly I don't like the asymmetry that the advancing code does the barri=
+er,
+> while the pointer reading code doesn't have the barrier. However, if we m=
+ove the
+> barrier to the pointer read function, then the `driver_write_area_size` w=
+ould
+> gain a unnecessary barrier. (Actually, `driver_read_area` code have a sim=
+ilar
+> issue, a failed pool would execute an unnecessary barrier).
 >
->  Oops: general protection fault, kernel NULL pointer dereference
->  ...
->  RIP: 0010:_free_event+0x3e/0x370
->  ...
->  Call Trace:
->  ...
->  perf_event_release_kernel+0x260/0x2d0
->  perf_release+0x12/0x20
+> As an alternative to move the barrier into the advancing code, alternativ=
+ely we
+> can pull the `message.header.length()` to a separate line instead.
 >
-> While here, also add a null check inside perf_event_read_local() which can
-> cause a similar crash. Sashiko pointed out a possible race between when we
-> check for revoked state here and then actually access event-pmu inside
-> __perf_event_read_cpu(). So, add another null check there.
+> I think we should either always have barrier inside the pointer read/upda=
+te
+> code, or always on the user side. Given the former would mean unnecessary
+> barriers, I am erring on the latter.
 >
-> v2: Add another check to prevent null access (sashiko)
-> v3: Use READ_ONCE for checking pmu state (sashiko)
-> v4: READ_ONCE for the pmu check as well (sashiko)
+> Best,
+> Gary
 
-Thanks for finding and reporting this issue.
+I see - so you're saying that one side of the maximally consistent
+position is to put the memory barriers in additionally `gsp_read_ptr`
+and `gsp_write_ptr`, but those don't always need a barrier e.g.
+driver_write_area_size because they are not necessarily followed by an
+access that needs ordering, and the alternative is to have callers of
+those functions handle that responsibility.
 
-Please rewrite the change log and explicitly show the call-chain and tell
-why NULL pointer is accessed.
+I think the differrence is that `advance_cpu_read_ptr` and
+`advance_cpu_write_ptr` definitely need barriers, so why push up that
+one level? Having barriers in `advance_cpu_read_ptr`,
+`advance_cpu_write_ptr`, `driver_read_area`, and `driver_write_area` is
+sufficiently consistent since it's the deepest set of functions that
+can't avoid memory barriers.
 
-e.g, pmu_detach_event() clears the event->pmu to null and then put_event()
-calls mediated_pmu_unaccount_event() and then trigger the NULL pointer access.
-
-
->
-> Fixes: eff95e170275 ("perf: Add APIs to create/release mediated guest vPMUs")
-> Cc: Alexander Kanevskiy <alexander.kanevskiy@intel.com>
-> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Assisted-by: Claude:Claude-Sonnet-5
-> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-> ---
->  kernel/events/core.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 94ca277e0819..4f8c5191ef2c 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -4794,6 +4794,9 @@ static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
->  	if ((unsigned)event_cpu >= nr_cpu_ids)
->  		return event_cpu;
->  
-> +	if (!READ_ONCE(event->pmu))
-> +		return -ENODEV;
-> +
->  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
->  		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
->  
-> @@ -4917,6 +4920,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
->  		goto out;
->  	}
->  
-> +	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
-> +		ret = -ENODEV;
-> +		goto out;
-> +	}
-> +
-
-The above two changes has nothing to do with the fix of null pointer
-access, better move them into a separate patch.
-Thanks.
-
-
->  	/*
->  	 * Get the event CPU numbers, and adjust them to local if the event is
->  	 * a per-package event that can be read locally
-> @@ -6350,6 +6358,9 @@ static DEFINE_MUTEX(perf_mediated_pmu_mutex);
->  /* !exclude_guest event of PMU with PERF_PMU_CAP_MEDIATED_VPMU */
->  static inline bool is_include_guest_event(struct perf_event *event)
->  {
-> +	if (!event->pmu)
-> +		return false;
-> +
->  	if ((event->pmu->capabilities & PERF_PMU_CAP_MEDIATED_VPMU) &&
->  	    !event->attr.exclude_guest)
->  		return true;
-> @@ -12977,6 +12988,7 @@ static void __pmu_detach_event(struct pmu *pmu, struct perf_event *event,
->  	exclusive_event_destroy(event);
->  	module_put(pmu->module);
->  
-> +	mediated_pmu_unaccount_event(event);
->  	event->pmu = NULL; /* force fault instead of UAF */
->  }
->  
+If we want to remove unnecessary memory barriers on polling
+`driver_read_area`, we could add an analogous `driver_read_area_size` or
+move the memory barrier for driver_read_area up one level. The poll is
+only once every millisecond though, so I doubt it makes a difference for
+performance. But if we were to change it imo `driver_read_area_size` is
+most consistent.
