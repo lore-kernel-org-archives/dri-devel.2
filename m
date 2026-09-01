@@ -4,53 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FB34C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E7DC624D4
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:05:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CBE410ED01;
-	Tue,  1 Sep 2026 14:04:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4150010ED07;
+	Tue,  1 Sep 2026 14:05:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Un8UzOe7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T86kfLFV";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12D9010ECEC;
- Tue,  1 Sep 2026 14:04:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04AA010ED04;
+ Tue,  1 Sep 2026 14:05:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C399F416C7;
- Tue,  1 Sep 2026 14:04:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD371F000E9;
- Tue,  1 Sep 2026 14:04:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D313C429F1;
+ Tue,  1 Sep 2026 14:05:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205211F000E9;
+ Tue,  1 Sep 2026 14:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788271492;
- bh=jPLfUhAriQbeMNme/A39zpXETQORrdj67BYHQz8lV2w=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Un8UzOe7yvDiZlaJZYrUAKFkDH0TegzfLYcYwy+uq6CIxgPM01vHXE/PBTJaAXpT+
- 8RD+s30Zgh3pa1hXsVaQ1qrZywD1ADplz+F5qoyL3AmIgUCjpgRaQoJ6H5Zo9/U8oA
- UatVwWKsocdWy/GE2xJ/pSlMMVpbC12NG/Y6dyfRtKvKASHCcP0nlcgNkdWWjUlDLK
- vWoFZc732Pz2vmoSXttFuMD93jSLT7QToAF3Kpd8tL4lKGThza1Z7hF/7/8am6ufN6
- BpjGPsn37pyqDkFAgL+6EqgW2FBfuytFEx70wR/cF3SPuiXzYolByTX7WNHJpXcLCw
- 8fhzaK4ghHrNA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Zhenhao Wan <whi4ed0g@gmail.com>
-Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- Balbir Singh <balbirs@nvidia.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated
- accounting for THP
-Date: Tue,  1 Sep 2026 16:04:42 +0200
-Message-ID: <20260901140442.4036-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
-References: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
-X-Patch-Reply: applied
+ s=k20260515; t=1788271553;
+ bh=CTknvhEq1CqIlSFU97KLOYi0xL7I+CIZYWA6D4VploE=;
+ h=Date:From:To:Cc:Subject;
+ b=T86kfLFVzv/LMWWvJyWc1WE530O9FuOpMjrIXl6neg9oGlgX6g0lBXtH6jKHetxL7
+ zXvZp7uUE10ERST0HjFvWmXTWxf5EYwpVvjZxAUWHabk3x5GZikzzE6ComuEtTIat+
+ QorA2IKJwFl5bcsTQNGU9bwUGevZwJIHgjsSJSlO/bJdMUtWAXMhbOUayTxHqkVvoG
+ E7V8HutMlCqbyjfTlskw7cFIS/hTD3RCdbeot7JrZ35mJnP+sIjHFHvNLhLEyuZk/6
+ yxS7TjTBic9T46r0ig+77ZrH4w88F9EUzb4NK6ngJAs0NFGY2ALUv5f+wbfxkpoCII
+ bNr348SUOvCTA==
+Date: Tue, 1 Sep 2026 15:05:49 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <apbbvQSfUbzYRFaw@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="HmtZ0rKD4icBIn+t"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,21 +61,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 11 Aug 2026 22:28:49 +0800, Zhenhao Wan wrote:
-> [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated accounting for THP
 
-Applied, thanks!
+--HmtZ0rKD4icBIn+t
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-  Branch: drm-misc-fixes
-  Tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git
+Hi all,
 
-[1/2] drm/nouveau/dmem: fix mismatched DMA unmap size for large folios
-      commit: caa1bc2a0a6c
-[2/2] drm/nouveau/dmem: fix callocated underflow on large folio split
-      commit: c2256c044a1d
+After merging the drm-misc tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
-The patches will appear in the next linux-next integration (typically within 24
-hours on weekdays).
+/tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
+  408 |         ad->card = card;
+      |         ~~  ^
 
-The patches are queued up for Linus's tree and should land in the next -rc
-release.
+Caused by commit
+
+   699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
+
+I have used the tree from next-20260831 instead.
+
+--HmtZ0rKD4icBIn+t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqW27wACgkQJNaLcl1U
+h9D+Twf+MFViDggeP6uPjB0hQptPtqvvGqn2LU6SMVynJ44NuwmfnkXxly8cPGWc
+PzUZjHAp4mtUm/Bab6JdESaYJfmu/ydlauAFJHQykUx+GPHut+wbUpm8ZHLCfetT
+m/nhGNCRglNttCg9B211khXpIlsJlmu94pY3c+dmTdIEfLXyQ8akTyPihRb9RCX2
+ghWqUzPGGNuP9nFotyOZ2MCpV/MLXe6+piMBh0FEmrP+WUCdm2YnNmNjfY6TDp3Y
+xQjU+pPPCtERj7lQcVZjzIDCbBMiW+zI3IRw/0Pn0+G2V/sX/dO5v+HZe6J5vlpq
+uYYWqplrMmNzVMj1mVCeoLDZTwLZ9Q==
+=2Ld1
+-----END PGP SIGNATURE-----
+
+--HmtZ0rKD4icBIn+t--
