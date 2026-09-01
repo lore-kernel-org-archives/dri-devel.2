@@ -4,44 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C0FC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:24:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A94AC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 040AB10EEBC;
-	Tue,  1 Sep 2026 19:24:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD74B10EEC0;
+	Tue,  1 Sep 2026 19:28:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Thzt06dF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R+AJT3oI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4BD10EEBC
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:24:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AFF7D6022E;
- Tue,  1 Sep 2026 19:24:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A85C1F000E9;
- Tue,  1 Sep 2026 19:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788290654;
- bh=9hMpj1OKrtSTuUZTfUdwPHCAxZhHfQ9utZRE/Uuptxk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Thzt06dFLI+/hEMAGVHhegHxaRBahEAgTQ4RdY/P1cXvhdpIZY+nPfMlKEC87+8G7
- ovJzaMGmbS3mMmToxXT5kkf2V/dCUrMAjcs8cGZ3850EkwBjzM2RAe8dfSV1y8DlbT
- mvHLbVIN8y0L9b2cC368wMtiljLXsVOZ8uB/pa3o5rCJkc7+6xEl2muPMWpdtLAWyX
- jWlTF1KJVTDNQkxJA3W/Co8+1iW2Ba+TIGW64f5S3iXpPKeQyG1VLlrIneIKk8GiUQ
- 2v8nQxqZFXsiBCWm6z3GhR3LJ4Jmfmg0iesG+s6xWggw8ge/fD635anrOKqw2sI3M8
- /s645AzbbQ2iQ==
-From: sashiko-bot@kernel.org
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7CC10EED4
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:28:08 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c252dcc5143so2193666b.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 12:28:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788290887; x=1788895687; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JTuffngLp6NHCRIvBVVHOhPBP9shIWiSyWJB5rJizD4=;
+ b=R+AJT3oIf/J5ukckqBa+3TENAp19PmDf6GgXfwC3z0+dYCYb0XVAhrkIWRte/9pq17
+ +Tcb1ZkWAmNM5RiAYkmpnXdTYspxakD0vGfwdbghOVjeegYFD5MhzDbsCjXSiKNV9+oL
+ yJ2lR63hSj17HMXD+IxJrFDuN0lIixlYsEgGhAmoKpTM4VfePqUQMQxDSVvNcsGnjXpK
+ pkxT8Xzey5VY82jAKFJoLFIHHaUUt2PBfuaa0lyy2PC34m18s9G+0zX+4T+E4quDUx5U
+ qLLtU6KHOSFi5jdbMUsVx/o/nqs2xXlup+wcvsPyjg5R3YCIqVAv3SLsAsQNdeLXfiIC
+ GAuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788290887; x=1788895687;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JTuffngLp6NHCRIvBVVHOhPBP9shIWiSyWJB5rJizD4=;
+ b=CNtkez/YECpJhMA2gxDLSBBYuaiObTtMBw8LdBHSXJ3rkPaVBMFLeLZhThzzA/VJ61
+ 3yu0fCxqptBolmMYF51XKmwQwRnFqtEfC/10TcAg0Pi/J/oGq1pJhFwSXhMk/CUURtfi
+ 0TH0R61L7tM/OH7XDPGS6C6BLKgQlu/65fF2xC7SR9xBB1GvFYgmYYUWYDZkPq9gVe0X
+ IeHcl2iv8jAv8+GJymMfdnUAl9VOn675G6dIA/f3MvV5FTKNaxc+/WnwgMn47h7BxM4N
+ lgLA9sEy3llNH3VSuMQ/vGhtUnR5k90gfnDhoq7B0YR4rVID3y92Uc1B44a1QscEFlqX
+ PAaQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpl5hY+rbRNsBhn/W2Zd/SZqiMGjc2KEbybfSIlO9/jou6mCTfkQSRnJEo3vHXRcVEH7lW0WGYCsq4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lzsYK5/ioqx+UI1Wf4IaRSNkBRFWZYD+KEWimXItaVejl3XAHy
+ XLoOm2v2mcjzbHKnqhHqqh5zimvstgy0Jk/dNn5vrnKG97WxnBfvP+mI
+X-Gm-Gg: AR+sD12f3g1JJ7DmDk6xOBk1wYDHErpFQH9z/Xgubu8toJwymTCcpnPNbCHWZbCb6YS
+ qku4To/eTUyNbyiVZ/EVoR9CJNpfMbmonyhPsD0VHl8VXfa7M3nfjb7JWK1hpPPdp5f8slHjy8G
+ gwql2O9oVHgt0niEn/Cj9pk1XEWod1CgOqdoBPwhzEFaMcA7ja38nr7r5bq/pP5n2P6RAcJgdkF
+ SDftG22T1huEUcbhrPsAJ2O5HcSj7g/RAkZ3XDrNJPx1hBcEJuN+gzx6GT1d7t16wgWzpOmIGCr
+ uU7OIvTeJmeze7P2Ov1ZpBmEgx1zwmWNXKIikNFlWpiob+1zinKQqmOaFF8rMa1/hmzXmWjRBd2
+ 24JlddAronX3hhN9mtZAO2KzPc7cpcSGq2YEKVjlrjXeue6FBe8NyjhFMbpZs8a+OtimT89wR+M
+ Lo7HJXk2aIS6IJzIxZ8BUR4Oi/wjUQ3c99xsYuUTEa4bbY+D7YM+BWLQumVbeUrxkanttvI4TDG
+ JcjkpYNvGfY4qQTA0wJdtyyo4Kg/DkhVhX2f67nXYBzsm7M
+X-Received: by 2002:a17:906:ef05:b0:c20:c5f4:e19f with SMTP id
+ a640c23a62f3a-c255746474cmr1136558866b.4.1788290886866; 
+ Tue, 01 Sep 2026 12:28:06 -0700 (PDT)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
+ [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c25d002e542sm15212566b.14.2026.09.01.12.28.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 12:28:06 -0700 (PDT)
+Message-ID: <9480a7c15ccc389120246a1403ea1860f5f05b56.camel@gmail.com>
 Subject: Re: [PATCH v1 1/3] drm: Add passive_vrr properties for
  passive/desktop VRR
-To: "Fangzhi Zuo" <jerry.zuo@amd.com>
-Cc: dri-devel@lists.freedesktop.org
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Fangzhi Zuo <jerry.zuo@amd.com>, adolfotregosa@gmail.com, 
+ harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Date: Tue, 01 Sep 2026 21:28:04 +0200
 In-Reply-To: <20260901191251.2653684-2-jerry.zuo@amd.com>
 References: <20260901191251.2653684-1-jerry.zuo@amd.com>
  <20260901191251.2653684-2-jerry.zuo@amd.com>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 19:24:13 +0000
-Message-Id: <20260901192414.3A85C1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.60.2 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,82 +92,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Contradictory kerneldoc for `passive_vrr_disabled` in `struct drm_c=
-rtc_state` and multiple spelling errors in comments.
---
+On Tue, 2026-09-01 at 15:12 -0400, Fangzhi Zuo wrote:
+> Add the PASSIVE_VRR_DISABLED atomic CRTC property
 
-commit 870f0fcb955a90bd32f228b223d6193abfa63290
-Author: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
-Subject: drm: Add passive_vrr properties for passive/desktop VRR
+Michel D=C3=A4nzer already commented on this:
+https://lore.kernel.org/amd-gfx/c6a852ae-4edf-4336-9f2a-448c296cc045@mailbo=
+x.org/
 
-This commit adds atomic CRTC and immutable connector properties to support
-passive VRR for desktop usage on HDMI sinks. This aims to avoid blanking or
-flickering on VRR entry and exit by keeping the sink in a variable-refresh
-state during fixed refresh use.
+"Having a negation term like "disabled" in the property name can be
+confusing (as it involves double negation when the property value is 0)
+and is better avoided."
 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 9d820a2a87ce4..c429105172b0d 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-[ ... ]
-> @@ -2386,6 +2396,17 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_propert=
-y);
->   *
->   *	The driver may place further restrictions within these minimum
->   *	and maximum bounds.
-> + *
-> + * "PASSIVE_VRR_DISABLED":
-> + *	Default &drm_crtc boolean property that notifies the driver that the
-> + *	VRR singalling should be disabled in fixed refresh rate scenarios.
-> + *	Functionally, psssive vrr works the same as VRR_ENABLED =3D=3D false
+To this day, I'm not sure how to better handle this, without the driver
+just forcing VRR on it's own. Consequently, this will enforce ALLM so
+probably there is a benefit to leaving this configurable and somehow
+default for HDMI.
 
-[Severity: Low]
-This isn't a bug, but there are a couple of spelling errors in the uAPI
-documentation here: "singalling" should be "signalling", and "psssive"
-should be "passive".
+IDK, smarter people can probably deal with this, just wanted to forward
+the comments I received previously.
 
-> + *	but works around displays blanking (mainly HDMI) that do not support
-> + *	seamless VRR transitions. Also helps with brightness flickering during
-> + *	VRR transitions.
-> + *
-> + *	Passive VRR mode is not that useful for DP/eDP sinks where seamless V=
-RR
-> + *	transitions are enforced by the standard.
->   */
-[ ... ]
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index c6dbe8b7db9ee..642a374f403e6 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -311,6 +311,15 @@ struct drm_crtc_state {
->  	 */
->  	bool vrr_enabled;
-> =20
-> +	/**
-> +	 * @passive_vrr_disabled:
-> +	 *
-> +	 * Indicates if variable refresh rate on desktop should be enabled for
-> +	 * the CRTC. Support for the requested state will depend on driver and
-> +	 * hardware capabiltiy - lacking support is not treated as failure.
-> +	 */
-> +	bool passive_vrr_disabled;
-> +
-
-[Severity: Low]
-This isn't a bug, but the documentation states this field "Indicates if
-variable refresh rate on desktop should be enabled", which contradicts the
-variable name passive_vrr_disabled. Should this description read "disabled"
-instead?
-
-Also, there is a spelling error in "capabiltiy" (capability).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901191251.2653=
-684-1-jerry.zuo@amd.com?part=3D1
+On windows, AMD driver just doesn't care and forces VRR signaling all
+the time, without a way to disable it.
