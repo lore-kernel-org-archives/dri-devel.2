@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A701CC624D5
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:50:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D02FC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14B3D10EDA2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E1D610EDB8;
 	Tue,  1 Sep 2026 16:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="k0pmHjfm";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="SOHoEwq8";
 	dkim-atps=neutral
 Received: from LO2P265CU024.outbound.protection.outlook.com
  (mail-uksouthazon11021123.outbound.protection.outlook.com [52.101.95.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86AA810E405
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:50:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6A310E405
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:50:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gt+nb1pa+gzs2k3vzbOIBuSO2dSGcpTpVzA09O7/cVsvMmwaQ8oY4MlYnHqnTU1BvDu4U3KtAEx5PIeZgRWBhAg3Whc/qEULcE2mtjl9qWfx3vwN0dXy7Vw8+U1u/vOT+cDT8BmEY6HnjGB150RsgSkBRkvYllANvU/PHXJ/4+WP+Z09c0FJ1oFA3kN/6GAmer2exQE/MNLToFDNxchCG8tAWfNiU1haGM3WBYroLErVFjBB5svXx/Sszggs9S0Vy+Iv3daL5Ew3rm6RoWNPnSqcPvHcSbmy+IlOkGzTb8+nJ7q7ZBj9ZVSVI4g1JoQky2qkROoJqcb3aXpP7UASfg==
+ b=CKIsAk9ZbaU/7G2lApYykoq+BCVINm1rMpOsI7ZJDusqWkVGUlmL/sLSpnlNOcTM6uPqH5IpX4OU9X1qKNL13se4CfLuNK8pe2o81gDJmo0rEuB537OL5Fa7bhYoQ0UxN4ln9OdAO/1KvIHPAOflEIE5sRL/MTCUYKIfuE/fmag1MENl76Z72gRoAi36VmaEp3cqxJYj8gxFiut97H206Kq4WISEnibbdMZS4GXDr3hvH/dAgSRFilkS4GFi5BzqVZTQdxy3C6RW8pQ7TCoSw9lYCY6lwk0e0Tlz3J6Yav77HYG898NdbDzRphowMQuYGOEcPqshGxSIpKNuv9WYzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c8POvxbCn0EDxKQV16ymx8mJMnN25n6i4oyPMxZhVbo=;
- b=l/UdC4YmurtQa50J1YzWlqgKPEnRPV3TqGPspK/xNwjK0EFMQkfuFhRGJMGlt2D8/SklxvV0W2sx+zDjuPvIjBDqn6wH+OCgDN80IliMopsaT/jY94EdRBtU3jZFM6JV7SkkAerhiaSMgsRvUBz77YbEsVVc186kJiFi+io44fk5OkyXQNTHPkh2pEkZ4BNl2RqZpPiweAncAAHfRaCaEnZQdlpl0GzvKRd6BFDgInzJPd23K9mBAgeLLPxQSC16bEmwbMsxNMRm5buvWCfi1icxex3puPjJyG6CFc+ME2uwMGdoDaNA72AfDSccaBUdlv+rUzFUvOX9h553HhTQSQ==
+ bh=/LIgUQ0Lq8xjNZ53P0UEI58qk7Zc3xSvgVWc9JA3104=;
+ b=rdRvGCagnZmzO82qSasZMQwn+pWawA1tLow81rAxzZDwHUk+UW2IGgqHII7pKKKZsPRfV7wi+Fj6Bpq4KZ5RqqgL6Z4IY4MoVC5rx+QrQbI9lOM31qKwo9auZbLAgLv/T0XCV2QeKNvOcdUjXXtFJUAeIBkVMMj5LwulZQHxGLL7y6jag3LI4hQYU4UFA+ll79+WRMVKBBDSdPPuRfvUjaKb0bt2vFZSApgSWNwqNy4eABCPNdMCUmlFwO4i2QsBoS/3eNIN0JWDHq8ytSM+WqVsiunsX9DISHnMyU1KWuLFTi0K4Pbw4b5CrzDeY47e3BacknXb0jAgv0Oc5xInKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c8POvxbCn0EDxKQV16ymx8mJMnN25n6i4oyPMxZhVbo=;
- b=k0pmHjfmxs0+fZXKnNdSnd4hgdm51TayHCfM8ivQ+T4DO/LL2smjNmXN03zhUxotMVTGNHdPzG75iSJ9Y8wSeAtCcSG0Svz+uKs2lkXlbU/7iWQh/y0u4M8XbWmfyTE1dZcEmraT7bbf9kskddtnHIyHZ77ucJfbpcB1/Pz0+2w=
+ bh=/LIgUQ0Lq8xjNZ53P0UEI58qk7Zc3xSvgVWc9JA3104=;
+ b=SOHoEwq8wTzcO0q+2kl61gVgKzaME7WAm0U0ocdel/CmP84P6Rol4h/4mEB7S7Qj42u8fnPCSfuZbrFT/gqcvjGInEpTgzytogz9CjspFR70CetKOVP+6GHocO0eQIyzdcfQAnmXG+hNsqP4fYWq42i2yRU48me1fhwajO7lTHg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by LO0P265MB7316.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ef::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 16:50:37 +0000
+ 2026 16:50:35 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 16:50:37 +0000
+ 16:50:35 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 01 Sep 2026 17:50:30 +0100
-Subject: [PATCH v4 06/16] rust: io: register: allow explicit base type
- specification
+Date: Tue, 01 Sep 2026 17:50:27 +0100
+Subject: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-typed_register-v4-6-5552b1d59525@garyguo.net>
+Message-Id: <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=9090;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=6839;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=xnfbjRqvJKgOcZ12SKC5n17bNMX2qwQHPgAuyVtchgA=;
- b=7gW4WluEWaD83+/nNVoqBjkftphtAebq/fQHGP1DyaBlOvTWdwqQ8mzxEBgqU/hFz/xw7VVIZ
- SO1g3LR0jBsDDUITDrQltbGGrWCLjXkIVshYbF2HdmeSpeXTmdvW3HZ
+ bh=aqM1m8hQVBQcfuLUtUp2YErCndlB9UHKXD3Qyyki3X0=;
+ b=enlmFjuj+HDXPvXRhhJv3ET7jkW9NEJzhAbRX6Kuy55iCm4ZJ6qZ+7W/khraQMtw/YboG3onn
+ dN22aHbn6dEBaecVUk3QbZ6s62Z+Vx8zuUTzZhWR1AqeLsmfTbKM7DV
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: PAZP264CA0173.FRAP264.PROD.OUTLOOK.COM
@@ -80,65 +79,65 @@ X-ClientProxiedBy: PAZP264CA0173.FRAP264.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB7316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 728ac541-dcd4-4fb9-1a7e-08df08492628
+X-MS-Office365-Filtering-Correlation-Id: f3b5ef96-960c-439d-df8f-08df08492495
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|3023799007|22082099003|56012099006|5023799004|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: YMg+HJ1J1pNFvqXzjcZUNDypAHwEmmcJEGwMB+Av6yskpX+KJ/LLghDL1BL8CNUHejk1IkvMFNis5Ny7hIaTlzJmBGP4qv8qOiVt65z9Et6ufIlCEtrflpd3OLdxSMjXB4dpAy3GTlbSOVlqvR4qPO9pk9CPSK2nzbOlTfsLo6tG7FIhpqjdH8FuOOpb02bJjVakO6e0wrUVh+LjtZMejpMbyH/an0e65Eur7zxESpbSg+uCVlqC7RotiPjQRR90A3ZDBS0bBvSl1OJun9Ub8RsbZsvGPkG33LhJO3ZWsLji2xw+QPu3CHXD2DPCmln+IhPkLElCKEyKFvm822RnYMMmehd+exn1iI+7pMtYU4ispM+83vXFCYU3tf2TqE4RzSCIwkztSe2ZmdLRpYgI5wz5JGBR1VLSEIxDvTH4+vwI5FkdrQIhSIES1v1WXVdlQVZKpcKTTriMulkENhKaSJkJnWcKf8BXOrvhBUsZ8M6FzI9DHgqgGVyc/Id0qH1wUtYhXYK4BTTYIoSNy5sROtsvTqflbLFH4zDHaIB7e0Ac31a54T7u75VVtScLrj4NvFj5r0CDL3kL8I6f6t3t3YQCJr19A12VdYaK3/vKNiLbegQ43ChuwW7/fz1W7CUnEDeUaUSHGWVMW0A4pvHKwWKiy8w/crFbJOBJxjz8C5fu97qEBacr9BDIRAe5Ztc0lV8tu3C61XJXDZOCJw2euA==
+ ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|6133799003|22082099003|56012099006|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: ApGvS0sXhGTZNZI29jPsMFXuEpurZ3CNR3qp8UHrTXYHyaIVArZ4Sg8tMqVL195V6WqsHrCkBvP9kH3R67T4ybjJsaWUVqbnsiJ85d81OZ04TFfMQFTl4GUbbaxpTrbNCA/6daDFmUpXdfGDKAeaTyfjGmVm9+EjvwYEoRt+aNpjPYMO7v5kstKUqMqD1d4GoQCciDH6Pr6Qwx5JWIvJElFyEvmp0Q14qnockQqreR2rjOCYA+uTSDAs6teTlT8qvZhqPw8QjwgQiOK5tXt/GjpiraiHdnfxVFD5udtgRZTjARg/arwliEDmgxYWcdnHn0gsDnGtlFFEmSOPVXp0C6W1FPE0ACf+6aflhyjxuirxvEr+OeZNeiQnCCL1VEWQWXo1AsKMj6fuIK9nd7WSxo9ClcRmn67BXocLY0OgsigIWTUxO7ZniSgEyVHtR6RZ16/o0PX4EyOiwe9OkAWibxrFMVL6BL6/uSG3XT++6gtLeQjQ9Ca67WrlpkV5NqfRMDDKwdNlmczLvCTu7vtEef6PPtIdsT7iskOcA7Wl9TiMQU39YFZnxx1PyYcIpvlCH0mA6maNHCaOEmkxUQUP3RdX3UFphfzjuRjWrGRargdyywJcZzwAdpHiuJK7NC6tqdn/QVlZ5ZnnGRgUnuniAx9Q31zrZJg8LqCm9hTAi0a6nRISsC3jUbU/8SKbWwHEnvpVBQ1Lj8fdWCanSrNOyw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(3023799007)(22082099003)(56012099006)(5023799004)(18002099003)(921020);
+ SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(6133799003)(22082099003)(56012099006)(18002099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmNnMDd0NXJ0VzVUVUZjdWRpbG5VUVhzc0JZS01COGVUaXNncW8rREZJK0hX?=
- =?utf-8?B?UENTZGMybnVqemIvZ0I0TXE2OXZ2ZWY0N0h3NWNURDhzRk1sQXVhWWJ5RjFZ?=
- =?utf-8?B?ZktoMFFrT2hrZFJIeHN6d0dPZTR1c3U1emJ1c2dualRRa21TVytkTHJKNFlv?=
- =?utf-8?B?WHprWFRIVTRBOURsRHVRMUVuOWZBNCs3UUhkWkJGNnhOcGVpa3lQanRScWNV?=
- =?utf-8?B?bW1Ja2ZYdXp0b2tkSGROU3Z2cG5acTRCZFhVUFY4eHRCdnFRSWZaSDNnUTk2?=
- =?utf-8?B?TmRuSG9TRGFpT0RoUE5IL21kN1QwZklYM3h5bnJyejBGMGlCRjB6YytNazg0?=
- =?utf-8?B?UFQ1ZVg3ZmVrb0FKRTAzRE9CUDNHdVpxOG5vOXVYckttMHlMZzVzU2svcUxu?=
- =?utf-8?B?Tk5TUXNIbVU4R2YxZFJnSVEzTWxJMjYrYnovMFROTlphSXh2eGoyNDRzd0N6?=
- =?utf-8?B?MXBRVnNnMHhMaDVEN3FkNkxtdTVxK1NrcUt1UExjeE9lQ3Z4Z2FobUFFM1Z3?=
- =?utf-8?B?alpEK2E2SENCSHI2aGV4MW9pUVd5WGRXcUdFc1NSQWthKzBkaWQwbUs4NkRI?=
- =?utf-8?B?TDBYQk8wWjBtS1pZTFFjU21jTC8ycW9sU0NCeFRBV1A1enJWbU16STg4SEZM?=
- =?utf-8?B?aitWRGdLa0VSM29ackpKUXlmamxzK1RjeXA0TlBkMGFPdTIvc1IrNk5kbXZZ?=
- =?utf-8?B?UnhrZi82SW4rN2hlREdOQ05YZ213QmxEWDkzanZuOFp6MlAxa1ZuRDRZT0hV?=
- =?utf-8?B?UHpQR0JuaEdxbkZmTGZZVDQ1MlhiM2k3QllsaUd2eE5zV1NiTXNpZ0dqNHJo?=
- =?utf-8?B?cUNtSVhEVXZGcS83RkwzaUppRGN6YmthLzRXaHF0bU9kbUU5akZ0NkJ5QTVn?=
- =?utf-8?B?RmVaVUNRRWQwOGV0U0VLNHBmeHY5angwSGU1R1lPRFpzS2N3SHBZNFhBY1or?=
- =?utf-8?B?RFRlaTJnSWovWFA1NEJ4RmxLeVdTQlFkTG1EWi8rZGZ2eTBleS94QndXTkFP?=
- =?utf-8?B?T0xOK1lsVFhBQUVKS1ViVElRS0FaT3lxQU5Xb1JadjdUN3VSaU95SzdhVzlv?=
- =?utf-8?B?dmlleVA5S2JuVzRhK0tLUElId0hyL1hvdTI1bnJPTitSU0puZ1dxcDF5NCtw?=
- =?utf-8?B?UFh4TVRDbVRaaElJaHd2WFFlUjdwdW05NW55cmhScUZNOU1VNXQ5dTNJMktV?=
- =?utf-8?B?akdGTjdqQjRueWFIRlkrTTU0dGR2SnhMNkR5dm9BUnFOSnY3aExtcXlNS0Iv?=
- =?utf-8?B?SFdkS0JjU1J5Q1pyeG90RzNRK2ZvMzB5bWZvd2Y5c0xFRUdSMXRZRG1yYzJq?=
- =?utf-8?B?ZGMvNlBrdDFEbmg2RzVLY044NTl0UUdnRkhzeVo3QzVLRmNkOTREMUM1RWtQ?=
- =?utf-8?B?eUt6RWpPbHduVXlxdWZsdGlhb2xCcUw4b21zK2UxWGpwbGx0R0dmTVdVVlhC?=
- =?utf-8?B?T3VyYzkwNUxkVTBKWnFrU0I3VSszUEp0UkZMS3E1UFUyUUt5Yjlob0t5WC82?=
- =?utf-8?B?WXZTcEZYVldrWTkwaG1UeDhVRWJMc1RoOXpPUk9zT253djBDN3ZrOUtDK3BB?=
- =?utf-8?B?QkEraktmdDU0bkdwdmxNTGh1cU5URUNkelFucXdXaXRHanR4L0NxVkRndGJ5?=
- =?utf-8?B?UGMraFBmbUd6MlVldEZoMVFIRk1lTlZDeFhoYjZ5bTViaXQ5VW54b3hGd1Za?=
- =?utf-8?B?dGtvamxuQXVKdmxHbTlLb2d0eWIyeTB1a1IwNEpiK0dCKzg2UlZTaG42ellR?=
- =?utf-8?B?WUtvYXFPVjI1a1JHUHBVWVphbmxEVHNwZGNWWUFGNmx1YnJkNEtCSmkwdlRU?=
- =?utf-8?B?WEJ6RmE5NWxBU1ZsWGpxam1kY2o2djdNcTY0UEI5Sjc0dFBvMkt1RXp2K2xD?=
- =?utf-8?B?QXo2VFRQL0xHZ2NrUis2MXIwVVpNb3cxcVNrNlZXczRjSk9JS0ZqTEFQMm44?=
- =?utf-8?B?OUtGK24zRWl5UmhGZFpoWXZYejA1YnFyOUV3Z3Jmd1Z5Z0hJRHQ4TjhTQjIr?=
- =?utf-8?B?Sy9wUVgzdldoWldsM2l2RnpjMndvaTJ5WnFSSnNKQkZKbjlQUWVRVzgwKytX?=
- =?utf-8?B?WWJmREZPc0xaTjdUdnM1NlhrdG1YZXpLK3U2Wi9KNkFpTnBaS1NSc1ZlWGYr?=
- =?utf-8?B?Y0JtaTdGc0M1cjNXdDYzcWMzRGdQR0VtYVU4TEZoTSt5S1YvWjRnNllWWWRR?=
- =?utf-8?B?a0hXdGN2dGZNSlE2NFBINlJyTTJ3cmo1K08wcHlxNjM3YmgrYnZHTE84V3VU?=
- =?utf-8?B?N0lmWTlTdkZsNm5QOWo5d2xURnJIdlBTV2tyWHdJOVgvNVVpb092YWJBNGJw?=
- =?utf-8?B?S0dzUzIwUEszNGFJV3BYcUpUa1YxVGc5YzRwQmFPdmdhNG1xK2tmdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a290RmdYSTNISnRGMmpITTcwNysveFM2TVNnUHRkR1RyNlNnclkvVHNidGh0?=
+ =?utf-8?B?aFovMW5FaU4xVDllYjZ1Q2ExUVg1WGdVVldRZkduTlVHWkEvajBPRFdMTkIr?=
+ =?utf-8?B?cUJtRnVxOWVLcnlJYkE5QStYaXpmOW1oTnpxSVFRSnoxOFpPQlE5L2NhS01X?=
+ =?utf-8?B?ZjVQSTJGVzFQRkxtUi8yYnRwMWI4UG9GcDhQWjhtWnZWcTV0dEFZcG5TRExn?=
+ =?utf-8?B?WDNIVDNDU2dkWTZUL3VkVFFtZFg3cHR0OVV0NC94TW5ZRmJ5SjJ5OVJ5VDRW?=
+ =?utf-8?B?dUZHVkI4dnU5YlQ3czdmM2tpU2xXaEIxdlVuNXM2djlmcXk5ZnhWL2xGTHln?=
+ =?utf-8?B?L1hVaFZVWm5rTURjWVA2aS8rUlFSY2F0bEZNcnhuRzZod3l2ODV1a3pHdFE3?=
+ =?utf-8?B?Y1hOWStPYXErVW1tWUd5QTQ4K1dCNmJwZlU0UGlqczhNd0I4b3l1WUdtc1g3?=
+ =?utf-8?B?eWo5WU9zQ0ZrN095a2laY2lvQzU3VldEcDFqeWxkOE9xclllc2hnd21wMG0y?=
+ =?utf-8?B?KzFkamFXLzliQUdzVmJKNjFsREYwdzRnck5ibXhqOFhMMXNWZVpQejBCazdX?=
+ =?utf-8?B?b2U0M1M5WDJiUW5MTlpXRC9PR1dUS3pSQVdIWkJYYmlPY0wxNWgzWVpUdkVm?=
+ =?utf-8?B?SW12SDNnUVV4OUNUSVhKNEtNTFgwVnI5ckF4aW51WmduYWJDam90eFJWV2dy?=
+ =?utf-8?B?VllrUHBQL1dXRHRTZit2RUFiSnBIYWUxcGxOdUQ1TVNDZytuK2p6MUNUYzRw?=
+ =?utf-8?B?WkowbnFFeGJ1STdNMmtSRE55UkNST2FwU2orN3lKTEhzVmRyc1NiVFkrdWhK?=
+ =?utf-8?B?bTNONGxSV0xaR0lVSGJzSkwrTVZFVVo0aGRGNHR4NTN3NG1jT0ErVmwwaW9N?=
+ =?utf-8?B?UVRLSjB4bG12ZC9GT25YR3h4cUJyaCtTT0YwbEU1cnJQbnlaWGxURFdNOXY1?=
+ =?utf-8?B?SWVieWc1V2dDRDAvcWdxN0VoMmJUNlM5Y3BtSWViWVZMUms5eFVsMlA3RnE3?=
+ =?utf-8?B?MEprRzcrOGM0QkYvcHY1V2h4d1hGVThGTmdVUVVVK1NrazlrK3d5dUU2V1lV?=
+ =?utf-8?B?ZmN5NzlkSzkwYUNBT2p4dmZaMDcyWkdzZW5lWmtWN2V5Z2cvTXJQYzIzWmhS?=
+ =?utf-8?B?MnA3SzMvL0l1ODl0RDZBTjJvMElxUU8xZE5HMGFzZ2RLQkhLNjZEbWRZUnhD?=
+ =?utf-8?B?bEUrYnB2K0dOVEhzYWxDV0RuMnFHaStUekNWMWdoSHVnbDRxWHp1N1VSUTVp?=
+ =?utf-8?B?dFY4WDZaeFJUdm5OZU1nekdnUUlwdjlhL1lVMEpCanlTQ2xZbmtYbnQ1Nmpk?=
+ =?utf-8?B?NEFQamZBRnBjMHRwTDgvNTdLOFZnd05zRzhWMEdRTWJxVXkrNktLNXhRd1Er?=
+ =?utf-8?B?bnNxLzhwd01RZWxJNklHVkc2N1ZCb2VsdjU0Si9WVjRxeFFpdHQrQk95VE8x?=
+ =?utf-8?B?RmRxaXpiUXpCTjJDUmh3dTdNVml5M3J6dm1Ma0lXTUNqUS9JRS92YXdiK0pl?=
+ =?utf-8?B?c0dUbzlKZ0NnclkzdjVoa0VCNkhHZkFjNjhwcW5tVzNmKzUyMzJ3TVdvYkVp?=
+ =?utf-8?B?Z0Z5cnRpWngzeFhBaUhHZm1ZZ1pWanZRa2p2WC9NSjJlSEVBU25Tc1VHaHhk?=
+ =?utf-8?B?ckZreTNjS2YwNlJIV3hFdmI0eEN6OU1oSms3RTV6OVRsVG5zUGZ3MVJ6aWJP?=
+ =?utf-8?B?djNBT05IUmQ3MWg3dGxrMy9JMUk5OVl2NXoxYVJNQWpXakl0Njhoc3NIM1NP?=
+ =?utf-8?B?UHgzRDFVRW5XNXlWWmpVenlyL1VpMlFwTmtFbEFpY1VMc2JVSVZjUGVZdmdF?=
+ =?utf-8?B?dzNJb3BTZ1VMM2lNZEZGelkwTko5bEJkOHIzL1ArWEJVMlVsM2FaQms5aFZy?=
+ =?utf-8?B?OE1oam94Wi9PWnh2N3FyMGhNek5VeWttWjRRaEhWczBIamtMaGJvaHUvOTJt?=
+ =?utf-8?B?dGo4enlzSHNMVWZqTEVsNVFjK0lqdlQzbnhYWTF4bHNNMWRHK0tTQi9YbTJ4?=
+ =?utf-8?B?dy83OC96N1ltZHRnU2tkN0FQMGF0K1pyc3huZXhNamxVaFErNWRFUzZFUzZM?=
+ =?utf-8?B?dUFIOUZQamxnbHNFWEJQYlQ2c000c1lTdHhHZHlZa2ZidzdxaCs1YlMxSGFr?=
+ =?utf-8?B?Y3MxY2lNSFhNUUZqK0t2OEJwR2dLRVkwdHNtVkR1b1JnUDdDK2hHb0gyaWdI?=
+ =?utf-8?B?UEdwTEp1R3lzM2RmbWpDUWhFVXhtZmR6Yno4TWE5OGFFc0FORlE3MFNkWEpJ?=
+ =?utf-8?B?QjhYSkpHM3FIdTlKVmc4OThBQzFhRlg5YjFOYnNkdkdkV3kyVEVpMnBsNERH?=
+ =?utf-8?B?SUVZL1ArY0VITFpLYU5HZWdPSHl3enNTYzI2dkVRSHZWV3Z5bWVMZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 728ac541-dcd4-4fb9-1a7e-08df08492628
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3b5ef96-960c-439d-df8f-08df08492495
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:37.6336 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:34.9904 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZVRXViJcsS48dGjKUi+vZIqK8rAAmzUkHAxYzJvdQVaFjYGqEduQhRKckcJ5Ttc7lB19KCKvrWdd9pUE3RtxmA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: LbR3wIuREzRA1bxNhtdNCuSc+pw981etpsR8CeUmlaOSVyzqBRLbApVngmem/uPWISMYle0oU3lq4n0zEJZ6yA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB7316
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,297 +154,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently registers work for all untyped I/O regions, which is not ideal.
-It allows registers defined for device A to work for another device B and
-there is no safeguarding at all.
+Some API like atomics and I/O operate on primitives only; therefore other
+types would need to converted to these primitive first. Add two traits
+`AsRepr` and `AsReprMut` to indicate that the type can be turned into a
+primitive for these operations.
 
-All users of the `register!` macro know what type it will be operating on,
-and that type is consistent across the driver. Therefore, add a `base`
-parameter to `register!`.
+`T: AsRepr` means that `&T` can be viewed as `&T::Repr` and thus it needs
+to support transmutability in one direction. `T: AsReprMut` means that
+`&mut T` can be viewed as `&mut T::Repr` and thus it needs to support
+bi-directional transmutability.
 
-Currently this parameter is unused in the generated code; it will be used
-when all users of `register!` is converted to gain the parameter.
+To avoid duplicating implementations, all repr types are normalized to
+unsigned integers.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
 Changes since v3:
-- Add a dummy user of `base` to prevent warning on user side (this is
-  present in v2 but I forgot to add it in v3's proc macro rewrite).
----
- rust/kernel/io.rs          |  4 ++++
- rust/kernel/io/register.rs | 51 +++++++++++++++++++++++++++++++++++++++-------
- rust/macros/io/register.rs | 23 ++++++++++++++++++++-
- 3 files changed, 70 insertions(+), 8 deletions(-)
+- Added `as_repr` and `as_repr_mut` so the name makes sense (Alex).
+  I did not add `Copy` bound because it is not necessary (adding it won't
+  simplify the implementation without also requring `Self: Copy`, which I
+  don't want to add).
 
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index 8df268969566..05c7fa12fdbe 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -909,6 +909,8 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
-     /// };
-     ///
-     /// register! {
-+    ///     base: Region;
-+    ///
-     ///     VERSION(u32) @ 0x100 {
-     ///         15:8 major;
-     ///         7:0  minor;
-@@ -1051,6 +1053,8 @@ fn write<T, L>(self, location: L, value: T)
-     /// };
-     ///
-     /// register! {
-+    ///     base: Region<0x1000>;
-+    ///
-     ///     VERSION(u32) @ 0x100 {
-     ///         15:8 major;
-     ///         7:0  minor;
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 45d2e73a92e7..49a5fe069e47 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -13,9 +13,14 @@
- //! # Simple example
- //!
- //! ```no_run
--//! use kernel::io::register;
-+//! use kernel::io::{
-+//!     register,
-+//!     Region,
-+//! };
- //!
- //! register! {
-+//!     base: Region<0x1000>;
-+//!
- //!     /// Basic information about the chip.
- //!     pub BOOT_0(u32) @ 0x00000100 {
- //!         /// Vendor ID.
-@@ -55,11 +60,14 @@
- //!         register,
- //!         Io,
- //!         IoLoc,
-+//!         Region,
- //!     },
- //!     num::Bounded,
- //! };
--//! # use kernel::io::{Mmio, Region};
-+//! # use kernel::io::Mmio;
- //! # register! {
-+//! #     base: Region<0x1000>;
-+//! #
- //! #     pub BOOT_0(u32) @ 0x00000100 {
- //! #         15:8 vendor_id;
- //! #         7:4 major_revision;
-@@ -429,11 +437,14 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     io::{
- ///         register,
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- ///
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     FIXED_REG(u32) @ 0x100 {
- ///         15:8 high_byte;
- ///         7:0  low_byte;
-@@ -464,9 +475,14 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// the context:
- ///
- /// ```no_run
--/// use kernel::io::register;
-+/// use kernel::io::{
-+///     register,
-+///     Region,
-+/// };
- ///
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch register.
- ///     pub SCRATCH(u32) @ 0x00000200 {
- ///         31:0 value;
-@@ -516,6 +532,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// ```ignore
- /// register! {
-+///     ...
- ///     pub RELATIVE_REG(u32) @ Base + 0x80 {
- ///         ...
- ///     }
-@@ -542,9 +559,10 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///             WithBase,
- ///         },
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- ///
- /// // Type used to identify the base.
- /// pub struct CpuCtlBase;
-@@ -563,6 +581,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // This makes `CPU_CTL` accessible from all implementors of `RegisterBase<CpuCtlBase>`.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// CPU core control.
- ///     pub CPU_CTL(u32) @ CpuCtlBase + 0x10 {
- ///         0:0 start;
-@@ -579,6 +599,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // Aliases can also be defined for relative register.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Alias to CPU core control.
- ///     pub CPU_CTL_ALIAS(u32) => CpuCtlBase + CPU_CTL {
- ///         /// Start the aliased CPU core.
-@@ -621,15 +643,18 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///         register,
- ///         register::Array,
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- /// # fn get_scratch_idx() -> usize {
- /// #   0x15
- /// # }
- ///
- /// // Array of 64 consecutive registers with the same layout starting at offset `0x80`.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch registers.
- ///     pub SCRATCH(u32)[64] @ 0x00000080 {
- ///         31:0 value;
-@@ -655,6 +680,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// // Alias to a specific register in an array.
- /// // Here `SCRATCH[8]` is used to convey the firmware exit code.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Firmware exit status code.
- ///     pub FIRMWARE_STATUS(u32) => SCRATCH[8] {
- ///         7:0 status;
-@@ -667,6 +694,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// // Here, each of the 16 registers of the array is separated by 8 bytes, meaning that the
- /// // registers of the two declarations below are interleaved.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch registers bank 0.
- ///     pub SCRATCH_INTERLEAVED_0(u32)[16, stride = 8] @ 0x000000c0 {
- ///         31:0 value;
-@@ -688,6 +717,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// ```ignore
- /// register! {
-+///     ...
- ///     pub RELATIVE_REGISTER_ARRAY(u8)[10, stride = 4] @ Base + 0x100 {
- ///         ...
- ///     }
-@@ -707,9 +737,10 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///             WithBase,
- ///         },
- ///         Io,
-+///         Region,
- ///     },
- /// };
--/// # use kernel::io::{Mmio, Region};
-+/// # use kernel::io::Mmio;
- /// # fn get_scratch_idx() -> usize {
- /// #   0x15
- /// # }
-@@ -731,6 +762,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // 64 per-cpu scratch registers, arranged as a contiguous array.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Per-CPU scratch registers.
- ///     pub CPU_SCRATCH(u32)[64] @ CpuCtlBase + 0x00000080 {
- ///         31:0 value;
-@@ -758,6 +791,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///
- /// // Alias to `SCRATCH[8]` used to convey the firmware exit code.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Per-CPU firmware exit status code.
- ///     pub CPU_FIRMWARE_STATUS(u32) => CpuCtlBase + CPU_SCRATCH[8] {
- ///         7:0 status;
-@@ -768,6 +803,8 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// // Here, each of the 16 registers of the array is separated by 8 bytes, meaning that the
- /// // registers of the two declarations below are interleaved.
- /// register! {
-+///     base: Region<0x1000>;
-+///
- ///     /// Scratch registers bank 0.
- ///     pub CPU_SCRATCH_INTERLEAVED_0(u32)[16, stride = 8] @ CpuCtlBase + 0x00000d00 {
- ///         31:0 value;
-diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-index 9b92c8099edd..851335792a46 100644
---- a/rust/macros/io/register.rs
-+++ b/rust/macros/io/register.rs
-@@ -29,6 +29,7 @@
- };
- 
- mod kw {
-+    syn::custom_keyword!(base);
-     syn::custom_keyword!(stride);
+- Dropped round-trip transmutability as a concept, as it can be proved
+  correct because `from_repr_unchecked(into_repr(v))` is basically just
+  `move v`.
+
+  Even for the `AtomicType`'s use case where copies are made, it can still
+  be proven by observing that `from_repr_unchecked(copy into_repr(v))` is
+  not distinguishable from `from_repr_unchecked(into_repr(copy v))`.
+---
+ rust/kernel/mem.rs | 132 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 132 insertions(+)
+
+diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
+index 958e43bbcc3a..0bfd6929ae45 100644
+--- a/rust/kernel/mem.rs
++++ b/rust/kernel/mem.rs
+@@ -97,3 +97,135 @@ pub const fn safe_transmute<Src: IntoBytes, Dst: FromBytes>(val: Src) -> Dst {
+     // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds.
+     unsafe { transmute(val) }
  }
- 
-@@ -152,22 +153,42 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
- }
- 
- pub(crate) struct RegDef {
-+    #[allow(unused)]
-+    base: Option<Type>,
-     regs: Vec<Reg>,
- }
- 
- impl Parse for RegDef {
-     fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
-+        let base = if input.peek(kw::base) {
-+            let _: kw::base = input.parse()?;
-+            let _: Token![:] = input.parse()?;
-+            let base = input.parse()?;
-+            let _: Token![;] = input.parse()?;
-+            Some(base)
-+        } else {
-+            None
-+        };
-         let mut regs = Vec::new();
-         while !input.is_empty() {
-             regs.push(input.parse()?);
-         }
--        Ok(RegDef { regs })
-+        Ok(RegDef { base, regs })
-     }
- }
- 
- pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-     let mut outputs = TokenStream::new();
- 
-+    if let Some(base) = &def.base {
-+        outputs.extend(quote_spanned!(base.span() =>
-+            const _: () = {
-+                #[allow(unused)]
-+                type Base = #base;
-+            };
-+        ));
++
++/// Type that is layout-compatible with a primitive representation.
++///
++/// # Safety
++///
++/// - `Self` must have the same size and alignment as [`Self::Repr`].
++/// - `Self` can be [transmutable] to [`Self::Repr`].
++/// - Neither `Self` nor [`Self::Repr`] contains interior mutability.
++///
++/// The above basically says that `&Self` can be transmuted to `&Self::Repr`.
++///
++/// [transmutable]: core::mem::transmute
++pub unsafe trait AsRepr: Sized {
++    /// Primitive representation of this type.
++    type Repr;
++
++    /// Convert from `&Self` to [`&Self::Repr`](AsRepr::Repr).
++    #[inline(always)]
++    fn as_repr(this: &Self) -> &Self::Repr {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { core::mem::transmute(this) }
 +    }
 +
-     for reg in def.regs {
-         let Reg {
-             attrs,
++    /// Convert from `Self` to [`Self::Repr`].
++    #[inline(always)]
++    fn into_repr(this: Self) -> Self::Repr {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { transmute(this) }
++    }
++
++    /// Convert from [`Self::Repr`] to `Self`.
++    ///
++    /// # Safety
++    ///
++    /// `repr` must be a valid bit pattern of `Self` and satisfy type-specific invariants of it.
++    ///
++    /// Alternatively, if `repr` is previously obtained using [`Self::into_repr`], and each
++    /// `from_repr_unchecked` should corresponds to a unique `into_repr` call, then it is safe to
++    /// call as well (this means that we're undoing a `into_repr` call getting the exact bytes
++    /// back).
++    ///
++    /// This method makes no guarantee if a `into_repr` corresponds to multiple
++    /// `from_repr_unchecked` (i.e. copies are made), to allow for cases where `Repr` is a pointer
++    /// and the user of the API wants ownership transfer. Users that want the ability to call
++    /// `from_repr_unchecked` after copying can require `Copy` bound explicitly.
++    #[inline(always)]
++    unsafe fn from_repr_unchecked(repr: Self::Repr) -> Self {
++        // SAFETY: Per safety requirement, `repr` is valid repr of `Self`, or it is previously from
++        // `into_repr`, in which case we're undoing the transmute so it is also safe.
++        unsafe { transmute(repr) }
++    }
++}
++
++/// Type that is bi-directionally transmutable with a primitive representation.
++///
++/// # Safety
++///
++/// - [`Self`] must be [transmutable] from [`Self::Repr`].
++///
++/// [transmutable]: core::mem::transmute
++/// [`Self::Repr`]: AsRepr::Repr
++pub unsafe trait AsReprMut: AsRepr {
++    /// Convert from `&mut Self` to [`&mut Self::Repr`](AsRepr::Repr).
++    #[inline(always)]
++    fn as_repr_mut(this: &mut Self) -> &mut Self::Repr {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { core::mem::transmute(this) }
++    }
++
++    /// Convert from [`Self::Repr`](AsRepr::Repr) to `Self`.
++    #[inline(always)]
++    fn from_repr(repr: Self::Repr) -> Self {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { transmute(repr) }
++    }
++}
++
++// SAFETY: `bool` has the same size and alignment as `u8`, and Rust guarantees that `bool` has
++// only two valid bit patterns: 0 (false) and 1 (true). Thus `bool` can be transmuted to `u8`.
++// Neither types contain interior mutability.
++unsafe impl AsRepr for bool {
++    type Repr = u8;
++}
++
++// SAFETY: `*mut T` has the same size and alignment with `*const c_void`, and thus `*mut T` is
++// transmutable to `*const c_void`. Neither types contain interior mutability.
++unsafe impl<T> AsRepr for *mut T {
++    type Repr = *const c_void;
++}
++
++// SAFETY: `*mut T` is transmutable from `*const c_void`.
++unsafe impl<T> AsReprMut for *mut T {}
++
++// SAFETY: `*const T` has the same size and alignment with `*const c_void`, and is transmutable to
++// `*const c_void`. Neither types contain interior mutability.
++unsafe impl<T> AsRepr for *const T {
++    type Repr = *const c_void;
++}
++
++// SAFETY: `*const T` is transmutable from `*const c_void`.
++unsafe impl<T> AsReprMut for *const T {}
++
++macro_rules! int_impl {
++    ($($unsigned:ident $signed:ident ,)*) => {$(
++        // SAFETY: $unsigned has the same size and alignment with itself, and is transmutable to
++        // itself. It does not contain interior mutability.
++        unsafe impl AsRepr for $unsigned {
++            type Repr = $unsigned;
++        }
++
++        // SAFETY: $unsigned is transmutable from itself.
++        unsafe impl AsReprMut for $unsigned {}
++
++        // SAFETY: $signed has the same size and alignment with $unsigned, and is transmutable to it
++        // Neither types contain interior mutability.
++        unsafe impl AsRepr for $signed {
++            type Repr = $unsigned;
++        }
++
++        // SAFETY: $signed is transmutable from $unsigned.
++        unsafe impl AsReprMut for $signed {}
++    )*};
++}
++
++int_impl! {
++    u8 i8,
++    u16 i16,
++    u32 i32,
++    u64 i64,
++    // `usize` is not normalized to particular integer for portability.
++    usize isize,
++}
 
 -- 
 2.54.0
