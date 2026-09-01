@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D052C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 466D4C624D0
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DEF610EE74;
-	Tue,  1 Sep 2026 18:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD2E910EE75;
+	Tue,  1 Sep 2026 18:51:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="P4QPhmQU";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bvEMwm0R";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB52010EE63
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4259A10EE63
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288674;
- bh=Ib0VXkvxZ021Tl3KbWX279RZDAC5hW7lLH2AzR9DLTs=;
+ s=mail; t=1788288678;
+ bh=0cXQh/wi9mNTTITbxgaDB3yHqtiGn5+Qa+cNMfRk9UA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=P4QPhmQUZWxgCCRFZOeWbJMjk7CAPeFPQXo6QaVcrMLoxO3g3sOKo3kKMvhrA3P2r
- m9qIdkv+iZ0qtP8hHD5JtRG+fnSKZINZZP9MTaIZiuA7WS3LOnRQYX8mMD4tHE9KnM
- 3MQPLWFakDjq763WeQXTaZ3VEwoD1zM8rpkIDQK8YBNBbv/QCQhu1IllPtT+cTpbFR
- 8wwmz0za37N1Ezrl2PPIpvpE2xgixgDPfql03ghpXLe/SioaVg6Gt/6kHYFnP5az1s
- hpCWgvXMsKSyXtKxEL8MXG18xAKD+4nUqueiffZ3K3iA/W2U5EmW9NrZvJ08799nKZ
- N9gkqzbm7vMAg==
+ b=bvEMwm0R4HTcJXN0fRwhoeQ9+XkgI9mIBkkLPPDDjMXynwv5r35tGSGkWAmlC+G/1
+ V6g3L3B+papJwVafaVwroEXhSTBFdwFcnifiJ18PYA6/hM/KGnTia5/0HLfEbGB9Ax
+ Xl4DiaBBx2xYUz7CbxmgFieMDUfzAwKUJCDOTngb3TZWXhV8KHF3HKAIpHkERR0Pv2
+ Umc041NnF3oo5NxRj6oi1gO50G/o2hDTpEllAFChOJFURqtBe34kvlhgJ9X1A+T+KO
+ 601K+f1xVcHkI0lThJ+w+TdYSkRuAPrKZcuMEZcdo243ZODSycaVCBa8M/CjKoWv/I
+ iY4d9aJrag7Jg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4BBD517E3C67;
- Tue, 01 Sep 2026 20:51:14 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D8BA717E3C71;
+ Tue, 01 Sep 2026 20:51:17 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:09 +0300
-Subject: [PATCH v11 45/74] drm/vc4: hdmi: Propagate -EDEADLK to the top level
+Date: Tue, 01 Sep 2026 21:51:14 +0300
+Subject: [PATCH v11 50/74] drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-50-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -81,75 +81,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_connector_helper_funcs.detect_ctx() is expected to propagate
--EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
-perform the required backoff and retry.
+Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+supported HDMI version.  This is not yet enforced, but will become
+mandatory once the migration to the new caps-based HDMI connector
+initialization API is completed.
 
-vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
-drm_modeset_backoff() on an acquire context it does not own.  This drops
-all locks in the context, including connection_mutex held by the core.
+Since max_mode_clock_khz does not exceed 165 MHz for any of the chip
+variants handled by the driver, advertise HDMI 1.2 as the supported
+version and set the bridge's max_tmds_char_rate so the connector limit
+inferred from supported_hdmi_ver is overridden by the chip-specific
+hardware constraints.
 
-Drop the local retry logic and propagate -EDEADLK to the caller instead.
-This aligns VC4 with the expected detect_ctx() semantics.
+drm_bridge_connector_atomic_check() runs
+drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
+computed TMDS character rate exceeds the connector limit before invoking
+the driver's .tmds_char_rate_valid() hook, making
+adv7511_bridge_hdmi_tmds_char_rate_valid() redundant. Drop it.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 23 +++++++----------------
- 1 file changed, 7 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 7c921a444e98..6bd5aa77538e 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -344,12 +344,11 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
- 	return drm_atomic_helper_reset_crtc(crtc, ctx);
- }
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 038b852405b5..c3ef44074477 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -8,6 +8,7 @@
+ #include <linux/clk.h>
+ #include <linux/device.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/hdmi.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/slab.h>
+@@ -775,11 +776,6 @@ static int adv7511_connector_init(struct adv7511 *adv)
+  * DRM Bridge Operations
+  */
  
--static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
--				    struct drm_modeset_acquire_ctx *ctx,
--				    enum drm_connector_status status)
-+static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
-+				   struct drm_modeset_acquire_ctx *ctx,
-+				   enum drm_connector_status status)
- {
- 	struct drm_connector *connector = &vc4_hdmi->connector;
--	int ret;
- 
- 	/*
- 	 * NOTE: This function should really be called with vc4_hdmi->mutex
-@@ -368,17 +367,9 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
- 	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
- 
- 	if (status != connector_status_connected)
--		return;
-+		return 0;
- 
--	for (;;) {
--		ret = vc4_hdmi_reset_link(connector, ctx);
--		if (ret == -EDEADLK) {
--			drm_modeset_backoff(ctx);
--			continue;
--		}
+-static const struct adv7511 *bridge_to_adv7511_const(const struct drm_bridge *bridge)
+-{
+-	return container_of(bridge, struct adv7511, bridge);
+-}
 -
--		break;
--	}
-+	return vc4_hdmi_reset_link(connector, ctx);
+ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_commit *state)
+ {
+@@ -817,19 +813,6 @@ static void adv7511_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	adv7511_power_off(adv);
  }
  
- static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
-@@ -416,10 +407,10 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
- 			status = connector_status_connected;
- 	}
+-static enum drm_mode_status
+-adv7511_bridge_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+-					 const struct drm_display_mode *mode,
+-					 unsigned long long tmds_rate)
+-{
+-	const struct adv7511 *adv = bridge_to_adv7511_const(bridge);
+-
+-	if (tmds_rate > 1000ULL * adv->info->max_mode_clock_khz)
+-		return MODE_CLOCK_HIGH;
+-
+-	return MODE_OK;
+-}
+-
+ static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
+ 						      const struct drm_display_info *info,
+ 		const struct drm_display_mode *mode)
+@@ -1006,7 +989,6 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
  
--	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
-+	ret = vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
- 	pm_runtime_put(&vc4_hdmi->pdev->dev);
+-	.hdmi_tmds_char_rate_valid = adv7511_bridge_hdmi_tmds_char_rate_valid,
+ 	.hdmi_clear_audio_infoframe = adv7511_bridge_hdmi_clear_audio_infoframe,
+ 	.hdmi_write_audio_infoframe = adv7511_bridge_hdmi_write_audio_infoframe,
+ 	.hdmi_clear_avi_infoframe = adv7511_bridge_hdmi_clear_avi_infoframe,
+@@ -1359,6 +1341,8 @@ static int adv7511_probe(struct i2c_client *i2c)
  
--	return status;
-+	return ret == -EDEADLK ? ret : status;
- }
+ 	adv7511->bridge.vendor = "Analog";
+ 	adv7511->bridge.product = adv7511->info->name;
++	adv7511->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
++	adv7511->bridge.max_tmds_char_rate = 1000ULL * adv7511->info->max_mode_clock_khz;
  
- static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ #ifdef CONFIG_DRM_I2C_ADV7511_AUDIO
+ 	adv7511->bridge.ops |= DRM_BRIDGE_OP_HDMI_AUDIO;
 
 -- 
 2.55.0
