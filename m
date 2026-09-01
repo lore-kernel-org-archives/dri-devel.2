@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44549C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B23C624D8
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 382A510EE73;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C8510EE72;
 	Tue,  1 Sep 2026 18:51:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HlwRPzYa";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oq7fl5//";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9C8710EE6B
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B29DA10EE63
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288679;
- bh=FjNG/FbAfUxNWdfXcasZdzMERNWbRLC78jj086GTy6I=;
+ s=mail; t=1788288671;
+ bh=hMfmPjxTX291Q5EGzy4LRXRcR3XKvgItQhsbL5BpXSo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HlwRPzYap1glbrJnfLcC2NFINYYovF4JW9xAFw8W9qLlGl6EWvWK2n8rAGAdp5KTj
- 1u9SAoOL7rxv98kkUC7LlkTDd8EckVpWMweCGAf7hqHXPCN0W5Fa8lU6r9fJVEUpqu
- HcfrsNPLGkvpAClhVhVkifq7lbTgSLHNxY0GXk5tae8jpQwZz/dY2ijuOAweS9n9OL
- fYB/xbkSULb1AzZa/aEmlhkI7Sq7GTTNRAtOyObl3H0yD9CQTK6831bqRwjN32eWQf
- C8dnwTz6j2J6nvtsvhiqFUTD7lmXbPOQpk9fmU7aWaz3xVTwyQA+Ra7lzDnOJH6NQC
- Ca/Zx61fzEfTg==
+ b=oq7fl5//ZutIy2KKIU1JPjsv6aZcOkqABCODUfgGNewdcJAMQ6SE0Vuk79vkQs2dA
+ WfaS4b6wx9wdsStk1XwXviSUlQ7j9fS4c7nQHGaNYSzQNXc7WIbSlGbCC/KYJ1zGEI
+ VeIDy8Q7YgmFzCBy/ed1NawJc3Y6im9ypKEw+k1xjUXNfaBzdiOPkTyZV1paaeSXlV
+ hg49TqzMn1elVzlkkCroNFlfKCjyscnYXhoBfdkZZMN47NuE69cGtcCrfgXG51gxbj
+ j0rQdAty9msM+0HlFWVydhiWYWs6xpdJ1KBcvvYTMNNsIdksW21C2rbz7aiYQILW9D
+ 1Y3HiLtZedYag==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5A3B817E3C76;
- Tue, 01 Sep 2026 20:51:19 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 539F717E3C60;
+ Tue, 01 Sep 2026 20:51:11 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:16 +0300
-Subject: [PATCH v11 52/74] drm/bridge: ite-it6263: Drop redundant
- .mode_valid hook
+Date: Tue, 01 Sep 2026 21:51:05 +0300
+Subject: [PATCH v11 41/74] drm/bridge: dw-hdmi-qp: Drop unused .setup_hpd()
+ phy op
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-52-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-41-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,7 +65,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-fbdev@vger.kernel.org
+ linux-fbdev@vger.kernel.org, Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,68 +83,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges using DRM_BRIDGE_OP_HDMI expect connectors to be created through
-drm_bridge_connector_init(), thereby relying on the bridge connector's
-.mode_valid hook to invoke drm_hdmi_connector_mode_valid().
+With the transition to .{enable|disable}_hpd() phy ops complete in both
+the bridge and platform drivers, .setup_hpd() has no remaining callers.
+Drop it.
 
-The generic helper computes the mode's TMDS character rate and forwards
-it to the bridge's .hdmi_tmds_char_rate_valid callback through the
-connector HDMI funcs.  This covers exactly what
-it6263_bridge_mode_valid() does for 8 bpc RGB444, but due to being
-output-format aware, it also handles the validation more thoroughly.
-
-Both the connector and bridge .mode_valid hooks are invoked during
-mode validation through drm_mode_validate_pipeline(), so the custom
-bridge hook is redundant.  Drop it.
-
-While at it, remove the now-unused drm_hdmi_helper.h include.
-
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/ite-it6263.c | 16 ----------------
- 1 file changed, 16 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 3 ---
+ include/drm/bridge/dw_hdmi_qp.h              | 1 -
+ 2 files changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
-index 21ac8e58b9d2..550999491086 100644
---- a/drivers/gpu/drm/bridge/ite-it6263.c
-+++ b/drivers/gpu/drm/bridge/ite-it6263.c
-@@ -15,7 +15,6 @@
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- 
--#include <drm/display/drm_hdmi_helper.h>
- #include <drm/display/drm_hdmi_state_helper.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-@@ -669,20 +668,6 @@ static void it6263_bridge_atomic_enable(struct drm_bridge *bridge,
- 	regmap_write(regmap, HDMI_REG_PKT_GENERAL_CTRL, ENABLE_PKT | REPEAT_PKT);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index a2277531182c..fcbc518cd90a 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1295,9 +1295,6 @@ static void dw_hdmi_qp_init_hw(struct dw_hdmi_qp *hdmi)
+ 	/* Clear DONE and ERROR interrupts */
+ 	dw_hdmi_qp_write(hdmi, I2CM_OP_DONE_CLEAR | I2CM_NACK_RCVD_CLEAR,
+ 			 MAINUNIT_1_INT_CLEAR);
+-
+-	if (hdmi->phy.ops->setup_hpd)
+-		hdmi->phy.ops->setup_hpd(hdmi, hdmi->phy.data);
  }
  
--static enum drm_mode_status
--it6263_bridge_mode_valid(struct drm_bridge *bridge,
--			 const struct drm_display_info *info,
--			 const struct drm_display_mode *mode)
--{
--	unsigned long long rate;
--
--	rate = drm_hdmi_compute_mode_clock(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444);
--	if (rate == 0)
--		return MODE_NOCLOCK;
--
--	return bridge->funcs->hdmi_tmds_char_rate_valid(bridge, mode, rate);
--}
--
- static int it6263_bridge_attach(struct drm_bridge *bridge,
- 				struct drm_encoder *encoder,
- 				enum drm_bridge_attach_flags flags)
-@@ -831,7 +816,6 @@ static const struct drm_bridge_funcs it6263_bridge_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.attach = it6263_bridge_attach,
--	.mode_valid = it6263_bridge_mode_valid,
- 	.atomic_disable = it6263_bridge_atomic_disable,
- 	.atomic_enable = it6263_bridge_atomic_enable,
- 	.detect = it6263_bridge_detect,
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index b4fb1c578a5b..ad33f9cafdeb 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -16,7 +16,6 @@ struct dw_hdmi_qp_phy_ops {
+ 	int (*init)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
+ 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+-	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ };
 
 -- 
 2.55.0
