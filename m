@@ -4,66 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A876C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C44FC624D3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:40:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D14810ED19;
-	Tue,  1 Sep 2026 14:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7034C10ED28;
+	Tue,  1 Sep 2026 14:40:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NLej3Sc/";
+	dkim=pass (1024-bit key; unprotected) header.d=crapouillou.net header.i=@crapouillou.net header.b="hT8Logba";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAD2710ED19
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:30:57 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 262F04E414A3;
- Tue,  1 Sep 2026 14:30:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E35136053C;
- Tue,  1 Sep 2026 14:30:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 62D2C11C79234; 
- Tue,  1 Sep 2026 16:30:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788273049; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=+SEPBPnaaE0LCIqhjI7PwprpKGHWB+21uuj8eFSigLY=;
- b=NLej3Sc/QvZOoqlMcpCbBhdu5MPiAZEiyD32wu0ObWi0RpuObX21Vsd+l4pT/MZyPt+oP2
- Z4G04eoXzCCZPj1TRg0ksHctT86m2HlV6QVDNQJRPqmIfJ3lU/weh8mGvWh63h2aKl0csK
- a26N1WniKpNa9fmjKC2PWCE2o5VtihHZ0dFChrTd089WE3Xta6cU/A8IS+VJm9h3nsqPSQ
- XhYw7jUZjjFKiOJoa95TEPjjSPRUrrPYllTwVq8X5Oe6HGJ7HEILUlMqqefqNCGHAaXDXg
- nyXhnza+eg2J+ut0k6cAW+1JnmnmVNgv/RQdyiGsIDDZ9pxe+e5SoL2aL1Erog==
-Mime-Version: 1.0
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42CCF10ED28
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:39:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
+ s=mail; t=1788273596;
+ bh=1v6wOxm/PlSaPHNaKgi34SfB8gnV1lPavehjfoPa9IA=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=hT8Logbaec48mRAIWl8XwpE6mDEvQ752+yjq001lor2uVIZAQgqzcM+GLG6jjyBxZ
+ VHlN2OFDgfp0MaINmW5F/IB718q+lqHx8S2F7sIe42Hz6GHmhRcgN1YaU8af6cI5qX
+ IfaA7PMhsRpE+VJgm4YjzI3tU59CTf9e3sc+Z6Q0=
+Message-ID: <a814d105ed3e83949a0893096253b88cef20b0d6.camel@crapouillou.net>
+Subject: Re: [PATCH v6] drm/ingenic: fix bridge allocation
+From: Paul Cercueil <paul@crapouillou.net>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
+ wbx@openadk.org, 	kernel@pyra-handheld.com, stable@vger.kernel.org
+Date: Tue, 01 Sep 2026 16:39:54 +0200
+In-Reply-To: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
+References: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 16:30:40 +0200
-Message-Id: <DL41VXI6IT94.CXUS4CYX1WJO@bootlin.com>
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maxime Ripard"
- <mripard@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
- <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
- <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com> <apBGjqt9GI5egQW6@houat>
- <DL3ZJBN3TALE.XBW7KL51XGBO@bootlin.com>
-In-Reply-To: <DL3ZJBN3TALE.XBW7KL51XGBO@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,105 +53,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 1, 2026 at 2:40 PM CEST, Luca Ceresoli wrote:
+Hi Nikolaus,
 
-[...]
+Le lundi 24 ao=C3=BBt 2026 =C3=A0 22:43 +0200, H. Nikolaus Schaller a =C3=
+=A9crit=C2=A0:
+> Bridge allocation API has changed and ingenic/drm was broken
+> leading to
+>=20
+> [=C2=A0=C2=A0 54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X
+> controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+> [=C2=A0=C2=A0 55.491338] dw-hdmi-ingenic 10180000.hdmi: registered Design=
+Ware
+> HDMI I2C bus driver
+> [=C2=A0=C2=A0 55.899132] [drm] DRM bridge corrupted or not allocated by
+> devm_drm_bridge_alloc()
+> [=C2=A0=C2=A0 55.904136] ------------[ cut here ]------------
+> [=C2=A0=C2=A0 55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x5=
+8/0x6c
+> [drm], CPU#0: kworker/u4:2/36
+> [=C2=A0=C2=A0 55.917538] refcount_t: addition on 0; use-after-free.
+> ...
+> [=C2=A0=C2=A0 56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+> ...
+>=20
+> Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using
+> neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+> Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Cc: Waldemar Brodkorb <wbx@openadk.org>
+> Cc: stable@vger.kernel.org
 
->>> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, and m=
-ake it
->>> >> > private.
->>> >>
->>> >> Yes in theory, but the panel_bridge code uses other parts of the
->>> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, maybe=
- more,
->>> >> so we'd have to move them into the drm module too.
->>> >
->>> > Ah, right. What would happen if we were doing it the other way around
->>> > then? Move drm_panel out of the main drm module?
->>>
->>> Into the drm_kms_helper module?
->>>
->>> I had a look and did some experiments and I found at least one user in =
-the drm
->>> module calling a drm_panel API, and guess who:
->>>
->>>  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->>>     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper module)
->>>
->>> Based on our discussion after patch 3, I'm not sure
->>> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, I gue=
-ss
->>> we can try to move drm_of_find_panel_or_bridge() into bridge/panel.c wh=
-ich
->>> is in the drm_kms_helper module (and from drm_of.h info
->>> drm_bridge.h?). That however might trigger build failures for drivers w=
-hich
->>> currently don't select DRM_KMS_HELPER and which would have to select it=
-.
->>>
->>> I'll give it a try, and if I see major drawbacks I will get back to mov=
-ing
->>> all the drm_kms_helper code into the main drm module.
->>
->> No, I meant into its own module.
->
-> Looks like a good idea indeed, making the design more modular and
-> dependencies cleaner.
->
->> Do we have any dependency from the main
->> drm module into drm_panel?
->
-> As far as I can see there is only the one mentioned above:
->
->   drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->      -> calls of_drm_find_panel (in drm_panel.c, would-be the new drm_pan=
-el module)
->
-> And while drm_of_find_panel_or_bridge() is possibly going to disappear at
-> the end of my series, moving drm_panel.c to its own module would make the
-> series non-build-bisectable, which would be very annoying.
->
-> However there seem to be no calls from the drm module to
-> drm_of_find_panel_or_bridge(), so we could move it out as well. What abou=
-t
-> a series doing, in this order:
->
->  - move drm_of_find_panel_or_bridge() from the drm module to the
->    drm_kms_helper module
->  - move drm_panel.c to a new drm_panel module
->  - Main change: embed a drm_bridge into every panel
->  - convert drivers to stop using the panel_bridge, hopefully removing all
->    calls to drm_of_find_panel_or_bridge()
->  - remove drm_of_find_panel_or_bridge()
+Acked-by: Paul Cercueil <paul@crapouillou.net>
 
-Ah, no, that won't work. There would be a circular module dependency loop
-later on when we embed a drm_bridge into evern drm_panel: indeed at that
-point drm_panel will use the atomic and probe helpers to implement the
-embedded drm_bridge, resulting in:
+Cheers,
+-Paul
 
- * the panel_bridge code in bridge/panel.c [drm_kms_helper module]
-   already depends on the drm_panel.c code (it manipulates a drm_panel, OK)
- * additionally, the drm_panel.c code, in order to create a drm_bridge,
-   will depend on the helpers in drm_atomic_helper and drm_probe_helper
-   code [drm_kms_helper module]
-
-The loop is only between kernel modules (.ko), not in actual code. So I
-think this revised plan should work (the 2nd bullet is key):
-
- - move drm_of_find_panel_or_bridge() from the drm module to
-   bridge/panel.c [currently drm_kms_helper module]
- - move bridge/panel.o to a new drm_panel_bridge module (NEW)
- - move drm_panel.c to a new drm_panel module
- - Main change: embed a drm_bridge into every panel
- - convert drivers to stop using the panel_bridge, hopefully removing all
-   calls to drm_of_find_panel_or_bridge()
- - remove drm_of_find_panel_or_bridge() and all the drm_panel_bridge module
-
-What do you think about it?
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> ---
+>=20
+> Notes:
+> =C2=A0=C2=A0=C2=A0 v6: Sashiko found another weakness in the v5 object li=
+fecycle
+> repair attempt...
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> https://sashiko.dev/#/patchset/f77ed4e1547e452668a6549e3966471a6b638a6b.1=
+787593585.git.hns@goldelico.com?part=3D1
+> =C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0 v5: fixed a potential issue with directly allocating s=
+truct
+> drm_bridge and
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 depending on its internal stru=
+cture. Solve by allocating a
+> stable
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 driver-specific container stru=
+ct ingenic_drm_bridge_alloc
+> that embeds
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a struct drm_bridge.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Also revisit and adjust object=
+ lifecycle by doing
+> drm_bridge_add() before
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_bridge_attach().
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Suggested by Sashiko-reviews:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> https://sashiko.dev/#/patchset/1630a544a26fac0b87187885374ebe59fc92df3b.1=
+787575203.git.hns@goldelico.com?part=3D1
+> =C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0 v4: remove setting interlaced mode (would be new featu=
+re and not
+> a fix)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 as suggested by paul@crapouill=
+ou.net
+> =C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0 v3: fixed a malformed diff in v2
+> =C2=A0=C2=A0=C2=A0=20
+> =C2=A0=C2=A0=C2=A0 v2: removed ib->bridge->ops =3D DRM_BRIDGE_OP_EDID |
+> DRM_BRIDGE_OP_DETECT
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 as suggested by Sashiko-review=
+s:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1=
+787477392.git.hns@goldelico.com?part=3D1
+>=20
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 30 ++++++++++++++++++++=
+-
+> --
+> =C2=A01 file changed, 26 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> index 42c86f195c66b3..b3dc28f78f3807 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -122,11 +122,15 @@ struct ingenic_drm {
+> =C2=A0
+> =C2=A0struct ingenic_drm_bridge {
+> =C2=A0	struct drm_encoder encoder;
+> -	struct drm_bridge bridge, *next_bridge;
+> +	struct drm_bridge *bridge, *next_bridge;
+> =C2=A0
+> =C2=A0	struct drm_bus_cfg bus_cfg;
+> =C2=A0};
+> =C2=A0
+> +struct ingenic_drm_bridge_alloc {
+> +	struct drm_bridge bridge;
+> +};
+> +
+> =C2=A0static inline struct ingenic_drm_bridge *
+> =C2=A0to_ingenic_drm_bridge(struct drm_encoder *encoder)
+> =C2=A0{
+> @@ -802,7 +806,7 @@ static int ingenic_drm_bridge_attach(struct
+> drm_bridge *bridge,
+> =C2=A0	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(encoder);
+> =C2=A0
+> =C2=A0	return drm_bridge_attach(encoder, ib->next_bridge,
+> -				 &ib->bridge, flags);
+> +				 bridge, flags);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int ingenic_drm_bridge_atomic_check(struct drm_bridge
+> *bridge,
+> @@ -1107,6 +1111,7 @@ static int ingenic_drm_bind(struct device *dev,
+> bool has_components)
+> =C2=A0	struct clk *parent_clk;
+> =C2=A0	struct drm_plane *primary;
+> =C2=A0	struct drm_bridge *bridge;
+> +	struct ingenic_drm_bridge_alloc *bridge_alloc;
+> =C2=A0	struct drm_panel *panel;
+> =C2=A0	struct drm_connector *connector;
+> =C2=A0	struct drm_encoder *encoder;
+> @@ -1314,10 +1319,27 @@ static int ingenic_drm_bind(struct device
+> *dev, bool has_components)
+> =C2=A0
+> =C2=A0		drm_encoder_helper_add(encoder,
+> &ingenic_drm_encoder_helper_funcs);
+> =C2=A0
+> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+> +		bridge_alloc =3D devm_drm_bridge_alloc(priv->dev,
+> +						=C2=A0=C2=A0=C2=A0=C2=A0 struct
+> ingenic_drm_bridge_alloc,
+> +						=C2=A0=C2=A0=C2=A0=C2=A0 bridge,
+> +						=C2=A0=C2=A0=C2=A0=C2=A0
+> &ingenic_drm_bridge_funcs);
+> +		if (IS_ERR(bridge_alloc)) {
+> +			ret =3D PTR_ERR(bridge_alloc);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ib->bridge =3D &bridge_alloc->bridge;
+> +		ib->bridge->of_node =3D priv->dev->of_node;
+> +
+> =C2=A0		ib->next_bridge =3D bridge;
+> =C2=A0
+> -		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+> +		ret =3D devm_drm_bridge_add(priv->dev, ib->bridge);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to register DRM bridge:
+> %d\n", ret);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		ret =3D drm_bridge_attach(encoder, ib->bridge, NULL,
+> =C2=A0					DRM_BRIDGE_ATTACH_NO_CONNECT
+> OR);
+> =C2=A0		if (ret) {
+> =C2=A0			dev_err(dev, "Unable to attach bridge\n");
