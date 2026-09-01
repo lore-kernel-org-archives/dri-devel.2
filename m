@@ -4,46 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54416C624D2
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 506F3C624D2
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 12:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4AC10ECB3;
-	Tue,  1 Sep 2026 12:33:34 +0000 (UTC)
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38FE210ECB3
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:33:33 +0000 (UTC)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-4b1bc2e44e0so7358913b6e.0
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 05:33:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788266012; x=1788870812;
- h=content-type:to:from:subject:message-id:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=O31KF1bx9pdjUZkEEGUWR4q75msQ5Y234D7nSHmhi/0=;
- b=MJIH21D/TnGwmOnbXkVigkAOi+yTOouno7tDqMnSseEPTZUb7iJOYAkoEqQ9rsfLqL
- FJ4IKDktT3MFqsU6UBRJjRt/c4ZaGauoHR9OHL12JNxcOUqtLE+uEG4z/8O0lvyJm7vd
- wVnvri7aJm4j/yYNHXWFvtC9tPrMt7Dh/hF4dkm3wnVEnZe1jhKHiKQl3j88JX5HIhVr
- XOHfpQeLEjDvk7kK1V2OLIXUD5y8LEKMo6aWyrte7elCBXSDDi8C2xQ3zhyP0PJTTBhQ
- LZcXNd9bi9hqINWufl2AWzNOEPWBs9lpAievDODTrehZzkGRFpIYhTiPzeGlzqDIbIEX
- dYMA==
-X-Gm-Message-State: AFuF++ktq3k7Vjuv2R+c1Sy6C344fwFRjfUQbYYBVRa1I3CxYS53O8fq
- Cyeh5yARxGXczl7X0QT8YIxUIVHOK70HK+MwTmXn8u/E7b1v87WUGlBPsOUeH8N8XqByQIfui97
- fcqTKVhuaYn3e13X5DMWF3nbd4l/ygb3GJAPIMrPo3n5woVwTiyOTOtHJTPA=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B79310EACE;
+	Tue,  1 Sep 2026 12:38:10 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NtnnX+AQ";
+	dkim-atps=neutral
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8BD910EACE
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 12:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1788266287;
+ bh=t6gp/ZegTeXdNL/BzhBDyU250Dh0osTv3SphAvKOI50=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=NtnnX+AQ2v169vtHTrrq10rkPda4iynNjVGe6M1N0u2ndUOaXtrcBhSiLXNfDbWz1
+ n0Qh/fT7bYuan0Y2TXJ2jqZnVkut8eiSnn1woUBawm9JhZqZyD6DgIC9SdGHksXGzW
+ fyUMcSXcLX7fOpLliFQTSLD/ndudSF3CVP/I2nTXasCjJFMxGvQ//fZY1sSuiD8FY5
+ WXg8995Etv4P3VIX1FEmzZoIg209o8azdfXMtpH6/tFgiEaMNMxEdliKJaf/c10stv
+ ayaSNOv8bmloGyjj8AVL3MiWHQkqMckxHl1qQAtun1mxUL0TmIKar/WQWHot64Xdrs
+ gafYQkhxL4Hwg==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C1E8217E0934;
+ Tue, 01 Sep 2026 14:38:06 +0200 (CEST)
+Date: Tue, 1 Sep 2026 14:38:03 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 06/17] drm/panfrost: Consolidate device clock
+ management and reset
+Message-ID: <20260901143803.22ae33c4@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-6-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-6-72a13b2c125d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe9:b0:4b3:8ae8:7a47 with SMTP id
- 5614622812f47-4b5b82d6323mr8554597b6e.16.1788266012510; Tue, 01 Sep 2026
- 05:33:32 -0700 (PDT)
-Date: Tue, 01 Sep 2026 05:33:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a96c61c.04428c52.29b18.0004.GAE@google.com>
-Subject: [syzbot] Monthly dri report (Sep 2026)
-From: syzbot <syzbot+listd3be96098b5843b34a80@syzkaller.appspotmail.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,43 +73,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello dri maintainers/developers,
+On Fri, 28 Aug 2026 21:56:46 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-This is a 31-day syzbot report for the dri subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/dri
+> Gather all clock enables and disables into a single function to avoid
+> repetition. Also, as part of the same function, handle reset control
+> (de)assertions, since that was already the case in the PM runtime
+> functions.
 
-During the period, 3 new issues were detected and 0 were fixed.
-In total, 11 issues are still open and 38 have already been fixed.
-There are also 9 low-priority issues.
+I think I'd prefer to not mix clks and reset-lines. So basically, a
+set of helpers that deals with clks (panfrost_clks_{enable,disable}()),
+and manual calls for the reset line.
 
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 2279    Yes   WARNING in drm_mm_takedown
-                  https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
-<2> 167     Yes   WARNING in virtio_gpu_alloc_vbufs
-                  https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
-<3> 65      Yes   KASAN: slab-use-after-free Read in drm_atomic_helper_wait_for_vblanks (2)
-                  https://syzkaller.appspot.com/bug?extid=0f999d26a4fd79c3a23b
-<4> 60      No    upstream test error: WARNING in drm_mode_config_validate
-                  https://syzkaller.appspot.com/bug?extid=5caf8faef4fa32603577
-<5> 3       Yes   memory leak in drm_mode_atomic_ioctl
-                  https://syzkaller.appspot.com/bug?extid=3fc9eecaf97147282c87
-<6> 29      Yes   general protection fault in drm_object_attach_property
-                  https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
-<7> 7       Yes   WARNING in __drm_atomic_helper_set_config
-                  https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+>=20
+> Also do clk (un)prepares and dis/enables at the same time, since the
+> clk_prepare_* family of functions can simply increase the refcnt of
+> an already prepared clock.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
