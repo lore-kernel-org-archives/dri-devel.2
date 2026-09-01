@@ -4,71 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBD7C624D3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C33AEC624D3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 16:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B3310ED64;
-	Tue,  1 Sep 2026 16:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E148110E593;
+	Tue,  1 Sep 2026 16:31:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rox7nyIJ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uV/9gXCK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 038DD10E7EA
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:09:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F01D8435EF;
- Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CDFBEC4AF0D;
- Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788278956;
- bh=2rDFcVDpVSOb7E7Q6WZ1n2yT0y1382pLRES1c4DMPSY=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Rox7nyIJz4XYUKSbtGWvHgHM43zJWFsnI5A216rQQkesWjf+9JviSQjRNYUoy4Dlt
- ZJXTqE2isLzWICxOQqtkaBCGlz+GbFVgDL18u8VpYRUqeNvFDMSW8w4mqmuco+vBTr
- 9++A3jT/Orx2icuW+LOZ6Q8MqYYZW2LKmDiXwbln3EH5lH8rR64tgY1HzL7J+HlSVJ
- A1i2dVGlUgQB8cR/aKPN7eyYpcKHd3UlQURhbBU/B6IsSC1fWvUm9Cssjt/RzU7zSA
- uCWFLVjocFcvu6JnlZhqbGR2RhRMwXwlcQ//Kc28P//55lt7a6Uw/v9QfUfj64klry
- sh0UtKR46IHHQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B9F5FC624D3;
- Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
-From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Wed, 02 Sep 2026 00:09:08 +0800
-Subject: [PATCH 9/9] drm/tyr: add BO-related ioctls
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 26FEC10E108
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 16:31:46 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B81461BD0
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 09:31:41 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 4AD4E3F85F
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 09:31:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1788280305; bh=hLe45cnDUnZxwdK4p4TDAGy82nU9hy3GkuXKLYRaHoU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uV/9gXCK3HR8MNnsk4Svjf+0Imcqp/qJqKdV5uyUugTO3b5RGqvmJddKJpmRUBViu
+ 1jWJtBZcY1b+gIR+vY4/1FcdgUFlhbh0a02tItlsni281unoTzUs3WotWhg8Vwf/4Z
+ 6Y5ZU7qKJvr8p4Zr8jCvOQzj9g/KM2wnr0by1p3M=
+Date: Tue, 1 Sep 2026 17:31:43 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <linux-arm-msm@vger.kernel.org>, 
+ "open list:DRM DRIVER for Qualcomm display hardware"
+ <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/gem: Drop ticket arg to lru_scan()
+Message-ID: <apb970Ep6EHHKpAq@e142607>
+References: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-tyr-ioctls-v1-9-e0fdbf8bd108@kylinos.cn>
-References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
-In-Reply-To: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
-To: rust-for-linux@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
- Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788278954; l=4674;
- i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=GB09PX+9tSC0xXDoB/KYTwCpkupIwMi/t6ujGhWMHCY=;
- b=3u5QXxhXzE8PTncHj0Olzvwbk36Gnj+5vmGi8iSqdmGh8w7HtluwATOet3QKkFSy3LnDcQ8F/
- ROMIFgAhZvfDBDlBA2bDnpKNn+XvzEDEHkHdnZeJP4HolUp8mxXyTEf
-X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
-X-Original-From: Ke Sun <sunke@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831174409.465181-1-robin.clark@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,140 +67,285 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sunke@kylinos.cn
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alvin Sun <alvin.sun@linux.dev>
+On Mon, Aug 31, 2026 at 10:44:08AM -0700, Rob Clark wrote:
+> Commit 3392291fc509 ("drm/msm: Fix shrinker deadlock") dropped the only
+> use of the ticket arg, but at the time left drm_gem_lru_scan() unchanged
+> to avoid conflicts with in-flight pathor shrinker support.  This commit
+> is the followup to remove the unused arg.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 
-Expose buffer creation and BO mmap offset retrieval.
+With the panthor spelling fixed:
 
-- BO_CREATE page-aligns the size and returns a handle with
-  write-combined mapping.
-- BO_MMAP_OFFSET provides the offset for the DRM generic mmap
-  path, rejecting NO_MMAP objects and non-zero pad.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- drivers/gpu/drm/tyr/driver.rs |  2 ++
- drivers/gpu/drm/tyr/file.rs   | 70 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/gem.rs    |  7 +++++
- 3 files changed, 79 insertions(+)
+Best regards,
+Liviu
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index b3145526ada06..fc8d11c9ba1ca 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -224,6 +224,8 @@ impl drm::Driver for TyrDrmDriver {
-         (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
-         (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
-         (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
-+        (PANTHOR_BO_CREATE, drm_panthor_bo_create, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
-+        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
-     }
- }
- 
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index 157bc40e1cac4..16abf2968299c 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -252,6 +252,76 @@ pub(crate) fn vm_get_state(
-             Ok(0)
-         })
-     }
-+
-+    pub(crate) fn bo_create(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        bocreate: &mut uapi::drm_panthor_bo_create,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if bocreate.size == 0
-+            || bocreate.pad != 0
-+            || bocreate.flags & !uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0
-+            || bocreate.exclusive_vm_id != 0
-+        {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Invalid BO_CREATE params: size={}, pad={}, flags={:#x}, exclusive_vm_id={}\n",
-+                bocreate.size,
-+                bocreate.pad,
-+                bocreate.flags,
-+                bocreate.exclusive_vm_id
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let size = usize::try_from(bocreate.size).map_err(|_| {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "BO_CREATE size {:#x} too large\n",
-+                bocreate.size
-+            );
-+            EINVAL
-+        })?;
-+        let bo = crate::gem::new_object(ddev, size, bocreate.flags)?;
-+        bocreate.handle = bo.create_handle(file)?;
-+        bocreate.size = bo.size() as u64;
-+
-+        Ok(0)
-+    }
-+
-+    pub(crate) fn bo_mmap_offset(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        bommap: &mut uapi::drm_panthor_bo_mmap_offset,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if bommap.pad != 0 {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "BO mmap offset pad not zero: {}\n",
-+                bommap.pad
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let bo = crate::gem::lookup_handle(file, bommap.handle).inspect_err(|_| {
-+            dev_err!(ddev.as_ref(), "Invalid BO mmap handle: {}\n", bommap.handle);
-+        })?;
-+        if bo.create_flags() & uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0 {
-+            dev_err!(ddev.as_ref(), "BO mmap offset on NO_MMAP object\n");
-+            return Err(EPERM);
-+        }
-+        bommap.offset = bo.create_mmap_offset().inspect_err(|_| {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Failed to create mmap offset for handle {}\n",
-+                bommap.handle
-+            );
-+        })?;
-+
-+        Ok(0)
-+    }
- }
- 
- fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index d9ddcb287f52b..f404139f54f32 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -38,6 +38,13 @@ pub(crate) struct BoData {
-     flags: u32,
- }
- 
-+impl BoData {
-+    /// Returns the flags the BO was created with.
-+    pub(crate) fn create_flags(&self) -> u32 {
-+        self.flags
-+    }
-+}
-+
- /// Provides a way to pass arguments when creating BoData
- /// as required by the gem::DriverObject trait.
- pub(crate) struct BoCreateArgs {
+> ---
+>  drivers/gpu/drm/drm_gem.c              | 13 +++----------
+>  drivers/gpu/drm/msm/msm_gem_shrinker.c | 22 ++++++++++------------
+>  drivers/gpu/drm/panthor/panthor_gem.c  | 14 ++++++--------
+>  drivers/gpu/drm/panthor/panthor_mmu.c  |  5 ++---
+>  drivers/gpu/drm/panthor/panthor_mmu.h  |  3 +--
+>  include/drm/drm_gem.h                  |  3 +--
+>  6 files changed, 23 insertions(+), 37 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index e3ed684ddcf2..15acb958ecd5 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1656,8 +1656,7 @@ drm_gem_lru_scan(struct drm_device *dev,
+>  		 struct drm_gem_lru *lru,
+>  		 unsigned int nr_to_scan,
+>  		 unsigned long *remaining,
+> -		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
+> -		 struct ww_acquire_ctx *ticket)
+> +		 bool (*shrink)(struct drm_gem_object *obj))
+>  {
+>  	struct drm_gem_lru still_in_lru;
+>  	struct drm_gem_object *obj;
+> @@ -1690,20 +1689,17 @@ drm_gem_lru_scan(struct drm_device *dev,
+>  		 */
+>  		mutex_unlock(&dev->gem_lru_mutex);
+>  
+> -		if (ticket)
+> -			ww_acquire_init(ticket, &reservation_ww_class);
+> -
+>  		/*
+>  		 * Note that this still needs to be trylock, since we can
+>  		 * hit shrinker in response to trying to get backing pages
+>  		 * for this obj (ie. while it's lock is already held)
+>  		 */
+> -		if (!ww_mutex_trylock(&obj->resv->lock, ticket)) {
+> +		if (!ww_mutex_trylock(&obj->resv->lock, NULL)) {
+>  			*remaining += obj->size >> PAGE_SHIFT;
+>  			goto tail;
+>  		}
+>  
+> -		if (shrink(obj, ticket)) {
+> +		if (shrink(obj)) {
+>  			freed += obj->size >> PAGE_SHIFT;
+>  
+>  			/*
+> @@ -1727,9 +1723,6 @@ drm_gem_lru_scan(struct drm_device *dev,
+>  
+>  		dma_resv_unlock(obj->resv);
+>  
+> -		if (ticket)
+> -			ww_acquire_fini(ticket);
+> -
+>  tail:
+>  		drm_gem_object_put(obj);
+>  		mutex_lock(&dev->gem_lru_mutex);
+> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> index 9d2788f79ace..3514d5c84989 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> @@ -102,7 +102,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+>  }
+>  
+>  static bool
+> -purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
+> +purge(struct drm_gem_object *obj)
+>  {
+>  	if (!is_purgeable(to_msm_bo(obj)))
+>  		return false;
+> @@ -114,7 +114,7 @@ purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
+>  }
+>  
+>  static bool
+> -evict(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
+> +evict(struct drm_gem_object *obj)
+>  {
+>  	if (is_unevictable(to_msm_bo(obj)))
+>  		return false;
+> @@ -133,21 +133,21 @@ wait_for_idle(struct drm_gem_object *obj)
+>  }
+>  
+>  static bool
+> -active_purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+> +active_purge(struct drm_gem_object *obj)
+>  {
+>  	if (!wait_for_idle(obj))
+>  		return false;
+>  
+> -	return purge(obj, ticket);
+> +	return purge(obj);
+>  }
+>  
+>  static bool
+> -active_evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+> +active_evict(struct drm_gem_object *obj)
+>  {
+>  	if (!wait_for_idle(obj))
+>  		return false;
+>  
+> -	return evict(obj, ticket);
+> +	return evict(obj);
+>  }
+>  
+>  static unsigned long
+> @@ -156,7 +156,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>  	struct msm_drm_private *priv = shrinker->private_data;
+>  	struct {
+>  		struct drm_gem_lru *lru;
+> -		bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
+> +		bool (*shrink)(struct drm_gem_object *obj);
+>  		bool cond;
+>  		unsigned long freed;
+>  		unsigned long remaining;
+> @@ -180,8 +180,7 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>  		stages[i].freed =
+>  			drm_gem_lru_scan(priv->dev, stages[i].lru, nr,
+>  					 &stages[i].remaining,
+> -					 stages[i].shrink,
+> -					 NULL);
+> +					 stages[i].shrink);
+>  		nr -= stages[i].freed;
+>  		freed += stages[i].freed;
+>  		remaining += stages[i].remaining;
+> @@ -222,7 +221,7 @@ msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_to_scan)
+>  static const int vmap_shrink_limit = 15;
+>  
+>  static bool
+> -vmap_shrink(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+> +vmap_shrink(struct drm_gem_object *obj)
+>  {
+>  	if (!is_vunmapable(to_msm_bo(obj)))
+>  		return false;
+> @@ -250,8 +249,7 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
+>  		unmapped += drm_gem_lru_scan(priv->dev, lrus[idx],
+>  					     vmap_shrink_limit - unmapped,
+>  					     &remaining,
+> -					     vmap_shrink,
+> -					     NULL);
+> +					     vmap_shrink);
+>  	}
+>  
+>  	*(unsigned long *)ptr += unmapped;
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 54535bae2b0c..17408f832af3 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -1392,8 +1392,7 @@ panthor_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+>  	return count ? count : SHRINK_EMPTY;
+>  }
+>  
+> -static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
+> -					       struct ww_acquire_ctx *ticket)
+> +static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj)
+>  {
+>  	/*
+>  	 * Track last locked entry for unwinding locks in error and
+> @@ -1479,8 +1478,7 @@ static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
+>  	return ret == 0;
+>  }
+>  
+> -static bool panthor_gem_try_evict(struct drm_gem_object *obj,
+> -				  struct ww_acquire_ctx *ticket)
+> +static bool panthor_gem_try_evict(struct drm_gem_object *obj)
+>  {
+>  	struct panthor_gem_object *bo = to_panthor_bo(obj);
+>  
+> @@ -1488,7 +1486,7 @@ static bool panthor_gem_try_evict(struct drm_gem_object *obj,
+>  	if (dma_resv_wait_timeout(obj->resv, DMA_RESV_USAGE_BOOKKEEP, false, 10) <= 0)
+>  		return false;
+>  
+> -	return panthor_gem_try_evict_no_resv_wait(&bo->base, ticket);
+> +	return panthor_gem_try_evict_no_resv_wait(&bo->base);
+>  }
+>  
+>  static unsigned long
+> @@ -1503,13 +1501,13 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>  
+>  	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.unused,
+>  				  sc->nr_to_scan - freed, &remaining,
+> -				  panthor_gem_try_evict_no_resv_wait, NULL);
+> +				  panthor_gem_try_evict_no_resv_wait);
+>  	if (freed >= sc->nr_to_scan)
+>  		goto out;
+>  
+>  	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.mmapped,
+>  				  sc->nr_to_scan - freed, &remaining,
+> -				  panthor_gem_try_evict_no_resv_wait, NULL);
+> +				  panthor_gem_try_evict_no_resv_wait);
+>  	if (freed >= sc->nr_to_scan)
+>  		goto out;
+>  
+> @@ -1523,7 +1521,7 @@ panthor_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+>  
+>  	freed += drm_gem_lru_scan(&ptdev->base, &ptdev->reclaim.gpu_mapped_shared,
+>  				  sc->nr_to_scan - freed, &remaining,
+> -				  panthor_gem_try_evict, NULL);
+> +				  panthor_gem_try_evict);
+>  
+>  out:
+>  #ifdef CONFIG_DEBUG_FS
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index e10dbd18d8cf..ab070bc74857 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -3133,8 +3133,7 @@ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm
+>  unsigned long
+>  panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>  			     unsigned int nr_to_scan, unsigned long *remaining,
+> -			     bool (*shrink)(struct drm_gem_object *,
+> -					    struct ww_acquire_ctx *))
+> +			     bool (*shrink)(struct drm_gem_object *))
+>  {
+>  	unsigned long freed = 0;
+>  	LIST_HEAD(remaining_vms);
+> @@ -3160,7 +3159,7 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>  
+>  		freed += drm_gem_lru_scan(&ptdev->base, &vm->reclaim.lru,
+>  					  nr_to_scan - freed,
+> -					  remaining, shrink, NULL);
+> +					  remaining, shrink);
+>  
+>  		mutex_lock(&ptdev->base.gem_lru_mutex);
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
+> index 3522fbbce369..abc36e7204be 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
+> @@ -52,8 +52,7 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo);
+>  unsigned long
+>  panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
+>  			     unsigned int nr_to_scan, unsigned long *remaining,
+> -			     bool (*shrink)(struct drm_gem_object *,
+> -					    struct ww_acquire_ctx *));
+> +			     bool (*shrink)(struct drm_gem_object *));
+>  int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec,
+>  					struct panthor_vm *vm,
+>  					u32 slot_count);
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 8a704f6a65c1..ffa607c91aa2 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -616,8 +616,7 @@ drm_gem_lru_scan(struct drm_device *dev,
+>  		 struct drm_gem_lru *lru,
+>  		 unsigned int nr_to_scan,
+>  		 unsigned long *remaining,
+> -		 bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket),
+> -		 struct ww_acquire_ctx *ticket);
+> +		 bool (*shrink)(struct drm_gem_object *obj));
+>  
+>  int drm_gem_evict_locked(struct drm_gem_object *obj);
+>  
+> -- 
+> 2.55.0
+> 
 
 -- 
-2.43.0
-
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
