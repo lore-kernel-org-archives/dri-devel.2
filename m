@@ -4,143 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41EAC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 09:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C1F7C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 09:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBED10E3B2;
-	Tue,  1 Sep 2026 09:14:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B4E10EC17;
+	Tue,  1 Sep 2026 09:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gxoO5vlc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IabZT3nf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F0KtyIYl";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEFB010E3B2
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 09:14:31 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68179JDE1709543
- for <dri-devel@lists.freedesktop.org>; Tue, 1 Sep 2026 09:14:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=ULmFFgEiINmKjW4L916IW4
- QN0kL7zSoYDbJRuA1Ywg0=; b=gxoO5vlc85xehIWD67UWyL55bvgR77I5XyowKh
- 9WHh/fVm+6/4XTLdUWnN/kjvuaz9+pBB6hqlCX2+kNWygzhGNXpxD9WRQMoR6tkU
- j30ZVsQ+wevOD79vnLqmTV1nQsA36XlFk8Xp0DHfLrtzchMt6hUQYq6fCLkR47yk
- 9qMzpwdhoN8T0L1UwD1iJdaRva06pCbw1AqmmhEzvvE/t/53SQOJXeeRQw5L1l8a
- Aj3Ei+d5uPoQL/tOwZAsaKuDGjjmdFX9Np8UHsCHn0P5GKDPv++abGJLZZXiuNc6
- sR8j7emcJnxb0mEWauQOwZDom9EzHkl8ehle1kwLm8MI8x2Q==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp8fsfuv-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 09:14:30 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-934963b2bc0so705472285a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 02:14:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788254070; x=1788858870;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=ULmFFgEiINmKjW4L916IW4QN0kL7zSoYDbJRuA1Ywg0=;
- b=IabZT3nfSHoh3hvxWx005sH7g6LOTMR7GdrxdpZQVYxA1vpPte61D7ueghUUbYIrpz
- Jixgp58Z5sVBh/BYrrU4UHHiofiCpX0T3LG/5v/qtz1moCdoeuA2Ct7VqOWpwSNmvJ41
- MW5qbXKsQGAc1wZNaKWYx73Zg+omoWs1QjyXbVplhJDIF+ITh7hW7pHRslcaVwsvL+S9
- uSyhQEdCHWzkdsbQy57wcsBqH0/scvXaiWoXsP57i6vjLa+cILlW0zVlFc1eMC4AvrEy
- Vf3fvUdatRbv1GJ6irkGVDSdnIYLrclqyKI5Mq8kItyTgPCrH1tqtM2VrvwWLeP7Z5LE
- s4Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788254070; x=1788858870;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=ULmFFgEiINmKjW4L916IW4QN0kL7zSoYDbJRuA1Ywg0=;
- b=VAo3iDm+ZzuNjBZfrWaCGbm/hg6hgKYYLtC+HM4DCPZYcd3apLykSDffxIwveF9Q2X
- iQi40kbvZGMYONk2WFk2xV6yol/6SwM9ooJ4wNl0k40xOYUzwhErMs29yCSMvwoW46B8
- NLGHQnKFE9o8nkmKwdtKGA4Mv3aXBEFJLv49JShQkhB6CDouWEDzFkq5kRIB8pwvaRnH
- p/QEEYCpAPVqdYoepuSEF6Y8Gv1niBo71EBE+5XxQuBUbxbpmVkn/Gnd1GZL3suq3+Xu
- Smo+9sX5DZ/sE1wKkoG9FlvlNnMHh8Ize660Aa+n7BMqgzgLSdOjwCwIU2i83Na5yWPM
- otKQ==
-X-Gm-Message-State: AFuF++nDOOQeQqy6FbQyZ8JJK/YiK0XB7SV/YfHF0C/c14RBFEn5grtz
- y6vjUnsFtM2OG3bP/XCIqu94givJTrC+TlqF4XsF3fAiIjyfeStGH+PWOvYdHJn/l5tlvMklifO
- IjW1XGO4oNYlE67twRzaKeQi6a1GB+5Cg5/7OzZ42Q9SmAtsH1op1eXUDOTdpjKnBPTPPw3I=
-X-Gm-Gg: AR+sD11jtfxkUnA/9LtKtLdNMKO2u3ZVyXR51Vs2d+LRy9Ua567tcoahLjGsTuUBCi3
- 1l49u5nFI8XI4ckh5jWOf4DbkK4gt3NuvnOZ3/xHtHx5qZPb9TtluSnNjwIBEIzT6oUtrlFRA9Y
- OTOrnRtvoTV4dnk/i18oya/FFhuHx8TGGqf+LtL0sbL9jvDY5YBPnL5jCHeWrU9sn7qalOvg0NW
- 3jdl5Zs+lsahVWiQDAKbHQXnHhk3nmWNBzkwYmKLhRO0sWZIUUt7SsXGTmxCh1CmGtoN8xWnlTp
- mUTHAbSDvzmwqGOMXQjWL+Os9391/0m+6XeK6dhbwFFfL9urEZoWD5kRNQi9ts1s5j7a8foEYXO
- 89nEXXfiFRNjsX3z8gYjKEgY+ZvfMAig0QyAlgC96aQHD6UAZoy0QbbXpNWH7N/s=
-X-Received: by 2002:a05:620a:4804:b0:92e:535b:e08b with SMTP id
- af79cd13be357-9394815b03cmr866210285a.33.1788254069673; 
- Tue, 01 Sep 2026 02:14:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:4804:b0:92e:535b:e08b with SMTP id
- af79cd13be357-9394815b03cmr866205785a.33.1788254069242; 
- Tue, 01 Sep 2026 02:14:29 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-939173a560fsm988963485a.24.2026.09.01.02.14.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 02:14:28 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 01 Sep 2026 17:14:21 +0800
-Subject: [PATCH] drm/panel-edp: Add support for BOE panel used in
- KD116N36-30NB-A001
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012028.outbound.protection.outlook.com [52.101.53.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7786A10E3D3;
+ Tue,  1 Sep 2026 09:15:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zHNEhRJadN2ZJv9g9m23NTAMQThne0dL3ue8bnaToL0pz8JNtbAbuKjhEAZeD8S0RZxDayXL8eQLR/DU0W6TV0aBdlMLNDYA5S1C27E1QkHP878gedwRGrluuc9YdLXWDyvDn3lbBzCc4ead3wFwhCDAa7zdaUVv7n3rrJZQKF/ZWubwGBRFURTer4ZUCrTl4KksCgVG+fKVvyxoY78ibNkCnsZcff5KLzTwCLDUJULNqRzGnH+7oosmXKahbbQSVXUFr5RqWsxi4tk6BP9HARqmKXU6zVcmGALoaz5Hqk/mBnFiQQlNshpba3TuBo8i0+yreLSu1t7n8WTo9URXIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PzDqacOjZT5ogzefo6Pashan+ZUiGiUtf4tuZyRw+rs=;
+ b=wObmYj6CxCtt8VRtm7JuYsVxaYYwkoYq93JiOthUmvYvcK81y/HEebFFOjZkT8+f1gdi+pki4DneyLQnRAtCihwyuzfE2OTMC6BLslTHI2xsxIcZD/Gjj9kFoYFFFjFd68M222rOXmKDsdxRS5SINL7GhNxmFLBMbsvxDV0b2lENTE5Xvtx6M9pUzLcxPwfmwxTcFGJmXoT4CqtvS9OXqc5Dvyc6G8irYBFJegta02fSmOCre43uAW5PIho4XxC2C+s2PSg66b2RUuEuJS6vylqYYspmm9N53VO73WNa1WZQw9Bq37+771MS0zav9L9Qe3Y5aFh2gidbyVzhH0JQlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PzDqacOjZT5ogzefo6Pashan+ZUiGiUtf4tuZyRw+rs=;
+ b=F0KtyIYlCkbJLGUzvh4jp1565AqQMVqUbGXLFNrWj5JkGLKBgiXXx6nC8cSyZnhyEa+22nIV4ryj73aQcY/NNGqEIzzWmlGCmwWP3EhTZKiJQsRYLtqdidwaXI6Mmk4+duM35tL6vMPncjo95e6TZnfGk5ps8DbX3Yu4llamlBQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by SJ2PR12MB8829.namprd12.prod.outlook.com (2603:10b6:a03:4d0::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.9; Tue, 1 Sep 2026
+ 09:15:49 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%6]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 09:15:43 +0000
+Message-ID: <34d703fa-399b-48f7-b632-792cae21ed8b@amd.com>
+Date: Tue, 1 Sep 2026 17:15:36 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 1/5] drm/gpusvm: extract drm_gpusvm_hmm_fault()
+ helper
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: sima@ffwll.ch, rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
+ dakr@kernel.org, intel-xe@lists.freedesktop.org, aliceryhl@google.com,
+ Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Christian.Koenig@amd.com,
+ Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
+ Yiru.Ma@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260827071449.520398-1-honghuan@amd.com>
+ <20260827071449.520398-2-honghuan@amd.com>
+ <ao/nrkOMOllUKqyG@gsse-cloud1.jf.intel.com>
+ <bcdc465f-2f83-4fc0-93e6-ed94b076989c@amd.com>
+ <apYpDwBsczVHXGik@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <apYpDwBsczVHXGik@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGyXlmoC/yWMSwrDIBQArxLeuoIao75cpWTh59m6yKealkLI3
- SvNcgZmDqhUMlUYuwMKfXLN69JA3DoIT7c8iOXYGCSXmiMXjOLWFPMrscC5l1Gjk4OGFmyFUv7
- +Z/fp4kKvd3vulwTvasvWec772FkM3ES0RmgnejUoCn2KmNBoi2SFDMEIHxVM5/kDY18ZAqgAA
- AA=
-X-Change-ID: 20260901-edp-id-boe-c00b2d69a256
-To: Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254064; l=1756;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=i9nsNJNXIDUF7HC2HqgXcvchw6qqq6G2LQp0MeXMf2M=;
- b=/WXOyjLScUVXnRi9E1oCHjV8UdLtQsqV9wIOAcSq+3XrZqszLtoqSynw7dk1/TCXvOQfoRBL2
- PLAS4Jja2K8D1xWtKKbdUhCB8h0sB1VHzMOW9ExU3hAsWTT1JlxFsvH
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-GUID: 9VNfbOb56yz2ZHpFvu8plRok8Tm8Gre9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA4MSBTYWx0ZWRfXw/iJwY/W1ezZ
- z63cz+AEL61bYnDr+JK5V5YTcxErUCN5Z489UXr1elTFjUUZu49Ghac26P2f5Z7rQdLbVztz9z9
- fiEW3SVS0Tcpw6uGEjj2SnVubUtbHus=
-X-Proofpoint-ORIG-GUID: 9VNfbOb56yz2ZHpFvu8plRok8Tm8Gre9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA4MSBTYWx0ZWRfX5Xg4OxOw9SJi
- jyEngfBtIlfPFYRyJ3/dZdXMZwUft+hhUeOExNhXkKLIhLK2P2fJePLNdgVMoHpukR51vBH0AXw
- UHbUvUvneC1aK9nxhHLU668d2ZU3a3DoUeLDDqUAFEfw5prpLm8d/7rsVxaaFaUoiTfaUBptvrP
- TyIvalfxQnq3d9yuvqEmPASPm7kAE8wO/xu2+c8ritQ2ZDMf8wk0Yh1+puhhurbOIxXTBlcilkk
- iqVYLqPndrTbcoDmi1csjPI6hyiMsmbsjaGs03PHlk4+kOCXmXteuOUmFDUeSrAhpPRwf6rRgzW
- Op3ilQR3cJhzPoLUOL/t4DwQlJgoNlSk6cptCxqdGDqdo5gVc41eTg8TSCgP2m3QqE7ECtnr8Q7
- 9fE4itZdK/9X6y6bJXG5ATm+If4XRBszoZ/8niiUF2uVQcLeR/yrCUCGTqdy5hRp0tQ2X6VveK8
- FSqi2gF+qkrFaMI8u0A==
-X-Authority-Analysis: v=2.4 cv=BPWDalQG c=1 sm=1 tr=0 ts=6a969776 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=zjCu6LVzA2uhXCqqzrgA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 phishscore=0 adultscore=0 spamscore=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010081
+X-ClientProxiedBy: SI3PR01CA0001.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::17) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|SJ2PR12MB8829:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f4bc488-0fcd-4de5-c8a7-08df080999bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|13003099007|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 2vaaT1MKMBbaEGdW7UH2MrbXyW1AAA9Wi4pxKU24Ect2zMS/sUEISzullzMFiZ0oz+L7r/38VekqNrtin9X2eOqkYuMzuE2BGOGfMnHQSAdZZVLuHM/uM85IJ6VYcMb0TKRCE/sktV7aZQK/+Rtcm8ivp0gKoBt1Bd4eAsCStbG7VR3SH3AVW2gCbjIoOxSro1oOUqcBO6ezdW+/9Tll14TWttdfrpdnnctaQ0FHGzSfNkno90mzETpboXS4pyJkdklrDxAjtDhAf5J3pjFrUqjJdgsSnbe3u6aoXbdOlGu8DJIO+jN6V9jReHXUgYIW/pVNiNiUbZTkmL8UgolN+CpSiL74J2xTpb6lozGHArIeYTwPYDIKF3iJ30BCyR5cQ63n99TjGvsz+AD3Hq6G+ubqijUFcPfyHWPdQjjLzBuQPRcRAyU3WJnKkDt92D3pRxqwX9P0G423yR7TN43GYbZy6bcEjB4H2kBVpFTfdh+x1QYyq41FUs8MUYsMW61TmV/pi/qWxlp1J2LKaYvMltsYJ2IqU+gTft/5Wt3wkNU/6n2V47pafpw/BWbqSJx4ItlTNsWYDbCfOCm/dT5Sd6puChjlgQyzA2Tr7hHJIMk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(13003099007)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b05kalJSMVBYeTA0dlhSeFlwSzYzdzR1Z3dzT1EvVCtubGVPMkFZRnUvRFFP?=
+ =?utf-8?B?K2FqWnBTV1hkK3RzaGRhRVNqaEJQczl2a21Hc3c2dmJoZFJiZnVpVzNuY2VU?=
+ =?utf-8?B?UVBCdURMN0VSWmowSktsZUZjM0prL2NJck8raURwcStwS29oU0x5ZnNYUGpS?=
+ =?utf-8?B?VXNCRkE5Rk5ESzAzZmRaQ2RuNkcwNXdnWldsWGlWWGVpYWRNVXVYR04vU2xX?=
+ =?utf-8?B?S1kzb0tCMU5CY2tWMUlDWXJqZ3FGSGdWSUtabmpNTjJyWnlZMjNZSldVR2U5?=
+ =?utf-8?B?dG1yVWVrU0V6MUdqVHNPczVyaERvVzJqOURKdlV0NWdjeW1ZWTJ1dDBVWHdT?=
+ =?utf-8?B?OUkwbEQzVUZqUUpUVUtmekZVNjdZRE9SQi9DR2F1UkdzbVVpZ3pMdEtyS1BU?=
+ =?utf-8?B?OTQxTm5vV0VYR2JpK1Y4K3N1NzlQNUVFNjAwcEEwRHZycEZvOW5VYjBtWDQ5?=
+ =?utf-8?B?RW54aEtVd240ZWw2WFR6R1ZiWXl1ZE5KSk5ITlAxZkcyM3VMakdyQkhJdE9S?=
+ =?utf-8?B?SUJiV0VIQ085V0xxVy9GdHhLYTg4L2pvWEx0OW5YY0REaE9mNUVtOVp6M1A3?=
+ =?utf-8?B?eEJSNXhXMkdBTTU0NmJqdi9nSGI4UFN6ak42NzlYME1yYTUyMmFjYjlhMFRz?=
+ =?utf-8?B?UHl6Z1BRa29Xd2NvVklndks0akk5Zmg2dnpSQTFTTFhoaWViclphekNsSUtQ?=
+ =?utf-8?B?N2JVMmJreXBXZVBRMmdMclFWSWFJVkd0RlNWb20vOXI0WlBVamhQaldQUzRI?=
+ =?utf-8?B?aExkYkhZa2F5dmNyRysycmxlNk0yMVhIelhpMzQ0bzJtSy81Vi8xVnRNY1JW?=
+ =?utf-8?B?dWxYMWs3M0RDQWJyWFBObU1NU1gxK1VLbWhLRE9GYXlDNFd2K2JCVTVNWTl2?=
+ =?utf-8?B?cktiams1RE5MY05BdDJDM2prV3g0WnI0cXlmdVBEM214b0daVFFBVGVBT3A5?=
+ =?utf-8?B?VzJKNkVaQ2R6YlFoV0dxRE5oelhDOVpibzRieGNtTzBpMXI1dXl4SU1wMmZO?=
+ =?utf-8?B?ZTU0WHVGYWFnTDh4TkZiQUpwN3k0YXNwQkROdUV5MFRtKzAwN0ZEVGFNN1E2?=
+ =?utf-8?B?MkxxWFJJMDNnRXlkeDBrT1pXeDU2RnlxS0ZYRkpxVVllNWR2Z00zT2tvS3lC?=
+ =?utf-8?B?WkFXbWdVanhZWWZzN2pFYW1RS0MwcmdqNmwzdjJUQnZ4Mkk2Qkl1bXk2cmlT?=
+ =?utf-8?B?S3Jlb1JVM2tYdnNkRWZLYUNaQndsTnZMYW5VRjhTblh2ZDdNQmhucVA0T01E?=
+ =?utf-8?B?Sk1QZTE1b1dkbjgyNWZpckFoYUY5NFRIWDZvZzIzVWY3a0JhM095WHlGcitn?=
+ =?utf-8?B?SGp6YWlVTHJIV21vckZyQnJYOW9aV0Zvb2VxQlNINEZpa0FvY0VHMVNEckRP?=
+ =?utf-8?B?d3VBeEZiNmY1TG5CSzR3blJIUWMxRzc4bzR0MitRMG9vQXM1UkN4VTF6d3VG?=
+ =?utf-8?B?Qlhnakc4bzFaaWU5aVVoR1NYNDl6U2dvVG9JMk9ENC9sOUR0VVluQTQ0Lzdj?=
+ =?utf-8?B?OUtVRjdVUjJQOTlhT2prTVl4U0F3UmVDNVdKWjlnNnBxbEUxa1ppS3R1Snpu?=
+ =?utf-8?B?UytweXJCNllrZTJEdEVabDIxNTBHdmFsQkt0cklIbDVFRzlSWjJtcTB3UGRL?=
+ =?utf-8?B?VTdIVUdQVWV0Z3BVejh0ZGdkSGd2OFNoSnRERTR3SUNsbEgvaTZsRENJYnlQ?=
+ =?utf-8?B?VUd2eGFuZUNHbE9aS1pPK0c4eVE1QnV0dGRjYVkxRExxdUU2bkIrckwxdDZW?=
+ =?utf-8?B?N2hQdXJzb09YZ3JBS2xBL2lkMDhnVENHK25BQis3UkR4a2UxSGxXcEZiUXZ2?=
+ =?utf-8?B?RTEwSkh6OC94Vk0xb1RuNllwcytaVWRiUGhRUkNZRXIyUDlqTTFUenJUK3ZC?=
+ =?utf-8?B?bnBwa3lTNGwwaWFMMFVMYTVUbjRtQXRhY2pGc1VWWmoySUR0dlRoQkQrTHZ5?=
+ =?utf-8?B?TU5sd3NrUysvb0FWcVhabVYvWnk1WDlhSzg1MVF2aXY3TkNkTGE2WEQxLzls?=
+ =?utf-8?B?ZFhaOHZPQkhkNjdMd0xQTU5SRkxLQnUzWHlkVTVUTkkrV0lRMHoyKzAvODlT?=
+ =?utf-8?B?MnNUL1d3dXJKRlRGVWJjb0tobjhlSHgvY1U1RVRpRHFnTXhmMnVxZkF6YkVP?=
+ =?utf-8?B?Vi9ESWhUanNzbjZMa0xKVDRaQ0RuRm1SbFVldTVVOXErMVpqMmJ4QkltdVZ6?=
+ =?utf-8?B?T08xSFc3cUdKOXVnQmhOTnFNWUdmM3ZXczJKV0FJM1NtQ2hoaHBjUHBiMEl5?=
+ =?utf-8?B?enhrelUwRVBhWDB5M2xjb2dkN3V3a3M1dXlmcHJBVzFnaGJUc2tXbnhGNkdV?=
+ =?utf-8?B?MzRHdHZiYVFPSW0zZUljQ2NmOTEzUzFST0ZXNW8wRkJsS1JwTkp0QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f4bc488-0fcd-4de5-c8a7-08df080999bf
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:15:43.8889 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YXv14GzgkA5mIE2RyRmgalTpfGDs1rBtH0GDcGIqs03T/ZhywdHDU7KJKWUmeUtKuvG3+wOL+KyHNSG4W+7D3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8829
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,42 +144,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the BOE 0x0b21 panel entry used in the K&D Technology
-KD116N36-30NB-A001 eDP LCM, place the EDID here for subsequent
-reference. Timing values come from the KD116N36-30NB-A001 spec.
 
-00 ff ff ff ff ff ff 00 09 e5 21 0b 00 00 00 00
-01 1e 01 04 a5 1a 0e 78 0a 24 10 97 59 54 8e 27
-1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 b2 39 80 d4 70 38 4b 40 30 20
-36 00 04 8c 10 00 00 1a 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fe
-00 51 56 31 31 36 46 48 42 2d 4e 38 31 0a 00 b3
 
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
----
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+On 9/1/2026 9:23 AM, Matthew Brost wrote:
+> On Thu, Aug 27, 2026 at 05:02:43PM +0800, Huang, Honglei wrote:
+>>
+>>
+>> On 8/27/2026 3:30 PM, Matthew Brost wrote:
+>>> On Thu, Aug 27, 2026 at 03:14:45PM +0800, Honglei Huang wrote:
+>>>> Make the HMM fault step of drm_gpusvm_get_pages(), including its -EBUSY
+>>>> retry loop, into a helper drm_gpusvm_hmm_fault(). The existing logic of
+>>>> the public drm_gpusvm_get_pages() is not changed, only relocated, so
+>>>> there is no functional change. Keeping the retry loop in common code
+>>>> also means drivers never have to open-code their own fault/retry loop.
+>>>>
+>>>> A single fault can later be shared by several drm_gpusvm_pages instances
+>>>> that mirror the same CPU range. This prepares get_pages() to split the
+>>>> shared MM-level fault from the per-device DMA mapping. No functional
+>>>> change intended.
+>>>>
+>>>
+>>> I think you might want to just wait on this until Sunday for this
+>>> series. I think this patch [1] is in the core MM tree so when drm-tip
+>>> moves to 7.3.rc1, Sunday, we will have a version of this helper to core
+>>> MM used in gpusvm.
+>>
+>> Got it, will wait until Sunday. Thanks for the information.
+>>
+> 
+> It looks like the core MM helpers have landed in drm-tip [2] but not
+> gpusvm bits.
+> 
+> If it isn't too much trouble can you pull in version of [3] at the base
+> of this series, credit Stanislav as the author, and then rebase this
+> series on top?
+> 
+> We can then merge all of this together into drm-tip.
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 2b455369ed70..591e0ed03612 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2060,6 +2060,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, "NE140QDM-NX2"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200, "NV140FHM-NZ"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, "NE140QDM-N6A"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b21, &delay_200_500_e80, "QV116FHB-N81"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, "NV122WUM-N41"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV140FHM-T09"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140FHM-N47"),
+Not any trouble at all. And it seems like [3] has already merged in 
+latest drm-tip.
 
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260901-edp-id-boe-c00b2d69a256
+So I just rebased this series on top of drm-tip. Happy
+to help if there are some other rebase works, just let me know,
+will do it ASAP.
 
-Best regards,
--- 
-Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+And this series has been rebased  and sent out, rebase and test took
+some times, sorry about that.
+
+And I have a question about the XE CI, I always get a warning:
+
+Warning: Your patch series was applied on top of the 
+307e9559fc1b95a477f00a767ea053b78d263548 kernel commit
+
+Actually I can not find this commit anywhere in drm-tip
+or xe-next, it is very helpful if you can let me know how to get the CI
+code apply base line.
+
+Regards,
+Honglei
+
+
+> 
+> Matt
+> 
+> [2] 121170831228 mm/hmm: add hmm_range_fault_unlocked_timeout() for mmap lock-drop support
+> [3] https://lore.freedesktop.org/nouveau/20260722-hmm-v10-v1-6-606464dd601a@gmail.com/T/#m68f663ce3e802d7692363c70e6364569134cd6c7
+> 
+>> Regards,
+>> Honglei
+>>
+>>>
+>>> Matt
+>>>
+>>> [1] https://lore.freedesktop.org/nouveau/20260722-hmm-v10-v1-6-606464dd601a@gmail.com/T/#m68f663ce3e802d7692363c70e6364569134cd6c7
+>>>
+>>>> Suggested-by: Matthew Brost <matthew.brost@intel.com>
+>>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_gpusvm.c | 67 ++++++++++++++++++++++++------------
+>>>>    1 file changed, 45 insertions(+), 22 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+>>>> index fcfe635bc195..507ef6f0a60e 100644
+>>>> --- a/drivers/gpu/drm/drm_gpusvm.c
+>>>> +++ b/drivers/gpu/drm/drm_gpusvm.c
+>>>> @@ -1442,6 +1442,50 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
+>>>>    	return pages_valid;
+>>>>    }
+>>>> +/**
+>>>> + * drm_gpusvm_hmm_fault() - Run the shared HMM fault for a CPU range
+>>>> + * @gpusvm: Pointer to the GPU SVM structure
+>>>> + * @mm: The mm corresponding to the CPU range
+>>>> + * @hmm_range: The hmm_range to fault.
+>>>> + * @pfns: The pfn array to populate (size @npages)
+>>>> + * @timeout: jiffies deadline for the -EBUSY retry loop
+>>>> + *
+>>>> + * Fault the CPU pages of the range into @pfns. This is the MM level step.
+>>>> + *
+>>>> + * Return: 0 on success, negative error code on failure.
+>>>> + */
+>>>> +static int drm_gpusvm_hmm_fault(struct drm_gpusvm *gpusvm,
+>>>> +				struct mm_struct *mm,
+>>>> +				struct hmm_range *hmm_range,
+>>>> +				unsigned long *pfns,
+>>>> +				unsigned long timeout)
+>>>> +{
+>>>> +	int err;
+>>>> +
+>>>> +	if (!mmget_not_zero(mm))
+>>>> +		return -EFAULT;
+>>>> +
+>>>> +	hmm_range->hmm_pfns = pfns;
+>>>> +	while (true) {
+>>>> +		mmap_read_lock(mm);
+>>>> +		err = hmm_range_fault(hmm_range);
+>>>> +		mmap_read_unlock(mm);
+>>>> +
+>>>> +		if (err == -EBUSY) {
+>>>> +			if (time_after(jiffies, timeout))
+>>>> +				break;
+>>>> +
+>>>> +			hmm_range->notifier_seq =
+>>>> +				mmu_interval_read_begin(hmm_range->notifier);
+>>>> +			continue;
+>>>> +		}
+>>>> +		break;
+>>>> +	}
+>>>> +	mmput(mm);
+>>>> +
+>>>> +	return err;
+>>>> +}
+>>>> +
+>>>>    /**
+>>>>     * drm_gpusvm_get_pages() - Get pages and populate GPU SVM pages struct
+>>>>     * @gpusvm: Pointer to the GPU SVM structure
+>>>> @@ -1503,28 +1547,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>>>>    	if (!pfns)
+>>>>    		return -ENOMEM;
+>>>> -	if (!mmget_not_zero(mm)) {
+>>>> -		err = -EFAULT;
+>>>> -		goto err_free;
+>>>> -	}
+>>>> -
+>>>> -	hmm_range.hmm_pfns = pfns;
+>>>> -	while (true) {
+>>>> -		mmap_read_lock(mm);
+>>>> -		err = hmm_range_fault(&hmm_range);
+>>>> -		mmap_read_unlock(mm);
+>>>> -
+>>>> -		if (err == -EBUSY) {
+>>>> -			if (time_after(jiffies, timeout))
+>>>> -				break;
+>>>> -
+>>>> -			hmm_range.notifier_seq =
+>>>> -				mmu_interval_read_begin(notifier);
+>>>> -			continue;
+>>>> -		}
+>>>> -		break;
+>>>> -	}
+>>>> -	mmput(mm);
+>>>> +	err = drm_gpusvm_hmm_fault(gpusvm, mm, &hmm_range, pfns, timeout);
+>>>>    	if (err)
+>>>>    		goto err_free;
+>>>> -- 
+>>>> 2.34.1
+>>>>
+>>
 
