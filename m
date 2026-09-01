@@ -4,91 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 425A0C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B8A6C624D0
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D18410EED2;
-	Tue,  1 Sep 2026 19:55:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E6310EEE3;
+	Tue,  1 Sep 2026 19:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cY6WgTNe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ItONi/99";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 552B510EED2
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:55:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1788292516;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2777MRqkHHDOXl9YhBOlEzmHGlKVDToTlF462SeCB8Q=;
- b=cY6WgTNey+oAjL/R5Oh/dnKgzyE84uArNch0M5M0ltdQOQO7/UjqpFqgYiV+KITj/3jgH5
- B3gW3BVn6andYLsMD8wqmqH4rPTc16ywgeoQ3MHPa4sLUBWEqvZl1RgzV/79elEkiMlM5c
- s/SfSbDhAl19Gwi7m3OVvBPlNzjLrfE=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-669-NlifdjvFMy2uxp15V2AefQ-1; Tue, 01 Sept 2026 15:55:15 -0400
-X-MC-Unique: NlifdjvFMy2uxp15V2AefQ-1
-X-Mimecast-MFC-AGG-ID: NlifdjvFMy2uxp15V2AefQ_1788292514
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-9394ad7f64aso61530085a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 12:55:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788292514; x=1788897314;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=2777MRqkHHDOXl9YhBOlEzmHGlKVDToTlF462SeCB8Q=;
- b=bhqdKUtK9MQB0W6QSdKRShoAyEjx5ZFRvhW0aXyzTVrGwKisXd3VvG9I047Nmg2+33
- 5d8EmR4EATHNUp9BuDgd9dk/1ldug+xfUyLeKF/bLHAM4AWDMAv7ePdcqvj/SEnhb70A
- 2tuXiFb/d2Askmp2PunsBATJrHq7luXvwvyz6wRKANJCs5l+b4EhNzj4+7uXfpr6YHyc
- VqLPYcOGXP1TMJzlNDuu0zc2/66y027xNtoZWs87G5gLKQ5Ju3E5/C+62Rxolh6BcWZs
- osCoplZCDCh3JtX43VA7RpW2oEpu8qakXvHOIyYU96KdmrieMu6C5Q2IodS5muh8iG69
- Q3Fg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqApC+trSn3l2BEcqhBssAM8I9tEwsHfPQ1rCSt3sY3ypDSB/ikGm7Q6Sao6mN9QtZHaB0ZIHkc178=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++laprdpu1wM0iKaACdf+D9vXGUfyDp0mCFDm0rljbNhrtHTCWFR
- nZsLn8LQuw7fzIlgB+KiibstUEeDZLJkp5XUNhfTSKZaPzrUDhc9tdtbKEkYf5/KuYx6fMobUoK
- KtXY6U+4BhUXflQAFLyxIdq2MYaHLKdR9ESKXoGFSeA+31SdT1ZRw+ViYlntc3OAdwxPzsQ==
-X-Gm-Gg: AR+sD13Zf/DtTqhaWScTAgrw1VM8DeQabTcmVMJhOYd3q1n5/X/dBhTe1dsAg39P4UX
- h6EbsnWs9AvHayYYQs0yk3utPVhK812KtDGOajHt9g8ywehi7HcVdYLqiaQRjr1qX9vq3+9Myn2
- Efqjza3bmLzHqENJWH8lJ+AyXtWHqbIz0kUz7JLHcH4sy2DwH2EOlhKWJrW/UL0Ku/WQvrWBk4o
- wumyyGK8MzCv7KrMpPn2WWYMZzojfsuZETqyjYVKsjrU2zoB2ZKEfT0vCwYvU+4Xfkb1tu3j4+v
- XZcUYFLvsROnE0gxKN9qVkAU+cF4txrAStEkVpHml7C/iI+yzseqKavTPI0En62fMTER3rXY
-X-Received: by 2002:a05:620a:2b88:b0:92e:71bb:d1c0 with SMTP id
- af79cd13be357-93948012fadmr1557893885a.15.1788292514232; 
- Tue, 01 Sep 2026 12:55:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b88:b0:92e:71bb:d1c0 with SMTP id
- af79cd13be357-93948012fadmr1557887785a.15.1788292513678; 
- Tue, 01 Sep 2026 12:55:13 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9395f361042sm19286085a.26.2026.09.01.12.55.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 12:55:13 -0700 (PDT)
-Message-ID: <27200b7e13ecc99d57c41da4e25fad690fca68d7.camel@redhat.com>
-Subject: Re: [PATCH v2] drm/nouveau: Use write-combined maps for coherent
-From: lyude@redhat.com
-To: Aaron Kling <webgeek1234@gmail.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Faith Ekstrand <faith.ekstrand@collabora.com>
-Date: Tue, 01 Sep 2026 15:55:11 -0400
-In-Reply-To: <CALHNRZ-JmYx-PhruhDZ3L8aPVu51cJrqP_FeNtGTyMHCH_esgg@mail.gmail.com>
-References: <20260821-tegra-coherent-wc-v2-1-2b1ddb67bf18@gmail.com>
- <8cb96c08-2d1e-459e-b356-c6fd97ef869e@kernel.org>
- <CALHNRZ-JmYx-PhruhDZ3L8aPVu51cJrqP_FeNtGTyMHCH_esgg@mail.gmail.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 4AbuiJzF1sSWxZnH3MD4Iu1LRjXdrso5u7iC44SIF_A_1788292514
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F26910EEE3
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:55:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 600C14179A;
+ Tue,  1 Sep 2026 19:55:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CFD21F000E9;
+ Tue,  1 Sep 2026 19:55:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788292529;
+ bh=+9eyGdDYzx+utB1WvkIlNywy4iOJVFHEAHXbVDEEeoQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ItONi/99A2GatKYWEFfdezCWMoOFhm828Cl6e1V9DE2mHpWuIYwAp/hfEkXrIMKiN
+ Wz9gPapoUpsUbIV5VSZ+EvuTKAQ6rci7PQHyBmDPAlTGOYB11dxhtV3Vr3g+iii1Ty
+ 29v225o2VOOdZyqxEJN9ARVmkvil26QxN9noMB21fwhFoHVJarM4YTAaVZ+k7/VIAy
+ Ou+h5WAHSj+/pHVhDrDbRMoppAIAWnEZde8stcy99sTmO2zfp5FMGTWQN7qNP4AM05
+ HuUOLUuEl+T8IPZ8riH7bCz0BDvAzy2RF+J/stDc0A2LZaBI5XC0D+k7JeEuzbjVFU
+ iQY2Xb3nVJ5ug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 38/74] drm/rockchip: dw_hdmi_qp: Factor out HPD
+ interrupt (un)mask helpers
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-38-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+ <20260901-dw-hdmi-qp-scramb-v11-38-bc12954a0688@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 19:55:28 +0000
+Message-Id: <20260901195529.1CFD21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,23 +54,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-09-01 at 13:03 -0500, Aaron Kling wrote:
->=20
-> Looks like the tag is:
->=20
-> Fixes: 1b4ea4c5980f ("drm/ttm: set the tt caching state at creation
-> time")
->=20
-> Should I send another revision just to add this, or can the subsystem
-> maintainer add it when picking the change up? For stable, I would
-> like
-> to see this picked to 6.18 at least, since I primarily work with LTS
-> forks.
->=20
-> Aaron
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I would send out a respin with the tag
+Pre-existing issues:
+- [High] Use-After-Free and resource leak due to devm_ usage in component b=
+ind
+--
 
+commit cea67879af1ca4ad52b13c14999be678a504386f
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+drm/rockchip: dw_hdmi_qp: Factor out HPD interrupt (un)mask helpers
+
+Extract the GRF-level HPD interrupt mask/unmask register writes into
+dedicated dw_hdmi_qp_rk35{88,76}_{mask,unmask}_hpd() helpers, and use
+them from the .enable_hpd()/.disable_hpd() phy ops as well as the
+hardirq, threaded re-arm and io_init() paths.
+
+This is a preparatory refactor that separates the SoC-level HPD mask
+from the phy op entry points, so a subsequent change can gate the
+platform HPD IRQ line without affecting the debounce paths.
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 9e48ec06eb660..ecf12403101da 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+
+[ ... ]
+
+This is a pre-existing issue, but I noticed a potential problem in
+dw_hdmi_qp_rockchip_bind():
+
+drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c:dw_hdmi_qp_rockchip_bind() {
+...
+	hdmi =3D drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
+...
+	ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
+...
+	ret =3D devm_request_threaded_irq(dev, hdmi->hpd_irq,
+					cfg->ctrl_ops->hardirq_callback,
+					cfg->ctrl_ops->irq_callback,
+					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
+					hdmi);
+...
+}
+
+[Severity: High]
+Can this component bind sequence result in a Use-After-Free?
+
+The hdmi structure is allocated with drmm_kzalloc() on the master DRM
+device, meaning it is freed when the master DRM device unbinds.
+
+However, the IRQ is registered using devm_request_threaded_irq() on the
+component platform device (dev).
+
+Because devm_ resources are tied to the platform device's probe/remove
+lifecycle rather than the component bind/unbind lifecycle, they are not
+freed during component_unbind().
+
+If the master device unbinds, the hdmi structure is freed, but the IRQ
+remains active with a pointer to the freed memory.
+
+If the IRQ fires after unbind, will it access the freed hdmi struct?
+
+Additionally, are the devm_ allocations in the component bind leaked on
+every component unbind and re-bind sequence?
+
+Since devm_clk_bulk_get_all_enabled() is tied to the component device,
+won't these clocks be leaked when the component unbinds and re-binds?
+
+A similar issue appears in dw_hdmi_qp_bind():
+
+drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c:dw_hdmi_qp_bind() {
+...
+	hdmi =3D devm_drm_bridge_alloc(dev, struct dw_hdmi_qp, bridge,
+				     &dw_hdmi_qp_bridge_funcs);
+...
+}
+
+[Severity: High]
+Does this code leak the bridge structure every time the component is
+re-bound?
+
+Because devm_drm_bridge_alloc() is called on the component device, it
+appears this memory will not be freed during component unbind.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dw-hdmi-qp=
+-scramb-v11-0-bc12954a0688@collabora.com?part=3D38
