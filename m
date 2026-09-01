@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A49C624D9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD784C624D0
 	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 18:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A72510EE48;
-	Tue,  1 Sep 2026 18:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE03F10EE49;
+	Tue,  1 Sep 2026 18:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="J2Njq9Vi";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bk9a5vj5";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B044510EE41
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:50:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5646110EE47
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 18:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788288653;
- bh=q5EwAZk5tThfOFfPU3cHVXQvyZ71nTre7ie20f65OJw=;
+ s=mail; t=1788288656;
+ bh=vC1ePJhBclg4QnFEqL+ZBqQ2Dmw2tOM/83/2vVp78Ek=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=J2Njq9Vi4JicstBaFOmx64tiCSCfNhZmvrwUjq8IOZnqHv47VAxHqWQZkFzY7rLh8
- vX1QUhcXIcdWtaHcY4YrYQzVyIu0Yc4tiCw1el/rEM33TmPVaMuPJyZ7EHJzZ3wSl7
- STYLGxcHUtUidmoGGwMURTfPKLNUcyKU799VoOiuSuA+MrPsqTdpAKQTTtC7TsVR/o
- WMc1rjvZdcoQZYPd9JuCpp28ILBfkwHekbR6EezLLDmXWr3gqJ+XMORG5nadKxl3fs
- DAY4fV9OzvpeKRrZLhu0n3ZKgE8l4wCo9b/kRYEYW9fdw/Ape4mkxZH/DW3P8I2LHO
- S7LzOEenNGkWg==
+ b=bk9a5vj5KKQVpC88RRIhX6/+gQ8prDtm29SgwjSvO03T1k+MLbnPRHN1ZXz6gEy0e
+ IHBj4ClJaFr9GX+ox7Fj3AjWuwxj9K2jqRamOO4VE01LcfddZ7ilLykVutLeNEy8uC
+ D2EZkjFkXy+pKk6GN/70Qs2uyAh8PIhoaab7ZImSSZFnTpKueG/gAlLXL29HWgJzP9
+ EUJoinXmOfccQ9Gg+Gjn4SdXlym3G+iWwJT2aZazC1SKScsgggnHfm+iiqWg2U5X5K
+ fGHPjg32uxZ8KxENaK2BV2b1RIigNOveso2kmDaYgutHKn46beNBvj9tMDi+C8RzAQ
+ ntb3w77mVMwOA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0335A17E36FC;
- Tue, 01 Sep 2026 20:50:53 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E7D8F17E37E2;
+ Tue, 01 Sep 2026 20:50:55 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:50:40 +0300
-Subject: [PATCH v11 16/74] drm/bridge: Add bridge ops for source-side HDMI
- 2.0 scrambling
+Date: Tue, 01 Sep 2026 21:50:44 +0300
+Subject: [PATCH v11 20/74] drm/display: hdmi-state-helper: Add source TMDS
+ rate validation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-16-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-20-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,8 +65,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- linux-fbdev@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ linux-fbdev@vger.kernel.org, Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,66 +83,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges advertising HDMI 2.0 must be able to enable and disable
-source-side scrambling and the high TMDS clock ratio when the configured
-mode exceeds 340 MHz.
+Validate the computed TMDS character rate against
+connector->hdmi.max_tmds_char_rate, when provided by the driver/source.
 
-Add .hdmi_scrambler_{enable|disable}() callbacks covering the
-source-side programming only; sink-side SCDC negotiation remains the job
-of the HDMI connector helpers.
+This gives HDMI connectors common support for rejecting modes whose TMDS
+character rate exceeds the source supported limit, while still allowing
+drivers with custom validation requirements to implement their own
+tmds_char_rate_valid() callback.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- include/drm/drm_bridge.h | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 5a5a25995471..77b3ffe69230 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -561,6 +561,41 @@ struct drm_bridge_funcs {
- 				     const struct drm_display_mode *mode,
- 				     unsigned long long tmds_rate);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index bccc5d7c8eed..3ef6de31dc02 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -562,6 +562,10 @@ hdmi_clock_valid(const struct drm_connector *connector,
+ 	if (info->max_tmds_clock && clock > info->max_tmds_clock * 1000)
+ 		return MODE_CLOCK_HIGH;
  
-+	/**
-+	 * @hdmi_scrambler_enable:
-+	 *
-+	 * Enable source-side scrambling and the high TMDS clock ratio for the
-+	 * mode currently being applied.
-+	 *
-+	 * This only programs the source side. Sink-side SCDC configuration is
-+	 * handled by the HDMI connector helpers.
-+	 *
-+	 * Mandatory for bridges that set the DRM_BRIDGE_OP_HDMI flag in their
-+	 * &drm_bridge->ops and advertise HDMI_VERSION_2_0 or later via
-+	 * &drm_bridge->supported_hdmi_ver; unused otherwise.
-+	 *
-+	 * Returns:
-+	 * 0 on success, a negative error code otherwise.
-+	 */
-+	int (*hdmi_scrambler_enable)(struct drm_bridge *bridge);
++	if (connector->hdmi.max_tmds_char_rate &&
++	    clock > connector->hdmi.max_tmds_char_rate)
++		return MODE_CLOCK_HIGH;
 +
-+	/**
-+	 * @hdmi_scrambler_disable:
-+	 *
-+	 * Disable source-side scrambling and the high TMDS clock ratio.
-+	 *
-+	 * This only programs the source side. Sink-side SCDC configuration is
-+	 * handled by the HDMI connector helpers.
-+	 *
-+	 * Mandatory for bridges that set the DRM_BRIDGE_OP_HDMI flag in their
-+	 * &drm_bridge->ops and advertise HDMI_VERSION_2_0 or later via
-+	 * &drm_bridge->supported_hdmi_ver; unused otherwise.
-+	 *
-+	 * Returns:
-+	 * 0 on success, a negative error code otherwise.
-+	 */
-+	int (*hdmi_scrambler_disable)(struct drm_bridge *bridge);
-+
- 	/**
- 	 * @hdmi_clear_avi_infoframe:
- 	 *
+ 	if (funcs && funcs->tmds_char_rate_valid) {
+ 		enum drm_mode_status status;
+ 
 
 -- 
 2.55.0
