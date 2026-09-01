@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C528C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 17:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340FDC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 17:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0AFA10EDEA;
-	Tue,  1 Sep 2026 17:04:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="elotwXB0";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A347910EDEA
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:04:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EAD876020D;
- Tue,  1 Sep 2026 17:04:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC8A1F000E9;
- Tue,  1 Sep 2026 17:04:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788282280;
- bh=DfszqUODh+/sp6+MqyvHBr9pWYxMGMUBzWg4Ho9mFsg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=elotwXB0b3xORhAxg7fussPlhjzd/iiUNcfwGaYTegjcHOsXMwc15YGtUD8NgMo2Y
- WVhrRCSSfZvqLZGWQtonAUmXQ1iiPk/bCSTOQRA15Fbsji09PMLBKrWJcOuEPE1Jbj
- P1MP0JJaPVe5MLJCRVwCkJJsccy6qCwFNflBLzPhnUTr2Hp3ylVrJU3qCMtGkFZz84
- TCkH5p1p4Rez+phOUSJpngTP7ymjK8UkJzOfrHqRbVMTMcZdpdYQK+jrS8VgPYObeT
- r8OY3xhmoHNEbTDXcv/IsAMpjSSyRJWuPvay1hkfS9Hj8mRGMrOEphNxW+9ETrZKeM
- wzSEzb9H1ZPtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/16] drm/tyr: specify base type for registers
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, "Alexandre
- Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org
-In-Reply-To: <20260901-typed_register-v4-8-5552b1d59525@garyguo.net>
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-8-5552b1d59525@garyguo.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 17:04:39 +0000
-Message-Id: <20260901170440.4EC8A1F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97EFC89711;
+	Tue,  1 Sep 2026 17:17:17 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB3CA89711
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 17:17:15 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
+ by APP-01 (Coremail) with SMTP id qwCowAAn+u2QCJdq5v8CBw--.35276S2;
+ Wed, 02 Sep 2026 01:17:05 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
+Date: Wed,  2 Sep 2026 01:17:02 +0800
+Message-ID: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAAn+u2QCJdq5v8CBw--.35276S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtrWfKF1DGr47Aw1rCr4fAFb_yoWkWwb_C3
+ W7uw1kWr9Fkr18ZF12ywnF9F9akFW8Zan5Xr4Fq3ZxKw1DJr1fAr4DXas5ur1UW3WrtF98
+ Xa17Zr1xJr1fGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
+ 1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+ 6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+ IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-Originating-IP: [120.85.96.74]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,110 +57,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Out-of-bounds Register Definition: The `DOORBELL` register array=
- exceeds the maximum size of its specified base type `TyrRegisters`.
-- [Low] API Misuse: Applying `base: TyrRegisters;` to purely in-memory bitf=
-ields allows them to silently alias hardware MMIO registers.
---
+Blend modes are now required to expose pixel formats w/ alpha.
 
-commit 1d550d1a42720086769c2c8dc9fd2f019102d497
-Author: Gary Guo <gary@garyguo.net>
+As it's the primary plane and blending is explicitly disabled, just
+expose PIXEL_NONE blend mode.
 
-drm/tyr: specify base type for registers
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-This commit updates register definitions to specify TyrRegisters as the base
-type for all register! invocations.
+diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+index 1f2be41ae496c..8d58682d88ef8 100644
+--- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+@@ -7,6 +7,7 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+@@ -179,5 +180,7 @@ struct drm_plane *vs_primary_plane_init(struct drm_device *drm_dev, struct vs_dc
+ 
+ 	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
+ 
++	drm_plane_create_blend_mode_property(plane,
++					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
+ 	return plane;
+ }
+-- 
+2.52.0
 
-> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-> index bfb0ba19caff9..730b84e37a544 100644
-> --- a/drivers/gpu/drm/tyr/driver.rs
-> +++ b/drivers/gpu/drm/tyr/driver.rs
-> @@ -46,6 +46,7 @@
->  };
-> =20
->  pub(crate) type IoMem<'a> =3D kernel::io::mem::IoMem<'a, SZ_2M>;
-> +pub(crate) type TyrRegisters =3D kernel::io::Region<SZ_2M>;
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 47d25c901bd01..7edb5eff17077 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -101,6 +102,8 @@ fn from(value: CacheMode) -> Self {
->  }
-> =20
->  register! {
-> +    base: TyrRegisters;
-> +
->       #[allow(non_upper_case_globals)]
->      pub(super) SectionFlags(u32) @ 0x0 {
->          0:0 read =3D> bool;
-
-[Severity: Low]
-Does applying an MMIO base to this firmware struct unintentionally allow it
-to be used in hardware I/O operations?
-
-By specifying base: TyrRegisters; and @ 0x0, SectionFlags gains I/O traits
-tied to the hardware MMIO base. Since this appears to be an in-memory bitfi=
-eld
-used for parsing firmware, should the bitfield! macro be used instead to
-prevent it from silently aliasing hardware registers?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-> index a62724378ced2..0c419c4e1186c 100644
-> --- a/drivers/gpu/drm/tyr/regs.rs
-> +++ b/drivers/gpu/drm/tyr/regs.rs
-[ ... ]
-> @@ -1104,6 +1131,8 @@ fn from(val: MemoryType) -> Self {
->          }
-> =20
->          register! {
-> +            base: TyrRegisters;
-> +
->              /// Stage 1 memory attributes (8-bit bitfield).
->              ///
->              /// This is not an actual register, but a bitfield definitio=
-n used by the MEMATTR
-
-[Severity: Low]
-Similar to SectionFlags above, the comment explicitly notes this is not an
-actual register. Does adding base: TyrRegisters; here mistakenly grant it
-MMIO traits and allow accidental I/O operations?
-
-[ ... ]
-
-> @@ -1770,6 +1811,8 @@ pub(crate) mod doorbell_block {
->      const STRIDE: usize =3D 0x10000;
-> =20
->      register! {
-> +        base: TyrRegisters;
-> +
->          /// Doorbell request register. Write-only.
->          pub(crate) DOORBELL(u32)[NUM_DOORBELLS, stride =3D STRIDE] @ 0x8=
-0000 {
->              /// Doorbell set. Writing 1 triggers the doorbell.
-
-[Severity: Medium]
-Does this base type provide enough address space for the entire array?
-
-TyrRegisters is defined in driver.rs as kernel::io::Region<SZ_2M>
-(a 2MB limit). However, the DOORBELL array has 64 elements (NUM_DOORBELLS)
-with a stride of 0x10000 and starts at offset 0x80000.=20
-
-Accessing higher indices in this array will exceed the 2MB limit (e.g., the
-maximum offset is 0x80000 + 63 * 0x10000 =3D 0x470000, ~4.5MB). Will this
-result in a build assertion failure or runtime out-of-bounds error when
-upper doorbell indices are accessed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-typed_regi=
-ster-v4-0-5552b1d59525@garyguo.net?part=3D8
