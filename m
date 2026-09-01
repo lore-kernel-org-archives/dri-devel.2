@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C5AEC61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 13:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99618C61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 13:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B56310ECD1;
-	Tue,  1 Sep 2026 13:08:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B056110E3F1;
+	Tue,  1 Sep 2026 13:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FCqLq1wj";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QZwk9DQd";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3C210ECD1
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 13:08:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99E7210E3F1
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 13:19:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788268088;
- bh=qH64igqWmhbPPqereCNZa1DEz1woVgjOvI/xPj3Lx8s=;
+ s=mail; t=1788268743;
+ bh=qV/Qw1Oeu++1QlSiJZ8tb59korzX57Tnk1SFiSIzSJo=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=FCqLq1wjHQYD1btvljkUdwtODyAwZQyQdQKalOf1PZZYUbWb2ZsV8n0JmlL3rEHcj
- CVdcBOIG6cncmviEIPytcxC23KlY3RflHwhcQymkObO0hGp7ot31/J9gKkvk2dZZD+
- WGqPRmi3HbFdZO7J7ZB9b88s0dNq0mHKmvG+0aLYuMsgIow6qL62YrnxTxRnsZCRhh
- YxVtRPypWSqWTZErVScEGuQIBphq+41tTGIQe9binjZnnUTqCjslE5ocdWxG6nG8lL
- ZexKq0pgtq0FTxOim8UXEUuNwsnRZy8gPhRYPP/UV93ua+6Tp0Jgaurz2mmL1ahXeN
- QJ4lMRGgzIIiQ==
+ b=QZwk9DQdQ9XPuiPWfXTz43J+4J7PhERLcj7Hi1plkxhUrjrkc0HdejGz01jj1DPql
+ KUEQLiveC2ci9jyXIaqEdj+EwWvVgrxsaWf/LmMMOh8mbPcg4diYRnPkIvqBuludp+
+ 8cyKQjRlV1gwtf/4d7lj3SZogedD71wNrVOs/1HjvN7NjesN/RQhoGuMXBDKIN/oY+
+ EfQsCAEK7KMAdOsIVYGZlGpKt8XUcI06EeOyCJxKYoN3xK1OszbNyhKTboSS023bgs
+ l7+89gsOffQz317lmu9IMkk6Cg3cTV0Gnuf/40kz2ubPcjj9aWnXR1LlF2t2eoRzmi
+ zC/PxlO96WeJQ==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3844617E006A;
- Tue, 01 Sep 2026 15:08:08 +0200 (CEST)
-Date: Tue, 1 Sep 2026 15:08:04 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C4E617E0260;
+ Tue, 01 Sep 2026 15:19:02 +0200 (CEST)
+Date: Tue, 1 Sep 2026 15:18:56 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -47,12 +47,12 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 08/17] drm/panfrost: Split subsystem init/reset from
- interrupt enablement
-Message-ID: <20260901150804.75ce2f47@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-8-72a13b2c125d@collabora.com>
+Subject: Re: [PATCH v7 09/17] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+Message-ID: <20260901151856.433920b6@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
 References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-8-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-9-72a13b2c125d@collabora.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -73,82 +73,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:48 +0100
+On Fri, 28 Aug 2026 21:56:49 +0100
 Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> Because MMU interrupts are only enabled when the device is reset, it
-> happened that after DRM device registration, the very first job targeting
-> the tiler heap BO would always time out. The reason is the reset sequence
-> is only part of PM runtime resume, which is not called explicitly at driv=
-er
-> probe time, and an actual reset work item manually triggered after a HW
-> error.
+> During device probe(), failure to do a PM get() will leave the usage_count
+> set to 0, which is the value assigned at device creation time. That means
+> when the autosuspend delay expires, runtime suspend callback won't be
+> invoked, so the device will remain powered on forever.
 >=20
-> I have attempted a somewhat drastic solution, which is completely
-> decoupling GPU/MMU/JM subsystem initialisation and reset from interrupt
-> enablement, so that we can handle IRQ toggling a bit more flexibly.
+> On top of that, failure to call PM put() during device unplug means
+> Panfrost device's PM usage_count increases monotonically for every new
+> module reload.
 >=20
-> To this end:
-> - Ensure every subsystem with its own IRQ has an 'enable interrupts'
-> method, and that it doesn't enable them anywhere else.
-> - Force IRQ masking at MMU reset time. Up until, now, panfrost_mmu_reset()
-> was clearing the MMU IRQ suspension bit, but at no point that is set duri=
-ng
-> the reset sequence.
+> The combined outcome of both of the above was that devfreq OPP transition
+> notifications would be printed all the time, even when no jobs are being
+> submitted. This quickly fills the kernel ring buffer with junk.
 >=20
-> Then manually enable all interrupts when the device is fully initialised =
-at
-> probe time, right before DRM device registration, or after the reset
-> sequence is complete. Also disable all interrupts at device remove time,
-> so that their IRQs can be sync'ed right before tearing the device down.
+> To fix the above:
+> - Manually adjust the PM refcnt at device probe and removal time.
+> - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
+> - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
 >=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
 > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+
+Because of how things are currently ordered, this won't be backportable
+without patch 2, which doesn't have a Fixes tag, so, either we put the
+fix first, and then we move code, or we make it a single commit.
+
 > ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 40 ++++++++++++++++++++++--=
-------
->  drivers/gpu/drm/panfrost/panfrost_device.h |  3 ++-
->  drivers/gpu/drm/panfrost/panfrost_gpu.c    | 19 ++++++++------
->  drivers/gpu/drm/panfrost/panfrost_gpu.h    |  2 ++
->  drivers/gpu/drm/panfrost/panfrost_job.c    |  7 +++---
->  drivers/gpu/drm/panfrost/panfrost_mmu.c    |  9 +++++--
->  drivers/gpu/drm/panfrost/panfrost_mmu.h    |  2 ++
->  7 files changed, 56 insertions(+), 26 deletions(-)
+>  drivers/gpu/drm/panfrost/panfrost_device.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >=20
 > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
 /panfrost/panfrost_device.c
-> index 9e02fb5f73c8..99f7da2180f9 100644
+> index 99f7da2180f9..70c8109ea698 100644
 > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -226,6 +226,27 @@ static int panfrost_pm_domain_init(struct panfrost_d=
-evice *pfdev)
->  	return err;
->  }
+> @@ -322,6 +322,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
 > =20
-> +void panfrost_device_enable_int(struct panfrost_device *pfdev)
-> +{
-> +	panfrost_gpu_enable_interrupts(pfdev);
-> +	panfrost_mmu_enable_interrupts(pfdev);
-> +	panfrost_jm_enable_interrupts(pfdev);
-> +}
+>  	pm_runtime_set_active(pfdev->base.dev);
+>  	pm_runtime_mark_last_busy(pfdev->base.dev);
+> +	pm_runtime_get_noresume(pfdev->base.dev);
+>  	pm_runtime_enable(pfdev->base.dev);
+>  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+>  	pm_runtime_use_autosuspend(pfdev->base.dev);
+> @@ -334,9 +335,13 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err < 0)
+>  		goto out_devreg;
+> =20
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
 > +
-> +static void panfrost_device_enable_hw(struct panfrost_device *pfdev)
-> +{
-> +	panfrost_device_enable_int(pfdev);
-> +	panfrost_devfreq_resume(pfdev);
-> +}
-> +
-> +static void panfrost_device_disable_hw(struct panfrost_device *pfdev)
-> +{
-> +	panfrost_devfreq_suspend(pfdev);
-> +	panfrost_jm_suspend_irq(pfdev);
-> +	panfrost_mmu_suspend_irq(pfdev);
-> +	panfrost_gpu_suspend_irq(pfdev);
+>  	return 0;
+> =20
+>  out_devreg:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_disable_hw(pfdev);
+>  	panfrost_gem_fini(pfdev);
+> @@ -363,7 +368,9 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+> =20
+>  	panfrost_jm_stop_sched_jobs(pfdev);
+>  	panfrost_device_disable_hw(pfdev);
+>=20
 
-Hm, I think I'd prefer if those suspend/resume_irq() were hidden in
-some subcomponent panfrost_<subcomp>_suspend,resume() helpers. And
-then we just have to resume/suspend component in the right order
-instead of treating IRQs as a standalone object (enabling/disabling
-only makes sense if the subcomponent handling those interrupts is
-resumed/suspended).
