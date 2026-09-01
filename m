@@ -4,88 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB09C61DD3
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:25:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F1AC624CF
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A03910EC7E;
-	Tue,  1 Sep 2026 11:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B843210E3DB;
+	Tue,  1 Sep 2026 11:28:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IXzrdKdy";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kOQO7lGL";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F54910E3DB
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:25:49 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-482e2fdf6ebso3845901f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 04:25:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788261947; x=1788866747; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=O15Reb8K9UpgINjG0MBTMyi3oJTA2sKCTZI1fZ2J21s=;
- b=IXzrdKdys7ATESW9NFuDyu0XVLbj2ReNYF+wiBJkPn8mFtjc0iKPk1NGk3E+RmgedD
- 1V0ZB5xQRHIWVvh0bzvfHn9oNPa5MpIpRqMgUIB1grRE9hgz7D0aMcv4xt214IzNwHwG
- cAn0fqOHVpdbp0HcgW7Pim/3n7LyYtBt6dqVvUVQotQm/1GMU9b+IbnX8yQ4FWAhpqIj
- 380Z5Sg3F/VzIcfKd4kmE4BmTK+bGdIBlAAgDt8cnyvUJpsAGBWjI+P9Kj49jQHX4jo5
- JQLkEVWlg1h23BvbBm+afZ5WMa1c7zMPgcPoE6hVAvH6MCxqlNmnp/X2AgKHqcRSQWSH
- Ap0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788261947; x=1788866747;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=O15Reb8K9UpgINjG0MBTMyi3oJTA2sKCTZI1fZ2J21s=;
- b=p9CcgmD8nRWcFgAJcrZXJi9Vcsveox9gJ1V1yYhQbcVF/g49qSIHO7GerLSwAxpOOk
- RlKHHnxJRnxV8N8cWyIs0yB/JOicxb4BA4uiS1MC8Qs1AwuKDcZNK1Im9HAR2RLo1HQ5
- cG5qzC1iuin0SIFUWaGYXD5wqKBmzM77VAQh6YcwmWBBhP9YIeYUCrkE2L/bZ8iPGbAk
- dWG+WhfXYM1lDIWrjig7IjAzeZQ2K+M5Xi453T1+1X5ELt8ZP1fnjH+ZnID3Ts3m1rWy
- 9hysIv5TbS8KDcFHbzQLwgfaSpMXtCRYrpZtLVhnbOHs9f+p4YM7l7tP0cOFrUHHicu9
- d9Qg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrB6+YYdAx8+UhiwHS63iWmQ3UOJwMP2uc8VTpGMIxrQ/A/kUqZNJeHFYEJv3GZ9z/ujFqGcDUXToE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nJ12pcK5iQix8PI6jJ9ohnFfVFWliosE7KfFjOb7sG+Z9Ap+Ri
- GvaLWKoaY9qxMZNH35PfoVTo+ftXY301CM2HIp81DjpHzbRAZSOWnQ/Y
-X-Gm-Gg: AR+sD11y4cjaN1gYry3q6q8GHx0DgWWgtcPljE79Vwq4GaI2vdnh5MMnaZYYvYh2aNY
- dQ/p45XbJROpNwMj5sgnKqZRwQYuMLE+CmSomMwY32cHQPhm2Gs7RUaHqgjsJn6eE30JxBlkmzZ
- IKBLeeJuyHqIQlG5c6WSfR/SqC5besoVsZOaiWXxeaNyb+FYE2/L7cz55rvAhI71VCR3H/ZXCm1
- nzxkEwuM2ld2PexeI2shbEjU6XEYGp0Gb5SOuJ6gAneZTfmNaWKIwy++WFVRLFBa4ot4vsRy2z0
- MnEbu1Fj2T8jY4LZ5+piQIZQlvnANrHO46MWmU8LI+eBkRo7kMQKMHsV3bLY8+sx4uN7oXee/Yu
- RTvBbxGPiMcNxYlrdpnGKB043aGjpbnmxxUoKUJbdPcN/1V5z15/cyIz1uezm89ZStGMO3zBzIK
- 4Vj5LKKJPhx1rKyPXNyJvV6cMzfzC58nEdurqXSCa9AISXiT72Huv2VfoY5og5GNu2
-X-Received: by 2002:a05:600c:8011:b0:496:bbce:fc with SMTP id
- 5b1f17b1804b1-49cdc5660bamr148450025e9.12.1788261947024; 
- Tue, 01 Sep 2026 04:25:47 -0700 (PDT)
-Received: from toolbox.. ([87.200.95.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49b91c510c9sm226325455e9.0.2026.09.01.04.25.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 04:25:46 -0700 (PDT)
-From: Christian Hewitt <christianshewitt@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Douglas Anderson <dianders@chromium.org>,
- Andy Yan <andy.yan@rock-chips.com>,
- Sugar Zhang <sugar.zhang@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi-qp: Compute ACR CTS for unlisted TMDS
- rates
-Date: Tue,  1 Sep 2026 11:25:41 +0000
-Message-ID: <20260901112541.84588-1-christianshewitt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB9110E3DB
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1788262087;
+ bh=CxjG8Mr1uPjbBLqqRSGoy0wOuSXMIYfixEvQi/UrWq4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=kOQO7lGL4Q7njVR7vhMQwU0sLDMN/kYheh1QHPEbowCgtgFnArxGaWp5h8e7O3Ctv
+ S3cb3BCSo6iqlo7akcfnyGOwHmWd0C5yP3W2cLOgy2CbvJMYxFA8/i42YcNi34+AQv
+ EbLHZHLx0P1xR/98+qelUn2WVDxVB00D5kVh6NSIMAHuFjmlaQu/MpOW/2VHgMuO/3
+ 5rI9E0fmS1h8EISdxS8pWu6d4U9ehTe7wEl5iskYnSICI+RQriGCx7YZRmVluaubOA
+ xRjBR3uXX+fhiHgI22WDtB84uzHhiTY7BTKf1OMbq6ozPZLPPXjhh1g02/wILoBtGe
+ JQ6zoMfIRGMPw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E99CF17E07EF;
+ Tue, 01 Sep 2026 13:28:06 +0200 (CEST)
+Date: Tue, 1 Sep 2026 13:28:02 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 01/17] drm/panfrost: Move shrinker initialization and
+ unplug one level down
+Message-ID: <20260901132802.66d9aba6@fedora-21.home>
+In-Reply-To: <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,115 +73,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-common_tmds_cts_table[] holds only six TMDS character rates (25.175,
-25.2, 27, 54, 74.25 and 148.5 MHz), so dw_hdmi_qp_find_cts() returns 0
-for everything else. dw_hdmi_qp_set_cts_n() then clears the CTS override
-enable and programs a value of 0, leaving the sink with no CTS to
-regenerate the audio clock from.
+On Fri, 28 Aug 2026 21:56:41 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Any deep colour link falls into this gap: a 10 bpc RK3576 HDMI output
-runs at 185625000 Hz (148.5 MHz * 1.25), which is absent from both
-tables. N is computed dynamically and comes out correct at 6144, but
-AUDPKT_ACR_CONTROL1 reads back as 0.
+> Since the moment we call drm_dev_register() the device should be in a
+> position to accept jobs, so it's best if the shrinker is already
+> initialized by then.
+>=20
+> On top of that, make shrinker functions take an panfrost_device pointer
+> like other functions in the same sequence and rename them accordingly.
+>=20
+> Essentially mimic the init/fini behaviour in Panthor.
+>=20
+> On top of that, remove the config feature check, because it's unnecessary.
 
-Give CTS the same dynamic fallback that N already has, using the formula
-from the Audio chapter of the HDMI specification, and drop the -ENOENT
-returned into an unsigned int for the unlisted sample rates.
+I don't think that's accurate anymore (we still have a config check,
+except it's encoded directly in the panfrost_transparent_hugepage definitio=
+n),
+and I think I'd prefer if this change was done in a separate commit.
 
-Fixes: fd0141d1a8a2a ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
----
-This was found after testing unrelated patches from DetlevC that rename
-the RK audio cards to see the impact in Kodi. RK3588 had audio output,
-while RK3576 did not. I'd not used an RK3576 board for a while so tasked
-Claude to help triage the problem, and this was the finding. The problem
-appears to have been exposed since Kodi reworked plane selection logic
-and support for 10bpc planes; earlier Kodi/LibreELEC images were using
-8bpc planes thus avoiding the problem.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+>  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+>  drivers/gpu/drm/panfrost/panfrost_drv.h          |  4 ++++
+>  drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----=
+------
+>  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+>  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+>  6 files changed, 32 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 485349faf251..05c40d5a20b5 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfd=
+ev)
+>  	if (err)
+>  		goto out_job;
+> =20
+> -	panfrost_gem_init(pfdev);
+> +	err =3D panfrost_gem_init(pfdev);
+> +	if (err)
+> +		goto out_perfcnt;
+> =20
+>  	return 0;
+> +
+> +out_perfcnt:
+> +	panfrost_perfcnt_fini(pfdev);
+>  out_job:
+>  	panfrost_jm_fini(pfdev);
+>  out_mmu:
+> @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
+v)
+> =20
+>  void panfrost_device_fini(struct panfrost_device *pfdev)
+>  {
+> +	panfrost_gem_fini(pfdev);
+>  	panfrost_perfcnt_fini(pfdev);
+>  	panfrost_jm_fini(pfdev);
+>  	panfrost_mmu_fini(pfdev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 96a66d673ba6..9882a3ede75f 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *=
+pdev)
+>  	if (err < 0)
+>  		goto err_out1;
+> =20
+> -	err =3D panfrost_gem_shrinker_init(&pfdev->base);
+> -	if (err)
+> -		goto err_out2;
+> =20
+>  	return 0;
+> =20
+> -err_out2:
+> -	drm_dev_unregister(&pfdev->base);
+>  err_out1:
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+> @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device =
+*pdev)
+>  	struct panfrost_device *pfdev =3D platform_get_drvdata(pdev);
+> =20
+>  	drm_dev_unregister(&pfdev->base);
+> -	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> =20
+>  	pm_runtime_get_sync(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.h
+> index a2277ec61aab..bac0c415d4da 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
+> @@ -4,6 +4,10 @@
+>  #ifndef __PANFROST_DRV_H__
+>  #define __PANFROST_DRV_H__
+> =20
+> +#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+>  extern bool panfrost_transparent_hugepage;
+> +#else
+> +#define panfrost_transparent_hugepage false
+> +#endif
+> =20
+>  #endif
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_gem.c
+> index 3a7fce428898..7b993a089af2 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> @@ -15,20 +15,25 @@
+>  #include "panfrost_gem.h"
+>  #include "panfrost_mmu.h"
+> =20
+> -void panfrost_gem_init(struct panfrost_device *pfdev)
+> +int panfrost_gem_init(struct panfrost_device *pfdev)
+>  {
+>  	int err;
+> =20
+> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> -	    !panfrost_transparent_hugepage)
+> -		return;
+> +	if (panfrost_transparent_hugepage) {
+> +		err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> +		if (drm_gem_get_huge_mnt(&pfdev->base))
+> +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> +		else if (err)
+> +			drm_warn(&pfdev->base,
+> +				 "Can't use Transparent Hugepage (%d)\n", err);
 
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 45 ++++++++++++--------
- 1 file changed, 27 insertions(+), 18 deletions(-)
+This can probably be turned into:
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 5f4718c3b9db..7cf327de0249 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -12,6 +12,7 @@
- #include <linux/export.h>
- #include <linux/i2c.h>
- #include <linux/irq.h>
-+#include <linux/math64.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-@@ -307,8 +308,15 @@ static unsigned int dw_hdmi_qp_find_n(struct dw_hdmi_qp *hdmi, unsigned long pix
- 	return dw_hdmi_qp_compute_n(hdmi, pixel_clk, sample_rate);
- }
- 
-+static unsigned int dw_hdmi_qp_compute_cts(unsigned long pixel_clk,
-+					   unsigned long sample_rate,
-+					   unsigned int n)
-+{
-+	return div64_u64((u64)pixel_clk * n, 128ULL * sample_rate);
-+}
-+
- static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, unsigned long pixel_clk,
--					unsigned long sample_rate)
-+					unsigned long sample_rate, unsigned int n)
- {
- 	const struct dw_hdmi_audio_tmds_cts *tmds_cts = NULL;
- 	int i;
-@@ -320,23 +328,24 @@ static unsigned int dw_hdmi_qp_find_cts(struct dw_hdmi_qp *hdmi, unsigned long p
- 		}
- 	}
- 
--	if (!tmds_cts)
--		return 0;
--
--	switch (sample_rate) {
--	case 32000:
--		return tmds_cts->cts_32k;
--	case 44100:
--	case 88200:
--	case 176400:
--		return tmds_cts->cts_44k1;
--	case 48000:
--	case 96000:
--	case 192000:
--		return tmds_cts->cts_48k;
--	default:
--		return -ENOENT;
-+	if (tmds_cts) {
-+		switch (sample_rate) {
-+		case 32000:
-+			return tmds_cts->cts_32k;
-+		case 44100:
-+		case 88200:
-+		case 176400:
-+			return tmds_cts->cts_44k1;
-+		case 48000:
-+		case 96000:
-+		case 192000:
-+			return tmds_cts->cts_48k;
-+		}
- 	}
-+
-+	dev_dbg(hdmi->dev, "Rate %lu missing; compute CTS dynamically\n", pixel_clk);
-+
-+	return dw_hdmi_qp_compute_cts(pixel_clk, sample_rate, n);
- }
- 
- static void dw_hdmi_qp_set_audio_interface(struct dw_hdmi_qp *hdmi,
-@@ -471,7 +480,7 @@ static void dw_hdmi_qp_set_sample_rate(struct dw_hdmi_qp *hdmi, unsigned long lo
- 	unsigned int n, cts;
- 
- 	n = dw_hdmi_qp_find_n(hdmi, tmds_char_rate, sample_rate);
--	cts = dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate);
-+	cts = dw_hdmi_qp_find_cts(hdmi, tmds_char_rate, sample_rate, n);
- 
- 	dw_hdmi_qp_set_cts_n(hdmi, cts, n);
- }
--- 
-2.43.0
+		if (err)
+			drm_warn(&pfdev->base,
+				 "Can't use Transparent Hugepage (%d)\n", err);
+		else
+			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+
+since there's no world where drm_gem_get_huge_mnt() would return NULL if
+drm_gem_huge_mnt_create() returns 0 when CONFIG_TRANSPARENT_HUGEPAGE=3Dy.
+The pre-existing checks where there to cover CONFIG_TRANSPARENT_HUGEPAGE=3Dn
+which you already cover by not entering this branch.
+
+> +	}
+> =20
+> -	err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> -	if (drm_gem_get_huge_mnt(&pfdev->base))
+> -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> -	else if (err)
+> -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> -			 err);
+> +	return panfrost_gem_shrinker_init(pfdev);
+> +}
+> +
+> +void panfrost_gem_fini(struct panfrost_device *pfdev)
+> +{
+> +	panfrost_gem_shrinker_fini(pfdev);
+>  }
+> =20
+>  #ifdef CONFIG_DEBUG_FS
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/pa=
+nfrost/panfrost_gem.h
+> index 79d4377019e9..5c823cdbd980 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *n=
+ode)
+>  	return container_of(node, struct panfrost_gem_mapping, mmnode);
+>  }
+> =20
+> -void panfrost_gem_init(struct panfrost_device *pfdev);
+> +int panfrost_gem_init(struct panfrost_device *pfdev);
+> +void panfrost_gem_fini(struct panfrost_device *pfdev);
+> =20
+>  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev=
+, size_t size);
+> =20
+> @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *=
+bo,
+>  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+>  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *b=
+o);
+> =20
+> -int panfrost_gem_shrinker_init(struct drm_device *dev);
+> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
+> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+> =20
+>  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *labe=
+l);
+>  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/g=
+pu/drm/panfrost/panfrost_gem_shrinker.c
+> index 2fe967a90bcb..fefae87535d6 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, =
+struct shrink_control *sc)
+>   *
+>   * This function registers and sets up the panfrost shrinker.
+>   */
+> -int panfrost_gem_shrinker_init(struct drm_device *dev)
+> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+>  {
+> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
+> -
+>  	pfdev->shrinker =3D shrinker_alloc(0, "drm-panfrost");
+>  	if (!pfdev->shrinker)
+>  		return -ENOMEM;
+> @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *de=
+v)
+>   *
+>   * This function unregisters the panfrost shrinker.
+>   */
+> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+>  {
+> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
+> -
+>  	if (pfdev->shrinker)
+>  		shrinker_free(pfdev->shrinker);
+>  }
+>=20
 
