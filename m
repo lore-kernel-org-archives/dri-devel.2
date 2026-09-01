@@ -4,44 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78298C624D0
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E8EC61DD3
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 19:13:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5F8410EE95;
-	Tue,  1 Sep 2026 19:07:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFD8C10EE9A;
+	Tue,  1 Sep 2026 19:13:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B7rDSaVd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="09iheZ4k";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9CC810EE95
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 19:07:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81F9143ABF;
- Tue,  1 Sep 2026 19:07:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EB631F000E9;
- Tue,  1 Sep 2026 19:07:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788289641;
- bh=4P3BM0dOlz3Y4asZq0ovct0hFO2d66ps8HtQlFL3pPQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B7rDSaVdNxneUYWTEi1IttDl8hAK0lCS+N73h0ijRMdmvF38Cbk1002bw+J6Qo2JO
- U8S9oS7BeDWjwQvui/0nj2tN757Ud0UWcD+yhfyU0iY0k2yuMkP4P1t2j5cizy+9Ac
- pMjIzh7+/ihMPOEP+Ck2p/6nWeT0/g/hIqsWG4u5ENX28SN3rXReGRovsEzzx0ZYxn
- /LqMTeJfDKEmNFeNno12qzmn4mh0XDMsvaKHOKqF5deEFCzhvvbyaaZLoDRUUdNAY3
- jgrfjtAdp8DwOWEjaQikcMxm6fdflLJTeD792eVtLNMoB6Z/aDUl9evyfGUyl6ac3b
- kmVEDA2IpKIYQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 02/74] drm/connector: hdmi: Handle reset() state
- allocation failure
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-2-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-2-bc12954a0688@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 19:07:20 +0000
-Message-Id: <20260901190721.2EB631F000E9@smtp.kernel.org>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013055.outbound.protection.outlook.com
+ [40.93.201.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCB0F10E324;
+ Tue,  1 Sep 2026 19:13:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f8Z1+wh9NnYQsN2Nw39X19mMGkEpfKXNOp/EaYSWeV++LFc79I8w729OtRqBbp+S2Wo2ifk4WwZZPXSDm9ivFdVvkZS23e9wHlsAMqCRGYie7FnEOqdCNpLzPZYgkhyABarzRiDVOA1o0/gu/fATW97uxp4FXI/Sa9m7W30DI10hvJ/kx0UrEJk+gVQqI24ZnE8mqfptECRi91TjSGovVcjJS1jhBTo5zubZdZ/dpFFEV+E8VhLhugHYSSK2UinXfQGqUogjnxfJmCPUQi1G1lRRMhYORXWmV9zS3V8SmkaFA8x5Goyb7bzAfWUUVw3DSFPWad73rTrsQ+Xurm4FyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w78hUy6vtKbm38h5LfmUXrJQj1WNdQpeU7PCbhSCD/w=;
+ b=oHCkdLdsOlegHbt1mxzBl9OYhIOR36vpgfdsS0K8DhUbsa16kSFpgimUOEHEyLbinwxkKT/pOg161FWvJ++b/41qwTyAznhsKcLRRnaXa0j3+zur0ja3/r4hDi2X8zFYN78TSqXr8SMWFphZZxsBZmnEfwy2DFAIWBetLL0cWePnkFfC7lzYpz93YeCowd23mDNc9zoZK0IW7tS3UH6i5sFvPCV2dd91wJQEsghg/b45qPuMXkGg8K6cJtChAEpNOyluW4nQAQLLOFKA1DSc1vuv2OFWy630dJKpZEkYJZx+NUb9l44+xssniIWWhUq/PAZ+6ns6nEEySLE3rVyY6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w78hUy6vtKbm38h5LfmUXrJQj1WNdQpeU7PCbhSCD/w=;
+ b=09iheZ4kbnQCkBj09K+THTck8Zg3vKP1G5ViccrluQnNL9W768ei7NORG2cAOxJwCgSd1AWCwT2fcu4P/nhY63qJkwUJA1zUtaeMuC3tgzaLJlBF+NLWewbP6QcUggdPFliD7mEKzft21+CGLEePpkvoBfyRGK7yQH7jUj9hvP4=
+Received: from DM6PR03CA0094.namprd03.prod.outlook.com (2603:10b6:5:333::27)
+ by SA3PR12MB9179.namprd12.prod.outlook.com (2603:10b6:806:3a1::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 19:13:48 +0000
+Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
+ (2603:10b6:5:333:cafe::20) by DM6PR03CA0094.outlook.office365.com
+ (2603:10b6:5:333::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
+ Sep 2026 19:13:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:13:48 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 14:13:44 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: <adolfotregosa@gmail.com>, <harry.wentland@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Tomasz=20Paku=C5=82a?=
+ <tomasz.pakula.oficjalny@gmail.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
+Subject: [PATCH v1 2/3] drm/amd/display: Use passive_vrr properties in amdgpu
+Date: Tue, 1 Sep 2026 15:12:50 -0400
+Message-ID: <20260901191251.2653684-3-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901191251.2653684-1-jerry.zuo@amd.com>
+References: <20260901191251.2653684-1-jerry.zuo@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|SA3PR12MB9179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e7521d6-292b-4d6a-6edc-08df085d26c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|10067099003|11063799006|5023799004|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: RZzR+MqBnaVtqSDUssUZExBmE0cVQtbo4cK71kP0vhAZ8wE4UiMn2SauJT1WfV/M4JQXUTGEpFWZKj8ROX5aA9RSRKmtTs/+OEIUk3zfEhiy9uBEh5StiQndJP8c8kD3wlnJCYby3YC2V8lXDfcUP/BPKLoPTICulaXxEZ0sinUI2ojWdxGaBbtSj5+tN9OXSp5nIRt8bblV2bTcK2tJNyH7jyM5rQLui6on7HzQmu7H70sXLv1CQD+Scv2rMxQJkcPpqUnr3Y+befsl+kgbQVZSftXpkf45SiNBLYqil3onoxM5uPnFKy6T/cg0ldBI73TmfsSf2+9zUZxjm164lZn8K3hRLmHwV60X2z78IAjtwktySVbgbMh4FiZ4jy737A14yR2idC8STnE77t1ByGtEpttP6Ht75GncRqtxX6Fzps6dS43dkxU+V3YBSiCBcmAmXFTyfTeY0UVPg8ue7RgHsAX4VvlZmypFgQdxtCBdKfCv5f+wmDb6kn/uEGwZSA1/CPwgF+RGGqiJjV5tSBjS/ku8741qYoeRifPs0ZxtcdiDXu94DpXE48tXnoIWF/bg7OwncO/b30n4Qs3/1wzmuBVXkSWtgk4lSxUVhRbWeOPm+Jz+PeLGP/eIouBEirZ9f5pFZsyYMZbFgae3oJtilUbUUFpUT30l9WU1x+bczgnQbDbMQRVJhfWBSyiajcx1DRN+sMKuFlRGvOrzHQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(10067099003)(11063799006)(5023799004)(3023799007)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: UPIkozR9Ww4523xX0G1/fjya8c2jye/jLbrgZnN8iE5hzLgKnuCfE28IM62ejLNFUJ49oWF8zPBW6kjpYBA5gw6xSHmFnEgT9AoEM0KriCd+KQEuB4fdu9HV6syUhtj48n/+xkqN1zy2D1QaQYia70ukUvTDUVX/BjBqJSIWKC5XITnVLnQvpuHSzB6zI6NVKdrpqkwdPPgkNRMqTWTh2UhJv7ablAObdcCsml6zCVEvTpKfQ2OvFAPk1HJTxCJqL6qV1QJGUfYyLF7481oKDrTe1I9pUtGbaVO77bAokU6t2wBKvNsWbbG2C5P7IsUibAhb2ul5hi5377/gFzoqUEwCPWHPKyequBn6D+x+BhLPYuREbnzc40gz/6EDjAkl9GoBNah8MAw6fvB/0yHMiERbzIMUA75CM0OlvitiHOTRcuJwT8uv81NgEsbgQUuX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:13:48.4834 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e7521d6-292b-4d6a-6edc-08df085d26c9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9179
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,73 +110,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 
-Pre-existing issues:
-- [High] The newly added NULL check for `connector->state` in `drmm_connect=
-or_hdmi_init()` fails to prevent crashes on memory allocation failure for m=
-ain HDMI drivers (e.g., `vc4`, `sun4i`) and the testing infrastructure, bec=
-ause their `reset` hooks unconditionally dereference the state before retur=
-ning.
---
+Backport of upstream (Tomasz Pakula) amd-gfx v4 27-patch series patch
+26/27, adapted to the split amdgpu_dm sources on amd-staging-drm-next.
 
-commit 424f1b968bca06b1916973328efd3feb5a119e0e
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Wire the passive_vrr DRM properties into amdgpu for HDMI/DP/eDP sinks:
+- Add dm_connector_state.freesync_on_desktop_capable and copy it in
+  amdgpu_dm_connector_atomic_duplicate_state().
+- Attach the passive_vrr_capable connector property alongside
+  vrr_capable for non-MST connectors.
+- In amdgpu_dm_update_freesync_caps(), record freesync_on_desktop_capable
+  and update the passive_vrr_capable property from freesync_capable.
+- In amdgpu_dm_get_freesync_config_for_crtc(), drive
+  stream->freesync_on_desktop from the inverse of passive_vrr_disabled
+  when capable, hooking into the existing DC freesync_on_desktop logic
+  that keeps the FreeSync-Active bit set during fixed-refresh (desktop)
+  use.
 
-drm/connector: hdmi: Handle reset() state allocation failure
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  1 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 12 ++++++++++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c   |  7 +++++++
+ 3 files changed, 18 insertions(+), 2 deletions(-)
 
-This commit adds a check for connector->state after calling the reset
-callback in drmm_connector_hdmi_init() to avoid a NULL pointer dereference
-if memory allocation fails.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 089741ba0619..0b0ab7b2aa43 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1064,6 +1064,7 @@ struct dm_connector_state {
+ 	uint8_t underscan_hborder;
+ 	bool underscan_enable;
+ 	bool freesync_capable;
++	bool freesync_on_desktop_capable;
+ 	bool update_hdcp;
+ 	bool abm_sysfs_forbidden;
+ 	uint8_t abm_level;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 0e71ba498e8a..8b2eec1a683d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1982,6 +1982,7 @@ amdgpu_dm_connector_atomic_duplicate_state(struct drm_connector *connector)
+ 	__drm_atomic_helper_connector_duplicate_state(connector, &new_state->base);
+ 
+ 	new_state->freesync_capable = state->freesync_capable;
++	new_state->freesync_on_desktop_capable = state->freesync_on_desktop_capable;
+ 	new_state->abm_level = state->abm_level;
+ 	new_state->scaling = state->scaling;
+ 	new_state->underscan_enable = state->underscan_enable;
+@@ -3241,8 +3242,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	    connector_type == DRM_MODE_CONNECTOR_eDP) {
+ 		drm_connector_attach_hdr_output_metadata_property(&aconnector->base);
+ 
+-		if (!aconnector->mst_root)
++		if (!aconnector->mst_root) {
+ 			drm_connector_attach_vrr_capable_property(&aconnector->base);
++			drm_connector_attach_passive_vrr_capable_property(&aconnector->base);
++		}
+ 
+ 
+ 		if (adev->dm.hdcp_workqueue)
+@@ -3978,8 +3981,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		dm_helpers_mccs_vcp_set(adev->dm.dc->ctx, amdgpu_dm_connector->dc_link, sink);
+ 
+ update:
+-	if (dm_con_state)
++	if (dm_con_state) {
+ 		dm_con_state->freesync_capable = freesync_capable;
++		dm_con_state->freesync_on_desktop_capable = freesync_capable;
++	}
+ 
+ 	drm_dbg_driver(adev_to_drm(adev),
+ 		       "VRR: caps result: freesync_capable=%d min_vfreq=%d max_vfreq=%d\n",
+@@ -3995,4 +4000,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	if (connector->vrr_capable_property)
+ 		drm_connector_set_vrr_capable_property(connector,
+ 						       freesync_capable);
++
++	if (connector->passive_vrr_capable_property)
++		drm_connector_set_passive_vrr_capable_property(connector, freesync_capable);
+ }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index 281c6cec9f4b..903d5ab387d4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -138,6 +138,12 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+ 		config.vsif_supported = true;
+ 		config.btr = true;
+ 
++		if (new_con_state->freesync_on_desktop_capable)
++			new_crtc_state->stream->freesync_on_desktop =
++				!new_crtc_state->base.passive_vrr_disabled;
++		else
++			new_crtc_state->stream->freesync_on_desktop = false;
++
+ 		if (fs_vid_mode) {
+ 			config.state = VRR_STATE_ACTIVE_FIXED;
+ 			config.fixed_refresh_in_uhz = new_crtc_state->freesync_config.fixed_refresh_in_uhz;
+@@ -149,6 +155,7 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+ 		}
+ 	} else {
+ 		config.state = VRR_STATE_UNSUPPORTED;
++		new_crtc_state->stream->freesync_on_desktop = false;
+ 	}
+ out:
+ 	new_crtc_state->freesync_config = config;
+-- 
+2.53.0
 
-Link: https://lore.kernel.org/all/20260723015306.C94241F000E9@smtp.kernel.o=
-rg/
-
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 8b4baed060f3a..0e39431e85b20 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -628,6 +628,8 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
->  		connector->state =3D state;
->  	} else if (connector->funcs->reset) {
->  		connector->funcs->reset(connector);
-> +		if (!connector->state)
-> +			return -ENOMEM;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but doesn't the system crash
-before it can even reach this new check on memory allocation failure?
-
-If drm_atomic_helper_connector_reset() fails to allocate memory, it sets
-connector->state to NULL. Several driver-specific reset hooks then
-immediately dereference it by unconditionally passing it to
-__drm_atomic_helper_connector_hdmi_state_init().
-
-For example, in drivers/gpu/drm/vc4/vc4_hdmi.c:vc4_hdmi_connector_reset():
-
-	drm_atomic_helper_connector_reset(connector);
-	__drm_atomic_helper_connector_hdmi_state_init(connector, connector->state);
-
-The sun4i driver has the exact same pattern in sun4i_hdmi_connector_reset(),
-and the testing infrastructure will also panic the KUnit framework in
-dummy_hdmi_connector_reset() from
-drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c under the same condition=
-s.
-
-Could these driver reset hooks be updated to handle the NULL state graceful=
-ly,
-so that this new check can successfully prevent the panic?
-
->  	}
-> =20
->  	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dw-hdmi-qp=
--scramb-v11-0-bc12954a0688@collabora.com?part=3D2
