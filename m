@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E7DC624D4
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2190C624D4
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 14:07:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4150010ED07;
-	Tue,  1 Sep 2026 14:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE5FC10ED15;
+	Tue,  1 Sep 2026 14:07:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T86kfLFV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SpXqayWN";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04AA010ED04;
- Tue,  1 Sep 2026 14:05:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4C3710ED0D;
+ Tue,  1 Sep 2026 14:07:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D313C429F1;
- Tue,  1 Sep 2026 14:05:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205211F000E9;
- Tue,  1 Sep 2026 14:05:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9B89741A73;
+ Tue,  1 Sep 2026 14:07:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6C51F000E9;
+ Tue,  1 Sep 2026 14:07:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788271553;
- bh=CTknvhEq1CqIlSFU97KLOYi0xL7I+CIZYWA6D4VploE=;
- h=Date:From:To:Cc:Subject;
- b=T86kfLFVzv/LMWWvJyWc1WE530O9FuOpMjrIXl6neg9oGlgX6g0lBXtH6jKHetxL7
- zXvZp7uUE10ERST0HjFvWmXTWxf5EYwpVvjZxAUWHabk3x5GZikzzE6ComuEtTIat+
- QorA2IKJwFl5bcsTQNGU9bwUGevZwJIHgjsSJSlO/bJdMUtWAXMhbOUayTxHqkVvoG
- E7V8HutMlCqbyjfTlskw7cFIS/hTD3RCdbeot7JrZ35mJnP+sIjHFHvNLhLEyuZk/6
- yxS7TjTBic9T46r0ig+77ZrH4w88F9EUzb4NK6ngJAs0NFGY2ALUv5f+wbfxkpoCII
- bNr348SUOvCTA==
-Date: Tue, 1 Sep 2026 15:05:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <apbbvQSfUbzYRFaw@sirena.org.uk>
+ s=k20260515; t=1788271677;
+ bh=dOFHe9qy1FZ9AF7sT7V/8hJAwDE8aQjo4Sa9CzpQyek=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=SpXqayWNt+PO/X6NDg09ZCcJ7lHRUQ/2K46HBjqYSObsNhAQptkcFYcbB6YEvLbFF
+ kNK6Ci3Ls4HI8VXFRbDxa/TL7v4SKF4170GWynJ7a+Idu7Ofz+tioACRnAQlMtKrxX
+ pdEPo6Vikx4ZKHGsXA4h6RcG1vyoDFl6LAwpSdw9ghO/GBDZNNdMQPCNd0SrPCfR2C
+ soWF9BoDtgFC+7RKtccvM4lG2iWvCWV6JdHvVqUtsf+QvN9QJK2vxFlnyI5Anmhfu1
+ WiybX0lRfZSAeoFgTHjDphX/6qLBX9Z6jrgspOGZpPBxDnDSaIp5Fo1DDddItnjOjT
+ 0owUZHSaKERJQ==
+Message-ID: <8cb96c08-2d1e-459e-b356-c6fd97ef869e@kernel.org>
+Date: Tue, 1 Sep 2026 16:07:53 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="HmtZ0rKD4icBIn+t"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/nouveau: Use write-combined maps for coherent
+To: webgeek1234@gmail.com
+Cc: Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Faith Ekstrand <faith.ekstrand@collabora.com>
+References: <20260821-tegra-coherent-wc-v2-1-2b1ddb67bf18@gmail.com>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260821-tegra-coherent-wc-v2-1-2b1ddb67bf18@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,39 +63,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/22/26 6:42 AM, Aaron Kling via B4 Relay wrote:
+> From: Faith Ekstrand <faith.ekstrand@collabora.com>
+> 
+> On Tegra devices, uncached maps traslate to device memory, causing
+> unaligned accesses by userspace resulting in a SIGBUS. Instead, use
+> write-combined maps to ensure proper access.
+> 
+> This would also affect discrete cards on any Arm device. It was
+> determined that discrete cards regardless of cpu arch should use
+> write-combined maps for coherent anyways. Thus this change is made for
+> all gpu types.
+> 
+> Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+> Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+Can you please provide a Fixes: tag? Also, please remember to Cc: stable if necessary.
 
---HmtZ0rKD4icBIn+t
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi all,
-
-After merging the drm-misc tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
-
-/tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
-  408 |         ad->card = card;
-      |         ~~  ^
-
-Caused by commit
-
-   699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
-
-I have used the tree from next-20260831 instead.
-
---HmtZ0rKD4icBIn+t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqW27wACgkQJNaLcl1U
-h9D+Twf+MFViDggeP6uPjB0hQptPtqvvGqn2LU6SMVynJ44NuwmfnkXxly8cPGWc
-PzUZjHAp4mtUm/Bab6JdESaYJfmu/ydlauAFJHQykUx+GPHut+wbUpm8ZHLCfetT
-m/nhGNCRglNttCg9B211khXpIlsJlmu94pY3c+dmTdIEfLXyQ8akTyPihRb9RCX2
-ghWqUzPGGNuP9nFotyOZ2MCpV/MLXe6+piMBh0FEmrP+WUCdm2YnNmNjfY6TDp3Y
-xQjU+pPPCtERj7lQcVZjzIDCbBMiW+zI3IRw/0Pn0+G2V/sX/dO5v+HZe6J5vlpq
-uYYWqplrMmNzVMj1mVCeoLDZTwLZ9Q==
-=2Ld1
------END PGP SIGNATURE-----
-
---HmtZ0rKD4icBIn+t--
+Thanks,
+Danilo
