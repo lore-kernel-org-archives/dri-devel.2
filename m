@@ -4,60 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F1AC624CF
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB6FC624CF
+	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 11:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B843210E3DB;
-	Tue,  1 Sep 2026 11:28:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7892810E63D;
+	Tue,  1 Sep 2026 11:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kOQO7lGL";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="w3JysBQo";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB9110E3DB
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788262087;
- bh=CxjG8Mr1uPjbBLqqRSGoy0wOuSXMIYfixEvQi/UrWq4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kOQO7lGL4Q7njVR7vhMQwU0sLDMN/kYheh1QHPEbowCgtgFnArxGaWp5h8e7O3Ctv
- S3cb3BCSo6iqlo7akcfnyGOwHmWd0C5yP3W2cLOgy2CbvJMYxFA8/i42YcNi34+AQv
- EbLHZHLx0P1xR/98+qelUn2WVDxVB00D5kVh6NSIMAHuFjmlaQu/MpOW/2VHgMuO/3
- 5rI9E0fmS1h8EISdxS8pWu6d4U9ehTe7wEl5iskYnSICI+RQriGCx7YZRmVluaubOA
- xRjBR3uXX+fhiHgI22WDtB84uzHhiTY7BTKf1OMbq6ozPZLPPXjhh1g02/wILoBtGe
- JQ6zoMfIRGMPw==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E99CF17E07EF;
- Tue, 01 Sep 2026 13:28:06 +0200 (CEST)
-Date: Tue, 1 Sep 2026 13:28:02 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 01/17] drm/panfrost: Move shrinker initialization and
- unplug one level down
-Message-ID: <20260901132802.66d9aba6@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021106.outbound.protection.outlook.com [52.101.100.106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4939610E63D
+ for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 11:35:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xs/daYLpMztpMUetYfdfkdyNpvJAPsScG4jabicxLkmCiQaN49GGyZl14FD8ljDLEnxbTW9oQeQphf3PDnmNOEAduJQ3ltHNTBP7O1P5SN/GSJNXUst+Z9rKE/r8NSwUJABNONoOUMV2GaAjOe9Gmf1nIrfGZ/5EpwpUoHgtyo4he9fYW7vGeF6JHqqMi1r/qmIy0WSfgcxqT91hL/pIu1f4SNOguuuM8s6lGAXaXXAi+JgFOIGOJNCd/2kmaQQAeyF/vGnROXkn+UY1cfJZoSNB4Kivc5yumcMiVNocovb1RunTX0jwFPq2HyEFWzt2u0wMNpcc42bSGosN8bGM4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SxbXMap4DLhYPj8OK4PiFVb7S4Gs3APifNRqevZFZ3k=;
+ b=hanR3uwVdAf2moOAwJLSELaJQ34hcF3nTH4011WlqYqUskfAfiq/uRh+QPSl4YmjxSHHMId/rJfIHm/+dfx9hjMrmqLAjTScNQfRUOFbWQpnWQgDSZM2F38+UqSwuGwvlmM3FRcg8p3RSr4NyIOroeVAmHIEnzRRtw8bVs2G0CGW2WZ6FcEbg4X77n1T5O9PmUYdUJ6ls9+oGHBYM1pdcqUw9OZDBbaUxUvTgFzw1ODbbhsN+NklsVx1/m6V8jteKCpJ+EuO5lCyTBbDkRtjyVJ0qCTFj9RqAjYPOS8WWDdrWalM16WilPEjnnKilCLboCg+DVRzNsmttd6U3pDJdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SxbXMap4DLhYPj8OK4PiFVb7S4Gs3APifNRqevZFZ3k=;
+ b=w3JysBQokRKVKC5hbhpDf8KJGXtlYeFD+mzgKQXPVN6QnN/mQrq915Iz1843PCJ7oOL6Vv90zRohovuIfgmDrOUIwz+Hv9CPoixtImGLSKFnaRsevqb28d5xtsAZDEpJEuGwBPZw2QYNi4SIpQy4Uxofn5bAbebI6pIQXCGt9cA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB9200.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:276::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 11:35:19 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 11:35:18 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 12:35:17 +0100
+Message-Id: <DL3Y5NJRKISV.20KKTKSXWPKVW@garyguo.net>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "nova-gpu"
+ <nova-gpu@lists.linux.dev>, "M Henning" <mhenning@darkrefraction.com>,
+ "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
+ Hubbard" <jhubbard@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
+ nova-core
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-2-apopple@nvidia.com>
+ <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
+ <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+ <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
+In-Reply-To: <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
+X-ClientProxiedBy: LO4P302CA0014.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c2::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB9200:EE_
+X-MS-Office365-Filtering-Correlation-Id: db924f0f-6e93-496f-10cd-08df081d1983
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|23010399003|366016|1800799024|376014|10070799003|10067099003|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: W/7xmZ9RWzmSIyavI8Tadm38UV3slAWqwwvzQ3c8B3y6n2Wrw1bQ5nh7DOr7NZ0FVyxVD8W2mi6skzyuFbrwb1JasSIznyzQAM3vlUVQw8A3hKCgP/RhYXY8+fvClC8kDt7brKYLgy3E87s1z3vbL5L3p03v+WsAOBwWslcY6oo4+xt3vD3ZS14KbcNx6XFAdrQx7Xl7FSAxUvubzfqdjpEA1Aw54O4q2+orQipVktxzvk6Vt8rYpa246qYm6SnzheV0QonHkqdT76cgw7X3JnTVTHJ485eNY/PT5MQ77laLQD+gRLdKRRQB0g2uZprA50jZzHhmHcJmp8EUJnB8E83+PsCelqzoULxQLvhGqG6WJOwc6RfQ+8YNfP5/rdxLLitkvPus4NqxV5Kvhv1jRosVW/NRCtRv1oM2fDA7f7wxHl9wiZNa6Dtu49AXWqjpVhjI5og06AaiezVZeqLWx9QnoIr9/7qZxl+hxQYzBn1bz0Qg/uWfdezlGP1FFeOHtvHqYw4n1C0ahtee9FlbRNSClAH6/pO90KnTvHJaRB2bjMGt+FgNJagvZSqkaZ0BZDCXsx9nwtLfbtsmJNiK9/bUjrbadc6zqf23F0xwILO/GTAQ+FZ7MWmIjSN89lCiwFAV0qli72F2sbAYzQVkKI4FwwOCWHUtJ0noDf3d/y0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(23010399003)(366016)(1800799024)(376014)(10070799003)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M21vR05ZSm5JTWZkc3g4dlZobklRaVROS3E4aDJCWVFNK0ZQYk5pYUpBZ0h1?=
+ =?utf-8?B?QVhxNFplc0w0T09YVEJXVWd5YXFCb2crbmdVUDVRcW5abnc3MUtXTUFiNFg0?=
+ =?utf-8?B?eU1FalhDWU0xWnE5aDY0dmt3QUtmL3g1azlib1pjT3RoNHlMeUpOb01UVjRW?=
+ =?utf-8?B?WHgyN1BJSS90QSs4c0kyMmxqblFkSi9IZ3ZlZXcvUDc1T2tQNDZ6VWZ1UkN5?=
+ =?utf-8?B?c0dicm1CcnJuSDlUb3ZiOWd6clV6eGFMZnhlYVhOd3c4SnBmMHZwOXFIcWIr?=
+ =?utf-8?B?NlZoN01hdHBIV2ZjemEyQnFjOVpPczRKeW5pUEdNWjNJNmw1U2dFKys5Wm9l?=
+ =?utf-8?B?dzhtS0xqeVFQbnltUlVJMUpVRUU4Z0NuL1dZekJMK2N5TW40bTl5eWUvS3Rt?=
+ =?utf-8?B?TElxbS9ZYmNPaDdSSnFiMTloNVJBM0lmang3cXREWWw1QUIxcWtxbzMvSWZ6?=
+ =?utf-8?B?Rk13SWs4blhnVEQrUVpZNCtGOFJxZVhxNHNMcnZGVzhzTzU1RmJhajNlSVBX?=
+ =?utf-8?B?Y2NER3pPYTB2ejh4NXZKMnFqVEZTOGJTSEcwcC93OHBQZ3JnU0JrejQ3Q0JK?=
+ =?utf-8?B?TnAvaThQa2NEaW9mVFIyQVp2d2daYUQwTmEwWEJ2OXVETTVqSWU3YmRjSnZz?=
+ =?utf-8?B?bWdoVEJlNlliOFZneUw0bGpuZXZHK3kzVFV0cjBVdXpXWUsrb1FIZTQrQjNO?=
+ =?utf-8?B?QkhKSTM3Vjkvc2ExcmNqcTVjTERwMWFvaU16TFc4ZTNDMjFjWmpSbUs3MStx?=
+ =?utf-8?B?b21Hd25DUXNNQVJxZURVSFpMU1BteVd4d2ZNY3ZWd05pVkpIenh6RUMraTht?=
+ =?utf-8?B?RjcwK3dRNjNhWGN2K2ltU2Rodk0xZ05SV0lLMVREUURPYVNEUXZGd3Y0MlA3?=
+ =?utf-8?B?WmJ6L0VZN0kwQ29pVlNXdENYRlZWa2VBNWVjeFRHVWRhUUtNQnl2Z1J1dUo5?=
+ =?utf-8?B?OVN1MWtEZ3lNSXJXOFJnb1pIb3ByZGs2TEpMZDRuRlBoRmJiQndzemxET0pG?=
+ =?utf-8?B?QUhtdi9oeDVjOUJZZnRqNjBCWUxMWW82Tmk1L0EvSm1URWxGVmFydHlwL2k5?=
+ =?utf-8?B?VTRuTGtHelA3eTVIdXlic1Q0V1c4TEhsM2NwTndseS9rcE5Zc09SeWJwQW94?=
+ =?utf-8?B?amdTY2I3ZFQzTjlKM0xCNEo3ZlZybHZwZzZXWVdOMGFPYlc4ZlhIWlErT1BR?=
+ =?utf-8?B?L0ZEOWJTcDdkc3FlM0lqQnJtUnpGRVk4c3FkbDBNOHVkN0hLZE1ESEkxSk9z?=
+ =?utf-8?B?NVFtMFQzSzJyZGpLLzc2Qzd0VEVPa05yWWh6ME9wVWRiSnl3bGJnREJtQitn?=
+ =?utf-8?B?YlB2YlFXYkZreFpSWVVKNXhJbnNTZmFRd0FwTXhVTUNQTWZUeUtnYklwV1hv?=
+ =?utf-8?B?ZENsNktmN3hWekE5RzlBdmdaTUhmNUF3Ujd4YWVRbnR3czdrelNvNzZ6aXdn?=
+ =?utf-8?B?SmlxVytCSG9NbzVjZ2NuY21tcE5yVE8waXVxUURkM2x0MzJoQjhGcVFQMWhH?=
+ =?utf-8?B?YlF5YjZtdlZ6UU5BNWk5dFJqTGpGOTFDT3lnb3BHeGlQNlVxRzlUc3BUSmJ2?=
+ =?utf-8?B?ZnJWdE9LMTRJT3lKdG4wOGdBbm9Yak9QUTZnR0tIUU1sc1JVZ0p4Y1RwQWNo?=
+ =?utf-8?B?MEt0OHd5a3JOTDBqaFlXYWxoS2ZuSnZxYWlvL0N6dTY2SEw0SFlnLzBZWUlS?=
+ =?utf-8?B?NUJ6bzA5ZnRZY1JvbkdIaG50UEJIdlJnYkJSZ3lya3M2NiszOTFuYW5nSEEy?=
+ =?utf-8?B?NllBTUV1VytYc0dySWNYc2x3enJlUm9BYUpZaUhmOHBpRGZGNExnamxoNG0r?=
+ =?utf-8?B?UDV5Mm9Kand1T3JmWFZXZ3liN0RqWUtOMGEwbVhkMHhYREw1OE1CSVFObTRS?=
+ =?utf-8?B?dmk0QkFhRHBaVjhtS1JDVVlJb1dRdkt5SnNWUUFiNC9rUk1aS1QxNjF4NklQ?=
+ =?utf-8?B?bFEzN2Y1UlJIZjQxVUZmMC83cFZMbXRHNlNZdnFtbnN1YXR6ZFc3Z3Yrajd3?=
+ =?utf-8?B?aGZ5L0w0TG5mejJ3VFFrYnZpZ0Z2THNaN1YrQ1h3Zk4xNE9OVVdoU2lpMEhP?=
+ =?utf-8?B?MGcyd0k5TVR0QlE0Ti9HR3l6V0JKNDd4Y2ZqUytSeFdZUmdPZGU2RFNRZFB0?=
+ =?utf-8?B?ekNnT3d3cGRMYk1Tb0phK0wzMVA1NEYvM1VoaE9NTEpTMUwyQVhRR2kvT0pM?=
+ =?utf-8?B?b1BDeXhXcHY5d2M1NllhdjZaVnRsWUtobjBBMFg4cGtjaE45N29mUHkzUlBQ?=
+ =?utf-8?B?c3p2bFllSnVHd1JIWGRtNkg5WmEzNzJITTdpdUZjbXE4MTBpbmFBd1k4MVBk?=
+ =?utf-8?B?Q056L1NrbmQrcStrelVUMWRnN2VjMUg4SzB3RzU4RUtlV3pwT2ZJUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: db924f0f-6e93-496f-10cd-08df081d1983
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:35:18.6481 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kKKbEXt5eJh2gdkvqDPaz7nG9Xceg6nXyM5T0ybuyuwdUKKKQymLCeVlGp6tQpE9P1QU6e3UXwLv7sOvYsXI8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9200
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,230 +145,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:41 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On Tue Sep 1, 2026 at 11:27 AM BST, Danilo Krummrich wrote:
+> On Mon Aug 31, 2026 at 10:42 PM CEST, Gary Guo wrote:
+>> I think if you change the signatue of `registration_data_with` slightly:
+>>
+>>     pub fn registration_data_with<'this, F: ForLt + 'static, R>(
+>>         &'this self,
+>>         f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
+>>                                     ^ note this is changed from 'a to 't=
+his
+>>     ) -> Result<R>;
+>>
+>> then there will be an implied bound available inside the callback where =
+'a
+>> outlives 'this, and thus the function callback is able to perform coerci=
+on of
+>> any T<'a> to T<'this> provided that `T` is covariant over lifetime `'a`.
+>>
+>> [ The coercion won't work when doing abstract `F::Of` on the bus abstrac=
+tion
+>> side, but for any user it is dealing with concrete types so the compiler=
+ sees
+>> specific types and thus can check variance ]
+>>
+>> Then your projection can just be
+>>
+>>     aux.registration_data_project(|x| &x.field)
+>>
+>> I haven't tried it out but I think it should work.
+>
+> I gave this a shot and it seems to work out, it's a good simplification. =
+I think
+> we don't even need a dedicated project method in this case. We could add =
+an
+> alias for with() just to clarify the intent, but not sure that's worth.
 
-> Since the moment we call drm_dev_register() the device should be in a
-> position to accept jobs, so it's best if the shrinker is already
-> initialized by then.
->=20
-> On top of that, make shrinker functions take an panfrost_device pointer
-> like other functions in the same sequence and rename them accordingly.
->=20
-> Essentially mimic the init/fini behaviour in Panthor.
->=20
-> On top of that, remove the config feature check, because it's unnecessary.
+Right, I don't think it's needed. It's just a typo in the example given tha=
+t I
+write "_project" instead of "_with". Unless you have a case where it actual=
+ly
+needs `&'a F::Of<'a>` instead of `&'this F::Of<'a>` (which I think is not v=
+ery
+likely, changing signatures of existing users should be sufficient), I thin=
+k we
+should just modify the signature of `registration_data_with`.
 
-I don't think that's accurate anymore (we still have a config check,
-except it's encoded directly in the panfrost_transparent_hugepage definitio=
-n),
-and I think I'd prefer if this change was done in a separate commit.
-
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
->  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
->  drivers/gpu/drm/panfrost/panfrost_drv.h          |  4 ++++
->  drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----=
-------
->  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
->  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
->  6 files changed, 32 insertions(+), 26 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 485349faf251..05c40d5a20b5 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfd=
-ev)
->  	if (err)
->  		goto out_job;
-> =20
-> -	panfrost_gem_init(pfdev);
-> +	err =3D panfrost_gem_init(pfdev);
-> +	if (err)
-> +		goto out_perfcnt;
-> =20
->  	return 0;
-> +
-> +out_perfcnt:
-> +	panfrost_perfcnt_fini(pfdev);
->  out_job:
->  	panfrost_jm_fini(pfdev);
->  out_mmu:
-> @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
-v)
-> =20
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
->  	panfrost_mmu_fini(pfdev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 96a66d673ba6..9882a3ede75f 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *=
-pdev)
->  	if (err < 0)
->  		goto err_out1;
-> =20
-> -	err =3D panfrost_gem_shrinker_init(&pfdev->base);
-> -	if (err)
-> -		goto err_out2;
-> =20
->  	return 0;
-> =20
-> -err_out2:
-> -	drm_dev_unregister(&pfdev->base);
->  err_out1:
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device =
-*pdev)
->  	struct panfrost_device *pfdev =3D platform_get_drvdata(pdev);
-> =20
->  	drm_dev_unregister(&pfdev->base);
-> -	panfrost_gem_shrinker_cleanup(&pfdev->base);
-> =20
->  	pm_runtime_get_sync(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.h
-> index a2277ec61aab..bac0c415d4da 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
-> @@ -4,6 +4,10 @@
->  #ifndef __PANFROST_DRV_H__
->  #define __PANFROST_DRV_H__
-> =20
-> +#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
->  extern bool panfrost_transparent_hugepage;
-> +#else
-> +#define panfrost_transparent_hugepage false
-> +#endif
-> =20
->  #endif
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_gem.c
-> index 3a7fce428898..7b993a089af2 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -15,20 +15,25 @@
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
-> =20
-> -void panfrost_gem_init(struct panfrost_device *pfdev)
-> +int panfrost_gem_init(struct panfrost_device *pfdev)
->  {
->  	int err;
-> =20
-> -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-> -	    !panfrost_transparent_hugepage)
-> -		return;
-> +	if (panfrost_transparent_hugepage) {
-> +		err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> +		if (drm_gem_get_huge_mnt(&pfdev->base))
-> +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> +		else if (err)
-> +			drm_warn(&pfdev->base,
-> +				 "Can't use Transparent Hugepage (%d)\n", err);
-
-This can probably be turned into:
-
-		if (err)
-			drm_warn(&pfdev->base,
-				 "Can't use Transparent Hugepage (%d)\n", err);
-		else
-			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-
-since there's no world where drm_gem_get_huge_mnt() would return NULL if
-drm_gem_huge_mnt_create() returns 0 when CONFIG_TRANSPARENT_HUGEPAGE=3Dy.
-The pre-existing checks where there to cover CONFIG_TRANSPARENT_HUGEPAGE=3Dn
-which you already cover by not entering this branch.
-
-> +	}
-> =20
-> -	err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> -	if (drm_gem_get_huge_mnt(&pfdev->base))
-> -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> -	else if (err)
-> -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> -			 err);
-> +	return panfrost_gem_shrinker_init(pfdev);
-> +}
-> +
-> +void panfrost_gem_fini(struct panfrost_device *pfdev)
-> +{
-> +	panfrost_gem_shrinker_fini(pfdev);
->  }
-> =20
->  #ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/pa=
-nfrost/panfrost_gem.h
-> index 79d4377019e9..5c823cdbd980 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *n=
-ode)
->  	return container_of(node, struct panfrost_gem_mapping, mmnode);
->  }
-> =20
-> -void panfrost_gem_init(struct panfrost_device *pfdev);
-> +int panfrost_gem_init(struct panfrost_device *pfdev);
-> +void panfrost_gem_fini(struct panfrost_device *pfdev);
-> =20
->  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev=
-, size_t size);
-> =20
-> @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *=
-bo,
->  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
->  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *b=
-o);
-> =20
-> -int panfrost_gem_shrinker_init(struct drm_device *dev);
-> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
-> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
-> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
-> =20
->  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *labe=
-l);
->  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/g=
-pu/drm/panfrost/panfrost_gem_shrinker.c
-> index 2fe967a90bcb..fefae87535d6 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, =
-struct shrink_control *sc)
->   *
->   * This function registers and sets up the panfrost shrinker.
->   */
-> -int panfrost_gem_shrinker_init(struct drm_device *dev)
-> +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
->  {
-> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
-> -
->  	pfdev->shrinker =3D shrinker_alloc(0, "drm-panfrost");
->  	if (!pfdev->shrinker)
->  		return -ENOMEM;
-> @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *de=
-v)
->   *
->   * This function unregisters the panfrost shrinker.
->   */
-> -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
-> +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
->  {
-> -	struct panfrost_device *pfdev =3D to_panfrost_device(dev);
-> -
->  	if (pfdev->shrinker)
->  		shrinker_free(pfdev->shrinker);
->  }
->=20
-
+Best,
+Gary
