@@ -4,138 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8203C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 08:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E04BC61DFD
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 08:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCAD410F05C;
-	Wed,  2 Sep 2026 08:02:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD7D10F04A;
+	Wed,  2 Sep 2026 08:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Gp+fDWmb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zqirUV2b";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rd4DbDJ+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o/xYyXWn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b+nfiAPs";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80BFD10F05D
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 08:02:19 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0534221959;
- Wed,  2 Sep 2026 08:02:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788336134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=iR0O11u2q476GA0Rd7futNHjAw/Va0GzNiewis4aiyA=;
- b=Gp+fDWmbKGyjQAQrILvnxKEwzpSjnA4KtJeihsCsrIPapoOerr2u5kDR1VAkkZ695dKS6o
- wsGqNhW/EtR2stWI/mrPnVSggQEyuqNIX/BZXuAtykqd/0an9Gysch1Lh+OjKJFLxunExm
- 3VSSEc9x3g/wXFG5DlFjRA+hzfvNuiA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788336134;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=iR0O11u2q476GA0Rd7futNHjAw/Va0GzNiewis4aiyA=;
- b=zqirUV2bDDjJ54Mwvh/bGa0XANOwCd6MoeW5CRrO3ly03soc8LzrcNEw/Os5aQ7eES8hxL
- kSni4/IXbyUDb7AQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rd4DbDJ+;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="o/xYyXWn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788336129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=iR0O11u2q476GA0Rd7futNHjAw/Va0GzNiewis4aiyA=;
- b=rd4DbDJ+2HZSH6tPFa9GShKO1eMK+ct/zleOR1SlSUFOrVh0OT1v9OPk4ed68tbrlinC9E
- rP/6q0icYJkrN1PT7hlUKno6JItrq/nz8cq9XQbiBbb+tH1d/nmlYneX53xgpvMh/KBjAt
- /pAU5HZ7AaSSrHc9TImw/TkoHikeYFw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788336129;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=iR0O11u2q476GA0Rd7futNHjAw/Va0GzNiewis4aiyA=;
- b=o/xYyXWnG1KRhoUiid9yGYDNqSX+wnZr8Dk5vuhneiK83ESUaPnbyQSypuaQO/FCoaVTlL
- TCCr+za7iyDLvnBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8466713736;
- Wed,  2 Sep 2026 08:02:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 02W+HgDYl2oPCwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 08:02:08 +0000
-Message-ID: <85292368-03d6-49ce-b6df-3bf659347c0f@suse.de>
-Date: Wed, 2 Sep 2026 10:02:07 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH] drm: Fix NULL pointer dereference in
- drm_minor_alloc() on error path
-To: shechenglong <shechenglong@xfusion.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stone.xulei@xfusion.com, chenjialong@xfusion.com
-References: <20260810120509.784-1-shechenglong@xfusion.com>
- <20260825084410.1306-1-shechenglong@xfusion.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260825084410.1306-1-shechenglong@xfusion.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC71E10F04A;
+ Wed,  2 Sep 2026 08:08:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788336517; x=1819872517;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=tfkaCFYOx2x4hh5/MdjKUDNak7UZO4m1mi673lRIhis=;
+ b=b+nfiAPsBdEfJ0vHc3i0/dTSqrs3wBJg5CTWgHmZ/ANX02TS0ddhJdGs
+ G2l50FiQHLhJSzpXRAF3pw4q1jV+6LB2+XfILq8/ZkIzdAKR7/FvFfTnB
+ Gv2m0XcH0Q38REK/Gm6jPIqSvP1JGYA4E0nIp/r30092uJt3FATdRxTi8
+ N8GuSlQYouZmBVpi3pjgeM9gv1mJi0nVoqVZFB0rPklNVFOa0XEWdmk5g
+ JVOtMLhSxaG4AEH5WJtIBX3tCFqtliYtP/PFbyEXQcelCNSAO1r5Nsbjt
+ xbCgYc4FtHfyT3u2nfD4gXo/EBzZiQ6pEaLBDU7PuEf38E24CCUZK//we w==;
+X-CSE-ConnectionGUID: 4MijxKWkSvycjUR2m+r0uA==
+X-CSE-MsgGUID: Jwds9QB4QEOyW31T/Xah1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114329350"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="114329350"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 01:08:36 -0700
+X-CSE-ConnectionGUID: rnd4N/G+T/q9572YWakKHA==
+X-CSE-MsgGUID: kZqaFZTxQaGDZg2diJwetg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="268035277"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 01:08:36 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 01:08:35 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 2 Sep 2026 01:08:35 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.60) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 01:08:34 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oeo2cOGiqahSzlsRtK1xCnI6s7n6A2dZ4nvn+K6vmmR5e58fHHufPTr0RZCanvZOY8TdGIrV/p7pGS0ebP9SRbQraaGlFgTr0zrH6s3n2PWaOZVT41muT3xnQY2b3NjaRHPV9qtDVl8M35gcCBS9YWdorF99X/SsYuB/8R5V+Ffp87of4E0tDXcMOMrGqammvtLA3kwOIH5dRH/hV2p4xED0l1b3sLcEhj4XcEyc/vfykPRySH1f8bY7Wdwm/WbvvjsnV2xbnZgHESki7TGnM7WhdkFV8hmH1Dgc4jFJgEhuBxO+rFuFk8G3SyF69dCnMieFvw8huwYd6bCPDTVsxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cVPCUwhK5hYjfPnHBNPjzUqxH3SNTvRnavZJ0hAqz70=;
+ b=xsFf699tOQm4jf4EHNLvJq4N6ioSLNJSLjSj+8s0vYJPROgNXmRNJdf1mHsvIF3/FUhpd87ECPLG9HCYE92z3WYmxkzSK05fMSfpb7YHpfdvq8ChwDR8XX7eYobvUd0ci7/20z67chOWdPRs6BuYJg7rjknjbcNNQSXaX3qiViOkiGrFVMK2LLPA5Vp/nCXYLeqSyJoshf5F8Sasf+tEKqxPVCdKO3pDbwYaInaYX4HLTBrUEQ6FzI7eQmWluOojfx3/ydHPsbUU1zRiPjCGNtt9QP5O/7c7NdjBk/vxFU4e0GcCjOPx4R9zsPUfNGuzw/ENlFkdfhLIXvaulU2sYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DM3PPF1FCD3EAF0.namprd11.prod.outlook.com (2603:10b6:f:fc00::f12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 08:08:18 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 08:08:18 +0000
+Date: Wed, 2 Sep 2026 01:08:16 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Nathan Bourgeois <iridescentrosesfall@gmail.com>, Dave Airlie
+ <airlied@gmail.com>
+CC: Dave Airlie <airlied@gmail.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Rodrigo
+ Vivi" <rodrigo.vivi@intel.com>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Matthew Auld <matthew.auld@intel.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/xe: Fix unnecessary host-side population of ttm_tt
+ on non-TT resources
+Message-ID: <apfZcEF8IlDak/As@gsse-cloud1.jf.intel.com>
+References: <20260820031901.1018324-1-iridescentrosesfall@gmail.com>
+ <aoczaCuoaZfUkfm5@gsse-cloud1.jf.intel.com>
+ <CAMpTW2cxRrG4oJ0HrRoKhHrVHxWO01-L+QDoWMLCAUaSfw75sA@mail.gmail.com>
+ <CAMpTW2fxFRrpn1b5WGYBrtLLMfUo_fmx9s2D0b552GJp-sF5qg@mail.gmail.com>
+ <8b7001c68c94491095f41d2a3dff45090c0a95cf.camel@linux.intel.com>
+ <aoeUdfrPX+0ZnZMr@gsse-cloud1.jf.intel.com>
+ <CAPM=9twBded3B553KYzwDtVd0NbhbAwbiVDGw_bdrmBnOKgtKA@mail.gmail.com>
+ <CAMpTW2eXS9tBzppJvvfZ-FiwoJ5MKOAdB9sqYgCDPVQ_+___ZA@mail.gmail.com>
+ <ao+acQG/wyZYNYfW@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0534221959
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[xfusion.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,ravnborg.org];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[10];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
+In-Reply-To: <ao+acQG/wyZYNYfW@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: SJ0PR13CA0045.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::20) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DM3PPF1FCD3EAF0:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67098c33-f3c0-4131-1fbe-08df08c958f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|10067099003|6133799003|56012099006|4143699003|22082099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: Hwls0FAXkiQ82FsfdMgnZm35x9homPpizpJBjs1Eu+eO/VgzzbWVVx4uT4f81/qbRpaZ7aZywIhzfQphXjP+fF+apHJEhBARTSl5YUmB4BdV9PcXDGnC7UOPhswP94Odc0g1y2PeaSBDin51o58HuP1Knvod3iUehQpkxE8UyHptqQMLnP48l1v6j5IoULxF9gyrtfwpjL3m/rVXBn1xlR2WoK12OZ2IHSXhM870NqFhQ2BIfRS6Xo+CWWhx3Eg9fSPnos2By5eRLLFlzvl93ch7H3GZ8bQo5vKdFQDd9gl7abHRCa6S/eEM/fR96F3ZjONWAP/rZ8j3HH4K9r1QBN3D8mXxtBgxqq9mMbMXXQ+CichNC3GKL8YcdSFQGRF0Xc5beHx+//JEE1l6nvaA2ZVMO74fb3OOFyD5NEfK1YCeXtJaXU1xhnwDLl3F9RUFonLZNXGO+HOuVTtkI4B4kB0aE/t78Lq3TB51NN58zK/Wej/khke94XhSTQ1dSzWzza2C4dg+B0d6tu4DBQ6/c05/phE/QvW4SkeXFyPohifokeCCySmjgakYllCkXCVcKckSdcuidf3bAAy4P4c9GoYVssXCUH8Ib09NMBFzA1xu/cLJRa+WyIiLJAie832f
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(6133799003)(56012099006)(4143699003)(22082099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlJTV0xNTDFyeTZsNTJ6M0FxblRFNGNFVmo5Zm92R0ExVHlZbGJ6MG5nMmZi?=
+ =?utf-8?B?eXhpME9nU0VaS1k1YmlNcWpiRmI5Ry9DMXJLWW83WUl3R05YVnZIQVpyRjYy?=
+ =?utf-8?B?RGZsRG9PdDR4NVA2a054dHJLdDJNV0xKTkx1SkowYVkvL2tTSVQzblVLYWU5?=
+ =?utf-8?B?MStwUmZXazM0Z1h1U1V3MzRYbTJrQzFaRVUrUWFWNGtKaXlEMkFtWkFyckN2?=
+ =?utf-8?B?bUlKTVo1Vm9ZYlZMc2FINHlxTkVvYkpwTWorSFdDbmxNdUFreVV3Q3JPNGxw?=
+ =?utf-8?B?ZGRaR0UyVnZnVlFxeE5DWWNLY1VxQXA1YmFZZW1Qck01WFRBYnA1RDluWkNV?=
+ =?utf-8?B?WVp1bmxIVGh0RUl2bGZIdUlIQVRzRkc1a3lDZ2lwSy9Qb2E1U2pIOU5ZL3NL?=
+ =?utf-8?B?dGVFUGYvejZock9MZ3c2eEZReFJrV1V3b1RjWGlrVHlzVitBUFNuRzZBdmdB?=
+ =?utf-8?B?YWJ5dk8zZ0d0NFl1VTNNZzhtcXJuaEZNdi9LSm1PSjlNVSt3MnR5VkE5MVlh?=
+ =?utf-8?B?OGdLVVh0SGVLNDlxMU02Umg4blJUeXY4WTFaWnREZWEwWVNFbWlmV2ZUaXJ3?=
+ =?utf-8?B?eHdya3k2cHhkS1gzYzZadzA5bldYWk92dENtclBjS3hsVXhTTjBRaTh4dGJC?=
+ =?utf-8?B?cm5WVXM1QTF0N0ptbWtFOHRJcUJoRWlDWk9mN0t2eTJPZTdBaXl2MlMyYnFW?=
+ =?utf-8?B?ZmRaQkQwb3dHYlg4UEwrTWhpUGJQcGx3TUFLQTRncStqUVJkNGRzVGxtZld2?=
+ =?utf-8?B?aWNzb3dmWkI1ZmVuVHl1TmRwV2crVkxrQ2hZMWN6QkphdUlBcUs5bThWbWNU?=
+ =?utf-8?B?U0NOUE1WMkxKOXFGS0wvcmh6OUw3cnhPWlBkeHV2c0dDN3BQSzcrUDFxSFM5?=
+ =?utf-8?B?VFpKUXIxWlcvNjhKNWdwQ3A1MHMzOVFQWGhMdWdpQVFlMkZqdmdxYnhHZHFo?=
+ =?utf-8?B?NTYxaVF5T3RjZFJCMlhYOHczalNrMDFJeDFXcmQrZHd3cmpBWDl2MVlsVklL?=
+ =?utf-8?B?NjV2bFUzQklLbjZQbElmMUdOaEJGd1Z1cm8rblVnT2hrQXFNV2VpaG5xUVBj?=
+ =?utf-8?B?YUh6Wk9sZXlBeEtidHFmdEh5Q1pUWGZEbGEyYyt3cHg0WHBMTDk1UU04UXhn?=
+ =?utf-8?B?NVl5SDRJenZlMUI4M2JvVk1LdzU5N0F0cTA5ZzcxOUc0OHRwWFF1V05lTVhG?=
+ =?utf-8?B?Y3lZR0FSdVZQVjRkTEx3K2VFTGtXZTF4MythcXB3NGxTandScER0Tkt4Wkc4?=
+ =?utf-8?B?c09ORk9tQ1VLV282MFZBRklRWkNiODhoOVJXVEtsOVRYSnRERWkrZUZaR2Fv?=
+ =?utf-8?B?WDBQcHU1VzY0V3ROeWhLd2JMR3VUMDgrK21FYUxNa2NKWXcxMHVpWXVxdXAz?=
+ =?utf-8?B?TittTUJTMzZBMDZjYjJnUkNSWHRjR1hhd1JpQTFSWXZMNGNmRW5sVlpjRjZ1?=
+ =?utf-8?B?bGpndURJWVhSNmVKR2ZVSlMxMFlYaGYwRDRPbmpiRm5naHJzdEhxVlVhMlFN?=
+ =?utf-8?B?eTRuMnpodWJzMjZlREt2WnVxdE50d1RzQzZMd2huN3dXSTBSK2hZM2VvN2Ux?=
+ =?utf-8?B?aXpNUmdoWkFLYVJab1BOdHhhVkFmcTY4cjZ6WEJ6cmtjcitUNTNMRW1zYXRw?=
+ =?utf-8?B?STc4NU05cmhySklnS3o5MVMwK3hKSDVXbS9PazRLM1o1VTViSzhTRnlXK29n?=
+ =?utf-8?B?Zk1udVloQkJoc1h3UVh2eDZvOC9EeXcyTUdNR2Q5NGxTL1VjS2k1c1lnUyt3?=
+ =?utf-8?B?TmwxSHQydXBCYjRLMXFwNEpib3cwWGttMC9ibjhCRVh0cGx4SkMxczY4aUpi?=
+ =?utf-8?B?NmhTVGxTS2RUeElOYnFOeWZkMGpJcGQ4a002Ryt2alZZdmdqdnhlS1pvaTZD?=
+ =?utf-8?B?NHJvM0pMZnF0TmVzOTdNaHV6TWZYaDN5VzV6Q2RTTGcyMUNjdmZnL0ZSMTZx?=
+ =?utf-8?B?Y2JPdDEvTzBDTk9GbFNhT1BhbU1mUm9NWGlGUHZza0VoZEFEUUVoaXJuWVQ5?=
+ =?utf-8?B?WXVHN2lkSE96eTBycmY3Zm01N1JwdytlU29sWDlCYUpwTTFVZyt1VzlwZWtF?=
+ =?utf-8?B?V3dUVU5oTmpXUWZhM203REU3MFI5SlNhOXJRWWpwT0I2RmFoWjZ5UjJmQm9M?=
+ =?utf-8?B?SEgyTWVadzdDRXlEVUNyd25nQkJxeVdydHFNaHowanM4MnJCUUt6czQ4anhN?=
+ =?utf-8?B?TW1DbC9CSEZVOUJ2TmMvS094Z1ZIUDVBTG92RU02NjdEMXE5Q0FBMG9EdGlQ?=
+ =?utf-8?B?RkVYazR4MUIzN3o3RWloN2FxTGpSelQ5Sy9XbVkxQUhaMXlLc2FPU3NTYVdk?=
+ =?utf-8?B?bmNlak9ITWEveUNUUjhZWjlnNHF4emlCWEFib1hxM21hOGg0V0pjOVZhWTI3?=
+ =?utf-8?Q?5D7+acfqdnJmq8AI=3D?=
+X-Exchange-RoutingPolicyChecked: rHdvmtQ1ap0i9W+VCSvl/qVrpAXEk/doo0AggbFLrm1Mk0PutMgKTutbU25UHzJXWS8K406qHB8Wsm7uqmVWeC68zt8Ng7uSh8nWDeML9zRSkmfd9ipbxRWI2tMRe4dkMenIXalFCEX/qGQ5tkcOUOdEoLhTKy+YAQy60+m7t7bKvQpyV02y7BlIsQDVluALkODzEQj2lOguy9RXY4FD65tafzkuFuH3K3O7JwFNG4kl/+w31Zp3gI3d0KXQ1A9EkfPPFAHMvM2APnP9qtayQgTsqdjLZMhF7W2qOpeRPIm9GgipmpCrccfgeJfWwBGqRisDIyImzNtZ90ooJUjDEg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67098c33-f3c0-4131-1fbe-08df08c958f1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 08:08:18.5656 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gKnyx405R4HtTu2gDYoqdWKRp8TX+BBbcxwlGaSmX9a7Ge4z42l57a4D8zoTw7gnpdC6roLS+FRD+csC30covA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF1FCD3EAF0
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,102 +183,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Wed, Aug 26, 2026 at 07:01:21PM -0700, Matthew Brost wrote:
 
-Am 25.08.26 um 10:44 schrieb shechenglong:
-> When drm_sysfs_minor_alloc() fails (e.g., due to -ENOMEM), the
-> following Oops occurs because an ERR_PTR is passed to put_device():
->
->    BUG: kernel NULL pointer dereference, address: 0000000000000030
->    #PF: supervisor read access in kernel mode
->    #PF: error_code(0x0000) - not-present page
->    RIP: 0010:kobject_put+0xd/0x60
->    Call Trace:
->     drm_minor_alloc_release+0x1c/0x50 [drm]
->     drm_managed_release+0x96/0x160 [drm]
->     drm_dev_init+0x269/0x330 [drm]
->     drm_dev_alloc+0x3f/0x80 [drm]
->     virtio_gpu_probe+0x40/0x180 [virtio_gpu]
->     virtio_dev_probe+0x1fd/0x360
->     ...
->     do_syscall_64+0xaf/0x500
->     entry_SYSCALL_64_after_hwframe+0x76/0x7e
->
-> The call path that leads to this crash is:
->
->    virtio_gpu_probe()
->      drm_dev_alloc()
->        drm_dev_init()
->          drm_minor_alloc()              // allocates minor
->            drm_sysfs_minor_alloc()      // returns ERR_PTR(-ENOMEM)
->            minor->kdev = ERR_PTR(-ENOMEM)  // stored directly
->            return -ENOMEM
->          // drm_dev_init() fails, triggers cleanup:
->          drm_managed_release()
->            drm_minor_alloc_release(dev, minor)
->              put_device(minor->kdev)     // ERR_PTR(-ENOMEM) dereferenced
->                kobject_put()             // crashes at address 0x30
->
-> drm_minor_alloc() assigns the return value of drm_sysfs_minor_alloc()
-> directly to minor->kdev, even when it is an error pointer.  The
-> subsequent cleanup unconditionally calls put_device(minor->kdev),
-> which dereferences the error pointer and causes a NULL-pointer
-> dereference (offset 0x30 into a non-page-mapped area).
->
-> Fix this by using a temporary variable to hold the result of
-> drm_sysfs_minor_alloc().  If the allocation fails, we return the error
-> immediately, leaving minor->kdev as NULL (the whole minor structure is
-> zero-allocated).  put_device(NULL) is explicitly allowed and safe.
->
-> Fixes: f96306f9892b ("drm: manage drm_minor cleanup with drmm_")
->
-> Signed-off-by: shechenglong <shechenglong@xfusion.com>
+Dave ping. Question below.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Thanks for the fix.
-
-Best regards
-Thomas
-
-> ---
->   drivers/gpu/drm/drm_drv.c | 9 ++++++---
->   1 file changed, 6 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 675675480..2348fbb21 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -143,6 +143,7 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
->   static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
->   {
->   	struct drm_minor *minor;
-> +	struct device *kdev;
->   	int r;
->   
->   	minor = drmm_kzalloc(dev, sizeof(*minor), GFP_KERNEL);
-> @@ -164,9 +165,11 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
->   	if (r)
->   		return r;
->   
-> -	minor->kdev = drm_sysfs_minor_alloc(minor);
-> -	if (IS_ERR(minor->kdev))
-> -		return PTR_ERR(minor->kdev);
-> +	kdev = drm_sysfs_minor_alloc(minor);
-> +	if (IS_ERR(kdev))
-> +		return PTR_ERR(kdev);
-> +
-> +	minor->kdev = kdev;
->   
->   	*drm_minor_get_slot(dev, type) = minor;
->   	return 0;
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+> On Thu, Aug 20, 2026 at 10:34:49PM -0400, Nathan Bourgeois wrote:
+> > > Shouldn't we just be calling xe_bo_validate() here instead of
+> > > ttm_tt_populate? (With the correct xe_validation_guard() wrapping).
+> > 
+> > > Yes, this might be a better solution, making ttm_bo_setup_export()
+> > > completely unnecessary.
+> > 
+> > If ttm_bo_setup_export() is unnecessary, I'm happy to change the patch
+> > or make a new patch. I will attempt to implement and test this locally.
+> > 
+> > > This part looks good as different patch from what I'm assuming will be a
+> > > TTM fix.
+> > 
+> > Regarding this, what do you recommend I do, assuming the patch
+> > remains local to drm/xe? I'm still learning the ropes of contributing.
+> > 
+> 
+> 
+> For Xe I believe Thomas and I aligned a xe_bo_validate with a correct
+> xe_validation_guard is the Xe preferred solution in the existing
+> design... But a question to Dave below before I commit to anything.
+> 
+> > Nathan
+> > 
+> > On Thu, Aug 20, 2026 at 9:08 PM Dave Airlie <airlied@gmail.com> wrote:
+> > >
+> > > > Yes, this might be a better solution, making ttm_bo_setup_export()
+> > > > completely unnecessary.
+> > > >
+> > > > It's also a bit odd that, in flows where we don't have backing storage
+> > > > on export, we populate with pages and charge the system memory cgroup,
+> > > > only to move the data to VRAM when the import attach is triggered,
+> > > > resulting in a copy and a change in cgroup charging.
+> > > >
+> > > > I guess the question is why was ttm_bo_setup_export() introduced over
+> > > > just a validation at export?
+> > > >
+> > >
+> > > I'd like to think I had an answer for that, but I don't. Likely
+> > > because I wasn't thinking about VRAM charging at all, and just
+> > > worrying about making sure we had populated some pages for system
+> > > memory ones, so the other side couldn't DoS us.
+> > >
+> 
+> Dave:
+> 
+> We don't charge any cgroups yet, right? This would only come into play
+> once a version of [1] merges, correct?
+> 
+> What would prevent the pages populated for a TTM BO from being
+> immediately reclaimed and discarded? I'm fairly certain Xe's shrinker
+> could do exactly that, since we don't pin those pages. This seems to
+> imply that we'd need to store the cgroup associated with the TTM BO at
+> creation time and charge allocations to that cgroup, regardless of which
+> task ultimately triggers the page allocation.
+> 
+> Another option, instead of validating, is to revert
+> ttm_bo_setup_export() entirely and rethink the overall approach as part
+> of [1].
+> 
+> Matt
+> 
+> [1] https://patchwork.freedesktop.org/series/169831/
+> 
+> > > Dave.
