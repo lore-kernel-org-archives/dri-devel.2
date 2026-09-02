@@ -4,146 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD91C624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 18:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0C07C624D4
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 18:48:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5845110E4B8;
-	Wed,  2 Sep 2026 18:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 063DE10E081;
+	Wed,  2 Sep 2026 18:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bcs8whjz";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZKWYjWb1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kbD2Ojj8";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E27DC10E43A
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 18:41:25 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 682Hqv922104776
- for <dri-devel@lists.freedesktop.org>; Wed, 2 Sep 2026 18:41:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- COk6vE2ve/I1mCw550knzyWX0nlFehDWi8Gm0jd9uVY=; b=bcs8whjzqR8+fxr3
- eGcVtbdu1rEc5uC3cCOJlNz2CeOo5VoDsWp9cmmFTwl2okzLeXniccQslCt9DErP
- qi/tQ86A4+XYLTfURbmgeuTQ30cQPRg3VHG/oAZjwQRVPniXRTzGcxVg+wA4Kf6Q
- t0wMKD2q7ZcVM8R0cSn9XnaxH+eJgReFWcJBYW9tzshni+d/d+uC2ZvAuvXWcGpl
- fNkdYV0bErSXtuNO/KGSxncOjxETQN1PgM+lnl5OTyCf/X91WKSQ0fwy21zBUweB
- R8cjN3FSgEbSol0Zldxhg26RIFMIW0hQylnQFquD5BTzQ1hTmxYHiK9Xy+HjExVd
- orhZPw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrds2sn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 18:41:24 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-38e8e864ef0so2497223a91.0
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 11:41:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788374483; x=1788979283;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=COk6vE2ve/I1mCw550knzyWX0nlFehDWi8Gm0jd9uVY=;
- b=ZKWYjWb1mqdVIPHcOz84ZWGRF90HfsNPsq7W0E1ji+I6Lq4+lHhLMgeRt1KE3xOsRK
- d7yPgcE6SypE0IvwuZ5Di+hySwFcUxoLZ1uHDqB/snpaUbelQs+S/yyoU9f3c9KHskj9
- 2sIon8U16CqvlRo4io1Q2GkGRbFKB0R/LXDxNNsxJDbmPLT1Wnn6dA6uX8NYmsWpAL8y
- VsDaYl4pdVE0LQfsVdqY0zVm1vw1UcN0ahVEdPvmDfbssAo+9rBy3aqjcQi4cwjGbHdr
- NGpBC8jwLhaqi7ld5PSLhlesKSnmyg9u6kAkhi4G7xfyJM3i0k7uKQ84rXlBl95fZr7J
- dg4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788374483; x=1788979283;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=COk6vE2ve/I1mCw550knzyWX0nlFehDWi8Gm0jd9uVY=;
- b=seqLXF0eV3AwObW1xiCBSjh3pRfsVIFxtzTQ1LDsPxRqWiGURhPz8Z2z61N5pYbckU
- rxPqy/T8mUCfFbkM2T/5cB9XhvZEC9rUwK0woUdlQeQnv7XpljM/kT8BCg34i8bkCfXV
- H+zI2RDsNNZQjuMMCH1DwhdKWKPTlKHeO8Kjekrn2FavH17a18CxKslD9mjCMAfpGof8
- WDTtpyDvOZ6cl1VWfxaDo7igqP4ZrBCTjLK8za2YKTj4jYuZoDr6YzVqsjxoAyiSjAp/
- CWUtrWVnKWNmVmrkat4UA3f2HRKPl+7scP5nIo/iHX9xAoKQTRXGMDAhXAsh728GG18e
- H73g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxuosfNwxcyqblgjEkaEkVlM6zkaY0yQ/Zc3XArSPCsMNO5d96t7ZQvJ7XqpIuHqVQDgMJYgLRrHvc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lMKDzg5Yxf4vfiy0PrxKG2KerDJ77Z39ksOhMV+Vj/QpUp5T1i
- YuF3NyBdoDu8+74liTgbspLpHpmktghTe/RKDQFkv1wieOP5Cb/lzFQpZwoyzIHK8os3zlwjZT6
- /g7nOAANZRmO0hepwUjYn13CAiUATdnk9fX+i7Xwkwf2pS17PDSdTJiHi9FuPFF0ljwCVnTU=
-X-Gm-Gg: AYBFou1UsPihHFwYODOcjetTfnogNix2CnLhcjYWgMwp0Z7Groli5oTKJKUNfrSDsVn
- LqJjs7+k5Z7ydZmuY8ig2bs6Yg04wg2D1twrZ4WyqD5h+h38RhmTICmrPy602DxVEiMTgd/pi2L
- mdMld9DSPNsfsM6KvC+SKu8SDDO8eo0ncKxGTSZ2L+1CHBI8EtFvVNwp9NEbYI1kdTHJsXhgav8
- xG48GE5K2sT0yRp/yYhhf3suXdWGutVkhEOU+qBUPMIiIiS7Bcc/OlZlrBOTqxs0v9YhOB6+inL
- dEX7gQqCff0ZPyAGOEBye/7cg+enrAa8yPIHcseETxdybxELh6/Dm0HrbhalRmZO+PnA61t7aUI
- niQsRmrbnrFxNGufDonAKFXgfHw==
-X-Received: by 2002:a17:90b:2d0b:b0:398:9be8:ea66 with SMTP id
- 98e67ed59e1d1-39aee1b7937mr10712282a91.19.1788374483103; 
- Wed, 02 Sep 2026 11:41:23 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d0b:b0:398:9be8:ea66 with SMTP id
- 98e67ed59e1d1-39aee1b7937mr10712225a91.19.1788374482632; 
- Wed, 02 Sep 2026 11:41:22 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33255f2c1bcsm12059eec.20.2026.09.02.11.41.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 11:41:22 -0700 (PDT)
-Date: Thu, 3 Sep 2026 00:11:12 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v11 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <aphtyJuQHQKRqv9l@hu-mdsor-hyd.qualcomm.com>
-References: <20260824-lt9611c-v7-v11-0-eb4a79cb597c@oss.qualcomm.com>
- <20260824-lt9611c-v7-v11-2-eb4a79cb597c@oss.qualcomm.com>
- <178766696083.117435.16339828039068931624.b4-review@b4>
- <apXKES8WQzVDbQG8@hu-mdsor-hyd.qualcomm.com>
- <DL3SHWGWGJRM.8EBXAKKNSVB5@bootlin.com>
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011009.outbound.protection.outlook.com [52.101.57.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D15410E081
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 18:48:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mn34NBgvRVmbA5ZwaYTStpy0DIYyEuhvW/Vz6t86wYPa7DvvAsh8+EVRZoPi16TqhRWa2mG7JreiDaED1M20p5t7864v523WdyC0T1kIEKM/VPAYkCW6ux4ipdBfLB60xGWQn14oku3Kzq1mdZHa/1S6gBqk8tG1mfmODQMWcSREekBBsTd7DsLAtSiDyd2FSaoF7WDpPiajZu/3q3Cg/Kd3G+YBDEiBEzUpNwNFET+4UmOJcF4TfZ1eN/JsKkRGROHAP57pFJIpZlLwYrWRCXQf4knxEdQT12GMPlerSSzj6QYAkB6RpH6Y1BCa93RrHoio5i0qLQ8aJRjeFi8QWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=826hHmb600icKHZgtQurBB5kdBuQtJeN9ntTVYP7SGA=;
+ b=Wa0p4rGYyhiiVZclzsdwxIvbJbnSZFPoolr3T1ifz+edi8/+SY+oe297m2gLBaPulPNkVN31EJycTnvIFTQQowVah00KrZus21mr7D7Xt7gj0YS3j6puPJLW8mChd75C9LaL1gHOR46TEoT99tOZAp39zv/iBJSnkl+lAT1sGn6AS8TxFdKaghnPPOKfc8lQJ3tH9dODJs1hUfXj4RKvTW5bD/6SaT8cf6SxTCtuctM1odawstu3/EoMhlFNx7W4hw0CMJI5vdgEWtLQhVj7p7MXIztGBjn2ZKve+kJ4fnxG4e+lKKLvw+b6a82PnbWlHyDrmLzfq3qip+/21t4B3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=826hHmb600icKHZgtQurBB5kdBuQtJeN9ntTVYP7SGA=;
+ b=kbD2Ojj8jiF3f/SnYE0KesIHGHxKuXXFcZ5NLYE3NBUefn/F02vumOO9XA7ADauJxYxhjHaYI2DGUuDo0jWoTinVBKd9Nkz+2wOWVxn6JkRA2IUZMAmIBe1cRN6hBSVgak385P25d9BlPb2n1X3U5jBdi2YgS505rgCqXJe4whg=
+Received: from SA9PR03CA0019.namprd03.prod.outlook.com (2603:10b6:806:20::24)
+ by DSWPR12MB999151.namprd12.prod.outlook.com (2603:10b6:8:36b::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 18:48:45 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:20:cafe::19) by SA9PR03CA0019.outlook.office365.com
+ (2603:10b6:806:20::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 18:48:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 18:48:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 13:48:44 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 13:48:44 -0500
+Received: from [172.19.68.62] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 13:48:43 -0500
+Message-ID: <8a526163-0762-4be4-a827-b2c11fef5959@amd.com>
+Date: Wed, 2 Sep 2026 11:48:43 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DL3SHWGWGJRM.8EBXAKKNSVB5@bootlin.com>
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a986dd4 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=P-IC7800AAAA:8 a=I0NX2EReon8agFAEoCIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-GUID: 83GFlQh-Xd9I_-Q1AQgPQf8m2ZAzgVd9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE2NCBTYWx0ZWRfXwcY3TyePuk2W
- 4GrvGC+TG9PHpxBEuMEuclajlkmGwBHPljQwZDa5KReA+vZqPW0RtnVf8Z1WtrLMpwW0vDSfti8
- H/6HGeAf52gShZCuUwgkcPDrjuY2JAmymkqKN9I2QRkv/4Q/93wje3o3Fj0RHIaveRPI+xl33b2
- VcdONfTsaLZ1q4kmcOU7gsO+ZhaGiTkKn+5sQfbowjT4QCaHXgOY5BYst0AWUFx/3A3Ds2kUKVu
- jsbCqKEdRpKtFK4WaOBbF3S6pio6q9C8UoT6fqY7FRpBFCYAr0zhv6z0UBYB0lSc2wdKIY/eIMO
- Vd1dRtj+67KaFDUaqdbhVytRIPljSTOcwUAO3fMC0RBcUltXMcVUo+hCoTij/vApoLfNOdq9xOe
- 6Frcs4XaBoObmmi1ekPvZ1wpujJTva9bigQL1fHGUvDqTzoJmsZBgh7eQpg8NvaC6aiEPlzVeBC
- HpmdPzuB15ugh2QDuXQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE2NCBTYWx0ZWRfX+VG8pXOSp+vP
- Q6gTLaSchdpFfNJ/cbhRDMVCbu7X7Lo3ROFoaQIFHZKjHyuNx/KuXhwEupPTRmBqSwoh8aNkjIY
- sYk7Pd0bcKWY5Dt5bJp6SdNMrJqj+lw=
-X-Proofpoint-ORIG-GUID: 83GFlQh-Xd9I_-Q1AQgPQf8m2ZAzgVd9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020164
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1 1/2] accel/amdxdna: Disable BO import via flink
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260902180955.3999242-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20260902180955.3999242-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|DSWPR12MB999151:EE_
+X-MS-Office365-Filtering-Correlation-Id: c74f26b4-4cb4-41ba-b7e6-08df0922d0f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ZdT0vBKnUAgxrZ7kRpt5HxMAM2H+X7bNMrxKIPRVrgK2vRzRY17LiTn/se6RNvUuSKvt2MUQaUhIGZuD8LXbACNkvdz1yO6u+PAX4O+M7ZeLICwAUHAmururUsYnLJJ5lk612jFGFmdZCA55gUUgi/XFOs/c0mIryCrHX+WKXC8m8VV7kVwGkO9poM4c5JaQEOEzYphOT+FDyOq9lYS7TMdz/Amk8CDiN4+TwAc690SomESkRDPy91KsOFpMtHUr+p0SOdMHPXTMz5O4B1kSqkkqgVdw7zE4nF5Iiup/teDnq5r5+wAHDd5406RknJwk+efX7e+ntbXa4C8NnbCyiZco4JqM+kVDLxojqfHxGCTReg5KNqfQOMpAEGP/VZUwrARq3hUfscdODGUaBCIfQwcsaxX1QiMjcHxvHwiecxO3Eh6Jh4s/upJRwSrozq1qCGCwcp+wvqNtgqAgJc28pEfs7qL7jlALPF+bt+zJ2v6puplHbifSJdfydw5ia/4wyjTBq2CAeg1u0oeUL/HThddWgFMb4zW6Xdv4Rogg4tbsHTgeeN1r2tskis/NFC8sxnA96DIq8MNpy3vxdhNTAF1vfpMb49tsvzGdGyA7tQ3bLN/U9BXHRE2ZJOy2gV7XtByeRZ5a3C56D3ReF5oD9g9zPrwPT0lJKy16MSnT3N1Vvx4zC9hjt5t4CipsYJml1FeSzJXmvcqUnDr7iDnmpQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jnHbT5TfEX4Q2H1R0w9EHn93nfSTuRHmf5M3Op91quI5ZG0zrEHacRy2HlrJAlTu4kRRRCzH6J3agBtvu+bfes4HBM/teVrtQJRlLdeCD9UNEyPOuvItM9w8TEk23uaPlHhwcEDdQ9pkby0Zapu8G4qBHYM0gignxYsa4yXNUhm4uHDqPAYTAO3IOHpWKuFCdlM2BOF9euGSFc4SludPxkebDheupKRJTUC6HQEiFTn+AHKP9MIifhATbUrh3Utn9sFdlwQVodwHXT1pR6IFwdu+FbIYhFfCmODLjW5YSg4uFJ89MdoadVDyD4qsUQb45Kn1XmUH182ZCICdJlAfH3eNIPvPO5W4l0Rc+5F0MwRWLONBWqrCKqIypGptKZgWaGTScTOORxxYPgKNVexOQLbdrTKasDT1dy4nXLgLjnCf8LAgJeuguPj6qgmxZU3T
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 18:48:44.8602 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c74f26b4-4cb4-41ba-b7e6-08df0922d0f6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999151
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,44 +117,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 01, 2026 at 09:09:11AM +0200, Luca Ceresoli wrote:
-> Hello Mohit,
+
+
+On 9/2/2026 Wed 11:09, Lizhi Hou wrote:
+> Accessing abo->client in amdxdna_gem_del_bo_usage() may result in a
+> use-after-free when the BO is imported via flink.
 > 
-> On Mon Aug 31, 2026 at 8:38 PM CEST, Mohit Dsor wrote:
+> Disable flink import by verifing that filp->driver_priv matches the client
+> stored in abo->client before accessing the client.
 > 
-> [...]
+> Fixes: 3cc5d7a59519 ("accel/amdxdna: Add carveout memory support for non-IOMMU systems")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> >> > +#include <drm/drm_of.h>
-> >>
-> >> Unused include?
-> > Using this header for of_drm_get_bridge_by_endpoint
-> 
-> of_drm_get_bridge_by_endpoint() is declared in drm_bridge.h.
-Thanks, will remove this header as well.
-> 
-> >> > +static enum drm_mode_status
-> >> > +lt9611c_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
-> >>                      ^^^^
-> >> Out of curiosity, what does "char" means here?
-> > "char" = character — TMDS (Transition Minimized Differential Signaling) transmits data using 8b/10b encoding, where each
-> >   encoded 10-bit symbol is called a "character". The TMDS character rate is the number of these symbols transmitted per second
-> >   per lane, which equals the TMDS clock frequency.
-> 
-> Ah, OK, thanks for the explanation.
-> 
-> >> Also, I _think_ lt9611c_regulator_init() could just
-> >> devm_regulator_bulk_get_enable() to do both things at once, but I'm not
-> >> sure that would be compatible with PM. If it's safe it would simplify the
-> >> code quite a lot, and also allow using devm_drm_bridge_add() below, making
-> >> the remove function almost empty.
-> > regulator_bulk_disable/enable are called in suspend/resume and in remove — so devm_regulator_bulk_get_enable is not suitable
-> >   here
-> 
-> OK, I was not sure about that, thanks for checking.
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 476649685e5a..1353393194e2 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -697,6 +697,8 @@ static int amdxdna_gem_obj_open(struct drm_gem_object *gobj, struct drm_file *fi
+>   	int ret;
+>   
+>   	guard(mutex)(&abo->lock);
+> +	if (abo->open_ref > 0 && filp->driver_priv != abo->client)
+> +		return -EPERM;
+>   	abo->open_ref++;
+>   	if (abo->open_ref > 1)
+>   		return 0;
+
