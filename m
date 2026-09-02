@@ -4,102 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F69EC624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E14C624D7
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EB5A10EDC5;
-	Thu,  3 Sep 2026 07:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370B710F3C9;
+	Thu,  3 Sep 2026 07:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=x6u.co header.i=@x6u.co header.b="Vaq/Dnrm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AHTobRAD";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 457D610F36D
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 23:08:02 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-39675172593so1655344a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 16:08:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788390481; cv=none;
- d=google.com; s=arc-20260327;
- b=jLknRkRB8XeIy09Izvn2W/njJqqTmsVEknwG/hot8fCQfqIqvJIAylWV51rMyRKfOI
- sVTdsrx8KSmYGET3ox8WbdoQLWIZkOKqY5nIDl3uFFeVQqVxcNWZrUzZdCnA0rxk6TyA
- nV74vYFNXgHiadRrPG/mmsPFKuuMLrCtm71b8RgdBZN0cyQodOL40IEhjV81EA0rzH5j
- H1kCkAg3JRCZrYmKVJ6DavhslCpN/D2RvrpDGs+zzdfO7IUvVh8/zl3jtICpKTCGBh1z
- 9KFYQWRn/rgfsPfjN5wqgBjVQgUGdhq1HIUFWcXI6mdvikB3xSyb9CASPX5juh5RWm7R
- gMcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
- fh=25D7rNU0gUpV3tl9YnXYOKLvsYllZjX5mexgC6Ig8Ds=;
- b=MXiU1hWjKGQ/tF+IxfQ04F8h+uNl6m0/WolhEh8UblnGH+uwR+MOioyuBjt3AFnlEP
- uPPjSJI+8ao3U7nXGREcPHVPM7F/2E6t4f1OOyCbYVuNvCraSfD4lUSt4PlpkFoWqL8/
- 23QWFjFYonWJRtocNwFywcbGkuFgdwfPk7FEz0UN1wDs0MOYIlV2EgMM8J5XpJepw0hL
- 8irXQi4lmlgTFuEhh/Ul7h2aEbaaHQ0lwq4vdtR2Jo5hZXm+6IUTTdxl9ghAEN8PpLGy
- bMmX8fNtiOVtQ6VhAoTs5IGr1cnos//tTKnc8kNTvISsR87ohkBNvAyHgJutQ3bh5R/t
- y73w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A44FE10E32A
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 01:27:22 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-3856d6fbcb3so480820a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 18:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=x6u.co; s=google; t=1788390481; x=1788995281; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
- b=Vaq/DnrmiP13fc7lzQECbu5vGs/3FuZHUsXVpbFJhkFdTMblF2N5MGRnkRsSfPjwsu
- 7d1z59EADz5q7629G9STIB6lP5oYm5DPzOcZqmwlAYu4MtOulynJBfNFX1K0v+74B1BD
- UmnaECEnXyGyjyEVNYXZQhM/9F+0IqvWJrYREmJgC0yiqweKagrVdwoCHFHbO9BlADQF
- njQa8YN9FNbavX16j2yUj5cBWXEKuwe0VfhA8N8HLTj33Mp8Sn51tHTi+vum0lUAHOXT
- HtcZMSbwYVcX2gVbR7OM5SupPdSok1pM9YIssj7iwDpi3NFkqYHZxtdeqGFS5UUXJNKR
- de9w==
+ d=gmail.com; s=20251104; t=1788312442; x=1788917242; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wt+LQiGu1u46A6j6YSEB/1Vma9hmj220lRwz/yCk9to=;
+ b=AHTobRADICjK8MGFFf3y0ueDIiqwkU+UCuMoxZX2X+RU/vnLP+zfbswsQm2gvGH+bT
+ RfE7b+YGei+yCVNeoegDyM/QX73j/OcxVMSKfI0LyjCwONuxNgQB+eAeln7oWWsDjk1Q
+ mS6tblnOgU0BoPF8RPHCB4uut56bF+YFwiV9Cv6jMkn2g69ZyAa6PNGR8vOJVFZK6z77
+ 5bgRSpdN/pq9wqg9uXz2Vo1axa8Gy2LMyc+WlR73C/vYEb0RLghGfvUTF+HTAnrr8bHk
+ xMz6SHZ/yBxOx/mdExZeoetKqrjMpEihgbXW6XOYfJ+5zPFTifXIUpiox9DV81Gre2ee
+ GeUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788390481; x=1788995281;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
- b=VdhD7UWyu8HbmKPCkInDXBkDNhEvTtEY6S870/cC3kZarkEjRrX4MD2h6ollR4sV4b
- 90hi+XHwQV17d5EoRxXoLjySjYaWzI5k0Zk7a34MsRJtDXO3k67EVJm0RfkAGECwYFU2
- 5AL8wuBffBvZX2anmunXr1QEBorSOm492/R2OwWbrW5JNVEXHje9ItTNQBO7qDlyAdpg
- hrQbxthScx8f4twYWy3D6BBFUEYHafnKuSZjTKtfCXtAfcQc6bMWr7m9lVEO77oGD6ol
- Brfkm/+0NlVNWG0MkhKi1vxG6cYVpF1OvQChXbH9g5KZ9UF3+99/zJU5Q8++qMohggjM
- tIaA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx1DES3sn0x5/2vg0M5V6LS24qJJu+GhhFWatJf3vJ84R/p693CATmADVRQEeP1ItgtF8KrUNNbjH8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kgBdWiXRSvid29ZTtjNK3jZ8hp0lG4AN2nbsM9xrRSD+85Yr/t
- XYEjtgT4MGYdrCcFY8w5I9ysMSGE1fg4/eBHLPMkxieoxLe4vCmNm5bFB37itdx2d8CVi9k9AHO
- XvCkorW7CWOvAkcmaAILEH9H6zd35LFajqrwAU/3Mty4=
-X-Gm-Gg: AYBFou1BU4UieBty7jcfYhXNlzynIA8935b0jaZKBRVh6o4r2t/m4YEgtXgGZJ1P3Mm
- RJQQ0HcnPozWl4KGQCpZO6J+JWLGjMfRdGT0WxK8S200MTVgHdAw84fOBKPB2YXp2PpE/29A6jm
- KLfw2Dyt5Qu0HhPzwYGTAAfu4GbR5zNoYCYsG5YM4dJt7EvAVz6vSWBpD+noNVYtHL4VIxJ25KO
- 64WI8uQxihDbfnV77eoMFPs/TfqEPJO9q5SI+9UGh0HTJO7T8e4fckYPUsCd419QDbp2JN2xxLw
- v5fgZxJ3DPsKJULXA+xUIZ4A4ddNFM6HxVOolYwyw84MAvSWKri9hbHLGJSGK3lmehy1NHMD5w=
- =
-X-Received: by 2002:a17:90b:3e8d:b0:396:4cbf:45bc with SMTP id
- 98e67ed59e1d1-39aee153e79mr9644253a91.16.1788390481503; Wed, 02 Sep 2026
- 16:08:01 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788312442; x=1788917242;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wt+LQiGu1u46A6j6YSEB/1Vma9hmj220lRwz/yCk9to=;
+ b=kfrwgmnwhxF3qOMC3h0LIEe+UfOs5MwUhPgy/AaxhUdCrcn5ZysjBsllaQv8dVHc7+
+ tzPt7OErU+cQ3aagjmiro2FvIt6yfTBxYMlktBiDUDtMKbnAoM2AdhxRTefJyfkieFrR
+ IY1UcNX+MERINdTJCe/1/u0JPLKiG1J7rAumJ/oAI8uiWtFJkg4FhN81xQ+wyPRd/3Je
+ D59P8RwBvS3JDH8pTkgUpPLlpx3kcDGEOgII9D2HHjR4ZOQ6ikPBJfVl0PHhg4Qj/Hzw
+ u+UTO34BS/Vu3UwQpwD43+ecEdsLSNTD44tnDGopuR6yuFPykHkYwQ/5Cfxxd0lxhHnm
+ 2Tog==
+X-Gm-Message-State: AFuF++lLcptBcQgHKgdlP1AeBJ/yifbJKeJtCc78Dph2seuakYd8iuu3
+ tfqGFemU7v8eCwqwliddtchywF565hSxtxgAvxOD1bAZWczPH2Sba8Y=
+X-Gm-Gg: AYBFou2GNWtUJ9xudXx6xqxMwIF/0RwbFRx3ZDGGWQewvN49OFZ9RwD9rjDOegX1DDB
+ vibVvYWO+FpsuwnC+rC5O2vzKXj7vx5IJB50tXLWOxNWB72yJB/TOFF6EOl6RPCthZopm3QJk45
+ yoX6R0NDlpCY3Kq+tRZVQgMwKJbr1BfY6yBeA6iL8lXkaK0hWT/E1ONXIf/1n62nW0iO1mAnGCD
+ ivwOkgpHvAjI2TImkfmJhHenwXA4A6k5y6UMwZQMAXottIQyuJXxPOdTLfqx3lKreSlW7czYEJ6
+ uTOR74bJwRuj5Jtaif/t90vy+8h+3tyavpI6hlA/MiMYc+jY5RePQavUaIefh6M4ZP6MfocleOF
+ qHxSKz0+TvtAo6em6Ykn2W2MdqClnUoTjRigPi8lWa1qd8gS0M5VUC9Rze3MGvBTMoTwp1FeXvz
+ OkastAf4dHHOMvpTn1lJD/3f2MAoJ5wYQ4ae+iGJ7v5c6gYmAatWNDjPe+mFi1OwPgeTnCxiPni
+ FGN7EMzXahrrFwUMBkuJKmzQzz/
+X-Received: by 2002:a17:90b:288a:b0:380:21b7:e727 with SMTP id
+ 98e67ed59e1d1-39aee0848bbmr1717405a91.14.1788312442070; 
+ Tue, 01 Sep 2026 18:27:22 -0700 (PDT)
+Received: from MalHyuk.localdomain ([211.201.32.99])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3990d7bb9d7sm8719236a91.15.2026.09.01.18.27.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 18:27:21 -0700 (PDT)
+From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau: RCU-free the scheduler-containing nouveau_sched
+Date: Wed,  2 Sep 2026 10:27:16 +0900
+Message-ID: <20260902012717.880724-1-malhyuk97@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <20260901170849.4052816-3-dhu@x6u.co>
- <20260902120832.GB2890729@ziepe.ca>
-In-Reply-To: <20260902120832.GB2890729@ziepe.ca>
-From: David Hu <dhu@x6u.co>
-Date: Wed, 2 Sep 2026 19:07:50 -0400
-X-Gm-Features: AcwNN1UWr9DtGOkBk_AsJGV3X93dnPOEvrR1ndZaMb2yMaRxX36LCdah5a513PI
-Message-ID: <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org, 
- ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com, 
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jmoroni@google.com, 
- kevin.tian@intel.com, kpberry@google.com, leon@kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com, 
- sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com, 
- xuehaohu@google.com, Leon Romanovsky <leonro@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,42 +87,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 2, 2026 at 8:08=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wrote=
-:
->
-> On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
-> > From: David Hu <xuehaohu@google.com>
-> >
-> > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> > first entry, resulting in non-page-aligned DMA addresses for all
-> > subsequent entries.
->
-> This patch is fine, but pedenatically a scatterlist's entry limit
-> should be bounded to dma_get_max_seg_size(), though I don't think it
-> helps this. Operating scatterlists at the size limits has proven
-> problematic in a number of places already...
->
-> > In addition, a non-page-aligned sgl length will trigger an edge case
-> > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> > buffers, we will have a `va` with lowest bit set to 1. That will lead
-> > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> > to find best page size for the mapping on the NIC side.
->
-> That's an IB side bug, the newer logic that joins adjacent SGLs should
-> have avoided it?
+struct nouveau_sched embeds a struct drm_gpu_scheduler (base).
+nouveau_sched_destroy() calls nouveau_sched_fini() (which does
+drm_sched_fini(&sched->base)) and then frees the object with plain
+kfree(sched).
 
-Hi Jason,
+drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
+scheduler fence keeps a .release callback so it is not ops-detached on
+signalling.  A finished fence exported to userspace via drm_syncobj /
+sync_file therefore keeps pointing at &sched->base after nouveau_sched_destroy(),
+and a later get_timeline_name() -- reachable unprivileged through
+SYNC_IOC_FILE_INFO -- dereferences freed memory (KASAN slab-use-after-free
+read).
 
-Thank you for the review. I think you are right on both counts.
-Regarding the IB side, the new SGL joining logic in
-`ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |=3D va` is
-skipped for artifically split, contiguous SGLs. Since Christian has
-already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
-creating unnecessary noise on the list. If you prefer a followup,
-please let me know.
+Per the dma-fence lifetime contract the exporter must keep the data backing a
+signalled fence alive for an RCU grace period.  Free the scheduler-containing
+object with kfree_rcu() instead of kfree().
 
-Thanks again for catching the IB logic detail!
+Fixes: 5f03a507b29e ("drm/nouveau: implement 1:1 scheduler - entity relationship")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_sched.c | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-Regards,
-David
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index 2cbae003d6de..48dbb851df2f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -516,7 +516,7 @@ nouveau_sched_destroy(struct nouveau_sched **psched)
+ 	struct nouveau_sched *sched = *psched;
+ 
+ 	nouveau_sched_fini(sched);
+-	kfree(sched);
++	kfree_rcu(sched, rcu);
+ 
+ 	*psched = NULL;
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.h b/drivers/gpu/drm/nouveau/nouveau_sched.h
+index 20cd1da8db73..51ce8dcf6285 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.h
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.h
+@@ -98,6 +98,7 @@ void nouveau_job_free(struct nouveau_job *job);
+ 
+ struct nouveau_sched {
+ 	struct drm_gpu_scheduler base;
++	struct rcu_head rcu;
+ 	struct drm_sched_entity entity;
+ 	struct workqueue_struct *wq;
+ 	struct mutex mutex;
