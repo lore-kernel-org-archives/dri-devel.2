@@ -4,57 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8E13C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 11:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A693BC61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:03:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48DC010E4AC;
-	Wed,  2 Sep 2026 11:39:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A64B910E4DA;
+	Wed,  2 Sep 2026 12:03:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Dnwhez2W";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="THX54xcB";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4AA10E4AC
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 11:39:56 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hZgkd3ps7zMlHD;
- Wed, 02 Sep 2026 13:39:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788349193; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qeioP7kdKjSkEbC9pe1QvQNugDjO5/Ci79J3J4FzbD0=;
- b=Dnwhez2W0X3MWUfGgeBRfg9Jj1zXhk7WZ/xnBicud/yXVF2Vj6aQLzqs8AU1gWVtVBTtmq
- pmOcFdpBY+qT9KATsbhAKBNgKYz5brr8+VFLNkXjxp0BjuHZGdBMECNReeZnPjc6Vn/KFV
- V6VxfdQ4uy69btSsptn7BNrLP0a61aLjuwT+q5OkzBr26IKA2Ve2+XlK8bwndh0wpj45Hk
- tcaNKCxLDW7bDJLR1W4IDsxVEXYFNQTO4Dahjy9Ux2xrmRh3Y0077PttK2brVLdTiBwUR6
- Kavcm6IrHcQDjR6+HqNQPnLwLuGtVhahgTR8/80TxCWf49HqtAm71jQTkXuKzQ==
-Message-ID: <95e34a8771fe827e134970a3580ceeb5f661a40d.camel@mailbox.org>
-Subject: Re: [PATCH v1 1/2] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, 
- =?UTF-8?Q?=EA=B9=80=EC=A2=85=ED=98=81?=
- <malhyuk97@gmail.com>, matthew.brost@intel.com, dakr@kernel.org
-Cc: christian.koenig@amd.com, ckoenig.leichtzumerken@gmail.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 02 Sep 2026 13:39:49 +0200
-In-Reply-To: <619669b6-69ea-4aa5-b91e-b29cc788e335@ursulin.net>
-References: <8c2a4df5-37a4-414e-81e2-cd97218e5355@ursulin.net>
- <CADQRuqtjBu7wR4kKVDcS42KLKQTr+7SBtRn24mgZ+ApettMr1A@mail.gmail.com>
- <b8f98b9e04c9999008bcdec270b14247e3cd18d0.camel@mailbox.org>
- <619669b6-69ea-4aa5-b91e-b29cc788e335@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012025.outbound.protection.outlook.com
+ [40.107.200.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 640F110E4DA
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:03:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ojMYXou5EYV+67DGEFtx0Efz6Jwby/6N3mSGarNAJK0CvPooW7Jd4MU8/xUTHIbm0QTk26uvdZeF7T6aLe6+yLrU2/uyvepOODU4LSTjP7Zu6c2n0HI+Zqv/OeojZu8gN9B0gDlFOopoE17nbGm0kKTlCTkf7hfZNJOIauf411+IIHxzLJ0uEr/DoM8kD/rrQM/P7hKslvxvchwXLfjugEft2aMuiTf82YdXNzkSg3032r8WTd8hyzm9PZyqhP5ndIzoUphCesUiObM2NcZNxeSOjCyboc6//gQefa00dD0SlZxO5RCsl/RFPSvfWAZPWY9hfo6Hox/DRLq/00stSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wk0xjYcH116U+Cjtgj2XnbtnW52fS2CDQEcXmBTCjAk=;
+ b=lYEDePWh1L4cvF+CyfN3ko+ELNXpxRSgSCH9AliUTOfQCA6Wm/1QP7H2jwjhfTKUoq6oqTE3ZnI/E21PoFahjnX7Vsi0Zukucv8QNHD3ca14b1+t9J0fRnSnO1P8Ns4Rtv+ccJaYz6M4Pcbwy+MRlI1b6X+R0+GMN+FFX2ZFXnkWJTI+quJ/iL4tskOGcaHo0mFhhvI+ZsMCUadHaIfit2SjD5mAIcFaDdgMI5iA0EI4m1VWYauIYRGdm3eUdZtecU3V5esTEcQfXXPx72QgNVrWdzOaHbDx84AMSh4+NNRkKZWvYxc5uWqcSfAi/2CueD9/n+g8ePvFhc+BJntJMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wk0xjYcH116U+Cjtgj2XnbtnW52fS2CDQEcXmBTCjAk=;
+ b=THX54xcBoOWfge0jzMhyDAWX1CO/xAPQEn+Sm2Eo/gjXhUVqRLPeYnNAm8i7+bN6V+X7eMQXGzKDnCPv1UFsfSnKngHPM0Ibxes6a6iI1RwjPP0zTUs1qWr0Yav6asIXL+qUKWPCuzE0K7fpJRcfojhITuikIPUMIciHZL6Z8qNH4tsffs+dC/BmUppFFmYwrvvh7LmCI/DTiLSaaRtieWTTMi2W/P1JbkGYCcWvFUmeXmqywTOJGhHfEWJ9ZAN7E+GBwcrwhModEIzgA0WctYmFG2b/fANjvCqoVO9AoPba/BQA3T98Fs28Ecr5++9iMtws2buZeQ6mHu8CumRWyw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by SA0PR12MB4400.namprd12.prod.outlook.com (2603:10b6:806:95::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 12:03:12 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 12:03:12 +0000
+Date: Wed, 2 Sep 2026 09:03:10 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+ ankita@nvidia.com, chriscli@google.com,
+ david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, jmoroni@google.com, kevin.tian@intel.com,
+ kpberry@google.com, leon@kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ nicolinc@nvidia.com, praan@google.com, sashiko-bot@kernel.org,
+ stable@vger.kernel.org, viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <20260902120310.GA3370894@nvidia.com>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+X-ClientProxiedBy: YT4P288CA0082.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::12) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
-X-MBO-RS-ID: 5673802fd2592c4cf56
-X-MBO-RS-META: 1w5cme4y615edbk8oiwca3ok9w5rubca
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SA0PR12MB4400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5016f1f7-4fcf-46f7-9270-08df08ea2929
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|11063799006|56012099006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: dkqWNi4Agh8Jj6YPuFzddLtZxUr+hDIkhrPUbWCV3TCC78Ck0vTGj2fTFeHmQYcoRYQNJG9PeCzlZ7QxgjfZikbERYaEWmPEzdDA8wkjhg66PHHCSzSRP0E1ZGjiPZDDUe2lQKpzT1g27NM7tTRY03Gg8VYx1LJGQg0FwHTzp6Otz01GUW2hzVkaHk1A6f1HSJgawqYeAWgiiyP+4OzK3ombp/Y4r/2R3b9gsjIvWbmnA6s1Rcrg0gBRUrAy9Xi6d/fOj3oe9Uiii71/W//6/yrb6/57RG2par3uYlyfZ5SKhunfifGqN8GktuR9Pz+ko7kkI/6N79Y7JeycCdpvfVO1zIA/Gc8UB49TqRM6AL5g80P+tBRse7PkAKpVwaaqofYVVbrfEqSl2fn2jRD7ZS17Qw99aAHUwMzlC6rqCXhPy1a/t+av1/HIhhg4TNqn0N4CbCUH8zeP/G1xbRFTqvjoZTQAhTMMLoQclmGgOt8cRxUQD6r44pofSoLGrzIADTsTLIMQC8NgBLuntz4agGT6Y6MCDwDpjhhZbkMnyfI4qQqLoXJOROtLIFvnnP1QQxZgAfzzVGretGmUPFJLGzDT5mTxlQVe9RgbLGrCuv0TU8xKC1lSvDCSdiL5fMnGcXtldS4WeXGhbA3yMhAeD3213h7wRF3PZpFvZuQM93o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFB3Y0pXbVd6OTlNMTFYekRxSDlQSjRPN0JKQ2huQmVId1VSTitLMUtBSEZW?=
+ =?utf-8?B?N04vY2hxcXBwaDBRaXNYRm51VzB0WEZLV3ZrVDBpdUF0S0IrWFdrVSt6SGJr?=
+ =?utf-8?B?Y1RMVmkzaXRPOHJ2ZisyR1hnelA1d3lTTlZjL3Z5ZTMvUU9GTmt5MGFzK0lJ?=
+ =?utf-8?B?MlRGblRERTVVTTEyUlFXYkJyLytyV2s4UUNLeVVjQ1BYc1d5VW8ydG5pTFZP?=
+ =?utf-8?B?SnZ1OFZES1ZhV0krNHh3TFQ2Mk81VmZ1bXM3Q0J3eXJpTVM0d1RQbmQra2ph?=
+ =?utf-8?B?MHhqY1pDYjVpWTF6WWNtUE9rZmY0MjJKdU9FblJCYmN1em42Y1pzcDl4Z2d0?=
+ =?utf-8?B?ZCtadCsxV0szU2NZN2NQQXErSmZKTUJ5WEc1UE4vaFd5R09xM1JWVDJVd202?=
+ =?utf-8?B?bFBVbWsrbUNFbWh0Umd3OEYxL2hEL0h5U1JqQnM5dnBkalc0cmJibHQ4cFZO?=
+ =?utf-8?B?TkRkMlh0cTNVOXhCdGJnWWhUdmFuTGJjWUdlQkFaMnVjN21KQjRwRG40NHYv?=
+ =?utf-8?B?ZEJRNUVzdEpSek1WdGRmdG5KY1BhZ0NPa1hST1N4UjdmeTFxeVR6djFMNHdn?=
+ =?utf-8?B?QjlDd05MN3pZVmVlcUlSYVpCRENpVlZKcU4zRmxnNzgwVG1Ea1FhZExnYVpn?=
+ =?utf-8?B?c2hlTFdNblVuT3FPLzlPeVNFaXorcGdjMnFJRitCWUJxMTBsSWE4RFFaTFB5?=
+ =?utf-8?B?ZytSQUpVMlcrOHl0QTJyakN6SHI1a3ZCRXZOUE9rK3BEbENMZjlLZjN5R0hL?=
+ =?utf-8?B?K1VBSmVGOXR5S2hwUEtDNGtnTlgxYWhPMHZxaFJ4emhIaldVVWhRSmNPeGVq?=
+ =?utf-8?B?U3B1QU5pYlprc1VWc0xxSFhGcEdYRERPMWNpNDhVS1hJMjM5WkJVY1hJenUz?=
+ =?utf-8?B?U2M2dlFxUHBYZ0VKOStFUHNBbE56ZHpNRzBCRW1RNy9nQnd6YnhDSWxWdXVl?=
+ =?utf-8?B?eGh3NCsvYktNYzFBZWY2dnlNMHBUbFVDdzJWUXBWME94UlFya01pL25rNTdH?=
+ =?utf-8?B?MHFwa1B6YThQcEZmbGFPMG9YeDdrc1Nweit5dE4yU2czL1dxUHlXeXlXSi9Y?=
+ =?utf-8?B?NVN5VWJtbGh5QjNSQzdzLzgxc21RbzVTODUxREVqVU8rd3lnaU80RFdIZDVY?=
+ =?utf-8?B?bU9yRlhzNnJseVBKNC9Vc1dnY0lON3VrMFpLOCtadEdCQXk1WEFxRDJMQngr?=
+ =?utf-8?B?aE41b0ZuWDVvRUg5RWtKZ3lpazRMRmtBQ3NSM0k2ZlZVdXNZNjBRTkxOeFJO?=
+ =?utf-8?B?c3BOZU83S0svMEl1M0NLNnYrdStkdFpraGFaWHNHRmExd2RIVGo2VTI5alZI?=
+ =?utf-8?B?anRhU0s0RGpRYlRrQVhuS3dqRHpRSFVYWmdJaWdoUVU3cXN0YzZWZ0hjVWNz?=
+ =?utf-8?B?dG0zV0FiamY5cS83M3lJWWpzblFoM0hKaVBBWGF2L1hueUFhMFMyNjJiT3Zy?=
+ =?utf-8?B?WXpaSjQxckZSTnFPSEtGaHZBdHFiTE5EZWMzR3BQWGVvZFF4TFdENHpwQkdW?=
+ =?utf-8?B?dTlvNVF0RkpoMjZtSUJBcWIza3MrblJvU2FXaHRwQXNlaXpTcDVac2YyV2ZB?=
+ =?utf-8?B?QytDT253V2VjcE1GWmZsa29GOUdEWm83YktnMTBISFBjaEFDbEgra1B1Q2Zq?=
+ =?utf-8?B?WDBhbC9BMTQ4MUhaWXp4TEtEallQTkR4SmVsTGRzNmVwUUZJL0N3dVo4Z1lC?=
+ =?utf-8?B?NkROQXJ2UVVpTUI5eE9OZU02bXhpREY0MU1xdmsrL09mMHdXTk5haFN4K3Jk?=
+ =?utf-8?B?dTY0TEdlM3k2NWh5OERWcDdDUFVzbzRVMUNMSFhKRE1XWE1lcnRCZkpnS0Zt?=
+ =?utf-8?B?TGlNN1hCNEwvODJFd2IwejJJVmRmSnM0TlJMM00xK2kwUUMzdnFUdHJ3aERl?=
+ =?utf-8?B?dTI3TXFTKytpUFdIWWdpSXVZbC95eXA3TXVDM1k1K2l6SENGdk94R2hHd3hs?=
+ =?utf-8?B?d0dIZDFrRUdjeEVCdEQxYkJBUVdVaFF2ZVM5UnRFeUlEelFuN21UWFY5WU1h?=
+ =?utf-8?B?bmNQaElxVThvV1pWZjlnMldwTnI4L1BzSUs4ZHRPZDQ1Yldwc2I3NmxCeTR4?=
+ =?utf-8?B?ODViREFsL2Y5VW5OSVpmR000Nk9PRjBsL1FHL0lUNkJSbE03RWpXT2VURHk3?=
+ =?utf-8?B?N2d3VTczVW1kLzJKYXk5Yy9JN0EwMnN2RlZWeXNZZXR2T3VuYWpKTTJHa1pw?=
+ =?utf-8?B?b0pBUjBDMlpiN3p6MlJTYllUTm40OE0vWitsVmVjLzNhRFVPUU1mYUFIWnZ1?=
+ =?utf-8?B?YkUwU1JYSW1YM1NvbUZuSC9HeVhnUllYTDRZNzZmMUdpUytxeWJEbDNHMlM2?=
+ =?utf-8?Q?enpq/MjdENtVZ7G393?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5016f1f7-4fcf-46f7-9270-08df08ea2929
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 12:03:12.0000 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 30lwjZNiTFNLuyPF2pb5tQKWP5E8Dkc3NnD6oWaqgClRECIx9BUy+DTrvAqP8fZV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4400
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +140,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-09-02 at 11:20 +0100, Tvrtko Ursulin wrote:
->=20
-> To collate two replies in one:
->=20
-> On 02/09/2026 11:07, Philipp Stanner wrote:
->=20
-> >=20
-> > The issue here IMO is that we are discussing working around an issue
-> > that actually stems from dma_fence not being consistently synchronized,
-> > notably because of the ops->release callback being implemented.
-> >=20
-> > ops->release is de facto deprecated, precisely for reasons like these.
-> >=20
-> > If we could get rid of it for sched_fence, dma_fence would take care of
-> > the decoupling of the name callbacks.
-> >=20
-> > So that appears worth investigating from my POV.
->=20
-> I completely agree here but I am just not sure how feasible that would=
-=20
-> be. We may accept to live with the cross-documentation workaround at=20
-> least as a start since even if feasible it could be a lot of work to=20
-> change sched_fence like that.
+On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+> On 9/1/26 19:08, David Hu wrote:
+> > From: David Hu <xuehaohu@google.com>
+> > 
+> > This series address two related issues in scatter-gather mapping,
+> > specifically for the MMIO based dma-buf mapping. The fixes ensure
+> > sgt mapping is correct, and proper for large MMIO regions.
+> > 
+> > Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> > (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> > phys vec to sgt)
+> > https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> > 
+> > Patch 2 Splits sgl by largest page aligned chunk
+> > (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> > https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+> 
+> *sigh* such issues are exactly the reason why I didn't wanted the
+> *dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
 
+So you'd rather have these tricky bugs in every driver using dmabuf?
 
-It should be enough to remove ops->release for the finished_fence for
-now, since that's the one typically (always?) shared with userspace.
+The scatterlist construction in most of the DRM drivers is not in good
+shape. They should be converting to call these APIs so they can do it
+properly.
 
-All that release cb does is drop yet another reference.
+> I'm going to push those fixes to drm-misc-next now, but when there
+> are more issues like that will mark the code as abandoned and not
+> maintained.
 
-I think it's worth an investigation. Maybe =EA=B9=80=EC=A2=85=ED=98=81 can =
-give it a look?
+Code that is getting bugs fix is not abandoned, please be reasonable.
 
-
-P.
+Jason
