@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE99FC624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:29:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13827C624D9
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:35:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D569510F27B;
-	Wed,  2 Sep 2026 15:29:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7BA10E242;
+	Wed,  2 Sep 2026 15:35:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HHPFGnl7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WCv+1E1/";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF91010F27B;
- Wed,  2 Sep 2026 15:29:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F106310F282;
+ Wed,  2 Sep 2026 15:34:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9ADBB405A8;
- Wed,  2 Sep 2026 15:29:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B391F00A3A;
- Wed,  2 Sep 2026 15:29:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ABF5B43AB0;
+ Wed,  2 Sep 2026 15:34:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629531F00A3A;
+ Wed,  2 Sep 2026 15:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788362990;
- bh=9bodAhVe9Ta/ktGTFwbIfPf1VAanOOZWGRz/ad0xXWM=;
+ s=k20260515; t=1788363298;
+ bh=leHJ1krmsP+1jk2Z+sOOrfddQ8CBvBEPQU7q2DE7Tk8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HHPFGnl7uJZFE6CVLxutCDjenl2N+5fKgAfSCjqLyq3XgRFab2cc7yPXltAx46RqL
- jQPwrmdGBtNJ/SYKbFCWxcQzBkXSkFHDP3VRpvKY6z/oXahopRGaZmomVBahtLTitq
- Wy+Ep5f926AdtI7IY7NIYClq2RFNnSVMjOKAb19xuSLBoSL8mrZZqcRb4IUJ4wWSBT
- 7kH/Iwu8C37I1DGYtNMkbRDJAxEjms5lqZYf/UVXNbML24VnwB+6tfuYP+qt/AT5Em
- rT2GIheLZ301MO++P3WnWmTiJ8bL1cgsVybefOXOmlOVRPwS0YPHfTwIPeMrR4YQbg
- 8n/FirXXV9E4w==
+ b=WCv+1E1/L5yH9HlymQICwv4QxJTZqJ4iyyHwXTWaghk+tfXiFG6q5ziKOdbf88D3/
+ Xbllo+m1FK6du9FCV+yyZi4BGayxhEwYwwC1TZ5hSACmirHpodjSXAySiY0ovTRUVQ
+ iJ6Z8JZXhcF/1/u0oINvGtK8Gdfylon8MhdJ+LioK3ZiSFbGWpwb0rSlEHp0LeqPc5
+ 6Z1edHYIkRB69THVMfDNYiO1GsF8a3E0TJWITUFbrv7xNSqzcctNJySNx991Qafx+9
+ 7qEcBuv1AKrkfHhELUl6MvBjw/RGk2G7ZzsCyHGLVQdHpzKOGKGeO/jDN8MG0+4Zfj
+ L8UmzZtLc1rnw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/4] drm: Add per-signal compare functionality to
- drm_user_fence
+Subject: Re: [PATCH v7 3/4] drm/xe: Convert xe_user_fence to drm_user_fence
 To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260902152049.183685-4-srinivasan.shanmugam@amd.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902152049.183685-3-srinivasan.shanmugam@amd.com>
 References: <20260831134539.112690-2-srinivasan.shanmugam@amd.com>
  <20260902152049.183685-1-srinivasan.shanmugam@amd.com>
- <20260902152049.183685-4-srinivasan.shanmugam@amd.com>
+ <20260902152049.183685-3-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 15:29:49 +0000
-Message-Id: <20260902152950.52B391F00A3A@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 15:34:57 +0000
+Message-Id: <20260902153458.629531F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,114 +60,145 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] copy_from_user_nofault() disables page faults, causing legitimate =
-completion events to be permanently dropped if the CPU PTE is not populated.
-- [Medium] drm_user_fence_set_compare() returns void and silently ignores i=
-nvalid configuration arguments.
+
+New issues:
+- [High] Race condition in user fence signaling causes spurious -EBUSY fail=
+ures for valid VMA unmap operations.
+
+Pre-existing issues:
+- [High] Userspace can stall the global xe->ordered_wq indefinitely via use=
+rfaultfd on user fence signaling, causing a Denial of Service for all compu=
+te applications.
 --
 
-commit ff537705b8c71e85d2a5b3d68ffe3a36096823b1
+commit e66f332fb8f0deb8b5c5b3ca223be49da69834d3
 Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+drm/xe: Convert xe_user_fence to drm_user_fence
 
-drm: Add per-signal compare functionality to drm_user_fence
-   =20
-This patch adds optional compare fields to drm_user_fence to support per-si=
-gnal
-filtering, as used in the EOP eventfd path. It introduces
-drm_user_fence_set_compare to configure the comparison and modifies the wor=
-ker
-to read the userspace value using copy_from_user_nofault before signaling.
+This commit replaces the open-coded user fence implementation in xe_sync.c
+with the new common drm_user_fence helper. The xe_user_fence structure now
+embeds drm_user_fence and the previous local functions are replaced by
+operations provided to the drm helper.
 
-> diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_=
-fence.c
-> index 0f229b7210a9b..06a5683db10d9 100644
-> --- a/drivers/gpu/drm/drm_user_fence.c
-> +++ b/drivers/gpu/drm/drm_user_fence.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+> index 37866768d64c2..05f6794af1ee2 100644
+> --- a/drivers/gpu/drm/xe/xe_sync.c
+> +++ b/drivers/gpu/drm/xe/xe_sync.c
 [ ... ]
-
-> @@ -30,13 +39,46 @@ static void drm_user_fence_do_work(struct drm_work_fe=
-nce *wfence)
-
-[ ... ]
-
-> +	if (ufence->cmp_op !=3D DRM_USER_FENCE_CMP_NONE &&
-> +	    !(wfence->fence && wfence->fence->error)) {
-> +		if (!mm) {
-> +			call_worker =3D false;
-> +		} else {
-> +			__le64 raw;
-> +
-> +			/*
-> +			 * Use copy_from_user_nofault() to prevent a
-> +			 * userfaultfd-registered page from blocking this
-> +			 * workqueue thread indefinitely (DoS).
-> +			 */
-> +			if (copy_from_user_nofault(&raw, ufence->cmp_addr,
-> +						   sizeof(raw))) {
-> +				call_worker =3D false;
+> @@ -19,36 +18,58 @@
+>  #include "xe_macros.h"
+>  #include "xe_sched_job_types.h"
+> =20
+> +/*
+> + * xe_user_fence wraps drm_user_fence with XE-specific fields.
+> + * The drm_user_fence base handles MM borrowing and work-item lifetime.
+> + */
+>  struct xe_user_fence {
+> -	struct xe_device *xe;
+> -	struct kref refcount;
+> -	struct dma_fence_cb cb;
+> -	struct work_struct worker;
+> -	struct mm_struct *mm;
+> -	u64 __user *addr;
+> -	u64 value;
+> -	int signalled;
+> +	struct drm_user_fence base;
+> +	struct xe_device     *xe;
+> +	u64 __user           *addr;
+> +	u64                   value;
+> +	int                   signalled;
+>  };
+> =20
+> -static void user_fence_destroy(struct kref *kref)
+> +static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
+>  {
+> -	struct xe_user_fence *ufence =3D container_of(kref, struct xe_user_fenc=
+e,
+> -						 refcount);
+> +	struct xe_user_fence *ufence =3D container_of(base, struct xe_user_fenc=
+e, base);
+> =20
+> -	mmdrop(ufence->mm);
+> -	kfree(ufence);
+> -}
+> +	if (mm_ok) {
+> +		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
 
 [Severity: High]
-Because copy_from_user_nofault disables page faults in drm_user_fence_do_wo=
-rk,
-will this return -EFAULT and permanently drop legitimate completion events =
-if
-the CPU PTE is not populated?
+This is a pre-existing issue, but can this copy_to_user() call cause a
+denial of service?
 
-This can happen if the page is not resident, such as when NUMA balancing
-sets PROT_NONE, or if the memory uses lazy mapping and the CPU hasn't
-touched it since the GPU wrote to it.
+If a malicious unprivileged userspace process creates a user fence using
+DRM_XE_SYNC_TYPE_USER_FENCE and provides a memory address backed by
+userfaultfd, the page fault will block indefinitely here because userspace
+can refuse to resolve it.
 
-> +			} else {
-> +				/* GPU writes LE; convert before comparing. */
-> +				u64 cur_val =3D le64_to_cpu(raw);
-
-[ ... ]
-
-> @@ -63,8 +105,47 @@ void drm_user_fence_init(struct drm_user_fence *ufenc=
-e,
-
-[ ... ]
-
-> +void drm_user_fence_set_compare(struct drm_user_fence *ufence,
-> +				u64 __user *addr, u64 value,
-> +				enum drm_user_fence_cmp op)
-> +{
-> +	/*
-> +	 * get_user() of u64 is not atomic on 32-bit =E2=80=94 caller should not
-> +	 * reach here on non-64-bit kernels.
-> +	 */
-> +	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_64BIT)))
-> +		return;
-
-[Severity: Medium]
-Because this function returns void, does this early return on unsupported
-architectures silently fail without the caller knowing?
-
-If a driver attempts to configure a comparison here, it appears it would
-silently leave cmp_op disabled as DRM_USER_FENCE_CMP_NONE, treating the
-fence as an unconditional signal.
-
-Could this function return an error code instead so the driver can
-propagate the failure to userspace?
-
-> +
-> +	if (op !=3D DRM_USER_FENCE_CMP_NONE) {
-> +		if (!addr || !IS_ALIGNED((unsigned long)addr, sizeof(u64)))
-> +			return;
-
-[Severity: Medium]
-Similarly, if a driver passes an unaligned userspace address, does this
-return silently bypass the intended logic and leave the fence as an
-unconditional signal?
-
+> +			drm_dbg(&ufence->xe->drm,
+> +				"copy_to_user failed, user fence wasn't signaled\n");
+> +	} else {
+> +		drm_dbg(&ufence->xe->drm,
+> +			"mmget_not_zero() failed, ufence wasn't signaled\n");
 > +	}
+> =20
+> -static void user_fence_get(struct xe_user_fence *ufence)
+> -{
+> -	kref_get(&ufence->refcount);
+> +	/*
+> +	 * Ensure the fence value write is visible before signalled=3D1.
+> +	 * A UMD polling signalled must see the committed fence value.
+> +	 */
+> +	smp_wmb();
 > +
-> +	ufence->cmp_addr  =3D addr;
-> +	ufence->cmp_value =3D value;
-> +	ufence->cmp_op    =3D op;
-> +}
+> +	/*
+> +	 * Mark signalled after the user memory write so UMD can safely
+> +	 * reuse the same ufence without hitting -EBUSY.
+> +	 */
+> +	WRITE_ONCE(ufence->signalled, 1);
+
+[Severity: High]
+Does this new ordering introduce a race condition causing spurious -EBUSY
+failures for valid VMA unmap operations?
+
+The original code updated the ufence->signalled state before calling
+copy_to_user(). By inverting the order, if userspace is polling the memory
+address, it will observe the memory update and immediately issue a VM unmap
+ioctl.=20
+
+If this unmap ioctl reaches the driver before the worker thread executes
+WRITE_ONCE(ufence->signalled, 1), the kernel state will still read as 0 and
+incorrectly fail the unmap with -EBUSY.
+
+> +
+> +	wake_up_all(&ufence->xe->ufence_wq);
+>  }
+[ ... ]
+> @@ -63,51 +84,22 @@ static struct xe_user_fence *user_fence_create(struct=
+ xe_device *xe, u64 addr,
+>  	if (!ufence)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> -	ufence->xe =3D xe;
+> -	kref_init(&ufence->refcount);
+> -	ufence->addr =3D ptr;
+> +	ufence->xe    =3D xe;
+> +	ufence->addr  =3D ptr;
+>  	ufence->value =3D value;
+> -	ufence->mm =3D current->mm;
+> -	mmgrab(ufence->mm);
+> +	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
+
+[Severity: High]
+This is a pre-existing issue, but does using the global device-wide
+xe->ordered_wq amplify the impact of the userfaultfd block mentioned above?
+
+Since critical tasks like vm->preempt.rebind_work are queued on this same
+ordered workqueue, stalling it prevents preempt rebinds globally for all
+VMs, completely hanging the GPU driver.
+
+> =20
+>  	return ufence;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902152049.1836=
-85-1-srinivasan.shanmugam@amd.com?part=3D4
+85-1-srinivasan.shanmugam@amd.com?part=3D3
