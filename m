@@ -4,161 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 806E3C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0C6C624D0
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:45:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB6610E395;
-	Wed,  2 Sep 2026 10:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93B0810E49C;
+	Wed,  2 Sep 2026 10:45:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XzCnpXaO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DF/ziAKY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A78C10E395;
- Wed,  2 Sep 2026 10:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788345692; x=1819881692;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=ayCm+rRXA44/f6Ng8Mc6eMXHj/tFSXn20sOBOnXzBYY=;
- b=XzCnpXaOBa9/u9i1jFe/RTrP3jvXXo453pr/krdm6jgjRcvdhUDKacI0
- tYXZlFZyWpGsde5j+JQLpAjoTUxM8IEMbwv8euxfHKmFJGpasj2dmy06Q
- Qaklu42rvWGtC4FZzuj4tXYWpunenOxpSPZy6jQag3cOc/dhqVYmCYshb
- QSYYQP3Q7+5soaSI8pyA3C1KNnEghPqdC85EU3n7RmM7FUGrjY3jDDDrD
- rreNV0ORKp3s+1rVHs1EN2/vH46wSELm15OI+62czqzu8tGtoQyrly9fJ
- RRuCTs7kKE9hXoMMNyl32OBWxpz9oHF8bi2YCypAYWYQmuTeGBEiC1enJ w==;
-X-CSE-ConnectionGUID: OGcQboUxSkSyM7daxXPxQQ==
-X-CSE-MsgGUID: b/mKdWc0SP62IrUgEKBnwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100154681"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="100154681"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 03:41:31 -0700
-X-CSE-ConnectionGUID: bDvthPujR7S+CZ2PGf6gcw==
-X-CSE-MsgGUID: fcKux4BFSxW2OAtt6ywJ3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="267612533"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 03:41:31 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 03:41:30 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 2 Sep 2026 03:41:30 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.32) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 03:41:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bC+HoB4LAuUB0609UuXlZqWJ6IKSf7HWtasAajD9MyNXbNo3BKmz+hCuUWJAaAw50Hu+okGO0tkBF0LYI6VI2aKAmmlrE0+JtJ6FdwyF0z59+UvAjQsctslHJlKKl7SrXrjMkePx2SbkNiqygKOzS70aDfrFeNbQuTBpeN3Xf6j6HAWs9NKcRGPuShR/w2tXhD1PNaTda7eYcLIJhSTPhN9cmvIfk3dnv7wVr2Xrs63nt4R4lPtRo8DgxuA3PmrgWZpD3UQcBLC0pBdWQ09INNgy3Hd+3qTrMwVHtBvTgY8eMOsuWRaImC6E+Hp6oI2idybOo84yrH0bGS9pAB+FpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XTysAYcsT8rPOPBIqcgE+KyTnPkw2CpyUl38yFjWzdo=;
- b=PPdBUosXZufVwQI1LF8uY+UK7YUsJ0L7CcGnJOl7KPuULWIGqURTy7i8s2gB+VcK6yxe198KsdvaZOEIzpblTyUTsDTtd9GIUlix6/pJuisAnFOgg9z6u0EovB+Aeh5kF8xbB/kfVovTJ32BLclb5b7ScFyQdvhFVecikmtmiVRpbMkV1+rH1pO4qUWX9JgS3HwgHGHTrZ12MZu5yKLbDEXsjVA6LETc88SxpXzsP/qkLcdnWN4D1dWmM82ycTT+2XzwW+V7jjbqejKrFaFAjIn+7qt5Zp7jS7roTrVrvbvdOasqlyuvmjhjHZHbFezV0xG+xF/2/FdvgDWVUE61Dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8019.namprd11.prod.outlook.com (2603:10b6:8:12e::18)
- by CY8PR11MB7900.namprd11.prod.outlook.com (2603:10b6:930:7a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 10:41:27 +0000
-Received: from DS0PR11MB8019.namprd11.prod.outlook.com
- ([fe80::fce1:3bde:b383:e801]) by DS0PR11MB8019.namprd11.prod.outlook.com
- ([fe80::fce1:3bde:b383:e801%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 10:41:27 +0000
-Date: Wed, 2 Sep 2026 12:41:20 +0200
-From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-CC: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- Krzysztof Karas <krzysztof.karas@intel.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Andi Shyti
- <andi.shyti@linux.intel.com>
-Subject: Re: [PATCH v3 1/2] drm: Unwind drm device registration upon error
-Message-ID: <apf2bCiuKcmcRHUT@kniemiec-mobl1>
-References: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
- <20260827143447.99553-2-krzysztof.niemiec@intel.com>
- <apC_eePJyeGnVQTG@zenone.zhora.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <apC_eePJyeGnVQTG@zenone.zhora.eu>
-X-ClientProxiedBy: DUZPR01CA0308.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4ba::19) To DS0PR11MB8019.namprd11.prod.outlook.com
- (2603:10b6:8:12e::18)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8316D10E4A3;
+ Wed,  2 Sep 2026 10:45:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EEE4F41834;
+ Wed,  2 Sep 2026 10:45:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12A11F000E9;
+ Wed,  2 Sep 2026 10:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788345937;
+ bh=yXz6VgrPSgT1SA8CrXV2fVzMvl/GrE1Y5doKtmaVfwg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=DF/ziAKYo5+ZxJJCbdNc7CLrSDWCzYjrqQ1xKtLjSV1f5qu1cHqILuUVHmv5pfLD5
+ 4CQc6u10GtxxCu7Ibh9WrPmus32V719pCCDlkl9lwX8ZtW+Vq61fqole+VEdu8xMz4
+ seTIFazyoHCVjEwAhrqgzU3DoERfyYwvDQkgcVzIPOwQrY8Dd8NTsXeSFecKsQWury
+ wd9timquECO+fm6McMSmhCtWE8gtjhfAQpHo1Is8Y0TDW3+ku51C4Lrz102hnTzx9i
+ P0qhlSpHn45kBSpR336FzqsCjpTSGhL9xq4Eur3zHF8qHNgyv1zBQ7ghLk4HufbrLA
+ fU4FrHxNLz5Wg==
+Message-ID: <cf08d7f1-8853-42a2-9226-17721c4b30f4@kernel.org>
+Date: Wed, 2 Sep 2026 12:45:32 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8019:EE_|CY8PR11MB7900:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e930f2c-c66f-43d2-6f9a-08df08debdf8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: CoEDcY+baO/bxaEKwXm6Zh9EHGtGKYKUPLoVsI5ni/mA02gdSUgCSIFiDUdQwaoE6d5KJTP72drOhl1+lH3h0Tg+BxIeN/CXTR6B2nC2ufEQ+ZQZi0A8zvR0kVIvgKvHIIbpNXb2p+JccKfS7A7Jk7dCqrnwzadW7O6jbClkqjXk6J2m8CDMdiyzbWduqIi1HZp+8Qe37hoYQ5uW3tAeSGbWXplse/376gY6/gXvFcoL4zXqdGr41jltX3ZgQBrbxp3Zmv3kYGx+cj5hKFxofQU9dUD7sKIhK/E2xG5mISKuT0bksyydLqs8j1B61nSRzNJe+77gc878S3hEB/0c9oKORzHySeg1QHXv3wwHziaCN6QQ37ecnuIJ17jj9PSbo+mZ1kNl/6fE0hoLi6vKKlN9HQaw2gQrW8y9TMzZiVQXCHimPC7zi9nD02EthY5n49DKOEAsNT12Xa9LPhP+e0vWZgCpm4tzMhzbZMfN90NiUhaLduvqN8XP9uNdSK7bxtFYNR0u+qjDqBQ+YYOKXuwEZEm+mie6GeXfkt1lcDMYycXD3XK7dIvlG5RbB8zVQsS7sTOw1TuTIfoZpZD204cjGsduULCyffbt+LuqWmAPhOLdjsyZYduOpf14QJXGNkbChMgA0WOF6A2EzBAUKntS3pu3c3KFmwFbRinQTlE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Snk3U2haTGdRcmdQZkNkUWZtbU1HYkFvT0phR202SkpLMGVjazNaZDBCcGo3?=
- =?utf-8?B?MG0wbDBiNGZYM2NmM2VUU2pDeEFaSncydkxiQ3RFR2VoQStsUTlNMzJEZ1M3?=
- =?utf-8?B?SXJjQXJDOFJ6VmJkend3Yk9oMkdBNGhQU0JMNkRnaTRsRFFlQ29pMVNMK0ky?=
- =?utf-8?B?VjZVb082b3RkcnJVTjFlTkhVa1lTcGR4TTRkaEg2ODlzWHc0UDdSSkxoTHdO?=
- =?utf-8?B?YjZWNEtnL1VVU25NVW1VZHNML0lLcUpoMzFKNjNiL2l4Zno2NXI1N0JoZHZI?=
- =?utf-8?B?NXl3WWV6Z2YyRE5ZNXNmL1pocG8rNmFaV1ZzNTJudnMzQmFtVHFtKzRXWFMz?=
- =?utf-8?B?TkwvREgrU0FiWXRiWnNWbkZrc29tUVRBMWNXbFE4anM2OHlRa3VkVjVhZ1N6?=
- =?utf-8?B?RWdHL0plemNxaHErU1JOQ0FyZTVjZVJxTUp5Q1RIVHl2Zm9iNm40emR0Ylgz?=
- =?utf-8?B?cjQwT0JURDVyYmEybTI3TGYwUmhnUHdienlRWllJNUYyTjdXbEZ5bUJhc0xv?=
- =?utf-8?B?NytRVkt4cGZjcnJUU3QyWUNLRnoyUWhzKzFFcnNBOVNQMDlnd0VVcXlwNkNh?=
- =?utf-8?B?YUVyV1ZuWStONklUY216cGdEUDlmdTllbTFMV0lObFNlUllZZ0ZVVFkrRUpZ?=
- =?utf-8?B?bHZEUUovV1BiQ0xSYmhoRlVqaDViUkZNdnl4bWVMZEVOdWUwa2t0c29MVFg1?=
- =?utf-8?B?N29UK2RqT3p2YXNzTlg5QXZsL0E3cTdzK0tsa0pSWEhDOFZxZHlTTVkzRVlt?=
- =?utf-8?B?N1oxbnQ4bW9sRGdJeVpTaFphWlo1bDBoclZnTVpMc1JxbEVlQThVb1pEcVIw?=
- =?utf-8?B?SDl5SGs0Slh6TFpEWHluK09kNndrWGovcEpDQldybVBIVXdqR0JCVzlJZTlB?=
- =?utf-8?B?YlI3VnVBOFpNbE5vYlFrUUdNb1JZV2JIRG5waXlKUU52MkJ4Q2lqbk1jS3Rw?=
- =?utf-8?B?NVd0N0pDYy9xRFdPS1pRWGk4b3N6RFVyYUFsNm5LRnphbTVNQmRRTkoyTmZG?=
- =?utf-8?B?YU9QTm1MakpGNWdBRUErUHVkWXVLUklWcUhOTHZCcVFsbFpNYXdUcnIrbVNr?=
- =?utf-8?B?MXo2a21PdUdjMndGcXBqT2tYTzZCNm5LWVlwbE1Sdm91TWxxTlZBOXJxaHFK?=
- =?utf-8?B?dUxuRktCTHNvK0lORDN2Z2dtS0NFMS9PWFRFWmFiN2txRFAwYzAySW5FVStT?=
- =?utf-8?B?QlY5Vm9nZ2JNSjNsMmhqSVJ1RFV1YTZSRHBzZkJRUzZGazNUaGRJdEd4aE1a?=
- =?utf-8?B?Lzg3Kzg5MGNJZ20yWTBPcERidnNoYUx0MUI0K1ZCLzR2RFQrTVQvSXhhVXhH?=
- =?utf-8?B?L05oV0NtcUFoL0NnQVg2NHVlengrYVpkTjQzZGdvNWhIL2h1R251NkVQaWIr?=
- =?utf-8?B?TnhKUTBuL3lsbG42WmNPWENyeUFJMm1YekxwV3RVZXFsYlR6RHM3MzhwdU5a?=
- =?utf-8?B?bXQ2QnJpL1pnbXVwczcwR3p0R2lEUnhmWW1vcEVEbkhENFRxNU5lMGk2MC84?=
- =?utf-8?B?YUhaSG96OEdtemFUNXpCRmJFNzRtZ0NPcW41Snk3RFQvMVRPWVNnd3NONnBF?=
- =?utf-8?B?RjZCMXVSRjRWZnRVaE9VWHJ4aGxpbVhyV3JaOGhrcXV3TUpId1AzdlphanF1?=
- =?utf-8?B?LzhPVFRrWnVaNG1sTTMxdlNJRStsVlVvM2dPRGtPNVhTSFBSZnNFMCtlL3V3?=
- =?utf-8?B?dWZGeUc0dU1NVnVSQ00vbU9CV2s1UTFncGxtL0gwWFN4STAvY3hydG1Vdi9Y?=
- =?utf-8?B?UnZBdTM1c0ZMbWhMalA5YmxvOXhzL0pDTkZHTjJMcVMyMVlzWXVyZGs4b3M1?=
- =?utf-8?B?TVVHRmQzTFg3RC91amVWQTlqZUVXQ012cExjcG0wYVlMRnFTNjRvZkhuRkJ2?=
- =?utf-8?B?OVdaZWYvQkM1QkRHK2JRVjUxTXVuNm90dURzdlNnNlNaZlFRKzJWSHBaV0VP?=
- =?utf-8?B?bFNhZ1pMZEsrZXUvNlRCUUxnS2tQS3J2TkVGbzhjMTBxR3hDSUZsenc5b2gr?=
- =?utf-8?B?bDBFeHRManNxeUthYVhJUmZyOGdXc1JlYTJVU0pHUHd5Y1gyRUY3YjZ3Y2Vn?=
- =?utf-8?B?Sm1ZbUFSbFdzL3VzZW9IOGdlczJGTzUxb0FBeVBhekN6MXBxSHBaWi9NODlp?=
- =?utf-8?B?UUJVMVpWNmtpbldBSVNjT1dOK0VkS1VQZWI0bU9BM0ZxM0ZWemFIYjMyQ2tH?=
- =?utf-8?B?eE5MU1g4QVVkU3VIY2NCMEVNUm1oVzNhcVlVTUUvMUowZ1h0YUxXbjI4VERm?=
- =?utf-8?B?WEZHbjlLS3B4YUhodDhtb3ptTkZpdmxMMVVDODRUOHlaZlFaVjAxTTdtRmI4?=
- =?utf-8?B?UmN1Uzh3engvekw3Sk4zTEJWTXQ5cm85TDZ5NlZTYkVFRzhuVUticVA1eU9x?=
- =?utf-8?Q?WRpuy8qpK0s+uimY=3D?=
-X-Exchange-RoutingPolicyChecked: g82z2itplcpzmeNxLhB09IClC2azVN5w1RdwQDiD5A9ppNwJme8YCq19EEplYmBBbzkznouOu8wdaWUgKAVgGUmhJtvOLBlz7Uay7oEwiDyFxE26C3gbdS1Rp9bMHB4OIL6C3qFRFo79/zqiPQLnNGEl0vItgDnEMLkI9UMOUFusf9C2L6k0XoxFfUHsra7WNLdIhiFrUotzDuAR6juFvIhecG7NsYHgZN6I5Y92SDw1wwSCV+CV7Yr+ODcCqCCHT8pE2hRzh9D4VRNFV3y98dCNw7C5oCMmGGIhCdha9dhVC9qwKtJxIV2scHPRn7H9/9/SCTqXFe3+x2hQxpMe2w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e930f2c-c66f-43d2-6f9a-08df08debdf8
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8019.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:41:27.4690 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dGpgjqrpAEdZW/hlEpJNyvWfC9ghrvpfYEiFUAqO6wnFRxlSbPC217LBQ+YjPdgBopuCkP9am385I5Xgt7ZqacCx7DM4tFlpEF5OFGHVIv8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7900
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/qxl: fix use-after-free and NULL pointer deref
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ devel@lists.crash-utility.osci.io
+Cc: Gemini <gemini@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ stable@vger.kernel.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260828085136.128561-1-jirislaby@kernel.org>
+ <3c2a131b-af05-4aef-bf5f-4742ceab2170@igalia.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <3c2a131b-af05-4aef-bf5f-4742ceab2170@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,60 +109,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-08-28 at 01:14:57 +0200, Andi Shyti wrote:
-> Hi Krzysztof,
+On 02. 09. 26, 11:53, Tvrtko Ursulin wrote:
 > 
-> ...
+> On 28/08/2026 09:51, Jiri Slaby (SUSE) wrote:
+>> When allocating a `qxl_release` structure with `kmalloc()`, the 
+>> underlying
+>> memory contained uninitialized garbage. Specifically, `release- 
+>> >base.flags`
+>> (part of the embedded `dma_fence`) was not cleared.
+>>
+>> This garbage in `base.flags` caused helper functions such as
+>> `dma_fence_was_initialized()` to return true even for releases where the
+>> fence was never actually initialized (e.g. via `dma_fence_init()`).
+>>
+>> Consequently, during release cleanup in `qxl_release_free()`, the driver
+>> attempted to put/free an uninitialized `dma_fence`, leading to refcount
+>> underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+>> pointer dereferences in `dma_fence_signal_timestamp_locked()`.
+>>
+>> Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
+>> `qxl_release_alloc()`, ensuring all fields (including embedded fence
+>> flags) are properly zero-initialized upon allocation, and remove
+>> redundant explicit zero-initializations.
+>>
+>> The dumps in question:
+>>   refcount_t: underflow; use-after-free.
+>>   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, 
+>> CPU#0: kworker/0:0/1534
+>>   Modules linked in: af_packet nft_fib_inet ...
+>>   CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1- 
+>> default #1 PREEMPT(full) openSUSE Tumbleweed  
+>> b041a6527f6e58424f4cd3de0fade8d408b378fd
+>>   ...
+>>   RIP: 0010:refcount_warn_saturate+0x59/0x90
+>>   ...
+>>   Call Trace:
+>>    <TASK>
+>>    qxl_release_free+0xee/0xf0 [qxl 
+>> d93e9381353e619799d56790f5f8dda6cce491f6]
+>>    qxl_garbage_collect+0xd1/0x1b0 [qxl 
+>> d93e9381353e619799d56790f5f8dda6cce491f6]
+>>    process_one_work+0x19e/0x3a0
+>>   ...
+>>
+>> And then of course:
+>>   BUG: kernel NULL pointer dereference, address: 0000000000000028
+>>   ...
+>>   RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
+>>
+>> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+>> Assisted-by: Gemini <gemini@google.com> # only commit log
+>> Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function 
+>> v2")
+>> Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Dave Airlie <airlied@redhat.com>
+>> Cc: Gerd Hoffmann <kraxel@redhat.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Simona Vetter <simona@ffwll.ch>
+>> Cc: stable@vger.kernel.org
+>> ---
+>> Cc: virtualization@lists.linux.dev
+>> Cc: spice-devel@lists.freedesktop.org
+>> Cc: dri-devel@lists.freedesktop.org
+>>
+>> [v2] use kzalloc_obj() instead of bare kzalloc()
+>> ---
+>>   drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
+>>   1 file changed, 1 insertion(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/ 
+>> qxl_release.c
+>> index 06979d0e8a9f..07dc6eafe6f7 100644
+>> --- a/drivers/gpu/drm/qxl/qxl_release.c
+>> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+>> @@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+>>   {
+>>       struct qxl_release *release;
+>>       int handle;
+>> -    size_t size = sizeof(*release);
+>> -    release = kmalloc(size, GFP_KERNEL);
+>> +    release = kzalloc_obj(*release);
+>>       if (!release) {
+>>           DRM_ERROR("Out of memory\n");
+>>           return -ENOMEM;
+>>       }
+>> -    release->base.ops = NULL;
+>>       release->type = type;
+>> -    release->release_offset = 0;
+>> -    release->surface_release_id = 0;
+>>       INIT_LIST_HEAD(&release->bos);
+>>       idr_preload(GFP_KERNEL);
 > 
-> > Amend the problem by removing debugfs entries and marking
-> > registered flag as false upon error in drm_dev_register().
-> > 
-> > Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> > Co-developed-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-> > Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-> 
-> I think the right order should be:
-> 
-> Co-developed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-> 
-> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> > index e51ed959da89..b98e8af6f1c1 100644
-> > --- a/drivers/gpu/drm/drm_drv.c
-> > +++ b/drivers/gpu/drm/drm_drv.c
-> > @@ -1140,6 +1140,8 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
-> >  	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
-> >  	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
-> >  	drm_minor_unregister(dev, DRM_MINOR_RENDER);
-> > +	drm_debugfs_dev_fini(dev);
-> 
-> I think sashiko is right here, this should be removed.
-> 
-> > +	dev->registered = false;
-> 
-> dev->registered = false should be set at the very beginning,
-> maybe something like this:
+> Looks plausible on a superficial look, albeit fragile. I am not sure why 
+> qxl_release_alloc wasn't calling dma_fence_init in the first place?
 
-Why? Is .unload() supposed to expect dev->registered = false? I've seen
-that moving the flag around might(?) make a bit of a mess (e0f32f78e51b),
-and before this patch .unload() is being called with registered = true.
-So changing it at the beginning of the unwind might mess up drivers that
-rely on it, but it will make no difference for drivers that don't, so
-I'd rather keep it this way. Unless we make explicit guarantees that
-.unload() will be called with ->registered = false, in the middle of the
-call to drm_dev_register().
+If you did, you could not test the ops (previously) or 
+dma_fence_was_initialized() now, right?
 
-> 
-> err_unload:
-> 	dev->registered = false;
-> 	if (dev->driver->unload)
-> 		dev->driver->unload(dev);
-> 	goto err_cleanup;
-> err_minors:
-> 	dev->registered = false;
-> err_clenup:
-> 	...
-> 
-> Thanks,
-> Andi
+thanks,
+-- 
+js
+suse labs
