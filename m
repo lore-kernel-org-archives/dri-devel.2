@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4CBFC61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613CBC61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD3810F03A;
-	Wed,  2 Sep 2026 07:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 948CD10E47A;
+	Wed,  2 Sep 2026 07:49:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SVevXqP8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MSPWSuLF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29B6E10F03A
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:39:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65FC310E47A;
+ Wed,  2 Sep 2026 07:49:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EAE0F43ECF;
- Wed,  2 Sep 2026 07:39:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CDF1F000E9;
- Wed,  2 Sep 2026 07:39:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3C000402F3;
+ Wed,  2 Sep 2026 07:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D951F000E9;
+ Wed,  2 Sep 2026 07:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788334780;
- bh=Zmj6Pl4DI8aaARUoVXtREi8xmgkB7kHiiAcvl0t361M=;
+ s=k20260515; t=1788335357;
+ bh=s8Eo7ol2MpLclIW3Ma0lRro98Gdwdec1Kmfw5HO+SmE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SVevXqP8uk4G2qfUr4fRwo9Xv9i/jYjJ+Hift6ITqhh0R31kK+7v5WOiOo9/0ie7j
- 4sOXgFXmks/B/0h/21DcWitUMKDWxZYTLiyRsIbbyZZZpO+nouiDx+4eAKL3bch964
- Z0ITjST2BqJve2jB5bjPfpMiqhwbV+7s5F4A2fofmPN494nOQZjDhr0n7HKxZeRvBB
- yfEtheDm5PrO5mtXXpRM3Bx6CPq/6gY14VOKrtpn77K0Fbgi6LM5j3nbK0pUgMpnnU
- 2tbzJBXwpgQ2gxvoVNI2PhV6fP7prCxJ05MvzwtMjBEiZwd+CPTJ5WYN4VsnP3/wkq
- UWLcYuhjXx0uQ==
-Date: Wed, 2 Sep 2026 10:39:36 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
- ankita@nvidia.com, chriscli@google.com,
- david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
- kevin.tian@intel.com, kpberry@google.com,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org,
- viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902073936.GR24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ b=MSPWSuLF0lYksTPJltML1tzWwBvAzoU3G0OLlXcxLHJudeMCYu0pz7AAKTRNFo8P4
+ dYTbe3ZKOIskvQ/bUCgRa1IvxwEylNKBnDC1CHAINh14B2tNsSYgl1mwtC7XpEP5kR
+ kfhZg9aG+5KRSN3dPxx0s0S82VRhqqelwRqLujr0sRF9mdh3OxaeacsG24S+GJ7m19
+ 8cCovTzAJz27XGWm8V1YeHiQDdyxLfUn4sk5al0nuXxjpBKg09KQPCZMvqG174J4BI
+ T5t5Tm3PKlo3OfVlKo4fV38yoPzN/zwAdVfK41k6pZTbcmFGAriexNvfoYlP2bPW81
+ yoNTW7O4KWm1g==
+Date: Wed, 2 Sep 2026 13:18:51 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Ritesh Kumar <quic_riteshk@quicinc.com>,
+ Vishnuvardhan Prodduturi <quic_vproddut@quicinc.com>, 
+ Mani Chandana Kuntumalla <quic_mkuntuma@quicinc.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] phy: qcom: qmp-combo: delay Type-C mux switch while
+ DP PHY is initializing
+Message-ID: <37cs3ejjaldogjlh3oyhzxgedl2w2s6qk7sercwem5j23vdtb4@2dzhapohcgda>
+References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
+ <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,30 +70,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> On 9/1/26 19:08, David Hu wrote:
-> > From: David Hu <xuehaohu@google.com>
-> > 
-> > This series address two related issues in scatter-gather mapping,
-> > specifically for the MMIO based dma-buf mapping. The fixes ensure
-> > sgt mapping is correct, and proper for large MMIO regions.
-> > 
-> > Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> > (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> > phys vec to sgt)
-> > https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> > 
-> > Patch 2 Splits sgl by largest page aligned chunk
-> > (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> > https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+On Mon, Aug 24, 2026 at 04:58:04PM +0530, Saurabh Anand wrote:
+> The Type-C mux switch guard only checked dp_powered_on, which is set in
+> qmp_combo_dp_power_on(). However there is a race window between
+> qmp_combo_dp_init() and qmp_combo_dp_power_on() during which dp_init_count
+> is non-zero but dp_powered_on is still false. A Type-C orientation change
+> arriving in this window would proceed with the mux switch while the DP PHY
+> is mid-initialization, corrupting the PHY state.
 > 
-> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+> Extend the guard to also block the mux switch when dp_init_count is
+> non-zero, covering the full period from dp_init through dp_power_on.
+> 
+> Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
 
-And this is why so many in the kernel community want to get rid of SG
-lists. It would be great if DMA-BUF could also eliminate the need to
-convert to an SGL, like Jason proposed.
+If this patch fixes a race condition, it should have a Fixes tag.
 
-The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-which is the one that depends on it.
-
-Thanks
+- Mani
