@@ -4,60 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912A4C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 16:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37FCEC624D6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 16:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B2510F2CF;
-	Wed,  2 Sep 2026 16:34:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCBD10E04F;
+	Wed,  2 Sep 2026 16:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YZk9s+u2";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1Rs45NW2";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D8110F2CF
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 16:34:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788366865;
- bh=JEURMMeOCisUVtqSwUB7lNxuyjszxEiBxZZsQFe71Ig=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=YZk9s+u2GQyRFizOv13t7Lh71GS+k9C0B+srttcDaSHo0ggKBcKTD2POZCkLxzhr5
- Y9vFQsBWl35lYKEOzpRh7vvURjgBfL5k6fUTACJeMgosysRq+Mvb7+L4hh9uTsHoll
- k6vaS4k5t4gwmVmd0GHuOeHicyo5hR9ZvaSCU5ID7JjiUiZ+HcAEZXrNjG0NHuIf3q
- Vnakbtx2u/B+7i7TPyxD7e/qn8w2nGEIe2Em1wdCVG/VdUcVwKOuFT2qiOAFZZ4VRx
- 5rnE7OQN6VEcfJEnLecUICwzqduSYCvyBVAiGZlQjM+QZ6sSMw6Y7vFiw3pH6+iB8s
- ryUsiY7XJV1nw==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id EC6BD17E038D;
- Wed, 02 Sep 2026 18:34:24 +0200 (CEST)
-Date: Wed, 2 Sep 2026 18:34:18 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 14/17] drm/panfrost: Avoid cache flush after perfcnt
- sample in fully coherent systems
-Message-ID: <20260902183418.06316a6e@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484A410E04F
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 16:42:35 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id A334C1A1972;
+ Wed,  2 Sep 2026 16:42:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6E0BE6053C;
+ Wed,  2 Sep 2026 16:42:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 0CEBA11C79C04; 
+ Wed,  2 Sep 2026 18:42:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1788367348; h=from:subject:date:message-id:to:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=rDUBEK3MGggx0/ed+dJrd4a8xpH6EkMgFmnA5of609g=;
+ b=1Rs45NW23JLM5afFIEG1uUtnBxW6NIf58AOOl86G2ryJzasMoAI15d6gqcbOqMgfCkYE9v
+ xKZJ7f4O/hCA4nseIVlktmNvbg+sz+TT13a9TwMiNHL+IBkHh/CEFQJNSVyN5rknJo315+
+ uyXxukiZBfXg6amOGIm9f+zUG3+MLccKslD8MebYPAqlhb8B5Cgm4pyOVf7+1jIfiu0Auo
+ lEKno+kpHQlUHqOobbZI7RbuBrO7UfDYEQfOXW/q3mT+aV9NhRYrmRCabMkHooYx4JTtRb
+ wpys26+UohsfNaJeG0w8M/EdThqrOhvDM358KOgG27uzMBQ9ntTR9hqIG76kmw==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Osama Abdelkader <osama.abdelkader@gmail.com>
+In-Reply-To: <20260812152535.82238-1-osama.abdelkader@gmail.com>
+References: <20260812152535.82238-1-osama.abdelkader@gmail.com>
+Subject: Re: [PATCH v4 5/6] drm/panel: Use managed helpers in display
+ vendor panels
+Message-Id: <178836734466.906849.11891939856337750875.b4-ty@b4>
+Date: Wed, 02 Sep 2026 18:42:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,37 +67,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 21:56:54 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> If the GPU and CPU are fully coherent, then there's no need to flush the
-> GPU caches after a perfcnt sample is made available.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+On Wed, 12 Aug 2026 17:25:33 +0200, Osama Abdelkader wrote:
+> Use the managed MIPI DSI attach and panel add helpers in display vendor
+> panel drivers and drop the corresponding manual detach and panel remove
+> calls from remove paths.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Applied, thanks!
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index ffc77121070e..b3f71d7fd82a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost=
-_device *pfdev)
-> =20
->  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
->  {
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE)
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-> +	else
-> +		complete(&pfdev->perfcnt->dump_comp);
->  }
-> =20
->  static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
->=20
+[5/6] drm/panel: Use managed helpers in display vendor panels
+      commit: a2419a3e63274fcd34c83c94d3730f1b3aa8d2ad
+
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
