@@ -4,49 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0C6C624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D473C624D0
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93B0810E49C;
-	Wed,  2 Sep 2026 10:45:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B601F10E4A3;
+	Wed,  2 Sep 2026 10:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DF/ziAKY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fZLwp5TZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8316D10E4A3;
- Wed,  2 Sep 2026 10:45:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D62CA10E4A3
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:47:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EEE4F41834;
- Wed,  2 Sep 2026 10:45:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12A11F000E9;
- Wed,  2 Sep 2026 10:45:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E4072600D0;
+ Wed,  2 Sep 2026 10:47:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3077A1F000E9;
+ Wed,  2 Sep 2026 10:47:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788345937;
- bh=yXz6VgrPSgT1SA8CrXV2fVzMvl/GrE1Y5doKtmaVfwg=;
+ s=k20260515; t=1788346025;
+ bh=NMPfVN5CbaC96HtvVa8DpidRZa0TUnpKn2VRTVdV5ec=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=DF/ziAKYo5+ZxJJCbdNc7CLrSDWCzYjrqQ1xKtLjSV1f5qu1cHqILuUVHmv5pfLD5
- 4CQc6u10GtxxCu7Ibh9WrPmus32V719pCCDlkl9lwX8ZtW+Vq61fqole+VEdu8xMz4
- seTIFazyoHCVjEwAhrqgzU3DoERfyYwvDQkgcVzIPOwQrY8Dd8NTsXeSFecKsQWury
- wd9timquECO+fm6McMSmhCtWE8gtjhfAQpHo1Is8Y0TDW3+ku51C4Lrz102hnTzx9i
- P0qhlSpHn45kBSpR336FzqsCjpTSGhL9xq4Eur3zHF8qHNgyv1zBQ7ghLk4HufbrLA
- fU4FrHxNLz5Wg==
-Message-ID: <cf08d7f1-8853-42a2-9226-17721c4b30f4@kernel.org>
-Date: Wed, 2 Sep 2026 12:45:32 +0200
+ b=fZLwp5TZrTiJ6QaK1nT8Uvuxd7F/m4iNUe4BaGRVzrqqkV/AEe2h29PAydWpqzWQs
+ lFdlIjUmcRuF6eg6qGCTnjq0pBx/I5QgwP4oxJqqS/l87HMIt9FAhh14jpeNgBzazS
+ ClOrKUJFgNFXnSE2ZUSysf5HwJ4OqShQWrBLgorw6WNEVVBzXxsEh4OL/pPGfxVavp
+ i7Uii98uCb7VI3GLSNoxqsBLnMjAyvEOErZ+EHgoQ4pm+FfGwSlIeqgSepYMLfTK3R
+ XZBEAByyFzXf5Nrp19c67P+hhLP0wFJnGfU5XPbLwUy8HgG3DqUQRNzBhowj2cN1pi
+ 4uBYg4WeK+3sA==
+Message-ID: <275a55e8-543e-466d-a6a1-84776e763024@kernel.org>
+Date: Wed, 2 Sep 2026 12:47:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/qxl: fix use-after-free and NULL pointer deref
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- devel@lists.crash-utility.osci.io
-Cc: Gemini <gemini@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- stable@vger.kernel.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260828085136.128561-1-jirislaby@kernel.org>
- <3c2a131b-af05-4aef-bf5f-4742ceab2170@igalia.com>
+Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, tursulin@ursulin.net,
+ matthew.brost@intel.com, sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260120105655.7134-1-christian.koenig@amd.com>
+ <20260120105655.7134-2-christian.koenig@amd.com>
+ <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
+ <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
+ <9edeaa17aebc284f1f171b1dd4d9ffee4721b750.camel@mailbox.org>
+ <4b5b6dda-43a4-4488-9dbd-b0f92fcead61@kernel.org>
+ <0b84716fa6bec4e38d811dc76926dd81e31e0c81.camel@mailbox.org>
+ <5dd4248bccb446ef390e7149649632657db4aaae.camel@mailbox.org>
+ <0df59c80-ae58-47d3-a96b-e878a17766a7@kernel.org>
+ <f8b941a8-a468-4243-836e-aa6cebf6f3b3@kernel.org>
+ <f923a6f6-8fef-43c8-8ac6-82c070e9b7b8@kernel.org>
+ <ddab642c497354d2800e6139f7b0c073fd3981f1.camel@mailbox.org>
+ <5be2d5f9-579f-4c5c-8463-a2505a6f0c74@kernel.org>
+ <307d764629d7c5d2704b7897c8c0c32c1ef4ce33.camel@mailbox.org>
 Content-Language: en-US
 From: Jiri Slaby <jirislaby@kernel.org>
 Autocrypt: addr=jirislaby@kernel.org; keydata=
@@ -91,7 +97,7 @@ Autocrypt: addr=jirislaby@kernel.org; keydata=
  f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
  DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
  S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
-In-Reply-To: <3c2a131b-af05-4aef-bf5f-4742ceab2170@igalia.com>
+In-Reply-To: <307d764629d7c5d2704b7897c8c0c32c1ef4ce33.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,109 +115,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02. 09. 26, 11:53, Tvrtko Ursulin wrote:
+On 02. 09. 26, 9:03, Philipp Stanner wrote:
+> On Wed, 2026-09-02 at 08:56 +0200, Jiri Slaby wrote:
+>> On 02. 09. 26, 8:52, Philipp Stanner wrote:
+>>> On Fri, 2026-08-28 at 10:32 +0200, Jiri Slaby wrote:
+>>>> On 28. 08. 26, 9:46, Jiri Slaby wrote:
+>>>>> What helps is indeed the revert back to:
+>>>>>
+>>>>> --- a/drivers/gpu/drm/qxl/qxl_release.c
+>>>>> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+>>>>> @@ -147,7 +147,7 @@ qxl_release_free(struct qxl_device *qdev,
+>>>>>            idr_remove(&qdev->release_idr, release->id);
+>>>>>            spin_unlock(&qdev->release_idr_lock);
+>>>>>
+>>>>> -       if (dma_fence_was_initialized(&release->base)) {
+>>>>> +       if (release->base.ops) {
+>>>>
+>>>> Crap, the flags simple got garbage from previous freed buffer, so:
+>>>> -       release = kmalloc(size, GFP_KERNEL);
+>>>> +       release = kzalloc(size, GFP_KERNEL);
+>>>>
+>>>> fixes this of course. Patch coming.
+>>>>
+>>>> Now, the ops and initialized are either both set or unset:
+>>>> qxl_release_free 1: release->base.ops=0x0 initialized=0 id=6 type=2
+>>>> qxl_release_free 1: release->base.ops=qxl_fence_ops initialized=1 id=2
+>>>> type=0
+>>>>
+>>>> Unlike before.
+>>>>
+>>>> FTR release->base.ops were NULLed after that kmalloc. Unlike
+>>>> release->base.flags.
+>>>
+>>> You're saying that QXL is re-using that fence if it were uninitialized?
+>>
+>> Sort of. The fence was dropped and freed. Then a new memory was
+>> allocated. And garbage from that allocation was used -- it might be the
+>> old (freed) fence. Or anything else freed previously. Simply garbage.
 > 
-> On 28/08/2026 09:51, Jiri Slaby (SUSE) wrote:
->> When allocating a `qxl_release` structure with `kmalloc()`, the 
->> underlying
->> memory contained uninitialized garbage. Specifically, `release- 
->> >base.flags`
->> (part of the embedded `dma_fence`) was not cleared.
->>
->> This garbage in `base.flags` caused helper functions such as
->> `dma_fence_was_initialized()` to return true even for releases where the
->> fence was never actually initialized (e.g. via `dma_fence_init()`).
->>
->> Consequently, during release cleanup in `qxl_release_free()`, the driver
->> attempted to put/free an uninitialized `dma_fence`, leading to refcount
->> underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
->> pointer dereferences in `dma_fence_signal_timestamp_locked()`.
->>
->> Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
->> `qxl_release_alloc()`, ensuring all fields (including embedded fence
->> flags) are properly zero-initialized upon allocation, and remove
->> redundant explicit zero-initializations.
->>
->> The dumps in question:
->>   refcount_t: underflow; use-after-free.
->>   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, 
->> CPU#0: kworker/0:0/1534
->>   Modules linked in: af_packet nft_fib_inet ...
->>   CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1- 
->> default #1 PREEMPT(full) openSUSE Tumbleweed  
->> b041a6527f6e58424f4cd3de0fade8d408b378fd
->>   ...
->>   RIP: 0010:refcount_warn_saturate+0x59/0x90
->>   ...
->>   Call Trace:
->>    <TASK>
->>    qxl_release_free+0xee/0xf0 [qxl 
->> d93e9381353e619799d56790f5f8dda6cce491f6]
->>    qxl_garbage_collect+0xd1/0x1b0 [qxl 
->> d93e9381353e619799d56790f5f8dda6cce491f6]
->>    process_one_work+0x19e/0x3a0
->>   ...
->>
->> And then of course:
->>   BUG: kernel NULL pointer dereference, address: 0000000000000028
->>   ...
->>   RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
->>
->> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
->> Assisted-by: Gemini <gemini@google.com> # only commit log
->> Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function 
->> v2")
->> Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Dave Airlie <airlied@redhat.com>
->> Cc: Gerd Hoffmann <kraxel@redhat.com>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: David Airlie <airlied@gmail.com>
->> Cc: Simona Vetter <simona@ffwll.ch>
->> Cc: stable@vger.kernel.org
->> ---
->> Cc: virtualization@lists.linux.dev
->> Cc: spice-devel@lists.freedesktop.org
->> Cc: dri-devel@lists.freedesktop.org
->>
->> [v2] use kzalloc_obj() instead of bare kzalloc()
->> ---
->>   drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
->>   1 file changed, 1 insertion(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/ 
->> qxl_release.c
->> index 06979d0e8a9f..07dc6eafe6f7 100644
->> --- a/drivers/gpu/drm/qxl/qxl_release.c
->> +++ b/drivers/gpu/drm/qxl/qxl_release.c
->> @@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
->>   {
->>       struct qxl_release *release;
->>       int handle;
->> -    size_t size = sizeof(*release);
->> -    release = kmalloc(size, GFP_KERNEL);
->> +    release = kzalloc_obj(*release);
->>       if (!release) {
->>           DRM_ERROR("Out of memory\n");
->>           return -ENOMEM;
->>       }
->> -    release->base.ops = NULL;
->>       release->type = type;
->> -    release->release_offset = 0;
->> -    release->surface_release_id = 0;
->>       INIT_LIST_HEAD(&release->bos);
->>       idr_preload(GFP_KERNEL);
 > 
-> Looks plausible on a superficial look, albeit fragile. I am not sure why 
-> qxl_release_alloc wasn't calling dma_fence_init in the first place?
+> Maybe even dma_fence_init() should zero out the memory for maximum
+> robustness.
 
-If you did, you could not test the ops (previously) or 
-dma_fence_was_initialized() now, right?
+That would not help as dma_fence_init() is called too late or not at all 
+here...
 
-thanks,
+dma_fence_init() is called late as the driver wants to call 
+dma_fence_was_initialized() to distinguish the cases when the init was 
+called and when not.
+
+> We do that in drm_sched at a few places.
+> 
+> Opinions? @Christian?
+
 -- 
 js
 suse labs
