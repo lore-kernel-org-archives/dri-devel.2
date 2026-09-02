@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CFC0C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 00:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1AFC61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 01:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52B9F10EF8D;
-	Wed,  2 Sep 2026 00:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD4510E428;
+	Wed,  2 Sep 2026 01:39:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n3chE2cm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jc4AQdEf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 103B210EF8B;
- Wed,  2 Sep 2026 00:55:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788310535; x=1819846535;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=6n3FYhGfwlTRZB1CO/Fs5VWpgSYsGMMkcCMblN/leOg=;
- b=n3chE2cm8LpKL5Es2as8WKWpFrtsBK2aeBckmjbBCLxCdRmjIbZNFEiP
- Ijrb7bk92UbCayBaEBZUPNxdXu2zROPP8CNXQMCAaP9XJ1Lj8Se6kcf8+
- By5dxyCMCVjwhf0iH4DIePbW8xvuos/PUw2m4sP/dPu7lRVTV2MbvwGXX
- NUUt1gFgnwFw+EAjCaZ1qhI0Bz3gWSGZacu0vZoIVNfYc2VA+mpIm979o
- ep1BEXo+iph1L7zE6mth5jPWVnbkJfDs4DLKwE5epcK8cavtdMBpZoijQ
- xScwRuGAfYeL/2hm8Vru5/PF5RYjWz4UO1onUL3QUGyhLjHKamQtFQnTg A==;
-X-CSE-ConnectionGUID: ibspg/0sQWGgfgoYTFg19Q==
-X-CSE-MsgGUID: H2NTxZwqTHKdPVsRKUblcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99090453"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="99090453"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 17:55:34 -0700
-X-CSE-ConnectionGUID: 6LQfxdCsQIKzfrY2PZwcoQ==
-X-CSE-MsgGUID: esvl8ikTT8OdI2d81AbO3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="292774389"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239])
- ([10.124.241.239])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 17:55:32 -0700
-Message-ID: <6afe83f1-ad57-4b87-aa18-f08bb7376d64@linux.intel.com>
-Date: Wed, 2 Sep 2026 08:55:30 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] perf: Add checks to prevent null ptr access
-To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- intel-xe@lists.freedesktop.org
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED0D710E428
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 01:39:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D2982600D4;
+ Wed,  2 Sep 2026 01:39:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624C61F000E9;
+ Wed,  2 Sep 2026 01:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788313192;
+ bh=MKk3zq+Ap83K1L4l5wFZFHae11rKt7mfW9apOEW5Jnw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Jc4AQdEfPMB7dmIhCJs7AnZeVeEChL/1HbrF+jD+/FPUr6JEp+uHD8Kd/a2L8tD1V
+ BYSsnVOVs7q/6JAGAo3UbdtrJUSVloz7ux8rqvJFQUfAlgd0zGo4y4mYUDqSUEKV1f
+ OcrXy3/jkk+D6jvDidGAQ3so77oCK1u6vUt2tyAgL/ym19IWVK5LYWjDtBjVzxap9J
+ vJS5KdFk/DSG26obqBMvNt9Qsv1fCo1De+44g5ug3xa/zgrmnxpjt1wqoLnahn6X0F
+ N3il6kgk47eBxGLlr4aw5jyk6DD3FRZhEZzV75QwGgvAnrJLPkz8XumowZOvBxN9nF
+ /AV4Z6JzEPb+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/nouveau: RCU-free the scheduler-containing
+ nouveau_sched
+To: =?utf-8?b?Sm9uZ2h5dWsgS2ltKE1hbEh5dWsp?= <malhyuk97@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-References: <20260901211915.127704-1-vinay.belgaumkar@intel.com>
- <20260901211915.127704-3-vinay.belgaumkar@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260901211915.127704-3-vinay.belgaumkar@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20260902012717.880724-1-malhyuk97@gmail.com>
+References: <20260902012717.880724-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 01:39:51 +0000
+Message-Id: <20260902013952.624C61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,58 +53,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-LGTM. Thanks.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 9/2/2026 5:19 AM, Vinay Belgaumkar wrote:
-> Sashiko recommended some additional checks to prevent null pointer
-> access. Check for revoked states inside perf_event_read_local(), as
-> the pmu event may have already been freed at this point. Add a null
-> check inside __perf_event_read_cpu() as well before accessing the pmu
-> ptr.
->
-> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-> ---
->  kernel/events/core.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index f19d27ac411d..bb90034a2054 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cpu_topology_cpumask(unsigned int
->  
->  static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
->  {
-> +	struct pmu *pmu = READ_ONCE(event->pmu);
->  	int local_cpu = smp_processor_id();
->  	u16 local_pkg, event_pkg;
->  
->  	if ((unsigned)event_cpu >= nr_cpu_ids)
->  		return event_cpu;
->  
-> +	if (!pmu)
-> +		return -ENODEV;
-> +
->  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
-> -		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
-> +		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(pmu->scope,
-> +										event_cpu);
->  
->  		if (cpumask && cpumask_test_cpu(local_cpu, cpumask))
->  			return local_cpu;
-> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
->  		goto out;
->  	}
->  
-> +	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
-> +		ret = -ENODEV;
-> +		goto out;
-> +	}
-> +
->  	/*
->  	 * Get the event CPU numbers, and adjust them to local if the event is
->  	 * a per-package event that can be read locally
+Pre-existing issues:
+- [High] Use-After-Free (Incomplete Fix)
+--
+
+commit a4cb3c10462917197ec6f8cdfe7a265ad10ef18a
+Author: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+
+drm/nouveau: RCU-free the scheduler-containing nouveau_sched
+
+This commit attempts to fix a use-after-free issue by deferring the freeing
+of the scheduler object to an RCU callback.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/no=
+uveau/nouveau_sched.c
+> index 8b9f935afe094..b3f02c490ecb6 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_sched.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+> @@ -517,7 +517,7 @@ nouveau_sched_destroy(struct nouveau_sched **psched)
+>  	struct nouveau_sched *sched =3D *psched;
+> =20
+>  	nouveau_sched_fini(sched);
+> -	kfree(sched);
+> +	kfree_rcu(sched, rcu);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this actually fix the
+underlying use-after-free issue?
+
+Using kfree_rcu() only defers freeing the scheduler by a single RCU grace
+period. However, dma_fence objects exported to userspace (e.g., via
+sync_file) can outlive this grace period since userspace controls the file
+descriptor lifetime.
+
+When userspace eventually queries the fence info, sync_fill_fence_info()
+acquires a new rcu_read_lock() and calls dma_fence_timeline_name(), which
+invokes drm_sched_fence_get_timeline_name():
+
+drivers/gpu/drm/scheduler/sched_fence.c:drm_sched_fence_get_timeline_name()=
+ {
+    ...
+    return (const char *)fence->sched->name;
+}
+
+Because the nouveau_sched memory is physically freed after the initial RCU
+grace period elapses, this new RCU read-side critical section does not
+protect it. Won't this unconditionally dereference fence->sched->name on
+the already-freed memory, resulting in the exact same use-after-free read
+this patch intends to fix?
+
+> =20
+>  	*psched =3D NULL;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902012717.8807=
+24-1-malhyuk97@gmail.com?part=3D1
