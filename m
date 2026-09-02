@@ -4,66 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB23C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 08:20:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44080C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 08:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDBF210F080;
-	Wed,  2 Sep 2026 08:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D12897F0;
+	Wed,  2 Sep 2026 08:21:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="obSfFDp9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YKcAME0w";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAFAF10F068
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 08:20:25 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id C24051A1932;
- Wed,  2 Sep 2026 08:20:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 913A96053C;
- Wed,  2 Sep 2026 08:20:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EB63E11C792AC; 
- Wed,  2 Sep 2026 10:20:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788337218; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=zXwmUqR80A5WcB1By3Vqky+fSnzgUpYcAnB6V+3H0bA=;
- b=obSfFDp9c3fLXn9Jdh3sWnB3ocZrKCvN3COLHPLcaFTUvPZGThEQdQolXal845JS1KCC/I
- 386jSjryrGCWCH8ll5Dt+OK2sNJXpqEUNshRlivZu2pzVTF7/PsV5NhaqEJkQl4fWUmB4q
- Xx5Tq/+o9WKnpELRu8aiqYW8ZIwcEjsG0yxOVgYQ4/+t3D/nmUf4RvR9RY7FVGTKLkoKRP
- vowcNcW/jdHAsFFxP8knpmG6pu38016t6flYv3sn7hbc7qXjRUOXRs1ogIv8Q4fF0EFpcp
- eGZEt3RS3ZNi9c2CnBEV+x3YJ27ilq1vTpywTcrY8W+iylgxqK3KQs2qYaCFEw==
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v8 5/5] drm/bridge: analogix_dp: Add support for
- optional data-lanes mapping
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF62897F0
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 08:21:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 483CC600D0;
+ Wed,  2 Sep 2026 08:21:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686821F000E9;
+ Wed,  2 Sep 2026 08:21:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788337305;
+ bh=ggCMOymjzta62KyOYmqN5sV9fnNSej/APcCJwAgLjdI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YKcAME0w0PsDZCSNyM82DjLCbJI/OTGXekMYRjvnh0HKzALlnf5nUht4kHbiGqOIh
+ ERsDHDtVRCqDih85M+RgN2XW2ZnnLuH0EFxrmQnlOJR9fNhyxy2SIZ2P9LRwqL96N0
+ 7vK/UjhXhV4HW0pV0IMqJYy7tqUlSjtVet5ey1qioeJEJRRkxL0D/38nB/VUcBrq7X
+ Ny6U4XigIt0GRqmxDmcLLcvGx9yVczNyiREQYKZSn1hfZd+mHQCrYxD7vqeAU1OY/h
+ U+TL/CVvUlnFGd+5quq+CzinTDLS6tHrNwXkKspukdUhXiyRk2WG5MZHGhU56Tf5Mi
+ /FyBF9hJWvWFg==
+Date: Wed, 2 Sep 2026 10:21:41 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260828065153.590802-6-damon.ding@rock-chips.com>
-References: <20260828065153.590802-1-damon.ding@rock-chips.com>
- <20260828065153.590802-6-damon.ding@rock-chips.com>
-Date: Wed, 02 Sep 2026 10:19:56 +0200
-Message-Id: <178833719638.506564.9767716352967670052.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ llvm@lists.linux.dev
+Subject: Re: [PATCH] drm/ci: Add CI pipeline for drm-misc branches
+Message-ID: <apfchj1N41WQGlnU@houat>
+References: <20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="ti3nay26l7y5i6tt"
+Content-Disposition: inline
+In-Reply-To: <20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,26 +64,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026 14:51:53 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
-> Parse the optional 'data-lanes' device tree property to support
-> custom physical lane mapping configuration.
-> 
-> If no valid configuration is found, fall back to the default
-> lane map (0, 1, 2, 3) automatically and keep the driver running.
-> 
-> Lane mapping is mainly used for below scenarios:
-> 1. Correct PCB lane swap and differential line routing crossover
->    without hardware changes;
-> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-> 3. Support multiple panel hardware variants on the same board
->    by configuring data-lanes in device tree only.
-> 
-> [...]
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+--ti3nay26l7y5i6tt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/ci: Add CI pipeline for drm-misc branches
+MIME-Version: 1.0
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+On Wed, Sep 02, 2026 at 10:17:09AM +0200, Maxime Ripard wrote:
+> The DRM CI infrastructure [1] builds upon Mesa's CI to run IGT tests
+> on hardware. Its focus is on functional testing on a selected number
+> of targets.
+>=20
+> The concern for drm-misc is different: it merges a large number of
+> patches across many platforms, and build or unit test breakages happen
+> on a regular basis. Adding build and unit testing for drm-misc has
+> been on the back of our minds, and a first attempt was made last year.
+> The feedback was to rely more on the existing infrastructure.
+>=20
+> Introduce a CI entry point for merge requests targeting drm-misc-next,
+> drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml and the
+> freedesktop ci-templates, while defining build templates inline to
+> avoid pulling in the Mesa pipeline.
+>=20
+> A single Debian container with LLVM handles cross-compilation to all
+> three architectures. The pipeline compiles the kernel using defconfigs
+> from the drm/tip rerere-cache branch and runs the DRM KUnit tests.
+>=20
+> Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-ac=
+758f@houat/
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
+A test run can be found here:
+https://gitlab.freedesktop.org/mripard/kernel/-/pipelines/1738579
+
+Maxime
+
+--ti3nay26l7y5i6tt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapfclAAKCRAnX84Zoj2+
+djAuAXkBJHNOgysY1OgeKxcwUqjXONoQ4pixDRE0gn0v/Sdi5bX83V5e8NQwHTLq
+8IP7QkgBfA0EDNDsRtzl7kB2BZ/ZyGkoMZrudoBydqjGbgGOrCb5q2sVXl89tVXz
+tdN2sAaRqg==
+=njPd
+-----END PGP SIGNATURE-----
+
+--ti3nay26l7y5i6tt--
