@@ -4,59 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A75C624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B667FC61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 11:04:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6AC710F114;
-	Wed,  2 Sep 2026 10:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2660610E49F;
+	Wed,  2 Sep 2026 11:04:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RyOKoEmb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YbOR2SL7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F12610F114
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:59:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8A9DA600C8;
- Wed,  2 Sep 2026 10:59:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4C91F000E9;
- Wed,  2 Sep 2026 10:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788346764;
- bh=OBVmQw0sO4Pqp+7c+CugRQe5Vt/ZmRFWAeUf3jC3dWA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=RyOKoEmbZeg1aphhoTTpEaSIx8jXa6UWfDyctpucawNu6Z8Z3QEFvG+aAQiX5811Q
- UhaExyceGBB/5wIot7ioceNrrpzg0hJOhDlHLxle+yiT6zHlJlKqEtrq/LFGvcRbu/
- bU4B4iQMLzRRiczAfE8WSQLzCOBAmES3EPeT+pvdv65HRWkWrKSlkwQguvv6M/Snai
- nEkEca7YfmhKCToruciCfWidpSlY3S01HOhHZyrCJ0+g8Hz2eMDMUqDiN1qiEbrkwB
- NdnTFIO5Kz0F8tVGTocGnZYK2DRb6d4NmBy0ufnb4yXJDSQX5jUtHXv6a5Qb1qqnCG
- t9/dRhGdQCAHg==
-Date: Wed, 2 Sep 2026 13:59:19 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
- ankita@nvidia.com, chriscli@google.com,
- david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
- kevin.tian@intel.com, kpberry@google.com,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org,
- viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902105919.GV24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4AF910E49F
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 11:04:52 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-499c0879d51so746135e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 04:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788347091; x=1788951891; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=GTGAL2LK49DXmb4kTFlr75XQjH/03+yuaF3FJpUhzoQ=;
+ b=YbOR2SL7Vgmm49/vXwgi3keEHZfXQmT4CwDnVdqk9VQ7B7u7w+/r5+0fER/0rWtX2p
+ klwHvHG5FPqLDHR7JduFDopniJ9Zg/W5gWLLZAiJlLiUwv7XLOk026UTuwrH5U9zaM5c
+ zclUMuTJORuff4yu331dyplGMWXxB0ytS5OUC+QQLt+PlSlKRkHafhIjTwlupITTyouG
+ w895xIFaDDZ+Dx6kre1zMPkyYMcQPiLwgXO2Y9U1fac/pY35kBQBzWAXxLgXD+uoN8Bl
+ 7tRx23aPKPUfXloxKbrI9YxuwY9qnv0wL1cNlJxondYvU0sqQJl4Lpj7pPSgw1MSPXAD
+ FXRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788347091; x=1788951891;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=GTGAL2LK49DXmb4kTFlr75XQjH/03+yuaF3FJpUhzoQ=;
+ b=NFfChFoQjuk0o1s8W5bMZo1Ko6zlFZ9MEu/NkrJvuKRFev6W17tB9tK5w4ThULM9kb
+ ST2rjZxFN+uVq7Ra+tiPD7d7Okv64Hgf1lZKhgdUNY1wNUtCNCUXV+y2sgTx2lXWYNG7
+ sAwaI9IrqwpnChoz7sjd5AtVOIWjCFSuiP2qf3VDyEqNry2wqrdkJp22NArePg+f/8Y8
+ nUgqMoVLMI4/9p7mefIqMWlp/ZLIT7C7Uu0CsU1L4W2IxUZnDTrkhryMwma4u6nE+EEi
+ XELHaB665xmSOPiX8nEPNRxrN53n14n5mY9GSiDvr1KYjKRLDwU39x6sTRjK35CBSBZ2
+ KjKQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqv7NMda5HvtKETYPcvVpxO5z8Rzp6BrcgMcqwYAT9j0Y8bXwTPQNitUWGwxzlmR6Ve+JvZUqYy0OQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++np3yMsTFpQiDcyv1c8BVyDe5u1sDsqBRIdCVoYGoRuxDa4RAL2
+ yjOKyXlAbGdWIdCEc5wvud2kw595g4qGRa+78l/yVfNPTUhCMxLO891P
+X-Gm-Gg: AR+sD111EmkfgbUMBYZTVflfTnX7GYCvKehmEdnBN2U5QF2CofNxPaK4yOiwV+CWEvt
+ txHIFMLF6DNk8FMLCm3qtGYbB2VUBere9K+42ArwwwHhR98Ct3Za0uJQ/N6av6+oYOHlWlmkLAo
+ GcXou3v721OpfeF5yBUkinxWh6AKa7LhS52dlIE7SC8hNp+HWy98EYNvG0CzNxsg2BP/XZ7QS42
+ zbzXK/wg+LEQ8S87VHWCOwqyyQRGvUdE0rknmw2+LeWszLBS0LDJUkq91OLImj9Jpt4RfHe8rPw
+ ssSxN5xrO5ES9YSn2vOeKoHVuKkGnSevvzTd4C1/MnSqsQNCHbmtDLfDoiGptRPAiJ3JVwJqdvJ
+ HOYRbGQuCJ4ABeAQrCaP5iX+Fa8uvHy5aBvFG6XNg/FzLo3ZFIEjzgDQyCFwHm2uY2798XFiuLZ
+ H9idMftq6IBv6Gasb71EQ4T/mt0VvA9kNKcLXu1QdiIjWYeapz2uddvb5op+oCzYlNHUA2Pwm7f
+ PtHRn0juvJomaAzW/7dIAF0qTLH5Yr88eF4SizyTgwABL1gNJ2if3mXBj+7uPQft2EOquqlBqfi
+ EI0=
+X-Received: by 2002:a05:600c:3b03:b0:49b:910c:76fb with SMTP id
+ 5b1f17b1804b1-49ce58252e3mr32581935e9.2.1788347090765; 
+ Wed, 02 Sep 2026 04:04:50 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B831700C106E30F6C827C62.dsl.pool.telekom.hu.
+ [2001:4c4e:1b83:1700:c106:e30f:6c82:7c62])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49ce309e418sm83442895e9.13.2026.09.02.04.04.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Sep 2026 04:04:50 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Huseyin BIYIK <boogiepop@gmx.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
+ and some numbers
+Date: Wed,  2 Sep 2026 13:04:27 +0200
+Message-ID: <20260902110432.22069-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <f5241666-9657-4f49-958f-476fd366e408@gmx.com>
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+ <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
+ <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
+ <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
+ <20260819125932.5853-1-royalnet026@gmail.com>
+ <82c8b17e-7215-45ea-84d1-9991ba6fb541@kwiboo.se>
+ <20260819184807.6665-1-royalnet026@gmail.com>
+ <f5241666-9657-4f49-958f-476fd366e408@gmx.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,59 +105,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 02, 2026 at 12:00:25PM +0200, Christian König wrote:
-> On 9/2/26 11:53, Leon Romanovsky wrote:
-> > On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
-> >> On 9/2/26 10:32, Leon Romanovsky wrote:
-> >>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
-> >>>> On 9/2/26 09:39, Leon Romanovsky wrote:
-> >>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> >>>>>> On 9/1/26 19:08, David Hu wrote:
-> >>>>>>> From: David Hu <xuehaohu@google.com>
-> >>>>>>>
-> >>>>>>> This series address two related issues in scatter-gather mapping,
-> >>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
-> >>>>>>> sgt mapping is correct, and proper for large MMIO regions.
-> >>>>>>>
-> >>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> >>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> >>>>>>> phys vec to sgt)
-> >>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> >>>>>>>
-> >>>>>>> Patch 2 Splits sgl by largest page aligned chunk
-> >>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> >>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> >>>>>>
-> >>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> >>>>>
-> >>>>> And this is why so many in the kernel community want to get rid of SG
-> >>>>> lists. It would be great if DMA-BUF could also eliminate the need to
-> >>>>> convert to an SGL, like Jason proposed.
-> >>>>>
-> >>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> >>>>> which is the one that depends on it.
-> >>>>
-> >>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
-> >>>
-> >>> You are proposing the same thing as an SGL, just in a different format.
-> >>
-> >> Yes, because that is the right thing todo as far as I can see.
-> >>
-> >>> It does not address the issue that dma_addr_t is expected to hold a DMA
-> >>> address, while that is not always the case. For example, in the P2P case,
-> >>> the addresses are not DMA addresses.
-> >>
-> >> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
-> > 
-> > They can perform DMA, but that still does not make them suitable for the
-> > dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
-> > follow completely different rules: they are not unmapped, require no cache
-> > synchronization, are valid only for peer access, and require separate error
-> > handling.
-> 
-> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
+Hi Huseyin,
 
-Maybe you mean DRM, but VFIO works perfectly with PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.
-What am I missing?
+> No you can even read them from userspace with mmap. i think there
+> is also a firewall configuration where you can restrict the access
+> per ip core, but default configuration should not require any EL
+> escalation.
 
-Thanks
+You were right, and here is the number that proves it. On my daily
+kernel, from plain userspace mmap, the GPU PVTPLL counter reads:
+
+    GPU_GRF+0x18 (STATUS1) = 0x412 -> 1042 MHz measured,
+    at the stock 1000 MHz PVTPLL operating point
+
+so the written rate really is just nominal calibration, and the
+actual ring runs 4.2% above it on this sample. One detail against
+your note: on my board the live value shows up in STATUS1
+(OSC_CNT_AVG), while STATUS0.OSC_CNT stays zero. Thank you for mmm
+and for the TF-A pointer - both did exactly what you said.
+
+The NPU counter is another story, and I can now bound it tightly.
+With the ring alive and clocking the NPU at 1 GHz (CON74[0]=1,
+CON0_L=0x103, length 12, CAL_CNT=24), NPU_GRF+0x24 stays zero from
+both kernel ioremap and userspace mmap, after eliminating every
+lever reachable from the non-secure side:
+
+  - counter input select already xin_osc0_func (CON74[4]=1)
+  - REF_CNT (+0x1c) tried both as found (0) and set to 0x18
+  - every gate bit in CLKGATE_CON(27/28/29) opened, one register
+    at a time and all together (27/28 were already fully ungated)
+  - CON registers read and write fine throughout - only STATUS0/1
+    stay zero
+
+The GPU counter counts out of the box with its pvtm gates closed,
+so none of the pvtm clocks are the reference. SkatterBencher's
+rk3588-tools hit the same wall ("NPU PVTPLL is not working", with
+the sel flip left unimplemented), so this seems to be a wall and
+not my setup.
+
+That leaves two candidates, and one of them is the firewall you
+mentioned: either the NPU status words are restricted for
+non-secure masters (per-ip-core firewall), or the counter is
+simply not wired on the NPU instance. Have you ever seen a nonzero
+NPU read on silicon, for example through your d2d6928641ba
+get_rate path from EL3? My next step is to cherry-pick that commit
+into my BL31: if EL3 also reads zero, the silicon answer wins.
+
+Jonas: the GPU result above also answers the OSC counter offset
+question from the pclk thread - GPU STATUS1 sits at GRF_GPU+0x18
+and counts without any setup.
+
+I added a GRF_NPU catalog entry to mmm while testing (start
+0xFD5A200C, per the TF-A offsets). Happy to send it as a PR if
+you want it despite the dead counter.
+
+Igor
