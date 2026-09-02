@@ -4,84 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7ADC61DFD
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 06:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53314C61DFD
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 06:52:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99A3E10E46A;
-	Wed,  2 Sep 2026 06:52:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A303810E474;
+	Wed,  2 Sep 2026 06:52:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R0smeIz6";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="rgA0iAiK";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEC9A10E46A
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 06:52:27 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-495437bb891so4948675e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 23:52:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788331946; x=1788936746; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=xn4PAkw0tahIVVTtwzVrKulou125O66ZpuD5FdtR8Zg=;
- b=R0smeIz6KqtMseP2T/k2FDr0pwg2x4pow9JK8FUQSQxvMjP0gnS1PpqXhOESX5k96G
- ympm7JsH3YpZjKRHd2JFG2WgcQF5/NGYO1v5FMA8eOonZOfACn1zTX6WFi4CVD0Bvovh
- n+DLUEZgndwsvuSEVtoZQGsklXE2bZRrVp2cSrc9UYFh49sn9lIaJSGuDWO+OkJ/oQ2A
- nVQUKpXmRdFlzJs7gk/OM/vX2qUMEJyzwcRnWEvuRDOv/oYOA4ylT3Scqvc5c1qpQSv3
- 7rd6NsEu4jDUmqBLEse/ofXgTX7QSXq4rUjRPfxDTCl+puL/BrifcvEXde32jAyMf58k
- Wt/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788331946; x=1788936746;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xn4PAkw0tahIVVTtwzVrKulou125O66ZpuD5FdtR8Zg=;
- b=VhGgs/p0TlQ+pAhuMd3/6noheth0zHZWb6m8QkadjJ30DOZ87amwQP/P7o0o9FH8Lr
- kknSs5ESCUwctA3Q0tKXdv8LE3gCDnV0/LG/2ddUOBcv3LQdDdSIfntkaeC4TjXWE7kL
- 3Ruq2r5y5Sa8E9Bl5UT9juq4d+OjBNFFM0Uo012b1RboJJC5dLp8MBsH4nKtanf62CEp
- EsN0e7n+Zu6nPFTe8qZvODv0AmHcJsj109pocNTf9znVf7ItHQgH5MfnrkehdHtaY3jF
- cWIQy1DnfoLqHvimCw4D+/ArsqG+gt2csWRsWxKM5ii2T3CHIuWbeFrGyVqELgaWPIg9
- LAmQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrFKEvJ1gk9HPIj6XiRPPA/Ap7VtVn47r/5CwUANjWSS1brd+411p2xtP74JBj3BH5FfHoBtA0uX60=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nYAOQDy/TvueBxAKL/bx9j/+vLu80koKdBVUfzrE/vHfL3j/ZW
- bkHFwzKXuqlQmOpF4q4HH6R0V8iQZa1EKxsuiIYzLUL3uVfJzLioCs6q
-X-Gm-Gg: AR+sD11rAAwY/MP0fV/t6p16E96XrM72neQk97d+hxHdosKxd/8gTNFmlzG5gcYhl1P
- otSkJJdMfmXIfDSITSiFJ4n0miaFiigx8AJTVpBGXKQAdkV/BLJJMPijjEnRK2fJ+9jq12UQiSn
- iVGF1WtsD3xtHr/o6B1Q8Qc+M6YoCaz9ahogF6TqGTja0FR2Zg42dBYViq75SHW5pZThToePSuH
- Fd/ZWwkJTZh/HUvJFFr2FCQ/YIeuEwQpmz1z/Nuub+3RM94layEKwbyAvT5FXp1aAvrgG7rLbMD
- oCZOn33jTVQjyq7fO6aXzpCgQlDP2iJd5m87XEP+1og6HppQnqKTq5E212QFIw1Igi0uSJXuyDP
- fCDKoA29MT9gh/XSOTNLKwKXc6BB/M1Kwh70eoSSN4T/FE+VFOMDEPJcXN221gOTMQEKILLk4ii
- 16IV1FOrveUxqbW+vojFvPek/4UjokLHz9EGjvAyf/heL/lG1aSiYaJOYk45K8e328aNGAKpFnK
- Q==
-X-Received: by 2002:a05:600c:3f0b:b0:49c:ced9:ab7f with SMTP id
- 5b1f17b1804b1-49ce7c316aemr13532185e9.8.1788331945999; 
- Tue, 01 Sep 2026 23:52:25 -0700 (PDT)
-Received: from [192.168.1.10] ([95.43.220.235])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-49cdce10148sm123486195e9.5.2026.09.01.23.52.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Sep 2026 23:52:25 -0700 (PDT)
-Message-ID: <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
-Date: Wed, 2 Sep 2026 09:52:24 +0300
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0803B10E474
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 06:52:32 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hZYM13qVGzMlNP;
+ Wed, 02 Sep 2026 08:52:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788331949; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hhyMyXQVPeLTJgLi0OgBABbPJCv56grJb6nzaHVZkdk=;
+ b=rgA0iAiKS/MpuSw55UOgPTVXk0Fmd8X0lty2GaORQmhP0RBJ+ox3A6Sgi8Dtl4e/nrlhks
+ kS1IIVc/vhk6d3hEUi0QyhAvrqrZxDMxJF/YMVc/CcDZWjI+3bsBjdx/Mpld+rRri1qqtx
+ 2VXbidq8lp2wjWIaGnT5P562CUZbHu3GVoAesVOBRJhYnLzu8kyOxPf53SzUA2uQlcHpyO
+ eqf+FV5L7eh2vACFoTq6wKVzM5yKp2HPcVDTET/BV8KBMTuNrKDm0FSTHC7uf85txsY2Rr
+ Ybpb6ItG06ykvK3Y1SKph9hmuygoVmMQRiXOyYo5EizqByJVf2MNkFxW9gxGBQ==
+Message-ID: <ddab642c497354d2800e6139f7b0c073fd3981f1.camel@mailbox.org>
+Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
+From: Philipp Stanner <phasta@mailbox.org>
+To: Jiri Slaby <jirislaby@kernel.org>, phasta@kernel.org, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ tursulin@ursulin.net, matthew.brost@intel.com, sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Date: Wed, 02 Sep 2026 08:52:26 +0200
+In-Reply-To: <f923a6f6-8fef-43c8-8ac6-82c070e9b7b8@kernel.org>
+References: <20260120105655.7134-1-christian.koenig@amd.com>
+ <20260120105655.7134-2-christian.koenig@amd.com>
+ <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
+ <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
+ <9edeaa17aebc284f1f171b1dd4d9ffee4721b750.camel@mailbox.org>
+ <4b5b6dda-43a4-4488-9dbd-b0f92fcead61@kernel.org>
+ <0b84716fa6bec4e38d811dc76926dd81e31e0c81.camel@mailbox.org>
+ <5dd4248bccb446ef390e7149649632657db4aaae.camel@mailbox.org>
+ <0df59c80-ae58-47d3-a96b-e878a17766a7@kernel.org>
+ <f8b941a8-a468-4243-836e-aa6cebf6f3b3@kernel.org>
+ <f923a6f6-8fef-43c8-8ac6-82c070e9b7b8@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <apbbvQSfUbzYRFaw@sirena.org.uk>
-Content-Language: en-GB
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-In-Reply-To: <apbbvQSfUbzYRFaw@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 9ed73fde29b8c4c3730
+X-MBO-RS-META: kkyx37raq3ks4ei6s7uy9as7f8daeb5t
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,49 +71,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 2026-08-28 at 10:32 +0200, Jiri Slaby wrote:
+> On 28. 08. 26, 9:46, Jiri Slaby wrote:
+> > What helps is indeed the revert back to:
+> >=20
+> > --- a/drivers/gpu/drm/qxl/qxl_release.c
+> > +++ b/drivers/gpu/drm/qxl/qxl_release.c
+> > @@ -147,7 +147,7 @@ qxl_release_free(struct qxl_device *qdev,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 idr_remove(&qdev->rele=
+ase_idr, release->id);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&qdev->rel=
+ease_idr_lock);
+> >=20
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (dma_fence_was_initialized(&re=
+lease->base)) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (release->base.ops) {
+>=20
+> Crap, the flags simple got garbage from previous freed buffer, so:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 release =3D kmalloc(size, GFP_KERNE=
+L);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 release =3D kzalloc(size, GFP_KERNE=
+L);
+>=20
+> fixes this of course. Patch coming.
+>=20
+> Now, the ops and initialized are either both set or unset:
+> qxl_release_free 1: release->base.ops=3D0x0 initialized=3D0 id=3D6 type=
+=3D2
+> qxl_release_free 1: release->base.ops=3Dqxl_fence_ops initialized=3D1 id=
+=3D2=20
+> type=3D0
+>=20
+> Unlike before.
+>=20
+> FTR release->base.ops were NULLed after that kmalloc. Unlike=20
+> release->base.flags.
 
+You're saying that QXL is re-using that fence if it were uninitialized?
 
-On 1.09.26 г. 17:05 ч., Mark Brown wrote:
-> Hi all,
-> 
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
-> 
-> /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
->    408 |         ad->card = card;
->        |         ~~  ^
-> 
-> Caused by commit
-> 
->     699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
-> 
-> I have used the tree from next-20260831 instead.
-
-This seems to be due to an interaction between two patches:
-1. 9af2c1d4f847 (ASoC: ti: omap-hdmi: remove unused *card) / 
-875e906efdc4 (ASoC: ti: preparation for Card capsuling)
-2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI 
-codec)
-
-Both (1) patches are in the tree and remove the 'card' member from 
-struct hdmi_audio_data, while (2) was already in transit. Patch (2) only 
-reorders the existing ad->card = card assignment, so it still contains 
-that reference:
-
-+	ad->card = card;
-+
-+	snd_soc_card_set_drvdata(card, ad);
-  	ret = devm_snd_soc_register_card(dev, card);
-  	if (ret) {
-  		dev_err(dev, "snd_soc_register_card failed (%d)\n", ret);
-  		return ret;
-  	}
-
--	ad->card = card;
--	snd_soc_card_set_drvdata(card, ad);
--
-  	dev_set_drvdata(dev, ad);
-
+P.
