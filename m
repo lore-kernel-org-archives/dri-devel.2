@@ -4,72 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D2DC624DE
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87688C624DD
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9CBB10F413;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAE0F10F40D;
 	Thu,  3 Sep 2026 07:33:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n0OhP2ju";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AT/0USLC";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E642B10E3F7
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 14:02:21 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2d91518a63fso8141765ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 07:02:21 -0700 (PDT)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D0210F1B1
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:29:09 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-8534d507f59so1242360b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 05:29:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788271341; x=1788876141; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=RJiqhKlCrTwwf/cJleA2B3ljUR61iwycQECqOoNxMUo=;
- b=n0OhP2juX8oBzc8xrDsXhemIeUr1quc92J1iGox54uRQ8edIOwHTbh8jNOaGWsCpUh
- DVEzhDruDwa3Vn8df0HdHH6vzMNDKpP3KxN9oeKbhxwFkryUY95N4Nvdge/Byg8yIVf6
- F+cnvcV1VMXhCqXrrBNZfknK1GlmzBFHSQrP3Qsi+aiQdLYFe7RJmfywvFG2+eonyu7I
- s49mMyQ2qbuh2AXUc53VdWriBfmy3KIwcY4GD5hqjjdrmt1Ct+VwEweipzOo7U3S7EcS
- cs6iYUgOaRCAiYBfM/9IgixPMvqQgwPWIooc+i4Mmpgex4RUAEe6xv8g0TXgwUoCM2Ki
- G6Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788271341; x=1788876141;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1788352149; x=1788956949; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=RJiqhKlCrTwwf/cJleA2B3ljUR61iwycQECqOoNxMUo=;
- b=QGCzJjTMaUVaH2J3+/1m8lN2r+UOO+fNinDy8rtrdkPjJyQqPOBmATrEZreLhK0pjs
- TcEyFCg9CZsKvug5yd39xCO25TXalQUE3gshMrKz0p0wVxKb9ufDqJ8Q0rEUkifJ/PsC
- hrBC4OZvaTy1cEabAnu+1BUEGA7lSBRTnDXiLD/02kARE0MNkmr2tRdPfA926YobZmzz
- OF7k9cdDr9Lbky+6M66H5YAoeDCVQUx6zrBQsoEaMYP4sOcFcORHF4D7wDylvHzP5RSl
- qz4fTSEuWnRM4B4EUpfxrbONOjJF6FonwKl6WuQMwDTOhbgpAi4fQeNLKmYqQQUX5AUK
- xneg==
-X-Gm-Message-State: AFuF++kPaLdhvUDWGAx+oQ1SrOFyZWXnIBZOEAFQKTGVcZvYbvT02ooV
- Rl79MaD14QmSimPHuo0/CTchz3QfJpbLlo13U2eDU6CoQorz2l255paK
-X-Gm-Gg: AYBFou1eouM/LyipnIP4bsGRgSPK5H3PTgOcnmwVcB3L2GoBVZ9Mf7wn3dgGOM8csjZ
- ECRWMT+4uZpGAhU+6EOtGKe9vtNLni9EMrJ5jSIqljl8h3PSve/WKeB1Q84EJEEPyvbS6MYSOI3
- tzJq3aREu7z5/3bX4A9/Rvupr4ouj4UIVd+UxwPrdRP5/Ydf5G0d7yffWtWYyb7nEP3LCspaZGB
- N0tqpiffnz6r67l7KL3nwjhaxh2/CZ/70ZqtJMOPj72ouhts2ol7HKJyKFt0uhZ5PaWRC1wt0BC
- VlHQYqDpTK+eW1zOYqIOVhmg/mSDaNJd2yhcHcYbeBBlIXlP0axCtZMcRraOFygcqYZNBzKDWV3
- 3394ySQ8lHkc9WNrXrH3JcN72DmbpoaoEKxSvO/q+1OfMPfwHraq0+8ohGloZOQWB6rXf0U81UG
- pRUzr1wjDTYU8KYYTrADJ2KSA3o8/+YbwHWNy4NtjCd99Aiz8VzVCHgrkvUw==
-X-Received: by 2002:a17:903:2b07:b0:2d8:d4de:fa80 with SMTP id
- d9443c01a7336-2d8d4defec6mr398333105ad.4.1788271341199; 
- Tue, 01 Sep 2026 07:02:21 -0700 (PDT)
-Received: from loontop ([163.61.5.136]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d7594fc0b3sm53833895ad.16.2026.09.01.07.02.11
+ bh=9LT2CNvhu8gQBvTvgavkp0Ba+ivwSZKXt+qQbPlYvMs=;
+ b=AT/0USLCkZd5RS+mrW98ySv9caP0KLutBK1Ib7tCjAXGZY+1Wzx7iy29zAQEBoPkwQ
+ zUl5zQFwbSify+4WoaH7m197qN1ri38+GzF5xRua9w1zA4LTZee0OmOZOXIoPzqMtNwj
+ jG540dUnX72IhN3vSOGfCl2PCERbdzFEv4J8HBe4swKbe6ViSG+3nYkq+PUYK3eaVQSS
+ TdDo4jAf6rSZc9Shlp+9JOFaqPOX4NmRNr/2c4O+Shnh08Kb4euauRhNqXpVEVmVGRpv
+ Zq8TNCmy7K014QA45I76eqYRrHp1AjkfgYVJB0baz/5e7NQJBJwrTmLnORvAFzVheLgw
+ Rmuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788352149; x=1788956949;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9LT2CNvhu8gQBvTvgavkp0Ba+ivwSZKXt+qQbPlYvMs=;
+ b=fGl7fjogKU0Udsv68XYXfdFeFCPPNjXEApuyntqoFQtVoBOneKYGrrvnKVHYzIH5Qb
+ s9YbuzFB8zeGGFBVbYyGoO5q1lOoRz0VzljYUzWqUcAyomm+Ikb7KGm3S19khbkn7AzA
+ ENCTgx5Pp7kn5Ciw2J6RijqOhdkRLtUk82+5RwSOgWxH7CEtWwEtor7UxakdGdb5Ini7
+ nFvz3QziEFumixLMrXl9DzyNBSBstkHzF1KP5uSxwK3C3MB9xUvlaH/xQQ8cgL0AxSqp
+ qrQZhIoVukRNLSm1BNEAhcJv4UIz705ZsE9wNVeg6yswFUZSqDQVXsSwubF1u74GdvAS
+ 1vZA==
+X-Gm-Message-State: AFuF++lW7+1c458aM2SVPJfr482DBklKa/s0E8+cBGiR4OMMUig7EWje
+ sBYifIqDPrT+o0gzpyzGxEuuk7xR8UkuBEXmb4ZhY85090UFClkU7yLX
+X-Gm-Gg: AR+sD13VRVZcgKAaLwgjUYi2ZiHOf5ZBT0vlasxVz3VKLtJ5XifjI37BpztsKwyULLy
+ RgkuUddCS1NAHC52M6vBE5E6APn/uHXDl3bBqYUK16tDS9Aot7wuudVufe4GzA9HAMV91NfNv8T
+ Vt5AfpRN7JPMmRqIoqzhNpW7qYIsnl2CrPRf2cTyvyDrjwXnP6g2OnDf7BSKBSOoK6q3rwb2f1c
+ EXtwFunuJVvssPiAru9zIiDb5ZHYR1it4NmS0tnXpPbec318XWkeRWhct0nQu0sCdBZwuSVkmSN
+ qCAVAy43IFHeos5ldWyWX5My0gV7Z61ptFFxwEtjCwHTlEmgInpTRHnWMiD2E8s0hB8DYu4K39U
+ dNJFHfCWThBJ2L7N+A88UEEm2Jmq9hJm6wpG4EW1+JiIV8zrSnvbn5UmWk7mq+SejAB5v2y7rl/
+ qU7Y5p2sv4UFSFWahkGlxnRjkIMVk4m2iRUPLAGsR39OuA9tPrDRFxqwd/KJ4=
+X-Received: by 2002:a05:6a20:7284:b0:3d2:2afa:d7d with SMTP id
+ adf61e73a8af0-3d9afd1db2fmr6185663637.18.1788352149101; 
+ Wed, 02 Sep 2026 05:29:09 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.37])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc34d03b5a8sm944767a12.26.2026.09.02.05.29.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 07:02:15 -0700 (PDT)
-From: Aarav Kumar <aarav.240604@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, ray.wu@amd.com,
- Aarav Kumar <aarav.240604@gmail.com>
-Subject: [PATCH] drm/amd/display: use linear backlight curve on Linux
-Date: Tue,  1 Sep 2026 19:31:55 +0530
-Message-ID: <20260901140155.19129-1-aarav.240604@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Wed, 02 Sep 2026 05:29:08 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Wed, 02 Sep 2026 20:28:42 +0800
+Subject: [PATCH v2 1/2] drm/panthor: Treat a zero-length VM_BIND op as a no-op
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-drm-gpuvm-zerorange-v2-v2-1-da63269c6ec4@gmail.com>
+References: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
+In-Reply-To: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org, 
+ Dave Airlie <airlied@redhat.com>, Zhenhao Wan <whi4ed0g@gmail.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788352136; l=2156;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=U0Dzb5dFYo2WQuk1534RF6VPlhwKL3gXFahBxN4rUAo=;
+ b=h8iTCkrFYjTCEkw5/NfJU9Dawfua/i6v+p4HcQQK8G93JF8Z82hyY8PAApUtztu2Aa07UMjqa
+ rd5H/DsmVsrCwAt6S35BaWA/H4uYZhu7y/j56TXO0hJGG0VDn2fG5tV
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,38 +107,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The power module currently uses a non-linear backlight curve for the
-Linux backlight path. This results in incorrect brightness levels on
-affected systems.
+panthor_vm_bind_exec_sync_op() short-circuits a zero-length operation: it
+returns 0 immediately when op->size is 0. The asynchronous VM_BIND path
+has no equivalent guard.
 
-Use the linear backlight curve instead to preserve the existing
-brightness-to-PWM mapping.
+An async MAP or UNMAP with size == 0 is not rejected: only alignment is
+checked in panthor_vm_bind_prepare_op_ctx() and IS_ALIGNED(0) is true, so
+the op is queued and panthor_vm_exec_op() calls drm_gpuvm_sm_map() /
+drm_gpuvm_sm_unmap() with a zero range. A zero-length map into unmapped
+space then reaches drm_gpuva_insert(), where the GPUVA interval-tree last
+key addr + range - 1 underflows to addr - 1 and a malformed node whose end
+lies below its start can be inserted, corrupting the augmented interval
+tree.
 
-Tested on an AMD laptop with an eDP panel. The regression was
-reproduced with commit 3c108046e1d6 ("drm/amd/display: Add power
-module on Linux"), and the brightness behavior was restored with this
-change.
+Mirror the synchronous path and treat a zero-length map or unmap as a no-op
+in panthor_vm_exec_op(), before any lock is taken or the GPUVA tree is
+touched. This also keeps the async path robust if the core drm_gpuvm range
+validation is tightened to reject a zero range, which would otherwise make
+panthor_vm_bind_run_job() flag the VM unusable on the resulting -EINVAL.
 
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5723
-Signed-off-by: Aarav Kumar <aarav.240604@gmail.com>
+Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8d690468d..cd10a5d45 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1913,7 +1913,7 @@ static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
- 			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
- 		init_data[i].use_custom_backlight_caps = false;
- 		init_data[i].custom_backlight_caps_config_no = 0;
--		init_data[i].use_linear_backlight_curve = false;
-+		init_data[i].use_linear_backlight_curve = true;
- 		init_data[i].def_varibright_enable = 0;
- 		init_data[i].varibright_level = 0;
- 		/*
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index e592a8ebb478..93542f59cb5e 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -2591,6 +2591,15 @@ panthor_vm_exec_op(struct panthor_vm *vm, struct panthor_vm_op_ctx *op,
+ 	if (op_type == DRM_PANTHOR_VM_BIND_OP_TYPE_SYNC_ONLY)
+ 		return 0;
+ 
++	/*
++	 * A zero-length map or unmap is a no-op. The synchronous bind path
++	 * already short-circuits it in panthor_vm_bind_exec_sync_op(); mirror
++	 * that here so an asynchronous zero-length op does not fail and flag the
++	 * VM as unusable.
++	 */
++	if (!op->va.range)
++		return 0;
++
+ 	mutex_lock(&vm->op_lock);
+ 	vm->op_ctx = op;
+ 
+
 -- 
-2.55.0
+2.34.1
 
