@@ -4,130 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B08C61DFD
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:10:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D887C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5576A10F029;
-	Wed,  2 Sep 2026 07:10:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18FE910F02C;
+	Wed,  2 Sep 2026 07:10:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nluDesBh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NPQESdUP";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="N5nj9ss3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9fp7Bj8Z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fgf4am5j";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDE1810F029
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:10:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 05FE921FAE;
- Wed,  2 Sep 2026 07:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788333011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
- b=nluDesBhEHFLD+dnhkIlxmHZX1C7Le17CFCWE6RA2aIvCVBvnNCWdrTek4Ghnptvc/OIoU
- 2sXxQVa6zVWuQ11YdwJxfwYhWjRfxaCQRZx4xsEBxnspsMR0g+H88BnlL51KOBjVzlocXk
- 9Fdqpn8TAOTkWoSb3dmWrN2ZIeSELY8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788333011;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
- b=NPQESdUPTgUbS93yoWee2TbX6W6I2mtYLEEifkYduLwZp+oVf4zF+LlaxYAjsjPXxD7TxT
- 4l/Uy4WiSuVV3HCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788333007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
- b=N5nj9ss3U/TqsG8O0S6z08nC70lkmjl3JCeYezNSU8VzpNI+P9rAEMHXOSrwNAB2omLvnJ
- cyq8J4Dl4s9pFETwiaM7b5/Rh5DpHqrTeK7WC9r1aK4NW2vyWm1wpjfknPvGWkhqaZWCR8
- oEy5BJG0/DroeBEO4A0W8uX/pwPf3ho=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788333007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
- b=9fp7Bj8ZO7q1bBMsvDl4i39Vi1IQUtedaXbn4CXALcUoPkvjjXDq9HHkX89pMyj2v0z/3y
- Qda23eVv18BqYDAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9E65413515;
- Wed,  2 Sep 2026 07:10:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Y4BfJc7Ll2qNVgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:10:06 +0000
-Message-ID: <a09ac5c8-8f78-4714-bf3c-1dbc6093761f@suse.de>
-Date: Wed, 2 Sep 2026 09:10:06 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/13] drm/loongson: Move hardware reset to CRTC
- creation
-To: Maxime Ripard <mripard@kernel.org>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8915810F02C
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:10:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3B5EC40BAC;
+ Wed,  2 Sep 2026 07:10:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F0B1F000E9;
+ Wed,  2 Sep 2026 07:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788333051;
+ bh=mkNkOka81TvpWCQXQjDjyJBfSTFlkGAdLKmI+ByzmA8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Fgf4am5jJyE90OYVghPGqx5FnXVzC3IblXws4qY6hJm0WyQefrF4575MQL3G/l4MY
+ N/JKZ5NxbpGHS4wd16VXnd05KQVIMyQFlwul74Aj5sQaVryHgIG+xOz2TAYZ2EXGF3
+ i/IG9NXREMeP94enEFmcBKJ1S6aBlBhUnl7yQWrX6f74T12zNIIWNRg+O6K4+MDsPn
+ HzaA6XUF/1pviVzCLux4iZxYmsMY0090vUbYnTF2TA0NrtFJQ2VviYRpuIWwr1KhKE
+ up/Fb5Dd/FQ+4qvJbBQeLjkFmrtRVn0hgyMxtHEA8n4zboXeFMIXeily+BOf+XUXvf
+ 5zBo04c2/Buug==
+Date: Wed, 2 Sep 2026 10:10:46 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Konstantin Sinyuk <ksinyuk@kernel.org>, dri-devel@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
- Xi Ruoyao <xry111@xry111.site>
-References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
- <20260831-drm-no-more-crtc-reset-v2-8-4500d49a337f@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-8-4500d49a337f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
- suse.de:mid, suse.com:url, loongson.cn:email]
+ Francois Dugast <francois.dugast@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <20260902071046.GO24140@unreal>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
+ <20260826093222.GC42790@unreal>
+ <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
+ <20260827170911.GG42790@unreal> <apGzqP6cEZ1miNmR@intel.com>
+ <20260901110120.GJ24140@unreal> <apbuUsS_3RVbB5vh@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apbuUsS_3RVbB5vh@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,103 +73,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Sep 01, 2026 at 11:25:06AM -0400, Rodrigo Vivi wrote:
+> On Tue, Sep 01, 2026 at 02:01:20PM +0300, Leon Romanovsky wrote:
+> > On Fri, Aug 28, 2026 at 12:13:28PM -0400, Rodrigo Vivi wrote:
+> > > On Thu, Aug 27, 2026 at 08:09:11PM +0300, Leon Romanovsky wrote:
+> > > > On Wed, Aug 26, 2026 at 06:38:58PM +0300, Konstantin Sinyuk wrote:
+> > > > > On Wed, Aug 26, 2026 at 12:32:22PM +0300, Leon Romanovsky wrote:
+> > 
+> > <...>
+> > 
+> > > > The wording alone is not sufficient. Your proposal should be backed by
+> > > > real devices representing different architectures from different
+> > > > vendors.
+> > > 
+> > > Future Intel (and other vendors) hardware will include UALink.
+> > 
+> > I guess that, like most of us, you are not authorized to discuss or
+> > comment on Intel's non-public roadmap. Can you point to any public
+> > commitment from Intel to implement UALink in its devices?
+> 
+> That's the only public support commitment you will find for now:
+> 
+> https://ualinkconsortium.org/blog/intel-supports-ualink-for-scale-up-networking-829/
+> 
+> as an active member of the consortium
+> https://ualinkconsortium.org/members/
 
+I saw that PR article, but I couldn't find anything on the Internet stating
+that "future Intel (or other vendors') hardware will include UALink."
 
-Am 31.08.26 um 17:34 schrieb Maxime Ripard:
-> The loongson crtc reset hook performs both atomic state initialization
-> using __drm_atomic_helper_crtc_reset() and hardware-level register
-> writes to reset the CRTC.
->
-> The hardware reset is not related to atomic state initialization, and
-> the reset hook is being converted to atomic_create_state which only
-> deals with state allocation. Move the hardware reset to the CRTC
-> creation path instead.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+So, for now, this RFC can be considered an academic project.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Looks good now.
-
-> ---
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> Cc: Jianmin Lv <lvjianmin@loongson.cn>
-> Cc: Mingcong Bai <jeffbai@aosc.io>
-> Cc: Qianhai Wu <wuqianhai@loongson.cn>
-> Cc: Xi Ruoyao <xry111@xry111.site>
-> ---
->   drivers/gpu/drm/loongson/lsdc_crtc.c | 15 ++++++++++-----
->   1 file changed, 10 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> index 16b8f36a4071..7cca574e3b6a 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
-> @@ -388,12 +388,10 @@ static const struct lsdc_crtc_hw_ops ls7a2000_crtc_hw_ops[2] = {
->   	},
->   };
->   
->   static void lsdc_crtc_reset(struct drm_crtc *crtc)
->   {
-> -	struct lsdc_crtc *lcrtc = to_lsdc_crtc(crtc);
-> -	const struct lsdc_crtc_hw_ops *ops = lcrtc->hw_ops;
->   	struct lsdc_crtc_state *priv_crtc_state;
->   
->   	if (crtc->state)
->   		crtc->funcs->atomic_destroy_state(crtc, crtc->state);
->   
-> @@ -401,13 +399,10 @@ static void lsdc_crtc_reset(struct drm_crtc *crtc)
->   
->   	if (!priv_crtc_state)
->   		__drm_atomic_helper_crtc_reset(crtc, NULL);
->   	else
->   		__drm_atomic_helper_crtc_reset(crtc, &priv_crtc_state->base);
-> -
-> -	/* Reset the CRTC hardware, this is required for S3 support */
-> -	ops->reset(lcrtc);
->   }
->   
->   static void lsdc_crtc_atomic_destroy_state(struct drm_crtc *crtc,
->   					   struct drm_crtc_state *state)
->   {
-> @@ -935,18 +930,28 @@ static bool lsdc_crtc_get_scanout_position(struct drm_crtc *crtc,
->   		*etime = ktime_get();
->   
->   	return true;
->   }
->   
-> +static void lsdc_crtc_hw_reset(struct drm_crtc *crtc)
-> +{
-> +	struct lsdc_crtc *lcrtc = to_lsdc_crtc(crtc);
-> +
-> +	/* Reset the CRTC hardware, this is required for S3 support */
-> +	if (lcrtc->hw_ops->reset)
-> +		lcrtc->hw_ops->reset(lcrtc);
-> +}
-> +
->   static const struct drm_crtc_helper_funcs lsdc_crtc_helper_funcs = {
->   	.mode_valid = lsdc_crtc_mode_valid,
->   	.mode_set_nofb = lsdc_crtc_mode_set_nofb,
->   	.atomic_enable = lsdc_crtc_atomic_enable,
->   	.atomic_disable = lsdc_crtc_atomic_disable,
->   	.atomic_check = lsdc_crtc_helper_atomic_check,
->   	.atomic_flush = lsdc_crtc_atomic_flush,
->   	.get_scanout_position = lsdc_crtc_get_scanout_position,
-> +	.hw_reset = lsdc_crtc_hw_reset,
->   };
->   
->   int ls7a1000_crtc_init(struct drm_device *ddev,
->   		       struct drm_crtc *crtc,
->   		       struct drm_plane *primary,
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Thanks
