@@ -4,59 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 301CAC61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 16:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B820C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 16:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9644110F2AA;
-	Wed,  2 Sep 2026 16:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5B8B10E3EB;
+	Wed,  2 Sep 2026 16:09:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="wwC7mXp+";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Piyn/e2G";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE7310E032
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 16:05:58 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 9D7E14E414CF;
- Wed,  2 Sep 2026 16:05:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6E1676053C;
- Wed,  2 Sep 2026 16:05:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AF52511C798E5; 
- Wed,  2 Sep 2026 18:05:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788365151; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=zrTzfkQqRLDTUVVyeqa+/n/rEVpaf0rA4DIF+ImO+2k=;
- b=wwC7mXp+VB0uLYlpg9djzshEQUQv/UztrIRzXTWR+0PW19TDREcJA7ZmVRNbBTgnG78OVM
- KpaJvu6TDq9Ja/Ozphao7smMFFAHSdHDJ7I9Rn80y4em09CoyNpmiqtg3Ntj9zvOsQ1yVP
- yaisdWOmrg+SaJCedNyq41opZhsxMqy5g5itYd0D4IItd3IPlgkSq8wzDfR7+RHMsCmjQx
- hsU0w+R7h5IpD8xwgBDA1t7IVoEH0grplS1+RUpVmWrI2NUX85zeIdy15EZtJmTGthG5bz
- 88CVjgED5WP6ZL3bNePYy56S+b761oQAqr+HCRceQ68u8lNxEm+MWvBdS70FFQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sean Chang <seanwascoding@gmail.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, Jani Nikula <jani.nikula@intel.com>, 
- Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260819151216.56833-1-seanwascoding@gmail.com>
-References: <20260819151216.56833-1-seanwascoding@gmail.com>
-Subject: Re: [PATCH v1] drm: bridge: dw_hdmi: Fix constant truncation
- warning on phy_mask
-Message-Id: <178836514544.703493.6487349548131419366.b4-ty@b4>
-Date: Wed, 02 Sep 2026 18:05:45 +0200
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637B710F2A9
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 16:09:12 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hZnjJ0TWVzMlGB;
+ Wed, 02 Sep 2026 18:09:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788365348; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0Oxc0XrgMVAryWK6mH7Qx5b/XVnrcy8MnrmYPK252J8=;
+ b=Piyn/e2GjfpTfov4FKSO+Qthw6pRCB6y5RUihME78NDO5lBXG1JOFWwbjlp/i/THP6ExZW
+ ITxiDMy9600c9bgpZl/Av0xCI3qS5bp4RdiYtGVEqXe5V7RVJM/U8wne5Z7KU3WYzHYl86
+ cpeFgB8sGSy472SUmAmrSYEf9Q3iuyLbF7Ml5ZZci3mP3y2UncjV94H/47bRlb0nCALt9F
+ c84aa/68fkaEJCnx30yMvuZGw05Dlunpv3BSIC1Jt8Q9F7TEykebNC87LoGy7osH67xmDF
+ 5Yle2EVSiflhGD83gWH4XeD21v3HpenuP/wcIsVA1xZmIDpWFs/EZ51QLMhTyA==
+Message-ID: <1b628841e8bb8735f2bcdc79450a49e75433101b.camel@mailbox.org>
+Subject: Re: [PATCH v3 0/2] drm/sched: fix use-after-free of the fence
+ timeline name
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, tursulin@ursulin.net, 
+ phasta@kernel.org, matthew.brost@intel.com, dakr@kernel.org
+Cc: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Michel Daenzer <mdaenzer@redhat.com>
+Date: Wed, 02 Sep 2026 18:09:04 +0200
+In-Reply-To: <20260902144204.1843670-1-malhyuk97@gmail.com>
+References: <20260902144204.1843670-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+X-MBO-RS-ID: 464093758d588c05b54
+X-MBO-RS-META: f8u8xsn6q7i8h4gmdtzhzr581dxuexto
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,30 +62,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Well, that was a quick investigation ;)
 
-On Wed, 19 Aug 2026 23:12:16 +0800, Sean Chang wrote:
-> In dw_hdmi_probe(), casting the bitwise complement of (HDMI_PHY_HPD |
-> HDMI_PHY_RX_SENSE) directly to u8 triggers a compiler warning
-> (-Wconstant-conversion).
-> 
-> Due to C integer promotion rules, the bitwise OR and bitwise NOT are
-> evaluated as 32-bit signed integers, producing 0xFFFFFF0D before being
-> cast down to u8.
-> 
-> [...]
+On Wed, 2026-09-02 at 23:42 +0900, Jonghyuk Kim(MalHyuk) wrote:
+>=20
 
-Applied, thanks!
+[=E2=80=A6]
 
-[1/1] drm: bridge: dw_hdmi: Fix constant truncation warning on phy_mask
-      commit: cb6a133bc75bc4c5b25f7c278b6c74bf46a3d71b
+> Philipp suggested dropping the finished fence's ->release callback instea=
+d.
+> That is what this series does. dma_fence detaches a fence's ops on signal=
+ling
+> when it has neither .release nor .wait (dma_fence_signal_timestamp_locked=
+()),
+> and dma_fence_timeline_name() returns a static string once the ops are go=
+ne.
+> So with the callback removed, get_timeline_name() is simply never reached=
+ on
+> a signalled finished fence - no ->sched dereference at all, for static an=
+d
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+btw, you only ever mention get_timeline_name(), but get_driver_name()
+is running into the same issue, isn't it?
+
+> Link to v2 (name caching):
+> https://lore.kernel.org/dri-devel/20260902105808.1541063-1-malhyuk97@gmai=
+l.com/
+
+That link is dead (weirdly enough. Why isn't it in dri-devel?). Correct
+one seems to be:
+
+https://lore.kernel.org/lkml/20260902105808.1541063-1-malhyuk97@gmail.com/
+
+Your help and industriousness is highly appreciated :)
+Just be so kind and wait >24h with sending new revisions so that more
+folks, especially from different time zones, can jump into the
+discussion.
+
+>=20
+> Note: detaching the finished fence's ops on signalling also makes
+> to_drm_sched_fence() return NULL for a signalled finished fence. Callers
+> already handle NULL (the normal foreign-fence result), a signalled fence =
+is
+> an already-satisfied dependency so the scheduler's dependency collapsing =
+is
+> unaffected, and it avoids the container_of() on a possibly-freed foreign
+> scheduler that amdgpu_sync_same_dev() and pvr_queue_fence_is_native() wou=
+ld
+> otherwise do. Flagging it explicitly since it touches an exported helper.
+
+That unfortunately does look a bit dangerous.
+
+Isn't pvr here already a race condition?
+
+		if (pvr_queue_fence_is_native(uf)) {
+			struct drm_sched_fence *s_fence =3D to_drm_sched_fence(uf);
+
+> I did not add Fixes:/Cc: stable tags: the ->sched->name deref dates back =
+to
+> 1b1f42d8fde4 ("drm: move amd_gpu_scheduler into common location") but onl=
+y
+> became reachable once drivers began allocating per-context schedulers, so
+> the right attribution is unclear to me. This is stable material as the
+> driver instances are live - happy to add whatever tags you prefer.
+
+I think for such cases merely adding Cc: stable and let the stable
+folks figure out how far they want to backport is fine. You can hint at
+us not knowing since when userspace can access this in a commit
+
+Cc: stable =E2=80=A6 # we don't know since when
+
+What I'm a bit more nervous about is that we probably really want to
+backport this, but it's also a bit regression-endangered. So I suppose
+we want to give it careful testing. I hope the others can help with
+that, too.
+
+>=20
+> Tested with KUnit under KASAN (kunit.py --arch=3Dx86_64), matched pair:
+
+Did you test with kmemleak? That's always a tool of choice when it
+comes to refcounting.
+
+>=20
+> Jonghyuk Kim(MalHyuk) (2):
+> =C2=A0 drm/sched: fix use-after-free of the fence timeline name
+> =C2=A0 drm/sched/tests: add a UAF regression test for the timeline name
+
+I answer on those soonish.
 
 
+
+Thanks
+Philipp
