@@ -4,80 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C42C624DD
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75696C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD6F10E96D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E75A310ED94;
 	Thu,  3 Sep 2026 07:33:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="jCZmRtUK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SRaj7ukN";
 	dkim-atps=neutral
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAB1110EF2B
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 21:00:00 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-9391252b5caso29328885a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 14:00:00 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEA3010F1B3
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:29:15 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-8518b3ff3e9so886774b3a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 05:29:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788296400;
- x=1788901200; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1788352155; x=1788956955; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=YZD8NsGTxScfsyqxwjhq65/CKhM7Tjjz26PTc7lYLxg=;
- b=jCZmRtUKFTL00dPJ0x0K/ivKTaafbAkRiyAkKBpOftRV0ehXO/xAGVeTuxha75F2V7
- rdsA1IJrkMxDMNnabF6nI5bbB51eaeosCWyfhvpzwXBVifwNK/T9HRhfQk2BdEda/LJk
- smj6TP+TUxb05EjzKXBOHaOPVOUPJFUe8Vgv3F+IAgqzyUijI15qrK3Kx+Jz4eX+6WVI
- ETvOco4RnPVEAycL2EqyJaA2z4jVji2nmSqoEyVib62TRkfaqS96WQWCc2DEg1a0hZxo
- d/NO+kMj6yp2HzXKl5IYrHO3vUDnIFp4lx0XwxbM3xvWAUgG2Ra/tTTIZr3HRIKhY9Gw
- zn1g==
+ bh=JjSLQKBgLLYQIi/C+rXjtu2+hrtewX0LNh0mFPYrFIw=;
+ b=SRaj7ukNhHXrM2V9EeF2J2VWm81lLQ7ay5bgc3aig+kqSGRzWqbrAoBFV0u0TV5jh2
+ GcxUAXu0CPi9rTZazQI9z1xwPf9eP97cEqn+TznAchdNTDhASoHZqUkqqKMt3/8mdPtD
+ Es8dSHsKQK3YpAu+Ytyn7XZebAziv0m1qmUbjnxO2OlJxtVm6k+0NxxAbghMtk+XShwA
+ mPRCUWZE05DnXcmIQlguYKB8O4DjBX2iKqtgsDB5huW2UUo2lyPfoUUpX7427zZvqGVq
+ M01U9F0CB6RvB9oDVhqtKuX+5sK9/FtaSIRXnaOGKwhh/93uzcOrH96COlMqgq7L1804
+ iclA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788296400; x=1788901200;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=YZD8NsGTxScfsyqxwjhq65/CKhM7Tjjz26PTc7lYLxg=;
- b=MNLMCt86G9cDBYEBkfI21xqw3OEZhKHNvCdCGbMDgDl8mLgogMNAH2L0CHMIj5UZQh
- Tmbxg0Rlkx7OK9oVGZrBhaFjThCtFQo3PKivn3ofIkpKRbiEoJg+zomqiGDx45wNPsUJ
- vrMtnvYXWabInCaBrc3uTqNXKbt9sHap/oMYPzFzW2EyNd54t4qX/Ai9q+yDRAzS6yQC
- R2Os6UuTarW1tMw3YyVEIacQy9obbSwggGFl2ku0axAM7LGMp3VPl+aSql6/60sRcFAF
- ABr57brNbV9WNd49GT9hvyjU+W00ArfoY8EoOQG/PQK1SmK2sqhSTdkPDk646WNm4sii
- EdaA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpSLNj/gHDKEo6LqeoMtZ3Q3POEiAOqifXkbZ2kUOkfsm4do26T2Wp/rJx0XpoMsirmpYgi7T3iP0A=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lTMyEIld0UZekugAD3ql++z0ULIKlqpaSKg9autDnk8Ny8KESy
- 0tlzdui6676CxxsvaW8Ts8jq/ano/8rODwkFfOlX86TLT2mf18kVZlF5E83Q8wv5Nu0=
-X-Gm-Gg: AR+sD12PL6JHeIxOEp0BXBzb9IH0HPFDyGU5t3C5+vutz6A+MOkc2K6OFyuBC33IriM
- Z3TQLoHs0XhCQQniFMHQdN6PALzA1JYnvDUz7g+G0LExA7IiFNrkUggXRE1r9uZUG9IO/MML1DR
- Jg2naf0gH/b8gB3WQeg16b3d8VKY0EzAXXrqB7X9giohskU5lPQ5J5ruSWozTHv2wius+GdGiZS
- 1OF+lwrs1lVk62Qzh/uVA6I4qic5c9Lb3x89jInvhZ6zjHjAxgvWUXSDRfV5+D0khHX+jL/apqj
- BCQGTF1SCKUPOPfqNShwj5E+0127uBix0WqqAgJrCWn8M4pmdLVaud+rqEFH8XivrJFbVaLE1gi
- 6q0Pr8m9Ix4xHZd9nxcl7tmeLue562gUN5eF90/+KgUIw2pYlNLDMeKXOAAoL992cg6BEkyjL4h
- AMxLDTrMfdT+fRSC7zc8Cv0TbUEtP4G7BFgyeJS5YyPIMmf81hlCezMLmCbNMydUDjztsBpL4eK
- wTZTF7EDkQWXTHSfJEXDhv4jReGzvyBtFOcThGLsuveJ6m65KSkBAzDnpWdcjnYuXp0sM9tCZ67
- ezzsUiIZ1+MPwzMHo7PeetEUi+y2Sm2dSdhlU6EKJ2eLZye5A3i9Na2W7IqbPhwcsE5L
-X-Received: by 2002:a05:620a:72c3:10b0:92e:bc28:5479 with SMTP id
- af79cd13be357-93960cafc51mr14525185a.2.1788296399612; 
- Tue, 01 Sep 2026 13:59:59 -0700 (PDT)
-Received: from jake-laptop ([153.67.1.208]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9395f1aba80sm33533585a.20.2026.09.01.13.59.57
+ d=1e100.net; s=20251104; t=1788352155; x=1788956955;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JjSLQKBgLLYQIi/C+rXjtu2+hrtewX0LNh0mFPYrFIw=;
+ b=KYqDqbDEIOQM+M7k5RCg4PGJ9cMg/HG739szKC4dvjhCCf/ho1p09biEH0JCx3XkRf
+ j3G54Gt0sb0huc0Gx7FgLn9zRYHlav7tODPPHQkbZLBv+cIe6lEjGPrHVamv8R5YrvqG
+ EhU7UgZvZHPIP/axdL/j/+nfLxWMkLKT3n1V2yyLacd8XEANatwko+CmTdNvLIXc3PGJ
+ Ahy33Kdv8/SOcaT1a1kYZ0UEjIN3oMG+usLjFbPqiX2R8M0AccXqsbZIjwbRNclyZCyi
+ MDLkSFusVZOv6UChnxSQdyodRiBytwnq+jVSkikWVAqzjPKUxqYcdSlx3kO5gfmh01MX
+ 1HNg==
+X-Gm-Message-State: AFuF++mZmkrw+pjOagfNX337cfeiuJqCVW3s1wCuUcXpXwsEpAdD+Cn2
+ x/rtg6S0bPa6yDy6QFvaF3oQxzrtAzc/lrqv+4zalxh0Kr+OlvOrm3AP
+X-Gm-Gg: AR+sD12/dicXzJRW2LGjPQo95Ke5yLlJJ79tAgeVi6rWEdFtIbusPAUUlXksQIcIW5P
+ STqurnRyCyrIu4inKodKZgqOWUqp9mbB1reWefj3QvQ4HyTigdZH5q4A6AuHz4AsAGkgtpWqvwn
+ CVObfpEdm1W2pzmResRUnYB82dyVfwLhYAYEYjD+HQFOkKqhdy+kanIgZJUdNFPJL1qOiO7Y/57
+ nsEE1KISRLaDH36mdeQLFGj/FeUnqTmFutRRyYIIccZhuaxB/w26DLop7gTaVb5+CMLIZFocArR
+ W72RCluLVIRRNQo2XP6qFJR1hLdrZi+qnaFfhLJIhca9NEiIxN2RVSkc0LB9Sqb3G6Q48k3U5bn
+ Ybepk9SrP591UDzx0C5ZRSv+GFbZc28ia7zCRB60WtbcXIjCyXiTIH/mXj6DmSJGif0z9rFnhR6
+ kQaU+ueBBmz/Upy7miDZdt+AOkAxeV6mYXfPqDH81TrIE5y/gHqxhui8CU54Y=
+X-Received: by 2002:a05:6a20:431a:b0:3d3:adad:f172 with SMTP id
+ adf61e73a8af0-3d9af0f8f96mr6795606637.20.1788352155062; 
+ Wed, 02 Sep 2026 05:29:15 -0700 (PDT)
+Received: from LAPTOP-N3B6U5LC.localdomain ([117.147.100.37])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc34d03b5a8sm944767a12.26.2026.09.02.05.29.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 13:59:58 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: jouni.hogander@intel.com, mika.kahola@intel.com,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/i915/psr: clear the Panel Replay error status register
-Date: Tue,  1 Sep 2026 16:59:56 -0400
-Message-ID: <20260901205956.130779-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901203633.92628-1-j@metarealtyinc.ca>
-References: <20260901203633.92628-1-j@metarealtyinc.ca>
+ Wed, 02 Sep 2026 05:29:14 -0700 (PDT)
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Wed, 02 Sep 2026 20:28:43 +0800
+Subject: [PATCH v2 2/2] drm/gpuvm: reject zero-length range in
+ drm_gpuvm_range_valid()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-drm-gpuvm-zerorange-v2-v2-2-da63269c6ec4@gmail.com>
+References: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
+In-Reply-To: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org, 
+ Dave Airlie <airlied@redhat.com>, Zhenhao Wan <whi4ed0g@gmail.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788352136; l=2951;
+ i=whi4ed0g@gmail.com; h=from:subject:message-id;
+ bh=p/V1AbwpqTcbOr6E67iKq4k/gI8GHbt2e0Eoz+/coFc=;
+ b=vi/JETsoNsWUA5ztPyQT1Va9wqQSTg+1zn+8ro4xEvkjuHiIGNbMmkkJEMzOsbmzvS0Z+Teb0
+ HFMW+KuWNOCDhgCUIsdE5zmQkvsguAOi6mEepd4sNaEPzysYjOdu4At
+X-Developer-Key: i=whi4ed0g@gmail.com; a=ed25519;
+ pk=zRTKlstE0LmilshGwJsFYEVjiT6RiXMBXK8Og6VmuVQ=
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,83 +108,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-psr_get_status_and_error_status() selects the DPCD offset to read the error
-status from based on whether Panel Replay is enabled:
+drm_gpuvm_range_valid() is the common gate every GPUVM map/unmap path
+funnels through: drm_gpuva_insert(), __drm_gpuvm_sm_map() and
+__drm_gpuvm_sm_unmap() all reject a request unless it passes. It checks
+for overflow, the managed-range bounds and kernel-node overlap, but it
+never rejects a zero-length range. A range of 0 is page-aligned and
+addr + 0 does not overflow, so a zero-length VM_BIND request from
+userspace passes validation.
 
-	offset = intel_dp->psr.panel_replay_enabled ?
-		 DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS;
+The GPUVA interval tree derives a node's last key as addr + range - 1
+(GPUVA_LAST()). With range == 0 this underflows to addr - 1, producing
+an interval whose end lies below its start (and, for addr == 0, wraps to
+U64_MAX). __drm_gpuva_insert() then issues its overlap query with that
+inverted interval, so the -EEXIST guard matches nothing and a malformed
+zero-length node is inserted, corrupting the augmented interval tree's
+subtree-last invariant and misleading the overlap checks of later
+map/unmap operations on the same VM.
 
-but intel_psr_short_pulse() acknowledges it unconditionally to the PSR
-register. Under Panel Replay the error is therefore read from
-DP_PANEL_REPLAY_ERROR_STATUS (0x2020) and the acknowledgement written to
-DP_PSR_ERROR_STATUS (0x2006). DP_PANEL_REPLAY_ERROR_STATUS is never written
-anywhere in the tree; it appears only in the read above and in its own #define.
+Because the shared helper's own kerneldoc promises to validate "the
+range" yet silently accepts range == 0, drivers have papered over this
+individually and inconsistently: imagination and xe reject a zero range
+at/near the ioctl boundary, while nouveau and msm do not. Fix it once at
+the common gate so every current and future caller is covered.
 
-The sink's Panel Replay error latch can consequently never be cleared. Once it
-latches, every subsequent short pulse re-reads the same errors, so PSR is
-disabled with sink_not_reliable set permanently, and until a short pulse
-arrives the driver keeps Panel Replay enabled while the sink is reporting
-errors it cannot see.
+The only in-tree user that legitimately accepts a zero range,
+xe's DRM_XE_VM_BIND_OP_UNMAP_ALL, interprets it at its ioctl layer and
+never passes range == 0 into the GPUVM core, so it is unaffected. The
+in-core lookups drm_gpuva_find_prev()/drm_gpuva_find_next() pass
+range == 1 and are likewise unaffected.
 
-Observed on a Dell XPS 16 DA16260 (Panther Lake, Arc B390, display version
-30.00) with the eDP Panel Replay quirk from commit cb8d155b0806 removed
-locally so the feature could be exercised. The sink reports a persistently
-latched error:
-
-	Sink PANEL-REPLAY status: 0x2 [active, display from RFB]
-	Sink PANEL-REPLAY error status: 0x1:
-		PANEL-REPLAY Link CRC error
-
-which survives across reads indefinitely, while dmesg stays silent and Panel
-Replay Selective Update remains enabled.
-
-Use the same conditional offset when clearing. psr->panel_replay_enabled
-cannot be used at that point because intel_psr_disable_locked() clears it
-earlier in the same function whenever an error was detected, which is exactly
-the case that needs the Panel Replay offset, so save it beforehand.
-
-v2: use a copy of panel_replay_enabled taken before
-    intel_psr_disable_locked() clears it. In v1 the condition was evaluated
-    after the disable, so it selected DP_PSR_ERROR_STATUS in the error path
-    and the patch was a no-op there. Caught by Sashiko AI review.
-
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+Fixes: e6303f323b1a ("drm: manager to keep track of GPUs VA mappings")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_gpuvm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3840,6 +3840,7 @@
- 	struct intel_display *display = to_intel_display(intel_dp);
- 	struct intel_psr *psr = &intel_dp->psr;
- 	u8 status, error_status;
-+	bool panel_replay_enabled;
- 	const u8 errors = DP_PSR_RFB_STORAGE_ERROR |
- 			  DP_PSR_VSC_SDP_UNCORRECTABLE_ERROR |
- 			  DP_PSR_LINK_CRC_ERROR;
-@@ -3860,6 +3861,12 @@
- 		goto exit;
- 	}
- 
-+	/*
-+	 * Save this before intel_psr_disable_locked() clears it; the error
-+	 * status is acknowledged to a different DPCD address depending on it.
-+	 */
-+	panel_replay_enabled = psr->panel_replay_enabled;
-+
- 	if ((!psr->panel_replay_enabled && status == DP_PSR_SINK_INTERNAL_ERROR) ||
- 	    (error_status & errors)) {
- 		intel_psr_disable_locked(intel_dp);
-@@ -3885,7 +3892,10 @@
- 			"PSR_ERROR_STATUS unhandled errors %x\n",
- 			error_status & ~errors);
- 	/* clear status register */
--	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
-+	drm_dp_dpcd_writeb(&intel_dp->aux,
-+			   panel_replay_enabled ?
-+			   DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS,
-+			   error_status);
- 
- 	if (!psr->panel_replay_enabled) {
- 		psr_alpm_check(intel_dp);
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index c422c5af1f4b..b73ad6988171 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -1021,7 +1021,8 @@ drm_gpuvm_in_kernel_node(struct drm_gpuvm *gpuvm, u64 addr, u64 range)
+  * @addr: the base address
+  * @range: the range starting from the base address
+  *
+- * Checks whether the range is within the GPUVM's managed boundaries.
++ * Checks whether the range is non-zero and within the GPUVM's managed
++ * boundaries.
+  *
+  * Returns: true for a valid range, false otherwise
+  */
+@@ -1029,7 +1030,8 @@ bool
+ drm_gpuvm_range_valid(struct drm_gpuvm *gpuvm,
+ 		      u64 addr, u64 range)
+ {
+-	return !drm_gpuvm_check_overflow(addr, range) &&
++	return range != 0 &&
++	       !drm_gpuvm_check_overflow(addr, range) &&
+ 	       drm_gpuvm_in_mm_range(gpuvm, addr, range) &&
+ 	       !drm_gpuvm_in_kernel_node(gpuvm, addr, range);
+ }
+
+-- 
+2.34.1
+
