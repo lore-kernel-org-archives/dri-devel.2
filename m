@@ -4,139 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC17C624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 11:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 963D5C624D0
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 11:09:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E6A410E170;
-	Wed,  2 Sep 2026 11:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F303810EEC7;
+	Wed,  2 Sep 2026 11:09:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="B1JaIv6E";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RX4G2UPT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zhTUZgxM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UveK7SZK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wlf6oEsA";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA3C10E170
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 11:06:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 19D8F21D89;
- Wed,  2 Sep 2026 11:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788347202; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NDZnR+WrNJW7WgXTyjTEUCWyg16URLKBsflVxpbY274=;
- b=B1JaIv6EciIpqoE1+zd8eYFovsK6ei8NLvzPW/o1yAwLML7z3aOnxf2dy1GvKqk7vh1KCB
- rDGBLx5vYwWbl9uY+aJVvu1ou/jyqZ2nKhrwu6EQnIIMR5s+GGyb7APD7Dp6huetHiN0Xc
- 73YsXajGJjcqDkMZle/tpgikJ6rMI28=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788347202;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NDZnR+WrNJW7WgXTyjTEUCWyg16URLKBsflVxpbY274=;
- b=RX4G2UPT/8+/FSkHkSUfq3pV99x7+d+O5TzFsvCDC+WtbyiZ9xPjilYAsLn6BAUdHIhLlO
- chF63Nd7yfv2YrCw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zhTUZgxM;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UveK7SZK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788347198; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NDZnR+WrNJW7WgXTyjTEUCWyg16URLKBsflVxpbY274=;
- b=zhTUZgxMzjUjtbSMNWJxpYMPdCjQdaHMdEzIVoAV9jLIw0zphcx74kkMYycXNRs2EK4Yod
- jIR4EqWLbMNSeDK+1HkJRK91wg+BPUDKQQjrM5t1rjhkft7Ot1GUj9Hq2imjNcqs7IxxaA
- WZAEWecQRDtU6bedNzUrIdcK/uZhxgE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788347198;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NDZnR+WrNJW7WgXTyjTEUCWyg16URLKBsflVxpbY274=;
- b=UveK7SZKIil3unePiJhKOK0Mia3N1PIs8SVnFz7SyShpiGYJsxvZn6G9sOYKK3AGMLgSAU
- lcMkcqe/s6pdwHDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A652113736;
- Wed,  2 Sep 2026 11:06:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gy4qJz0DmGqGRQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 11:06:37 +0000
-Message-ID: <32790b27-0b11-4e2c-b3ad-052df38ffded@suse.de>
-Date: Wed, 2 Sep 2026 13:06:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drm/edid: Add drm_edid_detect_panel_size()
-To: Jani Nikula <jani.nikula@linux.intel.com>, javierm@redhat.com,
- ardb@kernel.org, ilias.apalodimas@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev
-References: <20260901082057.37617-1-tzimmermann@suse.de>
- <20260901082057.37617-3-tzimmermann@suse.de>
- <6d2a818833af42b5d9160b7e72822b2d2b4bf04a@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <6d2a818833af42b5d9160b7e72822b2d2b4bf04a@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 19D8F21D89
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; ARC_NA(0.00)[]; RCPT_COUNT_SEVEN(0.00)[11];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[linux.intel.com,redhat.com,kernel.org,linaro.org,ffwll.ch,gmail.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
- URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A1B10E4D2
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 11:09:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ADE8041190;
+ Wed,  2 Sep 2026 11:09:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 666CC1F000E9;
+ Wed,  2 Sep 2026 11:09:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788347371;
+ bh=oAEFVBIoNA52bDb6hFrcLoIAPVcFeQ1q4sbyExmNJVM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wlf6oEsAlzejsDY3s0fQ9HE5VpI/7/GLYLqMaBEluWtAtu4zIPKPskDc2AYXSDZRY
+ NErPUIB3olgpXHZfeheysbKTzEq2dnldL7LR6WDgl9SZ7kq4jJKF4pG27QZ2Pees+C
+ KzaIxFW3njFzuz0LOKRyI71H/K3pOXeEOUK7wKdORS38PrDBccx9RC7bwulSJPUbWS
+ i5UGWha+03bpm0UT8/OuqA6jTE3AZAcKK4/QRA+V/bUHbmdSFpqrVnHaRCYMdVElZK
+ Vs7z9t8TEfg0HFo2IZnR/PXb+w/u6P4Vk99vVEV4bhgFJ7U5vlTbcq0Ag3jk34OSyN
+ NFKsB9cFazvrg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] drm/sched/tests: add a UAF regression test for
+ the timeline name
+To: =?utf-8?b?Sm9uZ2h5dWsgS2ltKE1hbEh5dWsp?= <malhyuk97@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902105808.1541063-3-malhyuk97@gmail.com>
+References: <20260902105808.1541063-1-malhyuk97@gmail.com>
+ <20260902105808.1541063-3-malhyuk97@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 11:09:31 +0000
+Message-Id: <20260902110931.666CC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,117 +54,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 02.09.26 um 10:45 schrieb Jani Nikula:
-> On Tue, 01 Sep 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Add drm_edid_detect_panel_size() to extract the panel's preferred
->> display resolution from a given EDID. Required for setting up DRM's
->> panel orientation quirks in sysfb drivers.
->>
->> v3:
->> - mention use case in documentation (Jani)
->> - use is_detailed_timing_descriptor() (Jani)
->> - rename helper to drm_edid_detect_panel_size()
->> v2:
->> - handle EDID without pixel timing descriptor (Sashiko)
->> - fix checks for width and height pointers
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: Ard Biesheuvel <ardb@kernel.org>
->> ---
->>   drivers/gpu/drm/drm_edid.c | 47 ++++++++++++++++++++++++++++++++++++++
->>   include/drm/drm_edid.h     |  2 ++
->>   2 files changed, 49 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index 9990a836d0b6..d5d9e77dc91b 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
->> @@ -7852,3 +7852,50 @@ bool drm_edid_is_digital(const struct drm_edid *drm_edid)
->>   		drm_edid->edid->input & DRM_EDID_INPUT_DIGITAL;
->>   }
->>   EXPORT_SYMBOL(drm_edid_is_digital);
->> +
->> +/**
->> + * drm_edid_detect_panel_size - Get a panel's size from EDID
->> + * @drm_edid: EDID of the panel.
->> + * @width: Returns the panel's width in pixels per scanline, if given
->> + * @height: Returns the panel's height in scanlines, if given
->> + *
->> + * This function detects the preferred size of a panel from the given
->> + * EDID. There is no such information stored in the EDID block directly,
->> + * but the preferred mode often corresponds to the panel's native geometry.
->> + *
->> + * This helper should only be used during initialization before the
->> + * connector is available. For regular use, retrieve the available display
->> + * modes with the connector functions.
->> + *
->> + * Return: Zero on success, or a negative errno code otherwise.
->> + */
->> +int drm_edid_detect_panel_size(const struct drm_edid *drm_edid,
->> +			       unsigned int *width, unsigned int *height)
->> +{
->> +	const struct edid *edid = drm_edid->edid;
->> +	const struct detailed_timing *dt;
->> +	const struct detailed_pixel_timing *pt;
->> +
->> +	/*
->> +	 * Use display mode from the Preferred Timing Descriptor. For old
->> +	 * and obscure displays, we might need better heuristics.
->> +	 */
->> +
->> +	if (edid->revision < 4 && !(edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING))
->> +		return -EINVAL; /* no Preferred Timing Descriptor */
-> Okay, so I should've asked this n versions ago, but should that be
-> s/&&/||/ instead?
-
-You're right. And I could have sworn that I took this logic from 
-somewhere in this file, but that doesn't seem to be the case. Apologies 
-for such a stupid mistake.
-
-Best regards
-Thomas
-
->
->> +
->> +	dt = &edid->detailed_timings[0];
->> +
->> +	if (!is_detailed_timing_descriptor(dt))
->> +		return -EINVAL;
->> +
->> +	pt = &dt->data.pixel_data;
->> +
->> +	if (width)
->> +		*width = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
->> +	if (height)
->> +		*height = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
->> +
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL(drm_edid_detect_panel_size);
->> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
->> index 04f7a7f1f108..a2617aa34edf 100644
->> --- a/include/drm/drm_edid.h
->> +++ b/include/drm/drm_edid.h
->> @@ -490,5 +490,7 @@ u32 drm_edid_get_panel_id(const struct drm_edid *drm_edid);
->>   bool drm_edid_match(const struct drm_edid *drm_edid,
->>   		    const struct drm_edid_ident *ident);
->>   bool drm_edid_has_quirk(struct drm_connector *connector, enum drm_edid_quirk quirk);
->> +int drm_edid_detect_panel_size(const struct drm_edid *drm_edid,
->> +			       unsigned int *width, unsigned int *height);
->>   
->>   #endif /* __DRM_EDID_H__ */
-
--- 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Test aborts skip scheduler cleanup leading to use-after-free cra=
+sh in workqueue.
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
+commit a5abd99d79c0acda1fdefe1fe2690846be11bd71
+Author: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 
+drm/sched/tests: add a UAF regression test for the timeline name
+
+This commit adds a KUnit integration test to reproduce a use-after-free
+bug in drm_sched_fence_get_timeline_name(). It tests the scenario where
+a scheduler is freed while userspace still holds a reference to a finished
+fence, querying the timeline name via the dma-fence API.
+
+> diff --git a/drivers/gpu/drm/scheduler/tests/tests_integration.c b/driver=
+s/gpu/drm/scheduler/tests/tests_integration.c
+> new file mode 100644
+> index 0000000000000..0572f1e3a80b2
+> --- /dev/null
+> +++ b/drivers/gpu/drm/scheduler/tests/tests_integration.c
+
+[ ... ]
+
+> +	/* Independent reference on the finished fence, as a sync_file would. */
+> +	finished =3D dma_fence_get(&job->base.s_fence->finished);
+> +
+> +	done =3D drm_mock_sched_job_wait_scheduled(job, HZ);
+> +	KUNIT_ASSERT_TRUE(test, done);
+
+[Severity: Medium]
+If this assertion fails, the test aborts immediately, skipping the explicit
+drm_mock_sched_fini() and drm_mock_sched_entity_free() cleanup calls at the
+end of the function.
+
+Since the sched object is allocated with kunit_kzalloc(), the KUnit framewo=
+rk
+will automatically free its memory on test abort. However, without calling
+drm_mock_sched_fini(), the sched->submit_wq workqueue and sched->work_tdr
+delayed work will remain active.
+
+Could this cause a kernel panic due to a use-after-free when the active
+workqueue tries to execute a work struct from the freed scheduler memory?
+
+> +	drm_mock_sched_advance(sched, 1);
+> +	done =3D drm_mock_sched_job_wait_finished(job, HZ);
+> +	KUNIT_ASSERT_TRUE(test, done);
+
+[Severity: Medium]
+Similarly, failing here aborts the test while leaving active workqueues
+referencing the soon-to-be-freed scheduler.
+
+Would it be safer to use KUNIT_EXPECT_TRUE() instead to allow the test to
+continue to the cleanup phase, or use kunit_add_action() to ensure the
+scheduler is always properly torn down?
+
+> +
+> +	/* Free the per-context scheduler while the finished fence is held. */
+> +	drm_mock_sched_entity_free(entity);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902105808.1541=
+063-1-malhyuk97@gmail.com?part=3D2
