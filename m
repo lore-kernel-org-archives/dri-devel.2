@@ -4,59 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B2AC624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 19:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B35C624D4
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 19:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE25610E43B;
-	Wed,  2 Sep 2026 19:32:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C38C110E055;
+	Wed,  2 Sep 2026 19:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mtK7d3w5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CTDe2yLc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9DF10E43B;
- Wed,  2 Sep 2026 19:32:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788377525; x=1819913525;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=wz5xNFAguyQKt79gMIwIhCHy5/68ybbYq0ip6RUB71k=;
- b=mtK7d3w5FoBOrMf0f3BhyB3VvRzaMAY19ge5HycaXxNAJtnKBb7mONuI
- rM+MbHyKGCL0MT1Awpluf24gmdrBYLhZb91MTNM1JvMmW49Lot+9lCtWy
- JSrFTOUJ/0+XnPkmSzHBoKrCXl6OzKNHimaomqA/kYxfjDClWBTwG058k
- v5T3CLph4o/JuHMvKwsUJnUamWNEG42ggpHIMiSTKoO1CCSg8+STyI+K8
- 9B0uAK+XBHyUWCuYGtXYEfByXcto+3Y8ru7aWHp+rcEcNZGv5QzyVETuW
- n1r+fHzEoO7cma1Kq0vBuogajh/QWxIO/IDbixymf+RZY0MzQv1/9LYIl A==;
-X-CSE-ConnectionGUID: hVUAF2iAQoWTG7KyNBNxZA==
-X-CSE-MsgGUID: x2RROzMCRa6tHu6G9SIMUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111622001"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; d="scan'208";a="111622001"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 12:32:05 -0700
-X-CSE-ConnectionGUID: En4Ike+DRoaopBA27eHvBA==
-X-CSE-MsgGUID: c6c8eZSuScGj1wTDSurGqQ==
-X-ExtLoop1: 1
-Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
- ([10.80.128.218])
- by fmviesa003.fm.intel.com with ESMTP; 02 Sep 2026 12:32:04 -0700
-From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-Subject: [PATCH v4] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-Date: Wed,  2 Sep 2026 12:31:47 -0700
-Message-ID: <20260902193147.3835028-1-krishna.prabhakaran@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
-References: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
+ [209.85.219.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEC1C10E055
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 19:38:16 +0000 (UTC)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-90cc372d6b2so18735666d6.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 12:38:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788377896; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dwnzIsoLeYC4FL85Hd9qfDLSBCuPtaKHwyzCWcruwSYycI+QSlPWsxKH3781z0TlYo
+ Ix3ICkG/lVkAQQ/7GupZHOCz3ZVdy+2mm+wHPeaXjLXbT4Rwth99x7LDDhHjkL3TzaP0
+ SkrPt77KrM7PJlKcSIPs7CLOJhd+u+9wa7L/iA1QahwPPKmU85Q4Ekdt5cEBT5cGeHyx
+ DfDnfAMF8DT8DZkwZgcUKg7pI7FefNqUywJDAcy6KkWxNDeUo7r+8jC1ZoIIxOg81lI7
+ UibWlTGHgKg8paoeY4XKH8SVd5jE0WPbeeV3UQJhvdkAvr6Pupj1zgSqcld8bpzaQG2j
+ 8RFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=qi6IviIPOnYguj19GkTxZ7dEwOM9cpzsCiuJk6eQ3R4=;
+ fh=3hSaXqxEPDs96Q5ozhtuF9xJHuxwoszNHHB81DIYL6c=;
+ b=jB8BacocovS2t3RsRi7+xVMMaH4VqKkV+B8PWFf1skEFUMI1wrykfa+W1q23UB72zO
+ RFxhiYSjmaXc3qzwxgBWJ74f/wXz4gA+jVRyIaFjzKsfJCc5k/15clj6zMSHv4j2oUDW
+ wfB/sCsVgjWezMPVWIt2NgC2M2RPifzKL/VkAhaet5Nqb94jRQ6TLR4cRxXcYK9yutbq
+ GUZFeM3Yj7IwMvbmg+Skc95JyMFoDFw41dus7QBf2O6huYgo8gZSZJQO1wbWOvC0URYs
+ at0R8jG1ZWH4wOT74T3XgBmmAxSBd6UowRU8EfOLYqM06XztGrT+GVCK3kGG6/TqjuJE
+ T9sQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788377896; x=1788982696; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=qi6IviIPOnYguj19GkTxZ7dEwOM9cpzsCiuJk6eQ3R4=;
+ b=CTDe2yLctfQzq4JtYTUZWhmjkTjivM5J2RPUypDcnE3K1ygI/aF9CxoQ36uxIBFIbi
+ rMjiwiaUajQtpXn/JV3TC2FtlyjpvslEDzf4d+QwaqRNa7vS9aX0Ls7ZUhwgVafJEn/c
+ nkHXXD3nOb3/gEFWpwa4Ai7Gf7px/DQeolG3Lwq42WZz8ZGfWPyblIdpGnQZ0YNDFgwd
+ F2JgfOEw+/GsuiSZR0fS9jel37IDnD0lmjQGEDgNEiKpPQWiJPWE8IZsbuprD5xPDY4p
+ KBLRVtFuBLH0rCucDLXBsSTC2IuVHjg3Jv/bcPG0ExKbCd4GK8FVAAkLiZvKkPnIugM2
+ LgTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788377896; x=1788982696;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=qi6IviIPOnYguj19GkTxZ7dEwOM9cpzsCiuJk6eQ3R4=;
+ b=JUZ0HUCCPEv2Xk6xU83NPVMBCZInGhnJ+uegzuwg+z3U5a41Pvh2rjcQAgbC2IsPDo
+ x8jfFX4Eo4J33+BFBvJRec2iF6bCIqpU7wFRLF6MwkoKh6K97OCnEsYS3MtJsetrMh4f
+ hA5dXE+nSej6T8v6ya0r9994ohut6m/j8rfN1buwkBJFOP45z3n9Bos+i5Y12ix0U+YN
+ RQJZkya9Y6pDi7sO/OitWeKAPesaxWYTCt3PERLnBYgx3b9awpPLzEvgHJmI66V2wsdb
+ Wyet2LlrEcAoQwcVD/sK1cxQhiz8Mfn9Np4gPNVJc6lWWtf3+EP6Q2obqhFqY589ccHj
+ ofYg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzASpI+EfxyYzr/7CvKf2oF/8tPrEsrG+wxGdY7Gy9e3BOM81l0aVwUIplmWZYYuW9UJku+ZOEgokY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lrllW9IwiC1TZJzRLziQHPuaCfoxYwGfwjhq+KjA8OmOqL88ZL
+ h3nT2UqKvJePYApiqOCxaZxKOsgQZd/sm4CTkc2/VVY/3K/xQvo8khVxnA3iX2atlWMuvtiKdd+
+ eoxutTBUpkSyvXAOId0Mg+KAqnfand+s=
+X-Gm-Gg: AYBFou1ANQHyEORFv8J5CqgF1dWW/lOS/XXr6ZtAaS6FyPfjEU+MXCYh0mEZ7O8lIoU
+ BlIf0kWddqmWumEcdKcPN2PD+54uKA9bmWD0CojBMcb6sNSC2YwFr/9IkwEHSSB9j1Z6cD9qJZo
+ re9wTyRIEsfFFkDJ6+vnJ6YzdmLmGS1q045prV+NfVsM3yRQpf0odKCAnoyqiydE2MGunX+eXrM
+ y0+Wk3H1ERSNW2jMIrJEGC7FaNKBa5INURCfg1S1v2X/MS6wjqFTMK0XpUQ7wCLcpDDaiF2GAc8
+ 2M0pEPErs8CPKEuCQZD8a8llxqjczSBsQyISNG04vC3tSewj1tf8i7IVXOejZOyxEpTVAh12RmH
+ PenOVvp0qat3dFWqAI/sYU3JufmVVXHMWlffCZrfB
+X-Received: by 2002:a05:6214:2123:b0:908:951f:415 with SMTP id
+ 6a1803df08f44-90ebb005390mr85498866d6.13.1788377895624; Wed, 02 Sep 2026
+ 12:38:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL373JA1ZANX.21L51RTEUQ2UG@kernel.org> <apZCTUYiN5FHCkCm@nvdebian.thelocal>
+ <CAPM=9twQxnx5DDkjwXWi-vXM4kqUQQdPaL+=1ASS0tpf2GmnYw@mail.gmail.com>
+ <apZbKc5xMQ1yTBTu@nvdebian.thelocal> <DL3SXIIA4FID.2V3K5YC91RM3V@kernel.org>
+ <apetgjQ9zWpJATj3@nvdebian.thelocal> <apfJhtr6BpMosz1q@nvdebian.thelocal>
+ <DL52TB47MFFY.CICXD0XQ3T5K@kernel.org>
+In-Reply-To: <DL52TB47MFFY.CICXD0XQ3T5K@kernel.org>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 3 Sep 2026 05:38:03 +1000
+X-Gm-Features: AcwNN1V_5ha_snCzThXD4CKKNnM_EsprQAGBXp8YrnRXkYcD_qK4vrhdwG6Bj_k
+Message-ID: <CAPM=9tyXx=BVy9E6PZNwYwab0SWWpFOFgX2jktqPVumiqY2viw@mail.gmail.com>
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>, nova-gpu <nova-gpu@lists.linux.dev>, 
+ M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,143 +115,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+On Thu, 3 Sept 2026 at 05:27, Danilo Krummrich <dakr@kernel.org> wrote:
+>
+> On Wed Sep 2, 2026 at 9:05 AM CEST, Alistair Popple wrote:
+> > On 2026-09-02 at 15:21 +1000, Alistair Popple <apopple@nvidia.com> wrote...
+> >> Ok, so just to double check are you happy with an accessor to return
+> >> gsp_static_info as well?
+> >
+> > Still interested in your thoughts here though, just to avoid churn because I'll
+> > probably pick the wrong answer :-)
+>
+> Yeah, exposing that for gpu_name() seems fine.
 
-When i915 needs to make an imported dma-buf coherent for GPU access on
-non-LLC platforms, or for objects that bypass LLC, it currently calls
-wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-pinned, so this triggers a whole-cache write-back and invalidate,
-broadcast by IPI to every CPU, on every execbuf submission involving an
-imported dma-buf. That stalls the entire machine for milliseconds and
-starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-audio serviced on the VMM's main thread).
+Though userspace doesn't probably need this, but we could I suppose.
 
-Flush only the pages that actually need it instead:
-
- - If we imported one of our own dma-bufs, the backing object is
-   normally struct-page backed once migrated to SMEM, so flush it
-   directly with drm_clflush_sg(), exactly as we flush our other
-   objects. This also avoids re-entering the exporter through
-   dma_buf_vmap(), which would recurse into i915_gem_object_pin_map()
-   on the source object we already hold locked (and fails the
-   igt_dmabuf_import_same_driver selftest with -EBUSY). SMEM does not
-   guarantee the struct-page flag though: phys objects clear it and it
-   is dropped transiently during TTM moves, and drm_clflush_sg() walks
-   the sgt with sg_page(), so guard the direct flush with
-   i915_gem_object_has_struct_page() and fall back to wbinvd when it is
-   not set.
-
- - For a foreign dma-buf the sg_table is not guaranteed to be backed by
-   struct pages, and the importer has no way to tell, so drm_clflush_sg()
-   cannot be used. vmap the buffer and flush that virtual range with
-   drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
-   one virtual alias evicts the cache lines for every alias of the same
-   physical pages. The dma_resv lock required by dma_buf_vmap() is
-   already held here via the imported object.
-
-Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-by I/O memory, where there is no CPU-side range to clflush.
-
-Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
----
-v4: Guard the own-dma-buf direct drm_clflush_sg() with
-    i915_gem_object_has_struct_page() and fall back to wbinvd when the
-    SMEM object is not struct-page backed (phys objects, transient TTM
-    moves); sg_page() would otherwise walk bogus pages. (review feedback)
-v3: Drop the wbinvd fallback inside the own-dma-buf branch; the exporter is
-    migrated to SMEM on attach, so flushing device memory made no sense.
-    (Matthew Auld)
-v2: Special-case our own dma-bufs with drm_clflush_sg() instead of
-    dma_buf_vmap(), which recursed into i915_gem_object_pin_map() on the
-    already-locked source object and failed igt_dmabuf_import_same_driver
-    with -EBUSY; foreign dma-bufs use vmap + drm_clflush_virt_range().
-v1: https://patchwork.freedesktop.org/series/171760/
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 62 +++++++++++++++++++---
- 1 file changed, 54 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index b43d34c7d641..d1695171019c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -10,6 +10,8 @@
- 
- #include <asm/smp.h>
- 
-+#include <drm/drm_cache.h>
-+
- #include "gem/i915_gem_dmabuf.h"
- #include "i915_drv.h"
- #include "i915_gem_object.h"
-@@ -249,16 +251,60 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	 * DG1 is special here since it still snoops transactions even with
- 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
- 	 * might need to revisit this as we add new discrete platforms.
--	 *
--	 * XXX: Consider doing a vmap flush or something, where possible.
--	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
--	 * the underlying sg_table might not even point to struct pages, so we
--	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
--	 * the driver.
- 	 */
- 	if (i915_gem_object_can_bypass_llc(obj) ||
--	    (!HAS_LLC(i915) && !IS_DG1(i915)))
--		wbinvd_on_all_cpus();
-+	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-+		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-+
-+		if (dma_buf->ops == &i915_dmabuf_ops) {
-+			struct drm_i915_gem_object *dma_obj =
-+				dma_buf_to_obj(dma_buf);
-+
-+			/*
-+			 * We imported one of our own dma-bufs. The exporter is
-+			 * migrated to SMEM on attach, so it is normally struct-page
-+			 * backed and we can flush it directly, the same way we
-+			 * flush our other objects. This also avoids re-entering
-+			 * the exporter through dma_buf_vmap(), which would
-+			 * recurse into i915_gem_object_pin_map() on the source
-+			 * object we already hold locked.
-+			 *
-+			 * SMEM does not guarantee the STRUCT_PAGE flag though: phys
-+			 * objects clear it and it is dropped transiently during TTM
-+			 * moves. drm_clflush_sg() walks the sgt with sg_page(), so
-+			 * without struct pages those pointers are bogus; fall back to
-+			 * wbinvd in that case (not the vmap path, which would recurse
-+			 * on the already-locked source object).
-+			 */
-+			if (i915_gem_object_has_struct_page(dma_obj))
-+				drm_clflush_sg(dma_obj->mm.pages);
-+			else
-+				wbinvd_on_all_cpus();
-+		} else {
-+			struct iosys_map map;
-+
-+			/*
-+			 * A foreign sg_table is not guaranteed to be backed by
-+			 * struct pages, so we cannot use drm_clflush_sg(). vmap
-+			 * the buffer and flush the virtual range instead; x86
-+			 * uses PIPT caches, so flushing one alias evicts the
-+			 * lines for every alias of the same physical pages.
-+			 *
-+			 * We already hold the dma_resv lock via the imported
-+			 * obj, so use the locked dma_buf_vmap() variant.
-+			 */
-+			if (!dma_buf_vmap(dma_buf, &map)) {
-+				if (!map.is_iomem)
-+					drm_clflush_virt_range(map.vaddr,
-+							       obj->base.size);
-+				else
-+					wbinvd_on_all_cpus();
-+				dma_buf_vunmap(dma_buf, &map);
-+			} else {
-+				wbinvd_on_all_cpus();
-+			}
-+		}
-+	}
- 
- 	__i915_gem_object_set_pages(obj, sgt);
- 
--- 
-2.43.0
-
+Dave.
