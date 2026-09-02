@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B820C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 16:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B58E7C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 16:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5B8B10E3EB;
-	Wed,  2 Sep 2026 16:09:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7B810E00B;
+	Wed,  2 Sep 2026 16:12:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Piyn/e2G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U13dr6ib";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 637B710F2A9
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 16:09:12 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hZnjJ0TWVzMlGB;
- Wed, 02 Sep 2026 18:09:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788365348; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0Oxc0XrgMVAryWK6mH7Qx5b/XVnrcy8MnrmYPK252J8=;
- b=Piyn/e2GjfpTfov4FKSO+Qthw6pRCB6y5RUihME78NDO5lBXG1JOFWwbjlp/i/THP6ExZW
- ITxiDMy9600c9bgpZl/Av0xCI3qS5bp4RdiYtGVEqXe5V7RVJM/U8wne5Z7KU3WYzHYl86
- cpeFgB8sGSy472SUmAmrSYEf9Q3iuyLbF7Ml5ZZci3mP3y2UncjV94H/47bRlb0nCALt9F
- c84aa/68fkaEJCnx30yMvuZGw05Dlunpv3BSIC1Jt8Q9F7TEykebNC87LoGy7osH67xmDF
- 5Yle2EVSiflhGD83gWH4XeD21v3HpenuP/wcIsVA1xZmIDpWFs/EZ51QLMhTyA==
-Message-ID: <1b628841e8bb8735f2bcdc79450a49e75433101b.camel@mailbox.org>
-Subject: Re: [PATCH v3 0/2] drm/sched: fix use-after-free of the fence
- timeline name
-From: Philipp Stanner <phasta@mailbox.org>
-To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, tursulin@ursulin.net, 
- phasta@kernel.org, matthew.brost@intel.com, dakr@kernel.org
-Cc: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Michel Daenzer <mdaenzer@redhat.com>
-Date: Wed, 02 Sep 2026 18:09:04 +0200
-In-Reply-To: <20260902144204.1843670-1-malhyuk97@gmail.com>
-References: <20260902144204.1843670-1-malhyuk97@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD0A10E00B;
+ Wed,  2 Sep 2026 16:12:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E7E2D600D0;
+ Wed,  2 Sep 2026 16:12:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E151F00A3D;
+ Wed,  2 Sep 2026 16:12:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788365551;
+ bh=RtSuxHb75r6u85srw+7fGh+ZVX0eYNhJKesXp7/lcQ4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=U13dr6ibgnlRFkWnVayGJJOhFWeHBIISRT7py2qoGYySJcWmdJzR5XkAapJxPdAG5
+ KeSXiXU6B8ifQxp3bZonlNk9Z5U26hTnCKxpbzlGTL5RytoH0ilIldWfVWdgDN/pAz
+ XqaFg/CMRJhDC8myJtmnQA4QmEHvZLvF5CMORt5rNGn2dkpiUs9VztdEmiKCkYlGuy
+ WklACaOOTmFufcWHw42Ob3W8yp5b+YeGY/948adBakBHVHe8x3IWPWifLHHf9dRIN8
+ JJ3RNQ2rVHGGmydQsSC6eLj0hCh8zHeOV6gr4vhG87n9RrLqLMwWb9G3Kd8m+j4u9O
+ tlB+3IfWTB2Zw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] perf: Add checks to prevent null ptr access
+To: "Vinay Belgaumkar" <vinay.belgaumkar@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902154852.742844-3-vinay.belgaumkar@intel.com>
+References: <20260902154852.742844-1-vinay.belgaumkar@intel.com>
+ <20260902154852.742844-3-vinay.belgaumkar@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-ID: 464093758d588c05b54
-X-MBO-RS-META: f8u8xsn6q7i8h4gmdtzhzr581dxuexto
+Date: Wed, 02 Sep 2026 16:12:31 +0000
+Message-Id: <20260902161231.79E151F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,99 +53,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Well, that was a quick investigation ;)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On Wed, 2026-09-02 at 23:42 +0900, Jonghyuk Kim(MalHyuk) wrote:
->=20
+Pre-existing issues:
+- [Critical] The added NULL and state checks do not fully resolve the Time-=
+of-Check to Time-of-Use (TOCTOU) race condition against PMU unregistration,=
+ leaving NULL pointer dereference and Use-After-Free (UAF) vulnerabilities.
+--
 
-[=E2=80=A6]
+commit 63da6f63d2cf2058c6cbd31229c510f17f749641
+Author: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 
-> Philipp suggested dropping the finished fence's ->release callback instea=
-d.
-> That is what this series does. dma_fence detaches a fence's ops on signal=
-ling
-> when it has neither .release nor .wait (dma_fence_signal_timestamp_locked=
-()),
-> and dma_fence_timeline_name() returns a static string once the ops are go=
-ne.
-> So with the callback removed, get_timeline_name() is simply never reached=
- on
-> a signalled finished fence - no ->sched dereference at all, for static an=
-d
+perf: Add checks to prevent null ptr access
 
-btw, you only ever mention get_timeline_name(), but get_driver_name()
-is running into the same issue, isn't it?
+This patch attempts to prevent null pointer accesses by adding revoked
+state checks in perf_event_read_local() and null checks in
+__perf_event_read_cpu().
 
-> Link to v2 (name caching):
-> https://lore.kernel.org/dri-devel/20260902105808.1541063-1-malhyuk97@gmai=
-l.com/
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
 
-That link is dead (weirdly enough. Why isn't it in dri-devel?). Correct
-one seems to be:
+[ ... ]
 
-https://lore.kernel.org/lkml/20260902105808.1541063-1-malhyuk97@gmail.com/
+> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cp=
+u_topology_cpumask(unsigned int
+> =20
+>  static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
+>  {
+> +	struct pmu *pmu =3D READ_ONCE(event->pmu);
+>  	int local_cpu =3D smp_processor_id();
+>  	u16 local_pkg, event_pkg;
+> =20
+>  	if ((unsigned)event_cpu >=3D nr_cpu_ids)
+>  		return event_cpu;
+> =20
+> +	if (!pmu)
+> +		return -ENODEV;
+> +
+>  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+> -		const struct cpumask *cpumask =3D perf_scope_cpu_topology_cpumask(even=
+t->pmu->scope, event_cpu);
+> +		const struct cpumask *cpumask =3D perf_scope_cpu_topology_cpumask(pmu-=
+>scope,
+> +										event_cpu);
 
-Your help and industriousness is highly appreciated :)
-Just be so kind and wait >24h with sending new revisions so that more
-folks, especially from different time zones, can jump into the
-discussion.
+[Severity: Critical]
+This is a pre-existing issue, but does reading pmu->scope here leave us
+vulnerable to a use-after-free if the PMU object is concurrently freed?
 
->=20
-> Note: detaching the finished fence's ops on signalling also makes
-> to_drm_sched_fence() return NULL for a signalled finished fence. Callers
-> already handle NULL (the normal foreign-fence result), a signalled fence =
-is
-> an already-satisfied dependency so the scheduler's dependency collapsing =
-is
-> unaffected, and it avoids the container_of() on a possibly-freed foreign
-> scheduler that amdgpu_sync_same_dev() and pvr_queue_fence_is_native() wou=
-ld
-> otherwise do. Flagging it explicitly since it touches an exported helper.
+Since we only read the pointer with READ_ONCE() and do not appear to be
+holding RCU or a lock protecting the PMU's lifetime against unregistration,
+could the PMU be detached and freed right before we access it?
 
-That unfortunately does look a bit dangerous.
+[ ... ]
 
-Isn't pvr here already a race condition?
+> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event=
+, u64 *value,
+>  		goto out;
+>  	}
+> =20
+> +	if (READ_ONCE(event->state) <=3D PERF_EVENT_STATE_REVOKED) {
+> +		ret =3D -ENODEV;
+> +		goto out;
+> +	}
+> +
 
-		if (pvr_queue_fence_is_native(uf)) {
-			struct drm_sched_fence *s_fence =3D to_drm_sched_fence(uf);
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does this state check fully
+resolve the time-of-check to time-of-use race condition against PMU
+unregistration?
 
-> I did not add Fixes:/Cc: stable tags: the ->sched->name deref dates back =
-to
-> 1b1f42d8fde4 ("drm: move amd_gpu_scheduler into common location") but onl=
-y
-> became reachable once drivers began allocating per-context schedulers, so
-> the right attribution is unclear to me. This is stable material as the
-> driver instances are live - happy to add whatever tags you prefer.
+If a userspace program triggers a BPF map update on a perf event array, it
+calls perf_event_read_local() without holding rcu_read_lock(). If a concurr=
+ent
+hardware hot-unplug calls perf_pmu_unregister(), it might issue an IPI to a
+remote CPU to detach the event while this local CPU passes the revoked state
+check.
 
-I think for such cases merely adding Cc: stable and let the stable
-folks figure out how far they want to backport is fine. You can hint at
-us not knowing since when userspace can access this in a commit
+If that race occurs, the PMU can be freed immediately after this check, but
+further down in perf_event_read_local() we still directly dereference
+event->pmu:
 
-Cc: stable =E2=80=A6 # we don't know since when
+    if (event_oncpu =3D=3D smp_processor_id())
+        event->pmu->read(event);
 
-What I'm a bit more nervous about is that we probably really want to
-backport this, but it's also a bit regression-endangered. So I suppose
-we want to give it careful testing. I hope the others can help with
-that, too.
+Could this lead to a NULL pointer dereference or use-after-free since the
+local IRQ disable doesn't serialize against the remote IPI during PMU
+unregistration?
 
->=20
-> Tested with KUnit under KASAN (kunit.py --arch=3Dx86_64), matched pair:
-
-Did you test with kmemleak? That's always a tool of choice when it
-comes to refcounting.
-
->=20
-> Jonghyuk Kim(MalHyuk) (2):
-> =C2=A0 drm/sched: fix use-after-free of the fence timeline name
-> =C2=A0 drm/sched/tests: add a UAF regression test for the timeline name
-
-I answer on those soonish.
-
-
-
-Thanks
-Philipp
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902154852.7428=
+44-1-vinay.belgaumkar@intel.com?part=3D2
