@@ -4,85 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C641C61DFD
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B08C61DFD
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47EC310F025;
-	Wed,  2 Sep 2026 07:08:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5576A10F029;
+	Wed,  2 Sep 2026 07:10:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="UxCLqWDN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pd1b0FJF";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1F97QD1D";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ym8UjSSQ";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nluDesBh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NPQESdUP";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="N5nj9ss3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9fp7Bj8Z";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C00F10F025
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:08:01 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE1810F029
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:10:16 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5031C1FB1A;
- Wed,  2 Sep 2026 07:07:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 05FE921FAE;
+ Wed,  2 Sep 2026 07:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788332875; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788333011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gPwOYdgT4Y/c7J9uEr7H5hFT6dEKn9rxWnsH7bRG1Hs=;
- b=UxCLqWDNoodtEpx8b0z8ySZz8Lr999fg3QNI2hiUQsJmi+1+Tzzg8sagV4MzVloZx16afg
- 8Xf/X3sgTvScWsElxKWMSLBcVjVveb8YuaYrHSd7XoEdE3RJXI4WimleXQbl5yDnmmbsoH
- deMGo2VhxkjizY9BU8FHxWU1aY7WYN0=
+ bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
+ b=nluDesBhEHFLD+dnhkIlxmHZX1C7Le17CFCWE6RA2aIvCVBvnNCWdrTek4Ghnptvc/OIoU
+ 2sXxQVa6zVWuQ11YdwJxfwYhWjRfxaCQRZx4xsEBxnspsMR0g+H88BnlL51KOBjVzlocXk
+ 9Fdqpn8TAOTkWoSb3dmWrN2ZIeSELY8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788332875;
+ s=susede2_ed25519; t=1788333011;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gPwOYdgT4Y/c7J9uEr7H5hFT6dEKn9rxWnsH7bRG1Hs=;
- b=pd1b0FJF96HLiRRi4PcDA6bBpkbJxSvyiqrpv3Tsf/3NkkZJu01p1hmlYwd/WtetAdRLyj
- SIIqVhe+lW9/NjBw==
-Authentication-Results: smtp-out2.suse.de;
+ bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
+ b=NPQESdUPTgUbS93yoWee2TbX6W6I2mtYLEEifkYduLwZp+oVf4zF+LlaxYAjsjPXxD7TxT
+ 4l/Uy4WiSuVV3HCQ==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788332871; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788333007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gPwOYdgT4Y/c7J9uEr7H5hFT6dEKn9rxWnsH7bRG1Hs=;
- b=1F97QD1DO6gZIZnYO+6mYf2ijrAoYqDKn/GCWM8MGGP4xsbTA7uU38KPs1bSdWZcb1bX+S
- PhuIRb+8PsekqeRe55ZUWcqxsPgENlF/1Wh3gP4+4t30o5rFt1INZITVOloiU6TfF9/mmK
- KJKJSmSeQkxV/MBG2UOS9JEOFefzxe8=
+ bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
+ b=N5nj9ss3U/TqsG8O0S6z08nC70lkmjl3JCeYezNSU8VzpNI+P9rAEMHXOSrwNAB2omLvnJ
+ cyq8J4Dl4s9pFETwiaM7b5/Rh5DpHqrTeK7WC9r1aK4NW2vyWm1wpjfknPvGWkhqaZWCR8
+ oEy5BJG0/DroeBEO4A0W8uX/pwPf3ho=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788332871;
+ s=susede2_ed25519; t=1788333007;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gPwOYdgT4Y/c7J9uEr7H5hFT6dEKn9rxWnsH7bRG1Hs=;
- b=Ym8UjSSQxdlrTwoxXD4HeN0Thq4Fuig0v41GpLFZNLa9Lpj9sGoH6f9EyOtCJwyiyQlC+s
- kQ2T575gT/7clWAg==
+ bh=gol5+lY+smVbNgCzrToAeToDdozXtcdBQzaLyRBWN7s=;
+ b=9fp7Bj8ZO7q1bBMsvDl4i39Vi1IQUtedaXbn4CXALcUoPkvjjXDq9HHkX89pMyj2v0z/3y
+ Qda23eVv18BqYDAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 095D913515;
- Wed,  2 Sep 2026 07:07:51 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9E65413515;
+ Wed,  2 Sep 2026 07:10:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id B5T5AEfLl2pqVAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:07:51 +0000
-Message-ID: <f8964222-a647-484f-ae7d-c9f8ee3a8758@suse.de>
-Date: Wed, 2 Sep 2026 09:07:50 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Y4BfJc7Ll2qNVgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:10:06 +0000
+Message-ID: <a09ac5c8-8f78-4714-bf3c-1dbc6093761f@suse.de>
+Date: Wed, 2 Sep 2026 09:10:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/13] drm/tilcdc: Move hardware reset to CRTC creation
+Subject: Re: [PATCH v2 08/13] drm/loongson: Move hardware reset to CRTC
+ creation
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Xi Ruoyao <xry111@xry111.site>
 References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
- <20260831-drm-no-more-crtc-reset-v2-4-4500d49a337f@kernel.org>
+ <20260831-drm-no-more-crtc-reset-v2-8-4500d49a337f@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,7 +112,7 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-4-4500d49a337f@kernel.org>
+In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-8-4500d49a337f@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -117,14 +120,14 @@ X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
  FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
  RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[7]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[11]; MIME_TRACE(0.00)[0:+];
  MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:email, suse.de:mid]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
+ suse.de:mid, suse.com:url, loongson.cn:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,9 +146,9 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 Am 31.08.26 um 17:34 schrieb Maxime Ripard:
-> The tilcdc crtc reset hook performs both atomic state initialization
-> using drm_atomic_helper_crtc_reset() and hardware-level register
-> writes to disable the raster and clear IRQ status.
+> The loongson crtc reset hook performs both atomic state initialization
+> using __drm_atomic_helper_crtc_reset() and hardware-level register
+> writes to reset the CRTC.
 >
 > The hardware reset is not related to atomic state initialization, and
 > the reset hook is being converted to atomic_create_state which only
@@ -156,83 +159,79 @@ Am 31.08.26 um 17:34 schrieb Maxime Ripard:
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
+Looks good now.
+
 > ---
-> Cc: Jyri Sarha <jyri.sarha@iki.fi>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Cc: Jianmin Lv <lvjianmin@loongson.cn>
+> Cc: Mingcong Bai <jeffbai@aosc.io>
+> Cc: Qianhai Wu <wuqianhai@loongson.cn>
+> Cc: Xi Ruoyao <xry111@xry111.site>
 > ---
->   drivers/gpu/drm/tilcdc/tilcdc_crtc.c | 7 +++----
->   drivers/gpu/drm/tilcdc/tilcdc_drv.c  | 2 ++
->   2 files changed, 5 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/loongson/lsdc_crtc.c | 15 ++++++++++-----
+>   1 file changed, 10 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> index e07ecb36a27a..b299d73ce385 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
-> @@ -683,18 +683,16 @@ static void tilcdc_crtc_disable_vblank(struct drm_crtc *crtc)
->   			     LCDC_V2_END_OF_FRAME0_INT_ENA);
+> diff --git a/drivers/gpu/drm/loongson/lsdc_crtc.c b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> index 16b8f36a4071..7cca574e3b6a 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_crtc.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_crtc.c
+> @@ -388,12 +388,10 @@ static const struct lsdc_crtc_hw_ops ls7a2000_crtc_hw_ops[2] = {
+>   	},
+>   };
 >   
->   	spin_unlock_irqrestore(&tilcdc_crtc->irq_lock, flags);
->   }
->   
-> -static void tilcdc_crtc_reset(struct drm_crtc *crtc)
-> +static void tilcdc_crtc_hw_reset(struct drm_crtc *crtc)
+>   static void lsdc_crtc_reset(struct drm_crtc *crtc)
 >   {
->   	struct tilcdc_crtc *tilcdc_crtc = to_tilcdc_crtc(crtc);
->   	struct drm_device *dev = crtc->dev;
->   	int ret;
+> -	struct lsdc_crtc *lcrtc = to_lsdc_crtc(crtc);
+> -	const struct lsdc_crtc_hw_ops *ops = lcrtc->hw_ops;
+>   	struct lsdc_crtc_state *priv_crtc_state;
 >   
-> -	drm_atomic_helper_crtc_reset(crtc);
+>   	if (crtc->state)
+>   		crtc->funcs->atomic_destroy_state(crtc, crtc->state);
+>   
+> @@ -401,13 +399,10 @@ static void lsdc_crtc_reset(struct drm_crtc *crtc)
+>   
+>   	if (!priv_crtc_state)
+>   		__drm_atomic_helper_crtc_reset(crtc, NULL);
+>   	else
+>   		__drm_atomic_helper_crtc_reset(crtc, &priv_crtc_state->base);
 > -
->   	/* Turn the raster off if it for some reason is on. */
->   	pm_runtime_get_sync(dev->dev);
->   	if (tilcdc_read(dev, LCDC_RASTER_CTRL_REG) & LCDC_RASTER_ENABLE) {
->   		/* Enable DMA Frame Done Interrupt */
->   		tilcdc_write(dev, LCDC_INT_ENABLE_SET_REG, LCDC_FRAME_DONE);
-> @@ -714,11 +712,11 @@ static void tilcdc_crtc_reset(struct drm_crtc *crtc)
+> -	/* Reset the CRTC hardware, this is required for S3 support */
+> -	ops->reset(lcrtc);
 >   }
 >   
->   static const struct drm_crtc_funcs tilcdc_crtc_funcs = {
->   	.set_config     = drm_atomic_helper_set_config,
->   	.page_flip      = drm_atomic_helper_page_flip,
-> -	.reset		= tilcdc_crtc_reset,
-> +	.reset		= drm_atomic_helper_crtc_reset,
->   	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
->   	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
->   	.enable_vblank	= tilcdc_crtc_enable_vblank,
->   	.disable_vblank	= tilcdc_crtc_disable_vblank,
->   };
-> @@ -818,10 +816,11 @@ static const struct drm_crtc_helper_funcs tilcdc_crtc_helper_funcs = {
->   	.mode_fixup	= tilcdc_crtc_mode_fixup,
->   	.atomic_check	= tilcdc_crtc_atomic_check,
->   	.atomic_enable	= tilcdc_crtc_atomic_enable,
->   	.atomic_disable	= tilcdc_crtc_atomic_disable,
->   	.atomic_flush	= tilcdc_crtc_atomic_flush,
-> +	.hw_reset	= tilcdc_crtc_hw_reset,
->   };
->   
->   void tilcdc_crtc_update_clk(struct drm_crtc *crtc)
+>   static void lsdc_crtc_atomic_destroy_state(struct drm_crtc *crtc,
+>   					   struct drm_crtc_state *state)
 >   {
->   	struct drm_device *dev = crtc->dev;
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> index 1d6c9a423a41..827f15d14fad 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> @@ -247,13 +247,15 @@ static int tilcdc_pm_suspend(struct device *dev)
+> @@ -935,18 +930,28 @@ static bool lsdc_crtc_get_scanout_position(struct drm_crtc *crtc,
+>   		*etime = ktime_get();
+>   
+>   	return true;
 >   }
 >   
->   static int tilcdc_pm_resume(struct device *dev)
->   {
->   	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct tilcdc_drm_private *priv = ddev_to_tilcdc_priv(ddev);
->   
->   	/* Select default pin state */
->   	pinctrl_pm_select_default_state(dev);
+> +static void lsdc_crtc_hw_reset(struct drm_crtc *crtc)
+> +{
+> +	struct lsdc_crtc *lcrtc = to_lsdc_crtc(crtc);
 > +
->   	return  drm_mode_config_helper_resume(ddev);
->   }
+> +	/* Reset the CRTC hardware, this is required for S3 support */
+> +	if (lcrtc->hw_ops->reset)
+> +		lcrtc->hw_ops->reset(lcrtc);
+> +}
+> +
+>   static const struct drm_crtc_helper_funcs lsdc_crtc_helper_funcs = {
+>   	.mode_valid = lsdc_crtc_mode_valid,
+>   	.mode_set_nofb = lsdc_crtc_mode_set_nofb,
+>   	.atomic_enable = lsdc_crtc_atomic_enable,
+>   	.atomic_disable = lsdc_crtc_atomic_disable,
+>   	.atomic_check = lsdc_crtc_helper_atomic_check,
+>   	.atomic_flush = lsdc_crtc_atomic_flush,
+>   	.get_scanout_position = lsdc_crtc_get_scanout_position,
+> +	.hw_reset = lsdc_crtc_hw_reset,
+>   };
 >   
->   static DEFINE_SIMPLE_DEV_PM_OPS(tilcdc_pm_ops,
->   				tilcdc_pm_suspend, tilcdc_pm_resume);
+>   int ls7a1000_crtc_init(struct drm_device *ddev,
+>   		       struct drm_crtc *crtc,
+>   		       struct drm_plane *primary,
 >
 
 -- 
