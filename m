@@ -4,59 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E718C624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23787C624D4
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9EA410F292;
-	Wed,  2 Sep 2026 15:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64B7B10F293;
+	Wed,  2 Sep 2026 15:40:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="G5N0CsxQ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="jkNXlx62";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E90310F292
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1788363605;
- bh=bHtjTcLrG0knafbd8zwXtCbTXm1/ruu7gX+jOBhr0RU=;
- b=G5N0CsxQ9HmroMJAIaWcivn+538DsuejGoPxWeaf9t2lcVo2bwVHVttErP0/7pEfPsSQ+b7kp
- pCOcVX04E3/s+GF357E8VGsjdEWxfiXjNJUd9CPGktUMHBSr097gvvwZLS7AYjUlsAZq//kTL4B
- RPvQwUZfS3rb3TH7Io9jQpvAHhiSlJgEbZkSrglScPuWoYnUDsqGOAkD5xojj+FkC8JERPT7/sG
- vlkdkOlUEgcNeiybGnTjIaeuWvBKszyrxAHgDh6DzGEAYf1S4iFuufYYh1TGzrkwk+1jVh3GugC
- 82Ql1rdhw1rn52zpVemQ1vTp4L/zhN7LtBM9N9ot0plA==
-X-Forward-Email-ID: 6a9842fcde3605641460f2af
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.14.0
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <7b26a257-534b-4bb1-a6a4-17d3d41aa374@kwiboo.se>
-Date: Wed, 2 Sep 2026 17:38:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] drm/bridge: dw-hdmi: optionally ignore rxsense
- when detecting hotplug
-To: Ian Ray <ian.ray@gehealthcare.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3296C10F293
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:40:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788363641; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ILCIbY9Qtl+4SN8TsR0Q8EkU7PO2wG7DDY24PhJB6w76lz7Uh2gI2NS69Lc6LigxGp9QabyvaDZTjSNzM4Ky8rsKeesKbHUs4rQeNrPe6te/gL9jCyqU9ZW6XlZzuMpp0PU9EkemZjOhF6MSmwpzn5QHM1zO4b1kt3QwKvRQvAI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788363641;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=J3INOkfEBcY2jrUN32fay3pZ8r/lpRUuqtPv/+3HQmw=; 
+ b=krOrEa0nbpGHZVhfoA0H5NCvgZ7DDuSbJ281NvhWQAMXgoN2Y4HLsjeWtpOTGgvsEAnjUOysPR94Uu7QC+lrYRMgWekOVzqsdmI16HUs6ON5heM82t+JEOb4eMsS7LBlM/81OtvDc/zzwWs0fB0QDo+4/0T5Jkd/y6327aZuf+I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363641; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=J3INOkfEBcY2jrUN32fay3pZ8r/lpRUuqtPv/+3HQmw=;
+ b=jkNXlx62mBk6t4LO/YAPV5ruhcemaYR8Z1YFEbQ8Ll5ONzBDZUgXGnSz30t6ZYsy
+ 4hQTG88oUYB5M73QyS2X7DLoEmS1rtZlxvw58fLNPYrLwGMSbH+pVkU8rtatMJvliFt
+ tSjjzjrrEQ8WILjZVHjKWiMPJiTyAAtyZ3rwTKbs=
+Received: by mx.zohomail.com with SMTPS id 178836363895380.82453922758862;
+ Wed, 2 Sep 2026 08:40:38 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:40:32 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas Stach <l.stach@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260902130117.2731-1-ian.ray@gehealthcare.com>
- <20260902130117.2731-2-ian.ray@gehealthcare.com>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <20260902130117.2731-2-ian.ray@gehealthcare.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 04/17] drm/panfrost: Move debugfs initialisation to
+ relevant subsystems
+Message-ID: <aphDVUj4HLQqBKZr@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-4-72a13b2c125d@collabora.com>
+ <20260901143057.47497b30@fedora-21.home>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901143057.47497b30@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +80,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ian,
-
-On 9/2/2026 3:01 PM, Ian Ray wrote:
-> Commit da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event
-> on link change") changed the way hotplug is detected to take into
-> consideration rxsense.
+On 01.09.2026 14:30, Boris Brezillon wrote:
+> On Fri, 28 Aug 2026 21:56:44 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
 > 
-> That change is problematic for boards where rxsense is always detected,
-> such as when an HDMI to DP converter is used.
-
-I have a series [1] with a patch [2] that tries to fully remove the
-rxsense part from the dw-hdmi driver, any help to test that series is
-welcomed. Should likely solve the issue you are trying to workaround
-here.
-
-Planning on sending out a v8 next few days now that v7.3-rc1 have landed.
-
-[1] https://lore.kernel.org/all/20260518180206.2480119-1-jonas@kwiboo.se/
-[2] https://lore.kernel.org/all/20260518180206.2480119-21-jonas@kwiboo.se/
-
-Regards,
-Jonas
-
+> > @@ -757,4 +758,28 @@ void panfrost_gem_debugfs_print_bos(struct panfrost_device *pfdev,
+> >  	seq_printf(m, "Total size: %zd, Total resident: %zd, Total reclaimable: %zd\n",
+> >  		   totals.size, totals.resident, totals.reclaimable);
+> >  }
+> > +
+> > +static int panfrost_gems_show(struct seq_file *m, void *data)
+> > +{
+> > +	struct drm_info_node *node = m->private;
+> > +	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
+> > +
+> > +	panfrost_gem_debugfs_print_bos(pfdev, m);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static struct drm_info_list panfrost_debugfs_list[] = {
+> > +	{"gems",
+> > +	 panfrost_gems_show, 0, NULL},
+> > +};
+> > +
+> > +int panfrost_gems_debugfs_init(struct drm_minor *minor)
 > 
-> Introduce an optional property 'ignore-rxsense' to handle such boards.
 > 
-> Fixes: da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event on link change")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> index 34c5f583e910..a9337d1f4b88 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -171,6 +171,7 @@ struct dw_hdmi {
->  	bool disabled;			/* DRM has disabled our bridge */
->  	bool bridge_is_on;		/* indicates the bridge is on */
->  	bool rxsense;			/* rxsense state */
-> +	bool ignore_rxsense;		/* use HPD only, ignore rxsense for detect */
->  	u8 phy_mask;			/* desired phy int mask settings */
->  	u8 mc_clkdis;			/* clock disable register */
->  
-> @@ -3156,6 +3157,9 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
->  		if (phy_stat & HDMI_PHY_HPD)
->  			status = connector_status_connected;
->  
-> +		if (hdmi->ignore_rxsense)
-> +			phy_stat &= ~HDMI_PHY_RX_SENSE;
-> +
->  		if (!(phy_stat & (HDMI_PHY_HPD | HDMI_PHY_RX_SENSE)))
->  			status = connector_status_disconnected;
->  	}
-> @@ -3362,6 +3366,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
->  	mutex_init(&hdmi->cec_notifier_mutex);
->  	spin_lock_init(&hdmi->audio_lock);
->  
-> +	hdmi->ignore_rxsense = of_property_read_bool(np, "ignore-rxsense");
-> +
->  	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
->  	if (ddc_node) {
->  		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
+> nit: I would rename that one panfrost_gem_debugfs_init().
 
+Will do.
+
+> The rest looks good
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> 
+> > +{
+> > +	drm_debugfs_create_files(panfrost_debugfs_list,
+> > +				 ARRAY_SIZE(panfrost_debugfs_list),
+> > +				 minor->debugfs_root, minor);
+> > +
+> > +	return 0;
+> > +}
+
+Adrian Larumbe
