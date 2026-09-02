@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20364C624A4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00159C624DB
 	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E906E10F3DD;
-	Thu,  3 Sep 2026 07:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06E7D10F3E0;
+	Thu,  3 Sep 2026 07:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LgvppNsq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I/7OQ2ZC";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7918210E233
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 11:50:04 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49557167508so9215745e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 04:50:04 -0700 (PDT)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D70D410E9C5
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 04:50:59 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-8487214ad2bso914413b3a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 21:50:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788349803; x=1788954603; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=KQYhF3JRqYQ4KMxSdHkJy21dirNqkSr4/Y/EOxbYYiE=;
- b=LgvppNsqcVjyxAgUoMnOho7DQGm7VIaTzC2utdB2uyFpVv56WW54hu1ygfJZToNYDv
- 8I+0UQVJghRBsfF8OV1qkux1mRAsnvG20XrKjCxiOiLvyQXPE5exWQQ+B4I84Fgp20b5
- 2CsjV/SXk8l1z2AUrfwlVIHEQvIPvtC18o3csh/5CXJN4utEB1YzaI8LNQ1NqXyoJGwR
- GdIg8DDJ5C0+getthNQ28OnSwwL3VrXcNaMLeMY1WOSf/5pV+URVc5UJvFwyLM+mrwWa
- 78OCJMpprt2TNc/vfvKfsMhqu/Yxro/jV2apTDPEdi+dBsBD6VK3tVOfivZDnSAgxLxY
- sh1A==
+ d=gmail.com; s=20251104; t=1788324659; x=1788929459; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=gL9gEW7ayUvR98UbsWW5JS05cT2CnhJ1qoyjKu7J0AI=;
+ b=I/7OQ2ZC90fv7n+N3sAemqdx56xnoTba1c+IwybVqByL36J4fR+6Z+n7i+/FpMZ954
+ fVdbclsZWMInpC1RC5LgyIQ04NWfO6qhv6HuFsTFW2tj/K21yCVQHy2R6K+1WhhIQEFU
+ m2NuFyszOOZYsQNEVauWS1NAGBwjJEdasKf52BeZTrerPtBRKtf3zjQgzWEDyhVRWl4x
+ sfih3P2ALTKW2ox/2NqqqzzZRKLD/gAZaxgFAtVK3Ap+pTuQWM3PDvHZPGfP8RXtkgM3
+ qzBQGWYPQ/E35yzu+0TAaMhpFOPB3C2aCbsW3S2x9OQ+tvi6AqfyTk03PPXUcNKxPuA4
+ Maew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788349803; x=1788954603;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=KQYhF3JRqYQ4KMxSdHkJy21dirNqkSr4/Y/EOxbYYiE=;
- b=OUtRTmdYhFdrpVM6sFRzFHZBYuielxuqpENh4ZtX+ESUzDwmGOfrSiJDsrGSspJ+7V
- 89uLnwbrD9yDoXjXGPVRcFkbi+mjB5dCfY0ekrvHhi8n1dg7Zjr8YxlAoYTReIjmNmQO
- vRRxFx2U3aFSPr9y6FQvErP3jUXxeth261MUGIYCRVxS/w+RWlPJZZxwBDxKRz6P2oFB
- NNXp2ZASved+VZYL3ge7IMuhrUhy5zzezFmVzjyOXpZQ6r/XLK0/0KCFwm3icW0Mvrmj
- MbiEctMA/RNpRZPmSIBrUYenNR/FKv6RwgVyIBm4sXPxsoVtxnoWYS3JkWH5oa7rfDAn
- nf8A==
-X-Gm-Message-State: AFuF++lLRl4NO4g/UBxNR2qZZcCcjuS46jQUE/PwjoIQN0hflXcMKBW5
- RX6nsw0PUzAf5U45uCE1lCJ/o1jyEJkx8n67ZLI90VToRvVvTpd75EX2
-X-Gm-Gg: AR+sD12B1bJYiSCt6L7vlTn810K+KaZzKztaHBPGDjxLgjibSQuFv1VmpesHO3p7KvS
- Pv2vY635Qz3Owe9qdx99ZV8n7aXa9jwY/uKQaWOdaAHRlU+ar04HRpLKsovR4DXnqCcClx0dqzn
- KUJvLAqYYCHgZlnStdwf1RgNraNAjJ3dJRRgU75iqTIFLp3TYPPHHDt5UbrGWBjVeiPYtosUrId
- 25O5mzkBCCkOTnVsyA7Tb/abe5nX21cBSWaOg1Sm1wq0ZpFUZ6HCRcsCOCusIMcAEYor8K8Gvtv
- 4SbDxoXhCwrWCJF4Ig9zG6k6D0q3mW/JsJVm1hIujbfeBQ+9mlXgmnw+qZAIfpDPHNRnyk+Bngx
- jlS3EoNUHRdCt/UXF1RY4NZOmjJIls3kFRjiIcKF5BodxrQI9ntO4hWxdOSARS5bP02+YkGMhho
- xN2q2725SNx8uxgkajL206PCS/Bhy4WzmVXF+wseFY9cxo0IuJMGafxYKwoBVvW4e0GWtoIM46X
- m9ik971Qhtqc3PEzeRHukatDPxb4Dki4ZvMYMwA9FEDyY4wWgOtmJPxk7+Eeg==
-X-Received: by 2002:a05:600c:8b05:b0:498:943:ccc0 with SMTP id
- 5b1f17b1804b1-49ce5817bfemr91781575e9.6.1788349802440; 
- Wed, 02 Sep 2026 04:50:02 -0700 (PDT)
-Received: from drago.hgw.local ([2a00:1d34:e871:1c00:d71:a9eb:b721:e4dc])
+ d=1e100.net; s=20251104; t=1788324659; x=1788929459;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gL9gEW7ayUvR98UbsWW5JS05cT2CnhJ1qoyjKu7J0AI=;
+ b=N3MOfgIrfty+/U8G5Yd8p6pgSKjRRaKxLYrL741DwBFQA1Uff5v8UNsdsOH1iFcCjm
+ M7KTZA4g0+tOkD0SRTNhg7COdXiCeK3zs4Iew70KTM4J3Kt8sv75740B2kpa0XRvGgof
+ grBOfBfSKLzd7IMuG/7KYhPXPQTYACT/I6ZW6D8RRhz4VqQ76KzbXpJYmQ9tIF3eqm3V
+ 9vUhbnvW5s/urQrZvFwq6I2Jx4FKRIVe7SR+tRIB3/rTIgiNJAsGZWigSBIr1rXb3S8j
+ 69W1EHs83zpDTZFNiAH1bsW3CLQAOLs5yCke7lfuiooucjzIf2NCZoPME83iCvPlkUnR
+ n/nA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxgQXJb+uoc3kU0lc3oWJCHn7eJwxjqvVaTjIs4eE5o/5L4KkNr8GrRdELseatiLOsQkTw8c0WG4Vg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lsiX4dqInHM0E9eNtDplQLrYwP7IsjAOj6GEI0iUHGxT8EmQn9
+ 7fDFeWaUjy36EJi60EvITpl7XYsu6ljYdId6Fs+Zya07ZhUvqOZgvPRH
+X-Gm-Gg: AYBFou1V76MkEPPdH9qVk3yld80aD54MqnYDjSm/4LMZG1uuRWsETsVVVDU2CpEPstN
+ VgHlQ3S6jiMJBrCFBD3iagJotOxSjyPzwfKmx36o41f5LrIISeXNeIluvaV2LHgobq13uHQqmQz
+ nIXnUvCfdq5JSiL38nmyyfK97KtWReatw3jfQGZGHKYxiEg5D5ptsk/RPgMhd/GjoP0YNgwkYvu
+ Fh18Wnt/bZPY4aZJnGLIkrbPaLyBVVmWIS1rLV4waRAQfP132IdcRdE7WDVQVapiuTs1u+9Ljfy
+ TnMt1Ci3guJBaHdsWbM25El7utc3zMpUNEwj61W0tunsYrrasf8SpKFaczJRkzf9Gxr050eMhY7
+ 1wmIi4r5QkyGzppOjwPybMRngGSvIdF2QZ2Z0xkoMVqhq3VPoR7SIPDVpXqsXbPgdKVGYColFpD
+ JsPqQy1vNZ97C/ugMWEv94Yo/Jk4rcXdXIjQSHuDhbzzWuFdXBRtLoqGKHyx3w3qM3v2pIsxYiA
+ 1HsF3sl
+X-Received: by 2002:a05:6a00:148e:b0:847:893f:2d0c with SMTP id
+ d2e1a72fcca58-85ed1d0414dmr4031929b3a.5.1788324659284; 
+ Tue, 01 Sep 2026 21:50:59 -0700 (PDT)
+Received: from Kalpna.localdomain ([106.194.26.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce551bf7asm33475835e9.2.2026.09.02.04.50.00
+ d2e1a72fcca58-85dc11f44a8sm709997b3a.56.2026.09.01.21.50.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 04:50:01 -0700 (PDT)
-From: Deniz Aydogan <denizaydogan1902@gmail.com>
-To: lizhi.hou@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Deniz Aydogan <denizaydogan1902@gmail.com>
-Subject: [PATCH v2] accel/amdxdna: add NULL check for job->cmd_bo
-Date: Wed,  2 Sep 2026 14:49:59 +0300
-Message-ID: <20260902114959.9553-1-denizaydogan1902@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829080016.10002-1-denizaydogan1902@gmail.com>
-References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+ Tue, 01 Sep 2026 21:50:58 -0700 (PDT)
+From: Anshika Jain <anshikajain196872@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, sashiko-bot@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, Anshika Jain <anshikajain196872@gmail.com>
+Subject: [PATCH] staging: fbtft: fix len<=0 buffer overflow in
+ define_fbtft_write_reg()
+Date: Wed,  2 Sep 2026 10:20:26 +0530
+Message-Id: <20260902045026.7442-1-anshikajain196872@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
@@ -90,43 +90,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_cmd_submit() leaves job->cmd_bo as NULL for internal driver
-commands that use AMDXDNA_INVALID_BO_HANDLE. The cleanup paths in
-amdxdna_cmd_submit() error handling and amdxdna_sched_job_cleanup()
-call amdxdna_gem_put_obj(job->cmd_bo) unconditionally.
+If len is 0 or negative when a define_fbtft_write_reg()-generated
+function is called, len-- underflows to -1, causing the subsequent
+while (i--) loop to run approximately 2^31 times and write far past
+the end of buf.
 
-Although drm_gem_object_put() handles NULL, adding an explicit check
-makes the code more robust and easier to reason about.
+This is a latent bug: nothing in the current code prevents two
+adjacent negative values in an init_sequence from producing len=0,
+and there is no guarantee future or out-of-tree panel definitions
+won't do so.
 
-Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+Add an early return for len <= 0, matching the existing guard already
+present in the sibling function fbtft_write_reg8_bus9().
+
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260830161529.14500-1-anshikajain196872@gmail.com?part=1
+
+Signed-off-by: Anshika Jain <anshikajain196872@gmail.com>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/staging/fbtft/fbtft-bus.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 31a414c3f..21f0560e6 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -575,7 +575,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
- 	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
- 	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
- 	amdxdna_arg_bos_put(job);
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- 	dma_fence_put(job->fence);
- 	mmdrop(job->mm);
- }
-@@ -676,7 +677,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- put_bos:
- 	amdxdna_arg_bos_put(job);
- cmd_put:
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- free_job:
- 	if (job->mm)
- 		mmdrop(job->mm);
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index e03aa251c..7d7135571 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -20,6 +20,9 @@ void func(struct fbtft_par *par, int len, ...)                                \
+ 	int offset = 0;                                                       \
+ 	buffer_type *buf = (buffer_type *)par->buf;                           \
+ 									      \
++	if (len <= 0)                                                         \
++		return;                                                       \
++									      \
+ 	if (unlikely(par->debug & DEBUG_WRITE_REGISTER)) {                    \
+ 		va_start(args, len);                                          \
+ 		for (i = 0; i < len; i++) {                                   \
 -- 
-2.55.0
+2.34.1
 
