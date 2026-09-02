@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC5EAC624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 09:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA2EC61DFD
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 09:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7CFD10F0B2;
-	Wed,  2 Sep 2026 09:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5128210F0C3;
+	Wed,  2 Sep 2026 09:17:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oUd5+pVe";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="S6i5QnA2";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010021.outbound.protection.outlook.com [52.101.46.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F5710F0B2
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 09:17:09 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013070.outbound.protection.outlook.com
+ [40.93.201.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD4FE10F0C3
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 09:17:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W+PvWRcgYSPnyoBSX//6zgcYyTXX036eVMaHerFsCtfNr1LSNzyAyxgxGkEV6VmO7mhI2l92cnKfnCsIkZWD9Pel3t5FI0OsGNHxy9M3VJp11msL86ZVIi1zgwfASKFu5N8qXt15T2JkCCYSq8c3LuWoGAOPvbP6H5chlhZGiabD4PaAaL6+3qJiBd8S8eZOQ3hW5XDQ8/ES5KYep7bE2jljBpc90ZEnYE8YpH5anmUoJ/K8NaQtxGlzxtVRA8f1ifOe8w33TQmlmJMUHVSU0Os/TptIH6u4Hwy21cF2nC5NlPufQmSEZcH5dMr/Ha1xgTGzKt7tq9La1W1T54UnOA==
+ b=mHWI0jNcD3BHY933s/QNE4xLzIN+WRHAAjwNRrg1YQ8KFqv5C93piCH5z4nLXJEg6XAYoGY9wPI+zszwy4CuiY3uMksIE3MUxI3lII0NeN4O4+EmFDEsusggyDyInAGDd2NpWYg9bUtNDt/ApZh0Zpy4HHW0Pqvh9DSxvKi9MdJGnVG9ajUKIIMUGr/NaG8THgluGLA6Jfp0QAzcRwQ8yQk47sV0Y3vEu4T2ijK0mWeUmtld4uS3aWtxh0p9apcHUEIYgMMr/uykZBS8rpuQLCpDo8N1hAp+DqD2LxlYSlQjhI6qnlphC60DfaOyhXoP5IJGMg0/AFMCEliZyOp3Pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=grBtS3F+lRjlVWXAb4lZXh4ngV4EekOYFIZzRBL8BTc=;
- b=Dk78LZL4MzG7LikMCElEUmJN0+hxQbUXdGYW4ZHcoQZklI7j47h2ZzlHl2G+a0ele+ak8AP2NFSydxgm0AW7CSagFiKowaLplIkJgSbz1jwx4ff9+Shr+rwBkrFB3giczIAw1Jd7cfyfYtJrDw8RYSKhdotTOI5ihEQbkFnnhtoJs9tAkfnaohRyr9oiCwSTJvZdRiDdHvB7BYP2Zpk/0xt4/lsNUfGnq2kYKugN44BZR3EA6/uu0oIWcmxygi1uSroEbKxQO1HKVLVyFg/mRdkm1dbmn4Jt5EjroJ+Ka5SBBv31iQaSvifoQ5Rz3NuJyrl/RshZXiX7Z4Uusp1Nxg==
+ bh=WaKRd3EWTTSVC1DRyAsw6o7D2mWSxccHnR09kX80NQ4=;
+ b=bNClqGE6WgbLhutT/l+Lm+NMWF/LLtGifPQWYG92dUp6Quez64NS3uYao7We+TpEVstxllMAfGT3Ly8xBFmbqX5LKqvGLzRo9bgQkh2DHdtpcBYrhTXY9VSsJdp1ZCdrx31PQ7j9nihmFX+pivIBkmt6yl5Q0L3sqf5RBvqttaEX+VXc6CSdKeQpXbBmAzPZrwHxqU9sE9BC4lt0j7i31nqPTR5qP8Sr+Au6mgvyU15F5XncP/Q/hGBbfTJ4h556fkNO1jRKS07Uz36YNjyGkNIiLYtv7busGD3Dj7LyDHlqlBSiixr6Zz0pU6WrBq307RtnI0YZlOsR86GDdgYfYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=grBtS3F+lRjlVWXAb4lZXh4ngV4EekOYFIZzRBL8BTc=;
- b=oUd5+pVecwm+BQhLjte5r1bW0tvT8Y6qy2+mhtL0SD/2MHKwt6s8eT/bhoMZclySG+ikBIjHvXsf472Y9Cgq2abQdvelzuF4QNXpGhhUc+CfRULX3Cmz752uV/6pwv6Xcgr9KWoPswHRBMDuke6TSlIdIoIG6x30hZ4NZY0M1FdjvEmUuxBP8r6zjshWAOk1HmJ3kfujVhXgPacj0z39a3X8UfXPdPGAqhNsfCRzjuWTYImFFUsqZiR23PyDSnIZgbeItFrlHnIwAVlxCS/72zY7jfn9mVLsiKPmrIG1h8tt1lBz1Zv1zzrsWhgu8m2XAlqcWazh27F/jdU5XoNXRg==
+ bh=WaKRd3EWTTSVC1DRyAsw6o7D2mWSxccHnR09kX80NQ4=;
+ b=S6i5QnA2tzRCq6GOXxAK7DSXPGzkz30gtEs7uhrdIzMF9ji1A6HjI4FyS11DjIvJkJNSsbowXGoaTg2BHUn+xJO/6h3qVWfeKAyQ38ZRdVt/GUIlDQG9qJZ5Um+SNe69rc1Uvi9nrQ7pJmSi+/VtPWLscXuNVP3yoEEHn/pxWcHVWv9dCZclR+ef+yUT+jF5PksGgSQXilDAciIn0tgqFH+6VvRdnqvx0FXYsE4ERCyQ0RuJNkZmcP1fby7pfevHWDNHf3wIPs1S86jnmv1zPtvmymYGLuxGWFygBwU/AiLQORlzXIUExmEJUMxBId0sAT74PqhiVzHf+IK0IhitUg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
  CY5PR12MB6227.namprd12.prod.outlook.com (2603:10b6:930:21::17) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.13; Wed, 2 Sep 2026 09:17:04 +0000
+ 15.21.360.13; Wed, 2 Sep 2026 09:17:08 +0000
 Received: from DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
  ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 09:17:04 +0000
+ 09:17:08 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 02 Sep 2026 18:16:40 +0900
-Subject: [PATCH v3 1/3] rust: num: add cv! macro to create values from
- constant expressions
+Date: Wed, 02 Sep 2026 18:16:41 +0900
+Subject: [PATCH v3 2/3] rust: prelude: add `num::cv`
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-cv-v3-1-0f90659e711d@nvidia.com>
+Message-Id: <20260902-cv-v3-2-0f90659e711d@nvidia.com>
 References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
 In-Reply-To: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
 To: Alexandre Courbot <acourbot@nvidia.com>, 
@@ -68,73 +68,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P286CA0039.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b2::7) To DS0PR12MB6413.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0009.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:26c::11) To DS0PR12MB6413.namprd12.prod.outlook.com
  (2603:10b6:8:ce::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY5PR12MB6227:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09a42b66-2cb9-4b62-7bba-08df08d2f41f
+X-MS-Office365-Filtering-Correlation-Id: 483183a0-a97c-4187-23ab-08df08d2f65d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|10070799003|366016|921020|6133799003|11063799006|10067099003|5023799004|3023799007|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 0uCx5pBB0KMs4XZA3lpAdVVsRFMIhOH+eDWl81/PkJeK3aBps19VRQheRLZTh4XKbz3YPcLZKjuTyn874z0xILMWE45kC0LYA20SDOvlpCN2cE7euiGrf/GbsKlEfJaQYwo91+3NFzqXNGxUvk3PdHH10KCbwW9kzNDMWB2K6BgzlcdzAdZtA0S/eolSn8oo4WIVb/Q5V77OOKPDjj1J+xilVHV/W4x6q0Hk7tu2J7cPnOgY9Jp2koEYDELbyxduwtZXdRWEAYsHr67yj+5lQkGyE4FYjhOe+zNk1s/scwQ4ZUd5DXmkH+rbIuBTs8X1BBu5D8BDXcE4BXEPxo1u+IQfCukLH0lbDyDbCio6YJ0asIvCSWnc+SJHY80FLEuoqRFKEfEm8D67lU37gNhrqrzi6uRGInqs/mvHYPtiWWiH78OWuGgp3rV5VCYyPbQd+jfqeBiWAdT9257H27TnupU8zfrniUrdHYHNSxUVINmUmNP/VrQwHaVdgQi3vvAZWz8iHOH8Yo0XuWOwoNAoCw9xk49E6Dhgm+3L/X9+WG9RE0Xn5q0VI6PHzNgWy3MxpYMzzIyG//9VHx4dN2abidVDOSX5FRlUWhOmXi4fP9hnxB85WHrHLIgwERl+PdkH16FCVj3gwmsqZObKhMgKOMQhBfCfUjGZKD97SQ1srwRyEcgkvMKPaCVrBE8p4P4i7UUsMeABfGN/fWlEP16SDg==
+ ARA:13230040|7416014|376014|23010399003|1800799024|10070799003|366016|921020|11063799006|10067099003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: Axt1K6qHWw49L8izoG37Fi8gW9GxupENTfbbxKZrkTQtnz93e4bdNK+3k/hv3lol/lX6qM6nNoKiFxouAhN8fyDvDATj/DlHlbB9s8iQ0tnA5f4kE3DZlkyfKNrYWcdmX8h02W+uwVylc40vseV9D7susFXR52huZ8dVEDijZricQGa0BbZdNYpcHfXr+jNYmYIb5MIsOpKiefLlARcHOzLEtj3w8tcSGFlYcfQsD/f2R0sxrvAS1uJS5YzNZK5r5Zw4dT2F54s6sviYiXjW+MgJM2RVCu4V4/ghxvLV5Haou1jeP6/wsudGdWip006QgheWscJcpX+sDUoNd3mKmut9ifOpln9ZRaLfau80kfiw2EnUHqNqeciTtamrFSWQybAKEv2rW95u/YdSeFX3m+2zYHXVqnmG5Jan/0NGCsk2bNEjltEBMvK64PUHihB00h4RqMUvrEhikCaVEir9/dWv2RwKbHcb8doC7OPCcIIbidknmH+bWQwciQ0dcB3AL9UHKeQpPqodeyWEgfoIKdX0F4fJ5H3YEEqLurB2wyUCnMTaXG1cq/HRgGgHIKt0QGDxXwqg5PolrRt5x8v6BAmpf8dNLhrq9PlEp2EyeYGIU12wrvcH1kwgigTxD7QFbjWx7bFdRAR/KHjndOWaqLtb0NPuOOt4TMcZg7u7g9FL4wOoVCnBsczX6cqfIDcQlXGGXZKfj4WqSFQBzHQrEA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(10070799003)(366016)(921020)(6133799003)(11063799006)(10067099003)(5023799004)(3023799007)(22082099003)(18002099003)(56012099006);
+ SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(10070799003)(366016)(921020)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHpJTTdkdjBIQklPN1FLRXZLTlJOOXU3R3pUNW9YajRoaXZBQXcvUE0zUHRj?=
- =?utf-8?B?UWxBc3FEUC9XVlJFRDlhOU02bmhTdFVvZVpjS1FETEo4ZGpPTTU5cDVoQ2N1?=
- =?utf-8?B?QlZtK1ozWEt1SnhHdnhkamZHYXM5Slg2OFV2Z2JLeUZha2RibFRHWEJNVkc0?=
- =?utf-8?B?RU16ZHEvRWVCSjU1RGlvL2RFcGNiK0FtSEh4TytVSUEzb1hZUkRUdUc4UTdX?=
- =?utf-8?B?WFNLeDlvTDNmL055aW81VnN6NGZZbnhWWWY3WSs3WnVxTUxNMnlxRkxFbjZz?=
- =?utf-8?B?K203M3EvNkx4d2lVN1RaMC9hOFJSSzRBaWx5NGlCa3Y4cXkzTDNvaDk2UGh0?=
- =?utf-8?B?d0k1cVgvY1p4cTJkZlhPUFhGTkFsd0JyNy9RUVhFakxmTTlxenUrS1dPZWdp?=
- =?utf-8?B?L1NWQmZ1Rkh1NkxQazE2TFFKcC8vTUVwOGo1VHNXS3E5SFljcjJBbktITjg0?=
- =?utf-8?B?V2tMblRlSjFmNjlUeUR6VjhWNlcrWHVWek5GTHNHMTU5WTNuSUMvNjJuOENr?=
- =?utf-8?B?UGZDRXBkSklwYXRIRUVKTnFKOG93NUY2UzVyNE55UndaRUZVSC9ORytFN0lp?=
- =?utf-8?B?TUVrOHlmbTgzc0tHanM0N1F6UGVVcUpUQllXZDQ0NWpLbzdyNDNCbThtZDRK?=
- =?utf-8?B?L0VpYXNDSU9iOG1sQUZ2SHJGRnJIOGczUWx0ZDUrc0QxK3V3c0M3bGZ3MXJr?=
- =?utf-8?B?L0ZObktiUWhDR1Z0a1lxSmYySFVySWlUUkREN1djdjRxOUVNeDJlL1VVVFNi?=
- =?utf-8?B?MUcyRnBKRVlvQlVYdTJnRE92QzNWZkMreEFOd2x3VFp6WEtLYnhaayt4R2VD?=
- =?utf-8?B?b3h4Um5FM1hubyt6RVB3TTVxb05kQ0dHTzViYjNFM2t6VXREQ1JvazUxMGVI?=
- =?utf-8?B?R0NXY3IzT2RKL3ZNblhFamZBWmRPNnI5U0pKNHp6Rm92RUowZ08vQ1IzVHFP?=
- =?utf-8?B?bFRCamhrWFFJZ2d2TDQ2MXhIYzk1MWwyYXpaaytmTGpNK1NlTDUrMnd3R0RV?=
- =?utf-8?B?VitUQnBkT1VCUGZtN3ZEaEhTQ0tnTlVkUjI0V1pqdEYvWUFRWGpBREQxVUhj?=
- =?utf-8?B?WFFCVXo4ck56NERjd1QzN1I5Z0RiZ09BdlNJMEZ0b2w3S0IvYlJicU14bGsx?=
- =?utf-8?B?NnJXK1hDTUFRbmVQWXRtQVQ5bWF1RFJqS3dtbWtxVVhMZmdOcjN1S2krNXhn?=
- =?utf-8?B?MWt3M3FrRUV1SmxKT3RxNW1aRzNpT1orN0tNZkZSQXpmVG5ZdkF1ekZrMjJQ?=
- =?utf-8?B?MC83aGkzMW1JWTZPWlhYVGt6V2prYmc4SjZHajJKaWovbWYvMFUzVVVFUjNw?=
- =?utf-8?B?NG1tcUpLMUdYWi9FV05PZERrTEt4QTlxeU5ESW9OVGN2d0x3cDAyMHBEc0FF?=
- =?utf-8?B?ekVnK1BLVk9YYW1WRXNJeVNyVGtaUG15YklzcXBBZVFLNzBadWE3amg0L2po?=
- =?utf-8?B?c2IrSm9wMWJSK21GOVdZOVc1VXRoQ2dRQUlUMG8yTTM2WEt0UDFQakQzRmkr?=
- =?utf-8?B?VFlWQTd5TGFTeTZEMVd4MlJRbWM0VVNRc1AvV0JLSU9adm1scTFrenRaNE5k?=
- =?utf-8?B?R0FQcElTRzkxRURDYWhuLzlncS9qRUhWR0dGSXdKSkJhUnB3VUlZbThxRlpx?=
- =?utf-8?B?Z1A1L1V5MzdUaEsvQ1g4UTBFYm90N2dUK2ErSTE1NFBJaWs3SnF5TG85MGNG?=
- =?utf-8?B?MllFOUdUc0FEWUdSRDhwaWhnUnRYQzlnVTdKLzJ6NEQvWWFRbHVhWm90OVo3?=
- =?utf-8?B?MlZmUklLM2l1K0ZZcmZLR0k0TThUWGhTQVArdGFjLzFvMEtuNytKWXBkRmhV?=
- =?utf-8?B?ei9uY0xMVW44bFBERDVHaXduZG9jYWtyRGJadWlxcUpOMTFpdktiWUo5N1ZQ?=
- =?utf-8?B?bUE1TStWaHBjeEtpNkNDZVdUSkNDY0RpMUJyb243YUFVYi9rWTJWWk8wYnJL?=
- =?utf-8?B?N09tWDhsQVlrRGhrbFU1a0RFR2N1R09BU0pUYUR1SDlyZFFlU2c2eHFHdGJN?=
- =?utf-8?B?K25ldmpsN1pTUTFGeTVCclpid0hMNDJxVDBBK29HcEtaMC80MCs4bmFXZTNU?=
- =?utf-8?B?Kyt3WFJaSHV3QWdtbWJqVU5DN3dHTmw2Si9aeTdIOHdRZUptZXJtK1dwVlZo?=
- =?utf-8?B?NkVyZzV4c0dQR2VLTzFITUtmWThJVkIvb3UxTXVQZnpkR3ZnbVJ5TnRhOE9Y?=
- =?utf-8?B?L29mWXJnWnlhRTRxYkFwVWlmY3E3YzVLRTcxSEdzcVhlbDJERzljSVNLQUEr?=
- =?utf-8?B?eEdkMDFwS0FnNnhXRS96QVNPTDhOZHNDTDY2ajJ4WW9YQU1OMFRDalM5UmZn?=
- =?utf-8?B?eFNHeUQwSzZyNXZPSFovQlI3TjdUaDkyUFhYRk5UL3MycmVjMU1ZMnh3bTIr?=
- =?utf-8?Q?A6q5/QUEGpwDlKCaKP6fGHQrPGlPm73FNWD+pBd8y7cnA?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7ZaU4d+JtaAypQ==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0NiaXZocFhYRmlaMnZvZktPRHRucmJYcmJUYjAzK1hscm83bFFXbDN2bkN4?=
+ =?utf-8?B?SXJ6UXZGNk5wVzJFeHBMVzlHaW8yWllOdDAzcnU5MDhDVjRaY2JRdFpzUGhs?=
+ =?utf-8?B?K2VnTVQ0amJZdk4vODFCOWdOa3FFc2lwRUVoeTFmUnRuVjJOenZUd1Q0bXRT?=
+ =?utf-8?B?OEYyUGwyUUxLKytQa3grYW8wSWdkVmt3QnI3WFdnektLOXRUOFhHWFA0NUxO?=
+ =?utf-8?B?N1VWSDlzWmxTb2JzdnhlakJvelp6UTM5dUtkekx1dmc4S3dpQzRpbm9rVXJi?=
+ =?utf-8?B?QVBoK0RWT2NsdWhsL1JqV2xLWXdZRk5VcG1hTkJKRVVGeXNVLzh5MjNFRHRx?=
+ =?utf-8?B?dUk0R0l2YVMvN0VtL2lnWUtveVJOaldrNmtCQ20xeVlmTExFS3M1cy9OY0cv?=
+ =?utf-8?B?SkhobnhlTE9IajhaL1FWTm84SDVaYXBlTVRhU1QzSjFuQXFMcjJPSU1EVVdK?=
+ =?utf-8?B?KzB2ZWxEMWYzRWZHTUxwZ1lGZlVsamNIelZ2VzJsdTBQaTVlUzl1YXNHblFw?=
+ =?utf-8?B?alNQd0tpc1JseUd6TzFuMC82N2M4d282cGN6RGJKZlpuaHMyYkdLc3FYZmdD?=
+ =?utf-8?B?WTZKZzhxNldyMWJiQTVwSXoxRHlpaUt3Vit5NFd2TmxMTVl2K0V2b3VxTk9r?=
+ =?utf-8?B?Z05Rb3ppcU40ZXNGeTQrak9sYWJYc3prS2NQa0UxMUQrMkk4M2xqcjRxNks4?=
+ =?utf-8?B?MXl5bHFDSmRqVFNUQWVMVkgyck40K0hkU3lZVkhOS2tRaGNPMENVM21QRVAw?=
+ =?utf-8?B?NHRhc1hxaE53eEo5UnNmeCtUWjc1RERvaVZ6K0xsRXd3K2g2Y2hQbUcrVmFC?=
+ =?utf-8?B?Y1hOeVcrYXdvTWNWWGZmb0tDaEMvRXlJZ0ZpOGM1MzlTbW05d1NtMkNDc0NO?=
+ =?utf-8?B?MkVBcWN1WG5wVXd4OVE0czQ0bXB5VUhMVlFKaTU2NHFJZ0FyYUtGM1RRNXR2?=
+ =?utf-8?B?bFNYMWUrYjRjSitWZExCUVU5QXJqTGdEVE1seXRIa0hFZnFhZWhMMjdiaXp4?=
+ =?utf-8?B?Z0tHbGdFNW0vcEU1Y1Q3NjZkS0pCVkdaMjVMd3dRYzlCWXNldWxLY3I2QzB4?=
+ =?utf-8?B?UHhGbVZ2akVpTGh6bnlJRG9wekprZ29DK1NvSVRZbDVKSVBkLzB6VkpvbzNy?=
+ =?utf-8?B?TTE2eWVZYW5raWp2MzRvaXNjT29CenhCRFNUa1hQVXlCNjI4TmliNVU4R3Fm?=
+ =?utf-8?B?T013TkFndUhXQk5IbElzOWxnZkphaDROY0hKM2svQnI5R2tuYU5IT2xnZGFS?=
+ =?utf-8?B?czhvL2RyWTBUakY4aFNUdTBMczdYdU8xeTYwNlA3dDRhYXFGZUE3OE40bUJ6?=
+ =?utf-8?B?L3JIYWxnWUNRMWFvRDZDLzN4Ty9MeGEyUTVZa0pwNXBjMHJramErQkJYcTdB?=
+ =?utf-8?B?RDN6dll6WjdYZEkrbTFWM0o2Y0s1bVp1S0hxMXBxNWVjdXRyS21kWVFOVWxV?=
+ =?utf-8?B?anBFQXVscDdtbWRlM00yZUMwVWxsSi96dE1IY2VMd3FhUkJmeFRGRURTV0wy?=
+ =?utf-8?B?R2tSMEdzc3RXMUxSRXNhTjk4TXEyNk1xOVY2RkZESmV6bUFtQUxqOThIc3FF?=
+ =?utf-8?B?eHIwRWN3amIyaFA4TUdSd2lMKzZiL21sVUlMK2hlRmR0T0EwbnM2U2I3RjFO?=
+ =?utf-8?B?Ri9xNHNSS2ZLeE9CZDNjQWw5YmgxWk9LQmpOcFB0T1VYa2l0YXhqMVpyQlo3?=
+ =?utf-8?B?ZFhFVms0cml2S0I2cXRYZ1d4R0ViWUd4RmFvY0VnRnJTa3VoMHpUcXh5L0xk?=
+ =?utf-8?B?ekdyTWpPYkJmWWNTeHp1UEFHVVgyYWN5R1FTa3BuMEN5REJ6S0oyOUg5S1Q4?=
+ =?utf-8?B?K0ZKVEtWWVIwb3N0SldZZ1F4TTRnU1phcG1xRXprRzBFSTd2dWdTU3dWczlr?=
+ =?utf-8?B?bUwxV0FMZ2F5RnBtNlFUeVBvVWxzOHhhVVhvK3pwMzI2SVZlYVRNUWE2T3lU?=
+ =?utf-8?B?YjB1TlBWT0VlTFVzZ0svZlhrbDdDV3Jqa1lRc1RrOWR5SzFib3lLaWUwMXZF?=
+ =?utf-8?B?QXAxUXd3SXFHb0ROWDZ4b2lJUFpoYk5wcGViMEVGcW03a0dmRnBMQTk4ZGpB?=
+ =?utf-8?B?bGZuUzhsMTdqenJoYUYzRXlZbFA5WmNmejJvR1BnMjFVcWN6M3RHcjZzajJG?=
+ =?utf-8?B?NVVjK050b285OEV4eWowQTVnQXYvUll4dFJJRDZBNzFCd3pyUFcrNnRMdVN3?=
+ =?utf-8?B?ZWZwaU1lc3hjR1pMNjR2dzZ2VDJhRlFOaVVzWkFlVExEUXQrL1hDekdqbVFj?=
+ =?utf-8?B?YU5PWTQvcnc0NXpuYjJoV29ncGJoNjhFMlFaTzdTa1hObkg0TjQ2QnZJdnFF?=
+ =?utf-8?B?MXhYWWhKUHdjNG5xVUk3N1E2VC80R0grS1RPUEJBWks0eFg4SFAxV0wwSVdk?=
+ =?utf-8?Q?R1LWa9THi8V7RkFjB+3p8vVgw94Hx5q2AJA2bkpMDmGP+?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1PN55sje6hqHow==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09a42b66-2cb9-4b62-7bba-08df08d2f41f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 483183a0-a97c-4187-23ab-08df08d2f65d
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 09:17:04.3703 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 09:17:08.0378 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KeNlu86JQ2rIDZkMdHZHsST0SwlQ6/xGWMrg3TLQDqUyfUDetP0VdjFl4ps/1r1MGJ8kyd4J0wRDWdVj96f+dA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: sKaYuPGsqlxmbI9vlK5SRMqELDGHoj1GmXKPEdgX9kuJPSJJj83OSW614LL0vsYwJ3/L+UDcPh6vjQyPQO2FMw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6227
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -151,244 +151,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, using NonZero/Bounded constants is quite verbose. It's
-unfortunate because it disincentivizes using it in interface boundaries.
-Introduce a macro to make it nicer to use. The macro `cv!` (for constant
-value) takes a const integer expression and widens it to i128 (at build
-time only) before passing it as a const generic value to a new trait
-`FromConst`. The value is then converted and appears in the
-associated constant `FromConst::VALUE`. The trait is implemented by
-NonZero, Bounded, and Alignment and lets values of each be constructed
-from constants without a verbose turbofish syntax.
-For example, `const { NonZero::new(1).unwrap() }` can be written as
-`cv!(1)`.
+Add the `cv!` macro to the prelude so it doesn't need to be imported
+explicitly to use it.
 
-Suggested-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- rust/kernel/num.rs         | 138 +++++++++++++++++++++++++++++++++++++++++++++
- rust/kernel/num/bounded.rs |  19 +++++++
- rust/kernel/ptr.rs         |  14 +++++
- 3 files changed, 171 insertions(+)
+ rust/kernel/num.rs     | 1 -
+ rust/kernel/prelude.rs | 1 +
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
-index dbe848e30efe..9435459376a4 100644
+index 9435459376a4..08862fe6ceee 100644
 --- a/rust/kernel/num.rs
 +++ b/rust/kernel/num.rs
-@@ -2,6 +2,7 @@
- 
- //! Additional numerical features for the kernel.
- 
-+use crate::const_assert;
- use core::ops;
- 
- pub mod bounded;
-@@ -9,6 +10,143 @@
- 
- pub use bounded::*;
- 
-+/// Creates a value from an integer constant expression, with validity checked at build time.
-+///
-+/// This works for any type that implements [`FromConst`], with the target type inferred from
-+/// the context, or named explicitly with `cv!(value => Type)`.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use core::num::NonZero;
-+/// use kernel::num::Bounded;
-+/// use kernel::num::cv;
-+/// use kernel::ptr::Alignment;
-+///
-+/// let v: NonZero<usize> = cv!(8);
-+/// assert_eq!(v.get(), 8);
-+///
-+/// // Any integer constant expression works, not only literals.
-+/// let m: NonZero<usize> = cv!(usize::MAX);
-+/// assert_eq!(m.get(), usize::MAX);
-+///
-+/// let b: Bounded<u32, 4> = cv!(15);
-+/// assert_eq!(b.get(), 15);
-+///
-+/// let a: Alignment = cv!(4096);
-+/// assert_eq!(a.as_usize(), 4096);
-+///
-+/// // Checked narrowing of integer constants, including in `const` items.
-+/// const SMALL: u8 = cv!(200u32);
-+/// assert_eq!(SMALL, 200);
-+///
-+/// const N: NonZero<u8> = cv!(5);
-+/// assert_eq!(N.get(), 5);
-+///
-+/// // The target type can be given explicitly.
-+/// let e = cv!(200u32 => u8);
-+/// assert_eq!(e, 200);
-+///
-+/// // With an explicit primitive target, the expression can use generic parameters.
-+/// const fn as_u64<const KEY: u16>() -> u64 {
-+///     cv!(KEY => u64)
-+/// }
-+/// assert_eq!(as_u64::<0x40>(), 0x40);
-+/// ```
-+#[macro_export]
-+#[doc(hidden)]
-+macro_rules! cv {
-+    (@cast $v:expr => $t:ty) => {
-+        const {
-+            #[allow(unused_comparisons, unused_assignments, clippy::as_underscore)]
-+            {
-+                let v = $v;
-+                let r = v as $t;
-+                // Pin `back` to `v`'s type so `as _` casts back to the source type.
-+                let mut back = v;
-+                back = r as _;
-+
-+                ::core::assert!(
-+                    back == v && (v < 0) == (r < 0),
-+                    "value does not fit into the target type"
-+                );
-+
-+                r
-+            }
-+        }
-+    };
-+    ($v:expr => u8) => { $crate::cv!(@cast $v => u8) };
-+    ($v:expr => u16) => { $crate::cv!(@cast $v => u16) };
-+    ($v:expr => u32) => { $crate::cv!(@cast $v => u32) };
-+    ($v:expr => u64) => { $crate::cv!(@cast $v => u64) };
-+    ($v:expr => u128) => { $crate::cv!(@cast $v => u128) };
-+    ($v:expr => usize) => { $crate::cv!(@cast $v => usize) };
-+    ($v:expr => i8) => { $crate::cv!(@cast $v => i8) };
-+    ($v:expr => i16) => { $crate::cv!(@cast $v => i16) };
-+    ($v:expr => i32) => { $crate::cv!(@cast $v => i32) };
-+    ($v:expr => i64) => { $crate::cv!(@cast $v => i64) };
-+    ($v:expr => i128) => { $crate::cv!(@cast $v => i128) };
-+    ($v:expr => isize) => { $crate::cv!(@cast $v => isize) };
-+    ($v:expr => $t:ty) => {
-+        <$t as $crate::num::FromConst<{ $crate::cv!(@cast $v => i128) }>>::VALUE
-+    };
-+    ($v:expr) => {
-+        <_ as $crate::num::FromConst<{ $crate::cv!(@cast $v => i128) }>>::VALUE
-+    };
-+}
-+#[doc(inline)]
-+pub use cv;
-+
-+/// Types that can be created from an integer constant expression validated at build time.
-+///
-+/// Implement this trait to make a type usable with [`cv!`]. Use the [`cv`] macro, not this trait
-+/// directly, for creating values.
-+#[diagnostic::on_unimplemented(message = "`{Self}` cannot be converted from a constant")]
-+pub trait FromConst<const V: i128>: Sized {
-+    /// The value that corresponds to the constant `V`.
-+    ///
-+    /// Fails the build if `V` is not a valid value for `Self`.
-+    const VALUE: Self;
-+}
-+
-+/// Implements [`FromConst`] for primitive integer types and their [`NonZero`](core::num::NonZero)
-+/// versions.
-+macro_rules! impl_from_const {
-+    ($($type:ty)*) => {
-+        $(
-+        impl<const V: i128> FromConst<V> for $type {
-+            const VALUE: Self = {
-+                const_assert!(
-+                    V >= <$type>::MIN as i128 && V <= <$type>::MAX as i128,
-+                    "constant cannot be represented by the target type"
-+                );
-+
-+                V as $type
-+            };
-+        }
-+
-+        impl<const V: i128> FromConst<V> for core::num::NonZero<$type> {
-+            const VALUE: Self = {
-+                const_assert!(
-+                    V >= <$type>::MIN as i128 && V <= <$type>::MAX as i128,
-+                    "constant cannot be represented by the underlying type"
-+                );
-+
-+                match core::num::NonZero::new(V as $type) {
-+                    Some(value) => value,
-+                    None => panic!("constant cannot be zero"),
-+                }
-+            };
-+        }
-+        )*
-+    };
-+}
-+
-+impl_from_const!(
-+    u8 u16 u32 u64 usize
-+    i8 i16 i32 i64 isize
-+);
-+
- /// Designates unsigned primitive types.
- pub enum Unsigned {}
- 
-diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
-index 2a2b0a4bca5e..f720eb44e7d3 100644
---- a/rust/kernel/num/bounded.rs
-+++ b/rust/kernel/num/bounded.rs
-@@ -14,6 +14,7 @@
- 
- use kernel::{
-     num::{
-+        FromConst,
-         Integer,
-         Unsigned, //
+@@ -20,7 +20,6 @@
+ /// ```
+ /// use core::num::NonZero;
+ /// use kernel::num::Bounded;
+-/// use kernel::num::cv;
+ /// use kernel::ptr::Alignment;
+ ///
+ /// let v: NonZero<usize> = cv!(8);
+diff --git a/rust/kernel/prelude.rs b/rust/kernel/prelude.rs
+index ca396f1f78a6..5facf8f7af90 100644
+--- a/rust/kernel/prelude.rs
++++ b/rust/kernel/prelude.rs
+@@ -106,6 +106,7 @@
+         Result, //
      },
-@@ -272,6 +273,24 @@ pub const fn new<const VALUE: $type>() -> Self {
-                 unsafe { Self::__new(VALUE) }
-             }
-         }
-+
-+        impl<const N: u32, const V: i128> FromConst<V> for Bounded<$type, N> {
-+            const VALUE: Self = {
-+                const_assert!(
-+                    V >= <$type>::MIN as i128 && V <= <$type>::MAX as i128,
-+                    "constant cannot be represented by the underlying type"
-+                );
-+                // Statically assert that `V` fits within the set number of bits.
-+                const_assert!(
-+                    fits_within!(V as $type, $type, N),
-+                    "constant cannot be represented within the given number of bits"
-+                );
-+
-+                // SAFETY: the asserts above confirmed that `V` can be represented within `N`
-+                // bits.
-+                unsafe { Self::__new(V as $type) }
-+            };
-+        }
-         )*
-     };
- }
-diff --git a/rust/kernel/ptr.rs b/rust/kernel/ptr.rs
-index 82acb531b17b..ac1662c3c8af 100644
---- a/rust/kernel/ptr.rs
-+++ b/rust/kernel/ptr.rs
-@@ -166,6 +166,20 @@ pub const fn mask(self) -> usize {
-     }
- }
- 
-+impl<const V: i128> crate::num::FromConst<V> for Alignment {
-+    const VALUE: Self = {
-+        const_assert!(
-+            V > 0 && V <= usize::MAX as i128,
-+            "constant cannot be represented as an Alignment"
-+        );
-+
-+        match Alignment::new_checked(V as usize) {
-+            Some(alignment) => alignment,
-+            None => panic!("constant is not a power of two"),
-+        }
-+    };
-+}
-+
- /// Trait for items that can be aligned against an [`Alignment`].
- pub trait Alignable: Sized {
-     /// Aligns `self` down to `alignment`.
+     init::InPlaceInit,
++    num::cv,
+     pr_alert,
+     pr_crit,
+     pr_debug,
 
 -- 
 2.55.0
