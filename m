@@ -4,51 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFA97C624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 13:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4290C624D3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 13:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0658110F1FC;
-	Wed,  2 Sep 2026 13:38:26 +0000 (UTC)
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7A410F1FC
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:38:25 +0000 (UTC)
-Received: by mail-oa2-f1.google.com with SMTP id
- 586e51a60fabf-448a12ddfb4so452311fac.1
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 06:38:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788356304; x=1788961104;
- h=content-type:to:from:subject:message-id:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=T4EUl0+l4ijrlzUvXL1HFtDQOMWNs5F7/Y3XbzXQpJ4=;
- b=Wo7XubEVqPj12YsnmLQDw4DLzCZvpsk5XouI2IgfIpAxpAySnB6LPTx6N1PPzjPLoo
- JqP6qUcvAuUD0YOVecJjzS+7EHqom/3HejgJqNUBYWJEb/rlsgqwrj9D4qxFVpxuvoQu
- 3oog86HU919nqP3WLIyfN0/RdD979WKw1Qh1jGCy440YhHAvCJlrMpe3eVcHAGolk5yv
- UeyfSG656EASkZKwOCQDe6f/iXt4aLv9kijwz2wdzs8/gnw6HkPPEFG59FLBiQowvK3r
- cy7lxGUcYipdr3bJS6j4dggWazn4k893nk7sTX7oAEcBpCQSonn9WSX9dPGaIWIbMZUh
- XVzQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpVqUy+eeS6Brsm2f/3dGc+LmVg3i26Kqw4RummZuxXl2S6f5CaNSpKCPE3DFUiNymlAP3Mzb79Uro=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kcJfMkqvtN3pQ7592IE7jtrm8PPJpAZnoYYhuBNGJjt1VuikqK
- 7LRW6bn8gpypX22XxtBY81V38gR+kaR5ejC/XgfLD5A0Iz9Pmaq5BQh5lSqyKUtDvLzG3p0OQby
- GSeaohUmnDVJPavuq1rzP16QMwfHZuvsi8Z5ly0qSf1tKltMJ072R/0EIGSI=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFD510F1F2;
+	Wed,  2 Sep 2026 13:38:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HmjjGMwL";
+	dkim-atps=neutral
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010025.outbound.protection.outlook.com [52.101.56.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D598C10F1F2
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:38:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pXyG0uTz6S9OsZO64Fehqceqlg+zyIjiOks/F3Q+4gwplmYVWQEO/vCCgpf5/fveqGVtHR+T9EvSMTtbqu0nyaPvACJ5nHT+mh1VN3pJg5qS904BScKDBu0ff63bH3cKZJ8TTg4QEvJomuKN7hMyRfqntd1Xc3P8HNucmyrx/hY6qHt+3otqrQ/LwIe33/XMbSaEFaS3vL2mPq/MzSbU6lIfBc99/7Lf/QCg7TkXOVXLR6StJCu/A/XcGNUQH0Ugv1J7ZV34g2/WTPO4K4Cx8dFC2kVUFJ4aYqzn+F5fB/1gI29xSIg2XhDKx4szEs9BgHlOoVqcSIewLvv8EFsnmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IAFv8gzcBR14sxsplWYcc1hmN+x16e94n2CRnTpPlLI=;
+ b=aVBSNjkCyYtcQHd1G9LPNdz23Uow9cgkMcIaJShh3IjPK1eelfCIyhRr9xLY1ms8BUCvI3i2AVcOXrAlrRHi5jjurUq8DITiDXLGEL1G4rBUq6Fp0toifz3uywsK4z7PuRdYZhOqMgOyN9MyeTrT5bLI5M+EQHqTOATOTQmgojwP31ji2VwIuzsWRK/NettyTDwgwazcuzI6YYWJ5KS0KsPjpKd74xX+j8iLT3VfZUeMkg6+MZnfAqQJhK4kLeiL5WjSFaXZsiEu9/c6VZ0tZfMB7fMygYUYw+8drzI/gvp+yMbuXBLZ0wcRoR4c7w0qXjrBnc9O3detXjBgmvFYdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IAFv8gzcBR14sxsplWYcc1hmN+x16e94n2CRnTpPlLI=;
+ b=HmjjGMwLe/KIOkIYOmAaNjsANLgiToqmIuGUyZOxxvJXEqEypPzFXcNz9LNe9IfTtHpDsIoR0gu6JNZ+vakcC2DrpPj2Z5EQZi9v7A70aAHxEbVkVlQgz+LIDDaW+qjVcTNv1oxz4HZ19Wk8Ei/88k31WtfhvptUcj4vsO00k10=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB8434.namprd12.prod.outlook.com (2603:10b6:806:2e6::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 13:38:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
+ 13:38:28 +0000
+Message-ID: <d213e2be-7f87-4864-8842-ecc1b7dabb6c@amd.com>
+Date: Wed, 2 Sep 2026 15:38:23 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?B?6rmA7KKF7ZiB?= <malhyuk97@gmail.com>, matthew.brost@intel.com,
+ dakr@kernel.org
+Cc: christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <8c2a4df5-37a4-414e-81e2-cd97218e5355@ursulin.net>
+ <CADQRuqtjBu7wR4kKVDcS42KLKQTr+7SBtRn24mgZ+ApettMr1A@mail.gmail.com>
+ <b8f98b9e04c9999008bcdec270b14247e3cd18d0.camel@mailbox.org>
+ <619669b6-69ea-4aa5-b91e-b29cc788e335@ursulin.net>
+ <95e34a8771fe827e134970a3580ceeb5f661a40d.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <95e34a8771fe827e134970a3580ceeb5f661a40d.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0410.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:200e:b0:6b1:4d1b:3004 with SMTP id
- 006d021491bc7-6b480e38546mr3412140eaf.20.1788356303977; Wed, 02 Sep 2026
- 06:38:23 -0700 (PDT)
-Date: Wed, 02 Sep 2026 06:38:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9826cf.9266084e.bf0d7.0008.GAE@google.com>
-Subject: [syzbot] [dri?] [virt?] WARNING in virtio_gpu_free_object
-From: syzbot <syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com>
-To: airlied@redhat.com, dmitry.osipenko@collabora.com, 
- dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
- kraxel@redhat.com, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
- simona@ffwll.ch, syzkaller-bugs@googlegroups.com, tzimmermann@suse.de, 
- virtualization@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8434:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51f00037-69c3-4d0f-62b2-08df08f77871
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: mERbFuokEXPB4Ky9KLWPVDhXIxXwYXRCAuwPaZs9XeKoj0Eiv4rqUO4NDqHSxjCgeqBZOiJU90x3i/FJlASTbQCSInIcFKoMzY53v74COAVIFF1oy4I2Z5elh9zHcOXTj42SkxLlYvyCvEvgjvHqwk23Z8QjBnRzqIOwjV0LL0abQoG32UkJNOy80wmASBGNxW3WbonctebNrfKqt+NEpKaWzIP2Zr7oMB6XHF7H8E4ADKoO+PZV5kVp+ebpIF25wRkIvWArS3YZ5uyP+gtn0zQNuQVrbzqJBjJsgBofR7TXoeBzaK1psxbgIusWVbpDDOHFRIxEoG4P05jidbqq+Croi7J1L9sQNDR72saaxEi1ndsU1qNjMB/gtyF0m5dz3ivDW//Nr+OQ8/Ha3eE1+Tw7bB2DZI7ZQpJjoSlxr6nmFasfsRbK8HRVS8VpyN9NFnwo2MeyN5VOnRjG9/TAd6BhhbAFqyp5FYwfZzGJMQEiVQxNtA2C+yb8Sb40JeM1QU93DenqKBOgAeXhCVUSuK4+BWz4jnEYtFshjoai4ranpzyJ69tHWy09FAuIQS+RZQZ3FRm8HovCnRchCqtAaYi42OU+aayCqdOsYAeTWPjpzk1WmtYDxsGg2EwTvTzST4Ag3HnD8SpVVDFRLiw3SKYvKEAaIx/6kca84azwzIo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWRjYkIxZ3hhSjhlaDZYRm1hNU9ydit2RFdOeUkvWDErVndWSUlObnBZSmNC?=
+ =?utf-8?B?ZUE5NUNNZE00cEtLTkk0SE5zQ2NBL0dSVnRqSzE1VFkrODE5dzNpbFkyNUtj?=
+ =?utf-8?B?TlZ4N0hpTk1rclFNVFZJWEVTZWY4N0Z6aENJNDBKZ0JqQUpqUXd5MlJZVytl?=
+ =?utf-8?B?bmhpUVVVckhGZEU0SFNvdEh2d09BN2trNjh5RkdkWDZ3ejFMSm1nWFFCTHBr?=
+ =?utf-8?B?ZkUwQ2pQVDhWNmtINGJHajJobHJSaHMrY3YvQkk4WmxLS3JHenpMai9MOERj?=
+ =?utf-8?B?STM0WkJoaVBKSWswcmJNbCtrTStZbWZqZWVUTkhOLytVOVZZbGMxeXRRVnhs?=
+ =?utf-8?B?aWtLS0IwdHZDSzNjcU9IK0gxSVpsTUxFWlQ5UVptM1ozN2ZvR2dIazFNR1ll?=
+ =?utf-8?B?WWwwYjQ0YkpsRE0zQ1RETnJTeEl6N1crQzJRTVc0T01wZDlwK25vSFh4YWN4?=
+ =?utf-8?B?YmhWelRhbGFkNHQzVXlISmxwRHpRK1lITzUzN1hiS1hZSXQycG9SZ3pYUHQx?=
+ =?utf-8?B?enBRRnk2Q3diN1J1bzU0OW16QmhCZXg4blhKc3BtQlhwZnR2T1JOVlN1M2xD?=
+ =?utf-8?B?VXdXUnlpNDk5OUJlcDFnQlE0OTV6V3NwMGdtbUNtMFhtanVsYWt5YTVQRXNr?=
+ =?utf-8?B?ekI2cGdDK3htNWVhbmRhdnlnSDZtVTM2dUsyNFJLaUZDaENNclhrYTYzZjFq?=
+ =?utf-8?B?TnRkeGE3bHBRQVFaMXdtaUZySzNrd3BzbnhITStvMFdxdWNzUzR6T1JjUHB2?=
+ =?utf-8?B?R3czTEdSczhtcCtNUDEvRzl3ekhJSGNYS0MwcHllMkZZZVk5TFNBWkZpUWVN?=
+ =?utf-8?B?N0pUZjBiN2IvU3QrckxEU3U5RUp6bWNyTzlDaFNOVThFbitGeTU2blVvZHc4?=
+ =?utf-8?B?Q3pNRzNWS1lieWc2RnF4cWpuT0kyRy9aQ0hUb3JNLzZySloyK2NXWGRxNld6?=
+ =?utf-8?B?Y0RWQTh5dlNNMnJYRHg3ekpyZXIwRHB3Nks5YVF2Rm4xU3hOZmtzNFBpRGVQ?=
+ =?utf-8?B?VmRWT0llWkpNOGNnUUhuT0d0cFlBNklkOWJiN0xqSWkzSkVmVGREZGtyVjFI?=
+ =?utf-8?B?VDZiMFV2Sk1kSFp0eUJVSUNVNE1lbUNFc0o5QVJ0eFBHRDdGMWY1ZGRaTzZp?=
+ =?utf-8?B?LytCMDdNeCtDR3VraTNrVHJ1MmZSRE1TWkZGTmgrL1RNV3V0UXBIUjhJdWJT?=
+ =?utf-8?B?WDlpb214ODVHSk1EeE9PVXhSSXRYWm9yeUNPd1JDTUpIOXI0YkpLRzFoN1Qr?=
+ =?utf-8?B?YmZGd05LQjdZOGcyTTh3U29PLzZQQTNOK0pMNndkTUhCSkFOZG9xbldzbmk0?=
+ =?utf-8?B?NUY5NDZSdXV3RndNWitSZ0xJcDIzV1ZIYnF1cGtZYWowZ0U0NzdlSEJLOFRQ?=
+ =?utf-8?B?N3JZMzFuM2RpdVBzQlpLK0QvbHplcWlIUHFqVGFVU0c0S2tmMmRKdXExT0Vq?=
+ =?utf-8?B?VnpxdXBpWnhsNkhKRFRnTTg4UXcvZEVNZmZ0SVpuOVlTVzU5U1pPaStRUUhS?=
+ =?utf-8?B?TEhvS1l1REVZM2xnMVJzQWZOVWxObHVBb2RXcCtqbVVpM0pFNGhjbzRvSFBu?=
+ =?utf-8?B?THlRMFkwYm1hbkxINGVnZDNGRU8vdEtEN01DalNvWmk4TU95ODZBdGJ2Rk9u?=
+ =?utf-8?B?bDVuNzhWdWRzWnhwRVBjWGdPTXJST2Uyc0xjbzJlMGtqd3lEQXJlRFpZTDd1?=
+ =?utf-8?B?U0hXMW1peFMvc21qRVlRd04vcG90bDNUd2pvdnFtZExpREYyUVpzNmplQXNV?=
+ =?utf-8?B?aHZaeHR3Y3lSTEFWd0RUOGw3ZHJGNnQxUmg4Tnl5YzlrODI3YURKa2Q3V1h0?=
+ =?utf-8?B?ZFZDdEEydjBneDVhSmQzanlRQWNvcEZ4TDArbGR2ZXlLOFhXMisvTnA5Qjll?=
+ =?utf-8?B?NjR1dllkbWloZXNtVWM1REJFZnF5ZnEwWXFnUnc2KzZSdWlPaTF6cFJtZHMv?=
+ =?utf-8?B?ZFhyczRycjJwVFk0SVYyTjJGN0Zoc0swZksvbHE3bWNLcTBRNXBWYVZINktV?=
+ =?utf-8?B?L0lYeTVFSEV2Qy80VTNlRGw5Qk1razBaeDA5Z1NlVEJsaURKWEs2TXdTUjZZ?=
+ =?utf-8?B?RWVLM2l6ZGdlL2xkdnRFY2pwNG9YbitMTzlsazEzM0FlUHo1YytvM3FjMHBw?=
+ =?utf-8?B?TGY2SmFBM1cvRGtYeEF2QmpsSEYyRlc3UXRiWFlyM01wc01POTdGTllmSTB6?=
+ =?utf-8?B?cE5mbFk4Y1V2bFBJYmhOczBEZjlLNjdCT2pzUFgzQlFBR3d0anFMZ0FoTHIr?=
+ =?utf-8?B?QnJDMzJOb0tzYTZpSHl3eUt2VGhsR095LzhKRkVVV1Y5dTdQZ1BsWGxvTlkz?=
+ =?utf-8?Q?ECAzPYgA2Ic3Kr2ELp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51f00037-69c3-4d0f-62b2-08df08f77871
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:38:28.2383 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bh9n+X0OclPtnkhNaWiQOVTHRjyMyr80Y9Z/EuFMtuRaTt5ArEKUDmAc/2N8jsqw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8434
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,117 +142,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On 9/2/26 13:39, Philipp Stanner wrote:
+> On Wed, 2026-09-02 at 11:20 +0100, Tvrtko Ursulin wrote:
+>>
+>> To collate two replies in one:
+>>
+>> On 02/09/2026 11:07, Philipp Stanner wrote:
+>>
+>>>
+>>> The issue here IMO is that we are discussing working around an issue
+>>> that actually stems from dma_fence not being consistently synchronized,
+>>> notably because of the ops->release callback being implemented.
+>>>
+>>> ops->release is de facto deprecated, precisely for reasons like these.
+>>>
+>>> If we could get rid of it for sched_fence, dma_fence would take care of
+>>> the decoupling of the name callbacks.
+>>>
+>>> So that appears worth investigating from my POV.
+>>
+>> I completely agree here but I am just not sure how feasible that would 
+>> be. We may accept to live with the cross-documentation workaround at 
+>> least as a start since even if feasible it could be a lot of work to 
+>> change sched_fence like that.
+> 
+> 
+> It should be enough to remove ops->release for the finished_fence for
+> now, since that's the one typically (always?) shared with userspace.
+> 
+> All that release cb does is drop yet another reference.
 
-syzbot found the following issue on:
+IIRC at some point that change was part of what my patch set to the drm_sched_fence did when I came up with the inline fence.
 
-HEAD commit:    786262be6048 Merge tag 'edac_updates_for_v7.3_rc2' of git:..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=160c0125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+This was far from completed / thought through but might be useful digging that up again for a start.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Christian.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-786262be.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/1729d9f9738d/vmlinux-786262be.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ce8b90b3526c/bzImage-786262be.xz
+> I think it's worth an investigation. Maybe 김종혁 can give it a look?
+> 
+> 
+> P.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#0: syz.2.124/6285
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bd0 kernel/locking/mutex.c:821, CPU#0: syz.2.124/6285
-Modules linked in:
-CPU: 0 UID: 0 PID: 6285 Comm: syz.2.124 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x94b/0x1bd0 kernel/locking/mutex.c:821
-Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 c0 10 00 00 44 8b 05 e8 16 74 05 45 85 c0 75 13 48 8d 3d ac 21 77 05 48 c7 c6 e0 f3 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
-RSP: 0018:ffffc90006017b30 EFLAGS: 00010246
-RAX: 0000000000000003 RBX: ffff8880281551c0 RCX: 1ffffffff228a580
-RDX: 0000000000000000 RSI: ffffffff8beff3e0 RDI: ffffffff914836d0
-RBP: ffffc90006017ca0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: dffffc0000000000 R15: ffff888027efeb60
-FS:  00007f5302d486c0(0000) GS:ffff8880d5b64000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055619ef79490 CR3: 000000005c38c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- virtio_gpu_remove_from_restore_list drivers/gpu/drm/virtio/virtgpu_object.c:70 [inline]
- virtio_gpu_free_object+0xec/0x280 drivers/gpu/drm/virtio/virtgpu_object.c:106
- drm_gem_object_free+0x60/0xa0 drivers/gpu/drm/drm_gem.c:1164
- kref_put include/linux/kref.h:65 [inline]
- __drm_gem_object_put include/drm/drm_gem.h:562 [inline]
- drm_gem_object_put include/drm/drm_gem.h:575 [inline]
- drm_gem_object_put include/drm/drm_gem.h:572 [inline]
- drm_client_buffer_delete drivers/gpu/drm/drm_client.c:201 [inline]
- drm_client_buffer_delete+0x1d8/0x270 drivers/gpu/drm/drm_client.c:185
- drm_fbdev_shmem_fb_destroy+0xc5/0x110 drivers/gpu/drm/drm_fbdev_shmem.c:67
- put_fb_info drivers/video/fbdev/core/fbmem.c:61 [inline]
- put_fb_info+0xb8/0xf0 drivers/video/fbdev/core/fbmem.c:56
- fb_release+0x13e/0x190 drivers/video/fbdev/core/fb_chrdev.c:381
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
- do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f5301d9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f5302d48028 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007f5302025fa0 RCX: 00007f5301d9e159
-RDX: 0000000000000000 RSI: ffffffffffffffff RDI: 0000000000000000
-RBP: 00007f5301e35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f5302026038 R14: 00007f5302025fa0 R15: 00007fffc5d9f388
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
-   4:	38 d0                	cmp    %dl,%al
-   6:	7c 08                	jl     0x10
-   8:	84 d2                	test   %dl,%dl
-   a:	0f 85 c0 10 00 00    	jne    0x10d0
-  10:	44 8b 05 e8 16 74 05 	mov    0x57416e8(%rip),%r8d        # 0x57416ff
-  17:	45 85 c0             	test   %r8d,%r8d
-  1a:	75 13                	jne    0x2f
-  1c:	48 8d 3d ac 21 77 05 	lea    0x57721ac(%rip),%rdi        # 0x57721cf
-  23:	48 c7 c6 e0 f3 ef 8b 	mov    $0xffffffff8beff3e0,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	90                   	nop
-  30:	e9 1b f8 ff ff       	jmp    0xfffff850
-  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
-  3c:	4c 89 e7             	mov    %r12,%rdi
-  3f:	e8                   	.byte 0xe8
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
