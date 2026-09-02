@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B2F9C624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF5CC624D4
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16EA10E659;
-	Wed,  2 Sep 2026 20:31:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17D2010F349;
+	Wed,  2 Sep 2026 20:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mqc8Bz65";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VNhGG7qb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D288210E659
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:31:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D22910F349
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:31:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A45E640A1E;
- Wed,  2 Sep 2026 20:31:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC791F000E9;
- Wed,  2 Sep 2026 20:31:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 669BF40BAC;
+ Wed,  2 Sep 2026 20:31:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1474A1F000E9;
+ Wed,  2 Sep 2026 20:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788381091;
- bh=lnQaqVTyJYJK7sE/j3Sk7RRNpP0ZN9etWyG0iI2NfhA=;
+ s=k20260515; t=1788381097;
+ bh=WLyR6ChNOMlRe+CSsEvu6PNv1+KHt/AG1uqBK9WJ1Y4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Mqc8Bz65pWxed9e+4ZWUfq1zduONDseLtyhxN+ZaEEvNe7la4d8DSuw1W9p50HVS5
- JhyyN9xoii6/IXt9zthBqAkfhenGgFYFA31/WHKoaG9K1DwF+c3xfSdbtekV8o/NAg
- 3paq72NRJ8w5P/FXyB9SmKW7XycoB8phUoxf9bPFCPEZQpdxqpVihA+KA5ILtoDgwG
- S7fIhu8sp+HVvX4GQlQ/ROnt55UjdQ2Ha+pIXpczfGkB8Ed0Ljfqm87YhPYjuTnEhZ
- N5sAb1itAN82gQQPn7P9/U5ALMEeDd/vabEE7Es6TdlCmS6VkTagONyRpknq0dI4YF
- eRJRTDE8WgHNg==
+ b=VNhGG7qb2VfwP7KqJKOKYvkCXGWwB8M/OakO8b44IVTe5FTf2PNmwfe0vTI0D04xg
+ h1EJrBSMv/g5c8Mzz3ct7aJBS0oBWhzAB+vo5RVidF7/D0PaRJ1JYV0vLS/mEsA/2d
+ 6lxagA3JM4vbATasiBVMxzj7NTqTf0p6W2swIqsOOgVnunYOfVUl7NanxOtC75RYqw
+ MBMm/ntD31mv/PAuifRogEi1v92dsk74qyPB+qhjb2zdWPE+ymc6fMO2JfvJHSnnTE
+ ZcF0ZJftYhPjEBg+TocOM/17MPd+H8ZOhGqC/xPqYBUO2XD7PNZuNnuq0mds0pQ8MZ
+ Z7NaHPmyOcYNQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 9/11] drm: xlnx: zynqmp_dpsub: Use
- devm_of_reserved_mem_device_init()
+Subject: Re: [PATCH v2 7/11] drm: kmb: Use devm_of_reserved_mem_device_init()
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260902201640.2024648-10-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260902201640.2024648-8-mukesh.ojha@oss.qualcomm.com>
 References: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
- <20260902201640.2024648-10-mukesh.ojha@oss.qualcomm.com>
+ <20260902201640.2024648-8-mukesh.ojha@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 20:31:30 +0000
-Message-Id: <20260902203131.5AC791F000E9@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 20:31:36 +0000
+Message-Id: <20260902203137.1474A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,90 +61,98 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] CMA area is released while DRM GEM objects might still be aliv=
-e, leading to memory corruption when freeing DMA memory.
-- [High] The APB clock (`apb_clk`) prepare and enable counts are leaked on =
-multiple error paths during probe and clock initialization.
-- [High] The allocated `dpsub` structure is leaked if `dma_set_mask` fails.
+- [High] The return value of kmb_initialize_clocks() is ignored in kmb_hw_i=
+nit(), leading to potential hardware hangs.
+- [High] Calling drm_atomic_helper_shutdown() after disabling clocks and PM=
+ runtime leads to hardware access on a powered-down device and a system han=
+g.
+- [High] Dereferencing an ERR_PTR during error handling of DSI initializati=
+on causes a kernel panic.
 --
 
-commit 608bb00e624e20e20a7867fa3c7bb9e1c899263d
+commit ce6024d25a2085ae8c8a68d80d92293c0cb8ad15
 Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-drm: xlnx: zynqmp_dpsub: Use devm_of_reserved_mem_device_init()
+drm: kmb: Use devm_of_reserved_mem_device_init()
 
-This commit replaces the manual of_reserved_mem_device_init and
-of_reserved_mem_device_release pair with the devres-managed
-devm_of_reserved_mem_device_init, letting the device resource manager
-handle cleanup automatically.
+This commit updates the driver to use the devres-managed variant of
+of_reserved_mem_device_init(), simplifying the error and removal paths by
+removing manual cleanup calls.
 
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/z=
-ynqmp_dpsub.c
-> index 53ab1a2a5aafa..e93a7a299b525 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> @@ -203,7 +203,7 @@ static int zynqmp_dpsub_probe(struct platform_device =
-*pdev)
->  	dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
-> =20
->  	/* Try the reserved memory. Proceed if there's none. */
-> -	of_reserved_mem_device_init(&pdev->dev);
-> +	devm_of_reserved_mem_device_init(&pdev->dev);
-
-[Severity: Critical]
-This is a pre-existing issue, but does tying the CMA area release to the
-platform device's devres cleanup happen too early for DRM GEM objects?
-
-When a DRM device is unbound while userspace holds an open file descriptor,
-the GEM objects can outlive the platform device. When userspace eventually
-closes the file descriptor, drm_gem_dma_free() calls into the DMA API.
-Because the CMA area is already cleaned up upon platform device removal,
-can the DMA API fail to recognize the memory as CMA and incorrectly free it
-into the buddy allocator, causing memory corruption?
+> diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+> index 7c2eb1152fc2f..88fe377940f30 100644
+> --- a/drivers/gpu/drm/kmb/kmb_drv.c
+> +++ b/drivers/gpu/drm/kmb/kmb_drv.c
+> @@ -140,13 +140,12 @@ static int kmb_hw_init(struct drm_device *drm, unsi=
+gned long flags)
+>  	/* Allocate LCD interrupt resources */
+>  	irq_lcd =3D platform_get_irq(pdev, 0);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but looking at the earlier
-sections of zynqmp_dpsub_probe(), we have this error path:
+This is a pre-existing issue, but I noticed that just before this hunk in
+kmb_hw_init(), the return value of kmb_initialize_clocks() is discarded:
 
-    ret =3D dma_set_mask(dpsub->dev, DMA_BIT_MASK(ZYNQMP_DISP_MAX_DMA_BIT));
-    if (ret)
-        return ret;
+	/* Enable display clocks */
+	kmb_initialize_clocks(kmb, &pdev->dev);
 
-Does this early return leak the dynamically allocated dpsub structure?
-It returns directly instead of jumping to an error handling label where
-zynqmp_dpsub_release() or a free operation would be called.
+	/* Register irqs here - section 17.3 in databook
+
+If kmb_initialize_clocks() fails, the driver proceeds with probe and will
+eventually access unclocked MMIO registers during modeset. Can this lead to
+synchronous external aborts and system hangs?
 
 [ ... ]
 
-> @@ -255,7 +255,6 @@ static int zynqmp_dpsub_probe(struct platform_device =
-*pdev)
->  	pm_runtime_disable(&pdev->dev);
->  	clk_disable_unprepare(dpsub->apb_clk);
->  err_mem:
-> -	of_reserved_mem_device_release(&pdev->dev);
->  	if (!dpsub->drm)
->  		zynqmp_dpsub_release(dpsub);
->  	return ret;
+> @@ -465,8 +459,6 @@ static void kmb_remove(struct platform_device *pdev)
+>  	pm_runtime_put_sync(drm->dev);
+>  	pm_runtime_disable(drm->dev);
+> =20
+> -	of_reserved_mem_device_release(drm->dev);
+> -
+>  	/* Release clks */
+>  	kmb_display_clk_disable(kmb);
+> =20
 
 [Severity: High]
-This is a pre-existing issue, but does this error handling correctly clean =
-up
-the apb_clk resource?
+This isn't a bug introduced by this patch, but does the shutdown sequence
+in kmb_remove() cause hardware access on a powered-down device?
 
-If zynqmp_dpsub_parse_dt() fails earlier in the probe function, the code
-jumps to the err_mem label. Jumping here skips the err_pm label where
-clk_disable_unprepare() is called, which seems to leave the clock enabled
-permanently.
+Right after this hunk, the function completes with:
 
-Similarly, in zynqmp_dpsub_init_clocks(), if it successfully enables apb_clk
-but then fails to acquire vid_clk with -EPROBE_DEFER:
+	/* Unregister DSI host */
+	kmb_dsi_host_unregister(kmb->kmb_dsi);
+	drm_atomic_helper_shutdown(drm);
+}
 
-    else if (PTR_ERR(dpsub->vid_clk) =3D=3D -EPROBE_DEFER)
-        return PTR_ERR(dpsub->vid_clk);
+Since pm_runtime_disable() and kmb_display_clk_disable() are called prior to
+drm_atomic_helper_shutdown(), atomic_disable callbacks will read and write
+hardware registers while clocks are disabled. Will this cause a bus fault or
+system hang during driver unbind?
 
-Does this return the error immediately without unwinding and disabling the
-clock?
+[Severity: High]
+This is also a pre-existing issue, but outside the diff in kmb_probe(), does
+the error handling for kmb_dsi_init() cause an invalid pointer dereference?
+
+If kmb_dsi_init() fails, it returns an ERR_PTR:
+
+	kmb->kmb_dsi =3D kmb_dsi_init(dsi_pdev);
+	if (IS_ERR(kmb->kmb_dsi)) {
+		drm_err(&kmb->drm, "failed to initialize DSI\n");
+		ret =3D PTR_ERR(kmb->kmb_dsi);
+		goto err_free1;
+	}
+
+The error handling path unconditionally passes this ERR_PTR to
+kmb_dsi_host_unregister(), which passes it to kmb_dsi_clk_disable(). This
+dereferences the pointer when attempting to access kmb_dsi->clk_mipi:
+
+drivers/gpu/drm/kmb/kmb_dsi.c:kmb_dsi_clk_disable() {
+	clk_disable_unprepare(kmb_dsi->clk_mipi);
+
+Will this result in a kernel panic due to dereferencing the ERR_PTR on memo=
+ry
+allocation failure during initialization?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902201640.2024=
-648-1-mukesh.ojha@oss.qualcomm.com?part=3D9
+648-1-mukesh.ojha@oss.qualcomm.com?part=3D7
