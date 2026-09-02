@@ -4,82 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D212AC624D6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD2D3C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 07:33:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D667A10EEE6;
-	Wed,  2 Sep 2026 07:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C957210F02E;
+	Wed,  2 Sep 2026 07:33:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pjuT5mRy";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CqHnIB4O";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="r1tNRR4n";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Xx2Sh02L";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ugW/l4r1";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FFD510EEE6
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:32:27 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-c2533d83e3bso92365466b.2
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 00:32:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788334346; x=1788939146; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ntYqCiUGvFKb34I7pd2sH6Ev2OxM+HRkEJ74Nxn2uc0=;
- b=pjuT5mRyVblcfyDCGoefaQ6sAS33OQl8wyElTftywWSVwjAyBVIOijRug+mcFp0TvB
- sfRCIvRXxIt5GRekD1ZWtWnoY9kab/8z+e5cYWHIMVA55/aPiqX5XtUT4nq51sqBqwKl
- /aJKe3yHqphq4bWNh/zDLueoCD4ANTQoYJbJb2a0fvxwhIPEO/4/auoqbNFTtWFf6A46
- VGTxW13iEi8HjgwEFe7v+R0MktK+s6VDkfYwB5Iwghu+JoCi1M0QtryGGk3q0A8hlZLx
- dxk4cRibn7qgmdJaN688/EID9DuaeCgSnGsvDAMPWx+ADcvBlFZBjmniwYNv4JZcWuTQ
- vfsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788334346; x=1788939146;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ntYqCiUGvFKb34I7pd2sH6Ev2OxM+HRkEJ74Nxn2uc0=;
- b=Mz9gWHiPwWeS10S+afxcRC5NytHHPkCkWxT1Y9z26Kg57eReG6EIXByZG4zFQxa1yY
- oW/Xz5BAihUdbT2Ge0DnKoRL9sEi1cN+KEA+k8Lt8Sw4IJC1CiuZiVINp2luzFpQMvre
- AIdGO+GmLVy58b5yCU/1lGPDMlG4/5LlGgdFlLmlfPXpVaM6O55NzY30YfkHB6Rziv05
- 4gRqG+gAqj1YV6tjpN318K/Divrku7cEBPc/WzJcmW+Dia5HZ0vP4pfotfMpyfj4R3xW
- gCdch82SEsmmdfUQ8Di/DX1AUyikjw2ubAm4g7YIUeulnxp+9KGh+uBdMcQv665LXJEX
- FHNg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzvqNp6MgP5ZvJ5jsQ33ZYwV+kakTYUTYD8AvqNnZ46YOmmJHvqb4+FSJQHs/sbpwq2Cv/RbHTVd1E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++la2bysJWKd3cBMxrZp1Q3prLQU5qynKTLJQUFYvPQQKgtbhJ9o
- y7YR9maaUfu74cU330R2+EVO4tb6G/L2OUuRKQttULlCTvt4Qg2tX/hW
-X-Gm-Gg: AYBFou0j4lTnlowfdUsGMJUVGZBsdo4ozVRpfOC+jDHLTiJkKR6mJD/w+GuDdpVnznW
- kXaiAxmNvY6z7wLwgXO7FJUl7ENqE5UWaHjfv6ziqlXhp2/P2iS6eCdOcDXjE6Bw8Lp+kiMVkNJ
- C9Flz06MhQn0qgbHn8DsWQPHV/GdQ1gDh/uDIZCMGjmSZ8JQ2qZWR2NTlIojO5YqfKKjmj85HYl
- xfQpV0SWJvjY1GD1PR8HUADcXajtjLPD+rKgnlEgJqHaxjWC0giS9E069ofzfH6bbHTxciR+U3L
- vHGOBXOtIsLmXt7pBR8JZSkudytQ6nFje30KY8NptWXYaQF1sj3PpFEAm1gXe02qVYksYHwLPgd
- 4d1TYUjrbaTu/xoCU2HN0x0qXxKCYFfJj/XXJXMTuM6rHq78EhimZALaqXi/FAv9eLTKR19ssu/
- MEQmu4wzMWowG52Mpd/ZoJYFvlQERSqO+olVoRlLHTozuj1rSmeKzTmInrdFVlqUZNUNzXTymiY
- KNneAkeASSnWugN0D0NSL6QRuCbn2NJ2+lJ1W8iSTDDbMmojzL0cZp4myBs
-X-Received: by 2002:a17:906:6a03:b0:c24:d6f0:1223 with SMTP id
- a640c23a62f3a-c25d5474dfdmr140879566b.12.1788334345387; 
- Wed, 02 Sep 2026 00:32:25 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c25d041d286sm78078466b.55.2026.09.02.00.32.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 00:32:24 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
- on DCN32 at 120 Hz since a637a140ab86
-Date: Wed,  2 Sep 2026 12:32:22 +0500
-Message-ID: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
-References: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8344010F02E
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 07:33:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BA5A521F86;
+ Wed,  2 Sep 2026 07:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788334380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1bW3Y9mUxlWduLkrBnZfadCZJ19MCHLnJ16FU0CeZ6Y=;
+ b=CqHnIB4OEgQx7R0smj5na+ixAFnvv4hO6eYIz4VGTKsIVIKQGs/ydSE2M91mmSgdrpv7xX
+ k2FYhhYdtjD7vf0SsZtfarAN32H90AQ9acGHJ0zmUYQ8pKM0mM4g8wYP1OCfADYfxg4tnk
+ 11O4A/E+uJVqMdZgNCjcTI+tqZooz3U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788334380;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1bW3Y9mUxlWduLkrBnZfadCZJ19MCHLnJ16FU0CeZ6Y=;
+ b=r1tNRR4njyagrEzb1U/L8/abQJso+C5HnnZiYAui1tnVNiWqpMtDoEHxP+yi2Y6FLCjNld
+ 3gRcXRAC3E7qTrCg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Xx2Sh02L;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="ugW/l4r1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788334375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1bW3Y9mUxlWduLkrBnZfadCZJ19MCHLnJ16FU0CeZ6Y=;
+ b=Xx2Sh02L9LQmICQWoMswUBPPbTbOOh2dkrMereHXpFcHkrZYU+pswP64DeCl43gHncOl5K
+ P45HfXHF+AcpivONR+m3meKb/S864YxfmhmNkrlW5u9m5179oNAG4/uXi8XpIM9Xe+ivOg
+ vHDcQpd3PXLj5qtfayzeDdU76h/9ZIM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788334375;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1bW3Y9mUxlWduLkrBnZfadCZJ19MCHLnJ16FU0CeZ6Y=;
+ b=ugW/l4r1zsAOkXnDe3xUeX350EcXR4Dg7lmAjqfNSwG/NOH24DNFPWGg07ClfWJEwnf08Z
+ TJDIllrvjnZ2hJBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3F09713515;
+ Wed,  2 Sep 2026 07:32:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Z2/LDSfRl2onbQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:32:55 +0000
+Message-ID: <60a99cb5-02f5-4d4a-9f70-b5729ae96b52@suse.de>
+Date: Wed, 2 Sep 2026 09:32:54 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v2 1/2] drm/hisilicon/hibmc: Modify the
+ method of obtaining the hpd_status
+To: Yongbang Shi <shiyongbang@huawei.com>,
+ "dmitry.baryshkov@oss.qualcomm.com" <dmitry.baryshkov@oss.qualcomm.com>,
+ "tiantao (H)" <tiantao6@hisilicon.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "daniel@ffwll.ch"
+ <daniel@ffwll.ch>, "kongxinwei (A)" <kong.kongxinwei@hisilicon.com>
+Cc: "Liangjian(Jim,Kunpeng Solution Development Dept)"
+ <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>,
+ "fengsheng (A)" <fengsheng5@huawei.com>, "helin (T)"
+ <helin52@h-partners.com>, "shenjian (K)" <shenjian15@huawei.com>,
+ shaojijie <shaojijie@huawei.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260721124324.1885856-1-shiyongbang@huawei.com>
+ <20260721124324.1885856-2-shiyongbang@huawei.com>
+ <6cb7cbda-172e-4a73-9149-1ed48466d5de@suse.de>
+ <c58083c3-ac70-4a67-ac46-632897d58c35@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <c58083c3-ac70-4a67-ac46-632897d58c35@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BA5A521F86
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[16];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+]; TO_DN_EQ_ADDR_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,huawei.com:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,99 +162,272 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I have to correct my own report.
+Hi
 
-The 90x figure I gave for a637a140ab86 does not hold up.  Since sending it
-I have measured five more sessions, and the rate turns out to be controlled
-by something other than the kernel.  Please do not spend time on the commit
-on the strength of that number.
+Am 31.08.26 um 15:40 schrieb Yongbang Shi:
+>> Hi,
+>>
+>> you definitely want to go over the Sashiko review for both patches.
+>>
+>
+> Yes, Sashiko has raised several historical issues that we've been 
+> analyzing recently. The feedback
+> via email and the v3 patch will be ready very soon.
+>
+> Sashiko was recently launched, and I'd like to ask: if we want to 
+> reject Sashiko's suggestions,
+> is it sufficient to simply state the reasons for the rejection in our 
+> reply email? How can we
+> prevent Sashiko from raising the same issues in the next version's patch?
 
-What the artefact actually does is sit in one of two states, and the state
-changes during a session.  All figures are events per 1000 eligible frames,
-where an eligible frame is one the detector could have judged - the method
-is unchanged from my first mail.
+I don't think it is possible to interact directly with Sashiko. So it 
+can happen that it comes back with the same comments again and again.
 
-  60 Hz                       0.0000   0.0045   0.0252
-  120 Hz, quiet state         0.0308   0.0372   0.0400
-  120 Hz, excited state       0.5208   0.5739   0.7115   1.3027   1.9153
+We (DRM community) treat these reviews as suggestions and the final 
+decision about a change is done among humans. For me, I reply to 
+Sashikos comments once on the mailing list so that it is publicly 
+documented.
 
-The three groups are about a decade apart from each other, and the kernel
-does not sort them.  0.0308 is the run on the kernel with a637a140ab86
-reverted; 0.0372 and 0.0400 are runs on unreverted kernels in the quiet
-state.  Those three are the same measurement.  My original pair simply
-caught one kernel quiet and the other excited.
+>
+>
+>> Am 21.07.26 um 14:43 schrieb Yongbang Shi:
+>>> From: Lin He <helin52@huawei.com>
+>>>
+>>> To more accurately determine whether the current HPD status matches the
+>>> interrupt status, the polling mechanism in the lower half of the HPD
+>>> interrupt (via hibmc_dp_check_hpd_status) has been replaced with 
+>>> directly
+>>> retrieving the interrupt status in the upper half of the interrupt (via
+>>> hibmc_dp_get_hpd_status).
+>>
+>> The upper half might run a lot if the IRQ is shared with other devices.
+>> It's usually better to do as little as possible there and keep things in
+>> the handler thread.
+>>
+>
+> Of course, that's exactly what we did.
 
-Worse, every kernel comparison I made began with a reboot, and a reboot
-resets the state.  So the bisect was measuring how soon after boot I
-happened to load the machine.  I no longer consider the attribution to
-a637a140ab86 supported, and I cannot say from my data whether this is a
-7.3 regression at all.
+I don't understand. With this patch, the driver does more work in the 
+top half. No?
 
+Best regards
+Thomas
 
-The two transitions
--------------------
-
-I can now move the artefact in both directions, but only as bundles of
-variables - I have not separated what inside each bundle does the work.
-
-Excited by: a long session of a heavy 3D game (Dying Light: The Beast).
-Measured twice on the same kernel and refresh rate: 0.0372 -> 1.3027 (35x)
-and 0.0400 -> 0.5208 (13x).  The effect outlasts the game by hours and
-decays gradually.  That bundle contains sustained shader load, large VRAM
-allocation and eviction, GTT traffic, clock and power-state churn, heating,
-and fullscreen presentation.
-
-Calmed by: about three hours spent at 60 Hz, after which returning to
-120 Hz gave 1.9153 -> 0.0400 (48x), on an unreverted kernel.  That bundle
-contains two modesets, three hours of elapsed time, half the pixel clock,
-a different pixel encoding (this display uses YCbCr 4:2:0 at 120 Hz and
-4:4:4 at 60 Hz), different watermarks, and an idle GPU.
-
-Also calmed by: a reboot.
-
-Which single variable in each bundle matters, I do not know.  A short
-120 -> 60 -> 120 toggle would separate "a modeset" from "time at 60 Hz",
-and a compute-only load would separate "GPU busy" from "memory pressure".
-I am happy to run whichever of those would be most useful.
-
-
-What did survive
-----------------
-
-The dependency on frame rate is unchanged and now rests on four
-independent sessions: 120 Hz and 100 Hz show the artefact, 60 Hz is at
-least an order of magnitude below the quiet 120 Hz state.  Forcing YCbCr
-4:2:0 at 60 Hz, so that the encoding matches 120 Hz, gave 0 events in
-1,290,588 eligible frames, so this is frame rate and not chroma
-subsampling or link bandwidth.
-
-Swapping the HDMI cable made no difference.
-
-And one negative result that may be the most useful thing in this mail:
-DTN snapshots taken seconds after real events in the excited state are
-byte-identical to snapshots taken in the quiet state - 195 lines against
-195, differing only in the scanout buffer address.  Watermarks, dcfclk,
-dispclk, dppclk, fclk, HUBP and OTG underflow, vtotal and the DRR select
-bits, DSC, RQ, DLG and TTU are all the same in both states, at a fifty-fold
-difference in artefact rate.
-
-So whatever holds this state is not in anything DTN exposes.  Is there
-something in DMCUB, in the memory path, or in link state that could persist
-across a game, decay over hours, be cleared by a reboot, and leave every
-register in the DTN dump identical?  That is the question I am stuck on.
-
-Thorsten: the regzbot entry points at a637a140ab86 on the strength of the
-bisect above, which I no longer trust.  I do not know yet whether there is
-a regression here at all, so I would rather not close it as invalid; please
-handle it however is appropriate for an entry whose attribution has fallen
-apart.
-
-The GitLab issue has been updated with the same correction:
-
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
-
-Sorry for the noise on the first pass.
+>
+> Thanks,
+> Yongbang.
+>
+>> Best regards
+>> Thomas
+>>
+>>>
+>>> * Detection and training are not performed if hpd_status is not HPD_IN.
+>>>
+>>> * Set the initial status of hpd_status to HPD_OUT.
+>>>
+>>> Fixes: 3906e7a3b26d ("drm/hisilicon/hibmc: fix dp probabilistical 
+>>> detect errors after HPD irq")
+>>> Signed-off-by: Lin He <helin52@huawei.com>
+>>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+>>> ---
+>>> ChangeLog:
+>>> v1 -> v2:
+>>>     - More states in HIBMC_DP_HPD_STATUS are added to the
+>>>       'hibmc_dp_get_hpd_status'.
+>>> ---
+>>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  1 -
+>>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 32 
+>>> ++++++++++++-------
+>>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  4 ++-
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 29 ++++++++++-------
+>>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  1 +
+>>>    5 files changed, 43 insertions(+), 24 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h 
+>>> b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>>> index f53dac256ee0..b0e258b9265e 100644
+>>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>>> @@ -43,7 +43,6 @@ struct hibmc_dp_dev {
+>>>        u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+>>>        struct drm_dp_desc desc;
+>>>        bool is_branch;
+>>> -    int hpd_status;
+>>>        void __iomem *serdes_base;
+>>>    };
+>>>    diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c 
+>>> b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>>> index d5bd3c45649b..c9a113a1937d 100644
+>>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>>> @@ -191,6 +191,10 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
+>>>        writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
+>>>        /* clock enable */
+>>>        writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
+>>> +    /* To latch the HPD interrupt, ensuring that DP can support 
+>>> more modes
+>>> +     * within the fbcon framework when connected alone.
+>>> +     */
+>>> +    msleep(100);
+>>>           return 0;
+>>>    }
+>>> @@ -322,20 +326,26 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, 
+>>> const struct hibmc_dp_cbar_cfg *cfg)
+>>>        writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + 
+>>> HIBMC_DP_TIMING_SYNC_CTRL);
+>>>    }
+>>>    -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
+>>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
+>>>    {
+>>> +    int ret = HIBMC_HPD_UNKNOWN;
+>>>        u32 status;
+>>> -    int ret;
+>>>    -    ret = readl_poll_timeout(dp->dp_dev->base + 
+>>> HIBMC_DP_HPD_STATUS, status,
+>>> -                 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) == 
+>>> exp_status,
+>>> -                 1000, 100000); /* DP spec says 100ms */
+>>> -    if (ret) {
+>>> -        drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
+>>> -        return false;
+>>> +    status = FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
+>>> +               readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
+>>> +    switch (status) {
+>>> +    case 0: /* idle */
+>>> +    case 3: /* unplug */
+>>> +    case 4: /* unplug intermediate */
+>>> +        ret = HIBMC_HPD_OUT;
+>>> +        break;
+>>> +    case 1: /* plug */
+>>> +    case 2: /* plug intermediate */
+>>> +        ret = HIBMC_HPD_IN;
+>>> +        break;
+>>> +    default:
+>>> +        break;
+>>>        }
+>>>    -    dp->dp_dev->hpd_status = exp_status;
+>>> -
+>>> -    return true;
+>>> +    return ret;
+>>>    }
+>>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h 
+>>> b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>>> index 0f3662d8737e..bcd4e9d155c8 100644
+>>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>>> @@ -15,6 +15,7 @@
+>>>    struct hibmc_dp_dev;
+>>>       enum hibmc_hpd_status {
+>>> +    HIBMC_HPD_UNKNOWN,
+>>>        HIBMC_HPD_OUT,
+>>>        HIBMC_HPD_IN,
+>>>    };
+>>> @@ -55,6 +56,7 @@ struct hibmc_dp {
+>>>        struct drm_dp_aux aux;
+>>>        struct hibmc_dp_cbar_cfg cfg;
+>>>        u32 irq_status;
+>>> +    int hpd_status;
+>>>        int phys_status;
+>>>    };
+>>>    @@ -66,7 +68,7 @@ void hibmc_dp_reset_link(struct hibmc_dp *dp);
+>>>    void hibmc_dp_hpd_cfg(struct hibmc_dp *dp);
+>>>    void hibmc_dp_enable_int(struct hibmc_dp *dp);
+>>>    void hibmc_dp_disable_int(struct hibmc_dp *dp);
+>>> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status);
+>>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp);
+>>>    u8 hibmc_dp_get_link_rate(struct hibmc_dp *dp);
+>>>    u8 hibmc_dp_get_lanes(struct hibmc_dp *dp);
+>>>    diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c 
+>>> b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>>> index 2e9403b8bf3c..23716d48149f 100644
+>>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>>> @@ -63,12 +63,8 @@ static int hibmc_dp_detect(struct drm_connector 
+>>> *connector,
+>>>        struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+>>>        int ret = connector_status_disconnected;
+>>>    -    if (dp->irq_status) {
+>>> -        if (dp_dev->hpd_status != HIBMC_HPD_IN) {
+>>> -            ret = connector_status_disconnected;
+>>> -            goto exit;
+>>> -        }
+>>> -    }
+>>> +    if (dp->hpd_status != HIBMC_HPD_IN)
+>>> +        goto exit;
+>>>           if (!hibmc_dp_get_dpcd(dp_dev)) {
+>>>            ret = connector_status_disconnected;
+>>> @@ -166,6 +162,9 @@ static void hibmc_dp_encoder_enable(struct 
+>>> drm_encoder *drm_encoder,
+>>>        struct hibmc_dp *dp = container_of(drm_encoder, struct 
+>>> hibmc_dp, encoder);
+>>>        struct drm_display_mode *mode = &drm_encoder->crtc->state->mode;
+>>>    +    if (dp->hpd_status != HIBMC_HPD_IN)
+>>> +        return;
+>>> +
+>>>        if (hibmc_dp_prepare(dp, mode))
+>>>            return;
+>>>    @@ -189,24 +188,31 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void 
+>>> *arg)
+>>>    {
+>>>        struct drm_device *dev = (struct drm_device *)arg;
+>>>        struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+>>> -    int idx, exp_status;
+>>> +    int status = priv->dp.hpd_status;
+>>> +    int idx;
+>>>           if (!drm_dev_enter(dev, &idx))
+>>>            return -ENODEV;
+>>>           if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
+>>>            drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
+>>> +        if (status != HIBMC_HPD_IN) {
+>>> +            drm_err(&priv->dev, "HPD status (%d) error", status);
+>>> +            goto exit;
+>>> +        }
+>>>            hibmc_dp_hpd_cfg(&priv->dp);
+>>> -        exp_status = HIBMC_HPD_IN;
+>>>        } else {
+>>>            drm_dbg_dp(&priv->dev, "HPD OUT isr occur!\n");
+>>> +        if (status != HIBMC_HPD_OUT) {
+>>> +            drm_err(&priv->dev, "HPD status (%d) error", status);
+>>> +            goto exit;
+>>> +        }
+>>>            hibmc_dp_reset_link(&priv->dp);
+>>> -        exp_status = HIBMC_HPD_OUT;
+>>>        }
+>>>    -    if (hibmc_dp_check_hpd_status(&priv->dp, exp_status))
+>>> - drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>>> + drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>>>    +exit:
+>>>        drm_dev_exit(idx);
+>>>           return IRQ_HANDLED;
+>>> @@ -223,6 +229,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>>>           dp->mmio = priv->mmio;
+>>>        dp->drm_dev = dev;
+>>> +    dp->hpd_status = HIBMC_HPD_OUT;
+>>>           ret = hibmc_dp_hw_init(&priv->dp);
+>>>        if (ret) {
+>>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c 
+>>> b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>>> index 4d85c89f3f88..e5cca7b63b78 100644
+>>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>>> @@ -63,6 +63,7 @@ static irqreturn_t hibmc_dp_interrupt(int irq, 
+>>> void *arg)
+>>>        status = readl(priv->mmio + HIBMC_DP_INTSTAT);
+>>>        if (status) {
+>>>            priv->dp.irq_status = status;
+>>> +        priv->dp.hpd_status = hibmc_dp_get_hpd_status(&priv->dp);
+>>>            writel(status, priv->mmio + HIBMC_DP_INTCLR);
+>>>            return IRQ_WAKE_THREAD;
+>>>        }
+>>
+>
 
 -- 
-Thanks,
-Mikhail Gavrilov
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
