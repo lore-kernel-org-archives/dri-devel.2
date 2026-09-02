@@ -4,102 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6529C61DFD
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 08:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C191C61DFD
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 08:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D389310F0B7;
-	Wed,  2 Sep 2026 08:43:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 958A310F06C;
+	Wed,  2 Sep 2026 08:44:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=flipper.net header.i=@flipper.net header.b="mJatn3Xa";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="h0JcRGmO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iw/27IC5";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E916710F0B0
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 08:43:06 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-6a374bea882so1292973a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 01:43:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788338585; cv=none;
- d=google.com; s=arc-20260327;
- b=Bwyuaq59VKkkmNskiXV7lW+T3xlH+hcZuhDsBVtr0n6Z/fuWUJTCsdbIpFeuHKuQi4
- xlELI27InZq0BOIA6C5yoP4/Vn6V46pXySCKlUiJRKYQlvIpkcGzyeaHVzhJOsPS9Dpp
- Esbo1+wSQFnOpookMirtmbooM5yuUXdQbcCwnE+10YRowkG8T/Dp8PUgtFdb6oVhF4oX
- aQpwWYFJOx4ytOE+LE2ow4az6CcwoUrH1P/uPmwpX+iW6W1vBi+/disCumCE5SmLz3V0
- ASeRMc9eVjUEr+TfhambCgfLUAUA/a9c+/kmjXPllhHKLqv8Z5h+jKgglxN0Qpt15lUz
- WEkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/501w4jjREjvvsgS+ZOz+uCZPO58x///HL9BUvCfOWM=;
- fh=7iD/YiWiRift7uSyEh6lin9l5b41pB2tFIShMHnje6w=;
- b=gyJ2YZeRlwuXlgIOqU4cjuZdgzD7J96XWPqS2WaCSCY0x53bJKjrqghQm2kpvW0bjT
- IRy2MeXNPzEFnvYNqG7WmKj1rYyawYLuaFfwclCOKna/iKKNrwQ7v7Ofuvp8NC74OpR8
- Y2dqU5sHk5+4ddc3OzvuUUKYbNfy3YldK7IbUIpIvtUvQY4O696i/MH9cBe/i4QtguhQ
- yWoFLLOILPJPC6LPX0HSmzOEosNuyKMCZMOE0NKt0YdeW6srDwN/HMdwHMv85+hVfVsv
- 7bZhYGC1ItSl+F3b85sTSarXiVT68Gzc5F7kCdXZ6e6dOxUqFY2aKPTBZ2AsMAm87YLk
- feRw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFE2810E49E
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 08:44:05 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6826VxWb853894
+ for <dri-devel@lists.freedesktop.org>; Wed, 2 Sep 2026 08:44:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=; b=h0JcRGmOW3yXBfJ3
+ Jwg/N1/SmEx2X+CMj+1kJeGOLtnZ0m3Hzy7ubZpgM3LSK5QO8HNKhvVDxFOTFL+n
+ cdKpYpumJFH8c12HE2yzjcbcsPSkXkpYoHbCx6wqEzWdGOad2n3eYt/By4kq8tsm
+ qXgWaWidssOkHkYai8YrCFKBDW3Lnrmj8tiwsYd5vzPPMq+xZuMBQUsNZtiGvdpa
+ mwVGB9FXu2w5aUUaxzAuIKl6Ssexe97sB8v3UzobuhuBSunsQ87miV0XuqtsCw7s
+ uSXJ0Se2Xbu5nXqkmc31W5BnQ793GX4bG38y+9NTNTkNPD0zie7MiSPiUNCfr8XH
+ TjG6ng==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge38w2yr1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 08:44:04 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-52845bd815bso2117711cf.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 01:44:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flipper.net; s=google; t=1788338585; x=1788943385; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/501w4jjREjvvsgS+ZOz+uCZPO58x///HL9BUvCfOWM=;
- b=mJatn3XaJe3YlVD+9lHCtW5uF6gSlQPZ+iRlSSfTrjxcjCe9vp6+diqWMyDSYliNke
- g+hCX4yjkhMgDjX4rY1nz++xvqCgNUmxP6H8TrUEUaQLAP3p1pBgqAUpQ5k1MEeOYSv6
- Qg2/pS7dwA18W7D84LtcfDotqKEJ7OYgLcUaNtuOP1bWVMJQvf96ouepIerfxhdyyNgF
- 7bbrP+J8G7lnkjDsWFY3mn3zSrMmXuaVxAsoCtENFkicBfsnxB1JE+yCL0Vbz80j9Uo2
- qo0x3F5f6K/D6O4bZ2F23aYOtjr8Uvs0Ie+ihFFq86KDNSCNh591t3K4uCW2SSd4pYdh
- k5qA==
+ d=oss.qualcomm.com; s=google; t=1788338644; x=1788943444;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=;
+ b=iw/27IC5tJdDxDnC52ywOH0Rb+6wNiyZbZ6IiqYlBCNrHCJMsJ1KK11I53Rgn7RHOi
+ zUXr+Tz2T7JXknIVuRVEonM9pgFrnGzL9ZTB/4qs+nVlZEVNjc9teI3KQBsrgBeEf4EF
+ lfuRw3QYec6Rn/Mq2eXWkwJbPaNXBnHy26Ypm2EjuiGSRJLu3f4nUjHmcHbU3wo4+XRW
+ 50yPwOKS0C6LsGaSmfZfBN6NIjf7IzoCjxlHjMbpgXFvjYMhxxlkk44HLUPUJxG2a4dj
+ 4BW9qI4P8c4pOBoNglXWX9yPsGy55ZK25T5LhdgiM670Duq5cY0VEDI60wMDB/rEeeWz
+ cfaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788338585; x=1788943385;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/501w4jjREjvvsgS+ZOz+uCZPO58x///HL9BUvCfOWM=;
- b=JXf9UMcDthYHJIC2Nf9Y40gaKbDu+R/XyTEqZ293Vko83c3KzXxmwyqyQfhA3S8bx0
- 8r25CORaXPfN64UvjpHrdduq30VCBlY0T8DLsN/nL1WZsUPY5LcnX0302gxh2ze4uQSa
- mFe7BUg+PNT3WKetDlPZIUFR8dR3AFbAEFnPTeNViLqVt8e68R8rDLmktdn56gDV18cM
- rmGFOGuEzh3pMTuzNugkbYf2NJKfnLAniibkCV6FIVL2wuJCPZ1hOurh4y3GuBolRF9U
- IqErR6ext+gyx6yB1YJesz6UXdVNwLQ53av1f2KFQKyOmREGVoXALWhCVRD12covUfAY
- FOQw==
+ d=1e100.net; s=20251104; t=1788338644; x=1788943444;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=;
+ b=gizE9xFQ9UgJbR3h/HQsvnWPRrlRVj86z5X4XS5FGCj9v1kZ1x56jLGubkeE34O572
+ iySqV9rFbuKV6rV4f+vLhzNU6EWLnRSKpQvDYwORp2LqjEiLVEaSLU2yRvfPZFk4+kxI
+ DG+PTek78ewfjsu/KRtyILiOF9N6p8KDlahbGaGI4Iz0YpGdnb9Yb4XodNHjklyjMP6z
+ 7DFLx5DYRXJzZD3HF+IgtS6ozJ/4ASe+j914xNCg5jYy5BfzhFpxckJJjJTTI8mIbLmd
+ 2yzuWE65ZYFhFBlKeFNAsrS0H1Lk31dUuEq1ROm+YO23f2bFgkEunkOy/1XRqsifRCbl
+ F6WA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwi7YSkx1DrRszhy+yv4OFod7K6OphAs/ZYj7beJMk41JW8g6yFku2o94GWBSkPKFyyvM8OTfIEhn4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m3F43I74obSamSfZ1APTCdpViF53AxURlDpH/EMPSuJqwE4/0W
- 6kHw5tY9A9avYvSqRPUeO4en/pHwuUwiQ5xpeCpkLTC3dqveEVEkDP+LsJWc038Tqs2qS64tBq8
- vdud6K21ovRmXG5Nq8Tx9NsUPsaY6yGp+P2xiPE/tgw==
-X-Gm-Gg: AYBFou3qL3DFUnybfyGP1FewD17cYb4KLS5C3kI8uXSAQhv3vvT7QlhcvkK1CO1TPvU
- 02PU/71oRZFlHIC7cMkVQZJgUqsWgHjHodDc46pOMTnXur0gYHsE83NuvqkVZMBWK2Tbng/sf6v
- XP5GYH2euYbHS5n44cSgjl59viRRA1VHvkicK2Y6rCK9pmJlVuc9NQ3RkuMx3DBwRFl1GcaSeGd
- u1p0yDwHUebJjesvV4jEq08DkcMYsPDfS9AkNj/vV1UMT1xy38hCxJScAk/X6hbNkDWoAL0hMD6
- 2CYSu5WT7Liimkqf0718zO8I4IQbm55m8FPL+n6Os/eZqh9Q9PRHiegIIe7IJnRjDbdTovz94wL
- 9
-X-Received: by 2002:a17:907:9625:b0:c25:4f7c:8ec5 with SMTP id
- a640c23a62f3a-c25d5505c79mr194261566b.23.1788338585138; Wed, 02 Sep 2026
- 01:43:05 -0700 (PDT)
+ AHgh+RpXkyJD/hHehOiUqVSfgdXKmzGZWldMgYUQ0ejttvWZX/dykcGe897cfH02obG4UhFQmZ2yB30bUa4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kMqPvBIOv95/XbuGt1npA5W0F91129lSDch1gzu4PYpnym7ERI
+ toOuSnxo6y7E5fDdcx217mcRpDsXDWfE0zqSjwAKSsrFVIWwtVHIT2RPUFBBeQv2bn+rFnIKIuM
+ 7SAKwg4MNQetaV1u6G/mZQ+X63kd1Ef4o+fsipQelc35Ct3Gknl2ZzFEo0HVVcC0UkZDrZko=
+X-Gm-Gg: AR+sD13gdFXN6vFRuJQTse8nuu2cWORPnRsJKROOq1B1kxvoxYYE4sr8Br+g5bWcvcE
+ EXa+e7lrskxtWaZHgMh5WjWp7d6b5z0OzQBs/p6P0qGxK8yTTNt1hqni519gBQ94KPWsNrj09IR
+ hZ/5Spe/lMY1E2tyVWMzSP39oqvPFIW7M67Yy3Rga2eRw3V4pqlnvdqqZY8keENLJUyirHxPzJb
+ cat9r98MQ3VjuaOYSwFcUCm/cPglaMjRzOYWztmuIWHpYPps3yBXearqJib3/WykG/ziXySzwgL
+ fy+8/HxedMGB8OBBkoKIzTIbMGzatw5Q9IXXWM1ipwz5wtwGSZ1CvZzrXRWFTUYJ1M293DwbKUU
+ Gmdw6Ohd9XEgISiwVYY7EGw==
+X-Received: by 2002:a05:622a:115:b0:52d:9a83:419d with SMTP id
+ d75a77b69052e-53036992976mr22276311cf.0.1788338644079; 
+ Wed, 02 Sep 2026 01:44:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:115:b0:52d:9a83:419d with SMTP id
+ d75a77b69052e-53036992976mr22276031cf.0.1788338643648; 
+ Wed, 02 Sep 2026 01:44:03 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a67f895e14sm673780a12.3.2026.09.02.01.43.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Sep 2026 01:44:02 -0700 (PDT)
+Message-ID: <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 10:43:56 +0200
 MIME-Version: 1.0
-References: <20260901234351.190506-1-anarsoul@gmail.com>
-In-Reply-To: <20260901234351.190506-1-anarsoul@gmail.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 2 Sep 2026 12:42:57 +0400
-X-Gm-Features: AcwNN1VBSx96Am5bMyza-3Z81_49VCDlB0IsZHW5X9pTU9Oq40nOjzgNhihFkBM
-Message-ID: <CAKTNdwFqSBt4QVCuYJxTyEDsxkW96JbUirFNAgJYWVLHzGpk4A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] clk: rockchip: rk3399: add 85.5 MHz rate to PLL rate
- table
-To: Vasily Khoruzhick <anarsoul@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>, 
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
+To: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: uKEQQXECUyWOlcY9zVZR1fHdXojbN5pL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3NiBTYWx0ZWRfX7hbIowMe5Yca
+ d05j5Sc1unDYoYWH+pp9UcQEDOLa5VUP6Qf2UQPE+Bb0t9BpcerkCj5b2kwSKfty5+ABfr66pAv
+ S/teh+YBv2UU0DAYuXIr5+7w45oCcYw=
+X-Authority-Analysis: v=2.4 cv=LOpWhpW9 c=1 sm=1 tr=0 ts=6a97e1d4 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=i7MDaAbus5dcvw8aKywA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: uKEQQXECUyWOlcY9zVZR1fHdXojbN5pL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3NiBTYWx0ZWRfX4530NtGusxOi
+ vl3gyFCmtIQsYKs709yNzUcxp9h9dcNy4Hz8klQsvFtTAoKStpqefJDZO5jVZOlNRYyUNkxwwhL
+ SaiHeSRhrOMCdac8R1Tzs3E1Kg0cLAReaeCfULEOP6+Ferd/dTJPbMirBFojK40NAow3Vbm+nFE
+ n5wKC//fSv6uxp4VXVhXVnB6UnN7UqLMREmA4WnAxg/tgYrbksR7cn9wpLB6KhVsELzfRsqaXup
+ iK7yx7g6FQBdUeQrLv6SgD3dcwXg6GYikSqK12bNag1nm5Z5nxwRY76tNo4ofn+5QHrz8fMzOT4
+ AdaIUeDdaA1tmEoYtJn4vEiht03fpuKntiBiEuvIEfJabEZTRPQUaNHC4k7b5OK1S9VL6c+otvC
+ R8hiFe281lK4qe/yECK9JVI95s70J3l0q0mhGyVH/j5d3kCZj8PCw9yiTU9pkEsrB8DyTSEa/UC
+ CFO3HykX7bW8Jqfrxxg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,41 +159,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Vasily,
+On 9/1/26 10:47 AM, Xilin Wu wrote:
+> The TC9563 PCI power-control driver powers off external downstream ports
+> whose device tree nodes have status = "disabled".
+> 
+> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
+> powered-off port functions during PCI enumeration raises an Arm SError
+> instead of returning an all-ones PCI error response. This prevents the
+> board from completing boot.
 
-On Wed, Sep 2, 2026 at 3:42=E2=80=AFAM Vasily Khoruzhick <anarsoul@gmail.co=
-m> wrote:
->
-> 85.5 MHz is the pixel clock of the standard DMT 1366x768@60 mode,
-> which is the native mode of many cheap HDMI panels.
->
-> Use a 1368 MHz VCO (24 MHz * 57, already used by the existing
-> 1368 MHz entry) with postdiv1 =3D postdiv2 =3D 4 to hit 85.5 MHz
-> exactly in integer mode.
->
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
-> ---
->  drivers/clk/rockchip/clk-rk3399.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/clk/rockchip/clk-rk3399.c b/drivers/clk/rockchip/clk=
--rk3399.c
-> index c2b243d7a5e2..db241d2df625 100644
-> --- a/drivers/clk/rockchip/clk-rk3399.c
-> +++ b/drivers/clk/rockchip/clk-rk3399.c
-> @@ -98,6 +98,7 @@ static struct rockchip_pll_rate_table rk3399_pll_rates[=
-] =3D {
->         RK3036_PLL_RATE( 148500000, 1, 99, 4, 4, 1, 0),
->         RK3036_PLL_RATE( 106500000, 1, 71, 4, 4, 1, 0),
->         RK3036_PLL_RATE(  96000000, 1, 64, 4, 4, 1, 0),
-> +       RK3036_PLL_RATE(  85500000, 1, 57, 4, 4, 1, 0),
+I agree with the premise of the patch, but I'd like to understand why
+that happens - do you have any details?
 
-There is already an entry for 1368000000, which is 16x your rate, and
-the 16x divisor should fit comfortably into the downstream clock's
-8-bit divisor field. Do you really need a separate PLL rate? Have you
-checked what the hardware arrives at with the unmodified PLL table -
-e.g. via /sys/kernel/debug/clk/clk_summary?
-
-Best regards,
-Alexey
+Konrad
