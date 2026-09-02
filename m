@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 049AEC624D7
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 14:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601CEC61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 14:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 116D810F252;
-	Wed,  2 Sep 2026 14:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 819CC10E4B5;
+	Wed,  2 Sep 2026 14:41:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Eshps1vF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jxboh07r";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF8410F244;
- Wed,  2 Sep 2026 14:40:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14ED610E021;
+ Wed,  2 Sep 2026 14:41:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 08FF541457;
- Wed,  2 Sep 2026 14:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01DC1F000E9;
- Wed,  2 Sep 2026 14:40:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F1CD7402FB;
+ Wed,  2 Sep 2026 14:41:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF131F000E9;
+ Wed,  2 Sep 2026 14:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788360041;
- bh=96/6s6+6Obnnoy5JuD/EsnTNI8D3RwVukTStVxJQY3M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Eshps1vFqetUa0nUq64kBrUzZWtYf5KRecWNiZ+S9i5dhuvWlMua6CBbNvQCvgH7D
- CFZ06BsfQjTqmH+j/SD43Q7TBEnhyp5fsVITffwOc7Ls1+xReGx/AoeB5DWtXnveE/
- b01VxoZSnjGSEm2T1UdzThzOw8aYKmbYcp31DtX/aFbtqaKBC8OizwGzbmBCSN9oLk
- Gs0i55izU5TiXb7cVV+t6Bxgfb82wePeI1WIKisitfuHBlVAMOVt4pmLbdmpiMg6oN
- DoPA/yIXlRQFAlHQXdSPGgjuUzanMIu82MiuLlDTs0F70BLouQiXo0Es3ql1ufI+HR
- e5hLNBhjuxJdw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
- id C4E3DCD6F29; Wed, 02 Sep 2026 15:40:15 +0100 (BST)
-Date: Wed, 2 Sep 2026 15:40:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <apg1Tx4C2-COl4E1@sirena.org.uk>
-References: <apbbvQSfUbzYRFaw@sirena.org.uk>
- <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
- <64bdb5bc-ced6-490c-b4c8-fd3dcabbbd4c@sirena.org.uk>
- <d1a594e7-7393-4f2f-b11d-bfff720de743@ideasonboard.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oeJxrKdgA5RSpryZ"
-Content-Disposition: inline
-In-Reply-To: <d1a594e7-7393-4f2f-b11d-bfff720de743@ideasonboard.com>
-X-Cookie: Orders subject to approval.
+ s=k20260515; t=1788360090;
+ bh=HoNRIq8axkeZlkW9x5KJodxcA+EN2kvUq8aKX/Emc8E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Jxboh07rLuZTl8hMMDRVolFd51k06DSXbbWZJeMeyGTuDGgZhwjBdBGQCjSWF0AnT
+ Fa7d8iLaQqndW5n1Qp76vCnAStRmT5wuBiPSWoH1c7mPiykfMADFD5M5j7yZuEyx8X
+ LOz6YFC9MBtKV1PQ8ivJ3gNEBq6pzk3yfzruu2tZlhuq6t/6Uv1+hDz+7XRrx5OKD6
+ aTGGyymjxvbA/2FU7FRwrmBbosTVHrXSH2DFqI+lDWgra20Nk0Q7fGtaGM1oc0/T0c
+ deHWT2Dp5E6C5VjsGlEin0vW4Sl8nY/aie2K1hm8wLtp1r7v5N/guduyeyA4dCSVpj
+ RM+FwgDkkX+3g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] perf: Add checks to prevent null ptr access
+To: "Vinay Belgaumkar" <vinay.belgaumkar@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260902141824.733112-3-vinay.belgaumkar@intel.com>
+References: <20260902141824.733112-1-vinay.belgaumkar@intel.com>
+ <20260902141824.733112-3-vinay.belgaumkar@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 14:41:30 +0000
+Message-Id: <20260902144130.9FF131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,43 +53,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---oeJxrKdgA5RSpryZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pre-existing issues:
+- [High] The lockless checks for revoked state and NULL PMU pointers are in=
+sufficient to prevent a Use-After-Free of the PMU structure or a NULL point=
+er dereference during concurrent unregistration.
+--
 
-On Wed, Sep 02, 2026 at 04:11:21PM +0300, Tomi Valkeinen wrote:
-> On 02/09/2026 15:11, Mark Brown wrote:
+commit 4a985bf8ccfd6853c89a279d4b7181e83c33bcef
+Author: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 
-> > > 2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI
-> > > codec)
+perf: Add checks to prevent null ptr access
 
-> > ...which the drm-misc tree has now merged so I don't expect it to build
-> > independently of any other tree.  I'm a bit surprised this wasn't caught
-> > when merging up -rc1.
+This commit adds a check for revoked states in perf_event_read_local() and
+a null pointer check for the PMU in __perf_event_read_cpu().
 
-> So the fix is just to remove that line. Any preference, should this go via
-> drm or sound?
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 7777e82aad5e7..059f82f0cadd4 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cp=
+u_topology_cpumask(unsigned int
+> =20
+>  static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
+>  {
+> +	struct pmu *pmu =3D READ_ONCE(event->pmu);
+>  	int local_cpu =3D smp_processor_id();
+>  	u16 local_pkg, event_pkg;
+> =20
+>  	if ((unsigned)event_cpu >=3D nr_cpu_ids)
+>  		return event_cpu;
+> =20
+> +	if (!pmu)
+> +		return -ENODEV;
+> +
 
-Given that the breakage is in drm-misc it needs to be fixed in drm-misc,
-hopefully before it starts getting cross merged everywhere.
+[Severity: High]
+This is a pre-existing issue, but does this lockless check provide a false
+sense of security against concurrent PMU unregistration? A concurrent
+perf_pmu_unregister() can set event->pmu =3D NULL and free the PMU memory. =
+Since
+this check relies on a cached pointer without holding locks that serialize
+against unregistration (e.g., ctx->lock), the PMU can be freed immediately
+after this check passes.
 
---oeJxrKdgA5RSpryZ
-Content-Type: application/pgp-signature; name="signature.asc"
+>  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+> -		const struct cpumask *cpumask =3D perf_scope_cpu_topology_cpumask(even=
+t->pmu->scope, event_cpu);
+> +		const struct cpumask *cpumask =3D perf_scope_cpu_topology_cpumask(pmu-=
+>scope,
+> +										event_cpu);
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+This is a pre-existing issue, but can this lead to a Use-After-Free when
+accessing pmu->scope? If the PMU is unregistered and freed by another CPU
+after we cache it but before we dereference it here, pmu->scope will read f=
+rom
+freed memory.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYNU4ACgkQJNaLcl1U
-h9D0BAf/YAyxtna7V3tYshH0D/06/RiC5zRqLLJUGMmdlKIaFje98uwEKaeEhLfv
-3Zmd0xZuf1/DjEjlgs2qB6oPBFFUnM9vdv2nkbsoPcy6YaJI+rBFuOlnl3unT9Bx
-AutKhccQ07Wj4dhXnn9QEm3SgwXRO3T87Ajry27jKy0kYHrTrIZoTJXxJkHPQqIA
-twtEbep+BRy8dCCOs/PbQkAiOLkp03o5hPFSR+mVoA7ROPuEF5hTI/4PkfCNPMsa
-LRnuWHeQg9XoIaeIn4Ujlz9DtW822/7nKLSyH4X1f66mLOBRwohdVRqmMT2saENV
-GW1Bl9KxMHWMhZHXep/4RyWPr3g5zw==
-=mDpJ
------END PGP SIGNATURE-----
+[ ... ]
 
---oeJxrKdgA5RSpryZ--
+> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event=
+, u64 *value,
+>  		goto out;
+>  	}
+> =20
+> +	if (READ_ONCE(event->state) <=3D PERF_EVENT_STATE_REVOKED) {
+> +		ret =3D -ENODEV;
+> +		goto out;
+> +	}
+> +
+
+[Severity: High]
+This is a pre-existing issue, but is this check vulnerable to a TOCTOU race?
+The event state can change immediately after this check if the event contex=
+t is
+inactive or belongs to a different CPU, allowing a concurrent unregistratio=
+n to
+detach the event and free the PMU while perf_event_read_local() continues
+executing. This leaves the subsequent call to event->pmu->read(event)
+unprotected, potentially resulting in a NULL pointer dereference or
+Use-After-Free.
+
+>  	/*
+>  	 * Get the event CPU numbers, and adjust them to local if the event is
+>  	 * a per-package event that can be read locally
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902141824.7331=
+12-1-vinay.belgaumkar@intel.com?part=3D2
