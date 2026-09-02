@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FEB9C624DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9805C624D7
 	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C16E10F377;
-	Wed,  2 Sep 2026 22:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1550410E532;
+	Wed,  2 Sep 2026 22:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UzObHvXB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hjEhu5Be";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED9910ED31
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3A8510EE9C
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788389658;
- bh=NtHdI1r04ll3cmriR0IAxLz63PsZ/Z1TC0z5wDweaC0=;
+ s=mail; t=1788389661;
+ bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=UzObHvXBTtIO2Xd/uiRXnyUZ5voVG+Gbhjq87SeXRZqe4MfePF/+zN7XgsDUIRbJ/
- MKA4rccAxlTpcancb3Yko1z4p01gBe/eldyJBYZnYiia+29GQUXz8tGrt/BSSuLmfK
- uO51D0t/i50Lj5RJ8hhnernnx9GoAUXdlxPywba1iqYae7cmRnuujjxjOSfRsq9oDt
- XTfJ04vX8hnFxyMp9eX77kbIlrxA7E3lO7nXZlLLGIcOcri4PELs13I0BiQqoCywAh
- aLwm+PRSeNh3mAZebJr55QoK8z32wZJiKWxM87KR7n9rEWAQRJ9UZa1tq1SfXFKTZk
- vS6jGDVHwsq1w==
+ b=hjEhu5BewWnQ8GNU+sykpkxRHoAjvI4z6S47LruS2zoJOCX2G+HQDamW0Naez/0tY
+ C9kQJCN8n5aWnR5XRIyuQP7za9/HyL9EDFwFyKsk1IdQgD+a5rZLtUq4Z88xWvEx6z
+ sV/CjSimjRKmR0ZhtKCbgPY5mC8U6QxyFjb2uM1MoHxRNJAjvic21IGvGH+/twMxDb
+ 2DWRXmoX1MhlCASD+/austkZXn7sf0sWVxWk7y7z6aoOdRLznDI+MpK9deKyS3TBy2
+ c85lXmSxs63n1WCfXavc8nly4GqqYVrQDO4emoprTK9whUi9Q966AShU2AImzl7N9/
+ oPYM8+tiw5ujQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B115517E157A;
- Thu, 03 Sep 2026 00:54:18 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B9C117E0914;
+ Thu, 03 Sep 2026 00:54:21 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:17 +0300
-Subject: [PATCH v4 10/14] drm/rockchip: vop2: Switch to enum vop_csc_format
+Date: Thu, 03 Sep 2026 01:54:21 +0300
+Subject: [PATCH v4 14/14] arm64: dts: rockchip: Add RK3588 VOP2 resets
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-10-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-14-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -77,52 +77,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Improve code readability in vop2_setup_csc_mode() by using enum
-vop_csc_format for the csc_mode variable, as well as for the return type
-of the vop2_convert_csc_mode() helper, which already returns CSC_*
-enumerators.
+Add the missing reset properties to VOP2 on RK3588.
 
-While at it, replace the nonsensical 'csc_mode = false' assignment in
-the no-conversion branch with the equivalent CSC_BT601L, which carries
-the same value (0) but is type-correct.
-
+Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index e78cddc184d3..04db4c037421 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
- 
--static int vop2_convert_csc_mode(int csc_mode)
-+static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
- 	case V4L2_COLORSPACE_SMPTE170M:
-@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	int input_csc = V4L2_COLORSPACE_DEFAULT;
- 	int output_csc = vcstate->color_space;
- 	bool r2y_en, y2r_en;
--	int csc_mode;
-+	enum vop_csc_format csc_mode;
- 
- 	if (is_input_yuv && !is_output_yuv) {
- 		y2r_en = true;
-@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	} else {
- 		y2r_en = false;
- 		r2y_en = false;
--		csc_mode = false;
-+		csc_mode = CSC_BT601L;
- 	}
- 
- 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e0786..574264b9cd9c 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1651,6 +1651,18 @@ vop: vop@fdd90000 {
+ 			      "pll_hdmiphy0";
+ 		iommus = <&vop_mmu>;
+ 		power-domains = <&power RK3588_PD_VOP>;
++		resets = <&cru SRST_A_VOP>,
++			 <&cru SRST_H_VOP>,
++			 <&cru SRST_D_VOP0>,
++			 <&cru SRST_D_VOP1>,
++			 <&cru SRST_D_VOP2>,
++			 <&cru SRST_D_VOP3>;
++		reset-names = "axi",
++			      "ahb",
++			      "dclk_vp0",
++			      "dclk_vp1",
++			      "dclk_vp2",
++			      "dclk_vp3";
+ 		rockchip,grf = <&sys_grf>;
+ 		rockchip,vop-grf = <&vop_grf>;
+ 		rockchip,vo1-grf = <&vo1_grf>;
 
 -- 
 2.55.0
