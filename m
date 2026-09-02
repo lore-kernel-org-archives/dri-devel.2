@@ -4,102 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D473C624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A75C624D0
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B601F10E4A3;
-	Wed,  2 Sep 2026 10:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6AC710F114;
+	Wed,  2 Sep 2026 10:59:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fZLwp5TZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RyOKoEmb";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D62CA10E4A3
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:47:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F12610F114
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:59:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E4072600D0;
- Wed,  2 Sep 2026 10:47:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3077A1F000E9;
- Wed,  2 Sep 2026 10:47:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A9DA600C8;
+ Wed,  2 Sep 2026 10:59:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4C91F000E9;
+ Wed,  2 Sep 2026 10:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788346025;
- bh=NMPfVN5CbaC96HtvVa8DpidRZa0TUnpKn2VRTVdV5ec=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=fZLwp5TZrTiJ6QaK1nT8Uvuxd7F/m4iNUe4BaGRVzrqqkV/AEe2h29PAydWpqzWQs
- lFdlIjUmcRuF6eg6qGCTnjq0pBx/I5QgwP4oxJqqS/l87HMIt9FAhh14jpeNgBzazS
- ClOrKUJFgNFXnSE2ZUSysf5HwJ4OqShQWrBLgorw6WNEVVBzXxsEh4OL/pPGfxVavp
- i7Uii98uCb7VI3GLSNoxqsBLnMjAyvEOErZ+EHgoQ4pm+FfGwSlIeqgSepYMLfTK3R
- XZBEAByyFzXf5Nrp19c67P+hhLP0wFJnGfU5XPbLwUy8HgG3DqUQRNzBhowj2cN1pi
- 4uBYg4WeK+3sA==
-Message-ID: <275a55e8-543e-466d-a6a1-84776e763024@kernel.org>
-Date: Wed, 2 Sep 2026 12:47:02 +0200
+ s=k20260515; t=1788346764;
+ bh=OBVmQw0sO4Pqp+7c+CugRQe5Vt/ZmRFWAeUf3jC3dWA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=RyOKoEmbZeg1aphhoTTpEaSIx8jXa6UWfDyctpucawNu6Z8Z3QEFvG+aAQiX5811Q
+ UhaExyceGBB/5wIot7ioceNrrpzg0hJOhDlHLxle+yiT6zHlJlKqEtrq/LFGvcRbu/
+ bU4B4iQMLzRRiczAfE8WSQLzCOBAmES3EPeT+pvdv65HRWkWrKSlkwQguvv6M/Snai
+ nEkEca7YfmhKCToruciCfWidpSlY3S01HOhHZyrCJ0+g8Hz2eMDMUqDiN1qiEbrkwB
+ NdnTFIO5Kz0F8tVGTocGnZYK2DRb6d4NmBy0ufnb4yXJDSQX5jUtHXv6a5Qb1qqnCG
+ t9/dRhGdQCAHg==
+Date: Wed, 2 Sep 2026 13:59:19 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+ ankita@nvidia.com, chriscli@google.com,
+ david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+ kevin.tian@intel.com, kpberry@google.com,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+ sashiko-bot@kernel.org, stable@vger.kernel.org,
+ viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <20260902105919.GV24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ <20260902073936.GR24140@unreal>
+ <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
+ <20260902083232.GT24140@unreal>
+ <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
+ <20260902095338.GU24140@unreal>
+ <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dma-buf: add dma_fence_was_initialized function v2
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, tursulin@ursulin.net,
- matthew.brost@intel.com, sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-References: <20260120105655.7134-1-christian.koenig@amd.com>
- <20260120105655.7134-2-christian.koenig@amd.com>
- <0d40243b-0929-46d2-be85-e3248d4bd09c@kernel.org>
- <aee97ce4aad6bcf63ce9e7066e20a4ff6f082669.camel@mailbox.org>
- <9edeaa17aebc284f1f171b1dd4d9ffee4721b750.camel@mailbox.org>
- <4b5b6dda-43a4-4488-9dbd-b0f92fcead61@kernel.org>
- <0b84716fa6bec4e38d811dc76926dd81e31e0c81.camel@mailbox.org>
- <5dd4248bccb446ef390e7149649632657db4aaae.camel@mailbox.org>
- <0df59c80-ae58-47d3-a96b-e878a17766a7@kernel.org>
- <f8b941a8-a468-4243-836e-aa6cebf6f3b3@kernel.org>
- <f923a6f6-8fef-43c8-8ac6-82c070e9b7b8@kernel.org>
- <ddab642c497354d2800e6139f7b0c073fd3981f1.camel@mailbox.org>
- <5be2d5f9-579f-4c5c-8463-a2505a6f0c74@kernel.org>
- <307d764629d7c5d2704b7897c8c0c32c1ef4ce33.camel@mailbox.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <307d764629d7c5d2704b7897c8c0c32c1ef4ce33.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,59 +72,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02. 09. 26, 9:03, Philipp Stanner wrote:
-> On Wed, 2026-09-02 at 08:56 +0200, Jiri Slaby wrote:
->> On 02. 09. 26, 8:52, Philipp Stanner wrote:
->>> On Fri, 2026-08-28 at 10:32 +0200, Jiri Slaby wrote:
->>>> On 28. 08. 26, 9:46, Jiri Slaby wrote:
->>>>> What helps is indeed the revert back to:
->>>>>
->>>>> --- a/drivers/gpu/drm/qxl/qxl_release.c
->>>>> +++ b/drivers/gpu/drm/qxl/qxl_release.c
->>>>> @@ -147,7 +147,7 @@ qxl_release_free(struct qxl_device *qdev,
->>>>>            idr_remove(&qdev->release_idr, release->id);
->>>>>            spin_unlock(&qdev->release_idr_lock);
->>>>>
->>>>> -       if (dma_fence_was_initialized(&release->base)) {
->>>>> +       if (release->base.ops) {
->>>>
->>>> Crap, the flags simple got garbage from previous freed buffer, so:
->>>> -       release = kmalloc(size, GFP_KERNEL);
->>>> +       release = kzalloc(size, GFP_KERNEL);
->>>>
->>>> fixes this of course. Patch coming.
->>>>
->>>> Now, the ops and initialized are either both set or unset:
->>>> qxl_release_free 1: release->base.ops=0x0 initialized=0 id=6 type=2
->>>> qxl_release_free 1: release->base.ops=qxl_fence_ops initialized=1 id=2
->>>> type=0
->>>>
->>>> Unlike before.
->>>>
->>>> FTR release->base.ops were NULLed after that kmalloc. Unlike
->>>> release->base.flags.
->>>
->>> You're saying that QXL is re-using that fence if it were uninitialized?
->>
->> Sort of. The fence was dropped and freed. Then a new memory was
->> allocated. And garbage from that allocation was used -- it might be the
->> old (freed) fence. Or anything else freed previously. Simply garbage.
+On Wed, Sep 02, 2026 at 12:00:25PM +0200, Christian K�nig wrote:
+> On 9/2/26 11:53, Leon Romanovsky wrote:
+> > On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian K�nig wrote:
+> >> On 9/2/26 10:32, Leon Romanovsky wrote:
+> >>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian K�nig wrote:
+> >>>> On 9/2/26 09:39, Leon Romanovsky wrote:
+> >>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian K�nig wrote:
+> >>>>>> On 9/1/26 19:08, David Hu wrote:
+> >>>>>>> From: David Hu <xuehaohu@google.com>
+> >>>>>>>
+> >>>>>>> This series address two related issues in scatter-gather mapping,
+> >>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
+> >>>>>>> sgt mapping is correct, and proper for large MMIO regions.
+> >>>>>>>
+> >>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> >>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> >>>>>>> phys vec to sgt)
+> >>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> >>>>>>>
+> >>>>>>> Patch 2 Splits sgl by largest page aligned chunk
+> >>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> >>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+> >>>>>>
+> >>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+> >>>>>
+> >>>>> And this is why so many in the kernel community want to get rid of SG
+> >>>>> lists. It would be great if DMA-BUF could also eliminate the need to
+> >>>>> convert to an SGL, like Jason proposed.
+> >>>>>
+> >>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+> >>>>> which is the one that depends on it.
+> >>>>
+> >>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
+> >>>
+> >>> You are proposing the same thing as an SGL, just in a different format.
+> >>
+> >> Yes, because that is the right thing todo as far as I can see.
+> >>
+> >>> It does not address the issue that dma_addr_t is expected to hold a DMA
+> >>> address, while that is not always the case. For example, in the P2P case,
+> >>> the addresses are not DMA addresses.
+> >>
+> >> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
+> > 
+> > They can perform DMA, but that still does not make them suitable for the
+> > dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
+> > follow completely different rules: they are not unmapped, require no cache
+> > synchronization, are valid only for peer access, and require separate error
+> > handling.
 > 
-> 
-> Maybe even dma_fence_init() should zero out the memory for maximum
-> robustness.
+> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
 
-That would not help as dma_fence_init() is called too late or not at all 
-here...
+Maybe you mean DRM, but VFIO works perfectly with PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.
+What am I missing?
 
-dma_fence_init() is called late as the driver wants to call 
-dma_fence_was_initialized() to distinguish the cases when the init was 
-called and when not.
-
-> We do that in drm_sched at a few places.
-> 
-> Opinions? @Christian?
-
--- 
-js
-suse labs
+Thanks
