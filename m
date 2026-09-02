@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6EC5C624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 06:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96544C61DFD
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 06:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 622C210EFF8;
-	Wed,  2 Sep 2026 06:35:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B5D10EFE9;
+	Wed,  2 Sep 2026 06:37:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y+bCDEeb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="edRi/DVR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8274E10EF17;
- Wed,  2 Sep 2026 06:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788330915; x=1819866915;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=lNCFnULda7y20jlWm548neep+gsO6Aa4LjN7gZx2jdo=;
- b=Y+bCDEebe8FIqPSC+cF89DxL0zH8iKl5wPKrvCY/xVCEBBWCKjBi3ony
- grEVKiJ0T1n7gl10mrGen0ErBRmAT1EeX/Dg/RggjyzpFHDvqsNmR7FlJ
- qC3NvFwGXgfcFiiSAachvjIILi54J5ppB79O6TvBg7sAxDEOSfrHphPGt
- d0sdoFpUv6J8LG6iAmjNmZ5szPdQH84sW8+3J95WwdTJWnCTPchUQuA+Q
- q3DJwCMlVWl6MqkBrXScgKhCIMzivD0+CQ3P0EmUz1XmghfDxriTd2K+i
- J5lyZATJM7B3IkXIe/I+lSGXtDbjZX4pVZKwgeTxfn7qzJKrBj5ZQ8IRh w==;
-X-CSE-ConnectionGUID: q8ss/nUuRvSDpTOTuE+y9Q==
-X-CSE-MsgGUID: 4v7FZWJ+SXCN5A49sQhTjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92598986"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="92598986"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 23:35:11 -0700
-X-CSE-ConnectionGUID: aaada9ONRxSfjaAc7A2RuQ==
-X-CSE-MsgGUID: VLCGhok/S++dSh/xbqhcEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="268775531"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 23:35:10 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org,
- Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Subject: [PATCH v4 2/2] drm/pagemap: Fix folio allocation fallback and
- use-after-put
-Date: Tue,  1 Sep 2026 23:35:04 -0700
-Message-Id: <20260902063504.3024362-2-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260902063504.3024362-1-matthew.brost@intel.com>
-References: <20260902063504.3024362-1-matthew.brost@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 665EC10EFE9
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 06:37:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 652EA600C8;
+ Wed,  2 Sep 2026 06:37:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C371F000E9;
+ Wed,  2 Sep 2026 06:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788331030;
+ bh=yaV9+mmFhJ8GvWA0OLuH6CZzZgW/+vhynYlQ7CIJRRw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=edRi/DVRnwAUrTUVWOxnz4Fe5g8c2h+vMV8JzZeUQDrVC12q6Nku9s/DAqRGbE6L1
+ oQdSdn0/bkB2LUE/nFHJOVefphrolpCaFcC1vh5GoAmVW0SMV9q6/18aFg8Mv+6Uw0
+ qXYIbQZQdC4r7A7zzkUiews8zrknjZQgcnkcy/kw/qB5U4L3Tu4zQF1UC2UxIlzUEO
+ YANELdd9xYYxkoTBJIMsCytrdwWxkxJty+5tX2AZcqemvq6bxPfDpazE9x3ZE95y4V
+ shcDBC5K0i0URWcNRCLc4YmHKcYUNos97p+CpsO7ZzjxoaegmtdlA8UtBbFHPMnHY+
+ 1FKWipxwZhQ3g==
+Date: Wed, 2 Sep 2026 08:37:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org, 
+ biju.das.jz@bp.renesas.com, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+Message-ID: <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,243 +69,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_pagemap_migrate_populate_ram_pfn() had two issues when populating
-RAM PFNs with higher-order folios:
+On Fri, Aug 28, 2026 at 02:21:04PM +0200, Tommaso Merciai wrote:
+> The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> Processor (VSPD), and Display Unit (DU).
+> 
+>  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+>  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> 
+> Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> 
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v7->v8:
+>  - Rebased on top of RZ/G3L du support [1]
+>  - Modelled using ports/port instead of port/ep.
+>    [1] https://lore.kernel.org/all/20260826174854.199139-1-biju.das.jz@bp.renesas.com/
+>  - Improved commit msg and commit body.
+> 
+> v6->v7:
+>  - Rebased on top of [1]
+>    [1] https://lore.kernel.org/all/20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>  - Use single DRM device aggregating both DU instances (1 DU dt node),
+>    modelling single port for each DU0, DU1 and multiple endpoints for
+>    outputs.
+> 
+> v5->v6:
+>  - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
+>    explicitly disable port@2 and port@3 for existing SoCs that do not expose
+>    them.
+>  - Reworked ports numbering + improved/fixed ports descriptions in the
+>    bindings documentation.
+>  - Improved commit body.
+> 
+> v4->v5:
+>  - Dropped renesas,id property and updated bindings
+>    accordingly.
+> 
+> v2->v3:
+>  - No changes.
+> 
+> v2->v3:
+>  - No changes.
+> 
+> v1->v2:
+>  - Use single compatible string instead of multiple compatible strings
+>    for the two DU instances, leveraging a 'renesas,id' property to
+>    differentiate between DU0 and DU1.
+>  - Updated commit message accordingly.
+> 
+>  .../bindings/display/renesas,rzg2l-du.yaml    | 95 ++++++++++++++++++-
+>  1 file changed, 91 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> index 5c9b15a09dee..d44c7c0add8d 100644
+> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> @@ -21,6 +21,7 @@ properties:
+>            - renesas,r9a07g043u-du # RZ/G2UL
+>            - renesas,r9a07g044-du # RZ/G2{L,LC}
+>            - renesas,r9a08g046-du # RZ/G3L
+> +          - renesas,r9a09g047-du # RZ/G3E
+>            - renesas,r9a09g057-du # RZ/V2H(P)
+>            - renesas,r9a09g077-du # RZ/T2H
+>        - items:
+> @@ -35,25 +36,51 @@ properties:
+>            - const: renesas,r9a09g077-du # RZ/T2H fallback
+>  
+>    reg:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  reg-names:
+> +    items:
+> +      - const: du.0
+> +      - const: du.1
 
-1. The higher-order vma_alloc_folio()/folio_alloc() calls did not pass
-   __GFP_NOWARN, so a THP allocation failure under memory pressure
-   would spam the kernel log, and there was no fallback path despite a
-   TODO comment stating one was needed. Add __GFP_NOWARN to the
-   higher-order allocation and, on failure, fall back to order-0
-   allocations for the entire range originally covered by the failed
-   higher-order allocation, leaving MIGRATE_PFN_COMPOUND unset for
-   those PFNs.
+du is the name of the device, thus calling items "0" and "1" is pretty
+pointless - indices already define that. Please drop the reg-names.
 
-2. In the free_pages error path, order was computed via
-   folio_order(page_folio(page)) *after* put_page(page) had already
-   dropped the reference, resulting in a use-after-free/put when that
-   was the last reference on the page. Compute order before releasing
-   the page.
+>  
+>    interrupts:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: du.0
+> +      - const: du.1
 
-Introducing the fallback in 1. also requires the source page array
-handed to ->copy_to_ram() to be built differently. Both callers only
-populated the entry at the head of each source folio, relying on the
-copy callback to derive the rest of the folio from the order recorded
-in the matching drm_pagemap_addr. Once the destination has been demoted
-to order-0 folios the drm_pagemap_addr entries are per-page, so a source
-page is needed for every one of them; leaving them NULL makes the copy
-callback stop after the first page and the remainder of the range is
-never copied.
+Same here
 
-The source folio is only split later, by migrate_vma_pages() /
-migrate_device_pages(), so its order cannot be used to detect the
-demotion - test the destination for MIGRATE_PFN_COMPOUND instead. Factor
-the array population out into drm_pagemap_migrate_populate_src_pages()
-and use it from both drm_pagemap_evict_to_ram() and
-__drm_pagemap_migrate_to_ram().
+>  
+>    clocks:
+> +    minItems: 3
+>      items:
+>        - description: Main clock
+>        - description: Register access clock
+>        - description: Video clock
+> +      - description: Main clock for DU1
+> +      - description: Register access clock for DU1
+> +      - description: Video clock for DU1
+>  
+>    clock-names:
+> +    minItems: 3
+>      items:
+>        - const: aclk
+>        - const: pclk
+>        - const: vclk
+> +      - const: aclk1
+> +      - const: pclk1
+> +      - const: vclk1
+>  
+>    resets:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  reset-names:
+> +    items:
+> +      - const: resetn
+> +      - const: resetn1
 
-Fixes: ddeda6136038 ("drm/pagemap: Allocate folios when possible")
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-5
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
----
- drivers/gpu/drm/drm_pagemap.c | 128 +++++++++++++++++++++++++++-------
- 1 file changed, 103 insertions(+), 25 deletions(-)
+Drop reset-names
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 6aa745682270..a0546955d0b9 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -383,6 +383,58 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
- 	return 0;
- }
- 
-+/**
-+ * drm_pagemap_migrate_populate_src_pages() - Populate the source page array
-+ * @pages: Array of source pages to populate
-+ * @src_mpfn: Source array of migrate PFNs
-+ * @dst_mpfn: Destination array of migrate PFNs
-+ * @npages: Number of pages in the arrays
-+ *
-+ * Populate @pages with the device pages the copy callback is to read from.
-+ *
-+ * Entries are normally only populated at the head of each source folio, with
-+ * the copy callback deriving the rest of the folio from the order recorded in
-+ * the corresponding drm_pagemap_addr. That does not work where
-+ * drm_pagemap_migrate_populate_ram_pfn() had to demote a higher-order source
-+ * folio to order-0 destination folios: the drm_pagemap_addr entries are then
-+ * per-page, and the copy callback needs a source page for each of them.
-+ * Populate every entry for those ranges.
-+ *
-+ * Note that the source folio itself is only split later, by
-+ * migrate_vma_pages() / migrate_device_pages(), so its order cannot be used to
-+ * detect the demotion - the destination has to be inspected instead.
-+ */
-+static void drm_pagemap_migrate_populate_src_pages(struct page **pages,
-+						   unsigned long *src_mpfn,
-+						   unsigned long *dst_mpfn,
-+						   unsigned long npages)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < npages;) {
-+		struct page *page = migrate_pfn_to_page(src_mpfn[i]);
-+		unsigned int order = 0;
-+		unsigned long j, nr;
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		order = folio_order(page_folio(page));
-+		nr = NR_PAGES(order);
-+
-+		if (order && !(dst_mpfn[i] & MIGRATE_PFN_COMPOUND)) {
-+			for (j = 0; j < nr && i + j < npages; j++)
-+				pages[i + j] = folio_page(page_folio(page), j);
-+		} else {
-+			pages[i] = page;
-+		}
-+
-+		i += nr;
-+	}
-+}
-+
- /**
-  * drm_pagemap_migrate_unmap_pages() - Unmap pages previously mapped for GPU SVM migration
-  * @dev: The device for which the pages were mapped
-@@ -875,6 +927,7 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		struct page *page = NULL, *src_page;
- 		struct folio *folio;
- 		unsigned int order = 0;
-+		gfp_t gfp = GFP_HIGHUSER;
- 
- 		if (!(src_mpfn[i] & MIGRATE_PFN_MIGRATE))
- 			goto next;
-@@ -891,11 +944,51 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 
- 		order = folio_order(page_folio(src_page));
- 
--		/* TODO: Support fallback to single pages if THP allocation fails */
-+		/*
-+		 * A large source folio is always collected whole, at its head
-+		 * page, PMD aligned and flagged MIGRATE_PFN_COMPOUND: anything
-+		 * else is split before it reaches us, either by
-+		 * migrate_vma_collect_pmd() or, for the eviction path, by
-+		 * migrate_device_pfns(). Both the order-0 fallback below and
-+		 * drm_pagemap_migrate_populate_src_pages() rely on that, as
-+		 * they index the folio from @i.
-+		 */
-+		WARN_ON_ONCE(order &&
-+			     (src_page != folio_page(page_folio(src_page), 0) ||
-+			      !(src_mpfn[i] & MIGRATE_PFN_COMPOUND)));
-+
-+		if (order)
-+			gfp |= __GFP_NOWARN;
-+
- 		if (vas)
--			folio = vma_alloc_folio(GFP_HIGHUSER, order, vas, addr);
-+			folio = vma_alloc_folio(gfp, order, vas, addr);
- 		else
--			folio = folio_alloc(GFP_HIGHUSER, order);
-+			folio = folio_alloc(gfp, order);
-+
-+		if (!folio && order) {
-+			/*
-+			 * Higher-order allocation failed, fall back to
-+			 * order-0 allocations for the entire range covered
-+			 * by the original higher-order allocation, without
-+			 * setting MIGRATE_PFN_COMPOUND, until we move past
-+			 * that range.
-+			 */
-+			unsigned long nr = NR_PAGES(order);
-+			unsigned long j;
-+
-+			gfp &= ~__GFP_NOWARN;
-+			for (j = 0; j < nr && i < npages; j++, i++, addr += PAGE_SIZE) {
-+				folio = vas ?
-+					vma_alloc_folio(gfp, 0, vas, addr) :
-+					folio_alloc(gfp, 0);
-+				if (!folio)
-+					goto free_pages;
-+
-+				page = folio_page(folio, 0);
-+				mpfn[i] = migrate_pfn(page_to_pfn(page));
-+			}
-+			continue;
-+		}
- 
- 		if (!folio)
- 			goto free_pages;
-@@ -940,11 +1033,11 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		if (!page)
- 			goto next_put;
- 
-+		order = folio_order(page_folio(page));
-+
- 		put_page(page);
- 		mpfn[i] = 0;
- 
--		order = folio_order(page_folio(page));
--
- next_put:
- 		i += NR_PAGES(order);
- 	}
-@@ -1225,7 +1318,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	unsigned long *src, *dst;
- 	struct drm_pagemap_addr *pagemap_addr;
- 	void *buf;
--	int i, err = 0;
-+	int err = 0;
- 	unsigned int retry_count = 2;
- 
- 	npages = devmem_allocation->size >> PAGE_SHIFT;
-@@ -1268,15 +1361,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		goto err_finalize;
- 
--	for (i = 0; i < npages;) {
--		unsigned int order = 0;
--
--		pages[i] = migrate_pfn_to_page(src[i]);
--		if (pages[i])
--			order = folio_order(page_folio(pages[i]));
--
--		i += NR_PAGES(order);
--	}
-+	drm_pagemap_migrate_populate_src_pages(pages, src, dst, npages);
- 
- 	err = ops->copy_to_ram(pages, pagemap_addr, npages, NULL);
- 	if (err)
-@@ -1344,7 +1429,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	struct drm_pagemap_addr *pagemap_addr;
- 	unsigned long start, end;
- 	void *buf;
--	int i, err = 0;
-+	int err = 0;
- 
- 	zdd = drm_pagemap_page_zone_device_data(page);
- 	if (time_before64(get_jiffies_64(), zdd->devmem_allocation->timeslice_expiration))
-@@ -1401,15 +1486,8 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	if (err)
- 		goto err_finalize;
- 
--	for (i = 0; i < npages;) {
--		unsigned int order = 0;
--
--		pages[i] = migrate_pfn_to_page(migrate.src[i]);
--		if (pages[i])
--			order = folio_order(page_folio(pages[i]));
--
--		i += NR_PAGES(order);
--	}
-+	drm_pagemap_migrate_populate_src_pages(pages, migrate.src, migrate.dst,
-+					       npages);
- 
- 	err = ops->copy_to_ram(pages, pagemap_addr, npages, NULL);
- 	if (err)
--- 
-2.34.1
+>  
+>    power-domains:
+>      maxItems: 1
+> @@ -66,7 +93,7 @@ properties:
+>        model-dependent. Each port shall have a single endpoint.
+>  
+>      patternProperties:
+> -      "^port@[0-2]$":
+> +      "^port@[0-3]$":
+>          $ref: /schemas/graph.yaml#/properties/port
+>          unevaluatedProperties: false
+>  
+> @@ -110,6 +137,7 @@ allOf:
+>                description: DPI
+>              port@1: false
+>              port@2: false
+> +            port@3: false
+
+Best regards,
+Krzysztof
 
