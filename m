@@ -4,44 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13827C624D9
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96F74C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:36:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7BA10E242;
-	Wed,  2 Sep 2026 15:35:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8F9D10F26B;
+	Wed,  2 Sep 2026 15:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WCv+1E1/";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="XmHhJsAU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F106310F282;
- Wed,  2 Sep 2026 15:34:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ABF5B43AB0;
- Wed,  2 Sep 2026 15:34:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629531F00A3A;
- Wed,  2 Sep 2026 15:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788363298;
- bh=leHJ1krmsP+1jk2Z+sOOrfddQ8CBvBEPQU7q2DE7Tk8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WCv+1E1/L5yH9HlymQICwv4QxJTZqJ4iyyHwXTWaghk+tfXiFG6q5ziKOdbf88D3/
- Xbllo+m1FK6du9FCV+yyZi4BGayxhEwYwwC1TZ5hSACmirHpodjSXAySiY0ovTRUVQ
- iJ6Z8JZXhcF/1/u0oINvGtK8Gdfylon8MhdJ+LioK3ZiSFbGWpwb0rSlEHp0LeqPc5
- 6Z1edHYIkRB69THVMfDNYiO1GsF8a3E0TJWITUFbrv7xNSqzcctNJySNx991Qafx+9
- 7qEcBuv1AKrkfHhELUl6MvBjw/RGk2G7ZzsCyHGLVQdHpzKOGKGeO/jDN8MG0+4Zfj
- L8UmzZtLc1rnw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/4] drm/xe: Convert xe_user_fence to drm_user_fence
-To: "Srinivasan Shanmugam" <srinivasan.shanmugam@amd.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260902152049.183685-3-srinivasan.shanmugam@amd.com>
-References: <20260831134539.112690-2-srinivasan.shanmugam@amd.com>
- <20260902152049.183685-1-srinivasan.shanmugam@amd.com>
- <20260902152049.183685-3-srinivasan.shanmugam@amd.com>
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 147E010F26B
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:36:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788363386; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Uz3CSDNOwhbSRIQA04r+8Hns5HK1tvvCJCUFFveHWDWqTccAfeFkKWJnGHrB3aJr8IVRm/xTzi47mroc+1eMrvssPPa/pvfIOl59Gq0WJ2W240I6uMeMlaZn7f0Li+UExXqHBEVf7/bnKYvd8Q/fv48FiEYqR1elzsXm4lGQpy8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788363386;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=zrseYKXPJI+lDE/RaHmIqyZ1DcdW9dHQYIB9oIcqUtg=; 
+ b=YxL34Txk2hE12ehq+u2tHWCS8K66Ndr2FSPm9PisvBLqTLLUcgGuxVBMTG6qYVCUV7NAPzElDcw+RYnc2qeGuro4RX47WwyGCB2k8N9zm8VmjjlB9CHsSs2kv/C815U2EmX55ucbL2yp6RXHEVePOMtDum7fi7Pe/aPpNiUYftM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363386; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=zrseYKXPJI+lDE/RaHmIqyZ1DcdW9dHQYIB9oIcqUtg=;
+ b=XmHhJsAUA6UpkgcvPTeD1AvtOZnFKm3s1O8rBRm/cMoLiY+9P0Vqr8LRj2llrzay
+ zZH312QemPzCWm1s9WAl3lAlh3GDzRA8+WbkWKIkStmJur4qWOFLvafqCgVd/UaL7Dq
+ NQEhSFlLcEym3H7hl1v08n5QYuwn/Q2L1MzYvLro=
+Received: by mx.zohomail.com with SMTPS id 1788363384002507.3276519476119;
+ Wed, 2 Sep 2026 08:36:24 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:36:17 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 01/17] drm/panfrost: Move shrinker initialization and
+ unplug one level down
+Message-ID: <aphCaGIbyRbbTYEx@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-1-72a13b2c125d@collabora.com>
+ <20260901132802.66d9aba6@fedora-21.home>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 15:34:57 +0000
-Message-Id: <20260902153458.629531F00A3A@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901132802.66d9aba6@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,151 +77,220 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 01.09.2026 13:28, Boris Brezillon wrote:
+> On Fri, 28 Aug 2026 21:56:41 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > Since the moment we call drm_dev_register() the device should be in a
+> > position to accept jobs, so it's best if the shrinker is already
+> > initialized by then.
+> > 
+> > On top of that, make shrinker functions take an panfrost_device pointer
+> > like other functions in the same sequence and rename them accordingly.
+> > 
+> > Essentially mimic the init/fini behaviour in Panthor.
+> > 
+> > On top of that, remove the config feature check, because it's unnecessary.
+> 
+> I don't think that's accurate anymore (we still have a config check,
+> except it's encoded directly in the panfrost_transparent_hugepage definition),
+> and I think I'd prefer if this change was done in a separate commit.
 
-New issues:
-- [High] Race condition in user fence signaling causes spurious -EBUSY fail=
-ures for valid VMA unmap operations.
+Maybe I could do it in the commit where I move that module param's handling into panfrost_gem?
 
-Pre-existing issues:
-- [High] Userspace can stall the global xe->ordered_wq indefinitely via use=
-rfaultfd on user fence signaling, causing a Denial of Service for all compu=
-te applications.
---
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+> >  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+> >  drivers/gpu/drm/panfrost/panfrost_drv.h          |  4 ++++
+> >  drivers/gpu/drm/panfrost/panfrost_gem.c          | 25 ++++++++++++++----------
+> >  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+> >  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+> >  6 files changed, 32 insertions(+), 26 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index 485349faf251..05c40d5a20b5 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  	if (err)
+> >  		goto out_job;
+> >  
+> > -	panfrost_gem_init(pfdev);
+> > +	err = panfrost_gem_init(pfdev);
+> > +	if (err)
+> > +		goto out_perfcnt;
+> >  
+> >  	return 0;
+> > +
+> > +out_perfcnt:
+> > +	panfrost_perfcnt_fini(pfdev);
+> >  out_job:
+> >  	panfrost_jm_fini(pfdev);
+> >  out_mmu:
+> > @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  
+> >  void panfrost_device_fini(struct panfrost_device *pfdev)
+> >  {
+> > +	panfrost_gem_fini(pfdev);
+> >  	panfrost_perfcnt_fini(pfdev);
+> >  	panfrost_jm_fini(pfdev);
+> >  	panfrost_mmu_fini(pfdev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > index 96a66d673ba6..9882a3ede75f 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
+> >  	if (err < 0)
+> >  		goto err_out1;
+> >  
+> > -	err = panfrost_gem_shrinker_init(&pfdev->base);
+> > -	if (err)
+> > -		goto err_out2;
+> >  
+> >  	return 0;
+> >  
+> > -err_out2:
+> > -	drm_dev_unregister(&pfdev->base);
+> >  err_out1:
+> >  	pm_runtime_disable(pfdev->base.dev);
+> >  	panfrost_device_fini(pfdev);
+> > @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
+> >  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+> >  
+> >  	drm_dev_unregister(&pfdev->base);
+> > -	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> >  
+> >  	pm_runtime_get_sync(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
+> > index a2277ec61aab..bac0c415d4da 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.h
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
+> > @@ -4,6 +4,10 @@
+> >  #ifndef __PANFROST_DRV_H__
+> >  #define __PANFROST_DRV_H__
+> >  
+> > +#if IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+> >  extern bool panfrost_transparent_hugepage;
+> > +#else
+> > +#define panfrost_transparent_hugepage false
+> > +#endif
+> >  
+> >  #endif
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > index 3a7fce428898..7b993a089af2 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > @@ -15,20 +15,25 @@
+> >  #include "panfrost_gem.h"
+> >  #include "panfrost_mmu.h"
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev)
+> > +int panfrost_gem_init(struct panfrost_device *pfdev)
+> >  {
+> >  	int err;
+> >  
+> > -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> > -	    !panfrost_transparent_hugepage)
+> > -		return;
+> > +	if (panfrost_transparent_hugepage) {
+> > +		err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > +		if (drm_gem_get_huge_mnt(&pfdev->base))
+> > +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > +		else if (err)
+> > +			drm_warn(&pfdev->base,
+> > +				 "Can't use Transparent Hugepage (%d)\n", err);
+> 
+> This can probably be turned into:
+> 
+> 		if (err)
+> 			drm_warn(&pfdev->base,
+> 				 "Can't use Transparent Hugepage (%d)\n", err);
+> 		else
+> 			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> 
+> since there's no world where drm_gem_get_huge_mnt() would return NULL if
+> drm_gem_huge_mnt_create() returns 0 when CONFIG_TRANSPARENT_HUGEPAGE=y.
+> The pre-existing checks where there to cover CONFIG_TRANSPARENT_HUGEPAGE=n
+> which you already cover by not entering this branch.
 
-commit e66f332fb8f0deb8b5c5b3ca223be49da69834d3
-Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-drm/xe: Convert xe_user_fence to drm_user_fence
+Will do, but also write this into the patch that moves the module param into panfrost_gem.c instead.
 
-This commit replaces the open-coded user fence implementation in xe_sync.c
-with the new common drm_user_fence helper. The xe_user_fence structure now
-embeds drm_user_fence and the previous local functions are replaced by
-operations provided to the drm helper.
+> > +	}
+> >  
+> > -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > -	if (drm_gem_get_huge_mnt(&pfdev->base))
+> > -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > -	else if (err)
+> > -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> > -			 err);
+> > +	return panfrost_gem_shrinker_init(pfdev);
+> > +}
+> > +
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_gem_shrinker_fini(pfdev);
+> >  }
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > index 79d4377019e9..5c823cdbd980 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+> >  	return container_of(node, struct panfrost_gem_mapping, mmnode);
+> >  }
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev);
+> > +int panfrost_gem_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev);
+> >  
+> >  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
+> >  
+> > @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+> >  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+> >  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+> >  
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev);
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+> >  
+> >  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+> >  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > index 2fe967a90bcb..fefae87535d6 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> >   *
+> >   * This function registers and sets up the panfrost shrinker.
+> >   */
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev)
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+> >  	if (!pfdev->shrinker)
+> >  		return -ENOMEM;
+> > @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+> >   *
+> >   * This function unregisters the panfrost shrinker.
+> >   */
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	if (pfdev->shrinker)
+> >  		shrinker_free(pfdev->shrinker);
+> >  }
+> > 
 
-> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-> index 37866768d64c2..05f6794af1ee2 100644
-> --- a/drivers/gpu/drm/xe/xe_sync.c
-> +++ b/drivers/gpu/drm/xe/xe_sync.c
-[ ... ]
-> @@ -19,36 +18,58 @@
->  #include "xe_macros.h"
->  #include "xe_sched_job_types.h"
-> =20
-> +/*
-> + * xe_user_fence wraps drm_user_fence with XE-specific fields.
-> + * The drm_user_fence base handles MM borrowing and work-item lifetime.
-> + */
->  struct xe_user_fence {
-> -	struct xe_device *xe;
-> -	struct kref refcount;
-> -	struct dma_fence_cb cb;
-> -	struct work_struct worker;
-> -	struct mm_struct *mm;
-> -	u64 __user *addr;
-> -	u64 value;
-> -	int signalled;
-> +	struct drm_user_fence base;
-> +	struct xe_device     *xe;
-> +	u64 __user           *addr;
-> +	u64                   value;
-> +	int                   signalled;
->  };
-> =20
-> -static void user_fence_destroy(struct kref *kref)
-> +static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
->  {
-> -	struct xe_user_fence *ufence =3D container_of(kref, struct xe_user_fenc=
-e,
-> -						 refcount);
-> +	struct xe_user_fence *ufence =3D container_of(base, struct xe_user_fenc=
-e, base);
-> =20
-> -	mmdrop(ufence->mm);
-> -	kfree(ufence);
-> -}
-> +	if (mm_ok) {
-> +		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-
-[Severity: High]
-This is a pre-existing issue, but can this copy_to_user() call cause a
-denial of service?
-
-If a malicious unprivileged userspace process creates a user fence using
-DRM_XE_SYNC_TYPE_USER_FENCE and provides a memory address backed by
-userfaultfd, the page fault will block indefinitely here because userspace
-can refuse to resolve it.
-
-> +			drm_dbg(&ufence->xe->drm,
-> +				"copy_to_user failed, user fence wasn't signaled\n");
-> +	} else {
-> +		drm_dbg(&ufence->xe->drm,
-> +			"mmget_not_zero() failed, ufence wasn't signaled\n");
-> +	}
-> =20
-> -static void user_fence_get(struct xe_user_fence *ufence)
-> -{
-> -	kref_get(&ufence->refcount);
-> +	/*
-> +	 * Ensure the fence value write is visible before signalled=3D1.
-> +	 * A UMD polling signalled must see the committed fence value.
-> +	 */
-> +	smp_wmb();
-> +
-> +	/*
-> +	 * Mark signalled after the user memory write so UMD can safely
-> +	 * reuse the same ufence without hitting -EBUSY.
-> +	 */
-> +	WRITE_ONCE(ufence->signalled, 1);
-
-[Severity: High]
-Does this new ordering introduce a race condition causing spurious -EBUSY
-failures for valid VMA unmap operations?
-
-The original code updated the ufence->signalled state before calling
-copy_to_user(). By inverting the order, if userspace is polling the memory
-address, it will observe the memory update and immediately issue a VM unmap
-ioctl.=20
-
-If this unmap ioctl reaches the driver before the worker thread executes
-WRITE_ONCE(ufence->signalled, 1), the kernel state will still read as 0 and
-incorrectly fail the unmap with -EBUSY.
-
-> +
-> +	wake_up_all(&ufence->xe->ufence_wq);
->  }
-[ ... ]
-> @@ -63,51 +84,22 @@ static struct xe_user_fence *user_fence_create(struct=
- xe_device *xe, u64 addr,
->  	if (!ufence)
->  		return ERR_PTR(-ENOMEM);
-> =20
-> -	ufence->xe =3D xe;
-> -	kref_init(&ufence->refcount);
-> -	ufence->addr =3D ptr;
-> +	ufence->xe    =3D xe;
-> +	ufence->addr  =3D ptr;
->  	ufence->value =3D value;
-> -	ufence->mm =3D current->mm;
-> -	mmgrab(ufence->mm);
-> +	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
-
-[Severity: High]
-This is a pre-existing issue, but does using the global device-wide
-xe->ordered_wq amplify the impact of the userfaultfd block mentioned above?
-
-Since critical tasks like vm->preempt.rebind_work are queued on this same
-ordered workqueue, stalling it prevents preempt rebinds globally for all
-VMs, completely hanging the GPU driver.
-
-> =20
->  	return ufence;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902152049.1836=
-85-1-srinivasan.shanmugam@amd.com?part=3D3
+Adrian Larumbe
