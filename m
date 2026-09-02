@@ -4,43 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 737DEC61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35532C624D3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:56:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9AA310F1BE;
-	Wed,  2 Sep 2026 12:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 700D610E00C;
+	Wed,  2 Sep 2026 12:56:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="biubSlD8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mMtVWZe+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3446510F1BE
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:51:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE89F404DC;
- Wed,  2 Sep 2026 12:51:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6F61F00A3D;
- Wed,  2 Sep 2026 12:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788353478;
- bh=b2LO6M5zgeaIJ73w3CknM7+xyqkEcj2DpUdzs3En5wA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=biubSlD8TpCNrGWJSl4jK82hN/b2hkoqe8ZKh1WEdCvfhl4Osiv/+rZ2G4YQEIBwF
- PumZqaWfD5dYakK9S2fuD99/NOv+xF+gGQzUJ0EJzdNFS8V/C4AMubaoJ1JY/ay2x7
- xjDLSx8TdKgVw0ZnW5q9PG27UDmDYUmRR7K628/94mDTKSkQh3XMV2hBn0qtWurGcR
- QE1z//qbCoXrSI7APmH0+MDhw5jfqs+2E8b/jLpDBFl8/axlPP/7+Y5PF41BfVgjkY
- KSsxNDrOeHitG5A8dIOYO/1b95wOFPLLeWuH+2P4TOw7LwQ9y3bxpmCPb2xqJpO24h
- 9+M/TdppVveZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/gud: fix out-of-bounds write in
- gud_plane_atomic_check()
-To: "Sajal Gupta" <sajal2005gupta@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260902123254.36987-1-sajal2005gupta@gmail.com>
-References: <20260902123254.36987-1-sajal2005gupta@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 12:51:18 +0000
-Message-Id: <20260902125118.8D6F61F00A3D@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7036210E00C
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:56:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788353787; x=1819889787;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=C6qCGI2qGA411Ng26vRIk9uX1jrnXdhCZkIQPAI9qZU=;
+ b=mMtVWZe+JK023l1DHrtZL0K1AWOap4sCMWN7+EBfWFo6WVupz4RPIzjA
+ YOa+eZscydBHyqB5rA9UeuJpu1lqaaPIaNjTKy8vPQaoYu6sR3Yv79hfg
+ atHrjLgHhcnKft6Qne4NnGMF6QHRP3JCsTSvcXaGYiSgAStAHTlwwR/qK
+ l2OrTDjstgUtXGY5bfUNLvfJ84aDA6FJeLzP99Ihr8Zdote182Dlb7lip
+ HhYekhNedaZFst5p8zYrCO0hVWSA/Jff1Q57LHpTepeHvyU0rnDuHQvCr
+ /G5nQnxiSNViW7eCG86VliG76JJ2bdwbsEiMRsYJV24fWC+vyG3ePfzSM w==;
+X-CSE-ConnectionGUID: jgRFVr4vSBuxRHy3Pecx+A==
+X-CSE-MsgGUID: eFF3YmQqRaesMcvhnBAasw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92512454"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="92512454"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 05:56:14 -0700
+X-CSE-ConnectionGUID: QK8/ntriSQaS2qlnJ8yzWg==
+X-CSE-MsgGUID: Zx4kBWLoSvSzHx9aSw3ciQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="265100199"
+Received: from kpleskax-mobl2.ger.corp.intel.com (HELO [10.94.252.39])
+ ([10.94.252.39])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 05:56:11 -0700
+Message-ID: <7568b4e4-a71b-4f94-8e78-f9795c372ffc@linux.intel.com>
+Date: Wed, 2 Sep 2026 14:56:08 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] accel/ivpu: Validate full buffer range in
+ ivpu_to_cpu_addr
+To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com,
+ Magdalena Schulfer <magdalena.schulfer@intel.com>, stable@vger.kernel.org
+References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
+ <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,110 +72,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Use-After-Free due to unsafe access to `connector->state` in the f=
-allback logic without proper locking or addition to the atomic state.
-- [Medium] Iterator variable `connector_state` leaks from the `for_each_new=
-_connector_in_state` loop when no CRTC-bound connector is found, causing th=
-e wrong connector state to be used.
---
-
-commit 0c2e0cfd22b820fc8dacf39a623bb3f5f21ff275
-Author: Sajal Gupta <sajal2005gupta@gmail.com>
-
-drm/gud: fix out-of-bounds write in gud_plane_atomic_check()
-
-This commit fixes an out-of-bounds write in the plane property loop of
-gud_plane_atomic_check(). It drops a redundant addition of the loop index
-to num_properties, since num_properties is already the correct running
-index.
-
-Link: https://sashiko.dev/#/patchset/20260821071812.16500-1-sajal2005gupta%=
-40gmail.com?part=3D1
-
-> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
-e.c
-> index 5ef887d8485a3..54adc401bc1ba 100644
-> --- a/drivers/gpu/drm/gud/gud_pipe.c
-> +++ b/drivers/gpu/drm/gud/gud_pipe.c
-
-[ ... ]
-
-> @@ -562,8 +562,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
->  			goto out;
->  		}
-> =20
-> -		req->properties[num_properties + i].prop =3D cpu_to_le16(prop);
-> -		req->properties[num_properties + i].val =3D cpu_to_le64(val);
-> +		req->properties[num_properties].prop =3D cpu_to_le16(prop);
-> +		req->properties[num_properties].val =3D cpu_to_le64(val);
->  		num_properties++;
->  	}
-
-While reviewing this change, I noticed a couple of pre-existing issues earl=
-ier
-in gud_plane_atomic_check():
-
-drivers/gpu/drm/gud/gud_pipe.c:gud_plane_atomic_check() {
-    ...
-    for_each_new_connector_in_state(state, connector, connector_state, i) {
-        if (connector_state->crtc)
-            break;
-    }
-
-    /*
-     * DRM_IOCTL_MODE_OBJ_SETPROPERTY on the rotation property will not have
-     * the connector included in the state.
-     */
-    if (!connector_state) {
-
-[Severity: Medium]
-This is a pre-existing issue, but I noticed the iterator variable
-connector_state is not cleared if the loop completes without hitting the
-break statement.
-
-If userspace submits an atomic commit updating a plane property while
-simultaneously modifying a disconnected connector, the loop evaluates the
-disconnected connector and finishes without breaking. This leaves
-connector_state retaining the disconnected state.
-
-Since connector_state is no longer NULL, the fallback check is skipped.
-Could this cause the hardware check command GUD_REQ_SET_STATE_CHECK to
-receive the ID of a disconnected connector and misconfigure the display?
-
-        struct drm_connector_list_iter conn_iter;
-
-        drm_connector_list_iter_begin(plane->dev, &conn_iter);
-        drm_for_each_connector_iter(connector, &conn_iter) {
-            if (connector->state->crtc) {
-                connector_state =3D connector->state;
-                break;
-            }
-        }
-        drm_connector_list_iter_end(&conn_iter);
-    }
-
-[Severity: High]
-This is also a pre-existing issue, but does this fallback logic risk a
-use-after-free by directly accessing connector->state?
-
-When an atomic commit updates only a plane property, the fallback logic
-iterates all system connectors and directly assigns connector_state to
-connector->state. Because the connector is not added to the atomic state
-via drm_atomic_get_connector_state(), its lock is not held by the current
-thread.
-
-If a concurrent userspace thread issues a property update on this connector,
-could it swap and free the old state while gud_connector_fill_properties()
-is simultaneously reading from it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902123254.3698=
-7-1-sajal2005gupta@gmail.com?part=3D1
+On 01-Sep-26 14:57, Dawid Osuchowski wrote:
+> From: Magdalena Schulfer <magdalena.schulfer@intel.com>
+> 
+> Add a size parameter to ivpu_to_cpu_addr() and validate that the
+> whole [vpu_addr, vpu_addr + size) range stays within the BO.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 647371a6609d ("accel/ivpu: Add GEM buffer object management")
+> Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
+> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+> ---
+>   drivers/accel/ivpu/ivpu_gem.h | 14 +++++++++++---
+>   drivers/accel/ivpu/ivpu_ipc.c |  7 ++++---
+>   2 files changed, 15 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
+> index 0c3350f22b55..b1ae020a4fc2 100644
+> --- a/drivers/accel/ivpu/ivpu_gem.h
+> +++ b/drivers/accel/ivpu/ivpu_gem.h
+> @@ -87,15 +87,23 @@ static inline bool ivpu_bo_is_resident(struct ivpu_bo *bo)
+>   	return !!bo->base.pages;
+>   }
+>   
+> -static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u32 vpu_addr)
+> +static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u64 vpu_addr, u64 size)
+>   {
+> +	u64 bo_size = ivpu_bo_size(bo);
+> +	u64 offset;
+> +
+>   	if (vpu_addr < bo->vpu_addr)
+>   		return NULL;
+>   
+> -	if (vpu_addr >= (bo->vpu_addr + ivpu_bo_size(bo)))
+> +	if (size > bo_size)
+> +		return NULL;
+> +
+> +	offset = vpu_addr - bo->vpu_addr;
+> +
+> +	if (offset > bo_size - size)
+>   		return NULL;
+>   
+> -	return ivpu_bo_vaddr(bo) + (vpu_addr - bo->vpu_addr);
+> +	return ivpu_bo_vaddr(bo) + offset;
+>   }
+>   
+>   static inline u32 cpu_to_vpu_addr(struct ivpu_bo *bo, void *cpu_addr)
+> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+> index 978bc3d8704f..8f69fb133e2e 100644
+> --- a/drivers/accel/ivpu/ivpu_ipc.c
+> +++ b/drivers/accel/ivpu/ivpu_ipc.c
+> @@ -79,7 +79,7 @@ ivpu_ipc_tx_prepare(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+>   		return -ENOMEM;
+>   	}
+>   
+> -	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr);
+> +	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+>   	if (drm_WARN_ON(&vdev->drm, !tx_buf)) {
+>   		gen_pool_free(ipc->mm_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+>   		return -EIO;
+> @@ -420,7 +420,7 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+>   			return;
+>   		}
+>   
+> -		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr);
+> +		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr, sizeof(*ipc_hdr));
+>   		if (!ipc_hdr) {
+>   			ivpu_warn_ratelimited(vdev, "IPC msg 0x%x out of range\n", vpu_addr);
+>   			continue;
+> @@ -429,7 +429,8 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+>   
+>   		jsm_msg = NULL;
+>   		if (ipc_hdr->channel != IVPU_IPC_CHAN_BOOT_MSG) {
+> -			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr);
+> +			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr,
+> +						   sizeof(*jsm_msg));
+>   			if (!jsm_msg) {
+>   				ivpu_warn_ratelimited(vdev, "JSM msg 0x%x out of range\n",
+>   						      ipc_hdr->data_addr);
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
