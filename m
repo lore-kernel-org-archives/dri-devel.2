@@ -4,66 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3B5C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 21:45:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D90C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A8710F361;
-	Wed,  2 Sep 2026 21:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D57810E052;
+	Wed,  2 Sep 2026 22:22:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y9Y4NCsI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H/0PMuaB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E504410F357;
- Wed,  2 Sep 2026 21:44:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40AEE10E052
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:22:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B37DF4022D;
- Wed,  2 Sep 2026 21:44:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649651F00A3A;
- Wed,  2 Sep 2026 21:44:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 015B644516
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:22:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC191F00ACA
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788385497;
- bh=+JuyjwHbaaYNfgnJqhnqi/RDpMTuEjW1rSeLs2DZTYs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Y9Y4NCsItJcVpoapXIjhPVr/xF62UBUMDn7klXC679J/nhvjaIcCTqQG9cGMQzlds
- 8ZZ30vDAf3Ze79Ry+QKF1JaUqAboVWCHN8vQcv8Tswg7iH1KnEJc2FPXectXgrsHjl
- nmpsfDXna3mDiY0eJXQXL6dThQIu6MKpYVVwmvKJf4lSrQnFmN7NxhCnaN4FimFfo0
- WOdjOU/S8hecfK4NyEQr8wcPEodf6u63gso3cMYrrbUFPZadWreJWyO0GlG4DfKh3d
- ghCg6M4VzsIhwi5PTSGeah5A4m1hTtyMYLXRkohHNkTudqyCYr5w9HoFLy9Ou5J1lJ
- lHcW7FRv96PdQ==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, Aditya Sherawat <asherawa@qti.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v6 0/7] drm/msm: Add support for Shikra GPU (A704)
-Date: Wed,  2 Sep 2026 16:44:45 -0500
-Message-ID: <178838546713.167607.11279652924360293843.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260710-shikra-gpu-v6-0-b388ec5dce77@oss.qualcomm.com>
-References: <20260710-shikra-gpu-v6-0-b388ec5dce77@oss.qualcomm.com>
+ s=k20260515; t=1788387774;
+ bh=PlnA7pZPe6iWSdjPc1ZWRfK3KN/vULI5guFytatqI0I=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=H/0PMuaB5u3sU0s5hGkJY/59TXNSJ6KMAwYT7jv6DQQk4TtUUnWB6gwoPXSKB5Rsj
+ r4Z49dhd9jT3aUGdIDvQvSx2jXHh7nmrk1eL/pVGRW57SrHoOUVySaQI4c4bHmzL7Z
+ Lpf+YhzuvGrgZx5m29WGHGdkKMAoHVVd1k/uwxdCbqJjjqbvhvx8hv2081gBeqk7mp
+ a8QaMrjXU45MrqQNdtkCKMiBWIty0Rv59P9hLA6tFE1wHkHHHXi6u2YKUKXyhXZZoI
+ O5SHXVF3IUdMPgLdpJHyA6hgRNjg3euZjqaR8SWtDF8djMZTXYPUabNECvqHEqCuGa
+ 8s62cWc4bBdtg==
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-5b14d1f9315so1584415e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 15:22:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvByLSfXxuCKgbZ9vKvr2q7LAL2oUd5s1aIsEWKBIYz//eJFnr3tU9xHhkOv+vXaJXJZNmZaBkGWcej8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ljmoG3DKy8OdjHUfRht/YDRbezCghj7EnNq3iZlCask8PPZ5/g
+ +UTKS0rkTLVdcqiacqkG/6JoqRQbi3GQzdp2/JEbC5FE5qJYJrHOOko6JW6JoDo7h+Hws9FwQP0
+ ZUmInvNQ1Zuf5SSWQC5S4wquIKlupuEg=
+X-Received: by 2002:a05:6512:31c4:b0:5b4:5846:d925 with SMTP id
+ 2adb3069b0e04-5b60869986amr2881504e87.21.1788387773462; Wed, 02 Sep 2026
+ 15:22:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20251222-drm-panels-sony-v2-0-82a87465d163@somainline.org>
+In-Reply-To: <20251222-drm-panels-sony-v2-0-82a87465d163@somainline.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 3 Sep 2026 00:22:41 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
+X-Gm-Features: AcwNN1VW1RszHvTzjuJbWoFCZNyLdzuqFUCfNXCFY75SAWSdMQrzlNz5Nhvn0yk
+Message-ID: <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] drm/panel: Add 5 DDIC panel drivers for 14 Sony
+ phones
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ David Airlie <airlied@gmail.com>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Casey Connolly <casey.connolly@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,28 +94,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Marijn,
 
-On Fri, 10 Jul 2026 00:11:59 +0530, Akhil P Oommen wrote:
-> Adreno A704 GPU found in Shikra is an IP reuse of A702 GPU with very
-> minimal changes. The only KMD facing difference is the chipid and the
-> zap firmware which is specified via devicetree.
-> 
-> Mesa side support is already merged:
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41762
-> 
-> [...]
+On Mon, Dec 22, 2025 at 12:32=E2=80=AFAM Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
 
-Applied, thanks!
+> This is the second version of a largely reshaped series that brings 5
+> new DDIC panel drivers (4 Samsung, 1 LGD) that are compatible with 14
+> Sony phones:
 
-[4/7] arm64: dts: qcom: shikra: Add Adreno SMMU node
-      commit: 91b139e9204c8ed4e1f5c89826a92e28716dd7d5
-[5/7] arm64: dts: qcom: shikra: Add A704 GPU support
-      commit: 4f365deb0e5ecd48998537ab67b5270d719a8fe5
-[6/7] arm64: dts: qcom: shikra: Add GPU cooling
-      commit: edd7232e163723a0f15bd9446f3f831edb5893e2
-[7/7] arm64: dts: qcom: shikra-evk: Enable A704 GPU
-      commit: 94654d16acfce2ed56e39f86645c3c5f56cc3f3b
+What's up with this series?
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+I am officially a fan of these drivers and I liked the work done so far
+a lot, is there something in particular stalling these from rebasing
+and merging?
+
+Yours,
+Linus Walleij
