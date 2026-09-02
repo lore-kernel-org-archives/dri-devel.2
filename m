@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9805C624D7
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6775C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1550410E532;
-	Wed,  2 Sep 2026 22:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25BF510EE9C;
+	Wed,  2 Sep 2026 22:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hjEhu5Be";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OllBWlZ9";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A8510EE9C
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7128910F379
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788389661;
- bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
+ s=mail; t=1788389660;
+ bh=7aCaXpMvMb9vkbj+VVL05e7On5ntn/9+Li0ZFGr1E6s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=hjEhu5BewWnQ8GNU+sykpkxRHoAjvI4z6S47LruS2zoJOCX2G+HQDamW0Naez/0tY
- C9kQJCN8n5aWnR5XRIyuQP7za9/HyL9EDFwFyKsk1IdQgD+a5rZLtUq4Z88xWvEx6z
- sV/CjSimjRKmR0ZhtKCbgPY5mC8U6QxyFjb2uM1MoHxRNJAjvic21IGvGH+/twMxDb
- 2DWRXmoX1MhlCASD+/austkZXn7sf0sWVxWk7y7z6aoOdRLznDI+MpK9deKyS3TBy2
- c85lXmSxs63n1WCfXavc8nly4GqqYVrQDO4emoprTK9whUi9Q966AShU2AImzl7N9/
- oPYM8+tiw5ujQ==
+ b=OllBWlZ9hh3Qva0dAJ4av0fooiXkncf9VRN/xt91UQyvhkwBSUj3C+um4s3TciuyF
+ Kqiy82gK5iNW76g2XOI3MjUMTONh/6vsVdYNaO52d6nasP1mlLnPvku1GeN+EFKrDt
+ bEsShwsZdpAhD3ScvUbk873dpTxy4GXcP7ai649ODsQ9R0oU+QMmcjR4py9K024x9Y
+ F+n7Hd2wfylh1UVMvl3c0OooaMMTjDGUSFwWexLP3wkbqI2g/XhQlICT9ahyS+HMs4
+ x1zmy1B+SBGVFMmqGGezWnsvSPalqS6TC4bT5Jrv48YbWOuMY3slW8+XjiMEB0BANw
+ g+Kt8Q3yP5Dxw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B9C117E0914;
- Thu, 03 Sep 2026 00:54:21 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1427417E15AD;
+ Thu, 03 Sep 2026 00:54:20 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:21 +0300
-Subject: [PATCH v4 14/14] arm64: dts: rockchip: Add RK3588 VOP2 resets
+Date: Thu, 03 Sep 2026 01:54:19 +0300
+Subject: [PATCH v4 12/14] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
+ output format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-14-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-12-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -77,39 +78,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the missing reset properties to VOP2 on RK3588.
+Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
+ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
+MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
+MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
+cycle on a 20-bit wide bus.
 
-Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
-Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
+YUV 4:2:2 always transmits two 12-bit components per pixel, regardless
+of the color depth.  From a clock-rate perspective this is equivalent to
+three 8-bit RGB components, so configure the HDMI PHY with 8 bpc when
+YUV 4:2:2 is in use to keep its output clock aligned with the TMDS
+character rate.  Otherwise the PHY PLL output would be scaled by bpc/8
+for higher color depths, producing a clock rate that confuses downstream
+consumers such as the VOP2 display controller.
+
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e0786..574264b9cd9c 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1651,6 +1651,18 @@ vop: vop@fdd90000 {
- 			      "pll_hdmiphy0";
- 		iommus = <&vop_mmu>;
- 		power-domains = <&power RK3588_PD_VOP>;
-+		resets = <&cru SRST_A_VOP>,
-+			 <&cru SRST_H_VOP>,
-+			 <&cru SRST_D_VOP0>,
-+			 <&cru SRST_D_VOP1>,
-+			 <&cru SRST_D_VOP2>,
-+			 <&cru SRST_D_VOP3>;
-+		reset-names = "axi",
-+			      "ahb",
-+			      "dclk_vp0",
-+			      "dclk_vp1",
-+			      "dclk_vp2",
-+			      "dclk_vp3";
- 		rockchip,grf = <&sys_grf>;
- 		rockchip,vop-grf = <&vop_grf>;
- 		rockchip,vo1-grf = <&vo1_grf>;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 9c4cf68d79d5..78473f9a0fce 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -215,6 +215,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
+ 		break;
+ 	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
+ 		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
+ 		break;
+ 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+@@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 	}
+ 
+ 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+-	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
++	/*
++	 * YUV422 always transmits two 12-bit components per clock cycle,
++	 * regardless of the color depth, which from a rate perspective is
++	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
++	 * keep the PHY PLL output aligned with the TMDS character rate.
++	 */
++	phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
++				8 : conn_state->hdmi.output_bpc);
+ 
+ 	ret = phy_configure(hdmi->phy, &phy_cfg);
+ 	if (!ret) {
 
 -- 
 2.55.0
