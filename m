@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E01C624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55AA2C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0DA710E062;
-	Wed,  2 Sep 2026 22:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A753310F354;
+	Wed,  2 Sep 2026 22:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ASWRh1wV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ePgpzf2R";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C98C210E062
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 940A210E062
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788389655;
- bh=uokXooPe/YyPpbYpuJUZKqfnA74pZwHjqzOJTRd6cqs=;
+ s=mail; t=1788389656;
+ bh=yGk5jk8Urhney6oh/zlkmOGaa5u47O/aDw/Cbtvm90w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ASWRh1wVChyBPbzjq1kQU98yGV59YK+iTLGxXgPnrSmdndmk0Y4g3qc3MkbOxQBbx
- TloBMyF2XmYbtWwbwV2kArp0F12zEqS6AUhXHT9mDCklZTqEUIlzoQcHa4giyiCCyg
- PZ5asU8mn5NXwXUP2CnV4QUy93vRc/TeY/iBM/8pNv4w7iZ0c6yimAiG7Kt8X3nE7L
- ukJvGNQpTZuDmMuqvkBfYtGBZC5FaspIt6WTMU/vFhpt3NFZGddhwMQrMZQgdIIOtw
- rofjvI9Q2VsstzqfLZtcfB78ol1Y83T5OG1sZw/xLvNs0rLUZGRddUGCPGCs252lUO
- YO/9b1qyWakvA==
+ b=ePgpzf2RholNgIAqEY4ZOmy1gcyeKiftxRjey8IF2jruiKkmOBpbmYoQ52n6eVx07
+ bJfVoa9KCifjVSu2DNiNDHeBaDYCnJgPEHTiXh85qymFj1t4h5AZrI8vOd1dD7L9Vf
+ 3ry5+NdkEMF1dG/OWG5EyE4aH24nSg3df4zJCYVk8XD8w5jRNMEvoidbiMaKquicAa
+ JFlIqmxg9wq1YJgmBIYLnJ+B+JID3Bci+vGgbhLmUDLJyVebPl35qAhJhAzrLmaLLc
+ bC2ZvgjkUbWWEtS+dgWQ/q/ik+JXjiaSg2S94MFbHAwjzNEPwl1+3zTSs4y5l1+O1C
+ m5qKRjTtKfa4w==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 46A6917E1122;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id F09C617E1298;
  Thu, 03 Sep 2026 00:54:15 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:12 +0300
-Subject: [PATCH v4 05/14] drm/rockchip: vop2: Avoid division by zero when
- computing max_dclk
+Date: Thu, 03 Sep 2026 01:54:13 +0300
+Subject: [PATCH v4 06/14] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
+ overflow on 32-bit
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-5-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-6-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -79,21 +79,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DCLK reparenting logic in vop2_crtc_atomic_enable() is gated only on
-the presence of an HDMI PHY PLL on the SoC.
+VOP2_MAX_DCLK_RATE is defined as an unsigned long and is used scaled by
+the color-depth ratio when computing the maximum DCLK the HDMI PHY PLL
+can source.
 
-This condition is true on any board that wires up an HDMI PHY, even when
-the CRTC is currently driving a non-HDMI output such as DSI or LVDS.
-Those encoders do not set vcstate->output_bpc, so it stays 0, hence the
-subsequent DIV_ROUND_CLOSEST_ULL() then divides by zero.
+On architectures where unsigned long is 32-bit, VOP2_MAX_DCLK_RATE * 8
+is evaluated in 32-bit arithmetic and overflows: 4800000000 wraps to
+505032704 before it is promoted to the 64-bit argument of
+DIV_ROUND_CLOSEST_ULL().  At 8 bpc this collapses max_dclk from the
+intended 600 MHz down to roughly 63 MHz.
 
-Note this division happens before the drm_for_each_encoder_mask() loop
-that would establish whether the pipe is actually driven by HDMI, so the
-loop provides no protection.
+As a result, low-resolution modes (e.g. 640x480 or 720x480, whose pixel
+clocks are well under 30 MHz) still pass the clock <= max_dclk check and
+are reparented to the HDMI PHY PLL as expected, but higher-resolution
+modes such as 1280x720 (~74 MHz), 1920x1080 (~148 MHz) and above are
+wrongly rejected and fall back to the system CRU as the DCLK source.
 
-Default bpc to 8 when it would otherwise be 0.  The resulting max_dclk
-value is a don't-care on the non-HDMI paths that trigger this, since the
-encoder loop will not select the PHY PLL as the DCLK source there.
+Define the constant as unsigned long long so that every expression using
+it is evaluated in 64-bit arithmetic, independent of the width of
+unsigned long.  This future-proofs any additional users of the macro as
+well.
 
 Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
@@ -102,25 +107,22 @@ Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 8755b614df34..12a6341e3c98 100644
+index 12a6341e3c98..c3f72cac6369 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1931,8 +1931,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
- 	 */
- 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
--		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8,
--							       vcstate->output_bpc);
-+		unsigned int bpc = vcstate->output_bpc ?: 8;
-+		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
-+
- 		if (clock <= max_dclk) {
- 			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
- 				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
+@@ -102,7 +102,7 @@ enum vop2_afbc_format {
+ 	VOP2_AFBC_FMT_INVALID = -1,
+ };
+ 
+-#define VOP2_MAX_DCLK_RATE		600000000UL
++#define VOP2_MAX_DCLK_RATE		600000000ULL
+ 
+ /*
+  * bus-format types.
 
 -- 
 2.55.0
