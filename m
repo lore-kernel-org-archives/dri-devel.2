@@ -4,135 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA230C624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:00:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB69C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F8C10F0DC;
-	Wed,  2 Sep 2026 10:00:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 249B310F0D9;
+	Wed,  2 Sep 2026 10:01:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GAVMRQ6D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qqlws4aA";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011010.outbound.protection.outlook.com
- [40.93.194.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6911A10F0DC
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:00:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AJwBgJXk/Hp05jXOwlY0v/1Gv8HHoEprCiO6lTADncbrxcWC/4vpJ2TznVBSMFXGRJJvHKmkiGTfvumSiT4Wx/GOgthbpQV7XCJKoVKJ6bkTjWBVgfJkMkbXdDCZkpyySjdoRmrea2945NZecJ7IXlTZXDJ0ngMes9mInhZyJzG4zC6g4tOKiwy28VfXrKHFL2lnRygjN58szpi7vN7mje3fRHoy8af+VZL7QNrUTCgy1Z5r4r06r3+X7zgTHPXkn5Jh5fRdHJjoz5/vC4xmudRLNLfkpEHtd312+Zb2F9bMQ37fPzuZKKDjpDSWbUyBZ5kLB51pewkn2oDBOlJuPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eIFNRqKXnOZJHzE6OX0NTZjnHdjH4ecpiQl6Sgc9nZM=;
- b=ANipPF1eG35z+vBTWSc+YrdshNJ2xt4o8sBffrSusFk3gq9UHA3JQY3vGQNI8j0HhsdINc8hSbDWDQJ4AEdl8/0+3uxKxnd1bi0Cg8kfr/v557/PYXHM2lPup5xmjEetjD4TQE/AYQ4AId3mOCcf2s6nR3W2pm2w7lreRHLwnNacTNPn2Ol0fcMYX/ye2lJ/5axbHFynxfQgK3sylDjw8YdwFErNfOC51K9Lor+ox/9L3wigcIc+EPoAmZaxc+sjfeY/hmIDmZ1CeILRAGEsr74nPOpSn8SPmO1PrSnBLU8zld7Jbk1ftW2P4er3uor5LV3QvWOnWItPm5Zcd0ZUiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eIFNRqKXnOZJHzE6OX0NTZjnHdjH4ecpiQl6Sgc9nZM=;
- b=GAVMRQ6D1cgAd+S1G2kn607SLed+0x5d3pX+wHfbhJvZq7kt2nSq65I9lqKHxSXlSHfgtB5yHTswzC/DNtBcfufET5UFQppAPzmddT5cIuz31zScJAlW0M5+tdLYaMc/VdIZBuIfFDA9rTSC/Xo/Glh6+CsMEy/R5VoeFPULVXk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB9458.namprd12.prod.outlook.com (2603:10b6:610:280::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 10:00:32 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
- 10:00:31 +0000
-Message-ID: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
-Date: Wed, 2 Sep 2026 12:00:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-To: Leon Romanovsky <leon@kernel.org>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
- ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jgg@ziepe.ca,
- jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
- xuehaohu@google.com
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260902095338.GU24140@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0159.namprd03.prod.outlook.com
- (2603:10b6:208:32f::34) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0C8A10F0D9
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:01:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DAFDD600D0;
+ Wed,  2 Sep 2026 10:01:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0F01F000E9;
+ Wed,  2 Sep 2026 10:01:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788343271;
+ bh=JdEFNEFd6qnIQmo/1jVIW3kFkM34fEdFx/LiDE8lR40=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Qqlws4aAxSkJgzdjHqVT+U3d2ls3xLmWueQKWissaxiKrbbJe4G+ObjeMgOu2jEvp
+ o7sAi0WJrc2uJbFtkus5Es3+auFodJkroDNqLGLxt677AI69sr9LmyisBXhHhjA4fB
+ wZreCss/tnM4JCSmtjNH8B0xx280xfKqpG+UftLXdjtrPVYYxOQT4X7RRng4EA3udV
+ jKGjdXVCZdFrtGIhgGTUR5AkpH30QAoS0r1NdwhOL6cAflH42CVop4pz//S7rFpLXH
+ bJDOP6iBnUG8irgyzsFxQGFkBoezXf8wZa6CFHUwfVmNl01P2rQcYqMQYIZAV5eAwR
+ 9neuGXIR7PTaQ==
+Date: Wed, 2 Sep 2026 10:01:02 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Sean Rhodes <sean@starlabs.systems>
+Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>, Will Deacon <will@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com,
+ Brian Norris <briannorris@chromium.org>,
+ Julius Werner <jwerner@chromium.org>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+ Yidi Lin <yidilin@google.com>, Kees Cook <kees@kernel.org>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ chrome-platform@lists.linux.dev,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
+Subject: Re: (subset) [PATCH v14 0/5] coreboot CFR firmware attributes
+Message-ID: <apfz3lf1RIfAkKYS@google.com>
+References: <cover.1788284852.git.sean@starlabs.systems>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB9458:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7568e83e-7d44-4567-eb0d-08df08d9063b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: jcUe6roz4DwyyRo7qAym0hPigAPtavDhyj4P04XRJkRlx1S/Rc/wQj0eAW/0ykPdvOEHji9il/YhsSyN2guS0JC79mKFTr8TqtqhUFTTRUkTPxQRK90N7VMKwyEZw1cH/HxchcQsvtDqZewZdz0y5OcqIsG9qMNqTgu/f7SN0xHh54eESfiC77un1LARbHVgALbK273IVIbh6gU8/fugQlSmENA00xQw0IWQ0Sjc77Bo/RqzMl4duwdLHcnNHiQGs4YKuwVmKVSOjVHKCg2ntzjqEIfUMd0qt2VEgX40mf67EwsNGvy6uW8woPnbl+Z6VY0P5IiJJ4299E4rfNobevR+cJVNr/mMXfq20Br4Rw+utNbTMQaQNnTlBYsb+1WKx/WkWYvBvBs+4uPDpy0J3mp3SW8WefBXWZIeMOZ5e8Cvmnn2uLPcZkNMAKd/A6f2ry7yWxnDjJLa3qwIvtUS6/DKc8X60giJGzPrCN/PCvbLTPFCQq5dRvNQc+J4rEhpHO1CwGzTKxyqxNfMT5H0zXzn0tiXP8HcKrSpBBfHBOyPRd+yxu/uFmt2G7bsTtz/xUY0wntrSxHR03xi0cg/mWFcIv05/On1BEXGu3ox1sYFbFARu0/9mO9MCyKXdQhn
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WVJpS0tvOGRKUURVaStEaXlxOUdibmdURkZ5M3JxZzdQTmcyOXhhSCt1NlNt?=
- =?utf-8?B?WFBCK3V3M2NIN2ZsM09abkFjRi9BRTZZTXFQNmVOUDdiZmJiRktyUmNIVExW?=
- =?utf-8?B?NEJrSUtGQ1N1Wk1kV3RJTGNNOVNsMFRHU0FVWjBzdkRYWUdBUVc5bUoreG5n?=
- =?utf-8?B?S2FmSzdjaU9wQXhHMDk5dEpTazRvcGtraENUYlBRaFBYUXZjOFhXRlZvU0l4?=
- =?utf-8?B?d1VhUXZJdG5xWE92V3RWUVlwbG5PQzZTenFKK0xvUnFDaUV1MUxML2c3VlpO?=
- =?utf-8?B?RkRpaUcyeUljd2ZuSkxiZ1ZBMWtaa0crdTR2Slp3SHdJUnJkK3VRVWFTMU40?=
- =?utf-8?B?eG91YVVreEU2aTdhZXNCbWo0dHFNclJ1Tzh5eE5iN28wM2tHWVZIM1BSWDVC?=
- =?utf-8?B?UlNKbktiVmpqLzNTSElzWVhEYUVWOVZDNmRMTnNDZnRoTnZuTXQ2c1Arb0ZY?=
- =?utf-8?B?Rm5ZQ0R4aG9qSmk5L282ZFJqaG0vZmo3aFFLaUQxRVFvRTJZclRSbDNTZnFB?=
- =?utf-8?B?OGc2OGo0OTNmZHBxa2VTUTVIcnBhbHhBc25GeEYzNEhFWjIrM1pqdEF5NnR3?=
- =?utf-8?B?WFk3Zld5MjlvU3FCN1VZbThjYnorcndhNFNLSEwrKzRVcTdWZUpXUWYxMjdB?=
- =?utf-8?B?TjZRNXhIZmlGMkRTWi9McVE5MXZlZVBYWXdLWm9KY242UXFtdmFPcTR6Mm5B?=
- =?utf-8?B?czZwM2dNM2IxVFpLR1ZMZjJsQ2loWkJjaklKVmZmS1BqdmtESXUrb0FaRXNZ?=
- =?utf-8?B?dVpaVWs1QmNDaEFReXhTWWRUdkY3S0cyeUp6THJhQmg1bHp3bkJyTXVoaEp4?=
- =?utf-8?B?Q3NKNk5MRVdPeWZpVnNWV2p1cmRXVnZvRE5EaEdSZ1FTMEZudVdrN1pmNzUr?=
- =?utf-8?B?Q0tmaFl0YVYrajdGeVo3djA5aWN5SWNWTGpFcTAvQUlrK0I1WCtOWUE0Mk9m?=
- =?utf-8?B?clAyY3ZWenBUWXJPOXFrYlMzZ25qYkRTZHZjaXdTeHNrQnNlK0RCQ3J3N1pJ?=
- =?utf-8?B?Z3B6SlRUdmNnT2kzVUFUMU1mckl3MGhPeXFoeDYwcStkMDRnUFMzbi80RWhS?=
- =?utf-8?B?bmlycElmNThhUngrRCt3aEgwcGhVN0theEN3TXlQL1E4N1JEeDFIRk5zNHpP?=
- =?utf-8?B?U1d3NnExRk9DR1dDRmpnU2V0T0N1NXVEb2x2bFdjSjVzT2V0UENWV2liYmhN?=
- =?utf-8?B?cUZ4bktOb2t2NmtGWm5ieDYrRXEralVQUW1SYzFkSHd1bzlkY01Jc3UxalJv?=
- =?utf-8?B?ditSNyswZUZEV0V2eFVyVGt6Ui9pcVpMcW4zajVIcHQxRG9RRTRFYnRGTzBi?=
- =?utf-8?B?YzNjT1dKRmxRSXg3MEV3VEN0RlNzREhreHNMTit3a2lmamIvNGZHU3BvVmZ1?=
- =?utf-8?B?UkZCQ0p4ODN2QmwwOGwxUkFtWEZHRHIyZitOVVcwU2pXbTk4UU0yYVp3blla?=
- =?utf-8?B?bkEycjE5UFg2OVdlQm1JOHI2ZlNXMWdsRjlhYmdBc0JPUlNpbnlKbWhjYStX?=
- =?utf-8?B?SVk3ZUhLbTREd2VGM05TUVE5TEhzSk50aVFqdkk3Q3FvNVp4Z3VrVjgzSVk2?=
- =?utf-8?B?LzlJOVJ5eUtVRkNpZmVON2JUb2FGdlMwcHZIUXVlZmtQNEEwVzhKbmowUlVU?=
- =?utf-8?B?VnlXcGNjNVArcS9MdXVCR0xoYUdKTEpNQzFvS21YWkZjTzNXeFM4R2dmeFky?=
- =?utf-8?B?Tkd0bnNna0pBSk54ZkpVK1pCTmRYaEN5cnRHYWNEWnpOZzFDS1h0VW53Z0xN?=
- =?utf-8?B?eVFhZjlDQVZKclFxSFBEWFdYUXlNWC84em83VW13MkFOOXgwNGdEWWdYVjk3?=
- =?utf-8?B?MThXLzNNMUd6d0hrNDdZUjVHMDhhNFFyc2tzMGoxMzZZbmplMGlHanlRY2Zz?=
- =?utf-8?B?bEhIYVpOOXdZU3grZTAvdXRHTFhXbmdoK0pXcm93SHNVc3o3YWVkbXVndmE1?=
- =?utf-8?B?djZOaCtUV2kzbVNaV0xPdkVaTUVWUzAwM2praGtWY3VSVmNyN1d1Y1RhaGZ6?=
- =?utf-8?B?V1FPekFMWU5uWFY1M3ZxeDdWMzhyaFdoeklCbHdIMVJmclQyUFg3aGs4aEpF?=
- =?utf-8?B?Z0pCek0wL0JVRS9TK0ZKbS96U2lUQ3Z0U2R6bkdXUXpwQmZ5MCthczNCekxX?=
- =?utf-8?B?L0dhMlB3TGQzTjJLa1FyL1BKWndta0lPLyt4a1I4NXhTNzQ5MEtvMmp4Tm1s?=
- =?utf-8?B?aWUwa2VjYXRhalVLVlBuRWNMWmc1QWRRdFViQlhUVjVuWjVjY1N6WDFNOFM5?=
- =?utf-8?B?amRHcVdWRjR2ajI0TXRqMkxmQ1BpQjRXd3h6QnRSTEhLMXZCVXNTdWF3ekll?=
- =?utf-8?Q?NU8hc/dCm/WoC9S91V?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7568e83e-7d44-4567-eb0d-08df08d9063b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:00:31.6861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uIXPPRdO5+mY8QMcOzABY6Mi2Tt/ov+lFCPu9hL6yzxFsW5AbNnBvKOb1/JW9MaJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9458
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1788284852.git.sean@starlabs.systems>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,96 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/2/26 11:53, Leon Romanovsky wrote:
-> On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
->> On 9/2/26 10:32, Leon Romanovsky wrote:
->>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
->>>> On 9/2/26 09:39, Leon Romanovsky wrote:
->>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
->>>>>> On 9/1/26 19:08, David Hu wrote:
->>>>>>> From: David Hu <xuehaohu@google.com>
->>>>>>>
->>>>>>> This series address two related issues in scatter-gather mapping,
->>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
->>>>>>> sgt mapping is correct, and proper for large MMIO regions.
->>>>>>>
->>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
->>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
->>>>>>> phys vec to sgt)
->>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
->>>>>>>
->>>>>>> Patch 2 Splits sgl by largest page aligned chunk
->>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
->>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
->>>>>>
->>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
->>>>>
->>>>> And this is why so many in the kernel community want to get rid of SG
->>>>> lists. It would be great if DMA-BUF could also eliminate the need to
->>>>> convert to an SGL, like Jason proposed.
->>>>>
->>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
->>>>> which is the one that depends on it.
->>>>
->>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
->>>
->>> You are proposing the same thing as an SGL, just in a different format.
->>
->> Yes, because that is the right thing todo as far as I can see.
->>
->>> It does not address the issue that dma_addr_t is expected to hold a DMA
->>> address, while that is not always the case. For example, in the P2P case,
->>> the addresses are not DMA addresses.
->>
->> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
+On Tue, Sep 01, 2026 at 06:48:01PM +0100, Sean Rhodes wrote:
+> Move the firmware attributes class helper out of platform/x86, rename the
+> coreboot-table firmware driver directory from google to coreboot, and add a
+> coreboot CFR firmware attributes driver.
 > 
-> They can perform DMA, but that still does not make them suitable for the
-> dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
-> follow completely different rules: they are not unmapped, require no cache
-> synchronization, are valid only for peer access, and require separate error
-> handling.
+> Changes in v14:
+> - Rebase on current upstream master after Linux 7.3-rc1, preserving the
+>   intervening coreboot table bounds and CBMEM no-map changes.
+> - Drop the standalone include-order cleanup. Replace the affected relative
+>   includes directly in the firmware attributes helper move, as requested by
+>   Tzung-Bi.
+> - Split the DRM coreboot framebuffer dependency update from the firmware
+>   directory and Kconfig rename so it can receive a DRM Acked-by separately.
+> - Keep the CFR driver and its runtime behavior unchanged from v13.
+>
+> [...]
 
-The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
+Applied to
 
-> All of this information is lost if only the dma_addr_t is stored.
+    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
 
-Yes and that is fully intentional.
+[2/5] firmware: Rename google firmware directory to coreboot
+      commit: 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602
 
-DMA-buf handles that cleanly on the buffer object level and not like PCI_P2PDMA_MAP_BUS_ADDR as a completely broken design on a per address/page basis.
+Also created an immutable branch "ib-coreboot-rename-7.4"[1] for patch 3
+and patch 5 which build-time depend on it.
 
-Technical background is that the PCI_P2PDMA_MAP_BUS_ADDR approach can only be handled by a very very small subset of HW.
+Thanks!
 
-Regards,
-Christian.
-
-> 
->>
->> It can be that those are DMA addresses on private interconnects between devices, but it should *never* be a phys_addr_t because that is limited to the address space the CPU can see.
->>
->>> Jason's proposal:
->>> https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
->>
->> Yeah, I have commented quite a bit on that.
-> 
-> Right, I posted it for reference.
-> 
-> Thanks
-> 
->>
->> Regards,
->> Christian.
->>
->>>
->>> Thanks
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> Thanks
->>>>
->>>>
->>
->>
-
+[1] https://lore.kernel.org/all/apfyaxKEEJz20wRC@google.com
