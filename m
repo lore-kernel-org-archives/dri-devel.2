@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601CEC61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 14:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76E45C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 14:58:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 819CC10E4B5;
-	Wed,  2 Sep 2026 14:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF8FC10F25B;
+	Wed,  2 Sep 2026 14:58:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jxboh07r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AIRq1QLF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14ED610E021;
- Wed,  2 Sep 2026 14:41:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3058210F25B
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 14:58:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F1CD7402FB;
- Wed,  2 Sep 2026 14:41:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF131F000E9;
- Wed,  2 Sep 2026 14:41:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7B2A5600C8;
+ Wed,  2 Sep 2026 14:58:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BC81F000E9;
+ Wed,  2 Sep 2026 14:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788360090;
- bh=HoNRIq8axkeZlkW9x5KJodxcA+EN2kvUq8aKX/Emc8E=;
+ s=k20260515; t=1788361134;
+ bh=7oPYOTDQUzczk4Uszr7IewReZAMucFeXFK37dwijIlQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Jxboh07rLuZTl8hMMDRVolFd51k06DSXbbWZJeMeyGTuDGgZhwjBdBGQCjSWF0AnT
- Fa7d8iLaQqndW5n1Qp76vCnAStRmT5wuBiPSWoH1c7mPiykfMADFD5M5j7yZuEyx8X
- LOz6YFC9MBtKV1PQ8ivJ3gNEBq6pzk3yfzruu2tZlhuq6t/6Uv1+hDz+7XRrx5OKD6
- aTGGyymjxvbA/2FU7FRwrmBbosTVHrXSH2DFqI+lDWgra20Nk0Q7fGtaGM1oc0/T0c
- deHWT2Dp5E6C5VjsGlEin0vW4Sl8nY/aie2K1hm8wLtp1r7v5N/guduyeyA4dCSVpj
- RM+FwgDkkX+3g==
+ b=AIRq1QLFUJXwU9b8vZvSXvLA+YtLtCrkA06qMFEx7e0qXkHtQOwmp244ZKCcYHwKQ
+ J8dMP3XWpIrd9ZciDHDQI/UsVjNu/FkuRZ6m13PBc3Vcw9p7h+8LfnbBPXhlRmYfIB
+ r8wg58151URbJ48Dds/4ByTRONg/6OnROytGHKHV0roWs8Qqm/3weYCg2ZUqvuh4Fd
+ 7ltCv+2fKRhludlRJGY82aryQFVNWQ/JUlrC5uFZ/vHIjFMlha5YGeqUPGzBOQ80aX
+ SYXk6NvbrQdwqHp0MWvubt4YQ+6uno5xYSJ4gxVsQWSTj0nUWCmIA5VVGweydk6m9z
+ JMH5RkvZzC6Cw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] perf: Add checks to prevent null ptr access
-To: "Vinay Belgaumkar" <vinay.belgaumkar@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260902141824.733112-3-vinay.belgaumkar@intel.com>
-References: <20260902141824.733112-1-vinay.belgaumkar@intel.com>
- <20260902141824.733112-3-vinay.belgaumkar@intel.com>
+Subject: Re: [PATCH v3 1/2] drm/sched: fix use-after-free of the fence
+ timeline name
+To: =?utf-8?b?Sm9uZ2h5dWsgS2ltKE1hbEh5dWsp?= <malhyuk97@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902144204.1843670-2-malhyuk97@gmail.com>
+References: <20260902144204.1843670-1-malhyuk97@gmail.com>
+ <20260902144204.1843670-2-malhyuk97@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 14:41:30 +0000
-Message-Id: <20260902144130.9FF131F000E9@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 14:58:53 +0000
+Message-Id: <20260902145854.08BC81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,94 +58,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Critical] Unconditional dereference of `to_drm_sched_fence()` return val=
+ue causes a deterministic kernel crash for signaled finished fences in down=
+stream drivers.
+- [High] TOCTOU race during ops detachment causes `to_drm_sched_fence()` to=
+ return NULL, leading to a NULL pointer dereference in ops callbacks.
+
 Pre-existing issues:
-- [High] The lockless checks for revoked state and NULL PMU pointers are in=
-sufficient to prevent a Use-After-Free of the PMU structure or a NULL point=
-er dereference during concurrent unregistration.
+- [High] The scheduled fence retains its `.release` callback, leaving it vu=
+lnerable to the same use-after-free of the scheduler timeline name if it ou=
+tlives the scheduler.
 --
 
-commit 4a985bf8ccfd6853c89a279d4b7181e83c33bcef
-Author: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+commit cbf4f1124a22fb62bedbf4d0c94b024440ce5beb
+Author: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+drm/sched: fix use-after-free of the fence timeline name
 
-perf: Add checks to prevent null ptr access
+This commit aims to resolve a use-after-free vulnerability involving
+the fence timeline name by removing the .release callback from the
+finished fence. This allows dma_fence to detach the fence operations
+on signaling, while restructuring references so the scheduled fence
+holds a reference to the finished fence.
 
-This commit adds a check for revoked states in perf_event_read_local() and
-a null pointer check for the PMU in __perf_event_read_cpu().
-
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 7777e82aad5e7..059f82f0cadd4 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cp=
-u_topology_cpumask(unsigned int
-> =20
->  static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
->  {
-> +	struct pmu *pmu =3D READ_ONCE(event->pmu);
->  	int local_cpu =3D smp_processor_id();
->  	u16 local_pkg, event_pkg;
-> =20
->  	if ((unsigned)event_cpu >=3D nr_cpu_ids)
->  		return event_cpu;
-> =20
-> +	if (!pmu)
-> +		return -ENODEV;
-> +
+> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/sc=
+heduler/sched_fence.c
+> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> @@ -95,15 +95,6 @@ static const char *drm_sched_fence_get_timeline_name(s=
+truct dma_fence *f)
+>  	return (const char *)fence->sched->name;
 
 [Severity: High]
-This is a pre-existing issue, but does this lockless check provide a false
-sense of security against concurrent PMU unregistration? A concurrent
-perf_pmu_unregister() can set event->pmu =3D NULL and free the PMU memory. =
-Since
-this check relies on a cached pointer without holding locks that serialize
-against unregistration (e.g., ctx->lock), the PMU can be freed immediately
-after this check passes.
+Can a time-of-check to time-of-use race occur here leading to a null
+pointer dereference?
 
->  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
-> -		const struct cpumask *cpumask =3D perf_scope_cpu_topology_cpumask(even=
-t->pmu->scope, event_cpu);
-> +		const struct cpumask *cpumask =3D perf_scope_cpu_topology_cpumask(pmu-=
->scope,
-> +										event_cpu);
+Code paths like dma_fence_timeline_name() locklessly read f->ops under RCU.
+If another thread concurrently signals the fence, dma_fence_signal() will
+detach the ops by setting f->ops to NULL.
 
-[Severity: High]
-This is a pre-existing issue, but can this lead to a Use-After-Free when
-accessing pmu->scope? If the PMU is unregistered and freed by another CPU
-after we cache it but before we dereference it here, pmu->scope will read f=
-rom
-freed memory.
+If the first thread reads the valid &drm_sched_fence_ops_finished before
+the detachment, but calls ops->get_timeline_name(fence) after,
+to_drm_sched_fence() will re-read f->ops (which is now NULL) and return
+NULL.
+
+Since fence is unconditionally dereferenced in the return statement above,
+and similarly in drm_sched_fence_set_deadline_finished() for the deadline
+field, could this race window cause a regression if hit? Userspace could
+potentially trigger this by invoking SYNC_IOC_FILE_INFO while a job
+completes.
+
+>  }
 
 [ ... ]
 
-> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event=
-, u64 *value,
->  		goto out;
->  	}
-> =20
-> +	if (READ_ONCE(event->state) <=3D PERF_EVENT_STATE_REVOKED) {
-> +		ret =3D -ENODEV;
-> +		goto out;
-> +	}
-> +
+> @@ -189,7 +171,13 @@ static const struct dma_fence_ops drm_sched_fence_op=
+s_scheduled =3D {
 
 [Severity: High]
-This is a pre-existing issue, but is this check vulnerable to a TOCTOU race?
-The event state can change immediately after this check if the event contex=
-t is
-inactive or belongs to a different CPU, allowing a concurrent unregistratio=
-n to
-detach the event and free the PMU while perf_event_read_local() continues
-executing. This leaves the subsequent call to event->pmu->read(event)
-unprotected, potentially resulting in a NULL pointer dereference or
-Use-After-Free.
+This isn't a bug introduced by this patch, but does the scheduled fence
+remain vulnerable to the same use-after-free issue?
 
->  	/*
->  	 * Get the event CPU numbers, and adjust them to local if the event is
->  	 * a per-package event that can be read locally
+This patch removes the .release callback from drm_sched_fence_ops_finished
+to allow ops detachment on signaling. However,
+drm_sched_fence_ops_scheduled retains its .release callback
+(drm_sched_fence_release_scheduled).
+
+Because it has a .release callback, dma_fence_signal() will not detach the
+ops for the scheduled fence.
+
+If a subsystem holds a reference to the scheduled fence after the scheduler
+is destroyed, won't any subsequent timeline name queries dereference the
+dangling fence->sched->name pointer, triggering the same
+slab-use-after-free this patch addresses?
+
+>  static const struct dma_fence_ops drm_sched_fence_ops_finished =3D {
+>  	.get_driver_name =3D drm_sched_fence_get_driver_name,
+>  	.get_timeline_name =3D drm_sched_fence_get_timeline_name,
+> -	.release =3D drm_sched_fence_release_finished,
+> +	/*
+> +	 * No .release callback: dma_fence detaches ->ops on signalling for
+> +	 * fences without .release/.wait, so get_timeline_name() is never called
+> +	 * on a signalled finished fence and cannot dereference a freed
+> +	 * scheduler. The shared allocation is freed from dma_fence_free() once
+> +	 * this fence's refcount drops - it is released last, after @scheduled.
+> +	 */
+
+[Severity: Critical]
+Does removing the .release callback here cause a regression in downstream
+drivers, resulting in a deterministic crash?
+
+Because the ops are now detached on signaling (setting f->ops to NULL),
+to_drm_sched_fence() will return NULL for a signaled finished fence.
+
+However, downstream drivers assume their scheduler fences are always
+recognized and unconditionally dereference the result of
+to_drm_sched_fence().
+
+For example, in amdgpu_cs_p2_dependencies():
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:amdgpu_cs_p2_dependencies() {
+    ...
+    s_fence =3D to_drm_sched_fence(fence);
+    fence =3D dma_fence_get(&s_fence->scheduled);
+    ...
+}
+
+And in amdgpu_ctx_fence_time():
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c:amdgpu_ctx_fence_time() {
+    ...
+    s_fence =3D to_drm_sched_fence(fence);
+    if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
+    ...
+}
+
+When an unprivileged user closes a context with completed jobs or queries
+dependencies on completed jobs, won't this result in an immediate null
+pointer dereference?
+
+>  	.set_deadline =3D drm_sched_fence_set_deadline_finished,
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902141824.7331=
-12-1-vinay.belgaumkar@intel.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902144204.1843=
+670-1-malhyuk97@gmail.com?part=3D1
