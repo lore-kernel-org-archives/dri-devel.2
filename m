@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44723C624DD
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FEB9C624DC
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0D110ED63;
-	Wed,  2 Sep 2026 22:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C16E10F377;
+	Wed,  2 Sep 2026 22:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GN9ZAskp";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UzObHvXB";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC5410F365
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED9910ED31
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788389657;
- bh=gSPXHyvotFuPHc3buR3f/TfayPaEzgZ99QXzk7ixLWU=;
+ s=mail; t=1788389658;
+ bh=NtHdI1r04ll3cmriR0IAxLz63PsZ/Z1TC0z5wDweaC0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GN9ZAskphlBX6X7USq9G6xN868nL2mtcVSnsPADSZ4PPoR+PWYrGWRV6+QN3Q7xhg
- 6NMe+8AHh3sjQI0dk9x/0qP3EsLwslBoinkYekhTX7df/v+Tg9Oojevj+1sYjcPPxT
- eOghLaKs+O0xsBcdTZ+YFUvxiB/8iREfd/xdjpCq4nngEZUrIKuArpNkWkNCqZmh5t
- SvU0/bi4JRpN6U2kM9LQWhOVWfph2SfsIG6kLmqzxTqW2hrfEEX04JeaiXNVcq9hjm
- 7tZQfpxpH1yF9jMIrdVJAw0vo9YyOyX0A/R4z7CB0dEt7S7oSQJl8/xMUdSY6uq4dj
- o9SxiYmLJ1XlQ==
+ b=UzObHvXBTtIO2Xd/uiRXnyUZ5voVG+Gbhjq87SeXRZqe4MfePF/+zN7XgsDUIRbJ/
+ MKA4rccAxlTpcancb3Yko1z4p01gBe/eldyJBYZnYiia+29GQUXz8tGrt/BSSuLmfK
+ uO51D0t/i50Lj5RJ8hhnernnx9GoAUXdlxPywba1iqYae7cmRnuujjxjOSfRsq9oDt
+ XTfJ04vX8hnFxyMp9eX77kbIlrxA7E3lO7nXZlLLGIcOcri4PELs13I0BiQqoCywAh
+ aLwm+PRSeNh3mAZebJr55QoK8z32wZJiKWxM87KR7n9rEWAQRJ9UZa1tq1SfXFKTZk
+ vS6jGDVHwsq1w==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5839C17E131F;
- Thu, 03 Sep 2026 00:54:17 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B115517E157A;
+ Thu, 03 Sep 2026 00:54:18 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:15 +0300
-Subject: [PATCH v4 08/14] drm/rockchip: vop2: Avoid DCLK source switch for
- 10-bit YUV422 output
+Date: Thu, 03 Sep 2026 01:54:17 +0300
+Subject: [PATCH v4 10/14] drm/rockchip: vop2: Switch to enum vop_csc_format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-8-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-10-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -78,64 +77,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently the color depth is always factored into the DCLK source
-decision for HDMI output, which can break certain modes when operating
-with depths greater than 8 bpc.
+Improve code readability in vop2_setup_csc_mode() by using enum
+vop_csc_format for the csc_mode variable, as well as for the return type
+of the vop2_convert_csc_mode() helper, which already returns CSC_*
+enumerators.
 
-When the required transmission rate exceeds the 600 MHz limit of the
-HDMI PHY PLL, e.g. for 4K@60Hz 10-bit RGB output, VOP2 will normally
-fall back to using the less accurate system CRU as a DCLK source,
-assuming HDMI 2.1 FRL is supported by the pipeline, otherwise the mode
-will be rejected.  For YUV420 output format this never happens, as it
-uses half of the RGB bandwidth, hence the rate remains within the PHY
-PLL limits.
-
-On the other hand, YUV422 always transmits two 12-bit components per
-clock cycle, regardless of the color depth, which from a clock-rate
-perspective is equivalent to three 8-bit RGB components.  For example,
-4K@60Hz 10-bit YUV422 requires the same bandwidth as 4K@60Hz 8-bit RGB,
-typically 594 MHz.  However, VOP2 wrongly assumes it needs 742.5 MHz
-(594 * 10 / 8) and ends up switching the DCLK source.
-
-As a consequence, the modes requiring uncommon pixel clocks, such as
-those corresponding to fractional refresh rates, will fail.  An example
-is 3840x2160@59.94Hz, which would likely rely on the 593.407 MHz clock
-rate unsupported by the system CRU.
-
-Note this only affects YUV422 with color depths greater than 8 bpc; for
-8-bit YUV422 the 8/bpc factor is unity and the bandwidth check is
-already correct.
-
-Prevent the incorrect switches of DCLK source to system CRU for YUV422
-output format by forcing 8 bpc when checking the bandwidth.
+While at it, replace the nonsensical 'csc_mode = false' assignment in
+the no-conversion branch with the equivalent CSC_BT601L, which carries
+the same value (0) but is type-correct.
 
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 21b8a5960086..4b4346cf38cd 100644
+index e78cddc184d3..04db4c037421 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1954,7 +1954,15 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
- 	 */
- 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
--		unsigned int bpc = vcstate->output_bpc ?: 8;
-+		/*
-+		 * YUV422 always transmits two 12-bit components per clock
-+		 * cycle, regardless of the color depth, which from a rate
-+		 * perspective is equivalent to three 8-bit RGB components.
-+		 * Force 8 bpc here so the bandwidth check reflects the actual
-+		 * TMDS rate and avoids an unnecessary DCLK source switch.
-+		 */
-+		unsigned int bpc = vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
-+					8 : (vcstate->output_bpc ?: 8);
- 		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
+@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
+ 	}
+ }
  
- 		if (clock <= max_dclk) {
+-static int vop2_convert_csc_mode(int csc_mode)
++static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
+ {
+ 	switch (csc_mode) {
+ 	case V4L2_COLORSPACE_SMPTE170M:
+@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	int input_csc = V4L2_COLORSPACE_DEFAULT;
+ 	int output_csc = vcstate->color_space;
+ 	bool r2y_en, y2r_en;
+-	int csc_mode;
++	enum vop_csc_format csc_mode;
+ 
+ 	if (is_input_yuv && !is_output_yuv) {
+ 		y2r_en = true;
+@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	} else {
+ 		y2r_en = false;
+ 		r2y_en = false;
+-		csc_mode = false;
++		csc_mode = CSC_BT601L;
+ 	}
+ 
+ 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
 
 -- 
 2.55.0
