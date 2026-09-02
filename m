@@ -4,90 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC16C624D0
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8501C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EBC310E510;
-	Wed,  2 Sep 2026 12:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E91610E4C1;
+	Wed,  2 Sep 2026 12:11:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="bX2hKo6P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J5gAWdxS";
 	dkim-atps=neutral
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6677510E510
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:08:35 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-5303932c4f3so2526941cf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 05:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1788350914; x=1788955714; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=puJ4uTbfv83ic1yzfkUg8CloAoVj8WRg32Yh9dx02hk=;
- b=bX2hKo6PZSffsdSVkrJyb4vLPS2FnqSw9LtCz1wkr/gH9UX9dHlspbPOvliVyeRQYt
- Dq/yjI8z6+5tC89XnFsFnuXzHeqT0cud/34kBGUYioUyDzAdHFARy5Iuofb3f5SdmGkc
- QH6eH5bGjuIMzX09aPRqA9I77RgPTGFAECbOODu50SZkPQhMxHj+yTidOF8zOgLX+VhZ
- naq9qUkkGyb4+BmA5HI62cCszwac+L6nFm2niBXxFiy2FE586ELFIapB24DfRyXU/vFr
- 45bbxVG3ti6CLbF3GDUZ7w7A6ufKSzbOnKaMmOQRzAZt45NNnQrkXjWhMBRaMTX7dfSK
- CJXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788350914; x=1788955714;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=puJ4uTbfv83ic1yzfkUg8CloAoVj8WRg32Yh9dx02hk=;
- b=bXBGQfTB3EsiOzjs+f4ncN9fGQSTN9cA2Y7Zdw2oEFKX4gI8MuB9fLgaZYBjgmwkUN
- tZtWcBJ7g+xay7m2tnNf5Ot3TSxMPqKotoDfFZIQeTUvSJHQAYQiA8xUDtE9QrmvPXIV
- KXluoMYBsTRrzpnl56sd+QR+6r4v3KMG+GJdZfvI1blU+HjKRC4ov9+UB+6FsFdDCX7O
- DiTJ1hAcJDMQ/J64mn/5ehge5xkZ5gVTLAtUq08g/spvQlw/SxLSTPDp6D+hN70esKXG
- 8mVMTrIocBa5c9KwclTB7QJ1JUtShG1gSiDJ6iB/CIyW+OVdC8lfaI3o+Hu2DL0BCoUp
- wYvw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro50UlYWEE7p4Kdd9Gx+z8kMyUQf5xLswMpukZBwe09O2Ryc1kuDo3j8sowLuuAG+AkI2RuFYxNpSs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n7O1hq7kAzmyJwwXNsGbWOUupzA4xgpV2HmI2Wv8D+/eNmDT5m
- qw3kpQD9dmndq/SuYcQDf95+BM8rMF3ffQLiTYnVlmliwpeq5OS8GF1e1FKZ947nYcc=
-X-Gm-Gg: AR+sD12heUwyboM1Y9xAFAK0JqDNMDXuJyjFo8qf3w21g1cpnbaJDZ752xt3Ovo9S0s
- 8DosmqNoUf3KyszRBycz4b6ILiMcvZea/soBD0SpaecL5xCxZhFf0DOfJeSYq9V0+YyuajYHXWe
- /VkPp2AoavQ2aBhHi8F89KvGsTGXq+ybZ1Erqbaf9h8IoEfEQ2m8gLYnTfLrQ6oaL0UDqumQjCz
- U/mKKm82nr6Qp9AB3ZAWxe4Vn1iAf2uYLcXizpz9/TPG2AnR8zTn2/OqC/aNim6oABTFU2rVxh3
- dU7F6SNPGIsGRmpku4aCT3GIEco3SSg+nInKIO5v5mjx9WPQYJ8QA0rzZvZMdGeuc7OoVny+cXt
- r/3x2REP988wznpnwikexIy9GLNxQ3Fz2ClBqkokz5lLBqpFclunwLDPrx2sbjbrYAAfOalGB/j
- T/fmcZxeiWuuR2WDT5OcUCovGVGyiQZSuWhQdIi5bDb+qFjoHGf5pvMpIrCBtrGhAeBVT1V4JdR
- g3cP6mcv+nORrpnpTvtC+jTFxuZppVGhDkW+OnNkPKSot/RfgVS5wWa
-X-Received: by 2002:a05:622a:1452:b0:52d:9c11:8937 with SMTP id
- d75a77b69052e-53036cc0d8amr38235061cf.26.1788350913894; 
- Wed, 02 Sep 2026 05:08:33 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
- [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-53032ff4e90sm17442101cf.2.2026.09.02.05.08.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 05:08:33 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1x1jlY-0000000E9vh-1aE2;
- Wed, 02 Sep 2026 09:08:32 -0300
-Date: Wed, 2 Sep 2026 09:08:32 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: David Hu <dhu@x6u.co>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org,
- ankita@nvidia.com, chriscli@google.com,
- david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, jmoroni@google.com, kevin.tian@intel.com,
- kpberry@google.com, leon@kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- nicolinc@nvidia.com, praan@google.com, sashiko-bot@kernel.org,
- stable@vger.kernel.org, viursachi@google.com, xuehaohu@google.com,
- Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260902120832.GB2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <20260901170849.4052816-3-dhu@x6u.co>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50EEF10E4C1;
+ Wed,  2 Sep 2026 12:11:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4AD3E600D9;
+ Wed,  2 Sep 2026 12:11:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D471F000E9;
+ Wed,  2 Sep 2026 12:11:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788351085;
+ bh=XwpTOnFpFlsR2IVVNgUhsYAsd1JKHnUT72fEns1VyDk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=J5gAWdxSbtz7dP1JzTLOnxnAJOhAgY2MQnAmvKT59vnDS3SEApgcm9S8d0qj7qoP3
+ 4lnWz3ClvHf7lYNCO/2Zwgwi4LSUrmXo9Soeu8mAUnck0kILcMmShlCdFtg9squIY+
+ q6CmXwQZ9UixX552ode1kvcO6x572+2Tr1mlJ+DrlcLsLpBSl7LP2blMgp28ukS5yB
+ 0C7s1kuhwMtHweFVnFYVwr2khieCmSH5SijKuModD9gnHBB6utuMaDVDE8ZtYuQDPw
+ wFM3FX2IY171fpBn8XL/Av4APOehNb2BaVqzbdpn15tWBOehvZX0kB/zP/c5GssCep
+ 4ULDVF9+wll6w==
+Date: Wed, 2 Sep 2026 13:11:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <64bdb5bc-ced6-490c-b4c8-fd3dcabbbd4c@sirena.org.uk>
+References: <apbbvQSfUbzYRFaw@sirena.org.uk>
+ <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Sh0NKln0pLxJxfm6"
 Content-Disposition: inline
-In-Reply-To: <20260901170849.4052816-3-dhu@x6u.co>
+In-Reply-To: <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
+X-Cookie: Prevent forest fires.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,26 +65,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
-> From: David Hu <xuehaohu@google.com>
-> 
-> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> first entry, resulting in non-page-aligned DMA addresses for all
-> subsequent entries.
 
-This patch is fine, but pedenatically a scatterlist's entry limit
-should be bounded to dma_get_max_seg_size(), though I don't think it
-helps this. Operating scatterlists at the size limits has proven
-problematic in a number of places already...
+--Sh0NKln0pLxJxfm6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> In addition, a non-page-aligned sgl length will trigger an edge case
-> in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> buffers, we will have a `va` with lowest bit set to 1. That will lead
-> to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> to find best page size for the mapping on the NIC side.
+On Wed, Sep 02, 2026 at 09:52:24AM +0300, Ivaylo Dimitrov wrote:
+> On 1.09.26 =D0=B3. 17:05 =D1=87., Mark Brown wrote:
 
-That's an IB side bug, the newer logic that joins adjacent SGLs should
-have avoided it?
+> > /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named =
+'card' in 'struct hdmi_audio_data'
+> >    408 |         ad->card =3D card;
+> >        |         ~~  ^
 
-Jason
+> This seems to be due to an interaction between two patches:
+> 1. 9af2c1d4f847 (ASoC: ti: omap-hdmi: remove unused *card) / 875e906efdc4
+> (ASoC: ti: preparation for Card capsuling)
+
+Those are in -rc1...
+
+> 2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI
+> codec)
+
+=2E..which the drm-misc tree has now merged so I don't expect it to build
+independently of any other tree.  I'm a bit surprised this wasn't caught
+when merging up -rc1.
+
+--Sh0NKln0pLxJxfm6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYEmcACgkQJNaLcl1U
+h9CEEQf9Hk/LuaEd+ZaphNyNmIa5ksIVwyIWx4i/IKB/nh2G137vfaU8FFpD/vhj
+8WKJSFftQk6eVmdAsWmCM25R5loZcWfm8V5L13khKtvU1L4v47HyYKLj5PmGgUTn
+DQ8uVo3aXmGo8KZNmhraFEvy+5bFzMfZHXLxHoDDSARdX+/TvDRkt6za2HJCqU/a
++QVCadknLQdCuP0tqXuR0xu1iS3K3vrKzGGNL84Gb5yKX3REFNUZpc92p7FY/tDs
+SSrzi7yQ7Cpihkb3N7Opn/CHgslSso627hKcTcdxaDBWAahBaN7W7+3KnGLE88Ow
+5Kz5rXtGyIsruw0tdirhWAr/SEOQew==
+=xwIZ
+-----END PGP SIGNATURE-----
+
+--Sh0NKln0pLxJxfm6--
