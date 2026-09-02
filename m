@@ -4,61 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46249C624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8984C624D3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 12:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69AB910F1C8;
-	Wed,  2 Sep 2026 12:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C9D10F1C7;
+	Wed,  2 Sep 2026 12:58:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K2YcWVwk";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="d48l6CX7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05DE010F1C7
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788353851; x=1819889851;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=OlnOnv4EDGWjwWgFaBfWzed1K52XKfFKXkPpYrzH0U0=;
- b=K2YcWVwk1WOpdTKd8u2iZgsEbjAJEO/79HJDDPN2oOBPxd4jDdx3EdcY
- eRygkp4CH0/x2xdpELAhfbqI4tWOCdx6dFNSuTf8ZSXo5KpQd8D5nj2Qt
- vLA5lWMtZ9yw3n7msK90dUq7v1NHHDfd+rQDtj+OjOOJBO15qF12wBn6q
- vW02xznEiJJ4Q6QcEs78qn1UDYQl6HWTm8txxaXZobRvBksoXmglDyh47
- iOn099NPpVmvVRZr8/k0VAo2FFmt8dn4EZcw8XLBSwUI2ny2xhd5MWzFf
- 4yk5AgOqNtuLTIjn3ohcIalAgYBba1krKRyZSvSZ8GuF9sp4tpwo08TuX w==;
-X-CSE-ConnectionGUID: WzWWqQQVTmyVDtd4n7vOhw==
-X-CSE-MsgGUID: GPs/6em1R7+UXQwkI7peqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106332209"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="106332209"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 05:57:31 -0700
-X-CSE-ConnectionGUID: qj0lsYYDQfuHgSkqmnM/sA==
-X-CSE-MsgGUID: wSnNti6sRu6D1b7fGfYq1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="265100373"
-Received: from kpleskax-mobl2.ger.corp.intel.com (HELO [10.94.252.39])
- ([10.94.252.39])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 05:57:29 -0700
-Message-ID: <963bc3c2-c67d-475b-aa4d-8cc3ce76f2b7@linux.intel.com>
-Date: Wed, 2 Sep 2026 14:57:26 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] accel/ivpu: Validate firmware log buffer metadata
-To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com,
- Magdalena Schulfer <magdalena.schulfer@intel.com>, stable@vger.kernel.org
-References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
- <20260901125749.404338-3-dawid.osuchowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260901125749.404338-3-dawid.osuchowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2821910F1C7
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:58:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788353881; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=TNfp49qO7PvOKNrTb6rndr+1NMxKl8IzE8OWTqpiduwHmBiqwHZu77OMJzQLoyz3PJB+m2ETbNBw+pv4/t52VKTZ0vTMn9yCEa1ExY8rnSeNfuSrJ+UNRKZDtkuvLBCBC4VbSeNJz0l4Ae0Oyx9RP5J3KREsjxDm4gMfEQcu7nA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788353881;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=yOJpG0Rfo6IlzDSpX446zUyUkwOc+K8U7rIyIPg3QS0=; 
+ b=AV+jSc3gRzrEMCHUncWW7+ysFtx3SZmYHcLgRXlbdQmssLzIGTAM1nOHPONIFrLm2w2AvJCp3E+tyBHllmY2P5jnLyUvPk4mxIUrvrQ3WUjQF7YeBPqG1heA5odwGnaY7ihzN+kjgk78goh4rF+3reBje8BnfbPmwtW11pIhy4k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788353881; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=yOJpG0Rfo6IlzDSpX446zUyUkwOc+K8U7rIyIPg3QS0=;
+ b=d48l6CX7/B2l24rgs+6vOh9aeKM9cm/DHx9PAp2TYn2ySkldkxFkjjMPlTUfzJEK
+ ru01TAWEMCPhB6NaP9PLQW3uQMimZNTRjiReYBEomoI92TcwQXjvvbAXtfg5wcl7ySz
+ UIAIe2cHFjzuSw79RLntBIQ/S0o4fhYWJI18WYvY=
+Received: by mx.zohomail.com with SMTPS id 1788353879250420.3222580292204;
+ Wed, 2 Sep 2026 05:57:59 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 1/9] rust: sizes: add SZ_4G constant
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260902-tyr-ioctls-v1-1-e0fdbf8bd108@kylinos.cn>
+Date: Wed, 2 Sep 2026 09:57:40 -0300
+Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ Alvin Sun <alvin.sun@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <39DEB659-59A2-43D6-9B62-805DB3715F49@collabora.com>
+References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+ <20260902-tyr-ioctls-v1-1-e0fdbf8bd108@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,177 +79,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01-Sep-26 14:57, Dawid Osuchowski wrote:
-> From: Magdalena Schulfer <magdalena.schulfer@intel.com>
-> 
-> The tracing log headers parsed by fw_log_print_buffer() reside in
-> DMA-shared BOs that the NPU firmware can write to.
-> 
-> fw_log_from_bo() validated log->header_size and log->size, but
-> fw_log_print_buffer() re-read those same fields from shared memory
-> afterwards, allowing a TOCTOU where firmware changes them between the
-> check and the use, and making the host dereference out-of-bounds
-> addresses while printing logs.
-> 
-> Snapshot the validated values once with READ_ONCE() and pass them down
-> explicitly in a new struct ivpu_fw_log_desc instead of re-reading them
-> from the shared struct.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
-> Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
-> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-> ---
->   drivers/accel/ivpu/ivpu_fw_log.c | 76 +++++++++++++++++++-------------
->   1 file changed, 45 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-> index 716467aa3156..4f9055aa9d33 100644
-> --- a/drivers/accel/ivpu/ivpu_fw_log.c
-> +++ b/drivers/accel/ivpu/ivpu_fw_log.c
-> @@ -26,10 +26,17 @@ MODULE_PARM_DESC(fw_log_level,
->   		 " error=" __stringify(IVPU_FW_LOG_ERROR)
->   		 " fatal=" __stringify(IVPU_FW_LOG_FATAL));
->   
-> +struct ivpu_fw_log_desc {
-> +	struct vpu_tracing_buffer_header *log;
-> +	u32 header_size;
-> +	u32 size;
-> +};
-> +
->   static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
-> -			  struct vpu_tracing_buffer_header **out_log)
-> +			  struct ivpu_fw_log_desc *desc)
->   {
->   	struct vpu_tracing_buffer_header *log;
-> +	u32 header_size, size;
->   
->   	if ((*offset + sizeof(*log)) > ivpu_bo_size(bo))
->   		return -EINVAL;
-> @@ -39,26 +46,32 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
->   	if (log->vpu_canary_start != VPU_TRACING_BUFFER_CANARY)
->   		return -EINVAL;
->   
-> -	if (log->header_size < sizeof(*log) || log->header_size > 1024) {
-> -		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
-> +	header_size = READ_ONCE(log->header_size);
-> +	size = READ_ONCE(log->size);
-> +
-> +	if (header_size < sizeof(*log) || header_size > 1024) {
-> +		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", header_size);
->   		return -EINVAL;
->   	}
-> -	if (log->size < log->header_size) {
-> -		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-> +	if ((char *)log + size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
-> +		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", size);
->   		return -EINVAL;
->   	}
-> -	if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
-> -		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-> +	if (size < header_size) {
-> +		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x < header size 0x%x\n",
-> +			 size, header_size);
->   		return -EINVAL;
->   	}
->   
-> -	*out_log = log;
-> -	*offset += log->size;
-> +	desc->log = log;
-> +	desc->header_size = header_size;
-> +	desc->size = size;
-> +	*offset += size;
->   
->   	ivpu_dbg(vdev, FW_BOOT,
->   		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
-> -		 log->name, log->write_index, log->size, log->wrap_count, log->header_version,
-> -		 log->header_size, log->format, log->alignment);
-> +		 log->name, log->write_index, size, log->wrap_count, log->header_version,
-> +		 header_size, log->format, log->alignment);
->   
->   	return 0;
->   }
-> @@ -94,11 +107,12 @@ static void fw_log_print_lines(char *buffer, u32 size, struct drm_printer *p)
->   		drm_printf(p, "%s", line);
->   }
->   
-> -static void fw_log_print_buffer(struct vpu_tracing_buffer_header *log, const char *prefix,
-> +static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefix,
->   				bool only_new_msgs, struct drm_printer *p)
->   {
-> -	char *log_data = (void *)log + log->header_size;
-> -	u32 data_size = log->size - log->header_size;
-> +	struct vpu_tracing_buffer_header *log = desc->log;
-> +	char *log_data = (void *)log + desc->header_size;
-> +	u32 data_size = desc->size - desc->header_size;
->   	u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
->   	u32 log_end = READ_ONCE(log->write_index);
->   
-> @@ -134,11 +148,11 @@ static void
->   fw_log_print_all_in_bo(struct ivpu_device *vdev, const char *name,
->   		       struct ivpu_bo *bo, bool only_new_msgs, struct drm_printer *p)
->   {
-> -	struct vpu_tracing_buffer_header *log;
-> +	struct ivpu_fw_log_desc desc;
->   	u32 next = 0;
->   
-> -	while (fw_log_from_bo(vdev, bo, &next, &log) == 0)
-> -		fw_log_print_buffer(log, name, only_new_msgs, p);
-> +	while (fw_log_from_bo(vdev, bo, &next, &desc) == 0)
-> +		fw_log_print_buffer(&desc, name, only_new_msgs, p);
->   }
->   
->   void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p)
-> @@ -149,36 +163,36 @@ void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_
->   
->   void ivpu_fw_log_mark_read(struct ivpu_device *vdev)
->   {
-> -	struct vpu_tracing_buffer_header *log;
-> +	struct ivpu_fw_log_desc desc;
->   	u32 next;
->   
->   	next = 0;
-> -	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
-> -		log->read_index = READ_ONCE(log->write_index);
-> -		log->read_wrap_count = READ_ONCE(log->wrap_count);
-> +	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-> +		desc.log->read_index = READ_ONCE(desc.log->write_index);
-> +		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
->   	}
->   
->   	next = 0;
-> -	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
-> -		log->read_index = READ_ONCE(log->write_index);
-> -		log->read_wrap_count = READ_ONCE(log->wrap_count);
-> +	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-> +		desc.log->read_index = READ_ONCE(desc.log->write_index);
-> +		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
->   	}
->   }
->   
->   void ivpu_fw_log_reset(struct ivpu_device *vdev)
->   {
-> -	struct vpu_tracing_buffer_header *log;
-> +	struct ivpu_fw_log_desc desc;
->   	u32 next;
->   
->   	next = 0;
-> -	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
-> -		log->read_index = 0;
-> -		log->read_wrap_count = 0;
-> +	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-> +		desc.log->read_index = 0;
-> +		desc.log->read_wrap_count = 0;
->   	}
->   
->   	next = 0;
-> -	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
-> -		log->read_index = 0;
-> -		log->read_wrap_count = 0;
-> +	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-> +		desc.log->read_index = 0;
-> +		desc.log->read_wrap_count = 0;
->   	}
->   }
 
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+
+> On 1 Sep 2026, at 13:09, Ke Sun via B4 Relay =
+<devnull+sunke.kylinos.cn@kernel.org> wrote:
+>=20
+> From: Alvin Sun <alvin.sun@linux.dev>
+>=20
+> SZ_4G is used by the Tyr driver when splitting the GPU VA range into
+> user and kernel regions.
+>=20
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+> rust/bindings/bindings_helper.h |  1 +
+> rust/kernel/sizes.rs            | 12 ++++++++++++
+> 2 files changed, 13 insertions(+)
+>=20
+> diff --git a/rust/bindings/bindings_helper.h =
+b/rust/bindings/bindings_helper.h
+> index 1124785e210b3..3c37993991b1e 100644
+> --- a/rust/bindings/bindings_helper.h
+> +++ b/rust/bindings/bindings_helper.h
+> @@ -110,6 +110,7 @@
+> const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN =3D =
+ARCH_SLAB_MINALIGN;
+> const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN =3D =
+ARCH_KMALLOC_MINALIGN;
+> const size_t RUST_CONST_HELPER_PAGE_SIZE =3D PAGE_SIZE;
+> +const unsigned long long RUST_CONST_HELPER_SZ_4G =3D SZ_4G;
+> const gfp_t RUST_CONST_HELPER_GFP_ATOMIC =3D GFP_ATOMIC;
+> const gfp_t RUST_CONST_HELPER_GFP_KERNEL =3D GFP_KERNEL;
+> const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT =3D =
+GFP_KERNEL_ACCOUNT;
+> diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
+> index 521b2b38bfe77..b236573f0792e 100644
+> --- a/rust/kernel/sizes.rs
+> +++ b/rust/kernel/sizes.rs
+> @@ -132,3 +132,15 @@ impl SizeConstants for $first {
+> }
+>=20
+> define_sizes!(u32, u64, usize);
+> +
+> +/// Large size constants (=E2=89=A5 4 GiB).
+> +///
+> +/// Only implemented for `u64`.
+> +pub trait LargeSizeConstants {
+> +    /// `0x1_0000_0000`.
+> +    const SZ_4G: Self;
+> +}
+> +
+> +impl LargeSizeConstants for u64 {
+> +    const SZ_4G: Self =3D bindings::SZ_4G;
+> +}
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
