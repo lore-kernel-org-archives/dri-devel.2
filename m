@@ -4,137 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856BCC624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 13:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFA97C624D3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 13:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCECF10F1F0;
-	Wed,  2 Sep 2026 13:34:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SkyyMM1v";
-	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010001.outbound.protection.outlook.com
- [40.93.198.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0C1B10F1E3
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:34:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ya/PS1SwExXU8A9HWdp5BW80RZ4AHgyyDF6O3Ls8ukcXUBgwOifYm94iI0Y5gsb+icAkBQhQBC43B4t27rmz/ywRorFmEDD+cfYRadP8+IOWvtvDRjROH8rs8bR/QvsaEXaq63hh+yHxzBHnkcl6k0VSqljFfcXIoabBi6QH/Wd+W8tciLBORqGqQZCeHTtJAEQXTlH/DTmJucrrIxaohqIlHGpJxKr3RWwn+NQiEQT9N236r7TmdstL1QTmO8EeIXZKaLN4bclo05X4RY4d5F+eS/ulPDyg3F/IgBE/JQpDovrKxut3vu7I7LPSEaRWD3AT+gCkGQx5xkeIvoygvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FfJCBw0Qvw3HdzwXTgbj28ghteUL5B+j/R4+mIY7xsg=;
- b=B1CKKd0CDY7RLErtkYUR5lb9CHwAb4+lMUGLCaXtjkpw0ZAwJSVQ2gsm4czxl2/G+ChLJT/Io/HuYqCQgM3nXYQZAEJWeL/BUd3VdeXcsLd6sUdJ0xU7yWqBeiJuIaRlCu7Z19rfc/1DIxYe0EAwnvLw6X6nhYpatafX3bR8Jbq3upxXNp57cYoRHTuMMl+Nfg4sXkd1p4UBBBKTvzMlIQgV9TEXZ86mDMZKsIFJJ8PQLZki+k3LYFuZMEAoG/iyDicgIFmmQrkNZxQAl2SSGrUJrdV3gzmrmb9I1tpIK+XqhGmd4Xb8kkAgCti871lAN6MTsHP9DOmZzCqaopSG/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FfJCBw0Qvw3HdzwXTgbj28ghteUL5B+j/R4+mIY7xsg=;
- b=SkyyMM1vhIZhFXGpbrlVFHnLskRQnS/B67uNuL7RqE5T5QbAQ06NIYYj5PVkN8pkmdsgERe+8BkyniyuuQnGyQKW5ldCf2wp9MgqBtB+vYBclHSkWTFXcLExIDeF4oO+k6l1VZGsJoyIwTIXqaHNkJIFXpNuGIjulYLAp3Pk89Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB8434.namprd12.prod.outlook.com (2603:10b6:806:2e6::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 13:34:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
- 13:34:26 +0000
-Message-ID: <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
-Date: Wed, 2 Sep 2026 15:34:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-To: Leon Romanovsky <leon@kernel.org>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
- ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jgg@ziepe.ca,
- jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
- xuehaohu@google.com
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
- <20260902105919.GV24140@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260902105919.GV24140@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0414.namprd13.prod.outlook.com
- (2603:10b6:208:2c2::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0658110F1FC;
+	Wed,  2 Sep 2026 13:38:26 +0000 (UTC)
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C7A410F1FC
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:38:25 +0000 (UTC)
+Received: by mail-oa2-f1.google.com with SMTP id
+ 586e51a60fabf-448a12ddfb4so452311fac.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 06:38:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788356304; x=1788961104;
+ h=content-type:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=T4EUl0+l4ijrlzUvXL1HFtDQOMWNs5F7/Y3XbzXQpJ4=;
+ b=Wo7XubEVqPj12YsnmLQDw4DLzCZvpsk5XouI2IgfIpAxpAySnB6LPTx6N1PPzjPLoo
+ JqP6qUcvAuUD0YOVecJjzS+7EHqom/3HejgJqNUBYWJEb/rlsgqwrj9D4qxFVpxuvoQu
+ 3oog86HU919nqP3WLIyfN0/RdD979WKw1Qh1jGCy440YhHAvCJlrMpe3eVcHAGolk5yv
+ UeyfSG656EASkZKwOCQDe6f/iXt4aLv9kijwz2wdzs8/gnw6HkPPEFG59FLBiQowvK3r
+ cy7lxGUcYipdr3bJS6j4dggWazn4k893nk7sTX7oAEcBpCQSonn9WSX9dPGaIWIbMZUh
+ XVzQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpVqUy+eeS6Brsm2f/3dGc+LmVg3i26Kqw4RummZuxXl2S6f5CaNSpKCPE3DFUiNymlAP3Mzb79Uro=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kcJfMkqvtN3pQ7592IE7jtrm8PPJpAZnoYYhuBNGJjt1VuikqK
+ 7LRW6bn8gpypX22XxtBY81V38gR+kaR5ejC/XgfLD5A0Iz9Pmaq5BQh5lSqyKUtDvLzG3p0OQby
+ GSeaohUmnDVJPavuq1rzP16QMwfHZuvsi8Z5ly0qSf1tKltMJ072R/0EIGSI=
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8434:EE_
-X-MS-Office365-Filtering-Correlation-Id: b72f6a5f-06b1-470f-8288-08df08f6e881
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|23010399003|366016|56012099006|10067099003|11063799006|4143699003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: GOO6VBHnI47U6sIL2Neh/6WXJ3IPblseNnsVkX/cqH0bIAxYiXYlcq9cKlo0+VfEj3wU0mzvdaCnvU52PV/5BD4xyd1vwthLYb1pfTL6hy/lrYI4/v4d3EsGlQrP+4KDNNj5WejUSAano2gfKM2c0XDyMA1ts9Ve2AqpUc1TD6rAMfNNCu2ar697h/uNdY62gWEvZ03p4Zo3VUwHGc4q0MFdu319wcLs+y8M+9Fzj3frugB1sES+HV91Nr5Knu6jtrWCnZVZQ6uoU+8HHtYiyBHW28Re0qyfLAh4qhk+Q4bFy5F8biZigwy0w0MMditsDjp3K+1EkJ7GDyHYYDz387IPcXTr9D2Zmu2aSxtSrsMfdIwEaArwfVwrpAhiawUWhJpLIXdfO1ug1VBp/U+Qrtt6PYwUyzYxaOX81eVSlDWCPJXxgMA0Quy8LzjWxeEWujy76imncjjPw5dWJ+98YBS7UC44joDV4BZkxvn7rbY4ZT+fw1oxbvm2ONwyFZtF9O5uL3i/SdYaO9ew551aLnedlgn1x/zooUHHhJuDcviFC7duX3sWGT0R45r42CQaf4fxVWo8AhlDBrbMxZLMBwTZ0sydI2n7ukB/QC3IiUQ87f+U2CM2m6O7QKMx3WSULB5gnYrvE7XQoSHi35Fz6EEfq0zNhWE4k3v3EuyxXsg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YTEwTEs4S0xDY29KSVlYVUo0UDVzWlNpVVAxT1A2ZjEzODV6L2Nab245KzM2?=
- =?utf-8?B?MlBrUXpWc1AxVHpWaisveUYrY1l3YUNRbzVrNE1hVWdXNndiNzQzRTZubWNV?=
- =?utf-8?B?VmJKN1FGankzM2NSdldSK0I4Zmk3RzkyT2hwM1YxNHFRVzNFUzV6bUVnclRW?=
- =?utf-8?B?SDBpT1QwL2ZFODBtWGhlazdpSHNXVytnNENVcit2WlhjaVZYOFhHaGRaSlc4?=
- =?utf-8?B?YlZRazhzRHNqVjZXUDBWL2lMUHF5eFlaVkhaR3FuenhzczNpMjVaakw1ajM0?=
- =?utf-8?B?TURkY2hOT3VlV2xhMUhEaGJpS2NLOGFpWWlLcFBET0pQZEttRzB4d0o3RzNF?=
- =?utf-8?B?YlFIdmEwaHlRMHZsVmtoNXlIRnFscGZpNXNJTmVTUEdwcWkvRXZDNG1iMThs?=
- =?utf-8?B?akF1UlQzVDd4RjdXdDNseG85SHlKc3ZPZ1Ard3Z0VU5LbXNWT0srbEFzQ0FZ?=
- =?utf-8?B?ZUFSMzUxYWh3K1puNWJXN0ovaHRVSnd3Y3NiM05SNmpodlorenprWUlTSmZZ?=
- =?utf-8?B?QXF2QVJkVEVwMFc5YWMvaDM2cmd3U0ptaWw5M3lQTm1vVDdhL1JJL3ZTY1lQ?=
- =?utf-8?B?dzV2aXdDdFlrdk9Mb3VCYlo2K3p2UWtsNGFtM080bi9QV0M0cTh1MU9hYVBW?=
- =?utf-8?B?UTc1MzFsZ0h5OTNJZnJ2aEl5UmcrNnhyTGgzamNnVWdRSjNzMkkwbU8xSUpI?=
- =?utf-8?B?T2pyK3RtT1NDQ3hmYmp4Z2o1dWxVTWh3QjlZQU0zL0lTekdaVEhVTU8zdzBm?=
- =?utf-8?B?eUFYdTk2eW9uSzBWR2hOaHlGWnVkRkNlbUxiK2RBM0t0UzljRXFHSjExYTNm?=
- =?utf-8?B?YkNPc2FtSXVzTitqVmxJaE5URHBPWStJSW5XYjdHYjN6U2lCYTJDK1czSlZw?=
- =?utf-8?B?RmNVNHJoMGZaWTUrc2RHTEZlcjZMNXBxenBhMjFVQXY0cGphSmZsTDJBc0ZL?=
- =?utf-8?B?N2NmUFQrcjBPek9veGlmMDd5WGlMWVdnZXcwenh5UWVxYkxjRE1tZVhTSkgw?=
- =?utf-8?B?aUZlQ2FhSGZzMFIxU3M3a3dIdlhtR084Z2p1QURBdXhsZEdOZ0JCQkExdkcw?=
- =?utf-8?B?KzlBOVptbzFXajZ1K1g4WjRvWGVsbktyOVVETGNiMlFVTDVXRGJIK1Mwbjdj?=
- =?utf-8?B?MmNJeTlPSVNPRmVncHVWbmtTSVRNYUhNSTFSYlVGSTBaT1V0UU9rbkcrUG5H?=
- =?utf-8?B?bjNSZ0ZoTDlNYi8vaENYQWFvVmQ5QXIvaWhPM0tDUWNsTmpyTm1IZkpYYXFJ?=
- =?utf-8?B?U1BDTG4veEdaTDJTUTBybnJtdGo0SHd5M3R0SVgyZG40WVUrQVFNQ2pBNUdh?=
- =?utf-8?B?MFROSXlRdHpic2paYi80T1cvem9SL2RUTllERmpBcTBnWm9SMzRuTU8xRy9Q?=
- =?utf-8?B?dU9tcnhPNFRET1VabG8yTllIamF4dGErUzRxbEpJN1JCRktyanY3Zis2Tlkv?=
- =?utf-8?B?dWxrN2hycThoWHNvblpFRWcvb3FrR0lLMW83ZWZGeVhyZE02TzVaOVJQckc0?=
- =?utf-8?B?bE5HeXBFUm15ZFpqK2Q5SDlrZUdmRE9iSjNndWVlVXkzL01YcWZHNGdCK3M5?=
- =?utf-8?B?TVZBREV1dXYwTkN6NzAvTlpwQUhHbGRKVi85VzdWa2xXU25TeC9NZStETmRy?=
- =?utf-8?B?enphWWlIY0djSXR5Q2lpVGJQbjF3ZWVEVVAzcVhza2ZnRUdoS0xmMG9tZEtD?=
- =?utf-8?B?MmluV3hsRmVqNFFiZkNRVjNIR3BqdEVOd1ZGZkxRemp4U0k4L053OW51MENU?=
- =?utf-8?B?eFFOVHFIWHh3NERCVzB4R0tJaWtQc2NGM1YyNGovR2l3WFhnM3dtZ2JHR0FB?=
- =?utf-8?B?U2tOd2Z2aXhVZFdkbklOTTZoZ3hwamR2OS9DOE9xSTFEQnIzN1c3TEFMV2pH?=
- =?utf-8?B?YWRRbnBzK2hMS0hzUzJCRy81aTRtRVdKMUdjSXc1Um1JcHMrRWs0Z1F0SnpP?=
- =?utf-8?B?STY3OWdITVowSEJvcXVGT2RlT2tPNWZ2UUJOMk9xd0wyOWVNU0p3Z2MrRENL?=
- =?utf-8?B?Zzl1ekJyaWRNK29LanFzTUw4ZmI4OTZnc1QrRzhJQ0pFUVRNQW1aYjhPd0cx?=
- =?utf-8?B?eWtiZkt4RmVhN1FmdjlDNncralUyem94bVNEdmk3dGFkR2lOTDF0WENOWlNK?=
- =?utf-8?B?aHR4VG9KS2F2aTNrWUFndTVxSDBTbGlua1pER3MzR09nWENqVjVWVVU5WDNa?=
- =?utf-8?B?QWpYNXNpK0xBQTVydlNpRERVUDBsdnNsbk9xc216S3lWRzNNK0J4RDMzSnJN?=
- =?utf-8?B?MUttcEpET3FORXVsNENMYmtXbXNJaWlvVFRRbWpYVEo5em9Udnh0bmZadFl5?=
- =?utf-8?Q?nZ8daaMyaQblg907FW?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b72f6a5f-06b1-470f-8288-08df08f6e881
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:34:26.7558 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tHXdzdX1mPObGzH90BcRJ/kkojS6e1FmjKMaH0P/WB+1ib0XKRwqD2IuDALeP9bX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8434
+X-Received: by 2002:a05:6820:200e:b0:6b1:4d1b:3004 with SMTP id
+ 006d021491bc7-6b480e38546mr3412140eaf.20.1788356303977; Wed, 02 Sep 2026
+ 06:38:23 -0700 (PDT)
+Date: Wed, 02 Sep 2026 06:38:23 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9826cf.9266084e.bf0d7.0008.GAE@google.com>
+Subject: [syzbot] [dri?] [virt?] WARNING in virtio_gpu_free_object
+From: syzbot <syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com>
+To: airlied@redhat.com, dmitry.osipenko@collabora.com, 
+ dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
+ kraxel@redhat.com, linux-kernel@vger.kernel.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
+ simona@ffwll.ch, syzkaller-bugs@googlegroups.com, tzimmermann@suse.de, 
+ virtualization@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,22 +64,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/2/26 12:59, Leon Romanovsky wrote:
-...
->> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
-> 
-> Maybe you mean DRM, but VFIO works perfectly with PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.
-> What am I missing?
+Hello,
 
-Well not quite.
+syzbot found the following issue on:
 
-The approach PCI_P2PDMA_MAP_BUS_ADDR takes is fundamentally tied to only map a physical CPU address into a PCI address and doesn't take into account that in a lot of configurations the CPU can't access all resources.
+HEAD commit:    786262be6048 Merge tag 'edac_updates_for_v7.3_rc2' of git:..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=160c0125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-So when VFIO uses PCI_P2PDMA_MAP_BUS_ADDR it only works for a small subset of the use cases DMA-buf supports, but yeah as always in DMA-buf pretty much everything is optional.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Regards,
-Christian.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-786262be.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1729d9f9738d/vmlinux-786262be.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ce8b90b3526c/bzImage-786262be.xz
 
-> 
-> Thanks
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
 
+------------[ cut here ]------------
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#0: syz.2.124/6285
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bd0 kernel/locking/mutex.c:821, CPU#0: syz.2.124/6285
+Modules linked in:
+CPU: 0 UID: 0 PID: 6285 Comm: syz.2.124 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x94b/0x1bd0 kernel/locking/mutex.c:821
+Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 c0 10 00 00 44 8b 05 e8 16 74 05 45 85 c0 75 13 48 8d 3d ac 21 77 05 48 c7 c6 e0 f3 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
+RSP: 0018:ffffc90006017b30 EFLAGS: 00010246
+RAX: 0000000000000003 RBX: ffff8880281551c0 RCX: 1ffffffff228a580
+RDX: 0000000000000000 RSI: ffffffff8beff3e0 RDI: ffffffff914836d0
+RBP: ffffc90006017ca0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
+R13: 0000000000000000 R14: dffffc0000000000 R15: ffff888027efeb60
+FS:  00007f5302d486c0(0000) GS:ffff8880d5b64000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055619ef79490 CR3: 000000005c38c000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ virtio_gpu_remove_from_restore_list drivers/gpu/drm/virtio/virtgpu_object.c:70 [inline]
+ virtio_gpu_free_object+0xec/0x280 drivers/gpu/drm/virtio/virtgpu_object.c:106
+ drm_gem_object_free+0x60/0xa0 drivers/gpu/drm/drm_gem.c:1164
+ kref_put include/linux/kref.h:65 [inline]
+ __drm_gem_object_put include/drm/drm_gem.h:562 [inline]
+ drm_gem_object_put include/drm/drm_gem.h:575 [inline]
+ drm_gem_object_put include/drm/drm_gem.h:572 [inline]
+ drm_client_buffer_delete drivers/gpu/drm/drm_client.c:201 [inline]
+ drm_client_buffer_delete+0x1d8/0x270 drivers/gpu/drm/drm_client.c:185
+ drm_fbdev_shmem_fb_destroy+0xc5/0x110 drivers/gpu/drm/drm_fbdev_shmem.c:67
+ put_fb_info drivers/video/fbdev/core/fbmem.c:61 [inline]
+ put_fb_info+0xb8/0xf0 drivers/video/fbdev/core/fbmem.c:56
+ fb_release+0x13e/0x190 drivers/video/fbdev/core/fb_chrdev.c:381
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5301d9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f5302d48028 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007f5302025fa0 RCX: 00007f5301d9e159
+RDX: 0000000000000000 RSI: ffffffffffffffff RDI: 0000000000000000
+RBP: 00007f5301e35024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f5302026038 R14: 00007f5302025fa0 R15: 00007fffc5d9f388
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+   4:	38 d0                	cmp    %dl,%al
+   6:	7c 08                	jl     0x10
+   8:	84 d2                	test   %dl,%dl
+   a:	0f 85 c0 10 00 00    	jne    0x10d0
+  10:	44 8b 05 e8 16 74 05 	mov    0x57416e8(%rip),%r8d        # 0x57416ff
+  17:	45 85 c0             	test   %r8d,%r8d
+  1a:	75 13                	jne    0x2f
+  1c:	48 8d 3d ac 21 77 05 	lea    0x57721ac(%rip),%rdi        # 0x57721cf
+  23:	48 c7 c6 e0 f3 ef 8b 	mov    $0xffffffff8beff3e0,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	90                   	nop
+  30:	e9 1b f8 ff ff       	jmp    0xfffff850
+  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
+  3c:	4c 89 e7             	mov    %r12,%rdi
+  3f:	e8                   	.byte 0xe8
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
