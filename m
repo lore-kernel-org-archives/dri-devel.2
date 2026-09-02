@@ -4,46 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50F73C624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AE84C624DD
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 389DD10F103;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8BA010F2C7;
 	Thu,  3 Sep 2026 07:33:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="AVo9IXD/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FW1sVZ1f";
 	dkim-atps=neutral
-Received: from out30-124.freemail.mail.aliyun.com
- (out30-124.freemail.mail.aliyun.com [115.124.30.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A6610E3BA;
- Tue,  1 Sep 2026 08:32:50 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FD710F1EA
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:59:32 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-396750cfee6so938601a91.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 06:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1788251568; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=cVNdgupGJDSpCiWNjr1klyxvUhhBKQDFzP2h81TiiYQ=;
- b=AVo9IXD/DG3SUrMRU1IFmRkhDrr36uLcGHN2KbhH5zN08qCnIL6fRfXtIPZf7oH67AivH+G7lKAS2HXs0qTzBTegZRBlsnfI5qwU92gqUF6sJ41yRUYT+uIRTtTuPq+4GIJ+JnUHkpfSMkE/H0mptLwXG7OdILEgeIftnuGi9ko=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037026112;
- MF=qinyuntan@linux.alibaba.com; NM=1; PH=DS; RN=17; SR=0;
- TI=SMTPD_---0XA5o3t._1788251566; 
-Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com
- fp:SMTPD_---0XA5o3t._1788251566 cluster:ay36) by smtp.aliyun-inc.com;
- Tue, 01 Sep 2026 16:32:47 +0800
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de, airlied@redhat.com, jfalempe@redhat.com,
- kraxel@redhat.com, dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Qinyun Tan <qinyuntan@linux.alibaba.com>
-Subject: [PATCH v2 2/4] drm/qxl: create blend mode property on primary and
- cursor planes
-Date: Tue,  1 Sep 2026 16:32:32 +0800
-Message-ID: <20260901083234.1828755-3-qinyuntan@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
-References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
+ d=gmail.com; s=20251104; t=1788357572; x=1788962372; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
+ b=FW1sVZ1fzLj17zSzGhPujSEfYcRKGrY52gRSFLZi5WX04mUqDgLyhxR4/QYouJffX2
+ 6yBTogiekL3c/4nACpaLG7fYs2R8fHj2bmqfYZUPnqQW/H+HESaKMXnc3fbf1jLqjlTV
+ wTzb3HZJCIfmPZhWhGfCKtRDqW5Rf4noVLxrtmTo8mP0zLr1EJUKH+KZUaczm2+xhI2x
+ A/JewzALfN+XwqGP+CDN0vg99H9b2nW/1yLkxJmyz/nG+BUW9PxWzAu7lSyTAEA0ttJE
+ 52s7X/JQi7pBJUpV/QtgHL5zgyOceTHPp9mtvX8/ns/ZEvidQxeaxu6kvG+YHgrYZWYd
+ jOtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788357572; x=1788962372;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
+ b=j8v4/VH4WsLuv3TzGBljN8uHCxYJK04665vScqb4Grfy2j9Y/IAIuwLfR3/+zIETGl
+ //lnL1eaak2xKi+lc3Ku6ZYzTXqtPOZDGB1nJccHzX7OnIYYa0aP4q2rUHHkOEVs33OV
+ 6mxrXpDUxqAdlUG6cBc4pjCSSIxoBHNooEkIWOsk3RUNvhexs+yCkCg+8q6VnSa+Ksst
+ BNMLt79fxrtUmJ2/FHz5VX/0lgyOUhw9gJeQXPMEpY61sjWfeffGycn/xW6i5MtspKNt
+ GA3NTuNxkhsp40QPWf/jD23HpsoDmHTrFE7J+pUUlG4Owf1kSNxrRTymk+iC3oCbdWj1
+ tzyA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwWP9NlkFDvszjlyqhr844IWzs0AXV/I8GdXJmvJRoK7pd4zv/eAwko3PW+493OlpRv6924PiwM2/M=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++neKWUOQ5/UrnXMTJgnBoCJoBEgEVchXRBHB2dr8Xed+XiFXsKM
+ yUkAw61HuKxldhuebTG+GVT69NJwtxJ1ZiDkgBDP4EglMH81kpAxRzz6
+X-Gm-Gg: AYBFou31TSa7r6kd6WE2ci5HuXIbcT/vWn8JwSV8zRXbjGZ1j7Mw+vJY1m4HHcUGrjR
+ IlGNReqGbYNtvPBAD/n4HsjQpXK/i4DJ3gZFfUx4Li2peWlb8EpQxFuPrnLwObnYMhj8ee1ysQP
+ ROzfGANbxwM3VJc2y14GkerJIdYAZNjAneMBMYpQ3ouf8fAJHkIEkN2dJPQESmGIsv61Az/VBQ6
+ WvSJG6k+WOcsY3OQDmVwrpzlYirYCuSZVK0UrGPB/v7Fe4dDSJwIDqNAMYjMn5NdICkif11EUfy
+ P2l+1Wj5urzLasBmuyNdFxZg/yoS8uD0fu6DBYgTRImmTcWlc+b50xvse6aegoJyjuVAizpozkO
+ J90ls8cU7OFLsWXDkgQkZo321e5ot9gJoBwnnPt4DBA4MdAbnk1r8jtTl0RkXmADgIEH6FY+0TT
+ gXl9Cjxt/fKaBoRcH76QmHHTnCglnhKk/wJr7hNALQWhnT42q0GIgDFNiJjPJUU5qUzL5PSz6ws
+ VarYbYi2vCrp5/LxUda9oEnmvD3Hl5arki6iiMez950rsRir744yP0NFAytnTzxkZJ5ag+VNeoI
+ wsiiEbRYueFmDPh9WzYm2U7s+mxxbQGbRCAV8COOXcs=
+X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id
+ 98e67ed59e1d1-39aee04ace5mr8324115a91.16.1788357571759; 
+ Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net
+ (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3990bd21e9dsm12123595a91.4.2026.09.02.06.59.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Subject: [PATCH v2] dma-buf: fix stale return value documentation for
+ dma_buf_set_name()
+Date: Wed,  2 Sep 2026 21:59:23 +0800
+Message-ID: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
@@ -62,55 +93,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-format with alpha exposed"), drm_mode_config_validate() warns when a
-plane exposes an alpha pixel format but not the "pixel blend mode"
-property. Both the qxl primary and cursor planes expose ARGB8888 and
-trip this on driver load.
+The kernel-doc for dma_buf_set_name() still documents an -EBUSY return
+for the case where the dma-buf is already attached to devices:
 
-qxl submits cursors as SPICE_CURSOR_TYPE_ALPHA, which the SPICE
-protocol explicitly defines as a "pre-multiplied ARGB8888 pixmap"
-(Spice Protocol, "Cursor channel definition" section [1]). This
-matches the blend mode userspace has always assumed when the property
-is not attached. Expose a "pixel blend mode" property advertising only
-DRM_MODE_BLEND_PREMULTI to make these semantics explicit and silence
-the warning. The primary plane is the bottom-most plane so its blend
-mode has no visible effect; advertise the same value there for
-consistency. No functional change.
+  Returns 0 on success. If the dma-buf buffer is already attached to
+  devices, return -EBUSY.
 
-[1] https://www.spice-space.org/spice-protocol.html
+That has not been true since commit e73c317efbf9 ("dma-buf: remove
+restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
+dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
+produced -EBUSY. That commit updated the description paragraph above,
+but left the return value description behind.
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+The only failure the function can report now comes from strndup_user(),
+propagated via PTR_ERR(); every other path returns 0. Document that
+instead, using a Return: section so kernel-doc picks it up.
+
+No functional change.
+
+Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
+Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
 ---
-v2: no code change; cite the SPICE protocol definition of the ALPHA
-cursor type in the commit message.
+Changes in v2:
+ - Use a "Return:" section so kernel-doc actually parses the return
+   value description; scripts/kernel-doc -none -Wall reported "No
+   description found for return value of 'dma_buf_set_name'" before
+   this change and is quiet after it.
+ - Reference the commit that made the -EBUSY text stale, and add a
+   Fixes: tag for it.
+ - Resend to the dma-buf maintainers and dri-devel; v1 only reached
+   linux-media, where it was marked "Not Applicable".
 
- drivers/gpu/drm/qxl/qxl_display.c | 4 ++++
- 1 file changed, 4 insertions(+)
+v1: https://lore.kernel.org/linux-media/20260730003153.4030818-1-alan.tseng.cs@gmail.com/
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 7f4178800afd7..0cd1456cca347 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_framebuffer.h>
-@@ -993,6 +994,9 @@ static struct drm_plane *qxl_create_plane(struct qxl_device *qdev,
- 
- 	drm_plane_helper_add(plane, helper_funcs);
- 
-+	drm_plane_create_blend_mode_property(plane,
-+					     BIT(DRM_MODE_BLEND_PREMULTI));
-+
- 	return plane;
- 
- free_plane:
+ drivers/dma-buf/dma-buf.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc..6ee3c254d7 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+  * @buf:    [in]     A piece of userspace memory that contains the name of
+  *                   the dma-buf.
+  *
+- * Returns 0 on success. If the dma-buf buffer is already attached to
+- * devices, return -EBUSY.
+- *
++ * Return: 0 on success, or a negative error code from strndup_user() on
++ * failure.
+  */
+ static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+ {
 -- 
-2.43.7
+2.43.0
 
