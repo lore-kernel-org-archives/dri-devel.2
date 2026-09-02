@@ -4,62 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3215EC61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33EDEC61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 21:25:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64DD710E036;
-	Wed,  2 Sep 2026 20:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA7E10E047;
+	Wed,  2 Sep 2026 21:25:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KNKy6ESq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ExefP2p5";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8253510E036
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:55:54 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 643231F8;
- Wed,  2 Sep 2026 22:54:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1788382461;
- bh=yOp/QwLcsFzKak6geScZDKKxKOKgTlwu0GRjCfP776Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KNKy6ESqs9jc1DSUAxm2rIVPt6QfPXSje/ia548HWfrwix7W2Rg+9ymN3AXRk6YX0
- +zkHv6srVg7BOqu3aakf7Dn42VXqKZ36oFDQwcEIsQfR9/sk4xoWhifJKpXyB0LFSM
- Q0CH3JHEv1EanB5jfY7QzjWSrl+EYIK4tpKcO8Vw=
-Date: Wed, 2 Sep 2026 23:55:51 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Subject: Re: [PATCH v2 9/11] drm: xlnx: zynqmp_dpsub: Use
- devm_of_reserved_mem_device_init()
-Message-ID: <20260902205551.GC287496@killaraus.ideasonboard.com>
-References: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
- <20260902201640.2024648-10-mukesh.ojha@oss.qualcomm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E84F810E047;
+ Wed,  2 Sep 2026 21:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788384355; x=1819920355;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9plz0XMHhAyOu2ZX1hqD1SDBlhuggjIuIAitC4JszVY=;
+ b=ExefP2p5y1vBDK5KjF+sdLILPK1v5/TTAKfRtSNGojeAr/rYeXhdzGy1
+ KeEpv7IAOwQ/wiKPzHWWt5xPmKn0CHHFvJhAhc6zQ/E+xZxMMJoI5vQcf
+ /MQBfOqNLkWMm/NTQ6cGsFii96VwYWAhDMGAMMEffD5nKAZ6dffqP3j4K
+ tOjcDQjXolEiUo9cPKULlbf9xk1hJRyAuWAqx4EqQOY57u+BmWeI/uGnS
+ o+7Bgn/jnfgFL6oI6klY8IqVSN3jYOLUvlvgj/S4ouYaCwRXZkeNVzTXT
+ GcObtC2HLD8yjm1kTcTAVdIbBAVlCVm4PQN+Z7YDs0V8ldfKBpeKBk8Y0 w==;
+X-CSE-ConnectionGUID: 7P+6HzBSQe2CDsL9ehJ/CA==
+X-CSE-MsgGUID: poo1vHMMRm6/eCRQjeewqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111629915"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; d="scan'208";a="111629915"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 14:25:54 -0700
+X-CSE-ConnectionGUID: GozhQi6dRBC5wsqgsYHdEg==
+X-CSE-MsgGUID: 6u0LtjKlR4e62Cr8+nXZjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; d="scan'208";a="273682838"
+Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 14:25:52 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, Rodrigo.vivi@intel.com,
+ matthew.brost@intel.com, maarten.lankhorst@linux.intel.com,
+ thomas.hellstrom@linux.intel.com, tzimmermann@suse.de
+Subject: [PATCH v6 0/2] drm/xe/pagefault: Add SRCID to pagefault reporting
+Date: Thu,  3 Sep 2026 05:25:47 +0800
+Message-ID: <20260902212549.347805-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902201640.2024648-10-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,51 +70,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 03, 2026 at 01:46:38AM +0530, Mukesh Ojha wrote:
-> Use the devres-managed devm_of_reserved_mem_device_init() instead of
-> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
-> pair, letting the device resource manager handle cleanup automatically.
-> 
-> Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Add SRCID to the xe_pagefault struct, which reports the ID of the
+faulting hardware unit.  This will be passed on to the
+xe_vm_get_property_ioctl for reading per-vm faults and will assist in
+diagnosing pagefaults.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+v2:
+- Readd pad check, as the pad in the ioctl struct was not changed
+  (jcavitt)
 
-> ---
->  drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> index 53ab1a2a5aaf..e93a7a299b52 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-> @@ -203,7 +203,7 @@ static int zynqmp_dpsub_probe(struct platform_device *pdev)
->  	dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
->  
->  	/* Try the reserved memory. Proceed if there's none. */
-> -	of_reserved_mem_device_init(&pdev->dev);
-> +	devm_of_reserved_mem_device_init(&pdev->dev);
->  
->  	ret = zynqmp_dpsub_init_clocks(dpsub);
->  	if (ret < 0)
-> @@ -255,7 +255,6 @@ static int zynqmp_dpsub_probe(struct platform_device *pdev)
->  	pm_runtime_disable(&pdev->dev);
->  	clk_disable_unprepare(dpsub->apb_clk);
->  err_mem:
-> -	of_reserved_mem_device_release(&pdev->dev);
->  	if (!dpsub->drm)
->  		zynqmp_dpsub_release(dpsub);
->  	return ret;
-> @@ -276,7 +275,6 @@ static void zynqmp_dpsub_remove(struct platform_device *pdev)
->  
->  	pm_runtime_disable(&pdev->dev);
->  	clk_disable_unprepare(dpsub->apb_clk);
-> -	of_reserved_mem_device_release(&pdev->dev);
->  
->  	if (!dpsub->drm)
->  		zynqmp_dpsub_release(dpsub);
+v3:
+- Rebase
+
+v4:
+- Squash SRCID with ASID to keep the struct compact (Matthew)
+
+v5:
+- Use BUILD_BUG_ON and move ASID definition in one function (Matthew)
+
+v6:
+- Rebase
+
+Jonathan Cavitt (2):
+  drm/xe/pagefault: Add SRCID to pagefault struct
+  drm/xe/vm: Add srcid to xe_vm_get_property_ioctl fault report
+
+ drivers/gpu/drm/xe/xe_guc_pagefault.c   |  8 +++++++-
+ drivers/gpu/drm/xe/xe_pagefault.c       | 24 +++++++++++++++---------
+ drivers/gpu/drm/xe/xe_pagefault_types.h |  9 +++++++--
+ drivers/gpu/drm/xe/xe_vm.c              |  8 ++++++++
+ drivers/gpu/drm/xe/xe_vm_types.h        |  2 ++
+ include/uapi/drm/xe_drm.h               |  4 ++--
+ 6 files changed, 41 insertions(+), 14 deletions(-)
 
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
