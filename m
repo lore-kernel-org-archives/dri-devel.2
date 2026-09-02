@@ -4,85 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6945AC624D4
-	for <dri-devel@archiver.kernel.org>; Tue,  1 Sep 2026 23:44:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D4B9C61DD3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 00:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E17E10E3F3;
-	Tue,  1 Sep 2026 23:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58EAB10E31D;
+	Wed,  2 Sep 2026 00:14:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iMD9xFwR";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="hDRPL60R";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4FFB10E117
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 23:44:10 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2d9520b9155so3465965ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 16:44:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788306250; x=1788911050; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ppZkh3AVCrQx9O4YNbO0XMQav0agPe5LBnt6LSWUrys=;
- b=iMD9xFwRXLwZ0DYdFIqBz7C6CoEfAbwI7tccb/BW1rjuSAh1VI0mT+in3tMtgC7CUJ
- adjgJ++kIBjzjvLGcFgwkTccTconKcN46++EFDRUHyz7McClS3rUz66hW0Fj35X4ec8t
- 7r0pErPq8fNJFSkTMULzsepgqA7yVmi4CHOIqwEdzhY3Zm4caQoQN9A6rS4b/Bt9pign
- 5e38t0M4QF8xFI/eK98meOzMt2QKMVhVJFh+3oBnhSirMxj6DWMBa239x0flPTB2mPl5
- uxK3ryIVUKyXtXcegTp2yymlTtf5d+jO/OggTtVSArJJORFKYI9jN6O3EMmjtcj9SaCg
- TGfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788306250; x=1788911050;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ppZkh3AVCrQx9O4YNbO0XMQav0agPe5LBnt6LSWUrys=;
- b=OxHvl5KTOvdnU1aEPOO/CD6/KCHUV9P1WIhcucaIi5tmVM6mMSnqF5GKwFQy/DTE0H
- OPncpr+CJOueen32yERaO8iAhVk7MhpSwliaxPG0W836SAUrykZrd6QL7KJMJ0RGysWu
- CP6qVhSWdNyzNQpktk58VNYPm31xquFPMghawAeKh2eVGuOYeNiGceLf+59cdpX/iYyT
- 36/qnkRdNsroNugaBmE8dlCQo5OeDqBlLOujDsXaCibq1P+jZMo7CEYwgOuizq2GGePU
- u30VjQ5B70qPATt7Pw/f+hL+IOkqPamcKJY7q8wAzYn6xmHvML8+Z1EQtda1PUe9iRN4
- pxJQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzYtr7XH7Y20KDZD3/cwYCd1KZXB+aOUsWORuZHO3CTKaNFivm4mdVdi812uOpVBb8GMja9bRF13Dw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mqWiz4PRV+FOSg0wZRrpWsuyABFm85VwKMZ3nO6/VxuL8nGQRv
- DLF8GHFBz1NBzaUl2F7qPVroB8MNXBAKT/teRUoefqEVPzQHZSZ9ktbf
-X-Gm-Gg: AYBFou077HHsWBfjrajFzPhfpTiPPwqg8NwccI6i+Zex2tEx9HIw2FbePKHQ6Ho4nUa
- xppP0tHk7+xcoHm4VMKeEhu0VByFIKv+r3aYKCuIXIovnhsW7Ar2xZO8hkwr0pcRHD5bB0p2yxj
- 7brKZxiSeezmmutEIayAxehjYpWHDM2A92FOfpWvRZ9PYz4KdshmBXQ2kkcub6LigzTUspJoNbD
- Pr6fHZ0fflnF/MSt7YIBcx3WJLKCaRWzfFggG3TaZt5x74tZZyk3QiB0BKmFPvfn3ea9etPRPh1
- RvRwJMdgqSQbdHuvsAzSodsd/8n0+rbymbPF4TUM5aAMx1KskDZlF4Vp80B6eXrz0aWxgqVYsc9
- 3YID3wCxOrNnL54rQYD/+fvwI2LpyRpZV8gknsbdp3gaahlf8i/2OVBNVrQxxhVQT7GkByQtiog
- bbTB+7cqFv638Y9jD5ockE0IOQkmq2UvIW05vY3Fmxlz/ClRmAhVfUSAAfxmxgaE0cZyfmH9gp9
- E2bDPc0zX3ejMwE0cCcETfqJA==
-X-Received: by 2002:a17:90b:5743:b0:398:bbe9:73af with SMTP id
- 98e67ed59e1d1-39aedfdb0b1mr956150a91.7.1788306250071; 
- Tue, 01 Sep 2026 16:44:10 -0700 (PDT)
-Received: from anarsoul-xps15.lan (d50-92-231-36.bchsia.telus.net.
- [50.92.231.36]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3990baaeec3sm8299903a91.0.2026.09.01.16.44.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 16:44:09 -0700 (PDT)
-From: Vasily Khoruzhick <anarsoul@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>
-Subject: [PATCH 2/2] drm/rockchip: vop: don't round the pixel clock when the
- encoder owns the PLL
-Date: Tue,  1 Sep 2026 16:42:31 -0700
-Message-ID: <20260901234351.190506-2-anarsoul@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901234351.190506-1-anarsoul@gmail.com>
-References: <20260901234351.190506-1-anarsoul@gmail.com>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0280210E31D
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 00:14:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788308059; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Sud1lIN0877KOQr2c4mj7GP84xRNZJf2RvgvS6jdjTcZXgaKFt8oMqfFXMDs0IpBVrgqhqOgSVY27KaRpKHuDt6JrfcAM+lWogZNaln0RMlSQwXCylZP+6VwMhzmLL3qhPz0K/tF67tIBZWIyg+jr9hfg8lWaxwoXMvMNWBg7Tg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788308059;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9v9K7xAFlRpojhSRY8CZl+bL11FYUJs3WgBmJ4SVq6A=; 
+ b=EkDloI2yC25Mr8Hpq1WUQaqYBERoRZa3yN9vaWASDogZY5OmpqqwT+e6axzTXGGPEHsPXEmMP9xXI/LT/IY7XIsHWMjqnAi9X3+V5igxoaOpGIz5oBNAY9QLgp1ATcKUfyCGI+8RiTV9EL3sYScoS8PHVXReasbbIwdxJ2BbLNE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788308059; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=9v9K7xAFlRpojhSRY8CZl+bL11FYUJs3WgBmJ4SVq6A=;
+ b=hDRPL60R407Og0rshUwaKg4xQlSMKK0NIlBlrIjuMCP+Ea9rjisMeis1Byk91wAr
+ BgASNV/zMDnwJN8JgvlOeTwnfSCP7FwxOgLz/MBRQddVYirwuBNyP1MiIdlRwlFE8Zb
+ G0RUGNOICvI2KidCTmglHvjqPcdKkaSWGx22Ce8U=
+Received: by mx.zohomail.com with SMTPS id 1788308056394418.9753833639205;
+ Tue, 1 Sep 2026 17:14:16 -0700 (PDT)
+Date: Tue, 1 Sep 2026 17:14:14 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Ke Sun <sunke@kylinos.cn>
+Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ Alvin Sun <alvin.sun@linux.dev>
+Subject: Re: [PATCH 0/9] drm/tyr: add VM and BO ioctl support
+Message-ID: <apdqVvvsWvzfNmiL@um790>
+References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.303.58
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,155 +80,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On RK3399 the HDMI reference clock is VPLL, a dedicated PLL that is a
-parent of the VOP dclk. dw_hdmi_rockchip_mode_valid() accepts a mode
-only if VPLL can produce its pixel clock, and encoder mode_set() then
-programs VPLL to that rate. However vop_crtc_mode_fixup() ran first,
-in the check phase, and rounded adjusted_mode->clock through
-clk_round_rate() on the dclk. At that point VPLL still sits at its
-previous rate, so the dclk composite picks whichever of VPLL/CPLL/GPLL
-gets closest at its *current* rate and stores that inexact value.
+On Wed, Sep 02, 2026 at 12:08:59AM +0800, Ke Sun wrote:
+> Add the VM and BO ioctls to the Tyr driver, aligning its userspace
+> interface with panthor. The series is based on Danilo's `drm-file`
+> series on `drm-rust-next`, and uses the existing IdPool and xarray
+> abstractions for per-file VM management.
+> 
+> The panthor IGT tests pass on an RK3588S device.
 
-For 1366x768 (85.5 MHz) this yields GPLL/7 = 84.857 MHz. mode_set()
-then requests 84.857 MHz from VPLL, which the PLL rate table snaps
-down to 74.25 MHz, and the VOP ends up on GPLL/7. The panel receives a
-timing 0.75% slow, which some monitors misdetect (e.g. as 1195x768)
-and display distorted. Only modes whose clock happens to be an exact
-GPLL or CPLL fraction (74.25, 148.5, 297 MHz, ...) were unaffected.
+Hi Alvin,
 
-Let the encoder tell the CRTC, via a new rockchip_crtc_state flag set
-in its atomic_check, that it will program a dedicated dclk parent to
-exactly the requested pixel clock. Move the rounding from mode_fixup
-to atomic_check, which runs after the encoder's atomic_check as
-recommended by the DRM documentation, and skip it when the flag is
-set. With VPLL then set to the exact rate before the VOP enables,
-clk_set_rate() on the dclk finds an exact match on VPLL.
+Thanks for sending this series, I am still reviewing it but this is what I
+noticed today:
 
-The flag is only meaningful within the check that sets it and is
-cleared when the state is duplicated, so it cannot leak into a later
-modeset on the same CRTC with a different encoder. Behaviour for
-encoders without a dedicated PLL is unchanged.
+1. Do we still need a separate pool module, since this is just for VmPool,
+could we put it in vm.rs?
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
----
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c |  8 ++++++-
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h |  9 ++++++++
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c | 25 +++++++++++++++------
- 3 files changed, 34 insertions(+), 8 deletions(-)
+2. We might have a problem matching panthor’s 32 VMs per file, since the
+minimum capacity of IdPool is MAX_INLINE_LEN. But maybe it will be ok to
+extend this to 64 VMs per file. But then when we drop the vm pool we
+better not rely on that PANTHOR_MAX_VMS_PER_FILE constant.
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index b6e154c35e7c..ece44c6ec95c 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -300,8 +300,8 @@ dw_hdmi_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
- {
--	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
- 	struct rockchip_hdmi *hdmi = to_rockchip_hdmi(encoder);
-+	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
- 	union phy_configure_opts opts = {};
- 	u32 bus_format;
- 
-@@ -327,6 +327,12 @@ dw_hdmi_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 
- 	s->output_type = DRM_MODE_CONNECTOR_HDMIA;
- 	s->bus_format = bus_format;
-+	/*
-+	 * The reference clock (e.g. VPLL on RK3399) is a parent of the VOP
-+	 * dclk, and mode_set() programs it to the pixel clock, which
-+	 * mode_valid() already guaranteed it can produce.
-+	 */
-+	s->dclk_exact = !!hdmi->ref_clk;
- 
- 	if (!hdmi->phy || !conn_state->hdmi.tmds_char_rate)
- 		return 0;
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-index 4705dc6b8bd7..8cb828ae9af6 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-@@ -57,6 +57,15 @@ struct rockchip_crtc_state {
- 	u32 bus_format;
- 	u32 bus_flags;
- 	int color_space;
-+	/*
-+	 * Set by an encoder's atomic_check when it owns a dedicated PLL that
-+	 * feeds the CRTC's dclk and will program it to exactly
-+	 * adjusted_mode->clock at mode_set time. The CRTC must then not
-+	 * round the pixel clock against the current clock tree, which does
-+	 * not reflect that PLL's future rate. Only valid within one check,
-+	 * it is cleared when the state is duplicated.
-+	 */
-+	bool dclk_exact;
- };
- #define to_rockchip_crtc_state(s) \
- 		container_of(s, struct rockchip_crtc_state, base)
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-index 0090d8ff0c79..73a92ccbcb94 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-@@ -1207,11 +1207,9 @@ static enum drm_mode_status vop_crtc_mode_valid(struct drm_crtc *crtc,
- 	return MODE_OK;
- }
- 
--static bool vop_crtc_mode_fixup(struct drm_crtc *crtc,
--				const struct drm_display_mode *mode,
--				struct drm_display_mode *adjusted_mode)
-+static void vop_crtc_adjust_clock(struct vop *vop,
-+				  struct drm_display_mode *adjusted_mode)
- {
--	struct vop *vop = to_vop(crtc);
- 	unsigned long rate;
- 
- 	/*
-@@ -1245,8 +1243,6 @@ static bool vop_crtc_mode_fixup(struct drm_crtc *crtc,
- 		rate = clk_round_rate(vop->dclk,
- 				      adjusted_mode->clock * 1000 + 999);
- 	adjusted_mode->clock = DIV_ROUND_UP(rate, 1000);
--
--	return true;
- }
- 
- static bool vop_dsp_lut_is_enabled(struct vop *vop)
-@@ -1558,6 +1554,19 @@ static int vop_crtc_atomic_check(struct drm_crtc *crtc,
- 	s = to_rockchip_crtc_state(crtc_state);
- 	s->enable_afbc = afbc_planes > 0;
- 
-+	/*
-+	 * Round the pixel clock to what the dclk can really produce, unless
-+	 * the encoder will program a dedicated dclk parent PLL to exactly
-+	 * this rate at mode_set time. In that case the clock tree seen here
-+	 * (with that PLL still at its old rate) would pick a worse, inexact
-+	 * source and bake that rate into adjusted_mode, defeating the PLL.
-+	 *
-+	 * Same condition the atomic helpers use for the mode_fixup callback.
-+	 */
-+	if ((crtc_state->mode_changed || crtc_state->connectors_changed) &&
-+	    !s->dclk_exact)
-+		vop_crtc_adjust_clock(vop, &crtc_state->adjusted_mode);
-+
- 	return 0;
- }
- 
-@@ -1623,7 +1632,6 @@ static void vop_crtc_atomic_flush(struct drm_crtc *crtc,
- 
- static const struct drm_crtc_helper_funcs vop_crtc_helper_funcs = {
- 	.mode_valid = vop_crtc_mode_valid,
--	.mode_fixup = vop_crtc_mode_fixup,
- 	.atomic_check = vop_crtc_atomic_check,
- 	.atomic_begin = vop_crtc_atomic_begin,
- 	.atomic_flush = vop_crtc_atomic_flush,
-@@ -1643,6 +1651,9 @@ static struct drm_crtc_state *vop_crtc_duplicate_state(struct drm_crtc *crtc)
- 	if (!rockchip_state)
- 		return NULL;
- 
-+	/* Only valid within the check phase that sets it. */
-+	rockchip_state->dclk_exact = false;
-+
- 	__drm_atomic_helper_crtc_duplicate_state(crtc, &rockchip_state->base);
- 	return &rockchip_state->base;
- }
--- 
-2.55.0
+3. Also, I am not sure, but do we need to call vm.kill() when we drop the
+vm_pool? Does it depend on the vms being activated? And if they have been
+activated, should this go in Vm::drop() instead? 
 
+4. Could you use dev_err! instead of pr_err! please, we tried to convert
+over to that in the booting series.
+
+5. We should be able to compile each patch in your series separately (to
+help with future bisecting) so use the annotation #[expect(dead_code)] for
+patches early in the series and then remove it in patches later in the
+series when you actually use the code.
+
+6. It would be nice if you could give a link to a repo where you have
+applied all the prerequisite series and fixed conflicts. Could you still
+update the branch from:
+https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/64
+
+Thanks,
+Deborah
+
+> 
+> Signed-off-by: Ke Sun <sunke@kylinos.cn>
+> ---
+> Alvin Sun (9):
+>       rust: sizes: add SZ_4G constant
+>       rust: mm: add `task_size` helper
+>       rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
+>       drm/tyr: add per-file VM pool
+>       drm/tyr: add user and MCU VM specifications
+>       drm/tyr: add BO creation and lookup helpers
+>       drm/tyr: refactor new_dummy_object to use new_object
+>       drm/tyr: add VM-related ioctls
+>       drm/tyr: add BO-related ioctls
+> 
+>  drivers/gpu/drm/tyr/driver.rs   |  14 +-
+>  drivers/gpu/drm/tyr/file.rs     | 394 ++++++++++++++++++++++++++++++++++++++--
+>  drivers/gpu/drm/tyr/fw.rs       |   8 +-
+>  drivers/gpu/drm/tyr/gem.rs      |  41 ++++-
+>  drivers/gpu/drm/tyr/pool.rs     | 102 +++++++++++
+>  drivers/gpu/drm/tyr/tyr.rs      |   1 +
+>  drivers/gpu/drm/tyr/vm.rs       | 158 +++++++++++++++-
+>  rust/bindings/bindings_helper.h |   1 +
+>  rust/kernel/mm.rs               |   7 +
+>  rust/kernel/sizes.rs            |  12 ++
+>  rust/kernel/sync/arc.rs         |  12 +-
+>  11 files changed, 714 insertions(+), 36 deletions(-)
+> ---
+> base-commit: 0b0aa9dcf17b6cffa9e325ff641e843b20d40c31
+> change-id: 20260901-tyr-ioctls-f10ef0dcbfa6
+> 
+> Best regards,
+> -- 
+> Ke Sun <sunke@kylinos.cn>
+> 
