@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7659C624DE
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE66C79F81
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7874110F372;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E778410F373;
 	Wed,  2 Sep 2026 22:54:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Xe0KX0YW";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="H9Pw8UOV";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30DE010E532
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F3710EECE
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788389653;
- bh=zhWpF/UU05YTXxYJbSUFS3lUsjEwItB+y5/lTPeSYxA=;
+ s=mail; t=1788389656;
+ bh=nhanI0NgfqdM/AwSXDXRufUIPmxI7Lu+oX5TN4Dvyo0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Xe0KX0YWlXuD2ovdBKm7AxKZ6y0Wc31ASO3pd1r7Ij7RVjj+efbvZmdcmN7mYVxvm
- 7t9Ou8ILBdDHu27BqQkIOxBAilO4hWqLKig5S2GoErMWG5YxTs39hXNELq2UG4BJ8p
- gAdYEfdV1yghjoQVMfjuNtQwAx/j/bC4vMXtf1HAEW9Hd8re+N5b+itUVXTpElamPB
- SCSuKX1F7rZrF0mQ0varuR84fMU36yOdXGVMecIims+4s8pta06jSjCYGx5NKAU1rR
- 6pHz1hSmGXQGg43JR/swyAsO/qcVxnibEc9UsXbt7UyxdFp+4o1FDWy+/zsf+n7opg
- y/uI3DUMs7Zrg==
+ b=H9Pw8UOVCIgmaR3CFlNoUsV/vTX1gDIuu71i2lICLfrpHEDMSy9aG/pU8iAKDhwgU
+ G9ZY6jCf30XzMYq3mgWgSzFIYq31JmIdW82jcSpinIopsZiWYGmrw+I2UCsFWonrMB
+ O+HNrGTb4ok7TxaT4XRuSGXAYRcywYSnL2x0atZwDq/voYiQTs911lUFbEWkICg5JT
+ SlfhHel01c/YK9baJ8jagoVEfKjXKfQu32egQ8naWigs0VIO3hk5K2I3SjJPgTHtsG
+ RkmbbwWTUE4Vzc/QwZaudTvKJInQuFucfszv6Sm12oS0CHxzj3aDxuRhX6EiWEBV2H
+ smM58h90czKXQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2B4F517E0DC3;
- Thu, 03 Sep 2026 00:54:13 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A279217E12C2;
+ Thu, 03 Sep 2026 00:54:16 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:09 +0300
-Subject: [PATCH v4 02/14] drm/rockchip: vop2: Fix resource leak on
- vop2_enable() error path
+Date: Thu, 03 Sep 2026 01:54:14 +0300
+Subject: [PATCH v4 07/14] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-2-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-7-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -61,8 +61,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Igor Paunovic <royalnet026@gmail.com>
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,116 +78,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vop2_enable() returns void, so callers cannot tell whether powering up
-the VOP2 succeeded.
+Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+the enable path.
 
-Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
-returns without disabling the core clocks or dropping the runtime PM
-reference taken earlier, leaking both.
+These resets are intended to leave the hardware in a clean state for the
+next use, helping recover from exceptions such as IOMMU page faults, as
+well as to prevent random display output glitches, such as a blank
+image, observed when switching modes that also change the color format,
+e.g. from RGB to YUV420 and vice versa.
 
-Make vop2_enable() return int and unwind all resources on every failure
-path.  As disabling the core clocks is also needed in vop2_disable(),
-factor it out into a local helper used by both.
+For now this seems to affect only the RK3588, hence the resets are
+optional and will be provided in the device tree for this SoC only.
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 39 +++++++++++++++++++---------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 36 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
+ 2 files changed, 40 insertions(+)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index b2f3a579bbe5..819ea3400bcd 100644
+index c3f72cac6369..21b8a5960086 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -860,6 +860,13 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
- 	return ret;
+@@ -17,6 +17,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
++#include <linux/reset.h>
+ #include <linux/swab.h>
+ 
+ #include <drm/drm.h>
+@@ -867,6 +868,26 @@ static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
+ 	clk_disable_unprepare(vop2->hclk);
  }
  
-+static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
++static void vop2_reset_assert_deassert(struct vop2 *vop2, struct reset_control *rstc)
 +{
-+	clk_disable_unprepare(vop2->pclk);
-+	clk_disable_unprepare(vop2->aclk);
-+	clk_disable_unprepare(vop2->hclk);
++	int ret;
++
++	if (!rstc)
++		return;
++
++	ret = reset_control_assert(rstc);
++	if (ret < 0) {
++		drm_warn(vop2->drm, "failed to assert reset: %d\n", ret);
++		return;
++	}
++
++	udelay(10);
++
++	ret = reset_control_deassert(rstc);
++	if (ret < 0)
++		drm_err(vop2->drm, "failed to deassert reset: %d\n", ret);
 +}
 +
  static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
  {
  	u32 pd;
-@@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
- 	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
- }
- 
--static void vop2_enable(struct vop2 *vop2)
-+static int vop2_enable(struct vop2 *vop2)
- {
- 	int ret;
- 	u32 version;
-@@ -879,25 +886,24 @@ static void vop2_enable(struct vop2 *vop2)
- 	ret = pm_runtime_resume_and_get(vop2->dev);
- 	if (ret < 0) {
- 		drm_err(vop2->drm, "failed to get pm runtime: %d\n", ret);
--		return;
-+		return ret;
- 	}
- 
- 	ret = vop2_core_clks_prepare_enable(vop2);
--	if (ret) {
--		pm_runtime_put_sync(vop2->dev);
--		return;
--	}
-+	if (ret)
-+		goto err_put_pm;
- 
- 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
- 	if (ret) {
--		drm_err(vop2->drm, "failed to attach dma mapping, %d\n", ret);
--		return;
-+		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
-+		goto err_disable_clks;
- 	}
- 
- 	version = vop2_readl(vop2, RK3568_VERSION_INFO);
- 	if (version != vop2->version) {
- 		drm_err(vop2->drm, "Hardware version(0x%08x) mismatch\n", version);
--		return;
-+		ret = -EINVAL;
-+		goto err_detach_dma;
- 	}
- 
- 	/*
-@@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
- 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
- 	vop2_writel(vop2, RK3568_SYS1_INT_EN,
- 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
-+
-+	return 0;
-+
-+err_detach_dma:
-+	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
-+err_disable_clks:
-+	vop2_core_clks_disable_unprepare(vop2);
-+err_put_pm:
-+	pm_runtime_put_sync(vop2->dev);
-+
-+	return ret;
- }
+@@ -953,6 +974,8 @@ static int vop2_enable(struct vop2 *vop2)
  
  static void vop2_disable(struct vop2 *vop2)
-@@ -942,9 +959,7 @@ static void vop2_disable(struct vop2 *vop2)
+ {
++	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
++
+ 	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
  
- 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+ 	pm_runtime_put_sync(vop2->dev);
+@@ -1981,6 +2004,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
  
--	clk_disable_unprepare(vop2->pclk);
--	clk_disable_unprepare(vop2->aclk);
--	clk_disable_unprepare(vop2->hclk);
-+	vop2_core_clks_disable_unprepare(vop2);
- }
+ 	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
  
- static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
++	vop2_reset_assert_deassert(vop2, vp->dclk_rst);
++
+ 	drm_crtc_vblank_on(crtc);
+ 
+ 	vp->enabled = true;
+@@ -2596,6 +2621,12 @@ static int vop2_create_crtcs(struct vop2 *vop2)
+ 			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
+ 					     "failed to get %s\n", dclk_name);
+ 
++		vp->dclk_rst = devm_reset_control_get_optional_exclusive(vop2->dev,
++									 dclk_name);
++		if (IS_ERR(vp->dclk_rst))
++			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
++					     "failed to get %s reset\n", dclk_name);
++
+ 		np = of_graph_get_remote_node(dev->of_node, i, -1);
+ 		if (!np) {
+ 			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
+@@ -2955,6 +2986,11 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
+ 		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
+ 				     "failed to get pll_hdmiphy1\n");
+ 
++	vop2->axi_rst = devm_reset_control_get_optional_exclusive(vop2->dev, "axi");
++	if (IS_ERR(vop2->axi_rst))
++		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
++				     "failed to get axi reset\n");
++
+ 	vop2->irq = platform_get_irq(pdev, 0);
+ 	if (vop2->irq < 0)
+ 		return dev_err_probe(drm->dev, vop2->irq, "cannot find irq for vop2\n");
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index b209b2d5b96d..1c2d7d97a6c2 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -165,6 +165,8 @@ enum vop2_win_regs {
+ 	VOP2_WIN_MAX_REG,
+ };
+ 
++struct reset_control;
++
+ struct vop2_regs_dump {
+ 	const char *name;
+ 	u32 base;
+@@ -238,6 +240,7 @@ struct vop2_video_port {
+ 	struct vop2 *vop2;
+ 	struct clk *dclk;
+ 	struct clk *dclk_src;
++	struct reset_control *dclk_rst;
+ 	unsigned int id;
+ 	const struct vop2_video_port_data *data;
+ 
+@@ -335,6 +338,7 @@ struct vop2 {
+ 	struct clk *pclk;
+ 	struct clk *pll_hdmiphy0;
+ 	struct clk *pll_hdmiphy1;
++	struct reset_control *axi_rst;
+ 
+ 	/* optional internal rgb encoder */
+ 	struct rockchip_rgb *rgb;
 
 -- 
 2.55.0
