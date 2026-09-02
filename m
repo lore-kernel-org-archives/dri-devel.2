@@ -4,109 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45644C624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 941D8C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A75A210F3F6;
-	Thu,  3 Sep 2026 07:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9375610F3F9;
+	Thu,  3 Sep 2026 07:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="VkQ6K+ef";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="Z2l2tWKa";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013018.outbound.protection.outlook.com
- [40.107.201.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0010F1CA
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:01:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eRXpHRlUyPDAQmqrZkd4gr7ZhqsKN1+5h3iNoXn5CYHzTmc14I2DI8gsnc8ywu+3+5qOdRwfqyHHl6w/wu3ekexi+H+L0NoKXng7mjP8twZw4I9br1drf2oXD5nNS9HKJxnmMTGNhoftgaYDyiuY6fINcuUnld2Tu6wiAmSo5b2IW3z9lB4HDLnPkbVW+ocoI55ZqY8xNij6SI2DK93gZZBGfkxf1T9n11fDHVMjVYj1Pl9NkIoImHX1x5T2NfYYQWZVlEA9Y4rzIcbouAAgomTqGAHlG0xJQIEqJgPz8ECzrgfe0JKsWYuANrBc36F5NbsIJpCkHfHdJ4hVNI+enw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HtFuLWOeo044dXAap0RsBsuypxn/lF5Pc0jcoVn0jRo=;
- b=mPpH653Pg8ATQXtlOWtDkGcURyx1dKeg7XVLgZl30i2efEaAZDh3DyNtYeYbYaGV871X+1SR8gYA4NEeerOEkyV9Eb2m37Iw2szD2wrYnHiFaT+xNRieD2wBcBhkDoC7x84geLdsrAIbN/gSXXvxTpFwpPiGfjecM9Lp4CP8UwE9taz5rripSLm8f9XkyREHSRsTcu+qbU2IzYjHeBk/xOsUsrEN65VSs3cC91vqh9bgeRiAXD4BzrjZkY/Zdole3q97ZHnMZRrTzOOKE6pPZ7fjuQ2GXu6LRqOToyzJaTOFcXpFwE/v+05/dlqPjttmh7xAcAKnX7JaSOtlWHImag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 165.85.157.49) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
- pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
- not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HtFuLWOeo044dXAap0RsBsuypxn/lF5Pc0jcoVn0jRo=;
- b=VkQ6K+ef44HRAfK0cz+p3Yngs2fgvFRpxYZwZHHA2nmaBMPHVdJL7vkAg90VdVVFgV509XDt2L+l1dC3ZiNOyyNjGdHW8lh975+fNfQ/R+6API7tnK++YSFWhPK6eRFfYA90DeAt6LQNWGoNeRp+0tggnoh1L4T2F+pHLTTF6FM2XM6OjFFPlbGFRSNxFJmCXKTTJR21Ea5ECu3hJ26oTBNBxxwBDAflI8iPjz6ZHponvpsEaLkyGNv/D7GmoWSw8s4fc+WZUxxzQGiR8bHfFJ2nmLGupEsmH5Al67qc9icXVT/aT5QfWO5LEI3sfHEp4T6xMLMutKrlBbKs5WHO+w==
-Received: from MN0P223CA0023.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::10)
- by SA1PR22MB6008.namprd22.prod.outlook.com (2603:10b6:806:469::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 13:01:28 +0000
-Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:52b:cafe::ab) by MN0P223CA0023.outlook.office365.com
- (2603:10b6:208:52b::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
- Sep 2026 13:01:25 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
- smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
-Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
- not designate 165.85.157.49 as permitted sender)
- receiver=protection.outlook.com; client-ip=165.85.157.49;
- helo=atlrelay2.compute.ge-healthcare.net;
-Received: from atlrelay2.compute.ge-healthcare.net (165.85.157.49) by
- MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:01:25 +0000
-Received: from zeus.fihel.lab.ge-healthcare.net
- (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
- by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id 6C55719244;
- Wed,  2 Sep 2026 16:01:21 +0300 (EEST)
-From: Ian Ray <ian.ray@gehealthcare.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>
-Cc: Ian Ray <ian.ray@gehealthcare.com>, stable@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/3] drm/bridge: dw-hdmi: optionally ignore rxsense when
- detecting hotplug
-Date: Wed,  2 Sep 2026 16:01:14 +0300
-Message-ID: <20260902130117.2731-2-ian.ray@gehealthcare.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260902130117.2731-1-ian.ray@gehealthcare.com>
-References: <20260902130117.2731-1-ian.ray@gehealthcare.com>
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
+ [74.125.224.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4F110F0E5
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:02:03 +0000 (UTC)
+Received: by mail-yx1-f47.google.com with SMTP id
+ 956f58d0204a3-66d116f0de8so890311d50.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 03:02:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788343322; cv=none;
+ d=google.com; s=arc-20260327;
+ b=OyYfSTo0cabdBOM3S6Hlyws0HADouvsR4Lf1CCT/xAmileDyO0oFg7cIWm3A8zL4Mi
+ hh73aRanNryyo89mbJkYwLXIzZKbKjFhsViJwuYi+6N6pTF14YwsX8D9cYHtDZyTdjdL
+ 4yAGZ22UPgvkRjRQ5/Nwiaqq19w8OZoVQO7qbnNsOnCbRwU6F/O0GjIYuLyVLDCc30tf
+ 7NrKFd5VzPp5zYD3zdhXoAQ2S+1TIhf5aiyp6KpUoeZIo0NZ+o0CUrcmmPNmdC2X34GD
+ vXjroIk1qKnslMZilCGexN+WPRl9CpACeiN9dbs25DhGcTUlAiP4H5XZnvjbRmd3AuXq
+ 5iOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=7Yl5QmRxyNgI9FkGfHWferAKBRopNrYR4eAo0FssY70=;
+ fh=bgWKJbaQTWbSZgqbZ3Q7AqX4wo65GcRVulvq180M+i8=;
+ b=jMtpJx5SDJjeLjx/oNc40+Cjie3gmme390gg3qQkXm0oCfatsWl2nCIgFnWXVAKZR3
+ CfjW8mrU2EAC4za65QVZP27FB2VfqFe/CHmIoXbnFcKnt7oZGUZnnSa9zX/fcVaS/qxv
+ jiIrZD97bEPVhR0OK6/v76YGT+OFy0RTBO+mB3qrDFvANH5RIPBMrlWuDZYIo2eibQmF
+ 5i3BEDT+xJ0yxynhXnqUcmxNsGqpA20KmWQkzMSRCQYWrtSc7eAOhiXiTb54I1WoSa3m
+ fZODem2z703aVrNuLRQGJdA2lIPrqbEugBz640Y+r/31b9Wtbd1LXEgfQEBebX3b1FTg
+ wGyw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1788343322;
+ x=1788948122; darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=7Yl5QmRxyNgI9FkGfHWferAKBRopNrYR4eAo0FssY70=;
+ b=Z2l2tWKalEP0KZCcMdIS2AQP8EVL/RIF/1NeeMWw0DpNFJOCDmnSziWPuUxZbBqmyL
+ eWPe58aUVpfK4MxGz0t6ElcERmlFOe+8a8RJCEd9iZQzDZlr98krN4i0ardVOTtrsXxO
+ PCxOWMU2BrXWn1ixGGTb0wukJE0gzq/jjoSx20v7AVSrso7OJssS4Op2bEWk1mUi+TFY
+ nrsN99vZsLur4pufnD5deT724WJVQbCgkXK/4PSP6orUtJf6dc3SieKUZ+UOmigvpdPJ
+ ZvQp9a0Q2fJXUMT3Xc87oKc0XEgll14zYJ88+Tl8HZgpa3E9jkU6AaMwCj9+I1wcOlDD
+ zxCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788343322; x=1788948122;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=7Yl5QmRxyNgI9FkGfHWferAKBRopNrYR4eAo0FssY70=;
+ b=Zo/k30Y+THyeKFRtdt1I4XTOmYAHqULGPgv5iVmIjR+7sCLBmq+dSaZ8YL0aeffKMQ
+ gHvT4epnnke/dQB1MXpWbWFVKF4aD1VF7FddK4IhpKLwc1wVIIoYcDEoI91Xe/w1/igl
+ NPdtXE+islTtYdk7rOF9jJGoyxll48s83hdW0aua7Pn1V0nP02s8f6xwFmkmZFRd+uQT
+ 5UBipqlk+7EG6S+IKM2HjLJDxCtBwwWjajl7UQCTNQv51VMx+rEfjDTXrLPxqMNhiZn3
+ 8CyG4i1Re3gfY7ybD/5Fp2lh3NorrFKrYOYziM2yBcnyrWLKupr/d36M+fJCH1SWSTby
+ O1iw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxZn7H9Iu/qEfHis7AIaHxEu2ZY5FaUxzWlAqoTurLXWJL5ko+5Kr/aJuYcrbcH6uxQ0of6q5pQRD0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ly2y3CqnaBhSjFo+GCBY6me8h30bQdXWDJ3Wu8aZMqRDrQhps3
+ 8pOduE2bD+cJNVP85r0tIhie4GVQOmLMdFXb60AfE+HNGd8hgiAFLXPp+5UZtARKkOFztySDSIL
+ yFI70cqeymD4mBdXK2a0PAURdLhaoH2tCY3OTrHuN
+X-Gm-Gg: AYBFou3Q2gJ+rJBWxOon7BlVR1w4gcgaOdPlDd/qg8SRpnyRMa8TgrMsjVrS/DOMxFd
+ 7VzJTVssLYh60qdY7nBjoyirfGl5IOLdn/cBPY09ByX+9G8AtZHk+CAPlqqHZSWdXX/zAXTBypB
+ t4EL5pGIDaJ6r42Vj/WNAK2qFLhhSz2C98hlAAvrz7Cu51XfcuhiRK+odZ0mrB75igMDPNIKQCo
+ arSxwdElSlycqpfGwfCcxMXunn1C41XsOSl11g0mdWD8OxJG7ITn38/cfDAb/4Ijg1z0ZP0TvrS
+ 9fUQyGzD5zrNWPq43AUTXxrBJORGj9/UlT23DRZbf9xQK4crgdCQDFHAZjRw+3ds3VixHdC31KI
+ g
+X-Received: by 2002:a05:690e:1514:b0:66f:7c64:9d47 with SMTP id
+ 956f58d0204a3-66f9bd4991dmr1118782d50.23.1788343321975; Wed, 02 Sep 2026
+ 03:02:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|SA1PR22MB6008:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 0787d057-28c7-4fc9-3553-08df08f24ba7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: 7V2kQeeLQwDkXicIR1UynJQVYHI1V1XlTkK0DAzNEdRId3Nh037NSNidBsnWaYQt1ywdlOoUeKqGwXBMhUZuARNmjFD0XdC4Vki04GHw+MU98jpI3fD8zGSqDEBJa11eT1ij2JUeh9r7eGGugXpk9v63goNHrG2etiE6cNzpA/NIXct1vApcuH+PG74ZSsmcB2uRMtI16SeNZjScj6ECGyPArdYtHkqjVcmZHPkhYU01q4WjHtb04Cz/SpiNgetuAYYrzUzMykwhUbyKm7sSSea/zxSBp0KHj+qVTQfJqcwyiGzPtPT2Q5hdxEXVE1U1iuK60df68K+B2HvlDzdmR9A+jw8vM59Ymfm6o0inK0erANK4ML+MKAaq4/PZkmodW0WSoWNSydAEq/CSSmH6ouH5ePbWbGwiAPEMgmDct1nWrhMWi8Ik305+UeXnlPpYdPE4kQkyuvzd59XIjbzLXRE2IcA1OL4Y/9ZowGbPxz5z6QtxeBM4Qnqr1osCXxSvNlujZr67/TdLl7sJxRD8PNSQyKcoVl5ExlrQPxEmX3Nnk/AXSs5lQTVnAev2i0zXMheLe/jKw0vZRvQZcqrKSxHt/6JcV3MTHRzQC1qcfpDwlMl6PgaOi3uUDXoUFKiyIY7p1Stj3AcyxdNITJh6A7etkZg4KbsfgL+/DYoAgiYdXPIZQtGT7OMqNIS1iftXKrMPiQYudyplDJmrSp1yYmBNS5xI4MFltcXdAxURYZApqDAfM2xdkkZbnhumfTc3
-X-Forefront-Antispam-Report: CIP:165.85.157.49; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:atlrelay2.compute.ge-healthcare.net;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZNMfpGZClla927YX52TQpvMQpy9ax1kWkdvjmlr/LxfYDUik79Y4ciWFKR4JqsfvtUU2wIAa4h/rxb9Rp6nDEL7IHeHzTGuDCKmbZR1pEGC721zoof5EOG4n1iqBS4dFoU/fLrXntOmMIAAOVZxYEZioN5SZ9SHo7igave0osXEdfcSCdxz/A4k4rg61D/rtXN9bXG1exf8h7xPAk6wKZmg07amWOdim8y/E35BVxeUZjDa+wlsM5YLLoGya+yqxdm/Mli8LqM+Y83Qm4W+9nCkipbs2P/oovF2GwGllSEbq9X9pfvvwTWihCm2H83q3poqRYH/SNNA0TBKk/efkrLcmvL3KNwLcWO2zLgBY1TJqz+Ru7RyUxTcVsqMSPYFExSUnrlhIHJgM9TpRJfxIV1X/oZ13F3zGlj/4VEXV2QgF9LIj63WTgYjRZxZ5daMV
-X-OriginatorOrg: gehealthcare.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:01:25.1415 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0787d057-28c7-4fc9-3553-08df08f24ba7
-X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf; Ip=[165.85.157.49];
- Helo=[atlrelay2.compute.ge-healthcare.net]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MN1PEPF0000F0E4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR22MB6008
+References: <cover.1788284852.git.sean@starlabs.systems>
+ <apfz3lf1RIfAkKYS@google.com>
+In-Reply-To: <apfz3lf1RIfAkKYS@google.com>
+From: Sean Rhodes <sean@starlabs.systems>
+Date: Wed, 2 Sep 2026 11:01:50 +0100
+X-Gm-Features: AcwNN1XY2WlZI7b41cj9pFZjq4mCyoo_3nH6T_KZHZYXfCYS3mXFpBitd3ECMtg
+Message-ID: <CABtds-0w2b0P6SGoAZGHJe-4usmG6B8SUP1ufRQyp0+9UFcF3g@mail.gmail.com>
+Subject: Re: (subset) [PATCH v14 0/5] coreboot CFR firmware attributes
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, 
+ Denis Benato <denis.benato@linux.dev>, Prasanth Ksr <prasanth.ksr@dell.com>, 
+ Jorge Lopez <jorge.lopez2@hp.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>, 
+ Will Deacon <will@kernel.org>, Douglas Anderson <dianders@chromium.org>, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com, 
+ Brian Norris <briannorris@chromium.org>, Julius Werner <jwerner@chromium.org>, 
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>, 
+ Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+ Yidi Lin <yidilin@google.com>, 
+ Kees Cook <kees@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ chrome-platform@lists.linux.dev, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>,
+ Eric Biggers <ebiggers@kernel.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>, Michal Simek <michal.simek@amd.com>, 
+ Sven Peter <sven@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,53 +139,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event
-on link change") changed the way hotplug is detected to take into
-consideration rxsense.
+Thank you :)
 
-That change is problematic for boards where rxsense is always detected,
-such as when an HDMI to DP converter is used.
-
-Introduce an optional property 'ignore-rxsense' to handle such boards.
-
-Fixes: da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event on link change")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 34c5f583e910..a9337d1f4b88 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -171,6 +171,7 @@ struct dw_hdmi {
- 	bool disabled;			/* DRM has disabled our bridge */
- 	bool bridge_is_on;		/* indicates the bridge is on */
- 	bool rxsense;			/* rxsense state */
-+	bool ignore_rxsense;		/* use HPD only, ignore rxsense for detect */
- 	u8 phy_mask;			/* desired phy int mask settings */
- 	u8 mc_clkdis;			/* clock disable register */
- 
-@@ -3156,6 +3157,9 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
- 		if (phy_stat & HDMI_PHY_HPD)
- 			status = connector_status_connected;
- 
-+		if (hdmi->ignore_rxsense)
-+			phy_stat &= ~HDMI_PHY_RX_SENSE;
-+
- 		if (!(phy_stat & (HDMI_PHY_HPD | HDMI_PHY_RX_SENSE)))
- 			status = connector_status_disconnected;
- 	}
-@@ -3362,6 +3366,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 	mutex_init(&hdmi->cec_notifier_mutex);
- 	spin_lock_init(&hdmi->audio_lock);
- 
-+	hdmi->ignore_rxsense = of_property_read_bool(np, "ignore-rxsense");
-+
- 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
- 	if (ddc_node) {
- 		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
--- 
-2.47.3
-
+On Wed, 2 Sept 2026 at 11:01, Tzung-Bi Shih <tzungbi@kernel.org> wrote:
+>
+> On Tue, Sep 01, 2026 at 06:48:01PM +0100, Sean Rhodes wrote:
+> > Move the firmware attributes class helper out of platform/x86, rename the
+> > coreboot-table firmware driver directory from google to coreboot, and add a
+> > coreboot CFR firmware attributes driver.
+> >
+> > Changes in v14:
+> > - Rebase on current upstream master after Linux 7.3-rc1, preserving the
+> >   intervening coreboot table bounds and CBMEM no-map changes.
+> > - Drop the standalone include-order cleanup. Replace the affected relative
+> >   includes directly in the firmware attributes helper move, as requested by
+> >   Tzung-Bi.
+> > - Split the DRM coreboot framebuffer dependency update from the firmware
+> >   directory and Kconfig rename so it can receive a DRM Acked-by separately.
+> > - Keep the CFR driver and its runtime behavior unchanged from v13.
+> >
+> > [...]
+>
+> Applied to
+>
+>     https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
+>
+> [2/5] firmware: Rename google firmware directory to coreboot
+>       commit: 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602
+>
+> Also created an immutable branch "ib-coreboot-rename-7.4"[1] for patch 3
+> and patch 5 which build-time depend on it.
+>
+> Thanks!
+>
+> [1] https://lore.kernel.org/all/apfyaxKEEJz20wRC@google.com
