@@ -4,85 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 427E9C624DD
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45644C624D7
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8C8510F3F3;
-	Thu,  3 Sep 2026 07:33:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A75A210F3F6;
+	Thu,  3 Sep 2026 07:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kp72dgcl";
+	dkim=pass (2048-bit key; unprotected) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="VkQ6K+ef";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709A010EF41
- for <dri-devel@lists.freedesktop.org>; Tue,  1 Sep 2026 22:12:08 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-49ccfbe062eso2598475e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 01 Sep 2026 15:12:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788300727; x=1788905527; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=920ie7mR2uGNd0kS6o28FsYSJY1xch5R6Nydolas+Zw=;
- b=kp72dgcl4+TfB2hGSD/8paMkpYOw/XGmAsMGsGZdNrBXX8BdzUgT1TW+WfH9PZddBm
- oAmEgkWFzUcu/JHzrcP06xmKOvTTXOtq7+o92Lq+FhEsUxXwFSPUs1Dawg10zd3D/kpp
- miZebMWJ+M9lkfxx0tEbF1KIETDof4y6gYBVFwZUBCChNdmw7JBnSqSYeqUGAJLT41mv
- 8QjDuMjIO4TPM2no7Uys4ZHk8mpUI3xN6GBqAlIfpCYmbqJcNQkGS+6A8xpIwHelWmWS
- 4VUMoqkbAHnaRskOvyhfopLhuihA1wHZ0rYMGjuoIshSoelR9OY9bqiY5mUT1A8P3osi
- 3rVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788300727; x=1788905527;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=920ie7mR2uGNd0kS6o28FsYSJY1xch5R6Nydolas+Zw=;
- b=BMMh75frw0Vi/uijVxa4+NhwYI690SElhN0IR76dHkR8GaUj4R8s33O73UMUpHOvk6
- 3qFUs9Z0k8n/DLXaOC57wiYRDlREkvegqcMQbGALzdssgINF1rPCY8DoXfMtVGPimJdx
- d4D/nEFpvLidT3pfHdECPA8EWVjkiKyL5HJXVpg0w77sAleckYXuwpYn6kVucRfC2mV/
- AZzWX54jQ/F8D+N7fSIA1u4zHoff2gHaAfXSZhuXU1wnx92n1n4lwz62PCArzutn92hZ
- j9hET/GWk1AFCMnWSBJ/flfrXhXoHroc82JgDpf3ekRYKQ0EyDVPWexEy2z+zCk8t9bw
- atRg==
-X-Gm-Message-State: AFuF++l2pI2n6a/EY47ws9qfXYRaIwwj0o5RxNApN4ZIXu/55V2culsI
- 78/ABa6e8yA2EuVLhYsODTirJytRuHWsj8oROX/XpdvGb75KN8pqgbYR
-X-Gm-Gg: AR+sD10N50SOhPbL3xDNmpoFXA3GTo/qsuW7gvHNG9RvlIYrfhrOcfTWJs0kix8FViJ
- V8FOXHtRdk6qNNJwUZcsViZ0F5szqpeFvQsTgPJRNYRmWWaGWdEmnilfrsagkFh7N9/A/0NFUDU
- 4TxjWW/Fmoip/H/RfOc2+4GBCOezhDSiVgmoZHZJuGFMynwI0Hd6b5xUaHwtbcRKoJ49qx+jW16
- gCrnyJTECbZ97wHhljDQEYSaUP3sT+nHCj5UatxlbCeXjgexs8bsxlXC2WvP+P6GTHbmFFKc5jg
- ZDlw0RrfGzXRufc0AptCmQLUrTeFKukdKUJ18RCODmmAGA/LtS9g194jvi7wTZazrkAyijEjWCD
- QT8i0s0DcPlIEiyffQD4OdvIFUXjQoZ3Gq/mbu4DU0QFoVXgUFhFbaC/6tXV41v3nTlnjkVZAlJ
- ivBx43PM3NIh1PP37Cit5BlDkeTSNcoFs5mg8Wsen0RMhG4BPJEXGkIGyRyat16YdrQjCxoAGg0
- lqmmVem5e3tdqRbcquf1YQIpjnh5RcJFyujV3LLNdFxCYzAZDQxQ27rEKkS0D+b6fXFrkz1E3JW
- +4ycGZMManT3Efu+Kbt4Y7exWpNq0aoxt4pe4bhp43r4UQ==
-X-Received: by 2002:a05:600c:4fcd:b0:49b:90cc:3c87 with SMTP id
- 5b1f17b1804b1-49ce582267bmr8034685e9.13.1788300726530; 
- Tue, 01 Sep 2026 15:12:06 -0700 (PDT)
-Received: from [192.168.168.11] (a109-50-200-65.cpe.netcabo.pt.
- [109.50.200.65]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce592b017sm2314355e9.2.2026.09.01.15.12.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Sep 2026 15:12:06 -0700 (PDT)
-Message-ID: <7ed80c0e-de24-4506-9db3-bc25c17d260e@gmail.com>
-Date: Tue, 1 Sep 2026 23:12:05 +0100
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013018.outbound.protection.outlook.com
+ [40.107.201.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE0010F1CA
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:01:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eRXpHRlUyPDAQmqrZkd4gr7ZhqsKN1+5h3iNoXn5CYHzTmc14I2DI8gsnc8ywu+3+5qOdRwfqyHHl6w/wu3ekexi+H+L0NoKXng7mjP8twZw4I9br1drf2oXD5nNS9HKJxnmMTGNhoftgaYDyiuY6fINcuUnld2Tu6wiAmSo5b2IW3z9lB4HDLnPkbVW+ocoI55ZqY8xNij6SI2DK93gZZBGfkxf1T9n11fDHVMjVYj1Pl9NkIoImHX1x5T2NfYYQWZVlEA9Y4rzIcbouAAgomTqGAHlG0xJQIEqJgPz8ECzrgfe0JKsWYuANrBc36F5NbsIJpCkHfHdJ4hVNI+enw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HtFuLWOeo044dXAap0RsBsuypxn/lF5Pc0jcoVn0jRo=;
+ b=mPpH653Pg8ATQXtlOWtDkGcURyx1dKeg7XVLgZl30i2efEaAZDh3DyNtYeYbYaGV871X+1SR8gYA4NEeerOEkyV9Eb2m37Iw2szD2wrYnHiFaT+xNRieD2wBcBhkDoC7x84geLdsrAIbN/gSXXvxTpFwpPiGfjecM9Lp4CP8UwE9taz5rripSLm8f9XkyREHSRsTcu+qbU2IzYjHeBk/xOsUsrEN65VSs3cC91vqh9bgeRiAXD4BzrjZkY/Zdole3q97ZHnMZRrTzOOKE6pPZ7fjuQ2GXu6LRqOToyzJaTOFcXpFwE/v+05/dlqPjttmh7xAcAKnX7JaSOtlWHImag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HtFuLWOeo044dXAap0RsBsuypxn/lF5Pc0jcoVn0jRo=;
+ b=VkQ6K+ef44HRAfK0cz+p3Yngs2fgvFRpxYZwZHHA2nmaBMPHVdJL7vkAg90VdVVFgV509XDt2L+l1dC3ZiNOyyNjGdHW8lh975+fNfQ/R+6API7tnK++YSFWhPK6eRFfYA90DeAt6LQNWGoNeRp+0tggnoh1L4T2F+pHLTTF6FM2XM6OjFFPlbGFRSNxFJmCXKTTJR21Ea5ECu3hJ26oTBNBxxwBDAflI8iPjz6ZHponvpsEaLkyGNv/D7GmoWSw8s4fc+WZUxxzQGiR8bHfFJ2nmLGupEsmH5Al67qc9icXVT/aT5QfWO5LEI3sfHEp4T6xMLMutKrlBbKs5WHO+w==
+Received: from MN0P223CA0023.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::10)
+ by SA1PR22MB6008.namprd22.prod.outlook.com (2603:10b6:806:469::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 13:01:28 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:208:52b:cafe::ab) by MN0P223CA0023.outlook.office365.com
+ (2603:10b6:208:52b::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 13:01:25 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
+ smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay2.compute.ge-healthcare.net;
+Received: from atlrelay2.compute.ge-healthcare.net (165.85.157.49) by
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:01:25 +0000
+Received: from zeus.fihel.lab.ge-healthcare.net
+ (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+ by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id 6C55719244;
+ Wed,  2 Sep 2026 16:01:21 +0300 (EEST)
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>
+Cc: Ian Ray <ian.ray@gehealthcare.com>, stable@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1 2/3] drm/bridge: dw-hdmi: optionally ignore rxsense when
+ detecting hotplug
+Date: Wed,  2 Sep 2026 16:01:14 +0300
+Message-ID: <20260902130117.2731-2-ian.ray@gehealthcare.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260902130117.2731-1-ian.ray@gehealthcare.com>
+References: <20260902130117.2731-1-ian.ray@gehealthcare.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
-To: "Zuo, Jerry" <Jerry.Zuo@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
- "daniel@fooishbar.org" <daniel@fooishbar.org>
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
- <c42ced8f-5e3a-42c9-ade4-d357575114ca@gmail.com>
- <CHXPR12MB999220744D9CB11795CEF3DD69E5A82@CHXPR12MB999220.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Adolfo <adolfotregosa@gmail.com>
-In-Reply-To: <CHXPR12MB999220744D9CB11795CEF3DD69E5A82@CHXPR12MB999220.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|SA1PR22MB6008:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 0787d057-28c7-4fc9-3553-08df08f24ba7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: 7V2kQeeLQwDkXicIR1UynJQVYHI1V1XlTkK0DAzNEdRId3Nh037NSNidBsnWaYQt1ywdlOoUeKqGwXBMhUZuARNmjFD0XdC4Vki04GHw+MU98jpI3fD8zGSqDEBJa11eT1ij2JUeh9r7eGGugXpk9v63goNHrG2etiE6cNzpA/NIXct1vApcuH+PG74ZSsmcB2uRMtI16SeNZjScj6ECGyPArdYtHkqjVcmZHPkhYU01q4WjHtb04Cz/SpiNgetuAYYrzUzMykwhUbyKm7sSSea/zxSBp0KHj+qVTQfJqcwyiGzPtPT2Q5hdxEXVE1U1iuK60df68K+B2HvlDzdmR9A+jw8vM59Ymfm6o0inK0erANK4ML+MKAaq4/PZkmodW0WSoWNSydAEq/CSSmH6ouH5ePbWbGwiAPEMgmDct1nWrhMWi8Ik305+UeXnlPpYdPE4kQkyuvzd59XIjbzLXRE2IcA1OL4Y/9ZowGbPxz5z6QtxeBM4Qnqr1osCXxSvNlujZr67/TdLl7sJxRD8PNSQyKcoVl5ExlrQPxEmX3Nnk/AXSs5lQTVnAev2i0zXMheLe/jKw0vZRvQZcqrKSxHt/6JcV3MTHRzQC1qcfpDwlMl6PgaOi3uUDXoUFKiyIY7p1Stj3AcyxdNITJh6A7etkZg4KbsfgL+/DYoAgiYdXPIZQtGT7OMqNIS1iftXKrMPiQYudyplDJmrSp1yYmBNS5xI4MFltcXdAxURYZApqDAfM2xdkkZbnhumfTc3
+X-Forefront-Antispam-Report: CIP:165.85.157.49; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:atlrelay2.compute.ge-healthcare.net;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ZNMfpGZClla927YX52TQpvMQpy9ax1kWkdvjmlr/LxfYDUik79Y4ciWFKR4JqsfvtUU2wIAa4h/rxb9Rp6nDEL7IHeHzTGuDCKmbZR1pEGC721zoof5EOG4n1iqBS4dFoU/fLrXntOmMIAAOVZxYEZioN5SZ9SHo7igave0osXEdfcSCdxz/A4k4rg61D/rtXN9bXG1exf8h7xPAk6wKZmg07amWOdim8y/E35BVxeUZjDa+wlsM5YLLoGya+yqxdm/Mli8LqM+Y83Qm4W+9nCkipbs2P/oovF2GwGllSEbq9X9pfvvwTWihCm2H83q3poqRYH/SNNA0TBKk/efkrLcmvL3KNwLcWO2zLgBY1TJqz+Ru7RyUxTcVsqMSPYFExSUnrlhIHJgM9TpRJfxIV1X/oZ13F3zGlj/4VEXV2QgF9LIj63WTgYjRZxZ5daMV
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:01:25.1415 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0787d057-28c7-4fc9-3553-08df08f24ba7
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf; Ip=[165.85.157.49];
+ Helo=[atlrelay2.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR22MB6008
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,103 +123,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I patched kernel 7.3-rc1 with the passive-VRR patches, but VRR is not 
-engaging while on the desktop, only in game.
+Commit da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event
+on link change") changed the way hotplug is detected to take into
+consideration rxsense.
 
-On 01/09/2026 20:15, Zuo, Jerry wrote:
-> AMD General
->
->> -----Original Message-----
->> From: Adolfo <adolfotregosa@gmail.com>
->> Sent: Monday, August 31, 2026 14:49
->> To: Zuo, Jerry <Jerry.Zuo@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: dri-devel@lists.freedesktop.org; Wentland, Harry
->> <Harry.Wentland@amd.com>; Tomasz Pakuła
->> <tomasz.pakula.oficjalny@gmail.com>; daniel@fooishbar.org
->> Subject: Re: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
->>
->> [You don't often get email from adolfotregosa@gmail.com. Learn why this is
->> important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> I patched kernel 7.3-rc1, and I have KDE's Adaptive Sync property set to
->> Automatic (Always makes the display gamma flicker). VRR itself is only
->> engaged when entering a game.
->>
->> My display (an LG C1 connected through an Onkyo RZ70 AVR) shows "fixed"
->> when VRR is not active. While this seems logical, it causes the display to go
->> blank every time I enter or exit a game, or, even worse, when I alt-tab while in
->> a game.
->>
->> In my case, I can have periods of up to 10 seconds with no image while the
->> devices in the HDMI chain disagree with each other, and sometimes I lose the
->> image completely.
->>
->> A kernel parameter to force VRR to always be enabled should be available.
->> This would prevent these signal-switching problems, and it is how "FreeSync"
->> actually works and also with the unofficial kernel patches for AMD HDMI 2.1
->> + VRR on kernel 7.2.
->>
->> There is also some evidence that keeping VRR active can avoid the mode-
->> switch behavior seen on some TVs when VRR is enabled or disabled.
-> Thanks for your feedback. Regarding to your concern, I've uploaded another
-> series of patches for "passive VRR". Please check and see if that works for you.
->
-> Regards,
-> Jerry
->
->> On 14/08/2026 17:43, Fangzhi Zuo wrote:
->>> This series adds HDMI 2.1 gaming support to amdgpu: Variable Refresh
->>> Rate
->>> (VRR) derived from the HDMI Forum VSDB (HF-VSDB), and Auto Low-
->> Latency
->>> Mode (ALLM). It builds on a drm/edid patch that parses the HF-VSDB
->>> gaming capabilities into struct drm_hdmi_info.
->>>
->>>     - Patch 1 reports FreeSync from the AMD VSDB (existing mechanism).
->>>     - Patch 2 (drm/edid) parses the HF-VSDB VRR range and ALLM bit.
->>>     - Patch 3 enables VRR from the HF-VSDB when the AMD VSDB has no
->> range.
->>>     - Patch 4 signals ALLM_Mode in the HF-VSIF when Gaming-VRR is active.
->>>
->>> v1:
->>> https://lore.kernel.org/amd-gfx/20260730171754.704049-1-jerry.zuo@amd.
->>> com/
->>> v2:
->>> https://lore.kernel.org/amd-gfx/20260806205449.16806-1-jerry.zuo@amd.c
->>> om/
->>> v3:
->>> https://lore.kernel.org/amd-gfx/20260811003921.1398292-1-
->> jerry.zuo@amd
->>> .com/
->>>
->>> Changes since v3:
->>>     - Drop the content-type based ALLM heuristic. ALLM_Mode is now set
->> only
->>>       for the mandatory Gaming-VRR case (VRR_EN=1 with a sink that
->> advertises
->>>       ALLM), per HDMI 2.1 Section 7.6.6; it is no longer derived from the
->>>       content type.
->>>
->>> Changes since v2:
->>>     - Fix coding-style issues in the VTEM info-packet code.
->>>
->>> Fangzhi Zuo (3):
->>>     drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
->>>     drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
->>>     drm/amd/display: Enable HDMI ALLM for Gaming-VRR
->>>
->>> Tomasz Pakuła (1):
->>>     drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from
->>> HF-VSDB
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
->>>    .../display/amdgpu_dm/amdgpu_dm_connector.c   |  71 +++++++++++-
->>>    .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  41 +++++++
->>>    .../amd/display/modules/inc/mod_info_packet.h |   4 +
->>>    .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
->>>    drivers/gpu/drm/drm_edid.c                    |  42 +++++++
->>>    include/drm/drm_connector.h                   |  47 ++++++++
->>>    7 files changed, 317 insertions(+), 2 deletions(-)
->>>
->>>
->>> base-commit: de2622bbc20276eaaaafa8fdbd374ace1ced28dc
+That change is problematic for boards where rxsense is always detected,
+such as when an HDMI to DP converter is used.
+
+Introduce an optional property 'ignore-rxsense' to handle such boards.
+
+Fixes: da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event on link change")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 34c5f583e910..a9337d1f4b88 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -171,6 +171,7 @@ struct dw_hdmi {
+ 	bool disabled;			/* DRM has disabled our bridge */
+ 	bool bridge_is_on;		/* indicates the bridge is on */
+ 	bool rxsense;			/* rxsense state */
++	bool ignore_rxsense;		/* use HPD only, ignore rxsense for detect */
+ 	u8 phy_mask;			/* desired phy int mask settings */
+ 	u8 mc_clkdis;			/* clock disable register */
+ 
+@@ -3156,6 +3157,9 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+ 		if (phy_stat & HDMI_PHY_HPD)
+ 			status = connector_status_connected;
+ 
++		if (hdmi->ignore_rxsense)
++			phy_stat &= ~HDMI_PHY_RX_SENSE;
++
+ 		if (!(phy_stat & (HDMI_PHY_HPD | HDMI_PHY_RX_SENSE)))
+ 			status = connector_status_disconnected;
+ 	}
+@@ -3362,6 +3366,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 	mutex_init(&hdmi->cec_notifier_mutex);
+ 	spin_lock_init(&hdmi->audio_lock);
+ 
++	hdmi->ignore_rxsense = of_property_read_bool(np, "ignore-rxsense");
++
+ 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
+ 	if (ddc_node) {
+ 		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
+-- 
+2.47.3
+
