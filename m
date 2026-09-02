@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BF6C624D6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E92FBC624D9
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:54:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3FCA10F2A2;
-	Wed,  2 Sep 2026 15:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E1C10F2A5;
+	Wed,  2 Sep 2026 15:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jHArp+vM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IVYTh2fz";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41E1B10E517;
- Wed,  2 Sep 2026 15:54:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 321FE10E517;
+ Wed,  2 Sep 2026 15:54:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788364455; x=1819900455;
+ t=1788364456; x=1819900456;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=alECq78ybBkBpAp/hI/kQCuoKTLndCrFaV3AtVteVEA=;
- b=jHArp+vMjI+0uXR8KfL6NBQC8l99b2i/Om0AiCNrLtWuZ3HP3njqLXOV
- qnzy2cIRadX8WXVHZoG0Lc09l/6+8gk1cTAUXm8yxrikl63kKGgsulazu
- emlHL+T78Q5R4ZBM1gAL3liTGesj35OeMEtMea3p3U5UymkMMUEwSlXgn
- uZtrDnlkZvCwWarGRbhgbWLmNpAKCImbTQJlF22C2ngVxZw19GfVB5RDi
- ryL3BNykrACRrKzlgr0jwiXqVS4echYrNg6GH65XkQJFGqYrfsOVuWtsC
- 4bZIfib3b4WPUvIFE711bRw48Kw8UWmae05RdP2uyx+2NByf+5OB/u9eu A==;
-X-CSE-ConnectionGUID: +gtTb+V+Qq6jaSw0I4pw5w==
-X-CSE-MsgGUID: nAcWR9N/R1OGfSFaYefDjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="76379984"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; d="scan'208";a="76379984"
+ bh=YN4EJ4px2KICrrwv4lTLG4gWDV+gmZkGd3lnkmGYvjc=;
+ b=IVYTh2fztiqeC6on1MUkf6udv8MvXGYEYrPA47A2buOIxnvbNozSktdQ
+ p4a2jfTNSeBRG2hl16daO2a4r+0bQYvCsk1F29e7l2M6nljO04538bW7c
+ m5GyEyMC9Zjo9O0ZhvbwPLWPBM9xDtUGHIcBN7Oa083ErzGYglh4ZPAhz
+ Sv5gAR+LO0aMcTeKbG80ydqMyShzk+N/2SPaog1QHJ5YM8ECfuf8ReiKW
+ Ll1FxpKPwxFPSJjkmfQ5u5wCjIREpX+F4JjdSSg8RhIudPjwf53F69pc7
+ Ksj/hNUEtjU9iAl67reXsOc5e2SvV3NbjhK3IRdsJtvAtVFw/guZhr9dQ w==;
+X-CSE-ConnectionGUID: ybaiMV7DRdu07t62GFGhJA==
+X-CSE-MsgGUID: hUikE9ArSN6GS2w3tRL7Xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="76380003"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; d="scan'208";a="76380003"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 08:54:15 -0700
-X-CSE-ConnectionGUID: AtLC24MtS9CTJ21MBRBIkA==
-X-CSE-MsgGUID: 3Cbla1QmSmm/g4K/QSEnxA==
+ 02 Sep 2026 08:54:16 -0700
+X-CSE-ConnectionGUID: DEqyJg5HQ36i4X8PYfyzAw==
+X-CSE-MsgGUID: QUSLTSFjT1uI466vGL0wqA==
 X-ExtLoop1: 1
 Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.39.16])
- by fmviesa003.fm.intel.com with ESMTP; 02 Sep 2026 08:54:15 -0700
+ by fmviesa003.fm.intel.com with ESMTP; 02 Sep 2026 08:54:16 -0700
 From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Vinay Belgaumkar <vinay.belgaumkar@intel.com>,
- Alexander Kanevskiy <alexander.kanevskiy@intel.com>,
  Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: [PATCH v7 1/2] perf: Fix null pointer access in
- is_include_guest_event()
-Date: Wed,  2 Sep 2026 08:48:51 -0700
-Message-Id: <20260902154852.742844-2-vinay.belgaumkar@intel.com>
+Subject: [PATCH v7 2/2] perf: Add checks to prevent null ptr access
+Date: Wed,  2 Sep 2026 08:48:52 -0700
+Message-Id: <20260902154852.742844-3-vinay.belgaumkar@intel.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20260902154852.742844-1-vinay.belgaumkar@intel.com>
 References: <20260902154852.742844-1-vinay.belgaumkar@intel.com>
@@ -69,67 +67,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A typical module unload occurring event when there is an active perf
-connection leads to freeing of the pmu pointer. The call log is something
-like:
- ..
- __pmu_detach_event
- pmu_detach_event
- pmu_detach_events
- perf_pmu_unregister
- ..
+Sashiko recommended some additional checks to prevent null pointer
+access. Check for revoked states inside perf_event_read_local(), as
+the pmu event may have already been freed at this point. Add a null
+check inside __perf_event_read_cpu() as well before accessing the pmu
+ptr.
 
-__pmu_detach_event() sets event->pmu to null. When the perf connection
-finally is closed, the following stack trace is observed:
-
- Oops: general protection fault, kernel NULL pointer dereference
- ...
- RIP: 0010:_free_event+0x3e/0x370
- ...
- Call Trace:
- ...
- perf_event_release_kernel+0x260/0x2d0
- perf_release+0x12/0x20
-
-A call to mediated_pmu_unaccount_event() inside _free_event() is the root
-cause of this crash. Adding a check inside is_include_guest_event() ensures
-we don't accidentally access a null pmu ptr. In addition to this, we will
-now call mediated_pmu_unaccount_event() before clearing the pmu ptr so that
-nr_include_guest_events counts are maintained correctly.
-
-v5: Improve commit message and split patch into 2 (Dapeng)
-
-Fixes: eff95e170275 ("perf: Add APIs to create/release mediated guest vPMUs")
-Cc: Alexander Kanevskiy <alexander.kanevskiy@intel.com>
 Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Assisted-by: Claude:Claude-Sonnet-5
 Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 ---
- kernel/events/core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/events/core.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 94ca277e0819..f19d27ac411d 100644
+index f19d27ac411d..bb90034a2054 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -6350,6 +6350,9 @@ static DEFINE_MUTEX(perf_mediated_pmu_mutex);
- /* !exclude_guest event of PMU with PERF_PMU_CAP_MEDIATED_VPMU */
- static inline bool is_include_guest_event(struct perf_event *event)
+@@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cpu_topology_cpumask(unsigned int
+ 
+ static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
  {
-+	if (!event->pmu)
-+		return false;
++	struct pmu *pmu = READ_ONCE(event->pmu);
+ 	int local_cpu = smp_processor_id();
+ 	u16 local_pkg, event_pkg;
+ 
+ 	if ((unsigned)event_cpu >= nr_cpu_ids)
+ 		return event_cpu;
+ 
++	if (!pmu)
++		return -ENODEV;
 +
- 	if ((event->pmu->capabilities & PERF_PMU_CAP_MEDIATED_VPMU) &&
- 	    !event->attr.exclude_guest)
- 		return true;
-@@ -12977,6 +12980,7 @@ static void __pmu_detach_event(struct pmu *pmu, struct perf_event *event,
- 	exclusive_event_destroy(event);
- 	module_put(pmu->module);
+ 	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+-		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
++		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(pmu->scope,
++										event_cpu);
  
-+	mediated_pmu_unaccount_event(event);
- 	event->pmu = NULL; /* force fault instead of UAF */
- }
+ 		if (cpumask && cpumask_test_cpu(local_cpu, cpumask))
+ 			return local_cpu;
+@@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
+ 		goto out;
+ 	}
  
++	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
++		ret = -ENODEV;
++		goto out;
++	}
++
+ 	/*
+ 	 * Get the event CPU numbers, and adjust them to local if the event is
+ 	 * a per-package event that can be read locally
 -- 
 2.38.1
 
