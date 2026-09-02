@@ -4,64 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F0BC624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 22:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C91C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 23:01:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D58710EFA4;
-	Wed,  2 Sep 2026 22:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D895510EFFE;
+	Wed,  2 Sep 2026 23:01:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ANHi+++J";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eYIzjrlR";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C09310EECE
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:54:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788389660;
- bh=doU00+D+YerVdhuX8oEp8HqeUZPH5lDfQa2OrdpPg08=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ANHi+++J2Md8u/D8ccNqvdoTO7Cik8rIgQX/iw+qjsxqV7xHCEnXI97HauDrMmtlU
- UcI90Ei/Cr6QeH4OWsLzxvAQg0ZrplSbGAIZ6Bps9kja7ub0iIZxYHRJt0145ZD61O
- 1siqZ/XJpn/qjbwPjK9hq22Kc1zj3I6vNdKj0mFuo2Z+jOXIgObue6/gBE6AoYCUqB
- 91YQ3JDEiTBxPjZS99d7pTKMt0uP82U4DohnumiKonoAuhJnGORzjcylSub4/pql8i
- /WoGQW18NGTdh///V0ZITqa1O9yXTFSMgsqn8ZcXCisMSs5ldeXN6Yu3WYhvJ+tzrb
- JEt4HorcZf9Hw==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C3F7317E35C2;
- Thu, 03 Sep 2026 00:54:20 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:20 +0300
-Subject: [PATCH v4 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-13-fb45bf4147eb@collabora.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A708C10EFFE
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 23:01:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D6B540AF7;
+ Wed,  2 Sep 2026 23:01:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54D61F00A3D;
+ Wed,  2 Sep 2026 23:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788390096;
+ bh=tR6mwiMSkS5vBeij9jZpHKCQX6tqW69OwpHzizbKZNM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eYIzjrlRCPhDcnSEW5EhY5guhJy/9cCl9dxx/xfqInk/0Q/MJA8y/gTEM0skLZCbJ
+ U5d8d572BfguQwdoCGdKl3Um0iGBFmrRTvCyGqCV7svOFF7soDAJ9iWqM9Nj5qPgon
+ y0eYrtiv6jt/OHyV8LhvyD46zeCM6pcXZeoSFzuVuGL6LMfeJtAQZl2U3zL6WhFPZf
+ FrGRsoVO2xIC65QGERMZ1aJmVEtxllXM0ag+XUUGnZCLCzLYFsNWXYbNocKv4CzfRQ
+ 8ieUbHIXA5drCADfN46Dh/l19rCIZ/SYQ1Q/D9Wh1lG+vZ75Kzs1K7nqaF8bIWysH6
+ WbXa72pALGYUw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 06/14] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
+ overflow on 32-bit
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-6-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
-In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.15.2
+ <20260903-dw-hdmi-qp-yuv-v4-6-fb45bf4147eb@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 23:01:35 +0000
+Message-Id: <20260902230135.E54D61F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,39 +55,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
-color format, and the required bus-format handling and VOP2 support are
-already in place.  Advertise it via the platform supported formats so
-the HDMI core can select it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
-high-resolution modes such as 4K@60Hz on links that cannot otherwise
-carry the full-bandwidth signal.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the DRM subsyste=
+m guidelines explicitly designate CRTC atomic enable and disable callbacks =
+as executing in atomic context where sleeping is forbidden. However, `vop2_=
+crtc_atomic_enable` and `vop2_crtc_atomic_disable` invoke multiple sleeping=
+ functions. For example, both callbacks invoke `vop2_lock()` (which acquire=
+s a mutex). `vop2_crtc_atomic_enable` calls `clk_prepare_enable()`, and `vo=
+p2_crtc_atomic_disable` calls `wait_for_completion_timeout()`.
+--
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+commit 42f6f5bd762f8191ecc03127da51288c0ad3ea76
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 78473f9a0fce..1af29066a0a3 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -611,7 +611,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 
- 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
- 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
--				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
- 
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
 
--- 
-2.55.0
+This commit modifies the VOP2_MAX_DCLK_RATE macro to use an unsigned long=20
+long suffix. This ensures 64-bit arithmetic is used during clock rate=20
+calculations, preventing integer overflows on architectures where unsigned=
+=20
+long is 32-bit.
 
+Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.o=
+rg/
+
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index 12a6341e3c988..c3f72cac63690 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -102,7 +102,7 @@ enum vop2_afbc_format {
+>  	VOP2_AFBC_FMT_INVALID =3D -1,
+>  };
+> =20
+> -#define VOP2_MAX_DCLK_RATE		600000000UL
+> +#define VOP2_MAX_DCLK_RATE		600000000ULL
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing this file, I
+noticed that the CRTC atomic callbacks appear to invoke sleeping functions.
+
+In vop2_crtc_atomic_enable():
+
+    vop2_lock(vop2);
+
+    ret =3D clk_prepare_enable(vp->dclk);
+
+And in vop2_crtc_atomic_disable():
+
+    ret =3D wait_for_completion_timeout(&vp->dsp_hold_completion,
+                                      msecs_to_jiffies(50));
+
+Does this code risk system instability or deadlocks? The DRM subsystem=20
+guidelines designate CRTC atomic enable and disable callbacks as executing=
+=20
+in an atomic context where sleeping is forbidden, yet these paths acquire a
+mutex, enable clocks, and wait for completion timeouts.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-dw-hdmi-qp=
+-yuv-v4-0-fb45bf4147eb@collabora.com?part=3D6
