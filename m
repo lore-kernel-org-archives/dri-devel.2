@@ -4,49 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4DAC624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33EC9C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04AE610F401;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 949D710F407;
 	Thu,  3 Sep 2026 07:33:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="OEldap3x";
+	dkim=pass (2048-bit key; unprotected) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="ZjUxId66";
 	dkim-atps=neutral
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch
- [109.224.244.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1008C10E532
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:32:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788388351; x=1788647551;
- bh=aoMYyzPh1OMrjaFY85SJglQKmUz4G4YGKmqO7ZFqF00=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=OEldap3xzGWrAZdkHfXeaw7qNi/Rf6rv+5qaGSfOKbHXYMlIxPPj1IBJVHPnqzQy8
- r9eirWuH0Z1qjYhzsyf5MBFg7OeV271AZTbITLNNAqTtggUwmkXrxXQFysgSc20El3
- eS8rqZd0DbC/HmaNYBh+TR+EhcLEp4xmbI875oqOvXBsKjXdtSfaKYlSMsqOXIWuWA
- xyzr5DNc9VMqP0jYvkZW/CAVQHmhxpXgAsAh8Ts3PProO9IpipGyLp7MzWvW1dYcZk
- f10fKv71GPwl/J9in8mGtCHl62Rm5nAj1Fb0npDRgMLRgHU9Ms8HBmeMolumbGz+O/
- M0YYomKmvWtTQ==
-Date: Wed, 02 Sep 2026 22:32:25 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: [PATCH v2 4/4] drm/amd/display: test power module brightness input
- domain
-Message-ID: <796855d751af2cfd5d1fcc376f6519c870cafe02.1788388049.git.arc@empyreal.works>
-In-Reply-To: <cover.1788388049.git.arc@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
- <cover.1788388049.git.arc@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: dd2b5eea7d2c5800af0aa61eb7209ea31bf048b4
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E5F10F1CB
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:01:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OhvjDDpsXYpTzoA41mmUfilY3mqw/bg+AtQiwGGdPIYrGk/aBvKpSxu1vFQfz3PM0DTnFom2ydnZKPU2l1sQIQz8Yz/cMhYN8NFGMGSlchYfffvnfP3qU8CF9oAU36u5XGh5BphExZzTAa9jDOs31ksnDtKcQb5+7KbmF6Hzp+mA59jaX+L848v4Socvk0rnM4Sa2ymdO7D+iwEvHY5yzs1k0qxs47J0cw7mRSSD7wF8O6GF9MClBrZDMA7pLLy3u9n1JSNQXWGF+cCxQ9ge0pwJwAzD2krBMYEiKlgEUPAbFfm41kO9U3y45tPIsJs+BsvtaxOo7vYZpx6+qY8WEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pLRU7fz/a4AmTksGXjPumynJ36B37oe4U/DOZBzei24=;
+ b=Gm0MhMv8Zx+hEWMikZjD9vzOoAIUzuCGzHdnVHDPhzlxYpby4bjwRI5NVlshMD8z8XppSqSc+Wr3z49RuEnPiiLOh0pNiMdWoRxOJkoWwX0jRjcpA9lY4uFzMlZ4jKTFo780PHJ1h0Yuu0YeHJnYZdh7mkIdI53m76dVH+Sor/G8etoVMd34q6KH8vatqBYKv1/n6S5iIumjkjf97bRQZcORlU+hqG2l7KFxVMHohV0mpXR64QE5YRllpNBckmOPmCKTa43/7unTN6FLB9VbYhsnAXREPtzc6FK/rEIZSF/iCKaC7axGDRbd3lo1cJ+l+1R+Sjkt2EInFznb5mvikQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pLRU7fz/a4AmTksGXjPumynJ36B37oe4U/DOZBzei24=;
+ b=ZjUxId66AgV8rDnyPhsPlNW81ee8W2SK5JksQo1dbaUd/qAuHPBktwgqUM+LwG4BCrP9KVviAQdmdtjuGj28GgWoG8P2EY2ABdS0J9oSEUVLPI2a4HD5nnXh3heiSkbG6haHY2DEOkPuy8DxO5SE5lVSHz6r937Fxu6cUVicInWgNKGqmlgTG+eSkNyKK99ONmjHuA5NCUFAUt8UweZRaBSGr64CyEcD5uzZpOjYgorLzzbnr8D7he0nAHe0taPAXp0ngxPtoqREeR6x4w5a+WoS72h1qfVaTd0G9uHmsRxdYCyov8g6BTitUJOpuWH+xYpV9qI2TTeYvVn8xs8mpw==
+Received: from MN0P223CA0003.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::30)
+ by SA1PR22MB5351.namprd22.prod.outlook.com (2603:10b6:806:3cc::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 13:01:23 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:208:52b::4) by MN0P223CA0003.outlook.office365.com
+ (2603:10b6:208:52b::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 13:01:20 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
+ smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay2.compute.ge-healthcare.net;
+Received: from atlrelay2.compute.ge-healthcare.net (165.85.157.49) by
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:01:19 +0000
+Received: from zeus.fihel.lab.ge-healthcare.net
+ (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+ by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id 62D81E4DB;
+ Wed,  2 Sep 2026 16:01:15 +0300 (EEST)
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Ian Ray <ian.ray@gehealthcare.com>
+Subject: [PATCH v1 0/3] drm/bridge: dw-hdmi: allow ignoring rxsense for hotplug
+Date: Wed,  2 Sep 2026 16:01:13 +0300
+Message-ID: <20260902130113.2720-1-ian.ray@gehealthcare.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|SA1PR22MB5351:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 20d06112-139d-459d-dfba-08df08f24852
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|56012099006|11063799006|3023799007|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: mTNhjbwmMBASPzSEwhD3+6IlwV+BKDxtqmkGjmPUrKrbWp8EhBAyzmhlJAqKw8m6IG4dfewogbONDqlx9mwp2vedGRL0HJZNYXhPRcv/q84VPb0MJJmiHn8955HID5Uo9MVIuosoNBNViHCTh2S+OEBV760he6C+vvl3m5G5nEn2B9NUWEHIYiEVAc7i93JtCOOLJoWVZCDlvZgJIjc477AzJMLi4S0XrArzQK0JR94JBRs178MK70KJLy23QJp909l5TjlGYg7M80G7FIA3BLyXrtnmtp6ehSC4Nuj/hfuuVsrp/YJ828hHPAv//OGto9nLF0CdkAxG8ddje6j4e69+AK0Oe89tS6r6E5/x/jvqI+pAXxTyc7RpRs+2cfgEvj9FmUQRZb02YxnBGfLQMyTREYkKz5u3b40TRo4wIv6bRys5AQsMLRhcToZBp8dM1lzhicrv6+BOG/T7v35AkLr8+ufuGpNC/U7R2BtFb0ZkiVXRgvmBE2HdmqfcsrLfarNuUBBjY5q/Jt9TXE/gtP+91XJo79rNZMECT8HKJ0oh1ec9oJAlRUM96w8rTdHHMUbqLI8/GylKtvPeXKniXeHBeNiV+lK+Z31GlheTSaxkecNK1PeA5YcMCeszJBn0uSwhBavg/XKfTotJ/NPq0axJ4W2mEIB9gIt0MXZrxsadI2W4hU3fpk+H4XG0rzpcY+dNwxnD0ixsI54qapAwkw==
+X-Forefront-Antispam-Report: CIP:165.85.157.49; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:atlrelay2.compute.ge-healthcare.net;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: X6P1ZwduWhoRkqGj24KLrC9K+cyemgEb0m1DTJOv+Qi1fdO3SkyXUb4lD8WLjdGTmrRWWc6QaUH8rfLT/Eb+d0JxpqvEZoxqJVO/RadzMwRulKgZOHh5hlYyIsUfrAo1OKydMRxoKvBuIZtuWKb8uUN4fa1nta7tC42sb2uraEYL37CpHmqE5q9NAJJzjKIoXTq6kjeX7vYeRxo4IZWkDZTjqVAa6hk1whjhE+d4RymcGIY3a2Gam1s9y94XasYdZQkzHxjH35eENOTe+P2cWoFei0h/d4zoydxnImh+8sWEHvkv5IGYhA2OgkrmtEMu7GMkSMKpda13ogfoc+0lU5mCSGTMhu97mCCwGJcajb6dq8dm4XywEtL1ZdRGx0n2u+VeRQ5dDC91rYhaWqeWyzuPi9WZjzPzOufFBEQoCL1znbjrMzw72sko8RVoGD66
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:01:19.6541 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20d06112-139d-459d-dfba-08df08f24852
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf; Ip=[165.85.157.49];
+ Helo=[atlrelay2.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR22MB5351
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,457 +120,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Exercise the exact values selected for the power module and the final
-PWM and AMD AUX handoffs. Cover non-zero and zero PWM minimums, both
-endpoints, an interior value, clamping, invalid caps, custom-curve
-retention, multiple panels, and the source-level brightness mask.
+Commit da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event
+on link change") made hotplug detection also consider rxsense: a
+disconnect is now reported only when both HPD and rxsense are low.
 
-The PWM case carries valid ATIF points to prove that the display manager
-passes the userspace percentage without applying that curve before the
-power module applies its own lookup table. Additional cases prove that
-the brightness mask follows the final hardware domain: the mathematical
-AUX millinit remains unmasked, direct AMD AUX receives the mask, and an
-AUX fallback derives PWM from the clean millinit before applying the
-final PWM mask.
+This is a problem for boards that route the HDMI output through a
+downstream device which keeps the TMDS lines permanently loaded. On the
+GE B450/B650/B850 (bx50v3) boards an STDP2600 HDMI-to-DP converter is
+used, so rxsense is always asserted and a disconnect is never reported,
+even though the HPD signal works correctly. The connector is stuck in
+the "connected" state.
 
-The composition case uses an input for which masking the intermediate
-millinit changes the derived PWM value. It fails against the v1
-implementation and passes when the mask is applied only at the final
-hardware handoffs. Callback captures independently verify the live AMD
-AUX value, the unchanged VESA AUX value, and the mode-change replay
-value. The selected panel's linear-curve bypass is covered independently.
+This series adds an optional 'ignore-rxsense' device tree property that
+restores HPD-only detection for such boards, and enables it on the
+bx50v3 boards. The change is backward compatible: without the property
+the existing behaviour is unchanged, so old device trees are unaffected.
 
-The cases were verified under UML KUnit.
+  Patch 1 adds the device tree binding.
+  Patch 2 adds the driver support in the common dw-hdmi layer.
+  Patch 3 enables the property on the imx6q bx50v3 boards.
 
-Assisted-by: LLM
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- .../tests/amdgpu_dm_backlight_test.c          | 334 +++++++++++++++++-
- 1 file changed, 331 insertions(+), 3 deletions(-)
+  `make dt_binding_check' is clean for the schema.
+  `make CHECK_DTBS=y' is clean for the device trees.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
-test.c
-index a6fa052a8272..7ab47a66c915 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-@@ -23,6 +23,7 @@
- #include "amdgpu_dm_kunit_test_helpers.h"
- #include "amd_shared.h"
- #include "link_service.h"
-+#include "modules/power/power_helpers.h"
- #include "dc/inc/hw/panel_cntl.h"
-=20
- struct dm_backlight_connector_fixture {
-@@ -31,6 +32,33 @@ struct dm_backlight_connector_fixture {
- =09struct dc_link *link;
- };
-=20
-+struct dm_backlight_aux_capture {
-+=09unsigned int calls;
-+=09unsigned int backlight_millinits;
-+=09unsigned int transition_time_millisec;
-+=09bool is_hdr;
-+};
-+
-+static struct dm_backlight_aux_capture *dm_backlight_aux_capture;
-+
-+static bool dm_test_capture_backlight_nits(struct dc_link *link, bool is_h=
-dr,
-+=09=09=09=09=09   u32 backlight_millinits,
-+=09=09=09=09=09   u32 transition_time_in_ms)
-+{
-+=09dm_backlight_aux_capture->calls++;
-+=09dm_backlight_aux_capture->backlight_millinits =3D backlight_millinits;
-+=09dm_backlight_aux_capture->transition_time_millisec =3D transition_time_=
-in_ms;
-+=09dm_backlight_aux_capture->is_hdr =3D is_hdr;
-+
-+=09return true;
-+}
-+
-+static bool dm_test_capture_backlight_level(const struct dc_link *link,
-+=09=09=09=09=09    struct set_backlight_level_params *params)
-+{
-+=09return true;
-+}
-+
- static const struct drm_connector_funcs dm_backlight_test_connector_funcs =
-=3D {
- =09.reset =3D drm_atomic_helper_connector_reset,
- =09.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state=
-,
-@@ -1019,6 +1047,296 @@ static void dm_test_brightness_from_user_aux(struct=
- kunit *test)
- =09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)ma=
-x);
- }
-=20
-+/* Tests for convert_brightness_for_power_module() */
-+
-+/**
-+ * dm_test_power_module_brightness_invalid_caps - Test invalid PWM range
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_brightness_invalid_caps(struct kunit *tes=
-t)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(NULL, 100), 1=
-00U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 100), =
-0U);
-+}
-+
-+/**
-+ * dm_test_power_module_pwm_uses_user_domain - Test PWM input domain
-+ * @test: The KUnit test context
-+ *
-+ * The power module owns the ATIF luminance-to-PWM curve. The display mana=
-ger
-+ * must therefore pass the original userspace percentage rather than first
-+ * converting it to a firmware PWM level.
-+ */
-+static void dm_test_power_module_pwm_uses_user_domain(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09unsigned int min, max;
-+
-+=09caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+=09caps.data_points =3D 3;
-+=09caps.luminance_data[0].input_signal =3D 50;
-+=09caps.luminance_data[0].luminance =3D 20;
-+=09caps.luminance_data[1].input_signal =3D 128;
-+=09caps.luminance_data[1].luminance =3D 50;
-+=09caps.luminance_data[2].input_signal =3D 230;
-+=09caps.luminance_data[2].luminance =3D 90;
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09KUNIT_EXPECT_EQ(test, min, 3084U);
-+=09KUNIT_EXPECT_EQ(test, max, 65535U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 0), 0U=
-);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 25700)=
-, 39216U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 32768)=
-, 50001U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max), =
-100000U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max + =
-1), 100000U);
-+}
-+
-+/**
-+ * dm_test_power_module_pwm_zero_min - Test zero-minimum range
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_pwm_zero_min(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09unsigned int min, max;
-+
-+=09caps.min_input_signal =3D 0;
-+=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09KUNIT_EXPECT_EQ(test, min, 0U);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 0), 0U=
-);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max), =
-100000U);
-+}
-+
-+/**
-+ * dm_test_power_module_mask_follows_effective_control - Test mask handoff
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_mask_follows_effective_control(struct kun=
-it *test)
-+{
-+=09struct set_backlight_level_params params =3D {};
-+=09struct core_power core_power =3D {};
-+
-+=09core_power.bl_prop[0].brightness_mask =3D 3;
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
-+=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3087U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 32896,
-+=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 32899U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 65535,
-+=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 65535U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
-+=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, 0, 0, true);
-+=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_AMD_AUX);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3084U);
-+
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
-+=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, 0, 0, false);
-+=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_PWM);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3087U);
-+}
-+
-+/**
-+ * dm_test_power_module_linear_curve_uses_panel_instance - Test linear byp=
-ass
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_linear_curve_uses_panel_instance(struct k=
-unit *test)
-+{
-+=09struct core_power core_power =3D {};
-+=09unsigned int backlight_lut[101] =3D {};
-+
-+=09core_power.bl_prop[0].backlight_lut =3D backlight_lut;
-+=09core_power.bl_prop[0].num_backlight_levels =3D ARRAY_SIZE(backlight_lut=
-);
-+=09core_power.bl_prop[1].min_backlight_pwm =3D 3084;
-+=09core_power.bl_prop[1].max_backlight_pwm =3D 65535;
-+=09core_power.bl_prop[1].backlight_range =3D 62451;
-+=09core_power.bl_prop[1].use_linear_backlight_curve =3D true;
-+=09backlight_lut[50] =3D 12345;
-+
-+=09KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(&core_power, 50000,=
- 1),
-+=09=09=0934309U);
-+}
-+
-+/**
-+ * dm_test_power_module_aux_keeps_curve_unmasked - Test AUX conversion pat=
-h
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_aux_keeps_curve_unmasked(struct kunit *te=
-st)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09caps.aux_support =3D true;
-+=09caps.aux_min_input_signal =3D 1;
-+=09caps.aux_max_input_signal =3D 512;
-+=09caps.brightness_mask =3D 3;
-+=09caps.data_points =3D 2;
-+=09caps.luminance_data[0].input_signal =3D 50;
-+=09caps.luminance_data[0].luminance =3D 20;
-+=09caps.luminance_data[1].input_signal =3D 200;
-+=09caps.luminance_data[1].luminance =3D 80;
-+
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 200000=
-),
-+=09=09=0981157U);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_power_module_aux_mask_composition - Compare both final handoffs
-+ * @test: The KUnit test context
-+ *
-+ * AMD AUX writes millinits directly to DP_SOURCE_BACKLIGHT_LEVEL, while i=
-ts
-+ * non-HDR fallback derives a PWM value from the cached millinits. Applyin=
-g
-+ * the source-level mask before that conversion can therefore change the P=
-WM
-+ * before the PWM-domain mask is applied.
-+ */
-+static void dm_test_power_module_aux_mask_composition(struct kunit *test)
-+{
-+=09struct set_backlight_level_params params =3D {};
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09struct core_power core_power =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09u32 aux_level, millinit, pwm;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09caps.aux_support =3D true;
-+=09caps.aux_min_input_signal =3D 1;
-+=09caps.aux_max_input_signal =3D 512;
-+=09caps.brightness_mask =3D 3;
-+=09caps.data_points =3D 2;
-+=09caps.luminance_data[0].input_signal =3D 50;
-+=09caps.luminance_data[0].luminance =3D 20;
-+=09caps.luminance_data[1].input_signal =3D 200;
-+=09caps.luminance_data[1].luminance =3D 80;
-+
-+=09core_power.bl_prop[0].min_backlight_pwm =3D 3084;
-+=09core_power.bl_prop[0].max_backlight_pwm =3D 65535;
-+=09core_power.bl_prop[0].backlight_range =3D 62451;
-+=09core_power.bl_prop[0].min_brightness_millinits =3D 1000;
-+=09core_power.bl_prop[0].max_brightness_millinits =3D 270000;
-+=09core_power.bl_prop[0].nits_range =3D 269000;
-+=09core_power.bl_prop[0].brightness_mask =3D 3;
-+=09core_power.bl_prop[0].backlight_control_type =3D BACKLIGHT_CONTROL_AMD_=
-AUX;
-+
-+=09millinit =3D convert_brightness_for_power_module(&caps, 51200);
-+=09aux_level =3D backlight_apply_source_mask(&core_power, millinit, 0);
-+=09pwm =3D backlight_millinit_to_pwm(&core_power, millinit, 0);
-+=09fill_backlight_level_params(&core_power, &params, 0, 0, pwm,
-+=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, millinit, 0,
-+=09=09=09=09    false);
-+
-+=09KUNIT_EXPECT_EQ(test, millinit, 7012U);
-+=09KUNIT_EXPECT_EQ(test, aux_level, 7015U);
-+=09KUNIT_EXPECT_EQ(test, pwm, 4479U);
-+=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_PWM);
-+=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 4479U);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_power_module_live_aux_handoff_mask - Test the live AUX callback
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_live_aux_handoff_mask(struct kunit *test)
-+{
-+=09struct dm_backlight_aux_capture *capture;
-+=09struct link_service *link_srv;
-+=09struct core_power *core_power;
-+=09struct dc_stream_state *stream;
-+=09struct dc_link *link;
-+=09struct dc *dc;
-+
-+=09capture =3D kunit_kzalloc(test, sizeof(*capture), GFP_KERNEL);
-+=09link_srv =3D kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
-+=09core_power =3D kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
-+=09stream =3D kunit_kzalloc(test, sizeof(*stream), GFP_KERNEL);
-+=09link =3D kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
-+=09dc =3D kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, capture);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link_srv);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, core_power);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, stream);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+
-+=09dm_backlight_aux_capture =3D capture;
-+=09link_srv->edp_set_backlight_level_nits =3D dm_test_capture_backlight_ni=
-ts;
-+=09dc->link_srv =3D link_srv;
-+=09link->dc =3D dc;
-+=09link->backlight_control_type =3D BACKLIGHT_CONTROL_AMD_AUX;
-+=09stream->link =3D link;
-+=09core_power->bl_prop[0].brightness_mask =3D 3;
-+
-+=09KUNIT_ASSERT_TRUE(test, set_backlight_millinits_aux(core_power, stream,
-+=09=09=09=09=09=09=09    7012, 50, 0));
-+=09KUNIT_EXPECT_EQ(test, capture->calls, 1U);
-+=09KUNIT_EXPECT_EQ(test, capture->backlight_millinits, 7015U);
-+=09KUNIT_EXPECT_EQ(test, capture->transition_time_millisec, 50U);
-+=09KUNIT_EXPECT_FALSE(test, capture->is_hdr);
-+
-+=09memset(capture, 0, sizeof(*capture));
-+=09link->backlight_control_type =3D BACKLIGHT_CONTROL_VESA_AUX;
-+=09KUNIT_ASSERT_TRUE(test, set_backlight_millinits_aux(core_power, stream,
-+=09=09=09=09=09=09=09    7012, 50, 0));
-+=09KUNIT_EXPECT_EQ(test, capture->calls, 1U);
-+=09KUNIT_EXPECT_EQ(test, capture->backlight_millinits, 7012U);
-+
-+=09dm_backlight_aux_capture =3D NULL;
-+}
-+
-+/**
-+ * dm_test_power_module_mode_change_aux_mask - Test replay AUX callback
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_power_module_mode_change_aux_mask(struct kunit *test)
-+{
-+=09struct dm_backlight_aux_capture *capture;
-+=09struct link_service *link_srv;
-+=09struct core_power *core_power;
-+=09struct dc_link *link;
-+=09struct dc *dc;
-+
-+=09capture =3D kunit_kzalloc(test, sizeof(*capture), GFP_KERNEL);
-+=09link_srv =3D kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
-+=09core_power =3D kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
-+=09link =3D kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
-+=09dc =3D kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, capture);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link_srv);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, core_power);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+
-+=09dm_backlight_aux_capture =3D capture;
-+=09link_srv->edp_set_backlight_level_nits =3D dm_test_capture_backlight_ni=
-ts;
-+=09link_srv->edp_set_backlight_level =3D dm_test_capture_backlight_level;
-+=09dc->link_srv =3D link_srv;
-+=09link->dc =3D dc;
-+=09link->backlight_control_type =3D BACKLIGHT_CONTROL_AMD_AUX;
-+=09link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control =3D 1;
-+=09core_power->bl_state[0].backlight_millinit =3D 7012;
-+=09core_power->bl_prop[0].brightness_mask =3D 3;
-+
-+=09mod_power_update_backlight_on_mode_change(core_power, link, 0, 0, false=
-);
-+=09KUNIT_EXPECT_EQ(test, capture->calls, 1U);
-+=09KUNIT_EXPECT_EQ(test, capture->backlight_millinits, 7015U);
-+=09KUNIT_EXPECT_EQ(test, capture->transition_time_millisec, 0U);
-+
-+=09dm_backlight_aux_capture =3D NULL;
-+}
-+
- /* Tests for convert_custom_brightness() */
-=20
- /**
-@@ -1590,7 +1908,7 @@ static void dm_test_curve_from_user_monotonic(struct =
-kunit *test)
- =09for (i =3D 0; i <=3D max; i +=3D 1023) {
- =09=09u32 level =3D convert_brightness_from_user(&caps, i);
-=20
--=09=09KUNIT_ASSERT_GE(test, level, previous);
-+=09=09KUNIT_EXPECT_GE(test, level, previous);
- =09=09previous =3D level;
- =09}
-=20
-@@ -1619,8 +1937,8 @@ static void dm_test_curve_from_user_within_range(stru=
-ct kunit *test)
- =09for (i =3D 0; i <=3D max; i +=3D 1023) {
- =09=09u32 level =3D convert_brightness_from_user(&caps, i);
-=20
--=09=09KUNIT_ASSERT_GE(test, level, (u32)min);
--=09=09KUNIT_ASSERT_LE(test, level, (u32)max);
-+=09=09KUNIT_EXPECT_GE(test, level, (u32)min);
-+=09=09KUNIT_EXPECT_LE(test, level, (u32)max);
- =09}
-=20
- =09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
-x);
-@@ -2198,6 +2516,16 @@ static struct kunit_case dm_backlight_test_cases[] =
-=3D {
- =09KUNIT_CASE(dm_test_brightness_from_user_zero),
- =09KUNIT_CASE(dm_test_brightness_from_user_max),
- =09KUNIT_CASE(dm_test_brightness_from_user_aux),
-+=09/* convert_brightness_for_power_module */
-+=09KUNIT_CASE(dm_test_power_module_brightness_invalid_caps),
-+=09KUNIT_CASE(dm_test_power_module_pwm_uses_user_domain),
-+=09KUNIT_CASE(dm_test_power_module_pwm_zero_min),
-+=09KUNIT_CASE(dm_test_power_module_mask_follows_effective_control),
-+=09KUNIT_CASE(dm_test_power_module_linear_curve_uses_panel_instance),
-+=09KUNIT_CASE(dm_test_power_module_aux_keeps_curve_unmasked),
-+=09KUNIT_CASE(dm_test_power_module_aux_mask_composition),
-+=09KUNIT_CASE(dm_test_power_module_live_aux_handoff_mask),
-+=09KUNIT_CASE(dm_test_power_module_mode_change_aux_mask),
- =09/* convert_custom_brightness */
- =09KUNIT_CASE(dm_test_custom_brightness_no_data_points),
- =09KUNIT_CASE(dm_test_custom_brightness_debug_mask_disables),
---=20
-2.54.0
+Note: The series touches two subsystems. Patches 1-2 target drm-misc;
+patch 3 (ARM dts). Sent together for context, but driver support must
+land first.
 
+Ian Ray (3):
+  dt-bindings: display: synopsys,dw-hdmi: add ignore-rxsense
+  drm/bridge: dw-hdmi: optionally ignore rxsense when detecting hotplug
+  ARM: dts: imx: bx50v3: ignore HDMI rxsense
+
+ .../bindings/display/bridge/synopsys,dw-hdmi.yaml         | 8 ++++++++
+ arch/arm/boot/dts/nxp/imx/imx6q-bx50v3.dtsi               | 5 +++++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c                 | 6 ++++++
+ 3 files changed, 19 insertions(+)
+
+-- 
+2.47.3
 
