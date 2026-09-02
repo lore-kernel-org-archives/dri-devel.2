@@ -4,99 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DD97C624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 17:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE04CC624D3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 17:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C8E8910E;
-	Wed,  2 Sep 2026 17:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E1410E046;
+	Wed,  2 Sep 2026 17:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ILgS+Skf";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="c65VC8Ha";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E00FB8910E
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 17:46:05 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-90f9f8553e0so9870026d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 10:46:05 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B95F10E046
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 17:52:55 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-c160420289bso174495066b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 10:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1788371165; x=1788975965; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ezr6Kp9rH9+35ejy6kYQ0m2wIG/3JEQzG3offk+MEvQ=;
- b=ILgS+SkfSAjLKABpBuXXDTp9iqgJ9fR0B5iBpHYu5WRRmxkwsVtHBCUhz1skW9opOx
- rhJzsYFAROuez/3UcmYlqhljE/21D129i7qGZGInkGngxlrjSbV6mAMCuJPUCcUdp2BT
- +c1zJfav/G/XQ4L5hoDplH1OSDqbBn+TvOqUU5P0A9Cm32f440jzBEUze9p+Yw3qYAdL
- h3YISNwACZ+6BfMcmG2ZOXiIgCe4PDN9/ROtqp9V7K3jYWclMlQeHSud2TnP7/qs85g3
- v0JlQKyrQDhLW/6D71MZBowV9ThwvnMKe/vihkggX6TS0LOLjcSl3A1cGxLyeJyoVxFy
- 6vmQ==
+ d=chromium.org; s=google; t=1788371574; x=1788976374;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=dqcEgnSp496NGWBXKeWsq6JvKnN2nbWQ3UmoRMRb+5w=;
+ b=c65VC8HaAAkolMPKXd1rXT//i4mElvmjptuRvZYindxsuoKssjQYnKcJYgQXqsRtlz
+ kML4V+Gaa77BkAN71kn7gcIYp32O09gFA8/IH/xWrct6IpQLlNY55Zmv62uh0bkY2sAF
+ bSjlouTSw3wnP4tgrIy4aKqX+XVvUft7+lQbg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788371165; x=1788975965;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=ezr6Kp9rH9+35ejy6kYQ0m2wIG/3JEQzG3offk+MEvQ=;
- b=Fzqg55iovlrquJC/VEiAUiDGcbMVprv74X6MxAMQXeGTccYiJ0QQJcDA6FOnBrsBXF
- ACdo48fnxQ+h3LFzX3pUTc0OKoMY5U8mYQBgAQHKFGvoe+54H9EvKK+5RYM3y6mwyRLt
- z9jBEM6qgp1dv1aluZEg/zBp/UCdL+Fw0xo8MW0mXoTzVnsmluZaCSQnU5oY+vDOdEMq
- zJuvEFN5IEuWCL5B5FsJMBG+Cbs8f5LJFhPwIqu9Z4QZj2EwZfyx+6q8uwesun/3FFv6
- imvD1PrR5tEjKwEiBBrUvs/I2gxpZDkqiq3Y4g49GVJ8klFI87cG745Ymfz2wVJrwpk5
- hD8Q==
+ d=1e100.net; s=20251104; t=1788371574; x=1788976374;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=dqcEgnSp496NGWBXKeWsq6JvKnN2nbWQ3UmoRMRb+5w=;
+ b=hiMa/pEQ6V4EDy5MzTlVPuhFk7B5XwIjIIEDlYgdRYOP6f/ucwl33fx/JH+DOCcX/T
+ Z6SYRz7pBrImE4RslZ/cxjAQEW8eyorKFlHLX6rRC5FEGOfgWli6/yIas9wfzHBIkhx5
+ BOtYMbUvtmI38Mi+/N9AWc5PCaXSZgcJ5dxFNDi2/XoKKIJPKIFSteD+DPUUUr/dMHQN
+ Osw9dQW3kRy2t2pCMoleTypUbm45Vti3ZcIsj+69XAtfr/pOu8NH9ACc1JYN4SmlDrxT
+ Lvad2OwyUwJBhd5KBGAnF42wG22a10E7pFwXS0BsEEbNoOHKbNCPr8DujFHmJMl+5Wke
+ qhbA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwMJsXfza95vmTNSt5DJr91saEo/oxPloAteI1C8j4PQTTyyXwz6BN1THqR6za5KYHdlTtf+EODVWg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lVSDbM8N8NwXRgkFoxshcpakQu7SzXwZ5bToCPzah2y2QiGCSs
- WQVsc1Ds85XBargbmGqIjvQ2dX80uy3BxDEKuHKJw2McTafVWxwVAvUEhXJMbImj/RU=
-X-Gm-Gg: AYBFou26eZDAKR75VgpKfeiCyoC2hxWli8IG5CPtf3euoqAyokVi2VpUsYZ791nxtxi
- F+hyetz7MxKXkvIH8Gp//GMiGgmd0BTKrayp2iQRR7pVn9Y/lFHGItV1DaJWrMIRpFBTXos4StH
- ZtvQWTCTW2JUs//YiV4mJ60bL/0Prrcov1vgtx0seIsPVTzI3seIZ7NlK04U5qI/35kGFydR61a
- I1MYHoRBMTsSkoVELvoDvz3gq/xGURKENG4Yk70V9Gwjx9jfaGjV7RXjE4a/yWIEe7uPBk1S6N/
- beIsO/2nQoU8YNG0UpQmNpl6KkJGs2lDtdD6hBNiiemt5wr8L8CtR4XmwIZsdW6rQ2MI+UKB3IK
- aTjy+2l5yi9tIvJ7DQzmHPiIFYN4pLy3TCuUNFe57pc9GiLWvE94vJIIIKot40mEsL5Xti6Dn96
- oCHdvPF5ZFFFeFeCIDpUwShh6Pqe9J8u3W0Cj26DfUMaz9Lm3l32ETWviBu2RdedZ6xkiUnzEPW
- npAmAjBDaZk2dg4ITWDFbpGxKOxNdDxzXRMOvXa+NnH3pAcGzOjXFQl
-X-Received: by 2002:a05:6214:2a84:b0:910:3453:7d8a with SMTP id
- 6a1803df08f44-91034538000mr9552376d6.31.1788371164336; 
- Wed, 02 Sep 2026 10:46:04 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
- [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-90e9ee41b5dsm23518966d6.21.2026.09.02.10.46.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 10:46:03 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1x1p2B-0000000Emsa-0EzE;
- Wed, 02 Sep 2026 14:46:03 -0300
-Date: Wed, 2 Sep 2026 14:46:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, David Hu <dhu@x6u.co>,
- sumit.semwal@linaro.org, alex@shazbot.org, ankita@nvidia.com,
- chriscli@google.com, david.laight.linux@gmail.com,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org,
- viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902174603.GE2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
- <20260902105919.GV24140@unreal>
- <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
+ AKwUvBxY+48OZt81w/vh6kvccY2NUHstEgWaMbULtHo/X9IkABTaRYP45bHk6b1h7TPRKOcYbpG1gFszkA0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nIjedr3u38jZIjAeiFNYJlwP8TS+AriOVafpz6oR2254vzVusC
+ qYWgRu2qPj925D7cSA8KcJR5VxbUCASVjqG+9+hTPw3bJYwpJMzwbXat57/QBPRybqrVD1fEEfD
+ u2arHoQ==
+X-Gm-Gg: AYBFou0whlTUFtpV4UzSTjRqIKqkWWpyIUDQm1L71kMPYWnjxYAwe27G6rpGsnvY+90
+ oUxtoGe721QI4g9aYXXut5uMSsQkMBg5OxMJtXpNBtL9tqBTIdqIqD5nWxG8onAzcxiUwQ7ghqS
+ VfYrLgQXQlNytItTDBxnNO0LpWio7GhJXzolsKrLQag7+MfeXeFq6MBqlAttOWKvQkcERhS10/W
+ OiGZPRYAXb4Amywf6QaBOOVmHW9I1fc2irBqfRYYYH9ghZOeYgsmAm1pEDlK2N47zOdfRg9Zup2
+ lKONYXdKv2mQuiTQnmromuc2gpHLw+PRids2BLHS7HijqCFYFob0bFgzNyZIj2p5QMsUAqqAQ7R
+ /hfswD+JP8QK655jviOm+S/t3lhjwrc6wuqpBuD7PVGU3y8/gV8sh8Hw69i0vAEsriFxqEj4r3C
+ gwh7XUNHfnOvry0J4dfBDGQNmfW+7xdlrGpNrwCOIi1Py09IU5oA2GL82VRLo/PiNAcd/5KQGJl
+ NhlUQUzeepPEZdjuh7hBipmbL0=
+X-Received: by 2002:a17:907:c5c6:b0:c25:2e93:289e with SMTP id
+ a640c23a62f3a-c25d5508331mr462056066b.16.1788371573923; 
+ Wed, 02 Sep 2026 10:52:53 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com.
+ [209.85.128.43]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c25d041d4a8sm171369566b.54.2026.09.02.10.52.51
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Sep 2026 10:52:51 -0700 (PDT)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-49b9320423cso14001955e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 10:52:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzASxh1Phww9dY5bEcaBxn/6l6VeYhs4Z8rr4evjaROZ4rn3d9ksicVO/1pX3L2wqCuh9O+ABkz95I=@lists.freedesktop.org
+X-Received: by 2002:a05:600c:1987:b0:49b:4d64:bbc4 with SMTP id
+ 5b1f17b1804b1-49ce58211demr106617935e9.8.1788371569940; Wed, 02 Sep 2026
+ 10:52:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
+References: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
+In-Reply-To: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 2 Sep 2026 10:52:38 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UXC4VyCdohiRVj52bavaQtesW13uyyXj-Li-ij7vo4Vg@mail.gmail.com>
+X-Gm-Features: AcwNN1W_4cKZwuAryLEB2kcdCtNaHsnbG0L3B66rdonHzP6OA6JFUqslcE83jio
+Message-ID: <CAD=FV=UXC4VyCdohiRVj52bavaQtesW13uyyXj-Li-ij7vo4Vg@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add support for BOE panel used in
+ KD116N36-30NB-A001
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,36 +107,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 02, 2026 at 03:34:18PM +0200, Christian König wrote:
-> On 9/2/26 12:59, Leon Romanovsky wrote:
-> ...
-> >> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as
-> >> far as I can see is a complete dead end.
-> > 
-> > Maybe you mean DRM, but VFIO works perfectly with
-> > PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.  What am I missing?
-> 
-> Well not quite.
-> 
-> The approach PCI_P2PDMA_MAP_BUS_ADDR takes is fundamentally tied to
-> only map a physical CPU address into a PCI address and doesn't take
-> into account that in a lot of configurations the CPU can't access
-> all resources.
+Hi,
 
-It is called PCI P2P. If the flow only uses PCI devices it should
-always work because it relies on PCI spec things that happen outside
-the CPU.
+On Tue, Sep 1, 2026 at 2:14=E2=80=AFAM Yongxing Mou
+<yongxing.mou@oss.qualcomm.com> wrote:
+>
+> Add the BOE 0x0b21 panel entry used in the K&D Technology
+> KD116N36-30NB-A001 eDP LCM, place the EDID here for subsequent
+> reference. Timing values come from the KD116N36-30NB-A001 spec.
+>
+> 00 ff ff ff ff ff ff 00 09 e5 21 0b 00 00 00 00
+> 01 1e 01 04 a5 1a 0e 78 0a 24 10 97 59 54 8e 27
+> 1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 b2 39 80 d4 70 38 4b 40 30 20
+> 36 00 04 8c 10 00 00 1a 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 1a 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fe
+> 00 51 56 31 31 36 46 48 42 2d 4e 38 31 0a 00 b3
+>
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
+nel-edp.c
+> index 2b455369ed70..591e0ed03612 100644
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -2060,6 +2060,7 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, =
+"NE140QDM-NX2"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200=
+, "NV140FHM-NZ"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, "NE140=
+QDM-N6A"),
+> +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b21, &delay_200_500_e80, "QV116=
+FHB-N81"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, "N=
+V122WUM-N41"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV14=
+0FHM-T09"),
+>         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140=
+FHM-N47"),
 
-It does not try to solve the general embedded problem of arbitary
-communication between blocks inside a SOC, scale up networks, and so
-on.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-So, yes, it does not solve every problem DMA buf faces, but no it is
-not a "Dead end" as it 100% solves PCI to PCI communication which is
-still a very common use case.
+Pushed to drm-misc-next:
 
-DMA buf users that are exporting from a PCI device, over PCI MMIO
-should be using this API. It is the only way to do PCI to PCI
-communication correctly in the kernel.
-
-Jason
+[1/1] drm/panel-edp: Add support for BOE panel used in KD116N36-30NB-A001
+      commit: e7dee5c0ff819034092befc1cdba2e008a5c5ee3
