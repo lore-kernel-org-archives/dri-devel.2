@@ -4,102 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69286C624D3
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCFA7C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:29:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9387910F26D;
-	Wed,  2 Sep 2026 15:29:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jb7Zk66i";
-	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183F910F26D
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:29:04 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4994d41ceb9so900125e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 08:29:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788362942; x=1788967742; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=P9gX6/N+hUOidEKEDGQo/G6sZJ3cDNUMsczJpk9kQyc=;
- b=jb7Zk66ioNqZ/9xYyQcQxz4jyOkMg7TrgIet7cIsrUDV9yHpCpfp3N7/e0i8LTogeY
- cH0GRWv/nEG9s5MlkpJndKnkl4tni9sRiYpWMqP5T1idPayuhx5CxblaJ0O2et6Wt6+L
- wd4f5hY9Gw3TpjoEjE+IEb9ueoYgaZhHA6cBYCnE45q+P5Hx9FEySbdccRXDhhuifkUQ
- Ivw0/SSAqEAFJ9HygtJRJO6x1jyzmvoOEZ+JrTzajQWlCk5VzD8dXkaFT4WgH+vB46SM
- VnuCG+CJpeNPG/MyDKeBBKHqg2rw2Ri76+FkrRG863S9Z3noYnt90DM5FNbZVvLIqkAn
- nC1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788362942; x=1788967742;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=P9gX6/N+hUOidEKEDGQo/G6sZJ3cDNUMsczJpk9kQyc=;
- b=UHcCLe7phplafmFOst4HRTpyIeO20D0H2TgqWuPw1Jw5hOo5ekZ+jwRHuDaG0lW6PA
- ImVc6SGMGiBEgCCnppX3+NDEtK7C15XqCGi4GmW593wN38/3rG6+6V2Q5Pyd+exxDMkY
- bQ3fUX59T3SYkHdCouh4rZnJvxTY4yys4JgLyp94Sf4E7zGjizKbN8wYQ0WoGJZLM7TM
- v9ZSQtMWfefLiAchTuaR2aoD+QcY3KHsxDPOrBSQhnVuRbKFblC+2Xb3DluV1DdoRVQm
- Zq9x6UwHI94XRS8AHEHIK0J/K3sXIvu3ZjpCnaXA4nZ6od/cJ0CNf9JGNGDKLhmSJtXl
- tNUg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr5mgZtaEbkv0UhLSrx5jrqtUz47Um4rHyRtRK6I8wQyER3FlbPXfKjkJXfky/8wq2MnWvQBBBEE9M=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l0gZiYEWCabyMBYj48E4QePzN4FyGwDkYKSw0lq8YtcgAOnegF
- 4waFD+R4d4QniJQfjYbnx0WZXeueRAsxz0U9pRjnGA/wcxJJwXfUfMHi
-X-Gm-Gg: AR+sD103gW320EKdt+509LJRR/Yr4nPtMtPvJ4CJucCXPs3SdipJA7IGfEiG3Wm7Yk2
- WJN+Rvp8FkFe8bqVOYz31epV5u4jGYO61zZJDxj5BsoTRmyxmtO14/KOXz7wxXsyVGqYrvunJV4
- IsXRHkZzAOLdmTbMpH3AmGhQSgyCN/wWUWN2qKZvePGqWIXWtaERFttYr37NjC2duxO/sAdvvB3
- EKFWCkE4/fg9pSfr7NK6wexFOFm5ruPi5F4UBqIJIQqchkHMv5T7WQ+2DqNJkERl+AxllWY/6We
- dmPjyRzK16SGLzD1P1T8Bl1D1pbWNL4551rtFlwOdoxfa1yj1Ea8SRW2pZCO6f0xZB5C30JFvCm
- JscLCLAri4O845hn+TWj8vKPQyLBpWf06Fxpqn8saDxLQjc36JP6K8XzSiBNY5Oc7o57aTjsaQF
- G6yjKKad8SOo4b+5P0G+NTbgvI01inFHFTpR2HzyHjYf1VLpC+YAj/DC9uxL18FLn6zIK/p3fEw
- psZx594KpUaeou70k3fHWvK2FS4cBzlS538GitWmnIpLq2Xp2NpKHpz6SL4paWgK5BR4gqAJxVK
- tNuK
-X-Received: by 2002:a05:600c:c48e:b0:499:d95a:41f with SMTP id
- 5b1f17b1804b1-49ce558d5cbmr47256105e9.0.1788362942067; 
- Wed, 02 Sep 2026 08:29:02 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B831700D60D5CCF7970D839.dsl.pool.telekom.hu.
- [2001:4c4e:1b83:1700:d60d:5ccf:7970:d839])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce4775005sm91395395e9.10.2026.09.02.08.28.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 08:29:01 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, mcanal@igalia.com,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>,
- Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>,
- Phong LE <ple@baylibre.com>, Helge Deller <deller@gmx.de>,
- kernel@collabora.com, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Maud Spierings <maud_spierings@hotmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
-Date: Wed,  2 Sep 2026 17:28:35 +0200
-Message-ID: <20260902152838.5771-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14CE210F278;
+	Wed,  2 Sep 2026 15:29:25 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E366D10F278
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:29:23 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
+ by APP-03 (Coremail) with SMTP id rQCowADHzz3GQJhqfxvGBg--.30041S2;
+ Wed, 02 Sep 2026 23:29:10 +0800 (CST)
+Message-ID: <c321d3ea800e6754cb8a904a87f432d17ab3d21c.camel@iscas.ac.cn>
+Subject: Re: [PATCH V2] drm/loongson: Create blend mode property for cursor
+ plane
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
+ Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai
+ <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
+Cc: dri-devel@lists.freedesktop.org
+Date: Wed, 02 Sep 2026 23:29:09 +0800
+In-Reply-To: <20260902132152.3170934-1-chenhuacai@loongson.cn>
+References: <20260902132152.3170934-1-chenhuacai@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowADHzz3GQJhqfxvGBg--.30041S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZF17Aw1fWF1ruw15ZF4rAFb_yoW5tw4UpF
+ 4vyFW0krWYkFWktrykt34kGayfXw4fG34IqryrJa9Fgr15KF12vF10gwnI9rWUJr4kGw13
+ XrnrCrn8CF4UGF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-Originating-IP: [120.85.96.74]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,48 +67,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Cristian,
+=E5=9C=A8 2026-09-02=E4=B8=89=E7=9A=84 21:21 +0800=EF=BC=8CHuacai Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> After commit 860e748bddcc929 ("drm: ensure blend mode supported if
+> pixel
+> format with alpha exposed") we get warnings at boot:
+>=20
+> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
+> format with alpha exposed but blend mode not setup. Please fix.
+> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
+> format with alpha exposed but blend mode not setup. Please fix.
+>=20
+> The reason is the cursor plane supports color formats with alpha but
+> the
+> driver doesn't create blend mode property, which triggers the warning
+> in
+> validate_blend_mode_for_alpha_formats().
+>=20
+> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
+> a blend mode with "DRM_MODE_BLEND_PIXEL_NONE |
+> DRM_MODE_BLEND_COVERAGE"
+> for cursor planes.
+>=20
+> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 11 +++++++----
+> =C2=A01 file changed, 7 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+> b/drivers/gpu/drm/loongson/lsdc_plane.c
+> index bea42215796d..969b2aaa4fd0 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+> @@ -7,6 +7,7 @@
+> =C2=A0
+> =C2=A0#include <drm/drm_atomic.h>
+> =C2=A0#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+> =C2=A0#include <drm/drm_framebuffer.h>
+> =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> =C2=A0#include <drm/drm_print.h>
+> @@ -747,8 +748,9 @@ int ls7a1000_cursor_plane_init(struct drm_device
+> *ddev,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *plane,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int index)
+> =C2=A0{
+> -	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> =C2=A0	int ret;
+> +	unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+> BIT(DRM_MODE_BLEND_COVERAGE);
+> +	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> =C2=A0
+> =C2=A0	ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lsdc_plane_funcs,
+> @@ -765,15 +767,16 @@ int ls7a1000_cursor_plane_init(struct
+> drm_device *ddev,
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane,
+> &ls7a1000_cursor_plane_helper_funcs);
+> =C2=A0
+> -	return 0;
+> +	return drm_plane_create_blend_mode_property(plane,
+> blend_caps);
+> =C2=A0}
+> =C2=A0
+> =C2=A0int ls7a2000_cursor_plane_init(struct drm_device *ddev,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane *plane,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int index)
+> =C2=A0{
+> -	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> =C2=A0	int ret;
+> +	unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+> BIT(DRM_MODE_BLEND_COVERAGE);
 
-> This has been tested on the following boards:
+I think code needs to be present for setting up PIXEL_NONE blend mode,
+if it's exposed.
 
-One more, with a sink pair your boards cannot cover:
+Personally, from my copy of =E9=BE=99=E8=8A=AF 7A2000 =E6=A1=A5=E7=89=87=E7=
+=94=A8=E6=88=B7=E6=89=8B=E5=86=8C V1.0, I can find no
+information of a PIXEL_NONE blend mode -- there's no bits controlling
+the enablement of blending (except for completely disabling the
+cursor), and the format has no option of XRGB8888 instead of ARGB8888.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
+Thanks,
+Icenowy
 
-Setup: whole v11 on its stated base (drm-misc-next 47b823940e38),
-both SoC HDMI ports driven at once: a Samsung with HF-VSDB (max
-TMDS character rate 600 MHz, SCDC present) and a Sony limited to
-300 MHz TMDS.
+> +	struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
+> =C2=A0
+> =C2=A0	ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lsdc_plane_funcs,
+> @@ -790,5 +793,5 @@ int ls7a2000_cursor_plane_init(struct drm_device
+> *ddev,
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane,
+> &ls7a2000_cursor_plane_helper_funcs);
+> =C2=A0
+> -	return 0;
+> +	return drm_plane_create_blend_mode_property(plane,
+> blend_caps);
+> =C2=A0}
 
-1) HDMI 2.0 path: the Samsung now offers and runs 3840x2160@60 RGB
-   with a 594 MHz pixel clock (modetest-confirmed). Without the
-   series the same port tops out at 4K@30. A stable picture at
-   594 MHz is only possible with scrambling and the 1/40 TMDS ratio
-   active; it stayed stable across boot, mode changes and hotplug.
-
-2) Non-2.0 fallback: the Sony keeps its 297 MHz 4K@30 modes.
-   No regression.
-
-3) The result I care most about: this Sony in standby keeps EDID/5V
-   up but drops the link, and on my 7.2 stack that generates a
-   storm of detect/modeset cycles - measured 119-194 per hour,
-   enough to make the desktop stutter. On v11, twenty minutes of
-   standby produced ZERO events, and wake restored both sinks by
-   itself. Whatever share of that the cached-status detect and the
-   SCDC-loss handling each take - thank you.
-
-4) Hotplug on both ports: clean detach and reattach, no storms.
-
-5) Audio on a dead link: this morning my 7.2 stack took an SError
-   panic (regmap read in dw_hdmi_qp_bridge_clear_audio_infoframe
-   when a PCM was closed on a link whose SCDC never came up - full
-   UART trace available if useful). On v11 I could not reproduce
-   the class: six open/close cycles against the standby sink plus
-   one natural prepare-failure-then-close during replug all
-   survived cleanly. Caveat: different base kernels, so this is
-   not a clean A/B on the series alone.
-
-Scope: RGB output only (the YUV420 output series is separate), no
-USB-C DP on this base, VC4 side not exercised.
-
-Igor
