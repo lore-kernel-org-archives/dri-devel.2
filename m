@@ -4,86 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9092AC624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECE18C624DB
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2947610F3FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB3410F3FE;
 	Thu,  3 Sep 2026 07:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U0nHkHDX";
+	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="PKRsKe/q";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF1E410E058
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 05:48:27 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5c7afda4515so1153833e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 22:48:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788414506; cv=none;
- d=google.com; s=arc-20260327;
- b=UAfTDJSA+kjUEyKUMEdW8vgJbINwufvZd6iLw2R/f0LClAYPjNyMFUcBIeVi/2o3Iz
- j0sY9oF6PtqO1c+bKT0qxHeSAPJFv/vh/rFFXnyUqnAtQsotOVHmo00gZg11w7qLc1hW
- iOj1EFhAc/nvsfYuF2QC/nHamcfISwE4WDn838g3mRQrHeWFXaVen6lHUoirzuQEyHHs
- qrHpK6fsN/LjmYUGdtCwRZBa5HjPpT/xrl2DJk8Y20YmIqtJ9CsPpQUJjU2wNCcwSJ25
- kXdWJSqCPeYYA4zBBZ97v31wG/XcRPFRsodGzu6urjvNUM4AKD8az7OcSTJ7TiwmdwPU
- jzJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=RZptjE1dHM7nqCVLqhvT8YD6h6GAKlXNHkP07+9Kp8g=;
- fh=RbilkMqVzUMbipR9LjMxW6saqqPEDdsiVLj7ZMcuoAU=;
- b=lE1Ow5Y7aBH2eVgdz8lIG1H1iCsD5x8ebBVWqJVY/fld498kokC5zghfKNrlLTagbh
- zPyKxtNxIh0Ms2ZJAU56P16jFy1hTR4WVfwKq/63NnDG7A3ZIbRTh/laC97xW4ONsKvr
- KCB+MHplVE1TW6uU0AyO68v9ajchWBs5quVdG39DUbVYZ4e+4YArHi2ijaqfzq2YD/ls
- Um2+/gKCnwkN1O/7pBYWYj5nMCB0vdeiHGKeFVVCZMscHvLWczlpp42sILwjgND+HLxT
- 7R0tQHkunUhnXAlA2iF1aNUTF75F5pXt+melq/VFqPnWs7+9jakNtqbWQ7UNF/8hhnJd
- Z6cA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788414506; x=1789019306; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=RZptjE1dHM7nqCVLqhvT8YD6h6GAKlXNHkP07+9Kp8g=;
- b=U0nHkHDXhRxE9I5vJAchS0oJUocCVP82xXFhD2MyOx9+kD3ZABgiiLbZpdzL1/fU7C
- ZN1BgFv6lelSnmOC+6KWKtEOoO7yVoUvd5mPoNQ84J1ApO1l1sHp9tFOXih5yvWsDHK1
- Upplbi8qw32oSZod+UA9284mQMZt3p3j5WzgvciLYnm+Ofm/jJ9h2TXH5J62iRaWhvuN
- OyW+tF28Av9H0PDZwY30YjaLa0RFxD5QWjqRxiZrlJxtWstXdCW4xsbIYX10ny/P+Gi9
- DFDhpBlb7eo2vQcP5yAqMfEDvRqX8c0NAfq6sEh0yNhACiyDH71wXcSZs26I7d16uUV/
- dx6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788414506; x=1789019306;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=RZptjE1dHM7nqCVLqhvT8YD6h6GAKlXNHkP07+9Kp8g=;
- b=e9XpAZglqc1I7Eb9vNSW9/xGCarVWGWRDvVWNtusGWAl6bqX2V9WusfrVMvDkHyAL9
- rQPloM9spTcPK3iWNwUGXKhgnUh50CAH5ywJgebqsh/R+aty8INKXlPmnP1Eh9FViwpQ
- jg9QE0u6I0Fblbsp4LvZCwbJOu2wmchz7meSRJURVIOUUmd0178qdVC13vA+sdm+G2Jm
- e7dV9L95c6df0uMcQ4RwCZ1M+pjQvZDJawOcjVOWscQToMd0D7Yv2wqYNYqxkQmovJ7i
- 22312biqHleAHhWhj3FpYg5Iwd2+YnOnl/wsIhHArCG2hPkxuEXi1txbXxkIeCoIEJFT
- G0mQ==
-X-Gm-Message-State: AFuF++kCKPFKXrHiw7jUCNxqcv0SKc5QMt9bDTTfFTpq8g9JY5E+YO1I
- 4/jfFiBuODONWUKvT9b11/mFSp69bczxzTgjOUk9jOfUMpRcRSSvgWoIMzynIja0uyiSRoPTqFI
- WQyegBfIvWRtCv+HdnxagZirc6nqZX33N9gQqQoE=
-X-Gm-Gg: AYBFou3iKjkJQGhFLUdIeB4dbSmY3XaMTN531yetVMAtr8YHmklDFxEeWQ4qyymmjwz
- 3i9ra6asgERYPSya2grLEeIkYpNgzd49I/bnenoVszdgFGhLXUUWTqHWg4f4i5T317KIPAOqexC
- fnKBT8LLqiWpPO9bdbdu7t6UnrFSgSeAzWBxdA8oHcwPcK+NamaOmJuv+VoF8clAzjLtj3p6Ckl
- O9vu+SkyzLp8kH8VcpYtkmJ38lpTRSdkKTuM15YQwf37qc1rGBpvpHu3KHC55sPuR2LpIDS/1uB
- hmnb5nvfn5eK9Cf/de0J11lpHPcOH8iqT9l/Lyy/QG2kA06jSKkZZjZVesJvmSlGkt0GDJesInD
- JVQ==
-X-Received: by 2002:a05:6122:1d86:b0:5c2:ac92:eb18 with SMTP id
- 71dfb90a1353d-5c7d2886ac9mr3761005e0c.7.1788414505831; Wed, 02 Sep 2026
- 22:48:25 -0700 (PDT)
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAFE610F1A8
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+ s=protonmail2; t=1788351957; x=1788611157;
+ bh=iHjWnT0jlb2Iol6Nzi7YDxpQFzDBH8b1quQqLixhaVw=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=PKRsKe/qKcWIzc98TeeX6eBDhvYxrUfiaBXdi5vkZ1tyoM7aUrhoqZVyDr1FbWAjK
+ /gxqcCUV3p0yaD1xfXE/g+Dh7VYH/IZdUSCn6r2SuQn04xfk6zkBeTDLSCw560y53+
+ y3CK/hzsEo/VHENUZr3HPtEHS1vtfC7yBBHcO3EIfSIc9qYIWbnGxLS2Qcaz/oj4Z0
+ mJ9+IqngKt6hPYkV8+ii0LUxSsYqmeIB8wKVdkNBrGjVdVammyfEjcT00aFTHyE95c
+ dT7gG+a3zAyxJOWB6Q790QimThU/ueW7eiwHN+XvXJ8vmsjlnArNNM0aA9U5ZQjcz3
+ lqldYY5C1NrHg==
+Date: Wed, 02 Sep 2026 12:25:52 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, sunil.khatri@amd.com, Prike.Liang@amd.com,
+ timur.kristof@gmail.com, nat@pixelcluster.dev, mikhail.v.gavrilov@gmail.com,
+ pierre-eric.pelloux-prayer@amd.com, srinivasan.shanmugam@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: reject out of range PFNs in
+ amdgpu_vm_update_range()
+Message-ID: <20260902-vm-4f19ee6f@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: 4faec4b9ae5bb64e6db0f242f9775f91ad1e8d40
 MIME-Version: 1.0
-From: =?UTF-8?B?7JWI7Jqp7Zi4?= <nanhosoft@gmail.com>
-Date: Thu, 3 Sep 2026 14:48:14 +0900
-X-Gm-Features: AcwNN1WtR2XRbfyxUYjrKM5_BwO_pTTpfee00ZPL-VRfcQyqTu_mL8VqZFxe2WU
-Message-ID: <CAGehT5fQWOXgftdfmq+GDZf9wHJacQ_g93iKGRKvsY0Dm0r0Lg@mail.gmail.com>
-Subject: [QUESTION] accel/amdxdna: AIE2 maps unspecified QoS priority to
- PRIORITY_HIGH, AIE4 to NORMAL
-To: dri-devel@lists.freedesktop.org
-Cc: lizhi.hou@amd.com, min.ma@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,40 +59,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+amdgpu_vm_update_range() walks the page tables for the inclusive PFN
+range [@start, @last] without validating it. Two properties have to
+hold for that walk to be well defined, and both are currently left to
+caller convention.
 
-I was looking at the hardware-context priority path in amdxdna and
-noticed a difference between AIE2 and AIE4. I'm wondering whether this
-is intentional.
+The range must not be reversed. The resource cursor is initialized with
+a size of (last - start + 1) * AMDGPU_GPU_PAGE_SIZE in unsigned
+arithmetic, so a @last below @start - 1 wraps to a multi-terabyte size
+and the update runs past the intended end.
 
-In aie2_message.c, aie2_get_context_priority() maps a qos.priority
-value that matches none of the AMDXDNA_QOS_*_PRIORITY constants to
-PRIORITY_HIGH:
+@last must also stay below vm_manager.max_pfn. Unlike the lower levels,
+the root level uses a mask wide enough to be ineffective. The page-table
+walker derives an index from the PFN and applies a 0xffffffff root mask,
+while amdgpu_vm_pt_num_entries() allocates the root directory with only
 
-```
-    default:
-            return PRIORITY_HIGH;
-```
+=09round_up(max_pfn, 1ULL << shift) >> shift
 
-The function also returns PRIORITY_HIGH unconditionally when
-AIE2_PREEMPT is not enabled.
+entries. A PFN at or above max_pfn therefore indexes past the root entry
+array on the first descent.
 
-The XRT/xdna shim zero-initializes amdxdna_qos_info and only sets
-qos.priority when a priority is explicitly specified. Thus, with no
-explicit priority, qos.priority reaches the kernel as 0. Since the
-defined priority values start at 0x100, 0 takes the default branch and
-the resulting firmware context priority is HIGH.
+The buffer-object mapping path enforces both properties in
+amdgpu_vm_verify_parameters(), which rejects a zero size "which also
+leads to end < begin" and an lpfn >=3D max_pfn. Ranges reaching
+amdgpu_vm_update_range() from amdgpu_vm_bo_update() and
+amdgpu_vm_clear_freed() come from mappings validated there. The retry
+fault handler instead forwards one hardware-reported PFN without
+checking it against the configured aperture.
 
-For comparison, aie4_parse_priority_to_dev() in the out-of-tree
-xdna-driver maps an unrecognized priority value to
-AIE4_CONTEXT_PRIORITY_BAND_NORMAL.
+The KFD SVM path is not covered either. This has been possible since
+commit f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs"), which first
+mapped SVM ranges into the GPUVM page tables without an equivalent bound
+check. svm_range_map_to_gpu() and svm_range_unmap_from_gpu() check only
+amdgpu_vm_ready(). Their callers guard against reversed ranges, but
+nothing compares the result against max_pfn.
 
-Is the AIE2 default intentionally HIGH, or should the fallback be
-PRIORITY_NORMAL, consistent with AIE4? I'd be happy to send a patch if
-the latter is intended.
+When amdgpu.vm_size configures a GPU virtual address space smaller than
+the CPU address space, a process can register memory whose PFN exceeds
+max_pfn. A range near 113 TiB against a 256-entry root produced index
+116128 and oopsed in amdgpu_vm_ptes_update().
 
-This is against current linux.git master and amd/xdna-driver main as of
-2026-09-02.
+Validate the shared page-table-walk primitive rather than relying on
+every caller to duplicate its root-array precondition. Reject invalid
+ranges before device entry, allocation, or locking. Two in-tree paths
+can reach an out-of-range PFN once the aperture is smaller than an
+address a process can touch: KFD SVM and the retry fault handler. The
+fault handler will now log -EINVAL and return the fault as unhandled.
+The validated buffer-object callers are unaffected.
 
-Thanks,
-Yongho Ahn
+Source and call-chain analysis identified the missing
+shared precondition. The amdgpu VM and KFD SVM objects and the complete
+amdgpu object were built with W=3D1. No runtime test was performed.
+
+Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
+
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index aedf72c2333e..f9a46d706340 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1140,6 +1140,14 @@ int amdgpu_vm_update_range(struct amdgpu_device *ade=
+v, struct amdgpu_vm *vm,
+ =09struct amdgpu_res_cursor cursor;
+ =09int r, idx;
+=20
++=09/*
++=09 * The page table walk indexes the root PD without masking, so an
++=09 * out of range PFN would index past the end of its entry array.
++=09 * A reversed range would additionally underflow the cursor size.
++=09 */
++=09if (start > last || last >=3D adev->vm_manager.max_pfn)
++=09=09return -EINVAL;
++
+ =09if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ =09=09return -ENODEV;
+=20
+
