@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF5CC624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2AAFC624D4
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:33:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D2010F349;
-	Wed,  2 Sep 2026 20:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02D1410F346;
+	Wed,  2 Sep 2026 20:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VNhGG7qb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ivATJMVP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D22910F349
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:31:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339A010F346
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:33:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 669BF40BAC;
- Wed,  2 Sep 2026 20:31:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1474A1F000E9;
- Wed,  2 Sep 2026 20:31:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 60012600D4;
+ Wed,  2 Sep 2026 20:33:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17AE1F000E9;
+ Wed,  2 Sep 2026 20:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788381097;
- bh=WLyR6ChNOMlRe+CSsEvu6PNv1+KHt/AG1uqBK9WJ1Y4=;
+ s=k20260515; t=1788381193;
+ bh=DDYgPJXD4YbwqSD5NKKXpdEe2rfK1n6sFedryatBgmk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VNhGG7qb2VfwP7KqJKOKYvkCXGWwB8M/OakO8b44IVTe5FTf2PNmwfe0vTI0D04xg
- h1EJrBSMv/g5c8Mzz3ct7aJBS0oBWhzAB+vo5RVidF7/D0PaRJ1JYV0vLS/mEsA/2d
- 6lxagA3JM4vbATasiBVMxzj7NTqTf0p6W2swIqsOOgVnunYOfVUl7NanxOtC75RYqw
- MBMm/ntD31mv/PAuifRogEi1v92dsk74qyPB+qhjb2zdWPE+ymc6fMO2JfvJHSnnTE
- ZcF0ZJftYhPjEBg+TocOM/17MPd+H8ZOhGqC/xPqYBUO2XD7PNZuNnuq0mds0pQ8MZ
- Z7NaHPmyOcYNQ==
+ b=ivATJMVPvIl24x/jTvZiuzqfm3Ask5v+FggBu3gszYVJrhsrXl/uyRreKL1c/eRdg
+ WpY0s+WkXopkweypithyNZJsIVkcd6O92XPqPYBo+TzSzHet3JpnHvF6NoQKmsuT/z
+ mGJywLn5H2JQHjU2MrknNaLPP8bNaNhDVTizV2XMiHzvtyBWjRX+QCPt7KFtG5j1cZ
+ /W5Ne0tVMWImsDxzgmM9j16og6FbhI55f/dGHJix9/6eBemrB00FIVfbTG2RRpdyIE
+ Gq1dTtgeEoYRSbESpQ1ZtVrxMR216k7ZUsS10p3zpBWKMzkNjRLltuJaRYKECuWwnx
+ z3uwBwd/2yE/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/11] drm: kmb: Use devm_of_reserved_mem_device_init()
+Subject: Re: [PATCH v2 3/11] drm: pl111: Use devm_of_reserved_mem_device_init()
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260902201640.2024648-8-mukesh.ojha@oss.qualcomm.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902201640.2024648-4-mukesh.ojha@oss.qualcomm.com>
 References: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
- <20260902201640.2024648-8-mukesh.ojha@oss.qualcomm.com>
+ <20260902201640.2024648-4-mukesh.ojha@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 20:31:36 +0000
-Message-Id: <20260902203137.1474A1F000E9@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 20:33:12 +0000
+Message-Id: <20260902203312.E17AE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,98 +61,110 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The return value of kmb_initialize_clocks() is ignored in kmb_hw_i=
-nit(), leading to potential hardware hangs.
-- [High] Calling drm_atomic_helper_shutdown() after disabling clocks and PM=
- runtime leads to hardware access on a powered-down device and a system han=
-g.
-- [High] Dereferencing an ERR_PTR during error handling of DSI initializati=
-on causes a kernel panic.
+- [High] Pre-existing use-after-free and memory corruption risks due to tyi=
+ng resource lifetimes (`priv` structure and reserved memory) to `devres` (d=
+river unbind) while the `drm_device` can outlive the unbind.
+- [High] The `drm_panel_bridge` allocated via `drm_panel_bridge_add_typed()=
+` in `pl111_modeset_init()` is leaked if `drm_dev_register()` fails.
+- [High] When `INTEGRATOR_CLCD_CM` is matched, `pl111_versatile_init()` ove=
+rwrites `np` without dropping the original reference. If the second match f=
+ails, probe incorrectly fails.
 --
 
-commit ce6024d25a2085ae8c8a68d80d92293c0cb8ad15
+commit 76a1e18802677a9e3db4c051729d253910d2a13c
 Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-drm: kmb: Use devm_of_reserved_mem_device_init()
+drm: pl111: Use devm_of_reserved_mem_device_init()
 
-This commit updates the driver to use the devres-managed variant of
-of_reserved_mem_device_init(), simplifying the error and removal paths by
-removing manual cleanup calls.
+This patch converts the driver to use devm_of_reserved_mem_device_init,
+allowing the reserved memory region to be released automatically on
+probe failure or device removal. It removes the explicit cleanup calls.
 
-> diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
-> index 7c2eb1152fc2f..88fe377940f30 100644
-> --- a/drivers/gpu/drm/kmb/kmb_drv.c
-> +++ b/drivers/gpu/drm/kmb/kmb_drv.c
-> @@ -140,13 +140,12 @@ static int kmb_hw_init(struct drm_device *drm, unsi=
-gned long flags)
->  	/* Allocate LCD interrupt resources */
->  	irq_lcd =3D platform_get_irq(pdev, 0);
+> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl=
+111_drv.c
+> index 8ec659b3c08eb..a07b17261961c 100644
+> --- a/drivers/gpu/drm/pl111/pl111_drv.c
+> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
+> @@ -255,7 +255,7 @@ static int pl111_amba_probe(struct amba_device *amba_=
+dev,
+>  	drm->dev_private =3D priv;
+>  	priv->variant =3D variant;
+> =20
+> -	ret =3D of_reserved_mem_device_init(dev);
+> +	ret =3D devm_of_reserved_mem_device_init(dev);
 
 [Severity: High]
-This is a pre-existing issue, but I noticed that just before this hunk in
-kmb_hw_init(), the return value of kmb_initialize_clocks() is discarded:
+This is a pre-existing issue, but does tying resource lifetimes to devres
+here expose a use-after-free risk?
 
-	/* Enable display clocks */
-	kmb_initialize_clocks(kmb, &pdev->dev);
+The priv structure is allocated via devm_kzalloc() and the reserved
+memory is now managed via devres, tying their lifetimes to the driver
+unbind lifecycle. However, the drm_device is allocated without devres via
+drm_dev_alloc() and tied to a refcount.
 
-	/* Register irqs here - section 17.3 in databook
+If a local user holds an open DRM file descriptor (like /dev/dri/card0)
+and the driver is unbound via sysfs, devres will free priv and the reserved
+memory while the DRM device persists. Because pl111_amba_remove() calls
+drm_dev_unregister() instead of drm_dev_unplug(), the device is not
+marked as unplugged and subsequent ioctls are not blocked.
 
-If kmb_initialize_clocks() fails, the driver proceeds with probe and will
-eventually access unclocked MMIO registers during modeset. Can this lead to
-synchronous external aborts and system hangs?
+An ioctl like DRM_IOCTL_PRIME_FD_TO_HANDLE will call
+pl111_gem_import_sg_table(), which accesses dev->dev_private (priv),
+potentially causing a use-after-free. Should the driver be migrated to
+drm_dev_unplug() and devm_drm_dev_alloc() to prevent this?
 
 [ ... ]
 
-> @@ -465,8 +459,6 @@ static void kmb_remove(struct platform_device *pdev)
->  	pm_runtime_put_sync(drm->dev);
->  	pm_runtime_disable(drm->dev);
+> @@ -314,7 +314,6 @@ static int pl111_amba_probe(struct amba_device *amba_=
+dev,
 > =20
-> -	of_reserved_mem_device_release(drm->dev);
-> -
->  	/* Release clks */
->  	kmb_display_clk_disable(kmb);
+>  dev_put:
+>  	drm_dev_put(drm);
+> -	of_reserved_mem_device_release(dev);
 > =20
+>  	return ret;
+>  }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the shutdown sequence
-in kmb_remove() cause hardware access on a powered-down device?
+This is a pre-existing issue, but does this error path leak the panel
+bridge?
 
-Right after this hunk, the function completes with:
+During probe, a bridge is created by calling drm_panel_bridge_add_typed()
+inside pl111_modeset_init(), which adds the bridge to the global DRM bridge
+list with a reference count of 2.
 
-	/* Unregister DSI host */
-	kmb_dsi_host_unregister(kmb->kmb_dsi);
-	drm_atomic_helper_shutdown(drm);
+If drm_dev_register() subsequently fails, the probe function jumps to
+the dev_put label. The error path calls drm_dev_put(drm) but fails to
+call drm_panel_bridge_remove(priv->bridge). When the panel device is
+eventually unbound, its devres cleanup drops one reference on the bridge,
+but the bridge is never removed from the global list, leaving a dangling
+pointer. Does this need an explicit drm_panel_bridge_remove() call here?
+
+Also, while reviewing the probe path, I noticed a potential node reference
+issue in pl111_versatile_init() called earlier in this function:
+
+drivers/gpu/drm/pl111/pl111_versatile.c:pl111_versatile_init() {
+    ...
+    np =3D of_find_matching_node_and_match(NULL, versatile_clcd_of_match,
+                                         &clcd_id);
+    ...
+    if (clcd_id =3D=3D INTEGRATOR_CLCD_CM) {
+        np =3D of_find_matching_node_and_match(NULL, impd1_clcd_of_match,
+                                             &clcd_id);
 }
 
-Since pm_runtime_disable() and kmb_display_clk_disable() are called prior to
-drm_atomic_helper_shutdown(), atomic_disable callbacks will read and write
-hardware registers while clocks are disabled. Will this cause a bus fault or
-system hang during driver unbind?
-
 [Severity: High]
-This is also a pre-existing issue, but outside the diff in kmb_probe(), does
-the error handling for kmb_dsi_init() cause an invalid pointer dereference?
+This is a pre-existing issue, but does overwriting np without dropping the
+original reference cause a memory leak?
 
-If kmb_dsi_init() fails, it returns an ERR_PTR:
-
-	kmb->kmb_dsi =3D kmb_dsi_init(dsi_pdev);
-	if (IS_ERR(kmb->kmb_dsi)) {
-		drm_err(&kmb->drm, "failed to initialize DSI\n");
-		ret =3D PTR_ERR(kmb->kmb_dsi);
-		goto err_free1;
-	}
-
-The error handling path unconditionally passes this ERR_PTR to
-kmb_dsi_host_unregister(), which passes it to kmb_dsi_clk_disable(). This
-dereferences the pointer when attempting to access kmb_dsi->clk_mipi:
-
-drivers/gpu/drm/kmb/kmb_dsi.c:kmb_dsi_clk_disable() {
-	clk_disable_unprepare(kmb_dsi->clk_mipi);
-
-Will this result in a kernel panic due to dereferencing the ERR_PTR on memo=
-ry
-allocation failure during initialization?
+For the INTEGRATOR_CLCD_CM type, a second call to
+of_find_matching_node_and_match() is made, and its result overwrites np
+without calling of_node_put() on the original node. If the IM-PD1 syscon
+is not found, the second call returns NULL. The probe then calls
+syscon_node_to_regmap(NULL), which fails and returns an error, preventing
+the driver from probing successfully on valid standard Integrator AP
+hardware. Should of_node_put() be called before reassigning np?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902201640.2024=
-648-1-mukesh.ojha@oss.qualcomm.com?part=3D7
+648-1-mukesh.ojha@oss.qualcomm.com?part=3D3
