@@ -4,67 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA5AC624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:38:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30539C61DD6
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 15:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC11210F291;
-	Wed,  2 Sep 2026 15:38:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B3DE10F28A;
+	Wed,  2 Sep 2026 15:39:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="I9ueizmN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O+IeND1u";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AAF810F291
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:38:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788363513; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=FDECfZcHqChbNWONRZUuvX17kXnV/ISbiwnPVczXZai+/NeOWh8f9ERvWJFxFwpx0wjM3lR7R2nillDSLrAjkG6phSqmOQdYJJUVY+YGkf5vy1c4qnEDDpdeOi2scM3OEwvxxzLuTfxwVRu4CTzlNUZjRLA20OdhIoSiE+hNyQk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788363513;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=b7/tuXGv+XifNfRR85GU3v12h5Bk9fWAXOC4mGSb/VE=; 
- b=Nu7maI9DBb31bx7jbPdlPVIE/iXDzPQ4zGcW+voFJHkiqeeFDQBn4jpQOm+TTs+/9lCxQ3MpM4RZL9YLjgCASBS9stKQyJA1hf/lBMmpvWDSsHas6ws4QSvbIMWqxXJ9YwBm/GwdwKu4KGhxtMGd686TBhPokKThjvYYD/gOqgY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363513; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=b7/tuXGv+XifNfRR85GU3v12h5Bk9fWAXOC4mGSb/VE=;
- b=I9ueizmNJTEjRq39nYWoS3qVjdEawBtGLopoHtieZ3oAAKeMPrmUC5DCssnk9IUC
- Wemv5jcNsXflGfxzlc65Y7EvqsFgwTJmDrlrB5fAqsMKNvXwMjQEsbUc/LkUZ+pYZvw
- pWq5vS1h/2YEWhAAgCi1JD4HIEHGEk8wWqsnrI3k=
-Received: by mx.zohomail.com with SMTPS id 1788363511003811.5139964342504;
- Wed, 2 Sep 2026 08:38:31 -0700 (PDT)
-Date: Wed, 2 Sep 2026 16:38:25 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 02/17] drm/panfrost: Move all DRM device
- initialisation into device_init()
-Message-ID: <aphC0QRm5MricnRp@sobremesa>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
- <20260901134951.1e1d7fda@fedora-21.home>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010013.outbound.protection.outlook.com [52.101.56.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46ED810F28A
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 15:39:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EEswN6wPomwkY/NvvkOcYs+PcM0Yq85yQl/odL5pzAWJGAa3C9fuhO25q29IbxZpCt7rJ42sTlvxOLx1qGxDyn+O/rzgYoCSFmcoiLGBFflbJyENaiuUT2TREKfXtkOOJfsqgXHXl0Ksvho9R8xljBWd7iiQ4tCuJJ8mX0GyXbTtzA8T9xQKvgTX2MjOKrob/INB3IawJATf8A8CwDLLUD4tpwPYnyqd7+s1k25+4VnRd/Cz0HTAtTPaly9k1ZiAKmrwF7YA/i0tUcxAPk3DCA1uWlq5es4VuC23X1crkLawVsidRYo5OA+Bo3vmBOZLUi5dQkTYRkVVlGoELbNucA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r6wpCA9dX938YZdy8QRB/UQGumJIsYxyjbuRZCtdTEs=;
+ b=aSH5H6Mc9MFVCIsaGyQhYcpI9tyukXapux4RnELLSDq4lzlqsx0h6euDn6VdWdgiGbMIZ51KACVdrAsy3YiLrTwjfoJTmZd4hx5kQAj6bKhp+iwSS3W21WnhaviMBZZpYVkXOianbRxT7P/ccJYU97L0wqyz4lcVz1riRIfwZu9CFb65ae0xkoiHNZpYNC8wJ1Du+2rjsPaSkR8gM91KFqTBCd29k9PLVNFo/+1vHcTY/3C89Qz+J6dljJWWITjyaxtSYQ5hXoTfYC4B4pbuBgK8/csWyyAddKP2qQhWUEiKgXmhJqQtHQBzRVHWZ5lOQ6lzPS9IbSTB29JLzDNWmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r6wpCA9dX938YZdy8QRB/UQGumJIsYxyjbuRZCtdTEs=;
+ b=O+IeND1uOxn2cLxsgo4MfQL+niuGahMjVIphJt/fQn16dFMMwmXdJgVh0fQTNXE0/iqH/HOgCU2pzDt9k8q/ZVsJ++/UtxfuFvYXB2xWwzLLgoZIT7FnuGUwivDJ+YlZEPvVenMaPFnTdpTsJrHzWjcD05NCIUCJvqSUt4FJYiE=
+Received: from CH0PR03CA0240.namprd03.prod.outlook.com (2603:10b6:610:e7::35)
+ by PH0PR12MB7814.namprd12.prod.outlook.com (2603:10b6:510:288::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 15:39:33 +0000
+Received: from BL02EPF0001A104.namprd05.prod.outlook.com
+ (2603:10b6:610:e7:cafe::50) by CH0PR03CA0240.outlook.office365.com
+ (2603:10b6:610:e7::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 15:39:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 15:39:32 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 10:39:31 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 10:39:31 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 10:39:30 -0500
+Message-ID: <96451784-b482-f029-3a2c-b9108aaec175@amd.com>
+Date: Wed, 2 Sep 2026 08:39:30 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260901134951.1e1d7fda@fedora-21.home>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v5 4/5] accel/amdxdna: refuse to flush an imported BO
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>, 
+ Oded Gabbay <ogabbay@kernel.org>
+CC: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Alex Deucher <alexdeucher@gmail.com>, Max Zhen
+ <max.zhen@amd.com>, Sonal Santan <sonal.santan@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
+References: <20260819224458.257346-1-taimuraz@kaitmazov.com>
+ <20260819224458.257346-5-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260819224458.257346-5-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|PH0PR12MB7814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 048c65eb-5e43-43d1-7cb0-08df0908624c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CxU17BcpOg7+h4qIzW8TgKMEJ0TS4fsOANVmkqKMfbLdibvu8JKVHJiLC6pzDyCzNd/o5PnT6MojBFjXLx6z0wO6A37+lbpO4/y+1oDgFzaz4XRoka3jR/WYF600UhvWRD1Z7ZhDrjJedUIrp4Bkj5svfOHVWCQMSzr3tu43E3b2q0dL8WM7qFiuldPyXVB6QlqRGVUJKYXoAH0LumkK9VrhZpoYVo2/i82Hv5xn8zKF6kHPwyefSnldLGYx0xoqiPNFjiodHcucui2628VsOYr9m+3tjGaT6OoUtkyiGx47YMDKT4gaeZAED+eV15+7Z/9vsAWB40bzBiR7lA4MqQGcHwXeLnV+gtlbxKUT9+27x8bHyqonq6Rsg29JPYdvdVBIew2+PgJcm/7huN825h4K05/F+qyfAJQySwBOJAaV1g3n7SQ61L1B0Q5QjWiYi+zFCpxTckzjiuZ9SV4ouFnjefe5Hg/KnVvJ//exJVGikMpLKjrCYVGzg3TPPMEJxoqGj6bOriDz1vvYggnV0T+RS8bTFMpRp2T4RuNyZ+3dE0NM0swLR6U0zTAagyMwC+xh7f8WAxFqa5dlFI/QaYpVwM4o/0LqOYhkaY5N8YdIZWA8zKuzsvcJEZSwHg76p6mimYqFAgchu2SbxVMSIgx0MigBP03GGWjKOhLS+SQLEqqg3Zrrfkgrs0iU8s/Lqg7fefOTjeVtfvIC2ee9BA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: mVyGOSgo8XajDAhpN1RXdFCEZF9DxFCSrSQxKBvMGhQVlHKtDtqdSKia20qO6zgr/wVbxkyRGtBl1uLXULL8n7WKsGuFV2HksmEh5wJCZIlEQATwHurd169JGNJRp5qgQtdXC5AkH5C+ssdVH8Pkn3XVud4u+1Z13usKjjrQpR2YyA8ngoMgKjrHnhVuPIZCgokJPHbCtOJQ2safEOr8lWcXQT+QM6Tq0Ks6bgeUt3p0lX7t9F1sgsl5B9GezIbQJ/ekptcL9GktISGarfVzIjEJvmGR6FtY/Yms4HsOQi6Wk2+DNHFzDGsHQM+GSBdhRq0XVMuz567cFVVEVwaoE1rubtWb4VeqZVYZb20pc8UGX6ww21Os1/FMUmBTzHlfbdlyUWr1ndOhgR+8Jb2UIY9ij5QLsPFmOQqL6be7FxY8ohIBlw8yoB2lmb2xDUfj
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:39:32.3009 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 048c65eb-5e43-43d1-7cb0-08df0908624c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A104.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7814
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,219 +122,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01.09.2026 13:49, Boris Brezillon wrote:
-> On Fri, 28 Aug 2026 21:56:42 +0100
-> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> 
-> > Ideally the probe() function will do as little as possible, and all device
-> > initialisation and registration should happen inside the panfrost device
-> > subsystem, just like it's done in Panthor. This also simplifies resource
-> > unwinding in the error path.
-> > 
-> > Do the same thing for DRM driver remove, as in, sweep most of the action
-> > into panfrost_device_fini(), just like we did for device probe.
-> > 
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c | 33 ++++++++++++++++++++++
-> >  drivers/gpu/drm/panfrost/panfrost_drv.c    | 44 +-----------------------------
-> >  2 files changed, 34 insertions(+), 43 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index 05c40d5a20b5..d2d2830f11a7 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -8,6 +8,7 @@
-> >  #include <linux/pm_domain.h>
-> >  #include <linux/pm_runtime.h>
-> >  #include <linux/regulator/consumer.h>
-> > +#include <drm/drm_drv.h>
-> >  
-> >  #include "panfrost_device.h"
-> >  #include "panfrost_devfreq.h"
-> > @@ -216,6 +217,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  {
-> >  	int err;
-> >  
-> > +	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
-> > +	if (!pfdev->comp)
-> > +		return -ENODEV;
-> > +
-> > +	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
-> > +
-> > +	mutex_init(&pfdev->shrinker_lock);
-> > +	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> > +
-> >  	mutex_init(&pfdev->sched_lock);
-> >  	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> >  
-> > @@ -284,8 +294,25 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  	if (err)
-> >  		goto out_perfcnt;
-> >  
-> > +	pm_runtime_set_active(pfdev->base.dev);
-> > +	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > +	pm_runtime_enable(pfdev->base.dev);
-> > +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> > +	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > +
-> > +	/*
-> > +	 * Register the DRM device with the core and the connectors with
-> > +	 * sysfs
-> > +	 */
-> > +	err = drm_dev_register(&pfdev->base, 0);
-> > +	if (err < 0)
-> > +		goto out_devreg;
-> > +
-> >  	return 0;
-> >  
-> > +out_devreg:
-> 
-> Not a huge fan of labels that describe where this is jumped from instead
-> of what is done under the label (that gets particularly confusing when
-> you start multiple locations jumping to the same label). So I'd suggest
-> renaming that one err_disable_rpm.
+Applied this to drm-misc-fixes.
 
-Will rename in the next revision.
-
-> > +	pm_runtime_disable(pfdev->base.dev);
-> 
-> I think you need a pm_runtime_dont_use_autosuspend() call before
-> pm_runtime_disable().
-> 
-> > +	panfrost_gem_fini(pfdev);
-> >  out_perfcnt:
-> >  	panfrost_perfcnt_fini(pfdev);
-> >  out_job:
-> > @@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  	panfrost_reset_fini(pfdev);
-> >  out_pm_domain:
-> >  	panfrost_pm_domain_fini(pfdev);
-> > +	pm_runtime_set_suspended(pfdev->base.dev);
-> 
-> Do we have a good reason for not flagging the device suspended just
-> after the pm_runtime_disable() call in the error path? I mean, sure
-> it's not truly suspended until the clks/regulators have been turned
-> off, but it also wasn't suspended the before the initial
-> pm_runtime_set_active() call, and I like the idea of undoing things in
-> reverse init order.
-
-That was my thought when I put it at the end, although since we manually
-manage device power down here rather than going through the RPM runtime
-suspend callback, I guess it makes no difference.
-
-> but it also wasn't suspended the before the initial pm_runtime_set_active() call
-
-I think devices begin their lifetime with power.runtime_status set to RPM_SUSPENDED:
-drivers/base/power/runtime.c::pm_runtime_init
-
-> >  	return err;
-> >  }
-> >  
-> >  void panfrost_device_fini(struct panfrost_device *pfdev)
-> >  {
-> > +	pm_runtime_get_sync(pfdev->base.dev);
-> 
-> 	pm_runtime_dont_use_autosuspend();
-> 
-> I see it fixed in patch 9, just like a few other issues that are made
-> more apparent by this code motion change. I guess it's fine but it
-> confused me, so it might be worth mentioning in the commit message.
-> 
-> 
-> > +	pm_runtime_disable(pfdev->base.dev);
-> > +
-> >  	panfrost_gem_fini(pfdev);
-> >  	panfrost_perfcnt_fini(pfdev);
-> >  	panfrost_jm_fini(pfdev);
-> > @@ -319,6 +350,8 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
-> >  	panfrost_clk_fini(pfdev);
-> >  	panfrost_reset_fini(pfdev);
-> >  	panfrost_pm_domain_fini(pfdev);
-> > +
-> > +	pm_runtime_set_suspended(pfdev->base.dev);
-> 
-> Fixed in patch 9, but the RPM ref you acquire at the beginning of the
-> function is never returned, so you end up with an unbalanced get/put.
-> This is a pre-existing issue, I know, this catches the eye of the
-> reviewer so we better mention that existing issues around PM are
-> preserved and will be fixed later.
-
-Maybe I should apply those fixes first and then rebase this patch in top of them?
-
-> >  }
-> >  
-> >  #define PANFROST_EXCEPTION(id) \
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > index 9882a3ede75f..80996e311a9d 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > @@ -964,7 +964,6 @@ MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with T
-> >  static int panfrost_probe(struct platform_device *pdev)
-> >  {
-> >  	struct panfrost_device *pfdev;
-> > -	int err;
-> >  
-> >  	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
-> >  				   struct panfrost_device, base);
-> > @@ -973,45 +972,7 @@ static int panfrost_probe(struct platform_device *pdev)
-> >  
-> >  	platform_set_drvdata(pdev, pfdev);
-> >  
-> > -	pfdev->comp = of_device_get_match_data(&pdev->dev);
-> > -	if (!pfdev->comp)
-> > -		return -ENODEV;
-> > -
-> > -	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
-> > -
-> > -	mutex_init(&pfdev->shrinker_lock);
-> > -	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> > -
-> > -	err = panfrost_device_init(pfdev);
-> > -	if (err) {
-> > -		if (err != -EPROBE_DEFER)
-> > -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
-> > -		goto err_out0;
-> > -	}
-> > -
-> > -	pm_runtime_set_active(pfdev->base.dev);
-> > -	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > -	pm_runtime_enable(pfdev->base.dev);
-> > -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> > -	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > -
-> > -	/*
-> > -	 * Register the DRM device with the core and the connectors with
-> > -	 * sysfs
-> > -	 */
-> > -	err = drm_dev_register(&pfdev->base, 0);
-> > -	if (err < 0)
-> > -		goto err_out1;
-> > -
-> > -
-> > -	return 0;
-> > -
-> > -err_out1:
-> > -	pm_runtime_disable(pfdev->base.dev);
-> > -	panfrost_device_fini(pfdev);
-> > -	pm_runtime_set_suspended(pfdev->base.dev);
-> > -err_out0:
-> > -	return err;
-> > +	return panfrost_device_init(pfdev);
-> >  }
-> >  
-> >  static void panfrost_remove(struct platform_device *pdev)
-> > @@ -1020,10 +981,7 @@ static void panfrost_remove(struct platform_device *pdev)
-> >  
-> >  	drm_dev_unregister(&pfdev->base);
-> >  
-> > -	pm_runtime_get_sync(pfdev->base.dev);
-> > -	pm_runtime_disable(pfdev->base.dev);
-> >  	panfrost_device_fini(pfdev);
-> > -	pm_runtime_set_suspended(pfdev->base.dev);
-> >  }
-> >  
-> >  static ssize_t profiling_show(struct device *dev,
-> > 
-
-Adrian Larumbe
+On 8/19/26 15:44, Taimuraz Kaitmazov wrote:
+> SYNC_BO clflushes an imported BO's scatterlist. An importer may not do
+> that: the memory belongs to the exporter, and dma-buf gives the importer
+> no interface to ask for maintenance on it. Refuse the request instead.
+>
+> is_import_bo() is (obj)->attach, which covers more than foreign buffers.
+> A userptr BO arrives through a ubuf, and on a carveout device every share
+> BO and the device heap arrive through a cbuf, so SYNC_BO answers
+> -EOPNOTSUPP for those too, including the AMDXDNA_BO_DEV path that flushes
+> through its heap.
+>
+> Only the ubuf case gives up maintenance it was getting: on a 64 MiB
+> userptr BO a 4 KiB sync and a full sync both cost 659 us, this arm having
+> ignored the range. amdxdna_cbuf_map() fills in only the DMA address and
+> length, so drm_clflush_sg() already walks zero pages on carveout memory.
+> Userspace maintains these through the mapping it already holds, as XRT's
+> buffer::sync() does unless it is told to sync through the driver.
+>
+> Suggested-by: Lizhi Hou <lizhi.hou@amd.com>
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 0e0f844526ca..4be5298d1062 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -1224,6 +1224,9 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+>   {
+>   	u64 end;
+>   
+> +	if (is_import_bo(abo))
+> +		return -EOPNOTSUPP;
+> +
+>   	if (offset >= abo->mem.size)
+>   		return -EINVAL;
+>   
+> @@ -1234,9 +1237,7 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
+>   	if (!size)
+>   		return 0;
+>   
+> -	if (is_import_bo(abo))
+> -		drm_clflush_sg(abo->base.sgt);
+> -	else if (amdxdna_gem_vmap(abo))
+> +	if (amdxdna_gem_vmap(abo))
+>   		drm_clflush_virt_range(amdxdna_gem_vmap(abo) + offset, size);
+>   	else if (abo->base.pages)
+>   		drm_clflush_pages(abo->base.pages, abo->mem.size >> PAGE_SHIFT);
