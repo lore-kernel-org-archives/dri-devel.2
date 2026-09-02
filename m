@@ -4,145 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8FBDC624DA
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A714CC624D4
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 20:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C6210F343;
-	Wed,  2 Sep 2026 20:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C181910F344;
+	Wed,  2 Sep 2026 20:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="n5T54Ehs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lvo2YDIh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="if78KRWh";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6921110F343
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:18:27 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 682KHWR22686502
- for <dri-devel@lists.freedesktop.org>; Wed, 2 Sep 2026 20:18:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=nQGNtigd/fh
- Qj8k99E1cXDjPd48Xc/BcsE7CCfKWZIU=; b=n5T54EhsFCac0SeU5D97p7M0YyQ
- OQP1d0SiagH2QmIaJgTg0EzJqAasz7GbSsSPgUw2R5IJKN5KyjDdv+DO0Rik54jE
- Bw2ZYVdQ/cPd0iB5Rya3x6gJSo0zOOi5xs+R2+lI1ZraYlDfpII2Kju77CMQhqq1
- kK2P51HgZ7pos/Fkkp4EMGCSK6kQA/B3WSACwICogt3xvn0rRFQCCjtomCESoywQ
- hdJHu110huHjIB6qTqqapo0sKyxDfgmizZ5IWbyX/yMQ0sY/FvNGJGoNx8oXqqAr
- mXJHiTmzb2USb616HCS79zAQNlYwqyhwmVHKR2UWQd2CiF/orhDCnJuwgcA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gejv8a892-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 20:18:26 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2d7151120d6so23330415ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 13:18:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788380305; x=1788985105;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nQGNtigd/fhQj8k99E1cXDjPd48Xc/BcsE7CCfKWZIU=;
- b=Lvo2YDIhRSZKijyKTN1J/HhzbWOj/5ithDsoQynVw+zAHtNqD7kPooWKKEIl4Fp2XS
- 8gLV6kW1fOnaRFDfDkLRa6ZLzOi6dqr9qkDJq7tjh3az5wcr4QlbD49m+vVxCGsh+Cmv
- ud4BUda0+ejdNgDb0muGnaJBut8uuG5e7EDk53DZFnJ/kEPRZkqcLkUECisxgPrlZSrA
- 2h7U3yfkagX0zhMi8jCKqbSld0UmIlFultxnpswW0R5jfwhNLv/Muul5DRzfV+4yGxjs
- OQx2RpaC/gQRoKQbbiRPg+4Dv2QFqfGA+pkI5b3uQPsZKXZros8Q5I6UU4d4Opbcc2yG
- c5fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788380305; x=1788985105;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=nQGNtigd/fhQj8k99E1cXDjPd48Xc/BcsE7CCfKWZIU=;
- b=CXOb4ePyDSwqLna2JQsEAKFTEs4VySUp2E+x1kAeUKF3M5Ly7HneHstb0bZ618vz36
- utIWbJLzciBB8yzSmz+yF1alU5yukFZXCu8KZfFleh1x/BMGyMNOImzPUvcebXGU3qsq
- tMEVuC+Ba+uF0XfKxsKdr43YJD2Tgr04epP2aYwyjBr9J0929Vj/sZ/lwHVBINVfCMQh
- wq5MJWJzWtn3zctATFgThiXV9H/3U6OMNRR6Pi6Nr/QQifDDIRbjWSXpRY1WPcerwqAL
- hwk/h+4Se70fp95wnHh6LHmUEkGqabN7Z9agXVhzNybY1556WuvsOAxyThS7x6Nm7nmd
- KOnQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzjOmb6wXV/Jky9qyOwbC5Vc06NapqDUEkUUZdNhXrjbLSoG9UTQ/i0tWd5dG0NBnWK9K4piYdiMMM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mrAn8MqSCTEfvGZZz6tozxsr+mH7zCV3Cbbx4tKYc8dJMXeZRW
- 8x+gKL8jhQnvzozJl9HBa/6kTL/FHdDZeNHBYGeRY3hX0ui00SaZexBvVKOsKMB49GiZcVreRim
- Qfove9IXXKWyGBFbjSYDW/6sMJq+Wj9wOMwMW4dBosDN9CFkee/nN4Xjc+fTDhph+rtQ2euE=
-X-Gm-Gg: AYBFou0MoBoO8dbtu3GoW/YocMTT8RhGPmDfQ7XFPxcsvrgsi37u2T3U7jj4WUdqVo9
- hZjtqSBT4jiq/1wKy4zGXuLjrDDrGZV5tgwLYUHzTmq8i/yh7S6tAaFzIajah71c4oxdq32NS0j
- t24u8/ZnLpTMwV0h7iNVYh8hslp+0Ftb1AoGLT6AI0wHJ2M0OkzVEXPwif1Ra9IrDgp1de23ZGL
- 988dzxttJ0R1rYMWMan8eDOc8+iRtrpciLCmnsoa8CDUUNfY5NGheodMreyWkpmImnLgoAVvt3m
- 4xqkpA4WPQFHEuHGmAvc/2T73uWFE8KUN1dK9HcVOy3naaZ1wIWB9oSChF7WN0TolMOVTetx6K7
- ToSUvotGW1rtx5XbW6pDpe41G5N4=
-X-Received: by 2002:a17:903:32c2:b0:2c9:bf82:dd11 with SMTP id
- d9443c01a7336-2daec646e99mr78475695ad.7.1788380305428; 
- Wed, 02 Sep 2026 13:18:25 -0700 (PDT)
-X-Received: by 2002:a17:903:32c2:b0:2c9:bf82:dd11 with SMTP id
- d9443c01a7336-2daec646e99mr78474985ad.7.1788380304847; 
- Wed, 02 Sep 2026 13:18:24 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33256414c60sm497205eec.24.2026.09.02.13.18.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 13:18:24 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH v2 11/11] drm: arcpgu: Use devm_of_reserved_mem_device_init()
-Date: Thu,  3 Sep 2026 01:46:40 +0530
-Message-ID: <20260902201640.2024648-12-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38F2410F344
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 20:27:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 08980439D5;
+ Wed,  2 Sep 2026 20:27:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CE71F000E9;
+ Wed,  2 Sep 2026 20:27:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788380847;
+ bh=ohY7UvPWIjKc+e6gBiaAnd4UiIP7bpQTFLLHbCw9gUE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=if78KRWhmJ7eyzrBVRLa1nWLYCGHv9Qd5pwyfbwAeee/rgU0ExC9hsha78sHWmP4q
+ WnPMZ1jPg9zYfVyxrXu4YKOZmJutbGO8VSGQJCr61GfILAfu7WdbjfyiUxFVzkgVdE
+ L/O4IMp+o5vxhiEKTk3KjVvzKhpz+Szu0+QMq6dAVYwJS1IlL7PbmsrQi5ne8Nc+9u
+ yfcseTDmjyLbT+ZiSWRXsr/DuDzd4P9LBQoXoVbbSfJ9/W7Ydr76slM6USx9xi9Ofv
+ WdmtsP/5zrusc/5JQKP9fX8OWjAGfBcrEPjKpYbJTWIwQ/wZ2iXPoc/Tob0WdwV1p6
+ AYUGnhur37mjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/11] drm: ingenic: Use
+ devm_of_reserved_mem_device_init()
+To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902201640.2024648-7-mukesh.ojha@oss.qualcomm.com>
 References: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: MKgOaCSMS-gnKbx1eM4NisqrgnDbwZbA
-X-Authority-Analysis: v=2.4 cv=L+wtheT8 c=1 sm=1 tr=0 ts=6a988492 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=lEtn7xO9CsvGDZioIccA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3OSBTYWx0ZWRfX/Qry7PwS7EZj
- ETvOW9t5sWrfqUSnVmmgayIzLe0ATuA5Asvi6e4M+ufARcC8B8clKerwOTQjNMcWod1ix44B4fz
- R+lwMHi8bvm40JK3Ve6BN+U7+OgrRPeRAxKeg628Ij0MyvXJxb1DGHmrDkZi7OV9y+5zeAO3dGw
- wUqjlNhyqm74PzInaC8NI9uTUtuwkBWVv3nA8PPFasDCw+koR7A0jU/aaFU1Nz+o5tsvl+DwRME
- itEz9NSe4GX0pTQyUwZcCexUiiIwF+q2Rx+En4GIA1A3eq4PqC+LS4Tv+Tru7zvkGbUhtJX/z+y
- 6UrOJ6RS6YGpf1nDFYfd4bEEJdQRbrzP71tIyIqm7s2C1mY6AuNwNS8Z/uLWV78DNJlhj4Y4+7u
- SYzsnkEj2cBJlxh9xc9TDE/G/WOWrl+AGaKOAUBSeeD2o7BXrwRdF45GiHLftW8WIY535p3hfc4
- Og1MhBpogvdWZCFslBw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3OSBTYWx0ZWRfX8y0EUNzBJ1+1
- uiU9IRNRXamW1CQuylv8xcSpynaYR2AZ5HoNdFgHUi66M0g6QZkDZ5ytHFDa9SYiP0YlaH/bYvo
- E1Rf/PmRdscQnTFFlJDS6dGP5WgK1RQ=
-X-Proofpoint-ORIG-GUID: MKgOaCSMS-gnKbx1eM4NisqrgnDbwZbA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0
- spamscore=0 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020179
+ <20260902201640.2024648-7-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 20:27:27 +0000
+Message-Id: <20260902202727.B4CE71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,31 +54,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-the optional reserved memory region is released on device removal,
-fixing a missing cleanup in the original code.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/gpu/drm/tiny/arcpgu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [High] Using devres (`devm_*`) allocations in a component bind callback c=
+auses resource leaks and rebind failures.
+- [High] Hardware clocks are disabled before shutting down the DRM pipeline=
+, causing a bus hang on unbind.
+- [High] `component_unbind_all()` is executed from a devres cleanup action =
+without holding `component_mutex`, triggering a kernel warning and data rac=
+e.
+--
 
-diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-index c93d61ac0bb7..fa01407570a8 100644
---- a/drivers/gpu/drm/tiny/arcpgu.c
-+++ b/drivers/gpu/drm/tiny/arcpgu.c
-@@ -278,7 +278,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
- 		 arc_pgu_read(arcpgu, ARCPGU_REG_ID));
- 
- 	/* Get the optional framebuffer memory resource */
--	ret = of_reserved_mem_device_init(drm->dev);
-+	ret = devm_of_reserved_mem_device_init(drm->dev);
- 	if (ret && ret != -ENODEV)
- 		return ret;
- 
--- 
-2.55.0
+commit c7a21593821addf1c793b56266b4eca7b14e1ad2
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
+drm: ingenic: Use devm_of_reserved_mem_device_init()
+
+Replace the hand-rolled devm wrapper (ingenic_drm_release_rmem +
+devm_add_action_or_reset) with the standard
+devm_of_reserved_mem_device_init(), letting the device resource
+manager handle cleanup automatically.
+
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/=
+ingenic/ingenic-drm-drv.c
+> index 738a80b2550ff..2c4dd6ed2d413 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -1060,11 +1060,6 @@ static void ingenic_drm_unbind_all(void *d)
+>  	component_unbind_all(priv->dev, &priv->drm);
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is component_unbind_all()
+executed from a devres cleanup action without holding component_mutex?
+
+The driver registers ingenic_drm_unbind_all() as a devres action via
+devm_add_action_or_reset(). When the platform device is removed, the driver
+core executes devres cleanup actions after ->remove() returns.
+
+At this point, the component framework is inactive and component_mutex is n=
+ot
+held, but ingenic_drm_unbind_all() directly calls component_unbind_all(),
+which strictly requires this mutex.
+
+Could this trigger a kernel warning (WARN_ON(!mutex_is_locked(&component_mu=
+tex))),
+and potential list corruption or use-after-free due to concurrent modificat=
+ion
+of the component lists without proper serialization?
+
+[ ... ]
+
+> @@ -1127,16 +1122,10 @@ static int ingenic_drm_bind(struct device *dev, b=
+ool has_components)
+>  	}
+> =20
+>  	if (IS_ENABLED(CONFIG_OF_RESERVED_MEM)) {
+> -		ret =3D of_reserved_mem_device_init(dev);
+> +		ret =3D devm_of_reserved_mem_device_init(dev);
+> =20
+>  		if (ret && ret !=3D -ENODEV)
+>  			dev_warn(dev, "Failed to get reserved memory: %d\n", ret);
+> -
+> -		if (!ret) {
+> -			ret =3D devm_add_action_or_reset(dev, ingenic_drm_release_rmem, dev);
+> -			if (ret)
+> -				return ret;
+> -		}
+>  	}
+> =20
+>  	priv =3D devm_drm_dev_alloc(dev, &ingenic_drm_driver_data,
+
+[Severity: High]
+This is a pre-existing issue, but does using devres (devm_*) allocations in=
+ a
+component bind callback cause resource leaks and rebind failures?
+
+When the component framework unbinds a device (e.g., if the IPU component is
+removed), ingenic_drm_unbind() is called, but it does not trigger devres cl=
+eanup
+since devres is tied to the platform device, not the component.
+
+When it binds again, ingenic_drm_bind() runs, leaking previous devres
+allocations like devm_drm_dev_alloc(). This also causes failures when reque=
+sting
+exclusive resources again, such as:
+
+ingenic_drm_bind()
+    ...
+    base =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+
+This will fail on rebind because the MMIO region remains held by the leaked
+previous allocation. Can this be triggered locally by a privileged user
+unbinding the IPU component or the display driver via sysfs?
+
+
+While reviewing this file, I noticed another pre-existing issue:
+
+[Severity: High]
+This isn't a bug introduced by this patch, but are hardware clocks disabled
+before shutting down the DRM pipeline, causing a bus hang on unbind?
+
+In ingenic_drm_unbind():
+
+    clk_disable_unprepare(priv->pix_clk);
+
+    drm_dev_unregister(&priv->drm);
+    drm_atomic_helper_shutdown(&priv->drm);
+
+When the driver is unbound while the display is active, it first disables
+lcd_clk and pix_clk. Immediately after, it calls drm_atomic_helper_shutdown=
+(),
+which iterates over active CRTCs and planes to disable them.
+
+These disable callbacks (like ingenic_drm_bridge_atomic_disable() and
+ingenic_drm_plane_disable()) perform MMIO writes via regmap_update_bits() a=
+nd
+regmap_clear_bits().
+
+Will accessing MMIO registers while the peripheral's clock is gated cause a
+system bus hang (hard freeze or kernel panic) when a privileged user unloads
+the driver module or unbinds the device via sysfs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902201640.2024=
+648-1-mukesh.ojha@oss.qualcomm.com?part=3D6
