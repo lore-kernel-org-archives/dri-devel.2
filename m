@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE2E6C61DD6
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:10:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A6DC624D0
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 10:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7AD110F0FE;
-	Wed,  2 Sep 2026 10:10:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07AA810E282;
+	Wed,  2 Sep 2026 10:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="BwzgO8w2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W9Zoyfy6";
 	dkim-atps=neutral
-Received: from smtpout4.mo539.mail-out.ovh.net
- (smtpout4.mo539.mail-out.ovh.net [51.210.91.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17D7510F0FE
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:10:45 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net
- (director3.derp.mail-out.ovh.net [79.137.60.223])
- by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4hZdlk4rVJz47dh;
- Wed,  2 Sep 2026 10:10:42 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net
- (director3.derp.mail-out.ovh.net. [127.0.0.1])
- by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <manushprajwal555@gmail.com>; Wed,  2 Sep 2026 10:10:42 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.178.159])
- by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4hZdlk1sGsz1xpW; Wed,  2 Sep 2026 10:10:42 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.4])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta2.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 992443E1BA1; 
- Wed,  2 Sep 2026 10:10:41 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-114S00858de9c68-fa74-4ade-82ab-19872987c287,
- B996090B10F39224A8AB3EB696AF7E9E468EAB8C) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <d1e18ac8-b1fb-4ab8-9fc6-d740db710d70@pixelcluster.dev>
-Date: Wed, 2 Sep 2026 12:10:40 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/dmem: fix comment typos in dmem.c
-To: Manush Prajwal <manushprajwal555@gmail.com>,
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260813104236.1532-1-manushprajwal555@gmail.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <20260813104236.1532-1-manushprajwal555@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-x-ovh-tracer-id: 17735738285141221654
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFKwvEwJGcol71AQsTfjZh+kAcN8JhsUvTMjq8Wg9RU1brlYQm6y2KM0yGfMU3knXqmE9bR6MDU40xhZExcGcGUOng6qpgXku9F6+O4Em+4rOhEbNAYev/CF01ePlvBSRNR/sBxJWI3dfvWXz07yCUKlqxnmU9xli5d3wAig6FzChFUQxBo4+9o+bPNNQBu8pEj3ZVqQKT+x0QpHRef3oxETopGj4WoXOzR9teZwWO6oxod/OqESQeu2Hb5WEiZ26UlWeOlYf6mFnv2kdqP6qyoIDw666ZpB/zV9/ZPBdyDHkFsBMkwx5mTgIPjdTTwGR90BoWxuZK7l7e78aO5f1nwlUs8+PSyYu5BoWayGGWxAfB6peNuoYZfjLfIuTA7MH+VIXW84D6hBjtty9q9loHF5AJuin8Jl+E+wp/rXPVOsv3FTbiUxNSrwTnGvLWfpeRHdbAPN5fBtV8HBzuBhVxUkUNj0rsdYK8rqd9SezFR02upyhSKb50W7yVPT2qY9qeev/QrPmASmXVskp26nyHWo22yhgoPLjOPvMO31+82CCgUt2ksjA3om0fao7CAtuuYHczn9bMqGbXtCPFUh0kfdwCOJBJ+ou56/NBvXniDU0WUPHiHlzT89YptbJJG0FNWHGuHT4VTEr9w5oyCjrOskx2sMXWpy0RZ1RHMrktu3g
-DKIM-Signature: a=rsa-sha256; bh=dTxKNAElDwuk3yxcmSsfpCU+x1Yc1pV/uiHtmuZKsp8=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1788343843; v=1;
- b=BwzgO8w2FfozGyJe8MLsWjORab1jAWNM7fuXrUN9hJyl6e3WJPXIjTgNwvFvTVBwxSMbSGyy
- DxfuDsoSeGBV7fNqbXYcu/lGbJGoW65Z1WWR2/d2jtcM2vWsPqGKGxqLZfm8T5Uu7bciOdkeDlJ
- fiuwYqjF0B2cyoAFw2Fv2EJtTP3jPTbG/md1QCj8FjrPqB8fyPN/t7PF/cKCCPPz5MhrBmOvRhE
- fcmgQ+ouL5BtKfnKINHErLjVSSLkxX3lCKYE85dy4BnJQzXd55fGF0GOx7lM5nUhXVEt0ywQT4i
- n2sbZeU0uTOrTRhekEYHDOESoWOOgniKtI+k0yFtNhhGA==
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24BDA10E282
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 10:11:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6962F600C8;
+ Wed,  2 Sep 2026 10:11:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0FA1F000E9;
+ Wed,  2 Sep 2026 10:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788343868;
+ bh=qyHr4QwZFqtJxxYHoudfNxBo14C4k3c3CVA+26nU4pI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=W9Zoyfy69k5UQdjCURnEkbpAbT01lOjyDGl3EJE+PKVbcwr9pcPKH/vxDm5SI5FwX
+ fr+lLjJNUmFfWH334mIdbGjlme7SXk/9QhyXWYD+ZymmjAgZOILC0+piryrH8XeDBo
+ clBzgbxHU+xm8nNBRn6TOn5QoL0slzBnOYQ5CcDCp3kUFY6vixsn5P+eGEAmTzYvl5
+ wqCaTCe1lY375yg3JoxVZPLzIqnf5NlJVjPYbnknV9XYsLDBeQp28Fn5QaJM0GC0y6
+ b9mgd0YyzrECKQFCOtVCcrHyul0eV/qkRa4Ca+GJMiQwnI9xAQWEIc9z9n3pqyVN6u
+ +BGUPnt1ITiRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/imagination: Propagate map failures correctly
+ from pvr_mmu_map_sgl()
+To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260902-mmu_fix-v1-1-c55a23fb7cab@imgtec.com>
+References: <20260902-mmu_fix-v1-0-c55a23fb7cab@imgtec.com>
+ <20260902-mmu_fix-v1-1-c55a23fb7cab@imgtec.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 10:11:07 +0000
+Message-Id: <20260902101107.EB0FA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,48 +54,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 8/13/26 12:42, Manush Prajwal wrote:
-> Fix "succesful" -> "successful" (x2) in the kernel-doc for
-> dmem_cgroup_region::ref and dmem_cgroup_try_charge(). No functional
-> change.
-> 
-> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+Pre-existing issues:
+- [High] Latent NULL pointer dereference in `pvr_mmu_op_context_unmap_curr_=
+page()` when unmapping missing page tables, due to `-ENXIO` being improperl=
+y swallowed.
+--
 
-Reviewed-by: Natalie Vock <nat@pixelcluster.dev>
+commit 9512cb5ae9264ab1bc6ea5bf3b2a374fe88ffc0e
+Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
 
-and applied to drm-misc-next. Thank you!
+drm/imagination: Propagate map failures correctly from pvr_mmu_map_sgl()
 
-Best,
-Natalie
-> ---
->   kernel/cgroup/dmem.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 4753a67d0f..342ea5324e 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-> @@ -21,7 +21,7 @@
->   struct dmem_cgroup_region {
->   	/**
->   	 * @ref: References keeping the region alive.
-> -	 * Keeps the region reference alive after a succesful RCU lookup.
-> +	 * Keeps the region reference alive after a successful RCU lookup.
->   	 */
->   	struct kref ref;
->   
-> @@ -634,7 +634,7 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_uncharge);
->    * dmem_cgroup_try_charge() - Try charging a new allocation to a region.
->    * @region: dmem region to charge
->    * @size: Size (in bytes) to charge.
-> - * @ret_pool: On succesfull allocation, the pool that is charged.
-> + * @ret_pool: On successful allocation, the pool that is charged.
->    * @ret_limit_pool: On a failed allocation, the limiting pool.
->    *
->    * This function charges the @region region for a size of @size bytes.
+This commit ensures that map failures from pvr_mmu_map_sgl() are correctly
+returned to the caller, preventing the pvr_mmu_map() interface from continu=
+ing
+incorrectly. It also adds logging for page unmapping failures during cleanu=
+p.
 
+> diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imag=
+ination/pvr_mmu.c
+> index 3cac482e10347..175f0ba4d993f 100644
+> --- a/drivers/gpu/drm/imagination/pvr_mmu.c
+> +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+
+[ ... ]
+
+> @@ -2553,7 +2554,9 @@ pvr_mmu_map_sgl(struct pvr_mmu_op_context *op_ctx, =
+struct scatterlist *sgl,
+> =20
+>  err_destroy_pages:
+>  	memcpy(&op_ctx->curr_page, &ptr_copy, sizeof(op_ctx->curr_page));
+> -	err =3D pvr_mmu_op_context_unmap_curr_page(op_ctx, page);
+> +	if (pvr_mmu_op_context_unmap_curr_page(op_ctx, page))
+
+[Severity: High]
+This is a pre-existing issue, but could this unmap call trigger a NULL poin=
+ter
+dereference under certain conditions?
+
+If an unmap operation spans an L1 boundary into an unmapped area where the
+L0 table is missing, pvr_mmu_op_context_next_page() clears
+op_ctx->curr_page.l0_table to NULL and calls pvr_mmu_op_context_load_tables=
+().
+
+In pvr_mmu_op_context_load_tables(), the -ENXIO error indicating a missing =
+L0
+table is swallowed:
+
+	if (err =3D=3D -ENXIO)
+		err =3D 0;
+
+Because it returns 0 instead of -ENXIO, the loop inside
+pvr_mmu_op_context_unmap_curr_page() misses its guard:
+
+	err =3D pvr_mmu_op_context_next_page(op_ctx, false);
+	if (err =3D=3D -ENXIO)
+		continue;
+	else if (err)
+		return err;
+
+	pvr_page_destroy(op_ctx);
+
+This causes it to unconditionally proceed to pvr_page_destroy(), which then
+dereferences the NULL l0_table when checking if the entry is valid.
+
+Since this patch modifies the error handling around unmapping pages, is the=
+re
+a way to address the swallowed -ENXIO so that sparse unmap requests or
+rollbacks that cross into a missing L0 table skip properly instead of crash=
+ing?
+
+> +		drm_err(from_pvr_device(op_ctx->mmu_ctx->pvr_dev), "%s : Failure in un=
+mapping pages\n",
+> +			__func__);
+> =20
+>  	return err;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-mmu_fix-v1=
+-0-c55a23fb7cab@imgtec.com?part=3D1
