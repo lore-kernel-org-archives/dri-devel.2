@@ -4,42 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECE18C624DB
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF653C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB3410F3FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8149710F400;
 	Thu,  3 Sep 2026 07:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="PKRsKe/q";
+	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="CjkTfUyH";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAFE610F1A8
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:26:04 +0000 (UTC)
+X-Greylist: delayed 35948 seconds by postgrey-1.36 at gabe;
+ Wed, 02 Sep 2026 22:31:12 UTC
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch
+ [109.224.244.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D6610E532
+ for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 22:31:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788351957; x=1788611157;
- bh=iHjWnT0jlb2Iol6Nzi7YDxpQFzDBH8b1quQqLixhaVw=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=PKRsKe/qKcWIzc98TeeX6eBDhvYxrUfiaBXdi5vkZ1tyoM7aUrhoqZVyDr1FbWAjK
- /gxqcCUV3p0yaD1xfXE/g+Dh7VYH/IZdUSCn6r2SuQn04xfk6zkBeTDLSCw560y53+
- y3CK/hzsEo/VHENUZr3HPtEHS1vtfC7yBBHcO3EIfSIc9qYIWbnGxLS2Qcaz/oj4Z0
- mJ9+IqngKt6hPYkV8+ii0LUxSsYqmeIB8wKVdkNBrGjVdVammyfEjcT00aFTHyE95c
- dT7gG+a3zAyxJOWB6Q790QimThU/ueW7eiwHN+XvXJ8vmsjlnArNNM0aA9U5ZQjcz3
- lqldYY5C1NrHg==
-Date: Wed, 02 Sep 2026 12:25:52 +0000
+ s=protonmail2; t=1788388269; x=1788647469;
+ bh=eTuXow2RDpv5lP3+8l+Zj7LsJOisvJ24M6HDGUFAuqU=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=CjkTfUyH2TOXBqe36p/R8NHvZmmty34pxSIVSB+4tFPnSxmG6o0F3J6WpnWFIQWUB
+ vqXpcITquxoeNrUqHZQfJVuInkdOVjotz2LN7zGFV7UCqkgPWUY1rr2W1QQz3mRHXh
+ m6ctLowQIRWhJoCXDY5S7Jt1NKU2FAXhErEuvpjzPNJq0/sHwEVCmBPCGhks56kUuM
+ 0PZsUdkkDOCsx/GbmMw3Z8sN5zJXsjSwVLZPPrkL8Ri2L70BC7zVHAuXpZPsbhyYoN
+ ji5/yF33DgCaTwNckFlT98K5rlvRciPFQJFyVIaanytrMH6GmrM6uGAIvuPgp8wtRw
+ H+F+/k8svBrDg==
+Date: Wed, 02 Sep 2026 22:31:03 +0000
 To: amd-gfx@lists.freedesktop.org
 From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, Prike.Liang@amd.com,
- timur.kristof@gmail.com, nat@pixelcluster.dev, mikhail.v.gavrilov@gmail.com,
- pierre-eric.pelloux-prayer@amd.com, srinivasan.shanmugam@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: reject out of range PFNs in
- amdgpu_vm_update_range()
-Message-ID: <20260902-vm-4f19ee6f@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
+Subject: [PATCH v2 0/4] drm/amd/display: fix brightness ownership through
+ power module
+Message-ID: <cover.1788388049.git.arc@empyreal.works>
+In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
 Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 4faec4b9ae5bb64e6db0f242f9775f91ad1e8d40
+X-Pm-Message-ID: 16ac18dfe530b3eb205388d0b49a1f373a909ae2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -59,84 +64,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_vm_update_range() walks the page tables for the inclusive PFN
-range [@start, @last] without validating it. Two properties have to
-hold for that walk to be well defined, and both are currently left to
-caller convention.
+Linux passes PWM eDP brightness through two owners. The display manager
+maps the request into the firmware range and applies the ATIF custom
+curve. The power module then derives a percentage from that hardware
+value and applies the same curve and range again. A non-zero firmware
+minimum consequently prevents zero from reaching the panel minimum.
+The split also leaves the custom-curve disable policy and final source
+brightness mask attached to the wrong owner.
 
-The range must not be reversed. The resource cursor is initialized with
-a size of (last - start + 1) * AMDGPU_GPU_PAGE_SIZE in unsigned
-arithmetic, so a @last below @start - 1 wraps to a multi-terabyte size
-and the update runs past the intended end.
+Patch 1 keeps pre-power-module custom-curve output in the userspace
+domain, which also fixes affected stable kernels. Patch 2 covers that
+conversion with a non-zero firmware minimum. Patch 3 passes zero-anchored
+millipercent into the power module and keeps AUX millinits unmasked until
+the final AMD AUX or effective PWM handoff. Patch 4 covers ordinary PWM,
+forced PWM, AMD-AUX fallback, true AUX, live and replay callbacks,
+multiple panels, endpoints, interior values, clamping, and invalid
+ranges.
 
-@last must also stay below vm_manager.max_pfn. Unlike the lower levels,
-the root level uses a mask wide enough to be ineffective. The page-table
-walker derives an index from the PFN and applies a 0xffffffff root mask,
-while amdgpu_vm_pt_num_entries() allocates the root directory with only
+GPT-5.6 Sol Fast assisted with issue investigation, source and history
+analysis, patch and test development, review-response analysis,
+submission preparation, and consolidation of the working context. A
+separate tool-enabled Claude Opus 5 review audited the complete final
+diff with direct access to the source tree, build environment, KUnit
+harness, logs, and relevant hardware records. Objective verification
+included strict checkpatch, a clean UML KUnit build and execution of the
+configured DRM test set, an exhaustive C reproduction of every EDID
+luminance-byte combination, and source tracing through the DRM commit
+worker and hardware callbacks.
 
-=09round_up(max_pfn, 1ULL << shift) >> shift
+The human contributor reviewed the final behavior and evidence, directly
+performed and observed the physical hardware QA, and explicitly approved
+the exact tested series for submission. The quirked OLED path, VESA AUX
+panel, pre-DCN3.1 hardware, and hardware mode-change replay on a quirked
+panel remain untested physically because no matching panel is available.
 
-entries. A PFN at or above max_pfn therefore indexes past the root entry
-array on the first descent.
+Changes in v2:
 
-The buffer-object mapping path enforces both properties in
-amdgpu_vm_verify_parameters(), which rejects a zero size "which also
-leads to end < begin" and an lpfn >=3D max_pfn. Ranges reaching
-amdgpu_vm_update_range() from amdgpu_vm_bo_update() and
-amdgpu_vm_clear_freed() come from mappings validated there. The retry
-fault handler instead forwards one hardware-reported PFN without
-checking it against the configured aperture.
+- rebase onto current Linux master 89a312991dc6;
+- retain mathematical AUX millinits until the hardware handoff;
+- apply the panel mask immediately before live and replay AMD AUX writes,
+  or after PWM derivation when the effective handoff is PWM;
+- add a composition regression whose input distinguishes intermediate
+  masking from final-only masking;
+- capture and verify the live AMD AUX, VESA AUX, and mode-change callback
+  values;
+- credit the Sashiko finding and add the documented LLM assistance
+  trailer.
 
-The KFD SVM path is not covered either. This has been possible since
-commit f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs"), which first
-mapped SVM ranges into the GPUVM page tables without an equivalent bound
-check. svm_range_map_to_gpu() and svm_range_unmap_from_gpu() check only
-amdgpu_vm_ready(). Their callers guard against reversed ranges, but
-nothing compares the result against max_pfn.
+Sashiko also reported two pre-existing potential issues. Both were
+checked without changing this series. The DRM nonblocking commit tail
+runs from system_dfl_wq in sleepable process context, so taking dc_lock
+there is valid. The EDID parser and AMD fallback were exhausted across
+all 65,536 max_fall/min_cll byte combinations: consumed AUX ranges were
+always min 1 and max 50 through 12544, with no equal or inverted range.
 
-When amdgpu.vm_size configures a GPU virtual address space smaller than
-the CPU address space, a process can register memory whose PFN exceeds
-max_pfn. A range near 113 TiB against a 256-entry root produced index
-116128 and oopsed in amdgpu_vm_ptes_update().
+The final candidate passed all 2,036 configured UML KUnit tests,
+including 88 AMD backlight cases. Each patch passes strict checkpatch
+with zero errors, warnings, or checks, excluding only commit lookup
+diagnostics caused by the shallow source checkout. The production AMD
+display objects also compile with KUnit disabled and W=3D1.
 
-Validate the shared page-table-walk primitive rather than relying on
-every caller to duplicate its root-array precondition. Reject invalid
-ranges before device entry, allocation, or locking. Two in-tree paths
-can reach an out-of-range PFN once the aperture is smaller than an
-address a process can touch: KFD SVM and the retry fault handler. The
-fault handler will now log -EINVAL and return the fault as unhandled.
-The validated buffer-object callers are unaffected.
+The v2 physical PWM sweep on a Strix Halo panel captured both hardware
+endpoints and restoration:
 
-Source and call-chain analysis identified the missing
-shared precondition. The amdgpu VM and KFD SVM objects and the complete
-amdgpu object were built with W=3D1. No runtime test was performed.
+  requested 655   -> actual 0
+  requested 65535 -> actual 65535
+  restored requested 20119 -> actual 11597
 
-Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
+The operator reported normal panel behavior through the sweep. No kernel
+fault followed. This panel has brightness_mask =3D=3D 0, so it validates th=
+e
+shared path but not the quirked OLED hardware path. The existing
+LUT-unaware hardware readback inverse remains unchanged.
 
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Andrei Rusu de Castro (4):
+  drm/amd/display: keep custom brightness curve in userspace domain
+  drm/amd/display: test custom brightness with non-zero minimum
+  drm/amd/display: pass userspace brightness to power module
+  drm/amd/display: test power module brightness input domain
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c
-index aedf72c2333e..f9a46d706340 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1140,6 +1140,14 @@ int amdgpu_vm_update_range(struct amdgpu_device *ade=
-v, struct amdgpu_vm *vm,
- =09struct amdgpu_res_cursor cursor;
- =09int r, idx;
-=20
-+=09/*
-+=09 * The page table walk indexes the root PD without masking, so an
-+=09 * out of range PFN would index past the end of its entry array.
-+=09 * A reversed range would additionally underflow the cursor size.
-+=09 */
-+=09if (start > last || last >=3D adev->vm_manager.max_pfn)
-+=09=09return -EINVAL;
-+
- =09if (!drm_dev_enter(adev_to_drm(adev), &idx))
- =09=09return -ENODEV;
-=20
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   2 +-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   |  57 +-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   5 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |   3 +-
+ .../tests/amdgpu_dm_backlight_test.c          | 622 +++++++++++++++++-
+ .../drm/amd/display/modules/inc/mod_power.h   |   1 +
+ .../gpu/drm/amd/display/modules/power/power.c |   2 +
+ .../drm/amd/display/modules/power/power_abm.c |  55 +-
+ .../amd/display/modules/power/power_helpers.h |  14 +
+ 10 files changed, 721 insertions(+), 46 deletions(-)
+
+
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+--=20
+2.54.0
+
 
