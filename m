@@ -4,102 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332F4C624D4
-	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 18:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD9DC624D3
+	for <dri-devel@archiver.kernel.org>; Wed,  2 Sep 2026 18:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F17410E4F7;
-	Wed,  2 Sep 2026 18:51:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A491910E43A;
+	Wed,  2 Sep 2026 18:59:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VY+a6cTX";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rilCVEd6";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011071.outbound.protection.outlook.com [52.101.52.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1001710E4F7
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 18:51:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LNvCOsgWQcLIogVZfDSNDQ2C0plyfOgV9cUy5moEBbnxvvVnakLp3RISosvVqXKLb5k5B/noDUOaiGjMzVTPUA80dIxsDVL/E+48DQfruJekp9doLuRK2EAoL/4BJt94hvrm0ZIAhuIbsZ9NSaNg3htTASCp8U9hZjqv+rWb0Ck/zF4Z70cdVf6k31x29vzhyf1DEI6ktnExntYHosrf0O+8D8Le23lq5B0PfausG15kKbUrofVPfrxc0YgZb5CPdaMGCmA2Vjz1NjNPMTbky2Z07euY8+J7SFmgYEjmGFYIfs3pJLN0ZvRtMlXjPynXN2Ywww8Aoa1jY+96ImAXUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z+VgFkljH204LYJRuT/iU1mclivebSO04UH6ETouKA4=;
- b=NEYx9vZQ3ocdSGTkf+DP68+ox5JENT6+AoY6iI82Su81w03ZVxGsJ7DlDdCaon72HEK2UFUaQbgc1GubDz0nh9iX5E2y0kjGqg4IcoGgATcgMLag2HpE1LRE3mvbvJJ2kcU8AmAYgHGnPdd7P5LUDjNTGspwAVhKT4BIWAx9G8iYHAslViXC5sfRlYypu+0fPD7jEtXpnGizPtLgaS72Ne+F1n1UJjoloQkav59Ttc1UKL9av9gDantREmFuOwKGzGAkZU2biHwdLhaPBIXLq2y8gkuUxN2zSVlRKuYq2+ib4R+ECvr1rWaBBfWKKNzxgRc/O8jHqSQgrQ8Z1dYdpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z+VgFkljH204LYJRuT/iU1mclivebSO04UH6ETouKA4=;
- b=VY+a6cTXuQa7YXlQvCiwKbOYTXPKJdrgn0QGQJtLzwIYezWl0u6QRCNJSKVGmAtuEur0vGLiUQP77v50UHJgxVUY3VJBbqiktIuCSsMHu8lQizvjR4kIVCpH9iMueKOXb89b4i6BL1aURHwgEIWC48FP629QiawyC2JdLZ88uAU=
-Received: from SJ0PR05CA0054.namprd05.prod.outlook.com (2603:10b6:a03:33f::29)
- by IA0PPF04DCE520E.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bc5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 18:51:12 +0000
-Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
- (2603:10b6:a03:33f:cafe::1b) by SJ0PR05CA0054.outlook.office365.com
- (2603:10b6:a03:33f::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 18:51:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 18:51:09 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 13:51:09 -0500
-Received: from [172.19.68.62] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 13:51:08 -0500
-Message-ID: <83104024-65dc-4289-afe5-6892844dc344@amd.com>
-Date: Wed, 2 Sep 2026 11:51:03 -0700
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE8B10E43A;
+ Wed,  2 Sep 2026 18:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=ijFdRv7k9P9GZDfrgCL5+rI4nlJpeZphc+H/ghPffHU=; b=rilCVEd6zRk+htwDFT4efTcynV
+ 8D4o9TDWuOYiEYOOry0juLByWs0i39jkDH3dTziLxyYq2keuICS2smUvhx0FoljGn1giwhEi5RyFp
+ ertoFOkOoBXEMqJ15YSgWR4x+67IAWCWkGylHyWD3Oe1ev++nTDyA4njSoHSgLMf+olMwIHZSvVfd
+ UuMtXFKsaFI8P7xeRvjW4wlqYayeQHH6IORGrRllSU7NiQs44pbn5IETlspJCa3TcM2qXddTEiYob
+ wkCLXi1iWh6/M8ka4Ab4WgocQgTUUqzgYNcNqZ43M6XBszx8lU+lvML93uyJOMLJlJVyrcF/vvkCb
+ xZuaTOoA==;
+Received: from [31.4.135.192] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x1qAS-00DzCf-6E; Wed, 02 Sep 2026 20:58:40 +0200
+Message-ID: <cba8b58c-4869-494e-9b1c-84483ff8e701@igalia.com>
+Date: Wed, 2 Sep 2026 20:58:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 2/2] accel/amdxdna: Fix potential deadlock in BO open
- and close callbacks
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260902180955.3999242-1-lizhi.hou@amd.com>
- <20260902180955.3999242-2-lizhi.hou@amd.com>
+Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
+ warning
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniels@collabora.com, harry.wentland@amd.com,
+ leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
+ Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
+ kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260826104143.39077-1-mwen@igalia.com>
+ <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
+ <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
+ <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
+ <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
+ <572f78a8-1b09-4275-bca7-0ae8703776d0@freenet.de>
+ <722d96c4-8938-4da4-9eb4-2af50b9d8b26@leemhuis.info>
 Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20260902180955.3999242-2-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|IA0PPF04DCE520E:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4c011d6-e8e2-4bf3-c3b6-08df09232746
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|10067099003|56012099006|11063799006|22082099003|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info: 2vMSK+2k9gKAGtJMq4UFdtyMpilz4D4iqvEde6GVmFOeAj9Hmt3nwMQ6EhF8lwz4s7+ugICfa9tBMDaJ9RHKNAu86mXHPuhVyNk4CiYqX5bNtC70JKJzikn71LQV83xqjBKn7vIs2O0CHuERVgDzNLQMEOomxwUf/9mXShYaAWpoJiFkcQhJu0ng6lmOaydMfqBaGrryu5jb8/vWNlL6TdSYE4JuEWzJk9n2FW43xpPWzk/622F8Nmx5HUVBq9N6/wcmz+rvqvE58UgtozC+gGr26xkY1uLoegKu/eYwc/VKcae9hQsNLFHeaVgsYk/gsMkHOtw3DsXfXpJHGHMW6nhjAZ9vacEgk2mPNjE5+zcW4R7MznrEnQVJxINeaqNUtfB1wJqmWBFOnMjinympYJwm37VdcVxjYb/qN/obaOale245J6Gy2Y+ZzKFJ118vaPma1qTw4eoxKA1bqHLJA7iHNJQHXOS3TCGznjX+9uINWiUCyskGXwv5mDp7NppBT82uVR5A5cCk62UNtLTvze85w7FgWxEb1m/EXrx6xYML333z3J6KKO3gsbuMTT1XjOA9DzIWs9I/RGmAOp1DOwFROMsN9LCWcpuNRhWepeYL8ZMsZNR+YuA0hdViud84PZ/gZl6SLdHFGWmgdgA3EpaUxRxNbC6QesTh4Y/72WeiPMHrjXEXjmQ974gZTs2UV3X1FpbIRw9tVNztxzoR7Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(4143699003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CupTSh4ltwLVIU9B+owz3gY3nL1+OVsldg3pA5NMfJlxRHgGqs4+mzbprzwI/shOI692I8KTBWIX9GP8fmCctGcejU+1K8jqJswN6bQM7WcY0TUzhDJ8WiBkR/UEpNcEg2Q3X7+sCW4lJwsEsi31JoFd7LyJvwuK3AMYm4Ecao0uE2/5UTgH0ebaghmBk0+sk+pq7tmmtadUZuVPSaTN4BanCU6G7aza+vDk5bgwjlmRr+4/LuXYmTmTPZulwzDSMDrwj+uQfiVG0HMccF2Hf4R/ZkEw9857kRpphOaj3PWO+R1FlTl/UKd/0PupCw7QNAIDLhaiDzEUzw97gXx+9s6rTrDjxikDXsdFwogOE1gT09WGo2p/XKUr4Y9NUcwxOwYK1b8HKZvUlTlfcWK8/HuEmc74tWBxwfkIT2yXmF6Lf4ptrnGzIBYk/xPqsqUK
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 18:51:09.6078 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4c011d6-e8e2-4bf3-c3b6-08df09232746
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF04DCE520E
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <722d96c4-8938-4da4-9eb4-2af50b9d8b26@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,113 +79,78 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 9/2/2026 Wed 11:09, Lizhi Hou wrote:
-> In amdxdna_gem_obj_open(), abo->lock is held when calling
-> amdxdna_gem_add_bo_usage(), which then acquires client->mm_lock.
-> 
-> However, the heap update path may acquire these locks in the reverse
-> order, creating a potential deadlock.
-> 
-> Fix this by saving the client pointer locally before acquiring abo->lock,
-> and releasing abo->lock before calling amdxdna_gem_add_bo_usage().
-> 
-> Apply the same change to amdxdna_gem_obj_close().
-> 
-> Fixes: 1f513a3ec3a9 ("accel/amdxdna: Add per-process BO memory usage query support")
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 34 +++++++++++++++++++----------
->   1 file changed, 22 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 1353393194e2..0d165b66c1fc 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -641,10 +641,8 @@ amdxdna_gem_skip_bo_usage(struct amdxdna_gem_obj *abo)
->   }
->   
->   static void
-> -amdxdna_gem_add_bo_usage(struct amdxdna_gem_obj *abo)
-> +amdxdna_gem_add_bo_usage(struct amdxdna_client *client, struct amdxdna_gem_obj *abo)
->   {
-> -	struct amdxdna_client *client = abo->client;
-> -
->   	if (amdxdna_gem_skip_bo_usage(abo))
->   		return;
->   
-> @@ -656,10 +654,8 @@ amdxdna_gem_add_bo_usage(struct amdxdna_gem_obj *abo)
->   }
->   
->   static void
-> -amdxdna_gem_del_bo_usage(struct amdxdna_gem_obj *abo)
-> +amdxdna_gem_del_bo_usage(struct amdxdna_client *client, struct amdxdna_gem_obj *abo)
->   {
-> -	struct amdxdna_client *client = abo->client;
-> -
->   	if (amdxdna_gem_skip_bo_usage(abo))
->   		return;
->   
-> @@ -694,14 +690,20 @@ static int amdxdna_gem_obj_open(struct drm_gem_object *gobj, struct drm_file *fi
->   {
->   	struct amdxdna_dev *xdna = to_xdna_dev(gobj->dev);
->   	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
-> +	struct amdxdna_client *client;
->   	int ret;
->   
-> -	guard(mutex)(&abo->lock);
-> -	if (abo->open_ref > 0 && filp->driver_priv != abo->client)
-> +	mutex_lock(&abo->lock);
-> +	if (abo->open_ref > 0 && filp->driver_priv != abo->client) {
-> +		mutex_unlock(&abo->lock);
->   		return -EPERM;
-> +	}
-> +
->   	abo->open_ref++;
-> -	if (abo->open_ref > 1)
-> +	if (abo->open_ref > 1) {
-> +		mutex_unlock(&abo->lock);
->   		return 0;
-> +	}
->   
->   	/* Attached to the client when first opened by it. */
->   	abo->client = filp->driver_priv;
-> @@ -712,26 +714,34 @@ static int amdxdna_gem_obj_open(struct drm_gem_object *gobj, struct drm_file *fi
->   		if (ret) {
->   			abo->open_ref--;
->   			abo->client = NULL;
-> +			mutex_unlock(&abo->lock);
->   			return ret;
->   		}
->   	}
-> +	client = abo->client;
-> +	mutex_unlock(&abo->lock);
->   
-> -	amdxdna_gem_add_bo_usage(abo);
-> +	amdxdna_gem_add_bo_usage(client, abo);
->   	return 0;
->   }
->   
->   static void amdxdna_gem_obj_close(struct drm_gem_object *gobj, struct drm_file *filp)
->   {
->   	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
-> +	struct amdxdna_client *client = NULL;
->   
-> -	guard(mutex)(&abo->lock);
-> +	mutex_lock(&abo->lock);
->   	abo->open_ref--;
->   
->   	if (abo->open_ref == 0) {
-> -		amdxdna_gem_del_bo_usage(abo);
->   		/* Detach from the client when last closed by it. */
-> +		client = abo->client;
->   		abo->client = NULL;
->   	}
-> +	mutex_unlock(&abo->lock);
-> +
-> +	if (client)
-> +		amdxdna_gem_del_bo_usage(client, abo);
->   }
->   
->   static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+On 01/09/2026 09:12, Thorsten Leemhuis wrote:
+> On 8/28/26 14:19, Viktor Jägersküpper wrote:
+>> On 8/28/26 09:22, Thorsten Leemhuis wrote:
+>>> On 8/27/26 19:14, Melissa Wen wrote:
+>>>> On 27/08/2026 18:37, Melissa Wen wrote:
+>>>>> On 27/08/2026 15:34, Alex Deucher wrote:
+>>>>>> On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
+>>>>>>> PREMULTI was the default DRM blend mode until 9813e158d13d
+>>>>>>> ("drm/drm_blend: allow blend mode property without PREMULTI")
+>>>>>>> introduced
+>>>>>>> the possibility of exposing the blend mode property without PREMULTI
+>>>>>>> being supported. However, __drm_atomic_helper_plane_state_init() still
+>>>>>>> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
+>>>>>>> mode in this property. In the same series, 860e748bddcc ("drm: ensure
+>>>>>>> blend mode supported if pixel format with alpha exposed") starts
+>>>>>>> warning
+>>>>>>> drivers that supports alpha formats in a given planes but doesn't
+>>>>>>> support blend mode property, which includes AMD primary and cursor
+>>>>>>> planes.
+>>>> [...]
+>>>>>> I presume you are planning to apply this directly to drm-misc for 7.3?
+>>>>> Right, I'll apply to drm-misc-fixes, just doing it now.
+>>>> Or not now. I have to wait for -rc1.
+>>>> I'll keep it on my radar.
+>>> Hmmm, that sounds like these fixes will miss -rc1. But wouldn't it be
+>>> good to get them included there, as they afaik (please correct me if I'm
+>>> wrong, is easy to mix something up from the outside!) the warnings that
+>>> Greg described as ""It's not good to boot and have a bunch of warnings
+>>> already happening, resulting in a "tainted" kernel before I have the
+>>> chance to break anything manually myself...""[1], as more people then
+>>> will likely encounter this (and then waste time on bisecting an issue
+>>> known for weeks for which a fix exists).
+>>>
+>>> [1]
+>>> https://lore.kernel.org/all/2026082651-spinning-cornbread-33ba@gregkh/
+>> If I understand correctly, the *actual* fix (for all affected drivers)
+>> will make it into 7.3-rc1, see this answer to my question:
+>> https://lore.kernel.org/dri-devel/20260826-brave-nyala-of-elevation-d23aea@houat/
+>>
+>> This fix is queued in drm-next:
+>> https://gitlab.freedesktop.org/drm/kernel/-/commit/271e90eb5f9ff34951647e5ed33c1775eebcca50
+> Ahh, yeah, many thx, I had see this downgrade to drm_warn() (which made
+> it to -rc1, yeah \o/), but had not made the right connections. :-/
+>
+> FWIW, even with that done there is now one amdgpu regression report
+> about this already post-rc1:
+> https://lore.kernel.org/all/CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com/
+>
+> """
+> [...] After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
+> warnings regarding unset blend modes for pixel formats with alpha
+> channels started appearing in dmesg during initialization.
+>
+> [drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
+> mode not setup. Please fix. [...]
+> """
+>
+> Will reply there now. Wondering if we need to do something about that if
+> more reports like that show up, but let's wait if that's the case.
+
+I just applied this series to drm-misc-fixes:
+- c3080b58d81d ("drm/atomic-state-helper: set pixel_blend_mode to prop 
+default on reset")
+- f0c75da0a6b4 ("drm/amd/display: fix missing blend-mode-prop warning 
+for DCN")
+- 332ad707e38f ("drm/amd/display: advertise PIXEL_NONE and PREMULTI 
+blend mode for DCE")
+
+With this, the dmesg message will no longer appear on the AMD driver.
+
+Melissa
+
+>
+> Ciao, Thorsten
 
