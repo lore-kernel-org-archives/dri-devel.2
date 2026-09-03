@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCB2C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B5EC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:13:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC1A10F46D;
-	Thu,  3 Sep 2026 08:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C56810F46E;
+	Thu,  3 Sep 2026 08:13:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="BbWXXCsD";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="wIdqqfdH";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67E3D10F46D
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:13:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D973A10F46E
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:13:49 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 30E434E414F5;
- Thu,  3 Sep 2026 08:13:44 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id A28AB4E414F8;
+ Thu,  3 Sep 2026 08:13:48 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id F08C2602B8;
- Thu,  3 Sep 2026 08:13:43 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 75D1A602B8;
+ Thu,  3 Sep 2026 08:13:48 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E6C3D11C79ED7; 
- Thu,  3 Sep 2026 10:13:29 +0200 (CEST)
+ with ESMTPSA id 161EB11C7A01E; 
+ Thu,  3 Sep 2026 10:13:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788423213; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1788423227; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=SY0pHjPdJdtRzhNI28GPcbLNlgGlZJu7msNQb0jyBF8=;
- b=BbWXXCsD7m/gi1SgbNhU4TIpfLnsOvsFjaoXfEUmpyd5ckh0X1o8lNF0WuPyQGi65MZmUI
- P5YL63Mjw8lc9z5z2TJ5xx9AiOtEsi6DsVJlzyNxIs9NnnhB3pJuiu4xcUYIeKMaG+IX8o
- Hh53mVgEPatec72YAz6LtA81BizQELBZlgBOBwQdXNm7M68PC9b9+rKEqSzr/NUZbYvwuk
- 7eokEfhpv/yhogW4yq74Yl8SIsuoJl9+5LlIUMdBzBxgAHPtIftNBJm5pfRL6IqqEsYW/6
- 8dQ/Nsl+MhHEmqO3kK4VKlL93j4XD2JlTbdngiMEAxXfh36PmB9UoWVuPLmYvA==
+ bh=LKBiroZPZQWWT2VlrBMmtMDEWl0tcjxbt1qbvxFX9Pg=;
+ b=wIdqqfdHz35qrJkcyKF7fIUUeTDyX1jav3Xh77qcgo2Bb/Ydhfb5wgfGkdKD336vSVgFUI
+ kmSvoVNfHci6URG3TvEJZRjf86z/ddhg0mw1sxpJmnjd1ygPKhUokvvuuT2Isln10hGzzD
+ HVZKnnhDsOwDbs9QoifkAH6uHWUqb2rIhZi/8zdB1EdJcWhfKipYcBEBNVlA1pRcIq7iUQ
+ wZ9RKdo7aIEDUrqK0T9UkFhpNztN8hKJO+ht+FqlMC/i0Shr4wpuqI0XoqcxGrUIKB3YLm
+ BQzijNIcajb8GU6gNUb2KlwmIN3HnTFS/AShTgLzpuoZy3Qd3oWyuB1YxRg4uw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 03 Sep 2026 10:11:18 +0200
-Subject: [PATCH RFC v2 15/19] drm/omap: dsi: remove unused includes
+Date: Thu, 03 Sep 2026 10:11:19 +0200
+Subject: [PATCH RFC v2 16/19] drm/omap: dss: don't create a panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-drm-bridge-every-panel-v2-15-2ab8ee24538e@bootlin.com>
+Message-Id: <20260903-drm-bridge-every-panel-v2-16-2ab8ee24538e@bootlin.com>
 References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -76,38 +76,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_panel API is completely unused in these two files.
+Now a panel_bridge is automatically created for every drm_panel, so this
+code (similar to an open-coded variant of drm_of_find_panel_or_bridge())
+would lead to creating a second bridge for the same panel.
+
+Update and simplify the code by just getting a reference to the
+already-existing bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/omapdrm/dss/dsi.c  | 1 -
- drivers/gpu/drm/omapdrm/omap_drv.c | 1 -
- 2 files changed, 2 deletions(-)
+ drivers/gpu/drm/omapdrm/dss/omapdss.h |  1 -
+ drivers/gpu/drm/omapdrm/dss/output.c  | 42 ++++-------------------------------
+ 2 files changed, 4 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
-index a57f5df5c830..6723c3d422c9 100644
---- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-@@ -38,7 +38,6 @@
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_mipi_dsi.h>
--#include <drm/drm_panel.h>
- #include <video/mipi_display.h>
+diff --git a/drivers/gpu/drm/omapdrm/dss/omapdss.h b/drivers/gpu/drm/omapdrm/dss/omapdss.h
+index 4c22c09c93d5..e3e685c931f1 100644
+--- a/drivers/gpu/drm/omapdrm/dss/omapdss.h
++++ b/drivers/gpu/drm/omapdrm/dss/omapdss.h
+@@ -204,7 +204,6 @@ struct omap_dss_device {
+ 	struct dss_device *dss;
+ 	struct drm_bridge *bridge;
+ 	struct drm_bridge *next_bridge;
+-	struct drm_panel *panel;
  
- #include "omapdss.h"
-diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-index 92d6a1f9c0a1..89a6d3b4aa6f 100644
---- a/drivers/gpu/drm/omapdrm/omap_drv.c
-+++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-@@ -17,7 +17,6 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
+ 	struct list_head list;
+ 
+diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
+index 6e9bc605ee22..36d37deac802 100644
+--- a/drivers/gpu/drm/omapdrm/dss/output.c
++++ b/drivers/gpu/drm/omapdrm/dss/output.c
+@@ -12,7 +12,6 @@
+ #include <linux/of_graph.h>
+ 
+ #include <drm/drm_bridge.h>
 -#include <drm/drm_panel.h>
- #include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
+ 
+ #include "dss.h"
+ #include "omapdss.h"
+@@ -20,40 +19,16 @@
+ int omapdss_device_init_output(struct omap_dss_device *out,
+ 			       struct drm_bridge *local_bridge)
+ {
+-	struct device_node *remote_node;
++	struct drm_bridge *bridge;
+ 	int ret;
+ 
+-	remote_node = of_graph_get_remote_node(out->dev->of_node,
+-					       out->of_port, 0);
+-	if (!remote_node) {
++	bridge = of_drm_get_bridge_by_endpoint(out->dev->of_node, out->of_port, 0);
++	if (IS_ERR(bridge)) {
+ 		dev_dbg(out->dev, "failed to find video sink\n");
+ 		return 0;
+ 	}
+ 
+-	out->panel = of_drm_find_panel(remote_node);
+-	if (IS_ERR(out->panel))
+-		out->panel = NULL;
+-
+-	if (!out->panel)
+-		out->bridge = of_drm_find_and_get_bridge(remote_node);
+-
+-	of_node_put(remote_node);
+-
+-	if (out->panel) {
+-		struct drm_bridge *bridge;
+-
+-		bridge = drm_panel_bridge_add(out->panel);
+-		drm_panel_put(out->panel);
+-		if (IS_ERR(bridge)) {
+-			dev_err(out->dev,
+-				"unable to create panel bridge (%ld)\n",
+-				PTR_ERR(bridge));
+-			ret = PTR_ERR(bridge);
+-			goto error;
+-		}
+-
+-		out->bridge = drm_bridge_get(bridge);
+-	}
++	out->bridge = bridge;
+ 
+ 	if (local_bridge) {
+ 		if (!out->bridge) {
+@@ -65,11 +40,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+ 		out->bridge = drm_bridge_get(local_bridge);
+ 	}
+ 
+-	if (!out->bridge) {
+-		ret = -EPROBE_DEFER;
+-		goto error;
+-	}
+-
+ 	return 0;
+ 
+ error:
+@@ -79,10 +49,6 @@ int omapdss_device_init_output(struct omap_dss_device *out,
+ 
+ void omapdss_device_cleanup_output(struct omap_dss_device *out)
+ {
+-	if (out->bridge && out->panel)
+-		drm_panel_bridge_remove(out->next_bridge ?
+-					out->next_bridge : out->bridge);
+-
+ 	drm_bridge_put(out->next_bridge);
+ 	drm_bridge_put(out->bridge);
+ }
 
 -- 
 2.55.0
