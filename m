@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A088BC624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24197C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:17:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D75CF10F01E;
-	Thu,  3 Sep 2026 06:15:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD4F10F3A1;
+	Thu,  3 Sep 2026 06:17:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZynYxGFV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YwEtRm8h";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A4C310E537
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:15:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCB7F10F3AD
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:17:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 405C8600C8;
- Thu,  3 Sep 2026 06:15:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0E51F000E9;
- Thu,  3 Sep 2026 06:15:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 43B18600C8;
+ Thu,  3 Sep 2026 06:17:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE731F000E9;
+ Thu,  3 Sep 2026 06:17:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788416108;
- bh=3kkBg+r/uOwoAsNuEFvVXQy+DR1ofiuEOPQZWpKf9vk=;
+ s=k20260515; t=1788416229;
+ bh=Jcy8U/4PDKtN5GY+lhVnHWrKMdnDmw/uF9+XpnRoH8U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZynYxGFVud7RuctuizyO6BMEVEqhFwO3TajEIMaBmr0YD/+d+hQCjxJCNjKLatqH2
- TyN7cRs81tojKFrglWEBPk0DOBXa0sfaUBikM5bXJYk8/LlHt4qAzG0GwI1msSzeDp
- W6NCtryTujQv2m8q9swQXkNWLAYnjvYkone1cqu3KQUioLPKQx/VmlZo9qeuIlEA+f
- uZjUtwRJSgud7RjLZ01wd2GqiuhbvP4hTYEujSO3th8gW45heAqdQxH1zCRHkOIh5c
- MLlYF3GAsheMisAmKWx4e3GAfBKnMcHWKy4xkjO50QdhD06gcw6HAZNJWTuKRifFPS
- 66x4ZPj+TxUtQ==
+ b=YwEtRm8hDvjLnIZQqG9Uh083EnSTdoSPbaAHswnLFLmtFcAhvWMWiJ5blIfxCZ2IS
+ g2wgkF9ZcFkTrq4YJA+3dzzu5DX0XQ27lNfUZMGZ8M9RHekSBC2/+cNTbPRxVBgRlQ
+ p2nZmOOwsmwK+UoRlnXK4g+D2tSNmrF/L6y1TmCVUt66nrUOeYU5+HP4ejGZlDf7bU
+ JL3FQ5qt3aCg7Tez2BvyOxk535sG2mi3RXTxxWJeMpfwuOGVVGQQqq57WLhiCSoI4N
+ vRfjD5SRyTB9u0JHXyOaCMqLLoTJ04UNsJgw5VD6eqTJdF0tr6A1mDHlSNP0aPwsg1
+ kpUcd4yVF9tHw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/sysfb: Use iosys_map_memset() to clear buffer
+Subject: Re: [PATCH 2/2] drm/sysfb: Use drm_format_info_min_pitch() to
+ calculate line clear length
 To: "Chen-Yu Tsai" <wenst@chromium.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260903060651.3724163-1-wenst@chromium.org>
+In-Reply-To: <20260903060651.3724163-2-wenst@chromium.org>
 References: <20260903060651.3724163-1-wenst@chromium.org>
+ <20260903060651.3724163-2-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 06:15:07 +0000
-Message-Id: <20260903061507.BF0E51F000E9@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 06:17:08 +0000
+Message-Id: <20260903061708.CEE731F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,69 +60,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The atomic_disable callback uses the new plane state to determine =
-the screen area to clear, which may be zeroed out and fail to clear the scr=
-een.
+- [Medium] Incomplete implementation of block format support, contradicting=
+ the commit message's claim of making the logic "future proof with respect =
+to format block size additions".
 --
 
-commit cdbf0de82b5bf761696ff2cc3c658a3d090a02c8
+commit 530a334e99c89cda78ed6306c7a7d6188cc1bf65
 Author: Chen-Yu Tsai <wenst@chromium.org>
 
-drm/sysfb: Use iosys_map_memset() to clear buffer
+drm/sysfb: Use drm_format_info_min_pitch() to calculate line clear length
 
-This patch updates the sysfb atomic disable routine to use
-iosys_map_memset() with an offset, rather than directly extracting the
-virtual address for memory clearing.
+This commit updates drm_sysfb_plane_helper_atomic_disable() to use
+drm_format_info_min_pitch() instead of format->cpp[] to calculate the
+length of each line in the buffer to clear. This change is intended to
+transparently handle the migration to format->chars_per_block[] and be
+future-proof for format block size additions.
 
 > diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/=
 sysfb/drm_sysfb_modeset.c
-> index d2de29caf89eb..99b13af4e391c 100644
 > --- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
 > +++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> @@ -375,13 +375,11 @@ void drm_sysfb_plane_helper_atomic_disable(struct d=
-rm_plane *plane,
->  {
->  	struct drm_device *dev =3D plane->dev;
->  	struct drm_sysfb_device *sysfb =3D to_drm_sysfb_device(dev);
-> -	struct iosys_map dst =3D sysfb->fb_addr;
->  	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> -	void __iomem *dst_vmap =3D dst.vaddr_iomem; /* TODO: Use mapping abstra=
-ction */
->  	unsigned int dst_pitch =3D sysfb->fb_pitch;
->  	const struct drm_format_info *dst_format =3D sysfb->fb_format;
->  	struct drm_rect dst_clip;
-> -	unsigned long lines, linepixels, i;
-> +	unsigned long lines, linepixels, i, offset;
->  	int idx;
+> @@ -396,7 +396,7 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm=
+_plane *plane,
+>  	offset =3D drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
+>  	for (i =3D 0; i < lines; ++i)
+>  		iosys_map_memset(&sysfb->fb_addr, offset + dst_pitch * i, 0,
+> -				 linepixels * dst_format->cpp[0]);
+> +				 drm_format_info_min_pitch(dst_format, 0, linepixels));
+
+[Severity: Medium]
+The commit message claims this change makes the logic "future proof with
+respect to format block size additions", but is this implementation complete
+for block formats?
+
+For block formats where block_height > 1, lines represents the number
+of pixel rows, but dst_pitch represents bytes per block row. Because the
+loop iterates lines times and advances the pointer by dst_pitch each
+iteration, wouldn't this advance the memory pointer block_height times
+faster than the physical layout?
+
+Additionally, it appears drm_fb_clip_offset() still multiplies by
+format->cpp[0] internally, which is 0 for modern block formats,
+potentially leading to an incorrect starting offset.
+
+Although sysfb currently only exposes linear formats from firmware (meaning
+block formats cannot reach this path today), could this cause an
+out-of-bounds memory write and incorrect X-axis offset calculations if block
+formats were ever used with sysfb in the future?
+
 > =20
->  	drm_rect_init(&dst_clip,
->  		      plane_state->src_x >> 16, plane_state->src_y >> 16,
->  		      plane_state->src_w >> 16, plane_state->src_h >> 16);
-> =20
->  	lines =3D drm_rect_height(&dst_clip);
->  	linepixels =3D drm_rect_width(&dst_clip);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does using the new plane sta=
-te
-to calculate the clear area result in a failure to clear the screen?
-
-Because drm_sysfb_plane_helper_atomic_disable() fetches the new plane state
-above, it uses the state properties after the plane is disabled. If a
-userspace display server zeroes out SRC_W and SRC_H when setting FB_ID =3D 0
-to disable the plane, both lines and linepixels will evaluate to 0 here.
-
-Could this cause the clearing loop to be completely skipped, leaving stale
-framebuffer data visible on the screen?
-
-Should this code use drm_atomic_get_old_plane_state() instead to ensure it
-always correctly clears the area previously occupied by the plane?
-
-[ ... ]
+>  	drm_dev_exit(idx);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903060651.3724=
-163-1-wenst@chromium.org?part=3D1
+163-1-wenst@chromium.org?part=3D2
