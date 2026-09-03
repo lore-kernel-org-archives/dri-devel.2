@@ -4,149 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A1FEC79F81
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1992CC624D7
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD3110F74A;
-	Thu,  3 Sep 2026 19:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD0D10F746;
+	Thu,  3 Sep 2026 19:38:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C01Jh/8I";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="ASU4Rzbl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C37610E504;
- Thu,  3 Sep 2026 19:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788464302; x=1820000302;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=k4HvpRSxGItfF7/G79HuQBV+XCndDMfepEtuhiT2+N4=;
- b=C01Jh/8Id0uGIPD2mXQhBHSUjob0nhGWEyR0iZD+NUgD3doGbW0ck+ug
- lS+1NYd0Rm6dFoOd2rwOVMyv4BxUq09Zl+IblDJAdkMje8ajC4UlbFN5W
- 8w7/3it9bp4Qd4R0z6eHBSBQ87bdadOjd54tyDfOh7oacWGU6RZ/Kfri3
- gcWSPsqPk/fCub+TsyiiqWJfRugJBCAYIjvwsBF8Ci09vRAwEbg62QYXj
- 9p2rOl1EsZby4ShHRREn0yq3rFICHydo9do9ghtaOQwA+f/RrSrW0l9zD
- Cg4i29zW44aOSqx4jI0k+jeV7fWsG2Aj2QgCu3s5xTQJ6g+NEFC4nIfd4 Q==;
-X-CSE-ConnectionGUID: IxdrhQNwRLa0Utsu+rsfcg==
-X-CSE-MsgGUID: JrcnZw6dSae0BROP3MfAdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88099893"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="88099893"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 12:38:22 -0700
-X-CSE-ConnectionGUID: cJx+a4LPT76jIggItwVx7g==
-X-CSE-MsgGUID: d0dPmxMvTu+CdiZEdu4jSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="273341086"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 12:38:22 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 12:38:21 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 12:38:21 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.54) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 3 Sep 2026 12:38:20 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=daRGGgkvv9rKSfha4Hg2v0AOF4o5FrHTU+e273Rs/U8QMBdXhScJK/vrZFDqPDdWkgW/biDvEvMHxQgrvqj3K63eP6uTpQOB1CdEHBLGhhjq45EJnqE/hrkjN98EQPjV25a5i/3iIEnI5ttogfJ0FcMWzgbfyczdORFrnoQyE4xr5shhqm3QHsVHrNoGFxGVujLvy4ybwIUJDqKaXnyZFbQp88Z3wbUTRHU2R2PcZnzMgBEl0RHBDt1af8c/doCEKDHVL54/v80PX3B+kJNYp3cjZI6QlqPp4Jk5L9Fk7gDPOdmx0OBJ4WaLdyCS6nQZIQvEnakKiYXrxTSyZ89miQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b3+kreRBp472GNdF9A4EM+cL8U3dePQ7f23Zbb3LPFk=;
- b=kVuBdfMvH3Ef/eDn/UKNgKnJLF+WXtWiD40rRrPcoPpOLGOc0rIklhcR78rgnVGkO3mBp2XYSXy150Lx3RRsbBQsADK6wLB9isUJMrSKvtu2o6gK6uEwkedEH9j/mTO7bEFLH4/pQ76HIA8KOYpLy/E8xFCA4PQ7C1stiKBT4X4kAexiTL0oNgmHakUtHQXv19xIDJvnppMOw878y2LptZuD0XKOVXWJrQS8S2K0RwYpGlvcI45F6SYp1aKbr1cMZG2Mqr+ZW7M5E71Y17d34gIm+FTzt6IcCQpQOBu31BJv6FbMAw/cQ9l3YzpwCYiAEoohtGbqwAb5sEtTkLjBIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by SAWPR11MB9571.namprd11.prod.outlook.com (2603:10b6:806:4e2::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 19:38:14 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 19:38:14 +0000
-Date: Thu, 3 Sep 2026 12:38:11 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-CC: <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
- <ecourtney@nvidia.com>, <nat@pixelcluster.dev>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: Re: Refcounting dma_resv v3
-Message-ID: <apnMo3x9nT/unjLE@gsse-cloud1.jf.intel.com>
-References: <20260903134408.105317-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260903134408.105317-1-christian.koenig@amd.com>
-X-ClientProxiedBy: MW4PR02CA0026.namprd02.prod.outlook.com
- (2603:10b6:303:16d::25) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com
+ [209.85.214.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3774110F746
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 19:38:47 +0000 (UTC)
+Received: by mail-pl1-f227.google.com with SMTP id
+ d9443c01a7336-2cc891373e0so2118305ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:38:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788464327; x=1789069127;
+ h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=brNSF6ql5aevmqbGax3CboePf220/VniLivOauNNsPk=;
+ b=WgG7VhR/4oRFWFuwK5vH03oFAs2gYdV8k/bHQQgoWhQ1xsCqV5uH+W9cbv1c2DSuBT
+ 2bpxR2ezavOcaB5qi06itmYpaFdmSB8qvjRA4RoGGFv8JAWkx7znl5Pnw27JIFW9G3B4
+ UuOmQUjxbk+Puyn1N3Vv29xKzSsOu6YQBX7JonwXtweRSELWt1bF8m56a+2jNxaJ3woN
+ Q2BpqWhz55Mh2mt8FFnd2KnGK86JZNdE8uLIOWs9Vjrww8OJcMGYg5hbUrx5hArgHGmT
+ ZCzXVV1K3IYN+SP3P75HkS7pgMMeVXi7wR1ln7v5N1kMR6ITAEEOAjKRNb/Vefa/WdOd
+ MwWA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByVPg3ijIkJwxFYIdbAKpQuc1aaa3t8m+FIPcNSEUX+XSK2v5XUp62EtYokuQlI8yQw4RCXeIctIEM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lD1PcfxlsTflmcWNUHnUSNCIao4ni4QcZZQq4jF1A5l3JWWlOL
+ W0qXzUegkhJldjM1sIt5cD+JKbAuMd4pcsMqw1th+SaFoW10P78wXkIRpDNO5THHUhg/ONyPMNC
+ Opzyr1OYrAEFugdMm/3nVaw22Oz6Yo4UYieScvpCWq4aiKWjddtg+ATGveTYxuE2ci7HsAhgh+O
+ K0QbtE58aPOWRJ6910C/YM5IOpMR7bA99D6z9RbArklCxxpICeRUaKlt5FCyRsgfC+V9/mscXAH
+ nZpI4YwigFrTAO7jcSwK6hSt9+Z
+X-Gm-Gg: AYBFou2YrIJm+0N/qgRvm6el7Q2o9/zy0ZN/L+LtsgZcxfJODaxTz4c02x9bZARxz6u
+ UrUBuWXiOdshXmhucjPDeftTdLIWedWB04zSmO5xGGvEqu0RHUcRao0Jk3p9Hc+KuiFvoEXCak0
+ 3OPTNJfYX2BvmZT0YCf0HGaEQVohhGdlXEfGox1M52VUAtseXmLIvIS6mAu88jSQNyRhG7gO6U3
+ gvn0TBdWs/FLaPs6qH2jIlIzYhIOGCOPDI8X7fFImnsgznXaAF1xS0l701nwk8Q2sVmaV0k5ppT
+ P3jnWsEJUWAS+y2+IaA0KTyYwbyT4qVXaZJY1/xag5AOQJC4bKm3XhH8y7fs/oyM6iwQD43ie86
+ 2Qv7FtTGpWy+NCbbtIMxKxXrIzRlMfXHtlLvIjJumjtmlPKcCMouy9muOWVeOceNEkCYMwutLuA
+ SCX/8NXe2fZSYF4xNW16EIyCkbW5cF9aI0qrhfhl/R
+X-Received: by 2002:a17:903:13c8:b0:2ca:e62c:9e96 with SMTP id
+ d9443c01a7336-2db1232e220mr21110455ad.5.1788464326612; 
+ Thu, 03 Sep 2026 12:38:46 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+ by smtp-relay.gmail.com with ESMTPS id
+ d9443c01a7336-2db1489931csm64675ad.7.2026.09.03.12.38.46
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 03 Sep 2026 12:38:46 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-52faa0dd18bso9590081cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:38:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1788464325; x=1789069125;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=brNSF6ql5aevmqbGax3CboePf220/VniLivOauNNsPk=;
+ b=ASU4RzblPiAvXAaqhr5t4Zo+sJDhBHFsIblH/12z/jRQ9QacJY8R00fBny2VR/6TDo
+ AunYG/UKvFVWl4Sg8t9qbtfKDhWizLTXATXOVmUWGnj0K8A0SX8EbKpyGFa7CHIYhC/1
+ lNIM3yhbLGbFUiQ+ImE3viuvm/Q+M+gHLnXfU=
+X-Forwarded-Encrypted: i=1;
+ AKwUvBysv5fRsjkbc8ISvulhX6+YkjTWb8WANMspB0y58Lrfa8e14t5zNcfCbbKfEA5nNCtDsh4E7VTqJxA=@lists.freedesktop.org
+X-Received: by 2002:a05:622a:2505:b0:519:f884:b587 with SMTP id
+ d75a77b69052e-53054961822mr14588901cf.27.1788464325207; 
+ Thu, 03 Sep 2026 12:38:45 -0700 (PDT)
+X-Received: by 2002:a05:622a:2505:b0:519:f884:b587 with SMTP id
+ d75a77b69052e-53054961822mr14588241cf.27.1788464324657; 
+ Thu, 03 Sep 2026 12:38:44 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-530541eab6csm5221631cf.26.2026.09.03.12.38.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Sep 2026 12:38:44 -0700 (PDT)
+Message-ID: <1f4a0df1-97e0-48e7-bd08-6b31c8dcd0e9@broadcom.com>
+Date: Thu, 3 Sep 2026 12:38:40 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SAWPR11MB9571:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7d6adb5-0c53-4a66-9ac0-08df09f2e532
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|18002099003|22082099003|10067099003|5023799004|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: gya0ZfagYZkGjn5eC/kc2uA89grtyiSG6eQCM66DfN0u1pukg79KUYzg96WK8MCFJyW/167JbT/lALbFcCfYW6XVZqUn7mju7/HZc0n4Y7mRt7jKwhZbsrcXs3Ah/L0w3a36BfGvkQmjMuHEc3/pPsVukGqMbFWgy5rpp9fsG95wRYWPYw/m9fgEOmzaDT7Lt0FhVKFzHtpsgJJyYhpby/9ZrwxYWxjpGYXfhYy2JlwVQol3/TildCvs2p4HjsFmHflnQLKllilTt6jGJPfrkXXJuHDy7pzLagpVE5MtJ5/sABDfhthBWtJj3MkRFVFlvb6z/Ky5NEjXbu4nL6vR8KA4aq1THB91/dtYWIH/aiOXz/ALdgJt645xfr50iQHjWMmusiDbJa/S/p9nkYlNqKgLcuTunMt9l58vX5OOJ/Q7ITf4GLYzADIHl1e8WDrjnj+4YwjzJ4rYikjGHGneKPEUqVnmryB9/FdiWEHB6bHIaj3uiAcMceKbfBNV24yBbC/Bd90k1aGHXTQ02PTU6ntytl4ZBKNQMzOy6/xbqAQrU0FEYmRdoLg56h0vajF5MY4dz2XSUxMUVF/t/9fkEgmLROKQgstqXJzdaigHBU2t4Xe5UZAgxJPCHTkWUvvp3M5R8t2Qw1Z27dEhuNgp5FMTbBOOqw/06iG8wH+BFQ4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(22082099003)(10067099003)(5023799004)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?lq5/ReGwUuReeDWI21w0uYXO+gLKt233oql8CTz6J6GDOKzfSettd/YNhu?=
- =?iso-8859-1?Q?6jbmsWAaIw3U7ksuQcKV4//nVnipts1cc1nkvNesrHM0BCumdcu/6hWJZc?=
- =?iso-8859-1?Q?JYfITTOX/w2I9Colbz2Utoyr/RafLgFztI1w6Q45R2AID3/RNOiJQA8AtH?=
- =?iso-8859-1?Q?SrF31XKN1TiYy+mRhvzUMLXovms7fr8j6s5ObudkHhWLT6qMeZPnQavjJ2?=
- =?iso-8859-1?Q?QgE1/GGjaJ8h8nEDsg4tb7jGzYwSM9AkzUQou1daQVXecHOOz3yzNI2V7e?=
- =?iso-8859-1?Q?hrlr26+rLQC6hMM5XqOenaFNo8qCj2ToMmyeYxpGYftP/16n9T3/m0n8hv?=
- =?iso-8859-1?Q?vaFC1UVqGiJLjhDYZaP+/OJMx4029fJo+z/McObt8k25xWH9uFZC4aqVAL?=
- =?iso-8859-1?Q?vBkzUIrIXGUaOrJf3YqCGA/k9GgfFYWJECu00poTBP7ci74DUAS4aQB+xi?=
- =?iso-8859-1?Q?tYSZaoVYlNI3rD+pA9oOx2Nlg7Vtwd4HBAXS2rAcN1JzOJWWIR/L+2J+dT?=
- =?iso-8859-1?Q?oZPOKRf2Sgv3u9pmU6h4Bsh9v3sL0jeFyW8LNMh2BKO7RwX2X+WLJsy7GF?=
- =?iso-8859-1?Q?4soKLjmQvC7TMjqechpCCfLx+LZXs9S31e/Pfvr/tn+TGT4vxuBP9y6VC6?=
- =?iso-8859-1?Q?x4IiOS7A7dHyFp33fkntCZYwvzUnqqfxNcM3hRvbEFo6Wzto+uu+o3i0O7?=
- =?iso-8859-1?Q?nwkoRSp9LfzT7z1pBX7vFY2Dbf3Pc59sGrFSrc3BBGIosLGkqWzeReLgib?=
- =?iso-8859-1?Q?Ryn+kkmBBQNWdV1YY5z836WLlQSnzCZ5unuYrIgmf9eaJ6XxF8kxePDXpT?=
- =?iso-8859-1?Q?5Ea/fNM7tS9gEXlw1tx1JcF4Ng33ugDlI1Ji+4HMF9MLIU7dZshraeQ3ts?=
- =?iso-8859-1?Q?dyWJvZtiyI4apvm5SOi40QTv9oBBSu4I+oLOKbFWH3vGRmxyz6VJssqGht?=
- =?iso-8859-1?Q?ZBsiRbkUaHCygh+dj/efDrgwySx8MJS065PylRGAhA1NXY1/fnvs/8HWEQ?=
- =?iso-8859-1?Q?UN4N655BlYcrV1L7fYL8Qb8sd/bqHsysI7JoNv64RZ2pl8LlYlyCoLTDai?=
- =?iso-8859-1?Q?BMfv4jdKJZUsW1GM+YF6RAeGA68KiCFaGJ/gpl0ji9wL/2wnP2a43iHvCH?=
- =?iso-8859-1?Q?uWztptVWRRAsbKf0Bal6b91vEwd3GEu1JSMroKnUOWc2OK6aYyLku/EaZ9?=
- =?iso-8859-1?Q?dfsqWORYkR60tRR3161dt7oclFhqQhVI2AZ0Y9aSWMmormAbvDrPLyyBVe?=
- =?iso-8859-1?Q?QC01Hr0PgzjT6amxLBb0yiN3HQHvl+DklP0d3xoKpU7A3qohu74b5lRUOQ?=
- =?iso-8859-1?Q?0l99OW/PjMhp9TcOcOpZI1cA13fgddTrrVixAHk3G389b+ETFRAdbs1/kN?=
- =?iso-8859-1?Q?CC/Dwg3d7AlhkYUsNZDgUyrtk8vou3zPAhhAON7ZkeCwEma80M1qeXCoPp?=
- =?iso-8859-1?Q?Gy3bkLYzEt6I5yv7kZeMy/ot8sxiSjLcdgj7mYTLxPP2Z83TZ8T/F8QTOa?=
- =?iso-8859-1?Q?Rx+cdeKH68vScocMTGTXH3M+Pa7HZBXfAiCle9pKxuPfJdeakiTCjLKdZ3?=
- =?iso-8859-1?Q?PKYWdKAwG4M1QflCY6YgBmbXa5gkTFpBxoHPReZJ2ZASGiaS6QvGBQHk5Z?=
- =?iso-8859-1?Q?UNj7WbwyytkrPuLPXpfbcPfnOrKW1L/jVeLiBr/foZ8NIx3h9Ahn+AoVsY?=
- =?iso-8859-1?Q?DeRF/OZcFp0j0d8eoQZjml6SZoWTm90xgw8Q5xarQYGgUMw13tbILQhjfJ?=
- =?iso-8859-1?Q?w1iR+LewmodHZ7M7rfSMs3GppSekA6+ZJE5Hp+e8ZWNEyA+Tl3Aiq+Rm9K?=
- =?iso-8859-1?Q?IzTbntHB4iCtKYnxpQOzMlIWT2umhwU=3D?=
-X-Exchange-RoutingPolicyChecked: pNnfRvzbPDu+VvYpiEdkfbH2p0A3BPWak5zwYtl840Bw0edDWHhEjGh+MQECNr/KeW5HNsLCEVUS8hhq0BCxyUxMuZO9997n8RKy68eO6uZLoTt8Rn12UhTFZyMCRG+lyTUa7gjsAyfq7FfulNVtqFj9gxX6NzS1JtW+c7Ulvc9xZdpBTRT1obdgZPwE2d6+Pd8d0atjotQSep766UHlr2c0payV4tkyAN03WOkdw9CJwEPObPa6P1l3FS6Po9Abpc5YHYjWuadA7u9TwAQKqnx2CpJPtZBX30OP4IgXWnBnKYsgW4KN55vvDAS4SFTZyilJIzn0vDlWpYx8xvToSQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7d6adb5-0c53-4a66-9ac0-08df09f2e532
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 19:38:14.3132 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RZ9qXwTbrWCQyjLo9njOS4+iX6uX/UTuSFzjj72tnncKRFJwzBkH0BtVc6QsMpdghs7WJMZCy0WPEKNEc8Urwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR11MB9571
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
+ reset line
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+ <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+ <20260818-idealistic-chivalrous-sawfish-08ddae@quoll>
+ <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,65 +159,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 03, 2026 at 03:27:55PM +0200, Christian K�nig wrote:
-> Hi everybody,
+On 8/18/26 03:35, Maíra Canal wrote:
+> Hi Krzysztof,
 > 
-> The idea of ref-counting dma_resv or ww_mutex came up multiple times from
-> different people, but so far at least I have abandoned that as to
-> complicated to implement considering how widely used that object is.
+> On 18/08/26 06:05, Krzysztof Kozlowski wrote:
+>> On Sun, Aug 16, 2026 at 11:05:41AM -0300, Maíra Canal wrote:
+>>> The BCM2835 PM block has exposed a reset line for the V3D block since
+>>> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power 
+>>> domains
+>>
+>> This is a reset provider driver, so not really relevant here. Driver
+>> commit would be relevant if it was about consumer who implemented
+>> undocumented ABI. I suggest to drop reference to driver and instead
+>> describe the hardware.
 > 
-> Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4 just
-> to check how horrible it would look like.
+> Ack.
 > 
-> Well turns out that this is actually a cleanup we should most likely aim
-> for and I'm really wondering why we haven't done it like this in the
-> first place.
+>>
+>>> under a new binding."), which allows the GPU to be reset without
+>>> power-cycling its domain. Document it so that the vc4 driver can use 
+>>> it to
+>>> recover from a GPU hang.
+>>
+>> Does every device have it? Cygnus as well?
 > 
-> Not only resolves it a bunch of issues with dma_resv instances shared by
-> multiple GEM objects (we just recently had a bunch of patches for that on
-> the mailing list), but also allows TTM to implement it's delayed delete
-> handling without any zombie resurrection or similar hacks and DMA-buf to
-> have better contention handling on map/pin in the future.
+> I'm not familiar to the Cygnus hardware, only Raspberry Pi, so I'd
+> appreciate if one of the folks from Broadcom could help us with this
+> information.
 > 
-> v2:
-> 
-> This patch set here is now the idea full flashed out. I smoke tested it
-> with amdgpu, self tests and checked everything with kmemleak and of hand
-> it seems to work.
-> 
-> Patch #1 introduces an interim allocated flag to allow switching users
-> over to the new interface one by one. Patch #10 then removes that flag
-> again after everything is done.
-> 
-> v3:
-> 
-> Well distrusting Sonet proved to be correct. It turned out that the AI
+> However, just like the power domain, I added this property as optional
+> to accommodate the fact that the current Cygnus DT doesn't expose any
+> power domain or reset controller.
 
-Drive by comment - I generally find Sonet to be very bug prone for
-anything beyond simple tasks isolated to perhaps a single file or
-function. Multiple times I've started on something with Sonet and it
-continually makes mistakes or misunderstands the arch I'm dictating and
-just start over with Opus (or another flagship model) and immediately
-get better results. This series I believe falls into a category where
-Sonet would get things wrong as it is a subsystem level change.
-
-Matt
-
-> missed tons of issues. Most of them are hopefully fixed in this
-> iteration of the patch set now.
-> 
-> Sashiko-bot on the other hand proved to be extremely useful. It not only
-> pointed out tons of stuff Sonet missed but also a complicated pre-existing
-> bug in i915.
-> 
-> The first patch in this series is now fixing this i915 bug, I've send
-> this to the relevant mainatiners separately and only include it here for
-> completeness.
-> 
-> Please review and comment.
-> 
-> Cheers,
-> Christian.
-> 
-> 
-> 
+I really don't know and have no visibility into these older chips, let's 
+assume they don't.
+-- 
+Florian
