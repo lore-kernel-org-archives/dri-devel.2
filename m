@@ -4,44 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57779C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 11:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C72C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 11:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DAE010F51E;
-	Thu,  3 Sep 2026 11:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 275C710F52C;
+	Thu,  3 Sep 2026 11:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fqonJ+nv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KDBnew/5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2EEB10F51E
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 11:30:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CC06041A98;
- Thu,  3 Sep 2026 11:30:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840121F000E9;
- Thu,  3 Sep 2026 11:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788435059;
- bh=s+6YpgMEDH7pANfw5ovx3Hlrf/eoGxTO5i+pQNqPTa4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fqonJ+nv+ps2Ltl/cqPs83NQQGgtDY4ujIIjxZhPpraJfMOjuyHU4+w7l6jrNwPAv
- OfNovvntElJKP5mXYkct0ryNzUFq549YhkFehhiHdy2igrS9EM1g1UvqAPYsyJr/Xr
- IC51PY+KUxINQsJuGYxKaRbuOlCWgXueH3RzUM9f64eNb6J7zXUlNisiYGB2uUJMpa
- GM/hPRW7mwyo0d1YhfMwZcH7VM7eBWLGQHrkc3QtloUXjI2i0z66KzOiFVxOIqnapy
- pSw1PQMCuVlya4VA2FrVQ8hhl7KEQif4YJp37wwpevuT0NR5J8LYG+S0vogEDiX/ls
- kvus9IvFzkS7Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/13] fbdev: fsl-diu-fb: Don't use GFP_DMA when calling
- dmam_alloc_coherent()
-To: "Baoquan He" <hebaoquan@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260903111836.1777265-6-hebaoquan@kylinos.cn>
-References: <20260903111836.1777265-1-hebaoquan@kylinos.cn>
- <20260903111836.1777265-6-hebaoquan@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 11:30:59 +0000
-Message-Id: <20260903113059.840121F000E9@smtp.kernel.org>
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE7810F52C
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 11:36:25 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-47ddf7b09e5so2147402f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 04:36:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788435384; x=1789040184; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=m5nFAvnp9TbeBbFXDaBPRO3V4SNXTlxxZw2s8E+92CE=;
+ b=KDBnew/5lLi041lk58SqZK0WVU6UFcxUJTZFngHthHq2jE8BJhnMI5M0uH9rO/BrFF
+ cyp01FMC+IXHtaJgzv/kvUY/Dt7ZOCVJcUsJFLGdhyW5rsaiSOoNH2nzJc+QXMbvQjTh
+ eaHu5/0gaXgFgZE02igpDPvAgNLFnJCkKCcG2B7BzAX9h+/ZGrbuUMG9OzpguNNUsVOK
+ Icp3OAyOAjsjlBN0DjcO/AJMdFQgC8lrX1QZf1H/L1dDqalQdT8wbBLsl0XqxX6U8eYz
+ 8l35XbwuhN2TAURTDXNYOJUuil0zgOkzdtVAd2mNVIUDVybzGFAXt+gCkEMJvLWHzlYj
+ rE/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788435384; x=1789040184;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=m5nFAvnp9TbeBbFXDaBPRO3V4SNXTlxxZw2s8E+92CE=;
+ b=ZC1ednRed8PIzVIXSzW68g/NtE92eaSXyn5wccMfQiQkYPxfsLiRPmZH4XFP9dM1Ed
+ jo2euCBHbh+DgDIS73MVeVeyWsUHx+e6eFDRIRyaLC+SMIAiYZHJJob3/HfVGe69Ig23
+ gAxbRPtMtNTo55nyzh/ihx9ZADYWk79IL/rM1XgAFwWDZW56LWlsWFEo7qFcb+kBZrg9
+ Q1lIt7ex03MzPS+z2D09e1wGNZkyu4ksgwUIinCtUH2FLCPESxQAgVvCQxN8OMzihXxD
+ 9uVCqPHcWP3qsr7ku+G59/eHpOAZoeXCoO30dlPSNuMJ2h7jDPfm9rgLQpAInFMAXlOr
+ WdNg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBws0ANXrYpCER9qm+MbygbI1lm/VRWOXd4hcuIvYDdhctfoXp4Cg/amQ5W6kh0RFoPSIGdYxbV4PSc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lIuudKJUgz6809xeT61DoV37jt13jLs3ZetlaEWemd0h6loAY1
+ eJlw4JTk1JwMnt4ZNGcuZUQAmPoyJCuJYa/Qti5RkLbAF64OHW1D00o3
+X-Gm-Gg: AYBFou0gGbtf2zmG/QADj+XjtU7ATKg44kIFNUhBTezBNPgc7SEJG9tQ8Q9/i0CXe4W
+ 40DDJgqSdJd+UoY5+J87KMQOT/sM8Iyjfi0YebyhCh2Mu4WNk/QwEIkke6YpCiB64A0EKc19guO
+ odObE4L4BjplEf+x6B42MMWIKLON1aBRJxzxmmYbFvmpCE/WA5VK5wKlZOXuCDOgkkxqUZVsSNX
+ xiyvEGEnCe8sU9QrEKgAUkoLUgFGzH4Y8mMK7EDMX9Skzp+Pnk+hPywNztQbWtuKNC/YDPouoiK
+ Drw6M4bx972EoWNqRYjVirK4ZFeMvWmKpw5DJWH/56oOLCdKukzJJismxyXNDl6WOF0h57ofzIX
+ 88yDa8iuRlU+7FNVBsawXLV0E1buiZ/7p4D8CLKFB78a59kKHsI+nTBzT/lGN4zHC0uidCtJl5G
+ FBT8+NLZN07vZLvbAXhv93Je0xtg1iRyDMglIOSlgq7St6AIEvlpBeGcFck5aSFatsRFd3LIT2Z
+ g==
+X-Received: by 2002:a5d:5f46:0:b0:484:36e6:d3f5 with SMTP id
+ ffacd0b85a97d-48488f1b255mr21290906f8f.20.1788435383393; 
+ Thu, 03 Sep 2026 04:36:23 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48448e72f02sm13011020f8f.3.2026.09.03.04.36.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 04:36:22 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net
+Cc: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/i915: fix incorrect RCU teardown order
+Date: Thu,  3 Sep 2026 13:36:21 +0200
+Message-ID: <20260903113621.54660-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,161 +89,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
+over the fences in an GEM object without holding a reference but only
+the RCU read side lock.
 
-Pre-existing issues:
-- [High] Missing `GFP_KERNEL` (or other `__GFP_RECLAIM` bits) in memory all=
-ocations, causing large allocations to act as non-blocking `GFP_NOWAIT` ato=
-mic allocations which are highly prone to failure.
-- [High] Video memory is freed while the LCDC hardware is still performing =
-DMA reads from it, and error paths can leave the hardware permanently readi=
-ng freed memory.
-- [High] Concurrent mode setting can lead to a double free of video memory =
-because sysfs accesses do not take the necessary locks.
-- [High] The struct fb_info is embedded in a devres-managed structure, lead=
-ing to a Use-After-Free if a process holds the device open during unbind.
---
+What can happen here is that the GEM object is destroyed concurrently
+while i915_gem_busy_ioctl is still running. This won't free the GEM
+objects memory, but still drops all the dma_fence references.
 
-commit 719f5155a18f433533c0efd3851ce4c2f8cf3732
-Author: Baoquan He <hebaoquan@kylinos.cn>
-fbdev: fsl-diu-fb: Don't use GFP_DMA when calling dmam_alloc_coherent()
+Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
+assumes that a new fence list was installed and re-starts the loop.
 
-This commit removes the redundant GFP_DMA flag from the dmam_alloc_coherent=
-()
-call in fsl_diu_probe(), as the DMA core ignores it and picks the zone from
-the device's coherent DMA mask.
+But in the case of a destroyed GEM object a new fence list is never
+installed, only the old one freed and therefore the iteration never
+finishes resulting in an endless loop.
 
-> diff --git a/drivers/video/fbdev/fsl-diu-fb.c b/drivers/video/fbdev/fsl-d=
-iu-fb.c
-> index b71d15794ce8b..d7ed007915c18 100644
-> --- a/drivers/video/fbdev/fsl-diu-fb.c
-> +++ b/drivers/video/fbdev/fsl-diu-fb.c
-> @@ -1690,7 +1690,7 @@ static int fsl_diu_probe(struct platform_device *pd=
-ev)
->  	int ret;
-> =20
->  	data =3D dmam_alloc_coherent(&pdev->dev, sizeof(struct fsl_diu_data),
-> -				   &dma_addr, GFP_DMA | __GFP_ZERO);
-> +				   &dma_addr, __GFP_ZERO);
+The solution is to drop the fence references only after the RCU grace
+period.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but removing the redundant flag
-highlights that this allocation lacks GFP_KERNEL (and thus __GFP_RECLAIM
-bits). Does this multi-page allocation for the driver data structure act as
-an atomic non-blocking allocation because it lacks GFP_KERNEL, making it
-highly prone to failure?
+The fixes tag is not necessary the patch introducing the problem, but the
+one making it so worse that we need to address it.
 
-The same pattern appears in map_video_memory(), where a massive multi-megab=
-yte
-framebuffer allocation is requested:
+This problem was pointed out by Sashiko-bot.
 
-drivers/video/fbdev/fsl-diu-fb.c:map_video_memory() {
-    ...
-    p =3D alloc_pages_exact(smem_len, GFP_DMA | __GFP_ZERO);
-    ...
-}
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
+CC: stable@vger.kernel.org
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Could this lack of GFP_KERNEL cause these large allocations to fail during
-uptime mode setting via ioctl(FBIOPUT_VSCREENINFO) due to fragmentation?
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 5172d3982654..9e01f8b2079a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
+ 
+ void i915_gem_object_free(struct drm_i915_gem_object *obj)
+ {
++	dma_resv_fini(&obj->base._resv);
+ 	return kmem_cache_free(slab_objects, obj);
+ }
+ 
+@@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
+ {
+ 	mutex_destroy(&obj->mm.get_page.lock);
+ 	mutex_destroy(&obj->mm.get_dma_page.lock);
+-	dma_resv_fini(&obj->base._resv);
+ }
+ 
+ /**
+-- 
+2.43.0
 
-[Severity: High]
-This is a pre-existing issue, but does using a devres-managed lifecycle for
-struct fsl_diu_data bypass the reference counting required by the framebuff=
-er
-core?
-
-The data pointer returned by dmam_alloc_coherent() contains an array of
-fb_info structures:
-
-drivers/video/fbdev/fsl-diu-fb.c:fsl_diu_probe() {
-    ...
-    for (i =3D 0; i < NUM_AOIS; i++) {
-        struct fb_info *info =3D &data->fsl_diu_info[i];
-    ...
-}
-
-If a user process holds /dev/fb0 open during driver unbind, the driver core
-will free struct fsl_diu_data upon return from fsl_diu_remove(). Will this
-lead to a use-after-free when the process subsequently closes the descriptor
-and VFS calls into fbmem.c to access the already-freed fb_info struct?
-
-[Severity: High]
-This is a pre-existing issue, but could fsl_diu_set_par() leave the LCDC
-hardware permanently reading freed memory?
-
-drivers/video/fbdev/fsl-diu-fb.c:fsl_diu_set_par() {
-        ...
-        if (info->fix.smem_start)
-            unmap_video_memory(info);
-
-        /* Memory allocation for framebuffer */
-        if (map_video_memory(info)) {
-            fb_err(info, "unable to allocate fb memory 1\n");
-            return -ENOMEM;
-        }
-        ...
-}
-
-Since unmap_video_memory() frees the active display buffer pages via
-free_pages_exact() before the hardware is disabled, the hardware continues
-fetching from these physical addresses. If map_video_memory() fails (which
-is highly likely due to missing GFP_KERNEL), it returns -ENOMEM early. Does
-this mean the hardware is never stopped and its DMA descriptor is never
-updated, persistently leaking the contents of arbitrary newly-allocated ker=
-nel
-pages to the screen?
-
-[Severity: High]
-This is a pre-existing issue, but can concurrent mode setting lead to a
-double free of video memory?
-
-In store_monitor(), fsl_diu_set_par() is called locklessly:
-
-drivers/video/fbdev/fsl-diu-fb.c:store_monitor() {
-        ...
-        for (i=3D0; i < NUM_AOIS; i++)
-            fsl_diu_set_par(&data->fsl_diu_info[i]);
-        ...
-}
-
-If ioctl(FBIOPUT_VSCREENINFO) concurrently updates info->var and calls
-fb_set_par() (holding info->lock), both threads could simultaneously evalua=
-te
-len !=3D info->fix.smem_len as true and call unmap_video_memory().
-
-Inside unmap_video_memory():
-
-drivers/video/fbdev/fsl-diu-fb.c:unmap_video_memory() {
-    ...
-    void *p =3D info->screen_base;
-    size_t l =3D info->fix.smem_len;
-
-    mutex_lock(&info->mm_lock);
-    info->screen_base =3D NULL;
-    info->fix.smem_start =3D 0;
-    info->fix.smem_len =3D 0;
-    mutex_unlock(&info->mm_lock);
-
-    if (p)
-        free_pages_exact(p, l);
-    ...
-}
-
-Since the pointer p =3D info->screen_base is read outside the lock, couldn't
-both racing threads capture the same pointer, clear the base inside the lock
-sequentially, and then unconditionally execute a double free on the identic=
-al
-pointer?
-
->  	if (!data)
->  		return -ENOMEM;
->  	data->dma_addr =3D dma_addr;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903111836.1777=
-265-1-hebaoquan@kylinos.cn?part=3D5
