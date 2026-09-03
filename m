@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9628FC624DA
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 10:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16F8CC624D7
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 10:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4D010E0E9;
-	Thu,  3 Sep 2026 10:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD2910F4F5;
+	Thu,  3 Sep 2026 10:31:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="OCqN0IM7";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="aEI5eI1Z";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id DB77B10F4DD;
- Thu,  3 Sep 2026 10:30:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5BBF910F4EE;
+ Thu,  3 Sep 2026 10:31:06 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 993991F02;
- Thu,  3 Sep 2026 03:30:52 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 22B9C1F37;
+ Thu,  3 Sep 2026 03:31:02 -0700 (PDT)
 Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
  [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3AE423F673;
- Thu,  3 Sep 2026 03:30:47 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B04F83F673;
+ Thu,  3 Sep 2026 03:30:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1788431456; bh=DEt3KlUchGpFfzI7cFYM3vauHOwXVIVRP1eSVCB1rgM=;
+ t=1788431465; bh=iZ0UxDW+PGfZPY4n2x5quNoQFlhhWYff8wQolJj8CQc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OCqN0IM73DlVeIFEnlcCIuqR18FAoouHSGHhXNucYr8rONtG/PWo24UoFAmagMzIb
- 8r48Ezf7p4wr9UIjQ4++anmaFeiCydvVPqtUevaAhHfgY9il6/+hvRvy7PKAcpAA/e
- wapcW/7pqB0l6aY7tSwko5ZNforUusnJFwU24SHs=
+ b=aEI5eI1ZDdVq2m64EA9ImU65GZFhZiL0ZK/lLsHlinaxtNpnT2nFBXA1JkEFJ2dA5
+ GAImWCHFC6p4QBtqqRBlk66RPeHRj2Ei0OGOPqGAPPTqssaugxDn76YWiAfBhwdKz2
+ oxnCSs2C9wVP4R71Kj0L4+hylcBhUUG7uFZhGTMI=
 From: Muhammad Usama Anjum <usama.anjum@arm.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -71,9 +71,9 @@ Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
-Date: Thu,  3 Sep 2026 11:29:53 +0100
-Message-ID: <20260903103002.1091859-2-usama.anjum@arm.com>
+Subject: [PATCH v2 2/8] mm: rename pointers to software PTE values as ptentp
+Date: Thu,  3 Sep 2026 11:29:54 +0100
+Message-ID: <20260903103002.1091859-3-usama.anjum@arm.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260903103002.1091859-1-usama.anjum@arm.com>
 References: <20260903103002.1091859-1-usama.anjum@arm.com>
@@ -94,92 +94,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pte_t is used both for software PTE values and for entries stored in a PTE
-table, so pte_t * does not distinguish a pointer to a software PTE
-value from a pointer to table storage.
+Some interfaces use pte_t * for a software PTE value rather than for an
+entry stored in a PTE table. These pointers must remain pte_t * when
+pointers to PTE table storage are converted to hw_pte_t *.
 
-Introduce hw_pte_t as the generic name for a PTE table element. Define it
-as a macro alias of pte_t by default. When an architecture selects
-ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-This preserves the representation while allowing converted architectures
-to enforce the distinction at compile time.
+Rename these parameters in the install_pte callback,
+write_protect_page(), and guard_install_set_pte() to ptentp. The later
+Coccinelle conversion skips pointers named ptentp, allowing it to convert
+the remaining PTE table pointers without changing these interfaces.
 
-Name the generic wrapper structure __hw_pte_t so architectures can
-forward-declare it when pgtable_t must be defined before the generic
-hw_pte_t typedef is visible. This avoids header-order dependencies.
+Some functions already use ptentp for such pointers, including:
+- madvise_folio_pte_batch()
+- folio_pte_batch_flags()
+No need to rename them.
 
-Keep the C type definitions behind an __ASSEMBLY__ check because
-architecture assembly sources can include this header indirectly. Include
-asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-they previously obtained from that header.
+This patch only renames parameters and makes no functional change.
 
 Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
 Changes since v1:
-- Name the generic wrapper structure __hw_pte_t so architectures can
-  forward-declare it, and explain why this is required.
-- Use software PTE value terminology.
+- Rewrite the subject and description to distinguish software PTE
+  values from PTE table storage.
 
 Changes since RFC v1:
-- Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
-- Exclude the C type definitions from assembly sources.
-- Update the description for the new opt-in model.
+- Update the description for the architecture opt-in conversion.
 ---
- MAINTAINERS                   |  1 +
- include/linux/pgtable_types.h | 17 +++++++++++++++++
- mm/Kconfig                    |  3 +++
- 3 files changed, 21 insertions(+)
- create mode 100644 include/linux/pgtable_types.h
+ include/linux/pagewalk.h | 2 +-
+ mm/ksm.c                 | 4 ++--
+ mm/madvise.c             | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2133aec4a2004..da60a8bdcddb5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17140,6 +17140,7 @@ F:	include/linux/mmu_notifier.h
- F:	include/linux/pagewalk.h
- F:	include/linux/pgalloc.h
- F:	include/linux/pgtable.h
-+F:	include/linux/pgtable_types.h
- F:	include/linux/ptdump.h
- F:	include/linux/vmpressure.h
- F:	include/linux/vmstat.h
-diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-new file mode 100644
-index 0000000000000..07da05d375c2c
---- /dev/null
-+++ b/include/linux/pgtable_types.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _LINUX_PGTABLE_TYPES_H
-+#define _LINUX_PGTABLE_TYPES_H
-+
-+#include <asm/page.h>
-+
-+#ifndef __ASSEMBLY__
-+
-+#ifdef CONFIG_ARCH_HAS_HW_PTE_T
-+typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-+#else
-+#define hw_pte_t pte_t
-+#endif
-+
-+#endif /* !__ASSEMBLY__ */
-+
-+#endif /* _LINUX_PGTABLE_TYPES_H */
-diff --git a/mm/Kconfig b/mm/Kconfig
-index c1ddf59c0d71a..5f462ec6fa5e5 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -1312,6 +1312,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
- config GUP_GET_PXX_LOW_HIGH
- 	bool
+diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+index b41d7265c01bc..c34d826c5e4a2 100644
+--- a/include/linux/pagewalk.h
++++ b/include/linux/pagewalk.h
+@@ -89,7 +89,7 @@ struct mm_walk_ops {
+ 		       struct mm_walk *walk);
+ 	void (*post_vma)(struct mm_walk *walk);
+ 	int (*install_pte)(unsigned long addr, unsigned long next,
+-			   pte_t *ptep, struct mm_walk *walk);
++			   pte_t *ptentp, struct mm_walk *walk);
+ 	enum page_walk_lock walk_lock;
+ };
  
-+config ARCH_HAS_HW_PTE_T
-+	bool
-+
- config DMAPOOL_TEST
- 	tristate "Enable a module to run time tests on dma_pool"
- 	depends on HAS_DMA
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 624f37975e129..2a4f19fe0f696 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
+ }
+ 
+ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+-			      pte_t *orig_pte)
++			      pte_t *ptentp)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
+@@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+ 
+ 		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
+ 	}
+-	*orig_pte = entry;
++	*ptentp = entry;
+ 	err = 0;
+ 
+ out_unlock:
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 73c2901b9adbf..dd75a673e108f 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1113,12 +1113,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+ }
+ 
+ static int guard_install_set_pte(unsigned long addr, unsigned long next,
+-				 pte_t *ptep, struct mm_walk *walk)
++				 pte_t *ptentp, struct mm_walk *walk)
+ {
+ 	unsigned long *nr_pages = (unsigned long *)walk->private;
+ 
+ 	/* Simply install a PTE marker, this causes segfault on access. */
+-	*ptep = make_pte_marker(PTE_MARKER_GUARD);
++	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
+ 	(*nr_pages)++;
+ 
+ 	return 0;
 -- 
 2.47.3
 
