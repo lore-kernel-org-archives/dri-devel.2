@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A730C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3764BC61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF3A810F465;
-	Thu,  3 Sep 2026 08:12:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61EC110F468;
+	Thu,  3 Sep 2026 08:12:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="a++VYWRo";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VN+AEyuh";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20D8110F465
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:12:36 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC7310F468
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:12:54 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id DE4224E414F4;
- Thu,  3 Sep 2026 08:12:34 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id E6D721A1977;
+ Thu,  3 Sep 2026 08:12:52 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AA6BD602B8;
- Thu,  3 Sep 2026 08:12:34 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id BACCD602B8;
+ Thu,  3 Sep 2026 08:12:52 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 342E311C791C9; 
- Thu,  3 Sep 2026 10:12:29 +0200 (CEST)
+ with ESMTPSA id AFC1E11C79FFE; 
+ Thu,  3 Sep 2026 10:12:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788423153; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1788423156; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=E+i/7CDSkS0WtOD/C7Io90FrN1Ou/szitASTdt3wMjo=;
- b=a++VYWRoLEYVIGfoCrjrdEd/z+kpaDH6nDm0VOnVOfY7J+NWyd78gtwz/DrqIpd0VB0ZNk
- M/sNVcR1ATutuLKIJHXiK9mlrDF6yg3flvPaD++smcGb6LCcDsym30LnrRocTDEMc7sibn
- XEbiqz+o8y++99MoCjSttT/m+AdA1Rr3sE74kQzorklRBNZjg12ONlldtYpB4za0Dm+W5u
- ie+QHDR/ziiAHftjCRL00xc95Y+j3Zi+0fdDsdeQBGL3k539/kTdWZORYjv0vGAU/ITfSl
- 8ID60w0b1LY5IbWhrPeekD7+D9dWx32TR2rlTL32x7Jtf1lwdD5fVAK6ONBv4g==
+ bh=Poulp7xYghdU5yIVDl086wKufIjJdAIUgngBY1r33GE=;
+ b=VN+AEyuhqoqg41NtWH8LjaeKUXM/iWDLRpJ1cwOEPs5xITqr70IeNx9V957O+IRL0M8GUq
+ usV08VsEqwAtjp4tFnmAkWDQ91VukDZV/4+tbSd/U3qVpgyxkSyQXS0mUghUiF4GHGmo3m
+ d5qLb/XMYOzNuRVBzm3FWQYiqzRoqbzCLDg9QeAyynrvOCb1hKkZlRTx7iyOkno6sH0nH4
+ Yflr07Ybwz6EgjrqQXcwtXJnBfoD/1iy04loQCEYR7dyF0cMkyU+E4K+bUXZ2A8EHqu6Mf
+ Zx7RIwFTMduaT7yUV76GM4IkgZQcspJNH7mE3KPyoF+4P3NWhcXLdkX0Z5La+g==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 03 Sep 2026 10:11:14 +0200
-Subject: [PATCH RFC v2 11/19] drm/bridge: fsl-ldb: don't create a panel_bridge
+Date: Thu, 03 Sep 2026 10:11:15 +0200
+Subject: [PATCH RFC v2 12/19] drm/bridge: samsung-dsim: don't create a
+ panel_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-drm-bridge-every-panel-v2-11-2ab8ee24538e@bootlin.com>
+Message-Id: <20260903-drm-bridge-every-panel-v2-12-2ab8ee24538e@bootlin.com>
 References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -77,94 +78,89 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Now a panel_bridge is automatically created for every drm_panel, so this
-code, looking only for a panel and unconditionally creating a panel_bridge
-for it, would lead to creating a second bridge for the same panel.
+code (similar to an open-coded variant of drm_of_find_panel_or_bridge())
+would lead to creating a second bridge for the same panel.
 
-Fix and simplify the code by just getting a reference to the
-already-existing bridge from of_drm_find_and_get_bridge().
-
-And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
-care of putting the bridge reference by using bridge->next_bridge.
+Update and simplify the code by just getting a reference to the
+already-existing bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/Kconfig   |  1 -
- drivers/gpu/drm/bridge/fsl-ldb.c | 19 +++++--------------
- 2 files changed, 5 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/bridge/Kconfig        |  1 -
+ drivers/gpu/drm/bridge/samsung-dsim.c | 24 +++++-------------------
+ 2 files changed, 5 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 30f71654eaeb..0a1e617b3007 100644
+index 0a1e617b3007..eb16f858459d 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -87,7 +87,6 @@ config DRM_FSL_LDB
- 	depends on OF
- 	depends on ARCH_MXC || COMPILE_TEST
+@@ -302,7 +302,6 @@ config DRM_SAMSUNG_DSIM
+ 	depends on OF && HAS_IOMEM
  	select DRM_KMS_HELPER
+ 	select DRM_MIPI_DSI
 -	select DRM_PANEL_BRIDGE
+ 	select GENERIC_PHY
+ 	select GENERIC_PHY_MIPI_DPHY
  	help
- 	  Support for i.MX8MP DPI-to-LVDS on-SoC encoder.
+diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
+index 5457a7b02a33..ea2837384774 100644
+--- a/drivers/gpu/drm/bridge/samsung-dsim.c
++++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+@@ -25,7 +25,6 @@
+ #include <video/mipi_display.h>
  
-diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fsl-ldb.c
-index 26cc72948f31..7ec84c81cd78 100644
---- a/drivers/gpu/drm/bridge/fsl-ldb.c
-+++ b/drivers/gpu/drm/bridge/fsl-ldb.c
-@@ -15,7 +15,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_of.h>
+ #include <drm/bridge/samsung-dsim.h>
 -#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
  
- #define LDB_CTRL_CH0_ENABLE			BIT(0)
- #define LDB_CTRL_CH0_DI_SELECT			BIT(1)
-@@ -86,7 +85,6 @@ static const struct fsl_ldb_devdata fsl_ldb_devdata[] = {
- struct fsl_ldb {
- 	struct device *dev;
- 	struct drm_bridge bridge;
--	struct drm_bridge *panel_bridge;
- 	struct clk *clk;
- 	struct regmap *regmap;
- 	const struct fsl_ldb_devdata *devdata;
-@@ -119,7 +117,7 @@ static int fsl_ldb_attach(struct drm_bridge *bridge,
- {
- 	struct fsl_ldb *fsl_ldb = to_fsl_ldb(bridge);
- 
--	return drm_bridge_attach(encoder, fsl_ldb->panel_bridge,
-+	return drm_bridge_attach(encoder, fsl_ldb->bridge.next_bridge,
- 				 bridge, flags);
- }
- 
-@@ -298,7 +296,6 @@ static int fsl_ldb_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct device_node *panel_node;
- 	struct device_node *remote1, *remote2;
+ /* returns true iff both arguments logically differs */
+@@ -1898,7 +1897,6 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
+ 	struct device *dev = dsi->dev;
+ 	struct device_node *np = dev->of_node;
+ 	struct device_node *remote;
 -	struct drm_panel *panel;
- 	struct fsl_ldb *fsl_ldb;
- 	int dual_link;
+ 	int ret = 0;
  
-@@ -339,19 +336,13 @@ static int fsl_ldb_probe(struct platform_device *pdev)
- 		fsl_ldb_is_dual(fsl_ldb) ? "dual-link mode" :
- 		fsl_ldb->ch0_enabled ? "channel 0" : "channel 1");
+ 	/*
+@@ -1913,7 +1911,7 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
+ 		    of_node_name_eq(remote, "ports"))
+ 			continue;
  
--	panel = of_drm_find_panel(panel_node);
--	of_node_put(panel_node);
--	if (IS_ERR(panel))
--		return PTR_ERR(panel);
--
- 	if (of_property_present(dev->of_node, "nxp,enable-termination-resistor"))
- 		fsl_ldb->use_termination_resistor = true;
+-		goto of_find_panel_or_bridge;
++		goto of_find_bridge;
+ 	}
  
--	fsl_ldb->panel_bridge = devm_drm_panel_bridge_add(dev, panel);
--	drm_panel_put(panel);
--	if (IS_ERR(fsl_ldb->panel_bridge))
--		return PTR_ERR(fsl_ldb->panel_bridge);
--
-+	fsl_ldb->bridge.next_bridge = of_drm_find_and_get_bridge(panel_node);
-+	of_node_put(panel_node);
-+	if (!fsl_ldb->bridge.next_bridge)
-+		return -ENODEV;
+ 	/*
+@@ -1927,25 +1925,13 @@ static int samsung_dsim_host_attach(struct mipi_dsi_host *host,
  
- 	if (fsl_ldb_is_dual(fsl_ldb)) {
- 		struct device_node *port1, *port2;
+ 	remote = of_graph_get_remote_node(np, 1, 0);
+ 
+-of_find_panel_or_bridge:
++of_find_bridge:
+ 	if (!remote)
+ 		return -ENODEV;
+ 
+-	panel = of_drm_find_panel(remote);
+-	if (!IS_ERR(panel)) {
+-		next_bridge = devm_drm_panel_bridge_add(dev, panel);
+-		drm_panel_put(panel);
+-		if (IS_ERR(next_bridge)) {
+-			ret = PTR_ERR(next_bridge);
+-			next_bridge = NULL; // Inhibit the cleanup action on an ERR_PTR
+-		} else {
+-			drm_bridge_get(next_bridge);
+-		}
+-	} else {
+-		next_bridge = of_drm_find_and_get_bridge(remote);
+-		if (!next_bridge)
+-			ret = -EINVAL;
+-	}
++	next_bridge = of_drm_find_and_get_bridge(remote);
++	if (!next_bridge)
++		ret = -EINVAL;
+ 
+ 	of_node_put(remote);
+ 
 
 -- 
 2.55.0
