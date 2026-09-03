@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B6B1C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09056C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A5910F45E;
-	Thu,  3 Sep 2026 08:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3259B10F45F;
+	Thu,  3 Sep 2026 08:12:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1o2PoOZo";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="dLUncXhm";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 467CF10F45E
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:12:23 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5825710F45F
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:12:28 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 1581C4E414F2;
- Thu,  3 Sep 2026 08:12:22 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 2D2F41A1990;
+ Thu,  3 Sep 2026 08:12:27 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DC319602B8;
- Thu,  3 Sep 2026 08:12:21 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E92A96057F;
+ Thu,  3 Sep 2026 08:12:26 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8465211C79F4D; 
- Thu,  3 Sep 2026 10:12:17 +0200 (CEST)
+ with ESMTPSA id E3F7C11C7A03F; 
+ Thu,  3 Sep 2026 10:12:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788423140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1788423144; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=pPgqqB8slFMQr5Kpl6JRMxMiHaZVEfJqqUfrSa3/Ilg=;
- b=1o2PoOZo+DtGsRxxzjrT/1G89edmkPpDh1cVQRxL3uqGp4HuRlWG43GBHQ6f1btv/8gp9U
- MiMJhkdNDKNRs2FSbDVqT4kxgHHGaBmi1N1qVNT9tSy5y4sm4Un+heWEE+W8NpWgkp6DXj
- MrQPO1F9zB2tGWr3iKlRxla1yVDcaTKHjJ3L3Ois+9XuEAs1GNsV7lDesKpvtaoOmJLCnT
- dFwfAXiuANQfmJFCbcz2iLm8DQEN/tIIxtJjxRBmc4AaEP6BmpCd3l0nQS2dmvyKqjzfs7
- Vnj0T4/37iuVTWbZOWjBez2Fb2c/N8lbqOiaHTdM/5DN6CXwYUk6s3ny94JUKA==
+ bh=uzHFdnJ9YPRPA9nGrh7ulAEZnrzGbXJbec5Chdit+Zg=;
+ b=dLUncXhm5sG8BzsByBLKL8FY+kz8ST/wcXw/Ad1l0089CcnNuY7+0BE+4nU1HFfHAsAy7K
+ zu1lGgQQU7YacN6w802YXVKGadFihpokWFiy2RUXFslJrzSmBrNZIC7VMaLLayTL6huouN
+ 9nnpV6piK6AdvWiY+alqEF7zcd+7k6c1VtsUQ+xECq7gbz0mu4vjm9zAedldd7sD2BS7Fs
+ GPXrcEdOztlCBuAvG4vgoBKpZ3IyiLzDuHXAwvQzuu54nqeVlwYQRxoK8nARxrwwETpKvA
+ dQcMOeouCwMMkvZknp+tCAU+lJxO9Z7k3P7XnQx+7zoIjtwkhBnoTASz6+GlNA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 03 Sep 2026 10:11:11 +0200
-Subject: [PATCH RFC v2 08/19] drm/mcde: dsi: simplify device_node
- management using scoped for_each variant
+Date: Thu, 03 Sep 2026 10:11:12 +0200
+Subject: [PATCH RFC v2 09/19] drm/mcde: dsi: remove unused includes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-drm-bridge-every-panel-v2-8-2ab8ee24538e@bootlin.com>
+Message-Id: <20260903-drm-bridge-every-panel-v2-9-2ab8ee24538e@bootlin.com>
 References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 In-Reply-To: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -77,54 +76,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Before further modifying this function, simpify the struct device_node
-management using the scoped variat of for_each_available_child_of_node().
+The helpers are included but unused.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
- drivers/gpu/drm/mcde/mcde_dsi.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+
+New patch in v2
+---
+ drivers/gpu/drm/mcde/mcde_dsi.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-index 694372581840..ce078aa3910f 100644
+index ce078aa3910f..747886dfa17a 100644
 --- a/drivers/gpu/drm/mcde/mcde_dsi.c
 +++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-@@ -1076,7 +1076,6 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
- 	struct drm_device *drm = data;
- 	struct mcde *mcde = to_mcde(drm);
- 	struct mcde_dsi *d = dev_get_drvdata(dev);
--	struct device_node *child;
- 	struct drm_panel *panel = NULL;
- 	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+@@ -11,17 +11,14 @@
+ #include <linux/regulator/consumer.h>
+ #include <video/mipi_display.h>
  
-@@ -1104,7 +1103,7 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
- 	}
+-#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_device.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_mipi_dsi.h>
+-#include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_probe_helper.h>
  
- 	/* Look for a panel as a child to this node */
--	for_each_available_child_of_node(dev->of_node, child) {
-+	for_each_available_child_of_node_scoped(dev->of_node, child) {
- 		panel = of_drm_find_panel(child);
- 		if (IS_ERR(panel)) {
- 			dev_err(dev, "failed to find panel try bridge (%ld)\n",
-@@ -1114,15 +1113,12 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
- 			bridge = of_drm_find_and_get_bridge(child);
- 			if (!bridge) {
- 				dev_err(dev, "failed to find bridge\n");
--				of_node_put(child);
- 				return -EINVAL;
- 			}
- 		}
- 
--		if (panel || bridge) {
--			of_node_put(child);
-+		if (panel || bridge)
- 			break;
--		}
- 	}
- 	if (panel) {
- 		bridge = drm_panel_bridge_add_typed(panel,
+ #include "mcde_drm.h"
+ #include "mcde_dsi_regs.h"
 
 -- 
 2.55.0
