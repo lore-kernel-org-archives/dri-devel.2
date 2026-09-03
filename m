@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE063C624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8089C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F214A10F438;
-	Thu,  3 Sep 2026 07:37:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB4AA10F44B;
+	Thu,  3 Sep 2026 07:38:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AsbYy7U+";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OYPIO3xl";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9078810F438;
- Thu,  3 Sep 2026 07:37:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEAB210F44B;
+ Thu,  3 Sep 2026 07:38:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=WEQIDYGlBUXhn3lmR9XsLq39KcvZDQUH9U5OcoHbWm4=; b=AsbYy7U+gP1W/xxoc271+oO9r+
- aUSK9N25hQPV1YDsOsU46chXiEvhgEnIQsDi5xKj/cgoKFB1KefettZcUtPHnq3W/WVW/Ze6sG/6H
- XIzIvLVvXCZmWs+6vKKsHWpUUzCb6hJN2cTpYfxq2bsP03My2GkbEAxv+yW6GTjPmRj5w16uqFl0F
- bxYEGhQHg9zyMVnRTt27lx42tpJIydEatPt1L7zkof2nIgChQF2H8cpSChU9dqEIYiCsjKb6SvLdF
- T5zqlbkFoQfn5GFVmalLcNuh3p0lcaggbvuyipfhUi/qzzcaNGVUqvfN3CbVcDP7OGg3OhOyXBGjB
- o3wh+1sg==;
+ bh=FWKX/XZq+HjuvoZD0UWfiZNTUwqp4s9qGgr8xQ9J15E=; b=OYPIO3xlfIt1e+9ArGycX86jQx
+ ce2w/V8mCOignsFK5YYabY36QVHMlp2WYNBahZALq5fYavFgU1vR2fzu68OtKuGumIgHe2gBfRkqC
+ 9ohQJCBMFEoO4+eIwfPyLr8O93oTOimr8RgzA7C0dSt7UCGd5h8YMvXQQxTp8c6DQprAfU9gchdO5
+ XZu5Oczr6gLAM/IJJQNjrIPUTv74JPgf8Dp1s6kMejHbCyxku0bf9fdBwTAzWaiCDhIGDfPDA2Jod
+ UH1nrC7n3GKrLXnAHx/THkCgb7BxM1LLWqpGVda5RxQfR2wNtCFieykGCa6vXK6jCAO6T2j85eJBi
+ o6/J4lCw==;
 Received: from [31.4.135.164] (helo=[192.168.1.126])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x220G-00EEP3-Ki; Thu, 03 Sep 2026 09:36:56 +0200
-Message-ID: <141dded4-e312-4207-ad9c-572e9d1d7316@igalia.com>
-Date: Thu, 3 Sep 2026 09:36:54 +0200
+ id 1x221Y-00EERW-U1; Thu, 03 Sep 2026 09:38:17 +0200
+Message-ID: <f1e57af9-9ea7-41b1-aa25-4562865f3b39@igalia.com>
+Date: Thu, 3 Sep 2026 09:38:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: use plane color_mgmt_changed to track
- colorop changes
-From: Melissa Wen <mwen@igalia.com>
-To: Dave Airlie <airlied@redhat.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
- siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-References: <20260807115712.22423-1-mwen@igalia.com>
- <CADnq5_OxnaEdNUpC1VQsCgensRYAgFCMeGy3uL5n6mYXqOHV-g@mail.gmail.com>
- <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+Subject: Re: [PATCH i-g-t] Revert "lib/igt_kms: Do not treat writeback and
+ virtual connectors as connected"
+To: Mark Yacoub <markyacoub@google.com>, Jani Nikula <jani.nikula@intel.com>
+Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ louis.chauvet@bootlin.com, hamohammed.sa@gmail.comm, simona@ffwll.ch,
+ melissa.srw@gmail.com, robin.clark@oss.qualcomm.com,
+ abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ "S, Sowmiya" <sowmiya.s@intel.com>, kernel-dev@igalia.com
+References: <20260828-vkms_virtual_output_fix-v1-1-789718f4cb00@igalia.com>
+ <5443fa9f99309b0ec0afdd98319619a63d5467a3@intel.com>
+ <CAC0gqY650NvYr5_NwKXM3sFNYQ=G7T9kx_=8GZWE7faveSZwRg@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <CAC0gqY650NvYr5_NwKXM3sFNYQ=G7T9kx_=8GZWE7faveSZwRg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,108 +69,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 27/08/2026 12:24, Melissa Wen wrote:
->
->
-> On 10/08/2026 20:40, Alex Deucher wrote:
->> On Fri, Aug 7, 2026 at 8:08 AM Melissa Wen <mwen@igalia.com> wrote:
->>> This is a resubmission of d79716401a95 ("drm/amd/display: use plane
->>> color_mgmt_changed to track colorop changes") whose change was reverted
->>> by 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of
->>> https://gitlab.freedesktop.org/agd5f/linux into drm-next") during a
->>> merge conflict resolution.
+On 31/08/2026 16:01, Mark Yacoub wrote:
+> On Mon, Aug 31, 2026 at 4:51 AM Jani Nikula <jani.nikula@intel.com> wrote:
+>> On Fri, 28 Aug 2026, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
+>>> This reverts commit 321448df7fc9af29b4c6697dc74e6c5e2100af6c.
 >>>
->>> Original commit message:
+>>> It has broken vkms testing, which has only Virtual connectors.
 >>>
->>> ```
->>> Ensure the driver tracks changes in any colorop property of a plane
->>> color pipeline by using the same mechanism of CRTC color management and
->>> update plane color blocks when any colorop property changes. It 
->>> fixes an
->>> issue observed on gamescope settings for night mode which is done via
->>> shaper/3D-LUT updates.
->>> ```
+>>> Cc: Mark Yacoub <markyacoub@google.com>
+>>> Cc: Jani Nikula <jani.nikula@intel.com>
+>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>> FWIW,
+>>
+>> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Reviewed-by: Mark Yacoub <markyacoub@google.com>
 
-After talking to Dave, I applied to drm-misc-fixes:
-- 88f8113ab118 ("drm/amd/display: use plane color_mgmt_changed to track 
-colorop changes")
+Applied to master.
 
 Melissa
 
->>>
->>> Fixes: 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of 
->>> https://gitlab.freedesktop.org/agd5f/linux into drm-next")
->>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>
->> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Hey Dave,
->
-> Can you apply it to drm-next?
->
-> This a regression from 
-> https://lists.freedesktop.org/archives/amd-gfx/2026-July/148126.html
-> And AFAIU drm-misc's branches are not the right place.
->
-> Best Regards,
->
-> Melissa
->
+>> But you should solicit feedback from the author, reviewer, and committer
+>> of 321448df7fc9 ("lib/igt_kms: Do not treat writeback and virtual
+>> connectors as connected").
 >>
 >>
 >>> ---
+>>>   lib/igt_kms.h | 4 ----
+>>>   1 file changed, 4 deletions(-)
 >>>
->>> Hey,
+>>> diff --git a/lib/igt_kms.h b/lib/igt_kms.h
+>>> index 695f666bacb9..27f8877a9f6a 100644
+>>> --- a/lib/igt_kms.h
+>>> +++ b/lib/igt_kms.h
+>>> @@ -669,10 +669,6 @@ static inline bool igt_output_is_connected(igt_output_t *output)
+>>>            !output->config.connector->count_modes)
+>>>                return false;
 >>>
->>> I noticed this problem in the resolution of a merge conflict after
->>> testing drm-misc-next on SteamDeck with KMS colorop API support and
->>> verifying the issue of missing updates in nightlight-mode was back.
+>>> -     if (output->config.connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK ||
+>>> -         output->config.connector->connector_type == DRM_MODE_CONNECTOR_VIRTUAL)
+>>> -             return false;
+>>> -
+>>>        if (output->config.connector->connection == DRM_MODE_CONNECTED)
+>>>                return true;
 >>>
->>> Let me know what are the right steps to address it.
->>>
->>> Thanks,
->>>
->>> Melissa
 >>>
 >>> ---
->>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
->>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>> base-commit: c0c86b23b316bec7d22bbb95e433a8dc25884a1c
+>>> change-id: 20260828-vkms_virtual_output_fix-c82298792438
 >>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index 67b825cbb88f..d0e612371c8f 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -4202,7 +4202,7 @@ static void amdgpu_dm_commit_planes(struct 
->>> drm_atomic_commit *state,
->>>                          continue;
+>>> Best regards,
+>>> --
+>>> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 >>>
->>> bundle->surface_updates[planes_count].surface = dc_plane;
->>> -               if (new_pcrtc_state->color_mgmt_changed) {
->>> +               if (new_pcrtc_state->color_mgmt_changed || 
->>> new_plane_state->color_mgmt_changed) {
->>> bundle->surface_updates[planes_count].gamma = 
->>> &dc_plane->gamma_correction;
->>> bundle->surface_updates[planes_count].in_transfer_func = 
->>> &dc_plane->in_transfer_func;
->>> bundle->surface_updates[planes_count].gamut_remap_matrix = 
->>> &dc_plane->gamut_remap_matrix;
->>> @@ -6012,6 +6012,10 @@ static bool should_reset_plane(struct 
->>> drm_atomic_commit *state,
->>>          if (new_crtc_state->color_mgmt_changed)
->>>                  return true;
->>>
->>> +       /* Plane color pipeline or its colorop changes. */
->>> +       if (new_plane_state->color_mgmt_changed)
->>> +               return true;
->>> +
->>>          /*
->>>           * On zpos change, planes need to be reordered by removing 
->>> and re-adding
->>>           * them one by one to the dc state, in order of descending 
->>> zpos.
->>> -- 
->>> 2.53.0
->>>
->
+>> --
+>> Jani Nikula, Intel
 
