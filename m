@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 276F6C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9362C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:11:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDDA10E0B9;
-	Thu,  3 Sep 2026 09:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139BF10F490;
+	Thu,  3 Sep 2026 09:11:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mOf77b5p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q3Exqekb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96A2510E0B9
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:11:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6848110F47B
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:11:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EDE82600C8
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:11:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9EEEBC2BCB8
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:11:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3792F400C6
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:11:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 19274C2BCF5
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:11:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788426677;
- bh=+6C7GSRMrCU8bb6KtZB05ZtRalRY90OMr1hkbFlLqOM=;
- h=From:To:Subject:Date:From;
- b=mOf77b5pgouk3F+ixQMQBS0/m0lhR/g+YzEgJUxLsaHcKek4AcYdmx9BcGmglRFoL
- rMl+WHjZB+G6X94Xt9oIbAd2myIxjYq6I6Q+fM+W22CS9X8+n5cN7fNEZZ9iSsRYJb
- 848WM7D+1cyeMzxXJ1mycw2fQ9ZucX4CU15XuTqpb1ZSnhvyQ/A24NxLv/PhZFqzow
- mPerXpaardS75GAgapM1bniNKFJ/o0MEzwYIprr8p03fVfXLC9nzmeb1RHjfnqb5zi
- tZhezuizHe1s6k0Pgc2EZu1LrM2YM6gBfKkS/zIN5Vr256UVlongPFrjLAam6sfbcl
- F/muQIWyxBZUA==
+ s=k20201202; t=1788426689;
+ bh=G68i8caW08Vm9KhpLAaXI0Ow46wfJ0QWbFvZYoDE8HQ=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=Q3Exqekb/BlyYFWiCPGqnaJwQ1aQrd2aXpDeFeDYCC+vVZ6we/oJZKnjXQAZdZJny
+ wY0Tg8i7RWRBgwe4LoNWFD/z0n7GUzIFXNcX3mOlsu/8aT77cf3LxPPuNYlL4nEzIu
+ T040XJdiXrgZqK3FStu++BSqwd2cve4XbdrV0MVpQGBlcbghPUmTKhXCxQIIHtUXXO
+ tl0u7GnosUxMEaKwD+cV+yGRF3002ssa50z1Lx5UR8MMT9iwi9rvp6pJiWPkYNE/l7
+ sxfms+NO9dl3Hzdt/iGYvMyKtQlbK2jNDLlxCEUFpFxTyFuwnRfaYub1RGONFmd32O
+ y6KKmBn9AMtdw==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 87185C41613; Thu,  3 Sep 2026 09:11:17 +0000 (UTC)
+ from userid 48) id EEEC8C41613; Thu,  3 Sep 2026 09:11:28 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221959] New: ttm_lru_bulk_move_tail cause CPU stuck
-Date: Thu, 03 Sep 2026 09:11:17 +0000
+Subject: [Bug 221959] ttm_lru_bulk_move_tail cause CPU stuck
+Date: Thu, 03 Sep 2026 09:11:28 +0000
 X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
+X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Product: Drivers
 X-Bugzilla-Component: Video(DRI - non Intel)
@@ -50,10 +50,10 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression attachments.created
-Message-ID: <bug-221959-2300@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: cf_kernel_version
+Message-ID: <bug-221959-2300-iidtczfgZc@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221959-2300@https.bugzilla.kernel.org/>
+References: <bug-221959-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -76,46 +76,11 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D221959
 
-            Bug ID: 221959
-           Summary: ttm_lru_bulk_move_tail cause CPU stuck
-           Product: Drivers
-           Version: 2.5
-          Hardware: AMD
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: Video(DRI - non Intel)
-          Assignee: drivers_video-dri@kernel-bugs.osdl.org
-          Reporter: twyoda@gmail.com
-        Regression: No
+Yoda Wu (twyoda@gmail.com) changed:
 
-Created attachment 310777
-  --> https://bugzilla.kernel.org/attachment.cgi?id=3D310777&action=3Dedit
-ttm_lru_bulk_move_tail failed  dmesg
-
-This issue seems happened only after hibernation resume and randomly hang a=
-fter
-some times of using.
-The attachment starts at 2026-09-03 16:37:10, "BUG: unable to handle page f=
-ault
-for address: 0000000000002008" then following with "soft lock - CPU#? stuck=
- for
-??s".
-The GUI screen totally freeze, "caps lock" key works, but Ctrl+Alt+F3 doesn=
-'t.
-The dmesg records until I long press Power Button.
-I had already turn of "Transparent Hugepage support".
-
-My hardware:
-Asus ROG Strix G17 2022, G713RM
-DRAM: 64G
-SSD: 1G+4G
-CPU: AMD Ryzen 9 6900HX with Radeon Graphics
-Discrete GPU: Nvidia Geforce RTX 3060M with 6G VRAM
-OS: Gentoo Linux
-
-What else information should I provide to deal with this issue ?
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+     Kernel Version|                            |7.2.2
 
 --=20
 You may reply to this email to add a comment.
