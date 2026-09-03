@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E02CCC624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52644C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B71B10E0F9;
-	Thu,  3 Sep 2026 08:56:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RruX83I9";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E0110E0F9
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:56:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B4747403F0;
- Thu,  3 Sep 2026 08:56:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E4B1F000E9;
- Thu,  3 Sep 2026 08:56:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788425790;
- bh=9Qw4JZFWWjkORZxzjTCdXCuBsF2CzyFSmcScBz0oy0k=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RruX83I9SrMUERZm2GVSYG0cZ4bSr7PuXqELI5lo9e8xuGmaqgCmjos5WDgKhK8/+
- ku6UgeQvOCocqNbaHBiJfqbABBWZnMQNaDn8Q8PRuOh8RLXpOubVedbuECuJGjx9dO
- RZ7TUbzZeB11iXmPAVGgrVEODCkVbCHBfurgGjmIGB7/ys//rfcCkY4VFPPhPh2wro
- fr28dpQMyER2vLw81dyqQrqJL23N3cNBgwXSN++GeoS9cMw9OoIUWAf/cqQknCaABq
- xPAQ+ERnL9SjGc5z08sBBD50RGU2Pyqql6Lu/iDyeMUfjUxO2vDT6fP6SIjnjI7dSG
- /25yV0ZqLZJPg==
-From: sashiko-bot@kernel.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E7110F478;
+	Thu,  3 Sep 2026 09:02:11 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4690710F478
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:02:10 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
+ by APP-01 (Coremail) with SMTP id qwCowAB3Se2EN5lqi1oaBw--.49466S2;
+ Thu, 03 Sep 2026 17:01:56 +0800 (CST)
+Message-ID: <af021f98e497c30890df7c054680c27edf8e556a.camel@iscas.ac.cn>
 Subject: Re: [PATCH V3] drm/loongson: Create blend mode property for cursor
  plane
-To: "Huacai Chen" <chenhuacai@loongson.cn>
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
+ Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai
+ <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
 Cc: dri-devel@lists.freedesktop.org
+Date: Thu, 03 Sep 2026 17:01:55 +0800
 In-Reply-To: <20260903084212.3621540-1-chenhuacai@loongson.cn>
 References: <20260903084212.3621540-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 08:56:30 +0000
-Message-Id: <20260903085630.83E4B1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: qwCowAB3Se2EN5lqi1oaBw--.49466S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr47ArWkAFy8tw43Ww47XFb_yoW8tw4xpa
+ nrAFW8Kr98Aa4Dt34DA34fKa13Za1fG34vqr95X39F9r1qkr13Ar1UGrnIgrWUJr47Wrya
+ g3s7Crn8GF4jkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxUqiFxDUUUU
+X-Originating-IP: [120.85.96.74]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,64 +64,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] State mismatch between blend mode property and atomic state initia=
-lization rejects atomic commits.
---
+=E5=9C=A8 2026-09-03=E5=9B=9B=E7=9A=84 16:42 +0800=EF=BC=8CHuacai Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> After commit 860e748bddcc929 ("drm: ensure blend mode supported if
+> pixel
+> format with alpha exposed") we get warnings at boot:
+>=20
+> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
+> format with alpha exposed but blend mode not setup. Please fix.
+> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
+> format with alpha exposed but blend mode not setup. Please fix.
+>=20
+> The reason is the cursor plane supports color formats with alpha but
+> the
+> driver doesn't create blend mode property, which triggers the warning
+> in
+> validate_blend_mode_for_alpha_formats().
+>=20
+> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
+> blend mode property with DRM_MODE_BLEND_COVERAGE for cursor planes
+> since
+> it is the only one implemented in the driver.
+>=20
+> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 
-commit e4c1ccbb76c983c05930b35bbb7291c8273016d7
-Author: Huacai Chen <chenhuacai@kernel.org>
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-drm/loongson: Create blend mode property for cursor plane
+Thanks,
+Icenowy
 
-This commit adds a blend mode property for cursor planes, exposing only
-the DRM_MODE_BLEND_COVERAGE mode since the hardware does not support
-DRM_MODE_BLEND_PREMULTI.
-
-> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loon=
-gson/lsdc_plane.c
-> index bea42215796d4..bcc0ffa17bdf2 100644
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 5 +++--
+> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+> b/drivers/gpu/drm/loongson/lsdc_plane.c
+> index bea42215796d..bcc0ffa17bdf 100644
 > --- a/drivers/gpu/drm/loongson/lsdc_plane.c
 > +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-[ ... ]
-> @@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device *dde=
-v,
-> =20
->  	drm_plane_helper_add(plane, &ls7a1000_cursor_plane_helper_funcs);
-> =20
+> @@ -7,6 +7,7 @@
+> =C2=A0
+> =C2=A0#include <drm/drm_atomic.h>
+> =C2=A0#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_blend.h>
+> =C2=A0#include <drm/drm_framebuffer.h>
+> =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> =C2=A0#include <drm/drm_print.h>
+> @@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device
+> *ddev,
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane,
+> &ls7a1000_cursor_plane_helper_funcs);
+> =C2=A0
 > -	return 0;
-> +	return drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_C=
-OVERAGE));
->  }
+> +	return drm_plane_create_blend_mode_property(plane,
+> BIT(DRM_MODE_BLEND_COVERAGE));
+> =C2=A0}
+> =C2=A0
+> =C2=A0int ls7a2000_cursor_plane_init(struct drm_device *ddev,
+> @@ -790,5 +791,5 @@ int ls7a2000_cursor_plane_init(struct drm_device
+> *ddev,
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane,
+> &ls7a2000_cursor_plane_helper_funcs);
+> =C2=A0
+> -	return 0;
+> +	return drm_plane_create_blend_mode_property(plane,
+> BIT(DRM_MODE_BLEND_COVERAGE));
+> =C2=A0}
 
-[Severity: High]
-Will this cause atomic commits to fail during modesetting?
-
-This adds a blend mode property supporting only COVERAGE, but the driver's
-plane functions use the default reset hook:
-
-drivers/gpu/drm/loongson/lsdc_plane.c:lsdc_plane_funcs {
-        ...
-        .reset =3D drm_atomic_helper_plane_reset,
-        ...
-}
-
-The default drm_atomic_helper_plane_reset() unconditionally initializes
-the plane state to PREMULTI.
-
-Because PREMULTI is not registered as a supported enum value in the plane's
-blend mode property mask, when compositors query the current properties and
-submit them back, validation fails in drm_property_change_valid_get()
-returning -EINVAL.
-
-Should the driver provide a custom reset hook that initializes the state to
-DRM_MODE_BLEND_COVERAGE instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903084212.3621=
-540-1-chenhuacai@loongson.cn?part=3D1
