@@ -4,46 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC675C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 14:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F6FC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 14:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C64610E1D1;
-	Thu,  3 Sep 2026 14:12:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEEF810E61E;
+	Thu,  3 Sep 2026 14:30:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="GjRQ17cT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iqKMlVC2";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7268410E1D1
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 14:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=HDphPTZasBW/m6rqPKWNWdlcoSOfg9Wv3BLKy1YJmFk=; b=GjRQ17cTZGJyO9RseyyaQA+rJ2
- KFNRg9yVF0nvIwkEzkEfH5NFEWW8acQDmuKl1f6q6vQ7hOzImiIke6iL7hFX1C+f6tBGJf+Ol2V+d
- VuOnEMMB3JdoROXdxAxA/ilFfkTGkMt8LL6JoSRAgFSTaGoLP9VoY6dqRK2TiMGA4r07hJDy8Mvll
- cmXc0yGIA/VDpi2tfF4vsdgfV8buO5SyDx3nPWjAxOJ9Laa3Hc30GvLHcbbVE2PXOKlVadljZYaIr
- whRPifETlbniKBgzN9KMCSWvw6CT6YutHQB62x/U6kYBr/SDQuhUBOZ4Jgb59PjyzScnJ1Ql0JJlj
- 77ooFAow==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Yudi Yang <2000jedi@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/rockchip: analogix_dp: bound endpoint name formatting
-Date: Thu,  3 Sep 2026 16:12:03 +0200
-Message-ID: <178844472024.2481528.12971315442057669333.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901195511.2761251-1-2000jedi@gmail.com>
-References: <20260901195511.2761251-1-2000jedi@gmail.com>
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63DD210E123
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 14:30:33 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-cb5b8572b70so2683010a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 07:30:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1788445833; x=1789050633; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=VvQUB0nrb39Z1KnOkiEgTk3LEVt0IMBJ5IPyGGTW/6M=;
+ b=iqKMlVC2/aMAckB8FRkRungEMOJHEv5R6u2CKpFQkKHSha6563w/Bfthenxy0kXt14
+ tZIUbjB5uusw+3f7pIj0HySlOQKqr3RlbHUS9pn43ok9cakiYEeRx+lNio8kTPcv/FJX
+ nN2SPvSYJKi1P7jrJL+VcrhvIMbbqqjO8dhL8CT7i40mLxdSe9QOQJ21xauuhvYkj0CO
+ tC6qXSXbMQPwnpT/YxHQa5qv32zJ3B9EprFFApitRFWBwsb88V0AKFmHHpbx0pDfSQce
+ j4r/jZu4I2TpZDNOscMgiHZxhJq6/DRKmr598wR8EDQbmHDCKUCXHOuMbr/edCPT2O+K
+ 2FuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788445833; x=1789050633;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=VvQUB0nrb39Z1KnOkiEgTk3LEVt0IMBJ5IPyGGTW/6M=;
+ b=swKJfNOR8tbw3Ox2Mq4OBS4KOCQZAKhc/yLJtVfQJ5vPx7vPUb+4/tT1TrveJBDf/f
+ P4KKvWsy7XPd2BT79979MSotN3S72sPJiPzxg2fQweDnJGzF0irbWiXL7oZgrQSEClae
+ I5Kj81jNUGvX7bKNPwIUFn/a4kXHVOBqztnJGdLBT19Vs/4vh7RS8vkRjsJA3mgz3guD
+ JFt/NjxekLWjPBzoDw73D0YtHxhwmH3DTK4AwO547Hq6UU4je+88yg+p8YsCY1nv3LM2
+ nujD+2KFUvPXnHWwZLiPIQpA1+W3FGHVLfY165J1GcnJLzrE6zNzdTs6b8b9K9f/8GQL
+ N5zw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzIQjKblkF6UYnZJ4/KQS6SuOYEHf6XO5QOAuc3e0xpA3NiAC1j6M7YMFP48IwmqIJyfHJJEmZ5pUY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k6zI5fqwjX4cKkrBMwF3d+Y6sQDuKfANFaDHCUomDZ6j5wG8Zp
+ 6duFQIqb6efXHa6OsKG7YqhUP/pmLO9bl97Az7EZKiNS4I6h9m6FJE5cD3gtSWwtycU=
+X-Gm-Gg: AYBFou0raN875+VeLpG4Okz1jLl883lmfD2dIAwaybNMVieO+4vmCJms73MwNFvXWd4
+ NRhz2Q05uYVl+IdWylXMk3smjjI33Bc4Lw7WQPqlutBcST5uHoamWnsqweJbUIyk+UCLWMV6Wf1
+ nnUIsVFg12e3HwE70bJdoldVGyxJh+FhSpLIpOKvMv0w4XI20NJrnORciK4NB1oYG+qeMLUVoql
+ oZZXuIwPFPx0DSmt4eyXJJtekqYwu/wPuKc9qNi0z2xNLnRSW1ZBE5hh/Qg+k20UJ/PE8/V7MvS
+ impMsmG7EaVOmyE7iuk3TfAuQr5tVw10InrTa6+HAkBAOCTVVyMWw7tGEUjqX8dQgfUvZMPuSfa
+ oqMjx1T6SZrPmD6YRtHM5HGQStUU6ZwZzJkinXlwz0gp8I68wgpei40VL72/gclDHQUt8ixTlG1
+ dh5OzQ3mImS8kH2Ugwzum9cxjbdBYmcM8mgSGli8phgmM4FQf8v007Pcc=
+X-Received: by 2002:a05:6a21:4613:b0:3c3:7ac4:dac0 with SMTP id
+ adf61e73a8af0-3d9af9ff7a9mr20557828637.13.1788445832582; 
+ Thu, 03 Sep 2026 07:30:32 -0700 (PDT)
+Received: from niej-t14p ([112.64.60.233]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc43d42b3b1sm1032759a12.25.2026.09.03.07.30.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 07:30:31 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+To: 
+Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, Maxime Ripard <mripard@kernel.org>,
+ Teguh Sobirin <teguh@sobir.in>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: delete timeout timer when encoder is not busy
+Date: Thu,  3 Sep 2026 22:29:42 +0800
+Message-ID: <20260903143004.1026181-1-jun.nie@linaro.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,22 +94,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+There is a spurious timeout error message under the following reproduction
+steps:
+1. Run "modetest -M msm -r" and press CTRL+Z to pause it.
+2. Run "while true; do rtcwake -m mem -s 3 -v; sleep 2; done"
 
-On Tue, 01 Sep 2026 14:55:11 -0500, Yudi Yang wrote:
-> rockchip_dp_drm_encoder_enable() uses sprintf() to format a device tree
-> path into a 32-byte stack buffer. Device tree paths are not limited to
-> this size, so a sufficiently long path can overflow the buffer.
-> 
-> Use snprintf() with the destination size to truncate the generated name
-> and keep the writes within bounds.
-> 
-> [...]
+Resulting error message:
+[  124.018206] [drm:dpu_encoder_virt_atomic_disable:1425] [dpu error]enc35 timeout pending
 
-Applied, thanks!
+dpu_crtc_commit_kickoff() calls dpu_encoder_kickoff() to set frame busy
+bits, and then arms the frame done timer. If the frame done IRQ fires
+between these two steps, the IRQ handler clears the busy bits before the
+timer is armed. As a result, the timer runs with busy bits already cleared
+and is never cancelled by subsequent IRQ handlers, leading to a false
+timeout warning.
 
-[1/1] drm/rockchip: analogix_dp: bound endpoint name formatting
-      commit: bc69439d983cc491cc86e01fafc1deb94e1bb85e
+Delete the pending timer when all busy bits are cleared in the frame done
+callback to prevent false timeouts.
 
-Best regards,
+Fixes: 95bbde1d0d07 ("drm/msm/dpu: Start frame done timer after encoder kickoff")
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1f20695f81e3..d83d38797331 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1573,6 +1573,21 @@ void dpu_encoder_frame_done_callback(
+ 			| DPU_ENCODER_FRAME_EVENT_PANEL_DEAD)) {
+ 
+ 		if (!dpu_enc->frame_busy_mask[0]) {
++			/*
++			 * dpu_crtc_commit_kickoff calls dpu_encoder_kickoff to
++			 * mark busy bits, starts the framedone timer next.
++			 * It is possibile that irq happens between the 2
++			 * operations. Thus timer is running with busy bits
++			 * cleared by irq handler and timer will not be deleted
++			 * anymore. Then false timeout introduces unnecessary
++			 * confusion and visual defect.
++			 * delete the timer here to fix it.
++			 */
++			if (atomic_read(&dpu_enc->frame_done_timeout_ms)) {
++				atomic_set(&dpu_enc->frame_done_timeout_ms, 0);
++				timer_delete(&dpu_enc->frame_done_timer);
++			}
++
+ 			/**
+ 			 * suppress frame_done without waiter,
+ 			 * likely autorefresh
 -- 
-Heiko Stuebner <heiko@sntech.de>
+2.53.0
+
