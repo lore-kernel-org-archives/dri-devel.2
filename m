@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C884CC61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343B8C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 037F310E069;
-	Thu,  3 Sep 2026 08:42:36 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A7D10E069
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:42:34 +0000 (UTC)
-Received: from loongson.cn (unknown [223.64.69.112])
- by gateway (Coremail) with SMTP id _____8BxW_DvMplqGSUIAA--.23505S3;
- Thu, 03 Sep 2026 16:42:23 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.112])
- by front1 (Coremail) with SMTP id qMiowJAx2c3rMplqryEaAA--.55470S2;
- Thu, 03 Sep 2026 16:42:22 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Huacai Chen <chenhuacai@kernel.org>, Jianmin Lv <lvjianmin@loongson.cn>,
- Qianhai Wu <wuqianhai@loongson.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>, dri-devel@lists.freedesktop.org,
- Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH V3] drm/loongson: Create blend mode property for cursor plane
-Date: Thu,  3 Sep 2026 16:42:12 +0800
-Message-ID: <20260903084212.3621540-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD0F10E0BE;
+	Thu,  3 Sep 2026 08:47:08 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="j06Z5HR1";
+	dkim-atps=neutral
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A8310E0BE
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:47:06 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hbCrl3Y6WzMl12;
+ Thu, 03 Sep 2026 10:47:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788425223; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=lS9F4rIYBzfNdppMZK6a5Tt5Oo2fi4c7dvH/gWrs5Y8=;
+ b=j06Z5HR18ok6cljzKmpyj8R96WwK0C9ecVQiUgpMeEodSP7loQlTVZmb4H/mXD2KfjZM2d
+ m0gPY62S2Lhelr5zCtLVNXVln/+awPDBFkdBTkocAAxYw+5ueCP8rdbCvaXzA/xnqi2Pud
+ 8DnN69HVWG1r3iuakULyvou28s4KHPsa4NYMNI3whVAPE2Dfj2Z7jpyVlme+HekhvFdTC5
+ w5aeFUIEWmcutSIv/VC0nkjhj25PhGOAAoFWvcl32a/4bKSFJu1V/E2Ul5ZEClKtUEkk/I
+ 71c1iEmDS+NPIlfHdfj6NZnq4YN88JkwgZLCbIyT7fqOLWVdlu+oy8sXJD9+xQ==
+Message-ID: <611c2624e60ea422229e666480da3e504d126682.camel@mailbox.org>
+Subject: Re: [PATCH v3 1/2] drm/sched: fix use-after-free of the fence
+ timeline name
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, tursulin@ursulin.net, 
+ phasta@kernel.org, matthew.brost@intel.com, dakr@kernel.org
+Cc: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 10:46:59 +0200
+In-Reply-To: <20260902144204.1843670-2-malhyuk97@gmail.com>
+References: <20260902144204.1843670-1-malhyuk97@gmail.com>
+ <20260902144204.1843670-2-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJAx2c3rMplqryEaAA--.55470S2
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7CF4rtFW3ZF1rWFWfXr47Awc_yoW8ur15pa
- nrCFW8KrZ8CayDJ34DA348ta1avayfGa40qryrJ39F9r1DK39rZr1UGFnIgrW8Jr47W34a
- gryxCryDCF4UKabCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
- AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
- AVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
- AKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
- 6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
- xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
- jxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw2
- 0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
- 67AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcbAwUUUUU
+X-MBO-RS-META: id1up75im5je3bazaq1wc7qmnw9wsexp
+X-MBO-RS-ID: f26dfd43d1bfa023aa0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,56 +64,289 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After commit 860e748bddcc929 ("drm: ensure blend mode supported if pixel
-format with alpha exposed") we get warnings at boot:
+On Wed, 2026-09-02 at 23:42 +0900, Jonghyuk Kim(MalHyuk) wrote:
+>=20
 
-loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel format with alpha exposed but blend mode not setup. Please fix.
-loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel format with alpha exposed but blend mode not setup. Please fix.
+[=E2=80=A6]
 
-The reason is the cursor plane supports color formats with alpha but the
-driver doesn't create blend mode property, which triggers the warning in
-validate_blend_mode_for_alpha_formats().
+>=20
+> The finished fence carried a .release callback solely to drop the
+> scheduled fence's reference. That callback kept the ops attached, leaving
+> get_timeline_name() reachable on a signalled finished fence with a
+> dangling ->sched. Drop the callback and move the reference handling
+> instead:
+>=20
+> =C2=A0- The scheduled fence now holds a reference on the finished fence, =
+so
+> =C2=A0=C2=A0 the finished fence, and with it the shared allocation, is re=
+leased
+> =C2=A0=C2=A0 last. Its release drops the parent fence and that finished-f=
+ence
+> =C2=A0=C2=A0 reference; the finished fence is then freed from dma_fence_f=
+ree().
 
-The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
-blend mode property with DRM_MODE_BLEND_COVERAGE for cursor planes since
-it is the only one implemented in the driver.
+The backend doesn't know about this (admittedly weird) shared-
+allocation phenomenon. I suppose the reason why we don't run into
+double-free is that the scheduled-fence does still implement ops-
+>release.
 
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
- drivers/gpu/drm/loongson/lsdc_plane.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+If that's the case, that needs to be documented in the code as a
+groundlayer for future cleanups (I suppose we should eliminate that
+shared allocation. If objects have distinct lifetimes, they should have
+distinct memory. It was probably done like that so that drivers can
+access both subfences through container_of()).
 
-diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loongson/lsdc_plane.c
-index bea42215796d..bcc0ffa17bdf 100644
---- a/drivers/gpu/drm/loongson/lsdc_plane.c
-+++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-@@ -7,6 +7,7 @@
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_print.h>
-@@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device *ddev,
- 
- 	drm_plane_helper_add(plane, &ls7a1000_cursor_plane_helper_funcs);
- 
--	return 0;
-+	return drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
- }
- 
- int ls7a2000_cursor_plane_init(struct drm_device *ddev,
-@@ -790,5 +791,5 @@ int ls7a2000_cursor_plane_init(struct drm_device *ddev,
- 
- 	drm_plane_helper_add(plane, &ls7a2000_cursor_plane_helper_funcs);
- 
--	return 0;
-+	return drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
- }
--- 
-2.52.0
+a la
 
+"TODO: this release callback should be removed, too, but can't because
+double-free"
+
+> scheduler. Unlike caching the name string, this also covers drivers whose
+> timeline name is dynamically allocated (drm/panthor, drm/xe).
+
+It's good to have detailed commit messages, but I don't think hinting
+at that alternative solution (caching), which we don't implement, is
+necessary.
+
+>=20
+
+[=E2=80=A6]
+
+> - it is the normal result for a foreign fence - and a signalled fence is
+> an already-satisfied dependency, so the scheduler's dependency-collapsing
+> optimisation is unaffected.
+>=20
+
+I don't understand this phrase. You're saying that someone trying to
+register a dependency won't bother if he sees NULL?
+
+
+>=20
+>=20
+
+[=E2=80=A6]
+
+> =C2=A0
+> -static void drm_sched_fence_free_rcu(struct rcu_head *rcu)
+> -{
+> -	struct dma_fence *f =3D container_of(rcu, struct dma_fence, rcu);
+> -	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> -
+> -	if (!WARN_ON_ONCE(!fence))
+> -		kmem_cache_free(sched_fence_slab, fence);
+> -}
+> -
+> =C2=A0/**
+> =C2=A0 * drm_sched_fence_free - free up an uninitialized fence
+> =C2=A0 *
+> @@ -132,21 +123,12 @@ static void drm_sched_fence_release_scheduled(struc=
+t dma_fence *f)
+> =C2=A0	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> =C2=A0
+> =C2=A0	dma_fence_put(fence->parent);
+> -	call_rcu(&fence->finished.rcu, drm_sched_fence_free_rcu);
+
+@Christian, Tvrtko, opinions on that?
+
+> -}
+> -
+> -/**
+> - * drm_sched_fence_release_finished - drop extra reference
+> - *
+> - * @f: fence
+> - *
+> - * Drop the extra reference from the scheduled fence to the base fence.
+> - */
+> -static void drm_sched_fence_release_finished(struct dma_fence *f)
+> -{
+> -	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> -
+> -	dma_fence_put(&fence->scheduled);
+> +	/*
+> +	 * Drop the reference the scheduled fence holds on the finished fence.
+> +	 * The finished fence is released last and frees the shared allocation
+> +	 * from its dma_fence_free() (see drm_sched_fence_init()).
+> +	 */
+> +	dma_fence_put(&fence->finished);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void drm_sched_fence_set_deadline_finished(struct dma_fence =
+*f,
+> @@ -189,7 +171,13 @@ static const struct dma_fence_ops drm_sched_fence_op=
+s_scheduled =3D {
+> =C2=A0static const struct dma_fence_ops drm_sched_fence_ops_finished =3D =
+{
+> =C2=A0	.get_driver_name =3D drm_sched_fence_get_driver_name,
+> =C2=A0	.get_timeline_name =3D drm_sched_fence_get_timeline_name,
+> -	.release =3D drm_sched_fence_release_finished,
+> +	/*
+> +	 * No .release callback: dma_fence detaches ->ops on signalling for
+> +	 * fences without .release/.wait, so get_timeline_name() is never calle=
+d
+> +	 * on a signalled finished fence and cannot dereference a freed
+> +	 * scheduler. The shared allocation is freed from dma_fence_free() once
+> +	 * this fence's refcount drops - it is released last, after @scheduled.
+> +	 */
+
+That comment is not necessary. The new code simply complies with the
+current idiomatic fence design. Comments are necessary at tricky bits
+or when one deviates from idiomatic usage.
+
+> =C2=A0	.set_deadline =3D drm_sched_fence_set_deadline_finished,
+> =C2=A0};
+> =C2=A0
+> @@ -233,6 +221,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fe=
+nce,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->lock, entity->fence_=
+context, seq);
+> =C2=A0	dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->lock, entity->fence_=
+context + 1, seq);
+> +
+> +	/*
+> +	 * Hold a reference on the finished fence from the scheduled fence, so
+> +	 * the finished fence (and the shared allocation) outlives @scheduled.
+> +	 * drm_sched_fence_release_scheduled() drops it; the finished fence is
+> +	 * therefore released last and frees the allocation via dma_fence_free(=
+).
+> +	 */
+> +	dma_fence_get(&fence->finished);
+
+So what was the counter-part of this dma_fence_get() before?
+
+> =C2=A0}
+> =C2=A0
+> =C2=A0module_init(drm_sched_fence_slab_init);
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index 6cb6f9546493..fb238f51c0ed 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -842,6 +842,15 @@ void drm_sched_job_cleanup(struct drm_sched_job *job=
+)
+> =C2=A0		 * been called.
+> =C2=A0		 */
+> =C2=A0		dma_fence_put(&job->s_fence->finished);
+> +		/*
+> +		 * Drop the initial reference on the scheduled fence. It no
+> +		 * longer has a .release callback dropping it (the finished
+> +		 * fence's .release was removed to allow ops-detach on signal),
+
+Same as above, I think the comment should not focus on the past
+situation. The past should be tracked by the commit message; a comment
+should only mention the past if it's still relevant, for example to
+solve an open TODO.
+
+> +		 * so the last put here lets drm_sched_fence_release_scheduled()
+
+Strictly speaking, you don't know whether it's the last put().
+drm_sched_fence is a public object and drivers might have taken various
+references.
+
+> +		 * run, which drops @parent and the scheduled fence's reference
+> +		 * on @finished. @finished is freed last, from dma_fence_free().
+
+finished and scheduled would be freed through dma_fence_free()
+simultaneously, since they still share the allocation.
+
+I think the shared allocation and how things are freed should be
+documented, but is drm_sched_job_cleanup() the right place?
+
+
+> +		 */
+> +		dma_fence_put(&job->s_fence->scheduled);
+> =C2=A0		drm_sched_entity_stats_put(job->entity_stats);
+> =C2=A0	} else {
+> =C2=A0		/* The job was aborted before it has been committed to be run;
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 7a64cc11de08..686c3687944f 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -287,48 +287,58 @@ struct drm_sched_rq {
+> =C2=A0 * struct drm_sched_fence - fences corresponding to the scheduling =
+of a job.
+> =C2=A0 */
+> =C2=A0struct drm_sched_fence {
+>=20
+
+[=E2=80=A6]
+
+> =C2=A0	struct dma_fence		finished;
+> =C2=A0
+> +	/**
+> +	 * @scheduled: this fence is what will be signaled by the scheduler
+> +	 * when the job is scheduled.
+> +	 *
+> +	 * It holds a reference on @finished so that the shared allocation is
+> +	 * released only after @scheduled itself is done; its release drops
+
+Won't it drop the endire drm_sched_fence?
+
+I think this struct's documentation is the right place to document the
+life time and allocation pattern, together with maybe the relevant
+places in sched_fence.c
+
+Then you could be a bit less verbose in the other code places; see
+above.
+
+> +	 * that reference and the @parent one.
+> +	 */
+> +	struct dma_fence		scheduled;
+> +
+> =C2=A0	/**
+> =C2=A0	 * @deadline: deadline set on &drm_sched_fence.finished which
+> =C2=A0	 * potentially needs to be propagated to &drm_sched_fence.parent
+> =C2=A0	 */
+> =C2=A0	ktime_t				deadline;
+> =C2=A0
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @parent: the fence re=
+turned by &drm_sched_backend_ops.run_job
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * when scheduling the j=
+ob on hardware. We signal the
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * &drm_sched_fence.fini=
+shed fence once parent is signalled.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @parent: the fence returned by &drm_sched_backend_ops.run_job
+> +	 * when scheduling the job on hardware. We signal the
+> +	 * &drm_sched_fence.finished fence once parent is signalled.
+> +	 */
+> =C2=A0	struct dma_fence		*parent;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @sched: the scheduler=
+ instance to which the job having this struct
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * belongs to.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @sched: the scheduler instance to which the job having this struct
+> +	 * belongs to.
+> +	 */
+> =C2=A0	struct drm_gpu_scheduler	*sched;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @lock: the lock used =
+by the scheduled and the finished fences.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @lock: the lock used by the scheduled and the finished fences.
+> +	 */
+> =C2=A0	spinlock_t			lock;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /**
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * @owner: job owner for=
+ debugging
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +	/**
+> +	 * @owner: job owner for debugging
+> +	 */
+> =C2=A0	void				*owner;
+
+Formatting fixes in a separate patch please, unless you need to modify
+those lines for semantically related reasons.
+
+
+Thanks
+P.
