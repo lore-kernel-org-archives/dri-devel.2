@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1CDC61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 17:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A5F7C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 18:10:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFB210E158;
-	Thu,  3 Sep 2026 17:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18E8D10E161;
+	Thu,  3 Sep 2026 18:10:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Mj6Cp+V5";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Zfb0i+vc";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A379210E158
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 17:52:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788457926; cv=none; 
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D1E10E161
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 18:10:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788459025; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=WvqhDW8vLrQTi/1zVi+ANIXOdEP89reRwMqVrgEaCZai0kMUS+IuQHbV2TOAYLMBYZSBnjMYFl/BeuS0B3pWmGtDqt5nNP3Lg2sodGASkSKJic5AhtGdE+7Mbmo/rowjprfZJRi33WRuGftC2pykNUlWHeCR7Xjs/J4/k9fmBRw=
+ b=fa1cdIREy4hSIlYRXtNFVHHhpVk9er2or51ag2f7EvDWHBPoAHq1Pq0X6G5xkDr3IpMfMGzTMv/8XKW18aeH/kK0nWfcZlozHylMSHj2SX7tsfJLB2CHmrT+IZUxA3PuEO1oORKPypMTBJ5sJHnW5FPC+yKNW2Da17w95UwghZA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788457926;
+ s=zohoarc; t=1788459025;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=QGLdaPIPtIV6poVR9G2Ip8+hPdKw2Q5nu6oGk++2sp4=; 
- b=IaKIDYgszPMfg3l9RpwCj/PcPF/NvBc/04vLIuUoD0B+n0aPbIx2VKpBlp68iEgE06tUN4FrW4aFZpYQudg3BsHYknvObaYHdJLkajTlk/6sZyeDacBqV3MfqTM/RrCW95idTNQY/33BWMSV9ZOfeLdJWOjysgqLYSPBOILqkSU=
+ bh=pvOUkOdgY7w3bkmqjiShZYzv6GBc2rD4vaEVe45u4tw=; 
+ b=fWNn6CPqQEHr0ZeYjb26S2TVncd02ILGOulyhaxsJ8AbrP9Ba7Q9wQt9TfTtVOB8mUI2E2tOYr0SSUj8LlUSXpP4YVGX+Y8ZWJBgIPprSqQluy6NRGXGdCT82GuIlHn3GOOC6jS0i0LwNGXnnRAzQCnDEvu8g3F4jkwkGyTxBLE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788457926; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788459025; 
  s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
  h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=QGLdaPIPtIV6poVR9G2Ip8+hPdKw2Q5nu6oGk++2sp4=;
- b=Mj6Cp+V5uwGRJQelXLn1Ix2yBczSbA0BTl9vsX4GRBGcGjx9ZJF6X6Fzw2M6CAHb
- dEoYi9ddBmm8cKG/Xgre2fGKq3jmSPs9Ai/fnfx9ItIleRm5M7H+n0UJMzBUC2iRzmB
- TmdvlisIU0UAK240k9PM8FW7OfXvONafdWk8V5HY=
-Received: by mx.zohomail.com with SMTPS id 1788457924738374.8144591285119;
- Thu, 3 Sep 2026 10:52:04 -0700 (PDT)
+ bh=pvOUkOdgY7w3bkmqjiShZYzv6GBc2rD4vaEVe45u4tw=;
+ b=Zfb0i+vcr/TOvnzv8VNZ+H7jxcMDqooC+pu3DhHAraHdwjP9+DECE3OeL9XqYPkC
+ pylPOuiUehUUqlFioVlrL0qNkQMc7O3olT2kFZ9SIaRwDooV6L/L0HcDt8J4zPII8LO
+ PNv4vIOcoDdD/a93MA2eMHBAxnJ10qK2tTUTHJOo=
+Received: by mx.zohomail.com with SMTPS id 1788459023242789.6849040267263;
+ Thu, 3 Sep 2026 11:10:23 -0700 (PDT)
 Content-Type: text/plain;
-	charset=utf-8
+	charset=us-ascii
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH 4/9] drm/tyr: add per-file VM pool
+Subject: Re: [PATCH 5/9] drm/tyr: add user and MCU VM specifications
 From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260902-tyr-ioctls-v1-4-e0fdbf8bd108@kylinos.cn>
-Date: Thu, 3 Sep 2026 14:51:44 -0300
+In-Reply-To: <20260902-tyr-ioctls-v1-5-e0fdbf8bd108@kylinos.cn>
+Date: Thu, 3 Sep 2026 15:10:05 -0300
 Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
@@ -58,9 +58,9 @@ Cc: rust-for-linux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
  linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
  Alvin Sun <alvin.sun@linux.dev>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <4277C681-AD91-4809-9212-012C8A6FDCBF@collabora.com>
+Message-Id: <6112DB77-73A9-444F-B98B-4EEE9B69E393@collabora.com>
 References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
- <20260902-tyr-ioctls-v1-4-e0fdbf8bd108@kylinos.cn>
+ <20260902-tyr-ioctls-v1-5-e0fdbf8bd108@kylinos.cn>
 To: sunke@kylinos.cn
 X-Mailer: Apple Mail (2.3826.700.81)
 X-ZohoMailClient: External
@@ -86,163 +86,298 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 >=20
 > From: Alvin Sun <alvin.sun@linux.dev>
 >=20
-> Add a per-file VM pool using the IdPool for ID allocation
-> and an XArray for VM storage.
+> Distinguish MCU VMs from user VMs, and compute the user/kernel
+> GPU VA split for user VMs.
 
-Can you say a few more words here? You don=E2=80=99t need to =
-over-explain, but I
-don=E2=80=99t think this alone says _why_ your change is needed for the =
-community
-at large.
+Same comment as the previous commit: please write a few
+more words here if possible :)
 
 >=20
 > Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 > ---
-> drivers/gpu/drm/tyr/pool.rs | 102 =
-++++++++++++++++++++++++++++++++++++++++++++
-> drivers/gpu/drm/tyr/tyr.rs  |   1 +
-> 2 files changed, 103 insertions(+)
+> drivers/gpu/drm/tyr/fw.rs |   8 +--
+> drivers/gpu/drm/tyr/vm.rs | 134 =
++++++++++++++++++++++++++++++++++++++++++++---
+> 2 files changed, 131 insertions(+), 11 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/tyr/pool.rs b/drivers/gpu/drm/tyr/pool.rs
-> new file mode 100644
-> index 0000000000000..1745116930c3e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/pool.rs
-> @@ -0,0 +1,102 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! Per-drm-file VM id pool.
-> +
-> +use kernel::{
-> +    id_pool::IdPool,
-> +    new_mutex,
-> +    prelude::*,
-> +    sync::{
-> +        Arc,
-> +        ArcBorrow,
-> +        Mutex, //
-> +    },
-> +    xarray::{
-> +        AllocKind,
-> +        XArray, //
+> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+> index 47d25c901bd01..9b4b488521b85 100644
+> --- a/drivers/gpu/drm/tyr/fw.rs
+> +++ b/drivers/gpu/drm/tyr/fw.rs
+> @@ -51,7 +51,6 @@
+>         KernelBoVaAlloc, //
+>     },
+>     gpu::GpuInfo,
+> -
+>     mmu::Mmu,
+>     regs::{
+>         gpu_control::{
+> @@ -66,7 +65,10 @@
+>             JOB_IRQ_RAWSTAT, //
+>         }, //
+>     },
+> -    vm::Vm, //
+> +    vm::{
+> +        Vm,
+> +        VmSpec, //
 > +    }, //
-> +};
-> +
-> +use crate::vm::Vm;
-> +
-> +/// Maximum number of VMs per open file. Matches panthor's
-> +/// `PANTHOR_MAX_VMS_PER_FILE`.
-> +pub(crate) const PANTHOR_MAX_VMS_PER_FILE: u32 =3D 32;
-> +
-> +/// Per-open-file pool of VMs.
-> +#[pin_data]
-> +pub(crate) struct VmPool<'drm> {
-
-I agree with Deborah that this should be in vm.rs itself.
-
-> +    #[pin]
-> +    ids: Mutex<IdPool>,
-
-Can you add a todo here so we use the XArray directly in the future?
-
-> +    #[pin]
-> +    vms: XArray<Arc<Vm<'drm>>>,
+> };
+>=20
+> mod parser;
+> @@ -220,7 +222,7 @@ pub(crate) fn new(
+>         mmu: ArcBorrow<'_, Mmu<'drm>>,
+>         gpu_info: &GpuInfo,
+>     ) -> Result<Firmware<'drm>> {
+> -        let vm =3D Vm::new(dev, ddev, mmu, gpu_info)?;
+> +        let vm =3D Vm::new(dev, ddev, mmu, gpu_info, VmSpec::Mcu)?;
+>         vm.activate()?;
+>=20
+>         let result =3D (|| {
+> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+> index c5e307b1e2416..76c3d60bb2fe2 100644
+> --- a/drivers/gpu/drm/tyr/vm.rs
+> +++ b/drivers/gpu/drm/tyr/vm.rs
+> @@ -8,6 +8,7 @@
+> //! mapped into hardware address space (AS) slots for GPU execution.
+>=20
+> use core::marker::PhantomData;
+> +use core::num::NonZeroU64;
+> use core::ops::Range;
+>=20
+> use kernel::{
+> @@ -43,6 +44,8 @@
+>     new_mutex,
+>     prelude::*,
+>     sizes::{
+> +        LargeSizeConstants,
+> +        SizeConstants,
+>         SZ_1G,
+>         SZ_2M,
+>         SZ_4K, //
+> @@ -154,6 +157,109 @@ fn try_from(value: u32) -> Result<Self, =
+Self::Error> {
+>     }
+> }
+>=20
+> +/// User VA size request for a user VM.
+> +pub(crate) enum UserVaRequest {
+> +    /// Split based on `task_size()` and the GPU VA range.
+> +    Auto,
+> +    /// Caller-specified size; construction guarantees `> 0`.
+> +    Fixed(NonZeroU64),
 > +}
 > +
-> +impl<'drm> VmPool<'drm> {
-> +    /// Creates a new [`VmPool`] with capacity for =
-[`PANTHOR_MAX_VMS_PER_FILE`] VMs.
-> +    pub(crate) fn new() -> Result<impl PinInit<Self>> {
-> +        let ids =3D IdPool::with_capacity(PANTHOR_MAX_VMS_PER_FILE as =
-usize, GFP_KERNEL)?;
-> +        Ok(pin_init!(Self {
-> +            ids <- new_mutex!(ids),
-> +            vms <- XArray::new(AllocKind::Alloc),
-> +        }))
+> +impl UserVaRequest {
+> +    /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
+> +    pub(crate) fn from_uapi(v: u64) -> Self {
+> +        match NonZeroU64::new(v) {
+> +            Some(size) =3D> Self::Fixed(size),
+> +            None =3D> Self::Auto,
+> +        }
+> +    }
+> +}
+> +
+> +pub(crate) enum VmSpec {
+
+Instead of having an enum, I think we could go with the current
+tyr-dev design, i.e.:
+
+- new_fw() (or, perhaps even better, new_for_fw())
+- new_for_user()
+
+> +    /// MCU/firmware VM, entirely kernel-managed.
+> +    Mcu,
+> +    /// User VM: full GPU VA range, split into user/kernel per =
+`user_va`.
+> +    User { user_va: UserVaRequest },
+> +}
+> +
+> +/// Final user/kernel VA layout for a VM.
+> +pub(crate) struct VmLayout {
+> +    /// Full GPU VA range covered by this VM.
+> +    pub(crate) full: Range<u64>,
+> +    /// User-accessible VA range. Empty for MCU VMs.
+> +    pub(crate) user: Range<u64>,
+> +}
+> +
+> +impl VmLayout {
+> +    /// Kernel VA range, reserved for future kernel object =
+allocation.
+> +    #[expect(dead_code)]
+> +    pub(crate) fn kernel(&self) -> Range<u64> {
+> +        self.user.end..self.full.end
 > +    }
 > +
-> +    /// Inserts a VM into the pool, returning the allocated ID.
-> +    pub(crate) fn add(&self, vm: ArcBorrow<'_, Vm<'drm>>) -> =
-Result<u32> {
-> +        let id =3D {
-> +            let mut ids =3D self.ids.lock();
-> +            ids.find_unused_id(1).ok_or(ENOSPC)?.acquire()
+> +    /// Compute a user/kernel split for a user VM from the full GPU =
+VA range and
+> +    /// a user request.
+> +    pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> =
+Result<Self> {
+> +        /// Minimum VA space reserved for kernel objects (heaps, ring =
+buffers, ...).
+> +        const MIN_KERNEL_VA: u64 =3D u64::SZ_256M;
+> +
+> +        if full.end <=3D MIN_KERNEL_VA {
+> +            pr_err!(
+> +                "Invalid VA range {:#x}..{:#x}, kernel VA min =
+required: >{:#x}\n",
+> +                full.start,
+> +                full.end,
+> +                MIN_KERNEL_VA
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let user_max =3D full.end - MIN_KERNEL_VA;
+> +
+> +        let user_end =3D match req {
+> +            UserVaRequest::Fixed(v) =3D> {
+> +                let user_size =3D v.get();
+> +                if user_size > user_max {
+> +                    pr_err!(
+> +                        "Requested user VA range {:#x} exceeds =
+maximum {:#x}\n",
+> +                        user_size,
+> +                        user_max
+> +                    );
+> +                    return Err(EINVAL);
+> +                }
+> +                user_size
+> +            }
+> +            UserVaRequest::Auto =3D> {
+> +                let task_size =3D current!().mm().map(|mm| =
+mm.task_size());
+> +                let candidate =3D match task_size {
+> +                    // `task_size()` returns usize; widen to u64 for =
+the comparison.
+> +                    Some(t) if (t as u64) < full.end =3D> t as u64,
+> +                    None | Some(_) =3D> {
+> +                        // If the range exceeds 4G, split it in two =
+so CPU and
+> +                        // GPU share the same addresses (SVM).
+> +                        if full.end > u64::SZ_4G {
+> +                            full.end / 2
+> +                        } else {
+> +                            user_max
+> +                        }
+> +                    }
+> +                };
+> +                candidate.min(user_max)
+> +            }
 > +        };
 > +
-> +        let vm: Arc<Vm<'drm>> =3D vm.into();
-> +        let mut vms =3D self.vms.lock();
-> +        match vms.store(id, vm, GFP_KERNEL) {
-> +            Ok(previous) =3D> {
-> +                // Drop the previous entry (expected `None`).
-> +                drop(previous);
-> +                Ok(id as u32)
-> +            }
-> +            Err(err) =3D> {
-> +                // Drop the XArray spinlock before acquiring the =
-`ids` mutex.
-> +                drop(vms);
-> +                // Release the stored entry and the pooled id.
-> +                drop(err.value);
-> +                let mut ids =3D self.ids.lock();
-> +                ids.release_id(id);
-> +                Err(err.error)
-> +            }
-> +        }
-> +    }
+> +        let delta =3D full.end - user_end;
+> +        // Pick a kernel VA range that's a power of two, to have a =
+clear split.
+> +        let kernel_va_range =3D 1u64 << delta.ilog2();
+> +        let kernel_va_start =3D full.end - kernel_va_range;
+> +        let full_start =3D full.start;
 > +
-> +    /// Removes the VM with the given ID.
-> +    pub(crate) fn remove(&self, id: u32) -> Result<Arc<Vm<'drm>>> {
-> +        let mut vms =3D self.vms.lock();
-> +        match vms.remove(id as usize) {
-> +            Some(vm) =3D> {
-> +                drop(vms);
-> +                let mut ids =3D self.ids.lock();
-> +                ids.release_id(id as usize);
-> +                Ok(vm)
-> +            }
-> +            None =3D> Err(EINVAL),
-> +        }
-> +    }
-> +
-> +    /// Gets the VM with the given ID.
-> +    pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
-> +        let vms =3D self.vms.lock();
-> +        let borrow =3D vms.get(id as usize)?;
-> +        Some(Arc::from(borrow))
-> +    }
-> +
-> +    /// Removes and returns the first VM in the pool.
-> +    pub(crate) fn pop_first(&self) -> Option<Arc<Vm<'drm>>> {
-> +        for id in 0..PANTHOR_MAX_VMS_PER_FILE {
-
-This should be inclusive, i.e. =E2=80=9C..=3D=E2=80=9C instead of =
-=E2=80=9C..=E2=80=9D. But a
-better solution is to do:
-
-for id in 0..self.ids.lock().capacity() {
-  ..
-}
-
-
-> +            if let Ok(vm) =3D self.remove(id) {
-> +                return Some(vm);
-> +            }
-> +        }
-> +        None
+> +        Ok(Self {
+> +            full,
+> +            user: full_start..kernel_va_start,
+> +        })
 > +    }
 > +}
-> diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-> index e7ec450bdc9c0..8c0c18c1a970b 100644
-> --- a/drivers/gpu/drm/tyr/tyr.rs
-> +++ b/drivers/gpu/drm/tyr/tyr.rs
-> @@ -13,6 +13,7 @@
-> mod gem;
-> mod gpu;
-> mod mmu;
-> +mod pool;
-> mod regs;
-> mod slot;
-> mod vm;
+> +
+> /// Arguments for a virtual memory map operation.
+> struct VmMapArgs<'drm> {
+>     /// Access permissions and caching behavior for the mapping.
+> @@ -329,8 +435,8 @@ pub(crate) struct Vm<'drm> {
+>     /// Non-core part of the GPUVM. Can be used for stuff that doesn't =
+modify the
+>     /// internal mapping tree, like GpuVm::obtain()
+>     gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
+> -    /// VA range for this VM.
+> -    va_range: Range<u64>,
+> +    /// VA layout for this VM.
+> +    pub(crate) layout: VmLayout,
+> }
+>=20
+> impl<'drm> Vm<'drm> {
+> @@ -343,6 +449,7 @@ pub(crate) fn new(
+>         ddev: &TyrDrmDevice,
+>         mmu: ArcBorrow<'_, Mmu<'drm>>,
+>         gpu_info: &GpuInfo,
+> +        spec: VmSpec,
+>     ) -> Result<Arc<Vm<'drm>>> {
+>         let mmu_features =3D =
+MMU_FEATURES::from_raw(gpu_info.mmu_features);
+>         let va_bits =3D mmu_features.va_bits().get();
+> @@ -351,6 +458,14 @@ pub(crate) fn new(
+>         let range =3D 0..(1u64 << va_bits);
+>         let reserve_range =3D 0..0u64;
+>=20
+> +        let layout =3D match spec {
+> +            VmSpec::Mcu =3D> VmLayout {
+> +                full: range.clone(),
+> +                user: 0..0u64,
+> +            },
+> +            VmSpec::User { user_va } =3D> =
+VmLayout::compute(range.clone(), user_va)?,
+> +        };
+> +
+>         // dummy_obj is used to initialize the GPUVM tree.
+>         let dummy_obj =3D gem::new_dummy_object(ddev).inspect_err(|e| =
+{
+>             dev_err!(dev, "Failed to create dummy GEM object: {:?}", =
+e);
+> @@ -380,7 +495,7 @@ pub(crate) fn new(
+>                 mmu: mmu.into(),
+>                 gpuvm,
+>                 gpuvm_unique <- new_mutex!(gpuvm_unique),
+> -                va_range: range,
+> +                layout,
+>             }),
+>             GFP_KERNEL,
+>         )?;
+> @@ -414,7 +529,10 @@ pub(crate) fn kill(&self) {
+>         // TODO: Turn the VM into a state where it can't be used.
+>         let _ =3D self.deactivate();
+>         let _ =3D self
+> -            .unmap_range(self.va_range.start, self.va_range.end - =
+self.va_range.start)
+> +            .unmap_range(
+> +                self.layout.full.start,
+> +                self.layout.full.end - self.layout.full.start,
+> +            )
+>             .inspect_err(|e| {
+>                 dev_err!(self.dev, "Failed to unmap range during =
+deactivate: {:?}", e);
+>             });
+> @@ -551,14 +669,14 @@ pub(crate) fn unmap_range(&self, va: u64, size: =
+u64) -> Result {
+>=20
+>         let end =3D va.checked_add(size).ok_or(EINVAL)?;
+>=20
+> -        if va < self.va_range.start || end > self.va_range.end {
+> +        if va < self.layout.full.start || end > self.layout.full.end =
+{
+>             dev_err!(
+>                 self.dev,
+>                 "Unmap range {:#x}..{:#x} exceeds VM range =
+{:#x}..{:#x}",
+>                 va,
+>                 end,
+> -                self.va_range.start,
+> -                self.va_range.end
+> +                self.layout.full.start,
+> +                self.layout.full.end
+>             );
+>             return Err(EINVAL);
+>         }
+> @@ -568,7 +686,7 @@ pub(crate) fn unmap_range(&self, va: u64, size: =
+u64) -> Result {
+>             region: va..end,
+>         };
+>=20
+> -        let full_vm =3D va =3D=3D self.va_range.start && end =3D=3D =
+self.va_range.end;
+> +        let full_vm =3D va =3D=3D self.layout.full.start && end =3D=3D =
+self.layout.full.end;
+>=20
+>         let mut resources =3D VmOpResources {
+>             preallocated_gpuvas: if full_vm {
 >=20
 > --=20
 > 2.43.0
