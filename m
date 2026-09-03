@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C68AC624D6
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 22:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBDAC61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 22:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C018D10F7BA;
-	Thu,  3 Sep 2026 22:01:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51A2410F7BF;
+	Thu,  3 Sep 2026 22:03:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PJ1oEPT5";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AsqNTuzN";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E0410F7D0;
- Thu,  3 Sep 2026 22:01:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9FE10F7CA;
+ Thu,  3 Sep 2026 22:01:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=wWeFjj3JoxCAhJsiPffuVqIY/F8nNskCIZYgiedTgyk=; b=PJ1oEPT5uJpGitPKU9xINtIOt1
- W4ObxaaHTc+NuO2VP/fjPJW8pi2mv1bbJb+OVHxIM2/RFNaVNr1z9ycr8+wLOFVK1igA9DiS2gfCW
- VbvVaZAylsjWQ9RZ7FJfP1iKBjXvIDwTxc4RgpdWrqV3WmdEWvbfhUBkfrmId3uak1tJZ9bDQbkuw
- 2DCH4qDShC3s6E1kvOs1pNSu/V695NAEBBwG3MU6jhLpWx3HSVgQ9gIZ0wLCD5zwitzO9eJasGB9D
- g7sAB8ftVKTfnwTtxTRh7CGcQPpCLN3gGSD25odeeLYfgbo2e4tzAc/Wb+DNv4lA/givWNi9lmzUs
- lZv3ScMw==;
+ bh=XFjpr/028iCComgfestI43c11Qk9ooWihFeg47m+Cqc=; b=AsqNTuzNbdrZ1nUSssEQ1c9Jmd
+ 9lTqaZT6sl9AtafK9FQy+SpRsw4qOdz+PIByfpfCab0XD3uIl05XemxtYXs5PHRAx3xVB+ZZK7Z68
+ 54r+Gp5IJ7u+Bk7H4/THXt+xdVeMdAHqyc9sS7Ir9XnDSU1L049/v+NFyxVfYkayjnnGjfvNCn6FT
+ 5dVgb6IP4xvkBYc3c5V50TXAUFE477p7tJweq66nQN+cW2hEC5rEE8fLdAlA0PZJIkDznRGHvH7Hl
+ fBmH6kZJ6nBVy6odrnH2tyRQJRzY69obT+cmtEWIAprpjwZ3G0mPo6DBB425PyxBOXEA3op++MWF8
+ KYsV/0mQ==;
 Received: from [187.43.152.48] (helo=[127.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x2FUx-00EbUz-1U; Fri, 04 Sep 2026 00:01:31 +0200
+ id 1x2FV3-00EbUz-EO; Fri, 04 Sep 2026 00:01:37 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 03 Sep 2026 19:00:30 -0300
-Subject: [PATCH i-g-t v6 8/9] tests/cgroup_dmem: add dmem cgroup eviction test
+Date: Thu, 03 Sep 2026 19:00:31 -0300
+Subject: [PATCH i-g-t v6 9/9] tests/cgroup_dmem: add
+ write_eviction_nonblock subtest
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-dmem_max-v6-8-61dc62970fae@igalia.com>
+Message-Id: <20260903-dmem_max-v6-9-61dc62970fae@igalia.com>
 References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
 In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
 To: igt-dev@lists.freedesktop.org
@@ -66,209 +67,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-The write_eviction subtest:
- - Creates a sub-cgroup and moves the test process into it.
- - Sets a dmem.max limit on the first VRAM region (up to 4 GiB, or
-   the full capacity if smaller).
-- Fills VRAM by repeatedly creating BOs placed in VRAM, depending on card
-  support.
- - Verifies that cgroup current usage is within the expected range when
-   the limit is hit.
- - Lowers dmem.max in 128 MiB steps, waiting for usage to follow each
-   reduction.
-
-The write_eviction_interruptible subtest runs the same test with
-SIGCONT signals injected via igt_fork_signal_helper() and reports the
-number of signals received.  When a signal interrupts kernel-side
-eviction, a small BO allocation is used to re-trigger it.
+Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
+cgroup max interface.  After filling VRAM to the cgroup limit, each
+limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
+eviction is skipped.  The test then verifies that usage has not yet
+dropped below the new limit, allocates a small BO to trigger eviction
+explicitly, and finally confirms that usage falls within bounds.
 
 Assisted-by: GitHub Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- tests/cgroup_dmem.c | 149 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 149 insertions(+)
+ tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index ba5e6a2e3deb..0d3b415acd54 100644
+index 0d3b415acd54..ee6345c17878 100644
 --- a/tests/cgroup_dmem.c
 +++ b/tests/cgroup_dmem.c
-@@ -36,9 +36,12 @@
- 
- #define BO_SIZE			SZ_64M
- #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-+#define EVICT_STEP		SZ_128M
- #define USAGE_POLL_MS		10
+@@ -41,6 +41,7 @@
  #define USAGE_DROP_TIMEOUT_MS	1000
  
-+#define TEST_INTERRUPTIBLE	(1 << 0)
-+
+ #define TEST_INTERRUPTIBLE	(1 << 0)
++#define TEST_NONBLOCK		(1 << 1)
+ 
  /**
   * SUBTEST: simple
-  * DESCRIPTION:
-@@ -61,6 +64,62 @@
-  * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+@@ -90,6 +91,18 @@
+  * REQUIREMENTS: must run as root; xe device with at least one VRAM region
   */
  
 +/**
-+ * SUBTEST: write_eviction
++ * SUBTEST: write_eviction_nonblock
 + * DESCRIPTION:
-+ *   Create a dmem cgroup, move the current process into it and set the max
-+ *   device memory limit for the first VRAM region to 4 GiB.  Then fill VRAM
-+ *   by creating BOs with %DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING (so that the
-+ *   physical allocation is deferred until VM_BIND) and binding them into an
-+ *   LR VM until the cgroup limit is hit.  Verify that the reported cgroup
-+ *   current usage is within the expected range when the error occurs.
-+ *   Finally lower the max limit in 256 MiB steps and verify that the cgroup
-+ *   usage follows.
++ *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
++ *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
++ *   eviction.  After each nonblock write the test verifies that usage has not
++ *   yet dropped below the new limit, then triggers eviction explicitly by
++ *   allocating a small BO.  Finally verifies that usage falls within bounds
++ *   after the forced eviction.
 + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
 + */
 +
-+/**
-+ * SUBTEST: write_eviction_interruptible
-+ * DESCRIPTION:
-+ *   Same as write_eviction but with SIGCONT signals injected throughout via
-+ *   igt_fork_signal_helper() to verify that the dmem.max write path handles
-+ *   signal interruption correctly.  A signal handler counts received signals
-+ *   and the count is reported as debug output at the end of the test.
-+ *   A signal interrupts the set-time eviction, and further eviction can be
-+ *   triggered by an explicit allocation.
-+ * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-+ */
-+
-+static atomic_int signal_count;
-+static struct sigaction sigcont_oldact;
-+
-+static void sigcont_handler(int sig)
-+{
-+	atomic_fetch_add(&signal_count, 1);
-+
-+	/* Chain to the previous handler (IGT's dummy sig_handler) */
-+	if (sigcont_oldact.sa_handler &&
-+	    sigcont_oldact.sa_handler != SIG_IGN &&
-+	    sigcont_oldact.sa_handler != SIG_DFL)
-+		sigcont_oldact.sa_handler(sig);
-+}
-+
-+static void install_sigcont_counter(void)
-+{
-+	struct sigaction sa;
-+
-+	atomic_store(&signal_count, 0);
-+	igt_fork_signal_helper();
-+	/*
-+	 * Install the counter after igt_fork_signal_helper() so our handler
-+	 * is not overwritten.  Save the old handler so we can chain to it.
-+	 */
-+	memset(&sa, 0, sizeof(sa));
-+	sa.sa_handler = sigcont_handler;
-+	sigemptyset(&sa.sa_mask);
-+	sigaction(SIGCONT, &sa, &sigcont_oldact);
-+}
-+
- static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
- 				    uint64_t limit)
- {
-@@ -213,12 +272,102 @@ static void test_current(int fd, char *cg_region, unsigned int flags, const stru
- 	igt_cgroup_free(cg);
- }
+ static atomic_int signal_count;
+ static struct sigaction sigcont_oldact;
  
-+static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
-+{
-+	struct igt_cgroup *cg;
-+	void **handles;
-+	int max_bo;
-+	uint64_t current, capacity, cg_max, limit, after;
-+	int err;
+@@ -277,7 +290,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+ 	struct igt_cgroup *cg;
+ 	void **handles;
+ 	int max_bo;
+-	uint64_t current, capacity, cg_max, limit, after;
++	uint64_t current, capacity, cg_max, limit, after, before;
+ 	int err;
+ 
+ 	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+@@ -322,14 +335,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+ 	while (limit >= EVICT_STEP) {
+ 
+ 		limit -= EVICT_STEP;
+-		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
 +
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
++		if (flags & TEST_NONBLOCK)
++			igt_cgroup_dmem_get_current(cg, cg_region, &before);
 +
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
-+
-+	if (flags & TEST_INTERRUPTIBLE)
-+		install_sigcont_counter();
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+	igt_cgroup_dmem_set_max(cg, cg_region, cg_max, false);
-+
-+	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
-+
-+	handles = calloc(max_bo, sizeof(handles[0]));
-+	igt_assert_f(handles, "failed to allocate handles array");
-+
-+	allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+
-+	igt_assert_f(current <= cg_max,
-+		     "Usage %"PRIu64" MiB exceeds max %"PRIu64" MiB + slack\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	/* Phase 2: lower max in 256 MiB steps, verify usage follows */
-+	limit = cg_max;
-+	while (limit >= EVICT_STEP) {
-+
-+		limit -= EVICT_STEP;
-+		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
-+
-+		igt_cgroup_dmem_get_current(cg, cg_region, &after);
-+		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
-+			  limit / SZ_1M, after / SZ_1M);
-+
-+		if (limit > EVICT_STEP) {
-+			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
-+				/* Let a new bo creation trigger eviction. */
-+				void *handle;
-+				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
-+				igt_assert_f(err == 0,
-+					"Error trying to allocate more VRAM to trigger eviction.");
-+				drv->free_vram(ctx, handle);
-+
-+				igt_cgroup_dmem_get_current(cg, cg_region, &after);
-+				igt_debug("Forced eviction max is %"PRIu64
-+					  " MiB: usage = %"PRIu64" MiB\n",
-+					  limit / SZ_1M, after / SZ_1M);
-+			}
-+
-+			igt_assert_f(after <= limit,
-+				     "Usage %"PRIu64" MiB did not follow max %"PRIu64" MiB\n",
-+				     after / SZ_1M, limit / SZ_1M);
++		igt_cgroup_dmem_set_max(cg, cg_region, limit,
++					!!(flags & TEST_NONBLOCK));
+ 
+ 		igt_cgroup_dmem_get_current(cg, cg_region, &after);
+ 		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
+ 			  limit / SZ_1M, after / SZ_1M);
+ 
++		if (flags & TEST_NONBLOCK) {
++			/*
++			 * O_NONBLOCK skips eviction: verify usage has not
++			 * dropped below the new limit yet.
++			 */
++			igt_assert_f(after == before,
++				     "Expected no eviction with O_NONBLOCK, but "
++				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
++				     "(limit %"PRIu64" MiB)\n",
++				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
 +		}
-+	}
 +
-+	if (flags & TEST_INTERRUPTIBLE) {
-+		igt_stop_signal_helper();
-+		igt_info("Signals received during test: %d\n",
-+			 atomic_load(&signal_count));
-+	}
-+
-+	/* Cleanup */
-+	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX, false);
-+	igt_cgroup_free(cg);
-+}
-+
- static const struct {
- 	const char *name;
- 	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
- 	unsigned int flags;
- } subtests[] = {
+ 		if (limit > EVICT_STEP) {
+-			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
++			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
+ 				/* Let a new bo creation trigger eviction. */
+ 				void *handle;
+ 				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
+@@ -368,6 +398,7 @@ static const struct {
  	{ "current", test_current, 0 },
-+	{ "write_eviction", test_write_eviction, 0 },
-+	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
+ 	{ "write_eviction", test_write_eviction, 0 },
+ 	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
++	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
  	{ }
  };
  
