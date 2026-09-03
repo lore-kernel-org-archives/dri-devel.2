@@ -4,88 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E581FC624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 12:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA433C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 12:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEEA10F56F;
-	Thu,  3 Sep 2026 12:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504D010F573;
+	Thu,  3 Sep 2026 12:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="u353uV/I";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="egKtmy4C";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37F4D10F570;
- Thu,  3 Sep 2026 12:26:59 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 683AO363931954; Thu, 3 Sep 2026 13:26:43 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=JXjYmHkZ70MpN76wTrkYhRn
- 7eTnzR/6jXvTCSXeGuUk=; b=u353uV/IYsHa+aWHMbUlP3PO8DtBuCpIisQPT7d
- A7vOXNDaY3cRN839DZziOZDd53401D4vdWORe7hks2jo1s18zX0OZYbLhFc2fmTP
- kxy1p12xrbIEXjIHI1yxiUQgUTfge0QxawhOBS0ThBZCT6AFaEMtKW0oyLWM3Mt3
- SOnNITUd9NUIFMt3fNlXrUnuT8kQ/h8TW6RSzM/yN1qervhIWSMXXkoEIvUEQH71
- I/5ArSv4iQq6Vw81pXANsTOAqgz00WNxTJDA4anZiyOg7sQfS0pezfgvySe5fyBv
- UgM80ArMZV7eneYJJ+3Uvzu+wSi0ly5N0mNmfV824JBtDbA==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gbqgvc8qr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 03 Sep 2026 13:26:43 +0100 (BST)
-Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 13:26:41 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Thu, 3 Sep 2026 15:26:28 +0300
-Subject: [PATCH v2] drm/imagination: Fix parameter validation in
- pvr_fw_object_destroy()
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E82A10F573
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 12:27:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vIcJlSjelrjVmamkifEPYvyRZDsshD2e5jEvQ/29O87dY/KuHVesViIhA2BxTNwSYCrzGzDaiSX1RNMcV3v4irT3zBKVKGnHMXyFTFA5HeOeSwCLZmfOZ+kQln4ekYWZj3QxXqSkgFMzFeO886afzBKkfXFy+gF9DtRNzgpMs1uoRNlJoilOoUkea7CfUI407jiO6WWG/U45h0HYoN+tPFLU+I+6ASK69/9iS9nMFtu1W+5KlGhB6HDUmyiixCq1dNW/1Pw4IJJAI6uxydfWDvd1/CP7lzU6GKKAgXcvUkLzaExpDRMnoaWKpojLRfZYexTcdN27wXO9ocxoWbOvmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Imr/XfhwElG9Ewl5+0wysTitlhhtSJ1MpMStdMmrFEA=;
+ b=S8Uq+cxigPslz2HmKmSfOwQOgClwccYhOaWBQy2rZKgO+++xDixweWybQWypHnfWpuFPwweYND//0Lv0Hk6MrKqM9icDL3b5f4mjE/VpHbCTVak5nFWs1KfF4dWTfFXaIuMcagAG3EjM9x/FUPkvXhWsCFADm6twD3wCW686zewl1M48tjlYKfTveUxI2BoY7Bq6U/GWH0cvG7ODg3VmkpCtu39JfzV71NdkGGdfK4jfC9OVa01KIVPVNhyaeNKLqa2rar7dVEoH3ssymvJbRI43vwzFwIIUVA6U2AApHuEpApgQE4pCkp0xqPJijCXNlT7KF7mXLhN5b/Mx40Cjvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Imr/XfhwElG9Ewl5+0wysTitlhhtSJ1MpMStdMmrFEA=;
+ b=egKtmy4CFMyF+A+j747teI5lYP7s1DCk6VDxjJOQZpuX2KnmPY2bzG9HW6EXQsR0dt5sJhXHHO5Ln418j5KsTwQx1az9k7xuDMvT5cLrIVQrxRPduOD4XBgMRNxQcp04GSJyezOWPrnGCqDfU6jSgjCoFYVf1OILRJlIWWibMQm1s9hfw9khiju+2chJTEdNeNNmer6rGQh2VzVqpdENrue1OuuHhWzLEfYy3qeWpkfaVo2txDhW2WjsbADoNWZdH2QLfSoQiZXp8/PalcsT0VEaUz3dgz/IMDvxgoGGMNx5GfLN798cl22bVXSwM1DCVukgOg1J6+iHupbVRLuTkQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CY8PR12MB8194.namprd12.prod.outlook.com (2603:10b6:930:76::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 12:27:04 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Thu, 3 Sep 2026
+ 12:27:04 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 03 Sep 2026 21:27:01 +0900
+Message-Id: <DL5OICH9XD61.2LWT081VGN3N6@nvidia.com>
+Subject: Re: [PATCH v4 10/16] rust: io: register: make register have a typed
+ base
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-10-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-10-5552b1d59525@garyguo.net>
+X-ClientProxiedBy: TY4P301CA0046.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::18) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAHRnmWoC/42NQQ6CMBBFr2K6dgydKGldeQ/DQsoUxkBL2kIwh
- Ltb8AIu/uLl/7y/ikiBKYr7aRWBZo7sXQY8n4TpXq4l4CazwALLQkkEywu4qe9h9OwSBWgokM1
- xhgCN0lJesdFKiawYc8XLoX9WP45T/SaTdue+6DgmHz7H/yz33Z9XswQJttQ1Wkv6hsWDhzaRu
- Rg/iGrbti9Kotgg2wAAAA==
-X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
- "Alexandru Dadu" <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788438401; l=2699;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=pksU9UBgOJDqMf98NvL1eyqBEF5diO914w9pQAxCwY0=;
- b=OZ1A6ZKmfOECpMqA0DG+6IVRk2TjS1ZHMcP8VmmA1W7nWldpzoVG2dpEQLRlwteeXXEtFPqMb
- NIKROSR6PkAAB4v51CzlkOw7QPsghCKI3JEpe3LwlnVVKmktaUZOw2n
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Originating-IP: [172.25.10.25]
-X-Proofpoint-GUID: 9hkYqcV-jbBnFzJbheW78KHz8YVqmgC5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwOCBTYWx0ZWRfX/upyQoVsUyyg
- pSBXXiy6Pemt7mB6ZwNnD+RazKSlqtMhDYqeu4MZvId9odd9X7XSYOneybdldHmvLO5ljGIuL6C
- Nss3RpJsoNhbkxsc5Cq0Er54IdBs2hVyrubfkYrrOkvrs5bOzs3q/rphC+eF2jSEP+Hl+GEx0Yh
- bYq5XMbDkdHWJ3d21WR2c9KDRpkLDWK7g6xgspjtB1XNlo7qHVGBL49G3oxqp1s+w0KF4JXTacX
- pQUAEq8Rt1RBxB3PvlFdSjk395N2x9YuznfVzdG3niA29R4M0lv1EWTFozG7LCaIZu9VN2NR5+D
- 2TOIqt8r3icLEl8kUXPaW2gOsW5PLMtq/ER7TbXZfAj6qqkOhGrt7jM5JN+xV6pm5c1kjrPle0i
- x5RTSS9jwCNZsm8f7CeeSz2SLJf+KVo2P0XM8Vxtwl2KGWicYsRmo4J7NlVFihQfOU4QCd6UmrG
- rXMFHp31fdx6VJWDoeg==
-X-Proofpoint-ORIG-GUID: 9hkYqcV-jbBnFzJbheW78KHz8YVqmgC5
-X-Authority-Analysis: v=2.4 cv=OcCQnBTY c=1 sm=1 tr=0 ts=6a996783 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=craggXHLatwVVKPEDpEA:9
- a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwOCBTYWx0ZWRfX5Z/vKlKkXIJ0
- Y5g9bD7ROiTwR1+dD4ZgE4yJ9oB9LAIJlFVym4cv38AQD2r2t+tSS368dYJrE2vclpdUrY/1a6P
- Vg7oImpvnmfPwkYjvD5lKKCsTlkddKI=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY8PR12MB8194:EE_
+X-MS-Office365-Filtering-Correlation-Id: 807af4eb-f0db-4307-070e-08df09b6a940
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|1800799024|10070799003|366016|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: qAYp1ZvlsnlG2ZFnX4RBUJsCHJF9aDY0ahlt1N305slpyuL408cU03O55AoWQqZMvseW1e9bxIyeIJi8UT3dA8yThFZnLnpXcm6j3HMo03RIhLRxSN7y2QBnAVEDxwTsX10XW8edUBkwjacALF6VKbOwigLfG4kUDQ/vRcv/boJH5YDFj62UJZna8nM4mX+urs4uOxtZIXOAKhKrJsE0TnGnKvUPDvcCqhhx3HbTk/aY6Gs5aHm4/3eUQdW7Fco9ctR3uGDogqYAyr7FpbyJYQCKDAsjWE/PeJ3NAqzYWOMNfGmFnH4OrAnPNWUiPPpHBX5XoH030Ftv0BHYZZYK7ElrD5dadLifupnkAAQ/XzpUIDPHTasrJKx3HRMTS9Ntkaor8793rj7wWtwKHHIVpx/HsiTNpR3+IM5pRLeJPo09bn8A2rZD2tJS4oBjwnH6mwjrf/EBRzLlmkk4ONYkYvGfzs2WuqPR6F9BxqFKKz8/8taO9786gX25jC+7Jx5emHBEjxMXkybGnFSXG9+3mwLHuv8i6pwSYVV/4srlWcVyYW1sNG21OZVe7ZZV3ILREtrcHvN7kv74MvOpOrm87c48Q/0B5ApuCpZCtC2X0796OUQaRh+/kOH9bnThm913w0RU48xHsK2r1j6swUh76bNTx33YmuQ+NcwSrBUGMac=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(10070799003)(366016)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YW5vSURDV0I0NVF0RmRoVjIxUCtCYzJ3dDNiaEVINGdGalBOYWRGQUs4Q0w5?=
+ =?utf-8?B?MEY5ekdta01RR1RuQkRQc1pkRnhaVWU2dXQwclRIdXJtbjBldjQ5OEhmSlVJ?=
+ =?utf-8?B?ZWI1RFRtTmFlUWROeE9xSVBhZjFFRGp4VDBEQ1Y4RE5PbW9RODBWaVJaTk9P?=
+ =?utf-8?B?Uy9kUWRHUDVoNGZaRzN1QWVucXBka2E5UWtvVkY4V3h6d1BhQm02Q3dtQk52?=
+ =?utf-8?B?T0NObVUzWGpoVDYwL1hXd1hsZzF1N3ZVT1R5M3J5MENjUkNTRVFZNy9iZmZ0?=
+ =?utf-8?B?Sjl3M0ZRYVp1clQ5YVlwUU1JN1V4S0J1Y2wwZXBIZC8vajdrb3pmbHBUS2RI?=
+ =?utf-8?B?VE8raDM0WUZMNVhrQ0t5WWpQNUNtQnJEQ00rSGVwVVpnUXZDOUhvZVA5V3FP?=
+ =?utf-8?B?QzNhTXNEcmpaS2hKa3VOZUx2WVVKV0JHTVhXcC8vSUNVNkNCaXhVNzMxaTRv?=
+ =?utf-8?B?WFFBbURFOXNJaFFmN1lFODZjZ0k1a3lPZGdJdXZFaU1xVkJDbFR6TjZlZDNX?=
+ =?utf-8?B?U0Z4SVRpcWRaU0plbE1NdHlmT0xMWkFpd2lBTEQ1U09BV2dHMU5YNmJqeVBG?=
+ =?utf-8?B?WDR5ajM0OEkwT3VTYmZiMndmVFFVZ3F3VjFVSUEyZkVsamRoUFFMak5XUFM1?=
+ =?utf-8?B?YUVnWTNXWUpxQjdjdThmMmo4WFBHUUJxeHRiVW9nV21oOHpIQ21NRHhROWZQ?=
+ =?utf-8?B?WHU3amhTeFNjUWMrcmVxNm1XTGU5d3V1eDhSeGVHdHROOHpSSTJ4WHR3Q2tp?=
+ =?utf-8?B?dTdCRzN2ajJTTU9Wdml3ekJ3ZHhhUzZqRUd2RlFMZmdpQy9pM1MrSFRFMm5M?=
+ =?utf-8?B?NWFCckZHOVhhVzl5M2ZHRHFsTHdXMURXamtqRUhnVmo1VmtmQy9wRGd0TnVJ?=
+ =?utf-8?B?STFsUG94dVBBNFRrNzIwaFRDVWdwY1FJbDlGaythYTIxQ2ZabDByNUt1bGpo?=
+ =?utf-8?B?MERDRlg2Nzd4dUdzdVY5OG92WlVESVM0ZUppMkY5TnUvZ2hHVStXdTYxVVk4?=
+ =?utf-8?B?RDlnUktKMk9aeGY2SllkN0JkUmJLNmhLR2paZjBmRXZBeDM4cnNZQ2lHbXlC?=
+ =?utf-8?B?SFFtUzQ0YXpQanM4NDk0WGlrTGxrSmdjbTFuUGRscE9RbXdiT1JNdVpET1JC?=
+ =?utf-8?B?TjRMOHVlbGREYThhQ2JXd1pUclcxdWE3Z0NJNURPWGthRm54WmxMQXZTcklQ?=
+ =?utf-8?B?bm1zNkxKRWtIenljMWRqQURXT2gybldVaDAwM25MWDFTKy9ER3pVR3FLL0JL?=
+ =?utf-8?B?M2p2b3ROekdJV2VPREhPbEkwN1JWOE5hT3V2ODRjSGV1NTRyQ01XOG5EUFhn?=
+ =?utf-8?B?VCtzYml3OWVUVTBFYThhenl3dzVjaUdMQjl2VHRvR3Z5RDZnTEZEWGp5OERG?=
+ =?utf-8?B?eWNpUG5rRllFVHNQQzhpUGlOYm9Xdk5lYjBoNTNlREgvSTNacHJicHc5SGtl?=
+ =?utf-8?B?VEtOUXZCeEd6RHd3bGNWbWtLeHZnTXpmMEhkbkhIUmxLQlpyR1Q0Z1hPSFVK?=
+ =?utf-8?B?bGllUFRudTFEdEJmeFZNWGh5T2U5eDdwdllsTkhVc0I2cldwY0hWN1c4cHp1?=
+ =?utf-8?B?TWswblZXRCs3bitEeUltUkRVcTdyZmE2eUtwWmcwQ1RhU0pVK3BvSFBndFFr?=
+ =?utf-8?B?czZjc3B4M2h1STNkZFFzQ21ZSzNvQndhQkVvTGVNUytiemErbnJhb1NaODVj?=
+ =?utf-8?B?REVvaGxEZ015K01uNkhEelQyRFAzN3diSk41d1VhM0V4K2toVVIrdzJ6ajBZ?=
+ =?utf-8?B?am12bWd0aXJiTTc3ZmVib0hGd21sWDliaFYwQThOQzdmUDN6ZmFvcFRnTG5n?=
+ =?utf-8?B?V043NnJwV3Y4U3BtYVVqNnk0T0cwMFJGTE9iSzNhUWhraEdiSUgwcHZnUkFw?=
+ =?utf-8?B?bTRRaExpWEtpMXBUNGZoSUlTbWVOZ0VXZ1NmN3JVMHNlVG5haHk5TE5VYzJq?=
+ =?utf-8?B?YzlmdmpwQ3lWYVhPMkhZb00xZmpWSHVVMS9pVnNFcGZqOVQ3Sy9FK3pQNlFT?=
+ =?utf-8?B?QVF4OE9tUnpZa3FXNmd3SlF0WGlNcmZHMlJyM1h2bjVZTUdIUmNIM1pZZ0R4?=
+ =?utf-8?B?YVJUT0ozTUNXSDZrVlhwTVJ3SVZiREZDVDJUcnlNQmZQc3QxUEV0ZmR6ZVh6?=
+ =?utf-8?B?NVFFL1V4U3dma1k2Yjg0ZGR5M1M5QzVyTUdvaXdwRUMxMjVMWmJpdzdqZ2hB?=
+ =?utf-8?B?Z2lFT21aSXdhQnFkNm9vUXlwQjFuOU1XZ25DZFYxMVR0cVhvSXlubW9OcHJG?=
+ =?utf-8?B?bkZpYnRGRzVzcWpTbTJ0cG0wZEpSQksyN3hxajlESmE0dUpLSzN3OFNicVds?=
+ =?utf-8?B?QmFKVkVkZUpDa1BHVFdUMTNxT3ZadTlaSzV5K09hNExZeHY0ZDRxL3g1cDBp?=
+ =?utf-8?Q?TICzB5p1Qlsg0cgRu7+fi2gLyEIucInUjoQt4XSOO5Zx6?=
+X-MS-Exchange-AntiSpam-MessageData-1: p7h4Ak9TgFn75w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 807af4eb-f0db-4307-070e-08df09b6a940
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 12:27:04.0033 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0qzGzWHH6KyMjzBlXTOF4+tBPLVxEbYZLTAzISWFGAY/txptveL2woNymC7gGokvmZSCe27SvBdGK71bmRNtDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8194
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,79 +149,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix parameter validation to avoid possible NULL pointer dereference from
-pvr_fw_object_destroy() when handling allocation failures.
+On Wed Sep 2, 2026 at 1:50 AM JST, Gary Guo wrote:
+> Previously `register!` defined registers can be used on any untyped I/O
+> regions. With all users specifying their desired register type now,
+> propagate the specified type and restrict I/O access only when type
+> matches.
+>
+> Also, add an `io_project!` example which is enabled by this change.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-Sashiko report:
-If pvr_gem_object_create() fails in
-pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
-NULL before jumping to the error cleanup path.
-The cleanup path then calls pvr_fw_object_destroy().
-
-Potential kernel panic when calling pvr_fw_object_destroy() with a NULL
-fw_obj->gem.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
-Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
-Changes in v2:
-- Commit message and cover letter updates.
-- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
----
- drivers/gpu/drm/imagination/pvr_fw.c | 28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 850a3ec8e775..88f11fb01304 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -1425,22 +1425,26 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
-  */
- void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
- {
--	struct pvr_gem_object *pvr_obj = fw_obj->gem;
--	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
--	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
-+	if (!fw_obj)
-+		return;
- 
--	mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
--	list_del(&fw_obj->node);
--	mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
-+	if (fw_obj->gem) {
-+		struct pvr_gem_object *pvr_obj = fw_obj->gem;
-+		struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
-+		struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
- 
--	if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
--		/* If we can't unmap, leak the memory. */
--		if (WARN_ON(pvr_fw_object_fw_unmap(fw_obj)))
--			return;
--	}
-+		mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
-+		list_del(&fw_obj->node);
-+		mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
-+
-+		if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
-+			/* If we can't unmap, leak the memory. */
-+			if (WARN_ON(pvr_fw_object_fw_unmap(fw_obj)))
-+				return;
-+		}
- 
--	if (fw_obj->gem)
- 		pvr_gem_object_put(fw_obj->gem);
-+	}
- 
- 	kfree(fw_obj);
- }
-
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260812-fix-null-pointer-dereference-2c891142d988
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
