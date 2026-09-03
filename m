@@ -4,53 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41218C624DE
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 23:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 855A2C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 23:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F9810E4A9;
-	Thu,  3 Sep 2026 23:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE08310EA34;
+	Thu,  3 Sep 2026 23:22:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ItimFC9c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jDGDjW96";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04EEF10E1E7;
- Thu,  3 Sep 2026 23:16:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788477397; x=1820013397;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FKUXkLgR8jw224z2qZM2P9XUHGjb/3qYlCiP/W6sxog=;
- b=ItimFC9c/Dc5baGUU2UNp310zW3i/XFB/ZBD0HweAQMLcheAvEQ5NIr5
- R0qQN2gRaCA3B9TwoamIhzL9qAa4CkWMI5K+gCuca02U1FZS+T+qzm88e
- e7RCaV+K3VRHEm4bKnl3779W9kYnMKBCYVWSRpriS8IAZS5ekFvjxHlwK
- 9Z7rndYjJFrSZKsHV/5UxC8aBDH3je1mVQXLC9fWs2szShUals8/F42oQ
- 8UdkZ1d9U6sjtfuk7IJYTnpqZhj8A4uFj/FczFny9FhyAEla16ikv1otT
- 4r7LHT8n7m6gkpi/MrW6F8ka5BuEZov+lkk3RLyPq5XGzk8+sxzyZQnLs w==;
-X-CSE-ConnectionGUID: 1hsqUhH9RjSDdpz93jo10w==
-X-CSE-MsgGUID: 5+OjY0LATfe3mJHD43SuNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92847224"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="92847224"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 16:16:36 -0700
-X-CSE-ConnectionGUID: HkSh0FnMQlmDR5sCYyM+xQ==
-X-CSE-MsgGUID: fvt8v3PmRyCHKKbTFkpF/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="269343204"
-Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 16:16:35 -0700
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com,
- intel-xe@lists.freedesktop.org, matthew.brost@intel.com
-Subject: [PATCH] drm/xe: Rename xe_vm_fault to drm_xe_vm_fault
-Date: Fri,  4 Sep 2026 07:16:32 +0800
-Message-ID: <20260903231632.399765-1-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDEB510E184;
+ Thu,  3 Sep 2026 23:22:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F299560546;
+ Thu,  3 Sep 2026 23:22:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7B71F000E9;
+ Thu,  3 Sep 2026 23:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788477745;
+ bh=jzhSCXs57A5KBxTPgP1Vyj0TYw5hE+2XzPeTiDEym68=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jDGDjW96a11WXDx/Gl8xrH6d5YPuUZqshZiwXVHWm8PGz/voVFY02GLQtEr1bJuxN
+ +3j/vejlfUXZJLXU/h21o484yRCZqkkA8w3j65yPqUXp86wfsrT0xPhAPlAJpl7YIm
+ iODpIrb9q/jsJnWv1J1UjOqrGaDjy0/iehcEqa13v9LGYsExa7XETfrWhZorUeGzaS
+ a0edWQs7Qw5pvtoodzfaY3yzm++imcKuzvjf0s17J+BtcHuA9Clz3h80a1ofJw+R13
+ oFNjNg2IWgP/1I6owrPcS9DJ9FDUhI8W0HfdsNODU1KF8hiK//QYDoeVEOR4HpbBFB
+ i3MHuBOPMN1XA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/xe: Rename xe_vm_fault to drm_xe_vm_fault
+To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260903231632.399765-1-jonathan.cavitt@intel.com>
+References: <20260903231632.399765-1-jonathan.cavitt@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 23:22:25 +0000
+Message-Id: <20260903232225.8E7B71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +52,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rename xe_vm_fault to drm_xe_vm_fault to better align with uAPI struct
-naming conventions.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Renaming the exported UAPI structure `xe_vm_fault` breaks userspac=
+e source compatibility.
+--
 
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
----
- drivers/gpu/drm/xe/xe_vm.c | 14 +++++++-------
- include/uapi/drm/xe_drm.h  |  4 ++--
- 2 files changed, 9 insertions(+), 9 deletions(-)
+commit 718d9f0d7813c0d7b1b78dab4ab5c1afd1f3f75a
+Author: Jonathan Cavitt <jonathan.cavitt@intel.com>
 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 753a5fc55baa0..22ce6f8dfb783 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -4286,15 +4286,15 @@ static u8 xe_to_user_srcid(u8 srcid)
- static int fill_faults(struct xe_vm *vm,
- 		       struct drm_xe_vm_get_property *args)
- {
--	struct xe_vm_fault __user *usr_ptr = u64_to_user_ptr(args->data);
--	struct xe_vm_fault *fault_list, fault_entry = { 0 };
-+	struct drm_xe_vm_fault __user *usr_ptr = u64_to_user_ptr(args->data);
-+	struct drm_xe_vm_fault *fault_list, fault_entry = { 0 };
- 	struct xe_vm_fault_entry *entry;
- 	int ret = 0, i = 0, count, entry_size;
- 
--	entry_size = sizeof(struct xe_vm_fault);
-+	entry_size = sizeof(struct drm_xe_vm_fault);
- 	count = args->size / entry_size;
- 
--	fault_list = kcalloc(count, sizeof(struct xe_vm_fault), GFP_KERNEL);
-+	fault_list = kcalloc(count, sizeof(struct drm_xe_vm_fault), GFP_KERNEL);
- 	if (!fault_list)
- 		return -ENOMEM;
- 
-@@ -4332,7 +4332,7 @@ static int xe_vm_get_property_helper(struct xe_vm *vm,
- 	switch (args->property) {
- 	case DRM_XE_VM_GET_PROPERTY_FAULTS:
- 		spin_lock(&vm->faults.lock);
--		size = size_mul(sizeof(struct xe_vm_fault), vm->faults.len);
-+		size = size_mul(sizeof(struct drm_xe_vm_fault), vm->faults.len);
- 		spin_unlock(&vm->faults.lock);
- 
- 		if (!args->size) {
-@@ -4347,9 +4347,9 @@ static int xe_vm_get_property_helper(struct xe_vm *vm,
- 		 * the number of faults in the VM fault array.
- 		 *
- 		 * We should also at least assert that the args->size value
--		 * is a multiple of the xe_vm_fault struct size.
-+		 * is a multiple of the drm_xe_vm_fault struct size.
- 		 */
--		if (args->size > size || args->size % sizeof(struct xe_vm_fault))
-+		if (args->size > size || args->size % sizeof(struct drm_xe_vm_fault))
- 			return -EINVAL;
- 
- 		return fill_faults(vm, args);
-diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-index 8c852abcacf0d..89c0dbe227dd7 100644
---- a/include/uapi/drm/xe_drm.h
-+++ b/include/uapi/drm/xe_drm.h
-@@ -1271,8 +1271,8 @@ struct drm_xe_vm_bind {
- 	__u64 reserved[2];
- };
- 
--/** struct xe_vm_fault - Describes faults for %DRM_XE_VM_GET_PROPERTY_FAULTS */
--struct xe_vm_fault {
-+/** struct drm_xe_vm_fault - Describes faults for %DRM_XE_VM_GET_PROPERTY_FAULTS */
-+struct drm_xe_vm_fault {
- 	/** @address: Canonical address of the fault */
- 	__u64 address;
- 	/** @address_precision: Precision of faulted address */
--- 
-2.53.0
+drm/xe: Rename xe_vm_fault to drm_xe_vm_fault
 
+This commit renames xe_vm_fault to drm_xe_vm_fault to better align with
+uAPI struct naming conventions.
+
+[ ... ]
+
+> diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+> index 8c852abcacf0d..89c0dbe227dd7 100644
+> --- a/include/uapi/drm/xe_drm.h
+> +++ b/include/uapi/drm/xe_drm.h
+> @@ -1271,8 +1271,8 @@ struct drm_xe_vm_bind {
+>  	__u64 reserved[2];
+>  };
+> =20
+> -/** struct xe_vm_fault - Describes faults for %DRM_XE_VM_GET_PROPERTY_FA=
+ULTS */
+> -struct xe_vm_fault {
+> +/** struct drm_xe_vm_fault - Describes faults for %DRM_XE_VM_GET_PROPERT=
+Y_FAULTS */
+> +struct drm_xe_vm_fault {
+
+[Severity: High]
+Does renaming this exported UAPI structure break userspace source
+compatibility?=20
+
+Userspace applications that rely on struct xe_vm_fault will fail to compile
+when updating their kernel headers and attempting to use the old struct
+xe_vm_fault name.
+
+Should a backward-compatible alias be provided for the old name?
+
+>  	/** @address: Canonical address of the fault */
+>  	__u64 address;
+>  	/** @address_precision: Precision of faulted address */
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903231632.3997=
+65-1-jonathan.cavitt@intel.com?part=3D1
