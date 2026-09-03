@@ -4,140 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFDDCC624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 12:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03E7EC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 12:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E6610F588;
-	Thu,  3 Sep 2026 12:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFCA10F589;
+	Thu,  3 Sep 2026 12:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VfW47nC6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LujHbXZx";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="A84uFu5v";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87FA110F591
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 12:44:50 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 683BTJ9r210335
- for <dri-devel@lists.freedesktop.org>; Thu, 3 Sep 2026 12:44:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jbhmEWvdbNRK9oxq0JthpnJ+qpXiTJ/OErPeQixWtJ8=; b=VfW47nC6CptIzz4N
- xCrqkSYCciajwjPt73KFsQ29skhlrNQQLca5IUAJdJH8LFkridW3MDQZK87ys4+s
- uauHADqA9SlzuLIMKFVDypoLS/6Z/ti+k2Epw1Wz2E+Ab0hEkYRvm9p23KiVpfhO
- 9c5xKRw83AxbFybKXf+gR98HsaLG4w0CtVsb1heF9A14WMupR6im/IOlL5MuSscA
- tHPeqjYgqBqzcTdr5tMpSnsaMc3bJ565r22wzwaXhLQDOzG2ifD/6GeHJR/h6pol
- cjzez4WW0oOf6iPieaRbOpoZkRE9yeKK6zSRN6Z8IIiedpZzxg/18MeXIdkmJMp9
- Op0Ihw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf82k88wp-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:44:49 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-52ec554a80aso5751311cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 05:44:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788439489; x=1789044289;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jbhmEWvdbNRK9oxq0JthpnJ+qpXiTJ/OErPeQixWtJ8=;
- b=LujHbXZx86EslK7X9h9NWrNPOi3oS5wDu2RpEBuRBvxPQ+3fTyddS49w38CWfmBagM
- +eVgL31inibEsSMBE2c9/YGyXRWr9Qa0mP9ADQhJVuOSjZgJh6X7gyiGazFpXa0uF33S
- EPNpqwF5Bky9QkTOIyQtjIoSy6nHA/HnuR/XBTdb2bUdfwJEX5cokZ4A6GI1MiqWIzjt
- CGjzQqm2sSBML2cv7+1snumbNEx9fyRqPPK6r2F+E/dP+9hqDkzxOanZHeyP6VQD/jbx
- zUHUCvUmsMGCnm0igqSkOWZhu+hxnlD0OstMLmOyvjNyegkNRIp2KM0CvG4uhoUB2rom
- qwQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788439489; x=1789044289;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=jbhmEWvdbNRK9oxq0JthpnJ+qpXiTJ/OErPeQixWtJ8=;
- b=p37/BwcYe0MtQOt+rXgrGsrhgB6w06UTAYp5lfXqShBvD5LQYVFjMyATyG9G0o0LLB
- ZHAjxuuJtscTqfw84rXxibO9cBDoaCNH7k79APf7sC89+szq0X0aZysALy+V7+fnNoEc
- kpYS2QspJ2SdLTYJe7EQ0xVspHnCJuoF9yrFIGLOQZ9QQVHlFjnvka3InxZr0iAtFWfQ
- 85NEAlsxIyvNm2RrfgS44mnfHrN8rl5jdcuz0fu578NyxbIgPOiNFYvCM8EqaR+9hBv0
- OPE3TdHuDQQcz19kC3F8tGDNaonE+yXGvLQZXURNyMuvNT+agrMe7+cVz3pxZfsqZQZf
- 8kbA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwE4peXTGs1ykXECbagTHOhqtoyKDcVUEZfC2DHi75UdGXlW55wxixIVHeXvnDyL03XNa8Ojgw21f4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ksCCCgTlGTJFRo0HQnjByvZhP6stVtiksVu5CXI664IEpcHJPr
- LpKvm2rHxcu3G3R0H93YHhjxKOEdNlEdUfwk+ZOGy+ZggfisdHvaFvLQIK15Jo0CMrPT0eJOEQM
- x96Z9KfmIGd0UkB3wa3ZZeJWaHxLBu4ivaD3vV7GL+fJ7Vk8eIStJYgeNYvxV0bx/kaROiQA=
-X-Gm-Gg: AYBFou2ldq8cXOPCKdIvnm+1iqho/u7A+IbOF8uQBdiFiF/Bpt1Z8Ixsf1QZPpSyBDd
- qe5tfHcBdtAyuQSkNaw966VQxXGfC8MkekSHB3miqhv+yU6EoI+9OQ+tuxudsiD2KD5h6LnDO9g
- Y/3xq3D8uRD42btt0CDkwXqGoYy6i9UJ0ksMiHKb7r1GdBTkFzBGRwwM7Wzvxt5TjmniCIUaLDi
- NaFB5yuODkN4vA9ia7cjFO9bJN4tML9elcRrn+EDwMVxPoGHJUr7PR/eMqLdhObtQ/7KdhPt6jo
- ReJKVACSXdWQT4sszkvzGpvEv+S5RsnbKiAAxqYMbPJXNoSA+tsOpRkwDG4ecctXgBnoPvmgffy
- UJ7rTKs0XCW0JNVgRY8HhVg==
-X-Received: by 2002:ac8:5942:0:b0:517:5d21:9899 with SMTP id
- d75a77b69052e-53036d8e031mr93074441cf.5.1788439488724; 
- Thu, 03 Sep 2026 05:44:48 -0700 (PDT)
-X-Received: by 2002:ac8:5942:0:b0:517:5d21:9899 with SMTP id
- d75a77b69052e-53036d8e031mr93074021cf.5.1788439488091; 
- Thu, 03 Sep 2026 05:44:48 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a67f9423f5sm2205112a12.22.2026.09.03.05.44.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Sep 2026 05:44:46 -0700 (PDT)
-Message-ID: <a3c60bf1-ef2d-4a6e-b237-1a51bee2dcea@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 14:44:43 +0200
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3675310F5AD
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 12:49:18 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260903124916euoutp01c70c3377e9531d0b4effba39237e9f0d~R0Humhg0D2837828378euoutp01a;
+ Thu,  3 Sep 2026 12:49:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260903124916euoutp01c70c3377e9531d0b4effba39237e9f0d~R0Humhg0D2837828378euoutp01a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1788439756;
+ bh=21XK8ouXwSbTKoSgpNp9PTnpZIppeDeeNUFwSv6ef0I=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=A84uFu5vC7oRa7UYvp4kb1qaFuO04d7y8EFyNaPGxT8vRYtNhTEAf1v8qbCTK1g9c
+ ErZ7MNjb63emnIqANJbVFtycOFms2nxzltkpKWI+k2FVQDNvhQLzokz+RsiTTZD/sZ
+ tbFgIVRs1iU0Hx2ZDAjgQWZBvVwu/E+5h3lOiTJE=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260903124916eucas1p2046caac892ee377927f97ac1ed022764~R0HuWwHQ41235012350eucas1p2O;
+ Thu,  3 Sep 2026 12:49:16 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260903124914eusmtip1c88b35a3579efd350fc5d28e52aac15c~R0HsrL5_S2573525735eusmtip1u;
+ Thu,  3 Sep 2026 12:49:14 +0000 (GMT)
+Message-ID: <113c3906-56c1-4940-9857-d611edc64361@samsung.com>
+Date: Thu, 3 Sep 2026 14:49:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dsi: round the byte clock rate after reparenting
- to the PHY PLL
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kavan Smith <kavansmith82@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260903-fix-eliza-dsi-v1-1-3474a6c9f2e0@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/15] dt-bindings: display: bridge: Add
+ starfive,jh7110-inno-hdmi-controller
+To: Conor Dooley <conor@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
+ Feng <hal.feng@starfivetech.com>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+ <bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Icenowy
+ Zheng <uwu@icenowy.me>, Andy Yan <andyshrk@163.com>, Marek Szyprowski
+ <m.szyprowski@samsung.com>, Maud Spierings <maudspierings@gocontroll.com>,
+ Graham Markall <hello@big-grey.co.uk>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260903-fix-eliza-dsi-v1-1-3474a6c9f2e0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20260828-stylus-bonfire-b71cbfe8b983@spud>
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: wno1MUSqEir3xRT6eIhsOvpxmsfKT84R
-X-Proofpoint-ORIG-GUID: wno1MUSqEir3xRT6eIhsOvpxmsfKT84R
-X-Authority-Analysis: v=2.4 cv=OuJ/DS/t c=1 sm=1 tr=0 ts=6a996bc1 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=df3BZnECoes8ZJFSp-YA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDExMCBTYWx0ZWRfX50L+kB337osl
- yJILXUgBNMpEAoQRfT325Bgt8J89S2or0DYp9+S0Ab6OZUEvheNeCtVhhd2VFnYpY3shcFDDOG1
- LEJv8t1RGrG8dlfqyFozoonfVKOTHeUmhU5P+SORDMMUeCPkpNhIbHtWHm6/4ProZ42qh1Zw8ZC
- NRTzH4jI4Kdc3MM+717cHlOb4Y2gOU273kc/R7CIuEZnbUB8NFYuIwlN/hBx3h61aPKfOzVYQVV
- yi73GwKGm3Dx3KbaNBahCXxhxGKcqSoN5khlemQzP14bWG1MN2GCPbXnTNDvgBCPdJLFJln/Nl6
- JY6hZOv2vb4tLzaByq1EkvBdr/w7Rm51ZYejEngCxHGNbCt++GXYqwpm1mF5Rp96dNKZftOGXUv
- Ow8gczcKifN4rOcN1ZEyOy9rEu/y5cDPt6lwGlK6brNyHy8J9uIPdPyMe5EolCDycnAmVg45jYK
- FzeY26JltmCS4a2jc6A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDExMCBTYWx0ZWRfX9HDuOszYYKV1
- 4uM2UOny6fSZt4fUarWM6XoNOf8nQh8BY0SRZihiDujXKWzzMa2PXKC3atpkYW2AS9uPo7K1Lh5
- 6raXBSnJ+6cnLwfAF9qISU/ELn+Ehx8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030110
+X-CMS-MailID: 20260903124916eucas1p2046caac892ee377927f97ac1ed022764
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260828134817eucas1p2e2756deff8871be4ea8bb5c65f9c179d
+X-EPHeader: CA
+X-CMS-RootMailID: 20260828134817eucas1p2e2756deff8871be4ea8bb5c65f9c179d
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+ <CGME20260828134817eucas1p2e2756deff8871be4ea8bb5c65f9c179d@eucas1p2.samsung.com>
+ <20260828-jh7110-clean-send-v2-2-331680c8b9d1@samsung.com>
+ <20260828-stylus-bonfire-b71cbfe8b983@spud>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,32 +97,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/3/26 2:19 PM, Dmitry Baryshkov wrote:
-> DSI 6G v2.9 hosts (SM8650, SM8750, Kaanapali, etc.) reparent the byte and
-> pixel RCGs to the DSI PHY PLL at runtime from
-> dsi_link_clk_set_rate_6g_v2_9(), after the PHY has been enabled. However
-> dsi_calc_clk_rate_6g() runs earlier, in order to compute the bit clock
-> request for the PHY. At that point the byte RCG still has its reset
-> parent (XO), so clk_round_rate() returns a bogus rate, which then ends up
-> in the PHY bit clock request and the PLL gets programmed to a wrong
-> frequency, breaking the panel.
+
+
+On 8/28/26 18:47, Conor Dooley wrote:
+> On Fri, Aug 28, 2026 at 03:47:26PM +0200, Michal Wilczynski wrote:
+>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI controller
+>> (DRM bridge).
+>>
+>> This device is the second child of the starfive,jh7110-hdmi-subsystem node.
+>> It consumes register access clocks (sys, mclk, bclk) from the voutcrg and
+>> both the pixel clock (pclk) and the PHY from its hdmi_phy sibling.
+>>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 109 +++++++++++++++++++++
+>>  1 file changed, 109 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/bridge/starfive,jh7110-inno-hdmi-controller.yaml b/Documentation/devicetree/bindings/display/bridge/starfive,jh7110-inno-hdmi-controller.yaml
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..0e584e7b756e24e2f99a62daab3117bbf4b472b6
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/bridge/starfive,jh7110-inno-hdmi-controller.yaml
+>> @@ -0,0 +1,109 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: https://protect2.fireeye.com/v1/url?k=af8ec5c4-ce05d0f2-af8f4e8b-74fe485cbff1-93a4f693847d5818&q=1&e=48120ebb-9eda-4ddc-b580-e20f8c69d005&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fdisplay%2Fbridge%2Fstarfive%2Cjh7110-inno-hdmi-controller.yaml%23
+>> +$schema: https://protect2.fireeye.com/v1/url?k=4b8c4737-2a075201-4b8dcc78-74fe485cbff1-8caced678494fd92&q=1&e=48120ebb-9eda-4ddc-b580-e20f8c69d005&u=http%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
+>> +
+>> +title: StarFive JH7110 Innosilicon HDMI Controller
+>> +
+>> +maintainers:
+>> +  - Michal Wilczynski <m.wilczynski@samsung.com>
+>> +
+>> +description:
+>> +  The controller portion of the StarFive JH7110 INNO HDMI IP.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: starfive,jh7110-inno-hdmi-controller
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: System clock for register access
+>> +      - description: Module clock
+>> +      - description: Bus clock
+>> +      - description: Pixel clock from PHY
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: sys
+>> +      - const: mclk
+>> +      - const: bclk
+>> +      - const: pclk
 > 
-> Move the rounding to dsi_link_clk_set_rate_6g(), which is called after
-> the RCGs have been reparented to the PLL. Storing the rounded rate at
-> this point still makes later link_clk_set_rate() calls no-ops in the
-> CCF. Derive the byte interface clock rate from the rounded byte clock
-> rate, otherwise it would keep requesting the idealized rate and
-> retrigger the PLL on every transfer.
+> "module" "bus" "pixel" would be more informative than spending most of
+> your characters regurgitating what these are by definition?
+
+So I've reread the TRM and mclk and bclk are named as such there and they
+are audio clocks: section 5.3 lists a "four channel I2S transmitter bit
+clock" among the display subsystem's clock sources, and that is this bclk.
+The already merged starfive,jh7110-voutcrg.yaml names the same input
+"i2stx0_bclk". So I've kept the names and put the information in the
+descriptions instead:
+
+ - description: The HDMI controller main clock
+ - description: Audio master clock
+ - description: Audio bit clock, from the I2S transmitter
+ - description: The pixel clock, generated by the PHY
+
+pclk was wrong. In this binding pclk is the register clock, as in
+rockchip,inno-hdmi.yaml, and the generic inno-hdmi driver looks it up by
+that name, holds it enabled for its lifetime and derives the DDC divider
+from its rate. We had it bound to the pixel clock so the pre-PLL stayed
+powered from probe and the divider was sized from 297 MHz instead of
+49.5 MHz, putting the DDC bus at 17 kHz. Slow but not broken which
+is why it went unnoticed.
+
+So in v3 the register clock takes "pclk" and the PHY clock is named
+"pixel".
+
 > 
-> Reported-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Reported-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Fixes: 6cd33b6f4155 ("drm/msm/dsi: round 6G byte clock rate to the PLL-achievable value")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  reset-names:
+>> +    const: hdmi_tx
+>> +
+>> +  phys:
+>> +    maxItems: 1
+>> +
+>> +  phy-names:
+>> +    const: hdmi-phy
+> 
+> With the trend of ?pointless? -names properties, I'm surprised you don't
+> have interrupt-names? I'd ditch 'em all where there's only a single
+> clock. The _ rather than - in the reset name triggers my OCD.
+> pw-bot: changes-requested
 
-I don't have HW to test it on hand, but it looks good to the eye:
+Will do. reset-names and phy-names will be gone which takes the
+underscore in hdmi_tx with them.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Note that in v3 the vout subsystem parent node will be back on Icenowy's
+review, so there will be three new DT patches: bindings for
+starfive,jh7110-vout-subsystem and starfive,jh7110-vout-syscon, and
+starfive,jh7110-dc8200 added to verisilicon,dc.yaml
 
-Konrad
+> 
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +    description:
+>> +      A graph node with one input port and one output port.
+>> +
+>> +required:
+>> +  - compatible
+>> +  - interrupts
+>> +  - clocks
+>> +  - clock-names
+>> +  - resets
+>> +  - reset-names
+>> +  - phys
+>> +  - phy-names
+>> +  - ports
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  # Shown as a child of the HDMI subsystem node; see
+>> +  # Documentation/devicetree/bindings/mfd/starfive,jh7110-hdmi-subsystem.yaml
+>> +  # for the full node.
+>> +  - |
+>> +    #include <dt-bindings/clock/starfive,jh7110-crg.h>
+>> +    #include <dt-bindings/reset/starfive,jh7110-crg.h>
+>> +
+>> +    controller {
+> 
+> "controller" seems over generic for a node, but I guess if the parent is
+> "hdmi-subsystem" or something it makes sense in that context.
+> 
+> Cheers,
+> Conor.
+> 
+> 
+>> +        compatible = "starfive,jh7110-inno-hdmi-controller";
+>> +        clocks = <&voutcrg JH7110_VOUTCLK_HDMI_TX_SYS>,
+>> +                 <&voutcrg JH7110_VOUTCLK_HDMI_TX_MCLK>,
+>> +                 <&voutcrg JH7110_VOUTCLK_HDMI_TX_BCLK>,
+>> +                 <&hdmi_phy>;
+>> +        clock-names = "sys", "mclk", "bclk", "pclk";
+>> +        interrupts = <99>;
+>> +        phys = <&hdmi_phy>;
+>> +        phy-names = "hdmi-phy";
+>> +        resets = <&voutcrg JH7110_VOUTRST_HDMI_TX_HDMI>;
+>> +        reset-names = "hdmi_tx";
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +
+>> +                endpoint {
+>> +                    remote-endpoint = <&dpu_out_dpi0>;
+>> +                };
+>> +            };
+>> +
+>> +            port@1 {
+>> +                reg = <1>;
+>> +
+>> +                endpoint {
+>> +                    remote-endpoint = <&hdmi_con_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> +
+>> +...
+>>
+>> -- 
+>> 2.34.1
+>>
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
