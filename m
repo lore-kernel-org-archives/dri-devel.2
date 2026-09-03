@@ -4,71 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7ED0C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29699C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E36310F48A;
-	Thu,  3 Sep 2026 09:20:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E8510F48F;
+	Thu,  3 Sep 2026 09:27:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UcUR8LEM";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="b9USLalB";
+	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="mQxPoDYJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 354BC10E0DA;
- Thu,  3 Sep 2026 09:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788427223; x=1819963223;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Z2kgFx0moExX+zyDI+OMGYmNMXzfvSknBVFQKBZNdb0=;
- b=UcUR8LEMtLHOApmqfmQB3clJ9rdIIqWXIJPo1kdZVyNesCutDEaopMvB
- wugsTDiB1VAyWlmig5SF0DtntD0Q81J1/WJyYQOG27aTOWM1SSkHOLTw6
- /8FKI40/wkGdWig3mC3NY4aPZoOox6EuboWJH7E8HwMQDYQXOlbedNXpv
- XkElJ/El5NE6Qqq+KRGXioEuSYP/ZC+ED9j4covnye6pOwT3JWZmr+DDx
- KtZ3axRSWSF/ejxjxMZz323TfjlaX31sKc+sPN20hnOM78wXxP0VDViVy
- yxndTdVoJMEOczmqgb0Jg57gmvlXcuAseFQ1aijct4TYG6O4U+Ol5SxWK g==;
-X-CSE-ConnectionGUID: 99EPNj6BRp6S5GYvZqAIwA==
-X-CSE-MsgGUID: /Ex2zVhxS1OzWPvAQCTHSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="92724776"
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; d="scan'208";a="92724776"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 02:20:22 -0700
-X-CSE-ConnectionGUID: A2HJnIQOQf+IavZOOMAMVA==
-X-CSE-MsgGUID: Zg6n3WXXRdGZXNosfK1YEA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; d="scan'208";a="267908177"
-Received: from aiddamse-mobl3.gar.corp.intel.com (HELO [10.247.246.51])
- ([10.247.246.51])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2026 02:20:17 -0700
-Message-ID: <75348f48-ce00-43f0-9030-a6e4cdea90b2@linux.intel.com>
-Date: Thu, 3 Sep 2026 14:50:14 +0530
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C96C710F48F
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:27:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1788427642;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=8u3TQg2cJAtoRCxT2xuz7Ezo38KqT0GhTI8HzDj8NjM=;
+ b=b9USLalBY6KDvp/CqO0UMACkD+NT/VX2vwkD9Q3E4QAzWSVgykpxUaIY3rwdZ97F+wIL94
+ uwdYzZosvYXs3a3x86JKoXS93XWkYe6B3tbP9KgFtxz4DJzWgDSiCsV1aWtN8BmPZ+eIZ1
+ VcjNflJqrAAuUyMwffnZPQ9PD/Fs4Vc=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-317-jXNCodF3PoCZR5sA03NLBg-1; Thu, 03 Sep 2026 05:27:20 -0400
+X-MC-Unique: jXNCodF3PoCZR5sA03NLBg-1
+X-Mimecast-MFC-AGG-ID: jXNCodF3PoCZR5sA03NLBg_1788427640
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51c1d30035dso25315371cf.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 02:27:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=redhat.com; s=google; t=1788427640; x=1789032440; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=8u3TQg2cJAtoRCxT2xuz7Ezo38KqT0GhTI8HzDj8NjM=;
+ b=mQxPoDYJFrsF+XaOR9JVpajbqL1/xKaJA9r1cIL5gNjOaOMAT7tTeBbgLWDqzNEevN
+ yEzhWy6rHK8vy20Vl8LGEhZKWFV6TQo1WFSie1KBQ/XjTq7C/iib5BHikE0E8teu7M/W
+ QaAMsvEcZiGzKeNaIgPXbqucSkZROKZhOtUhX5+13YOkRwZ2l7lUenYYVGnjvB8rxWCb
+ O7VYurjjfAnVNamOaaLtXpDmMXPIohJPP9TZlOUSZFMvAb6FIIKSAIfaOEjR9/FEwqxh
+ Nh5aCNVIGp6SJXuPP2aWovy703C5LNLxPgKdmsY/7VkLVXetTzLKdyrzD5L/rctxSLP2
+ ZyRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788427640; x=1789032440;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8u3TQg2cJAtoRCxT2xuz7Ezo38KqT0GhTI8HzDj8NjM=;
+ b=phT2nC1NxzvdFENK4jJ1uDeMsGf/X+WD26IlGJrfQl6wQDCsc4gFGldKm5FXE/wPtf
+ 0JQLRDgF1ZgVT49u1WlVd/VSrMVnZtVH1iHulIrFlGHvhVPR3SFKkhcIj0T15tMw6RT/
+ Q6ZvJbwQ601HxnpWlSVvrbES+PrblwdFIxwKVUHQZdK0vHibhM+emo0DLBgOjKDttm7j
+ 0rW3MDy6gqnVo0+ZLIZ6EYio4StudkPSim02jzB5ahw5sUJevyLUmlO1GcmPSNa3LrxW
+ R9FBJhP4O9bDCejzkmgGZv5ZVg0D1Dn1I4rEExI4Jr/gsbu1TxcELEBdDffgvRnFlb+S
+ GSyA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxzglVsJgGMh5Y/SZk2neBsVjG4gURdOD7fmlQWuvGCT4Dx7Cn9Gc9YLt+ltPkYK4pm2B/kPk1TwZU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kDF42kwmUQVbe8Ky7mIwML7D+cSoDIoi7aERW4D8tbTaCJZFGG
+ A6zed8wDCpK2diW9yjAZ9S2kT4UwbizaxEFzRzPWdv5AIbTKD1fq2tWrIFDkRMNAZhThTdA7f0I
+ xmsUDFzxeNuTuES8sAIMwmIjLyZYa/46Nnc5IYfIyD/j/F/rj5bEpZd8ZCkuyI56NM8EzMA==
+X-Gm-Gg: AYBFou3ogy7OJ5rXmRW1g4xkx5chfTFO4mVIZQIDodo2mxN+ZTUWwVNxpO1FXKMMH/O
+ 0lUCgK2mOukoVhO6fLKc3NB/Mzzl57lioEEH3gizCxkLANUSW04UNEg6e6m1RRB25bNLQoP0t6y
+ UdNdPsakxovl3N0RTtMbzmrtcDClItEarT2C0ca2cCkpJAwgsy2g4h9cmapk7gCxhivu8uBSiBb
+ tvMciy/0gxxz/PwEkENnE9oxKgSVvJEPhZDihcBGYVC/166GKSpdXqG4cHRyU3Vi3lgMci8UA9+
+ I7WpuMk3N6SjwS91QPeEeyDfjALaDkIZOqKaE2YyUjTSCT+voPqA0CZO3rJyT3JQaVXAojO5
+X-Received: by 2002:ac8:5e10:0:b0:52f:b0f9:e4f2 with SMTP id
+ d75a77b69052e-53036b97d24mr121393961cf.1.1788427639608; 
+ Thu, 03 Sep 2026 02:27:19 -0700 (PDT)
+X-Received: by 2002:ac8:5e10:0:b0:52f:b0f9:e4f2 with SMTP id
+ d75a77b69052e-53036b97d24mr121393341cf.1.1788427638874; 
+ Thu, 03 Sep 2026 02:27:18 -0700 (PDT)
+Received: from localhost ([193.32.126.212]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-530332453a7sm38051241cf.26.2026.09.03.02.27.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 02:27:18 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:27:15 +0200
+From: Maxime Ripard <mripard@redhat.com>
+To: Dave Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <apk9X5SkRLS9g4RF@houat>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm/xe: Expose retired VRAM pages via drm-ras
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, Jinzhou Su <jinzhou.su@amd.com>,
- Ce Sun <cesun102@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Dave Airlie <airlied@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
- Riana Tauro <riana.tauro@intel.com>, Raag Jadav <raag.jadav@intel.com>,
- Joshua Santhosh Ranjan <joshua.santosh.ranjan@intel.com>,
- Ashwin Kumar Kulkarni <ashwin.kumar.kulkarni@intel.com>,
- Pratik Bari <pratik.bari@intel.com>, srinivasa.adatrao@intel.com
-References: <20260831133843.1076705-1-aravind.iddamsetty@linux.intel.com>
- <apXDa759PsTggOK5@intel.com>
-Content-Language: en-US
-From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
-In-Reply-To: <apXDa759PsTggOK5@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="t7h3iiiww7yymmtc"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,1168 +114,267 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 31-08-2026 23:39, Rodrigo Vivi wrote:
-> Ccing AMD folks...
->
-> AMD folks, I understand you have your sysfs for your 'uniras' in
-> production and already using your sysfs entries. But I would appreciate
-> if you guys can take a look to this drm-ras proposed API for the
-> memory page offline RAS related entry. Perhaps this is something that
-> you might want to align in the future. So, it would be good to design
-> something that is generic or flexible enough.
->
-> On Mon, Aug 31, 2026 at 07:08:43PM +0530, Aravind Iddamsetty wrote:
->
-> For a bit of context to AMD folks, I blocked Intel attempt to create
-> a sysfs for the memory page offlining feature because it was breaking
-> the sysfs rules and using a mixed fancy formatting.
->
-> That solution apparently was inspired by the AMD's gpu_vram_bad_pages
-> where each record is  0x%08x : 0x%08x : %1s\n  — three different types
-> with decorative  :  separators. That's the "fancy formatting" clause.
-> And it's ASCII text stuffed into a binary attribute, so it gets neither
-> benefit: not parseable as a blob, not compliant as text.
->
-> The rule for reference:
-> Documentation/filesystems/sysfs.rst:
->
-> """
-> Attributes should be ASCII text files, preferably with only one value per file.
-> It is noted that it may not be efficient to contain only one value per file, so
-> it is socially acceptable to express an array of values of the same type.
->
-> Mixing types, expressing multiple lines of data, and doing fancy formatting of
-> data is heavily frowned upon. Doing these things may get you publicly humiliated
-> and your code rewritten without notice.
-> """
->
->> The memory page offlining support tracks bad VRAM pages and currently
->> only exposes them through debugfs (vram_bad_pages), which is not a
->> stable ABI. Add a proper userspace interface on top of it using the
->> drm-ras generic netlink family.
-> After considering every other API and placement for this infrastructure,
-> I agree that the drm-ras netlink is the one that aligns better wit the
-> need of the mem page offline flows and semantics.
->
-> But I have a few doubts about some of the choices below.
->
->> Introduce a new node type DRM_RAS_NODE_TYPE_RETIRED_RESOURCES which
->> enumerates hardware resources that have been permanently taken out of
->> service. The node type is designed to be extensible: each entry carries
->> a resource-type discriminator plus a type-specific nested attribute, so
->> future resource types can be added without touching existing consumers.
->> VRAM pages are the first supported type, reported via the vram-page nest
->> as {address, size} with a retirement status
->> (retired/pending/failed).
-> I understand that your goal of creating this retired-resources is to
-> make this generic and easy to extend.
-> And this aligns with the goal and original design of the drm-ras itself,
-> which is be extensible by definition from day 0.
->
-> However, I'm afraid that in this case here I couldn't think of other
-> kind of 'resources' that we would want to 'retire' at runtime. So,
-> I'm afraid that this is forcing the user-space to go one extra level without
-> a good reason.
->
-> What about a new drm-ras node that is simply 'bad-vram-pages' or even better:
-> 'memory-offline' ?!
-in future if there are any repairable resources like memory, fabric if
-they support sparings performed through in field repair those can be
-exposed via this interface so designed it to be generic.
->
->> Two operations are added on the node:
->>  - GET_RETIRED_RESOURCES: dump the list of retired resources.
->>  - GET_RETIRED_RESOURCES_INFO: dump per-type limits and occupancy
->>    (max/offlined/queued counts), e.g. the FW-provided maximum number of
->>    pages that can be offlined.
->>
->> Eg:
->> $ sudo ./tools/net/ynl/pyynl/cli.py \
->>      --spec Documentation/netlink/specs/drm_ras.yaml \
->>      --dump list-nodes
->>
->> [{'device-name': '0000:03:00.0', 'node-id': 0, 'node-name':'correctable-errors', 'node-type': 'error-counter'},
->>  {'device-name': '0000:03:00.0', 'node-id': 1, 'node-name':'uncorrectable-errors', 'node-type': 'error-counter'},
->>  {'device-name': '0000:03:00.0', 'node-id': 2, 'node-name':'vram-retired-pages', 'node-type': 'retired-resources'}]
->>
->> $ sudo ./tools/net/ynl/pyynl/cli.py --spec \
->> Documentation/netlink/specs/drm_ras.yaml  --dump  get-retired-resources \
->> --json '{"node-id": 2}'
->>
->> [{'node-id': 2, 'status': 'retired', 'type': 'vram-page', 'vram-page': {'address': 12807041024, 'size': 4096}}]
-> I'm confused here, isn't status such as 'retired' a per-page attribute?
-> Why isn't it inside the vram-page itself?
->
-> $ sudo ynl --dump get-memory-offline --json '{"node-id": 2}'
->
-> [{'node-id': 2,
->   'page': [{'address': 12807041024, 'size': 4096,  'status': 'offlined'},
->            {'address': 12807045120, 'size': 4096,  'status': 'offlined'},
->            {'address': 12812345344, 'size': 4096,  'status': 'pending'},
->            {'address': 12898765312, 'size': 65536, 'status': 'failed'}]}]
->
->
-> Although I doubt we would get different page sizes here, I believe this is
-> generic and matches better with AMD's current sysfs needs.
+--t7h3iiiww7yymmtc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: [PULL] drm-misc-fixes
+MIME-Version: 1.0
 
-the status is still a per entry I just had  type to indicate what is the
-resource may be that confused, i will drop the type here as its obvious,
-and also make the format simpler like you suggested
+Hi Dave, Sima,
 
-./tools/net/ynl/pyynl/cli.py --spec
-Documentation/netlink/specs/drm_ras.yaml  --dump  get-retired-resources
---json '{"node-id": 2}'
-[{'node-id': 2, 'status': 'retired', 'type': 'vram-page', 'vram-page':
-{'address': 22451773440, 'size': 4096}},
- {'node-id': 2, 'status': 'retired', 'type': 'vram-page', 'vram-page':
-{'address': 22451777536, 'size': 4096}}]
+Here's this week drm-misc-fixes PR
 
-new format to be:
+Maxime
 
-{'node-id': 2, 'address': 0x2a4b000, 'size': 4096, 'status': 'retired'}
-{'node-id': 2, 'address': 0x2a4c000, 'size': 4096, 'status': 'pending'}
+drm-misc-fixes-2026-09-03:
+A whole bunch of fixes for various drivers
 
->
->
->> $ sudo ./tools/net/ynl/pyynl/cli.py --spec \
->> Documentation/netlink/specs/drm_ras.yaml  --dump \
->> get-retired-resources-info --json '{"node-id": 2}'
->>
->> [{'max-count': 100, 'node-id': 2, 'offlined-count': 1, 'queued-count': 0, 'type': 'vram-page'}]
->>
->> This change is built on top of and depends on the memory page offline
->> patch series [1]
->>
->> [1] https://lore.kernel.org/all/20260831064942.315720-17-tejas.upadhyay@intel.com/
->>
->> Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
->> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
->> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Cc: Riana Tauro <riana.tauro@intel.com>
->> Cc: Raag Jadav <raag.jadav@intel.com>
->> Cc: Joshua Santhosh Ranjan <joshua.santosh.ranjan@intel.com>
->> Cc: Ashwin Kumar Kulkarni <ashwin.kumar.kulkarni@intel.com>
->> Cc: Pratik Bari <pratik.bari@intel.com>
->>
->> Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
->> Assisted-by: Copilot:claude-opus-4.8
->>
->> ---
->>  Documentation/netlink/specs/drm_ras.yaml | 131 +++++++++++++-
->>  drivers/gpu/drm/drm_ras.c                | 221 ++++++++++++++++++++++-
->>  drivers/gpu/drm/drm_ras_nl.c             |  24 +++
->>  drivers/gpu/drm/drm_ras_nl.h             |   4 +
->>  drivers/gpu/drm/xe/xe_drm_ras.c          |  81 +++++++++
->>  drivers/gpu/drm/xe/xe_drm_ras_types.h    |   3 +
->>  drivers/gpu/drm/xe/xe_ttm_vram_mgr.c     | 134 ++++++++++++++
->>  drivers/gpu/drm/xe/xe_ttm_vram_mgr.h     |   5 +
->>  include/drm/drm_ras.h                    |  87 +++++++++
->>  include/uapi/drm/drm_ras.h               |  63 ++++++-
->>  10 files changed, 742 insertions(+), 11 deletions(-)
->>
->> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
-> Btw, this doesn't apply on recent drm-tip. There were some changes to this spec
-> merged recently. Please do a v2 in a recent drm-tip/
-sure will fix and respin
->
->> index 8aed3d4515e5..37fe297eeb2e 100644
->> --- a/Documentation/netlink/specs/drm_ras.yaml
->> +++ b/Documentation/netlink/specs/drm_ras.yaml
->> @@ -16,11 +16,34 @@ definitions:
->>      type: enum
->>      name: node-type
->>      value-start: 1
->> -    entries: [error-counter]
->> +    entries: [error-counter, retired-resources]
->>      doc: >-
->> -         Type of the node. Currently, only error-counter nodes are
->> -         supported, which expose reliability counters for a hardware/software
->> -         component.
->> +         Type of the node.
->> +         error-counter nodes expose reliability counters for a
->> +         hardware/software component. retired-resources nodes enumerate
->> +         hardware resources (e.g. VRAM pages) that have been permanently
->> +         taken out of service.
->> +  -
->> +    type: enum
->> +    name: retired-resource-status
->> +    value-start: 0
->> +    entries: [retired, pending, failed]
->> +    doc: >-
->> +         Status of a retired resource entry. retired means the resource is
->> +         permanently reserved and out of service; pending means retirement is
->> +         queued but the reservation is not yet complete; failed means the
->> +         reservation failed and the resource may still be in use.
->> +  -
->> +    type: enum
->> +    name: retired-resource-type
->> +    value-start: 1
->> +    entries: [vram-page]
->> +    doc: >-
->> +         Type of a retired resource entry. The type selects which type-specific
->> +         nested attribute is present. New hardware resource types can be added
->> +         here, each carrying its own nested attribute set, without affecting
->> +         existing types. vram-page describes a VRAM page by device address and
->> +         size.
->>  
->>  attribute-sets:
->>    -
->> @@ -96,6 +119,66 @@ attribute-sets:
->>          name: error-value
->>          type: u32
->>          doc: Current value of the error counter.
->> +  -
->> +    name: retired-resource-attrs
->> +    attributes:
->> +      -
->> +        name: node-id
->> +        type: u32
->> +        doc: Node ID targeted by this retired resource operation.
->> +      -
->> +        name: type
->> +        type: u32
->> +        doc: Type of the retired resource, selects the type-specific nest.
->> +        enum: retired-resource-type
->> +      -
->> +        name: status
->> +        type: u32
->> +        doc: Retirement status of the resource.
->> +        enum: retired-resource-status
->> +      -
->> +        name: vram-page
->> +        type: nest
->> +        nested-attributes: vram-page-attrs
->> +        doc: Type-specific payload present when type is vram-page.
->> +  -
->> +    name: vram-page-attrs
->> +    attributes:
->> +      -
->> +        name: address
->> +        type: u64
->> +        doc: Device address of the retired VRAM page (e.g. DPA).
->> +      -
->> +        name: size
->> +        type: u64
->> +        doc: Size of the retired VRAM page in bytes.
->> +      -
->> +        name: pad
->> +        type: pad
->> +  -
->> +    name: retired-resource-info-attrs
->> +    attributes:
->> +      -
->> +        name: node-id
->> +        type: u32
->> +        doc: Node ID targeted by this retired resource info operation.
->> +      -
->> +        name: type
->> +        type: u32
->> +        doc: Resource type this info entry describes.
->> +        enum: retired-resource-type
->> +      -
->> +        name: max-count
->> +        type: u32
->> +        doc: Maximum resources of this type that can be retired.
->> +      -
->> +        name: offlined-count
->> +        type: u32
->> +        doc: Resources of this type currently retired and out of service.
->> +      -
->> +        name: queued-count
->> +        type: u32
->> +        doc: Resources of this type queued for retirement (pending or failed).
->>  
->>  operations:
->>    list:
->> @@ -167,6 +250,46 @@ operations:
->>            - error-id
->>            - error-name
->>            - error-value
->> +    -
->> +      name: get-retired-resources
->> +      doc: >-
->> +           Enumerate the resources (e.g. VRAM pages) that a retired-resources
->> +           node has taken out of service. Each entry includes a type, a
->> +           retirement status and one type-specific nested attribute selected by
->> +           the type. User space must obtain the node ID from list-nodes first.
->> +      attribute-set: retired-resource-attrs
->> +      flags: [admin-perm]
->> +      dump:
->> +        request:
->> +          attributes:
->> +            - node-id
->> +        reply:
->> +          attributes:
->> +            - node-id
->> +            - type
->> +            - status
->> +            - vram-page
->> +    -
->> +      name: get-retired-resources-info
->> +      doc: >-
->> +           Enumerate per-type retired resource limits and current occupancy for
->> +           a retired-resources node: for each resource type the node tracks, the
->> +           maximum number of resources that can be retired and the current
->> +           retired and queued counts. User space must obtain the node ID from
->> +           list-nodes first.
->> +      attribute-set: retired-resource-info-attrs
->> +      flags: [admin-perm]
->> +      dump:
->> +        request:
->> +          attributes:
->> +            - node-id
->> +        reply:
->> +          attributes:
->> +            - node-id
->> +            - type
->> +            - max-count
->> +            - offlined-count
->> +            - queued-count
->>  
->>  mcast-groups:
->>    list:
->> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
->> index 39155fb514de..a708fec7b68f 100644
->> --- a/drivers/gpu/drm/drm_ras.c
->> +++ b/drivers/gpu/drm/drm_ras.c
->> @@ -56,7 +56,6 @@
->>   * Node type:
->>   *
->>   * - ERROR_COUNTER:
->> - *     + Currently, only error counters are supported.
->>   *     + The driver must implement the query_error_counter() callback to provide
->>   *       the name and the value of the error counter.
->>   *     + The driver must provide a error_counter_range.last value informing the
->> @@ -67,6 +66,13 @@
->>   *       driver must return -ENOENT to the query_error_counter as an indication
->>   *       that the ID should be skipped and not listed in the netlink API.
->>   *
->> + * - RETIRED_RESOURCES:
->> + *     + Enumerates hardware resources (e.g. VRAM pages) permanently taken out
->> + *       of service.
->> + *     + The driver must implement the query_retired_resource() callback, which
->> + *       is called with an incrementing index and returns -ENOENT once the last
->> + *       entry has been reported.
->> + *
->>   * Netlink handlers:
->>   *
->>   * - drm_ras_nl_list_nodes_dumpit(): Implements the LIST_NODES
->> @@ -77,6 +83,9 @@
->>   *   operation, fetching a counter value from a specific node.
->>   * - drm_ras_nl_clear_error_counter_doit(): Implements the CLEAR_ERROR_COUNTER doit
->>   *   operation, clearing a counter value from a specific node.
->> + * - drm_ras_nl_get_retired_resources_dumpit(): Implements the
->> + *   GET_RETIRED_RESOURCES dumpit operation, enumerating retired resources of a
->> + *   specific node.
->>   */
->>  
->>  static DEFINE_XARRAY_ALLOC(drm_ras_xa);
->> @@ -87,6 +96,8 @@ static DEFINE_XARRAY_ALLOC(drm_ras_xa);
->>  struct drm_ras_ctx {
->>  	/* Which xarray id to restart the dump from */
->>  	unsigned long restart;
->> +	/* Ordering-key cursor for retired-resource dumps (inclusive lower bound) */
->> +	u64 cursor;
->>  };
->>  
->>  /**
->> @@ -456,6 +467,197 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->>  	return node->clear_error_counter(node, error_id);
->>  }
->>  
->> +static int msg_put_retired_resource(struct sk_buff *skb, u32 node_id,
->> +				    const struct drm_ras_retired_resource *res)
->> +{
->> +	struct nlattr *nest;
->> +
->> +	if (nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID, node_id) ||
->> +	    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_TYPE, res->type) ||
->> +	    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_STATUS, res->status))
->> +		return -EMSGSIZE;
->> +
->> +	switch (res->type) {
->> +	case DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE:
->> +		nest = nla_nest_start(skb,
->> +				      DRM_RAS_A_RETIRED_RESOURCE_ATTRS_VRAM_PAGE);
->> +		if (!nest)
->> +			return -EMSGSIZE;
->> +
->> +		if (nla_put_u64_64bit(skb, DRM_RAS_A_VRAM_PAGE_ATTRS_ADDRESS,
->> +				      res->vram_page.address,
->> +				      DRM_RAS_A_VRAM_PAGE_ATTRS_PAD) ||
->> +		    nla_put_u64_64bit(skb, DRM_RAS_A_VRAM_PAGE_ATTRS_SIZE,
->> +				      res->vram_page.size,
->> +				      DRM_RAS_A_VRAM_PAGE_ATTRS_PAD)) {
->> +			nla_nest_cancel(skb, nest);
->> +			return -EMSGSIZE;
->> +		}
->> +
->> +		nla_nest_end(skb, nest);
->> +		break;
->> +	default:
->> +		/* Unknown type: common attributes were still reported. */
->> +		break;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +/**
->> + * drm_ras_nl_get_retired_resources_dumpit() - Dump retired resources of a node
->> + * @skb: Netlink message buffer
->> + * @cb: Callback context for multi-part dumps
->> + *
->> + * Iterates over all retired resources of a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES
->> + * node and appends their attributes to the given netlink message buffer. Each
->> + * entry carries a common type and status, plus one type-specific nested
->> + * attribute selected by the type. Uses @cb->ctx to store an ordering-key cursor
->> + * so multi-part dumps resume by key rather than position, staying correct if
->> + * the list changes concurrently between message parts.
->> + *
->> + * Return: 0 if all entries fit in @skb, number of bytes added to @skb if
->> + *          the buffer filled up (requires multi-part continuation), or
->> + *          a negative error code on failure.
->> + */
->> +int drm_ras_nl_get_retired_resources_dumpit(struct sk_buff *skb,
->> +					    struct netlink_callback *cb)
->> +{
->> +	const struct genl_info *info = genl_info_dump(cb);
->> +	struct drm_ras_ctx *ctx = (void *)cb->ctx;
->> +	struct drm_ras_retired_resource res;
->> +	struct drm_ras_node *node;
->> +	struct nlattr *hdr;
->> +	u32 node_id;
->> +	u64 cursor;
->> +	int ret = 0;
->> +
->> +	if (!info->attrs ||
->> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID))
->> +		return -EINVAL;
->> +
->> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID]);
->> +
->> +	node = xa_load(&drm_ras_xa, node_id);
->> +	if (!node || node->type != DRM_RAS_NODE_TYPE_RETIRED_RESOURCES ||
->> +	    !node->query_retired_resource)
->> +		return -ENOENT;
->> +
->> +	cursor = ctx->cursor;
->> +	for (;;) {
->> +		memset(&res, 0, sizeof(res));
->> +		ret = node->query_retired_resource(node, cursor, &res);
->> +		/* -ENOENT marks the end of the list. */
->> +		if (ret == -ENOENT) {
->> +			ret = 0;
->> +			break;
->> +		}
->> +		if (ret)
->> +			return ret;
->> +
->> +		hdr = genlmsg_iput(skb, info);
->> +		if (!hdr) {
->> +			ret = -EMSGSIZE;
->> +			break;
->> +		}
->> +
->> +		ret = msg_put_retired_resource(skb, node_id, &res);
->> +		if (ret) {
->> +			genlmsg_cancel(skb, hdr);
->> +			break;
->> +		}
->> +
->> +		genlmsg_end(skb, hdr);
->> +		/* Advance past this entry; keys are unique. */
->> +		cursor = res.key + 1;
->> +	}
->> +
->> +	/* On buffer-full the current entry was not emitted; resume at it. */
->> +	if (ret == -EMSGSIZE)
->> +		ctx->cursor = cursor;
->> +
->> +	return ret;
->> +}
->> +
->> +/**
->> + * drm_ras_nl_get_retired_resources_info_dumpit() - Dump node retired limits
->> + * @skb: Netlink message buffer
->> + * @cb: Callback context for multi-part dumps
->> + *
->> + * Reports per-type limits and current occupancy for a
->> + * %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node. Each entry carries the resource
->> + * type, the maximum number of resources of that type that can be retired, and
->> + * the current retired and queued counts. A node that tracks several resource
->> + * types reports one entry per type. Uses @cb->ctx to track the next type index
->> + * in case the buffer fills up, allowing multi-part dump support.
->> + *
->> + * Return: 0 if all entries fit in @skb, number of bytes added to @skb if
->> + *          the buffer filled up (requires multi-part continuation), or
->> + *          a negative error code on failure.
->> + */
->> +int drm_ras_nl_get_retired_resources_info_dumpit(struct sk_buff *skb,
->> +						 struct netlink_callback *cb)
->> +{
->> +	const struct genl_info *info = genl_info_dump(cb);
->> +	struct drm_ras_ctx *ctx = (void *)cb->ctx;
->> +	struct drm_ras_retired_info rinfo;
->> +	struct drm_ras_node *node;
->> +	struct nlattr *hdr;
->> +	u32 node_id, index;
->> +	int ret = 0;
->> +
->> +	if (!info->attrs ||
->> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID))
->> +		return -EINVAL;
->> +
->> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID]);
->> +
->> +	node = xa_load(&drm_ras_xa, node_id);
->> +	if (!node || node->type != DRM_RAS_NODE_TYPE_RETIRED_RESOURCES ||
->> +	    !node->query_retired_info)
->> +		return -ENOENT;
->> +
->> +	for (index = ctx->restart; ; index++) {
->> +		memset(&rinfo, 0, sizeof(rinfo));
->> +		ret = node->query_retired_info(node, index, &rinfo);
->> +		/* -ENOENT marks the end of the type list. */
->> +		if (ret == -ENOENT) {
->> +			ret = 0;
->> +			break;
->> +		}
->> +		if (ret)
->> +			return ret;
->> +
->> +		hdr = genlmsg_iput(skb, info);
->> +		if (!hdr) {
->> +			ret = -EMSGSIZE;
->> +			break;
->> +		}
->> +
->> +		if (nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID,
->> +				node_id) ||
->> +		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_TYPE,
->> +				rinfo.type) ||
->> +		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX_COUNT,
->> +				rinfo.max_count) ||
->> +		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_OFFLINED_COUNT,
->> +				rinfo.offlined_count) ||
->> +		    nla_put_u32(skb, DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_QUEUED_COUNT,
->> +				rinfo.queued_count)) {
->> +			genlmsg_cancel(skb, hdr);
->> +			ret = -EMSGSIZE;
->> +			break;
->> +		}
->> +
->> +		genlmsg_end(skb, hdr);
->> +	}
->> +
->> +	if (ret == -EMSGSIZE)
->> +		ctx->restart = index;
->> +
->> +	return ret;
->> +}
->> +
->>  /**
->>   * drm_ras_node_register() - Register a new RAS node
->>   * @node: Node structure to register
->> @@ -470,15 +672,24 @@ int drm_ras_node_register(struct drm_ras_node *node)
->>  	if (!node->device_name || !node->node_name)
->>  		return -EINVAL;
->>  
->> -	/* Currently, only Error Counter Endpoints are supported */
->> -	if (node->type != DRM_RAS_NODE_TYPE_ERROR_COUNTER)
->> -		return -EINVAL;
->> -
->>  	/* Mandatory entries for Error Counter Node */
->>  	if (node->type == DRM_RAS_NODE_TYPE_ERROR_COUNTER &&
->>  	    (!node->error_counter_range.last || !node->query_error_counter))
->>  		return -EINVAL;
->>  
->> +	/* Mandatory entries for Retired Resources Node */
->> +	if (node->type == DRM_RAS_NODE_TYPE_RETIRED_RESOURCES &&
->> +	    !node->query_retired_resource)
->> +		return -EINVAL;
->> +
->> +	switch (node->type) {
->> +	case DRM_RAS_NODE_TYPE_ERROR_COUNTER:
->> +	case DRM_RAS_NODE_TYPE_RETIRED_RESOURCES:
->> +		break;
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +
->>  	return xa_alloc(&drm_ras_xa, &node->id, node, xa_limit_32b, GFP_KERNEL);
->>  }
->>  EXPORT_SYMBOL(drm_ras_node_register);
->> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
->> index 9d3123cc9f9c..b194d065ec48 100644
->> --- a/drivers/gpu/drm/drm_ras_nl.c
->> +++ b/drivers/gpu/drm/drm_ras_nl.c
->> @@ -28,6 +28,16 @@ static const struct nla_policy drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_E
->>  	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
->>  };
->>  
->> +/* DRM_RAS_CMD_GET_RETIRED_RESOURCES - dump */
->> +static const struct nla_policy drm_ras_get_retired_resources_nl_policy[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID + 1] = {
->> +	[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID] = { .type = NLA_U32, },
->> +};
->> +
->> +/* DRM_RAS_CMD_GET_RETIRED_RESOURCES_INFO - dump */
->> +static const struct nla_policy drm_ras_get_retired_resources_info_nl_policy[DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID + 1] = {
->> +	[DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID] = { .type = NLA_U32, },
->> +};
->> +
->>  /* Ops table for drm_ras */
->>  static const struct genl_split_ops drm_ras_nl_ops[] = {
->>  	{
->> @@ -56,6 +66,20 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
->>  		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
->>  		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
->>  	},
->> +	{
->> +		.cmd		= DRM_RAS_CMD_GET_RETIRED_RESOURCES,
->> +		.dumpit		= drm_ras_nl_get_retired_resources_dumpit,
->> +		.policy		= drm_ras_get_retired_resources_nl_policy,
->> +		.maxattr	= DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID,
->> +		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
->> +	},
->> +	{
->> +		.cmd		= DRM_RAS_CMD_GET_RETIRED_RESOURCES_INFO,
->> +		.dumpit		= drm_ras_nl_get_retired_resources_info_dumpit,
->> +		.policy		= drm_ras_get_retired_resources_info_nl_policy,
->> +		.maxattr	= DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID,
->> +		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
->> +	},
->>  };
->>  
->>  static const struct genl_multicast_group drm_ras_nl_mcgrps[] = {
->> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
->> index 03ec275aca92..c46f2b4a6e8a 100644
->> --- a/drivers/gpu/drm/drm_ras_nl.h
->> +++ b/drivers/gpu/drm/drm_ras_nl.h
->> @@ -20,6 +20,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
->>  					struct netlink_callback *cb);
->>  int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->>  					struct genl_info *info);
->> +int drm_ras_nl_get_retired_resources_dumpit(struct sk_buff *skb,
->> +					    struct netlink_callback *cb);
->> +int drm_ras_nl_get_retired_resources_info_dumpit(struct sk_buff *skb,
->> +						 struct netlink_callback *cb);
->>  
->>  enum {
->>  	DRM_RAS_NLGRP_ERROR_REPORT,
->> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
->> index 78184b6ea7d4..11ddd12a42e2 100644
->> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
->> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
->> @@ -12,6 +12,7 @@
->>  #include "xe_device_types.h"
->>  #include "xe_drm_ras.h"
->>  #include "xe_ras.h"
->> +#include "xe_ttm_vram_mgr.h"
->>  
->>  static const char * const error_components[] = DRM_XE_RAS_ERROR_COMPONENT_NAMES;
->>  static const char * const error_severity[] = DRM_XE_RAS_ERROR_SEVERITY_NAMES;
->> @@ -154,6 +155,79 @@ static void cleanup_node(struct drm_device *drm, void *node)
->>  	cleanup_node_param(node);
->>  }
->>  
->> +static int query_retired_resource(struct drm_ras_node *node, u64 cursor,
->> +				  struct drm_ras_retired_resource *res)
->> +{
->> +	struct xe_device *xe = node->priv;
->> +	int ret;
->> +
->> +	ret = xe_ttm_vram_get_retired_page(xe, cursor, &res->vram_page.address,
->> +					   &res->vram_page.size, &res->status);
->> +	if (ret)
->> +		return ret;
->> +
->> +	res->type = DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE;
->> +	res->key = res->vram_page.address;
->> +
->> +	return 0;
->> +}
->> +
->> +static int query_retired_info(struct drm_ras_node *node, u32 index,
->> +			      struct drm_ras_retired_info *info)
->> +{
->> +	struct xe_device *xe = node->priv;
->> +
->> +	/* This node currently tracks a single resource type: VRAM pages. */
->> +	if (index > 0)
->> +		return -ENOENT;
->> +
->> +	info->type = DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE;
->> +	xe_ttm_vram_get_retired_info(xe, &info->max_count, &info->offlined_count,
->> +				     &info->queued_count);
->> +
->> +	return 0;
->> +}
->> +
->> +static int register_retired_node(struct xe_device *xe)
->> +{
->> +	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
->> +	struct xe_drm_ras *ras = &xe->ras;
->> +	struct drm_ras_node *node;
->> +	const char *device_name;
->> +	int ret;
->> +
->> +	/* Retired VRAM pages are only tracked on platforms with page offline */
->> +	if (xe->info.platform != XE_CRESCENTISLAND)
->> +		return 0;
->> +
->> +	node = drmm_kzalloc(&xe->drm, sizeof(*node), GFP_KERNEL);
->> +	if (!node)
->> +		return -ENOMEM;
->> +
->> +	device_name = kasprintf(GFP_KERNEL, "%04x:%02x:%02x.%d",
->> +				pci_domain_nr(pdev->bus), pdev->bus->number,
->> +				PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
->> +	if (!device_name)
->> +		return -ENOMEM;
->> +
->> +	node->device_name = device_name;
->> +	node->node_name = "vram-retired-pages";
->> +	node->type = DRM_RAS_NODE_TYPE_RETIRED_RESOURCES;
->> +	node->query_retired_resource = query_retired_resource;
->> +	node->query_retired_info = query_retired_info;
->> +	node->priv = xe;
->> +
->> +	ret = drm_ras_node_register(node);
->> +	if (ret) {
->> +		cleanup_node_param(node);
->> +		return ret;
->> +	}
->> +
->> +	ras->retired_node = node;
->> +
->> +	return drmm_add_action_or_reset(&xe->drm, cleanup_node, node);
->> +}
->> +
->>  static int register_nodes(struct xe_device *xe)
->>  {
->>  	struct xe_drm_ras *ras = &xe->ras;
->> @@ -245,5 +319,12 @@ int xe_drm_ras_init(struct xe_device *xe)
->>  		return err;
->>  	}
->>  
->> +	err = register_retired_node(xe);
->> +	if (err) {
->> +		drm_err(&xe->drm, "Failed to register DRM RAS retired node (%pe)\n",
->> +			ERR_PTR(err));
->> +		return err;
->> +	}
->> +
->>  	return 0;
->>  }
->> diff --git a/drivers/gpu/drm/xe/xe_drm_ras_types.h b/drivers/gpu/drm/xe/xe_drm_ras_types.h
->> index 83899cf04793..e1bdb7edd0e1 100644
->> --- a/drivers/gpu/drm/xe/xe_drm_ras_types.h
->> +++ b/drivers/gpu/drm/xe/xe_drm_ras_types.h
->> @@ -41,6 +41,9 @@ struct xe_drm_ras {
->>  	/** @node: DRM RAS node */
->>  	struct drm_ras_node *node;
->>  
->> +	/** @retired_node: DRM RAS retired-resources node for VRAM bad pages */
->> +	struct drm_ras_node *retired_node;
->> +
->>  	/** @info: info array for all types of errors */
->>  	struct xe_drm_ras_counter *info[DRM_XE_RAS_ERR_SEV_MAX];
->>  
->> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->> index c54ad017725f..bc2fa43009f4 100644
->> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
->> @@ -15,6 +15,8 @@
->>  #include <drm/ttm/ttm_placement.h>
->>  #include <drm/ttm/ttm_range_manager.h>
->>  
->> +#include <uapi/drm/drm_ras.h>
->> +
->>  #include "regs/xe_regs.h"
->>  #include "xe_bo.h"
->>  #include "xe_configfs.h"
->> @@ -581,6 +583,138 @@ u64 xe_ttm_vram_get_avail(struct ttm_resource_manager *man)
->>  	return avail;
->>  }
->>  
->> +/**
->> + * xe_ttm_vram_get_retired_page - Fetch the next retired VRAM page by address
->> + * @xe: xe device instance
->> + * @min_addr: inclusive lower bound; return the page with the smallest DPA >=
->> + *            this value
->> + * @addr: output, device physical address (DPA) of the page
->> + * @size: output, size of the page in bytes
->> + * @status: output, retirement status (enum drm_ras_retired_resource_status)
->> + *
->> + * Scans the offlined and queued page lists across all tiles and returns the
->> + * entry with the smallest DPA that is >= @min_addr. Because retired pages have
->> + * unique addresses, iterating with @min_addr = previous_addr + 1 walks every
->> + * entry in a stable address order, which is robust against concurrent
->> + * insertion or removal between calls. Intended to back the drm-ras
->> + * retired-resources node enumeration.
->> + *
->> + * Return: 0 on success, -ENOENT when no page has a DPA >= @min_addr.
->> + */
->> +int xe_ttm_vram_get_retired_page(struct xe_device *xe, u64 min_addr,
->> +				 u64 *addr, u64 *size, u32 *status)
->> +{
->> +	struct xe_ttm_vram_offline_resource *pos;
->> +	struct ttm_resource_manager *man;
->> +	struct gpu_buddy_block *block;
->> +	struct xe_ttm_vram_mgr *mgr;
->> +	u64 best_addr = 0, best_size = 0;
->> +	struct xe_tile *tile;
->> +	u32 best_status = 0;
->> +	bool found = false;
->> +	u8 id;
->> +
->> +	for_each_tile(tile, xe, id) {
->> +		struct xe_vram_region *vr = tile->mem.vram;
->> +		u64 a, s;
->> +
->> +		man = ttm_manager_type(&xe->ttm, XE_PL_VRAM0 + id);
->> +		if (!man || !vr)
->> +			continue;
->> +		mgr = to_xe_ttm_vram_mgr(man);
->> +
->> +		rcu_read_lock();
->> +
->> +		list_for_each_entry_rcu(pos, &mgr->offlined_pages, offlined_link) {
->> +			block = list_first_entry_or_null(&pos->blocks,
->> +							 struct gpu_buddy_block, link);
->> +			if (block) {
->> +				a = gpu_buddy_block_offset(block) + vr->dpa_base;
->> +				s = gpu_buddy_block_size(&mgr->mm, block);
->> +			} else {
->> +				a = pos->addr + vr->dpa_base;
->> +				s = SZ_4K;
->> +			}
->> +
->> +			if (a >= min_addr && (!found || a < best_addr)) {
->> +				best_addr = a;
->> +				best_size = s;
->> +				best_status = DRM_RAS_RETIRED_RESOURCE_STATUS_RETIRED;
->> +				found = true;
->> +			}
->> +		}
->> +
->> +		list_for_each_entry_rcu(pos, &mgr->queued_pages, queued_link) {
->> +			block = list_first_entry_or_null(&pos->blocks,
->> +							 struct gpu_buddy_block, link);
->> +			if (block) {
->> +				a = gpu_buddy_block_offset(block) + vr->dpa_base;
->> +				s = gpu_buddy_block_size(&mgr->mm, block);
->> +			} else {
->> +				a = pos->addr + vr->dpa_base;
->> +				s = SZ_4K;
->> +			}
->> +
->> +			if (a >= min_addr && (!found || a < best_addr)) {
->> +				best_addr = a;
->> +				best_size = s;
->> +				best_status = pos->status == XE_PAGE_RESERVE_FAIL ?
->> +					      DRM_RAS_RETIRED_RESOURCE_STATUS_FAILED :
->> +					      DRM_RAS_RETIRED_RESOURCE_STATUS_PENDING;
->> +				found = true;
->> +			}
->> +		}
->> +
->> +		rcu_read_unlock();
->> +	}
->> +
->> +	if (!found)
->> +		return -ENOENT;
->> +
->> +	*addr = best_addr;
->> +	*size = best_size;
->> +	*status = best_status;
->> +
->> +	return 0;
->> +}
->> +
->> +/**
->> + * xe_ttm_vram_get_retired_info - Fetch device-wide retired page limits/counts
->> + * @xe: xe device instance
->> + * @max: output, maximum pages that can be offlined (summed across tiles)
->> + * @offlined: output, pages currently retired (summed across tiles)
->> + * @queued: output, pages queued for retirement (summed across tiles)
->> + *
->> + * Aggregates the per-tile VRAM offline limits and occupancy. Intended to back
->> + * the drm-ras retired-resources info query.
->> + */
->> +void xe_ttm_vram_get_retired_info(struct xe_device *xe, u32 *max,
->> +				  u32 *offlined, u32 *queued)
->> +{
->> +	struct ttm_resource_manager *man;
->> +	struct xe_ttm_vram_mgr *mgr;
->> +	struct xe_tile *tile;
->> +	u32 m = 0, o = 0, q = 0;
->> +	u8 id;
->> +
->> +	for_each_tile(tile, xe, id) {
->> +		man = ttm_manager_type(&xe->ttm, XE_PL_VRAM0 + id);
->> +		if (!man || !tile->mem.vram)
->> +			continue;
->> +		mgr = to_xe_ttm_vram_mgr(man);
->> +
->> +		scoped_guard(mutex, &mgr->lock) {
->> +			m += mgr->max_pages;
-> This is awkward. You document the max_count as the maximum that can be retired,
-> but you are actually counting how many are retired at a given point.
-yes the max count should be coming from FW query and its static, i will
-fix it thanks for catching
->
->> +			o += mgr->n_offlined_pages;
->> +			q += mgr->n_queued_pages;
->
-> You should probably have a single function that gets all the entries and
-> the count. Otherwise you might have inconsistencies in the information.
->
-> info command followed by dump can show different discrepant information...
->
-> perhaps we could even delete the info command entirely and only use the dump?
+- Fix drm_crtc_commit leak when PAGE_FLIP_EVENT is used,
+- amd: plane blend mode fixes
+- amdxdna: out-of-bounds access fix, reject commands chains with no
+  commands, handle chained mapping BO failures, refuse to flush an
+  imported BO
+- atomic-state-helpers: set pixel_blend_mode to prop default on reset
+- dma-buf: Publish the dma-buf only after copy_to_user succeeds, fix
+  some kernel-doc warnings
+- ethosu: handle mmio mapping failures, handle storage modes only on
+  hardware that supports it, fix job completion fence cleanup
+- fastrpc: Publish the dma-buf only after copy_to_user succeeds
+- gud: Improve TV modes and rotation handling
+- nouveau: use-after-free fixes, add scanline position support, HDMI
+  and DP fixes, null pointer dereference fix, dmem accounting fixes for
+  large folios, use write-combined maps for coherent
+- pagemap: Prevent double migration of device pages, Reset migration
+  page count on eviction retry, dma-unmap pages before handling
+  migration errors, use after free fixes
+- prime: fix prime exports tracing
+- qaic: out-of-bounds access fix
+- sysfb: Fix integer overflow, fix constant comparison bug
+- tegra: Add blend mode properties
+- virtio: exit path and error handling fixes
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-makes sense I believe we can even drop the offlined and queued counts as
-anyways that info can be retrieved from the earlier ops and can be
-derived by userspace consumer.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-So will just have the max_page count as the leading information to per
-page entries.
+are available in the Git repository at:
 
->
->> +		}
->> +	}
->> +
->> +	*max = m;
->> +	*offlined = o;
->> +	*queued = q;
->> +}
->> +
->>  static int xe_ttm_vram_purge_page(struct xe_device *xe, struct xe_bo *bo)
->>  {
->>  	u32	q_flag = DRM_XE_EXEC_QUEUE_BAN_REASON_PAGE_OFFLINE;
->> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h
->> index 8878e36292b2..9f849ee40e5b 100644
->> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h
->> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.h
->> @@ -35,6 +35,11 @@ void xe_ttm_vram_get_used(struct ttm_resource_manager *man,
->>  int xe_ttm_vram_handle_addr_fault(struct xe_device *xe, u64 addr);
->>  int xe_ttm_vram_inject_fault(struct xe_device *xe);
->>  void xe_ttm_vram_debugfs_init(struct xe_device *xe, struct dentry *root);
->> +int xe_ttm_vram_get_retired_page(struct xe_device *xe, u64 min_addr,
->> +				 u64 *addr, u64 *size, u32 *status);
->> +void xe_ttm_vram_get_retired_info(struct xe_device *xe, u32 *max,
->> +				  u32 *offlined, u32 *queued);
->> +
->>  static inline struct xe_ttm_vram_mgr_resource *
->>  to_xe_ttm_vram_mgr_resource(struct ttm_resource *res)
->>  {
->> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
->> index ee2caa0edc6f..024f6a08c079 100644
->> --- a/include/drm/drm_ras.h
->> +++ b/include/drm/drm_ras.h
->> @@ -10,6 +10,54 @@
->>  
->>  #include <uapi/drm/drm_ras.h>
->>  
->> +/**
->> + * struct drm_ras_retired_resource - A single retired resource entry
->> + *
->> + * Describes one hardware resource that has been taken out of service and is
->> + * reported by a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node. @type selects which
->> + * member of the anonymous union is valid, allowing new hardware resource types
->> + * to be added without changing the common fields.
->> + */
->> +struct drm_ras_retired_resource {
->> +	/** @type: Resource type (enum drm_ras_retired_resource_type). */
->> +	__u32 type;
->> +	/** @status: Retirement status (enum drm_ras_retired_resource_status). */
->> +	__u32 status;
->> +	/**
->> +	 * @key: Opaque, driver-assigned ordering key for this entry. drm-ras
->> +	 * uses it only to advance the dump cursor; entries must be enumerable
->> +	 * in strictly increasing @key order and keys must be unique.
->> +	 */
->> +	__u64 key;
->> +	union {
->> +		/** @vram_page: Valid when @type is VRAM_PAGE. */
->> +		struct {
->> +			/** @vram_page.address: Device address (e.g. DPA). */
->> +			__u64 address;
->> +			/** @vram_page.size: Size in bytes. */
->> +			__u64 size;
->> +		} vram_page;
->> +	};
->> +};
->> +
->> +/**
->> + * struct drm_ras_retired_info - Per-type retired resource limits and counts
->> + *
->> + * Reported by a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node to describe the
->> + * capacity and current occupancy of one resource type. A node that tracks
->> + * several resource types reports one entry per type.
->> + */
->> +struct drm_ras_retired_info {
->> +	/** @type: Resource type (enum drm_ras_retired_resource_type). */
->> +	__u32 type;
->> +	/** @max_count: Maximum resources of @type that can be retired. */
->> +	__u32 max_count;
->> +	/** @offlined_count: Resources of @type currently retired. */
->> +	__u32 offlined_count;
->> +	/** @queued_count: Resources of @type queued (pending or failed). */
->> +	__u32 queued_count;
->> +};
->> +
->>  /**
->>   * struct drm_ras_node - A DRM RAS Node
->>   */
->> @@ -71,6 +119,45 @@ struct drm_ras_node {
->>  	 */
->>  	int (*clear_error_counter)(struct drm_ras_node *node, u32 error_id);
->>  
->> +	/**
->> +	 * @query_retired_resource:
->> +	 *
->> +	 * This callback is used by drm-ras to enumerate retired resources of a
->> +	 * %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node. It is called with @cursor
->> +	 * and must return the next entry whose ordering key is greater than or
->> +	 * equal to @cursor, setting @res->key to that entry's key. drm-ras
->> +	 * resumes multi-part dumps from the returned key, so enumeration stays
->> +	 * correct across concurrent insertion or removal.
->> +	 *
->> +	 * The @query_retired_resource is a mandatory callback for
->> +	 * retired-resources nodes.
->> +	 *
->> +	 * Returns: 0 on success,
->> +	 *          -ENOENT when no entry has a key >= @cursor, used as an
->> +	 *                  indication that enumeration is complete.
->> +	 *          Other negative values on errors that should terminate the
->> +	 *          netlink query.
->> +	 */
->> +	int (*query_retired_resource)(struct drm_ras_node *node, u64 cursor,
->> +				      struct drm_ras_retired_resource *res);
->> +
->> +	/**
->> +	 * @query_retired_info:
->> +	 *
->> +	 * This optional callback is used by drm-ras to report per-type limits
->> +	 * and current occupancy for a %DRM_RAS_NODE_TYPE_RETIRED_RESOURCES node.
->> +	 * It is called with @index starting at 0 and incrementing until the
->> +	 * driver returns -ENOENT, allowing one entry per resource type.
->> +	 *
->> +	 * Returns: 0 on success,
->> +	 *          -ENOENT when @index is past the last type, used as an
->> +	 *                  indication that enumeration is complete.
->> +	 *          Other negative values on errors that should terminate the
->> +	 *          netlink query.
->> +	 */
->> +	int (*query_retired_info)(struct drm_ras_node *node, u32 index,
->> +				  struct drm_ras_retired_info *info);
->> +
->>  	/** @priv: Driver private data */
->>  	void *priv;
->>  };
->> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
->> index eab8231aa87c..de6f6dd3ffa9 100644
->> --- a/include/uapi/drm/drm_ras.h
->> +++ b/include/uapi/drm/drm_ras.h
-> you are auto-generating these with the ynl commands right? please make sure
-> to mention that in the commit message just to be sure.
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-09-03
 
-sure will do it.
+for you to fetch changes up to d3609b540838945ab2ca5b65f32a2eb67bb284c8:
 
-Thanks,
-Aravind.
->
-> Thanks,
-> Rodrigo.
->
->> @@ -11,11 +11,38 @@
->>  #define DRM_RAS_FAMILY_VERSION	1
->>  
->>  /*
->> - * Type of the node. Currently, only error-counter nodes are supported, which
->> - * expose reliability counters for a hardware/software component.
->> + * Type of the node.
->> + *  - error-counter nodes expose reliability counters for a
->> + *    hardware/software component.
->> + *  - retired-resources nodes enumerate hardware resources (e.g. VRAM pages)
->> + *    that have been permanently taken out of service.
->>   */
->>  enum drm_ras_node_type {
->>  	DRM_RAS_NODE_TYPE_ERROR_COUNTER = 1,
->> +	DRM_RAS_NODE_TYPE_RETIRED_RESOURCES,
->> +};
->> +
->> +/*
->> + * Status of a retired resource entry reported by a retired-resources node.
->> + *  - retired: resource is permanently reserved and out of service.
->> + *  - pending: retirement is queued but reservation is not yet complete.
->> + *  - failed:  reservation of the resource failed and it may still be in use.
->> + */
->> +enum drm_ras_retired_resource_status {
->> +	DRM_RAS_RETIRED_RESOURCE_STATUS_RETIRED = 0,
->> +	DRM_RAS_RETIRED_RESOURCE_STATUS_PENDING,
->> +	DRM_RAS_RETIRED_RESOURCE_STATUS_FAILED,
->> +};
->> +
->> +/*
->> + * Type of a retired resource entry. The type selects which type-specific
->> + * nested attribute is present in a retired-resource entry. New hardware
->> + * resource types can be added here, each carrying its own nested attribute
->> + * set, without affecting existing types.
->> + *  - vram-page: a VRAM page identified by device address and size.
->> + */
->> +enum drm_ras_retired_resource_type {
->> +	DRM_RAS_RETIRED_RESOURCE_TYPE_VRAM_PAGE = 1,
->>  };
->>  
->>  enum {
->> @@ -50,11 +77,43 @@ enum {
->>  	DRM_RAS_A_ERROR_EVENT_ATTRS_MAX = (__DRM_RAS_A_ERROR_EVENT_ATTRS_MAX - 1)
->>  };
->>  
->> +enum {
->> +	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID = 1,
->> +	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_TYPE,
->> +	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_STATUS,
->> +	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_VRAM_PAGE,
->> +
->> +	__DRM_RAS_A_RETIRED_RESOURCE_ATTRS_MAX,
->> +	DRM_RAS_A_RETIRED_RESOURCE_ATTRS_MAX = (__DRM_RAS_A_RETIRED_RESOURCE_ATTRS_MAX - 1)
->> +};
->> +
->> +enum {
->> +	DRM_RAS_A_VRAM_PAGE_ATTRS_ADDRESS = 1,
->> +	DRM_RAS_A_VRAM_PAGE_ATTRS_SIZE,
->> +	DRM_RAS_A_VRAM_PAGE_ATTRS_PAD,
->> +
->> +	__DRM_RAS_A_VRAM_PAGE_ATTRS_MAX,
->> +	DRM_RAS_A_VRAM_PAGE_ATTRS_MAX = (__DRM_RAS_A_VRAM_PAGE_ATTRS_MAX - 1)
->> +};
->> +
->> +enum {
->> +	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_NODE_ID = 1,
->> +	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_TYPE,
->> +	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX_COUNT,
->> +	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_OFFLINED_COUNT,
->> +	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_QUEUED_COUNT,
->> +
->> +	__DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX,
->> +	DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX = (__DRM_RAS_A_RETIRED_RESOURCE_INFO_ATTRS_MAX - 1)
->> +};
->> +
->>  enum {
->>  	DRM_RAS_CMD_LIST_NODES = 1,
->>  	DRM_RAS_CMD_GET_ERROR_COUNTER,
->>  	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
->>  	DRM_RAS_CMD_ERROR_EVENT,
->> +	DRM_RAS_CMD_GET_RETIRED_RESOURCES,
->> +	DRM_RAS_CMD_GET_RETIRED_RESOURCES_INFO,
->>  
->>  	__DRM_RAS_CMD_MAX,
->>  	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
->> -- 
->> 2.25.1
->>
+  MAINTAINERS, mailmap: use Aditya Garg's linux.dev account (2026-09-03 09:44:40 +0200)
+
+----------------------------------------------------------------
+A whole bunch of fixes for various drivers
+
+- Fix drm_crtc_commit leak when PAGE_FLIP_EVENT is used,
+- amd: plane blend mode fixes
+- amdxdna: out-of-bounds access fix, reject commands chains with no
+  commands, handle chained mapping BO failures, refuse to flush an
+  imported BO
+- atomic-state-helpers: set pixel_blend_mode to prop default on reset
+- dma-buf: Publish the dma-buf only after copy_to_user succeeds, fix
+  some kernel-doc warnings
+- ethosu: handle mmio mapping failures, handle storage modes only on
+  hardware that supports it, fix job completion fence cleanup
+- fastrpc: Publish the dma-buf only after copy_to_user succeeds
+- gud: Improve TV modes and rotation handling
+- nouveau: use-after-free fixes, add scanline position support, HDMI
+  and DP fixes, null pointer dereference fix, dmem accounting fixes for
+  large folios, use write-combined maps for coherent
+- pagemap: Prevent double migration of device pages, Reset migration
+  page count on eviction retry, dma-unmap pages before handling
+  migration errors, use after free fixes
+- prime: fix prime exports tracing
+- qaic: out-of-bounds access fix
+- sysfb: Fix integer overflow, fix constant comparison bug
+- tegra: Add blend mode properties
+- virtio: exit path and error handling fixes
+
+----------------------------------------------------------------
+Aditya Garg (1):
+      MAINTAINERS, mailmap: use Aditya Garg's linux.dev account
+
+Anuj Bolewar (1):
+      drm/virtio: reclaim pending vbufs before tearing down vqs
+
+Arvind Yadav (2):
+      drm/pagemap: Prevent double migration of device pages
+      drm/pagemap: Reset migration page count on eviction retry
+
+Baineng Shou (4):
+      dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+      misc: fastrpc: don't publish fd before copy_to_user() succeeds
+      drm/prime: use dma_buf_fd_install() to preserve export tracing
+      selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+
+Benjamin Leggett (1):
+      drm/virtio: use the DMA API for resource backing on Xen
+
+Dan Carpenter (1):
+      drm/virtio: Fix a NULL vs ERR_PTR() bug in virtio_gpu_user_framebuffer_create()
+
+Dave Airlie (1):
+      nouveau/instmem: handle iomapping already existing
+
+Deepanshu Kartikey (1):
+      drm/gud: NUL-terminate TV mode names read from the device
+
+Faith Ekstrand (1):
+      drm/nouveau: Use write-combined maps for coherent
+
+GuoHan Zhao (2):
+      accel/ethosu: check MMIO mapping errors in probe
+      accel/ethosu: fix job completion fence cleanup
+
+Lizhi Hou (1):
+      accel/amdxdna: Remove __counted_by from struct amdxdna_cmd_chain
+
+Lyude Paul (1):
+      drm/nouveau/disp/r535: Add scanline position support + head state support
+
+Marek Czernohous (1):
+      drm/nouveau: unsubscribe the channel-kill event before the fence context
+
+Matthew Brost (2):
+      drm/pagemap: dma-unmap pages before handling migration errors
+      drm/pagemap: Fix folio allocation fallback and use-after-put
+
+Maxime Ripard (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Melissa Wen (4):
+      drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
+      drm/amd/display: fix missing blend-mode-prop warning for DCN
+      drm/amd/display: advertise PIXEL_NONE and PREMULTI blend mode for DCE
+      drm/amd/display: use plane color_mgmt_changed to track colorop changes
+
+Mohamed Ahmed (8):
+      drm/nouveau/disp: move GSP head-timing ISR and vblank helpers to tu102.c
+      drm/nouveau/disp: move the GSP HDMI GCP AVMute write to engine/disp
+      drm/nouveau/disp: route GSP-RM display MMIO through nvkm_disp_func hooks
+      drm/nouveau/disp: fix HDMI vendor infoframes on GB20x
+      drm/nouveau/disp: fix HDMI GCP AVMute register offsets on GB20x
+      drm/nouveau/gsp: use per-version DP_CONFIG_STREAM params on r570 firmware
+      drm/nouveau/disp: fix head state readback on GB20x
+      drm/nouveau/gsp: fix vblank interrupts on GB20x
+
+Randy Dunlap (1):
+      dma-buf: fix some kernel-doc warnings
+
+Sajal Gupta (1):
+      drm/gud: validate GUD_ROTATION_0 is present in supported rotations
+
+Shixiong Ou (2):
+      drm/sysfb: ofdrm: Fix integer overflow in fb_size calculation
+      drm/sysfb: ofdrm: Fix is_avivo() constant comparison bug
+
+Slawomir Stepien (1):
+      drm/cirrus-qemu: Validate BAR0 size during probe
+
+Taimuraz Kaitmazov (4):
+      accel/amdxdna: return early from a zero-length flush
+      accel/amdxdna: reject a command chain that carries no commands
+      accel/amdxdna: put the chained BO when its mapping fails
+      accel/amdxdna: refuse to flush an imported BO
+
+Tao Yu (1):
+      drm/gud: validate TV mode names before creating enum property
+
+Thadeu Lima de Souza Cascardo (2):
+      drm/atomic: remove bogus check for file_priv
+      drm: Fix drm_crtc_commit leak if signaled when PAGE_FLIP_EVENT is used
+
+Thierry Reding (1):
+      drm/tegra: Add blend mode properties
+
+Thomas Zimmermann (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Tomeu Vizoso (1):
+      accel: ethosu: Don't read the U65 rounding mode as a storage mode
+
+Youssef Samir (1):
+      accel/qaic: Address potential out-of-bounds read in resp_worker()
+
+Zhenhao Wan (5):
+      drm/nouveau/uvmm: fix NULL deref unwinding an OP_MAP_SPARSE op
+      drm/nouveau/uvmm: fix premature region free on failed OP_UNMAP_SPARSE
+      drm/nouveau/uvmm: clear the dirty flag when unwinding an OP_UNMAP_SPARSE
+      drm/nouveau/dmem: fix mismatched DMA unmap size for large folios
+      drm/nouveau/dmem: fix callocated underflow on large folio split
+
+shechenglong (1):
+      drm/virtio: check return value of vgdev_output_init()
+
+ .mailmap                                           |   3 +-
+ MAINTAINERS                                        |   2 +-
+ drivers/accel/amdxdna/aie2_message.c               |   2 +-
+ drivers/accel/amdxdna/amdxdna_ctx.c                |   4 +-
+ drivers/accel/amdxdna/amdxdna_ctx.h                |   2 +-
+ drivers/accel/amdxdna/amdxdna_gem.c                |  10 +-
+ drivers/accel/ethosu/ethosu_drv.c                  |   2 +
+ drivers/accel/ethosu/ethosu_gem.c                  |   2 +-
+ drivers/accel/ethosu/ethosu_job.c                  |  10 +-
+ drivers/accel/qaic/qaic_control.c                  |  46 ++--
+ drivers/dma-buf/dma-buf.c                          |  20 ++
+ drivers/dma-buf/dma-heap.c                         |  80 +++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   6 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |  31 ++-
+ drivers/gpu/drm/drm_atomic_state_helper.c          |   7 +
+ drivers/gpu/drm/drm_atomic_uapi.c                  |   5 +-
+ drivers/gpu/drm/drm_pagemap.c                      | 270 ++++++++++++++++++---
+ drivers/gpu/drm/drm_prime.c                        |   2 +-
+ drivers/gpu/drm/gud/gud_connector.c                |  12 +-
+ drivers/gpu/drm/gud/gud_drv.c                      |   2 +
+ drivers/gpu/drm/nouveau/include/nvkm/engine/disp.h |   1 +
+ drivers/gpu/drm/nouveau/nouveau_chan.c             |   9 +-
+ drivers/gpu/drm/nouveau/nouveau_dmem.c             |  18 +-
+ drivers/gpu/drm/nouveau/nouveau_sgdma.c            |   4 +-
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c             |   6 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  |  10 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/Kbuild    |   1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/ga102.c   |  13 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c   | 191 +++++++++++++++
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h    |   2 +
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/ior.h     |   1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/priv.h    |  17 ++
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/tu102.c   |  86 ++++++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 125 ++++------
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/disp.c |  64 +++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c  |   9 +
+ .../nouveau/nvkm/subdev/gsp/rm/r570/nvrm/disp.h    |   2 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h    |   5 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c |   3 +
+ drivers/gpu/drm/sysfb/ofdrm.c                      |   8 +-
+ drivers/gpu/drm/tegra/dc.c                         |   6 +
+ drivers/gpu/drm/tegra/hub.c                        |   2 +
+ drivers/gpu/drm/tiny/cirrus-qemu.c                 |   3 +
+ drivers/gpu/drm/virtio/virtgpu_display.c           |   9 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.h               |  21 ++
+ drivers/gpu/drm/virtio/virtgpu_kms.c               |   1 +
+ drivers/gpu/drm/virtio/virtgpu_object.c            |   2 +-
+ drivers/gpu/drm/virtio/virtgpu_vq.c                |  21 +-
+ drivers/misc/fastrpc.c                             |  16 +-
+ include/drm/drm_pagemap.h                          |   8 +-
+ include/linux/dma-buf.h                            |   1 +
+ include/linux/dma-fence-array.h                    |   1 -
+ include/linux/dma-fence-chain.h                    |   9 +-
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 113 ++++++++-
+ 54 files changed, 1072 insertions(+), 234 deletions(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/engine/disp/gb202.c
+
+--t7h3iiiww7yymmtc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapk9cgAKCRAnX84Zoj2+
+dqexAYDzmTqjyMwqtU8o1XlH+Q45NuZ27Sfm2VE95amPbBXMqRuHmvnvM31DyVyn
+hXNopr8Bfj4lbBiaRN6/o6JkNJFW6HqZMmgcyRLZheOevYzZ4qmaBVWvs2jp5ImN
+23ETeCuIHg==
+=KIe9
+-----END PGP SIGNATURE-----
+
+--t7h3iiiww7yymmtc--
+
