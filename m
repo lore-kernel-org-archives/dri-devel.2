@@ -4,54 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8089C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:38:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 653C6C624DE
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB4AA10F44B;
-	Thu,  3 Sep 2026 07:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93A4310F42D;
+	Thu,  3 Sep 2026 07:41:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OYPIO3xl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CmtynO5x";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEAB210F44B;
- Thu,  3 Sep 2026 07:38:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=FWKX/XZq+HjuvoZD0UWfiZNTUwqp4s9qGgr8xQ9J15E=; b=OYPIO3xlfIt1e+9ArGycX86jQx
- ce2w/V8mCOignsFK5YYabY36QVHMlp2WYNBahZALq5fYavFgU1vR2fzu68OtKuGumIgHe2gBfRkqC
- 9ohQJCBMFEoO4+eIwfPyLr8O93oTOimr8RgzA7C0dSt7UCGd5h8YMvXQQxTp8c6DQprAfU9gchdO5
- XZu5Oczr6gLAM/IJJQNjrIPUTv74JPgf8Dp1s6kMejHbCyxku0bf9fdBwTAzWaiCDhIGDfPDA2Jod
- UH1nrC7n3GKrLXnAHx/THkCgb7BxM1LLWqpGVda5RxQfR2wNtCFieykGCa6vXK6jCAO6T2j85eJBi
- o6/J4lCw==;
-Received: from [31.4.135.164] (helo=[192.168.1.126])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x221Y-00EERW-U1; Thu, 03 Sep 2026 09:38:17 +0200
-Message-ID: <f1e57af9-9ea7-41b1-aa25-4562865f3b39@igalia.com>
-Date: Thu, 3 Sep 2026 09:38:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH i-g-t] Revert "lib/igt_kms: Do not treat writeback and
- virtual connectors as connected"
-To: Mark Yacoub <markyacoub@google.com>, Jani Nikula <jani.nikula@intel.com>
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- louis.chauvet@bootlin.com, hamohammed.sa@gmail.comm, simona@ffwll.ch,
- melissa.srw@gmail.com, robin.clark@oss.qualcomm.com,
- abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- "S, Sowmiya" <sowmiya.s@intel.com>, kernel-dev@igalia.com
-References: <20260828-vkms_virtual_output_fix-v1-1-789718f4cb00@igalia.com>
- <5443fa9f99309b0ec0afdd98319619a63d5467a3@intel.com>
- <CAC0gqY650NvYr5_NwKXM3sFNYQ=G7T9kx_=8GZWE7faveSZwRg@mail.gmail.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <CAC0gqY650NvYr5_NwKXM3sFNYQ=G7T9kx_=8GZWE7faveSZwRg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D02E310F42D
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 07:41:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C9F143B69;
+ Thu,  3 Sep 2026 07:41:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 456231F00A3D;
+ Thu,  3 Sep 2026 07:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788421312;
+ bh=R1xvoqtEOpgQAW7kVD0auUkwE7Uxh4KKEAvoSnYoRoc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CmtynO5x+nBEYBkmyiBBoSZlIpGjHU7YRVoDBw0NV9VvelB8ws4bfcmsM7q/0xWiH
+ ZMXldjNMtqJbplISSuTqeyaR+X4zBBSKMJtguRgUUrea/aBqu1UcW78msrvXN9rfTI
+ dvJ6R8ziKGOyLh9IBfn8X3MGmMC/pucHVhsbwAeErUM7znOqNQ5AoXT4xFPp5BA5x3
+ e99VlEmeuMiMT/mui4rKBJ+5f8JFP1aYb2a8e9/FAB2/00H8lo4IN+hxiuMUn0J2CA
+ bcUxnvDKtj8JAMiSuPTUeg3i/3+RlV1xh0YansWLsyeTxzCzbBuBjtCXdRlKCJ9CQW
+ DgTTDGC1tKKmA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: fix MALL hysteresis timer underflow at
+ high refresh rates
+To: "Francis Marlou Pacaro" <pacaro.francis.marlou.n@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260903055952.62906-1-pacaro.francis.marlou.n@gmail.com>
+References: <20260903055952.62906-1-pacaro.francis.marlou.n@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 07:41:51 +0000
+Message-Id: <20260903074152.456231F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +53,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] Potential kernel panic due to division by zero if `refresh_hz` or =
+`denom` evaluates to 0.
+--
 
-On 31/08/2026 16:01, Mark Yacoub wrote:
-> On Mon, Aug 31, 2026 at 4:51 AM Jani Nikula <jani.nikula@intel.com> wrote:
->> On Fri, 28 Aug 2026, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
->>> This reverts commit 321448df7fc9af29b4c6697dc74e6c5e2100af6c.
->>>
->>> It has broken vkms testing, which has only Virtual connectors.
->>>
->>> Cc: Mark Yacoub <markyacoub@google.com>
->>> Cc: Jani Nikula <jani.nikula@intel.com>
->>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->> FWIW,
->>
->> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> Reviewed-by: Mark Yacoub <markyacoub@google.com>
+commit 66e20e6af2a54e1f051a2802b102f884a27f0948
+Author: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
 
-Applied to master.
+drm/amd/display: fix MALL hysteresis timer underflow at high refresh rates
 
-Melissa
+This commit fixes an issue where high refresh rates cause the MALL frame
+cache hysteresis timer calculation to wrap instead of going negative. It
+addresses this by explicitly calculating the timer ticks and clamping the
+result to 0 to prevent the underflow.
 
->> But you should solicit feedback from the author, reviewer, and committer
->> of 321448df7fc9 ("lib/igt_kms: Do not treat writeback and virtual
->> connectors as connected").
->>
->>
->>> ---
->>>   lib/igt_kms.h | 4 ----
->>>   1 file changed, 4 deletions(-)
->>>
->>> diff --git a/lib/igt_kms.h b/lib/igt_kms.h
->>> index 695f666bacb9..27f8877a9f6a 100644
->>> --- a/lib/igt_kms.h
->>> +++ b/lib/igt_kms.h
->>> @@ -669,10 +669,6 @@ static inline bool igt_output_is_connected(igt_output_t *output)
->>>            !output->config.connector->count_modes)
->>>                return false;
->>>
->>> -     if (output->config.connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK ||
->>> -         output->config.connector->connector_type == DRM_MODE_CONNECTOR_VIRTUAL)
->>> -             return false;
->>> -
->>>        if (output->config.connector->connection == DRM_MODE_CONNECTED)
->>>                return true;
->>>
->>>
->>> ---
->>> base-commit: c0c86b23b316bec7d22bbb95e433a8dc25884a1c
->>> change-id: 20260828-vkms_virtual_output_fix-c82298792438
->>>
->>> Best regards,
->>> --
->>> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->>>
->> --
->> Jani Nikula, Intel
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/dr=
+ivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> index 8b0a667dc59b7..76aa7a82e24e7 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> @@ -1065,10 +1065,12 @@ bool dcn30_apply_idle_power_optimizations(struct =
+dc *dc, bool enable)
+>  				 */
+>  				unsigned int denom =3D refresh_hz * 6528;
+>  				unsigned int stutter_period =3D dc->current_state->perf_params.stutt=
+er_period_us;
+> +				u64 num =3D (1000000LL + 2 * stutter_period * refresh_hz) *
+> +					(100LL + dc->debug.mall_additional_timer_percent);
+> +				u64 tmr_ticks;
+> =20
+> -				tmr_delay =3D (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * =
+refresh_hz) *
+> -						(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
+> -						denom) - 64LL);
+> +				tmr_ticks =3D div_u64(num + denom - 1, denom);
 
+[Severity: High]
+This is a pre-existing issue, but could this calculation trigger a division
+by zero kernel panic if denom is 0?
+
+Looking at how refresh_hz is calculated earlier in
+dcn30_apply_idle_power_optimizations():
+
+    refresh_hz =3D (unsigned int)div_u64(
+            (unsigned long long)stream->timing.pix_clk_100hz * 100LL,
+            (v_total * stream->timing.h_total));
+
+If a compositor provides a malformed display mode with very low clocks and
+high totals such that pix_clk_100hz * 100 < v_total * h_total, refresh_hz
+will evaluate to 0. This makes denom =3D 0, leading to a division by zero in
+the div_u64() call above.
+
+Additionally, this same condition natively panics a few lines down in the
+unpatched context where we check the stutter period:
+
+    if (stutter_period > 100000/refresh_hz)
+        return false;
+
+Would it make sense to add an early return to check if refresh_hz evaluates
+to 0 before proceeding with these calculations?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903055952.6290=
+6-1-pacaro.francis.marlou.n@gmail.com?part=3D1
