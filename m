@@ -4,78 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F334C624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0CCDC624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:33:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A97610E03E;
-	Thu,  3 Sep 2026 06:31:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E107D10E092;
+	Thu,  3 Sep 2026 06:33:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="c3E7Ulzi";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ms4Zn4Ra";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="csYbJmic";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6759510E03E
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:31:49 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2d8f265cbe6so18699515ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 23:31:49 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9908E10E092
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:33:45 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6835lcqZ3641942
+ for <dri-devel@lists.freedesktop.org>; Thu, 3 Sep 2026 06:33:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Fr7cHeYqrI16WQmSdQLJQaBM+npOKUH7CWYOJaeU504=; b=Ms4Zn4RammyQ2I/u
+ iWL69q5E75UFIB/stRmu22d6yz5BXjR7sPqxcxIGDfcLyW6Dj6XxTA1xx9ASb48G
+ 2k1vZluop5rQ5kZfWOBH1wFOdazLf+bv1gm4DJisowPetpYvghJ6XYC+ko0cZEZ9
+ 3yZ8a1n0fQJzQOSXf3GA+YKDHrOqJQnb5UBVa361ilEqIQOtzr9+9fGLpKXDREOZ
+ ksMT9IWYnqWX2yIn9Zm/tWpAE8Se32/ZyqjhDZKY0gL9VtIiVNIaFBXVk5Qkxz/v
+ 7P5DI4kITzm4qIfWObd+vKv/dXOYAPAzQ5z3QSCTTRoUVNNlTQPN1GnVlN2vi8Pk
+ 3fP5/A==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdug2t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 06:33:44 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-92e5e21552dso26890585a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 23:33:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1788417109; x=1789021909;
+ d=oss.qualcomm.com; s=google; t=1788417224; x=1789022024;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=aiO7Hl1ZhbHbwTakJqGhQbolHtOn10e//zMl8Skl9JQ=;
- b=c3E7UlziwXsP0hFlSqyM43bTUm+U+lXv9uPj6H5mszukgTrU4X/cOiIgELmZlYT4K2
- OrTlWDzWIPj+HAJt/iJg4ATJDy2wNzY/uL2c+FYjpFTUK1KHlAdVON32xEVWuH7Lj2G8
- 007/nDf5iRDjViOlEpGaW7IInf1QfR3saoQ7U=
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Fr7cHeYqrI16WQmSdQLJQaBM+npOKUH7CWYOJaeU504=;
+ b=csYbJmicbzJSdGlfcNxiyrTZr3FLJ6pVzjxZmSCK98E8EWTrHtV1avB60Z1pkTPCux
+ xMplMowZqwaUOLdk/t8resOl6Pm3MYjKwX6jXvzEM2ybsAWF6thitUQrXzAAwFGQXiUJ
+ gHdQWljXjBaYpFUjyJk2nLZ/YkrA+TMQ18PeOMXXv1ITKrlvBjgq6X1/04vYQVLVPOcv
+ s/e5gHUL/MkoqpFJlvgTmBH2Rp65fBddWtrt9tHGNmX4RPhy0dk0g9gDBT33+B0ybfQA
+ kUWzX8bCgnf3aM5pq9T4LXkdSr6F4Cr3EcVMFAv8UuhuDte+eEFKK+HgV9bzCorWBwLO
+ 4n1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788417109; x=1789021909;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1788417224; x=1789022024;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=aiO7Hl1ZhbHbwTakJqGhQbolHtOn10e//zMl8Skl9JQ=;
- b=H1tbcE4Znarx/EhaMpy5ueYd3nT1x8/VymdyTl3fpGwXdRJFeVMMN29YVi9d4s7at/
- oYlK53KovKPs/hGoGg2gHYF22zdYNbMVCN+UPeiizDBakxHuEGLC3soMoDOjyqQgi1s4
- Jx942Yeh1+dwAFwdKdb/kHV6layndhjrP9U1FhoDToZ+brza62VF58e1znF/ncoenNzh
- 6AyWREc6cYi5qr1b+lZprGgOA8hFl6uco1XCKo9CkpwjuaoajYvdT6d2gNJtQKRtiXCU
- wmF0hf5ZlyFDjK4v7I1f/JS7Yo+DMbSur4RDKmi9ZhfM5PuA5xpdbYapRiI8L0+18jHp
- M7Ug==
+ bh=Fr7cHeYqrI16WQmSdQLJQaBM+npOKUH7CWYOJaeU504=;
+ b=aFZ6/W8KgDe/MJvsRFn7BcSKGKEDBNCQ3zfKiHCaiE1gDEZA9d7GKVqF9FSkM2DoBP
+ coEc+CJOHs2hBNaeTHuULGIJjtDukCE3ZAJqhJDp/GpH3NzL6gzCxoritRbgw/tniUbi
+ qgdqDmp0oX7ovmZykJ/6hrXpMi8PKoxqpEoZ+IHf2XGwo79bJJYjRXHiy9qaPwAKWftG
+ J/bmKNnV1rnUo9FYMMIos7i6jXjOUX5R+I1h+v3gboHyvxiZ+Df3UJ6eclkc5sn3iEK7
+ rfrvSX6R6tbHNb3s1QPvIU2hELmJrfZTwBMYXJeXXR3GlAxpuMcvAcY5pKl58jgGiWT7
+ WQpQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy37vqW1dLhLkLlunApFKX1nkgZqCGqD+d4XFO97jPuoeTL//FDWaBfJD/QUPExSVEzOJWQ5DiBA74=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lgsznhzopC0cY6ZqyNM+DAPAyKI3j+1pdaICRTQKhjULCdWcV4
- RQvFTjnXtnlDHTABm2nWsZ8+96sYtAqBcTMe0ZqOTsaxLXtF1py3aSodNIy/qE0Otw==
-X-Gm-Gg: AYBFou3u/3KhHDGHJAhJIX22rbZH5S6WVx1fuQ74XUMGnsC6P20jIXiHx9cgnepg71B
- trsPFUZiP8DuVnRB+65Pt3AtVlgjhmemfSKv+pYXXwseXqkq8j0L2g+Qas4dW++EqSU8WRPmOqN
- 9GmW28/hK0vOLDwZkFkT8693xbIFxVQUD0ub9obOpm8jiBNEi0op9Hu+lnwK6GXRKdYYYD7Wjzw
- 2gEsH2/8k0BGDaQNfepUlCiI0Wmiyv/46IRwJ5UQlpDZbkblcDRpAscpWDwdTXxGRhr3YTe9Rg1
- GI31T0CoVxBIGoJ80NvOnNz+NXEQrH95rHoc8b34yNzlABTRJZibCqceF0HqntHk+ApURhUnSYa
- t1AfE10bXy80RrP8y6wJtp6mOiHK83JcVASiBeleqqgLrwhbZ5g17gJzMUv4oVoqlAaos1vzbpd
- pvRAJAcRoDgWs3L1M3hutbsRS3MxYRghy90HYcs++km2W1b9owE5IJBPUwoJtaTTOOkr5DHGYWs
- /KNw56zbFM5S4Wi6pgwJ4/fGIZ8DZLeytfBY8p1z0f2aEDx53cFmojC
-X-Received: by 2002:a17:903:1b44:b0:2d3:78c2:1f19 with SMTP id
- d9443c01a7336-2daec60aefbmr146320265ad.9.1788417108828; 
- Wed, 02 Sep 2026 23:31:48 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com
- ([2a00:79e0:201d:8:59de:d2d:e1ec:bf86])
+ AKwUvBzTgIkZbHsB9UGTugNjA4zpe9000b2IV+IOn0cY7I6MWjCWs+OTSNhERcxe+uxgNG0C3MYyKx4gUK4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n99mkFcN57TID4O/rHIUU4UPqGAa3zfMljbWfFfZsfHBta+YeJ
+ aPe1TJiZmUtPx35AAXyVQ1rm82OSluVgE41stDTunb08GHmsT5kwuNT13wsgR+CGWlIW32bc1p1
+ RdyD7DljUmVZ2NHbbujvkkwb5so9YhY8rH5S9xMhpGBu3W1wMV/ri00RF5RywWzOh7hxSGFE=
+X-Gm-Gg: AYBFou0vkkaVU/GGp1Ijt9zWw6gmOrXzIOAD+a4NNX3Mm8lDAPM9rbRY7Ija7WgnTbj
+ bgZ8RG7WOCC7mTJQySeZGHSj0f0/lXOSUy6bBurkArzT2VrqTVCcVA8u6+S4hcwcmUmpalaUDpF
+ 0VMrlzCVEoJtqWv/W0lLm+trC7ngAXwl2wZDFX9Mdh3IBM1lndpr8ELo9Yje1Z7P9mdsjAPyoiv
+ dhLAN/3tMHtsfkXAs7QlfMuzUDBDDM3wKuP8t1nBTCbJYYEfOBcPqo9Gc+kuOtFJ+QA1v4Vclmx
+ NFFs3lxBosBckAhUA33p6p0ct5RyDtlTehH51SQ/t4I6KGVWn9dtKE9X4Q5Mba+uQCGMKMZVxq4
+ oOXVPNIcbPT13VAYovAUP0w==
+X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id
+ af79cd13be357-939610b5598mr702104785a.6.1788417223822; 
+ Wed, 02 Sep 2026 23:33:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id
+ af79cd13be357-939610b5598mr702102885a.6.1788417223371; 
+ Wed, 02 Sep 2026 23:33:43 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2dafec1d449sm5006775ad.44.2026.09.02.23.31.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 23:31:47 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/tidss: dispc: Switch to drm_fb_dma_get_gem_addr() for
- framebuffer addresses
-Date: Thu,  3 Sep 2026 14:31:10 +0800
-Message-ID: <20260903063142.3770509-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
+ a640c23a62f3a-c25f3eeb888sm53439266b.9.2026.09.02.23.33.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Sep 2026 23:33:42 -0700 (PDT)
+Message-ID: <292a6a67-0870-4735-a34c-50f2cbae36c0@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 08:33:41 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] misc: fastrpc: Use devm_of_reserved_mem_device_init()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260902194041.1999834-1-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260902194041.1999834-1-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a9914c8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=OkyngIYZ1pMGiDKQ6L4A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: ersMQIaU3h4WJyQxsFsVziFbNG5AsuDf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX7jd1mGNS0l1x
+ AcogGfr7uG6rRVefALgnmUY1c4Op+3gkjnC19rNAXT8YhcxpFwWkK1Ttx6eQr9EjhzWZ0K5HHlV
+ qgI5sHfQjDoWMOV4Y540Dj7ivCy+SQ2NIUo0f/cj+lkmEh15IWQ3jj+7IjPwFEK1/s1sMl7OiHA
+ l7aAWF1Kt4siiPK6vEtDbtu8l2hewQ32k+TOZeXi5idrKQobydLZIF/Bj4xOey5Ae5j5hJjdRAW
+ BSo4+b+XKg+64YPDaIPCDS0e4ENSyhpSQa4Y1IT6tzEL/sBHeY05YBdWJh8QFUrePwcStRVEnC6
+ 50MLfeWmC08l65Hz1Ae4r4xR11+XRov+lpRAYgMzne562j4sznF2rZEsPvdGS2tnJ6CLAQ601V+
+ Gl3eAhYBLAx1dAtkRPvW2tmaqAobfBZXWza5dLRiOwYiN2BoR2iBHqHXooBcM/G58q8odv3FsUB
+ 7UdjgiYlCxTSWSTP1eQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX0MOfEeQLbW0s
+ pyUXbMe0ND92anRbTyMHWxHTMJpLN6hUUHRVSg6rW2MOQLs/VRICY1pYwrJI5FBJ4BFGW82P+ZZ
+ Iy27POQ6EIruLXKQU/+dLge3I2Q8Z78=
+X-Proofpoint-ORIG-GUID: ersMQIaU3h4WJyQxsFsVziFbNG5AsuDf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030057
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,102 +146,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dispc_plane_state_dma_addr() and dispc_plane_state_p_uv_addr() are
-basically the same as drm_fb_dma_get_addr(), without the support for
-formats with block parameters. Since the driver doesn't support any of
-those formats, the result is the same.
+On 9/2/26 9:40 PM, Mukesh Ojha wrote:
+> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
+> the reserved memory region is released on device removal, fixing a
+> missing of_reserved_mem_device_release() in fastrpc_rpmsg_remove().
+> 
+> Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
 
-Switch to drm_fb_dma_get_gem_addr() for getting the framebuffer addresses.
-Drop the const modifier on "struct drm_plane_state *state" for
-dispc_plane_setup() so that the state can be passed to
-drm_fb_dma_get_gem_addr().
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Using the helper also future proofs the driver in case block parameters
-are added for more formats, especially the common sub-sampled YUV
-formats.
-
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- drivers/gpu/drm/tidss/tidss_dispc.c | 38 +++--------------------------
- drivers/gpu/drm/tidss/tidss_dispc.h |  2 +-
- 2 files changed, 4 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 58d5eb033bdb..2a0ec11a6c90 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -2157,47 +2157,15 @@ int dispc_plane_check(struct dispc_device *dispc, u32 hw_plane,
- 	return 0;
- }
- 
--static
--dma_addr_t dispc_plane_state_dma_addr(const struct drm_plane_state *state)
--{
--	struct drm_framebuffer *fb = state->fb;
--	struct drm_gem_dma_object *gem;
--	u32 x = state->src_x >> 16;
--	u32 y = state->src_y >> 16;
--
--	gem = drm_fb_dma_get_gem_obj(state->fb, 0);
--
--	return gem->dma_addr + fb->offsets[0] + x * fb->format->cpp[0] +
--		y * fb->pitches[0];
--}
--
--static
--dma_addr_t dispc_plane_state_p_uv_addr(const struct drm_plane_state *state)
--{
--	struct drm_framebuffer *fb = state->fb;
--	struct drm_gem_dma_object *gem;
--	u32 x = state->src_x >> 16;
--	u32 y = state->src_y >> 16;
--
--	if (WARN_ON(state->fb->format->num_planes != 2))
--		return 0;
--
--	gem = drm_fb_dma_get_gem_obj(fb, 1);
--
--	return gem->dma_addr + fb->offsets[1] +
--		(x * fb->format->cpp[1] / fb->format->hsub) +
--		(y * fb->pitches[1] / fb->format->vsub);
--}
--
- void dispc_plane_setup(struct dispc_device *dispc, u32 hw_plane,
--		       const struct drm_plane_state *state,
-+		       struct drm_plane_state *state,
- 		       u32 hw_videoport)
- {
- 	bool lite = dispc->feat->vid_info[hw_plane].is_lite;
- 	u32 fourcc = state->fb->format->format;
- 	u16 cpp = state->fb->format->cpp[0];
- 	u32 fb_width = state->fb->pitches[0] / cpp;
--	dma_addr_t dma_addr = dispc_plane_state_dma_addr(state);
-+	dma_addr_t dma_addr = drm_fb_dma_get_gem_addr(state->fb, state, 0);
- 	struct dispc_scaling_params scale;
- 
- 	dispc_vid_calc_scaling(dispc, state, &scale, lite);
-@@ -2229,7 +2197,7 @@ void dispc_plane_setup(struct dispc_device *dispc, u32 hw_plane,
- 	if (state->fb->format->num_planes == 2) {
- 		u16 cpp_uv = state->fb->format->cpp[1];
- 		u32 fb_width_uv = state->fb->pitches[1] / cpp_uv;
--		dma_addr_t p_uv_addr = dispc_plane_state_p_uv_addr(state);
-+		dma_addr_t p_uv_addr = drm_fb_dma_get_gem_addr(state->fb, state, 1);
- 
- 		dispc_vid_write(dispc, hw_plane,
- 				DISPC_VID_BA_UV_0, p_uv_addr & 0xffffffff);
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 739d211d0018..2183254f1ab7 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -140,7 +140,7 @@ int dispc_plane_check(struct dispc_device *dispc, u32 hw_plane,
- 		      const struct drm_plane_state *state,
- 		      u32 hw_videoport);
- void dispc_plane_setup(struct dispc_device *dispc, u32 hw_plane,
--		       const struct drm_plane_state *state,
-+		       struct drm_plane_state *state,
- 		       u32 hw_videoport);
- void dispc_plane_enable(struct dispc_device *dispc, u32 hw_plane, bool enable);
- const u32 *dispc_plane_formats(struct dispc_device *dispc, unsigned int *len);
--- 
-2.55.0.970.g62bdec98f9-goog
-
+Konrad
