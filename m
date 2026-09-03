@@ -4,142 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC226C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D44BFC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:12:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D905210F3B9;
-	Thu,  3 Sep 2026 07:05:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 079BD10F3C4;
+	Thu,  3 Sep 2026 07:12:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CdNJUDNb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IViBhly6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nfAbY0OF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1Llu4vaO";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="lW+8ECNG";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B64F10F3B9;
- Thu,  3 Sep 2026 07:05:48 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8D7461FDB1;
- Thu,  3 Sep 2026 07:05:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788419142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gSEKYt2/zjQTKtJUGFCNZFh08qwXo2HshuPbHCVvJ2o=;
- b=CdNJUDNboHBXEvq3NQJwGI5Efovl4zG4tZI0Woyu05bT+466YY/E5Uf2jcNdggCrP0bc3i
- C8qlPx7h67iQHbddH7l5Bzihh1lxiDbVKCHRdS/qt2YeLIy1EagSrYhXPrOBhz4nL72dw0
- /vNiWkvbocvptr7Ctg8gJrj3osJ+Waw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788419142;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gSEKYt2/zjQTKtJUGFCNZFh08qwXo2HshuPbHCVvJ2o=;
- b=IViBhly6RiAY015Wd01W+rE8JUPsscTy6pVLuVLIT5LySCLgOTfx3ZD62/cXpJxru6upDf
- nXcieLsQcKraZHDg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=nfAbY0OF;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=1Llu4vaO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788419138; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gSEKYt2/zjQTKtJUGFCNZFh08qwXo2HshuPbHCVvJ2o=;
- b=nfAbY0OFTAmO1zKGnJ0I76xDrth2wZEQlQ2Hms/EmxiZ/SjcV9DAtvXW3b+JyZcegEE94u
- F6EuQ93zRXZ6r19CwsqI0Tg4QmIn9Joh/S0NGf1XEoF+gdaxbQH405pvSamxawAvDmsMmq
- Dio8VP84nqwDZ427hKFoIhtuCHE1160=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788419138;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=gSEKYt2/zjQTKtJUGFCNZFh08qwXo2HshuPbHCVvJ2o=;
- b=1Llu4vaOxIlG8RAbNGbxGky8+z+s0E0YTyggnnHlFdpChebVFflFs+NY4jLR2p1wTkEEcs
- +JNiQ7/EtWXiEOAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1536136E6;
- Thu,  3 Sep 2026 07:05:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +gYVNUEcmWp8UwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 07:05:37 +0000
-Message-ID: <153a2ba3-0dfc-45a0-ac48-04842da970f3@suse.de>
-Date: Thu, 3 Sep 2026 09:05:37 +0200
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8F8A10F3C4
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 07:12:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=BY
+ vzxe2xGIWuEyuWCsnHllNcNzMs7YGaDE3CbAnAmiQ=; b=lW+8ECNGm54jj6K880
+ ln6PT/MQSPX+bRN7R2vyrmNw4wj1JV5gYSAe1RDysKtfFifpRopqeE/afLrcJk87
+ v1eK0/8uXeRgr4nykhIDmmduAuH7lH6aGWGxNHl+gFJhfFlazrPx1TH33KjhawcZ
+ lqPBXbhFL4Z8lHHB2xEHs4NAs=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
+ _____wA31de5HZlq1FxFAQ--.9384S2; 
+ Thu, 03 Sep 2026 15:11:54 +0800 (CST)
+From: oushixiong1025@163.com
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH v2] drm/gma500: Create the primary plane in the driver
+Date: Thu,  3 Sep 2026 15:11:49 +0800
+Message-Id: <20260903071149.423579-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/ast: create blend mode property on cursor plane
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>, dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
- dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
- <20260901083234.1828755-2-qinyuntan@linux.alibaba.com>
- <1f7a2056-825b-4b18-ac60-94f13ee40212@suse.de>
- <15f87b4e-3da8-4ce9-9cde-b4c8cefe1d80@suse.de>
- <8c6ef5d2-1f85-4dad-b426-143d490e1114@linux.alibaba.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <8c6ef5d2-1f85-4dad-b426-143d490e1114@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8D7461FDB1
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[16]; MIME_TRACE(0.00)[0:+];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.freedesktop.org:url,alibaba.com:email,suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
+X-CM-TRANSID: _____wA31de5HZlq1FxFAQ--.9384S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWF4xGr15CryfCFy5Jry7KFg_yoW5Kw47pF
+ ZrAF98tr4rtFsrWFW5JanFyFW3uws3G3WxKryxWwn0vr1DKr97uFnYy3srCFy7GFW7J3Wr
+ try5tFy5C3W8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnmiiUUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Rp2hWqZHbplSwAA3u
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,121 +59,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Am 01.09.26 um 14:51 schrieb Qinyun Tan:
-> Hi Thomas,
->
-> On 9/1/26 8:30 PM, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 01.09.26 um 13:54 schrieb Thomas Zimmermann:
->>> Hi,
->>>
->>> thanks for the updated patch.
->>>
->>> Did you see the review from the Sashiko bot?  The default value is PRE_MULTI, but the driver only supports COVERAGE.  This needs to be changed as part of this patch. The default assignment is at [1] in __drm_atomic_helper_plane_state_init().
->>>
->>> The ast driver needs to override drm_plane_funcs.atomic_create_state for the cursor plane to update the value pixel_blend to COVERAGE for new plane states. Same goes for vbox.
->> Or even better: I just sent out a patch to pick the right default value for the plane state. Let's first see what comes out of this. Patch is at [1].
->>
->> [1] https://lore.kernel.org/dri-devel/20260901122731.83854-1-tzimmermann@suse.de/
->>
->> Best regards
->> Thomas
->>
->   
-> Thanks! I did see the Sashiko bot report and had started on a v3 that
-> overrides drm_plane_funcs.atomic_create_state in ast and vboxvideo
-> (for vboxvideo on both the primary and cursor planes).
->
-> But your approach looks better to me: drm_plane_create_blend_mode_property()
-> already picks DRM_MODE_BLEND_COVERAGE as the property default when
-> PREMULTI is not supported, so initializing the plane state from the
-> property default fixes this for every COVERAGE-only plane without
-> per-driver boilerplate.
->
-> I'll hold off on v3 until your patch has settled.
+drm_crtc_init() creates the primary plane from a fixed format list
+that includes ARGB8888. The display engine programs the primary plane
+with DISPPLANE_32BPP_NO_ALPHA, so it does not support per-pixel alpha
+and must not advertise alpha formats. Since commit 860e748bddcc
+("drm: ensure blend mode supported if pixel format with alpha exposed"),
+drm_mode_config_validate() warns about this at probe time.
 
-Another patch just landed that fixes the problem:
+Replace drm_crtc_init() with a driver-owned primary plane that
+advertises only XRGB8888. The plane is allocated by
+drmm_universal_plane_alloc() and the "pixel blend mode" property is
+not needed because no format with alpha is exposed.
 
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/c3080b58d81d3699cbf4dfd5ba860630fca96f4a
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+v1->v2:
+  - Open-code DRM_PLANE_NON_ATOMIC_FUNCS without .destroy, which
+    drmm_universal_plane_alloc() rejects
+  - Use drmm_universal_plane_alloc() for automatic cleanup
+  - Move the formats comment above the array
 
-So I acked the rest of your series and I'll merge it in a few days. 
-Thanks again for taking care of these drivers.
+ drivers/gpu/drm/gma500/psb_intel_display.c | 34 +++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
-Best regards
-Thomas
-
-
->
-> Best regards,
-> Qinyun
->
->
->>> [1] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/drivers/gpu/drm/drm_atomic_state_helper.c?ref_type=heads#L281
->>>
->>> Best regards
->>> Thomas
->>>
->>>
->>> Am 01.09.26 um 10:32 schrieb Qinyun Tan:
->>>> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
->>>> format with alpha exposed"), drm_mode_config_validate() warns when a
->>>> plane exposes an alpha pixel format but not the "pixel blend mode"
->>>> property. The ast cursor plane (ARGB4444, ARGB8888) trips this on
->>>> driver load:
->>>>
->>>>     [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
->>>>     WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x48f/0x510 [drm]
->>>>     ...
->>>>     Call Trace:
->>>>      drm_dev_register+0x1ce/0x290 [drm]
->>>>      ast_pci_probe+0x19d/0x3f0 [ast]
->>>>      local_pci_probe+0x41/0x90
->>>>
->>>> Per Thomas Zimmermann's review, the ASPEED documentation describes the
->>>> hardware cursor as blending with straight (non-pre-multiplied) alpha,
->>>> which corresponds to DRM_MODE_BLEND_COVERAGE. Expose a "pixel blend
->>>> mode" property advertising only DRM_MODE_BLEND_COVERAGE to make the
->>>> hardware semantics explicit and silence the warning.
->>>>
->>>> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
->>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
->>>> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
->>>> ---
->>>> v2: advertise DRM_MODE_BLEND_COVERAGE instead of PREMULTI, per Thomas
->>>> Zimmermann's review and the ASPEED documentation.
->>>>
->>>>    drivers/gpu/drm/ast/ast_cursor.c | 3 +++
->>>>    1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
->>>> index fd19c45f2abe2..690d4cd1db5ee 100644
->>>> --- a/drivers/gpu/drm/ast/ast_cursor.c
->>>> +++ b/drivers/gpu/drm/ast/ast_cursor.c
->>>> @@ -25,6 +25,7 @@
->>>>    #include <linux/sizes.h>
->>>>      #include <drm/drm_atomic.h>
->>>> +#include <drm/drm_blend.h>
->>>>    #include <drm/drm_damage_helper.h>
->>>>    #include <drm/drm_format_helper.h>
->>>>    #include <drm/drm_gem_atomic_helper.h>
->>>> @@ -355,6 +356,8 @@ int ast_cursor_plane_init(struct ast_device *ast)
->>>>        }
->>>>        drm_plane_helper_add(cursor_plane, &ast_cursor_plane_helper_funcs);
->>>>        drm_plane_enable_fb_damage_clips(cursor_plane);
->>>> +    drm_plane_create_blend_mode_property(cursor_plane,
->>>> +                         BIT(DRM_MODE_BLEND_COVERAGE));
->>>>          return 0;
->>>>    }
-
+diff --git a/drivers/gpu/drm/gma500/psb_intel_display.c b/drivers/gpu/drm/gma500/psb_intel_display.c
+index 0df75a4a7739..f79484b9d593 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_display.c
++++ b/drivers/gpu/drm/gma500/psb_intel_display.c
+@@ -9,8 +9,11 @@
+ #include <linux/delay.h>
+ #include <linux/i2c.h>
+ 
++#include <drm/drm_fourcc.h>
+ #include <drm/drm_modeset_helper.h>
+ #include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_plane_helper.h>
+ #include <drm/drm_print.h>
+ 
+ #include "framebuffer.h"
+@@ -471,11 +474,25 @@ static void psb_intel_cursor_init(struct drm_device *dev,
+ 	REG_WRITE(base[gma_crtc->pipe], 0);
+ }
+ 
++/*
++ * The display engine programs the primary plane with
++ * DISPPLANE_32BPP_NO_ALPHA, so no formats with alpha.
++ */
++static const uint32_t gma_primary_formats[] = {
++	DRM_FORMAT_XRGB8888,
++};
++
++static const struct drm_plane_funcs gma_primary_plane_funcs = {
++	.update_plane = drm_plane_helper_update_primary,
++	.disable_plane = drm_plane_helper_disable_primary,
++};
++
+ void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+ 		     struct psb_intel_mode_device *mode_dev)
+ {
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 	struct gma_crtc *gma_crtc;
++	struct drm_plane *primary;
+ 	int i;
+ 
+ 	/* We allocate a extra array of drm_connector pointers
+@@ -494,7 +511,17 @@ void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+ 		return;
+ 	}
+ 
+-	drm_crtc_init(dev, &gma_crtc->base, &gma_crtc_funcs);
++	primary = drmm_universal_plane_alloc(dev, struct drm_plane, dev, 0,
++					     &gma_primary_plane_funcs,
++					     gma_primary_formats,
++					     ARRAY_SIZE(gma_primary_formats),
++					     NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (IS_ERR(primary))
++		goto err_free_crtc;
++
++	if (drm_crtc_init_with_planes(dev, &gma_crtc->base, primary, NULL,
++				      &gma_crtc_funcs, NULL))
++		goto err_free_crtc;
+ 
+ 	/* Set the CRTC clock functions from chip specific data */
+ 	gma_crtc->clock_funcs = dev_priv->ops->clock_funcs;
+@@ -524,6 +551,11 @@ void psb_intel_crtc_init(struct drm_device *dev, int pipe,
+ 
+ 	/* Set to true so that the pipe is forced off on initial config. */
+ 	gma_crtc->active = true;
++	return;
++
++err_free_crtc:
++	kfree(gma_crtc->crtc_state);
++	kfree(gma_crtc);
+ }
+ 
+ struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev, int pipe)
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+2.25.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
