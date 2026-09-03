@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39313C624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 10:36:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC89FC624D7
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 10:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6605010F4F7;
-	Thu,  3 Sep 2026 10:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2805310F4FB;
+	Thu,  3 Sep 2026 10:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X0SdEkPB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l1olKmzE";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F1310F4F7;
- Thu,  3 Sep 2026 10:36:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C15B310F4FB;
+ Thu,  3 Sep 2026 10:36:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4C374601FB;
- Thu,  3 Sep 2026 10:36:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9ACF1F000E9;
- Thu,  3 Sep 2026 10:36:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 44F34601DB;
+ Thu,  3 Sep 2026 10:36:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94BD31F00AC4;
+ Thu,  3 Sep 2026 10:36:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788431768;
- bh=J6ZdMZLfluCT5KJ0ipdvS/MsvXXZY/glu2moxZOBezc=;
+ s=k20260515; t=1788431784;
+ bh=NfQ24nQZWZ14j6eFgM/qVA3xLymDzWfm1JX/WXutZmg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X0SdEkPB3Ogr+utm3DPQ5sDyLRh+hJrtZRq/Qsa7DQg2mJgclnfQjq3amSgCogFom
- I1kcf+JeklQ89DFh4+vqS9R/3+B56N71KQvrAsCHc15Tb+XHrihyYGfApJbuQcwTZ2
- XTu9iSDC+SPe0Z1QuWTi1qRTkmgwRPuBrM/uUahP2hhVj4eOkTndbiRXhZEoppk15P
- Y+rPapCIzT2GmH+4c/SvPnskIGpl6WSxAgHI+F6mLM/9GbLXUGpymdenWbg0eszCui
- 5E/pminoFs6GMizDqD08xwc9DBpHlVomcxvpbjSWgUZ+qqXmjbkzwZ50PgKBQAkUAY
- MXYy9gZFoPmWg==
+ b=l1olKmzEcgtEwn24nX22pg7qT52eV+wrTv5KeppFLTaUVnXmmLXMyw3ya8QU3N41T
+ gjNE7WTYc21aNmYBkuteY+LN1PKTGM6PYnsD1CDReKiPJLLDPoDxhAqCu8HAYCbkV6
+ QuuOXWDdHVaKHfDzFrvlGHBBuNmwU61CA2nRvXVrDCkROZjTNkU/IDNKn5CDrz9Jic
+ bY1nDxziZyugqGrhDsiEauLkMV9iER1Y/oqyBfrLxkNkCgdh7EDCpSje4jcIbijIki
+ zdaP6QGNDT4A6verkJTDyVbwkv7CexGQlbNAu6bY1JTd53pvelGrxuEsYTa22oSQ8S
+ HR5phjOav6P5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
+Subject: Re: [PATCH v2 6/8] mm/kasan: use hw_pte_t for the early shadow PTE
+ table
 To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
-Cc: damon@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, dri-devel@lists.freedesktop.org,
- bpf@vger.kernel.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260903103002.1091859-2-usama.anjum@arm.com>
+Cc: linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ damon@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-perf-users@vger.kernel.org
+In-Reply-To: <20260903103002.1091859-7-usama.anjum@arm.com>
 References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-2-usama.anjum@arm.com>
+ <20260903103002.1091859-7-usama.anjum@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 10:36:07 +0000
-Message-Id: <20260903103607.B9ACF1F000E9@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 10:36:23 +0000
+Message-Id: <20260903103623.94BD31F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,25 +60,16 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> pte_t is used both for software PTE values and for entries stored in a PTE
-> table, so pte_t * does not distinguish a pointer to a software PTE
-> value from a pointer to table storage.
+> kasan_early_shadow_pte is a complete PTE table rather than a software
+> PTE value. Declare and define its elements as hw_pte_t so the object uses
+> the PTE table storage type.
 >=20
-> Introduce hw_pte_t as the generic name for a PTE table element. Define it
-> as a macro alias of pte_t by default. When an architecture selects
-> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-> This preserves the representation while allowing converted architectures
-> to enforce the distinction at compile time.
+> Read the first element through ptep_get(), which returns the software PTE
+> value expected by note_page_pte(), instead of accessing hw_pte_t storage
+> directly. This also uses the accessor selected by the architecture.
 >=20
-> Name the generic wrapper structure __hw_pte_t so architectures can
-> forward-declare it when pgtable_t must be defined before the generic
-> hw_pte_t typedef is visible. This avoids header-order dependencies.
->=20
-> Keep the C type definitions behind an __ASSEMBLY__ check because
-> architecture assembly sources can include this header indirectly. Include
-> asm/page.h so consumers such as linux/vmalloc.h retain the page definitio=
-ns
-> they previously obtained from that header.
+> No architecture selects ARCH_HAS_HW_PTE_T at this point, so the storage
+> representation remains unchanged.
 >=20
 > Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
@@ -85,5 +77,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903103002.1091=
-859-1-usama.anjum@arm.com?part=3D1
+859-1-usama.anjum@arm.com?part=3D6
 
