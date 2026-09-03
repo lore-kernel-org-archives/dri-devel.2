@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39BFFC79F80
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE063C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E35BC10F446;
-	Thu,  3 Sep 2026 07:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F214A10F438;
+	Thu,  3 Sep 2026 07:37:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wBuGzghW";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AsbYy7U+";
 	dkim-atps=neutral
-Received: from out30-113.freemail.mail.aliyun.com
- (out30-113.freemail.mail.aliyun.com [115.124.30.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B8410E3BA;
- Tue,  1 Sep 2026 08:32:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1788251569; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=RNx/AB2rEnwXFgZop/G62OeBN0oID8kahxlVtyhWinw=;
- b=wBuGzghWxw+Z8/+X01lsT5vZmJTy+NRvWv40LrQO9BCtQB/4AlBlzIikJG8NtTDOj9eswYZuPdzRQFHZQcSG5xGqVVIKBIXP0N+VjI3kuE9tiKGsY8JdmHYa6WzUTgzRZjUFk6CBSDrtCbXIWoiyGaqrjk0N7Ts+FYeehp8/NuM=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R721e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033032089153;
- MF=qinyuntan@linux.alibaba.com; NM=1; PH=DS; RN=17; SR=0;
- TI=SMTPD_---0XA5o3tj_1788251567; 
-Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com
- fp:SMTPD_---0XA5o3tj_1788251567 cluster:ay36) by smtp.aliyun-inc.com;
- Tue, 01 Sep 2026 16:32:48 +0800
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de, airlied@redhat.com, jfalempe@redhat.com,
- kraxel@redhat.com, dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Qinyun Tan <qinyuntan@linux.alibaba.com>
-Subject: [PATCH v2 3/4] drm/virtio: create blend mode property on cursor plane
-Date: Tue,  1 Sep 2026 16:32:33 +0800
-Message-ID: <20260901083234.1828755-4-qinyuntan@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
-References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9078810F438;
+ Thu,  3 Sep 2026 07:37:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=WEQIDYGlBUXhn3lmR9XsLq39KcvZDQUH9U5OcoHbWm4=; b=AsbYy7U+gP1W/xxoc271+oO9r+
+ aUSK9N25hQPV1YDsOsU46chXiEvhgEnIQsDi5xKj/cgoKFB1KefettZcUtPHnq3W/WVW/Ze6sG/6H
+ XIzIvLVvXCZmWs+6vKKsHWpUUzCb6hJN2cTpYfxq2bsP03My2GkbEAxv+yW6GTjPmRj5w16uqFl0F
+ bxYEGhQHg9zyMVnRTt27lx42tpJIydEatPt1L7zkof2nIgChQF2H8cpSChU9dqEIYiCsjKb6SvLdF
+ T5zqlbkFoQfn5GFVmalLcNuh3p0lcaggbvuyipfhUi/qzzcaNGVUqvfN3CbVcDP7OGg3OhOyXBGjB
+ o3wh+1sg==;
+Received: from [31.4.135.164] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x220G-00EEP3-Ki; Thu, 03 Sep 2026 09:36:56 +0200
+Message-ID: <141dded4-e312-4207-ad9c-572e9d1d7316@igalia.com>
+Date: Thu, 3 Sep 2026 09:36:54 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: use plane color_mgmt_changed to track
+ colorop changes
+From: Melissa Wen <mwen@igalia.com>
+To: Dave Airlie <airlied@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
+ siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260807115712.22423-1-mwen@igalia.com>
+ <CADnq5_OxnaEdNUpC1VQsCgensRYAgFCMeGy3uL5n6mYXqOHV-g@mail.gmail.com>
+ <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+Content-Language: en-US
+In-Reply-To: <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +66,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-format with alpha exposed"), drm_mode_config_validate() warns when a
-plane exposes an alpha pixel format but not the "pixel blend mode"
-property. The virtio-gpu cursor plane (HOST_ARGB8888) trips this.
 
-The virtio-gpu specification does not define the cursor alpha
-semantics. The host forwards the cursor pixels verbatim to its display
-frontends, and the remote cursor protocols among them (SPICE alpha
-cursors, the VNC "Cursor With Alpha" encoding) both define
-pre-multiplied alpha, matching what userspace has always assumed when
-the property is not attached. Expose a "pixel blend mode" property
-advertising only DRM_MODE_BLEND_PREMULTI to make these semantics
-explicit and silence the warning. The primary plane only exposes
-HOST_XRGB8888, so the call is gated to the cursor. No functional
-change.
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
----
-v2: no code change; explain the protocol-level justification for
-PREMULTI in the commit message.
+On 27/08/2026 12:24, Melissa Wen wrote:
+>
+>
+> On 10/08/2026 20:40, Alex Deucher wrote:
+>> On Fri, Aug 7, 2026 at 8:08 AM Melissa Wen <mwen@igalia.com> wrote:
+>>> This is a resubmission of d79716401a95 ("drm/amd/display: use plane
+>>> color_mgmt_changed to track colorop changes") whose change was reverted
+>>> by 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of
+>>> https://gitlab.freedesktop.org/agd5f/linux into drm-next") during a
+>>> merge conflict resolution.
+>>>
+>>> Original commit message:
+>>>
+>>> ```
+>>> Ensure the driver tracks changes in any colorop property of a plane
+>>> color pipeline by using the same mechanism of CRTC color management and
+>>> update plane color blocks when any colorop property changes. It 
+>>> fixes an
+>>> issue observed on gamescope settings for night mode which is done via
+>>> shaper/3D-LUT updates.
+>>> ```
 
- drivers/gpu/drm/virtio/virtgpu_plane.c | 4 ++++
- 1 file changed, 4 insertions(+)
+After talking to Dave, I applied to drm-misc-fixes:
+- 88f8113ab118 ("drm/amd/display: use plane color_mgmt_changed to track 
+colorop changes")
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 1d1b27ece62a7..640815af40980 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -24,6 +24,7 @@
-  */
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -609,6 +610,9 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
- 
- 	if (type == DRM_PLANE_TYPE_PRIMARY)
- 		drm_plane_enable_fb_damage_clips(plane);
-+	else if (type == DRM_PLANE_TYPE_CURSOR)
-+		drm_plane_create_blend_mode_property(plane,
-+						     BIT(DRM_MODE_BLEND_PREMULTI));
- 
- 	return plane;
- }
--- 
-2.43.7
+Melissa
+
+>>>
+>>> Fixes: 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of 
+>>> https://gitlab.freedesktop.org/agd5f/linux into drm-next")
+>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>
+>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> Hey Dave,
+>
+> Can you apply it to drm-next?
+>
+> This a regression from 
+> https://lists.freedesktop.org/archives/amd-gfx/2026-July/148126.html
+> And AFAIU drm-misc's branches are not the right place.
+>
+> Best Regards,
+>
+> Melissa
+>
+>>
+>>
+>>> ---
+>>>
+>>> Hey,
+>>>
+>>> I noticed this problem in the resolution of a merge conflict after
+>>> testing drm-misc-next on SteamDeck with KMS colorop API support and
+>>> verifying the issue of missing updates in nightlight-mode was back.
+>>>
+>>> Let me know what are the right steps to address it.
+>>>
+>>> Thanks,
+>>>
+>>> Melissa
+>>>
+>>> ---
+>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 67b825cbb88f..d0e612371c8f 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -4202,7 +4202,7 @@ static void amdgpu_dm_commit_planes(struct 
+>>> drm_atomic_commit *state,
+>>>                          continue;
+>>>
+>>> bundle->surface_updates[planes_count].surface = dc_plane;
+>>> -               if (new_pcrtc_state->color_mgmt_changed) {
+>>> +               if (new_pcrtc_state->color_mgmt_changed || 
+>>> new_plane_state->color_mgmt_changed) {
+>>> bundle->surface_updates[planes_count].gamma = 
+>>> &dc_plane->gamma_correction;
+>>> bundle->surface_updates[planes_count].in_transfer_func = 
+>>> &dc_plane->in_transfer_func;
+>>> bundle->surface_updates[planes_count].gamut_remap_matrix = 
+>>> &dc_plane->gamut_remap_matrix;
+>>> @@ -6012,6 +6012,10 @@ static bool should_reset_plane(struct 
+>>> drm_atomic_commit *state,
+>>>          if (new_crtc_state->color_mgmt_changed)
+>>>                  return true;
+>>>
+>>> +       /* Plane color pipeline or its colorop changes. */
+>>> +       if (new_plane_state->color_mgmt_changed)
+>>> +               return true;
+>>> +
+>>>          /*
+>>>           * On zpos change, planes need to be reordered by removing 
+>>> and re-adding
+>>>           * them one by one to the dc state, in order of descending 
+>>> zpos.
+>>> -- 
+>>> 2.53.0
+>>>
+>
 
