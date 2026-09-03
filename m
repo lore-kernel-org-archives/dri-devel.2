@@ -4,133 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0CCDC624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9028C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E107D10E092;
-	Thu,  3 Sep 2026 06:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2E810E0A1;
+	Thu,  3 Sep 2026 06:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ms4Zn4Ra";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="csYbJmic";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="XHBbSQqH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="de+rhubq";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UVgfLsaT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3/8WztDH";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9908E10E092
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:33:45 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6835lcqZ3641942
- for <dri-devel@lists.freedesktop.org>; Thu, 3 Sep 2026 06:33:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Fr7cHeYqrI16WQmSdQLJQaBM+npOKUH7CWYOJaeU504=; b=Ms4Zn4RammyQ2I/u
- iWL69q5E75UFIB/stRmu22d6yz5BXjR7sPqxcxIGDfcLyW6Dj6XxTA1xx9ASb48G
- 2k1vZluop5rQ5kZfWOBH1wFOdazLf+bv1gm4DJisowPetpYvghJ6XYC+ko0cZEZ9
- 3yZ8a1n0fQJzQOSXf3GA+YKDHrOqJQnb5UBVa361ilEqIQOtzr9+9fGLpKXDREOZ
- ksMT9IWYnqWX2yIn9Zm/tWpAE8Se32/ZyqjhDZKY0gL9VtIiVNIaFBXVk5Qkxz/v
- 7P5DI4kITzm4qIfWObd+vKv/dXOYAPAzQ5z3QSCTTRoUVNNlTQPN1GnVlN2vi8Pk
- 3fP5/A==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdug2t-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 06:33:44 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-92e5e21552dso26890585a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 23:33:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788417224; x=1789022024;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Fr7cHeYqrI16WQmSdQLJQaBM+npOKUH7CWYOJaeU504=;
- b=csYbJmicbzJSdGlfcNxiyrTZr3FLJ6pVzjxZmSCK98E8EWTrHtV1avB60Z1pkTPCux
- xMplMowZqwaUOLdk/t8resOl6Pm3MYjKwX6jXvzEM2ybsAWF6thitUQrXzAAwFGQXiUJ
- gHdQWljXjBaYpFUjyJk2nLZ/YkrA+TMQ18PeOMXXv1ITKrlvBjgq6X1/04vYQVLVPOcv
- s/e5gHUL/MkoqpFJlvgTmBH2Rp65fBddWtrt9tHGNmX4RPhy0dk0g9gDBT33+B0ybfQA
- kUWzX8bCgnf3aM5pq9T4LXkdSr6F4Cr3EcVMFAv8UuhuDte+eEFKK+HgV9bzCorWBwLO
- 4n1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788417224; x=1789022024;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Fr7cHeYqrI16WQmSdQLJQaBM+npOKUH7CWYOJaeU504=;
- b=aFZ6/W8KgDe/MJvsRFn7BcSKGKEDBNCQ3zfKiHCaiE1gDEZA9d7GKVqF9FSkM2DoBP
- coEc+CJOHs2hBNaeTHuULGIJjtDukCE3ZAJqhJDp/GpH3NzL6gzCxoritRbgw/tniUbi
- qgdqDmp0oX7ovmZykJ/6hrXpMi8PKoxqpEoZ+IHf2XGwo79bJJYjRXHiy9qaPwAKWftG
- J/bmKNnV1rnUo9FYMMIos7i6jXjOUX5R+I1h+v3gboHyvxiZ+Df3UJ6eclkc5sn3iEK7
- rfrvSX6R6tbHNb3s1QPvIU2hELmJrfZTwBMYXJeXXR3GlAxpuMcvAcY5pKl58jgGiWT7
- WQpQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzTgIkZbHsB9UGTugNjA4zpe9000b2IV+IOn0cY7I6MWjCWs+OTSNhERcxe+uxgNG0C3MYyKx4gUK4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n99mkFcN57TID4O/rHIUU4UPqGAa3zfMljbWfFfZsfHBta+YeJ
- aPe1TJiZmUtPx35AAXyVQ1rm82OSluVgE41stDTunb08GHmsT5kwuNT13wsgR+CGWlIW32bc1p1
- RdyD7DljUmVZ2NHbbujvkkwb5so9YhY8rH5S9xMhpGBu3W1wMV/ri00RF5RywWzOh7hxSGFE=
-X-Gm-Gg: AYBFou0vkkaVU/GGp1Ijt9zWw6gmOrXzIOAD+a4NNX3Mm8lDAPM9rbRY7Ija7WgnTbj
- bgZ8RG7WOCC7mTJQySeZGHSj0f0/lXOSUy6bBurkArzT2VrqTVCcVA8u6+S4hcwcmUmpalaUDpF
- 0VMrlzCVEoJtqWv/W0lLm+trC7ngAXwl2wZDFX9Mdh3IBM1lndpr8ELo9Yje1Z7P9mdsjAPyoiv
- dhLAN/3tMHtsfkXAs7QlfMuzUDBDDM3wKuP8t1nBTCbJYYEfOBcPqo9Gc+kuOtFJ+QA1v4Vclmx
- NFFs3lxBosBckAhUA33p6p0ct5RyDtlTehH51SQ/t4I6KGVWn9dtKE9X4Q5Mba+uQCGMKMZVxq4
- oOXVPNIcbPT13VAYovAUP0w==
-X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id
- af79cd13be357-939610b5598mr702104785a.6.1788417223822; 
- Wed, 02 Sep 2026 23:33:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:2704:b0:939:288a:8a0c with SMTP id
- af79cd13be357-939610b5598mr702102885a.6.1788417223371; 
- Wed, 02 Sep 2026 23:33:43 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c25f3eeb888sm53439266b.9.2026.09.02.23.33.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Sep 2026 23:33:42 -0700 (PDT)
-Message-ID: <292a6a67-0870-4735-a34c-50f2cbae36c0@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 08:33:41 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A2010E082
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:52:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B776821D6F;
+ Thu,  3 Sep 2026 06:51:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788418319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
+ b=XHBbSQqHzINGAEVBcucq0PCaLo8JWtXAx5JWDmnKp+SxORaED6LDGeX1wmWoPPUgbbGZHP
+ YcNyA7F2zBVceMeEeMyRPdgvxs1gEftiLzsUtAimnGWpCMhBsK9K0/dCJRwvtR+QgtSiSq
+ nyVt0cJx7Rz2yV1SA+/7N4Osix5Ktpk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788418319;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
+ b=de+rhubqpHi0PEcQNa2UPzkGqJOyt1k72vmscG4JMqA3+Ekx3AvixQ8+uUWyzVHuKDrrkH
+ 7nUlAePBwnhWxICA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788418315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
+ b=UVgfLsaTkPqYRifjeLnDtbm9sByfawPhfLh/XKjI2AZnzbByRGTVDwgkWkCYH8R6H4wW0e
+ doW8dJbg7eThFtuLIV1R9Nl8GYJUDPYGI2+zZsm2tswN4UOzVKMd5YHYy3jA1sdAim6YD/
+ /huAqXJj9IAyjCb6Ib8eyIQo31Gs8qI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788418315;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
+ b=3/8WztDHbB+HcGsMVUU2KY1zgiNxzll5wxES4QXhGg3o5CJvyfV1G+nKWwpguLTegKjQ/F
+ Hi63sX3VgaOiAEAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7EA9C136E6;
+ Thu,  3 Sep 2026 06:51:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 5qx8HQsZmWrlRgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 06:51:55 +0000
+Message-ID: <ff097a74-c963-4407-b8d6-df36ec4f4f43@suse.de>
+Date: Thu, 3 Sep 2026 08:51:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misc: fastrpc: Use devm_of_reserved_mem_device_init()
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260902194041.1999834-1-mukesh.ojha@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] drm/sysfb: Use iosys_map_memset() to clear buffer
+To: Chen-Yu Tsai <wenst@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+References: <20260903060651.3724163-1-wenst@chromium.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260902194041.1999834-1-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a9914c8 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=OkyngIYZ1pMGiDKQ6L4A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: ersMQIaU3h4WJyQxsFsVziFbNG5AsuDf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX7jd1mGNS0l1x
- AcogGfr7uG6rRVefALgnmUY1c4Op+3gkjnC19rNAXT8YhcxpFwWkK1Ttx6eQr9EjhzWZ0K5HHlV
- qgI5sHfQjDoWMOV4Y540Dj7ivCy+SQ2NIUo0f/cj+lkmEh15IWQ3jj+7IjPwFEK1/s1sMl7OiHA
- l7aAWF1Kt4siiPK6vEtDbtu8l2hewQ32k+TOZeXi5idrKQobydLZIF/Bj4xOey5Ae5j5hJjdRAW
- BSo4+b+XKg+64YPDaIPCDS0e4ENSyhpSQa4Y1IT6tzEL/sBHeY05YBdWJh8QFUrePwcStRVEnC6
- 50MLfeWmC08l65Hz1Ae4r4xR11+XRov+lpRAYgMzne562j4sznF2rZEsPvdGS2tnJ6CLAQ601V+
- Gl3eAhYBLAx1dAtkRPvW2tmaqAobfBZXWza5dLRiOwYiN2BoR2iBHqHXooBcM/G58q8odv3FsUB
- 7UdjgiYlCxTSWSTP1eQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA1NyBTYWx0ZWRfX0MOfEeQLbW0s
- pyUXbMe0ND92anRbTyMHWxHTMJpLN6hUUHRVSg6rW2MOQLs/VRICY1pYwrJI5FBJ4BFGW82P+ZZ
- Iy27POQ6EIruLXKQU/+dLge3I2Q8Z78=
-X-Proofpoint-ORIG-GUID: ersMQIaU3h4WJyQxsFsVziFbNG5AsuDf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030057
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260903060651.3724163-1-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[];
+ URIBL_BLOCKED(0.00)[suse.de:mid,chromium.org:email,imap1.dmz-prg2.suse.org:helo,suse.com:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,suse.de:mid,suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,15 +137,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/2/26 9:40 PM, Mukesh Ojha wrote:
-> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-> the reserved memory region is released on device removal, fixing a
-> missing of_reserved_mem_device_release() in fastrpc_rpmsg_remove().
-> 
-> Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Hi
+
+Am 03.09.26 um 08:06 schrieb Chen-Yu Tsai:
+> The atomic disable in drm/sysfb currently clears the buffer using
+> memset_io(). Since the mapping is provided in a |struct iosys_map|,
+> it is better to use the related API instead of extracting the vaddr.
+> This is mentioned as a TODO item.
+>
+> Switch to iosys_map_memset(), which takes the mapping as well as an
+> offset into the mapping.
+>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 > ---
+>   drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 13 +++++--------
+>   1 file changed, 5 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> index d2de29caf89e..99b13af4e391 100644
+> --- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> @@ -375,13 +375,11 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+There's a newer version of this function in the drm-misc-next branch. 
+Please rebase your patch onto this code.
 
-Konrad
+Best regards
+Thomas
+
+>   {
+>   	struct drm_device *dev = plane->dev;
+>   	struct drm_sysfb_device *sysfb = to_drm_sysfb_device(dev);
+> -	struct iosys_map dst = sysfb->fb_addr;
+>   	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
+> -	void __iomem *dst_vmap = dst.vaddr_iomem; /* TODO: Use mapping abstraction */
+>   	unsigned int dst_pitch = sysfb->fb_pitch;
+>   	const struct drm_format_info *dst_format = sysfb->fb_format;
+>   	struct drm_rect dst_clip;
+> -	unsigned long lines, linepixels, i;
+> +	unsigned long lines, linepixels, i, offset;
+>   	int idx;
+>   
+>   	drm_rect_init(&dst_clip,
+> @@ -395,11 +393,10 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
+>   		return;
+>   
+>   	/* Clear buffer to black if disabled */
+> -	dst_vmap += drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
+> -	for (i = 0; i < lines; ++i) {
+> -		memset_io(dst_vmap, 0, linepixels * dst_format->cpp[0]);
+> -		dst_vmap += dst_pitch;
+> -	}
+> +	offset = drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
+> +	for (i = 0; i < lines; ++i)
+> +		iosys_map_memset(&sysfb->fb_addr, offset + dst_pitch * i, 0,
+> +				 linepixels * dst_format->cpp[0]);
+>   
+>   	drm_dev_exit(idx);
+>   }
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
