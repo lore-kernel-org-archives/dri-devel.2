@@ -4,54 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52644C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F64C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 09:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69E7110F478;
-	Thu,  3 Sep 2026 09:02:11 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4690710F478
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:02:10 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
- by APP-01 (Coremail) with SMTP id qwCowAB3Se2EN5lqi1oaBw--.49466S2;
- Thu, 03 Sep 2026 17:01:56 +0800 (CST)
-Message-ID: <af021f98e497c30890df7c054680c27edf8e556a.camel@iscas.ac.cn>
-Subject: Re: [PATCH V3] drm/loongson: Create blend mode property for cursor
- plane
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
- Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai
- <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
-Cc: dri-devel@lists.freedesktop.org
-Date: Thu, 03 Sep 2026 17:01:55 +0800
-In-Reply-To: <20260903084212.3621540-1-chenhuacai@loongson.cn>
-References: <20260903084212.3621540-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929BD10F47E;
+	Thu,  3 Sep 2026 09:03:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ifGobQJ1";
+	dkim-atps=neutral
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16B7310F47E
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 09:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Hq
+ +PQvivij3P3MEGYcAKZIRnspRAwgEpPvp+39rTTpk=; b=ifGobQJ1hRZQje/TKP
+ ytN+JRqVpEhbeEzHPc+hpApX079U8hH2meRedfu5VloKIKhzH5CFt7KXVZCzlaRb
+ 7rvcY0y2hTyZtjNG23NTxbHb1KOi6lBUxdkItFBTdwOInisUJEDNQYC25tGnQcqW
+ DXdwSaDAIQtFD7gw0LPdC8WqM=
+Received: from localhost.localdomain (unknown [])
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgDXfwfBN5lqWkugOQ--.30928S2;
+ Thu, 03 Sep 2026 17:02:59 +0800 (CST)
+From: oushixiong1025@163.com
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH RESEND] drm/sched: Create faux device for KUnit tests
+Date: Thu,  3 Sep 2026 17:02:56 +0800
+Message-Id: <20260903090256.552317-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAB3Se2EN5lqi1oaBw--.49466S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr47ArWkAFy8tw43Ww47XFb_yoW8tw4xpa
- nrAFW8Kr98Aa4Dt34DA34fKa13Za1fG34vqr95X39F9r1qkr13Ar1UGrnIgrWUJr47Wrya
- g3s7Crn8GF4jkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqiFxDUUUU
-X-Originating-IP: [120.85.96.74]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PSgvCgDXfwfBN5lqWkugOQ--.30928S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr1kGw1kKryktF43JF48Xrb_yoW5urW5pa
+ 9rZFWYgrWrtFyDKrW7ua1rZFyfGw4xC347Kr1DK34Y9F1vqFy5tr4DGrW3Jry7ArW7ZFWS
+ vwnIgw47GF4jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4gP+DmqZN8P1HgAA39
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,72 +60,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-03=E5=9B=9B=E7=9A=84 16:42 +0800=EF=BC=8CHuacai Chen=E5=
-=86=99=E9=81=93=EF=BC=9A
-> After commit 860e748bddcc929 ("drm: ensure blend mode supported if
-> pixel
-> format with alpha exposed") we get warnings at boot:
->=20
-> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
-> format with alpha exposed but blend mode not setup. Please fix.
-> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
-> format with alpha exposed but blend mode not setup. Please fix.
->=20
-> The reason is the cursor plane supports color formats with alpha but
-> the
-> driver doesn't create blend mode property, which triggers the warning
-> in
-> validate_blend_mode_for_alpha_formats().
->=20
-> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
-> blend mode property with DRM_MODE_BLEND_COVERAGE for cursor planes
-> since
-> it is the only one implemented in the driver.
->=20
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+The DRM scheduler KUnit tests currently pass NULL for the dev field in
+drm_sched_init_args, which causes a NULL pointer dereference in the
+drm_sched_job trace event when it calls dev_name() on sched->dev.
 
-Thanks,
-Icenowy
+Use faux_device_create() to create a fake device for the mock scheduler,
+so the scheduler always has a valid device pointer. This avoids the
+trace event crash without requiring the production code to accept a NULL
+device pointer, which conceptually makes no sense for a scheduler.
 
-> ---
-> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 5 +++--
-> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
-> b/drivers/gpu/drm/loongson/lsdc_plane.c
-> index bea42215796d..bcc0ffa17bdf 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> @@ -7,6 +7,7 @@
-> =C2=A0
-> =C2=A0#include <drm/drm_atomic.h>
-> =C2=A0#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
-> =C2=A0#include <drm/drm_framebuffer.h>
-> =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> =C2=A0#include <drm/drm_print.h>
-> @@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device
-> *ddev,
-> =C2=A0
-> =C2=A0	drm_plane_helper_add(plane,
-> &ls7a1000_cursor_plane_helper_funcs);
-> =C2=A0
-> -	return 0;
-> +	return drm_plane_create_blend_mode_property(plane,
-> BIT(DRM_MODE_BLEND_COVERAGE));
-> =C2=A0}
-> =C2=A0
-> =C2=A0int ls7a2000_cursor_plane_init(struct drm_device *ddev,
-> @@ -790,5 +791,5 @@ int ls7a2000_cursor_plane_init(struct drm_device
-> *ddev,
-> =C2=A0
-> =C2=A0	drm_plane_helper_add(plane,
-> &ls7a2000_cursor_plane_helper_funcs);
-> =C2=A0
-> -	return 0;
-> +	return drm_plane_create_blend_mode_property(plane,
-> BIT(DRM_MODE_BLEND_COVERAGE));
-> =C2=A0}
+An atomic counter is used to generate unique device names, since
+multiple mock schedulers can exist simultaneously across different
+test suites.
+
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 14 ++++++++++++++
+ drivers/gpu/drm/scheduler/tests/sched_tests.h    |  2 ++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 14403a762335..cd87e405bb1e 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2025 Valve Corporation */
+ 
++#include <linux/device/faux.h>
++
+ #include "sched_tests.h"
+ 
+ /*
+@@ -10,6 +12,8 @@
+  * Test cases are implemented in a separate file.
+  */
+ 
++static atomic_t drm_mock_sched_instance = ATOMIC_INIT(0);
++
+ /**
+  * drm_mock_sched_entity_new - Create a new mock scheduler entity
+  *
+@@ -296,11 +300,20 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ 		.name		= "drm-mock-scheduler",
+ 	};
+ 	struct drm_mock_scheduler *sched;
++	char name[64];
+ 	int ret;
+ 
+ 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, sched);
+ 
++	snprintf(name, sizeof(name), "drm-mock-scheduler-%d",
++		 atomic_inc_return(&drm_mock_sched_instance));
++
++	sched->faux_dev = faux_device_create(name, NULL, NULL);
++	KUNIT_ASSERT_NOT_NULL(test, sched->faux_dev);
++
++	args.dev = &sched->faux_dev->dev;
++
+ 	ret = drm_sched_init(&sched->base, &args);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+@@ -323,6 +336,7 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ void drm_mock_sched_fini(struct drm_mock_scheduler *sched)
+ {
+ 	drm_sched_fini(&sched->base);
++	faux_device_destroy(sched->faux_dev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/scheduler/tests/sched_tests.h b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+index 553d45abd057..bbf4da585866 100644
+--- a/drivers/gpu/drm/scheduler/tests/sched_tests.h
++++ b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+@@ -7,6 +7,7 @@
+ #include <kunit/test.h>
+ #include <linux/atomic.h>
+ #include <linux/completion.h>
++#include <linux/device/faux.h>
+ #include <linux/dma-fence.h>
+ #include <linux/hrtimer.h>
+ #include <linux/ktime.h>
+@@ -44,6 +45,7 @@ struct drm_mock_scheduler {
+ 	struct drm_gpu_scheduler base;
+ 
+ 	struct kunit		*test;
++	struct faux_device	*faux_dev;
+ 
+ 	spinlock_t		lock;
+ 	struct list_head	job_list;
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
