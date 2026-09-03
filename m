@@ -4,80 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF5C8C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1F9C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0A710E11C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B3E10F89F;
 	Fri,  4 Sep 2026 07:19:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sz6YA3LX";
-	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84CE510E161
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 18:01:42 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-8485b358552so75903b3a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 11:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788458502; x=1789063302; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xjazdtGuj7thY8vVrVUeII/vHI3KkN+Fj8pG30w25iU=;
- b=Sz6YA3LX5ISX7AQPFz+aLGwiioTacICDKjk2BB7xRsqxpek0mH9MT6A2JKEvODEzV6
- C4LDqeQ0Uj6D82geYf5xeQEP7xMYETmE+uORvaS0iUhmBYNEQIGOiqbvN4GGa5emzQNH
- EipM3Dq8HaVfG+FBrz7pMjO6S7ShlDCws2J+rg4QPD5qlByXNAsbM6biNwAUocKVudyo
- dwmjCOYt9v2wNnxkw38fUodkeMq8Nfwt1AbJv83ROIaXZf+/cuY8YkWb2WpY2ZGQUIdD
- UR4JPe4y76qV31xWxdOgACxvNUrtYtjMZpnFFjJlUn8OxkL+JKhoENen8Xja+bjYnmSk
- P1Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788458502; x=1789063302;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=xjazdtGuj7thY8vVrVUeII/vHI3KkN+Fj8pG30w25iU=;
- b=Snpz4dF2sX6YoKzdDh2UE2xFOwS6Xj4IOAPX9xvfRjuqZRLAWrFekOdnJ60XZs33fF
- Vcr7azdspmu7rPuPEf+8oL+wsDrTmwkNvlLOtPezuAt6EH3JaLY0iXPTFKAesKaAubIo
- BCRivQEZDZmaxGyf7E7B1m9J6pC1saef64cJqNGD9ijixI2zrU8bppfJSTtgUeAhrloM
- ujBRMHz7ihzlG9mddMVX8EuQiW0av51dB00oIudHr6LgtegxTrZ0xx8Wq9HCK7AMtP+s
- eETeTb5Nv+2QkQX/BJTAYFXzvM1E0cLvzxO/Y+/Lmm/XTnTdwPNzcWlipQjsVnA+r0Iz
- 1xUw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzZNibAlSdzDlqUsrylxJCfY/oqnWawnZZ5sTjwC5MtaCNcSebuRqvCED7cULwaS6DTIt9VJG0X2Nc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k8DM35ajYJbHnJZ9Ox7yFCF8V4O+0FEGwiNGrWJ9LVovyY29F4
- BDzzjkNVFuhsVy0/2/+nLzNNUg925Dealrh2a4eU5FWYj6mT/r+Yiiw=
-X-Gm-Gg: AYBFou2tTJP/eX/uo6GpoieKQS8l++qfkHGZokqcXkn8msHpY/Zf9SGVnRCnIM2JWm2
- Fzd+Dh8g0HjNxAPQfmE4D4ctfTr258qwvg2pgp3adZGoWcfa9QGctio1vvXmV8/qN/Nj3dEJCRs
- 9cLGnsO1rrv89LLyhrRTJqdwtEGZDiEi38Rxg4KdwvZ2cKNlEG5oJJVr39hQ4WYQjXwR5G4lYhl
- ocPn+rdAPZ6jknJ5gH24Ut7HGOuU5lwlWHKI7l4Wq4nnptsj2MvDFKxXGpepQBd/bL+7VLTmVlQ
- jormpgS9PKMfQscj0mxVod4LHh5NbM1KLp9gWVIEAOSpXhMM497BM/ZaqoeddnSOnNgSY9b78Ib
- fciLc6xPqHqaSNgdMVwmX6HrTRPMBQuldfqtdv3sf1Z+Fb1o6jz9OiDzFDeMfRIiPI5CMwsKKlm
- nazCu0Zhk+ODOEwTuZSQ1PN1f00qkFDdIk6tot3qhukDgB6aZrKqqo9WMERFWLJuxKu+l4SSgBD
- YJ88wRrjHANLxdxUUPBblAtQco=
-X-Received: by 2002:a05:6a00:1950:b0:85c:3922:25d5 with SMTP id
- d2e1a72fcca58-8616aa68194mr968000b3a.21.1788458501589; 
- Thu, 03 Sep 2026 11:01:41 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-86152d29654sm248926b3a.33.2026.09.03.11.01.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 11:01:40 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: phasta@kernel.org, christian.koenig@amd.com, tursulin@ursulin.net,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-Subject: Re: [PATCH v3 1/2] drm/sched: fix use-after-free of the fence
- timeline name
-Date: Fri,  4 Sep 2026 03:01:34 +0900
-Message-ID: <20260903180134.950043-1-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <611c2624e60ea422229e666480da3e504d126682.camel@mailbox.org>
-References: <20260902144204.1843670-2-malhyuk97@gmail.com>
- <611c2624e60ea422229e666480da3e504d126682.camel@mailbox.org>
+Received: from mta1.migadu.com (out-124.mta1.migadu.com [95.215.58.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 322F710F51C
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 11:25:03 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by mta10.migadu.com with ESMTPS id 42ffe0522571fddf;
+ Thu, 03 Sep 2026 11:18:57 +0000
+X-Mizu-Trace-ID: 42ffe0522571fddf
+X-Migadu-Flow: FLOW_OUT
+From: Baoquan He <hebaoquan@kylinos.cn>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org, hch@lst.de, harry@kernel.org,
+ Baoquan He <hebaoquan@kylinos.cn>, dri-devel@lists.freedesktop.org
+Subject: [PATCH 02/13] drm/sti: Don't use GFP_DMA when calling dma_alloc_wc()
+Date: Thu,  3 Sep 2026 19:18:25 +0800
+Message-ID: <20260903111836.1777265-3-hebaoquan@kylinos.cn>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260903111836.1777265-1-hebaoquan@kylinos.cn>
+References: <20260903111836.1777265-1-hebaoquan@kylinos.cn>
 MIME-Version: 1.0
+Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 04 Sep 2026 07:19:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,77 +47,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks a lot for the thorough review, and for pulling in the pvr folks.
+dma_alloc_wc() allocates the DMA buffer with the device's
+addressing limitation in mind; the DMA core picks the zone from the
+device's coherent DMA mask and ignores GFP_DMA passed by the caller.
+Remove the redundant GFP_DMA flag.
 
-First, the important one. You flagged the ops-detach as dangerous, and after
-your and the bot's pointers I agree it is not viable as-is:
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+---
+ drivers/gpu/drm/sti/sti_cursor.c | 4 ++--
+ drivers/gpu/drm/sti/sti_hqvdp.c  | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
- - amdgpu dereferences the helper unconditionally, e.g.
-   amdgpu_cs_p2_dependencies() and amdgpu_ctx_fence_time() do
-   to_drm_sched_fence(fence) and then touch ->scheduled without a NULL check.
-   Once the finished fence detaches its ops on signalling, to_drm_sched_fence()
-   returns NULL for it, so this is a deterministic NULL deref an unprivileged
-   process can reach by submitting and then referencing completed jobs. That is
-   the bot's [Critical], and it checks out.
- - pvr is worse in the way you described: pvr_queue_fence_is_native() uses the
-   ops pointer as an *identity* test, so detaching ops makes it race between
-   "native" and "foreign" for one and the same fence.
+diff --git a/drivers/gpu/drm/sti/sti_cursor.c b/drivers/gpu/drm/sti/sti_cursor.c
+index d0b89b28e50c..a0ec671477fd 100644
+--- a/drivers/gpu/drm/sti/sti_cursor.c
++++ b/drivers/gpu/drm/sti/sti_cursor.c
+@@ -240,7 +240,7 @@ static int sti_cursor_atomic_check(struct drm_plane *drm_plane,
+ 		cursor->pixmap.base = dma_alloc_wc(cursor->dev,
+ 						   cursor->pixmap.size,
+ 						   &cursor->pixmap.paddr,
+-						   GFP_KERNEL | GFP_DMA);
++						   GFP_KERNEL);
+ 		if (!cursor->pixmap.base) {
+ 			DRM_ERROR("Failed to allocate memory for pixmap\n");
+ 			return -EINVAL;
+@@ -380,7 +380,7 @@ struct drm_plane *sti_cursor_create(struct drm_device *drm_dev,
+ 	/* Allocate clut buffer */
+ 	size = 0x100 * sizeof(unsigned short);
+ 	cursor->clut = dma_alloc_wc(dev, size, &cursor->clut_paddr,
+-				    GFP_KERNEL | GFP_DMA);
++				    GFP_KERNEL);
+ 
+ 	if (!cursor->clut) {
+ 		DRM_ERROR("Failed to allocate memory for cursor clut\n");
+diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hqvdp.c
+index cf1ed8a33b8e..b0d66834bcbe 100644
+--- a/drivers/gpu/drm/sti/sti_hqvdp.c
++++ b/drivers/gpu/drm/sti/sti_hqvdp.c
+@@ -860,7 +860,7 @@ static void sti_hqvdp_init(struct sti_hqvdp *hqvdp)
+ 	size = NB_VDP_CMD * sizeof(struct sti_hqvdp_cmd);
+ 	hqvdp->hqvdp_cmd = dma_alloc_wc(hqvdp->dev, size,
+ 					&dma_addr,
+-					GFP_KERNEL | GFP_DMA);
++					GFP_KERNEL);
+ 	if (!hqvdp->hqvdp_cmd) {
+ 		DRM_ERROR("Failed to allocate memory for VDP cmd\n");
+ 		return;
+-- 
+2.54.0
 
-So detaching the ops breaks the "identify a drm_sched_fence by its ops"
-contract that these drivers rely on, and papering over it would mean auditing
-every to_drm_sched_fence() caller. I don't think that is the right trade for a
-fix we want to backport.
-
-Christian's point that the finished/scheduled .release callbacks are
-"unproblematic for the problem at hand" matches this: the release callbacks do
-not need to be removed to fix the timeline-name UAF, so keeping them (and thus
-the ops attached, and to_drm_sched_fence() working) is fine.
-
-Given that, I'd like to fall back to the minimal caching fix and drop the
-ops/refcount rework entirely:
-
- - get_timeline_name() caches the name in drm_sched_fence_init() and returns
-   the cached value, so it never dereferences ->sched. Everything else - both
-   .release callbacks, the shared allocation, the call_rcu() free,
-   to_drm_sched_fence() - stays exactly as today, so there is no amdgpu/pvr
-   regression and nothing new for the backend to reason about.
- - This also addresses Christian's point that the reference must go from the
-   finished to the scheduled fence, not the other way around: the caching fix
-   keeps the existing finished->scheduled reference untouched and does not
-   invert it, so the finished->scheduled conversions that rely on that keep
-   working.
- - This makes most of the per-patch comments on v3 (the shared-allocation
-   lifetime, the extra dma_fence_get(), the "last put" wording, moving
-   call_rcu) moot, since that rework goes away. I'll keep the ones that still
-   apply.
-
-On the specific points:
-
- - get_driver_name(): it returns the literal "drm_sched" and never touches
-   ->sched, so unlike get_timeline_name() it isn't exposed. Only the timeline
-   name needs the fix.
- - The "already-satisfied dependency / dependency-collapsing" wording and the
-   whole to_drm_sched_fence()-returns-NULL discussion only existed to justify
-   the ops-detach; with caching, to_drm_sched_fence() keeps working as today,
-   so that reasoning (and the confusion around it) goes away entirely.
- - Caching only the pointer: the earlier objection was that it doesn't help
-   drivers whose name is freed together with the scheduler. The mainline
-   drivers that actually hit this (amdxdna, nouveau, msm VM_BIND) pass a name
-   that lives as long as the scheduler, and panthor/xe (dynamically allocated
-   names) are already fixed per-driver. If you'd rather close the dynamic-name
-   case generically in the core too, I can kstrdup() the name into the fence at
-   init and free it on fence release - one small alloc per fence. I'm happy to
-   go pointer-cache or kstrdup, whichever you and Tvrtko prefer.
- - Cc: stable: will add "Cc: stable@vger.kernel.org # we don't know since when"
-   and let the stable folks pick the backport depth, as you suggested.
- - Whitespace/doc reflow: will split into its own patch and keep the fix patch
-   free of unrelated formatting churn.
- - kmemleak: the caching fix doesn't change any refcounts, but I'll re-run the
-   KUnit suite under kmemleak as well as KASAN before resending.
-
-Unless someone would prefer to keep ops-detach and fix the two callers instead,
-I'll respin as the caching v4 once Tvrtko and the pvr folks have had a chance to
-look as well.
-
-Thanks again,
-Jonghyuk
