@@ -4,66 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA65C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFF8C624D6
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4B010F5EC;
-	Thu,  3 Sep 2026 13:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67B8510F5F5;
+	Thu,  3 Sep 2026 13:44:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="k7V11AWO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rA+zS1D3";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8354210F5CF
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:43:16 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 198F84E414E5;
- Thu,  3 Sep 2026 13:43:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C2F6C602B8;
- Thu,  3 Sep 2026 13:43:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7BE3D11C7A01D; 
- Thu,  3 Sep 2026 15:42:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788442989; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=ZurAKKCu2FRtuzkbbixd8DBWFCJp9qT4g/V/S8l5AhM=;
- b=k7V11AWOe8QeWbabRKC0jiVuby0MYr8K3IeyjIBqJt6H/AXan9AlQ0xxrYHKEYzisACsHx
- 73n1Vs5V4HrWEgN1ilVnchWPUUP9OmrnDm3hRc+xDHvnDxsNPtsn1hfiW7YvqNexaQ+Vxg
- d1Yu767DXFfmUEBOdsJQuQlE4ZskSKo+cyYOQsDUaQz/OWsA7feSIQ4zK+tJ6gcyxRZ/9G
- Bx+XNXaMOjmfn75iIliHUZGsspWm2VpusMwYpLx6FPIlOL5HrWUJWCSOaAn4rpnyxwLG7U
- jsAw4nFdJ6q7hwYlTsIo91xdq7L5J/rtnOBamEyM/58rmp6NKWe/Y/Qufd1fEA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 15:42:57 +0200
-Message-Id: <DL5Q4HIVN3Z2.2A35BDU06T6MA@bootlin.com>
-Subject: Re: [PATCH RFC v2 01/19] drm: of: move
- drm_of_find_panel_or_bridge() from drm_of.c to bridge/panel.c
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Albert Esteve"
- <aesteve@redhat.com>, "Anusha Srivatsa" <asrivats@redhat.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-1-2ab8ee24538e@bootlin.com>
- <aplCttfyxmPhToUq@houat>
-In-Reply-To: <aplCttfyxmPhToUq@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D7410F5E3
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:13 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-48444ec4fe2so1336731f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788443051; x=1789047851; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tZmxOqMZSbeiSR0GbmGkaC/SGeiqRevrAyyYwxpdgiU=;
+ b=rA+zS1D3Cw6VzQUneegQ+dzWKnma6J9hA1aX7fy3tU1GEoF7aqIt2QQnrJVT1WnNa7
+ PtISCV6cJ4nsZ5N6PaxuAbaWDZRWCb/Xw5Br8U43gJcGYRrhsquq26bXDusITnWOFJJV
+ 5xOehGlOkfLs/oy6PHr6Wo1FR8g1WDpvqBGSbi6lVY4gkNf0XrI/YycKEdnNn5KQqdSr
+ t+i4V1i+mMAhee7nyeLfyd8+IlHDWpBf9wtfeydhEge+bJFLMXER03h90jdgebxMsjbz
+ B7pftE7Ns70cLNAAX/nUqiV3GR9sESW+1DzF6rD4mb+V8Uoss4mP1YyrvA3TjLKCaSL5
+ 8Umw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788443051; x=1789047851;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=tZmxOqMZSbeiSR0GbmGkaC/SGeiqRevrAyyYwxpdgiU=;
+ b=bfBcgQyYPyUXlLHl7SJTPMDwt3nLNo3ArJIIZSDH6uVFlhGW0mT5IsMW85Kgx4XVdC
+ Ha0QMnngqRFjFFV4sTUGNLX1SfjUt3C65J+IsxMPyQRH4Ed8rFOE1VmLqQikpyFaW+cZ
+ 5NFYEi+DpuDC1w8iGb8AWCsn+4MYsfQQ6orXu+LDyJTgMBo8MSPMSRM1r1rqnW1Gor+0
+ i1BqTSo5J3Le3M4+tzKR1yMSBcHN7T06ESg3FCvu533As5u1vx6YdCLuIipm3DlXHRbB
+ u1ipxTBY2Gdp0fdVT04NZTZzW6ylIKBz1Cvg+PxfdwcRXVvGK4uDYc8gQWM0rtRKTAUo
+ OzFw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzS+lXouBihbntAgWRKFxNBsDz23EL+CBEu3y4VgUzG03/7iDGO/Y93vlAJHzixAWWyvPEGI4JYTk4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m4zlUSRJ1hkgmfRnLgtEsVECACpusIJ4+zpl9PJwYivmJUTYzz
+ df6mHJtBeME+yP25BBJTCAMKo7PC+V6RJJGno9ndA9LxDPIBtyNME3W+
+X-Gm-Gg: AYBFou0gXRfCWy/OJziWHAdkL9qLsa93/Iu8MVoyRLbba9QD9JwsIPugKwIdDSDbhg4
+ 6kiQXv4xJ1LqF5lM2iOi/JzLw4bVYwc0fkUu1pQHe54JVTaHWEQyMZRSdiEXz19Vv6xuGJ3hEg6
+ CtUoUyIM3m4E1hWsH+DV+u6/0La+GWSiRynruQt3lV4U3TTcZbQ51DcZU/O7brE3HfblR2VWBMc
+ /+e2+faYwo4vdWOJ5hJ/UcJm3bEgcINmsgi2Y/WEdGd84rdUQkgBUKCjfB/kINjbWQzopUCriAN
+ ExjxFbaZFHDw/fkEk9JmEoBJZRsIX8MBNpUepmFFWAxLlVSWHvZJu92H5AphfCZQkOR+IeREb4+
+ MBkHQZjI7GiFmdwShZWV75IgkJL4ZHnzQDrBBFNhRiWAZEDclw10pLJO0thfeS7nlc7+xUKK9+/
+ Y98pgKdazk0PDVq55myTU6QnxxozvRh5UVZs8Zj5xBRa7NlmkbNlMWCvwBc35vbqA/USoCChr4x
+ A==
+X-Received: by 2002:a05:6000:196f:b0:481:98d:b24 with SMTP id
+ ffacd0b85a97d-484913b9a8dmr18125062f8f.19.1788443051084; 
+ Thu, 03 Sep 2026 06:44:11 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 06:44:10 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
+ matthew.brost@intel.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Refcounting dma_resv v3
+Date: Thu,  3 Sep 2026 15:27:55 +0200
+Message-ID: <20260903134408.105317-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,57 +90,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi everybody,
 
-On Thu Sep 3, 2026 at 11:51 AM CEST, Maxime Ripard wrote:
-> Hi,
->
-> On Thu, Sep 03, 2026 at 10:11:04AM +0200, Luca Ceresoli wrote:
->> We want to move drm_panel.o from the main drm module to a new drm_panel
->> module, but there is one function in the drm module that calls into
->> drm_panel.c code:
->>
->>   drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->>      -> calls of_drm_find_panel (in drm_panel.c, would-be the new drm_pa=
-nel module)
->>
->> Avoid this issue by moving drm_of_find_panel_or_bridge() to bridge/panel=
-.c
->> (which is currently in the drm_kms_helper module).
->>
->> As a result drm_kms_helper will depend on the new drm_panel module, whic=
-h
->> is fine because there is no dependency of drm_panel on drm_kms_helper.
->>
->> After this change, all drivers using drm_of_find_panel_or_bridge() will
->> have to select DRM_PANEL_BRIDGE (and DRM_PANEL, recursively). Add that f=
-or
->> affected drivers. While there, also add DRM_PANEL on drivers selecting
->> DRM_PANEL_BRIDGE.
->>
->> No functional changes, just moving code around.
->>
->> [AI used to add 'select DRM_PANEL[_BRIDGE]' for affected drivers]
->> Assisted-by: opencode:deepseek-v4-flash-0731
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> In the previous discussion, I suggested to move it to drm_panel.c
-> because it's not really related to the panel_bridge stuff, like, at all.
-> And both drm_panel.c and drm_bridge.c are in drm.ko at this point so you
-> shouldn't have any issue there.
+The idea of ref-counting dma_resv or ww_mutex came up multiple times from
+different people, but so far at least I have abandoned that as to
+complicated to implement considering how widely used that object is.
 
-I had this other implementation done already, and I wanted to have patch 5
-out ASAP so I sent as is.
+Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4 just
+to check how horrible it would look like.
 
-I don't care much about where drm_of_find_panel_or_bridge() is moved and
-the discussion about where it's more fitting, because it should just
-disappear eventually anyway, hopefully soon.
+Well turns out that this is actually a cleanup we should most likely aim
+for and I'm really wondering why we haven't done it like this in the
+first place.
 
-I will try your idea in v3.
+Not only resolves it a bunch of issues with dma_resv instances shared by
+multiple GEM objects (we just recently had a bunch of patches for that on
+the mailing list), but also allows TTM to implement it's delayed delete
+handling without any zombie resurrection or similar hacks and DMA-buf to
+have better contention handling on map/pin in the future.
 
-Luca
+v2:
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+This patch set here is now the idea full flashed out. I smoke tested it
+with amdgpu, self tests and checked everything with kmemleak and of hand
+it seems to work.
+
+Patch #1 introduces an interim allocated flag to allow switching users
+over to the new interface one by one. Patch #10 then removes that flag
+again after everything is done.
+
+v3:
+
+Well distrusting Sonet proved to be correct. It turned out that the AI
+missed tons of issues. Most of them are hopefully fixed in this
+iteration of the patch set now.
+
+Sashiko-bot on the other hand proved to be extremely useful. It not only
+pointed out tons of stuff Sonet missed but also a complicated pre-existing
+bug in i915.
+
+The first patch in this series is now fixing this i915 bug, I've send
+this to the relevant mainatiners separately and only include it here for
+completeness.
+
+Please review and comment.
+
+Cheers,
+Christian.
+
+
+
