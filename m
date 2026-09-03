@@ -4,75 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32042C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CEAC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C54A10F5F6;
-	Thu,  3 Sep 2026 13:44:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F32B10F61E;
+	Thu,  3 Sep 2026 13:49:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="U8EUbmYy";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="QHgBR6KN";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB1CB10F601
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:48 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260903134447euoutp0275bc74c23dab134a89925deaae7eed9d~R04MYc5ZA1805318053euoutp02L;
- Thu,  3 Sep 2026 13:44:47 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260903134447euoutp0275bc74c23dab134a89925deaae7eed9d~R04MYc5ZA1805318053euoutp02L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1788443087;
- bh=qMyNnEe2VO29svGA0dfmwKzLJS9xqVqR88SLj5rL67k=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=U8EUbmYyR7YXputAFXW91F6pkDdqiKeau6Up/U569s86JZGZrjQ2JLsNl05H6K5/r
- 0hFYlwS+j8R9Od3vZKWGF0/0pyHsL9U0sl/AurlvAS43GNjIeUqLwAbBAiyOZXRYZY
- doo6ZexuZGwqH5fluJw0qhX9JE+CwIG8TWpKrGjQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260903134446eucas1p1999879348f53db4f5dff6cea9a73aee8~R04MCdR2p0462604626eucas1p1n;
- Thu,  3 Sep 2026 13:44:46 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260903134444eusmtip25a6f7671740df53786ab8867ebd33067~R04KVfPcM2229722297eusmtip2R;
- Thu,  3 Sep 2026 13:44:44 +0000 (GMT)
-Message-ID: <9bd2e8bf-472a-42b8-a259-901062f32cdf@samsung.com>
-Date: Thu, 3 Sep 2026 15:44:44 +0200
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D88810F61E
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:49:42 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-9392aa26b25so255747885a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 06:49:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1788443381; x=1789048181; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=W0FzzBf86DLShcrb30vlY9xIuH5mW18Cg/ZW31lMTS4=;
+ b=QHgBR6KNZ/n2AOBkBtGqNlIjIAdCq+B7Q2qP3GGdu+CFZmq0yYgSVD/zfsEpegHbJ0
+ ZjDyKdexcm/nT5ien2SB1jyKDJm48ltxrNyMdqOJSjo608SV4D/3ryNT1+fzVw9/7gvC
+ si+yc8JcbYVpR8H0bGukB8wwjXmPIl/vtYyRJX3w80gFP63OtdiLB0Qv0cY5SpbBFhqw
+ csa77Roech8Uzn9HKdTRrOtpuS9ZdEF39dcb3cMfqQtQ18nJVTmua13mSze7lG2kOQ7S
+ LRF4hraq9kridk6QZ7B+g1vEUIZWEw2U0wG1IGe1K2d7/aFdLN8ke4Y71j/eWNWwfcPp
+ V49g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788443381; x=1789048181;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=W0FzzBf86DLShcrb30vlY9xIuH5mW18Cg/ZW31lMTS4=;
+ b=gMq3/2nrq0pGWveQBiyZ0lBbSimLebtBSstL6prQ/F/MilSlYt5PNl8Oe6hT0/nF/e
+ K4TBZQu9NO0rkVyR2FKI8CIFE5r0fdERcM5LiX3XDfGHTGmFYHiAI2bxyKv1ANbiuLJ9
+ 1KSrjFX5tfd2Bvrg/fuUXGcjq+dQ9znS5sV5h3sjUsZO39U/drEjG8rButzk9Vbw+jvF
+ sKhT5XXw3GFoipZOuRSLjn9L8uFN+rBPKGsUNbbJXFCtbzkKB3GEiQZYLjIN8k+n4l7h
+ 2+bcLtVbAk2CdBQZMDbQ4ZwK5stv2UxjqtguBySnpZKkRwDv5JSyOZw05GboDEV1hPfC
+ CDLA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzU2bPmJMQFExxq2fOtlEA29IKNH8osJUD3Rwv5YM08AvTYs7C2+lX+WcEuq0RHwLLW2HQEmAF+UtE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lZ0MC55Gscvn8LtGuetXwBdSnGCuamhUyBDUFDqakKfsifQWnn
+ pwMw/nsrj+eEfN04SoNQxx4XBxvS7YicDtBw4FS1X9M8VfKRzjaaH3sIeODU6d2vlkM=
+X-Gm-Gg: AYBFou2e+xXHiUiXw4PkiqbHz2AljlG8FsHGeD7EjlVfzWCL3yq2GUdYbMtFo57jRFt
+ Md1Oj7OIZlOS4hyRmmIgteQU6W7SjzmG26CYKW3rNlAksV/J7zFGTE/fGtyTiqXLCq+/f3ma0SZ
+ AV3yYFk4A145zzkra28TQlY4VifeuywTXSihJLi2UdUnbQ8VersIVi4qiygHBoywvvV8CbzHynQ
+ TmbaGt03g0bLfde478Z20WQFccqUF/VLH4fAzz+wZIsdi2zp1CE6hq1JM0UBPXXL6agHnN2R7oL
+ JYidCANev6z4OsKHFmkHWo1YN0Wp4FNPQ/W/LlY2LD0aryrQt6VSqpq0bl+GgtwEKE3jwiykRN/
+ 5stWbqwbrxlexCBXXl9M+HJAb8BLPboudsVzRU8prucC+peE6ul/zeeS9+MeKs9ZFcIOli9o4gA
+ CJ5IMPv1MnHMv+PMNYgjSd0lIdw/ryx6/zjf6mWV/n4R9/LZuxy6+lA5UHEMLrE+kESf6Nj2YSK
+ eeE584vvcdC7jk10FgvEuxyMe4xcJARJxnS4fC/l5zlFw==
+X-Received: by 2002:a05:620a:47b6:b0:936:576e:227b with SMTP id
+ af79cd13be357-93960f3c98amr1203618685a.24.1788443380734; 
+ Thu, 03 Sep 2026 06:49:40 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
+ [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9395f398a18sm497088985a.37.2026.09.03.06.49.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 06:49:39 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1x27ow-0000000H8XN-3MX1;
+ Thu, 03 Sep 2026 10:49:38 -0300
+Date: Thu, 3 Sep 2026 10:49:38 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: David Hu <dhu@x6u.co>
+Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org,
+ ankita@nvidia.com, chriscli@google.com,
+ david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, jmoroni@google.com, kevin.tian@intel.com,
+ kpberry@google.com, leon@kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ nicolinc@nvidia.com, praan@google.com, sashiko-bot@kernel.org,
+ stable@vger.kernel.org, viursachi@google.com, xuehaohu@google.com,
+ Leon Romanovsky <leonro@nvidia.com>
+Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
+Message-ID: <20260903134938.GI2890729@ziepe.ca>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <20260901170849.4052816-3-dhu@x6u.co>
+ <20260902120832.GB2890729@ziepe.ca>
+ <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Maud Spierings <maud_spierings@murena.io>
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr,
- andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com,
- aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
- conor@kernel.org, db@domibel.de, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, hal.feng@starfivetech.com, heiko@sntech.de,
- hello@big-grey.co.uk, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- kernel@esmil.dk, krzk+dt@kernel.org, lee@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org,
- luca.ceresoli@bootlin.com, m.szyprowski@samsung.com,
- maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com,
- mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com,
- neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
- pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, vkoul@kernel.org
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260903134446eucas1p1999879348f53db4f5dff6cea9a73aee8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260830141726eucas1p2c9fe77236f7114b376fabc752f368521
-X-EPHeader: CA
-X-CMS-RootMailID: 20260830141726eucas1p2c9fe77236f7114b376fabc752f368521
-References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
- <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
- <CGME20260830141726eucas1p2c9fe77236f7114b376fabc752f368521@eucas1p2.samsung.com>
- <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,246 +106,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 8/30/26 16:17, Maud Spierings wrote:
-> I was still having some glitching happening on the display, but I've found the way to fix that, the question is what is actually happening here.
+On Wed, Sep 02, 2026 at 07:07:50PM -0400, David Hu wrote:
+> On Wed, Sep 2, 2026 at 8:08 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> >
+> > On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
+> > > From: David Hu <xuehaohu@google.com>
+> > >
+> > > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> > > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> > > first entry, resulting in non-page-aligned DMA addresses for all
+> > > subsequent entries.
+> >
+> > This patch is fine, but pedenatically a scatterlist's entry limit
+> > should be bounded to dma_get_max_seg_size(), though I don't think it
+> > helps this. Operating scatterlists at the size limits has proven
+> > problematic in a number of places already...
+> >
+> > > In addition, a non-page-aligned sgl length will trigger an edge case
+> > > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
+> > > buffers, we will have a `va` with lowest bit set to 1. That will lead
+> > > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
+> > > to find best page size for the mapping on the NIC side.
+> >
+> > That's an IB side bug, the newer logic that joins adjacent SGLs should
+> > have avoided it?
 > 
-> With just the changes mentioned in my previous email the screen flickers and is very unpleasant. After doing 2 reg writes it behaves as expected:
->   0x29590000 <- 0x00000061
-> is 0x00000075 before, difference is v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS in drivers/gpu/drm/bridge/inno-hdmi.c, these bits always get set but that seems to break this display so there must be some way to detect that these should not be set: v_VCLK_NOT_INV | v_REG_CLK_SOURCE_TMDS
+> Hi Jason,
+> 
+> Thank you for the review. I think you are right on both counts.
+> Regarding the IB side, the new SGL joining logic in
+> `ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |= va` is
+> skipped for artifically split, contiguous SGLs. Since Christian has
+> already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
+> creating unnecessary noise on the list. If you prefer a followup,
+> please let me know.
 
-I'd rather not hardcode this per board in DT if it can be avoided since
-the right value looks like it depends on what is attached rather than on
-the board wiring. If Andy can confirm from the datasheet what selects the
-register clock source, detecting it at runtime would be the better fix.
+Nope, I'm fine, it just explains why it wasn't seen in other
+tested. You were backporting and mix&matched things. It confirms the
+upstream kernel was fine from the start.
 
-Either way I don't think this should hold up the series, since it is
-pre existing behaviour in the generic inno-hdmi driver rather than
-something this patchset introduces.
+There are other importers besides RDMA, so I still think that this is
+a good change regardless. Having each segment remain page aligned, and
+staying away from ULONG_MAX that might trigger overflows is a friendly
+and robust thing to do for less sophisticated importers.
 
-> 
->   0x29590020 <- 0x00000005
-> This one I have no idea, it is 0x00000009 with this patch series but with the vendor kernel I get the value above. When I hook up my external display (regular 1440p) this becomes 0x0000000D on the vendor kernel.
-> 
-> But I can't find this register being written to anywhere there?
-> 
-> Andy, you are credited on the inno-hdmi driver, do you have a datasheet that gives some further info?
-> 
-> kind regards,
-> Maud
-> 
-> On 8/29/26 20:54, Maud Spierings wrote:
->> Hi Michal,
->>
->> Small request for an eventual v3
->>
->>> Add the HDMI PHY driver for the StarFive JH7110.
->>>
->>> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
->>> gets its regmap from the parent. It has no dependencies on voutcrg, only
->>> on its refoclk (xin24m), which breaks the probe-time circular
->>> dependency.
->>>
->>> This driver provides two main functions:
->>>  - Clock Provider: It registers clk_ops to provide the variable pixel
->>>    clock (hdmi_pclk). The .set_rate operation configures the Pre-PLL
->>>    registers (0x1a0+) based on the requested rate.
->>>
->>>  - PHY Provider: It registers phy_ops for the controller. The .power_on
->>>    op configures and enables the Post-PLL and other analog blocks (BIAS,
->>>    LDO, Serializer, etc.).
->>>
->>> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
->>> with the PHY register block shifted by 0x100 because it sits behind the
->>> HDMI controller in the shared register space. The pre-PLL programming
->>> therefore comes from the common Innosilicon helpers; this driver adds
->>> the JH7110 pixel clock table, the post-PLL and the analog configuration.
->>>
->>> Co-developed-by: Dominique Belhachemi <db@domibel.de>
->>> Signed-off-by: Dominique Belhachemi <db@domibel.de>
->>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->>> ---
->>>  drivers/phy/starfive/Kconfig                |  20 +
->>>  drivers/phy/starfive/Makefile               |   1 +
->>>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 567 +++++++++++++++++++ +++++++++
->>>  3 files changed, 588 insertions(+)
->>>
->>
->> [snip]
->>
->>> +
->>> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
->>> +    { 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
->>> +    { 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0 },
->>> +    { 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
->>> +    { 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170A3D },
->>> +    { 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51EB85 },
->>> +    { 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3D70A3 },
->>> +    { 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
->>> +    { 36000000, 36000000, 1, 36, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 40000000, 40000000, 1, 80, 2, 2, 2, 12, 2, 2, 2, 0, 0 },
->>> +    { 46970000, 46970000, 1, 46, 2, 1, 1, 3, 0, 3, 4, 0, 0xF851EB },
->>> +    { 49500000, 49500000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 49000000, 49000000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 50000000, 50000000, 1, 50, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 54000000, 54000000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 54054000, 54054000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0x0DD2F1 },
->>> +    { 57284000, 57284000, 1, 57, 2, 1, 1, 3, 0, 3, 4, 0, 0x48B439 },
->>> +    { 58230000, 58230000, 1, 58, 2, 1, 1, 3, 0, 3, 4, 0, 0x3AE147 },
->>> +    { 59341000, 59341000, 1, 59, 2, 1, 1, 3, 0, 3, 4, 0, 0x574BC6 },
->>> +    { 59400000, 59400000, 1, 99, 3, 1, 1, 1, 3, 3, 4, 0, 0 },
->>> +    { 65000000, 65000000, 1, 130, 2, 2, 2, 12, 0, 2, 2, 0, 0 },
->>> +    { 68250000, 68250000, 1, 68, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
->>> +    { 71000000, 71000000, 1, 71, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 74176000, 74176000, 1, 98, 1, 2, 2, 1, 2, 3, 4, 0, 0xE6AE6B },
->>> +    { 74250000, 74250000, 1, 99, 1, 2, 2, 1, 2, 3, 4, 0, 0 },
->>> +    { 75000000, 75000000, 1, 75, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
->>> +    { 79500000, 79500000, 1, 79, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 83500000, 83500000, 2, 167, 2, 1, 1, 1, 0, 0, 6, 0, 0 },
->>> +    { 83500000, 104375000, 1, 104, 2, 1, 1, 1, 1, 0, 5, 0, 0x600000 },
->>> +    { 85500000, 85500000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
->>> +    { 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCCCCCC },
->>> +    { 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
->>> +    { 89910000, 89910000, 1, 89, 2, 1, 1, 3, 0, 3, 4, 0, 0xE8F5C1 },
->>> +    { 90000000, 90000000, 1, 90, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 101000000, 101000000, 1, 101, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 102250000, 102250000, 1, 102, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
->>> +    { 106500000, 106500000, 1, 106, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 108000000, 108000000, 1, 90, 3, 0, 0, 5, 0, 2, 2, 0, 0 },
->>> +    { 119000000, 119000000, 1, 119, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 131481000, 131481000, 1, 131, 2, 1, 1, 3, 0, 3, 4, 0, 0x7B22D1 },
->>> +    { 135000000, 135000000, 1, 135, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
->>> +    { 147180000, 147180000, 1, 147, 2, 1, 1, 3, 0, 3, 4, 0, 0x2E147A },
->>> +    { 148352000, 148352000, 1, 98, 1, 1, 1, 1, 2, 2, 2, 0, 0xE6AE6B },
->>> +    { 148500000, 148500000, 1, 99, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
->>> +    { 154000000, 154000000, 1, 154, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 156000000, 156000000, 1, 156, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 157000000, 157000000, 1, 157, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 162000000, 162000000, 1, 162, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>> +    { 174250000, 174250000, 1, 145, 3, 0, 0, 5, 0, 2, 2, 0, 0x355555 },
->>> +    { 174500000, 174500000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 174570000, 174570000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x91EB84 },
->>> +    { 175500000, 175500000, 1, 175, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 185590000, 185590000, 1, 185, 2, 1, 1, 3, 0, 3, 4, 0, 0x970A3C },
->>> +    { 187000000, 187000000, 1, 187, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
->>
->> add:
->> { 235690000, 235690000, 1, 235, 2, 1, 1, 3, 0, 3, 4, 0, 0xB0A3D6},
-
-Sure that is no problem, thank you for debugging the issue.
-
->>
->> This matches one of the framework 13 displays (fml13v01 board)
->>
->> source: [1]
->>
->> edid:
->>
->> edid-decode (hex):
->>
->> 00 ff ff ff ff ff ff 00 09 e5 5f 09 00 00 00 00
->> 17 1d 01 03 80 1c 13 78 02 de 50 a3 54 4c 99 26
->> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
->> 01 01 01 01 01 01 11 5c d0 18 81 e0 2d 50 30 20
->> 36 00 1d be 10 00 00 1a a7 49 d0 18 81 e0 2d 50
->> 30 20 36 00 1d be 10 00 00 1a 00 00 00 fe 00 42
->> 4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fe
->> 00 4e 45 31 33 35 46 42 4d 2d 4e 34 31 0a 01 21
->>
->> 02 03 19 c1 44 83 10 02 01 23 09 07 07 83 01 00
->> 00 67 03 0c 00 10 00 00 44 11 5c d0 18 81 e0 2d
->> 50 30 20 36 00 1d be 10 00 00 1a 00 00 00 00 00
->> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01
->>
->> ----------------
->>
->> Block 0, Base EDID:
->>    EDID Structure Version & Revision: 1.3
->>    Vendor & Product Identification:
->>      Manufacturer: BOE
->>      Model: 2399
->>      Made in: week 23 of 2019
->>    Basic Display Parameters & Features:
->>      Digital display
->>      Maximum image size: 28 cm x 19 cm
->>      Gamma: 2.20
->>      Monochrome or grayscale display
->>      First detailed timing is the preferred timing
->>    Color Characteristics:
->>      Red  : 0.6396, 0.3291
->>      Green: 0.2998, 0.5996
->>      Blue : 0.1494, 0.0595
->>      White: 0.3125, 0.3281
->>    Established Timings I & II: none
->>    Standard Timings: none
->>    Detailed Timing Descriptors:
->>      DTD 1:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 MHz (285 mm x 190 mm)
->>                   Hfront   48 Hsync  32 Hback  200 Hpol P
->>                   Vfront    3 Vsync   6 Vback   36 Vpol N
->>      DTD 2:  2256x1504   47.998302 Hz   3:2     74.349 kHz    188.550000 MHz (285 mm x 190 mm)
->>                   Hfront   48 Hsync  32 Hback  200 Hpol P
->>                   Vfront    3 Vsync   6 Vback   36 Vpol N
->>      Alphanumeric Data String: 'BOE CQ'
->>      Alphanumeric Data String: 'NE135FBM-N41'
->>    Extension blocks: 1
->> Checksum: 0x21
->>
->> ----------------
->>
->> Block 1, CTA-861 Extension Block:
->>    Revision: 3
->>    Underscans IT Video Formats by default
->>    Basic audio support
->>    Native detailed modes: 1
->>    Video Data Block:
->>      VIC   3:   720x480    59.940060 Hz  16:9     31.469 kHz 27.000000 MHz (native)
->>      VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz 148.500000 MHz
->>      VIC   2:   720x480    59.940060 Hz   4:3     31.469 kHz 27.000000 MHz
->>      VIC   1:   640x480    59.940476 Hz   4:3     31.469 kHz 25.175000 MHz
->>    Audio Data Block:
->>      Linear PCM:
->>        Max channels: 2
->>        Supported sample rates (kHz): 48 44.1 32
->>        Supported sample sizes (bits): 24 20 16
->>    Speaker Allocation Data Block:
->>      FL/FR - Front Left/Right
->>    Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
->>      Source physical address: 1.0.0.0
->>      Maximum TMDS clock: 340 MHz
->>    Detailed Timing Descriptors:
->>      DTD 3:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 MHz (285 mm x 190 mm)
->>                   Hfront   48 Hsync  32 Hback  200 Hpol P
->>                   Vfront    3 Vsync   6 Vback   36 Vpol N
->> Checksum: 0x01  Unused space in Extension Block: 84 bytes
->>
->>
->>> +    { 241500000, 241500000, 1, 161, 1, 1, 1, 4, 0, 2, 2, 0, 0 },
->>> +    { 241700000, 241700000, 1, 241, 2, 1, 1, 3, 0, 3, 4, 0, 0xB33332 },
->>> +    { 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
->>> +    { 296500000, 296500000, 1, 296, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
->>> +    { 296703000, 296703000, 1, 98, 0, 1, 1, 1, 0, 2, 2, 0, 0xE6AE6B },
->>> +    { 297000000, 297000000, 1, 99, 0, 1, 1, 1, 0, 2, 2, 0, 0 },
->>> +    { 594000000, 594000000, 1, 99, 0, 2, 0, 1, 0, 1, 1, 0, 0 },
->>> +    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
->>> +};
->>> +
->>
->> kind regards,
->> Maud
->>
->> [1]: https://protect2.fireeye.com/v1/url?k=9e0a6938-c19113c6-9e0be277-000babff250c-ea88914414736a98&q=1&e=54b09ed3-c7be-440b-ace0-db9bfc392036&u=https%3A%2F%2Fgithub.com%2FDC-DeepComputing%2Ffml13v01-linux%2F blob/97c64fe2832b6826914b6da7aa4febcdd4d3d444/drivers/gpu/drm/ verisilicon/inno_hdmi.c#L112
-> 
-> 
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Jason
