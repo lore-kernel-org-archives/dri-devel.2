@@ -4,46 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41135C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2117FC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53D2F10F3C6;
-	Thu,  3 Sep 2026 07:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50DCB10F3CB;
+	Thu,  3 Sep 2026 07:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="T1afkK9P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DmSv46yd";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD89E10F3C6
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 07:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=rO
- 11KFikic6g6mPklmVtRlETXgxPhzmlXRj0JBRmR7g=; b=T1afkK9PGyhw/f1bln
- oNSC1VaEdCfrR4YCBdfSnU/6VHlFgUFXrWMHg/Shi7xays20sxBfhYqUBddZ+oeJ
- C+hrxuqJhkv6M+C2Di/WUWYmOVoALDMbYJeCgeza8p/JC7JAGSoMN2pmvHeFGhZR
- F7J4bo88kLka3Ky35L01KefQ0=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wAnM5VDHplqh39MAQ--.9730S2; 
- Thu, 03 Sep 2026 15:14:11 +0800 (CST)
-From: oushixiong1025@163.com
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH v2] drm/radeon: Create the primary plane in the driver
-Date: Thu,  3 Sep 2026 15:14:09 +0800
-Message-Id: <20260903071409.427010-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3981C10F3C8;
+ Thu,  3 Sep 2026 07:15:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E4E9B40AB4;
+ Thu,  3 Sep 2026 07:15:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C471F000E9;
+ Thu,  3 Sep 2026 07:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788419730;
+ bh=rwhPokwMzQRr+N5r5yimCYHQlzu2mfOtx1pFqJ5KG8c=;
+ h=From:Date:Subject:To:Cc;
+ b=DmSv46ydQKoZitzmzP8rdtUpUD7j5MPqKsdbqnIHsRFl7CgD0BAXOyB5+FSXoOZPH
+ 7ljauXvR+iUrQ2OROHOpsINEhW4RZ9jD9iV1tPHsR8P2cMs2a8bS0MpTBL7ha7uHQR
+ pMk/UwX/gEugWOM+GNgXUUS7yvWDaqo+dBF0f7yAWf9SLmjrCcgj8ZlbGHs0JFTFxj
+ RGNpLT/3JeCKMQ9GVFyH7YZ8EJBU192IKqTctS/Srf0sFjc92j1zWwWxgike1IpvqD
+ XXnImIG24gRGBjU1dFQKDoLrY+edDND8pmOeLe+S8IpML4FTte/+ovpVThjHij3kzg
+ JJ9HHsiOjtJ3w==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Thu, 03 Sep 2026 00:15:18 -0700
+Subject: [PATCH] drm/amd/ras: Adjust second parameter of
+ mp1_v13_0_eeprom_send_msg()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wAnM5VDHplqh39MAQ--.9730S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWUXrW3XryUZF17WF4fGrg_yoWrGF1kpF
- ZrCF9xtrn5tFs8Ga43AFW2yF45Cws3Gw4IqrnrKwnI9rn8tryxuFn3ZwnruF18JFZ7Jw15
- tF1UCw15Ar18u3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnwIDUUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-gOYp2qZHkNsdwAA33
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-amdgpu-ras-wifpts-v1-1-7f3b4528f12c@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDsQBw3Wq0gXMY52CtWQ8Q/Eu
+ xvb5bd47wDlKKxQZwdEXkVlGhPyRwb+7caBUbpkIEPWPA2h+3ZDWDA6xU36MCv6ylJlC+LSlpC
+ 6ELmX/fdsXn/r0n7Yz/cIzvMCTDcf9XUAAAA=
+X-Change-ID: 20260902-amdgpu-ras-wifpts-c8628642e565
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: YiPeng Chai <YiPeng.Chai@amd.com>, 
+ Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2741; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=BjMVRTA8UC90hsYWRZEdJGJ70qvkV3t3ndu7MO7HR0s=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkz5XraDmm4bl9UdiJoza4lrxNXXPX7Kx3cNbuWSVU29
+ 4K+0c66jlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRq+YM/+s1pJ892XTJPiPY
+ x7PwxAHbqd4+jz84FBfGrLCe9CzTT5yR4c/+FIX9035fCr19P+DpyauNiiuT1b8Lzr7+XWxK3LU
+ INhYA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,117 +72,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+When building with -Wincompatible-function-pointer-types-strict, a
+warning designed to catch kernel control flow integrity (kCFI) issues at
+build time, there is an instance around mp1_v13_0_eeprom_send_msg():
 
-drm_crtc_init() creates the primary plane from a fixed format list
-without a "pixel blend mode" property, so drm_mode_config_validate()
-warns although the display engine does support per-pixel alpha on the
-primary surface.
+  drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/amdgpu_ras_mp1_v13_0.c:157:25: error: incompatible function pointer types initializing 'int (*)(struct ras_core_context *, u32, uint32_t, uint32_t *)' (aka 'int (*)(struct ras_core_context *, unsigned int, unsigned int, unsigned int *)') with an expression of type 'int (struct ras_core_context *, enum ras_fw_eeprom_cmd, uint32_t, uint32_t *)' (aka 'int (struct ras_core_context *, enum ras_fw_eeprom_cmd, unsigned int, unsigned int *)') [-Werror,-Wincompatible-function-pointer-types-strict]
+    157 |         .mp1_send_eeprom_msg = mp1_v13_0_eeprom_send_msg,
+        |                                ^~~~~~~~~~~~~~~~~~~~~~~~~
 
-Replace it with a driver-owned primary plane advertising XRGB8888 and
-ARGB8888, allocated by drmm_universal_plane_alloc(), with the blend
-mode property set to the PREMULTI mode userspace has always assumed
-when the property was absent.
+While 'u32' and 'enum ras_fw_eeprom_cmd' are ABI compatible, hence no
+regular warning from -Wincompatible-function-pointer-types, the mismatch
+will trigger a kCFI violation when mp1_v13_0_eeprom_send_msg() is called
+indirectly.
 
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Update the second parameter of mp1_v13_0_eeprom_send_msg()' to be
+'u32 msg_id' to match the prototype in 'struct ras_mp1_sys_func' (which
+was recently changed to support mp1_v15_0), clearing up the warning and
+kCFI violation.
+
+Fixes: 11a948c7817b ("drm/amd/ras: Support retrieving bad page info from mp1_v15_0")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
-v1->v2:
-  - Open-code DRM_PLANE_NON_ATOMIC_FUNCS without .destroy, which
-    drmm_universal_plane_alloc() rejects
-  - Use drmm_universal_plane_alloc() for automatic cleanup
-  - Move the formats comment above the array
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/radeon/radeon_display.c | 38 ++++++++++++++++++++++++-
- 1 file changed, 37 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index aac6733ddd82..6427feb5a5c5 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -30,6 +30,7 @@
- 
- #include <asm/div64.h>
- 
-+#include <drm/drm_blend.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
-@@ -38,6 +39,8 @@
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_modeset_helper.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_plane_helper.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_vblank.h>
- #include <drm/radeon_drm.h>
-@@ -664,6 +667,20 @@ radeon_crtc_set_config(struct drm_mode_set *set,
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+index 7aa818a433f6..548594373d0b 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+@@ -105,14 +105,14 @@ static int mp1_v13_0_dump_valid_bank(struct ras_core_context *ras_core,
  }
  
-+/*
-+ * The display engine programs an ARGB8888 surface format for both
-+ * XRGB8888 and ARGB8888 framebuffers.
-+ */
-+static const uint32_t radeon_primary_formats[] = {
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_ARGB8888,
-+};
-+
-+static const struct drm_plane_funcs radeon_primary_plane_funcs = {
-+	.update_plane = drm_plane_helper_update_primary,
-+	.disable_plane = drm_plane_helper_disable_primary,
-+};
-+
- static const struct drm_crtc_funcs radeon_crtc_funcs = {
- 	.cursor_set2 = radeon_crtc_cursor_set2,
- 	.cursor_move = radeon_crtc_cursor_move,
-@@ -681,6 +698,7 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ static int mp1_v13_0_eeprom_send_msg(struct ras_core_context *ras_core,
+-				enum ras_fw_eeprom_cmd index, uint32_t param, uint32_t *read_arg)
++				u32 msg_id, uint32_t param, uint32_t *read_arg)
  {
- 	struct radeon_device *rdev = dev->dev_private;
- 	struct radeon_crtc *radeon_crtc;
-+	struct drm_plane *primary;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
+ 	int ret = 0;
  
- 	radeon_crtc = kzalloc_obj(*radeon_crtc);
- 	if (radeon_crtc == NULL)
-@@ -693,7 +711,20 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
- 		return;
- 	}
- 
--	drm_crtc_init(dev, &radeon_crtc->base, &radeon_crtc_funcs);
-+	primary = drmm_universal_plane_alloc(dev, struct drm_plane, dev, 0,
-+					     &radeon_primary_plane_funcs,
-+					     radeon_primary_formats,
-+					     ARRAY_SIZE(radeon_primary_formats),
-+					     NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
-+	if (IS_ERR(primary))
-+		goto err_free_crtc;
-+
-+	if (drm_crtc_init_with_planes(dev, &radeon_crtc->base, primary, NULL,
-+				      &radeon_crtc_funcs, NULL))
-+		goto err_free_crtc;
-+
-+	drm_plane_create_blend_mode_property(primary,
-+					     BIT(DRM_MODE_BLEND_PREMULTI));
- 
- 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
- 	radeon_crtc->crtc_id = index;
-@@ -713,6 +744,11 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
- 		radeon_atombios_init_crtc(dev, radeon_crtc);
- 	else
- 		radeon_legacy_init_crtc(dev, radeon_crtc);
-+	return;
-+
-+err_free_crtc:
-+	destroy_workqueue(radeon_crtc->flip_queue);
-+	kfree(radeon_crtc);
- }
- 
- static const char *encoder_names[38] = {
--- 
-2.25.1
+ 	if (down_read_trylock(&adev->reset_domain->sem)) {
+ 		ret = mp1_v13_send_smu_msg(adev,
+-			pmfw_eeprom_msgs[index], param, read_arg);
++			pmfw_eeprom_msgs[msg_id], param, read_arg);
+ 		up_read(&adev->reset_domain->sem);
+ 	} else {
+ 		ret = -RAS_CORE_GPU_IN_MODE1_RESET;
 
+---
+base-commit: 8fad652e7235dbf3bebfab1460610b0b0e75b199
+change-id: 20260902-amdgpu-ras-wifpts-c8628642e565
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+Best regards,
+--  
+Cheers,
+Nathan
 
