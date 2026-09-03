@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EBD0C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 21:19:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65E07C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 21:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0C0110F797;
-	Thu,  3 Sep 2026 21:19:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23CE910F79D;
+	Thu,  3 Sep 2026 21:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NRf2a97M";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VXPKLtDF";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81DFF10F795
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 21:19:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE62B10F794
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 21:19:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1788470364;
+ s=mimecast20190719; t=1788470366;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=V+ivPl/bBPynzPSC3l90NNDtIXavG6rGZEe1eNaVeWQ=;
- b=NRf2a97MoJIZXZazNjifBp5JGiISCkeIz1XbKfOAQLi7mys3tWrOiRbAyuEPqX2ijYpYV/
- u3PWMLemq6q14i3Gw44qaM72+/YC72fhkIZMNeUf2tc3Ahclk0y2abhclRgX0py53Jm7VE
- k2QTvsJ47uuyoyFwZ8pvNLCMhkUR2uk=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=P6wdYDVz/iY+alwXjGKwrS1eyvjuEX5rquxAFWMQOOc=;
+ b=VXPKLtDFewWG3Mi+fv80nENQ1ne8Ztu2HIy9hQGHjXjbDKHH4VqkZvQlW4IY7QDAlBGtvx
+ o7em9ydop4Ok5m8KxfXdYGbOixJjSmgb66GIBXLMvdsmvAoeraoqpiJttjUOIGdrQgNEMH
+ f2PUwOeFWAfuZEDQPF+N1IJ+0D5k4RI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-591-uXVg2v7uMqCraDfVrEM2tQ-1; Thu,
- 03 Sep 2026 17:19:20 -0400
-X-MC-Unique: uXVg2v7uMqCraDfVrEM2tQ-1
-X-Mimecast-MFC-AGG-ID: uXVg2v7uMqCraDfVrEM2tQ_1788470358
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-tButmvDpNsmYRZS04qoxDQ-1; Thu,
+ 03 Sep 2026 17:19:22 -0400
+X-MC-Unique: tButmvDpNsmYRZS04qoxDQ-1
+X-Mimecast-MFC-AGG-ID: tButmvDpNsmYRZS04qoxDQ_1788470361
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8BC301955F75; Thu,  3 Sep 2026 21:19:18 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1DD4E185FDA2; Thu,  3 Sep 2026 21:19:21 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.64.12])
  by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id C53ED1955F70; Thu,  3 Sep 2026 21:19:15 +0000 (UTC)
+ id 0C8DD1955F70; Thu,  3 Sep 2026 21:19:18 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
  linux-kernel@lists.freedesktop.org
-Cc: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
+Cc: Christian Hergert <christian@sourceandstack.com>,
+ "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
  "David Airlie" <airlied@redhat.com>,
  "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, "Simona Vetter" <simona@ffwll.ch>,
  "Gerd Hoffmann" <kraxel@redhat.com>,
  "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Christian Hergert" <christian@sourceandstack.com>,
- "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 0/2] drm/virtio: Damage clip fixes
-Date: Thu,  3 Sep 2026 17:15:50 -0400
-Message-ID: <20260903211914.1109100-1-lyude@redhat.com>
+ "Maxime Ripard" <mripard@kernel.org>, "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH 1/2] drm/virtio: preserve damage clips for rendered resources
+Date: Thu,  3 Sep 2026 17:15:51 -0400
+Message-ID: <20260903211914.1109100-2-lyude@redhat.com>
+In-Reply-To: <20260903211914.1109100-1-lyude@redhat.com>
+References: <20260903211914.1109100-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: RBBZJ6b6MGKrCK4WYe5sgi77o7aRThvdxNGr9j_VFAE_1788470358
+X-Mimecast-MFC-PROC-ID: EtAknJHlwiivbmF3iu13DDQHfjwJFPEsHw0gAL_Au5U_1788470361
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -78,23 +80,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A previous associate of mine asked if someone would be able to help with
-upstreaming some work that they had done recently for virtio, and I was
-more then happy to help. These fixes help maintain FB damage clips
-between framebuffer changes, which were previously discarded even when
-userspace provided accumulated per-buffer damage.
+From: Christian Hergert <christian@sourceandstack.com>
 
-Patches apply on top of drm-misc/drm-misc-next.
+virtio_gpu_plane_atomic_check() unconditionally ignores FB_DAMAGE_CLIPS
+when the framebuffer changes. This forces a full resource flush on every
+page flip when a compositor rotates through multiple framebuffers, even
+when userspace supplies accumulated per-buffer damage.
 
-Christian Hergert (2):
-  drm/virtio: preserve damage clips for rendered resources
-  drm/virtio: Recalculate ignore_damage_clips on every update
+The full update is required for dumb buffers because their contents are
+uploaded per buffer. Rendered resources are already coherent on the host,
+so replacing their damage with the full plane only discards useful
+information.
 
- drivers/gpu/drm/virtio/virtgpu_plane.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Restrict ignore_damage_clips to dumb buffers. This allows damage-aware
+compositors to propagate partial updates through RESOURCE_FLUSH while
+preserving the existing full-upload behavior for dumb buffers.
 
+Signed-off-by: Christian Hergert <christian@sourceandstack.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-base-commit: f9c2f70ee41544717b3c209083073db1e21f919b
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index 1d1b27ece62a7..d9579a4b4714c 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -103,6 +103,7 @@ static int virtio_gpu_plane_atomic_check(struct drm_plane *plane,
+ 										 plane);
+ 	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state,
+ 										 plane);
++	struct virtio_gpu_object *bo;
+ 	bool is_cursor = plane->type == DRM_PLANE_TYPE_CURSOR;
+ 	struct drm_crtc_state *crtc_state;
+ 	int ret;
+@@ -113,9 +114,12 @@ static int virtio_gpu_plane_atomic_check(struct drm_plane *plane,
+ 	/*
+ 	 * Ignore damage clips if the framebuffer attached to the plane's state
+ 	 * has changed since the last plane update (page-flip). In this case, a
+-	 * full plane update should happen because uploads are done per-buffer.
++	 * full plane update should happen for dumb buffers because uploads are
++	 * done per-buffer. Rendered resources are already coherent on the host,
++	 * so preserve userspace's accumulated per-buffer damage for those.
+ 	 */
+-	if (old_plane_state->fb != new_plane_state->fb)
++	bo = gem_to_virtio_gpu_obj(new_plane_state->fb->obj[0]);
++	if (old_plane_state->fb != new_plane_state->fb && bo->dumb)
+ 		new_plane_state->ignore_damage_clips = true;
+ 
+ 	crtc_state = drm_atomic_get_crtc_state(state,
 -- 
 2.55.0
 
