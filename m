@@ -4,53 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F4AC624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A84DC61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 115FF10E138;
-	Thu,  3 Sep 2026 13:12:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B8610E0F1;
+	Thu,  3 Sep 2026 13:12:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="gE4LAx0Q";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="P5H0Umuq";
 	dkim-atps=neutral
 Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021078.outbound.protection.outlook.com [52.101.95.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F5F10E0F1
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:12:30 +0000 (UTC)
+ (mail-uksouthazon11021107.outbound.protection.outlook.com [52.101.95.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1F210E0F1
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:12:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nlzWseuKaXsJVZIo+Hz64KOTCNMN3UiPMH8RXuwqK2RpXbxCujyhLorW9IhZwnIEQewZM8gJez07hRs/6INzDElA4nBI4K5OBmzhC1zSY0lUexSb+npK3nj7/txZquBo0Mw9WmP4f+JpGQR2Iim2CrYwtsPWUjkxvupnLvXW/oHP9fbdmezHfm9kO8N/RPJu62G+oQYs1JCUq0hoUQzQ77Nj7H0dF2IVUwlg6ElrbAsAoVKN8dZAMV1XYLA9rzgYaPWMSP10rVpOndASlNe2ZxO2KWymrcIiuvQ7BlJHWKYErT+1lEMNiphq/t1rmaANF80PXu+4wlDYefRTnM/FDg==
+ b=A/iuctHNgWGM9yTFZDv6WcQ6npQUcxn2xp6ZIIoxb2bWEBCQ4ANsWOI+gENWrEz3LiUGH8yZP7VoDJ2qbVTyHb1efOSnQ0f+Eju768SIgwNZ2BInz01B57q7RbRM4k/r5iPffsq2gPNnQI+P0o+JDVuqRmbRBNHr6rp7dccdraenj0RMRZKyJqxn/U9R1Wl+sElJ/N7q6BqBjWUjCd4YG8GQByzsp5pyJfvHzcJDbasIhkBTRSm56AXVucGaBKICFZzwgSrq2/cigWFrrf2A0rR8c09Yw3Pn3oof1dKPHajKo6AgtUj5KK3kShrwzCHPTu1JhDaPZL+P6JdorCo8SA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JIVzaf3CYDKwc5bs/jFOAoA9pBOOX3UPellMa+CdTO4=;
- b=W/X0f/l73bF/Vjqlr0DIugkaX2d8saGFx0DXnlQTwcpKWnvmNGcGsX0pp7v3diYTDUiOe2oVRpIq+WiHgG+49AAV2QZ9slJBo4FL3JW7i8Xp0j/nPAWqqYijoccnBg1rDg4XRiJDm+JCm0k7X0EXR2ew0YYTtXyZHPBHQGBByKJ6e6cmhgPRkzxhqw/DYka9tU4y+ZonUv7Xo+5aRbpMTg656H0pu9bX5G8TikjzUs0UHqEajfrYy1wRT5EJwesUXDEYOQEkBJUiCiUDsCIGtrfTTrzRESpXNOrxLLI2eyJBq50KVHqFi2U4mDqDHD4unQ5aTdw0qb0f6Ge2rGa8Kg==
+ bh=kgM+ygrXTJNA09wHqLuSxkysYymx9jjYgpUqm1moiLE=;
+ b=WQZiAQcgZLuXUcVqSKLTMovxem5pJD0XiO9FmueW+iqfYXxDiuPU9nCNLWcV8Iny0BsKo3ca+02DROLKM08wTR9b6XHaTLB3+JzH+rH4PBwgcneI6/lJBWgLfkMsk2Q0v2xx0c8NGOrhgD4/eMm6rTcKck1Is5JwiYjzwIhKHE7Qoo6AmXXhC8GdgwZJwP7vCdn31+I5inZDy2+OwbKnaN+tIlG03z+oQ6wLs9CIQjUZaTcyLxloil60neBK26oELSysus5ZBOHBG1OpQhDoEMtXQOviOeTC72iecQbBf5sx99bbWuxEaAtVBvEVgGU0FOztDLOD+Xluo08oP+mqLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JIVzaf3CYDKwc5bs/jFOAoA9pBOOX3UPellMa+CdTO4=;
- b=gE4LAx0Qb4JAgUt//2IecYG5rXnpR5ExJAhQaQgz65/Omqy8/4pLneznzO9C9FycJYhPeX4wFvQOmPh9Hjct9B0XjKfjQSmzyz5OALVlAKEvjj9Os5DjeMKyAU65hA/fnRNMlJBTXzvdZa8bWD+hx8Ql1a5FPyFbBSmew+lZ1N0=
+ bh=kgM+ygrXTJNA09wHqLuSxkysYymx9jjYgpUqm1moiLE=;
+ b=P5H0Umuqc7FjNjWTqKy0lYQVO/lb/u0jTf0jtwcftgdGFhyzHGMkT+axGYYff9GPezr0TJk9YYYMw1ViYmD1ei8iCKwZTazjrtTnja4CiZ+CsQnl48D6DGowCkRDO9FHsNadnDRsWSZY/g8+qh9C8wZPxHvuHgHMDp9gUrYwOos=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by LO7P265MB7602.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:398::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 13:12:24 +0000
+ 2026 13:12:50 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 13:12:24 +0000
+ 13:12:50 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 14:12:23 +0100
-Message-Id: <DL5PH2S8AP7E.25CW1PZIQ8BM3@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/4] rust: debugfs: drop 'static bound from ScopedDir
- file creation methods
+Date: Thu, 03 Sep 2026 14:12:49 +0100
+Message-Id: <DL5PHF5BPGJN.86AWUD4D5BL3@garyguo.net>
 From: "Gary Guo" <gary@garyguo.net>
 To: "Danilo Krummrich" <dakr@kernel.org>, <abdiel.janulgue@gmail.com>,
  <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
@@ -59,75 +54,80 @@ To: "Danilo Krummrich" <dakr@kernel.org>, <abdiel.janulgue@gmail.com>,
  <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
  <lossin@kernel.org>, <tmgross@umich.edu>, <tamird@kernel.org>,
  <work@onurozkan.dev>, <mmaurer@google.com>
+Cc: <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 2/4] rust: dma: tie CoherentHandle to the device's bound
+ lifetime
 X-Mailer: aerc 0.22.0
 References: <20260830193824.471089-1-dakr@kernel.org>
- <20260830193824.471089-2-dakr@kernel.org>
-In-Reply-To: <20260830193824.471089-2-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0639.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:296::6) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ <20260830193824.471089-3-dakr@kernel.org>
+In-Reply-To: <20260830193824.471089-3-dakr@kernel.org>
+X-ClientProxiedBy: LO4P265CA0166.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:312::10) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB7602:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d4a2330-9d23-4ae0-72ec-08df09bcfeb4
+X-MS-Office365-Filtering-Correlation-Id: 216c52ac-bcd2-4a00-5d8b-08df09bd0e6a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|6133799003|22082099003|56012099006|17002099007|18002099003|4143699003|921020;
-X-Microsoft-Antispam-Message-Info: PrB13zxIvyit7nlRqSZxTrkE/u8RxObUL0K8XAejjw8uGHB+FLytvBQPaS0pMHcz4XkmINz6J7yjii76YrDUsJwEa7Yl6u6V9/YdEfAYxtibgYHNoNNKIqti/HiIi0zim171381Q+r756qYk0ityG+jeHku9/rg4gIEZCWK/xyuzMv6vO8Vn2tJLp34551kZqcR0CBQ8uAsOGzRVN6qDjQ3hg0+FYW6Quhl85RPXeffGCLyc/Lhv66xxFLSdKcHollo7a84KRbXh2tQmx1SlVsib1jU+FObQGxwn1/7NrMlkYnN/qXMGuWnULnsiKBnkegMMpdN5RjWItCcVPqoisY+bLCCBHAMnypPojUUHDtb2LwI6ks1AXmXlz+UPLWW9O3kknEMy6ReasliOKy+F8q6ZrOdrWs/DZkpy88IytVlscPOpRtRMecy7f9xwVG4LEpCaMvbq0TNWGNH9OeuNtO2lFFc3nRp4XPrshbuLwvTF8Qfy/6PUeYtjFzL41BtLIDLLdW+Taei1gSDNwg8hgoRu66cOIiCvgXneL4fSDX2h58pXoFkOKRD5y9RoDuZcP30L044iImM2JgorljlLfiEnH72YahkodvKkDXOVdl0CG7JkK6PsdVVCCQMIH47kF30ge9vBgQpWczhp0x06VX/xhy75zZCyGi1RTjYFxnDesTgroOhhMcpZVB+KBqZomXArfnf6/Df7zmWdIxxhvQ==
+ ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|10067099003|22082099003|56012099006|18002099003|4143699003|921020;
+X-Microsoft-Antispam-Message-Info: xkaR5zHIONucB1m5FgxSuDtbkeyz0NHOZmke/K+39FpdJSqhxVNEYpMCBWpB/rgPsno4hsS8DxO2WFEYaxLcKacLRI3KuKnv5Jd3ZipQxObZWuLuASGIxEJ+UDsIILgCHQDvnA3C2fFg8/b2FqJp5yR3YRulYpu26TrhAy2LRmo1piBereRLm0YcPaBiTod4EB7fNstKdMxGUY/DlO+dTMiqf8dsSTijroxLreBlSWyn8XehXHxQCxsuB828kUpvThKJKeyQzHQfY2jLr4gKWkUC6QME55dzeEj7B0Lp5SKJGPo5ZmlFc+y4barO9fFTpnZffHXRSIGXX/64aJExSC6mi5w/mfomHP/JKaE79oVNwx6+nKWpAjR2/VMa9ST9evvo3J5P2dHhuvmsYbErzyv74pfrRe4eIgPjCQ0O9WZGDb6avBNjhqltlQWA5AAsAjRqlnEJASIefwWA3E1ynPn3VAczSTy0PHhYSzsH8xfl26rM4I1mGX4Wbs9L63a1cfQtBxD/QB8vxu/Ua2+g/bnqwxmtCcbcsl5ZB8ZMOYtDUxETUR4AlwiXIEUpq9JVBgvGCo9UP2tG9CjXtOUWVnSev1yWNJcZ4OdzhZ9NH/1PsTkuiA8zSZuWZ/J/FXOu4lVme3qzR/D6WIGC95JG8Eom2mLC0sVF5tHEs1Q7M0W/Z5KYWUI/l90IGwjO8r65cTgZvGRH8JcT7Lls5pVHHA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(6133799003)(22082099003)(56012099006)(17002099007)(18002099003)(4143699003)(921020);
+ SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(10067099003)(22082099003)(56012099006)(18002099003)(4143699003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dThFWEd3RXpuNzhPTnd1VjA2ZlQyK1RVV0NFWkxJU2x4TlIxdTZMbWR2ZTl2?=
- =?utf-8?B?cjh2Z0NONER5SkgxYWhKM2gzd25jeHlleEJVNmJla1c0UHd4bUNFUDdiZENF?=
- =?utf-8?B?SENRdFgvQWJ4UFo0WTZ5N2cwQ011K0ovWnI3UG5MN0VxWW5iZVFrR0dOTFlo?=
- =?utf-8?B?aUZUQXgyNVlaYjFrYWpjSFRLZnNGT2NFQjBKenZQTTFPUDk3NG1XcWNhNGFL?=
- =?utf-8?B?US9ZNmlZcHpKZno3cnpiM0MyaHZRQlpsRFlva0krbE1JbWZ1b3NqdXRBQmxi?=
- =?utf-8?B?QUlXVkhwZlI5K3ZIT1dtbFM4Sms2QkZ6SytsTzkreEVKVGZwR1NHZmlYMWcy?=
- =?utf-8?B?RXc4L1lVVjdacDdDVFVSTTNGOW1hRUlDNDVZc2dRY1pLSzBUSjBwZ3UxR1Qx?=
- =?utf-8?B?TllhWUY0QjFGOHRhVHpreTRTcVZQOFBvU1YyV0FoeXpnTmZwTVJpbUF2ZXVF?=
- =?utf-8?B?ZlhDZXIrUFJoU1RkODBWRHJQTWRncFhVMTRaRUZnSHY5dGI4aGw2TkxQNi93?=
- =?utf-8?B?K0N1azFmL2hTbkthbFNKNjEyWDZjeUdBN2p6MGxITVlIdjE3dzBtNjdsMUt3?=
- =?utf-8?B?RUF2bGhoczNMUSswSWR4RTY2cEQ1b3dXbnJEcHNha3JtUVZMRmptUTlaWGZ5?=
- =?utf-8?B?Ny8yKzNNeTZmQXdsLzRGUzNLOWxjeVBXWmoxZi9iMkx0UHZkbDgzdm1kQzJk?=
- =?utf-8?B?ZThWUWoxZitwS2ZJNTZWdnpPbVUyQzZTZUdKV000VG5VTkNyaEtMWXAveFBn?=
- =?utf-8?B?WXNpUU1jKy9pNHlzZXZpc0UzNWNpZGRmaUx1RzlGb3Z0ZnR6VW5OdklCNGx1?=
- =?utf-8?B?d3BKWXE2REtSTTF0ZWc4cXNORlE3MnF4R0srTEhBakh2eTV2SnVibWNLT0li?=
- =?utf-8?B?OFlhdm1QcHp5Q3NabnNodmxHU3pBaHE2eXlYS3VPZ0srNXc3eWFrQ2xyOG8x?=
- =?utf-8?B?Rkg5V2NEWnhMTExrQUplYTlZUER1bmlrS3J3dXJZbkl6WXBnVmpMOElkZDBq?=
- =?utf-8?B?ek9DRE80YUVVRGQvbVBXb3FYNy9kNUk0WlJEQW5WTG5tRDZMV1l2bkFrTmN5?=
- =?utf-8?B?VFRwOGxERXZDVzc1RnlIbEhIWXh1dTFCZlBNb0pKakxKN2JvT3UxNTNmK3NI?=
- =?utf-8?B?Wnk4Mm81ZFljTWFndk9tS2tCLzkyUUYvR2w3czd2bFNrT2M3QXVPVGI2TWFQ?=
- =?utf-8?B?MGRNeE15MklON3lvR2xGUWpHYmN2cG9ha3hEdHEwangzUmJOMXNhcVkwU2lh?=
- =?utf-8?B?TkRhWENlSFQ2d2U3dWwzWi9vUGNIWFFnNUs2NFYvMDVFSjAyZklCK3RXSDZa?=
- =?utf-8?B?WDVQcG9BcXhVd0p0ai9IOGlkNnZJSFNEWk5vcDFKKzdBdnphbWhWQkxzQWFx?=
- =?utf-8?B?azZCSStRd2Z3dTdSSE82T2YrYlVQdEl5S01KY1JOTGlGU2VTWURPaGc2VlRw?=
- =?utf-8?B?aVBNaWZPOVQ0ZEpVaWRMcGc2U0RRVGVQYnkvTVpFMGVvZlFsdFFUN0RLdzdu?=
- =?utf-8?B?RWM5K204WDVmZFpwYTFscExyVExTTDBpeHFldGhDTmtRYlRRdDhMWkNqcStv?=
- =?utf-8?B?ZUVqaFEvMlBTL2l3dWJ6VkJnNU1CYVR2WFdKU21aSkF6TTVMalZTTGVkOEs5?=
- =?utf-8?B?M3k0MDJxMzY5QldMNkFxMnF4ZTRHWEloUlFMR3V0djNFTXkyT0FjU1N2SHBL?=
- =?utf-8?B?RjBZY2NGMkVPSWNKbjRLNGkxWTVXdG93QUFJeHpyZWNTeWJjMEFEYUplZHBE?=
- =?utf-8?B?YmdQa0YvM1dKNW4zQ0JJTnJDS01DN1Q5Um1ZWVdvWlF5aDV3bHRScDlDZjll?=
- =?utf-8?B?UVFrM0JJRFRGRmNSb3draEZNanI1dTZOb3EzaXhoYmN3RWFJOTdURGJxMjMw?=
- =?utf-8?B?OEdaVnhWM2lXS0RidjBKUythb1FpK0ZUZ04yeHBNRjF6T1VhRUo0WFVBcUFC?=
- =?utf-8?B?a2t2Z29pNmtDaHNZb0hQODNmQnJjdmxKcktJUnAwZTBORWNucjZwR1JrMDRN?=
- =?utf-8?B?VjNBRWFHL1JBQlZSY1IxbEVLb2ZseTRRZHUxUndCWDd0WkRyWHdzeFd5Wklh?=
- =?utf-8?B?VWxtdjFJcUhCQnNLdGFyUll3NktIT3BScngwSG54R3A2QUZNRFRFb1Vqeitw?=
- =?utf-8?B?NGJCNEI0SWM3by9HTUpVUnYvT1VhSitQcVNWTC9hTzNOSGl5ZXlCd1QxYlpz?=
- =?utf-8?B?cXN3YkFtUzhXRVpTek1qUi9EekxjRDU1R3Bld1c0WUxuVUVFakNoYkxhdHIr?=
- =?utf-8?B?bWFEdS83NlF0T2ZQenlvTGVySkhlYU1uQlB2OUdtZzNNTjlGSUI5WkdOdjha?=
- =?utf-8?B?bXVmWVQwRlFZZGVxM0V3M3NRZEVGZ3N6ZGxOYjNsS2tlUm41amlzZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3h4LzljVGpJYjUzK3BOOTFwT2RIaGJ1YitBNWhGOEdqNmlreDhiWFFsdnBB?=
+ =?utf-8?B?QkUzRWFzeFM5RG5zMFlham1ZNnR5eWVyRnB2cjNUSUREU2VyOHdlbW40bmFH?=
+ =?utf-8?B?cWM4L0p5d0I0aE5NQ01JOVJmVWtIUzZPZzFFdHVnd1Q5QzhnN1VjdFJTMXc4?=
+ =?utf-8?B?b20vYUxGRnB3Q0thNkYvbzdKaW1Dblh5VkROeWJxd01WaVR5QzdwUjlOUmRt?=
+ =?utf-8?B?S1cwU0N5SVhzb1BxUERnWWQwM0ZCSDMzZ2U4aHBJS0FRaE1IbmFjTUVuVlJa?=
+ =?utf-8?B?S3I3TkZ2Tmc5RFRDdlZ6SGRGRGllcUkyejkzUi9tblI0NzZHdnAxeVBFUTRR?=
+ =?utf-8?B?ZGM5UXc4Ri9OZlYzaGJMY3d2d01JMWEzRTJpZEV0WjZyd3JwQXMxQUZpd3lW?=
+ =?utf-8?B?ampYMlZYZEphb09OaXpmVk5mc1ltZjBkdVVjcHphVmhkWkM0TnVneXE5Y1hC?=
+ =?utf-8?B?TEhuVDg5cGQybktZNVdrL01ZZ3NQVHBlMnVPamdJQnlFQnNxVitCTVNsdEZp?=
+ =?utf-8?B?Zy9hUDBNelcya0ZVQ0x1TlFjVWphbUtnbXAzYmRWT2ZpN25rLzZVVVU2b2tM?=
+ =?utf-8?B?Wkl1bVcrL3IzaUdtcWd6dzFzeXluUWhWYkp5ZHluYW5GeXIrR3MzOXVFbEIw?=
+ =?utf-8?B?dTQ5NTV2TkdBK2FiSHBKdkVndjc2bFRGRisyOGZjMlBLTitZUjBTTUh1ZXEw?=
+ =?utf-8?B?cXhLMy82WGtXTitzMDBnU0xDbS9oS1ZqajFwQTVMZDdYdnljaUQzeGFQZmxQ?=
+ =?utf-8?B?bnM3UXRJT2ZodFNnSTdTc2w4OFUzU0xLMlVhbkkxcmRGaFYreDhZU1hkYTBI?=
+ =?utf-8?B?ZGV1Mm5vNndhR3AvaHRaZmNBWWNueWhWL2ZDK05sWHhuOW5McEsrL0ZjMG5O?=
+ =?utf-8?B?c0Rob1dPQWNRWUxsN2R6dkZWUEhrcjR0MjlHdFY3MVc3RS92MzNCTTFpdk50?=
+ =?utf-8?B?SHUrNlMwNDI0M3Q5K1FWYmFzZDAwZjF3aG9VZEJyRXMrdGxOd2V6aUpON2NW?=
+ =?utf-8?B?SnJ2TnF4dS9Ib0J1OVE5OUd4YVcyUW4yYlZKSUxVSHBRY1Z5UDNNL1FEa0ll?=
+ =?utf-8?B?dFRPZW1wQTBZS3liQ01jeDdyQzdjUlM0NldReVg4R3VLVC9oN2RFd01ZaUlJ?=
+ =?utf-8?B?MWRER1NwVzdxekpDckxUZjNkWW9WcmpHWGlNb3BacUpHWVFRcHhwamlIRUhM?=
+ =?utf-8?B?Szh6bXZ1SG5hcERPakxSR2JtT2RxQTRuelhJV2gyZlM4RHN1LzQ0YmMrcFhV?=
+ =?utf-8?B?UDRVdzkrQ0M2bFk0bnZPdXg5SEN1eTQ0NjdqR3g0anZJSmVkc1RxU3l3L2tQ?=
+ =?utf-8?B?czVRMXd5WWh6NjN0aHdMaWFIR0tmWmdmNDduYkhJZGNYejhtVUVsRFFLUG43?=
+ =?utf-8?B?bXFmOFJ6Q2FrTWozVzhmdm5rUFMyaDhITzRDKzlwSTQ4eW9ZczBRdDFybDBv?=
+ =?utf-8?B?TnFwK2p0MWkwNkVpWkJKMTIwVDk0OWNieE9XUFZGUVNqL2l3aWZUS0doUXRR?=
+ =?utf-8?B?SVRJUmNVeURWN25ENWZWUGhZQUZNc1VTZ2I4K21naGVwVkhDNkdNVHl2VFhF?=
+ =?utf-8?B?ZnRGRFRaVkR0d0gzUzRjcHN5ZlBPcWNlenNLaGFUYks4TDJkTW9WZGRXcEM1?=
+ =?utf-8?B?ZDJZVnVYOE5kQThDaDBPVHRVMm9OcGlnQmFTRkR1akMvUlNBQmlOUmhFY2dP?=
+ =?utf-8?B?Y1pXeFVxcnBCd05NUTVQa3lBN1ZHYy90a1VrWWZaSkZXMjhNRmhaMk92eisv?=
+ =?utf-8?B?M3J0elVVYmxET1N6WUg5UjFhUUxQMTFaODlESDBSSE5yZFFWNXV5YjVWNHNV?=
+ =?utf-8?B?SE01NWwveUVha0VHTDF2WmZKOXdoR20rVFBUMFlZSDIreHRteUR1WG1mLzNq?=
+ =?utf-8?B?L0ZEdENWV1p6V2ZPbTJaZ3NVWjVnbHc1VVMrL3A1ZFBlTHA1eE5Nb1lybCt6?=
+ =?utf-8?B?bVR1TGxNS3V3bmlrMDFFeW9rdkJTSnE2OHFXZUUrMWFtTkNHWFgzUmhVWHBM?=
+ =?utf-8?B?NmxQMTlVdDNhZ0laYmRPQmFJTms3bjlaZ3RRUFdZUzJQOVNhNnhtaE9NeCta?=
+ =?utf-8?B?RG5aSVY2cnFLbWk1UWRaWTRZS3JsZW9LU1doUGRVbGJvRGJPSlN3ZWMyQmpl?=
+ =?utf-8?B?VXJzVHBmRURVME1mditDdFpjc28ySkJtbEY2aGt6TXExRzhQTW9Dc2htMEZl?=
+ =?utf-8?B?aDI2VE9JNnJFdVdMdUU5blBjWC9UVkVLVnVFQk92L0VqdmNPM2t5eTIzcGF2?=
+ =?utf-8?B?MWUvTWRmTkNmd1VsaFUybUtnWFNvdTRuTW1DcitldTl0VjdncCtuOG14enQr?=
+ =?utf-8?B?bTdlcUlKRVE1Nmt3ZGdCRE8yTEgzc3MwUjFmSjFLVXZkRTZWYTdkZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d4a2330-9d23-4ae0-72ec-08df09bcfeb4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 216c52ac-bcd2-4a00-5d8b-08df09bd0e6a
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:12:24.2725 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:12:50.6917 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d6J9juE/3Adj0lPeXb7TjT2d4KporYJWJoDlTaetORW5kdtkYxppeczCp7BB87iTzEg/KXlLzjUimTbwdKLPIw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: l32zG7dYw4OC8fffmMTtYK7KHYiVkuRLi7p+C8KoiEVwItVK9t4koQIArlx/8hLlIvPCMj7CvCR0rU/xNHCNTw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7602
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,249 +145,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Sun Aug 30, 2026 at 8:37 PM BST, Danilo Krummrich wrote:
-> Drop the T: 'static bound from ScopedDir's file creation methods
-> (read_binary_file(), read_only_file(), etc.) to support registering
-> debugfs files backed by types that contain non-'static references, such
-> as dma::Coherent<'a, T>.
->
-> The previous 'static bound existed because ScopedDir::create_file() took
-> &'static FileOps<T>, and &'static requires T: 'static for well-
-> formedness. However, this was overly conservative; FileOps instances are
-> always associated consts residing in static storage, so the pointer
-> passed to the C debugfs API is always valid for the file's lifetime.
->
-> Formalize this as a type invariant on FileOps. All instances reside in
-> static storage, enforced by requiring FileOps::new() to only be used in
-> const/static items. Replace the Deref impl with an explicit fops()
-> method that returns &'static bindings::file_operations, justified by the
-> type invariant.
->
-> With this, ScopedDir::create_file() takes &FileOps<T> (no 'static),
-> preserving the generic type safety (T links the fops to the data type)
-> while allowing non-'static T.
->
+> Add a lifetime parameter to CoherentHandle that ties the DMA allocation
+> to the device's bound scope, ensuring it is freed before the device is
+> unbound.
+>=20
+> DMA allocations carry device resources (e.g. IOMMU mappings) that must
+> not outlive the device's bound lifetime. Without a lifetime parameter,
+> there was no compile-time enforcement that a CoherentHandle is dropped
+> before the device is unbound.
+>=20
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
 > ---
->  rust/kernel/debugfs.rs          | 26 +++++------------
->  rust/kernel/debugfs/entry.rs    |  4 +--
->  rust/kernel/debugfs/file_ops.rs | 52 +++++++++++++++++++--------------
->  3 files changed, 39 insertions(+), 43 deletions(-)
->
-> diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
-> index d7b8014a6474..2beb55d444ca 100644
-> --- a/rust/kernel/debugfs.rs
-> +++ b/rust/kernel/debugfs.rs
-> @@ -538,7 +538,7 @@ pub fn dir<'dir2>(&'dir2 self, name: &CStr) -> Scoped=
-Dir<'data, 'dir2> {
->          }
->      }
-> =20
-> -    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: =
-&'static FileOps<T>) {
-> +    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: =
-&FileOps<T>) {
->          #[cfg(CONFIG_DEBUG_FS)]
->          core::mem::forget(Entry::file(name, &self.entry, data, vtable));
-
-With the signature change you're relying on static promotion to happen -- w=
-hich
-would still happen without a lifetime bound, but I find it somewhat
-uncomfortable relying on that fact without a lifetime check.
-
->      }
-> @@ -550,7 +550,7 @@ fn create_file<T: Sync>(&self, name: &CStr, data: &'d=
-ata T, vtable: &'static Fil
->      /// This function does not produce an owning handle to the file. The=
- created
->      /// file is removed when the [`Scope`] that this directory belongs
->      /// to is dropped.
-> -    pub fn read_only_file<T: Writer + Send + Sync + 'static>(&self, name=
-: &CStr, data: &'data T) {
-> +    pub fn read_only_file<T: Writer + Send + Sync>(&self, name: &CStr, d=
-ata: &'data T) {
->          self.create_file(name, data, &T::FILE_OPS)
->      }
-> =20
-> @@ -560,11 +560,7 @@ pub fn read_only_file<T: Writer + Send + Sync + 'sta=
-tic>(&self, name: &CStr, dat
->      ///
->      /// This function does not produce an owning handle to the file. The=
- created file is removed
->      /// when the [`Scope`] that this directory belongs to is dropped.
-> -    pub fn read_binary_file<T: BinaryWriter + Send + Sync + 'static>(
-> -        &self,
-> -        name: &CStr,
-> -        data: &'data T,
-> -    ) {
-> +    pub fn read_binary_file<T: BinaryWriter + Send + Sync>(&self, name: =
-&CStr, data: &'data T) {
->          self.create_file(name, data, &T::FILE_OPS)
->      }
-> =20
-> @@ -596,11 +592,7 @@ pub fn read_callback_file<T, F>(&self, name: &CStr, =
-data: &'data T, _f: &'static
->      /// This function does not produce an owning handle to the file. The=
- created
->      /// file is removed when the [`Scope`] that this directory belongs
->      /// to is dropped.
-> -    pub fn read_write_file<T: Writer + Reader + Send + Sync + 'static>(
-> -        &self,
-> -        name: &CStr,
-> -        data: &'data T,
-> -    ) {
-> +    pub fn read_write_file<T: Writer + Reader + Send + Sync>(&self, name=
-: &CStr, data: &'data T) {
->          let vtable =3D &<T as ReadWriteFile<_>>::FILE_OPS;
->          self.create_file(name, data, vtable)
->      }
-> @@ -612,7 +604,7 @@ pub fn read_write_file<T: Writer + Reader + Send + Sy=
-nc + 'static>(
->      ///
->      /// This function does not produce an owning handle to the file. The=
- created file is removed
->      /// when the [`Scope`] that this directory belongs to is dropped.
-> -    pub fn read_write_binary_file<T: BinaryWriter + BinaryReader + Send =
-+ Sync + 'static>(
-> +    pub fn read_write_binary_file<T: BinaryWriter + BinaryReader + Send =
-+ Sync>(
->          &self,
->          name: &CStr,
->          data: &'data T,
-> @@ -655,7 +647,7 @@ pub fn read_write_callback_file<T, F, W>(
->      /// This function does not produce an owning handle to the file. The=
- created
->      /// file is removed when the [`Scope`] that this directory belongs
->      /// to is dropped.
-> -    pub fn write_only_file<T: Reader + Send + Sync + 'static>(&self, nam=
-e: &CStr, data: &'data T) {
-> +    pub fn write_only_file<T: Reader + Send + Sync>(&self, name: &CStr, =
-data: &'data T) {
->          let vtable =3D &<T as WriteFile<_>>::FILE_OPS;
->          self.create_file(name, data, vtable)
->      }
-> @@ -666,11 +658,7 @@ pub fn write_only_file<T: Reader + Send + Sync + 'st=
-atic>(&self, name: &CStr, da
->      ///
->      /// This function does not produce an owning handle to the file. The=
- created file is removed
->      /// when the [`Scope`] that this directory belongs to is dropped.
-> -    pub fn write_binary_file<T: BinaryReader + Send + Sync + 'static>(
-> -        &self,
-> -        name: &CStr,
-> -        data: &'data T,
-> -    ) {
-> +    pub fn write_binary_file<T: BinaryReader + Send + Sync>(&self, name:=
- &CStr, data: &'data T) {
->          self.create_file(name, data, &T::FILE_OPS)
->      }
-> =20
-> diff --git a/rust/kernel/debugfs/entry.rs b/rust/kernel/debugfs/entry.rs
-> index 46aad64896ec..88a870d8c295 100644
-> --- a/rust/kernel/debugfs/entry.rs
-> +++ b/rust/kernel/debugfs/entry.rs
-> @@ -74,7 +74,7 @@ pub(crate) unsafe fn dynamic_file<T>(
->                  parent.as_ptr(),
->                  core::ptr::from_ref(data) as *mut c_void,
->                  core::ptr::null(),
-> -                &**file_ops,
-> +                file_ops.fops(),
->              )
->          };
-> =20
-> @@ -127,7 +127,7 @@ pub(crate) fn file<T>(
->                  parent.as_ptr(),
->                  core::ptr::from_ref(data) as *mut c_void,
->                  core::ptr::null(),
-> -                &**file_ops,
-> +                file_ops.fops(),
->              )
->          };
-> =20
-> diff --git a/rust/kernel/debugfs/file_ops.rs b/rust/kernel/debugfs/file_o=
-ps.rs
-> index f15908f71c4a..7e1dd8c75ad9 100644
-> --- a/rust/kernel/debugfs/file_ops.rs
-> +++ b/rust/kernel/debugfs/file_ops.rs
-> @@ -20,14 +20,12 @@
-> =20
->  use core::marker::PhantomData;
-> =20
-> -#[cfg(CONFIG_DEBUG_FS)]
-> -use core::ops::Deref;
-> -
-> -/// # Invariant
-> +/// # Invariants
->  ///
-> -/// `FileOps<T>` will always contain an `operations` which is safe to us=
-e for a file backed
-> -/// off an inode which has a pointer to a `T` in its private data that i=
-s safe to convert
-> -/// into a reference.
-> +/// - `FileOps<T>` will always contain an `operations` which is safe to =
-use for a file backed
-> +///   off an inode which has a pointer to a `T` in its private data that=
- is safe to convert
-> +///   into a reference.
-> +/// - Every instance of `FileOps<T>` resides in static storage.
-
-This can be better done by storing `&'static bindings::file_operations` in
-`FileOps<T>` instead of just by value. That is actually better than the cur=
-rent
-impl, IMO, because `mode` for example doesn't have to be in static storage.=
- (You
-can also then make `FileOps<T>` `Copy`).
-
-If you made the change, you'd still have `&'static` checked at compile time=
-, and
-the fops below can be safe.
-
-Best,
-Gary
-
->  pub(super) struct FileOps<T> {
->      #[cfg(CONFIG_DEBUG_FS)]
->      operations: bindings::file_operations,
-> @@ -39,9 +37,13 @@ pub(super) struct FileOps<T> {
->  impl<T> FileOps<T> {
->      /// # Safety
->      ///
-> -    /// The caller asserts that the provided `operations` is safe to use=
- for a file whose
-> -    /// inode has a pointer to `T` in its private data that is safe to c=
-onvert into a reference.
-> +    /// - The caller asserts that the provided `operations` is safe to u=
-se for a file whose
-> +    ///   inode has a pointer to `T` in its private data that is safe to=
- convert into a reference.
-> +    /// - Must only be used to initialize a `const` or `static` item, to=
- uphold the type invariant
-> +    ///   that all `FileOps` instances reside in static storage.
->      const unsafe fn new(operations: bindings::file_operations, mode: u16=
-) -> Self {
-> +        // INVARIANT: The caller is required to only use this in a `cons=
-t` or `static` item,
-> +        // ensuring that all `FileOps` instances reside in static storag=
-e.
->          Self {
->              #[cfg(CONFIG_DEBUG_FS)]
->              operations,
-> @@ -65,11 +67,11 @@ pub(super) const fn adapt(&self) -> &FileOps<T::Inner=
-> {
->  }
-> =20
->  #[cfg(CONFIG_DEBUG_FS)]
-> -impl<T> Deref for FileOps<T> {
-> -    type Target =3D bindings::file_operations;
-> -
-> -    fn deref(&self) -> &Self::Target {
-> -        &self.operations
-> +impl<T> FileOps<T> {
-> +    /// Returns a `'static` reference to the inner `file_operations`.
-> +    pub(crate) fn fops(&self) -> &'static bindings::file_operations {
-> +        // SAFETY: By the type invariant, `self` resides in static stora=
-ge.
-> +        unsafe { core::mem::transmute(&self.operations) }
->      }
->  }
-> =20
+>  drivers/gpu/nova-core/fb.rs |  2 +-
+>  rust/kernel/dma.rs          | 20 ++++++++++----------
+>  2 files changed, 11 insertions(+), 11 deletions(-)
 
