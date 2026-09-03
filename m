@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B07CCC624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 10:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3DEFC61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 10:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1C8710E0E2;
-	Thu,  3 Sep 2026 10:24:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF7010F4D9;
+	Thu,  3 Sep 2026 10:25:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HZaY8dPY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WGsRUb+P";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AA1910E0E2
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 10:24:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A82B10F4D9
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 10:25:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 05EE2433DB;
- Thu,  3 Sep 2026 10:24:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600541F000E9;
- Thu,  3 Sep 2026 10:24:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E7004601DB;
+ Thu,  3 Sep 2026 10:25:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EFFC1F000E9;
+ Thu,  3 Sep 2026 10:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788431086;
- bh=ZJ88O3D/dsEifJzBx7Q6Y3HL/PlLBNCk6cqXDuc6+jc=;
+ s=k20260515; t=1788431108;
+ bh=m4yK/R+u3hHSAlhJd9zbO1t5Zci3f9ZtEFIxCHQsHcU=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=HZaY8dPYxAlRM9l7TjTLtFaAzACMuP1K/e4GLLV9Sc+nwsBPMggk96F2Bml1aPGSA
- kJR/ZVTei7q27WukdwkqNCbJhdcYSNRiOXVXhIgsiouSoQUILgnKzg8N/G9NMdo2Wu
- uWBkW9Kx12ranqhZGwAgjCARSTSDlYYT5Z8KhtODA8Mag2yS5JuE6mEf/CWev+zEdt
- q57FPsgnj3DHTxcyXkU9uOpHWCjuKVJQrAArn/xX54003nfGnUnL7lq5rxjhmJ4zFM
- bnZJgpDbU03DLP5497OekW63OlOcGy4qc7MIv0Sj2GiRyTCTLcOuJlqmZ+9UDPzWyh
- uHe+19fTj+l3Q==
-Message-ID: <0c61b9e91fb7a710aac27f62044906fa@kernel.org>
-Date: Thu, 03 Sep 2026 10:24:43 +0000
+ b=WGsRUb+PeGQ0OJbteyDNOSIGlgLloF3Y3pNX3AJKDmfY2MOOdo/uRpca0GWljjYFA
+ OYk9Ypnnk2FWKuVoldetsyfuEk2AOXZXzZ1Oa1ihoXQ+L6xgo9UUkFCYF7DUauNPxD
+ tctdHRBXnTQQ8ridV+9CKjnPSY/h7SqzeWXz6z/Q6pBWeIdnK+eZMreXK8ReqQUg4k
+ YbOZHxfx3/nHoXIYvDhL6pqeW25RPovX4wJozjkz4Atp0iiuf2CTs/OLg7RSPIe1J0
+ UWD4hzkle4ACTValr8A3h9xapTvjD5uPdVpp9KhJR4vvPJeuFIhmql3jVpo36KQcOl
+ JXCHNqxqeQuZQ==
+Message-ID: <6f748f7a63acc5516a6a9721c127b5c8@kernel.org>
+Date: Thu, 03 Sep 2026 10:25:05 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH RFC v2 15/19] drm/omap: dsi: remove unused includes
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-15-2ab8ee24538e@bootlin.com>
-References: <20260903-drm-bridge-every-panel-v2-15-2ab8ee24538e@bootlin.com>
+Subject: Re: [PATCH RFC v2 17/19] drm/tve200: remove unused includes
+In-Reply-To: <20260903-drm-bridge-every-panel-v2-17-2ab8ee24538e@bootlin.com>
+References: <20260903-drm-bridge-every-panel-v2-17-2ab8ee24538e@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Albert
  Esteve" <aesteve@redhat.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
  "Anusha
@@ -72,8 +72,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 3 Sep 2026 10:11:18 +0200, Luca Ceresoli wrote:
-> The drm_panel API is completely unused in these two files.
+On Thu, 3 Sep 2026 10:11:20 +0200, Luca Ceresoli wrote:
+> The drm_panel API is completely unused in this file.
 > 
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
