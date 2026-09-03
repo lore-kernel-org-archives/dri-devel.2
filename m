@@ -4,93 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3EFCC624DA
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 18:52:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91E33C624DA
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:23:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44EC210F73B;
-	Thu,  3 Sep 2026 18:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59C6210E11F;
+	Thu,  3 Sep 2026 19:23:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CxZSKjR/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IUVHrE1N";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 310D510F73B
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 18:52:13 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4956d1d9fb2so288445e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 11:52:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788461531; x=1789066331; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kWGcV+CZXP9CxFvzIcOWKnbKfmDZVF807ifeZedNWGw=;
- b=CxZSKjR/mh8NpZeShkMANsvawY8ro7DOFFfVC89NZh78JF8oWMk0aMVrjhJv/Y1B+T
- OxFBAfDQm2TjRvkQevSnD8sa7aJl7BoGiQI2O6FJ16znYlPkXbhLBS1nK0q/1kAWcQiX
- +IQBuBQ5OqIcS0ivxNNdmjsLjabPctjjJXPQTAVGLr1K1K6TEEh7RbUFDNi9JkIQATyO
- 8NizlUQ3UJvqUf5cW+yZKAhRjSDl5xCitzpaXqJvtd+brVbEIFhDLXx+tywtmkvwWVwx
- mQjYukE4Np1JAGHv5BdN4U8xgU6O4isu5SlqUZqx99epVNe4ZS5NMVvEPGPL/STTIINS
- ZTFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788461531; x=1789066331;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=kWGcV+CZXP9CxFvzIcOWKnbKfmDZVF807ifeZedNWGw=;
- b=A9kGl1GGvnmNSPCajfS2Rb+w7nUgjNXNQLgnYhL3NLJ1motEpUUjySgNbOEt+Yx/Yx
- 44FJcHq46ErZsRrtdmBtAizzj01W+95jEk4YF8Qdz6aTaYdzJL/ke1fM9hpaAoeb2Wt9
- vK1P2jvai3FXJf2POEXabhYh4RiUMJ2fVHWcSNPkDIm03ubaaDEcdoU1WiuwzaYctXOb
- FIpdo8kcY2C6dth71YTeL+36B7wmEPL+lC/qUyU9gPp0fyH8t9Y4ho2O6gmNyD7ydh0B
- Z9m0FAkRfW5RjR28mn2/8h/ozEnWJeIfcHtVDQseZsHKOY/TqpBKzAk2N7JJunV0QS24
- QRAQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx4DHTUBAi7TA/+vG5jDFDyiImiElnXVs7IXX6LrDS3GLWurhfEBTwJ6AgPhElHdeEWbbr6c27uKF4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lK2F1SFsEWLepefkqsXIiINWzcqNmaWT5Dyv+EcvycICcs2nd6
- Ii04Cl8iOzn5va5dt77aaYpWoG4tXaPdMI3KH1v+TV50vB+OSddlOyLb
-X-Gm-Gg: AYBFou1LEkO1vmdnReI95KWvvgiPerB2p+WtH+D4b1yLc95STa/T2ezmDKRd+R6890G
- Bxwx77lJbxCpFhmanSpYwk9sHEKe0OTy3Muc8kk6Kgt3Pajotzg3frcvaG4FAWCCJAOampYDq01
- yRtu3b8F8rQJU0B9MUhHYxdWfQ1ci2umZC2O6pf5vJMbMZlCwR/nQ9Xq6Yvot7gZf4EcbQNe+xn
- ixzzMDCudtUarwPP0OreKYFvHL1+HfvsYEJHzBe3n1wxoMvjT6Ios98r45udu51IvlfU+x/JCun
- L1xZhwntXA3KJqR7AuAlvsU5RVX7ZLPWIII4woGG+/xBbQoxYyhClN7HAiy0QMdyXEWkrCk74/5
- cdaQSlbRZ4MPPeKeUU8B2rLqe8Xzsxktj6OuIPfopLwPDX+sc3CYjKUiPmRc6jXwUy7hOkmG2r/
- JXiQ0NYU834OTqWAzpVdTUzqQ1MU4ug94N4yStq8dZTjnGgPmyPOvMgZWxGzbwNqbn++MaK+lZW
- DxJag4xdykO1+mGAKDQbyD+HsIH73LQkvyKXRezT37n56WUHJFBzsYzuer/92s0qRtk
-X-Received: by 2002:a05:600c:138a:b0:49c:f45f:b09f with SMTP id
- 5b1f17b1804b1-49cf45fb368mr43232445e9.2.1788461531325; 
- Thu, 03 Sep 2026 11:52:11 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B8962003434AB95A407E573.dsl.pool.telekom.hu.
- [2001:4c4e:1b89:6200:3434:ab95:a407:e573])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf772692dsm6604945e9.10.2026.09.03.11.52.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 11:52:10 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Huseyin BIYIK <boogiepop@gmx.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Thu,  3 Sep 2026 20:51:41 +0200
-Message-ID: <20260903185147.49411-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2f88072c-6aa3-4294-a35d-722d1c7a405c@email.android.com>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
- <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
- <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
- <20260819125932.5853-1-royalnet026@gmail.com>
- <82c8b17e-7215-45ea-84d1-9991ba6fb541@kwiboo.se>
- <20260819184807.6665-1-royalnet026@gmail.com>
- <f5241666-9657-4f49-958f-476fd366e408@gmx.com>
- <20260902110432.22069-1-royalnet026@gmail.com>
- <20260903091646.7183-1-royalnet026@gmail.com>
- <2f88072c-6aa3-4294-a35d-722d1c7a405c@email.android.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0210810E11F
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 19:23:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 55C8E424CA;
+ Thu,  3 Sep 2026 19:23:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81151F000E9;
+ Thu,  3 Sep 2026 19:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788463390;
+ bh=M//v4OlN6lA74lYfatdtwp/pjR6qLsg6V+uG4pDwqbs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=IUVHrE1Nu8l8phRUdBa7pS6Vop9cvMyvheupOvgqzSdmM7Q6iK42Y9rjOvwNZnxum
+ YbrkOhKwCTh8iIsQm9KBckb13pEN2GUQAHuffDsopuP6KUu3Qk/zbPJQF/YIsHBwO3
+ +eNnAGS+xPWHudkGGDjK835IluKjBMbP+qW3e4niEqeVkLRTXzq4/dxVZHfXwnsJwq
+ 7ZBp2NqODTvwKYmLHa3GiyuL1fdUEvD+CdM3j75ptc04mLKQSfD26rWh9XfacoGOvz
+ gRkJzUlcZ2GKhTM7WwN+FKlX6hRhOViqDwQrL+RBl6MXcbMXSc4yFDABiwyDSaU3SB
+ VGu3zxKId5rBQ==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 00/16] rust: io: support register projections and
+ remove relative registers
+Date: Thu,  3 Sep 2026 21:22:48 +0200
+Message-ID: <20260903192248.2248560-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+X-Patch-Reply: applied
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,52 +72,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Huseyin,
+On Tue, 01 Sep 2026 17:50:24 +0100, Gary Guo wrote:
+> [PATCH v4 00/16] rust: io: support register projections and remove relative registers
 
-> if the ccf is really giving locked 1ghz it is most likely reporting
-> back what it is set, since scmi is probably returning 0, and ccf is
-> ignoring that.
+Applied, thanks!
 
-That was worth testing, so I did, this evening: 104 samples at 1 Hz
-under sustained MobileNet load, reading in the same instant
-CRU_CLKSEL_CON(74) from the kernel and scmi_clk_npu from clk_summary.
+  Branch: topic/rust-io
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-  CON74 = 0x00001011, bit0 = 1, in all 104 samples
-  scmi_clk_npu = 1000000000, in all 104 samples
+[1/16] rust: io: register: reimplement as proc macro
+      commit: 63b2578517df
 
-With bit0 set, clk_scmi_npu_get_rate() in your commit takes the
-PVTPLL branch, which has no fallback: it returns whatever
-NPUGRF+0x24 holds, so a zero there would have come back as 0 Hz, not
-as 1 GHz. The "return the set rate" path is the GPLL branch, and it
-was not taken. So the readback is the counter, not the request.
+      [ Fix typo in module-level doc comment and fix ArrayDef syntax
+        description to match the actual macro syntax. - Danilo ]
 
-> If you read the clock in each 1 sec, you should almost always see a
-> different value with several hertz of difference.
+[2/16] rust: mem: add `transmute` with deferred size check
+      commit: 82591c20bcb3
 
-Agreed, and the register cannot show that: it reports whole MHz.
-What I can say is that the NPU value was constant to the MHz over
-104 samples, while the GPU on the same BL31 moved between 1047 and
-1054. I withdraw the word "locks" from my last mail; "constant to
-the MHz" is what was measured, and whether that is a tighter loop or
-sub-MHz jitter is beyond this register.
+      [ Fix doc heading to use plural "Examples" and add missing closing code
+        block delimiter. - Danilo ]
 
-> So it was a theory and probably a weak one.
+[3/16] rust: mem: add `AsRepr` and `AsReprMut`
+      commit: 968f30ade612
 
-Fair. What is measured is only this: the same register, read in the
-same instant, gives a value from EL3 and zero from EL1. I will stop
-calling the cause a firewall until someone knows what it is.
+      [ Fix grammar in from_repr_unchecked() documentation and rephrase
+        confusing safety comment. - Danilo ]
 
-One more correction, to my mail of 18 Aug in this thread: "the 2.58x
-I measured here with simple_ondemand against the 200 MHz pin" was a
-projection from my harness, not a measurement. Measured today on one
-boot, rail at 850 mV, bit-exact oracle in every run:
+[4/16] rust: io: perform conversions using `AsRepr`
+      commit: 1e707b76716a
+[5/16] rust: io: support register projections
+      commit: 34b6dc471749
+[6/16] rust: io: register: allow explicit base type specification
+      commit: 70a122d5a342
 
-  userspace @ 200 MHz    89 inf/s   (NPU-side 9.65 ms)
-  userspace @ 1000 MHz  222 inf/s   (NPU-side 3.02 ms)
-  simple_ondemand       221 inf/s   -> 2.47x, 0.7 % below the pin
+      [ Remove unnecessary #[allow(unused)] from the 'base' field. - Danilo ]
 
-The magnitude held; the provenance was wrong, and I am sorry for it.
+[7/16] gpu: nova-core: specify base type for registers
+      commit: a07fa2c979c1
+[8/16] drm/tyr: specify base type for registers
+      commit: 573228e75c33
+[9/16] samples: rust: pci: specify base type for registers
+      commit: 54b04b9fc0ea
+[10/16] rust: io: register: make register have a typed base
+      commit: 35c21468c294
+[11/16] rust: io: register: support fixed offset register without bitfield
+      commit: ddeaaa3a0fbb
+[12/16] gpu: nova-core: use projection for PFALCON and PFALCON2 registers
+      commit: 6d5f14077811
+[13/16] gpu: nova-core: convert hshub0 from relative register to projection
+      commit: 4a7a27bd1947
 
-Enjoy the vacation, there is no hurry on any of this.
+      [ Split nested import into kernel vertical style. - Danilo ]
 
-Igor
+[14/16] rust: io: register: remove relative registers
+      commit: b6af037d9499
+[15/16] rust: io: register: remove `Register` trait and cleanup macro
+      commit: dfec6f41d053
+[16/16] rust: io: register: unify handling of register with/without bitfields
+      commit: 35423e8fd718
+
+The patches are in the topic/rust-io topic branch and will be merged into the
+corresponding target branch soon.
