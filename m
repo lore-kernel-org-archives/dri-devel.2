@@ -4,91 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49193C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00C6EC79F80
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDA810F750;
-	Thu,  3 Sep 2026 19:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3582210F75D;
+	Thu,  3 Sep 2026 19:40:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="adhrSRFi";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="c9WU/usv";
 	dkim-atps=neutral
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com
- [209.85.214.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17C6410F750
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 19:39:19 +0000 (UTC)
-Received: by mail-pl1-f227.google.com with SMTP id
- d9443c01a7336-2d9201076b3so2894245ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:39:19 -0700 (PDT)
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com
+ [209.85.215.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4133410F75D
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 19:40:17 +0000 (UTC)
+Received: by mail-pg1-f227.google.com with SMTP id
+ 41be03b00d2f7-cc1c7364550so406086a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:40:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788464358; x=1789069158;
+ d=1e100.net; s=20251104; t=1788464417; x=1789069217;
  h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=4Usv5SNynw+4aZQ9DPp9M1Ly8wN0kqlGi58tc/lH1VY=;
- b=V+83zgCHqC3hjgiSZytR5hlm2QmZFxvhdnspyhAnbM03/zzBioHQd7yvZo1VwTYquQ
- Q1WJJjIsB+jSeK5RlbZdnXcu2sbQPENtidY2XJgQOWaIwzkiLC+Xo4rL2fqq5Is0BcrU
- QNSWmtd5lHpspemUpjZdPRuceqEprjQcSlTaoxrR8zuOsnLTWkAWMO++63dz6VjzY6Ka
- f3g82CMogH5A6O8BlvyK8floxMEfDD9BIQUy6IxYdLSVNUjegkvd/z9751s4wl1qNMqq
- L2VgP0Pw7WEanFqwgyhW8CeTZ38Ce0l+ny5CBSwznNzMass/YFvEBee5YgMxtM+O9erY
- UIUw==
+ bh=p8+z4kiOtdTmn8miWX+XqbRCAv1t3K0Ial/sw+P7zoA=;
+ b=qk/LG/J2kR5IbKp4uZ0MaJ7GUZXyLtXvdKL5rVz024KbKrRgXrYaua8r0SdR46Zte+
+ K/u12ENR+GBoJdrsoM+44nBla8GB03pIIU7OBGeESPv2tO892eh2+B5dcoc50PATJXS3
+ uAyM8OTFuu6eU/KWfU1TASlptvkUAZUHIprRKod0crPtxt2qtkGEhI1/t00xWrTflxVk
+ R3CHURfG0u0M38Ljtf2RqwuvLdxKs7IsHX8xld94VYh5p/t4pG1/jUpgz+Ib1KDunYHh
+ 9CfD7HbpRCjNdL2gWpcqEtibOv5p3saNpzUAYDn5hZqSddMaBo/CzQ1OgmxFJ8Kb2Siw
+ 6kEg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzw6AWSfvBq1Oagp7qSDsobHLSomuqIpcg7nDgjcabJ8xbA3Xc8VvtN7fCiLoIm6vSIsccVe6SAMv8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++modlyMSCwHyy7A2860TuyKZRAghkiFrv2g7gLfhtB9ufYdkar1
- IEK+DHgMbFHJMXPdtSidkr9AaCTDNDS7in+vJaPiD53Fnk9g7F8WiL3vuNjSzGryn4PdsBgkz84
- cFY2yCxZh/+wIYuxew6IYEJnXRA1p71rNST+kxlXqm8pg+aZDLk8lpTTcYHUgtlDUXpv1BsM7g2
- 7tK8P0Rg3Tjcm4FWJMogIGuOK4DBb//2ej2JBc5CY35SED3q7YGfF0Ka6ohHgEpgLWfW7Z03zEA
- I9112SRScA9rBHpQCN81EP5+R4i
-X-Gm-Gg: AYBFou2TC5YmAKaE+6RPuENfKsoFBgHhy+hH4tJPlfojXpvd7HOe5o2u5yG2eWZEjWC
- s2yZn9C4+dILpQWLvoqdCnwzmA8sZykxUMxfz1U8nSsqLrvobmePhM7rGRIR6dsHJ/4Tu7LVSJw
- 46Ergg47M1+REQpQPSWZe8V6wZcffD8YTSFRWaLg83uA3J1QGDsWaOgPFq1TE5JPvRo+C3aHzpe
- RQ8fkcuduUj4NADFXfvjfpCe7ImGC2G8tMWUQg0au9CFEMdMRmwSJH+FQKBIqvhAq7ZkqqijTxU
- 0sSYthIz4LU8zwcKNchD8HDTpA9G2b9EhzeMfmrpqXtRslHzpFtw3R9jIBhFIjS34Mg38RllJo9
- 22kjNh+HU80w43SLS7YqlJXhXAAxawVtX8EpeSRWiJoGpgUDSMzYGGigINkOaJi5cT3RFz452D0
- C8a+M6pym1ZY1hkIXd8xVecq/gmvnYUTTNAKYR3nD3
-X-Received: by 2002:a17:902:e948:b0:2d9:51b7:c0bc with SMTP id
- d9443c01a7336-2db125a3452mr20332615ad.12.1788464358507; 
- Thu, 03 Sep 2026 12:39:18 -0700 (PDT)
+ AKwUvByIr1Xd0dO5O6ecY0nVdKiJCMUYeiySmBMDJrXnmERNTzBMyYo2i6gJix2d4ipxINevLYFveFONsmc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ni0XIerY7llANo40L6QLpwk5GoLOg3GMJKqU5N2hbS/MTXpavK
+ p2CDjeUMeLxSCmIdlZ1jT/O0NIRl6k7m3oUW6+Px71gvklrdvnJPeQ5iGpq2MoGdqNgjsQHSuND
+ 4yadN0wb/KHmRi0i/Y3AL0tcN81uEdoEfGxyZRx3sZwI7GPj4G/JgKiYlrzpq95PSodvUn3x2Sk
+ N9t9KJ+MUwwWZU/WMJeVj2nWLJF5ivJ7XnnorV1rN/k2JQPZcPxb/OLFYIh7gdOAXdQGMFu14Or
+ aOuDL/3cOwI662XMIo0liNxMBvD
+X-Gm-Gg: AYBFou3vuQLS+/eVXxQLyYPL9rK7SLfNOaHghw98aTZfGousR9+0ARFqOIcSCTwZ7d+
+ Eo1APO0UoFwp3qlqav1GnOFyZeED83UcSDaCVHNTiB/cCicYX4B2QxSxfSZJL4ufKv9LAnTMBWj
+ 1m5hln6B7N9zoqWnqu8A/sbLGPVjOqykmykE5ln/W3VaNLExQgOFVticsTirqCdFo9QOOncNhek
+ Ql6/q3YxV9xctH4SfzEoOWwkiMkf5uPeR23zQ1ZLApIgPYHJYXFA6FyzNguNYmrv/QWbUBb7SBb
+ OlmJNoT2HZ3XCWNlL3jxU+G6Xouci0+P3lSuBKQZyEYw6X3zJnfpuOFiQYONUmhrKWqcEQiwTin
+ QvOAEu8AfEAACTJgfvJn4lH04DnlAgqVlacpzicA4PsOLsRnl3WPJJBjE/xecjSuIKCSqLKC+bc
+ gGBQIUa2mEh/xZu5RtfAGYxJ0EB9KhwRdGLSeDqLai
+X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id
+ 98e67ed59e1d1-39b26101029mr1343189a91.1.1788464416578; 
+ Thu, 03 Sep 2026 12:40:16 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
  by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2db14899311sm58585ad.3.2026.09.03.12.39.18
+ 98e67ed59e1d1-39b160990basm1441039a91.8.2026.09.03.12.40.16
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 03 Sep 2026 12:39:18 -0700 (PDT)
+ Thu, 03 Sep 2026 12:40:16 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2ce8a76df2dso3251135ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:39:17 -0700 (PDT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-c89704da8c7so357440a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:40:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1788464356; x=1789069156;
+ d=broadcom.com; s=google; t=1788464415; x=1789069215;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=4Usv5SNynw+4aZQ9DPp9M1Ly8wN0kqlGi58tc/lH1VY=;
- b=adhrSRFiBjO73nLC9IatSXEzKm3EmOLQIskJA32SVag29FkipyY0hSjwtgE19F7L6S
- aFaz5f5htUKjr/w/dgiG/2eS17exgK4WXjgD5HK7V4Odik5ksUlCzufsIB3jp4fN8/7/
- fB8Xvp7JTHq8hjVD8ndE7gpSlcS0qYk7Qxdpc=
+ :content-type; bh=p8+z4kiOtdTmn8miWX+XqbRCAv1t3K0Ial/sw+P7zoA=;
+ b=c9WU/usvdM0SSkvpMbGFIkhMHUWOYjekqt5QFrOXMRJu7+m1LfLA8xwf+T5kXLKjdd
+ AfSoAEKE3BzkIkLerNRQDUHezCAwnZePc44jae3jZfZeTJ7e/qoyv1s8dwhbKufYkU3r
+ JjCefwmIaUyBhOn4gucQOVesZaT3HbYiqvZKA=
 X-Forwarded-Encrypted: i=1;
- AKwUvBxk2Zi+mBzMbYq/YOXZmk+juHztmitQfa6HhoWHwwvAlIpZNKSoFP9BC9GFdKD5E/sh6b+9nsu9EI8=@lists.freedesktop.org
-X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id
- 98e67ed59e1d1-39b26101029mr1333659a91.1.1788464356512; 
- Thu, 03 Sep 2026 12:39:16 -0700 (PDT)
-X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id
- 98e67ed59e1d1-39b26101029mr1333593a91.1.1788464356086; 
- Thu, 03 Sep 2026 12:39:16 -0700 (PDT)
+ AKwUvBxgI6jceaVyyVtfxtxdgGtRXKptlJuPLYii/WdcirlGskS7FERldjTwjbkIFPiQ5P2iOKrXmk8oI6M=@lists.freedesktop.org
+X-Received: by 2002:a17:90a:e703:b0:398:e969:87ef with SMTP id
+ 98e67ed59e1d1-39b2629926dmr1274556a91.24.1788464414680; 
+ Thu, 03 Sep 2026 12:40:14 -0700 (PDT)
+X-Received: by 2002:a17:90a:e703:b0:398:e969:87ef with SMTP id
+ 98e67ed59e1d1-39b2629926dmr1274468a91.24.1788464414183; 
+ Thu, 03 Sep 2026 12:40:14 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14324410092sm1349016c88.14.2026.09.03.12.39.15
+ 5a478bee46e88-3339b6036fcsm1124198eec.20.2026.09.03.12.40.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Sep 2026 12:39:15 -0700 (PDT)
-Message-ID: <31166950-1099-41c5-bcf4-13e4641dbfea@broadcom.com>
-Date: Thu, 3 Sep 2026 12:39:14 -0700
+ Thu, 03 Sep 2026 12:40:13 -0700 (PDT)
+Message-ID: <ba2ef3fe-5be0-4e1b-a2bb-f0832fc4dd95@broadcom.com>
+Date: Thu, 3 Sep 2026 12:40:12 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] ARM: dts: bcm2835: Add the V3D reset line
+Subject: Re: [PATCH 3/4] drm/vc4: Use the reset controller to recover from a
+ GPU hang
 To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
  Maxime Ripard <mripard@kernel.org>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
@@ -102,7 +103,7 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org
 References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
- <20260816-vc4-reset-control-v1-4-896444373716@igalia.com>
+ <20260816-vc4-reset-control-v1-3-896444373716@igalia.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -137,7 +138,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260816-vc4-reset-control-v1-4-896444373716@igalia.com>
+In-Reply-To: <20260816-vc4-reset-control-v1-3-896444373716@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -157,12 +158,25 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 8/16/26 07:05, Maíra Canal wrote:
-> The PM block exposes a reset line for the V3D block, which the vc4 driver
-> uses to reset the GPU when recovering from a hang instead of forcing its
-> power domain down. Wire it up in the shared V3D node, covering BCM2835,
-> BCM2836 and BCM2837.
+> vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
+> zero so that the power domain goes down, and then taking it again. Such an
+> unconventional approach only works if the driver knows exactly how many
+> references it holds, which is why vc4 wrapped every pm_runtime_get_sync()
+> call in a private refcount and mutex.
 > 
-> BCM2711 already describes the same reset line for its V3D node.
+> Commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+> under a new binding.") exposed a V3D reset line for exactly this reason,
+> so that the block can be reset without power-cycling its domain, but the
+> vc4 driver never picked it up. Use it now, which removes the need for the
+> private refcount and leaves vc4_v3d_pm_get/put() as plain runtime PM
+> wrappers.
+> 
+> The reset line is optional, to accommodate older device trees. Device
+> trees that do not describe one still get the driver-side recovery in
+> vc4_irq_reset(), but the hardware is left untouched. Two in-tree platforms
+> use the VC4 V3D block: BCM2835 gains the resets property in the next
+> commit, and Cygnus is no worse off than it was, as its V3D node has no
+> power domain and the power-cycle only ever gated its clock.
 > 
 > Signed-off-by: Maíra Canal <mcanal@igalia.com>
 
