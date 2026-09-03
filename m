@@ -4,47 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 132D2C624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBDDC624DD
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A76A10F3D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2A3810F3D6;
 	Thu,  3 Sep 2026 07:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="J0KMevOO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ReR29FTN";
 	dkim-atps=neutral
-Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
- [79.135.106.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6D1610F1B3
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 12:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788352359; x=1788611559;
- bh=TtQB3bvuIw6qqZqo5OFatGDqsqwyLHaGUzXVPABnou4=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=J0KMevOOnZ+DJQcSD90B5AQQB6BV1Rn/51KRY334BRUuz4qqczIlmp/6iavNjWnKZ
- 7X4sb/1UpLv2hXH/L334P+lDaEUQkouzIsQU/nhewsJM4gNIr1hkfRGpVoMvr24RQw
- RaMbNL6MFBqObrR7gq4IrBQ8uUHXUb2ANmBjMV2WOg9WgjnGQE0dne3lfSH8CVWb2W
- rEFw32yFpQRxTPzu/cyszdL96cwbPN3Gc+XKP8GO3tUhPIlg/pUrjFqi3gRPHI5R7Y
- dmZ7ia00EHMFAKUL1AlEPPtGM5BzoXIEZTIM7LRK6mAwwSVlexAEh52JhE3fMNTxiq
- b1IS3RTvKMcPA==
-Date: Wed, 02 Sep 2026 12:32:29 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com,
- stable@vger.kernel.org
-Subject: [PATCH 3/4] drm/amd/display: pass userspace brightness to power module
-Message-ID: <20260902-brightness-3-50f94618@empyreal.works>
-In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 5d77d30cad3537273c8d09ea7186f4c942ade71b
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F7710E013
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 03:52:54 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-c2530cabcf4so306469966b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 20:52:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788407573; cv=none;
+ d=google.com; s=arc-20260327;
+ b=NdNnXTt2w9mRhVMgqSNwoUyPLq+ZDK/BRSei+iAS8qC/BOoKmFYcbSUaF6/ormMRTM
+ ps2gNilvpNT5YxHiu1OCLIvMey+Qp9mv4GOERnTuLQiHswxq7ZAR6P1PnnOcmzgSnzHv
+ jtEQckBUc91YOge61xiQBz3hmg42CxhK4DA1O4jPL/Y3CK5ttUqWbAkv5JnAFJhiDz5C
+ oQeebd5/+jr9BSP7qUniaOEsqiUOvbjUdvkC7vOPVIidMFTRgQjj+cyl1CBQxuuSUYEc
+ B7kKj8dRerNVEIZOkfsZffZ5cB9NlIot1HDynG96gUPevw3AYcyk6YvNFFNFup527mpp
+ LGDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
+ fh=XYYUkZzO6XGENL69bOmOd5g2lG7dGTUv+J081huMGSw=;
+ b=FosYs5JqUOMZAtIdBjUHSGaAhrfoaKzmbn6y2pQsRO9WwG2oyNb8B5FsdxePR8QhSv
+ LOyx/88UpzVmP7NwNrQDgtnYh2og2sBSW6Ja5+aMyGmfXwdU1GIm31Esrby8APlZk67J
+ PO2X+eshzcF5UESlNqQn/yfeRZkV2JtcywqMErn/h3m7OjZiorc/bfemuZDNiTe4xEJh
+ I1KI4VkhScge8BKCONHr1GhP8Tr6dRLxuAFrBeYcdGVXgT3KdmTjiXIxg6DrJoh3Uprs
+ eEhYJ2ObDc9ooPmpwQeqoAGz6ApYjhOmejqtszDeMQZIBysqWSWNZH0wPBCkbydg2tyl
+ gkVg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788407573; x=1789012373; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
+ b=ReR29FTN06G+TCQ0Z5lITG/3xWAOmJJaW+zkrhFYXFBVhrk88JQcTRHdN/CWMX1U+p
+ 8H5YJ4SVIxoN3R8fpMh6Wk8nPUq51vwkrr83gHTllhBQnNT0Ktcg6auJyPCyinTB3mql
+ Cmb66Qr/cgPLHXlcqhX7lFiDWTqPUZa/yllNFkN9Llkmlj81o5fbshQNmD2IEs78yQSv
+ AfBeqyxzLBiu8fcSc8aVtlL8U259u9h6iyhrZvo9xjFDLthdwsPiWbOM4sS7OKNcfNSm
+ QVm4p4y0Gtl4FHyr0yTS/riDU2Ve0i/CfbSLa4/t9bRVcVvNklrhZoTAO6mPYXzDNh9A
+ LE4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788407573; x=1789012373;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=0nG8U1FR8wXCOSjXTDfBvYxce9r58Wp20V47CS4+oyY=;
+ b=hqset8nBDQoOzIFIJDD4A6heu/ORmrpPeEIfF4a3cLu1SVpNWjQOOMu9gMWTXP0hTr
+ 4XNWNzoargDiLnSNPzbZdfM7h+CFEHYpkFF1LDjSnNatyEO8M6TzyDsrxXCu7do3lfR6
+ aZe0cVAhueG2dLPakGwynK4fIqSLTawrvxYSfhjh1HfsAw20mD6/RlNRWNC2cYW7TTSU
+ UZsvQW8iynBBTCFkoTI3t6WbWGZsuGXl9I6h48o9W13zKz46VnC9C3iQJnkef2vTzpyD
+ 59ev9PzAzUJG6NYkB12BRMkgtQbEhlSYp4JqMy+Por57SFEkGbVP5t8JOFNfVbtwPcHk
+ bHMw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxLP4+0MVxe3KApyUYGRZJnKO9J2T1t0Ke6aPt6FBybkp0plTLZLj9XCKGgzRQCX2znzLGqgr5IhBI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lsoLdMAOUqlGAG9p6t1TC8KJ4zFAKvGBCEyUYQRO6n8FnQFRqZ
+ x1MvusJ70nkOsBxEtj9MvmC/Lzu/z1OdCeeXjdjfCyjnkuxTdNu4LFqoG0BxBfQtjNIobSnYnpV
+ Yg77e36E+e98Zvdz9i2pYqOB1r0jXz/A=
+X-Gm-Gg: AYBFou3rXg54BlT6yMNZDtseE3dvupYcbZitynKZ4s763YRjFSwVWQPaOYnKXvBq2dk
+ cwQLA7jbmd7noh+hPrhgyBZG2HtuFeOtDMepqmnMLy0vQTy/LrQUmWVz58L8ALV2feie4JSdBj6
+ J6D0prp/8KimXwm1e19GkorewhnL7rg81ZfF6xhqptJuugwCzjrdLv+6TTAlvI1y52wPGSLe3C7
+ wNGF4MMl2rh3bFq6cabOyOmcCC4hELRjn7hYlnBdwQxW2zt61Th8utTF/FSFNni6KR2dhcA0jLD
+ 3OuXx6S+uAhAD4mLxacz/ReWJreY6JoNnHT0QV1Lxg+agsYHAvsKLSi2T1UR53QAWpphZTpb4Pb
+ MrJTw2iSrhSc/tBZqzemUZTba9M3+Su7b
+X-Received: by 2002:a05:6402:388d:b0:6a6:32f5:90b4 with SMTP id
+ 4fb4d7f45d1cf-6a682af9bf4mr6070931a12.22.1788407573017; Wed, 02 Sep 2026
+ 20:52:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <aoczaCuoaZfUkfm5@gsse-cloud1.jf.intel.com>
+ <CAMpTW2cxRrG4oJ0HrRoKhHrVHxWO01-L+QDoWMLCAUaSfw75sA@mail.gmail.com>
+ <CAMpTW2fxFRrpn1b5WGYBrtLLMfUo_fmx9s2D0b552GJp-sF5qg@mail.gmail.com>
+ <8b7001c68c94491095f41d2a3dff45090c0a95cf.camel@linux.intel.com>
+ <aoeUdfrPX+0ZnZMr@gsse-cloud1.jf.intel.com>
+ <CAPM=9twBded3B553KYzwDtVd0NbhbAwbiVDGw_bdrmBnOKgtKA@mail.gmail.com>
+ <CAMpTW2eXS9tBzppJvvfZ-FiwoJ5MKOAdB9sqYgCDPVQ_+___ZA@mail.gmail.com>
+ <ao+acQG/wyZYNYfW@gsse-cloud1.jf.intel.com>
+ <apfZcEF8IlDak/As@gsse-cloud1.jf.intel.com>
+ <CAPM=9tw9dtxN+tZLrb4fvPGndUT+He7Y=o39ByMEva8wWyq56g@mail.gmail.com>
+ <apflRScB/NTEiEzU@gsse-cloud1.jf.intel.com>
+ <60f8132f-efc9-4dc1-bd02-b62391bf3fa0@amd.com>
+In-Reply-To: <60f8132f-efc9-4dc1-bd02-b62391bf3fa0@amd.com>
+From: Nathan Bourgeois <iridescentrosesfall@gmail.com>
+Date: Wed, 2 Sep 2026 23:52:40 -0400
+X-Gm-Features: AcwNN1XjM_3CDNM2RXbcW9bsYX8QLssOvGlmXwTLjeDvMA-uBLr1c2b3x6gwG1Y
+Message-ID: <CAMpTW2d8Q0OXpw1G_9+cj0ohrYo9cONUPEBgC6kpLumosTxt+Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/xe: Fix unnecessary host-side population of ttm_tt on
+ non-TT resources
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>, Dave Airlie <airlied@gmail.com>, 
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Simona Vetter <simona@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -62,271 +124,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The power module consumes millipercent and builds its own PWM lookup
-table from the ATIF brightness transfer characteristics.
+> Nathan - the conclusion is validate in Xe.
 
-The Linux display manager instead converts the userspace request to a
-firmware level, then derives a percentage from that hardware-domain
-value. For a non-zero PWM minimum this maps the minimum above zero and
-the maximum above 100 percent. It also applies the ATIF curve once in
-the display manager and again in the power module.
+Understood; I will begin working on that patch.
 
-Pass the original userspace percentage to the power module on PWM
-panels. Keep the existing nits conversion and source-unit brightness
-mask for AUX panels.
-
-The brightness mask is a final DP source-level quirk. Carry it into the
-power module and apply it when the effective hardware handoff is PWM,
-preserving ordinary PWM, forced-PWM OLED, fallback PWM, and mode-change
-replay without altering a true AUX handoff.
-
-DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE previously bypassed only the display
-manager's copy of the curve. Wire it to the power module's existing
-linear bypass and use the selected panel's policy rather than panel
-zero's. Label the brightness trace value as millipercent or millinits so
-the corrected input domain is explicit.
-
-A live DCN 3.5.1 trace exposed the domain mismatch. KUnit coverage is
-added separately.
-
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Cc: stable@vger.kernel.org # 7.2.x
-
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++-
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 46 +++++++++++++++----
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |  3 +-
- .../drm/amd/display/modules/inc/mod_power.h   |  1 +
- .../gpu/drm/amd/display/modules/power/power.c |  2 +
- .../drm/amd/display/modules/power/power_abm.c |  6 ++-
- .../amd/display/modules/power/power_helpers.h |  1 +
- 8 files changed, 55 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ec483276d753..4e730527be4a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -425,7 +425,9 @@ static int amdgpu_dm_init_power_module(struct amdgpu_di=
-splay_manager *dm)
- =09=09=09!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
- =09=09init_data[i].use_custom_backlight_caps =3D false;
- =09=09init_data[i].custom_backlight_caps_config_no =3D 0;
--=09=09init_data[i].use_linear_backlight_curve =3D false;
-+=09=09init_data[i].use_linear_backlight_curve =3D
-+=09=09=09!!(amdgpu_dc_debug_mask &
-+=09=09=09   DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
- =09=09init_data[i].def_varibright_enable =3D 0;
- =09=09init_data[i].varibright_level =3D 0;
- =09=09/*
-@@ -436,6 +438,8 @@ static int amdgpu_dm_init_power_module(struct amdgpu_di=
-splay_manager *dm)
- =09=09=09dm->backlight_caps[i].min_input_signal * 0x101;
- =09=09init_data[i].max_backlight_pwm =3D
- =09=09=09dm->backlight_caps[i].max_input_signal * 0x101;
-+=09=09init_data[i].brightness_mask =3D
-+=09=09=09dm->backlight_caps[i].brightness_mask;
- =09=09init_data[i].min_abm_backlight =3D
- =09=09=09dm->backlight_caps[i].min_input_signal * 0x101;
-=20
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 424b33573a73..04e810af4623 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -218,6 +218,41 @@ u32 convert_brightness_to_user(const struct amdgpu_dm_=
-backlight_caps *caps,
- }
- EXPORT_IF_KUNIT(convert_brightness_to_user);
-=20
-+static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backl=
-ight_caps *caps,
-+=09=09=09=09=09      u32 brightness)
-+{
-+=09unsigned int min, max;
-+
-+=09if (!get_brightness_range(caps, &min, &max) || max <=3D min)
-+=09=09return 0;
-+
-+=09if (brightness >=3D max)
-+=09=09return 100 * 1000;
-+
-+=09return DIV_ROUND_CLOSEST_ULL((u64)brightness * 100 * 1000, max);
-+}
-+
-+STATIC_IFN_KUNIT
-+u32 convert_brightness_for_power_module(const struct amdgpu_dm_backlight_c=
-aps *caps,
-+=09=09=09=09=09u32 user_brightness)
-+{
-+=09u32 brightness;
-+
-+=09if (!caps)
-+=09=09return user_brightness;
-+
-+=09if (!caps->aux_support)
-+=09=09return convert_brightness_to_millipercent(caps, user_brightness);
-+
-+=09brightness =3D convert_brightness_from_user(caps, user_brightness);
-+=09if (caps->brightness_mask)
-+=09=09brightness |=3D caps->brightness_mask;
-+
-+=09return brightness;
-+}
-+
-+EXPORT_IF_KUNIT(convert_brightness_for_power_module);
-+
- STATIC_IFN_KUNIT
- struct dc_stream_state *dm_find_stream_with_link(
- =09struct amdgpu_display_manager *dm,
-@@ -262,7 +297,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
-y_manager *dm,
- =09bool rc =3D false, reallow_idle =3D false;
- =09struct drm_connector *connector;
- =09struct dc_stream_state *stream;
--=09unsigned int min, max;
-=20
- =09list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, h=
-ead) {
- =09=09struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector(co=
-nnector);
-@@ -285,12 +319,9 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displ=
-ay_manager *dm,
- =09/* update scratch register */
- =09if (bl_idx =3D=3D 0)
- =09=09amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brigh=
-tness[bl_idx]);
--=09brightness =3D convert_brightness_from_user(caps, dm->brightness[bl_idx=
-]);
- =09link =3D (struct dc_link *)dm->backlight_link[bl_idx];
--
--=09/* Apply brightness quirk */
--=09if (caps->brightness_mask)
--=09=09brightness |=3D caps->brightness_mask;
-+=09brightness =3D convert_brightness_for_power_module(caps,
-+=09=09=09=09=09=09=09 dm->brightness[bl_idx]);
-=20
- =09if (trace_amdgpu_dm_brightness_enabled()) {
- =09=09trace_amdgpu_dm_brightness(__builtin_return_address(0),
-@@ -314,9 +345,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
-y_manager *dm,
- =09=09rc =3D mod_power_set_backlight_nits(dm->power_module, stream, bright=
-ness,
- =09=09=09AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
- =09} else {
--=09=09/* power module uses millipercent */
--=09=09get_brightness_range(caps, &min, &max);
--=09=09brightness =3D DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 10=
-00;
- =09=09rc =3D mod_power_set_backlight_percent(dm->power_module, stream,
- =09=09=09=09=09=09     brightness, 0, false);
- =09}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 90bed0ea5d00..396e7654e299 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -72,6 +72,8 @@ u32 convert_brightness_from_user(const struct amdgpu_dm_b=
-acklight_caps *caps,
- =09=09=09=09 uint32_t brightness);
- u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
+On Wed, Sep 2, 2026 at 5:04=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> On 9/2/26 10:58, Matthew Brost wrote:
+> > On Wed, Sep 02, 2026 at 06:54:55PM +1000, Dave Airlie wrote:
+> >> On Wed, 2 Sept 2026 at 18:08, Matthew Brost <matthew.brost@intel.com> =
+wrote:
+> >>>
+> >>> On Wed, Aug 26, 2026 at 07:01:21PM -0700, Matthew Brost wrote:
+> >>>
+> >>> Dave ping. Question below.
+> >>>
+> >>>> On Thu, Aug 20, 2026 at 10:34:49PM -0400, Nathan Bourgeois wrote:
+> >>>>>> Shouldn't we just be calling xe_bo_validate() here instead of
+> >>>>>> ttm_tt_populate? (With the correct xe_validation_guard() wrapping)=
+.
+> >>>>>
+> >>>>>> Yes, this might be a better solution, making ttm_bo_setup_export()
+> >>>>>> completely unnecessary.
+> >>>>>
+> >>>>> If ttm_bo_setup_export() is unnecessary, I'm happy to change the pa=
+tch
+> >>>>> or make a new patch. I will attempt to implement and test this loca=
+lly.
+> >>>>>
+> >>>>>> This part looks good as different patch from what I'm assuming wil=
+l be a
+> >>>>>> TTM fix.
+> >>>>>
+> >>>>> Regarding this, what do you recommend I do, assuming the patch
+> >>>>> remains local to drm/xe? I'm still learning the ropes of contributi=
+ng.
+> >>>>>
+> >>>>
+> >>>>
+> >>>> For Xe I believe Thomas and I aligned a xe_bo_validate with a correc=
+t
+> >>>> xe_validation_guard is the Xe preferred solution in the existing
+> >>>> design... But a question to Dave below before I commit to anything.
+> >>>>
+> >>>>> Nathan
+> >>>>>
+> >>>>> On Thu, Aug 20, 2026 at 9:08=E2=80=AFPM Dave Airlie <airlied@gmail.=
+com> wrote:
+> >>>>>>
+> >>>>>>> Yes, this might be a better solution, making ttm_bo_setup_export(=
+)
+> >>>>>>> completely unnecessary.
+> >>>>>>>
+> >>>>>>> It's also a bit odd that, in flows where we don't have backing st=
+orage
+> >>>>>>> on export, we populate with pages and charge the system memory cg=
+roup,
+> >>>>>>> only to move the data to VRAM when the import attach is triggered=
 ,
- =09=09=09       uint32_t brightness);
-+u32 convert_brightness_for_power_module(const struct amdgpu_dm_backlight_c=
-aps *caps,
-+=09=09=09=09=09u32 user_brightness);
- int amdgpu_dm_backlight_get_device_index(struct amdgpu_display_manager *dm=
-,
- =09=09=09=09=09 struct backlight_device *bd);
- void amdgpu_dm_backlight_fill_props(const struct amdgpu_dm_backlight_caps =
-*caps,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index f33a2c1e0da5..5e7782f9e89f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -744,10 +744,11 @@ TRACE_EVENT(amdgpu_dm_brightness,
- =09=09__entry->aux =3D aux;
- =09=09__entry->ac =3D ac;
- =09),
--=09TP_printk("%ps: brightness requested=3D%u converted=3D%u aux=3D%s power=
-=3D%s",
-+=09TP_printk("%ps: brightness requested=3D%u converted=3D%u unit=3D%s aux=
-=3D%s power=3D%s",
- =09=09  (void *)__entry->function,
- =09=09  (u32)__entry->user_brightness,
- =09=09  (u32)__entry->converted_brightness,
-+=09=09  (__entry->aux) ? "millinits" : "millipercent",
- =09=09  (__entry->aux) ? "true" : "false",
- =09=09  (__entry->ac) ? "AC" : "DC"
- =09)
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h b/drivers/=
-gpu/drm/amd/display/modules/inc/mod_power.h
-index 02bee3b1956d..56b41861e164 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-@@ -19,6 +19,7 @@ struct mod_power_init_params {
-=20
- =09unsigned int min_backlight_pwm;
- =09unsigned int max_backlight_pwm;
-+=09unsigned int brightness_mask;
-=20
- =09unsigned int min_abm_backlight;
- =09unsigned int num_backlight_levels;
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gp=
-u/drm/amd/display/modules/power/power.c
-index ee15c14a899e..1d5e94893e36 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -157,6 +157,8 @@ struct mod_power *mod_power_create(struct dc *dc,
- =09=09=09=09init_params[inst].use_custom_backlight_caps;
- =09=09core_power->bl_prop[inst].custom_backlight_caps_config_no =3D
- =09=09=09=09init_params[inst].custom_backlight_caps_config_no;
-+=09=09core_power->bl_prop[inst].brightness_mask =3D
-+=09=09=09=09init_params[inst].brightness_mask;
-=20
- =09=09// Do not allow less than 101 backlight levels
- =09=09if (init_params[inst].num_backlight_levels < 101)
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/driver=
-s/gpu/drm/amd/display/modules/power/power_abm.c
-index 5e86889eaa84..4d7d80ac60c9 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -529,7 +529,7 @@ static unsigned int backlight_millipercent_to_pwm_legac=
-y(
- =09=09return 0;
-=20
- =09// Bypass the brightness mapping LUT
--=09if (core_power->bl_prop->use_linear_backlight_curve) {
-+=09if (core_power->bl_prop[inst].use_linear_backlight_curve) {
- =09=09pwm =3D core_power->bl_prop[inst].min_backlight_pwm +
- =09=09=09(unsigned int) div_u64((unsigned long long) millipercent *
- =09=09=09core_power->bl_prop[inst].backlight_range,
-@@ -1020,6 +1020,10 @@ void fill_backlight_level_params(struct core_power *=
-core_power,
-=20
- =09if (backlight_control_type =3D=3D BACKLIGHT_CONTROL_AMD_AUX && !is_hdr)
- =09=09backlight_level_params->control_type =3D BACKLIGHT_CONTROL_PWM;
-+
-+=09if (backlight_level_params->control_type =3D=3D BACKLIGHT_CONTROL_PWM)
-+=09=09backlight_level_params->backlight_pwm_u16_16 |=3D
-+=09=09=09bl_prop->brightness_mask;
- }
-=20
- bool mod_power_set_backlight_nits(struct mod_power *mod_power,
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/dr=
-ivers/gpu/drm/amd/display/modules/power/power_helpers.h
-index 68679fa10946..1eeacbfb8d91 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
-@@ -94,6 +94,7 @@ struct pwr_backlight_properties {
- =09unsigned int min_backlight_pwm;
- =09unsigned int max_backlight_pwm;
- =09unsigned int backlight_range;
-+=09unsigned int brightness_mask;
-=20
- =09/* Describes the panel's min and max luminance in millinits measured
- =09 * on full white screen, in min and max backlight settings.
-
+> >>>>>>> resulting in a copy and a change in cgroup charging.
+> >>>>>>>
+> >>>>>>> I guess the question is why was ttm_bo_setup_export() introduced =
+over
+> >>>>>>> just a validation at export?
+> >>>>>>>
+> >>>>>>
+> >>>>>> I'd like to think I had an answer for that, but I don't. Likely
+> >>>>>> because I wasn't thinking about VRAM charging at all, and just
+> >>>>>> worrying about making sure we had populated some pages for system
+> >>>>>> memory ones, so the other side couldn't DoS us.
+> >>>>>>
+> >>>>
+> >>>> Dave:
+> >>>>
+> >>>> We don't charge any cgroups yet, right? This would only come into pl=
+ay
+> >>>> once a version of [1] merges, correct?
+> >>>>
+> >>>> What would prevent the pages populated for a TTM BO from being
+> >>>> immediately reclaimed and discarded? I'm fairly certain Xe's shrinke=
+r
+> >>>> could do exactly that, since we don't pin those pages. This seems to
+> >>>> imply that we'd need to store the cgroup associated with the TTM BO =
+at
+> >>>> creation time and charge allocations to that cgroup, regardless of w=
+hich
+> >>>> task ultimately triggers the page allocation.
+> >>
+> >> This was actually to fix a non-cgroup bug with a possible priority
+> >> inversion problems.
+> >>
+> >> i.e. a client could allocate a BO export it to a compositor, and then
+> >> the compositor would populate it for the first time and get ENOMEM.
+> >>
+> >> This was to avoid that case by making sure a client had tried to
+> >> allocate all the pages for the BO before exporting it, so it would get
+> >> the failure at that time.
+> >>
+> >
+> > Ah, this makes more sense.
+>
+> I was wondering why we did that as well, but yeah now I remember.
+>
+> >
+> >> I don't believe xe should just be reclaiming and discarding these
+> >> pages without swapping them to shmem first?
+> >
+> > Yes, the pages would be in shmem if swapped.
+> >
+> >>
+> >> Validating is probably fine as well.
+> >>
+> >
+> > Nathan - the conclusion is validate in Xe.
+>
+> I think we ran into a similar issue during some recent amdgpu work as wel=
+l, so adding Felix on CC.
+>
+> Basically we sometimes need empty BO objects without resource nor TT obje=
+ct to fill them with some resource object at a specific location.
+>
+> So far we just gave them a dummy system placement for the initial validat=
+ion, but that is far from ideal.
+>
+> Any idea how to do that cleanly without breaking the compositor fix?
+>
+> Thanks,
+> Christian.
+>
+> >
+> > Matt
+> >
+> >> Dave.
+>
