@@ -4,108 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1992CC624D7
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49193C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 19:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD0D10F746;
-	Thu,  3 Sep 2026 19:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDA810F750;
+	Thu,  3 Sep 2026 19:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="ASU4Rzbl";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="adhrSRFi";
 	dkim-atps=neutral
 Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com
  [209.85.214.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3774110F746
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 19:38:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17C6410F750
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 19:39:19 +0000 (UTC)
 Received: by mail-pl1-f227.google.com with SMTP id
- d9443c01a7336-2cc891373e0so2118305ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:38:47 -0700 (PDT)
+ d9443c01a7336-2d9201076b3so2894245ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:39:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788464327; x=1789069127;
+ d=1e100.net; s=20251104; t=1788464358; x=1789069158;
  h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=brNSF6ql5aevmqbGax3CboePf220/VniLivOauNNsPk=;
- b=WgG7VhR/4oRFWFuwK5vH03oFAs2gYdV8k/bHQQgoWhQ1xsCqV5uH+W9cbv1c2DSuBT
- 2bpxR2ezavOcaB5qi06itmYpaFdmSB8qvjRA4RoGGFv8JAWkx7znl5Pnw27JIFW9G3B4
- UuOmQUjxbk+Puyn1N3Vv29xKzSsOu6YQBX7JonwXtweRSELWt1bF8m56a+2jNxaJ3woN
- Q2BpqWhz55Mh2mt8FFnd2KnGK86JZNdE8uLIOWs9Vjrww8OJcMGYg5hbUrx5hArgHGmT
- ZCzXVV1K3IYN+SP3P75HkS7pgMMeVXi7wR1ln7v5N1kMR6ITAEEOAjKRNb/Vefa/WdOd
- MwWA==
+ bh=4Usv5SNynw+4aZQ9DPp9M1Ly8wN0kqlGi58tc/lH1VY=;
+ b=V+83zgCHqC3hjgiSZytR5hlm2QmZFxvhdnspyhAnbM03/zzBioHQd7yvZo1VwTYquQ
+ Q1WJJjIsB+jSeK5RlbZdnXcu2sbQPENtidY2XJgQOWaIwzkiLC+Xo4rL2fqq5Is0BcrU
+ QNSWmtd5lHpspemUpjZdPRuceqEprjQcSlTaoxrR8zuOsnLTWkAWMO++63dz6VjzY6Ka
+ f3g82CMogH5A6O8BlvyK8floxMEfDD9BIQUy6IxYdLSVNUjegkvd/z9751s4wl1qNMqq
+ L2VgP0Pw7WEanFqwgyhW8CeTZ38Ce0l+ny5CBSwznNzMass/YFvEBee5YgMxtM+O9erY
+ UIUw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByVPg3ijIkJwxFYIdbAKpQuc1aaa3t8m+FIPcNSEUX+XSK2v5XUp62EtYokuQlI8yQw4RCXeIctIEM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lD1PcfxlsTflmcWNUHnUSNCIao4ni4QcZZQq4jF1A5l3JWWlOL
- W0qXzUegkhJldjM1sIt5cD+JKbAuMd4pcsMqw1th+SaFoW10P78wXkIRpDNO5THHUhg/ONyPMNC
- Opzyr1OYrAEFugdMm/3nVaw22Oz6Yo4UYieScvpCWq4aiKWjddtg+ATGveTYxuE2ci7HsAhgh+O
- K0QbtE58aPOWRJ6910C/YM5IOpMR7bA99D6z9RbArklCxxpICeRUaKlt5FCyRsgfC+V9/mscXAH
- nZpI4YwigFrTAO7jcSwK6hSt9+Z
-X-Gm-Gg: AYBFou2YrIJm+0N/qgRvm6el7Q2o9/zy0ZN/L+LtsgZcxfJODaxTz4c02x9bZARxz6u
- UrUBuWXiOdshXmhucjPDeftTdLIWedWB04zSmO5xGGvEqu0RHUcRao0Jk3p9Hc+KuiFvoEXCak0
- 3OPTNJfYX2BvmZT0YCf0HGaEQVohhGdlXEfGox1M52VUAtseXmLIvIS6mAu88jSQNyRhG7gO6U3
- gvn0TBdWs/FLaPs6qH2jIlIzYhIOGCOPDI8X7fFImnsgznXaAF1xS0l701nwk8Q2sVmaV0k5ppT
- P3jnWsEJUWAS+y2+IaA0KTyYwbyT4qVXaZJY1/xag5AOQJC4bKm3XhH8y7fs/oyM6iwQD43ie86
- 2Qv7FtTGpWy+NCbbtIMxKxXrIzRlMfXHtlLvIjJumjtmlPKcCMouy9muOWVeOceNEkCYMwutLuA
- SCX/8NXe2fZSYF4xNW16EIyCkbW5cF9aI0qrhfhl/R
-X-Received: by 2002:a17:903:13c8:b0:2ca:e62c:9e96 with SMTP id
- d9443c01a7336-2db1232e220mr21110455ad.5.1788464326612; 
- Thu, 03 Sep 2026 12:38:46 -0700 (PDT)
+ AKwUvBzw6AWSfvBq1Oagp7qSDsobHLSomuqIpcg7nDgjcabJ8xbA3Xc8VvtN7fCiLoIm6vSIsccVe6SAMv8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++modlyMSCwHyy7A2860TuyKZRAghkiFrv2g7gLfhtB9ufYdkar1
+ IEK+DHgMbFHJMXPdtSidkr9AaCTDNDS7in+vJaPiD53Fnk9g7F8WiL3vuNjSzGryn4PdsBgkz84
+ cFY2yCxZh/+wIYuxew6IYEJnXRA1p71rNST+kxlXqm8pg+aZDLk8lpTTcYHUgtlDUXpv1BsM7g2
+ 7tK8P0Rg3Tjcm4FWJMogIGuOK4DBb//2ej2JBc5CY35SED3q7YGfF0Ka6ohHgEpgLWfW7Z03zEA
+ I9112SRScA9rBHpQCN81EP5+R4i
+X-Gm-Gg: AYBFou2TC5YmAKaE+6RPuENfKsoFBgHhy+hH4tJPlfojXpvd7HOe5o2u5yG2eWZEjWC
+ s2yZn9C4+dILpQWLvoqdCnwzmA8sZykxUMxfz1U8nSsqLrvobmePhM7rGRIR6dsHJ/4Tu7LVSJw
+ 46Ergg47M1+REQpQPSWZe8V6wZcffD8YTSFRWaLg83uA3J1QGDsWaOgPFq1TE5JPvRo+C3aHzpe
+ RQ8fkcuduUj4NADFXfvjfpCe7ImGC2G8tMWUQg0au9CFEMdMRmwSJH+FQKBIqvhAq7ZkqqijTxU
+ 0sSYthIz4LU8zwcKNchD8HDTpA9G2b9EhzeMfmrpqXtRslHzpFtw3R9jIBhFIjS34Mg38RllJo9
+ 22kjNh+HU80w43SLS7YqlJXhXAAxawVtX8EpeSRWiJoGpgUDSMzYGGigINkOaJi5cT3RFz452D0
+ C8a+M6pym1ZY1hkIXd8xVecq/gmvnYUTTNAKYR3nD3
+X-Received: by 2002:a17:902:e948:b0:2d9:51b7:c0bc with SMTP id
+ d9443c01a7336-2db125a3452mr20332615ad.12.1788464358507; 
+ Thu, 03 Sep 2026 12:39:18 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
  by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2db1489931csm64675ad.7.2026.09.03.12.38.46
+ d9443c01a7336-2db14899311sm58585ad.3.2026.09.03.12.39.18
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 03 Sep 2026 12:38:46 -0700 (PDT)
+ Thu, 03 Sep 2026 12:39:18 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-52faa0dd18bso9590081cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:38:45 -0700 (PDT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2ce8a76df2dso3251135ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 12:39:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1788464325; x=1789069125;
+ d=broadcom.com; s=google; t=1788464356; x=1789069156;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=brNSF6ql5aevmqbGax3CboePf220/VniLivOauNNsPk=;
- b=ASU4RzblPiAvXAaqhr5t4Zo+sJDhBHFsIblH/12z/jRQ9QacJY8R00fBny2VR/6TDo
- AunYG/UKvFVWl4Sg8t9qbtfKDhWizLTXATXOVmUWGnj0K8A0SX8EbKpyGFa7CHIYhC/1
- lNIM3yhbLGbFUiQ+ImE3viuvm/Q+M+gHLnXfU=
+ :content-type; bh=4Usv5SNynw+4aZQ9DPp9M1Ly8wN0kqlGi58tc/lH1VY=;
+ b=adhrSRFiBjO73nLC9IatSXEzKm3EmOLQIskJA32SVag29FkipyY0hSjwtgE19F7L6S
+ aFaz5f5htUKjr/w/dgiG/2eS17exgK4WXjgD5HK7V4Odik5ksUlCzufsIB3jp4fN8/7/
+ fB8Xvp7JTHq8hjVD8ndE7gpSlcS0qYk7Qxdpc=
 X-Forwarded-Encrypted: i=1;
- AKwUvBysv5fRsjkbc8ISvulhX6+YkjTWb8WANMspB0y58Lrfa8e14t5zNcfCbbKfEA5nNCtDsh4E7VTqJxA=@lists.freedesktop.org
-X-Received: by 2002:a05:622a:2505:b0:519:f884:b587 with SMTP id
- d75a77b69052e-53054961822mr14588901cf.27.1788464325207; 
- Thu, 03 Sep 2026 12:38:45 -0700 (PDT)
-X-Received: by 2002:a05:622a:2505:b0:519:f884:b587 with SMTP id
- d75a77b69052e-53054961822mr14588241cf.27.1788464324657; 
- Thu, 03 Sep 2026 12:38:44 -0700 (PDT)
+ AKwUvBxk2Zi+mBzMbYq/YOXZmk+juHztmitQfa6HhoWHwwvAlIpZNKSoFP9BC9GFdKD5E/sh6b+9nsu9EI8=@lists.freedesktop.org
+X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id
+ 98e67ed59e1d1-39b26101029mr1333659a91.1.1788464356512; 
+ Thu, 03 Sep 2026 12:39:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id
+ 98e67ed59e1d1-39b26101029mr1333593a91.1.1788464356086; 
+ Thu, 03 Sep 2026 12:39:16 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-530541eab6csm5221631cf.26.2026.09.03.12.38.41
+ a92af1059eb24-14324410092sm1349016c88.14.2026.09.03.12.39.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Sep 2026 12:38:44 -0700 (PDT)
-Message-ID: <1f4a0df1-97e0-48e7-bd08-6b31c8dcd0e9@broadcom.com>
-Date: Thu, 3 Sep 2026 12:38:40 -0700
+ Thu, 03 Sep 2026 12:39:15 -0700 (PDT)
+Message-ID: <31166950-1099-41c5-bcf4-13e4641dbfea@broadcom.com>
+Date: Thu, 3 Sep 2026 12:39:14 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
- reset line
+Subject: Re: [PATCH 4/4] ARM: dts: bcm2835: Add the V3D reset line
 To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
- <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
- <20260818-idealistic-chivalrous-sawfish-08ddae@quoll>
- <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
+ <20260816-vc4-reset-control-v1-4-896444373716@igalia.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -140,7 +137,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
+In-Reply-To: <20260816-vc4-reset-control-v1-4-896444373716@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -159,39 +156,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/18/26 03:35, Maíra Canal wrote:
-> Hi Krzysztof,
+On 8/16/26 07:05, Maíra Canal wrote:
+> The PM block exposes a reset line for the V3D block, which the vc4 driver
+> uses to reset the GPU when recovering from a hang instead of forcing its
+> power domain down. Wire it up in the shared V3D node, covering BCM2835,
+> BCM2836 and BCM2837.
 > 
-> On 18/08/26 06:05, Krzysztof Kozlowski wrote:
->> On Sun, Aug 16, 2026 at 11:05:41AM -0300, Maíra Canal wrote:
->>> The BCM2835 PM block has exposed a reset line for the V3D block since
->>> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power 
->>> domains
->>
->> This is a reset provider driver, so not really relevant here. Driver
->> commit would be relevant if it was about consumer who implemented
->> undocumented ABI. I suggest to drop reference to driver and instead
->> describe the hardware.
+> BCM2711 already describes the same reset line for its V3D node.
 > 
-> Ack.
-> 
->>
->>> under a new binding."), which allows the GPU to be reset without
->>> power-cycling its domain. Document it so that the vc4 driver can use 
->>> it to
->>> recover from a GPU hang.
->>
->> Does every device have it? Cygnus as well?
-> 
-> I'm not familiar to the Cygnus hardware, only Raspberry Pi, so I'd
-> appreciate if one of the folks from Broadcom could help us with this
-> information.
-> 
-> However, just like the power domain, I added this property as optional
-> to accommodate the fact that the current Cygnus DT doesn't expose any
-> power domain or reset controller.
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 
-I really don't know and have no visibility into these older chips, let's 
-assume they don't.
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
 Florian
