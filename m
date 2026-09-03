@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2328DC624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:24:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C383AC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 08:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE0F10E0C3;
-	Thu,  3 Sep 2026 08:24:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 114FF10E356;
+	Thu,  3 Sep 2026 08:24:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="UmxLU3+0";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="RVpZKePw";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EuRwRA+n";
 	dkim-atps=neutral
-X-Greylist: delayed 1802 seconds by postgrey-1.36 at gabe;
- Thu, 03 Sep 2026 08:24:00 UTC
-Received: from mta0.migadu.com (out-9.mta0.migadu.com [91.218.175.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A70F710E0C3
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:24:00 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=imCkeXbS8TdnEfLcrGpGKahoCmkpvuvbQG4Dqv/gX6E=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788423838; v=1; x=1789028638;
- b=UmxLU3+0b3lHJK31JVywtkGJDYNDU0Amrhu+u5yuH7LVB6QUGTlcu33IuWXGEOUTLJBbaC8e
- AUpQRUFxCSUigKQETgxwrhIc0t2d3e+pOvwHj3DvwxTJmwFt1vgeYKI9JLBhRyBCMrCl4Yg6ycx
- UffsO97HBIyqxEU1hGzVapzI=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 5c9fc66824390f15;
- Thu, 03 Sep 2026 07:47:52 +0000
-X-Mizu-Trace-ID: 5c9fc66824390f15
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e046eddf-3c2b-42a9-b201-c919ebb217ac@linux.dev>
-Date: Thu, 3 Sep 2026 13:17:34 +0530
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CADFF10E356
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 08:24:38 +0000 (UTC)
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1788423877;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ls4xniOjZvy5k7qWaJ+bT9dRttTYo5UPShghXw3DL8g=;
+ b=RVpZKePwsgjPGHsweB7GsSuZAyk6Vl8bcGSJUN6FBtM9LdDAnHDTYpG6/2temWpyraRJTj
+ +1bWgj1+i/XprSF2i6YQOUoR+Vsko6rVtZM1BokT2dHT2OEA23JAM0FRAfS6lphHjOegnh
+ vgVH1XfCVMIIPGlyGGrbsi9W3Qtp5Q1qMuM7i+kiPFV7YOuAZypFfOEMnQysoVhQpRwWmH
+ sX/XAuMKyvlGlF/h6w7AY6WdhaYlI+Vejb8NEpi4SRSQtqQNXYLVt/aTFvYXKBLA9RVx/h
+ 65RCKpw9Jo2ouDGLcSUv3e4vZSaTa4K9QQUrFq0ytj3o52TtkPzLhckQFMRb0g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1788423877;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ls4xniOjZvy5k7qWaJ+bT9dRttTYo5UPShghXw3DL8g=;
+ b=EuRwRA+nb7Nc94Y1bLLMKkBSwoTlXFOzsm6Vl3tC88wEcv4xGKBRogh0aJ7iEG+Sq1mt6V
+ eezpmJsJxikFaDDg==
+To: Anshika Jain <anshikajain196872@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, sashiko-bot@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: fbtft: fix len<=0 buffer overflow in
+ define_fbtft_write_reg()
+In-Reply-To: <CABj3sPEMo3B9B0ynfLGD=NmMu+0zpZ_Ydf2yyT7NDaT3DDNq=A@mail.gmail.com>
+References: <20260902045026.7442-1-anshikajain196872@gmail.com>
+ <87wlt3vnzp.fsf@yellow.woof>
+ <CABj3sPEMo3B9B0ynfLGD=NmMu+0zpZ_Ydf2yyT7NDaT3DDNq=A@mail.gmail.com>
+Date: Thu, 03 Sep 2026 10:24:36 +0200
+Message-ID: <87cxuu68u3.fsf@yellow.woof>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS, mailmap: use Aditya Garg's linux.dev account
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Aditya Garg <gargaditya08@proton.me>
-Cc: Aditya Garg <aditya.garg@linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260723100136.14467-1-aditya.garg@linux.dev>
- <27a31a37-688d-427b-a0ba-c3133db19c97@suse.de>
- <txsiv43u7qv-Pc_dRDdbgiUHVP54rhl5g-xLzQU457o0E29MYkL9FX-zdozYxVySvTed10VduLizWQw3zNDJTGxTIfFLX71G3U_Kj3qnJao=@proton.me>
- <47df26aa-a160-4306-84f0-510584c3e8e0@suse.de>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <47df26aa-a160-4306-84f0-510584c3e8e0@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +66,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+No html email please, the mailing lists will not get them.
 
+Anshika Jain <anshikajain196872@gmail.com> writes:
+> I'd like to keep this as a small safety check for the future, not as a fix
+> for a bug happening today. If you think that's not worth adding, I'm fine
+> dropping the patch.
 
-On 9/3/26 1:16 PM, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 03.09.26 um 08:57 schrieb Aditya Garg:
->> Hi
->>
->>> Am 23.07.26 um 12:01 schrieb Aditya Garg:
->>>> From: Aditya Garg <gargaditya08@live.com>
->>>>
->>>> Due to non standard IMAP and SMTP protocols by Proton Mail, the account
->>>> was giving trouble. Since my linux.dev account has been approved, all
->>>> communication related to Linux development shall now be done there.
->>>>
->>>> Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
->>> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Can someone please merge this. I am still receiving mails on my old email which I do not use for dev work anymore.
-> 
-> Done now. The update will go out with the next drm-misc-fixes.
+As mentioned, such bug would show up immediately in testing. So I vote
+dropping it.
 
-Thanks a lot
-> 
-> Best regards
-> Thomas
-> 
->>
->>>> ---
->>>>    .mailmap    | 3 ++-
->>>>    MAINTAINERS | 2 +-
->>>>    2 files changed, 3 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/.mailmap b/.mailmap
->>>> index 501d858cb..baea6ba4d 100644
->>>> --- a/.mailmap
->>>> +++ b/.mailmap
->>>> @@ -19,7 +19,8 @@ Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@codeaurora.org>
->>>>    Ahmad Masri <quic_amasri@quicinc.com> <amasri@codeaurora.org>
->>>>    Adam Oldham <oldhamca@gmail.com>
->>>>    Adam Radford <aradford@gmail.com>
->>>> -Aditya Garg <gargaditya08@proton.me> <gargaditya08@live.com>
->>>> +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@live.com>
->>>> +Aditya Garg <aditya.garg@linux.dev> <gargaditya08@proton.me>
->>>>    Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
->>>>    Adrian Bunk <bunk@stusta.de>
->>>>    Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
->>>> diff --git a/MAINTAINERS b/MAINTAINERS
->>>> index 1ab873685..f32e63428 100644
->>>> --- a/MAINTAINERS
->>>> +++ b/MAINTAINERS
->>>> @@ -7970,7 +7970,7 @@ F:    drivers/gpu/drm/sun4i/sun8i*
->>>>
->>>>    DRM DRIVER FOR APPLE TOUCH BARS
->>>>    M:    Aun-Ali Zaidi <admin@kodeit.net>
->>>> -M:    Aditya Garg <gargaditya08@proton.me>
->>>> +M:    Aditya Garg <aditya.garg@linux.dev>
->>>>    L:    dri-devel@lists.freedesktop.org
->>>>    S:    Maintained
->>>>    T:    git https://gitlab.freedesktop.org/drm/misc/kernel.git
->>> -- 
->>> -- 
->>> Thomas Zimmermann
->>> Graphics Driver Developer
->>> SUSE Software Solutions Germany GmbH
->>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->>> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-> 
-
+Nam
