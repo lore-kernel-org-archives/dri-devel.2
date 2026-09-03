@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27AA4C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 12:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AB78C624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 12:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B67710F57A;
-	Thu,  3 Sep 2026 12:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B3EB10F57C;
+	Thu,  3 Sep 2026 12:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HZAZ1zm1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xje0YJg7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 218DC10F57A
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 12:35:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DDB10F57C
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 12:36:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E47CB42DB0;
- Thu,  3 Sep 2026 12:35:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB951F000E9;
- Thu,  3 Sep 2026 12:35:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 56DFC6022C;
+ Thu,  3 Sep 2026 12:36:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435141F000E9;
+ Thu,  3 Sep 2026 12:36:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788438950;
- bh=y3V+7uMRfnRdyanOSMgHTTGvCzLHmifBko8jlgoRIVs=;
+ s=k20260515; t=1788438994;
+ bh=4w6jf87vafgM99bg9s6kWCWTFKCA2du6LEtWeZQAPcU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=HZAZ1zm1RdkGbnsqhCrWKABPQcL0ZZDPvNL/ji0y0N2ZFtkJpTewen3Ls9/gna8qz
- tx27ZDTFscva9bILlikP8dxPVw+6+ysYDillpUnMZWOFbo7vRal9+WsMkc58dTNDQB
- e5moD0F6ecVHVtzp1I0sARJhHBn6ZUh633hR/9rxayCrHsbM3RqsoDb5A4zkepfupI
- E/jfrce2qAnNbZqoUM8Vysi+aYe0bUKMxHV1vcvuhBnahXHTf3nPWwHMv2yBXkWW7j
- LdUJ+S8aQKP9pB6+DFmeCHGugSsNcv2n7b/E9u50GEYlteA0Eqzs1xrVgLjhLyZfoU
- CGqdXOPFiB1Dg==
-Date: Thu, 3 Sep 2026 14:35:47 +0200
+ b=Xje0YJg7/rQdGmYKvRqh8OHMnTgXxL9lxMK2WYusyrfjvyCj1P42mpgdm2wfxtqTb
+ gF5oqbwataixl0q9rm01GE677vb2RjMTPMx1RLto7UJrhdmRSjsj9aIGy6iINWnvPf
+ EsmOolg65pC/cvHw/btvFoxVERH1ZBJRV0MzqhohlEceM+vVB6Z8HnGGfZOfGA6K7d
+ B6YOhzM/QaMbq8GCHHiWPXcDu87dXXF7F6wltT2R4XnYg0takIbWaSsyLat8Cujv/a
+ s2eRk9Z1fS/3OQkNm/62rFmfEQGeLqKtEtbipr+gDQcjK4BWcp/Z5mVJrK8tPHwP1M
+ tdEHNOR9RMlQA==
+Date: Thu, 3 Sep 2026 14:36:30 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Xilin Wu <sophon@radxa.com>
 Cc: Bjorn Helgaas <bhelgaas@google.com>, 
@@ -52,15 +52,14 @@ Cc: Bjorn Helgaas <bhelgaas@google.com>,
  linux-arm-msm@vger.kernel.org, 
  linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>,
  Junhao Xie <bigfoot@radxa.com>
-Subject: Re: [PATCH 5/6] dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow
- gpio-line-names
-Message-ID: <20260903-elated-ethereal-ladybug-eaf509@quoll>
+Subject: Re: [PATCH 4/6] dt-bindings: arm: qcom: document Radxa Dragon Q8B
+Message-ID: <20260903-corgi-of-splendid-defense-9c8cae@quoll>
 References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-4-7de0b6a73d08@radxa.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901-q8b-dts-v1-5-7de0b6a73d08@radxa.com>
+In-Reply-To: <20260901-q8b-dts-v1-4-7de0b6a73d08@radxa.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,16 +75,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 01, 2026 at 04:47:58PM +0800, Xilin Wu wrote:
-> The SC8280XP TLMM GPIO controller exposes 230 GPIO lines. Allow boards to
-> provide descriptive names for these lines and constrain the list to the
-> number of GPIOs exposed by the controller.
+On Tue, Sep 01, 2026 at 04:47:57PM +0800, Xilin Wu wrote:
+> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+
+"Document the Radxa ....".
+
+> SC8280XP platform.
 > 
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  Documentation/devicetree/bindings/pinctrl/qcom,sc8280xp-tlmm.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
+> Document its radxa,dragon-q8b compatible.
+
+No need to repeat the diff contents.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
