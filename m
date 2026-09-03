@@ -4,106 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33EC9C624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C80AC624DB
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 949D710F407;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D15210F405;
 	Thu,  3 Sep 2026 07:33:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="ZjUxId66";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qmsXz3rP";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2E5F10F1CB
- for <dri-devel@lists.freedesktop.org>; Wed,  2 Sep 2026 13:01:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OhvjDDpsXYpTzoA41mmUfilY3mqw/bg+AtQiwGGdPIYrGk/aBvKpSxu1vFQfz3PM0DTnFom2ydnZKPU2l1sQIQz8Yz/cMhYN8NFGMGSlchYfffvnfP3qU8CF9oAU36u5XGh5BphExZzTAa9jDOs31ksnDtKcQb5+7KbmF6Hzp+mA59jaX+L848v4Socvk0rnM4Sa2ymdO7D+iwEvHY5yzs1k0qxs47J0cw7mRSSD7wF8O6GF9MClBrZDMA7pLLy3u9n1JSNQXWGF+cCxQ9ge0pwJwAzD2krBMYEiKlgEUPAbFfm41kO9U3y45tPIsJs+BsvtaxOo7vYZpx6+qY8WEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pLRU7fz/a4AmTksGXjPumynJ36B37oe4U/DOZBzei24=;
- b=Gm0MhMv8Zx+hEWMikZjD9vzOoAIUzuCGzHdnVHDPhzlxYpby4bjwRI5NVlshMD8z8XppSqSc+Wr3z49RuEnPiiLOh0pNiMdWoRxOJkoWwX0jRjcpA9lY4uFzMlZ4jKTFo780PHJ1h0Yuu0YeHJnYZdh7mkIdI53m76dVH+Sor/G8etoVMd34q6KH8vatqBYKv1/n6S5iIumjkjf97bRQZcORlU+hqG2l7KFxVMHohV0mpXR64QE5YRllpNBckmOPmCKTa43/7unTN6FLB9VbYhsnAXREPtzc6FK/rEIZSF/iCKaC7axGDRbd3lo1cJ+l+1R+Sjkt2EInFznb5mvikQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 165.85.157.49) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
- pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
- not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pLRU7fz/a4AmTksGXjPumynJ36B37oe4U/DOZBzei24=;
- b=ZjUxId66AgV8rDnyPhsPlNW81ee8W2SK5JksQo1dbaUd/qAuHPBktwgqUM+LwG4BCrP9KVviAQdmdtjuGj28GgWoG8P2EY2ABdS0J9oSEUVLPI2a4HD5nnXh3heiSkbG6haHY2DEOkPuy8DxO5SE5lVSHz6r937Fxu6cUVicInWgNKGqmlgTG+eSkNyKK99ONmjHuA5NCUFAUt8UweZRaBSGr64CyEcD5uzZpOjYgorLzzbnr8D7he0nAHe0taPAXp0ngxPtoqREeR6x4w5a+WoS72h1qfVaTd0G9uHmsRxdYCyov8g6BTitUJOpuWH+xYpV9qI2TTeYvVn8xs8mpw==
-Received: from MN0P223CA0003.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::30)
- by SA1PR22MB5351.namprd22.prod.outlook.com (2603:10b6:806:3cc::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 13:01:23 +0000
-Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:52b::4) by MN0P223CA0003.outlook.office365.com
- (2603:10b6:208:52b::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
- Sep 2026 13:01:20 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
- smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
-Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
- not designate 165.85.157.49 as permitted sender)
- receiver=protection.outlook.com; client-ip=165.85.157.49;
- helo=atlrelay2.compute.ge-healthcare.net;
-Received: from atlrelay2.compute.ge-healthcare.net (165.85.157.49) by
- MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:01:19 +0000
-Received: from zeus.fihel.lab.ge-healthcare.net
- (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
- by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id 62D81E4DB;
- Wed,  2 Sep 2026 16:01:15 +0300 (EEST)
-From: Ian Ray <ian.ray@gehealthcare.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Ian Ray <ian.ray@gehealthcare.com>
-Subject: [PATCH v1 0/3] drm/bridge: dw-hdmi: allow ignoring rxsense for hotplug
-Date: Wed,  2 Sep 2026 16:01:13 +0300
-Message-ID: <20260902130113.2720-1-ian.ray@gehealthcare.com>
-X-Mailer: git-send-email 2.49.0
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA0010E09C
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:00:15 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-38ea87caafeso1925463a91.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 23:00:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788415214; x=1789020014; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HzzL67kEz0bnJKJn5x2elMmqvdhT7A2m7DuMV5KAKeU=;
+ b=qmsXz3rPPddAG74tiDAeYk2da7YElsXozcmgvS97c+Qyi39eSksVwJZhGJnjBgpLUk
+ 3mb1iZ3ynOB6p/Rw40GC8lTYocx10HQCAwcMWmyMbob2HYpMdrz7GBCbywvUUxuSx/wU
+ oyLLSQhm3lZRnoecgpTvcEttIvbF4uQ2qQDrnLJBKvJgtzUkSwL8CnhcJmj04GXzQ4kJ
+ GXs014gg4NZppd/FfuwZgvzO6V7EJyRSljVwZ2a2NPtyqQ703CHGEQblA8I45JLbXBVS
+ MT3IP/pQXa02nHOZm2o/xsEontY7b6v7nRB2ESjJW4uudXyiIQEpzamsNlaJMmsDjFXN
+ b2UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788415214; x=1789020014;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HzzL67kEz0bnJKJn5x2elMmqvdhT7A2m7DuMV5KAKeU=;
+ b=HkNXTx9T3aD5cV5s8MAqD6CjArQ1NMGaR5RM9HyK7vZg6uA3dyrfy7xkBPTBLVPDCB
+ Yl3zE4hyWqJtAyt0TakpF2rrsN/FIeFyrWp2O6ZK+r2WogDfpJzt3fho1vJVKfG5B85P
+ CQTPdH8hBG3MN3+NnODXS3PL9c/ze4vWljTeGtViDO+YOGwDOc2KPG5qDDdoKQpA8PCR
+ 06pkxDqwYyPYTY85xUEYTIu9EzSpBqZ6MiOjfppeQSn/AfDNZDRYcokaOnf4Dgr0uQJM
+ AvCAAQkq3TggTQnv8Zml9nQJkbRE077dIt9nLEnu23auQNXr6R+9U4rxxBPxxedpGFAm
+ fRhw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwMYeeRHnf7RKN1CqRpQDxItDAl8EjQZ14SBVV+eUilTgjDeVNnqnCKtCFRG9u/FpUmMz0rbo8KdHk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lWuOdR/M6wA8/Rt0OMQUHKyYgp70jRVjdmr9xiT2G0cL2lcaDo
+ 6jg6XFNnuxFAzDkBYOFQxpeAihdJtTXlNIoA5kIps66FjqdE40gw/Uzz
+X-Gm-Gg: AYBFou0mkhebVMQpaVbRirTY1MZPOaofFW/kPU9RZQ5OsLuC99fyhU200Xa6T4FsCMw
+ znDDZNoZ4d48SHKVjujMQnbyvO908eBhFSdEKEUWo6TIpGUYHhPIGc8acFZLomkJQLuSocpKFpd
+ LwUw7XqdSaB9mFBmRdS80LsMxf6rJLXXJ/5qIichLoYQbVJUJqWAcN13iYoNofSNVirEw+fwmJZ
+ uNyTeINvQmI2EzAMZGD3kDcmP5c5VTnpZvkGECFWRFBBGWUK4sPJDZ/02NjrRTErl66srbIv6Z9
+ m7CWAkukOT4YjniEUF+BOR9K8TT6YxUoxo3DxBO9J917jA4XpWqM/BhvLDU0Snk4JEZnwcka6Qh
+ UbppTDNYW5o93ZmvVKlP23C5YpzJhfbN8hjFY1Q1x97Wo5KpoCUFd06BUAmEt5l8zBwYVQPPJ3+
+ 58Gq/cGCEjs0GdlabE5ZYFOSV90v3CML6cetdwWMqT9rmV7AXadWqM2/BuHslWK4773MoUclGbm
+ YMkuvI5cTxnbmtcemVmejtY/n5Jbrj/LfAr3nxRMn8v8tnFOr704LTVqcDijhaOeMLM4w==
+X-Received: by 2002:a17:90b:4b89:b0:398:c3ca:1ebc with SMTP id
+ 98e67ed59e1d1-39aee105a46mr13805147a91.18.1788415214370; 
+ Wed, 02 Sep 2026 23:00:14 -0700 (PDT)
+Received: from francomeister ([138.84.137.76])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b07ac1174sm3242616a91.0.2026.09.02.23.00.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Sep 2026 23:00:13 -0700 (PDT)
+From: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org,
+ Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+Subject: [PATCH] drm/amd/display: fix MALL hysteresis timer underflow at high
+ refresh rates
+Date: Thu,  3 Sep 2026 13:59:52 +0800
+Message-ID: <20260903055952.62906-1-pacaro.francis.marlou.n@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|SA1PR22MB5351:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 20d06112-139d-459d-dfba-08df08f24852
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|56012099006|11063799006|3023799007|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: mTNhjbwmMBASPzSEwhD3+6IlwV+BKDxtqmkGjmPUrKrbWp8EhBAyzmhlJAqKw8m6IG4dfewogbONDqlx9mwp2vedGRL0HJZNYXhPRcv/q84VPb0MJJmiHn8955HID5Uo9MVIuosoNBNViHCTh2S+OEBV760he6C+vvl3m5G5nEn2B9NUWEHIYiEVAc7i93JtCOOLJoWVZCDlvZgJIjc477AzJMLi4S0XrArzQK0JR94JBRs178MK70KJLy23QJp909l5TjlGYg7M80G7FIA3BLyXrtnmtp6ehSC4Nuj/hfuuVsrp/YJ828hHPAv//OGto9nLF0CdkAxG8ddje6j4e69+AK0Oe89tS6r6E5/x/jvqI+pAXxTyc7RpRs+2cfgEvj9FmUQRZb02YxnBGfLQMyTREYkKz5u3b40TRo4wIv6bRys5AQsMLRhcToZBp8dM1lzhicrv6+BOG/T7v35AkLr8+ufuGpNC/U7R2BtFb0ZkiVXRgvmBE2HdmqfcsrLfarNuUBBjY5q/Jt9TXE/gtP+91XJo79rNZMECT8HKJ0oh1ec9oJAlRUM96w8rTdHHMUbqLI8/GylKtvPeXKniXeHBeNiV+lK+Z31GlheTSaxkecNK1PeA5YcMCeszJBn0uSwhBavg/XKfTotJ/NPq0axJ4W2mEIB9gIt0MXZrxsadI2W4hU3fpk+H4XG0rzpcY+dNwxnD0ixsI54qapAwkw==
-X-Forefront-Antispam-Report: CIP:165.85.157.49; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:atlrelay2.compute.ge-healthcare.net;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: X6P1ZwduWhoRkqGj24KLrC9K+cyemgEb0m1DTJOv+Qi1fdO3SkyXUb4lD8WLjdGTmrRWWc6QaUH8rfLT/Eb+d0JxpqvEZoxqJVO/RadzMwRulKgZOHh5hlYyIsUfrAo1OKydMRxoKvBuIZtuWKb8uUN4fa1nta7tC42sb2uraEYL37CpHmqE5q9NAJJzjKIoXTq6kjeX7vYeRxo4IZWkDZTjqVAa6hk1whjhE+d4RymcGIY3a2Gam1s9y94XasYdZQkzHxjH35eENOTe+P2cWoFei0h/d4zoydxnImh+8sWEHvkv5IGYhA2OgkrmtEMu7GMkSMKpda13ogfoc+0lU5mCSGTMhu97mCCwGJcajb6dq8dm4XywEtL1ZdRGx0n2u+VeRQ5dDC91rYhaWqeWyzuPi9WZjzPzOufFBEQoCL1znbjrMzw72sko8RVoGD66
-X-OriginatorOrg: gehealthcare.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:01:19.6541 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20d06112-139d-459d-dfba-08df08f24852
-X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf; Ip=[165.85.157.49];
- Helo=[atlrelay2.compute.ge-healthcare.net]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-MN1PEPF0000F0E4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR22MB5351
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:33:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,43 +91,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event
-on link change") made hotplug detection also consider rxsense: a
-disconnect is now reported only when both HPD and rxsense are low.
+dcn30_apply_idle_power_optimizations() derives the MALL frame cache
+hysteresis timer with
 
-This is a problem for boards that route the HDMI output through a
-downstream device which keeps the TMDS lines permanently loaded. On the
-GE B450/B650/B850 (bx50v3) boards an STDP2600 HDMI-to-DP converter is
-used, so rxsense is always asserted and a disconnect is never reported,
-even though the HPD signal works correctly. The connector is stuck in
-the "connected" state.
+	tmr_delay = (uint32_t)(div_u64(..., denom) - 64LL);
 
-This series adds an optional 'ignore-rxsense' device tree property that
-restores HPD-only detection for such boards, and enables it on the
-bx50v3 boards. The change is backward compatible: without the property
-the existing behaviour is unchanged, so old device trees are unaffected.
+div_u64() returns a u64, so when the quotient is smaller than 64 the
+subtraction wraps instead of going negative and tmr_delay ends up huge.
+The loop that follows tries to squeeze it into the 6 bit register field
+by doubling denom, but that only makes the quotient smaller, so tmr_delay
+can never converge.  tmr_scale is bumped past 3 and the function gives up
+with
 
-  Patch 1 adds the device tree binding.
-  Patch 2 adds the driver support in the common dw-hdmi layer.
-  Patch 3 enables the property on the imx6q bx50v3 boards.
+	/* Delay exceeds range of hysteresis timer */
+	ASSERT(false);
 
-  `make dt_binding_check' is clean for the schema.
-  `make CHECK_DTBS=y' is clean for the device trees.
+even though the requested delay is too *short* to encode, not too long.
 
-Note: The series touches two subsystems. Patches 1-2 target drm-misc;
-patch 3 (ARM dts). Sent together for context, but driver support must
-land first.
+With mall_additional_timer_percent left at its default of 0, the quotient
+drops below 64 once the refresh rate used for the calculation goes above
+~243 Hz.  Every DCN 3.0 display above that loses MALL static screen
+entirely and splats a WARN once per boot.  Reproduced on Navi 23
+(RX 6600) driving 1920x1080, resetting /sys/kernel/debug/clear_warn_once
+between modes:
 
-Ian Ray (3):
-  dt-bindings: display: synopsys,dw-hdmi: add ignore-rxsense
-  drm/bridge: dw-hdmi: optionally ignore rxsense when detecting hotplug
-  ARM: dts: imx: bx50v3: ignore HDMI rxsense
+	refresh   MALL       ASSERT
+	144 Hz    enabled    no
+	240 Hz    enabled    no
+	280 Hz    skipped    yes
+	360 Hz    skipped    yes
 
- .../bindings/display/bridge/synopsys,dw-hdmi.yaml         | 8 ++++++++
- arch/arm/boot/dts/nxp/imx/imx6q-bx50v3.dtsi               | 5 +++++
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c                 | 6 ++++++
- 3 files changed, 19 insertions(+)
+Commit 3bb68cec4db8 ("drm/amd/display: Add Overflow check to skip MALL")
+already covered the other end of the range, where a large stutter period
+makes the delay too long to encode.  Cover the short end by clamping to
+0, which selects the shortest hysteresis the register can express,
+65.28us * 64 = ~4.18ms.  That is marginally longer than what the formula
+asks for at these refresh rates, and erring long is the safe direction:
+it only delays MALL entry, it can never enter early.
 
+The numerator does not change between iterations, only denom does, so
+compute it once and keep both call sites inside 100 columns.
+
+The genuinely out of range case at very low refresh rates still reaches
+the ASSERT, which is where it belongs.
+
+Fixes: 52f2e83e2fe5 ("drm/amdgpu/display: add MALL support (v2)")
+Signed-off-by: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+---
+Compile tested only: vanilla v7.2.2 built with clang 22.1.8 on x86_64
+using a CachyOS .config, full amdgpu module, no new warnings.  The WARN
+reproduction described above was observed on unpatched 6.18.48 and
+7.2.2; I have not yet booted a kernel with this patch applied.
+
+ .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -1064,10 +1064,12 @@
+ 				 */
+ 				unsigned int denom = refresh_hz * 6528;
+ 				unsigned int stutter_period = dc->current_state->perf_params.stutter_period_us;
++				u64 num = (1000000LL + 2 * stutter_period * refresh_hz) *
++					(100LL + dc->debug.mall_additional_timer_percent);
++				u64 tmr_ticks;
+ 
+-				tmr_delay = (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * refresh_hz) *
+-						(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
+-						denom) - 64LL);
++				tmr_ticks = div_u64(num + denom - 1, denom);
++				tmr_delay = tmr_ticks > 64 ? (u32)(tmr_ticks - 64) : 0;
+ 
+ 				/* In some cases the stutter period is really big (tiny modes) in these
+ 				 * cases MALL cant be enabled, So skip these cases to avoid a ASSERT()
+@@ -1089,9 +1091,8 @@
+ 					}
+ 
+ 					denom *= 2;
+-					tmr_delay = (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * refresh_hz) *
+-							(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
+-							denom) - 64LL);
++					tmr_ticks = div_u64(num + denom - 1, denom);
++					tmr_delay = tmr_ticks > 64 ? (u32)(tmr_ticks - 64) : 0;
+ 				}
+ 
+ 				/* Copy HW cursor */
 -- 
-2.47.3
+2.51.0
 
