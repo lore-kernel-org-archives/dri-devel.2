@@ -4,44 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F35F7C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:39:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D85DCC624A4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6601E10F5BB;
-	Thu,  3 Sep 2026 13:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C1210F5C4;
+	Thu,  3 Sep 2026 13:39:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DZCrxAD5";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MYVdmgak";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 751BB10F5C4
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:39:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 32F4B40832;
- Thu,  3 Sep 2026 13:39:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDADC1F000E9;
- Thu,  3 Sep 2026 13:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788442766;
- bh=IzYyHg+H/+36rtyX5/Cw+1f1Q1XwiVna7VJw7CMPVqY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DZCrxAD5Jwul79YjLvnA9vLlKRjcCAHAlblsSimoIluaAUwLS14PTRbeR9I6tvlcc
- 2umZoFsHrbs0S8T/gZRXwKlxyJCEnMTt6NT9S5YVneJwd54vjLMTHB0WXAeMUjedTj
- n58aacgW0klrW61MEPy1AeIm8QsxbJS62SqWQcJDHRJQBvyD0sHGxaOJbuD901jT00
- Jm5qQiZIiFTb8EpK8+exZaJGXLFnmoo/ctreOlI/3bI0h0ReZB+OATzP5/zwSjf471
- 0dhJVyzEIjm6+alk+Fo85YBQSo89UYoCklTLL/3nnqpNsAjH4b4YqMn+BjZ774J3U4
- jwz7BnhkgkEQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/msm: release scanout framebuffers only after a
- vblank
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260903-fd-kms-fix-smmu-v1-2-608d02491666@oss.qualcomm.com>
-References: <20260903-fd-kms-fix-smmu-v1-0-608d02491666@oss.qualcomm.com>
- <20260903-fd-kms-fix-smmu-v1-2-608d02491666@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 13:39:25 +0000
-Message-Id: <20260903133925.EDADC1F000E9@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDEF610F5BE
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=Y8j/ITVlOQxPRVqu5jSrEwrkx7x0SuDALimgCrujisk=; b=MYVdmgaktCtsAPnBXcEec/G3MY
+ NxorhytiJ0rz4vfZR8d5ztfXHixOFjQqNFb0FkhZihK9n6T4HtTtotpaDZcuSaPld+ASw8hrT2ITC
+ RCXAcXlnJfhY9/GtktBhfVfL3/AuquN2Ors0H+6+gCLzypjcq1Z0/x8AM3onQkENgRYaxbq2vGzcG
+ voUJNaWFZw4i62eEk2HeZWnXyHC85rrX+BsBdZXW3OW10/ZW//Ypo4Qs8gebFzynXEkmu4okehvTx
+ fQ9SnaMfzhOhy/M3TbMj12OIetYhQnsZVW7frOQvDneKD3kNYZ8qCtHZNgDLXkdn/SKe395/SvGHx
+ H8/tesPg==;
+Received: from [179.105.94.163] (helo=[192.168.0.6])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x27eq-00EO8X-3D; Thu, 03 Sep 2026 15:39:12 +0200
+Message-ID: <a096712c-8bc6-4cb5-94ca-6a82525f1bad@igalia.com>
+Date: Thu, 3 Sep 2026 10:39:05 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] drm/vc4: Reset the V3D block through the reset
+ controller
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,178 +88,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Hi,
 
-New issues:
-- [Critical] Unpin worker accesses freed `kms->vm` during teardown because =
-`destroy_workqueue(kms->wq)` is called after `kms->vm` is destroyed.
-- [Critical] Unconditional cleanup of uninitialized `drm_vblank_work` struc=
-ts causes a NULL pointer dereference in `msm_kms_destroy` on systems with f=
-ewer than MAX_CRTCS (8).
-- [High] Teardown race in `msm_kms_destroy` causes a spurious WARN_ON becau=
-se flip works are cleaned up before the workqueue is flushed.
-- [High] Framebuffers and their pinned GPU memory leak permanently when a C=
-RTC is disabled because `drm_vblank_work_schedule()` returns 0 when the CRT=
-C is off, bypassing the manual flip work commit.
+Florian, Stefan and other Broadcom engineers, any thoughts about this
+series?
 
-Pre-existing issues:
-- [High] Concurrent prepare_fb and cleanup_fb of a shared framebuffer cause=
-s `msm_fb->iova` to be erroneously zeroed out, leading to IOMMU faults.
---
+Best regards,
+- Maíra
 
-commit e00895b91abad99d555ba6e2dfe2858e778599be
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: drm/msm: release scanout framebuffers only after a vblank
+On 16/08/26 11:05, Maíra Canal wrote:
+> vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
+> zero so that the V3D power domain goes down, and then taking it again.
+> Forcing the count to zero only works if the driver knows exactly how many
+> references it holds, which is why vc4 unconventionaly wraps every
+> pm_runtime_get_sync() call in a private refcount and mutex, making the
+> code cumbersome.
+> 
+> The BCM2835 PM block has exposed a reset line for the V3D block since
+> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+> under a new binding."), added for exactly this reason, but vc4 never
+> picked it up. This series switches vc4 over to it and drops the private
+> refcount, leaving vc4_v3d_pm_get/put() as plain runtime PM wrappers.
+> 
+> The reset line is optional, so device trees that do not describe one keep
+> working: they get the driver-side recovery in vc4_irq_reset() while the
+> hardware is left untouched. Of the two in-tree platforms,
+> 
+>    1. BCM2835 gains the property in PATCH 4.
+>    2. Cygnus has no V3D power domain to begin with, so the power-cycle
+>       only ever gated its clock there.
+> 
+> PATCH 1 is an independent cleanup. "brcm,vc4-v3d" was never documented
+> and was never used by any in-tree device tree, so it is a candidate for
+> removal on its own. It can be dropped from the series if it turns out
+> to be contentious.
+> 
+> This series was tested on the Raspberry Pi 3B and 3B+.
+> 
+> Best regards,
+> - Maíra
+> 
+> ---
+> Maíra Canal (4):
+>        drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
+>        dt-bindings: display: bcm2835-v3d: Add an optional reset line
+>        drm/vc4: Use the reset controller to recover from a GPU hang
+>        ARM: dts: bcm2835: Add the V3D reset line
+> 
+>   .../bindings/display/brcm,bcm2835-v3d.yaml         |  3 ++
+>   arch/arm/boot/dts/broadcom/bcm2835-common.dtsi     |  1 +
+>   drivers/gpu/drm/vc4/vc4_drv.c                      |  1 -
+>   drivers/gpu/drm/vc4/vc4_drv.h                      | 13 ++++---
+>   drivers/gpu/drm/vc4/vc4_gem.c                      | 40 +++++++++++++---------
+>   drivers/gpu/drm/vc4/vc4_irq.c                      |  7 ++--
+>   drivers/gpu/drm/vc4/vc4_v3d.c                      | 37 +++++++-------------
+>   7 files changed, 51 insertions(+), 51 deletions(-)
+> ---
+> base-commit: 09b47186a4164f3aaa3591313f80794443117342
+> change-id: 20260812-vc4-reset-control-cddf3eb8a9e9
+> 
 
-This commit delays the release of scanout framebuffers until after a vblank
-event completes to prevent the display hardware from fetching unmapped memo=
-ry
-during an atomic commit. It defers the unpin operations to a workqueue runn=
-ing
-from the vblank irq context.
-
-> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-> index 934337202afd4..0865ecce77de2 100644
-> --- a/drivers/gpu/drm/msm/msm_fb.c
-> +++ b/drivers/gpu/drm/msm/msm_fb.c
-[ ... ]
-> @@ -127,6 +128,9 @@ void msm_framebuffer_cleanup(struct drm_framebuffer *=
-fb, bool needed_dirtyfb)
-> =20
->  	memset(msm_fb->iova, 0, sizeof(msm_fb->iova));
-> =20
-> +	if (crtc && msm_crtc_queue_fb_unpin(crtc, fb))
-> +		return;
-> +
-
-[Severity: High]
-This is a pre-existing issue, but can a concurrent atomic commit cause IOMMU
-faults here?
-
-The lockless gap between atomic_dec_return(&msm_fb->prepare_count) (which
-occurs earlier in this function) and the memset(msm_fb->iova, 0, ...)
-creates a time-of-check to time-of-use race.=20
-
-If msm_framebuffer_prepare() runs concurrently on the same framebuffer, it
-can increment prepare_count and pin the valid IOVAs before this unprotected
-memset executes, overwriting the newly pinned, valid IOVAs with zeros. The
-display hardware is then programmed with IOVA 0, causing it to read unmapped
-memory.
-
-> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index e5d0ea6294484..bf56fbe99a346 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.c
-> +++ b/drivers/gpu/drm/msm/msm_kms.c
-[ ... ]
-> +void msm_kms_fb_unpin_worker(struct drm_flip_work *work, void *val)
-> +{
-> +	struct drm_framebuffer *fb =3D val;
-> +	struct msm_drm_private *priv =3D fb->dev->dev_private;
-> +	struct drm_gpuvm *vm =3D priv->kms->vm;
-> +	int i, n =3D fb->format->num_planes;
-> +
-> +	for (i =3D 0; i < n; i++) {
-> +		msm_gem_unpin_iova(fb->obj[i], vm);
-
-[Severity: Critical]
-Can this unpin worker dereference a freed vm pointer during module unload?
-
-During driver teardown, mdp4_kms_destroy() and mdp5_kms_destroy() drop the
-final reference and free the VM. Following that, msm_kms_destroy() is called
-which invokes destroy_workqueue(kms->wq).=20
-
-Because the workqueue is drained after the VM is already destroyed, any pen=
-ding
-unpin tasks will execute, read the freed priv->kms->vm pointer, and cause a
-fatal use-after-free crash when attempting to unpin the memory.
-
-[ ... ]
-> +bool msm_crtc_queue_fb_unpin(struct drm_crtc *crtc, struct drm_framebuff=
-er *fb)
-> +{
-> +	struct msm_drm_private *priv =3D crtc->dev->dev_private;
-> +	struct msm_kms *kms =3D priv->kms;
-> +	unsigned int idx =3D drm_crtc_index(crtc);
-> +
-> +	if (!kms || idx >=3D ARRAY_SIZE(kms->fb_unpin))
-> +		return false;
-> +
-> +	drm_framebuffer_get(fb);
-> +	drm_flip_work_queue(&kms->fb_unpin[idx].work, fb);
-> +
-> +	/* no vblank to wait for: the crtc is off, so it is not fetching */
-> +	if (drm_vblank_work_schedule(&kms->fb_unpin[idx].vblank_work,
-> +				     drm_crtc_vblank_count(crtc) + 1, true) < 0)
-> +		drm_flip_work_commit(&kms->fb_unpin[idx].work, kms->wq);
-> +
-> +	return true;
-> +}
-
-[Severity: High]
-Does this code permanently leak framebuffers when a CRTC is disabled?
-
-The fallback check assumes drm_vblank_work_schedule() returns a negative
-error code when the CRTC is off. However, looking at the drm core:
-
-drm_vblank_work_schedule() {
-    ...
-    spin_lock(&dev->vbl_lock);
-    inmodeset =3D vblank->inmodeset;
-    spin_unlock(&dev->vbl_lock);
-    if (inmodeset)
-        goto out; // returns 0
-    ...
-}
-
-Because drm_vblank_work_schedule() returns 0 instead of < 0 when
-vblank->inmodeset is true, the manual drm_flip_work_commit() fallback is
-bypassed. This leaves the unpin work permanently queued, leaking the
-framebuffer and its pinned GPU memory since no worker will be scheduled.
-
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> index f25b31e502d21..4b73132b5f6ea 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-[ ... ]
-> @@ -203,6 +227,11 @@ static inline void msm_kms_destroy(struct msm_kms *k=
-ms)
->  	for (i =3D 0; i < ARRAY_SIZE(kms->pending_timers); i++)
->  		msm_atomic_destroy_pending_timer(&kms->pending_timers[i]);
-> =20
-> +	for (i =3D 0; i < ARRAY_SIZE(kms->fb_unpin); i++) {
-> +		drm_vblank_work_cancel_sync(&kms->fb_unpin[i].vblank_work);
-> +		drm_flip_work_cleanup(&kms->fb_unpin[i].work);
-> +	}
-> +
-
-[Severity: Critical]
-Does this unconditional teardown loop cause a NULL pointer dereference on
-systems with fewer than MAX_CRTCS?
-
-msm_kms_init_fb_unpin() initializes vblank_work structures only for the
-actually registered CRTCs. If the hardware has fewer CRTCs than MAX_CRTCS
-(8), the remaining array entries are left zero-initialized.=20
-
-drm_vblank_work_cancel_sync() immediately dereferences work->vblank to get
-the device pointer, which will cause a fatal crash for those uninitialized
-entries.
-
-[Severity: High]
-Can this teardown order cause a spurious kernel warning?
-
-drm_flip_work_cleanup() expects the work->commited and work->queued lists to
-be empty and will trigger a WARN_ON if they are not. Because it is called
-here before destroy_workqueue(kms->wq) has flushed the pending tasks, the
-work items may still be actively queued.
-
->  	destroy_workqueue(kms->wq);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-fd-kms-fix=
--smmu-v1-0-608d02491666@oss.qualcomm.com?part=3D2
