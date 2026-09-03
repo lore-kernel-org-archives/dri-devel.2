@@ -4,75 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A49EC79F80
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47961C79F83
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F4010F8AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4204710F8AA;
 	Fri,  4 Sep 2026 07:19:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=superkali.me header.i=@superkali.me header.b="im2nXcSp";
-	dkim-atps=neutral
-X-Greylist: delayed 2037 seconds by postgrey-1.36 at gabe;
- Thu, 03 Sep 2026 11:34:32 UTC
-Received: from fr5000-r.dnsiaas.com (fr5000-r.dnsiaas.com [92.42.104.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2FA10F52C
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 11:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=superkali.me; s=default; h=Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=InN4RO7cBF/yYPtCjFdsNRAwXtwow5lIx6hH7jqRO+4=; b=im2nXcSpHiDtbXWHBMpWhEcFl7
- xAErob5qTuLaQriUbrGzr7BlY/GPCqFfA1k1Zns0ahS7FLJAZTCi7UeGuzGKOhg+E/Ipwe221pkVb
- coFeogkrejdHJwl0FUeU6cRvZblj3Lslqo/Ab0bLLVHfPXvCuXCZsFSPJKNV0g5ORwmwfA9dfMSfq
- H/yYwONPAEwHQ2EKe+7aFs/FAqaWQjTTmdKSykFntXck1VIfwg5RyUXCjxOy0w2cDSl4g9L+duymn
- akRoaeCIh/z+SDj4PfToZFfM9MtHMSiv2r/gPgS+hltShWvIqQ1GI0iF+BqEYCaGk9NqO9B6A5Ytu
- axFAjN9g==;
-Received: from [81.57.40.39] (port=41902 helo=superkali.me)
- by fr5000-r.dnsiaas.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.99.5) (envelope-from <hello@superkali.me>)
- id 1x25BI-0000000Dupd-04Hj; Thu, 03 Sep 2026 13:00:29 +0200
-From: Daniele Briguglio <hello@superkali.me>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 0/6] arm64: dts: qcom: Add support for Radxa Dragon Q8B
-Date: Thu,  3 Sep 2026 13:00:24 +0200
-Message-ID: <20260903110024.2385113-1-hello@superkali.me>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Thu, 03 Sep 2026 11:24:54 UTC
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2D910F51C
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 11:24:53 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by mta12.migadu.com with ESMTPS id db39fdad40467b0f;
+ Thu, 03 Sep 2026 11:18:48 +0000
+X-Mizu-Trace-ID: db39fdad40467b0f
+X-Migadu-Flow: FLOW_OUT
+From: Baoquan He <hebaoquan@kylinos.cn>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org, hch@lst.de, harry@kernel.org,
+ Baoquan He <hebaoquan@kylinos.cn>, dri-devel@lists.freedesktop.org
+Subject: [PATCH 01/13] gpu: ipu-v3: Don't use GFP_DMA when calling
+ dma_alloc_coherent()
+Date: Thu,  3 Sep 2026 19:18:24 +0800
+Message-ID: <20260903111836.1777265-2-hebaoquan@kylinos.cn>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260903111836.1777265-1-hebaoquan@kylinos.cn>
+References: <20260903111836.1777265-1-hebaoquan@kylinos.cn>
 MIME-Version: 1.0
+Content-type: text/plain
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - fr5000-r.dnsiaas.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - superkali.me
-X-Get-Message-Sender-Via: fr5000-r.dnsiaas.com: authenticated_id:
- hello@superkali.me
-X-Authenticated-Sender: fr5000-r.dnsiaas.com: hello@superkali.me
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 X-Mailman-Approved-At: Fri, 04 Sep 2026 07:19:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,8 +50,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 01 Sep 2026 16:47:53 +0800, Xilin Wu wrote:
-> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
-> Snapdragon 8cx Gen 3 (SC8280XP) platform.
+dma_alloc_coherent() allocates the DMA buffer with the device's
+addressing limitation in mind; the DMA core picks the zone from the
+device's coherent DMA mask and ignores GFP_DMA passed by the caller.
+Remove the redundant GFP_DMA flag.
 
-Tested-by: Daniele Briguglio <hello@superkali.me>
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+---
+ drivers/gpu/ipu-v3/ipu-image-convert.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/ipu-v3/ipu-image-convert.c b/drivers/gpu/ipu-v3/ipu-image-convert.c
+index 29b6d36c9bb6..493be4d4b091 100644
+--- a/drivers/gpu/ipu-v3/ipu-image-convert.c
++++ b/drivers/gpu/ipu-v3/ipu-image-convert.c
+@@ -371,7 +371,7 @@ static int alloc_dma_buf(struct ipu_image_convert_priv *priv,
+ {
+ 	buf->len = PAGE_ALIGN(size);
+ 	buf->virt = dma_alloc_coherent(priv->ipu->dev, buf->len, &buf->phys,
+-				       GFP_DMA | GFP_KERNEL);
++				       GFP_KERNEL);
+ 	if (!buf->virt) {
+ 		dev_err(priv->ipu->dev, "failed to alloc dma buffer\n");
+ 		return -ENOMEM;
+-- 
+2.54.0
+
