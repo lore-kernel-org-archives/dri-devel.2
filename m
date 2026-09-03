@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9028C624D4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:52:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52C95C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2E810E0A1;
-	Thu,  3 Sep 2026 06:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D6EB10E07B;
+	Thu,  3 Sep 2026 06:56:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="XHBbSQqH";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="de+rhubq";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UVgfLsaT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3/8WztDH";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="aQpMkBkg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jfbl4mRk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RBzedHud";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iWnwX9CL";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61A2010E082
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:52:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 601F010E07B
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:56:20 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B776821D6F;
- Thu,  3 Sep 2026 06:51:55 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9AAD821E86;
+ Thu,  3 Sep 2026 06:56:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788418319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788418574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
- b=XHBbSQqHzINGAEVBcucq0PCaLo8JWtXAx5JWDmnKp+SxORaED6LDGeX1wmWoPPUgbbGZHP
- YcNyA7F2zBVceMeEeMyRPdgvxs1gEftiLzsUtAimnGWpCMhBsK9K0/dCJRwvtR+QgtSiSq
- nyVt0cJx7Rz2yV1SA+/7N4Osix5Ktpk=
+ bh=iMe8QpXxJI9lslA9bVylRc6cUbYfr4iCuVypi9ek89s=;
+ b=aQpMkBkgkaae1HYwyzWJUjas5FgMISSIYdipHsR6hGYLEk8MwWIy2ijohwv/1B+SzUJdJ4
+ 5GnY/gwcdlEfuOtobzTU0pc0oyeiWslFB3qYky1YSLH1cB7l6UbOMnLBRIZJSw/8DhkRgp
+ rK5hpWTlIDOodYxmyvlP9fglOzhjt9M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788418319;
+ s=susede2_ed25519; t=1788418574;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
- b=de+rhubqpHi0PEcQNa2UPzkGqJOyt1k72vmscG4JMqA3+Ekx3AvixQ8+uUWyzVHuKDrrkH
- 7nUlAePBwnhWxICA==
+ bh=iMe8QpXxJI9lslA9bVylRc6cUbYfr4iCuVypi9ek89s=;
+ b=Jfbl4mRkck7zPj0FyhOztoWwqddOdRCAlT5Ga/yAiTayxLMs8P5kvZ3ll566W658SQSwoE
+ bXdtXUVR+lzNOGCA==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788418315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788418570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
- b=UVgfLsaTkPqYRifjeLnDtbm9sByfawPhfLh/XKjI2AZnzbByRGTVDwgkWkCYH8R6H4wW0e
- doW8dJbg7eThFtuLIV1R9Nl8GYJUDPYGI2+zZsm2tswN4UOzVKMd5YHYy3jA1sdAim6YD/
- /huAqXJj9IAyjCb6Ib8eyIQo31Gs8qI=
+ bh=iMe8QpXxJI9lslA9bVylRc6cUbYfr4iCuVypi9ek89s=;
+ b=RBzedHud7HZBZq3IZfo/n2x++XWKhaV9lR6zsxnBSQrM0xfHlqlFRqObBup1+LekpBLHlz
+ xFbWAyUPQUd/J4F/HVJL4KdBTK/cjD8V1bL3ZwMBXofgo4vSeUkaYDsZVdKVcRGMFJVj32
+ qY4S/XwJMd/4kXMFfOWWT72JoHdu+dI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788418315;
+ s=susede2_ed25519; t=1788418570;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=/dR/ctsOK+KyY9o7eN9esQJj+dT+DeqxclJI3LJ1s4M=;
- b=3/8WztDHbB+HcGsMVUU2KY1zgiNxzll5wxES4QXhGg3o5CJvyfV1G+nKWwpguLTegKjQ/F
- Hi63sX3VgaOiAEAQ==
+ bh=iMe8QpXxJI9lslA9bVylRc6cUbYfr4iCuVypi9ek89s=;
+ b=iWnwX9CLeA1vNvOHhnQvZsGnnsNC2WqJxhMc3UwsXNtOnHbwdROFjfOHt6FwHWV7pixD2f
+ T+ZI0q7zxsjJwUBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7EA9C136E6;
- Thu,  3 Sep 2026 06:51:55 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4026F136E6;
+ Thu,  3 Sep 2026 06:56:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5qx8HQsZmWrlRgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 06:51:55 +0000
-Message-ID: <ff097a74-c963-4407-b8d6-df36ec4f4f43@suse.de>
-Date: Thu, 3 Sep 2026 08:51:54 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TIPYDQoamWqWSgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Sep 2026 06:56:10 +0000
+Message-ID: <6a86569b-176e-4959-8287-c15ae6c184dd@suse.de>
+Date: Thu, 3 Sep 2026 08:56:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/sysfb: Use iosys_map_memset() to clear buffer
-To: Chen-Yu Tsai <wenst@chromium.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260903060651.3724163-1-wenst@chromium.org>
+Subject: Re: [PATCH] drm/atomic: Set plane-state pixel_blend_mode to default
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
+ simona@ffwll.ch, daniels@collabora.com, leandro.ribeiro@collabora.com,
+ pekka.paalanen@collabora.com, lowry.li@arm.com
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
+References: <20260901122731.83854-1-tzimmermann@suse.de>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -107,21 +107,23 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260903060651.3724163-1-wenst@chromium.org>
+In-Reply-To: <20260901122731.83854-1-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
- URIBL_BLOCKED(0.00)[suse.de:mid,chromium.org:email,imap1.dmz-prg2.suse.org:helo,suse.com:url];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ MID_RHS_MATCH_FROM(0.00)[]; RCPT_COUNT_SEVEN(0.00)[10];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,collabora.com,arm.com];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,suse.de:mid,suse.com:url]
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:email, intel.com:email,
+ suse.de:mid, suse.de:email, suse.com:url, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,64 +139,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 03.09.26 um 08:06 schrieb Chen-Yu Tsai:
-> The atomic disable in drm/sysfb currently clears the buffer using
-> memset_io(). Since the mapping is provided in a |struct iosys_map|,
-> it is better to use the related API instead of extracting the vaddr.
-> This is mentioned as a TODO item.
+
+Am 01.09.26 um 14:25 schrieb Thomas Zimmermann:
+> Initialize the plane state's pixel_blend_mode value to the plane
+> property's default value. Resolves an inconsistency on planes that
+> do not support PREMULTI.
+
+Never mind. It's a duplicate of
+
+https://lore.kernel.org/dri-devel/2026090341-appraisal-jot-6aec@gregkh/T/#m10bbb3677bbc65b9f358751f174a5fd3d2d319e7
+
 >
-> Switch to iosys_map_memset(), which takes the mapping as well as an
-> offset into the mapping.
->
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Cc: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Cc: Daniel Stone <daniels@collabora.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 13 +++++--------
->   1 file changed, 5 insertions(+), 8 deletions(-)
+> It's not clear what Fixes should point to, so I picked the commit that
+> introduced the stricter validation of the blend-mode property.
+> ---
+>   drivers/gpu/drm/drm_atomic_state_helper.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> index d2de29caf89e..99b13af4e391 100644
-> --- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
-> @@ -375,13 +375,11 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
-
-There's a newer version of this function in the drm-misc-next branch. 
-Please rebase your patch onto this code.
-
-Best regards
-Thomas
-
->   {
->   	struct drm_device *dev = plane->dev;
->   	struct drm_sysfb_device *sysfb = to_drm_sysfb_device(dev);
-> -	struct iosys_map dst = sysfb->fb_addr;
->   	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-> -	void __iomem *dst_vmap = dst.vaddr_iomem; /* TODO: Use mapping abstraction */
->   	unsigned int dst_pitch = sysfb->fb_pitch;
->   	const struct drm_format_info *dst_format = sysfb->fb_format;
->   	struct drm_rect dst_clip;
-> -	unsigned long lines, linepixels, i;
-> +	unsigned long lines, linepixels, i, offset;
->   	int idx;
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index d90d1d7c9cf9..0325caee528a 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -278,7 +278,13 @@ void __drm_atomic_helper_plane_state_init(struct drm_plane_state *plane_state,
+>   	plane_state->rotation = DRM_MODE_ROTATE_0;
 >   
->   	drm_rect_init(&dst_clip,
-> @@ -395,11 +393,10 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
->   		return;
+>   	plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
+> -	plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
+> +
+> +	if (plane->blend_mode_property) {
+> +		if (!drm_object_property_get_default_value(&plane->base,
+> +							   plane->blend_mode_property,
+> +							   &val))
+> +			plane_state->pixel_blend_mode = val;
+> +	}
 >   
->   	/* Clear buffer to black if disabled */
-> -	dst_vmap += drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
-> -	for (i = 0; i < lines; ++i) {
-> -		memset_io(dst_vmap, 0, linepixels * dst_format->cpp[0]);
-> -		dst_vmap += dst_pitch;
-> -	}
-> +	offset = drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
-> +	for (i = 0; i < lines; ++i)
-> +		iosys_map_memset(&sysfb->fb_addr, offset + dst_pitch * i, 0,
-> +				 linepixels * dst_format->cpp[0]);
->   
->   	drm_dev_exit(idx);
->   }
+>   	if (plane->color_encoding_property) {
+>   		if (!drm_object_property_get_default_value(&plane->base,
 
 -- 
 --
