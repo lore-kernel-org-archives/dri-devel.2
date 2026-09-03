@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87304C624A4
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E872AC79F80
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2264610F5E3;
-	Thu,  3 Sep 2026 13:44:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 733E010F5EB;
+	Thu,  3 Sep 2026 13:44:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qDcZOqnB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DRG3yNha";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA06B10F5F1
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:13 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-48441a2ba1bso1528601f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:13 -0700 (PDT)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89A9410F5E8
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:15 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-4843efcbdb2so1615508f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788443052; x=1789047852; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788443054; x=1789047854; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=m5nFAvnp9TbeBbFXDaBPRO3V4SNXTlxxZw2s8E+92CE=;
- b=qDcZOqnBdHoFcbhmsgqhzEDdtNwCu2bJUMbjofF6qrA0ouuylP1Y4WQ7fjQluqcPJp
- ceqAGG/L0CUZA0BGxhSaZbqzKzbY53K4u/8tZSwnjjlzxbglL9o1gxeX2tRrvbTk5cHj
- Ula1ShOFsYeZqerFDLx0Xeyz95hVeSYiWdt15WAgDsF8fqq5q6WLW+Hsf5hJKinYvlBV
- 33PpDW2gzUcRf2AyJa3eKzmOCLEtRfguMstpGEECcLzfk0iZUNTdxwdZnggj22GF3Jyn
- t52uZIvY5fFd/SLaimXbdD1xlr1dIynBPCLgZ9FBpri8Ng7tLDtQeLonDFHfflHA83UQ
- yLkA==
+ bh=CD9a3ia2fXGSFrB7/OAMwjwWKzwE2gfTckbIpnOOYNQ=;
+ b=DRG3yNha2Lh2s1MQ0G//mspKmuh9XxHUwO6YTCCOwKeuUF8MF9nztV5MvTHqu11sGY
+ M/ebI//UTZcohkk66YFE+NrVcJO9ZvKk+/Vr+lorU/hQr6TqfHzrcNnGfyWb21d49Xjl
+ OLfNMjz3ZVPNXkzA9qYziCPfwkVqsK2Xrqh4LqjsoZDABgFoFTE2qrxT7WEhSUCEpOs0
+ TnBVppI0jza5ykcN5N8dfDmp9Wdkg7YzTj0Yc6d0tbOF3rTadkoS3a1UXB1+oBy2Y0bJ
+ pFEmYC7orixKSBWXEB8ElTg8bQoYb3iloHyRxSTdsgjRVBWV8nD++6SlU2KzbiRs2dak
+ AWgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788443052; x=1789047852;
+ d=1e100.net; s=20251104; t=1788443054; x=1789047854;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=m5nFAvnp9TbeBbFXDaBPRO3V4SNXTlxxZw2s8E+92CE=;
- b=nOX4HN/sc/CmwOClNllhh11uuq/9N+UzcImWq4tzVlzSxqUBpD4eKZ1VNEZqzm26CK
- kJlXZmW8ioPgxDj55ebDKbPII4d3kbOdAfLMyBBnJbxLREII1tHLcX1AK/gqk2heIVdt
- hpB55T2riEDE1I6vy4/bi6Wt6eSyyOBZfrKK4D1A8nGH+X7Ly8htHMyOQ/DE3GSAnyZE
- ZEdJu35CDCDOmeZv3r02qRnjBfEAwejhbgUa2SYil5w5ni70nJrPMDN2kyRkeeMKTWCG
- uD+3ZTtFbhcUo4fPaiht+fWngukH3HI0OsHiGvZyonbxi6at/rlb2XIUbmCbf7xD8aRL
- MlAQ==
+ bh=CD9a3ia2fXGSFrB7/OAMwjwWKzwE2gfTckbIpnOOYNQ=;
+ b=OfTGy4fh0bfNfS0AKpOG6/A0J/6I40QMAXHYNUm5hAxnxNqOz+nVStwrOjsp8JI66l
+ XI3SkUXLKgmaM6hCbGCAwk3XC/0NsiuuARanxJjgI03tJ0G/jWddizjlxYjUsj48thDN
+ 0Y8CADGqavIM4gAH/8ZnzOZrWNQFsWa/zGkp0G/WwOBUUhBP0WfS76mE4HHaXWSLSlPb
+ NIhbkdeudCbIm2DG6UJGR7wfOed9cm25yohBEJydyQ8OScJjvjn1Yapm+LvAGK+4wUYy
+ AWmeBxZfZxYjEpfC5UrioBJmjEXfDxW51wlkj+qsgyn3xZthg6QVOqShne41LaVZ0Xny
+ 77YA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwWGzhzMrOMYEG2+3YeYJJHX9K0qJ251QIr52KlyJnVOpCgng78F3CFmLDPHaoYvMfZhgGGg3/WxXE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nDEzXZqpipOxbKvCMRciu9Ignu7F3kqcLss1r1DsZql1lL4bJo
- i/2KYfjuMQkXuGapNroUlcOGmmh1iEykIurueZKvFkp/9GdNMR9UeN8R
-X-Gm-Gg: AYBFou3tOrp6NCSeRNgCwSoV9V1dX4VNznCOlnm4hpvFP/3GmXYrJpovUToqENtc/ym
- ADaxb0l37/AwKMlptTkN3KPDo54pDsQkZGJvt+Rlh5B+WPElPVcUOy96OHokUQd5P1ANnNZV/zE
- m6s3QWFTWEadnXyRzxIPGKTqX8LjPSk0M6dNx8hcfRgnPd198kwmPrBF2gmvNwej1pTp7cA7UTD
- a2e0X6SRCuAkd3HcYggtaFNKQEIzIy/W/+EWat6hHnFXjXH7OKobBSWSzGN9Z/4k6w/t4ftiKSj
- xsYgzmTAZCPnVcbsbwSGuAlceTNMrTzTTYZ88b5Pzt3Zp2Q4Jz1jO6Y0jCDHtJw8xAM+X91vakL
- bCnOidaeEk/pLnPVP/kFY3md0J6Pu3c+oJVvCQmIaqPxfqZiCSUWQDfmAyP40WGTVqYe8Y7sSjy
- m22vu1p3Dfe0ixecIqK5/3jn3iEB+vDy1PPx+NErvvozaxnr6SE/POXr6D1imKBzEyO7dq4yCOF
+ AKwUvBzAjP79YGkiCM32ome5TqNNK/vPFg7uaCdpZyorULVvlf0homQnyQWZinvQ4dyKRPi/PjOuKSmGfhY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ka5uT3imvSGbcXIUg8ZBQdfANZbGKjqlkUVRkl436Gy/xeb+bx
+ l7EBEosMu6RXeWArAKWxu/86I1y8cy57lxl0Yww4vq4FH/s7QCJPARUe
+X-Gm-Gg: AYBFou2TCGcxKQxgMpKy6M7fPnTM1nUJHKHGaVIcshZ19ng/R+T21CoT5eo0seClg4Z
+ JIpNVoxQDppVZH0H/Dwf4BHJ+Zh27pu4EDQJ1ehtFOTo0xGsCovG1/1vouJTWiCPWF89prxvQLt
+ gZ28sz6Awt3hJ1nsXhUo8c9V26WwYgjiI6Fd1gGgLMqYg7jeJxb+ovZyS6wFMRrURmalcqSyQad
+ +Vi89KARxKZ+jqGPeVT+U6TmU39rw9Kv4zDUy5vfCMan0yJK0Ci6JjR3koRg3hd1MuFxlZTb9lt
+ AYlJ0hlNsIuF/TDXgAm4J50xwecO8IiOyqn++yvQ76tAj+DuDxAKscBn1BeS1YIjlTc7YuDhSbu
+ CgmGn/cRs7+OuthzRDOvKaGoQDUNflqOWklJDBRUmkgfMGClwtRskhMTa11nX3CK/WGZswAGuLb
+ GKwz+RNyKDBU3eUEvetWY6OBgpBLuX689Iavb4ZTFPZH6PTbhIEx9aaWF5l0PK4wkgjKBLDTB9V
  g==
-X-Received: by 2002:a05:6000:601:b0:484:36c8:ffb9 with SMTP id
- ffacd0b85a97d-48586022058mr934474f8f.4.1788443051985; 
- Thu, 03 Sep 2026 06:44:11 -0700 (PDT)
+X-Received: by 2002:adf:e008:0:20b0:485:7ca5:b870 with SMTP id
+ ffacd0b85a97d-4857ca5b8acmr12689972f8f.4.1788443053873; 
+ Thu, 03 Sep 2026 06:44:13 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.11
+ ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 06:44:11 -0700 (PDT)
+ Thu, 03 Sep 2026 06:44:13 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,9 +71,10 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  matthew.brost@intel.com, nat@pixelcluster.dev,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 01/11] drm/i915: fix incorrect RCU teardown order
-Date: Thu,  3 Sep 2026 15:27:56 +0200
-Message-ID: <20260903134408.105317-2-christian.koenig@amd.com>
+Subject: [PATCH 03/11] dma-buf/tests: Convert st-dma-resv tests to use
+ dma_resv_alloc v2
+Date: Thu,  3 Sep 2026 15:27:58 +0200
+Message-ID: <20260903134408.105317-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903134408.105317-1-christian.koenig@amd.com>
 References: <20260903134408.105317-1-christian.koenig@amd.com>
@@ -96,56 +97,280 @@ Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
-over the fences in an GEM object without holding a reference but only
-the RCU read side lock.
+Update all test cases in st-dma-resv.c to use the new dma_resv_alloc()
+API instead of stack-allocating dma_resv objects. This demonstrates the
+proper usage of the new allocation and reference counting interface.
 
-What can happen here is that the GEM object is destroyed concurrently
-while i915_gem_busy_ioctl is still running. This won't free the GEM
-objects memory, but still drops all the dma_fence references.
+All five test functions now:
+- Use dma_resv_alloc() to allocate objects
+- Check for allocation failure with KUNIT_ASSERT_NOT_NULL
+- Clean up with dma_resv_put() which handles freeing
 
-Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
-assumes that a new fence list was installed and re-starts the loop.
+This change also provides better test coverage for the reference
+counting implementation.
 
-But in the case of a destroyed GEM object a new fence list is never
-installed, only the old one freed and therefore the iteration never
-finishes resulting in an endless loop.
-
-The solution is to drop the fence references only after the RCU grace
-period.
-
-The fixes tag is not necessary the patch introducing the problem, but the
-one making it so worse that we need to address it.
-
-This problem was pointed out by Sashiko-bot.
+v2: add proper error handling when dma_resv_alloc() fails
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
-Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
-CC: stable@vger.kernel.org
+Assisted-by: Claude:Sonnet 4
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma-buf/st-dma-resv.c | 102 +++++++++++++++++++++-------------
+ 1 file changed, 62 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 5172d3982654..9e01f8b2079a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
+diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
+index 2c43d2d2b016..48c158cc5011 100644
+--- a/drivers/dma-buf/st-dma-resv.c
++++ b/drivers/dma-buf/st-dma-resv.c
+@@ -41,7 +41,7 @@ static struct dma_fence *alloc_fence(void)
  
- void i915_gem_object_free(struct drm_i915_gem_object *obj)
+ static void test_sanitycheck(struct kunit *test)
  {
-+	dma_resv_fini(&obj->base._resv);
- 	return kmem_cache_free(slab_objects, obj);
+-	struct dma_resv resv;
++	struct dma_resv *resv;
+ 	struct dma_fence *f;
+ 	int r;
+ 
+@@ -53,20 +53,22 @@ static void test_sanitycheck(struct kunit *test)
+ 	dma_fence_signal(f);
+ 	dma_fence_put(f);
+ 
+-	dma_resv_init(&resv);
+-	r = dma_resv_lock(&resv, NULL);
++	resv = dma_resv_alloc();
++	KUNIT_ASSERT_NOT_NULL(test, resv);
++
++	r = dma_resv_lock(resv, NULL);
+ 	if (r)
+ 		KUNIT_FAIL(test, "Resv locking failed\n");
+ 	else
+-		dma_resv_unlock(&resv);
+-	dma_resv_put(&resv);
++		dma_resv_unlock(resv);
++	dma_resv_put(resv);
  }
  
-@@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
+ static void test_signaling(struct kunit *test)
  {
- 	mutex_destroy(&obj->mm.get_page.lock);
- 	mutex_destroy(&obj->mm.get_dma_page.lock);
--	dma_resv_fini(&obj->base._resv);
+ 	const struct dma_resv_usage_param *param = test->param_value;
+ 	enum dma_resv_usage usage = param->usage;
+-	struct dma_resv resv;
++	struct dma_resv *resv;
+ 	struct dma_fence *f;
+ 	int r;
+ 
+@@ -75,33 +77,38 @@ static void test_signaling(struct kunit *test)
+ 
+ 	dma_fence_enable_signaling(f);
+ 
+-	dma_resv_init(&resv);
+-	r = dma_resv_lock(&resv, NULL);
++	resv = dma_resv_alloc();
++	if (!resv) {
++		KUNIT_FAIL(test, "Resv allocation failed");
++		goto err_free;
++	}
++
++	r = dma_resv_lock(resv, NULL);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv locking failed");
+ 		goto err_free;
+ 	}
+ 
+-	r = dma_resv_reserve_fences(&resv, 1);
++	r = dma_resv_reserve_fences(resv, 1);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
+ 		goto err_unlock;
+ 	}
+ 
+-	dma_resv_add_fence(&resv, f, usage);
+-	if (dma_resv_test_signaled(&resv, usage)) {
++	dma_resv_add_fence(resv, f, usage);
++	if (dma_resv_test_signaled(resv, usage)) {
+ 		KUNIT_FAIL(test, "Resv unexpectedly signaled");
+ 		goto err_unlock;
+ 	}
+ 	dma_fence_signal(f);
+-	if (!dma_resv_test_signaled(&resv, usage)) {
++	if (!dma_resv_test_signaled(resv, usage)) {
+ 		KUNIT_FAIL(test, "Resv not reporting signaled");
+ 		goto err_unlock;
+ 	}
+ err_unlock:
+-	dma_resv_unlock(&resv);
++	dma_resv_unlock(resv);
+ err_free:
+-	dma_resv_put(&resv);
++	dma_resv_put(resv);
+ 	dma_fence_put(f);
  }
  
- /**
+@@ -111,7 +118,7 @@ static void test_for_each(struct kunit *test)
+ 	enum dma_resv_usage usage = param->usage;
+ 	struct dma_resv_iter cursor;
+ 	struct dma_fence *f, *fence;
+-	struct dma_resv resv;
++	struct dma_resv *resv;
+ 	int r;
+ 
+ 	f = alloc_fence();
+@@ -119,23 +126,28 @@ static void test_for_each(struct kunit *test)
+ 
+ 	dma_fence_enable_signaling(f);
+ 
+-	dma_resv_init(&resv);
+-	r = dma_resv_lock(&resv, NULL);
++	resv = dma_resv_alloc();
++	if (!resv) {
++		KUNIT_FAIL(test, "Resv allocation failed");
++		goto err_free;
++	}
++
++	r = dma_resv_lock(resv, NULL);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv locking failed");
+ 		goto err_free;
+ 	}
+ 
+-	r = dma_resv_reserve_fences(&resv, 1);
++	r = dma_resv_reserve_fences(resv, 1);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
+ 		goto err_unlock;
+ 	}
+ 
+-	dma_resv_add_fence(&resv, f, usage);
++	dma_resv_add_fence(resv, f, usage);
+ 
+ 	r = -ENOENT;
+-	dma_resv_for_each_fence(&cursor, &resv, usage, fence) {
++	dma_resv_for_each_fence(&cursor, resv, usage, fence) {
+ 		if (!r) {
+ 			KUNIT_FAIL(test, "More than one fence found");
+ 			goto err_unlock;
+@@ -158,9 +170,9 @@ static void test_for_each(struct kunit *test)
+ 	}
+ 	dma_fence_signal(f);
+ err_unlock:
+-	dma_resv_unlock(&resv);
++	dma_resv_unlock(resv);
+ err_free:
+-	dma_resv_put(&resv);
++	dma_resv_put(resv);
+ 	dma_fence_put(f);
+ }
+ 
+@@ -170,7 +182,7 @@ static void test_for_each_unlocked(struct kunit *test)
+ 	enum dma_resv_usage usage = param->usage;
+ 	struct dma_resv_iter cursor;
+ 	struct dma_fence *f, *fence;
+-	struct dma_resv resv;
++	struct dma_resv *resv;
+ 	int r;
+ 
+ 	f = alloc_fence();
+@@ -178,25 +190,30 @@ static void test_for_each_unlocked(struct kunit *test)
+ 
+ 	dma_fence_enable_signaling(f);
+ 
+-	dma_resv_init(&resv);
+-	r = dma_resv_lock(&resv, NULL);
++	resv = dma_resv_alloc();
++	if (!resv) {
++		KUNIT_FAIL(test, "Resv allocation failed");
++		goto err_free;
++	}
++
++	r = dma_resv_lock(resv, NULL);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv locking failed");
+ 		goto err_free;
+ 	}
+ 
+-	r = dma_resv_reserve_fences(&resv, 1);
++	r = dma_resv_reserve_fences(resv, 1);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
+-		dma_resv_unlock(&resv);
++		dma_resv_unlock(resv);
+ 		goto err_free;
+ 	}
+ 
+-	dma_resv_add_fence(&resv, f, usage);
+-	dma_resv_unlock(&resv);
++	dma_resv_add_fence(resv, f, usage);
++	dma_resv_unlock(resv);
+ 
+ 	r = -ENOENT;
+-	dma_resv_iter_begin(&cursor, &resv, usage);
++	dma_resv_iter_begin(&cursor, resv, usage);
+ 	dma_resv_for_each_fence_unlocked(&cursor, fence) {
+ 		if (!r) {
+ 			KUNIT_FAIL(test, "More than one fence found");
+@@ -231,7 +248,7 @@ static void test_for_each_unlocked(struct kunit *test)
+ 	dma_resv_iter_end(&cursor);
+ 	dma_fence_signal(f);
+ err_free:
+-	dma_resv_put(&resv);
++	dma_resv_put(resv);
+ 	dma_fence_put(f);
+ }
+ 
+@@ -240,7 +257,7 @@ static void test_get_fences(struct kunit *test)
+ 	const struct dma_resv_usage_param *param = test->param_value;
+ 	enum dma_resv_usage usage = param->usage;
+ 	struct dma_fence *f, **fences = NULL;
+-	struct dma_resv resv;
++	struct dma_resv *resv;
+ 	int r, i;
+ 
+ 	f = alloc_fence();
+@@ -248,24 +265,29 @@ static void test_get_fences(struct kunit *test)
+ 
+ 	dma_fence_enable_signaling(f);
+ 
+-	dma_resv_init(&resv);
+-	r = dma_resv_lock(&resv, NULL);
++	resv = dma_resv_alloc();
++	if (!resv) {
++		KUNIT_FAIL(test, "Resv allocation failed");
++		goto err_resv;
++	}
++
++	r = dma_resv_lock(resv, NULL);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv locking failed");
+ 		goto err_resv;
+ 	}
+ 
+-	r = dma_resv_reserve_fences(&resv, 1);
++	r = dma_resv_reserve_fences(resv, 1);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
+-		dma_resv_unlock(&resv);
++		dma_resv_unlock(resv);
+ 		goto err_resv;
+ 	}
+ 
+-	dma_resv_add_fence(&resv, f, usage);
+-	dma_resv_unlock(&resv);
++	dma_resv_add_fence(resv, f, usage);
++	dma_resv_unlock(resv);
+ 
+-	r = dma_resv_get_fences(&resv, usage, &i, &fences);
++	r = dma_resv_get_fences(resv, usage, &i, &fences);
+ 	if (r) {
+ 		KUNIT_FAIL(test, "get_fences failed");
+ 		goto err_free;
+@@ -282,7 +304,7 @@ static void test_get_fences(struct kunit *test)
+ 		dma_fence_put(fences[i]);
+ 	kfree(fences);
+ err_resv:
+-	dma_resv_put(&resv);
++	dma_resv_put(resv);
+ 	dma_fence_put(f);
+ }
+ 
 -- 
 2.43.0
 
