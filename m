@@ -4,68 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2950EC624DE
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 21:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24516C61DD3
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 21:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2CF10F7A2;
-	Thu,  3 Sep 2026 21:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B01410E492;
+	Thu,  3 Sep 2026 21:21:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="D4cmCSW2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IzIdR8i2";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 982C110F7A4
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 21:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1788470369;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oisNWoIp7gQlNLE50911kRCMJdf5POJVWw1vlhgc66I=;
- b=D4cmCSW2WK1sxsWlUUTQqrYVdr4UIQG+NAynLxh42bdPizqXzFkgWnwvWoHoWEo3awnE86
- FaNL5mvh5xCQ5ZwA/7VtB9Hn5i4cm4FIcQRT7cO/39yDYHC6TSv61OEivB2kg1dhiZPApE
- kfh/RyHRWAYzv6ccZ8Kc3xZtB7fD3dw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-637-qxb0LdXEOjGu7NNr3YTmzg-1; Thu,
- 03 Sep 2026 17:19:25 -0400
-X-MC-Unique: qxb0LdXEOjGu7NNr3YTmzg-1
-X-Mimecast-MFC-AGG-ID: qxb0LdXEOjGu7NNr3YTmzg_1788470364
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B9DB1187E5CE; Thu,  3 Sep 2026 21:19:23 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.64.12])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id AB0291955F70; Thu,  3 Sep 2026 21:19:21 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@lists.freedesktop.org
-Cc: Christian Hergert <christian@sourceandstack.com>,
- "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
- "David Airlie" <airlied@redhat.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, "Simona Vetter" <simona@ffwll.ch>,
- "Gerd Hoffmann" <kraxel@redhat.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 2/2] drm/virtio: Recalculate ignore_damage_clips on every
- update
-Date: Thu,  3 Sep 2026 17:15:52 -0400
-Message-ID: <20260903211914.1109100-3-lyude@redhat.com>
-In-Reply-To: <20260903211914.1109100-1-lyude@redhat.com>
-References: <20260903211914.1109100-1-lyude@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C48810E492
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 21:21:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4094041FBD;
+ Thu,  3 Sep 2026 21:21:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BCFC1F000E9;
+ Thu,  3 Sep 2026 21:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788470486;
+ bh=KedTXzxUdYGUnfRzacipYvTaxSNtl2STNA/jYDoukls=;
+ h=From:Subject:Date:To:Cc;
+ b=IzIdR8i2afZdJ/NWZmeSsEtWAWNc9nL7x11Mai/3GVVSClpHqKE3+8HqUk3K1IZgh
+ bI7G24SnlC6QJ8hnWQGxPR75mJNU+VT3Y3NUDmi2Pga5tbTrTDmyiIdgLRkUvzeicU
+ mFjKvkQfHLkxiuuU9J7O1VVTW/Z0nMEEVhwZypuiqrKpDIRe9dLaUvNu4DcRW3VpI4
+ 0DQnM3OSBxirAvY4j7dFxU18pKMPjiAl8ZjWisZ3FYghu376QQVnG/+YzoJVAd5Mw9
+ r5LpDKtirrcicItDrD9+R7KZr2WobMiNoU1wiWxrwAwjKN86lpQZP7zXnaQ8Y3EQea
+ GKqYSAMGIRX7A==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/2] drm/panel: samsung: Share test key command helpers
+Date: Thu, 03 Sep 2026 23:21:18 +0200
+Message-Id: <20260903-drm-panels-sofef0-v1-0-9e841645beba@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: VqaiLdFvXgFOr7WDXrHy_2fbxp3svK0aIurEJQZq84M_1788470364
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZSK/6uIi6KphrQVhoQQby7x
+ eVbzDygnIQVhuKBxJeoxJBhygLmzYWVUZZsqKhqqCeLSzrwdIF3RY2ePWFru65pTe3muofcnYm
+ 93P9znN73AxKzCYNjAAAA
+X-Change-ID: 20260903-drm-panels-sofef0-73886714ac49
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ David Heidelberg <david@ixit.cz>, Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, 
+ Casey Connolly <casey.connolly@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +66,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Christian Hergert <christian@sourceandstack.com>
+Several Samsung display controller drivers use identical three-byte
+commands to enable and disable test key levels. The commands are
+currently repeated as driver-specific macros or raw DCS writes.
 
-Plane state duplication preserves ignore_damage_clips. Once fbdev sets
-it for a dumb buffer, later updates using rendered resources continue to
-ignore damage because the flag is never cleared.
+Add a private Samsung DSI header with typed helpers for all three test
+key levels. Use it in the drivers that already identify these commands
+by level, including the S6E88A0 AMS452EF01 driver whose comments identify
+the raw F0 pair as level 2 commands.
 
-Assign ignore_damage_clips on every atomic check so rendered resources
-can use supplied damage after an earlier dumb-buffer update.
+Drivers with conflicting level numbering or without an established
+test-key name are deliberately left unchanged.
 
-Signed-off-by: Christian Hergert <christian@sourceandstack.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/gpu/drm/virtio/virtgpu_plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Linus Walleij (2):
+      drm/panel: samsung: Add shared test key helpers
+      drm/panel: samsung-s6e88a0-ams452ef01: Use test key helpers
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index d9579a4b4714c..95ec688690d3a 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -119,8 +119,8 @@ static int virtio_gpu_plane_atomic_check(struct drm_plane *plane,
- 	 * so preserve userspace's accumulated per-buffer damage for those.
- 	 */
- 	bo = gem_to_virtio_gpu_obj(new_plane_state->fb->obj[0]);
--	if (old_plane_state->fb != new_plane_state->fb && bo->dumb)
--		new_plane_state->ignore_damage_clips = true;
-+	new_plane_state->ignore_damage_clips =
-+		old_plane_state->fb != new_plane_state->fb && bo->dumb;
- 
- 	crtc_state = drm_atomic_get_crtc_state(state,
- 					       new_plane_state->crtc);
--- 
-2.55.0
+ drivers/gpu/drm/panel/panel-samsung-dsi.h          | 38 ++++++++++++
+ drivers/gpu/drm/panel/panel-samsung-s6e3fc2x01.c   | 71 +++++++++-------------
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c      | 70 +++++++++------------
+ .../drm/panel/panel-samsung-s6e88a0-ams452ef01.c   |  6 +-
+ .../gpu/drm/panel/panel-samsung-s6e8fc0-m1906f9.c  | 23 +++----
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c      | 15 ++---
+ 6 files changed, 116 insertions(+), 107 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-drm-panels-sofef0-73886714ac49
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
