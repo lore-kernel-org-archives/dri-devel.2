@@ -4,66 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD89C61DD3
-	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD13C624D4
+	for <dri-devel@archiver.kernel.org>; Thu,  3 Sep 2026 06:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7464110E063;
-	Thu,  3 Sep 2026 06:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D7EC10E09C;
+	Thu,  3 Sep 2026 06:07:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X32yC4uX";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="bjMcCSfR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E061510E063
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:05:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 874A24098B
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:05:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8E71F000E9
- for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788415546;
- bh=cpJs+hSn6eYojSRlFlfvqcalxEqBdBcxk+2/sCVqfeI=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=X32yC4uXWZLkOT88eeKfXCEpvYvStVsGVQphP31Uywmr28M9WSgqchy/8732Fkfae
- SL4tx7pVXbeaKs6zYf3PkHobC50egIk3xdTXe1U6OyOcWdDtiYQp7yXYGjb7L1QeRh
- QPQl6DTrDKFLg3ALCxHecpe2+ilGOGuqV2YIWqIcEMu8nir+QPFfDf/EbvaJPZ2zjU
- XanlMZi0+ZUwMAwhIPKc9pKZLzHtTxqsgVyVHOqfCULilOaAmX8+EKUngSdP9RxTnz
- DiZwki5n8peyEWxQyrN1ghJ03F+pPD7h04ICtmvj4XgybAfMaJENLXdhnLR4scydW2
- m1HvMPwNL60BA==
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c253425b253so291321966b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 23:05:46 -0700 (PDT)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32CAC10E09C
+ for <dri-devel@lists.freedesktop.org>; Thu,  3 Sep 2026 06:07:03 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-cbe6295f05bso449122a12.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 02 Sep 2026 23:07:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1788415623; x=1789020423;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=hsYexK4Zcb6IZWWhLn93nyGnMkgrjoHZYmyElgh5yQc=;
+ b=bjMcCSfRmYsEX2Dl+Phv5zuHHb9lwh5tU9IrxKpY4Hynh31CGvuWCDy+yX69haWdjQ
+ lpoR0/vuT/uMfcayGV2qtj+f09+KEADipEf6Gmu5J6kX6uOrEyFIP7Ja8p6r8pM55576
+ Ir/H9WX8ydLCA/8TtpkjE/qcpoMZmPFvViyS0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788415623; x=1789020423;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hsYexK4Zcb6IZWWhLn93nyGnMkgrjoHZYmyElgh5yQc=;
+ b=jTQ1ir5DdJH223uiekrxvOI1TD7c8UQnk7yM3DXt8RrrF3RALSYN3dOKPMSmBBHKwG
+ +RSxlTR+Kfh7HLNhgYY35OvIbBEhui0C5YQlbgbX98KauBPCvIyXRzbIBtBUAl/wi5h8
+ vPk5YnZBCg0cayWQp4InSGrM2rqE/AAU7wiQHMhXL/W34puIIJYNJXPvS46xgJ2Jv0Jh
+ sBHz47Acd9dCPmM5i5BXh/CUfEr4NED0gSMXSooFcnfrIR0e4OIf/XS6ccJrGSpqZ9j5
+ uZ43RfAJO5SMUV3bAL9h0rX91dsHE0UAjX639fYgOGxLVy1UMDPSE30KBpAwl8+sZODe
+ mF3w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz0m2L3/gNXHZHtW6nkYBcjz4QS5KTO83l5fJp5NB+1ChoNIz8tbSLQGBQTmqZYRoMdbvNyfuQnQXU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nfX797SigSEEImeNlI9yn4qhWSh+EgDULFrTKPDhjEpZc871t1
- I3+Pv2bKsXI5wwA/WK5I+2ww9800/znZTfuoJp4mN9nXZQZebTVvXXCltCEdEJg1aLgKS894bmp
- 0aaUnCVN/2pmYIaQdHUrGjdaKzLf2Ctw=
-X-Received: by 2002:a17:906:7308:b0:c24:bf0b:6b62 with SMTP id
- a640c23a62f3a-c25d520a6ebmr678586866b.4.1788415545065; Wed, 02 Sep 2026
- 23:05:45 -0700 (PDT)
+ AKwUvBwGxg2sdPdUTFX/2vyatlS9t6zlTEA0h9YBbJH+DUncjr/m9fM4pBckTo0YOiF96l+68xri8HzsyK8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nzZ5rhlO7rEFT4nyHiInPGUWNkIeQ2xVBcSV0ExOv3uTM0T2Qi
+ mbQ+qu/lSqbDPg8o+55JRNUO+CNVu5WgQYQdUbUhJOkodd/ilia4jKYY7SCJq11g2g==
+X-Gm-Gg: AYBFou0972bz47JYCOqAhSO1N9r/3IFrj112y2Wg+pvuAzOixile4HhVIf9QI8DJlYu
+ vn0CmATTgOEQr8lBm1X42qwrWc5oCn65wTFeEBpJhsfT7vUVwK2NQo3kCBNubbcqdkHs/4aCb54
+ HD7yCMGbCWVaWk/ek7Bv3ixliCd19YHR3S5h3Du4DdzfggCxFFo5KWfqIXrOvctbJr5q9WP3dAq
+ 73f/0KBNXJpI/nS1ENjco0g0J/m+5O4yMFmcYJSzqD4e09u5GnIYPciSxZd7Ss5wy6rIrX8IuRU
+ 6iPqWfPyerUgSbFafSHSfqg4Bd4vuJbDpmmF3PXijsvl3eHbMjl4Sz4xyugdKIluI1oThxPSv2r
+ d5FFmefyu1YJMFM679rjbQMC1iPro/11CXfh2IMt2w+pzNp1QqtCCrWsM/u+UVgMTceiU3Z+We2
+ bNjP40xK3Rws01BYopNlSC2X+VAyksWoedIGeZ0XMHLU7mORWXUWgmaz+uhcbJk8IpAm/bPiiom
+ 2iO5KV9G5AtRqDctM5gBd5A7/5SLnkcoYH7NVmXiMJ5ig==
+X-Received: by 2002:a17:90b:4c0f:b0:38e:7297:a92e with SMTP id
+ 98e67ed59e1d1-39b1325b61fmr1312168a91.9.1788415621767; 
+ Wed, 02 Sep 2026 23:07:01 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com
+ ([2a00:79e0:201d:8:59de:d2d:e1ec:bf86])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39ae8cfb279sm2579007a91.3.2026.09.02.23.06.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Sep 2026 23:07:00 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/sysfb: Use iosys_map_memset() to clear buffer
+Date: Thu,  3 Sep 2026 14:06:49 +0800
+Message-ID: <20260903060651.3724163-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
 MIME-Version: 1.0
-References: <20260902132152.3170934-1-chenhuacai@loongson.cn>
- <c321d3ea800e6754cb8a904a87f432d17ab3d21c.camel@iscas.ac.cn>
- <436e6744-8649-133d-17a7-e90332027269@loongson.cn>
-In-Reply-To: <436e6744-8649-133d-17a7-e90332027269@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Thu, 3 Sep 2026 14:05:34 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4NRkBoCWMS8a17DYr7sDqTN0Amx3EDX+oxH+7DFzuFDw@mail.gmail.com>
-X-Gm-Features: AcwNN1WqD0GG_a_V5bIKWZfx0Z6tMw1OcDfaNDaEVTFGOovyWJu2KuFmBYQky14
-Message-ID: <CAAhV-H4NRkBoCWMS8a17DYr7sDqTN0Amx3EDX+oxH+7DFzuFDw@mail.gmail.com>
-Subject: Re: [PATCH V2] drm/loongson: Create blend mode property for cursor
- plane
-To: Jianmin Lv <lvjianmin@loongson.cn>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Huacai Chen <chenhuacai@loongson.cn>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Qianhai Wu <wuqianhai@loongson.cn>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,115 +87,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 3, 2026 at 10:41=E2=80=AFAM Jianmin Lv <lvjianmin@loongson.cn> =
-wrote:
->
->
->
-> On 2026/9/2 =E4=B8=8B=E5=8D=8811:29, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-02=E4=B8=89=E7=9A=84 21:21 +0800=EF=BC=8CHuacai Chen=
-=E5=86=99=E9=81=93=EF=BC=9A
-> >> After commit 860e748bddcc929 ("drm: ensure blend mode supported if
-> >> pixel
-> >> format with alpha exposed") we get warnings at boot:
-> >>
-> >> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel
-> >> format with alpha exposed but blend mode not setup. Please fix.
-> >> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel
-> >> format with alpha exposed but blend mode not setup. Please fix.
-> >>
-> >> The reason is the cursor plane supports color formats with alpha but
-> >> the
-> >> driver doesn't create blend mode property, which triggers the warning
-> >> in
-> >> validate_blend_mode_for_alpha_formats().
-> >>
-> >> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
-> >> a blend mode with "DRM_MODE_BLEND_PIXEL_NONE |
-> >> DRM_MODE_BLEND_COVERAGE"
-> >> for cursor planes.
-> >>
-> >> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> >> ---
-> >>   drivers/gpu/drm/loongson/lsdc_plane.c | 11 +++++++----
-> >>   1 file changed, 7 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
-> >> b/drivers/gpu/drm/loongson/lsdc_plane.c
-> >> index bea42215796d..969b2aaa4fd0 100644
-> >> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> >> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> >> @@ -7,6 +7,7 @@
-> >>
-> >>   #include <drm/drm_atomic.h>
-> >>   #include <drm/drm_atomic_helper.h>
-> >> +#include <drm/drm_blend.h>
-> >>   #include <drm/drm_framebuffer.h>
-> >>   #include <drm/drm_gem_atomic_helper.h>
-> >>   #include <drm/drm_print.h>
-> >> @@ -747,8 +748,9 @@ int ls7a1000_cursor_plane_init(struct drm_device
-> >> *ddev,
-> >>                             struct drm_plane *plane,
-> >>                             unsigned int index)
-> >>   {
-> >> -    struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> >>      int ret;
-> >> +    unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE) |
-> >> BIT(DRM_MODE_BLEND_COVERAGE);
-> >> +    struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> >>
-> >>      ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
-> >>                                     &lsdc_plane_funcs,
-> >> @@ -765,15 +767,16 @@ int ls7a1000_cursor_plane_init(struct
-> >> drm_device *ddev,
-> >>
-> >>      drm_plane_helper_add(plane,
-> >> &ls7a1000_cursor_plane_helper_funcs);
-> >>
-> >> -    return 0;
-> >> +    return drm_plane_create_blend_mode_property(plane,
-> >> blend_caps);
-> >>   }
-> >>
-> >>   int ls7a2000_cursor_plane_init(struct drm_device *ddev,
-> >>                             struct drm_plane *plane,
-> >>                             unsigned int index)
-> >>   {
-> >> -    struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> >>      int ret;
-> >> +    unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE) |
-> >> BIT(DRM_MODE_BLEND_COVERAGE);
-> >
-> > I think code needs to be present for setting up PIXEL_NONE blend mode,
-> > if it's exposed.
-> >
-> > Personally, from my copy of =E9=BE=99=E8=8A=AF 7A2000 =E6=A1=A5=E7=89=
-=87=E7=94=A8=E6=88=B7=E6=89=8B=E5=86=8C V1.0, I can find no
-> > information of a PIXEL_NONE blend mode -- there's no bits controlling
-> > the enablement of blending (except for completely disabling the
-> > cursor), and the format has no option of XRGB8888 instead of ARGB8888.
-> >
-> > Thanks,
-> > Icenowy
-> >
-> Agree, COVERAGE mode is internally fixed in the chip with no register to
-> control.
-OK, I will remove PIXEL_NONE in V3.
+The atomic disable in drm/sysfb currently clears the buffer using
+memset_io(). Since the mapping is provided in a |struct iosys_map|,
+it is better to use the related API instead of extracting the vaddr.
+This is mentioned as a TODO item.
 
-Huacai
+Switch to iosys_map_memset(), which takes the mapping as well as an
+offset into the mapping.
 
-> >> +    struct lsdc_cursor *cursor =3D to_lsdc_cursor(plane);
-> >>
-> >>      ret =3D drm_universal_plane_init(ddev, plane, 1 << index,
-> >>                                     &lsdc_plane_funcs,
-> >> @@ -790,5 +793,5 @@ int ls7a2000_cursor_plane_init(struct drm_device
-> >> *ddev,
-> >>
-> >>      drm_plane_helper_add(plane,
-> >> &ls7a2000_cursor_plane_helper_funcs);
-> >>
-> >> -    return 0;
-> >> +    return drm_plane_create_blend_mode_property(plane,
-> >> blend_caps);
-> >>   }
->
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+index d2de29caf89e..99b13af4e391 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+@@ -375,13 +375,11 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
+ {
+ 	struct drm_device *dev = plane->dev;
+ 	struct drm_sysfb_device *sysfb = to_drm_sysfb_device(dev);
+-	struct iosys_map dst = sysfb->fb_addr;
+ 	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
+-	void __iomem *dst_vmap = dst.vaddr_iomem; /* TODO: Use mapping abstraction */
+ 	unsigned int dst_pitch = sysfb->fb_pitch;
+ 	const struct drm_format_info *dst_format = sysfb->fb_format;
+ 	struct drm_rect dst_clip;
+-	unsigned long lines, linepixels, i;
++	unsigned long lines, linepixels, i, offset;
+ 	int idx;
+ 
+ 	drm_rect_init(&dst_clip,
+@@ -395,11 +393,10 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
+ 		return;
+ 
+ 	/* Clear buffer to black if disabled */
+-	dst_vmap += drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
+-	for (i = 0; i < lines; ++i) {
+-		memset_io(dst_vmap, 0, linepixels * dst_format->cpp[0]);
+-		dst_vmap += dst_pitch;
+-	}
++	offset = drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip);
++	for (i = 0; i < lines; ++i)
++		iosys_map_memset(&sysfb->fb_addr, offset + dst_pitch * i, 0,
++				 linepixels * dst_format->cpp[0]);
+ 
+ 	drm_dev_exit(idx);
+ }
+-- 
+2.55.0.970.g62bdec98f9-goog
+
