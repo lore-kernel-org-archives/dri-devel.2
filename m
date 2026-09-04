@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD880C61DD6
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 808CBC79F8C
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B970610F8F4;
-	Fri,  4 Sep 2026 13:09:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2298010F90E;
+	Fri,  4 Sep 2026 13:09:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MeuenZkQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YuSe0syL";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4280810E54F
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:09:32 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-4843751b694so153707f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 06:09:32 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2171E10E54F
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:09:37 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-499dd4900dfso962095e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 06:09:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788527370; x=1789132170; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788527375; x=1789132175; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0Nc493Zxn3lB2uIUk0uEHaMMSyj53T93ezhvvuGgReI=;
- b=MeuenZkQ63zS/J3WtLQS9eqDyyx0OhCg91546FmIX/qokkeeuqoIP6gOZ00EPDFaw1
- vJyr5RS/BWyg2Xk3JGPugpr1t0JXEGg4p1N83McTCYL7BTGzjFiqfNO6HMajtzf2IU/C
- Gnw5R0U4/oADcWFOxNGFG9DR9SYP6yIriR73NJ3e/ziwNUfKAZ6U6otFjyeX7QYHpmdM
- PvDgQm4NvWNKsUDbiWliYqji9UC1Pr/TRunXf14s8U5BxUwYLnFGXMDWcjkPUoL4O9RI
- V9mLwOVw5UjyvQ/PClA10ym5nEnoZQW+Mi+/aUs760K8D0XnSMxAXau1uaOkVgxOezaI
- +nAQ==
+ bh=E/t7wxFBsuNgANZ3txwtSGvXS0Fyj90ixWLfFCZVhFw=;
+ b=YuSe0syLNa6Kd8WOWSlt9QnZZzogTeF94wg01sHPu2F6zU6DQSxeg1bgxFaOl5YSxR
+ DyuwJP+MmXzdYP0Ox7m4vRULe73rnx1KnNIDnThLzVk04/94MK4xxlZBnYmF5ANEAgJL
+ y+wGhUnvffdRQ4bWn2towy464YBPuHQ8drZe6LbF1foKRcy043/qvvqHO7YuVvkMo42r
+ DjpO+iXQI7p4PnvOU26voaK4UsNYqY7fVM3LLZuE3IQwYl4J3xhvNgu3ZGCAcOi3y1M3
+ rrgetCgYA6aRquTGdVaogsWvtSbzPxYXVsdILjsFCDlxMdjPP4e1FlLRn3Hh1lulu7K1
+ 3fxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788527370; x=1789132170;
+ d=1e100.net; s=20251104; t=1788527375; x=1789132175;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0Nc493Zxn3lB2uIUk0uEHaMMSyj53T93ezhvvuGgReI=;
- b=otBZucDjYdBNldMi2Wqxsip7+D2yzOa6q2FkMNqHlaS/3KaWyEjzpTUHOhJ8BajwCb
- QB1XV8wz1uXZq9oTK/bEQGgnc8oO4S4BgY0f27+lzTfG+N3zCzIlt3qgUhY/AICoyWK5
- e8sl831RZ3wJoCvcbpTV6zTNNEZNgmPaC3/NE5uMUwQf8S+YYXkpFshghygVPmxVk2/l
- 1PFV7puaq8Z9OKFtJ323CAcWWoeLmQG1rl7QIggFyNAe3R3AFM0U6l/5CJhrJwBxomBM
- LxLy/8x9cYPoUNaktA2o/vUGFFkAjBA+RG2NqTIj8Zm1XSAnYmTkPU/UGgFEeRLqZNaz
- hCHA==
+ bh=E/t7wxFBsuNgANZ3txwtSGvXS0Fyj90ixWLfFCZVhFw=;
+ b=OnfyfrimRACeSJS5FNTcWq4psqome/HOZK7VPjus0hqLOYk3wBNqsqtSh6Dsi28IQ2
+ LeC3/BUnfn/WHGOxviiKNuMq8hJNuCtf+HzMNz/h/CfRZnmwKbqASB/HyKaHhSX3PfLb
+ 1ki7FwwVlsdF7i770I6RRH/X1anHFasjffR0f1tPL/2xMstbcXGJO1JXh6ywRW5Z0OLo
+ b6Fm1fHkfIJ91GZBMB+grB7n3MQukvFmzxQyxH+uZXKxeHSDktF69MDhbi+P+WRE3QO0
+ MPKF1Pq7xV1xHztktG05aymgTVf292jEXLwmvsGyb5xdLqcUJidWAX0jeFaI6InDhsSl
+ Usjw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzWXynZ3RzrIZ/afPny84QSIDOeJ4qiHGPzzkSoirDt/1SDGLNrFv1n9m2/sS51T0T1yAYE0QZsK38=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kPLRjDaz39WxSSxVn3dnT5mIuzm4/xLdU1fNiBqaCLcMex6ngR
- zuSc+hH370/p9ZBdmQlg4T+TSI4WZdrJe5UkS1ZEAM+rw/B6rKIJZa5o
-X-Gm-Gg: AYBFou0TA6m4owB9e5dWmdThUD9HOaBxnyP6uLbD8S5Ci8LbZePJnapldscmmDPX7pL
- q1SSMqfYy4YS7T5RA1YoWrstD/L/PYgMKO7LrR7jQwmvSIaRMZZcI3iCr0PWFmZS2RnQNMiSC8W
- fE7Y1AdQFIWt1x+DoNRrjz7Hv6c60RpQwG6c0Bz4i3BDKpUv+lh3JZPS9+LGUvBR+Yi+voy2PaV
- 2niqjAqNCDvElL2QA/fTY2mfOTYQkVLzQJWPVuXB3Z5HkpcCJutbxwd/5wipqRk8ytsN8oe2A7A
- kpz+1z99G3sFUnlDVI4NQxlWXEI3nfHhtTgIjK/L3Y+StdGApIqu5HJQA1Rc972iWL3mt2BjUlJ
- vSVz4iFZXuWwQmCe44pDqzWkGtN7uVnX1mMyUEyYtSp5rqDxCDfve0BvUnP+/kNu5fyBjkKhfPS
- Xadm7E3ZU2xZkK2Y2xocB2xqoIJ9dGd/ZXuwCJkvc9Re/FPz+pfLcbdldT0rmMUBVyfCiN8jWu7
- sYvs+rXUfxrwvRBnWSzEUpt0dJ9qE0VZfnv2jy2yfg/Id33RT+CfrPovQr3oFeNLWYQ
-X-Received: by 2002:a05:600c:1d26:b0:49c:cbf4:572b with SMTP id
- 5b1f17b1804b1-49cf8245fe1mr47842485e9.2.1788527370519; 
- Fri, 04 Sep 2026 06:09:30 -0700 (PDT)
+ AKwUvBx+5n/r7/9UU1l8FnI5EzoFAE7v1E5BbM4N1cDEtVR9gbratIh3NlfhIJUTIJpMeznNTt00TQ7YhXY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nxt6EGTu38Bt3Wvw++9Yb+pcWb6D2Bn+MGQVcVvQUoMWjyJRLc
+ QRSR9cQdZLMvlkuEATiPLuSHBTmm7/s1RiqL4VeMxcco+I+q8ABXeQMh
+X-Gm-Gg: AYBFou3w4df2ZQbi9MU3Q3F+8Osm0ioMXQVGywcl2fHcnkva4yGbhKz0abzFwv7J9mL
+ sfg2v4y9JZ4nM4BvMAyaYTkA1C7wbb8R5gNfmQ5TeNuPfVK1an0zTOBzWV0fOHOHNmhmafH/omL
+ R55XNcg56HoSDgGrDRrTrGODF6fNj49HoUj9hV5GYdgw2FFW4BRNNB/ehoKguq7Jew6OthuCkEZ
+ EE3ZYKLx2WHo5Hd+LZANvweM9AUuZFgZ+kzQ/mAvP6FqTR63LBZwBkMwXPQjNkdZm95OfAd94uC
+ vjiorI5YV+BC3TQyUv0JbWOs4rx5swxnpaPz4r3vV7gICMiNp130HTt4PMf7ZMHoBtKaI5aiHfO
+ F8XqYP00YjYj9SAJq1MtOzDmwZf11oEH32RoG8aMgYnNuZNf5wUzHa9AJzarWJsyoZTx497huZz
+ 46ZMOFGhbK5G36OFQYvJiuSnPyeZbbG51dzq8QYyfhXhay1V4y1V7WTrk/uUggaGso7OJ10xi4m
+ OvI/OHTS7V4tw/VofwS8XaQbSrZlGY9Xca3Uh+3Gwz3pBZXuu37V31+akwCQOXUwd8F
+X-Received: by 2002:a05:600c:1c24:b0:49b:9241:7ff0 with SMTP id
+ 5b1f17b1804b1-49cf7f4d9b7mr51876155e9.0.1788527375338; 
+ Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu.
  [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.27
+ 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 06:09:29 -0700 (PDT)
+ Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>
@@ -77,10 +77,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 4/7] accel/rocket: restore the NPU clock boot rate before
- powering the cores down
-Date: Fri,  4 Sep 2026 15:08:55 +0200
-Message-ID: <20260904130858.27803-5-royalnet026@gmail.com>
+Subject: [PATCH 7/7] arm64: dts: rockchip: rk3588: add passive cooling to the
+ NPU thermal zone
+Date: Fri,  4 Sep 2026 15:08:58 +0200
+Message-ID: <20260904130858.27803-8-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904130858.27803-1-royalnet026@gmail.com>
 References: <20260904130858.27803-1-royalnet026@gmail.com>
@@ -101,165 +101,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The compute clock is generated by a PVTPLL that lives inside the NPU power
-island. Powering an island up while that clock is above the rate the
-bootloader left it at does not work: the domain never acks the power-on,
-and the first register access into it afterwards takes an asynchronous
-SError. So the rate has to be back down before the last core goes away.
+The NPU zone has had only a critical trip at 115 degrees, which is a
+shutdown and not a cooling policy. Now that the NPU can be throttled by
+capping its clock, give the zone a passive trip and a cooling map, in the
+same shape and at the same temperatures as the GPU zone right above it:
+85 degrees with 2 degrees of hysteresis, and a 100 ms passive polling
+delay.
 
-Nothing in the driver raises the clock today, which makes this a no-op on
-its own, but it is the guard that has to be in the tree before anything
-does, and the next patches do. The .shutdown hook is the same guard for the
-handover: once devfreq is driving the clock, a reboot or a kexec would
-otherwise pass the raised rate to the next kernel, which powers the islands
-up before it looks at it. What this cannot do is rescue a rate it did not
-set - the rate read at probe is taken as the boot rate whatever it is.
+The #cooling-cells property goes on rknn_core_0, the core that carries the
+shared clock and the OPP table. The other two cores have no clock of their
+own and cannot be throttled independently of it.
 
-The rate is read at probe rather than hardcoded. Mainline pins the RK3588
-cores at 200 MHz with assigned-clock-rates, but that is a devicetree
-property, not a property of the hardware, and a SoC whose devicetree does
-not set it would be left running at a rate this driver had invented.
+The cooling map is inert until the driver registers a cooling device:
+thermal_of_should_bind() only resolves a map entry once a matching cdev
+appears, so this patch on its own changes nothing but the trip point.
 
-All three cores share the clock, so only the last core to suspend may lower
-it; the others just drop the count. Lowering it is safe with the islands
-already down, because the firmware serves the boot rate from GPLL and
-writes only CRU clock selectors to get there, never a register inside the
-NPU.
+The thermal path itself has not been exercised on the board this was
+written on. Reaching 85 degrees on an NPU workload with the fan curve here
+has not been possible, so what is verified is that the zone parses and
+binds, not that throttling engages at temperature.
 
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Assisted-by: LLM sparse checkpatch
+Assisted-by: LLM checkpatch dtbs_check
 ---
- drivers/accel/rocket/rocket_core.c   | 12 +++++++++
- drivers/accel/rocket/rocket_device.h | 10 +++++++
- drivers/accel/rocket/rocket_drv.c    | 40 ++++++++++++++++++++++++++++
- 3 files changed, 62 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index 5dd260bacbff6..61200e5d5ac0d 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -12,6 +12,7 @@
- #include <linux/reset.h>
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e07869..c3d22b08f415b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1162,6 +1162,7 @@ rknn_core_0: npu@fdab0000 {
+ 		clock-names = "aclk", "hclk", "npu", "pclk";
+ 		assigned-clocks = <&scmi_clk SCMI_CLK_NPU>;
+ 		assigned-clock-rates = <200000000>;
++		#cooling-cells = <2>;
+ 		resets = <&cru SRST_A_RKNN0>, <&cru SRST_H_RKNN0>;
+ 		reset-names = "srst_a", "srst_h";
+ 		power-domains = <&power RK3588_PD_NPUTOP>;
+@@ -3212,17 +3213,31 @@ map0 {
+ 		};
  
- #include "rocket_core.h"
-+#include "rocket_device.h"
- #include "rocket_job.h"
+ 		npu_thermal: npu-thermal {
+-			polling-delay-passive = <0>;
++			polling-delay-passive = <100>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsadc 6>;
  
- int rocket_core_init(struct rocket_core *core)
-@@ -36,6 +37,17 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
- 
-+	/*
-+	 * Record what the compute clock was running at before anything here
-+	 * touched it, on the first core to probe. Reading it rather than
-+	 * hardcoding a rate keeps this working on a SoC whose devicetree does
-+	 * not pin the clock with assigned-clock-rates.
-+	 */
-+	if (!core->rdev->npu_clk) {
-+		core->rdev->npu_clk = core->clks[2].clk;
-+		core->rdev->npu_boot_rate = clk_get_rate(core->rdev->npu_clk);
-+	}
+ 			trips {
++				npu_alert: npu-alert {
++					temperature = <85000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
 +
- 	core->pc_iomem = devm_platform_ioremap_resource_byname(pdev, "pc");
- 	if (IS_ERR(core->pc_iomem)) {
- 		dev_err(dev, "couldn't find PC registers %ld\n", PTR_ERR(core->pc_iomem));
-diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
-index c62d567010696..466ebc4c26a8a 100644
---- a/drivers/accel/rocket/rocket_device.h
-+++ b/drivers/accel/rocket/rocket_device.h
-@@ -20,6 +20,16 @@ struct rocket_device {
- 	struct rocket_core *cores;
- 	unsigned int num_cores;
- 	unsigned int max_cores;
+ 				npu_crit: npu-crit {
+ 					temperature = <115000>;
+ 					hysteresis = <0>;
+ 					type = "critical";
+ 				};
+ 			};
 +
-+	/*
-+	 * The cores have no clock of their own: one clock feeds all of them,
-+	 * so any core's handle refers to the same thing. npu_boot_rate is the
-+	 * rate it was left at before the driver touched it, and active_cores
-+	 * counts the cores that are runtime resumed right now.
-+	 */
-+	struct clk *npu_clk;
-+	unsigned long npu_boot_rate;
-+	atomic_t active_cores;
- };
++			cooling-maps {
++				map0 {
++					trip = <&npu_alert>;
++					cooling-device =
++						<&rknn_core_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 	};
  
- struct rocket_device *rocket_device_init(struct platform_device *pdev,
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 2bcfe4ab3c68f..b7199de57ccc7 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -231,6 +231,28 @@ static int find_core_for_dev(struct device *dev)
- 	return -1;
- }
- 
-+/*
-+ * Put the compute clock back where the bootloader had it. The cores share
-+ * this clock, so this is only correct once none of them is running any more.
-+ *
-+ * Lowering the rate is safe with the power islands down: the firmware serves
-+ * the boot rate from GPLL and touches only the CRU clock selectors on the way
-+ * there, none of the NPU's own registers.
-+ */
-+static void rocket_npu_restore_boot_rate(struct rocket_device *rdev)
-+{
-+	int err;
-+
-+	if (!rdev->npu_clk)
-+		return;
-+
-+	err = clk_set_rate(rdev->npu_clk, rdev->npu_boot_rate);
-+	if (err)
-+		dev_warn(rdev->cores[0].dev,
-+			 "failed to restore the NPU boot rate of %lu Hz: %d\n",
-+			 rdev->npu_boot_rate, err);
-+}
-+
- static int rocket_device_runtime_resume(struct device *dev)
- {
- 	struct rocket_device *rdev = dev_get_drvdata(dev);
-@@ -246,6 +268,8 @@ static int rocket_device_runtime_resume(struct device *dev)
- 		return err;
- 	}
- 
-+	atomic_inc(&rdev->active_cores);
-+
- 	return 0;
- }
- 
-@@ -262,6 +286,9 @@ static int rocket_device_runtime_suspend(struct device *dev)
- 
- 	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
- 
-+	if (atomic_dec_and_test(&rdev->active_cores))
-+		rocket_npu_restore_boot_rate(rdev);
-+
- 	return 0;
- }
- 
-@@ -270,9 +297,22 @@ EXPORT_GPL_DEV_PM_OPS(rocket_pm_ops) = {
- 	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
- 
-+/*
-+ * A kexec or a reboot hands the next kernel whatever rate is set here, and
-+ * that kernel will power the islands up before it looks at the clock.
-+ */
-+static void rocket_shutdown(struct platform_device *pdev)
-+{
-+	struct rocket_device *rdev = dev_get_drvdata(&pdev->dev);
-+
-+	if (rdev)
-+		rocket_npu_restore_boot_rate(rdev);
-+}
-+
- static struct platform_driver rocket_driver = {
- 	.probe = rocket_probe,
- 	.remove = rocket_remove,
-+	.shutdown = rocket_shutdown,
- 	.driver	 = {
- 		.name = "rocket",
- 		.pm = pm_ptr(&rocket_pm_ops),
 -- 
 2.43.0
 
