@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43AAC79F83
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B16A9C624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:40:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE38210F973;
-	Fri,  4 Sep 2026 08:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1C1A10F96C;
+	Fri,  4 Sep 2026 08:40:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BTlQChWz";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TbZNw/no";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2AD310F985
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:38:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 57E8643903;
- Fri,  4 Sep 2026 08:38:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D7B1F00A3E;
- Fri,  4 Sep 2026 08:38:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788511091;
- bh=uFsQT1ddKpz+9hW9jtG9cmCPNgQnYsOrVrfp1VEtJc4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=BTlQChWz33Ek3tA5QJkL22JROr3Td1RGn8CJeU3WX+vxde2lhWz7dLbiWAQbYp+Bv
- piG2ouRCHsd3Qkh0eBC7Z0XYMUtVdiSwkaIHSab4KJb7Lt7GFaxWIDcPXO22P1v+wZ
- 56SMw1Vc2tFLE+dASjrjdWTpFpcpRMGSOn1zJ4bWhdJcDzbgrajYsyp3mF2IOrl/Fk
- D4WuuRwKzqJbzMsCHWYxyWma4DwhsJsfrPztJBvsWGzFjMJMctdJ36+oPPu7U0ZxY8
- M0fQOS7B1cWy92qDsmJN7jF0S2HsvPfdu9YbNseSbWnXDTExowbAU6QXOVHuibkfKd
- /eS/6uZUBqOzQ==
-Date: Fri, 4 Sep 2026 10:38:08 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, 
- p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, robh@kernel.org,
- krzk+dt@kernel.org, 
- conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de, 
- kernel@pengutronix.de, festevam@gmail.com, tglx@linutronix.de, vkoul@kernel.org,
- kishon@kernel.org, Frank.Li@nxp.com, lumag@kernel.org, aisheng.dong@nxp.com, 
- agx@sigxcpu.org, u.kleine-koenig@baylibre.com, marek.vasut@mailbox.org
-Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller support
-Message-ID: <apqDKdcQrizwAv6U@houat>
-References: <20250414035028.1561475-1-victor.liu@nxp.com>
- <20260714193627.GA9616@francesco-nb> <alh4a66fEro05ShA@raspi>
- <20260716062612.GC9973@francesco-nb> <alh-6sI4J7vq2drz@raspi>
- <apl4rkHIs9QFuUTE@houat> <app836E0_y8lG9T5@raspi>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 062B810F96A
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:40:03 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hbqf73hkpzMlP2;
+ Fri, 04 Sep 2026 10:39:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788511199; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jH2uLsC7WJQSI+F9UTh8XM4wmuGO2p9r3sUh4J5zSQQ=;
+ b=TbZNw/noO1prHxarOkgk3xXiT7Yddgx5Sl94ZILtzjInU7nBko+3rNtbBr3gSq4VxP8Eg1
+ 5MKoAQPTK7xcGXwENxEpfh4Kr4XFTRXuAYKcDxu/yGRIfjpo1xZ6pbyaLYQVmd/jM0OVGP
+ lj+n+LbT0y0Dqgj4Z1LJJjDCfBR0GoaWE+SvPEHCZ0RS8db9F4v7SSRAUWK+DKTBwuFObZ
+ QKTq5L8P45UUeoGEtePFBYgJwlIxgDNOJN0n/s4vvi1gkbSMj9N8fIgaiJ36lpceFeGy+N
+ UL4EUkbETQzMlnzHDVP4pV+/ExNb9OQIVMHya94nm/Lvqp6C39FxNPdK9ZnYzA==
+Message-ID: <196070b75705e9bc38106c235dab75e92d98cb2b.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, christian.koenig@amd.com,
+ phasta@kernel.org, tursulin@ursulin.net, matthew.brost@intel.com,
+ dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+Date: Fri, 04 Sep 2026 10:39:55 +0200
+In-Reply-To: <20260904083138.2135429-1-malhyuk97@gmail.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <20260904083138.2135429-1-malhyuk97@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="mwzbtbj3gnfo5lzq"
-Content-Disposition: inline
-In-Reply-To: <app836E0_y8lG9T5@raspi>
+X-MBO-RS-ID: 878bbfafc54389cb408
+X-MBO-RS-META: 5m9cmtes7t7juujy1d8z5qotj7cypkqf
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,124 +66,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 2026-09-04 at 17:31 +0900, Jonghyuk Kim(MalHyuk) wrote:
+> On 9/4/26 10:20, Christian K=C3=B6nig wrote:
+> Understood - ops-detach is about producer/module decoupling, not about th=
+e
+> scheduler's lifetime relative to the driver, so framing it as "the comple=
+te
+> fix" for this bug was wrong. I will drop the TODO patch as well.
 
---mwzbtbj3gnfo5lzq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 00/19] Add Freescale i.MX8qxp Display Controller
- support
-MIME-Version: 1.0
+Please wait a bit until we discussed it for a bit.
 
-On Fri, Sep 04, 2026 at 04:10:07PM +0800, Liu Ying wrote:
-> Hi Maxime,
 >=20
-> On Thu, Sep 03, 2026 at 03:41:15PM +0200, Maxime Ripard wrote:
-> > On Thu, Jul 16, 2026 at 02:49:14PM +0800, Liu Ying wrote:
-> > > On Thu, Jul 16, 2026 at 08:26:12AM +0200, Francesco Dolcini wrote:
-> > > > On Thu, Jul 16, 2026 at 02:21:31PM +0800, Liu Ying wrote:
-> > > > > On Tue, Jul 14, 2026 at 09:36:27PM +0200, Francesco Dolcini wrote:
-> > > > > > On Mon, Apr 14, 2025 at 11:50:09AM +0800, Liu Ying wrote:
-> > > > > > > Hi,
-> > > > > > >=20
-> > > > > > > This patch series aims to add Freescale i.MX8qxp Display Cont=
-roller support.
-> > > > > > >=20
-> > > > > > > The controller is comprised of three main components that inc=
-lude a blit
-> > > > > > > engine for 2D graphics accelerations, display controller for =
-display output
-> > > > > > > processing, as well as a command sequencer.
-> > > > > >=20
-> > > > > > ...
-> > > > > >=20
-> > > > > > >=20
-> > > > > > > To follow up i.MX8qxp TRM, I changed the controller name to "=
-Display Controller"
-> > > > > > > instead of the previous "DPU".  "DPU" is only mentioned in th=
-e SoC block
-> > > > > > > diagram and represents the whole display subsystem which incl=
-udes the display
-> > > > > > > controller and prefech engines, etc.
-> > > > > > >=20
-> > > > > > > With an additional patch[1] for simple-pm-bus.c, this series =
-facilitates
-> > > > > > > testing a LVDS panel on i.MX8qxp MEK.
-> > > > > > >=20
-> > > > > > > Please do NOT merge patch 14-19.  They are only used to facil=
-itate testing
-> > > > > > > the LVDS panel.
-> > > > > >=20
-> > > > > > What's the plan to conclude this work? What's the latest status?
-> > > > > > I am looking forward to have a way to use the i.MX8QXP display =
-with
-> > > > > > mainline, but to my understanding some required changes on the =
-SOC dtsi
-> > > > > > are not merged.
-> > > > > >=20
-> > > > > > Can you help?
-> > > > >=20
-> > > > > I planned to add display controller DT node after prefetch engine=
- support [1]
-> > > > > is picked up so that the prefetch engine could be enabled togethe=
-r with the
-> > > > > display controller.  Just want to avoid a DT that only enables th=
-e display
-> > > > > controller or bypasses the prefetch engine.  It makes the display=
- controller
-> > > > > driver simpler.
-> > > > >=20
-> > > > > [1] https://lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4e=
-cb6c6d4941@nxp.com/
-> > > >=20
-> > > > That series is from October 2025, is there anything blocking to mov=
-e it
-> > > > forward?
-> > >=20
-> > > It lacks a Reviewed-by tag(at least a Acked-by tag) from a drm-misc c=
-ommitter
-> > > for every driver patch in that series.  Also, it seems that Marek(Cc'=
-ed) is
-> > > not a big fan of [1](See i.MX95 display support discussion[2]).
-> >=20
-> > I was just pointed at this series, and I'm not sure why it's blocked. It
-> > looks like you were waiting for a Reviewed-by by a drm-misc maintainer,
-> > but I gave mine already and I'm a drm-misc maintainer, sooo... :)
+> > I think we should rather re-consider patch 035219a760edb35ae9a9e96beba7=
+f122e26a997b
+> > ("dma-buf: dma-fence: Fix potential NULL pointer dereference"):
+> > [...]
+> > The problem is that we didn't considered that there a fence implementat=
+ions
+> > which still have a release or wait callbacks but rely on not needing to
+> > return a string for a signaled fence.
 >=20
-> Your Reviewed-by tags were on the initial i.MX8qxp Display Controller dri=
-ver
-> patches.  And, those patches have already landed.
+> That matches what I see in the code, thanks - this is the actual root cau=
+se and
+> it is not drm/sched specific.
 >=20
-> Now, I'm waiting for Acked-by or Reviewed-by tags on those driver patches
-> which add i.MX8qxp Display Controller *prefetch engines* support.
-> 'b4 trailers -u' doesn't include any Reviewed-by from you on those patche=
-s...
-> I sent v6 prefetch engine patch series[1] just now.
-> It would be great to have your Acked-by or Reviewed-by tags on those driv=
-er
-> patches :)
+> dma_fence_signal_timestamp_locked() only clears the ops pointer for fence=
+s that
+> carry neither .release nor .wait:
+>=20
+> 	ops =3D rcu_dereference_protected(fence->ops, true);
+> 	if (!ops->release && !ops->wait)
+> 		RCU_INIT_POINTER(fence->ops, NULL);
+>=20
+> drm_sched_fence implements .release, so its ops survive signalling. Befor=
+e
+> 035219a760ed the helpers gated on the signaled bit, so such a fence retur=
+ned
+> the static string and the producer callback was never reached. Since that
+> commit they gate on the ops pointer alone, so get_timeline_name() /
+> get_driver_name() are called on a long-signalled fence - which is exactly=
+ the
+> window my report hits, with ->sched already freed.
+>=20
+> To be clear, I am not suggesting a revert: 035219a760ed fixes a real prob=
+lem,
+> namely that "set signaled bit, then NULL the ops" and "load ops, then che=
+ck the
+> signaled bit" can be reordered on weakly ordered platforms, and using the=
+ ops
+> pointer as the synchronization point solves that elegantly. That property
+> should stay.
+>=20
+> What seems to be missing is that the ops check answers "may I dereference=
+ the
+> pointer", not "may I call into the producer". The dma-fence rules say the
+> latter is not allowed once the fence is signalled, so I think both condit=
+ions
+> are needed:
+>=20
+> 	ops =3D rcu_dereference(fence->ops);
+> 	if (ops && !dma_fence_test_signaled_flag(fence))
+> 		return (const char __rcu *)ops->get_timeline_name(fence);
+> 	else
+> 		return (const char __rcu *)"signaled-timeline";
+>=20
+> The ops load keeps the RCU/ordering guarantee from 035219a760ed, and the
+> signaled check restores the contract. That fixes every implementation whi=
+ch
+> keeps .release or .wait and assumes it is not called after signalling, ra=
+ther
+> than just drm/sched, and it puts no lifetime burden on drivers.
+>=20
+> Philipp, since 035219a760ed is yours - do you agree with adding the signa=
+led
+> check back on top of the ops check? I would rather have your ack on that =
+before
+> I respin.
 
-It looks like you had a reviewed-by by someone on all these patches
-already, so you could have merged them.
+That commit has to stay because it solves an ordering problem on some
+architectures.
 
-I do have comments on the series though, see them on your latest
-version.
+I do agree to having a conversation with Christian in my other mail,
+where I wonder whether it would be better if a driver does the is-
+signaled check, holding the lock.
 
-Maxime
+These things are extremely complicated and cannot be rushed. We
+discussed dma_fence synchronization for weeks this summer and concluded
+that there is no easy solution at hands for some problems, notably
+because of callbacks and legacy callbacks, and also because Christian
+and I disagree on to what degree a fence should be locked.
 
---mwzbtbj3gnfo5lzq
-Content-Type: application/pgp-signature; name="signature.asc"
+>=20
+> One thing I noticed while checking the callers: the tracepoints in
+> include/trace/events/dma_fence.h and drivers/gpu/drm/amd/amdgpu/amdgpu_tr=
+ace.h
+> call fence->ops->get_driver_name() / get_timeline_name() directly instead=
+ of
+> going through the helpers, so they are not covered by the above. That loo=
+ks
+> like a pre-existing and much narrower exposure (tracing only), but let me=
+ know
+> if you want it addressed in the same series or separately.
 
------BEGIN PGP SIGNATURE-----
+Do you generate part of your mails with an LLM? It seems to be a huge
+corpus for 11min of time between receiving and answer
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapqDbwAKCRAnX84Zoj2+
-dhi0AX9V0v+FF43tk17YKUNo7scfgvGnbACB8czD60jcwTcj64E7k+ij/1JqzbGA
-dYQ5eMcBfAh3EL8ZwNhP4ydctLhqIq8SSEhX9P4/0uHyhBDfXxEvnEbDT0vpBZlH
-aJhlwQhn8g==
-=ts7W
------END PGP SIGNATURE-----
 
---mwzbtbj3gnfo5lzq--
+P.
