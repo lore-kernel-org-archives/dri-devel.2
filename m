@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 704FCC79F80
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:32:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E020C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7AB10F95D;
-	Fri,  4 Sep 2026 08:32:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9512E10F95F;
+	Fri,  4 Sep 2026 08:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bpf/CL+m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jTGjJxP1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A4BC10F95D
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:32:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C72610F95F
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:33:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 713DC43716;
- Fri,  4 Sep 2026 08:32:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDF91F00A3D;
- Fri,  4 Sep 2026 08:32:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E16B34381E;
+ Fri,  4 Sep 2026 08:33:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B5851F00A3D;
+ Fri,  4 Sep 2026 08:33:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788510770;
- bh=AQO2yLCuvyyjb9kwnOf42UURUHWUmykZv1MVLPFfndU=;
+ s=k20260515; t=1788510796;
+ bh=y/nk14eD2Y0cqgzJGSt+5FjulJ5arXb8251Zy5w04Iw=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=Bpf/CL+mJpaJzRAHF4YSGGkjyZT3Tgm8ZZ00BZVxvd300hDOS32rnJUr4NJxPZKgQ
- lWn0O9g9v9ZvzRWkIHkwQuLcbOq/Iczn1VyoAO2eL7q54UsTiHcT8rXKLUAA0aBAQr
- em3QLSDP4uArMdwvMQWXZ0MfTWHp4KXTY/GGVdVAsByHIhm2rzYBhpi9yU2NQPgtnt
- QYCi5Gb4vQCjjrGu9ouZCOkRUlR6JvvmDrNqOvg81ov29WM+qI5Atuc3zNmCY7gVM0
- P8St61CwKFdyqIUJjbkfWlhTfehweZ+aUyF9BbPip2GRJKKQh5qBMt4hZMazS0+7uQ
- NuvgHLm3SyvUA==
-Message-ID: <c25980ef93153c0edc6c5bd73e2e2a6a@kernel.org>
-Date: Fri, 04 Sep 2026 08:32:47 +0000
+ b=jTGjJxP1aBNnB3vfu+LiWsWU/lVajEblCXSl6iHSZYPp6UGTE3BXo0Lhh/051QHsO
+ m/Zfk2EEsmpNzwD9Aqi1DUj6G3uRFNtsdw8PbyDBmpItS8Y3BWj0mBINDbfLeCQdmY
+ 3J1I0N0AgAmwOAwdxYhNuc7UQbRMiHeFtxBSylUiCjTD0Nz9EZ94pU6GxRuRhoSs2C
+ Ukwy/s3zDvBp98es3I477+izGPFpiWvGSeEXnfwu2SnRiEI8ChwSM41P3ZmOw8gxrP
+ Vg/Z3Pj0ND9N3DtjqfssIcordwH/hBx8xjC/SBYeBvJUG5hSPwUcwyBe9eDKSv2gAB
+ mEBaOcdLb+gSw==
+Message-ID: <d6323392130ed13cc5d1da8c2165115d@kernel.org>
+Date: Fri, 04 Sep 2026 08:33:13 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Liu Ying" <victor.liu@nxp.com>
-Subject: Re: [PATCH v6 08/13] drm/imx: dc-ed: Support getting source selection
-In-Reply-To: <20260904-imx8-dc-prefetch-v6-8-26643e3f6cb7@nxp.com>
-References: <20260904-imx8-dc-prefetch-v6-8-26643e3f6cb7@nxp.com>
+Subject: Re: [PATCH v6 09/13] drm/imx: dc-lb: Support getting secondary
+ input selection
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-9-26643e3f6cb7@nxp.com>
+References: <20260904-imx8-dc-prefetch-v6-9-26643e3f6cb7@nxp.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, "Conor
@@ -66,10 +67,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 4 Sep 2026 15:54:58 +0800, Liu Ying wrote:
-> Add a helper to get ExtDst source selection.  This is needed by
-> disabling CRTC at boot in an upcoming commit which tries to get
-> the source selection.
+On Fri, 4 Sep 2026 15:54:59 +0800, Liu Ying wrote:
+> Add a helper to get LayerBlend secondary input selection.  This is
+> needed by disabling CRTC at boot in an upcoming commit which tries
+> to get the selection.
 > 
 > Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > 
