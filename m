@@ -4,84 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF1AC61DD6
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 14:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61E47C61DD6
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 14:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 353D110F9AD;
-	Fri,  4 Sep 2026 14:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD2F10F9F4;
+	Fri,  4 Sep 2026 14:00:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IOwa0Gl3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IBQAWG+I";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A8D10F9AD
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:59:58 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-499db1740f0so451735e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 06:59:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788530397; x=1789135197; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=pL5oIYV7zk9vcM9H1fRzBKbJl+oOE//iZp70tDsfKtQ=;
- b=IOwa0Gl34pGcYjQwjqninB+ubQPl7e55FBGj+y9HIKOxrJ61nWDG70i5xBxihFXZ5x
- f0Cz6w0ZhoUMGIC287G/7G//U688XFVEIHm2t8+4AV2nUwVUG8Qln2ziVwBRGtbbfVDL
- UUwpY02cGov+rbfPlEYR8VDOFksjBKotKP2VsWu7LOB9MvFE1aPBCC0bEqYj3Ea8drnU
- K8e0QJmSrynA/wzjED74Bge8I+ZtEvSeK+VOQ5M9BCoa8iRG62PEy/yhQySuNP8d2kkm
- cZbOBI0yZWNy3G/jjtZqdAGnkIWsW8OWIEt4ajiwajr0XTzueUutwEcR3J2d1SzeBJiz
- 3VTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788530397; x=1789135197;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=pL5oIYV7zk9vcM9H1fRzBKbJl+oOE//iZp70tDsfKtQ=;
- b=LdwrNAmD6iq7oqHIFzYv0UWiV/Y4J8v/mRXrlHgMuMIYlTGAQijOfI5GBXA4rsvp/E
- 57gzrXTVTXZYz0wZ2EM0V7ttliwS8WrmCJGvT/rpXiKVz/mCOtyytQZkXJro/EhYuG0Y
- AyGm/2FSiVfvYi8tw5wqFDN+ssbdB7Zf71ES/Bu7zSZ20bnUqXee1cuo/8kVZDEqBswl
- s33YHXvSnwsK9kuMzTIsRBJSlPVi6phU0VGI4YNjS473XO14399FyEYA7xLYl4Wy/gtm
- o8ah1hgJ0XY4Q9obvRp2qRQQQtp5HO2DOH4Gnl+of/Ec7DGMhEej5LVPfnfTXlgkcZon
- woNg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz9/+9ZW+dsuTNQzmfL+7qiaXk6MjVpxbbLhbLOeNtblT3UcGGU5OUexQw9Y5Qtw/dG7KyeF1uO3Bs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lbBBwezbHCsraSwX95dnL9VCkZQiq3+rb/xtMNAVe659KsqCDx
- ZZ8C8OeJ3ho48dufHSFOWv64OLdA2zWKx/X4RAZH465y5I8wF4VIVocA
-X-Gm-Gg: AYBFou1ddPLtE8AXtQlEXWo07MjeyVCh5AedX9w6wQpZ4vsjhlVil2hsiQn1TooFAXK
- 64wblqiWWZTN9dZQ6bL8A10VRhtC0Dt8MjGZHMzjdRJJlPGS78NDyNMvK0kWDB2n+kLmlb3zuud
- jYXnph16gAYfX7TS+fs3/1Xgrsepbs3ERXrondGE+s0PUrgSbGvbZ3Za/+cfBxasZH/0lQiCGLj
- X5VpyEM/dg186h0N+bj45yroTzrQMaPwTGLD8l93/N48qSJgLf6wWGw3nxMm0VBR/ruYFI/btre
- kAULol+2dISh+4nOdr6nkIktlfP/TQTQIXuUyDdiQFf5D9SztAgrFAon9PteOcjL/uzxpASsmd/
- zMr5YCUdSkdOUSihjCenwEG6Yp6Ge8ThRSjqEf53/xlmk7PMfjRidfQC6+ApjGBmbaKJpo9NeH6
- o4S4F/hrQriO+l1/eUp5falDMOdmos5CJ3iUjcRhXQE2bkl5Bel2bexxs+5nEIJWooQ28rav4AW
- qVJxGaxcabzsGneNfxPNbSfe/t9uHOPgzbkI1Y9cBda7SSwpOSQO8NBaqWTKsyUV1nSJ/Oq3PcL
- 1KHhiA==
-X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id
- 5b1f17b1804b1-49cf823c012mr44419095e9.1.1788530396364; 
- Fri, 04 Sep 2026 06:59:56 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B871500455C8730D6A15F49.dsl.pool.telekom.hu.
- [2001:4c4e:1b87:1500:455c:8730:d6a1:5f49])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf770fcf5sm70619115e9.6.2026.09.04.06.59.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 06:59:55 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>,
- Guangshuo Li <lgs201920130244@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH] accel/rocket: search every core slot when a core is
- removed
-Date: Fri,  4 Sep 2026 15:59:36 +0200
-Message-ID: <20260904135938.8757-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904125936.26234-1-royalnet026@gmail.com>
-References: <20260904125936.26234-1-royalnet026@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE62410F9DB
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 14:00:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3BC9E6020A;
+ Fri,  4 Sep 2026 14:00:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41261F00AC4;
+ Fri,  4 Sep 2026 14:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788530401;
+ bh=HVxtnXcXhjuu7nWb7gwK1VYqDBwl6ZvENMEGX7Jr8wg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IBQAWG+IPOS+e7Vh5QXnmuBASkA6sMeOvrWV8KfonJ7XTmzl/ajTvO9Mlzu8V4owd
+ tYYNxWkDhm4Jpz1XmXKdKChQxFhU3Blosmti9Wf5tIfG/76X9gpo0PKR/M/AEIcbFA
+ MhcfSXqKZjfM1J/LDVMjwTbR3vKmYDRtcB/eDD7R+5Wxqbl8k8ze7JROn6b8XvpfX0
+ zp/UtgCOPsSjLXjc1jkgRbU0compX339FIgibrxSEytk0yUDf0SWxGmdfvC20b9cyW
+ /hp77buCFHXg5xrjAMYNpEe88zRFQnt3b7WXRDLr+vpkbAhGV5FYdmWVsYL405bvG5
+ XLdL1YfMJmUGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 16/19] phy: rockchip: inno-hdmi: Use the common
+ Innosilicon PHY helpers
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, robh@kernel.org,
+ conor+dt@kernel.org, linux-clk@vger.kernel.org, olteanv@gmail.com,
+ devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org,
+ mfd@lists.linux.dev, lee@kernel.org
+In-Reply-To: <20260904-jh7110-clean-send-v3-16-484f9ae72715@samsung.com>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132739eucas1p223161c8aa461d6ad18786635ab3c9de4@eucas1p2.samsung.com>
+ <20260904-jh7110-clean-send-v3-16-484f9ae72715@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 13:59:59 +0000
+Message-Id: <20260904140000.D41261F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,53 +58,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Answering the one question that is about this patch rather than about the
-state it leaves behind, and confirming the rest.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Unused macros `RK3328_SPREAD_SPECTRUM_MOD_DOWN` and `RK3328_SPREAD_=
+SPECTRUM_MOD_DISABLE` were left behind despite the commit message claiming =
+that unused pre-PLL macros were removed.
+--
 
-> Because rocket_remove() doesn't clear the dev pointer or compact the
-> array, wouldn't subsequent out-of-order unbinds match stale pointers
-> since find_core_for_dev() now searches up to max_cores?
+commit 103e72298ee1993440baf6c4457495f034d88185
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-There are three callers: rocket_remove() and the two runtime PM callbacks.
-The driver core calls remove once per device, and the PM callbacks cannot
-run for an unbound one, because rocket_core_fini() has already called
-pm_runtime_disable() on it. The slots the widened search adds are either
-never filled, where .dev is NULL and matches nothing, or held by a device
-that has been unbound - and nothing asks after such a device again.
+phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
 
-What the narrower search did do was lose live cores. Unbind the core in
-slot 0 of three: num_cores drops to two, so find_core_for_dev() stops
-before slot 2. The core sitting there is still bound and still running,
-but its own runtime suspend and resume callbacks start returning -ENODEV.
-Searching every allocated slot fixes that as well.
+This commit refactors the RK3328 pre-PLL programming to use shared
+Innosilicon PHY helpers. It removes local copies of register-level code,
+macros, and table lookups. The RK3228 retains its own register code while
+sharing the table lookup.
 
-An earlier version of this patch did clear .dev on removal and take a free
-slot on probe. I dropped both. Clearing .dev turns rocket_open()'s
-unconditional cores[0] into a NULL dereference whenever the core in slot 0
-is unbound while its siblings stay bound, which is a worse failure than
-the one it cures - and it is the same rocket_open() issue listed further
-down. That is why the commit message says out-of-order unbind wants more
-thought than a fix should carry, rather than quietly half-fixing it.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c b/drivers/phy/=
+rockchip/phy-rockchip-inno-hdmi.c
+> index c3d257a0f4a65..17229d039132e 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
+> @@ -130,42 +131,17 @@
+>  #define RK3328_INT_VSS_AGND_ESD_DET			BIT(1)
+>  #define RK3328_INT_AGND_VSS_ESD_DET			BIT(0)
+>  /* REG: 0xa0 */
+> -#define RK3328_PCLK_VCO_DIV_5_MASK			BIT(1)
+> -#define RK3328_PCLK_VCO_DIV_5(x)			UPDATE(x, 1, 1)
+>  #define RK3328_PRE_PLL_POWER_DOWN			BIT(0)
+>  /* REG: 0xa1 */
+> -#define RK3328_PRE_PLL_PRE_DIV_MASK			GENMASK(5, 0)
+> -#define RK3328_PRE_PLL_PRE_DIV(x)			UPDATE(x, 5, 0)
+>  /* REG: 0xa2 */
+>  /* unset means center spread */
+>  #define RK3328_SPREAD_SPECTRUM_MOD_DOWN			BIT(7)
+>  #define RK3328_SPREAD_SPECTRUM_MOD_DISABLE		BIT(6)
 
-On the rest: all eight are pre-existing and I agree with all eight. Two of
-them have names already.
+[Severity: Low]
+Are these macros still needed? The commit message states that unused pre-PLL
+macros are being removed, but these appear to have been left behind. Since
+the shared helper uses its own definitions, are these now orphaned dead cod=
+e?
 
-The ERR_PTR left in the file-scoped rdev is fixed by Guangshuo Li's
-"accel/rocket: clear rdev on device init failure", posted in July and
-still unapplied:
+> -#define RK3328_PRE_PLL_FRAC_DIV_DISABLE			UPDATE(3, 5, 4)
+> -#define RK3328_PRE_PLL_FB_DIV_11_8_MASK			GENMASK(3, 0)
+> -#define RK3328_PRE_PLL_FB_DIV_11_8(x)			UPDATE((x) >> 8, 3, 0)
+>  /* REG: 0xa3 */
 
-  https://lore.kernel.org/dri-devel/20260708062845.716487-1-lgs201920130244@gmail.com/
-
-It carries my Reviewed-by. It would be good to see that one land.
-
-The devm point may explain something I measured this week and could not
-account for. Unbinding and rebinding all three cores walks the DRM minor
-upwards - 1 through 10 over ten rounds in one run - and only a module
-reload puts it back to 0. I have not shown that the allocations are
-leaked, only that something survives a rebind that should not, which is
-consistent with what you describe.
-
-Igor
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-jh7110-cle=
+an-send-v3-0-484f9ae72715@samsung.com?part=3D16
