@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB33C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFEE9C624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:05:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A26610F910;
-	Fri,  4 Sep 2026 08:03:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B57C10F918;
+	Fri,  4 Sep 2026 08:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JX1onWhG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kFTnI2fo";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55C2910E547
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:03:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A61110F918
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:05:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 768F060211;
- Fri,  4 Sep 2026 08:03:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1651F00A3D;
- Fri,  4 Sep 2026 08:03:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D221360A74;
+ Fri,  4 Sep 2026 08:05:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482851F00A3D;
+ Fri,  4 Sep 2026 08:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788509002;
- bh=s/zSK9glIZgaFavTSPNYXa7U6OoG5C31lrRAZTpFKNM=;
+ s=k20260515; t=1788509144;
+ bh=6RpabjVQt9uFzoR0XoNaDXT8Bv+EV2ek9z+0sXs4biE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JX1onWhGrn8yxZQlI4CcfGk1Co/Ts8c37PwXDDg2T+jC54nLUaTpp090KAzSaKW3J
- tmo/kKR5GYiNERbc5KkAkg9Y95BFv92UmfQjFAmEEEeiopDVd9EPzxw4I1IZmBLShg
- unCF4IrawZqXg7CgeorqOZO4K9lg18yIVi5GYwDkaKPe6lJFy3yQjD5vyysnkqYfJ2
- 4cqJYB0IpWU02C21TF2jttWzRfX8SHt8fZyr3TTB7JbxHOd/xSOCdFSCeRdMDbUDn0
- JOnih7BeB3GqnM+WTdXZE1REQgm1058SV44yVg+nnGeqndHduL7M5zQM9e9spAJfp8
- 4EL54/ab+gkBQ==
+ b=kFTnI2foS0kcw4hU8mlDNZo6fRs4sSAiAmUKNG5W2hXZwlyGSQFniS4V9kOns5qgP
+ It4sMVE1nf+dUbCRoi78NpnOhjk4l9cVXQZgxliQhK021GxxpIgwCgAkOWTlcC/Krc
+ GA/sdLqi6n/aOpBTSkMK2x08XDlorctZ55e7tWwbOTqJa5KJYcLIjwgZYj2C/0hrCs
+ 0P5QcZfq6srFrFvOhQb3qlV7ClvVrTgMaHRXntQaf/AMlCyBYbzuoaU2JsKFR9CRAJ
+ DT/o/1k+/Q15knoN0R+/VybzHK8SLOicMG49XtcqlUjbilXwiTMK6T5BTeDeV79qzt
+ M89M5O2ShbBcw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 10/13] drm/imx: dc-ed: Drop initial source selection
+Subject: Re: [PATCH v6 07/13] drm/imx: dc: Use TCON operation mode
 To: "Liu Ying" <victor.liu@nxp.com>
-Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Frank.Li@kernel.org
-In-Reply-To: <20260904-imx8-dc-prefetch-v6-10-26643e3f6cb7@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, Frank.Li@kernel.org,
+ robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
 References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
- <20260904-imx8-dc-prefetch-v6-10-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 08:03:21 +0000
-Message-Id: <20260904080321.BD1651F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 08:05:43 +0000
+Message-Id: <20260904080544.482851F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,76 +58,133 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Regmap accesses inside the IRQ-disabled section use a non-raw spin=
+lock, triggering a sleep-in-atomic bug on PREEMPT_RT.
+- [High] TCON hardware is programmed using logical mode timings instead of =
+the required adjusted CRTC physical timings.
+
 Pre-existing issues:
-- [High] Unconditional dereference of potentially NULL component pointers d=
-uring pixel engine runtime resume.
+- [High] Polling jiffies in a busy loop with local interrupts disabled lead=
+s to a hard lockup.
 --
 
-commit 0e56cfa8da82fa905cb37a791e64c203dd9bf7e5
+commit 1e5ba5ba9464ec8a1530f337a9b8808253bcb887
 Author: Liu Ying <victor.liu@nxp.com>
+drm/imx: dc: Use TCON operation mode
 
-drm/imx: dc-ed: Drop initial source selection
+This commit introduces TCON operation mode to generate customized output
+timings by ignoring FrameGen sync signals. It switches TCON to operation
+mode during CRTC enable to allow the prefetch engine to evade the first
+dumb frame.
 
-It's unnecessary to set initial ExtDst source selection because KMS
-driver would do that when doing atomic commits.
-
-> diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-e=
-d.c
-> index b8ab41271bb40..803b3e891a1e6 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-ed.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-ed.c
-> @@ -202,7 +202,6 @@ static inline void dc_ed_disable_gamma_apply(struct d=
-c_ed *ed)
+> diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc=
+-crtc.c
+> index 71694f1244e17..eae9bd164b230 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
+[ ... ]
+> @@ -273,7 +285,22 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct =
+drm_atomic_commit *state)
+[ ... ]
+> +	/* Don't relinquish CPU until TCON is set to operation mode. */
+> +	local_irq_save(flags);
+> +	preempt_disable();
 > =20
->  void dc_ed_init(struct dc_ed *ed)
->  {
-> -	dc_ed_pec_src_sel(ed, LINK_ID_NONE);
->  	dc_ed_pec_enable_shden(ed);
+>  	dc_fg_enable(dc_crtc->fg);
+> +	/*
+> +	 * Turn TCON into operation mode as soon as the first dumb
+> +	 * frame is generated by DC(we don't relinquish CPU to ensure
+> +	 * this).  This makes DPR/PRG be able to evade the frame.
+> +	 */
+> +	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
 
 [Severity: High]
-This is a pre-existing issue, but does this function dereference the ed poi=
-nter
-without checking if it's NULL?
+This is a pre-existing issue, but duplicating this pattern here might lead
+to a hard lockup.
 
-Looking at dc_pe_runtime_resume() in drivers/gpu/drm/imx/dc/dc-pe.c, it
-unconditionally loops over fixed-size arrays:
+The DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING macro eventually calls
+dc_fg_wait_for_frame_index_moving(), which polls the hardware state in a
+do-while loop bounded by time_before(jiffies, timeout).
 
-    for (i =3D 0; i < ARRAY_SIZE(pe->ed_safe); i++)
-        dc_ed_init(pe->ed_safe[i]);
+Because local interrupts are disabled here via local_irq_save(), the timer
+tick cannot run. If this CPU is responsible for updating jiffies (or on a
+UP system), jiffies will never increment. If the hardware frame index
+fails to move, will this loop spin infinitely and trigger a watchdog or
+CPU stall?
 
-    for (i =3D 0; i < ARRAY_SIZE(pe->ed_cont); i++)
-        dc_ed_init(pe->ed_cont[i]);
+(This flawed pattern already existed in dc_crtc_atomic_flush(), but this
+patch duplicates it into dc_crtc_atomic_enable()).
 
-    for (i =3D 0; i < ARRAY_SIZE(pe->fu_disp); i++)
-        pe->fu_disp[i]->ops.init(pe->fu_disp[i]);
+> +	dc_tc_set_operation_mode(dc_crtc->tc);
 
-If any sub-component of the display pipeline (such as extdst, constframe, o=
-r fu)
-is marked as status =3D "disabled" in the device tree, the component master=
- in
-dc-drv.c uses for_each_available_child_of_node() and only binds the availab=
-le
-components.
+[Severity: High]
+Does this regmap write trigger a sleep-in-atomic bug on PREEMPT_RT?
 
-The pointers corresponding to disabled components remain NULL. When
-dc_pe_runtime_resume() executes, it passes these NULL pointers to initializ=
-ation
-functions like dc_ed_init(), which immediately dereferences them when calli=
-ng
-dc_ed_pec_enable_shden(). It also directly dereferences them when calling
-pe->fu_disp[i]->ops.init().
+Calling dc_tc_set_operation_mode() here triggers a regmap write. Since we
+are inside a local_irq_save() block, and the TCON regmap (configured in
+dc_tc_regmap_config) lacks .use_raw_spinlock =3D true, it will attempt to
+acquire a sleepable rt_mutex on PREEMPT_RT, violating lock nesting rules.
 
-Disabling unused display pipes in the device tree is a standard configurati=
-on
-practice for generic SoCs, but doing so appears to cause a kernel panic here
-during device runtime resume.
+> +
+> +	local_irq_restore(flags);
+> +	preempt_enable();
+[ ... ]
+> diff --git a/drivers/gpu/drm/imx/dc/dc-tc.c b/drivers/gpu/drm/imx/dc/dc-t=
+c.c
+> index d0d4faba790e5..746fcaaf97f56 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-tc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-tc.c
+[ ... ]
+> @@ -46,7 +77,7 @@ static const struct regmap_config dc_tc_regmap_config =
+=3D {
+>  	.fast_io =3D true,
+>  	.wr_table =3D &dc_tc_regmap_access_table,
+>  	.rd_table =3D &dc_tc_regmap_access_table,
+> -	.max_register =3D MAPBIT31_28,
+> +	.max_register =3D SMXFCTTABLE(3),
+>  };
 
->  	dc_ed_pec_poweron(ed);
->  	dc_ed_pec_sync_mode_single(ed);
+[Severity: High]
+Does this regmap configuration need .use_raw_spinlock =3D true?
+
+Since .fast_io =3D true is set without .use_raw_spinlock, the regmap protec=
+ts
+fast I/O with a standard spinlock_t. On PREEMPT_RT kernels, spinlock_t
+becomes a preemptible rt_mutex which can sleep, causing crashes if accessed
+while hardware interrupts are disabled.
+
+[ ... ]
+> @@ -59,10 +90,85 @@ static const u32 dc_tc_mapbit[] =3D {
+[ ... ]
+> +void dc_tc_cfg_videomode(struct dc_tc *tc, struct drm_display_mode *m)
+> +{
+> +	int hdisplay, hsync_start, hsync_end;
+> +	int vdisplay, vsync_start, vsync_end;
+> +	int y;
+> +
+> +	hdisplay =3D m->hdisplay;
+> +	vdisplay =3D m->vdisplay;
+> +	hsync_start =3D m->hsync_start;
+> +	vsync_start =3D m->vsync_start;
+> +	hsync_end =3D m->hsync_end;
+> +	vsync_end =3D m->vsync_end;
+
+[Severity: High]
+Are these the correct timings to use for TCON hardware programming?
+
+By extracting the logical mode timings (e.g., m->hdisplay) instead of the
+physical adjusted timings (e.g., m->crtc_hdisplay), we might program the
+TCON and FrameGen with mismatched timings.
+
+FrameGen correctly uses the adjusted crtc_* variants. If a DRM bridge or
+encoder adjusts the physical timings (like scaling or interleaving) while
+leaving logical timings intact, will this mismatch cause sync loss, visual
+corruption, or panel failure?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-imx8-dc-pr=
-efetch-v6-0-26643e3f6cb7@nxp.com?part=3D10
+efetch-v6-0-26643e3f6cb7@nxp.com?part=3D7
