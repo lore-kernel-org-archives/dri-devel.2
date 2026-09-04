@@ -4,95 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78D60C61DD6
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA6E8C61DD6
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:27:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D04910E18B;
-	Fri,  4 Sep 2026 13:19:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC31D10E1B1;
+	Fri,  4 Sep 2026 13:27:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="2642HDYe";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="lJUSyvtL";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D236410E18B;
- Fri,  4 Sep 2026 13:19:48 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id EE64F1A19A7;
- Fri,  4 Sep 2026 13:19:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B75046057F;
- Fri,  4 Sep 2026 13:19:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8738D11C7ACEC; 
- Fri,  4 Sep 2026 15:19:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1788527979; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=eKdsKrjP8I//pYngbU84Hx6Mj3qol3bXMUhsukU9fBU=;
- b=2642HDYeLffHlkgB9z2+TQ+SSTVjdieJldjZdhT2KdVmbGlCSxt4KomKKeZSTuwyx4GNyd
- 48mlM1abkyZgzXNKlCjdwF4XdQYpfbG9DTu96mOnbhP16IevUntbM9O7JEFLz/wKXS1qjH
- 40w53YGR8WRxzpsdG8EparhTB9a96ZFIBeTFeVAsGGu4J/gDWSKCXKS1TpVDXwBLFRmqTx
- 7v9y8wljVv0E2Z63CtT1qBmaHC9S0UaMpF1re16G8SU0nXMTAnSEp0IfjVBg8hggkv6A6P
- ZKqCFYoCDQ2ecsSaFY4XQhf/7QZUGc/XonUx0uHl+O7uAi7zR7Zk50/VsPSNAA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 15:19:15 +0200
-Message-Id: <DL6K8VPR37C3.2LQJ8ZM6PIZTS@bootlin.com>
-Subject: Re: [PATCH 1/3] drm: fix typos in comments
-Cc: <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <spice-devel@lists.freedesktop.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <cgroups@vger.kernel.org>
-To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, <phasta@kernel.org>,
- "Hemanth Selam" <hemanth.selam@gmail.com>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Neil Armstrong" <neil.armstrong@linaro.org>, "Robert Foss"
- <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Patrik Jakobsson"
- <patrik.r.jakobsson@gmail.com>, "Laurentiu Palcu"
- <laurentiu.palcu@oss.nxp.com>, "Lucas Stach" <l.stach@pengutronix.de>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
- <festevam@gmail.com>, "Jianmin Lv" <lvjianmin@loongson.cn>, "Qianhai Wu"
- <wuqianhai@loongson.cn>, "Huacai Chen" <chenhuacai@kernel.org>, "Mingcong
- Bai" <jeffbai@aosc.io>, "Xi Ruoyao" <xry111@xry111.site>, "Icenowy Zheng"
- <zhengxingda@iscas.ac.cn>, "Dave Airlie" <airlied@redhat.com>, "Jocelyn
- Falempe" <jfalempe@redhat.com>, "Lyude Paul" <lyude@redhat.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Gerd Hoffmann" <kraxel@redhat.com>, "Kieran Bingham"
- <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Matthew
- Brost" <matthew.brost@intel.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Samuel
- Holland" <samuel@sholland.org>, "Huang Rui" <ray.huang@amd.com>, "Matthew
- Auld" <matthew.auld@intel.com>, "Dave Stevenson"
- <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Dmitry Osipenko"
- <dmitry.osipenko@collabora.com>, "Gurchetan Singh"
- <gurchetansingh@chromium.org>, "Chia-I Wu" <olvaffe@gmail.com>, "Zack
- Rusin" <zack.rusin@broadcom.com>, "Broadcom internal kernel review list"
- <bcm-kernel-feedback-list@broadcom.com>, "Michal Simek"
- <michal.simek@amd.com>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Natalie
- Vock" <nat@pixelcluster.dev>, "Tejun Heo" <tj@kernel.org>, "Johannes
- Weiner" <hannes@cmpxchg.org>, =?utf-8?q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260904120430.17224-1-hemanth.selam@gmail.com>
- <20260904120430.17224-2-hemanth.selam@gmail.com>
- <8b4194fcb6fdb11af10fc81a1a7c915ad71003a0.camel@mailbox.org>
- <a64864e0-3f10-4f81-b304-c45ef932817a@ideasonboard.com>
-In-Reply-To: <a64864e0-3f10-4f81-b304-c45ef932817a@ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB0D210E156
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:27:10 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260904132708euoutp027b39fcdae3b75029c3046fd14c235061~SISFHfxtx2161821618euoutp02F;
+ Fri,  4 Sep 2026 13:27:08 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260904132708euoutp027b39fcdae3b75029c3046fd14c235061~SISFHfxtx2161821618euoutp02F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1788528428;
+ bh=rtPdAWcZxGLOLEoBSzPit4Qbi3GHLwsfRQH+5GjiIo4=;
+ h=From:Subject:Date:To:Cc:References:From;
+ b=lJUSyvtLijY76zELtorg8awbzuqLudlUzozLob9WY9Ge8qbDeRC30qXDr8D3bNKKG
+ 6FSJNVnU+vMMzG039H7upmoQEVOerQHAuGkdLQXYGI9IPU3BE7aTmqG0nYubCr2Gu0
+ E4su+CkkYYto649xVIjr1AE2r+LYQLqeWpIPqHew=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915~SISE1AP8g3167231672eucas1p1H;
+ Fri,  4 Sep 2026 13:27:08 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+ [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260904132706eusmtip1a697bad44d37ea6418140cefa21ee2c1~SISDBxmjk1778317783eusmtip16;
+ Fri,  4 Sep 2026 13:27:06 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Subject: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
+Date: Fri, 04 Sep 2026 15:27:01 +0200
+Message-Id: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACXHmmoC/23NTQ7CIBCG4as0rMUMQ3/AlfcwLijQFmOpASWap
+ neXdmNMuny/ZJ6ZSbTB2UhOxUyCTS66yefgh4LoQfneUmdyEwSsGHBGb0PDGFB9t8rTaL2hjUE
+ skTEBWJN89wi2c+/NvFxzDy4+p/DZXiRc11WrQaDY0RJSoJyzWoAWrTTsHNUYX74/6mkkq5f4z
+ 5BQ7hk8Gwq0bKu2K2Vj/41lWb6BuzZh+AAAAA==
+X-Change-ID: 20251031-jh7110-clean-send-7d2242118026
+To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Andrzej
+ Hajda <andrzej.hajda@intel.com>,  Robert Foss <rfoss@kernel.org>,  Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,  Simona
+ Vetter <simona@ffwll.ch>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,  Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>,  Philipp Zabel <p.zabel@pengutronix.de>, 
+ Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+ <hal.feng@starfivetech.com>,  Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,  Heiko
+ Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,  Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,  Jerome
+ Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>,  Marek
+ Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+ <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+ Zheng <zhengxingda@iscas.ac.cn>,  Michal Wilczynski
+ <m.wilczynski@samsung.com>
+X-Mailer: b4 0.15-dev
+X-CMS-MailID: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
+X-EPHeader: CA
+X-CMS-RootMailID: 20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915
+References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,160 +99,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 4, 2026 at 2:34 PM CEST, Tomi Valkeinen wrote:
-> Hi,
->
-> On 04/09/2026 15:13, Philipp Stanner wrote:
->> On Fri, 2026-09-04 at 17:34 +0530, Hemanth Selam wrote:
->>> Fix typos in comments, reported by scripts/checkpatch.pl using the
->>> misspelling list in scripts/spelling.txt.=C2=A0 Only touches comments, =
-no code
->>> changes.
->>>
->>> Assisted-by: Cursor:claude-opus-5
->>> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
->>> ---
->>>  =C2=A0drivers/dma-buf/sync_debug.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/bridge/parade-ps8622.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-2 +-
->>>  =C2=A0drivers/gpu/drm/bridge/samsung-dsim.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 2 +-
->>>  =C2=A0drivers/gpu/drm/bridge/tc358767.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 6 +++---
->>>  =C2=A0drivers/gpu/drm/display/drm_dp_mst_topology.c=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/drm_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/gma500/oaktrail_lvds.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-2 +-
->>>  =C2=A0drivers/gpu/drm/gma500/power.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/gma500/psb_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
->>>  =C2=A0drivers/gpu/drm/imx/dcss/dcss-ctxld.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 2 +-
->>>  =C2=A0drivers/gpu/drm/loongson/lsdc_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/mgag200/mgag200_g200se.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/nouveau/dispnv50/tile.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/nouveau/nouveau_bios.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-2 +-
->>>  =C2=A0drivers/gpu/drm/nouveau/nouveau_exec.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-2 +-
->>>  =C2=A0drivers/gpu/drm/nouveau/nouveau_led.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 2 +-
->>>  =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/gr/ctxnv50.c=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/gr/gf100.c=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/omapdrm/dss/dispc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 4 ++--
->>>  =C2=A0drivers/gpu/drm/omapdrm/omap_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/panel/panel-novatek-nt36672a.c=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/panel/panel-samsung-s6e63j0x03.c=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/qxl/qxl_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-4 ++--
->>>  =C2=A0drivers/gpu/drm/sun4i/sun4i_tcon.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/tiny/panel-mipi-dbi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 2 +-
->>>  =C2=A0drivers/gpu/drm/ttm/ttm_pool.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/vc4/vc4_hdmi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/vc4/vc4_regs.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/virtio/virtgpu_ioctl.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-2 +-
->>>  =C2=A0drivers/gpu/drm/vmwgfx/device_include/vm_basic_types.h | 2 +-
->>>  =C2=A0drivers/gpu/drm/vmwgfx/ttm_object.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 6 +++---
->>>  =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_kms.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_so.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/vmwgfx/vmwgfx_surface.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/drm/xlnx/zynqmp_dp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0drivers/gpu/ipu-v3/ipu-prg.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0include/drm/drm_framebuffer.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++--
->>>  =C2=A0include/drm/drm_plane.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-2 +-
->>>  =C2=A0include/uapi/drm/nouveau_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0include/uapi/drm/vmwgfx_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
->>>  =C2=A0kernel/cgroup/dmem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 2 +-
->>>  =C2=A045 files changed, 53 insertions(+), 53 deletions(-)
+This series enables the display subsystem on the StarFive JH7110.
 
-[...]
+The dom_vout block holds the display controller (dc8200), the clock
+generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
+a single register block containing both the controller and the PHY, and
+it has a circular clock dependency with voutcrg:
 
->> Not sure if the cost-benefit-ratio would then pay off?
-> I would skip these. Fixing a typo in a key-word (say, a register name)
-> would be useful, but I'm not sure if any of these count.
+  - the HDMI controller needs pclk/mclk/bclk from voutcrg
+  - voutcrg needs the pixel clock for its dc8200 pixel MUXes, and that
+    clock is generated by the HDMI PHY
 
-I agree, and a patch touching so many files will be annoying to cherry-pick
-due to conflicts.
+The loop only exists if the HDMI block is treated as one device. The
+PHY's reference clock is xin24m, not a voutcrg output, so splitting the
+node into a parent plus phy and controller children gives deferred probe
+a linear order: hdmi-phy, then voutcrg, then hdmi-controller.
 
-I'd save LLM water and energy consumption for more valuable changes.
+The parent maps the register block and owns the regmap its two children
+share. Everything in the region sits behind one NoC port whose clock and
+reset gate access to it, inside PD_VOUT, so the vout subsystem node from
+the RFC is back and owns those for as long as any child exists.
 
-Luca
+Patch 10 adds a .mode_valid platform op to inno-hdmi.
+inno_hdmi_bridge_mode_valid() checks the pixel clock against
+hdmi->refclk, but that clock only exists where a "ref" clock is
+described. The JH7110 gets its pixel clock from the PHY, so refclk is
+NULL and the check was skipped: unsupported modes were advertised, the
+modeset then "succeeded" because the atomic enable path cannot fail, and
+the display stayed blank.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Patches 15-17 drop the PHY duplication from the RFC. The JH7110 has the
+same Innosilicon PHY as the RK3328, offset by 0x100 because it sits
+behind the controller in the shared register block. Patch 15 factors out
+the pre-PLL config format, table lookup, determine_rate, recalc_rate and
+the pre-PLL programming; patch 16 moves Rockchip onto it; patch 17 adds
+the JH7110 driver. Pixel clock tables, post-PLL and analog config stay
+SoC specific.
+
+Patch 16 should be a no-op for Rockchip - same writes, same order, same
+values - and RK3228, whose pre-PLL is at different addresses, keeps its
+own register code and shares only the lookup. I have no Rockchip
+hardware, so it is build tested only (arm and riscv). A Tested-by would
+help.
+
+The dc8200 driver, th1520 reset controller and inno-hdmi bridge that the
+RFC listed as prerequisites are all upstream now, so there are no
+out-of-tree dependencies.
+
+Testing
+=======
+
+Tested on a VisionFive 2 v1.3B using modetest.
+
+All 42 modes the sink advertises work, with nothing in dmesg. Pixel
+clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
+(4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
+rate families.
+
+The four modes the RFC reported as broken work now too: 2560x1440@59.95,
+2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
+
+Before patch 10, four of the advertised modes failed: 1680x1050@59.95
+(146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
+1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
+table, so clk_set_rate() returned -EINVAL and the screen stayed black
+while userspace saw a successful modeset. They are rejected in
+.mode_valid now; the other refresh rates of those resolutions still work.
+
+Every commit builds for riscv, and the Rockchip PHY also for arm.
+
+Notes
+=====
+
+The JH7110 has no central MAINTAINERS entry and maintainership is
+fragmented, so patch 19 adds one for the display subsystem and I am
+happy to help maintain it. The new PHY library lives under drivers/phy/,
+already covered by the generic PHY framework entry.
+
+checkpatch warns "does MAINTAINERS need updating?" on the patches adding
+files, because that entry comes in patch 19.
+
+Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
+SoC and the display pipeline fit together.
+
+Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
+wrapper and helped with the testing, to Maud Spierings for testing on a
+Framework 13 panel, and to Graham Markall for testing
+the JH7110 display patches independently and writing up the results:
+https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-controller-patches/
+
+Link to v1: https://lore.kernel.org/all/20251108-jh7110-clean-send-v1-0-06bf43bb76b1@samsung.com/
+
+---
+Changes in v3:
+- Brought back the vout subsystem node and driver, now owning the NoC
+  bus clock, its reset and PD_VOUT for the whole region, with dc8200,
+  the HDMI block, the syscon and voutcrg as its children (Icenowy Zheng).
+- Fixed a hard hang when the bridge is built as a module: the PHY's
+  .is_prepared read a register in the window gated by the controller's
+  system clock, so clk_disable_unused() wedged the CPU before the
+  controller had bound. The op is gone; the framework uses the software
+  prepare count instead. (Marek Szyprowski)
+- The HDMI controller now programs the display mux in dom_vout_syscon
+  from the port graph rather than inheriting whatever the bootloader
+  left, with a phandle to the syscon (Icenowy Zheng).
+- The register access clock is named "pclk" to match the existing
+  inno-hdmi binding, so the generic driver no longer picks up the pixel
+  clock. Previously it held the pre-PLL powered from probe and sized the
+  DDC divider from the wrong rate.
+- Dropped the clk suffixes and the single-entry -names properties from
+  the bindings (Conor Dooley). mclk and bclk keep their names: per TRM
+  5.3 they are the HDMI audio clocks, not module and bus clocks, so the
+  descriptions say that instead.
+- Replaced patternProperties with plain properties in the hdmi-subsystem
+  binding (Conor Dooley).
+- dc8200 gets an SoC specific compatible, and inherits dma-noncoherent
+  from the subsystem bus node, so it validates against verisilicon,dc.
+- Added the pre-PLL entry for the Framework 13 panel and fixed two
+  devicetree whitespace nits (Maud Spierings).
+- select REGMAP_MMIO, CLK_SET_RATE_NO_REPARENT on the dc8200 pixel MUXes
+  so clk_set_rate() cannot reroute them, and inno-hdmi register reads
+  return 0 instead of stack garbage when regmap_read() fails.
+- phy: rockchip: dropped the local pre-PLL lookup wrapper and the 28 now
+  unused RK3328 pre-PLL macros, and restored the VCO debug output, this
+  time in the shared helper so both drivers get it (Jonas Karlman).
+- Rebased onto v7.3-rc1.
+- Link to v2: https://lore.kernel.org/r/20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com
+
+Changes since the RFC:
+- Dropped the vout-subsystem wrapper driver and its binding, along with
+  the patch relaxing the voutcrg binding; genpd handles PD_VOUT per
+  node.
+- Renamed the compatible to starfive,jh7110-hdmi-subsystem, dropping
+  "mfd" as a Linux term (Conor Dooley).
+- Absolute $refs in the bindings, unused example labels dropped, and the
+  examples deduplicated between parent and children (Conor Dooley).
+- Added the .mode_valid platform operation (patch 7).
+- Split the inno-hdmi rework into a mechanical probe/bind split (patch
+  4)
+  and the regmap-from-parent change (patch 5). struct inno_hdmi is no
+  longer exported; no platform glue dereferences it.
+- Replaced the duplicated PHY driver with a shared Innosilicon library
+  and moved Rockchip onto it (patches 11-13).
+- Fixed pre-PLL lock detection, which masked the status read with the
+  register address instead of the lock bit.
+- Fixed a pixel clock refcount underflow: enable returns early on
+  failure while disable tore down unconditionally.
+- voutcrg patch reduced to adding CLK_SET_RATE_PARENT to the two dc8200
+  pixel MUXes.
+- Rebased onto v7.2.
+
+---
+Michal Wilczynski (19):
+      dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+      dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
+      dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
+      dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+      dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
+      dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
+      drm/bridge: inno-hdmi: Split probe out of bind
+      drm/bridge: inno-hdmi: Allow the register map to come from a parent
+      drm/bridge: inno-hdmi: Add .disable platform operation
+      drm/bridge: inno-hdmi: Add .mode_valid platform operation
+      soc: starfive: Add jh7110-hdmi-subsystem driver
+      soc: starfive: Add jh7110-vout-subsystem driver
+      clk: starfive: jh7110-vout: Allow pixel clock rate propagation
+      drm/bridge: starfive: Add JH7110 HDMI controller driver
+      phy: Add common Innosilicon HDMI PHY helpers
+      phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
+      phy: starfive: Add jh7110-inno-hdmi-phy driver
+      riscv: dts: starfive: jh7110: Update DT for display subsystem
+      MAINTAINERS: Add StarFive JH7110 display subsystem entry
+
+ .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
+ .../bindings/display/verisilicon,dc.yaml           |   1 +
+ .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
+ .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
+ .../soc/starfive/starfive,jh7110-syscon.yaml       |   6 +
+ .../starfive/starfive,jh7110-vout-subsystem.yaml   | 100 ++++
+ MAINTAINERS                                        |  13 +
+ arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
+ arch/riscv/boot/dts/starfive/jh7110.dtsi           | 102 +++-
+ drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
+ drivers/gpu/drm/bridge/Kconfig                     |  11 +
+ drivers/gpu/drm/bridge/Makefile                    |   1 +
+ drivers/gpu/drm/bridge/inno-hdmi.c                 |  84 ++-
+ drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 318 +++++++++++
+ drivers/phy/Kconfig                                |   8 +
+ drivers/phy/Makefile                               |   1 +
+ drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
+ drivers/phy/rockchip/Kconfig                       |   1 +
+ drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 165 +-----
+ drivers/phy/starfive/Kconfig                       |  20 +
+ drivers/phy/starfive/Makefile                      |   1 +
+ drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++++++++
+ drivers/soc/Kconfig                                |   1 +
+ drivers/soc/Makefile                               |   1 +
+ drivers/soc/starfive/Kconfig                       |  43 ++
+ drivers/soc/starfive/Makefile                      |   3 +
+ drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  74 +++
+ drivers/soc/starfive/jh7110-vout-subsystem.c       |  83 +++
+ include/drm/bridge/inno_hdmi.h                     |  10 +-
+ include/linux/phy/inno-hdmi-phy.h                  |  85 +++
+ 30 files changed, 2227 insertions(+), 174 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20251031-jh7110-clean-send-7d2242118026
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
+
