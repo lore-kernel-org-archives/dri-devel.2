@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1428CC79F82
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 21:01:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C580DC79F82
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 21:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE6D10E16F;
-	Fri,  4 Sep 2026 21:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC7010E42F;
+	Fri,  4 Sep 2026 21:33:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XLdl8Q0R";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Q8xxM+g/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169E210E16F
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 21:01:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8DA7B44783;
- Fri,  4 Sep 2026 21:01:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672A61F01565;
- Fri,  4 Sep 2026 21:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788555688;
- bh=zVaURlvyoBLOyt7OGXCWczNXhDsHtBwMHiOQfWney3k=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc;
- b=XLdl8Q0RUQntg0zNfrNm0/neW/cviVcWf2Oe8psL3BZztlycTFv3Bis8LmcAAKkzl
- PeDtFWd/KMJY3XyCqGWZKhDY2YzvkEz9G00yNPINL11TAQqLwZd3YHTeBkPt4iaaO8
- Tcl6tS15GDPoxRjKutYQVJF4sJMSYLkWz1mt+doFYcbP50b+qJCp/OksY8HXmFrIDW
- Tm6NYsDWvRy1YaAJ4Uy5WtePEbW3YOOvv/9GXq2GzR6qSA0VbCVXyQKr7x1yZyhWqq
- uRQWl/od6ojH8yPUM2G80RUePo6fOeJErjsDg3xXzKc2JXY8Ue0qfQeTkQtC5aSgkN
- xX782mjXjIqgw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 4EB463924A73; Fri,  4 Sep 2026 21:00:30 +0000 (UTC)
-Subject: Re: [git pull] drm fixes for 7.3-rc2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9ty9kjb1bKFgjgBS1tgM3zP2tK+5qTFzT9-0t+1jykBDxw@mail.gmail.com>
-References: <CAPM=9ty9kjb1bKFgjgBS1tgM3zP2tK+5qTFzT9-0t+1jykBDxw@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9ty9kjb1bKFgjgBS1tgM3zP2tK+5qTFzT9-0t+1jykBDxw@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-fixes-2026-09-05
-X-PR-Tracked-Commit-Id: c96294afbcb5737da18229e788ca45a5d534abc5
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
-Message-Id: <178855562902.966019.17956475458236383508.pr-tracker-bot@kernel.org>
-Date: Fri, 04 Sep 2026 21:00:29 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8314710E42F
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 21:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=sSvUpFWW8JKivVwdga+J27ilaaR4NlD5+m5+kzr85ck=; b=Q8xxM+g/XRTlD/9/RWDWMxhIdQ
+ bnmSadAa2Ncj8VuBv8mLITJWBKQhrtzOacFJLsE7wLwNQLUZ+JXSSVLyp0V7pnUKmJ76YqizAsB1L
+ VlOBLMSfLsqZKM7PFZJNGxBghxCZa+kFSvlcUMEiA2yMsSLBf/NDkpjIj926gWvjzzhqdsS7jatx9
+ DkoSAos+kdj2SqJCEdSJm20qvmbdfcHDI4CguzyYMend6CFvF7PH0i2OzwYYIaVOnl9iBfLARbiuN
+ QdKW74TRe36Jktr31Xu2+ikPSvhI4fXsik1ZY5YYbbtArVwNCMBdmmuxLJLl7hOPd2tBIFSDDtRb+
+ USyUXpqA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1x2bXe-00000003Kbx-3waM; Fri, 04 Sep 2026 21:33:46 +0000
+Message-ID: <5ebd634e-6d57-4f71-835e-9ff919fef927@infradead.org>
+Date: Fri, 4 Sep 2026 14:33:45 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: Tree for Sep 4 (include/drm/drm_connector.h)
+To: Mark Brown <broonie@kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <apscSgtnBigG5gt0@sirena.co.uk>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <apscSgtnBigG5gt0@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +62,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Sat, 5 Sep 2026 05:52:03 +1000:
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-09-05
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/654ae5d73c05bd2943d65636ce6cd0aa46e62f18
+On 9/4/26 12:30 PM, Mark Brown wrote:
+> Hi all,
+> 
+> Changes since 20260903:
+> 
 
-Thank you!
+New warnings in 'make htmldocs':
+
+WARNING: ../include/drm/drm_connector.h:292 struct member 'cnmvrr' not described in 'drm_hdmi_vrr_cap'
+WARNING: ../include/drm/drm_connector.h:292 struct member 'cinema_vrr' not described in 'drm_hdmi_vrr_cap'
+WARNING: ../include/drm/drm_connector.h:292 Excess struct member 'mcnmvrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cnmvrr', 'cinema_vrr')
+WARNING: ../include/drm/drm_connector.h:292 Excess struct member 'mcinema_vrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cinema_vrr', 'cnmvrr')
+
+Please repair.
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+~Randy
+
