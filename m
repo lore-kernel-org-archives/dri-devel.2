@@ -4,66 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDBCAC624D3
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 18:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 907C4C79F82
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 19:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C88FB10E55D;
-	Fri,  4 Sep 2026 18:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D179389ECB;
+	Fri,  4 Sep 2026 19:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gzrd3W6k";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="IcP9Q/jl";
 	dkim-atps=neutral
 Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F70510E55D
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 18:53:19 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 290A489ECB
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 19:06:35 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hc5Fl4n4Cz8sYS;
- Fri, 04 Sep 2026 20:53:15 +0200 (CEST)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hc5Y411JPz8sZs;
+ Fri, 04 Sep 2026 21:06:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1788547995; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1788548792; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cr3Kv+LHhp95pfYfELeLm48GZwMxkYNQyW4lFOFt+q4=;
- b=gzrd3W6k2RuiKSuND+PRDC8buQZlbR1cP4WavEIzF9mlXMJUYXPGyeHckuqvp9ooJFzAnh
- DSviYF2l+f1PGrjrU7GXhd4QXekMkhSwGuBhz1SK3/twoX6yjbEjuBgymGiW0fLi7xaJdU
- TndyzWPY0E+pOlXSVjRhkNK+oCSAjwl5gVP9zCArpz6w2zStwUz0dSQsXpKNmg5DMGNTwr
- K/1vEQng/pFVVTKCD01odRCQ3Yf0DSQf1D6V1qppjG8MgZJ8aJ13swB5fqCeeeaDd0CTxi
- nQb4CDLI1xVGDGr8CVkpnoqVcYZ4w/fQ+gCGyuII5A34lqsgfWVWFFmLPh684g==
-Message-ID: <5916d336906e4918a379178eca5699c2f7506ce8.camel@mailbox.org>
-Subject: Re: [PATCH v10 1/2] rust: Add dma_fence abstractions
+ bh=BPD4fIE2hQPUTf0oTIx+CTkhgcJjNoGrsoDwgxoCIRw=;
+ b=IcP9Q/jlU3GD+WteFSdXisILUqTCOPkmKmbsWQdAnMn4fA56SAlBscpRgXBKr8AtONeQhX
+ BVfdLHl4RddM8Qdnh79CPCeDC7mLMjmL1xEaJ6yy5GspcYFVeLpopDjiI02yuZurggwJ2V
+ YemJwHmgwcYu3E5ClOMA0NAKOI82mD6wmLClQBDfYV2z4AnO8d9gPpTMP14jo0NiTn3RI4
+ KZR4GGXbCst2pqowkaixF3vLWBDVYD7/g+6tzQ+NL85u8QIyQ/FRhsFXzZFG12YIXuwMBg
+ 6f1FRndku5/bexC57K1akKR2SkVj93a29YddVmcw5Q/auXh5oJ1/G3+F/Wl29g==
+Message-ID: <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
 From: Philipp Stanner <phasta@mailbox.org>
-To: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Daniel Almeida
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
- <work@onurozkan.dev>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  "Yury Norov (NVIDIA)"	
- <yury.norov@gmail.com>, Asahi Lina <lina+kernel@asahilina.net>, Burak Emir	
- <burak.emir@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes	
- <joelagnelf@nvidia.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>, Boris
- Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Date: Fri, 04 Sep 2026 20:53:08 +0200
-In-Reply-To: <DL6N387CE2AT.1LU4TDUB8QBIU@kernel.org>
-References: <20260812072217.1971807-2-phasta@kernel.org>
- <20260812072217.1971807-3-phasta@kernel.org>
- <DL6N387CE2AT.1LU4TDUB8QBIU@kernel.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, 
+ tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 21:06:27 +0200
+In-Reply-To: <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: a760c3afe94aa3b1690
-X-MBO-RS-META: wkjb6zde95iimj5t19xjiu1myszgxdfe
+X-MBO-RS-META: rshw34mo1xxwztyre7cgrfju8ajtnzzf
+X-MBO-RS-ID: eb457b034488acf701f
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,42 +73,128 @@ Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-04 at 17:32 +0200, Danilo Krummrich wrote:
-> On Wed Aug 12, 2026 at 9:22 AM CEST, Philipp Stanner wrote:
-> > Add abstractions for dma_fence in Rust.
+On Fri, 2026-09-04 at 14:49 +0200, Christian K=C3=B6nig wrote:
+> On 9/4/26 10:31, Philipp Stanner wrote:
+> > On Fri, 2026-09-04 at 10:20 +0200, Christian K=C3=B6nig wrote:
+> > >=20
+
+[=E2=80=A6]
+
+> > >=20
+> > > That sounds like a bad idea as well.
+> > >=20
+> > > Dropping the fence->ops is to detach the fence from the module
+> > > which originally issued it and not solve lifetime problems
+> > > between the scheduler and the driver.
+> >=20
+> > It can be used to solve that problem though, can it not?
 >=20
-> I was about to pick this up, but ended up with too many things to tweak.
+> Yes, but I think forcing dma_fence implementations to drop their
+> release callback to fix lifetime problems with the driver and
+> timeline name functions is a bad idea.
 
-:(
+The issue we're facing is not so much related with life times, is it?
 
->=20
-> =C2=A0 * Fix checkpatch.pl warnings,
-
-I get two, one of them being obsolete
-
-WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-#114:=20
-new file mode 100644
-
-WARNING: line length of 101 exceeds 100 columns
-#158: FILE: rust/helpers/dma_fence.c:40:
-+__rust_helper void rust_helper_dma_fence_unlock_irqrestore(struct dma_fenc=
-e *f, unsigned long *flags)
-
+Even if the driver correctly tears down the scheduler (i.e., signal all
+hardware fences), this problem still exists.
 
 >=20
-> =C2=A0 * use Opaque::zeroed() instead of __GFP_ZERO,
+> We should keep this fix simple and focused so that we can easily backport=
+ it.
 
-That's literally what I had originally, but Alice objected and wanted
-GFP_ZERO, AFAIR because it's more efficient.
+My hope would be that the dma_fence backend solution can be used that
+*already exists*. That could then both be simple and maintainable.
 
-Maybe you two want to get to an agreement on what's better.
 
-> =C2=A0 * use kernel vertical import style.
-> Here's the diff I suggest for a v11:
+Correct me if I'm wrong, but it seems we have not found an alternative
+solution that can work yet?
 
-Thx, I'll take it into account.
+>=20
+> Fixing all dma_fence implementations to not need the release callback
+> is something I really like to have as well, but not to fix this issue
+> here.=20
+>=20
+> >=20
+> > The underlying problem is that the driver has no chance to figure out
+> > when the scheduler is actually done with all the sched_fences.
+> >=20
+> > Remember our lengthy discussions about drm_sched_fini(). Maybe we want
+> > to reconsider providing a function with which the driver can wait until
+> > the scheduler is done with all finished_fences?
+>=20
+> The problem is that won't help unless we either add more checks or
+> fix the checks in dma_fence_driver_name()/dma_fence_timeline_name().
+>=20
+> The dma_fence object can trivially outlive both the driver and the
+> scheduler instance it originally issued.
 
+Right.
+
+>=20
+> > >=20
+> > > I think we should rather re-consider patch
+> > > 035219a760edb35ae9a9e96beba7f122e26a997b ("dma-buf: dma-fence:
+> > > Fix potential NULL pointer dereference"):
+> > >=20
+> > > Here we changed the check in dma_fence_driver_name() and
+> > > dma_fence_timeline_name():
+> > >=20
+> > > @@ -1167,7 +1167,7 @@ const char __rcu *dma_fence_driver_name(struct =
+dma_fence *fence)
+> > > =C2=A0
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* RCU protection is requi=
+red for safe access to returned string */
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ops =3D rcu_dereference(fe=
+nce->ops);
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!dma_fence_test_signaled_fl=
+ag(fence))
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ops)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return (const char __rcu *)ops->get_driver_name(fence=
+);
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return (const char __rcu *)"detached-driver";
+> > >=20
+> > > The problem is that we didn't considered that there a fence
+> > > implementations which still have a release or wait callbacks but
+> > > rely on not needing to return a string for a signaled fence.
+> > >=20
+> >=20
+> > Could we move the signaled check to amdgpu and pvr?
+>=20
+> Yes we could. I also considered that. But I would rather like to see
+> it handled in the common dma_fence code.
+>=20
+> If I remember correctly either Tvrko, you or somebody else was in
+> favor of doing "if (!dma_fence_test_signaled_flag(fence) && ops)"
+> here but I though that this was unnecessary and we would rather
+> remove the release callbacks. Maybe I was wrong with that.
+
+I hope that wasn't me because that again looks very racy.
+
+I think that there is no way around using the spinlock. As I have
+pointed out many times, the fact that the signaled-bit is set with lock
+protection and read without it is fundamentally broken :(
+
+> > IOW, we keep the solution presented here (removing ops->release for
+> > finished-fence) and the few drivers that check whether a fence is
+> > their
+> > own first do a locked dma_fence_is_signaled() check?
+>=20
+> Works for me as well, but as I said I would rather like to keep it
+> simple and stupid for backporting.
+
+If you can think of a stupid and simple solution, shoot. The only thing
+I can think of is moving the string into the dma_fence, as a hard copy
+:)
+
+
+In the mean time, my proposal is to keep aiming for removing
+sched_fence->ops->release and fixing pvr and amdgpu.
+
+I think that will have to entail a signaled-check. Question would then
+be whether we place it in the driver or the backend.
 
 
 P.
