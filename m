@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C376C79F82
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D733FC79F87
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:09:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0944710E358;
-	Fri,  4 Sep 2026 13:09:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3211710F916;
+	Fri,  4 Sep 2026 13:09:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FbRv5WQI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GjErf8mm";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C93F10E1B5
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:09:25 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4957799b92fso428365e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 06:09:25 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBBE210E358
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:09:27 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-499db1740e4so337115e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 06:09:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788527364; x=1789132164; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788527366; x=1789132166; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=t7o7pGTYJ1j9htjyKompyXPu5oGlEszk3L/eQl+FLhg=;
- b=FbRv5WQIEdMCzzNKnqn1ZoBHbrDrNwZqjdo5LH/D1101RFNPMfC/aGoAl+TW2mKDYR
- HkjMUhJqfW+9aPr30puf2DKE5Q9qRtR5gYY+bTqjYWJI7G2vN8kWr6+Q2tNdwJspDXxr
- O51KwJs8xa3r0Ev73kzaNJUXb55UnmUNaMJRLW4Lc6I+U6VbCLb4y5/9jHOgtABkioZl
- VqsBxgVfdTYeCbqSWrnxi8dbOIiF+GWEtdhMeXoUQbQM+UBA5pXjvh7+vH/8NaUIuAP3
- IaFCnmpCQFIpGB3QKqoERyEF2y5ogfvYt40DUzmiCkPylbUHYtM+6MkA4LsVabr7Uf2H
- H5dA==
+ bh=WkYtc8Zy+X1nQtQQfmPXyE49NKh145BAfNH3nX3cWHM=;
+ b=GjErf8mmONsLhP8/D1pS2jHoYYTTBqE4w3DWaEu7y2iR+0QzQn51okKZcCHp93vM9Y
+ gSTvz9l8jG9Po8H0YQlojd8hx6DRaULmI6856KuOrD2qdM2tsOStSq0nDTlxoQ9rXcmo
+ TupgH2dGDYOsla34Y5bGAIwHAh08/vD5nVHWYvn6yyWLE+qbv6B6wso7TPFSmEBpP5v0
+ Z3gRlXKEFXO15SN9L47MZsMISAmwnbqymNTq1mOdOIGUmBGDjlk5Dp0GQ2WLjZIH3rwZ
+ zlEty4v1128LblfgrHjoACi4FVqM35rZLx5Zf41wIE6pyuEJhAdXi+1QtMVo4W1c6Aie
+ UMfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788527364; x=1789132164;
+ d=1e100.net; s=20251104; t=1788527366; x=1789132166;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=t7o7pGTYJ1j9htjyKompyXPu5oGlEszk3L/eQl+FLhg=;
- b=IhnfzfRw/Fb7L7pPsZ9Mq7L8WX6RpiiqBTZfmFPSNeRtB7B64y+j/H/d6rUtwAvftA
- WxlCUdhD7QSRZgVCLY6pFjgZdZ1weIaH8XSucMIeeiKyYpH/4XFr4ux18MP+56wWp5EZ
- +7xOi28IDgopz/gKX4bh+/m0J6QAeW+kl/2y9ltoJeE3Q4dWEiTf4YZFUTwckgSh0e1i
- cN5bzMU/ZpsFQGrX6WtV1f4LXGXZ6H2E/53NXomHgpsWd3GSIqp9DtDZmkxnXmfCnDAc
- 4058ifGFx48r+oKY+F+J1mSJJB43kbDKCVu24dqb/8CQIsgruqhnqAYW5liA13icgBX/
- 5iwA==
+ bh=WkYtc8Zy+X1nQtQQfmPXyE49NKh145BAfNH3nX3cWHM=;
+ b=bKzwB9icYgVcxBFQQxEN4bpW4rHhMTgy5Dku15esMHOwIWNYoZ/3TRAQGN+A9V3nKC
+ UFpIjvZm8aPT+aSke0SF7Dk0DZDPISJrk8DA8k9z5/IjUohSTMEJKTopBhrVhwpB8uMA
+ oSn0tycIsu3tmmS9GAmJd5uFHJ8oM1MnBnzdGb3wUVg39kkdezxQPKNGgMw9Cc4kU4Yy
+ JQ8LvtUoVDPRWiTYYtKHcbA9TW/7WEH2sXVBi79+w5gG+puCDEEXe/p+CX1v90cn1bpw
+ 85gc1GNCtwEv49wa+bxywJ2EgwKqbOGHHMwXjS1rWk8+gqIIIvKaJfaXNpDyKwdSDM4W
+ X0Zg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzB9ce/imSMya8YnJ/ay3EpphMOv7Ow26DHvoa4DXZHFbS1h2KLbW1tR93WAOfV/mx/MWvMVaIrbaU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kA9dTpVs6IzubvHAABshwgM8oM88fDHOiOtz5VI2DuEYIpHNj8
- ovhpIQAhCVtEZbh9nsOmfNq2gIU9I3gktoOj/LjryAd1hsGKF3fYK1yh
-X-Gm-Gg: AYBFou0ECvpjiHjTvqwKTXapwZIxNvs2OCbT+156ZaP7KtRs5cy4itb1WMjf7HmnDzp
- 9BwQo9LnvlulzFy04iQLPKd0jGHCBZwclWuYannGCwmL2uIBaKcFkwFjBr+oaT5G1uUUTOau5Oz
- /dfflPNnIH5VvsMSWjSE1xh3FGcEEEvdNdjgDPKuJHdGPhZ8WRQy1hV2b7rAX2i8x7mOg7S8B4C
- R2irml608eefLxv2/xoMkrLmr1FP0ZNL8EkE1sD/makoTyYhY6j195X5x4Veq/5YrJqRcfxv+7g
- sUMEWv9tKrBn99kmEnbwuBvsW2uO+F6tiAS0PFu48y3HXrHH48TAYaemjGdkNHdV8vAmGknecH3
- D6idfV0UEjyz6aD1J1lhEDBFOvC2hic7HJiRdfvWkcsvwK6KCqdNiOEjCmfBU+vu1tPFRNN5aJP
- lBx0ULS6+0i6iAxyeC+4RpS3rK4dDf/j+wgmCK25gGuewcCDUQ8Lh9x3Zfwe2eKjKw9KR7ShFR2
- PH7GJnATfaVfYBE7tgYpGoukazpNnRvZHIC1w6Ro4/bo+PepUX4VNBCutn+vhJ+rw7QUtaTijwZ
- fgw=
-X-Received: by 2002:a05:600c:8b6d:b0:49c:e363:c66e with SMTP id
- 5b1f17b1804b1-49cf82420afmr41030795e9.1.1788527363631; 
- Fri, 04 Sep 2026 06:09:23 -0700 (PDT)
+ AKwUvBwQGrAbAMpPrKB92+7KY9XbZ+0mphpPlaa5HspNuEx20OYjGW8Lsbxm5RFRuLTzrnMP7NSd/DYBqDo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++myMNgcVmdXrvhzDLjMxOBSO3/RtNjarasKoepUrY0Ku+80BrjK
+ CXej11uBj5XjVyIkRg3ztMiCVtv4gSq/2TEkGZ0lVyzD85H4Bc84H/TI
+X-Gm-Gg: AYBFou0ZaODATqDJH8aptIBVSNTCuwhiSFiAdX4o8q4rQnJ+q/XSCl9Ng74ktbWQDvm
+ 7Nxm2s7pdDsVodfBdmtFa17GZ8xaXBjkkfXGoC5DEyD1eswi/hiFyp7AmHadqoXY4TNsi/HO9K5
+ sR7nWBx19Is3SmZYPY09X55Kl0igPkMJde/aSAe1NDhz5/ITDhwnB0ADQOpbYzgBRc6soNsob/+
+ hPwAVNvi9ByNL4KV8td5ZA3jTe2BPXPYnZ4xJG83sAl9Tsc5qlWE3Wpj9MAXmGT82sgaN9wQVAy
+ cJwL+2fqrIRrYP0s/vYDZlpQR5HD3LHMKXm8kUuoZpFkva+bo8D065i6uqkNAx+Txe3njuNZmxn
+ ANvLzLG4pXF8daaazu230exeswLHNxxCRt7VPezfZxfhA8ZCsBssjPS52rSI5f11ZPRPMhFYX/z
+ 1BfGow13YHyIdWNN0BY6BBihotaxnMpbpIRemwFTFPuVwIrwrm1BtWSNBV5M4lFvNbOFaNB7mb/
+ tB43gXRr664p2k772LUU3Xw+drCwB0c69DqPFbwQWhiwyRwyfBTDxXOqqmnaqis7vSkP3K3KnXd
+ nnleTqf8o/QVzVE=
+X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id
+ 5b1f17b1804b1-49cf823c012mr41127815e9.1.1788527365941; 
+ Fri, 04 Sep 2026 06:09:25 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu.
  [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.22
+ 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 06:09:23 -0700 (PDT)
+ Fri, 04 Sep 2026 06:09:25 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>
@@ -78,9 +78,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 1/7] accel/rocket: request the core clocks by name
-Date: Fri,  4 Sep 2026 15:08:52 +0200
-Message-ID: <20260904130858.27803-2-royalnet026@gmail.com>
+Subject: [PATCH 2/7] dt-bindings: npu: rockchip: allow DVFS and thermal
+ properties
+Date: Fri,  4 Sep 2026 15:08:53 +0200
+Message-ID: <20260904130858.27803-3-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904130858.27803-1-royalnet026@gmail.com>
 References: <20260904130858.27803-1-royalnet026@gmail.com>
@@ -101,81 +102,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+The three NPU cores on the RK3588 are fed by a single clock and a single
+supply, and the firmware accepts a fixed set of rates for that clock.
+Describing those rates as an operating-points-v2 table is what lets a
+driver scale the NPU instead of leaving it at whatever rate the bootloader
+set, so allow the property on the core node.
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed,
-so the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+Throttling the NPU from a thermal zone needs the same node to be usable as
+a cooling device, so allow #cooling-cells too.
 
-The consequence is that rocket_device_runtime_resume() prepares and
-enables the AXI clock four times, while hclk, pclk and - most
-importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-never prepared or enabled by this driver at all. The NPU still works
-only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-its attach_dev() callback walks the device node with of_clk_get() and
-adds every clock to the pm_clk list, so genpd happens to keep the
-remaining clocks running. The bug is therefore latent today, but it
-means the driver holds no reference to the clock that actually feeds the
-NPU, which stands in the way of any future frequency scaling
-(OPP/devfreq) work.
+Both properties belong on the core that carries the shared clock, not on
+all three: the cores have no clock of their own and cannot be scaled or
+throttled independently. Naming one representative node for a shared
+frequency domain is the established shape, as in "Cpufreq cooling device
+on CPU0" in
+Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via
-of_clk_get().
+The schema cannot enforce that placement, because all three cores share a
+compatible string and a node name pattern, so which core carries them
+stays a devicetree convention. That is the same situation as for CPU
+cooling, where cpus.yaml does not restrict #cooling-cells to cpu@0 either.
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+The example gains #cooling-cells; the operating-points-v2 property is
+exercised by the RK3588 devicetree later in this series.
 
-Note that this is a user-visible tightening for out-of-tree DTs: the
-old NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with
--ENOENT when one of the four names is missing. That is the right
-outcome for in-tree users - the binding requires exactly these four
-clock-names and rk3588-base.dtsi carries them on all three cores - but
-a DT that relied on the permissive lookup goes from silently running on
-the wrong clock handles to not probing at all, so record the change
-here where git log will find it.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Assisted-by: LLM checkpatch dt_binding_check
 ---
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../bindings/npu/rockchip,rk3588-rknn-core.yaml        | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba645a..5dd260bacbff6 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a4903cd1..595aacfbf8608 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -42,6 +42,13 @@ properties:
+       - const: npu
+       - const: pclk
  
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
++  "#cooling-cells":
++    description:
++      Present on the core that drives the shared NPU clock, which is the one
++      the operating-points-v2 table below is attached to. The other cores
++      cannot be throttled independently of it.
++    const: 2
++
+   interrupts:
+     maxItems: 1
+ 
+@@ -50,6 +57,8 @@ properties:
+ 
+   npu-supply: true
+ 
++  operating-points-v2: true
++
+   power-domains:
+     maxItems: 1
+ 
+@@ -100,6 +109,7 @@ examples:
+         clocks = <&cru ACLK_NPU0>, <&cru HCLK_NPU0>,
+                  <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_ROOT>;
+         clock-names = "aclk", "hclk", "npu", "pclk";
++        #cooling-cells = <2>;
+         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH 0>;
+         iommus = <&rknn_mmu_0>;
+         npu-supply = <&vdd_npu_s0>;
 -- 
 2.43.0
 
