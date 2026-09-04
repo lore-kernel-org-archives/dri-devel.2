@@ -4,128 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C95C79F87
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FCCC624D3
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B509E10E192;
-	Fri,  4 Sep 2026 12:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB5F710E1B0;
+	Fri,  4 Sep 2026 13:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BzwTH1yn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cMBgerhh";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7089210E192
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:49:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r7DjadXFhpBIeM8OTCNUdfA96x1EwhKcItYLY4BsajkSXmB45upuQauxAnxq+zn0h8DnAiDLN3FKqlC1t14MzkD/dsIOjotflFtIJ05xlqe+JfID97t7swN6yn4Tut6IxmWZ2utcWdC+azmtGsJ9dKfWX2fg8QTVcWOqTog6K6vNtr6SFnJZo+B5sZil+ndAcbh6mUQNu4Tx4K7Gu69iyHbVsurgzWVNNOmHlJGHQ5J+az6zB5NMRwx3fIKcNuvWM9S3XoOwfY5DWmFnrtE+vWs5QTH0SSh7iDFWkchJPJbO5danoyyeqQsTu4ttttY2Clz5+hxNH8m9NzCygVcX3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H4XuDC/lTC3PIjDLLTdbN07wZImRwe+rJH157WUOK44=;
- b=lDw0Rt7q4V9Gv3U11/QJiIOaw9rqJQSVO/xi+wz2kkv2cr0OBuImhgs5gcDjYUnSkfGtag6wMyQ3a6gJ0ITunwwQKCIZSmPfBsFGAAJiHB0rvdyZugfOUWQv2r/2QwDzGCUV+7NkHIinRArnwpTxTOe2EjRRlC5siqre44pWnNLd9JBhWBn1q8okjOx2Y6uMA4N2im/z43RalVwuRxai0Z5I39iTacs2Y4L8q39x+YF3POy2pOczfzXdzLU9V0pp5X2uN/yqGAHyn60P3t2SDTHGBkXNIrTfGrdryEi7RA11JOsfohsTtobyYgGMb8a5mM4Dch+6lyhLZtreIDturw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H4XuDC/lTC3PIjDLLTdbN07wZImRwe+rJH157WUOK44=;
- b=BzwTH1ynVpS8RuejRxr2/8wApEy5MgySwZU/52kOlDlCzw6LdGl01Rqc2+VOUOqP4/0Bgs8aESAEj6BHTBmNxPecvgVk5qF3RiyGMnUdsYIe6KPYpovaX0Mz18w9B21wx/dtjUwF7wdVQ7luLjY7ZOQiS/VHFu6l0p9B/JGd4xs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY5PR12MB4210.namprd12.prod.outlook.com (2603:10b6:a03:203::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 12:49:05 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 4 Sep 2026
- 12:49:05 +0000
-Message-ID: <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-Date: Fri, 4 Sep 2026 14:49:00 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-To: phasta@kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0009.namprd03.prod.outlook.com
- (2603:10b6:610:b0::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 823EE10F90E
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:59:59 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-499db1740e4so327175e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788526798; x=1789131598; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=G/WcwZhKQetLuVj0VCLbzfxuQncGS/yqg6oOZ6MnNyQ=;
+ b=cMBgerhh5M++NVKxPT7IIDKJCFEuT/KZnDf8fGdNxT7o5YXCQ0vnTPFxXC4i+R2ufc
+ I7p6hTWAKFMF9C6qsUtQzbhwzDfdE/QZ7dHqPbXcoMOfolSRUINR/B0aEC1TTEr48sPZ
+ ErZksFT2mel6jtjMqObLhsK6o4GpRLffPLD4sGRh9L9DDMnKBoRnyTwqeXc6oDLp0yMs
+ 8SQ1ANsl6sVNW9bZQcx+Sdu/o6QzmKqgh4G2j7Kmp+6vaJHi3Fls2Hm+nUYnWT9zBJR4
+ OTzSEm+n4PpdFe/a3FJRPlqam3kmXIurGDEvpdGgpYzgbKkyDfmESWHrcvK4tNm7Moaa
+ XlCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788526798; x=1789131598;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=G/WcwZhKQetLuVj0VCLbzfxuQncGS/yqg6oOZ6MnNyQ=;
+ b=hBe7UxTf8DsSJhPD48rf+FQBJDmoTPyk5/iczAy8xKSXhMGH8G1Lr5HEzSltmJJvLU
+ Jc8VHTo1bChR9C4OV75u2dp5tP5zcOupK5WiK3DbwYRhlmqb8BdKAAbGf0uNPQANZVEw
+ nGhUEm6grIUWP9cntINDz+xFNO7ITAv8f6AXwRT8iX3vxd6/F/Gu5iSHLlD50GJebO4W
+ Hu811lZU1NYrHMHOnzZYG7Y9FCnoSpMz9eC8Si4ajC7NSEp/OwLI5oJmNPDSozlaU+jk
+ Q+WUeRaU92/DID3O1NbYfxF6XTRA+a4nUvF9u6kjyY4c3udHNCj7w9P394LWdrKkOOsh
+ mTzQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzvI1+VGnnK+lZcmzxKoBtXHCVH6GL2722vYuoElwU/o+SQ3e/CfdOXcf9gIz1jlsvraWdq9diTH/8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ltC0qBC4QT4Vk6c2qxDC+8kFAstprF0DktrGbDriEv6jwKcl/O
+ kgyxN7EtqVXaMD49xQY9thL6K8GGWG5JAR8Y9PjIJQrsu7WuE6LQWEPt0dyXUA==
+X-Gm-Gg: AYBFou0QBqx5ow049L23eQgt7FJFY7RY7zmpxxxDkZxeuLJM7f2Ff7LkIM7dm0ZVhoi
+ qgVTEFRSuKnywxM/3QNLby6bmBVU52h8na1PKOY/6zlnQhukT05WMbug6pFFUyVKFGUs2KqvvSH
+ t4bLlm5aNErVCi4o6byz3g6xSmE2+6RlWf3RshKAkKtf7QRd+6dOAYfMh6MXk+/+Mxlg4CYwcPG
+ y2Hp788RQVIOyjQ3PMCki/ORmD1csil9xyNWqgVz95INCAHFA+twomsRD6T4UBGkZiTHsUegRbt
+ 9OLQ5WFm8LMNeAU0H6kQOnYn9keRHfqG1QGwfvQpgl9wT/Ox7Hvqm2fWvCD399XG9O+OXNb7dsD
+ eQzdPC49zeiwouRAxh6b1BXGJZ1xrID/uxO1o+BYHtvbrNiJenoeVKiaXm/8tdqlOK3qz1uSXTd
+ l+jgtshyupDOH/IPENtwWL3I5+cHC/0zynZXP9t9CGj3qDHkoIGCmHX0AhDWPJTHQMpNjclRl4O
+ eicoVzLANz+5YYZ7KgSXElz/AFTeswRjI+k/d+ehAV1b9r5fava8cLnuy2ZdqAFpP65Bw2DNdyB
+ hwbG5HrJMKyatc0=
+X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id
+ 5b1f17b1804b1-49cf823c012mr40540685e9.1.1788526797556; 
+ Fri, 04 Sep 2026 05:59:57 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu.
+ [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49ce554d52esm135287435e9.3.2026.09.04.05.59.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Sep 2026 05:59:56 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH] accel/rocket: search every core slot when a core is removed
+Date: Fri,  4 Sep 2026 14:59:36 +0200
+Message-ID: <20260904125936.26234-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 328d88eb-8c2d-463e-2262-08df0a82e73e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|5023799004|4143699003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: OtHxlPDUiIdBJuosSQBIZl2te2XG4tmDpxy1a2SSf8amcxkJIfHmJiYdBmuswT7cwKaGB8vweam0LUzDI9/TT320+0owJph1hm9EbBFgyv7PsjW6XdmACiSfIBZDCdNqfrYAi7nXJEhYgXmV/ZmiA+MG0jMuzXSFGX3PklWs/QPRfpy0m6mr1INGMzf+l0kGiwm75392alCG+kyBIG0F+4dpRBuDt2KQqnWNzmCFjHL7hzSLKA+aVPr4wAnF3Bps74lgVsS4dEJ00DGTbRyzLVu1llgULGtEQhmM6w/V6p8EPC4UClETbYGoXKdsY8bHjJ4Z0y0v5Kvc3ZU5NpnrLwa6F5ZH7bW3m5GfbkCZOtg2lSLGphgQhcJzi3tXR2HkFatoNSmrBChAWteM56iJDcilmFQb3WAuPyxEpYWvaOqCbg8sDeiPluEjfvElSpfj218CE8v/qH6jTGInedz40ySoK+j2bqWdp+KBb+wDNAh+NrgsLlPAcKphexgONuSZYXlr7ZbJ7eWnFhtLivkSBdXzCtSjbcNFznIS//R7f1YKYVwxVuSEVg5y+G921qZ/Wyw+y9/J1TbJCFY8mE9plxgMxg3jEwcdTc2WByoUc013Jl4oNmZGVR5aFf3MgEVpMVh3lDzaDlvqdXjqnNYlT4DQfRZimBKXjZIJE0omjCc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXdBa2E1NDd3dmY2T0NaNTROcENpTERJYktUOXhRMkRQUlQ1enArQ2Q5WXp0?=
- =?utf-8?B?L09Pb3BGb3FGN2xsVHl0enFCM0kzbkdkZFpEZ1I3VHgySnFhUTdUc01nRm9Z?=
- =?utf-8?B?TEk4NStCQTkrYnZkck9HS3phSUhBWGtPRytYNlFBc2xpTnYrZEw5WnhreTJl?=
- =?utf-8?B?Y3JpV3NvNXNDbTJLQzRncnE5bFkvdDFZZ21zLzNMVTdrRGlJODk4WEk5aTA2?=
- =?utf-8?B?QkMxMlc4QmkrUmx0UHRvWHp3YzhkbVhNbWNsN0ZzMzlBVGRBMVltWnY1Mmtj?=
- =?utf-8?B?THNSTkVGVitxN01kU082SnRzTTR4ZHdLZzNGY2lnSjFsb0t5blFhK1FiemFz?=
- =?utf-8?B?YXQ0S1pib1N0NytzS0FUd25aMEZvclZpdmlvU2FFVi9COXhQalI4bDY2aFV4?=
- =?utf-8?B?eGlRcDAwTVozcnpLRkUrZllDODRrb3FydEFWaFBRZFlpVzNzeHA0L1U0L3Z0?=
- =?utf-8?B?R21PaENZS2tORjUwMGZOaXBhcjVodUJsNDdNVGRXK3BXT0pnekFyTnh6SnFS?=
- =?utf-8?B?SStPUnA2Tm1rVk1VNkUzRVJQRnVERU9DenJGVXRFVUZmei8zWnUremVzWnZp?=
- =?utf-8?B?YTd6NUFnQlRRRVdleWFHL2IyZmV4Y2R2Ung4NlZsR2prbFlNOUJKR3J2WVZy?=
- =?utf-8?B?bnpGZTh4ZFR5bVR0Y1N0UzNGOXVMY1kwTEFRZXhvbnZhemhTR3lVUVNTczNS?=
- =?utf-8?B?ZGNheDF5ak1jNjFFREZ5QlZKd2o3aHk5KzhQcFlEaTFRQWFRdExqTE4vYU55?=
- =?utf-8?B?YU1INDgwRGRITlhOZ0FpSmY4V3k0WGF5b2hJRFNQZWVOclErZXBhemJqaGtM?=
- =?utf-8?B?ZENNRitUbDVhK21Td2lkRWtESUN6bmZCaFdFclFOREJwWUpacWlqWUtiSGVH?=
- =?utf-8?B?dmJ0Z3MzeFcxZThxWUhmak5sWE1lOEpONUQwYjM2ZWprbzhHelU5UlRyVkpu?=
- =?utf-8?B?bm9hUURBdGhoOUhBSG5nVzRab3Zlb2VTL1FlcnRQSmUwenN6Uy9EU1BXV2ZT?=
- =?utf-8?B?UWdKMmkrMWRITlpQWDYxNlBrOERneFVtaDlYWUdIY3VURzY5dFFxWUR4SnRx?=
- =?utf-8?B?RUVmOXNuLzh0WWxFaXZ0d1BnOGhabHRFY0ZJNk9mVEtpeTlaSXBIeXJLaW9j?=
- =?utf-8?B?ekpoREs0SXBzcTR5ME43NzFJYXNHLzBlMmIzWWNRUUVIbkcwOXNaazI0MkxK?=
- =?utf-8?B?WWt4WFhTMFU0eE9OTVdpNUZLRkRLUDdGN09GWHVqRzVvTENLb205cm1za041?=
- =?utf-8?B?TE5GZ0JZbEkyVnBzMUVMZEg4QklPTDRUTXhtL3QvcFAzMFlVbE1oU0VVUE9O?=
- =?utf-8?B?Z2xkQzlQWkI3WFM0YW1NYjBENmtiNEVqcTRRbUhOWGZiclF5WXBTaTd1eTkr?=
- =?utf-8?B?MVUxMnVYOW0yUWltaDFXODhQVitoZW80SjczaEM4K29Ia09odHJCMnk0cUdI?=
- =?utf-8?B?RUZzejJCZk1JL2pCOGpLQzF5bllwUXd6enIrak5FWWgwelRiYkNIc1ExcHln?=
- =?utf-8?B?c1h6cUtNYUFobTF2VzhJQ3A3c01TR0c3b0U0VnhzQUVJdEc4NDRkTVhvdzJT?=
- =?utf-8?B?aTNFZU5OUFlaN1MyOTRTZnlyaC9jajd5QmxXbkhjNCt6YTU3LytmVDVEYXFm?=
- =?utf-8?B?d0g5clBuOG1EcmpOM1N2MlhWeXFvMVZlMU02Z2JPbUdaYWN3S0xkL2x2bUxl?=
- =?utf-8?B?a0JEUnpBS0lscEVBeVp4UzVJZjI1Mmo3VTJFbGd0a0o1QVY5bEhXZTFuSThp?=
- =?utf-8?B?eGkvb2pySkhTeGlBR0tOaVgvZ1NsdXZtM2hvT0JaUzNhTzIzaVNBZUJRUThs?=
- =?utf-8?B?cmtDNHBNcDVrTmhCeCtMSWwyOVpmK1l0c2J1UWorVHYxTUxmTTJ2SUgxWnpO?=
- =?utf-8?B?aFE2dGdXNENhVEtHRW9qVnRYaWxnQ3p6UysvaUlYdVhsMmNRVkthdGs5dmtL?=
- =?utf-8?B?Y3ZSYzdWZEVyUUVzTlFnMXJvZHdzZW81NnI0TWpFcjBVdkU1MjVXc2RkRVE2?=
- =?utf-8?B?ZHlYTmtyQ1BKcEZtRmJQbUJ0RzNXT1ZnVU14QUdSaUkwWW50V2phR1FvVHZC?=
- =?utf-8?B?NTlrcFBoVXpnWG1DNU9GSng1eERCdTRoQVozblhXUEhRTDZTNElwRVJHcVg0?=
- =?utf-8?B?QUNtU3hhZTVZNi9XUVE5MVVWU3drd3pXVWFXV0tTT2lTRnZTcHNOSmk5dmc2?=
- =?utf-8?B?bmlqbDVYTlZIMjlYTU15QmU3alJyNUgvRFZsMWtXb2hwcWNEM1VpenE4ZGxm?=
- =?utf-8?B?L01Rc0pJMUNnclJvb3dXOEpWSjVBbXdISWIwSVdoajRQaDEyZTk1a24vcGlx?=
- =?utf-8?Q?85/+2RSJ/i60nE+U57?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 328d88eb-8c2d-463e-2262-08df0a82e73e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:49:05.3299 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6SCD7m7woH98Jg4Vrgb9mMex/lz4YOr+8F21v83v+DkWtTElzb50eyvbmUFnHpgP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4210
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,79 +93,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/4/26 10:31, Philipp Stanner wrote:
-> On Fri, 2026-09-04 at 10:20 +0200, Christian König wrote:
->>
-> 
-> […]
-> 
->>>  
->>> +/*
->>> + * TODO: Both fences implement .release, so dma_fence keeps their ops attached
->>> + * after signalling. Dropping the callbacks would let dma_fence detach the ops,
->>> + * after which neither get_timeline_name() nor get_driver_name() can run against
->>> + * a freed scheduler or an unloaded module - the complete fix. It first requires
->>> + * auditing every to_drm_sched_fence() caller, since ops-detach makes the helper
->>> + * return NULL for a signalled fence. See Documentation/gpu/todo.rst.
->>> + */
->>
->> That sounds like a bad idea as well.
->>
->> Dropping the fence->ops is to detach the fence from the module which originally issued it and not solve lifetime problems between the scheduler and the driver.
-> 
-> It can be used to solve that problem though, can it not?
+rocket_remove() decrements rdev->num_cores for each core it removes,
+while find_core_for_dev() searches slots 0 to num_cores - 1. Unbinding
+the cores in the order they were bound therefore loses the last one: by
+the time it is removed the search range has already shrunk past its
+slot, so find_core_for_dev() returns -1 and rocket_remove() gives up
+without doing anything.
 
-Yes, but I think forcing dma_fence implementations to drop their release callback to fix lifetime problems with the driver and timeline name functions is a bad idea.
+num_cores never reaches zero, rocket_device_fini() never runs, and the
+file-scoped rdev keeps pointing at a device that is going away. Binding
+the cores again starts from that stale count, because rocket_probe()
+takes rdev->num_cores as the slot to fill. On an RK3588, which describes
+three cores, the second round lands on slots 1, 2 and 3 while rdev->cores
+was allocated with room for three:
 
-We should keep this fix simple and focused so that we can easily backport it.
+  rocket fdab0000.npu: Rockchip NPU core 1 version: 1179210309
+  rocket fdac0000.npu: Rockchip NPU core 2 version: 1179210309
+  rocket fdad0000.npu: Rockchip NPU core 3 version: 1179210309
 
-Fixing all dma_fence implementations to not need the release callback is something I really like to have as well, but not to fix this issue here. 
+The write to rdev->cores[3] is past the end of the array.
 
-> 
-> The underlying problem is that the driver has no chance to figure out
-> when the scheduler is actually done with all the sched_fences.
-> 
-> Remember our lengthy discussions about drm_sched_fini(). Maybe we want
-> to reconsider providing a function with which the driver can wait until
-> the scheduler is done with all finished_fences?
+Nothing in tree reads the core array often enough to notice, so the
+overrun is silent today. It turned up while testing a devfreq series on
+top of this, where a worker walks every core a few times a second, and
+UBSAN caught the first bool it read out of the overrun entry:
 
-The problem is that won't help unless we either add more checks or fix the checks in dma_fence_driver_name()/dma_fence_timeline_name().
+  UBSAN: invalid-load in drivers/accel/rocket/rocket_devfreq.c:47:10
+  load of value 5 is not a valid value for type '_Bool'
+  Workqueue: devfreq_wq devfreq_monitor
 
-The dma_fence object can trivially outlive both the driver and the scheduler instance it originally issued.
+Record how many slots were allocated and search all of them. Every core
+is then found on removal, num_cores reaches zero, the device is torn down
+and a later bind starts from a clean rdev.
 
->>
->> I think we should rather re-consider patch 035219a760edb35ae9a9e96beba7f122e26a997b ("dma-buf: dma-fence: Fix potential NULL pointer dereference"):
->>
->> Here we changed the check in dma_fence_driver_name() and dma_fence_timeline_name():
->>
->> @@ -1167,7 +1167,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->>  
->>         /* RCU protection is required for safe access to returned string */
->>         ops = rcu_dereference(fence->ops);
->> -       if (!dma_fence_test_signaled_flag(fence))
->> +       if (ops)
->>                 return (const char __rcu *)ops->get_driver_name(fence);
->>         else
->>                 return (const char __rcu *)"detached-driver";
->>
->> The problem is that we didn't considered that there a fence implementations which still have a release or wait callbacks but rely on not needing to return a string for a signaled fence.
->>
-> 
-> Could we move the signaled check to amdgpu and pvr?
+This does not make unbinding a single core out of several work. probe
+still takes num_cores as the slot to fill, so rebinding one core while
+its siblings stay bound would write over a slot that is already in use,
+and rocket_open() still reaches for cores[0] whether or not anything is
+there. Both of those want more thought than a fix should carry.
 
-Yes we could. I also considered that. But I would rather like to see it handled in the common dma_fence code.
+Found by unbinding and rebinding all three cores on an Orange Pi 5 Plus.
+With this applied, 25 unbind/rebind rounds and 5 module unload/reload
+rounds run clean there: the cores land in slots 0, 1 and 2 every time,
+whichever order they are bound in, and the shared supply goes back to a
+single user after each round.
 
-If I remember correctly either Tvrko, you or somebody else was in favor of doing "if (!dma_fence_test_signaled_flag(fence) && ops)" here but I though that this was unnecessary and we would rather remove the release callbacks. Maybe I was wrong with that.
-> IOW, we keep the solution presented here (removing ops->release for
-> finished-fence) and the few drivers that check whether a fence is their
-> own first do a locked dma_fence_is_signaled() check?
+Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+Cc: stable@vger.kernel.org
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Assisted-by: LLM sparse checkpatch
+---
+ drivers/accel/rocket/rocket_device.c | 2 ++
+ drivers/accel/rocket/rocket_device.h | 1 +
+ drivers/accel/rocket/rocket_drv.c    | 2 +-
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-Works for me as well, but as I said I would rather like to keep it simple and stupid for backporting.
-
-Regards,
-Christian.
-
-> 
-> 
-> P.
+diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
+index 46e6ee1e72c5f..efd004194c1af 100644
+--- a/drivers/accel/rocket/rocket_device.c
++++ b/drivers/accel/rocket/rocket_device.c
+@@ -31,6 +31,8 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+ 		if (of_device_is_available(core_node))
+ 			num_cores++;
+ 
++	rdev->max_cores = num_cores;
++
+ 	rdev->cores = devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_KERNEL);
+ 	if (!rdev->cores)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
+index ce662abc01d3d..c62d567010696 100644
+--- a/drivers/accel/rocket/rocket_device.h
++++ b/drivers/accel/rocket/rocket_device.h
+@@ -19,6 +19,7 @@ struct rocket_device {
+ 
+ 	struct rocket_core *cores;
+ 	unsigned int num_cores;
++	unsigned int max_cores;
+ };
+ 
+ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 8bbbce594883e..2bcfe4ab3c68f 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -223,7 +223,7 @@ static int find_core_for_dev(struct device *dev)
+ {
+ 	struct rocket_device *rdev = dev_get_drvdata(dev);
+ 
+-	for (unsigned int core = 0; core < rdev->num_cores; core++) {
++	for (unsigned int core = 0; core < rdev->max_cores; core++) {
+ 		if (dev == rdev->cores[core].dev)
+ 			return core;
+ 	}
+-- 
+2.43.0
 
