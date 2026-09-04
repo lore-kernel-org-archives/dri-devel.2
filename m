@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD278C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5697C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1763F10E14D;
-	Fri,  4 Sep 2026 08:31:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2138A10F95C;
+	Fri,  4 Sep 2026 08:32:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="vC3hOdaL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JFYXZymr";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B7C10E14D
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:31:41 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbqST6B9tz8twy;
- Fri, 04 Sep 2026 10:31:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788510697; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=L7ElWb/NHBXavL+CmkytTyzv0jpZPdju54yjjVYhf6k=;
- b=vC3hOdaLGpSKzz+5r+xQkZZvVGNArSifF1ec9xmlidiQZcOmm+dfTkY+zM6hf3xXwMp1Q9
- lY8AAtYNlWwwlYVO6kWyCB8vxJgNoyFJwZDd1gvUm3NDoMOuy1PasqKeQonPute1A898Ht
- +7qJCFfna8f3Xt/EkQNNTvC5CkhJL+PubTmWFTNQ7+gpLEJ9Pw2E9GXaKjGAHvTh20TtuA
- Kerf8N7xztv17h94LfSPvZo2naHAS99dkcK+4pvW5NEMUs1aQ1Y1r4Wo0ASrXi18y9BLp3
- IU7npaRXieqfSq+svqu+dJVP8VZkmfIpFy9zTBlDtf5RfUjR7l1dC3dIfqPFmw==
-Message-ID: <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- "Jonghyuk Kim(MalHyuk)"
- <malhyuk97@gmail.com>, phasta@kernel.org, tursulin@ursulin.net, 
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Date: Fri, 04 Sep 2026 10:31:31 +0200
-In-Reply-To: <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24B4E10F95C
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:32:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B957D43716;
+ Fri,  4 Sep 2026 08:32:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F681F00A3D;
+ Fri,  4 Sep 2026 08:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788510758;
+ bh=MzSSeYpgZ1cl36kwxauq490fq+r6qAsAHJo6BhOSQ1w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=JFYXZymr1wFshuxLBjvl/iyhixHCkCSdNKcEN4AdpqHPjeNe7OCTSE9W9hyu9xtuR
+ /THPX4vBmSvJmF3/ZEUA0Da+o6/SwDv3VnW8nLLZ1vZUXCYX7XSUIRIpRRy20QtS1p
+ LF6EVoW/ugz7TlGexEb7v2M4BXLeUpHamQwlImMuJSyCceHzASAiMD7tjzJyLw4U0g
+ oQbNYEnp/4CefBvHa+Q+hpYns3elxf245Bc+SIoPF6gG8PcFbHVPHbmm+dQLvN3+G8
+ g/YEenlDO0dhAt+Ykn56tIdGC+h71gO4vAjFXu8vxm5d3fHugsZfydYpcumgCDAsZ1
+ Qwq7tPZZNOoKQ==
+Date: Fri, 4 Sep 2026 10:32:35 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+ Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v6 07/13] drm/imx: dc: Use TCON operation mode
+Message-ID: <apqBoxjblzSIuG36@houat>
+References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
 MIME-Version: 1.0
-X-MBO-RS-META: 3875ourdxg8kh4sfrtgbimuyyrhoowmf
-X-MBO-RS-ID: c79d2b28304d4c4d5d7
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="xjuaddo6esktd3cx"
+Content-Disposition: inline
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,78 +68,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-04 at 10:20 +0200, Christian K=C3=B6nig wrote:
->=20
 
-[=E2=80=A6]
+--xjuaddo6esktd3cx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v6 07/13] drm/imx: dc: Use TCON operation mode
+MIME-Version: 1.0
 
-> > =C2=A0
-> > +/*
-> > + * TODO: Both fences implement .release, so dma_fence keeps their ops =
-attached
-> > + * after signalling. Dropping the callbacks would let dma_fence detach=
- the ops,
-> > + * after which neither get_timeline_name() nor get_driver_name() can r=
-un against
-> > + * a freed scheduler or an unloaded module - the complete fix. It firs=
-t requires
-> > + * auditing every to_drm_sched_fence() caller, since ops-detach makes =
-the helper
-> > + * return NULL for a signalled fence. See Documentation/gpu/todo.rst.
-> > + */
->=20
-> That sounds like a bad idea as well.
->=20
-> Dropping the fence->ops is to detach the fence from the module which orig=
-inally issued it and not solve lifetime problems between the scheduler and =
-the driver.
+Hi,
 
-It can be used to solve that problem though, can it not?
+On Fri, Sep 04, 2026 at 03:54:57PM +0800, Liu Ying wrote:
+> @@ -273,7 +285,22 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
+>  	dc_ed_pec_sync_trigger(dc_crtc->ed_safe);
+>  	dc_fg_shdtokgen(dc_crtc->fg);
+> +
+> +	/* Don't relinquish CPU until TCON is set to operation mode. */
+> +	local_irq_save(flags);
+> +	preempt_disable();
+> +
+>  	dc_fg_enable(dc_crtc->fg);
+> +	/*
+> +	 * Turn TCON into operation mode as soon as the first dumb
+> +	 * frame is generated by DC(we don't relinquish CPU to ensure
+> +	 * this).  This makes DPR/PRG be able to evade the frame.
+> +	 */
+> +	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
+> +	dc_tc_set_operation_mode(dc_crtc->tc);
+> +
+> +	local_irq_restore(flags);
+> +	preempt_enable();
 
-The underlying problem is that the driver has no chance to figure out
-when the scheduler is actually done with all the sched_fences.
+That's really not great... Can you expand on why you need this, and is
+there really no other way to do it?
 
-Remember our lengthy discussions about drm_sched_fini(). Maybe we want
-to reconsider providing a function with which the driver can wait until
-the scheduler is done with all finished_fences?
+Maxime
 
->=20
-> I think we should rather re-consider patch 035219a760edb35ae9a9e96beba7f1=
-22e26a997b ("dma-buf: dma-fence: Fix potential NULL pointer dereference"):
->=20
-> Here we changed the check in dma_fence_driver_name() and dma_fence_timeli=
-ne_name():
->=20
-> @@ -1167,7 +1167,7 @@ const char __rcu *dma_fence_driver_name(struct dma_=
-fence *fence)
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* RCU protection is required =
-for safe access to returned string */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ops =3D rcu_dereference(fence-=
->ops);
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!dma_fence_test_signaled_flag(f=
-ence))
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ops)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 return (const char __rcu *)ops->get_driver_name(fence);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 return (const char __rcu *)"detached-driver";
->=20
-> The problem is that we didn't considered that there a fence implementatio=
-ns which still have a release or wait callbacks but rely on not needing to =
-return a string for a signaled fence.
->=20
+--xjuaddo6esktd3cx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Could we move the signaled check to amdgpu and pvr?
+-----BEGIN PGP SIGNATURE-----
 
-IOW, we keep the solution presented here (removing ops->release for
-finished-fence) and the few drivers that check whether a fence is their
-own first do a locked dma_fence_is_signaled() check?
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapqCIgAKCRAnX84Zoj2+
+dir1AYCXpT5cVplY44dNchFSkeexJ/EEll6WarzurZvlyuK4ccEsQLN5u16HB+0M
+d69UP2sBfR04gGdJ/dhDGLj+kSe/MOJTZ8fjbbkfK0hpumFAmqrpXyNhp/ODKajZ
+YtkzHwfDPg==
+=7yGx
+-----END PGP SIGNATURE-----
 
-
-P.
+--xjuaddo6esktd3cx--
