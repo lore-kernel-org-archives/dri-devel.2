@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 484B6C79F80
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 16:40:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C18B9C79F88
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 16:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEB6E10FA52;
-	Fri,  4 Sep 2026 16:40:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5DDD10FA5E;
+	Fri,  4 Sep 2026 16:40:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="And+Mppd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qUnKxUJy";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012038.outbound.protection.outlook.com
- [40.93.195.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C2F10E1EA;
- Fri,  4 Sep 2026 16:40:21 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012060.outbound.protection.outlook.com [40.107.209.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA4C10FA3E;
+ Fri,  4 Sep 2026 16:40:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ANI2n6jSzFajuLsM0DLEfUugYu+lT95cPYTd8/wgwb3nVK5s9gjzd+a0PrYf+NE6oeDdlEDmOni4t2dz7FPoP+Myxiv/VkaRtE1j18m2aQi40yEDSSqFJXz+SDnsx8Ne0xIR3j1D96WSP6wF/FJPZpm263x6Z3Ly/Sonm8r8/Dsj23SFdyVHEESPzVX7ziNl5t3XuOrA2SO1NGopmLKbFy/EPSAiafDcxqm/Jsz41RIVkkZTa+k4eHlfI7yIL0GHbhhJHp28f+A5GEgoLPRL8bL5P6BehAcRoPeytZdbl6hTbGjVZSZHFHXiI4UcPRCkU1Ggb7PVkTbZbjZgGNWgLg==
+ b=F5ybAMXbyZTu+uogEhmv35Fjao2VcowjTq7+GZc9lDY4tJuBLfwwfHBvhknomtxfOWzUWjvE8BRvO65rdBl/h+W24CI+8qq7xD6HWa4308QgPvAbkKLeeVCH/tcaAif/kK+PQskcFBdu/pHzkwCtRQO13pkH9ZwYH70cZLp7ykV9+2BLkvCOmrczrIRl8rpWUfZDa0GIteSWJIy+FoeH++0u+Of+vKDIP/aJJ0FSJs9GteNhLvL9vxb71rbNH160hTXd7rAdveaJkykkH+NWhhK9ArzNbpo2J/tAjhHL28NmJHFdttR1+FZUh3Xw1zvL3eY9Ymz8HwXW/TUxe6UQMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q7GOirSkSfSS8vaSgN/zdNRu3P5QDcE6nOA7potkhUE=;
- b=bo2r4D3uf6+KYsUKqOm5dSlibwzIaPzMMwvgGiVpW7EM/nz50Ce4PzIyMXIepYNYbtYgUuNlK8EXLX7ZJX4jNNBlv/hpS+OWsJ69mA2WCvPBQeukUZI9TIi8HlLCxi1Fuf3ArCIXHJrE7SloTmkciuHDMaEs5fu4Iua7IYCkoh+SZXrborvi719JizSqqHXhiZxXbUWGPU7c22dqNaUCvA/z8hsWmJM6zDqdLOMrMeAVPaHS0tnWwjQTx+4TA5RXkVDP2G2kZrb4MTRF22+GxrnWP5yOvvt8wrnxNeGGryivaf9Tskch7LZ4aL3bHJgbAGzB8ruAZpYlXEWTUCS1NQ==
+ bh=zDeLBJJ6wpVtGqaT+pDHgYhRdOm24LXPi+r9zw61Dbw=;
+ b=YrFsoyRtoFJqoNQ8FUC8uuC0LP6rkC3Vly6bcrbhoiuq5ne/LlwK//5giV0JlN4cfnr7DjhgBgOyRMCQ2Zed8Fv+sYbdYjXA3yRyVBIfOfhEW+PTZPU8nw6o0uAQJPqbpDBlFAw7cyoMblB1/mDVBGNZ6/0Vlq1j+uDBsSaH00rieTOsv3G2unmvpMGNigl6S/qW6Rmz1Z4sHfO9gS4PKPQn8jgj67zyHQY0SpWwJRETNFImB/jsSdzjRnZJA4MeB1P7S1947iiIe7J3ie4dqwkKrZevUGkQn2Dl+sWr3weYUmPxnT5rFxL40tfEslalWTezcGkWolHL0HKlvL537g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q7GOirSkSfSS8vaSgN/zdNRu3P5QDcE6nOA7potkhUE=;
- b=And+Mppd8ukzjQF9nOxyos6KYqeQGwZIoQusTyea9KDt8gRW6JZGsclZG5if/xtgU0GaK3Sccd0r30iCCqpx8NzT89cofqB+K8LulokqHQKoyyIGqYt2EqDaMhrKlyNsMGzjRWLY7yGak+xIeqpu/tBTswf5wWVkY5lXlFKOboM=
-Received: from CH0PR03CA0035.namprd03.prod.outlook.com (2603:10b6:610:b3::10)
- by DSWPR12MB999128.namprd12.prod.outlook.com (2603:10b6:8:36c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Fri, 4 Sep
- 2026 16:40:13 +0000
+ bh=zDeLBJJ6wpVtGqaT+pDHgYhRdOm24LXPi+r9zw61Dbw=;
+ b=qUnKxUJyiFd7RwE/LwujlXXVmWAGif/tP5p8uAhSOC7j7PGtYMbqAGMAUB2StUSifiDKvtHF4XafwfUi+LNI8Vj8H/ihlA4he/Xu/z+XNotjd46x0ttihCguqgcRUjJ7+R4kb2AoZM+kkLfaIJP+R/u0hG67HuR/zQXNLNopaJs=
+Received: from CH0PR03CA0040.namprd03.prod.outlook.com (2603:10b6:610:b3::15)
+ by DM4PR12MB6207.namprd12.prod.outlook.com (2603:10b6:8:a6::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Fri, 4 Sep 2026
+ 16:40:19 +0000
 Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:610:b3:cafe::95) by CH0PR03CA0035.outlook.office365.com
- (2603:10b6:610:b3::10) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:b3:cafe::34) by CH0PR03CA0040.outlook.office365.com
+ (2603:10b6:610:b3::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Fri, 4
- Sep 2026 16:40:12 +0000
+ Sep 2026 16:40:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 16:40:12 +0000
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 16:40:19 +0000
 Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
- 2026 11:40:07 -0500
+ 2026 11:40:15 -0500
 From: Honglei Huang <honghuan@amd.com>
 To: <matthew.brost@intel.com>, <sima@ffwll.ch>, <rodrigo.vivi@intel.com>,
  <thomas.hellstrom@linux.intel.com>, <himal.prasad.ghimiray@intel.com>,
@@ -64,11 +63,12 @@ To: <matthew.brost@intel.com>, <sima@ffwll.ch>, <rodrigo.vivi@intel.com>,
 CC: <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
  <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, <Ray.Huang@amd.com>,
  <Junhua.Shen@amd.com>, <amd-gfx@lists.freedesktop.org>, <honghuan@amd.com>
-Subject: [PATCH v3 0/6] drm/gpusvm: share one HMM fault and keep single
- mappings inline
-Date: Sat, 5 Sep 2026 00:39:50 +0800
-Message-ID: <20260904163956.3433293-1-honghuan@amd.com>
+Subject: [PATCH v3 2/6] drm/gpusvm: extract drm_gpusvm_dma_map_pages() helper
+Date: Sat, 5 Sep 2026 00:39:52 +0800
+Message-ID: <20260904163956.3433293-3-honghuan@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260904163956.3433293-1-honghuan@amd.com>
+References: <20260904163956.3433293-1-honghuan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -77,29 +77,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|DSWPR12MB999128:EE_
-X-MS-Office365-Filtering-Correlation-Id: a36d805b-0882-4396-2bfc-08df0aa330ec
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|DM4PR12MB6207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 819f2eaf-958d-45db-ef62-08df0aa334fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|82310400026|36860700016|1800799024|376014|13003099007|6133799003|11063799006|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: xkKdlAiuqz/lpJYhM8BEJmTRtvHGUrdtjnqTzfmumS/XCJy31mdb73UycNlXpnsfSFaoAmcp1dMTBTwgbglhcwAY7wxRj1KFAzIII+9VFjg4bMvAG9AJLNznRCo+Ot8OKuzUa87L7jR/AmGjOXoq/DG76y4NCTrSU9D1Porg30wxfbHNZo8Vc9ClNYYyOg8JDrQzr6HGf36ktA0xze/EC/iLTyCqwDy2PNfKMHP2CFZEqZoeNZa575nPti7nSjT10DKlWhmzKWMBwKn5wtkD+TvfSTYVtyXkvE06Qx/kCQ7qH+srgTVVjBSFjQToiiDiKVST+Xt7SVx3HZdaK6JWHWiy6mJ/uGWXKkaxu5BQtxittsJiqk/aX9WIaW/waqlqVMuuzAYgY5GKViKlXJavLZsQwtUrX2sQ1QHjecT5H+kgS+xLBE1mbrc+aslpiXrRueXJ0a+IfAehQLtcDL8/XE5ogFOKzzTuDaZE8rw/T3kKS7h8CoJrdYb4i04CemA7RZjiuGYNk/X2UtC0274IUX+XhrKEujK16DG3jlwzQb4A/snc5Cb2pr6CcqJ7pawlviw/ce+fU44fdYmbf6qdZh3W7EWJzyJU+MrRbIcQ2C6M48RkljK2qubSIml14y4LMLTmWPU5hi9+FfDUY67iyQ==
+ ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|7416014|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 5NHjtERb8svP2ZUfEBWDwAuV3vhSaSlGf+/Yzmoeh1VRs70otYeCLDa0Z93DxFtID8h+wXDQ4PMqJHkDq2onY/PHWyK46wSYE2IF8ucjwgmHW9rDN+O0ImEnbCwAnwkZZXzZiaGX3sEzs8b+V/N/E7vbMaAVBqFjZJ3N0xDlQB/MAbcmKa+MWUndGNWC3D6aX021/EVtW1Z8O9/zO+lpRvzRJulUk8hzso9hNxuKdPtPCR5xJt2kDex1rHfeLXVZUTRkl+AAiYA7k0iXfe/W4DqWKCBoDURl02nkdMlbLXGaRmpcvQ2JbySTV2cEr0GfVBRkWKRq8TPvnFtb296JAdiamHF+kCbBQ9H0ASSmMVAnGlMljneP+KtA8CtYsSS/5krTwTz4evI/F8f8u7gZjQeSfV/AXpcMon07AJKIyhniddKwmFlGxXWuY+xUjVohG2aiK/tKpYS6oKIk899QcIazLFygjnqL2r+AmonUl4kd7cINQkvk63GhWXObuLc0N11+4GN1t7/y8k5xR3es0CUm8w9KFkisftTPWiddRf7a2qX7iNUtWKFbCpoCUMctb2djj4bXPFzapiLJIRmo1b0GE6T08bhJi09958CujaFBTfsrz0RxwXO+ZoMO0eDMRUM0IRoh7ipwe1KJmbU0THtDL+FVQq8gl5Zkn5//WPrUfKqFD5B1rJNqdtuRC7lWCIIjoaX0O1d/FeNP8pV31w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(13003099007)(6133799003)(11063799006)(56012099006)(10067099003)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(7416014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: QUs2cCOvdsCxwa3opeZKyisVCbgr4BWy63SieLLZ2c0p0H3LZFtb3BLyg3n38R86eVH01ftzSEMXzHgd7RYS8IBGKIKd7JFuiy8rrvzT2ogRNI+EXeqa4yZUNdw+8MqCpzI7kuIeDH79rywoeqok2o2ppR7eB1oWwWu1M7Gi8BFzqu4fMV1iZ/lTxWYPCTH0rXTozVCS3hAl2b1rxurhvK+9QvB4Wbn/jEdIAAGg4Gt05ejDlOXjFX3tXEFQtMlsltdiEqW+OogDcAj+NalA2PFY0jtJ+ZGeJlXNowUixQg8MXk5TxB8pzuRr5XJl/p3zas2LST6xFjoEUSuA0+/Frtz8bw22L37rro+rK4D7LIoJjtk+SVN22Qj/NkHKw4VNZPefY2wGNRiThp+d/ksaChO0CLKRud9gTm3AAliDuVcXGjiuKeCeREj8KuW8Di4
+X-MS-Exchange-AntiSpam-MessageData-0: WxhKtF5JRH+ojrJV+s8RqcqbuaXLDnI7TqW1nHaLL9yAlBeQ89VOFHY0OJIywdvgUq2jtr/ybu9RoODciEJsSDLnvUn+klsZrYJilcUHhsEs9wsaVRXuiLsoio4ByZGACTzD1UAe+jnylv35vRmd0bRFoa4400kFlUpUarj2RTbgqislLTN3gfP8J2vaghxyjhPDWSKBfLwiHJHclyVZD1LO9uXleZyowx7d9n+C6KGuxpoRkM7XR633ZamVvw5lfAnGxCTEG3I5F5nOwX33qd2cwPyYYJc41Yuc4PDpWX1S1BiidGpjUd0CFqvXFBzBHxV7ci9nI/RrgXoWuGfSiM84gMXYgdX1wUKbKfyoNWloV1pGSxl5O/oM+lS+Lxte2JWiugZvcWbR96wZbUjptxfT9Cke1Y0nudCDXbkL2/BgGxM1L9ObGFDmxr6IxSLF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 16:40:12.6183 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a36d805b-0882-4396-2bfc-08df0aa330ec
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 16:40:19.4395 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 819f2eaf-958d-45db-ef62-08df0aa334fc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999128
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6207
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,123 +115,294 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Patches 1 to 4 are the get_pages() split already posted as v2. Patches 5
-and 6 are new: they implement the dma_addr storage optimization Matt
-suggested in [6]. They build on the DMA paths v2 reworks, so they are
-sent in the same series; I can split them out if that is preferred.
+Move the per-device DMA mapping loop of drm_gpusvm_get_pages() into a
+helper drm_gpusvm_dma_map_pages(). The mapping logic is only moved, not
+changed, so there is no functional change.
 
-drm_gpusvm_get_pages() does two things at once: the MM level HMM fault
-of the CPU range, and the device DMA mapping of the faulted pages. When
-one CPU range is mirrored on several devices, every device has to call
-get_pages() and redo the HMM fault. Matt suggested [2] passing an array
-of drm_gpusvm_pages plus a count so the fault is taken once and shared,
-while the notifier retry loop stays in common code so drivers never open
-code it.
+The helper maps the already-faulted pfns into one drm_gpusvm_pages
+instance under the notifier lock and unwinds its own partial mapping on
+error. The HMM fault and the notifier retry loop stay in get_pages()
+common code rather than being pushed down to drivers, so no driver has
+to reimplement the subtle fault and retry logic.
 
-For the new patches 5 and 6, the focus is on optimizing the storage of
-DMA addresses for THP pages and IOVA mapped ranges. get_pages() sizes
-dma_addr for the worst case of one entry per page, but the mapping loop
-advances by page order, so a 2 MiB THP holds an 8 KiB array with 16
-bytes of address in it. Patch 5 keeps that single mapping inline. Patch
-6 extends the optimization to IOVA mapped ranges, where contiguous
-device addresses allow for a similar inline approach.
+With the mapping isolated per instance, get_pages() can later fault once
+and DMA map an array of drm_gpusvm_pages plus a count, one per owning
+drm_device.
 
-A range folds only when one drm_pagemap_addr describes all of it, which
-leaves three shapes not included:
-  - Mixed device and system pages: the device addresses come from
-    device_map(), outside the IOVA reservation, so they are not
-    contiguous. Not included for inline storage.
-  - Mixed orders: contiguous under IOVA and foldable in principle, but
-    one entry carries one order; expressing two needs an entry count or
-    a segment iterator. Needs additional handling for mixed orders.
-    So not included for this inline storage change.
-  - Several huge entries: needs a chunk larger than PMD size, which no
-    consumer configures today.
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
+---
+ drivers/gpu/drm/drm_gpusvm.c | 225 ++++++++++++++++++++---------------
+ 1 file changed, 129 insertions(+), 96 deletions(-)
 
-Patches overview:
-  - patch 1 moves the dma_addr allocation out of the notifier locked
-    section, so the mapping step becomes self contained.
-  - patch 2 pulls the per-device mapping loop into
-    drm_gpusvm_dma_map_pages(). Code motion only.
-  - patch 3 makes get_pages() take an array of drm_gpusvm_pages plus a
-    count: fault once, then DMA map each instance, one per owning
-    drm_device, under a single notifier retry gate. Instances that are
-    already mapped are skipped, so an -EAGAIN retry does not redo them.
-    The common 1:1 case passes count == 1 and is unchanged.
-  - patch 4 adds a no_dma_map context flag so a driver that only needs
-    the CPU pages faulted in can skip the device DMA mapping.
-  - patch 5: keeps a single mapping inline for THP.
-  - patch 6: extends that to IOVA mapped ranges.
-
-v2:
-  - Rebased on drm-tip.
-  - Dropped v1 patch 1 ("drm/gpusvm: extract drm_gpusvm_hmm_fault()
-    helper"), it is part of [3] now.
-  - patch 3: drm_gpusvm_pages_valid_unlocked() takes the array and the
-    count itself, instead of get_pages() open coding an all_valid loop.
-  - patch 3: fixed the N:1 doc example, it used the wrong union member
-    when the count is 1. Added a driver_pages() accessor.
-  - patch 3: documented that on error the instances mapped before the
-    failing one stay mapped, the caller must unmap and free all of them.
-  - patch 4: reject no_dma_map together with devmem_only, without the
-    DMA mapping step there is no page type check to enforce it.
-  - patch 4: documented that no_dma_map only returns a snapshot, the
-    caller must recheck mmu_interval_read_retry() itself.
-
-V3:
- - Patch 3: check svm_pages[0].flags.unmapped instead of walking every
-   instance, per Matt's review. drm_gpusvm_range_set_unmapped() flags
-   the whole array in one go under the write lock, so any instance
-   answers for all of them.
- - Patch 3: reject a zero page count instead of relying on the caller.
- - Patch 5: new, keeps a single mapping inline for THP.
- - Patch 6: new, extends that to IOVA mapped range.
- - Add Reviewed-by Matt in patches 1, 2 and 4.
-
-tests:
-AMDGPU:
-  SVM:DRM N:1 multi device support is work in progress on top of this
-  series. The single device (1:1) path was tested with the amdgpu SVM
-  adaptation on top. Based on amdgpu SVM [4].
-  Tested on gfx906 (MI60) with XNACK on, in three configurations:
-  THP ON + IOVA ON, THP ON + IOVA OFF, NO THP + NO IOVA.
-  - KFD test: SVM all passed except the get attr refactor.
-  - ROCR test: all passed.
-  - HIP catch test: gfx943 (MI300X): 99% passed.
-                    gfx906 (MI60): 99% passed.
-
-links:
-[1] drm_gpusvm_pages decoupling series:
-    https://lore.kernel.org/amd-gfx/20260630102127.392396-1-honghuan@amd.com/
-[2] Matt's suggested direction:
-    https://lore.kernel.org/amd-gfx/aijdg7RWwrEDEMxC@gsse-cloud1.jf.intel.com/
-[3] drm/gpusvm: use hmm_range_fault_unlocked_timeout() for range faults:
-    https://lore.kernel.org/20260723-hmm-v10-v11-8-c55b003a4b61@gmail.com
-[4] amdgpu SVM:
-    https://lore.kernel.org/amd-gfx/20260804094246.1719318-1-ray.huang@amd.com/
-[5] v2 of this series:
-    https://lore.kernel.org/amd-gfx/20260901090100.2024933-1-honghuan@amd.com/
-[6] Matt on keeping the dma address inline:
-    https://lore.kernel.org/amd-gfx/apcp%2FXJpPdG3jzPd@gsse-cloud1.jf.intel.com/
-
-Honglei Huang (6):
-  drm/gpusvm: move dma_addr allocation before the notifier lock
-  drm/gpusvm: extract drm_gpusvm_dma_map_pages() helper
-  drm/gpusvm: let drm_gpusvm_get_pages() map an array of pages
-  drm/gpusvm: make the DMA mapping step in get_pages() optional
-  drm/gpusvm: keep a single DMA mapping inline for THP
-  drm/gpusvm: keep an IOVA mapped range dma address inline
-
- drivers/gpu/drm/drm_gpusvm.c       | 406 +++++++++++++++++++++--------
- drivers/gpu/drm/xe/xe_pt.c         |  23 +-
- drivers/gpu/drm/xe/xe_res_cursor.h |   5 +-
- drivers/gpu/drm/xe/xe_svm.c        |   2 +-
- drivers/gpu/drm/xe/xe_userptr.c    |   2 +-
- include/drm/drm_gpusvm.h           |  71 ++++-
- 6 files changed, 381 insertions(+), 128 deletions(-)
-
-
-base-commit: 313da1cc22491f07075c7ae36372343aa235d11e
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index b507de539e6..89c3061d8ef 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1442,115 +1442,41 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
+ }
+ 
+ /**
+- * drm_gpusvm_get_pages() - Get pages and populate GPU SVM pages struct
++ * drm_gpusvm_dma_map_pages() - DMA map one drm_gpusvm_pages instance
+  * @gpusvm: Pointer to the GPU SVM structure
+- * @svm_pages: The SVM pages to populate. This will contain the dma-addresses
+- * @mm: The mm corresponding to the CPU range
+- * @notifier: The corresponding notifier for the given CPU range
+- * @pages_start: Start CPU address for the pages
+- * @pages_end: End CPU address for the pages (exclusive)
++ * @svm_pages: The SVM pages instance to populate with dma-addresses
++ * @pfns: The already-faulted pfn array (size @npages)
++ * @npages: Number of pages in the CPU range
+  * @ctx: GPU SVM context
++ * @dma_dir: DMA data direction for the mappings
+  *
+- * This function gets and maps pages for CPU range and ensures they are
+- * mapped for DMA access.
++ * Map the faulted @pfns into @svm_pages for DMA access through its owning
++ * drm_device. Must be called under the notifier lock. On failure this unwinds
++ * the partial mapping of this instance before returning.
+  *
+  * Return: 0 on success, negative error code on failure.
+  */
+-int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+-			 struct drm_gpusvm_pages *svm_pages,
+-			 struct mm_struct *mm,
+-			 struct mmu_interval_notifier *notifier,
+-			 unsigned long pages_start, unsigned long pages_end,
+-			 const struct drm_gpusvm_ctx *ctx)
++static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
++				    struct drm_gpusvm_pages *svm_pages,
++				    unsigned long *pfns,
++				    unsigned long npages,
++				    const struct drm_gpusvm_ctx *ctx,
++				    enum dma_data_direction dma_dir)
+ {
+-	struct hmm_range hmm_range = {
+-		.default_flags = HMM_PFN_REQ_FAULT | (ctx->read_only ? 0 :
+-			HMM_PFN_REQ_WRITE),
+-		.notifier = notifier,
+-		.start = pages_start,
+-		.end = pages_end,
+-		.dev_private_owner = ctx->device_private_page_owner,
+-	};
+-	void *zdd;
+-	unsigned long timeout =
+-		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+-	unsigned long remaining;
++	void *zdd = NULL;
+ 	unsigned long i, j;
+-	unsigned long npages = npages_in_range(pages_start, pages_end);
+-	unsigned long num_dma_mapped;
++	unsigned long num_dma_mapped = 0;
+ 	unsigned int order = 0;
+-	unsigned long *pfns;
+ 	int err = 0;
+-	struct dev_pagemap *pagemap;
++	struct dev_pagemap *pagemap = NULL;
+ 	struct drm_pagemap *dpagemap;
+ 	struct drm_gpusvm_pages_flags flags;
+-	enum dma_data_direction dma_dir = ctx->read_only ? DMA_TO_DEVICE :
+-							   DMA_BIDIRECTIONAL;
+ 	struct dma_iova_state *state = &svm_pages->state;
+ 
+-	if (!svm_pages->drm)
+-		return -EINVAL;
+-
+-retry:
+-	remaining = timeout - jiffies;
+-
+-	if (time_after_eq(jiffies, timeout))
+-		return -EBUSY;
+-
+-	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+-	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
+-		goto set_seqno;
+-
+-	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
+-	if (!pfns)
+-		return -ENOMEM;
+-
+-	if (!mmget_not_zero(mm)) {
+-		err = -EFAULT;
+-		goto err_free;
+-	}
+-
+-	hmm_range.hmm_pfns = pfns;
+-	err = hmm_range_fault_unlocked_timeout(&hmm_range, remaining);
+-	mmput(mm);
+-	if (err)
+-		goto err_free;
+-
+-	if (!svm_pages->dma_addr) {
+-		svm_pages->dma_addr =
+-			kvzalloc_objs(*svm_pages->dma_addr, npages);
+-		if (!svm_pages->dma_addr) {
+-			err = -ENOMEM;
+-			goto err_free;
+-		}
+-	}
+-
+-	*state = (struct dma_iova_state){};
+-	svm_pages->state_offset = 0;
+-
+-	/*
+-	 * Perform all dma mappings under the notifier lock to not
+-	 * access freed pages. A notifier will either block on
+-	 * the notifier lock or unmap dma.
+-	 */
+-	drm_gpusvm_notifier_lock(gpusvm);
++	lockdep_assert_held(&gpusvm->notifier_lock);
+ 
+ 	flags.__flags = svm_pages->flags.__flags;
+-	if (flags.unmapped) {
+-		drm_gpusvm_notifier_unlock(gpusvm);
+-		err = -EFAULT;
+-		goto err_free;
+-	}
+-
+-	if (mmu_interval_read_retry(notifier, hmm_range.notifier_seq)) {
+-		drm_gpusvm_notifier_unlock(gpusvm);
+-		kvfree(pfns);
+-		goto retry;
+-	}
+ 
+-	zdd = NULL;
+-	pagemap = NULL;
+-	num_dma_mapped = 0;
+ 	for (i = 0, j = 0; i < npages; ++j) {
+ 		struct page *page = hmm_pfn_to_page(pfns[i]);
+ 
+@@ -1666,17 +1592,124 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 	/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+ 	WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
+ 
++	return 0;
++
++err_unmap:
++	svm_pages->flags.has_dma_mapping = true;
++	__drm_gpusvm_unmap_pages(gpusvm, svm_pages, num_dma_mapped);
++	return err;
++}
++
++/**
++ * drm_gpusvm_get_pages() - Get pages and populate GPU SVM pages struct
++ * @gpusvm: Pointer to the GPU SVM structure
++ * @svm_pages: The SVM pages to populate. This will contain the dma-addresses
++ * @mm: The mm corresponding to the CPU range
++ * @notifier: The corresponding notifier for the given CPU range
++ * @pages_start: Start CPU address for the pages
++ * @pages_end: End CPU address for the pages (exclusive)
++ * @ctx: GPU SVM context
++ *
++ * This function gets and maps pages for CPU range and ensures they are
++ * mapped for DMA access.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
++			 struct drm_gpusvm_pages *svm_pages,
++			 struct mm_struct *mm,
++			 struct mmu_interval_notifier *notifier,
++			 unsigned long pages_start, unsigned long pages_end,
++			 const struct drm_gpusvm_ctx *ctx)
++{
++	struct hmm_range hmm_range = {
++		.default_flags = HMM_PFN_REQ_FAULT | (ctx->read_only ? 0 :
++			HMM_PFN_REQ_WRITE),
++		.notifier = notifier,
++		.start = pages_start,
++		.end = pages_end,
++		.dev_private_owner = ctx->device_private_page_owner,
++	};
++	unsigned long timeout =
++		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	unsigned long remaining;
++	unsigned long npages = npages_in_range(pages_start, pages_end);
++	unsigned long *pfns;
++	int err = 0;
++	enum dma_data_direction dma_dir = ctx->read_only ? DMA_TO_DEVICE :
++							   DMA_BIDIRECTIONAL;
++
++	if (!svm_pages->drm)
++		return -EINVAL;
++
++retry:
++	remaining = timeout - jiffies;
++
++	if (time_after_eq(jiffies, timeout))
++		return -EBUSY;
++
++	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
++	if (drm_gpusvm_pages_valid_unlocked(gpusvm, svm_pages))
++		goto set_seqno;
++
++	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
++	if (!pfns)
++		return -ENOMEM;
++
++	if (!mmget_not_zero(mm)) {
++		err = -EFAULT;
++		goto err_free;
++	}
++
++	hmm_range.hmm_pfns = pfns;
++	err = hmm_range_fault_unlocked_timeout(&hmm_range, remaining);
++	mmput(mm);
++	if (err)
++		goto err_free;
++
++	if (!svm_pages->dma_addr) {
++		svm_pages->dma_addr =
++			kvzalloc_objs(*svm_pages->dma_addr, npages);
++		if (!svm_pages->dma_addr) {
++			err = -ENOMEM;
++			goto err_free;
++		}
++	}
++
++	svm_pages->state = (struct dma_iova_state){};
++	svm_pages->state_offset = 0;
++
++	/*
++	 * Perform all dma mappings under the notifier lock to not
++	 * access freed pages. A notifier will either block on
++	 * the notifier lock or unmap dma.
++	 */
++	drm_gpusvm_notifier_lock(gpusvm);
++
++	if (svm_pages->flags.unmapped) {
++		drm_gpusvm_notifier_unlock(gpusvm);
++		err = -EFAULT;
++		goto err_free;
++	}
++
++	if (mmu_interval_read_retry(notifier, hmm_range.notifier_seq)) {
++		drm_gpusvm_notifier_unlock(gpusvm);
++		kvfree(pfns);
++		goto retry;
++	}
++
++	err = drm_gpusvm_dma_map_pages(gpusvm, svm_pages, pfns, npages, ctx,
++				       dma_dir);
+ 	drm_gpusvm_notifier_unlock(gpusvm);
++	if (err)
++		goto err_free;
++
+ 	kvfree(pfns);
+ set_seqno:
+ 	svm_pages->notifier_seq = hmm_range.notifier_seq;
+ 
+ 	return 0;
+ 
+-err_unmap:
+-	svm_pages->flags.has_dma_mapping = true;
+-	__drm_gpusvm_unmap_pages(gpusvm, svm_pages, num_dma_mapped);
+-	drm_gpusvm_notifier_unlock(gpusvm);
+ err_free:
+ 	kvfree(pfns);
+ 	if (err == -EAGAIN)
 -- 
 2.34.1
 
