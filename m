@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5493C79F87
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 10:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B27FC79F83
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 10:45:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF3710FA88;
-	Fri,  4 Sep 2026 10:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F111A10FA89;
+	Fri,  4 Sep 2026 10:45:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eIcZYSNz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YP9DP3WW";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F7610FA90
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 10:45:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5412510FA89
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 10:45:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C77D43DD5;
- Fri,  4 Sep 2026 10:45:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C051F00ACA;
- Fri,  4 Sep 2026 10:45:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2FAEA41502;
+ Fri,  4 Sep 2026 10:45:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590C11F00A3D;
+ Fri,  4 Sep 2026 10:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788518749;
- bh=YsqfU4rnOxCjbdNELUfPy2EP2mOE10vhuCcFu2B7Ivw=;
+ s=k20260515; t=1788518752;
+ bh=tp5ZGMgCkDYYyYju3vZvBz8YmJ8LdRAUta1tmaeUPO4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eIcZYSNz+EMU1wJDbnZ7IB4nUkt6pmqiN9ypT7xdXDKBetutOJBe6ISblfxsuhABO
- 8gu9ZrpfWEV8GuQQaIkVaMrKKTsBcPI1a9LVKBPB6lp4vFb4p6MUt1o8J+f8Q9JQ+5
- i1zu5i2VpZDULgo04uuwuPTweSqZrxltdhEJW978nE2aEbSz4ONKWizPqUykM5cINR
- 3Eb4qo29Q25adrLfYNlJiAtOTc4+PdXD6tmqo+3aZAtdCE2rvKqnUXcieI52wq03YJ
- TckMPq3pX9hclABWT2q5hTtbU0BdWb1968ZkMkzAaazhu2nK5fftv2/tqDszxW0Iii
- /VFNdlKvValtg==
+ b=YP9DP3WWRHbpiBvqdRY47YbL8PcKvkW6ZXkIs1iXMKrHnkCIpHGrZPLBccBF7fo+9
+ LV2JfjAHdxT74nfkVvRATWOGtmNEYIfha/f9lSFm+oRgKm90U62Knia62E+zDOb5h8
+ BQHGnIwPgCVW2OaNJzvAXlgTZb2AbvzmXnUwyoIQQbE5eGYFWO1Di0Lr+YUVs2rnf0
+ r7W6QnGFNrRfOdMjFQ+XjH/4PTzUJexNHgYqqxF0Lu30hod7dzL+Wyz/10mkHaqB/T
+ O/hvZ9CjdZzI1ffSGAwm/du+AWBMSAkXfEGbuPOSnZdgEhDQUX68+TcEIjfSjIePTl
+ aQbfiX0MrZCSg==
 From: Thierry Reding <thierry.reding@kernel.org>
-Date: Fri, 04 Sep 2026 12:45:02 +0200
-Subject: [PATCH v6 11/12] arm64: tegra: Hook up VPR to host1x
+Date: Fri, 04 Sep 2026 12:45:03 +0200
+Subject: [PATCH v6 12/12] arm64: tegra: Add VPR placeholder node on
+ Tegra264
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-tegra-vpr-v6-11-79042cfa8de5@nvidia.com>
+Message-Id: <20260904-tegra-vpr-v6-12-79042cfa8de5@nvidia.com>
 References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
 In-Reply-To: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -79,20 +80,20 @@ Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
  linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
  linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1002; i=treding@nvidia.com;
- h=from:subject:message-id; bh=uOEc0ecGZ8h9g47cFlkUo3cheaRQXqI5mvM+m7jx2j8=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqmqE7YpgB+UW4bihyCTOissm5QATEBPRPgX85W
- J6eTpZr/RqJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapqhOwAKCRDdI6zXfz6z
- oQ2TD/sHzBA2pRG369bC31+gXcK7TapnCz45reqcz4nihHa3IPi+ER91aVZ02HHKlgS8XCmhR5H
- NQCQtM9uARyGfjdGOuPIYCIeSUJ2tUpUscrh0pzM1PlO2B5R/o/IuOvBpaYXDXo8utSe5muX4xM
- 1gx8QtCKLfBq/Qp6R5ac6C/ybJtthKei5x8m8FH2opPQ+Kw7ZhODt0tIA6Kyz3EUuyXr1oOaLSl
- d1uHqpDMyBFcRo9v38nbm9Gu9tcHcee4LYaCWSjp2e27lqDB5ynyOxYPiVqhUPDHODEnE40GSF0
- HCPOGK8aWmRdKrLYiiZrnyc34ZDX5tukJ9ylMT6Gsoili58f1VQbTP38Vflhxl3r+ijmgi3XmRs
- ombeMOdZvJxHCvsaXignsftiQQ8DNLv6+zTkTbGznqfjb1New6aYPoS2HRZ0d82MDn9BFWP/6KN
- NG2PW/g99K10YYoTpZYQ0lyQAa5zfAh/tKEkwb8avEoHXswF5fUp+Dx+pD1cXlev/6LeEiHtJe7
- E/UxTdopwiGCS7COTxnXp/OTH4M7HCrZavExIayJrB8QFFTsfsTtCCdXB1doBC4SAKbDYAfuV3+
- Spwv2ajjV1+ob6L4xpL2aITbV7myXUR8GNx919nAJ2d/FleBjFqIl4+PTBjwErta9Mb7Y0V92l2
- 3X0W6eay5myH43Q==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2208; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=R7+I3znIc+C4CFBfwF3uhHrkIxj2+n+gJD2B2rW3tV0=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqmqE7rP80/4E7a4eMykLVRISmqrRHTPAuxP98w
+ IQWcaSm6L+JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapqhOwAKCRDdI6zXfz6z
+ oaKNEACHyKhsBTZ1ctuBVdFSOjnEQ57mTqBOSye23UOv+Cr1ljxFp2QbH5hIEcClwoZOO9RCHkp
+ Ta4o8lXpIGEeh0Os6ntBR3KiBB3v0WNaZwRZMwygvkxDFdGVgZv+m77w6UjOiNOOiwCO3J5sAXi
+ Z1LPXrk5DPnIVRNxKPWenoikUckPR8eZDbkLjzC4i1lugL0pzKxtYA/KfhtpKQ3ySP74CCNVlLR
+ lIV7U3WbT+g1GKMvtGNimuiIRl5iPmXfM+hs0uLpc9uWLGhsLMVfGVUTCmjIDDgabJWY1W/ikVx
+ oKbI5FF342XhJ+LD2NO99czozExIVH/xTcwhhijOUOMPZ5WCV20Z2Ct1BlhkN8a3yK8CweWyWvN
+ 0OoosKFHIGaJw/ZXOKhzODb3vrk0W1sMsJMrrRbAWpXoeNWJhh26wKyk5uZ5kypmlSSv6tSUmSS
+ 0i60LJTaLmdfnl5vZnL2nKNBmpjWdZnT9lhXfDn4/v+saokkEIbUkA5QzpPBWsc/EQSwKN79Hjc
+ t6gbLAylaeVwcS6w/AalDjDGEDVGDQ//gIHc4WSypdbJIpT4N2qhlCQaTIHyq3NxEj8C24lCtvz
+ vJBUWMxwp8mg/mGygNuSa9PivjI7QtLST0GOLttf8SYkBQ0Fa3MYv1YSkoYYglsWVF3WDMfY8I5
+ 2up7C/PXiHlgD7Q==
 X-Developer-Key: i=treding@nvidia.com; a=openpgp;
  fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,38 +113,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Thierry Reding <treding@nvidia.com>
 
-The host1x needs access to the VPR region, so make sure to reference it
-via the memory-region property.
+This node contains two sets of properties, one for the case where the
+VPR is resizable (in which case the VPR region will be dynamically
+allocated at boot time) and another case where the VPR is fixed in size
+and initialized by early firmware.
+
+The firmware running on the device is responsible for updating the node
+with the real physical address for the fixed VPR case and remove the
+properties needed only for resizable VPR. Similarly, if the VPR is
+resizable, the firmware should remove the "reg" property since it is no
+longer needed.
 
 Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
- arch/arm64/boot/dts/nvidia/tegra234.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v3:
+- comment out fixed VPR properties, assume resizable by default
+- rename node to "protected"
+---
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi | 33 ++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-index 6c4739efc8a5..c6a5ced069e7 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-@@ -4479,6 +4479,9 @@ vic@15340000 {
- 				interconnect-names = "dma-mem", "write";
- 				iommus = <&smmu_niso1 TEGRA234_SID_VIC>;
- 				dma-coherent;
+diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+index 964f18b256b1..998f7e28b9cb 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+@@ -24,6 +24,39 @@ shmem_bpmp: shmem@86070000 {
+ 			reg = <0x0 0x86070000 0x0 0x2000>;
+ 			no-map;
+ 		};
 +
-+				memory-region = <&vpr>;
-+				memory-region-names = "protected";
- 			};
- 
- 			nvdec@15480000 {
-@@ -4497,6 +4500,9 @@ nvdec@15480000 {
- 				iommus = <&smmu_niso1 TEGRA234_SID_NVDEC>;
- 				dma-coherent;
- 
-+				memory-region = <&vpr>;
-+				memory-region-names = "protected";
++		vpr: protected {
++			compatible = "nvidia,tegra-video-protection-region";
++			status = "disabled";
 +
- 				nvidia,memory-controller = <&mc>;
++			/*
++			 * Two variants exist for this. For fixed VPR, the
++			 * firmware is supposed to update the "reg" property
++			 * with the fixed memory region configured as VPR.
++			 *
++			 * For resizable VPR we don't care about the exact
++			 * address and instead want a reserved region to be
++			 * allocated with a certain size and alignment at
++			 * boot time.
++			 *
++			 * The below assumes resizable VPR by default. If the
++			 * firmwares sets up fixed VPR, it is responsible for
++			 * adding the missing "reg" property, removing any of
++			 * the unused properties, as well as adding a unit-
++			 * address matching the "reg" property.
++			 */
++
++			/* fixed VPR */
++			/*
++			reg = <0x0 0x0 0x0 0x0>;
++			no-map;
++			*/
++
++			/* resizable VPR */
++			size = <0x0 0x70000000>;
++			alignment = <0x0 0x100000>;
++			reusable;
++		};
+ 	};
  
- 				/*
+ 	/* SYSTEM MMIO */
 
 -- 
 2.55.0
