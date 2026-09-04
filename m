@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 191BDC624D3
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:55:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3759CC624D3
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57FE210E1D9;
-	Fri,  4 Sep 2026 13:55:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8241F10F970;
+	Fri,  4 Sep 2026 13:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JM3LE0kH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BOLEJpgc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B1110E1D9
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:55:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E69D10F970
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:57:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C128B601F0;
- Fri,  4 Sep 2026 13:55:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052AD1F00A3D;
- Fri,  4 Sep 2026 13:55:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4148241834;
+ Fri,  4 Sep 2026 13:57:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41DFB1F00A3D;
+ Fri,  4 Sep 2026 13:57:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788530127;
- bh=+cG2WXfZtpJyh0eIqtNB3SnV0tjiddM7ZIcc0YJ1E8A=;
+ s=k20260515; t=1788530230;
+ bh=3vpS1tYpkPfcUSeqjetCrUKJtytc4S0Lgm4goTB6NAE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JM3LE0kHUNf6ym2x5h0/bwm3iZHEqIGx04VfJKAkpbceYLHC8md7aQEfevI0B9eHj
- ctMobEP6iYE9GnjIpbzwii7R90qIRMuf494znuN/DyrPSA/hDoTd8kAYzA8nZFBZXP
- aJrYE4P6TruEocagjMBxW4y/6TNIXifq4zvnvLVF3FNa7crpE4X0vlMhq62WR5LvCd
- QuUsJ1/EcoZ7AzGSodAWyBwl+EfZbQARR3gQrfNmYBSx+vzYhBXqf58wzyaopcK6we
- 1LqVjhefNdf2FQ6PAnxEFzrX2nj3ReGNIsRy1okYSIwUypo9evkIoKP0ceXotSncaZ
- oPM9eBRVDTjiQ==
+ b=BOLEJpgcKjuxgddgJKzoW8b+Zl/njdDhxZhxVzDtCTnCULczgFtd2mulKVwRiB1Fz
+ 179W3jsmHPb+6OLPabobQ0Uc4lkcKzKKrDDbJ1kKOF2hLZqEeW8J4/8VnOsTxHVqSQ
+ +aRJg8Ickba024n3tdybJleJyckZvbIveO5LhBZVLDXg52Mg48e4sAtfFtrCdkCRmQ
+ URapLvJR1BcH7uI/KyN5K+7vEU5+1x1xfPfj++MtpO1NwysaWotl6TSsXVx0yU/K9N
+ 7QFY79EQkX1VslmtG+uFSy4Eei3i1RucYFqPzjmewbNT1Q1gY+FimhbhB9n4R8ySke
+ dWu1wwDvYl50g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 15/19] phy: Add common Innosilicon HDMI PHY helpers
+Subject: Re: [PATCH v3 14/19] drm/bridge: starfive: Add JH7110 HDMI
+ controller driver
 To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: olteanv@gmail.com, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- lee@kernel.org, neil.armstrong@linaro.org, linux-clk@vger.kernel.org,
- robh@kernel.org, mfd@lists.linux.dev, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260904-jh7110-clean-send-v3-15-484f9ae72715@samsung.com>
+Cc: mfd@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, olteanv@gmail.com, conor+dt@kernel.org,
+ lee@kernel.org, dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260904-jh7110-clean-send-v3-14-484f9ae72715@samsung.com>
 References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0@eucas1p2.samsung.com>
- <20260904-jh7110-clean-send-v3-15-484f9ae72715@samsung.com>
+ <CGME20260904132735eucas1p2c898afe4a4c6e957a7b9eedff321a6dc@eucas1p2.samsung.com>
+ <20260904-jh7110-clean-send-v3-14-484f9ae72715@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 13:55:26 +0000
-Message-Id: <20260904135527.052AD1F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 13:57:08 +0000
+Message-Id: <20260904135709.41DFB1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,116 +64,117 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Kernel panic from division by zero in clock rate recalculation if =
-regmap_read fails or registers are uninitialized.
-- [High] Severe 32-bit integer overflows in VCO clock calculations on 32-bi=
-t architectures, leading to heavily truncated clock rates.
+- [Medium] The `regmap` variable is assigned and checked but never used or =
+passed to the generic driver, contradicting the commit message.
+- [Medium] Missing mandatory `phy_init()` and `phy_exit()` calls for the HD=
+MI PHY.
 --
 
-commit 3a039ecf7fc3d9336647b49a4ed8daf640a4fd42
+commit a25b9a0e71017577ee552276d0b9a0aa22a5f9f0
 Author: Michal Wilczynski <m.wilczynski@samsung.com>
+drm/bridge: starfive: Add JH7110 HDMI controller driver
 
-phy: Add common Innosilicon HDMI PHY helpers
+This commit adds the HDMI controller (bridge) driver for the StarFive
+JH7110. It registers as a DRM bridge, manages clock rates and PHY power,
+and configures the mux setting based on the port graph.
 
-This commit extracts shared Innosilicon HDMI PHY logic into a common
-library. It provides pre-PLL configuration, lookup, and clock rate
-recalculation helpers for SoC drivers that instantiate this IP.
+> The driver calls the generic inno_hdmi_probe function and passes the
+> shared regmap to it, registering as a DRM bridge.
 
-> diff --git a/drivers/phy/phy-inno-hdmi.c b/drivers/phy/phy-inno-hdmi.c
+[Severity: Medium]
+Is this description accurate regarding the regmap? Looking at the
+starfive_inno_hdmi_controller_probe() function below, the regmap is fetched
+but doesn't appear to actually be passed to inno_hdmi_probe() or used
+anywhere else.
+
+> diff --git a/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c b/drivers/gpu/drm/=
+bridge/jh7110-inno-hdmi.c
 > new file mode 100644
-> index 0000000000000..77e745a87d22b
+> index 0000000000000..b0bf6abaa55fb
 > --- /dev/null
-> +++ b/drivers/phy/phy-inno-hdmi.c
-
+> +++ b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
 [ ... ]
-
-> +static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned in=
-t reg)
+> +static void inno_hdmi_starfive_enable(struct device *dev,
+> +				      struct drm_display_mode *mode)
 > +{
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(pll->regmap, inno_reg(pll, reg), &val);
-> +	if (ret)
-> +		return 0;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does explicitly returning 0
-on a regmap read failure set up a deterministic kernel panic downstream?
-
-If the registers are uninitialized or the read fails, the returned 0 will
-propagate to the division operations in inno_hdmi_phy_pre_pll_recalc_rate().
-
 [ ... ]
+> +	/*
+> +	 * 3. Power on the PHY. This calls the PHY driver's .power_on op,
+> +	 * which configures the Post-PLL and analog blocks.
+> +	 */
+> +	ret =3D phy_power_on(ctrl->phy);
 
-> +unsigned long
-> +inno_hdmi_phy_pre_pll_recalc_rate(const struct inno_hdmi_phy_pre_pll *pl=
-l,
-> +				  unsigned long parent_rate)
-> +{
-> +	u8 nd, no_a, no_b, no_d;
-> +	unsigned long frac, rate;
-> +	u64 vco, vco_rate;
-> +	u16 nf;
-> +
-> +	nd =3D inno_read(pll, INNO_PRE_PLL_DIV_1) & INNO_PRE_PLL_PRE_DIV_MASK;
-> +	nf =3D (inno_read(pll, INNO_PRE_PLL_DIV_2) &
-> +	      INNO_PRE_PLL_FB_DIV_11_8_MASK) << 8;
-> +	nf |=3D inno_read(pll, INNO_PRE_PLL_DIV_3);
-> +	vco =3D parent_rate * nf;
+[Severity: Medium]
+Does this code omit a required initialization step? The generic PHY API
+strictly requires phy_init() to be called before phy_power_on(). Even if
+the current starfive-inno-hdmi-phy driver lacks an .init callback, omitting
+phy_init() here violates the API contract and could lead to initialization
+failures if the PHY driver is updated or a different PHY is bound.
 
-[Severity: High]
-This is a pre-existing issue, but on 32-bit architectures where
-parent_rate is a 32-bit unsigned long, does this multiplication silently
-overflow before being assigned to the 64-bit vco variable?
-
-The nf variable can be up to 4095, which would severely truncate the
-result if it exceeds the 32-bit limit. Should parent_rate be cast to
-u64 here?
-
-> +
-> +	if (!(inno_read(pll, INNO_PRE_PLL_DIV_2) &
-> +	      INNO_PRE_PLL_FRAC_DIV_DISABLE)) {
-> +		frac =3D inno_read(pll, INNO_PRE_PLL_FRAC_DIV_7_0) |
-> +		       (inno_read(pll, INNO_PRE_PLL_FRAC_DIV_15_8) << 8) |
-> +		       (inno_read(pll, INNO_PRE_PLL_FRAC_DIV_23_16) << 16);
-> +		vco +=3D DIV_ROUND_CLOSEST(parent_rate * frac,
-> +					 BIT(INNO_FRAC_DIV_WIDTH));
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the parent_rate * frac
-multiplication silently overflow 32-bit limits as well?
-
-If this calculation is upgraded to 64-bit to avoid the overflow, would it
-also require switching DIV_ROUND_CLOSEST to DIV_ROUND_CLOSEST_ULL to prevent
-__udivdi3 link errors on 32-bit systems?
-
+> +	if (ret) {
+> +		dev_err(dev, "Failed to power on PHY: %d\n", ret);
+> +		clk_disable_unprepare(ctrl->clks[CLK_PCLK].clk);
+> +		return;
 > +	}
 > +
-> +	vco_rate =3D vco;
+> +	ctrl->enabled =3D true;
+> +}
 > +
-> +	if (inno_read(pll, INNO_PRE_PLL_CONTROL) & INNO_PCLK_VCO_DIV_5_MASK) {
-> +		do_div(vco, nd * 5);
-
-[Severity: High]
-This is a pre-existing issue, but if nd evaluates to 0 from a failed read,
-will this do_div() trigger a divide by zero exception during probe?
-
-> +	} else {
-> +		no_a =3D inno_read(pll, INNO_PCLK_DIV_AB) & INNO_PCLK_DIV_A_MASK;
-> +		no_b =3D FIELD_GET(INNO_PCLK_DIV_B_MASK,
-> +				 inno_read(pll, INNO_PCLK_DIV_AB)) + 2;
-> +		no_d =3D inno_read(pll, INNO_PCLK_DIV_CD) & INNO_PCLK_DIV_D_MASK;
+> +static void inno_hdmi_starfive_disable(struct device *dev)
+> +{
+> +	struct stf_inno_hdmi_controller *ctrl =3D dev_get_drvdata(dev);
 > +
-> +		do_div(vco, nd * (no_a =3D=3D 1 ? no_b : no_a) * no_d * 2);
+> +	/*
+> +	 * .enable bails out early if the pixel clock rate is unsupported or
+> +	 * the PHY fails to power on, leaving pclk and the PHY untouched.
+> +	 * Only tear down what was actually brought up, otherwise the clock
+> +	 * refcount underflows.
+> +	 */
+> +	if (!ctrl->enabled)
+> +		return;
+> +
+> +	phy_power_off(ctrl->phy);
 
-[Severity: High]
-This is also a pre-existing issue, but similar to the above, if nd, no_a,
-or no_d evaluate to 0 due to read failures, does this also cause a kernel
-panic?
+[Severity: Medium]
+Should there be a call to phy_exit() here? Following the same API contract,
+phy_exit() should generally be invoked to clean up resources after
+phy_power_off() completes.
+
+> +	clk_disable_unprepare(ctrl->clks[CLK_PCLK].clk);
+> +	ctrl->enabled =3D false;
+> +}
+[ ... ]
+> +static int starfive_inno_hdmi_controller_probe(struct platform_device *p=
+dev)
+> +{
+[ ... ]
+> +	/* Get the shared regmap from the parent */
+> +	regmap =3D dev_get_regmap(parent, NULL);
+> +	if (!regmap) {
+> +		dev_err(dev, "Failed to get parent regmap\n");
+> +		return -ENODEV;
+> +	}
+
+[Severity: Medium]
+Could this be dead code? The regmap is fetched and checked here, but
+subsequent code within starfive_inno_hdmi_controller_probe() never uses it.
+
+[ ... ]
+> +	plat_data =3D of_device_get_match_data(dev);
+> +
+> +	/* Hand off to the generic library to create the bridge. */
+> +	inno =3D inno_hdmi_probe(pdev, plat_data);
+
+[Severity: Medium]
+As mentioned regarding the commit message, should the regmap have been
+passed to inno_hdmi_probe() here?
+
+> +	if (IS_ERR(inno))
+> +		return PTR_ERR(inno);
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-jh7110-cle=
-an-send-v3-0-484f9ae72715@samsung.com?part=3D15
+an-send-v3-0-484f9ae72715@samsung.com?part=3D14
