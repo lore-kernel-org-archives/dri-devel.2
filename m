@@ -4,47 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73B0DC624D3
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF1AC61DD6
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 14:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A4010F9A9;
-	Fri,  4 Sep 2026 13:57:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 353D110F9AD;
+	Fri,  4 Sep 2026 14:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xdxz6kd7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IOwa0Gl3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A6A410F9AD
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:57:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0CC5E411B6;
- Fri,  4 Sep 2026 13:57:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F64F1F00A3D;
- Fri,  4 Sep 2026 13:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788530276;
- bh=BLIfOnhFESYpnnCgoqCF1Sa2NILI1mIvJd+wh2AP+Ec=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xdxz6kd7kdlGIY73xPnGEh4YN0E+3bRxfTlwW/2knslii7PmFcW0Tn/aZiqbN6KHs
- 2PJ1QptUQ8FMmpZ60J8jn5zKEWX53ZEhRHzOWZfpuKk0i8db2xN6cmR9L2N6IRmCjw
- nPOxbIzWUa7S0qH6Fn0JchLDzdou+6Ob99TqdsSHD1dLw7Htlc3goFQDlonlsXxWkm
- 3oBV9ttotpIqw69j4ax4F3eCXPppYGA3DVfh+oo91Xv7pT3HnyqibkSH65PrzbNdCA
- Ap0wHJpJwmBMbzRQN8pbYJbRMS08wUSN0FK1u2e/+7uE4U2kvL9DyTR5JBReiAGVON
- Z0OvqwW06xvOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 17/19] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: linux-clk@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260904-jh7110-clean-send-v3-17-484f9ae72715@samsung.com>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132741eucas1p1a60fc27f22cb79ef94aeb637334124f2@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-17-484f9ae72715@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 13:57:55 +0000
-Message-Id: <20260904135756.3F64F1F00A3D@smtp.kernel.org>
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A8D10F9AD
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:59:58 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-499db1740f0so451735e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 06:59:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788530397; x=1789135197; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pL5oIYV7zk9vcM9H1fRzBKbJl+oOE//iZp70tDsfKtQ=;
+ b=IOwa0Gl34pGcYjQwjqninB+ubQPl7e55FBGj+y9HIKOxrJ61nWDG70i5xBxihFXZ5x
+ f0Cz6w0ZhoUMGIC287G/7G//U688XFVEIHm2t8+4AV2nUwVUG8Qln2ziVwBRGtbbfVDL
+ UUwpY02cGov+rbfPlEYR8VDOFksjBKotKP2VsWu7LOB9MvFE1aPBCC0bEqYj3Ea8drnU
+ K8e0QJmSrynA/wzjED74Bge8I+ZtEvSeK+VOQ5M9BCoa8iRG62PEy/yhQySuNP8d2kkm
+ cZbOBI0yZWNy3G/jjtZqdAGnkIWsW8OWIEt4ajiwajr0XTzueUutwEcR3J2d1SzeBJiz
+ 3VTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788530397; x=1789135197;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pL5oIYV7zk9vcM9H1fRzBKbJl+oOE//iZp70tDsfKtQ=;
+ b=LdwrNAmD6iq7oqHIFzYv0UWiV/Y4J8v/mRXrlHgMuMIYlTGAQijOfI5GBXA4rsvp/E
+ 57gzrXTVTXZYz0wZ2EM0V7ttliwS8WrmCJGvT/rpXiKVz/mCOtyytQZkXJro/EhYuG0Y
+ AyGm/2FSiVfvYi8tw5wqFDN+ssbdB7Zf71ES/Bu7zSZ20bnUqXee1cuo/8kVZDEqBswl
+ s33YHXvSnwsK9kuMzTIsRBJSlPVi6phU0VGI4YNjS473XO14399FyEYA7xLYl4Wy/gtm
+ o8ah1hgJ0XY4Q9obvRp2qRQQQtp5HO2DOH4Gnl+of/Ec7DGMhEej5LVPfnfTXlgkcZon
+ woNg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz9/+9ZW+dsuTNQzmfL+7qiaXk6MjVpxbbLhbLOeNtblT3UcGGU5OUexQw9Y5Qtw/dG7KyeF1uO3Bs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lbBBwezbHCsraSwX95dnL9VCkZQiq3+rb/xtMNAVe659KsqCDx
+ ZZ8C8OeJ3ho48dufHSFOWv64OLdA2zWKx/X4RAZH465y5I8wF4VIVocA
+X-Gm-Gg: AYBFou1ddPLtE8AXtQlEXWo07MjeyVCh5AedX9w6wQpZ4vsjhlVil2hsiQn1TooFAXK
+ 64wblqiWWZTN9dZQ6bL8A10VRhtC0Dt8MjGZHMzjdRJJlPGS78NDyNMvK0kWDB2n+kLmlb3zuud
+ jYXnph16gAYfX7TS+fs3/1Xgrsepbs3ERXrondGE+s0PUrgSbGvbZ3Za/+cfBxasZH/0lQiCGLj
+ X5VpyEM/dg186h0N+bj45yroTzrQMaPwTGLD8l93/N48qSJgLf6wWGw3nxMm0VBR/ruYFI/btre
+ kAULol+2dISh+4nOdr6nkIktlfP/TQTQIXuUyDdiQFf5D9SztAgrFAon9PteOcjL/uzxpASsmd/
+ zMr5YCUdSkdOUSihjCenwEG6Yp6Ge8ThRSjqEf53/xlmk7PMfjRidfQC6+ApjGBmbaKJpo9NeH6
+ o4S4F/hrQriO+l1/eUp5falDMOdmos5CJ3iUjcRhXQE2bkl5Bel2bexxs+5nEIJWooQ28rav4AW
+ qVJxGaxcabzsGneNfxPNbSfe/t9uHOPgzbkI1Y9cBda7SSwpOSQO8NBaqWTKsyUV1nSJ/Oq3PcL
+ 1KHhiA==
+X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id
+ 5b1f17b1804b1-49cf823c012mr44419095e9.1.1788530396364; 
+ Fri, 04 Sep 2026 06:59:56 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B871500455C8730D6A15F49.dsl.pool.telekom.hu.
+ [2001:4c4e:1b87:1500:455c:8730:d6a1:5f49])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cf770fcf5sm70619115e9.6.2026.09.04.06.59.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Sep 2026 06:59:55 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+ Jiaxing Hu <gahing@gahingwoo.com>,
+ Guangshuo Li <lgs201920130244@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH] accel/rocket: search every core slot when a core is
+ removed
+Date: Fri,  4 Sep 2026 15:59:36 +0200
+Message-ID: <20260904135938.8757-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260904125936.26234-1-royalnet026@gmail.com>
+References: <20260904125936.26234-1-royalnet026@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,167 +94,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Unconditional register access in `clk_set_rate` and `probe` will c=
-ause a CPU wedge if the HDMI system clock is gated.
-- [High] `phy_power_off` unconditionally disables shared analog blocks (BIA=
-S and RX), breaking the pixel clock output if `hdmi_pclk` is still running.
-- [Medium] `clk_set_rate` unconditionally powers on the Pre-PLL and analog =
-blocks, violating CCF semantics and leaking power.
-- [Medium] Data race on state variables and unprotected register sequences =
-between Clock and PHY callbacks.
---
+Answering the one question that is about this patch rather than about the
+state it leaves behind, and confirming the rest.
 
-commit 08ad435ba48340f7f566c8d19a6a67d1faa2ca9d
-Author: Michal Wilczynski <m.wilczynski@samsung.com>
-Subject: phy: starfive: Add jh7110-inno-hdmi-phy driver
+> Because rocket_remove() doesn't clear the dev pointer or compact the
+> array, wouldn't subsequent out-of-order unbinds match stale pointers
+> since find_core_for_dev() now searches up to max_cores?
 
-This commit adds the HDMI PHY driver for the StarFive JH7110. It registers=
-=20
-as a clock provider for the pre-PLL pixel clock and a PHY provider for the=
-=20
-post-PLL analog blocks.
+There are three callers: rocket_remove() and the two runtime PM callbacks.
+The driver core calls remove once per device, and the PM callbacks cannot
+run for an unbound one, because rocket_core_fini() has already called
+pm_runtime_disable() on it. The slots the widened search adds are either
+never filled, where .dev is NULL and matches nothing, or held by a device
+that has been unbound - and nothing asks after such a device again.
 
-> diff --git a/drivers/phy/starfive/phy-jh7110-inno-hdmi.c b/drivers/phy/st=
-arfive/phy-jh7110-inno-hdmi.c
-> index 0000000000000..2575cb5ed624a
-> --- /dev/null
-> +++ b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
+What the narrower search did do was lose live cores. Unbind the core in
+slot 0 of three: num_cores drops to two, so find_core_for_dev() stops
+before slot 2. The core sitting there is still bound and still running,
+but its own runtime suspend and resume callbacks start returning -ENODEV.
+Searching every allocated slot fixes that as well.
 
-[ ... ]
+An earlier version of this patch did clear .dev on removal and take a free
+slot on probe. I dropped both. Clearing .dev turns rocket_open()'s
+unconditional cores[0] into a NULL dereference whenever the core in slot 0
+is unbound while its siblings stay bound, which is a worse failure than
+the one it cures - and it is the same rocket_open() issue listed further
+down. That is why the commit message says out-of-order unbind wants more
+thought than a fix should carry, rather than quietly half-fixing it.
 
-> +static int starfive_hdmi_phy_clk_set_rate(struct clk_hw *hw, unsigned lo=
-ng rate,
-> +					  unsigned long parent_rate)
-> +{
-> +	struct starfive_hdmi_phy *inno =3D to_starfive_hdmi_phy(hw);
-> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
+On the rest: all eight are pre-existing and I agree with all eight. Two of
+them have names already.
 
-[ ... ]
+The ERR_PTR left in the file-scoped rdev is fixed by Guangshuo Li's
+"accel/rocket: clear rdev on device init failure", posted in July and
+still unapplied:
 
-> +	if (inno->pixclock =3D=3D rate && inno->tmdsclock =3D=3D cfg->tmdsclock)
-> +		return 0;
-> +
-> +	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-> +			 STF_INNO_BIAS_ENABLE, STF_INNO_BIAS_ENABLE);
-> +	inno_write(inno, STF_INNO_RX_CONTROL, STF_INNO_RX_ENABLE);
+  https://lore.kernel.org/dri-devel/20260708062845.716487-1-lgs201920130244@gmail.com/
 
-[Severity: High]
-Does this register access execute blindly without checking if the clock is
-prepared?=20
+It carries my Reviewed-by. It would be good to see that one land.
 
-The commit message mentions that unclocked accesses wedge the bus hard enou=
-gh
-that the CPU stops taking NMIs. If clk_set_rate() is called while the clock=
- is
-unprepared, could this cause the described system crash?
+The devm point may explain something I measured this week and could not
+account for. Unbinding and rebinding all three cores walks the DRM minor
+upwards - 1 through 10 over ten rounds in one run - and only a module
+reload puts it back to 0. I have not shown that the allocations are
+leaked, only that something survives a rebind that should not, which is
+consistent with what you describe.
 
-[Severity: Medium]
-Additionally, could this unconditionally power on the shared analog blocks
-and violate the Common Clock Framework semantics?=20
-
-CCF allows clk_set_rate() to be called on an unprepared clock, which should
-merely update the configuration. If the clock remains unprepared, do these
-blocks remain powered on and unnecessarily leak power?
-
-> +
-> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-> +	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
-> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
-
-[Severity: Medium]
-Does this also force the Pre-PLL hardware into a powered-up and running sta=
-te
-without checking if the clock is prepared, potentially leaking power?
-
-> +
-> +	inno->pixclock =3D rate;
-> +	inno->tmdsclock =3D cfg->tmdsclock;
-
-[Severity: Medium]
-Is it safe to modify this shared state under the CCF's prepare_lock?
-
-The PHY framework might concurrently modify these variables under phy->mute=
-x in
-starfive_hdmi_phy_power_down(). Could this data race cause inconsistent
-internal state, or allow the multi-register hardware configuration sequences
-to dangerously interleave?
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static void starfive_hdmi_phy_power_down(struct starfive_hdmi_phy *inno)
-> +{
-> +	inno_write(inno, STF_INNO_TMDS_CONTROL, 0x00);
-> +	inno_write(inno, STF_INNO_SERIALIER_CONTROL, 0x00);
-> +	inno_write(inno, STF_INNO_LDO_CONTROL, 0x00);
-> +	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-> +			 STF_INNO_BIAS_ENABLE, 0x00);
-> +	inno_write(inno, STF_INNO_RX_CONTROL, 0x00);
-
-[Severity: High]
-Does this unconditionally disable the shared BIAS and RX analog blocks, even
-if the hdmi_pclk clock provider is still running?=20
-
-If the PHY is powered off, but the VOUT subsystem still expects the pixel
-clock to be active, will this abruptly kill the clock signal behind the clo=
-ck
-framework's back?
-
-> +
-> +	/* Power down Post-PLL */
-> +	inno_update_bits(inno, STF_INNO_POST_PLL_DIV_1,
-> +			 STF_INNO_POST_PLL_POWER_DOWN,
-> +			 STF_INNO_POST_PLL_POWER_DOWN);
-> +
-> +	inno->tmdsclock =3D 0;
-> +	inno->pixclock =3D 0;
-
-[Severity: Medium]
-This appears to be the other side of the data race mentioned above. Does
-modifying this state under the PHY mutex race with the CCF reading or
-writing it via clk_set_rate() or clk_recalc_rate()?
-
-> +}
-
-[ ... ]
-
-> +static int starfive_hdmi_phy_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device *parent =3D dev->parent;
-
-[ ... ]
-
-> +	ret =3D of_clk_add_provider(dev->of_node, of_clk_src_simple_get, inno->=
-phyclk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to add clock provider: %d\n", ret);
-> +		goto err_disable_refoclk;
-> +	}
-> +
-> +	ret =3D clk_set_rate(inno->phyclk, 297000000);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to set default rate: %d\n", ret);
-> +		goto err_del_clk_provider;
-> +	}
-
-[Severity: High]
-Does this synchronous clk_set_rate() call hit the PHY registers before the
-sibling controller is guaranteed to have enabled the system clock?
-
-Because the PHY driver can probe before the bridge driver, could this happen
-while the clock is gated, triggering the system crash (CPU NMI stall)
-described in the commit message?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-jh7110-cle=
-an-send-v3-0-484f9ae72715@samsung.com?part=3D17
+Igor
