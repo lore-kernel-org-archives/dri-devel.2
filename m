@@ -4,50 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B79CC61DD6
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 11:16:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 341B2C624D3
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 11:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B45DD10E1AC;
-	Fri,  4 Sep 2026 11:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B59489F1B;
+	Fri,  4 Sep 2026 11:19:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="FnmN2lfn";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="eJgJktwj";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VaKpTkTF";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12E7210E1AC
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 11:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=X59egMSYDD+fE2fzFBggAtOS3MUTfnxcCwKe29Q8yD8=; b=F
- nmN2lfnW3b9tBbPbd/9jZ97NII9zPXTJftpLtim88qJA1A3Svuhzip3AJadw2v3G
- STJF196aHB3EL21x5KWIFwAqhZmIRd9Vc8jEYTmxE8WlnDUwxmbdBD0gcfhI5ayS
- 6jo9KfZS79BAi+p8CX8KHSJxHScHunmn+2rgi0CYgc=
-Date: Fri, 4 Sep 2026 19:13:03 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Johan Jonker" <jbx6244@gmail.com>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- andy.yan@rock-chips.com, hjc@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [RFC PATCH v1] drm: rockchip: add
- drm_plane_create_blend_mode_property
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <a239b296-ba90-45d1-b8b8-713ab29fda5c@gmail.com>
-References: <1ab6fb88-3b84-49b5-aa05-202a84edbd3d@gmail.com>
- <25031028.6Emhk5qWAg@diego>
- <a239b296-ba90-45d1-b8b8-713ab29fda5c@gmail.com>
-X-NTES-SC: AL_Qu2TCvmZv0sj5SSfZekfmUgWjuw/WsG1v/Ul1YBSP556jCHrxzoRdHxjAkDS7+6eBDGRrDGqWTZt7uBVZIN9ZLsi34t6cze7ZrnBPpeLFqZdGQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Received: from fout-b2-smtp.messagingengine.com
+ (fout-b2-smtp.messagingengine.com [202.12.124.145])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E1EA89F1B
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 11:19:07 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.stl.internal (Postfix) with ESMTP id A2F691D0013C;
+ Fri,  4 Sep 2026 07:19:06 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Fri, 04 Sep 2026 07:19:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:date:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+ t=1788520746; x=1788607146; bh=8AAYthSm13LQPXMSgW2GQbce5z7ohnwk
+ vamcvDYvS+E=; b=eJgJktwjhYHCq9zZ9Jr5QicQjmUh1566Jn5lZQw8zMWsNJVs
+ aZhg9MuEWjH6nwxPk5cyGTwZR8M9Yd+oUmlBxUDo9cVr+XQLPnf4d7FrIUggHZt6
+ pOsRN4fll2smXHqc9mIa1qpppWCUi450EO715zlew2v9LS8cw6Sx3rWK3wUx6xGY
+ 3y9ich5qWctKnBu7mlfn5HCqYNeYbdH9iVtmM+gGgjD9AUr3Klo01Xq0kSh0buU/
+ f9c4Ly2EulEtkGPDy57yP9FlFnUotJcEWJP942O6xFxroNFGl65lVn0o3yt9lUfO
+ M4DTkkGgYTUYhQvtSC85VR/1Jnrq7CtMb0ehZA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788520746; x=
+ 1788607146; bh=8AAYthSm13LQPXMSgW2GQbce5z7ohnwkvamcvDYvS+E=; b=V
+ aKpTkTF4HXQZbpo0Yntn4pMhwdpJdjJUGRQpc4azrneouEt+vhfKf9LJTcw6h90I
+ xR4UlyCFADR6tILUKLp8mynROeRqqxPmGZTHLVMbKHeU5Y8YSsWsC+ND5YmAutpn
+ XVbAW7t6Bq87JpGQdeQxfii7EilBY15wtBEmgOGJnXCUFARtXd25h96y3GVArEwg
+ DSp6Nr6EBcXVlMiaFXuwsaokzp1wr5p9ZrBDoJBccgBZNYOtv8HpG4h9u8Ej5h4N
+ nhfoVcM/blpcS1U47OwkmMrlXMcv5Go6GjBV8UkADCmHnwQfvOZu3cDW1lsX/8tf
+ 51NOy2F8zkwZNX+m9pnnw==
+X-ME-Sender: <xms:Kqmaaqisw5YD_diULFPm-prGp0TelO-QzomlH7TGE9hThd-p7bkrZg>
+ <xme:KqmaakXjPL0jhsfsseF5sbUZhrwlw6eWYQNs_3_wyKwZS9S_NMi8sAvv1WZGlG5Hm
+ K8XPxsPqCVGOJ-a6VFlKhe4gd-mTer71O42dLvb8f8VzGrQumMK6yIZjA>
+X-ME-Received: <xmr:KqmaapWRLgdo6GcXv7pOdGws-1nSu59EdN-iG9kHBchK0i9CgHZZVv2WawWJodYGlhFJEVw58w>
+X-ME-Proxy-Cause: dmFkZTFLErxoBSq4Tt2+IoBW/VXnEsgz+NZYPLmhdFK783CCZjSAM69T2b5AUHoRCKk53L
+ 418PprOKdsIiSIx963JVHH8SVuGwasB8N/3/QLBo5uRA2J0Ld4PUnCrIrnwI+RpsQwrP8p
+ CFdszgEuTsh/odcNFKDujhfONMekScFmmpNgIFM6jXNv0tmtt9UKZkAtziP8k/QI3TVYK6
+ poYFcf50URYtjcwEGrFXgOYtZyDd/WRY1ExAPngduT0CxPMl4T56fgIwBlplL7UVkjXAl9
+ rZa4VLUNzr/NY3bDyarLlJEoQLQe4u1iBLETBmFQl6nYx0JZSpT74Hx3vJ4l3dH+LiIOcD
+ 16kD3fHd6Y0Hp+C/aPfMHqF0kzpBwD+vQWgo6bj7ka/Nm93LWprUyNzYq36AVAdw522CSU
+ n+/JspujOl3LdSzYpgsMgy0wbWH6x4NX86MkzrdjN7elucrJ9dCDNtdWLoVxSYkmlaj5Ze
+ iK+Zj206CMYJPpB0T4U9GZU6kqn8+tOhbeOX+oAAA2loBVQcDJv85hG0bJS5J9mLmaHCsV
+ DaC3n75jgbktz1DIR9kxE8BTA7b41Grm8GGc2wBJ8kbMR75hPoBcgqM8pb8Aq2ALJ1iJxb
+ oxglesopD9UePIPK4ciTH+9lbqfzwpcVjOyO9uElvecfSSksfIEQ2JnLT+Pg
+X-ME-Proxy: <xmx:Kqmaakj5K-CoBz7zZGGBKs3wGAZQRC5U6LG1MmP1T2zFP4uK4N_Rog>
+ <xmx:KqmaakZKGEGy69dc-ym4GZDvKYvCm8xcDiVt8CSMY-QO7L9wgju2-g>
+ <xmx:KqmaahqIaLVCWho3yHMu_PM7cNXrnTvEykN6IoPAR_QOLU9l3e8SYA>
+ <xmx:KqmaahMrBRfInXVUn-7H-sCWhjPDi0chQB3VLl24BA06PlBlKaUR2w>
+ <xmx:Kqmaar5DaKISOhVsjz9EWbx2kZrUh-F1RfJ_UJGQtbXmWOyOywS-rn_L>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Sep 2026 07:19:04 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: nicolas@ndufresne.ca
+Cc: royalnet026@gmail.com, tomeu@tomeuvizoso.net,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
+ and some numbers
+Date: Fri,  4 Sep 2026 23:19:02 +1200
+Message-ID: <20260904111902.87135-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+ <c495dae1976dab842d77f4a4a142217eb77b6fb7.camel@ndufresne.ca>
 MIME-Version: 1.0
-Message-ID: <3ff2201c.8fbe.1a06c1f43f5.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: lCgvCgD3X9y_p5pqQtI_AA--.6224W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7h9auGqap7-zwAAA3I
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +98,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CgpIZWxsbG/vvIwKCkF0IDIwMjYtMDgtMjQgMDU6MDY6NDUsICJKb2hhbiBKb25rZXIiIDxqYng2
-MjQ0QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPgo+T24gOC8yMy8yNiAyMToxOSwgSGVpa28gU3TDvGJu
-ZXIgd3JvdGU6Cj4+IEhpIEpvaGFuLAo+PiAKPj4gQW0gU29ubnRhZywgMjMuIEF1Z3VzdCAyMDI2
-LCAxNDoyOTowOSBNaXR0ZWxldXJvcMOkaXNjaGUgU29tbWVyemVpdCBzY2hyaWViIEpvaGFuIEpv
-bmtlcjoKPj4+IEEgdmFsaWRhdGVfYmxlbmRfbW9kZV9mb3JfYWxwaGFfZm9ybWF0cygpIGZ1bmN0
-aW9uIHdhcyBhZGRlZCB0aGF0Cj4+PiBmaWxscyB0aGUga2VybmVsIGxvZyB3aXRoIHdhcm5pbmdz
-IGZvciBSb2NrY2hpcCBWT1AgdmVyc2lvbiAxIFNvQ3MuCj4+PiBBZGQgYSBkcm1fcGxhbmVfY3Jl
-YXRlX2JsZW5kX21vZGVfcHJvcGVydHkoKSBmdW5jdGlvbiBhcyBmaXguCj4+IAo+Cj4+IFRoaXMg
-aXMgbWlzc2luZyBleHBsYW5hdGlvbiBvbiB3aHkgUElYRUxfTk9ORSBpcyB0aGUgY29ycmVjdCB2
-YWx1ZS4KPj4gCj4+IFZPUDIgc2VlbXMgdG8gc3VwcG9ydCBhbGwgMyBibGVuZCBtb2Rlcz8gU28g
-YSBzZW50ZWNlIGV4cGxhaW5pbmcKPj4gdGhlIHBpeGVsX25vbmUgdmFsdWUgd291bGQgYmUgaGVs
-cGZ1bC4KPj4gCj4+IAo+Cj5IaSwKPgo+SW4gdGhlIHZvcF9wbGFuZV9hdG9taWNfdXBkYXRlKCkg
-ZnVuY3Rpb24gdGhlcmUncyBhIGNvbW1lbnQgd2l0aCB3aW4wIGJsZW5kIGJyb2tlbjoKPgo+CS8q
-Cj4JICogQmxlbmRpbmcgd2luMCB3aXRoIHRoZSBiYWNrZ3JvdW5kIGNvbG9yIGRvZXNuJ3Qgc2Vl
-bSB0byB3b3JrCj4JICogY29ycmVjdGx5LiBXZSBvbmx5IGdldCB0aGUgYmFja2dyb3VuZCBjb2xv
-ciwgbm8gbWF0dGVyIHRoZSBjb250ZW50cwo+CSAqIG9mIHRoZSB3aW4wIGZyYW1lYnVmZmVyLiAg
-SG93ZXZlciwgYmxlbmRpbmcgcHJlLW11bHRpcGxpZWQgY29sb3IKPgkgKiB3aXRoIHRoZSBkZWZh
-dWx0IG9wYXF1ZSBibGFjayBkZWZhdWx0IGJhY2tncm91bmQgY29sb3IgaXMgYSBuby1vcCwKPgkg
-KiBzbyB3ZSBjYW4ganVzdCBkaXNhYmxlIGJsZW5kaW5nIHRvIGdldCB0aGUgY29ycmVjdCByZXN1
-bHQuCj4JICovCj4KCiAgICAgQWxsIFZPUCAxIGRvIG5vdCBzdXBwb3J0IGFscGhhIGJsZW5kaW5n
-IHdpdGggYmFja2dyb3VuZC4KICAgIEFsc28sIHNvbWUgVk9QcyBkbyBub3Qgc3VwcG9ydCBhbHBo
-YSB3aGVuIHNjYWxpbmcgaXMgZW5hYmxlZCwgZXhjZXB0IHRob3NlIG1hcmtlZCB3aXRoIFZPUF9G
-RUFUVVJFX0FMUEhBX1NDQUxF77yMIHNlZVswXQoKWzBdaHR0cHM6Ly9naXRodWIuY29tL3JvY2tj
-aGlwLWxpbnV4L2tlcm5lbC9ibG9iL2RldmVsb3AtNi4xMi9kcml2ZXJzL2dwdS9kcm0vcm9ja2No
-aXAvcm9ja2NoaXBfdm9wX3JlZy5jCgo+SW4gdGhlIGZ1bmN0aW9uIHZvcDJfcGxhbmVfaW5pdCgp
-IHRoZXJlIGFyZSB0aGVzZSBibGVuZHM6IAo+Cj4JdW5zaWduZWQgaW50IGJsZW5kX2NhcHMgPSBC
-SVQoRFJNX01PREVfQkxFTkRfUElYRUxfTk9ORSkgfAo+CQkJCSAgQklUKERSTV9NT0RFX0JMRU5E
-X1BSRU1VTFRJKSB8Cj4JCQkJICBCSVQoRFJNX01PREVfQkxFTkRfQ09WRVJBR0UpOwo+Cj5NeSBx
-dWVzdGlvbjoKPkNvdWxkIHNvbWVvbmUgd2l0aCBtb3JlIGtub3ctaG93IHRlbGwgdXMgd2hhdCBW
-T1AgdmVyc2lvbiAxIGlzIGNhcGFibGUgb2Y/Cj5JcyB0aGVyZSBhbnl0aGluZyB0aGF0IG5lZWRz
-IHRvIGJlIHNldCBsaWtlIGluIG90aGVyIGRyaXZlcnM/Cj4KPkZvciBleGFtcGxlOgo+CQlzd2l0
-Y2ggKHBpeGVsX2JsZW5kX21vZGUpIHsKPgkJY2FzZSBEUk1fTU9ERV9CTEVORF9QUkVNVUxUSToK
-PgkJCWJyZWFrOwo+CQljYXNlIERSTV9NT0RFX0JMRU5EX0NPVkVSQUdFOgo+CQkJYnJlYWs7Cj4J
-CWNhc2UgRFJNX01PREVfQkxFTkRfUElYRUxfTk9ORToKPgkJZGVmYXVsdDoKPgkJCWJyZWFrOwo+
-CQl9Cj4KPklmIHNvbWVvbmUgY29tZXMgdXAgd2l0aCBhbm90aGVyIHNvbHV0aW9uL3BhdGNoIHRo
-YXQncyBhbHNvIGZpbmUsIGFzIGxvbmcgdGhlIGtlcm5lbCB3YXJuaW5ncyBhcmUgZ29uZS4KPgo+
-VGhhbmtzIQo+Cj5Kb2hhbgo+Cj4KPgo+PiBIZWlrbwo+PiAKPj4+IFNpZ25lZC1vZmYtYnk6IEpv
-aGFuIEpvbmtlciA8amJ4NjI0NEBnbWFpbC5jb20+Cj4+PiAtLS0KPj4+Cj4+PiBodHRwczovL2xv
-cmUua2VybmVsLm9yZy9hbGwvMjAyNjA1MjYxODE3MDAuMjUzMTAtMy1sZWFuZHJvLnJpYmVpcm9A
-Y29sbGFib3JhLmNvbS8KPj4+IC0tLQo+Pj4gIGRyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2Nr
-Y2hpcF9kcm1fdm9wLmMgfCAyICsrCj4+PiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBf
-ZHJtX3ZvcC5jIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL3JvY2tjaGlwX2RybV92b3AuYwo+
-Pj4gaW5kZXggMDA5MGQ4ZmYwYzc5Li4wYmM1YjYwNmYwMjEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCj4+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCj4+PiBAQCAtMTg1MCw2ICsxODUw
-LDggQEAgc3RhdGljIHZvaWQgdm9wX3BsYW5lX2FkZF9wcm9wZXJ0aWVzKHN0cnVjdCBkcm1fcGxh
-bmUgKnBsYW5lLAo+Pj4gIAlpZiAoZmxhZ3MpCj4+PiAgCQlkcm1fcGxhbmVfY3JlYXRlX3JvdGF0
-aW9uX3Byb3BlcnR5KHBsYW5lLCBEUk1fTU9ERV9ST1RBVEVfMCwKPj4+ICAJCQkJCQkgICBEUk1f
-TU9ERV9ST1RBVEVfMCB8IGZsYWdzKTsKPj4+ICsJZHJtX3BsYW5lX2NyZWF0ZV9ibGVuZF9tb2Rl
-X3Byb3BlcnR5KHBsYW5lLAo+Pj4gKwkJCQkJICAgICBCSVQoRFJNX01PREVfQkxFTkRfUElYRUxf
-Tk9ORSkpOwo+Pj4gIH0KPj4+ICAKPj4+ICBzdGF0aWMgaW50IHZvcF9jcmVhdGVfY3J0YyhzdHJ1
-Y3Qgdm9wICp2b3ApCj4+Pgo+PiAKPj4gCj4+IAo+PiAKPgo=
+Hi Nicolas,
+
+> In the DTS, I've removed the assigned clock/freq, to me keeping it
+> would be toward forward compatibility, and is fine, but I don't
+> always fully grasp all the subtil trap of DT compatibility
+
+A data point from RK3576, where one clock feeds both NPU cores and the
+convolution buffer they share.
+
+With no assigned rate the block comes up at 786.432 MHz, and no board
+sets vdd_npu_s0, so it runs on whatever the PMIC boots with: 750 mV
+here, where Rockchip's own table asks 800 mV of its 800 MHz step. One
+core is exact there. Two cores with jobs in flight at the same time
+write single words wrong. A pass is 5400 rows of a batched matrix
+multiply, each row against the same multiply done one row at a time:
+
+  786 MHz, 750 mV    11 to 25 wrong rows a pass
+  594 MHz, 750 mV    0, 0, 0, 0
+  786 MHz, 800 mV    0, 0, 0, 0
+  786 MHz, 850 mV    0, 0, 0, 0
+
+So the assigned rate is load bearing until something else carries the
+rail. If your OPP table carries it, dropping the rate is better than
+keeping it. If the driver may also run with no OPP table, which is
+what you say it should do, then the DTS still needs a rate that is
+correct at the voltage the board boots with.
+
+Does that hold on RK3588, where the three cores share one clock too?
+
+Cheers,
+Jiaxing
