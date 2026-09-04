@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09B12C79F80
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 06:40:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A93E9C624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:03:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E19810E54C;
-	Fri,  4 Sep 2026 06:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C293710F872;
+	Fri,  4 Sep 2026 07:02:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W3LXxkeI";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="BiEbd8l9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 285BB10E54C
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 06:40:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E6DD341E52;
- Fri,  4 Sep 2026 06:40:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7BDE1F00A3D;
- Fri,  4 Sep 2026 06:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788504010;
- bh=48bodTpVBmNx41ZQPaNGwPIsLCCxbhOYMD05wV5/gPs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=W3LXxkeIXv2NfmvPGTySH0nq3Mh06R0PeM7dlWTwsZPOH22mvCcf44py4XMUdcFmU
- wXXXnPe5Z+tfZWsyPS0iJRdemgf4lVlUcvadFjDqXkUwh/q93JgCiqGZim5RtCW3TS
- WqjD3BuwX3LcDlPtsXYfo/J5aGG7vwqRX6ysvThXyHq+uS6zPtr+FD5VJzTUanR2oW
- oZSTOgO/lCK05vXMYeBdqpndkLR07ukLWSfrjK9d8DNwz2mrwPqrytKSTliw3QoMw0
- 3X1uoheFEOF1YYTtDBluK6nPn/6/HLc+nwh5UGKpgP3weeKS1LnTGDfG0OXsAcqaLN
- YzAqezPlBF5ag==
-Date: Fri, 4 Sep 2026 09:40:05 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH 1/2] PCI/P2PDMA: Update DMABUF lifecycle docs after
- move_notify() rename
-Message-ID: <20260904064005.GE24140@unreal>
-References: <20260825-document-dma-buf-v1-1-5ecfb3e1371c@nvidia.com>
- <20260903203431.GA2238823@bhelgaas>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75C410F885
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 07:02:57 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbnV64XTpz8tYt;
+ Fri, 04 Sep 2026 09:02:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788505374; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vkTXhSUxZlPterV5lsTm8TrVGWaiq1FzBIugDqMjlws=;
+ b=BiEbd8l92lFlcr7LOcHlM8gA643/Vc9+1R88BCQ7NzVLApWfJAPWQCSWRvFFy281WlhDw0
+ PezwhO4w2JR7tNEQQH7wLJ0xpNY13YGV850R808XXB6pO40xbojMW1Jh0ww70CgKNGs8lh
+ vppiq1JZ+oEiD1LcYM53MrdvvtqC44Pn7ihn+GGfL4EtqliQOErxqEXF1uNwiWVwKF0B/F
+ WjEPHaFa0wQcZSKfF4PtK60sCOedyJUXgI7yYCs41ZSnXP/gqvEGIQYK36fPK8MqTy9YnF
+ avdvHuMEJGM2V3bz6DXJopyh4JfC1x/4kFC+6+DNIkJs4M6qUk0kttMe+oU18g==
+Message-ID: <fcecfac828dc3f338d59125d6f0306534e1e2429.camel@mailbox.org>
+Subject: Re: [PATCH v2] drm/sched: Create a fake device for KUnit tests
+From: Philipp Stanner <phasta@mailbox.org>
+To: oushixiong1025@163.com, Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Shixiong Ou	
+ <oushixiong@kylinos.cn>, stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 09:02:47 +0200
+In-Reply-To: <20260903121558.782854-1-oushixiong1025@163.com>
+References: <20260903121558.782854-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903203431.GA2238823@bhelgaas>
+X-MBO-RS-META: 4djizz5oszf5r9qr1y37yya6k5mi3tz1
+X-MBO-RS-ID: 75dbe8cd375fafa4137
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,62 +65,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 03, 2026 at 03:34:31PM -0500, Bjorn Helgaas wrote:
-> On Tue, Aug 25, 2026 at 09:28:01AM +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Commit 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to
-> > dma_buf_invalidate_mappings()") left the DMABUF section of the P2PDMA
-> > documentation pointing at move_notify(), a symbol that no longer
-> > exists. Readers grepping for it find nothing, and this is the only
-> > place in Documentation/ describing the revocation requirement.
-> > 
-> > Name the current function and record that importers which cannot unmap
-> > within bounded time have to be rejected at attach time, which is what
-> > makes the synchronous unmap on remove() achievable.
-> > 
-> > Fixes: 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to dma_buf_invalidate_mappings()")
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> 
-> It looks like 2/2 might be updated, and it probably makes sense to
-> merge them both together, but let me know if you want me to take this.
+On Thu, 2026-09-03 at 20:15 +0800, oushixiong1025@163.com wrote:
+>=20
 
-This PCI patch is completely standalone, so I sent it separately:
-https://lore.kernel.org/all/20260830-doc-p2p-move-v1-1-61a388620588@nvidia.com/
+[=E2=80=A6]
 
-Can you please take it from there?
+> +
+> =C2=A0#include "sched_tests.h"
+> =C2=A0
+> =C2=A0/*
+> @@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_sc=
+heduler_ops =3D {
+> =C2=A0 */
+> =C2=A0struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, l=
+ong timeout)
+> =C2=A0{
+> +	static unsigned int instance;
 
-Thanks
+I know statics are initialized to 0 automatically, but writing it out
+explicitly is probably advantageous for readability, especially since
+we're incrementing.
 
-> 
-> > ---
-> >  Documentation/driver-api/pci/p2pdma.rst | 6 ++++--
-> >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-> > index d3f406cca694..63cff9e4d2c9 100644
-> > --- a/Documentation/driver-api/pci/p2pdma.rst
-> > +++ b/Documentation/driver-api/pci/p2pdma.rst
-> > @@ -167,9 +167,11 @@ In this case the initiator and target pci_devices are known and the P2P subsyste
-> >  is used to determine the mapping type. The phys_addr_t-based DMA API is used to
-> >  establish the dma_addr_t.
-> >  
-> > -Lifecycle is controlled by DMABUF move_notify(). When the exporting driver wants
-> > +Lifecycle is controlled by DMABUF revocation. When the exporting driver wants
-> >  to remove() it must deliver an invalidation shutdown to all DMABUF importing
-> > -drivers through move_notify() and synchronously DMA unmap all the MMIO.
-> > +drivers through dma_buf_invalidate_mappings() and synchronously DMA unmap all
-> > +the MMIO. Importers unable to complete that unmap within bounded time have to
-> > +be rejected when they attach, which dma_buf_attach_revocable() checks for.
-> >  
-> >  No importing driver can continue to have a DMA map to the MMIO after the
-> >  exporting driver has destroyed its p2p_provider.
-> > 
-> > -- 
-> > 2.55.0
-> > 
+> =C2=A0	struct drm_sched_init_args args =3D {
+> =C2=A0		.ops		=3D &drm_mock_scheduler_ops,
+> =C2=A0		.num_rqs	=3D DRM_SCHED_PRIORITY_COUNT,
+> @@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struc=
+t kunit *test, long timeout)
+> =C2=A0		.name		=3D "drm-mock-scheduler",
+> =C2=A0	};
+> =C2=A0	struct drm_mock_scheduler *sched;
+> +	struct device *dev;
+> +	char name[64];
+> =C2=A0	int ret;
+> =C2=A0
+> =C2=A0	sched =3D kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, sched);
+> =C2=A0
+> +	snprintf(name, sizeof(name), "%s-%u", args.name, ++instance);
+
+Any particular reason why you begin with index 1?
