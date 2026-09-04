@@ -4,79 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70368C79F8B
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B1DC79F94
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 823AE10E5FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E023F10E605;
 	Sat,  5 Sep 2026 15:04:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hruv7rW3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpp2Ypah";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A08010E54F
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:06:34 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-38e58034d05so575466a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 01:06:34 -0700 (PDT)
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
+ [209.85.161.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D9110FAF1
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:06:20 +0000 (UTC)
+Received: by mail-oo1-f42.google.com with SMTP id
+ 006d021491bc7-6b35cc0a8c3so782998eaf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788509194; x=1789113994; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788523580; x=1789128380; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=QaFo74pEjy74IX81W7yJ+GS8RxmbNRM1kYRnfOPg9z4=;
- b=Hruv7rW3o+vZzO71cHSMCrjnye1LGuNeFGfMifBVtKyIfPTUVaUT0j4dU5X2PhHF4W
- rF2DTrCKt1mTa+NWcd4IKS3VHJV+aPDTI7mjyvqc3jSCDlOV3O1NqT1Pfmqcf9HcqU8H
- GeR7d/+lU7vy3MKCa+4T3ocwRC38CZM96poRHHSsQrMyyMW/U6m97EjtrfZM7QRV78tc
- fzct4Q5I1F2ZNexkBr0uKW2P1+fVVhZvzsAqaq27RpIAzGjwr5IANua9DbIHD6g33O4t
- R/tGywMpodQucAEr5NG4nYkL4DjTKSnJrd2/npUPgJW+b3XHKtVoZ3VVljObgjxE5otZ
- wW9g==
+ bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
+ b=kpp2YpahtS8FoEmNLYzxBuF4n/JOKl3bgB1gGPvrSEdOptzpxRJkvFXyR4q2d7MlGm
+ vegsKvt5nau2QCttmBMYOKoNmA0nAHoITf9b9NbeKQau0LM2+YHfr2bg+/osDG9OctRl
+ eq2paY56xdtTLiHP1iQ+IXzYoBD3H4MHTzxQ3JsbBy6yk8rawU9lWdVo2LAaJcdFDErW
+ q2stO1sy85PTJ8Ul0HpLjtZGxXNhpU+kG5AxrXlYRqILsCszA+XaeQN0IWbVGDtsXNlD
+ P4h/Kjeom+8iWzeA+8GNPuhlQjnsPxMu4J5dW9TShgZ53YiBCwk4XHLIRVKfX/K0Ii5S
+ 29JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788509194; x=1789113994;
+ d=1e100.net; s=20251104; t=1788523580; x=1789128380;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=QaFo74pEjy74IX81W7yJ+GS8RxmbNRM1kYRnfOPg9z4=;
- b=EHy5uebTE2asEug4Dmm8Zps228yicIHMnQ+cLA7sJRr0r51r7+9sgM+ueDJGR3ugrL
- VNjUJY7uCNsMmzc6iwWDjShUtxDAuiv4UryKKLWmF9phdeiQ9Gaxpin0xr7Jc4coQ2a2
- T/d43+afHYV5zm7iaOlzRCrjzoe5DksBVKfDN1hukTIQ0awjoY6G0sLJ+d/S3ZAj1LES
- BQPiDovMiZOgLDuxBUkx2a+7db//ZuFup5UvoiKrJqapoiZGqiXUSCnar4ICW4Q0BzNL
- 68so01trc93vf6qSDw1Xa45CbK9DLvCJ50qnsthf1WmcozF+luk+YYdJ0oKNduBJjIc1
- XjjQ==
-X-Gm-Message-State: AFuF++k05KRwlLP10fj4qEGH/DHGQImeVzY1UX+lISwr1IiVmxHGFXGR
- U2GJEAWnsukpQXpplIEvLZBQMOqu3S5gfELYz8jrcjwVKCxC8neFLzk=
-X-Gm-Gg: AYBFou3IcKjrl2vNIWuSobdH7rJZqENBDwVp3/qmCwN0vvYaPK2nkLEUcbErHwXIGeq
- JdwwIO7i9VlZBIXXbSpXa8GawWCkdrqK4ghcxMYdJmfRpWTKSVrTbLFsg6ueeuKwJpIiYrVybPF
- w5QqimZNifr3K0kP+PQzORASDi2Z9WcpWlbV/k4OgO9FLYImE34enF5f6gdOxZrfYTKOl1XxAv7
- 51UziFntqwofWa+f/7DJQB+8WTq0oPu4wHn6Jz0nAsdp9oXPJfhiixSirbtn3rrzTzhoVsRY55l
- OmTjI1Ve7PLWagAxD6C9Cj/jF0XqZlTTikJBhtnu3l7FQhz0NGADDmTnwuIEUJBPuSLTky6LsnI
- jmkbNTlPXXA71ktnzOgxgBzhJ0HWXsZ9paEuBHzYA/LHRSyVU6AncbxAGzhFCe0e71JBXGW9k9C
- 9o4GpOQGIA2D6uQ/f33i1Ohkwp9+6uusxUp1PjoVEqFLiqZdvjiQ6Sbokd+PL3UKPkR0ECRD1Sa
- uK5ZUS8r8AS9kQep46ZovHuoM4=
-X-Received: by 2002:a17:90b:5705:b0:36d:9e0b:3801 with SMTP id
- 98e67ed59e1d1-39b2617ed3bmr7586853a91.8.1788509193780; 
- Fri, 04 Sep 2026 01:06:33 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
+ bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
+ b=QF2vset10fZEVF2H+PAUDU57LKXVYBCxi3/JdtNqRTZ8oLbTEPw0WDJ0GQgEHD+YYl
+ YsO1HVbeymBV7dSSGjPfX6OcIlT/8fnddv2kVVxcXq2fesqc7jyWtycm88obYYx3CPsb
+ R1czlqv4a36qqBXhRiNn/Cqpsz2ehKwwfUM149SUhqTKE9ZUWPUxRQABBSHdzQl4g2cV
+ YDwfTx9zNz+M+sjNyg6vcYdUKjBT/hJwRQM4XrIoqgSwGdHVscDFzp81n8Wdee2hNv0Y
+ ecAoqehxTyn06C30/1CXuvtKUl5SVs13rYMsQPNh8Ydb3p85h6AmzDw0mzY2IpNWzFsM
+ h3Eg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy8dvArNYG2VcgXasxh66QefY/UswCf9UFO8aCDGQyFFExEerOHtwaMUk6y7MYNOUZONlUnWiIH78g=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kA5CGTIMWq8V69HhofNT4vF/wjygjUEZRvY2owm6iRz3la84VU
+ LOPTkv5Lx6JS2i9Cr7tz2Ea4ZNfk+W5Kx+y64wWfpRKSpyE8sWyUDqZy
+X-Gm-Gg: AYBFou0PxUA2PWj8zPwK/KDAHsW+NIFIr6Q6zgGfvrkEDebiF1yRkKkgSH8vLB4LTft
+ twV6V6RVUi5FqtYGqoVIkYIwmzlDb1Kh9gqTPRV9jW2XQd0LE8MQugKeLeWQ75RUe2azLvz77zb
+ sfbN+lTsfyQIkJtHXjXFueoFlGTXmhuWz87KRFTsXQBYXWJstdJ97Bn/Beq+x+wIBSWX0oMzu4Y
+ npBg+TSptsjoKUsJNhIURxPYO5kYOh4oYXoxKZ7Yc8GHbC810h4VwKdvOTlZjjWoJfwrFtnyS8D
+ tZewswF2xpfvrXw0+0aCDea30wc+odhgiIMmMwY6MIPIpiez8ZNinv/UPU4wSYPdtmeBA/+zyWn
+ sMzkLKMUowvFuO+fME4AoCbSSXMesMPZR6JZZ5qDxnKl7L3rOCj6xFWtlq81kLpxqS65ku4Ptzy
+ hKBif8n8fwxZeo0CCj1fqjviArqJhmESHr7bGlhoxMPZeY06qG3r7ytjOkz4oRq7TK4daRF2ZHr
+ 9yYLzGT4+DR+RUk2NcZRKwdAA==
+X-Received: by 2002:a4a:e914:0:b0:6b2:69bf:c8d7 with SMTP id
+ 006d021491bc7-6b6fb3df17emr3896155eaf.10.1788523579864; 
+ Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39b261549f3sm3181153a91.16.2026.09.04.01.06.30
+ 5a478bee46e88-3339b8f44d7sm6321674eec.22.2026.09.04.05.06.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 01:06:32 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: phasta@kernel.org, christian.koenig@amd.com, tursulin@ursulin.net,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-Subject: [PATCH v4 3/3] drm/sched/tests: add a UAF regression test for the
- timeline name
-Date: Fri,  4 Sep 2026 17:06:18 +0900
-Message-ID: <20260904080618.2098450-4-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904080618.2098450-1-malhyuk97@gmail.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH 2/2] drm: fix repeated words in comments
+Date: Fri,  4 Sep 2026 17:35:57 +0530
+Message-ID: <20260904120601.18363-3-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904120601.18363-1-hemanth.selam@gmail.com>
+References: <20260904120601.18363-1-hemanth.selam@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 05 Sep 2026 15:04:13 +0000
+X-Mailman-Approved-At: Sat, 05 Sep 2026 15:04:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,136 +104,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a KUnit test that reproduces the drm_sched_fence timeline-name
-use-after-free fixed by the previous patch. It submits a job on the mock
-scheduler, takes an independent reference on the finished fence (standing
-in for a userspace sync_file), lets the job finish, frees the scheduler,
-and then queries the timeline name through dma_fence_timeline_name().
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Without the fix get_timeline_name() dereferences fence->sched of the freed
-scheduler and KASAN reports a slab-use-after-free read in
-drm_sched_fence_get_timeline_name(); with the fix the name was cached at
-init and the freed scheduler is never touched.
-
-The test needs no hardware - it exercises the drm_sched core through the
-existing mock scheduler under KASAN. Per review it lives in a new
-tests_integration.c rather than in tests_basic.c, since it is about the
-scheduler's interaction with the dma-fence API rather than scheduler
-behaviour in isolation.
-
-Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/gpu/drm/scheduler/tests/Makefile      |  1 +
- .../drm/scheduler/tests/tests_integration.c   | 88 +++++++++++++++++++
- 2 files changed, 89 insertions(+)
- create mode 100644 drivers/gpu/drm/scheduler/tests/tests_integration.c
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c  | 4 ++--
+ drivers/gpu/drm/msm/msm_gem.c          | 4 ++--
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+ include/uapi/drm/msm_drm.h             | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/Makefile b/drivers/gpu/drm/scheduler/tests/Makefile
-index 9ec185fbbc15..10abe07c06d2 100644
---- a/drivers/gpu/drm/scheduler/tests/Makefile
-+++ b/drivers/gpu/drm/scheduler/tests/Makefile
-@@ -3,6 +3,7 @@
- drm-sched-tests-y := \
-         mock_scheduler.o \
-         tests_basic.o \
-+        tests_integration.o \
-         tests_scheduler.o
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 27cac853975f..16fed0066f00 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1759,7 +1759,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+ 		}
  
- obj-$(CONFIG_DRM_SCHED_KUNIT_TEST) += drm-sched-tests.o
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_integration.c b/drivers/gpu/drm/scheduler/tests/tests_integration.c
-new file mode 100644
-index 000000000000..4a2d5571440d
---- /dev/null
-+++ b/drivers/gpu/drm/scheduler/tests/tests_integration.c
-@@ -0,0 +1,88 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/dma-fence.h>
-+#include <linux/rcupdate.h>
-+
-+#include "sched_tests.h"
-+
-+/*
-+ * Integration-style regression tests that exercise the interaction between the
-+ * DRM scheduler and the dma-fence API, rather than scheduler behaviour in
-+ * isolation.
-+ */
-+
-+/*
-+ * Reproduce the drm_sched_fence timeline-name use-after-free.
-+ *
-+ * drm_sched_fence_get_timeline_name() used to dereference fence->sched->name.
-+ * A driver may free a per-context/per-queue/per-VM drm_gpu_scheduler while
-+ * userspace still holds the exported ->finished fence (via sync_file /
-+ * drm_syncobj). Querying the timeline name afterwards must not touch the freed
-+ * scheduler.
-+ *
-+ * Without the fix this reads fence->sched->name from freed slab memory and
-+ * KASAN reports a slab-use-after-free in drm_sched_fence_get_timeline_name();
-+ * with the fix the name is cached at init and the freed scheduler is never
-+ * dereferenced. Same class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
-+ * (drm/panthor).
-+ */
-+static void drm_sched_dma_fence_uaf(struct kunit *test)
-+{
-+	struct drm_mock_sched_entity *entity;
-+	struct drm_mock_scheduler *sched;
-+	struct drm_mock_sched_job *job;
-+	struct dma_fence *finished;
-+	const char __rcu *name;
-+	bool done;
-+
-+	sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-+	entity = drm_mock_sched_entity_new(test, DRM_SCHED_PRIORITY_NORMAL,
-+					   sched);
-+	job = drm_mock_sched_job_new(test, entity);
-+
-+	/* The s_fence is only created by drm_sched_job_arm(). */
-+	drm_mock_sched_job_submit(job);
-+
-+	/* Independent reference on the finished fence == userspace sync_file. */
-+	finished = dma_fence_get(&job->base.s_fence->finished);
-+
-+	/* Let the job get scheduled (hw fence created), then signal + finish. */
-+	done = drm_mock_sched_job_wait_scheduled(job, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+	drm_mock_sched_advance(sched, 1);
-+	done = drm_mock_sched_job_wait_finished(job, HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+
-+	/*
-+	 * Free the per-context scheduler while the finished fence is held.
-+	 * kunit_kfree() releases the backing memory immediately (rather than at
-+	 * test teardown) so that fence->sched becomes a dangling pointer now.
-+	 */
-+	drm_mock_sched_entity_free(entity);
-+	drm_mock_sched_fini(sched);
-+	kunit_kfree(test, sched);
-+
-+	/*
-+	 * Query the timeline name of the now-stale fence. With the fix the name
-+	 * was cached at init, so the freed scheduler is not dereferenced;
-+	 * without it this is a use-after-free read of the freed scheduler.
-+	 */
-+	rcu_read_lock();
-+	name = dma_fence_timeline_name(finished);
-+	KUNIT_EXPECT_NOT_NULL(test, name);
-+	rcu_read_unlock();
-+
-+	dma_fence_put(finished);
-+}
-+
-+static struct kunit_case drm_sched_dma_fence_tests[] = {
-+	KUNIT_CASE(drm_sched_dma_fence_uaf),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_dma_fence = {
-+	.name = "drm_sched_dma_fence_uaf_tests",
-+	.test_cases = drm_sched_dma_fence_tests,
-+};
-+
-+kunit_test_suite(drm_sched_dma_fence);
+ 		/*
+-		 * Look for a level in in the secondary list that matches. If
++		 * Look for a level in the secondary list that matches. If
+ 		 * nothing fits, use the maximum non zero vote
+ 		 */
+ 
+@@ -2378,7 +2378,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 	if (ret)
+ 		goto err_memory;
+ 
+-	/* Allocate memory for for the HFI queues */
++	/* Allocate memory for the HFI queues */
+ 	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
+ 	if (ret)
+ 		goto err_memory;
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index c4cff3d53d81..7ad450b574bf 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -502,8 +502,8 @@ void msm_gem_unpin_locked(struct drm_gem_object *obj)
+ 
+ /* Special unpin path for use in fence-signaling path, avoiding the need
+  * to hold the obj lock by only depending on things that a protected by
+- * the LRU lock.  In particular we know that that we already have backing
+- * and and that the object's dma_resv has the fence for the current
++ * the LRU lock.  In particular we know that we already have backing
++ * and that the object's dma_resv has the fence for the current
+  * submit/job which will prevent us racing against page eviction.
+  */
+ void msm_gem_unpin_active(struct drm_gem_object *obj)
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index 9d2788f79ace..d84cbb64bc56 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -47,7 +47,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+ 	      struct drm_gem_object *obj)
+ {
+ 	/*
+-	 * Track last locked entry for for unwinding locks in error and
++	 * Track last locked entry for unwinding locks in error and
+ 	 * success paths
+ 	 */
+ 	struct drm_gpuvm_bo *vm_bo, *last_locked = NULL;
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 3d363f12f66a..9b6b30189230 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -102,7 +102,7 @@ struct drm_msm_timespec {
+  *
+  * With VM_BIND enabled, userspace does not include a submit_bo table in the
+  * SUBMIT ioctl (this will be rejected), the resident set is determined by
+- * the the VM_BIND ops.
++ * the VM_BIND ops.
+  *
+  * Enabling VM_BIND will fail on devices which do not have per-process pgtables.
+  * And it is not allowed to disable VM_BIND once it has been enabled.
+@@ -366,7 +366,7 @@ struct drm_msm_vm_bind_op {
+ 	__u64 obj_offset;
+ 	/** @iova: Address to operate on */
+ 	__u64 iova;
+-	/** @range: Number of bites to to map/unmap */
++	/** @range: Number of bites to map/unmap */
+ 	__u64 range;
+ 	/** @flags: Bitmask of MSM_VM_BIND_OP_FLAG_x */
+ 	__u32 flags;
 -- 
-2.43.0
+2.48.1
 
