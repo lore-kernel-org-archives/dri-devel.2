@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156B8C61DD6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E30DDC624D3
 	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:27:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1711E10F928;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A75AC10F92B;
 	Fri,  4 Sep 2026 13:27:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="Tn9KAKkg";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="lJigRPZS";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 826DA10E549
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:27:23 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F31010E549
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:27:22 +0000 (UTC)
 Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260904132722euoutp01ff8f811bf2b531f6fa441718944775c5~SISRjpGUj0544005440euoutp01s;
- Fri,  4 Sep 2026 13:27:22 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260904132722euoutp01ff8f811bf2b531f6fa441718944775c5~SISRjpGUj0544005440euoutp01s
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260904132720euoutp027a9934699162e44bdd9c9940609b7c7c~SISQaSv6p2525325253euoutp02M;
+ Fri,  4 Sep 2026 13:27:20 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260904132720euoutp027a9934699162e44bdd9c9940609b7c7c~SISQaSv6p2525325253euoutp02M
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1788528442;
- bh=V2zsvJ2ntjBQcXJu0CFtnQ6SCIaWslnn1/9X4oJhQY8=;
+ s=mail20170921; t=1788528441;
+ bh=z6Ivbm3uEAk0eL38U4gZ6ZLVJBBWp1RKPLhJkjq7bUg=;
  h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=Tn9KAKkgzY4Xsu0Ucqlk2Yi8YQ7yUb9uRRhc1UVWaARwj+ylvod4jW1i+ewbrmYRA
- q3u5QfpwFnx0U48eXgzyCscM3Rg4w6ysXdKLj4Pl3fJAxMrRTwOKs5dkt62Mfi+lUc
- SnUp+8ExvfktA9b6QhkMNMm4G/5vZVaXXd4r0Mss=
+ b=lJigRPZSX3gQTLoKTuNc5JlCtUiRa84At/4PClw8paph+r4NEdGRtvrVipiRZjEQk
+ zHwF7QUItYaAPh2to2yjUM2CtxE13X2CFHQLtW3w+BlElkGieAUW9ZZjwY9GJsQ+i4
+ lLlUBvZ9HuLk0QxVkLkJ21YTs2uFqm4CzRVhbpxc=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f~SISRS0j4a0656906569eucas1p2r;
- Fri,  4 Sep 2026 13:27:21 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee~SISPfKIzq3171731717eucas1p1L;
+ Fri,  4 Sep 2026 13:27:19 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
  [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260904132720eusmtip1e1183a48dd2b70a503bb53d931af900c~SISPjX4Sm1747217472eusmtip1Q;
- Fri,  4 Sep 2026 13:27:20 +0000 (GMT)
+ 20260904132718eusmtip185b7acc25a889a5bdef6df93e28c4af8~SISNwVvQ71778317783eusmtip19;
+ Fri,  4 Sep 2026 13:27:18 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 04 Sep 2026 15:27:08 +0200
-Subject: [PATCH v3 07/19] drm/bridge: inno-hdmi: Split probe out of bind
+Date: Fri, 04 Sep 2026 15:27:07 +0200
+Subject: [PATCH v3 06/19] dt-bindings: display: verisilicon: Add
+ starfive,jh7110-dc8200
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-jh7110-clean-send-v3-7-484f9ae72715@samsung.com>
+Message-Id: <20260904-jh7110-clean-send-v3-6-484f9ae72715@samsung.com>
 In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
 To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
  <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
@@ -73,14 +74,14 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  Zheng <zhengxingda@iscas.ac.cn>,  Michal Wilczynski
  <m.wilczynski@samsung.com>
 X-Mailer: b4 0.15-dev
-X-CMS-MailID: 20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f
+X-CMS-MailID: 20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f
+X-RootMTR: 20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee
 X-EPHeader: CA
-X-CMS-RootMailID: 20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f
+X-CMS-RootMailID: 20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee
 References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f@eucas1p2.samsung.com>
+ <CGME20260904132719eucas1p1c900149ffa1b8771aca238e6441482ee@eucas1p1.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,101 +97,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-inno_hdmi_bind() both sets up the bridge and attaches it to a DRM
-encoder. A platform whose HDMI controller is a child of a larger device
-needs the first half without the second, since it registers as its own
-platform driver and lets the DRM core bind the bridge later.
-
-Move the setup into a new exported inno_hdmi_probe(), with a matching
-inno_hdmi_remove(), and reduce inno_hdmi_bind() to a wrapper around it.
-
-No functional change intended.
+The JH7110 embeds a DC8200. The binding requires an SoC specific
+compatible ahead of the generic one, so add the JH7110 to the enum.
 
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- drivers/gpu/drm/bridge/inno-hdmi.c | 40 +++++++++++++++++++++++++++++++++-----
- include/drm/bridge/inno_hdmi.h     |  4 ++++
- 2 files changed, 39 insertions(+), 5 deletions(-)
+ Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index dd35f5a875d3d842fee6d2ead0de88503f9914e1..aab474740f7f57aa34007e6dac49e2414561593f 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -1061,11 +1061,24 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(struct inno_hdmi *hdmi)
- 	return adap;
- }
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c64584d959d96d90 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -16,6 +16,7 @@ properties:
+   compatible:
+     items:
+       - enum:
++          - starfive,jh7110-dc8200
+           - thead,th1520-dc8200
+       - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
  
--struct inno_hdmi *inno_hdmi_bind(struct device *dev,
--				 struct drm_encoder *encoder,
--				 const struct inno_hdmi_plat_data *plat_data)
-+/**
-+ * inno_hdmi_probe - Internal helper to perform common setup
-+ * @pdev: platform device
-+ * @plat_data: SoC-specific platform data
-+ *
-+ * This function handles all the common hardware setup: allocating the main
-+ * struct, mapping registers, getting clocks, initializing the hardware,
-+ * setting up the IRQ, and initializing the DDC adapter and bridge struct.
-+ * It returns a pointer to the inno_hdmi struct on success, or an ERR_PTR
-+ * on failure.
-+ *
-+ * This function is used by modern, decoupled MFD/glue drivers. It registers
-+ * the bridge but does not attach it.
-+ */
-+struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
-+				  const struct inno_hdmi_plat_data *plat_data)
- {
--	struct platform_device *pdev = to_platform_device(dev);
-+	struct device *dev = &pdev->dev;
- 	struct inno_hdmi *hdmi;
- 	int irq;
- 	int ret;
-@@ -1128,7 +1141,24 @@ struct inno_hdmi *inno_hdmi_bind(struct device *dev,
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	ret = drm_bridge_attach(encoder, &hdmi->bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	return hdmi;
-+}
-+EXPORT_SYMBOL_GPL(inno_hdmi_probe);
-+
-+struct inno_hdmi *inno_hdmi_bind(struct device *dev,
-+				 struct drm_encoder *encoder,
-+				 const struct inno_hdmi_plat_data *plat_data)
-+{
-+	struct platform_device *pdev = to_platform_device(dev);
-+	struct inno_hdmi *hdmi;
-+	int ret;
-+
-+	hdmi = inno_hdmi_probe(pdev, plat_data);
-+	if (IS_ERR(hdmi))
-+		return hdmi;
-+
-+	ret = drm_bridge_attach(encoder, &hdmi->bridge, NULL,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-diff --git a/include/drm/bridge/inno_hdmi.h b/include/drm/bridge/inno_hdmi.h
-index 5bbcaeea94e2a20fd0dc0ae0c6946eb5604bbaf6..81da9d9bcd79db8fe26c6dff4569371e484df608 100644
---- a/include/drm/bridge/inno_hdmi.h
-+++ b/include/drm/bridge/inno_hdmi.h
-@@ -12,6 +12,7 @@ struct device;
- struct drm_encoder;
- struct drm_display_mode;
- struct inno_hdmi;
-+struct platform_device;
- 
- struct inno_hdmi_plat_ops {
- 	void (*enable)(struct device *pdev, struct drm_display_mode *mode);
-@@ -32,4 +33,7 @@ struct inno_hdmi_plat_data {
- struct inno_hdmi *inno_hdmi_bind(struct device *pdev,
- 				 struct drm_encoder *encoder,
- 				 const struct inno_hdmi_plat_data *plat_data);
-+
-+struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
-+				  const struct inno_hdmi_plat_data *plat_data);
- #endif /* __INNO_HDMI__ */
 
 -- 
 2.34.1
