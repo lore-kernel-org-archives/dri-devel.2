@@ -4,124 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F8AC79F80
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4BFBC624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 07:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2F2110E189;
-	Fri,  4 Sep 2026 07:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3C2A10E53D;
+	Fri,  4 Sep 2026 07:53:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Gei6Cc8/";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="Cx77mw3r";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012068.outbound.protection.outlook.com [52.101.43.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD4BF10E189
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 07:49:27 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010006.outbound.protection.outlook.com [52.101.84.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 831D310E53D
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 07:53:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iHqUXDMegkSGU+3ABAMZKuCfnLC+NhL3FLfg8VYVM9Y0VYw70L93O9oiBXed140N0NZbsT0iUC6qK3hY69YPyuUV8ckXEPnEaxxk2sGGbCqtc1vfcOBIIhUcOy9gUoGLh2DfCzveLRl6oZuS010vEYsP2xynuWpfHGC9t+Rp7zu4QxVJMNzAKsYzNg4Q9a86HPNsDxnbGQLLsjQE4ZUonEzZk8M58W1rAy0xIJm+jfubok2AnR8elQGXxm5vJtNSWo7sbrGxaFw1TkD+m+KuoG8OL9wZSWuDMZHxFitBLH4kSCKoWj+XYOWRBHkCFCltAxmc7ajxgfq54TqzyTlNVA==
+ b=CkfQi4nSvNoTzLFibIc43HxizHC4SEt8II/34khLFYiZeAOtecLbzLLEBHpybpyGr018ovOXcCRaCIe3xcnCR2B5T6IMBegC80lOjtrQB9/AllQo5/B79oxlFEcamqVtZv1MyL801rVmi/0QoakuZYB8c3L8sdv9vO7b0AjIH6qXzob7Ana8vmzRQtak3Y+PhTovgt1TZKkeB1fzUjgZtWpUocz6LADG5Gvjr3dWd99DFOO0YyCgHTf/YQz4hAEE+qsMSzJN2WMmEoabiv85nZz5gguuPfXPds34xbCHaXfNNo8AhTUDZNp8FAiUBxwQt0iuu2DW3OwmjvUM65X3Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zCppztHwf2rgIAOOJF31ZbuygvbNF4VCgXpEbQ+BSdg=;
- b=LCOmhVrwoU3BU7xwSmzrzDlvF2psgS7kspl6a0ejQBdmcIC9xC/fA9uUlKLThP34mcb9TqdPyUPDo9lJUoQURFqu5v182899hpcimuGoP+54+JBrvApsVdwGo4xwjZNlNDPmZoezj6Bdn//e+Uzdphz9oZ/ZA8Mr/OLOyIf/pTKTye0q/KvmS8K/suuEafTvrcAUi148cWCchPSWCilTkozY9qM2y9xASqxMQCxijr5cw2RXP/2iBS2lTLT4MnkLQcURP5T7x+Gqe4n7nx6nDl72ueGlxv1Y3mDTe/Y576Hwe9l8Fh7U3fTrGSfXgd1st0N9ACiJYtUZQKaQMrHY0Q==
+ bh=jQBhXLJf/mtSdCnXS619NgQtvKBCBFo8xA4px58AiJ4=;
+ b=ACxSrRNctMfuvmnnmN/Jx+KznrtHbdFEJE0lf46GWnhsrsfLp3e1EZa0MTgtI7r7UR21Z2wBEHX+lxwpGC+HydTE4aoWEFtmdNJ2iCs9fVI6JilqBxl3+JiAnFhebGIiQLZXADksdMhw4tCccd7Thm4ldpj8cmuDtA/K8DzoSXFyZ81+HtXm01rmNLhkV7k3qWWoZtugZ6XBPkGtZjZQBe0GJN1fVzGxRhLEm3mciqgXO0Uivn7zqeshvHc7ELwVFKHKhUtzVW5WSj48IxBwXNDg3JHcpMU2K/+CMHPkLmFpujN60xgxRTqmiYxDP/OjqbLmemx8TQ3LPBLZKiNemQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zCppztHwf2rgIAOOJF31ZbuygvbNF4VCgXpEbQ+BSdg=;
- b=Gei6Cc8/j+nn7B4Ah3xcNAhZtDvi92ivG1DHWGDwPpS0KVnx7fzr1f2X5DhBG24vNBsmu0o5UzfdUIRW++KbOvf8Oq6aQElRrNvlUCfIpc7aB8Zj/f1Tw2t+lDO2uYC/McYvffv6DhYpxURZx8KSe5kh3c8DtZJSVEN8DhhtJxCz96rZyBIJloDG5dGY9Ye4yX3UgpCDS4WMtxK7FysPhGZMffK4Hm2czsUgz2csUTwbyReNYBQLgnflTO9oSlq4MCtsSxU2mK2ed1RHJ5zw9Ph41LygTvxWkoVKm7QwzJmDbgR3vPzYCSCHh4xUukh94ql0x8Wv89Xsh9Tb4aHSVg==
+ bh=jQBhXLJf/mtSdCnXS619NgQtvKBCBFo8xA4px58AiJ4=;
+ b=Cx77mw3rdFgvHIoOyxDwb6lXO3AQiB7UUabWRUXabYYxkWtWiosJVEihBA1eqSgpdKXkBJ7u1sFIeCFHiCzOkWdomyO1IZwnCQGwPXF4z0TkO+8w9LQduju4MSh9SuBgw4S47/beogL1h7mSM6xsZJ9H2CoAxVvk7d1KBMFgP2sOY5h5JFFYLzYzNfOSeuM6hxlooMH/3dm0omHK/1hUp6jkdb3HmyPCxahucQLNQsLxNQrGedyvZf473NOyAlY4ZI7Cu+2KWSZjQUyPd4qqPMih3uFnohql77HAzbkT/TmMdFnBy2okyOOcZqSKJrSqhdNiqK4oTj0ySOULFc6/ow==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by SN7PR12MB7023.namprd12.prod.outlook.com (2603:10b6:806:260::16)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by AMDPR04MB11702.eurprd04.prod.outlook.com (2603:10a6:20b:719::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Fri, 4 Sep
- 2026 07:49:22 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 07:49:22 +0000
-Date: Fri, 4 Sep 2026 17:49:16 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
- M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-Message-ID: <appc5-0MRW1XwsMh@nvdebian.thelocal>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
- <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal>
- <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal>
- <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-X-ClientProxiedBy: SY6PR01CA0049.ausprd01.prod.outlook.com
- (2603:10c6:10:e9::18) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 07:53:30 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 07:53:30 +0000
+From: Liu Ying <victor.liu@nxp.com>
+Subject: [PATCH v6 00/13] drm/imx: dc: Use prefetch engine
+Date: Fri, 04 Sep 2026 15:54:50 +0800
+Message-Id: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEp5mmoC/23Oz27DIAwG8FepOI/JgCHQU9+j2iGxycKhSZVUK
+ FOVdx+ptPVfjp+t32dfxRTHFCex313FGHOa0tCX4D52grq6/44ycclCg7ZQgZHpNHvJJM9jbOO
+ FOgnaRwPOBkVOFLYu0nyrPH6V3KXpMow/twtZrdO/Mnwvy0qCrDwSmJYd2vbQz+dPGk5ircr6z
+ oPe+CXrwi27wBRq8o195uaRhw1uCidQDA58zayfOf5zBcptcCycW64NVtQYerluH7iuNrgtHCM
+ 1jhxjQHXny7L8AuGOSjmqAQAA
+X-Change-ID: 20250703-imx8-dc-prefetch-028e306591c6
+To: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+ Liu Ying <victor.liu@nxp.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2PR06CA0001.apcprd06.prod.outlook.com
+ (2603:1096:4:186::21) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SN7PR12MB7023:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cbe5fa2-7479-460e-db90-08df0a5908a8
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AMDPR04MB11702:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2124e034-9584-4c74-212c-08df0a599c94
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|366016|376014|23010399003|22082099003|18002099003|11063799006|56012099006|4143699003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info: fjVdifVBDLSEzum9+wGXGyW8pdv93GxqFuE4mFwWZc4/NSeOg+Ou1sDUdGJt+dh+A0Un/xICLh1TA1EVjRuSCJZp2MzXLVSASwTXoXs+UVOHB9HneLh+PffWegyF0wf7PeCCZczfmiDm+tMRpjoD3H/GDjmTFPsl7ebksL2m/Dy/DEXYDk2lJCyqfVXk9Ag7kKprqSWFa8ZThA/7+h6BM8NKHPYVSyWdWakZ87+qRy010RDbpXIlqljkoofERaf9OD39yPRKMK/sYbciu8hPSlIw/0dRYC5l8Gbbz4XDTQ6HkHs9ySkFnzFdFvmUQhneLjEktPEBeKh3HABmNaP2I57ehYjQtxBcmgLFWXjQXwiBX1v0sNAmtwrUp8QfxTm2Mygq16Vl56J/t9VC5s++guunaz7VUjahKIaDR4xFjU1L04QkjPNJvb08gkop8k9NcdVCFrBBWMVAgcdfqfkz5hVOtLkbwUQ+D4Q11YWbGIR2rTSIxR1GDDaaDIeFwOefjS4NPFCLkpYm0K/SPQLTZ6JaXczS6Gp8HqCjYpMHTHxe/PYE6faoZ4dxENv0zqxFHeE1DGsn7xu3Wi7WhzaP9V/WSMJRzO130WctV2+ashnlGUYioTsfUz2sIUNRFsghSlfgZcVDFxmCZKQ+QCBO15tB1OD2AN3TaMbxhXwup7k=
+ ARA:13230040|376014|7416014|19092799006|366016|1800799024|23010399003|10067099003|3023799007|18002099003|56012099006|11063799006|5023799004|921020;
+X-Microsoft-Antispam-Message-Info: 7vLlzdEdJzHDOgaLRu7z/lxfIS328YnYe7lGv4c2cnsUNrrH9tZKjA81ZbirZHZFM9dMAhqkEP2Fm4iAHvQJZQ8NsteN2DmEsUJjB1xESkJarCuuYmAQQ8dibcO+aX40k0e//FB107Jj2cyXylvk7OFlyHzcBXiHhM/T/ffZHKZdyx1jhqjoS/88hm+XeO/SIlFeE08FDaNN/kpSYuKmT4VcPZXyleEsEaN//hfkbfDp8DxRosbNM7IVZAfySuxofejoajWkygkwWO5XIn/i5kTMF55hTFU1Fzaq7Qzpvv0LqBlMltb2zhPkDb7A/P2MQxJY3BjQv9LBT2S9gZcJVVx3UUWn5KwmJcwUZpoN+wM3VSbH9s+HBgsShSD7nTzAtVG1ZEKR/b02PTEiupEBcxHwEqoZ7uyiOzXNGQcoqKxaZ+dgh/8NanDKR1A8vp7Dv4eoSI+SmFrdlYj7/f2kTGigaoAh7VyvSEHfpnmGCATjNjhkX3yG0GpCllf3Nv/QnSpxh1hZkMD+Cndn3mgN1dj1GxFJqWXSrU8TStsX/8k2/HVOCondAlN3Oj7XemO2N+XFwH/doVmSl6KmLj4tnX6QwO/P1qmP7p9sYJzuEuAI2tOrKtHns6X/D7y2kO3MR6iMDGZOPTQUdPzPz304QQ+T0WfTFLtdba03LEU+3Xa130yPxgR2aCvgmMFEQ5Sj3aNSMArwZsPK0Fy6+7lscQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB5977.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(10067099003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:MI9PR04MB350878.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(19092799006)(366016)(1800799024)(23010399003)(10067099003)(3023799007)(18002099003)(56012099006)(11063799006)(5023799004)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PQyJckh054qLNupketASrUII3aa4cxNgJ112gdgvhxOx+w3qcEdDvIqphAEy?=
- =?us-ascii?Q?DUvT+9UXF/f4oY/bQUJ824h/l4EiZeG4trKRNVJ7lju4w1SNU7aav6aUnhp5?=
- =?us-ascii?Q?RfdRC3mJZevYjdDrjHC7tCJjmd8hN2z52TgwT8IFE5uc83cjbLeP+VVRo7D8?=
- =?us-ascii?Q?3bE/9hObS848O9FzZMAioIvkbHzdrDi6fW94atKF53u8YlBSrPxeyj9JHMS/?=
- =?us-ascii?Q?dtz6DXAVUaf6IBOLN+zYUYFiolswV6XfIqYmoBywaCgG1EqZGzofkRdlxnxs?=
- =?us-ascii?Q?6pWD0/a5uW+Hpw1AjIZqzfc4d/gd7DZkldLrMqwYNBtOeEH0bw+2kJLonuIH?=
- =?us-ascii?Q?dHbKjtKbJdBBUOCxQCC+QVjzCbNojHk5T0iPlgaMKeqUWhSLZ5I/+8Gzk60J?=
- =?us-ascii?Q?IEq/oWuOMn7wTQKJ3QK72P/eB8zlAjnqjZRjcQpVgc5uxYMBqietB9RwcMHY?=
- =?us-ascii?Q?AHjOeoCelGwXtl7WhiMs79tPAXbArAtD1O4HAw/+8W3ik6WIq1Y1SDZcV7Qg?=
- =?us-ascii?Q?QzYcGbAyDli8lVCoDGe32sbs2U8upvvwpV9E4GpVA/FUA9xq753Td4C5v1mJ?=
- =?us-ascii?Q?TYQOyDXYIPvDTZUZ5/4AycYcER78fu3FlxB5NhalNYN3atCTDSM86nEHoVN+?=
- =?us-ascii?Q?bk03N2NP2f58ul/mqDs0TGtquT5SGGiFzKmoz9dP6W47b0ttQF7k1tVlOgVW?=
- =?us-ascii?Q?xA9bKf/3CQObHzl3Izpw5keeOPnMCg3HMl9VGF8hK03+UbECurxtIkS73rIf?=
- =?us-ascii?Q?F8C+op7ZPA/EnQHK4FpaK0e+asjSeHteqVFrNBNrK6f2aESHp4zuBiptxCSq?=
- =?us-ascii?Q?MtBlcSJgMQsuG5LMcjJC5gHpRLBlKauFnFIllpRiegLtF9FLJfepDbKWIpIA?=
- =?us-ascii?Q?Z9NjNOW23YFr7Gjd8DX3fFqqPy7ttPWFleKsb2VrH4U/klVJhpNuXJGaYnVD?=
- =?us-ascii?Q?5b17nSXLPIIIZZrloJn9FgiCTr1DOtnCigc6+XwpqOfWu0KoOBXkDzx/RJX7?=
- =?us-ascii?Q?zIM1TBJ016iV8YP8qq+IgRr+o/poePdxGz+4+JkjlFXNuIR9A7Btr6V9PDLU?=
- =?us-ascii?Q?lXSvdGr2Vb4myZjaai7Ijpnmr4Udi6a/azy4RubIJrsrdom9OyAabO8BZxGW?=
- =?us-ascii?Q?Q3e85YNApY5Wib8kmMgBWz+LPUJjgtG86vlCud+0+nLUx90ZmUVU6/EUsAqe?=
- =?us-ascii?Q?fYY7b3Mx6JEqdBaCEzbhvjijeVLtg4AW7u4ky5oGad2fPZcIYAtZOdXYNN1p?=
- =?us-ascii?Q?HJ68r6j0l5BdI1oiEoi5ccPvwxZNTZdVCWYRnFwEBRfBRfySNSqC2x6NZdRN?=
- =?us-ascii?Q?RNvOo5bIqwRqk3C0fmI1W7Vgmeec2sI6H4i8XYdMwhyROugUETEfajw1Rnhz?=
- =?us-ascii?Q?wqBO63OEZzK2dXLC4M84QEZpRmIWx/Yf6YuSLLtUfYkvC8U/g/8zqluomlf5?=
- =?us-ascii?Q?rlMnlSgG2ieXp1u2oab29JX04zb6MBFhFZJmiup9H5De5z8HUs4VEaAnWFj5?=
- =?us-ascii?Q?z15ymJ6fBgvnejMYwzCjaYxVgqxJiRp2cy62FK2uAILVoYJkTPjq7aVa2Ki5?=
- =?us-ascii?Q?WsrcvbEXVIy0LeUqgR6/2zRU5B5bt+r5AcWeaCNujHgau2/OWngqHK+2BWWP?=
- =?us-ascii?Q?ci1CWgCundjFe5ObEHj45bGiLTJ1ivEG+joeSIV3bZJQpDqoItwC60JBfrgs?=
- =?us-ascii?Q?HBSvEqczWBhoHjX66SDha7bsiGImwFbzgeUPU4drlxBImwZSfapa50ZFnil9?=
- =?us-ascii?Q?p38jg+m1mA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cbe5fa2-7479-460e-db90-08df0a5908a8
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXFPNG96RVpPRkhGNS9HVUlxQWFtaVh4SUIyS0pCYVFxWFNPT2lycnYzVTZU?=
+ =?utf-8?B?Ty9wV0JvS0JLTmRyU2d6SXB4eFNlYm9NemFCVDJBb1gxd3U1QlUwMnNxMkJT?=
+ =?utf-8?B?YUVaZUErRnd1RHBsRktGRVU0dThGUS9pMWpYaTJxTnY4RjJLa0kvNTkwN1ln?=
+ =?utf-8?B?S0lDZFZZZldtTmhudzBoYzhkZjFONml4ZmoxUjl4NEozcFJJRzlHa2xCcGVO?=
+ =?utf-8?B?Z1MrQnlOMm9oeEp2WGZvR1dWVzZOUGxaMWFXVGNHNlAvRDNTM210Ly84ejEr?=
+ =?utf-8?B?TndNb0g4MGtzWXpyb3lWS1AzTHMzdnZPbHNqbis2cTFJNEY3TVowU0QvTVhz?=
+ =?utf-8?B?bGpxTURPblRiMUxZNCtPKzg3cG9PaGJNYzQyY3AwaUVGSmxjM3h5dEZNVE9j?=
+ =?utf-8?B?Ynpva0Mra05BVUJ0RUxPeXUxdm5QWmEwL0x1b2E2VFpQQzUwT2hJQjZLanNP?=
+ =?utf-8?B?VEJzejUwQ08xWnZueHdvZ01qUEt2UnVpQ0JHZmhHMC9MZEo0UW9ZblRlR05O?=
+ =?utf-8?B?NW1NTktzR3dKMHJubU9yOG4rVm5NVHNLL0gyOW1LcGVrRHBBSkpQZ20vd0lH?=
+ =?utf-8?B?cTI4LzZnVjE2YkFDUzNGTzBvY2wyTUp5d1hjQUUyWjliNDJJaUsxeGlCRDhl?=
+ =?utf-8?B?Y2g1ZGRvcng1d3NxQ3c3eERURVh0UXkvNExLbXg0b0YyTzl4K293Tkp0aGRt?=
+ =?utf-8?B?UHhLQmxpNWpleDkvWFN2c2NUaGFNYkVYMG5yVjhUUVh5aVVTVlRwQjQwbmZ0?=
+ =?utf-8?B?YzhoaWttc28vU3FTc3lkV1BGV2VyZGtGYVBCUHNsTkJwMUVhZjZVTVJWcFRV?=
+ =?utf-8?B?OTlCSU80azlqUkJDb0c2VS9IcW1DcUxEcVByb0ZZTDZjMlo1OG9nWHg2Nm92?=
+ =?utf-8?B?ZGg2VDVaMUhOVTRlRENxaDhKOHkrNHZmY2Q1ditTcHR3bnFTNE9rZjI5YjFC?=
+ =?utf-8?B?cDdUMjNKZzlBdEM5SVdvNXlMQ3EyQWVQeityR3lqdWNxUW5KZU01MzFIQmtw?=
+ =?utf-8?B?eHd3K1VLbTBrZldVRXcrczVyVnA4d2pFZnBCQkZSd3QzNDc0MkROaVBtK0dK?=
+ =?utf-8?B?TEdmUXN6aTVyTnFsdFNBaXpqcVJHTWN3bXZMdGk4clhlc2RzM01jSUtqRWNC?=
+ =?utf-8?B?eTZ6VUk2TlE0Ny9WeTl2QXpmcytmVEpoaVdTdXM0eGlqRk8wbWVsVzU1Q0Jj?=
+ =?utf-8?B?NTRYOGt6cy9xalAvMlVHSmowWGVFUE5WeCs5VmlOejFqVllsdnJrenFLaC9D?=
+ =?utf-8?B?eE40K2UxcG03ZThRNkxnT3JaMWttWW40cytoaklEYUNpV0NtNDByOXAwY280?=
+ =?utf-8?B?akl1TFAzbmdOaVNnVm1lU013UzhSMnRyZEl6TkdSYlNmY1Q1WUEyeW1Fdndk?=
+ =?utf-8?B?bzhOWUtmenFaajBXNmp0RllLQXVWRXhvak9MNWVSanRpSWRYRi8vMm8zdVlt?=
+ =?utf-8?B?WjF2WjRoNnZzM2dpYXRrZS9OcjUxQUFUSUx5MHNPcnFvOHNFNCtibnA3U1NB?=
+ =?utf-8?B?WFVzcTN3MlJiaTMvbExyQ2V5SnhaU0FQMFVnT1o1ZzZ2RTBlazBiK1pPM2JF?=
+ =?utf-8?B?eHVBMXdpSkdyaUdnbms0NlZwRkY0TjJ4c0Z0UE5VcVVYVmFRTVBPUjJ4ZUxU?=
+ =?utf-8?B?eDRHS1JTbTRwenNtY24wZUlSdTliN3IvMTIwNmNrMnNIcU5OTU14S1R3MllY?=
+ =?utf-8?B?YVBtUTVqU0szQ0tiU3o0RlMxMmdCMFcyZ0lpdk1Zc1V5S0FvQ1BKRURRcmRp?=
+ =?utf-8?B?Ly93MmRqaDJIMFI0MzJZdWxYclhGVHErTTFqeDhIWVNEbUZOOWFpU1RjRHcx?=
+ =?utf-8?B?OWpKTkxUUFV6YTVhb3lWZmEyZW1oTjZRbk1qQnp3WmZLSnlZTGhYT0ZiUHYw?=
+ =?utf-8?B?dUtBbXZYbzM1cFh3Vk5XZDlLY0pkQzJGRmk3U3dMRVo0T0hMM09CdVI3TzhS?=
+ =?utf-8?B?SHErSnVhT2M3Mis0UEcxb1hKcEpqN05Wbmt0K2NmcVVBMDkvQ2Z2cFNPc0lj?=
+ =?utf-8?B?anNqcnhzNDlFQSsrajM5aDBPOVhXVVZHaXloU01wNU5ZVlBVWVNxWjhqZHVF?=
+ =?utf-8?B?OUJ4dEEwTjRjTDN5V3NSMTVCdWJ0akR3NmxNQnVlS0IwM0ZkSllYRlJoYTVq?=
+ =?utf-8?B?ME85cHFya0ZYbFZOc3U4TDhSMlNOTSs0Q2dQTERaZGZwU1owZHJqN21EanhQ?=
+ =?utf-8?B?QjcydCtkMGl2VjhTeGZyYUNyYnZhWkRkdStnYnp3cEgveitZQmNkZGw3UjZ5?=
+ =?utf-8?B?a0Y3WmxGUXptVXJOOHR3QlVnMVFNclpFaWRjZWljNENiTG1Yc01VK1BPTmt2?=
+ =?utf-8?B?MmQrMks1czZUSW4yV1BpdWxjRXZBRjRhMnNZc21JS3puQmNPMWV0UT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2124e034-9584-4c74-212c-08df0a599c94
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 07:49:22.4888 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 07:53:30.5833 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uG/5oirkPIJfrjPB80LYyPXjrC1UUCddnroSDkQbs4CIdFETnbuIQy1SfFLEvGy/7P+yxfo+XLQBFT0YngvbGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7023
+X-MS-Exchange-CrossTenant-UserPrincipalName: SvvSjeUNd0YLcETI2vMGg13oUuGd4jq6otOqpP8YxxIRt61MrBdPIrB6WIZ1aFEBEmbFaC9BEsi2B9eFA70Stg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11702
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,145 +150,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-09-03 at 20:42 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> On Thu Sep 3, 2026 at 3:12 AM CEST, Alistair Popple wrote:
-> > Originally I thought the point of providing the decoded arch rather than
-> > chip-id
-> 
-> I think there never was a "rather than". The point was that if userspace has
-> conditionals based on the architecture it shouldn't have to figure it out based
-> on the chipid, as this has been done by the kernel already.
+Hi,
 
-I see. Maybe that was a bad assumption on my behalf, because I assumed that if
-you make a precise hardware description available (chip-id) there'd be no point
-making an imprecise subset of that description (arch) available as it isn't
-particularly useful if you can't use it in isolation for any generic purpose.
+This patch series aims to use prefetch engine in imx8-dc KMS driver.
 
-Which is to say it's unclear what generic properties users are allowed to derive
-from the kernel saying "this is a Hopper GPU". It's clearer for a chip-id as it
-represents an (almost) exact piece of HW with the exact properties of that HW,
-so userspace can derive everything from that.
+One prefetch engine consists of one DPR Channel(DPRC) and one or two
+Display Prefetch Resolve Gaskets(PRGs).  It prefetches data from
+DDR, resolves data in tile formats if needed and outputs the result
+data to FetchUnit(s).  When one PRG is used, a prefetch engine supports
+processing pixel formats with one planar, e.g., RGB formats.  When two
+are used, pixel formats with two planars are supported, e.g., NV12.
 
-Anyway guess I will just leave it in, time will tell what use it has, even
-though I think it would be better to know that use upfront.
+For now, this patch series only supports prefetch engines with one PRG
+because it is enough for XRGB8888 which is the only pixel format
+supported by imx8-dc plane driver.  Two PRGs would be supported by
+future patches.
 
-> > because as you rightfully point out the kernel doesn't (currently at least)
-> > care much about the implementation
-> 
-> I still don't see how that value will ever be meaningful, there is no such thing
-> as "all GPUs of a certain implementation regardless of architecture" have
-> something in common, is it?
-> 
-> But since you say "currently at least", are there any plans to give this value
-> some meaning beyond being a unique counter for chips within a certain
-> architecture?
+Patch 1 and 2 add dt-bindings for DPRC and PRG.  They were reviewed
+by Rob[1][2].  I slightly modified the patches' commit message to use
+imperative mood.
 
-Oh I just meant AFAIK the kernel isn't currently looking at the implementation
-because everything it cares about (like the HAL) can be keyed off the
-architecture and that's been my experience with most of our GPU kernel drivers.
+Patch 3 fixes FetchUnit dimensions as related to prefetch engine function.
 
-Or IOW, at the moment, from a kernel perspective the kernel doesn't care about
-implementation beyond needing to encode that into a type. So supporting for
-example GB203 instead of GB202 amounts to just adding the encoding for that.
-If we didn't need to add the encoding the kernel could say claim support for all
-Blackwell implementations.
+Patch 4 disables CRTC at boot if needed to support prefetch engine better.
 
-Of course whether this remains true generally requires a fair bit of
-co-operation from the HW, and I'm not sure we're actually there yet although I
-think there has been some discussions in the past.
+Patch 5 and 6 add PRG and DPRC drivers.
 
-But it would be a nice place to be - having dealt with similar problems in
-the past on the CPU side it all becomes a bit of a pain constantly backporting
-patches to a bunch of distros just to allow a +1 on your minor HW version that
-the kernel doesn't actually care about anyway.
+Patch 7 to 12 do preparations before using prefetch engine in imx8-dc KMS
+driver.
 
-But we already agreed this isn't something we can or want to solve here and now,
-so this is really just an aside. Maybe one day we can get there, but not now.
+Patch 13 uses prefetch engine in imx8-dc KMS driver.
 
-> If so, I think that'd be a horrible way to encode some chip commonality.
-> 
-> > But we agreed that wasn't desirable, so now I'm still left figuring out why we
-> > need to provide an arch value? The chip-id already entirely encapsulates the
-> > concept, so what can/should user-space use the arch value for?
-> 
-> Because userspace otherwise has to figure out the architecture itself based on
-> the chipid, while the kernel already did derive this information.
+[1] https://lore.kernel.org/lkml/20201207165945.GA430214@robh.at.kernel.org/
+[2] https://lore.kernel.org/lkml/20201207170206.GA434964@robh.at.kernel.org/
 
-That wasn't my question. My question wasn't where should userspace get the
-arch, it is what can user-space use the arch value for? Again, architecture
-alone isn't entirely sufficient for user-space. There isn't for example a neat
-mapping of arch to sm version for code generation once you start looking at all
-our GPUs.
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+---
+Changes in v6:
+- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&7&13.
+- Include "dc-drv.h" in patch 5&6 to avoid build warnings with C=1.
+- Fix PRG BYPASS programming in patch 5.
+- Link to v5: https://lore.kernel.org/r/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com
 
-> There's many ways userspace could do this, and I don't want to incentivise any
-> of them.
-> 
-> For instance, you previously showed how userspace derives the SM value from the
-> chipid with sm_for_chipset() in mesa with its own lookup table.
-> 
-> Then in NAK (src/nouveau/compiler/nak/ir.rs), there's this code.
-> 
-> 	fn is_turing(&self) -> bool {
-> 	    self.sm() >= 73 && self.sm() < 80
-> 	}
-> 	
-> 	fn is_ampere(&self) -> bool {
-> 	    self.sm() >= 80 && self.sm() < 89
-> 	}
-> 	
-> 	fn is_ada(&self) -> bool {
-> 	    self.sm() == 89
-> 	}
-> 	
-> 	#[allow(dead_code)]
-> 	fn is_hopper(&self) -> bool {
-> 	    self.sm() >= 90 && self.sm() < 100
-> 	}
-> 	
-> 	fn is_blackwell_a(&self) -> bool {
-> 	    self.sm() >= 100 && self.sm() < 110
-> 	}
-> 	
-> 	fn is_blackwell_b(&self) -> bool {
-> 	    self.sm() >= 120 && self.sm() < 130
-> 	}
-> 	
-> 	fn is_blackwell(&self) -> bool {
-> 	    self.is_blackwell_a() || self.is_blackwell_b()
-> 	}
-> 
-> That's two unnecessary indirections for something the kernel already has
-> available.
+Changes in v5:
+- Squash MAINTAINERS file update into patch 1&2.  (Krzysztof)
+- Link to v4: https://lore.kernel.org/r/20251016-imx8-dc-prefetch-v4-0-dfda347cb3c5@nxp.com
 
-Again though is what the kernel provides in the form of an arch actually useful
-to user-space? Obviously the code above makes it look nice and simple like that,
-but as I have been saying more complete implementations can't just rely on arch
-alone and so are still going to have lookup tables both for SM and for other
-info the kernel can't provide.
+Changes in v4:
+- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&10.
+- Sort bits and bitfields in descending order for register PRG_CTRL in patch 6.
+- Cc Marek as stakeholder of the driver due to recent i.MX95 DC patches posted.
+- Link to v3: https://lore.kernel.org/r/20250929-imx8-dc-prefetch-v3-0-c01d0608add2@nxp.com
 
-Anyway at this point I'll just leave chipset and arch in. Clearly you think
-there is some value in providing it separately, and I suppose it doesn't make
-much difference just to have it there.
+Changes in v3:
+- Call dc_dprc_enable() only when start == true in patch 7.  (Frank)
+- Collect Frank's R-b tags.
+- Link to v2: https://lore.kernel.org/r/20250923-imx8-dc-prefetch-v2-0-5d69dc9ac8b5@nxp.com
 
-> > It really boils down to how much static config info we want to encode into
-> > kernel lookup tables vs. user-space lookup tables. I don't this we should be
-> > filling the kernel with a bunch of static struct lookups just to ship those
-> > struct definitions to user-space. It seems more reasonable to put that in
-> > user-space, unless of course the kernel needs it.
-> >
-> > So I think your "does the kernel need this" is a reasonable benchmark for
-> > deciding this.
-> >
-> > As I think you're hinting at it would be ideal if GSP or some other firmware
-> > table could just provide everything in some nice static config table, but I
-> > don't think that's currently possible and looking at other user-space drivers
-> > we're certainly not alone there.
-> 
-> Yeah, although if SM is correctly reported by the GSP, I'd rather have it
-> exported in an info structure than have userspace create its own lookup table.
+Changes in v2:
+- Rebase the patch series onto next-20250922.
+- Collect Alexander's and Frank's R-b tags.
+- Manage PRG's and DPRC's clocks with bulk interfaces in patch 6&7.  (Frank)
+- Sort variables in probe function in reverse Christmas tree fashion in patch 7.  (Frank)
+- Link to v1: https://lore.kernel.org/r/20250704-imx8-dc-prefetch-v1-0-784c03fd645f@nxp.com
 
-Yeah, although that would need to be a contract between HW and GSP and GSP and
-user-space. That's fine, and can could probably do it one day, it just doesn't
-currently exist AFAICT.
+---
+Liu Ying (13):
+      dt-bindings: display: imx: Add i.MX8qxp/qm PRG binding
+      dt-bindings: display: imx: Add i.MX8qxp/qm DPR channel binding
+      drm/imx: dc-fu: Fix dimensions
+      drm/imx: dc-crtc: Disable at boot
+      drm/imx: dc: Add PRG support
+      drm/imx: dc: Add DPR channel support
+      drm/imx: dc: Use TCON operation mode
+      drm/imx: dc-ed: Support getting source selection
+      drm/imx: dc-lb: Support getting secondary input selection
+      drm/imx: dc-ed: Drop initial source selection
+      drm/imx: dc-lb: Drop initial primary and secondary input selections
+      drm/imx: dc-fu: Get DPR channel
+      drm/imx: dc: Use prefetch engine
 
- - Alistair
+ .../bindings/display/imx/fsl,imx8qxp-dprc.yaml     | 100 +++++
+ .../bindings/display/imx/fsl,imx8qxp-prg.yaml      |  60 +++
+ MAINTAINERS                                        |   2 +
+ drivers/gpu/drm/imx/dc/Kconfig                     |   1 +
+ drivers/gpu/drm/imx/dc/Makefile                    |   6 +-
+ drivers/gpu/drm/imx/dc/dc-crtc.c                   | 200 ++++++++-
+ drivers/gpu/drm/imx/dc/dc-de.h                     |   2 +
+ drivers/gpu/drm/imx/dc/dc-dprc.c                   | 467 +++++++++++++++++++++
+ drivers/gpu/drm/imx/dc/dc-dprc.h                   |  35 ++
+ drivers/gpu/drm/imx/dc/dc-drv.c                    |   7 +
+ drivers/gpu/drm/imx/dc/dc-drv.h                    |   5 +
+ drivers/gpu/drm/imx/dc/dc-ed.c                     |  27 +-
+ drivers/gpu/drm/imx/dc/dc-fl.c                     |   7 +-
+ drivers/gpu/drm/imx/dc/dc-fu.c                     |  49 ++-
+ drivers/gpu/drm/imx/dc/dc-fu.h                     |  11 +-
+ drivers/gpu/drm/imx/dc/dc-fw.c                     |   7 +-
+ drivers/gpu/drm/imx/dc/dc-kms.h                    |   7 +
+ drivers/gpu/drm/imx/dc/dc-lb.c                     |  23 +-
+ drivers/gpu/drm/imx/dc/dc-pe.h                     |   2 +
+ drivers/gpu/drm/imx/dc/dc-plane.c                  |  46 +-
+ drivers/gpu/drm/imx/dc/dc-prg.c                    | 320 ++++++++++++++
+ drivers/gpu/drm/imx/dc/dc-prg.h                    |  39 ++
+ drivers/gpu/drm/imx/dc/dc-tc.c                     | 114 ++++-
+ 23 files changed, 1499 insertions(+), 38 deletions(-)
+---
+base-commit: a9f09b5ea0c3db1e2d4c0f8d3ebdd612d8aa0366
+change-id: 20250703-imx8-dc-prefetch-028e306591c6
+
+Best regards,
+--  
+Regards,
+Liu Ying
+
