@@ -4,62 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D47FC624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA266C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F1910E552;
-	Fri,  4 Sep 2026 09:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDA0510FA18;
+	Fri,  4 Sep 2026 09:57:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ltn7tyEZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BrXcC9Rz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52CA910E552
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788514883; x=1820050883;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ZAsXYph+3UL5QbS4apKrLnhh+iWZ6jvjIOFOd0lsZS0=;
- b=Ltn7tyEZukOnVEJFKg9McRiZQ5BxUf8ZKQda0NUqUgeJjuba4X0eAjPW
- vnvCDayD8bKOSDuuzx87ITw/OT/3j92yBfCFS5y+i5Sg9P8pPfxbkPpEd
- f96Z1zCDY7BJjGKF2Q8QSkLy6VbVtCznmlHnUVR7RDXevPMfSQ7QXJDZq
- pFU2hOH/nd53zYX7yZWU4VMx4gvr1z+E5hbWaVh2uPlgUxP7lIK6gxps1
- pveHP/tzNL6GiL1OQzRnGuZu9hBaZIqeXHPTIrxepOqcqom3pvYdhX/WD
- jSyEXfHCT5hTwrvnJFVyZuuBbbUhIpEc8Iq/uGYKHgyvCgDYxc4VBZxD4 w==;
-X-CSE-ConnectionGUID: l24+2s1WQjCDusxssU4itQ==
-X-CSE-MsgGUID: IIsLgYI1TKifgzWkeQVTKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88861121"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="88861121"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 02:41:23 -0700
-X-CSE-ConnectionGUID: mNDvgPXDSJOj7O8+SpJEhg==
-X-CSE-MsgGUID: l7wCaX8OS0+uyxOZqWyrXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="268679512"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.29])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 02:41:19 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- ardb@kernel.org, ilias.apalodimas@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v4 3/3] drm/sysfb: Use preferred panel size for panel
- orientation quirks
-In-Reply-To: <20260904090850.43060-4-tzimmermann@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260904090850.43060-1-tzimmermann@suse.de>
- <20260904090850.43060-4-tzimmermann@suse.de>
-Date: Fri, 04 Sep 2026 12:41:16 +0300
-Message-ID: <e5622c247ffac253ef61cf66ffeeba2f8e36d68d@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7FF910FA18
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:57:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F0D7160A74;
+ Fri,  4 Sep 2026 09:57:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D2F1F00A3D;
+ Fri,  4 Sep 2026 09:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788515867;
+ bh=/15UFxxirqrO6Bz4pIRkXUatQQguIa781LW8rPq7u7k=;
+ h=Date:From:Subject:Cc:To:References:In-Reply-To;
+ b=BrXcC9RzxRJ6NySORcZpN3sm3JkaldhaXPz+gnhZPMY1EadAYOkbv4Nh5Rpok4xMz
+ jLBZqo3QXsnSPvLzrXQKY1lru15mUz64nWx8UpmzTZazPuNYvX6gj+3UchvxheCpgM
+ TN00/LFSCsjOOJhFKBbSg0v7k4F4RQCiRRudG8ZSFo6wwe+TI7Ke0ptJ89XOYElo9Z
+ MAsOxGQAco306BHkGjpdFKPw7xYp595gjA0o/3xytpx4/qOw2hgjndho2ZTTz9F0xM
+ K2QBq067hYHrOEbggHjG6zJ7whSRFEImLMpJ4UZr6/zZPljZNHbYhmB2GaFs1rPIg2
+ s9AyF43jcFZ1Q==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 11:57:44 +0200
+Message-Id: <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+Cc: <phasta@kernel.org>, <christian.koenig@amd.com>, <tursulin@ursulin.net>,
+ <matthew.brost@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <mdaenzer@redhat.com>,
+ <alessio.belle@imgtec.com>, <luigi.santivetti@imgtec.com>,
+ <stable@vger.kernel.org>
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+In-Reply-To: <20260904080618.2098450-2-malhyuk97@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,161 +62,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 04 Sep 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Sysfb drivers currently use the given display mode for looking up the
-> panel orientation. But the look-up table stores the native geometry of
-> the panels, so the lookup fails if the current mode sizes differs.
->
-> Get the panel's native geometry with drm_edid_detect_panel_size() from
-> the EDID and use it for looking up the panel orientation.
->
-> v2:
-> - ofdrm: validate EDID header before using it (Sashiko)
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+On Fri Sep 4, 2026 at 10:06 AM CEST, Jonghyuk Kim(MalHyuk) wrote:
+> Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document the=
+ rules")
+> Cc: stable@vger.kernel.org # we don't know since when
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+How is that? If there's a Fixes: tag it expresses that this commit introduc=
+ed
+the bug, so it should be known exactly since when it is present.
 
-> ---
->  drivers/gpu/drm/sysfb/efidrm.c  | 17 ++++++++++++++++-
->  drivers/gpu/drm/sysfb/ofdrm.c   | 18 ++++++++++++++++--
->  drivers/gpu/drm/sysfb/vesadrm.c | 17 ++++++++++++++++-
->  3 files changed, 48 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
-> index 3f9cd5d03efb..8b19f437308e 100644
-> --- a/drivers/gpu/drm/sysfb/efidrm.c
-> +++ b/drivers/gpu/drm/sysfb/efidrm.c
-> @@ -152,6 +152,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
->  	const struct screen_info *si;
->  	const struct drm_format_info *format;
->  	int width, height, stride;
-> +	unsigned int panel_width, panel_height;
->  	s64 vsize;
->  	u64 mem_flags;
->  	struct resource resbuf;
-> @@ -217,6 +218,20 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
->  	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
->  		sysfb->edid = dpy->edid.dummy;
->  #endif
-> +
-> +	panel_width = width;
-> +	panel_height = height;
-> +
-> +	if (sysfb->edid) {
-> +		const struct drm_edid *drm_edid;
-> +
-> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
-> +		if (drm_edid) {
-> +			drm_edid_detect_panel_size(drm_edid, &panel_width, &panel_height);
-> +			drm_edid_free(drm_edid);
-> +		}
-> +	}
-> +
->  	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
->  	sysfb->fb_format = format;
->  	sysfb->fb_pitch = stride;
-> @@ -340,7 +355,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
->  	drm_connector_helper_add(connector, &efidrm_connector_helper_funcs);
->  	drm_connector_set_panel_orientation_with_quirk(connector,
->  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
-> -						       width, height);
-> +						       panel_width, panel_height);
->  	if (sysfb->edid)
->  		drm_connector_attach_edid_property(connector);
->  
-> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
-> index 9d60db45139c..c41255569854 100644
-> --- a/drivers/gpu/drm/sysfb/ofdrm.c
-> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
-> @@ -229,7 +229,7 @@ static const u8 *display_get_edid_of(struct drm_device *dev, struct device_node
->  {
->  	int ret = of_property_read_u8_array(of_node, "EDID", buf, EDID_LENGTH);
->  
-> -	if (ret)
-> +	if (ret || drm_edid_header_is_valid(buf) != 8)
->  		return NULL;
->  	return buf;
->  }
-> @@ -828,6 +828,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
->  	enum ofdrm_model model;
->  	bool big_endian;
->  	int width, height, depth, linebytes;
-> +	unsigned int panel_width, panel_height;
->  	const struct drm_format_info *format;
->  	u64 address;
->  	const u8 *edid;
-> @@ -998,6 +999,19 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
->  		sysfb->fb_gamma_lut_size = OFDRM_GAMMA_LUT_SIZE;
->  	sysfb->edid = edid;
->  
-> +	panel_width = width;
-> +	panel_height = height;
-> +
-> +	if (sysfb->edid) {
-> +		const struct drm_edid *drm_edid;
-> +
-> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
-> +		if (drm_edid) {
-> +			drm_edid_detect_panel_size(drm_edid, &panel_width, &panel_height);
-> +			drm_edid_free(drm_edid);
-> +		}
-> +	}
-> +
->  	drm_dbg(dev, "display mode={" DRM_MODE_FMT "}\n", DRM_MODE_ARG(&sysfb->fb_mode));
->  	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, linebytes=%d byte\n",
->  		&format->format, width, height, linebytes);
-> @@ -1069,7 +1083,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
->  	drm_connector_helper_add(connector, &ofdrm_connector_helper_funcs);
->  	drm_connector_set_panel_orientation_with_quirk(connector,
->  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
-> -						       width, height);
-> +						       panel_width, panel_height);
->  	if (edid)
->  		drm_connector_attach_edid_property(connector);
->  
-> diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
-> index 6a67b2d2e451..f6358a0a68bd 100644
-> --- a/drivers/gpu/drm/sysfb/vesadrm.c
-> +++ b/drivers/gpu/drm/sysfb/vesadrm.c
-> @@ -402,6 +402,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
->  	const struct screen_info *si;
->  	const struct drm_format_info *format;
->  	int width, height, stride;
-> +	unsigned int panel_width, panel_height;
->  	s64 vsize;
->  	struct resource resbuf;
->  	struct resource *res;
-> @@ -484,6 +485,20 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
->  	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
->  		sysfb->edid = dpy->edid.dummy;
->  #endif
-> +
-> +	panel_width = width;
-> +	panel_height = height;
-> +
-> +	if (sysfb->edid) {
-> +		const struct drm_edid *drm_edid;
-> +
-> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
-> +		if (drm_edid) {
-> +			drm_edid_detect_panel_size(drm_edid, &panel_width, &panel_height);
-> +			drm_edid_free(drm_edid);
-> +		}
-> +	}
-> +
->  	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
->  	sysfb->fb_format = format;
->  	sysfb->fb_pitch = stride;
-> @@ -585,7 +600,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
->  	drm_connector_helper_add(connector, &vesadrm_connector_helper_funcs);
->  	drm_connector_set_panel_orientation_with_quirk(connector,
->  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
-> -						       width, height);
-> +						       panel_width, panel_height);
->  	if (sysfb->edid)
->  		drm_connector_attach_edid_property(connector);
+However, I don't think this is the correct Fixes: tag, the bug was present
+before. I think it was present all the way back to commit f556cb0caeec
+("drm/amd: add scheduler fence implementation (v2)").
 
--- 
-Jani Nikula, Intel
+It is also not the case that it wasn't a bug before we had per-context
+schedulers, it's just that it became much more likely to trigger with
+per-context schedulers; nothing prevents the kernel from having a reference
+count of a DMA fence after the driver was unbound and hence the
+per-device/per-ring scheduler was torn down.
+
+More in general, putting "we don't know since when" for the stable folks is
+rough. If neither the author of the patch nor the maintainers of the subsys=
+tem
+can figure it out, how are the stable folks supposed to?
