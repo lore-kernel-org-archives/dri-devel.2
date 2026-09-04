@@ -4,104 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F14C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:09:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C85C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15EC510F9D2;
-	Fri,  4 Sep 2026 09:09:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60E4310F9BB;
+	Fri,  4 Sep 2026 09:09:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="V4tjkCdX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="i2QV3NA4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VeQBZ/Y2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DtThAcAf";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bmUgXlhD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HJcJfmNs";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Mfk9RidB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MtygzCmq";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D794D10F9C0
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:09:05 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5116610F9C7
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:09:06 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 373A122B3B;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8B8081FB96;
  Fri,  4 Sep 2026 09:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1788512940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=N5wNo5A0H4PiTXjX7KcJL0forrC1nZmb4KlHoG1cGlM=;
- b=V4tjkCdXKjUBDFSI+c3flVLyC2jaC1B7MZbYbwSwq/nV5DWukFA4pkftbAjcyyoCSNNFfz
- wSF2YAp8XO0IYGXcsXMG+iBzJgNeoiOT+ndghh6ubUnvXKEkI3Wz1xT3KOo/v/+O6Kp0U/
- 7BgqEGfG4qmdTF5Tsz+eFAkYAoplfns=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WtHEuer+6rDk5OW61PMSdMfBTVlgbWHd3PYyCjHMeT8=;
+ b=bmUgXlhDeIkVZFybV37vp6vQFC9QVBL/K1/0XOh8KoLCpkLt26BVKhCAPZhsBWwk0loOkm
+ HVbm1/SVs9x3we9SyChzJF13K/px+IaOiwTDCYvZESOzflShyI6HYzIhaY67RO6WP0xsyO
+ B6sD9wXVqXKh4kW/31Co9wkt2i449nA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1788512940;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=N5wNo5A0H4PiTXjX7KcJL0forrC1nZmb4KlHoG1cGlM=;
- b=i2QV3NA4akDv9uHy/H0zVdP4D392sxqU6TmfwhusFoDFJMPDLhyVPVyTm0Jabk6MmxsD8S
- ujDmzgSbg4YFnBAg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="VeQBZ/Y2";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DtThAcAf
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WtHEuer+6rDk5OW61PMSdMfBTVlgbWHd3PYyCjHMeT8=;
+ b=HJcJfmNskZRWi6xBmq3BNUteQxduFRr/25xnPz0ISo933HqLlAxIlciFo4X8rIA+XGw7mX
+ 5MOE5c3nbz6zs/AA==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1788512936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=N5wNo5A0H4PiTXjX7KcJL0forrC1nZmb4KlHoG1cGlM=;
- b=VeQBZ/Y2WIVMYry8k6dRPoTePW5X/KTYK+q79uKAIrjLniHOve4IyRm+p4QQL79ziqt4K9
- w/2JI2nZOrlP4Z5WSYONVHWOaZsLr2ftWhM5IZlyQMcc2+ShwIrd6X/S0anV45zcoqkz6k
- qaEJuxgoKoyTeO9iei4ck6TVzfG/DfU=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WtHEuer+6rDk5OW61PMSdMfBTVlgbWHd3PYyCjHMeT8=;
+ b=Mfk9RidBP/mgkTS4tFTPnl5TRDgVJu7JeoXAUrs4DQ1XuG+upNs3Ns6Oz51EZVQHhKIqDZ
+ pQu16Emz8JdJ0XWD+qilCKlE6fWS0oAn4NL+lrgVFYBRGHqTFe+5VFtMbvCrE6dk04tC/1
+ /d3B+DsHbs8SMgoI3chLraedoXZqM78=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1788512936;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=N5wNo5A0H4PiTXjX7KcJL0forrC1nZmb4KlHoG1cGlM=;
- b=DtThAcAfL4+REoAM6/ALkFrjNkH8Fzy4QkpEc9/gg0i8cYyaFf5HxrsRLsGYrolzioywAv
- /TmfiHodnERh0CDw==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WtHEuer+6rDk5OW61PMSdMfBTVlgbWHd3PYyCjHMeT8=;
+ b=MtygzCmqfJ0gHr0T+YBgVLnhXrH3znZ29BqGSuUaO9u5EGCjyIjKfG8MK1oditMRrJ+Cdy
+ oxpaetOCAScuVKDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C337A13726;
- Fri,  4 Sep 2026 09:08:55 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2692913736;
+ Fri,  4 Sep 2026 09:08:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6RdDLqeKmmphdQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 04 Sep 2026 09:08:55 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IF73B6iKmmphdQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 04 Sep 2026 09:08:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: javierm@redhat.com, ardb@kernel.org, ilias.apalodimas@linaro.org,
  jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, simona@ffwll.ch, airlied@gmail.com
 Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
  sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v4 0/3] sysfb: Fix display output on Lenovo D330 (and others)
-Date: Fri,  4 Sep 2026 11:06:59 +0200
-Message-ID: <20260904090850.43060-1-tzimmermann@suse.de>
+Subject: [PATCH v4 1/3] firmware/sysfb: Remove rotation quirk for Lenovo D330
+Date: Fri,  4 Sep 2026 11:07:00 +0200
+Message-ID: <20260904090850.43060-2-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904090850.43060-1-tzimmermann@suse.de>
+References: <20260904090850.43060-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 373A122B3B
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_TWELVE(0.00)[12]; MIME_TRACE(0.00)[0:+];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
  FREEMAIL_TO(0.00)[redhat.com,kernel.org,linaro.org,linux.intel.com,ffwll.ch,gmail.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[12]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,44 +114,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The kernel mis-interprets the display geometry given by the Lenovo
-D330 as incorrect. The values are correct, but the display output is
-rotated by 90°. With the kernel's firmware quirk applied, the output
-is garbled.
+The Lenovo D330 is a notebook with detachable display. The display
+is installed in landscape orientation, but the display mode is in
+portrait orientation. By default, the display output is rotated to
+the left by 90°.
 
-Remove the firmware quirk for the Lenovo D330 and let DRM's sysfb
-drivers set the correct panel orientation instead. To make this work
-for any display mode, use the panel size for looking up the correct
-orientation.
+The sysfb quirk breaks the display by swapping display width and
+height; and thus mixing up the display geometry. Fix this by keeping
+the display as-is. The sysfb DRM drivers, usually efidrm, will pick
+the correct panel orientation for the display.
 
-Tested on a Lenovo D330-10IGM IdeaPad.
+The exact behavior might depend on the version of the BIOS release,
+but the exact version numbers of broken and good releases are unknown.
+Users are advised to update to the latest firmware.
 
-v4:
-- fix test for EDID PTD (Jani)
+Tested on a Lenovo D330-10IGM IdeaPad with firmware 8NCN43WW.
+
 v3:
-- rename EDID helper to drm_edid_detect_panel_size()
-- clean up EDID code (Jani)
-- mention possible dependency on device firmware version
-v2:
-- reorder patches to have the immediate fix first
-- detect and handle broken EDID better (Sashiko)
-- fix width/height pointer check (Sashiko)
+- mention possible dependency on BIOS release in commit description
 
-Thomas Zimmermann (3):
-  firmware/sysfb: Remove rotation quirk for Lenovo D330
-  drm/edid: Add drm_edid_detect_panel_size()
-  drm/sysfb: Use preferred panel size for panel orientation quirks
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ drivers/firmware/efi/sysfb_efi.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
- drivers/firmware/efi/sysfb_efi.c |  9 ------
- drivers/gpu/drm/drm_edid.c       | 47 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/sysfb/efidrm.c   | 17 +++++++++++-
- drivers/gpu/drm/sysfb/ofdrm.c    | 18 ++++++++++--
- drivers/gpu/drm/sysfb/vesadrm.c  | 17 +++++++++++-
- include/drm/drm_edid.h           |  2 ++
- 6 files changed, 97 insertions(+), 13 deletions(-)
-
-
-base-commit: aa389a514292b196ae89c6515568b3329abeec63
+diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
+index 685283bb7327..2338de73c62c 100644
+--- a/drivers/firmware/efi/sysfb_efi.c
++++ b/drivers/firmware/efi/sysfb_efi.c
+@@ -301,15 +301,6 @@ static const struct dmi_system_id efifb_dmi_swap_width_height[] __initconst = {
+ 		},
+ 		.callback = efifb_swap_width_height,
+ 	},
+-	{
+-		/* Lenovo D330 with 800x1280 or 1200x1920 portrait screen */
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+-			DMI_EXACT_MATCH(DMI_PRODUCT_VERSION,
+-					"Lenovo ideapad D330-10IGM"),
+-		},
+-		.callback = efifb_swap_width_height,
+-	},
+ 	{
+ 		/*
+ 		 * Lenovo IdeaPad Duet 3 10IGL5 and 10IGL5-LTE with
 -- 
 2.55.0
 
