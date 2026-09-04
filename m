@@ -4,49 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2261C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 11:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D65FC624D3
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:02:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E2210FAD3;
-	Fri,  4 Sep 2026 11:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E75910E0DE;
+	Fri,  4 Sep 2026 12:02:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UGvk209N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IusUqBK7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01C310FAD3
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 11:54:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 88D5A4183D;
- Fri,  4 Sep 2026 11:54:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4E41F00A3D;
- Fri,  4 Sep 2026 11:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788522871;
- bh=5FtP551ertCbjVglA9tJ1Khd6CYq2d6Vnx4Z1uC4NgE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UGvk209Nwfgf5Nat92NaedZtdNnq3AnxFCnGGdky4dUMNamu0y0bjwfZJsGbTE6Ux
- KJSA8BQn+ooDEZx+IsfGB2L/CfhZHeHxeZQcT9CdvK5kT4pCcDXhjo+AhmaNbI/SkB
- G9J1iQ0Yxel31i115cowJq/yvyW9Oo8/BFwwsR/3/Dbfski87OEVGacIqX5wGi77Fg
- 5Ek2swVSks9lnsKoQ+T08HF4DDmL29HnXvk5qZYlSODHTkPWKF7+aa9EGlvE/53J4u
- 9NFqOHTJDepX+qsrsuU0yef7nzXi+zAYoGo350/e2TYIP+bnlyR35Z7cOEo+FFuris
- VjRIhg8UsqsTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 10/12] arm64: tegra: Add VPR placeholder node on
- Tegra234
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org,
- "Vasily Gorbik" <gor@linux.ibm.com>, robh@kernel.org, conor+dt@kernel.org,
- "Heiko Carstens" <hca@linux.ibm.com>, linux-trace-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, "Alexander Gordeev" <agordeev@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260904-tegra-vpr-v6-10-79042cfa8de5@nvidia.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-10-79042cfa8de5@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 11:54:30 +0000
-Message-Id: <20260904115430.EB4E41F00A3D@smtp.kernel.org>
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4BD210E0DE
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:02:24 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-484392e3d33so550897f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788523343; x=1789128143; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=F+qgxqWEXAb9q775gpw7sG7cGIPG1UapQc2itwhgTTQ=;
+ b=IusUqBK75kMe7rhEb47MeCVAd1Y36kGpR2/ScEsAyoL1jpCVLfbiJq7MsC3kWpIv+o
+ c9IZL4uhEPN4MF+RQ0YiaWRhb9AJzTtrPQQ6nqNiIscW7VWSDo5zSPk1TzIvEa5Fz3c5
+ q6xYYqgegBglemC3Qbuav5k/pdYjN2cVMr4zYUtITOBqpAh8w5JpDS2SOtZPtiNBKHvI
+ tXYQsWYfAt8kgz8klgujJS461D2s0idobbLChDmnc0iYv4HaCRrMlLOOO1DtCn58P1UC
+ DCP5WKQig7t1rcoLNcGzRo3XJqlYDMoAWIJEEzTA1Ysyu+6N+bIenXOtjSLTwZ31LL2m
+ bccw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788523343; x=1789128143;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=F+qgxqWEXAb9q775gpw7sG7cGIPG1UapQc2itwhgTTQ=;
+ b=h6lk2BTZKMZoa8BmC2S1I3e5DkjAsIWcxLFkOwn5Uj5CCdmdPwX3AibrQFlr7jkGE4
+ TSYgGuezexT3tAKWNOo7qCTjm37yG1PhoNcbRPBMyuKLP7GUjSAZm1vNoff0o5LL3R5H
+ czrL6EChZFz+TlFcVoFhkPvllHeo2K8dRwybISJRBBV7vg0ftuvld/OYhdrUR3Vk9FYc
+ lGu6J1MLiPfKUEW9lV8SG22eIlTS1WC+npuh52Xd1R24ZD59gclKDvY3g9EMCMGdTRRP
+ cNt/YBdpXvKyOtaDLwpCgmMEbm2rGW7MNzNAXOd2ml4fBftQBKtmAIMcw9T5oiJr2H3R
+ S6sg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzSMfK4QFlffuz4Tr+sW49fhLpdh+8R5cl1pBUAKlvPMYtrpZzJu+lgfYGW2IDj1ZJXJIdgaqZA3wA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nYuI4btQx0hdjcqcYK5PY4NxtPVGl/WY5HKvmUOoZpvqT0A+zI
+ wAkr5qC0Vsa0yv0Y4kHA077Ldz3MjN4Q06t8E1wC+waXsccpiO5p+O7t
+X-Gm-Gg: AYBFou0HclpDtDsaFhezYK57HeDichKdMPIhMt37vylGrLmg0rsKiOjOKX/eA8lJ58m
+ LbYHKeQH/McCqzCIoHys/l7nwhb7TDYO7MdlskAx1+DU3sEWiXvLtwMsYWqFChAjQGC6mvc0T6J
+ giCYyV2ZdvUWcQbeTwbpAI5NwVsc9e7PPrX+WChsce7m6Pd82k6Y9BO+AGC7miKCPyk+7XwNYkH
+ gEBra9b0MNuZLLQE1l2Ga8Jm03SUu8MLWQ+W/U07j0szIx35Jn0HxKkIzxhlo6GLJtZIZuse4Pe
+ au4M1+78kC6+pMyrYhaWBv7s4xVrQc5WVoBPw/HYwryaPHAAxw6ChtuQ/c8pbO5RAdfuybDwZ/7
+ GHfy0rev3RmYSrYsc7bTX72NYi6ed0UWvsT2spVx7gpgaI0U5oTddO2JNMUk+CNdTURaV3hfecJ
+ TgkqcesKXqqM88/N9ov8tIFlnYq0lHgfzif5VAzd1kGhejurWgU1KQqMLBrN1N3KPwNe+Sc96R2
+ UMRgP/IRWGdUdSCHvj5mtIxG1JcDLHNdzMKR4pT5s3Af4zVDs4ZWnCzuFpntr1U7Hk8wzKzhw==
+X-Received: by 2002:a5d:5f94:0:b0:485:8c17:975b with SMTP id
+ ffacd0b85a97d-4858c1798cfmr2792947f8f.29.1788523342687; 
+ Fri, 04 Sep 2026 05:02:22 -0700 (PDT)
+Received: from ernest.hoecke-nb
+ (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-485883be709sm5726091f8f.21.2026.09.04.05.02.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Sep 2026 05:02:22 -0700 (PDT)
+Date: Fri, 4 Sep 2026 14:02:20 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: tessolveupstream@gmail.com, andrzej.hajda@intel.com, 
+ neil.armstrong@linaro.org, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com, 
+ alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+Message-ID: <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
+References: <20260412053811.662461-2-tessolveupstream@gmail.com>
+ <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
+ <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
+ <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
+ <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+ <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+ <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
+ <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
+ <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
+ <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,137 +104,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] The newly introduced `cma_alloc_at()` API does not validate if=
- the requested allocation range exceeds the bounds of the CMA region and mi=
-smatches bit/page units, leading to an out-of-bounds read and write in the =
-CMA bitmap.
-- [High] The `tegra_vpr_set()` function passes 64-bit physical addresses an=
-d sizes to a 32-bit SMC call, which truncates them, misconfiguring hardware=
- protection.
-- [High] Missing mutex lock in `tegra_vpr_debugfs_show_chunks()` when itera=
-ting over the `vpr->buffers` list.
-- [High] A negative left shift occurs in `tegra_vpr_setup_chunks()` if the =
-configured VPR size is small, leading to undefined behavior.
---
+Hi Luca,
+Hi Sudarshan,
 
-commit 4d64d0d8b755f60422c65bdb111c671e4013a472
-Author: Thierry Reding <treding@nvidia.com>
+On Wed, May 20, 2026 at 01:38:36PM +0200, Luca Ceresoli wrote:
+> Hello,
+> 
+> On Wed May 20, 2026 at 11:04 AM CEST, tessolveupstream wrote:
+> 
+> [...]
+> 
+> >>> We have not received any further updates from TI regarding this issue, and
+> >>> at this point, we are not sure if we will get additional feedback from them.
+> >>> As you had mentioned earlier that the patch could be considered after
+> >>> waiting for some time, could you please let us know how we can proceed
+> >>> further from here?
+> >>
+> >> I am getting some feedback from TI, but it is taking some time.
+> >>
+> >> For the time being I think it is clear that HBP and HFP are required, and
+> >> so removing the MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP
+> >> in your patch seems to be fully correct, even though this had no effect on
+> >> the panel I tested.
+> >>
+> >> I'm still trying to get some better info to ensure that switching from
+> >> burst mode to non-burst mode is not expected to have side effects.
+> >>
+> >> For thi reason, I think it would be great if you could send a new version
+> >> with two separate patches: the first one enabling HFP and HBP and which can
+> >> be applied right away, the second to disable burst mode for which I'd wait
+> >> a bit longer for TI feedback. You can keep the Tested-by lines.
+> >>
+> >
+> > Thanks for the clarification. I just wanted to confirm my understanding
+> > regarding the patch split you suggested.
+> >
+> > From your comments, my understanding is that the first patch would only
+> > enable HFP and HBP by removing MIPI_DSI_MODE_VIDEO_NO_HFP and
+> > MIPI_DSI_MODE_VIDEO_NO_HBP, while keeping burst mode enabled, so the mode
+> > flags would become:
+> >
+> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+> >
+> > Then, the second patch would only disable burst mode, resulting in:
+> >
+> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
+> >           MIPI_DSI_MODE_NO_EOT_PACKET;
+> >
+> > Could you please confirm whether my understanding is correct?
+> 
+> Yes, correct.
+> 
+> > Also, from our testing, when using:
+> >
+> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+> >
+> > we are not able to get display output.
+> 
+> This is the case for the panel I worked on as well. In the practice we both
+> observe that non-burst mode is what fixes the panel, but there is no clear
+> explanation of the reason in the docs (that's what I hope to discover from
+> TI).
+>
+I am testing a DSI panel on our Verdin iMX8MP module, and noticed that
+this caused a regression.
 
-arm64: tegra: Add VPR placeholder node on Tegra234
+In v4 of this series only the change removing NO_HFP and NO_HBP was
+applied. [1]
 
-This node contains two sets of properties, one for the case where the
-VPR is resizable (in which case the VPR region will be dynamically
-allocated at boot time) and another case where the VPR is fixed in size
-and initialized by early firmware.
+For us, the display worked before that change. So with
+MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO_NO_HBP |
+MIPI_DSI_MODE_VIDEO_NO_HFP: things are fine.
 
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra234.dtsi
-> index 5e29316a4d759..6c4739efc8a5d 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> @@ -29,6 +29,45 @@ aliases {
->  		i2c8 =3D &dp_aux_ch3_i2c;
->  	};
-> =20
-> +	reserved-memory {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		vpr: protected {
-> +			compatible =3D "nvidia,tegra-video-protection-region";
+But with only MIPI_DSI_MODE_VIDEO_NO_HBP | MIPI_DSI_MODE_VIDEO_NO_HFP
+removed, it no longer works. I can verify that if I also remove
+MIPI_DSI_MODE_VIDEO_BURST, things work fine again.
 
-[Severity: High]
-Is it possible for the shift operand to become negative when the VPR size is
-small?
+How can we proceed, will we be applying the removal of
+MIPI_DSI_MODE_VIDEO_BURST soon?
 
-If the VPR size configured in the device tree is small (e.g., 4KB or 8KB),
-get_order(vpr->size) is 0 or 1. Since vpr->num_chunks is hardcoded to 4,
-ilog2(4) is 2. The shift operand can evaluate without bounds checking:
+I think we'll need to either revert this and later apply both together
+when ready, or apply the second patch now as well. Right now, it broke
+the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
 
-drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_setup_chunks() {
-	...
-	max_size =3D PAGE_SIZE << (get_order(vpr->size) - ilog2(vpr->num_chunks));
-	...
-}
+[1] https://lore.kernel.org/all/178164296717.254857.3522055507948798930.b4-ty@b4/
 
-Can this evaluate to a negative number (e.g., 0 - 2 or 1 - 2) and cause a
-negative shift during driver initialization based on device tree inputs?
-On arm64, a negative shift count often wraps around, resulting in a very
-large max_size.
-
-[Severity: High]
-Could passing these 64-bit addresses to the SMC32 call cause truncation?
-
-The 64-bit parameters base and size are passed directly into an SMC32 call:
-
-drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_set() {
-	...
-	arm_smccc_smc(ARM_SMCCC_VENDOR_SIP_TE_PROGRAM_VPR_FUNC_ID, base, size,
-		      0, 0, 0, 0, 0, &res);
-	...
-}
-
-The ARM_SMCCC_VENDOR_SIP_TE_PROGRAM_VPR_FUNC_ID uses ARM_SMCCC_SMC_32,
-meaning the SMC instruction adheres to the 32-bit calling convention, nativ=
-ely
-truncating the upper 32 bits of base and size inside the secure monitor. Si=
-nce
-CMA regions on arm64 frequently reside above the 4GB boundary, can this
-misconfigure hardware protection by locking down the wrong physical memory?
-
-[Severity: High]
-Is it safe to iterate the vpr->buffers list here without acquiring a lock?
-
-drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_debugfs_show_chunks() {
-	...
-	list_for_each_entry(buffer, &vpr->buffers, list) {
-	...
-}
-
-This iteration accesses a shared, mutable linked list without acquiring
-vpr->lock. If another process performs a DMA-BUF allocation or release
-concurrently, it modifies the vpr->buffers list under vpr->lock. Can this
-result in list corruption or a use-after-free if modified or freed nodes are
-encountered mid-traversal?
-
-[Severity: Critical]
-Are the offset and count units mismatched when calling cma_range_alloc()?
-
-The exported cma_alloc_at API passes page-based offset and count to
-cma_range_alloc():
-
-mm/cma.c:cma_alloc_at() {
-	...
-	page =3D cma_alloc_at_frozen(cma, offset, count, no_warn);
-	...
-}
-
-In cma_range_alloc(), this sets the max limit for the bitmap scan to end
-without bounds checking:
-
-mm/cma.c:cma_range_alloc() {
-	...
-	bitmap_maxno =3D (end > start) ? end : cma_bitmap_maxno(cma, cmr);
-	...
-}
-
-cma_alloc_at_frozen() passes offset and offset + count (which are in pages)
-to cma_range_alloc(), but cma_range_alloc() incorrectly assumes end is alwa=
-ys
-passed in bits instead of pages. Any driver calling cma_alloc_at() with an
-offset + count exceeding the CMA region size could bypass length validation.
-
-Will this scan past the end of the allocated CMA bitmap and allow bitmap_se=
-t()
-to write out-of-bounds?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-tegra-vpr-=
-v6-0-79042cfa8de5@nvidia.com?part=3D10
+Thanks,
+Ernest
+> 
+> On the other hand the HBP and HFP are clearly required by the docs, so it
+> should be fine to enable those without waiting for further info from
+> TI. This is not fixing your and my panel, but it's a fix, no doubt.
+> 
+> > I just wanted to mention this
+> > observation in case it is relevant to the patch split discussion.
+> >
+> > Additionally, regarding the Tested-by tags you mentioned earlier,
+> > should I carry them forward to both patches, or would you prefer them
+> > only on the applicable patch?
+> 
+> I'd say yes. People who sent these tags have tested a patch that is the sum
+> of the two future patches, so I'd say it's OK to keep the R-by on both
+> patches.
+> 
+> Thanks for your patience. We'll get to the bottom of this issue! :)
+> 
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
