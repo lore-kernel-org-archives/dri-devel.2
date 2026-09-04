@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605C3C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5956C624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE7BD10E54B;
-	Fri,  4 Sep 2026 08:53:06 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A97410E54B
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:53:03 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.129])
- by gateway (Coremail) with SMTP id _____8CxPNLshppqS5oIAA--.24536S3;
- Fri, 04 Sep 2026 16:53:00 +0800 (CST)
-Received: from [10.20.42.129] (unknown [10.20.42.129])
- by front1 (Coremail) with SMTP id qMiowJBx6c3rhppq6ssaAA--.25462S3;
- Fri, 04 Sep 2026 16:52:59 +0800 (CST)
-Subject: Re: [PATCH V3] drm/loongson: Create blend mode property for cursor
- plane
-To: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Huacai Chen <chenhuacai@kernel.org>,
- Qianhai Wu <wuqianhai@loongson.cn>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C7C810F97D;
+	Fri,  4 Sep 2026 08:53:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EgvN5fkx";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2264E10F97D;
+ Fri,  4 Sep 2026 08:53:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=YVx+3cVipBQauIvVHlgu4O3ViAk5ZOwiW6S0ILjIWNM=; b=EgvN5fkxr3/m+7WwNNmTTLuKyt
+ 0Yu/2dr4g660Q4KLMyhabVCYD9TgFDpMwubXBULQtuYkNyURBRUIFX1vQWpNUIbtkoY5GCK6WDYU+
+ 6tfvxYxeqNhLWV8ftl/Dz6PcCPRWaXgu8ODsAOfIe1YMAFC0/ofDRNakS1BCvzmTwe1vU8USIfaB/
+ w15M9WiYOEdoUz/WXsr4aw+tBtzYiIJiKtj/NEBn12h0kGEqLrSyn31aDFb3Ua8/DwTxUZXh0GzPZ
+ uTOQ70f3+/HtpW+HmHlqLCSavEB97v7LonwRZiv0IdIfSqgaIkQDfujc6iM3H9y16VGUo3SmbKEFp
+ l0EFOjRw==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x2Pfd-00EnQv-2R; Fri, 04 Sep 2026 10:53:13 +0200
+Message-ID: <ccb3d38d-d736-441a-94fa-7f5e0219753d@igalia.com>
+Date: Fri, 4 Sep 2026 09:53:11 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>, dri-devel@lists.freedesktop.org
-References: <20260903084212.3621540-1-chenhuacai@loongson.cn>
-From: Jianmin Lv <lvjianmin@loongson.cn>
-Message-ID: <d40cf8e3-b128-7af4-a998-6eb9e7d398cf@loongson.cn>
-Date: Fri, 4 Sep 2026 16:39:13 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <20260903084212.3621540-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJBx6c3rhppq6ssaAA--.25462S3
-X-CM-SenderInfo: 5oymxthqpl0qxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7tF1DtFWfCw1DCryUAr15KFX_yoW8tryrpa
- nrCFW0krZ0yFWDJ3srA3saya13ZayfGa4vqryrJ39F9ryqkF9rAr1UCFnIgrWUJF47G34a
- gryxCFsrCF4DKFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
- AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
- AVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
- 8JMxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67
- AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
- rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
- v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
- JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jOiSdUUU
- UU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,56 +71,97 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-
-On 2026/9/3 下午4:42, Huacai Chen wrote:
-> After commit 860e748bddcc929 ("drm: ensure blend mode supported if pixel
-> format with alpha exposed") we get warnings at boot:
+On 17/08/2026 22:05, Maíra Canal wrote:
+> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+> absolute deadline, but there is no equivalent for the drivers that
+> express a wait as a duration. Drivers such as i915 and v3d convert the
+> value themselves.
 > 
-> loongson 0000:00:06.1: [drm] [PLANE:41:ls-cursor-plane-0] pixel format with alpha exposed but blend mode not setup. Please fix.
-> loongson 0000:00:06.1: [drm] [PLANE:46:ls-cursor-plane-1] pixel format with alpha exposed but blend mode not setup. Please fix.
+> Converting a nanosecond duration to jiffies needs some care.
+> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+> userspace-supplied timeout overflows its range and is silently truncated.
 > 
-> The reason is the cursor plane supports color formats with alpha but the
-> driver doesn't create blend mode property, which triggers the warning in
-> validate_blend_mode_for_alpha_formats().
+> i915 already handles both cases in a local helper, which v3d has a copy
+> of. Add the same conversion to the core, so that it is available to any
+> driver and both copies can be dropped.
 > 
-> The loongson DC HW doesn't support DRM_MODE_BLEND_PREMULTI, so create
-> blend mode property with DRM_MODE_BLEND_COVERAGE for cursor planes since
-> it is the only one implemented in the driver.
-> 
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
-Reviewed-by: Jianmin Lv <lvjianmin@loongson.cn>
-
->   drivers/gpu/drm/loongson/lsdc_plane.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
+>   include/drm/drm_utils.h       |  1 +
+>   2 files changed, 35 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loongson/lsdc_plane.c
-> index bea42215796d..bcc0ffa17bdf 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> @@ -7,6 +7,7 @@
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> index 78e9f65e5477..18c2719d1fe9 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/export.h>
+>   #include <linux/jiffies.h>
+>   #include <linux/ktime.h>
+> +#include <linux/math64.h>
+>   #include <linux/sched.h>
 >   
->   #include <drm/drm_atomic.h>
->   #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
->   #include <drm/drm_framebuffer.h>
->   #include <drm/drm_gem_atomic_helper.h>
->   #include <drm/drm_print.h>
-> @@ -765,7 +766,7 @@ int ls7a1000_cursor_plane_init(struct drm_device *ddev,
->   
->   	drm_plane_helper_add(plane, &ls7a1000_cursor_plane_helper_funcs);
->   
-> -	return 0;
-> +	return drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
+>   #include <drm/drm_utils.h>
+> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>   	return timeout_jiffies64 + 1;
 >   }
+>   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +
+> +/**
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
+> + *
+> + * @timeout_nsec: relative timeout in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
+> + * whose UAPI expresses a wait as a duration rather than as a deadline.
+> + *
+> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
+> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
+> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
+> + * that a finite wait is never understood as an infinite one.
+> + *
+> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
+> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
+> + * same arguments, so the duration starts counting from zero again. New uAPIs
+> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+> + */
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+> +{
+> +	/* make 0 timeout means poll, as for the absolute variant */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	/* nsecs_to_jiffies64() does not guard against overflow */
+> +	if ((NSEC_PER_SEC % HZ) != 0 &&
+> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
+> +
+> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
+
+Sashiko was not happy with this so I guess the guard needs to be 
+improved somehow.
+
+I wonder if we would detect overflow by converting back from jiffies to 
+ns and if that is smaller than the original ns we conclude it was an 
+overflow and then cap to MAX_JIFFY_OFFSET?
+
+Regards,
+
+Tvrtko
+
+> +}
+> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 6a46f755daba..8c0cc9835413 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
+>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
 >   
->   int ls7a2000_cursor_plane_init(struct drm_device *ddev,
-> @@ -790,5 +791,5 @@ int ls7a2000_cursor_plane_init(struct drm_device *ddev,
+>   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
 >   
->   	drm_plane_helper_add(plane, &ls7a2000_cursor_plane_helper_funcs);
->   
-> -	return 0;
-> +	return drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
->   }
+>   #endif
 > 
 
