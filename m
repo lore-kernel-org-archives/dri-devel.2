@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E748C79F91
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB9D5C624D3
 	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D0E10E5FC;
-	Sat,  5 Sep 2026 15:04:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F0710E60A;
+	Sat,  5 Sep 2026 15:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cjgr5zE/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GpGhdHhZ";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C10110E186
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:02:42 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-6aa9606ddadso656832eaf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:02:42 -0700 (PDT)
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
+ [209.85.160.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC4F10FAE3
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:02:36 +0000 (UTC)
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-46ad7304688so1935066fac.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:02:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788523361; x=1789128161; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788523355; x=1789128155; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=WyOGs2boUFikBi3LHkvK5aXbsrwegofPuEOMZO3Ochk=;
- b=Cjgr5zE/ekMSxcfLymosGcQafWzLZ0NHbDq/PikquZSA+jmyt1sVzHBXdj4Uxt984/
- 3n6Z8YqEspqDNChCE3tqvknGDEAw8tE9wmKm2wFMPAhkYT1kFuasvaDLP32PtkRf/AZJ
- v1Yj5GqhSVYTerexh79/md+bIFqniST5sEI9Atz/heybWkpfGjqmd+Fxcb96oZ7MQZB5
- AP8/Ime+1lGvNBzFwlrqvrruVy8FOm6EZPHaQ8cFMwggHb5opKpuRsKX1aFtrBouUtud
- 4GCjwxUdxTnr4LjZTN5FHjMCQo3+/A/TV3Gd1ecOVNJYX2oGPb13e9WuN5wmZVqEfTkq
- IzJA==
+ bh=MSrHHKF/QU1b/Dh6LeXUkOxqaikEIYdeQRpXfVfhK+M=;
+ b=GpGhdHhZ8lMttt50rG3tr/pN0hSyn6xU0KHDJxITMANhL/JMpnQTuEOgv3cRz1SHr2
+ EQDXSljewVX42xM1pF7M39K1HBxG1/jcFYf1yJhEC0pZeaTHp2HY8DA/DHqdMM4zY2LD
+ OOtIOknesks0uy+wvaXTCo1aqWVcOYNfUSUOnwJBsKHI5IkWRv6cigT/FpubugWxoUnC
+ zWLXAN9Eu7IR37RTaRZOXQVnDYeiIGXruDE6e5wE8apqty8Bs3Sadk2zqlD32rTihHfL
+ FE1HTb0C6RqoWAYDciyDrhuN8M8wsmHV1tDtStpmbbuEALdC0iYS/bIsrrvtN5zJ407u
+ VEWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788523361; x=1789128161;
+ d=1e100.net; s=20251104; t=1788523355; x=1789128155;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WyOGs2boUFikBi3LHkvK5aXbsrwegofPuEOMZO3Ochk=;
- b=AS8GqvxRPjj/361pOgKZ06SUD8RG2cZ7+H9qp9IWvAZEuLLeBedw0nJIQntr7EE9+M
- Et1kCfTiIw8k8zlLrp2UtFghy/vpj75cBUnnjwPJ6PVWGfVILu2SxGrxenXPjB3N0Jyc
- 0t7YjO9bzAkMdUsEE2w5UBav1AI+GLRVp3YcHiMxUVvc57Ng+QaG3tQO3YJdL4ihUB0D
- QLvA1NBKXRV6NfPel+rcV902uaKoTKVNAG2mJhI+IIh0f5AVsQeftdB2rLp5OEqR3yBI
- L4t8hwHu98Bu7lnCm6oVUU6e0DIKGrLbqXv9yDtJ//4U5uUdvgCDyNoplm8JEt+cXjus
- /DeQ==
+ bh=MSrHHKF/QU1b/Dh6LeXUkOxqaikEIYdeQRpXfVfhK+M=;
+ b=Yfm/GCFFCqfxMEc4H+VCCEuAYBDzDsCszWFfYW2FpzY8K0h/unbrf2v6MUest9QybF
+ FFUrtXYtMHGAJXKw6gtbxWiMkGZ9lIBuSx/qPTPmRp66es1265YjXGrLROPirTC+Cpu3
+ 2RTI4+QfkfTOtjAPt2w+EyIlHr50TAqzLfkXBEMImptOY7dH8fXOfA2btYHxxb4YYQ8/
+ xpFByxhd1v/Kh5QHyY5Nk76gT+grzTPQqARNOP+gMgiERq5EttZU5hB/YBVYjRGOhg6Z
+ N+X+y3dYM1eRdvLEuzHSiM5JNFSck7c6SlJnHnTDHQCay8ZVGLK9ZSw+tM0ynvARplI0
+ OfiA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw/P24/1JNjp4gfWB8x63JPSalzoS4AR2sh4WHC0q4jEzAdB+c+BuDeR9V7fPCd4r5z3pgRHuWMFnE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nHEfNjBK4SFVXkQLWJLaGCJaZvQMX587lBxSOHbQ9vmqaZxLcg
- IpMohQ9R89b0Tkl+Vr7AdQxEbkAbXqUb+6jKKfi0FuW2h7YWK/rOoLQt
-X-Gm-Gg: AYBFou1k50NEZ7sTebL4n2TdMn8iUSrHXVg/GbGQUbkwZDkWsnPrzLy3/P5vFXDREnm
- rHzZzy3ROd72Xbha7mmZXOZ+SYsJYilYNadIAtT4m0S2RHoCKn+5vHH06PEjrJ+xr3meIJD8JqJ
- uhJGZpSNXYEz4QmKyulxlTM5xky+k6pGHiicb85Q2QCwiu4eAKTit5ZJUa1BSq+snbNAwAb/13Q
- x/H5k6GXJ81UyN9Bxp7Xgpfd0uBjY4KYq5D/HUlNJ5q3TL2Hk/YIhowiJIbe+hR2qTJhBp0BFGl
- +vdwsRjDaLt378FDaSskeO082AxAsPDZxRFyBirSokPSxkFBviqioKLggKKOrKhlbm43tn0RRId
- aSjw9ND/RJYJCUytrZRlPIjdflDWeA75dEGYpBCSAwIsZ7WGuQAGUTPleIyVf2Q5RiC+UA8S6Oz
- V6kl8WNiDSwOod8lZpKvFSt5dpK55GEASb4gkHWZMzdEBbk9rIlTMCDiYy3/FRXlsdLf0bblv1t
- 4oCgl32CUPVweM=
-X-Received: by 2002:a05:6820:a284:10b0:6b7:2cab:be9a with SMTP id
- 006d021491bc7-6b72cabc77amr2109673eaf.28.1788523360181; 
- Fri, 04 Sep 2026 05:02:40 -0700 (PDT)
+ AKwUvBwTyDlfkDDWVz0mTIdjpaluIbIn6lXzd+jun5QL1NQ8i1s4h9v6bekoSs7V+0/dkRqSVaDW3jAzrws=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ltS6cCJM5cd2c+AkLJJQzY1QVdNY3FH4uwoSL4AsOwZ4yHn0Fa
+ v5DrNkzIaHAFnrR32jXgcAW3GW8gD0dFxTz4K/SY4OQcOqUNWW0ClXpX
+X-Gm-Gg: AYBFou0j1iHimUl4a2pAkzdt7pc85NDqdOkPtmi42+FD/WXFnrSD/cn/8oM0dF0vSIo
+ BzZunGKdgfsH0/7KmqaIF9IuiH1c4ic0cOmzfTtXQxZ2auKnOC0jSHjbTnSyzrOadqqmi6nVXun
+ ObDoFUPlIZe+sykxBRAiCyWZaJT2vwo+AaZt/a6abhSrh5Kt+0DaQ+PLM4BCRzmSFMXuknSY5h7
+ A/vYxVSPU1FgE771sg5peUM+hN67Fb6FvfYVSqdU4VunCAHny8d2cyX13p6DbEQkWeV614seS9m
+ Dk8wdb00tgfUlQd7r0aLVb+V38oDDbcse0t5pwzfsJbhGMErwWdrAP5pB7PbxIKT/CWeTFiraFT
+ +5bIKsNKhajvDge98XrI134jkkdIXtiy9gfWH38YioR7vHExv0qhcZ5TC84aXvA68DXbidKSL9W
+ N4ASHQC5+9lBW9nTP/sNVa47Zht63SBRU4vEFgbgNIcxEhtz9n0WKYlhqzYkP25IXHOdAvTwWMv
+ a+qyrt/U2llTaCe44u0uRYbQ+8=
+X-Received: by 2002:a05:6820:1791:b0:6b7:f498:cec3 with SMTP id
+ 006d021491bc7-6b7f498e151mr266433eaf.35.1788523355085; 
+ Fri, 04 Sep 2026 05:02:35 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1432435648esm7713194c88.5.2026.09.04.05.02.36
+ a92af1059eb24-1432435648esm7713194c88.5.2026.09.04.05.02.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 05:02:39 -0700 (PDT)
+ Fri, 04 Sep 2026 05:02:34 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>
+ Simona Vetter <simona@ffwll.ch>
 Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/i915: fix repeated words in comments
-Date: Fri,  4 Sep 2026 17:32:21 +0530
-Message-ID: <20260904120225.15868-3-hemanth.selam@gmail.com>
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/i915: fix typos in comments
+Date: Fri,  4 Sep 2026 17:32:20 +0530
+Message-ID: <20260904120225.15868-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260904120225.15868-1-hemanth.selam@gmail.com>
 References: <20260904120225.15868-1-hemanth.selam@gmail.com>
@@ -96,70 +95,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context_types.h | 2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c            | 2 +-
- drivers/gpu/drm/i915/gvt/scheduler.c              | 2 +-
- drivers/gpu/drm/i915/i915_gem_evict.c             | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c      | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c   | 2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c   | 4 ++--
+ drivers/gpu/drm/i915/display/intel_vdsc.c   | 2 +-
+ drivers/gpu/drm/i915/display/intel_vrr.c    | 2 +-
+ drivers/gpu/drm/i915/display/skl_scaler.c   | 2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c      | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
+ drivers/gpu/drm/i915/gt/intel_migrate.c     | 2 +-
+ 9 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 0267c924634b..2c1f81d9c0d7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -208,7 +208,7 @@ struct i915_gem_proto_context {
- 	/** @legacy_rcs_sseu: Client-set SSEU parameters for the legacy RCS */
- 	struct intel_sseu legacy_rcs_sseu;
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index ea0cdb7822f3..d2b1a0b68260 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -958,7 +958,7 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
+ 	/* TRANS_HSYNC register to be programmed only for video mode */
+ 	if (is_vid_mode(intel_dsi)) {
+ 		if (intel_dsi->video_mode == NON_BURST_SYNC_PULSE) {
+-			/* BSPEC: hsync size should be atleast 16 pixels */
++			/* BSPEC: hsync size should be at least 16 pixels */
+ 			if (hsync_size < 16)
+ 				drm_err(display->drm,
+ 					"hsync size < 16 pixels\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index e56df337dc6d..0003dd7b106b 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -787,7 +787,7 @@ int intel_hdcp_auth_downstream(struct intel_connector *connector)
  
--	/** @single_timeline: See See &i915_gem_context.syncobj */
-+	/** @single_timeline: See &i915_gem_context.syncobj */
- 	bool single_timeline;
+ 	/*
+ 	 * When V prime mismatches, DP Spec mandates re-read of
+-	 * V prime atleast twice.
++	 * V prime at least twice.
+ 	 */
+ 	for (i = 0; i < tries; i++) {
+ 		ret = intel_hdcp_validate_v_prime(connector, shim,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 8a019d3574df..59af06443476 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -3234,7 +3234,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
+ #define HDMI_DSC_PEAK_PIXEL_RATE		2720000
+ /*
+  * Rates at which the source and sink are required to process pixels in each
+- * slice, can be two levels: either atleast 340000KHz or atleast 40000KHz.
++ * slice, can be two levels: either at least 340000KHz or at least 40000KHz.
+  */
+ #define HDMI_DSC_MAX_ENC_THROUGHPUT_0		340000
+ #define HDMI_DSC_MAX_ENC_THROUGHPUT_1		400000
+@@ -3267,7 +3267,7 @@ intel_hdmi_dsc_get_num_slices(const struct intel_crtc_state *crtc_state,
  
- 	/** @uses_protected_content: See &i915_gem_context.uses_protected_content */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 1c2764440323..c007faa54f2d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -769,7 +769,7 @@ int intel_guc_resume(struct intel_guc *guc)
-  * This is a wrapper to create an object for use with the GuC. In order to
-  * use it inside the GuC, an object needs to be pinned lifetime, so we allocate
-  * both some backing storage and a range inside the Global GTT. We must pin
-- * it in the GGTT somewhere other than than [0, GUC ggtt_pin_bias) because that
-+ * it in the GGTT somewhere other than [0, GUC ggtt_pin_bias) because that
-  * range is reserved inside GuC.
-  *
-  * Return:	A i915_vma if successful, otherwise an ERR_PTR.
-diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
-index 15fdd514ca83..3c3c9b695487 100644
---- a/drivers/gpu/drm/i915/gvt/scheduler.c
-+++ b/drivers/gpu/drm/i915/gvt/scheduler.c
-@@ -201,7 +201,7 @@ static int populate_shadow_context(struct intel_vgpu_workload *workload)
- 			workload->ring_context_gpa);
+ 	/*
+ 	 * As per spec, the rate at which the source and the sink process
+-	 * the pixels per slice are at two levels: atleast 340Mhz or 400Mhz.
++	 * the pixels per slice are at two levels: at least 340Mhz or 400Mhz.
+ 	 * This depends upon the pixel clock rate and output formats
+ 	 * (kslice adjust).
+ 	 * If pixel clock * kslice adjust >= 2720MHz slices can be processed
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 8f06c3a4d56d..e61808dc2ce6 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -378,7 +378,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
  
- 	/* only need to ensure this context is not pinned/unpinned during the
--	 * period from last submission to this this submission.
-+	 * period from last submission to this submission.
- 	 * Upon reaching this function, the currently submitted context is not
- 	 * supposed to get unpinned. If a misbehaving guest driver ever does
- 	 * this, it would corrupt itself.
-diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-index c02ebd6900ae..11855d9a1210 100644
---- a/drivers/gpu/drm/i915/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-@@ -273,7 +273,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
- 	goto search_again;
+ 	/*
+ 	 * From XE_LPD onwards we supports compression bpps in steps of 1
+-	 * upto uncompressed bpp-1, hence add calculations for all the rc
++	 * up to uncompressed bpp-1, hence add calculations for all the rc
+ 	 * parameters
+ 	 *
+ 	 * We don't want to calculate all rc parameters when the panel
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 51e4f3309b8b..4e1e849ab150 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -46,7 +46,7 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 	/*
+ 	 * DP Sink is capable of VRR video timings if
+ 	 * Ignore MSA bit is set in DPCD.
+-	 * EDID monitor range also should be atleast 10 for reasonable
++	 * EDID monitor range also should be at least 10 for reasonable
+ 	 * Adaptive Sync or Variable Refresh Rate end user experience.
+ 	 */
+ 	switch (connector->base.connector_type) {
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index 7994b983d509..066fb0587aa3 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -194,7 +194,7 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, bool force_detach,
  
- found:
--	/* drm_mm doesn't allow any other other operations while
-+	/* drm_mm doesn't allow any other operations while
- 	 * scanning, therefore store to-be-evicted objects on a
- 	 * temporary list and take a reference for all before
- 	 * calling unbind (which may remove the active reference
+ 	/*
+ 	 * if plane is being disabled or scaler is no more required or force detach
+-	 *  - free scaler binded to this plane/crtc
++	 *  - free scaler bound to this plane/crtc
+ 	 *  - in order to do this, update crtc->scaler_usage
+ 	 *
+ 	 * Here scaler state in crtc_state is set free so that
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 8829f365592e..693084164713 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1028,7 +1028,7 @@ static void bxt_dsi_get_pipe_config(struct intel_encoder *encoder,
+ 	adjusted_mode_sw = &crtc->config->hw.adjusted_mode;
+ 
+ 	/*
+-	 * Atleast one port is active as encoder->get_config called only if
++	 * At least one port is active as encoder->get_config called only if
+ 	 * encoder->get_hw_state() returns true.
+ 	 */
+ 	for_each_dsi_port(port, intel_dsi->ports) {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..ee9d2991f162 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1378,7 +1378,7 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ 	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
+ 		bool found;
+ 
+-		/* timeline is already completed upto this point? */
++		/* timeline is already completed up to this point? */
+ 		if (!i915_request_get_rcu(rq))
+ 			break;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index aff5aca591e6..86927e0c76e2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -643,7 +643,7 @@ calculate_chunk_sz(struct drm_i915_private *i915, bool src_is_lmem,
+ {
+ 	if (ccs_bytes_to_cpy && !src_is_lmem)
+ 		/*
+-		 * When CHUNK_SZ is passed all the pages upto CHUNK_SZ
++		 * When CHUNK_SZ is passed all the pages up to CHUNK_SZ
+ 		 * will be taken for the blt. in Flat-ccs supported
+ 		 * platform Smem obj will have more pages than required
+ 		 * for main memory hence limit it to the required size
 -- 
 2.48.1
 
