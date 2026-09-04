@@ -4,58 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8543DC624D3
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 10:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A70CBC624D3
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 10:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6BF110FA9A;
-	Fri,  4 Sep 2026 10:51:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E91910FA9C;
+	Fri,  4 Sep 2026 10:56:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Y/LpR9Cr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q3OhGg6K";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB27010FA9A
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 10:51:54 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbtZH59vkz8tyG;
- Fri, 04 Sep 2026 12:51:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788519111; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rF1iIKdnD1arpqoiak4GAiMJte83ZTCC7sRmA66w/tY=;
- b=Y/LpR9CrtAx7PqoKF75627q5BCiO97S/1Sh06ZLgNceEPJPM6KSvbffv9rKSbExDDP118D
- YttwY9FqCjI1jPJZbiBsOyA1vrcyc9BCEZ1oVPG3Q4V3QJvMhTgokFnzphbWNp+eS8nnqM
- oRXVVAJv0h60cwDz6C7OyOM1sHR6ru5wJJJxst7WeU7OTQADxNpEQjGG7UD5kwdJeegW50
- otGZvwTODFuT52Kq/SHYm4N+fZI5CqA9kZgZrb//wpaXy444i2P5fx/nuHtjEl9qTgszIG
- muMwtBuk1LK1wS1u7GsOfmt9BNa/rgvKE0vraEvXCYWnUQHOJS0jKymL4qAa1w==
-Message-ID: <3958ef460d25cd7bc2a72729c8bfd8ade4dc0b79.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: Danilo Krummrich <dakr@kernel.org>, "Jonghyuk Kim(MalHyuk)"
- <malhyuk97@gmail.com>
-Cc: phasta@kernel.org, christian.koenig@amd.com, tursulin@ursulin.net, 
- matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, mdaenzer@redhat.com,
- alessio.belle@imgtec.com, 	luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Date: Fri, 04 Sep 2026 12:51:47 +0200
-In-Reply-To: <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A8D10FA9C
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 10:56:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C8143418B6;
+ Fri,  4 Sep 2026 10:56:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148C21F00ADE;
+ Fri,  4 Sep 2026 10:56:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788519406;
+ bh=3xtslc2D80gdBYd6ip6x8G/YBhaOiLglQojQPTnbmMA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Q3OhGg6K34/+jhZrqZoAJEn6lx79LB7yIU/lbBPQxhtXT4TAjfeXTCAmdwH31HCB5
+ OQfuIiICwKunFAe5I+YehQayhJAgv6YJ4ItqKxluA5OMt64wYTAs6Bonx4sgIa1C1L
+ HwCHS8xHBf6BTxTwf0A80q1qsXzeX+ux3Btcjt1B6bcQkdBvTHwb1cHdoP8qZzZu9T
+ bCkMvHbXOpYaDA+ZEli59zSNTuQX/MvP2vr+AWWNz5yckoJhqSgLlINDCMs6agmyh2
+ wDOn6PdVtIAvjPNGBjcVeRe3Vqjfp8WDXwjrPavgduSoXRhpTWu+a7IlJhxlfEQCR8
+ y0dON4JR0pNdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 02/12] dt-bindings: display: tegra: Document memory
+ regions
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: linux-s390@vger.kernel.org, "Heiko Carstens" <hca@linux.ibm.com>,
+ robh@kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, media-ci@linuxtv.org,
+ conor+dt@kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, linux-trace-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>
+In-Reply-To: <20260904-tegra-vpr-v6-2-79042cfa8de5@nvidia.com>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <20260904-tegra-vpr-v6-2-79042cfa8de5@nvidia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: i5bernthh4t84ra48qtbsp7gwf9h4u8t
-X-MBO-RS-ID: 60fe534f6ce160e7ad4
+Date: Fri, 04 Sep 2026 10:56:45 +0000
+Message-Id: <20260904105646.148C21F00ADE@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,35 +60,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-04 at 11:57 +0200, Danilo Krummrich wrote:
-> On Fri Sep 4, 2026 at 10:06 AM CEST, Jonghyuk Kim(MalHyuk) wrote:
-> > Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document t=
-he rules")
-> > Cc: stable@vger.kernel.org=C2=A0# we don't know since when
+> From: Thierry Reding <treding@nvidia.com>
 >=20
-> How is that?
-
-That is referring to the fact that it only is a reachable bug if the
-respective driver exposes a mechanism that runs into
-get_timeline_name().
-
+> Add the memory-region and memory-region-names properties to the bindings
+> for the display controllers and the host1x engine found on various Tegra
+> generations. These memory regions are used to access firmware-provided
+> framebuffer memory as well as the video protection region.
 >=20
-> More in general, putting "we don't know since when" for the stable folks =
-is
-> rough. If neither the author of the patch nor the maintainers of the subs=
-ystem
-> can figure it out, how are the stable folks supposed to?
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 
-That's on me, it was a joking phrase by me that Jonghyuk or his LLM
-picked up 1:1.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Anyways. So would you suggest backporting a fix as far as possible to
-the amd origin commit? That might not be backportable that far, so
-stable would still have to figure it out.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-tegra-vpr-=
+v6-0-79042cfa8de5@nvidia.com?part=3D2
 
-
-P.
