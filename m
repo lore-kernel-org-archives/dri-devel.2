@@ -4,60 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98552C624D3
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 14:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C57CBC61DD6
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 14:48:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CECC210E574;
-	Fri,  4 Sep 2026 14:42:22 +0000 (UTC)
-X-Greylist: delayed 502 seconds by postgrey-1.36 at gabe;
- Fri, 04 Sep 2026 14:42:21 UTC
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 913BD10E574
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 14:42:21 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 24E12201F5;
- Fri,  4 Sep 2026 16:33:56 +0200 (CEST)
-Date: Fri, 4 Sep 2026 16:33:54 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Sam Ravnborg <sam@ravnborg.org>, David Airlie <airlied@gmail.com>, 
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Casey Connolly <casey.connolly@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Simona Vetter <simona.vetter@ffwll.ch>, 
- ~postmarketos/upstreaming@lists.sr.ht, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Martin Botka <martin.botka@somainline.org>, 
- Jami Kettunen <jami.kettunen@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
-Subject: Re: [PATCH v2 00/11] drm/panel: Add 5 DDIC panel drivers for 14 Sony
- phones
-Message-ID: <aprT7A2w0TWrfcdn@SoMainline.org>
-References: <20251222-drm-panels-sony-v2-0-82a87465d163@somainline.org>
- <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFDDE10E1D6;
+	Fri,  4 Sep 2026 14:48:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YixLadOF";
+	dkim-atps=neutral
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB7A10E1D6
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 14:48:04 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id F0D851A19AB;
+ Fri,  4 Sep 2026 14:48:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B55026057F;
+ Fri,  4 Sep 2026 14:48:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 19E5F11C7AE8F; 
+ Fri,  4 Sep 2026 16:47:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1788533281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=WG6jc4T+xg/xDGKYL/X/qc4fpUcaXjV/4duU3TUqWFI=;
+ b=YixLadOFPb7oaSYwtBDqAsSPkqXYHNAWlrv35SKjptFimjAOxY3yHxoNmra9+TbFFlDjzC
+ PqFJIvDHQur8vg/p8D5gBEP2v68DZ+NYnT3NLKeeEFnMkZcJwTj9oPNn5M19caNmMtnzMx
+ kLdjrvLzWVgRgSHfMhpg1J8aG3TQT2ElDp19KyEutDa15Y3yojmYZhE8YK+vIrop5OFlqE
+ 5OE2Hyp86aWILt4Za0M5a2Veh7kKxaqBaCtGWkwCGw0SbAuAaCZ330O3C8uNCDmIBKr1AM
+ 7BgDyiy4YTlId54+JpOsJ3kMcbsYOosivJ2+6RtJOO5JFp4nbDxmDD27GjvPhw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 16:47:51 +0200
+Message-Id: <DL6M4Q7I9197.2TQXYZ3CANZHI@bootlin.com>
+Subject: Re: [PATCH v2] drm/bridge: samsung-dsim: fix TE GPIO lifetime for
+ host attach
+Cc: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
+ <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Li
+ Youhong" <liyouhong@kylinos.cn>
+To: "Li Youhong" <dayou5941@163.com>, <inki.dae@samsung.com>,
+ <jagan@amarulasolutions.com>, <m.szyprowski@samsung.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260904014958.1572918-1-dayou5941@163.com>
+In-Reply-To: <20260904014958.1572918-1-dayou5941@163.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +67,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+Hello Li,
 
-On 2026-09-03 00:22:41, Linus Walleij wrote:
-> Hi Marijn,
-> 
-> On Mon, Dec 22, 2025 at 12:32 AM Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
-> 
-> > This is the second version of a largely reshaped series that brings 5
-> > new DDIC panel drivers (4 Samsung, 1 LGD) that are compatible with 14
-> > Sony phones:
-> 
-> What's up with this series?
+On Fri Sep 4, 2026 at 3:49 AM CEST, Li Youhong wrote:
+> From: Li Youhong <liyouhong@kylinos.cn>
+>
+> When the Exynos DSI driver was generalized into samsung-dsim, the TE
+> GPIO acquisition was switched from gpiod_get_optional() to
+> devm_gpiod_get_optional() while keeping the matching gpiod_put() calls.
+> That combination is wrong for a managed descriptor.
+>
+> However, dropping the puts and keeping the managed get is also wrong:
+> samsung_dsim_register_te_irq() runs from the DSI host attach callback,
+> and host detach/reattach can happen without destroying the device that
+> owns the managed action. A second attach would then request the GPIO
+> again without having released it.
+>
+> Switch back to a non-managed gpiod_get_optional() and keep the explicit
+> gpiod_put() on the request_irq() error path and in
+> samsung_dsim_unregister_te_irq().
+>
+> Fixes: e7447128ca4a ("drm: bridge: Generalize Exynos-DSI driver into a Sa=
+msung DSIM bridge")
+> Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+> ---
+> v2:
+> - Prefer non-devm gpiod_get_optional() and keep gpiod_put(), because TE
+>   GPIO is acquired in host attach and must be released on host detach
+>
+>  drivers/gpu/drm/bridge/samsung-dsim.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
+> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+> @@ -1862,7 +1862,8 @@ static int samsung_dsim_register_te_irq(struct sams=
+ung_dsim *dsi, struct device
+>  	int te_gpio_irq;
+>  	int ret;
+>
+> -	dsi->te_gpio =3D devm_gpiod_get_optional(dev, "te", GPIOD_IN);
+> +	/* Released on host detach; do not use the managed get. */
+> +	dsi->te_gpio =3D gpiod_get_optional(dev, "te", GPIOD_IN);
 
-This is repeatedly blocked on the request to factor out a generic Samsung panel
-library.  While commands look very similar across drivers, the same commands
-are given (sometimes) different names [1] and without spec I simply don't feel
-comfortable writing such a library as that'd sound like claiming I definitively
-know exactly what each of those commands mean / are named.  I don't.
+The comment is not really needed, this should be obvious by reading the
+code. No need to resend just for that, I can remove it while applying.
 
-[1]: https://lore.kernel.org/linux-arm-msm/aU6XXi2HmgjZY8CY@SoMainline.org/
+Other than that it's OK:
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-And I'd argue that DRM/MSM has seen a lot of breakage especially around the
-DSC and dual-DSI paths that my panels/devices rely on [2], turning a simple
-rebase-and-test in a multi-evening debug session.
+Luca
 
-[2]: https://lore.kernel.org/linux-arm-msm/?q=f%3Amarijn+fixes+dsc
-
-> I am officially a fan of these drivers and I liked the work done so far
-> a lot, is there something in particular stalling these from rebasing
-> and merging?
-
-And there have been many small comments left and right - including my own
-observations and self-review - that all need to get addressed.  Not a lot of
-work, but they add up and it's easy enough to miss something which will make a
-reviewer "unhappy" ;)
-
-Coincidentally I submitted 10 of the 14 Sony devices to postmarketOS just last
-week, specifically as an extra motivator to show the world that we can truly
-run all these devices with completely functional panels straight from mainline.
-I'll definitely be submitting a (rebased) v3 to drive that, but it might take a
-little more time.
-
-- Marijn
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
