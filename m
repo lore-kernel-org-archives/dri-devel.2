@@ -4,57 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5956C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:53:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79195C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:07:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C7C810F97D;
-	Fri,  4 Sep 2026 08:53:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCEDA10F989;
+	Fri,  4 Sep 2026 09:07:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EgvN5fkx";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="jztT4twN";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2264E10F97D;
- Fri,  4 Sep 2026 08:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=YVx+3cVipBQauIvVHlgu4O3ViAk5ZOwiW6S0ILjIWNM=; b=EgvN5fkxr3/m+7WwNNmTTLuKyt
- 0Yu/2dr4g660Q4KLMyhabVCYD9TgFDpMwubXBULQtuYkNyURBRUIFX1vQWpNUIbtkoY5GCK6WDYU+
- 6tfvxYxeqNhLWV8ftl/Dz6PcCPRWaXgu8ODsAOfIe1YMAFC0/ofDRNakS1BCvzmTwe1vU8USIfaB/
- w15M9WiYOEdoUz/WXsr4aw+tBtzYiIJiKtj/NEBn12h0kGEqLrSyn31aDFb3Ua8/DwTxUZXh0GzPZ
- uTOQ70f3+/HtpW+HmHlqLCSavEB97v7LonwRZiv0IdIfSqgaIkQDfujc6iM3H9y16VGUo3SmbKEFp
- l0EFOjRw==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x2Pfd-00EnQv-2R; Fri, 04 Sep 2026 10:53:13 +0200
-Message-ID: <ccb3d38d-d736-441a-94fa-7f5e0219753d@igalia.com>
-Date: Fri, 4 Sep 2026 09:53:11 +0100
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B0BC10F989
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:07:27 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-c20ce3c118aso161285166b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 02:07:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1788512846; x=1789117646; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=m7wdy2Og9YO6nxxlPkfUyoT4MUWUNJ9x4RWvdbL0oNU=;
+ b=jztT4twNTYbA4IzfJDRrxE33Cqm0aE6f4ejfyzUew5DNXBzXNftY2YVNOq9CMM4EqA
+ jv8PDueVAQzYhO8sIkXtjcKHpEO1OD2dbVUYDMdPmVigR0wnT+OB0g1pQr9RCIiDOYPG
+ kDbxoWy/IbQwbLFfYvuPEd7THiibDym5Jd3tIk2PoSjqR71d4aKifRKzqhIuILlbIPi2
+ uTX868x2ZLNY8MJ8ukdcQCZMMI4PvAysZ190UhxuMPlHGDi6tTLNCzvh3ovDUSE7VZe7
+ aemEkDIW9C5BAtyU3RJ/91DkXogEdDalFo4tpJQGERiDTG7d5aNIrKBUgqBIUakkixRb
+ 4Img==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788512846; x=1789117646;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=m7wdy2Og9YO6nxxlPkfUyoT4MUWUNJ9x4RWvdbL0oNU=;
+ b=iowWNyhlPJs4YGvoMJSu/upcmxwqVIP1nMmIBMfizp0cFGu4RFbY6Ax+YHz0B7eDXT
+ TLH53rY5azLzbhX0LHdpLBWm5PXl9/7mKpm1hWlOF7UUcB57vjNpZFXCVhBBGSlUj3it
+ NMXZWOiLjr0+OI7+ag4zrZrmJb3KRM+xb0R7VEomyf5mEmbJrcZWnCaVO9rW8SAdhxnw
+ QR85hRLnOBwvzrR3m60Dzkfkwel3YGtMidphF1H9Vm8F/SmUYdBPZOKwP2N9OZUbPJqA
+ qspZKNCoyM6jOh0k7xKCO4ykxzq/ticyrNDHf76y7q24wUjHRiIWaK67DrQoSkK8LzFr
+ 0AeA==
+X-Gm-Message-State: AFuF++n3wDjFzpL6EgIhzCEXrscBdHFt+HZA+XsSynI93cQ+YdWbPtvz
+ yIUc3WZHR+7IKYcU+n6jIw1XuzNpLLYZ+3ShEUgoZLL6UA4nVD7GQszSAk4EQbBBgEU=
+X-Gm-Gg: AYBFou1GQzVvY0flftHkmrXZgCwXYYVOzwBhx+3YydZcOgsbAhfCIKT0bKQf86wU1cj
+ /QKJ6EjjOmW+6fEIOA3tMPfLHA8DWV/j8JfXNTR4rL5O2BOHAFDu+XDkk23uguWLJ9F4IMMXRNm
+ wH2XIN8x+NMPn6yanDSQQ8ZUX63BcPeQ9IUmI4NcDIT3/SaRdThESmeomv+1MBe62w52Iv1YDbj
+ rNOhVSbw0f/GvXqCdgH6OYRCurQ2gljpJxTEW/acd9GU3yYK8PJfz3rb+PtLesrZTXe0Z/DKTpP
+ UrivcpEOu/CY8ZOjSfKn6Qwda5cbYDdnVfnZInP6pQFXbWiQhdNDpxdaofA0rQTlEWz9sG+LpyH
+ z5BM7yGmIZ8LLDuwbw7h5dZ0Ixm0fCOkbEJ25m9esxTvuvxTy4cDGrKBUwceigrD6jBxKBqV7V9
+ EeJ7KOJfiDMMWSvdlYAHiCSkL7TM674cue3FYmENjaRlSwNA/u8nXoBVCoI3x7GHscLDEK/fAuE
+ Qmu
+X-Received: by 2002:a17:907:c011:b0:c25:f7dc:2d3 with SMTP id
+ a640c23a62f3a-c25f7dc08eemr348191166b.20.1788512845236; 
+ Fri, 04 Sep 2026 02:07:25 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c260d4a8b89sm77245566b.10.2026.09.04.02.07.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Sep 2026 02:07:24 -0700 (PDT)
+Message-ID: <161c4e19-bff5-4dd9-ab24-10c5893047d6@ursulin.net>
+Date: Fri, 4 Sep 2026 10:07:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, christian.koenig@amd.com,
+ phasta@kernel.org, matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <20260904083138.2135429-1-malhyuk97@gmail.com>
 Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260904083138.2135429-1-malhyuk97@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,97 +96,44 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 17/08/2026 22:05, Maíra Canal wrote:
-> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
-> absolute deadline, but there is no equivalent for the drivers that
-> express a wait as a duration. Drivers such as i915 and v3d convert the
-> value themselves.
-> 
-> Converting a nanosecond duration to jiffies needs some care.
-> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
-> userspace-supplied timeout overflows its range and is silently truncated.
-> 
-> i915 already handles both cases in a local helper, which v3d has a copy
-> of. Add the same conversion to the core, so that it is available to any
-> driver and both copies can be dropped.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
->   include/drm/drm_utils.h       |  1 +
->   2 files changed, 35 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e5477..18c2719d1fe9 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-> @@ -9,6 +9,7 @@
->   #include <linux/export.h>
->   #include <linux/jiffies.h>
->   #include <linux/ktime.h>
-> +#include <linux/math64.h>
->   #include <linux/sched.h>
->   
->   #include <drm/drm_utils.h>
-> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->   	return timeout_jiffies64 + 1;
->   }
->   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
-> + *
-> + * @timeout_nsec: relative timeout in ns, 0 for poll
-> + *
-> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
-> + * whose UAPI expresses a wait as a duration rather than as a deadline.
-> + *
-> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
-> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
-> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
-> + * that a finite wait is never understood as an infinite one.
-> + *
-> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
-> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
-> + * same arguments, so the duration starts counting from zero again. New uAPIs
-> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
-> + */
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec == 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) != 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
+To address only one narrow point quickly, I haven't had the time to 
+catch up with the thread yet:
 
-Sashiko was not happy with this so I guess the guard needs to be 
-improved somehow.
+On 04/09/2026 09:31, Jonghyuk Kim(MalHyuk) wrote:
 
-I wonder if we would detect overflow by converting back from jiffies to 
-ns and if that is smaller than the original ns we conclude it was an 
-overflow and then cap to MAX_JIFFY_OFFSET?
+8><
+
+> One thing I noticed while checking the callers: the tracepoints in
+> include/trace/events/dma_fence.h and drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> call fence->ops->get_driver_name() / get_timeline_name() directly instead of
+> going through the helpers, so they are not covered by the above. That looks
+> like a pre-existing and much narrower exposure (tracing only), but let me know
+> if you want it addressed in the same series or separately.
+
+For the dma_fence.h see the comment:
+
+/*
+  * Safe only for call sites which are guaranteed to not race with fence
+  * signaling, holding the fence->lock and having checked for not 
+signaled, or
+  * the signaling path itself.
+  *
+  * TODO: Remove the need for this event class when drivers switch to 
+independent
+  *       fences.
+  */
+
+
+These tracepoints call the name vfuncs directly: dma_fence_init, 
+dma_fence_enable_signal, dma_fence_signaled. So those are supposed to be 
+safe as per comment and changing them to use the helper would create a 
+different issue (can't remember from the top of my head which one - but 
+the thread is moving fast so I wanted to reply quickly).
+
+amdgpu_trace.h also look safe on a quick look because they are called 
+before the job which can signal the fence is submitted.
 
 Regards,
 
 Tvrtko
-
-> +}
-> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
-> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 6a46f755daba..8c0cc9835413 100644
-> --- a/include/drm/drm_utils.h
-> +++ b/include/drm/drm_utils.h
-> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
->   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->   
->   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->   
->   #endif
-> 
 
