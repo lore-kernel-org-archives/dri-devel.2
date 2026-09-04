@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A046CC624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273FAC79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 08:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBE6110E4AF;
-	Fri,  4 Sep 2026 08:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E1D10E038;
+	Fri,  4 Sep 2026 08:18:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KigiehpX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T405sYcm";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 092B910E4AF
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:15:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E93010E011
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 08:18:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3F8FE60A6D;
- Fri,  4 Sep 2026 08:15:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEED51F00A3D;
- Fri,  4 Sep 2026 08:15:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D2DCF60A6D;
+ Fri,  4 Sep 2026 08:18:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C321F00A3D;
+ Fri,  4 Sep 2026 08:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788509758;
- bh=HYx0qjTvjVaqxPXbtto6OKsC69YfKqML24dA7y0sJ4Y=;
+ s=k20260515; t=1788509909;
+ bh=0Doak3wM1mSe14BhuvRNBlJEtsVHIYiJI1VxPTGOnN8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KigiehpX0DVaDYPN9rQOf2DOoFVEYURF1VtumID9eb+n8Hem+xu7bdGuRtsPW52Db
- 9AqQO8IDUIheyQaA37eu93BGFCcnBMNVHNC7w7Fuj+lTJLXDbmwzs6fMB9cMh9g+ZS
- idkeXBaGtHYxwoJxo9gbkOvSD+kp3Xxpl0huTokm0m9RqGQAr7Hr527Tdncqjm2vMp
- Nrk0mUogae1+kAHsiQ6ZEdl+/dsgbsmfy50KxYSq5qlTiJHa2uup1Zd7fD5Qo6Pkfg
- 40Zm2nu9+vtkYK7yYpKaERLOTuSrxUhcsFF9Al1ayzHKX1qNPrJ+IRIpCg1DnahQuk
- xzsd9+WSf1UUQ==
+ b=T405sYcmcmzvUnhXzYljkmzRcuTkM3RGcXxINrBrlln+KITAcvE9UxdJDp5uBhY+m
+ LvpgtsSKtMC0WEfuSaIjYelmAAAU6Gac69eqoMA5x/SKqaa5PTNwx05JjQ5UueBSWb
+ 2ZqJ0FTYTLwpwS8DBsXeArvA5V2UiqUk1quRgWbMadiUWXJwojmbRTah/ghUts6eAb
+ 2F/RQVb/KAdp3HAkzLr8rSiJQfF4e3jAPgtje6rDClGhd5ng88VXs6Lw9bkXbpkW/r
+ 2v0AJJOArBkknfTh3j6SxmTWTj4VdLc1iMiwkoFqrtFvG3IEf/u81b/yV9W3Zr5Arc
+ Lj2cNn/fqcOmw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] drm/sched/tests: add a UAF regression test for
- the timeline name
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
 To: =?utf-8?b?Sm9uZ2h5dWsgS2ltKE1hbEh5dWsp?= <malhyuk97@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260904080618.2098450-4-malhyuk97@gmail.com>
+In-Reply-To: <20260904080618.2098450-2-malhyuk97@gmail.com>
 References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-4-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 08:15:57 +0000
-Message-Id: <20260904081557.BEED51F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 08:18:28 +0000
+Message-Id: <20260904081829.67C321F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,91 +58,158 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] KUnit assertion failure aborts the test without tearing down the=
- DRM scheduler, leading to a use-after-free crash.
+
+New issues:
+- [High] The patch attempts to fix a Use-After-Free by caching the timeline=
+ name in `fence->sched_name`, but it introduces a direct Use-After-Free of =
+the string memory itself. The commit message incorrectly assumes all driver=
+s pass a string literal or keep the string alive via RCU. However, `panthor=
+` dynamically allocates the timeline name (`kasprintf`) and synchronously f=
+rees it (`kfree(queue->name)`) when the queue is destroyed. Furthermore, fo=
+r `xe`, `kfree_rcu` does not protect against a `sync_file` fd held open by =
+userspace for an arbitrary duration (userspace holding an fd does not equat=
+e to holding an RCU read lock). When userspace queries the fence info via t=
+he `SYNC_IOC_FILE_INFO` ioctl after the string is freed, `drm_sched_fence_g=
+et_timeline_name()` returns the cached pointer to the freed memory, leading=
+ to an info leak to userspace.
+
+Pre-existing issues:
+- [High] The AMDGPU driver's `amdgpu_sync_same_dev()` function incorrectly =
+assumes that any `drm_sched_fence` belongs to an AMDGPU ring. `to_drm_sched=
+_fence()` returns non-NULL for *any* DRM scheduler fence globally (e.g., fr=
+om `panthor`, `xe`, `nouveau`). If a foreign fence is passed via a `dma-buf=
+` or `syncobj`, `amdgpu_sync_same_dev()` unconditionally calculates `ring =
+=3D container_of(s_fence->sched, struct amdgpu_ring, sched)` and dereferenc=
+es `ring->adev`. This results in an out-of-bounds read (Type Confusion). Ad=
+ditionally, if the foreign fence originated from a per-context scheduler th=
+at has been freed (like a destroyed `panthor` queue), this results in a Use=
+-After-Free read.
+- [High] The PowerVR driver's `pvr_queue_fence_is_native()` accesses `sched=
+_fence->sched->ops` to determine if a fence is native to the driver. Howeve=
+r, if the `drm_sched_fence` originated from a per-context scheduler (whethe=
+r from `pvr` or another driver like `panthor`) and that scheduler has been =
+destroyed, `sched_fence->sched` is a dangling pointer. Dereferencing it to =
+check `->ops` causes a Use-After-Free read.
 --
 
-commit 5e3b2d1526bb334b5c71995b67ba48f0b45424d6
+commit 99163b915ba8e6d549d23c04536ae0f2ac030b70
 Author: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 
-drm/sched/tests: add a UAF regression test for the timeline name
+drm/sched: cache the timeline name to fix a use-after-free
 
-This patch introduces a KUnit test to reproduce a use-after-free issue=20
-related to the drm_sched_fence timeline name. It submits a job on a mock=20
-scheduler and verifies the timeline name can be safely queried after the=20
-scheduler is freed.
+This commit caches the scheduler's timeline name inside drm_sched_fence to
+prevent a use-after-free when a userspace-held finished fence outlives a
+per-context scheduler. It documents that the name must outlive the fence,
+assuming all in-tree drivers pass string literals or keep the name alive.
 
-> diff --git a/drivers/gpu/drm/scheduler/tests/tests_integration.c b/driver=
-s/gpu/drm/scheduler/tests/tests_integration.c
-> new file mode 100644
-> index 0000000000000..4a2d5571440d2
-> --- /dev/null
-> +++ b/drivers/gpu/drm/scheduler/tests/tests_integration.c
+>     Every in-tree driver passes a string literal, which satisfies this;
+
+[Severity: High]
+Is this assumption correct for all in-tree drivers?
+
+For example, panthor dynamically allocates the timeline name and synchronou=
+sly
+frees it when the queue is destroyed:
+
+drivers/gpu/drm/panthor/panthor_sched.c:group_free_queue() {
+    ...
+    kfree(queue->name);
+    ...
+}
+
+If a user creates a panthor queue, submits a job to get a fence, exports it
+to a sync_file, and destroys the queue, the string memory is freed. When
+userspace then queries the fence info via the SYNC_IOC_FILE_INFO ioctl,
+wouldn't the cached pointer point to freed memory, leading to an info leak?
+
+> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/sc=
+heduler/sched_fence.c
+> index 096fe28aa9c9e..b2a842a1c9ba9 100644
+> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> @@ -92,7 +92,13 @@ static const char *drm_sched_fence_get_driver_name(str=
+uct dma_fence *fence)
+>  static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
+>  {
+>  	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> -	return (const char *)fence->sched->name;
+> +
+> +	/*
+> +	 * Do not dereference fence->sched here: a userspace-held finished
+> +	 * fence can outlive a per-context scheduler. Return the name cached
+> +	 * in drm_sched_fence_init() instead.
+> +	 */
+> +	return fence->sched_name;
+
+[Severity: High]
+Does returning this cached pointer just replace the scheduler use-after-free
+with a string memory use-after-free?
+
+Because drivers like panthor can free the string memory synchronously during
+queue destruction, this cached pointer will point to freed memory when read
+by the caller.
 
 [ ... ]
 
-> +static void drm_sched_dma_fence_uaf(struct kunit *test)
-> +{
-> +	struct drm_mock_sched_entity *entity;
-> +	struct drm_mock_scheduler *sched;
-> +	struct drm_mock_sched_job *job;
-> +	struct dma_fence *finished;
-> +	const char __rcu *name;
-> +	bool done;
-> +
-> +	sched =3D drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
-> +	entity =3D drm_mock_sched_entity_new(test, DRM_SCHED_PRIORITY_NORMAL,
-> +					   sched);
-> +	job =3D drm_mock_sched_job_new(test, entity);
-> +
-> +	/* The s_fence is only created by drm_sched_job_arm(). */
-> +	drm_mock_sched_job_submit(job);
-> +
-> +	/* Independent reference on the finished fence =3D=3D userspace sync_fi=
-le. */
-> +	finished =3D dma_fence_get(&job->base.s_fence->finished);
-> +
-> +	/* Let the job get scheduled (hw fence created), then signal + finish. =
-*/
-> +	done =3D drm_mock_sched_job_wait_scheduled(job, HZ);
-> +	KUNIT_ASSERT_TRUE(test, done);
-
-[Severity: Medium]
-Will a failure here in drm_sched_dma_fence_uaf() abort the test and skip the
-drm_mock_sched_fini() teardown?
-
-If this assertion fails, the test thread aborts immediately. Because=20
-drm_mock_sched_fini() is bypassed, any active kernel mechanisms from the DR=
-M=20
-scheduler might still hold references to sched->base.=20
-
-When KUnit's automated cleanup runs (since sched was allocated with=20
-kunit_kzalloc), could those mechanisms access the freed memory and cause a=
-=20
-use-after-free crash in the test runner?
-
-> +	drm_mock_sched_advance(sched, 1);
-> +	done =3D drm_mock_sched_job_wait_finished(job, HZ);
-> +	KUNIT_ASSERT_TRUE(test, done);
-
-[Severity: Medium]
-Similarly, if this job finish assertion fails, does aborting the test also=
-=20
-bypass the manual cleanup phase below, causing the same use-after-free issue
-during KUnit teardown?
-
-> +
+> @@ -228,6 +242,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fe=
+nce,
+>  	unsigned seq;
+> =20
+>  	fence->sched =3D entity->rq->sched;
 > +	/*
-> +	 * Free the per-context scheduler while the finished fence is held.
-> +	 * kunit_kfree() releases the backing memory immediately (rather than at
-> +	 * test teardown) so that fence->sched becomes a dangling pointer now.
+> +	 * Cache the scheduler's timeline name. The finished fence may be
+> +	 * exported to userspace and outlive @sched (per-context schedulers are
+> +	 * freed on context teardown), so get_timeline_name() must not
+> +	 * dereference @sched. The name is required to outlive any exported
+> +	 * fence (see @name in struct drm_sched_init_args).
 > +	 */
-> +	drm_mock_sched_entity_free(entity);
-> +	drm_mock_sched_fini(sched);
-> +	kunit_kfree(test, sched);
+> +	fence->sched_name =3D fence->sched->name;
+
+[Severity: High]
+Does caching the string pointer here without taking ownership or extending
+its lifetime erroneously assume the string will inherently outlive the fenc=
+e?
+
+This is a pre-existing issue, but the dangling fence->sched pointer causes
+problems in other drivers as well when foreign fences are imported.
+
+[Severity: High]
+Does the AMDGPU driver's amdgpu_sync_same_dev() incorrectly assume any
+drm_sched_fence globally belongs to an AMDGPU ring?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c:amdgpu_sync_same_dev() {
+    ...
+    ring =3D container_of(s_fence->sched, struct amdgpu_ring, sched);
+    return ring->adev =3D=3D adev;
+}
+
+If a foreign fence from another driver (e.g., panthor) is passed via a dma-=
+buf
+or syncobj and used as an input dependency to the AMDGPU command submission
+ioctl, this unconditional container_of() calculation will dereference an
+invalid or freed pointer. Can this lead to an out-of-bounds type confusion
+read, or a use-after-free read if the original per-context scheduler was
+already destroyed?
+
+This is also a pre-existing issue, but similar to the AMDGPU issue above,
+does the PowerVR driver also dereference a freed scheduler pointer?
+
+[Severity: High]
+drivers/gpu/drm/imagination/pvr_queue.c:pvr_queue_fence_is_native() {
+    ...
+    if (sched_fence &&
+        sched_fence->sched->ops =3D=3D &pvr_queue_sched_ops)
+    ...
+}
+
+If a user exports a drm_sched_fence from a queue, destroys that queue (free=
+ing
+the scheduler), and then passes the fence as an input dependency to the PVR
+job submission ioctl, sched_fence->sched will be a dangling pointer. Will
+dereferencing it to check the ops field cause a use-after-free read?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904080618.2098=
-450-1-malhyuk97@gmail.com?part=3D3
+450-1-malhyuk97@gmail.com?part=3D1
