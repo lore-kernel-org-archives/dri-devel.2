@@ -4,61 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3882C624D3
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14309C624DB
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3750210E08A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A22D10E293;
 	Sat,  5 Sep 2026 15:04:15 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0166510E147;
- Fri,  4 Sep 2026 09:19:06 +0000 (UTC)
-X-UUID: a8e57e98a84111f19a56ed5b684f684d-20260904
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
- IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
- SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
- CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
- AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:2dae1310-a863-445a-9627-b33467bde2e8, IP:15,
- URL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:40
-X-CID-INFO: VERSION:1.3.19, REQID:2dae1310-a863-445a-9627-b33467bde2e8, IP:15,
- UR
- L:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:40
-X-CID-META: VersionHash:7db8b62, CLOUDID:c7a44c824c7fc39714e6deba9a946e1c,
- BulkI
- D:260904171902CNTQOJ1R,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
- C:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
- ,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a8e57e98a84111f19a56ed5b684f684d-20260904
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
- (envelope-from <yijiangshan@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 234142521; Fri, 04 Sep 2026 17:18:58 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
- hamzamahfooz@linux.microsoft.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- 13667453960@163.com, Jiangshan Yi <yijiangshan@kylinos.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: check dc_state_create_copy() for NULL in
- dm_suspend
-Date: Fri,  4 Sep 2026 17:18:17 +0800
-Message-Id: <20260904091817.578894-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XZmbvy9G";
+	dkim-atps=neutral
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
+ [209.85.161.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD6110E186
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:01:38 +0000 (UTC)
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-6aa9606ddadso655560eaf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:01:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788523297; x=1789128097; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Z1XyZzGqo8qtOw6QCVse2xuLQ0fYOXbEWeooM5I1+Fw=;
+ b=XZmbvy9GA6c0VmzclTzNEcA0sGSzkbIprilNBysQM2YZDmTkGQEyWwmlJ4cL4ynymI
+ 5IXtIXhS31MuBVUhwPtS8UEPnxdP0F8v2m8k1Jpx5wPO9a97lB6t0Ff9Q2gKcbgFIHQC
+ L2QQhJIBPl0TNsUjsetRni/zq1TrySpIdR8j5giEFvh1J6sl6eLVBE51+EAwvVq8mqSP
+ 8XPsNfJFfdDi0/z904DB43oW5+oJojYIq3OdJf87wx4pW52hz4G7nvlachs1IffP3mtG
+ qEtgR2a+gPV2cXynEFd7+FSJm6ZYdblSHBwU2qhTUktIy6rA0+adz9jX4PeRwX8NLbgh
+ GHsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788523297; x=1789128097;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Z1XyZzGqo8qtOw6QCVse2xuLQ0fYOXbEWeooM5I1+Fw=;
+ b=nngyS+Gcjvt6TjUSrsIrUHMPavz/N7uVS/CXAuHBMWlzkVeO8Q5CENlWktqOkCZjPu
+ FeZbeqq7fc+LKAQ19jbLZs/XSGiLBTtGkmYaJNaLyv0Oax4sQ7zy44rrnytdqyN8au8W
+ N2h8/O/xzamQf6EpgPYwaBsb5IBFHaI6rboR0SkTE3QHM9+auFODKfqXgG5/nor8e/RX
+ fO0v97MQkMnq3duFGH7/IGr8qVwLycP8NfLpAEz7xQ4WHlQs0vPVIVQpiY80AtL6ZZOF
+ azc4bHbVmxbNpvsrDJ1khavJMUTmKwOG53mwMSCY+KXsfD7ycOcBe/4HMoP/C7FUZm9f
+ ttpw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwe0kSF5owPoGN4dnoe1ZkCNrkmXDSMvOMZ3WvvZx4GVhAimqHZ79SrRZBKMLd3zkTOSuydiwTH3DM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lP2Cq9g5FW9AX7208T95+FouG60Xdo7YnO+Go2tZD4TSycMInx
+ GCV3a9kxG0jo2IfMNMFL9edBcaTex5ZOSBvoA7oRuXsZd7ocNZzxOgpz
+X-Gm-Gg: AYBFou3B08nnqwkMHezJHheipGfjH+O0BWDJnJNl8qrBsZgB3+Vk0KSh0ppbhvW6EQc
+ 3IoqeUnteq7zKCcFstb/Qmj31/DeP3Swvg81ZRNSfJasrJfbKMsDUFNpNMGk/XufWYW8SehIqgq
+ GHJx/cWbGSgaNz1PbGODA9wo7N+N45EGoXjgkYXSWAW837BU6KlEOaa207+xiJFQeU3jmBYHZvs
+ fpv99ateuP4DZ9b+ILo84QRVbGViAPuZI7Oh6OrPp3Z/A3UxeZ3F93YrY3v9MvF8ieJ4CheiW0y
+ 3D4kTa/otJLrcw210wtgV0NPRf5ML1Qe2c0LCVTP84GIan3JIsBgJmAKTkPenvtaYqaM5FP0FsM
+ r7jDbIUqvau7eqvA8cVuhZxkiTdoy7H2c4Y02f7ikdrcNTPhqY7CCWMprwUUR+C1bQBUyydfRCe
+ SJnTUc0aWsj3leZMhZIMcvPUfATKUSVGywZNtTlI1cushPjdAw4KsbojAX2Lt7AIPjiRH/v87B7
+ JcFwu/PH3W2e+Y=
+X-Received: by 2002:a05:6820:1c87:b0:6b3:6920:4ca0 with SMTP id
+ 006d021491bc7-6b6fabe1ff3mr3531638eaf.9.1788523295847; 
+ Fri, 04 Sep 2026 05:01:35 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-14324356931sm10164241c88.4.2026.09.04.05.01.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Sep 2026 05:01:35 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 3/3] drm/amdgpu: fix typo in log message
+Date: Fri,  4 Sep 2026 17:30:09 +0530
+Message-ID: <20260904120044.14303-4-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904120044.14303-1-hemanth.selam@gmail.com>
+References: <20260904120044.14303-1-hemanth.selam@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 05 Sep 2026 15:04:14 +0000
@@ -77,43 +94,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dc_state_create_copy() can return NULL on allocation failure.
-dm_suspend() only conditionally skips dm_gpureset_toggle_interrupts()
-and continues execution, returning success.  dm_resume() then
-dereferences the NULL cached_dc_state in link_enc_cfg_copy() and the
-following dc_state->stream_count loop, crashing during GPU reset
-recovery.
+Correct the misspelling in a message the user sees, reported by
+scripts/checkpatch.pl using the list in scripts/spelling.txt.
 
-Return -ENOMEM immediately if the copy fails, so the caller aborts
-suspend instead of leaving a NULL cached state for resume.
+Only the message text changes, no code changes.
 
-Fixes: 8092aa3ab8f7 ("drm/amd/display: Add null checker before passing variables")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ec483276d753..88505efb42a3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1582,9 +1582,14 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+index 33c23532e29c..c0507d9193e2 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+@@ -1759,7 +1759,7 @@ static int tonga_populate_vr_config(struct pp_hwmgr *hwmgr,
+ 			table->VRConfig |= config;
+ 		} else {
+ 			pr_err("VDDC and VDDGFX should "
+-				"be both on SVI2 control in splitted mode !\n");
++				"be both on SVI2 control in split mode !\n");
+ 		}
+ 	} else {
+ 		/* Merged mode  */
+-- 
+2.48.1
 
- 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-+		if (!dm->cached_dc_state) {
-+			drm_err(adev_to_drm(adev),
-+				"Failed to allocate cached DC state during suspend\n");
-+			mutex_unlock(&dm->dc_lock);
-+			return -ENOMEM;
-+		}
-
--		if (dm->cached_dc_state)
--			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-+		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-
- 		res = amdgpu_dm_commit_zero_streams(dm->dc);
- 		if (res != DC_OK) {
---
-2.25.1
