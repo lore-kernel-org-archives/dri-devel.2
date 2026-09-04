@@ -4,104 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB02DC624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D47FC624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06E0410E15C;
-	Fri,  4 Sep 2026 09:36:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F1910E552;
+	Fri,  4 Sep 2026 09:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=flipper.net header.i=@flipper.net header.b="L+qz96lB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ltn7tyEZ";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20BDD10E15C
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:36:44 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c247f6687dcso122375966b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 02:36:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788514602; cv=none;
- d=google.com; s=arc-20260327;
- b=NtOw6BVyVZVTcF/3+IVD8rtvK/3L+07FnKnOwxe05g83KEz6f7sQLy81leKA3vLMRX
- lqaQkPP9QcvuZkAii7Tqcz1vWjQ8enE8NA+r3oLsqg659fnGmpog2JELXBpz5lJs5NUw
- YCiumBmfEK5hO4fpqSy4gr1SvenaIoaI/NtG4srTJEVPuKQ4BQzWWYAlKl4amWcQJ+Pb
- ZkagU9uOP3cWxn2HiRDLd+deUBZZvIpoaeatIMIxql2Otap1imQc/peewn3Gn46o/s7c
- nCLG1WGC9iayr/suLbopc3CqKSNavfeYj6DlYaE2R7PUlTqUQQ6QX+FTj6wSOHNXd/Z3
- JEVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=foFTrG5K5GBINGP1ISszqyndvxgyaNt7XJ7LpKu6ReU=;
- fh=kskjI81FZcmGE7S6dHUDkG6d7ZMKLLfNiciWUW+RuK8=;
- b=flRt+9vdKHwpd8sJASQ7I1+YdNWRh5s+fxrH6U2GVPofatntBWqQ6IQwpXz9pJJEmO
- vNSo4nSDhG5cG0+j1AO0JosK+9eaPHuLok+qhkMnSsAStjhbrjuctub/brc3/ei5EBZ/
- 5D6RBasmjqVRbiNjNtwtdHVo+FYKJ+4uIZWS3TVX8aq5B2lcjE4sS6Ut05/XxgKudEix
- hdO0WhRYJuHEOVddcIV1L88rnX1fBB74n2QjM74NI8SttiC7W5Xl0vFVZLtYYiPQ5L1z
- uOLhrgeBBVEm3tbrBgz7Yv24f8aDO7f0pqSvH7LuLh613Vf1mNLx79f2oZffH/PwO4Ji
- o3Yg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flipper.net; s=google; t=1788514602; x=1789119402; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=foFTrG5K5GBINGP1ISszqyndvxgyaNt7XJ7LpKu6ReU=;
- b=L+qz96lBZ/VdXGmZLMQeUbeN0qVpiMJl2gKwOge/DLcKt/SCWEscpxyPghXOabfmhW
- jI/XCDlD0Aj4iNrepbmcEQvdp6LZbiPgjjp1wOmUzP4oYT9XBFMj3YiotK4SuA0rhBbW
- NCw/PgMelljqNKGSq4U8n2B2bHLDjif36YMvzMm5PsCitxooZWebrRcHS7JSwwsz6z3K
- bjxj9aP/VZRnJXHoQ6hRJkTuE24zpuoSB+4i0iVFXV4o/mvxAsw0YP6BNMle/17cLcKp
- reguMfDRI7cEX40YUH/4tA8LdSk9jXlqX285rzC1ZlOz55L7BLLJ6jAQ3JFEskpVRK4n
- 93yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788514602; x=1789119402;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=foFTrG5K5GBINGP1ISszqyndvxgyaNt7XJ7LpKu6ReU=;
- b=eB3m2zD1jJ7H/wRdjYHP4Coa4mjFO+xe4PYw2q9xIvk0mXdKZAgFvTA5hT3PXrXJEQ
- QsicEu64FoKXQ9VgzEUdSS1Ou/NLCO5b5ebSeBg3bMTwH5DHLZYtYwAsWfUYxlTZzzfy
- 2P2zoc79pWmKOguLg6D21t5ExS3vLav2XroAyra3IjscIwtiAl5bcoBksi64sbBLhyvp
- vfVay+YjneDgd5yl4eLewXaSz6GjuorFToC1rcbLSt9QI9vW7h2+mVaiY6Dl0NB/ESH2
- PnkSbEGp6oUu6tAM1E0icV0SEhfZ6PmNLH+WeKh5KT0NCElJa4wpNdU+wnAHNVxcbODP
- l2/w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwEaS0uuO5Od6Z2bVdU4JMaPms6MXKkfICvbIEVUs7PmrvU4CZvYYpqdJcqD6LpBKgD48o+f1PmaGk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lC6uCw2h2YaHyXvBBR1WvBEyFirLUu3Xd0mz8izQ8nlIFnLy1r
- oPMU7jyy0KDUq4535yv31+4IguObOsf20/WaOQNABbrGc/acei2M8U+dlLU/XWfd5luFN1QiZEv
- XENgwtd5pBZKAI9lFO3jRixHDat6Y9A4MV1U/ALryUA==
-X-Gm-Gg: AYBFou2sC143Am1INpJVYDMRu9X0hoU8vDLyJY1Qvia1O+WDX9DrUFQomXZoSuQ9T/R
- MHdqCr5CbhxNh0eN1eHuILNSM5Mg8MqNx1UNDFkjIfCd0DE6SHJwKXyiy0d8ueW/i8OhL0Sp84u
- kwNe/6HNDjLxdp+5vg7ChHmw2tvfYLeD20ji32McGRkDwDjktK6Gg2sgsmxnNMHZa6xSPDph9rG
- ZH1H9zZrd2JXw5ltBjsXy0+EBN1z93h0BO7k1xKdqdQBD3gV5ePFHrRChvEo4+/1fLUk9QZ6rLo
- letQHn5/DcVHNjj/jiPhgT/9PRQ73mW2mn/dWrBfXYnoUVy0jHxE7Pw7qk9n4sIZHXi4xri9ucT
- u
-X-Received: by 2002:a17:907:fd17:b0:c26:1648:a069 with SMTP id
- a640c23a62f3a-c261648b781mr97301566b.36.1788514602405; Fri, 04 Sep 2026
- 02:36:42 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52CA910E552
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:41:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788514883; x=1820050883;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=ZAsXYph+3UL5QbS4apKrLnhh+iWZ6jvjIOFOd0lsZS0=;
+ b=Ltn7tyEZukOnVEJFKg9McRiZQ5BxUf8ZKQda0NUqUgeJjuba4X0eAjPW
+ vnvCDayD8bKOSDuuzx87ITw/OT/3j92yBfCFS5y+i5Sg9P8pPfxbkPpEd
+ f96Z1zCDY7BJjGKF2Q8QSkLy6VbVtCznmlHnUVR7RDXevPMfSQ7QXJDZq
+ pFU2hOH/nd53zYX7yZWU4VMx4gvr1z+E5hbWaVh2uPlgUxP7lIK6gxps1
+ pveHP/tzNL6GiL1OQzRnGuZu9hBaZIqeXHPTIrxepOqcqom3pvYdhX/WD
+ jSyEXfHCT5hTwrvnJFVyZuuBbbUhIpEc8Iq/uGYKHgyvCgDYxc4VBZxD4 w==;
+X-CSE-ConnectionGUID: l24+2s1WQjCDusxssU4itQ==
+X-CSE-MsgGUID: IIsLgYI1TKifgzWkeQVTKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88861121"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="88861121"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2026 02:41:23 -0700
+X-CSE-ConnectionGUID: mNDvgPXDSJOj7O8+SpJEhg==
+X-CSE-MsgGUID: l7wCaX8OS0+uyxOZqWyrXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; d="scan'208";a="268679512"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.29])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2026 02:41:19 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ ardb@kernel.org, ilias.apalodimas@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-efi@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 3/3] drm/sysfb: Use preferred panel size for panel
+ orientation quirks
+In-Reply-To: <20260904090850.43060-4-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260904090850.43060-1-tzimmermann@suse.de>
+ <20260904090850.43060-4-tzimmermann@suse.de>
+Date: Fri, 04 Sep 2026 12:41:16 +0300
+Message-ID: <e5622c247ffac253ef61cf66ffeeba2f8e36d68d@intel.com>
 MIME-Version: 1.0
-References: <20260901234351.190506-1-anarsoul@gmail.com>
- <CAKTNdwFqSBt4QVCuYJxTyEDsxkW96JbUirFNAgJYWVLHzGpk4A@mail.gmail.com>
- <CA+E=qVcizyQZytw8M6DA72YGrRDDNx_cCvYj565zf9wjMWh8tg@mail.gmail.com>
-In-Reply-To: <CA+E=qVcizyQZytw8M6DA72YGrRDDNx_cCvYj565zf9wjMWh8tg@mail.gmail.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 4 Sep 2026 13:36:34 +0400
-X-Gm-Features: AcwNN1WNG6-4w87ND0ZEi9BFf-EutUvUpsgbnymsPufvucLp1TkkKsdtlvZ3MeQ
-Message-ID: <CAKTNdwFQvKtHQA0JD-GAq3bgr5Brq2NyLfccenkHcrKcjeptwg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] clk: rockchip: rk3399: add 85.5 MHz rate to PLL rate
- table
-To: Vasily Khoruzhick <anarsoul@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>, 
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,59 +75,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 4, 2026 at 1:59=E2=80=AFAM Vasily Khoruzhick <anarsoul@gmail.co=
-m> wrote:
+On Fri, 04 Sep 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Sysfb drivers currently use the given display mode for looking up the
+> panel orientation. But the look-up table stores the native geometry of
+> the panels, so the lookup fails if the current mode sizes differs.
 >
-> On Wed, Sep 2, 2026 at 1:43=E2=80=AFAM Alexey Charkov <alchark@flipper.ne=
-t> wrote:
-> >
-> > Hi Vasily,
+> Get the panel's native geometry with drm_edid_detect_panel_size() from
+> the EDID and use it for looking up the panel orientation.
 >
-> Hey Alexey,
+> v2:
+> - ofdrm: validate EDID header before using it (Sashiko)
 >
-> > > diff --git a/drivers/clk/rockchip/clk-rk3399.c b/drivers/clk/rockchip=
-/clk-rk3399.c
-> > > index c2b243d7a5e2..db241d2df625 100644
-> > > --- a/drivers/clk/rockchip/clk-rk3399.c
-> > > +++ b/drivers/clk/rockchip/clk-rk3399.c
-> > > @@ -98,6 +98,7 @@ static struct rockchip_pll_rate_table rk3399_pll_ra=
-tes[] =3D {
-> > >         RK3036_PLL_RATE( 148500000, 1, 99, 4, 4, 1, 0),
-> > >         RK3036_PLL_RATE( 106500000, 1, 71, 4, 4, 1, 0),
-> > >         RK3036_PLL_RATE(  96000000, 1, 64, 4, 4, 1, 0),
-> > > +       RK3036_PLL_RATE(  85500000, 1, 57, 4, 4, 1, 0),
-> >
-> > There is already an entry for 1368000000, which is 16x your rate, and
-> > the 16x divisor should fit comfortably into the downstream clock's
-> > 8-bit divisor field. Do you really need a separate PLL rate? Have you
-> > checked what the hardware arrives at with the unmodified PLL table -
-> > e.g. via /sys/kernel/debug/clk/clk_summary?
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+> ---
+>  drivers/gpu/drm/sysfb/efidrm.c  | 17 ++++++++++++++++-
+>  drivers/gpu/drm/sysfb/ofdrm.c   | 18 ++++++++++++++++--
+>  drivers/gpu/drm/sysfb/vesadrm.c | 17 ++++++++++++++++-
+>  3 files changed, 48 insertions(+), 4 deletions(-)
 >
-> See arch/arm64/boot/dts/rockchip/rk3399-base.dtsi, hdmi ref clock is
-> wired directly to VPLL, and dw_hdmi-rockchip calls clk_set_rate() with
-> pixel clock for ref clock, see
-> dw_hdmi_rockchip_encoder_atomic_mode_set(). So at least in the rk3399
-> case VPLL is supposed to support the required pixel clock. Without the
-> first patch 1366x768 mode with 85.5MHz pixel clock is just rejected.
+> diff --git a/drivers/gpu/drm/sysfb/efidrm.c b/drivers/gpu/drm/sysfb/efidrm.c
+> index 3f9cd5d03efb..8b19f437308e 100644
+> --- a/drivers/gpu/drm/sysfb/efidrm.c
+> +++ b/drivers/gpu/drm/sysfb/efidrm.c
+> @@ -152,6 +152,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>  	const struct screen_info *si;
+>  	const struct drm_format_info *format;
+>  	int width, height, stride;
+> +	unsigned int panel_width, panel_height;
+>  	s64 vsize;
+>  	u64 mem_flags;
+>  	struct resource resbuf;
+> @@ -217,6 +218,20 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>  	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>  		sysfb->edid = dpy->edid.dummy;
+>  #endif
+> +
+> +	panel_width = width;
+> +	panel_height = height;
+> +
+> +	if (sysfb->edid) {
+> +		const struct drm_edid *drm_edid;
+> +
+> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+> +		if (drm_edid) {
+> +			drm_edid_detect_panel_size(drm_edid, &panel_width, &panel_height);
+> +			drm_edid_free(drm_edid);
+> +		}
+> +	}
+> +
+>  	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
+>  	sysfb->fb_format = format;
+>  	sysfb->fb_pitch = stride;
+> @@ -340,7 +355,7 @@ static struct efidrm_device *efidrm_device_create(struct drm_driver *drv,
+>  	drm_connector_helper_add(connector, &efidrm_connector_helper_funcs);
+>  	drm_connector_set_panel_orientation_with_quirk(connector,
+>  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+> -						       width, height);
+> +						       panel_width, panel_height);
+>  	if (sysfb->edid)
+>  		drm_connector_attach_edid_property(connector);
+>  
+> diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
+> index 9d60db45139c..c41255569854 100644
+> --- a/drivers/gpu/drm/sysfb/ofdrm.c
+> +++ b/drivers/gpu/drm/sysfb/ofdrm.c
+> @@ -229,7 +229,7 @@ static const u8 *display_get_edid_of(struct drm_device *dev, struct device_node
+>  {
+>  	int ret = of_property_read_u8_array(of_node, "EDID", buf, EDID_LENGTH);
+>  
+> -	if (ret)
+> +	if (ret || drm_edid_header_is_valid(buf) != 8)
+>  		return NULL;
+>  	return buf;
+>  }
+> @@ -828,6 +828,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>  	enum ofdrm_model model;
+>  	bool big_endian;
+>  	int width, height, depth, linebytes;
+> +	unsigned int panel_width, panel_height;
+>  	const struct drm_format_info *format;
+>  	u64 address;
+>  	const u8 *edid;
+> @@ -998,6 +999,19 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>  		sysfb->fb_gamma_lut_size = OFDRM_GAMMA_LUT_SIZE;
+>  	sysfb->edid = edid;
+>  
+> +	panel_width = width;
+> +	panel_height = height;
+> +
+> +	if (sysfb->edid) {
+> +		const struct drm_edid *drm_edid;
+> +
+> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+> +		if (drm_edid) {
+> +			drm_edid_detect_panel_size(drm_edid, &panel_width, &panel_height);
+> +			drm_edid_free(drm_edid);
+> +		}
+> +	}
+> +
+>  	drm_dbg(dev, "display mode={" DRM_MODE_FMT "}\n", DRM_MODE_ARG(&sysfb->fb_mode));
+>  	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, linebytes=%d byte\n",
+>  		&format->format, width, height, linebytes);
+> @@ -1069,7 +1083,7 @@ static struct ofdrm_device *ofdrm_device_create(struct drm_driver *drv,
+>  	drm_connector_helper_add(connector, &ofdrm_connector_helper_funcs);
+>  	drm_connector_set_panel_orientation_with_quirk(connector,
+>  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+> -						       width, height);
+> +						       panel_width, panel_height);
+>  	if (edid)
+>  		drm_connector_attach_edid_property(connector);
+>  
+> diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
+> index 6a67b2d2e451..f6358a0a68bd 100644
+> --- a/drivers/gpu/drm/sysfb/vesadrm.c
+> +++ b/drivers/gpu/drm/sysfb/vesadrm.c
+> @@ -402,6 +402,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>  	const struct screen_info *si;
+>  	const struct drm_format_info *format;
+>  	int width, height, stride;
+> +	unsigned int panel_width, panel_height;
+>  	s64 vsize;
+>  	struct resource resbuf;
+>  	struct resource *res;
+> @@ -484,6 +485,20 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>  	if (drm_edid_header_is_valid(dpy->edid.dummy) == 8)
+>  		sysfb->edid = dpy->edid.dummy;
+>  #endif
+> +
+> +	panel_width = width;
+> +	panel_height = height;
+> +
+> +	if (sysfb->edid) {
+> +		const struct drm_edid *drm_edid;
+> +
+> +		drm_edid = drm_edid_alloc(sysfb->edid, EDID_LENGTH);
+> +		if (drm_edid) {
+> +			drm_edid_detect_panel_size(drm_edid, &panel_width, &panel_height);
+> +			drm_edid_free(drm_edid);
+> +		}
+> +	}
+> +
+>  	sysfb->fb_mode = drm_sysfb_mode(width, height, 0, 0);
+>  	sysfb->fb_format = format;
+>  	sysfb->fb_pitch = stride;
+> @@ -585,7 +600,7 @@ static struct vesadrm_device *vesadrm_device_create(struct drm_driver *drv,
+>  	drm_connector_helper_add(connector, &vesadrm_connector_helper_funcs);
+>  	drm_connector_set_panel_orientation_with_quirk(connector,
+>  						       DRM_MODE_PANEL_ORIENTATION_UNKNOWN,
+> -						       width, height);
+> +						       panel_width, panel_height);
+>  	if (sysfb->edid)
+>  		drm_connector_attach_edid_property(connector);
 
-I strongly suspect that the dtsi doesn't describe the real clock usage
-here. The TRM for RK3399 doesn't show any "ref" clock for HDMI, and no
-TRM-documented VPLL users look like anything that could connect
-directly to the HDMI controller.
-
-I believe something is hardcoding the divisor (or leaving it at the
-power-on default) in the actual DCLK of a VOP which the HDMI
-controller uses, instead of modelling it properly as a mux (frac/div)
-feeding off VPLL via another mux - both perfectly representable in the
-clock framework and already envisaged in the clock driver, making the
-PLL table patching unnecessary.
-
-Can you please try re-pointing the "ref" clock at DCLK_VOP0 (or 1,
-depending on which one your HDMI controller uses)? Your clock summary
-already shows that something is assigning its parent to DCLK_VOPx_DIV
-and the latter's parent to PLL_VPLL, so rate changes the current
-driver code does on VPLL propagate to the muxed and divided downstream
-consumer as a side-effect rather than as an actual rate request.
-
-Best regards,
-Alexey
+-- 
+Jani Nikula, Intel
