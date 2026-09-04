@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B066C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186E7C624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D88910FAF9;
-	Fri,  4 Sep 2026 12:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4117910FB02;
+	Fri,  4 Sep 2026 12:09:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qlqbe0Sb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FUFq+aFe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF85610FAF9
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:08:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFA7710FB02
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:09:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B966841ADF;
- Fri,  4 Sep 2026 12:08:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FACF1F00A3D;
- Fri,  4 Sep 2026 12:08:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E0B236020C;
+ Fri,  4 Sep 2026 12:09:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807571F00A3E;
+ Fri,  4 Sep 2026 12:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788523703;
- bh=BwqAVmTr8KXY7ZWClt2GtVrlFHVmSKcB9c6H5LMm1z4=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=Qlqbe0SbaU5fZwKxMYP3qPzbZIgKBjC7zNm40PQyLIy4NPBhN/wofr2FlS+/YpvYD
- lZgLx6ufLNHf6/f+iv2QPYLFq+OQFTWrY36tUOZVfgryPGciVJdbbvR1dtwruSAPm0
- ZobU84HZfhmu9SKW/DrNSMwYKtIswDa4NH/wT77nb2fmbnNGShIgfvt7MRnD21n1Gn
- W4k+Oo4RPRzmobQhiCUTP6d8WRocFLW/GGa6izM290snHUYonFMIGB+M3D70MYMheE
- GB/9KcNLhzXyABtGTEJ/Bqs1DpO5P6wJ0iugn+/T6kKT67fDSDF7gusFmM5r3Hh2lL
- SGhKnRXXeBexw==
-Mime-Version: 1.0
+ s=k20260515; t=1788523785;
+ bh=HFafFqv4p2v02MXt+SA5HLqpdPpawf3Ony/lHTwlupw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FUFq+aFeRZdmomG7gK4e9vvlz5AOY3GdZE+ULy3UpiwKTpWrxp4XLTR8iWiVHgUjt
+ KBb4FBR+UW8mIXWtoHrvacvtKC85ilSlWsqoIgkKlw16Yp0zhCTwXBxC1V2RauTgLv
+ 3tRfUgT0kVlK7rR03+fQWgrIlSy8r8qwA7XOYAVXzZQ8XE8h4B+DR1aKntm6N619tE
+ 45mj/zydfY0xz0NGd6eVMpFeW4nsx8lZeflvushNW6RIgg5knNggxokU9zAUh3FJVq
+ oE4H3UM9gE+/t/vLA4HPUaJDNYDBNBqgg0NBgCZUe10EatxhctlFCPzzfqykWr3EXj
+ 6dwUrXHOo34zw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] drm: fix repeated words in comments
+To: "Hemanth Selam" <hemanth.selam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260904120430.17224-3-hemanth.selam@gmail.com>
+References: <20260904120430.17224-1-hemanth.selam@gmail.com>
+ <20260904120430.17224-3-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 14:08:19 +0200
-Message-Id: <DL6IQKQDXY7P.1F6PSERSJ64PN@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-Cc: "Alistair Popple" <apopple@nvidia.com>, "nova-gpu"
- <nova-gpu@lists.linux.dev>, "M Henning" <mhenning@darkrefraction.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
- <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal>
- <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal>
- <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
- <DL6HKYRXHNFK.1D9HYNEPH4GCR@garyguo.net>
-In-Reply-To: <DL6HKYRXHNFK.1D9HYNEPH4GCR@garyguo.net>
+Date: Fri, 04 Sep 2026 12:09:45 +0000
+Message-Id: <20260904120945.807571F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,85 +53,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 4, 2026 at 1:13 PM CEST, Gary Guo wrote:
-> You mentioned in an earlier email about the typing, but we could still ha=
-ve
-> meaningful impl IDs fully typed like this:
->
->     pub enum Arch {
->         Turing(impl_id),
->         Ampere(impl_id),
->         ...
->     }
->
-> and some langauges can do better, e.g. TypeScript allow you to write
->
->     enumn ArchId {
->         Turing,
->         Ampere,
->         ...
->     }
->
->     enum TuringImplId { ... }
->     enum AmpereImplId { ... }
->
->     type Id =3D
->         { arch: ArchId.Turing, impl: TuringImplId } |
->         { arch: ArchId.Ampere, impl: AmpereImplId };
->
-> So I think it's a reasonable design to have it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect grammar correction altering comment meaning.
+--
 
-Of course we could encode this implementation detail, but I think there's n=
-o
-reason to do so.
+commit a1ccb2e6474d515b1b000ccef6e3cfcb3d32f358
+Author: Hemanth Selam <hemanth.selam@gmail.com>
 
-For instance currently we refer to GA100 as
+drm: fix repeated words in comments
 
-	Chipset::GA100
+This commit addresses warnings from checkpatch.pl by dropping words that ap=
+pear
+to be accidentally repeated in comments. The changes are intended to only t=
+ouch
+comments without affecting code execution.
 
-but with the above we'd refer to GA100 as
-
-	Arch::Ampere(AmpereImpl::GA100)
-
-which is not buying us anything, is it?
-
-It also would be confusing because both the architecture and the specific c=
-hip
-would now be both represented by a type called Arch.
-
-> True, but I think the chip ID is as bad as impl ID. Feature detections sh=
-ould
-> use dedicated featuire detection mechanism, not looking up IDs directly. =
-I.e. we
-> should have userspace not having to use either chip ID or impl ID as much=
- as we
-> can.
-
-This I agree with, which is also why I mentioned we should export SM if GSP
-already provides it to us.
-
-> That said, I do think looking up tables are unavoidable, for getting name=
-s or
-> applying some quirk fixes. And I agree with Alistair that if we include i=
-t,
-> including impl ID is better than the chip ID, as we should rather not hav=
-ing
-> user space relying on an arbitrary encoded chip ID.
-
-No, the only thing userspace ever uses to distinguish between things is eit=
-her
-by architecture or by chip. If we instead provide architecture and some ID
-userspace will just go
-
-	if (arch =3D=3D Ampere && id =3D=3D 0)
-		chip =3D GA100;
-	else if (arch =3D=3D Ampere && id =3D=3D 2)
-		chip =3D GA102;
-	[...]
-
-and after that never care about the ID again. Whereas with giving userspace=
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vm=
+wgfx/vmwgfx_execbuf.c
+> index 6dfb45592d747..be3c3c074e75d 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+[ ... ]
+> @@ -339,7 +339,7 @@ static int vmw_execbuf_res_val_add(struct vmw_sw_cont=
+ext *sw_context,
+>  }
+> =20
+>  /**
+> - * vmw_view_res_val_add - Add a view and the surface it's pointing to to=
  the
-chip and architecture as separate fields userspace is done.
+> + * vmw_view_res_val_add - Add a view and the surface it's pointing to the
+>   * validation list
+>   *
+
+[Severity: Low]
+Does this grammar correction alter the intended meaning of the comment?
+
+The original phrase in vmw_view_res_val_add() uses the first "to" as part of
+"pointing to", and the second "to" as part of "to the validation list".
+By removing one, the sentence now implies the surface is pointing to the
+validation list, rather than adding the surface to the validation list.
+
+>   * @sw_context: The software context holding the validation list.
+[ ... ]
+> @@ -367,7 +367,7 @@ static int vmw_view_res_val_add(struct vmw_sw_context=
+ *sw_context,
+> =20
+>  /**
+>   * vmw_view_id_val_add - Look up a view and add it and the surface it's =
+pointing
+> - * to to the validation list.
+> + * to the validation list.
+>   *
+>   * @sw_context: The software context holding the validation list.
+
+[Severity: Low]
+Does this change have the same issue as above?
+
+It changes the sentence structure in vmw_view_id_val_add() such that it no
+longer means adding the surface (that the view points to) to the validation
+list.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904120430.1722=
+4-1-hemanth.selam@gmail.com?part=3D2
