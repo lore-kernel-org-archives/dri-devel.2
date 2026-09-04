@@ -4,62 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61607C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A74D3C624DE
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 833DA10FAFB;
-	Fri,  4 Sep 2026 12:12:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC74C10FB0E;
+	Fri,  4 Sep 2026 12:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qd/LpseC";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="mYCKBGT/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719E510FB07;
- Fri,  4 Sep 2026 12:12:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788523946; x=1820059946;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=E0lA48alQOV5DAKA7Dgq2IQfX7er/sDPIkAEhYWbWv8=;
- b=Qd/LpseC4CjENPCvNkb2JT6TRx9459y5B7+LQPZm1LZySSkiicgUD9m0
- ehi7gSx5vUCiHNrKneJXMIrMzXvImVbL8PvHaxNSljNC11kIerj1VqPFb
- OXgSBRYzcjngjXsYQa8MSyjgobXgjcx/BPCNtZdzu3bYWd1D+v8wPi+qQ
- zHYslxuA/CA3+Kwtx86ESEEYcbmPM1FZPi2564rqgyHgoAdVTzsWFIYMB
- DwQiiSS1QsCyZwRLAV7YHVAMxNkGBx1kk7lB2v9lf6g9H2vRN108u6c2c
- 0/AFPp+WwOxbKAI3sX5DCg2zCiUGJyCOg2nORK/yWow9kcF9b9hkMNU4e g==;
-X-CSE-ConnectionGUID: lg4lDsEsRZa6yHJf2rzZuw==
-X-CSE-MsgGUID: j9q6wvNvQ2aCDJBNQbLZIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="89045895"
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; d="scan'208";a="89045895"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 05:12:25 -0700
-X-CSE-ConnectionGUID: 0KqlmyJER52VyyqMz2M5IQ==
-X-CSE-MsgGUID: 7VeoqBnlQHmQVZBbtIer/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; d="scan'208";a="269491621"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.29])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2026 05:12:22 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/i915: fix repeated words in comments
-In-Reply-To: <20260904120225.15868-3-hemanth.selam@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260904120225.15868-1-hemanth.selam@gmail.com>
- <20260904120225.15868-3-hemanth.selam@gmail.com>
-Date: Fri, 04 Sep 2026 15:12:19 +0300
-Message-ID: <4e651b9a124c47f5cbd07aee56f683c22252f172@intel.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30ED510FB09;
+ Fri,  4 Sep 2026 12:14:16 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hbwPK2bTtzMlG3;
+ Fri, 04 Sep 2026 14:14:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1788524053; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3laS6ZZpfGUwO/BUm72vPoPlNir78tFJtVUp7tBN7C0=;
+ b=mYCKBGT/QJrD1QRugY/cx3YrM1jmw1juS2VQ9EkmTnyfZzii9ry8JjyUxyKzRHhoge8UPe
+ dYjnkCB4MFcGtjQzmvsJ7ZYXwivYv6S6mh4gHaUgQX+tD0nbmp+6myGnIQPCA/3QhG/KFS
+ zISsvDu3T6zI2V7SsmIjMHRW0Jmi15h2cEKGQ6DZhAQimR3sdzVp+rQ3XMNSantQTBmxtg
+ OCbCzp58lZRIVG94nLM6j4sCbbRyX6kR3bxFPdAeFrI7XSAKV1fYy2GRT473rWifAXZnba
+ AD2ILjMwwOSWqKZAntnKsGOv/joz7zcuVc6mKOlPv/IKK+qbGpmIAQoSDXpqkQ==
+Message-ID: <8b4194fcb6fdb11af10fc81a1a7c915ad71003a0.camel@mailbox.org>
+Subject: Re: [PATCH 1/3] drm: fix typos in comments
+From: Philipp Stanner <phasta@mailbox.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>, Sumit Semwal	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Inki Dae	 <inki.dae@samsung.com>, Jagan
+ Teki <jagan@amarulasolutions.com>, Marek Szyprowski
+ <m.szyprowski@samsung.com>, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Laurentiu Palcu	
+ <laurentiu.palcu@oss.nxp.com>, Lucas Stach <l.stach@pengutronix.de>, Frank
+ Li	 <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Jianmin Lv <lvjianmin@loongson.cn>,  Qianhai Wu <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,  Xi
+ Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, Dave
+ Airlie	 <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, Lyude
+ Paul	 <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Tomi
+ Valkeinen	 <tomi.valkeinen@ideasonboard.com>, Jessica Zhang
+ <jesszhan0024@gmail.com>,  Gerd Hoffmann <kraxel@redhat.com>, Kieran
+ Bingham <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Matthew
+ Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>,
+ Chen-Yu Tsai	 <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Huang Rui	 <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Dave
+ Stevenson	 <dave.stevenson@raspberrypi.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal
+ <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Dmitry Osipenko
+ <dmitry.osipenko@collabora.com>,  Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Michal Simek
+ <michal.simek@amd.com>,  Philipp Zabel <p.zabel@pengutronix.de>, Natalie
+ Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,  Johannes Weiner
+ <hannes@cmpxchg.org>, Michal =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, cgroups@vger.kernel.org
+Date: Fri, 04 Sep 2026 14:13:48 +0200
+In-Reply-To: <20260904120430.17224-2-hemanth.selam@gmail.com>
+References: <20260904120430.17224-1-hemanth.selam@gmail.com>
+ <20260904120430.17224-2-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MBO-RS-META: zf7yfabkcpirabg1gmuxkipyi6aabu79
+X-MBO-RS-ID: c40f54232cfd638428a
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,77 +103,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 04 Sep 2026, Hemanth Selam <hemanth.selam@gmail.com> wrote:
-> Drop words accidentally written twice, reported by checkpatch.pl as a
-> possible repeated word.  Only touches comments, no code changes.
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+T24gRnJpLCAyMDI2LTA5LTA0IGF0IDE3OjM0ICswNTMwLCBIZW1hbnRoIFNlbGFtIHdyb3RlOgo+
+IEZpeCB0eXBvcyBpbiBjb21tZW50cywgcmVwb3J0ZWQgYnkgc2NyaXB0cy9jaGVja3BhdGNoLnBs
+IHVzaW5nIHRoZQo+IG1pc3NwZWxsaW5nIGxpc3QgaW4gc2NyaXB0cy9zcGVsbGluZy50eHQuwqAg
+T25seSB0b3VjaGVzIGNvbW1lbnRzLCBubyBjb2RlCj4gY2hhbmdlcy4KPiAKPiBBc3Npc3RlZC1i
+eTogQ3Vyc29yOmNsYXVkZS1vcHVzLTUKPiBTaWduZWQtb2ZmLWJ5OiBIZW1hbnRoIFNlbGFtIDxo
+ZW1hbnRoLnNlbGFtQGdtYWlsLmNvbT4KPiAtLS0KPiDCoGRyaXZlcnMvZG1hLWJ1Zi9zeW5jX2Rl
+YnVnLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9wYXJhZGUtcHM4NjIyLmPCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9icmlk
+Z2Uvc2Ftc3VuZy1kc2ltLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiAr
+LQo+IMKgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS90YzM1ODc2Ny5jwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9k
+aXNwbGF5L2RybV9kcF9tc3RfdG9wb2xvZ3kuY8KgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDC
+oGRyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL2dt
+YTUwMC9vYWt0cmFpbF9sdmRzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIg
+Ky0KPiDCoGRyaXZlcnMvZ3B1L2RybS9nbWE1MDAvcG93ZXIuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9n
+bWE1MDAvcHNiX2Rydi5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfCA0ICsrLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9pbXgvZGNzcy9kY3NzLWN0eGxkLmPCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJt
+L2xvb25nc29uL2xzZGNfZHJ2LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9tZ2FnMjAwL21nYWcyMDBfZzIwMHNlLmPCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL25vdXZl
+YXUvZGlzcG52NTAvdGlsZS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+
+IMKgZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9iaW9zLmPCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZl
+YXVfZXhlYy5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2
+ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2xlZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L252a20vZW5naW5l
+L2dyL2N0eG52NTAuY8KgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2
+ZWF1L252a20vZW5naW5lL2dyL2dmMTAwLmPCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJp
+dmVycy9ncHUvZHJtL29tYXBkcm0vZHNzL2Rpc3BjLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB8IDQgKystLQo+IMKgZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vb21hcF9n
+ZW0uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBk
+cml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM2NjcyYS5jwqDCoMKgwqDCoMKg
+wqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1zYW1zdW5nLXM2ZTYz
+ajB4MDMuY8KgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX2dl
+bS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAy
+ICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfbHZkcy5jwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2No
+ZWRfbWFpbi5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA0ICsrLS0KPiDCoGRy
+aXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV90Y29uLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3RpbnkvcGFuZWwtbWlw
+aS1kYmkuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2
+ZXJzL2dwdS9kcm0vdHRtL3R0bV9wb29sLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1p
+LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICst
+Cj4gwqBkcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9yZWdzLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2ZXJzL2dwdS9kcm0vdmly
+dGlvL3ZpcnRncHVfaW9jdGwuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiAr
+LQo+IMKgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC9kZXZpY2VfaW5jbHVkZS92bV9iYXNpY190eXBl
+cy5oIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC90dG1fb2JqZWN0LmPCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2Ry
+bS92bXdnZngvdm13Z2Z4X2Rydi5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfCA2ICsrKy0tLQo+IMKgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfZXhlY2J1Zi5j
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJt
+L3Ztd2dmeC92bXdnZnhfa21zLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X3NvLmjCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9ncHUvZHJt
+L3Ztd2dmeC92bXdnZnhfc3VyZmFjZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwg
+MiArLQo+IMKgZHJpdmVycy9ncHUvZHJtL3hsbngvenlucW1wX2RwLmPCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGRyaXZlcnMvZ3B1L2lwdS12
+My9pcHUtcHJnLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHwgMiArLQo+IMKgaW5jbHVkZS9kcm0vZHJtX2ZyYW1lYnVmZmVyLmjCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDQgKystLQo+IMKgaW5j
+bHVkZS9kcm0vZHJtX3BsYW5lLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIgKy0KPiDCoGluY2x1ZGUvdWFwaS9kcm0vbm91
+dmVhdV9kcm0uaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCB8IDIgKy0KPiDCoGluY2x1ZGUvdWFwaS9kcm0vdm13Z2Z4X2RybS5owqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyICstCj4gwqBrZXJuZWwvY2dy
+b3VwL2RtZW0uY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgNDUgZmlsZXMgY2hhbmdlZCwgNTMgaW5z
+ZXJ0aW9ucygrKSwgNTMgZGVsZXRpb25zKC0pCgpUaGF0J3MgYSBsb3Qgb2YgY2h1cm4KCj4gCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9zeW5jX2RlYnVnLmggYi9kcml2ZXJzL2RtYS1i
+dWYvc3luY19kZWJ1Zy5oCj4gCgpb4oCmXQoKCj4gLQkvKiBEUEkgaW50ZXJmYWNlIGNsb2NrIGxp
+bWl0YXRpb246IHVwdG8gMTAwIE1IeiAqLwo+ICsJLyogRFBJIGludGVyZmFjZSBjbG9jayBsaW1p
+dGF0aW9uOiB1cCB0byAxMDAgTUh6ICovCj4gwqAJaWYgKG1vZGUtPmNsb2NrID4gMTAwMDAwKQo+
+IMKgCQlyZXR1cm4gTU9ERV9DTE9DS19ISUdIOwo+IAoKW+KApl0KCj4gwqAKPiAtLyogRm9yIG11
+bHRpcGxlIEdQVSBkcml2ZXIgaW5zdGFuY2UgY28tZXhpeHQgaW4gdGhlIHN5c3RlbSAqLwo+ICsv
+KiBGb3IgbXVsdGlwbGUgR1BVIGRyaXZlciBpbnN0YW5jZSBjby1leGlzdCBpbiB0aGUgc3lzdGVt
+ICovCj4gwqAKPiAKClvigKZdCgo+IMKgCj4gLQkvKiBzZXQgbHRwcyB0aW1taW5nIDAsIDEgKi8K
+PiArCS8qIHNldCBsdHBzIHRpbWluZyAwLCAxICovCgoKUGxhY2VzIGxpa2UgdGhlc2UgYXJlIGNl
+cnRhaW5seSBjYW5kaWRhdGVzIHRoYXQgb25lIG1pZ2h0IHdhbnQgdG8gZ2l0LQpibGFtZSB0byBm
+aWd1cmUgb3V0IG1vcmUgYWJvdXQgdGhlIGJhY2tncm91bmQuCgpOb3Qgc3VyZSBpZiB0aGUgY29z
+dC1iZW5lZml0LXJhdGlvIHdvdWxkIHRoZW4gcGF5IG9mZj8KCgpQLgo=
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_context_types.h | 2 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc.c            | 2 +-
->  drivers/gpu/drm/i915/gvt/scheduler.c              | 2 +-
->  drivers/gpu/drm/i915/i915_gem_evict.c             | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> index 0267c924634b..2c1f81d9c0d7 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-> @@ -208,7 +208,7 @@ struct i915_gem_proto_context {
->  	/** @legacy_rcs_sseu: Client-set SSEU parameters for the legacy RCS */
->  	struct intel_sseu legacy_rcs_sseu;
->  
-> -	/** @single_timeline: See See &i915_gem_context.syncobj */
-> +	/** @single_timeline: See &i915_gem_context.syncobj */
->  	bool single_timeline;
->  
->  	/** @uses_protected_content: See &i915_gem_context.uses_protected_content */
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> index 1c2764440323..c007faa54f2d 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-> @@ -769,7 +769,7 @@ int intel_guc_resume(struct intel_guc *guc)
->   * This is a wrapper to create an object for use with the GuC. In order to
->   * use it inside the GuC, an object needs to be pinned lifetime, so we allocate
->   * both some backing storage and a range inside the Global GTT. We must pin
-> - * it in the GGTT somewhere other than than [0, GUC ggtt_pin_bias) because that
-> + * it in the GGTT somewhere other than [0, GUC ggtt_pin_bias) because that
->   * range is reserved inside GuC.
->   *
->   * Return:	A i915_vma if successful, otherwise an ERR_PTR.
-> diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
-> index 15fdd514ca83..3c3c9b695487 100644
-> --- a/drivers/gpu/drm/i915/gvt/scheduler.c
-> +++ b/drivers/gpu/drm/i915/gvt/scheduler.c
-> @@ -201,7 +201,7 @@ static int populate_shadow_context(struct intel_vgpu_workload *workload)
->  			workload->ring_context_gpa);
->  
->  	/* only need to ensure this context is not pinned/unpinned during the
-> -	 * period from last submission to this this submission.
-> +	 * period from last submission to this submission.
->  	 * Upon reaching this function, the currently submitted context is not
->  	 * supposed to get unpinned. If a misbehaving guest driver ever does
->  	 * this, it would corrupt itself.
-> diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
-> index c02ebd6900ae..11855d9a1210 100644
-> --- a/drivers/gpu/drm/i915/i915_gem_evict.c
-> +++ b/drivers/gpu/drm/i915/i915_gem_evict.c
-> @@ -273,7 +273,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
->  	goto search_again;
->  
->  found:
-> -	/* drm_mm doesn't allow any other other operations while
-> +	/* drm_mm doesn't allow any other operations while
->  	 * scanning, therefore store to-be-evicted objects on a
->  	 * temporary list and take a reference for all before
->  	 * calling unbind (which may remove the active reference
-
--- 
-Jani Nikula, Intel
