@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3B18C79F80
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:08:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9DA8C79F80
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 09:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E63310F9AC;
-	Fri,  4 Sep 2026 09:08:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5209710F9B1;
+	Fri,  4 Sep 2026 09:08:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JQzQ+5rO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D7EwJ3EH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A730E10F9AC
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:08:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0969010F9B1
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:08:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 901A940A59;
- Fri,  4 Sep 2026 09:08:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89CF1F00A3D;
- Fri,  4 Sep 2026 09:08:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 820E060A75;
+ Fri,  4 Sep 2026 09:08:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79AD1F00A3D;
+ Fri,  4 Sep 2026 09:08:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788512893;
- bh=JFXRtZpSo/FsjZOR9vpvDMVCxxa199B4sLSjLF7/TN8=;
+ s=k20260515; t=1788512897;
+ bh=706EMD7Zgl9JD9vMhf5WnRvR9pIT8a+iT7Jl1YkyI3k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JQzQ+5rOl4vXGbp4Mxr3jcM3cDELwF3+0jRRsIdxcdgBI/HLS0sDfzSlwX6JdmJMw
- 5NKMwjTfgEN7BYFfeKJVq3JJ8tiu3vCat+o8PVpjDxZe6iFHK2SuECtoK/cef8PG7H
- 3T5/O2qWCrBw3ih8pGC6jXzm5LN8oBs1tuaC8I1tUNakUXQnb4eGXB87hnSJAz8gio
- +zOIJXtc+fW+kQw8Gx3IBic/iWX0lEwzti1wgxgiJ8sihcxvFbOKP74D3k3YvUTO/E
- J1gDSyK5umKypVyVJVuX3WvDmVyKO3xhOPjM9xS3ZE8FrOvTMCQtomhPtecsCIQ2Ln
- 6ZoakuqjuSMFQ==
+ b=D7EwJ3EHC748zBAcTnYLMgxmgdvIgRtbfVR4T2m7rAsJdULk4WD/GWfZyTsYc8AnO
+ H1JaySHsLBBcFSSmnq7i0FvUvpP9K2A4kAsssTEX7MGmI3CwrHVUYJOopzHGKgHlBU
+ jJIlntpRth10zk8DTkuIDjlNdoIadtJiNTAD1+RmRopN948asffeLusQUPcUrEfVaH
+ XNsJcAWYfZqlFYtQErNTBVBeciB4fQwVTfzIoZ4MGDPyMq+5Zy6MaGWFEwT8+kgKOp
+ sY8LMNA0TGQ6KFNBmM8vgZjTEcSwh4Ck03D577S3iKmOmbK5dcKQFKpvtcgsFv9ZLd
+ vaEceiQpv8oKg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 04 Sep 2026 11:07:29 +0200
-Subject: [PATCH v3 11/13] drm/sitronix: st7920: Convert to atomic_create_state
+Date: Fri, 04 Sep 2026 11:07:30 +0200
+Subject: [PATCH v3 12/13] drm/atomic-helper: Remove
+ __drm_atomic_helper_crtc_reset
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-drm-no-more-crtc-reset-v3-11-27d9891512ce@kernel.org>
+Message-Id: <20260904-drm-no-more-crtc-reset-v3-12-27d9891512ce@kernel.org>
 References: <20260904-drm-no-more-crtc-reset-v3-0-27d9891512ce@kernel.org>
 In-Reply-To: <20260904-drm-no-more-crtc-reset-v3-0-27d9891512ce@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Iker Pedrosa <ikerpedrosam@gmail.com>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2423; i=mripard@kernel.org;
- h=from:subject:message-id; bh=L9F5T6gNIFEY9cwjRgXi5bgUMR32jle5xvpmPhh39ZY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmzuvz3T/8T16fitbQ379uqBdkCQo9LZ+hmzGyrkjqTK
- NP8O823YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyk7iJjw5FrJa677Ll0F3tF
- bK2YyjjHprg1fjnfiv9ph6t3LTXcz35bw+C17xPrCTqFgf67918vZmx4V7Ta+ej/Ysa0Q9Lrvkt
- f6lw5LW79Bn1X/tn/TU5rtele4H07J1XllOYb97+yh+WPiH0FAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2754; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=+qt1HYUjm4L0u/feb4bCkd07eBzkVs1o3qpGQ7pQwJE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmzugJmbaxyvmeQOZvTero9e1vyiv0fvxpJmbrduMuiY
+ rZh9fJPHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiOwQZ64xNuu0n6G89OEc8
+ ++Retg2hVelBslO2/yr0OqN5U1mzw8Y0aO9yoc+xHS8b5zRXeuXrMjZ0BxzPfftdwVs/eOqdLwb
+ 33GYmL5Lfutc/S9pOODNM60FEVt35mDCOW/xSW0zfzJAN7wYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,69 +69,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The st7920 crtc implementation provides a custom reset hook. However,
-this hook only allocates the state, initializes it with
-__drm_atomic_helper_crtc_reset(), and warns if there's a previous state.
-It does not perform any hardware reset.
+All users of __drm_atomic_helper_crtc_reset() have been converted to use
+__drm_atomic_helper_crtc_state_init() and atomic_create_state.
 
-Since this is exactly what the atomic_create_state hook is meant to
-do, minus the old state cleanup which the caller handles, convert the
-implementation to use atomic_create_state with
-__drm_atomic_helper_crtc_state_init() instead.
+Remove the now unused helper.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Iker Pedrosa <ikerpedrosam@gmail.com>
----
- drivers/gpu/drm/sitronix/st7920.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_atomic_state_helper.c | 26 --------------------------
+ include/drm/drm_atomic_state_helper.h     |  2 --
+ 2 files changed, 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix/st7920.c
-index 0a75e9319080..9887ed746ceb 100644
---- a/drivers/gpu/drm/sitronix/st7920.c
-+++ b/drivers/gpu/drm/sitronix/st7920.c
-@@ -573,21 +573,21 @@ static void st7920_crtc_atomic_disable(struct drm_crtc *crtc,
- 
- 	drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index b592b7f5f264..354fa9c6aca8 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -77,36 +77,10 @@ __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *crtc_state,
+ 	crtc_state->crtc = crtc;
+ 	crtc_state->background_color = DRM_ARGB64_PREP(0xffff, 0, 0, 0);
  }
+ EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_init);
  
- /* Called during init to allocate the CRTC's atomic state. */
--static void st7920_crtc_reset(struct drm_crtc *crtc)
-+static struct drm_crtc_state *st7920_crtc_create_state(struct drm_crtc *crtc)
- {
- 	struct st7920_crtc_state *st7920_state;
- 
--	drm_WARN_ON_ONCE(crtc->dev, crtc->state);
+-/**
+- * __drm_atomic_helper_crtc_reset - reset state on CRTC
+- * @crtc: drm CRTC
+- * @crtc_state: CRTC state to assign
+- *
+- * Initializes the newly allocated @crtc_state and assigns it to
+- * the &drm_crtc->state pointer of @crtc, usually required when
+- * initializing the drivers or when called from the &drm_crtc_funcs.reset
+- * hook.
+- *
+- * This is useful for drivers that subclass the CRTC state.
+- */
+-void
+-__drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
+-			       struct drm_crtc_state *crtc_state)
+-{
+-	if (crtc_state)
+-		__drm_atomic_helper_crtc_state_init(crtc_state, crtc);
 -
- 	st7920_state = kzalloc_obj(*st7920_state);
- 	if (!st7920_state)
--		return;
-+		return ERR_PTR(-ENOMEM);
+-	if (drm_dev_has_vblank(crtc->dev))
+-		drm_crtc_vblank_reset(crtc);
+-
+-	crtc->state = crtc_state;
+-}
+-EXPORT_SYMBOL(__drm_atomic_helper_crtc_reset);
+-
+ /**
+  * drm_atomic_helper_crtc_create_state - default &drm_crtc_funcs.atomic_create_state hook for crtcs
+  * @crtc: crtc object
+  *
+  * Allocates and  initializes pristine @drm_crtc_state.
+diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+index df70817c94fc..480eaae42f45 100644
+--- a/include/drm/drm_atomic_state_helper.h
++++ b/include/drm/drm_atomic_state_helper.h
+@@ -40,12 +40,10 @@ struct drm_private_state;
+ struct drm_modeset_acquire_ctx;
+ struct drm_device;
  
--	__drm_atomic_helper_crtc_reset(crtc, &st7920_state->base);
-+	__drm_atomic_helper_crtc_state_init(&st7920_state->base, crtc);
-+
-+	return &st7920_state->base;
- }
- 
- static struct drm_crtc_state *st7920_crtc_duplicate_state(struct drm_crtc *crtc)
- {
- 	struct st7920_crtc_state *st7920_state;
-@@ -627,11 +627,11 @@ static const struct drm_crtc_helper_funcs st7920_crtc_helper_funcs = {
- 	.atomic_enable = st7920_crtc_atomic_enable,
- 	.atomic_disable = st7920_crtc_atomic_disable,
- };
- 
- static const struct drm_crtc_funcs st7920_crtc_funcs = {
--	.reset = st7920_crtc_reset,
-+	.atomic_create_state = st7920_crtc_create_state,
- 	.destroy = drm_crtc_cleanup,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_duplicate_state = st7920_crtc_duplicate_state,
- 	.atomic_destroy_state = st7920_crtc_destroy_state,
+ void __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *state,
+ 					  struct drm_crtc *crtc);
+-void __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
+-				    struct drm_crtc_state *state);
+ struct drm_crtc_state *
+ drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc);
+ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
+ 					      struct drm_crtc_state *state);
+ struct drm_crtc_state *
 
 -- 
 2.55.0
