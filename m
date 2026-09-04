@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE296C624D3
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 10:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0FBBC79F83
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 10:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF6B10FA70;
-	Fri,  4 Sep 2026 10:45:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E59E10FA62;
+	Fri,  4 Sep 2026 10:45:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W7qjQCNS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P4VteYfZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A531510FA62
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 10:45:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD9010FA62
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 10:45:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5A4E860A7A;
- Fri,  4 Sep 2026 10:45:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5888C1F00A3F;
- Fri,  4 Sep 2026 10:45:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EED1B435D7;
+ Fri,  4 Sep 2026 10:45:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211151F00A3E;
+ Fri,  4 Sep 2026 10:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788518724;
- bh=eBlEuAoqOked/LKJu9mRAOEywcTF2CIu7f/dTPjyTCg=;
+ s=k20260515; t=1788518726;
+ bh=hagYf35q6G2UhsHzty44d2izTZaC/NeM9Zitkk0WHRQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=W7qjQCNSCGZXXbyc8J6OTl+dQX2qqTPLVjOZKbya9DaDtLYXNDq7yOSjCiH1Fzmgo
- j56j7wBwCKgUFodXzPAzL44OFOVSiFiFB0CvB/ZPoNY++4LLfUpv/1blCs5hrACui9
- 7s3xQ8px/dRmqO1WqB7SNO1OwaM8sT6TH0S7lQdEJ5iufiYOMh563huoUusBqCgBCB
- zhHSeRVxDESEqeAASr3hnpXE5pStPPx3KVcFlwkWCZcMWP/CilLTYfN9qTVoErlRHl
- 4e5cB+aYiwobAfiBrDJkRzORM9Qlzq/j4AcH/+K0EYc4RubGDf6QCNgHP2XBX7SfFv
- lmBN6OJRScywQ==
+ b=P4VteYfZoOUKRz6lqankTJMKJHc22APwmujZJPl/o9mFh+IaXlyFuO4ak0voN5g1+
+ SkPOsetnsV8OgScpk2tWZMqM6V6brZ2/wcoAJdD37U/u1/ZUhg5SWVOjIeHELTS65P
+ pbrK8W62YAb2sNPLRs8sJuv4H8SIWeVvm/qt2Bop5lmROPJTj6ET2fTuqE1+ltqHmJ
+ cdFluDoQEkGzlkB2wggIhYLNLCP+idVVB06/yEMa5e2gQXMUSkDDSzsSzyojU8FSGA
+ q3Le5bnorB5CtElF/RC4Yo0O8r1V1S75q7G6ZZomHcMbEjcxVMbnTKjkjyZ8sS5iWJ
+ jw0cjbyxhhxxA==
 From: Thierry Reding <thierry.reding@kernel.org>
-Date: Fri, 04 Sep 2026 12:44:53 +0200
-Subject: [PATCH v6 02/12] dt-bindings: display: tegra: Document memory regions
+Date: Fri, 04 Sep 2026 12:44:54 +0200
+Subject: [PATCH v6 03/12] dt-bindings: gpu: host1x: Document memory-regions
+ for NVDEC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-tegra-vpr-v6-2-79042cfa8de5@nvidia.com>
+Message-Id: <20260904-tegra-vpr-v6-3-79042cfa8de5@nvidia.com>
 References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
 In-Reply-To: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -79,20 +80,20 @@ Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
  linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
  linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3649; i=treding@nvidia.com;
- h=from:subject:message-id; bh=pBYGfO+OoRCfoGlySA1v5aSrpzUlJ6EhDp5j2u2Nips=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqmqE6g4z7jq+Sip+gg86QNRWNnQFHfWBE9B9un
- WUw4njXGJ+JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapqhOgAKCRDdI6zXfz6z
- oTHMD/9TaZE5hzVAIbzqNa7syKW4k6S0ycYYYrVebi+lRO2QXDPm/tiDrM/ofrEIhvjWjXhW6Sd
- vhsLe4VBQt5yWfvAQpdM7PkubSeMTlUl/kdcw18kKnGBzhK8BLC1EzF6+JsNcBHxlCj005NiZnv
- EGUWrm6j4L7rV0ZB56H/YkwhfZakABtZzFtWy1Yfq7pOhVfJsrSkvNJBqJuH9DAAmuGIHEckjee
- 5ExquwU8/hHHEod/bY8sGI4eDSLUOlotFszxJwKNPVm1uTrYp7Nm5G/2AysJTTQFUJi3ZDtQL23
- EEv7fLVyDGez4estd42id989nAFMj9+W74/fntP858iqMU1Nto0lx8CN5vLdGFgbl31BK4xjPk2
- CMDIGbPh9gAr0h5ODf9C2XizTrcP0s7kJL7pDwKFcW96yuRRWeFt4AzlYmVjYYoy4iD8S57QLM0
- iszSa/8npHYY5cwXNF1+27CG7wfaeEoD86ohEqnukcb5BtUvO7yLGGPT1FSakUf9b95savaDHDQ
- 48J3/vfeH9HEU7THe9IdVTzFGFEZCQamYrYCA/dkcc9Ba3fMbJhJiWd6yXSueej1R/H/jm0d34t
- 633FWGP86kmFzarMQXxJcNsP0IMtCM02qoW1TN0rPTFHOzlA16p6cgHvrJm95lWm0j/lYcXDkZc
- FajeSlJPG5eUtcA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1123; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=96od8SnVSYMiavrRwbh7Ehk1YxWlsQuy9Uk4ZKu5YoI=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqmqE6a7RpJI/GCW4mTGRJ87hxtCRDZnRUuKBN7
+ pMhWoYQXcOJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapqhOgAKCRDdI6zXfz6z
+ occEEACxZ8dNEU7BnEN2Ha6fyLYWa+f1AwIxLCAG071sdb02B+kE1t9bISlQZt9JywhEH3ommb6
+ efRnWfcpz3n38v0h0WnFrjzBJgURRzhc3NWBBpF4on5vJuXUFd14lhkleafdS1eTlcX+2jhKsX1
+ seoHP+vg0Ks6FKmpTL0OKgtrKgy6ku+wkPNhK2pUylTPM4v6NP9j5OEKOCJ2TkFjwRUx1/i6viq
+ j2hDpWCI+onyBKR5P5Lf90rVaBhYDO8zZpivHAvfwexg/kCj+UCVg0GE6cwNIo6e3AOYZS4fYUC
+ E9H4MftsWwewlBj1Zq2KjRC3hyTfWS5DLPp59ZRTbgeLWg8iA5wuGJ/ED+CIHYUvticQ93nMVA1
+ n7gvWqthSmuAunsNZx8nmg0jwJYFVmG38lGOYm2wYbwE9brDWT2neM6V2lM3zvfaNDffWqDy3mq
+ hYEZq1xglKDRgNdZ+JPDMHDHHc0dL+1HqbX46xkB0bO/vni8UXpBZTLR/vikYgRGc6l+a0/Bxs+
+ 6/BcZttVbk+FEyNWKKHRCbF9oeSxsA6iPh/5W7ER4DU5e8yF0DlSE0KEpIkxMbhHTPVwqvQewrW
+ zHc6+V4hT2sFlQ1D1Y7fcOVlrGyML932LvpQOio2aw9cbloake8bpTwzaOZi7hyrxZ99VMjAQLt
+ EEsWSIg7v53KUNg==
 X-Developer-Key: i=treding@nvidia.com; a=openpgp;
  fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,32 +113,22 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Thierry Reding <treding@nvidia.com>
 
-Add the memory-region and memory-region-names properties to the bindings
-for the display controllers and the host1x engine found on various Tegra
-generations. These memory regions are used to access firmware-provided
-framebuffer memory as well as the video protection region.
+The video protection region is a reserved memory region that can be used
+for secure video playback. NVDEC can access this region to decode images
+into securely.
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
-Changes in v4:
-- typofix
+ .../devicetree/bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml     | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Changes in v3:
-- document properties for VIC
----
- .../devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml |  8 ++++++++
- .../devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml  | 10 ++++++++++
- .../devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml   | 10 +++++++++-
- .../bindings/display/tegra/nvidia,tegra20-host1x.yaml          |  7 +++++++
- 4 files changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml
-index bdf981781bd5..fdd3fe9e2547 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml
-@@ -68,6 +68,14 @@ properties:
-       - const: dma-mem # read
+diff --git a/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml b/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml
+index 4eb325cfd296..bcaaabca945d 100644
+--- a/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml
++++ b/Documentation/devicetree/bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml
+@@ -60,6 +60,14 @@ properties:
+       - const: dma-mem
        - const: write
  
 +  memory-region:
@@ -148,69 +139,9 @@ index bdf981781bd5..fdd3fe9e2547 100644
 +    items:
 +      - const: protected
 +
-   dma-coherent: true
- 
- additionalProperties: false
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml
-index ce4589466a18..881bfbf4764d 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml
-@@ -57,6 +57,16 @@ properties:
-       - const: dma-mem # read-0
-       - const: read-1
- 
-+  memory-region:
-+    minItems: 1
-+    maxItems: 2
-+
-+  memory-region-names:
-+    items:
-+      enum: [ framebuffer, protected ]
-+    minItems: 1
-+    maxItems: 2
-+
-   nvidia,outputs:
-     description: A list of phandles of outputs that this display
-       controller can drive.
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-index 69be95afd562..3bf06dcd6198 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-@@ -65,7 +65,15 @@ properties:
-     items:
-       - description: phandle to the core power domain
- 
--  memory-region: true
-+  memory-region:
-+    minItems: 1
-+    maxItems: 2
-+
-+  memory-region-names:
-+    items:
-+      enum: [ framebuffer, protected ]
-+    minItems: 1
-+    maxItems: 2
- 
-   nvidia,head:
-     $ref: /schemas/types.yaml#/definitions/uint32
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-index 8312b7699cbe..420a1fe5ee80 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-@@ -98,6 +98,13 @@ properties:
-     items:
-       - description: phandle to the HEG or core power domain
- 
-+  memory-region:
-+    maxItems: 1
-+
-+  memory-region-names:
-+    items:
-+      - const: protected
-+
- required:
-   - compatible
-   - interrupts
+   nvidia,memory-controller:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
 
 -- 
 2.55.0
