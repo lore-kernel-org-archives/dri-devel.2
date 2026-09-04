@@ -4,135 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0421CC61DD6
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 11:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B79CC61DD6
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 11:16:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D38C10FAAE;
-	Fri,  4 Sep 2026 11:14:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B45DD10E1AC;
+	Fri,  4 Sep 2026 11:16:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="n8YBBjFt";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="FnmN2lfn";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022123.outbound.protection.outlook.com [52.101.96.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4771310FAAE
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 11:14:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W1QLi0ydEVGvUa08AeVqkWhss9eX3Xu6+HaeTGrigQiz9HsOhdZx28q0jlAxtD7WJj6scFeccoTyKXfDJZz4u55OVLm+GaXAHwkVU/Em8dgC4bAqpJXF+FrvwYrCUP9fC9FPcZOxK8Tr4k4RdjYG70IfnwXftA2iYiQa5YfO4FsUtdVfRRrCx9x36GUyM2+OKMV5461CwQC0B01yrwp39VWHhIm97hzMRdUi8kQqh0Zae8XVaUs/hx/EjyvKpcU05XfTvuIu3LAOmgPsKTP1LlrT/M44urYkzE9KI8BjMBWI5ODmXlu6PgB+XC7ShakKuuyMNHf3Bq4smI6ZcOKidQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eZCYVPdjMlmHz3zVmHR1qRwFzk2IfgQwat24X/cHyZ4=;
- b=tcZDrfIh6TfiYDFLOZmotrV4xMOuA7eJfqdOuc4bhpbhGxjVLdTemVj557Mp9OQbvkAGaIchZZfeHoJkwjwgcOzGtdihjFFXiWdPpXrmQN39cqx3x84Al0KB/nTPsvWaMK+h8n0LN3o6IpZJuHgJxQU473V2AOG3eZQ3LkOIkhPKbyfsgesvSI24S9JTmoDq1nrID9IpLO+1IlMho2G1XIzlcsbX8OG83lP143oZaGa8y4d+fFCuFPML/i1MejwSe184nbdYmSPm0ZRRAv0YXPlmahTdKTRrW7hw3fXT5TbFh5o4FuAb9/uTjNqAvB8Pv4anaUAiDxgBhd5uRZTNnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eZCYVPdjMlmHz3zVmHR1qRwFzk2IfgQwat24X/cHyZ4=;
- b=n8YBBjFtouuCcNvWGXVeaAtsu6i1mNNiW+OLn2/lThD0R7uBk6bN9iSZaCVdK6vpmG4fCtl2PmZ+qN2D3RJmjmoO40ThvKsdo0Il2MUyDG3V6EWQ3exyBfPb7s/YOItHUoLVA8MkzZpew4NZTey98MVSUZCYjTZp0+vkkwZPg0Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB9383.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:29d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 11:13:59 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 11:13:59 +0000
-Content-Transfer-Encoding: quoted-printable
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12E7210E1AC
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 11:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=X59egMSYDD+fE2fzFBggAtOS3MUTfnxcCwKe29Q8yD8=; b=F
+ nmN2lfnW3b9tBbPbd/9jZ97NII9zPXTJftpLtim88qJA1A3Svuhzip3AJadw2v3G
+ STJF196aHB3EL21x5KWIFwAqhZmIRd9Vc8jEYTmxE8WlnDUwxmbdBD0gcfhI5ayS
+ 6jo9KfZS79BAi+p8CX8KHSJxHScHunmn+2rgi0CYgc=
+Date: Fri, 4 Sep 2026 19:13:03 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Johan Jonker" <jbx6244@gmail.com>
+Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ andy.yan@rock-chips.com, hjc@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [RFC PATCH v1] drm: rockchip: add
+ drm_plane_create_blend_mode_property
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <a239b296-ba90-45d1-b8b8-713ab29fda5c@gmail.com>
+References: <1ab6fb88-3b84-49b5-aa05-202a84edbd3d@gmail.com>
+ <25031028.6Emhk5qWAg@diego>
+ <a239b296-ba90-45d1-b8b8-713ab29fda5c@gmail.com>
+X-NTES-SC: AL_Qu2TCvmZv0sj5SSfZekfmUgWjuw/WsG1v/Ul1YBSP556jCHrxzoRdHxjAkDS7+6eBDGRrDGqWTZt7uBVZIN9ZLsi34t6cze7ZrnBPpeLFqZdGQ==
+Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 12:13:58 +0100
-Message-Id: <DL6HKYRXHNFK.1D9HYNEPH4GCR@garyguo.net>
-Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
- <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alistair Popple"
- <apopple@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
- <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal>
- <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal>
- <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-In-Reply-To: <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-X-ClientProxiedBy: LO6P265CA0024.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ff::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB9383:EE_
-X-MS-Office365-Filtering-Correlation-Id: a88e6c11-4006-4e06-245c-08df0a759e45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|23010399003|10070799003|3023799007|4143699003|22082099003|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: 6wtNu0tYtZ0cXriZ8WLPDvTBoWJ5ijxHP2pmyke3J35SA7VnXU7XpLbI6XbZpHcrj5wVTJJP+oehlWOxMOGmqU9oqCipuxpEE5eiY/AUcsXYwXIfdopRQhB++zId4SHcYKsyu1iZnlAyVmvlp0YSapGzE+L593FskePF2aQg48JmopUvbQxcX8XqEau+X5FG5mN2Q10o/6pwDl7b9JYG+DEBNfWL676WFmz6LsV0o2bC4fq2E/KG3l1vjJKj7kKakU8eh+9LlBqD9SawhCAeW+rungS3jr/L80MxlQgK2awbgtOhad6sFMFRqQPG/6xpNOL24BJC2ZPPZVOq9EfK8yuWwzfezrvqv3O6KFQT4HiYx+/0LcP+2UCWU2T+fuIkabvFbnH4zS0SWMuithumf1jTIM2jaTPRmYmORMaQKcIGm136dgVhTBUrChHnBYF0aJUuZJV3XLFK1Q38RY1Q91cTQSNpXOSvjGJZTSC3tP0oFOxwKhaH7XILGRx94CB5J/k/sVVL0oEIVkGZ5Cb+ddMcNrBi/DlydDSrjaJYcGIuo6xye9P3WL/vi3f5NGaF++flSO7iouhf7/vAQItt7WO3YBMf9STNgqSSU/7SxQdk2XUlBxPzsF1YXNm6+AuaP8CXI/BXrtxCnRgLxRg2eJF0Nh9v+yBPPZ/R3q0FNWs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(10070799003)(3023799007)(4143699003)(22082099003)(18002099003)(56012099006)(10067099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2RmOFR6SGhGSmJjMnQ5Q094aWd6bmJ2MWZ6MjRGdVdMenY4WDdvNlczODVU?=
- =?utf-8?B?Mmk1dndSTUVBOC90YmRNQjI5U1pMTUNqUHhONnAyZkE0ZE5yUnNxeW1aOHBW?=
- =?utf-8?B?S2t1cjIyZGtXTjByRVU2T0NPTWZVRGNPT3UzalNIalRYMi8zbEVBSXBRczhS?=
- =?utf-8?B?QlJOOC9sZjFXWTNzejVFWWZFL1hhZWw4YlNEb1JrSUFCejBHaW92VWpsdFRI?=
- =?utf-8?B?cUs0V3lUYzk3OHAzT2xyNmN1MWlmRDZML2ZFa2hYamZ5Und6NXVBZ0xUb3dz?=
- =?utf-8?B?Q1pXSlJhVWI0ZFowT2RiWU9LcnpMUFExYmxCY0tTZ1A4MG9zRVhwenoyY1My?=
- =?utf-8?B?N0dxaU9hdlZhdFk4Zm41amdTcXkrbSsvNnJ4dFBJWUhxKzNpYm56U2lsaThF?=
- =?utf-8?B?TkpscDBDZmVQSi9jWU4zR1Y2SExHRHBNc0VRcFI0Q09ucFdVMFNvQlAyZXli?=
- =?utf-8?B?QWdsWTREUDZMdVZ2bVFnMjhQaE9Xa1hyUUM4ekpwWTZnM0hla0pJU3d4QTFj?=
- =?utf-8?B?TGh5bnVaTlNvQVFRZS9POEM4a0xPeWE1QXdLNlZCR01mTERWcWE3QlFxTmFM?=
- =?utf-8?B?Zkc5dWlKem1kenJoRld4b0Q3R2JKUzJjVEtMSUpuaFpHU2VkaHBJTG1QUk45?=
- =?utf-8?B?d3FnSUFtMDRNazlBUHB1VHc3T2tpc21KRkVoWWtyZzlFNklvbDRQOEF5bzVo?=
- =?utf-8?B?MVlBQmExelpwK3pMcms1YWFFRWloNXdBZEljU3VHSGh0ZEhTR2o1b1hRbWdD?=
- =?utf-8?B?MlBoeXIxYVBtZURKK2QwbXAwZWhwejgyWnBDMmxrTndkRlRGTFVkVnJ2Z05m?=
- =?utf-8?B?TTJwYTVVQ1ZYV0QrM0g2Y2MvWExwcGhZaEVPOHdWV3ZER0ZqOEdFeENFNmNZ?=
- =?utf-8?B?cTJ2SlRuSlNmRmxxaUJIQVB2dzBKTnZTaFFtM1JaM3Y4eXRYU3ZwL25EbURB?=
- =?utf-8?B?VHN0WVN2NjI2TThxOEVlWFV2YTNIUHFMUWh2ME0rUmRhK2ZKTTZRVnUrR3I0?=
- =?utf-8?B?Ny9GeHAzemlpMGQ4RElMZ2VENXFjc05PQXZnM3l3SWllT1UxRUNJRzlGTWpE?=
- =?utf-8?B?NStOWityZUFwc3lMSWtwOTFkVDVuc2JPMWRkWExXbW4ydkEwTWpzNWtNYlpu?=
- =?utf-8?B?Y05nTHVmZyszRUl5bDhXVDdFRVF2SEY5bDF3c2hvdUhvdjVRaGZZUm0zWlho?=
- =?utf-8?B?OHNQYWx5ZmtUdEZ6cXkzMXpBdzJpaGRGUjM5aWxldS9CSU9IRjRTcUVibW14?=
- =?utf-8?B?RGtWRVlwdWt3c0V1YWIwZVFEQnlEeWtzODJkU0x6bFlxNkE0OVBraEh1bGd2?=
- =?utf-8?B?SFNoWk5palJwbTBvbW9jUkRvdGFUUmtKY1hBRVBxeGsvNkhtdWNhNVI5Szcr?=
- =?utf-8?B?dHVKSzVXZjBQaDNFcW1RL0xTZnlFdElJV0oyTytlNlNsaVNQQmVBRjVNUFRw?=
- =?utf-8?B?TmJvR1I5ZjNXbFQwMGtZNTBDOGpZeEttTWl4WmJxcmYwTlBJZnE5Wk43MUhX?=
- =?utf-8?B?a3htRUo5QnRja2JWNVdNL2hXRGdrV2E2dUtRVjA4ekl5MnlwT3hndWp2NzBa?=
- =?utf-8?B?d0hWUENoM3Irc2VUTzRzeVZ5Qk0zbVR2M28ydXEwcWlPMUZwM0Y0eGcvM2V0?=
- =?utf-8?B?d1pkMXFUYi9LL0I3aFVQZ0JXUEhkS0VoZ2l0bUQ4L2hrNHJ2N0h2T0NxN3N0?=
- =?utf-8?B?OWRscHVnSm9OTXNDZlJxNmxqU3F3ZjJQRFh1YU02dWE3aXpLWDN1UUFRT3k5?=
- =?utf-8?B?bU1FN3kyRDIvUlVTT1FqMGhha2VXWSttOWEycVdmSGZ4aTNLY2htZ1NiK1Vz?=
- =?utf-8?B?OXh1c1ZKdnR0bDRXSElwSGtYUEZJb21rYytvb0YxQlZvT2VXbmlVRDdydlZn?=
- =?utf-8?B?eGNqSG5JSktDa1d0U1NhMmE5SU9sRGlWWWw3NkhtcDNvWXNzaVZxb0tPQ2hB?=
- =?utf-8?B?bU5SbjdTb0Qvb0dTbjRVMmMyZWoveGxYajVMZ2hncEdEbG81ekQyWDk4TU5z?=
- =?utf-8?B?Q2hwZlFnWWs5c3RBcUN4ZEZsS21OZFNFaExmb011M000RWQ3U05UZDJCdlVi?=
- =?utf-8?B?bHdDKy8xdW1qV2F6N3JTeDdkQnltSjd6a1k5RFR3Y0dDVFFtZFZNNmxqMlZv?=
- =?utf-8?B?NG5KUVFSK0hkWE5ETXhncXVxeHdmRDFwbUhpbS9IdkVQVk83VkpyS3lOcGU3?=
- =?utf-8?B?djR4bi80T3Y2dHYyYUx3cnhSdzdMSzREcFNtenJlZmNDaWJEL0x1VzA2YTBS?=
- =?utf-8?B?enBkb0JkQ0Fvb0tsYklEMGQ1RlFHenh6Nm5CWnFBMXZoaTYwbUlIejBPakVR?=
- =?utf-8?B?STk3ZURPblpDK0UrRmJMZmUwaUk2THZuUG4zMHNBTi90WGQrUnJ6Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a88e6c11-4006-4e06-245c-08df0a759e45
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 11:13:59.3787 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JR0aztBHR3LOUqmYUibtSIYv2JZunkkcKlnhpagJL88ilmohHoBFCmfChBhHHAJmxWgj5w4n6Hxf9b7F/0vgkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9383
+Message-ID: <3ff2201c.8fbe.1a06c1f43f5.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: lCgvCgD3X9y_p5pqQtI_AA--.6224W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7h9auGqap7-zwAAA3I
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,81 +63,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 3, 2026 at 11:42 AM BST, Danilo Krummrich wrote:
-> On Thu Sep 3, 2026 at 3:12 AM CEST, Alistair Popple wrote:
->> Originally I thought the point of providing the decoded arch rather than
->> chip-id
->
-> I think there never was a "rather than". The point was that if userspace =
-has
-> conditionals based on the architecture it shouldn't have to figure it out=
- based
-> on the chipid, as this has been done by the kernel already.
->
->> because as you rightfully point out the kernel doesn't (currently at lea=
-st)
->> care much about the implementation
->
-> I still don't see how that value will ever be meaningful, there is no suc=
-h thing
-> as "all GPUs of a certain implementation regardless of architecture" have
-> something in common, is it?
-
-I don't think it's an issue that implementation field is only meaningful wh=
-en
-you get the architecture. That's pretty common for other IDs, e.g. PCI prod=
-uct
-ID is meaningless without having the vendor ID.
-
-You mentioned in an earlier email about the typing, but we could still have
-meaningful impl IDs fully typed like this:
-
-    pub enum Arch {
-        Turing(impl_id),
-        Ampere(impl_id),
-        ...
-    }
-
-and some langauges can do better, e.g. TypeScript allow you to write
-
-    enumn ArchId {
-        Turing,
-        Ampere,
-        ...
-    }
-
-    enum TuringImplId { ... }
-    enum AmpereImplId { ... }
-
-    type Id =3D
-        { arch: ArchId.Turing, impl: TuringImplId } |
-        { arch: ArchId.Ampere, impl: AmpereImplId };
-
-So I think it's a reasonable design to have it.
-
->
-> But since you say "currently at least", are there any plans to give this =
-value
-> some meaning beyond being a unique counter for chips within a certain
-> architecture?
->
-> If so, I think that'd be a horrible way to encode some chip commonality.
-
-True, but I think the chip ID is as bad as impl ID. Feature detections shou=
-ld
-use dedicated featuire detection mechanism, not looking up IDs directly. I.=
-e. we
-should have userspace not having to use either chip ID or impl ID as much a=
-s we
-can.
-
-That said, I do think looking up tables are unavoidable, for getting names =
-or
-applying some quirk fixes. And I agree with Alistair that if we include it,
-including impl ID is better than the chip ID, as we should rather not havin=
-g
-user space relying on an arbitrary encoded chip ID.
-
-Best,
-Gary
-
+CgpIZWxsbG/vvIwKCkF0IDIwMjYtMDgtMjQgMDU6MDY6NDUsICJKb2hhbiBKb25rZXIiIDxqYng2
+MjQ0QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPgo+T24gOC8yMy8yNiAyMToxOSwgSGVpa28gU3TDvGJu
+ZXIgd3JvdGU6Cj4+IEhpIEpvaGFuLAo+PiAKPj4gQW0gU29ubnRhZywgMjMuIEF1Z3VzdCAyMDI2
+LCAxNDoyOTowOSBNaXR0ZWxldXJvcMOkaXNjaGUgU29tbWVyemVpdCBzY2hyaWViIEpvaGFuIEpv
+bmtlcjoKPj4+IEEgdmFsaWRhdGVfYmxlbmRfbW9kZV9mb3JfYWxwaGFfZm9ybWF0cygpIGZ1bmN0
+aW9uIHdhcyBhZGRlZCB0aGF0Cj4+PiBmaWxscyB0aGUga2VybmVsIGxvZyB3aXRoIHdhcm5pbmdz
+IGZvciBSb2NrY2hpcCBWT1AgdmVyc2lvbiAxIFNvQ3MuCj4+PiBBZGQgYSBkcm1fcGxhbmVfY3Jl
+YXRlX2JsZW5kX21vZGVfcHJvcGVydHkoKSBmdW5jdGlvbiBhcyBmaXguCj4+IAo+Cj4+IFRoaXMg
+aXMgbWlzc2luZyBleHBsYW5hdGlvbiBvbiB3aHkgUElYRUxfTk9ORSBpcyB0aGUgY29ycmVjdCB2
+YWx1ZS4KPj4gCj4+IFZPUDIgc2VlbXMgdG8gc3VwcG9ydCBhbGwgMyBibGVuZCBtb2Rlcz8gU28g
+YSBzZW50ZWNlIGV4cGxhaW5pbmcKPj4gdGhlIHBpeGVsX25vbmUgdmFsdWUgd291bGQgYmUgaGVs
+cGZ1bC4KPj4gCj4+IAo+Cj5IaSwKPgo+SW4gdGhlIHZvcF9wbGFuZV9hdG9taWNfdXBkYXRlKCkg
+ZnVuY3Rpb24gdGhlcmUncyBhIGNvbW1lbnQgd2l0aCB3aW4wIGJsZW5kIGJyb2tlbjoKPgo+CS8q
+Cj4JICogQmxlbmRpbmcgd2luMCB3aXRoIHRoZSBiYWNrZ3JvdW5kIGNvbG9yIGRvZXNuJ3Qgc2Vl
+bSB0byB3b3JrCj4JICogY29ycmVjdGx5LiBXZSBvbmx5IGdldCB0aGUgYmFja2dyb3VuZCBjb2xv
+ciwgbm8gbWF0dGVyIHRoZSBjb250ZW50cwo+CSAqIG9mIHRoZSB3aW4wIGZyYW1lYnVmZmVyLiAg
+SG93ZXZlciwgYmxlbmRpbmcgcHJlLW11bHRpcGxpZWQgY29sb3IKPgkgKiB3aXRoIHRoZSBkZWZh
+dWx0IG9wYXF1ZSBibGFjayBkZWZhdWx0IGJhY2tncm91bmQgY29sb3IgaXMgYSBuby1vcCwKPgkg
+KiBzbyB3ZSBjYW4ganVzdCBkaXNhYmxlIGJsZW5kaW5nIHRvIGdldCB0aGUgY29ycmVjdCByZXN1
+bHQuCj4JICovCj4KCiAgICAgQWxsIFZPUCAxIGRvIG5vdCBzdXBwb3J0IGFscGhhIGJsZW5kaW5n
+IHdpdGggYmFja2dyb3VuZC4KICAgIEFsc28sIHNvbWUgVk9QcyBkbyBub3Qgc3VwcG9ydCBhbHBo
+YSB3aGVuIHNjYWxpbmcgaXMgZW5hYmxlZCwgZXhjZXB0IHRob3NlIG1hcmtlZCB3aXRoIFZPUF9G
+RUFUVVJFX0FMUEhBX1NDQUxF77yMIHNlZVswXQoKWzBdaHR0cHM6Ly9naXRodWIuY29tL3JvY2tj
+aGlwLWxpbnV4L2tlcm5lbC9ibG9iL2RldmVsb3AtNi4xMi9kcml2ZXJzL2dwdS9kcm0vcm9ja2No
+aXAvcm9ja2NoaXBfdm9wX3JlZy5jCgo+SW4gdGhlIGZ1bmN0aW9uIHZvcDJfcGxhbmVfaW5pdCgp
+IHRoZXJlIGFyZSB0aGVzZSBibGVuZHM6IAo+Cj4JdW5zaWduZWQgaW50IGJsZW5kX2NhcHMgPSBC
+SVQoRFJNX01PREVfQkxFTkRfUElYRUxfTk9ORSkgfAo+CQkJCSAgQklUKERSTV9NT0RFX0JMRU5E
+X1BSRU1VTFRJKSB8Cj4JCQkJICBCSVQoRFJNX01PREVfQkxFTkRfQ09WRVJBR0UpOwo+Cj5NeSBx
+dWVzdGlvbjoKPkNvdWxkIHNvbWVvbmUgd2l0aCBtb3JlIGtub3ctaG93IHRlbGwgdXMgd2hhdCBW
+T1AgdmVyc2lvbiAxIGlzIGNhcGFibGUgb2Y/Cj5JcyB0aGVyZSBhbnl0aGluZyB0aGF0IG5lZWRz
+IHRvIGJlIHNldCBsaWtlIGluIG90aGVyIGRyaXZlcnM/Cj4KPkZvciBleGFtcGxlOgo+CQlzd2l0
+Y2ggKHBpeGVsX2JsZW5kX21vZGUpIHsKPgkJY2FzZSBEUk1fTU9ERV9CTEVORF9QUkVNVUxUSToK
+PgkJCWJyZWFrOwo+CQljYXNlIERSTV9NT0RFX0JMRU5EX0NPVkVSQUdFOgo+CQkJYnJlYWs7Cj4J
+CWNhc2UgRFJNX01PREVfQkxFTkRfUElYRUxfTk9ORToKPgkJZGVmYXVsdDoKPgkJCWJyZWFrOwo+
+CQl9Cj4KPklmIHNvbWVvbmUgY29tZXMgdXAgd2l0aCBhbm90aGVyIHNvbHV0aW9uL3BhdGNoIHRo
+YXQncyBhbHNvIGZpbmUsIGFzIGxvbmcgdGhlIGtlcm5lbCB3YXJuaW5ncyBhcmUgZ29uZS4KPgo+
+VGhhbmtzIQo+Cj5Kb2hhbgo+Cj4KPgo+PiBIZWlrbwo+PiAKPj4+IFNpZ25lZC1vZmYtYnk6IEpv
+aGFuIEpvbmtlciA8amJ4NjI0NEBnbWFpbC5jb20+Cj4+PiAtLS0KPj4+Cj4+PiBodHRwczovL2xv
+cmUua2VybmVsLm9yZy9hbGwvMjAyNjA1MjYxODE3MDAuMjUzMTAtMy1sZWFuZHJvLnJpYmVpcm9A
+Y29sbGFib3JhLmNvbS8KPj4+IC0tLQo+Pj4gIGRyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2Nr
+Y2hpcF9kcm1fdm9wLmMgfCAyICsrCj4+PiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
+KQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBf
+ZHJtX3ZvcC5jIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL3JvY2tjaGlwX2RybV92b3AuYwo+
+Pj4gaW5kZXggMDA5MGQ4ZmYwYzc5Li4wYmM1YjYwNmYwMjEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCj4+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCj4+PiBAQCAtMTg1MCw2ICsxODUw
+LDggQEAgc3RhdGljIHZvaWQgdm9wX3BsYW5lX2FkZF9wcm9wZXJ0aWVzKHN0cnVjdCBkcm1fcGxh
+bmUgKnBsYW5lLAo+Pj4gIAlpZiAoZmxhZ3MpCj4+PiAgCQlkcm1fcGxhbmVfY3JlYXRlX3JvdGF0
+aW9uX3Byb3BlcnR5KHBsYW5lLCBEUk1fTU9ERV9ST1RBVEVfMCwKPj4+ICAJCQkJCQkgICBEUk1f
+TU9ERV9ST1RBVEVfMCB8IGZsYWdzKTsKPj4+ICsJZHJtX3BsYW5lX2NyZWF0ZV9ibGVuZF9tb2Rl
+X3Byb3BlcnR5KHBsYW5lLAo+Pj4gKwkJCQkJICAgICBCSVQoRFJNX01PREVfQkxFTkRfUElYRUxf
+Tk9ORSkpOwo+Pj4gIH0KPj4+ICAKPj4+ICBzdGF0aWMgaW50IHZvcF9jcmVhdGVfY3J0YyhzdHJ1
+Y3Qgdm9wICp2b3ApCj4+Pgo+PiAKPj4gCj4+IAo+PiAKPgo=
