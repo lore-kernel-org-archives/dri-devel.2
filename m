@@ -4,83 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A39C624DE
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C95C79F87
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 12:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4A810E54E;
-	Fri,  4 Sep 2026 12:47:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B509E10E192;
+	Fri,  4 Sep 2026 12:49:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PFMFSCK+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BzwTH1yn";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D6010E1C7
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:47:27 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4956d1d9fb2so906015e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 05:47:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788526046; x=1789130846; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=RkSNe1iKI6tZKILRaV1iEvBVwUEOpWWRfifGPFlO+mE=;
- b=PFMFSCK+a1cmTlCIEvc8UTY53vUFwEpEyld/48Ml8AMOjCsVteqlaI/sPSzAmj0xkU
- BD672xo/48yzlI4+PNk3XpjuwY/kiteHmK946MIFPD/90a0TbcIojL/Eu6FD62aBh0LD
- 9gno8kx9JVTnzxF93Wpl5mfolMlzJil3tfmulVyuCSOdCgT015W1UhHyUOyjSdBVj0dk
- u7SS0ERjqGGv0PYaKt6AQZnTzDx1Oo3a1YVoSnQYRiiAMWTn9mwQtXUbuB9l5lFy8hB6
- Z9nZVezjldxPEdEOTqRE1oRd7D6TeSTlSPXK9LJSz7aC+dFFM+ifDxIaKrRRkhxOcwGF
- sn7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788526046; x=1789130846;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=RkSNe1iKI6tZKILRaV1iEvBVwUEOpWWRfifGPFlO+mE=;
- b=QK/6BBzSp4wMcQQl9SS504Y1Kr8MtidHy/51xMAsqZWkwzDl5JhfEaGr1OX2CSabeM
- jfFf7ZSBt97i9QuBVOJiNBloSicPbq6/qUoQnnv9OkJgGLdAAN/aTS6XUjQkaKJ9q+gP
- uEAwu0V9VrOkgy1rvnR+b+4p8KbpmCpkBrNloS+cN9QWRY+aFWrutqlOoRlKQhCAIyIN
- gyJ49B9seLtWBt78OekZsqsmIgzdwxH6KDj1eYvMTP/mSO24i8y0qfwZnktmYXR2nvWq
- Uh4NNSAOAmu79zub4rWNP5H0vGzJhDqAq56Qx7JaPmdspuGG7eSP/O9WM4upHujeeNLA
- lciQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx4dVa9CluhL/UVnVdH6uj0Wcl601vwV2twmq+dXzPF7zHxivP4kzczqzszhwGuLv5E/9vphNDCW88=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mlvp9X+TCsUAueCtOiUOKCLGv7RZGllmy9JmYBDfF9KridytSy
- wOJaOV1v82p7wnpeTbhNMDnteGAHDhlBXvdieR1pEtTlQgThu85s7vp2yFydNQ==
-X-Gm-Gg: AYBFou1Em+qZzbUJv5qcGJMbQLeJtSampgOQSZoB+93vOSFU0hxYITn4uhVVgx4G+Y+
- 9ij5O0W1Bv3GeR5b3T/hxMmQPqAHm3fQC5OO5VeeYK7QOE9jnlo0WZcLIJ3ZnZzcWWjXRWLS3F9
- QzzM4s8y10vT77Sbq/GES2AOFRl4rwqZbv5/X21Ah8yrLCTP6B+CP0W2CvBn6wAuT55XNm0N7wk
- QS+1EVfDNWJskDe+6nYQv+XbR5boL1X3+fiKzrZCAifWAeZPRIdKbnymuoppE04YgyLtHJFCnTv
- Ym6Qhhc2ur6s9eE1ELNN4RlDxDrR4RvTL6VwjxtUSsx4Ev6jc/dSDOEzExCR3H2c+3rnT/X1g/W
- SMzP1/PsfNcfvZSpSZKmQ37jBvtfmhDCEqIUDP32Dacvwi3anRrTC1r+CCiYZTT6GwyG2jGGlXV
- xDevlVseHamBdPM/dTLIMLVqlG3/ySU96pZhfxSdo8iEANuUwJDX2pcZJyPBHrXdtNk2Y5OC3sR
- F1yzlHNqUn5QgeOXkwdNEYTO7BC7UldrqcD/auU1qhKpGXbMUMXcYjPww68tI6fxjk3+A==
-X-Received: by 2002:a05:600c:a40e:b0:49c:f9b8:bae0 with SMTP id
- 5b1f17b1804b1-49cf9b8baffmr32943645e9.2.1788526045880; 
- Fri, 04 Sep 2026 05:47:25 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu.
- [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cfd3f815bsm21924425e9.4.2026.09.04.05.47.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 05:47:25 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>, tomeu@tomeuvizoso.net,
- boogiepop@gmx.com, nicolas@ndufresne.ca,
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Fri,  4 Sep 2026 14:46:55 +0200
-Message-ID: <20260904124659.25971-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904110853.85150-1-gahing@gahingwoo.com>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <20260903091646.7183-1-royalnet026@gmail.com>
- <20260904110853.85150-1-gahing@gahingwoo.com>
-MIME-Version: 1.0
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7089210E192
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 12:49:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r7DjadXFhpBIeM8OTCNUdfA96x1EwhKcItYLY4BsajkSXmB45upuQauxAnxq+zn0h8DnAiDLN3FKqlC1t14MzkD/dsIOjotflFtIJ05xlqe+JfID97t7swN6yn4Tut6IxmWZ2utcWdC+azmtGsJ9dKfWX2fg8QTVcWOqTog6K6vNtr6SFnJZo+B5sZil+ndAcbh6mUQNu4Tx4K7Gu69iyHbVsurgzWVNNOmHlJGHQ5J+az6zB5NMRwx3fIKcNuvWM9S3XoOwfY5DWmFnrtE+vWs5QTH0SSh7iDFWkchJPJbO5danoyyeqQsTu4ttttY2Clz5+hxNH8m9NzCygVcX3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H4XuDC/lTC3PIjDLLTdbN07wZImRwe+rJH157WUOK44=;
+ b=lDw0Rt7q4V9Gv3U11/QJiIOaw9rqJQSVO/xi+wz2kkv2cr0OBuImhgs5gcDjYUnSkfGtag6wMyQ3a6gJ0ITunwwQKCIZSmPfBsFGAAJiHB0rvdyZugfOUWQv2r/2QwDzGCUV+7NkHIinRArnwpTxTOe2EjRRlC5siqre44pWnNLd9JBhWBn1q8okjOx2Y6uMA4N2im/z43RalVwuRxai0Z5I39iTacs2Y4L8q39x+YF3POy2pOczfzXdzLU9V0pp5X2uN/yqGAHyn60P3t2SDTHGBkXNIrTfGrdryEi7RA11JOsfohsTtobyYgGMb8a5mM4Dch+6lyhLZtreIDturw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H4XuDC/lTC3PIjDLLTdbN07wZImRwe+rJH157WUOK44=;
+ b=BzwTH1ynVpS8RuejRxr2/8wApEy5MgySwZU/52kOlDlCzw6LdGl01Rqc2+VOUOqP4/0Bgs8aESAEj6BHTBmNxPecvgVk5qF3RiyGMnUdsYIe6KPYpovaX0Mz18w9B21wx/dtjUwF7wdVQ7luLjY7ZOQiS/VHFu6l0p9B/JGd4xs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BY5PR12MB4210.namprd12.prod.outlook.com (2603:10b6:a03:203::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 12:49:05 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 4 Sep 2026
+ 12:49:05 +0000
+Message-ID: <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+Date: Fri, 4 Sep 2026 14:49:00 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: phasta@kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0009.namprd03.prod.outlook.com
+ (2603:10b6:610:b0::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4210:EE_
+X-MS-Office365-Filtering-Correlation-Id: 328d88eb-8c2d-463e-2262-08df0a82e73e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|5023799004|4143699003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: OtHxlPDUiIdBJuosSQBIZl2te2XG4tmDpxy1a2SSf8amcxkJIfHmJiYdBmuswT7cwKaGB8vweam0LUzDI9/TT320+0owJph1hm9EbBFgyv7PsjW6XdmACiSfIBZDCdNqfrYAi7nXJEhYgXmV/ZmiA+MG0jMuzXSFGX3PklWs/QPRfpy0m6mr1INGMzf+l0kGiwm75392alCG+kyBIG0F+4dpRBuDt2KQqnWNzmCFjHL7hzSLKA+aVPr4wAnF3Bps74lgVsS4dEJ00DGTbRyzLVu1llgULGtEQhmM6w/V6p8EPC4UClETbYGoXKdsY8bHjJ4Z0y0v5Kvc3ZU5NpnrLwa6F5ZH7bW3m5GfbkCZOtg2lSLGphgQhcJzi3tXR2HkFatoNSmrBChAWteM56iJDcilmFQb3WAuPyxEpYWvaOqCbg8sDeiPluEjfvElSpfj218CE8v/qH6jTGInedz40ySoK+j2bqWdp+KBb+wDNAh+NrgsLlPAcKphexgONuSZYXlr7ZbJ7eWnFhtLivkSBdXzCtSjbcNFznIS//R7f1YKYVwxVuSEVg5y+G921qZ/Wyw+y9/J1TbJCFY8mE9plxgMxg3jEwcdTc2WByoUc013Jl4oNmZGVR5aFf3MgEVpMVh3lDzaDlvqdXjqnNYlT4DQfRZimBKXjZIJE0omjCc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXdBa2E1NDd3dmY2T0NaNTROcENpTERJYktUOXhRMkRQUlQ1enArQ2Q5WXp0?=
+ =?utf-8?B?L09Pb3BGb3FGN2xsVHl0enFCM0kzbkdkZFpEZ1I3VHgySnFhUTdUc01nRm9Z?=
+ =?utf-8?B?TEk4NStCQTkrYnZkck9HS3phSUhBWGtPRytYNlFBc2xpTnYrZEw5WnhreTJl?=
+ =?utf-8?B?Y3JpV3NvNXNDbTJLQzRncnE5bFkvdDFZZ21zLzNMVTdrRGlJODk4WEk5aTA2?=
+ =?utf-8?B?QkMxMlc4QmkrUmx0UHRvWHp3YzhkbVhNbWNsN0ZzMzlBVGRBMVltWnY1Mmtj?=
+ =?utf-8?B?THNSTkVGVitxN01kU082SnRzTTR4ZHdLZzNGY2lnSjFsb0t5blFhK1FiemFz?=
+ =?utf-8?B?YXQ0S1pib1N0NytzS0FUd25aMEZvclZpdmlvU2FFVi9COXhQalI4bDY2aFV4?=
+ =?utf-8?B?eGlRcDAwTVozcnpLRkUrZllDODRrb3FydEFWaFBRZFlpVzNzeHA0L1U0L3Z0?=
+ =?utf-8?B?R21PaENZS2tORjUwMGZOaXBhcjVodUJsNDdNVGRXK3BXT0pnekFyTnh6SnFS?=
+ =?utf-8?B?SStPUnA2Tm1rVk1VNkUzRVJQRnVERU9DenJGVXRFVUZmei8zWnUremVzWnZp?=
+ =?utf-8?B?YTd6NUFnQlRRRVdleWFHL2IyZmV4Y2R2Ung4NlZsR2prbFlNOUJKR3J2WVZy?=
+ =?utf-8?B?bnpGZTh4ZFR5bVR0Y1N0UzNGOXVMY1kwTEFRZXhvbnZhemhTR3lVUVNTczNS?=
+ =?utf-8?B?ZGNheDF5ak1jNjFFREZ5QlZKd2o3aHk5KzhQcFlEaTFRQWFRdExqTE4vYU55?=
+ =?utf-8?B?YU1INDgwRGRITlhOZ0FpSmY4V3k0WGF5b2hJRFNQZWVOclErZXBhemJqaGtM?=
+ =?utf-8?B?ZENNRitUbDVhK21Td2lkRWtESUN6bmZCaFdFclFOREJwWUpacWlqWUtiSGVH?=
+ =?utf-8?B?dmJ0Z3MzeFcxZThxWUhmak5sWE1lOEpONUQwYjM2ZWprbzhHelU5UlRyVkpu?=
+ =?utf-8?B?bm9hUURBdGhoOUhBSG5nVzRab3Zlb2VTL1FlcnRQSmUwenN6Uy9EU1BXV2ZT?=
+ =?utf-8?B?UWdKMmkrMWRITlpQWDYxNlBrOERneFVtaDlYWUdIY3VURzY5dFFxWUR4SnRx?=
+ =?utf-8?B?RUVmOXNuLzh0WWxFaXZ0d1BnOGhabHRFY0ZJNk9mVEtpeTlaSXBIeXJLaW9j?=
+ =?utf-8?B?ekpoREs0SXBzcTR5ME43NzFJYXNHLzBlMmIzWWNRUUVIbkcwOXNaazI0MkxK?=
+ =?utf-8?B?WWt4WFhTMFU0eE9OTVdpNUZLRkRLUDdGN09GWHVqRzVvTENLb205cm1za041?=
+ =?utf-8?B?TE5GZ0JZbEkyVnBzMUVMZEg4QklPTDRUTXhtL3QvcFAzMFlVbE1oU0VVUE9O?=
+ =?utf-8?B?Z2xkQzlQWkI3WFM0YW1NYjBENmtiNEVqcTRRbUhOWGZiclF5WXBTaTd1eTkr?=
+ =?utf-8?B?MVUxMnVYOW0yUWltaDFXODhQVitoZW80SjczaEM4K29Ia09odHJCMnk0cUdI?=
+ =?utf-8?B?RUZzejJCZk1JL2pCOGpLQzF5bllwUXd6enIrak5FWWgwelRiYkNIc1ExcHln?=
+ =?utf-8?B?c1h6cUtNYUFobTF2VzhJQ3A3c01TR0c3b0U0VnhzQUVJdEc4NDRkTVhvdzJT?=
+ =?utf-8?B?aTNFZU5OUFlaN1MyOTRTZnlyaC9jajd5QmxXbkhjNCt6YTU3LytmVDVEYXFm?=
+ =?utf-8?B?d0g5clBuOG1EcmpOM1N2MlhWeXFvMVZlMU02Z2JPbUdaYWN3S0xkL2x2bUxl?=
+ =?utf-8?B?a0JEUnpBS0lscEVBeVp4UzVJZjI1Mmo3VTJFbGd0a0o1QVY5bEhXZTFuSThp?=
+ =?utf-8?B?eGkvb2pySkhTeGlBR0tOaVgvZ1NsdXZtM2hvT0JaUzNhTzIzaVNBZUJRUThs?=
+ =?utf-8?B?cmtDNHBNcDVrTmhCeCtMSWwyOVpmK1l0c2J1UWorVHYxTUxmTTJ2SUgxWnpO?=
+ =?utf-8?B?aFE2dGdXNENhVEtHRW9qVnRYaWxnQ3p6UysvaUlYdVhsMmNRVkthdGs5dmtL?=
+ =?utf-8?B?Y3ZSYzdWZEVyUUVzTlFnMXJvZHdzZW81NnI0TWpFcjBVdkU1MjVXc2RkRVE2?=
+ =?utf-8?B?ZHlYTmtyQ1BKcEZtRmJQbUJ0RzNXT1ZnVU14QUdSaUkwWW50V2phR1FvVHZC?=
+ =?utf-8?B?NTlrcFBoVXpnWG1DNU9GSng1eERCdTRoQVozblhXUEhRTDZTNElwRVJHcVg0?=
+ =?utf-8?B?QUNtU3hhZTVZNi9XUVE5MVVWU3drd3pXVWFXV0tTT2lTRnZTcHNOSmk5dmc2?=
+ =?utf-8?B?bmlqbDVYTlZIMjlYTU15QmU3alJyNUgvRFZsMWtXb2hwcWNEM1VpenE4ZGxm?=
+ =?utf-8?B?L01Rc0pJMUNnclJvb3dXOEpWSjVBbXdISWIwSVdoajRQaDEyZTk1a24vcGlx?=
+ =?utf-8?Q?85/+2RSJ/i60nE+U57?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 328d88eb-8c2d-463e-2262-08df0a82e73e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:49:05.3299 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6SCD7m7woH98Jg4Vrgb9mMex/lz4YOr+8F21v83v+DkWtTElzb50eyvbmUFnHpgP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4210
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,80 +141,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
+On 9/4/26 10:31, Philipp Stanner wrote:
+> On Fri, 2026-09-04 at 10:20 +0200, Christian König wrote:
+>>
+> 
+> […]
+> 
+>>>  
+>>> +/*
+>>> + * TODO: Both fences implement .release, so dma_fence keeps their ops attached
+>>> + * after signalling. Dropping the callbacks would let dma_fence detach the ops,
+>>> + * after which neither get_timeline_name() nor get_driver_name() can run against
+>>> + * a freed scheduler or an unloaded module - the complete fix. It first requires
+>>> + * auditing every to_drm_sched_fence() caller, since ops-detach makes the helper
+>>> + * return NULL for a signalled fence. See Documentation/gpu/todo.rst.
+>>> + */
+>>
+>> That sounds like a bad idea as well.
+>>
+>> Dropping the fence->ops is to detach the fence from the module which originally issued it and not solve lifetime problems between the scheduler and the driver.
+> 
+> It can be used to solve that problem though, can it not?
 
-> Your rows are one inference thread with a bit-exact oracle, so they
-> cannot see this class at all. Before the OPP table is settled, run
-> the oracle with all three cores loaded at 900 and 1000 MHz on 850 mV.
+Yes, but I think forcing dma_fence implementations to drop their release callback to fix lifetime problems with the driver and timeline name functions is a bad idea.
 
-You were right, and it stopped me sending. The series was packed and
-checked and I was an hour from the send command. Every number I have
-posted, including the ones in this thread, came from a single inference
-thread. Not one of them could have seen what you found.
+We should keep this fix simple and focused so that we can easily backport it.
 
-So I built the test I did not have. Three concurrent clients, each
-checking its own output bit-exact, on the two top rates of the table:
+Fixing all dma_fence implementations to not need the release callback is something I really like to have as well, but not to fix this issue here. 
 
-  900 MHz, rail 800 mV    3 x 199 inf/s, 598 total, all bit-exact
-  1000 MHz, rail 850 mV   3 x 204 inf/s, 611 total, all bit-exact
+> 
+> The underlying problem is that the driver has no chance to figure out
+> when the scheduler is actually done with all the sched_fences.
+> 
+> Remember our lengthy discussions about drm_sched_fini(). Maybe we want
+> to reconsider providing a function with which the driver can wait until
+> the scheduler is done with all finished_fences?
 
-Single-client control on the same rates: 232 and 240 inf/s. So the
-aggregate is 2.57x and 2.55x of one client, which is the part that
-makes the bit-exact result worth anything - the three cores really were
-computing at the same time, not queueing behind one. Kernel log clean
-through all four passes. Voltages read back from vdd_npu_s0 during the
-run, put there by the OPP core, not by me.
+The problem is that won't help unless we either add more checks or fix the checks in dma_fence_driver_name()/dma_fence_timeline_name().
 
-One honest note on how I proved the overlap, because I got it wrong
-first. I had the test sample runtime_status of the three cores and
-report how many were active. It said three of three, one hundred per
-cent - and it said that with a single client too, because this series
-holds every core resumed while the clock is raised. It measures power
-state, not work. The aggregate throughput is the real evidence; the
-sampler was telling me what I wanted to hear.
+The dma_fence object can trivially outlive both the driver and the scheduler instance it originally issued.
 
-So: on RK3588 the answer to your question is that it holds, at the
-voltages the table names. What I cannot tell you is where the edge is.
-I have not run 1000 MHz at 800 mV to find out how much margin 850 is
-buying, and I would rather not guess in a commit message.
+>>
+>> I think we should rather re-consider patch 035219a760edb35ae9a9e96beba7f122e26a997b ("dma-buf: dma-fence: Fix potential NULL pointer dereference"):
+>>
+>> Here we changed the check in dma_fence_driver_name() and dma_fence_timeline_name():
+>>
+>> @@ -1167,7 +1167,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+>>  
+>>         /* RCU protection is required for safe access to returned string */
+>>         ops = rcu_dereference(fence->ops);
+>> -       if (!dma_fence_test_signaled_flag(fence))
+>> +       if (ops)
+>>                 return (const char __rcu *)ops->get_driver_name(fence);
+>>         else
+>>                 return (const char __rcu *)"detached-driver";
+>>
+>> The problem is that we didn't considered that there a fence implementations which still have a release or wait callbacks but rely on not needing to return a string for a signaled fence.
+>>
+> 
+> Could we move the signaled check to amdgpu and pvr?
 
-> whatever the table ends up as, it needs the voltage column with the
-> rate: a rate without its rail is what mainline has today, and it is
-> what corrupts.
+Yes we could. I also considered that. But I would rather like to see it handled in the common dma_fence code.
 
-The table carries it: 200 to 700 MHz at 700 mV, 800 at 750, 900 at 800,
-1000 at 850, which is Rockchip's own table for this part. Your four
-days are now a paragraph in my cover letter with your name on it, since
-that measurement is the reason the test exists.
+If I remember correctly either Tvrko, you or somebody else was in favor of doing "if (!dma_fence_test_signaled_flag(fence) && ops)" here but I though that this was unnecessary and we would rather remove the release callbacks. Maybe I was wrong with that.
+> IOW, we keep the solution presented here (removing ops->release for
+> finished-fence) and the few drivers that check whether a fence is their
+> own first do a locked dma_fence_is_signaled() check?
 
-> On RK3576 an assigned-clock-rates on the SCMI clock in the NPU node
-> hangs the board before the console comes up
+Works for me as well, but as I said I would rather like to keep it simple and stupid for backporting.
 
-That is worth more than the question I was going to ask about it. I
-have kept assigned-clock-rates on all three RK3588 nodes and listed it
-as an open question, on the grounds that of_clk_set_defaults() runs on
-every probe over the shared clock and could quietly lower a raised
-rate - which I have not managed to make happen. Your board says the
-property can do considerably worse than that. I will say so in the
-cover and let the maintainers decide whether it goes.
+Regards,
+Christian.
 
-Two other things while I have you.
+> 
+> 
+> P.
 
-I am sending a fix ahead of the series: rocket_remove() decrements
-num_cores while find_core_for_dev() searches only that far, so the last
-core is never found on unbind, num_cores never reaches zero, and a
-rebind writes rdev->cores[3] on a three-element array. Silent in
-mainline today; UBSAN caught it once devfreq started walking the array
-from a worker. It has a Fixes: tag and Cc: stable. You may want it on
-RK3576 too, where the same code runs with two cores.
-
-And the small one I have been sitting on. My series carries the
-clocks-by-name patch as 1/7 so it applies on its own, and that copy
-still has your Signed-off-by from v11. You are not in the delivery path
-of my series, so by submitting-patches.rst it does not belong on that
-copy and I would drop it there - your Reviewed-by is the credit that
-matters and it stays, on both copies. On the v11 copy your sign-off is
-correct and I would not touch it. It is your name, so I would rather
-ask than decide.
-
-Igor
