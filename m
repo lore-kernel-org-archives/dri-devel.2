@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65DCEC61DD6
-	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB01C79F82
+	for <dri-devel@archiver.kernel.org>; Fri,  4 Sep 2026 13:43:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8194B10E55F;
-	Fri,  4 Sep 2026 13:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94FEB10E561;
+	Fri,  4 Sep 2026 13:43:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZX01FCF+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZSlKAbu3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB3310E55F
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:42:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5319A10E561
+ for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 13:43:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7BB1940243;
- Fri,  4 Sep 2026 13:42:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DAD1F00A3D;
- Fri,  4 Sep 2026 13:42:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3BFC742EA5;
+ Fri,  4 Sep 2026 13:43:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7109A1F00A3E;
+ Fri,  4 Sep 2026 13:43:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788529372;
- bh=wzU4YjPnSETRdodZme4TDyvK+QC9EtY4n+yRYCubHZg=;
+ s=k20260515; t=1788529419;
+ bh=xy9J5SyzSLbBaq2i0MqF7v9oLGW7UxvK0+0fcU9bazk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZX01FCF+BY26ep95y1j0Ggg5eTyVHVdVJNvbhbJ6wkGZ22mcxeEQKocLLLDnWI8uM
- Z9B0QGZDOrgeJmcl9JjMvUc3f9cUOAOkbUfaBUd3eFCWMSXk/yCdFKvl5M2fOiJOFq
- 6mMYqbNj9mYsO1aIvyr8h2Pyd3CjZsGujPjk2Za6NsKsnyXsJRZSHUz/m27Wa8gRfs
- rGpDdru+IlzblBtoLG9glzq4Na7zs1FqQpoIiFpwOqP4rDOGeJckwpqoos2Lsdv+l5
- Bv4ljVAf9cqJVmJGYMIo7l6Rq4Q02+rkP2PznBwboOk03RIM1pMRgJLWe3pOsgP4Nx
- jjCLs4liQ04kA==
+ b=ZSlKAbu3/+w2XtzlSVGDS1AZlAhLZ46LLab5B4vYpp749PrXLR+AMo/kew8EqpAVs
+ 3xzs1cY1UYjYkqSBF6tU61Qtr9ipiOAv6hKLF3i6QN6eY8NCK2C3Y3IV6O/7vUNraY
+ tmnnMwlCEp3OvPyT9gowBhC2JhmnpE1xErIuoKIMQM0kBKcgfKNlsEaPRiq03NQPUX
+ s/4W5pmmy5OuYrtTB1kuJRxWSsi1sLMUDwt+VLymqfOdduHeb/5kFT+htRUkhNsRbW
+ aaO9QLJnW02xfb3tO8DFjz6h5ymTcyDrQPCyRvknGn/KRLXprmQV0KVM+7OahP41OR
+ w3kjnO2dPOX/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/19] drm/bridge: inno-hdmi: Split probe out of bind
+Subject: Re: [PATCH v3 08/19] drm/bridge: inno-hdmi: Allow the register map
+ to come from a parent
 To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: lee@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, olteanv@gmail.com, mfd@lists.linux.dev,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260904-jh7110-clean-send-v3-7-484f9ae72715@samsung.com>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org, olteanv@gmail.com,
+ devicetree@vger.kernel.org, lee@kernel.org, linux-phy@lists.infradead.org,
+ robh@kernel.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org
+In-Reply-To: <20260904-jh7110-clean-send-v3-8-484f9ae72715@samsung.com>
 References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f@eucas1p2.samsung.com>
- <20260904-jh7110-clean-send-v3-7-484f9ae72715@samsung.com>
+ <CGME20260904132723eucas1p14cdff81f7ccdc02ec811179c5d401d69@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-8-484f9ae72715@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 13:42:50 +0000
-Message-Id: <20260904134251.61DAD1F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 13:43:37 +0000
+Message-Id: <20260904134338.7109A1F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,168 +62,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Using `devm_` APIs during the component bind phase causes permanen=
-t resource leaks and breaks EPROBE_DEFER.
-- [High] The hotplug interrupt handler `inno_hdmi_irq` can fire before the =
-bridge is attached, leading to a NULL pointer dereference.
-- [High] The I2C adapter is exposed before its private data is initialized,=
- leading to a NULL pointer dereference on concurrent access.
+- [High] Early HPD interrupt can cause a NULL pointer dereference of `hdmi-=
+>bridge.dev` if it fires before `drm_bridge_attach` completes.
 --
 
-commit 72f1334365740cfcdf0865d9dfd6562b9c3b40a8
+commit 1a1229643b989df67626f64f580add186cebd6ed
 Author: Michal Wilczynski <m.wilczynski@samsung.com>
-Subject: drm/bridge: inno-hdmi: Split probe out of bind
 
-This commit splits the hardware setup of the inno-hdmi driver into a new
-inno_hdmi_probe() function. This separates the bridge registration from its
-attachment in inno_hdmi_bind(), allowing decoupled MFD/glue drivers to mana=
-ge
-them independently.
+drm/bridge: inno-hdmi: Allow the register map to come from a parent
+   =20
+On some SoCs the HDMI controller does not own its register window. The
+StarFive JH7110 documents one 64 KB block, u0_hdmitx, that holds both
+the controller and the PHY, so the parent device maps it and owns the
+regmap while the two children share it.
 
 > diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
 inno-hdmi.c
-> index dd35f5a875d3d..aab474740f7f5 100644
+> index aab474740f7f5..8bd7717611804 100644
 > --- a/drivers/gpu/drm/bridge/inno-hdmi.c
 > +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -1061,11 +1061,24 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(=
-struct inno_hdmi *hdmi)
->  	return adap;
->  }
+[ ... ]
+> @@ -1095,9 +1110,19 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_=
+device *pdev,
+>  	hdmi->dev =3D dev;
+>  	hdmi->plat_data =3D plat_data;
+> =20
+> -	hdmi->regs =3D devm_platform_ioremap_resource(pdev, 0);
+> -	if (IS_ERR(hdmi->regs))
+> -		return ERR_CAST(hdmi->regs);
+> +	/*
+> +	 * On platforms where the controller shares a register space with
+> +	 * other blocks, the parent owns the regmap. Fall back to mapping
+> +	 * our own resource where it does not.
+> +	 */
+> +	if (dev->parent)
+> +		hdmi->regmap =3D dev_get_regmap(dev->parent, NULL);
+> +
+> +	if (!hdmi->regmap) {
+> +		hdmi->regs =3D devm_platform_ioremap_resource(pdev, 0);
+> +		if (IS_ERR(hdmi->regs))
+> +			return ERR_CAST(hdmi->regs);
+> +	}
+> =20
+>  	hdmi->pclk =3D devm_clk_get_enabled(hdmi->dev, "pclk");
+>  	if (IS_ERR(hdmi->pclk)) {
 
 [Severity: High]
-This is a pre-existing issue, but the I2C adapter is exposed before its pri=
-vate
-data is initialized, which can lead to a NULL pointer dereference on concur=
-rent
-access.
+This is a pre-existing issue, but could this code trigger a NULL pointer
+dereference if the hotplug interrupt fires early?
 
-Just above this line, devm_i2c_add_adapter() makes the bus visible to the s=
-ystem
-before hdmi->i2c is assigned:
+Looking at the rest of inno_hdmi_probe(), the hardware interrupt is unmuted
+in inno_hdmi_init_hw(), and then the handler is registered:
 
-    ret =3D devm_i2c_add_adapter(hdmi->dev, adap);
-    if (ret) {
-        ...
-    }
-
-    hdmi->i2c =3D i2c;
-
-If a concurrent I2C transfer is initiated (e.g. via udev running i2cdetect),
-inno_hdmi_i2c_xfer() can be invoked. It will read the uninitialized hdmi->i=
-2c
-and attempt to lock its mutex:
-
-drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_i2c_xfer() {
-    struct inno_hdmi_i2c *i2c =3D hdmi->i2c;
-    ...
-    mutex_lock(&i2c->lock);
-    ...
-}
-
-Could hdmi->i2c be assigned before calling devm_i2c_add_adapter() to prevent
-this race?
-
-> -struct inno_hdmi *inno_hdmi_bind(struct device *dev,
-> -				 struct drm_encoder *encoder,
-> -				 const struct inno_hdmi_plat_data *plat_data)
-> +/**
-> + * inno_hdmi_probe - Internal helper to perform common setup
-> + * @pdev: platform device
-> + * @plat_data: SoC-specific platform data
-> + *
-> + * This function handles all the common hardware setup: allocating the m=
-ain
-> + * struct, mapping registers, getting clocks, initializing the hardware,
-> + * setting up the IRQ, and initializing the DDC adapter and bridge struc=
-t.
-> + * It returns a pointer to the inno_hdmi struct on success, or an ERR_PTR
-> + * on failure.
-> + *
-> + * This function is used by modern, decoupled MFD/glue drivers. It regis=
-ters
-> + * the bridge but does not attach it.
-> + */
-> +struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
-> +				  const struct inno_hdmi_plat_data *plat_data)
->  {
-
-[Severity: High]
-This isn't a bug introduced by this patch, but using devm_ APIs in the
-component bind phase (now moved to inno_hdmi_probe()) causes permanent
-resource leaks and breaks EPROBE_DEFER.
-
-Because inno_hdmi_bind() is called from inno_hdmi_rockchip_bind() (a
-component bind callback), the platform device is not removed when a compone=
-nt
-unbinds. If another component in the DRM pipeline defers, the devm_ resourc=
-es
-are not freed.
-
-Subsequent bind attempts will fail with -EBUSY when re-requesting the IRQ or
-I/O regions:
-
-drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_probe() {
+    inno_hdmi_init_hw(hdmi);
     ...
     ret =3D devm_request_threaded_irq(dev, irq, inno_hdmi_hardirq,
                                     inno_hdmi_irq, IRQF_SHARED,
                                     dev_name(dev), hdmi);
-    ...
-}
 
-Should this driver be converted to request resources during the actual probe
-phase rather than bind?
+If a cable is already connected or plugged in at this exact moment, the
+interrupt can fire immediately. The threaded handler inno_hdmi_irq() will
+then execute:
 
-[ ... ]
-
-> +struct inno_hdmi *inno_hdmi_bind(struct device *dev,
-> +				 struct drm_encoder *encoder,
-> +				 const struct inno_hdmi_plat_data *plat_data)
-> +{
-> +	struct platform_device *pdev =3D to_platform_device(dev);
-> +	struct inno_hdmi *hdmi;
-> +	int ret;
-> +
-> +	hdmi =3D inno_hdmi_probe(pdev, plat_data);
-> +	if (IS_ERR(hdmi))
-> +		return hdmi;
-> +
-> +	ret =3D drm_bridge_attach(encoder, &hdmi->bridge, NULL,
-> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-
-[Severity: High]
-This is a pre-existing issue, but this refactoring significantly widens the=
- race
-window for a NULL pointer dereference. The hotplug interrupt handler can fi=
-re
-before the bridge is attached.
-
-inno_hdmi_probe() unmasks the HPD interrupt and registers the IRQ handler w=
-ith
-devm_request_threaded_irq(). If a monitor is physically connected, the
-interrupt can fire immediately.
-
-The IRQ handler then attempts to dereference hdmi->bridge.dev:
-
-drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_irq() {
-    ...
     drm_helper_hpd_irq_event(hdmi->bridge.dev);
-    ...
-}
 
-However, hdmi->bridge.dev is only assigned when drm_bridge_attach() is call=
-ed.
-Since this patch decouples probe from attach for modern MFD/glue drivers, t=
-he
-attach phase happens much later, leaving a dangerous race window.
+However, hdmi->bridge.dev appears to be NULL at this point, as it is only
+populated later when the upstream display controller calls
+drm_bridge_attach().
 
-Should the IRQ registration be moved to after the bridge is attached, or sh=
-ould
-the IRQ handler check if the bridge is attached before proceeding?
+Is there something preventing this race condition, or should the IRQ handler
+registration be deferred?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-jh7110-cle=
-an-send-v3-0-484f9ae72715@samsung.com?part=3D7
+an-send-v3-0-484f9ae72715@samsung.com?part=3D8
