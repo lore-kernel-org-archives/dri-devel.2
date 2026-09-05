@@ -4,94 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B988C624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 19:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00266C79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 19:24:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2300810E32C;
-	Sat,  5 Sep 2026 19:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1711910E32F;
+	Sat,  5 Sep 2026 19:24:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iYyPbqup";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sxuMX6Dh";
 	dkim-atps=neutral
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
  [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB6DA10E32C
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 19:22:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8AA410E32F
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 19:24:32 +0000 (UTC)
 Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-39666e7c9eeso117698a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 12:22:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788636163; cv=none;
+ d9443c01a7336-2d6ff3936easo239595ad.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 12:24:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788636272; cv=none;
  d=google.com; s=arc-20260327;
- b=c0pPNMfH8TGlBAIY9i8Fnmxf8JBG4omRMHUxtSruaxOO7xYme3Z1r0NMqGU5WsTqWF
- WIffNnfaLfjG/hFJ0OvD/+iVcNcvxqc1cUKvLG7aRw23Y8p3IuQbI6uREYD4V2hwy5u7
- QiO7RHB+qQ2JhoVjuR/c0N2hd2g4WnORYBBD1E+u/W6vT5t0KrXh7X4uFhAmOk+iXMto
- ALHKjiJQpyGKR0kCYakcLiKvdd3yzAHnY/Ly0Ahy2+YKiugLmjT7evFsA3CBQxeejRSm
- mjxJ7SQMUytafeRPp6D6rcyczK/Xl/ThLrkqvLJ2DUKLLMA/0+ykgFmCL890SSQ+nGEU
- jJ1A==
+ b=W3fR6i+EZhen93b6iYguygxk6fOGIwtMh8Kw7UxRQ4SzSZypzjajtAcpP2FBmH9fJd
+ WDq/IQPivNGQ0kJTyPsEjMq4SdtkOCtNyBOsZOEO+nq5oarszmqIZGAPOInI+ZODd9Oc
+ /jEaJX1Q/+/0OBtWdAVKmloTP5PPZ0edq4dWw36gN2VVjRKjIusJhZuuFcIA2ZJiRaeb
+ 0bm1dN/TwLOAYRbIEjC/YC5zlkgKmbH74YGoOTRD7/C5iSC45lgKHbXt5RvUL4V/WUkC
+ 4Jt0M/eb7pHWq5TWTkBmJvDkNLLOl+xznLYXGMgc4wYcKFrcKnkT4dR7SBux6cFiDgQc
+ 7WJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
- fh=TMAy2h7MggMkI3rVxQyD0PQ+lUQc1OBLQ5dKjoDrFRk=;
- b=bBBZsV3+LusEsAzZUpL1lh7Pp9oalSOh299OWjSopdof3Kne+iZClpVYwI5aaiyvBB
- HSdcLvA+0GJ3rfJ5iGyPmTO6d4yO1zztXYQN3NEg8l7jweowJqf959zDRB2/ZqQ6ETbk
- foPAtojNMpCKZ6tOnxn1vCwYf6D+Yl1ZfKtNu0353fFuIK2dWxIJ+McVqxogUz8UiYem
- fQyTZYdppFl4zOiU4wy6sbvDPi5EJkD/3UrYeyOwZISMUJEHWt/mlH6RuzSJa51LOM0K
- 18M2wmiTwigU8HNpKP397bHezj7J6UT6dmXSkrIxUwTJzgUJD+qD2JC1CoBeN+QEfogf
- 4kUA==; darn=lists.freedesktop.org
+ bh=qlpeqXScrDkE5nbP6tp8g5wa9e/y0HMZle6PR6w1uuw=;
+ fh=PiAczvCEh5tFWTXYw0eDTlPLggEzm3znKSyFBY0GoNQ=;
+ b=ejWRp+eUtHe19NoOFkFr7idJRC+jmX2MYvK4HrB4qlD9MuZGSOxKhUD7baGviQJ50h
+ 4ph2p4p3lfaG7bKLqQ7wkPcHGWgLbTdiUtP0U8EkIW+fldfGcbp9L6ULTUkiHZ9frM98
+ vNcyjrHx20fyMHJTr9pPlUd3aU78sbOyPQZc4vqqLz3wLbfJJ9QSOpnzn/vkCwQgKulm
+ 48DcBRSfl4WCVBu8qEUDAd0Q+OUg0eZ4+vnxkMSoqWfVuqIPi2ElYSKz9s0KGO44gPeC
+ 7qGUR/ijmBqCYFT9zMLUM92kzzwLLuberlR5+XJ5guaCplpnHiUIKlvlcSrtfvGRmhkD
+ Zn2w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788636163; x=1789240963; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788636272; x=1789241072; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
- b=iYyPbqup9XSCXCmLuzMX9UFjWQaj+XxI+BBTFnWZk2N7T5U6ZQHNfrrmkq1ahfMLsD
- BU2DQWTa66VB7sq5n68irnxrSZULGxC2VPRNl4hTEH23VHqp6a+ty/YL2wz6B4RW/+7h
- QH2aJAOEgyR+pGYIbOpO+b6wCliU+jfpbKz4vrzPuJhO2s3RQQxkegDRMAtrNSQHlbnX
- u3STyxPImFwUl+ubMkCUiz+pC4weU9/WCpaRn5bzmRH2CwFEIlDWTLS9w31sqf+pIfWY
- VEops4mCzmp6nMyCsQY4e3mUH+QJFqvckjzjELNX437PThn8QmTlH/FNvaLp5WeQkl4V
- uh9w==
+ bh=qlpeqXScrDkE5nbP6tp8g5wa9e/y0HMZle6PR6w1uuw=;
+ b=sxuMX6DheeOBocCP9fZBhtXGd95KXsBXOdEjb1iSMJ4LeZDzuvdkwKfZQONgdN9dHe
+ /lPwJSljfsjCh7Ar4KdJyZ8SlTKQ4/l6RLec+CFDN1DHRyZgBobXoOZM7/nlx5K7ehUd
+ 3hbz3falfdI1u2FNd5gIhcpfNbrh/5LzSRSWiegKhOMAA7D1EknLIkY+BMSrL/K9BcUM
+ 7mZwWDT8dpEDSjHsCUqlX9cB1P/Pjjijc/p9Ewxv4lL3XsBPCheP/O8kuparxux6plr+
+ f+XbUEVLvh6H6p/CNjZwGHimifrDFlwMPdYSGWEYc0W1jtAh03wdFgqX5pH3nJ0Jiz3B
+ GyHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788636163; x=1789240963;
+ d=1e100.net; s=20251104; t=1788636272; x=1789241072;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
- b=n91HikT1yHbQgqQ38vSW9NuM0vDlXyLGoJPhqVwSeojvjeNBTGuMBeAYlAVjTt3hWJ
- wEnseTOLH1By1oiGmW20VgVnqMukvsqXUXz+xNUPP04/t5OtfZVDJemMXOMLpVywvuMq
- FqpphQCFs1slRbdUu6GPZm6tY+9CbhW1f2h/SenDadDq3nZaakelzxOuvUazVFTugVD+
- LymZEIBzrxU0tG/5F9wvLUitduWfb+rHxf6F1xOX/yNf5JdSQHg6SFD2C0kjUzEoOCRu
- qY5VLA74J6YuaUvK8JkghfqcIWL1QkKzOHjWfuO0eW7JM0z9Xfdfk3ECfYkfUb1cmQNv
- nGfA==
+ bh=qlpeqXScrDkE5nbP6tp8g5wa9e/y0HMZle6PR6w1uuw=;
+ b=i097xCLWCZItMNTy3X5g7Itz2kzyOugbpuGuIanhPTABIxxuBfD9XeMg9X6TtG/E88
+ DXSiMOhSZ7AMh1jMKeVjoYEkc6dcMl5FnJJU5b5hU0pOjb88mMAKX3aQtrVG7S3CvAE6
+ 3ACniwfpgNLPCtGpWw0fBDTUBqbFTS/SOTjsaV77rb6DJ669vxHT7KelpLwUsrlSd6pl
+ juKYl5e6Hfweb0cZaAw0k/eI1Ix+7Z9HHaUw4TXK/xXtt16FMO/ZAim5yG4L/6UB1oGd
+ mUJ0unG3qmfQW8LBotIrG6oELyxDMsjBcItrs+m2hT6d75DxYWoQ717V3ZHRJltZogBl
+ Aelg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzx4QIAAhZLiwRUzkfbJjgmNighMOlmwwlC0XKOF4yP2Wvwr1fua8hl/9vRfouQgIN4Y4dL+IQKdQ0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lhQT38deR8vsHrFZpdRhV0lUmX78cGfHs1GEK2i3DJIk/YNJV2
- dv4UFo024H2IobH3ozUUQMKmwFQgEgELan23JhrmASym0s2X3q0nByr8oam7Uk0fgTvXs7t2TxX
- BIVsYFnG0Sm3aAMed+UpHWjKY4ozF3fY=
-X-Gm-Gg: AYBFou1IrlL5jJrwGgTFz9QsyY2REePz4e4y3oV0aFmOiGoQ/IrMWdXMlgeJwS37BZ3
- f8Clpcz+z+3c9RzQo1CNuMHxbtWbSvhULuQ8ORjobAruDzvyw1RipqmRPV/NFo5PinV07ndKibr
- BGJ6XTd3vc16DKreEohqhpnbYNLXi6K1+srczyPIJ6CEezpEprIY9cKwka3UoQCV2Bt5+r3OEJw
- ESTzGcehJ0pY00Z+G5kbsbjLzLzgUP0a0h/y/h9UkRWC3Nu4BIsu0rHxR+ekUOiztLcdhQb9yCA
- t9/S+jqyax7uoA5qZsse6tnEDWEs6+1GU8bQhPe8a7k2Tf49+y4oPKajIFa0iKwd19KZz2sYIVe
- jdf/WrBPnBI48NgR0nM44eO4NOadQghgQtAxKAwe3xfTksSs7RfrtuYcQUFcd
-X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id
- 98e67ed59e1d1-39b3d8377camr7470429a91.6.1788636163260; Sat, 05 Sep 2026
- 12:22:43 -0700 (PDT)
+ AKwUvBxjrpxnP2XXKxuMcKEyxEFx7qCj0YQY3rBwEqkPDzIEeyyPt53tIAyAZeoipvW6OBRTeW9Bg0KfJoQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lFC/hOdKKPsN6ZXbmHx/I+vGieCfgzXWe5mTn5lWoyFQvOF0Mf
+ z1Em8GROb1/TaE44CBecQ5RP/V+9YM2A4NCcTZVrEVcDTZpi20u8PtGanwEcf+nc+L2QYQMctDz
+ ZPeNVBrWHzSjGAw9NNgqAGHAoZzTvG2iJiqo4
+X-Gm-Gg: AYBFou3biBWMBDgSekEDAib6hbLe9cRlp2YHDfLJKU3dwRDSVkxCo5nIuHUpoQbp7jH
+ hmOXT6N3kq6jMbRtlhVo1xci89xp/gx0DVfGMM4ET6n1/PM632ISpDDoI4QeMwOd9euAaGe81FI
+ PrXQdzKOlHGKvkA36yyvH7CEJWQgx8jkwOrnvvR1IxYI3fv14gkc01aaAOyc6V0cfbKGoMKEVP4
+ Q3wck0ccp/CevgH4XzRYCyAlyZbqWuN501vZhB5Lak5ph4F0+6sJ3ef6r9t6UyHmiEauhSrWQ2p
+ m12IwI00sv/Y+T+76antjQHg0EuMnK8vgD+06gWoXJH67K3bWctUh+6MsyHORQal7FKz41zHpVN
+ Kp0N8g+D+RKOeJJqTEkAINM5EfpGf/jU8ro1F5IbBT09oBjt46xUCx2W6AQcs
+X-Received: by 2002:a17:902:ce90:b0:2ca:ecf6:9115 with SMTP id
+ d9443c01a7336-2db2776adbbmr63554785ad.2.1788636272311; Sat, 05 Sep 2026
+ 12:24:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
-In-Reply-To: <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
+ <20260903192248.2248560-1-dakr@kernel.org>
+ <DL5XG1N71CVV.TOAF6XQY0SW5@kernel.org>
+In-Reply-To: <DL5XG1N71CVV.TOAF6XQY0SW5@kernel.org>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 5 Sep 2026 21:22:30 +0200
-X-Gm-Features: AcwNN1XYNGZeZdAbyqW_MpHHmRnUCoTfhvfgQ1L93n760L7NneO9Fvtxk2YGC7Q
-Message-ID: <CANiq72nxtehkGdb9RZpd=MsjWzp9euoLw=MmCzvcqOgxxEwymg@mail.gmail.com>
-Subject: Re: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
+Date: Sat, 5 Sep 2026 21:24:19 +0200
+X-Gm-Features: AcwNN1VrVIX1rn-ymHE6KZVlOZK2RCfm_y-i_dbObCbOpleHp8K2ryo0MaspaGI
+Message-ID: <CANiq72m1ZxFtQjm4fUAt6Y1MFE=ww6jx+dEg3F4Bqbki=ndO=g@mail.gmail.com>
+Subject: Re: [PATCH v4 00/16] rust: io: support register projections and
+ remove relative registers
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
  =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
  Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
@@ -120,27 +122,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 1, 2026 at 6:50=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+On Thu, Sep 3, 2026 at 9:27=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> w=
+rote:
 >
-> +    /// Convert from `Self` to [`Self::Repr`].
+> Miguel, Boqun: Please let me know if you are fine with the two
+> rust/kernel/mem.rs patches.
 
-I think [`Self`] etc. work too.
+I see you fixed a few nits -- I pointed a few others in a couple replies.
 
-> +/// - [`Self`] must be [transmutable] from [`Self::Repr`].
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-We say "can" in the `AsRepr` one -- we should be consistent.
+It is nice to get a slice of the future of the standard library a bit soone=
+r :)
 
-> +// SAFETY: `bool` has the same size and alignment as `u8`, and Rust guar=
-antees that `bool` has
-> +// only two valid bit patterns: 0 (false) and 1 (true). Thus `bool` can =
-be transmuted to `u8`.
-
-`false`, `true`
-
-> +        // SAFETY: $unsigned has the same size and alignment with itself=
-, and is transmutable to
-
-`$unsigned` (a few below).
+Thanks!
 
 Cheers,
 Miguel
