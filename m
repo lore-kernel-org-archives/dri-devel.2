@@ -4,79 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0473CC624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:05:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73453C624DB
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 559E910E61A;
-	Sat,  5 Sep 2026 15:05:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9240510E2AA;
+	Sat,  5 Sep 2026 15:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JYYp7i41";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cc0qkNhg";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D2EE10E61A
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 15:04:57 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-48435ae9ca4so227423f8f.3
- for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 08:04:57 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC1A910E2AA
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 15:11:34 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49cd82be878so371715e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 08:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788620695; x=1789225495; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=NM2S1Q42b15aXVJKX75peJvXAR4lZmt0uA+gclfAVgo=;
- b=JYYp7i41knQd5G5wXuI/RbKF52AlZ+/ShwhjsJ5wP5PBjHIEePGvPgVmcIptAAdR+F
- FdG4GQFq7CiyUwY/F/YBOYcTrxduN1ZNanjBKwjFaE8Ll+tHb7h388dzs1grVzmkXRze
- hKVPBox4RSMlUwaEcE7MjqnC8o8bcpdh+cXGHiYQkXq6zTXTOyIqUOcRV2xZNeFkE5v8
- AzAuq2j8GkhzbVsYZtkKKcjCJnYo9CI4OXjU2YyUbY6MIU67zgnosDKcXFSFRUaGgZg1
- v5pkyno4Ur0yTRfD5evCIvBHj9vkEzNBcYBMSHL5P2NUitbefzsVv+HcnrL9aZdx5ilw
- u+YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788620695; x=1789225495;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1788621093; x=1789225893; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=NM2S1Q42b15aXVJKX75peJvXAR4lZmt0uA+gclfAVgo=;
- b=rL0A3eN5dJVF/4fa5m7kEv/O1Rc4ZA7A8427L/9Q/pGuBczc7QJCAA1sg5WYKQtNiE
- 49BvGIl/NOVi85CjQz2/xV5EFW5HsBAFQUwB8O3MOHxBJDJS6zYas3JMqtM7+GGtrr7D
- QknCi+Kiq1R5hLwH1c/L6GyYwygsOiJ4JBfEB+WqCvUfXCJtQQNAAA5W6YRZz0qlIndx
- FGU6Q5Bg7K8//nP1aILfEjQiWw6W9WDPFhgSEbUnjcLj8cpBM2z1roU393TInDRynWJR
- l05XmFb4dHTJXI3LxSWq5Uwn2L2FrG/P+SpSA44CD7MWFH9sybgPIkU4/GH457k8fWoc
- byWQ==
+ bh=V6Tg/R56zXVR2Nup96RdAYV8c+PyuQeFJYrSPcXGgxo=;
+ b=Cc0qkNhg3QDeFoZ7aOJGsEmr7phe1iRpjDqOyxVXIyfIXAJIdaD7O7q/sjcK95BSb4
+ 0aOj0JT95OdN/n0CkNumW4Rl9Muq1dUofIqKHabGyJ2OElEFq7JgojD2OjDudklFscZA
+ /glqjF+Eewx+xTdNX3aEeQc6jvHRv2xGkCoI4a+1PA+uizlfj+jVcfwmfhhXF9fXFF6a
+ 9UWHSj5DxFxk6MZwiaWy8ZZF6jCqYzyaZfFl8uzs9OBvvY5Yp3s9V2YU+P9Om687QQAa
+ qmqKFdYSg/yv8h2uqks61TCLmtwEL9UEbtBdhV5ju9G9aSYc2YAFH46ZdVUkFcvbb7p4
+ jBhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788621093; x=1789225893;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=V6Tg/R56zXVR2Nup96RdAYV8c+PyuQeFJYrSPcXGgxo=;
+ b=EPRU6JXiEpVBdvFcvS4gPkwTk7EAz5FYqFEgcd+Lkft1Z8wSYcWHYLZnZIxzHC4aVR
+ O2/cHOP/8nlw376MGcl47QWXXq8TOEyFbywE08WQK70wa5AKVO87VyU1KC8Zk+qs+izc
+ Z/UU6mC5z+K036WM/dTD/XwpGwWRDB8UrvXPup2SWi4wu1PhCTBvk8wsbVRHecVr3zCH
+ JiBoNDKUy14FVcxtzXr7zxN0fsA5Ec/Axh0fNvNhDRap4Bm4L6LlqvjnvI2ohzUGiynS
+ rXTFHo7X9B4x9akL2OU97EAaZSzdkbCLTWKafO8Oi0/FHH+5RmPecuBrlfBDuDznfng4
+ 36ww==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzDi212q9AN+avOydIAnmkw+JrskSKVy1GxsKd9BzMNxiwHe59jQAHqsu+aDYM9gD6yn8yF6CCCt+M=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ngcS2KaT/DKE54TaTws4S9QVIdaiRz+M0BR0Zpan8qd0zHpSro
- 15ulcaFauhoikTeG2LyGDIeKifk7ge+UIYU/TvszqrzdqZP1QKLp5Dpx
-X-Gm-Gg: AYBFou2YTwXki/SbqH6GpJBs5YZJGIoEHGulwgyDGIv4yfi7y9KsKfbH67ZWo/HMOiL
- UgAmwNQVuxC8z5hrrkD8TqSTKJcDq2BB4J2jJt+yOrID/AgVTYVL7JUNcMW2o3sLZUojh13vkyr
- wNmbkv+Dt8p+JkZzMWmPbgVxR4pRwpyXncle1PY8wdpDEVnf4cdF4C4wCaqUcAq12vfQMbj0NEq
- jIjVpyqfCzYhpUvGyQx2AkjGlPzPsXev0YmOENySJMs88WLam1i7BnUw8Wx7f67loKwShBZC6Zu
- HqJKG5oN8gAmfahkRz77GV5faq4QqICNijpaLY4jRSx3qNuhTMEI/rP1td6THv86E3xbWD+p0Vh
- /gEYBoihiIW7vpGrvAQK3LQMvMUCwTdrWXEMa6uYbKo4dfQ/zrNkSxN7A+YVm21774nAGvdqEIQ
- V8mt6d4LK0BUZy3QPVe08mbbPXSFiNOS9j6+wJeOKfxDsUqmSD54zAnw1c3JXD2RopsM9IXLwb1
- VVO0PW0xMAdnWkXau4xYofOJWIkA1oMamCK8TGzPhIg44y55MddrSdH3+ejEQxoS3k=
-X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id
- 5b1f17b1804b1-49cf823c012mr101940875e9.1.1788620695367; 
- Sat, 05 Sep 2026 08:04:55 -0700 (PDT)
+ AKwUvBwayH8NT5NhKMV/cmn8lb505SmlQ7yqbVTbs1LykSXA4/AYDUBh7Y6WT1IFHn7Qb+UcA64jMl8saBw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lsMMR1P4+AuShdVgotq3O7tpIYZPj+aZ7N1hFTZ//wwBsUeVa8
+ iWyhRrv8hk3GVjuxPrMb6vXhGRXCnPSSIJgdm0dtq6TcH3s3mgGruWZ1
+X-Gm-Gg: AYBFou2xJ8/76XFX7hUDslintPHtk9mTITIU07WTKFJe/Fck8jNSiu8EvuzDezaRtP2
+ Tidk+QODmJsPmbSxNJJlDupUA3Vo9les6mKTQxw3EwFJDhzqQpmmV27Q8BoD9FHCMIou9rMRyxS
+ P88IYhkVzDB/AauA8ehqfn9vkDN4YlaqHmRVL1SUrlGKlvjolQmcfHy9dzD4NKKVYiTf0LQHrzd
+ /ddf8oolU2XDSFZ0HVUw2g2v1IGfv6jT6hcm2NT8dNE3DG2QOCFVUmnCrqCW+fNNGfE5e+ZwEe/
+ DXfli6rUHYgIsljjfuLQgD3r46XVXV1bLIRHeWiVyFTXtxt+MY1om8fZImAm0VZq7ZKOxN8XBb2
+ vdXdf9u5xtj+93/pxOL2tBNll8XXBaGgKPp/jSoJvXmjIB+hDcqXM3Rh05YNPYWlJ3/dHmLxtAA
+ lXqDIgp4/wr/DeJaxi1NmVvmDrDaKWsk9ULCSGzTu9wt7r4T+I216Pz67hSLLmPU2LAZQaqwntK
+ hdpy7YvLmae0c0LewtBCkaY74gMHnU9tfJNJQ7JkrXjsc9wy83Q7DOodJmWXMx1OA==
+X-Received: by 2002:a05:600c:860b:b0:49c:f9b8:bae0 with SMTP id
+ 5b1f17b1804b1-49d01dd6b62mr41625625e9.2.1788621092762; 
+ Sat, 05 Sep 2026 08:11:32 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B950E0061C002CD703C2CBB.dsl.pool.telekom.hu.
  [2001:4c4e:1b95:e00:61c0:2cd:703c:2cbb])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf75cd8d0sm142811705e9.2.2026.09.05.08.04.54
+ ffacd0b85a97d-48588135600sm11955662f8f.2.2026.09.05.08.11.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Sep 2026 08:04:55 -0700 (PDT)
+ Sat, 05 Sep 2026 08:11:32 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Sidong Yang <sidong.yang@furiosa.ai>, Heiko Stuebner <heiko@sntech.de>,
- Jiaxing Hu <gahing@gahingwoo.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH] accel/rocket: search every core slot when looking up a
- scheduler
-Date: Sat,  5 Sep 2026 17:04:32 +0200
-Message-ID: <20260905150432.7477-1-royalnet026@gmail.com>
+To: Sidong Yang <sidong.yang@furiosa.ai>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] accel/rocket: search every core slot when a core is
+ removed
+Date: Sat,  5 Sep 2026 17:11:06 +0200
+Message-ID: <20260905151112.8752-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <apwUewaRnoTNXHCt@rock-5b-plus>
+References: <20260904125936.26234-1-royalnet026@gmail.com>
+ <apwUewaRnoTNXHCt@rock-5b-plus>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,74 +97,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sched_to_core() walks rdev->cores[] up to rdev->num_cores, and
-rocket_remove() decrements num_cores for every core it removes. Unbind a
-core that is not the last one and the cores behind it fall outside the
-search, so sched_to_core() returns NULL for a core that is still bound and
-still running jobs. Neither caller checks the result:
+Hi Sidong,
 
-  rocket_job_run():      rocket_fence_create(core), core->dev
-  rocket_job_timedout(): dev_err(core->dev, "NPU job timed out")
+> I've tested this patch in Radxa Rock 5 B+ and it works.
 
-Unbinding the middle core of the three on an RK3588 while three clients are
-submitting to all of them faults twice, once from the surviving core's
-job queue and once from its reset work:
+Thank you. That is the first test of it on an RK3588 that is not mine, and
+b4 collects your tag with the comment attached.
+
+> It seems that there is other issue about num_core. For example,
+> sched_to_core() finds core for sched with num_core and it could make
+> same error like find_core_for_dev().
+
+You were right, and it is worse than a failed lookup: neither caller checks
+what sched_to_core() returns.
+
+I built a KASAN kernel and unbound the middle of the three cores while three
+clients were submitting to all of them. It faults twice, once from the
+surviving core's job queue and once from its reset work:
 
   KASAN: null-ptr-deref in range [0x0000000000000220-0x0000000000000227]
   Workqueue: fdad0000.npu drm_sched_run_job_work [gpu_sched]
   pc : rocket_job_run+0x234/0x838 [rocket]
-  Call trace:
-   rocket_job_run+0x234/0x838 [rocket]
-   drm_sched_run_job_work+0x2cc/0xad8 [gpu_sched]
-   process_one_work+0x640/0x14f0
 
   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
   Workqueue: rocket-reset-2 drm_sched_job_timedout [gpu_sched]
   pc : rocket_job_timedout+0xf0/0x1e0 [rocket]
-  Call trace:
-   rocket_job_timedout+0xf0/0x1e0 [rocket]
-   drm_sched_job_timedout+0x188/0x6a0 [gpu_sched]
 
-Both are the third core: the workqueue names are its device and its
-core->index, and it was left at slot 2 while num_cores had dropped to 2.
+Both are the third core. The workqueue names are its device and its
+core->index, and it had been left at slot 2 while num_cores was down to 2.
 
-Search all the slots that were allocated, the way find_core_for_dev() now
-does. A core that is still bound is then found, and the two callers get
-the pointer they already assume they have.
+The fix is one word, and it carries your Reported-by:
 
-This does not make unbinding one core out of several safe. An open client
-keeps an entity pointing at the scheduler of the core that went away:
-drm_sched reports it as not ready for every job that lands on it, and the
-client waits in dma_fence_default_wait for a fence that will never signal.
-Stopping the NULL dereference is what belongs in a fix; the rest wants
-more thought.
+  https://lore.kernel.org/dri-devel/20260905150432.7477-1-royalnet026@gmail.com/
 
-Reported-by: Sidong Yang <sidong.yang@furiosa.ai>
-Closes: https://lore.kernel.org/dri-devel/apwUewaRnoTNXHCt@rock-5b-plus/
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Cc: stable@vger.kernel.org
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Assisted-by: LLM sparse checkpatch
----
- drivers/accel/rocket/rocket_job.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Same test on a kernel with it applied: no faults, journal clean. It applies
+on top of the patch you tested, since max_cores comes from that one.
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 3141f210fcd1b..a6c24dfe0563a 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -283,7 +283,7 @@ static struct rocket_core *sched_to_core(struct rocket_device *rdev,
- {
- 	unsigned int core;
- 
--	for (core = 0; core < rdev->num_cores; core++) {
-+	for (core = 0; core < rdev->max_cores; core++) {
- 		if (&rdev->cores[core].sched == sched)
- 			return &rdev->cores[core];
- 	}
+What it does not fix, and the patch says so: an open client keeps an entity
+pointing at the scheduler of the core that went away. drm_sched then logs
+"not ready, skipping" for every job that lands on it - 25006 of them in my
+run - and the client waits in dma_fence_default_wait for a fence that will
+never signal. The board stays up and the client hangs. Making one core of
+several safe to unbind while a client is open needs more than a fix, and I
+did not want to hide that behind a patch that only stops the oops.
 
-base-commit: a9f09b5ea0c3db1e2d4c0f8d3ebdd612d8aa0366
-prerequisite-patch-id: 519bcdfdde80d902309c8346f749ebc4bb6b29c0
--- 
-2.43.0
+Thanks for reading it closely enough to spot the second one.
 
+Igor
