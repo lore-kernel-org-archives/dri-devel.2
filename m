@@ -4,91 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03AA6C79F8B
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 19:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B988C624DB
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 19:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29CB610E1AE;
-	Sat,  5 Sep 2026 19:18:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2300810E32C;
+	Sat,  5 Sep 2026 19:22:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nIXCsIua";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iYyPbqup";
 	dkim-atps=neutral
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
  [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F06410E1AE
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 19:18:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB6DA10E32C
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 19:22:43 +0000 (UTC)
 Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-399026951a2so208740a91.2
- for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 12:18:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788635931; cv=none;
+ 98e67ed59e1d1-39666e7c9eeso117698a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 12:22:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788636163; cv=none;
  d=google.com; s=arc-20260327;
- b=MDLw2Dlu0DNraeMNzeqVXGDvUl65qS+hlkmMZ+74+Wf86aT5KqlIJ9eBndcx4Az5nj
- 4LVtfS/o6gvsxg7OhMZVpPKC9k+Hpo3O4Xvk8Khwe0LyL23DTQDU6fgi6NRP+9xqM/79
- Msswhxa838Q4BF2HC96Z4zQ5v6XhuNl+mPrxEmTeMRSzHBOZSQKtXqq20LdZNa9XKB9/
- kGmK7SSVdFMft6nKbl1VnbcW1dzyHJTQmDAjC49/2nFebSBSiPA566PEojreZEA//sSY
- jcMfbUdS4KHdGLOR17pfITVWDUhxIuQsinNZVLs2T2TXI15KRdGL/YeMB6O9zYedeEit
- G+lw==
+ b=c0pPNMfH8TGlBAIY9i8Fnmxf8JBG4omRMHUxtSruaxOO7xYme3Z1r0NMqGU5WsTqWF
+ WIffNnfaLfjG/hFJ0OvD/+iVcNcvxqc1cUKvLG7aRw23Y8p3IuQbI6uREYD4V2hwy5u7
+ QiO7RHB+qQ2JhoVjuR/c0N2hd2g4WnORYBBD1E+u/W6vT5t0KrXh7X4uFhAmOk+iXMto
+ ALHKjiJQpyGKR0kCYakcLiKvdd3yzAHnY/Ly0Ahy2+YKiugLmjT7evFsA3CBQxeejRSm
+ mjxJ7SQMUytafeRPp6D6rcyczK/Xl/ThLrkqvLJ2DUKLLMA/0+ykgFmCL890SSQ+nGEU
+ jJ1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
- fh=Msz/jBxas3F/iBIX0Uy39T9SqHkJFbwSGXbOTrSAgrs=;
- b=VVH6KM0q+5TYd52gidx6GZvHPoJD25nal9tUn8nzDRsz2Cdl5Mm3M/LuOdEdREV5yr
- Yj1/WVpLkBvbstXXRuYcIzmTWTPYMg9mvMsqGVXQ7b6v+1o3Vje8THRt3pEaUWVyJOJ9
- NB9twIPL+5tNIoN/xvLVmZ1DgPtXx9HVDQRfgfuYrgr2xukq4lJYJHd6ibLeUIuVUjAw
- dmvdBN+m17oM2l9PaPbtU1emoAZI0DABJWP/+0FQ7sPFCzu8UlXMYvQMbsM8YBHlm4l+
- mY1efZ23jc6Un8vwlMz/amwT6v9lMJ4PUqwebFX8yqIKg/uvEL+PdOtMCGLL5Hf1ClET
- pfAA==; darn=lists.freedesktop.org
+ bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
+ fh=TMAy2h7MggMkI3rVxQyD0PQ+lUQc1OBLQ5dKjoDrFRk=;
+ b=bBBZsV3+LusEsAzZUpL1lh7Pp9oalSOh299OWjSopdof3Kne+iZClpVYwI5aaiyvBB
+ HSdcLvA+0GJ3rfJ5iGyPmTO6d4yO1zztXYQN3NEg8l7jweowJqf959zDRB2/ZqQ6ETbk
+ foPAtojNMpCKZ6tOnxn1vCwYf6D+Yl1ZfKtNu0353fFuIK2dWxIJ+McVqxogUz8UiYem
+ fQyTZYdppFl4zOiU4wy6sbvDPi5EJkD/3UrYeyOwZISMUJEHWt/mlH6RuzSJa51LOM0K
+ 18M2wmiTwigU8HNpKP397bHezj7J6UT6dmXSkrIxUwTJzgUJD+qD2JC1CoBeN+QEfogf
+ 4kUA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788635931; x=1789240731; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788636163; x=1789240963; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
- b=nIXCsIuaMO2R9AifhH8X4HgSoXsHSfVrMlNiGwXkkkT6qbnVGDgw4rjvvMP7vm1Sjt
- r+96jDMQSU7H2BAE0rbSJ/RgYo6647D7RsnSjB34tD3aW6n1KzVXMJzgXmcccFCDKctk
- 79Gn4enb07nJZ6D3xDhJTgxD7q9YCSEqvCy4rncUQZN5lyyW7Of/WKRi4nak+CNPRZvu
- vszWPEgxoMXCneUe002uDIp4E+d7I1r5CE1vavV01hxwHwCi5QI4WIeZDOiWgSGoEUeE
- pU+5fiOHwT2nl1jhimORBnj/o6gRMTKtpogQ3smkA3RKbIiPEPnt+myTHx7XEzzRMGNs
- PMnA==
+ bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
+ b=iYyPbqup9XSCXCmLuzMX9UFjWQaj+XxI+BBTFnWZk2N7T5U6ZQHNfrrmkq1ahfMLsD
+ BU2DQWTa66VB7sq5n68irnxrSZULGxC2VPRNl4hTEH23VHqp6a+ty/YL2wz6B4RW/+7h
+ QH2aJAOEgyR+pGYIbOpO+b6wCliU+jfpbKz4vrzPuJhO2s3RQQxkegDRMAtrNSQHlbnX
+ u3STyxPImFwUl+ubMkCUiz+pC4weU9/WCpaRn5bzmRH2CwFEIlDWTLS9w31sqf+pIfWY
+ VEops4mCzmp6nMyCsQY4e3mUH+QJFqvckjzjELNX437PThn8QmTlH/FNvaLp5WeQkl4V
+ uh9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788635931; x=1789240731;
+ d=1e100.net; s=20251104; t=1788636163; x=1789240963;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
- b=oZkgGH9LZ85G9e2DcZaHUXgnUfM5YP3yz1Mb3sn41HRJrOwDgFzRchgsv5Fi2avcJe
- ClOrT0LxFv/heyo575Lybhk38Y8al9c5pxzZH5htU/CM+5CNjKhs14Z9kYxaHoJJR5Xs
- LUa6oQfb+Yw7ABMxUY+YSKmUFrjjYzssdGnOKsUnxt2yqhmgiNjBesxN4koI4QMulPEH
- T/IJ3N7H/ynRcQOjWOe5SGRFaKDAXdJ1zJzpAokeQswjepkfKaUXkOG68gZ0iUZrHtBg
- IIY2UCdg5MZ+sTRWzutY8SawrDVV7pcfMSIMDfGrfE3IJkiD7op74uimS0JLeHLi68cH
- UpvA==
+ bh=F0hp8ol4MVmew9w5JiuEvACCnB101tW8NVpWQVhjcY4=;
+ b=n91HikT1yHbQgqQ38vSW9NuM0vDlXyLGoJPhqVwSeojvjeNBTGuMBeAYlAVjTt3hWJ
+ wEnseTOLH1By1oiGmW20VgVnqMukvsqXUXz+xNUPP04/t5OtfZVDJemMXOMLpVywvuMq
+ FqpphQCFs1slRbdUu6GPZm6tY+9CbhW1f2h/SenDadDq3nZaakelzxOuvUazVFTugVD+
+ LymZEIBzrxU0tG/5F9wvLUitduWfb+rHxf6F1xOX/yNf5JdSQHg6SFD2C0kjUzEoOCRu
+ qY5VLA74J6YuaUvK8JkghfqcIWL1QkKzOHjWfuO0eW7JM0z9Xfdfk3ECfYkfUb1cmQNv
+ nGfA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByk1CY0/U9g5HhUi7VusN+x7rmr2LPdPh50wcNXfnJPQi8K9Ddr3x8gPnxR1TwxBWfKbOIQNCwBrJg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lawb5jgEK2H9u9zRAMWESnWLUiR/1O+Vc1SXIFIom+JneIh7Y+
- fbvNrT/eDHEVXtlfYpclEFLyzbbwtRpc0niNaTcu4Vx8iYXT7P8Xo58sfJnem+wENKcABXQHNQV
- U6WEmdjk118/IYMpyGARPKghHiky4oEA=
-X-Gm-Gg: AYBFou1Zu4yC6laRzdEIHCWt/r6+f43A7Usev3oqOzRLdFnd6PZvvJXK8YSX+0Udf4H
- i5YwkPspZI6T5kZQoFEzh9HLM/j3zgkcPXvR3tIQ1roja2CHD8CWDutGrKR6s8/dEybrBHLO1xa
- ligNuh3sL82Z7wM59qOsZuf++TRtwC3hGv+QCIM68gH72vitVtw9rMif+gKCKC7pEYtkp5KAUB8
- l8Vx8sqmmP/fHmAO6UN7IfCVFVTK+LeDhN1mzrknqadUE169y4y/fLr7+MN8s9Y/TrcRvaUraPo
- OLwZUCnDC6ayABtWhVxAK5vU67P0mO9QH+HSz31gDede268Zj/4j4K6ifmpMj1MbDYiB9fjA5Zl
- HYOYpEAhMBa9OXGHq9Zd7UxFv4JjG5KqbXZdWM2TXVj44NbxNi/kVUuWXns1h
-X-Received: by 2002:a17:90b:3843:b0:390:3936:8760 with SMTP id
- 98e67ed59e1d1-39b3d3db82emr6481594a91.0.1788635930630; Sat, 05 Sep 2026
- 12:18:50 -0700 (PDT)
+ AKwUvBzx4QIAAhZLiwRUzkfbJjgmNighMOlmwwlC0XKOF4yP2Wvwr1fua8hl/9vRfouQgIN4Y4dL+IQKdQ0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lhQT38deR8vsHrFZpdRhV0lUmX78cGfHs1GEK2i3DJIk/YNJV2
+ dv4UFo024H2IobH3ozUUQMKmwFQgEgELan23JhrmASym0s2X3q0nByr8oam7Uk0fgTvXs7t2TxX
+ BIVsYFnG0Sm3aAMed+UpHWjKY4ozF3fY=
+X-Gm-Gg: AYBFou1IrlL5jJrwGgTFz9QsyY2REePz4e4y3oV0aFmOiGoQ/IrMWdXMlgeJwS37BZ3
+ f8Clpcz+z+3c9RzQo1CNuMHxbtWbSvhULuQ8ORjobAruDzvyw1RipqmRPV/NFo5PinV07ndKibr
+ BGJ6XTd3vc16DKreEohqhpnbYNLXi6K1+srczyPIJ6CEezpEprIY9cKwka3UoQCV2Bt5+r3OEJw
+ ESTzGcehJ0pY00Z+G5kbsbjLzLzgUP0a0h/y/h9UkRWC3Nu4BIsu0rHxR+ekUOiztLcdhQb9yCA
+ t9/S+jqyax7uoA5qZsse6tnEDWEs6+1GU8bQhPe8a7k2Tf49+y4oPKajIFa0iKwd19KZz2sYIVe
+ jdf/WrBPnBI48NgR0nM44eO4NOadQghgQtAxKAwe3xfTksSs7RfrtuYcQUFcd
+X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id
+ 98e67ed59e1d1-39b3d8377camr7470429a91.6.1788636163260; Sat, 05 Sep 2026
+ 12:22:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
-In-Reply-To: <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 5 Sep 2026 21:18:37 +0200
-X-Gm-Features: AcwNN1W_ZpD7BnW-6N9vI0Wb1kb0jyPzchOyBf701rQL7ntZoTH7GyzL5sIHsSA
-Message-ID: <CANiq72k4NQ6yJByyb73Sy+iwqVc=i5CuZy2b5uRVksA+gkr9qA@mail.gmail.com>
-Subject: Re: [PATCH v4 02/16] rust: mem: add `transmute` with deferred size
- check
+Date: Sat, 5 Sep 2026 21:22:30 +0200
+X-Gm-Features: AcwNN1XYNGZeZdAbyqW_MpHHmRnUCoTfhvfgQ1L93n760L7NneO9Fvtxk2YGC7Q
+Message-ID: <CANiq72nxtehkGdb9RZpd=MsjWzp9euoLw=MmCzvcqOgxxEwymg@mail.gmail.com>
+Subject: Re: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
 To: Gary Guo <gary@garyguo.net>
 Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>,
@@ -123,31 +122,25 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Tue, Sep 1, 2026 at 6:50=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
 >
-> +/// This can be used when types are known to have the same size, but onl=
-y at runtime.
-> +/// ```no_run
+> +    /// Convert from `Self` to [`Self::Repr`].
 
-Newline between them.
+I think [`Self`] etc. work too.
 
-> +///     // SAFETY: We've checked that `T` is u32!
+> +/// - [`Self`] must be [transmutable] from [`Self::Repr`].
 
-`u32`
+We say "can" in the `AsRepr` one -- we should be consistent.
 
-> +/// This is typically used in generic code where it's known that type wi=
-ll have the same size, but
-> +/// the compiler cannot prove it generically.
-> +/// ```no_run
+> +// SAFETY: `bool` has the same size and alignment as `u8`, and Rust guar=
+antees that `bool` has
+> +// only two valid bit patterns: 0 (false) and 1 (true). Thus `bool` can =
+be transmuted to `u8`.
 
-Same.
+`false`, `true`
 
-> +    // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds=
-.
+> +        // SAFETY: $unsigned has the same size and alignment with itself=
+, and is transmutable to
 
-`transmute`
-
-I think we could also link to the intrinsic and the `_neo` one,
-perhaps with a permalink to avoid drift if they go away, but not a big
-deal of course.
+`$unsigned` (a few below).
 
 Cheers,
 Miguel
