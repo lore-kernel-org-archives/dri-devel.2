@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B0FEC79F82
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 00:43:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49771C624D3
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 00:43:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB2110E246;
-	Sat,  5 Sep 2026 00:43:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D97B10E485;
+	Sat,  5 Sep 2026 00:43:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fmg3u+gO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D4N/ws20";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13AEB10E220
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:43:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95C7510E246
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:43:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F088143B44;
- Sat,  5 Sep 2026 00:43:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894121F00A3E;
- Sat,  5 Sep 2026 00:43:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 718264479F;
+ Sat,  5 Sep 2026 00:43:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000C51F00A3D;
+ Sat,  5 Sep 2026 00:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788569022;
- bh=ai8d/z/jR8St5LaF9248MzOc4BaNMXKIfXmoxvaaQR8=;
+ s=k20260515; t=1788569024;
+ bh=mqjpar+f+Cbdq0pcg7A44i7twxcYoQfNarTSIk1nh1I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fmg3u+gO26cscy/kVF7NaHY5xew3/RlZBHW2BhVS2DMWWEueiFnddNpz7Qh8V4cMs
- GcGS8muP8rHUoO/xK6vjnTAry0ab6FjGFY9l3HuHwGo6bOP0/9apsFdfol628O1I1L
- p+UQ5ezM2YATHcdGPXPjQzyiIzyP/pCmJjWyaYfivgrfwWL5s9eVlatyclKUfTzV6v
- XFxLH6BfvEOaQ5Yr/J4kwdBZ0joOTwi7o4Jg4w5KadjzvxUSEyEsLCnvQym1rCzrjz
- +sREwZchTgq0/Rs1rZwkhLzIXDx0bvsETmlVLt+OtNHIInsZp8Sp2UdComS2qFqA2D
- RSRX7rFkmbGSw==
+ b=D4N/ws2031xrS0VVK2n/p92pVVAXHWTnmNjUpCldYgvY5M6YP4tIOwHoxDiJdIHiM
+ qwYJvkTZgS96Sb9IxXsc2BrHkoqHNAdtQNLo5K7Iu1llqaJz7pcXA+7ivVuWxhQAAU
+ t/y+C47gui4QrntSq/QUzF7dZhuhLg2NA8uwG5rACRDqcLfoNibHZVtXZLhNERQZL8
+ ByOoXkSTjYB7U9GLX3OO4bJPvrWQQM5GW6PFmM6jWPHCug+oYuXF494x9gq5ZSN6ET
+ ybJSumPbIkqqW526GjSc7R63xKSPL2TdOtDZUi0CzNnyjB1cYPMzH5rRLpIssd5VXc
+ 4OLEzd7+wVT6g==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 04 Sep 2026 19:43:20 -0500
-Subject: [PATCH v2 01/19] accel: ethosu: Suspend after initialization
+Date: Fri, 04 Sep 2026 19:43:21 -0500
+Subject: [PATCH v2 02/19] accel: ethosu: Fix probe error cleanup
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ethosu-fixes-v2-1-3767738756a4@kernel.org>
+Message-Id: <20260904-ethosu-fixes-v2-2-3767738756a4@kernel.org>
 References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
 In-Reply-To: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -58,45 +58,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The initial runtime-PM reference is held only while initializing the
-NPU. Release it synchronously from ethosu_init() after the final
-hardware access, before registering the DRM device.
+Once the job scheduler has been initialized, failures from ethosu_init()
+or drm_dev_register() return from probe without tearing it down. The
+registration failure also leaves the SRAM-pool allocation in use, because
+the platform remove callback is not called after a failed probe.
 
-This keeps the runtime-PM setup and initial reference handling together
-and leaves the autosuspend configuration in place for subsequent jobs.
+Unwind the initialized resources on both paths. Also do not call
+drm_sched_fini() after a failed drm_sched_init(): the scheduler initializer
+already unwinds its partial setup, while drm_sched_fini() requires a
+successfully initialized scheduler.
 
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v2:
- - new patch
+ - Adjust for previous patch reworking runtime-PM suspend
 ---
- drivers/accel/ethosu/ethosu_drv.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c | 13 ++++++++++++-
+ drivers/accel/ethosu/ethosu_job.c |  6 +-----
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 8108622de258..df76253d01a6 100644
+index df76253d01a6..c684e28ac787 100644
 --- a/drivers/accel/ethosu/ethosu_drv.c
 +++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -338,6 +338,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
- 		 ethosudev->npu_info.sram_size / 1024,
- 		 ethosudev->npu_info.pmu_counters);
+@@ -375,9 +375,20 @@ static int ethosu_probe(struct platform_device *pdev)
  
-+	pm_runtime_put_sync_suspend(ethosudev->base.dev);
-+
- 	return 0;
- }
- 
-@@ -376,10 +378,6 @@ static int ethosu_probe(struct platform_device *pdev)
- 		return ret;
+ 	ret = ethosu_init(ethosudev);
+ 	if (ret)
+-		return ret;
++		goto err_job_fini;
  
  	ret = drm_dev_register(&ethosudev->base, 0);
--	if (ret)
--		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
--
--	pm_runtime_put_autosuspend(ethosudev->base.dev);
++	if (ret)
++		goto err_sram_free;
++
++	return 0;
++
++err_sram_free:
++	if (ethosudev->sram)
++		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
++			      ethosudev->npu_info.sram_size);
++err_job_fini:
++	ethosu_job_fini(ethosudev);
  	return ret;
  }
  
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index 8dce74db0cb4..ec65305e0cd7 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -355,14 +355,10 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 	ret = drm_sched_init(&edev->sched, &args);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to create scheduler: %d\n", ret);
+-		goto err_sched;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-err_sched:
+-	drm_sched_fini(&edev->sched);
+-	return ret;
+ }
+ 
+ void ethosu_job_fini(struct ethosu_device *dev)
 
 -- 
 2.53.0
