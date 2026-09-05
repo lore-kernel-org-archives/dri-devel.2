@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4BBC624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95BB3C79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1926910E27F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A13A10E2A0;
 	Sat,  5 Sep 2026 18:13:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t27HNNFF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dvRKTz6K";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82AB10E0E6
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6F610E248
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F0764481C;
+ by sea.source.kernel.org (Postfix) with ESMTP id C415E44846;
  Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 692FBC2BCF4;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A2D16C2BCFC;
  Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788632020;
- bh=RSw5o1xgKCoo1dJ08Kg1Z5PCGcfPAJMSdIT3pzgp3aw=;
+ bh=039hD2i/u3Xzim3T+Y+Npe87/xD0kbnHfCWs5owZRF8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=t27HNNFFRZUb9frmqS5MhpUjRLpRrHWsXBpQe0klKUTcQmY/Ysa5YA7K7E5bbeSJs
- cVzx/PqSGlbae6J/0STGP1t9u1ZQ5v/pXrmERA0MR4iu4faCvvfdafWs/3jTmPxQGJ
- tU5SKNJ5vsYeWrIGzpxqDOgXr+iWYZGpHshzC02Jb4+l9hEbR9TDllMT27dkG42J2M
- YcWJkDbvnaJeuvzIC+YfXsKfPP2HU+96WaGRpZ1gZ2TJ4dYyEOByF+VDG564itK+Qa
- inJb7CFWVCWlxW6a/FUzlGn8QCPpm98UrxMhFqnE0s2yaDJ8d2gcVtMJazq9H7eJs7
- wTC+8OUyW3+5Q==
+ b=dvRKTz6KcudoJS/UYzhqgyNZwgeeEqbWYlV4nm5wgvGsaSSsXpFLiawmwgJY6z4vy
+ A/oB5waY5QDDTz68lAu4Ht4J99VdfO0y1BHD4z0E/23UTx9nwBCXvkWH0B2elvqtSQ
+ 26NX7ROY0VeYni5X8iLTjqOZ3csVNDVa6GZ2D04w2YuwU+FutfIN9Xf86U6K7a8nlk
+ myp3f/tvR7E393fjAdeK70e6X2NyVGdwNOBnmsYCAo/0uRE66HB6JolINPJ841tlDe
+ REl7R2o5NxMWVoagn3cKw5K1Xfokm56RvGvVd5JXpZAM5qZzsade15TzUK0RjTkTMt
+ QlL83TIX4kpDQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 4DD0BC624DB;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB95C79F91;
  Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:27 -0600
-Subject: [PATCH v8 13/43] dyndbg-API: remove
- DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+Date: Sat, 05 Sep 2026 12:13:31 -0600
+Subject: [PATCH v8 17/43] lib/parser: add match_wildcard_hyphen() for
+ agnostic matching
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-13-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-17-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -58,14 +58,13 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=9445;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=4874;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=yDvzvB8YVbmO6VW0QKeb3yhTVxl3ejf4y3zaiiJFZSM=;
- b=SemczUtadf0DiZAEhreh/v2IhnROyOt9oyDoGRd/008ljs2/guDwfDPrV5uEX3RAiljrqvN/X
- tUAzhJOM+GRBS49hbWiHGFJDgz9mXbf1kJmztWsgobBaLvHylmsmo8u
+ bh=ihDFqL0diDWV3lWPKWnxgngrFJlU5Ge2Bo6Sm1Qc/y4=;
+ b=ITFzTkTlOK8gnfGL2YM3ijp8DCaJowlDsEzlcxJv2oxk0MNM1acuBr0vVQn8ZzwJTs13b0kJ6
+ AmztAHB5R5HDw4V+U8rJiHVsLxRyvr75BSpqEgn4uTtTU/tvo7SEenB
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -89,289 +88,140 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Remove the DD_CLASS_TYPE_*_NAMES classmap types and code.
+This commit introduces match_wildcard_hyphen() as a variant of the
+existing match_wildcard() function. It treats hyphens and underscores
+as identical characters during the matching process.
 
-These 2 classmap types accept class names at the PARAM interface, for
-example:
+This is necessary for subsystems like dynamic_debug that need to match
+module names provided by users (who often use underscores) against
+names stored in the kernel (which may use hyphens, especially when
+using KBUILD_MODFILE for built-ins).
 
-  echo +DRM_UT_CORE,-DRM_UT_KMS > /sys/module/drm/parameters/debug_names
-
-The code works, but its only used by test-dynamic-debug, and wasn't
-asked for by anyone else, so reduce LOC & test-surface; simplify things.
-
-Also rename enum class_map_type to enum ddebug_class_map_type.
+To avoid code duplication, the core logic is refactored into a private
+__match_wildcard() function marked as __always_inline. This allows the
+compiler to generate optimized versions for both the strict and agnostic
+callsites with zero runtime overhead.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v3:
-
-fix name of enum in kdoc
-also change name of struct (to future name)
-
-v2:
-
-move RvB after SoB
-
-respect const instr in param_set_dyndbg_module_classes, return -EINVAL on classtype err.
+v5: move ahead of array-slice patch to silence sashiko complaint about it
+v4: initial version
 ---
- include/linux/dynamic_debug.h | 28 ++++---------
- lib/dynamic_debug.c           | 98 +++----------------------------------------
- lib/test_dynamic_debug.c      | 26 ------------
- 3 files changed, 15 insertions(+), 137 deletions(-)
+ include/linux/parser.h                             |  1 +
+ lib/parser.c                                       | 58 ++++++++++++++++------
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     |  2 +-
+ 3 files changed, 45 insertions(+), 16 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index a10adac8e8f0..9607121c3072 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -59,27 +59,17 @@ struct _ddebug {
- #endif
- } __attribute__((aligned(8)));
+diff --git a/include/linux/parser.h b/include/linux/parser.h
+index dd79f45a37b8..a3cc7bc5fb93 100644
+--- a/include/linux/parser.h
++++ b/include/linux/parser.h
+@@ -34,6 +34,7 @@ int match_u64(substring_t *, u64 *result);
+ int match_octal(substring_t *, int *result);
+ int match_hex(substring_t *, int *result);
+ bool match_wildcard(const char *pattern, const char *str);
++bool match_wildcard_hyphen(const char *pattern, const char *str);
+ size_t match_strlcpy(char *, const substring_t *, size_t);
+ char *match_strdup(const substring_t *);
  
--enum class_map_type {
-+enum ddebug_class_map_type {
- 	DD_CLASS_TYPE_DISJOINT_BITS,
- 	/**
--	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, one per bit.
--	 * expecting hex input. Built for drm.debug, basis for other types.
-+	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent,
-+	 * mapped to bits[0..N].  Expects hex input. Built for
-+	 * drm.debug, basis for other types.
- 	 */
- 	DD_CLASS_TYPE_LEVEL_NUM,
- 	/**
--	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0-N.
--	 * N turns on just bits N-1 .. 0, so N=0 turns all bits off.
--	 */
--	DD_CLASS_TYPE_DISJOINT_NAMES,
--	/**
--	 * DD_CLASS_TYPE_DISJOINT_NAMES: input is a CSV of [+-]CLASS_NAMES,
--	 * classes are independent, like _DISJOINT_BITS.
--	 */
--	DD_CLASS_TYPE_LEVEL_NAMES,
--	/**
--	 * DD_CLASS_TYPE_LEVEL_NAMES: input is a CSV of [+-]CLASS_NAMES,
--	 * intended for names like: INFO,DEBUG,TRACE, with a module prefix
--	 * avoid EMERG,ALERT,CRIT,ERR,WARNING: they're not debug
-+	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0..N.
-+	 * Input N turns on bits 0..N-1
- 	 */
- };
- 
-@@ -90,7 +80,7 @@ struct ddebug_class_map {
- 	const char **class_names;
- 	const int length;
- 	const int base;		/* index of 1st .class_id, allows split/shared space */
--	enum class_map_type map_type;
-+	enum ddebug_class_map_type map_type;
- };
- 
- /* encapsulate linker provided built-in (or module) dyndbg data */
-@@ -119,8 +109,8 @@ struct ddebug_class_param {
- 
- /**
-  * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-- * @_var:   a struct ddebug_class_map, passed to module_param_cb
-- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-+ * @_var:   a struct _ddebug_class_map, passed to module_param_cb
-+ * @_maptype: enum ddebug_class_map_type, chooses bits/verbose
-  * @_base:  offset of 1st class-name. splits .class_id space
-  * @classes: class-names used to control class'd prdbgs
-  */
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8d710c74309a..cb768157db08 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -653,76 +653,6 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 
- #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
- 
--/* accept comma-separated-list of [+-] classnames */
--static int param_set_dyndbg_classnames(const char *instr, const struct kernel_param *kp)
--{
--	const struct ddebug_class_param *dcp = kp->arg;
--	const struct ddebug_class_map *map = dcp->map;
--	unsigned long curr_bits, old_bits;
--	char *cl_str, *p, *tmp;
--	int cls_id, totct = 0;
--	bool wanted;
--
--	cl_str = tmp = kstrdup_and_replace(instr, '\n', '\0', GFP_KERNEL);
--	if (!tmp)
--		return -ENOMEM;
--
--	/* start with previously set state-bits, then modify */
--	curr_bits = old_bits = *dcp->bits;
--	vpr_info("\"%s\" > %s:0x%lx\n", cl_str, KP_NAME(kp), curr_bits);
--
--	for (; cl_str; cl_str = p) {
--		p = strchr(cl_str, ',');
--		if (p)
--			*p++ = '\0';
--
--		if (*cl_str == '-') {
--			wanted = false;
--			cl_str++;
--		} else {
--			wanted = true;
--			if (*cl_str == '+')
--				cl_str++;
--		}
--		cls_id = match_string(map->class_names, map->length, cl_str);
--		if (cls_id < 0) {
--			pr_err("%s unknown to %s\n", cl_str, KP_NAME(kp));
--			continue;
--		}
--
--		/* have one or more valid class_ids of one *_NAMES type */
--		switch (map->map_type) {
--		case DD_CLASS_TYPE_DISJOINT_NAMES:
--			/* the +/- pertains to a single bit */
--			if (test_bit(cls_id, &curr_bits) == wanted) {
--				v3pr_info("no change on %s\n", cl_str);
--				continue;
--			}
--			curr_bits ^= BIT(cls_id);
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
--			*dcp->bits = curr_bits;
--			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
--				  map->class_names[cls_id]);
--			break;
--		case DD_CLASS_TYPE_LEVEL_NAMES:
--			/* cls_id = N in 0..max. wanted +/- determines N or N-1 */
--			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
--			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
--
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
--			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
--			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
--				  map->class_names[cls_id], old_bits, curr_bits);
--			break;
--		default:
--			pr_err("illegal map-type value %d\n", map->map_type);
--		}
--	}
--	kfree(tmp);
--	vpr_info("total matches: %d\n", totct);
--	return 0;
--}
--
- /**
-  * param_set_dyndbg_classes - class FOO >control
-  * @instr: string echo>d to sysfs, input depends on map_type
-@@ -741,28 +671,15 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 	unsigned long inrep, new_bits, old_bits;
- 	int rc, totct = 0;
- 
--	switch (map->map_type) {
--
--	case DD_CLASS_TYPE_DISJOINT_NAMES:
--	case DD_CLASS_TYPE_LEVEL_NAMES:
--		/* handle [+-]classnames list separately, we are done here */
--		return param_set_dyndbg_classnames(instr, kp);
-+	rc = kstrtoul(instr, 0, &inrep);
-+	if (rc) {
-+		int len = strcspn(instr, "\n");
- 
--	case DD_CLASS_TYPE_DISJOINT_BITS:
--	case DD_CLASS_TYPE_LEVEL_NUM:
--		/* numeric input, accept and fall-thru */
--		rc = kstrtoul(instr, 0, &inrep);
--		if (rc) {
--			pr_err("expecting numeric input: %s > %s\n", instr, KP_NAME(kp));
--			return -EINVAL;
--		}
--		break;
--	default:
--		pr_err("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
-+		pr_err("expecting numeric input, not: %.*s > %s\n",
-+		       len, instr, KP_NAME(kp));
- 		return -EINVAL;
- 	}
- 
--	/* only _BITS,_NUM (numeric) map-types get here */
- 	switch (map->map_type) {
- 	case DD_CLASS_TYPE_DISJOINT_BITS:
- 		/* expect bits. mask and warn if too many */
-@@ -790,6 +707,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 		break;
- 	default:
- 		pr_warn("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
-+		return -EINVAL;
- 	}
- 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
- 	return 0;
-@@ -811,12 +729,8 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
- 	const struct ddebug_class_map *map = dcp->map;
- 
- 	switch (map->map_type) {
--
--	case DD_CLASS_TYPE_DISJOINT_NAMES:
- 	case DD_CLASS_TYPE_DISJOINT_BITS:
- 		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
--
--	case DD_CLASS_TYPE_LEVEL_NAMES:
- 	case DD_CLASS_TYPE_LEVEL_NUM:
- 		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
- 	default:
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 77c2a669b6af..74d183ebf3e0 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -74,13 +74,6 @@ DECLARE_DYNDBG_CLASSMAP(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS, 0,
- DD_SYS_WRAP(disjoint_bits, p);
- DD_SYS_WRAP(disjoint_bits, T);
- 
--/* symbolic input, independent bits */
--enum cat_disjoint_names { LOW = 11, MID, HI };
--DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
--			"LOW", "MID", "HI");
--DD_SYS_WRAP(disjoint_names, p);
--DD_SYS_WRAP(disjoint_names, T);
--
- /* numeric verbosity, V2 > V1 related */
- enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
- DECLARE_DYNDBG_CLASSMAP(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
-@@ -88,13 +81,6 @@ DECLARE_DYNDBG_CLASSMAP(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
- DD_SYS_WRAP(level_num, p);
- DD_SYS_WRAP(level_num, T);
- 
--/* symbolic verbosity */
--enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
--DECLARE_DYNDBG_CLASSMAP(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES, 22,
--			"L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
--DD_SYS_WRAP(level_names, p);
--DD_SYS_WRAP(level_names, T);
--
- /* stand-in for all pr_debug etc */
- #define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
- 
-@@ -102,10 +88,6 @@ static void do_cats(void)
- {
- 	pr_debug("doing categories\n");
- 
--	prdbg(LOW);
--	prdbg(MID);
--	prdbg(HI);
--
- 	prdbg(D2_CORE);
- 	prdbg(D2_DRIVER);
- 	prdbg(D2_KMS);
-@@ -129,14 +111,6 @@ static void do_levels(void)
- 	prdbg(V5);
- 	prdbg(V6);
- 	prdbg(V7);
--
--	prdbg(L1);
--	prdbg(L2);
--	prdbg(L3);
--	prdbg(L4);
--	prdbg(L5);
--	prdbg(L6);
--	prdbg(L7);
+diff --git a/lib/parser.c b/lib/parser.c
+index 62da0ac0d438..d5be01fa9adf 100644
+--- a/lib/parser.c
++++ b/lib/parser.c
+@@ -268,20 +268,13 @@ int match_hex(substring_t *s, int *result)
  }
+ EXPORT_SYMBOL(match_hex);
  
- static void do_prints(void)
+-/**
+- * match_wildcard - parse if a string matches given wildcard pattern
+- * @pattern: wildcard pattern
+- * @str: the string to be parsed
+- *
+- * Description: Parse the string @str to check if matches wildcard
+- * pattern @pattern. The pattern may contain two types of wildcards:
+- *
+- * * '*' - matches zero or more characters
+- * * '?' - matches one character
+- *
+- * Return: If the @str matches the @pattern, return true, else return false.
+- */
+-bool match_wildcard(const char *pattern, const char *str)
++static inline char dash2underscore(char c)
++{
++	return (c == '-') ? '_' : c;
++}
++
++static __always_inline bool __match_wildcard(const char *pattern, const char *str,
++					     bool hyphen_agnostic)
+ {
+ 	const char *s = str;
+ 	const char *p = pattern;
+@@ -301,7 +294,9 @@ bool match_wildcard(const char *pattern, const char *str)
+ 			pattern = p;
+ 			break;
+ 		default:
+-			if (*s == *p) {
++			if (hyphen_agnostic ?
++			    (dash2underscore(*s) == dash2underscore(*p)) :
++			    (*s == *p)) {
+ 				s++;
+ 				p++;
+ 			} else {
+@@ -319,8 +314,41 @@ bool match_wildcard(const char *pattern, const char *str)
+ 		++p;
+ 	return !*p;
+ }
++
++/**
++ * match_wildcard - parse if a string matches given wildcard pattern
++ * @pattern: wildcard pattern
++ * @str: the string to be parsed
++ *
++ * Description: Parse the string @str to check if matches wildcard
++ * pattern @pattern. The pattern may contain two types of wildcards:
++ *
++ * * '*' - matches zero or more characters
++ * * '?' - matches one character
++ *
++ * Return: If the @str matches the @pattern, return true, else return false.
++ */
++bool match_wildcard(const char *pattern, const char *str)
++{
++	return __match_wildcard(pattern, str, false);
++}
+ EXPORT_SYMBOL(match_wildcard);
+ 
++/**
++ * match_wildcard_hyphen - parse if a string matches given wildcard pattern
++ * @pattern: wildcard pattern
++ * @str: the string to be parsed
++ *
++ * Description: Same as match_wildcard, but treats '-' and '_' as identical.
++ *
++ * Return: If the @str matches the @pattern, return true, else return false.
++ */
++bool match_wildcard_hyphen(const char *pattern, const char *str)
++{
++	return __match_wildcard(pattern, str, true);
++}
++EXPORT_SYMBOL(match_wildcard_hyphen);
++
+ /**
+  * match_strlcpy - Copy the characters from a substring_t to a sized buffer
+  * @dest: where to copy to
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 67b568730acc..8e881b5c860c 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -593,7 +593,7 @@ builtin_tests=(
+     FT_grammar_errs
+     FT_basic_queries
+     #FT_path_module_queries
+-    #FT_hyphen_underscore
++    FT_hyphen_underscore
+ )
+ 
+ # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
 
 -- 
 2.55.0
