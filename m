@@ -4,89 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1239CC624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 05:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204F4C624D6
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 05:44:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A93110E5A5;
-	Sat,  5 Sep 2026 05:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 169BB10E23F;
+	Sat,  5 Sep 2026 05:44:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=murena.io header.i=@murena.io header.b="e09BHDAH";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="CF2JNQbH";
 	dkim-atps=neutral
-Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7526E10E1D4
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 05:21:42 +0000 (UTC)
-Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
+ Sat, 05 Sep 2026 05:44:20 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [185.244.194.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E96E010E23F;
+ Sat,  5 Sep 2026 05:44:20 +0000 (UTC)
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+ by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hcMXj2NXKz9H0w;
+ Sat,  5 Sep 2026 07:37:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1788586629;
+ bh=PxQ/ligeBpT6KN/47W3IbN7XtDCK1Y2sGdAzdrZX00w=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CF2JNQbH3di016p9tfQifkIzqTp+/jzz3Jih6Bj+RbwvB/RrvomYIs2WC2UNN16im
+ 6fd8yaDJooeBOCtOrqjUnf2aVFK0KffDfOR57v/qMvzN8EJdhiN2gdc7/34F+0S75r
+ 23RujXz84MwTaPV2c/v1Xc5Ok+dZTbnzxM96s3a13WwAYnDNp++Xu6kRGeDcFyxE6C
+ Hhz3H6QzIyg9VAgGpK9EnpnQH3gpy3b1QuJN45MthM8Nxu9s2og5h2v/aeoTEtbPmb
+ 6YI4yiEn6rA0Bn5S5HSLTW3nmGwQgHg81GlQv3h6XxrwELHDIjW/T6I8kl0p5xjtKd
+ ewYPQFYNZ28jw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hcMXj1gqDz7yXm;
+ Sat,  5 Sep 2026 07:37:09 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail2.ecloud.global (Postfix) with ESMTPSA id B8626721285;
- Sat,  5 Sep 2026 05:21:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
- t=1788585699;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KCOIseHcTnUxxa8UzPwtOfVQnt/pNmZAJdUPIg+XLqo=;
- b=e09BHDAHB8rW8CJ877ybXQO9BIhYTyEJyZ1UfCDGFBXGQp83jw90VJvx43GTmCwSaQjzmZ
- vZpB35WoTlow0wOgePmLAALvOVX4UDG1WLETkdYfE0Yms42sgAvS1PemSzA2A12krn4rTT
- 1cf3fVX7lS+xZMHPIc92+QnIa3PDUgs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
- s=mail2; t=1788585699;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KCOIseHcTnUxxa8UzPwtOfVQnt/pNmZAJdUPIg+XLqo=;
- b=jP8u0+6IUTg6AgiXIbTGUEcfBSMqo7Nmd7Jr3DYd3CWjZY43q91uDjoMKSmOPb7C2g5uaR
- iIEJS2tWhm2RJi0GFGMGg4N9fF1QxzfQ74UijbJC18veoZSi49xvXSRP1T4Cl2WVqw+irA
- xNMCko+5QoxwijbilgirxAp71w2JUOQ=
-ARC-Authentication-Results: i=1; mail2.ecloud.global;
- auth=pass smtp.mailfrom=maud_spierings@murena.io
-ARC-Seal: i=1; s=mail2; d=murena.io; t=1788585699; a=rsa-sha256; cv=none;
- b=Ky3gcQbu+iQn3gGJSjO38x37++V52aS5N/nQCOx3J6XxPIqfFy1ZbkijYRzWOWiFT+pVmT
- 7YFhfuIVisKc3ETR/8jHzo+pemFPQ34KVfBmoujMt5BFDBSdKw+v6R/9q4pnc6yOtpxUSR
- njWiXCniQ4hrwKE4/mkGqbMrN0fifdM=
-Message-ID: <ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
-Date: Sat, 5 Sep 2026 07:21:35 +0200
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hcMXh2kr9z8svX;
+ Sat,  5 Sep 2026 07:37:08 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 8DC505FA2D;
+ Sat,  5 Sep 2026 07:36:59 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=linux@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info>
+Date: Sat, 5 Sep 2026 07:36:59 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
-To: Michal Wilczynski <m.wilczynski@samsung.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mfd@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-Content-Language: en-US
-From: Maud Spierings <maud_spierings@murena.io>
-In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Felix.Kuehling@amd.com
+Cc: Mukul Joshi <mukul.joshi@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mark Brown <broonie@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ rust-for-linux@vger.kernel.org,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20260831183311.1090131-1-alexander.deucher@amd.com>
+ <20260831183311.1090131-2-alexander.deucher@amd.com>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <20260831183311.1090131-2-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178858662003.1872299.15447474853113409037@mxe9fb.netcup.net>
+X-NC-CID: xmDBnZDUQ27kMJfbFoGneDMfwun2n0SNgG+rh/W/aMiFmDJt6d0=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,117 +128,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Michal,
+On 8/31/26 20:33, Alex Deucher wrote:
+> From: Mukul Joshi <mukul.joshi@amd.com>
+> 
+> Add an optional callback for driver-specific cleanup when the GEM
+> handle of an object is freed. This will be used by AMDGPU to enable
+> freeing of memory exported to other nodes in a UALink pod once all
+> user mode references are gone.
+> 
+> The callback is called outside the object_name_lock and before
+> releasing the reference count on the GEM object
 
-This new version added some more issues on my fml13v01 board, this time 
-2 registers in the VOUT_CRG are misconfigured that were correct in v2, 
-namely:
+This showed up in -next yesterday and afaics broke build on arm64 and
+x86_64 for me with the following error from rust:
 
-0x295c0004 was 0x00000004 on the previous version but is now 0x00000006
-0x295c001c was 0x81000000 on the previous version but is now 0x80000000
+"""
+>> error[E0063]: missing field `handle_free` in initializer of `drm_gem_object_funcs`
+>>    --> rust/kernel/drm/gem/mod.rs:265:58
+>>     |
+>> 265 |     const OBJECT_FUNCS: bindings::drm_gem_object_funcs = bindings::drm_gem_object_funcs {
+>>     |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+>> 
+>> error: aborting due to 1 previous error
+>> 
+>> For more information about this error, try `rustc --explain E0063`.
+>> make[2]: *** [rust/Makefile:799: rust/kernel.o] Error 1
+>> make[1]: *** [/builddir/build/BUILD/kernel-7.3.0-build/kernel-next-20260904/linux-7.3.0-0.0.next.20260904.221.vanilla.fc43.aarch64/Makefile:1442: prepare] Error 2
+>> make: *** [Makefile:256: __sub-make] Error 2
+"""
+Full log:
+https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-43-aarch64/10951622-next-next-all/builder-live.log.gz
 
-xx04 sets a slightly different clock divider, but it doesn't seem to 
-matter, display also works with this changed value.
+Reverting this change and 2/3 from this set fixed the problem for me.
 
-xx1c seems to select the wrong clock mux?
+Ciao, Thorsten
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  9 +++++++++
+>  drivers/gpu/drm/drm_gem.c               |  5 ++++-
+>  include/drm/drm_gem.h                   | 11 +++++++++++
+>  3 files changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index f754a4a3a1c22..0d579517c03ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -386,6 +386,14 @@ static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_str
+>  	return drm_gem_ttm_mmap(obj, vma);
+>  }
+>  
+> +static void amdgpu_gem_object_handle_free(struct drm_gem_object *gobj)
+> +{
+> +	struct amdgpu_bo *aobj = gem_to_amdgpu_bo(gobj);
+> +
+> +	amdgpu_ualink_revoke_exported_memory(aobj);
+> +
+> +}
+> +
+>  const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+>  	.free = amdgpu_gem_object_free,
+>  	.open = amdgpu_gem_object_open,
+> @@ -395,6 +403,7 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+>  	.vunmap = drm_gem_ttm_vunmap,
+>  	.mmap = amdgpu_gem_object_mmap,
+>  	.vm_ops = &amdgpu_gem_vm_ops,
+> +	.handle_free = amdgpu_gem_object_handle_free
+>  };
+>  
+>  static bool amdgpu_gem_are_domains_valid(u32 domains)
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index e3ed684ddcf29..6a86bd2a0343e 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -354,8 +354,11 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+>  	}
+>  	mutex_unlock(&dev->object_name_lock);
+>  
+> -	if (final)
+> +	if (final) {
+> +		if (obj->funcs->handle_free)
+> +			obj->funcs->handle_free(obj);
+>  		drm_gem_object_put(obj);
+> +	}
+>  }
+>  
+>  /*
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 8a704f6a65c15..95d8ae6f85df7 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -227,6 +227,17 @@ struct drm_gem_object_funcs {
+>  	 */
+>  	size_t (*rss)(struct drm_gem_object *obj);
+>  
+> +	/**
+> +	 * @handle_free:
+> +	 *
+> +	 * This callback is called when the GEM handle count goes down to 0.
+> +	 * It is currently used by AMDGPU driver to release their exported BO
+> +	 * handles.
+> +	 *
+> +	 * This callback is optional.
+> +	 */
+> +	void (*handle_free)(struct drm_gem_object *obj);
+> +
+>  	/**
+>  	 * @vm_ops:
+>  	 *
 
-After correcting 0x295c001c (and the ones that I mentioned before in the 
-hdmitx block), the display comes to life again.
-
-Not sure why these are changed.
-
-Besides that it works great!
-
-Kind regards,
-Maud
-
-On 9/4/26 15:27, Michal Wilczynski wrote:
-> This series enables the display subsystem on the StarFive JH7110.
-> 
-> The dom_vout block holds the display controller (dc8200), the clock
-> generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
-> a single register block containing both the controller and the PHY, and
-> it has a circular clock dependency with voutcrg:
-> 
->    - the HDMI controller needs pclk/mclk/bclk from voutcrg
->    - voutcrg needs the pixel clock for its dc8200 pixel MUXes, and that
->      clock is generated by the HDMI PHY
-> 
-> The loop only exists if the HDMI block is treated as one device. The
-> PHY's reference clock is xin24m, not a voutcrg output, so splitting the
-> node into a parent plus phy and controller children gives deferred probe
-> a linear order: hdmi-phy, then voutcrg, then hdmi-controller.
-> 
-> The parent maps the register block and owns the regmap its two children
-> share. Everything in the region sits behind one NoC port whose clock and
-> reset gate access to it, inside PD_VOUT, so the vout subsystem node from
-> the RFC is back and owns those for as long as any child exists.
-> 
-> Patch 10 adds a .mode_valid platform op to inno-hdmi.
-> inno_hdmi_bridge_mode_valid() checks the pixel clock against
-> hdmi->refclk, but that clock only exists where a "ref" clock is
-> described. The JH7110 gets its pixel clock from the PHY, so refclk is
-> NULL and the check was skipped: unsupported modes were advertised, the
-> modeset then "succeeded" because the atomic enable path cannot fail, and
-> the display stayed blank.
-> 
-> Patches 15-17 drop the PHY duplication from the RFC. The JH7110 has the
-> same Innosilicon PHY as the RK3328, offset by 0x100 because it sits
-> behind the controller in the shared register block. Patch 15 factors out
-> the pre-PLL config format, table lookup, determine_rate, recalc_rate and
-> the pre-PLL programming; patch 16 moves Rockchip onto it; patch 17 adds
-> the JH7110 driver. Pixel clock tables, post-PLL and analog config stay
-> SoC specific.
-> 
-> Patch 16 should be a no-op for Rockchip - same writes, same order, same
-> values - and RK3228, whose pre-PLL is at different addresses, keeps its
-> own register code and shares only the lookup. I have no Rockchip
-> hardware, so it is build tested only (arm and riscv). A Tested-by would
-> help.
-> 
-> The dc8200 driver, th1520 reset controller and inno-hdmi bridge that the
-> RFC listed as prerequisites are all upstream now, so there are no
-> out-of-tree dependencies.
-> 
-> Testing
-> =======
-> 
-> Tested on a VisionFive 2 v1.3B using modetest.
-> 
-> All 42 modes the sink advertises work, with nothing in dmesg. Pixel
-> clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
-> (4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
-> rate families.
-> 
-> The four modes the RFC reported as broken work now too: 2560x1440@59.95,
-> 2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
-> 
-> Before patch 10, four of the advertised modes failed: 1680x1050@59.95
-> (146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
-> 1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
-> table, so clk_set_rate() returned -EINVAL and the screen stayed black
-> while userspace saw a successful modeset. They are rejected in
-> .mode_valid now; the other refresh rates of those resolutions still work.
-> 
-> Every commit builds for riscv, and the Rockchip PHY also for arm.
-> 
-> Notes
-> =====
-> 
-> The JH7110 has no central MAINTAINERS entry and maintainership is
-> fragmented, so patch 19 adds one for the display subsystem and I am
-> happy to help maintain it. The new PHY library lives under drivers/phy/,
-> already covered by the generic PHY framework entry.
-> 
-> checkpatch warns "does MAINTAINERS need updating?" on the patches adding
-> files, because that entry comes in patch 19.
-> 
-> Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
-> SoC and the display pipeline fit together.
-> 
-> Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
-> wrapper and helped with the testing, to Maud Spierings for testing on a
-> Framework 13 panel, and to Graham Markall for testing
-> the JH7110 display patches independently and writing up the results:
-> https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-controller-patches/
-> 
