@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 981AAC624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45719C79F91
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2710C10E2C8;
-	Sat,  5 Sep 2026 18:13:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BFC10E248;
+	Sat,  5 Sep 2026 18:13:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tjfe6IRi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WFvNKc/s";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14B0510E0E6
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F1510E0E6
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 17A99447D9;
- Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D1AA8C32781;
+ by sea.source.kernel.org (Postfix) with ESMTP id E36DE44798;
+ Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9555BC2BD00;
  Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788632019;
- bh=NDrZE41402D/UHYSx49263+3eXhDlauLvRgsYeGLj0M=;
+ bh=mFq7t8pPnW8tWgNRY0QIGMk5Lw7S9ptiEy3IfuGAgJ4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Tjfe6IRi68keYKU5mVhEbtSR6ES0YVL2uwtx2jVwOXip4Seid1k32ozQD8GLKgc9/
- CJ6PsXC/qR6QEsVtvpMkF2AHedHY4g03zhaF09E+CBS1cQLbQRBu82YE7qUMYlzGPd
- ttIIhbP8rNg3onWRtd77xWhQv+KraLzAK68EJKGCCPOj1vgXMVOQaSfkqrS/mQGbJ6
- gb4kaE2etjiTdGPbtAsgVQft28qG6nMnYgo1r/H1UY4ndwr7cCV8+UIlxIKcg19Fm9
- i1IfCZ5vRnbbluhpC6f1I0tIIOyz24aFJMY6eVwKx4t7w5109gBpMM5BxQXSawBtgD
- 5Vmhd22IlpUPA==
+ b=WFvNKc/sOsIMcTMDtfDLLYm8aoov+2ZmiCxqXnHDJMkHdj7QKoSkL2xtpcWG6Cxbe
+ aTEHv7F7nlUWNuCSItLvknTOXJTBjGHrwj8DvgE9rGrGYFMHIH2As7NV/SQoa+Exeu
+ UHmxqTV6FKyxIKamjNA6DVIaLE0p9jl9xBrV23/Md1rkSIaRFR3jgeDl7txAjn6DwX
+ lPeBn0lCBZyLhmGAGI3MHZs/yG2ClKw85nXBAMFHEpFZbGoBt1U1w9+6rSVpqFEW+4
+ CIMlVI5L4w/qm9MnK0w3rRGEgPKOr4DkQNLGcxiEW4rc7V0Bay+9By8U45h/tK3GZ2
+ N+aGSQUlFPlZQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id C02B1C79F8B;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7AA5FC79F97;
  Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:21 -0600
-Subject: [PATCH v8 07/43] vmlinux.lds.h: Fix ALIGN(8) omission causing NULL
- ptr on i386
+Date: Sat, 05 Sep 2026 12:13:17 -0600
+Subject: [PATCH v8 03/43] drm: fix config dependent unused variable
+ warning.
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-7-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-3-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -58,14 +58,13 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=6221;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=1088;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=22WCSuGF05p8gA76uv7PlnmHWahruFec5XONc19uauM=;
- b=Q9xgV4ED9VGsrxqHPwVfd7lkEQ7+sVAR2qFmXJd9wOQ541WsD4I9mbvYIulJCAxUovy80qez+
- PFIoT7ThqQGCukzqJZL9VFwX2AJm9wCg6yxowUIhZsxAAn8NGTniXpl
+ bh=xTai6ZK4QmRgBE6pkfVWluR5fMfzn/IcxxIyts3OtoY=;
+ b=RBwsUntnwDYlSQqJ+ZyEsskbyqGxP1QEVoTtffrk146DvlFwKAUWPOKh6P8PyLAl1PqJTQ9sG
+ Xa33uXACXc6ApsZaPqViABTtQCiMsFm9pDrIX3A7V1/589VdcUQXOH8
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -89,160 +88,36 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Almost all uses of the BOUNDED_SECTION macros are ALIGN(8), either
-explicitly, or by being below an aligned section containing x*8 byte
-objects.  The noteworthy exception is BOUNDED_SECTION(__dyndbg), which
-immediately follows BOUNDED_SECTION(__dyndbg_classes).
+__drm_printfn_dbg() does
+  int category = p->category;
+then does:
+  if (drm_debug_enabled(category))
 
-On i386, struct _ddebug_classmap is 28 bytes, so without an explicit
-ALIGN(8) in the macro, the following __dyndbg section gets misaligned,
-causing a NULL ptr deref in dynamic_debug_init().
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=y, that macro doesn't reference the
+category arg, because its optimized away, as not needed when dyndbg's
+static-key is under the callsite.  Silence the warning by passing
+p->category directly.
 
-So fix this with an explicit ALIGN(8) in the existing BOUNDED_SECTION
-macros, and introduce _ALIGNED variants to handle the cases with an
-explicit . = ALIGN(x)
-
-Also add explicit alignments for: EXCEPTION_TABLE, ORC_UNWIND_TABLE,
-TRACEDATA, INIT_SETUP, and NOTES.
-
-update BOUNDED_SECTION uses inside . = ALIGN(x) stanzas to use
-_ALIGNED variants, but keep the outer ALIGNs so the symbols between
-them are not "re-aligned".
-
-In particular, scripts/sorttable.c does not tolerate sloppy padding.
-
-At the top of ORC_UNWIND_TABLE, add . = ALIGN(4) to match the struct
-orc_header __align() call in the code:
-
-commit b9f174c811e3 ("x86/unwind/orc: Add ELF section with ORC version identifier")
-
-Suggested-by: Louis Chauvet <louis.chauvet@bootlin.com>  # _ALIGNED variants.
-Link: https://lore.kernel.org/lkml/177402491426.6181.12855763650074831089.b4-review@b4/
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v3:
+ drivers/gpu/drm/drm_print.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-sashiko complained about NOTES and .BTF_ids.
-gemini asserts that NOTES are natively 4-byte aligned, add comment repeating it.
-.BTF_ids doesnt use BOUNDED_BY, since start/end isnt needed;
-sashiko evidently got confused by immediately preceding usage.
-
-v2:
-
-sashiko picked up 2 cases, added to the explicit list above
-https://sashiko.dev/#/patchset/20260515-asm-generic-1-v3-0-680b273666d4%40gmail.com
----
- include/asm-generic/bounded_sections.lds.h | 17 ++++++++++++++---
- include/asm-generic/vmlinux.lds.h          | 18 ++++++++++--------
- 2 files changed, 24 insertions(+), 11 deletions(-)
-
-diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-index 268cdc34389b..8ff3e3420f60 100644
---- a/include/asm-generic/bounded_sections.lds.h
-+++ b/include/asm-generic/bounded_sections.lds.h
-@@ -3,19 +3,30 @@
- #ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
- #define _ASM_GENERIC_BOUNDED_SECTIONS_H
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 86cef1a37678..e5b900640300 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -218,9 +218,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+ {
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
+-	enum drm_debug_category category = p->category;
  
--#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+#define BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, _ALIGNED_) \
-+	. = ALIGN(_ALIGNED_);						\
- 	_BEGIN_##_label_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_END_##_label_ = .;
+-	if (!__drm_debug_enabled(category))
++	if (!__drm_debug_enabled(p->category))
+ 		return;
  
--#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, 8)
-+
-+#define BOUNDED_SECTION_POST_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, _ALIGNED_) \
-+	. = ALIGN(_ALIGNED_);						\
- 	_label_##_BEGIN_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_label_##_END_ = .;
- 
-+#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	BOUNDED_SECTION_POST_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, 8)
-+
- #define BOUNDED_SECTION_BY(_sec_, _label_)				\
- 	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
- 
--#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
-+#define BOUNDED_SECTION_BY_ALIGNED(_sec_, _label_, _ALIGNED_)		\
-+	BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, __start, __stop, _ALIGNED_)
-+
-+#define BOUNDED_SECTION(_sec)   BOUNDED_SECTION_BY(_sec, _sec)
- 
- #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b4ece391f7b1..b1a69f8af6d2 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -640,7 +640,7 @@
- #define EXCEPTION_TABLE(align)						\
- 	. = ALIGN(align);						\
- 	__ex_table : AT(ADDR(__ex_table) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(__ex_table, ___ex_table)		\
-+		BOUNDED_SECTION_BY_ALIGNED(__ex_table, ___ex_table, align) \
- 	}
- 
- /*
-@@ -650,7 +650,7 @@
- #define BTF								\
- 	. = ALIGN(PAGE_SIZE);						\
- 	.BTF : AT(ADDR(.BTF) - LOAD_OFFSET) {				\
--		BOUNDED_SECTION_BY(.BTF, _BTF)				\
-+		BOUNDED_SECTION_BY_ALIGNED(.BTF, _BTF, PAGE_SIZE)	\
- 	}								\
- 	. = ALIGN(PAGE_SIZE);						\
- 	.BTF_ids : AT(ADDR(.BTF_ids) - LOAD_OFFSET) {			\
-@@ -840,16 +840,17 @@
- 
- #ifdef CONFIG_UNWINDER_ORC
- #define ORC_UNWIND_TABLE						\
-+	. = ALIGN(4);							\
- 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
-+		BOUNDED_SECTION_BY_ALIGNED(.orc_header, _orc_header, 4)	\
- 	}								\
- 	. = ALIGN(4);							\
- 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
--		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
-+		BOUNDED_SECTION_BY_ALIGNED(.orc_unwind_ip, _orc_unwind_ip, 4)\
- 	}								\
- 	. = ALIGN(2);							\
- 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
-+		BOUNDED_SECTION_BY_ALIGNED(.orc_unwind, _orc_unwind, 2)	\
- 	}								\
- 	text_size = _etext - _stext;					\
- 	. = ALIGN(4);							\
-@@ -877,7 +878,7 @@
- #define TRACEDATA							\
- 	. = ALIGN(4);							\
- 	.tracedata : AT(ADDR(.tracedata) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_POST_LABEL(.tracedata, __tracedata, _start, _end) \
-+		BOUNDED_SECTION_POST_LABEL_ALIGNED(.tracedata, __tracedata, _start, _end, 4) \
- 	}
- #else
- #define TRACEDATA
-@@ -906,13 +907,14 @@
- 		*(.note.gnu.property)					\
- 	}								\
- 	.notes : AT(ADDR(.notes) - LOAD_OFFSET) {			\
--		BOUNDED_SECTION_BY(.note.*, _notes)			\
-+		/* *(.note.*) are natively 4-byte aligned */		\
-+		BOUNDED_SECTION_BY_ALIGNED(.note.*, _notes, 4)		\
- 	} NOTES_HEADERS							\
- 	NOTES_HEADERS_RESTORE
- 
- #define INIT_SETUP(initsetup_align)					\
- 		. = ALIGN(initsetup_align);				\
--		BOUNDED_SECTION_POST_LABEL(.init.setup, __setup, _start, _end)
-+		BOUNDED_SECTION_POST_LABEL_ALIGNED(.init.setup, __setup, _start, _end, initsetup_align)
- 
- #define INIT_CALLS_LEVEL(level)						\
- 		__initcall##level##_start = .;				\
+ 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
 
 -- 
 2.55.0
