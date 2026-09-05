@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C054C79F8B
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12745C79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:24:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8716710E314;
-	Sat,  5 Sep 2026 18:23:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C4110E316;
+	Sat,  5 Sep 2026 18:24:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mPLP7RiV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ve1S4nWE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE29B10E314
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:23:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83C6A10E316
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:24:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F99F43CD2;
- Sat,  5 Sep 2026 18:23:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B36D1F00A3A;
- Sat,  5 Sep 2026 18:23:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CCB16601FB;
+ Sat,  5 Sep 2026 18:24:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7481F00A3A;
+ Sat,  5 Sep 2026 18:24:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788632621;
- bh=YUH+lBf0iwqkOAS7me538nbsczAQ8O6W1R0aQjSVNVk=;
+ s=k20260515; t=1788632672;
+ bh=OAiQechsp7RW2OX1azpdHfvTcmd5o+lcbrfS1dcfX+w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mPLP7RiVZOv3a1wM+oUiPioATwR/33rOigfShLxqYfyWSufCTSU36+8sXkZ4k7SFB
- bKL23TS/Hvj3HGz/rho1r5md0RqArvrovAQBn/r67SJSJ/2c3L/gC+s1+tuAnzBXcf
- Q/7jtiYYgjBNsgsKB/5b+KjGbPe+zhq2nK4geZYyPESdv0RSDFOd4bnZjYaFTnWDO2
- PjHKytadF5ti/vEbL+GwBDgMtfUtDme2D31sL5ahdbb4M0xG46qPXRkXvitb4LzM6P
- ukaIvdM2Am/dO3V/QNVbs730jreTNhAqAjsDsb4XXMjm1WPu+20V4SxrRrVKu71+k+
- RqtNT5uIIiUXw==
+ b=Ve1S4nWEjUW2wB6cMTj8DbB6kQps0nW3c+67NlnOJ6+Cjl7y/7+CUBHxmxSo2t0ZZ
+ eflKZo4hMyYfp+Krzesi0oh+Q6qguH94pp8qj52M26b3UIVUmWXk/glxJjkPu2gnr7
+ Qe9vws9xlibCE0YOuvIpb4Qb6HK8zFOSQBfQgoG4oSaXh+ceH1+z7Ao+EMXo2+/waQ
+ NRG89Ms1i72bEZkNN7zcm+m8Kw7Pw2o1krkP7/NLkT3YcqfJuL7u7Gwn+UfvWo6MP9
+ 1oHEgL8/uyYh3750QMXw8dJJeiyX6BPUA6kKVhcHdqqwU8e8i5FczsMgRtrjj7Wn0d
+ jLdTKrV9lIz2Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 38/43] docs/dyndbg: add classmap info to howto
+Subject: Re: [PATCH v8 35/43] dyndbg: split multi-query strings with @
 To: "Jim Cromie" <jim.cromie@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260905-dd-cmap-part2-clean-v8-38-a4cc0674f6fd@gmail.com>
+In-Reply-To: <20260905-dd-cmap-part2-clean-v8-35-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
- <20260905-dd-cmap-part2-clean-v8-38-a4cc0674f6fd@gmail.com>
+ <20260905-dd-cmap-part2-clean-v8-35-a4cc0674f6fd@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 18:23:40 +0000
-Message-Id: <20260905182341.3B36D1F00A3A@smtp.kernel.org>
+Date: Sat, 05 Sep 2026 18:24:31 +0000
+Message-Id: <20260905182432.4A7481F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +59,87 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The commit message explicitly lists `DYNAMIC_DEBUG_CLASSMAP_PARAM_R=
-EF` as one of the API macros being described, but its description is comple=
-tely missing from the updated documentation.
-- [Low] A grammatical error was introduced when rewording the 'class' keywo=
-rd description: 'If the class_name accepted by a module' is missing the wor=
-d 'is'.
+- [Medium] The selftest intended to verify the new '@' query separator mist=
+akenly uses ';' instead, leaving the new feature untested.
+- [Medium] Unconditional string splitting on '@' breaks valid queries conta=
+ining literal '@' characters (e.g., in format strings for device tree addre=
+sses or emails).
 --
 
-commit 7c3648089dc5012711c87c21ef5abd2076484f7b
+commit 02bd61a3e52ea827cb76db337dc5c8fc31993564
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-docs/dyndbg: add classmap info to howto
+dyndbg: split multi-query strings with @
 
-Describe the 3 API macros providing dynamic_debug's classmaps
+This patch adds '@' to the existing ';' and '\n' multi-command
+separators, which is more shell-friendly, so you can more fully avoid
+quoting and escaping hassles. It also updates the selftests script.
 
-DYNAMIC_DEBUG_CLASSMAP_DEFINE - create & export a classmap
-DYNAMIC_DEBUG_CLASSMAP_USE    - refer to exported map
-DYNAMIC_DEBUG_CLASSMAP_PARAM  - bind control param to the classmap
-DYNAMIC_DEBUG_CLASSMAP_PARAM_REF + use module's storage - __drm_debug
-
-NB: The _DEFINE & _USE model makes the user dependent on the definer,
-just like EXPORT_SYMBOL(__drm_debug) already does.
-
-> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Document=
-ation/admin-guide/dynamic-debug-howto.rst
-> index 6b934fab695b1..aa3a74deb68f9 100644
-> --- a/Documentation/admin-guide/dynamic-debug-howto.rst
-> +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-[ ... ]
-> @@ -221,6 +214,25 @@ line
->  	line -1605          // the 1605 lines from line 1 to line 1605
->  	line 1600-          // all lines from line 1600 to the end of the file
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index 6f700de9738c4..93a5a481c8b8c 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -631,7 +631,7 @@ static int ddebug_exec_queries(char *query, const cha=
+r *modname)
+>  	int i, errs =3D 0, exitcode =3D 0, rc, nfound =3D 0;
 > =20
-> +class
-> +
-> +    The given class_name is validated against each module, which may
-> +    have declared a list of class_names it accepts.  If the class_name
-> +    accepted by a module, callsite & class matching and adjustment
+>  	for (i =3D 0; query; query =3D split) {
+> -		split =3D strpbrk(query, ";\n");
+> +		split =3D strpbrk(query, "@;\n");
 
-[Severity: Low]
-Does this sentence have a missing word? It seems like it should read "If th=
-e=20
-class_name is accepted by a module".
+[Severity: Medium]
+Will this unconditional string splitting on '@' break valid queries contain=
+ing
+literal '@' characters?
 
-> +    proceeds.  Examples::
-> +
-> +	class DRM_UT_KMS	# a drm.debug category
+For example, format strings containing device tree addresses or emails like
+dyndbg=3D"format \"node@1000\" +p". It seems they will be incorrectly split=
+ at
+the '@' character before quote-aware tokenization occurs, causing syntax
+errors and failing to enable the intended debug statements.
+
+>  		if (split)
+>  			*split++ =3D '\0';
+
 [ ... ]
-> @@ -398,3 +415,108 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
+
+> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
+ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> index f0b18afa73722..0bb3c3e11df75 100755
+> --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+
 [ ... ]
-> +Dynamic Debug Classmap API
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> +
-> +DYNAMIC_DEBUG_CLASSMAP_DEFINE(clname,type,_base,classnames) - this maps
-> +classnames (a list of strings) onto class-ids consecutively, starting
-> +at _base.
-> +
-> +DYNAMIC_DEBUG_CLASSMAP_USE(clname) & _USE_(clname,_base) - modules
-> +call this to refer to the var _DEFINEd elsewhere (and exported).
-> +
-> +DYNAMIC_DEBUG_CLASSMAP_PARAM(clname) - creates the sysfs/kparam,
-> +maps/exposes bits 0..N as class-names.
 
-[Severity: Low]
-The commit message lists DYNAMIC_DEBUG_CLASSMAP_PARAM_REF as one of the API=
-=20
-macros being described, but its description appears to be missing from this=
-=20
-section.
-
-Should an explanation for DYNAMIC_DEBUG_CLASSMAP_PARAM_REF be included here=
-=20
-alongside the others?
-
+> @@ -325,9 +325,19 @@ function FT_basic_queries {
+>      ddcmd "module params +l"  'kernel/params.c'
+>      ddcmd "module params -m"  'kernel/params.c'
+>      ddcmd "module params =3D_"  'kernel/params.c'
+> +}
 > +
-> +Classmaps are opt-in: modules invoke _DEFINE or _USE to authorize
+> +function FT_multi_query {
+> +    v_echo "${GREEN}# MULTI_QUERY_TESTS ${NC}"
+> +    if [ $LACK_DD_BUILTIN -eq 1 ]; then
+> +	echo "SKIP - test requires params, which is a builtin module"
+> +	return
+> +    fi
+> +    ddcmd =3D_ # zero everything
+> =20
+> -    # multi-query commands split on ; on a single line
+> +    # multi-query commands on a single line, split on ;/@ respectively
+>      ddcmd "module params +mf ; module params func parse_args +sl"  'kern=
+el/params.c'
+> +    ddcmd "module params -f ; module params func parse_args -l"  'kernel=
+/params.c'
+
+[Severity: Medium]
+Does this selftest command mistakenly use ';' instead of the intended '@'
+separator?
+
+The comment right above in FT_multi_query() indicates it tests splitting on
+';/@ respectively', but both commands use ';', which means the new '@'
+separator feature remains completely untested here.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-dd-cmap-pa=
-rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D38
+rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D35
