@@ -4,43 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F448C624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:33:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03AA6C79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 19:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE62F10E494;
-	Sat,  5 Sep 2026 18:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29CB610E1AE;
+	Sat,  5 Sep 2026 19:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IemEyPV2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nIXCsIua";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE6F10E494
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:33:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8E13D40343;
- Sat,  5 Sep 2026 18:33:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541AC1F00A3D;
- Sat,  5 Sep 2026 18:33:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788633194;
- bh=rqS2Nuv3cQJQWEgcR1m8EG3IpZx9dnPCRgFu6i1/i1I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IemEyPV2OlYjv3GLqjSkUz2kNpoEO0jAltpxIBNyaaI5bAYV8fXxUbk+dWnxIUc67
- bMoJhrTS2492pZj9hA5vbmLeokjDwL1UlqGsKmeRz+AdxGfSQ8xCo1UC3YlJoClPc/
- RYwLwvpuHftxTJ7f9983XovcHGkiTzKFmCYDKfow1ZbUwEtAwEm1ekmBtk/CEkJr3A
- 2DeHlPKpGsHn1JQT3k/tTMBqJrbNfj6azPccHNl9j6DeH/ZfF54/lr+iFzQlWwjp1i
- 60/CHzT4RTditHTEreGNogoU7ADk0F7CIdpyB6N4DnOOAKdjWKxwjFGVuA7SszQ5V4
- XGT5ERXSG7v+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 36/43] dyndbg: resolve "protection" of class'd pr_debug
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260905-dd-cmap-part2-clean-v8-36-a4cc0674f6fd@gmail.com>
-References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
- <20260905-dd-cmap-part2-clean-v8-36-a4cc0674f6fd@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F06410E1AE
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 19:18:51 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-399026951a2so208740a91.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 12:18:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788635931; cv=none;
+ d=google.com; s=arc-20260327;
+ b=MDLw2Dlu0DNraeMNzeqVXGDvUl65qS+hlkmMZ+74+Wf86aT5KqlIJ9eBndcx4Az5nj
+ 4LVtfS/o6gvsxg7OhMZVpPKC9k+Hpo3O4Xvk8Khwe0LyL23DTQDU6fgi6NRP+9xqM/79
+ Msswhxa838Q4BF2HC96Z4zQ5v6XhuNl+mPrxEmTeMRSzHBOZSQKtXqq20LdZNa9XKB9/
+ kGmK7SSVdFMft6nKbl1VnbcW1dzyHJTQmDAjC49/2nFebSBSiPA566PEojreZEA//sSY
+ jcMfbUdS4KHdGLOR17pfITVWDUhxIuQsinNZVLs2T2TXI15KRdGL/YeMB6O9zYedeEit
+ G+lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
+ fh=Msz/jBxas3F/iBIX0Uy39T9SqHkJFbwSGXbOTrSAgrs=;
+ b=VVH6KM0q+5TYd52gidx6GZvHPoJD25nal9tUn8nzDRsz2Cdl5Mm3M/LuOdEdREV5yr
+ Yj1/WVpLkBvbstXXRuYcIzmTWTPYMg9mvMsqGVXQ7b6v+1o3Vje8THRt3pEaUWVyJOJ9
+ NB9twIPL+5tNIoN/xvLVmZ1DgPtXx9HVDQRfgfuYrgr2xukq4lJYJHd6ibLeUIuVUjAw
+ dmvdBN+m17oM2l9PaPbtU1emoAZI0DABJWP/+0FQ7sPFCzu8UlXMYvQMbsM8YBHlm4l+
+ mY1efZ23jc6Un8vwlMz/amwT6v9lMJ4PUqwebFX8yqIKg/uvEL+PdOtMCGLL5Hf1ClET
+ pfAA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788635931; x=1789240731; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
+ b=nIXCsIuaMO2R9AifhH8X4HgSoXsHSfVrMlNiGwXkkkT6qbnVGDgw4rjvvMP7vm1Sjt
+ r+96jDMQSU7H2BAE0rbSJ/RgYo6647D7RsnSjB34tD3aW6n1KzVXMJzgXmcccFCDKctk
+ 79Gn4enb07nJZ6D3xDhJTgxD7q9YCSEqvCy4rncUQZN5lyyW7Of/WKRi4nak+CNPRZvu
+ vszWPEgxoMXCneUe002uDIp4E+d7I1r5CE1vavV01hxwHwCi5QI4WIeZDOiWgSGoEUeE
+ pU+5fiOHwT2nl1jhimORBnj/o6gRMTKtpogQ3smkA3RKbIiPEPnt+myTHx7XEzzRMGNs
+ PMnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788635931; x=1789240731;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UrMnI4RvZpvC5+h4ZWEpWSIko85Oy8yeuJXFlCAJ2Is=;
+ b=oZkgGH9LZ85G9e2DcZaHUXgnUfM5YP3yz1Mb3sn41HRJrOwDgFzRchgsv5Fi2avcJe
+ ClOrT0LxFv/heyo575Lybhk38Y8al9c5pxzZH5htU/CM+5CNjKhs14Z9kYxaHoJJR5Xs
+ LUa6oQfb+Yw7ABMxUY+YSKmUFrjjYzssdGnOKsUnxt2yqhmgiNjBesxN4koI4QMulPEH
+ T/IJ3N7H/ynRcQOjWOe5SGRFaKDAXdJ1zJzpAokeQswjepkfKaUXkOG68gZ0iUZrHtBg
+ IIY2UCdg5MZ+sTRWzutY8SawrDVV7pcfMSIMDfGrfE3IJkiD7op74uimS0JLeHLi68cH
+ UpvA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByk1CY0/U9g5HhUi7VusN+x7rmr2LPdPh50wcNXfnJPQi8K9Ddr3x8gPnxR1TwxBWfKbOIQNCwBrJg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lawb5jgEK2H9u9zRAMWESnWLUiR/1O+Vc1SXIFIom+JneIh7Y+
+ fbvNrT/eDHEVXtlfYpclEFLyzbbwtRpc0niNaTcu4Vx8iYXT7P8Xo58sfJnem+wENKcABXQHNQV
+ U6WEmdjk118/IYMpyGARPKghHiky4oEA=
+X-Gm-Gg: AYBFou1Zu4yC6laRzdEIHCWt/r6+f43A7Usev3oqOzRLdFnd6PZvvJXK8YSX+0Udf4H
+ i5YwkPspZI6T5kZQoFEzh9HLM/j3zgkcPXvR3tIQ1roja2CHD8CWDutGrKR6s8/dEybrBHLO1xa
+ ligNuh3sL82Z7wM59qOsZuf++TRtwC3hGv+QCIM68gH72vitVtw9rMif+gKCKC7pEYtkp5KAUB8
+ l8Vx8sqmmP/fHmAO6UN7IfCVFVTK+LeDhN1mzrknqadUE169y4y/fLr7+MN8s9Y/TrcRvaUraPo
+ OLwZUCnDC6ayABtWhVxAK5vU67P0mO9QH+HSz31gDede268Zj/4j4K6ifmpMj1MbDYiB9fjA5Zl
+ HYOYpEAhMBa9OXGHq9Zd7UxFv4JjG5KqbXZdWM2TXVj44NbxNi/kVUuWXns1h
+X-Received: by 2002:a17:90b:3843:b0:390:3936:8760 with SMTP id
+ 98e67ed59e1d1-39b3d3db82emr6481594a91.0.1788635930630; Sat, 05 Sep 2026
+ 12:18:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+ <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-2-5552b1d59525@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 5 Sep 2026 21:18:37 +0200
+X-Gm-Features: AcwNN1W_ZpD7BnW-6N9vI0Wb1kb0jyPzchOyBf701rQL7ntZoTH7GyzL5sIHsSA
+Message-ID: <CANiq72k4NQ6yJByyb73Sy+iwqVc=i5CuZy2b5uRVksA+gkr9qA@mail.gmail.com>
+Subject: Re: [PATCH v4 02/16] rust: mem: add `transmute` with deferred size
+ check
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 18:33:13 +0000
-Message-Id: <20260905183314.541AC1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,174 +118,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The 'controlling_param' field in 'struct ddebug_class_map' is ne=
-ver assigned and its initialization path is disabled, completely breaking t=
-he intended protection mechanism for class'd pr_debugs.
---
+On Tue, Sep 1, 2026 at 6:50=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> +/// This can be used when types are known to have the same size, but onl=
+y at runtime.
+> +/// ```no_run
 
-commit 6f4d594fc681c54264d43b5caa68a2316a8b157d
-Author: Jim Cromie <jim.cromie@gmail.com>
+Newline between them.
 
-dyndbg: resolve "protection" of class'd pr_debug
+> +///     // SAFETY: We've checked that `T` is u32!
 
-This commit aims to protect class'd pr_debugs from unintended changes by
-unclassed legacy queries (like `echo -p > /proc/dynamic_debug/control`).
-It introduces a link from `ddebug_class_map` to `controlling_param` and
-intends to check it to decide whether to protect the class map.
+`u32`
 
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 93a5a481c8b8c..a5d813ad323a1 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
+> +/// This is typically used in generic code where it's known that type wi=
+ll have the same size, but
+> +/// the compiler cannot prove it generically.
+> +/// ```no_run
 
-[ ... ]
+Same.
 
-> +static inline bool ddebug_class_has_param(const struct ddebug_class_map =
-*map)
-> +{
-> +	return !!(map->controlling_param);
-> +}
-> +
-> +/* re-framed as a policy choice */
-> +#define ddebug_class_wants_protection(map) (ddebug_class_has_param(map))
-> +
->  /*
->   * Search the tables for _ddebug's which match the given `query' and
->   * apply the `flags' and `mask' to them.  Returns number of matching
+> +    // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds=
+.
 
-[ ... ]
+`transmute`
 
-> @@ -256,7 +299,28 @@ static bool ddebug_match_desc(const struct ddebug_qu=
-ery *query,
->  	    dp->lineno > query->last_lineno)
->  		return false;
-> =20
-> -	return true;
-> +	/*
-> +	 * above are all satisfied, so we can make final decisions:
-> +	 * 1- class FOO or implied class __DEFAULT__
-> +	 * 2- site.is_classed or not
-> +	 */
-> +	if (query->class_string) {
-> +		/* class FOO given, exact match required */
-> +		return (dp->class_id =3D=3D selected_class);
-> +	}
-> +	/* query class __DEFAULT__ by omission. */
-> +	if (dp->class_id =3D=3D _DPRINTK_CLASS_DFLT) {
-> +		/* un-classed site */
-> +		return true;
-> +	}
-> +	/* site is class'd */
-> +	site_map =3D ddebug_find_map_by_class_id(di, dp->class_id);
-> +	if (!site_map) {
-> +		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions", d=
-p->class_id, di->mod_name);
-> +		return false;
-> +	}
-> +	/* module(-param) decides protection */
-> +	return !ddebug_class_wants_protection(site_map);
->  }
+I think we could also link to the intrinsic and the `_neo` one,
+perhaps with a permalink to avoid drift if they go away, but not a big
+deal of course.
 
-[Severity: Medium]
-Will `ddebug_class_wants_protection()` always evaluate to false?
-
-Because `map->controlling_param` appears to never be initialized, it seems
-this will always return false, which causes the function to return true
-and bypass the intended protection for class'd pr_debugs against unclassed
-legacy queries.
-
-[ ... ]
-
-> @@ -1298,16 +1359,25 @@ static void ddebug_sync_classbits(const struct ke=
-rnel_param *kp, const char *mod
->  	}
->  }
-> =20
-> -static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> -				      const struct ddebug_class_map *map,
-> -				      const char *mod_name)
-> +static struct ddebug_class_param *
-> +ddebug_get_classmap_kparam(const struct kernel_param *kp,
-> +			   const struct ddebug_class_map *map)
->  {
->  	struct ddebug_class_param *dcp;
-> =20
->  	if (kp->ops !=3D &param_ops_dyndbg_classes)
-> -		return;
-> +		return NULL;
-> =20
->  	dcp =3D (struct ddebug_class_param *)kp->arg;
-> +	return (map =3D=3D dcp->map)
-> +		? dcp : (struct ddebug_class_param *)NULL;
-> +}
-> +
-> +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> +				      struct ddebug_class_map *map,
-> +				      const char *mod_name)
-> +{
-> +	struct ddebug_class_param *dcp =3D ddebug_get_classmap_kparam(kp, map);
-> =20
->  	if (dcp && dcp->map =3D=3D map) {
->  		v2pr_info(" kp:%s.%s =3D0x%x", mod_name, kp->name, *dcp->bits);
->  		vpr_cm_info(map, " %s maps ", mod_name);
->  		ddebug_sync_classbits(kp, mod_name);
->  	}
->  }
-
-[Severity: Medium]
-Was the assignment `map->controlling_param =3D dcp;` intended to be added h=
-ere?
-
-The commit message states that the patch "sets it in
-ddebug_match_apply_kparam()", but the assignment seems to be missing.
-Adding the assignment locklessly could also introduce a data race here.
-
-[ ... ]
-
-> @@ -1339,6 +1409,26 @@ static void ddebug_apply_params(const struct ddebu=
-g_class_map *cm, const char *m
->  	}
->  }
-> =20
-> +#if 0
-> +/*
-> + * called from add_module, ie early. it can find controlling kparams,
-> + * which can/does? enable protection of this classmap from class-less
-> + * queries, on the grounds that the user created the kparam, means to
-> + * use it, and expects it to reflect reality.  We should oblige him,
-> + * and protect those classmaps from classless "-p" changes.
-> + */
-> +static void ddebug_apply_class_maps(const struct _ddebug_info *di)
-> +{
-> +	struct ddebug_class_map *cm;
-> +	int i;
-> +
-> +	for_subvec(i, cm, di, maps)
-> +		ddebug_apply_params(cm, cm->mod_name);
-> +
-> +	v2pr_di_info(di, "attached %d class-maps to ", i);
-> +}
-> +#endif
-> +
->  static void ddebug_apply_class_users(const struct _ddebug_info *di)
->  {
-
-[Severity: Medium]
-Does the `#if 0` block around `ddebug_apply_class_maps()` prevent
-`ddebug_match_apply_kparam()` from ever being called for the defining modul=
-e?
-
-If this function is disabled, the parameter initialization appears unreacha=
-ble
-for the defining module's map, even if the assignment was added to
-`ddebug_match_apply_kparam()`.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-dd-cmap-pa=
-rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D36
+Cheers,
+Miguel
