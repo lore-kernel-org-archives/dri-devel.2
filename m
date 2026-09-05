@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD2A0C79F8B
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 00:43:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109F3C624D3
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 00:43:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BA110E4F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D782A10E518;
 	Sat,  5 Sep 2026 00:43:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OmY6eeFf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BVCu0lFz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82A5810E518
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D81A310E4F9
  for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:43:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 87D1E60A7A;
- Sat,  5 Sep 2026 00:43:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC241F00A3D;
- Sat,  5 Sep 2026 00:43:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BA53A447BB;
+ Sat,  5 Sep 2026 00:43:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56EBA1F00A3E;
+ Sat,  5 Sep 2026 00:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788569027;
- bh=VA5xoQf037drhq5+1N2WYwe4lAlKlXMyH8lLNPBodKI=;
+ s=k20260515; t=1788569028;
+ bh=mTQURhigd+JG9LmMdZx3Ar/nyO0G3Iv5Sv1pMVcbF2I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OmY6eeFfcPNgJaDw9+5zPgNugZTjotgsy07v+XE697dX7lOnhglp4SRrsHmCf5T/i
- VBrMXknZhzAeET80kz3DMebBzc41xVA7JvIh6Cvq+uUXpbKgZrXcPdYaKmESVH8rCh
- nm+rjr2AxsmaMbXyiwkauIrnICSpEcTqFa/p2za68fygDHo8dtRgB895gTGyZ964FY
- dzGX+dTzShwLJXV464aGLrWMjAY7kS1Ivz5INGB+497iOf/CFlg9zNBzuA3faYF45r
- Ed7gm+3eCIEYrKZKffP9tP1N5jSNeVMg+BXZdgzn5fQR7/FqrKC7Fc3Jt8u7z6a2a7
- KMlq3Cssdf++g==
+ b=BVCu0lFzOAo5srtX0gxb4xUVdOYxgIqnnaIMuHABL+VjHPT6SEP54HOKxQJL4T2Rl
+ ijIWtfPDeyrTDAVO+5d+idRbFYb8E1TVQCdaNZZfAv811MF+eXaPDaOed27N/8aNz3
+ T2N4V2Jl5xStO3wE3WbBHvszOxhPjNAS4Zpu31FEixsdQ004QO+vWB5Kr26h9JTo5I
+ jA89TUfes6C4VA2wtx3S75jjWL2L1L9LmFHryPSDBEjKABkRu9p6H52nRTPMT+zQUO
+ qKp3qxUjqqzRgU5QxwiHZRsiIjREB7n+5wuZ4b/x3ty8D4mpwbe0jCWkSkceI2TcOS
+ WGptfxh2uBoAA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 04 Sep 2026 19:43:23 -0500
-Subject: [PATCH v2 04/19] accel: ethosu: Quiesce jobs before scheduler teardown
+Date: Fri, 04 Sep 2026 19:43:24 -0500
+Subject: [PATCH v2 05/19] accel: ethosu: Move DMA mode to src/dst struct
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-ethosu-fixes-v2-4-3767738756a4@kernel.org>
+Message-Id: <20260904-ethosu-fixes-v2-5-3767738756a4@kernel.org>
 References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
 In-Reply-To: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -58,110 +58,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-An NPU job can complete while driver removal tears down the scheduler. Its
-IRQ handler could then access scheduler state after it has been
-destroyed.
+The DMA mode setting is independent for source and destination, so it
+should be part of the src/dst struct dma rather than the global DMA
+state.
 
-Stop scheduler submission and timeout work, reset the NPU, and
-synchronize its IRQ before finalizing the scheduler. Add a cancel_job
-callback so drm_sched_fini() signals queued jobs with -ECANCELED; their
-runtime-PM references are then released during normal job cleanup.
-
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v2:
- - new patch
----
- drivers/accel/ethosu/ethosu_drv.c |  4 ++--
- drivers/accel/ethosu/ethosu_drv.h |  2 ++
- drivers/accel/ethosu/ethosu_job.c | 22 +++++++++++++++++++++-
- 3 files changed, 25 insertions(+), 3 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 65b148e770e5..0918fd9b7041 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -216,7 +216,7 @@ static const struct drm_driver ethosu_drm_driver = {
- #define U85_MEM_ATTR0_CFG	0x00000000
- #define U85_MEM_ATTR2_CFG	0x000000b7
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 9afe2549ec84..408b93350dd7 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -100,6 +100,7 @@ int ethosu_gem_create_with_handle(struct drm_file *file,
  
--static int ethosu_reset(struct ethosu_device *ethosudev)
-+int ethosu_device_reset(struct ethosu_device *ethosudev)
- {
- 	int ret;
- 	u32 reg;
-@@ -263,7 +263,7 @@ static int ethosu_device_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	ret = ethosu_reset(ethosudev);
-+	ret = ethosu_device_reset(ethosudev);
- 	if (!ret)
- 		return 0;
- 
-diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
-index 2193bc51d425..f59c845c758b 100644
---- a/drivers/accel/ethosu/ethosu_drv.h
-+++ b/drivers/accel/ethosu/ethosu_drv.h
-@@ -11,6 +11,8 @@ struct ethosu_device;
- struct drm_device;
- struct drm_file;
- 
-+int ethosu_device_reset(struct ethosu_device *ethosudev);
-+
- struct ethosu_file_priv {
- 	struct ethosu_device *edev;
- 	struct drm_sched_entity sched_entity;
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index ec65305e0cd7..74a1136635f8 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -189,6 +189,16 @@ static void ethosu_job_free(struct drm_sched_job *sched_job)
- 	ethosu_job_put(job);
- }
- 
-+static void ethosu_job_cancel(struct drm_sched_job *sched_job)
-+{
-+	struct ethosu_job *job = to_ethosu_job(sched_job);
-+
-+	if (!dma_fence_is_signaled(job->done_fence)) {
-+		dma_fence_set_error(job->done_fence, -ECANCELED);
-+		dma_fence_signal(job->done_fence);
-+	}
-+}
-+
- static void
- ethosu_switch_perfmon(struct ethosu_device *ethosu, struct ethosu_job *job)
- {
-@@ -315,7 +325,8 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(struct drm_sched_job *bad)
- static const struct drm_sched_backend_ops ethosu_sched_ops = {
- 	.run_job = ethosu_job_run,
- 	.timedout_job = ethosu_job_timedout,
--	.free_job = ethosu_job_free
-+	.free_job = ethosu_job_free,
-+	.cancel_job = ethosu_job_cancel,
+ struct dma {
+ 	s8 region;
++	s8 mode;
+ 	u64 len;
+ 	u64 offset;
+ 	s64 stride[2];
+@@ -108,7 +109,6 @@ struct dma {
+ struct dma_state {
+ 	u16 size0;
+ 	u16 size1;
+-	s8 mode;
+ 	struct dma src;
+ 	struct dma dst;
  };
- 
- int ethosu_job_init(struct ethosu_device *edev)
-@@ -363,6 +374,15 @@ int ethosu_job_init(struct ethosu_device *edev)
- 
- void ethosu_job_fini(struct ethosu_device *dev)
+@@ -161,7 +161,7 @@ static u64 cmd_to_addr(u32 *cmd)
+ static u64 dma_length(struct ethosu_validated_cmdstream_info *info,
+ 		      struct dma_state *dma_st, struct dma *dma)
  {
-+	drm_sched_wqueue_stop(&dev->sched);
-+	cancel_delayed_work_sync(&dev->sched.work_tdr);
-+
-+	if (READ_ONCE(dev->in_flight_job)) {
-+		WRITE_ONCE(dev->in_flight_job, NULL);
-+		ethosu_device_reset(dev);
-+	}
-+
-+	synchronize_irq(dev->irq);
- 	drm_sched_fini(&dev->sched);
- }
+-	s8 mode = dma_st->mode;
++	s8 mode = dma->mode;
+ 	u64 len = dma->len;
  
+ 	if (len == U64_MAX)
+@@ -654,13 +654,14 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 				st.dma.src.region = -1;
+ 			else
+ 				st.dma.src.region = param & 0x7;
+-			st.dma.mode = (param >> 9) & 0x3;
++			st.dma.src.mode = (param >> 9) & 0x3;
+ 			break;
+ 		case NPU_SET_DMA0_DST_REGION:
+ 			if (param & 0x100)
+ 				st.dma.dst.region = -1;
+ 			else
+ 				st.dma.dst.region = param & 0x7;
++			st.dma.dst.mode = (param >> 9) & 0x3;
+ 			break;
+ 		case NPU_SET_DMA0_SIZE0:
+ 			st.dma.size0 = param;
 
 -- 
 2.53.0
