@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E17B2C624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07831C624DB
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26C1F10E3D7;
-	Sat,  5 Sep 2026 18:29:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CEB510E3AA;
+	Sat,  5 Sep 2026 18:30:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XaZ1FQeE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z4fNwdw+";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 505A810E3D7
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:29:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7966010E3AA
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:30:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2F49043589;
- Sat,  5 Sep 2026 18:29:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DECE31F00A3A;
- Sat,  5 Sep 2026 18:29:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 34B0A43B4A;
+ Sat,  5 Sep 2026 18:30:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41AA1F00A3A;
+ Sat,  5 Sep 2026 18:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788632985;
- bh=wi1sauKhWvV4kPtTDgP3yGzbL5FEOtwaThHwBoQnDyw=;
+ s=k20260515; t=1788633056;
+ bh=A5K1EmdTNtXm+X1U1wDreaoFMyArfdGzYqk4EznIZBM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XaZ1FQeEp+SpPEcczJTzqJnfzCiW670x3Wbic9pmHZs1uip56gDiDHKYxZ5Q2CVOP
- /qITO2fiYvP36LzBVRanoy2CK8yoQJZILXrUj+Kl3yvwzXc/Cwz0RWafWtY46LP0qE
- 6HBNNGcJTqYG/ECO5Sy38goYS5JPT8ATa6hzqEIzlmDsPw4sSIqR08IrOLIJqycCTd
- 5xfqJe3u0mK23n7stMXOJQ2fBougn6EmZs/QUW7KjTPZjlpifZqNA3HvBSU8aq+CnC
- XBBl116JHQBmSHNr+ewMEwNeEHc6ZCfHs0+Wppf1xCZ5ustJvwXUh2CCDoQ/lyrSkc
- VwNUrhjuybi4A==
+ b=Z4fNwdw+XyAM72BKFHg14JJzLwr1tfi+p2PXlVSklbiEJku3WVgynvaNsiC+pK3RL
+ yC7gq2NLkmHGt4OlRfa+N94xcaK++siD2HtCH9R5mHDPLcpb3fWwAh0h5wZn3y66Kc
+ s3gSSuLryqXmAstuB3hmgNW6ksd3ARa7kI3Yv15yAegkpQogWSdWXF6OqVIAkjj3HD
+ gUgQhZbGgbDe+bSrx1Y7cQi7LvpTNR+H72wuVTCbE5swYes8F0USj6G2PddGiOGQgo
+ 7bHmUUUcXmV+C8B7PTktgMB/GfswnnkLNT+YeDCh8KaHv7vcVm1WWP2Q0YipX32Qjx
+ XNqmiUxrm9//g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 37/43] dyndbg: harden classmap and descriptor validation
+Subject: Re: [PATCH v8 29/43] dyndbg: detect class_id reservation conflicts
 To: "Jim Cromie" <jim.cromie@gmail.com>
 Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260905-dd-cmap-part2-clean-v8-37-a4cc0674f6fd@gmail.com>
+In-Reply-To: <20260905-dd-cmap-part2-clean-v8-29-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
- <20260905-dd-cmap-part2-clean-v8-37-a4cc0674f6fd@gmail.com>
+ <20260905-dd-cmap-part2-clean-v8-29-a4cc0674f6fd@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 18:29:44 +0000
-Message-Id: <20260905182944.DECE31F00A3A@smtp.kernel.org>
+Date: Sat, 05 Sep 2026 18:30:55 +0000
+Message-Id: <20260905183055.D41AA1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,75 +59,81 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Off-by-one error in runtime classmap offset validation restricts=
- the maximum valid class ID.
+- [High] A classmap conflict in a single built-in module causes dynamic_deb=
+ug_init() to fail, completely disabling dynamic debugging system-wide.
 --
 
-commit 9fc4489f7afee86c427de8b09e6f38f827d4fc24
+commit 10601ffba9f53c0ad961efc6f72432bdf809f6d1
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg: harden classmap and descriptor validation
+dyndbg: detect class_id reservation conflicts
 
-This commit improves classmap and descriptor validation by mirroring
-compile-time limits of _DEFINE and adding run-time overlap checks for _USEd
-classmaps. It scans module descriptors at load time to warn about missing
-class_ids instead of waiting for a user query.
+This commit detects if a module defines multiple classmaps that overlap in =
+the
+0..62 class-id space. It adds overlap checking in ddebug_add_module() and
+returns -EINVAL when conflicts are detected, ensuring that class_id to
+classname lookup works properly.
 
 > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index a5d813ad323a1..b7ccf471b5efe 100644
+> index ba618dcf9677f..0f89b6784ab26 100644
 > --- a/lib/dynamic_debug.c
 > +++ b/lib/dynamic_debug.c
 [ ... ]
-> @@ -1524,10 +1543,47 @@ static int ddebug_add_module(struct _ddebug_info =
+> @@ -1409,16 +1425,24 @@ static int ddebug_add_module(struct _ddebug_info =
 *di)
 >  	dd_set_module_subrange(i, cm, &dt->info, maps);
 >  	dd_set_module_subrange(i, cli, &dt->info, users);
 > =20
-> -	/* insure 2+ classmaps share the per-module 0..62 class_id space */
-> +	/* validate the per-module shared 0..62 class_id space */
->  	for_subvec(i, cm, &dt->info, maps)
->  		if (ddebug_class_range_overlap(cm, &reserved_ids))
-> -			goto cleanup;
-> +			err =3D -EINVAL;
+> +	/* insure 2+ classmaps share the per-module 0..62 class_id space */
+> +	for_subvec(i, cm, &dt->info, maps)
+> +		if (ddebug_class_range_overlap(cm, &reserved_ids))
+> +			goto cleanup;
 > +
-> +	for_subvec(i, cli, &dt->info, users) {
-> +		cm =3D cli->map;
-> +		if (!cm) {
-> +			pr_err("module %s: classmap not found for user\n", di->mod_name);
-> +			err =3D -EINVAL;
-> +			continue;
-> +		}
-> +
-> +		if (cm->base + cm->length + cli->offset >=3D _DPRINTK_CLASS_DFLT) {
+>  	mutex_lock(&ddebug_lock);
+>  	list_add_tail(&dt->link, &ddebug_tables);
+>  	mutex_unlock(&ddebug_lock);
+> -
+>  	if (dt->info.users.len)
+>  		ddebug_apply_class_users(&dt->info);
+> =20
+>  	vpr_info("%3u debug prints in module %s\n",
+>  		 dt->info.descs.len, dt->info.mod_name);
+>  	return 0;
+> +cleanup:
+> +	WARN_ONCE(1, "dyndbg multi-classmap conflict in %s\n", di->mod_name);
+> +	kfree(dt);
+> +	return -EINVAL;
+>  }
 
-[Severity: Medium]
-Does this condition have an off-by-one error that restricts the maximum val=
-id
-class ID?
+[Severity: High]
+Does returning an error here cause a systemic failure for built-in modules?
 
-The _DPRINTK_CLASS_DFLT macro is defined as 63, which means valid class IDs
-range from 0 to 62. The maximum assigned class ID for a given map and offse=
-t is
-base + length + offset - 1. If base + length + offset =3D=3D 63, the maximum
-assigned class ID is exactly 62, which should be valid.
+Looking at dynamic_debug_init(), it iterates over all built-in modules
+and calls ddebug_add_module() for each one. If any single module fails,
+it aborts initialization:
 
-Because the code checks if the sum is >=3D _DPRINTK_CLASS_DFLT, a valid
-boundary case of 63 is erroneously flagged as an error. This shrinks the va=
-lid
-class ID space to 0..61 instead of the expected 0..62.
+lib/dynamic_debug.c:dynamic_debug_init() {
+    ...
+		if (strcmp(modname, iter->modname)) {
+			...
+			ret =3D ddebug_add_module(&di);
+			if (ret)
+				goto out_err;
+    ...
+out_err:
+	ddebug_remove_all_tables();
+	return 0;
+}
 
-> +			pr_err("module %s: base:%d + classes.len:%d + cli.offset:%d must be <=
- %d\n",
-> +			       di->mod_name, cm->base, cm->length,
-> +			       cli->offset, _DPRINTK_CLASS_DFLT);
-> +			err =3D -EINVAL;
-> +			continue;
-> +		}
-> +
-> +		if (ddebug_class_user_overlap(cli, &reserved_ids))
-> +			err =3D -EINVAL;
-> +	}
+If a single built-in module has an overlapping classmap, the new -EINVAL re=
+turn
+bubbles up and triggers the out_err path. This destroys all previously load=
+ed
+tables and completely disables dynamic debugging system-wide, rather than j=
+ust
+skipping the misconfigured module. Should ddebug_add_module() failure be
+non-fatal for built-in modules, or perhaps handled more gracefully?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-dd-cmap-pa=
-rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D37
+rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D29
