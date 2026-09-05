@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45719C79F91
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80DF8C79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2BFC10E248;
-	Sat,  5 Sep 2026 18:13:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39DB910E2CA;
+	Sat,  5 Sep 2026 18:13:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WFvNKc/s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="p2pdoVI9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F1510E0E6
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC8410E0E6
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E36DE44798;
- Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9555BC2BD00;
- Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B256344836;
+ Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8FE52C2BCB3;
+ Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788632019;
- bh=mFq7t8pPnW8tWgNRY0QIGMk5Lw7S9ptiEy3IfuGAgJ4=;
+ s=k20201202; t=1788632020;
+ bh=/TSf4cfwRiWoLBn1QpiIpPf7eaHrbRpB7P6ajEP2eVw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=WFvNKc/sOsIMcTMDtfDLLYm8aoov+2ZmiCxqXnHDJMkHdj7QKoSkL2xtpcWG6Cxbe
- aTEHv7F7nlUWNuCSItLvknTOXJTBjGHrwj8DvgE9rGrGYFMHIH2As7NV/SQoa+Exeu
- UHmxqTV6FKyxIKamjNA6DVIaLE0p9jl9xBrV23/Md1rkSIaRFR3jgeDl7txAjn6DwX
- lPeBn0lCBZyLhmGAGI3MHZs/yG2ClKw85nXBAMFHEpFZbGoBt1U1w9+6rSVpqFEW+4
- CIMlVI5L4w/qm9MnK0w3rRGEgPKOr4DkQNLGcxiEW4rc7V0Bay+9By8U45h/tK3GZ2
- N+aGSQUlFPlZQ==
+ b=p2pdoVI9BE+AUU4CUWAdlLUgwnicGyLNI6jVvR9TVcchxhsFEd972ZAwMR+V485PP
+ Caa8NuYqdPconJAdf/zbjOowOLllzyELfvNFIgcfV3UX1uQ0bDMrXWelChOKjvoBsq
+ OR+dtbqkvgfiAeyTFvwhQIIFkDn8ExPzkxMknnWSIbU86db/4pOJF4HUL0W327WGi7
+ Qi3I3h7cEYWvGWN2jkPypcrbe695KuSvd3TQugl8qvDTosfRYElL62whHXVjothg/4
+ +UxOMX/RDr0vBf1DI2Dx3dlZYYQv7f3o0AT9Yshd3ZuEHAC6O+ypHIQLoQ4pgjhpKX
+ IDcDU03oZuViA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 7AA5FC79F97;
- Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7E1BEC624D6;
+ Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:17 -0600
-Subject: [PATCH v8 03/43] drm: fix config dependent unused variable
- warning.
+Date: Sat, 05 Sep 2026 12:13:30 -0600
+Subject: [PATCH v8 16/43] dyndbg: reduce verbose/debug clutter
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-3-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-16-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -58,13 +57,14 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=1088;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=5249;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=xTai6ZK4QmRgBE6pkfVWluR5fMfzn/IcxxIyts3OtoY=;
- b=RBwsUntnwDYlSQqJ+ZyEsskbyqGxP1QEVoTtffrk146DvlFwKAUWPOKh6P8PyLAl1PqJTQ9sG
- Xa33uXACXc6ApsZaPqViABTtQCiMsFm9pDrIX3A7V1/589VdcUQXOH8
+ bh=t37j4WX9rmGZnaxWZRllxKHD7tuZeHqRl4wVkmg6M8Q=;
+ b=ye2bTc3Stss7Jjmq9Y6dE3edZ5bDFrOUZFaWMwdrDSd3KvVFBZSPn4LRMypoAa4x4govaZRTp
+ HJhVQv7NTkDBvCXyZAVjm18fSxD2FKWmiynpAtkMbMEWbmjuMGI3Aw7
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -88,36 +88,156 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-__drm_printfn_dbg() does
-  int category = p->category;
-then does:
-  if (drm_debug_enabled(category))
+currently, for verbose=3, these are logged (blank lines for clarity):
 
-When CONFIG_DRM_USE_DYNAMIC_DEBUG=y, that macro doesn't reference the
-category arg, because its optimized away, as not needed when dyndbg's
-static-key is under the callsite.  Silence the warning by passing
-p->category directly.
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd line is like 1st, with result, not procedure.
+   2nd line is just status, retold in 4th, with more info.
+
+New output:
+
+ dyndbg: query 0: "class DRM_UT_CORE +p"
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+ dyndbg: op='+' flags=0x1 maskp=0xffffffff
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+Also drop several verbose=3 messages in ddebug_add_module.  When
+modprobing a module, dyndbg currently logs/says "add-module", and then
+"skipping" if the module has no prdbgs.  Instead just check 1st and
+return quietly.
+
+Unmatched query diagnostics are intentionally restricted to verbose
+level 3 (v3pr_info_dq) to reduce dmesg output clutter on standard
+verbose levels (verbose=1 and verbose=2), aligning with the overall
+de-cluttering of dynamic debug logging.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_print.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+v7: update fingerprints of grammar-errs changed here
+v4: rename vpr_dq_info to v3pr_dq_info to tell its active logging level
+    adjust some vX levels per doc'd intentions
+v2: RvB after SoB
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 86cef1a37678..e5b900640300 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -218,9 +218,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+trivial change to verbose-debug output line to output the actual
+"module" keyword rather than "mod:", and do so only when the module is
+constrained by the callchain (ie as part of a modprobe).
+
+ was:   query X: "(keyword value)* [+-=]flags" mod:*
+ now:   query X: "(keyword value)* [+-=]flags"
+   or   query X: module FOO "keyword value)* [+-=]flags"
+
+IOW, adjust output to reflect the input grammar more closely.
+---
+ lib/dynamic_debug.c | 24 ++++++++++--------------
+ 1 file changed, 10 insertions(+), 14 deletions(-)
+
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 122c2c9a1254..b2892be2de36 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -128,7 +128,7 @@ do {								\
+ #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
+ #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+ 
+-static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
++static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
  {
- 	const struct drm_device *drm = p->arg;
- 	const struct device *dev = drm ? drm->dev : NULL;
--	enum drm_debug_category category = p->category;
+ 	/* trim any trailing newlines */
+ 	int fmtlen = 0;
+@@ -283,9 +283,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
  
--	if (!__drm_debug_enabled(category))
-+	if (!__drm_debug_enabled(p->category))
- 		return;
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
+ }
  
- 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
+@@ -494,7 +491,6 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 		 */
+ 		query->module = modname;
+ 
+-	vpr_info_dq(query, "parsed");
+ 	return 0;
+ }
+ 
+@@ -518,7 +514,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
+ 
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -532,7 +527,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -548,7 +542,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
+ 		break;
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
+ 	return 0;
+ }
+@@ -577,7 +571,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	}
+ 	/* actually go and implement the change */
+ 	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
++	v3pr_info_dq(&query, nfound ? "applied" : "no-match");
+ 
+ 	return nfound;
+ }
+@@ -600,7 +594,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 		if (!query || !*query || *query == '#')
+ 			continue;
+ 
+-		vpr_info("query %d: \"%s\" mod:%s\n", i, query, modname ?: "*");
++		if (modname)
++			v2pr_info("query %d: module %s \"%s\"\n", i, modname, query);
++		else
++			v2pr_info("query %d: \"%s\"\n", i, query);
+ 
+ 		rc = ddebug_exec_query(query, modname);
+ 		if (rc < 0) {
+@@ -1167,11 +1164,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
+ 
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
++
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+ 
+ 	dt = kzalloc_obj(*dt);
+ 	if (dt == NULL) {
 
 -- 
 2.55.0
