@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 947B8C79F99
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6A1BC79F91
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:13:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF0610E2AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84FE010E29D;
 	Sat,  5 Sep 2026 18:13:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IRhS4X2F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E/PQIR/x";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A9C710E0E6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A377B10E0E6
  for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D46BC44519;
+ by sea.source.kernel.org (Postfix) with ESMTP id EF633447C6;
  Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8822EC2BCFB;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A26ABC32782;
  Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788632019;
- bh=CB4Cm6/3E5wQ7JD6GaUGHHYvD9xBg9sCG6wREr87n4s=;
+ bh=jEFGIzSFi2fKpcASDjhrz30qzCE2E8t13NgDNVHjHwU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=IRhS4X2F6xRCYin2Ddn9rl/PeKB2tXArBquUVxSuQO82dl/+oUPJ+QKj+Xk7kFYgw
- WDOc+WDVPyXSml61/l6ElsvhXma68pksBnBUz0AQKhVmC29fgrZD+gis0RO47JhMPM
- oMn+lCfuNRw5n1nDS3NJmLhRbrCf5uyG9VkEZbcdtFEmYHo2uVGTEnsDtCwLdaVY5K
- 02GEMC7J44wzlo35pVZITj4s0GzEjt1FCSd1T5Ff9YsmuDx8THDxtDjEmReMI5KIWE
- jED3W9f7KPNwL3TPhCYO8CJ4a8Lbb810pDqQ/Ln91CN2NyfBBnICSut5RZE7+hDZzA
- wnRXjSIqnlqpA==
+ b=E/PQIR/xEQzu/VFmvgoL1Y5SUo3NDQ1ayExWEis/tN4v133yU2ASvzkX6mlJlO6G2
+ liv6JOk+urkHFPehT7jdB37IOsG69ZQWCx84sKi71AaR8GkV87k/te2yS+DrRVL7Cq
+ m45E5vll/zeGKGFlDkT03Edvpe+dXPjIC5Qc+QiSpU4UKRzIPOxNtIbIvUqGXttKLp
+ nP+Aua1Ql2WragG2YXrm7la9ko+oH++HZ9jtlD2FklFD1Fp5DZ55EEDsNEcEUcZv3h
+ j2tZ+ytWhAJlb18r84noFTH2WeFXhdbsg8xu9kv9x3OBko7Wr/vdqlcd0VKVWca7B/
+ D6MM4zbvKgzTw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 69F37C624D6;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8BD78C79F91;
  Sat,  5 Sep 2026 18:13:39 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:16 -0600
-Subject: [PATCH v8 02/43] drm: Fix incorrect ccflags-y spelling inside Makefile
+Date: Sat, 05 Sep 2026 12:13:18 -0600
+Subject: [PATCH v8 04/43] drm: Mark CONFIG_DRM_USE_DYNAMIC_DEBUG as
+ unBROKEN
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-2-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-4-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -59,11 +60,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=1097;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=956;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=AOvjwL7FEa1HOM3wBzBER2pp1VD4Y5qc6+YArN8CHNQ=;
- b=fUEUk09ZYPTYWj4Qs/SeMtbTlvtGRdmB2IpJCCbvkbToK67w2HwG2pzV2BJZI3psHIBD2rE37
- x9d5DQtN406DsJf0FjFkpfqobpJh8AM01Rxyn7hFoKrc92KovTYnGDu
+ bh=91CKbBJDX7oHlPDdRPBXzfzFdVwcfmtxuAQcemz5Mzk=;
+ b=lnNlvgmEbieOGyZLQZWVNLD6CAWSF77GHgT7jCfNb8H17bFeUdDrNDidWoj89yVkKE9ExPRHB
+ F5VS2EHSXERBpxBkbVbA1OXC9Dh0NRSHXiDEMI2wVoV4CFI5tM/LuMR
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -87,30 +88,33 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Fix a longstanding spelling error in the DRM Makefile by changing
-'CFLAGS-y' to 'ccflags-y'. This fixes CONFIG_DRM_USE_DYNAMIC_DEBUG
-dependent addition of -DDYNAMIC_DEBUG_MODULE, which is needed to enable
-dyndbg-does-drm-debug when only DYNAMIC_DEBUG_CORE is enabled.
+Remove BROKEN mark on CONFIG_DRM_USE_DYNAMIC_DEBUG, inside
+drivers/gpu/drm/Kconfig.debug.
+
+Un-breaking the var allows to enable the config, and build and test
+dynamic-debug-enabled DRM drivers with full classmap query support.
+
+Doing this early in the commit-set exposes the series to more
+in-series enabled testing, which has more chance to expose bugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/Kconfig.debug | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index e635fcffd379..c42884d84ad1 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -3,7 +3,8 @@
- # Makefile for the drm device driver.  This driver provides support for the
- # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
- 
--CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-+ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
- 
- # Unconditionally enable W=1 warnings locally
- # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
+diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
+index 1f4c98cbf090..2f05bab1a796 100644
+--- a/drivers/gpu/drm/Kconfig.debug
++++ b/drivers/gpu/drm/Kconfig.debug
+@@ -1,7 +1,6 @@
+ config DRM_USE_DYNAMIC_DEBUG
+ 	bool "use dynamic debug to implement drm.debug"
+-	default n
+-	depends on BROKEN
++	default y
+ 	depends on DRM
+ 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
+ 	depends on JUMP_LABEL
 
 -- 
 2.55.0
