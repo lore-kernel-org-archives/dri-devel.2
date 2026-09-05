@@ -4,86 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA70C624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 05:13:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1239CC624DB
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 05:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2734C10E23E;
-	Sat,  5 Sep 2026 05:13:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A93110E5A5;
+	Sat,  5 Sep 2026 05:21:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="KlPnISX9";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="GspcRagj";
+	dkim=pass (1024-bit key; secure) header.d=murena.io header.i=@murena.io header.b="e09BHDAH";
 	dkim-atps=neutral
-Received: from fhigh-a4-smtp.messagingengine.com
- (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2214610E23E
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 05:13:28 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.phl.internal (Postfix) with ESMTP id E5D561400175;
- Sat,  5 Sep 2026 01:13:27 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Sat, 05 Sep 2026 01:13:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:content-type
- :date:date:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:subject:subject:to:to; s=fm2;
- t=1788585207; x=1788671607; bh=mKQ6T09s6vUza8FyMAXZboJoVa94KKSs
- 2rJD+9vX/zI=; b=KlPnISX9RQo//VMkPodDUvpmLZvzYT8VGGKuQNH11B0i7H34
- u9n19x7ea7yeDSNuKQGnW+nrfS7kNqUdIbWrbnKdIvbuSWetXiW8fwxWMIWNx925
- oZI2mvhzxjr+MoYDgrLTaeNTZeLh/H09bUSjrDjYWjlNu7iNaKwYFScbnscD0eoP
- AJCS3qD0iTUIqhz/X5XMPqlshuhSuIgFBAus+XTrg1FFnCsSAMGPPyLVdkSxeq/K
- MP164mVEHIVHEE6XsgmKBFabNUUR51zJ78l8Yg33IjRr4h41FdpXQ9ojiu/N8+2z
- MVIAi1LqeoXuyxRV3RtvckGgN2aEY+oHu3RVmw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788585207; x=
- 1788671607; bh=mKQ6T09s6vUza8FyMAXZboJoVa94KKSs2rJD+9vX/zI=; b=G
- spcRagjldvZlFYHdc8x3EXNRKSXnBXTY+BeMgAairmezS9Fhwr0Zvi71fwc/Nu2W
- ntmTSK3nWEXlRX4Tg6cCsXYkJilnd5MiyCE3gF/UcHL38jiJtCb1YxfzpcaBYMi1
- Q4TeMOx1xYYaOzQ9da92WJ4KGnLzpdsaATG/9ekPhdZqMS/Gy2VMP6HTITE6g9Kf
- 87u35TwPSJNu1a/HH6KjMB87NJcZefUgmn/xvQUtkOgYchql8DbTh2Tvp+dtFD/a
- u6EmSQs998Bs6CEhcQv/ZmUAs2naNXSIcCftwTF//PE+97FQWgqtM8k5p1Ku6/rv
- 75IjcS7nM/AU+iSZ72saA==
-X-ME-Sender: <xms:96SbanjMUZW6CtRP_9R_WsuiNs53V9bkMiKHGhy46lUIOa-OJkx83w>
- <xme:96SbalgJySWdJjQutYu4B06nUFbBya4fE3eQkNvci0_l8xpj2VS1QK2r3olLV83-P
- Yx-CVMF2XQrUsKqVOYwptSyF7AE8m12ufMt_Xruqk9PH4YPqoH1Od900g>
-X-ME-Received: <xmr:96SbanLHM9eNCEtKLtThkio_WrVXfWQ76k5HkDNeZbj59LoBPS7bQwaR8HxE2QFwz4FcBZUvjg>
-X-ME-Proxy-Cause: dmFkZTGDJEw3t5iHUzRHZjn+JaBo5KAsVspEkoW8MCWPkMvUPAnU+fwjT8R/Jig6eJ4/xE
- 0zGjqMF8FwH7siWqoG/yGhrGtL/LXq+uDX7Chexn0Sb1JESrAzFA0f2++iQtztSGIlKNso
- w8ZOYt6acu1pCDa4sMTjugJ7s1Qbnj5GMvaSK4DeEWeUTjznkFkAqy9v/X6H3UyfoZgv9w
- Eo9KrUE6FHDOvBTuDCh4QrH+f0bHaSr2AeorWamohzw5ehfvjnPXHuMikjlx6uT2H3S0kc
- qDXNfnfNHqQVLUylP3Zozf0f5Ua3y2B65bXT54vspD0Pvvmw26R5j9f/EGTfrg8pd8z3U9
- eNK/fX3MeqP3ejXaQT/mFW6C2nAUjjWGlxYusdQn4tI6t9U6z/YOkmilJ/Cm0HyAp9X96V
- 4MdoINtYhfnTjioBmkRREXX0Deh0D5e87pP5asxtooNHL/m3mTlXJ80u2vAuarmTdgQ0TB
- O1OQNrzUhFjMv1aygeFPam+tyzm9lb0hnp0hfydfHld8jEu8bZvnWr3EDx4LlVhTyTjhcd
- +LYFSOUz0MGzE3LDeZddoWsjAu98qrU6hkVLYwBCFkL7t2jQXgGPb3sarPPSSJQllZzFde
- hlyoQgdEnkzrhg3eGOYJ2igOjDQcDl+7qJh1OXCIDirLKD/VPktBQ24z3xiw
-X-ME-Proxy: <xmx:96SbakGxUOMC35hRyUhA9yR8cLRjt09zFjc9HoSySveBB1qtEYUIuw>
- <xmx:96SbarQmwWR-N82pO9eowxazvUGMd841q3xkqPJqDOvjgbE7uveP8Q>
- <xmx:96Sbagd0ZCxffcKcyXE_cr_b2AY_kfr8a6q-xT0OFlZq5YWJMNvl4g>
- <xmx:96SbaqoLO3gupUamJKeyoBfZxHjUsCFre0PGlSXxaZhD1ae9YxRlPg>
- <xmx:96SbasHRrL0u21cpLEqdGOPoUDj56UO965n4ddNIDthbmO5FLBS16GRW>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 5 Sep 2026 01:13:25 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: tomeu@tomeuvizoso.net, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
- and some numbers
-Date: Sat,  5 Sep 2026 17:13:23 +1200
-Message-ID: <20260905051323.189794-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904124659.25971-1-royalnet026@gmail.com>
-References: <20260801131656.58450-1-royalnet026@gmail.com>
- <20260904110853.85150-1-gahing@gahingwoo.com>
- <20260904124659.25971-1-royalnet026@gmail.com>
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7526E10E1D4
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 05:21:42 +0000 (UTC)
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail2.ecloud.global (Postfix) with ESMTPSA id B8626721285;
+ Sat,  5 Sep 2026 05:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+ t=1788585699;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KCOIseHcTnUxxa8UzPwtOfVQnt/pNmZAJdUPIg+XLqo=;
+ b=e09BHDAHB8rW8CJ877ybXQO9BIhYTyEJyZ1UfCDGFBXGQp83jw90VJvx43GTmCwSaQjzmZ
+ vZpB35WoTlow0wOgePmLAALvOVX4UDG1WLETkdYfE0Yms42sgAvS1PemSzA2A12krn4rTT
+ 1cf3fVX7lS+xZMHPIc92+QnIa3PDUgs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+ s=mail2; t=1788585699;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KCOIseHcTnUxxa8UzPwtOfVQnt/pNmZAJdUPIg+XLqo=;
+ b=jP8u0+6IUTg6AgiXIbTGUEcfBSMqo7Nmd7Jr3DYd3CWjZY43q91uDjoMKSmOPb7C2g5uaR
+ iIEJS2tWhm2RJi0GFGMGg4N9fF1QxzfQ74UijbJC18veoZSi49xvXSRP1T4Cl2WVqw+irA
+ xNMCko+5QoxwijbilgirxAp71w2JUOQ=
+ARC-Authentication-Results: i=1; mail2.ecloud.global;
+ auth=pass smtp.mailfrom=maud_spierings@murena.io
+ARC-Seal: i=1; s=mail2; d=murena.io; t=1788585699; a=rsa-sha256; cv=none;
+ b=Ky3gcQbu+iQn3gGJSjO38x37++V52aS5N/nQCOx3J6XxPIqfFy1ZbkijYRzWOWiFT+pVmT
+ 7YFhfuIVisKc3ETR/8jHzo+pemFPQ34KVfBmoujMt5BFDBSdKw+v6R/9q4pnc6yOtpxUSR
+ njWiXCniQ4hrwKE4/mkGqbMrN0fifdM=
+Message-ID: <ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
+Date: Sat, 5 Sep 2026 07:21:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
+To: Michal Wilczynski <m.wilczynski@samsung.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,60 +102,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+Hello Michal,
 
-> You are not in the delivery path of my series, so by
-> submitting-patches.rst it does not belong on that copy and I would
-> drop it there - your Reviewed-by is the credit that matters and it
-> stays, on both copies.
+This new version added some more issues on my fml13v01 board, this time 
+2 registers in the VOUT_CRG are misconfigured that were correct in v2, 
+namely:
 
-Drop it. A Signed-off-by says I passed the patch along, and on your
-copy I did not. Reviewed-by is right on both, and the copy in my series
-keeps my sign-off because there I did.
+0x295c0004 was 0x00000004 on the previous version but is now 0x00000006
+0x295c001c was 0x81000000 on the previous version but is now 0x80000000
 
-> You may want it on RK3576 too, where the same code runs with two
-> cores.
+xx04 sets a slightly different clock divider, but it doesn't seem to 
+matter, display also works with this changed value.
 
-Tested on a ROCK 4D, two cores, on next-20260730 with my series and two
-patches of my own on top. Unbinding both cores in bind order and binding
-them again, twice over:
+xx1c seems to select the wrong clock mux?
 
-  bound: 0            both gone, the device torn down
-  bound: 2            core 0 and core 1 again
-  bound: 0
-  bound: 2            core 0 and core 1 again
+After correcting 0x295c001c (and the ones that I mentioned before in the 
+hdmitx block), the display comes to life again.
 
-Without your patch the second unbind never happens and the numbering
-walks off the end; with it the count reaches zero and a rebind starts
-clean. Nine models then decode with their batched prompt identical to
-their token loop.
+Not sure why these are changed.
 
-  Tested-by: Jiaxing Hu <gahing@gahingwoo.com> # RK3576, two cores
+Besides that it works great!
 
-On my kernel the first unbind Oopsed even with your patch, and that one
-is mine. A patch of mine that keeps the IOMMU domain attached across
-jobs detaches it in rocket_job_fini() through core->iommu_group, and
-rocket_core_fini() put that group and cleared the pointer before calling
-it.
+Kind regards,
+Maud
 
-  pc : mutex_lock+0x20/0x54
-  lr : iommu_detach_group+0x20/0x40
-  rocket_job_fini+0x30/0x5c
-  rocket_core_fini+0x40/0x50
-  rocket_remove+0x64/0xac
-
-Mainline and my posted series do not detach there, so neither has this.
-I mention it because your patch is what made me run unbind at all, and
-it found a bug in my unsent work the same afternoon.
-
-Not the kernel's fault, but it cost me an hour: an accel device takes
-the next free minor, so after two rebinds the NPU sat at
-/dev/accel/accel2 while my userspace opened accel0 and reported no
-hardware.
-
-Three clients bit-exact at 900 and 1000 MHz is the test I was hoping
-for, and the aggregate at 2.5x one client is what shows the three cores
-really did overlap. Thanks for running it before sending.
-
-Cheers,
-Jiaxing
+On 9/4/26 15:27, Michal Wilczynski wrote:
+> This series enables the display subsystem on the StarFive JH7110.
+> 
+> The dom_vout block holds the display controller (dc8200), the clock
+> generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
+> a single register block containing both the controller and the PHY, and
+> it has a circular clock dependency with voutcrg:
+> 
+>    - the HDMI controller needs pclk/mclk/bclk from voutcrg
+>    - voutcrg needs the pixel clock for its dc8200 pixel MUXes, and that
+>      clock is generated by the HDMI PHY
+> 
+> The loop only exists if the HDMI block is treated as one device. The
+> PHY's reference clock is xin24m, not a voutcrg output, so splitting the
+> node into a parent plus phy and controller children gives deferred probe
+> a linear order: hdmi-phy, then voutcrg, then hdmi-controller.
+> 
+> The parent maps the register block and owns the regmap its two children
+> share. Everything in the region sits behind one NoC port whose clock and
+> reset gate access to it, inside PD_VOUT, so the vout subsystem node from
+> the RFC is back and owns those for as long as any child exists.
+> 
+> Patch 10 adds a .mode_valid platform op to inno-hdmi.
+> inno_hdmi_bridge_mode_valid() checks the pixel clock against
+> hdmi->refclk, but that clock only exists where a "ref" clock is
+> described. The JH7110 gets its pixel clock from the PHY, so refclk is
+> NULL and the check was skipped: unsupported modes were advertised, the
+> modeset then "succeeded" because the atomic enable path cannot fail, and
+> the display stayed blank.
+> 
+> Patches 15-17 drop the PHY duplication from the RFC. The JH7110 has the
+> same Innosilicon PHY as the RK3328, offset by 0x100 because it sits
+> behind the controller in the shared register block. Patch 15 factors out
+> the pre-PLL config format, table lookup, determine_rate, recalc_rate and
+> the pre-PLL programming; patch 16 moves Rockchip onto it; patch 17 adds
+> the JH7110 driver. Pixel clock tables, post-PLL and analog config stay
+> SoC specific.
+> 
+> Patch 16 should be a no-op for Rockchip - same writes, same order, same
+> values - and RK3228, whose pre-PLL is at different addresses, keeps its
+> own register code and shares only the lookup. I have no Rockchip
+> hardware, so it is build tested only (arm and riscv). A Tested-by would
+> help.
+> 
+> The dc8200 driver, th1520 reset controller and inno-hdmi bridge that the
+> RFC listed as prerequisites are all upstream now, so there are no
+> out-of-tree dependencies.
+> 
+> Testing
+> =======
+> 
+> Tested on a VisionFive 2 v1.3B using modetest.
+> 
+> All 42 modes the sink advertises work, with nothing in dmesg. Pixel
+> clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
+> (4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
+> rate families.
+> 
+> The four modes the RFC reported as broken work now too: 2560x1440@59.95,
+> 2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
+> 
+> Before patch 10, four of the advertised modes failed: 1680x1050@59.95
+> (146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
+> 1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
+> table, so clk_set_rate() returned -EINVAL and the screen stayed black
+> while userspace saw a successful modeset. They are rejected in
+> .mode_valid now; the other refresh rates of those resolutions still work.
+> 
+> Every commit builds for riscv, and the Rockchip PHY also for arm.
+> 
+> Notes
+> =====
+> 
+> The JH7110 has no central MAINTAINERS entry and maintainership is
+> fragmented, so patch 19 adds one for the display subsystem and I am
+> happy to help maintain it. The new PHY library lives under drivers/phy/,
+> already covered by the generic PHY framework entry.
+> 
+> checkpatch warns "does MAINTAINERS need updating?" on the patches adding
+> files, because that entry comes in patch 19.
+> 
+> Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
+> SoC and the display pipeline fit together.
+> 
+> Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
+> wrapper and helped with the testing, to Maud Spierings for testing on a
+> Framework 13 panel, and to Graham Markall for testing
+> the JH7110 display patches independently and writing up the results:
+> https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-controller-patches/
+> 
