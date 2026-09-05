@@ -4,82 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8408C79F8B
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0473CC624DB
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07CAD10E627;
-	Sat,  5 Sep 2026 15:04:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 559E910E61A;
+	Sat,  5 Sep 2026 15:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mD/GdA6z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JYYp7i41";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3354A10F9C0
- for <dri-devel@lists.freedesktop.org>; Fri,  4 Sep 2026 09:11:12 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2d9004f39d3so10064325ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 04 Sep 2026 02:11:12 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D2EE10E61A
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 15:04:57 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-48435ae9ca4so227423f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 08:04:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788513072; x=1789117872; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=aSJoHDgsqCGyR06J/jLVHcy8zkUYWVN9c517RlIo/VI=;
- b=mD/GdA6zcNHGfJAvVNUWDKQJtxfGd32h5nex1cxxHptKrSFPbdGrzz/8YZeTiSKpuq
- Ci5Pyu+/bU+vW9S7j63Gll9c8bpwlK2Mdx7ZdnMTP0Lhen/svqJtOQf3rDtxWMr+xvPt
- qSHEEWbVwKUj77Wt6jB9U7sA9VzZbEvDkbzL4Xc+Fq7s5nFtadXzpubKAyURf/3G7NRx
- aAzQcUXN0JQk1ufYkwdvaOmDHyV2REGEJf2IT1ioOUlaFMzDx7iEveuV1rV8vq3Suo2p
- BTvpGRa2t/eUSr2rEb2aZHyVij323S7u0ImS1dJr1EUu2Fbs1yJQwyOHUjP8bz8Vaca7
- NtTQ==
+ d=gmail.com; s=20251104; t=1788620695; x=1789225495; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=NM2S1Q42b15aXVJKX75peJvXAR4lZmt0uA+gclfAVgo=;
+ b=JYYp7i41knQd5G5wXuI/RbKF52AlZ+/ShwhjsJ5wP5PBjHIEePGvPgVmcIptAAdR+F
+ FdG4GQFq7CiyUwY/F/YBOYcTrxduN1ZNanjBKwjFaE8Ll+tHb7h388dzs1grVzmkXRze
+ hKVPBox4RSMlUwaEcE7MjqnC8o8bcpdh+cXGHiYQkXq6zTXTOyIqUOcRV2xZNeFkE5v8
+ AzAuq2j8GkhzbVsYZtkKKcjCJnYo9CI4OXjU2YyUbY6MIU67zgnosDKcXFSFRUaGgZg1
+ v5pkyno4Ur0yTRfD5evCIvBHj9vkEzNBcYBMSHL5P2NUitbefzsVv+HcnrL9aZdx5ilw
+ u+YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788513072; x=1789117872;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=aSJoHDgsqCGyR06J/jLVHcy8zkUYWVN9c517RlIo/VI=;
- b=OayHuh7RyHDLrnlOWo+ZT/7zlinZitQUjaQxgsLuYo+A6VVPfBdRl/ScuCnZf47Ts0
- 2dd07gfIAcBpiZ1xVejtcik42lvJVQk7stR8ZHHFeiXfrwjokUmeYiSVYouzoooMkopr
- ygBA0Du2SSfIbaDmdRlc4DQ20wBmkMVjdNCDnCxk9GdijQcS42KuXW/RdJqFa1KxkwzV
- AcGfzbrxEDMzpoQs7rgGP9wemgWFL8LAMbDXjxuMF5zhDvtwuIZ4b9goJr4zndju/1Qr
- 1p5xB6YkUdRDywcqMWhd5mvPZHb2E9aFFHxLr3TraunJftQBLohwxJHOHoH+3iQyvHA+
- TgqQ==
+ d=1e100.net; s=20251104; t=1788620695; x=1789225495;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NM2S1Q42b15aXVJKX75peJvXAR4lZmt0uA+gclfAVgo=;
+ b=rL0A3eN5dJVF/4fa5m7kEv/O1Rc4ZA7A8427L/9Q/pGuBczc7QJCAA1sg5WYKQtNiE
+ 49BvGIl/NOVi85CjQz2/xV5EFW5HsBAFQUwB8O3MOHxBJDJS6zYas3JMqtM7+GGtrr7D
+ QknCi+Kiq1R5hLwH1c/L6GyYwygsOiJ4JBfEB+WqCvUfXCJtQQNAAA5W6YRZz0qlIndx
+ FGU6Q5Bg7K8//nP1aILfEjQiWw6W9WDPFhgSEbUnjcLj8cpBM2z1roU393TInDRynWJR
+ l05XmFb4dHTJXI3LxSWq5Uwn2L2FrG/P+SpSA44CD7MWFH9sybgPIkU4/GH457k8fWoc
+ byWQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBypggYXCcI0kdWw01C0k1vX0RK3BCf1RtrBArCVehyIpwPNXi5xZGVcqRxH/9X6w2E5QgYE8qXHudo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kw6iUQ4CXJnJEJ8d8rRdlMe4TjhROZgZEIxOox+MPekRYXgrwp
- h26tQb0elMq+rZBzmZoXeOPzUiG62Opn+A5qKaKT1q8cVdZTQawXwDA=
-X-Gm-Gg: AYBFou18IOaKSn8ypMPnhR+jYdAizqYHn5Rb1zFaj6v5xKSeTiyim4wWw3uOpXjouW4
- jB9IDfdIHZ4YzKpZYJ7UHFDnQUep8/sKk6S7zh3Yk+GhgVkr9F5hTytpLP5X3IQnAQFjpVy9EBV
- RljXUOPWwnsF0Q7O2fuFqQ30UvoZ81o2PdZzta+oBLFkwHm7xSv6+6xttFvCnDsnaNmlBmgrKnt
- Iagkew4vXjWXCdG1Cwm8rAlGkiouQOptSAy0RelMJv/07GBJ++6F9TfcIDCL4tdisNHvtvY+I4W
- NRIGfyGlfffyUb76HHmnzwgQZjLReg21PFSGuB/5b6MXQRkNfO0+jqVeK7euTbXMBmDTLs0PyZo
- Rt472TeUI3yyXJPuqe88F/C/+f1uL7rWSpKeH9s1Vb8FLbiOiHtOKGw53OoUH4ywfTsN8XhccY7
- f330yYPTEeBHsZRli3FZ5u0q4FneR99Wr1Exf4mASf/yzFVSAQhyQTTDdPQv1BcCZMDlqCnr35c
- RAbPafLiJF3+19zCIwh5SG9eJY=
-X-Received: by 2002:a17:903:3c70:b0:2d8:d2bd:a111 with SMTP id
- d9443c01a7336-2db1248cb72mr77818745ad.6.1788513071618; 
- Fri, 04 Sep 2026 02:11:11 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
+ AKwUvBzDi212q9AN+avOydIAnmkw+JrskSKVy1GxsKd9BzMNxiwHe59jQAHqsu+aDYM9gD6yn8yF6CCCt+M=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ngcS2KaT/DKE54TaTws4S9QVIdaiRz+M0BR0Zpan8qd0zHpSro
+ 15ulcaFauhoikTeG2LyGDIeKifk7ge+UIYU/TvszqrzdqZP1QKLp5Dpx
+X-Gm-Gg: AYBFou2YTwXki/SbqH6GpJBs5YZJGIoEHGulwgyDGIv4yfi7y9KsKfbH67ZWo/HMOiL
+ UgAmwNQVuxC8z5hrrkD8TqSTKJcDq2BB4J2jJt+yOrID/AgVTYVL7JUNcMW2o3sLZUojh13vkyr
+ wNmbkv+Dt8p+JkZzMWmPbgVxR4pRwpyXncle1PY8wdpDEVnf4cdF4C4wCaqUcAq12vfQMbj0NEq
+ jIjVpyqfCzYhpUvGyQx2AkjGlPzPsXev0YmOENySJMs88WLam1i7BnUw8Wx7f67loKwShBZC6Zu
+ HqJKG5oN8gAmfahkRz77GV5faq4QqICNijpaLY4jRSx3qNuhTMEI/rP1td6THv86E3xbWD+p0Vh
+ /gEYBoihiIW7vpGrvAQK3LQMvMUCwTdrWXEMa6uYbKo4dfQ/zrNkSxN7A+YVm21774nAGvdqEIQ
+ V8mt6d4LK0BUZy3QPVe08mbbPXSFiNOS9j6+wJeOKfxDsUqmSD54zAnw1c3JXD2RopsM9IXLwb1
+ VVO0PW0xMAdnWkXau4xYofOJWIkA1oMamCK8TGzPhIg44y55MddrSdH3+ejEQxoS3k=
+X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id
+ 5b1f17b1804b1-49cf823c012mr101940875e9.1.1788620695367; 
+ Sat, 05 Sep 2026 08:04:55 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B950E0061C002CD703C2CBB.dsl.pool.telekom.hu.
+ [2001:4c4e:1b95:e00:61c0:2cd:703c:2cbb])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2db1497d455sm7163185ad.30.2026.09.04.02.11.08
+ 5b1f17b1804b1-49cf75cd8d0sm142811705e9.2.2026.09.05.08.04.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 02:11:10 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: phasta@kernel.org, christian.koenig@amd.com, tursulin@ursulin.net,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-Date: Fri,  4 Sep 2026 18:11:06 +0900
-Message-ID: <20260904091106.2186243-1-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <196070b75705e9bc38106c235dab75e92d98cb2b.camel@mailbox.org>
-References: <20260904080618.2098450-2-malhyuk97@gmail.com>
- <196070b75705e9bc38106c235dab75e92d98cb2b.camel@mailbox.org>
+ Sat, 05 Sep 2026 08:04:55 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Sidong Yang <sidong.yang@furiosa.ai>, Heiko Stuebner <heiko@sntech.de>,
+ Jiaxing Hu <gahing@gahingwoo.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] accel/rocket: search every core slot when looking up a
+ scheduler
+Date: Sat,  5 Sep 2026 17:04:32 +0200
+Message-ID: <20260905150432.7477-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 05 Sep 2026 15:04:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,29 +94,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-09-04 at 10:39 +0200, Philipp Stanner wrote:
-> Please wait a bit until we discussed it for a bit.
+sched_to_core() walks rdev->cores[] up to rdev->num_cores, and
+rocket_remove() decrements num_cores for every core it removes. Unbind a
+core that is not the last one and the cores behind it fall outside the
+search, so sched_to_core() returns NULL for a core that is still bound and
+still running jobs. Neither caller checks the result:
 
-Understood. No respin from me until you and Christian have settled the
-direction.
+  rocket_job_run():      rocket_fence_create(core), core->dev
+  rocket_job_timedout(): dev_err(core->dev, "NPU job timed out")
 
-> Do you generate part of your mails with an LLM? It seems to be a huge
-> corpus for 11min of time between receiving and answer
+Unbinding the middle core of the three on an RK3588 while three clients are
+submitting to all of them faults twice, once from the surviving core's
+job queue and once from its reset work:
 
-Yes, I draft them with LLM assistance. I should have said so up front,
-sorry. What I do not delegate is the checking: I verify the claims against
-the tree before sending, and I am answerable for whatever goes out under my
-name. The bug report itself came out of my own KASAN testing.
+  KASAN: null-ptr-deref in range [0x0000000000000220-0x0000000000000227]
+  Workqueue: fdad0000.npu drm_sched_run_job_work [gpu_sched]
+  pc : rocket_job_run+0x234/0x838 [rocket]
+  Call trace:
+   rocket_job_run+0x234/0x838 [rocket]
+   drm_sched_run_job_work+0x2cc/0xad8 [gpu_sched]
+   process_one_work+0x640/0x14f0
 
-Your point about the volume is fair, and there is a concrete example of why
-you are right to push back. In the v4 commit message I asserted that "every
-in-tree driver passes a string literal". That is wrong: panthor kasprintf()s
-the name (panthor_sched.c:3591) and kfree()s it in group_free_queue(). So
-Christian's objection to caching holds for an in-tree driver today, not just
-in theory, and I should have caught that before sending rather than after.
-I will keep the mails shorter and slower.
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  Workqueue: rocket-reset-2 drm_sched_job_timedout [gpu_sched]
+  pc : rocket_job_timedout+0xf0/0x1e0 [rocket]
+  Call trace:
+   rocket_job_timedout+0xf0/0x1e0 [rocket]
+   drm_sched_job_timedout+0x188/0x6a0 [gpu_sched]
 
-Tvrtko, thanks for the quick answer on the tracepoints - the comment makes it
-clear those call sites are fine, so I will drop that point.
+Both are the third core: the workqueue names are its device and its
+core->index, and it was left at slot 2 while num_cores had dropped to 2.
 
-Jonghyuk
+Search all the slots that were allocated, the way find_core_for_dev() now
+does. A core that is still bound is then found, and the two callers get
+the pointer they already assume they have.
+
+This does not make unbinding one core out of several safe. An open client
+keeps an entity pointing at the scheduler of the core that went away:
+drm_sched reports it as not ready for every job that lands on it, and the
+client waits in dma_fence_default_wait for a fence that will never signal.
+Stopping the NULL dereference is what belongs in a fix; the rest wants
+more thought.
+
+Reported-by: Sidong Yang <sidong.yang@furiosa.ai>
+Closes: https://lore.kernel.org/dri-devel/apwUewaRnoTNXHCt@rock-5b-plus/
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Assisted-by: LLM sparse checkpatch
+---
+ drivers/accel/rocket/rocket_job.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 3141f210fcd1b..a6c24dfe0563a 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -283,7 +283,7 @@ static struct rocket_core *sched_to_core(struct rocket_device *rdev,
+ {
+ 	unsigned int core;
+ 
+-	for (core = 0; core < rdev->num_cores; core++) {
++	for (core = 0; core < rdev->max_cores; core++) {
+ 		if (&rdev->cores[core].sched == sched)
+ 			return &rdev->cores[core];
+ 	}
+
+base-commit: a9f09b5ea0c3db1e2d4c0f8d3ebdd612d8aa0366
+prerequisite-patch-id: 519bcdfdde80d902309c8346f749ebc4bb6b29c0
+-- 
+2.43.0
+
