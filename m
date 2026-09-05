@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFB8C79F99
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 434FCC79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A1310E2E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE41A10E2EA;
 	Sat,  5 Sep 2026 18:13:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RhDPSF8X";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D6ONhPQT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D24EE10E2D6
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F11F10E248
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:13:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8628B44819;
- Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 677EFC2BCB3;
- Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8797160A5F;
+ Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F0BDC4AF0F;
+ Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788632022;
- bh=SUBykgQmJTa1PE14m+dIJu09xFu1BVf5d/3PHirJEgU=;
+ s=k20201202; t=1788632020;
+ bh=U/MR7okkNSBllwiD+fvbOFbvZ4PUrgcbNT8uOxRHvVA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=RhDPSF8X5IEGqS/LWDJ6FahigCjxAOGLj4nJOWzLAND7qgqV8nt1fK8F7pzn5GfxY
- PR9vuCp7GnGme8mXXbWaVHkkgV6WApAFbXULNcLbR/2TEFer0sNfnDDnolMHVQQFcG
- NPkw2lYlzbVJjOQpOcNpe6av9TlYg/XfLvwhJDmKXN40kEP2t+e6mu/lwgiwiw7Gtm
- DQ0GNUu9YLml5kJ48/pE+qO1h6yglaofiKhEyMPsgZDLzFjZEZNhguLupsTuxW3HlW
- /+IXdbQdn9+doEZ2oLSCfzK+n2+vDzsxuzYWzDdJUXnN79rs0OfZGRmpuG4aJNIqAZ
- DwdSwE69nmMTA==
+ b=D6ONhPQTUW4d1cmIJhxZLmkBxXH5meLtaS+wo7Q+RJPcZpHcOfJaJaANwzCzxp6sq
+ S/Umo2IZ984D4ms0K4D6XcqD9l/v9S8GCEaZODOL2CxNKCCDy5lRdUL78+Ig10+A+1
+ 7xsxHMquxLbw6HyrvK5CnB60rHo1HIPxSMZm7LYD/mPaLiPb4zb74Wl6Y4crc7crHs
+ XvFKeT0gvsCFZOCj4DTol8gr/3A0bPHYw85hRuTXITWdmk4jTfKZRFeR6jNBks9nVO
+ o03Ya11+fbk7DTg9+APBs9bj4pBO1PJmqf2KnTRlb7/1Mze1tdZSM6N7GasMS18cAK
+ DPkZqJtu3MwQQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 540C5C79F9B;
- Sat,  5 Sep 2026 18:13:42 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3D1DAC79F8B;
+ Sat,  5 Sep 2026 18:13:40 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 12:13:54 -0600
-Subject: [PATCH v8 40/43] dyndbg: add epilogue to dynamic_debug/control
- file
+Date: Sat, 05 Sep 2026 12:13:26 -0600
+Subject: [PATCH v8 12/43] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-dd-cmap-part2-clean-v8-40-a4cc0674f6fd@gmail.com>
+Message-Id: <20260905-dd-cmap-part2-clean-v8-12-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 In-Reply-To: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -58,13 +57,14 @@ To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+ linux-kbuild@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=1748;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788632017; l=1375;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=pDQl0WU597+iuQJgxNO6SBnf8FKttKrNPLhxD1JVRzk=;
- b=fVQqIQ0u9a7YkCGWycdCyruWU55wIbPnwmvOf+0TYuca5l+5pflsdc8OEgFA7Gb3nECbmEmEu
- qJT6+75RrtNCLF9WXcvEPAAjSeUUIcTmW97F8bUEVE5pf5dy3/uhv0p
+ bh=4cvraTEVN74zunEwaJQv4nxxjw4sgmz17B1QKY4NgZ0=;
+ b=AQX70Ip6cjjdmnjDmydqZmB67k92+VeMmHaC4a38/0ZHvc7dhXB2X8lSJso11W+R059pvIqas
+ STSL5SZcOTgDyrh8VoZzwuMSUCpo40uVmpkgLWZWAIp96Qybxu8cZe7
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -88,64 +88,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Add an epilogue to the control-file, to allow display of statistics
-etc, without disturbing the header.
+When a dyndbg classname is unknown to a kernel module, the callsite is
+un-addressable via >control queries, and therefore uncontrollable.
 
-NB: epilogue lines should start with "#: " to distinguish them from
-lines describing pr_debugs (and from the header line).  No new lines
-are added here, only the place to do so.
+The control-file displays this condition as "class unknown, _id:N"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_ _id:N" to loudly announce the erroneous situation,
+and to make it uniquely greppable.
+
+NB: while this might be seen as a user-visible change, this shouldn't
+disqualify the change:
+
+a- it reports a classmap coding error condition, which should be
+   detected in (or before) review.
+b- SHOUTING the error makes it more visible, uniquely greppable.
+c- the classmap feature is marked BROKEN for its only current user.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b7ccf471b5ef..d098afe8d340 100644
+index e23723ef7ddd..8d710c74309a 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1183,17 +1183,28 @@ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
-  * call from userspace, with ddebug_lock held.  Walks to the
-  * next _ddebug object with a special case for the header line.
-  */
-+static char ddebug_epilogue_token;
-+#define EPILOGUE_TOKEN (&ddebug_epilogue_token)
-+
- static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- {
- 	struct ddebug_iter *iter = m->private;
- 	struct _ddebug *dp;
- 
-+	(*pos)++;
-+
-+	if (p == EPILOGUE_TOKEN)
-+		return NULL;
-+
- 	if (p == SEQ_START_TOKEN)
- 		dp = ddebug_iter_first(iter);
- 	else
- 		dp = ddebug_iter_next(iter);
--	++*pos;
--	return dp;
-+
-+	if (dp)
-+		return dp;
-+
-+	return EPILOGUE_TOKEN;
- }
- 
- static bool ddebug_class_map_in_range(const int class_id, const struct ddebug_class_map *map)
-@@ -1245,6 +1256,10 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 			 "# filename:lineno [module]function flags format\n");
- 		return 0;
+@@ -1173,7 +1173,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
  	}
-+	if (p == EPILOGUE_TOKEN) {
-+		/* use this soon */
-+		return 0;
-+	}
+ 	seq_putc(m, '\n');
  
- 	seq_printf(m, "%s:%u [%s]%s =%s \"",
- 		   trim_prefix(dp->filename), dp->lineno,
 
 -- 
 2.55.0
