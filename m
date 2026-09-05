@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37593C79F82
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 01:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C392C79F82
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 01:05:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A1D10FB74;
-	Sat,  5 Sep 2026 01:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7B7A10FB79;
+	Sat,  5 Sep 2026 01:05:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VAYmre4p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="msAHWrjN";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 596CE10FB74
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 01:05:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C6C310FB79
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 01:05:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 24E7443F64
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 01:05:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C45491F00A3D;
- Sat,  5 Sep 2026 01:05:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C59154132D
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 01:05:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866411F00A3D;
+ Sat,  5 Sep 2026 01:05:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788570303;
- bh=zj9pBpoIXIoiql/NH0ybTsBmq2w6tYaRk14U1CjDCAU=;
+ s=k20260515; t=1788570323;
+ bh=2sJiSD34X1+FE11e+kfUkJofuh5eVi12pXZwHag/4QQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VAYmre4p/4BlBka1z/+jtzKH8xGzbWgySbnvTctwNEy1LfVJ6VIEZ7jiy5gRr2jKz
- CCoZqLHZl6TKV49RNKseQEliao76g7RX1Cn5MH+tXWEL11HVuqlTd5PdtTvxxhwC6X
- AgpBsoiJcLxbcTBoHMt5kX3UgyNWXKGE5bv0mhm2YliXe8jQpKECX11l8XWOiHIDyu
- rFoWo9ZD3166IzIKtXpimu+8bUVhm0cFvoZRAMPyXNyGPchmy8j+1hJIdJSYi5RMZz
- 7wGCA04w0eXNywEFF61rrXeA+XnAnBYO1LG0M7sDEGwCUQJb1ROZQulysLZvXpyaqA
- Xp1gH6cFN8RBw==
+ b=msAHWrjNNgg28M6D+jJ8y4QPg53MspFTcE/FdLz67coZfCV6yeuGq1PEsmUiqgNwS
+ MBCcZUWdlrznehwSdWwJG53eDm1M+U5M/x1760fUGVP9bqekyGUrT4nucpN7Wc+TrT
+ H/33dDEc82aWfICwYtQa4FBGELAj9vt6MTndeU2Xr55A1GWhsGSuz3xjObBTw6mMYI
+ Jl6ApgSih5bMtgVEtn4DVj4IiILujMAEdyzskGeYWw8z4p/bWocaPP1nDCQBTyK0so
+ kcn6xGhZPoI+YFcLCR/phfADz21xEoC/CpcBlNHeuhdvzXIPrqKrgM6hdLCbiZdWnM
+ mJ2uJ7xlQKR/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/19] accel: ethosu: Reject unsupported commands
+Subject: Re: [PATCH v2 18/19] accel: ethosu: Validate OFM transpose
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260904-ethosu-fixes-v2-9-3767738756a4@kernel.org>
+In-Reply-To: <20260904-ethosu-fixes-v2-18-3767738756a4@kernel.org>
 References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
- <20260904-ethosu-fixes-v2-9-3767738756a4@kernel.org>
+ <20260904-ethosu-fixes-v2-18-3767738756a4@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 01:05:02 +0000
-Message-Id: <20260905010502.C45491F00A3D@smtp.kernel.org>
+Date: Sat, 05 Sep 2026 01:05:23 +0000
+Message-Id: <20260905010523.866411F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,94 +61,123 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Time-of-Check to Time-of-Use (TOCTOU) vulnerability due to DMA-BUF=
- export of command stream BO
-- [Medium] Sandbox escape vulnerability due to default-allow validation of =
-unknown commands
+- [Critical] feat_matrix_size completely fails to evaluate intermediate til=
+e boundaries, allowing arbitrary out-of-bounds DMA access
+- [High] feat_matrix_length assumes monotonic address growth for nhcwb16 fo=
+rmat, underestimating buffer bounds by up to 60 bytes
 --
 
-commit d6039ab4982bea39258f6865972e83f60eb4978c
+commit 5cfa238ea5bc9f37e1c0be661f6a282b416aafb4
 Author: Rob Herring (Arm) <robh@kernel.org>
+Subject: accel: ethosu: Validate OFM transpose
 
-accel: ethosu: Reject unsupported commands
-
-The command-stream validator does not model U85 branches, indexed DMA,
-or OFM transposes. A branch can bypass the linear validation state,
-indexed DMA accesses an unchecked index buffer, and a transpose changes
-the feature-map address calculation.
+U85 OFM dimensions are specified before transposition, while
+tile bases and strides address the transposed feature map. Permute
+the output endpoint before validating its tile and stride accesses.
 
 > diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
 osu_gem.c
-> index ec2832eb9a07a..c913c95e48ae0 100644
+> index 559fbf55f12d5..8114447891b25 100644
 > --- a/drivers/accel/ethosu/ethosu_gem.c
 > +++ b/drivers/accel/ethosu/ethosu_gem.c
-[ ... ]
-> @@ -885,18 +896,26 @@ static int ethosu_gem_cmdstream_copy_and_validate(s=
-truct drm_device *ddev,
->  			break;
+> @@ -397,6 +397,52 @@ static int feat_matrix_validate(struct ethosu_device=
+ *edev,
 > =20
->  		case NPU_SET_DMA0_SRC_REGION:
-> +			if (param & NPU_DMA_REGION_INDEX_MODE)
-> +				return -EINVAL;
+>  	return 0;
+>  }
+> +
+> +static int feat_matrix_permute(struct ethosu_device *edev,
+> +			       struct feat_matrix *fm, u32 *x, u32 *y,
+> +			       u32 *c, bool ofm)
+> +{
+
 [ ... ]
 
-[Severity: Medium]
-This is a pre-existing issue, but I noticed a potential sandbox escape
-vulnerability in this switch statement due to default-allow validation
-of unknown commands.
-
-In ethosu_gem_cmdstream_copy_and_validate(), if a future NPU hardware
-revision introduces new opcodes that perform memory accesses, the current
-driver will blindly allow them without calculating their memory bounds
-because of the default case:
-
-        case NPU_SET_DMA0_LEN:
-            st.dma.src.len =3D st.dma.dst.len =3D addr;
-            break;
-        default:
-            break;
-        }
-
-Can this allow the NPU to execute unvalidated commands and access memory
-outside the validated BO regions if such opcodes are introduced?
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+>  static u64 feat_matrix_length(struct ethosu_device *edev,
+>  			      struct ethosu_validated_cmdstream_info *info,
+>  			      struct cmd_state *st, struct feat_matrix *fm,
 
 [Severity: High]
-This is also a pre-existing issue, but could this driver be vulnerable to a
-Time-of-Check to Time-of-Use (TOCTOU) attack via DMA-BUF export?
+This isn't a bug introduced by this patch, but feat_matrix_length() assumes
+monotonic address growth for the nhcwb16 format, underestimating buffer
+bounds by up to 60 bytes.
 
-In drivers/accel/ethosu/ethosu_gem.c:ethosu_gem_funcs, the .get_sg_table
-callback is exposed without overriding the .export callback:
+For the nhcwb16 format, the address offset calculation:
 
-static const struct drm_gem_object_funcs ethosu_gem_funcs =3D {
-    .free =3D ethosu_gem_free_object,
-    .print_info =3D drm_gem_dma_object_print_info,
-    .get_sg_table =3D drm_gem_dma_object_get_sg_table,
+    check_mul_overflow(c / 16, (u64)fm->stride_c, &offset) ||
     ...
-};
+    check_mul_overflow(16 * x + (c & 0xf), element_size, &offset)
 
-This permits the command stream BO to be exported as a DMA-BUF and mapped
-by other devices.
+is not monotonic with respect to c if stride_c is smaller than
+15 * element_size (which userspace fully controls).
 
-Meanwhile, in drivers/accel/ethosu/ethosu_job.c:ethosu_ioctl_submit_job(),
-the job submission blindly trusts the pre-calculated cmd_info (including
-region_size) without preventing concurrent modifications to the buffer
-contents:
+Because the validator only checks the offset at the maximum depth,
+malicious userspace can set stride_c to 0 and c_max to 16. It then
+evaluates only at c=3D16, which yields 16 * x * element_size.
 
-        /* Verify the command stream doesn't have accesses outside the BO */
-        if (cmd_info->region_size[i] > gem->size) {
-            dev_err(dev->dev,
-                "cmd stream region %d size greater than BO size (%llu > %zu=
-)\n",
-                i, cmd_info->region_size[i], gem->size);
-            ret =3D -EOVERFLOW;
-            goto out_cleanup_job;
-        }
+However, the hardware will also access c=3D15, resulting in a larger offset
+of 16 * x * element_size + 15 * element_size. This allows out-of-bounds DMA
+access into adjacent kernel memory.
 
-Could a malicious userspace application create a command stream, export it
-as a DMA-BUF to another device, and overwrite the command stream with
-malicious instructions using the secondary device's DMA capabilities after
-validation but before execution?
+Can this logic be updated to evaluate the maximum offset accurately by
+accounting for intermediate values of c?
+
+> @@ -502,6 +548,9 @@ static int feat_matrix_size(struct ethosu_device *ede=
+v,
+>  	int ret;
+> =20
+>  	*max_len =3D 0;
+> +	ret =3D feat_matrix_permute(edev, fm, &x, &y, &c, ofm);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	if (ethosu_is_u65(edev) || storage =3D=3D 0) {
+>  		for (int xi =3D 0; xi < 2; xi++) {
+>  			for (int yi =3D 0; yi < 2; yi++) {
+>  				ret =3D feat_matrix_check_location(edev, info, st, fm, type,
+>  								 xi ? x : 0,
+>  								 yi ? y : 0, c, ofm,
+>  								 max_len);
+
+[Severity: Critical]
+This is a pre-existing issue, but feat_matrix_size() completely fails to
+evaluate intermediate tile boundaries, allowing arbitrary out-of-bounds DMA
+access.
+
+For tiled matrices (storage =3D=3D 0 or storage =3D=3D 1), each tile has an
+independent base address. The maximum memory offset within tile 0 occurs
+at x =3D min(x, fm->width0) and y =3D min(y, fm->height[0]).
+
+The validator never evaluates these intermediate maxima:
+
+For storage =3D=3D 0, it only evaluates x at 0 and max_x in the loop:
+
+    for (int xi =3D 0; xi < 2; xi++) {
+        for (int yi =3D 0; yi < 2; yi++) {
+            ret =3D feat_matrix_check_location(..., xi ? x : 0, yi ? y : 0,=
+ ...);
+
+This misses the local maximum x offset inside tile 0 (fm->width0).
+
+For storage =3D=3D 1, it evaluates y at 0 and fm->height[1]:
+
+    if (fm->height[0] < fm->height[1] && fm->height[1] <=3D y) {
+        ret =3D feat_matrix_check_location(..., x, fm->height[1], ...);
+
+This completely skips the end of tile 0 (fm->height[0]), leaving the max
+offset for tile 0 unvalidated.
+
+Userspace can bypass validation by setting base[0] near the end of the
+buffer while base[0] + offset(x, fm->height[0]) massively overflows it.
+
+Could this be corrected to evaluate the local maxima for tile boundaries?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-ethosu-fix=
-es-v2-0-3767738756a4@kernel.org?part=3D9
+es-v2-0-3767738756a4@kernel.org?part=3D18
