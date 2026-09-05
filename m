@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02F2C624DB
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:28:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50D28C79F8B
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 18:29:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B939D10E3CE;
-	Sat,  5 Sep 2026 18:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93C5110E480;
+	Sat,  5 Sep 2026 18:29:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SivQIKd9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K0gwsUH5";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 135A110E3CE
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:28:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D48D10E3ED
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 18:29:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CF5ED41751;
- Sat,  5 Sep 2026 18:28:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3CE1F00A3A;
- Sat,  5 Sep 2026 18:28:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 869AE40B0E;
+ Sat,  5 Sep 2026 18:29:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB3B1F00A3A;
+ Sat,  5 Sep 2026 18:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788632928;
- bh=Fo3RsZGjWAxUb2917MqCwro/N2noThtpChQF++us2wo=;
+ s=k20260515; t=1788632964;
+ bh=Weg2Hvae1JiXpRLHECHA8qkTpryD5BtSbmDxhYM/Uxs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SivQIKd9fqUHSrdqlznGA1GciMelDNftBumEfeEcz5gzk/0yHMwIjz2mH2Q1/8wby
- MWwtaZy2Nf8fj+sTBjN8f25wxzN4wvIZQSzSouIl2mBuqroEIjvWBvlWorGwxgPCtm
- rk2hTZJ4aoyKyVHRWKskni/g3Qx+x9QrFm+cFwsWnxoDecTatk7oPGBLbCLdBAJ32O
- 1tCFl/T+eokLGptaALwPsteq2pKy4YLaVp8EooL4pGhP2yFlK2Gf2zRaqAqr+5w7FH
- U/K5vCVLhna1580DX6jFBMD87UyJE5YiRlw616xpS6Yr7x+eu3FyejseR+BtRt12dP
- +CIGOfkT+Zq5g==
+ b=K0gwsUH5kA6ikjKx1p+tQwLRuASARLmjUmbHeHN/Zb+vMGzkrvYXHiGezWC0UlY7c
+ Ra8SgyPTG/pNrQ0i0GgWIzpE5AU5PwV0wD8VgEQZ4hp7YnztxeRijEJGwFb2NxiIlj
+ rAHKofTU83fB8KLKVRLsjY+7M4cFw0ThNeg8BgvR5o82dK3y4UdFMyejMwhAeaP8o+
+ sqrgeqj/U2AR7kwCiMqqc63Fr8de0/agKuSI4lmZ4zXVWxZsZnEnI1utbUCudGY61S
+ z3O5tpd8kaMc1LUx9leLKYXzQVml/p0Iv/w4CKxxYzjjiHo+CD1D3NMVEL2lEtOKaP
+ +19P262kn92cQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 32/43] dyndbg-API: promote
- DYNAMIC_DEBUG_CLASSMAP_PARAM to API
+Subject: Re: [PATCH v8 41/43] dyndbg: add +c flag to count advantage of
+ classmaps for DRM
 To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260905-dd-cmap-part2-clean-v8-32-a4cc0674f6fd@gmail.com>
+Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260905-dd-cmap-part2-clean-v8-41-a4cc0674f6fd@gmail.com>
 References: <20260905-dd-cmap-part2-clean-v8-0-a4cc0674f6fd@gmail.com>
- <20260905-dd-cmap-part2-clean-v8-32-a4cc0674f6fd@gmail.com>
+ <20260905-dd-cmap-part2-clean-v8-41-a4cc0674f6fd@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 18:28:47 +0000
-Message-Id: <20260905182848.7A3CE1F00A3A@smtp.kernel.org>
+Date: Sat, 05 Sep 2026 18:29:23 +0000
+Message-Id: <20260905182924.4BB3B1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,144 +58,148 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Compilation failure for !CONFIG_DYNAMIC_DEBUG builds due to incorr=
-ect macro argument count in DYNAMIC_DEBUG_CLASSMAP_PARAM_REF stub.
-- [Low] Incorrect format specifier %d used for u32 in ddebug_class_param_cl=
-amp_input.
-- [Low] Duplicate log statement in param_set_dyndbg_module_classes.
-- [Low] Unused CLASSMAP_BITMASK macro introduced in lib/test_dynamic_debug.=
-c.
-- [Low] The commit message claims to modify `ddebug_sync_classbits()`, but =
-the patch does not modify it.
-- [Low] The API documentation for `DYNAMIC_DEBUG_CLASSMAP_PARAM_REF` incorr=
-ectly claims `@_bits` expects an `unsigned long`.
+- [High] Memory leak of the user-provided buffer `tmpbuf` in `ddebug_proc_w=
+rite()` when handling the `reset_stats` command.
+- [High] The `+c` (call counting) flag fails to operate when `CONFIG_JUMP_L=
+ABEL` is disabled, unless the `+p` flag is also set.
+- [Medium] Call counts from offlined CPUs are dropped from the total, resul=
+ting in inaccurate statistics.
+- [Low] Data race when resetting per-CPU call counts from another CPU lockl=
+essly.
 --
 
-commit fa1c83c075dcd96521ed0eca436783391777f24c
+commit 5f4a75e3669c0fca15e2071c6b6911a58fe6a5ab
 Author: Jim Cromie <jim.cromie@gmail.com>
+Subject: dyndbg: add +c flag to count advantage of classmaps for DRM
 
-dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
-
-This commit promotes the DYNAMIC_DEBUG_CLASSMAP_PARAM macro into the
-dynamic debug header for broader use (e.g., DRM). It splits the macro
-into a standard version and a _REF version, modifies argument handling,
-and updates the selftest modules.
-
-> Modify ddebug_sync_classbits() argtype deref inside the fn, to give
-> access to all kp members.
-
-[Severity: Low]
-Is this part of the commit message accurate? The commit message mentions
-modifying ddebug_sync_classbits(), but looking at the patch, its body
-remains unchanged.
+This commit introduces a +c flag to dynamic debug to count per-cpu hits
+for flagged pr_debug() callsites. The counts can be reset via a
+reset_stats command and read from the control file.
 
 > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-> index 471b9891bd83b..a740b3fabc09e 100644
 > --- a/include/linux/dynamic_debug.h
 > +++ b/include/linux/dynamic_debug.h
 [ ... ]
-> @@ -291,6 +291,44 @@ struct ddebug_class_param {
-[ ... ]
-> +/**
-> + * DYNAMIC_DEBUG_CLASSMAP_PARAM_REF - wrap a classmap with a controlling=
- sys-param
-> + * @_name:  sysfs node name
-> + * @_bits:  name of the module's unsigned long bit-vector, ex: __drm_deb=
-ug
-
-[Severity: Low]
-Does this comment correctly describe the expected type? The documentation
-mentions @_bits expects an unsigned long, but the underlying
-struct ddebug_class_param uses a u32 *. Could passing an unsigned long
-variable here cause endianness issues on 64-bit big-endian systems?
-
-> + * @_var:   name of the (exported) classmap var defining the classes/bits
-> + * @_flags: flags to be toggled, typically just 'p'
-[ ... ]
-> @@ -473,6 +511,8 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
-> =20
->  #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)
->  #define DYNAMIC_DEBUG_CLASSMAP_USE(_var)
-> +#define DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _var, _flags)
-> +#define DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(_name, _var, _flags)
+> @@ -420,11 +430,15 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+>   * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
+>   * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
+>   */
+> +
+>  #define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
+>  	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
+>  	if (DYNAMIC_DEBUG_BRANCH(id)) {				\
 
 [Severity: High]
-Should DYNAMIC_DEBUG_CLASSMAP_PARAM_REF accept four arguments here?
-The stub macro for the !CONFIG_DYNAMIC_DEBUG configuration only takes
-three arguments (_name, _var, _flags), but callers of the active macro
-pass four. This will cause compilation to fail for any modules using
-it when CONFIG_DYNAMIC_DEBUG is disabled.
+Will the +c (call counting) flag operate correctly when CONFIG_JUMP_LABEL
+is disabled?
 
+If CONFIG_JUMP_LABEL is not set, the fallback DYNAMIC_DEBUG_BRANCH(descript=
+or)
+macros check only for _DPRINTK_FLAGS_PRINT.
+
+When a user enables counting with +c but leaves printing disabled (-p),
+the branch evaluates to false, and DYNAMIC_DEBUG_COUNT() is bypassed
+completely.
+
+> -		func(&id, ##__VA_ARGS__);			\
+> -		__dynamic_dump_stack(id);			\
+> +		DYNAMIC_DEBUG_COUNT(id);			\
+> +		if (id.flags & _DPRINTK_FLAGS_ACTIVE) {		\
+> +			func(&id, ##__VA_ARGS__);		\
+> +			__dynamic_dump_stack(id);		\
+> +		}						\
+>  	}							\
+>  } while (0)
+
+[ ... ]
 > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 0f89b6784ab26..3f9821f747d80 100644
 > --- a/lib/dynamic_debug.c
 > +++ b/lib/dynamic_debug.c
-> @@ -697,9 +697,42 @@ static int ddebug_apply_class_bitmap(const struct dd=
-ebug_class_param *dcp,
 [ ... ]
-> +static void __maybe_unused ddebug_class_param_clamp_input(u32 *inrep, co=
-nst struct kernel_param *kp)
+> @@ -1083,6 +1093,14 @@ static __init int dyndbg_setup(char *str)
+> =20
+>  __setup("dyndbg=3D", dyndbg_setup);
+> =20
+> +static void reset_ddebug_call_count(void)
 > +{
-> +	const struct ddebug_class_param *dcp =3D kp->arg;
-> +	const struct ddebug_class_map *map =3D dcp->map;
+> +	int cpu;
 > +
-> +	switch (map->map_type) {
-[ ... ]
-> +	case DD_CLASS_TYPE_LEVEL_NUM:
-> +		/* input is bitpos, of highest verbosity to be enabled */
-> +		if (*inrep > map->length) {
-> +			pr_warn("%s: level:%d exceeds max:%d, clamping\n",
-> +				KP_NAME(kp), *inrep, map->length);
-
-[Severity: Low]
-Does this format string match the type of *inrep? Since inrep is a u32 *,
-using %d might result in misleading warning logs where large unsigned
-values are printed as negative integers.
-
-> +			*inrep =3D map->length;
-> +		}
-> +		break;
-> +	}
+> +	for_each_possible_cpu(cpu)
+> +		per_cpu(ddebug_call_count, cpu) =3D 0;
 > +}
-[ ... ]
-> @@ -718,31 +751,21 @@ static int param_set_dyndbg_module_classes(const ch=
-ar *instr,
-[ ... ]
->  	case DD_CLASS_TYPE_LEVEL_NUM:
->  		old_val =3D READ_ONCE(*dcp->lvl);
->  		old_bits =3D CLASSMAP_BITMASK(old_val);
->  		new_bits =3D CLASSMAP_BITMASK(inrep);
->  		v2pr_info("lvl:%u bits:0x%x > %s\n", inrep, new_bits, KP_NAME(kp));
-> +		v2pr_info("lvl:%u bits:0x%x > %s\n", inrep, new_bits, KP_NAME(kp));
+> +
 
 [Severity: Low]
-It looks like this v2pr_info() statement was accidentally duplicated.
+Can this lockless reset cause a data race?
 
->  		totct +=3D ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_nam=
-e);
->  		WRITE_ONCE(*dcp->lvl, inrep);
->  		break;
-> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-> index 39499e52d7c04..def44524b762d 100644
-> --- a/lib/test_dynamic_debug.c
-> +++ b/lib/test_dynamic_debug.c
-> @@ -67,32 +68,7 @@ static const struct kernel_param_ops param_ops_do_repe=
-ats =3D {
-[ ... ]
-> -#endif
-> +#define CLASSMAP_BITMASK(width, base) (((1ULL << (width)) - 1) << (base))
+This logic locklessly writes 0 to the per-CPU variable of all possible
+CPUs. If another CPU is concurrently executing this_cpu_inc(), which is
+atomic only with respect to local interrupts, a data race occurs.
 
-[Severity: Low]
-Is this CLASSMAP_BITMASK macro used anywhere in the test module? It seems
-to be defined but left unused, which might cause confusion since it
-shares a name with a macro in lib/dynamic_debug.c but takes different
-arguments.
+This can result in a lost reset or a lost increment in the call count
+statistics.
 
 >  /*
->   * Demonstrate/test DISJOINT & LEVEL typed classmaps with a sys-param.
+>   * File_ops->write method for <debugfs>/dynamic_debug/control.  Gathers =
+the
+>   * command text from userspace, parses and executes it.
+> @@ -1105,6 +1123,10 @@ static ssize_t ddebug_proc_write(struct file *file=
+, const char __user *ubuf,
+>  		return PTR_ERR(tmpbuf);
+>  	v2pr_info("read %zu bytes from userspace\n", len);
+> =20
+> +	if (len >=3D 11 && !strncmp(tmpbuf, "reset_stats", 11)) {
+> +		reset_ddebug_call_count();
+> +		return len;
+> +	}
+
+[Severity: High]
+Does this code leak tmpbuf?
+
+When handling the reset_stats command, this early return path bypasses
+the standard cleanup and skips the kfree(tmpbuf) call required to free the
+dynamically allocated buffer.
+
+This allows a privileged user to leak memory (up to PAGE_SIZE per write)
+on every successful reset_stats command.
+
+>  	ret =3D ddebug_exec_queries(tmpbuf, NULL);
+>  	kfree(tmpbuf);
+>  	if (ret < 0)
+[ ... ]
+> @@ -1238,6 +1260,16 @@ static const char *ddebug_class_name(struct _ddebu=
+g_info *di, struct _ddebug *dp
+>  	return NULL;
+>  }
+> =20
+> +static unsigned long get_ddebug_call_count(void)
+> +{
+> +	unsigned long total =3D 0;
+> +	int cpu;
+> +
+> +	for_each_online_cpu(cpu)
+> +		total +=3D per_cpu(ddebug_call_count, cpu);
+> +	return total;
+> +}
+
+[Severity: Medium]
+Is it intentional to sum only the online CPUs here?
+
+The reset logic in reset_ddebug_call_count() expects all possible CPUs
+to be managed, but this read logic drops accumulated counts from CPUs
+that are currently offline.
+
+If a CPU was online, accumulated hits, and is subsequently offlined, its
+counts are excluded from the total, making the metric fluctuate and
+become unreliable across CPU hotplug events.
+
+> +
+>  /*
+>   * Seq_ops show method.  Called several times within a read()
+>   * call from userspace, with ddebug_lock held.  Formats the
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-dd-cmap-pa=
-rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D32
+rt2-clean-v8-0-a4cc0674f6fd@gmail.com?part=3D41
