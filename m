@@ -4,74 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77300C79F85
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E645C79F95
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 15:04:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C9BB10E440;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 527CF10E46D;
 	Sat,  5 Sep 2026 15:04:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AYTnlyKb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G97aM5vn";
 	dkim-atps=neutral
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 127E010E2C5
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 13:34:24 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-7dbcb505578so22396697b3.3
- for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 06:34:23 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B85910E273
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 10:35:48 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-482f2ee53e7so1286053f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 03:35:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788615263; x=1789220063; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788604547; x=1789209347; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=9QXsz0fC9wZ+JNlekr0mg4nAz0vKv90Qs6khri27jlc=;
- b=AYTnlyKb2whZffi4izozoY7wGmRp70h2LOtgQMMCjguBMDF/n2fngrqhOq+353zvNO
- moPlGBNoQp1hvTSJ499MOklhnUEvn39zCzOVpjIaISC+4ew+qFL1MyI4IhcqjQd1sO9c
- hydJe3KEqhCbooVY3O4aRdx8zX6TY0cuC+wbITT1rzkeVZ/tvTzqQvNPQY5kytRs6oUm
- E4Ids6nZijB7tyEa0sl6J7BemLzJxrpM9MTng5XTd0Z1cTniD13oVJ3u6wWJ1/NJmzdY
- wh+n6IwFv/o5GbxQ297wXURxJD+jcOnUcm9gTEgfDIpGNEELM8ZCa5/1sDuaThniYgrO
- RHoQ==
+ bh=VJDdbsg84+qh/sWYdUP/IhYfrbB3wqJKGfShDqyhgkw=;
+ b=G97aM5vnd1KzWsaGkoXxk5Ndwgan/Pr5ExsmAo6sJ7UCaHsVk+coaalDw87fmIL4dK
+ yMALBhUsI8P1N24vc72bcyljMRNQLvxWyx/dzb5gf+smTEXCUhVDZ/U0UuXB/oYeQ7f+
+ XMd2/y3eWFArhQjnmPsKKnw/6ODS1DQLxj6vNmghNkVqGyNEFkIn9j5A5E65FFs6s9LR
+ mJJYfeJMVWhfs1VVXgIyzB/POGg6wMLbLIXSs3CGrE7AwbolULIdiSB1B7DbZK40Oaui
+ fDZBX6ia5xpWTU/rw+loVA7vpa3c4CgxsRqMOAwwIaqUbUU0ZzlbkLCeXHVkvuk350lE
+ iHyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788615263; x=1789220063;
+ d=1e100.net; s=20251104; t=1788604547; x=1789209347;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9QXsz0fC9wZ+JNlekr0mg4nAz0vKv90Qs6khri27jlc=;
- b=sQDNSlaeFi3KuB2wazx646cgwnQyC1aGPO7FTeL7w4+NK1dqRninyYD5HjadBJiHor
- Uvpq2Romrtn7+DavO5At4l8ADX9k7KLmZy+r67KFR6WLq9dfD/w411o72U5VPjYo9h9V
- ncXbCypfjU1s2IfWlN8fzLyboG2xB1f8wCu/WiC3Gx/pOWU+8eiln7TR9jfafCaav/sv
- 8E1GyJH07vcuropmY/R1MWyPwJPqElrkihSHqx+ADTWmhZA/y3Thoz8Sc25WwiA12/DU
- GZj70HBeiIY7osbjuhRh/uKYOFQ+qhYexjVa6ghECfQWIrxMrMu2GT/YxhxaxxG4QZg3
- l2Yw==
+ bh=VJDdbsg84+qh/sWYdUP/IhYfrbB3wqJKGfShDqyhgkw=;
+ b=SSHGP2KoDMgqakraslSWe3+HGwgx6sxI056REYGBSiz9YsIvNktYJzRpFkDvfIQWe5
+ 6Y6/xFYbN9qFF3D5Tl0VXifAxwbEDr8wgwVcifPEdMxB+B4bEnH16zSNx2wjS+zLB4XS
+ boPRgCgrOshP5w9uy2sOPL11+/WQaJkI0OhxYQZti1ryFogRYhk1hciZIR3oKtN85lwi
+ cyyfvU/M7yDyWy5ogWPonfqaS5YPKv1ADBzh0nXfgDkPYl5CuUCXCR35vJoRmat2qMA1
+ vkU2w9Cn+Wx2Pg2EQl83bEGuVtulozYXaBfDOyA6NYEZfnNZIJp3dlYlLDM7pJS+qXmK
+ cmhg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByUJqxUcgsZtL6kimT6Snp2zgQO6f1+1Xt0T21yABxUN1mT9nlFWImeQxSSgflqUiv8EEHIXs+Z3j0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n+pqDEIJqHHE+EqKvi+FRJyy/+PTCnPbk3ytKZSpMrSINY8aWl
- NSafcDuLAxHWC55qrUiroJFnNRah9kEHbLg4ToycwcJ6MKy+4uPep3iX
-X-Gm-Gg: AYBFou0K3tdURo/Bu/qpyaKtrIYPiv5Q3TuQ4Q8J5lyeA3zMF7+r0vfVpX+Is95y0nZ
- 8/sX6Oxk3mdlECZQHRp9NZg/HqXOX2dd3J95mIIl5ycp4m8/fEWw9R+ggnSbjTkdoy/QjEgtEVK
- oNq5GMX80p/4FDzIi4HbG7qHOYjt96ZuHx/jgQVKVAVCnfusWy2kQZHGHe42WNmhtP68XqJgePW
- jQycJgeL5PhhRnrSeyfcZtGQe4pyilTdcTvhhgnLCa4nnys6oFDrhx4pJUOhaWmNASGrMtSuq7B
- 8Vx90nLYrLWwYVZ/ROoJee/IUIp8lcj+nRqKce7InQnYncTWl4h/tTwh5e2uDhOC1alULLfzDQo
- j3+m2O2C+bO6QKRJuMrf69XLCjGXO/zRZh2rlgEkxVKnuMgSSfgOd4sdFAI9RNwOF73ILSc5Xxk
- zbZXZITLh2jHwtbStDRm3GfsG6j8gueRvXEv0df/if9Nxex6U0qMAyZ+FhvzNYK1Sq7/AVsdmdC
- +PO4fItyuruj+gNz6DKlUjwMZoHbA==
-X-Received: by 2002:a05:690c:c1a:b0:854:d9d0:467b with SMTP id
- 00721157ae682-87126aa91b3mr51195547b3.22.1788615262799; 
- Sat, 05 Sep 2026 06:34:22 -0700 (PDT)
-Received: from localhost.localdomain ([2804:5698:103f:d00:26b6:2d03:3cc6:9121])
+ AKwUvBxgZu2R+DZ3srbCl+amKex+zwg2t6F3nP3Is4Wk1NW8E5vcSQIJ2IxP/dnFowYj6bCnPnLS9ky6RK8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lcDZuV7VsicGdnK6SbTNHzd479HOPTBqv7BLt6C3COcgL1gfuW
+ YZzff6mPx22kgXPjC608EGWKPHMoswDC7dXw/P6n5QL/U3yMcB7xieYn
+X-Gm-Gg: AYBFou1kRp6uzBZsFqYCXD7jP30hvRUDGScaYqdvRPv4Pxroi2iXPvhzx8BxOBWcl4n
+ KH/ew8CY9YThbHnyV1i7o165VeRz/64f1ApWJt8oIAshOcaw7cOpShY9gKkf6+EvMUL+wtCbTEF
+ l79fZc2n1RjEEusDxokrMhBB9nhiMf0E8vZvLh0TwDVy1XAh+52NaXzrZMXTUEi/i0cY4piY1Wo
+ nIkUny5/KGTx1EqWtuLdKeoXVQ7ix9Jh3PsEDbMH3SaXu0fEQ2P8ldgVB0zl4xio+3XgKG1nQmu
+ 8fV1qfEZAafPpbWYM2+ghyKj1ybaPGdLFw2zt7/fMHkNXSJ2Ul7wfft4wp8/K3ECwkieJ2r9Eq4
+ E9C4jW5buxO6jZ5oVrpSUo8+3WNqMK5UKeFIs2HPs7dUrad5TLbIzIjcxms+mznG84s/qD3Cg8f
+ J9wbYP/fWmf1qz4fjgmuvUP7U10NAPW5ZTLUhQtSibh30d68/irKs+EHMJVaI5K7YsKod6QpD8V
+ 09g12W+OxgSROal8brFKUFW7mwDifQph6lfj6BnbDU0cOqKdDS4LVMpcHB3Bf3DVFWPf4Pk7HiX
+ W5ae4xb6jy6P2igoTHEz/giylga2oKvcNtBh90n7ylQO2YVBLIB1hfcSq6wVYMzfoJ2DdH/QTXe
+ BfA==
+X-Received: by 2002:a05:6000:2287:b0:485:8c17:975c with SMTP id
+ ffacd0b85a97d-4858c179908mr8526206f8f.30.1788604546381; 
+ Sat, 05 Sep 2026 03:35:46 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-a4eb-3001-c06d-af27-9fa2-ea53.310.pool.telefonica.de.
+ [2a02:3100:a4eb:3001:c06d:af27:9fa2:ea53])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8714b62bc77sm38919807b3.39.2026.09.05.06.34.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Sep 2026 06:34:22 -0700 (PDT)
-From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-Subject: [PATCH] drm/amdgpu/gfx8: fix register_list_format leak in
- gfx_v8_0_init_microcode
-Date: Sat,  5 Sep 2026 10:34:05 -0300
-Message-ID: <20260905133405.3733-1-williandossantosdeoliveira287@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ ffacd0b85a97d-485881353e8sm13302083f8f.1.2026.09.05.03.35.45
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 05 Sep 2026 03:35:45 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, dri-devel@lists.freedesktop.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH] drm/doc: drm_wait_vblank is a union
+Date: Sat,  5 Sep 2026 12:35:42 +0200
+Message-Id: <20260905103542.43360-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 05 Sep 2026 15:04:13 +0000
@@ -90,39 +95,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gfx_v8_0_init_microcode() allocates rlc.register_list_format before
-loading the MEC firmware.
+drm_wait_vblank is a union of the request and the reply
+(include/uapi/drm/drm.h), not a structure, and has been since before
+commit 2d2ef822758e ("drm: add initial DRM developer documentation")
+wrote the sentence.
 
-If loading one of the subsequent firmware files fails, the function
-returns through the error path without freeing register_list_format.
+Say union.
 
-Use gfx_v8_0_free_microcode() in the error path so all previously
-allocated firmware resources, including register_list_format, are
-released.
-
-Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Fixes: 2d2ef822758e ("drm: add initial DRM developer documentation")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ Documentation/gpu/drm-uapi.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 7f91186ef1d1..b213870ecb96 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1211,12 +1211,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
- out:
- 	if (err) {
- 		dev_err(adev->dev, "gfx8: Failed to load firmware %s gfx firmware\n", chip_name);
--		amdgpu_ucode_release(&adev->gfx.pfp_fw);
--		amdgpu_ucode_release(&adev->gfx.me_fw);
--		amdgpu_ucode_release(&adev->gfx.ce_fw);
--		amdgpu_ucode_release(&adev->gfx.rlc_fw);
--		amdgpu_ucode_release(&adev->gfx.mec_fw);
--		amdgpu_ucode_release(&adev->gfx.mec2_fw);
-+		gfx_v8_0_free_microcode(adev);
- 	}
- 	return err;
- }
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 93df92c4ac8c..b08d731a093f 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -707,7 +707,7 @@ VBlank event handling
+ The DRM core exposes two vertical blank related ioctls:
+ 
+ :c:macro:`DRM_IOCTL_WAIT_VBLANK`
+-    This takes a struct drm_wait_vblank structure as its argument, and
++    This takes a union drm_wait_vblank as its argument, and
+     it is used to block or request a signal when a specified vblank
+     event occurs.
+ 
 -- 
-2.47.3
+2.53.0
 
