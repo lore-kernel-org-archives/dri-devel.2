@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7257C79F82
-	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 00:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B5F7C624D3
+	for <dri-devel@archiver.kernel.org>; Sat,  5 Sep 2026 00:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA75110FB5E;
-	Sat,  5 Sep 2026 00:55:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52CE710FB53;
+	Sat,  5 Sep 2026 00:56:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JRv/H07v";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PP1TdVTD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8747510FB5E
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:55:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14E7810FB53
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:56:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 41DC543550
- for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:55:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B0B1F00A3D;
- Sat,  5 Sep 2026 00:55:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F22D343B91
+ for <dri-devel@lists.freedesktop.org>; Sat,  5 Sep 2026 00:56:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C941F00A3D;
+ Sat,  5 Sep 2026 00:56:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788569748;
- bh=LcQhhzuuzTTAUVzIq9wbOox7RtSDwyglAiIncMiJmWI=;
+ s=k20260515; t=1788569788;
+ bh=HVcj8+u1Adftycv3hl3a93bOPV7P5gwfwoEpw4It02k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JRv/H07vxFPsridJt0TLat+kC0wf17356VDMjTu42aDXyu5+rJxxy5pyxtnORB0/9
- eUdhdcVk0TblPx7zwa6ONfwoC01hLVGd8ScKGY56/j96hYPkwcQS/Z+Yzd7JojTz1W
- AB5i7n9Dzc3vYuaRxsZLLDkEW4ARs+S6kizMN7AAGmwLFAtVhzYv9I31NcRV7oGixB
- GJHt+dOY2hgkh1zlxxVFTQCbhZKaBPW0Zg3DV5PdUiEpYCKBqjlI9BZ4t3pMbXRRqO
- 2JmEAe2/1sDxWXVg90R26Yv3+dC7J5NL+owlpF6xQyjyrCyFcEGLHcH/p80GeA+uiZ
- Sf08hcBix1UiA==
+ b=PP1TdVTDJMJU4OVCiZTSQPZfi0kkMA8o/UgqjcAU4Dma3S08SZKs1S4i6C9edoCZS
+ +6GQ30o9V24YU80zvBanSZj9sVrdMlSvpVEXxWIJdaUi6/EnzdRnCBBEWyUgb/cxDT
+ uujIB/8KFOtcAeldw5Q/ZuWOcmaKPFP286Ypye8hmbF/jOgr4RxYcaRMp/NXWZb5vK
+ CBpElSYooNn4Paao5nVmXc/UZZEGUzSOd4LO8OAuKoky6GGWaCpEkMtLzKJKu0Lltc
+ dAlYnrvlvV5VvQjGNWWyf2RPauYDKoh86wjW+lPxtOWZn4Wi/sydOaT9rNrOUTEc+Z
+ yJC+950TAc+EQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/19] accel: ethosu: Account for kernel dilation in
- IFM size
+Subject: Re: [PATCH v2 11/19] accel: ethosu: Account for feature map element
+ size
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260904-ethosu-fixes-v2-13-3767738756a4@kernel.org>
+In-Reply-To: <20260904-ethosu-fixes-v2-11-3767738756a4@kernel.org>
 References: <20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org>
- <20260904-ethosu-fixes-v2-13-3767738756a4@kernel.org>
+ <20260904-ethosu-fixes-v2-11-3767738756a4@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 00:55:47 +0000
-Message-Id: <20260905005548.02B0B1F00A3D@smtp.kernel.org>
+Date: Sat, 05 Sep 2026 00:56:28 +0000
+Message-Id: <20260905005628.B2C941F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,65 +58,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] The command stream validation in `feat_matrix_size` fails to c=
-heck the maximum accessed address within intermediate tiles, allowing an at=
-tacker to bypass bounds checks and cause the NPU to access out-of-bounds me=
-mory.
+- [Critical] Incomplete bounds validation for multi-tile feature maps in `f=
+eat_matrix_size` allows the NPU to access memory outside the GEM buffer.
+- [High] The `feat_matrix_length` function does not account for the 16-chan=
+nel hardware brick alignment for NHCWB16 formats, underestimating the buffe=
+r size.
 --
 
-commit eae7ad151b58329b8dda3932561e68aa3827908a
+commit 5efa0071e22603105740c81590f076bdcb4fef2a
 Author: Rob Herring (Arm) <robh@kernel.org>
 
-accel: ethosu: Account for kernel dilation in IFM size
+accel: ethosu: Account for feature map element size
 
-Kernel dilation increases the input feature-map area accessed by a kernel
-operation. Include the x and y dilation settings when calculating the
-required IFM bounds. Without this, a command stream using x2 dilation can
-access IFM memory past the range validated by the driver.
+The feature map bounds calculation currently accounts for only one byte
+of the final element. This can leave the tail of B16, B32, and B64
+elements outside the validated buffer, so the commit uses the feature map
+element size when calculating the final byte.
 
-> diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/=
-ethosu_device.h
-> index d7e1e3c8ca12d..8e23fdbf7f8ab 100644
-> --- a/drivers/accel/ethosu/ethosu_device.h
-> +++ b/drivers/accel/ethosu/ethosu_device.h
-[ ... ]
 > diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
 osu_gem.c
-> index d60a2a453302b..63dd07791f314 100644
+> index c54496fa08f4c..bca68fab05275 100644
 > --- a/drivers/accel/ethosu/ethosu_gem.c
 > +++ b/drivers/accel/ethosu/ethosu_gem.c
-[ ... ]
-> @@ -536,10 +536,16 @@ static int calc_sizes(struct drm_device *ddev,
->  			((st->ifm.stride_kernel >> 1) & 0x1) + 1;
->  		u32 stride_x =3D ((st->ifm.stride_kernel >> 5) & 0x2) +
->  			(st->ifm.stride_kernel & 0x1) + 1;
-> +		u32 dilation_y =3D 1 + !!(st->ifm.stride_kernel &
-> +					 NPU_KERNEL_DILATION_Y);
-> +		u32 dilation_x =3D 1 + !!(st->ifm.stride_kernel &
-> +					 NPU_KERNEL_DILATION_X);
->  		s32 ifm_height =3D st->ofm.height[2] * stride_y +
-> -			st->ifm.height[2] - (st->ifm.pad_top + st->ifm.pad_bottom);
-> +			st->ifm.height[2] * dilation_y -
-> +			(st->ifm.pad_top + st->ifm.pad_bottom);
->  		s32 ifm_width =3D st->ofm.width * stride_x +
-> -			st->ifm.width - (st->ifm.pad_left + st->ifm.pad_right);
-> +			st->ifm.width * dilation_x -
-> +			(st->ifm.pad_left + st->ifm.pad_right);
+> @@ -415,7 +415,7 @@ static u64 feat_matrix_length(struct ethosu_device *e=
+dev,
+>  		return U64_MAX;
+>  	}
 > =20
->  		if (ifm_height < 0 || ifm_width < 0)
->  			return -EINVAL;
+> -	if (check_add_overflow(addr, 1ULL, &offset))
+> +	if (check_add_overflow(addr, (u64)element_size, &offset))
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while the patch adds a missi=
+ng
+single element_size to the calculation, is it sufficient for NHCWB16 format=
+s?
+
+Looking slightly above in feat_matrix_length():
+
+	case 1: //nhcwb16:
+		element_size =3D BIT((fm->precision >> (ofm ? 1 : 2)) & 0x3);
+
+		if (check_mul_overflow(c / 16, (u64)fm->stride_c, &offset) ||
+		    check_add_overflow(addr, offset, &addr) ||
+		    check_mul_overflow(16 * x + (c & 0xf), element_size, &offset) ||
+		    check_add_overflow(addr, offset, &addr))
+			return U64_MAX;
+		break;
+
+The Ethos-U NPU inherently processes NHCWB16 data in 16-channel bricks. If
+the channel depth modulo 16 is less than 15, the hardware will still read
+or write the full 16-element brick.
+
+Because the validation calculation stops precisely after the specified chan=
+nel
+and doesn't appear to round up the offset to the 16-element brick boundary,
+could it underestimate the required buffer size by up to 15 * element_size
+bytes, leading to out-of-bounds hardware memory accesses?
+
+>  		return U64_MAX;
+> =20
+>  	info->region_size[fm->region] =3D max(info->region_size[fm->region], of=
+fset);
+
 
 [Severity: Critical]
-This isn't a regression introduced by this patch, but does the command stre=
-am
-validation in feat_matrix_size() fail to check the maximum accessed address
-within intermediate tiles?
+This is a pre-existing issue, but incomplete bounds validation for multi-ti=
+le
+feature maps in feat_matrix_size() might allow the NPU to access memory
+outside the GEM buffer.
 
-Looking at drivers/accel/ethosu/ethosu_gem.c in feat_matrix_size():
+In drivers/accel/ethosu/ethosu_gem.c:feat_matrix_size():
 
 	if (ethosu_is_u65(edev) || storage =3D=3D 0) {
 		for (int xi =3D 0; xi < 2; xi++) {
@@ -125,26 +141,31 @@ Looking at drivers/accel/ethosu/ethosu_gem.c in feat_matrix_size():
 								 xi ? x : 0,
 								 yi ? y : 0, c, ofm,
 								 max_len);
+				if (ret)
+					return ret;
+			}
+		}
+		return 0;
+	}
 
-The validation loop only checks the memory bounds by testing the origin
-of the first tile (xi =3D 0, yi =3D 0) and the extremities of the last tile
-(xi =3D 1, yi =3D 1), but skips checking the inner boundaries of
-intermediate tiles.
+The loop evaluates the minimum and global maximum coordinates but skips the
+internal boundary coordinates (like fm->width0) of intermediate tiles.
 
-If a user-space application constructs a command stream
-defining a feature map that spans multiple tiles (e.g., storage =3D=3D 0),
-could it set base[0] near the end of the valid GEM buffer and set a
-large width0 for the first tile, while setting base[1] to the beginning
-of the buffer?
+Similarly, for vertically split tiles (storage =3D=3D 1):
 
-Because the check for x =3D 0 (Tile 0) uses base[0] + 0, and the check
-for x =3D x_max (Tile 1) uses base[1] + offset, both could pass
-validation. However, the maximum offset within Tile 0
-(base[0] + width0 * stride_x) is never verified by the logic.
+	if (storage =3D=3D 1) {
+		ret =3D feat_matrix_check_location(edev, info, st, fm, type, x, 0, c,
+						 ofm, max_len);
 
-Could this allow the NPU to execute the command stream and access
-out-of-bounds memory up to this unchecked boundary?
+The maximum Y coordinate within the first tile (fm->height[0]) is completely
+omitted from bounds validation.
+
+If a multi-tile feature map is submitted, and tile 0's base address is
+configured near the end of the GEM allocation, with a massive internal
+width0 and stride_x for tile 0 (while properly bounding subsequent tiles
+so the global maximum falls into tile 1), could this artificially bypass
+validation for the rest of tile 0 and allow unconstrained memory accesses?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-ethosu-fix=
-es-v2-0-3767738756a4@kernel.org?part=3D13
+es-v2-0-3767738756a4@kernel.org?part=3D11
