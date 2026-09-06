@@ -4,57 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E294C79F99
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 13:19:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E4C1C79F85
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 13:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A85610E3BA;
-	Sun,  6 Sep 2026 13:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7EC10E3BE;
+	Sun,  6 Sep 2026 13:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jlqrizIo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G8wA+Ii1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E48F10E3BA
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 13:19:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C085C601DB;
- Sun,  6 Sep 2026 13:19:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA001F00A3A;
- Sun,  6 Sep 2026 13:19:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788700745;
- bh=u8O4noF59z7AVqt68jjhQ9ZPuiEADEf7VS3i0hVqNxQ=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=jlqrizIowN2Z2NMCLCQPF7TwlbaZuIPiPCOp2PezP3+MG38jZnNIA5MRlx25r6T1n
- LrnGo6BCReMN6wealrHO0R9aWD4sw8vo9ewJ+qE64l2obTaKGgjFJtXr46VR1uoxrl
- zCEuQ48tt1YCKJH01TDevId7TW7969UasCocYyML1ZBk5lWizrO3Fnaw1Q/CuiL2w4
- HmsLmAoSobjehDwrWIRnGfVnbkqfp7ASsiHq+0niTBNw5lU9wRWUZiNMA8gAvMzkMz
- i5w+JuVyNdbj++WhzhdjR7B7SI7t68wATHQl4P1fWAIW9qny9M8xoW0sEvvaNMF0th
- S1hcc7yCEVAWw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 15:19:00 +0200
-Message-Id: <DL89HS18UM45.1U3C3BPL9QM2Y@kernel.org>
-Subject: Re: [PATCH v4 00/16] rust: io: support register projections and
- remove relative registers
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260903192248.2248560-1-dakr@kernel.org>
-In-Reply-To: <20260903192248.2248560-1-dakr@kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 402BA10E3C4
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 13:19:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id D59EF43F97;
+ Sun,  6 Sep 2026 13:19:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AD763C2BCFD;
+ Sun,  6 Sep 2026 13:19:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788700753;
+ bh=gbjy5RTDqdhCv6DILtDb7fYiIvaobCHJMRXApRCH1z0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=G8wA+Ii1SqM5ZEW9lgftcqJknYH9oOoIarL4SI7aYBCJFGXzJ4r7FVjNBK2iXniLf
+ 5eq0F8FmXN+55mllFo+OzDf2LMy/Zs86vmBSDipa7wYLJpDHKek1Z3HaLhhOsrdctH
+ g/EFbOyMLSpNNUrZO0qbMEVZV2oMUcSGY5kaiXh/gRjXFp5AaMg8PbkA0RDtMpjcm/
+ v3g31HzvsdQGXW9f1u+jWkdhZLrOx9cioz7ymE3d5lYbWnwOCeoECD2relGMcdq/Cv
+ G02tlnWbR11oPLsHWOQ+vcqpvTcec2+pgze1gW7vVCRl/eloKFd5VS8XFj5wwazkFg
+ OW82qW69EDvfg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 878F5C79FA0;
+ Sun,  6 Sep 2026 13:19:13 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 06 Sep 2026 15:19:03 +0200
+Subject: [PATCH 2/3] drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE()
+ string
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260906-ebbg-ft8719-fixups-v1-2-4e846510cad1@ixit.cz>
+References: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
+In-Reply-To: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
+To: Joel Selvaraj <jo@jsfamily.in>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1192; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=K+6x5A7ftBFeZ8okSqt/u0WpvagsMUKZ/4i4XfBmirE=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnWhQKxw/18Yi3JTzGNeX5AKT86t+qacac3fYZ
+ YrXf92tobCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap1oUAAKCRBgAj/E00kg
+ cqHbEACUzO5xpCO6DJHKL+wZE4cGM0+6FVzSI2CJiTlBmx7ivsSVlVTUm9VzMpRoGmMoPmep8mx
+ jk+g02tU1yTP1uoMxWxLsN1BGU6v42Yelh3j3h8t0T/Cwi/HsYSuZXE07fG9EErm1QZoe/lugHI
+ jf8WfnXlQy/2rcadTEYH5huYkCyFmQ6dHZ4kt2LBidufQ+P603p8b+tqX5IfkN/Zl2ZMJReyPev
+ 2D1RgK3VGbH0euiZXZPh9ukLP/kM5fVzAaYfbVGzNP5Hm7Tj5GL18ZUtMuPsgfToPSxwHIgagYR
+ COdrUowbB7a6aJHZ92j1b7G9bSz2UODSzPys2c02J705RWqU0/lCfQBL2wuvlO4hMVN79yAsHW+
+ jsynWFbsb0gWjkn6HLi3AEVGLtIQULjbCiQp7JIdcaRGput6HEp8+si02v8OJVGmR0d+mYHpFpt
+ eqyvezPNajC2GDVPFTNCPFpNy6VnZn0AcsYKs86cR4Xv6Vt8IzF/zyVceSHZ1Hf7gUs6cTUUuSI
+ Vpuj2srixPiX/6oWFubE0N1BzhClsJ7sTIgnmYGIbn7iNGPyk3qoPPwvjNPURDlgsFLOdZPboup
+ 7fFgqJ2duCnQZApnt+1sfIzL67YANFVfiMn/pkWq54ohlBO8JwUD2kRn0ttMWBMJVKZsPA/CFC4
+ zNaES1kh101L4AQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,78 +86,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 3, 2026 at 9:22 PM CEST, Danilo Krummrich wrote:
-> On Tue, 01 Sep 2026 17:50:24 +0100, Gary Guo wrote:
->> [PATCH v4 00/16] rust: io: support register projections and remove relat=
-ive registers
->
-> Applied, thanks!
->
->   Branch: topic/rust-io
->   Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/drive=
-r-core.git
->
-> [1/16] rust: io: register: reimplement as proc macro
->       commit: 63b2578517df
->
->       [ Fix typo in module-level doc comment and fix ArrayDef syntax
->         description to match the actual macro syntax. - Danilo ]
->
-> [2/16] rust: mem: add `transmute` with deferred size check
->       commit: 82591c20bcb3
->
->       [ Fix doc heading to use plural "Examples" and add missing closing =
-code
->         block delimiter. - Danilo ]
->
-> [3/16] rust: mem: add `AsRepr` and `AsReprMut`
->       commit: 968f30ade612
->
->       [ Fix grammar in from_repr_unchecked() documentation and rephrase
->         confusing safety comment. - Danilo ]
->
-> [4/16] rust: io: perform conversions using `AsRepr`
->       commit: 1e707b76716a
-> [5/16] rust: io: support register projections
->       commit: 34b6dc471749
-> [6/16] rust: io: register: allow explicit base type specification
->       commit: 70a122d5a342
->
->       [ Remove unnecessary #[allow(unused)] from the 'base' field. - Dani=
-lo ]
->
-> [7/16] gpu: nova-core: specify base type for registers
->       commit: a07fa2c979c1
-> [8/16] drm/tyr: specify base type for registers
->       commit: 573228e75c33
-> [9/16] samples: rust: pci: specify base type for registers
->       commit: 54b04b9fc0ea
-> [10/16] rust: io: register: make register have a typed base
->       commit: 35c21468c294
-> [11/16] rust: io: register: support fixed offset register without bitfiel=
-d
->       commit: ddeaaa3a0fbb
-> [12/16] gpu: nova-core: use projection for PFALCON and PFALCON2 registers
->       commit: 6d5f14077811
-> [13/16] gpu: nova-core: convert hshub0 from relative register to projecti=
-on
->       commit: 4a7a27bd1947
->
->       [ Split nested import into kernel vertical style. - Danilo ]
->
-> [14/16] rust: io: register: remove relative registers
->       commit: b6af037d9499
-> [15/16] rust: io: register: remove `Register` trait and cleanup macro
->       commit: dfec6f41d053
-> [16/16] rust: io: register: unify handling of register with/without bitfi=
-elds
->       commit: 35423e8fd718
->
-> The patches are in the topic/rust-io topic branch and will be merged into=
- the
-> corresponding target branch soon.
+From: David Heidelberg <david@ixit.cz>
 
-Merged into driver-core-next and drm-rust-next, thanks!
+Replace the bogus "GPL v2" with "GPL" as MODULE_LICNSE() string. The
+value does not declare the module's exact license, but only lets the
+module loader test whether the module is Free Software or not.
+
+See commit bf7fbeeae6db ("module: Cure the MODULE_LICENSE "GPL" vs.
+"GPL v2" bogosity") in the details of the issue. The fix is to use
+"GPL" for all modules under any variant of the GPL.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+index 1ab09c50a6306..14982263a94f1 100644
+--- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
++++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+@@ -241,9 +241,9 @@ static struct mipi_dsi_driver ebbg_ft8719_driver = {
+ 		.name = "panel-ebbg-ft8719",
+ 		.of_match_table = ebbg_ft8719_of_match,
+ 	},
+ };
+ module_mipi_dsi_driver(ebbg_ft8719_driver);
+ 
+ MODULE_AUTHOR("Joel Selvaraj <jo@jsfamily.in>");
+ MODULE_DESCRIPTION("DRM driver for EBBG FT8719 video dsi panel");
+-MODULE_LICENSE("GPL v2");
++MODULE_LICENSE("GPL");
+
+-- 
+2.55.0
+
+
