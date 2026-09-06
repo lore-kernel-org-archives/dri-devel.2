@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D07A5C79F8C
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 03:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06221C624DB
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 03:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADAE710E01F;
-	Sun,  6 Sep 2026 03:25:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 206BC10E1A6;
+	Sun,  6 Sep 2026 03:52:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XMYB6DyG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EhxabHLE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B2810E01F
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 03:25:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 397B810E1A6
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 03:52:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4853A432AB;
- Sun,  6 Sep 2026 03:25:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D481F00A3A;
- Sun,  6 Sep 2026 03:25:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0350E417C6;
+ Sun,  6 Sep 2026 03:52:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB891F00A3A;
+ Sun,  6 Sep 2026 03:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788665114;
- bh=FmkQ+vIV1sbfrHW9jAKOFBYXD3B+6bvRI7qW59SemXI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XMYB6DyGYOqMmaXaO/3CvI686lWVqlE3CCdhuBjUiMTBEixXe1ImAf8R9x/GnvoRk
- d2r+Gq4alRHzBtSV7HzuTKb+9MFy8YSUxVwttT2xPv+rjCh/iCI324G3WfyN6Gd5pE
- LiFYnIb/tJuK5p74EmcYAYBYBgxj+z41Ayf5fyJ/H+UaJp2Ts1Z+h90CG31dw6wi87
- g5bWmwuBDVgqw2+eWLIPaIGsUpH3TIxoDZr8vDr2H7ZW9AGDY3DKz88DOLUp6zjWhd
- cfuYqviwmapjo31kzMR7sImFLWPL0C4Exkj/JB888bGwgrPnIa+GhoS/SZsOIKuxYt
- PUQUfvkQTnlFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: only treat a real S3 as a suspend abort on
- resume
-To: willy@willyv3.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <010001a074b60857-4cb0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com>
-References: <010001a074b60857-4cb0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 03:25:13 +0000
-Message-Id: <20260906032513.F3D481F00A3A@smtp.kernel.org>
+ s=k20260515; t=1788666740;
+ bh=R2nPnXC2ajLzr4IbYwpXX1FqJlbrGMpt9Vngky1idUk=;
+ h=Subject:From:In-Reply-To:References:Date:To:Cc;
+ b=EhxabHLELmiOpDFywTv+iqMxmnVyyfqBu0xzV20ar1FJybfEXVa80G8nFRkgeaY8f
+ E/TJJUAPmVZK3lb/C/bv+xcmD3OHx3kFhloKXRgeTLi8SkwX70GGg54uBrQIjxoo+A
+ SG89hLW0QFuEzncIABBiyPMw6jlUx1RnqdwTi8waqTCGhj6ZxGchP+LWjR9Ue5YBbB
+ 5aQR/T8t1O18nND0GOP0Tz8pNII6XCXhKwX1XyBC/MucI8pzHFrsiR5r2Tdvn7VgZn
+ /S1l9nvjVPIEJ7NoqbnHqQFfZEMz8/Vi3PkEOFBATtncx/QvbTpbdetfvelIEP8yIA
+ zHM6WZfR5zKsg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 199E139253CE; Sun,  6 Sep 2026 03:51:22 +0000 (UTC)
+Subject: Re: [GIT PULL] kmalloc_obj() conversions for v7.3-rc2
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <202609042302.CE61BD262@keescook>
+References: <202609042302.CE61BD262@keescook>
+X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
+ <dri-devel.lists.freedesktop.org>
+X-PR-Tracked-Message-Id: <202609042302.CE61BD262@keescook>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git
+ tags/kmalloc_obj-v7.3-rc2
+X-PR-Tracked-Commit-Id: 3a2c4d55e32ad65efebdb6de44eef3bfa08bb49d
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 1fc5a74b108fc90951890ec513ac81869f5eaff1
+Message-Id: <178866668057.1434849.11544433788861142262.pr-tracker-bot@kernel.org>
+Date: Sun, 06 Sep 2026 03:51:20 +0000
+To: Kees Cook <kees@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Kees Cook <kees+treewide@kernel.org>, Manuel Ebner <manuelebnerli@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,79 +64,18 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+The pull request you sent on Fri, 4 Sep 2026 23:13:26 -0700:
 
-Pre-existing issues:
-- [High] The fix for spurious dGPU resets on s2idle resume is incomplete, l=
-eaving identically flawed logic in soc21.c and soc24.c.
---
+> https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git tags/kmalloc_obj-v7.3-rc2
 
-commit 5105966b236eb1d3339925f9a22bee109b13037a
-Author: Willy VanSickle <vansicklewilly@gmail.com>
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/1fc5a74b108fc90951890ec513ac81869f5eaff1
 
-drm/amdgpu: only treat a real S3 as a suspend abort on resume
+Thank you!
 
-This commit fixes a spurious mode1 reset issue on dGPUs resuming from
-s2idle. It updates soc15_need_reset_on_resume() to verify that the
-suspend state was actually PM_SUSPEND_MEM and not resumed via firmware.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
-gpu/soc15.c
-> index 3d4573d937422..bec63957f3221 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -592,7 +592,12 @@ static bool soc15_need_reset_on_resume(struct amdgpu=
-_device *adev)
->  	 * 1) S3 suspend aborted in the normal S3 suspend
->  	 * 2) S3 suspend aborted in performing pm core test.
->  	 */
-> -	if (adev->in_s3 && !pm_resume_via_firmware())
-> +	/* Only a real S3 (mem) that firmware did not resume is an abort.
-> +	 * s2idle never resumes via firmware, so without this gate every
-> +	 * s2idle resume of a dGPU is misread as an abort and mode1-reset.
-> +	 */
-> +	if (adev->in_s3 && !pm_resume_via_firmware() &&
-> +	    adev->last_suspend_state =3D=3D PM_SUSPEND_MEM)
->  		return true;
->  	else
->  		return false;
-
-[Severity: High]
-This is a pre-existing issue, but does this incomplete fix leave the same
-spurious reset bug in soc21.c and soc24.c?
-
-Looking at drivers/gpu/drm/amd/amdgpu/soc21.c in
-soc21_need_reset_on_resume():
-
-	if (!(adev->flags & AMD_IS_APU) && adev->in_s3) {
-		sol_reg1 =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_81);
-		msleep(100);
-		sol_reg2 =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_81);
-
-		return (sol_reg1 !=3D sol_reg2);
-	}
-
-And identically in drivers/gpu/drm/amd/amdgpu/soc24.c in
-soc24_need_reset_on_resume():
-
-	if (!(adev->flags & AMD_IS_APU) && adev->in_s3) {
-		sol_reg1 =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81);
-		msleep(100);
-		sol_reg2 =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81);
-
-		return (sol_reg1 !=3D sol_reg2);
-	}
-
-It appears adev->in_s3 will incorrectly evaluate to true on s2idle resumes
-for dGPUs here as well, causing an unnecessary 100ms delay and a subsequent
-spurious ASIC reset. Should the PM_SUSPEND_MEM and pm_resume_via_firmware()
-checks be applied to these files too?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/010001a074b60857-4c=
-b0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com?part=3D1
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
