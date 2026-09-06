@@ -4,78 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4F04C79FA7
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B205CC79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A76F110E66B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6C6210E66D;
 	Mon,  7 Sep 2026 07:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F1w1B0yE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LKSBLM4r";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BDF210E076
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 01:11:39 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-482e257a23aso2003334f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 18:11:39 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B339E10E108
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 17:03:52 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-484392e3d33so1771605f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 10:03:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788743497; x=1789348297; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788714231; x=1789319031; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=vr8PmeVhyI3ZYfvfVlrbRbCnB619Pqu+cER6pTinMdw=;
- b=F1w1B0yETqDemwtAsYgNxSLfCZiawW1w3yT62CxW0BbmSrD1YWz3l5u0UJCLsZTgVl
- XdYl69Edw05nwrxq8gyvZvHc2EVIKrTLqIN2e82T+52359V3dlNUT4ownfOGVtKaKIMe
- 7g3L+NbfI2gXdgn/nP9S60CKuwyIWyfx88YUxU63/NZrB29TYqBRfbJu02f4nXZAag+5
- ndQWo8ZtsShcXJYxZIlhul6yBi9ePocBPMyX9SnPn6rX+2p0lXJXsj+2ZlFFBRo4cF9A
- KS/xZmdzRic1esJfFjR40CFEyzvDFWgffJw8RDkTuVqR99QlclH5mA0JONnzEZKcT4ZI
- st3w==
+ bh=THUyQtBNkmYvdRFdNm5FE+fhYKPDNfLX377CAHW/VUc=;
+ b=LKSBLM4r6vAhDDvmOgx8k10zxjHNljSk2MBWvKfQON6hm4ew12U6hhSEd2vMcgUwBk
+ liBiqjvGlmd6q5rXQkL9S9wDy8nUgUOrD35u95YMuZ7S1sBlWLclGfqOV7TR/TQnZ1By
+ 2SAPlzFTaVVe6hbkqzSEQAf4nYP7UnzED0GPp2l7MCcoKa3Sb/tJmDx3bejRR5oAkCc9
+ kFrw23m6Ilg/1P0A3/xRLVETiMSfVMCJQdPhyeMewW1fcd2P69bJPH9uN2wI/SjQzkN3
+ s4kJ7mfJ6K56GJjaZeMmK9m6oMn3aMvxnlsZgGOEzPUsK42Tb59m5Fhico9uWpItRJK1
+ G9IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788743497; x=1789348297;
+ d=1e100.net; s=20251104; t=1788714231; x=1789319031;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=vr8PmeVhyI3ZYfvfVlrbRbCnB619Pqu+cER6pTinMdw=;
- b=RQehEKhocrCE8HOzjRElLp3QCsNIAX7RWB9SRENMGIckyz3PFywpHAW/a9M7rgdk8Z
- 6jBs+WOJ7bFJiGuJEBWvP3/auC/57H2/lao72F7BIUtCxMn9FpM37mu/AboYlm47Sp+g
- zvftLrvfDJsvv4oWfhEirQNwVP4WMQj06maomsKy7UuCrCgA7P2pv46ye9G1S32hx9fp
- EUvtYQflpoAxv0sMfK3Yaq+jVehaG+ivAkCbJD0z+IFLtcNCFPdhM/ABElT7jKSCtDLw
- GEVdlxjhjWKbS4Ly8a/ZVnMmEpQS+3dqyP50Loq6y011eFOl+P8+XpHtjgbts+Tqp7hU
- Schw==
+ bh=THUyQtBNkmYvdRFdNm5FE+fhYKPDNfLX377CAHW/VUc=;
+ b=GUBvJJ7CKfb/Fz08ukslvTGLPELKfD2P2gnx09evFzaK3TASrS9qh/pty38DD5UbhM
+ KaMe+Fa+YIwr8kCt2O/1KovRxQXfBNvHlH1VndDH+s+TuanqslwYFz0BXx08baTdv/xP
+ oYxShSJQxqgc5vcrKa00Sn4/hxOkt7UdvC4yR6cTPUpr/+EhfT5ai2sSqcIbLD52cQgj
+ iU2u9jjUVgXk3tC/vAQ2uMu4dKFmojiJVCfPUiql9yZzFQIinyeMEwo1E1SYz13WRB3o
+ RG7hIgzH4RCLgKBWt/a3iqtz9un/DbJ2Zn9SjlGGb3xcpvMwHoR8GNSqsCOrcQlX3bOS
+ EZlQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwlTwnKXDlphgWJyROJxgV787bP8EhrbixDTGBWqWhDZWvf0Nh//6mRzkBhSPAsNmOln7PLeI171RY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mw/cZTtU8xGr9C6r6h9w7wjzuXHgpXRXkeaKo6MrVST9wiu+5g
- NrpEJFxvf/riXpnK/RkAK/FYTgA188F6n1Pk2Z8eh86MH25cFElthZAI
-X-Gm-Gg: AYBFou39RlBXAvjiEKbQEiQ3Wlx0xMXDIi5Ges7yx0Jaw7WJzK9/VeGQwNj02yDFcEG
- j13no5MelCc4R2/Im0uYBwXXU+v6RZ4qBbv8VfYckLOTFf5zJDeV10DY8o9zdX6bW5RR2xLnfsR
- o7tAWbbH21wjga+0H6+YK9zZIjIfgEWEc75bxU4oOSxxtqwoCqvI8B2rVp2ej18X+/Y8dBNKTcI
- tdaiihIuQ2jKqzSRv5Zz5zvN2exSkfufqa/znEkzO/M/lCWiocwtGlahEsy3Ky4StgMaD5kWwAT
- dsUBbKmZLW5rRlTF78Uz9yUOSlcJzFB9qYIFDpI/On4eAkOX7wSDS6rhN8SkiNEssXDoWFq5u4q
- 3sF75Ob1CsZXyJldqD8NalgTST9Lh2csEVkX6zIKbSnXRJVR+EEs7QuLuyoN/AS8cbscsllJCpH
- 2IdYgj7LwCM0sugeqr6nFAWorFAFLdmqtQQ23EkMdWrLiLoZI5+Yrw3KxN2BVFboQqRNBftFabw
- 1/JlrFh7s57mI+DQzLQCUHilYO5dClv1d0y7PBm0z+aIRLKfb2cyIVmFSmODGyb5/mcyQgzihhy
- R/O7+0gFHzPls1wvF4SPCIEQAfp0S9t4CmQ9KeDw1tL0o8ovoViqbmVCbqY7y7lCVi0=
-X-Received: by 2002:a05:6000:1845:b0:485:8a46:b3ca with SMTP id
- ffacd0b85a97d-4858a46b614mr19737250f8f.50.1788743497432; 
- Sun, 06 Sep 2026 18:11:37 -0700 (PDT)
+ AKwUvBzEKAp7sysGe6kAfJeFTV2kvdjvLuQVoUP1qBNkHjt/f093WQiC6O93YPYtPFE71FBiYyUmQUMxKmQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lQAU5dfdKMZ82MFph4OSvbYS/knmEhCQdR0Zc8q8w+Dw9FEY6r
+ X6TpJv7c1DEpOotQuux8DpxvCWKbdWRj72lWj/5pqunM4Wbn4CwgBvqI
+X-Gm-Gg: AYBFou1bRlP1/X/oStHU6G5iSgVDcVcpHpv72zMwYc6FnAWH8ZdGRr3ETqxKgE1D8Yd
+ BrbiVzF1s8awJQRB/te5Kx3XZRZDSpG5FBYybwcsgo8l5shE56XJGf/F2DjX+OfBcnUSF26WuJu
+ l+pPFWF70vr4HO4ZIVii4Gr6D/MSpEqN+xAWXlYaBohocMPvDwljBaoctWSEzPJghvv6t2GDPC/
+ SJjWSqhNkFBVONkcjGJijRDTyWbMptd27VvGAFpLwn2mF4eW0suTMq8w9v5WvcdkvkqMg7w7nsV
+ 2o3n1xHq1Q/v99sfZ9K6y9xhzei/+8vf+fIwLpa/cNxOSbPr3+0FTFSlf7mXnUU9cloun8BuzsP
+ psV8mKFu2DtcKXRlX0lTbaJd4te/GWqHidALg/+10B8yxqY69pO2L2Qea/rP+8w/kBEEYBAMWya
+ 6oDm5XViQFn9qilZ5c3GfaEUKdKAFmI5V7DcNIhXeT06A6w3QO0CV0RHyYJeu9SpxeXQrEOXJXx
+ NXf8Z2BF57kcUDq4eDelnun+tp38QPxghcqvJqOMwT8nPkkpy5Bk3SAZesWazXnOElpOJcZQxbj
+ TCq+Q7HT6qQR2mvu8krfPVDO5sBKLlGyn927uIu1fQV4OOGe27UaQMwh3slPYaX1FlnwUxRc
+X-Received: by 2002:a05:6000:41db:b0:485:8c17:9768 with SMTP id
+ ffacd0b85a97d-4858c179982mr14761414f8f.42.1788714230809; 
+ Sun, 06 Sep 2026 10:03:50 -0700 (PDT)
 Received: from localhost.localdomain
  (dynamic-2a02-3100-9d84-5101-9c80-d25b-14b6-410c.310.pool.telefonica.de.
  [2a02:3100:9d84:5101:9c80:d25b:14b6:410c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485881353e8sm25071771f8f.1.2026.09.06.18.11.35
+ ffacd0b85a97d-485885bf3f0sm24566946f8f.33.2026.09.06.10.03.49
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 06 Sep 2026 18:11:35 -0700 (PDT)
+ Sun, 06 Sep 2026 10:03:50 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH] drm/exec: Match the drm_exec_retry() kernel-doc to its
- parameter name
-Date: Mon,  7 Sep 2026 03:11:27 +0200
-Message-Id: <20260907011127.19653-1-kmehltretter@gmail.com>
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH] drm/msm: Fix the separate_gpu_kms parameter description
+Date: Sun,  6 Sep 2026 19:03:47 +0200
+Message-Id: <20260906170347.2427-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -95,33 +96,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec
-retry pointer") added drm_exec_retry() as a macro whose parameter is
-_exec, with a kernel-doc that says @exec, so kernel-doc reports both an
-excess and a missing parameter on every docs build.
+The module parameter is separate_gpu_kms, but its MODULE_PARM_DESC()
+names separate_gpu_drm, so modinfo describes a parameter that does not
+exist and shows no description for the real one.
 
-Say @_exec.
+Use the parameter name in the description.
 
-Fixes: bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer")
+Fixes: 217ed15bd399 ("drm/msm: enable separate binding of GPU and display devices")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- include/drm/drm_exec.h | 2 +-
+ drivers/gpu/drm/msm/msm_drv.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index cc2937185a9f..ae1d074ade5a 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -150,7 +150,7 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index db1b655dd055..f3d2eaa04f14 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -55,7 +55,7 @@ MODULE_PARM_DESC(modeset, "Use kernel modesetting [KMS] (1=on (default), 0=disab
+ module_param(modeset, bool, 0600);
  
- /**
-  * drm_exec_retry() - Unconditionally restart the loop to grab all locks.
-- * @exec: drm_exec object
-+ * @_exec: drm_exec object
-  *
-  * Unconditionally retry the loop to lock all objects. For consistency,
-  * the exec object needs to be newly initialized.
+ static bool separate_gpu_kms;
+-MODULE_PARM_DESC(separate_gpu_drm, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
++MODULE_PARM_DESC(separate_gpu_kms, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
+ module_param(separate_gpu_kms, bool, 0400);
+ 
+ DECLARE_FAULT_ATTR(fail_gem_alloc);
+
+base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
 -- 
 2.53.0
 
