@@ -4,68 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D615C79F8B
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 01:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4594AC79F82
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 01:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3759010E093;
-	Sun,  6 Sep 2026 01:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC1B10E229;
+	Sun,  6 Sep 2026 01:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yf6h7CgM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oRlnkD/2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F050610E067
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4C660447FD;
- Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 154D0C2BCF7;
- Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788658476;
- bh=X/cAD1JaxVmULRWi7OAU303q7QUjTZ0yqVCXrZ7JU0k=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Yf6h7CgMOuu4wEzue8CgkmSyH25Ehm9bPQgHxb0Az4kA2fSjLKoyNnVcOUrBzk77t
- H/+/Rn9p5dhWyOZNJOQFhFdNUqiWq8ks1vPihpog6a7nA0HqQ4144qv60wxwOU3WnK
- HKg3z+52k7cL8Ked5ejqmRA8SEZxeNCSebVvntlRx12XKb3dzb8G779dkeEAYGhFSx
- QtfGMpIhy5BVrTz6Wpis2ikpZh7sKmrU2gU7DcXcBSoQIycaxhhcRw1GeS1BiZIiw9
- Yu/J78jK1nwuDKvhOw5FdfcQV1aaabQbMN2++WEhGI3FwM2zebj1fx9ht/7h/A0ajV
- G4sStluIzE5/A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EBA17C79F82;
- Sun,  6 Sep 2026 01:34:35 +0000 (UTC)
-From: Ryan Brue via B4 Relay <devnull+ryanbrue.dev.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 20:34:35 -0500
-Subject: [PATCH 2/2] drm/panel: add Novatek NT51021 1200x1920 DSI panel driver
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 984E710E229
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 01:49:23 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2d58efc7356so28557825ad.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 18:49:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788659363; x=1789264163; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:mime-version
+ :user-agent:date:message-id:from:cc:references:to:subject:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=S0KhFClpzBCgstI8o1AR/vkilR/o3vMPMYTkXSYpO4U=;
+ b=oRlnkD/2a5i6FE5Qb5mbo/1/StYyCYumPlqcHWhg0yE9w4xBGvXWCseM2S+miSmPyf
+ eyY3i44a9zKLi4m4929ASrCOWSf/u+Jmb/I1g6Fx/rtXVg0ZftfhUFrhjrKJLBJJ94KJ
+ XEkVm8vqPIme7s01SNISPNYNNS3Wokxjs+W8mMoOjgB0yfWcHH7cubnyAG+WgskEfMTY
+ Jk2DzBLjCrhp2CgRASQfdYthNf53H/dIAAxK/URcJNSDwb4BBUpnfyVQk+gjHzVeQOb1
+ hZgQhrpDlayJrCjs7420rxTLdodToglgBoXJVJotWi7By6rMB4yosbhi6bZ6LTZZ6V3O
+ 0HnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788659363; x=1789264163;
+ h=content-transfer-encoding:content-type:in-reply-to:mime-version
+ :user-agent:date:message-id:from:cc:references:to:subject:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=S0KhFClpzBCgstI8o1AR/vkilR/o3vMPMYTkXSYpO4U=;
+ b=okZF+mNRpLSqczHC1YWNk1x/NAAqFNFi67fmjudlrF3gfaWj2aQA3EWaTSke+YQgIh
+ tOsGEHMvcMmTJKcIzTBCss5XE2JIr9j57H4PnQMwuaslDf4Z2iuOISCsIDi+J8PJZ9Gu
+ gZxq4AvfgvQ3kHR3yfWlUfddjrwtVhgSktjdTQsIsmUxsdJG9Nxa/nVsChpx3ul4P7+V
+ 28nIJmNmrU+s8w9AH9ZidHkNKLbX46lnBAhzPt1RpePCEPtP7NaQrk0D+LwcPUWTzVfO
+ XW/+c9T/xUg2UwAPN8BLLOwGeG0MV2rDq0J6EDskfN7957yBhGEdLBkBNelM0Q6QYLL9
+ IXxA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwzV7wSu4X0KYL9D8wY/BbPiCnE3vakTIP89wmUkImACch8/3oM0qGCPbGG+llLhKWWbKcD2eYc9QE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mZJ7xpszfUWoeIdjXed/lWMHTjxy2Ro39OuF3lIC1shyYzawro
+ 4EcpL5v9k+PmRFZxyvLDz+O08/f8MDU9hl0hQs02X99CpDqbEwLEtYVE
+X-Gm-Gg: AYBFou2BSL+Wys1V1IFUTyQJcBPa9dtfXPeXMMlwzXi2jBkxcFNK1j2FBTK7J8+yO8h
+ 2TfQ4mfG2r2M+o2+Mz1Q76GDcBB+KeA/BUY2fx3sCc3MYdI0Xh1adrz2BEQx2nrnTasJJ2xfV+z
+ JHQmTC+CZrU+0NMWeNOJvVI51rVl1yczCzyDQ4ojkqYL1EloVeYi+dmk56tw6SH732D4qnf/cvO
+ B9s+nDhf+hPkurX9EdE1s4G1OmbWhkIwz2EMTVmXdL4mn9VTRvBIsKVRxlvUMZKnsuiTjiiitV5
+ lBj+ATGzdab4j5soQ6R7pFgMA5iiSglMZcJDZIKhLK5eQOwEF1lHo+PUUB6YkUJIQQcDjFGefrU
+ GkS46YrnGQuHwKgQDhnPmBxmbcZj3F2O3nQnaeO8PzV4puStqTtfDVUsnqLb4+ukup6OzprlSZs
+ Tv3JrtVVxkLcUTIDHsb7k5Zku9YR5JDBkSuz1vTuJCk9s22enLErkTlnYO10hND3yD0LK6ubPq5
+ FJ5ZTnUvLkL/26fmIA=
+X-Received: by 2002:a17:902:ebc3:b0:2db:20fa:9443 with SMTP id
+ d9443c01a7336-2db20fa96d6mr161492935ad.13.1788659362933; 
+ Sat, 05 Sep 2026 18:49:22 -0700 (PDT)
+Received: from [10.1.1.24] (122-59-250-182-adsl.sparkbb.co.nz.
+ [122.59.250.182]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2db149ccf2esm27008175ad.73.2026.09.05.18.49.17
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 05 Sep 2026 18:49:22 -0700 (PDT)
+Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
+To: Linmao Li <lilinmao@kylinos.cn>, deller@gmx.de, linux-fbdev@vger.kernel.org
+References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
+Cc: miro.kropacek@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
+From: Michael Schmitz <schmitzmic@gmail.com>
+Message-ID: <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
+Date: Sun, 6 Sep 2026 13:49:14 +1200
+User-Agent: Mozilla/5.0 (X11; Linux ppc; rv:45.0) Gecko/20100101 Icedove/45.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20260827093948.2825531-1-lilinmao@kylinos.cn>
+Content-Type: text/plain; charset=iso-8859-15; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-2-939f59e89fc9@gmail.com>
-References: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
-In-Reply-To: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788658475; l=15078;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=ReaDW0zn/YsThF3WOuoKFxMcsrbwQZd0qFM9fFL2zpA=;
- b=HUaT9GUvCQWmFA2DoE9UZ9+rcuz094rdNoEgvK4H3uF5QNZB0iB8xngvc/tL9MgRAjJNWX0W2
- jjR9rI/dx72AfPtOiKtRvplJLfaCzb5Ah5+ujNU6tscfiSGNF70bgxM
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
-X-Endpoint-Received: by B4 Relay for ryanbrue.dev@gmail.com/20260906 with
- auth_id=1007
-X-Original-From: Ryan Brue <ryanbrue.dev@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,442 +89,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: ryanbrue.dev@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ryan Brue <ryanbrue.dev@gmail.com>
+Hi Linmao,
 
-Add a driver for the BOE module built around the Novatek NT51021, as
-fitted to the Amazon Fire HD 10 (2017). The panel is 1200x1920, four
-lanes, RGB888, sync-event video mode with a continuous HS clock,
-136x221 mm. The timings are those of the vendor's LCM driver
-(drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/ in the Fire OS 3.18
-tree): hsync 1, hbp 32, hfp 110, vsync 1, vbp 14, vfp 11, so htotal
-1343 and vtotal 1946. They are used verbatim.
+thanks for your patch!
 
-The pixel clock is the vendor's PLL_CLOCK = 490, which after DDR is 980
-Mbps per lane and over four lanes at 24bpp is 163.33 MHz, so 62.5 Hz.
-That is also what the bootloader leaves running: read back before the
-kernel touches it, this board's MIPI TX PLL decodes to exactly 980 Mbps
-per lane, so the panel is already at this rate when the kernel takes
-over.
+Am 27.08.2026 um 21:39 schrieb Linmao Li:
+> The SuperBlitter operations derive an integer byte count per pixel.  The
+> accelerated fill path handles only one-, two- and four-byte pixels.
+> However, the operations are currently installed for every external
+> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bpp
+> truecolor modes accepted by the external video parser.
+>
+> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copies do
+> nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses an
+> incompatible memory layout.  For 24-bpp modes, fills also use 32-bit stores
+> despite advancing addresses by three bytes per pixel.  These cases can
+> corrupt the framebuffer beyond the requested rectangle.
 
-This controller accepts commands either over I2C or in-band over DSI, and
-on the shipping boards it does not default to DSI. Writing 0xa5 to
-register 0x8f opens a window in which DSI commands are accepted and
-writing 0x00 closes it, so every command the driver sends, including
-sleep in/out and display on/off, has to sit inside such a window. That is
-why those are not simply issued from enable()/disable() as most panel
-drivers do.
+I believe 24 bpp mode can be rescued using something like this (entirely 
+untested):
 
-The vendor's bootloader and kernel both carry a second register sequence
-for Innolux glass, chosen from two board ID straps. No Innolux unit was
-available, so that sequence is left out rather than carried untested;
-adding it later is one compatible, one table and one desc.
+--- a/drivers/video/fbdev/atafb.c
++++ b/drivers/video/fbdev/atafb.c
+@@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *info,
+         case 2:
+                 memset16((u16 *)line, pix, rect->width);
+                 break;
++       case 3:
++               memset(line, pix, ((rect->width * bytespp) % 4));
++               line += ((rect->width * bytespp) % 4);
++               memset32((u32 *)line, pix, (rect->width * bytespp) / 4);
++               break;
+         default:
+                 memset32((u32 *)line, pix, rect->width);
+                 break;
 
-Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
-at 62.5 Hz across a cold boot, three display off and on cycles and a
-suspend/resume, with the MIPI TX PLL reading back at the intended rate.
+Can't test this on hardware, and would need Miro to confirm it works as 
+intended.
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- MAINTAINERS                                   |   7 +
- drivers/gpu/drm/panel/Kconfig                 |  11 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt51021.c | 329 ++++++++++++++++++++++++++
- 4 files changed, 348 insertions(+)
+>
+> Enable the SuperBlitter operations only for the layouts they implement:
+> 8-bpp packed pixels and 16/32-bpp truecolor.  Keep the existing software
+> operations for all other external formats.
+>
+> Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
+>  drivers/video/fbdev/atafb.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
+> index 5bca34c45cef3..c3011b61a94b9 100644
+> --- a/drivers/video/fbdev/atafb.c
+> +++ b/drivers/video/fbdev/atafb.c
+> @@ -3360,7 +3360,11 @@ static int __init atafb_probe(struct platform_device *pdev)
+>  		memset (screen_base, 0, external_len);
+>
+>  		/* framebuffer in SV RAM: enable the SuperBlitter */
+> -		if (external_addr >= 0xa0000000) {
+> +		if (external_addr >= 0xa0000000 &&
+> +		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
+> +		      external_depth == 8) ||
+> +		     (external_pmode == -1 &&
+> +		      (external_depth == 16 || external_depth == 32)))) {
+>  			svblit_regs = ioremap(SVBLIT_REGS_PHYS, 0x100);
+>  			if (svblit_regs) {
+>  				svblit_fw = svblit_rd(SVBLIT_VERSION) & 0x1ff;
+>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..1cef4dd31d03 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8353,6 +8353,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
- F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
- 
-+DRM DRIVER FOR NOVATEK NT51021 PANELS
-+M:	Ryan Brue <ryanbrue.dev@gmail.com>
-+S:	Maintained
-+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-+F:	drivers/gpu/drm/panel/panel-novatek-nt51021.c
-+
- DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
- M:	Lyude Paul <lyude@redhat.com>
- M:	Danilo Krummrich <dakr@kernel.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index cbdf7b8f7f7a..50a5dc473138 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -727,6 +727,17 @@ config DRM_PANEL_NOVATEK_NT39016
- 	  Say Y here if you want to enable support for the panels built
- 	  around the Novatek NT39016 display controller.
- 
-+config DRM_PANEL_NOVATEK_NT51021
-+	tristate "Novatek NT51021 1200x1920 DSI video mode panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for the Novatek NT51021
-+	  1200x1920 DSI video mode panel, as found in the Amazon Fire HD 10
-+	  (2017). The controller carries no readable panel identity, so the
-+	  module fitted to a board is named by its compatible string.
-+
- config DRM_PANEL_OLIMEX_LCD_OLINUXINO
- 	tristate "Olimex LCD-OLinuXino panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 3b523cf37833..3fe7c2e579d3 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -70,6 +70,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
-+obj-$(CONFIG_DRM_PANEL_NOVATEK_NT51021) += panel-novatek-nt51021.o
- obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
- obj-$(CONFIG_DRM_PANEL_OLIMEX_LCD_OLINUXINO) += panel-olimex-lcd-olinuxino.o
- obj-$(CONFIG_DRM_PANEL_ORISETECH_OTA5601A) += panel-orisetech-ota5601a.o
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-new file mode 100644
-index 000000000000..d92f3e18f716
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-@@ -0,0 +1,329 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Novatek NT51021 1200x1920 DSI video-mode panel
-+ *
-+ * Derived from the vendor LCM driver in the Amazon 3.18 tree,
-+ * drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/.
-+ *
-+ * Note on the command interface: this panel can take its control commands
-+ * either over I2C or in-band over MIPI, and on the shipping ("dvt") boards it
-+ * does NOT default to MIPI. Writing 0xa5 to register 0x8f forces commands to
-+ * be accepted over DSI, and writing 0x00 hands the interface back. Every
-+ * command this driver sends therefore has to sit inside such a window --
-+ * including sleep in/out and display on/off, which is why they are not simply
-+ * issued from enable()/disable() the way most panel drivers do it.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+/* Register 0x8f selects where the panel listens for commands. */
-+#define NT51021_CMD_IF			0x8f
-+#define NT51021_CMD_IF_FORCE_MIPI	0xa5
-+#define NT51021_CMD_IF_RELEASE		0x00
-+
-+struct nt51021_cmd {
-+	u8 reg;
-+	u8 val;
-+	u16 delay_ms;
-+};
-+
-+/*
-+ * Taken verbatim from the vendor's init_lcm_registers() BOE branch, minus the
-+ * command-window writes, which this driver manages itself.
-+ */
-+static const struct nt51021_cmd nt51021_init_suez_boe[] = {
-+	{ 0x01, 0x00, 20 },	/* software reset */
-+	{ 0x83, 0x00, 0 },	/* page select */
-+	{ 0x84, 0x00, 0 },
-+	{ 0x8c, 0x80, 0 },	/* GOP setting */
-+	{ 0xcd, 0x6c, 0 },	/* 3 dummy */
-+	{ 0xc0, 0x8b, 0 },	/* GCH */
-+	{ 0xc8, 0xf0, 0 },	/* GCH */
-+	{ 0x97, 0x00, 0 },	/* resistor setting, 100 ohm */
-+	{ 0x8b, 0x10, 0 },
-+	{ 0xa9, 0x20, 0 },	/* enable TP_SYNC */
-+	{ 0x83, 0xaa, 0 },	/* page select */
-+	{ 0x84, 0x11, 0 },
-+	{ 0xa9, 0x4b, 0 },	/* MIPI Rx drive strength, 85% */
-+	{ 0x85, 0x04, 0 },	/* test mode 1 */
-+	{ 0x86, 0x08, 0 },	/* test mode 2 */
-+	{ 0x9c, 0x10, 0 },	/* test mode 3 */
-+};
-+
-+struct nt51021_desc {
-+	const struct nt51021_cmd *cmds;
-+	unsigned int num_cmds;
-+};
-+
-+static const struct nt51021_desc suez_boe_desc = {
-+	.cmds = nt51021_init_suez_boe,
-+	.num_cmds = ARRAY_SIZE(nt51021_init_suez_boe),
-+};
-+
-+struct nt51021 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator *supply;
-+	struct gpio_desc *reset_gpio;
-+	const struct nt51021_desc *desc;
-+};
-+
-+static inline struct nt51021 *to_nt51021(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct nt51021, panel);
-+}
-+
-+/*
-+ * A plain "write this value to that register" DCS write. The
-+ * mipi_dsi_dcs_write_seq_multi() macro cannot be used for these: it stashes its
-+ * payload in a static const array, so every byte has to be a compile-time
-+ * constant, and both the register and the value here come from a table.
-+ */
-+static void nt51021_write(struct mipi_dsi_multi_context *ctx, u8 reg, u8 val)
-+{
-+	const u8 d[] = { reg, val };
-+
-+	mipi_dsi_dcs_write_buffer_multi(ctx, d, sizeof(d));
-+}
-+
-+/*
-+ * Open or close the in-band command window. Outside it the panel ignores DSI
-+ * commands entirely, so every caller that wants to be heard must wrap its
-+ * writes in a pair of these.
-+ */
-+static void nt51021_cmd_window(struct mipi_dsi_multi_context *ctx, bool open)
-+{
-+	nt51021_write(ctx, NT51021_CMD_IF,
-+		      open ? NT51021_CMD_IF_FORCE_MIPI : NT51021_CMD_IF_RELEASE);
-+	if (open)
-+		mipi_dsi_msleep(ctx, 1);
-+}
-+
-+static int nt51021_prepare(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	unsigned int i;
-+	int ret;
-+
-+	ret = regulator_enable(ctx->supply);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Vendor timing: reset held low for 20 ms, then 5 ms of settling before
-+	 * the first command. The GPIO is active low in the device tree, so
-+	 * "1" here means asserted.
-+	 */
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	msleep(20);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(5000, 6000);
-+
-+	nt51021_cmd_window(&dsi_ctx, true);
-+
-+	for (i = 0; i < ctx->desc->num_cmds; i++) {
-+		const struct nt51021_cmd *cmd = &ctx->desc->cmds[i];
-+
-+		nt51021_write(&dsi_ctx, cmd->reg, cmd->val);
-+		if (cmd->delay_ms)
-+			mipi_dsi_msleep(&dsi_ctx, cmd->delay_ms);
-+	}
-+
-+	/* Vendor init_lcm_registers(): Sleep Out, then 120 ms. */
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	nt51021_cmd_window(&dsi_ctx, false);
-+	mipi_dsi_msleep(&dsi_ctx, 5);
-+
-+	if (dsi_ctx.accum_err) {
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_disable(ctx->supply);
-+	}
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt51021_enable(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	nt51021_cmd_window(&dsi_ctx, true);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	nt51021_cmd_window(&dsi_ctx, false);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt51021_disable(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	nt51021_cmd_window(&dsi_ctx, true);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	nt51021_cmd_window(&dsi_ctx, false);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt51021_unprepare(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	/* Vendor lcm_suspend(): force MIPI, Sleep In, 50 ms. */
-+	nt51021_cmd_window(&dsi_ctx, true);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_disable(ctx->supply);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+/*
-+ * Timings from the vendor's lcm_get_params(): 1200x1920, hsync 1 / hbp 32 /
-+ * hfp 110, vsync 1 / vbp 14 / vfp 11. That gives htotal 1343 and vtotal 1946.
-+ *
-+ * The pixel clock follows the vendor's PLL_CLOCK = 490, which after DDR is
-+ * 980 Mbps per lane, and over four lanes at 24bpp is 163.33 MHz, giving
-+ * 62.5 Hz. That is also what the bootloader leaves behind: read back before
-+ * the kernel touches it, the MIPI TX PLL on this board decodes to exactly
-+ * 980 Mbps per lane, so the panel is already running at this rate when the
-+ * kernel takes over.
-+ *
-+ * Note for anyone tempted by the "fps=6025" the bootloader puts on the kernel
-+ * command line: it is not the DSI rate and does not describe this PLL. It also
-+ * is not stable across boots.
-+ */
-+static const struct drm_display_mode nt51021_mode = {
-+	.clock = 163333,
-+	.hdisplay = 1200,
-+	.hsync_start = 1200 + 110,
-+	.hsync_end = 1200 + 110 + 1,
-+	.htotal = 1200 + 110 + 1 + 32,
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 11,
-+	.vsync_end = 1920 + 11 + 1,
-+	.vtotal = 1920 + 11 + 1 + 14,
-+	.width_mm = 136,
-+	.height_mm = 221,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int nt51021_get_modes(struct drm_panel *panel,
-+			     struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &nt51021_mode);
-+}
-+
-+static const struct drm_panel_funcs nt51021_panel_funcs = {
-+	.prepare = nt51021_prepare,
-+	.enable = nt51021_enable,
-+	.disable = nt51021_disable,
-+	.unprepare = nt51021_unprepare,
-+	.get_modes = nt51021_get_modes,
-+};
-+
-+static int nt51021_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct nt51021 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct nt51021, panel,
-+				   &nt51021_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->supply = devm_regulator_get(dev, "power");
-+	if (IS_ERR(ctx->supply))
-+		return dev_err_probe(dev, PTR_ERR(ctx->supply),
-+				     "failed to get power supply\n");
-+
-+	/* Active low in the device tree, so OUT_HIGH leaves reset asserted. */
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "failed to get reset GPIO\n");
-+
-+	ctx->desc = of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return -ENODEV;
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	/*
-+	 * Video mode with sync events rather than sync pulses
-+	 * (vendor SYNC_EVENT_VDO_MODE), and a continuously running HS clock
-+	 * (vendor cont_clock = 1), so MIPI_DSI_CLOCK_NON_CONTINUOUS is
-+	 * deliberately absent. Commands go out in LP.
-+	 */
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get backlight\n");
-+
-+	/* The DSI host must be running before we can send the init sequence. */
-+	ctx->panel.prepare_prev_first = true;
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void nt51021_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct nt51021 *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id nt51021_of_match[] = {
-+	{ .compatible = "amazon,suez-boe-nt51021", .data = &suez_boe_desc },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nt51021_of_match);
-+
-+static struct mipi_dsi_driver nt51021_driver = {
-+	.probe = nt51021_probe,
-+	.remove = nt51021_remove,
-+	.driver = {
-+		.name = "panel-novatek-nt51021",
-+		.of_match_table = nt51021_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(nt51021_driver);
-+
-+MODULE_DESCRIPTION("Novatek NT51021 1200x1920 DSI panel driver");
-+MODULE_LICENSE("GPL");
+Otherwise, LGTM.
 
--- 
-2.55.0
+@Geert: can you remember if pixel format or bit depth of an external 
+framebuffer can be changed at runtime using fbset??
 
-
+Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
