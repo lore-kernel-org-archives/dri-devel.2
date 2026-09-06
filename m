@@ -4,62 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF50C79F85
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 15:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B21CC79F9F
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 15:38:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0615A10E3DC;
-	Sun,  6 Sep 2026 15:29:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A89B10E3E8;
+	Sun,  6 Sep 2026 15:38:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PpEphqRK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FxqNkMKf";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A31510E3DC
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 15:29:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 377F310E3E8
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 15:38:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F287C60142;
- Sun,  6 Sep 2026 15:29:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1067D1F00A3A;
- Sun,  6 Sep 2026 15:29:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 35E1B601DB;
+ Sun,  6 Sep 2026 15:38:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69F81F00A3D;
+ Sun,  6 Sep 2026 15:37:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788708596;
- bh=hudtMkuumyJji663PnsRBqg8gRdSXAGMJC9a29y8rUk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=PpEphqRKwcJ2ak+MGNqjolZAF+7z/VgT+H/kuWorS35rGTgpLe/CetcOz+y+gxEQH
- 0CA+oHhUmBbgJ79zkhSpUHORS6/pAwB7Uo0zvcZQRYoj10OWYV0gdUi3NVq0J7qesN
- 3+p7TeCkHDS7te1PT4gYVoqaiMtnv09IBUDLeL8QAAClqf8iWZ9HA9sn5pWqaYdHoM
- ecTto1o7uvZgKyQsLC2w30s8H0+rIPakGuNUACsU16Kh+cugBEfzpHTA9lrTE6rg3Y
- 0KzmweDTnZM6mQX2JCmWJfKXy3MLQs5VWMhiRWNn9b8i5JjLM66ZvaboD+hVmmgQ4M
- ohCwbCaFu9JXQ==
-Message-ID: <f72e2bf9-9934-4b2c-aa44-4becc6dee779@kernel.org>
-Date: Sun, 6 Sep 2026 17:29:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/10] gpu: nova-core: add PRAMIN window support
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov
- <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Joel Fernandes <joelagnelf@nvidia.com>
-References: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
-From: Danilo Krummrich <dakr@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1788709079;
+ bh=YeVQD5JH8J2wJHwg5dOd+tAM2BzI5Rsh+nms3GBGgy4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FxqNkMKfgDfUO7AQB3TG9zdBTQJJZvFwesggg52/mPgvFUCnrGvz58SYSx1Tcvuv7
+ DqpxIzVQMOrmaiScAoh5zNy05xyBoJ0TPS0C6L/HfrK7LoHRJpALymVvCPZ8UaXEmi
+ R5zT6WA99mz1KqztbtZ+bALRl0kGxZWXImh68haL9xGxv8S90dvTvQcvFVSKhTx9s8
+ A1UC5UbuTaDU4F3lykv6p2q0gbVA2t9h26Szn85oBSZ+Wud8rBE6qO1JIKukC67LBp
+ dref2S4Y7aX7B148QIBzQtAmP5Voh9YA/SJIOjWrDoouLhIKGs4KzZfxK7tjCJC/cA
+ q2V5gaif4ZTjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/radeon: switch from get_user_pages to
+ pin_user_pages
+To: "Seongjun Hong" <hsj0512@snu.ac.kr>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260906152726.1685848-1-hsj0512@snu.ac.kr>
+References: <20260827090100.428302-1-hsj0512@snu.ac.kr>
+ <20260906152726.1685848-1-hsj0512@snu.ac.kr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 06 Sep 2026 15:37:59 +0000
+Message-Id: <20260906153759.B69F81F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,23 +54,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/27/26 10:51 AM, Eliot Courtney wrote:
-> Eliot Courtney (3):
->       gpu: nova-core: mm: Implement Alignable and Debug for VramAddress
->       gpu: nova-core: mm: Add the memory management HAL
->       gpu: nova-core: Add self-test assertion macros and config option
-> 
-> Gary Guo (1):
->       rust: io: add static `cast()` method for views
-> 
-> Joel Fernandes (6):
->       gpu: nova-core: mm: Add VramAddress type
->       gpu: nova-core: mm: Add PRAMIN window registers
->       gpu: nova-core: mm: Add support to use PRAMIN windows to write to VRAM
->       docs: gpu: nova-core: Document the PRAMIN aperture mechanism
->       gpu: nova-core: mm: Add GpuMm centralized memory manager
->       gpu: nova-core: mm: Add PRAMIN aperture self-tests
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [Critical] The return value of `radeon_ttm_tt_pin_userptr()` is completel=
+y ignored in `radeon_ttm_backend_bind()`, leading to arbitrary DMA mapping,=
+ Use-After-Free, and Double Free vulnerabilities.
+--
+
+commit 4531c5ac337e9cc383254beba3b239a8be2b493c
+Author: Seongjun Hong <hsj0512@snu.ac.kr>
+drm/radeon: switch from get_user_pages to pin_user_pages
+
+This commit replaces the deprecated get_user_pages() API with
+pin_user_pages() to ensure DMA pages are properly pinned. It also adds the
+FOLL_LONGTERM flag to reflect that these userptr pages remain pinned for
+the lifetime of the GEM userptr BO's GART binding.
+
+> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon=
+/radeon_ttm.c
+> index e7ab8162ac694..c14b215c7e3e1 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+
+[ ... ]
+
+> @@ -377,7 +378,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_devic=
+e *bdev, struct ttm_tt *ttm
+>  	kfree(ttm->sg);
+> =20
+>  release_pages:
+> -	release_pages(ttm->pages, pinned);
+> +	unpin_user_pages(ttm->pages, pinned);
+
+[Severity: Critical]
+This is a pre-existing issue, but does this error path leave ttm->sg as a
+dangling pointer?
+
+When pin_user_pages() fails (which could happen more easily now if userspace
+provides File System DAX mappings that are cleanly rejected due to the newly
+added FOLL_LONGTERM flag), the failure is handled here and ttm->sg is freed
+without being set to NULL.
+
+Because radeon_ttm_backend_bind() completely ignores the return value of
+radeon_ttm_tt_pin_userptr():
+
+drivers/gpu/drm/radeon/radeon_ttm.c:radeon_ttm_backend_bind() {
+    ...
+	if (gtt->userptr) {
+		radeon_ttm_tt_pin_userptr(bdev, ttm);
+		flags &=3D ~RADEON_GART_PAGE_WRITE;
+	}
+    ...
+}
+
+Execution proceeds with an invalid state, leading to arbitrary GPU DMA acce=
+ss
+to physical memory or address 0.
+
+Furthermore, this dangling pointer will be accessed later in
+radeon_ttm_tt_unpin_userptr():
+
+drivers/gpu/drm/radeon/radeon_ttm.c:radeon_ttm_tt_unpin_userptr() {
+    ...
+	/* double check that we don't free the table twice */
+	if (!ttm->sg || !ttm->sg->sgl)
+		return;
+    ...
+}
+
+This causes a Use-After-Free read, and subsequently a Double Free when the
+BO is destroyed and radeon_ttm_tt_unpopulate() calls kfree(ttm->sg).
+
+Could we set ttm->sg =3D NULL after freeing it and check the return value of
+radeon_ttm_tt_pin_userptr() in radeon_ttm_backend_bind() to prevent this?
+
+>  	return r;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906152726.1685=
+848-1-hsj0512@snu.ac.kr?part=3D1
