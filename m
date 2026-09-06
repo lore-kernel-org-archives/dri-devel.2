@@ -4,82 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B205CC79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42D3C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6C6210E66D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9432710E66A;
 	Mon,  7 Sep 2026 07:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LKSBLM4r";
+	dkim=pass (1024-bit key; unprotected) header.d=willyv3.com header.i=@willyv3.com header.b="M/eILOId";
+	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="DFPfYh5n";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B339E10E108
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 17:03:52 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-484392e3d33so1771605f8f.2
- for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 10:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788714231; x=1789319031; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=THUyQtBNkmYvdRFdNm5FE+fhYKPDNfLX377CAHW/VUc=;
- b=LKSBLM4r6vAhDDvmOgx8k10zxjHNljSk2MBWvKfQON6hm4ew12U6hhSEd2vMcgUwBk
- liBiqjvGlmd6q5rXQkL9S9wDy8nUgUOrD35u95YMuZ7S1sBlWLclGfqOV7TR/TQnZ1By
- 2SAPlzFTaVVe6hbkqzSEQAf4nYP7UnzED0GPp2l7MCcoKa3Sb/tJmDx3bejRR5oAkCc9
- kFrw23m6Ilg/1P0A3/xRLVETiMSfVMCJQdPhyeMewW1fcd2P69bJPH9uN2wI/SjQzkN3
- s4kJ7mfJ6K56GJjaZeMmK9m6oMn3aMvxnlsZgGOEzPUsK42Tb59m5Fhico9uWpItRJK1
- G9IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788714231; x=1789319031;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=THUyQtBNkmYvdRFdNm5FE+fhYKPDNfLX377CAHW/VUc=;
- b=GUBvJJ7CKfb/Fz08ukslvTGLPELKfD2P2gnx09evFzaK3TASrS9qh/pty38DD5UbhM
- KaMe+Fa+YIwr8kCt2O/1KovRxQXfBNvHlH1VndDH+s+TuanqslwYFz0BXx08baTdv/xP
- oYxShSJQxqgc5vcrKa00Sn4/hxOkt7UdvC4yR6cTPUpr/+EhfT5ai2sSqcIbLD52cQgj
- iU2u9jjUVgXk3tC/vAQ2uMu4dKFmojiJVCfPUiql9yZzFQIinyeMEwo1E1SYz13WRB3o
- RG7hIgzH4RCLgKBWt/a3iqtz9un/DbJ2Zn9SjlGGb3xcpvMwHoR8GNSqsCOrcQlX3bOS
- EZlQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzEKAp7sysGe6kAfJeFTV2kvdjvLuQVoUP1qBNkHjt/f093WQiC6O93YPYtPFE71FBiYyUmQUMxKmQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lQAU5dfdKMZ82MFph4OSvbYS/knmEhCQdR0Zc8q8w+Dw9FEY6r
- X6TpJv7c1DEpOotQuux8DpxvCWKbdWRj72lWj/5pqunM4Wbn4CwgBvqI
-X-Gm-Gg: AYBFou1bRlP1/X/oStHU6G5iSgVDcVcpHpv72zMwYc6FnAWH8ZdGRr3ETqxKgE1D8Yd
- BrbiVzF1s8awJQRB/te5Kx3XZRZDSpG5FBYybwcsgo8l5shE56XJGf/F2DjX+OfBcnUSF26WuJu
- l+pPFWF70vr4HO4ZIVii4Gr6D/MSpEqN+xAWXlYaBohocMPvDwljBaoctWSEzPJghvv6t2GDPC/
- SJjWSqhNkFBVONkcjGJijRDTyWbMptd27VvGAFpLwn2mF4eW0suTMq8w9v5WvcdkvkqMg7w7nsV
- 2o3n1xHq1Q/v99sfZ9K6y9xhzei/+8vf+fIwLpa/cNxOSbPr3+0FTFSlf7mXnUU9cloun8BuzsP
- psV8mKFu2DtcKXRlX0lTbaJd4te/GWqHidALg/+10B8yxqY69pO2L2Qea/rP+8w/kBEEYBAMWya
- 6oDm5XViQFn9qilZ5c3GfaEUKdKAFmI5V7DcNIhXeT06A6w3QO0CV0RHyYJeu9SpxeXQrEOXJXx
- NXf8Z2BF57kcUDq4eDelnun+tp38QPxghcqvJqOMwT8nPkkpy5Bk3SAZesWazXnOElpOJcZQxbj
- TCq+Q7HT6qQR2mvu8krfPVDO5sBKLlGyn927uIu1fQV4OOGe27UaQMwh3slPYaX1FlnwUxRc
-X-Received: by 2002:a05:6000:41db:b0:485:8c17:9768 with SMTP id
- ffacd0b85a97d-4858c179982mr14761414f8f.42.1788714230809; 
- Sun, 06 Sep 2026 10:03:50 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-9d84-5101-9c80-d25b-14b6-410c.310.pool.telefonica.de.
- [2a02:3100:9d84:5101:9c80:d25b:14b6:410c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485885bf3f0sm24566946f8f.33.2026.09.06.10.03.49
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 06 Sep 2026 10:03:50 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: [PATCH] drm/msm: Fix the separate_gpu_kms parameter description
-Date: Sun,  6 Sep 2026 19:03:47 +0200
-Message-Id: <20260906170347.2427-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+X-Greylist: delayed 442 seconds by postgrey-1.36 at gabe;
+ Sun, 06 Sep 2026 03:22:05 UTC
+Received: from a11-30.smtp-out.amazonses.com (a11-30.smtp-out.amazonses.com
+ [54.240.11.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B51110E01F;
+ Sun,  6 Sep 2026 03:22:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+ d=willyv3.com; t=1788664482;
+ h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+ bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
+ b=M/eILOIdN6fpCKX4TPGjgBrGC6Xuurv2oE3NHH32Q53SxyPfXsPNeHlq3eZuPlpA
+ LoMz2ZO8cJdPx3E4YXL4Q+u2SgW7FWv6bUJEwnUelH8+vWQVh1BtqtuWDh8G2Fn4RjL
+ ngZmoY/BMuYEAza5XAkluJpIF+ImWerxaEd3S4jU=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788664482;
+ h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+ bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
+ b=DFPfYh5n1P7LYadPq+97Ev76Q1+jle3UwH+HcJa+KhGRl5q/PNfLD4i1R3ltRGz5
+ Kh+eZslDgML/+v7ygByib3ZeqI+x4fd26Vr9s2FCt59ZRGNNHi170ioJFH5ZOZBmsk+
+ 14uAl58WcmfP7lhzyT92H4QspH30Q16M2+PnYSz4=
+From: willy@willyv3.com
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: only treat a real S3 as a suspend abort on resume
+Message-ID: <010001a074b60857-4cb0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 6 Sep 2026 03:14:41 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.tVoVnBTusQKwEv3FXsafng3gwgTXiveIP8uCFN696SRuTdSqJLPWcLHhZMGYqGEWfSP3N+is2iSOKdmX/9ngsLeiTVoJkakNxJEB+yEN1ZJPtwlO53LLRiFsTHXrFviVUeKFV0/4bko6iGjXsDtchIeimK+HIEYE/SJqJKFonco=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
+X-SES-Outgoing: 2026.09.06-54.240.11.30
 X-Mailman-Approved-At: Mon, 07 Sep 2026 07:00:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,34 +61,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The module parameter is separate_gpu_kms, but its MODULE_PARM_DESC()
-names separate_gpu_drm, so modinfo describes a parameter that does not
-exist and shows no description for the real one.
+From: Willy VanSickle <vansicklewilly@gmail.com>
+Subject: [PATCH] =
+drm/amdgpu: only treat a real S3 as a suspend abort on resume
 
-Use the parameter name in the description.
+soc15_need_reset_on_resume() resets the ASIC when
+`adev->in_s3 && !=
+pm_resume_via_firmware()`, to recover from an aborted
+S3 suspend. Since commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic
+reset for dGPU in case of suspend abort") this applies to dGPUs as
+well.
 
-Fixes: 217ed15bd399 ("drm/msm: enable separate binding of GPU and display devices")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Two things make that check fire on every suspend-to-idle resume of a
+dGPU, not just on aborts:
+
+ - amdgpu_acpi_is_s3_active() returns true for =
+any non-APU regardless
+   of the sleep state actually used, so in_s3 is set=
+ on s2idle too.
+ - pm_resume_via_firmware() is only true when platform =
+firmware
+   resumed the system (ACPI S3). s2idle never sets it.
+
+So on an s2idle platform every dGPU resume is misread as an S3 abort
+and gets a mode1 reset it did not need. On most parts the spurious
+reset is survivable. On a MacBookPro15,3 (Radeon Pro Vega 20, PSP
+v11) the PSP goes into suspend with a failed TA unload and the mode1
+issued on that state leaves the bootloader unresponsive:
+
+  amdgpu 0000:03:00.0: S3 suspend abort case, let's reset ASIC.
+  amdgpu 0000:03:00.0: [drm] psp mode1 reset succeed
+  amdgpu 0000:03:00.0: PSP is resuming...
+  amdgpu 0000:03:00.0: psp reg =
+(0x16063) wait timed out, mask: 80000000,
+    read: 0 exp: 80000000
+  amdgpu 0000:03:00.0: PSP load sys drv failed!
+  amdgpu 0000:03:00.0: =
+resume of IP block <psp> failed -62
+
+The check was introduced by commit =
+58a8c756fc4c ("drm/amdgpu: correct the
+S3 abort check condition") for APUs,=
+ on the basis that the PM core sets
+PM_SUSPEND_FLAG_FW_RESUME when a real =
+S3 completes, so its absence on
+resume means the S3 was aborted. That holds=
+ for S3. It does not hold
+for s2idle, where firmware is never involved, and=
+ commit 38e8ca3e4b6d
+("amdgpu/soc15: enable asic reset for dGPU in case of =
+suspend abort")
+dropped the APU gate without adding a check on the sleep =
+state.
+
+The driver already caches the sleep state it suspended with in
+adev->last_suspend_state. Use it: only a suspend whose target was
+PM_SUSPEND_MEM and which firmware did not resume can be an S3 abort.
+
+With this the Vega 20 resumes cleanly from s2idle (PSP up, all rings
+back) on 7.2.2 + t2linux patches; without it every resume fails as
+above.
+
+Fixes: 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case of =
+suspend abort")
+Signed-off-by: Willy VanSickle <vansicklewilly@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested on a MacBookPro15,3 (Radeon Pro Vega 20, PSP v11) running 7.2.2
+with the t2linux patch set, s2idle only. Verified twice: without the gate
+every resume fails with psp -62; with it the PSP and all rings come back.
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index db1b655dd055..f3d2eaa04f14 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -55,7 +55,7 @@ MODULE_PARM_DESC(modeset, "Use kernel modesetting [KMS] (1=on (default), 0=disab
- module_param(modeset, bool, 0600);
- 
- static bool separate_gpu_kms;
--MODULE_PARM_DESC(separate_gpu_drm, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
-+MODULE_PARM_DESC(separate_gpu_kms, "Use separate DRM device for the GPU (0=single DRM device for both GPU and display (default), 1=two DRM devices)");
- module_param(separate_gpu_kms, bool, 0400);
- 
- DECLARE_FAULT_ATTR(fail_gem_alloc);
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 7 ++++++-
+ 1 file changed, 6 =
+insertions(+), 1 deletion(-)
 
-base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
--- 
-2.53.0
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15=
+.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+--- a/drivers/gpu/drm/amd/amdgpu/so=
+c15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -591,7 +591,12 @@
+ 	 * 1) S3 suspend aborted in the normal S3 suspend
+ 	 * 2) S3 suspend aborted in performing pm core test.
+ 	 */
+-	if (adev->in_s3 && !pm_resume_via_firmware())
++	/* Only a real S3 (mem) =
+that firmware did not resume is an abort.
++	 * s2idle never resumes via =
+firmware, so without this gate every
++	 * s2idle resume of a dGPU is =
+misread as an abort and mode1-reset.
++	 */
++	if (adev->in_s3 && !=
+pm_resume_via_firmware() &&
++	    adev->last_suspend_state =3D=3D =
+PM_SUSPEND_MEM)
+ 		return true;
+ 	else
+ 		return false;
