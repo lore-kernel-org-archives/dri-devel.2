@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E4C1C79F85
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 13:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F6C1C79F99
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 13:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7EC10E3BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83C1210E3BF;
 	Sun,  6 Sep 2026 13:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G8wA+Ii1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q2jRVWxL";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 402BA10E3C4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1779210E3BE
  for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 13:19:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D59EF43F97;
+ by sea.source.kernel.org (Postfix) with ESMTP id C384943A52;
  Sun,  6 Sep 2026 13:19:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AD763C2BCFD;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 96DFDC2BCB8;
  Sun,  6 Sep 2026 13:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1788700753;
- bh=gbjy5RTDqdhCv6DILtDb7fYiIvaobCHJMRXApRCH1z0=;
+ bh=kNVsV8jEUDBx8YJnZ3D2TG/jephKjsRz2aHGkVRdHyY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=G8wA+Ii1SqM5ZEW9lgftcqJknYH9oOoIarL4SI7aYBCJFGXzJ4r7FVjNBK2iXniLf
- 5eq0F8FmXN+55mllFo+OzDf2LMy/Zs86vmBSDipa7wYLJpDHKek1Z3HaLhhOsrdctH
- g/EFbOyMLSpNNUrZO0qbMEVZV2oMUcSGY5kaiXh/gRjXFp5AaMg8PbkA0RDtMpjcm/
- v3g31HzvsdQGXW9f1u+jWkdhZLrOx9cioz7ymE3d5lYbWnwOCeoECD2relGMcdq/Cv
- G02tlnWbR11oPLsHWOQ+vcqpvTcec2+pgze1gW7vVCRl/eloKFd5VS8XFj5wwazkFg
- OW82qW69EDvfg==
+ b=q2jRVWxLoaqHVInd5vI4zZO1ZcB60SvCJy1PrwphLvIPHde2vEkAWfsVvg3u6TfK2
+ +N6KzkdINtxC7NFtBYgAxLT+BatYZvjoS2K/lS7n0y0afAIb7kP1G33kYxszxEilY9
+ YTcW5vwZ0+34eLYHNRF6Mbu8RCQ48eWFn0rG+taTKty8NkrZnG+ZVjDHEiK5omLuyk
+ bp1A614v2vMQhfqRGW7+letSkeUUzYZpHDKdNTE7PoexrkK7CidTHXYDQgD2zslEYQ
+ vTfvgTGfZn1I+C0PiRjcvMzSG7EWY6C1EFvPJGIM3dnOB0XdWBOqgcvcJA6GGi+pXA
+ wc4S6NQVtE0oA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 878F5C79FA0;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 74AD2C79F99;
  Sun,  6 Sep 2026 13:19:13 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 06 Sep 2026 15:19:03 +0200
-Subject: [PATCH 2/3] drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE()
- string
+Date: Sun, 06 Sep 2026 15:19:02 +0200
+Subject: [PATCH 1/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ebbg-ft8719-fixups-v1-2-4e846510cad1@ixit.cz>
+Message-Id: <20260906-ebbg-ft8719-fixups-v1-1-4e846510cad1@ixit.cz>
 References: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
 In-Reply-To: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
 To: Joel Selvaraj <jo@jsfamily.in>, 
@@ -53,23 +52,24 @@ To: Joel Selvaraj <jo@jsfamily.in>,
  Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
  Linus Walleij <linusw@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ Casey Connolly <casey.connolly@linaro.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1192; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1210; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=K+6x5A7ftBFeZ8okSqt/u0WpvagsMUKZ/4i4XfBmirE=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnWhQKxw/18Yi3JTzGNeX5AKT86t+qacac3fYZ
- YrXf92tobCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap1oUAAKCRBgAj/E00kg
- cqHbEACUzO5xpCO6DJHKL+wZE4cGM0+6FVzSI2CJiTlBmx7ivsSVlVTUm9VzMpRoGmMoPmep8mx
- jk+g02tU1yTP1uoMxWxLsN1BGU6v42Yelh3j3h8t0T/Cwi/HsYSuZXE07fG9EErm1QZoe/lugHI
- jf8WfnXlQy/2rcadTEYH5huYkCyFmQ6dHZ4kt2LBidufQ+P603p8b+tqX5IfkN/Zl2ZMJReyPev
- 2D1RgK3VGbH0euiZXZPh9ukLP/kM5fVzAaYfbVGzNP5Hm7Tj5GL18ZUtMuPsgfToPSxwHIgagYR
- COdrUowbB7a6aJHZ92j1b7G9bSz2UODSzPys2c02J705RWqU0/lCfQBL2wuvlO4hMVN79yAsHW+
- jsynWFbsb0gWjkn6HLi3AEVGLtIQULjbCiQp7JIdcaRGput6HEp8+si02v8OJVGmR0d+mYHpFpt
- eqyvezPNajC2GDVPFTNCPFpNy6VnZn0AcsYKs86cR4Xv6Vt8IzF/zyVceSHZ1Hf7gUs6cTUUuSI
- Vpuj2srixPiX/6oWFubE0N1BzhClsJ7sTIgnmYGIbn7iNGPyk3qoPPwvjNPURDlgsFLOdZPboup
- 7fFgqJ2duCnQZApnt+1sfIzL67YANFVfiMn/pkWq54ohlBO8JwUD2kRn0ttMWBMJVKZsPA/CFC4
- zNaES1kh101L4AQ==
+ bh=MdKS4MaN+wl5Cm+tdhGjh1Y6pdj5edF/ffF4+200w9w=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnWhPI76LaG4om4ZpsbFRORTnkEMFZ4suxTmK5
+ QUqeYXA9JSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap1oTwAKCRBgAj/E00kg
+ cga2EADLwprPfozo4mnQ3SHTqkt5yXwlnKlXeLiAuz3rs7kylKD/ov9rwC4F9et4v1qo5i9d5Vo
+ bQ86yjgrFQhjW10D/8T5tgK/r037RdK2WMNtlj4j8yqIYOzepyZ5DSyo1tXTYSf7rtdgoXfS363
+ PsuDFzL6GSfairKq8AbzjgyCRuZg1N4/ankH9+1vYBP5Z14fAmo4jnEJgktYWK7gK4DQWb9zvOb
+ U5XjoyVpfjO7pXsHgwV9ejQ/t3Pz5dZspJCtDSLywJl+v0qNUnPwDOJv7pdsKLyuJm6VZyGDFjV
+ Cgr1U1jO2rB72t59pCQQU+0uRux/GafvV/IL5orsNLxrf/2Pi8gjYcRWWG52FzWzjiSh2CLCbg7
+ bzGIxDGxHJVsfXXgC+WgXnrqb7EmIbcppOCvXggTSJ8fDPC1a6AHol5SxyZThGXTIhDTWND7rrw
+ S8oX2llUvvtPMXR5nG3vtd2y+BByn4E0Xg13NG3lsO5xtRHGxN3EeFx5QnnB6Tkr/0tpf+SjwBI
+ GznskK6hFt3ABwr49l/yFzFtJdYCp0a7YIQ4J/XEPwxqvCB9z9RQUgrQkf7u+8NdsPfQmeXyTXV
+ m02TQhR89R6SPmvkhfKwgHHUipoRuiiisBxmoth875tFgRXhCPswQPB2WFIbVfhbvzlEJmyKRti
+ WeFbOiq9oK3gZpw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -90,36 +90,42 @@ Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+From: Casey Connolly <casey.connolly@linaro.org>
 
-Replace the bogus "GPL v2" with "GPL" as MODULE_LICNSE() string. The
-value does not declare the module's exact license, but only lets the
-module loader test whether the module is Free Software or not.
+This corrects the host initialisation sequence so that we can send
+DSI/DCS commands in prepare().
 
-See commit bf7fbeeae6db ("module: Cure the MODULE_LICENSE "GPL" vs.
-"GPL v2" bogosity") in the details of the issue. The fix is to use
-"GPL" for all modules under any variant of the GPL.
-
+Cc: stable@vger.kernel.org
+Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-index 1ab09c50a6306..14982263a94f1 100644
+index fb9f9f42be4f2..1ab09c50a6306 100644
 --- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
 +++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-@@ -241,9 +241,9 @@ static struct mipi_dsi_driver ebbg_ft8719_driver = {
- 		.name = "panel-ebbg-ft8719",
- 		.of_match_table = ebbg_ft8719_of_match,
- 	},
- };
- module_mipi_dsi_driver(ebbg_ft8719_driver);
+@@ -193,16 +193,18 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+ 	ctx->dsi = dsi;
+ 	mipi_dsi_set_drvdata(dsi, ctx);
  
- MODULE_AUTHOR("Joel Selvaraj <jo@jsfamily.in>");
- MODULE_DESCRIPTION("DRM driver for EBBG FT8719 video dsi panel");
--MODULE_LICENSE("GPL v2");
-+MODULE_LICENSE("GPL");
+ 	dsi->lanes = 4;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+ 
++	ctx->panel.prepare_prev_first = true;
++
+ 	ret = drm_panel_of_backlight(&ctx->panel);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+ 	ret = mipi_dsi_attach(dsi);
+ 	if (ret < 0) {
 
 -- 
 2.55.0
