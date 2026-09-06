@@ -4,109 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5353FC79F85
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 00:01:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD41FC624DB
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 01:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85DFC10E1CE;
-	Sun,  6 Sep 2026 00:01:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676E210E067;
+	Sun,  6 Sep 2026 01:34:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rrB6YTdh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L46D8KSs";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E76F10E1CE
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 00:01:45 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396672b2566so298689a91.2
- for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 17:01:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788652905; cv=none;
- d=google.com; s=arc-20260327;
- b=KNX6ZBgL4hSAglPPfQZ15O10Cca79T4xuN2SRCTldUzeEryEnkHq2Bg4cbb43uSr5y
- sVDnQ15Buh0IM5XUzj0Re+p0CAUMpzda/LMEQDWvUyb+u38KDdHyxVVfSdTuJJHo9aHS
- x3yXPS4QVDQzIUdlMCO5x417ePVzgZRJVFqI5xt6vgVym3OetePshrimkt5VZMVpQW7H
- r8cGcYA79TxIjCSIxIXd9bgwjiLf/qwHcRSw5RNwBELNpsQ47lA31i+tvbMC2NIJpD9I
- teILFVFCeqdzPqul2JndsLxEqpOTAQhYheZmFZRcT6xaayc3/G/hY93CarSqywDczsrB
- 9mZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=2MqN60FsZvPdTZbJyxVZaz/7XO+slkluE367ZcdhXfk=;
- fh=hWbI3aMkPjE0pGmvgfYO6RgIJUlLWh1gVwDd8i25pjU=;
- b=DcswBH6gPimOz/GyY/272CypwukpwLQmNh19jlCeE3wzGAG5b8q1gcN3OYsj84wQlQ
- 2BVoPF50I5SqKz2GYJJ74iavjwP5kb5D/EVGSM8sTrqwtwHEtQ+0f3QKQ/URi4cAp2Z0
- l7yhyxgBZho4RdJdi3phIFgES+XoLZ/b8LT6K2bUOE7jvAEg8jtJyr9/z6sCkcPwfamS
- OhhVI4sq/HJYvxgWM5CHU6xnLkqzKyyKfadj3tQ7PHtS5mM/hi63NorH/imQTThgGbbq
- cFn5rX1q0Ndn959ubV7/64JkYwGbI5X/3P9QYej5JvuraW7QEe4oVtWW1VqKB9mONsU7
- wEqg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788652905; x=1789257705; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=2MqN60FsZvPdTZbJyxVZaz/7XO+slkluE367ZcdhXfk=;
- b=rrB6YTdhR96W1SIrCyQSTvpG0uSJz0g61W1qrWLesj9cKM+7vcpQKf0W2Vxo/gulDY
- 8S3Q+RccraabDLGEV1PdhMRb4pyG/LQDSHWsx6Y0LOwdxD6MqeadKbA7lv8YdNtqydw4
- pov5F18ru6IsyTveXz7lEyh8/9Th4zwLuaLtkjOTQHVtHSe1RIBs8EK8fKyjWiP6yQ2M
- 8rM8NXvWAhwlJ6Xw5N3UBhNfn6dIOBtYhrxbOpNCDzBmJ1WzMV9L13L5lbyyH9yE2AQY
- lutx9VNTrfvmEeTdRTKkJlffmTjQqAsBXjdLEQpTtwCOQZpNs38rGuxADP3JEVE8IYCV
- 6tsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788652905; x=1789257705;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=2MqN60FsZvPdTZbJyxVZaz/7XO+slkluE367ZcdhXfk=;
- b=H7Z1ySb9vlLg6RjIBx57iA1QGHozhA1hoJD+p55qbgBXuRWjzqc2ZI476ZiWp1vCxP
- efo1NGW8/775gDy2bgfgSvcqnPeAug+mEg63JwWNlSwKSd5GX/igdy1c9xsK2XisoiU+
- j7DbL2uLpdiXDcqqguJ00GJ28w3w5Mi8bGfSf8WHnMd/xRrI9BIaHSaZN/A2QeDD+Gtu
- YrPmEsxrop0Wl4WdxiWRnTcz7PTxhPwfJCqn7Bo9AJf1dVxbfUepMF3I+/Y9OzY8yoCs
- NyU2ENdHfhuoySJXH6k488CYgcDtwBI5ZunR0QwtKD09UJieN0EOSi/CkvfUjWnjgHll
- 9jMg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByvKsYLdQpZ+9elxh7q5To4A181rlP8wiAYS21Z7LRlbFULvf6rWgyFy37sehLhNME5IUcfXhCDiQc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kW0hXcg6cXJlX6keSby4RmwaALBQ+uhuZ5rmhyorL2y7zN2h/h
- wzLx2UkYBM+L6B1vUKbOChyKs6ydcinbrLekIq1sCJZkuxGFYQH0fHQAfff0NzNLRcL5OzdYg+c
- fHFR/gWpYKd3kvJhyQRViL4z/WxNG77A=
-X-Gm-Gg: AYBFou3FWqdcF0ON01D8kX08h9AuN/dSzDgDVKKGn2/kz2mNgCxzbpIZLmA/8lqNVzc
- x02xjAEpMKVnrF+M/jTCBBSuVQwAJR91FJSGxtLdCygD66P/xQfytUuwQnNpqnPMFt1yjiYO57m
- zchZO3qwIDT2PWFbMAWyUPBptOm+G/2L9ye4dRR5eJh2pll8uUyMvk0ftK+CVfbJ2rVETucqqgq
- xpdhyGkHsqSS/QJjqOy2QfgkDYQ4SdihwMFatq6dbA1cfESFyGhkJLBX4JioOExEJf5bjfHbm7M
- JTsGqYKqo2lcN2rAcYJ3BLlK3Mcqc4pZa3byKWwETKWbqoUD5ahECOqrhrAd05pVKzL9tggqIq5
- FnsW1M4Q6DlZRpyMzfL/KOszx0HnFx/aO1Zq1Uuu2wlZirjV7a0Sx7BsGudDH
-X-Received: by 2002:a17:90b:3907:b0:398:bada:832b with SMTP id
- 98e67ed59e1d1-39b3d8a3d1cmr7786501a91.6.1788652904655; Sat, 05 Sep 2026
- 17:01:44 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0011510E093
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 39BFF43778;
+ Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 059C9C2BCFA;
+ Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788658476;
+ bh=d9wUPYj1fcxFp3gWDGtuJ2V5k7ePRRGkBzD7EqpEMCE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=L46D8KSsPQ6m5RQJrGzyVbUOq5P33crp9YIgw61zIpSiF3SJPONOe+eR6eUzpBFGf
+ zsndtsZ3wQa+g4u52bi55E1d2ehoAkeFhV4jT4htV32QY8Vqbn48Xw3/AoZpqBKIt0
+ HF8URTVCzJOMG26l6VttxDEtsceUXJfY6aoqwLQ+M+6GJ70CkEKShRx/G6I5fw2UG4
+ jUXAPViFpw+hpRV9bb2v0jBb2GTNnO/OwIrqTQfp4sKJXuDK2uErNeyEPs7mj25n3X
+ BbMzr0+je5pIftnTL3yxJjamT+eaxRUZA88F+YSgqNB8n7BF2Gst0AlDDa5Dy8BjrQ
+ Xa41deH5cFS6Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DAA58C624DB;
+ Sun,  6 Sep 2026 01:34:35 +0000 (UTC)
+From: Ryan Brue via B4 Relay <devnull+ryanbrue.dev.gmail.com@kernel.org>
+Date: Sat, 05 Sep 2026 20:34:34 -0500
+Subject: [PATCH 1/2] dt-bindings: display: panel: add Novatek NT51021
 MIME-Version: 1.0
-References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
- <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
- <CANiq72nxtehkGdb9RZpd=MsjWzp9euoLw=MmCzvcqOgxxEwymg@mail.gmail.com>
- <DL7RX130417U.10PL9U4D6JU9L@garyguo.net>
-In-Reply-To: <DL7RX130417U.10PL9U4D6JU9L@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 6 Sep 2026 02:01:31 +0200
-X-Gm-Features: AcwNN1XKuKFBV9qEAm_z4sB5Fo2qHcAE7av8dqRfbpy9oR-6X3rQ---1a2fINJY
-Message-ID: <CANiq72n2B=7TXtmtQXEC-VZQNZ6NQTkPsxnnNCiWWYb=U4TyZQ@mail.gmail.com>
-Subject: Re: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-1-939f59e89fc9@gmail.com>
+References: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
+In-Reply-To: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788658475; l=3260;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=OucYPSbkdRKOXX71YqLEkAw3zmqM74CD8sy3ta2ahmU=;
+ b=PO5JgYFHpu6BgI2fM/vrLk1wZB4hZ/5rErx2tt+ZqYUIvvlMj4yP4Y3HrLUwAg2A2X3qX421g
+ G7XEq9T+aibC7+rL8hQK6/c9TtzLqO+v9sA48rNGBPQuNi3i5JUuimW
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+X-Endpoint-Received: by B4 Relay for ryanbrue.dev@gmail.com/20260906 with
+ auth_id=1007
+X-Original-From: Ryan Brue <ryanbrue.dev@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,17 +78,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: ryanbrue.dev@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Sep 6, 2026 at 1:32=E2=80=AFAM Gary Guo <gary@garyguo.net> wrote:
->
-> I'm not sure why we'd want a self link.
+From: Ryan Brue <ryanbrue.dev@gmail.com>
 
-It is to follow the guideline about using intra-doc links on things
-that can be, which prevents mistakes and improves consistency, and in
-this case, for huge traits, it may help readers of the trait
-implementations section a bit.
+The Novatek NT51021 is a DSI panel controller driving 1200x1920 WUXGA
+panels over four lanes in video mode. It is fitted in the Amazon Fire HD 10
+(2017), on a module carrying BOE glass.
 
-Cheers,
-Miguel
+The controller has no readable panel identity. MediaTek's LCM framework
+identifies panels through a .compare_id callback and the vendor's driver
+for this one leaves it unset, and the glass part number is not recorded
+anywhere in the vendor tree -- it names the module only "BOE". I had the
+compatible name the module after the board it ships in, the way
+xiaomi,elish-boe-nt36523 and lenovo,j606f-boe-nt36523w do for this
+situation.
+
+The vendor's bootloader and kernel both carry a second register sequence
+for Innolux glass, selected from two board ID straps, so a second module
+exists as far as the vendor firmware is concerned. I didn't have an
+Innolux unit to test with, and I don't know its part number, so it is not
+described here. Naming the glass in the compatible leaves room for it as
+a second compatible should someone have the hardware and the need.
+
+The rest is panel-common: a power supply, a reset GPIO, an optional
+backlight and the DSI port.
+
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+ .../bindings/display/panel/novatek,nt51021.yaml    | 65 ++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+new file mode 100644
+index 000000000000..ee3adc88ec9b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT51021 based 1200x1920 DSI display panels
++
++maintainers:
++  - Ryan Brue <ryanbrue.dev@gmail.com>
++
++description:
++  The Novatek NT51021 is a DSI panel controller driving 1200x1920 WUXGA
++  panels over four lanes in video mode. The controller carries no readable
++  panel identity, so each panel module it is fitted to needs its own
++  compatible naming the module.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: amazon,suez-boe-nt51021
++      - const: novatek,nt51021
++
++  reg:
++    maxItems: 1
++
++  power-supply: true
++  reset-gpios: true
++  backlight: true
++  port: true
++
++required:
++  - compatible
++  - reg
++  - power-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "amazon,suez-boe-nt51021", "novatek,nt51021";
++            reg = <0>;
++            backlight = <&backlight_lcd>;
++            power-supply = <&vgp6>;
++            reset-gpios = <&pio 105 GPIO_ACTIVE_LOW>;
++
++            port {
++                endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
+
+-- 
+2.55.0
+
+
