@@ -4,86 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48AC7C79F8B
-	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 03:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7930FC79F99
+	for <dri-devel@archiver.kernel.org>; Sun,  6 Sep 2026 05:39:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 838FF10E2EE;
-	Sun,  6 Sep 2026 03:56:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 793AB10E149;
+	Sun,  6 Sep 2026 05:39:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="PLdFdeRV";
+	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="dMPDE9go";
 	dkim-atps=neutral
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5299C10E2EE
- for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 03:56:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBA5910E149
+ for <dri-devel@lists.freedesktop.org>; Sun,  6 Sep 2026 05:39:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
  s=smtpauto.stravinsky;
  h=X-Debian-User:Content-Type:Cc:To:Subject:Message-ID:
  Date:From:In-Reply-To:References:MIME-Version:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=33/cz7U9W/HIwJHrk6unVB9Y9CrPF1+WoexolykuOCU=; b=PLdFdeRVFiFG6blot5ZjdNfIYI
- PMNRloC5ncsjvyFuhFZ4n9aCrbhRHFfHfE5fcG+ei2y45x4/gdOqz4eXvZI2SuogGT26S9v0I1O7w
- +x5pGtnWRFNgcfoVCYcOxBbKaxIttfKQdu7eyGPn8k63hdqPVXjJydMlVLPqrSZXT2fA1fJDuVw4o
- dM80MMEUVVMILJCBgb5qyVxN5+qO0EHxTfBFzW2M90V9Glo75v7QIY1nbc0YWd7AiVIPlfPAkHUFw
- RjsOO0dVsSXuFl2ft1YwMqigTlOsA45CnKj4a9bT/B6w4p58n4ivquvD3bBz7K0yw7HwxBdNJSDLp
- h/SuKSug==;
+ bh=XNrHx4Upf3LGVb4PTN5XMtiFQEIxpVoq70soYt51daM=; b=dMPDE9gogc6/lvmQn4aEfWRsi2
+ YE//n1WzhsvzE4NGNt8gEq4PsndXi8BT4NPyyjpw4J7Swljx0MAWda/Ry6a3TnROeYhFGaKB8JEOq
+ 13CJYPc1T5fy5x56XNFR/gGKzm+SlzulYbKTtI2B4ZEY99au5F6qJTm6L78q2dfG+eAjVdZ918m0c
+ DoWX8Z40zfnI1rzYZCpSXr1j4VHEKr/kwx8H4R0f+3C4N2kpdM/gJmT6ALr9EWiickvtK/S1a/3UL
+ DjcYVAtxrGDSJYC4eu9cuCHRQERCSfe1PBHFyai+rubBbqGKB9Ig5oLIARdz6xXqVRaKVSdDfGS9+
+ 4OMm09sg==;
 Received: from authenticated-user by stravinsky.debian.org with esmtpsa
  (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
- (Exim 4.96) (envelope-from <domibel@debian.org>) id 1x33zD-000Sfk-0J
- for dri-devel@lists.freedesktop.org; Sun, 06 Sep 2026 03:56:07 +0000
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-863c229c3adso471347b3a.0
- for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 20:56:06 -0700 (PDT)
+ (Exim 4.96) (envelope-from <domibel@debian.org>) id 1x35bW-000W4w-1k
+ for dri-devel@lists.freedesktop.org; Sun, 06 Sep 2026 05:39:46 +0000
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-85c9a79590aso2339422b3a.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 05 Sep 2026 22:39:46 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBwjsKDaSfjwAYQLw3hKXKbFYymS2ByzxaPEYzmogUvu5ZsluJEPPB5ay3bNy0Zqanl4pakGLf98shY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nQRcD/PeKn2voEyPW0FRBKjbuoloSeO/5s9hf+zML79cJ8c/Jo
- Kp+ZEwOSFhjosj6AdSBdnveGX0hAZ66QvkcT6HHTrJGspN5+uNjkzN1GfUCA0CjcTtM+kOyIgPh
- NJSymHhzlXAtTcmhg8ExRDYAJdzdaE3Y=
-X-Received: by 2002:a05:6a00:950c:b0:855:74f7:40c2 with SMTP id
- d2e1a72fcca58-8616a36d628mr24011152b3a.14.1788666960527; Sat, 05 Sep 2026
- 20:56:00 -0700 (PDT)
+ AKwUvBx90aD/JR9qe/b7DRkKUtYB77MjfwjMO1PBBr8S5VU91T/pwtB70WrL4pF6/jzQTP96KTaeEFbQya0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m61io3h327C+K3vEdkL8o432abYsktPk5y27Afpg4tcb8595p2
+ OArmc2i1yeVoe5QZEm7HoCI6SnaKD8CQ9Ou3x2pVh7gpkbzxzGIpcfWuHR0EDnjW5bNx6XqjFyd
+ 8WKQ4vvb7itbFlf+b/ElQS46ZSxzcA/U=
+X-Received: by 2002:a05:6a00:1709:b0:853:6571:9567 with SMTP id
+ d2e1a72fcca58-861677b29a7mr20351433b3a.4.1788673180168; Sat, 05 Sep 2026
+ 22:39:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
-In-Reply-To: <ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+ <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+In-Reply-To: <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
 From: Dominique Belhachemi <domibel@debian.org>
-Date: Sat, 5 Sep 2026 23:55:48 -0400
-X-Gmail-Original-Message-ID: <CAAvaLCzU_-JdPHSSQS2HxGnrkRk+u_QOZ91SmxcC+nouubCtXA@mail.gmail.com>
-X-Gm-Features: AcwNN1UM7ZJ6sXGcxz8w1ecwwmdIgyw_k45E71X-H4TbhmV6-v-9-GBgb5ExnVk
-Message-ID: <CAAvaLCzU_-JdPHSSQS2HxGnrkRk+u_QOZ91SmxcC+nouubCtXA@mail.gmail.com>
-Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
+Date: Sun, 6 Sep 2026 01:39:28 -0400
+X-Gmail-Original-Message-ID: <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+X-Gm-Features: AcwNN1XU5dZr4B1cOkPHnMBeZ1V1PqcFfCYm5xFvZBoKWraKXGGHEE6uL-rzD08
+Message-ID: <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
 To: Maud Spierings <maud_spierings@murena.io>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,
- Hal Feng <hal.feng@starfivetech.com>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Heiko Stuebner <heiko@sntech.de>, 
- Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Graham Markall <hello@big-grey.co.uk>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Type: multipart/alternative; boundary="000000000000cdc96b065ac87a91"
+Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com, 
+ airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com, 
+ andy.yan@rock-chips.com, andyshrk@163.com, aou@eecs.berkeley.edu, 
+ bmasney@redhat.com, conor+dt@kernel.org, conor@kernel.org, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk, 
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk, 
+ krzk+dt@kernel.org, lee@kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com, 
+ m.szyprowski@samsung.com, maarten.lankhorst@linux.intel.com, 
+ maudspierings@gocontroll.com, mfd@lists.linux.dev, mripard@kernel.org, 
+ mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de, 
+ palmer@dabbelt.com, pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, 
+ sboyd@kernel.org, simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, 
+ vkoul@kernel.org
+Content-Type: multipart/alternative; boundary="00000000000085f52d065ac9eda4"
 X-Debian-User: domibel
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,112 +87,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000cdc96b065ac87a91
+--00000000000085f52d065ac9eda4
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 5, 2026 at 1:21=E2=80=AFAM Maud Spierings <maud_spierings@muren=
-a.io>
+On Sun, Aug 30, 2026 at 10:17=E2=80=AFAM Maud Spierings <maud_spierings@mur=
+ena.io>
 wrote:
 
-> Hello Michal,
+> I was still having some glitching happening on the display, but I've
+> found the way to fix that, the question is what is actually happening her=
+e.
 >
-> This new version added some more issues on my fml13v01 board, this time
-> 2 registers in the VOUT_CRG are misconfigured that were correct in v2,
-> namely:
+>    0x29590020 <- 0x00000005
+> This one I have no idea, it is 0x00000009 with this patch series but
+> with the vendor kernel I get the value above. When I hook up my external
+> display (regular 1440p) this becomes 0x0000000D on the vendor kernel.
 >
-> 0x295c0004 was 0x00000004 on the previous version but is now 0x00000006
-> 0x295c001c was 0x81000000 on the previous version but is now 0x80000000
+> But I can't find this register being written to anywhere there?
 >
-> xx04 sets a slightly different clock divider, but it doesn't seem to
-> matter, display also works with this changed value.
 >
-> xx1c seems to select the wrong clock mux?
->
-> After correcting 0x295c001c (and the ones that I mentioned before in the
-> hdmitx block), the display comes to life again.
->
-> Not sure why these are changed.
->
-> Same here on a VisionFive 2. The dc8200_pix0 mux register (0x295c001c)
-comes up 0x80000000 instead of 0x81000000 (which selects hdmitx0_pixelclk
-from the PHY).
+Maybe this needs to be swapped?
 
-v3 added CLK_SET_RATE_NO_REPARENT to stop clk_set_rate() from silently
-switching which clock feeds the display, but nothing then assigns the
-parent,
-so it is left on whatever the bootloader selected.
+drivers/gpu/drm/bridge/inno-hdmi.c
+  -#define v_HSYNC_POLARITY(n)          ((n) << 3)
+  -#define v_VSYNC_POLARITY(n)          ((n) << 2)
+  +#define v_HSYNC_POLARITY(n)          ((n) << 2)
+  +#define v_VSYNC_POLARITY(n)          ((n) << 3)
 
-You could pin the two pixel-clock muxes to the HDMI PHY, is that acceptable=
-?
-
-dc8200: display@29400000 {
-  +                             assigned-clocks =3D <&voutcrg
-JH7110_VOUTCLK_DC8200_PIX0>,
-  +                                               <&voutcrg
-JH7110_VOUTCLK_DC8200_PIX1>;
-  +                             assigned-clock-parents =3D <&hdmi_phy>,
-<&hdmi_phy>;
-};
-
-I tested this on the vf2.
-
-Best
--Dominique
-
---000000000000cdc96b065ac87a91
+--00000000000085f52d065ac9eda4
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><span style=3D"background-color:transpare=
-nt">On Sat, Sep 5, 2026 at 1:21=E2=80=AFAM Maud Spierings &lt;<a href=3D"ma=
-ilto:maud_spierings@murena.io">maud_spierings@murena.io</a>&gt; wrote:</spa=
-n></div><div class=3D"gmail_quote gmail_quote_container"><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">Hello Michal,<br>
-<br>
-This new version added some more issues on my fml13v01 board, this time <br=
->
-2 registers in the VOUT_CRG are misconfigured that were correct in v2, <br>
-namely:<br>
-<br>
-0x295c0004 was 0x00000004 on the previous version but is now 0x00000006<br>
-0x295c001c was 0x81000000 on the previous version but is now 0x80000000<br>
-<br>
-xx04 sets a slightly different clock divider, but it doesn&#39;t seem to <b=
+nt">On Sun, Aug 30, 2026 at 10:17=E2=80=AFAM Maud Spierings &lt;<a href=3D"=
+mailto:maud_spierings@murena.io">maud_spierings@murena.io</a>&gt; wrote:</s=
+pan></div><div class=3D"gmail_quote gmail_quote_container"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">I was still having some glitching happeni=
+ng on the display, but I&#39;ve <br>
+found the way to fix that, the question is what is actually happening here.=
+<br><br>
+=C2=A0 =C2=A00x29590020 &lt;- 0x00000005<br>
+This one I have no idea, it is 0x00000009 with this patch series but <br>
+with the vendor kernel I get the value above. When I hook up my external <b=
 r>
-matter, display also works with this changed value.<br>
+display (regular 1440p) this becomes 0x0000000D on the vendor kernel.<br>
 <br>
-xx1c seems to select the wrong clock mux?<br>
-<br>
-After correcting 0x295c001c (and the ones that I mentioned before in the <b=
-r>
-hdmitx block), the display comes to life again.<br>
-<br>
-Not sure why these are changed.<br><br></blockquote><div><span style=3D"bac=
-kground-color:transparent">Same here on a VisionFive 2. The=C2=A0</span><sp=
-an style=3D"background-color:transparent">dc8200_pix0 mux register (0x295c0=
-01c)</span></div><div><span style=3D"background-color:transparent">comes up=
- </span><span style=3D"background-color:transparent">0x80000000=C2=A0</span=
-><span style=3D"background-color:transparent">instead of 0x81000000 (which =
-selects=C2=A0</span>hdmitx0_pixelclk from the PHY<span style=3D"background-=
-color:transparent">).</span></div><div><br></div><div>v3 added CLK_SET_RATE=
-_NO_REPARENT to stop clk_set_rate() from silently</div><div>switching=C2=A0=
-<span style=3D"background-color:transparent">which clock feeds the display,=
-=C2=A0</span><span style=3D"background-color:transparent">but nothing then =
-assigns the parent,</span></div><div><span style=3D"background-color:transp=
-arent">so it is left on whatever the bootloader selected.</span></div><div>=
-<br></div><div>You could pin the two pixel-clock muxes to the HDMI PHY, is =
-that acceptable?</div><div><br>dc8200: display@29400000 {<br>=C2=A0 + =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 assigned-clocks =3D &lt;&amp;voutcrg JH7110_VOUTCLK_DC=
-8200_PIX0&gt;,<br>=C2=A0 + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &lt;&amp;voutcrg JH7110_VOUTCLK_DC82=
-00_PIX1&gt;;<br>=C2=A0 + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 assigned-clock-parents =3D=
- &lt;&amp;hdmi_phy&gt;, &lt;&amp;hdmi_phy&gt;;<br>};</div><div><br></div><d=
-iv>I tested this=C2=A0on the vf2.</div><div><br></div><div>Best</div><div>-=
-Dominique</div><div><br></div></div></div>
+But I can&#39;t find this register being written to anywhere there?<br>
+<br></blockquote><div><br></div><div>Maybe this needs to be swapped?</div><=
+br>drivers/gpu/drm/bridge/inno-hdmi.c<br>=C2=A0 -#define v_HSYNC_POLARITY(n=
+) =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0((n) &lt;&lt; 3)<br>=C2=A0 -#define v_V=
+SYNC_POLARITY(n) =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0((n) &lt;&lt; 2)<br>=C2=
+=A0 +#define v_HSYNC_POLARITY(n) =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0((n) &lt=
+;&lt; 2)<br>=C2=A0 +#define v_VSYNC_POLARITY(n) =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0((n) &lt;&lt; 3)<br><div><br></div></div></div>
 
---000000000000cdc96b065ac87a91--
+--00000000000085f52d065ac9eda4--
