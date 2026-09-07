@@ -4,81 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F210C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 06:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABB6C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE37110E374;
-	Mon,  7 Sep 2026 06:56:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9622D10E48A;
+	Mon,  7 Sep 2026 07:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="BMTjuTZB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VWsHbS1G";
 	dkim-atps=neutral
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com
- [165.173.180.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB4DA10E374
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 06:56:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788764158; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ZV1f7mIa5Ivl4k9y4SDseO7sHW+HXOhGOnNA3H1xRbt1/D/ksjOmLYeU+FS4cmX+Hts6lkL1r8M+mCPrf6tfIzMjJB0b2sVzMmjqPU/3RUMi+047Y294fhETDs6iReJrrgYolwkXDS2m+zCVwGlte7A50w8KcoeS+6v+/RwWTr0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788764158;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1tMnWdSZi+sjkC4f5IyBKW6FS6ZeNXijReG8GKO87DM=; 
- b=dS9L/KG15nTBt2++e5uDJMfTNVAaWzLOQuZasm1GbtlC0sCA0bB1YA6nKDHauAHHIGDtz4Q7ivxhvg0CLUMOobpIBo+BNKxHD/ubsyigThw9IO3SwiDnd0li8ZdtFILkmNvA3GExDWArpzFXprIV1qzIu4e5vjtHSjKY2gyVYVQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788764158; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=1tMnWdSZi+sjkC4f5IyBKW6FS6ZeNXijReG8GKO87DM=;
- b=BMTjuTZBsLIrLLQbFYEi8z0UaWGJZJjxeSYYxBVe6/DSS+g6eYH8Pw9Pt2zTuGh1
- TbGJxgPa/cjnW41iWvSPZTs1m7utVbmLnfyAbfxAueT2zyPpCg3RW0zQ94/VavjbTLa
- BT486D9MNAmUPgxRieTGSu/8tMi27JGUaSFQv9cSqgbQSXgbbbRo5g0CUZ7AzmQiGIv
- lVFA+M7C37fn+a8D09cfSBJESxToQqJg0tFdJybljjyoXRxlc8kR2Nj8pfOZ7xd/k6f
- nuh5zp+4ma19vHlgD2e4mxkAw5n7TkeKvhRfuYzEaatVRNX9eGykxhWw4vjZjD/0S8c
- upQLI3pL0g==
-Received: by mx.zohomail.com with SMTPS id 1788764154825847.2528940921899;
- Sun, 6 Sep 2026 23:55:54 -0700 (PDT)
-Message-ID: <72f82ae67eca7b5a594d86852c8b0dafb7d02c4c.camel@icenowy.me>
-Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Maud Spierings <maud_spierings@murena.io>, Dominique Belhachemi
- <domibel@debian.org>
-Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com, 
- airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com,
- andy.yan@rock-chips.com, 	andyshrk@163.com, aou@eecs.berkeley.edu,
- bmasney@redhat.com, conor+dt@kernel.org, 	conor@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk, 
- jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk,
- krzk+dt@kernel.org, 	lee@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, 	linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org, 	luca.ceresoli@bootlin.com,
- m.szyprowski@samsung.com, 	maarten.lankhorst@linux.intel.com,
- maudspierings@gocontroll.com, 	mfd@lists.linux.dev, mripard@kernel.org,
- mturquette@baylibre.com, 	neil.armstrong@linaro.org,
- p.zabel@pengutronix.de, palmer@dabbelt.com, 	pjw@kernel.org,
- rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org, simona@ffwll.ch, 
- tzimmermann@suse.de, vkoul@kernel.org
-Date: Mon, 07 Sep 2026 14:55:42 +0800
-In-Reply-To: <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
-References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
- <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
- <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
- <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
- <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
- <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
- <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
- <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
- <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1346E10E386
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 02:18:51 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-4843f205a5bso1655998f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 19:18:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788747529; x=1789352329; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=AIZYWJVjQUnBNnHeOHBqUSKoQJf+SCAcPIAInF4Y+OU=;
+ b=VWsHbS1G+xOxm/DGsiENxe+sUR3PIuJ0xmNuz3d/vwZBQh+bFfRTlwkEKIadBzQLlJ
+ wtYgSozetISL53pF+mqrOVZw1ivPLpbzeWiiTloIML2NMZQIXjsiGAME3Ul1jtrs/f7N
+ TYnwOpuTq/9C1UxIdCgVpp6Iya13i++GDjv4ldrYvmUrNSxrpG+1pFm4RU/Cw97YxFmZ
+ UIhHsGc2N4JqOd1h6iZkUS2P///9dJnbVCseBFArU84XtmMk/5hSPZ9jTKJsZ3Nay4qY
+ xw7vt9G88DMOVqapFPQfzVQDnTHiFgIPG+YS88IZZaur44LZ2HInde6DXcDIUbnuw4vu
+ qFTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788747529; x=1789352329;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AIZYWJVjQUnBNnHeOHBqUSKoQJf+SCAcPIAInF4Y+OU=;
+ b=XGsM1mxDKdfGzGBk4WvewH8pWMKBkf/MrLIUC4p2+Vi09lEtsT3PYZfvSmclG7ylRh
+ SNmytZWzrDCuT/+1bgP1NTgHMNRWw7UMkwGYiqV6R9Pp8NPvqU29Aw+2AwUduuXpKsuX
+ ASo6qpRJ5GxGAMvmZ1irUF2Hr3XLfu3b7ze7D72LTEvmNwQf+W/GU7NFQBr0kqhPwNyI
+ FnZMfyrLCFaa8Z+kN9lPa4r5hMHV54f038qRrqA0Nmsy43La1QpBsizN/4OrIF5ciOqS
+ puezfoHMplvSBEUlinMISfA9I1gLLtNH/qG/79wA7l+FxsrocrhTMtZV6OpqpGfQCK31
+ jvCA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwXhZ8YIfFu4PJFW8dI5AEwi7OyEP1Y8+OGnj5DjrJ9BOX5sz1INDJpWnt13zfS5yvOOFP6Uf+nSwM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nfWhqUAcvNdpojCwVbduDR9UK42o4AznU4IaHZfjyGagH1oTag
+ gNFK0FYRJz2TbiEd+UJePMAyxjShNQe8hLI75YNcHHAgALAt1VxWkxkU
+X-Gm-Gg: AYBFou223lIjpokLguSKAk6OVsMZiQ4NNoDaBaL8tCDpIuB8Vv2dDFuXPV2stZR1Kla
+ oTCwnGNm4LegEw/+z+oQXu2Sro4KjfIjneIEHbxABcCAQLgWyaobY2uq9SpLzNpshvVRMTGPVkN
+ bbLrRg+YIOaEg747OorySk1oGtw9nINfrfxz6MqiJ5R65J1yZV/Q7gtKUBkbT43rWadjh/+QPZ5
+ nbbjHBVSU6LFJssvFPBXDmFWoxe6Q8biyHDTYdfsIvdnjxijQmpqnsnpecqIv/CFbFS9z/dIOmU
+ ZUEJ7vPEGQMKrsl708wrr3G5q/xYW3Dz/UgyZZ9XkMg9e0mzmgzPbOGirQDmk4YPDJKGRjn47Yw
+ /2TdIoxqqbZh2GDNpnSggWCtQHGNuYCHjDY27vfGhipuw0Muq/tfVXAwl6CHed5DdTXf+wVxCq6
+ rxXNBQ7ESXffldxZmQ53O1oktDIyV0xgCac5VmXNexsI/2PKGlYTC7DX85ZIgiRGElHsY4IDxCd
+ 0x1jv8qmyXlBx+XTWHnE33jNRxBHJCyIjHRkN34Gq2S5e4CShLjbpHY2b/aNBSIRCDHoNRGZamL
+ 9enXH3+E6IWfGXzNRUSA01+GBxysFwYme/xAHqn19+FwRVcjcuuwesD7qYVyMOSSP/6EPTF8inT
+ wTfELFom51mkRAWas
+X-Received: by 2002:a05:6000:4703:b0:485:93c5:856e with SMTP id
+ ffacd0b85a97d-48593c58629mr10071101f8f.9.1788747529298; 
+ Sun, 06 Sep 2026 19:18:49 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain
+ (dynamic-2a02-3100-b0c9-3601-9daa-d59e-970b-f46c.310.pool.telefonica.de.
+ [2a02:3100:b0c9:3601:9daa:d59e:970b:f46c])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48588135600sm21411912f8f.2.2026.09.06.19.18.48
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 06 Sep 2026 19:18:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Shixiong Ou <oushixiong@kylinos.cn>, Chintan Patel <chintanlike@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Subject: [PATCH] fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs
+ attributes
+Date: Mon,  7 Sep 2026 04:18:44 +0200
+Message-Id: <20260907021844.25497-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 07 Sep 2026 07:00:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,147 +96,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-07=E4=B8=80=E7=9A=84 08:02 +0200=EF=BC=8CMaud Spierings=
-=E5=86=99=E9=81=93=EF=BC=9A
-> Hi Dominique and Icenowy,
->=20
-> On 9/7/26 06:01, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 17:16 -0400=EF=BC=8CDominique Be=
-lhachemi=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Sun, Sep 6, 2026 at 11:19=E2=80=AFAM Icenowy Zheng <uwu@icenowy.me=
->
-> > > wrote:
-> > > >=20
-> > > > =E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 16:59 +0200=EF=BC=8CMaud Spi=
-erings=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > On 9/6/26 07:39, Dominique Belhachemi wrote:
-> > > > > > On Sun, Aug 30, 2026 at 10:17=E2=80=AFAM Maud Spierings
-> > > > > > <
-> > > > > > maud_spierings@murena.io=C2=A0<mailto:maud_spierings@murena.io>=
->
-> > > > > > wrote:
-> > > > > >=20
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 I was still having some glitching happ=
-ening on the
-> > > > > > display,
-> > > > > > but
-> > > > > > I've
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 found the way to fix that, the questio=
-n is what is
-> > > > > > actually
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 happening here.
-> > > > > >=20
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x29590020 <- =
-0x00000005
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 This one I have no idea, it is 0x00000=
-009 with this
-> > > > > > patch
-> > > > > > series but
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 with the vendor kernel I get the value=
- above. When I
-> > > > > > hook
-> > > > > > up my
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 external
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 display (regular 1440p) this becomes 0=
-x0000000D on the
-> > > > > > vendor
-> > > > > > kernel.
-> > > > > >=20
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 But I can't find this register being w=
-ritten to
-> > > > > > anywhere
-> > > > > > there?
-> > > > > >=20
-> > > > > >=20
-> > > > > > Maybe this needs to be swapped?
-> > > > > >=20
-> > > > > > drivers/gpu/drm/bridge/inno-hdmi.c
-> > > > > > =C2=A0=C2=A0=C2=A0 -#define v_HSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 3)
-> > > > > > =C2=A0=C2=A0=C2=A0 -#define v_VSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 2)
-> > > > > > =C2=A0=C2=A0=C2=A0 +#define v_HSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 2)
-> > > > > > =C2=A0=C2=A0=C2=A0 +#define v_VSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 3)
-> > > >=20
-> > > > Very weirdly, the original definition here matches current
-> > > > mainline
-> > > > inno-hdmi.c, but the changed definition matches JH7110 vendor
-> > > > inno_hdmi.h [1].
-> > > >=20
-> > >=20
-> > > The vendor code is correct and matches the RK3128 TRM.
-> >=20
-> > Thanks for the tips on documentation, and I verified this.
-> >=20
-> > It seems that Rockchip people made this always wrong, even with
-> > their
-> > pre-DRM display driver... [1]
-> >=20
-> > BTW I checked the Innosilicon dGPU driver code, and its
-> > g3_ne_hdmi.h
-> > source file also contains the definition of BIT(3) as VSYNC. (It's
-> > quite weird that most logic of that driver is in some .o_shipped
-> > blob,
-> > but fortunately the g3 logic might be too new to be closed down)
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > [1]
-> > https://github.com/rockchip-linux/kernel/blob/release-4.4/drivers/video=
-/rockchip/hdmi/rockchip-hdmiv1/rockchip_hdmiv1_hw.h#L161
-> >=20
-> > >=20
-> > > HDMI_reg08
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 Bit=C2=A0 Attr=C2=A0 Reset=C2=A0 Description
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 3=C2=A0=C2=A0=C2=A0 RW=C2=A0=C2=A0=C2=A0 0x0=
-=C2=A0=C2=A0=C2=A0 vs_polarity=C2=A0=C2=A0 VSYNC polarity=C2=A0=C2=A0 1'b0:
-> > > Negative
-> > > 1'b1: Positive
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 2=C2=A0=C2=A0=C2=A0 RW=C2=A0=C2=A0=C2=A0 0x0=
-=C2=A0=C2=A0=C2=A0 hs_polarity=C2=A0=C2=A0 HSYNC polarity=C2=A0=C2=A0 1'b0:
-> > > Negative
-> > > 1'b1: Positive
-> > >=20
-> > > Nobody noticed this so far because in 720p/1080p both polarities
-> > > are
-> > > positive, but Maud's 3:2 panel has differing H/V polarity.
-> > >=20
-> > > Best
-> > > -Dominique
->=20
-> This also solves the devmem behaviour I saw, or well, doesn't realy=20
-> explain it but does show what is actually happening. As Icenowy noted
-> (maybe that was on telegram only?) the inno-hdmi regs are 8bit
-> instead=20
-> of 32 bit.
->=20
-> What is actually happening is:
->=20
-> devmem 0x29590000 b reads 0x29590000 as expected
-> but
-> devmem 0x29590004 b reads 0x29590001
-> devmem 0x29590008 b reads 0x29590002
-> ....
-> devmem 0x29590020 b reads 0x29590008
->=20
-> For some reason the addressing is weird?
->=20
-> With this change, the assigned clock change and removing the=20
-> v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS write to HDMI_SYS_CTRL, the
-> display=20
-> comes up from the start as it should!
+The ovl_* files documented in
+Documentation/ABI/testing/sysfs-devices-platform-sh_mobile_lcdc_fb no
+longer exist.
 
-Well I checked the RK3128 TRM for these two bits, and their field
-descriptions are -- "reserved".
+Commit a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through driver
+core") moved the attributes from each overlay's framebuffer device to
+the platform driver's dev_groups and renamed them overlay_*. There is
+now only one set of attributes for the whole LCDC. The callbacks still
+expect dev_get_drvdata() to return a struct fb_info, but the platform
+device holds struct sh_mobile_lcdc_priv, so they access the wrong
+structure.
 
-What can I react...
+Restore the documented names and register the group on each overlay's
+framebuffer device with device_add_groups(). Remove it with
+device_remove_groups() before unregistering the framebuffer. Skip
+creation when info->dev is NULL, as the old device_create_file() calls did.
 
-Thanks,
-Icenowy
+Drop the CONFIG_FB_DEVICE guard, since the driver already depends on it.
 
->=20
-> Kind regards,
-> Maud
+Fixes: a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through driver core")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Found while reviewing the sysfs ABI documentation.
+
+Compile-tested only (allmodconfig, W=1), I have no SH-Mobile hardware.
+
+ drivers/video/fbdev/sh_mobile_lcdcfb.c | 37 +++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+index e8324b01700f..18fc4e465283 100644
+--- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
++++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+@@ -1337,22 +1337,24 @@ overlay_rop3_store(struct device *dev, struct device_attribute *attr,
+ 	return count;
+ }
+ 
+-static DEVICE_ATTR_RW(overlay_alpha);
+-static DEVICE_ATTR_RW(overlay_mode);
+-static DEVICE_ATTR_RW(overlay_position);
+-static DEVICE_ATTR_RW(overlay_rop3);
+-
+-static struct attribute *overlay_sysfs_attrs[] __maybe_unused = {
+-	&dev_attr_overlay_alpha.attr,
+-	&dev_attr_overlay_mode.attr,
+-	&dev_attr_overlay_position.attr,
+-	&dev_attr_overlay_rop3.attr,
++static struct device_attribute dev_attr_ovl_alpha =
++	__ATTR(ovl_alpha, 0644, overlay_alpha_show, overlay_alpha_store);
++static struct device_attribute dev_attr_ovl_mode =
++	__ATTR(ovl_mode, 0644, overlay_mode_show, overlay_mode_store);
++static struct device_attribute dev_attr_ovl_position =
++	__ATTR(ovl_position, 0644, overlay_position_show, overlay_position_store);
++static struct device_attribute dev_attr_ovl_rop3 =
++	__ATTR(ovl_rop3, 0644, overlay_rop3_show, overlay_rop3_store);
++
++static struct attribute *overlay_sysfs_attrs[] = {
++	&dev_attr_ovl_alpha.attr,
++	&dev_attr_ovl_mode.attr,
++	&dev_attr_ovl_position.attr,
++	&dev_attr_ovl_rop3.attr,
+ 	NULL,
+ };
+ 
+-#ifdef CONFIG_FB_DEVICE
+ ATTRIBUTE_GROUPS(overlay_sysfs);
+-#endif
+ 
+ static const struct fb_fix_screeninfo sh_mobile_lcdc_overlay_fix  = {
+ 	.id =		"SH Mobile LCDC",
+@@ -1513,6 +1515,7 @@ sh_mobile_lcdc_overlay_fb_unregister(struct sh_mobile_lcdc_overlay *ovl)
+ 	if (info == NULL || info->dev == NULL)
+ 		return;
+ 
++	device_remove_groups(info->dev, overlay_sysfs_groups);
+ 	unregister_framebuffer(ovl->info);
+ }
+ 
+@@ -1530,6 +1533,15 @@ sh_mobile_lcdc_overlay_fb_register(struct sh_mobile_lcdc_overlay *ovl)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	/* The framebuffer device is optional, see fb_device_create(). */
++	if (info->dev) {
++		ret = device_add_groups(info->dev, overlay_sysfs_groups);
++		if (ret < 0) {
++			unregister_framebuffer(info);
++			return ret;
++		}
++	}
++
+ 	dev_info(lcdc->dev, "registered %s/overlay %u as %dx%d %dbpp.\n",
+ 		 dev_name(lcdc->dev), ovl->index, info->var.xres,
+ 		 info->var.yres, info->var.bits_per_pixel);
+@@ -2637,7 +2649,6 @@ static int sh_mobile_lcdc_probe(struct platform_device *pdev)
+ static struct platform_driver sh_mobile_lcdc_driver = {
+ 	.driver		= {
+ 		.name		= "sh_mobile_lcdc_fb",
+-		.dev_groups	= overlay_sysfs_groups,
+ 		.pm		= &sh_mobile_lcdc_dev_pm_ops,
+ 	},
+ 	.probe		= sh_mobile_lcdc_probe,
+
+base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
+-- 
+2.53.0
