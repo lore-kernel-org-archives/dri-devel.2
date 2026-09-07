@@ -4,83 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C75CC79F89
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD90BC79FA0
 	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEFC10E67B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64FBF10E67C;
 	Mon,  7 Sep 2026 07:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RGkARPSZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NsGDwRYK";
 	dkim-atps=neutral
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD8C10E63A
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 05:45:34 +0000 (UTC)
-Received: by mail-oa2-f9.google.com with SMTP id
- 586e51a60fabf-4667f43a4ccso1411897fac.0
- for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 22:45:34 -0700 (PDT)
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF37C10E32A
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 06:01:42 +0000 (UTC)
+Received: by mail-oa2-f0.google.com with SMTP id
+ 586e51a60fabf-44cdbcd53b8so458458fac.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 23:01:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788759933; x=1789364733; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788760902; x=1789365702; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
- b=RGkARPSZpXxjiNuu13zw8UeiZeH53KEpTzREbyhDm/Cn9X3pQgQt3M7D7s28uZ8RDl
- cbAm7WmWPLP8Io7wBV/NKAtA22ZbGmcKSqydgbMcN2kJMpawiuaHJZM1sMC6Da8PfJF2
- 2sepQQMzKX3aSpq/T9AQ3mCUxXALvORufPPsEXBW0+eQvw9RbzIqpxGnvQzOWf9opLa7
- b3M7LSUgPA0b5r9kD+2f/+PIHhDTfL+wAyGMmlqHL6P1w0vxF+/EYvOJJpC5gyKNN8gX
- 8c+ZItSOW4YvIXr3FXP8cBs3JcuePyD50RKJKorIVu3IXN1RGl3DmgjBLBZAqnNdJV92
- rGuA==
+ bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
+ b=NsGDwRYKTDkWbe9sSGk4emrvHcgfXuM7eexbNyJ+MmuDZGGubdiKbfM3gycrdg2mGh
+ LW4QE8NshOoXcaWJrRu6NX4j9J2T5xLi9iZv36zR3l97R/WXfa3RcXHExQ0/6MjyCD+L
+ Mr4KGZpXEqh/7/XMg5Fo0wqN+IqVHoHafTkL4QY9fVAq42mqM1e+CgxNQsORDt+AI8jC
+ blYB7dNabDMLycwmufBhyiTOluAii/ykdSxEJRfBUkpXa1GznIQoV5RnheGWP2ELuKx5
+ u/l2cEk2XG6ZMj7B5mdlmU+phyJ8sQ+wBOcQaXvgFolPeaPwNk43CEL46E/a1geTqwN9
+ N1Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788759933; x=1789364733;
+ d=1e100.net; s=20251104; t=1788760902; x=1789365702;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
- b=Q2OoPVeGKP3rBhe4vygQxg1N39iPaUtQBbIbEb4BP3z3ONFgV27g8f9SqHsXV1vvE6
- E6gwSjpt8aX3cytxJTIglleMubV71CmX8fMnh6SKvRzi3J+2CsxHXZlLn4PTY5zJvW11
- hfteGk6hylOHTuRzc1WFMbTLza1fq5tM9DnAnEcIahjgAdChcJpcxN6LMxJPM844uxg+
- +KkQSuEP5tt6z6zdL5sJ/jb4RSZTpQ3DPAM/iE8qU245gmAPPEk2VacMLP6uc1OpbIlW
- fpKK2a8Vv7jYR+0jPFQCnsOXD8pFIdxqFkGUaVwUcN+p2JtLiVn6s5UUW6Y++qt0A3ou
- wPtw==
-X-Gm-Message-State: AFuF++nW6LZW4RV9iT6VZXiHV3fTlQyodlrD1TmyMCmUEQr/lDDQJORm
- S6WU+ojUedpdjmewzfJkFjmLQvOFPxvmkyqhpGWxtDrODqNJVXW4u+bu
-X-Gm-Gg: AYBFou1l/+2VLIN6xlC8yEvtscUMKcEk54jXtUDvib5nQeMS/kyZvZM8xb5NhME8/1W
- a5rXpENi35fEjiFANo/+GVApgwRw+5ZFuTgoQfZ4vtP/bXiMGl72aL3MVnqK5N9i7PVV9KOOpq5
- d1G6tJqfs+whgxCWkPKDI2GQv8n7/Vuvq8KwLNvXHWpWoty6Zr62Kpgot3pt3G7IjximYeOIz92
- NHOI6HjrlSdKP/Cpvzjo7IbOKhL7fkcT095C5tHtUNHpk0m7IXU4RfigT0y8wHOE0tvqzzzzgcd
- 3BojTAkEDatoIgi+egXIKOtAvY930Im/Uwsw4Viejc6H+APa8Ain97qgmCZEW8iKWuyYyM3ylYP
- Do81leRVZ2hqz9d98NrVCXB1BqnhAAYQjHgaE9hiZscVqKS+COvhPBvOf/a1fnDoakC4spCCesW
- G7zzAjjdYHkimzXnv+JKt5tLeku2IeAC4G/alht4C2tkwEMShNBd+7L74PPXrSCQ==
-X-Received: by 2002:a05:6870:96a3:b0:440:67b1:b59b with SMTP id
- 586e51a60fabf-4754d5745e0mr13037030fac.0.1788759932942; 
- Sun, 06 Sep 2026 22:45:32 -0700 (PDT)
+ bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
+ b=I1ohHX3Lj33hEqe5NYyo2O/pkIRZhzgDcxrlc7nAYaoc7okhch3JRAQuXMdE1hqIP2
+ zVBBQWrENhk/EBz3lSenPSqTXmp/onJDaRHFd6KoXFJNB5VkfNWpX+U54P2nNVvahL6c
+ QRyA3262IpFTcEBSa3yCSKkMnKkjc1ut5gpH5mGRiKHeho8DE/p5KhIOsGW0s8iKaCJ7
+ BJxIA4rODrQyZjDYFCXD+6ThdgmXG9ZxJWeJuMvEsbpI0iJPtpTZqGlcnUFB17lmKiTg
+ pHIc9bYDULRJnoOyjFpG4NwUOv8mWSWDt9INPFBuhKh1MOfQBV+eGAZ3z3wMqsY+5tqQ
+ 5XCQ==
+X-Gm-Message-State: AFuF++mdj6MgN9Y9bxAWsXsbayM2VfKgx0nM4vIj5tzl7Pm841gF47r2
+ DQF82tvKmn3xOpAdNECWSU77yZ/F4wd0gfpG7BqVrbOYZuosKvTkpH/q
+X-Gm-Gg: AYBFou2PEJkG/iO3WKQzhUmsrKDOaXOFZyhX4P+XGFmdsefvbqKsHwcb/M8NT0vaaEJ
+ lmz6cAHpBlzzPTfAwvxvm3+8n5FU4zw8Pp7o2f2X78GQwDrSJenUjm4DQFpslU16rk2wr9ElDVe
+ 2OI3uETs/NNBmg92JqXNS6jpcTKA+gaZ3zm6Hgsy7WTNIgZ2L6vKckQceDgLGL3fqYAtSeaBl8Z
+ +jXRGT8pCzf2GjNX5jKC7SQ4SWC/7B7XV5WoDsM3z3dVtgGbBgdfUblpKW6f31EGAcPy1Dw4jPm
+ 5ciI48YSW3NJz1ld6ZEWAxgLUcv6UbpuG12fuAUbBmlIRWrvJ/PdZf9svCpV1rTt25p98CeH2aM
+ DjxlYj21mom4lzk+eFxkBe1dN42HaxXmgmVGZh+knjRp2I28e1u024lCFhXPxV/bJCpnHv7MwTa
+ 7oCYvy7Nbkm2agIgez/y23JJJ/7TM6/B08jtBk6bxOLzvM0lhEpAoVX+7Vfeza/A==
+X-Received: by 2002:a05:6870:8127:b0:465:27b7:4009 with SMTP id
+ 586e51a60fabf-47550f20db6mr13400608fac.4.1788760901877; 
+ Sun, 06 Sep 2026 23:01:41 -0700 (PDT)
 Received: from ryan-dell ([2600:100b:b039:79f4:f7f:ccf7:cd6f:384])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-47989a71ebbsm204482fac.17.2026.09.06.22.45.27
+ 586e51a60fabf-4755493580fsm9761726fac.13.2026.09.06.23.01.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 06 Sep 2026 22:45:31 -0700 (PDT)
+ Sun, 06 Sep 2026 23:01:40 -0700 (PDT)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Nickolay Goppen <setotau@mainlining.org>
-Subject: Re: [PATCH 0/2] drm/panel: add Novatek NT51021 1200x1920 DSI panel
- driver
-Date: Mon,  7 Sep 2026 00:45:06 -0500
-Message-ID: <20260907054509.118237-1-ryanbrue.dev@gmail.com>
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+Date: Mon,  7 Sep 2026 01:01:28 -0500
+Message-ID: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
-References: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Sep 2026 07:00:30 +0000
@@ -99,23 +95,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Please disregard this series.
+Hi Nickolay,
 
-Nickolay Goppen posted an NT51021 driver a week before my patch, and I
-didn't catch it.
+I sent a duplicate NT51021 driver on September 5th without finding
+yours from the 29th first. That was my mistake, and I have withdrawn
+mine. That's my bad, I'm new to kernel development :)
 
-https://lore.kernel.org/all/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org/
+Since I had the hardware set up, I tested your series on the device I
+am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
+1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
+works.
 
-I checked that there were no patches on the mailing list prior to
-working on it, and then forgot to check prior to sending mine. What are
-the odds, for an 8+ year old panel? :D
+Concretely, on that panel:
 
-His covers more panels, but my panel seems to be slightly different
-from his, based on the vendor kernel I referenced for my bringup. I
-tested his driver on my hardware and it works; I'm going to make a
-reply on that thread, and I will set up the Amazon Fire HD 10 panel as
-a variant on top of his series instead.
+  - your 10.1" register sequence, timings and mode_flags, unmodified,
+    bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
+  - it also works with my vendor's own sequence and timings under your
+    driver, at 62.5 Hz / 980 Mbps
+  - verified across a cold boot, display off and on cycles and a
+    suspend/resume, with the MIPI TX PLL reading back at the intended
+    rate each time
 
-Sorry for the noise, I'm new to this and I hope to learn quickly.
+So, for what it is worth on hardware you cannot test:
+
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
+
+Two things I checked that might save you answering them later:
+
+  - The generic writes are right. Xiaomi's own panel dtsi uses dtype
+    0x29, and this panel accepts both generic and DCS short writes, so
+    nothing depends on the choice.
+
+  - prepare() never sending a set_display_on looked like an omission to
+    me at first, but the 0x01 software reset at the head of the init
+    restores it, and repeated off and on cycles pass. It may be worth a
+    comment, since unprepare() does send set_display_off and the
+    asymmetry invites the question.
+
+One question on the binding, which is as much about my patch as yours.
+Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+(dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
+
+    qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
+
+with no part number, and the register sequence in your driver matches
+that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+is inferred rather than read off the panel or a BOM, it may be worth
+saying so in the commit message, or naming the compatible after the
+board the way panel-novatek-nt36523.c does for
+xiaomi,elish-boe-nt36523.
+
+I ask because my module has no identity I can establish at all. It
+answers no DSI read, DCS or generic, before or after sleep-out; the
+vendor kernel and bootloader name it only "BOE", chosen from two board
+ID straps; and its vendor-declared physical height is arithmetically
+impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+naming mine after the board, and would rather not accidentally imply it
+is or is not your part.
+
+If it is useful, I have the Fire HD 10 panel ready as a variant on top
+of your series: two patches, binding and driver, adding
+amazon,suez-boe-nt51021. The only change it needs in your code is
+making mode_flags per variant. My vendor asks for sync-event video mode
+with a continuously running HS clock rather than burst, and your two
+panels keep exactly the flags they have now. Burst worked on my panel
+too, so this is about matching what the module is characterised for,
+not a fix.
+
+I will hold that until your v2, since Neil's renaming will touch every
+identifier it adds. Happy to test v2 on this hardware when you post it.
+
+Thanks for doing this first.
 
 Ryan
