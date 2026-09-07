@@ -4,131 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D981C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE83AC79FA0
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA0A610E83E;
-	Mon,  7 Sep 2026 13:31:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9E1310E4D0;
+	Mon,  7 Sep 2026 13:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ZCnV1883";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nH1jhzRb";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cZ9sNyuv";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F9710E83E
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:31:31 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-485843aeab8so3979419f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:31:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788787889; cv=none;
- d=google.com; s=arc-20260327;
- b=NPuoogJviY3x91SKIvbdsfFOabdsa5EISkZQ0FoacAWUNkRp2AQ4sWAKuel+bmikW2
- noq0yI5gOSk8OCq5eRKxz1XjFzY1SHOYMFwgasV0YyjIxPpjX3FMwS6R0+YEDf5cfE3U
- ZMr7JoIJ2AtIS+/cUgfifCc2t8od0LIDhTOrCGSZsQFCA7+hJRJ4KeNzT0WbEiGgaH64
- +3HUstLWTujiw+P63znVOWx2fJ0MgqdGO19nwLvcxfTih69ZRm+rdSauER6nn0HR6Gbh
- 0at8qmUcWKinCIT8Ezyc7f1RN7s0LtNRtA5CIdU5/4Df9PnPSYu06gIaYza/hES/NIuX
- 2oPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=MeIqMgyiOqWe7HQD7SmKTKpkW52D9bvAC89kO8GNV9I=;
- fh=sEdyBamAiiyfYtxqtEpmwD597fVjLhrGADmPgq+mqCE=;
- b=Rsw02ok1qBpsfVlEw8n3LTjpHlzx9Nxr/tPFvNTuC476clCJ5tqWbNg5yNGSagGGb4
- GtV7Ub0aJmXCSHhVfsD7nPzXFnfgFnJgtxaxXl5W4DyJ2hMiRYW060IentA1fJf8P8DQ
- BdI7PeeU5V8gUxxyD/r5ucgySNIREdV9pwaJ7UnrPXUihtkqSkcvqO1H6x/ecBeeoHBl
- oLVub047R7TURX3xgUytr+kC/A8Kb09j+5CH0nBTmqpNBFMmfr3mJUoxrrsTVT83Qkzr
- X3Q8mJJazKyoWipcvPtvrTPc60UBRtKQnM/VYJRKi5vfGYkMpor9Jq9daopYr5KU2Byk
- ImAA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FFB610E84B
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:36:11 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 687Amu6I3349019
+ for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 13:36:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Nuvly24FDGwG7YRRA/F0rHJ3
+ 9EVW+7Vo3RK8fyPQ74U=; b=nH1jhzRbtI+Me0pUZo4bAJgTrabfxd4do6hTkdzn
+ CNSg6oZ+w3dOACONJ5DLmhE51DKP2wUIjEhZNlHpm1NSCs+5J9UWQuun6gbwcNGC
+ SMkjg3E9wSo02jH2lDjrPygg9IHsAjtO2aegPRXTqej/GG6ACyJOm2+jGLm+fu7N
+ e513f2BElebzGgcJjS7T7MtvplFbO0lwUtvx1dgGx8lTmf79yfGd9lOFngpWz9ZF
+ 9sZBtbPwehxNQxBWDoFT9CF34x6kmDLRQrAUKw50RfyKztLG3dSswH5o7c7pkFr3
+ cuP9ITJbDDhVeuHXQ7GnPJ451ERS7kkkYsOIR0ESsIdLKQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtfx0yxd-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 13:36:10 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-78a686d205cso1552688137.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:36:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1788787889; x=1789392689;
+ d=oss.qualcomm.com; s=google; t=1788788169; x=1789392969;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=MeIqMgyiOqWe7HQD7SmKTKpkW52D9bvAC89kO8GNV9I=;
- b=ZCnV1883JQ0YliiDYpWwOdUpsqqNeo0HBk7gctg/YltovShNZbutKPi6FY47iL5IhE
- 1EC0Qv8h/1U2/HIxPlJWNogDO/+RiEPtErkV5gFHqJrgO8hJ3DSqwVmWjjISDX3n0neP
- MAiocslpGNCf9dpHoIydLaUvrMQ3LOp+DCz8HjmNXPA2KBDcLJJCOn/NDuSi6qvFZqgf
- xQe+eDmqH0Sn3Dqq6H1clT6FkKD6VqGwMTbMzyzzZpa1lmxy1rWWsqCKSjtVEbsivyy0
- JTFsikHyzojhF1Rf4gu/5cxF5mGUUCw9Vu29pAe89vW0AcbA9JaTYd2C5J6HcOwcGec3
- /YcA==
+ bh=Nuvly24FDGwG7YRRA/F0rHJ39EVW+7Vo3RK8fyPQ74U=;
+ b=cZ9sNyuvhSC6daA6Pz5WKCSgQiw8ughUK52b1lAt8FXffMYhgEJLzH7HnRp+tj40lw
+ biosX8zeQy9I7KFK1ySExXgz8Tk2iuHBVKMNssa1k03XrCFrCWyg6EG02msLA8zL57qX
+ OdvwTcs/fiZ5kx5H6Cd3PShQWtunR+zA+cLWR2xuycV/WpWoFHsSheghIn026nbqlbco
+ eFtzEpl/0oLEBfzSzwFIu4ZjgwGYKXRFN+Fly5s2igt8523lldydS0UrPt2VOpzueFc5
+ XL3a/fsz374gxhF/1mJqZuz2UCL/AAkOMIJSA4Lee1lH3X89LRcJOl2Y/XlexJc1Az9G
+ u5SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788787889; x=1789392689;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1788788169; x=1789392969;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=MeIqMgyiOqWe7HQD7SmKTKpkW52D9bvAC89kO8GNV9I=;
- b=VDsQcgbWeOYhLAJ0XMjCL/TubT9NO+OQQj+t0JXPmeDpqUsFG+4NmRKA83sZrGiN54
- PFNSV+5ZZYbv0SsoBLCqwzh/EdM/JVivKAIb0hyYFtXC0y3oX2nlwMgVpvd64kNFOONc
- 4277R0OWsXtdEUR+JfIn+qpJprng9BdUWEhpbKB8c+Sm1U1flWfq+m1Ki0WQToUM+DFF
- pcpUfb7vTitZOKTyb01THtPcMwS+barYblNspajSm51CT4jbI+u2XWuvOc/Jm82n07+m
- iIFEpOAFcb69AJBAMck85KqFdQfyHKwZZDO3RvzVc/sgRL0F7lUk7XsuSBXOOO0pddiT
- BefQ==
+ bh=Nuvly24FDGwG7YRRA/F0rHJ39EVW+7Vo3RK8fyPQ74U=;
+ b=SVWZgzChiTVlkPVq7HMomk+qm85J1AECCevWnq0WTA+iYSXbhUqBmFjFGjIwYFsafK
+ c03Q7z5xrSZEOCFy5p8rSgrwmL6A7ALIrFE+/eCTVDoXF4FYVRVouLKwEG9OTReWMqDK
+ JGFbPxBLPe2c23DHtUrdptblDlp/dnXdRYw52SxIDmGMgSUHoL+zy82oCmg5/jRJOR9o
+ gChlAVVayV3OwMO/bqZJoxeYIoLmETUhgLR9iAy/1eLtjFNNixEMzYU5x9G/AcRZNVNV
+ fCb4HXaWlaaCJC7XIYw6YKrFAa9b5+asf8ieLbdKpLo2CyHkwb1gi6OljnHZgW2OTmVE
+ 75Lw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy+J8+Rr1M8Hq+dqe5Eh8Irsd3DQipyGsmc5at+QpfG05bCVqUfZiVsjQArEZvnPi0G+n2Idtdb/0E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l3+grGBfBq1BsQCTOs3P7c7qF/3Jot/SpMsHQcUKHm+lLJQ3Oz
- lNnFrYF5pDtSR+ff2/9qUsVp3DgZi0hzPdLSsMLr3dA1CTGASRCzJxZJRMf63/hDMQyQtMu8CBA
- KZJ+4vTtKc9me7TW3YYcyU2oHcNAifPr742IWh1mx
-X-Gm-Gg: AYBFou06XMTq5MAn3kyx59QGEbHNnwUAaoq4FA8OXp8nYpiOvxREUfGpNulQECYiQL+
- d3BCa1HoUrLrdxTQnEl3sOcALFue6S4Z3OZa4Qv0rKnkMYBeVhwb80/ACpJDvKVt+2dyYdCErKW
- g7ZNFrvN7PGEN/jhfRU0KYpWVYN7YWpltJT8PC2XS3GiFK11Rwy4rKXWd2oG7Jo30Ha4evvaWwp
- IpRstxDLtszmDlc9cdLRRGaYYFkVdTDn+/itBXgGmREh7nKPHqg+dO7RHLHISWDwx8Lhp4gBdPP
- qbzUqRZkQMhw5OeS4MAjlVDh24ABnukZuVkfF6FAjN5U19QofzHRM0kIS9O1MkUh9aeNqWignr8
- 40DG9YCyhoIMldrXJ9BNb1x+R/mmIE1EwR+TPnPCFHA==
-X-Received: by 2002:a05:6000:26d3:b0:485:8393:2176 with SMTP id
- ffacd0b85a97d-485870902eamr40614985f8f.21.1788787888668; Mon, 07 Sep 2026
- 06:31:28 -0700 (PDT)
+ AKwUvBwBUwMfSD7ghwRCCCYUVg3V38XPQ7KJpe7qHGgMl521jyLMRp9LKDaZpL+Or1yNdZ4dfKuTFBQh6WE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kV32f8t5B5jLw7W51SYEif+GM8AUwR9PBVHGPMSARyZE7f/c/e
+ qIQGcNV6zFc0rOyMfQCa3NsuSbJ2cgM5ryJ00y8y1r1NcgjRxWx8bswa+rvtJWYFG40Z4Cjxm9M
+ EFt/yfQtqELMpVoI7h7j2POnd7KyhLL+8RzZ/T3PgIAuLCxUrQOLuGzPrxB/TBDt3FDH8qwc=
+X-Gm-Gg: AYBFou3FKf09oEadIgOA6wHS15DyS2qny4HpxUvpFwnOTvM+61m6I5XTpp0JAHDgm7a
+ W1xGqp3fc01R9mWCHvqMjIbWiheaR92W6hgkIXjLYduU+FifUwEBnRt0thTDWroaK+p72FXC+Cz
+ LVyEqkg8h5k3K95rNYeFvd9/1U5UcQpiEysEZUtRxqu1eQIhxkAmghIN9T77l6WFJFMXEY7USBZ
+ bwywH2sWRc0ipXZG4a51yVoWy8DlFdtjJ0hWim+YazyVzoDnsY10QrqLXOD93q66W9LgwPaTrfr
+ 4rg/Zf7BMw9vCEEAHCUAdbARFoHsqFcriKzLKnayLyaVmQyC7cmedTmhwFpM0N17XTpN7ITaQpJ
+ 7tnyagZYcq1xN
+X-Received: by 2002:a05:6102:570f:b0:785:e444:15de with SMTP id
+ ada2fe7eead31-78a4a8b86c6mr9600150137.6.1788788169548; 
+ Mon, 07 Sep 2026 06:36:09 -0700 (PDT)
+X-Received: by 2002:a05:6102:570f:b0:785:e444:15de with SMTP id
+ ada2fe7eead31-78a4a8b86c6mr9600123137.6.1788788169077; 
+ Mon, 07 Sep 2026 06:36:09 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-485885be1c1sm28060777f8f.32.2026.09.07.06.36.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Sep 2026 06:36:07 -0700 (PDT)
+Date: Mon, 7 Sep 2026 16:36:05 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Archit Taneja <architt@codeaurora.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 5/7] drm/msm: Properly handle msm_ioremap() without name
+Message-ID: <d256qsfz2rs5rdbfvmrxi5m5oitu4266ybhfx44gd7biuaykxm@tfhjzjxqh644>
+References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
+ <20260907-drm-msm-hdmi-fixes-before-eliza-v2-5-b097cf1eac77@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
- <20260824-unique-ref-v20-4-490735672187@kernel.org>
- <ao2WubjLtDuHvRzx@google.com>
- <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
- <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
- <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
-In-Reply-To: <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Mon, 7 Sep 2026 15:31:16 +0200
-X-Gm-Features: AcwNN1Umd_wQEAUZHPYxidNRM70dkjd7WtcOMgQxK1KjbblodnsY1lRpQ3kHiGM
-Message-ID: <CAH5fLgjEfZO9DwcUxaKCWd_hFUrXU+cxiwmRg1UnM2pKD6gPvg@mail.gmail.com>
-Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
- Asahi Lina <lina+kernel@asahilina.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-5-b097cf1eac77@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Weg8rUhX c=1 sm=1 tr=0 ts=6a9ebdca cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=YrmjDuPctlhI2Ist5Y4A:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: VAfJL-VmcAgtlT5QTi_sPOOJ2wi-3crN
+X-Proofpoint-ORIG-GUID: VAfJL-VmcAgtlT5QTi_sPOOJ2wi-3crN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE1MCBTYWx0ZWRfX1eXu4Dv+0iTO
+ segqMOH1OKHAuB52Kg9954hKC2OzYqoMKKs7HcFhEnk8TVog5XpZRLqogS9XorVCULYI2hulnl1
+ 3ZNjYrlfXDyb9ePrfXxz7ngZCD+fH+g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE1MCBTYWx0ZWRfXxqY7lB9XlBVc
+ fdUUcyp78J0xi7Ex2vgJ0kWFnXlfTM3ZPPkXaTOjmV8dk7+cDjYoerashW1Ur/9eC9RFaOJOCo0
+ UzkF6+8q1PCRjofK5iK0eDM2M59hf5aAHszuCWuQnMbPwJ1M37mxxo+lHRnvvk9B9krlY80YD1a
+ st3y35rnhjQcq5QUbHwsy5SFNnpVJHpbRH3T1RuhB0SrH2X9VIKaJBqYO00kgtgWENmJaZ7hbjx
+ 8oCqASaGgOXziEDOLOAPSTdP9LoOtYrSVl8POY9o0qpxaHUBmPrGqcifj48xz5zCfK38dK3Huvd
+ b7j1Zo8GhpklMKIp4wIwyABkvjjNB6xtUnJ0M8NUik1VT+VrlV9RkcSUteV4t0+Dbx9eD9YnitQ
+ gDGhLsaK5MNNgYZk1SYcRZYVIA52WDscH2UAvvaGOOlWAiIk/K/rOGgNSn5KREyhobtxNsOUSzm
+ zd861b+BvzYDikSh+4w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070150
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,75 +153,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 7, 2026 at 2:38=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel.=
-org> wrote:
->
-> Alice Ryhl <aliceryhl@google.com> writes:
->
-> > On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> wrot=
-e:
-> >>
-> >> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
-> >> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
-> >> >> +        // SAFETY: We just successfully allocated a page, so we no=
-w have ownership of the newly
-> >> >> +        // allocated page. We transfer that ownership to the new `=
-Owned<Page>` object.
-> >> >> +        // Since `Page` is transparent, we can cast the pointer di=
-rectly.
-> >> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
-> >> >
-> >> > This doesn't satisfy the safety requirements of Owned::from_raw()
-> >> > because the page may be used with vm_insert_page(), which increments=
- its
-> >> > refcount and causes it to be shared the vma system, and this occurs
-> >> > before Page::release() is called.
-> >>
-> >> I suppose the existing vm_insert_page() abstraction we have is already
-> >> problematic, because it uses `&Page`?
-> >>
-> >> Maybe we want to change the API to use `ARef<Page>` so it already has =
-to be
-> >> shared? Conceptually it takes a reference count from a `&Page`, which =
-isn't
-> >> possible because `Page` is not `AlwaysRefCounted`, so it needs a `&ARe=
-f<Page>`
-> >> to be able to do that op.
-> >
-> > Honestly, the problem is the safety requirements of Owned::from_raw().
-> > Pages have a "special" main reference, and free_page() does more than
-> > put_page(). It even does something when the refcount does not hit
-> > zero.
-> >
-> > The correct behavior for Page is to allow the user to hold one
-> > Owned<Page> whose drop calls free_page(), *plus* any number of
-> > ARef<Page> references that invoke put_page() on drop. This way, the
-> > owned page controls the special drop codepath.
->
-> This does not mesh well with the model of `Owned` behaving like
-> `UniqueArc` to `ARef` behaving like an `Arc`.
+On 26-09-07 15:00:19, Krzysztof Kozlowski wrote:
+> msm_ioremap() accepts being called without name of the region to map and
+> in such case maps by index 0.  However error paths still use the name in
+> error message.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-It's a different case, I agree.
-
-> Please help me understand; with page having a main ref and an auxiliary
-> refcount, if we model that with a single `Owned<Page>` and a number of
-> `ARef<Page>`, what would happen in the case where the main ref (`Owned`)
-> is dropped first? Is this legal?
-
-Yes, it's legal.
-
-> My intuition here would be to follow Garry's suggestion and have
-> `vm_insert_page` take an `ARef<Page>`. Can you elaborate why this is not
-> an option?
-
-That would be the wrong ownership semantics. The C side increments the
-refcount rather than take ownership of a passed-in refcount, so the
-correct argument type is &Page.
-
-Now, for the use-case in Binder I believe we could switch to
-put_page(), as we don't need the extra stuff from free_page(), in
-which case we only want ARef<Page> and do not require Owned support.
-But as long as we are calling free_page(), it needs to not be
-clonable.
-
-Alice
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
