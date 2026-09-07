@@ -4,87 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987ADC79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 12:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BA9EC79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 12:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE8E710E7D1;
-	Mon,  7 Sep 2026 12:29:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDFF10E434;
+	Mon,  7 Sep 2026 12:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CcbUCn1j";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EUT6f2Zi";
 	dkim-atps=neutral
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA2A10E7CB
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:29:29 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-861145fc841so28236207b3.3
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 05:29:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788784169; x=1789388969; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5mjYZ3k2SfS7QDSelwqxhC0sbri/VrXDhQqho6Hz/5E=;
- b=CcbUCn1jrZs3TJq73NoUWwugdrrUnY70axJeXZDwAs7D0DMRMDuTWCE739c+n1uOGK
- aewlCz5+ahm87EIwFfMhg8xqGpXYcWX2NW1xmESIgI86e7T3MOAbqVRBLDQBIBRmLfKi
- L9ESOUt+7quI0T6F4T24B6rsM9X/yKDSeJVT4QLtdeffpcSvRrMCec/CRConsah76jJT
- ZGzF8HAHDREg7VwZOlg+FUcI7LBx0g6bi4oVSQXKtA5YoH7C1BBqzABn+OnZURJi77kT
- lTnSRn6e6afw39fbDRgTV+6oiJS+etEbuTnDUlKSCFP/IUqhbMipbT3Gu2z3h8UziyYg
- op5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788784169; x=1789388969;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5mjYZ3k2SfS7QDSelwqxhC0sbri/VrXDhQqho6Hz/5E=;
- b=G8FazPwRJ384bgZLafZCWQMhFi66VdUfNF8+MUa0xxyPp6pm5vXp79BC71BuJUYy1Z
- j+uVk4QkgBXvF6H5wGOW7PHfYjTKMw6EHElgabKeoM92pmHnY0lraKIG/OAKJjlk7N+b
- s5ragcXvjlXgg+Cb3s9WT8GaxerRoyOT6OZUYCQnJAXWIGNBZau/qwoyB1XxUIek4usf
- JMeXyc/6BPJMn/YS3lmNrbkrFViUp5Cm7+xY9qE+oa8b5k90eEZu6HtH+Vc4cZq8lVar
- l/QlNxqlg5ezI2Zl7pUf57jJ6nR5djQZ0JxtJWxMTsszk2n4GeoHhTDmj4BeWnRAUGTh
- ddtA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz8x9NSClVLZmeO8RLQNL0+ExFg0RJT5m9BbqIkCIBo4y1fAw9ACDvmwJAYes8IpvbqWJ2Fvzoidmc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++maWv9PB3fXzIHWqjpxHipWeHbyxbJKu5QPzpIL5rMgxtj68ir9
- mDk+JeOB1/WGXUftoTdG+5fd4ubVuk5L7ABr3/8hZQxvJuoKWEeRmKo=
-X-Gm-Gg: AYBFou1uZBr+zvMbez64BV/uD6xlhi5AlnmUiux4aBcolpf9NlCAZAV7x8+cuafasCy
- RA6JXzd9g3MzTtTr6bfTqZtYF6HB47v4wB3keA3Q46feJY3+fb+8hWJK3DhsfkuoPNkNvAdjlH0
- qSLbZCdnxwNxZ0PvDp9pfl2uRA/BBvTQ8V/AW62uyoK7D5qGBEKnzj+P26ucAuKek63zVmADEK4
- 9THbULhPcQqgaa21wt65x0c3Fnm9uwhl1tiMMjPE8pgSssoVSaBrSs36RHgGy95YQ9NOXNAvfM2
- XA9ofSKhhkHVvJKTlAb+GInybiJsjWe0WAdsaVbg1eUL22xAXuqSqTyUHG3r6rmQjoVdfGq54Xx
- mSIr21yZKxNzfr2I11TXyFOZGfK87dKoCzgVBXgT3HPpPyKQbQE443Z92EF0LhqdKEe30oCqK69
- 2nc6C/XwNC5voto+m2lLrMzvgY++J+nGhAR+8N6Lyg0CHevZtO31JWqwo2hDClPNl/DufzmKzNU
- JJa/x9LwDuecNlzkMD7/LnZVTgQ+2omuSAXfI4=
-X-Received: by 2002:a05:690c:d8f:b0:7e9:4a7:9899 with SMTP id
- 00721157ae682-871261dc570mr103556167b3.11.1788784168867; 
- Mon, 07 Sep 2026 05:29:28 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8714bb0efc1sm70511967b3.45.2026.09.07.05.29.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2026 05:29:28 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
- Brigham Campbell <me@brighamcampbell.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jori Koolstra <jkoolstra@xs4all.nl>,
- Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH v4 3/3] MAINTAINERS: add entry for Chipwealth CH1115 OLED
- Controller
-Date: Mon,  7 Sep 2026 09:23:31 -0300
-Message-ID: <b8ec70dfa6e4e711cc95df2a6046741223d67c92.1788711082.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788711082.git.nico.antinori.7@gmail.com>
-References: <cover.1788711082.git.nico.antinori.7@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDF7B10E434;
+ Mon,  7 Sep 2026 12:33:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=oclLdEpZz+P9ph7OcMtdTYlZ7Zz0TNdH2o2CQv/ApeU=; b=EUT6f2Zi2QPDHkiKhjDwgZWKJn
+ jnk+KJt2z1rCqiW5kv2FCVzOGwK6m57N/su7abZDotZbaM+BjY4Iovth/tHSx4q+723S4ZogZ7PTP
+ SCtCO+IfUs/M/X0TV0LXgSujOmhNVcFHgQeXTgMGyRVJqiWXCaPFTufKPwBXf1JRIM379X2RqyFvD
+ Esb0YbqFaLtDnF1dtEsPNtunaNVDfxtUvjnsxXpsE8uJWhvugXCy7BImuy4JG8ea5uiku/T+mRrLC
+ MFpe6h5JsZOlDXoDFj90HlBkFDtyJqJDASrFUSjFcu/HpAXrwFCgGPJkZMu3fP3QSuFrsB3MbGCp0
+ hT5tHUsg==;
+Received: from [81.79.79.1] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x3YXA-00G27r-00; Mon, 07 Sep 2026 14:33:12 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ phasta@kernel.org
+Subject: [PATCH i-g-t] tests/intel/xe_sync_file: Exercise sync file access
+ post queue destruction
+Date: Mon,  7 Sep 2026 13:33:08 +0100
+Message-ID: <20260907123308.52055-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -103,31 +62,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add MAINTAINERS entry for the Chipwealth CH1115 dot matrix OLED
-controller.
+A new test to roughly simulate the VK CTS suite where
+dEQP-VK.wsi.android.swapchain.render.* is hitting an use after free when a
+sync file is accessed after the xe submission queue has been destroyed.
 
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+Abbreviated KASAN report:
+
+ [IGT] xe_sync_file: starting subtest sync_file_race
+ ==================================================================
+ BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name+0xa1/0xb0 [gpu_sched]
+ Read of size 8 at addr ffff888126726020 by task xe_sync_file/2931
+ ...
+ Call Trace:
+  <TASK>
+  kasan_report+0xeb/0x130
+  drm_sched_fence_get_timeline_name+0xa1/0xb0 [gpu_sched]
+  sync_file_ioctl+0x3cb/0xb00
+ ...
+ Allocated by task 2931:
+  __kmalloc_cache_noprof+0x1c2/0x410
+  guc_exec_queue_init+0x1a8/0x1240 [xe]
+  xe_exec_queue_create+0xe72/0x13b0 [xe]
+  xe_exec_queue_create_ioctl+0x10d9/0x1770 [xe]
+  drm_ioctl_kernel+0x179/0x300
+  drm_ioctl+0x58f/0xcf0
+  xe_drm_ioctl+0xe8/0x140 [xe]
+ ...
+ Freed by task 1689:
+  kfree+0x106/0x3e0
+  __guc_exec_queue_fini_async+0x144/0x2d0 [xe]
+  process_one_work+0x610/0xdf0
+  worker_thread+0x7c8/0x14b0
+
+Without KASAN this of course turns into a plain null pointer dereference.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: phasta@kernel.org
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com> # v2
 ---
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+v2:
+ - igt_main and igt_fixture tweaks. (Rodrigo)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 054178b88dcb..0be510e16a8d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8665,6 +8665,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/panel/samsung,lms380kf01.yaml
- F:	drivers/gpu/drm/panel/panel-widechips-ws2401.c
+v3:
+ - Add driver name checks.
+---
+I dropped the ball upstreaming this old IGT proposal. Now that things
+got broken with
+035219a760ed ("dma-buf: dma-fence: Fix potential NULL pointer dereference")
+it shows it would have been useful to have this merged and ran in CI.
+---
+ tests/intel/xe_sync_file.c | 154 +++++++++++++++++++++++++++++++++++++
+ tests/meson.build          |   1 +
+ 2 files changed, 155 insertions(+)
+ create mode 100644 tests/intel/xe_sync_file.c
 
-+DRM DRIVER FOR CHIPWEALTH CH1115 PANELS
-+M:	Nicolás Antinori <nico.antinori.7@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-+F:	drivers/gpu/drm/chipwealth/ch1115-i2c.c
+diff --git a/tests/intel/xe_sync_file.c b/tests/intel/xe_sync_file.c
+new file mode 100644
+index 000000000000..842c3856a525
+--- /dev/null
++++ b/tests/intel/xe_sync_file.c
+@@ -0,0 +1,154 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2025 Google, Inc.
++ */
 +
- DRM DRIVERS
- M:	David Airlie <airlied@gmail.com>
- M:	Simona Vetter <simona@ffwll.ch>
---
-2.47.3
++/**
++ * TEST: Tests for sync file functionality
++ * Category: Core
++ * Mega feature: General Core features
++ * Sub-category: CMD submission
++ * Functionality: fences
++ */
++
++#include "igt.h"
++#include "sync_file.h"
++
++#include "lib/igt_syncobj.h"
++#include "lib/intel_reg.h"
++
++#include "xe_drm.h"
++#include "xe/xe_ioctl.h"
++#include "xe/xe_query.h"
++
++static int sync_file_get_status(int sync_file, char **driver_name)
++{
++	struct sync_fence_info fence = { };
++	struct sync_file_info info = {
++		.num_fences = 1,
++		.sync_fence_info = to_user_pointer(&fence),
++	};
++
++	do_ioctl(sync_file, SYNC_IOC_FILE_INFO, &info);
++	igt_assert_eq(info.num_fences, 1);
++
++	igt_debug("'%s'/'%s' = %d\n",
++		  fence.driver_name, fence.obj_name, fence.status);
++
++	*driver_name = strdup(fence.driver_name);
++
++	return fence.status;
++}
++
++/**
++ * SUBTEST: sync_file_race
++ * Description: Check that we can safely query an exported sync file fd
++ * Test category: functionality test
++ */
++static void test_race(int xe, struct drm_xe_engine_class_instance *eci)
++{
++	uint32_t vm, bo, syncobj, bind_syncobj, *batch;
++	struct drm_xe_sync sync[2] = {
++		{ .type = DRM_XE_SYNC_TYPE_SYNCOBJ,
++		  .flags = DRM_XE_SYNC_FLAG_SIGNAL,
++		},
++		{ .type = DRM_XE_SYNC_TYPE_SYNCOBJ,
++		  .flags = DRM_XE_SYNC_FLAG_SIGNAL,
++		},
++	};
++	const uint32_t bbend = MI_BATCH_BUFFER_END;
++	struct drm_xe_exec exec = {
++		.address = 0x100000,
++		.num_batch_buffer = 1,
++		.num_syncs = 2,
++		.syncs = to_user_pointer(sync),
++	};
++	char *driver_name;
++	int sync_fence;
++	size_t size;
++
++	vm = xe_vm_create(xe, 0, 0);
++
++	size = xe_bb_size(xe, sizeof(bbend));
++	bo = xe_bo_create(xe, vm, size, vram_if_possible(xe, eci->gt_id),
++			  DRM_XE_GEM_CREATE_FLAG_NEEDS_VISIBLE_VRAM);
++
++	batch = xe_bo_map(xe, bo, size);
++	*batch = bbend;
++
++	exec.exec_queue_id  = xe_exec_queue_create(xe, vm, eci, 0);
++
++	syncobj = syncobj_create(xe, 0);
++	bind_syncobj = syncobj_create(xe, 0);
++
++	sync[0].handle = bind_syncobj;
++	xe_vm_bind_async(xe, vm, 0, bo, 0, exec.address, size, sync, 1);
++
++	sync[0].flags &= ~DRM_XE_SYNC_FLAG_SIGNAL;
++	sync[0].handle = bind_syncobj;
++	sync[1].flags |= DRM_XE_SYNC_FLAG_SIGNAL;
++	sync[1].handle = syncobj;
++	xe_exec(xe, &exec);
++
++	/* Export a sync file fence. */
++	sync_fence = syncobj_handle_to_fd(xe, sync[1].handle,
++					  DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE);
++
++	igt_assert(syncobj_wait(xe, &syncobj, 1, INT64_MAX, 0, NULL));
++	igt_assert(syncobj_wait(xe, &bind_syncobj, 1, INT64_MAX, 0, NULL));
++
++	driver_name = NULL;
++	igt_assert_eq(sync_file_get_status(sync_fence, &driver_name), 1);
++	igt_assert(driver_name);
++	igt_assert(!strcmp(driver_name, "drm_sched"));
++	free(driver_name);
++
++	sync[0].flags |= DRM_XE_SYNC_FLAG_SIGNAL;
++	syncobj_reset(xe, &sync[0].handle, 1);
++	xe_vm_unbind_async(xe, vm, 0, 0, exec.address, size, sync, 1);
++	igt_assert(syncobj_wait(xe, &sync[0].handle, 1, INT64_MAX, 0, NULL));
++
++	syncobj_destroy(xe, syncobj);
++	xe_exec_queue_destroy(xe, exec.exec_queue_id);
++
++	munmap(batch, size);
++	gem_close(xe, bo);
++
++	syncobj_destroy(xe, bind_syncobj);
++	xe_vm_destroy(xe, vm);
++
++	/* Give any delayed freeing time to run. */
++	sleep(1);
++
++	/* This should still work and not crash the kernel. */
++	driver_name = NULL;
++	igt_assert_eq(sync_file_get_status(sync_fence, &driver_name), 1);
++
++	/* And must not read the original timeline/driver name either! */
++	igt_assert(driver_name);
++	igt_assert(!strcmp(driver_name, "detached-driver"));
++	free(driver_name);
++
++	close(sync_fence);
++}
++
++int igt_main()
++{
++	struct drm_xe_engine_class_instance *eci;
++	int xe;
++
++	igt_fixture() {
++		xe = drm_open_driver(DRIVER_XE);
++	}
++
++	igt_subtest("sync_file_race") {
++		xe_for_each_engine(xe, eci) {
++			test_race(xe, eci);
++			break;
++		}
++	}
++
++	igt_fixture() {
++		drm_close_driver(xe);
++	}
++}
+diff --git a/tests/meson.build b/tests/meson.build
+index 1ac89bab7e15..f83368695a0e 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -351,6 +351,7 @@ intel_xe_progs = [
+ 	'xe_sysfs_preempt_timeout',
+ 	'xe_sysfs_scheduler',
+         'xe_sysfs_timeslice_duration',
++	'xe_sync_file',
+         'xe_tlb',
+ ]
+ 
+-- 
+2.55.0
 
