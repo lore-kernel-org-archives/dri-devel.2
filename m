@@ -4,79 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2453C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EC3C79F99
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0575410E73D;
-	Mon,  7 Sep 2026 09:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34E8510E745;
+	Mon,  7 Sep 2026 09:59:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Jf8ZnWNU";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RBCObkqe";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B6310E73D
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:54:21 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-c2637dd37c1so186868266b.0
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 02:54:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1788774860; x=1789379660; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BgnlZVhlCEMT9ZJriynmZJUUk5Ix+RJKVKHSp62UhtI=;
- b=Jf8ZnWNUIXoxdeVWV10AFJcje0r6ZXn0pVLgJorZtVaqLNOIfYUfpSah4gING3BGxI
- nNn2jahPAn+KsATjkLcS5DWWaVpj77KXB4F0MiJy44tyfF5zDffRh+vMFruwRmdf+TrN
- bd/KiLE2PwFKTsd6UJk9Aifzi5EhxRtY678HtEfi7VFFfa3e1zIIYs2T6uRuGjFQ8P9n
- T9Ke9ZNDmpCguQULmyJK5ctRTGxOdWVQn8VhwyX89nxneG1/sfZbmnsCxHIocOIP5x7Y
- HnroqdgfqabbCC4by0nBMFggtvFuHYpNMRHJ6QsUE9qGEZWGPvSNUCttXWLkx65YpQ4b
- CvRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788774860; x=1789379660;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BgnlZVhlCEMT9ZJriynmZJUUk5Ix+RJKVKHSp62UhtI=;
- b=im0wYADkA5w4bIs8oodBZirhU3BcvnEkT+hoioDISbxajyO9twEwCgNRS0AvLOEtdj
- UkyMTcGgRV/xRVB7NAvQsmJexp+ks9znYaPJRDNdjY15LcjOji/2SAxvy0nVC82LXBtF
- 4nH1BynvSne4BPLxGei6RlR1dzkjMiBIYrjySoi+G4pkDU+hu2sGIcDy+0TBmmUhMvUA
- qhdPNTifDaB0vwFHmJYCOcFNdvttSaiAiVz+xik+RtXFzX41eOIoSXHTA1ADwSpt+X+9
- OpEghRbS/CDO+LuE6FBw1SruodKURqGuKNvKn6Czkzt9JwqJl9conShAV0WXapfLzZeK
- /4Jw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw9sAdhaeUwS+RJ06KUnsdUR+PvvlfS6yad/A/zGim4gICFJHSetec05cLC0NLn37t+P9LfWTneQak=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nuME8eX0S2EU+lS7tv0Hw5aOHWreTSybi2r3qkPoNbyMFYNOuE
- YKZNktB1DNoC5BMdJ8LuZt0w+sHx8X+vxb3eQDh3w0098IiqjshH/oxtNfdhm7TEMuA=
-X-Gm-Gg: AYBFou1n9CFhRanzgJFjkEHu2Dk5txKwWZhJ1uoEfHeZQ6x3d3ewSt3AJ7xihufk1Cb
- epJlMfZFoM4p8qxYrzzLaaRnNXnqSqm5AxsaN34W99AQ53zIbf/71kjhpczGCTTOhSHWrjxi/4G
- Ns6j91/vLpulD2E61ZV7gRzOnxJIysE9d8yLo9QMq0GqHN0mANkK3UYK0wt5qzIus5k5eGcwugJ
- WtZWJOgPr+lUydYs3DR4SEL4MFeMM96Ae+yebW7uDR7ZTgnwXctjAsAYA407iFe1EkkOcAHZqZz
- hG9H7bbsO3OgkGGQEg882IeUXUb5s7Qvflw8Czy5uWsOmWddGyzHLkwSZoHND77nb0jr4PwqDag
- O2i6Xb/bZ7OYiDu8feiInZa6k1HVJaY6a343NVqjtPufB6NeuZmZr52T+WuekEeNb8n3egU+8oZ
- Nspl9OlDBI79TQUtqJw2ckUxJYUurfG8IFu6QSuUdekG7VZ8gYPYwah1u+J9wsGQiSx6+cR2GYg
- AH4
-X-Received: by 2002:a17:907:9815:b0:c26:1649:47b2 with SMTP id
- a640c23a62f3a-c2616495665mr666155066b.40.1788774859903; 
- Mon, 07 Sep 2026 02:54:19 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c260d53c37csm434533766b.32.2026.09.07.02.54.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2026 02:54:19 -0700 (PDT)
-Message-ID: <30c0848e-e8f6-4bb7-8505-89316158c49e@ursulin.net>
-Date: Mon, 7 Sep 2026 10:54:18 +0100
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 556AC10E745
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:59:29 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id EE937C45;
+ Mon,  7 Sep 2026 11:57:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1788775073;
+ bh=8MJKxxoccE8R0yQTP0Xn0yEz2tqNsX4Ml0v7HyjBe/0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RBCObkqevtvA6PD8XPgIjA+Iw5TAy3OzJlnKh7XeMYZXAH9sMNdXQKjDhFhrGCdVf
+ o9p5o+z1VwCKp4JaESH0yDvzuDsTba9jgOZiKbLNW1QJnqyX8T3nu8EXd/ONdC3uKY
+ rEbtykvpq3Y9V6Ap+LgBfIwZSVWj6d/YX0jpHxj0=
+Date: Mon, 7 Sep 2026 12:59:26 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260907095926.GA1672293@killaraus.ideasonboard.com>
+References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
+ <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
+ <20260702212423.GA3662157@killaraus.ideasonboard.com>
+ <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915: fix incorrect RCU teardown order
-To: christian.koenig@amd.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260903113621.54660-1-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260903113621.54660-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,66 +73,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 03/09/2026 12:36, Christian König wrote:
-> i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
-> over the fences in an GEM object without holding a reference but only
-> the RCU read side lock.
+On Mon, Sep 07, 2026 at 11:56:01AM +0300, Tomi Valkeinen wrote:
+> On 03/07/2026 00:24, Laurent Pinchart wrote:
+> > On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
+> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> >> crtc, when enabling the crtc.
+> >>
+> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> >> the DSI, the above call path is broken as the crtc tries to call
+> >> rcar_mipi_dsi_pclk_enable() on the DSC.
+> >>
+> >> To solve this problem, make sure we store the DSI bridge to the
+> >> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
+> >> (which can be DCS), by checking the bridge's bridge->type.
+> >>
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> >> ---
+> >>   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
+> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
+> >>   2 files changed, 17 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> >> index db2088529b48..ac85838ab3b8 100644
+> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> >> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+> >>   				drm_bridge_get(bridge);
+> >>   
+> >>   		if (output == RCAR_DU_OUTPUT_DSI0 ||
+> >> -		    output == RCAR_DU_OUTPUT_DSI1)
+> >> +		    output == RCAR_DU_OUTPUT_DSI1) {
+> >> +			struct drm_bridge *dsi_bridge;
+> >> +
+> >> +			/*
+> >> +			 * When we have a DSC block between the DU and the DSI,
+> >> +			 * the "bridge" points to the DSC. Detect the DSC by looking
+> >> +			 * at the bridge type, and skip the DSC if the bridge is not
+> >> +			 * the DSI bridge.
+> >> +			 */
+> >> +
+> >> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
+> >> +						     bridge :
+> >> +						     bridge->next_bridge;
+> > 
+> > The indentation looks weird.
+> > 
+> > 			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
+> > 				   ? bridge : bridge->next_bridge;
 > 
-> What can happen here is that the GEM object is destroyed concurrently
-> while i915_gem_busy_ioctl is still running. This won't free the GEM
-> objects memory, but still drops all the dma_fence references.
+> That looks even weirder, you are associating = and ? there. What about:
 > 
-> Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
-> assumes that a new fence list was installed and re-starts the loop.
-> 
-> But in the case of a destroyed GEM object a new fence list is never
-> installed, only the old one freed and therefore the iteration never
-> finishes resulting in an endless loop.
+> dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
+> 	     bridge : bridge->next_bridge;
 
-Only i915_busy can get into this failure mode? None of the other users 
-of the iterator?
+I like my version better :-)
 
-Also, the reference counting series makes the fix irrelevant?
-
+-- 
 Regards,
 
-Tvrtko
-
-> 
-> The solution is to drop the fence references only after the RCU grace
-> period.
-> 
-> The fixes tag is not necessary the patch introducing the problem, but the
-> one making it so worse that we need to address it.
-> 
-> This problem was pointed out by Sashiko-bot.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
-> CC: stable@vger.kernel.org
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> index 5172d3982654..9e01f8b2079a 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> @@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
->   
->   void i915_gem_object_free(struct drm_i915_gem_object *obj)
->   {
-> +	dma_resv_fini(&obj->base._resv);
->   	return kmem_cache_free(slab_objects, obj);
->   }
->   
-> @@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
->   {
->   	mutex_destroy(&obj->mm.get_page.lock);
->   	mutex_destroy(&obj->mm.get_dma_page.lock);
-> -	dma_resv_fini(&obj->base._resv);
->   }
->   
->   /**
-
+Laurent Pinchart
