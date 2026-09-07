@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DABCC79FAC
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 804E2C79FAA
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B7E610EA57;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5EDF10EA5B;
 	Tue,  8 Sep 2026 07:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="H0F7Lbb8";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="nznUTXLq";
 	dkim-atps=neutral
-Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch
- [185.125.25.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF9510E7E4
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:50:36 +0000 (UTC)
+Received: from smtp-42ac.mail.infomaniak.ch (smtp-42ac.mail.infomaniak.ch
+ [84.16.66.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F0E10E4DA
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:50:28 +0000 (UTC)
 Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
  [10.7.10.107])
- by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3t6t4GzyLn;
- Mon,  7 Sep 2026 14:50:34 +0200 (CEST)
+ by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3k3gqyz1p2;
+ Mon,  7 Sep 2026 14:50:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
- s=20250113; t=1788785434;
- bh=xJbCJLrq26ih/4yVkoexHS/EQCho0IOzi1vuZBofWos=;
+ s=20250113; t=1788785426;
+ bh=FSMW2HD+WgusnBjcbtcjOHidxkfywKTx62c2K4mKlFM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H0F7Lbb8u+iPmH22rmJb9kIu5Ay8RAWVqqgzgarEBtACCXx+r3FWw5Uperv1vkifl
- n0OWi0252a0Pk69R8c7xnruZ8s3LhS17x01PSGHeDmJkVzgMaSKab3MDAg0FMadywJ
- nBiprfOQ2GOTWKmXUaQ9OdWlTC3pppYAtVsb5eFEXHJ1xFJwhEm18DLWSurNO2sPnw
- HzGp0AOW5LTa8AH031Jz9utNo6PSPukof2PVn4lFEVg6I11Dn8PYkkv+OWgMn3RdhW
- iDWwFbKrfOjMSy9w8zMjODqWWVuWIiaO6xgWAQ/WSg91J9lA/rWC0EWyI09iO/2YhJ
- zT7TFALNhIBXg==
+ b=nznUTXLq1NCHpsJHL+LxK4bV7cE7sw4W5uosCjyz4EGAky0ZrI3B/l/IveQUbyfQG
+ 9UDUq82fTIvhMIlVb+ejKjKnsAOngLJKdc6w1gyEgHScN/5x4Rm6EQGe9ysHTBLmVz
+ g41ENU2qTftEHtwSBs7RWnlNMrGn3sL6VitvXFdud12FA+bwP8Ez9ufM4w+XX7H7bX
+ wgzgzbIwqJ3MFOiwKeY13M088uh+Cnd86eE0HiJeOYARp9qdh2fBAl622dkqW/5733
+ zruzvDF3bHT5pbyI/qs3Xnv6au1u8/CyZIzBbbpSi7BchT9BpkKJ2wCy/dBWRPoljm
+ ZjysRehlZQQ8A==
 Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4hdn3t1ZDWzpKn; Mon,  7 Sep 2026 14:50:34 +0200 (CEST)
+ id 4hdn3c58X6zn9F; Mon,  7 Sep 2026 14:50:20 +0200 (CEST)
 From: Adrian Betschart <adrian.betschart@cinemaone.ch>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
@@ -39,17 +39,17 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] drm/amd/display: size frame-packed streams by the
- doubled timing
-Date: Mon,  7 Sep 2026 14:50:15 +0200
-Message-ID: <20260907125015.69811-4-adrian.betschart@cinemaone.ch>
+Subject: [PATCH v3 1/3] drm/amd/display: support HDMI 1.4 3D modes on HDMI
+ connectors
+Date: Mon,  7 Sep 2026 14:50:13 +0200
+Message-ID: <20260907125015.69811-2-adrian.betschart@cinemaone.ch>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
 References: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
-X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:44 +0000
+X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,142 +65,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A frame-packed 3D mode scans out both views and the active space
-between them in one frame, so the CRTC is 2205 lines tall for a
-1080p mode. The stream scaling code took the source height from
-mode->vdisplay (1080) against the 2205-line addressable destination;
-with aspect scaling that keeps 1080 lines and centres them, so the
-first view is stretched across both eye windows and the second view
-is never shown. The plane viewport check clipped planes to
-crtc_vdisplay for the same reason.
+Allow the stereo modes drm_edid derives from a sink's HDMI VSDB on
+HDMI connectors, and drive them the way a 2D stream is driven: the
+source (compositor or media player) lays both views out in the frame
+itself - side by side, top and bottom, or the doubled frame-packing
+timing with the 45-line active space between the eyes - and the only
+3D-specific output is the HDMI vendor infoframe that tells the sink
+how the frame is laid out.
 
-Use drm_mode_get_hv_timing(), which returns the doubled height for
-stereo modes and the plain display size otherwise, in both places.
+Keep the DC timing at TIMING_3D_FORMAT_NONE for all of them. Any DC
+stereo timing format, including the SW_PACKED variants, makes the
+hardware treat the surface as two views: the pipe is split and both
+view addresses point at the same surface, so the whole frame ends up
+in each half of the output. The new vsif_3d_format stream field
+carries the layout to mod_build_hf_vsif_infopacket() instead, so the
+VSIF is right and stays right when the freesync code rebuilds it for
+ALLM.
 
-Measured on a Radeon RX 7600 with a frame-packed 1920x1080p24 mode:
-before, a row-coded 2205-line test frame showed rows of the first
-view in both eyes; after, each eye receives its own view.
+Frame packing needs the doubled CRTC timing; pass CRTC_STEREO_DOUBLE
+wherever amdgpu_dm recomputes the CRTC fields itself.
 
-The plane KUnit tests mocked only the CRTC-adjusted size; set the mode size
-they now derive it from as well.
+Limit stereo_allowed to native HDMI connectors: on the DP-to-HDMI
+converter paths link validation rejects the 3D timings.
+
+Tested on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100
+projector through an HDFury VRROOM, with Kodi rendering the packed
+frames: frame packing, top-and-bottom and side-by-side at
+1920x1080p24, RGB 12 bpc, all engage the projector's 3D mode with
+correct per-eye geometry and eye assignment (checked with per-eye
+test patterns through shutter glasses).
+
+Two paths in create_stream_for_sink() would otherwise replace what the
+mode carries: decide_crtc_timing_for_drm_display_mode() copies the
+native CRTC timing over a mode with matching clock and totals or when
+scaling is on, which for frame packing is the doubled timing, and
+amdgpu_dm_is_freesync_video_mode() can match a stereo mode whose base
+timing equals the FreeSync base mode and swap in the 2D mode, dropping
+the 3D flags. A stereo mode keeps its own CRTC timing and is never a
+FreeSync video mode; KUnit cases cover both.
 
 Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 11 ++++++++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 13 +++++++++----
- .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c  | 12 ++++++++++++
- 3 files changed, 29 insertions(+), 7 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 47 ++++++++++-
+ .../tests/amdgpu_dm_connector_test.c          | 80 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++
+ .../display/modules/info_packet/info_packet.c |  3 +
+ 4 files changed, 135 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 987d98918..2d7dc001e 100644
+index 0e71ba498..987d98918 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1418,9 +1418,14 @@ void amdgpu_dm_update_stream_scaling_settings(struct drm_device *dev,
- 	if (!mode)
- 		return;
+@@ -851,6 +851,25 @@ STATIC_IFN_KUNIT bool adjust_colour_depth_from_display_info(
+ }
+ EXPORT_IF_KUNIT(adjust_colour_depth_from_display_info);
  
--	/* Full screen scaling by default */
--	src.width = mode->hdisplay;
--	src.height = mode->vdisplay;
-+	/*
-+	 * Full screen scaling by default. A frame-packed 3D mode scans out the
-+	 * doubled timing, so the source size is the CRTC size, not vdisplay:
-+	 * with 1080 lines against a 2205-line destination the aspect fit would
-+	 * keep 1080 lines and centre them, putting the first view across both
-+	 * eye windows and none of the second.
-+	 */
-+	drm_mode_get_hv_timing(mode, &src.width, &src.height);
- 	dst.width = stream->timing.h_addressable;
- 	dst.height = stream->timing.v_addressable;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 0a5a73472..8db656ef8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1407,16 +1407,21 @@ int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
- 		if (state->plane->type != DRM_PLANE_TYPE_CURSOR) {
- 			int viewport_width = state->crtc_w;
- 			int viewport_height = state->crtc_h;
-+			int mode_hdisplay, mode_vdisplay;
++/*
++ * 3D layout to announce in the HDMI vendor infoframe for a DRM 3D mode. The
++ * stream timing itself stays 2D (see fill_stream_properties_from_drm_display_mode).
++ */
++static enum dc_timing_3d_format amdgpu_dm_vsif_3d_format(unsigned int mode_flags)
++{
++	switch (mode_flags & DRM_MODE_FLAG_3D_MASK) {
++	case DRM_MODE_FLAG_3D_FRAME_PACKING:
++		return TIMING_3D_FORMAT_SW_FRAME_PACKING;
++	case DRM_MODE_FLAG_3D_TOP_AND_BOTTOM:
++		return TIMING_3D_FORMAT_TB_SW_PACKED;
++	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF:
++	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_FULL:
++		return TIMING_3D_FORMAT_SBS_SW_PACKED;
++	default:
++		return TIMING_3D_FORMAT_NONE;
++	}
++}
 +
-+			/* frame-packed 3D scans out the doubled timing */
-+			drm_mode_get_hv_timing(&new_crtc_state->mode,
-+					       &mode_hdisplay, &mode_vdisplay);
+ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	struct dc_stream_state *stream,
+ 	const struct drm_display_mode *mode_in,
+@@ -887,7 +906,15 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	 */
+ 	timing_out->pixel_encoding = requested_encoding;
  
- 			if (state->crtc_x < 0)
- 				viewport_width += state->crtc_x;
--			else if (state->crtc_x + state->crtc_w > new_crtc_state->mode.crtc_hdisplay)
--				viewport_width = new_crtc_state->mode.crtc_hdisplay - state->crtc_x;
-+			else if (state->crtc_x + state->crtc_w > mode_hdisplay)
-+				viewport_width = mode_hdisplay - state->crtc_x;
++	/*
++	 * The source packs both views into the frame itself (side-by-side,
++	 * top-and-bottom, or the doubled frame-packing timing), so the display
++	 * core scans it out as a plain 2D stream and only the HDMI vendor
++	 * infoframe tells the sink how the frame is laid out. Any DC stereo
++	 * timing format would make the hardware treat the surface as two views.
++	 */
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
++	stream->vsif_3d_format = amdgpu_dm_vsif_3d_format(mode_in->flags);
+ 	timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
+ 		connector,
+ 		(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
+@@ -992,6 +1019,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 					const struct drm_display_mode *native_mode,
+ 					bool scale_enabled)
+ {
++	/*
++	 * A stereo mode has to go out at its own timing: frame packing's CRTC
++	 * timing is the doubled one, and a side-by-side or top-and-bottom mode
++	 * scaled to the native timing would announce a layout the sink cannot
++	 * pair with what it receives.
++	 */
++	if (drm_mode->flags & DRM_MODE_FLAG_3D_MASK)
++		return;
++
+ 	if (scale_enabled || (
+ 	    native_mode->clock == drm_mode->clock &&
+ 	    native_mode->htotal == drm_mode->htotal &&
+@@ -1120,6 +1156,10 @@ bool amdgpu_dm_is_freesync_video_mode(const struct drm_display_mode *mode,
+ 	if (!high_mode || !mode)
+ 		return false;
  
- 			if (state->crtc_y < 0)
- 				viewport_height += state->crtc_y;
--			else if (state->crtc_y + state->crtc_h > new_crtc_state->mode.crtc_vdisplay)
--				viewport_height = new_crtc_state->mode.crtc_vdisplay - state->crtc_y;
-+			else if (state->crtc_y + state->crtc_h > mode_vdisplay)
-+				viewport_height = mode_vdisplay - state->crtc_y;
++	/* a stereo mode is never one of the inserted FreeSync video modes */
++	if (mode->flags & DRM_MODE_FLAG_3D_MASK)
++		return false;
++
+ 	timing_diff = high_mode->vtotal - mode->vtotal;
  
- 			if (viewport_width < 0 || viewport_height < 0) {
- 				DRM_DEBUG_ATOMIC("Plane completely outside of screen\n");
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index 1b39f41c8..80a952d47 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -642,6 +642,8 @@ static void dm_test_helper_check_state_viewport_reject(struct kunit *test)
- 	state->crtc_y = 0;
- 	state->crtc_w = 100;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 100;
-+	new_crtc_state->mode.vdisplay = 100;
- 	new_crtc_state->mode.crtc_hdisplay = 100;
- 	new_crtc_state->mode.crtc_vdisplay = 100;
+ 	if (high_mode->clock == 0 || high_mode->clock != mode->clock ||
+@@ -1451,6 +1491,8 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	struct dc_sink *sink = NULL;
  
-@@ -2286,6 +2288,8 @@ static void dm_test_helper_check_state_small_viewport_width(struct kunit *test)
- 	state->crtc_y = 0;
- 	state->crtc_w = 10;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 1080;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 1080;
+ 	drm_mode_init(&mode, drm_mode);
++	/* frame packing scans out both views plus the active space in one frame */
++	drm_mode_set_crtcinfo(&mode, CRTC_STEREO_DOUBLE);
+ 	memset(&saved_mode, 0, sizeof(saved_mode));
  
-@@ -2327,6 +2331,8 @@ static void dm_test_helper_check_state_small_viewport_height(struct kunit *test)
- 	state->crtc_y = -95;
- 	state->crtc_w = 100;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 1080;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 1080;
+ 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK) {
+@@ -2449,7 +2491,7 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
+ 	if (!test_mode)
+ 		goto fail;
  
-@@ -2369,6 +2375,8 @@ static void dm_test_helper_check_state_bottom_clipped_height(struct kunit *test)
- 	state->crtc_y = 95;
- 	state->crtc_w = 100;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 100;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 100;
+-	drm_mode_set_crtcinfo(test_mode, 0);
++	drm_mode_set_crtcinfo(test_mode, CRTC_STEREO_DOUBLE);
  
-@@ -2429,6 +2437,8 @@ static void dm_test_helper_check_state_scaling_caps(struct kunit *test)
- 	state->crtc_w = 200;
- 	state->crtc_h = 200;
- 	new_crtc_state->crtc = crtc;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 1080;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 1080;
+ 	stream = amdgpu_dm_create_validate_stream_for_sink(connector, test_mode,
+ 						 to_dm_connector_state(connector->state),
+@@ -3143,7 +3185,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	aconnector->dc_link = link;
+ 	aconnector->base.interlace_allowed = false;
+ 	aconnector->base.doublescan_allowed = false;
+-	aconnector->base.stereo_allowed = false;
++	/* HDMI 1.4 3D only; DP-to-HDMI converters reject the timings in link validation */
++	aconnector->base.stereo_allowed = connector_type == DRM_MODE_CONNECTOR_HDMIA;
+ 	aconnector->base.dpms = DRM_MODE_DPMS_OFF;
+ 	aconnector->hpd.hpd = AMDGPU_HPD_NONE; /* not used */
+ 	aconnector->audio_inst = -1;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 76334fb84..396e91013 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -1430,6 +1430,46 @@ static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
+ }
  
-@@ -2738,6 +2748,8 @@ static struct amdgpu_device *dm_test_init_atomic_check_state(struct kunit *test,
++/**
++ * dm_test_decide_crtc_timing_keeps_stereo_mode - A stereo mode keeps its own CRTC timing
++ * @test: The KUnit test context
++ */
++static void dm_test_decide_crtc_timing_keeps_stereo_mode(struct kunit *test)
++{
++	struct drm_display_mode drm_mode = {};
++	struct drm_display_mode native_mode = {};
++
++	/* The native mode is the 2D twin of the frame-packed one: same base timing ... */
++	native_mode.clock = 74250;
++	native_mode.htotal = 2750;
++	native_mode.vtotal = 1125;
++	native_mode.crtc_clock = 74250;
++	native_mode.crtc_hdisplay = 1920;
++	native_mode.crtc_vdisplay = 1080;
++	native_mode.crtc_htotal = 2750;
++	native_mode.crtc_vtotal = 1125;
++
++	/* ... so it matches, but the stereo mode's CRTC timing is the doubled one and must stay */
++	drm_mode.clock = 74250;
++	drm_mode.hdisplay = 1920;
++	drm_mode.vdisplay = 1080;
++	drm_mode.hsync_start = 2558;
++	drm_mode.hsync_end = 2602;
++	drm_mode.htotal = 2750;
++	drm_mode.vsync_start = 1084;
++	drm_mode.vsync_end = 1089;
++	drm_mode.vtotal = 1125;
++	drm_mode.flags = DRM_MODE_FLAG_3D_FRAME_PACKING;
++	drm_mode_set_crtcinfo(&drm_mode, CRTC_STEREO_DOUBLE);
++	KUNIT_ASSERT_EQ(test, drm_mode.crtc_vdisplay, 2205);
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2205);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vtotal, 2250);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_clock, 148500);
++}
++
+ /* Tests for amdgpu_dm_connector_funcs_reset() */
  
- 	(*new_crtc_state)->crtc = crtc;
- 	(*new_crtc_state)->enable = true;
-+	(*new_crtc_state)->mode.hdisplay = 1920;
-+	(*new_crtc_state)->mode.vdisplay = 1080;
- 	(*new_crtc_state)->mode.crtc_hdisplay = 1920;
- 	(*new_crtc_state)->mode.crtc_vdisplay = 1080;
+ static const struct drm_connector_funcs dm_test_connector_funcs = {
+@@ -2293,6 +2333,44 @@ static void dm_test_is_freesync_video_mode_match(struct kunit *test)
+ 	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_freesync_video_mode(&candidate, aconnector));
+ }
  
++/**
++ * dm_test_is_freesync_video_mode_rejects_stereo - A stereo mode with matching timing returns false
++ * @test: The KUnit test context
++ */
++static void dm_test_is_freesync_video_mode_rejects_stereo(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	/* Cached high mode acts as reference */
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	aconnector->freesync_vid_base.clock = 148500;
++	aconnector->freesync_vid_base.hdisplay = 1920;
++	aconnector->freesync_vid_base.vdisplay = 1080;
++	aconnector->freesync_vid_base.hsync_start = 2008;
++	aconnector->freesync_vid_base.hsync_end = 2052;
++	aconnector->freesync_vid_base.htotal = 2200;
++	aconnector->freesync_vid_base.vsync_start = 1084;
++	aconnector->freesync_vid_base.vsync_end = 1089;
++	aconnector->freesync_vid_base.vtotal = 1125;
++
++	candidate.clock = 148500;
++	candidate.hdisplay = 1920;
++	candidate.vdisplay = 1080;
++	candidate.hsync_start = 2008;
++	candidate.hsync_end = 2052;
++	candidate.htotal = 2200;
++	candidate.vsync_start = 1084;
++	candidate.vsync_end = 1089;
++	candidate.vtotal = 1125;
++	candidate.flags = DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF;
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_freesync_video_mode(&candidate, aconnector));
++}
++
+ /**
+  * dm_test_is_freesync_video_mode_no_match - Test mismatched mode returns false
+  * @test: The KUnit test context
+@@ -8468,6 +8546,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
++	KUNIT_CASE(dm_test_decide_crtc_timing_keeps_stereo_mode),
+ 	/* amdgpu_dm_connector_funcs_reset */
+ 	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
+ 	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
+@@ -8521,6 +8600,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_is_freesync_video_mode_null_mode),
+ 	KUNIT_CASE(dm_test_is_freesync_video_mode_match),
+ 	KUNIT_CASE(dm_test_is_freesync_video_mode_no_match),
++	KUNIT_CASE(dm_test_is_freesync_video_mode_rejects_stereo),
+ 	/* update_subconnector_property */
+ 	KUNIT_CASE(dm_test_update_subconnector_dp_with_sink),
+ 	KUNIT_CASE(dm_test_update_subconnector_dp_no_sink),
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 934ae381e..e6fd75b87 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -235,6 +235,13 @@ struct dc_stream_state {
+ 
+ 	enum view_3d_format view_format;
+ 
++	/**
++	 * @vsif_3d_format: 3D layout announced in the HDMI vendor infoframe when
++	 * the source packs both views into the frame itself and the timing is
++	 * therefore left at TIMING_3D_FORMAT_NONE.
++	 */
++	enum dc_timing_3d_format vsif_3d_format;
++
+ 	bool use_vsc_sdp_for_colorimetry;
+ 	bool ignore_msa_timing_param;
+ 
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 32b697f46..13478b8bd 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -536,6 +536,9 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		format = stream->timing.timing_3d_format;
+ 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
+ 			format = TIMING_3D_FORMAT_NONE;
++		/* a 2D scanout of a frame the source packed itself */
++		if (format == TIMING_3D_FORMAT_NONE)
++			format = stream->vsif_3d_format;
+ 
+ 		if (stream->timing.hdmi_vic != 0
+ 				&& stream->timing.h_total >= 3840
 -- 
 2.43.0
 
