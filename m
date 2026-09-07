@@ -4,54 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11102C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:28:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C06B0C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4366510E6A0;
-	Mon,  7 Sep 2026 07:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0496E10E472;
+	Mon,  7 Sep 2026 07:30:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MZZ9cJPc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eQKYpXh6";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YsKBTGZM";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2AB10E6AA
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 07:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1788766091;
- bh=NxyW9v3JENfcIKJsKKLIcuxuhmnS0ifPJx4kRmLi404=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=MZZ9cJPcWRo5IMqJSs3uMeXT9hVAKiuMNKMClPTKNMCOAJ8FqgJdsxglAsWYYB7Zu
- QF/zlXntn6zEyg4wzbnIbJ8ZXWUGS+y5bC0t04y2XOAb2T4dCT4qeAJzlzD8w07BCX
- Zn3VxSnIy7/yW4fDCBZt9cq4eAknN/oxdWPVp9JlI+zJngEeNTN+pK2pTeJ1uJ0fhE
- TWDRULfN6cVsHdIuverQFU1/l0ZMnvZP6uBCvcNA+Oau+Q7NwTaG3/F83svwjTbnPP
- zX0mJ9jCEbeQdcN8KFllMBUzY5xhydCBoVSAd/w9IvMb7CuA4xQ0Btdhw/x6mtzk0k
- F6zXhcbD4jDvw==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0C2A817E0936;
- Mon, 07 Sep 2026 09:28:11 +0200 (CEST)
-Date: Mon, 7 Sep 2026 09:28:06 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v3] drm/panthor: Display priorities of panthor groups
- over debugfs
-Message-ID: <20260907092806.2ff9dc8c@fedora-21.home>
-In-Reply-To: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
-References: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB62710E472
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 07:30:55 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68777D3u2838543
+ for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 07:30:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ gLaUNshqrh7dT0Uzc85c+IqgRr+LZ636BwE3MsVsMks=; b=eQKYpXh6XYU9bkVA
+ RAOzNKZz8Ln0WFhl/+MjM4HUzkcWpTKp7lvj3KSEB7UUOlp1s7udTNRxwqaK8PK+
+ 2wzSfMpQm4eXAZW0O/8q/UqR1vSLhCT0BVXZ4QKofQJApUp2O+V3g2Vx7eVfmlzE
+ CIAcyj175gn9FvT+zGG83Hp5Dx3Hn2FOgaaxu2kithJrTxF1qVqZCbzNwZ+XSxVE
+ 12q2LMm2kJsF5T2KAcSj9wYoW+BBgmHzVBnfL+yEK4Pyc9Ow0hF9Wcw/igrIW0Ob
+ YLPiPqPj3u88aoQSB0msvdqfWnT6Kirod1wr8CmPIVpFfzKI8BWyIxZ2ON6QWkvz
+ FQeYIw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggbuenq9q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 07:30:55 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-91045c83dbaso8181936d6.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 00:30:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788766254; x=1789371054;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=gLaUNshqrh7dT0Uzc85c+IqgRr+LZ636BwE3MsVsMks=;
+ b=YsKBTGZMhGhOhcBXLkKaO+Pnv7OFab5I6E6uh8OBk2UnbseIgKWvr8HSxLgd1hM7e0
+ +qQltLNQkL5DEujSATdMHcMidBLMUepW8y6z9gx/2cmMfLMtvJEq8KIEoDAjw5uK5/Vj
+ 7cOSjS0HL9D2lyQdrqOk6NMAZXBSqfso0CTxPA308K29qutCCrZaqIo/oOuq5mHNA7Ue
+ Nt9/6pLCKetgW2SWJSxEHV4Ya+evNfaCqRzpLDvFGuYfKSV8wD0dXTR1TBDKUUoCdShf
+ bD2GfNeGAY4uYWlSH14JvSEAFeU8qgGSBi7gdlX+wiQKaMVdEklhyp+bc83jYd15X0RY
+ cxDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788766254; x=1789371054;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gLaUNshqrh7dT0Uzc85c+IqgRr+LZ636BwE3MsVsMks=;
+ b=f+QPGXr84646xnCs9hkdS5mCeZyLPO0Vpk3WW2d7HIw1U+5tZwRpmps33AfG/EhGdI
+ b+a0C9BcZsSBWd8s2gWQa466Yw8/cZmsxUFwYYHJ3satWT7Yfv21d3FzqCaRZoPidbnT
+ ulXFe+JZIjFJBONXEYGCwpGoFrHm7jlIz2CnWeEY+nYKK91dRWCoxZoAc6shAT/KLlh1
+ SZ92h2kDFLyxsKzfcwpdZYon9wlXZjBcH47CLxxDtyQXpPqV3Awf/QgiJpYROMWDRsNs
+ i2Bv2ovCaw1rvJD0WzU2lCUoTkz6V5VIbngDqztoQxFsl6ysI9NjmFK6lmsLEhrsQc2N
+ pHIQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByl2Tpca7ipAbSCQC+SOZpp0TIL3i09j3XMfwuBYOwwdgUqtfve+l/pGXFw9mS/uU/qJdZagUgj/VQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nkjZ4BDCr2UN8iqO1WCLGDYDF4zBlOi8fx1Kk89JT04gcyFW7E
+ 8ByZOdzfzVS5nsAmhkv9uttlAxrmEWXEOY96eExYGeSc0zzl8WUfrTnlA2qwIWxqFu8wb3XV5Ff
+ NWl99WWMiuPA4MggUckSDwZ9CasFC1UmKt1TBvbLrb9dBNGYxMChTZqZWNbnicwrk5S9VXzQ=
+X-Gm-Gg: AYBFou002oC21AuoLKOWmcvQqe/c2Kv+LomCh+vgFRjg399exZ9ZUONzBN+ZrVJ3WMf
+ ejFxODfHQp0cwuO38PhmBcofcmS4CKx+8tQFLUk1fd6RH8pjAopPYrvrxZjTAYw5fTPSMTdb+tO
+ GrD9ieMHSmB0w1ETsMNgySFtt8Kd4n/dhCVg/LeSbg7tmHT5IsHeyxSm8CwcL/ZAjyiSh8bmv2h
+ O/zEWK8c4Ty9PHaQctc2QmTUmBthP0MVBwF96h3YiYGxmDVMYQoMnsWpplMBVCWk6szOpd4F5PC
+ eqn/o6U4mBItUQrdNuHS932offSiqddoMZVb1aVp3U7YffEuruUFsLlSjhbCh4Cu3UZ9L/GgeGj
+ gcs09iQVmK3U7BTTDIDmmeA==
+X-Received: by 2002:a05:620a:448b:b0:939:8148:1e3d with SMTP id
+ af79cd13be357-939916fe312mr1067521285a.2.1788766254399; 
+ Mon, 07 Sep 2026 00:30:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:448b:b0:939:8148:1e3d with SMTP id
+ af79cd13be357-939916fe312mr1067518485a.2.1788766253945; 
+ Mon, 07 Sep 2026 00:30:53 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c260d503f96sm420254766b.26.2026.09.07.00.30.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2026 00:30:53 -0700 (PDT)
+Message-ID: <66064071-c83b-4e6b-930f-9ade224e036f@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 09:30:50 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Fix the separate_gpu_kms parameter description
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260906170347.2427-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260906170347.2427-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA3OSBTYWx0ZWRfX52G7OZVF9onW
+ Q6Ddsprx7NbofmzWg16MhaC7qaYrnbtszRKoVh6m8zEgiIdp+7tnkNowU2kA2Uofu3gj83G0DsI
+ +SWIm04Nrr/0K/Hg5nNnzMjY70C76CHLY80QqWSw0bjMRVkIV/nnU12Hj29lWzvH7J/d4k+oxus
+ nwFckmLK4vYG6XRBeokz/z2XZ8aRSdu9yHOSmpasb7S6krDCDVWcT9aZthbk79ze02Jdrk6thnP
+ B9tEQqcqtJovPE7QBy94Wt8eAtmM6i/gfNZTIWbLW4uwqohsQkCTazlSMucq6G0Z9gg/i/T5ipy
+ 1qQPCHi9yj77EA+bsQCNkremt/Hx1NqjtGKmwNT71TIzAKJp3odXyyGooRFJwSTbh7iHss/ruHr
+ 8cbqukBGXvnAvMpKx3EFaEdpK2A++JmXwv/BbZWbTF5IkotzW8qzyFIC6fIAS8dQRc0KVgmgPrX
+ pen5eXctOYZEhcymOaA==
+X-Authority-Analysis: v=2.4 cv=P8AKQCAu c=1 sm=1 tr=0 ts=6a9e682f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=ebZoJKtv0rFVGLU1xKgA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: jnu2UtBjPL1Q43johXUYhEdJsdaLVnzj
+X-Proofpoint-ORIG-GUID: jnu2UtBjPL1Q43johXUYhEdJsdaLVnzj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA3OSBTYWx0ZWRfX0E0J9xZ5oCgE
+ BOvRRrxxwVIsEWgWWT0uIBR8LXZkKmdYxZ0WpQ02iZ3MbLBYdenFGHLadr61+nPei4w/hOByJOd
+ p74DRVWn4N2yetI13wblow9GgssyHJk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070079
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,167 +149,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 04 Sep 2026 19:38:09 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-
-> Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
-> Display list of device JM contexts over debugfs") for panfrost, add
-> similar debugfs information for panthor.
+On 9/6/26 7:03 PM, Karl Mehltretter wrote:
+> The module parameter is separate_gpu_kms, but its MODULE_PARM_DESC()
+> names separate_gpu_drm, so modinfo describes a parameter that does not
+> exist and shows no description for the real one.
 > 
-> The group priority does not change over the lifetime of the group, so no
-> effort to synchronise with the scheduler lock is being made.
+> Use the parameter name in the description.
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
+> Fixes: 217ed15bd399 ("drm/msm: enable separate binding of GPU and display devices")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
-> Changes in v3:
-> - Move group number to after the per-file specific information, which
->   helps readability
-> - Link to v2: https://patch.msgid.link/20260831-panthor-sched-group-prio-v2-1-a74c79b4b830@collabora.com
-> 
-> Changes in v2:
-> - Take groups xa lock around the loop in show_file_groups to guard
->   against group object UAF
-> - Flatten the listing, removing most of the code in show_each_file,
->   printing that info for each group instead
-> - Also show queue count for each group
-> - Link to v1: https://patch.msgid.link/20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
->  drivers/gpu/drm/panthor/panthor_sched.c | 73 +++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_sched.h |  5 +++
->  3 files changed, 79 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 46a3080b0b20..8cdba0c1a14b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
->  {
->  	panthor_mmu_debugfs_init(minor);
->  	panthor_gem_debugfs_init(minor);
-> +	panthor_sched_debugfs_init(minor);
->  }
->  #endif
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 60b2417deb81..ac6aee554820 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0 or MIT
->  /* Copyright 2023 Collabora ltd. */
->  
-> +#include <drm/drm_debugfs.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_exec.h>
->  #include <drm/drm_file.h>
-> @@ -4175,3 +4176,75 @@ int panthor_sched_init(struct panthor_device *ptdev)
->  	ptdev->scheduler = sched;
->  	return 0;
->  }
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +
-> +static const char *
-> +panthor_sched_prio_str(enum panthor_csg_priority prio)
-> +{
-> +	switch (prio) {
-> +	case PANTHOR_CSG_PRIORITY_LOW:
-> +		return "LOW";
-> +	case PANTHOR_CSG_PRIORITY_MEDIUM:
-> +		return "MEDIUM";
-> +	case PANTHOR_CSG_PRIORITY_HIGH:
-> +		return "HIGH";
-> +	case PANTHOR_CSG_PRIORITY_RT:
-> +		return "REAL-TIME";
-> +	default:
-> +		return "UNKNOWN";
-> +	}
-> +}
-> +
-> +static int show_file_groups(struct drm_file *file, struct seq_file *m)
-> +{
-> +	struct panthor_file *pfile = file->driver_priv;
-> +	struct panthor_group *group;
-> +	unsigned long i;
-> +
-> +	if (IS_ERR_OR_NULL(pfile->groups))
-> +		return -ENOENT;
-> +
-> +	xa_lock(&pfile->groups->xa);
-> +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
-> +		seq_printf(m, "client_id %8llu pid %8d command %s: group %2lu priority %s queue count %u\n",
-> +			   file->client_id, group->task_info.pid, group->task_info.comm, i,
-> +			   panthor_sched_prio_str(group->priority), group->queue_count);
-> +	}
-> +	xa_unlock(&pfile->groups->xa);
-> +
-> +	return 0;
-> +}
-> +
-> +static int show_each_file(struct seq_file *m, void *arg)
-> +{
-> +	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_device *ddev = node->minor->dev;
-> +	int (*show)(struct drm_file *, struct seq_file *) =
-> +		node->info_ent->data;
-> +	struct drm_file *file;
-> +	int ret;
-> +
-> +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
-> +		list_for_each_entry(file, &ddev->filelist, lhead) {
-> +			ret = show(file, m);
-> +			if (ret < 0)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct drm_info_list panthor_sched_debugfs_list[] = {
-> +	{ "sched_groups", show_each_file, 0, show_file_groups },
-> +};
-> +
-> +void panthor_sched_debugfs_init(struct drm_minor *minor)
-> +{
-> +	drm_debugfs_create_files(panthor_sched_debugfs_list,
-> +				 ARRAY_SIZE(panthor_sched_debugfs_list),
-> +				 minor->debugfs_root, minor);
-> +}
-> +
-> +#endif /* CONFIG_DEBUG_FS */
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
-> index 9a8692de8ade..d87cbdba4d40 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.h
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.h
-> @@ -10,6 +10,7 @@ struct drm_file;
->  struct drm_gem_object;
->  struct drm_sched_job;
->  struct drm_memory_stats;
-> +struct drm_minor;
->  struct drm_panthor_group_create;
->  struct drm_panthor_queue_create;
->  struct drm_panthor_group_get_state;
-> @@ -55,4 +56,8 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events);
->  
->  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile);
->  
-> +#ifdef CONFIG_DEBUG_FS
-> +void panthor_sched_debugfs_init(struct drm_minor *minor);
-> +#endif
-> +
->  #endif
-> 
-> ---
-> base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
-> change-id: 20260814-panthor-sched-group-prio-c987f6a15690
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
