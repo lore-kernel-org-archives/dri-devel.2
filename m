@@ -4,62 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16048C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:42:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32F07C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4520110E737;
-	Mon,  7 Sep 2026 09:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECC110E74B;
+	Mon,  7 Sep 2026 09:42:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="nV41wau/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ThXAav+V";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD4E10E745
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:42:36 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hdhtx2ZGMzKmTV;
- Mon, 07 Sep 2026 11:42:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788774153; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LNnph2fUPi7dxoCoaqnz1jcXuoTMMkQ5gHDdEQktIDo=;
- b=nV41wau/oBQZfHbzaNMbzbcu7r3stEQrxi3RAGWvTZRNZhHI6f3peB2RdQzA0avlIz0b6r
- hcT8WOPYxb/HDp85vQSiV3qlcejUGjCMjHdbfac9gyYHTxyDpDQLOEKMqMeVu/QrfwtTXf
- vAu/nl5X4NLPbo++yMtDLYLSjlJDkT1s/QeQsMPp7nxQtIFKKL5rya5+FymuEDOULzjuEA
- xrgjjaY6QYhzUy8r8+WMeXMGjO9CSVnovtTH7Djg2dZrftCKQpv5dDMGYGZ4zMPaetfjuE
- BG8yU7rvxnkg2cf0AH8ImF39R4PYNbkep6Ipwi07coE+C783Ar1B1/njCz2xbg==
-Message-ID: <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, 	matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 11:42:28 +0200
-In-Reply-To: <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 910D810E49E
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:42:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B31B960052;
+ Mon,  7 Sep 2026 09:42:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049221F00A3A;
+ Mon,  7 Sep 2026 09:42:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788774172;
+ bh=UkvRBTt8pkA8VEUwAYaOuhNKPkFMbDmktaGuHho3y1s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ThXAav+Vm7TqfWfMzyyxY2Ahg/SAvyCsqFdt4apHOU+/9J/7qB4E2gncOdRSMwe+7
+ hc7j0miuCfDH7tnGZV/J0UUEPwyYfytjB8CEewiATb6jv+uKHNxga6AsLG9g309701
+ CWXBAT+fYZOfNCslYKQO+TJlAQcOWhGPm3X6MYTFCqClY9DDtsEeI1VuWybzZXmGRg
+ FwjSB5C1ZkmELhRzK0Q/x8W4Q2oJTVxQG5AfU5e/rMGG3hqB8ViPmadc+AvOmobotg
+ ssesRkePWa/6pA8010VP+LLvd/C+AhJB4tvKHzZfdj3ahjJZYeamlANOuqxoetj6aC
+ DeZSE9eN/uJPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/6] drm/rcar-du: dsc: Add rudimentary Renesas R-Car
+ V4H DSC driver
+To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org,
+ wsa+renesas@sang-engineering.com
+In-Reply-To: <20260907-rcar-du-dsc-v6-2-f8ef711a7494@ideasonboard.com>
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
+ <20260907-rcar-du-dsc-v6-2-f8ef711a7494@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: i45czrcqg73okz4cgu8abyoebbqn6ayc
-X-MBO-RS-ID: cf6f129b25ec7581d08
+Date: Mon, 07 Sep 2026 09:42:51 +0000
+Message-Id: <20260907094252.049221F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,103 +56,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
->=20
->=20
-> On 04/09/2026 20:06, Philipp Stanner wrote:
->=20
-> 8><
->=20
-> > If you can think of a stupid and simple solution, shoot. The only thing
-> > I can think of is moving the string into the dma_fence, as a hard copy
-> > :)
-> >=20
-> >=20
-> > In the mean time, my proposal is to keep aiming for removing
-> > sched_fence->ops->release and fixing pvr and amdgpu.
->=20
-> Fixing the drivers sounds like an obvious thing to try indeed. Along the=
-=20
-> same lines as it was done for xe and panthor. It is an already=20
-> established and well understood approach so shouldn't be controversial.=
-=20
-> After that we can discuss in leisurely pace if something better is=20
-> possible in the scheduler core.
->=20
-> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is=
-=20
-> it significantly more complicated than it was for panthor and xe?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Lifecycle teardown order inversion between manual PM runtime disab=
+le and devres bridge removal.
+--
 
-How did the others fix that?
+commit a2a78077050a0efecae114552f483f67a6423d4c
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-If we look at nouveau:
+drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
 
-static void
-nouveau_sched_fini(struct nouveau_sched *sched)
-{
- struct drm_gpu_scheduler *drm_sched =3D &sched->base;
- struct drm_sched_entity *entity =3D &sched->entity;
+The Renesas DSC Display Stream Compression is a bridge embedded in the
+Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+8k or 400 Mpixel/s. Add rudimentary driver, which currently acts as a
+pass-through bridge and allows DSI1 to be operational on R-Car V4H.
 
- wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
+/renesas/rcar-du/rcar_dsc.c
+> new file mode 100644
+> index 0000000000000..1882ae34ce8f5
+> --- /dev/null
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
+[ ... ]
+> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
+> +				   struct drm_atomic_commit *commit)
+> +{
+> +	struct rcar_dsc *dsc =3D bridge_to_rcar_dsc(bridge);
+> +
+> +	WARN_ON(pm_runtime_get_sync(dsc->dev) < 0);
+> +}
+[ ... ]
+> +static int rcar_dsc_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
+> +	if (ret)
+> +		goto err_runtime_disable;
+> +
+> +	return 0;
+> +
+> +err_runtime_disable:
+> +	pm_runtime_disable(&pdev->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static void rcar_dsc_remove(struct platform_device *pdev)
+> +{
+> +	pm_runtime_disable(&pdev->dev);
+> +}
 
- drm_sched_entity_fini(entity);
- drm_sched_fini(drm_sched);
+[Severity: High]
+Does this create a lifecycle teardown order inversion during driver unbind?
 
- /* Destroy workqueue after scheduler tear down, otherwise it might still
- * be in use.
- */
- if (sched->wq)
- destroy_workqueue(sched->wq);
-}
+When the driver is unbound, the driver core executes the manual
+rcar_dsc_remove() callback first, which calls pm_runtime_disable(). Only
+afterwards does the devres infrastructure execute drm_bridge_remove()
+(registered via devm_drm_bridge_add() in rcar_dsc_probe()), removing the
+bridge from the system.
 
+During this window, the DRM bridge remains active and accessible to the DRM
+core after its power management has been disabled. If an atomic commit occu=
+rs
+during this time, rcar_dsc_atomic_enable() will invoke pm_runtime_get_sync(=
+),
+which will fail since PM runtime is disabled. This triggers a WARN_ON and
+leaves the hardware unpowered.
 
-We see that it
-   1. stops accepting jobs from userspace (not visible here)
-   2. waits until all hardware fences in this ring are signaled
-   3. only then tears down drm_sched
-
-Then nouveau might unload or free up resources.
-
-The nasty thing is that I don't see how nouveau misbehaves here and how
-the stuff might be fixed.
-
-The problem is that the sched_fence implements ops->release, so the
-check doesn't take effect.
-
-Moreover, even if we did remove ops->release in drm_sched, it would
-still be a race: a driver's contract is the hardware_fence, the rule
-being that you have to signal those. So after signaling the last
-hardware_fence, you could actually start releasing resources, but it
-might be that finished_fences are still in-flight and are unsignaled.
-
-So we have some sort of fence -> fence race here, too.
-
->=20
-> As for regarding the 035219a760ed ("dma-buf: dma-fence: Fix potential
-> NULL pointer dereference") sub-thread - I did not manage to penetrate
-> the consensus there - whether it was established that it needs adding
-> the is signaled check back (with additional memory barriers, like v1 of=
-=20
-> that patch) or not? Regardless of fixing the drivers or what?
-
-
-As far as my understanding goes this is the only way to get this right
-for everyone, i.e. also users who implement ops->release(). Then at
-least the driver could unload after signalling all its fences (with the
-exception of those who have a shared spinlock maybe).
-
-
-However, I suppose then we would then have two mechanisms, one dancing
-with RCU around the ops pointer, the other checking whether the fence
-is signaled, presumably with manual ordering through barriers.
-
-My first guess would be that maybe we should only rely on the signaled-
-state and leave the ops-pointer untouched? This should also work for
-pvr, notably.
-
-
-P.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-rcar-du-ds=
+c-v6-0-f8ef711a7494@ideasonboard.com?part=3D2
