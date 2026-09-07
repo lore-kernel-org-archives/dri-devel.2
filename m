@@ -4,89 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70193C79FAD
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FB4BC79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C5210EA5A;
-	Tue,  8 Sep 2026 07:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0FB10EA58;
+	Tue,  8 Sep 2026 07:08:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rTo4JCOT";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="BSzhn4jq";
 	dkim-atps=neutral
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
- [74.125.228.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 576FF10E051
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 15:01:18 +0000 (UTC)
-Received: by mail-ed2-f12.google.com with SMTP id
- 4fb4d7f45d1cf-6a60591bb18so181443a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 08:01:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788793277; cv=none;
- d=google.com; s=arc-20260327;
- b=qWoig3eNe4mkDRKO9k8wzfzHK8o8qhmxcSLTjbl+0v5OG5eVX3RzYNM1W1inW2YifL
- HuxQfoxQ1GEC8/JwTxbVIcBwQl/K0Dxh5qicvfn1H+WLOGiuflxJzbx1T2tFzDDNeWbL
- mqlNHNFIqY3BDykWM89BJ4U5RMYswy3eS0xxaGXTshTI7E/A13sL2xstDgcb+4AjNnjN
- 6lg3JyDIViUYmQr74pWmkBczoX8huUsHwvOJRz5NXEjXoQ1m4SHzKDcxAvi/Ka2HaanX
- InEpcYMy8AAE+mc6TT4y4GLSksNlDOeLxxWdMjEkeY1t5sv7Y8hoiJnNsuesX4Bg3/b+
- BZhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=C/5SbezyWi1anxyCL1WLStNOIqEcreSWVvPab6/As70=;
- fh=c/HoroJRM8JUPzZ3fvzBnvQ+Jd2uZPQI9tAV3SepEEI=;
- b=Rfx1hPUC6aE+vMYOiATut7CLF16UahhLGdUQaNdrO6K+Urv4n4UA0oLLLrau/HeIMp
- QodhN9dzg6309nj2Wl3mbFk9efiLwfkzPH2GhfqW9wDxQU4xqG0IJhZ0bX1Ph3MuUhyZ
- QR+EaMS9cyR+oaimNRh0D4tLUtTHKscVMvQSw6fx86/meVCpeNgyrcbmJcsMcAc84LTn
- l+5gUuAfARJBKtBu2PNm07uPXZKECPyEMvTs9QogZgLj2tBh9jUYqMDKEbKPQaXfbDjE
- H+ojFYf01NYHDLseU2PpG14f3o6xdjTehgJLgQeQd0q2CksyE1ZaxT7rZh/B+I5zzrmD
- fwxQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788793277; x=1789398077; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=C/5SbezyWi1anxyCL1WLStNOIqEcreSWVvPab6/As70=;
- b=rTo4JCOTrwxmKcf05e/C3YVuQUlBYgjET//cvjCpR0N8paT4Gkb3GS1mGVLDLXUiMk
- po/PK+f2s/eF36cHjvtv4XXuJgZklyKU5M/bB+/95bbsPnAv/SekdMPhbJ93tjaR7NDi
- +QhR/UbfYC9dPJmFcvBZuQ4XYSnXhmCrYuVTOF/QEO6SJ6Lh0gJq88z85qCYmi9Y2QzK
- Blx0m6IR4DL/b/7LOUrl+XBP1VSkyQPJPoa09xbIBI0gRDhkHf1UruRrtvA0JlXQsN3E
- tiw6uuEpVn02rUUHgs+W01dbbFGCPhAuJ4RSkXLxIMgIGT3mHWkh27C+SVMg7ofMmJo6
- cx5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788793277; x=1789398077;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=C/5SbezyWi1anxyCL1WLStNOIqEcreSWVvPab6/As70=;
- b=WlM07TBIENTDnvHnCHBbKHlaDxr8UIToZAc7r6r2ywA+5ouEzW0/TBOsOui+98bsJj
- xdAx2Izu2teaSixUlLCB2HZP7syAJEK+ohZR92FDfJdEQZP4v0n48qK+KHn31TLK1vCr
- +LhQpej0GNsWK06Xrf8zovB9AWU3pg4MguSaXJRUupIVN5sgSqrP2d83zUlHWT504Ej6
- wCYYFiqH7B0tS88iDuWOwLffMYvVqjE5SeXKhafbHp8AiG9qKJ1yI7nYdPkj7z86D8dR
- Xruj3xkWtb4dJgrLHAqr4pO+9cmtQIhI5tymD7hzl4pQ/uPTVezClQ5PU0beZPxxawlH
- dM7A==
-X-Forwarded-Encrypted: i=1;
- AKwUvByVdUZYl1697hkzzFS4dE/LDvI4+7m/sQ8qgV2OzccMoZR0fTTUxcPXnlypc9rH4QiS1DnRnpL7aO4=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lyJsaqdVyHAsd9LsX/I+lVA2xZGvXJWD8wcbRCVHIdiIus/VP3
- k+6tgKTsoXMhdHYCqSKlGogqjhrK5b9oLUv8r5rwaN+CWxxcHWMpagPNbRKAHYLculXMquVbcHK
- oH3SxA/GfNZtMvUq7pkoUHQ4lHwpPDQ==
-X-Gm-Gg: AYBFou2YrF7JxW8KMq8cJoexnokutr0WOfhCLSPUnTJtYslvKWo+jHd/iIX98ANC7cT
- USM8J/c/1ZLVxBNBBZJA/JKCruHfxcxIGUZMehMrruW4MSXLOcIx3LZA/Lx3f6c/ogfg/ACyzyL
- 3s4kEvk3WAcmkQIL1BVSKv5dk38n10u6hzCICBfnGUwR1ZDGUrzydI43Q4dPl1gz4ocUu3DNlnL
- FYmE98BZmMkVWf4ppHUSRmdNKlI/dpKkpGkEHaOsOjF8p8VLo7owjjvd1QRfrRoQpbiTfn62yW+
- Wj+t3nBnryf9qhNcpxKsZ3Cgr8mRNc5NbVIrmzJAeEzCdB3/vUjn+CA9ei17dJmlqjViGalBWrO
- 6Eg==
-X-Received: by 2002:a17:906:c155:b0:c25:8b1e:3750 with SMTP id
- a640c23a62f3a-c29044392d5mr61538766b.12.1788793276384; Mon, 07 Sep 2026
- 08:01:16 -0700 (PDT)
+Received: from smtp-1909.mail.infomaniak.ch (smtp-1909.mail.infomaniak.ch
+ [185.125.25.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F05D10E7E4
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:50:21 +0000 (UTC)
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
+ [10.7.10.107])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3b2TSczXs8;
+ Mon,  7 Sep 2026 14:50:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1788785419;
+ bh=whRlL2++i1D+jNozO5BnCZ9UuYCEK41dbC6Ql96DMBA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=BSzhn4jqse+BMqrp3imOxB+PXJ4+rkyU4jskopUimHGS+/Rx1ql+67XtGk55xKkjF
+ PGkoj3fXgcSfyMzwxyo7XzsyOrdyE4Ux1iF8EmSRZw1uv5kXvGLgUbNxcdrKM+tj1j
+ 9szpNb9brcS3fS/8vtw2ucTMzfCCWUjJkSXil4Ep5kARRPm3x+fYduOh7S0hbasNeB
+ 1m5lV7NvLX7+jE5iYcw9d8SXs1sPbUHSc4fba1aDzsQZKY+aLYcqOzopvqoR+2DR7e
+ 7xT3ShS6GHM1sYPMmSUOJ6TaWopAR6KrjnO182HwMc5aHrHCj5a9aTdvl2QUMY6oPm
+ u9nxRnUdQ2D8Q==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hdn3Y3K4DzqY3; Mon,  7 Sep 2026 14:50:17 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing,
+ top-and-bottom, side-by-side)
+Date: Mon,  7 Sep 2026 14:50:12 +0200
+Message-ID: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-From: Danilo Machado <danilomachado2002@gmail.com>
-Date: Mon, 7 Sep 2026 12:01:04 -0300
-X-Gm-Features: AcwNN1UiCuTQvo7sl7tJPmxlZo-IKKg34erNkbCORKYwkqa5XlsrWnMFLo27VyM
-Message-ID: <CAJ9xWr+xGevB00DzELbFK+LLGTn7Oj_ZbJ7OBN05+kHe-D-vNQ@mail.gmail.com>
-Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
- suspend / regression tracking update
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org, 
- linux@leemhuis.info
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,47 +63,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-#regzbot back in-progress
-#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
+amdgpu has never exposed the HDMI 1.4 3D modes that drm_edid derives
+from a sink's HDMI VSDB: stereo_allowed is false on every connector, so
+a 3D-capable TV or projector connected to a Radeon card cannot be driven
+in frame-packing, top-and-bottom or side-by-side mode, although i915
+has supported exactly this for a decade and the media players that
+produce 3D frames (Kodi, mpv with 3D filters) only need the mode to
+exist.
 
-Hi Thorsten, Alex, and Linux Kernel Maintainers,
+These three patches add it for native HDMI connectors, in the simplest form
+that works on the hardware: the source packs both views into the frame
+and the display core scans that frame out as ordinary 2D; the only
+3D-specific output is the HDMI vendor infoframe. The reason it has to
+be done this way is in patch 1: any of DC's stereo timing formats,
+including the SW_PACKED ones, makes the hardware treat the surface as
+two views and paint the whole frame into each half. Patch 2 adds the
+3D_Ext_Data byte to the top-and-bottom vendor infoframe, without which
+at least JVC D-ILA projectors do not engage 3D (Amlogic sources send
+it, which is why those work with the same projector). Patch 3 sizes
+the stream and the plane viewport by the doubled frame-packing timing
+so each eye receives its own view rather than a stretched copy of the
+first.
 
-I am writing to update the status of this regression after checking
-the Regzbot tracking dashboard:
-https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/
+Tested on a Radeon RX 7600 (Navi 33, DCN 3.2.1) driving a JVC
+DLA-RS4100 through an HDFury VRROOM, with Kodi (LibreELEC, GBM) as the
+source, on a 7.2.3 kernel carrying these patches; the series here is
+rebased onto amd-staging-drm-next and compile-tested there, and the
+amdgpu_dm connector (308) and plane (95) KUnit suites pass; the freesync suite
+crashes the same way on the unpatched base. All three layouts
+engage the projector's 3D mode at 1920x1080p24, RGB 12 bpc, with
+correct per-eye geometry (row-coded test frames read back through each
+eye of shutter glasses) and correct eye assignment; frame packing is
+also the format the projector uses for Blu-ray 3D.
 
-The dashboard currently lists this issue as "fizzled out / resolved:
-inconclusive", but I want to clarify that this bug is ACTIVE,
-UNRESOLVED, and actively tracked. The lack of recent email activity on
-LKML was due to ongoing technical data collection on Launchpad and
-GitLab while awaiting upstream feedback.
+Known limitation, not addressed here: a framebuffer with DCC enabled
+does not scan out in a frame-packed mode on this GPU (the first flip
+after the modeset never completes and the pipe wedges); the source has
+to allocate the 3D framebuffer without DCC. A separate report will
+follow once it is better understood.
 
-Current Status & Verification:
+Two unrelated FRL/DSC issues found on the same setup are tracked as
+drm/amd issues 5770 and 5771.
 
-1. Launchpad Report (#2142389):
-   - Status: Confirmed (assigned to maintainer Timo Aaltonen).
-   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed
-affected users across various AMD architectures (Tonga R9 380, Polaris
-RX 400/500, and recent Vega APUs).
-   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
+v3:
+- 1/3: pass CRTC_STEREO_DOUBLE unconditionally where amdgpu_dm recomputes the
+  CRTC fields, as the DRM core does in mode_fixup(); the flag only doubles a
+  frame-packing mode, and the previous `flags & DRM_MODE_FLAG_3D_FRAME_PACKING`
+  test also matched other 3D layouts (multi-bit field). The saved_mode variant
+  is back to its original form, since a stereo mode is no longer a FreeSync
+  video mode. Both from the Sashiko review of v2.
 
-2. Freedesktop GitLab Issue (#5123):
-   - Status: Open.
-   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
+v2 (all three findings came from the Sashiko review bot, and all held up):
+- 1/3: a stereo mode keeps its own CRTC timing in
+  decide_crtc_timing_for_drm_display_mode() - with the native timing
+  copied over it, a frame-packed 1080p24 mode (which shares pixel clock
+  and totals with 1080p60) lost its doubled timing on a 1080p sink even
+  with scaling off; and amdgpu_dm_is_freesync_video_mode() rejects a
+  stereo-flagged mode, which otherwise could be replaced by the 2D
+  FreeSync base mode and lose its 3D flags. KUnit cases for both.
+- 3/3: the plane KUnit mocks now set hdisplay/vdisplay as well as the
+  crtc_* size, which drm_mode_get_hv_timing() derives the size from;
+  dm_test_helper_check_state_scaling_caps failed otherwise.
+- 2/3: unchanged.
 
-3. Technical Summary:
-   - I have executed 3 full git bisect routines on hardware
-testbenches, isolating the regression behavior between kernel
-transitions.
-   - Recent user reports confirm the same black screen / no EDID
-handshake failure upon resume and DPMS display wake-up across multiple
-Linux distributions (Ubuntu, Fedora, Void Linux) and kernel versions
-(up to kernel 7.0).
+Adrian Betschart (3):
+  drm/amd/display: support HDMI 1.4 3D modes on HDMI connectors
+  drm/amd/display: send the 3D_Ext_Data byte for top-and-bottom too
+  drm/amd/display: size frame-packed streams by the doubled timing
 
-Please re-open and maintain active tracking for this regression on
-Regzbot. I remain available to test candidate patches, kernel builds,
-or debug flags on physical hardware.
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 58 ++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 13 ++-
+ .../tests/amdgpu_dm_connector_test.c          | 80 +++++++++++++++++++
+ .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 12 +++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++
+ .../display/modules/info_packet/info_packet.c |  4 +
+ 6 files changed, 165 insertions(+), 9 deletions(-)
 
-Best regards,
-Danilo Machado
+-- 
+2.43.0
+
