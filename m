@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E0E3C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11102C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 07:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C40F10E46A;
-	Mon,  7 Sep 2026 07:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4366510E6A0;
+	Mon,  7 Sep 2026 07:28:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oBBj6OeR";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MZZ9cJPc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F73D10E484
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 07:14:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4D6E641438;
- Mon,  7 Sep 2026 07:14:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045B11F00A3A;
- Mon,  7 Sep 2026 07:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788765276;
- bh=zDq/E+kexHdf7nT2Z4Zhb+s4Ll++DopDWBN9mtS2W4k=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oBBj6OeRWkNb9IKK+xgaUpN5NSry+stpOLq0TUXNDD8Z3sbCA0Y1U6FBl77GgYQQ1
- nxgg6PhN/6DD9l1ILkievVlYd0DGr1O4sBdSpD/WjsOf2x11FY6vTfmmIkaz4MBeGG
- 6X+GBUwfzlAckTnrTijJQIFgGPkWOlZw03Sb105AWzlne+/8zJvkH05Yxh/8f24iRu
- y9X5Mmre9grTs9R7OIwe3Xicl1Kh0a3QRT407tMySBtM0h8ELQRWmJodmnSrz0N++x
- zLi5TztXqX/mm77jWhWeDnNA88jnTZOjsv/4oBzZbWej6AzGnrBJEYUJOR1pLsQs2x
- wHE57RV7z1WjQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] misc: fastrpc: Reduce console noise from expected
- DSP info, reserved memory and session messages
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260907070356.509-1-jianping.li@oss.qualcomm.com>
-References: <20260907070356.509-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 07:14:35 +0000
-Message-Id: <20260907071436.045B11F00A3A@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2AB10E6AA
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 07:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1788766091;
+ bh=NxyW9v3JENfcIKJsKKLIcuxuhmnS0ifPJx4kRmLi404=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MZZ9cJPcWRo5IMqJSs3uMeXT9hVAKiuMNKMClPTKNMCOAJ8FqgJdsxglAsWYYB7Zu
+ QF/zlXntn6zEyg4wzbnIbJ8ZXWUGS+y5bC0t04y2XOAb2T4dCT4qeAJzlzD8w07BCX
+ Zn3VxSnIy7/yW4fDCBZt9cq4eAknN/oxdWPVp9JlI+zJngEeNTN+pK2pTeJ1uJ0fhE
+ TWDRULfN6cVsHdIuverQFU1/l0ZMnvZP6uBCvcNA+Oau+Q7NwTaG3/F83svwjTbnPP
+ zX0mJ9jCEbeQdcN8KFllMBUzY5xhydCBoVSAd/w9IvMb7CuA4xQ0Btdhw/x6mtzk0k
+ F6zXhcbD4jDvw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0C2A817E0936;
+ Mon, 07 Sep 2026 09:28:11 +0200 (CEST)
+Date: Mon, 7 Sep 2026 09:28:06 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v3] drm/panthor: Display priorities of panthor groups
+ over debugfs
+Message-ID: <20260907092806.2ff9dc8c@fedora-21.home>
+In-Reply-To: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
+References: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,106 +64,170 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, 04 Sep 2026 19:38:09 +0200
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 
-Pre-existing issues:
-- [High] Character device is registered and exposed to user-space before cr=
-itical context fields (spinlocks, krefs, lists, idr) are initialized, enabl=
-ing severe race conditions and NULL pointer dereferences on concurrent open=
-().
-- [High] Use-After-Free on `fastrpc_rpmsg_probe` error paths after device r=
-egistration.
---
+> Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
+> Display list of device JM contexts over debugfs") for panfrost, add
+> similar debugfs information for panthor.
+> 
+> The group priority does not change over the lifetime of the group, so no
+> effort to synchronise with the scheduler lock is being made.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-commit 449b11a15887fd75279efb078924d324d2fb8fb1
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
-Subject: misc: fastrpc: Reduce console noise from expected DSP info, reserv=
-ed memory and session messages
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-The commit downgrades expected error messages from the DSP and reserved DMA
-memory to dev_dbg, and rate-limits the session availability error to reduce
-console flooding on certain platforms.
+> ---
+> Changes in v3:
+> - Move group number to after the per-file specific information, which
+>   helps readability
+> - Link to v2: https://patch.msgid.link/20260831-panthor-sched-group-prio-v2-1-a74c79b4b830@collabora.com
+> 
+> Changes in v2:
+> - Take groups xa lock around the loop in show_file_groups to guard
+>   against group object UAF
+> - Flatten the listing, removing most of the code in show_each_file,
+>   printing that info for each group instead
+> - Also show queue count for each group
+> - Link to v1: https://patch.msgid.link/20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
+>  drivers/gpu/drm/panthor/panthor_sched.c | 73 +++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_sched.h |  5 +++
+>  3 files changed, 79 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 46a3080b0b20..8cdba0c1a14b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>  {
+>  	panthor_mmu_debugfs_init(minor);
+>  	panthor_gem_debugfs_init(minor);
+> +	panthor_sched_debugfs_init(minor);
+>  }
+>  #endif
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 60b2417deb81..ac6aee554820 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0 or MIT
+>  /* Copyright 2023 Collabora ltd. */
+>  
+> +#include <drm/drm_debugfs.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_exec.h>
+>  #include <drm/drm_file.h>
+> @@ -4175,3 +4176,75 @@ int panthor_sched_init(struct panthor_device *ptdev)
+>  	ptdev->scheduler = sched;
+>  	return 0;
+>  }
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +
+> +static const char *
+> +panthor_sched_prio_str(enum panthor_csg_priority prio)
+> +{
+> +	switch (prio) {
+> +	case PANTHOR_CSG_PRIORITY_LOW:
+> +		return "LOW";
+> +	case PANTHOR_CSG_PRIORITY_MEDIUM:
+> +		return "MEDIUM";
+> +	case PANTHOR_CSG_PRIORITY_HIGH:
+> +		return "HIGH";
+> +	case PANTHOR_CSG_PRIORITY_RT:
+> +		return "REAL-TIME";
+> +	default:
+> +		return "UNKNOWN";
+> +	}
+> +}
+> +
+> +static int show_file_groups(struct drm_file *file, struct seq_file *m)
+> +{
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct panthor_group *group;
+> +	unsigned long i;
+> +
+> +	if (IS_ERR_OR_NULL(pfile->groups))
+> +		return -ENOENT;
+> +
+> +	xa_lock(&pfile->groups->xa);
+> +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
+> +		seq_printf(m, "client_id %8llu pid %8d command %s: group %2lu priority %s queue count %u\n",
+> +			   file->client_id, group->task_info.pid, group->task_info.comm, i,
+> +			   panthor_sched_prio_str(group->priority), group->queue_count);
+> +	}
+> +	xa_unlock(&pfile->groups->xa);
+> +
+> +	return 0;
+> +}
+> +
+> +static int show_each_file(struct seq_file *m, void *arg)
+> +{
+> +	struct drm_info_node *node = (struct drm_info_node *)m->private;
+> +	struct drm_device *ddev = node->minor->dev;
+> +	int (*show)(struct drm_file *, struct seq_file *) =
+> +		node->info_ent->data;
+> +	struct drm_file *file;
+> +	int ret;
+> +
+> +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
+> +		list_for_each_entry(file, &ddev->filelist, lhead) {
+> +			ret = show(file, m);
+> +			if (ret < 0)
+> +				return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct drm_info_list panthor_sched_debugfs_list[] = {
+> +	{ "sched_groups", show_each_file, 0, show_file_groups },
+> +};
+> +
+> +void panthor_sched_debugfs_init(struct drm_minor *minor)
+> +{
+> +	drm_debugfs_create_files(panthor_sched_debugfs_list,
+> +				 ARRAY_SIZE(panthor_sched_debugfs_list),
+> +				 minor->debugfs_root, minor);
+> +}
+> +
+> +#endif /* CONFIG_DEBUG_FS */
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
+> index 9a8692de8ade..d87cbdba4d40 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.h
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.h
+> @@ -10,6 +10,7 @@ struct drm_file;
+>  struct drm_gem_object;
+>  struct drm_sched_job;
+>  struct drm_memory_stats;
+> +struct drm_minor;
+>  struct drm_panthor_group_create;
+>  struct drm_panthor_queue_create;
+>  struct drm_panthor_group_get_state;
+> @@ -55,4 +56,8 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events);
+>  
+>  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile);
+>  
+> +#ifdef CONFIG_DEBUG_FS
+> +void panthor_sched_debugfs_init(struct drm_minor *minor);
+> +#endif
+> +
+>  #endif
+> 
+> ---
+> base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
+> change-id: 20260814-panthor-sched-group-prio-c987f6a15690
+> 
+> Best regards,
+> --  
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> 
 
-Link: https://lore.kernel.org/all/20260514062825.50172-1-jianping.li@oss.qu=
-alcomm.com/
-
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 90fd669636ec1..f40356c950519 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-
-[ ... ]
-
-> @@ -2563,7 +2563,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
-*rpdev)
->  	}
-> =20
->  	if (of_reserved_mem_device_init_by_idx(rdev, rdev->of_node, 0))
-> -		dev_info(rdev, "no reserved DMA memory for FASTRPC\n");
-> +		dev_dbg(rdev, "no reserved DMA memory for FASTRPC\n");
-> =20
->  	vmcount =3D of_property_read_variable_u32_array(rdev->of_node,
->  				"qcom,vmids", &vmids[0], 0, FASTRPC_MAX_VMIDS);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could the initialization in
-fastrpc_rpmsg_probe() lead to a race condition with concurrent opens?
-
-Looking at fastrpc_rpmsg_probe(), we register the device before initializing
-important context fields:
-
-	err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
-	if (err)
-		goto err_free_data;
-	...
-	kref_init(&data->refcount);
-	atomic_set(&data->ctx_seq, 0);
-	...
-	INIT_LIST_HEAD(&data->users);
-	spin_lock_init(&data->lock);
-
-If a user-space process opens the character device immediately after
-fastrpc_device_register() completes, fastrpc_device_open() will be called.
-
-Since data->refcount and data->users are uninitialized, won't this cause a
-null pointer dereference when it calls fastrpc_channel_ctx_get() or attempts
-to lock data->lock and add to the zeroed data->users list?
-
-[Severity: High]
-This is also a pre-existing issue, but is there a risk of a use-after-free
-in the error handling paths of fastrpc_rpmsg_probe()?
-
-If an error occurs after the device is registered (for example, if a
-subsequent fastrpc_device_register() fails or if of_platform_populate()
-fails), the code branches to the teardown paths:
-
-	err =3D fastrpc_device_register(rdev, data, false, domain);
-	if (err)
-		goto err_deregister_fdev;
-...
-err_deregister_fdev:
-	if (data->fdevice)
-		misc_deregister(&data->fdevice->miscdev);
-	if (data->secure_fdevice)
-		misc_deregister(&data->secure_fdevice->miscdev);
-
-err_free_data:
-	kfree(data);
-	return err;
-
-Since misc_deregister() does not revoke active file descriptors, what happe=
-ns
-if a concurrent open() has already acquired a reference to the device before
-we call misc_deregister()?
-
-Will the unconditional kfree(data) result in a use-after-free later when the
-user closes the file and fastrpc_device_release() accesses the freed data?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907070356.509-=
-1-jianping.li@oss.qualcomm.com?part=3D1
