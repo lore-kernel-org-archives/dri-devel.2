@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5477CC79F99
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 20:28:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC1E0C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 20:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96DF210E4B4;
-	Mon,  7 Sep 2026 20:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3248310E4DD;
+	Mon,  7 Sep 2026 20:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Igt9Yc37";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FDAQI6IV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CCFD10E4B4
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 20:28:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4E110E4DD
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 20:29:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A7185601FB;
- Mon,  7 Sep 2026 20:28:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9DF1F00A3A;
- Mon,  7 Sep 2026 20:28:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 478CF43A3F;
+ Mon,  7 Sep 2026 20:29:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F251B1F00A3A;
+ Mon,  7 Sep 2026 20:29:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788812898;
- bh=rZEoGTF/5hm4ljg3ITSKhYcqOICMkncOAB1utoDj0V8=;
+ s=k20260515; t=1788812999;
+ bh=MMZDzvbCOwTIE4toXMW3VohpEGUINs6n0rmoUc1Trnw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Igt9Yc37YVXxzQZgfrS+DqbtVXc1U1s38XTwmRq8pc+E1iB9YtZp+Nsw6l9DltDdh
- CeCMnYSij7hYCccl4q/57KXkeEfR8dpkhtDXwUJRObQuu1GivELSnAzrGCv2uJsi/s
- zr6S3kVn1UVQcEw8l/mK6mFXDbhLdThFW7r/98DLnOyJyUKGhQH6DNI7CKZUeoMlw3
- TespeOFFHX0Cfk+dEoXKf70hgrA2VOBgErtiy5LW7md0kqog+q8BzvFyIXAS78wbNG
- HigkXZxrke5N0c43vlJvNd7/4gTNr0jfH9J29H0ekZARzRIpE02zV/slgREzQqpbD7
- 3rr9/L04RMjuw==
+ b=FDAQI6IVbQ43ps9HsVV93z1l9Hu/eTkS8K4czARRwK0woPCFzUoseIWmWeqHdLCTh
+ uuTfdRLyBESUGTkgnfOz5d/efvzD8Fmefpd13q/ks4thAKz6hd7z5TxG0ijefUk0J3
+ 7v1dcAWcyjYPT9qfdECgq74k+8TgITi2Eg+BeksKWADujagfja2JiNv0S9qxNr/DgX
+ 3Dqf+jOt+UAxFuBNrEEtGzYYOV4I3y0T6pnoyGBxOFQkKkvcwWSHZLwkrhtc0sQNgQ
+ hO3jCkoepu4qrsplrJ2OKyl/WuaaWkNbCzXMeIBOc8LzE0MkfjDo0p/kyG1nNJSne1
+ ZGRjJsuSVTEHw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 10/16] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
+Subject: Re: [PATCH v8 06/16] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260907-claude-fixes-v8-10-c2bcb5e82184@collabora.com>
+In-Reply-To: <20260907-claude-fixes-v8-6-c2bcb5e82184@collabora.com>
 References: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
- <20260907-claude-fixes-v8-10-c2bcb5e82184@collabora.com>
+ <20260907-claude-fixes-v8-6-c2bcb5e82184@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 20:28:17 +0000
-Message-Id: <20260907202818.3B9DF1F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 20:29:58 +0000
+Message-Id: <20260907202958.F251B1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,59 +58,84 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incorrect error handling of pm_runtime_get_if_active() leads to un=
-safe hardware access when runtime PM is disabled.
+
+Pre-existing issues:
+- [High] Ignoring the return value of pm_runtime_get_sync() can lead to unc=
+locked register accesses and system crashes.
+- [High] Driver teardown races with in-flight GPU jobs, leading to unhandle=
+d hardware faults.
 --
 
-commit 8d990169095e4c032a10ab3f7f2aa29eb0345717
+commit 75e6d8fc2d8a39088a19c0381af15b43a9a4c041
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
 
-This commit introduces a new debugfs file to manually schedule a GPU reset.
-It is intended to help test potential race conditions between the reset
-sequence and other hardware register accesses.
+During device probe(), failure to do a PM get() will leave the usage_count
+set to 0, which is the value assigned at device creation time. That means
+when the autosuspend delay expires, runtime suspend callback won't be
+invoked, so the device will remain powered on forever.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index f0fae6fa1e248..f171abe26f80d 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 55fc22e8d4d4e..a3eff77add557 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+
 [ ... ]
-> +static int reset_set(void *data, u64 val)
-> +{
-> +	struct panfrost_device *pfdev =3D
-> +		container_of(data, struct panfrost_device, base);
-> +	int ret =3D pm_runtime_get_if_active(pfdev->base.dev);
-> +
-> +	if (ret) {
+
+> @@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_device *=
+pdev)
+>  	drm_dev_unregister(&pfdev->base);
+> =20
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> -	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> +	panfrost_device_fini(pfdev);
 
 [Severity: High]
-Can this cause a kernel panic if runtime PM is disabled?
+This is a pre-existing issue, but does panfrost_device_fini() ignore the
+return value of pm_runtime_get_sync() and risk system crashes?
 
-pm_runtime_get_if_active() returns a negative error code (like -EINVAL)
-when runtime PM is disabled, such as during system suspend. Because this
-condition checks if (ret) instead of if (ret > 0), a negative error return
-evaluates to true.
+Looking at panfrost_device.c:panfrost_device_fini(), it issues a warning but
+unconditionally proceeds with hardware teardown:
 
-This would cause panfrost_device_schedule_reset() to execute and flush the
-work queue while the device is potentially powered down, which may lead to
-unclocked register accesses and a synchronous external abort (bus fault).
+	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+	...
+	panfrost_jm_fini(pfdev);
+	panfrost_mmu_fini(pfdev);
+	panfrost_gpu_fini(pfdev);
 
-Should this condition be if (ret > 0) to ensure the device is genuinely
-active before proceeding with the hardware reset?
+If pm_runtime_get_sync() fails (e.g., due to regulator or clock failure),
+the device remains physically suspended with clocks disabled.
 
-> +		panfrost_device_schedule_reset(pfdev);
-> +		flush_work(&pfdev->reset.work);
-> +		if (ret > 0)
-> +			pm_runtime_put(pfdev->base.dev);
-> +	}
-> +
-> +	return 0;
-> +}
+Can unconditionally writing to MMIO registers in panfrost_jm_fini(),
+panfrost_mmu_fini(), and panfrost_gpu_fini() with clocks off cause a bus
+fault or kernel panic?
+
+[Severity: High]
+This is a pre-existing issue, but does panfrost_device_fini() tear down
+hardware while GPU jobs might still be executing?
+
+During device unbind, the driver does not appear to wait for actively
+executing jobs on the physical GPU hardware to complete or abort. It procee=
+ds
+to unmap pagetables and power off the GPU:
+
+	panfrost_jm_fini(pfdev);
+	panfrost_mmu_fini(pfdev);
+	panfrost_gpu_fini(pfdev);
+
+Can pulling the memory and clocks out from under a running GPU job during a
+hot-unplug or unbind cause catastrophic hardware faults or kernel panics?
+
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-claude-fix=
-es-v8-0-c2bcb5e82184@collabora.com?part=3D10
+es-v8-0-c2bcb5e82184@collabora.com?part=3D6
