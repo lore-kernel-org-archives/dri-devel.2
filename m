@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C97D0C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 14:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0101C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 14:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98A4410E010;
-	Mon,  7 Sep 2026 14:01:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDF0310E616;
+	Mon,  7 Sep 2026 14:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F9k65YpY";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ajLKzX2V";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D91710E00C;
- Mon,  7 Sep 2026 14:01:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4F5DF41FF1;
- Mon,  7 Sep 2026 14:01:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D711F00A3D;
- Mon,  7 Sep 2026 14:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788789665;
- bh=K9eg6wtFkWTMznV5PVTFHHwE7AtItq6fmRemD/gQ39E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=F9k65YpYSn95YLorXivh1lNvcQEXd6B15V0i+J/S5xiVvoPWb32IX+6T4nC/0e/As
- ABXb2hniSAc/wOo0/RpPVDNfsy5LrEPCRoL3XlrQuB2kdM0qY1sBBrgl2KMWwdKlVA
- nUV7KwKDJmbEmBUF62YhpcTBLrqlQCw1q9E5sPooaXnW6+nB14sL4XmSXPJrM+irBP
- pf2H+7ex3bez9MYOPqdzoYRFILeErmuEuk4/VeVNaHUFkIQGPboadv2hC5M3nfQonk
- jvxDlBzYaOufRSkdh6Iz1qilQS5Giyck/durXFl3lZTA8A0uanLYEHgHp6xXkpgnfH
- jmgFfu8XIEM6A==
-Date: Mon, 7 Sep 2026 15:01:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEE7E10E4B2;
+ Mon,  7 Sep 2026 14:03:27 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 97564BE;
+ Mon,  7 Sep 2026 16:01:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1788789712;
+ bh=OrL2hM5MGp5RzTrgCz4IxlWP+lbXPPigUyPR3/geJyI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ajLKzX2VAy1Lp0BsfqtggVm8osJkPGkD+kfd7xq2K7J208/9N9ZbNehrafRogac6c
+ 0Lv+pGUJCBVUrdWT+hK6pVvfMOPvD6uKnFd4TypXI+Z2I5ZaTPlQTBNveDeuqgjc7f
+ ++8MtdPxAzlMK/8D0egehhGrZQ5q2ruOlfFpK8+8=
+Message-ID: <72674692-9c3e-4f7b-a3d0-00df85ef938f@ideasonboard.com>
+Date: Mon, 7 Sep 2026 17:03:22 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
  Intel Graphics <intel-gfx@lists.freedesktop.org>,
  DRI <dri-devel@lists.freedesktop.org>,
  Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Jarkko Nikula <jarkko.nikula@bitmer.com>
 Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <3076b44f-b499-42cc-92cf-f4a7a470fb2f@sirena.org.uk>
 References: <apbbvQSfUbzYRFaw@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8G1W8X2ghs61Sw/4"
-Content-Disposition: inline
-In-Reply-To: <apbbvQSfUbzYRFaw@sirena.org.uk>
-X-Cookie: Hackers of the world, unite!
+ <3076b44f-b499-42cc-92cf-f4a7a470fb2f@sirena.org.uk>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <3076b44f-b499-42cc-92cf-f4a7a470fb2f@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,38 +61,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
---8G1W8X2ghs61Sw/4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 07/09/2026 17:01, Mark Brown wrote:
+> On Tue, Sep 01, 2026 at 03:05:49PM +0100, Mark Brown wrote:
+>> Hi all,
+>>
+>> After merging the drm-misc tree, today's linux-next build (x86_64
+>> allmodconfig) failed like this:
+>>
+>> /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
+>>    408 |         ad->card = card;
+>>        |         ~~  ^
+> 
+> This issue is still present today.
 
-On Tue, Sep 01, 2026 at 03:05:49PM +0100, Mark Brown wrote:
-> Hi all,
->=20
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
->=20
-> /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'c=
-ard' in 'struct hdmi_audio_data'
->   408 |         ad->card =3D card;
->       |         ~~  ^
+I have sent "[PATCH] ASoC: ti: omap-hdmi: Fix build error from a merge 
+commit" (20260903-omap-hdmi-fix-v1-1-b0447a1d35d5@ideasonboard.com). 
+Waiting for a R-b so I can push it via drm-misc.
 
-This issue is still present today.
+  Tomi
 
---8G1W8X2ghs61Sw/4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqew5wACgkQJNaLcl1U
-h9AXkQf3TTyOJdRIdJbxEiYBPd0mr1H9u2Yj7TS5LTe4dxXi0lXZ2Ni4NhwRFNTw
-76DKUk+wQshac7dUYdOrUpM22sUdR1PlOfMBCmJ8REVvspFryLhTiR1vRZo0fS1Q
-8mbC+vECwUR2R+Ht8QRRz5mzvLshbfMmJN+mUA1l3YYRCPIOXLFcVYhRFDpUYZet
-LSLzVlviuDDLgukDYHpuWB7iyLpWstDG3IPHV/cK9ZfrN2pFqxnO53/7OYTHu7LE
-GfAiRiR2qT7JT6DeBimiu3LDzeL2r0N1OK70fwzLbUaRG+InVw6Zb0O1ruV28UfT
-32D8gmzvVF79+74tWxIbqvWx1Ao0
-=dKFx
------END PGP SIGNATURE-----
-
---8G1W8X2ghs61Sw/4--
