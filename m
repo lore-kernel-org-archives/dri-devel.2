@@ -4,88 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A16ACC79F99
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 10:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 975EDC79F99
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 10:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC98110E1BE;
-	Mon,  7 Sep 2026 10:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD24B10E0D2;
+	Mon,  7 Sep 2026 10:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="W8lLh0nB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oQIsitGm";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 444C010E1BE
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 10:28:13 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-c197e7e4e94so543067566b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 03:28:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1788776892; x=1789381692; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ABEcogDwsawzeRdmBozIgKVzjqJVU/2yTKqGiwVKefE=;
- b=W8lLh0nBKdx0eSlgvgmggUm4B95FayIpQeTmHvaIBxZhMs4k7Rk/2FloC/tUrdF1Wg
- VVA55ikKjzbu/I+YGNWbZf0gnU/HbSxO7jAK/XJLQE86WK+SUd+EVlmv8j9O18+1MUrX
- wZxJdkl7+7ROS1FTadkgekQrT1kGyt4ArWXKyyBT8gW6oRKi7Aj92ABAuRVFM7ykyk0J
- MmrOJW5ATf3AEANHjPs8VaotoJ6HQpPcYOh+QTW0VTWRYJHRlvilE8LYVmnsmISqbofc
- PEuA399Pa4v3fP3p3xsRjt6w2fIeLxtY1jiXVBCo2PgpenlzfQfXX1Kou6LNU9Dc5QWj
- p3jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788776892; x=1789381692;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ABEcogDwsawzeRdmBozIgKVzjqJVU/2yTKqGiwVKefE=;
- b=WbsX69JqHNucf3H2W1fHIQy7ZcW4v1/JTSTs+oVvzkDrmsz+qYEp0NmP7FZw0VmW7A
- Xbxn8+PQb3iYoUJhckjSMNUOHPftzadV+/8K4GVK/HjAQADZlh6IpmSHQx+KwD558dkr
- IN1XoLvhhiYqnGTtVzuW5CSS0I3q1URoL7wm2aav5SDlBCwlAFkfeXs+ZzJYsryNDxOs
- YtNW99cw1Vgj63IgoawlxoOeG1KRF/D/MMGrkJ9ed2/mzhoGU376g2f3y8yhPsAiW0qI
- 9Jt3/p9QePUz89auFGlwnKHFle7N4qwI8460CPIsF5x2P2INVOifqE67krZ8juNAgriY
- tGHw==
-X-Gm-Message-State: AFuF++n9XgKscKmPosWLbVQ34t89clweSff8AQZUdDnuIomX6DjwDSxW
- F/ZfHBrmCeBYGrIuqKZ9PXZvqqJQEbR53iUQBXFCjPK7RldqvuYSAJn1CCaKJKpvHBE=
-X-Gm-Gg: AYBFou2vf/32mhxFJRsWgpaCP+mPfTUS85FrWugQY/bIDMNUQjg09PqVMxES/UaKRMa
- DOfoPhQUpwjtNWiKyPMj1pFb+gUFM+1PdO8vwXQO6TDXEw4qjLiU3lKUJu/LaqBbvO7sR/z4e/7
- tFG0qIq6NF6jLlXIFLuPkrfaZB+8/6rx+W4CxoGp+Ho7abTkJt/MWNCSKwGE0IQdeTak1NUh9dz
- T7+GeqlEzM4fuJDMgh0Sm0ze0nAVEazMNy84Idw+oNis/CvPTqYQsqtw0b6NCA6cBVCRm7Z1f9x
- 4bkJCJ77gwcy23HcSeqvtPt8m7dyXCP+eBhlGqX4YDKNoeRr4B50nTIJ++WCwNaqLit5KFcvrb3
- wG3UeAxODCc4x3IvsLiFgFL+aCCgqF+3B08qZK7ub95Os5bEtesDB/jkBYmNrFCTDxEQXDFaVoh
- 7bL217lHIBHc/SSIAoPRAIgSlfJMS5Amh38/oYvM9ARggsPRYlp0It+R7u6gK4a8H1XpatIqQdc
- LyVT4Uur9MQI8o=
-X-Received: by 2002:a17:907:d11:b0:c24:e1e9:69c with SMTP id
- a640c23a62f3a-c260c3f93a7mr886509866b.0.1788776891620; 
- Mon, 07 Sep 2026 03:28:11 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c260d53c37csm439345766b.32.2026.09.07.03.28.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2026 03:28:11 -0700 (PDT)
-Message-ID: <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-Date: Mon, 7 Sep 2026 11:28:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
- <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45BE310E0D2
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 10:31:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 65A7C60AB5;
+ Mon,  7 Sep 2026 10:31:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFAE71F00A3A;
+ Mon,  7 Sep 2026 10:31:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788777072;
+ bh=+uIJneDhRLM2Z2YLcWPJC+Jk7NJsUuOCT++U12ET0N8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=oQIsitGmdRnKpLIJBzDbJmL4oE0viDNl4gsnDwIgLPjygGxWFWOKlln1vPTA4p+Q7
+ rZ+rfaXDFKr1tcjbXSenBPcyAA+NYyJnJqDZqjXf4gtbE0gNj915XYroTM0W5rTuvg
+ eMfSAHPYgpMryNj9eGtVeBXfr1/kuxvkUK824+bsNk3lcT9dEBqb3jkzCgRoJuRIJ8
+ tacyJg3NS7WFRNB57X1DSLHij7b1CcGiesCwV0YcRCJH6sC6InbteAUaukSDvbLMkN
+ LBz4GjpQgBZ7Ua2brYkTuMpFjKxyeM6JlmOBDUj10rDyRP0CCzCxVV5eYUgzhRLlvZ
+ 7ab7BtRKxUvhA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/imagination: Propagate all errors from KCCB
+ command submission code
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgtec.com>
+References: <20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgtec.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 10:31:11 +0000
+Message-Id: <20260907103111.EFAE71F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,102 +53,186 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On 07/09/2026 10:42, Philipp Stanner wrote:
-> On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
->>
->>
->> On 04/09/2026 20:06, Philipp Stanner wrote:
->>
->> 8><
->>
->>> If you can think of a stupid and simple solution, shoot. The only thing
->>> I can think of is moving the string into the dma_fence, as a hard copy
->>> :)
->>>
->>>
->>> In the mean time, my proposal is to keep aiming for removing
->>> sched_fence->ops->release and fixing pvr and amdgpu.
->>
->> Fixing the drivers sounds like an obvious thing to try indeed. Along the
->> same lines as it was done for xe and panthor. It is an already
->> established and well understood approach so shouldn't be controversial.
->> After that we can discuss in leisurely pace if something better is
->> possible in the scheduler core.
->>
->> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is
->> it significantly more complicated than it was for panthor and xe?
-> 
-> How did the others fix that?
+New issues:
+- [High] State Corruption and Use-After-Free due to missing CCCB rollback o=
+n KCCB kick failure.
+- [Medium] KCCB slot reservation leak on error paths in pvr_kccb_send_cmd_p=
+owered().
 
-Combination of kfree_rcu, synchronize_rcu and storing the name in an 
-object protected by those:
+Pre-existing issues:
+- [High] Paired fragment job hangs indefinitely if its paired geometry job =
+fails early.
+--
 
-6bd90e700b42 ("drm/xe: Make dma-fences compliant with the safe access 
-rules")
-299bc6d50b1b ("drm/xe/guc: Keep scheduler timeline name alive")
-efe24898485c ("drm/panthor: fix for dma-fence safe access rules")
+commit 169ea0ff06e137cf7e22eac4d32e0b8218dddecb
+Author: Alessio Belle <alessio.belle@imgtec.com>
 
-Not too complicated on the overall. Simply ensure RCU grace period 
-between signaling the hw fence and freeing the ops, scheduler, name, all 
-that it is in the externally accessible dereference chain.
+drm/imagination: Propagate all errors from KCCB command submission code
 
-> If we look at nouveau:
-> 
-> static void
-> nouveau_sched_fini(struct nouveau_sched *sched)
-> {
->   struct drm_gpu_scheduler *drm_sched = &sched->base;
->   struct drm_sched_entity *entity = &sched->entity;
-> 
->   wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
-> 
->   drm_sched_entity_fini(entity);
->   drm_sched_fini(drm_sched);
-> 
->   /* Destroy workqueue after scheduler tear down, otherwise it might still
->   * be in use.
->   */
->   if (sched->wq)
->   destroy_workqueue(sched->wq);
-> }
-> 
-> 
-> We see that it
->     1. stops accepting jobs from userspace (not visible here)
->     2. waits until all hardware fences in this ring are signaled
->     3. only then tears down drm_sched
+This patch updates pvr_kccb_send_cmd_reserved_powered() to return an int
+instead of void, allowing it to propagate errors. The error is now correctly
+propagated to the DRM scheduler's run_job callback in pvr_queue_run_job().
 
-I cannot do a very deep dive into nouveau at the moment. I see fence 
-itself is already freed with kfree_rcu so that's good. What is reachable 
-via the timeline name callback:
+Link: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-fr=
+om-kccb-cmd-submission-code-v3-1-4578a0fadf69@imgtec.com
 
-	struct nouveau_fence *fence = to_nouveau_fence(f);
-	struct nouveau_fence_chan *fctx = nouveau_fctx(fence);
+> diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imag=
+ination/pvr_ccb.c
+> index b702d122d7918..dfd0682705425 100644
+> --- a/drivers/gpu/drm/imagination/pvr_ccb.c
+> +++ b/drivers/gpu/drm/imagination/pvr_ccb.c
+[ ... ]
+> @@ -268,19 +273,25 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_devic=
+e *pvr_dev,
+>  	struct rogue_fwif_ccb_ctl *ctrl =3D pvr_ccb->ctrl;
+>  	u32 old_write_offset;
+>  	u32 new_write_offset;
+> +	int err;
+> =20
+> -	WARN_ON(pvr_dev->lost);
+> +	if (pvr_dev->lost)
+> +		return -EIO;
 
-	return !fctx->dead ? fctx->name : "dead channel";
+[Severity: Medium]
+If pvr_kccb_send_cmd_reserved_powered() is called by
+pvr_kccb_send_cmd_powered() after a successful pvr_kccb_reserve_slot_sync(),
+the slot reservation count has been incremented. Returning early with -EIO
+here avoids consuming the slot, but does this skip releasing the reservatio=
+n?
+If pvr_kccb_release_slot() is never called for this error path, it might
+slowly leak KCCB slot capacity until no commands can be submitted.
 
-Fence is presumably the fence so channel. Chagning to kfree_rcu in 
-nouveau_fence_context_put() there might be enough for that one.
+[ ... ]
+> @@ -378,8 +396,7 @@ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev,=
+ struct rogue_fwif_kccb_cmd
+>  	if (err)
+>  		return err;
+> =20
+> -	pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+> -	return 0;
+> +	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+>  }
 
-For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
+[Severity: Medium]
+Similarly, when pvr_kccb_send_cmd_reserved_powered() fails and returns an
+error, the caller pvr_kccb_send_cmd_powered() just propagates this error
+without calling pvr_kccb_release_slot(). Could this permanently leak the
+slot reservation acquired by pvr_kccb_reserve_slot_sync() earlier in the
+same function?
 
-That makes scheduler timeline name vfunc safe:
+[ ... ]
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
+agination/pvr_queue.c
+> index 09993e858df8b..ffac59ee8ae52 100644
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+> @@ -769,17 +769,19 @@ static struct dma_fence *pvr_queue_run_job(struct d=
+rm_sched_job *sched_job)
+>  		    (job->type !=3D DRM_PVR_JOB_TYPE_GEOMETRY ||
+>  		     job->paired_job->type !=3D DRM_PVR_JOB_TYPE_FRAGMENT ||
+>  		     job->hwrt !=3D job->paired_job->hwrt ||
+> -		     job->ctx !=3D job->paired_job->ctx)))
+> -		return ERR_PTR(-EINVAL);
+> +		     job->ctx !=3D job->paired_job->ctx))) {
+> +		err =3D -EINVAL;
+> +		goto err_release;
+> +	}
+> =20
+>  	err =3D pvr_job_get_pm_ref(job);
+>  	if (WARN_ON(err))
+> -		return ERR_PTR(err);
+> +		goto err_release;
+> =20
+>  	if (job->paired_job) {
+>  		err =3D pvr_job_get_pm_ref(job->paired_job);
+>  		if (WARN_ON(err))
+> -			return ERR_PTR(err);
+> +			goto err_release;
+>  	}
 
-static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
-{
-	struct drm_sched_fence *fence = to_drm_sched_fence(f);
-	return (const char *)fence->sched->name;
+[Severity: High]
+This is a pre-existing issue, but it is further exposed by this new early
+failure check. If a paired geometry job fails early here and returns an err=
+or,
+the geometry job aborts. However, the paired fragment job's execution of
+pvr_queue_run_job() unconditionally returns its done_fence:
 
-sched is then RCU protected. sched->name is already static so not a concern.
+    if (job->paired_job && job->type =3D=3D DRM_PVR_JOB_TYPE_FRAGMENT &&
+        job->done_fence->ops) {
+            return dma_fence_get(job->done_fence);
+    }
 
-As you say nouveau_sched_fini() only tears down the scheduler after 
-fences have been signaled it seems adding two new kfree_rcu make is safe.
+Since the fragment job relies entirely on the geometry job to submit both
+jobs to the hardware, does this early failure leave the fragment job waiting
+forever for a fence that will never signal, permanently hanging the fragment
+queue scheduler?
 
-Regards,
+> =20
+>  	/* Submit our job to the CCCB */
+> @@ -793,25 +795,33 @@ static struct dma_fence *pvr_queue_run_job(struct d=
+rm_sched_job *sched_job)
+> =20
+>  		/* Submit the fragment job along the geometry job and send a combined =
+kick. */
+>  		pvr_queue_submit_job_to_cccb(frag_job);
+> -		pvr_cccb_send_kccb_combined_kick(pvr_dev,
+> -						 &geom_queue->cccb, &frag_queue->cccb,
+> -						 pvr_context_get_fw_addr(geom_job->ctx) +
+> -						 geom_queue->ctx_offset,
+> -						 pvr_context_get_fw_addr(frag_job->ctx) +
+> -						 frag_queue->ctx_offset,
+> -						 job->hwrt,
+> -						 frag_job->fw_ccb_cmd_type =3D=3D
+> -						 ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+> +		err =3D pvr_cccb_send_kccb_combined_kick(pvr_dev,
+> +						       &geom_queue->cccb, &frag_queue->cccb,
+> +						       pvr_context_get_fw_addr(geom_job->ctx) +
+> +						       geom_queue->ctx_offset,
+> +						       pvr_context_get_fw_addr(frag_job->ctx) +
+> +						       frag_queue->ctx_offset,
+> +						       job->hwrt,
+> +						       frag_job->fw_ccb_cmd_type =3D=3D
+> +						       ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+>  	} else {
+>  		struct pvr_queue *queue =3D container_of(job->base.sched,
+>  						       struct pvr_queue, scheduler);
+> =20
+> -		pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+> -					pvr_context_get_fw_addr(job->ctx) + queue->ctx_offset,
+> -					job->hwrt);
+> +		err =3D pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+> +					      pvr_context_get_fw_addr(job->ctx) +
+> +					      queue->ctx_offset,
+> +					      job->hwrt);
+>  	}
+> =20
+> +	if (WARN_ON(err))
+> +		goto err_release;
 
-Tvrtko
+[Severity: High]
+When pvr_queue_submit_job_to_cccb() executes, it copies the job commands in=
+to
+the shared Client Circular Command Buffer (CCCB) and advances the local
+write_offset.
 
+If the subsequent firmware kick fails and returns an error, the new error
+handling path jumps to err_release and returns ERR_PTR(err). The DRM
+scheduler then frees the job and its associated memory.
+
+However, the driver does not roll back the CCCB write_offset. When a future
+job successfully kicks the KCCB, will the firmware process the aborted job's
+commands from the CCCB and attempt to access memory that the host has alrea=
+dy
+freed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-b4-upstrea=
+m-propagate-all-errors-from-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgt=
+ec.com?part=3D1
