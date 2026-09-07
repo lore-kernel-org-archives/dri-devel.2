@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBEB4C79FAC
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2BDC79F99
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA75C10EA2C;
-	Tue,  8 Sep 2026 07:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22C0F10EA43;
+	Tue,  8 Sep 2026 07:08:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="LLUOPGoa";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="qKRGoMoQ";
 	dkim-atps=neutral
-Received: from smtp-8fab.mail.infomaniak.ch (smtp-8fab.mail.infomaniak.ch
- [83.166.143.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA10F10E7B5
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:53:01 +0000 (UTC)
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch
- [10.7.10.108])
- by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdlnS0bqRzcjH;
- Mon,  7 Sep 2026 13:53:00 +0200 (CEST)
+Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch
+ [83.166.143.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9D0010E7E4
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:50:31 +0000 (UTC)
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
+ [10.7.10.107])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3p1w2Szd3c;
+ Mon,  7 Sep 2026 14:50:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
- s=20250113; t=1788781979;
+ s=20250113; t=1788785430;
  bh=dBHS/oDA3Bq/MnKWT+8QzHHpzChtVCq42IiwJ53rpN0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LLUOPGoa+1yTYjwReXd3sLFYM2bd9Ba8C+V+nZjYKtYEhiOZvd5osahH+orDZr49K
- d4nTyQea4C8zit4CurAfXWzpDzZ4q9bhzJiTJnwFSDOP6grS/JiA1X2SzdWP29rs6I
- x59D/ICIHRYbFdiVxhQvR0ETaJ17Ol8r9CJqfT8DiviGqAmBzzWIw5A7yhJBw92mOw
- URk1q5DBPZtn+1yyY5vp662Tyae0eOU0EpmnuwiCM4XIwlRFnPWPhqnxTjpaX61+NJ
- vrH13EkLKMi0eaM8ypd62T5oqFrQjwBvwHTiIfqjRHEOQ7TXgxn8UZf6oBcmT6AVIL
- mtPbXxoeOtxBg==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4hdlnR2cM7z1Tn; Mon,  7 Sep 2026 13:52:59 +0200 (CEST)
+ b=qKRGoMoQ6YJ2D7xTmKkpOY6iuI+sPk98lN1TXv8AE7zlHPwl5XA+ikbpA8/eGO6LZ
+ qRZtOW2Fbs0kE7nhYYWf5I7odVa9E2yXhs8P+LqYOAu80uJWbPpKSk4vHJbI1ONjiL
+ urjFxr4gRgEqI8JQlGQ7fJiiLG2nC4roQ/kaqCNB6T2QqBPYS2bqVWMUialnT85Evb
+ 5Xg9I5Vezg3rBPeTvaYARD5mzWSzBXMUzdgSNUyL1fUytZ8jyd1+t2gwflqX8lawWb
+ B7A/UYc5LEyd9xRZHWijXaJzcg5AZXPUkd4YJEe9iK0bLXYpPbaoDAfpQJEiBeY/g1
+ XhmgRoudrjczQ==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hdn3n4HsdzpKf; Mon,  7 Sep 2026 14:50:29 +0200 (CEST)
 From: Adrian Betschart <adrian.betschart@cinemaone.ch>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
@@ -39,13 +39,13 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] drm/amd/display: send the 3D_Ext_Data byte for
+Subject: [PATCH v3 2/3] drm/amd/display: send the 3D_Ext_Data byte for
  top-and-bottom too
-Date: Mon,  7 Sep 2026 13:52:28 +0200
-Message-ID: <20260907115229.64477-3-adrian.betschart@cinemaone.ch>
+Date: Mon,  7 Sep 2026 14:50:14 +0200
+Message-ID: <20260907125015.69811-3-adrian.betschart@cinemaone.ch>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
-References: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
+In-Reply-To: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
+References: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
