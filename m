@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA509C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:38:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08B31C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:50:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED37610E4A6;
-	Mon,  7 Sep 2026 13:38:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5B3210E833;
+	Mon,  7 Sep 2026 13:50:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="awq3sdmG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cdvob+iq";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE6110E4A6
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:38:54 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hdp7b1WKhz8spW;
- Mon, 07 Sep 2026 15:38:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788788331; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LEke2EPs1nd9N9Nxynh/mJMqpAdvs9NuQ3mp5kWf9VE=;
- b=awq3sdmGdjFFqitT1UNk0BqAkA+qyYbZbf+Z8qOSG+02uqNin7wCy1iX7rIox2uPTiDHBW
- z9Kd87A6zfshdOdlfvQSIYQehqxImBRY4BYmtiGvfNpPe0n75i2kROIYNYUNSpbUulBLku
- z49T8v1G/phTGJWX1WFSTYBfxPrgyDKlOMBlCqUQi7CvwW9JbYqV49dspnd5c3LxDWVi+f
- g1Po48j9W4F+PssuMZIQIsSd8+NNLEOBKPQ+sWyNXItU8BOsgEPwMALYdSZSFr3pK6huI/
- MBDtNxHEVIebcAsn6hW2TKC0uyGxdW6v/iM1kmdgoA9mzgUTGrhSzosCSrDiFA==
-Message-ID: <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 15:38:46 +0200
-In-Reply-To: <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
- <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
- <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
- <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
- <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
- <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
- <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C26C110E833
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:50:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 851AC415B7;
+ Mon,  7 Sep 2026 13:50:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515A01F00A3A;
+ Mon,  7 Sep 2026 13:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788789003;
+ bh=Aj0BJYTM3mrIFFI49F36duspoV+KXQoS8z3Mx+R+nkw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cdvob+iqgZBI0kcYpdZfXOp7Y7tMhr8P+Yhyyl8za0XD7FWoo45FGHx1v5H0KYgc1
+ E/xBM0uaPOM3JhYqa49d7Nvr3GZo5Ro+QTtTlJHp5wOI87lCw6ig1BMcZYTCOCeCyl
+ vx51Uw5Bh65xAVqmgRhREbytRpdVN5GEtFd1HBD9qf6NeUKZCkBnY11Bb2tmSpvSwl
+ JSDEST23qNh3QR8ssNt+MfiCEKy5jcgWoTgtymepeUw8RMp0HicJE8OPnH8brpmAh/
+ ehwh5YZRTsECeLS/zGgvcxkex+U/XX4wdEhliiScTjLMTGOuIiPQWZLwOib7raCBmo
+ AZ8PEWOKR0nOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] drm/amd/display: replace STATIC_IFN_KUNIT with
+ VISIBLE_IF_KUNIT
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260907-visibility-unification-v1-1-6a962e5b3351@redhat.com>
+References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+ <20260907-visibility-unification-v1-1-6a962e5b3351@redhat.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-META: ipg9bp9sjkftrx9pyqqjiyefy5qzrbq1
-X-MBO-RS-ID: fc4c7d91b475e08ac8a
+Date: Mon, 07 Sep 2026 13:50:02 +0000
+Message-Id: <20260907135003.515A01F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,30 +54,129 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-07 at 14:59 +0200, Christian K=C3=B6nig wrote:
-> I think the memory ordering isn't really a problem.
->=20
-> See if the ops pointer or the signaled bit is loaded first doesn't
-> matter if you check both.
->=20
-> You only need to make sure that the ops pointer is loaded once cause
-> that one is used multiple times, but that is already the case by
-> using rcu_dereference().
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing prototypes and global namespace pollution for generic funct=
+ion names when CONFIG_KUNIT is enabled but CONFIG_DRM_AMD_DC_KUNIT_TEST is =
+disabled.
+--
 
-That.. sounds correct.
+commit 559b79e4c5aa67bc448a3cebcac53b59d32d0f66
+Author: Albert Esteve <aesteve@redhat.com>
 
-Although I still don't get why we then can't use the signaled state
-everywhere instead of the ops pointer. That would be simpler.
+drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
+   =20
+This commit switches amdgpu_dm test helpers from the local STATIC_IFN_KUNIT
+macro to the generic VISIBLE_IF_KUNIT macro. The helpers become non-static
+whenever KUnit is enabled, not just when AMD DC tests are built.
 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ec483276d7538..5b3bebde0b083 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -167,7 +168,7 @@ static inline void amdgpu_dm_exit_ips_for_hw_access(s=
+truct dc *dc)
+>   * @return
+>   * Counter for vertical blanks
+>   */
+> -STATIC_IFN_KUNIT u32 dm_vblank_get_counter(struct amdgpu_device *adev, i=
+nt crtc)
+> +VISIBLE_IF_KUNIT u32 dm_vblank_get_counter(struct amdgpu_device *adev, i=
+nt crtc)
 
-Anyways.
-Maybe Jonghyuk can give your patch a test run and then we could use it
-as a hot-fix to backport and discuss the wider future of dma-fence
-separately?
+[Severity: Low]
+If CONFIG_KUNIT is enabled but CONFIG_DRM_AMD_DC_KUNIT_TEST is disabled,=20
+VISIBLE_IF_KUNIT will make this function globally visible. However, if its=
+=20
+prototype in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h is still=20
+guarded by #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST), won't this cause a=
+=20
+-Wmissing-prototypes build warning?
 
+[ ... ]
 
-P.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index c8a1ab8c3b169..fe310b6d9f603 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -724,7 +724,7 @@ amdgpu_dm_convert_color_depth_from_display_info(const=
+ struct drm_connector *conn
+>  }
+>  EXPORT_IF_KUNIT(amdgpu_dm_convert_color_depth_from_display_info);
+> =20
+> -STATIC_IFN_KUNIT enum dc_aspect_ratio
+> +VISIBLE_IF_KUNIT enum dc_aspect_ratio
+>  get_aspect_ratio(const struct drm_display_mode *mode_in)
+
+[Severity: Low]
+Since VISIBLE_IF_KUNIT makes this function globally visible when CONFIG_KUN=
+IT=20
+is enabled, does the generic name get_aspect_ratio risk namespace collision=
+s=20
+with other display or media drivers?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> index 47cbc826ed451..20c1ce8cda446 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> @@ -187,7 +190,7 @@ int psp_set_srm(struct psp_context *psp,
+>  }
+>  EXPORT_IF_KUNIT(psp_set_srm);
+> =20
+> -STATIC_IFN_KUNIT
+> +VISIBLE_IF_KUNIT
+>  void process_output(struct hdcp_workqueue *hdcp_work)
+
+[Severity: Low]
+With VISIBLE_IF_KUNIT, this generic name process_output becomes a global=20
+symbol in vmlinux. Is there a risk of link-time collisions with other=20
+drivers?
+
+Also, similar to the missing prototype issue mentioned earlier, could this=
+=20
+lead to a build warning if the prototype in amdgpu_dm_hdcp.h is still=20
+guarded by CONFIG_DRM_AMD_DC_KUNIT_TEST?
+
+[ ... ]
+
+> @@ -386,7 +389,7 @@ void hdcp_handle_cpirq(struct hdcp_workqueue *hdcp_wo=
+rk, unsigned int link_index
+>  }
+>  EXPORT_IF_KUNIT(hdcp_handle_cpirq);
+> =20
+> -STATIC_IFN_KUNIT
+> +VISIBLE_IF_KUNIT
+>  void event_callback(struct work_struct *work)
+
+[Severity: Low]
+Similar to the above, does exposing the generic name event_callback to the=
+=20
+global namespace risk collisions when CONFIG_KUNIT is enabled?
+
+[ ... ]
+
+> @@ -608,7 +611,7 @@ bool enable_assr(void *handle, struct dc_link *link)
+>  }
+>  EXPORT_IF_KUNIT(enable_assr);
+> =20
+> -STATIC_IFN_KUNIT
+> +VISIBLE_IF_KUNIT
+>  void update_config(void *handle, struct cp_psp_stream_config *config)
+
+[Severity: Low]
+Could making update_config globally visible cause namespace collisions, as =
+it=20
+lacks a subsystem prefix?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-visibility=
+-unification-v1-0-6a962e5b3351@redhat.com?part=3D1
