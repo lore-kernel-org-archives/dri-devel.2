@@ -4,113 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56020C79FA0
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 16:35:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71344C79F99
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 16:48:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D39E10E00B;
-	Mon,  7 Sep 2026 16:35:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F19C10E04E;
+	Mon,  7 Sep 2026 16:48:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UZA8aGUg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rbt2fYEQ";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56ED310E00B
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 16:35:28 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49d0da752ffso16061365e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 09:35:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1788798926; x=1789403726; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=AJ38KZrQ1VU0wHJvFYCofD4vSHW03RLbTPeGnMYRlCc=;
- b=UZA8aGUgaXRi2XsnLI+SZATrOfPAf3AJUGsk4lTPAqyohb5lhG4lu68f9y+JysxsRP
- 6xF6C6dUvQxgrsbvbnYwVaj52VJDO2eItAfcCVr2EQ9JDbGdkn4k7oXRs3p0n8aXPqMn
- PzeVSqzzwH+5WcPUN8EGzSTsTP9rLRnR0/QVzEFtItEFqLroCv0ebN01TwKAyyABhKVv
- UBo7tgmLO4cysnycX7TM8r+S95Ufe0zxsfhe4lG/Bi6RhMYx5njUom5MdS7iiVNP9IFI
- zOYM10ia2+ZaON1HCplU7y2B7FEpeKTRsyqre6LJ25dwgfuw4lW+KbEI6iL1LltcLPqO
- IORw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788798926; x=1789403726;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=AJ38KZrQ1VU0wHJvFYCofD4vSHW03RLbTPeGnMYRlCc=;
- b=Q9KJ5NTTi3j2RSmzX224OmptbzSpImw9XfV7Vo4gBYRqAEb/eD2cO4HKV+wK0DbJQX
- vU7b92H5TCDnwj3ySNXml5Vy3vsb8oZG537+ZKW24s0yKJ6o6NOIKtzTSLekpWQbMdBB
- D7euSPW7pFF/4FS8ntGnAAllcgdhvgbq7vaYv9Z5OWxZ552YdlxsJuuJj6GoVKiTeDkW
- mWnagRfXvD4Wx2/DeoaqsQ7+yBO3ZWkWJyBTRY0b0bEO5+s9E2v2qpZuDJkGjz7kFY4i
- GpnHpSr39jjy8oC+aDwC0wJLOpurTHqVJtlXHt0vKOPYwroiw967lNLEYEJPaJ8ZaELQ
- SY9g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw9xAGnsdULpzanpVPYZC1eDcbG5wCEHRgz7z7JWReaC27l0JQsg2aPhCq8xitUi6UDHYPk+6AR++c=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lUjhwPlXz1x+bs37m/n1zgPT2FjkhytKPIcI14qOEJlgmZ0mvb
- hnZfJWJuiZLPbQ00sQRl5YKDbTDkhBadhJFnk+r4gvkrGlcL2GXgzw28V8u1Xmo7loM=
-X-Gm-Gg: AYBFou3m3MeLW+eSo60qXwDI8HbpPT2gyY7vwpk7LHdtik3WlGmiZItwqbkWsLHx3CN
- nr+9XBYBGz559GKNwrcfTYOu/48tgiU1Wm4kFAEdztAArpnLvbTtrkifBUERVmv5Xmn7HfPV8W7
- fUWBBRReU14krc5P91xTm9dE6T3MfN+DHT7L4WM1rlI76dZXelma9V9aZ1NZKEjqaTuPDmKx2mz
- boCSj8YrH4CVzRuLMmglpThnC+TlI+mMrgoVFr6jS+hiJMRcDPgvLo8Njx/EeSzClV5mBnXONxh
- EOImYs3OwUfvEqvjXoTVRzRRFVmLdf5jYvMLZ4NKENMCAl/Eo5sg2FoJiX3YefBdEnUg8pdLfAm
- 1zI5zzbpjy5zAjnMcqfCqoV7Ruqz2hYEAVKN4r5eADabNQtmlQHMEw9RLKBEHiiXWH7p8vJxJJK
- eKQMB5tCbfZfW8bdBz/auHnewvQ/k3xFlseNXdPWrtSLxtH93Y4coD//gKOWF0/Jb6ODIVUUXZM
- h2ionGOhiohgHX+a81FacvC1erh9PcVaUlMNre6djo=
-X-Received: by 2002:a05:600c:530d:b0:49c:fc6e:8cae with SMTP id
- 5b1f17b1804b1-49cfc6e8f24mr189817335e9.18.1788798926391; 
- Mon, 07 Sep 2026 09:35:26 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:74d7:9035:e283:b480?
- ([2a01:e0a:106d:1080:74d7:9035:e283:b480])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485885c5bbdsm28013294f8f.36.2026.09.07.09.35.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2026 09:35:25 -0700 (PDT)
-Message-ID: <e1971874-6e06-4ffb-8118-c4acc40144eb@linaro.org>
-Date: Mon, 7 Sep 2026 18:35:24 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8C4310E04E
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A5D8D43AE7;
+ Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 80456C2BD00;
+ Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1788799695;
+ bh=tAJEHSAuTRx0EwppaN+WcZOoNCdsIpUxUwps4sDokJQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=Rbt2fYEQSS4C6EkdvC1fCToikE3BnUr2KIjHVVagi9tu7Irden05SaZW0kRUBOYvQ
+ gbHhxXEwSG+UNMcnDcNzxFYCkhREKSXx9jgqjXeVbIK5RwtPT4kxwfw7XAsMed2c1W
+ bWzasx772rdyAZ4tFhzbdhIohLbvZ9qg1f3pmTq8TFjAoVwuiXj6NREZmsUnWElSwc
+ FlSrUHtUlMrBw3NxC4Oftm8StJ2mLAE0WKAKspm9LSOlRPS6rZd89SqxZi7338NBwR
+ CWbJt7CBn5LiprSZE2MG4PImhAVM3oj/6sEREzGKWL+9CUauAAAjtp0AFd0j56bWG2
+ yil5XWrUYSH/A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 58BF1C79FA7;
+ Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
+From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
+Date: Tue, 08 Sep 2026 00:47:49 +0800
+Subject: [PATCH v2 2/9] rust: mm: add `task_size` helper
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: SM8250 USB-C DP alt mode: DP AUX times out in reversed (CC2)
- cable orientation
-To: BurningHoryd <sjunhyuk1@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Vinod Koul <vkoul@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-References: <20260906225206.2994952-1-sjunhyuk1@gmail.com>
- <f0fc4211-2040-4115-9847-6e5cc3fe8161@linaro.org>
- <20260907162643.36585-1-sjunhyuk1@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260907162643.36585-1-sjunhyuk1@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-tyr-ioctls-v2-2-88bea777df67@kylinos.cn>
+References: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
+In-Reply-To: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
+To: rust-for-linux@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
+ Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788799692; l=951;
+ i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
+ bh=JO+2MVB8/0ZEX96oFL0eP1mAOKrIibNCaD5F9FcB8NY=;
+ b=y55dyR98tdQkyQvRS1h0SbEjSI3cnaIDdg85SX7ZIaWbhXm+f+ZDU47osQZU2PcPwf9rjlhF1
+ PmbRd8EcCmSC8RgKm7nNWPDYFWRTaPzPs62nL8aNDxU+XaJ2TT4eU/T
+X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
+X-Original-From: Ke Sun <sunke@kylinos.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,80 +81,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: sunke@kylinos.cn
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/7/26 18:26, BurningHoryd wrote:
-> On 9/7/26 08:40, Neil Armstrong wrote:
->> This means the nb7vpq904m is _not_ responsible for the AUX swapping, other
->> boards have the wcd9395 or the fsa4480 in the middle to use the AUX line
->> for the USB-C Alternate Audio support, and does the swap.
->>
->> Could you check in the vendor tree if there's any reference to those ?
-> 
-> Checked Retroid's downstream Android DT for this board. There is an
-> FSA4480, plus a GPIO AUX switch, and my mainline port models neither.
-> 
-> 1. fsa4480@43, on the same I2C controller as the redriver:
-> 
->       i2c@884000 {
->           fsa4480@43 {
->               compatible = "qcom,fsa4480-i2c";
->               reg = <0x43>;
->           };
->           redriver@1c {                 /* nb7vpq904m equivalent */
->               compatible = "onnn,redriver";
->               status = "disabled";
->           };
->       };
-> 
->     The only node that references it is the ASoC machine driver
->     (qcom,kona-asoc-snd, via "fsa4480-i2c-handle") - so downstream it is
->     used for the USB-C analog-audio / MBHC SBU routing, not by the DP
->     driver. The codec is a wcd9385, no USBSS block, so no wcd9395 here.
-> 
-> 2. The downstream DP driver does its own AUX orientation over GPIO:
-> 
->       &dp_display {
->           qcom,dp-gpio-aux-switch;
->           qcom,aux-sel-gpio    = <&tlmm 8  0>;
->           qcom,aux-en-gpio     = <&tlmm 9  0>;
->           qcom,usbplug-cc-gpio = <&tlmm 65 0>;
->       };
-> 
->     TLMM 9 there is the same pin my mainline DT currently hands to the
->     nb7vpq904m as "enable-gpios", so that assignment is likely wrong, and
->     TLMM 8 (the orientation select) is not wired up in my port at all.
-> 
-> 3. The redriver (onnn,redriver @ 0x1c, same I2C address as the
->     nb7vpq904m on my board) is left status = "disabled" downstream.
-> 
-> So the SBU / DP-AUX orientation switch on this board looks like a
-> discrete GPIO-controlled analog mux (TLMM 8 select, TLMM 9 enable), and
-> my port is missing it - I modeled the I2C redriver as the
-> orientation-switch instead, which is why poking its AUX_CC_REG did
-> nothing and only the DP_CC2 (pair-swapping, 2-lane) op-mode ever got an
-> AUX transaction through in reverse.
-> 
-> Does this look like a job for gpio-sbu-mux
-> (drivers/usb/typec/mux/gpio-sbu-mux.c) - a node with
-> select-gpios = <&tlmm 8>, enable-gpios = <&tlmm 9>, orientation-switch +
-> mode-switch, wired to the connector - with the nb7vpq904m kept as
-> retimer-switch only (or dropped, since downstream disables it)? Or is
-> the FSA4480 in the DP AUX path as well, making fsa,fsa4480 the right
-> orientation-switch to add?
+From: Alvin Sun <alvin.sun@linux.dev>
 
-Yes if it's a discrete SBU mux, gpio-sbu-mux was designed for that, and
-keep the nb7vpq904m and just drop the SBU link to the redriver and replace
-it with a link to the SBU mux instead.
+Expose the task's address space size. It is used by the Tyr driver
+for splitting a VM's GPU address space into user and kernel regions.
 
-Neil
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+---
+ rust/kernel/mm.rs | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> 
-> I'll wire up gpio-sbu-mux and come back with reverse/normal traces
-> unless that's the wrong direction.
-> 
-> Thanks,
-> BurningHoryd
+diff --git a/rust/kernel/mm.rs b/rust/kernel/mm.rs
+index 4764d7b68f2a7..d2dfbb7d43972 100644
+--- a/rust/kernel/mm.rs
++++ b/rust/kernel/mm.rs
+@@ -149,6 +149,13 @@ pub fn mmget_not_zero(&self) -> Option<ARef<MmWithUser>> {
+             None
+         }
+     }
++
++    /// The size of the process virtual address space.
++    #[inline]
++    pub fn task_size(&self) -> usize {
++        // SAFETY: `self.as_raw()` is a valid pointer to an `mm_struct` per the type invariants.
++        unsafe { (*self.as_raw()).__bindgen_anon_1.task_size }
++    }
+ }
+ 
+ // These methods require `mm_users` to be non-zero.
+
+-- 
+2.43.0
+
 
