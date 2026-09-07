@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2C2C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 20:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3737AC79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 20:17:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C90CE10E649;
-	Mon,  7 Sep 2026 20:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7782710E8D8;
+	Mon,  7 Sep 2026 20:17:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="aKUaxKl2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="OkYAS+er";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B7E10E649
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 20:17:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788812217; cv=none; 
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD4210E8D8
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 20:17:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788812225; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=WD8ccLcdh8s7Fa6MHqhzpICylP4GYTyORQfj9MOoRcd303iM3ibn6iT2XC+m7+E8iLx2R1CkPJ6O+piS9Dz4YudONK5gvOsRSADJPl2qAKQqlFT7QQQ7kH1ZAwiBf0hfRe6qbifvD6qSA0PUaaVe+SDMJY6NZMIb2CpCgWJVJgI=
+ b=dYNKUAJqmY3Eb8hWS5x4V/J+yB1mCNh9e1m9iCc50kHCxZewqkTohNail6EEH/twJ2JJ5frw9PR6NklXj0iVxSGC+9e2kebO4+01yH7fN7IIX6wEkPHtZtYnWGBFPeDza81x5EjhnpqCj2fkafUFhSajRl7BWCET3PXAFJDDmNA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788812217;
+ s=zohoarc; t=1788812225;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=uE6tGIUw4nUFeMlGUIl2Vj3+Z0EEpcFNwJvK87yeLC8=; 
- b=h/h/DsbJ/xbhdmECWnmELI7dauVlrhQtEKnd70qvsS8yvYzlstL+oxvKiz/M52ns7OkTNx4wUwIUQHHxF0Be7JcspPb3/mblhnb7an8cL+/CND4w/hCQVmif0SrN4L7Sfajna7ATHZfQ7VPlQ07RMeAo2HFRAvil0NmViiktdxQ=
+ bh=YLJJEy7HObDD1CKVtOGtdrfPLM+ZQOVKX8SKLnJRFuQ=; 
+ b=FSQN4vx7dhFnsQB/X3sDtJJWKkz7Wpe/fZUubbzbeF7hTXBz4d1Rgo+Kmpm7rJ/+5ATv4lfU1YD1sb3dwcx3Xduq/gEPo5Tg4A5jI6HveZ9S8E1Eg9j0hlVoxJ2Wg0JReTXyoAD0vfaZx9kwyAPqYdTQUxJhB8Xov8jI6izKUJE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788812216; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788812225; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=uE6tGIUw4nUFeMlGUIl2Vj3+Z0EEpcFNwJvK87yeLC8=;
- b=aKUaxKl2TLC6TN4jGZkM/FbyEClN6aT0D1om3qM3gOPSLKdSXNLQgvFZ949Oh9kD
- wZszQXnqQ3T8wBt89xFbsNmVj1SC3NHPVjDhgl4OBB9fQJYP3tJ09Q90jfl4+DGLth3
- mnhKsIStpcin0ucVQdFvRSU2NLne7tWDO9hmbIQ8=
-Received: by mx.zohomail.com with SMTPS id 1788812216128147.32011858226542;
- Mon, 7 Sep 2026 13:16:56 -0700 (PDT)
+ bh=YLJJEy7HObDD1CKVtOGtdrfPLM+ZQOVKX8SKLnJRFuQ=;
+ b=OkYAS+ers/VMJXAFdqndkqLfDC5sJXp33Ni8tcHxTOMVf4VUmN+I6gfX5zxxvRJd
+ pmDqxDexYIRgIxn9F71tpTAH9jmZS8h/sl/hoG9EJExRd1gfGqWbfM8G3U7pET6QZ1T
+ J8Wf3yzX6abaCN5CyWoEnW5E2zPwVJR6TPCLJy1g=
+Received: by mx.zohomail.com with SMTPS id 1788812222585108.3592958177884;
+ Mon, 7 Sep 2026 13:17:02 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Mon, 07 Sep 2026 21:16:15 +0100
-Subject: [PATCH v8 06/16] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
+Date: Mon, 07 Sep 2026 21:16:16 +0100
+Subject: [PATCH v8 07/16] drm/panfrost: Explicitly enable MMU interrupts at
+ device init
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-claude-fixes-v8-6-c2bcb5e82184@collabora.com>
+Message-Id: <20260907-claude-fixes-v8-7-c2bcb5e82184@collabora.com>
 References: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
 In-Reply-To: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3143;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1801;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=MXDSZuGOlvNH11js9h2jqHaS2B66edvM5cQo30VukSA=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqnxuLlGOzIgawUwuYpp0nKK5dQPkI8bbCvB+Lh
- 9KIWjh3znSJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCap8biwAKCRAOJn5M7lND
- PRqZDACpAFQtVm5Nhz/+t1EZw9uGhQ53sKfdFN0qq5r2BCy8vIeb1MgZJwaBHlkMI502otkcW9l
- 2UWxCI4H3CXJdG9k5gEQcPrUDTIGpPp/MVHZPvOvUwdAlZyv8Xl07VEuaNYI2oBZAp3uJckX8w8
- SETgA4DujgTmEGyV9aWufusH5bv5QKtqzyk/fK74tY58zmDWYRj/xJw/WRSKJjHfTJAYUQ+AnNk
- HomidiH/na6IQwIg7p40ha2DxTivAreXIiLlkP40qMWm3Q4rrtY/9/B194IC2dcT0k7O5OMv/1a
- r1yOZxJbj36NBFtUCOK1jWNzKfrXkV6a0VZe2XlGSjxQ/Re3d8wPStnFCmzY9v3X61dy17Y4nH5
- vhJkUc5sHOz/a9hqAZ6hED2HTha8tokx+Z186ty0hageFM0m9AQCGyFRThVr32jXphUY1FtH8G5
- QN1IvZxMGY2zjKYrNK8iXfc4MLObNtzq2i/oCGAL0lr/iTG/0ceoLfUQ39IgFpRoDUED4=
+ bh=rGbyQBkNbY5a1OXBSal5Mure3AlHLFxQtfgc5Bhzvks=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqnxuLF0nluNX19rU6e8V3pONf/VzWK+9S3VHqT
+ z4TNSxPaYKJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCap8biwAKCRAOJn5M7lND
+ PcwEDACVEUHO8dvfooVtX1F1DJILBe/KymO2ZRBAWtouaFAsmGzeae5Xltbx4kfuaOYscHtsOwH
+ jCenrLKzRUk9SvEb2OtBn8cTb5Sr1nSYY7NFbAxnfGndC8dPgpCQchSJFH7MBsXgPdxKnKPT3/a
+ O+DjoKG8+lr1/qxBbxoUNxzWcoBcE03g40YDK0p/JEwZEqbkx4CdHZzc31wm1g1cbMKGWYQWFAJ
+ Oq8ZdoOKpXmdrEnnz5uOY/NMY+GgDOD3YWvmZfjqvRhp4BGSBur0A2IfUXHoejGv5PoiC4x2N6X
+ gPdwtLxd0BU7357BOOELbcO/fgc3hqPisLbMNOgGmr5qUGo90MHQ5N5oDMdWk89Wl5ThiKjRXed
+ QJF7W3MmS2zBD98eYFH35Hr5HsChD/qeL7F8hs/y74On5NdVaqAvn3neZ0K8Ff7+Y5SxL2/1w6q
+ EoL8jUx6dE94SVcx9KALmgeREatPILyBUh/IH/LLh673+AETDnvbnlFbStJQfJvnRY0t8=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,82 +91,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-During device probe(), failure to do a PM get() will leave the usage_count
-set to 0, which is the value assigned at device creation time. That means
-when the autosuspend delay expires, runtime suspend callback won't be
-invoked, so the device will remain powered on forever.
+Because the device must be in a position to accept jobs between the time
+drm_dev_register() is called and autosuspend first kicks in, there's a very
+narrow window inbetween during which jobs targeting the tiler buffer
+object would time out, since the device's PM status is 'Active', but no MMU
+interrupts were enabled at device initialisation time.
 
-On top of that, failure to call PM put() during device unplug means
-Panfrost device's PM usage_count increases monotonically for every new
-module reload.
-
-The outcome of both of the above meant that:
-
-- Devfreq OPP transition notifications would be printed all the time,
-  even when no jobs are being submitted. This quickly fills the kernel
-  ring buffer with junk.
-- Because MMU interrupts are only enabled when the device is reset,
-  the very first job targeting the tiler heap BO after device probe()
-  would always time out, since the driver's PM runtime resume callback
-  would not be invoked.
-
-To fix the above:
-- Manually adjust the PM refcnt at device probe and removal time.
-- Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
-- Call pm_runtime_put_autosuspend() when device is ready to accept jobs
-- Move pm_runtime_set_suspended() before panfrost_device_fini() so that
-  resource unwinding happens in the opposite order as initialisation.
-
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 55fc22e8d4d4..a3eff77add55 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -854,6 +854,7 @@ static int panfrost_probe(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 5c393ed6e310..faa62643caf1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -336,6 +336,12 @@ void panfrost_mmu_as_put(struct panfrost_device *pfdev, struct panfrost_mmu *mmu
+ 	WARN_ON(atomic_read(&mmu->as_count) < 0);
+ }
  
- 	pm_runtime_set_active(pfdev->base.dev);
- 	pm_runtime_mark_last_busy(pfdev->base.dev);
-+	pm_runtime_get_noresume(pfdev->base.dev);
- 	pm_runtime_enable(pfdev->base.dev);
- 	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
- 	pm_runtime_use_autosuspend(pfdev->base.dev);
-@@ -866,13 +867,16 @@ static int panfrost_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto err_out1;
++static void panfrost_mmu_enable_interrupts(struct panfrost_device *pfdev)
++{
++	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
++	mmu_write(pfdev, MMU_INT_MASK, ~0);
++}
++
+ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+ {
+ 	struct panfrost_mmu *mmu, *mmu_tmp;
+@@ -355,8 +361,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
  
-+	pm_runtime_put_autosuspend(pfdev->base.dev);
+ 	spin_unlock(&pfdev->as_lock);
  
+-	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
+-	mmu_write(pfdev, MMU_INT_MASK, ~0);
++	panfrost_mmu_enable_interrupts(pfdev);
+ }
+ 
+ static size_t get_pgsize(u64 addr, size_t size, size_t *count)
+@@ -973,6 +978,8 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
+ 		return err;
+ 	}
+ 
++	panfrost_mmu_enable_interrupts(pfdev);
++
  	return 0;
- 
- err_out1:
-+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
--	panfrost_device_fini(pfdev);
-+	pm_runtime_put_noidle(pfdev->base.dev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
-+	panfrost_device_fini(pfdev);
- err_out0:
- 	return err;
- }
-@@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_device *pdev)
- 	drm_dev_unregister(&pfdev->base);
- 
- 	pm_runtime_get_sync(pfdev->base.dev);
-+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-+	pm_runtime_put_noidle(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
--	panfrost_device_fini(pfdev);
- 	pm_runtime_set_suspended(pfdev->base.dev);
-+	panfrost_device_fini(pfdev);
  }
  
- static ssize_t profiling_show(struct device *dev,
 
 -- 
 2.55.0
