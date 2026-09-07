@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6813C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFE84C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9CB10E823;
-	Mon,  7 Sep 2026 13:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FC9110E826;
+	Mon,  7 Sep 2026 13:25:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fQEcFlr0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bcsao8/5";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79E9D10E823
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5304E10E826
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 62CEE40607;
- Mon,  7 Sep 2026 13:25:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51CE1F00A3D;
- Mon,  7 Sep 2026 13:25:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3BFE2408FF;
+ Mon,  7 Sep 2026 13:25:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7A61F00A3A;
+ Mon,  7 Sep 2026 13:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787547;
- bh=Lfrlubs61FGS67QqNEobq5lvnzxbv4WB+gv2CSGHXCE=;
+ s=k20260515; t=1788787551;
+ bh=xpHGinffH8zFngRbsJHKyKdSBFC19NFC0ROqacL3hns=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fQEcFlr0OFq2h9uWpAtD6Hf0jgv54FeA7WuY7XpK9NZglVXda1MaRabAcRbDKIlF0
- zFbu/xb2znmCJ5u0+XtdUEaSd2sTHSk5G55iyIo06Rc11Pq6a4t6BBYqyurQAdNwp4
- +PUinVI5sOfb4X7zi82uvPC6HY4qY8pCO2lrY6AWQRs7s+VW7AqArp9CXsOg4ypoRu
- N5Y9KZDXdhaP/CbBerEfMWGOkH2u5Nc4FyxYHFkCLxJCx5vYAqV/87Yfv3BB+Q0z4D
- hXcaguWOviq0S0nylcgErGnsSY0vrtCMaS82RXjArZnoNrXFpqtIQi1OkEgWIP7f+u
- ElAn2Ur8ldiuA==
+ b=bcsao8/5p3K6mgOn/ss4otZpV32P7ObLir1yc0auifHRWy1e1SHRAhS7MP+TfgSyb
+ JSN2hLF7Otn0konpu5/a/rH3PCQOHiHm8KXGWTW5k2Y+WnbCBvJWb+RyBrsPXCnCAj
+ IvShiZmWv9xcXEPOSpl3QsOkXX+DWHqh0V9cuBydy5an1v6FoMdWbf89PkEurShnkf
+ RZji6uH/EBBjYTIoJIhIprPVEQNP/2jaeOrG0mda6ogyFTg0BExDRBhR6ztJSGwxcZ
+ k/TGl3iFN8h8P+uu/x5ihYThKZ5VeHtM71O2vinopg3fb0M4bnfBZRMWZ4lnF9wIdf
+ dBTatXlxG+h4w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:24:04 +0200
-Subject: [PATCH v5 28/33] drm/tidss: dispc: Improve mode checking logs
+Date: Mon, 07 Sep 2026 15:24:05 +0200
+Subject: [PATCH v5 29/33] drm/tidss: Switch to
+ drm_mode_config_create_initial_state()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-28-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-29-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,12 +51,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4777; i=mripard@kernel.org;
- h=from:subject:message-id; bh=1PndjjtceaAFiCRvAOp7MfxG8HQia0cCTeb7tD+7w3Y=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdr3yXMElfvGlSFX6rUd2e78stW3yuONXJXjxzWP1a
- 9ULPj+/1TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmMr+aseHE0XihlK1XOq5t
- kXATFM3kY//5s0Zmuuy3HrWsOY01v08c/rvZhvNCkkSfrPs6ydO2oYz16YvP3zuvrXqaNerPqan
- PHL5w71t9JnybxKmnq0/K2WqvXD77a9CkH3tXP5vi5KTJ+tPpCwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1009; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=QPe/gvdkSBhXMT2fltVb+48ztOiWNZrpTXF8qD8ywrk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdr1SfZW7SutEv6tw0hy9EM9V1evaHUQ9ap08tltfT
+ lc4a+nYMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbS1chY73k9LqfS/NbnhT/K
+ S6wXP2yPefxYPnnXAcVXUSs/7tnUc+nBwr/Fje+vqr3vP2Xftv9qB2PDmYKcPffj95enLDr7bnl
+ 959+XMx2/J9aoK76xM9W8H+ZQo96tv+WLx2GWoBVM5YxfvasB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,151 +74,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dispc_vp_mode_valid() function checks whether a mode can be handled
-by the display controller.
-
-There's a whole bunch of criteria, and it's not clear when a rejection
-happens why it did. Add logs on each rejection criterion to make it
-clearer.
+Now that drm_mode_config_create_initial_state() exists to create the
+initial state, use it instead of drm_mode_config_reset() during
+driver probe.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 45 +++++++++++++++++++++++++++++--------
- 1 file changed, 36 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/tidss/tidss_drv.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 2a0ec11a6c90..a19b74b0ca30 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -1302,10 +1302,12 @@ unsigned int dispc_pclk_diff(unsigned long rate, unsigned long real_rate)
- }
- 
- static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
- 			     unsigned long clock)
- {
-+	struct tidss_device *tidss = dispc->tidss;
-+	struct drm_device *dev = &tidss->ddev;
- 	unsigned long round_clock;
- 
- 	/*
- 	 * For VP's with external clocking, clock operations must be
- 	 * delegated to respective driver, so we skip the check here.
-@@ -1316,51 +1318,65 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
- 	round_clock = clk_round_rate(dispc->vp_clk[hw_videoport], clock);
- 	/*
- 	 * To keep the check consistent with dispc_vp_set_clk_rate(), we
- 	 * use the same 5% check here.
- 	 */
--	if (dispc_pclk_diff(clock, round_clock) > 5)
-+	if (dispc_pclk_diff(clock, round_clock) > 5) {
-+		drm_dbg(dev, "Mode pixel clock below hardware minimum pixel clock.");
- 		return -EINVAL;
-+	}
- 
- 	return 0;
- }
- 
- enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 					 u32 hw_videoport,
- 					 const struct drm_display_mode *mode)
- {
-+	struct tidss_device *tidss = dispc->tidss;
-+	struct drm_device *dev = &tidss->ddev;
- 	u32 hsw, hfp, hbp, vsw, vfp, vbp;
- 	enum dispc_vp_bus_type bus_type;
- 
- 	bus_type = dispc->feat->vp_bus_type[hw_videoport];
- 
--	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF))
-+	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF)) {
-+		drm_dbg(dev, "Invalid bus type.");
- 		return MODE_BAD;
-+	}
- 
--	if (mode->hdisplay > 4096)
-+	if (mode->hdisplay > 4096) {
-+		drm_dbg(dev, "Number of active horizontal pixels above hardware limits.");
- 		return MODE_BAD;
-+	}
- 
--	if (mode->vdisplay > 4096)
-+	if (mode->vdisplay > 4096) {
-+		drm_dbg(dev, "Number of active vertical lines above hardware limits.");
- 		return MODE_BAD;
-+	}
- 
- 	if (check_pixel_clock(dispc, hw_videoport, mode->clock * 1000))
- 		return MODE_CLOCK_RANGE;
- 
- 	/* TODO: add interlace support */
--	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-+	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
-+		drm_dbg(dev, "Interlace modes not supported.");
- 		return MODE_NO_INTERLACE;
-+	}
- 
- 	/*
- 	 * Enforce the output width is divisible by 2. Actually this
- 	 * is only needed in following cases:
- 	 * - YUV output selected (BT656, BT1120)
- 	 * - Dithering enabled
- 	 * - TDM with TDMCycleFormat == 3
- 	 * But for simplicity we enforce that always.
- 	 */
--	if ((mode->hdisplay % 2) != 0)
-+	if ((mode->hdisplay % 2) != 0) {
-+		drm_dbg(dev, "Number of active horizontal pixels must be even.");
- 		return MODE_BAD_HVALUE;
-+	}
- 
- 	hfp = mode->hsync_start - mode->hdisplay;
- 	hsw = mode->hsync_end - mode->hsync_start;
- 	hbp = mode->htotal - mode->hsync_end;
- 
-@@ -1368,29 +1384,40 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 	vsw = mode->vsync_end - mode->vsync_start;
- 	vbp = mode->vtotal - mode->vsync_end;
- 
- 	if (hsw < 1 || hsw > 256 ||
- 	    hfp < 1 || hfp > 4096 ||
--	    hbp < 1 || hbp > 4096)
-+	    hbp < 1 || hbp > 4096) {
-+		drm_dbg(dev,
-+			"Horizontal blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
-+			hfp, hsw, hbp);
- 		return MODE_BAD_HVALUE;
-+	}
- 
- 	if (vsw < 1 || vsw > 256 ||
--	    vfp > 4095 || vbp > 4095)
-+	    vfp > 4095 || vbp > 4095) {
-+		drm_dbg(dev,
-+			"Vertical blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
-+			vfp, vsw, vbp);
- 		return MODE_BAD_VVALUE;
-+	}
- 
- 	if (dispc->memory_bandwidth_limit) {
- 		const unsigned int bpp = 4;
- 		u64 bandwidth;
- 
- 		bandwidth = 1000 * mode->clock;
- 		bandwidth = bandwidth * mode->hdisplay * mode->vdisplay * bpp;
- 		bandwidth = div_u64(bandwidth, mode->htotal * mode->vtotal);
- 
--		if (dispc->memory_bandwidth_limit < bandwidth)
-+		if (dispc->memory_bandwidth_limit < bandwidth) {
-+			drm_dbg(dev, "Required memory bandwidth outside of hardware limits.");
- 			return MODE_BAD;
-+		}
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 1c8cc18bc53c..f5099d5d6e32 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -169,11 +169,15 @@ static int tidss_probe(struct platform_device *pdev)
+ 		goto err_runtime_suspend;
  	}
  
-+	drm_dbg(dev, "Mode is valid.");
- 	return MODE_OK;
- }
+ 	drm_kms_helper_poll_init(ddev);
  
- int dispc_vp_enable_clk(struct dispc_device *dispc, u32 hw_videoport)
- {
+-	drm_mode_config_reset(ddev);
++	ret = drm_mode_config_create_initial_state(ddev);
++	if (ret) {
++		dev_err(dev, "failed to create initial state: %d\n", ret);
++		goto err_irq_uninstall;
++	}
+ 
+ 	ret = drm_dev_register(ddev, 0);
+ 	if (ret) {
+ 		dev_err(dev, "failed to register DRM device\n");
+ 		goto err_irq_uninstall;
 
 -- 
 2.55.0
