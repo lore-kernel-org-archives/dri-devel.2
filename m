@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87991C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:43:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E140C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA8D610E49E;
-	Mon,  7 Sep 2026 09:43:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 988BB10E73B;
+	Mon,  7 Sep 2026 09:44:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KyiRbDuz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YkCJS5iV";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DBB10E49E
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:43:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7903810E73B
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:44:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81D46403B3;
- Mon,  7 Sep 2026 09:43:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08D51F00A3A;
- Mon,  7 Sep 2026 09:43:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 48D6F43494;
+ Mon,  7 Sep 2026 09:44:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF29F1F00A3A;
+ Mon,  7 Sep 2026 09:44:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788774198;
- bh=xWz1rKPmZUeKMlCJyxKTuEIDW/xLK1n8Aa/NAKxz8O8=;
+ s=k20260515; t=1788774274;
+ bh=+BrWoujzTJ5ag6Sdhj9jK3PZplQCciD9f6l3mHPXyQ0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KyiRbDuzUyKXLiZ6efaBf/s+pOdRZOlJGNbdgXeXuyr9KE405/4chBKsOK/TNShdH
- 4MimnPwSYIdZOCmq/EPvTDd1MapLaoW8EyK/5o6VS7SE7MCwhhJy9dkehEhShsQB7V
- OqLs/QTHXwoRLx5bz9fPTw4v+iAndgn64txtsUoBIkh2VQ8mdGp3WasC8sc446Phhi
- Lyab6hrc4bRr+8/+w2krbO7XLqwOhUmRsSsw2LFyMGXuq9FCTLrCY1R0c7ouZmmshU
- mQpom1piARlSNAOMbuGfeNuMaqbOWHWwFfbDyYguBk2iOIKCpJOmsMvledjgimgviq
- H2pc54Ajihk9w==
+ b=YkCJS5iVCfYa2Y1hZtCyDBJ/wyDdjyV8LzlUkU0GMBdc9SteIbitMqRqVwgEn+3/+
+ JlIrJOOJVkHS+zIW4rVaaK/2k+Z8RjsAnLMAcpbAx/qtIHC51VZw+Q3/uMxD/4e9sR
+ Nvg/nLwG13G6dfI79Wdu7xkl4izlgKlXXPIhH3uY32JM1LdsvVYAk5jrmE2DGYdEYw
+ QRIoh6ybsEfvevCXsMy80GSNXzGLVhNlJPpxoPrVAlZTEHx+RBwuGN1DFCcc57z0rK
+ QV3yJo6T7umSHBNg7vb0bLbWMIvJt7Akq1dGc0kuzj1TsbiJhGjO31G2JGlWlQyZOs
+ yyHr3vijzfyEQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/6] arm64: dts: renesas: sparrow-hawk: Enable
- DisplayPort by adding DSC
+Subject: Re: [PATCH v6 3/6] drm/rcar-du: dsi: Support DSC in the pipeline
 To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
 Cc: wsa+renesas@sang-engineering.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260907-rcar-du-dsc-v6-5-f8ef711a7494@ideasonboard.com>
+In-Reply-To: <20260907-rcar-du-dsc-v6-3-f8ef711a7494@ideasonboard.com>
 References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
- <20260907-rcar-du-dsc-v6-5-f8ef711a7494@ideasonboard.com>
+ <20260907-rcar-du-dsc-v6-3-f8ef711a7494@ideasonboard.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 09:43:17 +0000
-Message-Id: <20260907094317.F08D51F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 09:44:33 +0000
+Message-Id: <20260907094433.DF29F1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +59,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The DRM bridge reference obtained via of_drm_get_bridge_by_endpo=
-int() is leaked on error paths and during driver removal.
+
+New issues:
+- [High] Missing validation of the assumed DSI bridge pointer and type can =
+lead to a NULL pointer dereference or type confusion in rcar_mipi_dsi_pclk_=
+enable().
+
+Pre-existing issues:
+- [High] The function rcar_mipi_dsi_pclk_enable calls sleeping functions bu=
+t is executed from the CRTC atomic_enable callback, violating atomic contex=
+t rules.
 --
 
-commit a2a78077050a0efecae114552f483f67a6423d4c
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+commit daca709dc803d35328aef5637d1cd674b65a8f0a
+Author: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Subject: drm/rcar-du: dsi: Support DSC in the pipeline
 
-drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
+This patch modifies the DU encoder initialization to support a DSC block=20
+between the DU and the DSI. It ensures the DSI bridge is correctly identifi=
+ed=20
+and stored in the rcdu->dsi[] array by checking the bridge type.
 
-The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-8k or 400 Mpixel/s. Add rudimentary driver, which currently acts as a
-pass-through bridge and allows DSI1 to be operational on R-Car V4H.
+> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> crtc, when enabling the crtc.
 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
-/renesas/rcar-du/rcar_dsc.c
-> new file mode 100644
-> index 0000000000000..1882ae34ce8f5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
+[Severity: High]
+This is a pre-existing issue, but the call path mentioned here executes in
+an atomic context and appears to call sleeping functions.
+
+When the display hardware is enabled via a non-blocking modeset, the
+rcar_du_crtc_atomic_enable() callback runs in atomic context. It calls
+rcar_mipi_dsi_pclk_enable(), which sequentially calls clk_prepare_enable()
+(which takes a mutex via the clk API) and rcar_mipi_dsi_startup() which
+performs a direct sleep:
+
+drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c:rcar_mipi_dsi_startup()
+    usleep_range(400, 500);
+
+Does this violate the atomic context rules by calling sleeping functions
+(mutexes and usleep_range) during the atomic CRTC enable callback?
+
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/=
+gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
 [ ... ]
-> +static int rcar_dsc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct rcar_dsc *dsc;
-> +	int ret;
+> @@ -90,9 +90,22 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+>  				drm_bridge_get(bridge);
+> =20
+>  		if (output =3D=3D RCAR_DU_OUTPUT_DSI0 ||
+> -		    output =3D=3D RCAR_DU_OUTPUT_DSI1)
+> +		    output =3D=3D RCAR_DU_OUTPUT_DSI1) {
+> +			struct drm_bridge *dsi_bridge;
 > +
-> +	dsc =3D devm_drm_bridge_alloc(dev, struct rcar_dsc, bridge,
-> +				    &rcar_dsc_bridge_ops);
-> +	if (IS_ERR(dsc))
-> +		return PTR_ERR(dsc);
+> +			/*
+> +			 * When we have a DSC block between the DU and the DSI,
+> +			 * the "bridge" points to the DSC. Detect the DSC by looking
+> +			 * at the bridge type, and skip the DSC if the bridge is not
+> +			 * the DSI bridge.
+> +			 */
 > +
-> +	platform_set_drvdata(pdev, dsc);
+> +			dsi_bridge =3D bridge->type =3D=3D DRM_MODE_CONNECTOR_DSI ?
+> +				     bridge : bridge->next_bridge;
 > +
-> +	dsc->dev =3D &pdev->dev;
-> +
-> +	dsc->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node,
-> +								1, 0);
+>  			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] =3D
+> -				drm_bridge_get(bridge);
+> +				drm_bridge_get(dsi_bridge);
 
-[Severity: Medium]
-Does this code leak the DRM bridge reference obtained via
-of_drm_get_bridge_by_endpoint()?
+[Severity: High]
+If the bridge is not a DSI bridge (e.g., it is a DSC block), this grabs
+bridge->next_bridge without validating if it is non-NULL or if it actually
+represents an rcar_mipi_dsi bridge.
 
-If devm_drm_bridge_add() fails later in rcar_dsc_probe(), the cleanup path
-fails to drop this bridge reference.
+If the device tree configures an intermediate bridge before DSI that does n=
+ot
+have a next_bridge set, or if it points to a non-DSI bridge,
+bridge->next_bridge will evaluate to NULL or the wrong bridge. This uncheck=
+ed
+value is then saved to rcdu->dsi[].
 
-This means the memory for the downstream bridge object will never be freed.
+Later, on the modeset path, rcar_du_crtc_atomic_enable() passes this pointer
+to rcar_mipi_dsi_pclk_enable(), which directly dereferences bridge->encoder
+and casts it to struct rcar_mipi_dsi:
 
-Since driver probe errors and unbinds are cold paths that require root
-privileges or hardware faults to trigger, this leaks the bridge reference
-on a cold path.
+drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c:rcar_mipi_dsi_pclk_enable()
+    struct rcar_mipi_dsi *dsi =3D bridge_to_rcar_mipi_dsi(bridge);
+    ...
+    connector =3D drm_atomic_get_new_connector_for_encoder(state,
+                                                         bridge->encoder);
 
-> +	if (IS_ERR(dsc->bridge.next_bridge))
-> +		return PTR_ERR(dsc->bridge.next_bridge);
-> +
-> +	dsc->bridge.of_node =3D dev->of_node;
-> +
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
-> +	if (ret)
-> +		goto err_runtime_disable;
-> +
-> +	return 0;
-> +
-> +err_runtime_disable:
-> +	pm_runtime_disable(&pdev->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static void rcar_dsc_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_disable(&pdev->dev);
-
-[Severity: Medium]
-Could this leak the DRM bridge reference during driver removal?
-
-Since the reference acquired in rcar_dsc_probe() isn't dropped here,
-unbinding the device will leave the struct drm_bridge kref leaked.
-
-> +}
+Could this lead to a NULL pointer dereference or type confusion if an
+unsupported bridge topology is loaded?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-rcar-du-ds=
-c-v6-0-f8ef711a7494@ideasonboard.com?part=3D5
+c-v6-0-f8ef711a7494@ideasonboard.com?part=3D3
