@@ -4,46 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D2AC79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E12FC79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17CDC10E806;
-	Mon,  7 Sep 2026 13:15:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5E810E4F3;
+	Mon,  7 Sep 2026 13:17:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="k04dqhL4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nba1SI4O";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J0dUpQcB";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60B4C10E806
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:15:35 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 69DBE8FD;
- Mon,  7 Sep 2026 15:13:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1788786839;
- bh=OEiccPmhUiPrwYCNpjGZUMA+7y1ZYynDuwh/jUysPXI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=k04dqhL4Bb+NAqJTuhffb4nfK89EFdjckkZ3+CRadtReB8sbKJ2/r96S9MBD62sE6
- fVAOm0nL6+hemUwA8WsOwHy9MDFDAtHoIbwn7yfokLDBOd4ZRWL8YSn1b3Ero/VjE7
- cVdKWoS3RJJo5Ike1x5XsmaYUT+cPzcjrWYOBijA=
-Message-ID: <dc4f1e73-caff-4371-9463-9d4d4c4af442@ideasonboard.com>
-Date: Mon, 7 Sep 2026 16:15:30 +0300
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED9BC10E4F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:17:51 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 687AvKnk496165
+ for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 13:17:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ cv8iJBY4yRE1MEIJdzu8sg2CJmzOwiug90y4Wu/gBog=; b=nba1SI4Of8u2HXcj
+ 42GXLsEiahTBXSStCf/xp7kjPpEexL541KdjMrtG6IOPX/eqBsjTsgwU2gyxypKq
+ UL+foWmbM1m8MBAJ/8RwkMud9gwIWXeQ+gSYb50GuQbhmCuI1NJXt6uc1dqJlK21
+ ekjBBqo5vu6ELKq2TzR623ynEzIli0WzsvX126mo7NQc1S/ZAYH0s5UL4kggaN6Z
+ S5DAZKM2o6TOlxvHVUzbYF02lXsi97y5AfWZ3uCW6+84sZAuxV9HNRBNuC7uzWBc
+ nlFS1wLZex8W7QITEXNNXtDdHBzuovFaXZcfD2k2GToa55PoeBa3pi8z7WcbJS31
+ Lg/D9w==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
+ [209.85.221.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuyk8fhh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 13:17:51 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id
+ 71dfb90a1353d-5c7a814bfc1so903145e0c.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788787070; x=1789391870;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cv8iJBY4yRE1MEIJdzu8sg2CJmzOwiug90y4Wu/gBog=;
+ b=J0dUpQcB2vz9Cgy9Nsh9W+oi9JjWxsA/BpU1uWGs2IGhOmYfIsQ8xZWwNyeF0XNUN6
+ zMsQe6Itgpx/AvwoyAw1r/t8K8p/nDR+Y9aFvtItsvzEDa8ZgO1VJDkVRBNGoXm2/QMK
+ MC7CsuLYTDOt9iHxA+TP9dma/ijIAmHXfbZwqdtCcpp8leg9e+b2hLAdDxOACCdJjtEB
+ W8lUNLI2v26qQexHnZek4c956da27TP/qpkC7hNRUrqOSiPOn224cZFClI08Twbz3IBG
+ qb+1hT1NxJEiHMhiwaAwZSgKTQEr3M4ZLUh3dqp2EbxKzyDSNABocKON9DolRFk0p/aU
+ j4lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788787070; x=1789391870;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cv8iJBY4yRE1MEIJdzu8sg2CJmzOwiug90y4Wu/gBog=;
+ b=J6G3yv8Coaj6qZsfxMiE6/GA1rWesiyKC/QzaI2i/AOWfX7Y9cJGtBH394y0N1SCJC
+ XcKSEq2ozblZWdw+nPzya52ifm3KCBfpxvSdFI9chdYa5q+eLH2ylZugmlPuAn0iDR++
+ wX1E49VhjJanEV+KLIKUncyZkFWa4BPp4cwVDZeAsC3RtZbs/wcB19VxkDygrClYUXNo
+ yzG4XMpTrEFE5Terq65bV9AHaoRd8EQv/vWM7lyrok3lnDybcsneI+Jt5C4RIem8iJ6p
+ ykJRsfNeezd+Q828KzPlUO6gBn/jQRvbFbh0xrlDJUDmXy90CwohtDv11yYxuUZMcflS
+ wGEw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxPFo3NhwTV0BP/30dtXNSlX4Hx0arfwWTgec6Pd2RAz/v0tfoJvo3H8pDVn8kkBiNPrQCqfUP8pAA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nLS0tW53TMN9hOlUxMjd2lGjiu5CGdF394fhehCmGZWfgbNO9Q
+ 6HkolVlPNuPi4UPznSit95fv+d/BA67rwGAe0WOC2Rb0NE3i5hiEcaEOvEpBJqYEdFX4EL9Q+b1
+ eIyM4DUgAxwLwiAev9SA0ppwBUzlw9Ez8QMXE6eFenOm9WsnneSk4cJ8r0NX5Lx67tob8qM+AVg
+ y4udg=
+X-Gm-Gg: AYBFou3NT0cr2id6sPRjg9ZzCaaHVfUMHXD4xkeo1G0gIpkIQQMoQw3HP2ksxTEmAaz
+ EgrhjDkl5zzwz4t4gYCUSsesoTXgf9QpijhSK4CQQG1kHSP+fEIxBu3RjF0tsNbEyx01zxc84Y8
+ x3wNTPRrCNVO3+c3K3MeLeA+QCIKI9T7aX/jxMSCyv0M45bUh9F+FlK5yqXrq0dgT/5TcgCTc48
+ LOtaqHTy5XltbbV+/d7/gSOUDcaL3o6gN/tlB5Z2Ia7lKN+uWHiLQZFUgmjaYs1+1rKzmtudJVm
+ TH7ZZR0EW2D6pqIqH4L0BTgPkAYD9Dm0Pv9C3otQ/XJFA0NMkn7os3U7tmwpNwEruYhcLPEU7H8
+ pgkGntrokHdaCNt/XfrpZIg8nERDJ
+X-Received: by 2002:a05:6102:292b:b0:782:e19d:6f39 with SMTP id
+ ada2fe7eead31-78a4a483c93mr6716237137.0.1788787070405; 
+ Mon, 07 Sep 2026 06:17:50 -0700 (PDT)
+X-Received: by 2002:a05:6102:292b:b0:782:e19d:6f39 with SMTP id
+ ada2fe7eead31-78a4a483c93mr6716221137.0.1788787069974; 
+ Mon, 07 Sep 2026 06:17:49 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cee7febb4sm428999765e9.14.2026.09.07.06.17.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2026 06:17:49 -0700 (PDT)
+Message-ID: <907b3c02-5487-4abe-9e4c-3053ab92cb7c@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 15:17:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/tidss: Fix synclost issue while disabling layer
- due to erratum i2097
-To: Yashas D <y-d@ti.com>, u-kumar1@ti.com, devarsht@ti.com, s-jain1@ti.com,
- d-mittal@ti.com, b-padhi@ti.com, jyri.sarha@iki.fi
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260701063337.2165966-1-y-d@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v2 1/7] drm/msm/hdmi_phy: Cleanup after
+ msm_hdmi_phy_resource_enable() failure
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ conor+dt@kernel.org, robh@kernel.org
+References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
+ <20260907-drm-msm-hdmi-fixes-before-eliza-v2-1-b097cf1eac77@oss.qualcomm.com>
+ <20260907130633.E673D1F00A3A@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260701063337.2165966-1-y-d@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20260907130633.E673D1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NyBTYWx0ZWRfXxVXed6vSxgcS
+ Jv1xtopZNaNIj4d1ReM3QFWrA4vWrTFxD/M7KkdpqLCp3NoDZbRbbRv+Jy5FGg2W7BAiHdAgFq6
+ RE+0Ew3C87SGox7W4TbWgZ3A/tR6eBE=
+X-Proofpoint-GUID: 02r6D4f9dcv_pkFteAUZ6tfdxJM95Bi6
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9eb97f cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=9ZkQsALANqwWZhioCQMA:9 a=QEXdDO2ut3YA:10 a=arBHhYMabMMA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: 02r6D4f9dcv_pkFteAUZ6tfdxJM95Bi6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NyBTYWx0ZWRfX84GVQRHqWtQi
+ BvCRUKTBxUCbjntz+UFywt41GmhoYrym74d7iu/QyPh5rv4MbII17JYUOiyKV0DNHYgC5BpLykK
+ 5vX8x1ko8dmpLXPyKGSTHnRBKCbRa6Vbt4GklefPw4ANn+uHuwF3d7mvqTlNH+fiVq70/+2UW+q
+ Iov4Lecm1dle1Qiv5/N/1AFWV4T43IEGNU7+1KmjGdBVj+5woyxhZe0rAjw7VlHDEObqXnrpWg7
+ hYhqowkRmIjqEhy3M7t8LWXXr0G9Sjf8TwyW4lfDuu8zG1lN0oyHEto2NDDgK1Xu+Z3LUmf0raU
+ bxYHT2rsftKjedYboRLEcqRY1MZdvSB19XJxljzpKN23qGeN0krUG7IdfmY6D04zehLXkKEB+2e
+ VAS9UPrRtRTRH+F2SkcAuGnZU2ieMF/lY9NrlZ4OFeZeoYwqlHb6WS2nj/PEUDJELvyXROgG3Q8
+ NrCRUqhbKV/KGQtq1MQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070147
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,278 +147,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 01/07/2026 09:33, Yashas D wrote:
-> A gap beyond a frame duration for disabling the layer in overlay manager
-
-I don't think that's right. The key is that the layer is disabled on 
-frame N, and the GO bit is set on frame N+1. So the duration can be less 
-than a frame, if the frame boundary is between disable and GO.
-
-> and go bit setting on the corresponding video port may lead to SYNC_LOST.
-
-I think it's quite guaranteed, not "may" =).
-
-> Fix by moving the layer to the non-visible area and deferring the ENABLE=0
-> write, immediately before the GO bit, guaranteeing both occur within the
-> same frame window.
-
-Maybe: "Fix by moving the layer outside the visible area, and deferring 
-the ENABLE=0 write to happen just before the GO bit write, ..."
-
-> Link: https://www.ti.com/lit/pdf/sprz530 # i2097
+On 07/09/2026 15:06, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Missing regulator disable on the newly added clock enablement error path.
+> --
 > 
-> Signed-off-by: Yashas D <y-d@ti.com>
-> ---
-> 
-> changelog v1->v2:
-> - Flushed the pending layers in dispc_vp_disable to prevent hanging layers in hardware
->    when dispc_vp_go is not called in CRTC teardown and modeset paths.
-> - Removed the AM62L switch case as its the same as the default case.
-> 
-> Link to v1: https://lore.kernel.org/all/20260630103802.1853564-1-y-d@ti.com/
-> 
->   drivers/gpu/drm/tidss/tidss_dispc.c | 118 +++++++++++++++++++++++++++-
->   drivers/gpu/drm/tidss/tidss_dispc.h |   1 +
->   2 files changed, 118 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-> index 58d5eb033bdb..02a3cf50e0ce 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-> @@ -38,6 +38,8 @@
->   #include "tidss_dispc_regs.h"
->   #include "tidss_scale_coefs.h"
->   
-> +#define OVR_LAYER_MAX_POS(mask)		FIELD_MAX(mask)
 
-Maybe just use FIELD_MAX() in the code below.
+ack
 
-> +
->   static const u16 tidss_k2g_common_regs[DISPC_COMMON_REG_TABLE_LEN] = {
->   	[DSS_REVISION_OFF] =                    0x00,
->   	[DSS_SYSCONFIG_OFF] =                   0x04,
-> @@ -467,6 +469,8 @@ struct dispc_device {
->   
->   	struct clk *fclk;
->   
-> +	unsigned long fclk_rate;
-> +
->   	bool is_enabled;
->   
->   	struct dss_vp_data vp_data[TIDSS_MAX_PORTS];
-> @@ -477,6 +481,9 @@ struct dispc_device {
->   	u32 memory_bandwidth_limit;
->   
->   	struct dispc_errata errata;
-> +
-> +	/* WA for erratum i2097: OVR Layer Disable May Cause Sync Lost. */
-> +	u32 pending_disable_layers[TIDSS_MAX_PORTS];
->   };
->   
->   static void dispc_write(struct dispc_device *dispc, u16 reg, u32 val)
-> @@ -1134,6 +1141,12 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
->   	bool align, onoff, rf, ieo, ipc, ihs, ivs;
->   	u32 hsw, hfp, hbp, vsw, vfp, vbp;
->   
-> +	/*
-> +	 * WA for erratum i2097: clear any stale layer disable tracking
-> +	 * state left over from the previous VP enable/disable cycle.
-> +	 */
-> +	dispc->pending_disable_layers[hw_videoport] = 0;
-
-When is such stale state left over?
-
-> +
->   	fmt = dispc_vp_find_bus_fmt(dispc, hw_videoport, tstate->bus_format,
->   				    tstate->bus_flags);
->   
-> @@ -1210,6 +1223,23 @@ void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
->   
->   void dispc_vp_disable(struct dispc_device *dispc, u32 hw_videoport)
->   {
-> +	u32 layer;
-> +
-> +	/*
-> +	 * WA for erratum i2097: flush any pending layer disables directly.
-> +	 * dispc_vp_go() is not called in the CRTC teardown and modeset paths
-
-I think "teardown" is what happens when e.g. one unloads the module. I 
-assume you mean crtc disable here? Or what's "crtc teardown" and 
-"modeset", exactly?
-
-> +	 * so pending_disable_layers would otherwise never be consumed, leaving
-> +	 * layers enabled in hardware. Sync lost does not matter here since the
-
-What do you mean does not matter? If it causes sync lost error prints, 
-it matters.
-
-> +	 * VP is being disabled.
-> +	 */
-> +	for (layer = 0; layer < dispc->feat->num_vids; layer++) {
-> +		if (dispc->pending_disable_layers[hw_videoport] & BIT(layer))
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES(layer),
-> +					0, DISPC_OVR_ATTRIBUTES_ENABLE_MASK);
-> +	}
-> +	dispc->pending_disable_layers[hw_videoport] = 0;
-> +
->   	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
->   		       DISPC_VP_CONTROL_ENABLE_MASK);
->   }
-> @@ -1233,6 +1263,38 @@ void dispc_vp_go(struct dispc_device *dispc, u32 hw_videoport)
->   {
->   	WARN_ON(VP_REG_GET(dispc, hw_videoport, DISPC_VP_CONTROL,
->   			   DISPC_VP_CONTROL_GOBIT_MASK));
-> +
-> +	if (dispc->errata.i2097 &&
-> +	    dispc->pending_disable_layers[hw_videoport]) {
-> +		u32 layer;
-> +		u32 delay_ns;
-> +
-> +		/* WA for erratum i2097: set GO bit #1 to latch position
-
-Start a comment block with "/*" line.
-
-What do you mean with "set GO bit #1"? Do you just mean writing 1 to GO 
-bit? If so, just "set GO bit to latch..." is enough.
-
-
-> +		 * changes into the DSS pipeline, wait 10 DSS functional clock
-> +		 * cycles, then write ENABLE=0.
-> +		 */
-> +		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
-> +			       DISPC_VP_CONTROL_GOBIT_MASK);
-> +
-> +		if (dispc->fclk_rate)
-> +			delay_ns = DIV_ROUND_UP_ULL((u64)10 * NSEC_PER_SEC,
-> +						    dispc->fclk_rate);
-> +		else
-> +			delay_ns = 500;
-
-When do we not have fclk_rate? Shouldn't we always have it?
-
-> +
-> +		ndelay(delay_ns);
-> +
-> +		for (layer = 0; layer < dispc->feat->num_vids; layer++) {
-> +			if (dispc->pending_disable_layers[hw_videoport] &
-> +			    BIT(layer))
-> +				OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +						DISPC_OVR_ATTRIBUTES(layer),
-> +						0,
-> +						DISPC_OVR_ATTRIBUTES_ENABLE_MASK);
-> +		}
-> +		dispc->pending_disable_layers[hw_videoport] = 0;
-
-My first thought was if this causes problems if vsync happens somewhere 
-in the middle here, and tidss_crtc does pageflip handling. But I think 
-that can't happen, as this is only called from tidss_crtc, inside a spin 
-lock. If that's the case, I think a comment here somewhere would still 
-be a good thing.
-
-> +	}
-> +
->   	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
->   		       DISPC_VP_CONTROL_GOBIT_MASK);
->   }
-> @@ -1503,6 +1565,53 @@ void dispc_ovr_enable_layer(struct dispc_device *dispc,
->   	if (dispc->feat->subrev == DISPC_K2G)
->   		return;
->   
-> +	if (dispc->errata.i2097 && !enable) {
-> +		/*
-> +		 * WA for erratum i2097:
-> +		 *
-> +		 * Do not write ENABLE=0 directly. Instead move the layer to
-> +		 * the non-visible area so it contributes no pixels.
-> +		 *
-> +		 * Position register layout differs per SoC:
-> +		 *   J721E : DISPC_OVR_ATTRIBUTES2, X[13:0],  Y[29:16] (14-bit)
-> +		 *   Others: DISPC_OVR_ATTRIBUTES,  X[17:6],  Y[30:19] (12-bit)
-> +		 */
-> +		switch (dispc->feat->subrev) {
-> +		case DISPC_J721E:
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES2(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES2_POSX_MASK),
-> +					DISPC_OVR_ATTRIBUTES2_POSX_MASK);
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES2(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES2_POSY_MASK),
-> +					DISPC_OVR_ATTRIBUTES2_POSY_MASK);
-> +			break;
-> +		default:
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES_POSX_MASK),
-> +					DISPC_OVR_ATTRIBUTES_POSX_MASK);
-> +			OVR_REG_FLD_MOD(dispc, hw_videoport,
-> +					DISPC_OVR_ATTRIBUTES(layer),
-> +					OVR_LAYER_MAX_POS(DISPC_OVR_ATTRIBUTES_POSY_MASK),
-> +					DISPC_OVR_ATTRIBUTES_POSY_MASK);
-> +			break;
-> +		}
-
-You could probably use dispc_ovr_set_plane() here. It writes one extra 
-register, but I don't see much harm in that, and gets rid of this 
-duplication.
-
-> +
-> +		dispc->pending_disable_layers[hw_videoport] |= BIT(layer);
-> +		return;
-> +	}
-> +
-> +	if (dispc->errata.i2097 && enable) {
-> +		/*
-> +		 * Layer being re-enabled: cancel any pending disable so
-> +		 * dispc_vp_go() does not write ENABLE=0 after we have
-> +		 * just written ENABLE=1 here.
-> +		 */
-> +		dispc->pending_disable_layers[hw_videoport] &= ~BIT(layer);
-> +	}
-> +
->   	OVR_REG_FLD_MOD(dispc, hw_videoport, DISPC_OVR_ATTRIBUTES(layer),
->   			!!enable, DISPC_OVR_ATTRIBUTES_ENABLE_MASK);
->   }
-> @@ -2871,6 +2980,12 @@ static void dispc_init_errata(struct dispc_device *dispc)
->   		dispc->errata.i2000 = true;
->   		dev_info(dispc->dev, "WA for erratum i2000: YUV formats disabled\n");
->   	}
-> +
-> +	if (dispc->feat->subrev != DISPC_K2G) {
-> +		dispc->errata.i2097 = true;
-> +		dev_info(dispc->dev,
-> +			 "WA for erratum i2097: OVR layer disable uses non-visible area\n");
-
-I don't think an dev_info print is required. The other WA info print is 
-there as it's a rather big one, disabling YUV formats.
-
-> +	}
->   }
->   
->   /*
-> @@ -3059,7 +3174,8 @@ int dispc_init(struct tidss_device *tidss)
->   			__func__, PTR_ERR(dispc->fclk));
->   		return PTR_ERR(dispc->fclk);
->   	}
-> -	dev_dbg(dev, "DSS fclk %lu Hz\n", clk_get_rate(dispc->fclk));
-> +	dispc->fclk_rate = clk_get_rate(dispc->fclk);
-> +	dev_dbg(dev, "DSS fclk %lu Hz\n", dispc->fclk_rate);
->   
->   	of_property_read_u32(dispc->dev->of_node, "max-memory-bandwidth",
->   			     &dispc->memory_bandwidth_limit);
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-> index 739d211d0018..e2ce9fdf1279 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.h
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-> @@ -57,6 +57,7 @@ struct dispc_vid_info {
->   
->   struct dispc_errata {
->   	bool i2000; /* DSS Does Not Support YUV Pixel Data Formats */
-> +	bool i2097; /* OVR Layer Disable May Cause Sync Lost */
->   };
->   
->   enum dispc_vp_bus_type {
-
+Best regards,
+Krzysztof
