@@ -4,111 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA31C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 06:40:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F210C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 06:56:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53CA310E456;
-	Mon,  7 Sep 2026 06:40:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE37110E374;
+	Mon,  7 Sep 2026 06:56:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OPUXoCzA";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="BMTjuTZB";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31F3910E45C
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 06:40:29 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-4858be8b509so1266279f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 06 Sep 2026 23:40:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1788763227; x=1789368027; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SU9/kaGiibd6mGhjdwN2A8ofGPaPGTIVHRIR2UuuB8I=;
- b=OPUXoCzAMyA86PF+dyHWBlgcAHNDK9GqR1MztnAFdLJl31zmZylUB45DBa2AFjlbrM
- i08efiuzQanXizPpjx14XZbiLC/nWMFKxIH9gBK8slJILmAnEM73WwP+WDzaAnQydmqR
- CJTVh9HZPToadiD+ySq3ucDDTyadhiS07BQsFoAKKlwch/edMO01cTxAX7xVXY3RC06x
- 36FG4DPFeXMHvL1B1YfR114RRc5SaywQLP85+Xhb/ELClAbfvLZIBkY5fYA0OkT8qTQF
- ZG8mv3duBP8b8Spfwc09pib6KFROlAa4Valy7uVdD9eTJIzapBvqRbvCx/U0PMvlUsXZ
- S+ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788763227; x=1789368027;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=SU9/kaGiibd6mGhjdwN2A8ofGPaPGTIVHRIR2UuuB8I=;
- b=PnC4jQZ7KdLrZRWAMwvWVV5yUPSUqgoDr5yyn78j033+7D6iebY3G9FvPPZ3WlkfqV
- pFWBeN0UTIafriKQmKCNGsi5Le8OeJwcrAqif4U3a+EGCTDGTDigZWUNtkx+/1RPM1nr
- 1g6xS743dMbb8h0zxF3jSp6rCCgFd1LvM115aI/ycLKEcaaPftBCy5gPrp31hqMLKDtj
- ZAgtdJhYb6I9XjEVv8ZkaTUqGFTx/ryQPEwg+in1kqf6cLY/zW2a9c/vUcNsQR+uVDG8
- kiXwmQ4N9SEX7YKCXABH5hMM5U/sKHq3FJ1yCSDlshJXQqfsva0oFtOCT4pCZhEo+GJb
- Llqw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwvzhIc/IwFKv1kn0cz6JeHUhZWBRkzQiMQbYlIY6xUbsnp+6kqydkjRP/7y2txYk1Z83ux4w0hgqk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mffkLipIUq0aBTfDpGTrQ4ZaTlsRUPSl5ed8yg5AbGYgKI5IWM
- 3qr5S4OVjmcAYuRC198NJAsrGSVN6dOiDykHIOTw+flGE7bHniFpME+ugbJemZ0alDA=
-X-Gm-Gg: AYBFou18XT6ma6Z/3ACQ8J63MSYuGzc4Mf8h0bCPnqex7PTTd3rB071rzgTQuoevkOl
- dRCmjhtvV86wzv6kBB8VgV8K7TwRvuyOIiWCVfTN84oFKk2lkXl5M6rVYY+f3oA/co6LXhridKm
- 3EFkmubBrI2UtwR9VzHV+Vxi4MGwKxa5+rMEy2xCOvtSPdvjElXBptKdqTSYUU160oxCehCqFZy
- N8g5YpdDPnmbTn2fktir21R2sSWoVvctoVtcSEUvhZ9/nzNxRXbxqRA/y79FX06MBs5fBzQ4kMC
- kLxVw+B4+I6ZAsVrKdS+Uqp2iGNXvwL8pVzhvmQzNESy3vPqdkLEsyjFHeQReXAZWuMhHsjSSOm
- 7e5oy77X2OqmFp/V+qcAcg0he96e1B5ZXaCKCKmW0xRBvh+cHMuJ8ejgieGBdhpYIoexy8kiB4u
- WgmglQCBXbsQQ8/5UfID1T+CIQoYzCto4Yt5BAsoKUpDvxsQ6Bsx3Dv1mVannVboh+vTJEr/mt9
- PSz7h+ZnFzjdHNQEhbC4wr2WwYl9p41Q7O8xdXIyPo=
-X-Received: by 2002:a05:6000:1a8d:b0:485:8c16:a32f with SMTP id
- ffacd0b85a97d-4858c16a6cemr17808883f8f.36.1788763227160; 
- Sun, 06 Sep 2026 23:40:27 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:74d7:9035:e283:b480?
- ([2a01:e0a:106d:1080:74d7:9035:e283:b480])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485883be709sm26981837f8f.21.2026.09.06.23.40.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 06 Sep 2026 23:40:26 -0700 (PDT)
-Message-ID: <f0fc4211-2040-4115-9847-6e5cc3fe8161@linaro.org>
-Date: Mon, 7 Sep 2026 08:40:25 +0200
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com
+ [165.173.180.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB4DA10E374
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 06:56:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788764158; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ZV1f7mIa5Ivl4k9y4SDseO7sHW+HXOhGOnNA3H1xRbt1/D/ksjOmLYeU+FS4cmX+Hts6lkL1r8M+mCPrf6tfIzMjJB0b2sVzMmjqPU/3RUMi+047Y294fhETDs6iReJrrgYolwkXDS2m+zCVwGlte7A50w8KcoeS+6v+/RwWTr0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788764158;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1tMnWdSZi+sjkC4f5IyBKW6FS6ZeNXijReG8GKO87DM=; 
+ b=dS9L/KG15nTBt2++e5uDJMfTNVAaWzLOQuZasm1GbtlC0sCA0bB1YA6nKDHauAHHIGDtz4Q7ivxhvg0CLUMOobpIBo+BNKxHD/ubsyigThw9IO3SwiDnd0li8ZdtFILkmNvA3GExDWArpzFXprIV1qzIu4e5vjtHSjKY2gyVYVQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788764158; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=1tMnWdSZi+sjkC4f5IyBKW6FS6ZeNXijReG8GKO87DM=;
+ b=BMTjuTZBsLIrLLQbFYEi8z0UaWGJZJjxeSYYxBVe6/DSS+g6eYH8Pw9Pt2zTuGh1
+ TbGJxgPa/cjnW41iWvSPZTs1m7utVbmLnfyAbfxAueT2zyPpCg3RW0zQ94/VavjbTLa
+ BT486D9MNAmUPgxRieTGSu/8tMi27JGUaSFQv9cSqgbQSXgbbbRo5g0CUZ7AzmQiGIv
+ lVFA+M7C37fn+a8D09cfSBJESxToQqJg0tFdJybljjyoXRxlc8kR2Nj8pfOZ7xd/k6f
+ nuh5zp+4ma19vHlgD2e4mxkAw5n7TkeKvhRfuYzEaatVRNX9eGykxhWw4vjZjD/0S8c
+ upQLI3pL0g==
+Received: by mx.zohomail.com with SMTPS id 1788764154825847.2528940921899;
+ Sun, 6 Sep 2026 23:55:54 -0700 (PDT)
+Message-ID: <72f82ae67eca7b5a594d86852c8b0dafb7d02c4c.camel@icenowy.me>
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Maud Spierings <maud_spierings@murena.io>, Dominique Belhachemi
+ <domibel@debian.org>
+Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com, 
+ airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com,
+ andy.yan@rock-chips.com, 	andyshrk@163.com, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, conor+dt@kernel.org, 	conor@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk, 
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk,
+ krzk+dt@kernel.org, 	lee@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, 	linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, 	luca.ceresoli@bootlin.com,
+ m.szyprowski@samsung.com, 	maarten.lankhorst@linux.intel.com,
+ maudspierings@gocontroll.com, 	mfd@lists.linux.dev, mripard@kernel.org,
+ mturquette@baylibre.com, 	neil.armstrong@linaro.org,
+ p.zabel@pengutronix.de, palmer@dabbelt.com, 	pjw@kernel.org,
+ rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org, simona@ffwll.ch, 
+ tzimmermann@suse.de, vkoul@kernel.org
+Date: Mon, 07 Sep 2026 14:55:42 +0800
+In-Reply-To: <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+ <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+ <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+ <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
+ <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
+ <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
+ <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
+ <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: SM8250 USB-C DP alt mode: DP AUX times out in reversed (CC2)
- cable orientation
-To: BurningHoryd <sjunhyuk1@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Vinod Koul <vkoul@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-References: <20260906225206.2994952-1-sjunhyuk1@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260906225206.2994952-1-sjunhyuk1@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,130 +91,150 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/7/26 00:52, BurningHoryd wrote:
-> Hi,
-> 
-> I'm chasing a DisplayPort-over-USB-C alt mode bug on an SM8250 (Retroid
-> Pocket 5) board and would appreciate a pointer, as it looks like it may
-> be in the nb7vpq904m redriver or the qmp-combo DP AUX path.
-> 
-> Hardware / software
-> -------------------
-> - SoC: SM8250, qcom,sm8250-qmp-usb3-dp-phy combo PHY (88e8000.phy)
-> - USB-C redriver: onnn,nb7vpq904m (i2c, typec mux/switch)
-> - External sink: VITURE Beast XR glasses, 4-lane DP-only (pin assignment
->    C, TYPEC_DP_STATE_C), HBR2, 1920x1200@120
-> - Kernel: v7.2 base, plus three local qmp-combo patches that are the
->    subject of a separate downstream review (keep usb_init_count across the
->    DP-only mux switch / skip USB3 power on/off while already in DP-only /
->    the residual pipe_clk-in-common timeout hunk). The AUX failure below
->    reproduces with those applied; I have not been able to bisect against
->    pristine v7.2 because plain v7.2 has an unrelated regression on this
->    board (qcom_pmic_typec now requires connector/vbus-supply, which the
->    board DT lacks, so DP alt mode never powers up at all without a
->    separate DT fix).
-> 
-> Symptom
-> -------
-> Normal cable orientation: DP alt mode works perfectly - link trains,
-> 1920x1200@120, stable.
-> 
-> Reversed cable orientation (Type-C orientation = reverse / CC2): DP never
-> comes up. The DP alt mode HPD notification reaches msm_dp
-> (msm_dp_bridge_hpd_notify status=1), msm_dp starts bring-up
-> (msm_dp_display_host_phy_init, phy_init OK), but the very first DPCD read
-> - SINK_COUNT at 0x200 in msm_dp_hpd_plug_handle - polls for ~4 seconds
-> and never gets a reply:
-> 
->    [drm:msm_dp_hpd_plug_handle] Before, sink_count=0
->    [drm:msm_dp_display_host_phy_init] core_init=1 phy_init=1
->    ... ~4 s ...
->    [drm:msm_dp_hpd_plug_handle] After, sink_count=0
->    [drm:msm_dp_bridge_detect] aux link status: 0
->    [drm:msm_dp_bridge_detect] failed to read caps
-> 
-> msm_dp then gives up and the connector stays disconnected. Link training
-> is never reached. Stock Android on the exact same hardware works in both
-> orientations, so this is a driver-side issue, not a board/silicon limit.
-> 
-> What I've verified (instrumented kernel, dev_info in the phy + nb7 set
-> paths)
-> ------------------------------------------------------------------------
-> - It is NOT a state / refcount / mux ordering artifact: a clean
->    reverse-first plug (fresh boot, reversed cable plugged before any
->    normal plug) fails identically.
-> - On the reversed plug, in order:
->    * qmp_combo_typec_switch_set(REVERSE) runs, qmp_combo_com_init(force)
->      writes QPHY_V3_DP_COM_TYPEC_CTRL = SW_PORTSELECT_MUX|SW_PORTSELECT_VAL
->      (0x3).
->    * nb7vpq904m_set() runs for TYPEC_DP_STATE_C with reverse=1, writes
->      AUX_CC_REG (0x09) = 0x1.
->    * qmp_combo_typec_mux_set() does the DP-only transition, com_init(force)
->      again (mode=DP_ONLY, TYPEC_CTRL=0x3) - this happens AFTER the nb7 DP
->      config.
->    * qmp_combo_dp_init() -> qmp_v4_dp_aux_init() runs.
->    So the PHY and the redriver are both configured for reverse, in a sane
->    order, before msm_dp attempts AUX. And AUX still times out.
-> - qmp-combo has no DP-AUX orientation register that I can find - AUX
->    orientation on this design is entirely nb7vpq904m AUX_CC_REG.
-> - Inverting SW_PORTSELECT_VAL and/or nb7 AUX_CC (making the registers
->    bit-identical to the working normal-orientation case) does not help -
->    reverse still fails.
-> - Forcing repeated full qmp_combo_com_exit/com_init cycles during the
->    DPCD poll window does not help.
-> 
-> The one thing that changes anything
-> -----------------------------------
-> I added a knob to override GEN_DEV_SETTINGS OP_MODE in the nb7
-> TYPEC_DP_STATE_C branch (it normally hard-codes
-> GEN_DEV_SET_OP_MODE_DP_4LANE):
-> 
->    OP_MODE = DP_4LANE (2)      -> DPCD read: 0 successes (many tries)
->    OP_MODE = DP_CC1   (1)      -> DPCD read: 0 successes
->    OP_MODE = DP_CC2   (0)      -> DPCD read succeeds intermittently
->                                   (~1 in 4 plugs, sink_count 0->1,
->                                   connector goes connected briefly).
->                                   Link training then fails, which is
->                                   expected since DP_CC2 is a 2-lane
->                                   op-mode and the source is driving 4.
->    OP_MODE = 3, 4             -> 0 successes
-> 
-> DP_CC2 is the "flipped orientation" op-mode. It is the only setting that
-> ever gets an AUX transaction through in reversed orientation. That
-> strongly suggests the nb7vpq904m SBU/AUX switch is not being put into the
-> flipped routing for a 4-lane DP session - AUX_CC_REG alone does not seem
-> to do it in DP_4LANE op-mode - but I don't have the full NB7VPQ904M
-> register map to confirm (the public datasheets are image-only).
-> 
-> Questions
-> ---------
-> 1. Is nb7vpq904m's DP_4LANE path missing SBU/AUX orientation handling
->     that the DP_CC1/DP_CC2 paths get implicitly from the op-mode? Should
->     AUX_CC_REG be sufficient in DP_4LANE mode, or is another
->     GEN_DEV_SETTINGS / AUX register bit needed for CC2?
-> 2. Is there an SM8250 qmp-combo DP-AUX orientation step that mainline is
->     missing (something the downstream PHY driver does for a reversed
->     4-lane DP session)?
-> 3. Any known-good reference for reversed-orientation 4-lane DP on an
->     SM8250 + nb7vpq904m board?
+=E5=9C=A8 2026-09-07=E4=B8=80=E7=9A=84 08:02 +0200=EF=BC=8CMaud Spierings=
+=E5=86=99=E9=81=93=EF=BC=9A
+> Hi Dominique and Icenowy,
+>=20
+> On 9/7/26 06:01, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 17:16 -0400=EF=BC=8CDominique Be=
+lhachemi=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Sun, Sep 6, 2026 at 11:19=E2=80=AFAM Icenowy Zheng <uwu@icenowy.me=
+>
+> > > wrote:
+> > > >=20
+> > > > =E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 16:59 +0200=EF=BC=8CMaud Spi=
+erings=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > On 9/6/26 07:39, Dominique Belhachemi wrote:
+> > > > > > On Sun, Aug 30, 2026 at 10:17=E2=80=AFAM Maud Spierings
+> > > > > > <
+> > > > > > maud_spierings@murena.io=C2=A0<mailto:maud_spierings@murena.io>=
+>
+> > > > > > wrote:
+> > > > > >=20
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 I was still having some glitching happ=
+ening on the
+> > > > > > display,
+> > > > > > but
+> > > > > > I've
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 found the way to fix that, the questio=
+n is what is
+> > > > > > actually
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 happening here.
+> > > > > >=20
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x29590020 <- =
+0x00000005
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 This one I have no idea, it is 0x00000=
+009 with this
+> > > > > > patch
+> > > > > > series but
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 with the vendor kernel I get the value=
+ above. When I
+> > > > > > hook
+> > > > > > up my
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 external
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 display (regular 1440p) this becomes 0=
+x0000000D on the
+> > > > > > vendor
+> > > > > > kernel.
+> > > > > >=20
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 But I can't find this register being w=
+ritten to
+> > > > > > anywhere
+> > > > > > there?
+> > > > > >=20
+> > > > > >=20
+> > > > > > Maybe this needs to be swapped?
+> > > > > >=20
+> > > > > > drivers/gpu/drm/bridge/inno-hdmi.c
+> > > > > > =C2=A0=C2=A0=C2=A0 -#define v_HSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 3)
+> > > > > > =C2=A0=C2=A0=C2=A0 -#define v_VSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 2)
+> > > > > > =C2=A0=C2=A0=C2=A0 +#define v_HSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 2)
+> > > > > > =C2=A0=C2=A0=C2=A0 +#define v_VSYNC_POLARITY(n)=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 3)
+> > > >=20
+> > > > Very weirdly, the original definition here matches current
+> > > > mainline
+> > > > inno-hdmi.c, but the changed definition matches JH7110 vendor
+> > > > inno_hdmi.h [1].
+> > > >=20
+> > >=20
+> > > The vendor code is correct and matches the RK3128 TRM.
+> >=20
+> > Thanks for the tips on documentation, and I verified this.
+> >=20
+> > It seems that Rockchip people made this always wrong, even with
+> > their
+> > pre-DRM display driver... [1]
+> >=20
+> > BTW I checked the Innosilicon dGPU driver code, and its
+> > g3_ne_hdmi.h
+> > source file also contains the definition of BIT(3) as VSYNC. (It's
+> > quite weird that most logic of that driver is in some .o_shipped
+> > blob,
+> > but fortunately the g3 logic might be too new to be closed down)
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > [1]
+> > https://github.com/rockchip-linux/kernel/blob/release-4.4/drivers/video=
+/rockchip/hdmi/rockchip-hdmiv1/rockchip_hdmiv1_hw.h#L161
+> >=20
+> > >=20
+> > > HDMI_reg08
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 Bit=C2=A0 Attr=C2=A0 Reset=C2=A0 Description
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 3=C2=A0=C2=A0=C2=A0 RW=C2=A0=C2=A0=C2=A0 0x0=
+=C2=A0=C2=A0=C2=A0 vs_polarity=C2=A0=C2=A0 VSYNC polarity=C2=A0=C2=A0 1'b0:
+> > > Negative
+> > > 1'b1: Positive
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 2=C2=A0=C2=A0=C2=A0 RW=C2=A0=C2=A0=C2=A0 0x0=
+=C2=A0=C2=A0=C2=A0 hs_polarity=C2=A0=C2=A0 HSYNC polarity=C2=A0=C2=A0 1'b0:
+> > > Negative
+> > > 1'b1: Positive
+> > >=20
+> > > Nobody noticed this so far because in 720p/1080p both polarities
+> > > are
+> > > positive, but Maud's 3:2 panel has differing H/V polarity.
+> > >=20
+> > > Best
+> > > -Dominique
+>=20
+> This also solves the devmem behaviour I saw, or well, doesn't realy=20
+> explain it but does show what is actually happening. As Icenowy noted
+> (maybe that was on telegram only?) the inno-hdmi regs are 8bit
+> instead=20
+> of 32 bit.
+>=20
+> What is actually happening is:
+>=20
+> devmem 0x29590000 b reads 0x29590000 as expected
+> but
+> devmem 0x29590004 b reads 0x29590001
+> devmem 0x29590008 b reads 0x29590002
+> ....
+> devmem 0x29590020 b reads 0x29590008
+>=20
+> For some reason the addressing is weird?
+>=20
+> With this change, the assigned clock change and removing the=20
+> v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS write to HDMI_SYS_CTRL, the
+> display=20
+> comes up from the start as it should!
 
-This means the nb7vpq904m is _not_ responsible for the AUX swapping, other
-boards have the wcd9395 or the fsa4480 in the middle to use the AUX line
-for the USB-C Alternate Audio support, and does the swap.
+Well I checked the RK3128 TRM for these two bits, and their field
+descriptions are -- "reserved".
 
-Could you check in the vendor tree if there's any reference to those ?
+What can I react...
 
-Neil
+Thanks,
+Icenowy
 
-> 
-> I can share the full instrumented traces (normal vs reverse) and test the
-> register map if someone can point at the right bits. Happy to turn a fix
-> into a proper patch.
-> 
-> Thanks,
-> BurningHoryd
-
+>=20
+> Kind regards,
+> Maud
