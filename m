@@ -4,62 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A02AC79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:50:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2453C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E483E10E38E;
-	Mon,  7 Sep 2026 09:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0575410E73D;
+	Mon,  7 Sep 2026 09:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="AWrOaH0N";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Jf8ZnWNU";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4E910E38E
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:50:07 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hdj3c6FnFzMlG6;
- Mon, 07 Sep 2026 11:50:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1788774604; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mN5wtl5wK1pD+jSdgzCx9eyQ3AaSJqVlV4B1zGffWK8=;
- b=AWrOaH0N4MENJC3X3K7wXV/Q/nLJgHXZU80S67C/QaANI1QxLNe005cPGSfB0ALKwe2FCg
- F1cfhG1EkZIboyEnIPMuyJrVO2UJ/14EDZXqonopmsZax6YsCmtH1Hl92Z9a4rl9ipcw1Q
- P/W/NTrWh3cdjSH26ooKZRXU8xXJq3VMNWnaGkwn808EYvKSmXwK993QgRFPKSN2g7KA5B
- jXd75AAjmFeN5iB93XL3KKTeZCxLXAYfevXdZmUWsRHldT7ReeK3gAzalfAbJAzDz3t24s
- vCEfbayZdpV+V2Ye8e9lo8NScwal57W2WmmzMT5dnCMEOk3qoxl6+edznXJpHA==
-Message-ID: <b36f5adfd5f6243d79e321e99b29b932a270f551.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, 	matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 11:49:56 +0200
-In-Reply-To: <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
- <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96B6310E73D
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:54:21 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-c2637dd37c1so186868266b.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 02:54:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1788774860; x=1789379660; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=BgnlZVhlCEMT9ZJriynmZJUUk5Ix+RJKVKHSp62UhtI=;
+ b=Jf8ZnWNUIXoxdeVWV10AFJcje0r6ZXn0pVLgJorZtVaqLNOIfYUfpSah4gING3BGxI
+ nNn2jahPAn+KsATjkLcS5DWWaVpj77KXB4F0MiJy44tyfF5zDffRh+vMFruwRmdf+TrN
+ bd/KiLE2PwFKTsd6UJk9Aifzi5EhxRtY678HtEfi7VFFfa3e1zIIYs2T6uRuGjFQ8P9n
+ T9Ke9ZNDmpCguQULmyJK5ctRTGxOdWVQn8VhwyX89nxneG1/sfZbmnsCxHIocOIP5x7Y
+ HnroqdgfqabbCC4by0nBMFggtvFuHYpNMRHJ6QsUE9qGEZWGPvSNUCttXWLkx65YpQ4b
+ CvRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788774860; x=1789379660;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BgnlZVhlCEMT9ZJriynmZJUUk5Ix+RJKVKHSp62UhtI=;
+ b=im0wYADkA5w4bIs8oodBZirhU3BcvnEkT+hoioDISbxajyO9twEwCgNRS0AvLOEtdj
+ UkyMTcGgRV/xRVB7NAvQsmJexp+ks9znYaPJRDNdjY15LcjOji/2SAxvy0nVC82LXBtF
+ 4nH1BynvSne4BPLxGei6RlR1dzkjMiBIYrjySoi+G4pkDU+hu2sGIcDy+0TBmmUhMvUA
+ qhdPNTifDaB0vwFHmJYCOcFNdvttSaiAiVz+xik+RtXFzX41eOIoSXHTA1ADwSpt+X+9
+ OpEghRbS/CDO+LuE6FBw1SruodKURqGuKNvKn6Czkzt9JwqJl9conShAV0WXapfLzZeK
+ /4Jw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw9sAdhaeUwS+RJ06KUnsdUR+PvvlfS6yad/A/zGim4gICFJHSetec05cLC0NLn37t+P9LfWTneQak=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nuME8eX0S2EU+lS7tv0Hw5aOHWreTSybi2r3qkPoNbyMFYNOuE
+ YKZNktB1DNoC5BMdJ8LuZt0w+sHx8X+vxb3eQDh3w0098IiqjshH/oxtNfdhm7TEMuA=
+X-Gm-Gg: AYBFou1n9CFhRanzgJFjkEHu2Dk5txKwWZhJ1uoEfHeZQ6x3d3ewSt3AJ7xihufk1Cb
+ epJlMfZFoM4p8qxYrzzLaaRnNXnqSqm5AxsaN34W99AQ53zIbf/71kjhpczGCTTOhSHWrjxi/4G
+ Ns6j91/vLpulD2E61ZV7gRzOnxJIysE9d8yLo9QMq0GqHN0mANkK3UYK0wt5qzIus5k5eGcwugJ
+ WtZWJOgPr+lUydYs3DR4SEL4MFeMM96Ae+yebW7uDR7ZTgnwXctjAsAYA407iFe1EkkOcAHZqZz
+ hG9H7bbsO3OgkGGQEg882IeUXUb5s7Qvflw8Czy5uWsOmWddGyzHLkwSZoHND77nb0jr4PwqDag
+ O2i6Xb/bZ7OYiDu8feiInZa6k1HVJaY6a343NVqjtPufB6NeuZmZr52T+WuekEeNb8n3egU+8oZ
+ Nspl9OlDBI79TQUtqJw2ckUxJYUurfG8IFu6QSuUdekG7VZ8gYPYwah1u+J9wsGQiSx6+cR2GYg
+ AH4
+X-Received: by 2002:a17:907:9815:b0:c26:1649:47b2 with SMTP id
+ a640c23a62f3a-c2616495665mr666155066b.40.1788774859903; 
+ Mon, 07 Sep 2026 02:54:19 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c260d53c37csm434533766b.32.2026.09.07.02.54.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2026 02:54:19 -0700 (PDT)
+Message-ID: <30c0848e-e8f6-4bb7-8505-89316158c49e@ursulin.net>
+Date: Mon, 7 Sep 2026 10:54:18 +0100
 MIME-Version: 1.0
-X-MBO-RS-ID: 6938f1eef1a9cc0b4cf
-X-MBO-RS-META: nayt3edutsba5jya4n7cejqtwjwa8ywu
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915: fix incorrect RCU teardown order
+To: christian.koenig@amd.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260903113621.54660-1-christian.koenig@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260903113621.54660-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,24 +89,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-07 at 11:42 +0200, Philipp Stanner wrote:
-> Moreover, even if we did remove ops->release in drm_sched, it would
-> still be a race: a driver's contract is the hardware_fence, the rule
-> being that you have to signal those. So after signaling the last
-> hardware_fence, you could actually start releasing resources, but it
-> might be that finished_fences are still in-flight and are unsignaled.
->=20
-> So we have some sort of fence -> fence race here, too.
 
-Forget about that, signaling the hw_fence should always result in
-undelayed signaling of the finished-fence.
+On 03/09/2026 12:36, Christian König wrote:
+> i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
+> over the fences in an GEM object without holding a reference but only
+> the RCU read side lock.
+> 
+> What can happen here is that the GEM object is destroyed concurrently
+> while i915_gem_busy_ioctl is still running. This won't free the GEM
+> objects memory, but still drops all the dma_fence references.
+> 
+> Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
+> assumes that a new fence list was installed and re-starts the loop.
+> 
+> But in the case of a destroyed GEM object a new fence list is never
+> installed, only the old one freed and therefore the iteration never
+> finishes resulting in an endless loop.
 
-So it would seem that making the signaled-state instead of ops =3D=3D NULL
-the decoupling point in dma_fence is the solution to go for?
+Only i915_busy can get into this failure mode? None of the other users 
+of the iterator?
 
+Also, the reference counting series makes the fix irrelevant?
 
-P.
+Regards,
+
+Tvrtko
+
+> 
+> The solution is to drop the fence references only after the RCU grace
+> period.
+> 
+> The fixes tag is not necessary the patch introducing the problem, but the
+> one making it so worse that we need to address it.
+> 
+> This problem was pointed out by Sashiko-bot.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
+> CC: stable@vger.kernel.org
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> index 5172d3982654..9e01f8b2079a 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+> @@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
+>   
+>   void i915_gem_object_free(struct drm_i915_gem_object *obj)
+>   {
+> +	dma_resv_fini(&obj->base._resv);
+>   	return kmem_cache_free(slab_objects, obj);
+>   }
+>   
+> @@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
+>   {
+>   	mutex_destroy(&obj->mm.get_page.lock);
+>   	mutex_destroy(&obj->mm.get_dma_page.lock);
+> -	dma_resv_fini(&obj->base._resv);
+>   }
+>   
+>   /**
+
