@@ -4,84 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5355BC79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D981C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 847D510E837;
-	Mon,  7 Sep 2026 13:31:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA0A610E83E;
+	Mon,  7 Sep 2026 13:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P1/ded7L";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ZCnV1883";
 	dkim-atps=neutral
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
- [74.125.224.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EED0D10E831
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:31:17 +0000 (UTC)
-Received: by mail-yx2-f12.google.com with SMTP id
- 956f58d0204a3-66e4aa8e6bbso84637d50.0
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:31:17 -0700 (PDT)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34F9710E83E
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:31:31 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-485843aeab8so3979419f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:31:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788787889; cv=none;
+ d=google.com; s=arc-20260327;
+ b=NPuoogJviY3x91SKIvbdsfFOabdsa5EISkZQ0FoacAWUNkRp2AQ4sWAKuel+bmikW2
+ noq0yI5gOSk8OCq5eRKxz1XjFzY1SHOYMFwgasV0YyjIxPpjX3FMwS6R0+YEDf5cfE3U
+ ZMr7JoIJ2AtIS+/cUgfifCc2t8od0LIDhTOrCGSZsQFCA7+hJRJ4KeNzT0WbEiGgaH64
+ +3HUstLWTujiw+P63znVOWx2fJ0MgqdGO19nwLvcxfTih69ZRm+rdSauER6nn0HR6Gbh
+ 0at8qmUcWKinCIT8Ezyc7f1RN7s0LtNRtA5CIdU5/4Df9PnPSYu06gIaYza/hES/NIuX
+ 2oPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=MeIqMgyiOqWe7HQD7SmKTKpkW52D9bvAC89kO8GNV9I=;
+ fh=sEdyBamAiiyfYtxqtEpmwD597fVjLhrGADmPgq+mqCE=;
+ b=Rsw02ok1qBpsfVlEw8n3LTjpHlzx9Nxr/tPFvNTuC476clCJ5tqWbNg5yNGSagGGb4
+ GtV7Ub0aJmXCSHhVfsD7nPzXFnfgFnJgtxaxXl5W4DyJ2hMiRYW060IentA1fJf8P8DQ
+ BdI7PeeU5V8gUxxyD/r5ucgySNIREdV9pwaJ7UnrPXUihtkqSkcvqO1H6x/ecBeeoHBl
+ oLVub047R7TURX3xgUytr+kC/A8Kb09j+5CH0nBTmqpNBFMmfr3mJUoxrrsTVT83Qkzr
+ X3Q8mJJazKyoWipcvPtvrTPc60UBRtKQnM/VYJRKi5vfGYkMpor9Jq9daopYr5KU2Byk
+ ImAA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788787877; x=1789392677; darn=lists.freedesktop.org;
- h=in-reply-to:references:from:subject:cc:to:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=eWEcZDJ0d/jLVDHWzL+8bGu4JgK8yNHYL2NxU1NtGM8=;
- b=P1/ded7Lv81WopsO0Z80bZ4LmiD6Yfw4g+TluJcjPi6BOh8heZgZPgVr32auoAFwaZ
- rscvH7k/ruWDvI3m7BnhaznPejNHmM1z8ljJ80aEdXRSdS4Yu+khV9b3MOANT5pjbco4
- dkoCYiYt27JyvuHRheNIx/1fBA5l8LNcFpI16tyGw0fvahGjGqUmGtnXfPBXdBGpZpzW
- 3lVYJY1t3k+X9C+WMqSEde9f+V4CZGoXbL1utNFcc7un6usItKmEanycu0z814hNHWJq
- YL6ouEeu5Z1lbbPDLPu+9mv+yTBPKZSBUM8/0yNJbrDzQDXhDq/LS+p3SU5YHxnpxIuK
- ve0Q==
+ d=google.com; s=20251104; t=1788787889; x=1789392689;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=MeIqMgyiOqWe7HQD7SmKTKpkW52D9bvAC89kO8GNV9I=;
+ b=ZCnV1883JQ0YliiDYpWwOdUpsqqNeo0HBk7gctg/YltovShNZbutKPi6FY47iL5IhE
+ 1EC0Qv8h/1U2/HIxPlJWNogDO/+RiEPtErkV5gFHqJrgO8hJ3DSqwVmWjjISDX3n0neP
+ MAiocslpGNCf9dpHoIydLaUvrMQ3LOp+DCz8HjmNXPA2KBDcLJJCOn/NDuSi6qvFZqgf
+ xQe+eDmqH0Sn3Dqq6H1clT6FkKD6VqGwMTbMzyzzZpa1lmxy1rWWsqCKSjtVEbsivyy0
+ JTFsikHyzojhF1Rf4gu/5cxF5mGUUCw9Vu29pAe89vW0AcbA9JaTYd2C5J6HcOwcGec3
+ /YcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788787877; x=1789392677;
- h=in-reply-to:references:from:subject:cc:to:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1788787889; x=1789392689;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=eWEcZDJ0d/jLVDHWzL+8bGu4JgK8yNHYL2NxU1NtGM8=;
- b=LJPeg+gxqxM/ONowlqAtHHYTJ5gM1ifLFVvlUGXXXOx/4ufwoVjrrlpxAl2EQxywWE
- PUs3y4xLbTvJ0wQSYDe8TuH2OUZRhgodVfx2OR8szDZNU8y5drZUQIgoV/BS7IJGFwVY
- WJ2sMVJERpmKW+2Vxr6JmccAxharnsWWp1aZRU61c4j6ktL6axWQ2mB1s5HMy6Z5t75m
- hIe3jJPg0Azd/3lgouABox6mjuOZkQ2ogEqZpCzc6anaHbfqH3o9qYqmJeCuvMLeP2eu
- pG2WgoFDR4OL0i0taq9LDZPJWO4uSFu6CaJW7zQbS3vSZTeU7omqOpFOuaDs9DhW6Zew
- f2GQ==
+ bh=MeIqMgyiOqWe7HQD7SmKTKpkW52D9bvAC89kO8GNV9I=;
+ b=VDsQcgbWeOYhLAJ0XMjCL/TubT9NO+OQQj+t0JXPmeDpqUsFG+4NmRKA83sZrGiN54
+ PFNSV+5ZZYbv0SsoBLCqwzh/EdM/JVivKAIb0hyYFtXC0y3oX2nlwMgVpvd64kNFOONc
+ 4277R0OWsXtdEUR+JfIn+qpJprng9BdUWEhpbKB8c+Sm1U1flWfq+m1Ki0WQToUM+DFF
+ pcpUfb7vTitZOKTyb01THtPcMwS+barYblNspajSm51CT4jbI+u2XWuvOc/Jm82n07+m
+ iIFEpOAFcb69AJBAMck85KqFdQfyHKwZZDO3RvzVc/sgRL0F7lUk7XsuSBXOOO0pddiT
+ BefQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw7k55S4WA86g+T/kA7w9oBL0VjwSqqn6YUoB9NXKDs0ylQgZUtr+qoaMQbOOUtkgFJ77zk3sQ2/Iw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l/p+Y+FaZBx3GohqLg2fLKUnXX/rh8LqAoAs9PG2slCyu0Qe6l
- TdWl8PL6J4D77vi4xVed1y8cC+C7tNjc4MRraC5KBcaneL90lm+xUkM=
-X-Gm-Gg: AYBFou3B7hxTXZFBcSVBdRj4UfqM7Cox0OCTNHR/kQbdNfzdEtk7aafQl5C3cdfG52o
- /snN2urX8WKvmYdMkdU1R5+ZZQcZks05/D9cPHLNZuSKrdyPG0iQn+k/BiPRWGV/Q6LZqurFhwb
- jmV/gMwd7HXVeK5li/KojkzXzwHeKevYJoKSKihY/G5x/Xh1SbEI0qTv/peQlTU2I04b4i/Mrz1
- NtfqyDrC5B+I1jPHMxUK8yiemo3vTOwzqaWfUht8M+8Rr609zchvVr3YHFj7z2H9CwWdH5kgH5b
- otOPLU1woInQ3CLXe0nuL4VpQnwTNunA6iEFkQNePE/QfYdOH9NxCVra6vGB5kQa/o37AKliy3Q
- sj9Pyy1LeGBabp09mYX62u141VfbuU0Xu3al09d8WpNHktEj7XqdjRiTm9ytzk4TooXgWgPULIo
- qXiFxObVESjcZDaPx7gwB76C3y1342PnXcUU9DscOvcD2hKVCmu+AebmrvGEYjFuakFXBf4dv8c
- kn0CAUyhvK/VND4PzLee/s=
-X-Received: by 2002:a05:690e:1288:b0:66f:a6e9:764c with SMTP id
- 956f58d0204a3-670f494fd90mr258149d50.22.1788787876678; 
- Mon, 07 Sep 2026 06:31:16 -0700 (PDT)
-Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-66fb48b374bsm8237629d50.3.2026.09.07.06.31.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2026 06:31:15 -0700 (PDT)
-Mime-Version: 1.0
+ AKwUvBy+J8+Rr1M8Hq+dqe5Eh8Irsd3DQipyGsmc5at+QpfG05bCVqUfZiVsjQArEZvnPi0G+n2Idtdb/0E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l3+grGBfBq1BsQCTOs3P7c7qF/3Jot/SpMsHQcUKHm+lLJQ3Oz
+ lNnFrYF5pDtSR+ff2/9qUsVp3DgZi0hzPdLSsMLr3dA1CTGASRCzJxZJRMf63/hDMQyQtMu8CBA
+ KZJ+4vTtKc9me7TW3YYcyU2oHcNAifPr742IWh1mx
+X-Gm-Gg: AYBFou06XMTq5MAn3kyx59QGEbHNnwUAaoq4FA8OXp8nYpiOvxREUfGpNulQECYiQL+
+ d3BCa1HoUrLrdxTQnEl3sOcALFue6S4Z3OZa4Qv0rKnkMYBeVhwb80/ACpJDvKVt+2dyYdCErKW
+ g7ZNFrvN7PGEN/jhfRU0KYpWVYN7YWpltJT8PC2XS3GiFK11Rwy4rKXWd2oG7Jo30Ha4evvaWwp
+ IpRstxDLtszmDlc9cdLRRGaYYFkVdTDn+/itBXgGmREh7nKPHqg+dO7RHLHISWDwx8Lhp4gBdPP
+ qbzUqRZkQMhw5OeS4MAjlVDh24ABnukZuVkfF6FAjN5U19QofzHRM0kIS9O1MkUh9aeNqWignr8
+ 40DG9YCyhoIMldrXJ9BNb1x+R/mmIE1EwR+TPnPCFHA==
+X-Received: by 2002:a05:6000:26d3:b0:485:8393:2176 with SMTP id
+ ffacd0b85a97d-485870902eamr40614985f8f.21.1788787888668; Mon, 07 Sep 2026
+ 06:31:28 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
+ <20260824-unique-ref-v20-4-490735672187@kernel.org>
+ <ao2WubjLtDuHvRzx@google.com>
+ <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
+ <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
+ <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
+In-Reply-To: <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Mon, 7 Sep 2026 15:31:16 +0200
+X-Gm-Features: AcwNN1Umd_wQEAUZHPYxidNRM70dkjd7WtcOMgQxK1KjbblodnsY1lRpQ3kHiGM
+Message-ID: <CAH5fLgjEfZO9DwcUxaKCWd_hFUrXU+cxiwmRg1UnM2pKD6gPvg@mail.gmail.com>
+Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>, 
+ Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
+ linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Asahi Lina <lina+kernel@asahilina.net>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 10:31:10 -0300
-Message-Id: <DL94DN6MH6UD.2XPV905D3FQ5Q@gmail.com>
-To: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>
-Cc: "Brigham Campbell" <me@brighamcampbell.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
- <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/mipi-dsi: docs: Mark mipi_dsi_compression_mode() as
- deprecated
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <20260702194223.290763-1-nico.antinori.7@gmail.com>
-In-Reply-To: <20260702194223.290763-1-nico.antinori.7@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,43 +144,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
-
-On Thu Jul 2, 2026 at 4:42 PM -03, Nicol=C3=A1s Antinori wrote:
-> The mipi_dsi_compression_mode() function is a thin wrapper around
-> mipi_dsi_compression_mode_ext(), which is already marked as deprecated.
-> Additionally, the non-deprecated mipi_dsi_compression_mode_multi()
-> alternative exists.
+On Mon, Sep 7, 2026 at 2:38=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel.=
+org> wrote:
 >
-> Document this deprecation to encourage developers to use the multi varian=
-t.
+> Alice Ryhl <aliceryhl@google.com> writes:
 >
-> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
-> ---
->  drivers/gpu/drm/drm_mipi_dsi.c | 2 ++
->  1 file changed, 2 insertions(+)
+> > On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> wrot=
+e:
+> >>
+> >> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
+> >> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
+> >> >> +        // SAFETY: We just successfully allocated a page, so we no=
+w have ownership of the newly
+> >> >> +        // allocated page. We transfer that ownership to the new `=
+Owned<Page>` object.
+> >> >> +        // Since `Page` is transparent, we can cast the pointer di=
+rectly.
+> >> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
+> >> >
+> >> > This doesn't satisfy the safety requirements of Owned::from_raw()
+> >> > because the page may be used with vm_insert_page(), which increments=
+ its
+> >> > refcount and causes it to be shared the vma system, and this occurs
+> >> > before Page::release() is called.
+> >>
+> >> I suppose the existing vm_insert_page() abstraction we have is already
+> >> problematic, because it uses `&Page`?
+> >>
+> >> Maybe we want to change the API to use `ARef<Page>` so it already has =
+to be
+> >> shared? Conceptually it takes a reference count from a `&Page`, which =
+isn't
+> >> possible because `Page` is not `AlwaysRefCounted`, so it needs a `&ARe=
+f<Page>`
+> >> to be able to do that op.
+> >
+> > Honestly, the problem is the safety requirements of Owned::from_raw().
+> > Pages have a "special" main reference, and free_page() does more than
+> > put_page(). It even does something when the refcount does not hit
+> > zero.
+> >
+> > The correct behavior for Page is to allow the user to hold one
+> > Owned<Page> whose drop calls free_page(), *plus* any number of
+> > ARef<Page> references that invoke put_page() on drop. This way, the
+> > owned page controls the special drop codepath.
 >
-> diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_ds=
-i.c
-> index 3ac1dd5ad640..9e20818f2de0 100644
-> --- a/drivers/gpu/drm/drm_mipi_dsi.c
-> +++ b/drivers/gpu/drm/drm_mipi_dsi.c
-> @@ -699,6 +699,8 @@ EXPORT_SYMBOL(mipi_dsi_compression_mode_ext);
->   * Enable or disable Display Stream Compression on the peripheral using =
-the
->   * default Picture Parameter Set and VESA DSC 1.1 algorithm.
->   *
-> + * This function is deprecated. Use mipi_dsi_compression_mode_multi() in=
-stead.
-> + *
->   * Return: 0 on success or a negative error code on failure.
->   */
->  int mipi_dsi_compression_mode(struct mipi_dsi_device *dsi, bool enable)
-> --
-> 2.47.3
+> This does not mesh well with the model of `Owned` behaving like
+> `UniqueArc` to `ARef` behaving like an `Arc`.
 
-Following up on this patch fixing the documentation comment. Just wanted
-to check if there are any feedback or updates required on this.
+It's a different case, I agree.
 
-Thanks,
-Nicol=C3=A1s
+> Please help me understand; with page having a main ref and an auxiliary
+> refcount, if we model that with a single `Owned<Page>` and a number of
+> `ARef<Page>`, what would happen in the case where the main ref (`Owned`)
+> is dropped first? Is this legal?
+
+Yes, it's legal.
+
+> My intuition here would be to follow Garry's suggestion and have
+> `vm_insert_page` take an `ARef<Page>`. Can you elaborate why this is not
+> an option?
+
+That would be the wrong ownership semantics. The C side increments the
+refcount rather than take ownership of a passed-in refcount, so the
+correct argument type is &Page.
+
+Now, for the use-case in Binder I believe we could switch to
+put_page(), as we don't need the extra stuff from free_page(), in
+which case we only want ARef<Page> and do not require Owned support.
+But as long as we are calling free_page(), it needs to not be
+clonable.
+
+Alice
