@@ -4,49 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BA9EC79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 12:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2FB1C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 12:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDFF10E434;
-	Mon,  7 Sep 2026 12:33:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF2710E510;
+	Mon,  7 Sep 2026 12:35:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EUT6f2Zi";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QRgkmdzr";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e+9m8F+o";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDF7B10E434;
- Mon,  7 Sep 2026 12:33:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=oclLdEpZz+P9ph7OcMtdTYlZ7Zz0TNdH2o2CQv/ApeU=; b=EUT6f2Zi2QPDHkiKhjDwgZWKJn
- jnk+KJt2z1rCqiW5kv2FCVzOGwK6m57N/su7abZDotZbaM+BjY4Iovth/tHSx4q+723S4ZogZ7PTP
- SCtCO+IfUs/M/X0TV0LXgSujOmhNVcFHgQeXTgMGyRVJqiWXCaPFTufKPwBXf1JRIM379X2RqyFvD
- Esb0YbqFaLtDnF1dtEsPNtunaNVDfxtUvjnsxXpsE8uJWhvugXCy7BImuy4JG8ea5uiku/T+mRrLC
- MFpe6h5JsZOlDXoDFj90HlBkFDtyJqJDASrFUSjFcu/HpAXrwFCgGPJkZMu3fP3QSuFrsB3MbGCp0
- hT5tHUsg==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x3YXA-00G27r-00; Mon, 07 Sep 2026 14:33:12 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- phasta@kernel.org
-Subject: [PATCH i-g-t] tests/intel/xe_sync_file: Exercise sync file access
- post queue destruction
-Date: Mon,  7 Sep 2026 13:33:08 +0100
-Message-ID: <20260907123308.52055-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35B9010E510
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:35:03 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 687AnUoK3777909
+ for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 12:35:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ nRove3eF2CgDkgkhUEbbyBJwjMDlcAT0c8FXFh1iM4g=; b=QRgkmdzrNVdnI69T
+ PKrlNWYQxgUMX2mQRQSdOk3967Omd3V8BVHOMkmjs9cTTI80MKneRVXWcXKrq8ye
+ mycdtMz3FTmTgrx5fIOmGa+b5je8xkXuI7p4goU02EONZZsAc/H84jrH182RxuTK
+ a10JW1sdvgPFW/6f6GCGRtqzepHYf7gTgKAJcE+VRPwtCUV3CsaNlPFOlMvN+/bz
+ cw9UY8jgq+YwlJpKBPvsNP1n1P9LHadyCJrKB/wcGrwsLIXyT+2ipcTiYUWZZNgd
+ pjVTwhF36h6/ZpOiHAGauosrDSqbt0bIVOyGG+81AY8Yg68Oa7kgpgFdhyZfd6ZM
+ FBRXRA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfyh304-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 12:35:01 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-97ca6578487so2718150241.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 05:35:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1788784501; x=1789389301;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=nRove3eF2CgDkgkhUEbbyBJwjMDlcAT0c8FXFh1iM4g=;
+ b=e+9m8F+o0bN/VGlkGf76iWeCay50xu74di/lclW3rBuZXRFH+SB2w4Qj0bwGlKumRo
+ dust2LfjirP+J8B2XxopIBjfadn9yyFR7JDnt9g8GFM7UkvCXq1G9jyykFf9ue+1t5bO
+ CtNVPakL3bMZexzD8BIFTQOjpo6X7yLPLs0bfD8xlraCUNrZFrE/2JtvYdNgH7QudRVx
+ dcHbwy9qKyqqnDIq6y0ocm5mj9CzNYxqkI1TvePe0Hx3qsr25QRu8j3iZB2Dpf2ctRk4
+ K4SB+bXzjnTB89aww0gAJNSxVqnQsHjIdHqny9gYEAHBTJcWtqZ33F9ObXCWGvmHFFAh
+ hzsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788784501; x=1789389301;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=nRove3eF2CgDkgkhUEbbyBJwjMDlcAT0c8FXFh1iM4g=;
+ b=hS7ovhG3scEMW6uiOUZppXB01WNskPA9HwVBh/Z/RzUzpxEqnZxRSVfhU8I5kLPe4x
+ BjgZf33+RqC6X8SxZmZqhWyQ1ZJUcUW2irgvfRgX/EbevmwO9KEpIOeuJSY5uQpenT0y
+ u8sELWpraNGab4s9uo6uKWTy0bIw8lgGGyphuLAANLsS7ni1jyRjPICXANfyOBdrbXPd
+ uQhngXsVu007M9B1OsfsP8YNV4IdAmxbx2+Mf96yxecmoeeKMFv2nuh6FPm4jIjru0fu
+ OyOrLPF5pVhm2u3uUNDBqtCnSRUnd2ZkrAP8BLZalDCNa0SF5opOcZr+3L/iFEyxcUDf
+ DJGg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByguUAnFxdgu79N6S3fbG7d8XYHVK4jDseR98BuMcPseA/qbEqk7Bk/Vfa/BouM/YUMtxB2nTn0KS0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kXvWSNKTa+WtR3aKM35RI1sdWCitvEV/iIf1O5PadOuz5HYo2Q
+ xdWCUvslq6Cv0Fzbj94jmbM9KgMw3H2fpXvdcHPmf9Q9dE08634zjzEeujpKjq4dM2YzvNzqFpW
+ 03hIwh3wbhJzHW+iavAIpwaUCCsxraOA57jRx2z/BeG1FoubJvUdhqJnrxsKuOZmUcfmsD7E=
+X-Gm-Gg: AYBFou141A0gvRWng0asy2oovLu5MTg9AHTQhSlqLFR/EVdPbR8M5ew/1UdkuJ++exD
+ /3pbt9BJ4mj3PoSIm6IFNAiywqll8dUcK5wQROAS7Hxvmkixe2SIN8Hf2UKbLvoa5wE0DSxFqn7
+ MhD5rXfStRzQTuBl04QKaC2/rXhT3u7/bYUMWKDkMXq994n7eFZGpy4+3IEctwip8281lrl81OC
+ 00qwoiPW/QlKelh629g9IPcNnVN1+mwwULoIl5tXjkjkkZ3vehDeQXvplRGj1THEtO+ItY5TQpr
+ mOhzBQTc1PfNzliLOZv2QaQpzpm4iRl+EoBG8nhYgM2LoHLlB10WJGI1ZQTVJi70f/v44nZrzdU
+ BULhthmtDiB/IXMX2FCFHQh7b023Z
+X-Received: by 2002:a05:6102:e0d:b0:778:636c:71cb with SMTP id
+ ada2fe7eead31-78a4a9c40c1mr9992793137.10.1788784501177; 
+ Mon, 07 Sep 2026 05:35:01 -0700 (PDT)
+X-Received: by 2002:a05:6102:e0d:b0:778:636c:71cb with SMTP id
+ ada2fe7eead31-78a4a9c40c1mr9992772137.10.1788784500704; 
+ Mon, 07 Sep 2026 05:35:00 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-485885be01bsm27784233f8f.31.2026.09.07.05.34.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2026 05:34:59 -0700 (PDT)
+Message-ID: <e1842799-2603-4f7a-b3db-623483bd4bd8@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 14:34:58 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC/DO NOT MERGE 07/12] drm/msm/hdmi: Split PHY init from
+ power up
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, olteanv@gmail.com, vkoul@kernel.org,
+ conor+dt@kernel.org, neil.armstrong@linaro.org,
+ linux-phy@lists.infradead.org
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-7-67843277de17@oss.qualcomm.com>
+ <20260828142231.81AD01F000E9@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260828142231.81AD01F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: H2Fpplbeiga7pcWFt8EseMVFK2irOtry
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzOSBTYWx0ZWRfX/I55R+VZEgij
+ jFxUs5z7Mdut7cEi0byGv3/3rWteG4TWYD+NgNeUy2jlffYbos56t7XyB26SmQeLudwMWulPbWS
+ Z7rYtw/pAW/nohevke2F4ZvrBz4tJp0uCRgTv3N4siHQt8k+sPVYiMK/ut5EuODN0XdLJvcsTd0
+ sWoUg0B6WIVX/jwyfv7v7uoG6CyVCyRmpGiWtmFaBsGjUGG6gadJivNxisArZ6GS0cqnSujTaAO
+ ixZKUFwjoIJf0jwdu4Nr81N+gJECUIlJl6ny/IJWm+Zgls97aC6fEzujtI4EYyKYmKCq0cVwvP+
+ 5XEL9aFZeiFXPqVD4ofiT3G8YAXL6WKQ9E4vhX11YR2Yy9xHb3yZMPtoJnxNxBtBZ4JwQ424wG/
+ cHAZX7tZ0sUee85w+0RslN8oO+cTRAzX+qMlxATMYVpGzBPgS11fzc74VGrb3d2vxIPRJzbhRco
+ 4r63sohPfjEPqrnvMug==
+X-Proofpoint-GUID: H2Fpplbeiga7pcWFt8EseMVFK2irOtry
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzOSBTYWx0ZWRfX6tuMOZxG4GeQ
+ 4NxvpFqMj5Qnng+YkoBuCo0+3QFwhsA53GKSgtbRl9qTE5dcRdG/8UjUi6GG1U93EaEjC7YLKNV
+ XRX406tzQsT9kae/tWFv6agFqF1aEIs=
+X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9eaf75 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=s3il5d3tusZ4osa2_RUA:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070139
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,237 +148,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A new test to roughly simulate the VK CTS suite where
-dEQP-VK.wsi.android.swapchain.render.* is hitting an use after free when a
-sync file is accessed after the xe submission queue has been destroyed.
+On 28/08/2026 16:22, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] The HDMI pixel clock is disabled before the 20ms vblank delay, breaking the intended shutdown sequence and risking hardware hangs.
+> - [Medium] Unconditional clock disable and PHY deinitialization can cause unbalanced clock teardown or CCF warnings.
+> 
+> Pre-existing issues:
+> - [High] Hardware registers are accessed after dropping the runtime PM reference.
+> - [High] Missing return value checks for hardware initialization functions, such as `pm_runtime_resume_and_get()` and `msm_hdmi_phy_resource_enable()`.
+> --
+> 
+> commit 821f230494b55344c7aaf6bb73ba3e416ff8cb25
+> Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Subject: drm/msm/hdmi: Split PHY init from power up
+> 
+> This commit reworks and splits the msm_hdmi_power_on() sequence into
+> smaller steps. It separates out runtime PM enablement, introduces a new
+> msm_hdmi_phy_init() step, and splits clock preparation and reparenting into
+> msm_hdmi_clk_prepare() which runs after PHY initialization.
+> 
+>> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+>> index 9d027f96ae243..ead6ba3b8192a 100644
+>> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+>> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+>> @@ -15,12 +15,18 @@
+>>  
+>>  static void msm_hdmi_power_on(struct drm_bridge *bridge)
+>>  {
+>> -	struct drm_device *dev = bridge->dev;
+>>  	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+>>  	struct hdmi *hdmi = hdmi_bridge->hdmi;
+>> -	int ret;
+>>  
+>>  	pm_runtime_resume_and_get(&hdmi->pdev->dev);
+> 
+> [Severity: High]
+> This is a pre-existing issue, but is it safe to ignore the return value of
+> pm_runtime_resume_and_get() here?
+> 
+> If it fails, the power domain is not enabled and the PM usage count is not
+> incremented. Proceeding to access hardware registers will cause an SError
+> or panic, and the subsequent pm_runtime_put() in the disable path will
+> underflow the usage count.
 
-Abbreviated KASAN report:
+Addressed separately.
 
- [IGT] xe_sync_file: starting subtest sync_file_race
- ==================================================================
- BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name+0xa1/0xb0 [gpu_sched]
- Read of size 8 at addr ffff888126726020 by task xe_sync_file/2931
- ...
- Call Trace:
-  <TASK>
-  kasan_report+0xeb/0x130
-  drm_sched_fence_get_timeline_name+0xa1/0xb0 [gpu_sched]
-  sync_file_ioctl+0x3cb/0xb00
- ...
- Allocated by task 2931:
-  __kmalloc_cache_noprof+0x1c2/0x410
-  guc_exec_queue_init+0x1a8/0x1240 [xe]
-  xe_exec_queue_create+0xe72/0x13b0 [xe]
-  xe_exec_queue_create_ioctl+0x10d9/0x1770 [xe]
-  drm_ioctl_kernel+0x179/0x300
-  drm_ioctl+0x58f/0xcf0
-  xe_drm_ioctl+0xe8/0x140 [xe]
- ...
- Freed by task 1689:
-  kfree+0x106/0x3e0
-  __guc_exec_queue_fini_async+0x144/0x2d0 [xe]
-  process_one_work+0x610/0xdf0
-  worker_thread+0x7c8/0x14b0
+> 
+>> +}
+> 
+> [ ... ]
+> 
+>> @@ -341,6 +359,8 @@ static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+>>  	msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
+>>  
+>>  	msm_hdmi_phy_powerdown(phy);
+>> +	msm_hdmi_clk_unprepare(bridge);
+>> +	msm_hdmi_phy_deinit(phy);
+>>  
+>>  	if (hdmi->power_on) {
+> 
+> [Severity: Medium]
+> Can this unconditional clock disable and PHY deinitialization cause
+> unbalanced clock teardown or Common Clock Framework warnings?
+> 
+> If atomic_post_disable() is called to sanitize the hardware during initial
+> modeset (where hdmi->power_on is false), msm_hdmi_clk_unprepare() will be
+> called without a matching prior enable. This bypasses the state tracking
+> guard and triggers a WARN in the CCF.
 
-Without KASAN this of course turns into a plain null pointer dereference.
+It's pre-existing approach but I will address it in v2.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: phasta@kernel.org
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com> # v2
----
-v2:
- - igt_main and igt_fixture tweaks. (Rodrigo)
+> 
+> [Severity: High]
+> Does this code disable the HDMI pixel clock before the 20ms vblank delay
+> inside power_off()?
+> 
+> Because msm_hdmi_clk_unprepare() is called before power_off(), the
+> pipeline is frozen mid-frame before the delay executes. Powering down a
+> frozen display controller mid-frame frequently causes system-wide bus hangs
+> (AXI bus stalls) on ARM SoCs.
 
-v3:
- - Add driver name checks.
----
-I dropped the ball upstreaming this old IGT proposal. Now that things
-got broken with
-035219a760ed ("dma-buf: dma-fence: Fix potential NULL pointer dereference")
-it shows it would have been useful to have this merged and ran in CI.
----
- tests/intel/xe_sync_file.c | 154 +++++++++++++++++++++++++++++++++++++
- tests/meson.build          |   1 +
- 2 files changed, 155 insertions(+)
- create mode 100644 tests/intel/xe_sync_file.c
+No, this is just pixel clock, not bus clocks.
 
-diff --git a/tests/intel/xe_sync_file.c b/tests/intel/xe_sync_file.c
-new file mode 100644
-index 000000000000..842c3856a525
---- /dev/null
-+++ b/tests/intel/xe_sync_file.c
-@@ -0,0 +1,154 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2025 Google, Inc.
-+ */
-+
-+/**
-+ * TEST: Tests for sync file functionality
-+ * Category: Core
-+ * Mega feature: General Core features
-+ * Sub-category: CMD submission
-+ * Functionality: fences
-+ */
-+
-+#include "igt.h"
-+#include "sync_file.h"
-+
-+#include "lib/igt_syncobj.h"
-+#include "lib/intel_reg.h"
-+
-+#include "xe_drm.h"
-+#include "xe/xe_ioctl.h"
-+#include "xe/xe_query.h"
-+
-+static int sync_file_get_status(int sync_file, char **driver_name)
-+{
-+	struct sync_fence_info fence = { };
-+	struct sync_file_info info = {
-+		.num_fences = 1,
-+		.sync_fence_info = to_user_pointer(&fence),
-+	};
-+
-+	do_ioctl(sync_file, SYNC_IOC_FILE_INFO, &info);
-+	igt_assert_eq(info.num_fences, 1);
-+
-+	igt_debug("'%s'/'%s' = %d\n",
-+		  fence.driver_name, fence.obj_name, fence.status);
-+
-+	*driver_name = strdup(fence.driver_name);
-+
-+	return fence.status;
-+}
-+
-+/**
-+ * SUBTEST: sync_file_race
-+ * Description: Check that we can safely query an exported sync file fd
-+ * Test category: functionality test
-+ */
-+static void test_race(int xe, struct drm_xe_engine_class_instance *eci)
-+{
-+	uint32_t vm, bo, syncobj, bind_syncobj, *batch;
-+	struct drm_xe_sync sync[2] = {
-+		{ .type = DRM_XE_SYNC_TYPE_SYNCOBJ,
-+		  .flags = DRM_XE_SYNC_FLAG_SIGNAL,
-+		},
-+		{ .type = DRM_XE_SYNC_TYPE_SYNCOBJ,
-+		  .flags = DRM_XE_SYNC_FLAG_SIGNAL,
-+		},
-+	};
-+	const uint32_t bbend = MI_BATCH_BUFFER_END;
-+	struct drm_xe_exec exec = {
-+		.address = 0x100000,
-+		.num_batch_buffer = 1,
-+		.num_syncs = 2,
-+		.syncs = to_user_pointer(sync),
-+	};
-+	char *driver_name;
-+	int sync_fence;
-+	size_t size;
-+
-+	vm = xe_vm_create(xe, 0, 0);
-+
-+	size = xe_bb_size(xe, sizeof(bbend));
-+	bo = xe_bo_create(xe, vm, size, vram_if_possible(xe, eci->gt_id),
-+			  DRM_XE_GEM_CREATE_FLAG_NEEDS_VISIBLE_VRAM);
-+
-+	batch = xe_bo_map(xe, bo, size);
-+	*batch = bbend;
-+
-+	exec.exec_queue_id  = xe_exec_queue_create(xe, vm, eci, 0);
-+
-+	syncobj = syncobj_create(xe, 0);
-+	bind_syncobj = syncobj_create(xe, 0);
-+
-+	sync[0].handle = bind_syncobj;
-+	xe_vm_bind_async(xe, vm, 0, bo, 0, exec.address, size, sync, 1);
-+
-+	sync[0].flags &= ~DRM_XE_SYNC_FLAG_SIGNAL;
-+	sync[0].handle = bind_syncobj;
-+	sync[1].flags |= DRM_XE_SYNC_FLAG_SIGNAL;
-+	sync[1].handle = syncobj;
-+	xe_exec(xe, &exec);
-+
-+	/* Export a sync file fence. */
-+	sync_fence = syncobj_handle_to_fd(xe, sync[1].handle,
-+					  DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE);
-+
-+	igt_assert(syncobj_wait(xe, &syncobj, 1, INT64_MAX, 0, NULL));
-+	igt_assert(syncobj_wait(xe, &bind_syncobj, 1, INT64_MAX, 0, NULL));
-+
-+	driver_name = NULL;
-+	igt_assert_eq(sync_file_get_status(sync_fence, &driver_name), 1);
-+	igt_assert(driver_name);
-+	igt_assert(!strcmp(driver_name, "drm_sched"));
-+	free(driver_name);
-+
-+	sync[0].flags |= DRM_XE_SYNC_FLAG_SIGNAL;
-+	syncobj_reset(xe, &sync[0].handle, 1);
-+	xe_vm_unbind_async(xe, vm, 0, 0, exec.address, size, sync, 1);
-+	igt_assert(syncobj_wait(xe, &sync[0].handle, 1, INT64_MAX, 0, NULL));
-+
-+	syncobj_destroy(xe, syncobj);
-+	xe_exec_queue_destroy(xe, exec.exec_queue_id);
-+
-+	munmap(batch, size);
-+	gem_close(xe, bo);
-+
-+	syncobj_destroy(xe, bind_syncobj);
-+	xe_vm_destroy(xe, vm);
-+
-+	/* Give any delayed freeing time to run. */
-+	sleep(1);
-+
-+	/* This should still work and not crash the kernel. */
-+	driver_name = NULL;
-+	igt_assert_eq(sync_file_get_status(sync_fence, &driver_name), 1);
-+
-+	/* And must not read the original timeline/driver name either! */
-+	igt_assert(driver_name);
-+	igt_assert(!strcmp(driver_name, "detached-driver"));
-+	free(driver_name);
-+
-+	close(sync_fence);
-+}
-+
-+int igt_main()
-+{
-+	struct drm_xe_engine_class_instance *eci;
-+	int xe;
-+
-+	igt_fixture() {
-+		xe = drm_open_driver(DRIVER_XE);
-+	}
-+
-+	igt_subtest("sync_file_race") {
-+		xe_for_each_engine(xe, eci) {
-+			test_race(xe, eci);
-+			break;
-+		}
-+	}
-+
-+	igt_fixture() {
-+		drm_close_driver(xe);
-+	}
-+}
-diff --git a/tests/meson.build b/tests/meson.build
-index 1ac89bab7e15..f83368695a0e 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -351,6 +351,7 @@ intel_xe_progs = [
- 	'xe_sysfs_preempt_timeout',
- 	'xe_sysfs_scheduler',
-         'xe_sysfs_timeslice_duration',
-+	'xe_sync_file',
-         'xe_tlb',
- ]
- 
--- 
-2.55.0
+> 
+>>  		power_off(bridge);
+> 
+> [Severity: High]
+> This is a pre-existing issue, but can the code following power_off() access
+> hardware registers after the runtime PM reference has been dropped?
 
+Ack
+
+
+Best regards,
+Krzysztof
