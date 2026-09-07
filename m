@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC9B2C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8D1C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3261B10E813;
-	Mon,  7 Sep 2026 13:25:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5581010E824;
+	Mon,  7 Sep 2026 13:25:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JyZEMgaF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LPjl3nv1";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2434410E81B
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EABA410E82C
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9B3E660AB5;
- Mon,  7 Sep 2026 13:25:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B711F00A3D;
- Mon,  7 Sep 2026 13:25:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 68CCC60D83;
+ Mon,  7 Sep 2026 13:25:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904FC1F00A3A;
+ Mon,  7 Sep 2026 13:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787509;
- bh=pX8+nWS/CK8UFYkgBoOqwRgx2n63GL8y22y9yz41HGQ=;
+ s=k20260515; t=1788787513;
+ bh=wbnTu7CcfXSkK3IZEHgZjLKWZBtBDK8KEDdrquhARjc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JyZEMgaF8oudWBH3BHZfZdRpiUfhTrvsGut6SwYx4mP9QnJHvkgxjVs9lRPCieXxH
- G1TkS7182fvan9GDUSRvSnzs1GM9n6I740qc2U1jMKy27XVDbm/4JhpltVCOLbf8M7
- Mwdwo5GP4evEkCuJlVzrIjzgqW7/TtUBck/H2MazkaF04nEhKaB/j6TqjTBjwMRDZD
- vidxgqyRZ4viv2iCNJWRIqR/C3WwXA+t2HO48dt0E0KRSMuBzQhjxcqucpZsOaKCSt
- xhvNz8jO7jE9MAdJBHymCOrrA6tCmAWONZkOw+b4SZhzHVnrsK8+GiNu9H69rcsRNV
- MkQeYy172dvtw==
+ b=LPjl3nv1FheYS6T8ceOaUfDs1uusZyAsCtHOM6ObaKv3r28hWuxnWQpZ8SytalRFc
+ NDq0RWrDCj07bDYelOWxSbMD/0HgbEnjArFdsiNL5Jaso4I/UJNr1D7hUaDEqPt4Tm
+ YhWnoC55bG/ZeSTgZ4X2gPQqhnWWDPShrovbFEj23lXpZGCzNMtvF4FVh5bnuZ709k
+ kaXAzCebeR4oxUlLp3NWh6DL+zHtEJWXuf7BgN5/JNIorWrXV4xuwxntlisUxTLqe8
+ mGZZWw0QDCoX71PiLxdJmRS5QMPWm8uNjXjU4uzQptdj2EFNcliU/NJlGV1IaEbHt9
+ SR+cdklU6GCKg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:23:54 +0200
-Subject: [PATCH v5 18/33] drm/modeset-helper: Add
- drm_mode_config_helper_hw_reset()
+Date: Mon, 07 Sep 2026 15:23:55 +0200
+Subject: [PATCH v5 19/33] drm/atomic_helper: Pass nonblock to commit_tail
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-18-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-19-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,12 +50,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2307; i=mripard@kernel.org;
- h=from:subject:message-id; bh=3XY1VnVCBRxZ4KHIV04PwMbFuCvuGKDrl0MJ4wxAlmQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj2V4f+6pv6zwmT7Y2E7BOee4lS8UnLxSkN/Zdmvd
- x83JR0V6ZjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATKfnHWB/P//Fwu4Ppx33f
- rp4oehnqsWb+tSn+KadYfq+4NX2ayEU+bSXTLaIMwe/fHfp5UsP+yzLGeifeUikuyeusBvsepM7
- 1vF3XUhnxUPDPtP2rt6bXzlwWm//Jn/3GybMdxtGOavxHxbJNAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1848; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Z9X7WcliXh+DkPZ0wAg3nQpa3ZT4mU/Ysulk7Vvdx0I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj1rOnNsR+ObVF2R339i91798eH/m5/5E/fdqBBcf
+ U+C9bnblY6pLAzCnAyyYoosT2TCTi9vX1zlYL/yB8wcViaQIQxcnAIwEVNpxlqJ7UeP/1GRXC/e
+ rz89zOxXpGlyeUv9pIRbcb8mzj3SwyC8ry3ura3Ur77M7Y+uRVl83sXYcGrJUybG9ZG7+oSZcxy
+ 3FPPviDPkXiAgWbD3ocSjqHtvc/4pH6zL6vDR5VjWbZinUvIKAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,68 +73,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_mode_config_create_initial_state() calls
-&drm_mode_config_funcs.hw_reset when the hardware state readout fails,
-to put the hardware in a known-good state before creating pristine
-software state.
+The state comparison infrastructure will need to know if a
+commit is blocking or non-blocking in commit_tail. Pass the nonblock
+flag along.
 
-Provide drm_mode_config_helper_hw_reset() as a default implementation of
-&drm_mode_config_funcs.hw_reset that resets all the objects requiring
-it.
-
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_modeset_helper.c | 24 ++++++++++++++++++++++++
- include/drm/drm_modeset_helper.h     |  1 +
- 2 files changed, 25 insertions(+)
+ drivers/gpu/drm/drm_atomic_helper.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-index e54584da4c3d..efff6dc9b88f 100644
---- a/drivers/gpu/drm/drm_modeset_helper.c
-+++ b/drivers/gpu/drm/drm_modeset_helper.c
-@@ -258,5 +258,29 @@ int drm_mode_config_helper_resume(struct drm_device *dev)
- 		drm_kms_helper_poll_enable(dev);
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 285aac3554df..6405afc5037d 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -2035,11 +2035,11 @@ void drm_atomic_helper_commit_tail_rpm(struct drm_atomic_commit *state)
  
- 	return ret;
+ 	drm_atomic_helper_cleanup_planes(dev, state);
  }
- EXPORT_SYMBOL(drm_mode_config_helper_resume);
-+
-+/**
-+ * drm_mode_config_helper_hw_reset - default &drm_mode_config_funcs.hw_reset implementation
-+ * @dev: DRM device
-+ *
-+ * Resets all KMS objects that provide a hardware reset hook to a
-+ * known-good state, without touching the software state.
-+ *
-+ * Drivers can assign this function as their
-+ * &drm_mode_config_funcs.hw_reset implementation.
-+ */
-+void drm_mode_config_helper_hw_reset(struct drm_device *dev)
-+{
-+	struct drm_crtc *crtc;
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		const struct drm_crtc_helper_funcs *helper_funcs =
-+			crtc->helper_private;
-+
-+		if (helper_funcs && helper_funcs->hw_reset)
-+			helper_funcs->hw_reset(crtc);
-+	}
-+}
-+EXPORT_SYMBOL(drm_mode_config_helper_hw_reset);
-diff --git a/include/drm/drm_modeset_helper.h b/include/drm/drm_modeset_helper.h
-index 7e3d4c5a7f66..bd4193fbd907 100644
---- a/include/drm/drm_modeset_helper.h
-+++ b/include/drm/drm_modeset_helper.h
-@@ -40,7 +40,8 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
- int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
- 		  const struct drm_crtc_funcs *funcs);
+ EXPORT_SYMBOL(drm_atomic_helper_commit_tail_rpm);
  
- int drm_mode_config_helper_suspend(struct drm_device *dev);
- int drm_mode_config_helper_resume(struct drm_device *dev);
-+void drm_mode_config_helper_hw_reset(struct drm_device *dev);
+-static void commit_tail(struct drm_atomic_commit *state)
++static void commit_tail(struct drm_atomic_commit *state, bool nonblock)
+ {
+ 	struct drm_device *dev = state->dev;
+ 	const struct drm_mode_config_helper_funcs *funcs;
+ 	struct drm_crtc_state *new_crtc_state;
+ 	struct drm_crtc *crtc;
+@@ -2093,11 +2093,11 @@ static void commit_tail(struct drm_atomic_commit *state)
+ static void commit_work(struct work_struct *work)
+ {
+ 	struct drm_atomic_commit *state = container_of(work,
+ 						      struct drm_atomic_commit,
+ 						      commit_work);
+-	commit_tail(state);
++	commit_tail(state, true);
+ }
  
- #endif
+ /**
+  * drm_atomic_helper_async_check - check if state can be committed asynchronously
+  * @dev: DRM device
+@@ -2313,11 +2313,11 @@ int drm_atomic_helper_commit(struct drm_device *dev,
+ 
+ 	drm_atomic_commit_get(state);
+ 	if (nonblock)
+ 		queue_work(system_dfl_wq, &state->commit_work);
+ 	else
+-		commit_tail(state);
++		commit_tail(state, false);
+ 
+ 	return 0;
+ 
+ err:
+ 	drm_atomic_helper_unprepare_planes(dev, state);
 
 -- 
 2.55.0
