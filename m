@@ -4,43 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF26C79F99
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 11:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B79C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 11:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 021E210E204;
-	Mon,  7 Sep 2026 11:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97C2110E49F;
+	Mon,  7 Sep 2026 11:28:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CNRfp34S";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qOkw5LIz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E4210E204
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:28:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A682F40BE1;
- Mon,  7 Sep 2026 11:28:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D52E1F00A3A;
- Mon,  7 Sep 2026 11:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788780480;
- bh=u3IMTCbQofqndYlXdEmPeP8Ke/QRZ5CHaoByVVM/6pc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CNRfp34Sd415W91G7afdOhhjSmvo/9ENnJgReETDDBvKbO6S1tjok+Xf1MS7GeIDd
- cetWo70ok9ZjN2t1yJ3ziI+s1+RTErxaEmir/C4Av5HIxezMizr1ObTicz+OXvZ4oG
- RQJYr6HM6s7kFPOckWlsY+fooZ27AVcUtrvn4SC19zV+43gSnOb3U0yzjWwA6rNwKZ
- 4DTLT4N4prH0mA3NJPqCasGf1g0MR5nTnMIkBqmKlrN+7s1jsiDZtBEJQw7FwDIhbQ
- bAAafu7O80jMItRmRT0E2jf+Eh+Xq/7juz/V29TnGM5ZDqD2agnyDvmfPY0txr+hgI
- Vvfw74GNRfjZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] drm/bridge: cdns-dsi: Fix stop-state at enable time
-To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260907-cdns-dsi-fixes-v2-2-96d9b116e9bc@ideasonboard.com>
-References: <20260907-cdns-dsi-fixes-v2-0-96d9b116e9bc@ideasonboard.com>
- <20260907-cdns-dsi-fixes-v2-2-96d9b116e9bc@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 11:27:59 +0000
-Message-Id: <20260907112800.5D52E1F00A3A@smtp.kernel.org>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC9010E49F
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:28:24 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 059C52E9;
+ Mon,  7 Sep 2026 13:26:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1788780408;
+ bh=EsVKsvATbJo/Lp+esOjfsBzagnhC36AfAyUQNVT8glw=;
+ h=From:Subject:Date:To:Cc:From;
+ b=qOkw5LIzoiP5T6sPV7PMwTVR4W9UUsOw9VTIX2wScjJxwP+o8fVUZ6mg2AhEs+qOl
+ zfaYx3ey7rHVM6YyR1j9ezL92kjOxF9GFxZAo8bAVVNHHyTDazI+vJSCxw0EF/hkun
+ NGnQ7tNg0JqDBpau8jzRdHC+5or/JVk+AjLIAAr4=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH v4 00/13] drm/bridge: tc358762: Various small fixes
+Date: Mon, 07 Sep 2026 14:27:55 +0300
+Message-Id: <20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALyfnmoC/3XPTQ7CIBAF4KsY1mIolGlx5T2MC8qPZWEx0BBN0
+ 7s77UaT2uWbyfsyM5HsUnCZnA8TSa6EHOKAoT4eiOn1cHc0WMyEMw5McKCjEbJtgFMfXi5T8AA
+ gGbNaOYKlZ3LrAjvXG+Y+5DGm9+qXapnuUqWijIL0daM4b7SXl2CdznHook72ZOKDLGLhv0qzU
+ TgqOFFWmBoxvaOIryIrsVHEcguotpP4XNupP8o8zx/9zIxrPwEAAA==
+X-Change-ID: 20260326-tc358762-fixes-6f666500da9e
+To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2326;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=EsVKsvATbJo/Lp+esOjfsBzagnhC36AfAyUQNVT8glw=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnp/R52GbNblQzPqFhbAr5jHEU+kVjZc1IdE2k
+ 1eypZZPSIuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6f0QAKCRD6PaqMvJYe
+ 9VJDEACNddKq7soVBb5ZYOKPMXTIs1enkatUE48N3u912UtmxvG7qKEwBI37BZv6K+WRiVrKNj2
+ SQFuLJWKQSlzBea9pkKz4WXUMm5CfzQ6cX1yFp3w9EBioZJmExqOcsZZ9QqsyXa7aihGcWip4Lt
+ g5rTeCo3I16HLZpWjB6MH6QyS0+qlzK1dFr/Bo/pH9MM8cv35bRwzr6a2+B5Oy4WZffcFVfoRaP
+ OWuq4EfYVye+6oOskccXxunVt4mgNxIMpFIuSFb+/LqKzcvOjjGg1myekavxVIZrjJstuYV5QT9
+ erYGa/gfYJ3+D2WOnuFek12UaflTa56uZmtRwH5senB0Up90tQRBJa+AinlLGSWBEp6UjR5s0+c
+ PIElQLBSOcwT83iE8Aut7zZ6TL18fu/KVCXjQgANJVSJX7T6Ohrkp+83ARK8Fs/I808fc/OJoEU
+ P81YlQwXQp6mbLI8d/d/2rEP1DHA2aQFYm1Yd6v0E+m6x5afzKqnAdvs5XwJlRqe8kukIXxOZh/
+ uEULUO7fnhnEypLvylieATY98DSqT45lg/j7u2J/OQ/OEIrxg4oJBtqgwdep7TznMl1blH1wBhA
+ Et1DkhE8hhQVZyv5VJ/vXJuODvaquiEOl3Iky80VfaMKdcwmhgIcc2Hc6ZQdOEVBR/fpxxMLDQd
+ 8Ae7mr+wpeSwUMQ==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,93 +80,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+While trying to get Raspberry Pi display v1.1 working on Beagleboard
+platforms, I noticed various small issues with the tc358762 driver.
 
-New issues:
-- [High] The patch introduces a sleeping delay (`usleep_range`) in an atomi=
-c context path, violating DRM display driver guidelines.
+The series also contains a patch to fix the timings in the
+powertip,ph800480t013-idf02 panel. The combination of tc358762 +
+ph800480t013 is used in the Raspberry Pi display module, so it makes
+sense to fix them together.
 
-Pre-existing issues:
-- [High] Pre-existing use of a sleeping poll macro (`readl_poll_timeout`) i=
-n an atomic context path.
---
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+Changes in v4:
+- Rebased on latest upstream, fixing the minor compilation issues that it
+  brought
+- Added R-b tags
+- Link to v3: https://lore.kernel.org/r/20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com
 
-commit 831dd94ae2ea6c134a442329e348bfa99f691859
-Author: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Changes in v3:
+- Add missing #include <linux/bitfield.h>
+- New patch: "drm/panel-simple: Fix powertip,ph800480t013-idf02 timings"
+- Link to v2: https://lore.kernel.org/r/20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com
 
-drm/bridge: cdns-dsi: Fix stop-state at enable time
+Changes in v2:
+- Always enable VTG. There should be no downside, and it fixes unstable
+  hsync
+- Add four new patches at the end
+- Extend the patch desc in "Drop SPICMR write" a bit
+- Link to v1: https://lore.kernel.org/r/20260326-tc358762-fixes-v1-0-65f479227af5@ideasonboard.com
 
-This patch addresses an initialization failure with the Xilinx D-PHY RX by
-ensuring the clock and data lanes are kept in a stop-state during the D-PHY
-power up and init sequence. It adds FORCE_STOP flags and a delay to allow
-the stop-state to take effect.
+---
+Tomi Valkeinen (13):
+      drm/bridge: tc358762: Clean up register defines
+      drm/bridge: tc358762: Improve SYSCTRL register defines
+      drm/bridge: tc358762: Improve LCDCTRL defines
+      drm/bridge: tc358762: Configure SYSCTRL first
+      drm/bridge: tc358762: Drop SPICMR write
+      drm/bridge: tc358762: Improve DPI enable handling
+      drm/bridge: tc358762: Update comment about the number of lanes
+      drm/bridge: tc358762: Support VTG
+      drm/bridge: tc358762: Fix sync polarities
+      drm/bridge: tc358762: Move tc358762_init() into tc358762_enable()
+      drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
+      drm/bridge: tc358762: Set DE_POL and DCLK_POL properly
+      drm/panel-simple: Fix powertip,ph800480t013-idf02 timings
 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu=
-/drm/bridge/cadence/cdns-dsi-core.c
-> index 4b7a3bf582551..b9c87f13177af 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-[ ... ]
-> @@ -661,6 +668,13 @@ static void cdns_dsi_hs_init(struct cdns_dsi *dsi)
->  	writel(DPHY_CMN_PSO | DPHY_ALL_D_PDN | DPHY_C_PDN | DPHY_CMN_PDN |
->  	       DPHY_D_RSTB(output->dev->lanes) | DPHY_C_RSTB,
->  	       dsi->regs + MCTL_DPHY_CFG0);
-> +
-> +	/* Keep stop state for at least 100 us */
-> +	usleep_range(100, 200);
+ drivers/gpu/drm/bridge/tc358762.c    | 203 +++++++++++++++++++++++------------
+ drivers/gpu/drm/panel/panel-simple.c |  14 +--
+ 2 files changed, 144 insertions(+), 73 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260326-tc358762-fixes-6f666500da9e
 
-[Severity: High]
-Is it safe to introduce a sleeping delay in an atomic context path here?
+Best regards,
+--  
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-Looking at the call chain:
-drm_atomic_helper_commit_tail()
-  drm_atomic_helper_commit_modeset_enables()
-    cdns_dsi_bridge_atomic_pre_enable()
-      cdns_dsi_hs_init()
-
-The DRM guide specifies drm_atomic_helper_commit_tail() as an atomic
-context path where sleeping is forbidden. Introducing usleep_range() here
-might lead to kernel warnings, system instability, or regressions during a
-non-blocking modeset request.
-
-[Severity: High]
-This is a pre-existing issue, but are the readl_poll_timeout() calls in this
-path also sleeping in an atomic context?
-
-For example, earlier in cdns_dsi_hs_init():
-
-cdns_dsi_hs_init() {
-    ...
-    WARN_ON_ONCE(readl_poll_timeout(dsi->regs + MCTL_MAIN_STS, status,
-                                    status & PLL_LOCKED, 100, 100));
-    ...
-}
-
-There is also a similar call in cdns_dsi_bridge_atomic_pre_enable():
-
-cdns_dsi_bridge_atomic_pre_enable() {
-    ...
-    if (readl_poll_timeout(dsi->regs + MCTL_MAIN_STS, status,
-                           (tmp =3D=3D (status & tmp)), 100, 500000))
-    ...
-}
-
-Since readl_poll_timeout() internally calls usleep_range(), could these
-similarly cause regressions in the atomic commit path?
-
-> +
-> +	val &=3D ~(DATA_FORCE_STOP | CLK_FORCE_STOP);
-> +	writel(val, dsi->regs + MCTL_MAIN_EN);
-> +
->  	dsi->phy_initialized =3D true;
->  }
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-cdns-dsi-f=
-ixes-v2-0-96d9b116e9bc@ideasonboard.com?part=3D2
