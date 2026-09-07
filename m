@@ -4,97 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13ACFC79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3390DC79FA0
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:00:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4C510E7EB;
-	Mon,  7 Sep 2026 13:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E89810E7F3;
+	Mon,  7 Sep 2026 13:00:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="larfk0Wl";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fJ6ziPkc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UB+lkARR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KjdMKwH6";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7486110E7E8
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:00:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 646B910E7ED
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:00:40 +0000 (UTC)
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 687AvMcc496196
- for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 13:00:38 GMT
+ 687AvTFq496381
+ for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 13:00:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HH0NlUkAHggOm55GmMCsiEP7bNk66V1yTa1Hyg0NTUI=; b=larfk0WlpEup5H3m
- Ee/0P6ULDeJf8uBNe18+jf18aEKhu9xGfIFxIttialr25DSZEavIL/551vZ+uQaC
- OwZkD8yPg4ifSq+CuBuLFWbu4ShJZJL0YErS8nT3JsBzyo+uJppopbv16l8ZdCfx
- d1X2nHP3uiglbrC09FSelq8LJEHPGUEFbl6oMDgZ7PpJDOpie9rBIA+p6W3LoPo7
- ptfIvNap0Ql4lPEzqHzptAWl988S07yxFFTTLxvyiI8yX1sk0NIKQZucN2ttjHKn
- PAMYo9Lgmt/bu6poZlLRhwWd/MRH8IvLEW8yiea2kA+wp9C1ziZKcrxoyOiEhXFM
- JVWMsA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuyk8d6c-1
+ ywUruZg+R8a1lUYV8BGnIItve+PwkWpsyPFMDteRsLk=; b=UB+lkARREkDBMKC0
+ NviQrMGhrf6qxwQ0kJkpeGOK0gyFBtu5bEZB80GNB99VMGPpr0d/zCRJ6gVPycD6
+ dd2zUFwXYd+FgzEcd5zQ3KfOPc0uAMl+kdZ3BF3aMaJK9pbcnKIiUCxnDhvWKQ2c
+ FsNO3y0stzSUe30zxk/z0JyG1j8N+Jefe31DeqHKJZZtF+zMcGCzkJIlbSrNLx4h
+ dVklD1Yh19CImWCqB6MQiggJKerJIDwD+fB7kV/JfE7J93Btyr+PEoJFhiDL7aN3
+ CNGvDBtCN7HCwCfouC+H3PQ1OKQtigVcymAzY6VeVZw+CuGmOo2G9m8pdYgkNJ9g
+ Gt3cRw==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuyk8d6p-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 13:00:37 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-744e7890eceso367178137.1
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:00:37 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 13:00:39 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-785b66a7017so815706137.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:00:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788786037; x=1789390837;
+ d=oss.qualcomm.com; s=google; t=1788786039; x=1789390839;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=HH0NlUkAHggOm55GmMCsiEP7bNk66V1yTa1Hyg0NTUI=;
- b=fJ6ziPkcQ2UHTNlPFSm/boODiDRejZgwNIxPe1t3T7bEk0UI58YXcZ7ni8ANsmcAi6
- Vkr84/Yz8Hm9UpzryI96v3Om/sLWDlSuEhdSFefrupM53OB4zxjMsZ8g/OBEpSHP1ol/
- sOMQ4PfjV3RH2ZfX6DYp28TiZ7XPh+FGbv7KMUs/H0YN+rusl51rEo6FMMczOFZzK+TW
- nR6624EirTBejVLPp5gU2aC2FDzGSO4UwezFtvtU6qkqwc1tDg2zET1AIRAZWqFYYYqB
- 5Yismr1tCk+TsxZ/1Ds+QpkM+xgOotgMXP02B0zoL47VUnwQigzbWmmFCuoCnb7XsxJ/
- PcNQ==
+ bh=ywUruZg+R8a1lUYV8BGnIItve+PwkWpsyPFMDteRsLk=;
+ b=KjdMKwH6XKcGWX6WtztcevfGPg8rdPxLv98eyPeiL7pYCph8NbEJudzJUDeRhoIrbw
+ lF92cgL1qkzDwP28nMcjKbNT8GEvvyUMKmJfQ7QoKOytKEUacXP5CshKKu0PW3lzoSTf
+ NxF9crCcypS8nnXLzdLeG2zRe/C6nOhNSqGHB+rVlEYwg6gOoO/jrP3FMHA7amRsvH25
+ 2fF2sLdOr808bxScLmGxrrNgMZkZ1M4OnELWg5qvKRykw5AtRh64/3JNcntEFvfRQDD+
+ PMPEm28SX7TOqprkzPutPKrH5Us38r8rEMkAxKs8Fljddm3nishrDLaDjf/iwcTVosh4
+ 4T9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788786037; x=1789390837;
+ d=1e100.net; s=20251104; t=1788786039; x=1789390839;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=HH0NlUkAHggOm55GmMCsiEP7bNk66V1yTa1Hyg0NTUI=;
- b=TeuIqQwHnWRu67WPaHSByJR9tJqlHGbO8iwF3jt8ang1IyLtrRyEiDPErJ9x7JcNL+
- rCXR0R45a/RsAfREqvkMuvsOBs6+/sv9Of9RnuVvnVeYxAi2KfQbaemupqKLQR5Ipt0r
- IQyJFnbINjsO/jOozjHFmLB6ZdcwV9YKIg4zwrt2xfF6eAu6J8FUzGS4NuBPGnIQXAMi
- c0+iwuAgQMGoA5d6kLw5gVkGZqdAGIaZFY63iyauuwIktsRbiAEWIG0H4kmspZXz7BDh
- FI+42CPbqpUuVSY7MubAcP9lm9QAEC6KpU/Ao3a9cKgN7W2fqdw/QBKiMjwAl6xt82ES
- NE6g==
+ bh=ywUruZg+R8a1lUYV8BGnIItve+PwkWpsyPFMDteRsLk=;
+ b=g6bRDUFJN2N8dnYHMqtVycwWWWZJuOdy3Zze12PwI53s4OZ/9Zwr231B3cKpSYFfQn
+ BCcEZzaD5+oRHR3O3q+eVQ/O03TV6nMJV9a56jKu/VMDjQLew2AABInJ2R1CR856KRZi
+ w6mJ7vZoKwTNX8DF2HF/9RokUhEUYppD32ZFsBD6eHekKPgOnHPrv93AUDxvhIw26Cok
+ QpCWNqTUAJr2i4XDw4JsaiEWvym9pWd9jLeQicpVWGBKYSPn81qem013oSINdQmuwlHU
+ NAn/6x/DwyMGTKb17MPkl+uKSyhZMi0oM1YDZSNlMKn5IZ9+RAy09c4n0ECUe4Ku3T5e
+ jtUA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwZez4c53ARyMQzCDWoKH9i/i+4MCacAuC0Akly0vBSQMkFSD+T3yOruIv7yOAyeazGsyuLc/Ckczs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kvvZlUmAlArePv4YCcxc6c4X4FA0CKQEE357MNrC6pxudXl0LV
- Rji5rBb+Ggsie2T7bRoazngK/K2CroTt0etRz5UvHGA3O+9z/UFMqSVwZ4qzTIkYqTaM0d626h8
- IdhnPboXYtQvVu7qyo8IXvRJ8ltJBJEIOJVqAopZ5mM6ji3FcbpEL7fg70RduAEnROr1ZlsA=
-X-Gm-Gg: AYBFou3EIIB19UM5R1PAAiKPZIy3IKwCLIDgmuu2qx7dZBoh5eOMUHP7wjqte8NTMyp
- woVM4Tlm1/0DwNcn3fxKAy0GzXECs9fboiU9xihEPv3gbmkUNyYeS7crAmOzr02LZId83SuYOiw
- afmmT7kkIxjrRuZxvRoxrKQ9kQK29Q/qet8qhFwXq1Yp2sq2RmWB3+pgUp/v/hTuw5jy5T7SecF
- dxPXxwbKUcZoEVXVzXEapLMW4eWXk1FfHXRcW+IFcQi+ESVYq3p3PCJ8XNJhqgrEBZHp7a/qh9j
- S3X+BSeYB1UQZccLAzXVqqgUK+LglE65uAcnBTFWTAauRHOuOOo7eZHJ1/tTFKgJk/LYbfupabS
- 8j7L5vqzMd57LbR3JFkPfmcc=
-X-Received: by 2002:a05:6102:5091:b0:78a:8a0:7126 with SMTP id
- ada2fe7eead31-78a4aa97d5bmr6957328137.10.1788786036762; 
- Mon, 07 Sep 2026 06:00:36 -0700 (PDT)
-X-Received: by 2002:a05:6102:5091:b0:78a:8a0:7126 with SMTP id
- ada2fe7eead31-78a4aa97d5bmr6957293137.10.1788786036018; 
- Mon, 07 Sep 2026 06:00:36 -0700 (PDT)
+ AKwUvBz553oy4JllAOA40m8ntJ6t9vKi0cYoVMTNurF7CKBDFthgaK5kRFnHcgwBmkHMB9s/iZPI5V1eENQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mQXmbgjbYtyLAbPZ29bCQVdGhzye5rsOBKQFxEpweDRc3QU4FN
+ +VFkdQOWtNBR3jzzHiDEOicKRA+9zoOLG4E5Imnaam7BZBzQf1gntvqTk8IKDwhvKIfg5IAEwAh
+ 9HRCGT79VprAUTMR6BFSwysXUwpe0NagpymVBwRZIPcNKcx+z1wSK+nIdUUcj5pj7VbQonA4=
+X-Gm-Gg: AYBFou0k2VwfXR6T/mu6IM7V45wH8h6t/Y1V9IrRJOmSwUMe6Q5unXRTITunxuVbnqD
+ 2riXfLOMr8x8BEus1P7o+n0d6JxwmO7u3PzZVJWbFPq0Q8neegebEzIlF5HolbztJ8+J0rIOEBb
+ 22TK+AsTrvEyaOIf34GsFNyOiACl9maKz4SlyY4BKwFf41cpknQ10thY730B8kN51JlmjXy4IpR
+ G8jjk8FNISMk4wUEQqvh6dhxtK3sXMiXhJDJR6slfPvNS+zKj1QBjEyrvwQPbKu9aQInLIbB5FN
+ QmZrMabS3wKIOQmhe7Fhm93qXAUD7eF1xCi+3CQPWYTGrCX/DqR2vx0KMfZcjjbn8zOqZ2hvqRX
+ +PG1bhEcBmnb2rWY5WHL/Xf0=
+X-Received: by 2002:a05:6102:8093:b0:779:5049:87b2 with SMTP id
+ ada2fe7eead31-78a4a42c1a5mr7069246137.0.1788786039010; 
+ Mon, 07 Sep 2026 06:00:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:8093:b0:779:5049:87b2 with SMTP id
+ ada2fe7eead31-78a4a42c1a5mr7069209137.0.1788786038488; 
+ Mon, 07 Sep 2026 06:00:38 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.214])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cff81c9b5sm198751205e9.4.2026.09.07.06.00.33
+ 5b1f17b1804b1-49cff81c9b5sm198751205e9.4.2026.09.07.06.00.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2026 06:00:34 -0700 (PDT)
+ Mon, 07 Sep 2026 06:00:37 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 15:00:16 +0200
-Subject: [PATCH v2 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
- during .atomic_pre_enable()
+Date: Mon, 07 Sep 2026 15:00:17 +0200
+Subject: [PATCH v2 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio cleanup
+ order in post_disable
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-2-b097cf1eac77@oss.qualcomm.com>
+Message-Id: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-3-b097cf1eac77@oss.qualcomm.com>
 References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
 In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -114,42 +114,42 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, stable@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2516;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1272;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=gCPjQLee8IZ6ZI1o3PKvV9FFsQQqDDwLDIvAlHVSnmc=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqnrVl5qXohDCURU+NBjhbzxqePcwXPR42atlwW
- MKZXfnzXIqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCap61ZQAKCRDBN2bmhouD
- 13MLD/499ImyZNhv8KqXl37bfiQdgVu9Me30Y0fF1ckmJODd9Kkx2yUhO9VjmaeT7PgdxTDZzxu
- flb9jXTKAnkw0NGD1hd42UsH1Qkh1qJ6oD9EyqdPFwt2U/jhZFYCrA4O6GQiqAgjrgtHKOxx/HX
- f4QQ/+6h4ALMYtMDlSboskVDJy/L3QNA/hVVqhhp6qv+6Uoo932d8kCe88jVAbvrtxRfls/nO7z
- oR/mIRFUIJ9ly1p/4DTJgWgWADs/cIQAw5uBUszxsg+jvJkK9quTp7cJ7a5nXqoehBajDaj+SpI
- HMQKNWX7WfkQoMyUNGRmt71fAOvRb9xbfU9YUnhg7MpH1KANwJWU6XlKzhKnKFs92lz+Tky7MYz
- wjI9BTQ30YdhpON4qjuotYrA1JMnmobv4lpY4ODuTqxndsik8+AYPtMRB/q8R6xTHvhHbhM0cim
- UnnvfML8SJdnU1nkbl8KKH69Xj9FxIy5ztYtzng8ys7YQfXZ0hxtMKw747WPyGPdrI9JwYr1zDa
- hbhVIiTLQ6DitBSoGJRCXcU8up8kDjabFU/OpK4vAt8M6DkjH8/w9mYhT7dnGbX3a0gsqAqvxXm
- qJL3p/bK1iZivrvdLFe6O1r5cwRor9QBOxn2kF2DCx/hA2vjSDDYRKBOPDoyiLo3I7IsJSOYWEb
- QgNRexijnPWjaaA==
+ bh=yhhU2Xo1HHomz5Uesadm2LHNkZ1Ed1iZL1EHcx6SGho=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqnrVm9n6dtVYfAPmpBWbc0P+7KtDPbjgKRiO2g
+ f4xFQpu2UKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCap61ZgAKCRDBN2bmhouD
+ 1765D/9gKq/3TyVo1ZvMaJQhsBKEKzFGivfDq9Tvk5dBvKhTnupclkca5zjjzVs2+6xsrH+ebOc
+ UaKECIR8jCV8y4oLCYPrBb04t5QEuywEKLav4f8RuzYc1psWyNlISEKFLf1MQI5tlLStM11UTvV
+ gUhfCfCC5R2osFIct+5xQeJswYXOYOXXxkjr0A+elhiW3yNyM0e/GeYg93Y0if1K7bU0TQvnteU
+ WZS1hR2UuDsqqmYrzkxAM9S1G+slI29BNbjIpaQ944nEaatkS3O+V9yAeihjw8o4HUMDbd8q1ri
+ eCqRs4RZrMxC4Og5PzhjG68Jo00Ank1cvyfhYOVKaXZB2tHg+iOg7plTlh4c7t/0SGLR5EJy1aA
+ xrlWghOna8gaVdvphL6SoXVWxSNQcUpckkoTFssePYtiysub7yo5T6YNT5vPEuOyhFQRyP/owuy
+ 15FdgKApFnqNg/Fi/YUvl/NJHJ9nqWBPo6J7crUTH3KBnttP7QBEl+HdGWz9pTGhLGzbMEi5hzY
+ z81bTiM0Zc9WhxB5ylU9jEZ09iFlJDJ2a6e+dgCwNiHP+IWwgG8gsaY/7Y0IwxgRb97N+TYwRvN
+ HTYZ/lwQelPeuZoRkg6X+iskdnFRfUe3EQZMImT87AuS+6G47b17BXHjnOR036Xj5Z9EPvxMrw2
+ zBfJY2CFdIPJWUw==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfX7n+nihrtMRR+
- mEV7h7dcvieI9oANoCmT4VF/eMo3Lw5AJ4T6LZw1iYGd8WkgGb7HP7vNkSxNm94VmFXi4kxYIsL
- bCNNf/EeaeT3MRwgRNDbx8k6u1oO9bc=
-X-Proofpoint-GUID: mD-GY-NzGM7k2epPiQoAMSBGJzBSyaYh
-X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9eb575 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfX6Bv3otCOtK+0
+ WGOr9FRYXs59oR7bDk0diaZWMXbW3DNO30THRRpv6R43I22M3UDPFLvS0d9KqjyykH+VMiY2FWp
+ VxuJCwiFJ+MApiGKimDqFbBrqgsqD9M=
+X-Proofpoint-GUID: e84RvoKke3bm9k_Z8fC2V8tuNhV2m72s
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9eb577 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IzbfGf_HrtPdoiX6LZ8A:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: mD-GY-NzGM7k2epPiQoAMSBGJzBSyaYh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfXx73XZTeT5Ki6
- B/CVdYkpUNXy1EQAwxvrrrkdSHgJDtBkiqZROX4H7hPJuHiGhtj0xnm5cs7dPiCboZ3ZCq7/7cR
- +vGJoC5yw/PNZeCtqWkIRFedZm0S7Zr63kaaS9kFgb2XYjJKC+0KLCdO6UY8+yhfC5SVQmBAx9O
- LM/4YMpHrOgjRLaJP034h5bVINiuJHH57xcx5XLhJSPboQ2cWONTYJcy+zZV9CMva5izEeG89tl
- DpXZHxhwAD0m/Su1hcX72uzsI28CMYD9EvRwwo+VtBP57l3CMzdrQnk7rOfVHfFsLIhCq40k57Z
- F2cDUSoP3zOnpM2dWOdJksZODtvK9oI5FRFkoqQo8aWADjhnACCCQr5z01ZnEgnYXpiKDHyGYB+
- h6qTDQoR4JAi1/sxrV5V1nEeesjqU7BrJ7c2lMIjLz3RN4V4D1yDTcG/RB/8sg0NsqRstiiyykJ
- JoODGraBUE2X64p0lbQ==
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ksbDLleXNvo7xJVorFEA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-ORIG-GUID: e84RvoKke3bm9k_Z8fC2V8tuNhV2m72s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfX6tlfgC9NqLCu
+ 16VvHnlDLTcohucVVgkc0nNs4Tgx3VXDRb7BYLD0qTE4Ta4woQtuRLYKZdZMcMO/CG2Z9mqs3S1
+ Fp0DmzKYTgTouW5Ijst6iX0pFr+uDIwJRbtfgkqHyGd7r67FJBpOyEa3OANHo7SerdhxZnpq54A
+ XcU7lAAp2QRFlH10GRD3oB5UXQSTqJYWeBpfWf4X+tBbwgV0Dby5aC4WN+2cPXDvdyPafHr5prn
+ RnPosLuB6vgnDrux6kLSGZr0vjq8b+jzJJRwsv5qSuouk2R07IP0TcCgM1Z2M2wA+AYUyTegvWe
+ fL7AcYxXF7SXInlKtWfYXOuuBumlLdrmq95tc9iBylzokiREwn01Oq8lHg+xYcrAxrqTbVLlQ7u
+ ibqdultcTjzWYEhxrnzWnq7ZHxDlJFXsH3XPJTASHLXNs7doZBG/Jv3ytXS3H62m1Ynx0JcAcj/
+ Ca9qWa+koNKvEJCVt8w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
@@ -173,82 +173,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Properly handle power up failures during .atomic_pre_enable() by
-aborting the .atomic_pre_enable() to avoid accessing registers why
-blocks did not bring up.  Otherwise this could lead to imprecise aborts
-when accessing MMIO while entire power domain is off.
+Turning off the power in msm_hdmi_bridge_atomic_post_disable() should
+follow reverse order of powering up, not only because it is logical, but
+also because msm_hdmi_audio_update() accesses registers thus block
+should still be powered on.
+
+Depending on specific timing, existing code could have accesses to MMIO
+of powered off block.
 
 Cc: <stable@vger.kernel.org>
-Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
+Fixes: c0c0d9eeeb8d ("drm/msm: hdmi audio support")
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 157f19bd90b4..db85400e574e 100644
+index db85400e574e..04c893062dbd 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -13,14 +13,16 @@
- #include "msm_kms.h"
- #include "hdmi.h"
+@@ -339,10 +339,10 @@ static void msm_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+ 	msm_hdmi_phy_powerdown(phy);
  
--static void msm_hdmi_power_on(struct drm_bridge *bridge)
-+static int msm_hdmi_power_on(struct drm_bridge *bridge)
- {
- 	struct drm_device *dev = bridge->dev;
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
- 	int ret;
- 
--	pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	if (ret)
-+		return ret;
- 
- 	if (hdmi->extp_clk) {
- 		DBG("pixclock: %lu", hdmi->pixclock);
-@@ -29,9 +31,14 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 			DRM_DEV_ERROR(dev->dev, "failed to set extp clk rate: %d\n", ret);
- 
- 		ret = clk_prepare_enable(hdmi->extp_clk);
--		if (ret)
-+		if (ret) {
- 			DRM_DEV_ERROR(dev->dev, "failed to enable extp clk: %d\n", ret);
-+			pm_runtime_put(&hdmi->pdev->dev);
-+			return ret;
-+		}
+ 	if (hdmi->power_on) {
+-		power_off(bridge);
+-		hdmi->power_on = false;
+ 		if (hdmi->connector->display_info.is_hdmi)
+ 			msm_hdmi_audio_update(hdmi);
++		power_off(bridge);
++		hdmi->power_on = false;
+ 		msm_hdmi_phy_resource_disable(phy);
  	}
-+
-+	return 0;
- }
- 
- static void power_off(struct drm_bridge *bridge)
-@@ -287,13 +294,18 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 
- 	msm_hdmi_set_timings(hdmi, &crtc_state->adjusted_mode);
- 
--	mutex_lock(&hdmi->state_mutex);
--	if (!hdmi->power_on) {
--		msm_hdmi_phy_resource_enable(phy);
--		msm_hdmi_power_on(bridge);
--		hdmi->power_on = true;
-+	scoped_guard(mutex, &hdmi->state_mutex) {
-+		if (!hdmi->power_on) {
-+			if (msm_hdmi_phy_resource_enable(phy))
-+				return;
-+
-+			if (msm_hdmi_power_on(bridge)) {
-+				msm_hdmi_phy_resource_disable(phy);
-+				return;
-+			}
-+			hdmi->power_on = true;
-+		}
- 	}
--	mutex_unlock(&hdmi->state_mutex);
- 
- 	if (connector->display_info.is_hdmi)
- 		msm_hdmi_audio_update(hdmi);
+ 	mutex_unlock(&hdmi->state_mutex);
 
 -- 
 2.53.0
