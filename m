@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB37C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6813C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A78DD10E820;
-	Mon,  7 Sep 2026 13:25:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9CB10E823;
+	Mon,  7 Sep 2026 13:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VAashe1O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fQEcFlr0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 843A410E820
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79E9D10E823
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C044260A9C;
- Mon,  7 Sep 2026 13:25:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DF21F00A3A;
- Mon,  7 Sep 2026 13:25:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 62CEE40607;
+ Mon,  7 Sep 2026 13:25:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51CE1F00A3D;
+ Mon,  7 Sep 2026 13:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787543;
- bh=OTxV+cjTWGsqkYyQPJB/wOR/aY9ce6w78FaDUH6ZVZ4=;
+ s=k20260515; t=1788787547;
+ bh=Lfrlubs61FGS67QqNEobq5lvnzxbv4WB+gv2CSGHXCE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VAashe1O35DbFxXj52RARl0LNMN1JaKfneRMtt0GmYJ7XHbpDQp8QmboVMWM3Gx20
- vUMokYBCnLAhG7zdYDqF87+ewPL4H2UFsHDFMUCK5DUKsFlHJq/LMHgnf6Qqj2Lapo
- kxVQLE1rZgFSUxyufBF+T8g4Us/Ecbu0alVWpRMLxH6DNcmmgSFlwhkemIz79rgo/D
- /Blh8cgjuPlrnUOwWSJCn8b1pC0TOv+aAmy9OkXlZ4mS1FdO4P6jP2axMWUls3THRG
- aNPURP/WIlHG8NKzlLbrbKc4yhrinRhc7d+rk5MaP+dnOmJiOpAna81yXNSi2fCnsL
- 4yDoT4wzp4rcw==
+ b=fQEcFlr0OFq2h9uWpAtD6Hf0jgv54FeA7WuY7XpK9NZglVXda1MaRabAcRbDKIlF0
+ zFbu/xb2znmCJ5u0+XtdUEaSd2sTHSk5G55iyIo06Rc11Pq6a4t6BBYqyurQAdNwp4
+ +PUinVI5sOfb4X7zi82uvPC6HY4qY8pCO2lrY6AWQRs7s+VW7AqArp9CXsOg4ypoRu
+ N5Y9KZDXdhaP/CbBerEfMWGOkH2u5Nc4FyxYHFkCLxJCx5vYAqV/87Yfv3BB+Q0z4D
+ hXcaguWOviq0S0nylcgErGnsSY0vrtCMaS82RXjArZnoNrXFpqtIQi1OkEgWIP7f+u
+ ElAn2Ur8ldiuA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:24:03 +0200
-Subject: [PATCH v5 27/33] drm/tidss: crtc: Add atomic_print_state
- implementation
+Date: Mon, 07 Sep 2026 15:24:04 +0200
+Subject: [PATCH v5 28/33] drm/tidss: dispc: Improve mode checking logs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-27-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-28-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,12 +50,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1757; i=mripard@kernel.org;
- h=from:subject:message-id; bh=57XDuXyIgYzRNmpGUNT1beXfTawbWQXeAahovowmf8U=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdr3c+vyRgKW75NKNC09863JhDm5U+jZx4+vPllofb
- UPsU4wjOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFrxkrHfz5jzyK2q75/vF
- KRnXq77wWft5bkw0Y7YQ+XnyQCn/nz9XON4ZdOd2LL4gfqnVkfcWO2PDev/mBdrPp7QwzfkQLD4
- rj2Gyekclq+p+3iJvm2PO5RIrW3/xpP3RnDjhmlnVlp1/Dl0AAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4777; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1PndjjtceaAFiCRvAOp7MfxG8HQia0cCTeb7tD+7w3Y=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdr3yXMElfvGlSFX6rUd2e78stW3yuONXJXjxzWP1a
+ 9ULPj+/1TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmMr+aseHE0XihlK1XOq5t
+ kXATFM3kY//5s0Zmuuy3HrWsOY01v08c/rvZhvNCkkSfrPs6ydO2oYz16YvP3zuvrXqaNerPqan
+ PHL5w71t9JnybxKmnq0/K2WqvXD77a9CkH3tXP5vi5KTJ+tPpCwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,51 +73,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tidss CRTC subclasses drm_crtc_state with bus_format and bus_flags
-fields that are set during atomic check and state readout. These fields
-are not visible in the standard atomic state dumps, making it harder to
-debug bus format negotiation issues.
+The dispc_vp_mode_valid() function checks whether a mode can be handled
+by the display controller.
 
-Add an atomic_print_state hook to expose them in debugfs and kernel log
-state dumps.
+There's a whole bunch of criteria, and it's not clear when a rejection
+happens why it did. Add logs on each rejection criterion to make it
+clearer.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_crtc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 45 +++++++++++++++++++++++++++++--------
+ 1 file changed, 36 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
-index 400329aa2200..3da49f77fa08 100644
---- a/drivers/gpu/drm/tidss/tidss_crtc.c
-+++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-@@ -399,17 +399,27 @@ static void tidss_crtc_destroy(struct drm_crtc *crtc)
- 
- 	drm_crtc_cleanup(crtc);
- 	kfree(tcrtc);
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index 2a0ec11a6c90..a19b74b0ca30 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -1302,10 +1302,12 @@ unsigned int dispc_pclk_diff(unsigned long rate, unsigned long real_rate)
  }
  
-+static void tidss_crtc_atomic_print_state(struct drm_printer *p,
-+					  const struct drm_crtc_state *state)
-+{
-+	const struct tidss_crtc_state *tstate = to_tidss_crtc_state(state);
-+
-+	drm_printf_indent(p, 1, "bus_format=0x%08x\n", tstate->bus_format);
-+	drm_printf_indent(p, 1, "bus_flags=0x%08x\n", tstate->bus_flags);
-+}
-+
- static const struct drm_crtc_funcs tidss_crtc_funcs = {
- 	.destroy = tidss_crtc_destroy,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
- 	.atomic_create_state = tidss_crtc_create_state,
- 	.atomic_duplicate_state = tidss_crtc_duplicate_state,
- 	.atomic_destroy_state = tidss_crtc_destroy_state,
-+	.atomic_print_state = tidss_crtc_atomic_print_state,
- 	.enable_vblank = tidss_crtc_enable_vblank,
- 	.disable_vblank = tidss_crtc_disable_vblank,
- };
+ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
+ 			     unsigned long clock)
+ {
++	struct tidss_device *tidss = dispc->tidss;
++	struct drm_device *dev = &tidss->ddev;
+ 	unsigned long round_clock;
  
- struct tidss_crtc *tidss_crtc_create(struct tidss_device *tidss,
+ 	/*
+ 	 * For VP's with external clocking, clock operations must be
+ 	 * delegated to respective driver, so we skip the check here.
+@@ -1316,51 +1318,65 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
+ 	round_clock = clk_round_rate(dispc->vp_clk[hw_videoport], clock);
+ 	/*
+ 	 * To keep the check consistent with dispc_vp_set_clk_rate(), we
+ 	 * use the same 5% check here.
+ 	 */
+-	if (dispc_pclk_diff(clock, round_clock) > 5)
++	if (dispc_pclk_diff(clock, round_clock) > 5) {
++		drm_dbg(dev, "Mode pixel clock below hardware minimum pixel clock.");
+ 		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+ 
+ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
+ 					 u32 hw_videoport,
+ 					 const struct drm_display_mode *mode)
+ {
++	struct tidss_device *tidss = dispc->tidss;
++	struct drm_device *dev = &tidss->ddev;
+ 	u32 hsw, hfp, hbp, vsw, vfp, vbp;
+ 	enum dispc_vp_bus_type bus_type;
+ 
+ 	bus_type = dispc->feat->vp_bus_type[hw_videoport];
+ 
+-	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF))
++	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF)) {
++		drm_dbg(dev, "Invalid bus type.");
+ 		return MODE_BAD;
++	}
+ 
+-	if (mode->hdisplay > 4096)
++	if (mode->hdisplay > 4096) {
++		drm_dbg(dev, "Number of active horizontal pixels above hardware limits.");
+ 		return MODE_BAD;
++	}
+ 
+-	if (mode->vdisplay > 4096)
++	if (mode->vdisplay > 4096) {
++		drm_dbg(dev, "Number of active vertical lines above hardware limits.");
+ 		return MODE_BAD;
++	}
+ 
+ 	if (check_pixel_clock(dispc, hw_videoport, mode->clock * 1000))
+ 		return MODE_CLOCK_RANGE;
+ 
+ 	/* TODO: add interlace support */
+-	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
++	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
++		drm_dbg(dev, "Interlace modes not supported.");
+ 		return MODE_NO_INTERLACE;
++	}
+ 
+ 	/*
+ 	 * Enforce the output width is divisible by 2. Actually this
+ 	 * is only needed in following cases:
+ 	 * - YUV output selected (BT656, BT1120)
+ 	 * - Dithering enabled
+ 	 * - TDM with TDMCycleFormat == 3
+ 	 * But for simplicity we enforce that always.
+ 	 */
+-	if ((mode->hdisplay % 2) != 0)
++	if ((mode->hdisplay % 2) != 0) {
++		drm_dbg(dev, "Number of active horizontal pixels must be even.");
+ 		return MODE_BAD_HVALUE;
++	}
+ 
+ 	hfp = mode->hsync_start - mode->hdisplay;
+ 	hsw = mode->hsync_end - mode->hsync_start;
+ 	hbp = mode->htotal - mode->hsync_end;
+ 
+@@ -1368,29 +1384,40 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
+ 	vsw = mode->vsync_end - mode->vsync_start;
+ 	vbp = mode->vtotal - mode->vsync_end;
+ 
+ 	if (hsw < 1 || hsw > 256 ||
+ 	    hfp < 1 || hfp > 4096 ||
+-	    hbp < 1 || hbp > 4096)
++	    hbp < 1 || hbp > 4096) {
++		drm_dbg(dev,
++			"Horizontal blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
++			hfp, hsw, hbp);
+ 		return MODE_BAD_HVALUE;
++	}
+ 
+ 	if (vsw < 1 || vsw > 256 ||
+-	    vfp > 4095 || vbp > 4095)
++	    vfp > 4095 || vbp > 4095) {
++		drm_dbg(dev,
++			"Vertical blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
++			vfp, vsw, vbp);
+ 		return MODE_BAD_VVALUE;
++	}
+ 
+ 	if (dispc->memory_bandwidth_limit) {
+ 		const unsigned int bpp = 4;
+ 		u64 bandwidth;
+ 
+ 		bandwidth = 1000 * mode->clock;
+ 		bandwidth = bandwidth * mode->hdisplay * mode->vdisplay * bpp;
+ 		bandwidth = div_u64(bandwidth, mode->htotal * mode->vtotal);
+ 
+-		if (dispc->memory_bandwidth_limit < bandwidth)
++		if (dispc->memory_bandwidth_limit < bandwidth) {
++			drm_dbg(dev, "Required memory bandwidth outside of hardware limits.");
+ 			return MODE_BAD;
++		}
+ 	}
+ 
++	drm_dbg(dev, "Mode is valid.");
+ 	return MODE_OK;
+ }
+ 
+ int dispc_vp_enable_clk(struct dispc_device *dispc, u32 hw_videoport)
+ {
 
 -- 
 2.55.0
