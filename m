@@ -4,53 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC7F9C79FAB
-	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7B7EC79FA0
+	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 239EC10EA4D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7872D10EA55;
 	Tue,  8 Sep 2026 07:08:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="oD/6lwNf";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="b31XxE1N";
 	dkim-atps=neutral
-X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
- Mon, 07 Sep 2026 10:15:23 UTC
-Received: from smtp-42aa.mail.infomaniak.ch (smtp-42aa.mail.infomaniak.ch
- [84.16.66.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3248B10E753
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 10:15:23 +0000 (UTC)
-Received: from smtp-4-0000.mail.infomaniak.ch (unknown
- [IPv6:2001:1600:7:10::a6b])
- by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdjR538Wmzq8b;
- Mon,  7 Sep 2026 12:06:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
- s=20250113; t=1788775617;
- bh=zkVn1mTqiQPg1HIrNqylrZy//1NdkfS7RjgFs8gMWv0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oD/6lwNfqVL3f/74v0o7mz99bym3DwgddTtoYJ/+t3ZJNowUJpVxAE/gv16AtUQ1B
- ru9qgrgoDujfLhlelGSrwB0XLU9ToEwPdGKte/NUSECL5UywCc6Ic0OLLC2hzU+hDS
- jw6wUxQW847FB6sqdUdzZLyFJVkuoWSOMnUAAjpXKhGVkcFkC49tGhc3gCUX3tHBgn
- YFS30yp6Q9f6bPZuBpS7PjKIgmJey3mfzkU3e1/9QgLX9aM3vNRvKXzA9Kc5ddDxfi
- pGN7lCEebuO6Kede5/+zwgRx2r5xbZLdtFhZePADXj2mQci0iVjrmRL8Yzotb2KXLA
- LKzf2O+e0Y5yQ==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4hdjR45MHXzYr2; Mon,  7 Sep 2026 12:06:56 +0200 (CEST)
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] drm/amd/display: support HDMI 1.4 3D modes on HDMI
- connectors
-Date: Mon,  7 Sep 2026 12:06:24 +0200
-Message-ID: <20260907100626.54465-2-adrian.betschart@cinemaone.ch>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
-References: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazolkn19012066.outbound.protection.outlook.com
+ [52.103.14.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AFAA10E35F;
+ Mon,  7 Sep 2026 15:21:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U5vz+ndVFrK8P4A/c4TyDURhc5mCwZC/kI8tJDIKXQFCj2kGWjQnyUfDJleAdK/OHca0WdDnj213w7Fb17UaaRPHMn5Ok6gmx5uIJWqHAlQkBMaJkkNKFDjTDtmf8CHzVGm7n1veGMrfVtllnWGy03ZBQMsKNnFw+xuwAt8zjaBDWEzsv59iF4/s10LABTzNLYyZ4T8cDJcgJmbGTPh7Wj+qvpVgwoN2+t92XbgP4FV8NvpEn9qR6DvqX9dCKKnJSegwKjVbzwhDvbPN6KIMiVSFpk3pSvvf94lMzaewhFE8U9ipHjq1U0S1s6YV7ncWdXEOlyQrnF57GlNUTdAA5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
+ b=SWf3KhhXWNvDFrzNpbFG5rva3ThjkO/Y5RAD09RFpNzYw0p9TTlxbOI7HY1wu0svg2ImyH5TfrKxgkMAmQMCi3OvgsdmR84Je7Pd6Io5jRwLUDeakq18QVGF9mWG9EZrI9m5CmpVna5miq25kdXmWdqarNnjLKtez4Ma1h6i3zFrvMVcy5THbpnp49xfQkfvJWCVO99uXisQp7xsRjtmCibF+1szDqxj6heK6ozrrVt9oaqdT73wSn4Nj6vZBWbziMuGL56RBK6nuQBVhJqCiVQ24OHrgD39Xhv/onkj+lo4oUmrycIjskTGPPbz/XA1TWrPTVnZpUmTAaSveRdeow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
+ b=b31XxE1NV1ojfz5/qVcQitZZ4e1i+MBczlh2KESeDIobNu+Ja0bPb/IltZqS/MZcs80A4HmJUI3QYd8HllEDnqwFCFH7kxUmW95WAoDxW4Q6G26qMPglQEsN0dFMmSyFtd+RIRbx6RKg5sLPlgEYcVJUQxTV71eu5TUsD/rgpGM1tTJRJCKG3IKFKRmOGGsOCfc+jt0T9PqckV2vuknTxq+0NPZo2J8zvCZVbhjKNkyiCuEfFXPuabOjIJY7vQGxy7o9navynkOTcRfY/rhVxL5+dJwAs5lgpVkxXUEsS07sAptHDNQMu9DY9iurppJvpOzKAmKwhoQFnvYtp1oIhQ==
+Received: from CPUPR80MB6583.lamprd80.prod.outlook.com (2603:10d6:103:180::10)
+ by CPUPR80MB429769.lamprd80.prod.outlook.com (2603:10d6:103:3ae::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 15:21:04 +0000
+Received: from CPUPR80MB6583.lamprd80.prod.outlook.com
+ ([fe80::26cd:a90b:7748:403d]) by CPUPR80MB6583.lamprd80.prod.outlook.com
+ ([fe80::26cd:a90b:7748:403d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 15:21:04 +0000
+From: Danilo Machado <danilomachado2002@hotmail.com>
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux@leemhuis.info" <linux@leemhuis.info>
+Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
+ suspend / regression tracking update
+Thread-Topic: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
+ suspend / regression tracking update
+Thread-Index: AQHdPtw9Ub0bdlVoJkOLBrcx72wrOA==
+Date: Mon, 7 Sep 2026 15:21:04 +0000
+Message-ID: <CPUPR80MB65833B1554155D4CCF024CF2A3B22@CPUPR80MB6583.lamprd80.prod.outlook.com>
+Accept-Language: pt-BR, en-US
+Content-Language: pt-BR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CPUPR80MB6583:EE_|CPUPR80MB429769:EE_
+x-ms-office365-filtering-correlation-id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|25031999004|21061999006|41001999006|8062599012|8060799015|24121999003|19110799012|24021099003|25010399006|22091999003|55001999006|31061999003|15080799012|15030799006|51005399006|5062599005|4295299021|440099028|3412199025|4302099013|102099032|1602099012|40105399003|2607281247196008|10035399007;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?+rGcMLpkcrB5spUdI99dFGHfpZnRoEtQVktuCVRQsUqsFRPq2h9UzClGb6?=
+ =?iso-8859-1?Q?ZMaNgH4wO1UUcb2MQbJagxR1jl9DFL4wz87y3duspRvE84NZoe1eaMoxfg?=
+ =?iso-8859-1?Q?w0uISVXcKrjkRSfbdrM0TJJP483gkT/8DsD8VdxJ+yMPQZSXVTWoGne/GW?=
+ =?iso-8859-1?Q?PgBiLNAbwlpCAnoDsjjRZvBNOGY6HeUU9FW6mcOuzwLkL/eTx3Frr1gAAM?=
+ =?iso-8859-1?Q?BjICzZOaOYrIHJF/xxjamNYEDYgdgksGcFYYljIdc8CTUREMpVubH4Z5zw?=
+ =?iso-8859-1?Q?mGd61WjIQ8ROfjOcTxpleDFNGIPmtsmOAJVLGezZznB666/yAArgUDPdba?=
+ =?iso-8859-1?Q?R1jnIgRWvfxnLYMRbvQWKnqn+N839JmoW+t1T3HffhA25Gf5PLrmDvM5ni?=
+ =?iso-8859-1?Q?Mo/8RFdi6Oy8nmKsVEZrXndVb1+8XCw6rt/OqCjlHgNKvs5i3CoK3WaZV5?=
+ =?iso-8859-1?Q?6vm3926cHd3FtVlABztNCLAucDeaWdfNdrcKEgijmAZa9doIjFuF8FLNI1?=
+ =?iso-8859-1?Q?lNyTr4YXB4v4CHeYf9PuUfmjqUIGcr6c4SkHZPkmEGvTq/6A/E4cmU3FxY?=
+ =?iso-8859-1?Q?PfeS5+Xd4PPXFmMbjmNX0yOwmilT8Zi3iTf2yq9SuqyJVCcE6mKVtC9fwI?=
+ =?iso-8859-1?Q?wmLU8QsP8jN6hBgztKm+qcpkgwjxu5vYcuX8jxScfsIAbxrPIJ76dyV1kQ?=
+ =?iso-8859-1?Q?6UBgf6aegvUSOYxV93v8TH8PqgZi8sXShAfN6TSRTkZeD0VCzaLhLt2Q+o?=
+ =?iso-8859-1?Q?LPJOzq87MoBsSQIZ9CTSjDUAjowFcemwcYn/VkP5Aw9kJiKPqpawK2NC/r?=
+ =?iso-8859-1?Q?UMCvAw8MnByVLbWazQplc0dFcWkfGr22umNLuIvpJXmlpLBzIW/XfKY9fE?=
+ =?iso-8859-1?Q?SXngt2LzrjYBTmme2dYawt34dFxf8Ga+5xXUDyEN9MWDAX3V6hsBNiPfR2?=
+ =?iso-8859-1?Q?ZLm7qFIyNIks63lYm6B7xxSD+6HkhWm0KENiwVAqAtknmZnDFtQDlufFvz?=
+ =?iso-8859-1?Q?vaoZxDAWzcLCfA8DZhQ8PH3XUofXqr5NINTG15nT1sTXAwniPNFDNXXjxy?=
+ =?iso-8859-1?Q?YKp6CkpuqPSfQDcJq9ShRSKBGqMpUXJG4TOJW2u/vIB1bVku4U2VJbJu/4?=
+ =?iso-8859-1?Q?98r2PmGnIlHvrvjWNOgoCgZ+1ZoUFQFqQcbW0qIHuyKLXaRQ84gdrcCGJJ?=
+ =?iso-8859-1?Q?ysd2HhCX8x7diQmlL2Yy+Ja2nM8waLL7ysJeAZC3829/qbAaDVM3s97+km?=
+ =?iso-8859-1?Q?+69cUpjHhnK9PSNBtuUHT1fVbrjyNr09kelBKSSVU=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?0WIuRoJoh/ylNCsD+cezshwDT2W1Nsp3k/yQ8TZ819tr83w872594TT6as?=
+ =?iso-8859-1?Q?gD9nE1jrGZ+I0IA8nE9GETJ6JeHsf8Ws0+Ss67aks0fR+qHQSAbE7kmLfC?=
+ =?iso-8859-1?Q?y4JorUOdNmOALpP3Lt6G1FKQQxcT/YJF3/cI0rJlYzbn+NYb9nYLYrJas1?=
+ =?iso-8859-1?Q?6WHw1MxN3G0KDpHtOEXrME8iPL5qU4gWhsM4h1rp1A/e0DLQqfXNxu7m9s?=
+ =?iso-8859-1?Q?lOnd+V8gCH+oVKweHyKLiyIrqkxrJdf6GraCrihRT6428GV10U9x70c8xf?=
+ =?iso-8859-1?Q?74+T8rjDCIZkpz9eyLkAZMnvfhVujzmlt8XswEVWoBEHTesLMrdFqjYHA1?=
+ =?iso-8859-1?Q?rv0hmXOOle92HJB6+hq7JXdQQ7ZfXboqUu2DNoMU2Wz/jrQOLSIruW2W+h?=
+ =?iso-8859-1?Q?Ja0j2z9ZS9aK/+javeXT9XNSaVDaMwbEmxQU8NJZ8MlOT5Zy21yYHl+waF?=
+ =?iso-8859-1?Q?W16Qx35ZcmBQtIARSH9fD8GQy9fW5n+5NRkIhhxWIIeRHcAmTJEcL0xQ/k?=
+ =?iso-8859-1?Q?M1AoYhlNf/JjkKtAqRByHllufLERWTrjll6jzRqxQnzPzIxK6itaf8I0DU?=
+ =?iso-8859-1?Q?+GfXRe2DNuwaGxva5Me6hxXvEW6YwujjO/Borz6UzpVJA+VzqXtHsnYiOs?=
+ =?iso-8859-1?Q?auAP/bomsBswevoX2ETR6RdXo+KMY5RwMT44UhlaZaJL+kBYD2HjHiY9tI?=
+ =?iso-8859-1?Q?WceBkbu3yJGsDkP06v4QYTA60CVkCWLMV0rK3UKBP0mW/eTRJ6i1vyP9+Y?=
+ =?iso-8859-1?Q?7M83/o1rKwmGogS00O6/fmsGW1jXf2SgHLWwr33vEfJhlVABCxxt7W6S7a?=
+ =?iso-8859-1?Q?B4UH6+7rwLNmqnZNxtmaEJNNLxSOGAyphYC5S1T04BYTBDmF5K/Imc30gz?=
+ =?iso-8859-1?Q?UWmBLa8MzkrVTKQFpZE4Zu3U56ln9A+2USbTrJXm4TgISO4McD+Tr4cL/2?=
+ =?iso-8859-1?Q?gjeI4fxRpghtw7cuem7UBwy9sWEIFE2wh3XkMSRUHWfjC5DJ+eQpKYXee+?=
+ =?iso-8859-1?Q?cf+c/JvkPSEXVz+eTiCoGHBUNfZTY066frahpUMaWFaZGESZCz+IGbWVex?=
+ =?iso-8859-1?Q?Eb0dbpXAk79zbPFLtHOHMsFkmWG1gsgFuzxgK4nX5W0ro3nFfUkB6QdSO3?=
+ =?iso-8859-1?Q?vEGxK62nmMjiC2fmWuYfrjqgI3OZPGsxd+2VOCKNbKY4E9Sy6IrtEkhOOB?=
+ =?iso-8859-1?Q?piUWZ4qd+LW8p8/+sm3/xm0VO9pbM/9R7RBf8oWy2whBGuKxauhoRRbgNa?=
+ =?iso-8859-1?Q?NgDx+r6yqaiEM6E0Jiu0E9s2UEakRlJCsolFNB+Tdz13LP1jE3egNcXAZB?=
+ =?iso-8859-1?Q?IWIB54rPQmfNBc2S3iiUJMYouEtYaZaDLy5pwK18Sy2qLo2ZIQM2U0/Zwp?=
+ =?iso-8859-1?Q?+uRYkvUUajl4EYWFXUvCs6me0kKvdGlHF6VIWeNZDZuQz5GBraOiGBlFk7?=
+ =?iso-8859-1?Q?ePePdq8DBQJh03x+5iKXZ3mbYSUb0l9NX5ewSJ4xBuZ6dYr3XAuZq+T5y5?=
+ =?iso-8859-1?Q?X87xWHtOcRODROaS/dnSwIreQZ6IAPT9kXlit+zDvCOg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-665fe.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CPUPR80MB6583.lamprd80.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 15:21:04.6289 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPUPR80MB429769
 X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,163 +142,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allow the stereo modes drm_edid derives from a sink's HDMI VSDB on
-HDMI connectors, and drive them the way a 2D stream is driven: the
-source (compositor or media player) lays both views out in the frame
-itself - side by side, top and bottom, or the doubled frame-packing
-timing with the 45-line active space between the eyes - and the only
-3D-specific output is the HDMI vendor infoframe that tells the sink
-how the frame is laid out.
-
-Keep the DC timing at TIMING_3D_FORMAT_NONE for all of them. Any DC
-stereo timing format, including the SW_PACKED variants, makes the
-hardware treat the surface as two views: the pipe is split and both
-view addresses point at the same surface, so the whole frame ends up
-in each half of the output. The new vsif_3d_format stream field
-carries the layout to mod_build_hf_vsif_infopacket() instead, so the
-VSIF is right and stays right when the freesync code rebuilds it for
-ALLM.
-
-Frame packing needs the doubled CRTC timing; pass CRTC_STEREO_DOUBLE
-wherever amdgpu_dm recomputes the CRTC fields itself.
-
-Limit stereo_allowed to native HDMI connectors: on the DP-to-HDMI
-converter paths link validation rejects the 3D timings.
-
-Tested on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100
-projector through an HDFury VRROOM, with Kodi rendering the packed
-frames: frame packing, top-and-bottom and side-by-side at
-1920x1080p24, RGB 12 bpc, all engage the projector's 3D mode with
-correct per-eye geometry and eye assignment (checked with per-eye
-test patterns through shutter glasses).
-
-Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
----
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 41 +++++++++++++++++--
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++++
- .../display/modules/info_packet/info_packet.c |  3 ++
- 3 files changed, 48 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0e71ba498..7a2beb175 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -851,6 +851,25 @@ STATIC_IFN_KUNIT bool adjust_colour_depth_from_display_info(
- }
- EXPORT_IF_KUNIT(adjust_colour_depth_from_display_info);
- 
-+/*
-+ * 3D layout to announce in the HDMI vendor infoframe for a DRM 3D mode. The
-+ * stream timing itself stays 2D (see fill_stream_properties_from_drm_display_mode).
-+ */
-+static enum dc_timing_3d_format amdgpu_dm_vsif_3d_format(unsigned int mode_flags)
-+{
-+	switch (mode_flags & DRM_MODE_FLAG_3D_MASK) {
-+	case DRM_MODE_FLAG_3D_FRAME_PACKING:
-+		return TIMING_3D_FORMAT_SW_FRAME_PACKING;
-+	case DRM_MODE_FLAG_3D_TOP_AND_BOTTOM:
-+		return TIMING_3D_FORMAT_TB_SW_PACKED;
-+	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF:
-+	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_FULL:
-+		return TIMING_3D_FORMAT_SBS_SW_PACKED;
-+	default:
-+		return TIMING_3D_FORMAT_NONE;
-+	}
-+}
-+
- STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
- 	struct dc_stream_state *stream,
- 	const struct drm_display_mode *mode_in,
-@@ -887,7 +906,15 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
- 	 */
- 	timing_out->pixel_encoding = requested_encoding;
- 
-+	/*
-+	 * The source packs both views into the frame itself (side-by-side,
-+	 * top-and-bottom, or the doubled frame-packing timing), so the display
-+	 * core scans it out as a plain 2D stream and only the HDMI vendor
-+	 * infoframe tells the sink how the frame is laid out. Any DC stereo
-+	 * timing format would make the hardware treat the surface as two views.
-+	 */
- 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
-+	stream->vsif_3d_format = amdgpu_dm_vsif_3d_format(mode_in->flags);
- 	timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
- 		connector,
- 		(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
-@@ -1451,6 +1478,9 @@ create_stream_for_sink(struct drm_connector *connector,
- 	struct dc_sink *sink = NULL;
- 
- 	drm_mode_init(&mode, drm_mode);
-+	/* frame packing scans out both views plus the active space in one frame */
-+	if (mode.flags & DRM_MODE_FLAG_3D_FRAME_PACKING)
-+		drm_mode_set_crtcinfo(&mode, CRTC_STEREO_DOUBLE);
- 	memset(&saved_mode, 0, sizeof(saved_mode));
- 
- 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK) {
-@@ -1530,7 +1560,9 @@ create_stream_for_sink(struct drm_connector *connector,
- 	}
- 
- 	if (recalculate_timing)
--		drm_mode_set_crtcinfo(&saved_mode, 0);
-+		drm_mode_set_crtcinfo(&saved_mode,
-+				      (saved_mode.flags & DRM_MODE_FLAG_3D_FRAME_PACKING) ?
-+				      CRTC_STEREO_DOUBLE : 0);
- 
- 	/*
- 	 * If scaling is enabled and refresh rate didn't change
-@@ -2449,7 +2481,9 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
- 	if (!test_mode)
- 		goto fail;
- 
--	drm_mode_set_crtcinfo(test_mode, 0);
-+	drm_mode_set_crtcinfo(test_mode,
-+			      (test_mode->flags & DRM_MODE_FLAG_3D_FRAME_PACKING) ?
-+			      CRTC_STEREO_DOUBLE : 0);
- 
- 	stream = amdgpu_dm_create_validate_stream_for_sink(connector, test_mode,
- 						 to_dm_connector_state(connector->state),
-@@ -3143,7 +3177,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	aconnector->dc_link = link;
- 	aconnector->base.interlace_allowed = false;
- 	aconnector->base.doublescan_allowed = false;
--	aconnector->base.stereo_allowed = false;
-+	/* HDMI 1.4 3D only; DP-to-HDMI converters reject the timings in link validation */
-+	aconnector->base.stereo_allowed = connector_type == DRM_MODE_CONNECTOR_HDMIA;
- 	aconnector->base.dpms = DRM_MODE_DPMS_OFF;
- 	aconnector->hpd.hpd = AMDGPU_HPD_NONE; /* not used */
- 	aconnector->audio_inst = -1;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 934ae381e..e6fd75b87 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -235,6 +235,13 @@ struct dc_stream_state {
- 
- 	enum view_3d_format view_format;
- 
-+	/**
-+	 * @vsif_3d_format: 3D layout announced in the HDMI vendor infoframe when
-+	 * the source packs both views into the frame itself and the timing is
-+	 * therefore left at TIMING_3D_FORMAT_NONE.
-+	 */
-+	enum dc_timing_3d_format vsif_3d_format;
-+
- 	bool use_vsc_sdp_for_colorimetry;
- 	bool ignore_msa_timing_param;
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 32b697f46..13478b8bd 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -536,6 +536,9 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		format = stream->timing.timing_3d_format;
- 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
- 			format = TIMING_3D_FORMAT_NONE;
-+		/* a 2D scanout of a frame the source packed itself */
-+		if (format == TIMING_3D_FORMAT_NONE)
-+			format = stream->vsif_3d_format;
- 
- 		if (stream->timing.hdmi_vic != 0
- 				&& stream->timing.h_total >= 3840
--- 
-2.43.0
-
+#regzbot back in-progress=0A=
+#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
+89=0A=
+#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=
+=0A=
+=0A=
+Hi Thorsten, Alex, and Linux Kernel Maintainers,=0A=
+=0A=
+I am writing to update the status of this regression after checking the Reg=
+zbot tracking dashboard:=0A=
+https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
+=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/=0A=
+=0A=
+The dashboard currently lists this issue as "fizzled out / resolved: inconc=
+lusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED, and act=
+ively tracked. The lack of recent email activity on LKML was due to ongoing=
+ technical data collection on Launchpad and GitLab while awaiting upstream =
+feedback.=0A=
+=0A=
+Current Status & Verification:=0A=
+=0A=
+1. Launchpad Report (#2142389):=0A=
+   - Status: Confirmed (assigned to maintainer Timo Aaltonen).=0A=
+   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected=
+ users across various AMD architectures (Tonga R9 380, Polaris RX 400/500, =
+and recent Vega APUs).=0A=
+   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389=0A=
+=0A=
+2. Freedesktop GitLab Issue (#5123):=0A=
+   - Status: Open.=0A=
+   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=0A=
+=0A=
+3. Technical Summary:=0A=
+   - I have executed 3 full git bisect routines on hardware testbenches, is=
+olating the regression behavior between kernel transitions.=0A=
+   - Recent user reports confirm the same black screen / no EDID handshake =
+failure upon resume and DPMS display wake-up across multiple Linux distribu=
+tions (Ubuntu, Fedora, Void Linux) and kernel versions (up to kernel 7.0).=
+=0A=
+=0A=
+Please re-open and maintain active tracking for this regression on Regzbot.=
+ I remain available to test candidate patches, kernel builds, or debug flag=
+s on physical hardware.=0A=
+=0A=
+Best regards,=0A=
+Danilo Machado=
