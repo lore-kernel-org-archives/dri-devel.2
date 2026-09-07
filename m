@@ -4,61 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30C43C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 08:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79945C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 08:35:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341BE10E496;
-	Mon,  7 Sep 2026 08:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A7D10E6EE;
+	Mon,  7 Sep 2026 08:35:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XP9htQgw";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="ozqNurEt";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A6010E496
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 08:30:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788769849; x=1820305849;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=GA5//GMEmOjjnNmdsw+T5omvFovbVABnuMT8U2Zy6Yg=;
- b=XP9htQgwOBzhQ2IkilKUS9z3kDFGD5WDoUexV00+V4+5kvgIRM0OQNdW
- 5acaa3Xha9xp+ZSTzLgStI5QTaE4CXjizeiX1PyK8Zd/qbIkjwl+AhZHv
- 5VT7aWFs/NHU0VZB5054DKZ6teoZEijvudr6EoJCTLYJxzR06Bj+aVXeq
- zOXE8eiLdpuYw4qIxYJs3klJbIvK0SlnqABdcx0TavDz/MSH6LmoNLiy1
- Q7PpVT7EA31YUIm6ziEKO3iTwljkZZ195D+M/rE8cSRpUeOBnnbfpfVwx
- /p/TBU21PDDQYkh0KfSsjpvzSN5oktcQViUUgboUUvrg3+yUJoL9CfXfs w==;
-X-CSE-ConnectionGUID: Cw69F6ILRDehFmp5g+BOug==
-X-CSE-MsgGUID: P4HeQCcLTVGZQM9gg9LNlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="99829111"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="99829111"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 01:30:49 -0700
-X-CSE-ConnectionGUID: Hld0mw+2RyW4P+pGeuaGeg==
-X-CSE-MsgGUID: ZDtn5Eq2Rpa4bQstcpr6ZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="266298894"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.245.240])
- ([10.245.245.240])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 01:30:46 -0700
-Message-ID: <38c7c09656fafb13bd1e9f578f1b28796f8d4c41.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/exec: Match the drm_exec_retry() kernel-doc to its
- parameter name
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- dri-devel@lists.freedesktop.org
-Date: Mon, 07 Sep 2026 10:30:44 +0200
-In-Reply-To: <20260907011127.19653-1-kmehltretter@gmail.com>
-References: <20260907011127.19653-1-kmehltretter@gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93DB810E6E5
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 08:35:17 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49d0b98d6d0so13290445e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 01:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1788770116; x=1789374916;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
+ b=ozqNurEtqR+V1H+GvmQm0S0gOG4wreVpSqObxNoeJiPWkPqoNy1doOSiS0Ajhg2MQA
+ hbhNzW1Tey1/vd+kfMASTMq9hRIM88qpSd91l78TwLrnLVrKcqgFsjKGEn7dAqQETsR4
+ j76NhSuK2IrHpol0gYdBYs+Gl8dOJkJYs0DaeSJ8x06tptiB2MyAr0waP2Q86Z/EYLAF
+ 2pI/aahXjOr+vIMjTBVczb+kVjpLAHK6+Bm0ieIrZnT3MHaE7AGr0KQv+2xk+XmX9UfO
+ x4A0Q5/fupH8Zbp5wxNPnH9J2YL2MQyHemxkAZZl1mb7FlzaXJBQNmeM/eGqGGDmHQJp
+ evgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788770116; x=1789374916;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
+ b=ZSLqN8D9TTnJ5Fd/kljEHWZL7y1tHb1TCxR0tOCpDeSPcQhCUoo4Jwm5eI01s3TSQt
+ EHyNGeJblpvIE+OkQ2cQ32BM2yTjfq5+rBf5Rs0rcBv888edpSVRO+Q1mc6iOYWaw0FJ
+ hHc9bFiRuqRAx3HAcBmdwwUq5VcWFhrOKee24Sl6UApxs4/qcicZXQQIOU76tzsi2+KS
+ r1YKAS2UrVYiSQOOGy6e9izKrjLdXhhSMqb6HuCGE47exzHQS0PR0BJxlv/Tpi6C5rCa
+ YO1ZC8g4gxPat+VaephsMFgWT1ovydbfsR5fVgAEvVnUDRmTt18gKvs3ACHNMOIgohwp
+ gYHA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByEp7YszM9KjY6GZh5/mQ9w7DI/gvAo9cGa3KVpICtkgqxY1LZDRRQtdbhkMVZGeQyMNf73J2u3Q7o=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k1rwEWPvkU0YgqnNGJIJEjv2QFFCWA4vib+kKluUIKutZ3vaMc
+ WbDSvdoLAjQNUFS5fw8nmjroYiLEyj3KtB2wX2IvMM5cG/uzpRRwf3dXKJKwoB1EnE4=
+X-Gm-Gg: AYBFou2ty8LhCVqn5hDuXTC6IFUxP/m9QOqgGjde4A+7NwgpRgbydUdrXUjV/s3PJO4
+ BwoItc9hCPEDNYywZfdJ/S11zNSWS19AldigjY8pqDa1s5Qaz1/PuEq81jAD2sM/4aBcvKiTYZj
+ 9bJLW/zbLYxrumO5kL02pbxczXSu3Wdkw4HCjjmlvZvsR4pCfqj1yEmDF2apFQscKYUITNT7q6b
+ yYrxc3WeTLMiwVbImPAZbmWV69N2P9F1C6QIaaWon7N34nrfN/jrZR1FB7EbsCWLbfBdI3ERQWE
+ pS/3qxNbmL2tfDyYsaI83EJgYAgH/zBdGaH65iG747c3Wxn8Vqzml/dtvjWowNokx51Y6jKjSJQ
+ bGU+YC1eQx4jHRpMQ8QrNZ7SS1dbNFx5IJFH7wcTvgAOdySvhmSK9iipMPlgTMYwQKqCP1b2iG7
+ z6NFA8sE+KiAn8rPWaNNi84WQv6fkNk9FJ6I+tkTiWZJHOBmfISWB7Ah4Md+VrDsiIRjVoRSNsI
+ kh60bnNWlMIoYaVd4mhTm7ZFqTE9pq8lQUpLSM5XnPhKS/mB6M=
+X-Received: by 2002:a05:600c:3b9b:b0:49a:77c1:d246 with SMTP id
+ 5b1f17b1804b1-49cf8286e30mr197654635e9.15.1788770115721; 
+ Mon, 07 Sep 2026 01:35:15 -0700 (PDT)
+Received: from localhost
+ (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de.
+ [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-49ce4761dd1sm274503085e9.0.2026.09.07.01.35.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Sep 2026 01:35:13 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:35:13 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Nickolay Goppen <setotau@mainlining.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
+Message-ID: <ap52w_LsxykYh6T1@monoceros>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="f7m35ekvx6ajsize"
+Content-Disposition: inline
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,39 +103,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-07 at 03:11 +0200, Karl Mehltretter wrote:
-> Commit bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec
-> retry pointer") added drm_exec_retry() as a macro whose parameter is
-> _exec, with a kernel-doc that says @exec, so kernel-doc reports both
-> an
-> excess and a missing parameter on every docs build.
->=20
-> Say @_exec.
->=20
-> Fixes: bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec
-> retry pointer")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+--f7m35ekvx6ajsize
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
+MIME-Version: 1.0
 
-> ---
-> =C2=A0include/drm/drm_exec.h | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index cc2937185a9f..ae1d074ade5a 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -150,7 +150,7 @@ static inline bool drm_exec_is_contended(struct
-> drm_exec *exec)
-> =C2=A0
-> =C2=A0/**
-> =C2=A0 * drm_exec_retry() - Unconditionally restart the loop to grab all
-> locks.
-> - * @exec: drm_exec object
-> + * @_exec: drm_exec object
-> =C2=A0 *
-> =C2=A0 * Unconditionally retry the loop to lock all objects. For
-> consistency,
-> =C2=A0 * the exec object needs to be newly initialized.
+Hello,
+
+On Sat, Aug 29, 2026 at 11:09:14PM +0300, Nickolay Goppen wrote:
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+
+Please rely on <linux/of.h> to provide of_device_id and don't include
+<linux/mod_devicetable.h>. If you want to stick to IWYU, include
+<linux/device-id/of.h> instead.
+
+Liebe Gr=FC=DFe
+Uwe
+
+--f7m35ekvx6ajsize
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedz4ACgkQj4D7WH0S
+/k6mCwf8DB+wWG1X5R1Barm6eVJNkn6T9iEtu6q952Rb44GVXBmsgNzH/8kPoPvx
+MgqVTBvCjN5jnomwxeU4EPk1eRtFXqf4jwGytePENeFWAqwNGvBZHuYaowSbPCzb
+r6NXPx7I9i9qrBNTAufIz8/sLutrkzoc5so8Z33c3eovQgHbRZXbNpsBSW7Et7d3
+DEBJbSFNF4lYRM6ozD7Xk2CHDgfhaf1sznfIlFIXe1jA1/tAIyI21LSclKz58Dkt
+JuDlvdCCSC+hoWswZFYnITu60LPBwbgo8JeIVPx07ZuHJr2v6yknqw1yefvB1TKC
+r+3sOCPIgjR9hMDIjXlfEVZwDo/T+A==
+=6K8E
+-----END PGP SIGNATURE-----
+
+--f7m35ekvx6ajsize--
