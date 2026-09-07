@@ -4,90 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1353C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7226C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4491F10E7D3;
-	Mon,  7 Sep 2026 13:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5550610E7F6;
+	Mon,  7 Sep 2026 13:00:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V7gbZVei";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oxt0CBN4";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DYV9QGk6";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78C9A10E7D3
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:00:23 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49d0726cdbcso708215e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:00:23 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C61910E7E8
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:00:31 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 687AnQme217656
+ for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 13:00:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=mbgqvHTyaHpGvMkymmdVNW
+ iCsdeQ9ZFYWr/yEdLCQX0=; b=oxt0CBN4ZdJ5fnFpr/aCb/DkgARIdywr5hcXdg
+ QeLRYmLUgdpc02LH5T+pqd96XxO2aDu03PsQOC+cce94V3ESIlmcEZHbw4CSts6G
+ nVRvntGN+AVp0FI9c2aXNFM5lHfvu/FUj9maHE1WdW0CYV72k72jHx9PeJRaGGUD
+ Px3O3Px04BI2F55pT2sYSvXDuv076mpo6gaoXynP8p70ed3HOX9uV7Tx79OZ32QF
+ QQBpbfETEn55tKKU6g3pwdroMY6n82OKG27FYd5BnhO22fDQKAab2JbPQUwI0/59
+ GA8uSas4eqRZ31g27rnMzK7JZkQ9p8Rz6L8Rrfk44BZJY5Mw==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqgvvm-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 13:00:30 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-737d2f02d2fso2761593137.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:00:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788786022; x=1789390822; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eMVNQCd6i4RG6aVc2yBHhkRh+QAlwsGwWBLxiEeQYU0=;
- b=V7gbZVeidbfGe4252g1+MoNN4c282KDMbdmm0CmWRXsaadCOp+7c4oVzwMLGnnvbuO
- aFkwjEgGZDa4BE1IK2Z3f6G3QgPfkiqfu/wt7kRARz+/1mxwBG2LMJV5btxnfXQg5JsF
- EtLjFuvcU7XJ4mYfAaomAGsu6Mh5z2aesSf7AtxFXBKyLp+/vDFCTkRf1xSh38vq0GQ6
- OG/y39ugJ7wT66IdW3griNarRH1MarB1D7M5wneSvD1C3NEsRqnP2XWnIQvqHnbQciD6
- 93pw9auRmjB9FXOqjmajs9eqAMIciDQGafI2/18DlqgiTNXemfmWMnY2ZN5fDTycrCCV
- j97w==
+ d=oss.qualcomm.com; s=google; t=1788786029; x=1789390829;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=mbgqvHTyaHpGvMkymmdVNWiCsdeQ9ZFYWr/yEdLCQX0=;
+ b=DYV9QGk63orOJo8UeInE6ee/isMMfLK2SksDAIGyHHXU+yhqJy4lDpCxA1E3/GwFdW
+ DmHjpCagz5ysnrwTDrTd52VcBhK3Ebo/eInT8Yigh4YdBneLedqOfszGkhHMpdJW2gWS
+ ThE+S7QhKhk42CvDInUQ8G/c8GMWGzQNC+syAaxF9Jwn1hufag1uhrZugRp/+ePe6URk
+ /6v4sLdqvRTJNVvhZ1edoLjCAI9EOXZzE23AJcw3TsIB2nOQ9VsneFZRRo1VXEmX8c/w
+ 7Y5tFelUb27/SqvwmyfwLXttqGtzLLhckZGQf1qNY6INvMRYAV7x2hlGEp9lpEXBbgqS
+ UBKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788786022; x=1789390822;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=eMVNQCd6i4RG6aVc2yBHhkRh+QAlwsGwWBLxiEeQYU0=;
- b=KMPzJXyqKddhqd+aRuAfZ6ZdN5CIbjpwmkVPvkIxI45+dOR0r6sl5+olDgxXiE39eM
- i2V7mR4m2QCrXigtitx+cjjkVGa+E+ortJ8gXjjjITb0gNGKdg9pYyaQH1/n9YYBTm9y
- qWVDzTpH7HvBL1dvDTxV/B7PiLlReoycjTtX2m40XyLEEIuY+rUAaQ3DgVrf+QidM8Jm
- 9sfxojM9tjEW1lquYxQ75hjzTfw9U9sn2RwuXeUE4ue5I8HyDeJYs8ZqLy5ZFtnyKHC3
- iHTugUl7wj9Drbpqs+F8uRF6Z0AKajPmtvQJezreihxljRT3s4fTxco5YLDbofRMUsYK
- arWw==
+ d=1e100.net; s=20251104; t=1788786029; x=1789390829;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=mbgqvHTyaHpGvMkymmdVNWiCsdeQ9ZFYWr/yEdLCQX0=;
+ b=DZFMsPHrYWFRGu0sQRQhE2cZgGTHtnb1cwFCceLJZY+OvC/WBaWB8Zbwyx47AChHuW
+ iOhw4DoIVvIpSExTqbI2B73zuWCVUAdRdrWtZMoHEd1qnGDQ63sXn9zL57JmvAiTAzsK
+ EGI9bZF1eVBeZiosAY085pw3zs4P4LjTctCUcQ+lAnQzNBfw8WgyE7tPYqWblKfTeBWv
+ 5wpfOr6/8F5mj3lvIKAb/tn6//Vsn8VCu+lXnQANUEkoGSRRl4WeCQ3D+qupTAXH0WDO
+ FEp1EqccLxrbBt4shy2T6LF2wZWX83+oEsIzU6wxPckcA781Qugnzz6dmUUESbkErfHM
+ 1NTg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx00mf3pnvA24vz9YcTZaojYYkEwoo9fBliZ2qpfkxPE8zYOj7L1vv4B9cw11BpBaZZ8m7W1dlihnQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lTdsG3cny/dzAn/yxX9e/Ux0IWNL7SOREuFIM5/SnfEjE8ymqP
- Aon8idBLO6kJx6cTnvwOGtklRYEBnW/YWEPz9XdXJ6Jw3c4LrLFPGzeC
-X-Gm-Gg: AYBFou0yB9e1FRPml8x1gWQs7XhDhtoU9xpDeY7xbbhP1iPr+ikxjDZx5Oya8u7aIzQ
- HPaqrTeJY+mQgcGNsn4f4PJwAKvweXFSVbbLU7OFCaYh0qgNUK6YvaT5Osxi2mGhiCDnCqi+GLW
- AZvnXR/kdzQjUKDhkHfbL0WRHa2ha05HWLnkE7DCUUQ9USYN6h3ni6FIZzfEK+/YZDMeiP4rw4L
- yWE2b68hZ09jj/9utjKdRqZHEPD4Ebr8OBlJ5hTaE9NsxOTrQGFXeN7tWgR1VukqeyI6XEO9VdE
- OCnmgZLBMgcDE4dAWikQAzDwmJe0EvogSiyYcLiRbsoUVLLylixB+I2Kvb3/88nq+VmHUjGv2mj
- CUqqfJ1QJzzFgziUfz5zhVHRSxb9OpGK0deGzN1rNRSCfc3u91dm7TH9MCZG2grsUzFS/I+sRiO
- KhhA9OWoe53FLq1S+tuV4/NGUc7f/mX0VHmMFyaSP7S6o66Atv+Kg1hEXlUvnGUFfvAN3uk01gE
- I14xwsslFifpxgcSvQDaISUxSud7nVFpr7zbykGDSK17i5EycmRA/LGXyoanysWIJvsTkMjUivN
- TnW7
-X-Received: by 2002:a05:600c:3b25:b0:49b:910c:76fb with SMTP id
- 5b1f17b1804b1-49d01dd415bmr124724415e9.2.1788786021284; 
- Mon, 07 Sep 2026 06:00:21 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B8822007B3AD9A87B9E27CB.dsl.pool.telekom.hu.
- [2001:4c4e:1b88:2200:7b3a:d9a8:7b9e:27cb])
+ AKwUvBy1M0TYmGYBhg5fet2iwSQRyH6D2UvkJD0VIUCxdKz0Bfl/OYNR3IROjabjAnESLYJvhhZ3LDVl3B0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nFZAi1CcEMl9oekGs6tFoWhT4kyQQ9AS6l5D49duDgvr8OLckW
+ +tdDano96gQdIew9GC5TTwJGCt6OeuuTRrv7q8jo1lwbZDX7HQOaE0Z9AwaKK5+AsAgMkdnCgvX
+ 5XYHSQNiNhDeRoeZws1ajSpiC4UAisk4++qcIzgHiOy+Xwh8trPDFiEmuLMLZaaUdV4bwEsQ=
+X-Gm-Gg: AYBFou0HOy0NQz5sqBpc1F2GjE+MT0PE9AS8DqQPtSsy14Tcp1rlbGk9c6dWDqcl4XO
+ M3Py8nCiv9RuKdXJfOJeQlTTNCB0Yp0vrzJ6fdeVMwYQhpPWo3JB/H2xK+7Qm70wNjX4dpYlZAW
+ cCoc4s4nxdGoiYGJKHwoSPVN9yTaH5ygaSESGdRbx5Q7YbIOXLVKskVpFjSIAqxanGXmZ3W/WbY
+ /S52wFELK/xHK3VVYPoBzye4blxNSDRUOSzJ/hNSpoebVKiriI7FD7OChrRNZBvh08TX6qhABOd
+ 1m+oQwrD1jdNsxTFq4DpY9kA3rQw0UZr8IgwS664gh1J9Q9K7ps3DoGs1LFtBbGBHNDDozo6BJT
+ QJXS6KPRbJyX1bOWbPamtGaI=
+X-Received: by 2002:a05:6102:509f:b0:785:e444:15e4 with SMTP id
+ ada2fe7eead31-78a4a87d391mr9352530137.6.1788786029493; 
+ Mon, 07 Sep 2026 06:00:29 -0700 (PDT)
+X-Received: by 2002:a05:6102:509f:b0:785:e444:15e4 with SMTP id
+ ada2fe7eead31-78a4a87d391mr9352452137.6.1788786028936; 
+ Mon, 07 Sep 2026 06:00:28 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce5533ffbsm318152775e9.3.2026.09.07.06.00.18
+ 5b1f17b1804b1-49cff81c9b5sm198751205e9.4.2026.09.07.06.00.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2026 06:00:20 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Frank Zhang <rmxpzlb@gmail.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Detlev Casanova <detlev.casanova@collabora.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, daniels@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, heiko@sntech.de,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
- when PHY is down
-Date: Mon,  7 Sep 2026 14:59:54 +0200
-Message-ID: <20260907153000.hdmiqp-audio-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260512103153.8861-1-rmxpzlb@gmail.com>
-References: <20260512103153.8861-1-rmxpzlb@gmail.com>
- <b89a3039-05b7-4e4f-8306-07a37d2bd3c9@collabora.com>
+ Mon, 07 Sep 2026 06:00:28 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 0/7] drm/msm/hdmi: Fixes/Cleanups before Eliza
+Date: Mon, 07 Sep 2026 15:00:14 +0200
+Message-Id: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTsQg9rWq0gXTfLXjphWZlTE0
+ rsbdfnB4y1kUIHRsVpI8RSTeSrwm4ri2E9nsKRi8s4fXOtqTpo5W+YxZeFBXjAOGGYF4yrvnmM
+ bYr1t9qnZRSqXm+JXlcmp+9se4YJ4/25pXT84UbbLgwAAAA==
+X-Change-ID: 20260907-drm-msm-hdmi-fixes-before-eliza-c9bc7185d84c
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Archit Taneja <architt@codeaurora.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1650;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=R1heoqafdwqzfSRjHxzsYA5WusvEWpky2358S6ReQdE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqnrVgvrThFbbkovfh6cZdBXUsee9/xtJ+Onlei
+ 4EMFYCmFb+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCap61YAAKCRDBN2bmhouD
+ 103PD/sH/PGcJ8BqD0NEQzgF9UlC1sIfzFQ7EdPuYBXVAsrkN0m8vlTsaAZzy7Dq9dAItUvy7vB
+ 4fnH+3WOZAHyhWPl4x/APMty6S+vRF85VkcIn5KnhrKa5vxziTLTm/RH8n1/4Sw8Z5A847QM4TC
+ R15b7xwRXnPfPkfR+LD9jyUZGqDqxNScd4nFSkj9wtkRaHBGXLNJurFpbY+z2FYn6WigE0PCgkv
+ fYpE30RywfqJ1Dpqku2f3umvp2R+Tvh2xkN95cFHKcjy3KpDMZuYbKapA4y9FcFR/IOfrep5B2q
+ LcTAPfYMhDI+/UeyQdKg1deD7sSY52Z+cDF9HUeNls8P/L+MpV5kCsAhHvh7fEsu1Aji3kyS43d
+ 6TN35XMDZ+2t7WSc3OCI2jxILkLDKGMhfWbZ9MJoPV98rdWrNrI5cZZGmzpqICL0jpWWC3p2FQs
+ zP9XCEGFQv2PeXuqe44uqG83Mgo3JpN2bpDBvoOHKMVELMyoNS/ae9XP5Hg9zitUgQaN6thAkkN
+ nnBRABELem9F+bnSjzvEAiE1/KFhT65f92erZBDy5N36bgTQiaP1sjcT9pDDduutWHUvc/GLXPm
+ NPQSTJGYo4ZZRCnMDd/0jXBhmi45KJEkAKxVY5x3R0Tniy67dp48UvQPGpzBRY7mhnWvFL45w1v
+ OFXv2FZD0gtQhAA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfXzXf3W3vpOgNz
+ 2cXCs3G3ZTjVgcmEGZ1xXg7NY9tgeGbVlg2It/JaKDhMfcLw4dtucwOLV/nEdo02uMmf0cpyET8
+ gtMkuEVcg+iSIx05WGHpK1qdJktoeUYbRSOf1jD9sxSk/TvNFZcz8m7BFdkTGZ7l6qih0E3JNle
+ TMIMaP3bvYmt4rMWQUYM6RtgfFT+Ex1geJfONKyYBDzK/ck8X5IIenfMzrysieigC1B6maq+NbM
+ AVvdI1pSbasx7/hK1amFm6sfwC5j4IXVaVf+xhWOfB86Ffk9RMzdFL6JCeCuM+oL6TjaqILrgw0
+ Q0mP8+4gBCrRMea7LZirvIATLXwtOdMotg9UEPWsiOO0TbF7J7jX9sL0f+ZUR2QxO9GJtg6/4dn
+ 4ghL8fySnVu3JNK0VTEERfThnZhxs1GJeEsLBMbDSbBRkvau71zUcOr+hNxDYMz7gd2SDeW6Ysi
+ nC8X1RKJWRoAnnEG5ZQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfX2PBQFrWbCdbp
+ eWwgfiQbWdlpsuHRPSfSIQX11Ccj5AY2HB1yj8uHC+jp7aLLMA7/+etxBZjTaZZqSuiyHQ8uZVc
+ L7+AW9gbB55xTZlP70ojIbTR7NKc9Ok=
+X-Proofpoint-ORIG-GUID: OMyLK6Q1itak9fZe50XS_c1PRFAfd1yc
+X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9eb56e cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3rGLuoqwPg9cSPe0pR8A:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: OMyLK6Q1itak9fZe50XS_c1PRFAfd1yc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070143
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,115 +174,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Frank, Cristian,
+Split from Eliza patchset, thus `b4 diff` won't exactly work.
+v1:
+https://lore.kernel.org/all/20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com/
 
-Independent hit of the same crash, in case it helps get this one moving
-again.
+Changes since v1:
+1. New patches:
+   drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
+   drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
+   drm/msm/hdmi_bridge: Correct poweroff/audio cleanup order in post_disable
 
-Board: Rockchip RK3588, Orange Pi 5 Plus. Kernel: 7.2.0-rc7 with the
-Collabora dw-hdmi-qp HDMI 2.1/FRL work on top (so not plain mainline, but
-the audio shutdown path is the same code). Userspace: PipeWire/WirePlumber.
+2. Patch #5: use simpler ?:
 
-At that boot the HDMI link never came up (the sink did not answer SCDC),
-so every snd_soc_dai_prepare() failed with -ENODEV, and about five seconds
-later WirePlumber closing the PCM took the same path your patch guards:
+3. Add tags.
 
-  snd_pcm_release -> hdmi_codec_shutdown
-    -> drm_connector_hdmi_audio_shutdown
-    -> dw_hdmi_qp_audio_disable
-    -> drm_atomic_helper_connector_hdmi_clear_audio_infoframe
-    -> dw_hdmi_qp_bridge_clear_audio_infoframe
-    -> regmap_update_bits (read) -> SError, panic
+---
+Krzysztof Kozlowski (7):
+      drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
+      drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
+      drm/msm/hdmi_bridge: Correct poweroff/audio cleanup order in post_disable
+      drm/msm/hdmi_bridge: Drop redundant initialization in msm_hdmi_bridge_init()
+      drm/msm: Properly handle msm_ioremap() without name
+      drm/msm/dsi: Fix indentation of if block in dsi_mgr_bridge_mode_valid()
+      dt-bindings: display/msm: hdmi: Correct name of disallowed supplies
 
-Serial console excerpt (7.2.0-rc7, tmds_char_rate was 0 at that point):
+ .../devicetree/bindings/display/msm/hdmi.yaml      |  4 +--
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             | 36 ++++++++++++++--------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c                | 14 +++++++--
+ drivers/gpu/drm/msm/msm_io_utils.c                 |  6 ++--
+ 5 files changed, 43 insertions(+), 19 deletions(-)
+---
+base-commit: 6e95d4043b2c59f1887fd72d1620b7fd3d3138a5
+change-id: 20260907-drm-msm-hdmi-fixes-before-eliza-c9bc7185d84c
 
-[   16.597316] hdmi-audio-codec hdmi-audio-codec.7.auto: ASoC error (-19): at snd_soc_dai_prepare() on i2s-hifi   (x4)
-[   16.601847] SError Interrupt on CPU5, code 0x00000000be000011 -- SError
-[   16.601852] CPU: 5 UID: 112 PID: 2821 Comm: wireplumber Tainted: G   M       OE       7.2.0-rc7-rk3588-igor-claude-hdr2+ #10 PREEMPT(lazy)
-[   16.601862] pc : regmap_mmio_read32le+0x38/0xf0
-[   16.601867] lr : regmap_mmio_read+0x50/0x98
-[...]
-[   16.601903] Call trace:
-[   16.601904]  show_stack+0x24/0x50 (C)
-[   16.601908]  dump_stack_lvl+0xe0/0x140
-[   16.601912]  dump_stack+0x1c/0x38
-[   16.601915]  vpanic+0x4e8/0x5b0
-[   16.601919]  panic+0x6c/0x78
-[   16.601921]  nmi_panic+0x8c/0x98
-[   16.601924]  arm64_serror_panic+0x7c/0x98
-[   16.601927]  arm64_is_fatal_ras_serror+0xa8/0xb0
-[   16.601930]  do_serror+0x3c/0x78
-[   16.601932]  el1h_64_error_handler+0x40/0x80
-[   16.601937]  el1h_64_error+0x84/0x88
-[   16.601938]  regmap_mmio_read32le+0x38/0xf0 (P)
-[   16.601941]  regmap_mmio_read+0x50/0x98
-[   16.601943]  _regmap_bus_reg_read+0x68/0xd0
-[   16.601947]  _regmap_read+0x80/0x2a8
-[   16.601950]  _regmap_update_bits+0x13c/0x1e0
-[   16.601953]  regmap_update_bits_base+0x70/0xd0
-[   16.601956]  dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x78 [dw_hdmi_qp]
-[   16.601964]  drm_bridge_connector_clear_audio_infoframe+0x2c/0x68 [drm_display_helper]
-[   16.601993]  clear_infoframe+0x5c/0x128 [drm_display_helper]
-[   16.602016]  drm_atomic_helper_connector_hdmi_clear_audio_infoframe+0x70/0x110 [drm_display_helper]
-[   16.602039]  dw_hdmi_qp_audio_disable+0x28/0x108 [dw_hdmi_qp]
-[   16.602042]  drm_bridge_connector_audio_shutdown+0x38/0x80 [drm_display_helper]
-[   16.602065]  drm_connector_hdmi_audio_shutdown+0x28/0x50 [drm_display_helper]
-[   16.602086]  hdmi_codec_shutdown+0x68/0xb0 [snd_soc_hdmi_codec]
-[   16.602091]  snd_soc_dai_shutdown+0x60/0xe0 [snd_soc_core]
-[   16.602123]  soc_pcm_clean.isra.0+0x5c/0x1f8 [snd_soc_core]
-[   16.602151]  soc_pcm_close+0x40/0x80 [snd_soc_core]
-[   16.602177]  snd_pcm_release_substream.part.0+0x48/0xf0 [snd_pcm]
-[   16.602193]  snd_pcm_release+0x68/0x110 [snd_pcm]
-[   16.602205]  __fput+0xe4/0x340
-[   16.602209]  fput_close_sync+0x4c/0x138
-[   16.602211]  __arm64_sys_close+0x44/0xa0
-[   16.602215]  invoke_syscall+0xa8/0x138
-[   16.602217]  el0_svc_common.constprop.0+0x114/0x140
-[   16.602219]  do_el0_svc+0x28/0x58
-[   16.602222]  el0_svc+0x48/0x310
-[   16.602225]  el0t_64_sync_handler+0xc0/0x108
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-So the asymmetry is exactly what you describe: audio_enable/prepare check
-hdmi->tmds_char_rate, audio_disable does not, and the read-modify-write in
-clear_audio_infoframe hits the block with the PHY down.
-
-Today I could reproduce it on demand, with the in-tree module of the same
-kernel: disable one HDMI output in the compositor (KWin, so
-atomic_disable() runs: tmds_char_rate = 0, PHY off), then
-
-  aplay -D plughw:hdmi1,0 /usr/share/sounds/alsa/Front_Center.wav
-
-open succeeds, prepare logs the usual "ASoC error (-19)", and the close
-that follows dies in the same place, this time as a synchronous abort:
-
-  Internal error: synchronous external abort: 0000000096000010 [#1] SMP
-  pc : regmap_mmio_read32le+0x30/0xf0
-  ...
-  dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x78 [dw_hdmi_qp]
-  drm_bridge_connector_clear_audio_infoframe+0x2c/0x68 [drm_display_helper]
-  drm_atomic_helper_connector_hdmi_clear_audio_infoframe+0x70/0x110 [drm_display_helper]
-  dw_hdmi_qp_audio_disable+0x28/0x108 [dw_hdmi_qp]
-  hdmi_codec_shutdown+0x68/0xb0 [snd_soc_hdmi_codec]
-  snd_soc_dai_shutdown+0x60/0xe0 [snd_soc_core]
-  soc_pcm_close+0x40/0x80 [snd_soc_core]
-  snd_pcm_release+0x68/0x110 [snd_pcm]
-  __arm64_sys_close+0x44/0xa0
-  note: aplay[52181] exited with irqs disabled
-  note: aplay[52181] exited with preempt_count 1
-
-(x19 = 0xffff800081ca0aa8, i.e. PKTSCHED_PKT_EN.) One more consequence of
-the non-fatal variant that may be worth a line in the changelog: the task
-dies while snd_pcm_release() is still holding the PCM's open_mutex, so
-every later open() of that PCM blocks in D state until reboot - the card
-is gone for the session. The reboot after that hung too (soft lockup in
-rcu_exp_gp_kthread, a CPU never answering the NMI - I don't have a clean
-causal chain for that second hang) and ended in a hard reset.
-
-I read Cristian's comment on v4 - if you post a v5 that reuses
-dw_hdmi_qp_bridge_clear_audio_infoframe() from the write path instead of
-open-coding it, I am happy to run it on this board and reply with a
-Tested-by. I have a serial console attached, so the negative case (PCM close
-after the link failed to train) is something I can exercise here.
-
-Thanks,
-Igor
