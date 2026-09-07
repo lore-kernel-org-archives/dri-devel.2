@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE688C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB37C79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:25:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CF010E81B;
-	Mon,  7 Sep 2026 13:25:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A78DD10E820;
+	Mon,  7 Sep 2026 13:25:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XbdpI65w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VAashe1O";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05EA10E81B
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 843A410E820
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:25:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C9EDB4197D;
- Mon,  7 Sep 2026 13:25:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2934B1F00A3D;
- Mon,  7 Sep 2026 13:25:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C044260A9C;
+ Mon,  7 Sep 2026 13:25:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DF21F00A3A;
+ Mon,  7 Sep 2026 13:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787539;
- bh=Swi9s2LaY/IwGWMF0qXaz9G5caoEgv+GtcA2bkIZ7Ns=;
+ s=k20260515; t=1788787543;
+ bh=OTxV+cjTWGsqkYyQPJB/wOR/aY9ce6w78FaDUH6ZVZ4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=XbdpI65w45nv3kfg2Zd4MZtAs3evfR3vH00ENnEfjFFdZ3sgcvv2PBPNroTJTw+IG
- 1PgzEIyEJInO6KaRAHSbMoRNlCUIGqbHLvbuK1WAiPnUi/NwMGy+r2vJdYys8PbYtj
- vKSBuLf4PLVXRLstttwwdVIu7nQgBAMA/kGAI1Xm9C9lVQfXAQhdEXgrBz1Um580+7
- 18X1XOyjutJz0Ok0zDApVzW8IROlUT+IC6S9BP9ba9InCCMQBUckq/8ogFMnb2nnW2
- y/qTiv26uAKSWyERWecwXAFc0ipUeRFcuPY+QQYGfxvbDBnK1P7LWix9XfAJk1OO1Z
- vYmLe6MBxcuyg==
+ b=VAashe1O35DbFxXj52RARl0LNMN1JaKfneRMtt0GmYJ7XHbpDQp8QmboVMWM3Gx20
+ vUMokYBCnLAhG7zdYDqF87+ewPL4H2UFsHDFMUCK5DUKsFlHJq/LMHgnf6Qqj2Lapo
+ kxVQLE1rZgFSUxyufBF+T8g4Us/Ecbu0alVWpRMLxH6DNcmmgSFlwhkemIz79rgo/D
+ /Blh8cgjuPlrnUOwWSJCn8b1pC0TOv+aAmy9OkXlZ4mS1FdO4P6jP2axMWUls3THRG
+ aNPURP/WIlHG8NKzlLbrbKc4yhrinRhc7d+rk5MaP+dnOmJiOpAna81yXNSi2fCnsL
+ 4yDoT4wzp4rcw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:24:02 +0200
-Subject: [PATCH v5 26/33] drm/bridge_connector: Implement hw readout for
- connector
+Date: Mon, 07 Sep 2026 15:24:03 +0200
+Subject: [PATCH v5 27/33] drm/tidss: crtc: Add atomic_print_state
+ implementation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-26-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-27-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,12 +51,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6120; i=mripard@kernel.org;
- h=from:subject:message-id; bh=n4EZghXWmk5YHZxWgP3+G/NvlC6ieov8celDSLrXPpQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdr28ecZn5U+v18VBVnW3z9mzhBYb3V5zr+xVpyXfq
- TbTE0WiHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiMYKM9VX8t9kqXhht5V84
- eUa1yeKc2hCF6AdL7zBFO/Ms0jhqtpkvZNXqmKv9cqv1O9ap2MxLZWyY9adfnJ9BT/b/a8u1hjl
- bTwS+4XqypoDBWO3i6otxxcImjCwh2de9X/y84qqR9/ZgrisA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1757; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=57XDuXyIgYzRNmpGUNT1beXfTawbWQXeAahovowmf8U=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdr3c+vyRgKW75NKNC09863JhDm5U+jZx4+vPllofb
+ UPsU4wjOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFrxkrHfz5jzyK2q75/vF
+ KRnXq77wWft5bkw0Y7YQ+XnyQCn/nz9XON4ZdOd2LL4gfqnVkfcWO2PDev/mBdrPp7QwzfkQLD4
+ rj2Gyekclq+p+3iJvm2PO5RIrW3/xpP3RnDjhmlnVlp1/Dl0AAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,171 +74,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_bridge_connector allows to create a generic connector from a list of
-bridges.
+The tidss CRTC subclasses drm_crtc_state with bus_format and bus_flags
+fields that are set during atomic check and state readout. These fields
+are not visible in the standard atomic state dumps, making it harder to
+debug bus format negotiation issues.
 
-However, it's a somewhat virtual connector, and relies on the bridges to
-implement its various capabilities.
-
-What we actually want though is for the last bridge implementing
-hardware readout to fill the connector state from its own state.
-
-Thus, implement a new op for bridge_connector to allow just
-that.
+Add an atomic_print_state hook to expose them in debugfs and kernel log
+state dumps.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 35 ++++++++++++++++++++++++++
- include/drm/drm_bridge.h                       | 27 ++++++++++++++++++++
- 2 files changed, 62 insertions(+)
+ drivers/gpu/drm/tidss/tidss_crtc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 00feb73e63d7..9a51f75df5a7 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -8,10 +8,11 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/property.h>
- #include <linux/slab.h>
+diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
+index 400329aa2200..3da49f77fa08 100644
+--- a/drivers/gpu/drm/tidss/tidss_crtc.c
++++ b/drivers/gpu/drm/tidss/tidss_crtc.c
+@@ -399,17 +399,27 @@ static void tidss_crtc_destroy(struct drm_crtc *crtc)
  
-+#include <drm/drm_atomic_sro_helper.h>
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
-@@ -64,10 +65,18 @@ struct drm_bridge_connector {
- 	 * @encoder:
- 	 *
- 	 * The encoder at the start of the bridges chain.
- 	 */
- 	struct drm_encoder *encoder;
-+	/**
-+	 * @bridge_connector_hw_readout:
-+	 *
-+	 * The last bridge in the chain (closest to the connector) that
-+	 * provides hardware state readout support, if any (see
-+	 * &DRM_BRIDGE_OP_CONNECTOR_HW_READOUT).
-+	 */
-+	struct drm_bridge *bridge_connector_hw_readout;
- 	/**
- 	 * @bridge_edid:
- 	 *
- 	 * The last bridge in the chain (closest to the connector) that provides
- 	 * EDID read support, if any (see &DRM_BRIDGE_OP_EDID).
-@@ -284,10 +293,30 @@ drm_bridge_connector_create_state(struct drm_connector *connector)
- 							      conn_state);
- 
- 	return conn_state;
+ 	drm_crtc_cleanup(crtc);
+ 	kfree(tcrtc);
  }
  
-+static int
-+drm_bridge_connector_readout_state(struct drm_connector *connector,
-+				   struct drm_atomic_sro_state *state,
-+				   struct drm_connector_state *conn_state)
++static void tidss_crtc_atomic_print_state(struct drm_printer *p,
++					  const struct drm_crtc_state *state)
 +{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *readout =
-+		bridge_connector->bridge_connector_hw_readout;
-+	int ret;
++	const struct tidss_crtc_state *tstate = to_tidss_crtc_state(state);
 +
-+	if (readout) {
-+		ret = readout->funcs->atomic_sro_connector_readout(readout, state, conn_state);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
++	drm_printf_indent(p, 1, "bus_format=0x%08x\n", tstate->bus_format);
++	drm_printf_indent(p, 1, "bus_flags=0x%08x\n", tstate->bus_flags);
 +}
 +
- static enum drm_connector_color_format
- drm_bridge_connector_color_format(const struct drm_connector_state *conn_state)
- {
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(conn_state->connector);
-@@ -312,10 +341,12 @@ drm_bridge_connector_color_format(const struct drm_connector_state *conn_state)
- static const struct drm_connector_funcs drm_bridge_connector_funcs = {
- 	.detect = drm_bridge_connector_detect,
- 	.force = drm_bridge_connector_force,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.atomic_create_state = drm_bridge_connector_create_state,
-+	.atomic_sro_readout_state = drm_bridge_connector_readout_state,
-+	.atomic_sro_compare_state = drm_atomic_helper_connector_compare_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- 	.debugfs_init = drm_bridge_connector_debugfs_init,
- 	.oob_hotplug_event = drm_bridge_connector_oob_hotplug_event,
- 	.color_format = drm_bridge_connector_color_format,
-@@ -861,10 +892,14 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		if (!bridge->interlace_allowed)
- 			connector->interlace_allowed = false;
- 		if (!bridge->ycbcr_420_allowed)
- 			connector->ycbcr_420_allowed = false;
- 
-+		if (bridge->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
-+			drm_bridge_put(bridge_connector->bridge_connector_hw_readout);
-+			bridge_connector->bridge_connector_hw_readout = drm_bridge_get(bridge);
-+		}
- 		/*
- 		 * Ensure the last bridge declares OP_EDID or OP_MODES or both.
- 		 */
- 		if (bridge->ops & DRM_BRIDGE_OP_EDID || bridge->ops & DRM_BRIDGE_OP_MODES) {
- 			drm_bridge_put(bridge_connector->bridge_edid);
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 22aa658c0d74..00da1ba1dd7b 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -900,10 +900,30 @@ struct drm_bridge_funcs {
- 	 */
- 	int (*dp_audio_mute_stream)(struct drm_bridge *bridge,
- 				    struct drm_connector *connector,
- 				    bool enable, int direction);
- 
-+	/**
-+	 * @atomic_sro_connector_readout:
-+	 *
-+	 * This optional hook initializes the &struct drm_connector_state
-+	 * based on hardware state.
-+	 *
-+	 * It is implemented by bridges that set the
-+	 * %DRM_BRIDGE_OP_CONNECTOR_HW_READOUT flag in their
-+	 * &drm_bridge.ops. When using drm_bridge_connector, the last
-+	 * bridge in the chain with this flag set will have its hook
-+	 * called to fill the connector state.
-+	 *
-+	 * RETURNS:
-+	 *
-+	 * 0 on success, a negative error code otherwise.
-+	 */
-+	int (*atomic_sro_connector_readout)(struct drm_bridge *bridge,
-+					    struct drm_atomic_sro_state *state,
-+					    struct drm_connector_state *conn_state);
-+
- 	/**
- 	 * @debugfs_init:
- 	 *
- 	 * Allows bridges to create bridge-specific debugfs files.
- 	 */
-@@ -1040,10 +1060,17 @@ enum drm_bridge_ops {
- 	 * @DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME: The bridge supports
- 	 * &drm_bridge_funcs->hdmi_write_spd_infoframe and
- 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
- 	 */
- 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
-+	/**
-+	 * @DRM_BRIDGE_OP_CONNECTOR_HW_READOUT: The bridge supports the
-+	 * &drm_bridge_funcs.atomic_sro_connector_readout callback to
-+	 * fill the connector state from the bridge's own hardware state
-+	 * during state readout.
-+	 */
-+	DRM_BRIDGE_OP_CONNECTOR_HW_READOUT = BIT(11),
+ static const struct drm_crtc_funcs tidss_crtc_funcs = {
+ 	.destroy = tidss_crtc_destroy,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_create_state = tidss_crtc_create_state,
+ 	.atomic_duplicate_state = tidss_crtc_duplicate_state,
+ 	.atomic_destroy_state = tidss_crtc_destroy_state,
++	.atomic_print_state = tidss_crtc_atomic_print_state,
+ 	.enable_vblank = tidss_crtc_enable_vblank,
+ 	.disable_vblank = tidss_crtc_disable_vblank,
  };
  
- /**
-  * struct drm_bridge - central DRM bridge control structure
-  */
+ struct tidss_crtc *tidss_crtc_create(struct tidss_device *tidss,
 
 -- 
 2.55.0
