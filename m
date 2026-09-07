@@ -4,124 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C628CC79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 12:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7078C79FA7
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 12:12:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0582910E7BD;
-	Mon,  7 Sep 2026 12:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 440ED10E004;
+	Mon,  7 Sep 2026 12:12:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CcYXzorz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KuEPpTpo";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011049.outbound.protection.outlook.com
- [40.93.194.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0185810E7BD;
- Mon,  7 Sep 2026 12:04:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t7Sgrz5JzD5apPLnV2e9jtoItlR3ML2FOYEgd38068n/k0BZDsX7lQZmqQzTmwpzRsKGuewV+fLjQ2rKEol+8zU1b3+MBTPYaK420LDU0XEvut+NOb2/UAZ8phkEiYaH2ecuMFSWQvWH0zuyQd5rTzcoLtMBoJwhKKjPszVmS3wQKnlIHNabE2HXrL+TDhSeaxg8Uw+ci2Jo4itqfnZBr0iyaxduPp1vbVqsHWguIyaSjhozVnHtok1WbNdtxL2bJTxBtRzBoaZqDvFoe7LhP+oThQN8SNMPqIwxIJFi+Jxx8J4fe2GI8DxtWiQ5dq7/o/uD2mKlZBheHdIR8pncvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ndvA/0pLRXfdPHvfT8FEERdBeCgpPCmHNdN97LCvAk=;
- b=XkoSKd6uigbjgQQUw4nqOqttxacvG3juwUjVWsFx6cRPK3E6SC3Fk5Ec+e9/2EFqIYFMBqF2jyWHyU9GNUH0z1V5Xsgq5YD2ohhLG6+StIWIyct7c9CRGOq9LzJksNipPDsG9RLI7sspf9crbC00HA7T9U1+wescJBU0TcF9sbs0IfLqjd8PA5EJUylhTFV/GxnYyt18t6pvWl3c5W4nbSBOsnDHqu8p9FNduOc3oajhUgTi6vt+VpwL2dLVDQ+NVTfOhiFxvVCJM32UmQ7Iz1pZ2n2kwQZYoVkcXbzH6LMSuLID6f6DaQ3ox+dRlWWsqc0GfXHmpwP6pO6RiGj0Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ndvA/0pLRXfdPHvfT8FEERdBeCgpPCmHNdN97LCvAk=;
- b=CcYXzorzYJPsdJjDHUclRWQ4DQjGYrUMULkG0X+heelPnR29Nb80fejcs7pYlOtU6J8NLBKbUJI8XNUauGLB29RDEJYnZj7u1pvIYMWEWzCgUHaIuMPhNdX2yLILz4Eb75OlUAH3WWSy4RZb8FfaFsUkG4AuT6XAj2Lig4ru010=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV2PR12MB999098.namprd12.prod.outlook.com (2603:10b6:408:353::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Mon, 7 Sep
- 2026 12:04:21 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 7 Sep 2026
- 12:04:21 +0000
-Message-ID: <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
-Date: Mon, 7 Sep 2026 14:04:16 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu: keep freed VM mappings on clear failure
-To: oushinnyo <oushinnyo@163.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, Harish.Kasiviswanathan@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260905023151.90699-1-oushinnyo@163.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260905023151.90699-1-oushinnyo@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR05CA0023.namprd05.prod.outlook.com
- (2603:10b6:208:36e::25) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB999098:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0389df3-f5ab-48ad-5a84-08df0cd826e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 3hJUntDG53PvM9ofT/6AvyJ4S3AGsArc1CKtZqDmdBlmF0E3nUGBdav+x64F9ljExCLsxD8E5JcIduy+gITKpD/Ar+66MRJfxAUaD6hthjLNa+h0OWZq1/8m0i3S9ogLlvC/9ndRrWZMiruJRZprtcp/J78xn0WJ/kyq3dS6LCTwzYhic0bhkJc40d5xJL8SUV0la+kv4DBBPGwMfJgprwShtGGQKWXKqDayavgrPBv8SRXH1RJLd9b7igFDiPoyZP6o/KCqMSZfSaZvlUCXk7F/B2rwEgb0zOvzGY1P8iGX0ikVYjA3grLDK3JH+lzlXZ25qoJMGJ2qUBSSco7Q2laKcOwftCzKVZIOpAShTa6AnBg2LzNwNaii/5HTSXIPhxjgDOcdbXqT0wONs5zaXhKu/izWNoxlobycMqfHcB7F5sfNneVJo29yK5Q/0ioSNAn1tgYiLgoWb/jmR12sO66drdb/bJSMTy2JkNE/jyywAZBXqwbQjvpzgDavIZ00ECn54TmenMa0rkpg7ByuAGjYuwCl3tA86fYMGofdfEk+qUGze6D1pTRqM6LICDU1pad5OV320Km8q6u5Uin+XqiPLSmDi5pKS0XU0fz7eqG34mnDgWnvTar4lZGQXcBUp6TqnebOM8axtOnrR+QphHAcgCvxFpLbkg3neIPafKo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkU4cEp4VmVNWHFzYWhWOER0YWsyajcvUXJITGRETy96T1ZBL3BhRDZPUHli?=
- =?utf-8?B?ZU5GTzZlU21Yc3JxWUpsaUJqd3lVMUd4RStkVVVWTTFoTGo2Rk5oL2o0cnk3?=
- =?utf-8?B?Y3FnYnQxR093ZmhOelhiNnF1WVJocXVFZGt6LzlFQnFOZUVrTTM4Y1BESVN5?=
- =?utf-8?B?WG94eGdVMlR6bml3ZGppT1M0MnBQdjZ2N0pTaFh0ZWNBNkRTTzY0SkxwckJY?=
- =?utf-8?B?RCs5YUdBWmg0bkRITHl6RE1idXdocjl1bEJDamlkcjRZRWd5aHNrdmRuYzND?=
- =?utf-8?B?U2srQlFTVlhpbGFLWmJjc01MYUVtMlpzbXRlZTBvSU4xTGhvc2RRcEF4aVhD?=
- =?utf-8?B?c2ROT3dOL2JHZkJ1WVk4V0tOUTZCWkFFK2ZXb0xGOTdtK2ZzSElTbVc1ekVX?=
- =?utf-8?B?Y2xTYTdJQ3hSSGllYmNaUkdCSk5qa3p3UjdZYUVLc1pTbVFac3U3eUVTTkg5?=
- =?utf-8?B?Uk1taEJCdlZGMFAwU1FacDhmL1RkZ2ovdkhnMUMwRnVhdS92bjh0dHFlbXJk?=
- =?utf-8?B?TzcvNklPeVJOUllNNzZRL3RZRE8wZjE3SmtXUXAwL3ZuclFtRUpwTVJET2V1?=
- =?utf-8?B?VDcva2hhZSt3RWdiV2x4ZWwwWHJJejhhUHJ0bVB1dXVoeTJRT0V2WStJaHlq?=
- =?utf-8?B?OUdvRC9tWk5aQkY5RUcxdkVpRzZ4OHRrbm50N3pMMVdibUVJNDhwY1pQU0xV?=
- =?utf-8?B?NW9yb29LdFpjK3RxSFdURkR0aEVnRVhIWm5yNUUyOHo0Uk9jalhEUkFpalRq?=
- =?utf-8?B?Z2lNTkpZQ0hvSm1IN3F2WHAyQnFSb2ZiK1d5d085TmdXVGFsUHV4NFE3YXVk?=
- =?utf-8?B?SUVVSXRNYlFaVDgycWt3K1dibnQyNmIvTzc3Tk9Id3J1RmhTaHpQUlBVY3Zy?=
- =?utf-8?B?VnNMdUZGaUREYVZYYW5KbmRZNXo0MWNEUkRYcXBTOTA3dGNFWUoxVVA3VXVs?=
- =?utf-8?B?eHlNSk1VTkxzcjZoTzJCV0t5QjZJeXJjWXF1bXNDNHRXdkI3YWhuK2J2Sldo?=
- =?utf-8?B?SS81eFF5MGp4Ni9lUGVDVklKV0dDSlhzb2RWVlRvT3FGM0YxNHM4K2tzaXRy?=
- =?utf-8?B?UTY1akxxaGJmTS9JRjRJQWlBMnJsa1hnUWlZUnF0aVk3VG9wL1ZhVkJRb29u?=
- =?utf-8?B?T2dhdUE4ZGVJYk5SWUYwb2Foam8xVlBmcXZENk9iNzRBQThnRDh6MWllRGJU?=
- =?utf-8?B?dytsaEdjRERCeHVSdTlRTlFSN1kzRjZrVkNoMUVoTy9OYXFVNTZ1WGxtR1pq?=
- =?utf-8?B?d3hWbXV1SjFRdjJrbVd3QzhhdUN3ZGRpOTA5QStpcERwbG9KdDZDQVRaRjZP?=
- =?utf-8?B?ZHNPVTI0TDFqL1ovYmpzQXZnc29VOHl0VDRGcy9LSUJlZ2MvN2huaGwvOHNH?=
- =?utf-8?B?MGRzZGVvVjllTG1yOUxrL0t4eDJ4K0ZUR1dIS3VJYnFJOHJ3WEJ4S1o3alZO?=
- =?utf-8?B?WHBOMUhiU1JPUmJtWmtJQkQ5UTZhVEZrQkpPcmNHTisrc3M2MU03cE5PNnFZ?=
- =?utf-8?B?dkJMd0VSL29jd05KUEhRa0plZXVYZUZMZjdhUkRrUllpdXh6dVNYYXhYY1pX?=
- =?utf-8?B?SjJXbXFCOEJtWFBBTFFFMWx5TTNzb3hZT1dYdENRV1BaT0UrSS9WeWM1UXVo?=
- =?utf-8?B?cXYrN0paQ1UrTU9tMUdWRURXZzVQS3BnaldmdTlnMDN5STNXbFhVcndmUXl1?=
- =?utf-8?B?N213ZTdnWnlHaFpnR2MxWnVVSmx6OUR4TDQwQ3phRWx6UmdZdURuWUNBUXY0?=
- =?utf-8?B?ZXVSNjhkeld4TGpSRzl0ZnViNzg5TTZQdmNobWIrTFY5UWhYT0wwcEVOdWV3?=
- =?utf-8?B?Nk03VWF4RXBJVG5DaW8zbnFQWHp2LzE5Q1NoT2pYOHNDeUFzakJobDlWYk1a?=
- =?utf-8?B?cENDNXpFMzlVeXdGOFVteU1sYStXUG1WMHJBK0VXVWYwdS9jeXRtdldTVS9F?=
- =?utf-8?B?N2lTOW9UTngrMFdvekQwR3hkaFN0MFE0a0JkZ2Zac21MWmJVS3VqWk9VR2dv?=
- =?utf-8?B?UmE2ZFc5NmdnWTgrbTlHN2pWZDBLOGVKLzNRVFRKNDAybWpPdkxockZOdWRV?=
- =?utf-8?B?ZjNwOENsRTdwbGZ6S21Nd0k3WHJxZjNiMENsbVBCZjYvdUtWVHpManBLNEw2?=
- =?utf-8?B?dVdzbDYxQmlXMjc4eDlMdTY3RituQzBHNEwra24vMzVJakwraDBHU0ZZRTQ1?=
- =?utf-8?B?U0tqRitMZHg1UXVRM1MzcUZqeCtyenNTeHpzNlRQTU55aG9SSWQ0SEFocDBS?=
- =?utf-8?B?Q01uUHRGdEl0N0FQSXIvN0Mzc2NVbjJFY2xWL1ZvQ3lPOFUrVzBCVmNsbWds?=
- =?utf-8?Q?muICWBHVhiB1Et9Bv/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0389df3-f5ab-48ad-5a84-08df0cd826e4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 12:04:21.6023 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u5/a7Anw4QS3R7cTSqA7UguEC58Bgxa+4wFPvYi9Gei9atYm19AKauIuJ9XxX9Su
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999098
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F22410E004
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 12:12:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3FF3460AB5;
+ Mon,  7 Sep 2026 12:12:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C741F00A3A;
+ Mon,  7 Sep 2026 12:12:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788783131;
+ bh=CMmFb/XRENoFIfvBuML1/OcZrfsbwii74w0nV3zYYwM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KuEPpTpobgToFIQCc9fqGca9OyJRGHVOK3JhNssIV/y3rO3HhTkoLUqPoVt6HcrmS
+ gHswSdZWqqtgYbDk0CSVR56BGrOOTFoRZkfu4+MbPT/t+yEd/XgsgOVUifhUZ5DnKg
+ KNMU3A+Rcw0KTFcitda0X+IKn3+mWW3F3WnaMWH4zeIAXdsQ+Lyj7I8k9efA0Snqak
+ TVkfHjF/FdRUt6SmSa+9B4HJK11hBFXnYE+rAKf0DY/ZsEqA19/v+3UqSsUdmkZ8RV
+ D5RTX0P19v3AkRFinkT8pb++Z6WHbwwvYRc31xhDX1Fl7tc5I9Ph+x5yxg5B4YQt9O
+ Zo2TAk585kQ2A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: Add Samsung AMS662ZS01 panel driver
+To: "Vsevolod Nevorotov" <sevanevorotov29@gmail.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260907115130.95394-3-sevanevorotov29@gmail.com>
+References: <20260907115130.95394-1-sevanevorotov29@gmail.com>
+ <20260907115130.95394-3-sevanevorotov29@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 12:12:10 +0000
+Message-Id: <20260907121210.A4C741F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,64 +54,125 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/5/26 04:31, oushinnyo wrote:
-> amdgpu_vm_clear_freed() removes a mapping from vm->freed before
-> clearing its page table entries. If amdgpu_vm_update_range() fails,
-> the mapping is currently freed even though the PTE update might not
-> have completed.
->
-> This is particularly problematic with CPU VM updates. Waiting for an
-> earlier submission is interruptible, so a signal can abort the wait
-> before any PTE is cleared. The old mapping then exists neither in the
-> VA tree nor on the freed list, allowing a later VM update to reuse the
-> virtual address while an earlier submission still references it.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Panel reset GPIO is initialized to physical HIGH while regulators =
+are off, causing hardware back-powering.
+- [Medium] Data race on shared `dsi->mode_flags` due to non-atomic modifica=
+tion in sysfs backlight update callback.
+- [Medium] The backlight sysfs interface issues DSI transfers to an unpower=
+ed panel.
+--
 
-That would be indeed problematic, where exactly do you see that? Do you have a test case for this?
-> Put the mapping back on vm->freed on every update error. This keeps the
-> pending clear operation alive and makes later VM updates retry it before
-> installing new PTEs. It also covers partial CPU or SDMA updates
-> conservatively.
+commit df8bf199977cc597d9cc38caadd2457c9f44d341
+Author: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
 
-Clear NAK to that approach.
+    drm/panel: Add Samsung AMS662ZS01 panel driver
+   =20
+    Add support for the Samsung AMS662ZS01 AMOLED display panel used in the
+    OnePlus 9RT (martini) smartphone.
+   =20
+    The panel operates in Command Mode with DSC (Display Stream Compression)
+    enabled at 1080x2400 resolution at 60Hz.
 
-Freed up areas of the page tables must be cleared when that function is called or otherwise we run into tons of problems reverting previous changes to the housekeeping structures.
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-ams662zs01.c b/drivers/g=
+pu/drm/panel/panel-samsung-ams662zs01.c
+> new file mode 100644
+> index 0000000000000..52e7e75c08b13
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-samsung-ams662zs01.c
+> [ ... ]
+> @@ -267,11 +267,10 @@ static int ams662zs01_bl_update_status(struct backl=
+ight_device *bl)
+>  {
+>  	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+>  	u16 brightness =3D backlight_get_brightness(bl);
+>  	int ret;
+> =20
+>  	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+>  	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+>  	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
 
-The only valid reason this function can fail is because the device is hot removed and in that case it doesn't matter any more what we do here.
+[Severity: Medium]
+Could this create a data race on dsi->mode_flags?
 
-Regards,
-Christian.
+The backlight subsystem uses bl->update_lock while DRM uses
+drm_modeset_lock, providing no mutual exclusion between these paths. A
+concurrent sysfs write to the backlight brightness node during
+ams662zs01_prepare() could race on dsi->mode_flags. This might cause
+display initialization commands to be sent in the wrong power mode.
 
-> 
-> Fixes: b4d42511b7f2 ("drm/amdgpu: Support page table update via CPU")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: oushinnyo <oushinnyo@163.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 47cde5459469..e20905d2d90c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1606,11 +1606,12 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->                 r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
->                                            &sync, mapping->start, mapping->last,
->                                            0, 0, 0, NULL, NULL, &f);
-> -               amdgpu_vm_free_mapping(adev, vm, mapping, f);
->                 if (r) {
-> +                       list_add(&mapping->list, &vm->freed);
->                         dma_fence_put(f);
->                         goto error_free;
->                 }
-> +               amdgpu_vm_free_mapping(adev, vm, mapping, f);
->         }
-> 
->         if (fence && f) {
-> --
-> 2.25.1
-> 
+[Severity: Medium]
+Does this function lack a check to ensure the panel is prepared and powered
+on before attempting DSI communication?
 
+If userspace writes to the backlight sysfs node while the panel is
+unprepared (screen off or system suspended), this unconditionally sends DCS
+commands. Attempting a DSI transfer while the panel's regulators are
+disabled could cause hardware timeouts, bus errors, or host driver failures.
+
+> =20
+>  	return ret;
+>  }
+> [ ... ]
+> @@ -311,9 +310,10 @@ static int ams662zs01_probe(struct mipi_dsi_device *=
+dsi)
+>  	if (IS_ERR(ctx))
+>  		return PTR_ERR(ctx);
+> =20
+>  	ret =3D devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ams662zs01_suppli=
+es),
+>  					    ams662zs01_supplies, &ctx->supplies);
+>  	if (ret < 0)
+>  		return ret;
+> =20
+>  	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+
+[Severity: High]
+Does this initialize the active-low reset GPIO to physical HIGH before the
+panel's regulators are turned on?
+
+Calling devm_gpiod_get() with GPIOD_OUT_LOW on an active-low GPIO
+immediately drives the pin physically HIGH. Driving the reset GPIO high
+while the panel's main power rails (VDDIO/VDD) are off could forward-bias
+the ESD protection diodes inside the panel driver IC. This back-powers the
+IC logic domain, which might cause permanent hardware damage or latch-up
+preventing panel initialization.
+
+>  	if (IS_ERR(ctx->reset_gpio))
+>  		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+>  				     "Failed to get reset-gpios\n");
+> [ ... ]
+> @@ -330,9 +330,10 @@ static int ams662zs01_probe(struct mipi_dsi_device *=
+dsi)
+>  	dsi->format =3D MIPI_DSI_FMT_RGB888;
+>  	dsi->mode_flags =3D MIPI_DSI_MODE_NO_EOT_PACKET |
+>  			  MIPI_DSI_CLOCK_NON_CONTINUOUS |
+>  			  MIPI_DSI_MODE_LPM;
+> =20
+>  	ctx->panel.prepare_prev_first =3D true;
+> =20
+>  	ctx->panel.backlight =3D ams662zs01_create_backlight(dsi);
+>  	if (IS_ERR(ctx->panel.backlight))
+>  		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+>  				     "Failed to create backlight\n");
+
+[Severity: Medium]
+Is it safe to expose the backlight sysfs interface here before the DSI
+device is attached to the host?
+
+Because the backlight device is registered here, it is exposed to userspace
+while the panel is unprepared and before mipi_dsi_attach() is called. This
+makes the unprotected DSI transfers in ams662zs01_bl_update_status()
+reachable immediately, even while the panel is suspended.
+
+> =20
+>  	drm_panel_add(&ctx->panel);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907115130.9539=
+4-1-sevanevorotov29@gmail.com?part=3D2
