@@ -4,125 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29DB4C79F89
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 08:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC7AC79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:15:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E53410E49B;
-	Mon,  7 Sep 2026 08:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7263310E710;
+	Mon,  7 Sep 2026 09:15:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2e1zORtj";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="nOXv+GlE";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BE410E701
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 08:56:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g3MZd17tXMzfn7P4SLdyntoLOizWIbSM24v6MJkBsthoPIyt4EPmEa6kKYt6QgL7opecU3l+auRcJULajwRnTafl+JXqEm2Bwh0nVqlUwwNdOHuKUWc6WmsEp83BnoIm5375NawYvuRBuIyIkSca1wdBM/+nEfPcTFx2mY/NXKXxW4lLXHyPpmsD9SDUze9Jtjm6JOdZOJpPg34nW6j8VQSsUFZ+NLxBBnzXpjyj7kLPyVtF5MLZg23bVi8S6gNPFzvWCxVFa5CM+4/7srpTESXlX7hc0tdW93YElVrqAafT60zcmqnshlMyMZehk1zlt7ZXu81N4GWB4uL7MLxvIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=drUN/s2lYocZdcmfAJKzb+/0zq2I6e6YSixOr/p6X5w=;
- b=mrzsXiyXp0RfwDvzVm3/4QTUy40R86eJP4cV5drt8SdYYH9SrLDoEvGozUDMEBrm0KnJjxB0BdW2dgRshUgq+dKK2pb+L3asVfncvs9oCLV30UkJ22BJxWNSHtiKj9TqfgvsJtVGqcw6CS8QjGY+kixt9p7X7w0yAGU3Moeutywm9hS5PpF5j4uD2pf+zjavTntR0JL9WWRCr3ym+UnH4VxEL3kkXq0olumvjTkXozN+jQVqR7ueEHBd9HxzRjluvG1QLX/2+g/0FQez0TZZUMQ76mE8RkKbablRkppNbOAMb8fckYxAuAoOxlqhdQMsMD+6zw0bu7BX6w/W94mP9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=drUN/s2lYocZdcmfAJKzb+/0zq2I6e6YSixOr/p6X5w=;
- b=2e1zORtj2PYkUn/DAxX4ZATi8hY/o0MtfqrYFXG874GEYsmxdBpyw4ikFxPzt6pLe/9XBSyP934fNTWW70jCsOXACPME+LoZM6PEGXqNMG4fa+my8ASJb9moN9AVVuljWBO4RNBiOwSolaCQnJmylvXbCp/I3ZwCNraR4MLlSQ4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by EA3PR12MB172729.namprd12.prod.outlook.com (2603:10b6:303:30a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 08:56:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 7 Sep 2026
- 08:56:39 +0000
-Message-ID: <687c2ac7-0dff-4c97-bbff-d1476eb1afda@amd.com>
-Date: Mon, 7 Sep 2026 10:56:36 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/exec: Match the drm_exec_retry() kernel-doc to its
- parameter name
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20260907011127.19653-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260907011127.19653-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0378.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26EE410E710
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:15:33 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-c25b661d37dso446855066b.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 02:15:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1788772531; x=1789377331; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=xBgijUTK0RaiV4bs4COhasChcigDnWDkUPfx1dw6myY=;
+ b=nOXv+GlE4eOe5xlIcvm4QHuQhGj+8GIEs9aGAn1tQgbkS8yVv/tinyiPWfjiOzMz7Z
+ 98SsujSbB/h1PaIBLfUXPejKlwgtNtCINLLN3wuedsv57mIvhAy7hE7SBKxqlmgCCDJN
+ ZV5+9mMi+yTDQdmEvATvsACik8ZsNbUJ6g7yu8vIRs06HpbbVTq+9rKKF2wRHyRoYwPG
+ +HK6HyxkYb+7aSRtZUNB/rpjUt4zZciRtAjuhXR211eXRoEwxuMFl4HvQY73OjOw4mAd
+ B9Nr1qEnDGR5ZF+u4fVie1WzPWEebRFwoJTymNQeAbtWmE92MG98vWdD6aXz5QhybXCO
+ MRiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788772531; x=1789377331;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=xBgijUTK0RaiV4bs4COhasChcigDnWDkUPfx1dw6myY=;
+ b=Ft5fS8d3AqzJZNZhfCNjU0dBMHggAQMnnVoVvQtf6DYO3fbwgLxLFyGCaAAkHS1GA/
+ GLKVkPTm3YQb0iHtBAZgYIYKBgTEkYJ5J9IBkWj4SuCnvfjtQzMzztiD0HAJa+bVLXyk
+ RBGyNC/Uz5kuvkJ/9z1JKCd2gG5Es/iipcLKW+Fzg3pP2HK7sfY5bmawpmNDyd9MAU0F
+ Ua7YIGPpphu/HUKHwXMUg1apI9i/aCyRDFLjmiy1dKp3Kz6mV9wSdlNf881ccewlgwvr
+ +xcFBoNKREu2e5iGD9qvRnboO9cQTLVDLEtfK9xzlMAZRg1rlTIVOMW1TmEHQpwX6WaG
+ 255w==
+X-Gm-Message-State: AFuF++mN/zW5yaLZBZ81aFL3uT9LcF5OK/j3XISekfKu5z27WQhC/QYa
+ GDhWtUnjGkHpFQEfTUVJNKuuypxvYEq1DEoc+0F+hvhOZDVVUxeS5k7MecKaTJlA9O4=
+X-Gm-Gg: AYBFou1heyIPh5rI+U565uLsT+8y81MPZchdAjGlCtg+hJ9QI6NtmwM4OuKWiSXydCG
+ x6XQlQRKF1Pgcmfz1smR5iIso60VVeNByHMBBDq1kyzXS1gPamlPnawB7IRt1HMYgbFaKBhMZgp
+ Liu5wOD2j8ePj3VVxguN9Eqq6KBLfDljoC4oLa3Waa6j5MLb7LXRORYFC6OqCz8J4cCVwemFA/n
+ DSUXz9AWgKAaEz+jU4K8TBAfvZ+rxx2pshNZ+ovjqceoCe4jLa+wE6Xn/yF7pEwZodzHIvUM5+j
+ BXfqHfBZfKRsG7b85c8bxnS1nQDH3g1Tw9KML/JMQto7arR1LxGQCs1paCW+r24MJbB3wd0iBvf
+ R1EN4Hq/pibmOaVbqEKOkKwyFDWyqwkrwgCKyWrw658aK1/MqibMVpImp+7zGy5oqlRbFOihSsb
+ ZWCczQZXhqUN23hYntAhmqhYgfJxHk+i/DRjZ/MRiTkruyFuy7I3Mwp1vVA0AovuVxEo+c2s2b8
+ gdk
+X-Received: by 2002:a17:907:d18:b0:c26:19e3:e98c with SMTP id
+ a640c23a62f3a-c2619e3f016mr677971266b.44.1788772531387; 
+ Mon, 07 Sep 2026 02:15:31 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c260d5b371esm443215066b.54.2026.09.07.02.15.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2026 02:15:30 -0700 (PDT)
+Message-ID: <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+Date: Mon, 7 Sep 2026 10:15:30 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|EA3PR12MB172729:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94ef9e72-6b90-4ac3-0bae-08df0cbdee35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: D/ewbEWKjFGcS6oofr5Th9dI8U8PCHVLrnQTHwTFv4eq0oUq0WyDLhc02wt5ixxLU8uL8Rb2dxJgJjl6KHUqVduWong4bVhyqdwO6iEZEyYCOf0Ogi0HmQ9kSIEl5Kv/Eur/iqAicF3swK012sWck4Wqx+5iTs+6jn9lhLffyeflt6s8/mFxsFtHU4qRsd+GselNLGXdyoy+k9mTxEUFgvGbQfZY40u+0kvlDiZ2mF8otzwU/9KUye+KEjMtPCYX3IE0yGVrz+8ltRxyuCw6Eyxy5RWGkuGcfLhlCaK7yTWdbadshUROxlWNQ6FOk9Ri94/pZ+8nhTlT9lYj09LirYzQ79Zmw+J+nr16xlFAGJLYrxZiOKZHsANBft68lp8fwH7ofy54vY7sMzkVPqYwEHYH4aJnE2W6Sg0HVlbFyOK7QuRbzYCicejlpesIx3EHRPWXwKC+HuONvXwhcc/pi5dsyXwV2d1vfLkTYLdjwBnLc8Yqg8elJ2vgH5Ov2D3v9b3xUv3FL/zkH+8o3G5sHsfcEcgWUzZjcwwES+cKG+PEf01WRzd/XQMuBAO99PMLP7PJ3zmU3v6NFOcC/1kNt+VQfu2yO9NkPWecftCBk3DsNFxkTrNmSbT/S/e1++1uqWBlzDW4AkC/+K1gtuxDesGtFDo3Ri8nxmsUNpnrpXo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmFBcjJ5Zm8vNkpFcW9ZalJnZzJyR0VzeHp3U0p5eEo0OUpnYTA2cjQxQmwy?=
- =?utf-8?B?MWF2N0x4dC94UkNOTHp0UDk4enRxSzVxWXYyanN6NUF6QWl5VEJoT0p0MjJF?=
- =?utf-8?B?N0V1VVVKYmR6TjNHVWVnbVFQZS9Od3FLNXFSbysvbWlIRVhKbHRRZENBVnlk?=
- =?utf-8?B?bjlFeXZmdjNla2ZxSkRwSWdib1dqV1dPaDh2Tmcrak1BUk4vem92cmhxSmYr?=
- =?utf-8?B?U0pOVEh4c3kwMlFCT1JOdStONWlwZE5PWllHK1k5ekZPMm5LTHhKdXB1Vnoz?=
- =?utf-8?B?emZuc1BWZThENzRUMTJtMFM0RWUrQzZPOGtWM0N5NnhiTitRTDBJdUp1S1lS?=
- =?utf-8?B?aUNoczJsYUE2Y21XRVBWMmNsSTYvdStKcGo1bXd0azhOY1pFSTZjRWREaFEx?=
- =?utf-8?B?RmhlUWFHK1Zhb2svV2dVYlZNMjRQeVp5OXB6ZXRFZEtDalRuRmRrdGRiektY?=
- =?utf-8?B?dVE5bzZlblZmK240eHZSeDVXNFp0cXZzc01jVlhwS1Z5TDUwZVhWUC82ZGNI?=
- =?utf-8?B?NTVFZnMzaWFFVnNQOStSaW0yaTg1c0dmaUFLQjdOekVGZERFVXZnQ1pTNy9i?=
- =?utf-8?B?Zk0wcnA2RE93bHBLc09MZ3lnQTR3WFpnbloxU1hHQ0hHWWpTZ2FPeWYvVDhj?=
- =?utf-8?B?WEJ3SkhhWHkrSGdJeGRNejgvQzVrYUlUQk5WVTFHR0RhZWpabWpxcjR0VTZv?=
- =?utf-8?B?YW1TcWZNOVlWQnFOQXNEa1krbDlvQmszRWVPTEtMc1c1YU4rbHZUcFBMS3NL?=
- =?utf-8?B?aDNGTTdKUVR4UzZZbFdhdlp2QnBaVWIrNmpvR3RFdDRzcy9McDMrU3JjanJE?=
- =?utf-8?B?bGhNbjlEOG10dzNVcGhXNEZPVmdNUTZBdGkraEJIZmZuclcreFVtWjFISDlj?=
- =?utf-8?B?c1hxR0oxU3o5eWZVRlJ6R1RtcUMwdUNXQXRZV3p6SGk0bVB6LzExdTlqL2Qr?=
- =?utf-8?B?YkwyUUZ2Y05NWGtSZWx6cmgxRXp4Nkp6SWhRMkpvMWRFSlRKa2FlY25VeXcv?=
- =?utf-8?B?SzdoT0tNRGJhVlNmM1JDdFFDQVFRZHl4MTdQR20yQ3A1aXFqTDVGWWt5U0NC?=
- =?utf-8?B?VW00dmJGTWZGMHdKSDdRMHZLTUNIYjVLQkZBOUp4S0VYdWw4U2ttalUwRXIz?=
- =?utf-8?B?TEt2Y21kZDVSSWZLVm51MVN2czBWVWZocUFmNGxtT2ZGN0hKc1BhRDRicXF0?=
- =?utf-8?B?M28yMWpkNGNnZXpmTGxrYjdvVjEvcDZ0eVB1RVY4N2NWNEZFTENuSnBMN3JC?=
- =?utf-8?B?TysrVWNaRU85eFpWdVlzeDhzdE16OEVoMGRaVmtsd0tMeGtiaXl5cGErQnZ2?=
- =?utf-8?B?V2h4VGhNRHdTMS96Y0ZRRW9Ecnlnb2YzUC94WTlETUNyMm1VakN1dUtwUGU1?=
- =?utf-8?B?bVZjREUzME02VUFGTmdpSVkxbHVSSzNDNFFkamhZMWd4ZmRjby9OeW92QlRv?=
- =?utf-8?B?MkpudDlCejRQT2RaWmpiVld2Wm1XZldBN1RVNVVsaU5JVHJnSHduUUVHakJY?=
- =?utf-8?B?Z0FCVXRtTnBLVnVzemFhTTE3MVMrVDVraVVqbU05UzZUaDJ2OG1CWDloSVdD?=
- =?utf-8?B?WkZzZDBxQk5sVEJycDF6NUtQaEs3Ujl3VmViZ2p3OGZIWTJ1MVVuNjUzNFlB?=
- =?utf-8?B?Sm8xcUxzOXk0UCtKMHRIamJBWTF0V1cva2wvNlhJMjZILzlMaG9henJqc2RB?=
- =?utf-8?B?SVM0QzU4aVNWc0JPZnVxSkpucjhEbW1VdDMzSlZQM2gzZEczZEt3VmJyTkNL?=
- =?utf-8?B?dHcvSDQrK1d0M09TMXRxUXBLM0t4Q2FhWXpWRWpIWmJtUE9ndGZmTU9mcU1B?=
- =?utf-8?B?ZWZTUk9IaENCTlZtaVFsWHZMZjNkRFU1TWt1VURKZEJDUnZoTjVHM3U0T0tk?=
- =?utf-8?B?NVNBOERkcjZaZFZ6dXlmd2NsdURWTkhkeHVZQTlpdHBmWTBXNnhXcmcyeFJw?=
- =?utf-8?B?ZmNnamdnaFByM3c2TDU4bVJ0TEdGenRBMHlMWDhTRGUya285RTZBOXJrMHNV?=
- =?utf-8?B?d0VTS3NZWGJLNnlUYW1kWlNEYytqMWc5ZTZSRUE0UmgzNTBEVlVFNHVIbTZw?=
- =?utf-8?B?TmU1U214c0g0SXNOUnU4WENXdml3dERaTGdYZWMrVWJwRHRYeW1kQUk1MGVi?=
- =?utf-8?B?YnV2RTZWN1VrVXFSdnRyUVZaTS9YdzdkSHN1b1dVYzZYcDVFODdJa25Ub2Fi?=
- =?utf-8?B?Y3hibWZDRWhuTzlhRm9hcEZDdDVQLzcxRFkwcGhtRWdVTDNuVnJXK1I4Umpz?=
- =?utf-8?B?bUdMS2NxZVNMYzQwNzZycHpDZll4c0U1QnliWlQrUlROdjUyYzFkbjhPQzhy?=
- =?utf-8?Q?e6NufRLupyMusLxKMD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94ef9e72-6b90-4ac3-0bae-08df0cbdee35
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 08:56:39.6872 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pemzZ9ESTHVe+hpzuXnt19leVayZ5A2earMvM5YY2sjmv8iPnUAOT01uaFvMr5Lt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA3PR12MB172729
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,45 +99,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/7/26 03:11, Karl Mehltretter wrote:
-> Commit bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec
-> retry pointer") added drm_exec_retry() as a macro whose parameter is
-> _exec, with a kernel-doc that says @exec, so kernel-doc reports both an
-> excess and a missing parameter on every docs build.
+
+
+On 04/09/2026 20:06, Philipp Stanner wrote:
+
+8><
+
+> If you can think of a stupid and simple solution, shoot. The only thing
+> I can think of is moving the string into the dma_fence, as a hard copy
+> :)
 > 
-> Say @_exec.
 > 
-> Fixes: bba175a2d4be ("drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> In the mean time, my proposal is to keep aiming for removing
+> sched_fence->ops->release and fixing pvr and amdgpu.
 
-I would rather rename the _exec to exec for consistency with the other macros, but either way is fine with me.
+Fixing the drivers sounds like an obvious thing to try indeed. Along the 
+same lines as it was done for xe and panthor. It is an already 
+established and well understood approach so shouldn't be controversial. 
+After that we can discuss in leisurely pace if something better is 
+possible in the scheduler core.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is 
+it significantly more complicated than it was for panthor and xe?
 
-I assume you don't have commit rights to drm-misc-next?
+As for regarding the 035219a760ed ("dma-buf: dma-fence: Fix potential 
+NULL pointer dereference") sub-thread - I did not manage to penetrate 
+the consensus there - whether it was established that it needs adding 
+the is signaled check back (with additional memory barriers, like v1 of 
+that patch) or not? Regardless of fixing the drivers or what?
 
 Regards,
-Christian.
 
-> ---
->  include/drm/drm_exec.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index cc2937185a9f..ae1d074ade5a 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -150,7 +150,7 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
-> 
->  /**
->   * drm_exec_retry() - Unconditionally restart the loop to grab all locks.
-> - * @exec: drm_exec object
-> + * @_exec: drm_exec object
->   *
->   * Unconditionally retry the loop to lock all objects. For consistency,
->   * the exec object needs to be newly initialized.
-> --
-> 2.53.0
-> 
+Tvrtko
 
