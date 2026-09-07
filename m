@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E3A5C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 11:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A3BC79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 11:28:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF8CF10E78C;
-	Mon,  7 Sep 2026 11:28:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A3810E7A3;
+	Mon,  7 Sep 2026 11:28:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="whr/abnM";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="h18REb8T";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2516810E78C
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:28:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F05E610E793
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:28:34 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id B11CC157F;
- Mon,  7 Sep 2026 13:26:55 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 94F5C2E9;
+ Mon,  7 Sep 2026 13:26:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1788780416;
- bh=1Uecn7x6YA7Ongo44LRbcp26WhmtFnehgnKpHJpp28Y=;
+ s=mail; t=1788780419;
+ bh=LaiGVpiakqZde4+FkOOw611byumGIZnyl3vENEg+LRM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=whr/abnMdORYLQaXMiX2K18JB25/YnaIX1qM5+4k/ic8gcJCAFJQxhOk4wy1+PvDV
- TpGNQvwp5u2Lwug21mjFZal2aUBfSfv6TltCq9vcB9GApwo+/I8Zc2BKG6KQyUz4Xm
- LRQxaoJcJFaPuP8SoTtUvka1fkfM4wG211xosnZk=
+ b=h18REb8Tsb2EYJs7T/DR1Unx9xAxKVGgBS+YBtnamJiVA5vow6tul82zIWUYm1vmE
+ PFfimVk4d3C3wi0HxqlriGT+5G4h1WCGPaglGtjh9B4hx6fqqlEzUw50CcmdCWMKdj
+ kjqP9GO2fa8027o6ZX0LFLk91eWV/8SLDHlxC0kE=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 07 Sep 2026 14:28:03 +0300
-Subject: [PATCH v4 08/13] drm/bridge: tc358762: Support VTG
+Date: Mon, 07 Sep 2026 14:28:06 +0300
+Subject: [PATCH v4 11/13] drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-tc358762-fixes-v4-8-e3fc3ab5cd83@ideasonboard.com>
+Message-Id: <20260907-tc358762-fixes-v4-11-e3fc3ab5cd83@ideasonboard.com>
 References: <20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com>
 In-Reply-To: <20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -45,24 +45,23 @@ To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andreas Kemnade <andreas@kemnade.info>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3465;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3085;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=1Uecn7x6YA7Ongo44LRbcp26WhmtFnehgnKpHJpp28Y=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnp/UFyupikbOyZA07F+YrKzgr4yoQoLR/R+f5
- 8PdpCyneayJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6f1AAKCRD6PaqMvJYe
- 9aVAD/0ftAubH68Fyjusg1gMLmkT1c0Oj8dUGbYSeeRoA/tzqhuAo3PGBvI8glIpQwyL5kbRDY8
- oOf1/bss/vwATKsWki0WhNb5trbubUBhEvmwNlLkNjqnE8fNVZMI4I2djOGd1EuAcNOLPZ6Y/+A
- PE+nHdfXHBtLU0zfgWUbvxncBfk5/GFx7LDiD/x4dWQZ3P9aGjLgXhOCn152DHjymwcoJ5Kb7e4
- mBT8u/QqQzWRXJIMgvoPBLfyH3zF9uMd7PmNAWZa9DgywfqynSMIWS5KHaivjxn9ZjgWRggtz9r
- 9TSkPxkx8DAHGXZw4g5LJLeLQb67HN8lXoBL9foWzJQ3iFt6t/ZmRETTriTtur6KXJOcZkBhJqb
- 1bsVhsRkjZ1xoRcwK8nLnpcquLwTaPrNeZmGyHERBUAUcvDP7WxAdXDhDoiNjQsYvzUkiAMCIL7
- HL8QZxFN/BuKgqFr0ns/niiU9i0xVpRbfgFo26i5ktjItGJiCZqcItYHNweVtNKuH5gRjnXZYcv
- xc+5/yXb/hWpa8q2LiwJ3mvQIh1cBNxn/37d6scK6cEKErX+LYb8JCHKFnHyUISoB+5JLn6HI/k
- kzcW5kn/CEAfiwHiGUy72XF+taBe1vn5qEL2vSULyDo9VIaUYLZEf27r2Wy9TE4iF2KLTUsXMLy
- yZeeC4QzUsj/pMA==
+ bh=LaiGVpiakqZde4+FkOOw611byumGIZnyl3vENEg+LRM=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnp/VAopH2tfY7Rh+Ikeuho8/i/UE/jTyJb9zw
+ DHL5rpaInSJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6f1QAKCRD6PaqMvJYe
+ 9fWBD/9U82FRgXDM0ZQwfUyspYb0G95t8PWfXDugGxaAKQjJpo2WMyJ5PXa2CKTwSvmyADd0oZf
+ 7Jo9dFk+tHhDPP/fOQDVAqkUUZaFK/oSzjOV+S7HgUN6tivMmfLoQuBiWl9vsdeMHXawWh2GSka
+ s7ilxXgvMcfKhn6HEMMnQBbt5PkDgf2nhVFcrjnJAwVdW9NaJqvttqNgQghQQ623EUUpoi2olPu
+ x/L/eQkGK43ZpQtsbKK425MLPqsrfM5ENr0ZpGHEuIpESaPB9vttKF8kQDXL9unekn1tO6JT71L
+ towhL47D7sl81TxHKLX3irszdsk4E9v7nG18tDB6S4XVOBUu6fi2/kpaSpe08BD/oJIL5aKS3tV
+ gKb3tlPeUxrZwfFYH66D0ew7UDcLanbRmc8JBz0L72egpHII3KdIX8Rna3oAyyY+k5o5x9jM+d1
+ B+SZzBL9spR/PH0RxsYNDY+Gs9bKCF/Le4BLXNnkYQ1hz/R4Eg1z3QK6qj2ObrmmlscqGYnlaKL
+ /QtqhTertSUj2sYNoDL5LLwkAi1h04eGqt2/abBC22AQ/ttHX0a4EXFaJFIv21PLR0Aa7OMh+B5
+ rymRpnvdNIjpeexoNSi1bZGEWNqqQ8aOns5/NefLuHoRQuMNUb1wWvyPTPeQcerT5womDIcK4CW
+ uyFdnSycaeW6uwg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,107 +79,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TC358762 can generate the DPI output's timings in two ways, either Video
-Timings Generator (VTG) on or off:
-- VTG off: Duplicate the timings coming from the DSI. This requires DSI
-  pulse mode.
-- VTG on: Sync frame on DSI VSync Start, but the exact output timings
-  are defined in TC358762 registers. This can be used with DSI
-  event/burst mode.
+drm_bridge_funcs.mode_set is deprecated. Drop it and get the
+drm_display_mode from the atomic state.
 
-We are currently using VTG off in the driver.
-
-I observe that the hsync signal, on my HW setup, is not 100% stable with
-VTG off, and it seems to lengthen by a single clock every now and then.
-However, it then stabilizes later. To me the DSI input looks solid, but
-that is more challenging to measure exactly. So I have not found the
-root cause for this.
-
-Turning VTG on removes that instability. As I dont' see any downsides
-with enabling VTG (and it would allow extending the driver to use
-event/burst mode in the future), let's always enable the VTG.
-
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ drivers/gpu/drm/bridge/tc358762.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 34f2bfd9977c..797866265b41 100644
+index ff7913441752..ad3a2620ce47 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -18,6 +18,7 @@
- #include <linux/regulator/consumer.h>
- 
- #include <video/mipi_display.h>
-+#include <video/videomode.h>
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
-@@ -63,6 +64,12 @@
- #define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
- #define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
- 
-+#define LCDC_HSR_HBPR		0x0424
-+#define LCDC_HDISPR_HFPR	0x0428
-+#define LCDC_VSR_VBPR		0x042C
-+#define LCDC_VDISPR_VFPR	0x0430
-+#define LCDC_VFUEN		0x0434
-+
- /* SPI Master Registers */
- #define SPICMR			0x0450
- #define SPITCR			0x0454
-@@ -94,6 +101,7 @@ struct tc358762 {
- 	struct drm_display_mode mode;
+@@ -98,7 +98,6 @@ struct tc358762 {
+ 	struct regulator *regulator;
+ 	struct drm_bridge *panel_bridge;
+ 	struct gpio_desc *reset_gpio;
+-	struct drm_display_mode mode;
  	bool pre_enabled;
  	int error;
-+	bool use_vtg;
- };
+ 	bool use_vtg;
+@@ -186,9 +185,18 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 			    struct drm_atomic_commit *state)
+ {
+ 	struct tc358762 *ctx = bridge_to_tc358762(bridge);
++	struct drm_connector_state *conn_state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
++	struct drm_display_mode *mode;
+ 	u32 lcdctrl;
+ 	int ret;
  
- static int tc358762_clear_error(struct tc358762 *ctx)
-@@ -155,9 +163,31 @@ static int tc358762_init(struct tc358762 *ctx)
- 	tc358762_write(ctx, PPI_D1S_ATMR, 0);
- 	tc358762_write(ctx, PPI_LPTXTIMECNT, LPX_PERIOD);
- 
-+	if (ctx->use_vtg) {
-+		struct videomode vm = { 0 };
-+
-+		drm_display_mode_to_videomode(&ctx->mode, &vm);
-+
-+		tc358762_write(ctx, LCDC_HSR_HBPR,
-+			       vm.hsync_len | (vm.hback_porch << 16));
-+		tc358762_write(ctx, LCDC_HDISPR_HFPR,
-+			       vm.hactive | (vm.hfront_porch << 16));
-+
-+		tc358762_write(ctx, LCDC_VSR_VBPR,
-+			       vm.vsync_len | (vm.vback_porch << 16));
-+		tc358762_write(ctx, LCDC_VDISPR_VFPR,
-+			       vm.vactive | (vm.vfront_porch << 16));
-+
-+		/* Upload VTG timings */
-+		tc358762_write(ctx, LCDC_VFUEN, BIT(0));
-+	}
-+
- 	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
- 		  LCDCTRL_DPI_EN;
- 
-+	if (ctx->use_vtg)
-+		lcdctrl |= LCDCTRL_VTGEN;
-+
- 	lcdctrl |= LCDCTRL_DCLK_POL;
- 
- 	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
-@@ -305,6 +335,9 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
- 	ctx->dev = dev;
- 	ctx->pre_enabled = false;
- 
-+	/* Always use VTG */
-+	ctx->use_vtg = true;
++	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
++	conn_state = drm_atomic_get_new_connector_state(state, connector);
++	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
++	mode = &crtc_state->mode;
 +
  	/*
- 	 * When using DSI clk for pixel clock (only mode supported in the driver),
- 	 * the pclk is derived directly from the DSI byteclk via simple divider,
+ 	 * DPIENABLE has reset default of 1. Make sure we don't output on
+ 	 * DPI until we have finished the coniguration.
+@@ -213,7 +221,7 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 	if (ctx->use_vtg) {
+ 		struct videomode vm = { 0 };
+ 
+-		drm_display_mode_to_videomode(&ctx->mode, &vm);
++		drm_display_mode_to_videomode(mode, &vm);
+ 
+ 		tc358762_write(ctx, LCDC_HSR_HBPR,
+ 			       vm.hsync_len | (vm.hback_porch << 16));
+@@ -237,10 +245,10 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 
+ 	lcdctrl |= LCDCTRL_DCLK_POL;
+ 
+-	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
++	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
+ 		lcdctrl |= LCDCTRL_HSYNC_POL;
+ 
+-	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
++	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
+ 		lcdctrl |= LCDCTRL_VSYNC_POL;
+ 
+ 	tc358762_write(ctx, LCDCTRL, lcdctrl);
+@@ -265,15 +273,6 @@ static int tc358762_attach(struct drm_bridge *bridge,
+ 				 bridge, flags);
+ }
+ 
+-static void tc358762_bridge_mode_set(struct drm_bridge *bridge,
+-				     const struct drm_display_mode *mode,
+-				     const struct drm_display_mode *adj)
+-{
+-	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+-
+-	drm_mode_copy(&ctx->mode, mode);
+-}
+-
+ static const struct drm_bridge_funcs tc358762_bridge_funcs = {
+ 	.atomic_post_disable = tc358762_post_disable,
+ 	.atomic_pre_enable = tc358762_pre_enable,
+@@ -282,7 +281,6 @@ static const struct drm_bridge_funcs tc358762_bridge_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
+ 	.attach = tc358762_attach,
+-	.mode_set = tc358762_bridge_mode_set,
+ };
+ 
+ static int tc358762_parse_dt(struct tc358762 *ctx)
 
 -- 
 2.43.0
