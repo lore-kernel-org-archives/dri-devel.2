@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE47C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF3DC79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D23510E6F8;
-	Mon,  7 Sep 2026 13:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF74010E802;
+	Mon,  7 Sep 2026 13:24:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BaOGdNly";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eHSDRyTJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1780410E79E
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637C210E79E
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8F81860A9C;
- Mon,  7 Sep 2026 13:24:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B942F1F00A3A;
- Mon,  7 Sep 2026 13:24:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4C61743B83;
+ Mon,  7 Sep 2026 13:24:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980581F00A3D;
+ Mon,  7 Sep 2026 13:24:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787490;
- bh=OzJu/z9M6XhuZf1AJTIvfQ4KST6Lij2H6utn5bZJ8X4=;
+ s=k20260515; t=1788787494;
+ bh=Y7doNKQWARSHjr0CXbtFMtMEw0q2eCscafsYPXnUjLs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=BaOGdNly/Ln8pGwy/tF/Kx5yWWPC9/Ev8IgeGqxyTuzF+fVd2OopwgjC2yUo+sJB+
- FA41cpIdf0IrZt3i2fs+tXtbok2dRYXDxZ9dvusPNwAODlOa7GJ9bpNmnqk98YAznb
- WYxcffa70+R4J7bFFFQwD2Gud8k1tJ7fwin4M1so31rEL64ZiX/CTTW6rG0tclD5Wq
- 9kkF18uBTm5mUmrOffywnIaU6/u8pr2pfoVKl5ZZ0RoIds2TxxXJdEkaCLhDNZzu+9
- 4cNURyJmXtJARAPXitNVTZEUDCX4Rknccuh4C1g7ey/FaNlr0dg25TlCFDNVE43h/T
- L/xFv8cD6inoQ==
+ b=eHSDRyTJYZL8GCGI9vB8jxLbGC4K+PEYHKbtpsTW2x/SLk5+4Qmqd+uDWLTF3ipO6
+ +0+TtUYP8tvL615aO56qPzjpOCxZIW+Hd9BjC9x551jhfAuydfuo0lM8L8oRULGaVk
+ qY86IK3voKZZyyUdUiZ3YzqZJpgS7x5Y7yteZxkVFYjk70cpsbUPbX+paCCh0XUIkG
+ X9vixfCjgdvwbr8BtYkd2HOT3OjRWXxGcSjvbutdv61FfrmSyI5zx1haWQBpBex59m
+ tmbqlwEZbnMFJQvocc860sTLkgw70thxFjX/KZ+2zH5l5YvXfvZ70DaYreGFQWsxnp
+ BH3Q+IhWDZpIg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:23:49 +0200
-Subject: [PATCH v5 13/33] drm/atomic_sro: Create documentation
+Date: Mon, 07 Sep 2026 15:23:50 +0200
+Subject: [PATCH v5 14/33] drm/bridge: Handle bridges with hardware state
+ readout
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-13-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-14-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,12 +51,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3456; i=mripard@kernel.org;
- h=from:subject:message-id; bh=igZeXupdVXIci6RGng08f2TNU0W3UzTXq5Q0sfMFLdo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj32q5undyaxjEVzwy/9XI7KUFXn3w0Hs646Xt51T
- 3rlPOvkjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARplbGhs+LfgnsUrTQfLxI
- zEZg47aLriuPXna4rHo6oXWe8H5Xb2uP24WXt+iyX7kfuM99t9e0SsaGD44z/j5dEmZy5Of0a4w
- 3dPY4GpayrHQIe5LD6vVv+Y21v1xtLNymG/a5HP0kz7zZdP5TAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5769; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=h5PVmt5TO4B23PhgZvexvJxLx1j2885vVAXLy6xYPHE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdj3p2WA2U+Xi2g/bIttuWq/48WFzf3yA1ZE1Fq9N1
+ iksiLvp0TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAm8n8xY8P2RS77X0+fxpTb
+ tu3E83L3b3NlLjKcjGGc2T3RzGeni42muvX+O0ylys0vn9m/d1ysF8/Y0Ci8cW7Nu07vxPgpv/6
+ 9+xYwubbZILhn28KHv8/OdWE1a9tv/GO7adUPtk9PcuSafdnNAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,97 +74,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The SRO infrastructure has grown to span multiple files and hooks
-but lacks an overview section explaining the overall design and how
-drivers should integrate with it.
+Bridges use drm_private_obj for their atomic state, but their readout
+needs special handling compared to other private objects.
 
-Add a DOC: overview section to drm_atomic_sro.c describing the various
-SRO phases and how drivers wire up the callbacks.
+Bridge drivers need the CRTC and connector states for their pipeline
+to properly read out their own state. Since bridge registration does
+not guarantee ordering, the readout must traverse each encoder's
+bridge chain to ensure each bridge can query the state of preceding
+bridges.
+
+Add a drm_bridge_atomic_readout_priv_state() wrapper that looks up
+the connector and CRTC states for the bridge's encoder, then forwards
+to the bridge's atomic_sro_readout_state hook. Create a separate
+drm_private_state_funcs vtable for bridges that support SRO so that
+drm_atomic_sro_device_can_readout() can properly discriminate bridges
+with and without SRO support.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- Documentation/gpu/drm-kms-helpers.rst | 17 +++++++++++++++++
- drivers/gpu/drm/drm_atomic_sro.c      | 31 +++++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 80 ++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 77 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
-index 94cfc26acecc..418637887fc8 100644
---- a/Documentation/gpu/drm-kms-helpers.rst
-+++ b/Documentation/gpu/drm-kms-helpers.rst
-@@ -80,10 +80,27 @@ Atomic State Helper Reference
- -----------------------------
- 
- .. kernel-doc:: drivers/gpu/drm/drm_atomic_state_helper.c
-    :export:
- 
-+.. _drm_atomic_sro:
-+
-+Atomic State Read-Out
-+---------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_atomic_sro.c
-+   :doc: overview
-+
-+Atomic State Read-Out Reference
-+--------------------------------
-+
-+.. kernel-doc:: include/drm/drm_atomic_sro.h
-+   :internal:
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_atomic_sro.c
-+   :export:
-+
- GEM Atomic Helper Reference
- ---------------------------
- 
- .. kernel-doc:: drivers/gpu/drm/drm_gem_atomic_helper.c
-    :doc: overview
-diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomic_sro.c
-index 14fddd760165..6cd002e857d9 100644
---- a/drivers/gpu/drm/drm_atomic_sro.c
-+++ b/drivers/gpu/drm/drm_atomic_sro.c
-@@ -12,10 +12,41 @@
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 177f018dd3ff..17fef062d7e5 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -27,10 +27,11 @@
+ #include <linux/media-bus-format.h>
  #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/srcu.h>
  
- #include "drm_internal.h"
- #include "drm_crtc_internal.h"
++#include <drm/drm_atomic_sro.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_encoder.h>
+@@ -548,10 +549,68 @@ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
+ 		return ERR_CAST(state);
  
-+/**
-+ * DOC: overview
-+ *
-+ * The atomic State Read-Out (SRO) infrastructure allows drivers to
-+ * initialize the KMS atomic state from the hardware state left by the
-+ * firmware at boot, rather than programming a new state. This enables
-+ * flicker-free boot (also called "fastboot" by i915): if the
-+ * firmware already configured the display, the first userspace
-+ * modeset can be skipped when the requested mode matches.
-+ *
-+ * The SRO lifecycle has two phases. The first phase is the readout
-+ * itself: at driver registration time, each KMS object (CRTCs, planes,
-+ * connectors, bridges, private objects) has its
-+ * atomic_sro_readout_state hook called to populate a
-+ * &struct drm_atomic_sro_state from hardware registers.
-+ *
-+ * The second phase is the installation. Once all states have been read
-+ * out, drm_atomic_sro_install_state() walks through the
-+ * &struct drm_atomic_sro_state and assigns each readout state as the
-+ * object's current state. Before doing so, it calls the optional
-+ * atomic_sro_install_state hook on each object. This gives drivers a
-+ * chance to acquire the resources needed to keep the hardware state
-+ * active, such as power domains, clocks, or interrupts. This hook
-+ * cannot fail.
-+ *
-+ * Drivers integrate with SRO by implementing the readout hooks in their
-+ * object funcs vtables and setting the
-+ * &drm_mode_config_funcs.atomic_sro_readout_state and
-+ * &drm_mode_config_helper_funcs.atomic_sro_build_state callbacks.
-+ */
+ 	return &state->base;
+ }
+ 
++static struct drm_connector_state *
++find_connector_state_for_encoder(struct drm_atomic_sro_state *state,
++				struct drm_encoder *encoder)
++{
++	struct drm_connector_list_iter conn_iter;
++	struct drm_connector *connector;
 +
- enum drm_atomic_readout_status {
- 	DRM_ATOMIC_READOUT_DISABLED = 0,
- 	DRM_ATOMIC_READOUT_ENABLED,
- 	DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE,
- 	DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
++	drm_connector_list_iter_begin(drm_atomic_sro_state_get_device(state),
++				      &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		struct drm_connector_state *conn_state =
++			drm_atomic_sro_get_connector_state(state, connector);
++
++		if (WARN_ON(!conn_state))
++			continue;
++
++		if (encoder == conn_state->best_encoder) {
++			drm_connector_list_iter_end(&conn_iter);
++			return conn_state;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return NULL;
++}
++
++static int
++drm_bridge_atomic_readout_priv_state(struct drm_private_obj *obj,
++				     struct drm_atomic_sro_state *state,
++				     struct drm_private_state *priv_state)
++{
++	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
++	struct drm_encoder *encoder = bridge->encoder;
++	const struct drm_bridge_funcs *bridge_funcs = bridge->funcs;
++	struct drm_crtc_state *crtc_state;
++	struct drm_bridge_state *bridge_state;
++	struct drm_connector_state *conn_state;
++	int ret;
++
++	conn_state = find_connector_state_for_encoder(state, encoder);
++	if (!conn_state)
++		return -EINVAL;
++
++	crtc_state = drm_atomic_sro_get_crtc_state(state, conn_state->crtc);
++	if (!crtc_state)
++		return -EINVAL;
++
++	bridge_state = drm_priv_to_bridge_state(priv_state);
++	if (bridge_funcs->atomic_sro_readout_state) {
++		ret = bridge_funcs->atomic_sro_readout_state(
++			bridge, state, bridge_state, crtc_state, conn_state);
++		if (WARN_ON(ret))
++			return ret;
++	}
++
++	return 0;
++}
++
+ static void
+ drm_bridge_atomic_print_priv_state(struct drm_printer *p,
+ 				   const struct drm_private_state *s)
+ {
+ 	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
+@@ -575,10 +634,18 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+ 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
+ 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
+ 	.atomic_print_state = drm_bridge_atomic_print_priv_state,
+ };
+ 
++static const struct drm_private_state_funcs drm_bridge_priv_state_funcs_with_sro = {
++	.atomic_sro_readout_state = drm_bridge_atomic_readout_priv_state,
++	.atomic_create_state = drm_bridge_atomic_create_priv_state,
++	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
++	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
++	.atomic_print_state = drm_bridge_atomic_print_priv_state,
++};
++
+ /**
+  * drm_private_obj_is_bridge - check if a private object backs a bridge
+  * @obj: private object to check
+  *
+  * RETURNS:
+@@ -586,11 +653,13 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+  * True if @obj is the &drm_private_obj embedded in a &struct drm_bridge,
+  * false otherwise.
+  */
+ bool drm_private_obj_is_bridge(struct drm_private_obj *obj)
+ {
+-	return obj->funcs && obj->funcs == &drm_bridge_priv_state_funcs;
++	return obj->funcs &&
++	       (obj->funcs == &drm_bridge_priv_state_funcs ||
++		obj->funcs == &drm_bridge_priv_state_funcs_with_sro);
+ }
+ EXPORT_SYMBOL(drm_private_obj_is_bridge);
+ 
+ /**
+  * drm_bridge_attach - attach the bridge to an encoder's chain
+@@ -659,12 +728,17 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+ 		ret = bridge->funcs->attach(bridge, encoder, flags);
+ 		if (ret < 0)
+ 			goto err_reset_bridge;
+ 	}
+ 
+-	drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
+-				    &drm_bridge_priv_state_funcs);
++	if (bridge->funcs &&
++	    bridge->funcs->atomic_sro_readout_state)
++		drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
++					    &drm_bridge_priv_state_funcs_with_sro);
++	else
++		drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
++					    &drm_bridge_priv_state_funcs);
+ 
+ 	return 0;
+ 
+ err_reset_bridge:
+ 	bridge->dev = NULL;
 
 -- 
 2.55.0
