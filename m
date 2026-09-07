@@ -4,135 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212EDC79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:21:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBF05C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 782A110E2BE;
-	Mon,  7 Sep 2026 13:21:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E46E10E3A6;
+	Mon,  7 Sep 2026 13:24:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jh5M1pc4";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AhpTB7K0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="StggVfRh";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDDA010E166
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:21:14 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 687Amwde810024
- for <dri-devel@lists.freedesktop.org>; Mon, 7 Sep 2026 13:21:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xudgVfXyg3OdcNE0RyNDSehp05AOljIo3nyACCtorEM=; b=Jh5M1pc4+HLHenES
- w+6+ZuFEQ3QKeFO927PD26azciMaTIo3shePfsaNN7OKFI7xRis2bqprMxvfqWga
- weRLB4EjBLeqBo8sXC71m0h/B3xk5eXzcaiXmAODd2ekwrppATljpbVHBS3YH0vZ
- 0VkJ1WjShTx7y6tNICNpHxMeG1JWt32y2QJ+3G6I3wvqDGHj8DCH2yJVjqCAmFf0
- UkEZNEYgTJKTaYHbWaWnTZRVnZLC0MpCQeZgDwcalYsK7+F1AYFu8bTX9wtpmXZt
- 9ZcDtaFWtUFAjM6V9f3D5zTzIFQtzXWRQP3SYTd3l7z4byCJp3TtJzKI7cDDv8iQ
- DAiRsA==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghrua9j56-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 13:21:14 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id
- a1e0cc1a2514c-97cb0a317c4so384848241.1
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 06:21:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1788787273; x=1789392073;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xudgVfXyg3OdcNE0RyNDSehp05AOljIo3nyACCtorEM=;
- b=AhpTB7K0Ds8v3FWGBKTdl6DhBzaugCjHdQOEC1TXuaBYsp4LpT9cyDeII05beYnewT
- NJeUU/YprJyEruJj/wg1B2/yDd8m8PgV2fAv31OeLM5TSi2Lp3gF0RBY69meoeZw0jyI
- yWNKFs8sO32sWwlRy47ltWcs2SBhvnDBmlyIJjYqJiKYCGviTDr8M+l+pyoCYfgv5SFr
- TUAx5xvcNHX7BQ+k4dtF7gBwwl8Fttp3H6fIacaxxIGQKdHxt1RfOhD+k818kKzwGfwv
- J7Z0a82zrCKkQ67e3gEw2vFF23auF6pALYyn/YmU4+LRmxHAEVRhL8bXvc0mCAhY9NpG
- byTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788787273; x=1789392073;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xudgVfXyg3OdcNE0RyNDSehp05AOljIo3nyACCtorEM=;
- b=kJ0Uppnc6eobiLxrDCs8Af7BsglQ/OOg4YThCYvMRmYXvwIKYry0Lg56AuHd5UB01J
- c20EEVAFcvcLtFajGv+nF+3rR+5jghqNcWm4ZZzUbRT8Zki5AH2IAA47pU+JO82umYEh
- l/okuJ3z5kqhrbVsrfLRGenWQxXPXvNtv2SlbG8nyIdCfpmIZlBhQNw6r5stmMTLBxnU
- jvY7cC52LkDIQkIylsYdI6V3xgHIqTwflcQInULtgiBuyH+wHRTMMGzO9DEmXoFiSfIA
- eh4bHW9DzTelebLsP/7h3jUcbOyH7C6d244MROPhRepJDWSNIamypHCC/77EF+rqNV0Q
- Ohmw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwLkPeFtkklrMo66D1NgJxfly3fzFW2F8bnRwMZw9X8/AHyajJytGEM8gyWenNoWXVxYwVNUxWIrBg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l8gpCAfia5bUk+wW6rrZyTa29yIfTAIGkz0VWLdX4Qwom5ZgIF
- jKAHzyArBTjAVvA4zis/fFvWUdDnSkYU1NiaXectfFbvmO84AuPwpbnPXaF7+3b1yO+ibY512q+
- wo7cMW5pA9xiDVI9iyzvFM/J5iC/jtRcU67a776jiQC7tcaZwKVXCZQjBsefXdPnLs6m8DG9jx1
- nU1IU=
-X-Gm-Gg: AYBFou2TvjVVm6SI/7CjNC5RN5P4UoqFQh3MNuu7uteufByViwOnFEGgEKi+CRBHEzM
- Rq0lI0/40kcCtWojXpLuKrTL/SahYceUhWFqzJ6iCJK3tlbWOtXzzpC2lDGnAOj+tF9EA00oFYm
- ZbAXpmrKQ/9DBTWTWF7JNirfeIiOuMWsLunW4bjKNPifUEASwM+DtTknJqvWGexIh16/YxnoyfX
- nZU1/MX4gkzSEHunihrjQ6eUwSX6+KV/eP+o2BcVu9fXnRyf2z/C1QsFUha/dT/ZbnZVyLANSUB
- XI10ezMkdOxb66dpLMTALUFvknOz4C0Amlhhi7X02FPazDk1t6UZRRIaUmYDjZXoiAm/zF3YrYT
- csI/O44Bn2PR0B905xb/VJ/51zbdL
-X-Received: by 2002:a05:6102:a19c:20b0:78d:31e7:e02 with SMTP id
- ada2fe7eead31-78d31e73347mr920598137.4.1788787273314; 
- Mon, 07 Sep 2026 06:21:13 -0700 (PDT)
-X-Received: by 2002:a05:6102:a19c:20b0:78d:31e7:e02 with SMTP id
- ada2fe7eead31-78d31e73347mr920584137.4.1788787272846; 
- Mon, 07 Sep 2026 06:21:12 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4858bcefd59sm23951535f8f.19.2026.09.07.06.21.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2026 06:21:12 -0700 (PDT)
-Message-ID: <9d03c776-b05e-4037-b7c4-6ed817882edb@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 15:21:10 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCF710E3A6
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6147C60AB5;
+ Mon,  7 Sep 2026 13:24:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909801F00A3A;
+ Mon,  7 Sep 2026 13:24:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788787441;
+ bh=47oNMAiVsEVMcK2+Mo0jIloG8vxUOIaS88Qm/XVcDkA=;
+ h=From:Subject:Date:To:Cc;
+ b=StggVfRhKUP2H1aRukBcT2ALZl3/RB8gorjdq57Rzo4MRvuSzOG8blZgPaGwKE1VT
+ FUIqJYGOgSquEn56E/WUv61b3hTEE9kqxHYVdMmoTj0NYxjutyLMsTFsCqGn9S2GOZ
+ a39VivVtgA9LxrASom0dBtPChTiBk7z9YTyM/NyNpMMkZGJqGMj2rVtt2nPksJucov
+ nE7XOKbzhHM/Zf+uyabGn19HMaoWTn856I4QCoMYn5ZzKynbAA1bEzEQ8T36ZO2fk4
+ 3AWSoEZpFTJXhVV9uc9Cy7uxnAN2QllPpow57vDFhz8kw6IOzGXeMN92QkdjsrdGsm
+ RiGQJNqVnZIDg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v5 00/33] drm: Implement state readout support
+Date: Mon, 07 Sep 2026 15:23:36 +0200
+Message-Id: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio
- cleanup order in post_disable
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
- <20260907-drm-msm-hdmi-fixes-before-eliza-v2-3-b097cf1eac77@oss.qualcomm.com>
- <20260907131153.34AD21F00A3A@smtp.kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260907131153.34AD21F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: ZK-HrxuK-J_86IE11ztv9BNL9B7o8yTP
-X-Authority-Analysis: v=2.4 cv=U+aiy+ru c=1 sm=1 tr=0 ts=6a9eba4a cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=zC86WEiMApjGDmIPK9MA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-GUID: ZK-HrxuK-J_86IE11ztv9BNL9B7o8yTP
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0OCBTYWx0ZWRfX+08FDaPGWoYW
- mA7U/nP+0630OklKMCxe1IVtWgNN4NaEi2xCBKhaUKydMKCKr9hCb0pkVxhEeVJb9Fp1W2yNCFF
- CDxE58pC4xWRrLu2DmflwNof5QO4WaM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0OCBTYWx0ZWRfX79yOMVlxK1hz
- Y9tCPFfiUgWe2U/JDxLeiMmKJxtreaiVgTuL+x7WHgL/KE9xPM/R/KFfgJgeF2vnrd9r9somfWd
- ovlIITHBQ/0Ap7+2rBXfsvHdIE6w/OgO//F2XRWWAM0NLwqMJHATJ+miyci7vf0zJLFD6X9tlCg
- 5H3LciveaUs7Ct3jhVSleUaI9pskMEa4BLjROoZU9aCAv+2Q/SLIgaG25IUiGpdY+AFT7kUXBg6
- tRwgwoGWiDkknrWdHvNC6oMS1e1ZVnJ/mQaxyf725FfwBqtL09/H5Y3iJL6hqBO4g6JO/zdVUyz
- dF9dNxqh34meAnvmGuNIeR/HGdznI1v6WjcZI3NmxNKXMg+KLVO5nq0Pb7xyOHqm1zUR8xqrOjr
- 3Zacoo0PHUz9y6fLQFRQoDcNFUGW/rSLvMIA7JNPxAl8sL/wTJR0qa5aKhc2zy5SbFANun1tG3H
- LWPWTihptDYfm6Y2vBw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070148
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PTW7DIBAF4KtYrEs15s/gVe9RdYFhnKDWpgVip
+ Ypy92JHVVrFyzdivuFdSMYUMJO+uZCES8ghzjXIp4a4o50PSIOvmTBgEjoO1KeJ5mIL0oTWx1O
+ hLegRtHGt40Dq3mfCMZw38/XtlhN+nSpdbsO73DfVVdCB2dw50ikmpC4VV/mMFRdWeDk47UXbL
+ 3z1B5vrkzhNofTNujaF7OiM50JXjVYMOFkvH0MuMX1v5ZZ2O731MMB2eiwthfWel7yV3vLx5R3
+ TjB/PMR02bmG/hALB+B7BKqGlMKPu3GA6/UDwO6HqX3cIXgkvNZPImTH2kRB/CbNHiEpIo5SSn
+ dGA/h9xvV5/AKGH4JP2AQAA
+X-Change-ID: 20250730-drm-state-readout-108f089c1c30
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9421; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NMnPNPrzeF0CpVeu7SGRBAjtpj9gfiDvH3ojfmiRTH4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdt3dzCjNOWmix1fBbRH7Ohd9/L70AfO8q1fVZheyZ
+ jVb7Ji7qWMqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5OQ7xob2r0sjuSa3BTT2
+ Sq2RnbKluVW+QqYrZWZQi0+taqRSZtKFiYvP5GxcdOlQv+qnqOTTGxhrhbneOj87Pqc//mCQ4W6
+ zJfkdDN5BvPkrjSuOTPmhEWO7WnMyI8eehWuiF3dJKVZe+uoKAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,15 +79,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/09/2026 15:11, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [Medium] Moving `hdmi->power_on = false` to after `msm_hdmi_audio_update()` breaks the audio hardware disablement logic, leaving the audio engine active before its power is cut.
+Hi,
 
-Ack
+Here's a series that implement what i915 calls "fastboot", ie,
+initializing the initial KMS state from the hardware state at boot, to
+skip the first modeset if the firmware already set up the display.
 
+This series creates the infrastructure in KMS to create that state by
+relying on driver specific hooks. It also implements some infrastructure
+to check during non-blocking commits that the readout helpers work
+properly by reading out the state that was just committed and comparing
+it to what was supposed to be committed.
 
+This relies on another set of driver hooks to compare the entities
+states, with helpers providing the default implementation.
+
+It then implements the readout support in the TIDSS driver, and was
+tested with the SK-AM62 board. This board in particular is pretty
+interesting, since it relies on an DPI to HDMI bridge, and uses the
+drm_bridge_connector infrastructure.
+
+So the readout works with the current state of the art on embedded-ish
+platforms.
+
+Unlike the earlier RFCs, it now works fine: the state is picked up
+properly, doesn't trigger a modeset if what was programmed is the one
+the first modeset tries to pick as well, will switch properly if it
+isn't, etc.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v5:
+- Implement readout for bridge/display-connector
+- Implement readout for tidss encoders
+- Fix sii902 readout implementation
+- Add atomic_print_state implementation to tidss crtc
+- Rebase over latest changes. In particular, the CRTC conversion to
+  atomic_create_state and the introduction of crtc's hw_reset made me
+  create a new helper and hook to trigger a device-wide hw_reset 
+- Add a bunch of NULL pointer checks everywhere
+- Fix compare macros calls to __stringify
+- Create documentation section for sro
+- Fix error path in drm_atomic_sro_state_init
+- Improve bisectability
+- Link to v4: https://lore.kernel.org/r/20260629-drm-state-readout-v4-0-5966657980ed@kernel.org
+
+Changes in v4:
+- Dropped the HACK patch that went into the v3 resend
+- Hopefully the kernel.org smtp works this time
+- Link to v3: https://lore.kernel.org/r/20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org
+
+Changes in v3:
+- Rebase on top of the current drm-misc-next, with rename of
+  drm_atomic_state and the various preliminary series merged.
+- Use drm_printf_indent when possible
+- Change the access mode for the atomic_readout parameter from 000 to
+  400
+- Use drm_drv_uses_atomic_modeset() instead of drm_core_check_feature()
+- Introduce a hw_reset hook to deal with device hardware reset when
+  needed (ie, SRO fails or is disabled)
+- Improve mode flags readout
+- Fix plane alpha readout
+- Add sii902x state readout
+
+- Link to v2: https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org
+
+Changes in v2:
+- Get rid of patches already applied
+- Rebase on top of the current atomic_create_state work
+- Use the SRO prefix everywhere
+- Create our own states container structure instead of trying to plumb
+  it into a drm_atomic_state
+- Make a lot more use of helpers
+- Add a hook to enable the hardware resources when the readout state
+  becomes active
+- Move all the tidss readout code into tidss_dispc.c
+- Write documentation
+- Add drm_private_obj and drm_bridge name for easier debugging
+- Add drm_private_obj_is_bridge()
+- Link to v1: https://lore.kernel.org/r/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org
+
+---
+Maxime Ripard (33):
+      drm/atomic: Fix unused but set warning in state iterator macros
+      drm/atomic_helper: Skip over NULL private_obj pointers
+      drm/atomic: Convert drm_priv_to_bridge_state to container_of_const
+      drm/atomic: Add drm_private_obj name
+      drm/bridge: Add drm_private_obj_is_bridge()
+      drm/bridge: Implement atomic_print_state
+      drm/atomic: Export drm_atomic_*_print_state
+      drm/atomic: Only call atomic_destroy_state on a !NULL pointer
+      drm/atomic_sro: Create drm_atomic_sro_state container
+      drm/atomic_sro: Create kernel parameter to force or disable readout
+      drm/atomic_sro: Add atomic state readout infrastructure
+      drm/atomic_sro: Add function to install state into drm objects
+      drm/atomic_sro: Create documentation
+      drm/bridge: Handle bridges with hardware state readout
+      drm/mode-config: Read out hardware state in drm_mode_config_create_state
+      drm/atomic_sro: Provide helpers to implement hardware state readout
+      drm/mode-config: Introduce hw_reset hook
+      drm/modeset-helper: Add drm_mode_config_helper_hw_reset()
+      drm/atomic_helper: Pass nonblock to commit_tail
+      drm/atomic_helper: Compare actual and readout states once the commit is done
+      drm/atomic-state-helper: Provide comparison macros
+      drm/atomic-state-helper: Provide atomic_compare_state helpers
+      drm/atomic-helper: Document State Read-Out as a state initialization approach
+      drm/encoder: Create atomic_sro_get_current_crtc hook
+      drm/bridge: display-connector: Implement readout support
+      drm/bridge_connector: Implement hw readout for connector
+      drm/tidss: crtc: Add atomic_print_state implementation
+      drm/tidss: dispc: Improve mode checking logs
+      drm/tidss: Switch to drm_mode_config_create_initial_state()
+      drm/tidss: Implement hw_reset
+      drm/tidss: Implement readout support
+      drm/tidss: encoder: Implement atomic_sro_get_current_crtc
+      drm/bridge: sii902x: Implement hw state readout
+
+ Documentation/gpu/drm-kms-helpers.rst              |  26 +
+ drivers/gpu/drm/Makefile                           |   2 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   1 +
+ .../drm/arm/display/komeda/komeda_private_obj.c    |   8 +
+ drivers/gpu/drm/bridge/display-connector.c         |  64 ++
+ drivers/gpu/drm/bridge/sii902x.c                   |  82 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  35 +
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |   2 +-
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |   1 +
+ drivers/gpu/drm/drm_atomic.c                       |  46 +-
+ drivers/gpu/drm/drm_atomic_helper.c                |  46 +-
+ drivers/gpu/drm/drm_atomic_sro.c                   | 932 +++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_sro_helper.c            | 679 +++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          |  20 +-
+ drivers/gpu/drm/drm_bridge.c                       | 132 ++-
+ drivers/gpu/drm/drm_internal.h                     |  12 +
+ drivers/gpu/drm/drm_mode_config.c                  |  55 +-
+ drivers/gpu/drm/drm_modeset_helper.c               |  24 +
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |   1 +
+ drivers/gpu/drm/ingenic/ingenic-ipu.c              |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   1 +
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |   1 +
+ drivers/gpu/drm/tegra/hub.c                        |   1 +
+ drivers/gpu/drm/tidss/tidss_crtc.c                 | 104 +++
+ drivers/gpu/drm/tidss/tidss_dispc.c                | 334 +++++++-
+ drivers/gpu/drm/tidss/tidss_dispc.h                |  16 +
+ drivers/gpu/drm/tidss/tidss_drv.c                  |   6 +-
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  57 ++
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  20 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                | 154 ++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |   3 +
+ include/drm/drm_atomic.h                           | 144 +++-
+ include/drm/drm_atomic_sro.h                       |  59 ++
+ include/drm/drm_atomic_sro_helper.h                | 276 ++++++
+ include/drm/drm_bridge.h                           |  87 ++
+ include/drm/drm_connector.h                        |  69 ++
+ include/drm/drm_crtc.h                             |  69 ++
+ include/drm/drm_encoder.h                          |  18 +
+ include/drm/drm_mode_config.h                      |  50 ++
+ include/drm/drm_modeset_helper.h                   |   1 +
+ include/drm/drm_modeset_helper_vtables.h           |  23 +
+ include/drm/drm_plane.h                            |  69 ++
+ 43 files changed, 3644 insertions(+), 88 deletions(-)
+---
+base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
+change-id: 20250730-drm-state-readout-108f089c1c30
+prerequisite-change-id: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41:v3
+prerequisite-patch-id: 58c15cfdaac5894112d6b55152cee55444e59c2c
+prerequisite-patch-id: f1d676df498396acf15592ca7ead5be61138f47a
+prerequisite-patch-id: 0b4247d6f5e7d16522473260c92ad1b4a235e5d6
+prerequisite-patch-id: 454462ebf2b4cc237d83aa8b3631252e158d16d0
+prerequisite-patch-id: ffa6afc89be0c75a3b3565d204e998841fcd7c15
+prerequisite-patch-id: c20225c4fc6139ca606ca94d44d973b22d94ad94
+prerequisite-patch-id: a0b461fed6e896d3ea179caff28a00d912aee47a
+prerequisite-patch-id: ae43b98d635078d5d2d76a9dee7dffba082c3dd4
+prerequisite-patch-id: 91c7bc55447b4c4fc97000bc257a72d1694d8aa6
+prerequisite-patch-id: 527b8258f3d80c3dafc1833732f66d7283e7bbb5
+prerequisite-patch-id: 9ef306a7e4c68ac38a6ed26c0f18b02dd9e3beeb
+prerequisite-patch-id: 576654f19b1d56754bdb115f673438140f242fda
+prerequisite-patch-id: 166fb879fa7744d42ee56d6735cc344585a74b2a
 
 Best regards,
-Krzysztof
+-- 
+Maxime Ripard <mripard@kernel.org>
+
