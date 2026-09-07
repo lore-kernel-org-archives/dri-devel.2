@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC63C79FA1
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 16:48:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF60C79FAB
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 16:48:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0AAC10E591;
-	Mon,  7 Sep 2026 16:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50EAD10E894;
+	Mon,  7 Sep 2026 16:48:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KLmJC3S6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GLmhoWjx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1B6010E2FF
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B559F10E50E
  for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 16:48:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 182D9444EA;
- Mon,  7 Sep 2026 16:48:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ECFD4C2BCF4;
+ by tor.source.kernel.org (Postfix) with ESMTP id C043860207;
+ Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 62E34C2BCF4;
  Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1788799696;
- bh=BDSd5Sx099D86mwm18rAhbuJSuhw4ecU8Mnmm/h9BFA=;
+ s=k20201202; t=1788799695;
+ bh=WxqT1yF3M6tgWWKnYg9hdR2pSdYcRFC589aOlzkEKCo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=KLmJC3S6WLkI6fhAbR7L7TT+9DfgvWGJP5xTfCUwRBbmJP1FVbj88Mb1Hi0TkvRdy
- znl+7zN2+dWI/HcxPgoIJz+txQjcPimA4fBkegIOQk0i6w8hsqisROH9QZkZoNbDpV
- kQJvjLG5vaQQgsigD2eAH0WyosKQgghUXb36QovyW9/HpYhPVm0YuBBPgrvJpeGe/T
- FCDWrruGEGjZvlR9lUtNxX05SaqBKfTvfgFm+Q4NdrRq10g8uOazYTAGnwBa+0198y
- Z6Wo+2M6iN3Bw3VMg4S9Eu6hNHSNZxfjdCB9iaQX7jlF14PlYqGMhn8E0NoxJGj7FT
- vvidE1bUQYLJw==
+ b=GLmhoWjxwhNm5JQ1ezCbtiJaIrtLZo2Kg7WS91JNU4wuyw9/mfFna74o4ACU877Kj
+ nbTzDZv+M0xR3UeUMM4WNNtLDzCbO9tbdmvhSz9oCLySJzk1K+ytj4hDy83aWoBOiG
+ BLZdA4S6hGjKDvD86SyT59KvbAdaGrxrVZrQi5UgnrklNsUah4S17QqEOs80deO+II
+ O5IIK3uJabEXMREzHhNeMdNMh6soQnQ9nSmDe/Nt6lkvxIqqE4joPbtnM1RbXUgGLB
+ gop9CisYmZQNve8eYRa4dTRfsb/St9R5E4s/nxheleKAY5sHEU8yFjFrJMkgK4l5nk
+ Sug5eN/00n6Aw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id D8ECEC79FA7;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3D38BC79FA1;
  Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 08 Sep 2026 00:47:54 +0800
-Subject: [PATCH v2 7/9] drm/tyr: refactor new_dummy_object to use
- new_object
+Date: Tue, 08 Sep 2026 00:47:48 +0800
+Subject: [PATCH v2 1/9] rust: sizes: add SZ_4G constant
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-tyr-ioctls-v2-7-88bea777df67@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260908-tyr-ioctls-v2-1-88bea777df67@kylinos.cn>
 References: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
 In-Reply-To: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
 To: rust-for-linux@vger.kernel.org
@@ -61,11 +60,11 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
  Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788799692; l=1566;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788799692; l=1664;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=evnUd0qm9ZwiYuhFDEcZYkjsD1f1+LG9OpRwEzX78ag=;
- b=DG8IaoiUFgNeMQe7P8OtUnLRSOFxuZi3gspovlvUFIJefp+Si1hZwHIZBN0xcP6q2w1y7skod
- SU6JBf12LKxAx8UhwZQ7btB/EOoS7CSkSoQ2zk9aUU0lIOE7Va2JyiU
+ bh=so+WuqU/pYd8/dKzBVqpgAsW0XebT6xqiODTucEx6fs=;
+ b=w3XcLqR1VQevN3qWcQai1GYtPQNLzv+aBbIvX1piwpdczwbSyazqpxKHZg94TivRfbzcvqI1m
+ qgIWbCsMq4qCZW9sotv5Hu+943CQnyirsVV6qvpcZoE6vXbrJ4Cb0t2
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -88,47 +87,49 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-new_dummy_object() duplicated the BO creation code that new_object()
-now provides; call new_object() instead.
+SZ_4G is used by the Tyr driver when splitting the GPU VA range into
+user and kernel regions.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/gpu/drm/tyr/gem.rs | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+ rust/bindings/bindings_helper.h |  1 +
+ rust/kernel/sizes.rs            | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 0e0989a48678f..2523d05de5527 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -57,7 +57,6 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
- pub(crate) type Bo = gem::shmem::Object<BoData>;
- 
- /// Create a new GEM buffer object.
--#[expect(dead_code)]
- pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
-     if size == 0 {
-         return Err(EINVAL);
-@@ -84,17 +83,8 @@ pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>>
- 
- /// Creates a dummy GEM object to serve as the root of a GPUVM.
- pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
--    let bo = Bo::new(
--        ddev,
--        4096,
--        shmem::ObjectConfig {
--            map_wc: true,
--            parent_resv_obj: None,
--        },
--        BoCreateArgs { flags: 0 },
--    )?;
--
--    Ok(bo)
-+    // FIXME: use a Rust resv-object abstraction once available, rather than a real BO.
-+    new_object(ddev, PAGE_SIZE, 0)
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 4b31aa7f432f5..9bbe1538d7c7c 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -115,6 +115,7 @@ const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN = ARCH_SLAB_MINALIGN;
+ const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN = ARCH_KMALLOC_MINALIGN;
+ const size_t RUST_CONST_HELPER_PAGE_SIZE = PAGE_SIZE;
+ const size_t RUST_CONST_HELPER_GENLMSG_DEFAULT_SIZE = GENLMSG_DEFAULT_SIZE;
++const unsigned long long RUST_CONST_HELPER_SZ_4G = SZ_4G;
+ const gfp_t RUST_CONST_HELPER_GFP_ATOMIC = GFP_ATOMIC;
+ const gfp_t RUST_CONST_HELPER_GFP_KERNEL = GFP_KERNEL;
+ const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT = GFP_KERNEL_ACCOUNT;
+diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
+index 521b2b38bfe77..b236573f0792e 100644
+--- a/rust/kernel/sizes.rs
++++ b/rust/kernel/sizes.rs
+@@ -132,3 +132,15 @@ impl SizeConstants for $first {
  }
  
- /// Specifies how to choose a GPU virtual address for a [`KernelBo`].
+ define_sizes!(u32, u64, usize);
++
++/// Large size constants (≥ 4 GiB).
++///
++/// Only implemented for `u64`.
++pub trait LargeSizeConstants {
++    /// `0x1_0000_0000`.
++    const SZ_4G: Self;
++}
++
++impl LargeSizeConstants for u64 {
++    const SZ_4G: Self = bindings::SZ_4G;
++}
 
 -- 
 2.43.0
