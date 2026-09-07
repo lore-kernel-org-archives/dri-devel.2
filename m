@@ -4,71 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35AE5C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 21:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10853C79F99
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 22:26:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E20410E936;
-	Mon,  7 Sep 2026 21:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42B9A10E027;
+	Mon,  7 Sep 2026 22:26:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ilWzpUvk";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="mSoAlIS3";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54BDE10E936
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 21:35:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1788816915;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JDsc9mqLSLWmK/G1yswq76Two3vz6FazKLBCHBs0HW4=;
- b=ilWzpUvkbCntT50xlVjVw7V+dVDeVnWT4j6m+UjPGkmr9RZU6jHz551N6Q20DPPRDdGWq8
- T5XJ4lZOpFX10Jp69s2uHsgwYUy9ZZaPm2jbv2uklMwUulMRAbfKhy3ulNXQs/P5FrBRej
- pGrGrtxtvUsfqxsDUeTvwXjqeRXxyUg=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-450-eEV7gbATOIudCBG4JSjYYw-1; Mon,
- 07 Sep 2026 17:35:11 -0400
-X-MC-Unique: eEV7gbATOIudCBG4JSjYYw-1
-X-Mimecast-MFC-AGG-ID: eEV7gbATOIudCBG4JSjYYw_1788816909
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id BCCCD19540D9; Mon,  7 Sep 2026 21:35:08 +0000 (UTC)
-Received: from [100.91.157.188] (headnet03.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.114])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 66E941801AEA; Mon,  7 Sep 2026 21:35:03 +0000 (UTC)
-Message-ID: <27d2c523-fbdd-4dff-8920-88432d938b22@redhat.com>
-Date: Mon, 7 Sep 2026 23:35:00 +0200
+Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C75A110E027
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 22:26:49 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=n3D7ZA7tkZ34E7YU+SP+fSBY+j1Hn81BCAIxM2KVTtg=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788820008; v=1; x=1789424808;
+ b=mSoAlIS3lmPaqKECE5dcB3jWtUTgVjOrTof2gedhm4N7EtwK7k0Y5VZLGHEyzOo+8sEn3AD7
+ yvvn/w5ljm4LSnSKGmwHAW1zV4RRiPB6NaS1fqbxJVOaCRtwG9ue62P92j4SjaTMQbvE38RBXW7
+ cgUL9pJHhl5JjJgs/OfowRp4=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id ed8fd13ac114cfd0;
+ Mon, 07 Sep 2026 22:25:45 +0000
+X-Mizu-Trace-ID: ed8fd13ac114cfd0
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 7 Sep 2026 15:25:44 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+ muchun.song@linux.dev, akpm@linux-foundation.org, david@kernel.org,
+ ljs@kernel.org, 
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+ dev@lankhorst.se, mripard@kernel.org, nat@pixelcluster.dev, tj@kernel.org, 
+ mkoutny@suse.com, osalvador@suse.de, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-team@meta.com
+Subject: Re: [PATCH v5 3/7] mm/page_counter: introduce per-page_counter stock
+Message-ID: <ap845AEpX0ceqCjr@linux.dev>
+References: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
+ <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/14] drm/panic: Compile KUnit tests as module
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, geert@linux-m68k.org, rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260902121930.597222-1-tzimmermann@suse.de>
- <20260902121930.597222-15-tzimmermann@suse.de>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260902121930.597222-15-tzimmermann@suse.de>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: z1HLBjp-nDqGEFRyzlztoBJsSC24_7kwfKCFgmcZYLA_1788816909
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,232 +63,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/2/26 14:13, Thomas Zimmermann wrote:
-> Fix dependency of the panic-helper KUnit tests on CONFIG_DRM_KUNIT_TEST=y
-> and make them build as a module. Export the necessary interfaces from the
-> panic helpers iff the KUnit framework has been enabled.
+On Mon, Aug 31, 2026 at 09:37:47AM -0700, Joshua Hahn wrote:
+> In order to avoid expensive hierarchy walks on every memcg charge and
+> limit check, memcontrol uses per-cpu stocks (memcg_stock_pcp) to cache
+> pre-charged pages and introduce a fast path to try_charge_memcg.
 > 
-> Select DRM_PANIC_HELPER from DRM_KUNIT_TEST to meet the dependencies of
-> the panic-helper tests.
+> However, there are a few quirks with the current implementation that
+> can be improved upon.
 > 
-> It is now possible to run the tests by modprobe-ing drm_panic_helper_test
-> at runtime.
-
-Thanks, it looks good to me.
-
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-
+> First, each memcg_stock_pcp can only cache the charges of 7 memcgs
+> (NR_MEMCG_STOCK). When an 8th memcg wants to cache its charge on a CPU,
+> a victim memcg is chosen among the 7 cached memcgs and is evicted,
+> losing all cached charges.
 > 
-> v3:
-> - clean up after each test case (Sashiko)
-> v2:
-> - fix parameter order in decl of drm_panic_helper_draw_screen_qr()
->    (Sashiko)
+> Second, stock draining is per-CPU rather than per-memcg. That is,
+> when a memcg is under pressure and must retrieve all cached charges,
+> it iterates through every CPU and drains the stock charges of all
+> present memcgs. This means that one under-pressure memcg evicts the
+> caches of all co-cpu-resident memcg stock caches.
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Finally, stock is tightly coupled with memcg, so adding new
+> page_counters to memcg is an unscalable operation where only one counter
+> gets to use the fastpath.
+> 
+> We can address all of these concerns by pushing stock caches down to the
+> page_counter level, and making each counter responsible for its own
+> charge.
+> 
+> Introduce struct page_counter_stock along with its allocation, free, and
+> per-CPU drain helpers.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 > ---
->   drivers/gpu/drm/Kconfig.debug                 |  1 +
->   drivers/gpu/drm/drm_panic_helper.c            | 26 ++++++++++---------
->   drivers/gpu/drm/tests/Makefile                |  1 +
->   drivers/gpu/drm/tests/drm_panic_helper_test.c | 21 ++++++++++++---
->   include/drm/drm_panic_helper.h                |  8 ++++++
->   5 files changed, 41 insertions(+), 16 deletions(-)
+>  include/linux/page_counter.h | 16 +++++++
+>  mm/page_counter.c            | 90 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 106 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-> index 1f4c98cbf090..b909cd0a619f 100644
-> --- a/drivers/gpu/drm/Kconfig.debug
-> +++ b/drivers/gpu/drm/Kconfig.debug
-> @@ -69,6 +69,7 @@ config DRM_KUNIT_TEST
->   	select DRM_EXPORT_FOR_TESTS if m
->   	select DRM_GEM_SHMEM_HELPER
->   	select DRM_KUNIT_TEST_HELPERS
-> +	select DRM_PANIC_HELPER
->   	select DRM_SYSFB_HELPER
->   	select PRIME_NUMBERS
->   	default KUNIT_ALL_TESTS
-> diff --git a/drivers/gpu/drm/drm_panic_helper.c b/drivers/gpu/drm/drm_panic_helper.c
-> index f64a3ca38467..683af48de38c 100644
-> --- a/drivers/gpu/drm/drm_panic_helper.c
-> +++ b/drivers/gpu/drm/drm_panic_helper.c
-> @@ -8,6 +8,8 @@
->   #include <linux/utsname.h>
->   #include <linux/zlib.h>
->   
-> +#include <kunit/visibility.h>
+> diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
+> index 89a083f16fbf7..c1fe331f34e7e 100644
+> --- a/include/linux/page_counter.h
+> +++ b/include/linux/page_counter.h
+> @@ -5,8 +5,11 @@
+>  #include <linux/atomic.h>
+>  #include <linux/cache.h>
+>  #include <linux/limits.h>
+> +#include <linux/workqueue_types.h>
+>  #include <asm/page.h>
+>  
+> +struct page_counter_stock;
 > +
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_framebuffer.h>
->   #include <drm/drm_modeset_helper_vtables.h>
-> @@ -433,8 +435,8 @@ static void drm_panic_helper_logo_draw(struct drm_scanout_buffer *sb, struct drm
->   				   fg_color);
->   }
->   
-> -static int drm_panic_helper_draw_screen_user(struct drm_scanout_buffer *sb,
-> -					     u32 fg_color, u32 bg_color)
-> +VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_user(struct drm_scanout_buffer *sb,
-> +						       u32 fg_color, u32 bg_color)
->   {
->   	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
->   	struct drm_rect r_screen, r_logo, r_msg;
-> @@ -466,6 +468,7 @@ static int drm_panic_helper_draw_screen_user(struct drm_scanout_buffer *sb,
->   
->   	return 0;
->   }
-> +EXPORT_SYMBOL_IF_KUNIT(drm_panic_helper_draw_screen_user);
->   
->   /*
->    * Draw one line of kmsg, and handle wrapping if it won't fit in the screen width.
-> @@ -504,8 +507,8 @@ static int draw_line_with_wrap(struct drm_scanout_buffer *sb, const struct font_
->    * Draw the kmsg buffer to the screen, starting from the youngest message at the bottom,
->    * and going up until reaching the top of the screen.
->    */
-> -static int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer *sb,
-> -					     u32 fg_color, u32 bg_color)
-> +VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer *sb,
-> +						       u32 fg_color, u32 bg_color)
->   {
->   	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
->   	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
-> @@ -549,6 +552,7 @@ static int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer *sb,
->   
->   	return 0;
->   }
-> +EXPORT_SYMBOL_IF_KUNIT(drm_panic_helper_draw_screen_kmsg);
->   
->   #if defined(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
->   /*
-> @@ -691,9 +695,9 @@ static int drm_panic_helper_get_qr_code(u8 **qr_image, unsigned int qr_version)
->   /*
->    * Draw the panic message at the center of the screen, with a QR Code
->    */
-> -static int drm_panic_helper_draw_screen_qr_code(struct drm_scanout_buffer *sb,
-> -						u32 fg_color, u32 bg_color,
-> -						unsigned int qr_version)
-> +VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_qr_code(struct drm_scanout_buffer *sb,
-> +							  u32 fg_color, u32 bg_color,
-> +							  unsigned int qr_version)
->   {
->   	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
->   	struct drm_rect r_screen, r_logo, r_msg, r_qr, r_qr_canvas;
-> @@ -763,6 +767,7 @@ static int drm_panic_helper_draw_screen_qr_code(struct drm_scanout_buffer *sb,
->   	drm_panic_helper_blit(sb, &r_qr, qr_image, qr_pitch, scale, fg_color);
->   	return 0;
->   }
-> +EXPORT_SYMBOL_IF_KUNIT(drm_panic_helper_draw_screen_qr_code);
->   #else
->   static void __init drm_panic_helper_qr_init(void) { };
->   static void __exit drm_panic_helper_qr_exit(void) { };
-> @@ -815,7 +820,7 @@ static int draw_panic_helper_dispatch(struct drm_scanout_buffer *sb,
->   	return ret;
->   }
->   
-> -static void drm_panic_helper_set_description(const char *description)
-> +VISIBLE_IF_KUNIT void drm_panic_helper_set_description(const char *description)
->   {
->   	u32 len;
->   
-> @@ -830,6 +835,7 @@ static void drm_panic_helper_set_description(const char *description)
->   		desc_line->len = len;
->   	}
->   }
-> +EXPORT_SYMBOL_IF_KUNIT(drm_panic_helper_set_description);
->   
->   static void drm_panic_helper_clear_description(void)
->   {
-> @@ -910,7 +916,3 @@ void __exit drm_panic_helper_exit(void)
->   {
->   	drm_panic_helper_qr_exit();
->   }
-> -
-> -#ifdef CONFIG_DRM_KUNIT_TEST
-> -#include "tests/drm_panic_helper_test.c"
-> -#endif
-> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
-> index e7193b49cf91..42207df1d1c8 100644
-> --- a/drivers/gpu/drm/tests/Makefile
-> +++ b/drivers/gpu/drm/tests/Makefile
-> @@ -20,6 +20,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
->   	drm_managed_test.o \
->   	drm_mm_test.o \
->   	drm_modes_test.o \
-> +	drm_panic_helper_test.o \
->   	drm_plane_helper_test.o \
->   	drm_probe_helper_test.o \
->   	drm_rect_test.o \
-> diff --git a/drivers/gpu/drm/tests/drm_panic_helper_test.c b/drivers/gpu/drm/tests/drm_panic_helper_test.c
-> index e6befe0f1c83..6184a6fc7eb8 100644
-> --- a/drivers/gpu/drm/tests/drm_panic_helper_test.c
-> +++ b/drivers/gpu/drm/tests/drm_panic_helper_test.c
-> @@ -6,13 +6,17 @@
->    * KUNIT tests for DRM panic helpers
->    */
->   
-> -#include <drm/drm_fourcc.h>
-> -#include <drm/drm_panic.h>
-> +#include <linux/highmem.h>
-> +#include <linux/units.h>
-> +#include <linux/vmalloc.h>
->   
->   #include <kunit/test.h>
->   
-> -#include <linux/units.h>
-> -#include <linux/vmalloc.h>
-> +#include <drm/drm_fourcc.h>
-> +#include <drm/drm_panic.h>
-> +#include <drm/drm_panic_helper.h>
+>  struct page_counter {
+>  	/*
+>  	 * Make sure 'usage' does not share cacheline with any other field in
+> @@ -41,6 +44,13 @@ struct page_counter {
+>  	unsigned long high;
+>  	unsigned long max;
+>  	struct page_counter *parent;
+> +	struct page_counter_stock __percpu *stock;
+> +	unsigned long batch;
 > +
-> +MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
->   
->   static void drm_panic_check_color_byte(struct kunit *test, u8 b)
->   {
-> @@ -86,6 +90,11 @@ static int drm_test_panic_init(struct kunit *test)
->   	return 0;
->   }
->   
-> +static void drm_test_panic_exit(struct kunit *test)
+> +	/* make sure the work_struct is separate from the read most fields */
+> +	CACHELINE_PADDING(_pad3_);
+> +
+> +	struct work_struct drain_work;
+
+Introduce this field where you are going to use it.
+
+>  } ____cacheline_internodealigned_in_smp;
+>  
+>  #if BITS_PER_LONG == 32
+> @@ -61,6 +71,8 @@ static inline void page_counter_init(struct page_counter *counter,
+>  	counter->parent = parent;
+>  	counter->protection_support = protection_support;
+>  	counter->track_failcnt = false;
+> +	counter->stock = NULL;
+> +	counter->batch = 0;
+>  }
+>  
+>  static inline unsigned long page_counter_read(struct page_counter *counter)
+> @@ -99,6 +111,10 @@ static inline void page_counter_reset_watermark(struct page_counter *counter)
+>  	counter->watermark = usage;
+>  }
+>  
+> +void page_counter_drain_cpu_stock(struct page_counter *counter, int cpu);
+> +void page_counter_alloc_stock(struct page_counter *counter, unsigned long batch);
+> +void page_counter_free_stock(struct page_counter *counter);
+> +
+>  #if IS_ENABLED(CONFIG_MEMCG) || IS_ENABLED(CONFIG_CGROUP_DMEM)
+>  void page_counter_calculate_protection(struct page_counter *root,
+>  				       struct page_counter *counter,
+> diff --git a/mm/page_counter.c b/mm/page_counter.c
+> index a934619cc7bf7..3f61eba695518 100644
+> --- a/mm/page_counter.c
+> +++ b/mm/page_counter.c
+> @@ -8,11 +8,18 @@
+>  #include <linux/page_counter.h>
+>  #include <linux/atomic.h>
+>  #include <linux/kernel.h>
+> +#include <linux/percpu.h>
+>  #include <linux/string.h>
+>  #include <linux/sched.h>
+> +#include <linux/spinlock.h>
+>  #include <linux/bug.h>
+>  #include <asm/page.h>
+>  
+> +struct page_counter_stock {
+> +	raw_spinlock_t lock;
+
+Please explain why you need raw_spinlock_t?
+
+> +	unsigned long nr_pages;
+> +};
+> +
+>  static bool track_protection(struct page_counter *c)
+>  {
+>  	return c->protection_support;
+> @@ -295,6 +302,89 @@ int page_counter_memparse(const char *buf, const char *max,
+>  	return 0;
+>  }
+>  
+> +/**
+> + * page_counter_drain_cpu_stock - release @cpu's cached charges
+> + * @counter: counter whose stock to drain
+> + * @cpu: CPU whose stock is drained
+> + */
+> +void page_counter_drain_cpu_stock(struct page_counter *counter, int cpu)
 > +{
-> +	drm_panic_helper_set_description(NULL);
+> +	struct page_counter_stock __percpu *stock = READ_ONCE(counter->stock);
+> +	struct page_counter_stock *pcp_stock;
+> +	unsigned long nr_pages;
+> +	unsigned long flags;
+> +
+> +	if (!stock)
+> +		return;
+> +
+> +	pcp_stock = per_cpu_ptr(stock, cpu);
+> +	raw_spin_lock_irqsave(&pcp_stock->lock, flags);
+> +	nr_pages = pcp_stock->nr_pages;
+> +	pcp_stock->nr_pages = 0;
+> +	raw_spin_unlock_irqrestore(&pcp_stock->lock, flags);
+> +
+> +	if (nr_pages)
+> +		page_counter_uncharge(counter, nr_pages);
 > +}
 > +
->   /*
->    * Test drawing the panic screen, using a memory mapped framebuffer
->    * Set the whole buffer to 0xa5, and then check that all pixels have been
-> @@ -229,7 +238,11 @@ static struct kunit_case drm_panic_screen_user_test[] = {
->   static struct kunit_suite drm_panic_helper_suite = {
->   	.name = "drm_panic_helper",
->   	.init = drm_test_panic_init,
-> +	.exit = drm_test_panic_exit,
->   	.test_cases = drm_panic_screen_user_test,
->   };
->   
->   kunit_test_suite(drm_panic_helper_suite);
+> +/**
+> + * page_counter_alloc_stock - allocate the percpu stock for a page_counter
+> + * @counter: counter to allocate percpu stock for
+> + * @batch: maximum number of pages a CPU may cache
+> + *
+> + * Failure to allocate is not fatal; @counter falls back to hierarchy charges.
+> + * The caller must not (un)charge @counter concurrently with this call, and this
+> + * must not be called twice on the same counter. A concurrent drain is fine
+> + * since the stock is published with a release store the drain paths pair with.
+> + *
+> + * Context: Process context. May sleep, the percpu alloc uses GFP_KERNEL.
+> + */
+> +void page_counter_alloc_stock(struct page_counter *counter, unsigned long batch)
+> +{
+> +	struct page_counter_stock __percpu *stock;
+> +	int cpu;
 > +
-> +MODULE_DESCRIPTION("KUnit test suite for DRM panic handling");
-> +MODULE_LICENSE("GPL");
-> diff --git a/include/drm/drm_panic_helper.h b/include/drm/drm_panic_helper.h
-> index 6cc9a0eba077..6b19607e0784 100644
-> --- a/include/drm/drm_panic_helper.h
-> +++ b/include/drm/drm_panic_helper.h
-> @@ -8,6 +8,7 @@
->   enum drm_panic_type;
->   
->   struct drm_plane;
-> +struct drm_scanout_buffer;
->   
->   /* drm_panic_helper.c */
->   int drm_plane_helper_display_panic_screen(struct drm_plane *plane,
-> @@ -15,6 +16,13 @@ int drm_plane_helper_display_panic_screen(struct drm_plane *plane,
->   					  enum drm_panic_type panic_type,
->   					  u32 fg_color, u32 bg_color,
->   					  unsigned int qr_version);
-> +#if IS_ENABLED(CONFIG_KUNIT)
-> +int drm_panic_helper_draw_screen_user(struct drm_scanout_buffer *sb, u32 fg_color, u32 bg_color);
-> +int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer *sb, u32 fg_color, u32 bg_color);
-> +int drm_panic_helper_draw_screen_qr_code(struct drm_scanout_buffer *sb,
-> +					 u32 fg_color, u32 bg_color, unsigned int qr_version);
-> +void drm_panic_helper_set_description(const char *description);
-> +#endif
->   
->   /* drm_panic_helper_qr.rs */
->   size_t drm_panic_helper_qr_max_data_size(u8 version, size_t url_len);
+> +	if (WARN_ON_ONCE(counter->stock))
+> +		return;
+> +
+> +	stock = alloc_percpu_gfp(struct page_counter_stock, GFP_KERNEL_ACCOUNT);
+
+Let's add gfp param to the function and use that here. Also if you want to use
+__GFP_ACCOUNT then you should use set_active_memcg() at the caller, so you don't
+charge the one creating the memcg but the parent similar to what
+mem_cgroup_css_alloc() does.
 
