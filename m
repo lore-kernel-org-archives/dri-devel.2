@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AFE9C79F99
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 11:27:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF26C79F99
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 11:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE4B10E170;
-	Mon,  7 Sep 2026 11:27:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 021E210E204;
+	Mon,  7 Sep 2026 11:28:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W5dkp8Fo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CNRfp34S";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA10010E170
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:27:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E4210E204
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 11:28:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0166360D83;
- Mon,  7 Sep 2026 11:27:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818A61F00A3A;
- Mon,  7 Sep 2026 11:27:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A682F40BE1;
+ Mon,  7 Sep 2026 11:28:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D52E1F00A3A;
+ Mon,  7 Sep 2026 11:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788780449;
- bh=wbbqZZPKyAdk84R+7hSHf2lkB2QVuKGbV0yp42odB1w=;
+ s=k20260515; t=1788780480;
+ bh=u3IMTCbQofqndYlXdEmPeP8Ke/QRZ5CHaoByVVM/6pc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W5dkp8Fo8OvRhiCrKBKRQerFAN9E49/KPhqidiA8lwbJ0Oz9d0wpPNqMeRu9pvVEH
- FiHlvTPa2EwZwZZQkgcbuw1y7PxIpuVJBWbmvuAoSPr66w/6RFsJ3sMFsmyhnHLP/V
- OcZg4/EG47UQwuztgZopIUtM7q2KBZ7Ci6TGIACiVYMIeRJCxxQjWRghOZzgwN2ZQz
- GXIdaqULq1gqi7/gNCywWo09zOXIYqaWSOMg7i4fOOmBllRkIRFVX2W9sEnthRnlvD
- Wy6b9e4TtXXiNjEeJnr/HLN3bFOtyORSk23a79qorJfckCHN9SVC0+x5TqRuWEuJ26
- X45XqOJg4JTMw==
+ b=CNRfp34Sd415W91G7afdOhhjSmvo/9ENnJgReETDDBvKbO6S1tjok+Xf1MS7GeIDd
+ cetWo70ok9ZjN2t1yJ3ziI+s1+RTErxaEmir/C4Av5HIxezMizr1ObTicz+OXvZ4oG
+ RQJYr6HM6s7kFPOckWlsY+fooZ27AVcUtrvn4SC19zV+43gSnOb3U0yzjWwA6rNwKZ
+ 4DTLT4N4prH0mA3NJPqCasGf1g0MR5nTnMIkBqmKlrN+7s1jsiDZtBEJQw7FwDIhbQ
+ bAAafu7O80jMItRmRT0E2jf+Eh+Xq/7juz/V29TnGM5ZDqD2agnyDvmfPY0txr+hgI
+ Vvfw74GNRfjZQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/amd/display: size frame-packed streams by the
- doubled timing
-To: "Adrian Betschart" <adrian.betschart@cinemaone.ch>
+Subject: Re: [PATCH v2 2/3] drm/bridge: cdns-dsi: Fix stop-state at enable time
+To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260907100626.54465-4-adrian.betschart@cinemaone.ch>
-References: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
- <20260907100626.54465-4-adrian.betschart@cinemaone.ch>
+In-Reply-To: <20260907-cdns-dsi-fixes-v2-2-96d9b116e9bc@ideasonboard.com>
+References: <20260907-cdns-dsi-fixes-v2-0-96d9b116e9bc@ideasonboard.com>
+ <20260907-cdns-dsi-fixes-v2-2-96d9b116e9bc@ideasonboard.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 11:27:29 +0000
-Message-Id: <20260907112729.818A61F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 11:27:59 +0000
+Message-Id: <20260907112800.5D52E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,75 +57,89 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The patch breaks the KUnit test dm_test_helper_check_state_scali=
-ng_caps in amdgpu_dm_plane_test.c by introducing a dependency on mode.hdisp=
-lay and mode.vdisplay, which the test does not mock.
+
+New issues:
+- [High] The patch introduces a sleeping delay (`usleep_range`) in an atomi=
+c context path, violating DRM display driver guidelines.
+
+Pre-existing issues:
+- [High] Pre-existing use of a sleeping poll macro (`readl_poll_timeout`) i=
+n an atomic context path.
 --
 
-commit fe46ce41733ff5de8af87a321672d77c5c614c30
-Author: Adrian Betschart <adrian.betschart@cinemaone.ch>
+commit 831dd94ae2ea6c134a442329e348bfa99f691859
+Author: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-drm/amd/display: size frame-packed streams by the doubled timing
+drm/bridge: cdns-dsi: Fix stop-state at enable time
 
-The commit uses drm_mode_get_hv_timing() to handle frame-packed 3D modes
-which scan out double the vertical timing, fixing view stretching across eye
-windows.
+This patch addresses an initialization failure with the Xilinx D-PHY RX by
+ensuring the clock and data lanes are kept in a stop-state during the D-PHY
+power up and init sequence. It adds FORCE_STOP flags and a delay to allow
+the stop-state to take effect.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 0a5a7347238ec..8db656ef85f84 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1407,16 +1407,21 @@ int amdgpu_dm_plane_helper_check_state(struct drm=
-_plane_state *state,
->  		if (state->plane->type !=3D DRM_PLANE_TYPE_CURSOR) {
->  			int viewport_width =3D state->crtc_w;
->  			int viewport_height =3D state->crtc_h;
-> +			int mode_hdisplay, mode_vdisplay;
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu=
+/drm/bridge/cadence/cdns-dsi-core.c
+> index 4b7a3bf582551..b9c87f13177af 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+[ ... ]
+> @@ -661,6 +668,13 @@ static void cdns_dsi_hs_init(struct cdns_dsi *dsi)
+>  	writel(DPHY_CMN_PSO | DPHY_ALL_D_PDN | DPHY_C_PDN | DPHY_CMN_PDN |
+>  	       DPHY_D_RSTB(output->dev->lanes) | DPHY_C_RSTB,
+>  	       dsi->regs + MCTL_DPHY_CFG0);
 > +
-> +			/* frame-packed 3D scans out the doubled timing */
-> +			drm_mode_get_hv_timing(&new_crtc_state->mode,
-> +					       &mode_hdisplay, &mode_vdisplay);
+> +	/* Keep stop state for at least 100 us */
+> +	usleep_range(100, 200);
 
-[Severity: Medium]
-Does this change break the KUnit test dm_test_helper_check_state_scaling_ca=
-ps
-in amdgpu_dm_plane_test.c?
+[Severity: High]
+Is it safe to introduce a sleeping delay in an atomic context path here?
 
-The test mocks new_crtc_state->mode.crtc_hdisplay and crtc_vdisplay, but
-leaves hdisplay and vdisplay as 0:
+Looking at the call chain:
+drm_atomic_helper_commit_tail()
+  drm_atomic_helper_commit_modeset_enables()
+    cdns_dsi_bridge_atomic_pre_enable()
+      cdns_dsi_hs_init()
 
-dm_test_helper_check_state_scaling_caps() {
-	...
-	new_crtc_state->mode.crtc_hdisplay =3D 1920;
-	new_crtc_state->mode.crtc_vdisplay =3D 1080;
+The DRM guide specifies drm_atomic_helper_commit_tail() as an atomic
+context path where sleeping is forbidden. Introducing usleep_range() here
+might lead to kernel warnings, system instability, or regressions during a
+non-blocking modeset request.
 
-	KUNIT_EXPECT_EQ(test,
-			amdgpu_dm_plane_helper_check_state(state, new_crtc_state),
-			-ERANGE);
-	...
+[Severity: High]
+This is a pre-existing issue, but are the readl_poll_timeout() calls in this
+path also sleeping in an atomic context?
+
+For example, earlier in cdns_dsi_hs_init():
+
+cdns_dsi_hs_init() {
+    ...
+    WARN_ON_ONCE(readl_poll_timeout(dsi->regs + MCTL_MAIN_STS, status,
+                                    status & PLL_LOCKED, 100, 100));
+    ...
 }
 
-When amdgpu_dm_plane_helper_check_state() calls drm_mode_get_hv_timing(), it
-reads the uninitialized 0 from hdisplay and overwrites the mocked
-crtc_hdisplay internally.
+There is also a similar call in cdns_dsi_bridge_atomic_pre_enable():
 
-Could this cause viewport_width to become 0, leading to an early -EINVAL ex=
-it
-instead of the -ERANGE expected by the test assertion?
+cdns_dsi_bridge_atomic_pre_enable() {
+    ...
+    if (readl_poll_timeout(dsi->regs + MCTL_MAIN_STS, status,
+                           (tmp =3D=3D (status & tmp)), 100, 500000))
+    ...
+}
 
-> =20
->  			if (state->crtc_x < 0)
->  				viewport_width +=3D state->crtc_x;
-> -			else if (state->crtc_x + state->crtc_w > new_crtc_state->mode.crtc_hd=
-isplay)
-> -				viewport_width =3D new_crtc_state->mode.crtc_hdisplay - state->crtc_=
-x;
-> +			else if (state->crtc_x + state->crtc_w > mode_hdisplay)
-> +				viewport_width =3D mode_hdisplay - state->crtc_x;
+Since readl_poll_timeout() internally calls usleep_range(), could these
+similarly cause regressions in the atomic commit path?
+
+> +
+> +	val &=3D ~(DATA_FORCE_STOP | CLK_FORCE_STOP);
+> +	writel(val, dsi->regs + MCTL_MAIN_EN);
+> +
+>  	dsi->phy_initialized =3D true;
+>  }
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907100626.5446=
-5-1-adrian.betschart@cinemaone.ch?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-cdns-dsi-f=
+ixes-v2-0-96d9b116e9bc@ideasonboard.com?part=3D2
