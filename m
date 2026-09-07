@@ -4,90 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B17BC79FAA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6BF1C79FAC
 	for <dri-devel@archiver.kernel.org>; Tue,  8 Sep 2026 07:08:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7B310EA36;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 548C610EA3B;
 	Tue,  8 Sep 2026 07:08:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WV6j5MHZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dhffcqlg";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E59C10E028
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 14:48:54 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-c2055573c8cso448083066b.3
- for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 07:48:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788792533; cv=none;
- d=google.com; s=arc-20260327;
- b=itXw2zXVT7NEiaKgBP2fVdAwZko9NcrbqlMDBstOogHvjvETHoJWxszpp23ZDvU3y4
- 7SnQOFDFBB8gEVCapCSqfRktvhWnzHxwUdDiIiUQmuPmco2Woj9nkKSvH+0PrGjvd6pe
- gqZt6K9oybc/gCFgsqu31In1FW5Luv8MVOO/nXsE95Se+dde2rl85gaLnZesSV6sFtVM
- gedVb8YVfkO+TRipn3s3mOwxMv5m8EE4TJF8JSgWAI4BcM6iw7DPFjhvzqJ/5AeL2c22
- 1bCPnE8d0oxhYw0v3MCr8LP5X6aR+nlm+GQtQ/3umkxvp2Nnmyla0d45lPbNAqFOY+Po
- oE8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=OQ7lVrdGCVQfqjoDQj3oh9/Z+LDJpxNUrYSzk3foVl0=;
- fh=5Z+7GQEuADcP7T5VzGd9q8+xXwaRVcB+RxwA9jFUkJE=;
- b=NbbMz8gMS4z+THPrBE0g5oq4jENxduSbtEFoazUbEY/+G+EkvQ5V5SYW8A4jpRWTL0
- U1y1hIqVNu8pNzBN3OmCd7BsiYMzhl4LEJDYNmidUkUCL6Lar6NfgWqcCzYevZAbzoR/
- HxRFsbHPmf59Qb+Lw/ii0ksVyEOSb4dMIW1nQkNKrEIveilFBQTlN9CiXoZ2trMdDx1n
- j9YsQC1vB3g7TLWSD1/Etqu3VOfTRmiHQDKo8fElOHZO23vWXnqLzdttOVFGz1dfdFml
- qqJCPQBmEn42IiNN/nDpu8jPCulaWox3tUqC98mclcNMbE/afRo7E4cd0hXHw/EbnCmp
- nGNg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D26B10E054
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 23:27:27 +0000 (UTC)
+Received: by mail-oi2-f5.google.com with SMTP id
+ 5614622812f47-4b3759b7ff0so1488760b6e.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 07 Sep 2026 16:27:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788792533; x=1789397333; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=OQ7lVrdGCVQfqjoDQj3oh9/Z+LDJpxNUrYSzk3foVl0=;
- b=WV6j5MHZvZLVJQDIGrVkBoC9Ui2/GGqJtL4tMZYX0YH1bWPpjtOmWKM1g+WVVxfT4Q
- Y4ADySBRN7hdmis6YBbdqLF6Z0ZaUHPyMkt+/Zt8iKe2jkux1WhdvOIWP9/ub/3HOJlx
- 7wL0+0auvdJEkvzjFYNGKGRw5MhVSc0SlaX2GkpJgAyAQKv4meOMeCT/gJRTnPQwN6Zs
- NX6A2oW3gqp1eXOQcRpw3R2fXCp+a3mDop7oVo3Fu+4+xw6WufTN1kO97EmTugbVuYY2
- 5o6QVQ5p4cF4xpmx64mgzDYG9ynZvOgqQTZgM9dbr6l8FC8OzrX5YVQ/kMumxbLMPusp
- p4aQ==
+ d=gmail.com; s=20251104; t=1788823646; x=1789428446; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=S2mXpnCZ25GxwnmGohlXqYGxtFFG4TCx9pnjWCRTcOc=;
+ b=DhffcqlgyYvB4j/fxt6iQblD+Ft9yG7mUAUtLZtq8nVKde0OR4Z7b2Ft1ZSyztFbJF
+ gBVx7IktsidnAkRc4/zwocbhLM9dLzehwsYXwo06OUhz5NA+RWns/QC3yMVntQavjYpx
+ pBCHA3fFjg/do17zwmUMU4iXv3SdzAItwKaZbUHtrGYay18A5LkgpoUSZLX97JNMFElu
+ hPCUbWsoARlrTm1eWwo3W3fTmYpjSwV4ySXBkcL6wOm9CaKM8PHK81DDPJHlvl4CGh4v
+ h7k2S98rOQpFuBlNyrAYIukuU3YufX8OvY2tTmO2ZNEVYwxodCLwMXbLNf9gbBTOf+TE
+ UfHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788792533; x=1789397333;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=OQ7lVrdGCVQfqjoDQj3oh9/Z+LDJpxNUrYSzk3foVl0=;
- b=DPQCgzo07ffUM1AXstOMhHV9ykrwOU12pGXMG4B8yOc/oH1PvgdUJkpbUDtCHUB0Aa
- FC23DpTh8qWnnHBEQxq1f11QGKoG/xzvcB9038tNQMpB2Vi87+AI+6WU2Khyh9zBg4/D
- +NfagyhvUmzP9TRhPHG1V2YOvOODwBIXGq/LrgXuqJc2W5cYY8wOmOyjzgvv4Nuhi07i
- v2fghGjXWCNmnXF1KPdoH+eB/+aaNY5Ny6yj/BHtGGwprpEmCdYlcTAWPDrR+wQaaMjF
- 7++zFVqHUkO2m455NpdXlGEcHRHfh+uL/v90rcEOK47dQRoDbxOocLIo7pbqTD7YpHbg
- ZnmA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxkf3zWHMIY7GIr8Im5XWV5pTXkt7PsUgTF9yOIyU/YXDRBRoj3xv60V6zdeLFw6BcYePHYclRnm8I=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lvqcEIQ9H3DPIM3PjnSNl9OocrKtaOHA1bs/U1T28jhk7lZCIq
- z8PMH24EcKl4UzK7UhQSEEh1RltI4kLKRSJY+9J7Q2hR9fPoqohIKydUQGJpgQbI5sGojZKoMWI
- tBJ+BfgS2sRnLHYHZDjm9wHdbXd50VA==
-X-Gm-Gg: AYBFou03LAx4RpCX9nvvaFpzYmKlP2EQEdXJMhmJ0t1okJMPEMROIfJtZ8fvkEKGw5g
- N80DMD+Pxd9CMpDJO9/9z+221ODqsArsom3YTdrkhwiZV/pmoaTq8Aj9g5/1c8DaSM/xmUSxXQC
- 5pzr21PAr6hLrRHOyWsUfSPiWs78bK7nlVX5MmtSK1MiRtiOOpC7tzYkDvNXEtp083gX9c4UGIe
- NZNNkhmglgcZcAr4bFxXdl2PHuHcZABPE8m1nsmI9xPDmXsrK7v0MbLhfUIJq1HVft9qyVl01Mg
- AqvLZ78/T6V4Puyc98eWr3qtO79xWhWe7ZVOoTc0tuVMhiQiZ8t7MrGQPErFWR8eiZSbvtCsLkA
- 6Zw==
-X-Received: by 2002:a17:907:6ea3:b0:c26:1649:47b6 with SMTP id
- a640c23a62f3a-c261649567dmr708618466b.44.1788792532708; Mon, 07 Sep 2026
- 07:48:52 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788823646; x=1789428446;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=S2mXpnCZ25GxwnmGohlXqYGxtFFG4TCx9pnjWCRTcOc=;
+ b=kkB9/7TT6d5Pb0bwSGXSpODwHzRgYRLlHR3oWNmk2oudsIcxeV0bC5xC4zrbpjPg/M
+ ZiSjIrFCWN4QnrHIEOpduWmlwxiu4vdwN1fE1FaP6ORBO6mEoqI8QTgjLy+JJqJcY8X6
+ LK8xavRG7g/R9cmr5n/HuLpZ25y3kkiYLTKVlUi+gxTWqdFBgaxZpi62yp/QpMqzhlST
+ kd7/bvwbeqOSg14FykH18D0RguedJxbWR0Kzb3RBGO1fwf//mDA13OiLJIoWvS324FJn
+ BAZ1Xm+dhFdJ8M1Yll3kn1xs2Mnf24Nu7vT6CPtWV8EtYHnMMR16FDIyh2ET0hMXmXPw
+ qHww==
+X-Gm-Message-State: AFuF++nWFFfj3pjUQg9v3xW19nD/A7+ReLED8EgxEarihj6P2AFUNyp8
+ vVrGlw0uhSRMsBvGc7IjZx1IFo0M896GngGzZ4dLddL3Zo8/oWo8EX9e
+X-Gm-Gg: AYBFou2dkAF4Tyj4r4V2/rltytsIWjXggemFOtEbTXnMjCHXDdbNk+nlySESb9C79X+
+ b+EKJY1+mFjXTrIisyPr185+79y/FPADMfMpVoTEpRDOVpfT8XOK91/6YQLvKQJ2Y3etwouyhqF
+ tmebytUKJFW3ElvrY0sAvjOhPOOzRRmBShJxb4M+dhlkNVNGBiYAJYA2UODNZAxkjWyFCQke9WI
+ LyVxs4RW8+OOUwSLQHkOfqAmplrfarsn2nA54dZOzkiZUrPvVnT0xcwl1Qh7VvExzLh62yvjT8M
+ qpH03bO0CVi5LyNfgametmX6twsrWqAeydeF7jS4GP8SiUHVouRSTnriIDE9abNOZ6ggQlK6Qps
+ 5dhb6oxBQUL4PGDnafUgbBS+BW04tAJtfNsLnol43V0UftENT+++WDZafFEarEVG+HPHhLvaZ2T
+ 5N8TMg8rG1eSbrvdvwaajmG5bN9M5cJsEKBs/bNcXDD5T9v6PaEPgAcs80KwMxaN6RI2DBllgYQ
+ evr+Uk=
+X-Received: by 2002:a05:6808:e8b:b0:4b9:a829:f00a with SMTP id
+ 5614622812f47-4b9a829f91dmr13256254b6e.22.1788823646304; 
+ Mon, 07 Sep 2026 16:27:26 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4b96babc2c3sm13310503b6e.0.2026.09.07.16.27.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Sep 2026 16:27:24 -0700 (PDT)
+Message-ID: <668b6dce-32f1-478b-b78b-06f8b5d7e5e8@gmail.com>
+Date: Mon, 7 Sep 2026 18:27:22 -0500
 MIME-Version: 1.0
-From: Danilo Machado <danilomachado2002@gmail.com>
-Date: Mon, 7 Sep 2026 11:48:39 -0300
-X-Gm-Features: AcwNN1UYGAl9fInNCucS_mKxp2HpZrVX_UzawXxul5SC_lkUXXXY-amPXm2bMTA
-Message-ID: <CAJ9xWrJNbB1H6r-bTsTXzhagck2L-Cz0zQczd2Qqbi9-W9oPOA@mail.gmail.com>
-Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
- suspend / regression tracking update
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org, 
- linux@leemhuis.info
-Content-Type: multipart/alternative; boundary="0000000000007d3250065ae5b7af"
-X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:44 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+ <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 08 Sep 2026 07:08:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,91 +100,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000007d3250065ae5b7af
-Content-Type: text/plain; charset="UTF-8"
 
-#regzbot back in-progress
-#regzbot monitor
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
+On 9/7/26 1:42 AM, Nickolay Goppen wrote:
+>
+> 07.09.2026 09:01, Ryan Brue wrote:
+>> One question on the binding, which is as much about my patch as yours.
+>> Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+>> (dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
+>>
+>>      qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
+>>
+>> with no part number, and the register sequence in your driver matches
+>> that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+>> datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+>> 135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+>> is inferred rather than read off the panel or a BOM, it may be worth
+>> saying so in the commit message, or naming the compatible after the
+>> board the way panel-novatek-nt36523.c does for
+>> xiaomi,elish-boe-nt36523.
+>>
+>> I ask because my module has no identity I can establish at all. It
+>> answers no DSI read, DCS or generic, before or after sleep-out; the
+>> vendor kernel and bootloader name it only "BOE", chosen from two board
+>> ID straps; and its vendor-declared physical height is arithmetically
+>> impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+>> naming mine after the board, and would rather not accidentally imply it
+>> is or is not your part.
+>
+> I've found these part numbers on the photos of a replacement panels 
+> from the AliExpress.
+>
+> Also, for TV101WUM-NX0, I have a confirmation from Alexey Min, who 
+> disassembled
+> Xiaomi Mi Pad 4 Plus and took a photo of the panel's part number.
+>
+I searched around on AliExpress for my panel, and could not find 
+anything about the BOE
 
-Hi Thorsten, Alex, and Linux Kernel Maintainers,
+part number for mine. Oh well, since there's some precedent for naming 
+unknown BOE
 
-I am writing to update the status of this regression after checking the
-Regzbot tracking dashboard:
-https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/
+glass after the device that has it, I am hoping that will be OK for my case.
 
-The dashboard currently lists this issue as "fizzled out / resolved:
-inconclusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED,
-and actively tracked. The lack of recent email activity on LKML was due to
-ongoing technical data collection on Launchpad and GitLab while awaiting
-upstream feedback.
+>> If it is useful, I have the Fire HD 10 panel ready as a variant on top
+>> of your series: two patches, binding and driver, adding
+>> amazon,suez-boe-nt51021. The only change it needs in your code is
+>> making mode_flags per variant. My vendor asks for sync-event video mode
+>> with a continuously running HS clock rather than burst, and your two
+>> panels keep exactly the flags they have now. Burst worked on my panel
+>> too, so this is about matching what the module is characterised for,
+>> not a fix.
+> I will try to do that. Can I add you to the maintainers of this panel 
+> driver?
 
-Current Status & Verification:
+Yes, you may. Once you get the v2 out, I'll get a patch ready on top of that
+for the Fire Tablet's BOE panel!
 
-1. Launchpad Report (#2142389):
-   - Status: Confirmed (assigned to maintainer Timo Aaltonen).
-   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected
-users across various AMD architectures (Tonga R9 380, Polaris RX 400/500,
-and recent Vega APUs).
-   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-
-2. Freedesktop GitLab Issue (#5123):
-   - Status: Open.
-   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
-
-3. Technical Summary:
-   - I have executed 3 full git bisect routines on hardware testbenches,
-isolating the regression behavior between kernel transitions.
-   - Recent user reports confirm the same black screen / no EDID handshake
-failure upon resume and DPMS display wake-up across multiple Linux
-distributions (Ubuntu, Fedora, Void Linux) and kernel versions (up to
-kernel 7.0).
-
-Please re-open and maintain active tracking for this regression on Regzbot.
-I remain available to test candidate patches, kernel builds, or debug flags
-on physical hardware.
-
-Best regards,
-Danilo Machado
-
---0000000000007d3250065ae5b7af
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><br clear=3D"all"></div>#regzbot back in-progress<br>=
-#regzbot monitor <a href=3D"https://bugs.launchpad.net/ubuntu/+source/linux=
-/+bug/2142389">https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389=
-</a><br>#regzbot monitor <a href=3D"https://gitlab.freedesktop.org/drm/amd/=
--/work_items/5123">https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=
-</a><br><br>Hi Thorsten, Alex, and Linux Kernel Maintainers,<br><br>I am wr=
-iting to update the status of this regression after checking the Regzbot tr=
-acking dashboard:<br><a href=3D"https://linux-regtracking.leemhuis.info/reg=
-zbot/regression/lore/CAOnW2VTGBP=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMF=
-w@mail.gmail.com/">https://linux-regtracking.leemhuis.info/regzbot/regressi=
-on/lore/CAOnW2VTGBP=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.=
-com/</a><br><br>The dashboard currently lists this issue as &quot;fizzled o=
-ut / resolved: inconclusive&quot;, but I want to clarify that this bug is A=
-CTIVE, UNRESOLVED, and actively tracked. The lack of recent email activity =
-on LKML was due to ongoing technical data collection on Launchpad and GitLa=
-b while awaiting upstream feedback.<br><br>Current Status &amp; Verificatio=
-n:<br><br>1. Launchpad Report (#2142389):<br>=C2=A0 =C2=A0- Status: Confirm=
-ed (assigned to maintainer Timo Aaltonen).<br>=C2=A0 =C2=A0- Heat/Users: 22=
-0 Bug Heat points with 44+ explicitly confirmed affected users across vario=
-us AMD architectures (Tonga R9 380, Polaris RX 400/500, and recent Vega APU=
-s).<br>=C2=A0 =C2=A0- Link: <a href=3D"https://bugs.launchpad.net/ubuntu/+s=
-ource/linux/+bug/2142389">https://bugs.launchpad.net/ubuntu/+source/linux/+=
-bug/2142389</a><br><br>2. Freedesktop GitLab Issue (#5123):<br>=C2=A0 =C2=
-=A0- Status: Open.<br>=C2=A0 =C2=A0- Link: <a href=3D"https://gitlab.freede=
-sktop.org/drm/amd/-/work_items/5123">https://gitlab.freedesktop.org/drm/amd=
-/-/work_items/5123</a><br><br>3. Technical Summary:<br>=C2=A0 =C2=A0- I hav=
-e executed 3 full git bisect routines on hardware testbenches, isolating th=
-e regression behavior between kernel transitions.<br>=C2=A0 =C2=A0- Recent =
-user reports confirm the same black screen / no EDID handshake failure upon=
- resume and DPMS display wake-up across multiple Linux distributions (Ubunt=
-u, Fedora, Void Linux) and kernel versions (up to kernel 7.0).<br><br>Pleas=
-e re-open and maintain active tracking for this regression on Regzbot. I re=
-main available to test candidate patches, kernel builds, or debug flags on =
-physical hardware.<br><br>Best regards,<br>Danilo Machado</div>
-
---0000000000007d3250065ae5b7af--
+>> I will hold that until your v2, since Neil's renaming will touch every
+>> identifier it adds. Happy to test v2 on this hardware when you post it.
+>>
+>> Thanks for doing this first.
+>>
+>> Ryan
+>
