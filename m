@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5EA5C79F9E
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF16FC79F89
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 13:24:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4588110E4A8;
-	Mon,  7 Sep 2026 13:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1F510E4D1;
+	Mon,  7 Sep 2026 13:24:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LOOozFKJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OfGfckfx";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9291510E4A8
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1AE10E4D9
+ for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 13:24:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 11C6260D99;
- Mon,  7 Sep 2026 13:24:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C931F00A3D;
- Mon,  7 Sep 2026 13:24:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C4DA460AB5;
+ Mon,  7 Sep 2026 13:24:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF31B1F00A3A;
+ Mon,  7 Sep 2026 13:24:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788787448;
- bh=uzTWV9D0syghrcguqb/zrWbgBGzDrBoozwJ7+hJErBQ=;
+ s=k20260515; t=1788787452;
+ bh=ODMnJcGBI+J6E4khSQo1GD4vsv4tOSf0QwXd7nG8WNs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=LOOozFKJqE5UeAScDf+X4NsHtAcvQuPsP76Bn4VeRee6xXOb2akQdpZ1SLUkB5esf
- G5xF6A2Pu9nUSx0gADsgHAmaVxgNpQatZw7kfQ9QVPizpvs+Wg25e9QX0hqJ/mK638
- po4pHegaKQfwtWgazmmxMQM0ypElR8VrCLLh4bXXbVZ+mvXr4Llm6K0MCSRmDDZPGT
- v4cHfbU1Iq5mDHF1lcWjBUtlWZEadqWIFM6bZBl/xsB2qAZmHR8mUMfTsPscZP5oxh
- yhuJ0ZSfziw4TVPZ2M8MW4dBmoqVMS36HBv2Nzr53MpH6cNqlaYjv73ev24QefHOGH
- XpEmCrwhgb1TQ==
+ b=OfGfckfx0+D/zJSHNhTKoabY/4Ga++WBeEPeAWGP7OpdJ+bLgvlTX9h5sshLapdRt
+ 0gY5wz5r4p2Sn/bf4wlanqFOwF4x32I/RRgjLtcK8zcrl0JycJ5OPx/1uJMZqGnFcL
+ LaAVr5hO3c2tBiXM2HEENm2UDlReD2WVY1uIK57FGzQ7i5frGRNSQCJtYVTXfSoLM5
+ 53lNpWN7xXwRRIX0ZbGpjpODXgfbIiMRLYPwuq7Y9aF9CDOYUGfPha6+cAFIwIJxjr
+ kbLPJ4lG9nFdZZoS1A1XhGpyrhd9L9CQZL+wKSXM3Ou49VJQo///G7EayNmxSXTVdW
+ aKManA8fRPXkw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 07 Sep 2026 15:23:38 +0200
-Subject: [PATCH v5 02/33] drm/atomic_helper: Skip over NULL private_obj
- pointers
+Date: Mon, 07 Sep 2026 15:23:39 +0200
+Subject: [PATCH v5 03/33] drm/atomic: Convert drm_priv_to_bridge_state to
+ container_of_const
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-state-readout-v5-2-5fa1ac7a5148@kernel.org>
+Message-Id: <20260907-drm-state-readout-v5-3-5fa1ac7a5148@kernel.org>
 References: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 In-Reply-To: <20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,14 +49,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2166; i=mripard@kernel.org;
- h=from:subject:message-id; bh=06kpR2i5iiLjAxwd0fy0yH2BuonVSjnG0MZkgIuEo7A=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdt3r/DdHVfHXwVSryQt2Jy+16FeRSxI4m2mdYnBS4
- vMUrgUsHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiGcmMDf/fKn4My0xq9c4U
- DV5o2FPR5L7MPXDroi1uwm8Tv96dXb32zvKL37cc1Lm8tfTPwhNpkoz13k8lfpbW8E85zvTyuXl
- A0837SSbFNbP1Pfk6lmcpiqeeXDUvwLZyOuviS7ZrrQ7fu90BAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1033; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Io7EXAvwCtQkGEQZkpo7yBkj1w1gisR4JI8ihisGItA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnzdt0/l2bMpqL1OCYp+sUzqYPO3i96snV9wxvKg0/ff
+ th0Pte8YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExEZBpjw8q/m0pOtt5bxMp7
+ 6Mbz02VatSsOm/7YlL7X6T3vrRM28Zd/uTbH6U1Kl41pkZnO/3jTKsb6sjmzeO1r3qiHnxT3DuT
+ Wt/U/8KpsXvK2kx+2zlczPK+z4FC1Ql3FhurX0vIHU4XWF7YDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,58 +74,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just like for all other objects, drm_atomic_commit contains an array of
-drm_private_state, with the number of states found in num_private_objs.
+container_of_const is more flexible than container_of when
+it comes to mixing pointers constness. Switch to it.
 
-If we are to clean up a state by hand for some reason before calling
-drm_atomic_commit_put(), chances are that the pointer to the affected
-drm_private_obj and drm_private_states would have been cleared to avoid
-any use-after-free.
-
-However, since it's just an array, as we progress and free the items, we
-can't update num_private_objs as we go since we would reduce the array
-size, preventing us to remove the final elements.
-
-And if the caller was to forget to update num_private_objs after it
-iterated over the whole array, we're left with a (valid) array with a
-non-zero number of NULL elements.
-
-If we were to call drm_atomic_commit_put() at this point, chances are
-that drm_atomic_commit_default_clear() would be called and it would
-iterate over all those empty NULL items.
-
-However, unlike what is found for connectors, crtcs and planes, we don't
-test that our pointers are non-NULL before dereferencing them, leading
-to a NULL pointer dereference.
-
-Such callers should obviously be fixed, but there's no reason to not do
-such a simple check, if only to be consistent.
-
-Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 3 +++
- 1 file changed, 3 insertions(+)
+ include/drm/drm_atomic.h | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 45df6376f408..596b0de44f00 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -351,10 +351,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
- 	}
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 1d05d5d7162e..def18b60a106 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -1379,15 +1379,12 @@ struct drm_bridge_state {
+ 	 * @output_bus_cfg: output bus configuration
+ 	 */
+ 	struct drm_bus_cfg output_bus_cfg;
+ };
  
- 	for (i = 0; i < state->num_private_objs; i++) {
- 		struct drm_private_obj *obj = state->private_objs[i].ptr;
+-static inline struct drm_bridge_state *
+-drm_priv_to_bridge_state(struct drm_private_state *priv)
+-{
+-	return container_of(priv, struct drm_bridge_state, base);
+-}
++#define drm_priv_to_bridge_state(priv)		\
++	container_of_const(priv, struct drm_bridge_state, base)
  
-+		if (!obj)
-+			continue;
-+
- 		obj->funcs->atomic_destroy_state(obj,
- 						 state->private_objs[i].state_to_destroy);
- 		state->private_objs[i].ptr = NULL;
- 		state->private_objs[i].state_to_destroy = NULL;
- 		state->private_objs[i].old_state = NULL;
+ struct drm_bridge_state *
+ drm_atomic_get_bridge_state(struct drm_atomic_commit *state,
+ 			    struct drm_bridge *bridge);
+ struct drm_bridge_state *
 
 -- 
 2.55.0
