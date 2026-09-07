@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EC3C79F99
-	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 09:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FF07C79F9E
+	for <dri-devel@archiver.kernel.org>; Mon,  7 Sep 2026 10:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34E8510E745;
-	Mon,  7 Sep 2026 09:59:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C922210E752;
+	Mon,  7 Sep 2026 10:16:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RBCObkqe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y/lha7Xw";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 556AC10E745
- for <dri-devel@lists.freedesktop.org>; Mon,  7 Sep 2026 09:59:29 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id EE937C45;
- Mon,  7 Sep 2026 11:57:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1788775073;
- bh=8MJKxxoccE8R0yQTP0Xn0yEz2tqNsX4Ml0v7HyjBe/0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RBCObkqevtvA6PD8XPgIjA+Iw5TAy3OzJlnKh7XeMYZXAH9sMNdXQKjDhFhrGCdVf
- o9p5o+z1VwCKp4JaESH0yDvzuDsTba9jgOZiKbLNW1QJnqyX8T3nu8EXd/ONdC3uKY
- rEbtykvpq3Y9V6Ap+LgBfIwZSVWj6d/YX0jpHxj0=
-Date: Mon, 7 Sep 2026 12:59:26 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260907095926.GA1672293@killaraus.ideasonboard.com>
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
- <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
- <20260702212423.GA3662157@killaraus.ideasonboard.com>
- <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F22010E750;
+ Mon,  7 Sep 2026 10:16:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788776213; x=1820312213;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=koOpTUb6YTdsPAfmxU0F4QcjTxU9LKAdIwUkd4Ok940=;
+ b=Y/lha7XwvTifd7+uBJMRm3+B2GVfiooSZ1C5eiZpmfGMZsLZ0aI1vN6k
+ diL0Ap7/UWVLhF9K2PsY6sAeWDF5pFo9zLa16BJLAuz03CLbhGaaMNrAX
+ AtfDpp0y1dmIFmJ1dr3qZGtFhQA1NDfIncvirX4WXTvCWV4g14KlUOwVZ
+ mtnuCPdfCEctueHaY3FTQ7NHGuAcg/C4BAS6xmn9XPS+n/gVkfPPGuud3
+ wgHdTfkMTD1H35UVEHAfuZqkSlHjjnD+lRNem3xmOoNwd808B1blLe3Jh
+ RLwQRlgF3VTrQ3RlsyTrQE4sonh8GNC/f9U/RRnECP4aExO0DCkY4BaUG Q==;
+X-CSE-ConnectionGUID: yoXkN2zOQy6PsK7iH/CfpA==
+X-CSE-MsgGUID: Nanrgl8AQLaigGThQOKbmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89107233"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="89107233"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 03:16:52 -0700
+X-CSE-ConnectionGUID: qJOGdW5pRTm0os/SzdFdaA==
+X-CSE-MsgGUID: ujSiwgFZSOiYrjw5VVSp9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; d="scan'208";a="267426695"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.229])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 03:16:50 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: =?utf-8?B?5b6Q5bqG?= <965456495@qq.com>, regressions
+ <regressions@lists.linux.dev>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [REGRESSION] i915: s2idle lid-open resume leaves eDP panel
+ black until an input event (Raptor Lake; works on 6.18 LTS)
+In-Reply-To: <tencent_8D7EB01E00F5CD0928A0F70A451C586E0608@qq.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <tencent_8D7EB01E00F5CD0928A0F70A451C586E0608@qq.com>
+Date: Mon, 07 Sep 2026 13:16:48 +0300
+Message-ID: <b366e45424ee2cf3d8bfef3cfb90cf2f5491ad3b@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,63 +74,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 07, 2026 at 11:56:01AM +0300, Tomi Valkeinen wrote:
-> On 03/07/2026 00:24, Laurent Pinchart wrote:
-> > On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
-> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> >> crtc, when enabling the crtc.
-> >>
-> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> >> the DSI, the above call path is broken as the crtc tries to call
-> >> rcar_mipi_dsi_pclk_enable() on the DSC.
-> >>
-> >> To solve this problem, make sure we store the DSI bridge to the
-> >> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
-> >> (which can be DCS), by checking the bridge's bridge->type.
-> >>
-> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> >> ---
-> >>   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
-> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
-> >>   2 files changed, 17 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> >> index db2088529b48..ac85838ab3b8 100644
-> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> >> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
-> >>   				drm_bridge_get(bridge);
-> >>   
-> >>   		if (output == RCAR_DU_OUTPUT_DSI0 ||
-> >> -		    output == RCAR_DU_OUTPUT_DSI1)
-> >> +		    output == RCAR_DU_OUTPUT_DSI1) {
-> >> +			struct drm_bridge *dsi_bridge;
-> >> +
-> >> +			/*
-> >> +			 * When we have a DSC block between the DU and the DSI,
-> >> +			 * the "bridge" points to the DSC. Detect the DSC by looking
-> >> +			 * at the bridge type, and skip the DSC if the bridge is not
-> >> +			 * the DSI bridge.
-> >> +			 */
-> >> +
-> >> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
-> >> +						     bridge :
-> >> +						     bridge->next_bridge;
-> > 
-> > The indentation looks weird.
-> > 
-> > 			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
-> > 				   ? bridge : bridge->next_bridge;
-> 
-> That looks even weirder, you are associating = and ? there. What about:
-> 
-> dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
-> 	     bridge : bridge->next_bridge;
+On Sun, 06 Sep 2026, "=E5=BE=90=E5=BA=86" <965456495@qq.com> wrote:
+> a regression report, following Documentation/admin-guide/reporting-regres=
+sions.rst:
+>
+>
+> Regression range: v6.18..v7.2 (last known good: linux-lts 6.18.49-2-lts;
+> first tested broken: 7.2.3-arch1-2; intermediate 7.0/7.1/7.2 untested)
+>
+>
+> Symptom:
+> After closing the lid (systemd-logind suspends to s2idle) and reopening i=
+t,
+> the machine resumes fine (kernel resume log clean, ~1 s, Wi-Fi and input
+> work), but the internal eDP panel stays on a static black frame. The scre=
+en
+> only lights up after any input event (key press or mouse move), which then
+> triggers the compositor to repaint. Reproducible on every lid cycle with
+> kernel 7.2.3; the identical userspace on linux-lts 6.18.49-2-lts does NOT
+> show the problem.
 
-I like my version better :-)
+Please file a bug report as described at [1].
 
--- 
-Regards,
+BR,
+Jani.
 
-Laurent Pinchart
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+
+
+--=20
+Jani Nikula, Intel
